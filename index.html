@@ -405,7 +405,42 @@
   </div>
 
   <!-- ABA REVISAO -->
-  <div id="aba-revisao" style="display:none;"></div>
+  <div id="aba-revisao" style="display:none;">
+
+    <!-- Resumo do dia -->
+    <div class="section-box" id="revisao-hoje-box">
+      <div class="section-label">📅 DECK DE HOJE</div>
+      <div id="revisao-hoje-stats" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;"></div>
+      <div id="revisao-hoje-lista"></div>
+      <button class="btn-primary" id="btn-iniciar-revisao" style="width:100%;padding:12px;margin-top:10px;display:none;" onclick="iniciarSessaoRevisao()">🔁 REVISAR AGORA</button>
+    </div>
+
+    <!-- Calendário de revisões -->
+    <div class="section-box">
+      <div class="section-label">📆 CALENDÁRIO DE REVISÕES</div>
+      <div id="revisao-calendario" style="margin-top:8px;"></div>
+    </div>
+
+    <!-- Progresso por área -->
+    <div class="section-box">
+      <div class="section-label">📊 PROGRESSO POR ÁREA</div>
+      <div id="revisao-progresso-area"></div>
+    </div>
+
+    <!-- Exportar / Importar progresso -->
+    <div class="section-box">
+      <div class="section-label">💾 BACKUP DO PROGRESSO</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">Exporte para não perder seu progresso ao trocar de dispositivo.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-small" style="flex:1;border:1px solid rgba(61,184,138,0.4);color:var(--verde);" onclick="exportarProgressoCSV()">⬇ Exportar CSV</button>
+        <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.4);color:var(--ouro);" onclick="document.getElementById('input-importar').click()">⬆ Importar CSV</button>
+        <button class="btn-small" style="flex:1;border:1px solid rgba(224,80,64,0.4);color:var(--verm);" onclick="confirmarResetProgresso()">🗑 Zerar</button>
+      </div>
+      <input type="file" id="input-importar" accept=".csv,.json" style="display:none;" onchange="importarProgresso(this)">
+      <div id="backup-msg" style="font-size:11px;margin-top:8px;color:var(--verde);display:none;"></div>
+    </div>
+
+  </div>
 
   <!-- ABA STATS -->
   <div id="aba-stats" style="display:none;"></div>
@@ -520,6 +555,331 @@ let abaAtiva = 'plano';
 let temaSelecionado = null;
 let sheetsUrl = '';
 
+// ═══════════════════════════════════════════
+// PROGRESSO E REPETIÇÃO ESPAÇADA
+// ═══════════════════════════════════════════
+// Estrutura de progresso por questão:
+// PROGRESSO[qid] = { acertos, erros, ultimaResposta, proximaRevisao, intervalo, facilidade }
+// Algoritmo: Alta probabilidade primeiro → erros ciclam com intervalo crescente
+// Intervalos: 1d → 3d → 7d → 14d → 30d → 60d
+
+const SRS_INTERVALOS = [1, 3, 7, 14, 30, 60]; // dias
+let PROGRESSO = {}; // { [qid]: { acertos, erros, ultimaResposta, proximaRevisao, intervalo, fase } }
+
+function hoje() {
+  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+}
+
+function diasDesde(dataStr) {
+  if (!dataStr) return 999;
+  const d = new Date(dataStr);
+  const h = new Date();
+  return Math.floor((h - d) / 86400000);
+}
+
+function proximaData(diasOffset) {
+  const d = new Date();
+  d.setDate(d.getDate() + diasOffset);
+  return d.toISOString().slice(0, 10);
+}
+
+function carregarProgresso() {
+  try {
+    const raw = localStorage.getItem('pe_progresso_v2');
+    PROGRESSO = raw ? JSON.parse(raw) : {};
+  } catch { PROGRESSO = {}; }
+}
+
+function salvarProgresso() {
+  try {
+    localStorage.setItem('pe_progresso_v2', JSON.stringify(PROGRESSO));
+  } catch(e) { console.warn('localStorage cheio', e); }
+}
+
+function registrarResposta(qid, acertou, probPct) {
+  if (!PROGRESSO[qid]) {
+    PROGRESSO[qid] = { acertos:0, erros:0, ultimaResposta:null, proximaRevisao:null, fase:0 };
+  }
+  const p = PROGRESSO[qid];
+  p.ultimaResposta = hoje();
+
+  if (acertou) {
+    p.acertos++;
+    // Avança fase (intervalo aumenta)
+    p.fase = Math.min(p.fase + 1, SRS_INTERVALOS.length - 1);
+  } else {
+    p.erros++;
+    // Reinicia para fase 0 (revisão amanhã)
+    p.fase = 0;
+  }
+
+  const dias = SRS_INTERVALOS[p.fase];
+  p.proximaRevisao = proximaData(dias);
+  salvarProgresso();
+}
+
+function questoesParaHoje() {
+  const h = hoje();
+  // 1. Nunca respondidas com alta probabilidade (≥88%)
+  const nunca = QUESTOES.filter(q => {
+    const p = PROGRESSO[q.id];
+    if (p && p.ultimaResposta) return false;
+    const prob = parseInt((q.probabilidade || '0').replace('%',''));
+    return prob >= 88;
+  });
+
+  // 2. Agendadas para hoje ou atrasadas
+  const agendadas = QUESTOES.filter(q => {
+    const p = PROGRESSO[q.id];
+    if (!p || !p.proximaRevisao) return false;
+    return p.proximaRevisao <= h;
+  });
+
+  // 3. Erradas recentemente (sem agendamento explícito)
+  const erradas = QUESTOES.filter(q => {
+    const p = PROGRESSO[q.id];
+    if (!p || !p.erros) return false;
+    if (p.proximaRevisao && p.proximaRevisao > h) return false; // já agendada
+    return p.erros > p.acertos;
+  });
+
+  // Combinar sem duplicatas, prioridade: agendadas > alta prob > erradas
+  const vistos = new Set();
+  const deck = [];
+  for (const lista of [agendadas, nunca, erradas]) {
+    for (const q of lista) {
+      if (!vistos.has(q.id)) { vistos.add(q.id); deck.push(q); }
+    }
+  }
+  return deck;
+}
+
+function estatisticasGerais() {
+  const qids = Object.keys(PROGRESSO);
+  const total = qids.length;
+  const acertosTotal = qids.reduce((s,id) => s + (PROGRESSO[id].acertos||0), 0);
+  const errosTotal = qids.reduce((s,id) => s + (PROGRESSO[id].erros||0), 0);
+  const respondidas = total;
+  const naoRespondidas = QUESTOES.length - respondidas;
+  const taxa = (acertosTotal + errosTotal) > 0
+    ? Math.round(acertosTotal * 100 / (acertosTotal + errosTotal)) : 0;
+  const hoje_deck = questoesParaHoje().length;
+  return { total, respondidas, naoRespondidas, acertosTotal, errosTotal, taxa, hoje_deck };
+}
+
+function exportarProgressoCSV() {
+  const linhas = ['id,acertos,erros,ultimaResposta,proximaRevisao,fase'];
+  for (const [id, p] of Object.entries(PROGRESSO)) {
+    linhas.push(`${id},${p.acertos||0},${p.erros||0},${p.ultimaResposta||''},${p.proximaRevisao||''},${p.fase||0}`);
+  }
+  const blob = new Blob([linhas.join('\n')], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `progresso_concurso_${hoje()}.csv`;
+  a.click();
+  const msg = document.getElementById('backup-msg');
+  if (msg) { msg.textContent = `✅ ${Object.keys(PROGRESSO).length} registros exportados!`; msg.style.display='block'; setTimeout(()=>msg.style.display='none',3000); }
+}
+
+function importarProgresso(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const lines = e.target.result.split('\n').slice(1);
+      let count = 0;
+      for (const line of lines) {
+        const [id, acertos, erros, ultimaResposta, proximaRevisao, fase] = line.split(',');
+        if (!id) continue;
+        PROGRESSO[id] = {
+          acertos: parseInt(acertos)||0,
+          erros: parseInt(erros)||0,
+          ultimaResposta: ultimaResposta||null,
+          proximaRevisao: proximaRevisao||null,
+          fase: parseInt(fase)||0
+        };
+        count++;
+      }
+      salvarProgresso();
+      renderizarRevisao();
+      const msg = document.getElementById('backup-msg');
+      if (msg) { msg.style.color='var(--verde)'; msg.textContent=`✅ ${count} registros importados!`; msg.style.display='block'; setTimeout(()=>msg.style.display='none',3000); }
+    } catch(err) {
+      const msg = document.getElementById('backup-msg');
+      if (msg) { msg.style.color='var(--verm)'; msg.textContent='❌ Erro ao importar. Verifique o formato do arquivo.'; msg.style.display='block'; }
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function confirmarResetProgresso() {
+  if (confirm('⚠️ Zerar TODO o progresso? Isso não pode ser desfeito.\n\nExporte antes para fazer backup.')) {
+    PROGRESSO = {};
+    salvarProgresso();
+    renderizarRevisao();
+    alert('Progresso zerado com sucesso.');
+  }
+}
+
+// ═══════════════════════════════════════════
+// RENDERIZAR PAINEL DE REVISÃO
+// ═══════════════════════════════════════════
+function renderizarRevisao() {
+  const deck = questoesParaHoje();
+  const h = hoje();
+  const stats = estatisticasGerais();
+
+  // Stats do dia
+  const statsEl = document.getElementById('revisao-hoje-stats');
+  if (statsEl) {
+    const badges = [
+      { label: 'Para hoje', val: deck.length, cor: deck.length > 0 ? COR.verm : COR.verde },
+      { label: 'Respondidas', val: stats.respondidas, cor: COR.ouro },
+      { label: 'Taxa acerto', val: stats.taxa + '%', cor: stats.taxa >= 70 ? COR.verde : COR.verm },
+      { label: 'Restantes', val: stats.naoRespondidas, cor: COR.muted||'#9ab0c0' },
+    ];
+    statsEl.innerHTML = badges.map(b => `
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:8px;padding:8px 12px;text-align:center;min-width:70px;">
+        <div style="font-size:16px;font-weight:bold;color:${b.cor};font-family:'IBM Plex Mono',monospace;">${b.val}</div>
+        <div style="font-size:9px;color:#9ab0c0;margin-top:2px;">${b.label}</div>
+      </div>`).join('');
+  }
+
+  // Lista das questões de hoje
+  const listaEl = document.getElementById('revisao-hoje-lista');
+  const btnIniciar = document.getElementById('btn-iniciar-revisao');
+  if (listaEl) {
+    if (deck.length === 0) {
+      listaEl.innerHTML = `<div style="text-align:center;padding:20px;color:var(--verde);">✅ Nenhuma revisão pendente para hoje! Continue estudando.</div>`;
+      if (btnIniciar) btnIniciar.style.display = 'none';
+    } else {
+      const amostra = deck.slice(0, 5);
+      listaEl.innerHTML = amostra.map(q => {
+        const p = PROGRESSO[q.id];
+        const prob = q.probabilidade || '–';
+        const acPct = p && (p.acertos+p.erros) > 0 ? Math.round(p.acertos*100/(p.acertos+p.erros)) : null;
+        const tag = p && p.erros > 0 ? `<span style="color:var(--verm);font-size:9px;">❌ ${p.erros} erro(s)</span>` :
+                    !p ? `<span style="color:var(--ouro);font-size:9px;">🔥 Nova</span>` :
+                    `<span style="color:var(--verde);font-size:9px;">🔁 Revisão</span>`;
+        return `<div style="padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:11px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <span style="color:#9ab0c0;margin-right:6px;" class="mono">Q${q.id}</span>
+            <span style="color:#d0c0a0;">${q.subtema}</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            ${tag}
+            <span style="color:#6a8a9a;font-size:9px;">${prob}</span>
+          </div>
+        </div>`;
+      }).join('');
+      if (deck.length > 5) listaEl.innerHTML += `<div style="font-size:11px;color:var(--muted);text-align:center;padding-top:8px;">...e mais ${deck.length-5} questões</div>`;
+      if (btnIniciar) { btnIniciar.style.display = 'block'; btnIniciar.textContent = `🔁 REVISAR AGORA (${deck.length} questões)`; }
+    }
+  }
+
+  // Calendário
+  renderizarCalendario();
+
+  // Progresso por área
+  renderizarProgressoArea();
+
+  // Badge no header
+  const badge = document.getElementById('badge-revisao');
+  if (badge) {
+    if (deck.length > 0) { badge.textContent = `🔁 ${deck.length} REVISÕES`; badge.classList.add('visible'); }
+    else badge.classList.remove('visible');
+  }
+}
+
+function renderizarCalendario() {
+  const el = document.getElementById('revisao-calendario');
+  if (!el) return;
+
+  // Próximos 30 dias
+  const hoje_d = new Date();
+  const dias = [];
+  for (let i = 0; i < 30; i++) {
+    const d = new Date(hoje_d);
+    d.setDate(d.getDate() + i);
+    dias.push(d.toISOString().slice(0,10));
+  }
+
+  // Contar questões agendadas por dia
+  const porDia = {};
+  for (const [id, p] of Object.entries(PROGRESSO)) {
+    if (p.proximaRevisao) {
+      porDia[p.proximaRevisao] = (porDia[p.proximaRevisao]||0) + 1;
+    }
+  }
+
+  const hoje_str = hoje();
+  const nomes = ['D','S','T','Q','Q','S','S'];
+
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px;">
+      ${nomes.map(n=>`<div style="text-align:center;font-size:9px;color:#9ab0c0;font-family:'IBM Plex Mono',monospace;">${n}</div>`).join('')}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;">
+      ${dias.map(d => {
+        const n = porDia[d] || 0;
+        const isHoje = d === hoje_str;
+        const cor = n === 0 ? 'rgba(255,255,255,0.04)' : n < 5 ? 'rgba(61,184,138,0.15)' : n < 15 ? 'rgba(200,153,42,0.25)' : 'rgba(224,80,64,0.25)';
+        const borda = isHoje ? '1px solid var(--ouro)' : '1px solid rgba(255,255,255,0.06)';
+        const label = d.slice(8); // dia do mês
+        return `<div style="background:${cor};border:${borda};border-radius:5px;padding:4px 2px;text-align:center;cursor:default;" title="${d}: ${n} questão(ões)">
+          <div style="font-size:10px;color:${isHoje?'var(--ouro)':'#9ab0c0'};font-family:'IBM Plex Mono',monospace;">${label}</div>
+          ${n>0?`<div style="font-size:8px;color:${n<5?'var(--verde)':n<15?'var(--ouro)':'var(--verm)'};">${n}</div>`:''}
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+      <span style="font-size:9px;color:var(--verde);">● 1–4 questões</span>
+      <span style="font-size:9px;color:var(--ouro);">● 5–14 questões</span>
+      <span style="font-size:9px;color:var(--verm);">● 15+ questões</span>
+    </div>`;
+}
+
+function renderizarProgressoArea() {
+  const el = document.getElementById('revisao-progresso-area');
+  if (!el || QUESTOES.length === 0) return;
+
+  const areas = ['Português','Raciocínio Lógico','Dir. Constitucional','Dir. Administrativo','Legislação Específica','Redação'];
+  el.innerHTML = areas.map(area => {
+    const qs = QUESTOES.filter(q => q.area === area);
+    const total = qs.length;
+    const respondidas = qs.filter(q => PROGRESSO[q.id] && PROGRESSO[q.id].ultimaResposta).length;
+    const acertos = qs.reduce((s,q) => s + (PROGRESSO[q.id]?.acertos||0), 0);
+    const total_resp = qs.reduce((s,q) => s + ((PROGRESSO[q.id]?.acertos||0) + (PROGRESSO[q.id]?.erros||0)), 0);
+    const taxa = total_resp > 0 ? Math.round(acertos*100/total_resp) : 0;
+    const pct_cobertura = Math.round(respondidas*100/total);
+    const cor = COR_AREA(area);
+    return `
+      <div style="margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+          <span style="font-size:11px;color:${cor};">${area}</span>
+          <span style="font-size:10px;color:#9ab0c0;" class="mono">${respondidas}/${total} respondidas · ${taxa}% acerto</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:4px;height:6px;overflow:hidden;">
+          <div style="height:100%;width:${pct_cobertura}%;background:${cor};border-radius:4px;transition:width .5s;"></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function iniciarSessaoRevisao() {
+  const deck = questoesParaHoje();
+  if (deck.length === 0) {
+    alert('✅ Nenhuma revisão pendente para hoje! Continue estudando.');
+    return;
+  }
+  const limite = Math.min(sessaoMax, deck.length);
+  const qs = deck.slice(0, limite);
+  // usa a função iniciar() que já existe e cuida de toda a navegação
+  iniciar(qs, true);
+}
+
 const AREAS = ['Todas','Português','Raciocínio Lógico','Dir. Constitucional','Dir. Administrativo','Legislação Específica','Redação'];
 const BANCAS = ['Todas','Cespe','Fundatec','FCC','FGV','Cesgranrio'];
 const CONCURSOS = ['Todos','Polícia Penal RS','Prefeitura','PRF','INSS','Banco do Brasil','Caixa Econômica'];
@@ -614,6 +974,7 @@ function carregarEstado() {
     totalAc = parseInt(localStorage.getItem('pe_totalAc') || '0');
     sheetsUrl = localStorage.getItem('pe_sheetsUrl') || '';
   } catch(e) {}
+  carregarProgresso(); // carrega PROGRESSO do localStorage
 }
 
 // ═══════════════════════════════════════════
@@ -1039,39 +1400,8 @@ function renderizarStats() {
 // ═══════════════════════════════════════════
 // RENDER REVISÃO
 // ═══════════════════════════════════════════
-function renderizarRevisao() {
-  const el = document.getElementById('aba-revisao');
-  if (!el) return;
-  const questoesErro = QUESTOES.filter(q => (bancaErros[q.id]?.erros||0) > 0);
-  const errosOrd = [...questoesErro].sort((a,b) => (bancaErros[b.id]?.erros||0) - (bancaErros[a.id]?.erros||0));
-
-  if (!questoesErro.length) {
-    el.innerHTML = `<div class="empty-state"><div class="icon">✅</div><div style="font-size:14px;color:${COR.verde}">Nenhum erro ainda!</div><div style="font-size:12px;margin-top:6px;">Faça questões para ver seus pontos fracos aqui.</div></div>`;
-    return;
-  }
-
-  el.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;">
-      <span style="font-size:13px;color:#e07060;">${questoesErro.length} questão(ões) para reforçar</span>
-      <button class="btn-small" style="background:linear-gradient(135deg,#a02818,#e05040);border:none;color:#fff;" onclick="iniciarRevisao()">🔁 REVISAR TODOS</button>
-    </div>
-    ${errosOrd.map(q => {
-      const info = bancaErros[q.id];
-      return `<div class="erro-card">
-        <div>
-          <div style="font-size:12px;color:#d0c0a0;margin-bottom:3px;">${q.subtema}</div>
-          <div style="display:flex;gap:5px;">
-            <span class="q-tag" style="background:${COR_AREA(q.area)}22;color:${COR_AREA(q.area)};">${q.area}</span>
-            <span class="q-tag" style="color:var(--ouro);border:1px solid rgba(200,153,42,0.2);">${q.banca}</span>
-          </div>
-        </div>
-        <div class="erro-dots">
-          ${Array.from({length:Math.min(info.erros,5)}).map(() => '<div class="erro-dot"></div>').join('')}
-          <span class="mono" style="font-size:11px;color:#e07060;min-width:36px;">${info.erros}× erro</span>
-        </div>
-      </div>`;
-    }).join('')}`;
-}
+// renderizarRevisao: delegada para a função SRS completa (definida acima — linha ~729)
+// A versão completa inclui: deck do dia, calendário 30 dias, progresso por área e backup.
 
 // ═══════════════════════════════════════════
 // SESSÃO DE QUESTÕES
@@ -1159,6 +1489,12 @@ function responder(idx) {
   if (ok && modoRevisao) bancaErros[q.id].erros = Math.max(0, bancaErros[q.id].erros - 1);
   else if (!ok) bancaErros[q.id].erros++;
   bancaErros[q.id].area = q.area; bancaErros[q.id].subtema = q.subtema;
+
+  // ── REPETIÇÃO ESPAÇADA ──────────────────────
+  const prob = parseInt((q.probabilidade||'0').replace('%',''));
+  registrarResposta(String(q.id), ok, prob);
+  // ────────────────────────────────────────────
+
   salvarEstado();
 
   // Colorir alternativas
@@ -1172,16 +1508,18 @@ function responder(idx) {
     el.querySelector('.letra').textContent = i === q.gabarito ? '✓' : i === idx ? '✗' : String.fromCharCode(65+i);
   });
 
-  // Feedback
+  // Feedback com próxima revisão
   const fb = document.getElementById('q-feedback');
   fb.style.display = 'block';
   fb.className = `feedback-bar ${ok?'certo':'errado'}`;
+  const prox = PROGRESSO[String(q.id)]?.proximaRevisao;
+  const proxLabel = prox ? ` · Próx. revisão: ${prox}` : '';
   fb.innerHTML = `<span style="font-size:18px;">${ok?'🎯':'📖'}</span>
     <div>
       <div style="font-size:13px;font-weight:bold;color:${ok?COR.verde:'#e07060'};">
         ${ok?(modoRevisao?'Reforçado! ✓':'Correto!'):`Incorreto — Gabarito: ${String.fromCharCode(65+q.gabarito)}`}
       </div>
-      ${modoRevisao && bancaErros[q.id] ? `<div style="font-size:9px;color:var(--muted);" class="mono">Errada ${bancaErros[q.id].erros}× no total</div>` : ''}
+      <div style="font-size:9px;color:var(--muted);" class="mono">${ok?'📅'+proxLabel:('❌ Erros: '+(PROGRESSO[String(q.id)]?.erros||1)+proxLabel)}</div>
     </div>`;
 
   document.getElementById('btn-exp').style.display = 'block';
