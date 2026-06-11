@@ -569,7 +569,10 @@ const RESUMOS_TOPICO = {
 "Séries Uniformes":    "📌 SÉRIES UNIFORMES\nVF = PMT × [(1+i)ⁿ-1]/i\nVP = PMT × [1-(1+i)⁻ⁿ]/i\n• PRICE: prestações iguais, amortização crescente, juros decrescentes\n• SAC: amortização constante, prestações decrescentes, total pago menor\n🔑 Macete: SAC = paga MAIS no início, MENOS no final. PRICE = IGUAL sempre. SAC tem custo total menor que PRICE para mesmo prazo/taxa.",
 "Porcentagem":         "📌 PORCENTAGEM\n• Variações encadeadas: MULTIPLICA os fatores\n• +25% depois -20%: (1,25)×(0,80) = 1,00 = 0% (coincidência nesse par)\n• +20% depois -20%: (1,20)×(0,80) = 0,96 = -4% (sempre há perda!)\n• Para anular aumento de X%: redução de X/(1+X)\n🔑 Macete: para anular +25% precisa de -20% (não -25%). NUNCA soma porcentagens de períodos diferentes — multiplica.",
 "Probabilidade":       "📌 PROBABILIDADE\nP(A) = casos favoráveis / total\n• COM reposição: P não muda → multiplica\n• SEM reposição: total e favoráveis diminuem\n• P(A∪B) = P(A)+P(B)-P(A∩B)\n• P(A|B) = P(A∩B)/P(B)\n🔑 Macete: Bayes — P(doença|+) depende da PREVALÊNCIA. Com prevalência baixa, até teste bom tem muitos falsos positivos.",
-"Estatística":         "📌 ESTATÍSTICA\n• Média: sensível a outliers | Mediana: robusta\n• Normal N(μ,σ): 68%=μ±1σ, 95%=μ±2σ, 99,7%=μ±3σ\n• Z = (X-μ)/σ\n• IC 95%: x̄ ± 1,96·(s/√n)\n• r de Pearson: -1 a +1. r²=R² da regressão\n🔑 Macete: z*=1,96 (95%), z*=1,645 (90%), z*=2,576 (99%). Normalização: Z=(X-μ)/σ → P(X>a) = P(Z>z).",
+"Estatística":         "📌 ESTATÍSTICA DESCRITIVA\n• Média: sensível a outliers | Mediana: robusta\n• Moda: valor mais frequente | Desvio padrão σ: dispersão\n• Variância: σ² | CV = σ/μ×100%: variabilidade relativa\n📌 DISTRIBUIÇÃO NORMAL\n• Regra 68-95-99,7: μ±1σ=68%, μ±2σ=95%, μ±3σ=99,7%\n• Z = (X-μ)/σ — padroniza para N(0,1)\n• P(60≤X≤80) com μ=70,σ=10: Z=±1 → 2×0,3413=0,6826\n📌 INTERVALO DE CONFIANÇA\n• IC = x̄ ± z*×(σ/√n)\n• z*=1,645 (90%) | z*=1,96 (95%) | z*=2,576 (99%)\n🔑 Macete: IC 95% → z*=1,96 (memorize!). Maior n = menor margem de erro.",
+"Probabilidade":       "📌 PROBABILIDADE\n• P(A) = favoráveis/totais\n• P(A∪B) = P(A)+P(B)–P(A∩B)\n• P(A|B) = P(A∩B)/P(B) → probabilidade condicional\n• Independência: P(A∩B) = P(A)×P(B)\n📌 BAYES\n• P(A|B) = P(B|A)×P(A)/P(B)\n• VPP baixo = prevalência baixa mesmo com teste sensível\n• COM reposição: P não muda entre extrações\n• SEM reposição: denominador diminui a cada extração\n🔑 Macete: dois eventos independentes → MULTIPLICA as probabilidades.",
+"Combinatória":        "📌 ANÁLISE COMBINATÓRIA\n• Permutação P(n)=n!: TODOS, ordem importa\n• Arranjo A(n,p)=n!/(n-p)!: p de n, ordem importa\n• Combinação C(n,p)=n!/[p!(n-p)!]: p de n, ordem NÃO importa\n• Princípio fundamental: n₁×n₂×...×nₖ\n🔑 Macete: 'importa a ORDEM?'\n  SIM → Arranjo/Permutação\n  NÃO → Combinação\nComissão de 3 entre 10: C(10,3)=120 (sem ordem)\nPódio de 3 entre 10: A(10,3)=720 (com ordem)",
+"Desconto":            "📌 DESCONTO BANCÁRIO\n• Comercial (por fora): D = N×d×n | VA = N(1–d×n)\n  Base = Valor NOMINAL → maior desconto, prejudica o devedor\n• Racional (por dentro): VA = N/(1+i×n)\n  Base = Valor ATUAL → mais justo\nMesmo prazo e taxa: D_comercial > D_racional\nTaxa efetiva > taxa de desconto: i_ef = d/(1–d×n)\n🔑 Macete: banco usa COMERCIAL.\nEx: N=10.000, d=2%/mês, 60d → D=400 → VA=R$9.600",
 "Combinatória":        "📌 ANÁLISE COMBINATÓRIA\n• Permutação P(n)=n!: TODOS, ordem importa\n• Arranjo A(n,r)=n!/(n-r)!: r de n, ordem importa\n• Combinação C(n,r)=n!/[r!(n-r)!]: r de n, ordem NÃO importa\n🔑 Macete: 'comissão de 3 pessoas' → combinação (ordem não importa). 'pódio de 3 atletas' → arranjo (1º/2º/3º importa).",
 "Direitos Fundamentais":"📌 DIREITOS FUNDAMENTAIS\n• 1ª dimensão: civis e políticos (liberdades negativas)\n• 2ª dimensão: sociais, econômicos (prestações positivas)\n• 3ª dimensão: solidariedade (meio ambiente, paz)\nRemédios: HC=locomoção, MS=direito líquido/certo, HD=dados, MI=omissão legislativa\n🔑 Macete: HC só protege LIBERDADE DE LOCOMOÇÃO. Não cabe HC para multa, direitos políticos, honra.",
 "Controle de Constitucionalidade":"📌 CONTROLE DE CONSTITUCIONALIDADE\n• Difuso: qualquer juiz, inter partes, incidental\n• Concentrado STF: ADI, ADC, ADPF, ADO\n• Efeito vinculante: Judiciário + Administração (NÃO vincula o Legislativo)\n• ADPF: cabe para atos pré-constitucionais e atos municipais (subsidiária)\n🔑 Macete: efeito vinculante NÃO atinge o Congresso Nacional — que pode legislar em sentido contrário.",
@@ -604,31 +607,118 @@ const RESUMOS_TOPICO = {
 };
 
 // Função para encontrar o resumo mais relevante para o subtema da questão
+// Mapeamento subtema → chave do RESUMOS_TOPICO
+// Prioridade: match exato > palavras-chave > área genérica
+const MAPA_SUBTEMA = [
+  // ── ENGENHARIA CIVIL (antes dos genéricos) ────────────────────
+  [['concreto armado','fck','fator a/c','nbr 6118','armadura','cobrimento','slump'], 'Concreto Armado'],
+  [['mecânica dos solos','índice de vazios','porosidade','atterberg','proctor','compactação'], 'Mecânica dos Solos'],
+  [['fundação','estaca','sapata','radier','spt ','recalque','tubulão'], 'Fundações'],
+  [['orçamento','bdi','sinapi','cub','curva abc','cpm','caminho crítico'], 'Orçamento de Obras'],
+  [['resistência dos materiais','tensão normal','deformação','lei de hooke','momento fletor','deflexão','viga '], 'Resistência dos Materiais'],
+  // ── RACIOCÍNIO LÓGICO — mais específico primeiro ──────────────
+  [['intervalo de confiança','intervalo de predição','intervalos de pred','ic 95','z*','z crítico','margem de erro'], 'Estatística'],
+  [['distribuição normal','curva normal','gaussiana'], 'Estatística'],
+  [['desvio padrão','variância','coeficiente de variação','cv '], 'Estatística'],
+  [['média','mediana','moda','estatística descritiva'], 'Estatística'],
+  [['regressão','correlação','pearson','r de pearson'], 'Estatística'],
+  [['combinatória','permutação','arranjo ','combinação','fatorial'], 'Combinatória'],
+  [['bayes','probabilidade condicional','vpp','vpn','sensibilidade','especificidade'], 'Probabilidade'],
+  [['probabilidade','evento aleatório','espaço amostral'], 'Probabilidade'],
+  [['proposição','tabela verdade','bicondicional','tautologia','contradição','de morgan','negação de proposição'], 'Lógica – Proposição'],
+  [['contrapositiva','inversa da proposição','recíproca de'], 'Lógica – Condicional'],
+  [['lógica ','negação de proposição','implicação lógica'], 'Lógica – Proposição'],
+  [['quantificador','todo ','nenhum ','algum '], 'Lógica – Quantificadores'],
+  [['sequência numérica','fibonacci','série numérica','progressão aritmética','progressão geométrica'], 'Séries Uniformes'],
+  [['juros simples','regime simples','capitalização simples'], 'Juros Simples'],
+  [['juros compostos','regime composto','capitalização composta','(1+i)^'], 'Juros Compostos'],
+  [['desconto bancário','desconto comercial','desconto racional','valor nominal de'], 'Desconto'],
+  [['porcentagem','percentual','variação percentual','markup','margem de lucro'], 'Porcentagem'],
+  [['price ','sac ','sistema de amortização','prestação fixa','amortização constante','anuidade'], 'Séries Uniformes'],
+  [['cet ','custo efetivo total'], 'Juros Compostos'],
+  // ── PORTUGUÊS ─────────────────────────────────────────────────
+  [['conjunção','conectivo','concessiva','adversativa','causal','temporal ','subordinada'], 'Conjunção'],
+  [['coesão','coerência','anáfora','catáfora','referencial','sequencial'], 'Coesão'],
+  [['pronome relativo','cujo','cuja ','onde ','em que'], 'Coesão'],
+  [['reescrita','mesmo sentido','substituição mantendo'], 'Reescrita'],
+  [['interpretação','inferência','pressuposto','ideia principal','ideia central','argumento'], 'Interpretação'],
+  [['concordância verbal','sujeito coletivo','verbo impessoal','haver impessoal'], 'Concordância Verbal'],
+  [['concordância nominal','meio como advérbio','less ','alerta'], 'Concordância Nominal'],
+  [['regência verbal','regência nominal','transitivo direto','transitivo indireto'], 'Regência Verbal'],
+  [['crase ','contração '], 'Crase'],
+  [['pontuação','vírgula','ponto e vírgula','dois-pontos','travessão'], 'Pontuação'],
+  [['voz passiva','voz ativa','agente da passiva','particípio'], 'Vozes Verbais'],
+  [['morfologia','classe gramatical','substantivo','adjetivo','advérbio','adjunto adnominal','complemento nominal','nominalização'], 'Morfologia'],
+  [['ortografia','grafia ','uso do s','uso do z'], 'Ortografia'],
+  [['semântica','denotativo','conotativo','metáfora','metonímia','polissemia','homonímia'], 'Semântica'],
+  [['redação oficial','ofício','memorando','fecho ','vossa excelência','impessoalidade'], 'Redação Oficial'],
+  // ── LEGISLAÇÃO ESPECÍFICA ─────────────────────────────────────
+  [['lavagem de dinheiro','pld','coaf','colocação','ocultação','integração','kyc','know your customer'], 'Lavagem de Dinheiro'],
+  [['lgpd','dados pessoais','anpd','titular de dados','controlador','operador','dados sensíveis'], 'LGPD'],
+  [['open finance','open banking','itp ','consentimento de dados'], 'Open Finance'],
+  [['basileia','capital regulatório','apr ','tier 1','tier1','lcr ','nsfr','risco operacional'], 'Basileia III'],
+  [['cheque','duplicata','nota promissória','letra de câmbio','título de crédito'], 'Títulos de Crédito'],
+  [['pix ','ted ','doc ','spb','str ','sistema de pagamentos'], 'Pix e SPB'],
+  [['câmbio','acc ','ace ','ptax','exportador','importador','hedge cambial'], 'Câmbio'],
+  [['produto bancário','cdb','lci','lca','poupança','tesouro direto','tributação de investimentos'], 'Produtos Bancários'],
+  [['análise de crédito','5cs','rating de crédito','score ','pdd','provisão para'], 'Crédito'],
+  [['política monetária','selic meta','copom','open market','compulsório','redesconto'], 'Política Monetária'],
+  [['sfn','cmn','bacen','cvm ','susep','previc','sistema financeiro'], 'SFN – Estrutura'],
+  [['ctb','código de trânsito','habilitação','cnh ','velocidade máxima','embriaguez','alcoolemia'], 'CTB'],
+  [['flagrante','prisão em flagrante','busca e apreensão','processo penal'], 'Processo Penal'],
+  [['lei de drogas','11.343','tráfico de drogas','usuário de drogas'], 'Lei de Drogas'],
+  [['previdência social','inss','rgps','benefício previdenciário','carência','aposentadoria','pensão por morte'], 'Previdência Social'],
+  // ── DIREITO CONSTITUCIONAL ────────────────────────────────────
+  [['habeas corpus','mandado de segurança','hd ','mi ','remédio constitucional'], 'Direitos Fundamentais'],
+  [['direito fundamental','dimensão dos direitos'], 'Direitos Fundamentais'],
+  [['adi ','adc ','adpf','ado ','controle de constitucionalidade','efeito vinculante'], 'Controle de Constitucionalidade'],
+  [['processo legislativo','lei ordinária','lei complementar','pec ','medida provisória','maioria absoluta'], 'Processo Legislativo'],
+  [['federalismo','competência privativa','concorrente','comum','municipal'], 'Federalismo'],
+  [['poder judiciário','stf','stj','tst ','súmula vinculante','repercussão geral'], 'Poder Judiciário'],
+  // ── DIREITO ADMINISTRATIVO ────────────────────────────────────
+  [['ato administrativo','vinculado','discricionário','anulação','revogação','cofim'], 'Ato Administrativo'],
+  [['limpe','princípio da legalidade','impessoalidade','moralidade','publicidade','eficiência'], 'Princípios Administrativos'],
+  [['licitação','pregão','concorrência','dispensa de licitação','inexigibilidade'], 'Licitação'],
+  [['servidor público','8.112','estágio probatório','pad ','processo administrativo disciplinar'], 'Servidores Públicos'],
+];
+
 function buscarResumo(subtema, area) {
   if (!subtema) return null;
   const sub = subtema.toLowerCase();
+
+  // 1. Busca por palavras-chave do mapeamento preciso
+  for (const [palavras, chaveResumo] of MAPA_SUBTEMA) {
+    if (palavras.some(p => sub.includes(p))) {
+      return RESUMOS_TOPICO[chaveResumo]
+        ? { titulo: chaveResumo, texto: RESUMOS_TOPICO[chaveResumo] }
+        : null;
+    }
+  }
+
+  // 2. Busca direta pela chave do dicionário (correspondência parcial)
+  const sub2 = sub.replace(/[-–]/g,' ');
   for (const [chave, texto] of Object.entries(RESUMOS_TOPICO)) {
-    const c = chave.toLowerCase();
-    if (sub.includes(c) || c.split(' ').every(p => p.length > 3 && sub.includes(p))) {
+    const c = chave.toLowerCase().replace(/[-–]/g,' ');
+    // Todos os tokens significativos da chave estão no subtema
+    const tokens = c.split(/\s+/).filter(t => t.length > 4);
+    if (tokens.length > 0 && tokens.every(t => sub2.includes(t))) {
       return { titulo: chave, texto };
     }
   }
-  // Busca por área
-  const mapeamentoArea = {
-    'português': ['Interpretação', 'Coesão', 'Conjunção'],
-    'dir. constitucional': ['Direitos Fundamentais', 'Controle de Constitucionalidade'],
-    'dir. administrativo': ['Ato Administrativo', 'Princípios Administrativos'],
-    'legislação específica': ['SFN – Estrutura', 'Política Monetária'],
-    'raciocínio lógico': ['Juros Compostos', 'Porcentagem'],
-    'engenharia civil': ['Resistência dos Materiais', 'Concreto Armado'],
+
+  // 3. Fallback mínimo por área — apenas se muito genérico
+  const FALLBACK = {
+    'português': 'Interpretação',
+    'raciocínio lógico': null,   // sem fallback genérico — melhor nada
+    'dir. constitucional': 'Direitos Fundamentais',
+    'dir. administrativo': 'Princípios Administrativos',
+    'legislação específica': 'SFN – Estrutura',
+    'engenharia civil': 'Resistência dos Materiais',
   };
-  const areaL = (area||'').toLowerCase();
-  const candidatos = mapeamentoArea[areaL] || [];
-  if (candidatos.length > 0) {
-    const chave = candidatos[0];
-    return RESUMOS_TOPICO[chave] ? { titulo: chave, texto: RESUMOS_TOPICO[chave] } : null;
-  }
-  return null;
+  const fb = FALLBACK[(area||'').toLowerCase()];
+  if (fb && RESUMOS_TOPICO[fb]) return { titulo: fb, texto: RESUMOS_TOPICO[fb] };
+
+  return null;  // sem resumo → não exibir nada
 }
 
 function exibirResumoTopico(subtema, area) {
@@ -722,11 +812,11 @@ function registrarResposta(qid, acertou, probPct) {
 
 function questoesParaHoje() {
   const h = hoje();
-  // 1. Nunca respondidas com alta probabilidade (≥88%)
+  // 1. Nunca respondidas com alta probabilidade para o concurso selecionado
   const nunca = QUESTOES.filter(q => {
     const p = PROGRESSO[q.id];
     if (p && p.ultimaResposta) return false;
-    const prob = parseInt((q.probabilidade || '0').replace('%',''));
+    const prob = probParaConcurso(q.probabilidade, filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0] || ''));
     return prob >= 88;
   });
 
@@ -860,7 +950,9 @@ function renderizarRevisao() {
       const amostra = deck.slice(0, 5);
       listaEl.innerHTML = amostra.map(q => {
         const p = PROGRESSO[q.id];
-        const prob = q.probabilidade || '–';
+        const concR = filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0]||'');
+        const prob = probParaConcurso(q.probabilidade, concR);
+        const probStr = prob ? `${prob}%` : '–';
         const acPct = p && (p.acertos+p.erros) > 0 ? Math.round(p.acertos*100/(p.acertos+p.erros)) : null;
         const tag = p && p.erros > 0 ? `<span style="color:var(--verm);font-size:9px;">❌ ${p.erros} erro(s)</span>` :
                     !p ? `<span style="color:var(--ouro);font-size:9px;">🔥 Nova</span>` :
@@ -872,7 +964,7 @@ function renderizarRevisao() {
           </div>
           <div style="display:flex;gap:6px;align-items:center;">
             ${tag}
-            <span style="color:#6a8a9a;font-size:9px;">${prob}</span>
+            <span style="color:#6a8a9a;font-size:9px;">${probStr}</span>
           </div>
         </div>`;
       }).join('');
@@ -1105,12 +1197,36 @@ function parseCSV(csv) {
       alternativas: [get(6), get(7), get(8), get(9), get(10)].filter(Boolean),
       gabarito: gabIdx,
       explicacao: get(12),
-      probabilidade: get(13) || '',
+      probabilidade: get(13) || '',   // formato: "BB:90,CEF:88" ou "83%"
       similares: get(14) || '',
       refExternas: get(15) || '',
     });
   }
   return questoes;
+}
+
+// Extrai a probabilidade de uma questão para um concurso específico
+// probStr pode ser "BB:90,CEF:88,INSS:70" ou "83%" (formato antigo)
+function probParaConcurso(probStr, concursoFiltro) {
+  if (!probStr) return 70;
+  // Formato novo: "BB:90,CEF:88"
+  if (probStr.includes(':')) {
+    const MAPA = {
+      'Banco do Brasil': 'BB', 'Caixa Econômica': 'CEF', 'INSS': 'INSS',
+      'PRF': 'PRF', 'Polícia Penal RS': 'Pol.RS', 'Transpetro': 'Transpetro',
+      'Prefeitura': 'Prefeitura'
+    };
+    const abrev = MAPA[concursoFiltro] || concursoFiltro;
+    for (const parte of probStr.split(',')) {
+      const [k, v] = parte.split(':');
+      if (k && k.trim() === abrev) return parseInt(v) || 70;
+    }
+    // Se não encontrou o concurso específico, pegar o maior valor disponível
+    const valores = probStr.split(',').map(p => parseInt(p.split(':')[1]) || 0);
+    return Math.max(...valores, 0) || 70;
+  }
+  // Formato antigo: "83%"
+  return parseInt(probStr.replace('%','')) || 70;
 }
 
 function parseCSVLine(line) {
@@ -1429,20 +1545,31 @@ function filtrar() {
   if (filtroBanca !== 'Todas') q = q.filter(x => x.banca === filtroBanca || x.banca === 'Todas');
   if (filtroConcurso !== 'Todos') q = q.filter(x => x.concursos.includes(filtroConcurso));
 
+  // Função de probabilidade para o concurso ativo
+  const concAtivo = filtroConcurso !== 'Todos' ? filtroConcurso : '';
+  const getProb = x => probParaConcurso(x.probabilidade, concAtivo || (x.concursos[0]||''));
+
   const h = hoje();
-  // Separar em 3 grupos e ordenar por prioridade
-  const naoFeitas   = q.filter(x => !PROGRESSO[x.id] || !PROGRESSO[x.id].ultimaResposta);
-  const vencidas    = q.filter(x => PROGRESSO[x.id]?.proximaRevisao && PROGRESSO[x.id].proximaRevisao <= h);
-  const erradas     = q.filter(x => {
+
+  // Grupo 1: nunca feitas — ordenadas por probabilidade decrescente para o concurso
+  const naoFeitas = q
+    .filter(x => !PROGRESSO[x.id] || !PROGRESSO[x.id].ultimaResposta)
+    .sort((a,b) => getProb(b) - getProb(a));
+
+  // Grupo 2: vencidas no SRS — ordenadas por prob
+  const vencidas = q
+    .filter(x => PROGRESSO[x.id]?.proximaRevisao && PROGRESSO[x.id].proximaRevisao <= h)
+    .sort((a,b) => getProb(b) - getProb(a));
+
+  // Grupo 3: erradas recentemente (sem agendamento)
+  const erradas = q.filter(x => {
     const p = PROGRESSO[x.id];
     if (!p || !p.erros) return false;
     if (p.proximaRevisao && p.proximaRevisao > h) return false;
     return p.erros > p.acertos;
-  });
-  // Questões dentro do intervalo SRS (não mostrar novamente ainda)
-  // Não incluídas nos grupos acima = já feitas e dentro do prazo
+  }).sort((a,b) => getProb(b) - getProb(a));
 
-  // Combinar sem duplicatas: não feitas primeiro, depois vencidas, depois erradas
+  // Combinar sem duplicatas: não feitas (alta prob) → vencidas → erradas
   const vistos = new Set();
   const resultado = [];
   for (const lista of [naoFeitas, vencidas, erradas]) {
@@ -1577,16 +1704,29 @@ function renderizarQuestao() {
   // Card
   document.getElementById('q-card').style.borderColor = `${COR_AREA(q.area)}44`;
 
-  // Tags
-  const probVal = parseInt((q.probabilidade||'').replace('%','')) || 0;
-  const probCor = probVal >= 88 ? COR.verm : probVal >= 78 ? COR.ouro : COR.verde;
-  const probLabel = probVal >= 88 ? '🔥 Alta' : probVal >= 78 ? '⚡ Média' : '📘 Baixa';
+  // Tags — probabilidade por concurso ativo
+  const concAtivo = filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0] || '');
+  const probVal = probParaConcurso(q.probabilidade, concAtivo);
+  const probCor = probVal >= 88 ? COR.verm : probVal >= 75 ? COR.ouro : '#4a7a6a';
+  const probLabel = probVal >= 88 ? '🔥 Alta' : probVal >= 75 ? '⚡ Média' : '📘 Baixa';
+  let probDisplay = '';
+  if (q.probabilidade && q.probabilidade.includes(':')) {
+    if (filtroConcurso !== 'Todos') {
+      probDisplay = `${probLabel} ${probVal}%`;
+    } else {
+      const maxP = Math.max(...q.probabilidade.split(',').map(p=>parseInt(p.split(':')[1])||0));
+      const mLabel = maxP >= 88 ? '🔥' : maxP >= 75 ? '⚡' : '📘';
+      probDisplay = `${mLabel} ${maxP}%`;
+    }
+  } else if (q.probabilidade) {
+    probDisplay = `${probLabel} ${q.probabilidade}`;
+  }
   document.getElementById('q-tags').innerHTML =
     `<span class="q-tag" style="background:${COR_AREA(q.area)}22;border:1px solid ${COR_AREA(q.area)}66;color:${COR_AREA(q.area)};">${q.area}</span>
      <span class="q-tag" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);color:var(--muted);">${q.subtema}</span>
      <span class="q-tag" style="background:rgba(200,153,42,0.1);border:1px solid rgba(200,153,42,0.25);color:#b08020;">${q.banca}</span>
-     ${q.concursos.map(c => `<span class="q-tag" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);color:#6a8a9a;">${c}</span>`).join('')}
-     ${q.probabilidade ? `<span class="q-tag" style="background:${probCor}22;border:1px solid ${probCor}66;color:${probCor};font-weight:bold;" title="Probabilidade de cobrança em concurso">${probLabel} ${q.probabilidade}</span>` : ''}`;
+     ${q.concursos.map(c=>`<span class="q-tag" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);color:#6a8a9a;">${c}</span>`).join('')}
+     ${probDisplay ? `<span class="q-tag" style="background:${probCor}22;border:1px solid ${probCor}66;color:${probCor};font-weight:bold;" title="${concAtivo||'Concurso'}: ${probVal}%">${probDisplay}</span>` : ''}`;
 
   document.getElementById('q-enunciado').textContent = q.enunciado;
 
@@ -1623,7 +1763,8 @@ function responder(idx) {
   bancaErros[q.id].area = q.area; bancaErros[q.id].subtema = q.subtema;
 
   // ── REPETIÇÃO ESPAÇADA ──────────────────────
-  const prob = parseInt((q.probabilidade||'0').replace('%',''));
+  const concQ = filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0] || '');
+  const prob = probParaConcurso(q.probabilidade, concQ);
   registrarResposta(String(q.id), ok, prob);
   // ── RESUMO DO TÓPICO ────────────────────────
   exibirResumoTopico(q.subtema, q.area);
