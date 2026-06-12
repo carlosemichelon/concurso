@@ -46,9 +46,9 @@
   .root-subtitle { font-size: 10px; color: var(--muted); margin-top: 4px; }
 
   /* Referência ao material original */
-  .ref-bar { display:flex; align-items:center; gap:8px; margin-top:8px; flex-wrap:wrap; }
+  .ref-bar { display:flex; align-items:center; gap:8px; margin-top:4px; margin-bottom:6px; flex-wrap:wrap; position:relative; z-index:10; }
   .ref-tag { font-size:9px; font-family:monospace; color:var(--muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:2px 8px; }
-  .ref-btn { font-size:9px; font-family:monospace; padding:3px 10px; border-radius:4px; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:4px; transition:opacity .2s; }
+  .ref-btn { font-size:9px; font-family:monospace; padding:5px 12px; border-radius:4px; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:4px; transition:opacity .2s; position:relative; z-index:10; pointer-events:all; }
   .ref-btn:hover { opacity:.8; }
   .ref-btn-drive { background:rgba(74,144,217,0.15); border:1px solid rgba(74,144,217,0.35)!important; color:#4a90d9; }
   .ref-btn-pdf { background:rgba(224,80,64,0.12); border:1px solid rgba(224,80,64,0.3)!important; color:#e05040; }
@@ -175,11 +175,11 @@
   <div class="root-node" style="--node-color:#e06090;" onclick="toggle(this)">
     <div class="root-title">🔤 ORTOGRAFIA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Acentuação · Hífen · Trema · Acentos Diferenciais</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 5–7</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('ortografia')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Acentuação Gráfica</div>
@@ -217,11 +217,11 @@
   <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
     <div class="root-title">🏷️ MORFOLOGIA — CLASSES DE PALAVRAS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Pronomes · Advérbios · Verbos · Artigo · Numeral</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 8–17</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('morfologia')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Pronomes Demonstrativos</div>
@@ -276,12 +276,12 @@
   <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
     <div class="root-title">📐 SINTAXE — FUNÇÕES SINTÁTICAS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Sujeito · Transitividade · Concordância · Regência</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 29–35 (Sintaxe) · 40–44 (Sujeito)</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('sintaxe')">🖼️ Sintaxe no Drive</button>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('sujeito')">🖼️ Sujeito no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Tipos de Sujeito</div>
@@ -318,11 +318,11 @@
   <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
     <div class="root-title">✏️ PONTUAÇÃO — USO DA VÍRGULA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Vírgula é marcador de funções sintáticas — NÃO é pausa!</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 36–39</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('pontuacao')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">✅ Vírgula Obrigatória</div>
@@ -359,11 +359,11 @@
   <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
     <div class="root-title">⚖️ CONCORDÂNCIA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Verbal e Nominal · Casos particulares · Pegadinhas clássicas</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 45–47</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('concordancia')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">🚨 Verbos Impessoais</div>
@@ -405,11 +405,11 @@
   <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
     <div class="root-title">🔧 REGÊNCIA VERBAL E NOMINAL <span class="chevron">▶</span></div>
     <div class="root-subtitle">Verbos que mais caem na Cesgranrio BB</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 48–51</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('regencia')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Verbos de Dupla Regência (pegadinha)</div>
@@ -444,11 +444,11 @@
   <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
     <div class="root-title">À CRASE <span class="chevron">▶</span></div>
     <div class="root-subtitle">a (prep) + a (artigo fem.) = à · Obrigatória · Proibida · Facultativa</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 52–53</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('crase')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">✅ Crase Obrigatória</div>
@@ -554,11 +554,11 @@
   <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
     <div class="root-title">🔷 LÓGICA PROPOSICIONAL <span class="chevron">▶</span></div>
     <div class="root-subtitle">Proposições · Conectivos · Tabela-verdade · Equivalências · Negações</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 RLM - Todos os Mapas.pdf · págs. 7–14</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('logica')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Proposição — Conceito</div>
@@ -607,13 +607,13 @@
   <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
     <div class="root-title">🔢 RACIOCÍNIO LÓGICO-MATEMÁTICO <span class="chevron">▶</span></div>
     <div class="root-subtitle">Regra de Três · Médias · PA/PG · Porcentagem</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 RLM - Todos os Mapas.pdf · págs. 16–17 (Regra/Médias) · 24–28 (PA/PG/Pct)</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('regra3')">🖼️ Regra de Três</button>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('papg')">🖼️ PA/PG</button>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('porcentagem')">🖼️ Porcentagem</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Regra de Três Composta</div>
@@ -699,11 +699,11 @@
   <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
     <div class="root-title">💯 PORCENTAGEM <span class="chevron">▶</span></div>
     <div class="root-subtitle">Variações · Aumentos e descontos sucessivos · Transformações</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · pág. 5</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 5)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Variações Percentuais</div>
@@ -728,11 +728,11 @@
   <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
     <div class="root-title">📈 JUROS SIMPLES <span class="chevron">▶</span></div>
     <div class="root-subtitle">Js = C.i.n · Não capitalizados · Taxas proporcionais</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · pág. 6</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 6)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Fórmulas Essenciais</div>
@@ -753,11 +753,11 @@
   <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
     <div class="root-title">📊 JUROS COMPOSTOS <span class="chevron">▶</span></div>
     <div class="root-subtitle">M = C.(1+i)ⁿ · Taxas equivalentes · Taxa nominal × efetiva</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 7–8</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 7)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Fórmulas e Período de Capitalização</div>
@@ -790,11 +790,11 @@
   <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
     <div class="root-title">🏷️ DESCONTOS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Racional (por dentro) × Comercial (por fora) · A = N - D</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 10–12</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 10)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Conceitos Base</div>
@@ -823,11 +823,11 @@
   <div class="root-node" style="--node-color:#d96a9a;" onclick="toggle(this)">
     <div class="root-title">🏠 SISTEMAS DE AMORTIZAÇÃO <span class="chevron">▶</span></div>
     <div class="root-subtitle">SAC · Price (Francês) · SAM · Fórmulas completas</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 17–19</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 17)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">SAC — Sistema de Amortização Constante</div>
@@ -859,11 +859,11 @@
   <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
     <div class="root-title">💰 VPL · EQUIVALÊNCIA · TIR · ANUIDADES <span class="chevron">▶</span></div>
     <div class="root-subtitle">Valor Presente Líquido · Equivalência de capitais · Taxa Interna de Retorno</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 13–16</span>
       <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 13)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">VPL — Valor Presente Líquido</div>
