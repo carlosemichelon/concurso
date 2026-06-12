@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mapas Mentais — Concursos</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --border: rgba(255,255,255,0.07);
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --azul: #3db8ea;
+    --verde: #3db88a;
+    --ouro: #c8992a;
+    --roxo: #9b72ea;
+    --verm: #e05050;
+    --rosa: #e06090;
+    --ciano: #30c0d0;
+    --laranja: #e08030;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+  
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #0d1520, #1a2540); padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .header h1 { font-size: 15px; font-weight: 700; color: var(--ouro); letter-spacing: 1px; }
+  .header p  { font-size: 11px; color: var(--muted); }
+
+  /* TABS */
+  .tabs { display: flex; gap: 4px; padding: 12px 16px; background: #0d1520; border-bottom: 1px solid var(--border); overflow-x: auto; flex-wrap: wrap; }
+  .tab { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all .2s; background: transparent; color: var(--muted); }
+  .tab.active { color: #fff; border-color: transparent; }
+  .tab:hover { opacity: .85; }
+
+  /* MAP CONTAINER */
+  .map-wrap { display: none; padding: 16px; }
+  .map-wrap.active { display: block; }
+
+  /* NODES */
+  .mind-map { display: flex; flex-direction: column; gap: 12px; }
+  .root-node { background: linear-gradient(135deg, var(--node-color, #1e3a5f), #0d1520); border: 2px solid var(--node-color, #3db8ea); border-radius: 12px; padding: 14px 18px; cursor: pointer; transition: all .2s; }
+  .root-node:hover { transform: translateX(3px); filter: brightness(1.1); }
+  .root-title { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .root-subtitle { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* Referência ao material original */
+  .ref-bar { display:flex; align-items:center; gap:8px; margin-top:4px; margin-bottom:6px; flex-wrap:wrap; position:relative; z-index:10; }
+  .ref-tag { font-size:9px; font-family:monospace; color:var(--muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:2px 8px; }
+  .ref-btn { font-size:9px; font-family:monospace; padding:5px 12px; border-radius:4px; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:4px; transition:opacity .2s; position:relative; z-index:10; pointer-events:all; }
+  .ref-btn:hover { opacity:.8; }
+  .ref-btn-drive { background:rgba(74,144,217,0.15); border:1px solid rgba(74,144,217,0.35)!important; color:#4a90d9; }
+  .ref-btn-pdf { background:rgba(224,80,64,0.12); border:1px solid rgba(224,80,64,0.3)!important; color:#e05040; }
+
+  /* Modal de imagem */
+  .img-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:1000; justify-content:center; align-items:flex-start; padding:20px; overflow-y:auto; }
+  .img-modal.open { display:flex; flex-direction:column; align-items:center; }
+  .img-modal img { max-width:min(900px,95vw); border-radius:8px; box-shadow:0 8px 40px rgba(0,0,0,.6); }
+  .img-modal-nav { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; justify-content:center; }
+  .img-modal-btn { padding:8px 16px; border-radius:6px; cursor:pointer; font-family:monospace; font-size:11px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#e0d8c8; }
+  .img-modal-btn:hover { background:rgba(255,255,255,0.14); }
+  .img-modal-close { position:fixed; top:16px; right:20px; font-size:24px; cursor:pointer; color:#a0a0a0; background:rgba(0,0,0,0.5); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; border:none; }
+  .img-modal-label { font-family:monospace; font-size:10px; color:var(--muted); margin-bottom:10px; letter-spacing:2px; }
+  .chevron { margin-left: auto; transition: transform .3s; font-size: 10px; }
+  .chevron.open { transform: rotate(90deg); }
+
+  /* CHILDREN */
+  .children { display: none; margin-left: 20px; margin-top: 6px; border-left: 2px solid rgba(255,255,255,0.06); padding-left: 12px; }
+  .children.open { display: flex; flex-direction: column; gap: 6px; }
+  .child-node { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; cursor: pointer; transition: all .2s; }
+  .child-node:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); }
+  .child-title { font-size: 11px; font-weight: 600; color: #c8d8e0; display: flex; align-items: center; gap: 6px; }
+  .child-sub { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+
+  /* DETAIL PANEL */
+  .detail-panel { display: none; margin-left: 36px; margin-top: 4px; background: rgba(61,184,138,0.05); border: 1px solid rgba(61,184,138,0.15); border-radius: 8px; padding: 12px 14px; }
+  .detail-panel.open { display: block; }
+  .detail-panel pre { font-family: 'Consolas', monospace; font-size: 10px; color: #b0c8d0; white-space: pre-wrap; line-height: 1.7; }
+
+  /* GRANDCHILDREN */
+  .grandchildren { display: none; margin-left: 16px; margin-top: 4px; border-left: 1px dashed rgba(255,255,255,0.08); padding-left: 10px; }
+  .grandchildren.open { display: flex; flex-direction: column; gap: 4px; }
+  .leaf-node { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; padding: 7px 10px; cursor: pointer; }
+  .leaf-node:hover { background: rgba(255,255,255,0.05); }
+  .leaf-title { font-size: 10px; color: #8090a0; }
+
+  /* LEGEND */
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; padding: 10px 16px; background: #0d1520; border-top: 1px solid var(--border); }
+  .leg-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--muted); }
+  .leg-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* CONEXÕES badge */
+  .badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px; border-radius: 10px; font-size: 9px; font-weight: 700; background: rgba(255,255,255,0.07); color: var(--muted); }
+
+  /* RELACOES */
+  .relacoes { background: rgba(200,153,42,0.06); border: 1px solid rgba(200,153,42,0.15); border-radius: 8px; padding: 10px 14px; margin-top: 6px; font-size: 10px; color: #c8b050; line-height: 1.7; }
+  .relacoes strong { color: var(--ouro); }
+
+  /* SEARCH */
+  .search-bar { margin: 12px 16px; display: flex; gap: 8px; }
+  .search-bar input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; color: var(--text); font-size: 12px; outline: none; }
+  .search-bar input:focus { border-color: var(--azul); }
+  .search-result { margin: 0 16px 12px; font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" style="font-family:monospace;font-size:10px;color:#64748b;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;white-space:nowrap;flex-shrink:0;">← Plataforma</a>
+  <div>
+    <h1>🧠 MAPAS MENTAIS — CONCURSOS</h1>
+    <p>Visão estrutural dos conteúdos · Clique para expandir · Conexões entre tópicos</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" style="background:linear-gradient(135deg,#1e3a5f,#0d1a30);color:#3db8ea;border-color:#3db8ea;" onclick="showMap('portugues',this)">📖 Português</button>
+  <button class="tab" onclick="showMap('logica',this)">🔷 Raciocínio Lógico</button>
+  <button class="tab" onclick="showMap('matfin',this)">💰 Mat. Financeira</button>
+  <button class="tab" onclick="showMap('constitucional',this)">⚖️ Dir. Constitucional</button>
+  <button class="tab" onclick="showMap('administrativo',this)">🏛️ Dir. Administrativo</button>
+  <button class="tab" onclick="showMap('bancario',this)">🏦 Conhecimentos Bancários</button>
+  <button class="tab" onclick="showMap('prf',this)">🚔 PRF Específico</button>
+  <button class="tab" onclick="showMap('inss',this)">🏥 INSS Específico</button>
+  <button class="tab" onclick="showMap('engenharia',this)">🏗️ Engenharia Civil</button>
+  <button class="tab" onclick="showMap('conexoes',this)">🔗 Conexões</button>
+</div>
+
+<div class="search-bar">
+  <input type="text" id="search-input" placeholder="🔍 Buscar tópico..." oninput="buscar(this.value)">
+</div>
+<div class="search-result" id="search-result"></div>
+
+<!-- ═══ PORTUGUÊS ═══ -->
+<div class="map-wrap active" id="map-portugues">
+<div class="mind-map">
+
+  <!-- ① INTERPRETAÇÃO -->
+  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
+    <div class="root-title">📖 INTERPRETAÇÃO DE TEXTO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">34% das questões Cesgranrio BB · Tema mais cobrado · 5-7q por prova</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🎯 Ideia Principal vs. Secundária</div>
+      <div class="child-sub">Tese central · Argumentos de suporte · Conclusão implícita</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">✅ Inferência válida: o texto GARANTE isso</div></div>
+      <div class="leaf-node"><div class="leaf-title">❌ Extrapolação: vai além do que o texto diz</div></div>
+      <div class="leaf-node"><div class="leaf-title">📌 Pressuposto: o que o texto implica necessariamente</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🔄 Reescrita com Mesmo Sentido</div>
+      <div class="child-sub">Verificar: conectivo, sujeito lógico, polaridade, tempo verbal</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Causa ≠ Concessão (erros mais comuns em prova)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Nominalização: verbo → substantivo sem mudar sentido</div></div>
+      <div class="leaf-node"><div class="leaf-title">Voz ativa → passiva: checar concordância e preposição</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🔗 Referenciação Anafórica</div>
+      <div class="child-sub">ESTE retoma o mais próximo · AQUELE o mais distante</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CUJO = de + qual (posse) — nunca artigo depois do CUJO</div></div>
+      <div class="leaf-node"><div class="leaf-title">ONDE = lugar fisicamente determinado</div></div>
+      <div class="leaf-node"><div class="leaf-title">COMO = causal quando inicia o período (= já que)</div></div>
+    </div>
+  </div>
+
+  <!-- ② ORTOGRAFIA -->
+  <div class="root-node" style="--node-color:#e06090;" onclick="toggle(this)">
+    <div class="root-title">🔤 ORTOGRAFIA <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Acentuação · Hífen · Trema · Acentos Diferenciais</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 5–7</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('ortografia')">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Acentuação Gráfica</div>
+      <div class="child-sub">Proparoxítonas: TODAS · Paroxítonas: exceto -a(s),-e(s),-o(s),-em,-ens · Oxítonas: a(s),e(s),o(s),em,ens + ditongos abertos</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">🚨 Hiato: acentua i/u tônicos em sílaba sozinha ou seguidos de S — Ex.: saída, baú</div></div>
+      <div class="leaf-node"><div class="leaf-title">Exceções hiato: rainha (nh), Saara (letra repetida), feiura (u após ditongo)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Proparoxítonas aparentes: ditongos crescentes — história, série (= paroxítonas)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Dói = monossílabo tônico · Herói = oxítona com ditongo aberto</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Acentos Diferenciais (restantes após AO 2009)</div>
+      <div class="child-sub">Apenas 4 casos obrigatórios sobreviveram ao novo acordo</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Pôde (pretérito) × Pode (presente)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Pôr (verbo) × Por (preposição)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Vêm/Têm (plural) × Vem/Tem (singular)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Fôrma (objeto) × Forma (verbo) — facultativo!</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Hífen com Prefixos (AO 2009)</div>
+      <div class="child-sub">"Os diferentes se atraem" → sem hífen · "Os iguais se repelem" → COM hífen</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">✅ COM hífen: prefixo + H (anti-higiênico), prefixo BEM + vogal (bem-estar), prefixo + mesma vogal (micro-organismo)</div></div>
+      <div class="leaf-node"><div class="leaf-title">❌ SEM hífen: vogais diferentes (autoescola), R/S dupla após vogal (antirrugas, antissocial)</div></div>
+      <div class="leaf-node"><div class="leaf-title">⚠️ Após NÃO e QUASE: sem hífen ("não fumante") — a menos que forme nova palavra</div></div>
+      <div class="leaf-node"><div class="leaf-title">Trema: ABOLIDO (exceto nomes próprios estrangeiros e derivados)</div></div>
+    </div>
+  </div>
+
+  <!-- ③ MORFOLOGIA / CLASSES DE PALAVRAS -->
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">🏷️ MORFOLOGIA — CLASSES DE PALAVRAS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Pronomes · Advérbios · Verbos · Artigo · Numeral</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 8–17</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('morfologia')">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronomes Demonstrativos</div>
+      <div class="child-sub">Posição no tempo/espaço/texto do referente</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">ESTE/ESTA: tempo presente · espaço próximo ao falante · texto: o que vem depois</div></div>
+      <div class="leaf-node"><div class="leaf-title">ESSE/ESSA: tempo passado recente · espaço próximo ao ouvinte · texto: o que foi dito</div></div>
+      <div class="leaf-node"><div class="leaf-title">AQUELE/AQUELA: passado/futuro distante · espaço distante · texto: antecedente mais distante</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronomes Indefinidos — Certo/Bastante</div>
+      <div class="child-sub">🚨 Pegadinha clássica de prova!</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CERTO/BASTANTE antes do substantivo = pronome indefinido (variável)</div></div>
+      <div class="leaf-node"><div class="leaf-title">CERTO/BASTANTE depois do substantivo = adjetivo (variável)</div></div>
+      <div class="leaf-node"><div class="leaf-title">BASTANTE como advérbio (modifica verbo/adjetivo) = invariável</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex.: "temos bastantes alunos" (pron.) × "trabalhamos bastante" (adv.)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Advérbios — Valor Semântico</div>
+      <div class="child-sub">Classe invariável (salvo TODO: "todo sujo" / "toda limpa")</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Causa: de fome · Modo: fuzilado · Lugar: na cadeia · Companhia: com sócios</div></div>
+      <div class="leaf-node"><div class="leaf-title">Intensidade: demais · Frequência: sempre · Tempo: hoje · Meio: fraudulentamente</div></div>
+      <div class="leaf-node"><div class="leaf-title">Adjetivo ADVERBIALIZADO: aparece invariável modificando VERBO — "ele fala grosso"</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronomes de Tratamento</div>
+      <div class="child-sub">Concordância sempre na 3ª pessoa</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Vossa Excelência: presidentes, governadores, ministros, parlamentares, magistrados</div></div>
+      <div class="leaf-node"><div class="leaf-title">Vossa Senhoria: autoridades em geral, oficiais militares</div></div>
+      <div class="leaf-node"><div class="leaf-title">Vossa Reverendíssima: sacerdotes · Vossa Eminência: cardeais</div></div>
+      <div class="leaf-node"><div class="leaf-title">🔑 Sempre 3ª pessoa: "Vossa Excelência FOI" (não "fostes")</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Verbos — Aspectos Gerais</div>
+      <div class="child-sub">Radical + Vogal Temática + DMT + DNP</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Conjugações: 1ª -ar · 2ª -er · 3ª -ir (ordem alfabética!)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Modos: Indicativo (certeza) · Subjuntivo (dúvida/desejo) · Imperativo (ordem)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Locução verbal: auxiliar (flexionado) + principal (infinitivo/gerúndio/particípio)</div></div>
+    </div>
+  </div>
+
+  <!-- ④ SINTAXE -->
+  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
+    <div class="root-title">📐 SINTAXE — FUNÇÕES SINTÁTICAS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Sujeito · Transitividade · Concordância · Regência</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 29–35 (Sintaxe) · 40–44 (Sujeito)</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('sintaxe')">🖼️ Sintaxe no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('sujeito')">🖼️ Sujeito no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Tipos de Sujeito</div>
+      <div class="child-sub">Determinado (simples ou composto) · Oculto (desinencial) · Indeterminado · Inexistente</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Sujeito indeterminado: verbo 3ª plural SEM sujeito identificável</div></div>
+      <div class="leaf-node"><div class="leaf-title">Índice de indeterminação: VTI/VI + SE + verbo singular — "Precisa-se de gerentes"</div></div>
+      <div class="leaf-node"><div class="leaf-title">Sujeito inexistente: verbos impessoais — HAVER (existir), FAZER (tempo), CHOVER</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 Sujeito oracional → verbo principal no SINGULAR: "É importante que você estude"</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Transitividade Verbal</div>
+      <div class="child-sub">VTD (sem prep) · VTI (com prep) · VTDI · VI · VL</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">VTD + objeto direto: "O candidato fez a prova"</div></div>
+      <div class="leaf-node"><div class="leaf-title">VTI + objeto indireto: "O candidato duvidou do gabarito"</div></div>
+      <div class="leaf-node"><div class="leaf-title">VL + predicativo: "O candidato estava tranquilo" — verbos SER, ESTAR, FICAR, PARECER</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 "Fui à praia" = VI + adjunto adverbial (NÃO objeto indireto)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronome SE — Funções</div>
+      <div class="child-sub">Apassivador × Índice de indeterminação × Reflexivo</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">SE APASSIVADOR: VTD + SE + sujeito paciente → CONCORDA com sujeito: "Vendem-se casas"</div></div>
+      <div class="leaf-node"><div class="leaf-title">SE INDETERMINADOR: VTI/VI/VL + SE → sempre SINGULAR: "Precisa-se de ajudantes"</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 Teste: vira passiva analítica? SIM → apassivador · NÃO → indeterminador</div></div>
+    </div>
+  </div>
+
+  <!-- ⑤ PONTUAÇÃO -->
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">✏️ PONTUAÇÃO — USO DA VÍRGULA <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Vírgula é marcador de funções sintáticas — NÃO é pausa!</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 36–39</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('pontuacao')">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">✅ Vírgula Obrigatória</div>
+      <div class="child-sub">5 usos principais que caem em prova</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">1. Adjunto adverbial DESLOCADO (antepostos e intercalados)</div></div>
+      <div class="leaf-node"><div class="leaf-title">2. Orações interferentes / parentéticas (interrompem o período)</div></div>
+      <div class="leaf-node"><div class="leaf-title">3. Aposto explicativo: "Ares, o deus da guerra, inspirava os troianos"</div></div>
+      <div class="leaf-node"><div class="leaf-title">4. Vocativo: "Felipe, seja mais gentil"</div></div>
+      <div class="leaf-node"><div class="leaf-title">5. Enumeração de termos de mesma função sintática</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">❌ Vírgula Proibida</div>
+      <div class="child-sub">Vírgulas que NUNCA devem aparecer</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">❌ Entre SUJEITO e VERBO: "O banco, aprovou o crédito" — ERRADO</div></div>
+      <div class="leaf-node"><div class="leaf-title">❌ Entre VERBO e OBJETO: "O banco aprovou, o crédito" — ERRADO</div></div>
+      <div class="leaf-node"><div class="leaf-title">⚠️ Adjunto adverbial curto ao final: vírgula FACULTATIVA</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Conectivos e Vírgula</div>
+      <div class="child-sub">MAS/PORÉM/TODAVIA/CONTUDO exigem vírgula antes</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Adversativas (mas, porém, todavia, contudo, entretanto): vírgula OBRIGATÓRIA antes</div></div>
+      <div class="leaf-node"><div class="leaf-title">Conclusivas (portanto, logo, pois posposto): vírgula OBRIGATÓRIA antes</div></div>
+      <div class="leaf-node"><div class="leaf-title">E entre sujeitos DIFERENTES: vírgula OBRIGATÓRIA ("Pedro foi, e Maria ficou")</div></div>
+    </div>
+  </div>
+
+  <!-- ⑥ CONCORDÂNCIA -->
+  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
+    <div class="root-title">⚖️ CONCORDÂNCIA <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Verbal e Nominal · Casos particulares · Pegadinhas clássicas</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 45–47</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('concordancia')">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚨 Verbos Impessoais</div>
+      <div class="child-sub">NUNCA pluralizam — erro clássico de toda prova BB</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">HAVER (existir/ocorrer): "Houve erros" ✅ — "Houveram erros" ❌</div></div>
+      <div class="leaf-node"><div class="leaf-title">FAZER (tempo): "Faz dois anos" ✅ — "Fazem dois anos" ❌</div></div>
+      <div class="leaf-node"><div class="leaf-title">O auxiliar herda a impessoalidade: "DEVE haver" ✅ — "devem haver" ❌</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Concordância com SER — Casos Especiais</div>
+      <div class="child-sub">Verbo SER comporta-se de forma especial</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Sujeito indica peso/medida/quantidade (pouco/muito/bastante/suficiente/tanto): SER singular — "Três mil reais É pouco"</div></div>
+      <div class="leaf-node"><div class="leaf-title">Entre dois núcleos: segue ordem de preferência: pronome pessoal > subst. próprio > subst. concreto</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex.: "Tu és Maria" · "As terras são a riqueza" · "Emoções são tudo"</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronome Apassivador SE — Concordância</div>
+      <div class="child-sub">VTD + SE + sujeito paciente</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">"Enviaram-se ao gerente pedidos de aumento" → pedidos = sujeito → plural</div></div>
+      <div class="leaf-node"><div class="leaf-title">"Deve-se alugar a casa" (singular) × "Devem-se alugar as casas" (plural)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Concordância com Infinitivo</div>
+      <div class="child-sub">Flexionar ou não? Regra prática</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Impessoal (não flexiona): valor substantivo ("Estudar é importante"), valor geral, após causativo/sensitivo + pronome oblíquo</div></div>
+      <div class="leaf-node"><div class="leaf-title">Pessoal (flexiona): sujeito explícito diferente + para enfatizar o agente: "Ouvi chamarem você"</div></div>
+    </div>
+  </div>
+
+  <!-- ⑦ REGÊNCIA -->
+  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
+    <div class="root-title">🔧 REGÊNCIA VERBAL E NOMINAL <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Verbos que mais caem na Cesgranrio BB</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 48–51</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('regencia')">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Verbos de Dupla Regência (pegadinha)</div>
+      <div class="child-sub">Mudam de sentido conforme a preposição</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">ASSISTIR: VTD = dar assistência ("o médico assistiu o paciente") · VTI (a) = ver/presenciar/competir ("assistiu ao jogo")</div></div>
+      <div class="leaf-node"><div class="leaf-title">ASSISTIR (em) = morar: "Seu tio assistia em um sítio"</div></div>
+      <div class="leaf-node"><div class="leaf-title">AGRADAR: VTD = fazer agrado ("ela agradou o filho") · VTI (a) = ser agradável ("não agradou ao homem")</div></div>
+      <div class="leaf-node"><div class="leaf-title">AJUDAR/SATISFAZER/PRESIDIR/PRECEDER: VTD ou VTI (a) com mesmo sentido</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Verbos VTD mais cobrados</div>
+      <div class="child-sub">NÃO exigem preposição</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">AMAR, ESTIMAR, ABENÇOAR, LOUVAR, DETESTAR, ODIAR, ADORAR, VISITAR</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex.: "Amo minha mãe" · "Visitei o monumento" (sem preposição!)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Regência Nominal — Nomes importantes</div>
+      <div class="child-sub">Substantivos e adjetivos com regência própria</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">ACESSÍVEL A · APTO A/PARA · ANSIOSO POR/PARA · FAVORÁVEL A</div></div>
+      <div class="leaf-node"><div class="leaf-title">COMPATÍVEL COM · PASSÍVEL DE · CAPAZ DE · HÁBIL EM</div></div>
+      <div class="leaf-node"><div class="leaf-title">PREFERÊNCIA POR (não "com"!) · RESPEITO A/POR · ATENTADO A/CONTRA</div></div>
+    </div>
+  </div>
+
+  <!-- ⑧ CRASE -->
+  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
+    <div class="root-title">À CRASE <span class="chevron">▶</span></div>
+    <div class="root-subtitle">a (prep) + a (artigo fem.) = à · Obrigatória · Proibida · Facultativa</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 52–53</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('crase')">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">✅ Crase Obrigatória</div>
+      <div class="child-sub">Quando preposição A + artigo A se fundem</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Verbo/nome VTI que exige A + substantivo feminino: "Obedeço à lei" · "Tenho aversão à luz"</div></div>
+      <div class="leaf-node"><div class="leaf-title">ÀQUELE/ÀQUELA/ÀQUILO: sempre com crase (a + aquele)</div></div>
+      <div class="leaf-node"><div class="leaf-title">À QUAL, ÀS QUAIS: "Esta é a casa à qual me refiro"</div></div>
+      <div class="leaf-node"><div class="leaf-title">Locuções femininas: à medida que · às vezes · à vista · à disposição · à beira · à força</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">❌ Crase Proibida</div>
+      <div class="child-sub">Nunca ocorre nestas situações</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Antes de VERBO: "a partir", "a fazer", "a estudar" — sem crase</div></div>
+      <div class="leaf-node"><div class="leaf-title">Antes de substantivo MASCULINO: "a prazo", "a crédito"</div></div>
+      <div class="leaf-node"><div class="leaf-title">Antes de PRONOME: ela, você, mim, alguém, essa, esta — sem crase</div></div>
+      <div class="leaf-node"><div class="leaf-title">Artigo indefinido: "a uma cliente" (sem crase)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">⚠️ Crase Facultativa</div>
+      <div class="child-sub">3 casos em que é opcional</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">1. Antes de nome próprio feminino: "Refiro-me a/à Maria"</div></div>
+      <div class="leaf-node"><div class="leaf-title">2. Antes de pronome possessivo feminino: "Refiro-me a/à minha amiga" — MAS "às minhas amigas" = obrigatória!</div></div>
+      <div class="leaf-node"><div class="leaf-title">3. Após preposição ATÉ: "foi até a/à agência"</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 Pessoa famosa: geralmente SEM crase (salvo com especificador)</div></div>
+    </div>
+  </div>
+
+  <!-- ⑨ COESÃO / CONECTIVOS -->
+  <div class="root-node" style="--node-color:#30c0d0;" onclick="toggle(this)">
+    <div class="root-title">🔗 COESÃO — CONECTIVOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Relações lógicas entre orações · Valor semântico</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Conectivos por Valor Semântico</div>
+      <div class="child-sub">Identificar a relação lógica é a chave da questão</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CAUSA: porque, pois, já que, uma vez que, visto que, como (início de período)</div></div>
+      <div class="leaf-node"><div class="leaf-title">CONSEQUÊNCIA: portanto, logo, assim, por isso, por conseguinte, tanto que</div></div>
+      <div class="leaf-node"><div class="leaf-title">CONCESSÃO: embora, ainda que, mesmo que, por mais que, apesar de</div></div>
+      <div class="leaf-node"><div class="leaf-title">CONDIÇÃO: se, caso, desde que, contanto que, a menos que</div></div>
+      <div class="leaf-node"><div class="leaf-title">ADIÇÃO: e, nem, ademais, além disso, também, outrossim</div></div>
+      <div class="leaf-node"><div class="leaf-title">ADVERSIDADE: mas, porém, todavia, contudo, entretanto, no entanto</div></div>
+      <div class="leaf-node"><div class="leaf-title">PROPORÇÃO: à medida que, à proporção que, quanto mais...mais</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚨 COMO — Duplo Valor</div>
+      <div class="child-sub">Pegadinha frequente em Cesgranrio</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">COMO no INÍCIO do período + oração principal depois = CAUSAL (= já que)</div></div>
+      <div class="leaf-node"><div class="leaf-title">COMO no MEIO do período = conformidade/comparação</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex.: "Como a ideia não pegou, Barbier adaptou o método" = CAUSAL</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Palavras Denotativas</div>
+      <div class="child-sub">Expressam sentido peculiar — não são conjunções!</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Designação (Eis) · Explicação (Isto é, ou seja) · Realce (É que, lá, mas)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Retificação (Aliás) · Situação (Então, mas) · Exclusão (Apesar) · Inclusão (Até, ainda)</div></div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> Interpretação ↔ Coesão/Conectivos · Concordância ↔ Sujeito (pronome SE) · Regência ↔ Crase (verbos que pedem A) · Ortografia (AO 2009) ↔ Hífen com prefixos
+</div>
+
+<!-- GUIA DE CONFIGURAÇÃO DO GOOGLE DRIVE -->
+<div style="background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.2);border-radius:10px;padding:16px;margin-top:14px;">
+  <div style="font-family:monospace;font-size:9px;letter-spacing:3px;color:#4a90d9;margin-bottom:10px;">⚙️ CONFIGURAR IMAGENS — SEM API KEY (2 passos rápidos)</div>
+  <div style="font-size:11px;color:#8090a0;line-height:2.1;">
+    <b style="color:#c0d0e0;">Passo 1 — Upload</b><br>
+    &nbsp;· Extraia <code>mapas_portugues_drive.zip</code> e suba a pasta <code>pt_drive/</code> no Google Drive<br>
+    &nbsp;· Compartilhe a pasta: botão direito → <b>Compartilhar</b> → <b>"Qualquer pessoa com o link pode ver"</b><br><br>
+    <b style="color:#c0d0e0;">Passo 2 — Extrair IDs pelo console do browser (30 segundos)</b><br>
+    &nbsp;· Abra a pasta no Google Drive no browser (mude para visualização em <b>Lista</b>)<br>
+    &nbsp;· Pressione <kbd style="background:rgba(255,255,255,0.1);padding:1px 5px;border-radius:3px;">F12</kbd> → aba <b>Console</b><br>
+    &nbsp;· Cole o conteúdo do arquivo <code>extrair_ids_console.js</code> e pressione <kbd style="background:rgba(255,255,255,0.1);padding:1px 5px;border-radius:3px;">Enter</kbd><br>
+    &nbsp;· Copie o resultado exibido (<code>const ARQUIVOS_DRIVE = { ... }</code>)<br>
+    &nbsp;· Cole no <code>mapas_mentais.html</code> substituindo o <code>ARQUIVOS_DRIVE = {}</code> vazio<br>
+    &nbsp;· Faça upload do HTML atualizado no GitHub Pages ✅
+  </div>
+  <div style="margin-top:10px;font-size:10px;color:#506070;line-height:1.7;">
+    💡 Sem API key, sem login extra. O script roda no seu browser onde você já está autenticado no Drive e extrai os IDs automaticamente. As imagens ficam no seu Drive — nada é publicado no GitHub.
+  </div>
+</div>
+</div>
+
+<!-- ═══ RACIOCÍNIO LÓGICO ═══ -->
+<div class="map-wrap" id="map-logica">
+<div class="mind-map">
+
+  <!-- ① LÓGICA PROPOSICIONAL -->
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">🔷 LÓGICA PROPOSICIONAL <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Proposições · Conectivos · Tabela-verdade · Equivalências · Negações</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 RLM - Todos os Mapas.pdf · págs. 7–14</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('logica')">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Proposição — Conceito</div>
+      <div class="child-sub">Oração declarativa que pode ser V ou F — nunca ambos (princípio do terceiro excluído)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">🚨 NÃO são proposições: exclamativas, interrogativas, imperativas, optativas</div></div>
+      <div class="leaf-node"><div class="leaf-title">Sentença aberta (x + 5 = 10) e paradoxos NÃO são proposições</div></div>
+      <div class="leaf-node"><div class="leaf-title">Simples: sem conectivos · Composta: construída com conectivos lógicos</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Conectivos e Tabelas-Verdade</div>
+      <div class="child-sub">5 conectivos fundamentais com tabelas completas</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CONJUNÇÃO (∧ = E): V∧V=V; qualquer F → F</div></div>
+      <div class="leaf-node"><div class="leaf-title">DISJUNÇÃO INCLUSIVA (∨ = OU): F∨F=F; qualquer V → V</div></div>
+      <div class="leaf-node"><div class="leaf-title">DISJUNÇÃO EXCLUSIVA (⊻): verdadeiro quando exatamente um é V</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 CONDICIONAL (→ = SE...ENTÃO): FALSA apenas quando P=V e Q=F</div></div>
+      <div class="leaf-node"><div class="leaf-title">BICONDICIONAL (↔ = SE E SOMENTE SE): V quando P e Q têm mesmo valor</div></div>
+      <div class="leaf-node"><div class="leaf-title">Sinônimos de P→Q: "P logo Q" · "Sempre que P, Q" · "P somente quando Q"</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Equivalências do Condicional</div>
+      <div class="child-sub">P→Q tem 3 equivalências clássicas que mais caem em prova</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Contrapositiva: P→Q ≡ ¬Q→¬P (inverter E negar ambas)</div></div>
+      <div class="leaf-node"><div class="leaf-title">P→Q ≡ ¬P∨Q (disjunção)</div></div>
+      <div class="leaf-node"><div class="leaf-title">¬(P→Q) ≡ P∧¬Q (negação da condicional = P aconteceu mas Q não)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Condição SUFICIENTE: P para Q (se P, então Q) · Condição NECESSÁRIA: Q para P</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Negações dos Conectivos (De Morgan)</div>
+      <div class="child-sub">🔑 Inverter o sinal e negar ambas as proposições</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">¬(P∧Q) ≡ ¬P∨¬Q · ¬(P∨Q) ≡ ¬P∧¬Q</div></div>
+      <div class="leaf-node"><div class="leaf-title">¬(P→Q) ≡ P∧¬Q · ¬(P↔Q) ≡ P⊻Q</div></div>
+      <div class="leaf-node"><div class="leaf-title">¬(Todo A é B) = Algum A não é B</div></div>
+      <div class="leaf-node"><div class="leaf-title">¬(Nenhum A é B) = Algum A é B</div></div>
+    </div>
+  </div>
+
+  <!-- ② RACIOCÍNIO LÓGICO MATEMÁTICO -->
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">🔢 RACIOCÍNIO LÓGICO-MATEMÁTICO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Regra de Três · Médias · PA/PG · Porcentagem</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 RLM - Todos os Mapas.pdf · págs. 16–17 (Regra/Médias) · 24–28 (PA/PG/Pct)</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('regra3')">🖼️ Regra de Três</button>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('papg')">🖼️ PA/PG</button>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('porcentagem')">🖼️ Porcentagem</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Regra de Três Composta</div>
+      <div class="child-sub">Grandezas diretas (↓↓) e inversas (↓↑) — construir tabela e setas</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Diretamente proporcional: ambas crescem/diminuem juntas → seta para baixo</div></div>
+      <div class="leaf-node"><div class="leaf-title">Inversamente proporcional: uma cresce, outra diminui → seta para cima (inverter)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Equação: incógnita/valor = produto das frações de cada grandeza</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Médias</div>
+      <div class="child-sub">Aritmética · Ponderada · Geométrica · Harmônica</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Aritmética simples: MA = (a₁+a₂+...+aₙ)/n</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ponderada: MP = (a₁p₁+a₂p₂+...)/Σp</div></div>
+      <div class="leaf-node"><div class="leaf-title">Geométrica: MG = ⁿ√(a₁×a₂×...×aₙ)</div></div>
+      <div class="leaf-node"><div class="leaf-title">MA ≥ MG ≥ MH (sempre — para valores positivos)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Progressão Aritmética (PA)</div>
+      <div class="child-sub">Razão constante entre termos consecutivos</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Termo geral: aₙ = a₁ + (n-1).r</div></div>
+      <div class="leaf-node"><div class="leaf-title">Soma: Sₙ = n.(a₁+aₙ)/2</div></div>
+      <div class="leaf-node"><div class="leaf-title">Crescente r>0 · Decrescente r<0 · Constante r=0</div></div>
+      <div class="leaf-node"><div class="leaf-title">Termo do meio = média aritmética dos vizinhos</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Progressão Geométrica (PG)</div>
+      <div class="child-sub">Razão q constante entre termos consecutivos (produto)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Termo geral: aₙ = a₁ . qⁿ⁻¹</div></div>
+      <div class="leaf-node"><div class="leaf-title">Soma: Sₙ = a₁.(qⁿ-1)/(q-1) para q≠1</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ligação com Juros Compostos: montante = C.qⁿ onde q=(1+i)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Análise Combinatória</div>
+      <div class="child-sub">Princípio multiplicativo · Permutação · Arranjo · Combinação</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Permutação simples: P(n) = n! (ordem importa, todos os elementos)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Arranjo: A(n,p) = n!/(n-p)! (ordem importa, p elementos de n)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Combinação: C(n,p) = n!/p!(n-p)! (ordem NÃO importa)</div></div>
+      <div class="leaf-node"><div class="leaf-title">🔑 Palavra-chave GRUPO/CONJUNTO/COMISSÃO → combinação</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Probabilidade</div>
+      <div class="child-sub">P(A) = casos favoráveis / casos totais</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">P(A∪B) = P(A) + P(B) - P(A∩B)</div></div>
+      <div class="leaf-node"><div class="leaf-title">P(complementar Ā) = 1 - P(A)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Mutuamente excludentes: P(A∩B)=0 → P(A∪B)=P(A)+P(B)</div></div>
+      <div class="leaf-node"><div class="leaf-title">0 ≤ P(A) ≤ 1 · P(impossível)=0 · P(certo)=1</div></div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> Lógica Proposicional ↔ Interpretação Português (inferência) · PA/PG ↔ Juros Compostos (MF) · Combinatória ↔ Probabilidade · Regra de 3 ↔ Porcentagem
+  <br><br>
+  <!-- Config Drive RL -->
+  <div style="background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.2);border-radius:8px;padding:12px;margin-top:10px;">
+    <div style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#4a90d9;margin-bottom:8px;">⚙️ IMAGENS RL — CONFIGURAR GOOGLE DRIVE</div>
+    <div style="font-size:10px;color:#8090a0;line-height:1.9;">
+      1. Suba a pasta <code>rl_drive/</code> do ZIP <code>mapas_rl_drive.zip</code> no Google Drive · Compartilhe como "Qualquer pessoa com o link"<br>
+      2. Abra a pasta no browser → F12 → Console → cole <code>extrair_ids_console.js</code> → copie o resultado<br>
+      3. Localize <code>ARQUIVOS_DRIVE_RL</code> neste HTML e cole os IDs
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ MATEMÁTICA FINANCEIRA ═══ -->
+<div class="map-wrap" id="map-matfin">
+<div class="mind-map">
+
+  <!-- ① PORCENTAGEM -->
+  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
+    <div class="root-title">💯 PORCENTAGEM <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Variações · Aumentos e descontos sucessivos · Transformações</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · pág. 5</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 5)">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Variações Percentuais</div>
+      <div class="child-sub">Aumentar p% → multiplicar por (100+p)% · Diminuir p% → multiplicar por (100-p)%</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Ex: Redução 25% em R$400 → 400 × 75% = R$300</div></div>
+      <div class="leaf-node"><div class="leaf-title">Aumento 25% em R$400 → 400 × 125% = R$500</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚨 Variações Sucessivas</div>
+      <div class="child-sub">NUNCA somar taxas — SEMPRE multiplicar os fatores!</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">+20% e -20% ≠ 0% → 1,20 × 0,80 = 0,96 → -4%</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex: +20%, -30%, +40% em R$120 → 1,20 × 0,70 × 1,40 × 120 = R$141,12</div></div>
+      <div class="leaf-node"><div class="leaf-title">Transformar fração em %: fração × 100% (Ex: 5/2 × 100% = 250%)</div></div>
+    </div>
+  </div>
+
+  <!-- ② JUROS SIMPLES -->
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">📈 JUROS SIMPLES <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Js = C.i.n · Não capitalizados · Taxas proporcionais</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · pág. 6</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 6)">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Fórmulas Essenciais</div>
+      <div class="child-sub">Juros: Js = C.i.n · Montante: Ms = C.(1+i.n)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">i sempre em forma fracionária ou decimal: 10% → i=0,10</div></div>
+      <div class="leaf-node"><div class="leaf-title">Juros comerciais: ano=360 dias · Juros exatos: calendário civil</div></div>
+      <div class="leaf-node"><div class="leaf-title">Taxas proporcionais (JS): regra de três — 2% a.m. = 24% a.a.</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Simples × Composto — Comparação</div>
+      <div class="child-sub">n>1: Mc>Ms · n=1: Mc=Ms · n<1: Mc<Ms</div>
+    </div>
+  </div>
+
+  <!-- ③ JUROS COMPOSTOS -->
+  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
+    <div class="root-title">📊 JUROS COMPOSTOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">M = C.(1+i)ⁿ · Taxas equivalentes · Taxa nominal × efetiva</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 7–8</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 7)">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Fórmulas e Período de Capitalização</div>
+      <div class="child-sub">M = C.(1+i)ⁿ · J = C[(1+i)ⁿ - 1]</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Juros sobre juros: cada período incorpora juros ao capital</div></div>
+      <div class="leaf-node"><div class="leaf-title">Período da taxa ≠ período de capitalização → ajustar ANTES do cálculo!</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚨 Taxas Equivalentes (JC) — NUNCA proporção!</div>
+      <div class="child-sub">(1+i_período1)¹ = (1+i_período2)^(Per1/Per2)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Ex: (1+i_anual)¹ = (1+i_trimestral)⁴</div></div>
+      <div class="leaf-node"><div class="leaf-title">1% a.m. composto ≠ 12% a.a. → (1,01)¹² - 1 = 12,68% a.a.</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Taxa Nominal × Taxa Efetiva</div>
+      <div class="child-sub">Nominal: período ≠ capitalização · Efetiva: períodos iguais</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Ex: 24% a.a. com capitalização mensal → taxa mensal = 24%/12 = 2% a.m. (nominal)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Taxa efetiva anual: (1,02)¹² - 1 = 26,82% a.a. ≠ 24%</div></div>
+      <div class="leaf-node"><div class="leaf-title">🔑 NUNCA usar taxa nominal nos cálculos — obter sempre a efetiva!</div></div>
+    </div>
+  </div>
+
+  <!-- ④ DESCONTOS -->
+  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
+    <div class="root-title">🏷️ DESCONTOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Racional (por dentro) × Comercial (por fora) · A = N - D</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 10–12</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 10)">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Conceitos Base</div>
+      <div class="child-sub">N = valor nominal (futuro) · A = valor atual (presente) · D = desconto · A = N - D</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Desconto Comercial (Por Fora)</div>
+      <div class="child-sub">D = N.i.n · aplicado sobre o VALOR NOMINAL (futuro)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Mais comum no mercado bancário brasileiro (boleto, duplicata)</div></div>
+      <div class="leaf-node"><div class="leaf-title">"Desconto bancário" no enunciado → usar desconto comercial simples</div></div>
+      <div class="leaf-node"><div class="leaf-title">Taxa efetiva diferente da taxa de desconto i</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Desconto Racional (Por Dentro)</div>
+      <div class="child-sub">Operação inversa dos juros — Dr = N - C</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">"Desconto composto" no enunciado → usar racional composto</div></div>
+      <div class="leaf-node"><div class="leaf-title">Desconto comercial > racional (para mesmos N, i, n)</div></div>
+    </div>
+  </div>
+
+  <!-- ⑤ SISTEMAS DE AMORTIZAÇÃO -->
+  <div class="root-node" style="--node-color:#d96a9a;" onclick="toggle(this)">
+    <div class="root-title">🏠 SISTEMAS DE AMORTIZAÇÃO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">SAC · Price (Francês) · SAM · Fórmulas completas</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 17–19</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 17)">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">SAC — Sistema de Amortização Constante</div>
+      <div class="child-sub">Amortização constante A = D/n · Prestações DECRESCENTES</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Saldo devedor: SD = D - (n-1).A</div></div>
+      <div class="leaf-node"><div class="leaf-title">Juros de cada parcela: Jₙ = SD.i</div></div>
+      <div class="leaf-node"><div class="leaf-title">Última parcela: J_última = A.i (o último saldo = A)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Juros caem em progressão aritmética de razão r = -i.A</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Price — Sistema Francês</div>
+      <div class="child-sub">Prestações CONSTANTES P = A + J · Amortização cresce, juros caem</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">P = D . aₙ₋ᵢ⁻¹ (fator tabela Price)</div></div>
+      <div class="leaf-node"><div class="leaf-title">aₙ₋ᵢ = [(1+i)ⁿ - 1] / [i.(1+i)ⁿ]</div></div>
+      <div class="leaf-node"><div class="leaf-title">Amortização n-ésima: Aₙ = A₁.(1+i)ⁿ⁻¹</div></div>
+      <div class="leaf-node"><div class="leaf-title">Tabela Price: capitalização na MESMA unidade do nº de parcelas</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">SAM — Sistema de Amortização Misto</div>
+      <div class="child-sub">P_SAM = (P_SAC + P_Price) / 2 (média aritmética)</div>
+    </div>
+  </div>
+
+  <!-- ⑥ VPL E EQUIVALÊNCIA -->
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">💰 VPL · EQUIVALÊNCIA · TIR · ANUIDADES <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Valor Presente Líquido · Equivalência de capitais · Taxa Interna de Retorno</div>
+  </div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 13–16</span>
+      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 13)">🖼️ Ver original no Drive</button>
+    </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">VPL — Valor Presente Líquido</div>
+      <div class="child-sub">VPL = V₁/(1+j)^t₁ + V₂/(1+j)^t₂ + ... − Investimento inicial</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">VPL > 0: projeto VIÁVEL · VPL = 0: indiferente · VPL < 0: inviável</div></div>
+      <div class="leaf-node"><div class="leaf-title">Usar TMA (Taxa Mínima de Atratividade) para trazer os fluxos</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Equivalência de Capitais</div>
+      <div class="child-sub">Dois capitais equivalentes quando, a uma mesma taxa, têm o mesmo valor presente</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Levar TODOS os fluxos para a mesma DATA FOCAL e igualar</div></div>
+      <div class="leaf-node"><div class="leaf-title">Pagar antecipado: desconto (dividir) · Pagar postergado: capitalizar (multiplicar)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">TIR — Taxa Interna de Retorno</div>
+      <div class="child-sub">Taxa que torna VPL = 0 · TIR > TMA → projeto viável</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Anuidades (Rendas Uniformes)</div>
+      <div class="child-sub">Série de pagamentos iguais · PMT · Postecipadas vs. Antecipadas</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Postecipada (ordinária): pagamento no FIM do período</div></div>
+      <div class="leaf-node"><div class="leaf-title">Antecipada (due): pagamento no INÍCIO — VP_antecipada = VP_postecipada × (1+i)</div></div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> Juros Compostos ↔ CDB/LCI/LCA (Bancário) · SAC/Price ↔ Crédito Imobiliário (CEF) · PG ↔ Montante composto (RL) · VPL ↔ Análise de Investimentos
+  <br><br>
+  <!-- Config Drive MF -->
+  <div style="background:rgba(200,153,42,0.07);border:1px solid rgba(200,153,42,0.2);border-radius:8px;padding:12px;margin-top:10px;">
+    <div style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#c8992a;margin-bottom:8px;">⚙️ IMAGENS MAT. FINANCEIRA — CONFIGURAR GOOGLE DRIVE</div>
+    <div style="font-size:10px;color:#8090a0;line-height:1.9;">
+      1. Suba a pasta <code>mf_drive/</code> do ZIP <code>mapas_matfin_drive.zip</code> no Google Drive · Compartilhe como "Qualquer pessoa com o link"<br>
+      2. Abra a pasta no browser → F12 → Console → cole <code>extrair_ids_console.js</code> → copie o resultado<br>
+      3. Localize <code>ARQUIVOS_DRIVE_MF</code> neste HTML e cole os IDs
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ CONSTITUCIONAL ═══ -->
+<div class="map-wrap" id="map-constitucional">
+<div class="mind-map">
+
+  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
+    <div class="root-title">⚖️ DIREITOS FUNDAMENTAIS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Dimensões · Remédios constitucionais · Aplicação</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Dimensões dos Direitos</div>
+      <div class="child-sub">1ª: civis/políticos (liberdades) · 2ª: sociais/econômicos · 3ª: solidariedade</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Remédios Constitucionais</div>
+      <div class="child-sub">HC · MS · HD · MI · AP</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">HC: liberdade de locomoção</div></div>
+      <div class="leaf-node"><div class="leaf-title">MS: direito líquido e certo não amparado por HC/HD</div></div>
+      <div class="leaf-node"><div class="leaf-title">HD: dados pessoais (bancos de dados públicos)</div></div>
+      <div class="leaf-node"><div class="leaf-title">MI: omissão legislativa que inviabilize direito constitucional</div></div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
+    <div class="root-title">🏛️ ORGANIZAÇÃO DO ESTADO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Federalismo · Competências · Processo Legislativo</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Repartição de Competências</div>
+      <div class="child-sub">Privativa União · Concorrente U+E+DF · Comum U+E+DF+M · Municipal</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Privativa União: civil, penal, trabalho, processual</div></div>
+      <div class="leaf-node"><div class="leaf-title">Concorrente: tributário, financeiro, urbanístico</div></div>
+      <div class="leaf-node"><div class="leaf-title">Comum: saúde, educação, meio ambiente</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Processo Legislativo</div>
+      <div class="child-sub">LO: maioria simples · LC: maioria absoluta · PEC: 3/5 em 2 turnos</div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">🔍 CONTROLE DE CONSTITUCIONALIDADE <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Difuso · Concentrado · Efeitos</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Ações Diretas (STF)</div>
+      <div class="child-sub">ADI · ADC · ADPF · ADO</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Efeito vinculante: Judiciário + Administração (NÃO Legislativo)</div></div>
+      <div class="leaf-node"><div class="leaf-title">ADPF: atos pré-constitucionais e municipais (subsidiária)</div></div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> Direitos Fundamentais ↔ Seguridade Social (INSS) · Competências ↔ Federalismo Fiscal (tributário) · Processo Legislativo ↔ Atos Administrativos · HC ↔ Prisão em Flagrante (PRF)
+</div>
+</div>
+
+<!-- ═══ ADMINISTRATIVO ═══ -->
+<div class="map-wrap" id="map-administrativo">
+<div class="mind-map">
+
+  <div class="root-node" style="--node-color:#30c0d0;" onclick="toggle(this)">
+    <div class="root-title">📋 ATOS ADMINISTRATIVOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Elementos COFIM · Vinculado vs. Discricionário · Anulação/Revogação</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Elementos (COFIM)</div>
+      <div class="child-sub">Competência · Objeto · Forma · (finalidade) Interesse Público · Motivo</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Extinção dos Atos</div>
+      <div class="child-sub">Anulação: vício legal · Revogação: conveniência/oportunidade</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Judiciário NUNCA revoga — só anula</div></div>
+      <div class="leaf-node"><div class="leaf-title">Administração pode anular E revogar</div></div>
+      <div class="leaf-node"><div class="leaf-title">Decadência: 5 anos para anular ato favorável (boa-fé)</div></div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">🏗️ LICITAÇÃO (Lei 14.133/2021) <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Modalidades · Dispensa · Inexigibilidade · Fases</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Modalidades</div>
+      <div class="child-sub">Pregão · Concorrência · Concurso · Leilão · Diálogo Competitivo</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Pregão: bens/serviços comuns, sempre menor preço</div></div>
+      <div class="leaf-node"><div class="leaf-title">Concorrência: obras e serviços especializados</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Dispensa vs. Inexigibilidade</div>
+      <div class="child-sub">Dispensa: rol taxativo · Inexigibilidade: rol exemplificativo</div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
+    <div class="root-title">👷 SERVIDORES (Lei 8.112/90) <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Prazos · PAD · Estabilidade · Responsabilidade</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Prazos-Chave</div>
+      <div class="child-sub">30d (posse) · 15d (exercício) · 3 anos (estágio probatório)</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Processo Administrativo Disciplinar</div>
+      <div class="child-sub">3 membros estáveis · Fases: instauração→instrução→indiciamento→defesa→relatório→julgamento</div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> Servidores ↔ Gestão de Pessoas (BB) · Licitação ↔ SINAPI/BDI (Engenharia) · Princípios LIMPE ↔ Ética Bancária · Atos Administrativos ↔ Controle de Constitucionalidade
+</div>
+</div>
+
+<!-- ═══ BANCÁRIO ═══ -->
+<div class="map-wrap" id="map-bancario">
+<div class="mind-map">
+
+  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
+    <div class="root-title">🏦 SISTEMA FINANCEIRO NACIONAL <span class="chevron">▶</span></div>
+    <div class="root-subtitle">CMN · BACEN · CVM · SUSEP · Estrutura</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Órgãos Normativos</div>
+      <div class="child-sub">CMN (3 membros) → BACEN (executa) → IFs (operam)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CMN: Fazenda + Planejamento + BACEN</div></div>
+      <div class="leaf-node"><div class="leaf-title">CVM: mercado de capitais</div></div>
+      <div class="leaf-node"><div class="leaf-title">SUSEP: seguros, PGBL/VGBL, capitalização</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Política Monetária — 3 Instrumentos</div>
+      <div class="child-sub">Open market (principal) · Compulsório · Redesconto</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Selic META: COPOM (a cada 45 dias)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Selic OVER: média das operações overnight</div></div>
+      <div class="leaf-node"><div class="leaf-title">Compulsório ↑ = contrai crédito</div></div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">💳 PRODUTOS E OPERAÇÕES <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Crédito · Investimentos · Câmbio · Títulos</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Tributação de Investimentos</div>
+      <div class="child-sub">Isentos IR PF: Poupança · LCI · LCA · CRI · CRA · FII (rendimentos)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CDB: tabela regressiva 22,5%→15%</div></div>
+      <div class="leaf-node"><div class="leaf-title">Fundos: come-cotas em maio e novembro</div></div>
+      <div class="leaf-node"><div class="leaf-title">ETF: sem come-cotas, IR 15% no resgate</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Títulos de Crédito</div>
+      <div class="child-sub">Cheque · Duplicata · Nota Promissória · Letra de Câmbio</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Cheque: 30d (mesma praça) / 60d (outra) / prescrição 6 meses</div></div>
+      <div class="leaf-node"><div class="leaf-title">Duplicata: CREDOR saca (causal)</div></div>
+      <div class="leaf-node"><div class="leaf-title">NP: DEVEDOR promete (não causal)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Câmbio</div>
+      <div class="child-sub">Exportador vende dólar (taxa COMPRA) · Importador compra dólar (taxa VENDA)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">ACC: antes do embarque (capital de giro para produzir)</div></div>
+      <div class="leaf-node"><div class="leaf-title">ACE: após o embarque (antecipa o recebimento)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Hedge exportador: vende futuro de dólar</div></div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
+    <div class="root-title">🛡️ BASILEIA III E RISCO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Capital · Liquidez · Risco Operacional · PLD-FT</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Requisitos de Capital</div>
+      <div class="child-sub">CET1 ≥4,5% · Tier1 ≥6% · Total ≥8% (Brasil: 11%) · Buffer: +2,5%</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Lavagem de Dinheiro — 3 Fases</div>
+      <div class="child-sub">Colocação → Ocultação → Integração</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">LGPD + Open Finance</div>
+      <div class="child-sub">Consentimento 12 meses · Revogável em 1h · 4 fases do Open Finance</div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">📈 VENDAS, MARKETING E GESTÃO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">SPIN · 7Ps · CRM · Liderança · Motivação</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Técnicas de Vendas</div>
+      <div class="child-sub">SPIN: Situação-Problema-Implicação-Necessidade · Funil · Cross-sell · Up-sell</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Motivação e Liderança</div>
+      <div class="child-sub">Maslow · Herzberg (2 fatores) · McClelland (nAch/nPow/nAff) · Situacional</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Higiênicos: evitam insatisfação (salário, condições)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Motivacionais: geram satisfação (realização, crescimento)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Situacional: adapta estilo ao nível de maturidade do liderado</div></div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> Política Monetária ↔ Juros Compostos (matemática) · Títulos de Crédito ↔ Direito Civil · Lavagem de Dinheiro ↔ Ética e Compliance · Basileia ↔ Análise de Risco de Crédito
+</div>
+</div>
+
+<!-- ═══ PRF ═══ -->
+<div class="map-wrap" id="map-prf">
+<div class="mind-map">
+
+  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
+    <div class="root-title">🚗 CTB — CÓDIGO DE TRÂNSITO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Infrações · Crimes · CNH · Velocidade · Álcool</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Embriaguez ao Volante</div>
+      <div class="child-sub">≥6 dg/L ou ≥0,3 mg/L (ar) = CRIME · Art. 306 CTB</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Pena: detenção 6 meses a 3 anos + multa + suspensão CNH</div></div>
+      <div class="leaf-node"><div class="leaf-title">Recusa ao bafômetro: infração gravíssima + art. 165-A</div></div>
+      <div class="leaf-node"><div class="leaf-title">Com acidente: pena maior (Lei 13.546/2017)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Crimes de Trânsito</div>
+      <div class="child-sub">Homicídio culposo: detenção 2-4a · Lesão corporal: detenção 6m-2a</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">CNH e Pontuação</div>
+      <div class="child-sub">Suspensão: 20 pts/12 meses · Profissional: 40 pts</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Leve=3pts, Média=4pts, Grave=5pts, Gravíssima=7pts</div></div>
+      <div class="leaf-node"><div class="leaf-title">A=moto, B=carro, C=caminhão, D=ônibus, E=carreta</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Velocidades Máximas (sem sinalização)</div>
+      <div class="child-sub">Pista dupla: 110 km/h · Pista simples: 100 km/h</div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">⚖️ PROCESSO PENAL <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Flagrante · Busca e Apreensão · Lei de Drogas</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Prisão em Flagrante (CPP art. 302)</div>
+      <div class="child-sub">Próprio · Impróprio · Presumido</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Próprio: está cometendo OU acabou de cometer</div></div>
+      <div class="leaf-node"><div class="leaf-title">Impróprio: perseguido logo após</div></div>
+      <div class="leaf-node"><div class="leaf-title">Presumido: encontrado logo depois com instrumentos do crime</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Lei 11.343/2006 — Drogas</div>
+      <div class="child-sub">Art. 28 (usuário): sem prisão · Art. 33 (tráfico): 5-15 anos</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Distinção usuário/traficante: circunstâncias (sem quantidade mínima)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Tráfico privilegiado (§4º): redução 1/6-2/3 (não hediondo — STF)</div></div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> CTB ↔ Direito Penal (crimes de trânsito) · Flagrante ↔ Direitos Fundamentais (HC) · Lei de Drogas ↔ Lavagem de Dinheiro (crime antecedente) · Busca e Apreensão ↔ Inviolabilidade Domiciliar (CF art. 5º XI)
+</div>
+</div>
+
+<!-- ═══ INSS ═══ -->
+<div class="map-wrap" id="map-inss">
+<div class="mind-map">
+
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">🏥 PREVIDÊNCIA SOCIAL — RGPS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Benefícios · Carências · EC 103/2019 · Segurados</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Carências</div>
+      <div class="child-sub">SEM carência · 12 contribuições · 180 contribuições</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">SEM carência: pensão por morte, salário-maternidade (empregada), acidente</div></div>
+      <div class="leaf-node"><div class="leaf-title">12 contribuições: auxílio por incapacidade por doença</div></div>
+      <div class="leaf-node"><div class="leaf-title">180 contribuições: aposentadoria programada</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Aposentadoria (EC 103/2019)</div>
+      <div class="child-sub">65H/62M + 20H/15M anos contribuição · Alíquota: 60% + 2%/ano</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pensão por Morte (EC 103/2019)</div>
+      <div class="child-sub">Tabela de duração por idade do cônjuge: ≥44 anos = vitalícia</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Benefícios em Espécie</div>
+      <div class="child-sub">Salário-maternidade · Auxílio-acidente · Salário-família</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Salário-maternidade: 120 dias (Empresa Cidadã: 180)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Auxílio-acidente: 50% SB + pago junto com salário</div></div>
+      <div class="leaf-node"><div class="leaf-title">Segurado especial: 1,3% sobre comercialização</div></div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
+    <div class="root-title">💰 CUSTEIO DA PREVIDÊNCIA <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Contribuições · Salário de Benefício · Período de Graça</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Contribuições</div>
+      <div class="child-sub">Empresa: 20% sobre folha + RAT (1-3%) · Empregado: tabela (7,5-14%)</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Período de Graça</div>
+      <div class="child-sub">12 meses (regra geral) · 24 meses (desemprego involuntário ou +120 contrib.)</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Salário de Benefício (pós-EC 103)</div>
+      <div class="child-sub">Média de 100% das contribuições desde 07/1994 · Teto: R$ 7.786,02 (2024)</div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> EC 103/2019 ↔ Direito Constitucional (art. 201 CF) · Segurado Especial ↔ Crédito Rural/PRONAF (BB) · Previdência Complementar ↔ PGBL/VGBL (SUSEP) · Custeio ↔ Seguridade Social (CF art. 194)
+</div>
+</div>
+
+<!-- ═══ ENGENHARIA ═══ -->
+<div class="map-wrap" id="map-engenharia">
+<div class="mind-map">
+
+  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
+    <div class="root-title">🏗️ RESISTÊNCIA DOS MATERIAIS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Tensão · Lei de Hooke · Momento Fletor · Deflexão</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Tensão e Deformação</div>
+      <div class="child-sub">σ = F/A · δ = FL/(EA) · I = bh³/12</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Momento Fletor em Vigas</div>
+      <div class="child-sub">Biapoiada P central: M = PL/4 · q distribuída: M = qL²/8</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Deflexão biapoiada P central: δ = PL³/48EI</div></div>
+      <div class="leaf-node"><div class="leaf-title">Deflexão biapoiada q: δ = 5qL⁴/384EI</div></div>
+      <div class="leaf-node"><div class="leaf-title">Viga em balanço P: δ = PL³/3EI</div></div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">🌍 MECÂNICA DOS SOLOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Índices físicos · Atterberg · Compactação · Permeabilidade</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Índices Físicos</div>
+      <div class="child-sub">e = Vv/Vs · n = Vv/Vt · n = e/(1+e) · GC = γd_campo/γd_máx</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Limites de Atterberg</div>
+      <div class="child-sub">LP (sólido→plástico) · LL (plástico→líquido) · IP = LL-LP</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Fundações</div>
+      <div class="child-sub">Rasas (<2×b) · Profundas (>3m ou >8×b) · SPT · Recalque diferencial</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">SPT: golpes para penetrar 30cm (martelo 65kg × 75cm)</div></div>
+      <div class="leaf-node"><div class="leaf-title">SPT <4: muito fofo · SPT >30: muito compacto</div></div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">🏢 CONCRETO ARMADO E ESTRUTURAS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">NBR 6118 · fck · Armaduras · Cobrimento · Patologias</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Parâmetros Básicos</div>
+      <div class="child-sub">fck = quantil 5% · fator a/c ↑ = fck ↓ (Lei de Abrams) · CA-50: fyk=500MPa</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Cobrimento Mínimo por CAA</div>
+      <div class="child-sub">CAA I: 25mm · CAA II: 30mm · CAA III: 40mm · CAA IV: 50mm</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Patologias</div>
+      <div class="child-sub">Carbonatação · Corrosão · RAS · Retração Plástica · Eflorescência</div>
+    </div>
+  </div>
+
+  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
+    <div class="root-title">📐 ORÇAMENTO E PLANEJAMENTO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">BDI · SINAPI · CUB · CPM · NR-18</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Orçamento</div>
+      <div class="child-sub">BDI: custos indiretos + lucro · SINAPI: referência obras federais · Curva ABC: 20%=80%</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Planejamento</div>
+      <div class="child-sub">CPM: caminho crítico (FT=0) · PERT: probabilístico · LOB: obras repetitivas</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Normas de Segurança</div>
+      <div class="child-sub">NR-18: PCMAT (≥20 trabalhadores) · NR-35: trabalho em altura ≥2m</div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> Concreto Armado ↔ NBR 15575 (desempenho) · Orçamento ↔ PRICE/SAC (financiamento CEF) · Fundações ↔ SPT (investigação geotécnica) · NR-18 ↔ Direito do Trabalho (CLT)
+</div>
+</div>
+
+<!-- ═══ CONEXÕES ═══ -->
+<div class="map-wrap" id="map-conexoes">
+<div class="mind-map">
+
+  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
+    <div class="root-title">🔗 MATEMÁTICA → BANCÁRIO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Onde o raciocínio lógico fundamenta os conhecimentos bancários</div>
+  </div>
+  <div class="children">
+    <div class="child-node"><div class="child-title">Juros Compostos → CDB, LCI, Fundos, Tesouro Direto</div><div class="child-sub">M = C(1+i)ⁿ é a base de todo produto de renda fixa</div></div>
+    <div class="child-node"><div class="child-title">Probabilidade → Análise de Crédito (5Cs, Score)</div><div class="child-sub">P(inadimplência|perfil) = base do credit scoring bancário</div></div>
+    <div class="child-node"><div class="child-title">Porcentagem → Spread, Inflação, Câmbio</div><div class="child-sub">Variações encadeadas: sempre multiplicar os fatores</div></div>
+    <div class="child-node"><div class="child-title">Estatística → Risco de Mercado, VaR, Basileia</div><div class="child-sub">σ (desvio padrão) = volatilidade = risco de mercado</div></div>
+    <div class="child-node"><div class="child-title">Regressão Linear → Score de Crédito, Previsão</div><div class="child-sub">Ŷ = a + bX: modelos preditivos de inadimplência</div></div>
+  </div>
+
+  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
+    <div class="root-title">🔗 DIREITO → BANCÁRIO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Base jurídica dos produtos e operações financeiras</div>
+  </div>
+  <div class="children">
+    <div class="child-node"><div class="child-title">Direito Civil → Títulos de Crédito, Contratos Bancários</div><div class="child-sub">CC: cheque, duplicata, NP, fiança, aval, alienação fiduciária</div></div>
+    <div class="child-node"><div class="child-title">Direito Constitucional → SFN (CF art. 192)</div><div class="child-sub">A CF fundamenta a estrutura do Sistema Financeiro Nacional</div></div>
+    <div class="child-node"><div class="child-title">Dir. Administrativo → Licitação → CEF/BB como agentes públicos</div><div class="child-sub">SINAPI, obras com recursos federais, controle pelo TCU</div></div>
+    <div class="child-node"><div class="child-title">LGPD → Open Finance → Dados Bancários</div><div class="child-sub">Consentimento de dados bancários = base legal LGPD</div></div>
+    <div class="child-node"><div class="child-title">Lei 9.613/98 → PLD-FT → Compliance Bancário</div><div class="child-sub">Lavagem de dinheiro: obrigação de comunicação ao COAF</div></div>
+  </div>
+
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">🔗 PORTUGUÊS → TODOS OS CONCURSOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Interpretação é a base de todas as provas</div>
+  </div>
+  <div class="children">
+    <div class="child-node"><div class="child-title">Interpretação de Textos → Qualquer área</div><div class="child-sub">Cespe usa textos bancários, jurídicos, sociológicos — mesma técnica</div></div>
+    <div class="child-node"><div class="child-title">Redação Oficial → Ato Administrativo → Comunicação Bancária</div><div class="child-sub">Impessoalidade é princípio do adm. e da comunicação bancária</div></div>
+    <div class="child-node"><div class="child-title">Conectivos Lógicos → Lógica Proposicional</div><div class="child-sub">'Embora' em Português = concessão = P∧¬Q (não implica Q→P)</div></div>
+  </div>
+
+  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
+    <div class="root-title">🔗 ENGENHARIA → CEF/TRANSPETRO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Específico para cargos de engenharia da CEF e Transpetro</div>
+  </div>
+  <div class="children">
+    <div class="child-node"><div class="child-title">Concreto Armado + NBR → Crédito Habitacional CEF</div><div class="child-sub">CEF financia obras: a engenharia é o que garante o valor do colateral</div></div>
+    <div class="child-node"><div class="child-title">Orçamento SINAPI → Obras com recursos federais (CEF)</div><div class="child-sub">CEF exige SINAPI como referência em financiamentos públicos</div></div>
+    <div class="child-node"><div class="child-title">BDI + PRICE/SAC → Viabilidade Financeira da Obra</div><div class="child-sub">Custo total da obra (com BDI) = base para o financiamento habitacional</div></div>
+    <div class="child-node"><div class="child-title">Mecânica dos Solos + SPT → Laudos de Garantia Imobiliária</div><div class="child-sub">CEF avalia a estrutura do imóvel que será dado como garantia (SFH)</div></div>
+  </div>
+
+  <div class="root-node" style="--node-color:#e06090;" onclick="toggle(this)">
+    <div class="root-title">🔗 PRIORIDADES POR CONCURSO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">O que estudar primeiro em cada prova</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🏦 Banco do Brasil</div>
+      <div class="child-sub">Conhecimentos Bancários (46% SFN) > Vendas/Marketing > TI > Matemática > Português</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Banca: Cesgranrio · Formato: A-E · Nível: escriturário</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 Blockchain/Criptomoedas: 15% das Atualidades!</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🏥 INSS</div>
+      <div class="child-sub">Previdência (58 de 120 q) > Direito Administrativo > Português > Informática</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Banca: Cespe · Formato: Certo/Errado · Nível: técnico</div></div>
+      <div class="leaf-node"><div class="leaf-title">EC 103/2019: regras novas de aposentadoria são as mais cobradas</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚔 PRF</div>
+      <div class="child-sub">Português > CTB > Processo Penal > Direito Constitucional > Informática</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Banca: Cespe · Formato: Certo/Errado · Nível: analista</div></div>
+      <div class="leaf-node"><div class="leaf-title">CTB + Lei de Drogas: específicos da PRF — sem equivalente em outros concursos</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🏦 CEF</div>
+      <div class="child-sub">Conhecimentos Bancários > Engenharia Civil (cargo) > Matemática > Português</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Banca: Cesgranrio · Formato: A-E · Nível: técnico/analista</div></div>
+      <div class="leaf-node"><div class="leaf-title">FGTS + MCMV + NBR 6118: diferenciais da CEF vs BB</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#3db8ea;"></div>Alta prioridade</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#3db88a;"></div>Média prioridade</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c8992a;"></div>Conteúdo transversal</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#9b72ea;"></div>Específico do concurso</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#e05050;"></div>PRF exclusivo</div>
+  <div class="leg-item" style="margin-left:auto;font-size:10px;color:#4a6080;">▶ Clique nos nós para expandir</div>
+</div>
+
+<!-- Modal de visualização dos mapas originais -->
+<div id="img-modal" class="img-modal" onclick="fecharModal(event)">
+  <button class="img-modal-close" onclick="document.getElementById('img-modal').classList.remove('open')">✕</button>
+  <div class="img-modal-label" id="modal-label">📄 MAPA ORIGINAL — @mapasdalulu</div>
+  <div id="modal-img-wrap" style="width:min(900px,95vw);background:#111;border-radius:8px;overflow:hidden;">
+    <iframe id="modal-iframe"
+      src=""
+      style="width:100%;height:min(680px,80vh);border:none;display:block;"
+      allow="autoplay"
+      loading="lazy">
+    </iframe>
+  </div>
+  <div class="img-modal-nav" id="modal-nav"></div>
+  <div style="font-size:10px;color:#606060;margin-top:12px;font-family:monospace;">
+    Use as setas do teclado ← → para navegar entre páginas
+  </div>
+</div>
+
+<script>
+// ─── CONFIGURAÇÃO: COLE O ID DA PASTA DO GOOGLE DRIVE ───────────────────────
+// 1. Suba a pasta pt_drive/ no Google Drive
+// 2. Compartilhe: botão direito → Compartilhar → "Qualquer pessoa com o link pode ver"
+// 3. Copie o ID da URL: drive.google.com/drive/folders/[ID_AQUI]
+// 4. Rode o script Python abaixo no seu computador — ele gera os IDs automaticamente
+// 5. Cole o resultado aqui substituindo o objeto ARQUIVOS_DRIVE
+
+// ── Cole aqui o resultado do script Python ──
+const ARQUIVOS_DRIVE = {
+  'pt_concordancia_pg-45': '1eqaFLnuVfRSdIcRygon1Xo8rmWqRxau0',
+  'pt_concordancia_pg-46': '1Pfx5U_3wY9WWS0aZeescxUkp0pECKqPw',
+  'pt_concordancia_pg-47': '1BCxS5Vrky8N2nU409UaVU1OTGtF2g7Mn',
+  'pt_crase_pg-52': '1l4A4tZ0tjMz1Kw5AYQDve-cJ1TnpF7Xb',
+  'pt_crase_pg-53': '1aPm2NBqcegfG7gDnX2kaFtRbg6b8BcsS',
+  'pt_morfologia_pg-08': '1PwVV_eAeoMs095AUwwuLiEz8BH1x_7cp',
+  'pt_morfologia_pg-09': '1GbloGcFMwNT5TosL0qbjn08NGSRd56KQ',
+  'pt_morfologia_pg-10': '1462rV955pAlxfsaj-U5FzrDEYtCqNW0L',
+  'pt_morfologia_pg-11': '1VKc3Hn7GnshbApGqqervd2mcBYuesf90',
+  'pt_morfologia_pg-12': '1if2TF-5ldb-FuF23luEBeptjgd9Ox_Bt',
+  'pt_morfologia_pg-13': '1_KMHwlWaKe-AH_37hsqNptLwDqUOXZI7',
+  'pt_morfologia_pg-14': '1ZhGmcGmOVuH__aLkfvANehcTgIvy376y',
+  'pt_morfologia_pg-15': '1ghkct_gUfbCl2nbEHzVdAoBtfeFSmNnY',
+  'pt_morfologia_pg-16': '1tMEG2vdX9GjNLax_9evtJghLxPnXtwq4',
+  'pt_morfologia_pg-17': '1ZF32KHbW9Hg84xrXj1gVrt1edn81qFzN',
+  'pt_ortografia_pg-05': '1PzrM06uz0YGMnyQTBVw4Duhz5jmBvxKJ',
+  'pt_ortografia_pg-06': '1g9zp_ETM9d7kh92ph6O0YZO8j1pir8pS',
+  'pt_ortografia_pg-07': '1PVQd3AWnC3zp1bB0uxNpTnL-wZwb7qmN',
+  'pt_pontuacao_pg-36': '1uqmL7rG1azQpTrQh2zafCrBfTGuurPd4',
+  'pt_pontuacao_pg-37': '1eeHlRGV7GMvWWtwmqeg65Z8aV6PEkEpF',
+  'pt_pontuacao_pg-38': '1ljjJL6wwNmlzrPMlXFmlHX97kHF9tbob',
+  'pt_pontuacao_pg-39': '1ZehKQ8K3o5i6kFu2Uy3mGfG8GVG3pHVY',
+  'pt_regencia_pg-48': '1tPbTrk17AHKGBfkdgMYD83FpLOf1xC6D',
+  'pt_regencia_pg-49': '1MD49W7jqPr_RctyjHJa9FQmvd0M_eWuC',
+  'pt_regencia_pg-50': '1OPXp_P-ZXDSbAsB7D8N-fuTouBh6gGit',
+  'pt_regencia_pg-51': '1H8stHicKSD2bOgsGPrVFphBPbRXNxqn_',
+  'pt_sintaxe_pg-29': '1xrQgYAABxNBqI1LxJCoMOz6FnbrxQU0D',
+  'pt_sintaxe_pg-30': '1-ebqHFl0nfvxTu0q_wbSBrGLqCxdfg83',
+  'pt_sintaxe_pg-31': '1E15xnFyJVvt5YiauuQZRgtM8IsNvtTuq',
+  'pt_sintaxe_pg-32': '1txbNBuajrrKfUDi-77v2R5q2w_n9fLZW',
+  'pt_sintaxe_pg-33': '1VWBHXnHHSUvLgoP1OqwG9cLhWqRdiEGE',
+  'pt_sintaxe_pg-34': '1wLnAJGcuNrWRRA9MXV2uInfXzQ1vSt3H',
+  'pt_sintaxe_pg-35': '13AcMVc-AIIgakryrxIk4Uo1kYG9sR01R',
+  'pt_sujeito_pg-40': '1gcHnCKOch9v4dgrSgP1txWtD53HIXu1W',
+  'pt_sujeito_pg-41': '1KlYMu3fBDns-tZX-XAUcAOPwrP5qnYU7',
+  'pt_sujeito_pg-42': '1AB-LJx3pka9YVPrlk-n7HZOE4EEZz3mn',
+  'pt_sujeito_pg-43': '1kWVtEvl52Cc40vmMG27miG6JPiTJEIIX',
+  'pt_sujeito_pg-44': '1ypXgLxBScPoJwyrtop7c6wWYrKD8_lYT',
+  'pt_verbos_pg-18': '116RiB-dY74zdv4bavGiYqzi5dfWAhZla',
+  'pt_verbos_pg-19': '1UrPxZQ3jBpsN_Egn1UjrtYnU-4zFC6iN',
+  'pt_verbos_pg-20': '1Qt723ulXYkTvDbFr9FqBMFX5lYPK4mlZ',
+  'pt_verbos_pg-21': '1aIzic3-qyU1pAfEy1oNtMyrbT7k_tCns',
+  'pt_verbos_pg-22': '1tlT7c5QnX8mEQ8iiNBjMfGIzIz6W1fDV',
+  'pt_verbos_pg-23': '1z4Y7S3ni9tj_L11vKJDjHAx54rJCpZfA',
+  'pt_verbos_pg-24': '13XeEXTmbPO4tMkluJwJ-Hg8ddV9Zja2q',
+  'pt_verbos_pg-25': '14n-oBpT4CcJfIVSONJhjdw9zvCJpkH0v',
+  'pt_verbos_pg-26': '1hZnfmdQ5XY8suh94E6G6Q_I4LrE_CYbq',
+  'pt_verbos_pg-27': '1LhXz-KKfcJaAgCekBbQBWSDIk611ZKVp',
+  'pt_verbos_pg-28': '1M9sSRaYNIy3hmRi_ikpHsvJr-OqSQeCp',
+};
+
+// Mapeamento de blocos → arquivos e páginas
+// ── MAT. FINANCEIRA — IDs Google Drive (preencher após upload) ────────────
+const ARQUIVOS_DRIVE_MF = {
+  'mf_pg-05': '1bUclwTXrU74nHfzj6x3LPaeRdnhuJED1',
+  'mf_pg-06': '1cTlhACUrZv8BwX5KQ2nhyT8bfoqyptD3',
+  'mf_pg-07': '1TOZA3oE_r8bcGJ22tgoJFcBy1fetPI4Y',
+  'mf_pg-08': '1UVcnDTHlo4ScwDforboXFqbJJNkEvXoo',
+  'mf_pg-09': '1TggwtLq4AurpXF6Dk2mqHDWj2mSkDrfR',
+  'mf_pg-10': '1pga_8zpkDbYO7Dh7x2McuEQxwjh5QOLs',
+  'mf_pg-11': '1vW46A04-mJG3pTe_5nZA8xIyHG4tc-57',
+  'mf_pg-12': '1VEvJzvVBZGOBOkmOjxkS58lGHffTDkGP',
+  'mf_pg-13': '1lcO-IwNa7gJQmc3n-ie2cbKZfNlUMAEF',
+  'mf_pg-14': '1s3kAM2MFBHxmJPMNq3wsRz-tSuS4z553',
+  'mf_pg-15': '1g-c0pw5Fl2xqDvonm5rcytyidWA58btC',
+  'mf_pg-16': '1UL6ejiPOctUpG46eDZN5LSkrf-0aBGqi',
+  'mf_pg-17': '1UwwSxQrqKvISK_VBY4aEMVkc1LWRnv0B',
+  'mf_pg-18': '1UYP_iGkijxYjINk3-SK8PfPfCH7scXko',
+  'mf_pg-19': '15QKVNqxfcL4gwn-sSJMDqSXvCWHx-2cZ',
+};
+
+// ── RACIOCÍNIO LÓGICO — IDs Google Drive ─────────────────────────────────
+const ARQUIVOS_DRIVE_RL = {
+  'rl_combinatoria_pg-80': '1AphSnLbjyeshQ1n6kfIzJuyJ3RRVl9RY',
+  'rl_combinatoria_pg-81': '1t0Kt_Q3Ejv6i7pVfGjHlno7zOaJDmkL0',
+  'rl_logica_pg-07': '1b9uhksjVyHG7UCmokKOV9ep5ivf6ePnk',
+  'rl_logica_pg-08': '1WMOwToLCUd22Jys0vFKU0eXV-_TX0ANq',
+  'rl_logica_pg-09': '19LDORSCv3GX1ndyjBAWbRJATBlP4jpQd',
+  'rl_logica_pg-10': '1rQalqEi93oqlDt7TkLiko3ApwILb4fQE',
+  'rl_logica_pg-11': '1nPWcjjRXocrwV0R3gnvoaT_cmplI0muG',
+  'rl_logica_pg-12': '1kqITG9AepZF92N23Mi1LWoEf2EI1Qvfs',
+  'rl_logica_pg-13': '1gtABbOXGqiorB7y9EAr6qglSdA0uZPLY',
+  'rl_logica_pg-14': '1TFQzOipPS74UBH7utK3L-16K8opsrwRJ',
+  'rl_papg_pg-24': '1fOGc8aMFCPP0YlCnt1qeYvIe7hdJ6QIQ',
+  'rl_papg_pg-25': '1KELs3e3PdIuEhYO14Gb4Z-L7BGsnHynu',
+  'rl_papg_pg-26': '1cxplgLg9RKHvLuAdeIZzFliP5ThxY7ck',
+  'rl_papg_pg-27': '1mLMXIdVI_MebJdHn3jwsWEwj6j1CI21B',
+  'rl_porcentagem_pg-28': '1KqxPEXoXOIIEUrWrEf6F-9bWLlJ9GiD_',
+  'rl_regra3_pg-16': '1O08Z8egJu9f4Frs5vnFCkMRJ9vfP_Xez',
+  'rl_regra3_pg-17': '1JquFPu0DWgOR6BTBq2KSfFhKjDii__I3',
+};
+
+// Mapeamento de blocos → arquivos e páginas
+const BLOCOS_PT = {
+  'ortografia':   { label:'Ortografia — Acentuação e Hífen',    prefixo:'pt_ortografia', paginas:[5,6,7] },
+  'morfologia':   { label:'Morfologia — Classes de Palavras',   prefixo:'pt_morfologia', paginas:[8,9,10,11,12,13,14,15,16,17] },
+  'verbos':       { label:'Verbos',                             prefixo:'pt_verbos',     paginas:[18,19,20,21,22,23,24,25,26,27,28] },
+  'sintaxe':      { label:'Sintaxe — Funções Sintáticas',       prefixo:'pt_sintaxe',    paginas:[29,30,31,32,33,34,35] },
+  'pontuacao':    { label:'Pontuação',                          prefixo:'pt_pontuacao',  paginas:[36,37,38,39] },
+  'sujeito':      { label:'Sujeito',                            prefixo:'pt_sujeito',    paginas:[40,41,42,43,44] },
+  'concordancia': { label:'Concordância',                       prefixo:'pt_concordancia', paginas:[45,46,47] },
+  'regencia':     { label:'Regência Verbal e Nominal',          prefixo:'pt_regencia',   paginas:[48,49,50,51] },
+  'crase':        { label:'Crase',                              prefixo:'pt_crase',      paginas:[52,53] },
+};
+
+const BLOCOS_RL = {
+  'logica':       { label:'Lógica Proposicional',           prefixo:'rl_logica',        paginas:[7,8,9,10,11,12,13,14] },
+  'regra3':       { label:'Regra de Três e Médias',         prefixo:'rl_regra3',        paginas:[16,17] },
+  'papg':         { label:'PA e PG',                        prefixo:'rl_papg',          paginas:[24,25,26,27] },
+  'porcentagem':  { label:'Porcentagem RL',                 prefixo:'rl_porcentagem',   paginas:[28] },
+  'combinatoria': { label:'Combinatória e Probabilidade',   prefixo:'rl_combinatoria',  paginas:[80,81] },
+};
+
+let modalBloco = null;
+let modalIdx = 0;
+let modalArquivos = [];
+
+// Função genérica — abre modal com imagens de qualquer drive
+function _abrirDrive(dict, prefixo, label, paginas) {
+  const modal = document.getElementById('img-modal');
+  const iframe = document.getElementById('modal-iframe');
+  const lbl = document.getElementById('modal-label');
+  const nav = document.getElementById('modal-nav');
+
+  console.log('_abrirDrive: modal=',!!modal,'iframe=',!!iframe,'lbl=',!!lbl,'nav=',!!nav);
+  modal.classList.add('open');
+
+  // Sem IDs configurados
+  if (!dict || Object.keys(dict).length === 0) {
+    iframe.src = '';
+    lbl.textContent = '⚙️ IDs do Google Drive não configurados';
+    nav.innerHTML = '<div style="font-size:11px;color:#8090a0;line-height:1.9;max-width:460px;">' +
+      'Suba o ZIP no Drive, compartilhe a pasta, rode <code>extrair_ids_console.js</code> no console (F12) ' +
+      'e cole o resultado no HTML.</div>';
+    return;
+  }
+
+  const entradas = Object.entries(dict)
+    .filter(([k]) => k.startsWith(prefixo))
+    .sort(([a],[b]) => a.localeCompare(b))
+    .map(([k,id],i) => ({nome:k, id, pagina: paginas[i]||'?'}));
+
+  if (entradas.length === 0) {
+    iframe.src = '';
+    lbl.textContent = `⚠️ Nenhuma imagem encontrada para "${label}"`;
+    nav.innerHTML = `<div style="font-size:11px;color:#8090a0;">Prefixo buscado: <code>${prefixo}</code><br>Chaves disponíveis: ${Object.keys(dict).slice(0,3).join(', ')}...</div>`;
+    return;
+  }
+
+  modalBloco = {label, paginas};
+  modalArquivos = entradas;
+  modalIdx = 0;
+  atualizarModal();
+}
+
+// PT — abrirImagens('ortografia') ou abrirImagens('mf', 5)
+function abrirImagens(blocoOuDisc, pagina) {
+  if (blocoOuDisc === 'mf') {
+    const pg = String(pagina).padStart(2,'0');
+    _abrirDrive(ARQUIVOS_DRIVE_MF, 'mf_pg-'+pg, 'Mat. Financeira — pág. '+pagina, [pagina]);
+    return;
+  }
+  const b = BLOCOS_PT[blocoOuDisc];
+  if (!b) { console.error('BLOCOS_PT['+blocoOuDisc+'] nao encontrado'); return; }
+  const keys = Object.keys(ARQUIVOS_DRIVE);
+  console.log('abrirImagens:', blocoOuDisc, '| prefixo:', b.prefixo, '| drive keys:', keys.length, '| matches:', keys.filter(k=>k.startsWith(b.prefixo)).length);
+  _abrirDrive(ARQUIVOS_DRIVE, b.prefixo, b.label, b.paginas);
+}
+
+// RL
+function abrirImagensRL(bloco) {
+  const b = BLOCOS_RL[bloco];
+  if (!b) return;
+  _abrirDrive(ARQUIVOS_DRIVE_RL, b.prefixo, b.label, b.paginas);
+}
+
+function atualizarModal() {
+  if (!modalBloco || modalArquivos.length === 0) return;
+  const iframe = document.getElementById('modal-iframe');
+  const label = document.getElementById('modal-label');
+  const nav = document.getElementById('modal-nav');
+  const { id, pagina } = modalArquivos[modalIdx];
+
+  // /preview funciona com o usuário logado no Google — sem bloqueio CORS
+  iframe.src = `https://drive.google.com/file/d/${id}/preview`;
+  label.textContent = `📄 ${modalBloco.label} — Pág. ${pagina}  (${modalIdx+1}/${modalArquivos.length}) — @mapasdalulu`;
+
+  nav.innerHTML = '';
+  if (modalIdx > 0) {
+    const b = document.createElement('button');
+    b.className = 'img-modal-btn'; b.textContent = '← Anterior';
+    b.onclick = e => { e.stopPropagation(); modalIdx--; atualizarModal(); };
+    nav.appendChild(b);
+  }
+  if (modalIdx < modalArquivos.length - 1) {
+    const b = document.createElement('button');
+    b.className = 'img-modal-btn'; b.textContent = 'Próxima →';
+    b.onclick = e => { e.stopPropagation(); modalIdx++; atualizarModal(); };
+    nav.appendChild(b);
+  }
+  // Dots de navegação
+  const dots = document.createElement('div');
+  dots.style.cssText = 'display:flex;gap:4px;align-items:center;';
+  modalArquivos.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.style.cssText = `width:7px;height:7px;border-radius:50%;cursor:pointer;transition:background .2s;background:${i===modalIdx?'#c8992a':'rgba(255,255,255,0.18)'};`;
+    d.onclick = e => { e.stopPropagation(); modalIdx=i; atualizarModal(); };
+    dots.appendChild(d);
+  });
+  nav.appendChild(dots);
+
+  // Botão abrir direto no Drive (fallback)
+  const open = document.createElement('a');
+  open.href = `https://drive.google.com/file/d/${id}/view`;
+  open.target = '_blank';
+  open.innerHTML = '<button class="img-modal-btn" style="background:rgba(200,153,42,0.15);border-color:rgba(200,153,42,0.4);color:#c8992a;">↗ Abrir no Drive</button>';
+  open.onclick = e => e.stopPropagation();
+  nav.appendChild(open);
+}
+
+function fecharModal(e) {
+  if (e.target === document.getElementById('img-modal')) {
+    document.getElementById('img-modal').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  const m = document.getElementById('img-modal');
+  if (!m.classList.contains('open')) return;
+  if (e.key === 'ArrowRight' && modalArquivos && modalIdx < modalArquivos.length-1) { modalIdx++; atualizarModal(); }
+  if (e.key === 'ArrowLeft' && modalIdx > 0) { modalIdx--; atualizarModal(); }
+  if (e.key === 'Escape') m.classList.remove('open');
+});
+
+function showMap(id, btn) {
+  document.querySelectorAll('.map-wrap').forEach(m => m.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.remove('active');
+    t.style.background = 'transparent';
+    t.style.color = 'var(--muted)';
+    t.style.borderColor = 'var(--border)';
+  });
+  document.getElementById('map-'+id).classList.add('active');
+  if (btn) {
+    btn.classList.add('active');
+    const cores = { portugues:'#3db8ea',logica:'#9b72ea',constitucional:'#c8992a',
+      administrativo:'#30c0d0',bancario:'#3db8ea',prf:'#e05050',
+      inss:'#3db88a',engenharia:'#e08030',conexoes:'#c8992a' };
+    const c = cores[id] || '#3db8ea';
+    btn.style.background = `linear-gradient(135deg,${c}22,#0d1a30)`;
+    btn.style.color = c;
+    btn.style.borderColor = c;
+  }
+  document.getElementById('search-result').textContent = '';
+  document.getElementById('search-input').value = '';
+}
+
+function toggle(root) {
+  const children = root.nextElementSibling;
+  const chevron  = root.querySelector('.chevron');
+  if (!children) return;
+  const open = children.classList.toggle('open');
+  if (chevron) chevron.classList.toggle('open', open);
+}
+
+function toggleLeaf(child) {
+  const grand  = child.nextElementSibling;
+  const detail = child.nextElementSibling?.nextElementSibling;
+  if (grand && grand.classList.contains('grandchildren')) {
+    grand.classList.toggle('open');
+  } else if (detail && detail.classList.contains('detail-panel')) {
+    detail.classList.toggle('open');
+  }
+}
+
+function buscar(q) {
+  const res = document.getElementById('search-result');
+  if (!q || q.length < 3) { res.textContent = ''; return; }
+  const ql = q.toLowerCase();
+  const matches = [];
+  document.querySelectorAll('.child-title, .leaf-title, .root-title').forEach(el => {
+    if (el.textContent.toLowerCase().includes(ql)) {
+      matches.push(el.textContent.trim().replace(/[▶]/g,''));
+    }
+  });
+  if (matches.length === 0) {
+    res.textContent = `Nenhum resultado para "${q}"`;
+  } else {
+    res.innerHTML = `<strong>${matches.length} resultado(s):</strong> ` + matches.slice(0,8).map(m => `<span style="background:rgba(61,184,138,0.1);border-radius:4px;padding:2px 6px;margin:2px;display:inline-block;">${m}</span>`).join('');
+  }
+}
+</script>
+
+</body>
+</html>
