@@ -1472,7 +1472,14 @@
 <div id="img-modal" class="img-modal" onclick="fecharModal(event)">
   <button class="img-modal-close" onclick="document.getElementById('img-modal').classList.remove('open')">✕</button>
   <div class="img-modal-label" id="modal-label">📄 MAPA ORIGINAL — @mapasdalulu</div>
-  <img id="modal-img" src="" alt="Mapa original"/>
+  <div id="modal-img-wrap" style="width:min(900px,95vw);background:#111;border-radius:8px;overflow:hidden;">
+    <iframe id="modal-iframe"
+      src=""
+      style="width:100%;height:min(680px,80vh);border:none;display:block;"
+      allow="autoplay"
+      loading="lazy">
+    </iframe>
+  </div>
   <div class="img-modal-nav" id="modal-nav"></div>
   <div style="font-size:10px;color:#606060;margin-top:12px;font-family:monospace;">
     Use as setas do teclado ← → para navegar entre páginas
@@ -1627,13 +1634,13 @@ function abrirImagensRL(bloco) {
 
 function atualizarModal() {
   if (!modalBloco || modalArquivos.length === 0) return;
-  const img = document.getElementById('modal-img');
+  const iframe = document.getElementById('modal-iframe');
   const label = document.getElementById('modal-label');
   const nav = document.getElementById('modal-nav');
   const { id, pagina } = modalArquivos[modalIdx];
 
-  // Link direto de visualização — funciona com pasta compartilhada publicamente
-  img.src = `https://drive.google.com/uc?export=view&id=${id}`;
+  // /preview funciona com o usuário logado no Google — sem bloqueio CORS
+  iframe.src = `https://drive.google.com/file/d/${id}/preview`;
   label.textContent = `📄 ${modalBloco.label} — Pág. ${pagina}  (${modalIdx+1}/${modalArquivos.length}) — @mapasdalulu`;
 
   nav.innerHTML = '';
@@ -1659,6 +1666,14 @@ function atualizarModal() {
     dots.appendChild(d);
   });
   nav.appendChild(dots);
+
+  // Botão abrir direto no Drive (fallback)
+  const open = document.createElement('a');
+  open.href = `https://drive.google.com/file/d/${id}/view`;
+  open.target = '_blank';
+  open.innerHTML = '<button class="img-modal-btn" style="background:rgba(200,153,42,0.15);border-color:rgba(200,153,42,0.4);color:#c8992a;">↗ Abrir no Drive</button>';
+  open.onclick = e => e.stopPropagation();
+  nav.appendChild(open);
 }
 
 function fecharModal(e) {
