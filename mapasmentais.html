@@ -44,6 +44,24 @@
   .root-node:hover { transform: translateX(3px); filter: brightness(1.1); }
   .root-title { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
   .root-subtitle { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* Referência ao material original */
+  .ref-bar { display:flex; align-items:center; gap:8px; margin-top:8px; flex-wrap:wrap; }
+  .ref-tag { font-size:9px; font-family:monospace; color:var(--muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:2px 8px; }
+  .ref-btn { font-size:9px; font-family:monospace; padding:3px 10px; border-radius:4px; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:4px; transition:opacity .2s; }
+  .ref-btn:hover { opacity:.8; }
+  .ref-btn-drive { background:rgba(74,144,217,0.15); border:1px solid rgba(74,144,217,0.35)!important; color:#4a90d9; }
+  .ref-btn-pdf { background:rgba(224,80,64,0.12); border:1px solid rgba(224,80,64,0.3)!important; color:#e05040; }
+
+  /* Modal de imagem */
+  .img-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:1000; justify-content:center; align-items:flex-start; padding:20px; overflow-y:auto; }
+  .img-modal.open { display:flex; flex-direction:column; align-items:center; }
+  .img-modal img { max-width:min(900px,95vw); border-radius:8px; box-shadow:0 8px 40px rgba(0,0,0,.6); }
+  .img-modal-nav { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; justify-content:center; }
+  .img-modal-btn { padding:8px 16px; border-radius:6px; cursor:pointer; font-family:monospace; font-size:11px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#e0d8c8; }
+  .img-modal-btn:hover { background:rgba(255,255,255,0.14); }
+  .img-modal-close { position:fixed; top:16px; right:20px; font-size:24px; cursor:pointer; color:#a0a0a0; background:rgba(0,0,0,0.5); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; border:none; }
+  .img-modal-label { font-family:monospace; font-size:10px; color:var(--muted); margin-bottom:10px; letter-spacing:2px; }
   .chevron { margin-left: auto; transition: transform .3s; font-size: 10px; }
   .chevron.open { transform: rotate(90deg); }
 
@@ -156,6 +174,10 @@
   <div class="root-node" style="--node-color:#e06090;" onclick="toggle(this)">
     <div class="root-title">🔤 ORTOGRAFIA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Acentuação · Hífen · Trema · Acentos Diferenciais</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 5–7</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('ortografia')">🖼️ Ver original no Drive</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
@@ -194,6 +216,10 @@
   <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
     <div class="root-title">🏷️ MORFOLOGIA — CLASSES DE PALAVRAS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Pronomes · Advérbios · Verbos · Artigo · Numeral</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 8–17</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('morfologia')">🖼️ Ver original no Drive</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
@@ -249,6 +275,11 @@
   <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
     <div class="root-title">📐 SINTAXE — FUNÇÕES SINTÁTICAS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Sujeito · Transitividade · Concordância · Regência</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 29–35 (Sintaxe) · 40–44 (Sujeito)</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('sintaxe')">🖼️ Sintaxe no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('sujeito')">🖼️ Sujeito no Drive</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
@@ -286,6 +317,10 @@
   <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
     <div class="root-title">✏️ PONTUAÇÃO — USO DA VÍRGULA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Vírgula é marcador de funções sintáticas — NÃO é pausa!</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 36–39</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('pontuacao')">🖼️ Ver original no Drive</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
@@ -323,6 +358,10 @@
   <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
     <div class="root-title">⚖️ CONCORDÂNCIA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Verbal e Nominal · Casos particulares · Pegadinhas clássicas</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 45–47</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('concordancia')">🖼️ Ver original no Drive</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
@@ -365,6 +404,10 @@
   <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
     <div class="root-title">🔧 REGÊNCIA VERBAL E NOMINAL <span class="chevron">▶</span></div>
     <div class="root-subtitle">Verbos que mais caem na Cesgranrio BB</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 48–51</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('regencia')">🖼️ Ver original no Drive</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
@@ -400,6 +443,10 @@
   <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
     <div class="root-title">À CRASE <span class="chevron">▶</span></div>
     <div class="root-subtitle">a (prep) + a (artigo fem.) = à · Obrigatória · Proibida · Facultativa</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 52–53</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('crase')">🖼️ Ver original no Drive</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
@@ -475,6 +522,22 @@
 </div>
 <div class="relacoes">
   <strong>🔗 Conexões:</strong> Interpretação ↔ Coesão/Conectivos · Concordância ↔ Sujeito (pronome SE) · Regência ↔ Crase (verbos que pedem A) · Ortografia (AO 2009) ↔ Hífen com prefixos
+</div>
+
+<!-- GUIA DE CONFIGURAÇÃO DO GOOGLE DRIVE -->
+<div style="background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.2);border-radius:10px;padding:16px;margin-top:14px;">
+  <div style="font-family:monospace;font-size:9px;letter-spacing:3px;color:#4a90d9;margin-bottom:10px;">⚙️ CONFIGURAR IMAGENS ORIGINAIS (Google Drive privado)</div>
+  <div style="font-size:11px;color:#8090a0;line-height:1.9;">
+    <b style="color:#c0d0e0;">Passo 1 —</b> Baixe o ZIP <code style="background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:3px;">mapas_portugues_drive.zip</code> e extraia as 49 imagens<br>
+    <b style="color:#c0d0e0;">Passo 2 —</b> Faça upload das imagens numa pasta privada do Google Drive<br>
+    <b style="color:#c0d0e0;">Passo 3 —</b> Para cada imagem: clique direito → "Compartilhar" → "Qualquer pessoa com o link" → copie o ID da URL<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>URL: drive.google.com/file/d/<b style="color:#4a90d9;">[ID AQUI]</b>/view</em><br>
+    <b style="color:#c0d0e0;">Passo 4 —</b> No arquivo <code>mapas_mentais.html</code>, localize o objeto <code>BLOCOS_PT</code> e substitua cada <code>ID_ORTOGRAFIA_PG5</code> etc. pelo ID real<br>
+    <b style="color:#c0d0e0;">Passo 5 —</b> Faça upload do <code>mapas_mentais.html</code> atualizado no GitHub Pages
+  </div>
+  <div style="margin-top:10px;font-size:10px;color:#506070;">
+    💡 As imagens só serão acessíveis por quem tiver o link (você). O acervo da Lulu permanece privado — nenhuma imagem é publicada no GitHub.
+  </div>
 </div>
 </div>
 
@@ -1128,7 +1191,150 @@
   <div class="leg-item" style="margin-left:auto;font-size:10px;color:#4a6080;">▶ Clique nos nós para expandir</div>
 </div>
 
+<!-- Modal de visualização dos mapas originais -->
+<div id="img-modal" class="img-modal" onclick="fecharModal(event)">
+  <button class="img-modal-close" onclick="document.getElementById('img-modal').classList.remove('open')">✕</button>
+  <div class="img-modal-label" id="modal-label">📄 MAPA ORIGINAL — @mapasdalulu</div>
+  <img id="modal-img" src="" alt="Mapa original"/>
+  <div class="img-modal-nav" id="modal-nav"></div>
+  <div style="font-size:10px;color:#606060;margin-top:12px;font-family:monospace;">
+    Use as setas do teclado ← → para navegar entre páginas
+  </div>
+</div>
+
 <script>
+// ─── DADOS DOS BLOCOS E IMAGENS DO DRIVE ────────────────────────────────────
+// INSTRUÇÕES: após fazer upload das imagens ao Google Drive,
+// substitua os valores DRIVE_IDs abaixo pelos IDs reais de cada imagem.
+// ID de um arquivo no Drive: na URL drive.google.com/file/d/[ID_AQUI]/view
+// Para obter o link de visualização direto: 
+//   https://drive.google.com/uc?export=view&id=[ID_AQUI]
+
+const DRIVE_BASE = 'https://drive.google.com/uc?export=view&id=';
+
+// Após upload, preencha os IDs aqui (um por página/imagem)
+const BLOCOS_PT = {
+  'interpretacao': {
+    label: 'Interpretação de Texto',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [], // sem página dedicada — ver introdução
+    driveIds: [], // preencher após upload
+  },
+  'ortografia': {
+    label: 'Ortografia — Acentuação e Hífen',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [5, 6, 7],
+    driveIds: ['ID_ORTOGRAFIA_PG5', 'ID_ORTOGRAFIA_PG6', 'ID_ORTOGRAFIA_PG7'],
+  },
+  'morfologia': {
+    label: 'Morfologia — Classes de Palavras',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [8,9,10,11,12,13,14,15,16,17],
+    driveIds: ['ID_MORF_08','ID_MORF_09','ID_MORF_10','ID_MORF_11','ID_MORF_12','ID_MORF_13','ID_MORF_14','ID_MORF_15','ID_MORF_16','ID_MORF_17'],
+  },
+  'verbos': {
+    label: 'Verbos',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [18,19,20,21,22,23,24,25,26,27,28],
+    driveIds: ['ID_VB_18','ID_VB_19','ID_VB_20','ID_VB_21','ID_VB_22','ID_VB_23','ID_VB_24','ID_VB_25','ID_VB_26','ID_VB_27','ID_VB_28'],
+  },
+  'sintaxe': {
+    label: 'Sintaxe — Funções Sintáticas',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [29,30,31,32,33,34,35],
+    driveIds: ['ID_SX_29','ID_SX_30','ID_SX_31','ID_SX_32','ID_SX_33','ID_SX_34','ID_SX_35'],
+  },
+  'pontuacao': {
+    label: 'Pontuação',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [36,37,38,39],
+    driveIds: ['ID_PT_36','ID_PT_37','ID_PT_38','ID_PT_39'],
+  },
+  'sujeito': {
+    label: 'Sujeito',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [40,41,42,43,44],
+    driveIds: ['ID_SJ_40','ID_SJ_41','ID_SJ_42','ID_SJ_43','ID_SJ_44'],
+  },
+  'concordancia': {
+    label: 'Concordância',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [45,46,47],
+    driveIds: ['ID_CC_45','ID_CC_46','ID_CC_47'],
+  },
+  'regencia': {
+    label: 'Regência Verbal e Nominal',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [48,49,50,51],
+    driveIds: ['ID_RG_48','ID_RG_49','ID_RG_50','ID_RG_51'],
+  },
+  'crase': {
+    label: 'Crase',
+    pdf: 'Portugues - Todos os Mapas.pdf',
+    paginas: [52,53],
+    driveIds: ['ID_CR_52','ID_CR_53'],
+  },
+};
+
+let modalBloco = null;
+let modalIdx = 0;
+
+function abrirImagens(bloco) {
+  const b = BLOCOS_PT[bloco];
+  if (!b || !b.driveIds || b.driveIds.length === 0) {
+    alert('⚠️ IDs do Google Drive ainda não configurados.\nSiga as instruções abaixo do mapa para configurar.');
+    return;
+  }
+  if (b.driveIds[0].startsWith('ID_')) {
+    alert('⚠️ Configure os IDs do Google Drive primeiro.\nVeja o guia de configuração abaixo do mapa de Português.');
+    return;
+  }
+  modalBloco = b;
+  modalIdx = 0;
+  atualizarModal();
+  document.getElementById('img-modal').classList.add('open');
+}
+
+function atualizarModal() {
+  if (!modalBloco) return;
+  const img = document.getElementById('modal-img');
+  const label = document.getElementById('modal-label');
+  const nav = document.getElementById('modal-nav');
+  const id = modalBloco.driveIds[modalIdx];
+  const pg = modalBloco.paginas[modalIdx];
+  img.src = DRIVE_BASE + id;
+  label.textContent = `📄 ${modalBloco.label} — Pág. ${pg} (${modalIdx+1}/${modalBloco.driveIds.length}) — @mapasdalulu`;
+  nav.innerHTML = '';
+  if (modalIdx > 0) {
+    const btn = document.createElement('button');
+    btn.className = 'img-modal-btn';
+    btn.textContent = '← Anterior';
+    btn.onclick = e => { e.stopPropagation(); modalIdx--; atualizarModal(); };
+    nav.appendChild(btn);
+  }
+  if (modalIdx < modalBloco.driveIds.length - 1) {
+    const btn = document.createElement('button');
+    btn.className = 'img-modal-btn';
+    btn.textContent = 'Próxima →';
+    btn.onclick = e => { e.stopPropagation(); modalIdx++; atualizarModal(); };
+    nav.appendChild(btn);
+  }
+}
+
+function fecharModal(e) {
+  if (e.target === document.getElementById('img-modal')) {
+    document.getElementById('img-modal').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  const m = document.getElementById('img-modal');
+  if (!m.classList.contains('open')) return;
+  if (e.key === 'ArrowRight' && modalBloco && modalIdx < modalBloco.driveIds.length-1) { modalIdx++; atualizarModal(); }
+  if (e.key === 'ArrowLeft' && modalIdx > 0) { modalIdx--; atualizarModal(); }
+  if (e.key === 'Escape') m.classList.remove('open');
+});
+</script>
 function showMap(id, btn) {
   document.querySelectorAll('.map-wrap').forEach(m => m.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => {
