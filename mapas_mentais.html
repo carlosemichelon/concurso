@@ -1587,29 +1587,38 @@ let modalArquivos = [];
 
 // Função genérica — abre modal com imagens de qualquer drive
 function _abrirDrive(dict, prefixo, label, paginas) {
-  if (Object.keys(dict).length === 0) {
-    document.getElementById('img-modal').classList.add('open');
-    document.getElementById('modal-img').src = '';
-    document.getElementById('modal-label').textContent = '⚙️ IDs do Google Drive não configurados';
-    document.getElementById('modal-nav').innerHTML =
-      '<div style="font-size:11px;color:#8090a0;line-height:1.9;max-width:460px;">' +
-      'Suba o ZIP correspondente no Google Drive, compartilhe a pasta,<br>' +
-      'rode o script <code>extrair_ids_console.js</code> no console do browser (F12)<br>' +
-      'e cole o resultado em <code>ARQUIVOS_DRIVE_MF</code> ou <code>ARQUIVOS_DRIVE_RL</code> neste HTML.</div>';
+  const modal = document.getElementById('img-modal');
+  const iframe = document.getElementById('modal-iframe');
+  const lbl = document.getElementById('modal-label');
+  const nav = document.getElementById('modal-nav');
+
+  modal.classList.add('open');
+
+  // Sem IDs configurados
+  if (!dict || Object.keys(dict).length === 0) {
+    iframe.src = '';
+    lbl.textContent = '⚙️ IDs do Google Drive não configurados';
+    nav.innerHTML = '<div style="font-size:11px;color:#8090a0;line-height:1.9;max-width:460px;">' +
+      'Suba o ZIP no Drive, compartilhe a pasta, rode <code>extrair_ids_console.js</code> no console (F12) ' +
+      'e cole o resultado no HTML.</div>';
     return;
   }
+
   const entradas = Object.entries(dict)
     .filter(([k]) => k.startsWith(prefixo))
     .sort(([a],[b]) => a.localeCompare(b))
     .map(([k,id],i) => ({nome:k, id, pagina: paginas[i]||'?'}));
+
   if (entradas.length === 0) {
-    alert('Nenhuma imagem encontrada para este bloco. Verifique o prefixo.');
+    iframe.src = '';
+    lbl.textContent = `⚠️ Nenhuma imagem encontrada para "${label}"`;
+    nav.innerHTML = `<div style="font-size:11px;color:#8090a0;">Prefixo buscado: <code>${prefixo}</code><br>Chaves disponíveis: ${Object.keys(dict).slice(0,3).join(', ')}...</div>`;
     return;
   }
+
   modalBloco = {label, paginas};
   modalArquivos = entradas;
   modalIdx = 0;
-  document.getElementById('img-modal').classList.add('open');
   atualizarModal();
 }
 
