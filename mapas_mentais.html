@@ -1658,7 +1658,9 @@ function abrirImagens(blocoOuDisc, pagina) {
     return;
   }
   const b = BLOCOS_PT[blocoOuDisc];
-  if (!b) return;
+  if (!b) { console.error('BLOCOS_PT['+blocoOuDisc+'] nao encontrado'); return; }
+  const keys = Object.keys(ARQUIVOS_DRIVE);
+  console.log('abrirImagens:', blocoOuDisc, '| prefixo:', b.prefixo, '| drive keys:', keys.length, '| matches:', keys.filter(k=>k.startsWith(b.prefixo)).length);
   _abrirDrive(ARQUIVOS_DRIVE, b.prefixo, b.label, b.paginas);
 }
 
