@@ -403,6 +403,10 @@
         <div class="filter-label">ÁREA</div>
         <div class="filter-btns" id="filtro-area"></div>
       </div>
+      <div class="filter-group" id="filtro-subtema" style="display:none;margin-top:-4px;">
+        <div class="filter-label" style="color:#e09080;">🏦 TEMA DENTRO DO BLOCO BANCÁRIO</div>
+        <div class="filter-btns subtema-btns"></div>
+      </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
         <div class="filter-group">
           <div class="filter-label">BANCA</div>
@@ -447,14 +451,32 @@
       <div id="revisao-progresso-area"></div>
     </div>
 
-    <!-- Exportar / Importar progresso -->
+    <!-- Treinador de Redação -->
+    <div class="section-box" style="border-color:rgba(217,106,154,0.25);background:rgba(217,106,154,0.04);">
+      <div class="section-label" style="color:var(--rosa);">✍️ TREINADOR DE REDAÇÃO</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.6;">Método FTTD · Motor de Argumentação · Raio-X · Cirurgia · Checklist · 30 temas BB</div>
+      <a href="redacao.html" style="display:block;">
+        <button class="btn-small" style="width:100%;background:linear-gradient(135deg,#901850,var(--rosa));color:#fff;border:none;padding:12px;font-size:12px;">🚀 Abrir Treinador de Redação</button>
+      </a>
+    </div>
     <div class="section-box">
       <div class="section-label">💾 BACKUP DO PROGRESSO</div>
       <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">Exporte para não perder seu progresso ao trocar de dispositivo.</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn-small" style="flex:1;border:1px solid rgba(61,184,138,0.4);color:var(--verde);" onclick="exportarProgressoCSV()">⬇ Exportar CSV</button>
-        <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.4);color:var(--ouro);" onclick="document.getElementById('input-importar').click()">⬆ Importar CSV</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+        <button class="btn-small" style="flex:1;border:1px solid rgba(61,184,138,0.4);color:var(--verde);" onclick="exportarProgressoCSV()">⬇ Exportar progresso</button>
+        <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.4);color:var(--ouro);" onclick="document.getElementById('input-importar').click()">⬆ Importar progresso</button>
         <button class="btn-small" style="flex:1;border:1px solid rgba(224,80,64,0.4);color:var(--verm);" onclick="confirmarResetProgresso()">🗑 Zerar</button>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:10px;margin-top:4px;">
+        <div style="font-size:10px;color:var(--muted);margin-bottom:8px;">Exportar questões para o <b style="color:#4AB8D8;">Anki</b> — importe no app usando o tipo de nota "Básico".</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn-small" style="flex:1;border:1px solid rgba(74,184,216,0.5);color:#4AB8D8;background:rgba(74,184,216,0.08);" onclick="exportarAnki('todas')">🃏 Todas para Anki</button>
+          <button class="btn-small" style="flex:1;border:1px solid rgba(224,80,64,0.5);color:var(--verm);background:rgba(224,80,64,0.08);" onclick="exportarAnki('erradas')">❌ Erradas para Anki</button>
+          <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.5);color:var(--ouro);background:rgba(200,153,42,0.08);" onclick="exportarAnki('nao_respondidas')">⭐ Não respondidas para Anki</button>
+        </div>
+        <div style="font-size:9px;color:var(--muted);margin-top:6px;line-height:1.6;">
+          Anki: <b>Arquivo → Importar</b> → selecionar o CSV → tipo "Básico" → separador Tab → campos: Frente / Verso → confirmar. Tags automáticas por área e subtema.
+        </div>
       </div>
       <input type="file" id="input-importar" accept=".csv,.json" style="display:none;" onchange="importarProgresso(this)">
       <div id="backup-msg" style="font-size:11px;margin-top:8px;color:var(--verde);display:none;"></div>
@@ -762,6 +784,7 @@ let bancaErros = {};
 let totalResp = 0, totalAc = 0;
 let sessaoMax = 20;
 let filtroArea = 'Todas', filtroBanca = 'Todas', filtroConcurso = 'Todos';
+let filtroSubtemaBloco = 'Todos'; // subfiltro dentro de Legislação Específica
 let questoesFiltradas = [];
 let abaAtiva = 'plano';
 let temaSelecionado = null;
@@ -920,6 +943,141 @@ function exportarProgressoCSV() {
   a.click();
   const msg = document.getElementById('backup-msg');
   if (msg) { msg.textContent = `✅ ${Object.keys(PROGRESSO).length} registros exportados!`; msg.style.display='block'; setTimeout(()=>msg.style.display='none',3000); }
+}
+
+// ── EXPORTAÇÃO PARA ANKI ──────────────────────────────────────────────────
+// Formato: TSV separado por Tab (padrão Anki para importação)
+// Campos: Frente | Verso | Tags
+// Frente: enunciado + alternativas formatadas
+// Verso: gabarito + explicação
+// Tags: área, subtema normalizado, concursos, banca
+function exportarAnki(modo) {
+  // Selecionar questões conforme modo
+  let questoes;
+  if (modo === 'erradas') {
+    questoes = QUESTOES.filter(q => {
+      const p = PROGRESSO[q.id];
+      return p && p.erros > 0;
+    });
+  } else if (modo === 'nao_respondidas') {
+    questoes = QUESTOES.filter(q => {
+      const p = PROGRESSO[q.id];
+      return !p || !p.ultimaResposta;
+    });
+  } else {
+    questoes = [...QUESTOES];
+  }
+
+  // Aplicar filtros ativos (concurso + área + subfiltro)
+  if (filtroConcurso !== 'Todos') {
+    questoes = questoes.filter(q => q.concursos.includes(filtroConcurso));
+  }
+  if (filtroArea !== 'Todas') {
+    questoes = questoes.filter(q => q.area === filtroArea);
+  }
+  if (filtroArea === 'Legislação Específica' && filtroSubtemaBloco !== 'Todos') {
+    const subf = SUBFILTROS_LEG[filtroSubtemaBloco];
+    if (subf && subf.kws) {
+      questoes = questoes.filter(q => {
+        const sub = (q.subtema||'').toLowerCase();
+        return subf.kws.some(kw => sub.includes(kw));
+      });
+    }
+  }
+
+  if (questoes.length === 0) {
+    const msg = document.getElementById('backup-msg');
+    if (msg) { msg.style.color='var(--verm)'; msg.textContent='⚠️ Nenhuma questão encontrada com os filtros atuais.'; msg.style.display='block'; setTimeout(()=>msg.style.display='none',4000); }
+    return;
+  }
+
+  const LETRAS = ['A','B','C','D','E'];
+
+  const linhas = questoes.map(q => {
+    const p = PROGRESSO[q.id] || {};
+
+    // ── FRENTE DO CARD ───────────────────────────────────────────────
+    const alts = q.alternativas.map((alt, i) =>
+      `<b>${LETRAS[i]})</b> ${alt.replace(/</g,'&lt;').replace(/>/g,'&gt;')}`
+    ).join('<br>');
+
+    const statusStr = p.ultimaResposta
+      ? (p.acertos > p.erros ? '✅ Acertou' : '❌ Errou')
+      : '⭐ Nova';
+
+    const frente = [
+      `<div style="font-family:sans-serif;max-width:600px;">`,
+      `<div style="font-size:10px;color:#888;margin-bottom:8px;">[Q${q.id}] ${q.area} · ${q.subtema} · ${q.banca}</div>`,
+      `<div style="font-size:14px;margin-bottom:12px;">${q.enunciado.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`,
+      `<div style="font-size:13px;line-height:1.9;">${alts}</div>`,
+      `</div>`
+    ].join('');
+
+    // ── VERSO DO CARD ────────────────────────────────────────────────
+    const gabIdx = q.gabarito;
+    const gabLetra = LETRAS[gabIdx] || '?';
+    const gabTexto = q.alternativas[gabIdx] || '';
+    const exp = (q.explicacao||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+    const verso = [
+      `<div style="font-family:sans-serif;max-width:600px;">`,
+      `<div style="background:#1a3a1a;border:1px solid #3a6a3a;border-radius:8px;padding:12px;margin-bottom:12px;">`,
+      `<div style="color:#6adf8a;font-size:12px;font-weight:bold;margin-bottom:4px;">✅ GABARITO: ${gabLetra}</div>`,
+      `<div style="color:#d0f0d0;font-size:13px;">${gabTexto.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`,
+      `</div>`,
+      exp ? `<div style="font-size:12px;color:#c8c0b0;line-height:1.7;border-top:1px solid #333;padding-top:10px;">${exp}</div>` : '',
+      `<div style="font-size:10px;color:#888;margin-top:10px;">Seus dados: ${statusStr} · Acertos: ${p.acertos||0} · Erros: ${p.erros||0}</div>`,
+      `</div>`
+    ].join('');
+
+    // ── TAGS ANKI ────────────────────────────────────────────────────
+    // Normaliza para formato Anki (sem espaços, sem caracteres especiais)
+    const normalizarTag = s => s
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')  // remove acentos
+      .replace(/[^a-zA-Z0-9_-]/g,'_')
+      .replace(/_+/g,'_')
+      .replace(/^_|_$/g,'');
+
+    const areaTag = normalizarTag(q.area);
+    const subtemaTag = normalizarTag((q.subtema||'').split('–')[0].split('-')[0].trim().substring(0,30));
+    const bancaTag = normalizarTag(q.banca);
+    const concTags = q.concursos.map(c => normalizarTag(c)).join(' ');
+    const statusTag = p.ultimaResposta
+      ? (p.erros > p.acertos ? 'Errada' : 'Acertada')
+      : 'Nova';
+    const probTag = (() => {
+      const pv = probParaConcurso(q.probabilidade, filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0]||''));
+      return pv >= 88 ? 'Alta_prob' : pv >= 75 ? 'Media_prob' : 'Baixa_prob';
+    })();
+
+    const tags = `Plataforma_Estudos ${areaTag} ${subtemaTag} ${bancaTag} ${concTags} ${statusTag} ${probTag}`.trim();
+
+    // TSV: Frente [TAB] Verso [TAB] Tags
+    // Escapar tabs e quebras de linha dentro dos campos
+    const esc = s => s.replace(/\t/g,' ').replace(/\n/g,' ');
+    return `${esc(frente)}\t${esc(verso)}\t${esc(tags)}`;
+  });
+
+  // Cabeçalho especial Anki (comentário #)
+  const header = `#separator:tab\n#html:true\n#notetype:Básico\n#columns:Frente\tVerso\tTags`;
+  const conteudo = header + '\n' + linhas.join('\n');
+
+  const nomeArquivo = modo === 'erradas' ? 'anki_erradas' :
+                      modo === 'nao_respondidas' ? 'anki_nao_respondidas' :
+                      'anki_todas';
+  const blob = new Blob(['\ufeff' + conteudo], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${nomeArquivo}_${filtroConcurso.replace(/ /g,'_')}_${hoje()}.txt`;
+  a.click();
+
+  const msg = document.getElementById('backup-msg');
+  if (msg) {
+    msg.style.color = 'var(--azul)';
+    msg.textContent = `🃏 ${questoes.length} cards exportados para o Anki!`;
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 4000);
+  }
 }
 
 function importarProgresso(input) {
@@ -1124,6 +1282,34 @@ function iniciarSessaoRevisao() {
 }
 
 const AREAS = ['Todas','Português','Raciocínio Lógico','Dir. Constitucional','Dir. Administrativo','Legislação Específica','Redação'];
+
+// Ícones por área para visual mais claro
+const ICONE_AREA = {
+  'Todas':'📚',
+  'Português':'📝',
+  'Raciocínio Lógico':'🧮',
+  'Dir. Constitucional':'⚖️',
+  'Dir. Administrativo':'🏛️',
+  'Legislação Específica':'🏦',
+  'Redação':'✍️',
+};
+
+// Subfiltros temáticos da Legislação Específica (bloco bancário tem 500+ questões)
+// Cada um mapeia para palavras-chave que devem aparecer no subtema da questão
+const SUBFILTROS_LEG = {
+  'Todos':           {icon:'📋', kws:null}, // sem filtro
+  'Bancário/SFN':    {icon:'🏦', kws:['sfn','bacen','cmn','cvm','susep','fgc','cheque','câmbio','basileia','tesouraria','política monetária','spb','operações ativas','operações passivas','recuperação','iof','cet','cadastro','endosso','garantias','hipoteca','penhor','crédito rural','consórcio','duplicata','desconto','hot money','antecipação','sigilo bancário','correspondentes','tarifas','funções da moeda']},
+  'Produtos':        {icon:'💼', kws:['cdb','lci','lca','poupança','letras financeiras','lig','tesouro','fundos','fii','coe','capitalização','previdência','cartão','consignado','seguros']},
+  'Vendas/Marketing':{icon:'🤝', kws:['vendas','spin','objeções','fechamento','crm','marketing','4ps','7ps','negociação','suitability','misselling','cross','venda casada','consumidor']},
+  'Atendimento':     {icon:'🎧', kws:['atendimento','ouvidoria','sac ','res. cmn 4.949','código de defesa','cdc','conta salário','conta-salário','reclamação']},
+  'TI/Segurança':    {icon:'💻', kws:['ti –','noções de ti','phishing','golpes','engenharia social','segurança','criptografia','cloud','scrum','big data','machine learning','blockchain','dlt','smart contract','informática']},
+  'Atualidades':     {icon:'📰', kws:['atualidades','pix','drex','open banking','open finance','fintechs','tokenização','sandbox','esg','green bonds','greenwashing','risco climático','bancarização','enef','ia','inteligência artificial','baas']},
+  'Inglês':          {icon:'🌐', kws:['inglês','reading','vocabulary','english']},
+  'Legislações':     {icon:'⚖️', kws:['res. cmn','resolução cmn','lc 105','lc 166','lei 9.613','pld','lavagem','lgpd','ética','compliance','3 linhas','três linhas','sandbox','lei 13.097','lei 8.078','lei 12.249']},
+  'Cálculo Bancário':{icon:'🧮', kws:['cálculo bancário','juros','price','sac','amortização','rentabilidade','equivalência','custo efetivo']},
+  'Engenharia Civil':{icon:'🏗️', kws:['engenharia','concreto','aço','solo','fundação','geotecnia','topografia','nbr','nr-','aterro','drenagem','pavimentação']},
+};
+const SUBFILTRO_LEG_KEYS = Object.keys(SUBFILTROS_LEG);
 const BANCAS = ['Todas','Cespe','Fundatec','FCC','FGV','Cesgranrio'];
 const CONCURSOS = ['Todos','Polícia Penal RS','Prefeitura','PRF','INSS','Banco do Brasil','Caixa Econômica'];
 const COR = { ouro:'#c8992a', verde:'#3db88a', verm:'#e05040', azul:'#4a90d9', roxo:'#8a6ad9', rosa:'#d96a9a', ciano:'#4ab8b8' };
@@ -1145,25 +1331,25 @@ const PLANO_SEMANAL = [
     dica:'🔑 Porcentagem (19%) e juros compostos são os temas mais cobrados em Mat. Financeira. Domine a fórmula PMT, Price e SAC.',
   },
   {
-    dia:'Quarta', icon:'🏦', foco:'Conhecimentos Bancários (SFN + Produtos)',
-    sub:'SFN: CMN/BACEN/CVM/SUSEP · FGC limites · Pix/SPB · CDB × LCI × LCA × Poupança · Câmbio · Basileia III',
+    dia:'Quarta', icon:'🏦', foco:'Bancário + Vendas + Atendimento',
+    sub:'SFN (CMN/BACEN/CVM/SUSEP) · FGC · Pix/SPB · CDB/LCI/LCA · Câmbio · SPIN Selling · Objeções · Fechamento · CRM · Marketing 4Ps',
     concursos:'Banco do Brasil', cor:COR.ouro,
-    meta:'15 questões de Legislação Específica (Bancário) — filtro BB',
-    dica:'🔑 Conhecimentos Bancários tem 17 questões (maior bloco). SFN, câmbio e produtos caem toda prova.',
+    meta:'15 questões de Bancário + Vendas — filtro BB',
+    dica:'🔑 Bloco gigante da prova: ~32 questões (Bancário 17 + Vendas 15). Caem juntos no edital "Conhecimentos Bancários" da Cesgranrio.',
   },
   {
-    dia:'Quinta', icon:'🤝', foco:'Vendas + Atendimento + Atualidades',
-    sub:'SPIN Selling · Objeções e fechamento · CRM e churn · Atualidades: Pix/DREX/Open Finance/Fintechs/ESG/Blockchain',
-    concursos:'Banco do Brasil', cor:COR.ciano,
-    meta:'10 questões de Vendas e Negociação + 5 de Atualidades — filtro BB',
-    dica:'🔑 Vendas tem 15q (22,5 pontos) — segundo maior bloco. Atualidades é 5q mas de fácil acerto com estudo direcionado.',
-  },
-  {
-    dia:'Sexta', icon:'💻', foco:'Informática + Inglês',
-    sub:'Segurança: phishing/ransomware/2FA/criptografia · Cloud IaaS/PaaS/SaaS · Scrum/Agile · Inglês: interpretação e vocabulário econômico',
+    dia:'Quinta', icon:'⚖️', foco:'Legislações + Compliance + Ética',
+    sub:'Res. CMN 4.949 (princípios) · Ouvidoria 4.860 · CDC (venda casada, misselling) · LGPD · Lei 9.613 (PLD-FT) · Sigilo bancário LC 105 · Suitability CVM 30 · Código de Ética BB · Sandbox 4.865',
     concursos:'Banco do Brasil', cor:COR.verm,
-    meta:'10 questões de TI + 5 de Inglês — filtro BB',
-    dica:'🔑 Informática tem 15q (22,5 pontos) — maior valor por questão junto com Vendas. Inglês é 5q de leitura: pratique vocabulário bancário.',
+    meta:'12 questões de Legislações e Normativos — filtro BB',
+    dica:'🔑 Bloco regulatório novo na prova pós-2021. Decoreba dirigida: artigos, prazos (Ouvidoria 10+10), princípios das resoluções.',
+  },
+  {
+    dia:'Sexta', icon:'💻', foco:'Atualidades + TI + Inglês',
+    sub:'Atualidades: Pix/DREX/Open Finance/Fintechs/ESG/Blockchain · TI: phishing/2FA/cloud/Scrum · Inglês: leitura + vocabulário bancário',
+    concursos:'Banco do Brasil', cor:COR.ciano,
+    meta:'10 questões TI + 5 de Inglês + 5 de Atualidades — filtro BB',
+    dica:'🔑 TI vale 22,5 pontos (15q). Inglês são 5q de leitura. Atualidades cai bem se você ler matérias de Pix/DREX da semana.',
   },
   {
     dia:'Sábado', icon:'✍️', foco:'Redação Dissertativa (ELIMINATÓRIA)',
@@ -1553,10 +1739,10 @@ function renderizarPlano() {
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
         <span style="background:rgba(74,144,217,0.15);border:1px solid rgba(74,144,217,0.3);color:var(--azul);padding:3px 10px;border-radius:20px;font-size:10px;">📝 Português 10q</span>
         <span style="background:rgba(138,106,217,0.15);border:1px solid rgba(138,106,217,0.3);color:var(--roxo);padding:3px 10px;border-radius:20px;font-size:10px;">🧮 Mat. Financeira 5q</span>
-        <span style="background:rgba(200,153,42,0.15);border:1px solid rgba(200,153,42,0.3);color:var(--ouro);padding:3px 10px;border-radius:20px;font-size:10px;">🏦 Bancário 10q</span>
-        <span style="background:rgba(74,184,184,0.15);border:1px solid rgba(74,184,184,0.3);color:var(--ciano);padding:3px 10px;border-radius:20px;font-size:10px;">🤝 Vendas 15q</span>
-        <span style="background:rgba(224,80,64,0.15);border:1px solid rgba(224,80,64,0.3);color:var(--verm);padding:3px 10px;border-radius:20px;font-size:10px;">💻 TI 15q</span>
-        <span style="background:rgba(217,106,154,0.15);border:1px solid rgba(217,106,154,0.3);color:var(--rosa);padding:3px 10px;border-radius:20px;font-size:10px;">✍️ Inglês 5q · Redação</span>
+        <span style="background:rgba(200,153,42,0.15);border:1px solid rgba(200,153,42,0.3);color:var(--ouro);padding:3px 10px;border-radius:20px;font-size:10px;">🏦 Bancário+Vendas 25q</span>
+        <span style="background:rgba(224,80,64,0.15);border:1px solid rgba(224,80,64,0.3);color:var(--verm);padding:3px 10px;border-radius:20px;font-size:10px;">⚖️ Legislações 12q</span>
+        <span style="background:rgba(74,184,184,0.15);border:1px solid rgba(74,184,184,0.3);color:var(--ciano);padding:3px 10px;border-radius:20px;font-size:10px;">💻 TI 10q · 🌐 Inglês 5q</span>
+        <span style="background:rgba(217,106,154,0.15);border:1px solid rgba(217,106,154,0.3);color:var(--rosa);padding:3px 10px;border-radius:20px;font-size:10px;">✍️ Redação eliminatória</span>
       </div>
     </div>`;
 
@@ -1618,11 +1804,53 @@ function atualizarFiltros() {
     }).join('');
   }
 
-  // Área
-  renderFilterBtns('filtro-area', AREAS, filtroArea, a => {
-    filtroArea = a;
-    atualizarFiltros();
-  }, a => `border-color:${corAreaBtn(a)};background:${corAreaBtn(a)}22;color:${corAreaBtn(a)};`);
+  // Área — com ícone e contagem dinâmica considerando outros filtros
+  const elArea = document.getElementById('filtro-area');
+  if (elArea) {
+    elArea.innerHTML = AREAS.map(a => {
+      // Contar questões dessa área aplicando outros filtros (banca + concurso)
+      const n = QUESTOES.filter(x =>
+        (a === 'Todas' || x.area === a) &&
+        (filtroBanca === 'Todas' || x.banca === filtroBanca || x.banca === 'Todas') &&
+        (filtroConcurso === 'Todos' || x.concursos.includes(filtroConcurso))
+      ).length;
+      const isActive = a === filtroArea;
+      const cor = corAreaBtn(a);
+      const style = isActive
+        ? `border-color:${cor};background:${cor}33;color:${cor};font-weight:600;`
+        : `border-color:${cor}44;color:${cor}cc;`;
+      const ic = ICONE_AREA[a] || '📚';
+      return `<button class="filter-btn" style="${style}" onclick="setArea('${a.replace(/'/g,"\\'")}')">${ic} ${a} <span style="opacity:0.7;font-size:9px;">(${n})</span></button>`;
+    }).join('');
+  }
+
+  // Subfiltro temático (só aparece quando Legislação Específica está selecionada)
+  const elSub = document.getElementById('filtro-subtema');
+  if (elSub) {
+    if (filtroArea === 'Legislação Específica') {
+      elSub.style.display = 'block';
+      const baseQ = QUESTOES.filter(x =>
+        x.area === 'Legislação Específica' &&
+        (filtroBanca === 'Todas' || x.banca === filtroBanca || x.banca === 'Todas') &&
+        (filtroConcurso === 'Todos' || x.concursos.includes(filtroConcurso))
+      );
+      elSub.querySelector('.subtema-btns').innerHTML = SUBFILTRO_LEG_KEYS.map(k => {
+        const subf = SUBFILTROS_LEG[k];
+        const n = subf.kws === null ? baseQ.length :
+          baseQ.filter(x => {
+            const s = (x.subtema || '').toLowerCase();
+            return subf.kws.some(kw => s.includes(kw));
+          }).length;
+        const isAct = k === filtroSubtemaBloco;
+        const style = isAct
+          ? `border-color:var(--verm);background:rgba(224,80,64,0.22);color:#ffb09a;font-weight:600;`
+          : `border-color:rgba(224,80,64,0.25);color:#e09080;`;
+        return `<button class="filter-btn" style="${style}" onclick="setSubtemaBloco('${k.replace(/'/g,"\\'")}')">${subf.icon} ${k} <span style="opacity:0.7;font-size:9px;">(${n})</span></button>`;
+      }).join('');
+    } else {
+      elSub.style.display = 'none';
+    }
+  }
 
   // Banca
   renderFilterBtns('filtro-banca', BANCAS, filtroBanca, b => {
@@ -1672,6 +1900,18 @@ function renderFilterBtns(id, itens, ativo, onClick, styleAtivo) {
   }).join('');
 }
 
+function setArea(a) {
+  filtroArea = a;
+  // Resetar subfiltro temático ao trocar de área
+  if (a !== 'Legislação Específica') filtroSubtemaBloco = 'Todos';
+  atualizarFiltros();
+}
+
+function setSubtemaBloco(k) {
+  filtroSubtemaBloco = k;
+  atualizarFiltros();
+}
+
 function setSessao(n) {
   sessaoMax = n === 0 ? 99999 : n;
   atualizarFiltros();
@@ -1682,6 +1922,17 @@ function filtrar() {
   if (filtroArea !== 'Todas') q = q.filter(x => x.area === filtroArea);
   if (filtroBanca !== 'Todas') q = q.filter(x => x.banca === filtroBanca || x.banca === 'Todas');
   if (filtroConcurso !== 'Todos') q = q.filter(x => x.concursos.includes(filtroConcurso));
+
+  // Subfiltro temático aplicado quando área = Legislação Específica
+  if (filtroArea === 'Legislação Específica' && filtroSubtemaBloco !== 'Todos') {
+    const subf = SUBFILTROS_LEG[filtroSubtemaBloco];
+    if (subf && subf.kws) {
+      q = q.filter(x => {
+        const sub = (x.subtema || '').toLowerCase();
+        return subf.kws.some(kw => sub.includes(kw));
+      });
+    }
+  }
 
   // Função de probabilidade para o concurso ativo
   const concAtivo = filtroConcurso !== 'Todos' ? filtroConcurso : '';
