@@ -117,14 +117,15 @@
 <div class="map-wrap active" id="map-portugues">
 <div class="mind-map">
 
+  <!-- ① INTERPRETAÇÃO -->
   <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
-    <div class="root-title">📖 COMPREENSÃO E INTERPRETAÇÃO <span class="chevron">▶</span></div>
-    <div class="root-subtitle">35% das questões Cespe · Tema mais cobrado</div>
+    <div class="root-title">📖 INTERPRETAÇÃO DE TEXTO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">34% das questões Cesgranrio BB · Tema mais cobrado · 5-7q por prova</div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">🎯 Ideia Principal vs. Secundária</div>
-      <div class="child-sub">Tese central do texto · Argumentos de suporte · Conclusão implícita</div>
+      <div class="child-sub">Tese central · Argumentos de suporte · Conclusão implícita</div>
     </div>
     <div class="grandchildren">
       <div class="leaf-node"><div class="leaf-title">✅ Inferência válida: o texto GARANTE isso</div></div>
@@ -133,112 +134,347 @@
     </div>
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">🔄 Reescrita com Mesmo Sentido</div>
-      <div class="child-sub">8% das questões Cespe · Verificar: sujeito lógico, conectivo, polaridade, tempo verbal</div>
+      <div class="child-sub">Verificar: conectivo, sujeito lógico, polaridade, tempo verbal</div>
     </div>
     <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">Causa ≠ Concessão (erros mais comuns)</div></div>
-      <div class="leaf-node"><div class="leaf-title">Afirmativo ≠ Negativo (polaridade)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Causa ≠ Concessão (erros mais comuns em prova)</div></div>
       <div class="leaf-node"><div class="leaf-title">Nominalização: verbo → substantivo sem mudar sentido</div></div>
+      <div class="leaf-node"><div class="leaf-title">Voz ativa → passiva: checar concordância e preposição</div></div>
     </div>
-  </div>
-
-  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
-    <div class="root-title">🔗 COESÃO E COERÊNCIA <span class="chevron">▶</span></div>
-    <div class="root-subtitle">15% das questões · Conectivos e referência</div>
-  </div>
-  <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">🏷️ Referenciação</div>
-      <div class="child-sub">Anáfora (retoma) · Catáfora (antecipa) · Pronomes relativos: QUE, CUJO, ONDE</div>
+      <div class="child-title">🔗 Referenciação Anafórica</div>
+      <div class="child-sub">ESTE retoma o mais próximo · AQUELE o mais distante</div>
     </div>
     <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">CUJO = de + qual (relação de posse) — sem artigo depois</div></div>
+      <div class="leaf-node"><div class="leaf-title">CUJO = de + qual (posse) — nunca artigo depois do CUJO</div></div>
       <div class="leaf-node"><div class="leaf-title">ONDE = lugar fisicamente determinado</div></div>
-      <div class="leaf-node"><div class="leaf-title">QUE = polivalente (sujeito, OD, OI com prep)</div></div>
-    </div>
-    <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">⚡ Conectivos — Valor Semântico</div>
-      <div class="child-sub">CAUSA · CONSEQUÊNCIA · CONCESSÃO · CONDIÇÃO · ADIÇÃO</div>
-    </div>
-    <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">CAUSA: porque, pois, já que, uma vez que, visto que</div></div>
-      <div class="leaf-node"><div class="leaf-title">CONCESSÃO: embora, ainda que, mesmo que, por mais que</div></div>
-      <div class="leaf-node"><div class="leaf-title">CONSEQUÊNCIA: portanto, logo, por isso, razão pela qual</div></div>
-      <div class="leaf-node"><div class="leaf-title">CONDIÇÃO: se, caso, desde que, a menos que</div></div>
+      <div class="leaf-node"><div class="leaf-title">COMO = causal quando inicia o período (= já que)</div></div>
     </div>
   </div>
 
+  <!-- ② ORTOGRAFIA -->
+  <div class="root-node" style="--node-color:#e06090;" onclick="toggle(this)">
+    <div class="root-title">🔤 ORTOGRAFIA <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Acentuação · Hífen · Trema · Acentos Diferenciais</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Acentuação Gráfica</div>
+      <div class="child-sub">Proparoxítonas: TODAS · Paroxítonas: exceto -a(s),-e(s),-o(s),-em,-ens · Oxítonas: a(s),e(s),o(s),em,ens + ditongos abertos</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">🚨 Hiato: acentua i/u tônicos em sílaba sozinha ou seguidos de S — Ex.: saída, baú</div></div>
+      <div class="leaf-node"><div class="leaf-title">Exceções hiato: rainha (nh), Saara (letra repetida), feiura (u após ditongo)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Proparoxítonas aparentes: ditongos crescentes — história, série (= paroxítonas)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Dói = monossílabo tônico · Herói = oxítona com ditongo aberto</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Acentos Diferenciais (restantes após AO 2009)</div>
+      <div class="child-sub">Apenas 4 casos obrigatórios sobreviveram ao novo acordo</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Pôde (pretérito) × Pode (presente)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Pôr (verbo) × Por (preposição)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Vêm/Têm (plural) × Vem/Tem (singular)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Fôrma (objeto) × Forma (verbo) — facultativo!</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Hífen com Prefixos (AO 2009)</div>
+      <div class="child-sub">"Os diferentes se atraem" → sem hífen · "Os iguais se repelem" → COM hífen</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">✅ COM hífen: prefixo + H (anti-higiênico), prefixo BEM + vogal (bem-estar), prefixo + mesma vogal (micro-organismo)</div></div>
+      <div class="leaf-node"><div class="leaf-title">❌ SEM hífen: vogais diferentes (autoescola), R/S dupla após vogal (antirrugas, antissocial)</div></div>
+      <div class="leaf-node"><div class="leaf-title">⚠️ Após NÃO e QUASE: sem hífen ("não fumante") — a menos que forme nova palavra</div></div>
+      <div class="leaf-node"><div class="leaf-title">Trema: ABOLIDO (exceto nomes próprios estrangeiros e derivados)</div></div>
+    </div>
+  </div>
+
+  <!-- ③ MORFOLOGIA / CLASSES DE PALAVRAS -->
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">🏷️ MORFOLOGIA — CLASSES DE PALAVRAS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Pronomes · Advérbios · Verbos · Artigo · Numeral</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronomes Demonstrativos</div>
+      <div class="child-sub">Posição no tempo/espaço/texto do referente</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">ESTE/ESTA: tempo presente · espaço próximo ao falante · texto: o que vem depois</div></div>
+      <div class="leaf-node"><div class="leaf-title">ESSE/ESSA: tempo passado recente · espaço próximo ao ouvinte · texto: o que foi dito</div></div>
+      <div class="leaf-node"><div class="leaf-title">AQUELE/AQUELA: passado/futuro distante · espaço distante · texto: antecedente mais distante</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronomes Indefinidos — Certo/Bastante</div>
+      <div class="child-sub">🚨 Pegadinha clássica de prova!</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CERTO/BASTANTE antes do substantivo = pronome indefinido (variável)</div></div>
+      <div class="leaf-node"><div class="leaf-title">CERTO/BASTANTE depois do substantivo = adjetivo (variável)</div></div>
+      <div class="leaf-node"><div class="leaf-title">BASTANTE como advérbio (modifica verbo/adjetivo) = invariável</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex.: "temos bastantes alunos" (pron.) × "trabalhamos bastante" (adv.)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Advérbios — Valor Semântico</div>
+      <div class="child-sub">Classe invariável (salvo TODO: "todo sujo" / "toda limpa")</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Causa: de fome · Modo: fuzilado · Lugar: na cadeia · Companhia: com sócios</div></div>
+      <div class="leaf-node"><div class="leaf-title">Intensidade: demais · Frequência: sempre · Tempo: hoje · Meio: fraudulentamente</div></div>
+      <div class="leaf-node"><div class="leaf-title">Adjetivo ADVERBIALIZADO: aparece invariável modificando VERBO — "ele fala grosso"</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronomes de Tratamento</div>
+      <div class="child-sub">Concordância sempre na 3ª pessoa</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Vossa Excelência: presidentes, governadores, ministros, parlamentares, magistrados</div></div>
+      <div class="leaf-node"><div class="leaf-title">Vossa Senhoria: autoridades em geral, oficiais militares</div></div>
+      <div class="leaf-node"><div class="leaf-title">Vossa Reverendíssima: sacerdotes · Vossa Eminência: cardeais</div></div>
+      <div class="leaf-node"><div class="leaf-title">🔑 Sempre 3ª pessoa: "Vossa Excelência FOI" (não "fostes")</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Verbos — Aspectos Gerais</div>
+      <div class="child-sub">Radical + Vogal Temática + DMT + DNP</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Conjugações: 1ª -ar · 2ª -er · 3ª -ir (ordem alfabética!)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Modos: Indicativo (certeza) · Subjuntivo (dúvida/desejo) · Imperativo (ordem)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Locução verbal: auxiliar (flexionado) + principal (infinitivo/gerúndio/particípio)</div></div>
+    </div>
+  </div>
+
+  <!-- ④ SINTAXE -->
   <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">📐 SINTAXE <span class="chevron">▶</span></div>
-    <div class="root-subtitle">Concordância · Regência · Pontuação · Vozes</div>
+    <div class="root-title">📐 SINTAXE — FUNÇÕES SINTÁTICAS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Sujeito · Transitividade · Concordância · Regência</div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Concordância Verbal</div>
-      <div class="child-sub">HAVER impessoal: sempre singular · Sujeito posposto: concorda com mais próximo</div>
+      <div class="child-title">Tipos de Sujeito</div>
+      <div class="child-sub">Determinado (simples ou composto) · Oculto (desinencial) · Indeterminado · Inexistente</div>
     </div>
     <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">🚨 HAVER (existir) = nunca pluraliza: 'Houve erros'</div></div>
-      <div class="leaf-node"><div class="leaf-title">FAZER (tempo) = nunca pluraliza: 'Faz dois anos'</div></div>
-      <div class="leaf-node"><div class="leaf-title">Sujeito coletivo: verbo singular ou plural (ambos aceitos)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Sujeito indeterminado: verbo 3ª plural SEM sujeito identificável</div></div>
+      <div class="leaf-node"><div class="leaf-title">Índice de indeterminação: VTI/VI + SE + verbo singular — "Precisa-se de gerentes"</div></div>
+      <div class="leaf-node"><div class="leaf-title">Sujeito inexistente: verbos impessoais — HAVER (existir), FAZER (tempo), CHOVER</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 Sujeito oracional → verbo principal no SINGULAR: "É importante que você estude"</div></div>
     </div>
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Regência Verbal</div>
-      <div class="child-sub">VTD: sem preposição · VTI: com preposição obrigatória</div>
+      <div class="child-title">Transitividade Verbal</div>
+      <div class="child-sub">VTD (sem prep) · VTI (com prep) · VTDI · VI · VL</div>
     </div>
     <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">ASSISTIR A (ver): 'assistiu AO jogo'</div></div>
-      <div class="leaf-node"><div class="leaf-title">OBEDECER A: 'obedeceu ÀS normas'</div></div>
-      <div class="leaf-node"><div class="leaf-title">PREFERIR a/do que: apenas 'prefere X A Y'</div></div>
-      <div class="leaf-node"><div class="leaf-title">VISAR A (objetivar): 'visa AO lucro'</div></div>
+      <div class="leaf-node"><div class="leaf-title">VTD + objeto direto: "O candidato fez a prova"</div></div>
+      <div class="leaf-node"><div class="leaf-title">VTI + objeto indireto: "O candidato duvidou do gabarito"</div></div>
+      <div class="leaf-node"><div class="leaf-title">VL + predicativo: "O candidato estava tranquilo" — verbos SER, ESTAR, FICAR, PARECER</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 "Fui à praia" = VI + adjunto adverbial (NÃO objeto indireto)</div></div>
     </div>
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Pontuação — Vírgula</div>
-      <div class="child-sub">✅ Obrigatória · ❌ Proibida</div>
+      <div class="child-title">Pronome SE — Funções</div>
+      <div class="child-sub">Apassivador × Índice de indeterminação × Reflexivo</div>
     </div>
     <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">❌ Entre sujeito e predicado</div></div>
-      <div class="leaf-node"><div class="leaf-title">❌ Entre verbo e objeto direto</div></div>
-      <div class="leaf-node"><div class="leaf-title">✅ Aposto, vocativo, adjunto adverbial deslocado</div></div>
-    </div>
-    <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Vozes Verbais</div>
-      <div class="child-sub">Ativa → Passiva analítica → Passiva sintética</div>
-    </div>
-    <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">Passiva analítica: ser + particípio + por/de</div></div>
-      <div class="leaf-node"><div class="leaf-title">Passiva sintética: verbo + se (pronome apassivador)</div></div>
-      <div class="leaf-node"><div class="leaf-title">VTI NÃO forma passiva analítica</div></div>
+      <div class="leaf-node"><div class="leaf-title">SE APASSIVADOR: VTD + SE + sujeito paciente → CONCORDA com sujeito: "Vendem-se casas"</div></div>
+      <div class="leaf-node"><div class="leaf-title">SE INDETERMINADOR: VTI/VI/VL + SE → sempre SINGULAR: "Precisa-se de ajudantes"</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 Teste: vira passiva analítica? SIM → apassivador · NÃO → indeterminador</div></div>
     </div>
   </div>
 
+  <!-- ⑤ PONTUAÇÃO -->
   <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">📚 MORFOLOGIA E SEMÂNTICA <span class="chevron">▶</span></div>
-    <div class="root-subtitle">Classes gramaticais · Figuras de linguagem · Ortografia</div>
+    <div class="root-title">✏️ PONTUAÇÃO — USO DA VÍRGULA <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Vírgula é marcador de funções sintáticas — NÃO é pausa!</div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Semântica</div>
-      <div class="child-sub">Denotativo (literal) · Conotativo (figurado) · Polissemia · Homonímia</div>
+      <div class="child-title">✅ Vírgula Obrigatória</div>
+      <div class="child-sub">5 usos principais que caem em prova</div>
     </div>
     <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">Metáfora = comparação implícita (sem 'como')</div></div>
-      <div class="leaf-node"><div class="leaf-title">Metonímia = substituição por relação real</div></div>
-      <div class="leaf-node"><div class="leaf-title">Polissemia: mesmo termo, sentidos diferentes (banco)</div></div>
+      <div class="leaf-node"><div class="leaf-title">1. Adjunto adverbial DESLOCADO (antepostos e intercalados)</div></div>
+      <div class="leaf-node"><div class="leaf-title">2. Orações interferentes / parentéticas (interrompem o período)</div></div>
+      <div class="leaf-node"><div class="leaf-title">3. Aposto explicativo: "Ares, o deus da guerra, inspirava os troianos"</div></div>
+      <div class="leaf-node"><div class="leaf-title">4. Vocativo: "Felipe, seja mais gentil"</div></div>
+      <div class="leaf-node"><div class="leaf-title">5. Enumeração de termos de mesma função sintática</div></div>
     </div>
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Crase</div>
-      <div class="child-sub">✅ a (prep) + a (artigo fem.) = à · ❌ masculino, verbo, pronome</div>
+      <div class="child-title">❌ Vírgula Proibida</div>
+      <div class="child-sub">Vírgulas que NUNCA devem aparecer</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">❌ Entre SUJEITO e VERBO: "O banco, aprovou o crédito" — ERRADO</div></div>
+      <div class="leaf-node"><div class="leaf-title">❌ Entre VERBO e OBJETO: "O banco aprovou, o crédito" — ERRADO</div></div>
+      <div class="leaf-node"><div class="leaf-title">⚠️ Adjunto adverbial curto ao final: vírgula FACULTATIVA</div></div>
     </div>
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Redação Oficial (MRPR)</div>
-      <div class="child-sub">Impessoalidade · Fechos: Respeitosamente/Atenciosamente · Pronomes de tratamento</div>
+      <div class="child-title">Conectivos e Vírgula</div>
+      <div class="child-sub">MAS/PORÉM/TODAVIA/CONTUDO exigem vírgula antes</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Adversativas (mas, porém, todavia, contudo, entretanto): vírgula OBRIGATÓRIA antes</div></div>
+      <div class="leaf-node"><div class="leaf-title">Conclusivas (portanto, logo, pois posposto): vírgula OBRIGATÓRIA antes</div></div>
+      <div class="leaf-node"><div class="leaf-title">E entre sujeitos DIFERENTES: vírgula OBRIGATÓRIA ("Pedro foi, e Maria ficou")</div></div>
+    </div>
+  </div>
+
+  <!-- ⑥ CONCORDÂNCIA -->
+  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
+    <div class="root-title">⚖️ CONCORDÂNCIA <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Verbal e Nominal · Casos particulares · Pegadinhas clássicas</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚨 Verbos Impessoais</div>
+      <div class="child-sub">NUNCA pluralizam — erro clássico de toda prova BB</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">HAVER (existir/ocorrer): "Houve erros" ✅ — "Houveram erros" ❌</div></div>
+      <div class="leaf-node"><div class="leaf-title">FAZER (tempo): "Faz dois anos" ✅ — "Fazem dois anos" ❌</div></div>
+      <div class="leaf-node"><div class="leaf-title">O auxiliar herda a impessoalidade: "DEVE haver" ✅ — "devem haver" ❌</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Concordância com SER — Casos Especiais</div>
+      <div class="child-sub">Verbo SER comporta-se de forma especial</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Sujeito indica peso/medida/quantidade (pouco/muito/bastante/suficiente/tanto): SER singular — "Três mil reais É pouco"</div></div>
+      <div class="leaf-node"><div class="leaf-title">Entre dois núcleos: segue ordem de preferência: pronome pessoal > subst. próprio > subst. concreto</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex.: "Tu és Maria" · "As terras são a riqueza" · "Emoções são tudo"</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Pronome Apassivador SE — Concordância</div>
+      <div class="child-sub">VTD + SE + sujeito paciente</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">"Enviaram-se ao gerente pedidos de aumento" → pedidos = sujeito → plural</div></div>
+      <div class="leaf-node"><div class="leaf-title">"Deve-se alugar a casa" (singular) × "Devem-se alugar as casas" (plural)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Concordância com Infinitivo</div>
+      <div class="child-sub">Flexionar ou não? Regra prática</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Impessoal (não flexiona): valor substantivo ("Estudar é importante"), valor geral, após causativo/sensitivo + pronome oblíquo</div></div>
+      <div class="leaf-node"><div class="leaf-title">Pessoal (flexiona): sujeito explícito diferente + para enfatizar o agente: "Ouvi chamarem você"</div></div>
+    </div>
+  </div>
+
+  <!-- ⑦ REGÊNCIA -->
+  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
+    <div class="root-title">🔧 REGÊNCIA VERBAL E NOMINAL <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Verbos que mais caem na Cesgranrio BB</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Verbos de Dupla Regência (pegadinha)</div>
+      <div class="child-sub">Mudam de sentido conforme a preposição</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">ASSISTIR: VTD = dar assistência ("o médico assistiu o paciente") · VTI (a) = ver/presenciar/competir ("assistiu ao jogo")</div></div>
+      <div class="leaf-node"><div class="leaf-title">ASSISTIR (em) = morar: "Seu tio assistia em um sítio"</div></div>
+      <div class="leaf-node"><div class="leaf-title">AGRADAR: VTD = fazer agrado ("ela agradou o filho") · VTI (a) = ser agradável ("não agradou ao homem")</div></div>
+      <div class="leaf-node"><div class="leaf-title">AJUDAR/SATISFAZER/PRESIDIR/PRECEDER: VTD ou VTI (a) com mesmo sentido</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Verbos VTD mais cobrados</div>
+      <div class="child-sub">NÃO exigem preposição</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">AMAR, ESTIMAR, ABENÇOAR, LOUVAR, DETESTAR, ODIAR, ADORAR, VISITAR</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex.: "Amo minha mãe" · "Visitei o monumento" (sem preposição!)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Regência Nominal — Nomes importantes</div>
+      <div class="child-sub">Substantivos e adjetivos com regência própria</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">ACESSÍVEL A · APTO A/PARA · ANSIOSO POR/PARA · FAVORÁVEL A</div></div>
+      <div class="leaf-node"><div class="leaf-title">COMPATÍVEL COM · PASSÍVEL DE · CAPAZ DE · HÁBIL EM</div></div>
+      <div class="leaf-node"><div class="leaf-title">PREFERÊNCIA POR (não "com"!) · RESPEITO A/POR · ATENTADO A/CONTRA</div></div>
+    </div>
+  </div>
+
+  <!-- ⑧ CRASE -->
+  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
+    <div class="root-title">À CRASE <span class="chevron">▶</span></div>
+    <div class="root-subtitle">a (prep) + a (artigo fem.) = à · Obrigatória · Proibida · Facultativa</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">✅ Crase Obrigatória</div>
+      <div class="child-sub">Quando preposição A + artigo A se fundem</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Verbo/nome VTI que exige A + substantivo feminino: "Obedeço à lei" · "Tenho aversão à luz"</div></div>
+      <div class="leaf-node"><div class="leaf-title">ÀQUELE/ÀQUELA/ÀQUILO: sempre com crase (a + aquele)</div></div>
+      <div class="leaf-node"><div class="leaf-title">À QUAL, ÀS QUAIS: "Esta é a casa à qual me refiro"</div></div>
+      <div class="leaf-node"><div class="leaf-title">Locuções femininas: à medida que · às vezes · à vista · à disposição · à beira · à força</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">❌ Crase Proibida</div>
+      <div class="child-sub">Nunca ocorre nestas situações</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Antes de VERBO: "a partir", "a fazer", "a estudar" — sem crase</div></div>
+      <div class="leaf-node"><div class="leaf-title">Antes de substantivo MASCULINO: "a prazo", "a crédito"</div></div>
+      <div class="leaf-node"><div class="leaf-title">Antes de PRONOME: ela, você, mim, alguém, essa, esta — sem crase</div></div>
+      <div class="leaf-node"><div class="leaf-title">Artigo indefinido: "a uma cliente" (sem crase)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">⚠️ Crase Facultativa</div>
+      <div class="child-sub">3 casos em que é opcional</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">1. Antes de nome próprio feminino: "Refiro-me a/à Maria"</div></div>
+      <div class="leaf-node"><div class="leaf-title">2. Antes de pronome possessivo feminino: "Refiro-me a/à minha amiga" — MAS "às minhas amigas" = obrigatória!</div></div>
+      <div class="leaf-node"><div class="leaf-title">3. Após preposição ATÉ: "foi até a/à agência"</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 Pessoa famosa: geralmente SEM crase (salvo com especificador)</div></div>
+    </div>
+  </div>
+
+  <!-- ⑨ COESÃO / CONECTIVOS -->
+  <div class="root-node" style="--node-color:#30c0d0;" onclick="toggle(this)">
+    <div class="root-title">🔗 COESÃO — CONECTIVOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Relações lógicas entre orações · Valor semântico</div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Conectivos por Valor Semântico</div>
+      <div class="child-sub">Identificar a relação lógica é a chave da questão</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CAUSA: porque, pois, já que, uma vez que, visto que, como (início de período)</div></div>
+      <div class="leaf-node"><div class="leaf-title">CONSEQUÊNCIA: portanto, logo, assim, por isso, por conseguinte, tanto que</div></div>
+      <div class="leaf-node"><div class="leaf-title">CONCESSÃO: embora, ainda que, mesmo que, por mais que, apesar de</div></div>
+      <div class="leaf-node"><div class="leaf-title">CONDIÇÃO: se, caso, desde que, contanto que, a menos que</div></div>
+      <div class="leaf-node"><div class="leaf-title">ADIÇÃO: e, nem, ademais, além disso, também, outrossim</div></div>
+      <div class="leaf-node"><div class="leaf-title">ADVERSIDADE: mas, porém, todavia, contudo, entretanto, no entanto</div></div>
+      <div class="leaf-node"><div class="leaf-title">PROPORÇÃO: à medida que, à proporção que, quanto mais...mais</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚨 COMO — Duplo Valor</div>
+      <div class="child-sub">Pegadinha frequente em Cesgranrio</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">COMO no INÍCIO do período + oração principal depois = CAUSAL (= já que)</div></div>
+      <div class="leaf-node"><div class="leaf-title">COMO no MEIO do período = conformidade/comparação</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex.: "Como a ideia não pegou, Barbier adaptou o método" = CAUSAL</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Palavras Denotativas</div>
+      <div class="child-sub">Expressam sentido peculiar — não são conjunções!</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Designação (Eis) · Explicação (Isto é, ou seja) · Realce (É que, lá, mas)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Retificação (Aliás) · Situação (Então, mas) · Exclusão (Apesar) · Inclusão (Até, ainda)</div></div>
     </div>
   </div>
 
 </div>
 <div class="relacoes">
-  <strong>🔗 Conexões:</strong> Interpretação ↔ Lógica Proposicional (inferência) · Coesão ↔ Conjunções Lógicas · Redação Oficial ↔ Ato Administrativo (impessoalidade)
+  <strong>🔗 Conexões:</strong> Interpretação ↔ Coesão/Conectivos · Concordância ↔ Sujeito (pronome SE) · Regência ↔ Crase (verbos que pedem A) · Ortografia (AO 2009) ↔ Hífen com prefixos
 </div>
 </div>
 
