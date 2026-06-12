@@ -116,14 +116,15 @@
 
 <div class="tabs">
   <button class="tab active" style="background:linear-gradient(135deg,#1e3a5f,#0d1a30);color:#3db8ea;border-color:#3db8ea;" onclick="showMap('portugues',this)">📖 Português</button>
-  <button class="tab" onclick="showMap('logica',this)">🔢 Raciocínio Lógico</button>
+  <button class="tab" onclick="showMap('logica',this)">🔷 Raciocínio Lógico</button>
+  <button class="tab" onclick="showMap('matfin',this)">💰 Mat. Financeira</button>
   <button class="tab" onclick="showMap('constitucional',this)">⚖️ Dir. Constitucional</button>
   <button class="tab" onclick="showMap('administrativo',this)">🏛️ Dir. Administrativo</button>
   <button class="tab" onclick="showMap('bancario',this)">🏦 Conhecimentos Bancários</button>
   <button class="tab" onclick="showMap('prf',this)">🚔 PRF Específico</button>
   <button class="tab" onclick="showMap('inss',this)">🏥 INSS Específico</button>
   <button class="tab" onclick="showMap('engenharia',this)">🏗️ Engenharia Civil</button>
-  <button class="tab" onclick="showMap('conexoes',this)">🔗 Conexões Interdisciplinares</button>
+  <button class="tab" onclick="showMap('conexoes',this)">🔗 Conexões</button>
 </div>
 
 <div class="search-bar">
@@ -549,92 +550,364 @@
 <div class="map-wrap" id="map-logica">
 <div class="mind-map">
 
+  <!-- ① LÓGICA PROPOSICIONAL -->
   <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
     <div class="root-title">🔷 LÓGICA PROPOSICIONAL <span class="chevron">▶</span></div>
-    <div class="root-subtitle">Conectivos · Tabela-verdade · Quantificadores · Equivalências</div>
+    <div class="root-subtitle">Proposições · Conectivos · Tabela-verdade · Equivalências · Negações</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 RLM - Todos os Mapas.pdf · págs. 7–14</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagensRL('logica')">🖼️ Ver original no Drive</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Conectivos e Tabela-Verdade</div>
-      <div class="child-sub">∧(E) · ∨(OU) · →(SE-ENTÃO) · ¬(NÃO)</div>
+      <div class="child-title">Proposição — Conceito</div>
+      <div class="child-sub">Oração declarativa que pode ser V ou F — nunca ambos (princípio do terceiro excluído)</div>
     </div>
     <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">P→Q falsa SOMENTE quando P=V e Q=F</div></div>
-      <div class="leaf-node"><div class="leaf-title">De Morgan: ¬(P∧Q) = ¬P∨¬Q</div></div>
-      <div class="leaf-node"><div class="leaf-title">Contrapositiva ¬Q→¬P = equivalente à P→Q</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 NÃO são proposições: exclamativas, interrogativas, imperativas, optativas</div></div>
+      <div class="leaf-node"><div class="leaf-title">Sentença aberta (x + 5 = 10) e paradoxos NÃO são proposições</div></div>
+      <div class="leaf-node"><div class="leaf-title">Simples: sem conectivos · Composta: construída com conectivos lógicos</div></div>
     </div>
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Quantificadores</div>
-      <div class="child-sub">Todo / Nenhum / Algum · Negação dos quantificadores</div>
+      <div class="child-title">Conectivos e Tabelas-Verdade</div>
+      <div class="child-sub">5 conectivos fundamentais com tabelas completas</div>
     </div>
     <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">CONJUNÇÃO (∧ = E): V∧V=V; qualquer F → F</div></div>
+      <div class="leaf-node"><div class="leaf-title">DISJUNÇÃO INCLUSIVA (∨ = OU): F∨F=F; qualquer V → V</div></div>
+      <div class="leaf-node"><div class="leaf-title">DISJUNÇÃO EXCLUSIVA (⊻): verdadeiro quando exatamente um é V</div></div>
+      <div class="leaf-node"><div class="leaf-title">🚨 CONDICIONAL (→ = SE...ENTÃO): FALSA apenas quando P=V e Q=F</div></div>
+      <div class="leaf-node"><div class="leaf-title">BICONDICIONAL (↔ = SE E SOMENTE SE): V quando P e Q têm mesmo valor</div></div>
+      <div class="leaf-node"><div class="leaf-title">Sinônimos de P→Q: "P logo Q" · "Sempre que P, Q" · "P somente quando Q"</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Equivalências do Condicional</div>
+      <div class="child-sub">P→Q tem 3 equivalências clássicas que mais caem em prova</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Contrapositiva: P→Q ≡ ¬Q→¬P (inverter E negar ambas)</div></div>
+      <div class="leaf-node"><div class="leaf-title">P→Q ≡ ¬P∨Q (disjunção)</div></div>
+      <div class="leaf-node"><div class="leaf-title">¬(P→Q) ≡ P∧¬Q (negação da condicional = P aconteceu mas Q não)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Condição SUFICIENTE: P para Q (se P, então Q) · Condição NECESSÁRIA: Q para P</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Negações dos Conectivos (De Morgan)</div>
+      <div class="child-sub">🔑 Inverter o sinal e negar ambas as proposições</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">¬(P∧Q) ≡ ¬P∨¬Q · ¬(P∨Q) ≡ ¬P∧¬Q</div></div>
+      <div class="leaf-node"><div class="leaf-title">¬(P→Q) ≡ P∧¬Q · ¬(P↔Q) ≡ P⊻Q</div></div>
       <div class="leaf-node"><div class="leaf-title">¬(Todo A é B) = Algum A não é B</div></div>
       <div class="leaf-node"><div class="leaf-title">¬(Nenhum A é B) = Algum A é B</div></div>
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">💰 MATEMÁTICA FINANCEIRA <span class="chevron">▶</span></div>
-    <div class="root-subtitle">Juros · Desconto · Séries · Inflação</div>
-  </div>
-  <div class="children">
-    <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Juros Simples vs. Compostos</div>
-      <div class="child-sub">JS: M = C(1+it) linear · JC: M = C(1+i)ⁿ exponencial</div>
-    </div>
-    <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">Proporcionalidade: JS usa regra de três</div></div>
-      <div class="leaf-node"><div class="leaf-title">Equivalência: JC usa (1+im)¹² = (1+ia)</div></div>
-      <div class="leaf-node"><div class="leaf-title">Regra 72: t ≈ 72/taxa% para dobrar</div></div>
-    </div>
-    <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Porcentagem — Variações Encadeadas</div>
-      <div class="child-sub">Nunca somar taxas de períodos diferentes — multiplicar!</div>
-    </div>
-    <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">+20% depois -20% = -4% (não zero!)</div></div>
-      <div class="leaf-node"><div class="leaf-title">Inflação acumulada: (1+i₁)×(1+i₂)×...–1</div></div>
-    </div>
-    <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">PRICE vs. SAC</div>
-      <div class="child-sub">PRICE: prestações iguais · SAC: amortização constante</div>
-    </div>
-    <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">SAC: mais caro no início, total menor</div></div>
-      <div class="leaf-node"><div class="leaf-title">PRICE: parcelas iguais, amortização crescente</div></div>
-    </div>
-  </div>
-
+  <!-- ② RACIOCÍNIO LÓGICO MATEMÁTICO -->
   <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">📊 ESTATÍSTICA E PROBABILIDADE <span class="chevron">▶</span></div>
-    <div class="root-subtitle">Distribuições · Testes · Regressão · Combinatória</div>
+    <div class="root-title">🔢 RACIOCÍNIO LÓGICO-MATEMÁTICO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Regra de Três · Médias · PA/PG · Porcentagem</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 RLM - Todos os Mapas.pdf · págs. 16–17 (Regra/Médias) · 24–28 (PA/PG/Pct)</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagensRL('regra3')">🖼️ Regra de Três</button>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagensRL('papg')">🖼️ PA/PG</button>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagensRL('porcentagem')">🖼️ Porcentagem</button>
+    </div>
   </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Distribuição Normal</div>
-      <div class="child-sub">Regra 68-95-99,7 · Z = (X-μ)/σ · IC 95%: z*=1,96</div>
+      <div class="child-title">Regra de Três Composta</div>
+      <div class="child-sub">Grandezas diretas (↓↓) e inversas (↓↑) — construir tabela e setas</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Diretamente proporcional: ambas crescem/diminuem juntas → seta para baixo</div></div>
+      <div class="leaf-node"><div class="leaf-title">Inversamente proporcional: uma cresce, outra diminui → seta para cima (inverter)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Equação: incógnita/valor = produto das frações de cada grandeza</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Médias</div>
+      <div class="child-sub">Aritmética · Ponderada · Geométrica · Harmônica</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Aritmética simples: MA = (a₁+a₂+...+aₙ)/n</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ponderada: MP = (a₁p₁+a₂p₂+...)/Σp</div></div>
+      <div class="leaf-node"><div class="leaf-title">Geométrica: MG = ⁿ√(a₁×a₂×...×aₙ)</div></div>
+      <div class="leaf-node"><div class="leaf-title">MA ≥ MG ≥ MH (sempre — para valores positivos)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Progressão Aritmética (PA)</div>
+      <div class="child-sub">Razão constante entre termos consecutivos</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Termo geral: aₙ = a₁ + (n-1).r</div></div>
+      <div class="leaf-node"><div class="leaf-title">Soma: Sₙ = n.(a₁+aₙ)/2</div></div>
+      <div class="leaf-node"><div class="leaf-title">Crescente r>0 · Decrescente r<0 · Constante r=0</div></div>
+      <div class="leaf-node"><div class="leaf-title">Termo do meio = média aritmética dos vizinhos</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Progressão Geométrica (PG)</div>
+      <div class="child-sub">Razão q constante entre termos consecutivos (produto)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Termo geral: aₙ = a₁ . qⁿ⁻¹</div></div>
+      <div class="leaf-node"><div class="leaf-title">Soma: Sₙ = a₁.(qⁿ-1)/(q-1) para q≠1</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ligação com Juros Compostos: montante = C.qⁿ onde q=(1+i)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Análise Combinatória</div>
+      <div class="child-sub">Princípio multiplicativo · Permutação · Arranjo · Combinação</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Permutação simples: P(n) = n! (ordem importa, todos os elementos)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Arranjo: A(n,p) = n!/(n-p)! (ordem importa, p elementos de n)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Combinação: C(n,p) = n!/p!(n-p)! (ordem NÃO importa)</div></div>
+      <div class="leaf-node"><div class="leaf-title">🔑 Palavra-chave GRUPO/CONJUNTO/COMISSÃO → combinação</div></div>
     </div>
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Probabilidade</div>
-      <div class="child-sub">Com/sem reposição · Bayes · P(A|B) = P(A∩B)/P(B)</div>
-    </div>
-    <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Regressão Linear</div>
-      <div class="child-sub">b = (nΣxy-ΣxΣy)/(nΣx²-(Σx)²) · R² = variância explicada</div>
-    </div>
-    <div class="child-node" onclick="toggleLeaf(this)">
-      <div class="child-title">Combinatória</div>
-      <div class="child-sub">P(n)=n! · A(n,r)=n!/(n-r)! · C(n,r)=n!/r!(n-r)!</div>
+      <div class="child-sub">P(A) = casos favoráveis / casos totais</div>
     </div>
     <div class="grandchildren">
-      <div class="leaf-node"><div class="leaf-title">Comissão: combinação (ordem não importa)</div></div>
-      <div class="leaf-node"><div class="leaf-title">Pódio/senha: arranjo/permutação (ordem importa)</div></div>
+      <div class="leaf-node"><div class="leaf-title">P(A∪B) = P(A) + P(B) - P(A∩B)</div></div>
+      <div class="leaf-node"><div class="leaf-title">P(complementar Ā) = 1 - P(A)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Mutuamente excludentes: P(A∩B)=0 → P(A∪B)=P(A)+P(B)</div></div>
+      <div class="leaf-node"><div class="leaf-title">0 ≤ P(A) ≤ 1 · P(impossível)=0 · P(certo)=1</div></div>
     </div>
   </div>
 
 </div>
 <div class="relacoes">
-  <strong>🔗 Conexões:</strong> Probabilidade ↔ Crédito Bancário (risco) · Regressão ↔ Score de Crédito · Juros Compostos ↔ Produtos Bancários (CDB, LCI) · Estatística ↔ Análise de Dados Bancários
+  <strong>🔗 Conexões:</strong> Lógica Proposicional ↔ Interpretação Português (inferência) · PA/PG ↔ Juros Compostos (MF) · Combinatória ↔ Probabilidade · Regra de 3 ↔ Porcentagem
+  <br><br>
+  <!-- Config Drive RL -->
+  <div style="background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.2);border-radius:8px;padding:12px;margin-top:10px;">
+    <div style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#4a90d9;margin-bottom:8px;">⚙️ IMAGENS RL — CONFIGURAR GOOGLE DRIVE</div>
+    <div style="font-size:10px;color:#8090a0;line-height:1.9;">
+      1. Suba a pasta <code>rl_drive/</code> do ZIP <code>mapas_rl_drive.zip</code> no Google Drive · Compartilhe como "Qualquer pessoa com o link"<br>
+      2. Abra a pasta no browser → F12 → Console → cole <code>extrair_ids_console.js</code> → copie o resultado<br>
+      3. Localize <code>ARQUIVOS_DRIVE_RL</code> neste HTML e cole os IDs
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ MATEMÁTICA FINANCEIRA ═══ -->
+<div class="map-wrap" id="map-matfin">
+<div class="mind-map">
+
+  <!-- ① PORCENTAGEM -->
+  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
+    <div class="root-title">💯 PORCENTAGEM <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Variações · Aumentos e descontos sucessivos · Transformações</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · pág. 5</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('mf', 5)">🖼️ Ver original no Drive</button>
+    </div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Variações Percentuais</div>
+      <div class="child-sub">Aumentar p% → multiplicar por (100+p)% · Diminuir p% → multiplicar por (100-p)%</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Ex: Redução 25% em R$400 → 400 × 75% = R$300</div></div>
+      <div class="leaf-node"><div class="leaf-title">Aumento 25% em R$400 → 400 × 125% = R$500</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚨 Variações Sucessivas</div>
+      <div class="child-sub">NUNCA somar taxas — SEMPRE multiplicar os fatores!</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">+20% e -20% ≠ 0% → 1,20 × 0,80 = 0,96 → -4%</div></div>
+      <div class="leaf-node"><div class="leaf-title">Ex: +20%, -30%, +40% em R$120 → 1,20 × 0,70 × 1,40 × 120 = R$141,12</div></div>
+      <div class="leaf-node"><div class="leaf-title">Transformar fração em %: fração × 100% (Ex: 5/2 × 100% = 250%)</div></div>
+    </div>
+  </div>
+
+  <!-- ② JUROS SIMPLES -->
+  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
+    <div class="root-title">📈 JUROS SIMPLES <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Js = C.i.n · Não capitalizados · Taxas proporcionais</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · pág. 6</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('mf', 6)">🖼️ Ver original no Drive</button>
+    </div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Fórmulas Essenciais</div>
+      <div class="child-sub">Juros: Js = C.i.n · Montante: Ms = C.(1+i.n)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">i sempre em forma fracionária ou decimal: 10% → i=0,10</div></div>
+      <div class="leaf-node"><div class="leaf-title">Juros comerciais: ano=360 dias · Juros exatos: calendário civil</div></div>
+      <div class="leaf-node"><div class="leaf-title">Taxas proporcionais (JS): regra de três — 2% a.m. = 24% a.a.</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Simples × Composto — Comparação</div>
+      <div class="child-sub">n>1: Mc>Ms · n=1: Mc=Ms · n<1: Mc<Ms</div>
+    </div>
+  </div>
+
+  <!-- ③ JUROS COMPOSTOS -->
+  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
+    <div class="root-title">📊 JUROS COMPOSTOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">M = C.(1+i)ⁿ · Taxas equivalentes · Taxa nominal × efetiva</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 7–8</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('mf', 7)">🖼️ Ver original no Drive</button>
+    </div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Fórmulas e Período de Capitalização</div>
+      <div class="child-sub">M = C.(1+i)ⁿ · J = C[(1+i)ⁿ - 1]</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Juros sobre juros: cada período incorpora juros ao capital</div></div>
+      <div class="leaf-node"><div class="leaf-title">Período da taxa ≠ período de capitalização → ajustar ANTES do cálculo!</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">🚨 Taxas Equivalentes (JC) — NUNCA proporção!</div>
+      <div class="child-sub">(1+i_período1)¹ = (1+i_período2)^(Per1/Per2)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Ex: (1+i_anual)¹ = (1+i_trimestral)⁴</div></div>
+      <div class="leaf-node"><div class="leaf-title">1% a.m. composto ≠ 12% a.a. → (1,01)¹² - 1 = 12,68% a.a.</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Taxa Nominal × Taxa Efetiva</div>
+      <div class="child-sub">Nominal: período ≠ capitalização · Efetiva: períodos iguais</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Ex: 24% a.a. com capitalização mensal → taxa mensal = 24%/12 = 2% a.m. (nominal)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Taxa efetiva anual: (1,02)¹² - 1 = 26,82% a.a. ≠ 24%</div></div>
+      <div class="leaf-node"><div class="leaf-title">🔑 NUNCA usar taxa nominal nos cálculos — obter sempre a efetiva!</div></div>
+    </div>
+  </div>
+
+  <!-- ④ DESCONTOS -->
+  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
+    <div class="root-title">🏷️ DESCONTOS <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Racional (por dentro) × Comercial (por fora) · A = N - D</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 10–12</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('mf', 10)">🖼️ Ver original no Drive</button>
+    </div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Conceitos Base</div>
+      <div class="child-sub">N = valor nominal (futuro) · A = valor atual (presente) · D = desconto · A = N - D</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Desconto Comercial (Por Fora)</div>
+      <div class="child-sub">D = N.i.n · aplicado sobre o VALOR NOMINAL (futuro)</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Mais comum no mercado bancário brasileiro (boleto, duplicata)</div></div>
+      <div class="leaf-node"><div class="leaf-title">"Desconto bancário" no enunciado → usar desconto comercial simples</div></div>
+      <div class="leaf-node"><div class="leaf-title">Taxa efetiva diferente da taxa de desconto i</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Desconto Racional (Por Dentro)</div>
+      <div class="child-sub">Operação inversa dos juros — Dr = N - C</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">"Desconto composto" no enunciado → usar racional composto</div></div>
+      <div class="leaf-node"><div class="leaf-title">Desconto comercial > racional (para mesmos N, i, n)</div></div>
+    </div>
+  </div>
+
+  <!-- ⑤ SISTEMAS DE AMORTIZAÇÃO -->
+  <div class="root-node" style="--node-color:#d96a9a;" onclick="toggle(this)">
+    <div class="root-title">🏠 SISTEMAS DE AMORTIZAÇÃO <span class="chevron">▶</span></div>
+    <div class="root-subtitle">SAC · Price (Francês) · SAM · Fórmulas completas</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 17–19</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('mf', 17)">🖼️ Ver original no Drive</button>
+    </div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">SAC — Sistema de Amortização Constante</div>
+      <div class="child-sub">Amortização constante A = D/n · Prestações DECRESCENTES</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Saldo devedor: SD = D - (n-1).A</div></div>
+      <div class="leaf-node"><div class="leaf-title">Juros de cada parcela: Jₙ = SD.i</div></div>
+      <div class="leaf-node"><div class="leaf-title">Última parcela: J_última = A.i (o último saldo = A)</div></div>
+      <div class="leaf-node"><div class="leaf-title">Juros caem em progressão aritmética de razão r = -i.A</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Price — Sistema Francês</div>
+      <div class="child-sub">Prestações CONSTANTES P = A + J · Amortização cresce, juros caem</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">P = D . aₙ₋ᵢ⁻¹ (fator tabela Price)</div></div>
+      <div class="leaf-node"><div class="leaf-title">aₙ₋ᵢ = [(1+i)ⁿ - 1] / [i.(1+i)ⁿ]</div></div>
+      <div class="leaf-node"><div class="leaf-title">Amortização n-ésima: Aₙ = A₁.(1+i)ⁿ⁻¹</div></div>
+      <div class="leaf-node"><div class="leaf-title">Tabela Price: capitalização na MESMA unidade do nº de parcelas</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">SAM — Sistema de Amortização Misto</div>
+      <div class="child-sub">P_SAM = (P_SAC + P_Price) / 2 (média aritmética)</div>
+    </div>
+  </div>
+
+  <!-- ⑥ VPL E EQUIVALÊNCIA -->
+  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
+    <div class="root-title">💰 VPL · EQUIVALÊNCIA · TIR · ANUIDADES <span class="chevron">▶</span></div>
+    <div class="root-subtitle">Valor Presente Líquido · Equivalência de capitais · Taxa Interna de Retorno</div>
+    <div class="ref-bar">
+      <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 13–16</span>
+      <button class="ref-btn ref-btn-drive" onclick="abrirImagens('mf', 13)">🖼️ Ver original no Drive</button>
+    </div>
+  </div>
+  <div class="children">
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">VPL — Valor Presente Líquido</div>
+      <div class="child-sub">VPL = V₁/(1+j)^t₁ + V₂/(1+j)^t₂ + ... − Investimento inicial</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">VPL > 0: projeto VIÁVEL · VPL = 0: indiferente · VPL < 0: inviável</div></div>
+      <div class="leaf-node"><div class="leaf-title">Usar TMA (Taxa Mínima de Atratividade) para trazer os fluxos</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Equivalência de Capitais</div>
+      <div class="child-sub">Dois capitais equivalentes quando, a uma mesma taxa, têm o mesmo valor presente</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Levar TODOS os fluxos para a mesma DATA FOCAL e igualar</div></div>
+      <div class="leaf-node"><div class="leaf-title">Pagar antecipado: desconto (dividir) · Pagar postergado: capitalizar (multiplicar)</div></div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">TIR — Taxa Interna de Retorno</div>
+      <div class="child-sub">Taxa que torna VPL = 0 · TIR > TMA → projeto viável</div>
+    </div>
+    <div class="child-node" onclick="toggleLeaf(this)">
+      <div class="child-title">Anuidades (Rendas Uniformes)</div>
+      <div class="child-sub">Série de pagamentos iguais · PMT · Postecipadas vs. Antecipadas</div>
+    </div>
+    <div class="grandchildren">
+      <div class="leaf-node"><div class="leaf-title">Postecipada (ordinária): pagamento no FIM do período</div></div>
+      <div class="leaf-node"><div class="leaf-title">Antecipada (due): pagamento no INÍCIO — VP_antecipada = VP_postecipada × (1+i)</div></div>
+    </div>
+  </div>
+
+</div>
+<div class="relacoes">
+  <strong>🔗 Conexões:</strong> Juros Compostos ↔ CDB/LCI/LCA (Bancário) · SAC/Price ↔ Crédito Imobiliário (CEF) · PG ↔ Montante composto (RL) · VPL ↔ Análise de Investimentos
+  <br><br>
+  <!-- Config Drive MF -->
+  <div style="background:rgba(200,153,42,0.07);border:1px solid rgba(200,153,42,0.2);border-radius:8px;padding:12px;margin-top:10px;">
+    <div style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#c8992a;margin-bottom:8px;">⚙️ IMAGENS MAT. FINANCEIRA — CONFIGURAR GOOGLE DRIVE</div>
+    <div style="font-size:10px;color:#8090a0;line-height:1.9;">
+      1. Suba a pasta <code>mf_drive/</code> do ZIP <code>mapas_matfin_drive.zip</code> no Google Drive · Compartilhe como "Qualquer pessoa com o link"<br>
+      2. Abra a pasta no browser → F12 → Console → cole <code>extrair_ids_console.js</code> → copie o resultado<br>
+      3. Localize <code>ARQUIVOS_DRIVE_MF</code> neste HTML e cole os IDs
+    </div>
+  </div>
 </div>
 </div>
 
@@ -1268,6 +1541,19 @@ const ARQUIVOS_DRIVE = {
 };
 
 // Mapeamento de blocos → arquivos e páginas
+// ── MAT. FINANCEIRA — IDs Google Drive (preencher após upload) ────────────
+const ARQUIVOS_DRIVE_MF = {
+  // Cole aqui após subir mapas_matfin_drive.zip e rodar o script
+  // Ex: 'mf_pg-05': 'ID_AQUI',
+};
+
+// ── RACIOCÍNIO LÓGICO — IDs Google Drive (preencher após upload) ──────────
+const ARQUIVOS_DRIVE_RL = {
+  // Cole aqui após subir mapas_rl_drive.zip e rodar o script
+  // Ex: 'rl_logica_pg-07': 'ID_AQUI',
+};
+
+// Mapeamento de blocos → arquivos e páginas
 const BLOCOS_PT = {
   'ortografia':   { label:'Ortografia — Acentuação e Hífen',    prefixo:'pt_ortografia', paginas:[5,6,7] },
   'morfologia':   { label:'Morfologia — Classes de Palavras',   prefixo:'pt_morfologia', paginas:[8,9,10,11,12,13,14,15,16,17] },
@@ -1280,45 +1566,63 @@ const BLOCOS_PT = {
   'crase':        { label:'Crase',                              prefixo:'pt_crase',      paginas:[52,53] },
 };
 
+const BLOCOS_RL = {
+  'logica':       { label:'Lógica Proposicional',           prefixo:'rl_logica',        paginas:[7,8,9,10,11,12,13,14] },
+  'regra3':       { label:'Regra de Três e Médias',         prefixo:'rl_regra3',        paginas:[16,17] },
+  'papg':         { label:'PA e PG',                        prefixo:'rl_papg',          paginas:[24,25,26,27] },
+  'porcentagem':  { label:'Porcentagem RL',                 prefixo:'rl_porcentagem',   paginas:[28] },
+  'combinatoria': { label:'Combinatória e Probabilidade',   prefixo:'rl_combinatoria',  paginas:[80,81] },
+};
+
 let modalBloco = null;
 let modalIdx = 0;
 let modalArquivos = [];
 
-function abrirImagens(bloco) {
-  const b = BLOCOS_PT[bloco];
-  if (!b) return;
-
-  // Verificar se os IDs foram configurados
-  if (Object.keys(ARQUIVOS_DRIVE).length === 0) {
+// Função genérica — abre modal com imagens de qualquer drive
+function _abrirDrive(dict, prefixo, label, paginas) {
+  if (Object.keys(dict).length === 0) {
     document.getElementById('img-modal').classList.add('open');
     document.getElementById('modal-img').src = '';
-    document.getElementById('modal-label').textContent = '⚙️ Configure os IDs do Google Drive';
-    document.getElementById('modal-nav').innerHTML = `
-      <div style="font-size:11px;color:#8090a0;line-height:2;max-width:500px;text-align:left;">
-        <b style="color:#c0d0e0;">Como configurar (uma única vez):</b><br>
-        1. Suba a pasta <code>pt_drive/</code> no Google Drive e compartilhe como "Qualquer pessoa com o link"<br>
-        2. Rode o script <code>gerar_ids_drive.py</code> no seu computador<br>
-        3. Copie o resultado e cole no arquivo <code>mapas_mentais.html</code> onde está <code>ARQUIVOS_DRIVE</code><br>
-        4. Faça upload do HTML atualizado no GitHub Pages
-      </div>`;
+    document.getElementById('modal-label').textContent = '⚙️ IDs do Google Drive não configurados';
+    document.getElementById('modal-nav').innerHTML =
+      '<div style="font-size:11px;color:#8090a0;line-height:1.9;max-width:460px;">' +
+      'Suba o ZIP correspondente no Google Drive, compartilhe a pasta,<br>' +
+      'rode o script <code>extrair_ids_console.js</code> no console do browser (F12)<br>' +
+      'e cole o resultado em <code>ARQUIVOS_DRIVE_MF</code> ou <code>ARQUIVOS_DRIVE_RL</code> neste HTML.</div>';
     return;
   }
-
-  // Filtrar e ordenar arquivos do bloco
-  modalArquivos = Object.entries(ARQUIVOS_DRIVE)
-    .filter(([nome]) => nome.startsWith(b.prefixo))
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([nome, id], i) => ({ nome, id, pagina: b.paginas[i] || '?' }));
-
-  if (modalArquivos.length === 0) {
-    alert(`Nenhum arquivo encontrado para o bloco "${b.label}". Verifique se o script foi executado.`);
+  const entradas = Object.entries(dict)
+    .filter(([k]) => k.startsWith(prefixo))
+    .sort(([a],[b]) => a.localeCompare(b))
+    .map(([k,id],i) => ({nome:k, id, pagina: paginas[i]||'?'}));
+  if (entradas.length === 0) {
+    alert('Nenhuma imagem encontrada para este bloco. Verifique o prefixo.');
     return;
   }
-
-  modalBloco = b;
+  modalBloco = {label, paginas};
+  modalArquivos = entradas;
   modalIdx = 0;
   document.getElementById('img-modal').classList.add('open');
   atualizarModal();
+}
+
+// PT — abrirImagens('ortografia') ou abrirImagens('mf', 5)
+function abrirImagens(blocoOuDisc, pagina) {
+  if (blocoOuDisc === 'mf') {
+    const pg = String(pagina).padStart(2,'0');
+    _abrirDrive(ARQUIVOS_DRIVE_MF, 'mf_pg-'+pg, 'Mat. Financeira — pág. '+pagina, [pagina]);
+    return;
+  }
+  const b = BLOCOS_PT[blocoOuDisc];
+  if (!b) return;
+  _abrirDrive(ARQUIVOS_DRIVE, b.prefixo, b.label, b.paginas);
+}
+
+// RL
+function abrirImagensRL(bloco) {
+  const b = BLOCOS_RL[bloco];
+  if (!b) return;
+  _abrirDrive(ARQUIVOS_DRIVE_RL, b.prefixo, b.label, b.paginas);
 }
 
 function atualizarModal() {
@@ -1366,11 +1670,11 @@ function fecharModal(e) {
 document.addEventListener('keydown', e => {
   const m = document.getElementById('img-modal');
   if (!m.classList.contains('open')) return;
-  if (e.key === 'ArrowRight' && modalBloco && modalIdx < modalBloco.driveIds.length-1) { modalIdx++; atualizarModal(); }
+  if (e.key === 'ArrowRight' && modalArquivos && modalIdx < modalArquivos.length-1) { modalIdx++; atualizarModal(); }
   if (e.key === 'ArrowLeft' && modalIdx > 0) { modalIdx--; atualizarModal(); }
   if (e.key === 'Escape') m.classList.remove('open');
 });
-</script>
+
 function showMap(id, btn) {
   document.querySelectorAll('.map-wrap').forEach(m => m.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => {
