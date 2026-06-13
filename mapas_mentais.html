@@ -1613,113 +1613,58 @@ let modalBloco = null;
 let modalIdx = 0;
 let modalArquivos = [];
 
-// Função genérica — abre modal com imagens de qualquer drive
-function _abrirDrive(dict, prefixo, label, paginas) {
-  const modal = document.getElementById('img-modal');
-  const iframe = document.getElementById('modal-iframe');
-  const lbl = document.getElementById('modal-label');
-  const nav = document.getElementById('modal-nav');
-
-  console.log('_abrirDrive: modal=',!!modal,'iframe=',!!iframe,'lbl=',!!lbl,'nav=',!!nav);
-  modal.classList.add('open');
-
-  // Sem IDs configurados
-  if (!dict || Object.keys(dict).length === 0) {
-    iframe.src = '';
-    lbl.textContent = '⚙️ IDs do Google Drive não configurados';
-    nav.innerHTML = '<div style="font-size:11px;color:#8090a0;line-height:1.9;max-width:460px;">' +
-      'Suba o ZIP no Drive, compartilhe a pasta, rode <code>extrair_ids_console.js</code> no console (F12) ' +
-      'e cole o resultado no HTML.</div>';
-    return;
-  }
-
-  const entradas = Object.entries(dict)
-    .filter(([k]) => k.startsWith(prefixo))
-    .sort(([a],[b]) => a.localeCompare(b))
-    .map(([k,id],i) => ({nome:k, id, pagina: paginas[i]||'?'}));
-
-  if (entradas.length === 0) {
-    iframe.src = '';
-    lbl.textContent = `⚠️ Nenhuma imagem encontrada para "${label}"`;
-    nav.innerHTML = `<div style="font-size:11px;color:#8090a0;">Prefixo buscado: <code>${prefixo}</code><br>Chaves disponíveis: ${Object.keys(dict).slice(0,3).join(', ')}...</div>`;
-    return;
-  }
-
-  modalBloco = {label, paginas};
-  modalArquivos = entradas;
-  modalIdx = 0;
-  atualizarModal();
-}
-
-// Função unificada de abertura do modal Drive
+// ── ABERTURA DO MODAL DE IMAGENS ────────────────────────────────────────────
 function abrirImagens(bloco, pagina) {
   var dict, prefixo, label, paginas;
 
   if (bloco === 'mf') {
     dict = ARQUIVOS_DRIVE_MF;
-    var pg = String(pagina).padStart(2,'0');
-    prefixo = 'mf_pg-' + pg;
-    label = 'Mat. Financeira pag. ' + pagina;
+    prefixo = 'mf_pg-' + String(pagina).padStart(2,'0');
+    label = 'Mat. Financeira — pág. ' + pagina;
     paginas = [pagina];
   } else if (BLOCOS_PT[bloco]) {
     dict = ARQUIVOS_DRIVE;
     var b = BLOCOS_PT[bloco];
-    prefixo = b.prefixo;
-    label = b.label;
-    paginas = b.paginas;
+    prefixo = b.prefixo; label = b.label; paginas = b.paginas;
   } else {
-    console.error('Bloco nao encontrado:', bloco);
     return;
   }
 
   var entradas = Object.keys(dict)
     .filter(function(k){ return k.indexOf(prefixo) === 0; })
     .sort()
-    .map(function(k, i){ return {id: dict[k], pagina: paginas[i] || '?'}; });
+    .map(function(k,i){ return {id:dict[k], pagina:paginas[i]||'?'}; });
 
-  console.log('abrirImagens:', bloco, 'entradas:', entradas.length);
+  abrirModal(label, paginas, entradas);
+}
 
+function abrirImagensRL(bloco) {
+  var b = BLOCOS_RL[bloco];
+  if (!b) return;
+  var entradas = Object.keys(ARQUIVOS_DRIVE_RL)
+    .filter(function(k){ return k.indexOf(b.prefixo) === 0; })
+    .sort()
+    .map(function(k,i){ return {id:ARQUIVOS_DRIVE_RL[k], pagina:b.paginas[i]||'?'}; });
+  abrirModal(b.label, b.paginas, entradas);
+}
+
+function abrirModal(label, paginas, entradas) {
   var modal = document.getElementById('img-modal');
   var iframe = document.getElementById('modal-iframe');
   var lbl = document.getElementById('modal-label');
   var nav = document.getElementById('modal-nav');
-
-  console.log('elementos:', !!modal, !!iframe, !!lbl, !!nav);
-
-  if (!modal || !iframe) { alert('Modal nao encontrado no DOM'); return; }
+  if (!modal) return;
 
   modal.classList.add('open');
 
-  if (entradas.length === 0) {
+  if (!entradas || entradas.length === 0) {
     iframe.src = '';
-    lbl.textContent = 'Nenhuma imagem para: ' + prefixo;
+    lbl.textContent = '⚙️ IDs não configurados para este bloco';
     nav.innerHTML = '';
     return;
   }
 
-  modalBloco = {label: label, paginas: paginas};
-  modalArquivos = entradas;
-  modalIdx = 0;
-  atualizarModal();
-}
-
-// RL
-function abrirImagensRL(bloco) {
-  var b = BLOCOS_RL[bloco];
-  if (!b) { console.error('BLOCOS_RL nao encontrado:', bloco); return; }
-
-  var entradas = Object.keys(ARQUIVOS_DRIVE_RL)
-    .filter(function(k){ return k.indexOf(b.prefixo) === 0; })
-    .sort()
-    .map(function(k, i){ return {id: ARQUIVOS_DRIVE_RL[k], pagina: b.paginas[i] || '?'}; });
-
-  var modal = document.getElementById('img-modal');
-  var iframe = document.getElementById('modal-iframe');
-
-  if (!modal || !iframe) { alert('Modal nao encontrado'); return; }
-
-  modal.classList.add('open');
-  modalBloco = {label: b.label, paginas: b.paginas};
+  modalBloco = {label:label, paginas:paginas};
   modalArquivos = entradas;
   modalIdx = 0;
   atualizarModal();
