@@ -1761,6 +1761,7 @@ function toggle(root) {
   if (!next) return;
   const open = next.classList.toggle('open');
   if (chevron) chevron.classList.toggle('open', open);
+  console.log('toggle:', root.querySelector('.root-title')?.textContent?.trim()?.slice(0,30), '→', open ? 'aberto' : 'fechado');
 }
 
 function toggleLeaf(child) {
