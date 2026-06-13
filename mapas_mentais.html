@@ -40,15 +40,16 @@
 
   /* NODES */
   .mind-map { display: flex; flex-direction: column; gap: 12px; }
-  .root-node { background: linear-gradient(135deg, var(--node-color, #1e3a5f), #0d1520); border: 2px solid var(--node-color, #3db8ea); border-radius: 12px; padding: 14px 18px; cursor: pointer; transition: all .2s; }
+  .root-node { background: linear-gradient(135deg, var(--node-color, #1e3a5f), #0d1520); border: 2px solid var(--node-color, #3db8ea); border-radius: 12px; padding: 14px 18px; transition: all .2s; }
   .root-node:hover { transform: translateX(3px); filter: brightness(1.1); }
+  .root-title { cursor: pointer; user-select: none; padding-bottom: 4px; }
   .root-title { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
   .root-subtitle { font-size: 10px; color: var(--muted); margin-top: 4px; }
 
   /* Referência ao material original */
-  .ref-bar { display:flex; align-items:center; gap:8px; margin-top:4px; margin-bottom:6px; flex-wrap:wrap; position:relative; z-index:10; }
+  .ref-bar { display:flex; align-items:center; gap:8px; margin-top:4px; margin-bottom:6px; flex-wrap:wrap; position:relative; z-index:10; pointer-events:all; }
   .ref-tag { font-size:9px; font-family:monospace; color:var(--muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:2px 8px; }
-  .ref-btn { font-size:9px; font-family:monospace; padding:5px 12px; border-radius:4px; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:4px; transition:opacity .2s; position:relative; z-index:10; pointer-events:all; }
+  .ref-btn { font-size:9px; font-family:monospace; padding:5px 12px; border-radius:4px; cursor:pointer !important; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:4px; transition:opacity .2s; position:relative; z-index:20; pointer-events:all !important; }
   .ref-btn:hover { opacity:.8; }
   .ref-btn-drive { background:rgba(74,144,217,0.15); border:1px solid rgba(74,144,217,0.35)!important; color:#4a90d9; }
   .ref-btn-pdf { background:rgba(224,80,64,0.12); border:1px solid rgba(224,80,64,0.3)!important; color:#e05040; }
@@ -137,8 +138,8 @@
 <div class="mind-map">
 
   <!-- ① INTERPRETAÇÃO -->
-  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
-    <div class="root-title">📖 INTERPRETAÇÃO DE TEXTO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db8ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">📖 INTERPRETAÇÃO DE TEXTO <span class="chevron">▶</span></div>
     <div class="root-subtitle">34% das questões Cesgranrio BB · Tema mais cobrado · 5-7q por prova</div>
   </div>
   <div class="children">
@@ -172,14 +173,14 @@
   </div>
 
   <!-- ② ORTOGRAFIA -->
-  <div class="root-node" style="--node-color:#e06090;" onclick="toggle(this)">
-    <div class="root-title">🔤 ORTOGRAFIA <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e06090;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔤 ORTOGRAFIA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Acentuação · Hífen · Trema · Acentos Diferenciais</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 5–7</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('ortografia')">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique ortografia');abrirImagens('ortografia')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Acentuação Gráfica</div>
@@ -214,14 +215,14 @@
   </div>
 
   <!-- ③ MORFOLOGIA / CLASSES DE PALAVRAS -->
-  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
-    <div class="root-title">🏷️ MORFOLOGIA — CLASSES DE PALAVRAS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#9b72ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏷️ MORFOLOGIA — CLASSES DE PALAVRAS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Pronomes · Advérbios · Verbos · Artigo · Numeral</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 8–17</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('morfologia')">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('morfologia')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Pronomes Demonstrativos</div>
@@ -273,15 +274,15 @@
   </div>
 
   <!-- ④ SINTAXE -->
-  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">📐 SINTAXE — FUNÇÕES SINTÁTICAS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#c8992a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">📐 SINTAXE — FUNÇÕES SINTÁTICAS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Sujeito · Transitividade · Concordância · Regência</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 29–35 (Sintaxe) · 40–44 (Sujeito)</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('sintaxe')">🖼️ Sintaxe no Drive</button>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('sujeito')">🖼️ Sujeito no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('sintaxe')">🖼️ Sintaxe no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('sujeito')">🖼️ Sujeito no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Tipos de Sujeito</div>
@@ -315,14 +316,14 @@
   </div>
 
   <!-- ⑤ PONTUAÇÃO -->
-  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">✏️ PONTUAÇÃO — USO DA VÍRGULA <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db88a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">✏️ PONTUAÇÃO — USO DA VÍRGULA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Vírgula é marcador de funções sintáticas — NÃO é pausa!</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 36–39</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('pontuacao')">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('pontuacao')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">✅ Vírgula Obrigatória</div>
@@ -356,14 +357,14 @@
   </div>
 
   <!-- ⑥ CONCORDÂNCIA -->
-  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
-    <div class="root-title">⚖️ CONCORDÂNCIA <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e08030;">
+    <div class="root-title" onclick="toggle(this.parentElement)">⚖️ CONCORDÂNCIA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Verbal e Nominal · Casos particulares · Pegadinhas clássicas</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 45–47</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('concordancia')">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('concordancia')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">🚨 Verbos Impessoais</div>
@@ -402,14 +403,14 @@
   </div>
 
   <!-- ⑦ REGÊNCIA -->
-  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
-    <div class="root-title">🔧 REGÊNCIA VERBAL E NOMINAL <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db8ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔧 REGÊNCIA VERBAL E NOMINAL <span class="chevron">▶</span></div>
     <div class="root-subtitle">Verbos que mais caem na Cesgranrio BB</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 48–51</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('regencia')">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('regencia')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Verbos de Dupla Regência (pegadinha)</div>
@@ -441,14 +442,14 @@
   </div>
 
   <!-- ⑧ CRASE -->
-  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
-    <div class="root-title">À CRASE <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e05050;">
+    <div class="root-title" onclick="toggle(this.parentElement)">À CRASE <span class="chevron">▶</span></div>
     <div class="root-subtitle">a (prep) + a (artigo fem.) = à · Obrigatória · Proibida · Facultativa</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Todos os Mapas.pdf · págs. 52–53</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('crase')">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('crase')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">✅ Crase Obrigatória</div>
@@ -483,8 +484,8 @@
   </div>
 
   <!-- ⑨ COESÃO / CONECTIVOS -->
-  <div class="root-node" style="--node-color:#30c0d0;" onclick="toggle(this)">
-    <div class="root-title">🔗 COESÃO — CONECTIVOS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#30c0d0;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔗 COESÃO — CONECTIVOS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Relações lógicas entre orações · Valor semântico</div>
   </div>
   <div class="children">
@@ -551,14 +552,14 @@
 <div class="mind-map">
 
   <!-- ① LÓGICA PROPOSICIONAL -->
-  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
-    <div class="root-title">🔷 LÓGICA PROPOSICIONAL <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#9b72ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔷 LÓGICA PROPOSICIONAL <span class="chevron">▶</span></div>
     <div class="root-subtitle">Proposições · Conectivos · Tabela-verdade · Equivalências · Negações</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 RLM - Todos os Mapas.pdf · págs. 7–14</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('logica')">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagensRL('logica')">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Proposição — Conceito</div>
@@ -604,16 +605,16 @@
   </div>
 
   <!-- ② RACIOCÍNIO LÓGICO MATEMÁTICO -->
-  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">🔢 RACIOCÍNIO LÓGICO-MATEMÁTICO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db88a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔢 RACIOCÍNIO LÓGICO-MATEMÁTICO <span class="chevron">▶</span></div>
     <div class="root-subtitle">Regra de Três · Médias · PA/PG · Porcentagem</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 RLM - Todos os Mapas.pdf · págs. 16–17 (Regra/Médias) · 24–28 (PA/PG/Pct)</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('regra3')">🖼️ Regra de Três</button>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('papg')">🖼️ PA/PG</button>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagensRL('porcentagem')">🖼️ Porcentagem</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagensRL('regra3')">🖼️ Regra de Três</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagensRL('papg')">🖼️ PA/PG</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagensRL('porcentagem')">🖼️ Porcentagem</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Regra de Três Composta</div>
@@ -696,14 +697,14 @@
 <div class="mind-map">
 
   <!-- ① PORCENTAGEM -->
-  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
-    <div class="root-title">💯 PORCENTAGEM <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db8ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">💯 PORCENTAGEM <span class="chevron">▶</span></div>
     <div class="root-subtitle">Variações · Aumentos e descontos sucessivos · Transformações</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · pág. 5</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 5)">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('mf', 5)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Variações Percentuais</div>
@@ -725,14 +726,14 @@
   </div>
 
   <!-- ② JUROS SIMPLES -->
-  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">📈 JUROS SIMPLES <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db88a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">📈 JUROS SIMPLES <span class="chevron">▶</span></div>
     <div class="root-subtitle">Js = C.i.n · Não capitalizados · Taxas proporcionais</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · pág. 6</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 6)">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('mf', 6)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Fórmulas Essenciais</div>
@@ -750,14 +751,14 @@
   </div>
 
   <!-- ③ JUROS COMPOSTOS -->
-  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">📊 JUROS COMPOSTOS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#c8992a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">📊 JUROS COMPOSTOS <span class="chevron">▶</span></div>
     <div class="root-subtitle">M = C.(1+i)ⁿ · Taxas equivalentes · Taxa nominal × efetiva</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 7–8</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 7)">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('mf', 7)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Fórmulas e Período de Capitalização</div>
@@ -787,14 +788,14 @@
   </div>
 
   <!-- ④ DESCONTOS -->
-  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
-    <div class="root-title">🏷️ DESCONTOS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e05050;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏷️ DESCONTOS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Racional (por dentro) × Comercial (por fora) · A = N - D</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 10–12</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 10)">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('mf', 10)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">Conceitos Base</div>
@@ -820,14 +821,14 @@
   </div>
 
   <!-- ⑤ SISTEMAS DE AMORTIZAÇÃO -->
-  <div class="root-node" style="--node-color:#d96a9a;" onclick="toggle(this)">
-    <div class="root-title">🏠 SISTEMAS DE AMORTIZAÇÃO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#d96a9a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏠 SISTEMAS DE AMORTIZAÇÃO <span class="chevron">▶</span></div>
     <div class="root-subtitle">SAC · Price (Francês) · SAM · Fórmulas completas</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 17–19</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 17)">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('mf', 17)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">SAC — Sistema de Amortização Constante</div>
@@ -856,14 +857,14 @@
   </div>
 
   <!-- ⑥ VPL E EQUIVALÊNCIA -->
-  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
-    <div class="root-title">💰 VPL · EQUIVALÊNCIA · TIR · ANUIDADES <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#9b72ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">💰 VPL · EQUIVALÊNCIA · TIR · ANUIDADES <span class="chevron">▶</span></div>
     <div class="root-subtitle">Valor Presente Líquido · Equivalência de capitais · Taxa Interna de Retorno</div>
+  </div>
     <div class="ref-bar">
       <span class="ref-tag">📄 Mat. Financeira - Todos os Mapas.pdf · págs. 13–16</span>
-      <button class="ref-btn ref-btn-drive" onclick="event.stopPropagation();abrirImagens('mf', 13)">🖼️ Ver original no Drive</button>
+      <button class="ref-btn ref-btn-drive" onclick="console.log('clique');abrirImagens('mf', 13)">🖼️ Ver original no Drive</button>
     </div>
-  </div>
   <div class="children">
     <div class="child-node" onclick="toggleLeaf(this)">
       <div class="child-title">VPL — Valor Presente Líquido</div>
@@ -915,8 +916,8 @@
 <div class="map-wrap" id="map-constitucional">
 <div class="mind-map">
 
-  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">⚖️ DIREITOS FUNDAMENTAIS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#c8992a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">⚖️ DIREITOS FUNDAMENTAIS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Dimensões · Remédios constitucionais · Aplicação</div>
   </div>
   <div class="children">
@@ -936,8 +937,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
-    <div class="root-title">🏛️ ORGANIZAÇÃO DO ESTADO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e05050;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏛️ ORGANIZAÇÃO DO ESTADO <span class="chevron">▶</span></div>
     <div class="root-subtitle">Federalismo · Competências · Processo Legislativo</div>
   </div>
   <div class="children">
@@ -956,8 +957,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
-    <div class="root-title">🔍 CONTROLE DE CONSTITUCIONALIDADE <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#9b72ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔍 CONTROLE DE CONSTITUCIONALIDADE <span class="chevron">▶</span></div>
     <div class="root-subtitle">Difuso · Concentrado · Efeitos</div>
   </div>
   <div class="children">
@@ -981,8 +982,8 @@
 <div class="map-wrap" id="map-administrativo">
 <div class="mind-map">
 
-  <div class="root-node" style="--node-color:#30c0d0;" onclick="toggle(this)">
-    <div class="root-title">📋 ATOS ADMINISTRATIVOS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#30c0d0;">
+    <div class="root-title" onclick="toggle(this.parentElement)">📋 ATOS ADMINISTRATIVOS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Elementos COFIM · Vinculado vs. Discricionário · Anulação/Revogação</div>
   </div>
   <div class="children">
@@ -1001,8 +1002,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">🏗️ LICITAÇÃO (Lei 14.133/2021) <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db88a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏗️ LICITAÇÃO (Lei 14.133/2021) <span class="chevron">▶</span></div>
     <div class="root-subtitle">Modalidades · Dispensa · Inexigibilidade · Fases</div>
   </div>
   <div class="children">
@@ -1020,8 +1021,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">👷 SERVIDORES (Lei 8.112/90) <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#c8992a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">👷 SERVIDORES (Lei 8.112/90) <span class="chevron">▶</span></div>
     <div class="root-subtitle">Prazos · PAD · Estabilidade · Responsabilidade</div>
   </div>
   <div class="children">
@@ -1045,8 +1046,8 @@
 <div class="map-wrap" id="map-bancario">
 <div class="mind-map">
 
-  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
-    <div class="root-title">🏦 SISTEMA FINANCEIRO NACIONAL <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db8ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏦 SISTEMA FINANCEIRO NACIONAL <span class="chevron">▶</span></div>
     <div class="root-subtitle">CMN · BACEN · CVM · SUSEP · Estrutura</div>
   </div>
   <div class="children">
@@ -1070,8 +1071,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">💳 PRODUTOS E OPERAÇÕES <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db88a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">💳 PRODUTOS E OPERAÇÕES <span class="chevron">▶</span></div>
     <div class="root-subtitle">Crédito · Investimentos · Câmbio · Títulos</div>
   </div>
   <div class="children">
@@ -1104,8 +1105,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
-    <div class="root-title">🛡️ BASILEIA III E RISCO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e08030;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🛡️ BASILEIA III E RISCO <span class="chevron">▶</span></div>
     <div class="root-subtitle">Capital · Liquidez · Risco Operacional · PLD-FT</div>
   </div>
   <div class="children">
@@ -1123,8 +1124,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
-    <div class="root-title">📈 VENDAS, MARKETING E GESTÃO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#9b72ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">📈 VENDAS, MARKETING E GESTÃO <span class="chevron">▶</span></div>
     <div class="root-subtitle">SPIN · 7Ps · CRM · Liderança · Motivação</div>
   </div>
   <div class="children">
@@ -1153,8 +1154,8 @@
 <div class="map-wrap" id="map-prf">
 <div class="mind-map">
 
-  <div class="root-node" style="--node-color:#e05050;" onclick="toggle(this)">
-    <div class="root-title">🚗 CTB — CÓDIGO DE TRÂNSITO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e05050;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🚗 CTB — CÓDIGO DE TRÂNSITO <span class="chevron">▶</span></div>
     <div class="root-subtitle">Infrações · Crimes · CNH · Velocidade · Álcool</div>
   </div>
   <div class="children">
@@ -1185,8 +1186,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
-    <div class="root-title">⚖️ PROCESSO PENAL <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#9b72ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">⚖️ PROCESSO PENAL <span class="chevron">▶</span></div>
     <div class="root-subtitle">Flagrante · Busca e Apreensão · Lei de Drogas</div>
   </div>
   <div class="children">
@@ -1219,8 +1220,8 @@
 <div class="map-wrap" id="map-inss">
 <div class="mind-map">
 
-  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">🏥 PREVIDÊNCIA SOCIAL — RGPS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db88a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏥 PREVIDÊNCIA SOCIAL — RGPS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Benefícios · Carências · EC 103/2019 · Segurados</div>
   </div>
   <div class="children">
@@ -1252,8 +1253,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">💰 CUSTEIO DA PREVIDÊNCIA <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#c8992a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">💰 CUSTEIO DA PREVIDÊNCIA <span class="chevron">▶</span></div>
     <div class="root-subtitle">Contribuições · Salário de Benefício · Período de Graça</div>
   </div>
   <div class="children">
@@ -1281,8 +1282,8 @@
 <div class="map-wrap" id="map-engenharia">
 <div class="mind-map">
 
-  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
-    <div class="root-title">🏗️ RESISTÊNCIA DOS MATERIAIS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e08030;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏗️ RESISTÊNCIA DOS MATERIAIS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Tensão · Lei de Hooke · Momento Fletor · Deflexão</div>
   </div>
   <div class="children">
@@ -1301,8 +1302,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#9b72ea;" onclick="toggle(this)">
-    <div class="root-title">🌍 MECÂNICA DOS SOLOS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#9b72ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🌍 MECÂNICA DOS SOLOS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Índices físicos · Atterberg · Compactação · Permeabilidade</div>
   </div>
   <div class="children">
@@ -1324,8 +1325,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">🏢 CONCRETO ARMADO E ESTRUTURAS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db88a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🏢 CONCRETO ARMADO E ESTRUTURAS <span class="chevron">▶</span></div>
     <div class="root-subtitle">NBR 6118 · fck · Armaduras · Cobrimento · Patologias</div>
   </div>
   <div class="children">
@@ -1343,8 +1344,8 @@
     </div>
   </div>
 
-  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">📐 ORÇAMENTO E PLANEJAMENTO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#c8992a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">📐 ORÇAMENTO E PLANEJAMENTO <span class="chevron">▶</span></div>
     <div class="root-subtitle">BDI · SINAPI · CUB · CPM · NR-18</div>
   </div>
   <div class="children">
@@ -1372,8 +1373,8 @@
 <div class="map-wrap" id="map-conexoes">
 <div class="mind-map">
 
-  <div class="root-node" style="--node-color:#c8992a;" onclick="toggle(this)">
-    <div class="root-title">🔗 MATEMÁTICA → BANCÁRIO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#c8992a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔗 MATEMÁTICA → BANCÁRIO <span class="chevron">▶</span></div>
     <div class="root-subtitle">Onde o raciocínio lógico fundamenta os conhecimentos bancários</div>
   </div>
   <div class="children">
@@ -1384,8 +1385,8 @@
     <div class="child-node"><div class="child-title">Regressão Linear → Score de Crédito, Previsão</div><div class="child-sub">Ŷ = a + bX: modelos preditivos de inadimplência</div></div>
   </div>
 
-  <div class="root-node" style="--node-color:#3db8ea;" onclick="toggle(this)">
-    <div class="root-title">🔗 DIREITO → BANCÁRIO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db8ea;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔗 DIREITO → BANCÁRIO <span class="chevron">▶</span></div>
     <div class="root-subtitle">Base jurídica dos produtos e operações financeiras</div>
   </div>
   <div class="children">
@@ -1396,8 +1397,8 @@
     <div class="child-node"><div class="child-title">Lei 9.613/98 → PLD-FT → Compliance Bancário</div><div class="child-sub">Lavagem de dinheiro: obrigação de comunicação ao COAF</div></div>
   </div>
 
-  <div class="root-node" style="--node-color:#3db88a;" onclick="toggle(this)">
-    <div class="root-title">🔗 PORTUGUÊS → TODOS OS CONCURSOS <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#3db88a;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔗 PORTUGUÊS → TODOS OS CONCURSOS <span class="chevron">▶</span></div>
     <div class="root-subtitle">Interpretação é a base de todas as provas</div>
   </div>
   <div class="children">
@@ -1406,8 +1407,8 @@
     <div class="child-node"><div class="child-title">Conectivos Lógicos → Lógica Proposicional</div><div class="child-sub">'Embora' em Português = concessão = P∧¬Q (não implica Q→P)</div></div>
   </div>
 
-  <div class="root-node" style="--node-color:#e08030;" onclick="toggle(this)">
-    <div class="root-title">🔗 ENGENHARIA → CEF/TRANSPETRO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e08030;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔗 ENGENHARIA → CEF/TRANSPETRO <span class="chevron">▶</span></div>
     <div class="root-subtitle">Específico para cargos de engenharia da CEF e Transpetro</div>
   </div>
   <div class="children">
@@ -1417,8 +1418,8 @@
     <div class="child-node"><div class="child-title">Mecânica dos Solos + SPT → Laudos de Garantia Imobiliária</div><div class="child-sub">CEF avalia a estrutura do imóvel que será dado como garantia (SFH)</div></div>
   </div>
 
-  <div class="root-node" style="--node-color:#e06090;" onclick="toggle(this)">
-    <div class="root-title">🔗 PRIORIDADES POR CONCURSO <span class="chevron">▶</span></div>
+  <div class="root-node" style="--node-color:#e06090;">
+    <div class="root-title" onclick="toggle(this.parentElement)">🔗 PRIORIDADES POR CONCURSO <span class="chevron">▶</span></div>
     <div class="root-subtitle">O que estudar primeiro em cada prova</div>
   </div>
   <div class="children">
@@ -1470,13 +1471,14 @@
 
 <!-- Modal de visualização dos mapas originais -->
 <div id="img-modal" class="img-modal" onclick="fecharModal(event)">
-  <button class="img-modal-close" onclick="document.getElementById('img-modal').classList.remove('open')">✕</button>
+  <button class="img-modal-close" onclick="const m=document.getElementById('img-modal');m.classList.remove('open');m.style.cssText='';document.getElementById('modal-iframe').src=''">✕</button>
   <div class="img-modal-label" id="modal-label">📄 MAPA ORIGINAL — @mapasdalulu</div>
   <div id="modal-img-wrap" style="width:min(900px,95vw);background:#111;border-radius:8px;overflow:hidden;">
     <iframe id="modal-iframe"
       src=""
       style="width:100%;height:min(680px,80vh);border:none;display:block;"
       allow="autoplay"
+      sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
       loading="lazy">
     </iframe>
   </div>
@@ -1615,6 +1617,7 @@ let modalArquivos = [];
 
 // ── ABERTURA DO MODAL DE IMAGENS ────────────────────────────────────────────
 function abrirImagens(bloco, pagina) {
+  console.log('abrirImagens chamado:', bloco, pagina);
   var dict, prefixo, label, paginas;
 
   if (bloco === 'mf') {
@@ -1627,6 +1630,7 @@ function abrirImagens(bloco, pagina) {
     var b = BLOCOS_PT[bloco];
     prefixo = b.prefixo; label = b.label; paginas = b.paginas;
   } else {
+    console.log('bloco nao encontrado:', bloco);
     return;
   }
 
@@ -1635,10 +1639,12 @@ function abrirImagens(bloco, pagina) {
     .sort()
     .map(function(k,i){ return {id:dict[k], pagina:paginas[i]||'?'}; });
 
+  console.log('entradas:', entradas.length, '| prefixo:', prefixo);
   abrirModal(label, paginas, entradas);
 }
 
 function abrirImagensRL(bloco) {
+  console.log('abrirImagensRL:', bloco);
   var b = BLOCOS_RL[bloco];
   if (!b) return;
   var entradas = Object.keys(ARQUIVOS_DRIVE_RL)
@@ -1649,18 +1655,28 @@ function abrirImagensRL(bloco) {
 }
 
 function abrirModal(label, paginas, entradas) {
+  console.log('abrirModal:', label, '| entradas:', entradas.length);
   var modal = document.getElementById('img-modal');
   var iframe = document.getElementById('modal-iframe');
-  var lbl = document.getElementById('modal-label');
-  var nav = document.getElementById('modal-nav');
-  if (!modal) return;
+  console.log('modal:', !!modal, '| iframe:', !!iframe);
+  if (!modal) { console.log('ERRO: modal nao encontrado'); return; }
+
+  // Mover para body se não estiver lá ainda (garante position:fixed correto)
+  if (modal.parentElement !== document.body) {
+    document.body.appendChild(modal);
+  }
 
   modal.classList.add('open');
+  modal.style.cssText = 'display:flex !important; position:fixed !important; inset:0 !important; z-index:9999 !important; background:rgba(0,0,0,0.88); flex-direction:column; align-items:center; justify-content:flex-start; padding:20px; overflow-y:auto;';
+
+  const cs = window.getComputedStyle(modal);
+  const rect = modal.getBoundingClientRect();
+  console.log('display:', cs.display, '| rect:', rect.width, 'x', rect.height);
 
   if (!entradas || entradas.length === 0) {
     iframe.src = '';
-    lbl.textContent = '⚙️ IDs não configurados para este bloco';
-    nav.innerHTML = '';
+    document.getElementById('modal-label').textContent = '⚙️ IDs não configurados';
+    document.getElementById('modal-nav').innerHTML = '';
     return;
   }
 
@@ -1715,9 +1731,12 @@ function atualizarModal() {
 }
 
 function fecharModal(e) {
-  if (e.target === document.getElementById('img-modal')) {
-    document.getElementById('img-modal').classList.remove('open');
-  }
+  if (e && e.target !== document.getElementById('img-modal')) return;
+  const modal = document.getElementById('img-modal');
+  const iframe = document.getElementById('modal-iframe');
+  modal.classList.remove('open');
+  modal.style.cssText = '';
+  if (iframe) iframe.src = '';
 }
 
 document.addEventListener('keydown', e => {
@@ -1725,10 +1744,15 @@ document.addEventListener('keydown', e => {
   if (!m.classList.contains('open')) return;
   if (e.key === 'ArrowRight' && modalArquivos && modalIdx < modalArquivos.length-1) { modalIdx++; atualizarModal(); }
   if (e.key === 'ArrowLeft' && modalIdx > 0) { modalIdx--; atualizarModal(); }
-  if (e.key === 'Escape') m.classList.remove('open');
+  if (e.key === 'Escape') { m.classList.remove('open'); m.style.cssText=''; document.getElementById('modal-iframe').src=''; }
 });
 
 function showMap(id, btn) {
+  const modal = document.getElementById('img-modal');
+  if (modal) { modal.classList.remove('open'); modal.style.cssText = ''; }
+  const iframe = document.getElementById('modal-iframe');
+  if (iframe) iframe.src = '';
+
   document.querySelectorAll('.map-wrap').forEach(m => m.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => {
     t.classList.remove('active');
@@ -1739,7 +1763,7 @@ function showMap(id, btn) {
   document.getElementById('map-'+id).classList.add('active');
   if (btn) {
     btn.classList.add('active');
-    const cores = { portugues:'#3db8ea',logica:'#9b72ea',constitucional:'#c8992a',
+    const cores = { portugues:'#3db8ea',logica:'#9b72ea',matfin:'#c8992a',constitucional:'#c8992a',
       administrativo:'#30c0d0',bancario:'#3db8ea',prf:'#e05050',
       inss:'#3db88a',engenharia:'#e08030',conexoes:'#c8992a' };
     const c = cores[id] || '#3db8ea';
@@ -1761,7 +1785,6 @@ function toggle(root) {
   if (!next) return;
   const open = next.classList.toggle('open');
   if (chevron) chevron.classList.toggle('open', open);
-  console.log('toggle:', root.querySelector('.root-title')?.textContent?.trim()?.slice(0,30), '→', open ? 'aberto' : 'fechado');
 }
 
 function toggleLeaf(child) {
