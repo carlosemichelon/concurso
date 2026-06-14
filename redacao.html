@@ -726,14 +726,32 @@ async function fttdGerarIA(){
   const out=document.getElementById('fttd-ia-out');
   const txt=document.getElementById('fttd-ia-texto');
   try{
-    const sysFttd='Você é especialista em redação para concursos (Cesgranrio/BB). Retorne SOMENTE JSON válido sem markdown nem texto extra. Chaves obrigatórias: fenomeno, contextualizacao, tema_especifico, eixo1, eixo2, tese, topico1, topico2, conclusao_sugestao.';
-    const resp=await chamarIA('Gere a estrutura FTTD para o tema: '+tema,1400,sysFttd);
+    const sysFttd=`Você é especialista em redação dissertativa para concursos Cesgranrio (Banco do Brasil e Caixa Econômica Federal). Retorne SOMENTE JSON válido sem markdown nem texto extra.
+
+REGRAS OBRIGATÓRIAS para gerar a estrutura FTTD:
+
+1. TESE: deve conter EXATAMENTE DOIS eixos temáticos (não três). Os dois eixos devem ser desenvolvíveis em dois parágrafos distintos. Exemplo correto: "Embora X represente Y, sua efetivação depende de [EIXO1] e [EIXO2]." NUNCA anuncie três eixos na tese.
+
+2. EIXOS: eixo1 e eixo2 devem ser simétricos, concretos e diretamente relacionados ao tema. Cada eixo vira exatamente um parágrafo de desenvolvimento.
+
+3. CONTEXTUALIZAÇÃO: máximo 2 frases. Deve partir do fenômeno amplo para o tema específico. Não repetir palavras da tese. Incluir conceituação do tema de forma natural.
+
+4. TÓPICOS FRASAIS: cada tópico frasal (topico1 e topico2) deve ser uma frase afirmativa que anuncia o argumento do parágrafo, conectada ao respectivo eixo da tese.
+
+5. EXTENSÃO: a redação final deve ter entre 25 e 30 linhas (~300-400 palavras). Gere conteúdo suficiente para atingir esse limite.
+
+6. CONCLUSÃO: deve resgatar o tema, retomar a tese (sem repetir literalmente), apresentar proposta de intervenção com: AGENTE concreto (ex: Banco do Brasil) + AÇÃO específica + FINALIDADE social.
+
+7. REGISTRO: linguagem formal, técnica mas acessível. Evitar períodos excessivamente longos (máximo 3 linhas por frase).
+
+Formato JSON obrigatório: {"fenomeno":"string","contextualizacao":"string","tema_especifico":"string","eixo1":"string","eixo2":"string","tese":"string com DOIS eixos","topico1":"string","topico2":"string","conclusao_sugestao":"string com agente+ação+finalidade"}`;
+    const resp=await chamarIA('Gere a estrutura FTTD para o tema: '+tema,1600,sysFttd);
     const obj=(()=>{
       const s=resp.replace(/```json|```/g,'').trim();
-      console.log('=== RESP IA ===', s.length, 'chars');
+      console.log('=== RESP IA (fttd) ===', s.length, 'chars');
       console.log(s);
       try{const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}
-      catch(e){console.error('Parse erro:',e.message,'pos:',e.message.match(/\d+/)?.[0]);throw new Error('Parse falhou pos '+e.message);}
+      catch(e){console.error('Parse erro fttd:',e.message);throw new Error('Parse falhou: '+e.message);}
     })();
     // Preencher campos
     document.getElementById('fttd-fenomeno').value=obj.contextualizacao||obj.fenomeno||'';
@@ -765,14 +783,27 @@ async function argGerarIA(){
   const btn=document.querySelector('#aba-argumentos .btn-ouro');
   setLoading(btn,'Gerando...');
   try{
-    const sysArg='Especialista em argumentação para redações de concurso. Retorne SOMENTE JSON válido sem markdown. Formato: {"tecnologica":["arg1","arg2","arg3"],"economica":["arg1","arg2","arg3"],"social":["arg1","arg2","arg3"],"educacional":["arg1","arg2"],"etica":["arg1","arg2","arg3"]}';
-    const resp=await chamarIA('Gere argumentos para o tema: '+tema,1400,sysArg);
+    const sysArg=`Você é especialista em argumentação para redações dissertativas Cesgranrio (BB/CEF). Retorne SOMENTE JSON válido sem markdown.
+
+REGRAS para os argumentos:
+1. Cada argumento deve ser uma frase completa e desenvolvível em um parágrafo (não apenas um título)
+2. Incluir dados, exemplos concretos ou referências quando possível (ex: "Segundo o BACEN...", "A Lei X prevê...")
+3. Argumentos tecnológicos: focar em inovação, automação, segurança digital, IA
+4. Argumentos econômicos: focar em impacto no PIB, crédito, renda, desigualdade
+5. Argumentos sociais: focar em inclusão, acesso, vulnerabilidade, cidadania
+6. Argumentos educacionais: focar em letramento financeiro/digital, capacitação
+7. Argumentos éticos: focar em responsabilidade, transparência, proteção de dados, compliance
+8. NUNCA repetir o mesmo argumento em categorias diferentes
+9. Cada argumento deve ser utilizável como TÓPICO FRASAL de um parágrafo
+
+Formato: {"tecnologica":["arg1","arg2","arg3"],"economica":["arg1","arg2","arg3"],"social":["arg1","arg2","arg3"],"educacional":["arg1","arg2"],"etica":["arg1","arg2","arg3"]}`;
+    const resp=await chamarIA('Gere argumentos para o tema: '+tema,1600,sysArg);
     const obj=(()=>{
       const s=resp.replace(/```json|```/g,'').trim();
-      console.log('=== RESP IA arg ===', s.length, 'chars');
+      console.log('=== RESP IA (arg) ===', s.length, 'chars');
       console.log(s);
       try{const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}
-      catch(e){console.error('Parse erro:',e.message,'pos:',e.message.match(/\d+/)?.[0]);throw new Error('Parse falhou pos '+e.message);}
+      catch(e){console.error('Parse erro arg:',e.message);throw new Error('Parse falhou: '+e.message);}
     })();
     document.getElementById('arg-tec').value=(obj.tecnologica||[]).join('\n');
     document.getElementById('arg-eco').value=(obj.economica||[]).join('\n');
@@ -795,9 +826,26 @@ async function rxAnalisarIA(){
   setLoading(btn,'Analisando...');
   try{
     const textoLimitado = texto.substring(0, 4000);
-    const system = `Você é corretor de redação para concursos (Cesgranrio/BB). 
-Retorne SOMENTE um objeto JSON válido, sem markdown, sem explicações, sem texto antes ou depois do JSON.
-Formato exato: {"introducao":{"contextualizacao":boolean,"tema":boolean,"tese":boolean,"dois_eixos":boolean,"eixos_viraram_paragrafos":boolean},"desenvolvimento":{"topico_frasal_1":boolean,"explicacao_1":boolean,"exemplo_1":boolean,"consequencia_1":boolean,"topico_frasal_2":boolean,"explicacao_2":boolean,"exemplo_2":boolean,"consequencia_2":boolean},"conclusao":{"retomou_tema":boolean,"retomou_tese":boolean,"fechou_discussao":boolean,"argumento_novo":boolean},"comentario":"string com 2-3 frases de feedback"}`;
+    const system = `Você é corretor de redação dissertativa para concursos Cesgranrio (BB/CEF).
+Retorne SOMENTE JSON válido sem markdown nem texto adicional.
+
+CRITÉRIOS DE CORREÇÃO Cesgranrio:
+- contextualizacao: parte do fenômeno amplo para o tema específico (máx. 2 frases)
+- tema: o assunto central está explicitado claramente
+- tese: posicionamento claro do autor sobre o tema
+- dois_eixos: a tese anuncia EXATAMENTE dois eixos de desenvolvimento (nem um, nem três)
+- eixos_viraram_paragrafos: os dois eixos da tese foram efetivamente desenvolvidos em parágrafos separados
+- topico_frasal_X: cada parágrafo começa com frase que anuncia o argumento
+- explicacao_X: o argumento é explicado/fundamentado
+- exemplo_X: há dado, citação, exemplo concreto ou evidência
+- consequencia_X: há análise do impacto/desdobramento do argumento
+- retomou_tema: conclusão referencia o tema central
+- retomou_tese: conclusão retoma a tese sem copiá-la literalmente
+- fechou_discussao: texto tem fechamento, não termina abruptamente
+- argumento_novo: true se a conclusão trouxer argumento novo (erro grave — penalizar)
+- comentario: 2-3 frases de feedback específico sobre o ponto mais forte e o principal ponto a melhorar
+
+Formato: {"introducao":{"contextualizacao":boolean,"tema":boolean,"tese":boolean,"dois_eixos":boolean,"eixos_viraram_paragrafos":boolean},"desenvolvimento":{"topico_frasal_1":boolean,"explicacao_1":boolean,"exemplo_1":boolean,"consequencia_1":boolean,"topico_frasal_2":boolean,"explicacao_2":boolean,"exemplo_2":boolean,"consequencia_2":boolean},"conclusao":{"retomou_tema":boolean,"retomou_tese":boolean,"fechou_discussao":boolean,"argumento_novo":boolean},"comentario":"string"}`;
 
     const resp = await chamarIA(
       `Analise esta redação e retorne o JSON conforme instruído:\n\n${textoLimitado}`,
