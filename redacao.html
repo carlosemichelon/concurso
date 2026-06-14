@@ -726,12 +726,9 @@ async function fttdGerarIA(){
   const out=document.getElementById('fttd-ia-out');
   const txt=document.getElementById('fttd-ia-texto');
   try{
-    const resp=await chamarIA(`Você é especialista em redação para concursos públicos (Cesgranrio/BB).
-Tema: "${tema}"
-Gere a estrutura FTTD completa em JSON válido, sem markdown:
-{"fenomeno":"...","contextualizacao":"...","tema_especifico":"...","eixo1":"...","eixo2":"...","tese":"...","topico1":"...","topico2":"...","conclusao_sugestao":"..."}`,800);
-    const clean=resp.replace(/```json|```/g,'').trim();
-    const obj=JSON.parse(clean);
+    const sysFttd='Você é especialista em redação para concursos (Cesgranrio/BB). Retorne SOMENTE JSON válido sem markdown nem texto extra. Chaves obrigatórias: fenomeno, contextualizacao, tema_especifico, eixo1, eixo2, tese, topico1, topico2, conclusao_sugestao.';
+    const resp=await chamarIA('Gere a estrutura FTTD para o tema: '+tema,1400,sysFttd);
+    const obj=(()=>{try{const s=resp.replace(/```json|```/g,'').trim();const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}catch(e){throw new Error('Resposta inválida da IA. Tente novamente.');}})();
     // Preencher campos
     document.getElementById('fttd-fenomeno').value=obj.contextualizacao||obj.fenomeno||'';
     document.getElementById('fttd-temaspec').value=obj.tema_especifico||'';
@@ -762,11 +759,9 @@ async function argGerarIA(){
   const btn=document.querySelector('#aba-argumentos .btn-ouro');
   setLoading(btn,'Gerando...');
   try{
-    const resp=await chamarIA(`Especialista em redação para concursos.
-Tema: "${tema}"
-Gere a Matriz Universal de Argumentação em JSON sem markdown:
-{"tecnologica":["arg1","arg2","arg3"],"economica":["arg1","arg2","arg3"],"social":["arg1","arg2","arg3"],"educacional":["arg1","arg2"],"etica":["arg1","arg2","arg3"]}`,700);
-    const obj=JSON.parse(resp.replace(/```json|```/g,'').trim());
+    const sysArg='Especialista em argumentação para redações de concurso. Retorne SOMENTE JSON válido sem markdown. Formato: {"tecnologica":["arg1","arg2","arg3"],"economica":["arg1","arg2","arg3"],"social":["arg1","arg2","arg3"],"educacional":["arg1","arg2"],"etica":["arg1","arg2","arg3"]}';
+    const resp=await chamarIA('Gere argumentos para o tema: '+tema,1400,sysArg);
+    const obj=(()=>{try{const s=resp.replace(/```json|```/g,'').trim();const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}catch(e){throw new Error('Resposta inválida da IA. Tente novamente.');}})();
     document.getElementById('arg-tec').value=(obj.tecnologica||[]).join('\n');
     document.getElementById('arg-eco').value=(obj.economica||[]).join('\n');
     document.getElementById('arg-soc').value=(obj.social||[]).join('\n');
@@ -1030,15 +1025,12 @@ async function treinoAvaliar(){
   const btn=document.querySelector('#aba-treino .btn-ouro');
   setLoading(btn,'Avaliando...');
   try{
-    const resp=await chamarIA(`Você é professor de redação para concursos (Cesgranrio/BB). Avalie a resposta do candidato no Nível ${n.num} (${n.label}).
-
-Tema: "${treinoTemaAtual.titulo}"
-Fenômeno base correto: ${treinoTemaAtual.fenomeno}
-
-Respostas do candidato:
-${respostas}
-
-Dê feedback em 3-4 frases: o que está correto, o que melhorar e uma dica prática. Seja direto e encorajador.`,500);
+    const sysTreino='Você é professor de redação para concursos (Cesgranrio/BB). Dê feedback direto e encorajador em 3-4 frases: o que está correto, o que melhorar e uma dica prática. Responda em texto simples, sem markdown.';
+    const resp=await chamarIA(
+      'Nível '+n.num+' ('+n.label+')\nTema: '+treinoTemaAtual.titulo+'\nFenômeno correto: '+treinoTemaAtual.fenomeno+'\n\nRespostas do candidato:\n'+respostas,
+      600,
+      sysTreino
+    );
     document.getElementById('treino-ia-texto').textContent=resp;
     document.getElementById('treino-ia-out').classList.add('vis');
   }catch(e){showError(e.message);}
