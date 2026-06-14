@@ -728,7 +728,13 @@ async function fttdGerarIA(){
   try{
     const sysFttd='Você é especialista em redação para concursos (Cesgranrio/BB). Retorne SOMENTE JSON válido sem markdown nem texto extra. Chaves obrigatórias: fenomeno, contextualizacao, tema_especifico, eixo1, eixo2, tese, topico1, topico2, conclusao_sugestao.';
     const resp=await chamarIA('Gere a estrutura FTTD para o tema: '+tema,1400,sysFttd);
-    const obj=(()=>{try{const s=resp.replace(/```json|```/g,'').trim();const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}catch(e){throw new Error('Resposta inválida da IA. Tente novamente.');}})();
+    const obj=(()=>{
+      const s=resp.replace(/```json|```/g,'').trim();
+      console.log('=== RESP IA ===', s.length, 'chars');
+      console.log(s);
+      try{const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}
+      catch(e){console.error('Parse erro:',e.message,'pos:',e.message.match(/\d+/)?.[0]);throw new Error('Parse falhou pos '+e.message);}
+    })();
     // Preencher campos
     document.getElementById('fttd-fenomeno').value=obj.contextualizacao||obj.fenomeno||'';
     document.getElementById('fttd-temaspec').value=obj.tema_especifico||'';
@@ -761,7 +767,13 @@ async function argGerarIA(){
   try{
     const sysArg='Especialista em argumentação para redações de concurso. Retorne SOMENTE JSON válido sem markdown. Formato: {"tecnologica":["arg1","arg2","arg3"],"economica":["arg1","arg2","arg3"],"social":["arg1","arg2","arg3"],"educacional":["arg1","arg2"],"etica":["arg1","arg2","arg3"]}';
     const resp=await chamarIA('Gere argumentos para o tema: '+tema,1400,sysArg);
-    const obj=(()=>{try{const s=resp.replace(/```json|```/g,'').trim();const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}catch(e){throw new Error('Resposta inválida da IA. Tente novamente.');}})();
+    const obj=(()=>{
+      const s=resp.replace(/```json|```/g,'').trim();
+      console.log('=== RESP IA arg ===', s.length, 'chars');
+      console.log(s);
+      try{const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}
+      catch(e){console.error('Parse erro:',e.message,'pos:',e.message.match(/\d+/)?.[0]);throw new Error('Parse falhou pos '+e.message);}
+    })();
     document.getElementById('arg-tec').value=(obj.tecnologica||[]).join('\n');
     document.getElementById('arg-eco').value=(obj.economica||[]).join('\n');
     document.getElementById('arg-soc').value=(obj.social||[]).join('\n');
