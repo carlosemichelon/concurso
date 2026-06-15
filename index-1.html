@@ -1,0 +1,2916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>📚 Plataforma de Estudos — Analista Nível Superior</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ouro: #c8992a; --verde: #3db88a; --verm: #e05040;
+    --azul: #4a90d9; --roxo: #8a6ad9; --rosa: #d96a9a; --ciano: #4ab8b8;
+    --bg: #0c1a28; --bg2: #18293c; --surface: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.09); --text: #e8dcc8; --muted: #9ab0c0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--bg) 0%, var(--bg2) 55%, var(--bg) 100%);
+    font-family: 'Lora', Georgia, serif;
+    color: var(--text);
+    font-size: 14px;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(200,153,42,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 90%, rgba(74,144,217,0.05) 0%, transparent 60%);
+  }
+  #app { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; padding: 0 12px 40px; }
+
+  /* HEADER */
+  #header {
+    background: rgba(0,0,0,0.6);
+    border-bottom: 2px solid var(--ouro);
+    padding: 12px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  #header .title-label { font-size: 9px; letter-spacing: 4px; color: var(--ouro); font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
+  #header .title-main { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #f0e6d0; }
+  #btn-menu {
+    background: transparent; border: 1px solid var(--ouro); color: var(--ouro);
+    padding: 5px 11px; border-radius: 6px; cursor: pointer; font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace; display: none;
+  }
+  #btn-menu.visible { display: block; }
+  #badge-revisao {
+    display: none; background: rgba(224,80,64,0.2); border: 1px solid var(--verm);
+    color: #e07060; padding: 3px 8px; border-radius: 20px;
+    font-size: 9px; font-family: 'IBM Plex Mono', monospace;
+  }
+  #badge-revisao.visible { display: inline-block; }
+
+  /* CONFIG SHEETS */
+  #sheets-config {
+    background: var(--surface); border: 1px solid rgba(200,153,42,0.3);
+    border-radius: 14px; padding: 28px; margin: 24px 0; text-align: center;
+  }
+  #sheets-config h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--ouro); margin-bottom: 8px; }
+  #sheets-config p { color: var(--muted); font-size: 13px; line-height: 1.7; margin-bottom: 18px; }
+  #sheets-config input {
+    width: 100%; padding: 11px 14px; border-radius: 8px;
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(200,153,42,0.3);
+    color: var(--text); font-size: 13px; font-family: 'IBM Plex Mono', monospace;
+    outline: none; margin-bottom: 10px;
+  }
+  #sheets-config input:focus { border-color: var(--ouro); }
+  .steps { text-align: left; background: rgba(0,0,0,0.2); border-radius: 10px; padding: 16px; margin-bottom: 18px; }
+  .steps h3 { font-size: 11px; color: var(--ouro); font-family: 'IBM Plex Mono', monospace; letter-spacing: 2px; margin-bottom: 10px; }
+  .step { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .step-num { background: rgba(200,153,42,0.2); color: var(--ouro); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
+  .step a { color: var(--azul); }
+  .btn-primary {
+    display: inline-block; padding: 12px 24px; border-radius: 9px; border: none; cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--ouro), #e0b84a); color: #0c1a28;
+    transition: opacity .2s;
+  }
+  .btn-primary:hover { opacity: .85; }
+  .btn-primary:disabled { background: #2a3a4a; color: #4a6a8a; cursor: not-allowed; }
+
+  /* LOADING */
+  #loading {
+    display: none; text-align: center; padding: 60px 20px;
+  }
+  #loading.visible { display: block; }
+  .spinner {
+    width: 40px; height: 40px; border: 3px solid rgba(200,153,42,0.2);
+    border-top-color: var(--ouro); border-radius: 50%;
+    animation: spin 0.9s linear infinite; margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* STATS CARDS */
+  #stats-cards {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0;
+  }
+  .stat-card {
+    background: var(--surface); border-radius: 10px; padding: 10px 6px; text-align: center;
+    border: 1px solid var(--border); transition: transform .15s;
+  }
+  .stat-card:hover { transform: translateY(-1px); }
+  .stat-icon { font-size: 18px; }
+  .stat-val { font-size: 20px; font-weight: bold; font-family: 'IBM Plex Mono', monospace; }
+  .stat-lbl { font-size: 9px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+
+  /* TABS */
+  #tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(200,153,42,0.2); overflow-x: auto; margin-bottom: 16px; }
+  .tab {
+    padding: 9px 12px; font-size: 11px; cursor: pointer; border: none;
+    background: transparent; color: #6a8a9a; border-bottom: 2px solid transparent;
+    font-family: 'IBM Plex Mono', monospace; white-space: nowrap; transition: color .2s;
+  }
+  .tab.active { color: var(--ouro); border-bottom-color: var(--ouro); background: rgba(200,153,42,0.08); }
+  .tab.rosa { color: var(--rosa); }
+  .tab:hover { color: var(--text); }
+
+  /* PLANO SEMANAL */
+  .plano-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+    display: flex; align-items: flex-start; gap: 12px; transition: all .2s;
+  }
+  .plano-card.hoje { background: rgba(200,153,42,0.1); border-color: rgba(200,153,42,0.4); }
+  .plano-icon { font-size: 20px; min-width: 32px; text-align: center; }
+  .plano-hoje-badge { font-size: 8px; color: var(--ouro); font-family: 'IBM Plex Mono', monospace; text-align: center; margin-top: 2px; }
+  .plano-dia { font-size: 13px; font-weight: bold; }
+  .plano-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .plano-conc { font-size: 9px; color: #6a8a9a; font-family: 'IBM Plex Mono', monospace; }
+  .btn-small {
+    background: transparent; border-radius: 6px; cursor: pointer;
+    font-size: 10px; font-family: 'IBM Plex Mono', monospace;
+    padding: 5px 10px; white-space: nowrap; transition: opacity .15s;
+  }
+  .btn-small:hover { opacity: .75; }
+
+  /* FILTROS */
+  .section-box {
+    background: var(--surface); border: 1px solid rgba(200,153,42,0.12);
+    border-radius: 10px; padding: 13px; margin-bottom: 13px;
+  }
+  .section-label { font-size: 9px; color: var(--ouro); letter-spacing: 2px; font-family: 'IBM Plex Mono', monospace; margin-bottom: 10px; }
+  .filter-group { margin-bottom: 9px; }
+  .filter-label { font-size: 9px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; margin-bottom: 5px; }
+  .filter-btns { display: flex; gap: 4px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 4px 8px; border-radius: 5px; font-size: 10px; cursor: pointer;
+    border: 1px solid #2a3a4a; background: rgba(0,0,0,0.2); color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace; transition: all .15s;
+  }
+  .filter-btn:hover { border-color: rgba(200,153,42,0.4); }
+  .sessao-btns { display: flex; gap: 6px; margin-bottom: 12px; }
+  .sessao-btn {
+    padding: 5px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;
+    border: 1px solid #2a3a4a; background: rgba(0,0,0,0.2); color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace; transition: all .15s;
+  }
+  .sessao-btn.active { border-color: var(--ouro); background: rgba(200,153,42,0.2); color: var(--ouro); }
+  #count-filtro { font-size: 10px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; margin-top: 6px; }
+
+  /* O QUE MAIS CAI */
+  .rank-bar { margin-bottom: 6px; }
+  .rank-bar-top { display: flex; justify-content: space-between; margin-bottom: 2px; }
+  .rank-bar-top span:first-child { font-size: 11px; }
+  .rank-bar-top span:last-child { font-size: 10px; font-family: 'IBM Plex Mono', monospace; }
+  .bar-track { height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; }
+  .bar-fill { height: 100%; border-radius: 2px; transition: width .6s ease; }
+
+  /* QUESTÃO */
+  #tela-questao { display: none; }
+  .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; }
+  .q-progress-dots { display: flex; gap: 3px; flex-wrap: wrap; }
+  .q-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .q-card {
+    background: rgba(255,255,255,0.04); border-radius: 12px; padding: 18px; margin-bottom: 11px;
+  }
+  .q-tags { display: flex; gap: 5px; margin-bottom: 11px; flex-wrap: wrap; }
+  .q-tag { border-radius: 4px; padding: 2px 7px; font-size: 9px; font-family: 'IBM Plex Mono', monospace; }
+  .q-enunciado { font-size: 14px; line-height: 1.8; color: #f0e6d0; margin-bottom: 14px; }
+  .q-alt {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 7px; padding: 10px 12px; cursor: pointer; font-size: 13px;
+    line-height: 1.5; display: flex; gap: 8px; align-items: flex-start;
+    margin-bottom: 7px; transition: all .15s; width: 100%; text-align: left; color: var(--text);
+  }
+  .q-alt:hover:not(.respondida) { border-color: rgba(200,153,42,0.4); background: rgba(200,153,42,0.05); }
+  .q-alt.correta { background: rgba(61,184,138,0.18); border-color: var(--verde); color: #a0f0d0; }
+  .q-alt.errada { background: rgba(224,80,64,0.18); border-color: var(--verm); color: #f0a090; }
+  .q-alt.neutra { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.04); color: #5a7a8a; }
+  .q-alt .letra { font-family: 'IBM Plex Mono', monospace; font-weight: bold; min-width: 15px; color: var(--muted); }
+  .q-alt.correta .letra { color: var(--verde); }
+  .q-alt.errada .letra { color: var(--verm); }
+  .feedback-bar {
+    border-radius: 9px; padding: 10px 12px; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .feedback-bar.certo { background: rgba(61,184,138,0.1); border: 1px solid var(--verde); }
+  .feedback-bar.errado { background: rgba(224,80,64,0.1); border: 1px solid var(--verm); }
+  .btn-exp {
+    width: 100%; padding: 8px 12px; border-radius: 7px; cursor: pointer;
+    background: rgba(200,153,42,0.08); border: 1px solid rgba(200,153,42,0.25); color: var(--ouro);
+    font-size: 11px; font-family: 'IBM Plex Mono', monospace; margin-bottom: 8px; transition: opacity .15s;
+  }
+  .btn-exp:hover { opacity: .75; }
+  #exp-text {
+    background: rgba(200,153,42,0.06); border: 1px solid rgba(200,153,42,0.18);
+    border-radius: 9px; padding: 13px; margin-bottom: 8px;
+    font-size: 13px; line-height: 1.8; color: #d0c0a0; display: none;
+  }
+  #exp-text.visible { display: block; }
+  .btn-proxima {
+    width: 100%; padding: 12px; font-size: 13px; font-weight: bold;
+    background: linear-gradient(135deg, var(--ouro), #e0b84a); color: #0c1a28;
+    border: none; border-radius: 9px; cursor: pointer; letter-spacing: 2px;
+    font-family: 'IBM Plex Mono', monospace; transition: opacity .15s;
+  }
+  .btn-proxima:hover { opacity: .85; }
+
+  /* RESULTADO */
+  #tela-resultado { display: none; text-align: center; }
+  .resultado-emoji { font-size: 50px; margin-bottom: 5px; }
+  .resultado-titulo { font-size: 21px; font-weight: bold; color: #f0e6d0; margin-bottom: 3px; }
+  .resultado-pct { font-size: 40px; font-weight: bold; margin-bottom: 3px; font-family: 'Playfair Display', serif; }
+  .resultado-sub { color: var(--muted); font-size: 12px; font-family: 'IBM Plex Mono', monospace; margin-bottom: 20px; }
+  .resultado-area-row { margin-bottom: 8px; text-align: left; }
+  .resultado-area-row .top { display: flex; justify-content: space-between; margin-bottom: 2px; }
+
+  /* REVISÃO */
+  .erro-card {
+    background: rgba(224,80,64,0.07); border: 1px solid rgba(224,80,64,0.18);
+    border-radius: 9px; padding: 10px 12px; margin-bottom: 6px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .erro-dots { display: flex; align-items: center; gap: 4px; }
+  .erro-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--verm); }
+
+  /* STATS */
+  .stats-area-row { margin-bottom: 10px; }
+  .stats-area-row .top { display: flex; justify-content: space-between; margin-bottom: 2px; }
+
+  /* REDAÇÃO */
+  #tela-redacao { display: none; }
+  .tema-grupo-label {
+    font-size: 9px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 2px;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 5px;
+  }
+  .tema-grupo-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .tema-btn {
+    width: 100%; padding: 10px 13px; border-radius: 7px; text-align: left; cursor: pointer;
+    margin-bottom: 5px; border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.03); color: #c0b090; font-size: 12px;
+    line-height: 1.5; transition: all .15s;
+  }
+  .tema-btn:hover, .tema-btn.selected { background: rgba(217,106,154,0.15); border-color: rgba(217,106,154,0.5); color: var(--rosa); }
+  .tema-custom-input {
+    width: 100%; padding: 10px 13px; border-radius: 7px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(217,106,154,0.4);
+    color: #f0e6d0; font-size: 13px; margin-bottom: 10px; outline: none;
+    font-family: 'Lora', serif;
+  }
+  .redacao-textarea {
+    width: 100%; min-height: 240px; padding: 13px; border-radius: 9px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(200,153,42,0.2);
+    color: #f0e6d0; font-size: 14px; line-height: 1.8; resize: vertical;
+    outline: none; font-family: 'Lora', Georgia, serif;
+  }
+  .palavras-count { display: flex; justify-content: space-between; margin: 6px 0 11px; }
+  .criterio-bar { margin-bottom: 6px; }
+  .criterio-top { display: flex; justify-content: space-between; margin-bottom: 2px; }
+
+  /* SETUP BUTTON */
+  #btn-reconfig {
+    background: transparent; border: 1px solid rgba(200,153,42,0.3); color: var(--muted);
+    padding: 4px 9px; border-radius: 5px; font-size: 9px; font-family: 'IBM Plex Mono', monospace;
+    cursor: pointer; margin-left: 8px;
+  }
+
+  /* EMPTY STATE */
+  .empty-state { text-align: center; padding: 32px; color: var(--muted); }
+  .empty-state .icon { font-size: 40px; margin-bottom: 10px; }
+
+  /* UTILS */
+  .flex { display: flex; }
+  .flex-sb { display: flex; justify-content: space-between; align-items: center; }
+  .gap8 { gap: 8px; }
+  .gap9 { gap: 9px; }
+  .mb11 { margin-bottom: 11px; }
+  .mb13 { margin-bottom: 13px; }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .fade-in { animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 500px) {
+    #stats-cards { grid-template-columns: repeat(2, 1fr); }
+    .stat-val { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+  <div>
+    <div class="title-label">Analista Nível Superior • Multibancas</div>
+    <div class="title-main">📚 Plataforma de Estudos</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:7px;">
+    <span id="badge-revisao">🔁 REVISÃO</span>
+    <button id="btn-reconfig" onclick="mostrarConfig()">⚙ Sheets</button>
+    <button id="btn-menu" onclick="voltarMenu()">← Menu</button>
+  </div>
+</div>
+
+<div id="app">
+
+<!-- CONFIG SHEETS -->
+<div id="tela-config" class="fade-in">
+  <div id="sheets-config">
+    <h2>🔗 Conectar Google Sheets</h2>
+    <p>Gerencie suas questões numa planilha e a plataforma carrega automaticamente.<br>
+    Você pode adicionar centenas de questões sem mexer no código.</p>
+
+    <div class="steps">
+      <h3>COMO CONFIGURAR</h3>
+      <div class="step"><div class="step-num">1</div><div>Baixe o template CSV abaixo e importe no <strong style="color:var(--text)">Google Sheets</strong>: Arquivo → Importar → CSV</div></div>
+      <div class="step"><div class="step-num">2</div><div>Vá em <strong style="color:var(--text)">Arquivo → Compartilhar → Publicar na web</strong>. Escolha a aba e formato <strong style="color:var(--text)">CSV</strong>. Clique em "Publicar".</div></div>
+      <div class="step"><div class="step-num">3</div><div>Copie a URL gerada (começa com <code style="color:var(--azul)">https://docs.google.com/spreadsheets/d/</code>...) e cole abaixo.</div></div>
+      <div class="step"><div class="step-num">4</div><div>Para adicionar questões: edite a planilha. A plataforma sempre carrega a versão mais recente.</div></div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div style="font-size:9px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-bottom:6px;">URL DO GOOGLE SHEETS (publicado como CSV)</div>
+      <input type="text" id="sheets-url" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv"/>
+    </div>
+
+    <!-- Campo de API Key para correção de redação -->
+    <div style="margin-bottom:18px;border-top:1px solid rgba(255,255,255,0.07);padding-top:14px;">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <div style="font-size:9px;color:var(--azul);font-family:'IBM Plex Mono',monospace;">🤖 CHAVE DE API ANTHROPIC (para corrigir redações com IA)</div>
+        <span style="font-size:9px;color:rgba(61,184,138,0.8);background:rgba(61,184,138,0.1);border:1px solid rgba(61,184,138,0.25);padding:1px 6px;border-radius:10px;">OPCIONAL</span>
+      </div>
+      <div style="position:relative;">
+        <input type="password" id="api-key-input"
+          placeholder="sk-ant-api03-..."
+          style="padding-right:80px;"
+          oninput="salvarApiKey(this.value)"/>
+        <button onclick="toggleApiKeyVisibility()" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:11px;font-family:'IBM Plex Mono',monospace;" id="btn-toggle-key">mostrar</button>
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.6;">
+        Obtida em <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--azul);">console.anthropic.com</a> → API Keys → Create Key.
+        Salva apenas no seu browser (localStorage), nunca enviada a servidores externos.
+        <span id="api-key-status" style="margin-left:6px;"></span>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <button class="btn-primary" onclick="salvarECarregar()">▶ CONECTAR E CARREGAR</button>
+      <button class="btn-primary" style="background:linear-gradient(135deg,#3db88a,#2a9a7a);" onclick="usarQuestoesLocais()">📋 USAR QUESTÕES LOCAIS (27)</button>
+    </div>
+    <div style="display:flex;gap:6px;margin-top:8px;">
+      <button class="btn-small" style="flex:1;font-size:10px;border:1px solid rgba(255,255,255,0.12);color:var(--muted);" onclick="testarLink()">🔍 Testar link</button>
+      <button class="btn-small" style="flex:1;font-size:10px;border:1px solid rgba(255,255,255,0.12);color:var(--muted);" onclick="mostrarAjudaSheets()">❓ Como publicar CSV</button>
+    </div>
+    <div id="erro-conexao" style="display:none;color:#e05a5a;font-size:11px;margin-top:10px;padding:10px;background:rgba(224,90,90,0.08);border-radius:8px;border:1px solid rgba(224,90,90,0.25);line-height:1.8;"></div>
+    <div id="msg-config" style="margin-top:12px;font-size:12px;font-family:'IBM Plex Mono',monospace;"></div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loading">
+  <div class="spinner"></div>
+  <div style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:12px;">Carregando questões...</div>
+</div>
+
+<!-- TELA INÍCIO -->
+<div id="tela-inicio" style="display:none;" class="fade-in">
+
+  <!-- Stats -->
+  <div id="stats-cards"></div>
+
+  <!-- Tabs -->
+  <div id="tabs">
+    <button class="tab active" onclick="setAba('plano')">📅 Plano Semanal</button>
+    <button class="tab" onclick="setAba('estudar')">📖 Questões</button>
+    <button class="tab" onclick="setAba('revisao')">🔁 Revisão</button>
+    <button class="tab rosa" onclick="setAba('redacao'); document.getElementById('tela-redacao').style.display='block'; document.getElementById('tela-inicio').style.display='none'; document.getElementById('btn-menu').classList.add('visible');">✍️ Redação</button>
+    <button class="tab" onclick="setAba('stats')">📊 Stats</button>
+  </div>
+
+  <!-- ABA PLANO SEMANAL -->
+  <div id="aba-plano"></div>
+
+  <!-- ABA QUESTOES -->
+  <div id="aba-estudar" style="display:none;">
+    <div class="section-box">
+      <div class="section-label">SESSÃO DE ESTUDOS</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Questões por sessão:</div>
+      <div class="sessao-btns" id="sessao-btns"></div>
+
+      <div class="section-label" style="margin-top:4px;">FILTRAR</div>
+      <div class="filter-group">
+        <div class="filter-label">ÁREA</div>
+        <div class="filter-btns" id="filtro-area"></div>
+      </div>
+      <div class="filter-group" id="filtro-subtema" style="display:none;margin-top:-4px;">
+        <div class="filter-label" style="color:#e09080;">🏦 TEMA DENTRO DO BLOCO BANCÁRIO</div>
+        <div class="filter-btns subtema-btns"></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <div class="filter-group">
+          <div class="filter-label">BANCA</div>
+          <div class="filter-btns" id="filtro-banca"></div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-label">CONCURSO</div>
+          <div class="filter-btns" id="filtro-concurso"></div>
+        </div>
+      </div>
+      <div id="count-filtro"></div>
+    </div>
+
+    <div class="section-box">
+      <div class="section-label">🔥 O QUE MAIS CAI — BANCO DO BRASIL (Cesgranrio)</div>
+      <div id="rank-bars"></div>
+    </div>
+
+    <button class="btn-primary" style="width:100%;padding:13px;font-size:14px;letter-spacing:2px;" id="btn-iniciar" onclick="iniciarSessao()">▶ INICIAR</button>
+  </div>
+
+  <!-- ABA REVISAO -->
+  <div id="aba-revisao" style="display:none;">
+
+    <!-- Resumo do dia -->
+    <div class="section-box" id="revisao-hoje-box">
+      <div class="section-label">📅 DECK DE HOJE</div>
+      <div id="revisao-hoje-stats" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;"></div>
+      <div id="revisao-hoje-lista"></div>
+      <button class="btn-primary" id="btn-iniciar-revisao" style="width:100%;padding:12px;margin-top:10px;display:none;" onclick="iniciarSessaoRevisao()">🔁 REVISAR AGORA</button>
+    </div>
+
+    <!-- Calendário de revisões -->
+    <div class="section-box">
+      <div class="section-label">📆 CALENDÁRIO DE REVISÕES</div>
+      <div id="revisao-calendario" style="margin-top:8px;"></div>
+    </div>
+
+    <!-- Progresso por área -->
+    <div class="section-box">
+      <div class="section-label">📊 PROGRESSO POR ÁREA</div>
+      <div id="revisao-progresso-area"></div>
+    </div>
+
+    <!-- Módulos externos -->
+    <div class="section-box" style="border-color:rgba(217,106,154,0.25);background:rgba(217,106,154,0.04);">
+      <div class="section-label" style="color:var(--rosa);">✍️ TREINADOR DE REDAÇÃO</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.6;">Método FTTD · Motor de Argumentação · Raio-X · Cirurgia · Checklist · 30 temas BB</div>
+      <a href="redacao.html">
+        <button class="btn-small" style="width:100%;background:linear-gradient(135deg,#901850,var(--rosa));color:#fff;border:none;padding:12px;font-size:12px;">🚀 Abrir Treinador de Redação</button>
+      </a>
+    </div>
+    <div class="section-box" style="border-color:rgba(138,106,217,0.25);background:rgba(138,106,217,0.04);">
+      <div class="section-label" style="color:var(--roxo);">🧠 MAPAS MENTAIS</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.6;">Resumos visuais por área · Macetes · Revisão rápida de conceitos</div>
+      <a href="mapas_mentais.html">
+        <button class="btn-small" style="width:100%;background:linear-gradient(135deg,#5a3a90,var(--roxo));color:#fff;border:none;padding:12px;font-size:12px;">🧠 Abrir Mapas Mentais</button>
+      </a>
+    </div>
+    <div class="section-box">
+      <div class="section-label">💾 BACKUP DO PROGRESSO</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">Exporte para não perder seu progresso ao trocar de dispositivo.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+        <button class="btn-small" style="flex:1;border:1px solid rgba(61,184,138,0.4);color:var(--verde);" onclick="exportarProgressoCSV()">⬇ Exportar progresso</button>
+        <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.4);color:var(--ouro);" onclick="document.getElementById('input-importar').click()">⬆ Importar progresso</button>
+        <button class="btn-small" style="flex:1;border:1px solid rgba(224,80,64,0.4);color:var(--verm);" onclick="confirmarResetProgresso()">🗑 Zerar</button>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:10px;margin-top:4px;">
+        <div style="font-size:10px;color:var(--muted);margin-bottom:8px;">Exportar questões para o <b style="color:#4AB8D8;">Anki</b> — importe no app usando o tipo de nota "Básico".</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn-small" style="flex:1;border:1px solid rgba(74,184,216,0.5);color:#4AB8D8;background:rgba(74,184,216,0.08);" onclick="exportarAnki('todas')">🃏 Todas para Anki</button>
+          <button class="btn-small" style="flex:1;border:1px solid rgba(224,80,64,0.5);color:var(--verm);background:rgba(224,80,64,0.08);" onclick="exportarAnki('erradas')">❌ Erradas para Anki</button>
+          <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.5);color:var(--ouro);background:rgba(200,153,42,0.08);" onclick="exportarAnki('nao_respondidas')">⭐ Não respondidas para Anki</button>
+        </div>
+        <div style="font-size:9px;color:var(--muted);margin-top:6px;line-height:1.6;">
+          Anki: <b>Arquivo → Importar</b> → selecionar o CSV → tipo "Básico" → separador Tab → campos: Frente / Verso → confirmar. Tags automáticas por área e subtema.
+        </div>
+      </div>
+      <input type="file" id="input-importar" accept=".csv,.json" style="display:none;" onchange="importarProgresso(this)">
+      <div id="backup-msg" style="font-size:11px;margin-top:8px;color:var(--verde);display:none;"></div>
+    </div>
+
+  </div>
+
+  <!-- ABA STATS -->
+  <div id="aba-stats" style="display:none;"></div>
+
+</div><!-- fim tela-inicio -->
+
+<!-- TELA QUESTAO -->
+<div id="tela-questao" class="fade-in">
+  <div class="q-header">
+    <div class="mono" id="q-num" style="font-size:11px;color:var(--muted);"></div>
+    <div class="q-progress-dots" id="q-dots"></div>
+  </div>
+  <div class="q-card" id="q-card">
+    <div class="q-tags" id="q-tags"></div>
+    <p class="q-enunciado" id="q-enunciado"></p>
+    <div id="q-alts"></div>
+  </div>
+  <div id="q-feedback" style="display:none;"></div>
+  <div id="resumo-topico" style="display:none;margin-top:10px;padding:12px 14px;background:rgba(61,184,138,0.07);border:1px solid rgba(61,184,138,0.2);border-radius:10px;font-size:11px;line-height:1.8;white-space:pre-wrap;color:#c8d8e0;font-family:'IBM Plex Mono',monospace;"></div>
+  <button class="btn-exp" id="btn-exp" style="display:none;" onclick="toggleExp()">▼ Ver explicação completa</button>
+  <div id="exp-text"></div>
+  <button class="btn-proxima" id="btn-proxima" style="display:none;" onclick="proxima()">PRÓXIMA →</button>
+</div>
+
+<!-- TELA RESULTADO -->
+<div id="tela-resultado" class="fade-in">
+  <div class="resultado-emoji" id="res-emoji"></div>
+  <div class="resultado-titulo" id="res-titulo"></div>
+  <div class="resultado-pct" id="res-pct"></div>
+  <div class="resultado-sub" id="res-sub"></div>
+  <div class="section-box" style="text-align:left;">
+    <div class="section-label">RESULTADO POR ÁREA</div>
+    <div id="res-areas"></div>
+  </div>
+  <div id="res-erros-box" style="display:none;" class="section-box" style="background:rgba(224,80,64,0.08);border-color:rgba(224,80,64,0.22);text-align:left;"></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+    <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.35);color:var(--ouro);min-width:65px;" onclick="voltarMenu()">← MENU</button>
+    <button id="btn-revisar-erros" class="btn-small" style="flex:2;background:linear-gradient(135deg,#a02818,#e05040);color:#fff;border:none;min-width:110px;display:none;" onclick="iniciarRevisao()">🔁 REVISAR ERROS</button>
+    <button class="btn-small" style="flex:2;background:linear-gradient(135deg,var(--ouro),#e0b84a);color:#0c1a28;border:none;min-width:100px;" onclick="refazer()">↺ REFAZER</button>
+  </div>
+</div>
+
+<!-- TELA REDAÇÃO -->
+<div id="tela-redacao" class="fade-in">
+  <div id="redacao-etapa-tema">
+    <div style="font-size:11px;color:var(--rosa);letter-spacing:3px;font-family:'IBM Plex Mono',monospace;margin-bottom:4px;">✍️ REDAÇÃO COM IA — TEMA</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Temas reais de concursos anteriores</div>
+    <div id="temas-lista"></div>
+    <div id="tema-custom-wrap" style="display:none;">
+      <input type="text" class="tema-custom-input" id="tema-custom-input" placeholder="Digite o tema..."/>
+    </div>
+    <div style="display:flex;gap:9px;margin-top:8px;">
+      <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.3);color:var(--ouro);" onclick="document.getElementById('tela-redacao').style.display='none';document.getElementById('tela-inicio').style.display='block';document.getElementById('btn-menu').classList.remove('visible');">← Voltar</button>
+      <button class="btn-primary" style="flex:3;padding:11px;" id="btn-ir-escrever" onclick="irEscrever()">ESCREVER →</button>
+    </div>
+  </div>
+
+  <div id="redacao-etapa-escrever" style="display:none;">
+    <!-- Tema selecionado -->
+    <div id="tema-selecionado-box" style="background:rgba(217,106,154,0.08);border:1px solid rgba(217,106,154,0.3);border-radius:9px;padding:9px 13px;margin-bottom:9px;"></div>
+
+    <!-- Abas do painel de apoio -->
+    <div style="display:flex;gap:0;border-bottom:1px solid rgba(200,153,42,0.2);margin-bottom:10px;overflow-x:auto;">
+      <button class="tab active" id="aba-apoio-dados" onclick="setAbaApoio('dados')" style="font-size:10px;padding:7px 10px;">📊 Dados</button>
+      <button class="tab" id="aba-apoio-dicas" onclick="setAbaApoio('dicas')" style="font-size:10px;padding:7px 10px;">💡 Dicas</button>
+      <button class="tab" id="aba-apoio-modelo" onclick="setAbaApoio('modelo')" style="font-size:10px;padding:7px 10px;">📝 Modelo</button>
+      <button class="tab" id="aba-apoio-checklist" onclick="setAbaApoio('checklist')" style="font-size:10px;padding:7px 10px;">✅ Checklist</button>
+    </div>
+
+    <!-- Painel: Dados por tema -->
+    <div id="painel-dados" style="margin-bottom:10px;"></div>
+    <!-- Painel: Dicas estruturais -->
+    <div id="painel-dicas" style="display:none;margin-bottom:10px;"></div>
+    <!-- Painel: Modelo -->
+    <div id="painel-modelo" style="display:none;margin-bottom:10px;"></div>
+    <!-- Painel: Checklist -->
+    <div id="painel-checklist" style="display:none;margin-bottom:10px;"></div>
+
+    <!-- Textarea -->
+    <textarea class="redacao-textarea" id="redacao-texto" placeholder="Escreva sua redação aqui (mínimo 80 palavras)..."></textarea>
+    <div class="palavras-count">
+      <span style="font-size:11px;color:#6a8a9a;" class="mono" id="pal-count">0 palavras</span>
+      <span style="font-size:11px;" class="mono" id="pal-status">Mínimo: 80 palavras</span>
+    </div>
+    <div style="display:flex;gap:9px;">
+      <button class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.3);color:var(--ouro);" onclick="redacaoVoltarTema()">← Tema</button>
+      <button class="btn-primary" style="flex:3;padding:11px;" id="btn-corrigir" onclick="corrigirRedacao()" disabled>🤖 CORRIGIR COM IA →</button>
+    </div>
+  </div>
+
+  <div id="redacao-etapa-feedback" style="display:none;"></div>
+</div>
+
+</div><!-- fim app -->
+
+<script>
+// ═══════════════════════════════════════════
+// ESTADO GLOBAL
+// ═══════════════════════════════════════════
+let QUESTOES = [];
+
+// ═══════════════════════════════════════════════════════
+// RESUMOS E MACETES POR TÓPICO
+// ═══════════════════════════════════════════════════════
+const RESUMOS_TOPICO = {
+"Coesão":              "📌 COESÃO = como as partes do texto se conectam\n• Referencial: pronomes, sinônimos, hiperônimos retomam algo já dito\n• Sequencial: conjunções e advérbios organizam a progressão\n🔑 Macete: se tirar o elemento e o texto ainda fizer sentido → coesão sequencial. Se o elemento substituir uma palavra → coesão referencial.",
+"Conjunção":           "📌 CONJUNÇÕES — valor semântico\n• CAUSA: porque, pois, visto que, já que, uma vez que\n• CONSEQUÊNCIA: por isso, portanto, logo, razão pela qual, de modo que\n• CONCESSÃO: embora, ainda que, mesmo que, por mais que (= obstáculo que não impede)\n• CONDIÇÃO: se, caso, desde que, a menos que\n• ADIÇÃO: e, além disso, ademais, outrossim\n🔑 Macete: CONCESSÃO = admite o obstáculo MAS conclui mesmo assim. CONDIÇÃO = resultado SÓ ocorre SE a condição for satisfeita.",
+"Reescrita":           "📌 REESCRITA COM MESMO SENTIDO\nVerifique se a reescrita preserva:\n1. O sujeito lógico (quem faz a ação)\n2. O valor semântico do conectivo (causa ≠ concessão)\n3. A polaridade (afirmativo ≠ negativo)\n4. O tempo verbal (passado ≠ presente)\n🔑 Macete CERTA: muda estrutura, mantém sentido. ERRADA: muda estrutura E sentido (polaridade ou lógica invertida).",
+"Interpretação":       "📌 INTERPRETAÇÃO DE TEXTOS (Cespe)\nRegras de ouro:\n• ✅ O que o texto AFIRMA explicitamente\n• ✅ O que pode ser INFERIDO com certeza (implícito necessário)\n• ❌ O que o texto NÃO diz (extrapolação)\n• ❌ O que é apenas POSSÍVEL, mas não certo\n🔑 Macete: 'O texto GARANTE isso?' Se sim → certo. Se é suposição sua → errado.",
+"Concordância Verbal": "📌 CONCORDÂNCIA VERBAL — casos especiais\n• Sujeito coletivo + especificador: 'A maioria dos alunos foi/foram' → ambos aceitos\n• HAVER impessoal (existir): sempre singular — 'Houve erros' (NUNCA 'Houveram')\n• FAZER impessoal (tempo): 'Faz dois anos'\n• Sujeito posposto: concorda com o mais próximo (opcional)\n🔑 Macete: HAVER e FAZER como impessoais = NUNCA pluralizam.",
+"Concordância Nominal":"📌 CONCORDÂNCIA NOMINAL\n• MEIO como advérbio: invariável — 'Ela estava MEIO confusa'\n• MENOS, ALERTA, PSEUDO: invariáveis\n• MESMO, PRÓPRIO, SÓ, ANEXO: concordam com o substantivo\n• 'É proibido entrada' (sem artigo): invariável\n🔑 Macete: MEIO advérbio = invariável. MEIA substantivo/adjetivo = varia ('meia hora', 'meios de transporte').",
+"Regência Verbal":     "📌 REGÊNCIA VERBAL — verbos problemáticos\n• ASSISTIR (ver): VTI → 'assistiu AO jogo' (não 'o jogo')\n• VISAR (objetivar): VTI → 'visa AO lucro' / 'visa A melhorar'\n• OBEDECER: VTI → 'obedeceu ÀS normas'\n• PREFERIR: VTD → 'prefere X a Y' (NUNCA 'do que')\n• ASPIRAR (almejar): VTI → 'aspirava AO cargo'\n🔑 Macete: se o verbo exige preposição → VTI. Se não exige → VTD.",
+"Crase":               "📌 CRASE\n✅ OBRIGATÓRIA: preposição 'a' + artigo feminino 'a' ('Refiro-me à questão')\n✅ OBRIGATÓRIA: locuções adverbiais femininas ('às pressas', 'à tarde', 'à direita')\n❌ PROIBIDA: antes de masculino, verbo, pronome pessoal\n❌ PROIBIDA: 'a pé', 'a bordo', 'a favor' (sem artigo)\n🔑 Macete: substitua por 'ao' → se aceita 'ao' = masculino = sem crase. Se aceita 'à' = com crase.",
+"Pontuação":           "📌 PONTUAÇÃO — vírgula\n✅ OBRIGATÓRIA: aposto, vocativo, adjunto adverbial deslocado, oração intercalada\n❌ PROIBIDA: entre sujeito e predicado, entre verbo e objeto direto\nDOIS-PONTOS: antes de enumeração, citação ou aposto explicativo\nPONTO E VÍRGULA: elementos paralelos já com vírgulas internas\n🔑 Macete: vírgula entre verbo e OD = ERRADO. 'O laudo confirmou, que o veículo...' = ERRADO.",
+"Vozes Verbais":       "📌 VOZES VERBAIS\n• Ativa: sujeito pratica — 'A PRF prendeu o suspeito'\n• Passiva analítica: ser + particípio — 'O suspeito foi preso pela PRF'\n• Passiva sintética: verbo + SE — 'Prendeu-se o suspeito'\nConversão: OD → sujeito passivo | sujeito ativo → agente da passiva (por/de)\n🔑 Macete: agente da passiva = quem praticou a ação + preposição 'por'. Nem sempre aparece.",
+"Morfologia":          "📌 MORFOLOGIA — adjunto vs. complemento\n• Adjunto adverbial: opcional, indica circunstância, pode ser retirado\n• Objeto direto: obrigatório, sem preposição (VTD)\n• Objeto indireto: obrigatório, COM preposição (VTI)\n• Adjunto adnominal: modifica substantivo\n• Complemento nominal: de substantivo/adjetivo abstrato\n🔑 Macete: 'necessitar DE algo' = VTI = OI. 'amar algo' = VTD = OD.",
+"Ortografia":          "📌 ORTOGRAFIA\n• Z: -eza (beleza), -izar (realizar), após ditongo (raiz, coalizão)\n• S: -ês/-esa (burguês), -oso (saboroso), após ditongo em adjetivos (coisa → coisa)\n• X: após ditongo (caixa), após 'en-' (enxada), palavras indígenas/africanas\n🔑 Macete: 'analisar' (base tem s: análise). 'fertilizar' (base tem z: fértil). Verbos sem base clara → -izar.",
+"Semântica":           "📌 SEMÂNTICA\n• Denotativo: sentido literal, dicionarizado\n• Conotativo: sentido figurado, metafórico\n• Metáfora: comparação implícita ('a vida é uma viagem')\n• Metonímia: substituição por relação real (autor/obra, todo/parte)\n• Polissemia: vários sentidos (banco = assento / instituição)\n🔑 Macete: METÁFORA = é (implícito). SÍMILE/COMPARAÇÃO = como/parece. METONÍMIA = relação existente entre os termos.",
+"Redação Oficial":     "📌 REDAÇÃO OFICIAL (MRPR 3ª ed.)\n• Impessoalidade: 'encaminha-se' (não 'eu encaminho')\n• V.Exa.: ministros, governadores, magistrados, chefes de missão\n• V.Sa.: demais autoridades e funcionários\n• Fecho RESPEITOSAMENTE: para superior\n• Fecho ATENCIOSAMENTE: para igual ou inferior\n🔑 Macete: ABOLIDOS — 'Venho por meio desta...', 'Grato pela atenção', 'Abraços'. E-mail institucional segue as mesmas regras do ofício.",
+"Lógica – Proposição": "📌 LÓGICA PROPOSICIONAL\n• P∧Q (E): V só quando AMBOS V\n• P∨Q (OU): F só quando AMBOS F\n• P→Q (SE→ENTÃO): F APENAS quando P=V e Q=F\nNEGAÇÃO (De Morgan):\n• ¬(P∧Q) = ¬P ∨ ¬Q\n• ¬(P∨Q) = ¬P ∧ ¬Q\n• ¬(P→Q) = P ∧ ¬Q\n🔑 Macete: condicional só é FALSA quando 'verdadeiro implica falso'.",
+"Lógica – Condicional": "📌 CONDICIONAL P→Q\n• Contrapositiva ¬Q→¬P: EQUIVALENTE à original ✅\n• Inversa ¬P→¬Q: NÃO equivalente ❌\n• Recíproca Q→P: NÃO equivalente ❌\n• Negação: P ∧ ¬Q\n🔑 Macete: só a CONTRAPOSITIVA é equivalente.\n'Se estudou → passou' = 'Se não passou → não estudou'.",
+"Lógica – Quantificadores": "📌 QUANTIFICADORES\n• 'Todo A é B' → negação: 'Algum A NÃO é B'\n• 'Nenhum A é B' → negação: 'Algum A é B'\n• 'Algum A é B' → negação: 'Nenhum A é B'\n🔑 Macete: TODO ↔ ALGUM NÃO. NENHUM ↔ ALGUM.\n'Todos aprovaram' → neg: 'Algum não aprovou' (não 'nenhum aprovou').",
+"Juros Simples":       "📌 JUROS SIMPLES\nM = C(1 + i·t) | J = C·i·t\n• Crescimento LINEAR\n• Para dobrar: t = 1/i\n• Proporcionalidade entre taxas (regra de três direta)\n🔑 Macete: 10%/mês → dobra em 10 meses. Taxas proporcionais (simples): i_diária = i_mensal/30.",
+"Juros Compostos":     "📌 JUROS COMPOSTOS\nM = C(1+i)ⁿ | Crescimento EXPONENCIAL\n• Equivalência: (1+im)¹² = (1+ia)\n• Regra de 72: t ≈ 72/taxa% para dobrar\n• Taxa mensal 1% → anual 12,68% (não 12%)\n🔑 Macete: taxa PROPORCIONAL (simples) ≠ taxa EQUIVALENTE (composta). Prova sempre usa compostos — multiplica os fatores!",
+"Desconto":            "📌 DESCONTO BANCÁRIO\n• Comercial (por fora): D = N·d·t → desconta do valor NOMINAL\n• Racional (por dentro): VA = N/(1+i·t) → desconta do valor ATUAL\n• Mesmo prazo e taxa: desconto comercial > racional\n🔑 Macete: COMERCIAL = base é o NOMINAL (prejudica o devedor). RACIONAL = base é o ATUAL (mais justo). Banco usa o comercial.",
+"Séries Uniformes":    "📌 SÉRIES UNIFORMES\nVF = PMT × [(1+i)ⁿ-1]/i\nVP = PMT × [1-(1+i)⁻ⁿ]/i\n• PRICE: prestações iguais, amortização crescente, juros decrescentes\n• SAC: amortização constante, prestações decrescentes, total pago menor\n🔑 Macete: SAC = paga MAIS no início, MENOS no final. PRICE = IGUAL sempre. SAC tem custo total menor que PRICE para mesmo prazo/taxa.",
+"Porcentagem":         "📌 PORCENTAGEM\n• Variações encadeadas: MULTIPLICA os fatores\n• +25% depois -20%: (1,25)×(0,80) = 1,00 = 0% (coincidência nesse par)\n• +20% depois -20%: (1,20)×(0,80) = 0,96 = -4% (sempre há perda!)\n• Para anular aumento de X%: redução de X/(1+X)\n🔑 Macete: para anular +25% precisa de -20% (não -25%). NUNCA soma porcentagens de períodos diferentes — multiplica.",
+"Probabilidade":       "📌 PROBABILIDADE\nP(A) = casos favoráveis / total\n• COM reposição: P não muda → multiplica\n• SEM reposição: total e favoráveis diminuem\n• P(A∪B) = P(A)+P(B)-P(A∩B)\n• P(A|B) = P(A∩B)/P(B)\n🔑 Macete: Bayes — P(doença|+) depende da PREVALÊNCIA. Com prevalência baixa, até teste bom tem muitos falsos positivos.",
+"Estatística":         "📌 ESTATÍSTICA DESCRITIVA\n• Média: sensível a outliers | Mediana: robusta\n• Moda: valor mais frequente | Desvio padrão σ: dispersão\n• Variância: σ² | CV = σ/μ×100%: variabilidade relativa\n📌 DISTRIBUIÇÃO NORMAL\n• Regra 68-95-99,7: μ±1σ=68%, μ±2σ=95%, μ±3σ=99,7%\n• Z = (X-μ)/σ — padroniza para N(0,1)\n• P(60≤X≤80) com μ=70,σ=10: Z=±1 → 2×0,3413=0,6826\n📌 INTERVALO DE CONFIANÇA\n• IC = x̄ ± z*×(σ/√n)\n• z*=1,645 (90%) | z*=1,96 (95%) | z*=2,576 (99%)\n🔑 Macete: IC 95% → z*=1,96 (memorize!). Maior n = menor margem de erro.",
+"Probabilidade":       "📌 PROBABILIDADE\n• P(A) = favoráveis/totais\n• P(A∪B) = P(A)+P(B)–P(A∩B)\n• P(A|B) = P(A∩B)/P(B) → probabilidade condicional\n• Independência: P(A∩B) = P(A)×P(B)\n📌 BAYES\n• P(A|B) = P(B|A)×P(A)/P(B)\n• VPP baixo = prevalência baixa mesmo com teste sensível\n• COM reposição: P não muda entre extrações\n• SEM reposição: denominador diminui a cada extração\n🔑 Macete: dois eventos independentes → MULTIPLICA as probabilidades.",
+"Combinatória":        "📌 ANÁLISE COMBINATÓRIA\n• Permutação P(n)=n!: TODOS, ordem importa\n• Arranjo A(n,p)=n!/(n-p)!: p de n, ordem importa\n• Combinação C(n,p)=n!/[p!(n-p)!]: p de n, ordem NÃO importa\n• Princípio fundamental: n₁×n₂×...×nₖ\n🔑 Macete: 'importa a ORDEM?'\n  SIM → Arranjo/Permutação\n  NÃO → Combinação\nComissão de 3 entre 10: C(10,3)=120 (sem ordem)\nPódio de 3 entre 10: A(10,3)=720 (com ordem)",
+"Desconto":            "📌 DESCONTO BANCÁRIO\n• Comercial (por fora): D = N×d×n | VA = N(1–d×n)\n  Base = Valor NOMINAL → maior desconto, prejudica o devedor\n• Racional (por dentro): VA = N/(1+i×n)\n  Base = Valor ATUAL → mais justo\nMesmo prazo e taxa: D_comercial > D_racional\nTaxa efetiva > taxa de desconto: i_ef = d/(1–d×n)\n🔑 Macete: banco usa COMERCIAL.\nEx: N=10.000, d=2%/mês, 60d → D=400 → VA=R$9.600",
+"Combinatória":        "📌 ANÁLISE COMBINATÓRIA\n• Permutação P(n)=n!: TODOS, ordem importa\n• Arranjo A(n,r)=n!/(n-r)!: r de n, ordem importa\n• Combinação C(n,r)=n!/[r!(n-r)!]: r de n, ordem NÃO importa\n🔑 Macete: 'comissão de 3 pessoas' → combinação (ordem não importa). 'pódio de 3 atletas' → arranjo (1º/2º/3º importa).",
+"Direitos Fundamentais":"📌 DIREITOS FUNDAMENTAIS\n• 1ª dimensão: civis e políticos (liberdades negativas)\n• 2ª dimensão: sociais, econômicos (prestações positivas)\n• 3ª dimensão: solidariedade (meio ambiente, paz)\nRemédios: HC=locomoção, MS=direito líquido/certo, HD=dados, MI=omissão legislativa\n🔑 Macete: HC só protege LIBERDADE DE LOCOMOÇÃO. Não cabe HC para multa, direitos políticos, honra.",
+"Controle de Constitucionalidade":"📌 CONTROLE DE CONSTITUCIONALIDADE\n• Difuso: qualquer juiz, inter partes, incidental\n• Concentrado STF: ADI, ADC, ADPF, ADO\n• Efeito vinculante: Judiciário + Administração (NÃO vincula o Legislativo)\n• ADPF: cabe para atos pré-constitucionais e atos municipais (subsidiária)\n🔑 Macete: efeito vinculante NÃO atinge o Congresso Nacional — que pode legislar em sentido contrário.",
+"Processo Legislativo": "📌 PROCESSO LEGISLATIVO\n• Ordinária: maioria simples dos presentes\n• Complementar: maioria ABSOLUTA dos membros\n• PEC: 3/5, 2 turnos, cada Casa\n• MP: urgência+relevância, 60+60 dias\n🔑 Macete: LC = ABSOLUTA. LO = SIMPLES. MP vedada para: matéria penal, processual, eleitoral, organização do Judiciário/MP.",
+"Federalismo":         "📌 COMPETÊNCIAS CONSTITUCIONAIS\n• Privativa União: direito civil, penal, trabalho, processual, eleitoral\n• Concorrente (U+E+DF): tributário, financeiro, urbanístico, penitenciário\n• Comum (U+E+DF+M): saúde, cultura, meio ambiente\n• Municipal: interesse local + suplementar\n🔑 Macete: U faz normas GERAIS na concorrente; Estado faz normas ESPECÍFICAS. Município = interesse LOCAL.",
+"Poder Judiciário":    "📌 PODER JUDICIÁRIO\n• STF: guarda da CF, controle concentrado, RE (repercussão geral)\n• STJ: direito federal infraconstitucional, REsp\n• Súmula vinculante: 2/3 STF, vincula Judiciário+Adm.\n• CNJ: controle administrativo do Judiciário\n🔑 Macete: STF=Constituição. STJ=lei federal. TST=trabalhista. TSE=eleitoral. STM=militar. TRF: matéria federal 1ª instância.",
+"Ato Administrativo":  "📌 ATOS ADMINISTRATIVOS — COFIM\nElementos: Competência, Objeto, Forma, (finalidade) Interesse público, Motivo\n• Vinculado: todos definidos em lei\n• Discricionário: liberdade no mérito (motivo e/ou objeto)\n• Anulação: vício de legalidade (Adm. ou Judiciário)\n• Revogação: conveniência/oportunidade (só Administração)\n🔑 Macete: Judiciário NUNCA revoga — só anula. Administração pode anular E revogar.",
+"Princípios Administrativos":"📌 PRINCÍPIOS — LIMPE\n• Legalidade: só faz o que a LEI PERMITE (≠ particular)\n• Impessoalidade: atos em nome da Adm., não do agente\n• Moralidade: padrão ético da Adm.\n• Publicidade: transparência (exceção: segurança + intimidade)\n• Eficiência: EC 19/1998 — avaliação de desempenho\n🔑 Macete: legalidade do particular = pode tudo que não é proibido. Legalidade da Adm. = só o que a lei PERMITE.",
+"Licitação":           "📌 LICITAÇÃO (Lei 14.133/2021)\n• Modalidades: Pregão (bens/serv. comuns), Concorrência (obras+especiais), Concurso, Leilão, Diálogo Competitivo\n• Dispensa: viável mas dispensada — rol TAXATIVO\n• Inexigibilidade: inviabilidade de competição — rol EXEMPLIFICATIVO\n🔑 Macete: DISPENSA = lista fechada. INEXIGIBILIDADE = lista aberta (exclusividade ou notória especialização). Pregão = sempre menor preço.",
+"Servidores Públicos":  "📌 SERVIDORES — prazos-chave\n• Posse: 30 dias da nomeação\n• Exercício: 15 dias da posse\n• Estágio probatório: 3 anos de efetivo exercício\n• Decadência para anular ato favorável: 5 anos (boa-fé)\n• PAD: instauração→instrução→indiciamento→defesa(10d)→relatório→julgamento(30d)\n🔑 Macete: 30-15-3 (posse-exercício-estágio). Cargo em comissão: exoneração AD NUTUM (sem motivação).",
+"SFN – Estrutura":     "📌 SFN — ESTRUTURA\n• CMN (normatiza): Min. Fazenda + Min. Planejamento + Pres. BACEN\n• BACEN (executa): banco dos bancos, fiscaliza IFs, executa política monetária\n• CVM: mercado de capitais (ações, fundos, debêntures)\n• SUSEP: seguros, previdência aberta (PGBL/VGBL), capitalização\n• PREVIC: previdência fechada (fundos de pensão)\n🔑 Macete: CMN=manda. BACEN=faz. CVM=bolsa. SUSEP=seguro. FGCoop=cooperativas (análogo ao FGC dos bancos).",
+"Política Monetária":  "📌 POLÍTICA MONETÁRIA\n3 instrumentos do BACEN:\n• Open market: principal — compra títulos (injeta) / vende (retira)\n• Compulsório: ↑% = menos crédito = política contracionista\n• Redesconto: emprestador de última instância\nCOPOM: define Selic meta a cada 45 dias (8 vezes/ano)\n🔑 Macete: Selic SOBE → crédito caro → consumo cai → inflação cede. LCR: HQLA/saídas 30 dias ≥ 100%.",
+"Produtos Bancários":  "📌 PRODUTOS — TRIBUTAÇÃO\n✅ Isentos de IR para PF: Poupança, LCI, LCA, CRI, CRA, FII (rendimentos)\n📊 Tabela regressiva: 22,5%(≤180d) → 20% → 17,5% → 15%(>720d)\n⏰ Come-cotas: fundos RF/MM em maio e novembro (15% mín.)\n🔑 Macete: LCI/LCA = isentas = bom para quem paga IR alto. CDB = tributado mas pode ter taxa maior. Compare sempre o retorno LÍQUIDO.",
+"Crédito":             "📌 5Cs DO CRÉDITO\n• Caráter: histórico — Serasa, SCR/BACEN\n• Capacidade: renda/fluxo de caixa para pagar\n• Capital: patrimônio (garantia extra)\n• Colateral: garantias reais (imóvel) ou pessoais (aval/fiança)\n• Condições: finalidade + cenário econômico\n🔑 Macete: CET (Custo Efetivo Total) = juros + tarifas + IOF + seguros. Compare SEMPRE pelo CET — não pela taxa nominal.",
+"Câmbio":              "📌 CÂMBIO\n• Exportador VENDE dólar → banco paga na taxa de COMPRA\n• Importador COMPRA dólar → banco cobra na taxa de VENDA\n• ACC: crédito ANTES do embarque (capital de giro para produzir)\n• ACE: crédito APÓS o embarque (antecipa recebimento)\n• Hedge exportador: VENDE futuro de dólar\n🔑 Macete: taxa de venda > taxa de compra (spread = lucro do banco). Exportador recebe MENOS (taxa compra). Importador paga MAIS (taxa venda).",
+"Títulos de Crédito":  "📌 TÍTULOS DE CRÉDITO\n• Cheque: prazo 30d (mesma praça) / 60d (outra) | prescrição 6 meses\n• Duplicata: credor SACA contra devedor (causal — compra/serviço)\n• Nota Promissória: devedor PROMETE pagar (não causal)\n• Aval: garantia em título de crédito (solidário)\n• Fiança: garantia em contrato (subsidiária)\n🔑 Macete: CHEQUE = banco é sacado. DUPLICATA = credor emite. NP = devedor emite. ACEITE = concordância do sacado.",
+"Pix e SPB":           "📌 PIX — características\n• Instantâneo: ≤10 segundos, 24h/7 dias, gratuito para PF\n• TED: mesmo dia (até 17h30), só dias úteis\n• DOC: D+1, ≤R$4.999,99 (praticamente extinto)\n• MED: devolução por fraude em até 80 dias\n• Pix Cobrança: QR Code dinâmico (como boleto instantâneo)\n🔑 Macete: Pix limites definidos pela IF (não pelo BACEN). Pix noturno: redução automática entre 20h e 6h. Pix Garantido = parcelamento via Pix (futuro).",
+"Basileia III":        "📌 BASILEIA III\n• CET1 ≥ 4,5% APR (capital de melhor qualidade)\n• Tier 1 ≥ 6% APR | Capital Total ≥ 8% (Brasil: 11%)\n• ACP Conservação: +2,5% buffer obrigatório\n• LCR ≥ 100%: HQLA / saídas líquidas 30 dias\n• Risco Operacional: falha de processos, pessoas, sistemas ou eventos externos\n🔑 Macete: se Índice de Basileia < (mínimo + buffer) → proibido pagar dividendos. Banco D-SIB (sistêmico): capital adicional de 0-3,5%.",
+"Lavagem de Dinheiro": "📌 LAVAGEM DE DINHEIRO — 3 FASES\n1. COLOCAÇÃO: inserção do dinheiro sujo (depósitos fracionados, laranjas)\n2. OCULTAÇÃO: disfarce da origem (offshore, empresas de fachada)\n3. INTEGRAÇÃO: retorno com aparência lícita (imóveis, empresas legítimas)\n🔑 Macete: banco comunica ao COAF SEM dar ciência ao investigado (tipping off = crime). Comunicação ≠ acusação.",
+"LGPD":                "📌 LGPD\n10 bases legais: consentimento, contrato, obrigação legal, interesse legítimo...\nDireitos do titular: acesso, correção, portabilidade, eliminação, revisão automatizada\nEncarregado (DPO): canal titular ↔ controlador ↔ ANPD\nSanções: até 2% faturamento, máx. R$50mi/infração\n🔑 Macete: CONSENTIMENTO = apenas UMA das bases. Dados SENSÍVEIS (saúde, raça, biometria): bases mais restritas + proteção especial.",
+"Open Finance":        "📌 OPEN FINANCE — 4 FASES\n1. Dados públicos das IFs\n2. Dados do cliente (contas, cartões, crédito)\n3. ITP: iniciação de pagamento por terceiro\n4. Investimentos, câmbio, previdência, seguros\nConsentimento: 12 meses, revogável em 1 hora\n🔑 Macete: Open Finance ⊃ Open Banking (mais abrangente). ITP = terceiro inicia Pix na sua conta com sua autorização. Cliente é DONO dos dados.",
+"CTB":                 "📌 CTB — CÓDIGO DE TRÂNSITO\nVelocidades padrão (sem placa): pista dupla=110 km/h | pista simples=100 km/h\nPontos: leve=3, média=4, grave=5, gravíssima=7 | Suspensão: 20 pontos/12 meses\nCrimes: embriaguez ≥6dg/L → detenção 6m-3 anos | homicídio culposo → detenção 2-4 anos\nCategorias CNH: A=moto, B=carro, C=caminhão, D=ônibus, E=carreta\n🔑 Macete: 6dg/L = CRIME (não só infração). Recusa ao bafômetro = infração gravíssima + art.165-A.",
+"Processo Penal":      "📌 FLAGRANTE (CPP art. 302)\n• Próprio: está cometendo ou acabou de cometer\n• Impróprio: perseguido logo após\n• Presumido: encontrado logo depois com instrumentos\nBusca pessoal sem mandado (art. 244): fundada suspeita concreta e objetiva\n🔑 Macete: busca DOMICILIAR exige mandado (exceção: flagrante). Busca PESSOAL sem mandado = fundada suspeita (STJ: não pode ser baseada em perfil racial).",
+"Lei de Drogas":       "📌 LEI 11.343/2006\n• Art. 28 (usuário): SEM prisão — advertência, serviço comunitário, medida educativa\n• Art. 33 (tráfico): reclusão 5-15 anos (hediondo)\n• Tráfico privilegiado (§4º): primário + bons antecedentes + não integra org. → redução 1/6-2/3\n• STF: tráfico privilegiado NÃO é hediondo\n🔑 Macete: distinção usuário × traficante = circunstâncias do caso (sem quantidade mínima legal). Juiz analisa local, conduta, antecedentes.",
+"Previdência Social":  "📌 PREVIDÊNCIA RGPS — CARÊNCIAS\n• SEM carência: pensão por morte, salário-maternidade (empregada), acidente de qualquer natureza\n• 12 contribuições: auxílio por incapacidade por doença\n• 180 contribuições: aposentadoria programada\nEC 103/2019: 65H/62M de idade + 20H/15M anos de contribuição\n🔑 Macete: ACIDENTE = sem carência. DOENÇA = 12 contribuições. APOSENTADORIA = 180 (15 anos).",
+"Benefícios INSS":     "📌 BENEFÍCIOS EM ESPÉCIE\n• Salário-maternidade: 120 dias (empregada: sem carência; CI/FAC: 10 contrib.)\n• Auxílio-acidente: sequela que REDUZ capacidade → 50% SB + salário\n• Pensão por morte: tabela por IDADE do cônjuge (EC 103/2019)\n• Segurado especial: economia familiar, 1,3% sobre comercialização\n🔑 Macete: auxílio-acidente ≠ aposentadoria por incapacidade. Acidente = paga junto com salário. Incapacidade total = não trabalha mais.",
+"Resistência dos Materiais":"📌 RESISTÊNCIA DOS MATERIAIS\n• σ = F/A (tensão normal) | τ = VQ/Ib (cisalhamento)\n• Lei de Hooke: δ = FL/(EA)\n• M_máx viga biapoiada P central: PL/4\n• M_máx viga biapoiada q distribuído: qL²/8\n• Deflexão biapoiada P central: PL³/48EI\n🔑 Macete: 1 MPa = 1 N/mm². A em cm² → divide por 10.000 para converter a m². Momento de inércia retangular: I = bh³/12.",
+"Mecânica dos Solos":  "📌 MECÂNICA DOS SOLOS\n• e = Vv/Vs (índice de vazios) | n = Vv/Vt (porosidade) | n = e/(1+e)\n• LL-LP-IP: Atterberg — plástico→líquido / sólido→plástico / IP = LL-LP\n• Proctor: γd_máx na umidade ótima | GC = γd_campo/γd_máx × 100%\n• Tensão efetiva: σ' = σ - u (Terzaghi)\n🔑 Macete: e usa Vs no denominador (sólidos). n usa Vt no denominador (total). GC ≥ 95% = aterro bem compactado.",
+"Concreto Armado":     "📌 CONCRETO ARMADO — NBR 6118\n• fck = quantil 5% da resistência à compressão\n• fator a/c ↑ → fck ↓ (Lei de Abrams)\n• Armadura positiva: face inferior (vão) | Negativa: face superior (apoio)\n• Cobrimento: CAA I=25mm, II=30mm, III=40mm, IV=50mm\n• Slump test: trabalhabilidade do concreto fresco\n🔑 Macete: CA-50 → fyk=500 MPa (mais usado). Cura inadequada = perda de até 50% da resistência.",
+"Fundações":           "📌 FUNDAÇÕES\n• Rasas: profundidade < 2×largura (sapata, radier)\n• Profundas: > 3m ou > 8×largura (estaca, tubulão)\n• SPT: NSPT = golpes para penetrar 30cm (descarta 1ª camada de 15cm)\n• Estaca CHD: sem impacto, in loco, concreto pelo eixo do trado\n🔑 Macete: SPT <4 = muito fofo. SPT >30 = muito compacto. Recalque DIFERENCIAL = mais prejudicial que uniforme (causa flexão na estrutura).",
+"Orçamento de Obras":  "📌 ORÇAMENTO DE OBRAS\n• BDI: adm. central + seguros + riscos + impostos + lucro\n• SINAPI: referência obrigatória para obras com recursos federais\n• CUB: estimativa preliminar — NÃO inclui fundações especiais, BDI, terreno\n• Caminho crítico CPM: FT=0 → qualquer atraso atrasa o projeto\n• Curva ABC: 20% dos itens = 80% do custo (Pareto)\n🔑 Macete: BDI ≠ lucro (lucro é parte do BDI). CUB = custo/m² de referência do SINDUSCON.",
+};
+
+// Função para encontrar o resumo mais relevante para o subtema da questão
+// Mapeamento subtema → chave do RESUMOS_TOPICO
+// Prioridade: match exato > palavras-chave > área genérica
+const MAPA_SUBTEMA = [
+  // ── ENGENHARIA CIVIL (antes dos genéricos) ────────────────────
+  [['concreto armado','fck','fator a/c','nbr 6118','armadura','cobrimento','slump'], 'Concreto Armado'],
+  [['mecânica dos solos','índice de vazios','porosidade','atterberg','proctor','compactação'], 'Mecânica dos Solos'],
+  [['fundação','estaca','sapata','radier','spt ','recalque','tubulão'], 'Fundações'],
+  [['orçamento','bdi','sinapi','cub','curva abc','cpm','caminho crítico'], 'Orçamento de Obras'],
+  [['resistência dos materiais','tensão normal','deformação','lei de hooke','momento fletor','deflexão','viga '], 'Resistência dos Materiais'],
+  // ── RACIOCÍNIO LÓGICO — mais específico primeiro ──────────────
+  [['intervalo de confiança','intervalo de predição','intervalos de pred','ic 95','z*','z crítico','margem de erro'], 'Estatística'],
+  [['distribuição normal','curva normal','gaussiana'], 'Estatística'],
+  [['desvio padrão','variância','coeficiente de variação','cv '], 'Estatística'],
+  [['média','mediana','moda','estatística descritiva'], 'Estatística'],
+  [['regressão','correlação','pearson','r de pearson'], 'Estatística'],
+  [['combinatória','permutação','arranjo ','combinação','fatorial'], 'Combinatória'],
+  [['bayes','probabilidade condicional','vpp','vpn','sensibilidade','especificidade'], 'Probabilidade'],
+  [['probabilidade','evento aleatório','espaço amostral'], 'Probabilidade'],
+  [['proposição','tabela verdade','bicondicional','tautologia','contradição','de morgan','negação de proposição'], 'Lógica – Proposição'],
+  [['contrapositiva','inversa da proposição','recíproca de'], 'Lógica – Condicional'],
+  [['lógica ','negação de proposição','implicação lógica'], 'Lógica – Proposição'],
+  [['quantificador','todo ','nenhum ','algum '], 'Lógica – Quantificadores'],
+  [['sequência numérica','fibonacci','série numérica','progressão aritmética','progressão geométrica'], 'Séries Uniformes'],
+  [['juros simples','regime simples','capitalização simples'], 'Juros Simples'],
+  [['juros compostos','regime composto','capitalização composta','(1+i)^'], 'Juros Compostos'],
+  [['desconto bancário','desconto comercial','desconto racional','valor nominal de'], 'Desconto'],
+  [['porcentagem','percentual','variação percentual','markup','margem de lucro'], 'Porcentagem'],
+  [['price ','sac ','sistema de amortização','prestação fixa','amortização constante','anuidade'], 'Séries Uniformes'],
+  [['cet ','custo efetivo total'], 'Juros Compostos'],
+  // ── PORTUGUÊS ─────────────────────────────────────────────────
+  [['conjunção','conectivo','concessiva','adversativa','causal','temporal ','subordinada'], 'Conjunção'],
+  [['coesão','coerência','anáfora','catáfora','referencial','sequencial'], 'Coesão'],
+  [['pronome relativo','cujo','cuja ','onde ','em que'], 'Coesão'],
+  [['reescrita','mesmo sentido','substituição mantendo'], 'Reescrita'],
+  [['interpretação','inferência','pressuposto','ideia principal','ideia central','argumento'], 'Interpretação'],
+  [['concordância verbal','sujeito coletivo','verbo impessoal','haver impessoal'], 'Concordância Verbal'],
+  [['concordância nominal','meio como advérbio','less ','alerta'], 'Concordância Nominal'],
+  [['regência verbal','regência nominal','transitivo direto','transitivo indireto'], 'Regência Verbal'],
+  [['crase ','contração '], 'Crase'],
+  [['pontuação','vírgula','ponto e vírgula','dois-pontos','travessão'], 'Pontuação'],
+  [['voz passiva','voz ativa','agente da passiva','particípio'], 'Vozes Verbais'],
+  [['morfologia','classe gramatical','substantivo','adjetivo','advérbio','adjunto adnominal','complemento nominal','nominalização'], 'Morfologia'],
+  [['ortografia','grafia ','uso do s','uso do z'], 'Ortografia'],
+  [['semântica','denotativo','conotativo','metáfora','metonímia','polissemia','homonímia'], 'Semântica'],
+  [['redação oficial','ofício','memorando','fecho ','vossa excelência','impessoalidade'], 'Redação Oficial'],
+  // ── LEGISLAÇÃO ESPECÍFICA ─────────────────────────────────────
+  [['lavagem de dinheiro','pld','coaf','colocação','ocultação','integração','kyc','know your customer'], 'Lavagem de Dinheiro'],
+  [['lgpd','dados pessoais','anpd','titular de dados','controlador','operador','dados sensíveis'], 'LGPD'],
+  [['open finance','open banking','itp ','consentimento de dados'], 'Open Finance'],
+  [['basileia','capital regulatório','apr ','tier 1','tier1','lcr ','nsfr','risco operacional'], 'Basileia III'],
+  [['cheque','duplicata','nota promissória','letra de câmbio','título de crédito'], 'Títulos de Crédito'],
+  [['pix ','ted ','doc ','spb','str ','sistema de pagamentos'], 'Pix e SPB'],
+  [['câmbio','acc ','ace ','ptax','exportador','importador','hedge cambial'], 'Câmbio'],
+  [['produto bancário','cdb','lci','lca','poupança','tesouro direto','tributação de investimentos'], 'Produtos Bancários'],
+  [['análise de crédito','5cs','rating de crédito','score ','pdd','provisão para'], 'Crédito'],
+  [['política monetária','selic meta','copom','open market','compulsório','redesconto'], 'Política Monetária'],
+  [['sfn','cmn','bacen','cvm ','susep','previc','sistema financeiro'], 'SFN – Estrutura'],
+  [['ctb','código de trânsito','habilitação','cnh ','velocidade máxima','embriaguez','alcoolemia'], 'CTB'],
+  [['flagrante','prisão em flagrante','busca e apreensão','processo penal'], 'Processo Penal'],
+  [['lei de drogas','11.343','tráfico de drogas','usuário de drogas'], 'Lei de Drogas'],
+  [['previdência social','inss','rgps','benefício previdenciário','carência','aposentadoria','pensão por morte'], 'Previdência Social'],
+  // ── DIREITO CONSTITUCIONAL ────────────────────────────────────
+  [['habeas corpus','mandado de segurança','hd ','mi ','remédio constitucional'], 'Direitos Fundamentais'],
+  [['direito fundamental','dimensão dos direitos'], 'Direitos Fundamentais'],
+  [['adi ','adc ','adpf','ado ','controle de constitucionalidade','efeito vinculante'], 'Controle de Constitucionalidade'],
+  [['processo legislativo','lei ordinária','lei complementar','pec ','medida provisória','maioria absoluta'], 'Processo Legislativo'],
+  [['federalismo','competência privativa','concorrente','comum','municipal'], 'Federalismo'],
+  [['poder judiciário','stf','stj','tst ','súmula vinculante','repercussão geral'], 'Poder Judiciário'],
+  // ── DIREITO ADMINISTRATIVO ────────────────────────────────────
+  [['ato administrativo','vinculado','discricionário','anulação','revogação','cofim'], 'Ato Administrativo'],
+  [['limpe','princípio da legalidade','impessoalidade','moralidade','publicidade','eficiência'], 'Princípios Administrativos'],
+  [['licitação','pregão','concorrência','dispensa de licitação','inexigibilidade'], 'Licitação'],
+  [['servidor público','8.112','estágio probatório','pad ','processo administrativo disciplinar'], 'Servidores Públicos'],
+];
+
+function buscarResumo(subtema, area) {
+  if (!subtema) return null;
+  const sub = subtema.toLowerCase();
+
+  // 1. Busca por palavras-chave do mapeamento preciso
+  for (const [palavras, chaveResumo] of MAPA_SUBTEMA) {
+    if (palavras.some(p => sub.includes(p))) {
+      return RESUMOS_TOPICO[chaveResumo]
+        ? { titulo: chaveResumo, texto: RESUMOS_TOPICO[chaveResumo] }
+        : null;
+    }
+  }
+
+  // 2. Busca direta pela chave do dicionário (correspondência parcial)
+  const sub2 = sub.replace(/[-–]/g,' ');
+  for (const [chave, texto] of Object.entries(RESUMOS_TOPICO)) {
+    const c = chave.toLowerCase().replace(/[-–]/g,' ');
+    // Todos os tokens significativos da chave estão no subtema
+    const tokens = c.split(/\s+/).filter(t => t.length > 4);
+    if (tokens.length > 0 && tokens.every(t => sub2.includes(t))) {
+      return { titulo: chave, texto };
+    }
+  }
+
+  // 3. Fallback mínimo por área — apenas se muito genérico
+  const FALLBACK = {
+    'português': 'Interpretação',
+    'raciocínio lógico': null,   // sem fallback genérico — melhor nada
+    'dir. constitucional': 'Direitos Fundamentais',
+    'dir. administrativo': 'Princípios Administrativos',
+    'legislação específica': 'SFN – Estrutura',
+    'engenharia civil': 'Resistência dos Materiais',
+  };
+  const fb = FALLBACK[(area||'').toLowerCase()];
+  if (fb && RESUMOS_TOPICO[fb]) return { titulo: fb, texto: RESUMOS_TOPICO[fb] };
+
+  return null;  // sem resumo → não exibir nada
+}
+
+function exibirResumoTopico(subtema, area) {
+  const el = document.getElementById('resumo-topico');
+  if (!el) return;
+  const resumo = buscarResumo(subtema, area);
+  if (resumo) {
+    el.style.display = 'block';
+    el.textContent = resumo.texto;
+  } else {
+    el.style.display = 'none';
+  }
+}
+let questoesSessao = [];
+let indice = 0;
+let respondida = false;
+let selecionada = null;
+let historico = [];
+let modoRevisao = false;
+let bancaErros = {};
+let totalResp = 0, totalAc = 0;
+let sessaoMax = 20;
+let filtroArea = 'Todas', filtroBanca = 'Todas', filtroConcurso = 'Todos';
+let filtroSubtemaBloco = 'Todos'; // subfiltro dentro de Legislação Específica
+let questoesFiltradas = [];
+let abaAtiva = 'plano';
+let temaSelecionado = null;
+let sheetsUrl = '';
+let anthropicKey = '';
+
+function salvarApiKey(val) {
+  anthropicKey = val.trim();
+  try { localStorage.setItem('pe_anthropic_key', anthropicKey); } catch(e) {}
+  const st = document.getElementById('api-key-status');
+  if (st) {
+    if (anthropicKey.startsWith('sk-ant-')) {
+      st.innerHTML = '<span style="color:#3db88a;">✅ Chave válida salva</span>';
+    } else if (anthropicKey.length > 0) {
+      st.innerHTML = '<span style="color:#e0a040;">⚠️ Formato inesperado (deve começar com sk-ant-)</span>';
+    } else {
+      st.innerHTML = '';
+    }
+  }
+}
+
+function toggleApiKeyVisibility() {
+  const inp = document.getElementById('api-key-input');
+  const btn = document.getElementById('btn-toggle-key');
+  if (!inp) return;
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    btn.textContent = 'ocultar';
+  } else {
+    inp.type = 'password';
+    btn.textContent = 'mostrar';
+  }
+}
+
+// ═══════════════════════════════════════════
+// PROGRESSO E REPETIÇÃO ESPAÇADA
+// ═══════════════════════════════════════════
+// Estrutura de progresso por questão:
+// PROGRESSO[qid] = { acertos, erros, ultimaResposta, proximaRevisao, intervalo, facilidade }
+// Algoritmo: Alta probabilidade primeiro → erros ciclam com intervalo crescente
+// Intervalos: 1d → 3d → 7d → 14d → 30d → 60d
+
+const SRS_INTERVALOS = [1, 3, 7, 14, 30, 60]; // dias
+let PROGRESSO = {}; // { [qid]: { acertos, erros, ultimaResposta, proximaRevisao, intervalo, fase } }
+
+function hoje() {
+  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+}
+
+function diasDesde(dataStr) {
+  if (!dataStr) return 999;
+  const d = new Date(dataStr);
+  const h = new Date();
+  return Math.floor((h - d) / 86400000);
+}
+
+function proximaData(diasOffset) {
+  const d = new Date();
+  d.setDate(d.getDate() + diasOffset);
+  return d.toISOString().slice(0, 10);
+}
+
+function carregarProgresso() {
+  try {
+    const raw = localStorage.getItem('pe_progresso_v2');
+    PROGRESSO = raw ? JSON.parse(raw) : {};
+  } catch { PROGRESSO = {}; }
+}
+
+function salvarProgresso() {
+  try {
+    localStorage.setItem('pe_progresso_v2', JSON.stringify(PROGRESSO));
+  } catch(e) { console.warn('localStorage cheio', e); }
+}
+
+function registrarResposta(qid, acertou, probPct) {
+  if (!PROGRESSO[qid]) {
+    PROGRESSO[qid] = { acertos:0, erros:0, ultimaResposta:null, proximaRevisao:null, fase:0 };
+  }
+  const p = PROGRESSO[qid];
+  p.ultimaResposta = hoje();
+
+  if (acertou) {
+    p.acertos++;
+    // Avança fase (intervalo aumenta)
+    p.fase = Math.min(p.fase + 1, SRS_INTERVALOS.length - 1);
+  } else {
+    p.erros++;
+    // Reinicia para fase 0 (revisão amanhã)
+    p.fase = 0;
+  }
+
+  const dias = SRS_INTERVALOS[p.fase];
+  p.proximaRevisao = proximaData(dias);
+  salvarProgresso();
+}
+
+function questoesParaHoje() {
+  const h = hoje();
+  // 1. Nunca respondidas com alta probabilidade para o concurso selecionado
+  const nunca = QUESTOES.filter(q => {
+    const p = PROGRESSO[q.id];
+    if (p && p.ultimaResposta) return false;
+    const prob = probParaConcurso(q.probabilidade, filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0] || ''));
+    return prob >= 88;
+  });
+
+  // 2. Agendadas para hoje ou atrasadas
+  const agendadas = QUESTOES.filter(q => {
+    const p = PROGRESSO[q.id];
+    if (!p || !p.proximaRevisao) return false;
+    return p.proximaRevisao <= h;
+  });
+
+  // 3. Erradas recentemente (sem agendamento explícito)
+  const erradas = QUESTOES.filter(q => {
+    const p = PROGRESSO[q.id];
+    if (!p || !p.erros) return false;
+    if (p.proximaRevisao && p.proximaRevisao > h) return false; // já agendada
+    return p.erros > p.acertos;
+  });
+
+  // Combinar sem duplicatas, prioridade: agendadas > alta prob > erradas
+  const vistos = new Set();
+  const deck = [];
+  for (const lista of [agendadas, nunca, erradas]) {
+    for (const q of lista) {
+      if (!vistos.has(q.id)) { vistos.add(q.id); deck.push(q); }
+    }
+  }
+  return deck;
+}
+
+function estatisticasGerais() {
+  const qids = Object.keys(PROGRESSO);
+  const total = qids.length;
+  const acertosTotal = qids.reduce((s,id) => s + (PROGRESSO[id].acertos||0), 0);
+  const errosTotal = qids.reduce((s,id) => s + (PROGRESSO[id].erros||0), 0);
+  const respondidas = total;
+  const naoRespondidas = QUESTOES.length - respondidas;
+  const taxa = (acertosTotal + errosTotal) > 0
+    ? Math.round(acertosTotal * 100 / (acertosTotal + errosTotal)) : 0;
+  const hoje_deck = questoesParaHoje().length;
+  return { total, respondidas, naoRespondidas, acertosTotal, errosTotal, taxa, hoje_deck };
+}
+
+function exportarProgressoCSV() {
+  const linhas = ['id,acertos,erros,ultimaResposta,proximaRevisao,fase'];
+  for (const [id, p] of Object.entries(PROGRESSO)) {
+    linhas.push(`${id},${p.acertos||0},${p.erros||0},${p.ultimaResposta||''},${p.proximaRevisao||''},${p.fase||0}`);
+  }
+  const blob = new Blob([linhas.join('\n')], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `progresso_concurso_${hoje()}.csv`;
+  a.click();
+  const msg = document.getElementById('backup-msg');
+  if (msg) { msg.textContent = `✅ ${Object.keys(PROGRESSO).length} registros exportados!`; msg.style.display='block'; setTimeout(()=>msg.style.display='none',3000); }
+}
+
+// ── EXPORTAÇÃO PARA ANKI ──────────────────────────────────────────────────
+// Formato: TSV separado por Tab (padrão Anki para importação)
+// Campos: Frente | Verso | Tags
+// Frente: enunciado + alternativas formatadas
+// Verso: gabarito + explicação
+// Tags: área, subtema normalizado, concursos, banca
+function exportarAnki(modo) {
+  // Selecionar questões conforme modo
+  let questoes;
+  if (modo === 'erradas') {
+    questoes = QUESTOES.filter(q => {
+      const p = PROGRESSO[q.id];
+      return p && p.erros > 0;
+    });
+  } else if (modo === 'nao_respondidas') {
+    questoes = QUESTOES.filter(q => {
+      const p = PROGRESSO[q.id];
+      return !p || !p.ultimaResposta;
+    });
+  } else {
+    questoes = [...QUESTOES];
+  }
+
+  // Aplicar filtros ativos (concurso + área + subfiltro)
+  if (filtroConcurso !== 'Todos') {
+    questoes = questoes.filter(q => q.concursos.includes(filtroConcurso));
+  }
+  if (filtroArea !== 'Todas') {
+    questoes = questoes.filter(q => q.area === filtroArea);
+  }
+  if (filtroArea === 'Legislação Específica' && filtroSubtemaBloco !== 'Todos') {
+    const subf = SUBFILTROS_LEG[filtroSubtemaBloco];
+    if (subf && subf.kws) {
+      questoes = questoes.filter(q => {
+        const sub = (q.subtema||'').toLowerCase();
+        return subf.kws.some(kw => sub.includes(kw));
+      });
+    }
+  }
+
+  if (questoes.length === 0) {
+    const msg = document.getElementById('backup-msg');
+    if (msg) { msg.style.color='var(--verm)'; msg.textContent='⚠️ Nenhuma questão encontrada com os filtros atuais.'; msg.style.display='block'; setTimeout(()=>msg.style.display='none',4000); }
+    return;
+  }
+
+  const LETRAS = ['A','B','C','D','E'];
+
+  const linhas = questoes.map(q => {
+    const p = PROGRESSO[q.id] || {};
+
+    // ── FRENTE DO CARD ───────────────────────────────────────────────
+    const alts = q.alternativas.map((alt, i) =>
+      `<b>${LETRAS[i]})</b> ${alt.replace(/</g,'&lt;').replace(/>/g,'&gt;')}`
+    ).join('<br>');
+
+    const statusStr = p.ultimaResposta
+      ? (p.acertos > p.erros ? '✅ Acertou' : '❌ Errou')
+      : '⭐ Nova';
+
+    const frente = [
+      `<div style="font-family:sans-serif;max-width:600px;">`,
+      `<div style="font-size:10px;color:#888;margin-bottom:8px;">[Q${q.id}] ${q.area} · ${q.subtema} · ${q.banca}</div>`,
+      `<div style="font-size:14px;margin-bottom:12px;">${q.enunciado.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`,
+      `<div style="font-size:13px;line-height:1.9;">${alts}</div>`,
+      `</div>`
+    ].join('');
+
+    // ── VERSO DO CARD ────────────────────────────────────────────────
+    const gabIdx = q.gabarito;
+    const gabLetra = LETRAS[gabIdx] || '?';
+    const gabTexto = q.alternativas[gabIdx] || '';
+    const exp = (q.explicacao||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+    const verso = [
+      `<div style="font-family:sans-serif;max-width:600px;">`,
+      `<div style="background:#1a3a1a;border:1px solid #3a6a3a;border-radius:8px;padding:12px;margin-bottom:12px;">`,
+      `<div style="color:#6adf8a;font-size:12px;font-weight:bold;margin-bottom:4px;">✅ GABARITO: ${gabLetra}</div>`,
+      `<div style="color:#d0f0d0;font-size:13px;">${gabTexto.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`,
+      `</div>`,
+      exp ? `<div style="font-size:12px;color:#c8c0b0;line-height:1.7;border-top:1px solid #333;padding-top:10px;">${exp}</div>` : '',
+      `<div style="font-size:10px;color:#888;margin-top:10px;">Seus dados: ${statusStr} · Acertos: ${p.acertos||0} · Erros: ${p.erros||0}</div>`,
+      `</div>`
+    ].join('');
+
+    // ── TAGS ANKI ────────────────────────────────────────────────────
+    // Normaliza para formato Anki (sem espaços, sem caracteres especiais)
+    const normalizarTag = s => s
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')  // remove acentos
+      .replace(/[^a-zA-Z0-9_-]/g,'_')
+      .replace(/_+/g,'_')
+      .replace(/^_|_$/g,'');
+
+    const areaTag = normalizarTag(q.area);
+    const subtemaTag = normalizarTag((q.subtema||'').split('–')[0].split('-')[0].trim().substring(0,30));
+    const bancaTag = normalizarTag(q.banca);
+    const concTags = q.concursos.map(c => normalizarTag(c)).join(' ');
+    const statusTag = p.ultimaResposta
+      ? (p.erros > p.acertos ? 'Errada' : 'Acertada')
+      : 'Nova';
+    const probTag = (() => {
+      const pv = probParaConcurso(q.probabilidade, filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0]||''));
+      return pv >= 88 ? 'Alta_prob' : pv >= 75 ? 'Media_prob' : 'Baixa_prob';
+    })();
+
+    const tags = `Plataforma_Estudos ${areaTag} ${subtemaTag} ${bancaTag} ${concTags} ${statusTag} ${probTag}`.trim();
+
+    // TSV: Frente [TAB] Verso [TAB] Tags
+    // Escapar tabs e quebras de linha dentro dos campos
+    const esc = s => s.replace(/\t/g,' ').replace(/\n/g,' ');
+    return `${esc(frente)}\t${esc(verso)}\t${esc(tags)}`;
+  });
+
+  // Cabeçalho especial Anki (comentário #)
+  const header = `#separator:tab\n#html:true\n#notetype:Básico\n#columns:Frente\tVerso\tTags`;
+  const conteudo = header + '\n' + linhas.join('\n');
+
+  const nomeArquivo = modo === 'erradas' ? 'anki_erradas' :
+                      modo === 'nao_respondidas' ? 'anki_nao_respondidas' :
+                      'anki_todas';
+  const blob = new Blob(['\ufeff' + conteudo], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${nomeArquivo}_${filtroConcurso.replace(/ /g,'_')}_${hoje()}.txt`;
+  a.click();
+
+  const msg = document.getElementById('backup-msg');
+  if (msg) {
+    msg.style.color = 'var(--azul)';
+    msg.textContent = `🃏 ${questoes.length} cards exportados para o Anki!`;
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 4000);
+  }
+}
+
+function importarProgresso(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const lines = e.target.result.split('\n').slice(1);
+      let count = 0;
+      for (const line of lines) {
+        const [id, acertos, erros, ultimaResposta, proximaRevisao, fase] = line.split(',');
+        if (!id) continue;
+        PROGRESSO[id] = {
+          acertos: parseInt(acertos)||0,
+          erros: parseInt(erros)||0,
+          ultimaResposta: ultimaResposta||null,
+          proximaRevisao: proximaRevisao||null,
+          fase: parseInt(fase)||0
+        };
+        count++;
+      }
+      salvarProgresso();
+      renderizarRevisao();
+      const msg = document.getElementById('backup-msg');
+      if (msg) { msg.style.color='var(--verde)'; msg.textContent=`✅ ${count} registros importados!`; msg.style.display='block'; setTimeout(()=>msg.style.display='none',3000); }
+    } catch(err) {
+      const msg = document.getElementById('backup-msg');
+      if (msg) { msg.style.color='var(--verm)'; msg.textContent='❌ Erro ao importar. Verifique o formato do arquivo.'; msg.style.display='block'; }
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function confirmarResetProgresso() {
+  if (confirm('⚠️ Zerar TODO o progresso? Isso não pode ser desfeito.\n\nExporte antes para fazer backup.')) {
+    PROGRESSO = {};
+    salvarProgresso();
+    renderizarRevisao();
+    alert('Progresso zerado com sucesso.');
+  }
+}
+
+// ═══════════════════════════════════════════
+// RENDERIZAR PAINEL DE REVISÃO
+// ═══════════════════════════════════════════
+function renderizarRevisao() {
+  const deck = questoesParaHoje();
+  const h = hoje();
+  const stats = estatisticasGerais();
+
+  // Stats do dia
+  const statsEl = document.getElementById('revisao-hoje-stats');
+  if (statsEl) {
+    const badges = [
+      { label: 'Para hoje', val: deck.length, cor: deck.length > 0 ? COR.verm : COR.verde },
+      { label: 'Respondidas', val: stats.respondidas, cor: COR.ouro },
+      { label: 'Taxa acerto', val: stats.taxa + '%', cor: stats.taxa >= 70 ? COR.verde : COR.verm },
+      { label: 'Restantes', val: stats.naoRespondidas, cor: COR.muted||'#9ab0c0' },
+    ];
+    statsEl.innerHTML = badges.map(b => `
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:8px;padding:8px 12px;text-align:center;min-width:70px;">
+        <div style="font-size:16px;font-weight:bold;color:${b.cor};font-family:'IBM Plex Mono',monospace;">${b.val}</div>
+        <div style="font-size:9px;color:#9ab0c0;margin-top:2px;">${b.label}</div>
+      </div>`).join('');
+  }
+
+  // Lista das questões de hoje
+  const listaEl = document.getElementById('revisao-hoje-lista');
+  const btnIniciar = document.getElementById('btn-iniciar-revisao');
+  if (listaEl) {
+    if (deck.length === 0) {
+      listaEl.innerHTML = `<div style="text-align:center;padding:20px;color:var(--verde);">✅ Nenhuma revisão pendente para hoje! Continue estudando.</div>`;
+      if (btnIniciar) btnIniciar.style.display = 'none';
+    } else {
+      const amostra = deck.slice(0, 5);
+      listaEl.innerHTML = amostra.map(q => {
+        const p = PROGRESSO[q.id];
+        const concR = filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0]||'');
+        const prob = probParaConcurso(q.probabilidade, concR);
+        const probStr = prob ? `${prob}%` : '–';
+        const acPct = p && (p.acertos+p.erros) > 0 ? Math.round(p.acertos*100/(p.acertos+p.erros)) : null;
+        const tag = p && p.erros > 0 ? `<span style="color:var(--verm);font-size:9px;">❌ ${p.erros} erro(s)</span>` :
+                    !p ? `<span style="color:var(--ouro);font-size:9px;">🔥 Nova</span>` :
+                    `<span style="color:var(--verde);font-size:9px;">🔁 Revisão</span>`;
+        return `<div style="padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:11px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <span style="color:#9ab0c0;margin-right:6px;" class="mono">Q${q.id}</span>
+            <span style="color:#d0c0a0;">${q.subtema}</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            ${tag}
+            <span style="color:#6a8a9a;font-size:9px;">${probStr}</span>
+          </div>
+        </div>`;
+      }).join('');
+      if (deck.length > 5) listaEl.innerHTML += `<div style="font-size:11px;color:var(--muted);text-align:center;padding-top:8px;">...e mais ${deck.length-5} questões</div>`;
+      if (btnIniciar) { btnIniciar.style.display = 'block'; btnIniciar.textContent = `🔁 REVISAR AGORA (${deck.length} questões)`; }
+    }
+  }
+
+  // Calendário
+  renderizarCalendario();
+
+  // Progresso por área
+  renderizarProgressoArea();
+
+  // Badge no header
+  const badge = document.getElementById('badge-revisao');
+  if (badge) {
+    if (deck.length > 0) { badge.textContent = `🔁 ${deck.length} REVISÕES`; badge.classList.add('visible'); }
+    else badge.classList.remove('visible');
+  }
+}
+
+function renderizarCalendario() {
+  const el = document.getElementById('revisao-calendario');
+  if (!el) return;
+
+  // Próximos 30 dias
+  const hoje_d = new Date();
+  const dias = [];
+  for (let i = 0; i < 30; i++) {
+    const d = new Date(hoje_d);
+    d.setDate(d.getDate() + i);
+    dias.push(d.toISOString().slice(0,10));
+  }
+
+  // Contar questões agendadas por dia
+  const porDia = {};
+  for (const [id, p] of Object.entries(PROGRESSO)) {
+    if (p.proximaRevisao) {
+      porDia[p.proximaRevisao] = (porDia[p.proximaRevisao]||0) + 1;
+    }
+  }
+
+  const hoje_str = hoje();
+  const nomes = ['D','S','T','Q','Q','S','S'];
+
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px;">
+      ${nomes.map(n=>`<div style="text-align:center;font-size:9px;color:#9ab0c0;font-family:'IBM Plex Mono',monospace;">${n}</div>`).join('')}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;">
+      ${dias.map(d => {
+        const n = porDia[d] || 0;
+        const isHoje = d === hoje_str;
+        const cor = n === 0 ? 'rgba(255,255,255,0.04)' : n < 5 ? 'rgba(61,184,138,0.15)' : n < 15 ? 'rgba(200,153,42,0.25)' : 'rgba(224,80,64,0.25)';
+        const borda = isHoje ? '1px solid var(--ouro)' : '1px solid rgba(255,255,255,0.06)';
+        const label = d.slice(8); // dia do mês
+        return `<div style="background:${cor};border:${borda};border-radius:5px;padding:4px 2px;text-align:center;cursor:default;" title="${d}: ${n} questão(ões)">
+          <div style="font-size:10px;color:${isHoje?'var(--ouro)':'#9ab0c0'};font-family:'IBM Plex Mono',monospace;">${label}</div>
+          ${n>0?`<div style="font-size:8px;color:${n<5?'var(--verde)':n<15?'var(--ouro)':'var(--verm)'};">${n}</div>`:''}
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+      <span style="font-size:9px;color:var(--verde);">● 1–4 questões</span>
+      <span style="font-size:9px;color:var(--ouro);">● 5–14 questões</span>
+      <span style="font-size:9px;color:var(--verm);">● 15+ questões</span>
+    </div>`;
+}
+
+function renderizarProgressoArea() {
+  const el = document.getElementById('revisao-progresso-area');
+  if (!el || QUESTOES.length === 0) return;
+
+  const areas = ['Português','Raciocínio Lógico','Dir. Constitucional','Dir. Administrativo','Legislação Específica','Redação'];
+  el.innerHTML = areas.map(area => {
+    const qs = QUESTOES.filter(q => q.area === area);
+    const total = qs.length;
+    const respondidas = qs.filter(q => PROGRESSO[q.id] && PROGRESSO[q.id].ultimaResposta).length;
+    const acertos = qs.reduce((s,q) => s + (PROGRESSO[q.id]?.acertos||0), 0);
+    const total_resp = qs.reduce((s,q) => s + ((PROGRESSO[q.id]?.acertos||0) + (PROGRESSO[q.id]?.erros||0)), 0);
+    const taxa = total_resp > 0 ? Math.round(acertos*100/total_resp) : 0;
+    const pct_cobertura = Math.round(respondidas*100/total);
+    const cor = COR_AREA(area);
+    return `
+      <div style="margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+          <span style="font-size:11px;color:${cor};">${area}</span>
+          <span style="font-size:10px;color:#9ab0c0;" class="mono">${respondidas}/${total} respondidas · ${taxa}% acerto</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:4px;height:6px;overflow:hidden;">
+          <div style="height:100%;width:${pct_cobertura}%;background:${cor};border-radius:4px;transition:width .5s;"></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function iniciarSessaoRevisao() {
+  const deck = questoesParaHoje();
+  if (deck.length === 0) {
+    alert('✅ Nenhuma revisão pendente para hoje! Continue estudando.');
+    return;
+  }
+  const limite = Math.min(sessaoMax, deck.length);
+  const qs = deck.slice(0, limite);
+  // usa a função iniciar() que já existe e cuida de toda a navegação
+  iniciar(qs, true);
+}
+
+const AREAS = ['Todas','Português','Raciocínio Lógico','Dir. Constitucional','Dir. Administrativo','Legislação Específica','Redação'];
+
+// Ícones por área para visual mais claro
+const ICONE_AREA = {
+  'Todas':'📚',
+  'Português':'📝',
+  'Raciocínio Lógico':'🧮',
+  'Dir. Constitucional':'⚖️',
+  'Dir. Administrativo':'🏛️',
+  'Legislação Específica':'🏦',
+  'Redação':'✍️',
+};
+
+// Subfiltros temáticos da Legislação Específica (bloco bancário tem 500+ questões)
+// Cada um mapeia para palavras-chave que devem aparecer no subtema da questão
+const SUBFILTROS_LEG = {
+  'Todos':           {icon:'📋', kws:null}, // sem filtro
+  'Bancário/SFN':    {icon:'🏦', kws:['sfn','bacen','cmn','cvm','susep','fgc','cheque','câmbio','basileia','tesouraria','política monetária','spb','operações ativas','operações passivas','recuperação','iof','cet','cadastro','endosso','garantias','hipoteca','penhor','crédito rural','consórcio','duplicata','desconto','hot money','antecipação','sigilo bancário','correspondentes','tarifas','funções da moeda']},
+  'Produtos':        {icon:'💼', kws:['cdb','lci','lca','poupança','letras financeiras','lig','tesouro','fundos','fii','coe','capitalização','previdência','cartão','consignado','seguros']},
+  'Vendas/Marketing':{icon:'🤝', kws:['vendas','spin','objeções','fechamento','crm','marketing','4ps','7ps','negociação','suitability','misselling','cross','venda casada','consumidor']},
+  'Atendimento':     {icon:'🎧', kws:['atendimento','ouvidoria','sac ','res. cmn 4.949','código de defesa','cdc','conta salário','conta-salário','reclamação']},
+  'TI/Segurança':    {icon:'💻', kws:['ti –','noções de ti','phishing','golpes','engenharia social','segurança','criptografia','cloud','scrum','big data','machine learning','blockchain','dlt','smart contract','informática']},
+  'Atualidades':     {icon:'📰', kws:['atualidades','pix','drex','open banking','open finance','fintechs','tokenização','sandbox','esg','green bonds','greenwashing','risco climático','bancarização','enef','ia','inteligência artificial','baas']},
+  'Inglês':          {icon:'🌐', kws:['inglês','reading','vocabulary','english']},
+  'Legislações':     {icon:'⚖️', kws:['res. cmn','resolução cmn','lc 105','lc 166','lei 9.613','pld','lavagem','lgpd','ética','compliance','3 linhas','três linhas','sandbox','lei 13.097','lei 8.078','lei 12.249']},
+  'Cálculo Bancário':{icon:'🧮', kws:['cálculo bancário','juros','price','sac','amortização','rentabilidade','equivalência','custo efetivo']},
+  'Engenharia Civil':{icon:'🏗️', kws:['engenharia','concreto','aço','solo','fundação','geotecnia','topografia','nbr','nr-','aterro','drenagem','pavimentação']},
+};
+const SUBFILTRO_LEG_KEYS = Object.keys(SUBFILTROS_LEG);
+const BANCAS = ['Todas','Cespe','Fundatec','FCC','FGV','Cesgranrio'];
+const CONCURSOS = ['Todos','Polícia Penal RS','Prefeitura','PRF','INSS','Banco do Brasil','Caixa Econômica'];
+const COR = { ouro:'#c8992a', verde:'#3db88a', verm:'#e05040', azul:'#4a90d9', roxo:'#8a6ad9', rosa:'#d96a9a', ciano:'#4ab8b8' };
+const COR_AREA = a => ({'Português':COR.azul,'Raciocínio Lógico':COR.roxo,'Dir. Constitucional':COR.ouro,'Dir. Administrativo':COR.ciano,'Legislação Específica':COR.verm,'Redação':COR.rosa}[a]||COR.verde);
+
+const PLANO_SEMANAL = [
+  {
+    dia:'Segunda', icon:'📝', foco:'Português — Interpretação + Gramática',
+    sub:'Interpretação de texto (34% da prova) · Crase e regência · Concordância verbal (haver/fazer impessoais) · Colocação pronominal',
+    concursos:'Banco do Brasil', cor:COR.azul,
+    meta:'10 questões de Português — filtro BB',
+    dica:'🔑 Interpretação é a maior fatia da prova. Leia o texto buscando a TESE, depois responda sem achismo.',
+  },
+  {
+    dia:'Terça', icon:'🧮', foco:'Matemática Financeira + Porcentagem',
+    sub:'Juros compostos · Equivalência de taxas · Porcentagem e variação · Price/SAC · CET · Desconto bancário',
+    concursos:'Banco do Brasil', cor:COR.roxo,
+    meta:'10 questões de Raciocínio Lógico (Matemática Financeira) — filtro BB',
+    dica:'🔑 Porcentagem (19%) e juros compostos são os temas mais cobrados em Mat. Financeira. Domine a fórmula PMT, Price e SAC.',
+  },
+  {
+    dia:'Quarta', icon:'🏦', foco:'Bancário + Vendas + Atendimento',
+    sub:'SFN (CMN/BACEN/CVM/SUSEP) · FGC · Pix/SPB · CDB/LCI/LCA · Câmbio · SPIN Selling · Objeções · Fechamento · CRM · Marketing 4Ps',
+    concursos:'Banco do Brasil', cor:COR.ouro,
+    meta:'15 questões de Bancário + Vendas — filtro BB',
+    dica:'🔑 Bloco gigante da prova: ~32 questões (Bancário 17 + Vendas 15). Caem juntos no edital "Conhecimentos Bancários" da Cesgranrio.',
+  },
+  {
+    dia:'Quinta', icon:'⚖️', foco:'Legislações + Compliance + Ética',
+    sub:'Res. CMN 4.949 (princípios) · Ouvidoria 4.860 · CDC (venda casada, misselling) · LGPD · Lei 9.613 (PLD-FT) · Sigilo bancário LC 105 · Suitability CVM 30 · Código de Ética BB · Sandbox 4.865',
+    concursos:'Banco do Brasil', cor:COR.verm,
+    meta:'12 questões de Legislações e Normativos — filtro BB',
+    dica:'🔑 Bloco regulatório novo na prova pós-2021. Decoreba dirigida: artigos, prazos (Ouvidoria 10+10), princípios das resoluções.',
+  },
+  {
+    dia:'Sexta', icon:'💻', foco:'Atualidades + TI + Inglês',
+    sub:'Atualidades: Pix/DREX/Open Finance/Fintechs/ESG/Blockchain · TI: phishing/2FA/cloud/Scrum · Inglês: leitura + vocabulário bancário',
+    concursos:'Banco do Brasil', cor:COR.ciano,
+    meta:'10 questões TI + 5 de Inglês + 5 de Atualidades — filtro BB',
+    dica:'🔑 TI vale 22,5 pontos (15q). Inglês são 5q de leitura. Atualidades cai bem se você ler matérias de Pix/DREX da semana.',
+  },
+  {
+    dia:'Sábado', icon:'✍️', foco:'Redação Dissertativa (ELIMINATÓRIA)',
+    sub:'Escrever 1 redação completa (25-30 linhas): introdução com dado+tese · 2 parágrafos de desenvolvimento · conclusão com proposta de intervenção',
+    concursos:'Banco do Brasil', cor:COR.rosa,
+    meta:'1 redação completa cronometrada (90 min) + revisão pelo módulo de correção',
+    dica:'🔑 A redação vale 100 pontos (igual à objetiva completa). Candidato que não entrega ou foge do tema é eliminado. Pratique TODA semana.',
+  },
+  {
+    dia:'Domingo', icon:'🔁', foco:'Deck SRS + Simulado + Revisão de Erros',
+    sub:'Revisar todas as questões erradas da semana · Fazer deck "Para Hoje" completo · Mini-simulado de 20 questões mistas',
+    concursos:'Banco do Brasil', cor:COR.verde,
+    meta:'Deck SRS + 20 questões do simulado — filtro BB',
+    dica:'🔑 A revisão de erros é onde o aprendizado acontece. Releia a explicação de cada erro e refaça 3 dias depois.',
+  },
+];
+
+const TEMAS_REDACAO = [
+  {concurso:'BB/CEF',titulo:'Como garantir o acesso à cidadania a milhões de pessoas desbancarizadas no Brasil',cat:'Real BB/CEF',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'A internet como fonte de informação ou de desinformação na sociedade contemporânea',cat:'Real BB/CEF',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'O desafio do resgate da cidadania e dos direitos das pessoas com deficiência',cat:'Real BB/CEF',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Indústria da desinformação: nova forma de resistência à transformação social',cat:'Real BB/CEF',dif:'Difícil'},
+  {concurso:'BB/CEF',titulo:'A importância do atendimento de qualidade das instituições financeiras',cat:'Real BB/CEF',dif:'Fácil'},
+  {concurso:'BB/CEF',titulo:'Privacidade digital: eu não tenho nada a esconder',cat:'Real BB/CEF',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Efeitos negativos da pandemia no futuro da educação no Brasil',cat:'Real BB/CEF',dif:'Fácil'},
+  {concurso:'BB/CEF',titulo:'Preservação do espaço público: um compromisso do cidadão com a sua cidade',cat:'Real BB/CEF',dif:'Fácil'},
+  {concurso:'BB/CEF',titulo:'Impactos positivos e negativos da informatização das operações bancárias na vida da população',cat:'Real BB/CEF',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'O Pix e a inclusão financeira da população brasileira',cat:'Bancário/TI',dif:'Fácil'},
+  {concurso:'BB/CEF',titulo:'Open Finance e o futuro dos serviços bancários',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Bancos digitais e a transformação do setor financeiro',cat:'Bancário/TI',dif:'Fácil'},
+  {concurso:'BB/CEF',titulo:'Segurança cibernética e a proteção do consumidor bancário',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'O DREX e a moeda digital no Brasil',cat:'Bancário/TI',dif:'Difícil'},
+  {concurso:'BB/CEF',titulo:'Blockchain e as novas formas de contrato no mercado financeiro',cat:'Bancário/TI',dif:'Difícil'},
+  {concurso:'BB/CEF',titulo:'O microcrédito como instrumento de geração de renda',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Fintechs e a democratização dos serviços financeiros',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Golpes financeiros digitais e a proteção dos usuários bancários',cat:'Bancário/TI',dif:'Fácil'},
+  {concurso:'BB/CEF',titulo:'Tokenização de ativos e o futuro do mercado de capitais brasileiro',cat:'Bancário/TI',dif:'Difícil'},
+  {concurso:'BB/CEF',titulo:'Inteligência artificial no atendimento bancário: eficiência e riscos',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB/CEF/INSS',titulo:'Superendividamento das famílias brasileiras',cat:'Economia',dif:'Médio'},
+  {concurso:'BB/CEF/INSS',titulo:'A importância da educação financeira nas escolas',cat:'Economia',dif:'Fácil'},
+  {concurso:'BB/CEF/INSS',titulo:'Crédito consignado e os riscos para aposentados',cat:'Economia',dif:'Médio'},
+  {concurso:'Todos',titulo:'Inflação e o impacto no poder de compra das famílias de baixa renda',cat:'Economia',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'O mercado de criptomoedas e os desafios da regulação no Brasil',cat:'Economia',dif:'Difícil'},
+  {concurso:'BB/CEF',titulo:'Taxa Selic e seus efeitos sobre o crédito e o consumo',cat:'Economia',dif:'Médio'},
+  {concurso:'Todos',titulo:'O empreendedorismo como alternativa ao desemprego estrutural',cat:'Economia',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Apostas esportivas online e o impacto no endividamento das famílias',cat:'Economia',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Inclusão bancária de populações vulneráveis',cat:'Social',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'O papel dos correspondentes bancários na inclusão financeira',cat:'Social',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Desigualdade digital e o acesso aos serviços financeiros',cat:'Social',dif:'Médio'},
+  {concurso:'BB/CEF/PRF',titulo:'Golpes financeiros e a vulnerabilidade dos idosos',cat:'Social',dif:'Fácil'},
+  {concurso:'BB/CEF',titulo:'O papel do banco público no desenvolvimento regional',cat:'Social',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Desafios da acessibilidade bancária para pessoas com deficiência',cat:'Social',dif:'Médio'},
+  {concurso:'Todos',titulo:'Saúde mental e o endividamento crônico no Brasil',cat:'Social',dif:'Difícil'},
+  {concurso:'INSS/Todos',titulo:'Envelhecimento populacional e os desafios para a previdência social',cat:'Social',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'A autonomia do Banco Central e a política monetária',cat:'Regulação',dif:'Difícil'},
+  {concurso:'BB/CEF/PRF',titulo:'LGPD e o tratamento de dados no sistema bancário',cat:'Regulação',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'ESG e a responsabilidade socioambiental dos bancos',cat:'Regulação',dif:'Médio'},
+  {concurso:'BB/CEF/PRF',titulo:'Lavagem de dinheiro e os desafios do sistema de prevenção',cat:'Regulação',dif:'Difícil'},
+  {concurso:'BB/CEF',titulo:'Compliance bancário e a cultura de ética nas instituições financeiras',cat:'Regulação',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Finanças verdes: o papel dos bancos na transição energética',cat:'Regulação',dif:'Difícil'},
+  {concurso:'BB/CEF',titulo:'O Sandbox regulatório e a inovação no setor financeiro',cat:'Regulação',dif:'Difícil'},
+  {concurso:'BB/CEF',titulo:'Inteligência artificial e o futuro do trabalho bancário',cat:'Trabalho/IA',dif:'Médio'},
+  {concurso:'Todos',titulo:'Home office no setor bancário pós-pandemia',cat:'Trabalho/IA',dif:'Fácil'},
+  {concurso:'BB/CEF',titulo:'A qualificação profissional frente à automação bancária',cat:'Trabalho/IA',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Diversidade e inclusão no ambiente corporativo bancário',cat:'Trabalho/IA',dif:'Médio'},
+  {concurso:'BB/CEF',titulo:'Impactos da automação no emprego no setor financeiro',cat:'Trabalho/IA',dif:'Médio'},
+  {concurso:'INSS/Todos',titulo:'Trabalho informal e a exclusão previdenciária no Brasil',cat:'Trabalho/IA',dif:'Médio'},
+  {concurso:'INSS',titulo:'A Reforma da Previdência e seus impactos sobre os trabalhadores brasileiros',cat:'INSS/Previdência',dif:'Médio'},
+  {concurso:'INSS',titulo:'Fraudes no sistema previdenciário e os desafios do combate à corrupção',cat:'INSS/Previdência',dif:'Médio'},
+  {concurso:'INSS',titulo:'A proteção previdenciária do trabalhador rural no Brasil',cat:'INSS/Previdência',dif:'Médio'},
+  {concurso:'INSS',titulo:'Benefício de Prestação Continuada (BPC) e a proteção social dos vulneráveis',cat:'INSS/Previdência',dif:'Fácil'},
+  {concurso:'INSS/BB/CEF',titulo:'Previdência complementar: papel do Estado e dos trabalhadores',cat:'INSS/Previdência',dif:'Médio'},
+  {concurso:'INSS',titulo:'Envelhecimento da população e a sustentabilidade do sistema previdenciário',cat:'INSS/Previdência',dif:'Difícil'},
+  {concurso:'INSS',titulo:'Inclusão previdenciária dos trabalhadores autônomos e MEIs',cat:'INSS/Previdência',dif:'Médio'},
+  {concurso:'INSS/BB/CEF',titulo:'O papel do INSS no combate ao superendividamento de aposentados',cat:'INSS/Previdência',dif:'Médio'},
+  {concurso:'PRF',titulo:'Segurança nas rodovias federais: desafios e estratégias de prevenção de acidentes',cat:'PRF/Segurança',dif:'Fácil'},
+  {concurso:'PRF',titulo:'Embriaguez ao volante: causas, consequências e políticas de combate',cat:'PRF/Segurança',dif:'Fácil'},
+  {concurso:'PRF',titulo:'O tráfico de drogas nas rodovias brasileiras e os desafios da PRF',cat:'PRF/Segurança',dif:'Médio'},
+  {concurso:'PRF',titulo:'Violência no trânsito: causas culturais e sociais dos acidentes graves',cat:'PRF/Segurança',dif:'Médio'},
+  {concurso:'PRF/Pol.Penal',titulo:'Direitos humanos e o uso progressivo da força policial',cat:'PRF/Segurança',dif:'Difícil'},
+  {concurso:'PRF/Pol.Penal',titulo:'A corrupção como obstáculo ao desenvolvimento institucional da segurança pública',cat:'PRF/Segurança',dif:'Difícil'},
+  {concurso:'PRF',titulo:'Fiscalização do transporte de cargas perigosas nas rodovias federais',cat:'PRF/Segurança',dif:'Médio'},
+  {concurso:'PRF/Pol.Penal',titulo:'Tráfico de pessoas e exploração nas estradas brasileiras',cat:'PRF/Segurança',dif:'Difícil'},
+  {concurso:'Pol.Penal',titulo:'Ressocialização de presos: desafios e perspectivas no sistema penitenciário brasileiro',cat:'Pol. Penal',dif:'Médio'},
+  {concurso:'Pol.Penal',titulo:'Superlotação carcerária e a violação dos direitos humanos no Brasil',cat:'Pol. Penal',dif:'Médio'},
+  {concurso:'Pol.Penal',titulo:'O papel da educação e do trabalho na reintegração social de egressos do sistema prisional',cat:'Pol. Penal',dif:'Médio'},
+  {concurso:'Pol.Penal',titulo:'Facções criminosas nos presídios: causas, impactos e estratégias de enfrentamento',cat:'Pol. Penal',dif:'Difícil'},
+  {concurso:'Pol.Penal',titulo:'Saúde mental no sistema penitenciário: direitos e desafios',cat:'Pol. Penal',dif:'Médio'},
+  {concurso:'Pol.Penal',titulo:'Prisão preventiva e o encarceramento em massa no Brasil',cat:'Pol. Penal',dif:'Difícil'},
+  {concurso:'Pol.Penal',titulo:'A mulher no sistema prisional: vulnerabilidades e direitos específicos',cat:'Pol. Penal',dif:'Médio'},
+  {concurso:'Pol.Penal',titulo:'Alternativas penais à prisão como instrumento de redução da reincidência',cat:'Pol. Penal',dif:'Médio'},
+  {concurso:'Todos',titulo:'O papel do Estado no combate à pobreza',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Educação como instrumento de desenvolvimento',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Sustentabilidade e responsabilidade ambiental das instituições públicas',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Redes sociais e a disseminação de desinformação na sociedade',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'O Brasil e os desafios da desigualdade social',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Segurança pública e o impacto da criminalidade na economia',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'COP30 e os compromissos do Brasil com a agenda climática global',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Combate à corrupção e fortalecimento das instituições democráticas',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'O impacto das fake news nas eleições e na democracia brasileira',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Acesso à saúde pública: desafios do SUS no Brasil contemporâneo',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Violência doméstica: causas, enfrentamento e papel do Estado',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Racismo estrutural e seus impactos na sociedade brasileira',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'O trabalho infantil e os obstáculos para sua erradicação no Brasil',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Desmatamento da Amazônia: causas, consequências e soluções',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'A crise hídrica no Brasil e a gestão dos recursos naturais',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'O papel da mulher no mercado de trabalho brasileiro',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Saúde mental pós-pandemia: desafios para o sistema público de saúde',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Mobilidade urbana e os desafios das grandes cidades brasileiras',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'O impacto das mudanças climáticas na agricultura e na segurança alimentar',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Evasão escolar no Brasil: causas e consequências para o desenvolvimento',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Intolerância religiosa e a necessidade de proteção dos direitos fundamentais',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'O envelhecimento populacional e os desafios para as políticas públicas',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Desemprego estrutural e as novas relações de trabalho no século XXI',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'A violência contra a criança e o adolescente no ambiente familiar',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Acesso à internet como direito fundamental no Brasil',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'O uso de drogas como problema de saúde pública e não de segurança',cat:'Clássico',dif:'Difícil'},
+  {concurso:'Todos',titulo:'Desnutrição e insegurança alimentar no Brasil contemporâneo',cat:'Clássico',dif:'Fácil'},
+  {concurso:'Todos',titulo:'Refugiados e imigrantes: desafios humanitários para o Brasil',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'O papel das universidades públicas no desenvolvimento científico',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Fake news e o papel da mídia na formação da opinião pública',cat:'Clássico',dif:'Médio'},
+  {concurso:'Todos',titulo:'Preconceito e discriminação: os limites entre liberdade de expressão e discurso de ódio',cat:'Clássico',dif:'Difícil'},
+  {concurso:'Todos',titulo:'A importância do voluntariado e da solidariedade na construção da cidadania',cat:'Clássico',dif:'Fácil'},
+  {concurso:'BB,CEF',titulo:'Open Finance e a proteção de dados do consumidor bancário',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB,CEF',titulo:'O Open Finance como instrumento de democratização do crédito no Brasil',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB,CEF',titulo:'Desafios da implementação do Open Finance: segurança, consentimento e regulação',cat:'Bancário/TI',dif:'Difícil'},
+  {concurso:'BB,CEF',titulo:'Open Finance e a portabilidade financeira: impactos na concorrência bancária',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB,CEF',titulo:'O papel dos bancos públicos no financiamento da transição energética',cat:'Regulação',dif:'Médio'},
+  {concurso:'BB,CEF',titulo:'Títulos verdes e o mercado de capitais sustentável no Brasil',cat:'Regulação',dif:'Difícil'},
+  {concurso:'BB,CEF',titulo:'ESG como critério de concessão de crédito nas instituições financeiras',cat:'Regulação',dif:'Médio'},
+  {concurso:'BB,CEF',titulo:'Inteligência artificial e o risco de viés algorítmico no crédito bancário',cat:'Trabalho/IA',dif:'Difícil'},
+  {concurso:'BB,CEF',titulo:'O uso de big data e IA na prevenção à fraude bancária',cat:'Trabalho/IA',dif:'Médio'},
+  {concurso:'BB,CEF',titulo:'Chatbots e IA generativa: o futuro do atendimento ao cliente bancário',cat:'Trabalho/IA',dif:'Médio'},
+  {concurso:'BB,CEF',titulo:'DREX e os desafios da privacidade na moeda digital brasileira',cat:'Bancário/TI',dif:'Difícil'},
+  {concurso:'BB,CEF',titulo:'A moeda digital do Banco Central e o futuro do sistema de pagamentos',cat:'Bancário/TI',dif:'Médio'},
+  {concurso:'BB,CEF,INSS',titulo:'Apostas esportivas online e o impacto no endividamento das famílias brasileiras',cat:'Social',dif:'Médio'},
+  {concurso:'BB,CEF,INSS',titulo:'A Lei do Superendividamento (Lei 14.181/2021) e a proteção do consumidor',cat:'Regulação',dif:'Médio'}
+];
+
+const RANK_ITEMS = [
+  // Baseado em análise de frequência real das provas BB 2012–2023 (Cesgranrio)
+  {t:'Interpretação de Textos — Português',p:95,c:COR.azul},
+  {t:'Juros Compostos e Equivalência de Taxas',p:95,c:COR.roxo},
+  {t:'Conhecimentos Bancários — SFN/BACEN/CMN',p:93,c:COR.ouro},
+  {t:'FGC — Cobertura e Limites',p:92,c:COR.ouro},
+  {t:'Porcentagem e Variação Percentual',p:92,c:COR.roxo},
+  {t:'Pix, SPB e Meios de Pagamento',p:90,c:COR.ouro},
+  {t:'Câmbio — Desvalorização e PPC',p:90,c:COR.ciano},
+  {t:'SPIN Selling e Técnicas de Vendas',p:90,c:COR.ciano},
+  {t:'Crase e Regência Verbal',p:88,c:COR.azul},
+  {t:'Phishing, Engenharia Social e 2FA',p:88,c:COR.verm},
+  {t:'Concordância Verbal — Haver/Fazer',p:88,c:COR.azul},
+  {t:'Price e SAC — Sistemas de Amortização',p:88,c:COR.roxo},
+  {t:'Lavagem de Dinheiro — Fases e COAF',p:90,c:COR.ouro},
+  {t:'Open Finance e DREX',p:88,c:COR.ouro},
+  {t:'Atualidades — Fintechs, Blockchain, ESG',p:88,c:COR.verm},
+  {t:'Redação Dissertativa — Estrutura',p:87,c:COR.rosa},
+  {t:'Maslow, Herzberg e Liderança',p:87,c:COR.ciano},
+  {t:'Inglês — Interpretação e Vocabulário',p:87,c:COR.verde},
+  {t:'Basileia III — Índice de Capital',p:87,c:COR.ouro},
+  {t:'Cloud Computing e Scrum',p:85,c:COR.verm},
+];
+
+// ═══════════════════════════════════════════
+// QUESTÕES LOCAIS (fallback)
+// ═══════════════════════════════════════════
+const QUESTOES_LOCAIS = [
+  {id:1,area:'Português',subtema:'Interpretação de Texto',banca:'Cespe',concursos:['PRF','INSS','Polícia Penal RS'],enunciado:"Leia: 'A leitura não é apenas um ato mecânico de decodificação; é, sobretudo, um processo ativo de construção de sentidos.' A ideia central é:",alternativas:['Ler é somente decodificar símbolos.','A leitura é passiva.','Ler envolve ativamente a construção de significados.','A leitura mecânica é superior.','Decodificar é o aspecto mais importante.'],gabarito:2,explicacao:"O trecho opõe 'ato mecânico' a 'processo ativo'. O 'sobretudo' sinaliza o mais importante."},
+  {id:2,area:'Português',subtema:'Coesão – Conectivos',banca:'FCC',concursos:['INSS','Prefeitura','PRF','Banco do Brasil'],enunciado:'Assinale a alternativa com conectivo usado de forma INCORRETA:',alternativas:["'Estudou; portanto, foi aprovado.' (conclusão)","'Não estudou; todavia, foi aprovado.' (adversidade)","'Chegou tarde, mas entrou.' (adversidade)","'Treinou bastante, porque foi reprovado.' (causa)","'Embora chovesse, compareceu.' (concessão)"],gabarito:3,explicacao:"'Porque' indica causa. 'Treinar bastante' não causa 'ser reprovado' — contradição lógica."},
+  {id:3,area:'Português',subtema:'Concordância Verbal',banca:'Fundatec',concursos:['Polícia Penal RS','Prefeitura','Banco do Brasil'],enunciado:'Assinale a alternativa com concordância verbal CORRETA:',alternativas:['Fazem dez anos que não o vejo.','Houveram muitos problemas.','É necessário que todos compareçam.','Existem uma solução.','Havia pessoas, o que me surpreenderam.'],gabarito:2,explicacao:"'Compareçam' correto. 'Fazer' e 'haver' (tempo/existência) são impessoais: Faz dez anos / Houve problemas."},
+  {id:4,area:'Português',subtema:'Redação Oficial – MRPR',banca:'Cespe',concursos:['INSS','PRF','Polícia Penal RS'],enunciado:'Segundo o Manual de Redação da Presidência da República, o ofício difere do memorando porque:',alternativas:['O ofício é interno; o memorando, externo.','O memorando é externo; o ofício, interno.','O ofício comunica com outros órgãos ou o público; o memorando é interno entre unidades do mesmo órgão.','Ambos têm a mesma finalidade.','O memorando exige fecho formal; o ofício não.'],gabarito:2,explicacao:'MRPR: Ofício = comunicação EXTERNA. Memorando = INTERNA (entre unidades do mesmo órgão).'},
+  {id:5,area:'Raciocínio Lógico',subtema:'Proposições – Contrapositiva',banca:'Cespe',concursos:['PRF','INSS','Polícia Penal RS'],enunciado:"A proposição logicamente equivalente a 'Se estudo, então passo' é:",alternativas:['Se passo, então estudei.','Se não estudo, então não passo.','Se não passo, então não estudei.','Estudo e não passo.','Passo ou não estudo.'],gabarito:2,explicacao:"Contrapositiva de 'Se P então Q' = 'Se não-Q então não-P' — sempre equivalente."},
+  {id:6,area:'Raciocínio Lógico',subtema:'Silogismo',banca:'FGV',concursos:['INSS','Prefeitura','Banco do Brasil'],enunciado:'Todos os analistas são servidores. Alguns servidores são concursados. Conclui-se NECESSARIAMENTE que:',alternativas:['Todos os analistas são concursados.','Alguns analistas são concursados.','Nenhum analista é concursado.','Alguns servidores não são analistas.','Todos os concursados são analistas.'],gabarito:3,explicacao:'A única conclusão necessária: existem servidores que não são analistas.'},
+  {id:7,area:'Raciocínio Lógico',subtema:'Sequências Numéricas',banca:'Fundatec',concursos:['Polícia Penal RS','Prefeitura'],enunciado:'Qual é o próximo número: 2, 6, 12, 20, 30, ?',alternativas:['38','40','42','44','46'],gabarito:2,explicacao:'Diferenças: 4, 6, 8, 10... (PA de razão 2). Próxima diferença = 12. Logo 30 + 12 = 42.'},
+  {id:8,area:'Raciocínio Lógico',subtema:'Conjuntos – Venn',banca:'FCC',concursos:['INSS','PRF','Banco do Brasil'],enunciado:'Numa turma de 40 alunos, 25 estudam Português, 20 Matemática e 10 estudam ambas. Quantos não estudam nenhuma?',alternativas:['3','5','7','10','15'],gabarito:1,explicacao:'Inclusão-exclusão: P∪M = 25+20-10 = 35. Logo 40-35 = 5 não estudam nenhuma.'},
+  {id:9,area:'Dir. Constitucional',subtema:'Fundamentos da República – Art. 1º',banca:'Cespe',concursos:['PRF','INSS','Prefeitura','Banco do Brasil','Caixa Econômica'],enunciado:'São fundamentos da República Federativa do Brasil (art. 1º CF/88):',alternativas:['Soberania, cidadania, dignidade da pessoa humana, valores sociais do trabalho e livre iniciativa e pluralismo político.','Soberania, independência nacional, prevalência dos direitos humanos e igualdade entre os Estados.','Legalidade, impessoalidade, moralidade, publicidade e eficiência.','Soberania, cidadania, moralidade, publicidade e pluralismo político.','Dignidade da pessoa humana, legalidade, anterioridade e irretroatividade.'],gabarito:0,explicacao:'SCDVP: Soberania, Cidadania, Dignidade, Valores sociais, Pluralismo político.'},
+  {id:10,area:'Dir. Constitucional',subtema:'Direitos Fundamentais – Art. 5º',banca:'Cespe',concursos:['PRF','INSS','Polícia Penal RS','Banco do Brasil'],enunciado:'Sobre os direitos fundamentais na CF/88, é CORRETO afirmar:',alternativas:['São absolutos e não admitem restrição.','Aplicam-se apenas entre cidadão e Estado.','Não são absolutos; podem ser relativizados por ponderação.','Só produzem efeitos após lei ordinária.','São exclusivos de brasileiros natos.'],gabarito:2,explicacao:'Direitos fundamentais NÃO são absolutos — colidem e são ponderados. Têm aplicação imediata (§1º art. 5º).'},
+  {id:11,area:'Dir. Constitucional',subtema:'Controle de Constitucionalidade',banca:'FGV',concursos:['INSS','Prefeitura'],enunciado:'A ação que declara inconstitucionalidade por OMISSÃO do legislador em regulamentar direito constitucional é:',alternativas:['ADI','ADC','ADO','ADPF','Mandado de Injunção'],gabarito:2,explicacao:'ADO = ataca omissão do legislador. Mandado de Injunção (MI) = remédio individual/coletivo para o mesmo problema.'},
+  {id:12,area:'Dir. Constitucional',subtema:'Repartição de Competências',banca:'Fundatec',concursos:['Polícia Penal RS','Prefeitura'],enunciado:'Sobre a repartição de competências na CF/88, é CORRETO afirmar:',alternativas:['Estados têm competência privativa; União tem residual.','União tem competências privativas e concorrentes; Municípios legislam sobre interesse local.','Municípios podem legislar sobre direito civil e penal.','Competência concorrente é só da União e Municípios.','Estados e Municípios têm as mesmas competências.'],gabarito:1,explicacao:'União: privativa (art. 22) e concorrente (art. 24). Municípios: interesse local (art. 30). Não legislam sobre direito civil/penal.'},
+  {id:13,area:'Dir. Administrativo',subtema:'LIMPE – Princípios Art. 37',banca:'Cespe',concursos:['PRF','INSS','Prefeitura','Polícia Penal RS','Banco do Brasil','Caixa Econômica'],enunciado:'O princípio da impessoalidade impõe que:',alternativas:['O agente se identifique em todos os atos.','Os atos sejam praticados em nome do agente.','Os atos sejam praticados em nome da Administração, vedando favorecimentos pessoais.','A Administração não possa revogar seus atos.','Todos os atos sejam publicados no Diário Oficial.'],gabarito:2,explicacao:'Impessoalidade: atos são da Administração, não do agente. Veda promoção pessoal e favorecimentos.'},
+  {id:14,area:'Dir. Administrativo',subtema:'Atos Administrativos – Atributos',banca:'FCC',concursos:['INSS','Prefeitura','Banco do Brasil'],enunciado:'O atributo que permite à Administração executar o ato diretamente, sem autorização judicial, é:',alternativas:['Presunção de legitimidade.','Imperatividade.','Autoexecutoriedade.','Tipicidade.','Motivação.'],gabarito:2,explicacao:'Autoexecutoriedade = executar sem juiz. Imperatividade = impor obrigações. Presunção de legitimidade = presume-se válido.'},
+  {id:15,area:'Dir. Administrativo',subtema:'Licitações – Lei 14.133/2021',banca:'Fundatec',concursos:['Prefeitura','Polícia Penal RS','INSS','Caixa Econômica'],enunciado:'Pela Nova Lei de Licitações (14.133/2021), a modalidade para bens e serviços COMUNS é:',alternativas:['Concorrência.','Concurso.','Pregão.','Diálogo Competitivo.','Leilão.'],gabarito:2,explicacao:'Pregão = bens/serviços comuns. Concorrência = obras de grande vulto. Leilão = alienação de bens.'},
+  {id:16,area:'Dir. Administrativo',subtema:'Lei 8.112/90 – Estabilidade',banca:'Cespe',concursos:['INSS','PRF','Banco do Brasil','Caixa Econômica'],enunciado:'O servidor público federal estável perde o cargo em todas as hipóteses EXCETO:',alternativas:['Sentença judicial transitada em julgado.','Processo administrativo disciplinar.','Avaliação periódica de desempenho insuficiente.','Reprovação no estágio probatório de 3 anos.','Exoneração a pedido do servidor.'],gabarito:4,explicacao:'Exoneração a pedido é saída voluntária — não é perda de cargo.'},
+  {id:17,area:'Dir. Administrativo',subtema:'Poderes Administrativos',banca:'FGV',concursos:['INSS','Prefeitura'],enunciado:'O poder que permite à Administração editar atos normativos gerais para fiel execução das leis é o poder:',alternativas:['Disciplinar.','Hierárquico.','Regulamentar.','De Polícia.','Vinculado.'],gabarito:2,explicacao:'Regulamentar = editar decretos para executar leis. Hierárquico = organizar subordinados. Disciplinar = punir servidores.'},
+  {id:18,area:'Dir. Administrativo',subtema:'Ética no Serviço Público',banca:'Cesgranrio',concursos:['Banco do Brasil','Caixa Econômica','INSS'],enunciado:'Segundo o Código de Ética do Servidor (Decreto 1.171/94), é dever do servidor:',alternativas:['Usar o cargo para obter vantagens em situações de urgência.','Ser leal às instituições, exercendo com zelo e dedicação as atribuições do cargo.','Guardar sigilo sobre denúncias de irregularidades.','Tratar com preferência cidadãos com relações pessoais com superiores.','Recusar ordens que exijam esforço além do obrigatório.'],gabarito:1,explicacao:'Deveres: lealdade, zelo, dedicação, cortesia, probidade. Vedações: usar cargo para vantagens, favorecer pessoalmente.'},
+  {id:19,area:'Legislação Específica',subtema:'LEP – Objetivos',banca:'Fundatec',concursos:['Polícia Penal RS'],enunciado:'De acordo com a LEP (Lei 7.210/84), o objetivo da execução penal é:',alternativas:['Apenas punir com rigor.','Efetivar as disposições da sentença e proporcionar condições para a harmônica integração social do condenado.','Garantir somente o cumprimento da pena.','Isolar o condenado permanentemente.','Reintegrar somente após o cumprimento integral da pena.'],gabarito:1,explicacao:'Art. 1º LEP: duplo objetivo — efetivar a sentença E proporcionar integração social.'},
+  {id:20,area:'Legislação Específica',subtema:'CF/88 – Polícia Penal EC 104/2019',banca:'Fundatec',concursos:['Polícia Penal RS'],enunciado:'A EC 104/2019 inseriu a Polícia Penal no art. 144 da CF. Sua competência é:',alternativas:['Investigações criminais e prisão em flagrante.','Segurança dos estabelecimentos penais.','Fiscalização do trânsito estadual.','Policiamento ostensivo urbano.','Perícias criminais nos presídios.'],gabarito:1,explicacao:'EC 104/2019: Polícia Penal = segurança dos ESTABELECIMENTOS PENAIS. Não investiga nem faz patrulhamento ostensivo.'},
+  {id:21,area:'Legislação Específica',subtema:'Sistema Financeiro – BACEN e CMN',banca:'Cesgranrio',concursos:['Banco do Brasil','Caixa Econômica'],enunciado:'O Banco Central do Brasil (BACEN) é responsável por:',alternativas:['Emitir moeda e executar a política monetária nacional.','Fiscalizar o mercado de capitais e bolsas de valores.','Administrar as reservas e emitir títulos da dívida pública.','Regulamentar e fiscalizar o mercado de seguros.','Definir a taxa de juros de longo prazo (TJLP).'],gabarito:0,explicacao:'BACEN: emite moeda, executa política monetária. CMN FORMULA a política; BACEN EXECUTA. CVM fiscaliza mercado de capitais.'},
+  {id:22,area:'Legislação Específica',subtema:'Pix – Sistema de Pagamentos',banca:'Cesgranrio',concursos:['Banco do Brasil','Caixa Econômica'],enunciado:'O sistema de pagamentos instantâneos Pix foi criado e é operado pelo:',alternativas:['Banco do Brasil.','Caixa Econômica Federal.','Banco Central do Brasil.','Febraban.','Tesouro Nacional.'],gabarito:2,explicacao:'Pix = infraestrutura do sistema de pagamentos brasileiro, criada e operada pelo BACEN. Lançado em novembro de 2020.'},
+  {id:23,area:'Legislação Específica',subtema:'LGPD – Lei 13.709/2018',banca:'Cesgranrio',concursos:['Banco do Brasil','Caixa Econômica','INSS'],enunciado:"Conforme a LGPD, o 'titular' dos dados pessoais é:",alternativas:['A empresa que coleta os dados.','O funcionário responsável pelo tratamento.','A pessoa natural a quem os dados se referem.','O governo federal.','A ANPD.'],gabarito:2,explicacao:'LGPD: Titular = pessoa natural a quem os dados se referem. Controlador = decide o tratamento. Operador = trata em nome do controlador.'},
+  {id:24,area:'Redação',subtema:'Estrutura Dissertativa',banca:'Todas',concursos:['PRF','INSS','Polícia Penal RS','Prefeitura','Banco do Brasil','Caixa Econômica'],enunciado:'A estrutura clássica da dissertação argumentativa em provas discursivas de concurso é:',alternativas:['Narração, descrição e dissertação.','Introdução, desenvolvimento e conclusão.','Tese, antítese e síntese apenas.','Apresentação, argumentação e exemplificação.','Parágrafo temático e parágrafos de apoio.'],gabarito:1,explicacao:'Introdução (tema + tese) + Desenvolvimento (2-3 parágrafos) + Conclusão (retoma tese + proposta).'},
+  {id:25,area:'Redação',subtema:'Tipos de Argumento',banca:'Cespe',concursos:['PRF','INSS','Polícia Penal RS','Banco do Brasil'],enunciado:'O argumento que sustenta a tese com dados estatísticos e pesquisas científicas é:',alternativas:['Argumento de autoridade.','Argumento por exemplificação.','Argumento por evidência.','Argumento por analogia.','Argumento ad hominem.'],gabarito:2,explicacao:'Por evidência = dados, estatísticas, pesquisas. O mais valorizado por bancas.'},
+  {id:26,area:'Redação',subtema:'Introdução – Parágrafo de Abertura',banca:'Todas',concursos:['PRF','INSS','Polícia Penal RS','Prefeitura','Banco do Brasil','Caixa Econômica'],enunciado:"Qual introdução é mais adequada para uma redação sobre 'Desafios da segurança pública no Brasil'?",alternativas:["'Vou falar sobre os problemas de segurança pública.'","'Desde os primórdios, a humanidade lida com a violência.'","'O Brasil registrou mais de 47 mil homicídios em 2022 (FBSP), evidenciando a urgência de políticas públicas integradas de segurança.'","'Segurança pública é muito importante para todos.'","'Neste texto, abordarei os principais desafios.'"],gabarito:2,explicacao:'Boa introdução: dado concreto + contextualização + conduz à tese. Evite clichês e frases genéricas.'},
+  {id:27,area:'Redação',subtema:'Conclusão e Proposta de Intervenção',banca:'Todas',concursos:['PRF','INSS','Polícia Penal RS','Banco do Brasil','Caixa Econômica'],enunciado:'A conclusão eficaz de uma dissertação argumentativa deve:',alternativas:['Apresentar novos argumentos não abordados no desenvolvimento.','Repetir literalmente a introdução.','Retomar a tese, sintetizar os argumentos e apresentar proposta de solução concreta.','Apenas fazer uma pergunta reflexiva ao leitor.','Citar um texto literário famoso.'],gabarito:2,explicacao:'Conclusão: retoma tese, sintetiza o desenvolvimento e propõe solução concreta.'},
+];
+
+// ═══════════════════════════════════════════
+// PERSISTÊNCIA LOCAL
+// ═══════════════════════════════════════════
+function salvarEstado() {
+  try {
+    localStorage.setItem('pe_bancaErros', JSON.stringify(bancaErros));
+    localStorage.setItem('pe_totalResp', totalResp);
+    localStorage.setItem('pe_totalAc', totalAc);
+    localStorage.setItem('pe_sheetsUrl', sheetsUrl);
+    if (anthropicKey) localStorage.setItem('pe_anthropic_key', anthropicKey);
+  } catch(e) {}
+}
+function carregarEstado() {
+  try {
+    bancaErros = JSON.parse(localStorage.getItem('pe_bancaErros') || '{}');
+    totalResp = parseInt(localStorage.getItem('pe_totalResp') || '0');
+    totalAc = parseInt(localStorage.getItem('pe_totalAc') || '0');
+    sheetsUrl = localStorage.getItem('pe_sheetsUrl') || '';
+    anthropicKey = localStorage.getItem('pe_anthropic_key') || '';
+  } catch(e) {}
+  carregarProgresso();
+}
+
+// ═══════════════════════════════════════════
+// PARSE CSV
+// ═══════════════════════════════════════════
+function parseCSV(csv) {
+  const lines = csv.trim().split('\n');
+  if (lines.length < 2) return [];
+  // parse header
+  const header = parseCSVLine(lines[0]);
+  const questoes = [];
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    const cols = parseCSVLine(lines[i]);
+    if (cols.length < 13) continue;
+    const get = (idx) => (cols[idx] || '').trim();
+    const gabLetra = get(11).toUpperCase();
+    const gabIdx = {'A':0,'B':1,'C':2,'D':3,'E':4}[gabLetra] ?? 0;
+    questoes.push({
+      id: parseInt(get(0)) || i,
+      area: get(1),
+      subtema: get(2),
+      banca: get(3),
+      concursos: get(4).split(',').map(s => s.trim()).filter(Boolean),
+      enunciado: get(5),
+      alternativas: [get(6), get(7), get(8), get(9), get(10)].filter(Boolean),
+      gabarito: gabIdx,
+      explicacao: get(12),
+      probabilidade: get(13) || '',   // formato: "BB:90,CEF:88" ou "83%"
+      similares: get(14) || '',
+      refExternas: get(15) || '',
+    });
+  }
+  return questoes;
+}
+
+// Extrai a probabilidade de uma questão para um concurso específico
+// probStr pode ser "BB:90,CEF:88,INSS:70" ou "83%" (formato antigo)
+function probParaConcurso(probStr, concursoFiltro) {
+  if (!probStr) return 70;
+  // Formato novo: "BB:90,CEF:88"
+  if (probStr.includes(':')) {
+    const MAPA = {
+      'Banco do Brasil': 'BB', 'Caixa Econômica': 'CEF', 'INSS': 'INSS',
+      'PRF': 'PRF', 'Polícia Penal RS': 'Pol.RS', 'Transpetro': 'Transpetro',
+      'Prefeitura': 'Prefeitura'
+    };
+    const abrev = MAPA[concursoFiltro] || concursoFiltro;
+    for (const parte of probStr.split(',')) {
+      const [k, v] = parte.split(':');
+      if (k && k.trim() === abrev) return parseInt(v) || 70;
+    }
+    // Se não encontrou o concurso específico, pegar o maior valor disponível
+    const valores = probStr.split(',').map(p => parseInt(p.split(':')[1]) || 0);
+    return Math.max(...valores, 0) || 70;
+  }
+  // Formato antigo: "83%"
+  return parseInt(probStr.replace('%','')) || 70;
+}
+
+function parseCSVLine(line) {
+  const cols = [];
+  let cur = '', inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') {
+      if (inQ && line[i+1] === '"') { cur += '"'; i++; }
+      else inQ = !inQ;
+    } else if (c === ',' && !inQ) {
+      cols.push(cur); cur = '';
+    } else {
+      cur += c;
+    }
+  }
+  cols.push(cur);
+  return cols;
+}
+
+// ═══════════════════════════════════════════
+// CARREGAR DO SHEETS
+// ═══════════════════════════════════════════
+async function carregarDoSheets(url) {
+  mostrarLoading(true);
+  mostrarErroConexao('');
+
+  // Estratégias em ordem de tentativa
+  const estrategias = [
+    // 1. fetch direto (funciona quando CORS está liberado pelo Sheets)
+    async () => {
+      const r = await fetch(url, { mode: 'cors', cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return await r.text();
+    },
+    // 2. allorigins (mais estável)
+    async () => {
+      const r = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(url));
+      const j = await r.json();
+      if (!j.contents) throw new Error('allorigins vazio');
+      return j.contents;
+    },
+    // 3. corsproxy.io
+    async () => {
+      const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
+      if (!r.ok) throw new Error('corsproxy ' + r.status);
+      return await r.text();
+    },
+    // 4. cors-anywhere (Heroku)
+    async () => {
+      const r = await fetch('https://cors-anywhere.herokuapp.com/' + url,
+        { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+      if (!r.ok) throw new Error('heroku ' + r.status);
+      return await r.text();
+    },
+    // 5. thingproxy
+    async () => {
+      const r = await fetch('https://thingproxy.freeboard.io/fetch/' + url);
+      if (!r.ok) throw new Error('thingproxy ' + r.status);
+      return await r.text();
+    },
+  ];
+
+  for (let i = 0; i < estrategias.length; i++) {
+    try {
+      const csv = await Promise.race([
+        estrategias[i](),
+        new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000))
+      ]);
+      if (!csv || csv.length < 10) throw new Error('CSV vazio');
+      const qs = parseCSV(csv);
+      if (qs.length === 0) throw new Error('Nenhuma questão encontrada');
+      QUESTOES = qs;
+      sheetsUrl = url;
+      salvarEstado();
+      mostrarLoading(false);
+      return true;
+    } catch(e) {
+      console.warn(`Estratégia ${i+1} falhou: ${e.message}`);
+      // continua para o próximo proxy
+    }
+  }
+
+  // Todas falharam
+  mostrarLoading(false);
+  mostrarErroConexao(
+    '❌ Não foi possível carregar o CSV. Verifique:<br>' +
+    '1. O link está publicado como CSV no Google Sheets?<br>' +
+    '2. A planilha está com acesso "Qualquer pessoa com o link"?<br>' +
+    '3. Tente abrir o link direto no navegador — se fizer download, cole aqui.'
+  );
+  return false;
+}
+
+function mostrarErroConexao(msg) {
+  let el = document.getElementById('erro-conexao');
+  if (!el) return;
+  if (msg) { el.innerHTML = msg; el.style.display = 'block'; }
+  else { el.innerHTML = ''; el.style.display = 'none'; }
+}
+
+function testarLink() {
+  const url = document.getElementById('sheets-url').value.trim();
+  if (!url) { alert('Cole a URL do Google Sheets primeiro.'); return; }
+  // Testa abrindo o link direto em nova aba
+  window.open(url, '_blank');
+  mostrarErroConexao(
+    '📋 <b>O link abriu no navegador?</b><br>' +
+    '• Se fez <b>download de um .csv</b>: o link está correto ✅<br>' +
+    '• Se abriu a planilha normal: clique em <b>Arquivo → Publicar na web → CSV → Publicar</b> e use o novo link.<br>' +
+    '• Se deu erro 403: a planilha não está pública. Altere o compartilhamento para <b>"Qualquer pessoa com o link"</b>.'
+  );
+}
+
+function mostrarAjudaSheets() {
+  mostrarErroConexao(
+    '📌 <b>Como publicar o CSV do Google Sheets:</b><br>' +
+    '1. Abra a planilha no Google Sheets<br>' +
+    '2. Menu <b>Arquivo → Publicar na web</b><br>' +
+    '3. Selecione a aba com as questões<br>' +
+    '4. Formato: <b>Valores separados por vírgula (.csv)</b><br>' +
+    '5. Clique em <b>Publicar</b> e copie o link gerado<br>' +
+    '6. Cole aqui e clique em <b>Conectar e Carregar</b>'
+  );
+}
+
+function mostrarLoading(show) {
+  document.getElementById('loading').classList.toggle('visible', show);
+  document.getElementById('tela-config').style.display = show ? 'none' : 'block';
+}
+
+function mostrarConfig() {
+  esconderTudo();
+  document.getElementById('tela-config').style.display = 'block';
+  document.getElementById('btn-menu').classList.remove('visible');
+  if (sheetsUrl) document.getElementById('sheets-url').value = sheetsUrl;
+}
+
+async function salvarECarregar() {
+  const url = document.getElementById('sheets-url').value.trim();
+  if (!url) { setMsg('⚠ Cole a URL do Sheets publicado', COR.verm); return; }
+  mostrarErroConexao('');
+  setMsg('⏳ Conectando — tentando até 5 métodos...', COR.ouro);
+  const ok = await carregarDoSheets(url);
+  if (ok) {
+    setMsg(`✅ ${QUESTOES.length} questões carregadas com sucesso!`, COR.verde);
+    setTimeout(() => iniciarPlataforma(), 800);
+  } else {
+    setMsg('✗ Falha em todos os métodos. Veja as instruções abaixo.', COR.verm);
+  }
+}
+
+function usarQuestoesLocais() {
+  QUESTOES = [...QUESTOES_LOCAIS];
+  iniciarPlataforma();
+}
+
+function setMsg(txt, cor) {
+  const el = document.getElementById('msg-config');
+  el.textContent = txt;
+  el.style.color = cor;
+}
+
+// ═══════════════════════════════════════════
+// INICIALIZAÇÃO
+// ═══════════════════════════════════════════
+function esconderTudo() {
+  ['tela-config','tela-inicio','tela-questao','tela-resultado','tela-redacao'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+}
+
+function iniciarPlataforma() {
+  esconderTudo();
+  document.getElementById('tela-inicio').style.display = 'block';
+  document.getElementById('btn-menu').classList.remove('visible');
+  atualizarFiltros();
+  renderizarPlano();
+  renderizarRankBars();
+  renderizarTemas();
+  renderizarStats();
+  setAba('plano');
+}
+
+window.onload = function() {
+  carregarEstado();
+  // preencher campos salvos
+  if (sheetsUrl) {
+    document.getElementById('sheets-url').value = sheetsUrl;
+    carregarDoSheets(sheetsUrl).then(ok => {
+      if (ok) iniciarPlataforma();
+    });
+  }
+  // restaurar API key salva
+  const apiInput = document.getElementById('api-key-input');
+  if (apiInput && anthropicKey) {
+    apiInput.value = anthropicKey;
+    salvarApiKey(anthropicKey); // atualiza o badge de status
+  }
+};
+
+// ═══════════════════════════════════════════
+// RENDER PLANO SEMANAL
+// ═══════════════════════════════════════════
+function renderizarPlano() {
+  const dias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  const diaAtual = dias[new Date().getDay()];
+  const cont = document.getElementById('aba-plano');
+  const questoesErro = QUESTOES.filter(q => (bancaErros[q.id]?.erros||0) > 0);
+
+  cont.innerHTML = `
+    <div style="background:rgba(200,153,42,0.08);border:1px solid rgba(200,153,42,0.25);border-radius:10px;padding:14px 16px;margin-bottom:18px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ouro);margin-bottom:6px;">🎯 FOCO ATUAL</div>
+      <div style="font-size:15px;font-weight:600;color:#f0e6d0;font-family:'Playfair Display',serif;">Concurso Banco do Brasil</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Banca: Cesgranrio · 70 questões + Redação · 5h de prova · Nível médio</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+        <span style="background:rgba(74,144,217,0.15);border:1px solid rgba(74,144,217,0.3);color:var(--azul);padding:3px 10px;border-radius:20px;font-size:10px;">📝 Português 10q</span>
+        <span style="background:rgba(138,106,217,0.15);border:1px solid rgba(138,106,217,0.3);color:var(--roxo);padding:3px 10px;border-radius:20px;font-size:10px;">🧮 Mat. Financeira 5q</span>
+        <span style="background:rgba(200,153,42,0.15);border:1px solid rgba(200,153,42,0.3);color:var(--ouro);padding:3px 10px;border-radius:20px;font-size:10px;">🏦 Bancário+Vendas 25q</span>
+        <span style="background:rgba(224,80,64,0.15);border:1px solid rgba(224,80,64,0.3);color:var(--verm);padding:3px 10px;border-radius:20px;font-size:10px;">⚖️ Legislações 12q</span>
+        <span style="background:rgba(74,184,184,0.15);border:1px solid rgba(74,184,184,0.3);color:var(--ciano);padding:3px 10px;border-radius:20px;font-size:10px;">💻 TI 10q · 🌐 Inglês 5q</span>
+        <span style="background:rgba(217,106,154,0.15);border:1px solid rgba(217,106,154,0.3);color:var(--rosa);padding:3px 10px;border-radius:20px;font-size:10px;">✍️ Redação eliminatória</span>
+      </div>
+    </div>`;
+
+  PLANO_SEMANAL.forEach(d => {
+    const ehHoje = d.dia === diaAtual;
+    let btnHtml = '';
+    if (d.foco.includes('Redação')) {
+      btnHtml = `<button class="btn-small" style="background:${COR.rosa}22;border:1px solid ${COR.rosa}66;color:${COR.rosa};" onclick="irRedacao()">✍️ Escrever →</button>`;
+    } else if (d.foco.includes('Revisão') || d.foco.includes('Simulado')) {
+      btnHtml = `<button class="btn-small" style="background:rgba(61,184,138,0.15);border:1px solid rgba(61,184,138,0.4);color:${COR.verde};" onclick="setAba('revisao')">🔁 Revisar →</button>`;
+    } else {
+      // Mapear foco → área do banco
+      const mapaArea = {
+        'Português': 'Português',
+        'Matemática Financeira': 'Raciocínio Lógico',
+        'Conhecimentos Bancários': 'Legislação Específica',
+        'Vendas': 'Legislação Específica',
+        'Informática': 'Legislação Específica',
+      };
+      const area = Object.entries(mapaArea).find(([k]) => d.foco.includes(k))?.[1] || 'Todas';
+      btnHtml = `<button class="btn-small" style="border:1px solid ${d.cor}66;color:${d.cor};background:${d.cor}22;" onclick="irEstudarBB('${area}')">Estudar →</button>`;
+    }
+
+    cont.innerHTML += `
+      <div class="plano-card ${ehHoje?'hoje':''}" style="${ehHoje?`border-color:${d.cor}55;background:${d.cor}09;`:''}">
+        <div>
+          <div class="plano-icon">${d.icon}</div>
+          ${ehHoje ? `<div class="plano-hoje-badge" style="background:${d.cor}33;color:${d.cor};">HOJE</div>` : ''}
+        </div>
+        <div style="flex:1;">
+          <div class="plano-dia" style="color:${d.cor};">${d.dia} — ${d.foco}</div>
+          <div class="plano-sub">${d.sub}</div>
+          <div style="font-size:10px;color:var(--ouro);margin-top:5px;opacity:0.85;">🎯 Meta: ${d.meta}</div>
+          ${ehHoje ? `<div style="font-size:10px;color:var(--muted);margin-top:4px;font-style:italic;">${d.dica}</div>` : ''}
+        </div>
+        ${btnHtml}
+      </div>`;
+  });
+}
+
+function irEstudarBB(area) {
+  filtroConcurso = 'Banco do Brasil';
+  filtroArea = area === 'Todas' ? 'Todas' : area;
+  atualizarFiltros();
+  setAba('estudar');
+}
+
+// ═══════════════════════════════════════════
+// RENDER FILTROS
+// ═══════════════════════════════════════════
+function atualizarFiltros() {
+  // Sessão
+  const sbCont = document.getElementById('sessao-btns');
+  if (sbCont) {
+    sbCont.innerHTML = [10,20,50,0].map(n => {
+      const label = n === 0 ? `Todas (${QUESTOES.length})` : String(n);
+      const active = (n === 0 && sessaoMax >= QUESTOES.length) || n === sessaoMax;
+      return `<button class="sessao-btn ${active?'active':''}" onclick="setSessao(${n})">${label}</button>`;
+    }).join('');
+  }
+
+  // Área — com ícone e contagem dinâmica considerando outros filtros
+  const elArea = document.getElementById('filtro-area');
+  if (elArea) {
+    elArea.innerHTML = AREAS.map(a => {
+      // Contar questões dessa área aplicando outros filtros (banca + concurso)
+      const n = QUESTOES.filter(x =>
+        (a === 'Todas' || x.area === a) &&
+        (filtroBanca === 'Todas' || x.banca === filtroBanca || x.banca === 'Todas') &&
+        (filtroConcurso === 'Todos' || x.concursos.includes(filtroConcurso))
+      ).length;
+      const isActive = a === filtroArea;
+      const cor = corAreaBtn(a);
+      const style = isActive
+        ? `border-color:${cor};background:${cor}33;color:${cor};font-weight:600;`
+        : `border-color:${cor}44;color:${cor}cc;`;
+      const ic = ICONE_AREA[a] || '📚';
+      return `<button class="filter-btn" style="${style}" onclick="setArea('${a.replace(/'/g,"\\'")}')">${ic} ${a} <span style="opacity:0.7;font-size:9px;">(${n})</span></button>`;
+    }).join('');
+  }
+
+  // Subfiltro temático (só aparece quando Legislação Específica está selecionada)
+  const elSub = document.getElementById('filtro-subtema');
+  if (elSub) {
+    if (filtroArea === 'Legislação Específica') {
+      elSub.style.display = 'block';
+      const baseQ = QUESTOES.filter(x =>
+        x.area === 'Legislação Específica' &&
+        (filtroBanca === 'Todas' || x.banca === filtroBanca || x.banca === 'Todas') &&
+        (filtroConcurso === 'Todos' || x.concursos.includes(filtroConcurso))
+      );
+      elSub.querySelector('.subtema-btns').innerHTML = SUBFILTRO_LEG_KEYS.map(k => {
+        const subf = SUBFILTROS_LEG[k];
+        const n = subf.kws === null ? baseQ.length :
+          baseQ.filter(x => {
+            const s = (x.subtema || '').toLowerCase();
+            return subf.kws.some(kw => s.includes(kw));
+          }).length;
+        const isAct = k === filtroSubtemaBloco;
+        const style = isAct
+          ? `border-color:var(--verm);background:rgba(224,80,64,0.22);color:#ffb09a;font-weight:600;`
+          : `border-color:rgba(224,80,64,0.25);color:#e09080;`;
+        return `<button class="filter-btn" style="${style}" onclick="setSubtemaBloco('${k.replace(/'/g,"\\'")}')">${subf.icon} ${k} <span style="opacity:0.7;font-size:9px;">(${n})</span></button>`;
+      }).join('');
+    } else {
+      elSub.style.display = 'none';
+    }
+  }
+
+  // Banca
+  renderFilterBtns('filtro-banca', BANCAS, filtroBanca, b => {
+    filtroBanca = b;
+    atualizarFiltros();
+  }, () => 'border-color:var(--ouro);background:rgba(200,153,42,0.2);color:var(--ouro);');
+
+  // Concurso
+  renderFilterBtns('filtro-concurso', CONCURSOS, filtroConcurso, c => {
+    filtroConcurso = c;
+    atualizarFiltros();
+  }, () => 'border-color:var(--ouro);background:rgba(200,153,42,0.2);color:var(--ouro);');
+
+  // Questões filtradas
+  questoesFiltradas = filtrar();
+  const totalBanco = QUESTOES.filter(x =>
+    (filtroArea === 'Todas' || x.area === filtroArea) &&
+    (filtroBanca === 'Todas' || x.banca === filtroBanca) &&
+    (filtroConcurso === 'Todos' || x.concursos.includes(filtroConcurso))
+  ).length;
+  const pendentes = questoesFiltradas.length;
+  const cf = document.getElementById('count-filtro');
+  if (cf) cf.textContent = `${Math.min(pendentes, sessaoMax)} pendentes (${pendentes} disponíveis de ${totalBanco} no banco)`;
+
+  const btnIniciar = document.getElementById('btn-iniciar');
+  if (btnIniciar) {
+    const n = Math.min(questoesFiltradas.length, sessaoMax);
+    btnIniciar.textContent = questoesFiltradas.length ? `▶ INICIAR — ${n} QUESTÕES` : '✅ Tudo em dia!';
+    btnIniciar.disabled = !questoesFiltradas.length;
+  }
+
+  renderizarStats();
+  renderizarRevisao();
+}
+
+function corAreaBtn(a) {
+  return {'Português':COR.azul,'Raciocínio Lógico':COR.roxo,'Dir. Constitucional':COR.ouro,'Dir. Administrativo':COR.ciano,'Legislação Específica':COR.verm,'Redação':COR.rosa,'Todas':COR.verde}[a] || COR.verde;
+}
+
+function renderFilterBtns(id, itens, ativo, onClick, styleAtivo) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = itens.map(item => {
+    const isActive = item === ativo;
+    const style = isActive ? styleAtivo(item) : '';
+    return `<button class="filter-btn" style="${style}" onclick="(${onClick.toString()})('${item.replace(/'/g,"\\'")}');atualizarFiltros();">${item}</button>`;
+  }).join('');
+}
+
+function setArea(a) {
+  filtroArea = a;
+  // Resetar subfiltro temático ao trocar de área
+  if (a !== 'Legislação Específica') filtroSubtemaBloco = 'Todos';
+  atualizarFiltros();
+}
+
+function setSubtemaBloco(k) {
+  filtroSubtemaBloco = k;
+  atualizarFiltros();
+}
+
+function setSessao(n) {
+  sessaoMax = n === 0 ? 99999 : n;
+  atualizarFiltros();
+}
+
+function filtrar() {
+  let q = [...QUESTOES];
+  if (filtroArea !== 'Todas') q = q.filter(x => x.area === filtroArea);
+  if (filtroBanca !== 'Todas') q = q.filter(x => x.banca === filtroBanca || x.banca === 'Todas');
+  if (filtroConcurso !== 'Todos') q = q.filter(x => x.concursos.includes(filtroConcurso));
+
+  // Subfiltro temático aplicado quando área = Legislação Específica
+  if (filtroArea === 'Legislação Específica' && filtroSubtemaBloco !== 'Todos') {
+    const subf = SUBFILTROS_LEG[filtroSubtemaBloco];
+    if (subf && subf.kws) {
+      q = q.filter(x => {
+        const sub = (x.subtema || '').toLowerCase();
+        return subf.kws.some(kw => sub.includes(kw));
+      });
+    }
+  }
+
+  // Função de probabilidade para o concurso ativo
+  const concAtivo = filtroConcurso !== 'Todos' ? filtroConcurso : '';
+  const getProb = x => probParaConcurso(x.probabilidade, concAtivo || (x.concursos[0]||''));
+
+  const h = hoje();
+
+  // Grupo 1: nunca feitas — ordenadas por probabilidade decrescente para o concurso
+  const naoFeitas = q
+    .filter(x => !PROGRESSO[x.id] || !PROGRESSO[x.id].ultimaResposta)
+    .sort((a,b) => getProb(b) - getProb(a));
+
+  // Grupo 2: vencidas no SRS — ordenadas por prob
+  const vencidas = q
+    .filter(x => PROGRESSO[x.id]?.proximaRevisao && PROGRESSO[x.id].proximaRevisao <= h)
+    .sort((a,b) => getProb(b) - getProb(a));
+
+  // Grupo 3: erradas recentemente (sem agendamento)
+  const erradas = q.filter(x => {
+    const p = PROGRESSO[x.id];
+    if (!p || !p.erros) return false;
+    if (p.proximaRevisao && p.proximaRevisao > h) return false;
+    return p.erros > p.acertos;
+  }).sort((a,b) => getProb(b) - getProb(a));
+
+  // Combinar sem duplicatas: não feitas (alta prob) → vencidas → erradas
+  const vistos = new Set();
+  const resultado = [];
+  for (const lista of [naoFeitas, vencidas, erradas]) {
+    for (const x of lista) {
+      if (!vistos.has(x.id)) { vistos.add(x.id); resultado.push(x); }
+    }
+  }
+  return resultado;
+}
+
+// ═══════════════════════════════════════════
+// RANK BARS
+// ═══════════════════════════════════════════
+function renderizarRankBars() {
+  const el = document.getElementById('rank-bars');
+  if (!el) return;
+  el.innerHTML = RANK_ITEMS.map(item => `
+    <div class="rank-bar">
+      <div class="rank-bar-top"><span>${item.t}</span><span style="color:${item.c}">${item.p}%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${item.p}%;background:${item.c};"></div></div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════
+function setAba(aba) {
+  abaAtiva = aba;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => {
+    if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(`'${aba}'`)) t.classList.add('active');
+  });
+  ['plano','estudar','revisao','stats'].forEach(a => {
+    const el = document.getElementById(`aba-${a}`);
+    if (el) el.style.display = a === aba ? 'block' : 'none';
+  });
+  if (aba === 'revisao') renderizarRevisao();
+  if (aba === 'stats') renderizarStats();
+}
+
+// ═══════════════════════════════════════════
+// RENDER STATS CARDS
+// ═══════════════════════════════════════════
+function renderizarStats() {
+  const questoesErro = QUESTOES.filter(q => (bancaErros[q.id]?.erros||0) > 0);
+  const pctG = totalResp > 0 ? Math.round((totalAc/totalResp)*100) : 0;
+
+  // Cards do topo
+  const sc = document.getElementById('stats-cards');
+  if (sc) sc.innerHTML = [
+    {l:'Questões',v:QUESTOES.length,i:'📝',c:COR.ouro},
+    {l:'Respondidas',v:totalResp,i:'✏️',c:COR.azul},
+    {l:'Acerto',v:pctG+'%',i:'🎯',c:COR.verde},
+    {l:'Revisar',v:questoesErro.length,i:'🔁',c:questoesErro.length>0?COR.verm:COR.verde},
+  ].map(s => `
+    <div class="stat-card" style="border-color:${s.c}33;">
+      <div class="stat-icon">${s.i}</div>
+      <div class="stat-val" style="color:${s.c};">${s.v}</div>
+      <div class="stat-lbl">${s.l}</div>
+    </div>`).join('');
+
+  // Aba stats
+  const abaStats = document.getElementById('aba-stats');
+  if (!abaStats) return;
+  let html = `<div class="section-box"><div class="section-label">DESEMPENHO POR ÁREA</div>`;
+  AREAS.slice(1).forEach(area => {
+    const ids = QUESTOES.filter(q => q.area === area).map(q => q.id);
+    const ac = ids.filter(id => { const b = bancaErros[id]; return b && b.tentativas > 0 && b.erros === 0; }).length;
+    const tent = ids.filter(id => bancaErros[id]?.tentativas > 0).length;
+    const p = tent > 0 ? Math.round((ac/tent)*100) : null;
+    html += `<div class="stats-area-row">
+      <div class="top"><span style="font-size:12px;color:${COR_AREA(area)}">${area}</span><span class="mono" style="font-size:11px;color:${p===null?'#4a6a8a':p>=70?COR.verde:COR.verm}">${p===null?'sem dados':`${ac}/${tent} (${p}%)`}</span></div>
+      <div class="bar-track">${p!==null?`<div class="bar-fill" style="width:${p}%;background:${p>=70?COR.verde:COR.verm};"></div>`:''}</div>
+    </div>`;
+  });
+  html += '</div><div class="section-box"><div class="section-label">QUESTÕES POR CONCURSO</div>';
+  CONCURSOS.slice(1).forEach(c => {
+    const total = QUESTOES.filter(q => q.concursos.includes(c)).length;
+    html += `<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-size:12px;">${c}</span><span class="mono" style="font-size:11px;color:var(--ouro);">${total} questões</span></div>`;
+  });
+  html += '</div>';
+  abaStats.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+// RENDER REVISÃO
+// ═══════════════════════════════════════════
+// renderizarRevisao: delegada para a função SRS completa (definida acima — linha ~729)
+// A versão completa inclui: deck do dia, calendário 30 dias, progresso por área e backup.
+
+// ═══════════════════════════════════════════
+// SESSÃO DE QUESTÕES
+// ═══════════════════════════════════════════
+function iniciarSessao() {
+  const qs = questoesFiltradas.slice(0, sessaoMax);
+  iniciar(qs, false);
+}
+
+function iniciarRevisao() {
+  const questoesErro = QUESTOES.filter(q => (bancaErros[q.id]?.erros||0) > 0)
+    .sort((a,b) => (bancaErros[b.id]?.erros||0) - (bancaErros[a.id]?.erros||0));
+  iniciar(questoesErro, true);
+}
+
+function iniciar(qs, revisao) {
+  if (!qs || !qs.length) return;
+  questoesSessao = [...qs];
+  modoRevisao = revisao;
+  indice = 0; respondida = false; selecionada = null; historico = [];
+
+  esconderTudo();
+  document.getElementById('tela-questao').style.display = 'block';
+  document.getElementById('btn-menu').classList.add('visible');
+  document.getElementById('badge-revisao').classList.toggle('visible', revisao);
+
+  renderizarQuestao();
+}
+
+function renderizarQuestao() {
+  const q = questoesSessao[indice];
+  if (!q) return;
+
+  document.getElementById('q-num').textContent = `${modoRevisao?'🔁 Revisão':'Questão'} ${indice+1}/${questoesSessao.length}`;
+  document.getElementById('q-num').style.color = modoRevisao ? COR.verm : 'var(--muted)';
+
+  // Dots
+  document.getElementById('q-dots').innerHTML = questoesSessao.map((_,i) => {
+    const cor = i < indice ? (historico[i]?.acertou ? COR.verde : COR.verm) : i === indice ? COR.ouro : 'rgba(255,255,255,0.1)';
+    return `<div class="q-dot" style="background:${cor};"></div>`;
+  }).join('');
+
+  // Card
+  document.getElementById('q-card').style.borderColor = `${COR_AREA(q.area)}44`;
+
+  // Tags — probabilidade por concurso ativo
+  const concAtivo = filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0] || '');
+  const probVal = probParaConcurso(q.probabilidade, concAtivo);
+  const probCor = probVal >= 88 ? COR.verm : probVal >= 75 ? COR.ouro : '#4a7a6a';
+  const probLabel = probVal >= 88 ? '🔥 Alta' : probVal >= 75 ? '⚡ Média' : '📘 Baixa';
+  let probDisplay = '';
+  if (q.probabilidade && q.probabilidade.includes(':')) {
+    if (filtroConcurso !== 'Todos') {
+      probDisplay = `${probLabel} ${probVal}%`;
+    } else {
+      const maxP = Math.max(...q.probabilidade.split(',').map(p=>parseInt(p.split(':')[1])||0));
+      const mLabel = maxP >= 88 ? '🔥' : maxP >= 75 ? '⚡' : '📘';
+      probDisplay = `${mLabel} ${maxP}%`;
+    }
+  } else if (q.probabilidade) {
+    probDisplay = `${probLabel} ${q.probabilidade}`;
+  }
+  document.getElementById('q-tags').innerHTML =
+    `<span class="q-tag" style="background:${COR_AREA(q.area)}22;border:1px solid ${COR_AREA(q.area)}66;color:${COR_AREA(q.area)};">${q.area}</span>
+     <span class="q-tag" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);color:var(--muted);">${q.subtema}</span>
+     <span class="q-tag" style="background:rgba(200,153,42,0.1);border:1px solid rgba(200,153,42,0.25);color:#b08020;">${q.banca}</span>
+     ${q.concursos.map(c=>`<span class="q-tag" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);color:#6a8a9a;">${c}</span>`).join('')}
+     ${probDisplay ? `<span class="q-tag" style="background:${probCor}22;border:1px solid ${probCor}66;color:${probCor};font-weight:bold;" title="${concAtivo||'Concurso'}: ${probVal}%">${probDisplay}</span>` : ''}`;
+
+  document.getElementById('q-enunciado').textContent = q.enunciado;
+
+  // Alternativas
+  document.getElementById('q-alts').innerHTML = q.alternativas.map((alt, idx) =>
+    `<button class="q-alt" id="alt-${idx}" onclick="responder(${idx})">
+      <span class="letra">${String.fromCharCode(65+idx)}</span>${alt}
+    </button>`
+  ).join('');
+
+  // Ocultar feedback
+  document.getElementById('q-feedback').style.display = 'none';
+  document.getElementById('btn-exp').style.display = 'none';
+  document.getElementById('exp-text').classList.remove('visible');
+  document.getElementById('btn-proxima').style.display = 'none';
+  const rt = document.getElementById('resumo-topico');
+  if (rt) rt.style.display = 'none';
+  respondida = false; selecionada = null;
+}
+
+function responder(idx) {
+  if (respondida) return;
+  selecionada = idx; respondida = true;
+  const q = questoesSessao[indice];
+  const ok = idx === q.gabarito;
+
+  historico.push({id:q.id, acertou:ok, area:q.area, subtema:q.subtema, banca:q.banca});
+  totalResp++; if (ok) totalAc++;
+
+  bancaErros[q.id] = bancaErros[q.id] || {erros:0, tentativas:0};
+  bancaErros[q.id].tentativas++;
+  if (ok && modoRevisao) bancaErros[q.id].erros = Math.max(0, bancaErros[q.id].erros - 1);
+  else if (!ok) bancaErros[q.id].erros++;
+  bancaErros[q.id].area = q.area; bancaErros[q.id].subtema = q.subtema;
+
+  // ── REPETIÇÃO ESPAÇADA ──────────────────────
+  const concQ = filtroConcurso !== 'Todos' ? filtroConcurso : (q.concursos[0] || '');
+  const prob = probParaConcurso(q.probabilidade, concQ);
+  registrarResposta(String(q.id), ok, prob);
+  // ── RESUMO DO TÓPICO ────────────────────────
+  exibirResumoTopico(q.subtema, q.area);
+  // ────────────────────────────────────────────
+
+  salvarEstado();
+
+  // Colorir alternativas
+  q.alternativas.forEach((_, i) => {
+    const el = document.getElementById(`alt-${i}`);
+    if (!el) return;
+    el.classList.add('respondida');
+    if (i === q.gabarito) el.classList.add('correta');
+    else if (i === idx) el.classList.add('errada');
+    else el.classList.add('neutra');
+    el.querySelector('.letra').textContent = i === q.gabarito ? '✓' : i === idx ? '✗' : String.fromCharCode(65+i);
+  });
+
+  // Feedback com próxima revisão
+  const fb = document.getElementById('q-feedback');
+  fb.style.display = 'block';
+  fb.className = `feedback-bar ${ok?'certo':'errado'}`;
+  const prox = PROGRESSO[String(q.id)]?.proximaRevisao;
+  const proxLabel = prox ? ` · Próx. revisão: ${prox}` : '';
+  fb.innerHTML = `<span style="font-size:18px;">${ok?'🎯':'📖'}</span>
+    <div>
+      <div style="font-size:13px;font-weight:bold;color:${ok?COR.verde:'#e07060'};">
+        ${ok?(modoRevisao?'Reforçado! ✓':'Correto!'):`Incorreto — Gabarito: ${String.fromCharCode(65+q.gabarito)}`}
+      </div>
+      <div style="font-size:9px;color:var(--muted);" class="mono">${ok?'📅'+proxLabel:('❌ Erros: '+(PROGRESSO[String(q.id)]?.erros||1)+proxLabel)}</div>
+    </div>`;
+
+  document.getElementById('btn-exp').style.display = 'block';
+  const expEl = document.getElementById('exp-text');
+  let expHtml = `<div style="margin-bottom:8px;">💡 ${q.explicacao}</div>`;
+  if (q.similares) {
+    expHtml += `<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(200,153,42,0.15);">
+      <span style="font-size:9px;color:var(--ouro);font-family:'IBM Plex Mono',monospace;letter-spacing:1px;">🔗 QUESTÕES SIMILARES NO BANCO</span>
+      <div style="font-size:11px;color:#9ab0c0;margin-top:4px;">${q.similares}</div>
+    </div>`;
+  }
+  if (q.refExternas) {
+    expHtml += `<div style="margin-top:6px;">
+      <span style="font-size:9px;color:#6a8a9a;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;">📋 REFERÊNCIAS</span>
+      <div style="font-size:11px;color:#7a9aaa;margin-top:3px;">${q.refExternas}</div>
+    </div>`;
+  }
+  expEl.innerHTML = expHtml;
+
+  const btnP = document.getElementById('btn-proxima');
+  btnP.style.display = 'block';
+  btnP.textContent = indice+1 >= questoesSessao.length ? 'VER RESULTADO →' : 'PRÓXIMA →';
+}
+
+function toggleExp() {
+  const el = document.getElementById('exp-text');
+  const btn = document.getElementById('btn-exp');
+  const visible = el.classList.toggle('visible');
+  btn.textContent = visible ? '▲ Ocultar' : '▼ Ver explicação completa';
+}
+
+function proxima() {
+  if (indice+1 >= questoesSessao.length) mostrarResultado();
+  else {
+    indice++;
+    document.getElementById('tela-questao').classList.remove('fade-in');
+    void document.getElementById('tela-questao').offsetWidth;
+    document.getElementById('tela-questao').classList.add('fade-in');
+    renderizarQuestao();
+  }
+}
+
+// ═══════════════════════════════════════════
+// RESULTADO
+// ═══════════════════════════════════════════
+function mostrarResultado() {
+  const acertos = historico.filter(h => h.acertou).length;
+  const pct = historico.length > 0 ? Math.round((acertos/historico.length)*100) : 0;
+
+  esconderTudo();
+  document.getElementById('tela-resultado').style.display = 'block';
+  document.getElementById('btn-menu').classList.add('visible');
+  document.getElementById('badge-revisao').classList.remove('visible');
+
+  document.getElementById('res-emoji').textContent = pct>=70?'🏆':pct>=50?'📈':'📚';
+  document.getElementById('res-titulo').textContent = pct>=70?'Excelente!':pct>=50?'Bom progresso!':'Continue estudando!';
+  document.getElementById('res-pct').textContent = pct+'%';
+  document.getElementById('res-pct').style.color = pct>=70?COR.verde:pct>=50?COR.ouro:COR.verm;
+  document.getElementById('res-sub').textContent = `${acertos} acertos em ${historico.length} questões`;
+
+  let areasHtml = '';
+  AREAS.slice(1).forEach(area => {
+    const deste = historico.filter(h => h.area === area);
+    const ac = deste.filter(h => h.acertou).length;
+    const p = deste.length > 0 ? Math.round((ac/deste.length)*100) : null;
+    areasHtml += `<div class="resultado-area-row">
+      <div class="top"><span style="font-size:12px;color:${COR_AREA(area)}">${area}</span><span class="mono" style="font-size:11px;color:${p===null?'#4a6a8a':p>=70?COR.verde:COR.verm}">${p===null?'—':`${ac}/${deste.length} (${p}%)`}</span></div>
+      ${p!==null?`<div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${p>=70?COR.verde:COR.verm};"></div></div>`:''}
+    </div>`;
+  });
+  document.getElementById('res-areas').innerHTML = areasHtml;
+
+  const questoesErro = QUESTOES.filter(q => (bancaErros[q.id]?.erros||0) > 0);
+  const errosOrd = [...questoesErro].sort((a,b) => (bancaErros[b.id]?.erros||0)-(bancaErros[a.id]?.erros||0));
+  const errosBox = document.getElementById('res-erros-box');
+  if (questoesErro.length > 0 && !modoRevisao) {
+    errosBox.style.display = 'block';
+    errosBox.className = 'section-box';
+    errosBox.style.background = 'rgba(224,80,64,0.08)';
+    errosBox.style.borderColor = 'rgba(224,80,64,0.22)';
+    errosBox.style.textAlign = 'left';
+    errosBox.innerHTML = `<div style="font-size:12px;color:#e07060;margin-bottom:5px;">🔁 ${questoesErro.length} para revisar</div>
+      ${errosOrd.slice(0,3).map(q => `<div class="mono" style="font-size:11px;color:#b09080;padding:2px 0;">• ${q.subtema} (${bancaErros[q.id]?.erros}× erro)</div>`).join('')}`;
+    document.getElementById('btn-revisar-erros').style.display = 'inline-block';
+  } else {
+    errosBox.style.display = 'none';
+    document.getElementById('btn-revisar-erros').style.display = 'none';
+  }
+}
+
+function refazer() { iniciar(questoesSessao, modoRevisao); }
+
+function voltarMenu() {
+  modoRevisao = false;
+  esconderTudo();
+  document.getElementById('tela-inicio').style.display = 'block';
+  document.getElementById('btn-menu').classList.remove('visible');
+  document.getElementById('badge-revisao').classList.remove('visible');
+  questoesFiltradas = filtrar();
+  atualizarFiltros();
+  renderizarPlano();
+  renderizarStats();
+  setAba(abaAtiva === 'redacao' ? 'plano' : abaAtiva);
+}
+
+// ═══════════════════════════════════════════
+// REDAÇÃO
+// ═══════════════════════════════════════════
+function irRedacao() {
+  esconderTudo();
+  document.getElementById('tela-redacao').style.display = 'block';
+  document.getElementById('btn-menu').classList.add('visible');
+  document.getElementById('redacao-etapa-tema').style.display = 'block';
+  document.getElementById('redacao-etapa-escrever').style.display = 'none';
+  document.getElementById('redacao-etapa-feedback').style.display = 'none';
+}
+
+function renderizarTemas() {
+  const el = document.getElementById('temas-lista');
+  if (!el) return;
+  const grupos = {};
+  TEMAS_REDACAO.forEach(t => { (grupos[t.concurso] = grupos[t.concurso]||[]).push(t); });
+  const corGrupo = c => c.includes('Banco do Brasil')?COR.azul:c.includes('Caixa')?COR.ouro:c.includes('PRF')?COR.verde:c.includes('INSS')?COR.roxo:c.includes('Tend')?COR.rosa:COR.ciano;
+
+  el.innerHTML = Object.entries(grupos).map(([conc, lista]) => `
+    <div style="margin-bottom:12px;">
+      <div class="tema-grupo-label" style="color:${corGrupo(conc)};">
+        <div class="tema-grupo-dot" style="background:${corGrupo(conc)};"></div>
+        ${conc.toUpperCase()}
+      </div>
+      ${lista.map(t => `<button class="tema-btn" id="tema-${btoa(encodeURIComponent(t.titulo))}" onclick="selecionarTema('${t.titulo.replace(/'/g,"\\'").replace(/"/g,'&quot;')}','${conc}')">${t.titulo}</button>`).join('')}
+    </div>`).join('');
+}
+
+function selecionarTema(titulo, concurso) {
+  temaSelecionado = {titulo, concurso};
+  document.querySelectorAll('.tema-btn').forEach(b => b.classList.remove('selected'));
+  // marcar o botão clicado
+  const isCustom = titulo === '✏️ Digitar meu próprio tema';
+  document.getElementById('tema-custom-wrap').style.display = isCustom ? 'block' : 'none';
+}
+
+function irEscrever() {
+  if (!temaSelecionado) return;
+  const tituloFinal = temaSelecionado.titulo === '✏️ Digitar meu próprio tema'
+    ? document.getElementById('tema-custom-input').value.trim()
+    : temaSelecionado.titulo;
+  if (!tituloFinal) return;
+
+  document.getElementById('tema-selecionado-box').innerHTML = `
+    <div style="font-size:9px;color:var(--rosa);font-family:'IBM Plex Mono',monospace;margin-bottom:2px;">${temaSelecionado.concurso.toUpperCase()}</div>
+    <div style="font-size:13px;color:#f0e6d0;">${tituloFinal}</div>`;
+
+  document.getElementById('redacao-etapa-tema').style.display = 'none';
+  document.getElementById('redacao-etapa-escrever').style.display = 'block';
+  document.getElementById('redacao-texto').value = '';
+  atualizarPalavras();
+  setAbaApoio('dados');
+  renderizarApoio(tituloFinal);
+}
+
+// ═══════════════════════════════════════════
+// BANCO DE DADOS POR TEMA
+// ═══════════════════════════════════════════
+const DADOS_TEMA = {
+  seguranca: {
+    palavras: ['segurança','violência','criminalidade','crime','homicídio','policial','polícia','presídio','preso'],
+    dados: ['FBSP 2023: 47.508 homicídios dolosos no Brasil','Atlas da Violência 2023: taxa de 22,4 por 100 mil hab.','77% das vítimas de homicídio são negros (IPEA 2023)','Brasil tem 3ª maior população carcerária do mundo: 832 mil presos (DEPEN 2023)','Taxa de reincidência criminal: ~40% (Ministério da Justiça)'],
+    leis: ['Lei 13.675/2018 (SUSP — Sistema Único de Segurança Pública)','EC 104/2019 (Polícia Penal na CF/88)','Lei 7.210/84 (LEP — Lei de Execução Penal)','Lei 8.072/90 (Crimes Hediondos)'],
+    propostas: ['Fortalecimento do SUSP com integração das forças policiais','Expansão de câmeras corporais e transparência policial','Políticas de ressocialização: educação e trabalho no cárcere','Programas de prevenção primária: educação e esporte em áreas vulneráveis','Redução das desigualdades como política de segurança de longo prazo'],
+  },
+  educacao: {
+    palavras: ['educação','escola','ensino','aluno','professor','analfabetismo','evasão','aprendizagem','EJA','ENEM','FUNDEB'],
+    dados: ['IBGE 2023: taxa de analfabetismo de 5,6% (9,6 mi de brasileiros)','INEP 2022: 1,7 mi de jovens de 15-17 anos fora da escola','OCDE: Brasil ocupa posição abaixo da média em leitura e matemática (PISA 2022)','Fundeb reformulado (EC 108/2020): mínimo de 70% para remuneração dos professores','63% dos alunos do 3º ano do Ensino Fundamental não sabem ler (ANA/INEP)'],
+    leis: ['EC 59/2009 (obrigatoriedade 4-17 anos)','Lei 13.415/2017 (Reforma do Ensino Médio)','Lei 9.394/96 (LDB — Lei de Diretrizes e Bases)','EC 108/2020 (novo Fundeb)','Lei 10.172/2001 (Plano Nacional de Educação)'],
+    propostas: ['Valorização e piso salarial dos professores (Lei 11.738/2008)','Ampliação da escola em tempo integral','Fortalecimento da EJA para jovens e adultos fora da escola','Formação continuada de professores e gestores escolares','Busca ativa de alunos faltosos com assistência social integrada'],
+  },
+  saude: {
+    palavras: ['saúde','SUS','doença','hospital','médico','enfermeiro','pandemia','COVID','vacina','obesidade','mental','burnout'],
+    dados: ['SUS atende 75% da população brasileira (150+ milhões de pessoas)','Déficit de 210 mil médicos especialistas fora das capitais (CFM 2023)','OMS 2019: burnout reconhecido como síndrome ocupacional (CID-11)','Custo da inatividade física ao SUS: R$ 13 bi/ano (Lancet 2022)','Fila para cirurgias eletivas no SUS: 1,6 mi de pacientes (CNS 2023)'],
+    leis: ['Art. 196 CF/88 (saúde como direito de todos)','Lei 8.080/90 (Lei Orgânica da Saúde)','Lei 8.142/90 (participação da comunidade no SUS)','Lei 14.026/2020 (Marco do Saneamento Básico)'],
+    propostas: ['Aumento do financiamento federal do SUS (mínimo 15% da RCL)','Expansão da Atenção Básica: mais UBS e Estratégia Saúde da Família','Telemedicina para acesso em regiões remotas (Lei 14.510/2022)','Programas de saúde mental no trabalho: NR-17 e EAP corporativo','Saneamento básico universal até 2033 (Lei 14.026/2020)'],
+  },
+  pobreza: {
+    palavras: ['pobreza','desigualdade','renda','fome','extrema pobreza','bolsa família','transferência','assistência','GINI','BPC','LOAS','miserável'],
+    dados: ['IBGE 2022: 33,1 milhões em insegurança alimentar grave','Coeficiente de Gini: 0,544 — um dos maiores do mundo (IBGE 2022)','12,8% da população em extrema pobreza em 2020 (pico pandêmico)','Bolsa Família reformulado (2023): média de R$ 681,60/família','Brasil retornou ao Mapa da Fome da ONU em 2022'],
+    leis: ['Art. 3º CF/88 (erradicar pobreza como objetivo da República)','Lei 8.742/93 (LOAS — Lei Orgânica da Assistência Social)','EC 64/2010 (alimentação como direito social — art. 6º CF)','Lei 14.601/2023 (novo Bolsa Família)'],
+    propostas: ['Manutenção e expansão do Bolsa Família com condicionalidades de educação e saúde','Ampliação do BPC para idosos e PCD em extrema pobreza','Formalização do mercado de trabalho informal (46% dos trabalhadores — IBGE)','Políticas de reforma agrária e agricultura familiar (PRONAF)','Fortalecimento do SUAS: CRAS e CREAS em todo o território nacional'],
+  },
+  meio_ambiente: {
+    palavras: ['meio ambiente','desmatamento','Amazônia','carbono','clima','aquecimento','sustentabilidade','floresta','biodiversidade','seca','enchente','resíduos','lixo','reciclagem'],
+    dados: ['INPE 2022: 11.568 km² desmatados na Amazônia Legal','Brasil emite 2,4% das emissões globais de CO₂, mas 80% vem do desmatamento (SEEG 2022)','Seca histórica no Pantanal: 35% do bioma queimado em 2020','IBGE: apenas 3% dos resíduos sólidos urbanos são reciclados no Brasil','COP28 (2023): Brasil assumiu meta de desmatamento zero até 2030'],
+    leis: ['Art. 225 CF/88 (direito ao meio ambiente equilibrado)','Lei 6.938/81 (Política Nacional do Meio Ambiente)','Lei 12.305/2010 (PNRS — Política Nacional de Resíduos Sólidos)','Lei 12.651/2012 (Código Florestal)','Lei 12.187/2009 (Política Nacional sobre Mudança do Clima)'],
+    propostas: ['Fortalecimento do PPCDAm (Plano de Prevenção ao Desmatamento na Amazônia)','Fundo Amazônia: captação de recursos internacionais para preservação','Transição energética: expansão de solar e eólica (Brasil já tem 85% de energia renovável)','Implementação da PNRS: logística reversa e encerramento de lixões','Educação ambiental nas escolas como disciplina obrigatória'],
+  },
+  tecnologia: {
+    palavras: ['tecnologia','inteligência artificial','IA','digital','automação','robô','emprego','trabalho','dados','privacidade','LGPD','internet','fintech','Pix','Open Finance'],
+    dados: ['McKinsey 2023: 54% dos empregos no Brasil têm alto risco de automação','IBGE 2022: 15,8 mi de domicílios sem acesso à internet','Pix: 140 milhões de usuários e 4 bilhões de transações/mês (BACEN 2023)','LGPD: ANPD aplicou primeiras sanções em 2023 (multas de até R$ 50 mi)','Mercado de fintechs: 2.000+ empresas registradas no BACEN (2023)'],
+    leis: ['Lei 13.709/2018 (LGPD — Lei Geral de Proteção de Dados)','EC 115/2022 (proteção de dados como direito fundamental)','Lei 12.965/2014 (Marco Civil da Internet)','Res. BACEN 265/2022 (governança de modelos de IA no sistema financeiro)'],
+    propostas: ['Regulação da IA com princípios de transparência, auditabilidade e não-discriminação','Universalização da internet banda larga (Programa Conecta Brasil)','Requalificação profissional para trabalhadores em risco de automação (SENAI/SENAC)','Educação digital obrigatória nas escolas públicas','Fortalecimento da ANPD para fiscalização efetiva da LGPD'],
+  },
+  previdencia: {
+    palavras: ['previdência','aposentadoria','INSS','RGPS','contribuição','benefício','reforma','pensão','envelhecimento','idoso','déficit','fundo'],
+    dados: ['EC 103/2019: economia estimada de R$ 800 bi em 10 anos','IBGE: população com 60+ anos passará de 15% para 30% até 2060','RGPS: deficit primário de R$ 308 bi em 2022 (Ministério da Fazenda)','31 mi de benefícios ativos no INSS em 2023','Taxa de informalidade: 39,4% — trabalhadores sem contribuição previdenciária (IBGE 2023)'],
+    leis: ['Art. 201 CF/88 (RGPS — caráter contributivo e obrigatório)','EC 103/2019 (Reforma da Previdência)','Lei 8.213/91 (Benefícios da Previdência Social)','LC 109/2001 (Previdência Complementar)'],
+    propostas: ['Formalização do mercado de trabalho para ampliar a base de contribuintes','Educação previdenciária desde o ensino médio','Expansão da previdência complementar (PGBL/VGBL) com incentivos fiscais','Combate às fraudes no INSS (uso de IA para detecção de irregularidades)','Políticas de natalidade e imigração qualificada para equilibrar a pirâmide etária'],
+  },
+  corrupcao: {
+    palavras: ['corrupção','improbidade','transparência','controle','TCU','CGU','licitação','desvio','fraude','propina','lavagem','ética'],
+    dados: ['Transparência Internacional 2022: Brasil em 94º lugar (nota 38/100)','CGU 2023: R$ 2,1 bi em irregularidades identificadas em 2022','IBGE: corrupção custa até 2,3% do PIB ao ano (Fórum Econômico Mundial)','Portal da Transparência: mais de 100 mi de acessos/ano','Lei Anticorrupção (Lei 12.846/2013): 300+ acordos de leniência firmados'],
+    leis: ['Lei 12.846/2013 (Lei Anticorrupção — responsabilidade objetiva da PJ)','Lei 8.429/92 (LIA — Improbidade Administrativa, atualizada em 2021)','Lei 12.527/2011 (LAI — Lei de Acesso à Informação)','LC 131/2009 (Lei da Transparência)','Lei 9.613/98 (Lavagem de Dinheiro, atualizada pela Lei 12.683/2012)'],
+    propostas: ['Fortalecimento dos órgãos de controle (CGU, TCU, MP) com autonomia orçamentária','Lei de proteção a denunciantes (whistleblowers) — PL em tramitação','Ampliação do Portal da Transparência com dados em tempo real','Programas de integridade (compliance) obrigatórios para empresas que contratam com o governo','Educação cidadã sobre ética e controle social desde o ensino fundamental'],
+  },
+  financeiro: {
+    palavras: ['banco','financeiro','crédito','juros','inadimplência','bancarização','Pix','fintechs','poupança','investimento','spread','BACEN','CEF','Caixa','Banco do Brasil'],
+    dados: ['IBGE/Febraban 2022: 34 mi de desbancarizados antes do Pix','Pix: redução de 60% nas tarifas de TED e DOC (BACEN 2023)','Inadimplência no Brasil: 70+ mi de CPFs com restrições (Serasa 2023)','Spread bancário: 19,8 p.p. (um dos maiores do mundo — BACEN 2023)','Taxa de poupança das famílias brasileiras: 15% da renda disponível (FMI 2023)'],
+    leis: ['Lei 13.999/2020 (PRONAMPE — apoio a micro e pequenas empresas)','LGPD (Lei 13.709/2018) aplicada ao setor bancário','Res. CMN 4.949/2021 (prevenção de riscos na contratação bancária)','LC 105/2001 (sigilo bancário)','Decreto 10.393/2020 (ENEF — Estratégia Nacional de Educação Financeira)'],
+    propostas: ['Expansão do Open Finance para aumentar a concorrência e reduzir o spread','Ampliação dos correspondentes bancários em municípios sem agência','Programas de educação financeira nas escolas (ENEF)','Regulação das fintechs para equilibrar inovação e proteção ao consumidor','Microcrédito produtivo orientado para empreendedores informais (PRONAMPE)'],
+  },
+  habitacao: {
+    palavras: ['moradia','habitação','casa','déficit','PMCMV','minha casa','favela','urbanização','regularização','fundiária','aluguel','saneamento'],
+    dados: ['FGV/CBIC 2022: déficit habitacional de 8 mi de moradias','80% do déficit concentrado em famílias com renda até 3 salários mínimos','IBGE: 13 mi de pessoas vivem em aglomerados subnormais (favelas)','Lei 14.026/2020: universalização do saneamento até 2033','35 mi de brasileiros sem acesso a água tratada (IBGE 2022)'],
+    leis: ['Art. 6º CF/88 (moradia como direito social — EC 26/2000)','Lei 11.977/2009 (PMCMV — Minha Casa Minha Vida)','Lei 13.465/2017 (Regularização Fundiária — REURB)','Lei 10.257/2001 (Estatuto da Cidade)'],
+    propostas: ['Ampliação do Programa Minha Casa Minha Vida com foco na Faixa 1 (mais vulneráveis)','Regularização fundiária urbana via REURB em assentamentos informais','Urbanização de favelas com saneamento, mobilidade e equipamentos públicos','Crédito habitacional subsidiado via FGTS para famílias de baixa renda','Planos Locais de Habitação de Interesse Social (PLHIS) nos municípios'],
+  },
+};
+
+function detectarTema(titulo) {
+  const t = titulo.toLowerCase();
+  for (const [chave, dados] of Object.entries(DADOS_TEMA)) {
+    if (dados.palavras.some(p => t.includes(p))) return dados;
+  }
+  return null;
+}
+
+function setAbaApoio(aba) {
+  ['dados','dicas','modelo','checklist'].forEach(a => {
+    const btn = document.getElementById(`aba-apoio-${a}`);
+    const painel = document.getElementById(`painel-${a}`);
+    if (btn) btn.classList.toggle('active', a === aba);
+    if (painel) painel.style.display = a === aba ? 'block' : 'none';
+  });
+}
+
+function renderizarApoio(titulo) {
+  const tema = detectarTema(titulo);
+
+  // === PAINEL DADOS ===
+  const pDados = document.getElementById('painel-dados');
+  if (tema) {
+    pDados.innerHTML = `
+      <div class="section-box" style="margin-bottom:8px;">
+        <div class="section-label">📊 DADOS PARA SUA REDAÇÃO</div>
+        ${tema.dados.map(d => `<div style="font-size:11px;color:#c0d0b0;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);">📌 ${d}</div>`).join('')}
+      </div>
+      <div class="section-box" style="margin-bottom:8px;">
+        <div class="section-label">⚖️ LEIS E REFERÊNCIAS</div>
+        ${tema.leis.map(l => `<div style="font-size:11px;color:#a0b8d0;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);">📋 ${l}</div>`).join('')}
+      </div>
+      <div class="section-box">
+        <div class="section-label">💡 PROPOSTAS DE INTERVENÇÃO</div>
+        ${tema.propostas.map(p => `<div style="font-size:11px;color:#d0c0a0;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);">→ ${p}</div>`).join('')}
+      </div>`;
+  } else {
+    pDados.innerHTML = `<div class="section-box"><div class="section-label">📊 DADOS</div><div style="font-size:12px;color:var(--muted);">Digite o tema para carregar dados específicos. Para temas personalizados, use dados do IBGE, OMS, IPEA e legislação pertinente.</div></div>`;
+  }
+
+  // === PAINEL DICAS ===
+  document.getElementById('painel-dicas').innerHTML = `
+    <div class="section-box" style="margin-bottom:8px;">
+      <div class="section-label">📝 ESTRUTURA IDEAL</div>
+      <div style="font-size:11px;color:#c0d0c0;line-height:1.8;">
+        <b style="color:var(--ouro);">Introdução (4-6 linhas)</b><br>
+        → Dado estatístico ou citação de autoridade<br>
+        → Contextualização do problema<br>
+        → Tese clara: seu posicionamento<br><br>
+        <b style="color:var(--ouro);">Desenvolvimento 1 (6-8 linhas)</b><br>
+        → Tópico frasal (anuncia o argumento)<br>
+        → Explicação + causa ou consequência<br>
+        → Evidência: lei, dado, exemplo concreto<br><br>
+        <b style="color:var(--ouro);">Desenvolvimento 2 (6-8 linhas)</b><br>
+        → Segundo argumento (use: "Além disso" / "Ademais")<br>
+        → Explicação + impacto social<br>
+        → Evidência diferente do parágrafo 1<br><br>
+        <b style="color:var(--ouro);">Conclusão (4-5 linhas)</b><br>
+        → Retomada da tese (sem copiar a introdução)<br>
+        → Proposta: QUEM + O QUÊ + PARA QUÊ
+      </div>
+    </div>
+    <div class="section-box" style="margin-bottom:8px;">
+      <div class="section-label">🔗 CONECTIVOS ESSENCIAIS</div>
+      <div style="font-size:11px;color:#b0c0d0;line-height:1.9;">
+        <b style="color:#9ab0c0;">Introduzir argumento:</b> Primeiramente, Inicialmente, Em primeiro lugar<br>
+        <b style="color:#9ab0c0;">Adicionar argumento:</b> Além disso, Ademais, Outrossim, Soma-se a isso<br>
+        <b style="color:#9ab0c0;">Contrastar:</b> No entanto, Todavia, Contudo, Entretanto<br>
+        <b style="color:#9ab0c0;">Conceder:</b> Embora, Ainda que, Apesar de, A despeito de<br>
+        <b style="color:#9ab0c0;">Concluir:</b> Portanto, Logo, Assim sendo, Diante do exposto<br>
+        <b style="color:#9ab0c0;">Exemplificar:</b> Por exemplo, A título de ilustração, Nesse sentido
+      </div>
+    </div>
+    <div class="section-box">
+      <div class="section-label">⚠️ EVITE ESTES ERROS</div>
+      <div style="font-size:11px;color:#d0a090;line-height:1.8;">
+        ✗ "Desde os primórdios da humanidade..." (clichê)<br>
+        ✗ "Nos dias atuais..." (clichê)<br>
+        ✗ "Vou falar sobre..." (informal)<br>
+        ✗ "É de fundamental importância..." (vago)<br>
+        ✗ Repetir "o mesmo" como pronome<br>
+        ✗ Gerundismo: "vou estar analisando"<br>
+        ✗ Proposta vaga: "o governo deve agir"
+      </div>
+    </div>`;
+
+  // === PAINEL MODELO ===
+  const tituloMod = titulo.length > 60 ? titulo.substring(0,57)+'...' : titulo;
+  const dadoMod = tema ? tema.dados[0] : 'Segundo dados recentes, o tema em questão demanda atenção urgente do poder público';
+  const leiMod = tema ? tema.leis[0] : 'a legislação vigente';
+  const propMod = tema ? tema.propostas[0] : 'políticas públicas integradas com participação da sociedade civil';
+  document.getElementById('painel-modelo').innerHTML = `
+    <div class="section-box">
+      <div class="section-label">📝 MODELO DE REDAÇÃO — USE COMO REFERÊNCIA</div>
+      <div style="font-size:11px;color:#8a9aaa;margin-bottom:8px;">⚠️ Leia, não copie. Use como exemplo de estrutura e linguagem.</div>
+      <div style="font-size:12px;color:#d0c0a0;line-height:1.9;font-style:italic;">
+        <b style="color:var(--rosa);font-style:normal;">INTRODUÇÃO</b><br>
+        ${dadoMod}. Esse cenário evidencia que o tema "${tituloMod}" constitui desafio central para a sociedade brasileira contemporânea, exigindo ações coordenadas e efetivas do poder público e da coletividade.<br><br>
+        <b style="color:var(--rosa);font-style:normal;">DESENVOLVIMENTO 1</b><br>
+        Primeiramente, é necessário compreender as causas estruturais do problema. A herança histórica de desigualdades sociais, aliada à insuficiência das políticas públicas, cria um ciclo vicioso que perpetua a situação. Nesse sentido, ${leiMod} representa um marco regulatório importante, mas sua implementação plena ainda enfrenta obstáculos orçamentários e institucionais.<br><br>
+        <b style="color:var(--rosa);font-style:normal;">DESENVOLVIMENTO 2</b><br>
+        Ademais, os impactos do problema ultrapassam a dimensão individual e afetam toda a coletividade. A ausência de intervenção efetiva resulta em custos sociais e econômicos elevados, comprometendo o desenvolvimento nacional e o bem-estar da população mais vulnerável. Dados recentes reforçam a urgência de mudanças estruturais.<br><br>
+        <b style="color:var(--rosa);font-style:normal;">CONCLUSÃO</b><br>
+        Diante do exposto, é imprescindível que o Estado brasileiro adote medidas concretas para enfrentar esse desafio. Assim, propõe-se que ${propMod}, viabilizando, dessa forma, a construção de uma sociedade mais justa e equânime, em consonância com os objetivos fundamentais da República previstos no art. 3º da Constituição Federal de 1988.
+      </div>
+    </div>`;
+
+  // === PAINEL CHECKLIST ===
+  document.getElementById('painel-checklist').innerHTML = `
+    <div class="section-box">
+      <div class="section-label">✅ CHECKLIST ANTES DE CORRIGIR</div>
+      <div id="checklist-itens">
+        ${[
+          ['intro-tese','Introdução tem tese clara (não apenas descrição do tema)?'],
+          ['intro-dado','Introdução usa dado ou referência confiável?'],
+          ['dev1-topico','1º parágrafo tem tópico frasal?'],
+          ['dev1-evidencia','1º parágrafo tem evidência (lei, dado, exemplo)?'],
+          ['dev2-topico','2º parágrafo tem tópico frasal diferente do 1º?'],
+          ['dev2-evidencia','2º parágrafo tem evidência diferente do 1º?'],
+          ['conclusao-retoma','Conclusão retoma a tese com palavras diferentes?'],
+          ['conclusao-proposta','Proposta de intervenção tem: QUEM + O QUÊ + PARA QUÊ?'],
+          ['sem-cliche','Texto sem clichês (desde os primórdios, nos dias atuais)?'],
+          ['conectivos','Conectivos variados entre os parágrafos?'],
+          ['linguagem','Linguagem formal (sem gírias, sem gerundismo)?'],
+          ['min-palavras','Texto tem no mínimo 80 palavras?'],
+        ].map(([id, texto]) => `
+          <label style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;">
+            <input type="checkbox" id="chk-${id}" style="width:15px;height:15px;accent-color:var(--verde);">
+            <span id="txt-${id}" style="font-size:11px;color:#b0c0d0;">${texto}</span>
+          </label>`).join('')}
+      </div>
+      <div style="margin-top:10px;text-align:center;">
+        <button class="btn-small" style="border:1px solid rgba(61,184,138,0.4);color:var(--verde);" onclick="verificarChecklist()">Verificar progresso</button>
+        <div id="checklist-result" style="font-size:12px;margin-top:6px;"></div>
+      </div>
+    </div>`;
+
+  // Atualizar checklist visualmente ao marcar
+  document.querySelectorAll('[id^="chk-"]').forEach(chk => {
+    chk.addEventListener('change', () => {
+      const txt = document.getElementById(chk.id.replace('chk-','txt-'));
+      if (txt) txt.style.color = chk.checked ? 'var(--verde)' : '#b0c0d0';
+    });
+  });
+}
+
+function verificarChecklist() {
+  const total = document.querySelectorAll('[id^="chk-"]').length;
+  const marcados = document.querySelectorAll('[id^="chk-"]:checked').length;
+  const pct = Math.round((marcados/total)*100);
+  const el = document.getElementById('checklist-result');
+  if (pct === 100) {
+    el.innerHTML = `<span style="color:var(--verde);">✅ Perfeito! Sua redação está pronta para correção.</span>`;
+  } else if (pct >= 70) {
+    el.innerHTML = `<span style="color:var(--ouro);">⚡ ${marcados}/${total} itens — quase lá! Revise os itens pendentes.</span>`;
+  } else {
+    el.innerHTML = `<span style="color:var(--verm);">📌 ${marcados}/${total} itens — revise a estrutura antes de enviar.</span>`;
+  }
+}
+
+function redacaoVoltarTema() {
+  document.getElementById('redacao-etapa-tema').style.display = 'block';
+  document.getElementById('redacao-etapa-escrever').style.display = 'none';
+  document.getElementById('redacao-etapa-feedback').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const ta = document.getElementById('redacao-texto');
+  if (ta) ta.addEventListener('input', atualizarPalavras);
+});
+
+function atualizarPalavras() {
+  const texto = document.getElementById('redacao-texto').value.trim();
+  const pal = texto ? texto.split(/\s+/).length : 0;
+  document.getElementById('pal-count').textContent = pal + ' palavras';
+  const statusEl = document.getElementById('pal-status');
+  const btnCorr = document.getElementById('btn-corrigir');
+  if (pal >= 80) {
+    statusEl.textContent = '✓ Mínimo OK';
+    statusEl.style.color = COR.verde;
+    if (btnCorr) { btnCorr.disabled = false; btnCorr.style.background = 'linear-gradient(135deg,#c06090,#d96a9a)'; btnCorr.style.color = '#fff'; }
+  } else {
+    statusEl.textContent = 'Mínimo: 80 palavras';
+    statusEl.style.color = COR.verm;
+    if (btnCorr) { btnCorr.disabled = true; btnCorr.style.background = '#2a3a4a'; btnCorr.style.color = '#4a6a8a'; }
+  }
+}
+
+async function corrigirRedacao() {
+  const tituloFinal = temaSelecionado.titulo === '✏️ Digitar meu próprio tema'
+    ? document.getElementById('tema-custom-input').value.trim()
+    : temaSelecionado.titulo;
+  const texto = document.getElementById('redacao-texto').value;
+  const pal = texto.trim().split(/\s+/).length;
+  if (!tituloFinal || pal < 80) return;
+
+  const btn = document.getElementById('btn-corrigir');
+  btn.textContent = '⏳ Corrigindo...'; btn.disabled = true;
+
+  // Verificar se tem API key configurada
+  if (!anthropicKey || !anthropicKey.startsWith('sk-ant-')) {
+    mostrarFeedbackRedacao({
+      erro: true,
+      msg: 'Configure sua chave de API Anthropic na tela inicial (campo "Chave de API Anthropic") para usar a correção por IA. Obtenha em console.anthropic.com → API Keys.'
+    });
+    btn.textContent = '🤖 CORRIGIR COM IA →'; btn.disabled = false;
+    return;
+  }
+
+  const prompt = `Você é corretor especialista em redações de concurso público (Cesgranrio), nível escriturário BB.\n\nTema: "${tituloFinal}"\nRedação:\n${texto}\n\nAvalie segundo os critérios da Cesgranrio para o BB:\n- Adequação ao tema e à proposta\n- Domínio da modalidade dissertativa-argumentativa\n- Coesão e coerência textual\n- Registro e norma-padrão\n- Proposta de intervenção (agente+ação+efeito)\n\nResponda APENAS JSON sem markdown, sem texto antes ou depois:\n{"nota":<0-10>,"nivel":"<Insuficiente|Regular|Bom|Muito Bom|Excelente>","pontos_fortes":["...","...","..."],"pontos_melhorar":["...","...","..."],"estrutura":{"introducao":"<Presente|Fraca|Ausente>","desenvolvimento":"<Presente|Fraca|Ausente>","conclusao":"<Presente|Fraca|Ausente>","proposta_intervencao":"<Presente|Fraca|Ausente>"},"criterios":{"coesao":<0-10>,"coerencia":<0-10>,"argumentacao":<0-10>,"portugues":<0-10>,"adequacao_tema":<0-10>},"comentario_geral":"<2-3 frases motivadoras com dica prática>"}`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': anthropicKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1200,
+        messages: [{role:'user', content: prompt}]
+      })
+    });
+
+    if (!resp.ok) {
+      const errBody = await resp.text().catch(() => '');
+      console.error('API error', resp.status, errBody);
+      mostrarFeedbackRedacao({erro:true, status: resp.status, msg: errBody.slice(0,200)});
+      btn.textContent = '🤖 CORRIGIR COM IA →'; btn.disabled = false;
+      return;
+    }
+
+    const data = await resp.json();
+    const txt = data.content?.find(b => b.type === 'text')?.text || '{}';
+    // limpar possíveis marcações de código antes do parse
+    const limpo = txt.replace(/^```json\s*/,'').replace(/\s*```$/,'').trim();
+    let fb;
+    try {
+      fb = JSON.parse(limpo);
+    } catch(parseErr) {
+      console.error('JSON parse error:', parseErr, 'raw:', limpo);
+      mostrarFeedbackRedacao({erro:true, msg:'Resposta inválida da IA.'});
+      btn.textContent = '🤖 CORRIGIR COM IA →'; btn.disabled = false;
+      return;
+    }
+    mostrarFeedbackRedacao(fb);
+
+  } catch(e) {
+    console.error('Fetch error:', e);
+    mostrarFeedbackRedacao({erro:true, msg: e.message || 'Erro de conexão.'});
+  }
+  btn.textContent = '🤖 CORRIGIR COM IA →'; btn.disabled = false;
+}
+
+function mostrarFeedbackRedacao(fb) {
+  document.getElementById('redacao-etapa-escrever').style.display = 'none';
+  const el = document.getElementById('redacao-etapa-feedback');
+  el.style.display = 'block';
+
+  if (fb.erro) {
+    const dica = fb.status === 401
+      ? 'A plataforma está sendo acessada sem autenticação. Abra via GitHub Pages com o site configurado corretamente.'
+      : fb.status === 529 || fb.status === 503
+      ? 'A IA está sobrecarregada. Aguarde 30 segundos e tente novamente.'
+      : fb.msg || 'Verifique sua conexão e tente novamente.';
+    el.innerHTML = `<div style="text-align:center;padding:28px;">
+      <div style="font-size:34px;margin-bottom:8px;">⚠️</div>
+      <div style="color:${COR.verm};font-size:14px;margin-bottom:8px;font-weight:600;">Erro na correção</div>
+      <div style="color:var(--muted);font-size:12px;margin-bottom:16px;max-width:320px;margin-left:auto;margin-right:auto;line-height:1.6;">${dica}</div>
+      <button onclick="document.getElementById('redacao-etapa-escrever').style.display='block';document.getElementById('redacao-etapa-feedback').style.display='none';" style="padding:9px 18px;background:transparent;border:1px solid ${COR.rosa};color:${COR.rosa};border-radius:7px;cursor:pointer;font-family:'IBM Plex Mono',monospace;">← Tentar novamente</button>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="font-size:46px;margin-bottom:4px;">${fb.nota>=8?'🏆':fb.nota>=6?'📈':'📚'}</div>
+      <div style="font-size:38px;font-weight:bold;color:${fb.nota>=7?COR.verde:fb.nota>=5?COR.ouro:COR.verm};font-family:'Playfair Display',serif;">${fb.nota}/10</div>
+      <div style="font-size:13px;color:#c0b090;margin-top:2px;">${fb.nivel}</div>
+    </div>
+    <div style="background:rgba(200,153,42,0.07);border:1px solid rgba(200,153,42,0.2);border-radius:9px;padding:13px;margin-bottom:11px;font-size:13px;line-height:1.7;color:#d0c0a0;font-style:italic;">
+      💬 ${fb.comentario_geral}
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;">
+      <div style="background:rgba(61,184,138,0.08);border:1px solid rgba(61,184,138,0.2);border-radius:9px;padding:11px;">
+        <div style="font-size:9px;color:${COR.verde};font-family:'IBM Plex Mono',monospace;margin-bottom:7px;">✅ PONTOS FORTES</div>
+        ${(fb.pontos_fortes||[]).map(p=>`<div style="font-size:11px;color:#c0d0c0;margin-bottom:4px;">• ${p}</div>`).join('')}
+      </div>
+      <div style="background:rgba(224,80,64,0.08);border:1px solid rgba(224,80,64,0.2);border-radius:9px;padding:11px;">
+        <div style="font-size:9px;color:${COR.verm};font-family:'IBM Plex Mono',monospace;margin-bottom:7px;">📌 A MELHORAR</div>
+        ${(fb.pontos_melhorar||[]).map(p=>`<div style="font-size:11px;color:#d0c0b0;margin-bottom:4px;">• ${p}</div>`).join('')}
+      </div>
+    </div>
+    <div class="section-box" style="margin-bottom:11px;">
+      <div class="section-label">CRITÉRIOS</div>
+      ${Object.entries(fb.criterios||{}).map(([k,v])=>`
+        <div class="criterio-bar">
+          <div class="criterio-top"><span style="font-size:11px;text-transform:capitalize;">${k.replace('_',' ')}</span><span class="mono" style="font-size:11px;color:${v>=7?COR.verde:v>=5?COR.ouro:COR.verm};">${v}/10</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${v*10}%;background:${v>=7?COR.verde:v>=5?COR.ouro:COR.verm};"></div></div>
+        </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+      <button onclick="document.getElementById('redacao-etapa-escrever').style.display='block';document.getElementById('redacao-etapa-feedback').style.display='none';" class="btn-small" style="flex:2;border:1px solid ${COR.rosa}66;color:${COR.rosa};">✏️ Reescrever</button>
+      <button onclick="redacaoVoltarTema();document.getElementById('redacao-texto').value='';temaSelecionado=null;" class="btn-small" style="flex:2;background:linear-gradient(135deg,#c06090,#d96a9a);color:#fff;border:none;">📌 Novo Tema</button>
+      <button onclick="voltarMenu();" class="btn-small" style="flex:1;border:1px solid rgba(200,153,42,0.3);color:var(--ouro);">← Menu</button>
+    </div>
+    <button id="btn-modelo" onclick="gerarModeloRedacao()" style="width:100%;padding:12px;background:rgba(74,144,217,0.12);border:1px solid rgba(74,144,217,0.35);color:var(--azul);border-radius:9px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;">
+      📄 VER MODELO DE RESPOSTA DA IA
+    </button>
+    <div id="modelo-redacao-box" style="display:none;margin-top:12px;background:rgba(74,144,217,0.05);border:1px solid rgba(74,144,217,0.2);border-radius:10px;padding:16px;">
+      <div style="font-size:9px;color:var(--azul);font-family:'IBM Plex Mono',monospace;letter-spacing:3px;margin-bottom:10px;">📄 MODELO — CLAUDE SONNET 4</div>
+      <div id="modelo-redacao-texto" style="font-size:13px;line-height:1.85;color:#d0c8b8;white-space:pre-wrap;"></div>
+    </div>`;
+}
+
+async function gerarModeloRedacao() {
+  const btn = document.getElementById('btn-modelo');
+  const box = document.getElementById('modelo-redacao-box');
+  const textoEl = document.getElementById('modelo-redacao-texto');
+  if (!temaSelecionado) return;
+
+  const tituloFinal = temaSelecionado.titulo === '✏️ Digitar meu próprio tema'
+    ? document.getElementById('tema-custom-input')?.value?.trim() || 'Tema livre'
+    : temaSelecionado.titulo;
+
+  btn.textContent = '⏳ Gerando modelo...';
+  btn.disabled = true;
+  box.style.display = 'block';
+  textoEl.textContent = 'Aguarde — o Claude Sonnet 4 está escrevendo o modelo...';
+
+  if (!anthropicKey || !anthropicKey.startsWith('sk-ant-')) {
+    textoEl.textContent = 'Configure sua chave de API Anthropic na tela inicial para gerar o modelo.';
+    btn.textContent = '📄 VER MODELO DE RESPOSTA DA IA';
+    btn.disabled = false;
+    return;
+  }
+
+  const prompt = `Escreva uma redação dissertativa-argumentativa de concurso público (padrão Cesgranrio/Banco do Brasil) sobre o tema:
+
+"${tituloFinal}"
+
+Regras obrigatórias:
+- Entre 25 e 30 linhas
+- Estrutura: introdução (dado real + tese clara), 2 parágrafos de desenvolvimento com argumento + exemplo + dado, conclusão com proposta de intervenção (agente + ação específica + efeito esperado)
+- Linguagem formal, sem gírias ou coloquialismos
+- NÃO use marcadores como [Introdução], [Desenvolvimento] etc.
+- Escreva o texto corrido, como numa redação real de prova
+- Finalize com proposta concreta envolvendo o Banco do Brasil ou instituição bancária relevante ao tema
+
+Escreva APENAS o texto da redação, sem título separado, sem explicações antes ou depois.`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': anthropicKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1200,
+        messages: [{role:'user', content: prompt}]
+      })
+    });
+
+    if (!resp.ok) {
+      textoEl.textContent = `Erro ${resp.status} — verifique sua conexão e tente novamente.`;
+      btn.textContent = '📄 VER MODELO DE RESPOSTA DA IA';
+      btn.disabled = false;
+      return;
+    }
+
+    const data = await resp.json();
+    const modelo = data.content?.find(b => b.type === 'text')?.text || '';
+    textoEl.textContent = modelo.trim();
+    btn.textContent = '🔄 Gerar outro modelo';
+    btn.disabled = false;
+
+  } catch(e) {
+    textoEl.textContent = 'Erro de conexão: ' + (e.message || 'tente novamente.');
+    btn.textContent = '📄 VER MODELO DE RESPOSTA DA IA';
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
