@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Treinador de Redação — BB/Cesgranrio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0e0e12;--surface:#15151c;--card:#1c1c26;--border:rgba(255,255,255,0.08);
+  --ouro:#c8992a;--verde:#3db88a;--verm:#e05040;--azul:#4a90d9;
+  --roxo:#8a6ad9;--rosa:#d96a9a;--ciano:#4ab8b8;--muted:#7a7a9a;
+  --text:#e8e0d0;--mono:'IBM Plex Mono',monospace;--serif:'Lora',Georgia,serif;
+  --display:'Playfair Display',serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);min-height:100vh;}
+
+/* ── HEADER ── */
+.hdr{background:var(--surface);border-bottom:2px solid var(--ouro);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;}
+.hdr-title{font-family:var(--display);font-size:18px;color:var(--ouro);}
+.hdr-back{font-family:var(--mono);font-size:10px;color:var(--muted);text-decoration:none;padding:5px 10px;border:1px solid var(--border);border-radius:6px;transition:color .2s;}
+.hdr-back:hover{color:var(--ouro);}
+.hdr-badge{font-family:var(--mono);font-size:9px;letter-spacing:2px;background:var(--ouro)22;border:1px solid var(--ouro)44;color:var(--ouro);padding:3px 8px;border-radius:10px;}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;padding:0 16px;}
+.tab{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;padding:12px 16px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;}
+.tab.ativo{color:var(--ouro);border-bottom-color:var(--ouro);}
+.tab:hover{color:var(--text);}
+.aba{display:none;padding:20px 16px;max-width:760px;margin:0 auto;}
+.aba.ativo{display:block;}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;}
+.card-titulo{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--ouro);margin-bottom:10px;}
+.section-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin:18px 0 8px;}
+
+/* ── INPUTS ── */
+input[type=text],textarea,select{
+  width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:8px;padding:10px 12px;color:var(--text);font-family:var(--serif);
+  font-size:13px;outline:none;transition:border .2s;
+}
+input[type=text]:focus,textarea:focus,select:focus{border-color:var(--ouro)66;}
+textarea{resize:vertical;min-height:90px;line-height:1.7;}
+label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-family:var(--mono);}
+.field{margin-bottom:12px;}
+
+/* ── BUTTONS ── */
+.btn{padding:10px 18px;border-radius:8px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:1px;border:none;transition:all .2s;}
+.btn-ouro{background:linear-gradient(135deg,#a07018,var(--ouro));color:#0e0e12;font-weight:600;}
+.btn-ouro:hover{opacity:.88;}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}
+.btn-ghost:hover{border-color:var(--ouro);color:var(--ouro);}
+.btn-verde{background:rgba(61,184,138,.15);border:1px solid rgba(61,184,138,.35);color:var(--verde);}
+.btn-azul{background:rgba(74,144,217,.15);border:1px solid rgba(74,144,217,.35);color:var(--azul);}
+.btn-verm{background:rgba(224,80,64,.15);border:1px solid rgba(224,80,64,.35);color:var(--verm);}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+
+/* ── CHIPS ── */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.chip{padding:4px 12px;border-radius:20px;font-size:11px;cursor:pointer;font-family:var(--mono);border:1px solid var(--border);color:var(--muted);transition:all .2s;}
+.chip:hover,.chip.sel{border-color:var(--ouro);color:var(--ouro);background:var(--ouro)11;}
+.chip.sel-azul{border-color:var(--azul);color:var(--azul);background:var(--azul)11;}
+
+/* ── ESTRUTURA VISUAL FTTD ── */
+.fttd-fluxo{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0;}
+.fttd-box{background:var(--ouro)18;border:1px solid var(--ouro)44;border-radius:8px;padding:8px 14px;font-family:var(--mono);font-size:10px;text-align:center;color:var(--ouro);}
+.fttd-box span{display:block;font-size:18px;font-family:var(--display);}
+.fttd-arrow{color:var(--muted);font-size:14px;}
+
+/* ── RAIO-X ── */
+.rx-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.rx-item:last-child{border:none;}
+.rx-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.rx-ok{background:var(--verde);}
+.rx-no{background:var(--verm);}
+.rx-nd{background:var(--muted);}
+
+/* ── CIRURGIA ── */
+.cir-legenda{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.cir-tag{padding:3px 10px;border-radius:12px;font-size:10px;font-family:var(--mono);cursor:pointer;opacity:.8;}
+.cir-tag:hover{opacity:1;}
+.cir-texto{font-size:13px;line-height:2;padding:14px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid var(--border);min-height:120px;}
+
+/* ── NIVEL / BADGE ── */
+.nivel-badge{display:inline-block;background:var(--ouro)22;border:1px solid var(--ouro)55;border-radius:20px;padding:4px 14px;font-family:var(--mono);font-size:10px;color:var(--ouro);margin-bottom:14px;}
+.progresso-bar{background:rgba(255,255,255,.06);border-radius:4px;height:6px;margin:6px 0 14px;}
+.progresso-fill{background:linear-gradient(90deg,#a07018,var(--ouro));border-radius:4px;height:6px;transition:width .5s;}
+
+/* ── OUTPUT IA ── */
+.ia-output{background:rgba(74,144,217,.07);border:1px solid rgba(74,144,217,.2);border-radius:10px;padding:14px;margin-top:12px;font-size:12px;line-height:1.8;color:#c0d8f0;display:none;}
+.ia-output.vis{display:block;}
+.ia-output .ia-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--azul);margin-bottom:8px;}
+
+/* ── TEMA CARD ── */
+.tema-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:border .2s;}
+.tema-card:hover,.tema-card.sel{border-color:var(--ouro);}
+.tema-titulo{font-size:13px;font-weight:600;margin-bottom:4px;}
+.tema-meta{font-family:var(--mono);font-size:9px;color:var(--muted);}
+
+/* ── CHECKLIST ── */
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;}
+.check-item input[type=checkbox]{margin-top:2px;accent-color:var(--ouro);}
+.check-group{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--ouro);padding:10px 0 4px;}
+
+/* ── SPIN LOADING ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--azul);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px;}
+
+/* ── RESPONSIVO ── */
+@media(max-width:540px){
+  .hdr-title{font-size:15px;}
+  .tab{font-size:9px;padding:10px 10px;}
+  .fttd-fluxo{gap:4px;}
+  .fttd-box span{font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <a class="hdr-back" href="index.html">← Plataforma</a>
+  <div class="hdr-title">✍️ Treinador de Redação</div>
+  <div class="hdr-badge">BB · CESGRANRIO</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab ativo" onclick="setTab('fttd')">🏗️ FTTD</div>
+  <div class="tab" onclick="setTab('argumentos')">🧠 Argumentos</div>
+  <div class="tab" onclick="setTab('raio_x')">🔬 Raio-X</div>
+  <div class="tab" onclick="setTab('cirurgia')">🔪 Cirurgia</div>
+  <div class="tab" onclick="setTab('checklist')">✅ Checklist</div>
+  <div class="tab" onclick="setTab('temas')">📋 Temas</div>
+  <div class="tab" onclick="setTab('treino')">🎯 Treino</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ABA 1 — GERADOR DE ESTRUTURA FTTD
+══════════════════════════════════════════════════════════════ -->
+<div id="aba-fttd" class="aba ativo">
+
+  <div class="fttd-fluxo">
+    <div class="fttd-box"><span>F</span>enômeno</div>
+    <div class="fttd-arrow">→</div>
+    <div class="fttd-box"><span>T</span>ema</div>
+    <div class="fttd-arrow">→</div>
+    <div class="fttd-box"><span>T</span>ese</div>
+    <div class="fttd-arrow">→</div>
+    <div class="fttd-box"><span>D</span>esenv.</div>
+  </div>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:16px;font-family:var(--mono);">Toda redação nasce de 4 elementos. Preencha antes de escrever uma linha.</p>
+
+  <div class="card">
+    <div class="card-titulo">TEMA DA REDAÇÃO</div>
+    <div class="field">
+      <label>Digite ou escolha na aba Temas</label>
+      <input type="text" id="fttd-tema" placeholder="Ex: Impactos da informatização bancária no Brasil" oninput="fttdSugerirFenomeno()"/>
+    </div>
+    <div class="btns">
+      <button class="btn btn-ouro" onclick="fttdGerarIA()">🤖 Gerar estrutura com IA</button>
+      <button class="btn btn-ghost" onclick="fttdLimpar()">↺ Limpar</button>
+    </div>
+  </div>
+
+  <!-- F — FENÔMENO -->
+  <div class="card">
+    <div class="card-titulo">F — FENÔMENO <span style="font-weight:400;color:var(--muted)">Qual fenômeno maior gerou esse tema?</span></div>
+    <div class="chips" id="chips-fenomeno"></div>
+    <div class="field" style="margin-top:10px;">
+      <textarea id="fttd-fenomeno" rows="2" placeholder="Ex: Revolução tecnológica e digitalização dos serviços financeiros"></textarea>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:4px;" id="fttd-contextualizacao"></div>
+  </div>
+
+  <!-- T — TEMA -->
+  <div class="card">
+    <div class="card-titulo">T — TEMA ESPECÍFICO <span style="font-weight:400;color:var(--muted)">Sobre qual parte do fenômeno você fala?</span></div>
+    <div class="field">
+      <textarea id="fttd-temaspec" rows="2" placeholder="Ex: Informatização dos serviços bancários e inclusão financeira digital"></textarea>
+    </div>
+  </div>
+
+  <!-- T — TESE -->
+  <div class="card">
+    <div class="card-titulo">T — TESE <span style="font-weight:400;color:var(--muted)">Quais são os 2 eixos de discussão?</span></div>
+    <div class="chips" id="chips-tese" style="margin-bottom:10px;"></div>
+    <div style="display:flex;gap:10px;">
+      <div class="field" style="flex:1;">
+        <label>Eixo 1</label>
+        <input type="text" id="fttd-eixo1" placeholder="Ex: Eficiência operacional"/>
+      </div>
+      <div class="field" style="flex:1;">
+        <label>Eixo 2</label>
+        <input type="text" id="fttd-eixo2" placeholder="Ex: Inclusão digital"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>Frase da tese (gerada automaticamente)</label>
+      <textarea id="fttd-tese-frase" rows="2" placeholder="Será gerada ao preencher os eixos..."></textarea>
+    </div>
+  </div>
+
+  <!-- D — DESENVOLVIMENTO -->
+  <div class="card">
+    <div class="card-titulo">D — DESENVOLVIMENTO <span style="font-weight:400;color:var(--muted)">Tópicos frasais de cada eixo</span></div>
+    <div class="chips" id="chips-topico" style="margin-bottom:10px;"></div>
+    <div class="field">
+      <label>Tópico Frasal 1 (Eixo 1)</label>
+      <textarea id="fttd-tf1" rows="2" placeholder="Ex: Um dos principais benefícios da informatização bancária consiste na ampliação da eficiência..."></textarea>
+    </div>
+    <div class="field">
+      <label>Tópico Frasal 2 (Eixo 2)</label>
+      <textarea id="fttd-tf2" rows="2" placeholder="Ex: Apesar dos avanços, a inclusão digital ainda representa um desafio relevante..."></textarea>
+    </div>
+  </div>
+
+  <!-- PRÉVIA DA INTRODUÇÃO -->
+  <div class="card">
+    <div class="card-titulo">PRÉVIA DA INTRODUÇÃO</div>
+    <button class="btn btn-verde" style="margin-bottom:10px;" onclick="fttdMontarIntro()">📄 Montar introdução</button>
+    <div id="fttd-intro-preview" style="font-size:13px;line-height:1.9;color:var(--text);display:none;"></div>
+  </div>
+
+  <div class="ia-output" id="fttd-ia-out">
+    <div class="ia-label">🤖 CLAUDE SONNET 4 — ESTRUTURA GERADA</div>
+    <div id="fttd-ia-texto"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ABA 2 — MOTOR DE ARGUMENTAÇÃO
+══════════════════════════════════════════════════════════════ -->
+<div id="aba-argumentos" class="aba">
+  <div class="card">
+    <div class="card-titulo">MATRIZ UNIVERSAL DE ARGUMENTAÇÃO</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">5 dimensões que geram argumento para qualquer tema. Preencha antes de escrever.</p>
+    <div class="field">
+      <label>Tema</label>
+      <input type="text" id="arg-tema" placeholder="Ex: Educação financeira nas escolas"/>
+    </div>
+    <div class="btns">
+      <button class="btn btn-ouro" onclick="argGerarIA()">🤖 Gerar matriz com IA</button>
+      <button class="btn btn-ghost" onclick="argLimpar()">↺ Limpar</button>
+    </div>
+  </div>
+
+  <div id="arg-matriz">
+    <div class="card" style="border-left:3px solid var(--azul);">
+      <div class="card-titulo" style="color:var(--azul);">💻 DIMENSÃO TECNOLÓGICA — Qual a relação com tecnologia?</div>
+      <textarea id="arg-tec" rows="3" placeholder="eficiência · automação · segurança digital · dependência tecnológica..."></textarea>
+    </div>
+    <div class="card" style="border-left:3px solid var(--ouro);">
+      <div class="card-titulo" style="color:var(--ouro);">💰 DIMENSÃO ECONÔMICA — Qual o impacto financeiro?</div>
+      <textarea id="arg-eco" rows="3" placeholder="redução de custos · geração de renda · desigualdade econômica..."></textarea>
+    </div>
+    <div class="card" style="border-left:3px solid var(--verde);">
+      <div class="card-titulo" style="color:var(--verde);">👥 DIMENSÃO SOCIAL — Como afeta a população?</div>
+      <textarea id="arg-soc" rows="3" placeholder="inclusão · exclusão · acessibilidade · qualidade de vida..."></textarea>
+    </div>
+    <div class="card" style="border-left:3px solid var(--roxo);">
+      <div class="card-titulo" style="color:var(--roxo);">📚 DIMENSÃO EDUCACIONAL — O cidadão precisa aprender algo?</div>
+      <textarea id="arg-edu" rows="3" placeholder="educação digital · qualificação · capacitação..."></textarea>
+    </div>
+    <div class="card" style="border-left:3px solid var(--verm);">
+      <div class="card-titulo" style="color:var(--verm);">⚠️ DIMENSÃO ÉTICA — Existem riscos ou conflitos?</div>
+      <textarea id="arg-eti" rows="3" placeholder="privacidade · manipulação · segurança · responsabilidade..."></textarea>
+    </div>
+  </div>
+
+  <div class="ia-output" id="arg-ia-out">
+    <div class="ia-label">🤖 CLAUDE SONNET 4 — MATRIZ GERADA</div>
+    <div id="arg-ia-texto"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ABA 3 — RAIO-X
+══════════════════════════════════════════════════════════════ -->
+<div id="aba-raio_x" class="aba">
+  <div class="card">
+    <div class="card-titulo">RAIO-X DA REDAÇÃO</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Cole sua redação. A IA analisa cada seção e dá pontuação.</p>
+    <div class="field">
+      <label>Sua redação completa</label>
+      <textarea id="rx-texto" rows="12" placeholder="Cole aqui sua redação dissertativa-argumentativa..."></textarea>
+    </div>
+    <button class="btn btn-ouro" onclick="rxAnalisarIA()">🔬 Analisar com IA</button>
+  </div>
+
+  <div id="rx-resultado" style="display:none;">
+    <!-- INTRODUÇÃO -->
+    <div class="card">
+      <div class="card-titulo">📌 INTRODUÇÃO <span id="rx-intro-score" style="float:right;color:var(--ouro);"></span></div>
+      <div id="rx-intro-items"></div>
+    </div>
+    <!-- DESENVOLVIMENTOS -->
+    <div class="card">
+      <div class="card-titulo">📝 DESENVOLVIMENTOS <span id="rx-dev-score" style="float:right;color:var(--ouro);"></span></div>
+      <div id="rx-dev-items"></div>
+    </div>
+    <!-- CONCLUSÃO -->
+    <div class="card">
+      <div class="card-titulo">🏁 CONCLUSÃO <span id="rx-conc-score" style="float:right;color:var(--ouro);"></span></div>
+      <div id="rx-conc-items"></div>
+    </div>
+    <!-- PONTUAÇÃO TOTAL -->
+    <div class="card" style="text-align:center;">
+      <div class="card-titulo">PONTUAÇÃO TOTAL</div>
+      <div id="rx-total" style="font-family:var(--display);font-size:42px;color:var(--ouro);margin:10px 0;"></div>
+      <div id="rx-perfil" style="font-size:12px;color:var(--muted);"></div>
+    </div>
+    <div class="ia-output vis" id="rx-ia-comentario">
+      <div class="ia-label">🤖 COMENTÁRIO DO CORRETOR</div>
+      <div id="rx-ia-texto"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ABA 4 — CIRURGIA DA REDAÇÃO
+══════════════════════════════════════════════════════════════ -->
+<div id="aba-cirurgia" class="aba">
+  <div class="card">
+    <div class="card-titulo">🔪 CIRURGIA — COLORAÇÃO POR FUNÇÃO</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Cole sua redação. A IA identifica e colore cada trecho conforme sua função estrutural.</p>
+    <div class="cir-legenda">
+      <span class="cir-tag" style="background:#1a3a5a;color:#6ab0e0;">Contextualização</span>
+      <span class="cir-tag" style="background:#2a3a1a;color:#8adf60;">Tema</span>
+      <span class="cir-tag" style="background:#3a2a0a;color:#dfb040;">Tese</span>
+      <span class="cir-tag" style="background:#2a1a3a;color:#b080e0;">Tópico Frasal</span>
+      <span class="cir-tag" style="background:#1a2a3a;color:#60a0df;">Explicação</span>
+      <span class="cir-tag" style="background:#2a1a1a;color:#e06040;">Exemplo</span>
+      <span class="cir-tag" style="background:#1a1a1a;color:#a0a0a0;">Consequência</span>
+      <span class="cir-tag" style="background:#1a2a2a;color:#40dfb0;">Conclusão</span>
+    </div>
+    <div class="field">
+      <textarea id="cir-input" rows="10" placeholder="Cole sua redação aqui..."></textarea>
+    </div>
+    <div class="btns">
+      <button class="btn btn-ouro" onclick="cirurgiaIA()">🔪 Analisar estrutura com IA</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('cir-input').value='';document.getElementById('cir-output').innerHTML='';document.getElementById('cir-output').style.display='none';">↺ Limpar</button>
+    </div>
+  </div>
+
+  <div id="cir-output" class="cir-texto" style="display:none;margin-top:4px;"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ABA 5 — CHECKLIST
+══════════════════════════════════════════════════════════════ -->
+<div id="aba-checklist" class="aba">
+  <div class="card">
+    <div class="card-titulo">CHECKLIST DE CORREÇÃO — PADRÃO CESGRANRIO</div>
+    <button class="btn btn-ghost" style="margin-bottom:12px;font-size:10px;" onclick="checklistReset()">↺ Reiniciar</button>
+
+    <div class="check-group">📌 TEMA</div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Adequação total ao tema proposto</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Sem fuga parcial ou total do tema</span></div>
+
+    <div class="check-group">📐 ESTRUTURA</div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Introdução com contextualização + tema + tese</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Desenvolvimento 1 com tópico frasal</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Desenvolvimento 2 com tópico frasal</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Conclusão com proposta de intervenção (agente + ação + efeito)</span></div>
+
+    <div class="check-group">🧠 ARGUMENTAÇÃO</div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Argumento claro em cada parágrafo de desenvolvimento</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Explicação do argumento</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Exemplo ou dado concreto</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Consequência indicada</span></div>
+
+    <div class="check-group">🔗 COESÃO E COERÊNCIA</div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Conectivos adequados entre orações e parágrafos</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Progressão temática (não repete sem acrescentar)</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Coerência entre tese e desenvolvimentos</span></div>
+
+    <div class="check-group">📝 NORMA-PADRÃO</div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Ortografia correta</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Concordância verbal e nominal</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Regência verbal e nominal</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Crase corretamente empregada</span></div>
+    <div class="check-item"><input type="checkbox" onchange="checkAtualizar()"><span>Pontuação adequada (vírgulas, pontos, dois-pontos)</span></div>
+
+    <div style="margin-top:16px;text-align:center;">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:4px;font-family:var(--mono);">ITENS MARCADOS</div>
+      <div id="check-score" style="font-family:var(--display);font-size:40px;color:var(--ouro);">0/18</div>
+      <div class="progresso-bar" style="max-width:200px;margin:8px auto;">
+        <div class="progresso-fill" id="check-fill" style="width:0%;"></div>
+      </div>
+      <div id="check-nivel" style="font-size:11px;color:var(--muted);font-family:var(--mono);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ABA 6 — BANCO DE TEMAS
+══════════════════════════════════════════════════════════════ -->
+<div id="aba-temas" class="aba">
+  <div class="card">
+    <div class="card-titulo">BANCO DE TEMAS — BB/CEF/CONCURSOS</div>
+    <div class="field">
+      <input type="text" id="tema-busca" placeholder="Buscar tema..." oninput="filtrarTemas()"/>
+    </div>
+    <div class="chips" id="chips-categoria" style="margin-bottom:10px;"></div>
+  </div>
+  <div id="lista-temas"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ABA 7 — TREINO FTTD (EXERCÍCIO)
+══════════════════════════════════════════════════════════════ -->
+<div id="aba-treino" class="aba">
+  <div class="nivel-badge" id="treino-nivel-badge">NÍVEL 1/6 — IDENTIFICAR FENÔMENO</div>
+  <div class="progresso-bar"><div class="progresso-fill" id="treino-prog" style="width:16%;"></div></div>
+
+  <div class="card">
+    <div class="card-titulo" id="treino-instrucao">TEMA DO EXERCÍCIO</div>
+    <div id="treino-tema-display" style="font-size:16px;font-family:var(--display);color:var(--ouro);margin:10px 0 12px;"></div>
+    <!-- Botão de notícias -->
+    <div style="margin-bottom:14px;">
+      <button class="btn btn-ghost" onclick="treinoBuscarContexto()" style="font-size:10px;border-color:rgba(74,144,217,0.4);color:#4a90d9;">
+        📰 Gerar notícias e artigos sobre o tema
+      </button>
+    </div>
+    <!-- Painel de contexto/notícias -->
+    <div id="treino-contexto" style="display:none;background:rgba(74,144,217,0.05);border:1px solid rgba(74,144,217,0.2);border-radius:8px;padding:14px;margin-bottom:14px;font-size:12px;line-height:1.9;"></div>
+    <div id="treino-campos"></div>
+    <div class="btns" style="margin-top:14px;">
+      <button class="btn btn-ouro" onclick="treinoAvaliar()">✓ Avaliar com IA</button>
+      <button class="btn btn-ghost" onclick="treinoProxNivel()">→ Próximo nível</button>
+      <button class="btn btn-ghost" onclick="treinoNovoTema()">↺ Novo tema</button>
+    </div>
+  </div>
+
+  <div class="ia-output" id="treino-ia-out">
+    <div class="ia-label">🤖 AVALIAÇÃO DA IA</div>
+    <div id="treino-ia-texto" style="white-space:pre-wrap;line-height:1.8;"></div>
+  </div>
+
+  <!-- Painel de construção acumulada -->
+  <div class="card" id="treino-progresso-card" style="display:none;margin-top:4px;">
+    <div class="card-titulo" style="color:var(--verde);">📋 CONSTRUÇÃO ACUMULADA</div>
+    <div id="treino-progresso-painel" style="font-size:12px;line-height:1.9;"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// DADOS
+// ══════════════════════════════════════════════════════════════
+
+const FENOMENOS = {
+  'Tecnologia':    {cor:'#4a90d9', kws:['pix','ia','banco digital','internet','automação','drex','open banking','blockchain','criptografia','fintech','algoritmo','digitalização','informática','aplicativo','software'],
+    ctx:'O avanço tecnológico tem promovido profundas transformações na sociedade contemporânea, alterando a forma como as pessoas se relacionam, trabalham e acessam serviços.'},
+  'Economia':      {cor:'#c8992a', kws:['crédito','inflação','educação financeira','empreendedorismo','spread','juros','poupança','investimento','fgts','mercado','consumo','renda','desemprego','crise'],
+    ctx:'As constantes mudanças econômicas exigem maior adaptação por parte das instituições financeiras e dos cidadãos, que buscam melhores condições de vida e segurança financeira.'},
+  'Sociedade':     {cor:'#3db88a', kws:['inclusão','desigualdade','cidadania','consumidor','diversidade','vulnerável','população','pobreza','acesso','família'],
+    ctx:'As transformações sociais têm alterado profundamente os hábitos e comportamentos da população, exigindo respostas eficazes do Estado e das instituições privadas.'},
+  'Trabalho':      {cor:'#8a6ad9', kws:['home office','qualificação','automação','emprego','trabalhador','salário','mercado de trabalho','carreira','profissional'],
+    ctx:'As novas demandas do mercado de trabalho têm provocado mudanças significativas nas relações profissionais, desafiando trabalhadores e empresas a se adaptarem.'},
+  'Meio Ambiente': {cor:'#3db88a', kws:['sustentabilidade','energia','preservação','clima','ambiental','esg','verde','carbono','reciclagem','biodiversidade'],
+    ctx:'A crescente preocupação ambiental tornou-se uma pauta central no cenário nacional e global, impondo novos paradigmas ao setor produtivo e financeiro.'},
+  'Segurança':     {cor:'#e05040', kws:['fraude','golpe','phishing','crime','violência','lavagem','dados','privacidade','lgpd','cibernético'],
+    ctx:'O aumento das ameaças à segurança — tanto física quanto digital — tem exigido atenção crescente de instituições, governos e cidadãos na proteção de dados e patrimônios.'},
+  'Regulação':     {cor:'#d96a9a', kws:['regulação','bacen','cmn','lei','norma','compliance','ética','fiscalização','resolução','política'],
+    ctx:'A ampliação do arcabouço regulatório do sistema financeiro reflete a necessidade de equilibrar inovação e proteção ao consumidor em um ambiente de rápidas transformações.'},
+};
+
+const MODELOS_TESE = [
+  'Benefícios × Desafios','Causas × Consequências','Oportunidades × Riscos',
+  'Inclusão × Exclusão','Eficiência × Segurança','Crescimento × Sustentabilidade',
+  'Tecnologia × Capacitação','Inovação × Regulamentação','Modernização × Impactos Sociais',
+  'Praticidade × Vulnerabilidade','Acesso × Desigualdade','Transparência × Privacidade',
+];
+
+const TEMPLATES_TOPICO = [
+  'Um dos principais aspectos relacionados ao tema é {eixo}.',
+  'Nesse contexto, destaca-se {eixo}.',
+  'Sob essa perspectiva, observa-se que {eixo}.',
+  'Entre os efeitos desse fenômeno, merece destaque {eixo}.',
+  'Além disso, é importante considerar {eixo}.',
+  'Outro ponto relevante refere-se a {eixo}.',
+  'Paralelamente aos avanços observados, {eixo}.',
+  'Um dos principais impactos consiste em {eixo}.',
+];
+
+const TEMAS_BANCO = [
+  // ── TEMAS REAIS BB/CEF CESGRANRIO ────────────────────────────────────────
+  {titulo:'Como garantir o acesso à cidadania a milhões de pessoas desbancarizadas no Brasil',cat:'Real BB/CEF',fenomeno:'Sociedade',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'A internet como fonte de informação ou de desinformação na sociedade contemporânea',cat:'Real BB/CEF',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'O desafio do resgate da cidadania e dos direitos das pessoas com deficiência',cat:'Real BB/CEF',fenomeno:'Sociedade',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Indústria da desinformação: nova forma de resistência à transformação social',cat:'Real BB/CEF',fenomeno:'Tecnologia',dif:'Difícil',concurso:'BB/CEF'},
+  {titulo:'A importância do atendimento de qualidade das instituições financeiras',cat:'Real BB/CEF',fenomeno:'Regulação',dif:'Fácil',concurso:'BB/CEF'},
+  {titulo:'Privacidade digital: eu não tenho nada a esconder',cat:'Real BB/CEF',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Efeitos negativos da pandemia no futuro da educação no Brasil',cat:'Real BB/CEF',fenomeno:'Sociedade',dif:'Fácil',concurso:'BB/CEF'},
+  {titulo:'Preservação do espaço público: um compromisso do cidadão com a sua cidade',cat:'Real BB/CEF',fenomeno:'Sociedade',dif:'Fácil',concurso:'BB/CEF'},
+  {titulo:'Impactos positivos e negativos da informatização das operações bancárias na vida da população',cat:'Real BB/CEF',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB/CEF'},
+
+  // ── BANCÁRIO / TI ────────────────────────────────────────────────────────
+  {titulo:'O Pix e a inclusão financeira da população brasileira',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Fácil',concurso:'BB/CEF'},
+  {titulo:'Open Finance e o futuro dos serviços bancários',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Bancos digitais e a transformação do setor financeiro',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Fácil',concurso:'BB/CEF'},
+  {titulo:'Segurança cibernética e a proteção do consumidor bancário',cat:'Bancário/TI',fenomeno:'Segurança',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'O DREX e a moeda digital no Brasil',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Difícil',concurso:'BB/CEF'},
+  {titulo:'Blockchain e as novas formas de contrato no mercado financeiro',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Difícil',concurso:'BB/CEF'},
+  {titulo:'O microcrédito como instrumento de geração de renda',cat:'Bancário/TI',fenomeno:'Economia',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Fintechs e a democratização dos serviços financeiros',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Golpes financeiros digitais e a proteção dos usuários bancários',cat:'Bancário/TI',fenomeno:'Segurança',dif:'Fácil',concurso:'BB/CEF'},
+  {titulo:'Tokenização de ativos e o futuro do mercado de capitais brasileiro',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Difícil',concurso:'BB/CEF'},
+  {titulo:'Inteligência artificial no atendimento bancário: eficiência e riscos',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB/CEF'},
+
+  // ── ECONOMIA ─────────────────────────────────────────────────────────────
+  {titulo:'Superendividamento das famílias brasileiras',cat:'Economia',fenomeno:'Economia',dif:'Médio',concurso:'BB/CEF/INSS'},
+  {titulo:'A importância da educação financeira nas escolas',cat:'Economia',fenomeno:'Economia',dif:'Fácil',concurso:'BB/CEF/INSS'},
+  {titulo:'Crédito consignado e os riscos para aposentados',cat:'Economia',fenomeno:'Economia',dif:'Médio',concurso:'BB/CEF/INSS'},
+  {titulo:'Inflação e o impacto no poder de compra das famílias de baixa renda',cat:'Economia',fenomeno:'Economia',dif:'Médio',concurso:'Todos'},
+  {titulo:'O mercado de criptomoedas e os desafios da regulação no Brasil',cat:'Economia',fenomeno:'Tecnologia',dif:'Difícil',concurso:'BB/CEF'},
+  {titulo:'Taxa Selic e seus efeitos sobre o crédito e o consumo',cat:'Economia',fenomeno:'Economia',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'O empreendedorismo como alternativa ao desemprego estrutural',cat:'Economia',fenomeno:'Trabalho',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Apostas esportivas online e o impacto no endividamento das famílias',cat:'Economia',fenomeno:'Economia',dif:'Médio',concurso:'Todos'},
+
+  // ── SOCIAL ───────────────────────────────────────────────────────────────
+  {titulo:'Inclusão bancária de populações vulneráveis',cat:'Social',fenomeno:'Sociedade',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'O papel dos correspondentes bancários na inclusão financeira',cat:'Social',fenomeno:'Sociedade',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Desigualdade digital e o acesso aos serviços financeiros',cat:'Social',fenomeno:'Sociedade',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Golpes financeiros e a vulnerabilidade dos idosos',cat:'Social',fenomeno:'Segurança',dif:'Fácil',concurso:'BB/CEF/PRF'},
+  {titulo:'O papel do banco público no desenvolvimento regional',cat:'Social',fenomeno:'Economia',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Desafios da acessibilidade bancária para pessoas com deficiência',cat:'Social',fenomeno:'Sociedade',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Saúde mental e o endividamento crônico no Brasil',cat:'Social',fenomeno:'Sociedade',dif:'Difícil',concurso:'Todos'},
+  {titulo:'Envelhecimento populacional e os desafios para a previdência social',cat:'Social',fenomeno:'Sociedade',dif:'Médio',concurso:'INSS/Todos'},
+
+  // ── REGULAÇÃO ────────────────────────────────────────────────────────────
+  {titulo:'A autonomia do Banco Central e a política monetária',cat:'Regulação',fenomeno:'Regulação',dif:'Difícil',concurso:'BB/CEF'},
+  {titulo:'LGPD e o tratamento de dados no sistema bancário',cat:'Regulação',fenomeno:'Regulação',dif:'Médio',concurso:'BB/CEF/PRF'},
+  {titulo:'ESG e a responsabilidade socioambiental dos bancos',cat:'Regulação',fenomeno:'Meio Ambiente',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Lavagem de dinheiro e os desafios do sistema de prevenção',cat:'Regulação',fenomeno:'Segurança',dif:'Difícil',concurso:'BB/CEF/PRF'},
+  {titulo:'Compliance bancário e a cultura de ética nas instituições financeiras',cat:'Regulação',fenomeno:'Regulação',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Finanças verdes: o papel dos bancos na transição energética',cat:'Regulação',fenomeno:'Meio Ambiente',dif:'Difícil',concurso:'BB/CEF'},
+  {titulo:'O Sandbox regulatório e a inovação no setor financeiro',cat:'Regulação',fenomeno:'Regulação',dif:'Difícil',concurso:'BB/CEF'},
+
+  // ── TRABALHO / IA ────────────────────────────────────────────────────────
+  {titulo:'Inteligência artificial e o futuro do trabalho bancário',cat:'Trabalho/IA',fenomeno:'Trabalho',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Home office no setor bancário pós-pandemia',cat:'Trabalho/IA',fenomeno:'Trabalho',dif:'Fácil',concurso:'Todos'},
+  {titulo:'A qualificação profissional frente à automação bancária',cat:'Trabalho/IA',fenomeno:'Trabalho',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Diversidade e inclusão no ambiente corporativo bancário',cat:'Trabalho/IA',fenomeno:'Sociedade',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Impactos da automação no emprego no setor financeiro',cat:'Trabalho/IA',fenomeno:'Trabalho',dif:'Médio',concurso:'BB/CEF'},
+  {titulo:'Trabalho informal e a exclusão previdenciária no Brasil',cat:'Trabalho/IA',fenomeno:'Trabalho',dif:'Médio',concurso:'INSS/Todos'},
+
+  // ── INSS / PREVIDÊNCIA ───────────────────────────────────────────────────
+  {titulo:'A Reforma da Previdência e seus impactos sobre os trabalhadores brasileiros',cat:'INSS/Previdência',fenomeno:'Regulação',dif:'Médio',concurso:'INSS'},
+  {titulo:'Fraudes no sistema previdenciário e os desafios do combate à corrupção',cat:'INSS/Previdência',fenomeno:'Segurança',dif:'Médio',concurso:'INSS'},
+  {titulo:'A proteção previdenciária do trabalhador rural no Brasil',cat:'INSS/Previdência',fenomeno:'Sociedade',dif:'Médio',concurso:'INSS'},
+  {titulo:'Benefício de Prestação Continuada (BPC) e a proteção social dos vulneráveis',cat:'INSS/Previdência',fenomeno:'Sociedade',dif:'Fácil',concurso:'INSS'},
+  {titulo:'Previdência complementar: papel do Estado e dos trabalhadores',cat:'INSS/Previdência',fenomeno:'Economia',dif:'Médio',concurso:'INSS/BB/CEF'},
+  {titulo:'Envelhecimento da população e a sustentabilidade do sistema previdenciário',cat:'INSS/Previdência',fenomeno:'Sociedade',dif:'Difícil',concurso:'INSS'},
+  {titulo:'Inclusão previdenciária dos trabalhadores autônomos e MEIs',cat:'INSS/Previdência',fenomeno:'Trabalho',dif:'Médio',concurso:'INSS'},
+  {titulo:'O papel do INSS no combate ao superendividamento de aposentados',cat:'INSS/Previdência',fenomeno:'Economia',dif:'Médio',concurso:'INSS/BB/CEF'},
+
+  // ── PRF / SEGURANÇA PÚBLICA ──────────────────────────────────────────────
+  {titulo:'Segurança nas rodovias federais: desafios e estratégias de prevenção de acidentes',cat:'PRF/Segurança',fenomeno:'Segurança',dif:'Fácil',concurso:'PRF'},
+  {titulo:'Embriaguez ao volante: causas, consequências e políticas de combate',cat:'PRF/Segurança',fenomeno:'Segurança',dif:'Fácil',concurso:'PRF'},
+  {titulo:'O tráfico de drogas nas rodovias brasileiras e os desafios da PRF',cat:'PRF/Segurança',fenomeno:'Segurança',dif:'Médio',concurso:'PRF'},
+  {titulo:'Violência no trânsito: causas culturais e sociais dos acidentes graves',cat:'PRF/Segurança',fenomeno:'Sociedade',dif:'Médio',concurso:'PRF'},
+  {titulo:'Direitos humanos e o uso progressivo da força policial',cat:'PRF/Segurança',fenomeno:'Regulação',dif:'Difícil',concurso:'PRF/Pol.Penal'},
+  {titulo:'A corrupção como obstáculo ao desenvolvimento institucional da segurança pública',cat:'PRF/Segurança',fenomeno:'Regulação',dif:'Difícil',concurso:'PRF/Pol.Penal'},
+  {titulo:'Fiscalização do transporte de cargas perigosas nas rodovias federais',cat:'PRF/Segurança',fenomeno:'Segurança',dif:'Médio',concurso:'PRF'},
+  {titulo:'Tráfico de pessoas e exploração nas estradas brasileiras',cat:'PRF/Segurança',fenomeno:'Sociedade',dif:'Difícil',concurso:'PRF/Pol.Penal'},
+
+  // ── POLÍCIA PENAL RS ─────────────────────────────────────────────────────
+  {titulo:'Ressocialização de presos: desafios e perspectivas no sistema penitenciário brasileiro',cat:'Pol. Penal',fenomeno:'Sociedade',dif:'Médio',concurso:'Pol.Penal'},
+  {titulo:'Superlotação carcerária e a violação dos direitos humanos no Brasil',cat:'Pol. Penal',fenomeno:'Sociedade',dif:'Médio',concurso:'Pol.Penal'},
+  {titulo:'O papel da educação e do trabalho na reintegração social de egressos do sistema prisional',cat:'Pol. Penal',fenomeno:'Sociedade',dif:'Médio',concurso:'Pol.Penal'},
+  {titulo:'Facções criminosas nos presídios: causas, impactos e estratégias de enfrentamento',cat:'Pol. Penal',fenomeno:'Segurança',dif:'Difícil',concurso:'Pol.Penal'},
+  {titulo:'Saúde mental no sistema penitenciário: direitos e desafios',cat:'Pol. Penal',fenomeno:'Sociedade',dif:'Médio',concurso:'Pol.Penal'},
+  {titulo:'Prisão preventiva e o encarceramento em massa no Brasil',cat:'Pol. Penal',fenomeno:'Regulação',dif:'Difícil',concurso:'Pol.Penal'},
+  {titulo:'A mulher no sistema prisional: vulnerabilidades e direitos específicos',cat:'Pol. Penal',fenomeno:'Sociedade',dif:'Médio',concurso:'Pol.Penal'},
+  {titulo:'Alternativas penais à prisão como instrumento de redução da reincidência',cat:'Pol. Penal',fenomeno:'Regulação',dif:'Médio',concurso:'Pol.Penal'},
+
+  // ── CLÁSSICOS / TRANSVERSAIS (todos os concursos) ────────────────────────
+  {titulo:'O papel do Estado no combate à pobreza',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Educação como instrumento de desenvolvimento',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Sustentabilidade e responsabilidade ambiental das instituições públicas',cat:'Clássico',fenomeno:'Meio Ambiente',dif:'Médio',concurso:'Todos'},
+  {titulo:'Redes sociais e a disseminação de desinformação na sociedade',cat:'Clássico',fenomeno:'Tecnologia',dif:'Médio',concurso:'Todos'},
+  {titulo:'O Brasil e os desafios da desigualdade social',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Segurança pública e o impacto da criminalidade na economia',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  {titulo:'COP30 e os compromissos do Brasil com a agenda climática global',cat:'Clássico',fenomeno:'Meio Ambiente',dif:'Médio',concurso:'Todos'},
+  {titulo:'Combate à corrupção e fortalecimento das instituições democráticas',cat:'Clássico',fenomeno:'Regulação',dif:'Médio',concurso:'Todos'},
+  {titulo:'O impacto das fake news nas eleições e na democracia brasileira',cat:'Clássico',fenomeno:'Tecnologia',dif:'Médio',concurso:'Todos'},
+  {titulo:'Acesso à saúde pública: desafios do SUS no Brasil contemporâneo',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Violência doméstica: causas, enfrentamento e papel do Estado',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  {titulo:'Racismo estrutural e seus impactos na sociedade brasileira',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  // Novos clássicos
+  {titulo:'O trabalho infantil e os obstáculos para sua erradicação no Brasil',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Desmatamento da Amazônia: causas, consequências e soluções',cat:'Clássico',fenomeno:'Meio Ambiente',dif:'Médio',concurso:'Todos'},
+  {titulo:'A crise hídrica no Brasil e a gestão dos recursos naturais',cat:'Clássico',fenomeno:'Meio Ambiente',dif:'Médio',concurso:'Todos'},
+  {titulo:'O papel da mulher no mercado de trabalho brasileiro',cat:'Clássico',fenomeno:'Trabalho',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Saúde mental pós-pandemia: desafios para o sistema público de saúde',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  {titulo:'Mobilidade urbana e os desafios das grandes cidades brasileiras',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+  {titulo:'O impacto das mudanças climáticas na agricultura e na segurança alimentar',cat:'Clássico',fenomeno:'Meio Ambiente',dif:'Médio',concurso:'Todos'},
+  {titulo:'Evasão escolar no Brasil: causas e consequências para o desenvolvimento',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Intolerância religiosa e a necessidade de proteção dos direitos fundamentais',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  {titulo:'O envelhecimento populacional e os desafios para as políticas públicas',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  {titulo:'Desemprego estrutural e as novas relações de trabalho no século XXI',cat:'Clássico',fenomeno:'Trabalho',dif:'Médio',concurso:'Todos'},
+  {titulo:'A violência contra a criança e o adolescente no ambiente familiar',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  {titulo:'Acesso à internet como direito fundamental no Brasil',cat:'Clássico',fenomeno:'Tecnologia',dif:'Fácil',concurso:'Todos'},
+  {titulo:'O uso de drogas como problema de saúde pública e não de segurança',cat:'Clássico',fenomeno:'Sociedade',dif:'Difícil',concurso:'Todos'},
+  {titulo:'Desnutrição e insegurança alimentar no Brasil contemporâneo',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+  {titulo:'Refugiados e imigrantes: desafios humanitários para o Brasil',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  {titulo:'O papel das universidades públicas no desenvolvimento científico',cat:'Clássico',fenomeno:'Sociedade',dif:'Médio',concurso:'Todos'},
+  {titulo:'Fake news e o papel da mídia na formação da opinião pública',cat:'Clássico',fenomeno:'Tecnologia',dif:'Médio',concurso:'Todos'},
+  {titulo:'Preconceito e discriminação: os limites entre liberdade de expressão e discurso de ódio',cat:'Clássico',fenomeno:'Sociedade',dif:'Difícil',concurso:'Todos'},
+  {titulo:'A importância do voluntariado e da solidariedade na construção da cidadania',cat:'Clássico',fenomeno:'Sociedade',dif:'Fácil',concurso:'Todos'},
+
+  // ── OPEN FINANCE — temas adicionais ──────────────────────────────────────
+  {titulo:'Open Finance e a proteção de dados do consumidor bancário',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB,CEF'},
+  {titulo:'O Open Finance como instrumento de democratização do crédito no Brasil',cat:'Bancário/TI',fenomeno:'Economia',dif:'Médio',concurso:'BB,CEF'},
+  {titulo:'Desafios da implementação do Open Finance: segurança, consentimento e regulação',cat:'Bancário/TI',fenomeno:'Regulação',dif:'Difícil',concurso:'BB,CEF'},
+  {titulo:'Open Finance e a portabilidade financeira: impactos na concorrência bancária',cat:'Bancário/TI',fenomeno:'Economia',dif:'Médio',concurso:'BB,CEF'},
+
+  // ── ESG — temas adicionais ────────────────────────────────────────────────
+  {titulo:'O papel dos bancos públicos no financiamento da transição energética',cat:'Regulação',fenomeno:'Meio Ambiente',dif:'Médio',concurso:'BB,CEF'},
+  {titulo:'Títulos verdes e o mercado de capitais sustentável no Brasil',cat:'Regulação',fenomeno:'Meio Ambiente',dif:'Difícil',concurso:'BB,CEF'},
+  {titulo:'ESG como critério de concessão de crédito nas instituições financeiras',cat:'Regulação',fenomeno:'Meio Ambiente',dif:'Médio',concurso:'BB,CEF'},
+
+  // ── IA NO SETOR BANCÁRIO — temas adicionais ───────────────────────────────
+  {titulo:'Inteligência artificial e o risco de viés algorítmico no crédito bancário',cat:'Trabalho/IA',fenomeno:'Tecnologia',dif:'Difícil',concurso:'BB,CEF'},
+  {titulo:'O uso de big data e IA na prevenção à fraude bancária',cat:'Trabalho/IA',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB,CEF'},
+  {titulo:'Chatbots e IA generativa: o futuro do atendimento ao cliente bancário',cat:'Trabalho/IA',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB,CEF'},
+
+  // ── DREX / MOEDA DIGITAL — temas adicionais ──────────────────────────────
+  {titulo:'DREX e os desafios da privacidade na moeda digital brasileira',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Difícil',concurso:'BB,CEF'},
+  {titulo:'A moeda digital do Banco Central e o futuro do sistema de pagamentos',cat:'Bancário/TI',fenomeno:'Tecnologia',dif:'Médio',concurso:'BB,CEF'},
+
+  // ── SUPERENDIVIDAMENTO — temas adicionais ────────────────────────────────
+  {titulo:'Apostas esportivas online e o impacto no endividamento das famílias brasileiras',cat:'Social',fenomeno:'Sociedade',dif:'Médio',concurso:'BB,CEF,INSS'},
+  {titulo:'A Lei do Superendividamento (Lei 14.181/2021) e a proteção do consumidor',cat:'Regulação',fenomeno:'Regulação',dif:'Médio',concurso:'BB,CEF,INSS'},
+];
+
+const CATEGORIAS = ['Todos','Real BB/CEF','Bancário/TI','Economia','Social','Regulação','Trabalho/IA','INSS/Previdência','PRF/Segurança','Pol. Penal','Clássico'];
+let catAtiva = 'Todos';
+let nivelTreino = 1;
+
+// ══════════════════════════════════════════════════════════════
+// NAVEGAÇÃO
+// ══════════════════════════════════════════════════════════════
+function setTab(id) {
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const ids=['fttd','argumentos','raio_x','cirurgia','checklist','temas','treino'];
+    t.classList.toggle('ativo', ids[i]===id);
+  });
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativo'));
+  const el=document.getElementById('aba-'+id);
+  if(el) el.classList.add('ativo');
+}
+
+// ══════════════════════════════════════════════════════════════
+// UTILITÁRIOS
+// ══════════════════════════════════════════════════════════════
+function getApiKey(){return localStorage.getItem('pe_anthropic_key')||'';}
+
+async function chamarIA(prompt, maxTokens=1200, system=''){
+  const key=getApiKey();
+  if(!key||!key.startsWith('sk-ant-'))throw new Error('Configure sua chave de API Anthropic na plataforma principal (aba Revisão → Backup).');
+  const body={model:'claude-sonnet-4-6',max_tokens:maxTokens,messages:[{role:'user',content:prompt}]};
+  if(system) body.system=system;
+  const r=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify(body)
+  });
+  if(!r.ok){const e=await r.text();throw new Error(`Erro ${r.status}: ${e.slice(0,200)}`);}
+  const d=await r.json();
+  return d.content?.find(b=>b.type==='text')?.text||'';
+}
+
+function setLoading(btnEl,txt){btnEl.disabled=true;btnEl.innerHTML=`<span class="spin"></span>${txt}`;}
+function unsetLoading(btnEl,txt){btnEl.disabled=false;btnEl.textContent=txt;}
+function showError(msg){alert('⚠️ '+msg);}
+
+// ══════════════════════════════════════════════════════════════
+// ABA 1 — FTTD
+// ══════════════════════════════════════════════════════════════
+function initFTTD(){
+  // chips fenomeno
+  const cf=document.getElementById('chips-fenomeno');
+  if(cf) cf.innerHTML=Object.entries(FENOMENOS).map(([n,d])=>
+    `<span class="chip" style="border-color:${d.cor}44;color:${d.cor}cc;" onclick="fttdSelecionarFenomeno('${n}')">${n}</span>`
+  ).join('');
+  // chips tese
+  const ct=document.getElementById('chips-tese');
+  if(ct) ct.innerHTML=MODELOS_TESE.map(m=>
+    `<span class="chip" onclick="fttdSelecionarTese('${m}')">${m}</span>`
+  ).join('');
+  // chips topico
+  const ctp=document.getElementById('chips-topico');
+  if(ctp) ctp.innerHTML=TEMPLATES_TOPICO.map((t,i)=>
+    `<span class="chip" onclick="fttdSelecionarTopico(${i})">${t.substring(0,35)}...</span>`
+  ).join('');
+}
+
+function fttdSugerirFenomeno(){
+  const tema=(document.getElementById('fttd-tema').value||'').toLowerCase();
+  for(const[nome,d] of Object.entries(FENOMENOS)){
+    if(d.kws.some(k=>tema.includes(k))){
+      document.getElementById('fttd-fenomeno').value=`${nome} — ${d.ctx.split('.')[0]}.`;
+      document.getElementById('fttd-contextualizacao').innerHTML=
+        `<span style="font-family:var(--mono);font-size:9px;color:${d.cor};">↳ Fenômeno sugerido: ${nome}</span>`;
+      return;
+    }
+  }
+}
+
+function fttdSelecionarFenomeno(nome){
+  const d=FENOMENOS[nome];
+  document.getElementById('fttd-fenomeno').value=d.ctx;
+}
+
+function fttdSelecionarTese(modelo){
+  const e1=document.getElementById('fttd-eixo1').value||'[eixo 1]';
+  const e2=document.getElementById('fttd-eixo2').value||'[eixo 2]';
+  const [a,b]=modelo.split('×').map(s=>s.trim());
+  document.getElementById('fttd-tese-frase').value=
+    `A informatização bancária amplia a ${e1.toLowerCase() || a.toLowerCase()} dos serviços financeiros, mas também gera desafios relacionados à ${e2.toLowerCase() || b.toLowerCase()}.`;
+}
+
+function fttdSelecionarTopico(i){
+  const tpl=TEMPLATES_TOPICO[i];
+  const e1=document.getElementById('fttd-eixo1').value||'[eixo 1]';
+  const e2=document.getElementById('fttd-eixo2').value||'[eixo 2]';
+  document.getElementById('fttd-tf1').value=tpl.replace('{eixo}',e1);
+  document.getElementById('fttd-tf2').value=tpl.replace('{eixo}',e2);
+}
+
+function fttdMontarIntro(){
+  const fen=document.getElementById('fttd-fenomeno').value.trim();
+  const tema=document.getElementById('fttd-temaspec').value.trim();
+  const tese=document.getElementById('fttd-tese-frase').value.trim();
+  if(!fen&&!tema&&!tese){alert('Preencha ao menos o fenômeno, tema e tese.');return;}
+  const el=document.getElementById('fttd-intro-preview');
+  el.style.display='block';
+  el.innerHTML=`<div style="padding:14px;background:rgba(200,153,42,.07);border-radius:8px;border-left:3px solid var(--ouro);">
+    ${fen?`<span style="background:#1a3a5a;color:#6ab0e0;border-radius:4px;padding:1px 4px;font-size:10px;">contextualização</span> `:''}${fen}<br><br>
+    ${tema?`<span style="background:#2a3a1a;color:#8adf60;border-radius:4px;padding:1px 4px;font-size:10px;">tema</span> `:''}${tema}<br><br>
+    ${tese?`<span style="background:#3a2a0a;color:#dfb040;border-radius:4px;padding:1px 4px;font-size:10px;">tese</span> `:''}${tese}
+  </div>`;
+}
+
+function fttdLimpar(){
+  ['fttd-tema','fttd-fenomeno','fttd-temaspec','fttd-eixo1','fttd-eixo2','fttd-tese-frase','fttd-tf1','fttd-tf2'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
+  document.getElementById('fttd-intro-preview').style.display='none';
+  document.getElementById('fttd-ia-out').classList.remove('vis');
+}
+
+async function fttdGerarIA(){
+  const tema=document.getElementById('fttd-tema').value.trim();
+  if(!tema){alert('Digite o tema primeiro.');return;}
+  const btn=document.querySelector('#aba-fttd .btn-ouro');
+  setLoading(btn,'Gerando...');
+  const out=document.getElementById('fttd-ia-out');
+  const txt=document.getElementById('fttd-ia-texto');
+  try{
+    const sysFttd=`Você é especialista em redação dissertativa para concursos Cesgranrio (Banco do Brasil e Caixa Econômica Federal). Retorne SOMENTE JSON válido sem markdown nem texto extra.
+
+REGRAS OBRIGATÓRIAS para gerar a estrutura FTTD:
+
+1. TESE: deve conter EXATAMENTE DOIS eixos temáticos (não três). Os dois eixos devem ser desenvolvíveis em dois parágrafos distintos. Exemplo correto: "Embora X represente Y, sua efetivação depende de [EIXO1] e [EIXO2]." NUNCA anuncie três eixos na tese.
+
+2. EIXOS: eixo1 e eixo2 devem ser simétricos, concretos e diretamente relacionados ao tema. Cada eixo vira exatamente um parágrafo de desenvolvimento.
+
+3. CONTEXTUALIZAÇÃO: máximo 2 frases. Deve partir do fenômeno amplo para o tema específico. Não repetir palavras da tese. Incluir conceituação do tema de forma natural.
+
+4. TÓPICOS FRASAIS: cada tópico frasal (topico1 e topico2) deve ser uma frase afirmativa que anuncia o argumento do parágrafo, conectada ao respectivo eixo da tese.
+
+5. EXTENSÃO: a redação final deve ter entre 25 e 30 linhas (~300-400 palavras). Gere conteúdo suficiente para atingir esse limite.
+
+6. CONCLUSÃO: deve resgatar o tema, retomar a tese (sem repetir literalmente), apresentar proposta de intervenção com: AGENTE concreto (ex: Banco do Brasil) + AÇÃO específica + FINALIDADE social.
+
+7. REGISTRO: linguagem formal, técnica mas acessível. Evitar períodos excessivamente longos (máximo 3 linhas por frase).
+
+Formato JSON obrigatório: {"fenomeno":"string","contextualizacao":"string","tema_especifico":"string","eixo1":"string","eixo2":"string","tese":"string com DOIS eixos","topico1":"string","topico2":"string","conclusao_sugestao":"string com agente+ação+finalidade"}`;
+    const resp=await chamarIA('Gere a estrutura FTTD para o tema: '+tema,1600,sysFttd);
+    const obj=(()=>{
+      const s=resp.replace(/```json|```/g,'').trim();
+      console.log('=== RESP IA (fttd) ===', s.length, 'chars');
+      console.log(s);
+      try{const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}
+      catch(e){console.error('Parse erro fttd:',e.message);throw new Error('Parse falhou: '+e.message);}
+    })();
+    // Preencher campos
+    document.getElementById('fttd-fenomeno').value=obj.contextualizacao||obj.fenomeno||'';
+    document.getElementById('fttd-temaspec').value=obj.tema_especifico||'';
+    document.getElementById('fttd-eixo1').value=obj.eixo1||'';
+    document.getElementById('fttd-eixo2').value=obj.eixo2||'';
+    document.getElementById('fttd-tese-frase').value=obj.tese||'';
+    document.getElementById('fttd-tf1').value=obj.topico1||'';
+    document.getElementById('fttd-tf2').value=obj.topico2||'';
+    txt.innerHTML=`<b>Fenômeno:</b> ${obj.fenomeno}<br><b>Tese:</b> ${obj.tese}<br><b>Tópico 1:</b> ${obj.topico1}<br><b>Tópico 2:</b> ${obj.topico2}<br><b>Sugestão de conclusão:</b> ${obj.conclusao_sugestao||''}`;
+    out.classList.add('vis');
+  }catch(e){showError(e.message);}
+  unsetLoading(btn,'🤖 Gerar estrutura com IA');
+}
+
+// ══════════════════════════════════════════════════════════════
+// ABA 2 — ARGUMENTOS
+// ══════════════════════════════════════════════════════════════
+function argLimpar(){
+  ['arg-tema','arg-tec','arg-eco','arg-soc','arg-edu','arg-eti'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
+  document.getElementById('arg-ia-out').classList.remove('vis');
+}
+
+async function argGerarIA(){
+  const tema=document.getElementById('arg-tema').value.trim();
+  if(!tema){alert('Digite o tema primeiro.');return;}
+  const btn=document.querySelector('#aba-argumentos .btn-ouro');
+  setLoading(btn,'Gerando...');
+  try{
+    const sysArg=`Você é especialista em argumentação para redações dissertativas Cesgranrio (BB/CEF). Retorne SOMENTE JSON válido sem markdown.
+
+REGRAS para os argumentos:
+1. Cada argumento deve ser uma frase completa e desenvolvível em um parágrafo (não apenas um título)
+2. Incluir dados, exemplos concretos ou referências quando possível (ex: "Segundo o BACEN...", "A Lei X prevê...")
+3. Argumentos tecnológicos: focar em inovação, automação, segurança digital, IA
+4. Argumentos econômicos: focar em impacto no PIB, crédito, renda, desigualdade
+5. Argumentos sociais: focar em inclusão, acesso, vulnerabilidade, cidadania
+6. Argumentos educacionais: focar em letramento financeiro/digital, capacitação
+7. Argumentos éticos: focar em responsabilidade, transparência, proteção de dados, compliance
+8. NUNCA repetir o mesmo argumento em categorias diferentes
+9. Cada argumento deve ser utilizável como TÓPICO FRASAL de um parágrafo
+
+Formato: {"tecnologica":["arg1","arg2","arg3"],"economica":["arg1","arg2","arg3"],"social":["arg1","arg2","arg3"],"educacional":["arg1","arg2"],"etica":["arg1","arg2","arg3"]}`;
+    const resp=await chamarIA('Gere argumentos para o tema: '+tema,1600,sysArg);
+    const obj=(()=>{
+      const s=resp.replace(/```json|```/g,'').trim();
+      console.log('=== RESP IA (arg) ===', s.length, 'chars');
+      console.log(s);
+      try{const m=s.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:s);}
+      catch(e){console.error('Parse erro arg:',e.message);throw new Error('Parse falhou: '+e.message);}
+    })();
+    document.getElementById('arg-tec').value=(obj.tecnologica||[]).join('\n');
+    document.getElementById('arg-eco').value=(obj.economica||[]).join('\n');
+    document.getElementById('arg-soc').value=(obj.social||[]).join('\n');
+    document.getElementById('arg-edu').value=(obj.educacional||[]).join('\n');
+    document.getElementById('arg-eti').value=(obj.etica||[]).join('\n');
+    document.getElementById('arg-ia-texto').textContent='Matriz gerada! Escolha os melhores argumentos para cada eixo da sua tese.';
+    document.getElementById('arg-ia-out').classList.add('vis');
+  }catch(e){showError(e.message);}
+  unsetLoading(btn,'🤖 Gerar matriz com IA');
+}
+
+// ══════════════════════════════════════════════════════════════
+// ABA 3 — RAIO-X
+// ══════════════════════════════════════════════════════════════
+async function rxAnalisarIA(){
+  const texto=document.getElementById('rx-texto').value.trim();
+  if(texto.length<100){alert('Cole uma redação com pelo menos 100 palavras.');return;}
+  const btn=document.querySelector('#aba-raio_x .btn-ouro');
+  setLoading(btn,'Analisando...');
+  try{
+    const textoLimitado = texto.substring(0, 4000);
+    const system = `Você é corretor de redação dissertativa para concursos Cesgranrio (BB/CEF).
+Retorne SOMENTE JSON válido sem markdown nem texto adicional.
+
+CRITÉRIOS DE CORREÇÃO Cesgranrio:
+- contextualizacao: parte do fenômeno amplo para o tema específico (máx. 2 frases)
+- tema: o assunto central está explicitado claramente
+- tese: posicionamento claro do autor sobre o tema
+- dois_eixos: a tese anuncia EXATAMENTE dois eixos de desenvolvimento (nem um, nem três)
+- eixos_viraram_paragrafos: os dois eixos da tese foram efetivamente desenvolvidos em parágrafos separados
+- topico_frasal_X: cada parágrafo começa com frase que anuncia o argumento
+- explicacao_X: o argumento é explicado/fundamentado
+- exemplo_X: há dado, citação, exemplo concreto ou evidência
+- consequencia_X: há análise do impacto/desdobramento do argumento
+- retomou_tema: conclusão referencia o tema central
+- retomou_tese: conclusão retoma a tese sem copiá-la literalmente
+- fechou_discussao: texto tem fechamento, não termina abruptamente
+- argumento_novo: true se a conclusão trouxer argumento novo (erro grave — penalizar)
+- comentario: 2-3 frases de feedback específico sobre o ponto mais forte e o principal ponto a melhorar
+
+Formato: {"introducao":{"contextualizacao":boolean,"tema":boolean,"tese":boolean,"dois_eixos":boolean,"eixos_viraram_paragrafos":boolean},"desenvolvimento":{"topico_frasal_1":boolean,"explicacao_1":boolean,"exemplo_1":boolean,"consequencia_1":boolean,"topico_frasal_2":boolean,"explicacao_2":boolean,"exemplo_2":boolean,"consequencia_2":boolean},"conclusao":{"retomou_tema":boolean,"retomou_tese":boolean,"fechou_discussao":boolean,"argumento_novo":boolean},"comentario":"string"}`;
+
+    const resp = await chamarIA(
+      `Analise esta redação e retorne o JSON conforme instruído:\n\n${textoLimitado}`,
+      1400,
+      system
+    );
+
+    let obj;
+    try {
+      const limpo = resp.replace(/```json|```/g,'').trim();
+      const m = limpo.match(/\{[\s\S]*\}/);
+      obj = JSON.parse(m ? m[0] : limpo);
+    } catch(e) {
+      console.error('Resposta da IA:', resp);
+      throw new Error('JSON inválido retornado pela IA. Tente reduzir o texto ou tente novamente.');
+    }
+    // Renderizar
+    function rxItems(el,obj){
+      const labels={
+        contextualizacao:'Contextualização presente',tema:'Tema explicitado',tese:'Tese declarada',
+        dois_eixos:'Tese com dois eixos',eixos_viraram_paragrafos:'Eixos são desenvolvíveis',
+        topico_frasal_1:'Tópico frasal (§1)',explicacao_1:'Explicação (§1)',exemplo_1:'Exemplo/dado (§1)',consequencia_1:'Consequência (§1)',
+        topico_frasal_2:'Tópico frasal (§2)',explicacao_2:'Explicação (§2)',exemplo_2:'Exemplo/dado (§2)',consequencia_2:'Consequência (§2)',
+        retomou_tema:'Retomada do tema',retomou_tese:'Retomada da tese',fechou_discussao:'Discussão encerrada',
+        argumento_novo:'Argumento novo (penalizar se SIM)',
+      };
+      let html='',score=0,total=0;
+      for(const[k,v] of Object.entries(obj)){
+        if(k==='score')continue;
+        total++;
+        const ok=k==='argumento_novo'?!v:!!v;
+        if(ok)score++;
+        html+=`<div class="rx-item"><div class="rx-dot ${ok?'rx-ok':'rx-no'}"></div><span style="${ok?'':'color:var(--muted)'};">${labels[k]||k}</span></div>`;
+      }
+      el.innerHTML=html;
+      return{score,total};
+    }
+    const ri=rxItems(document.getElementById('rx-intro-items'),obj.introducao||{});
+    const rd=rxItems(document.getElementById('rx-dev-items'),obj.desenvolvimento||{});
+    const rc=rxItems(document.getElementById('rx-conc-items'),obj.conclusao||{});
+    document.getElementById('rx-intro-score').textContent=`${ri.score}/${ri.total}`;
+    document.getElementById('rx-dev-score').textContent=`${rd.score}/${rd.total}`;
+    document.getElementById('rx-conc-score').textContent=`${rc.score}/${rc.total}`;
+    const tot=ri.score+rd.score+rc.score;
+    const totMax=ri.total+rd.total+rc.total;
+    document.getElementById('rx-total').textContent=`${tot}/${totMax}`;
+    const pct=Math.round(tot*100/totMax);
+    document.getElementById('rx-perfil').textContent=pct>=80?'🟢 Excelente estrutura!':pct>=60?'🟡 Boa estrutura — refine os pontos fracos':pct>=40?'🟠 Estrutura parcial — há lacunas importantes':'🔴 Estrutura frágil — revise o método FTTD';
+    document.getElementById('rx-ia-texto').textContent=obj.comentario||'';
+    document.getElementById('rx-resultado').style.display='block';
+  }catch(e){showError(e.message);}
+  unsetLoading(btn,'🔬 Analisar com IA');
+}
+
+// ══════════════════════════════════════════════════════════════
+// ABA 4 — CIRURGIA
+// ══════════════════════════════════════════════════════════════
+const CIR_CORES={
+  'Contextualização':'#1a3a5a;color:#6ab0e0',
+  'Tema':'#2a3a1a;color:#8adf60',
+  'Tese':'#3a2a0a;color:#dfb040',
+  'Tópico Frasal':'#2a1a3a;color:#b080e0',
+  'Explicação':'#1a2a3a;color:#60a0df',
+  'Exemplo':'#2a1a1a;color:#e06040',
+  'Consequência':'#1a1a1a;color:#a0a0a0',
+  'Conclusão':'#1a2a2a;color:#40dfb0',
+};
+
+async function cirurgiaIA(){
+  const texto=document.getElementById('cir-input').value.trim();
+  if(texto.length<100){alert('Cole uma redação com pelo menos 100 palavras.');return;}
+  const btn=document.querySelector('#aba-cirurgia .btn-ouro');
+  setLoading(btn,'Analisando...');
+  try{
+    const textoSan = texto.substring(0, 4000);
+    const sysCir = `Você é especialista em estrutura de redação dissertativa (Cesgranrio/BB).
+Retorne SOMENTE JSON válido sem markdown. Formato: {"trechos":[{"texto":"trecho aqui","funcao":"nome da função"}]}
+Funções possíveis: Contextualização, Tema, Tese, Tópico Frasal, Explicação, Exemplo, Consequência, Conclusão.`;
+    const resp = await chamarIA(
+      `Divida esta redação em trechos identificando a função de cada parte:\n\n${textoSan}`,
+      1400,
+      sysCir
+    );
+    const m2 = resp.replace(/```json|```/g,'').trim().match(/\{[\s\S]*\}/);
+    let obj;
+    try { obj = JSON.parse(m2 ? m2[0] : resp); }
+    catch(e) { throw new Error('Resposta inválida da IA. Tente novamente.'); }
+    const out=document.getElementById('cir-output');
+    out.style.display='block';
+    out.innerHTML=(obj.trechos||[]).map(t=>{
+      const cor=CIR_CORES[t.funcao]||'#222;color:#999';
+      const[bg,fg]=cor.split(';color:');
+      return `<span title="${t.funcao}" style="background:${bg};color:${fg};border-radius:4px;padding:2px 5px;margin:2px;display:inline;">${t.texto}</span> `;
+    }).join('');
+  }catch(e){showError(e.message);}
+  unsetLoading(btn,'🔪 Analisar estrutura com IA');
+}
+
+// ══════════════════════════════════════════════════════════════
+// ABA 5 — CHECKLIST
+// ══════════════════════════════════════════════════════════════
+function checkAtualizar(){
+  const cbs=[...document.querySelectorAll('#aba-checklist input[type=checkbox]')];
+  const marcados=cbs.filter(c=>c.checked).length;
+  const total=cbs.length;
+  document.getElementById('check-score').textContent=`${marcados}/${total}`;
+  document.getElementById('check-fill').style.width=`${Math.round(marcados*100/total)}%`;
+  const pct=marcados*100/total;
+  document.getElementById('check-nivel').textContent=
+    pct>=90?'🟢 Redação excelente — pronta para a prova!':
+    pct>=70?'🟡 Boa redação — revise os itens não marcados':
+    pct>=50?'🟠 Redação parcial — há problemas estruturais importantes':
+    '🔴 Revisar toda a redação antes de entregar';
+}
+
+function checklistReset(){
+  document.querySelectorAll('#aba-checklist input[type=checkbox]').forEach(c=>c.checked=false);
+  checkAtualizar();
+}
+
+// ══════════════════════════════════════════════════════════════
+// ABA 6 — TEMAS
+// ══════════════════════════════════════════════════════════════
+function initTemas(){
+  const chips=document.getElementById('chips-categoria');
+  if(chips) chips.innerHTML=CATEGORIAS.map(c=>
+    `<span class="chip ${c===catAtiva?'sel':''}" onclick="filtrarPorCat('${c}')">${c}</span>`
+  ).join('');
+  renderTemas();
+}
+
+function filtrarPorCat(c){
+  catAtiva=c;
+  document.querySelectorAll('#chips-categoria .chip').forEach((el,i)=>el.classList.toggle('sel',CATEGORIAS[i]===c));
+  renderTemas();
+}
+
+function filtrarTemas(){
+  renderTemas();
+}
+
+function renderTemas(){
+  const busca=(document.getElementById('tema-busca')?.value||'').toLowerCase();
+  const lista=document.getElementById('lista-temas');
+  if(!lista)return;
+  const filtrado=TEMAS_BANCO.filter(t=>
+    (catAtiva==='Todos'||t.cat===catAtiva) &&
+    (!busca||t.titulo.toLowerCase().includes(busca))
+  );
+  const difCor={Fácil:'var(--verde)',Médio:'var(--ouro)',Difícil:'var(--verm)'};
+  lista.innerHTML=filtrado.map((t,i)=>`
+    <div class="tema-card" onclick="usarTema(${TEMAS_BANCO.indexOf(t)})">
+      <div class="tema-titulo">${t.titulo}</div>
+      <div class="tema-meta">
+        <span style="color:${difCor[t.dif]||'var(--muted)'};">${t.dif}</span> ·
+        <span>${t.cat}</span> ·
+        <span style="color:var(--azul);font-size:9px;">🎯 ${t.concurso||'BB/CEF'}</span>
+      </div>
+    </div>`
+  ).join('')||(filtrado.length===0?'<div style="color:var(--muted);font-size:12px;padding:14px;">Nenhum tema encontrado.</div>':'');
+}
+
+function usarTema(idx){
+  const t=TEMAS_BANCO[idx];
+  if(!t)return;
+  // Preencher na aba FTTD
+  document.getElementById('fttd-tema').value=t.titulo;
+  const fenom=FENOMENOS[t.fenomeno];
+  if(fenom) document.getElementById('fttd-fenomeno').value=fenom.ctx;
+  setTab('fttd');
+}
+
+// ══════════════════════════════════════════════════════════════
+// ABA 7 — TREINO
+// ══════════════════════════════════════════════════════════════
+const NIVEIS=[
+  {num:1,label:'IDENTIFICAR FENÔMENO',campos:['fenomeno'],instrucao:'Dado o tema abaixo, qual é o FENÔMENO MAIOR que o originou? (ex: digitalização, desigualdade social, avanço tecnológico)',
+   dica:'💡 O fenômeno é o contexto amplo que deu origem ao tema. Parta do geral para o específico. Uma frase é suficiente.',
+   sugestoes:{fenomeno:[
+     'A aceleração da transformação digital da economia global',
+     'O avanço das tecnologias de informação e comunicação no século XXI',
+     'A expansão do mercado financeiro digital e das fintechs no Brasil',
+     'O aprofundamento das desigualdades socioeconômicas no Brasil contemporâneo',
+     'A intensificação da regulação do sistema financeiro nacional pós-crise de 2008',
+   ]}},
+  {num:2,label:'FENÔMENO + TEMA ESPECÍFICO',campos:['fenomeno','temaspec'],instrucao:'Identifique o Fenômeno e escreva o Tema Específico que emerge dele.',
+   dica:'💡 O tema específico é o recorte do fenômeno que a redação vai tratar. Deve ser mais restrito que o fenômeno.',
+   sugestoes:{
+     fenomeno:[
+       'A transformação digital dos serviços financeiros e bancários',
+       'A crescente penetração da tecnologia na intermediação financeira',
+       'O avanço da regulação financeira como resposta à inovação tecnológica',
+     ],
+     temaspec:[
+       'O impacto do Open Finance na democratização do crédito',
+       'Os desafios da inclusão financeira em contexto de inovação digital',
+       'A proteção do consumidor bancário diante da digitalização dos serviços',
+     ],
+   }},
+  {num:3,label:'CRIAR TESE COM DOIS EIXOS',campos:['eixo1','eixo2','tese'],instrucao:'Defina EXATAMENTE dois eixos de discussão e monte a tese completa.',
+   dica:'💡 DOIS e apenas dois eixos. Fórmula: "Embora X represente Y, sua efetivação depende de [EIXO1] e [EIXO2]."',
+   sugestoes:{
+     eixo1:[
+       'regulação protetiva eficaz dos dados e da concorrência',
+       'fortalecimento da infraestrutura tecnológica inclusiva',
+       'educação financeira e digital da população',
+       'atuação estratégica das instituições públicas',
+     ],
+     eixo2:[
+       'políticas de inclusão digital para populações vulneráveis',
+       'mecanismos robustos de proteção ao consumidor',
+       'redução das desigualdades de acesso aos serviços digitais',
+       'cooperação entre setor público, privado e sociedade civil',
+     ],
+     tese:[
+       'Embora [tema] represente avanço relevante, sua consolidação depende de [eixo1] e [eixo2].',
+       'Se por um lado [tema] amplia as possibilidades de [benefício], por outro exige [eixo1] e [eixo2].',
+       'Para que [tema] cumpra seu potencial transformador, torna-se imprescindível [eixo1] aliado a [eixo2].',
+     ],
+   }},
+  {num:4,label:'TÓPICOS FRASAIS',campos:['tf1','tf2'],instrucao:'Crie os dois tópicos frasais — um para cada eixo da tese.',
+   dica:'💡 O tópico frasal é a primeira frase do parágrafo. Anuncia o argumento. Deve ser afirmativo e direto.',
+   sugestoes:{
+     tf1:[
+       'Em relação ao [eixo1], observa-se que...',
+       'No que concerne ao primeiro eixo, [eixo1] mostra-se fundamental porque...',
+       'O [eixo1] constitui condição sine qua non para a efetivação do tema, pois...',
+       'A ausência de [eixo1] compromete diretamente os objetivos propostos, uma vez que...',
+     ],
+     tf2:[
+       'No que tange ao segundo eixo, [eixo2] é igualmente indispensável...',
+       'Quanto ao [eixo2], torna-se necessário reconhecer que...',
+       'Paralelamente, a promoção de [eixo2] emerge como imperativo social porque...',
+       'A construção de [eixo2] representa o segundo vetor de ação imprescindível...',
+     ],
+   }},
+  {num:5,label:'INTRODUÇÃO COMPLETA',campos:['intro'],instrucao:'Escreva a introdução completa: contextualização (1-2 frases) + tema específico + tese com dois eixos. Máx. 6 linhas.',
+   dica:'💡 Fórmula: [Fenômeno amplo] → [tema específico] → [tese com DOIS eixos]. Não cite o título literalmente. Use conectivo de ressalva (embora, se por um lado, ainda que).',
+   sugestoes:{intro:[
+     'Estrutura: [Fenômeno em 1 frase] + [tema específico em 1 frase] + [tese: Embora X, depende de Y e Z]',
+     'Conectivos de ressalva para a tese: Embora · Se por um lado · Ainda que · Apesar de',
+     'Verbos para contextualização: tem promovido · impulsiona · emerge · consolida · evidencia · redefine',
+     'Dados para enriquecer: "Segundo o BACEN, o Pix movimentou R$ 17 tri em 2023" · "42 mi de brasileiros desbancarizados" · "Open Finance: 45 mi de consentimentos ativos"',
+   ]}},
+  {num:6,label:'REDAÇÃO COMPLETA',campos:['redacao'],instrucao:'Escreva a redação completa seguindo o FTTD (25-30 linhas, 4 parágrafos).',
+   dica:'💡 §1 Introdução · §2 Eixo 1 (tópico frasal + explicação + exemplo/dado + consequência) · §3 Eixo 2 (mesma estrutura) · §4 Conclusão (retome tese + agente + ação + finalidade)',
+   sugestoes:{redacao:[
+     '§4 Conclusão: "Propõe-se que o [AGENTE], como [qualificação], [AÇÃO concreta], a fim de [FINALIDADE social]."',
+     'Agentes possíveis: Banco do Brasil · Banco Central · Governo Federal · Congresso Nacional · ANPD',
+     'Conectivos para desenvolvimento: Nesse sentido · Ademais · Paralelamente · Por conseguinte · Diante disso',
+     'Sem argumento novo na conclusão! Apenas síntese + proposta de intervenção.',
+   ]}},
+];
+
+// Armazena respostas de cada nível
+let treinoRespostas = {};
+let treinoTemaAtual = null;
+
+function initTreino(){
+  treinoNovoTema();
+}
+
+async function treinoBuscarContexto(){
+  if(!treinoTemaAtual) return;
+  const painel = document.getElementById('treino-contexto');
+  const btn = event.target;
+  btn.disabled = true;
+  btn.textContent = '⏳ Buscando contexto...';
+  painel.style.display = 'none';
+
+  try {
+    const sysCtx = `Você é especialista em concursos públicos (BB/CEF Cesgranrio) e jornalismo financeiro.
+Para o tema dado, gere um contexto de estudo com:
+1. MANCHETES RECENTES (3 manchetes fictícias mas verossímeis, estilo Valor Econômico / Folha)
+2. DADOS E ESTATÍSTICAS (3-4 dados concretos com fonte para usar na redação)
+3. ARGUMENTO PRÓ (1 parágrafo de artigo de opinião favorável ao tema)
+4. ARGUMENTO CONTRA / DESAFIO (1 parágrafo de artigo de opinião crítico/desafiador)
+5. VOCABULÁRIO-CHAVE (8-10 termos técnicos do tema com breve definição)
+Formato: texto corrido com seções em MAIÚSCULAS. Sem markdown. Linguagem jornalística e acadêmica.`;
+
+    const resp = await chamarIA(
+      'Gere contexto jornalístico e argumentativo para redação sobre: ' + treinoTemaAtual.titulo,
+      1800, sysCtx
+    );
+
+    painel.style.display = 'block';
+    // Formatar as seções com destaque
+    let html = resp
+      .replace(/MANCHETES RECENTES/g, '<strong style="color:#4a90d9;font-family:var(--mono);font-size:10px;letter-spacing:2px;">📰 MANCHETES RECENTES</strong>')
+      .replace(/DADOS E ESTATÍSTICAS/g, '<strong style="color:#3db88a;font-family:var(--mono);font-size:10px;letter-spacing:2px;">📊 DADOS E ESTATÍSTICAS</strong>')
+      .replace(/ARGUMENTO PRÓ/g, '<strong style="color:#c8992a;font-family:var(--mono);font-size:10px;letter-spacing:2px;">✅ ARGUMENTO PRÓ</strong>')
+      .replace(/ARGUMENTO CONTRA[^:]*:/g, '<strong style="color:#e05050;font-family:var(--mono);font-size:10px;letter-spacing:2px;">⚠️ DESAFIO / CONTRA-ARGUMENTO:</strong>')
+      .replace(/VOCABULÁRIO.CHAVE/g, '<strong style="color:#8a6ad9;font-family:var(--mono);font-size:10px;letter-spacing:2px;">📚 VOCABULÁRIO-CHAVE</strong>')
+      .replace(/\n\n/g, '<br/><br/>')
+      .replace(/\n/g, '<br/>');
+    painel.innerHTML = html;
+  } catch(e) {
+    painel.style.display = 'block';
+    painel.innerHTML = '<span style="color:var(--verm);">Erro ao buscar contexto: ' + e.message + '</span>';
+  }
+
+  btn.disabled = false;
+  btn.textContent = '📰 Gerar notícias e artigos sobre o tema';
+}
+
+function treinoNovoTema(){
+  const aleatorio = TEMAS_BANCO[Math.floor(Math.random()*TEMAS_BANCO.length)];
+  treinoTemaAtual = aleatorio;
+  treinoRespostas = {};
+  nivelTreino = 1;
+  document.getElementById('treino-tema-display').textContent = aleatorio.titulo;
+  document.getElementById('treino-ia-out').classList.remove('vis');
+  renderNivelCampos();
+  atualizarPainelProgresso();
+}
+
+function treinoProxNivel(){
+  // Salvar respostas do nível atual antes de avançar
+  salvarRespostasNivel();
+  nivelTreino = Math.min(nivelTreino+1, 6);
+  document.getElementById('treino-ia-out').classList.remove('vis');
+  renderNivelCampos();
+  atualizarPainelProgresso();
+}
+
+function salvarRespostasNivel(){
+  const n = NIVEIS[nivelTreino-1];
+  n.campos.forEach(c => {
+    const el = document.getElementById('treino-campo-'+c);
+    if(el && el.value.trim()) treinoRespostas[c] = el.value.trim();
+  });
+}
+
+function renderNivelCampos(){
+  const n = NIVEIS[nivelTreino-1];
+  const pct = Math.round(nivelTreino*100/6);
+  document.getElementById('treino-prog').style.width = pct+'%';
+  document.getElementById('treino-nivel-badge').textContent = `NÍVEL ${n.num}/6 — ${n.label}`;
+  document.getElementById('treino-instrucao').textContent = n.instrucao||'';
+
+  const labels = {
+    fenomeno:'Fenômeno maior', temaspec:'Tema específico',
+    eixo1:'Eixo 1 da tese', eixo2:'Eixo 2 da tese', tese:'Tese completa',
+    tf1:'Tópico Frasal 1 (§ desenvolvimento 1)',
+    tf2:'Tópico Frasal 2 (§ desenvolvimento 2)',
+    intro:'Introdução completa', redacao:'Redação completa',
+  };
+
+  const el = document.getElementById('treino-campos');
+
+  // Dica do nível
+  let html = n.dica ? `<div style="background:rgba(200,153,42,0.08);border:1px solid rgba(200,153,42,0.2);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--ouro);">${n.dica}</div>` : '';
+
+  // Campos
+  n.campos.forEach(c => {
+    const isTextarea = ['intro','redacao'].includes(c);
+    const rows = c==='redacao' ? 16 : c==='intro' ? 7 : 3;
+    const valorSalvo = treinoRespostas[c] || '';
+    const sugs = n.sugestoes?.[c] || [];
+
+    html += `<div class="field">
+      <label>${labels[c]||c}</label>`;
+
+    // Sugestões de palavras/frases
+    if(sugs.length){
+      html += `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">`;
+      sugs.forEach(s => {
+        html += `<span onclick="usarSugestao('treino-campo-${c}','${s.replace(/'/g,"\\'")}',${isTextarea})"
+          style="font-size:10px;font-family:var(--mono);background:rgba(74,144,217,0.1);border:1px solid rgba(74,144,217,0.25);color:#4a90d9;border-radius:4px;padding:2px 8px;cursor:pointer;"
+          title="Clique para usar como base">💬 ${s.substring(0,50)}${s.length>50?'...':''}</span>`;
+      });
+      html += `</div>`;
+    }
+
+    html += isTextarea
+      ? `<textarea id="treino-campo-${c}" rows="${rows}" placeholder="Digite aqui...">${valorSalvo}</textarea>`
+      : `<input type="text" id="treino-campo-${c}" value="${valorSalvo}" placeholder="Digite aqui..."/>`;
+
+    html += `</div>`;
+  });
+
+  // No nível 6 (redação completa), mostrar painel do que foi construído
+  if(nivelTreino === 6){
+    html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px;">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--verde);margin-bottom:10px;">📋 SEU RASCUNHO — USE COMO BASE</div>
+      ${montarRascunho()}
+    </div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+function usarSugestao(id, texto, append){
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(append && el.value.trim()){
+    el.value = el.value.trim() + ' ' + texto;
+  } else {
+    el.value = texto;
+  }
+  el.focus();
+}
+
+function montarRascunho(){
+  const r = treinoRespostas;
+  let html = '';
+
+  if(r.fenomeno){
+    html += `<div style="margin-bottom:8px;"><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">FENÔMENO:</span><br/><span style="font-size:13px;">${r.fenomeno}</span></div>`;
+  }
+  if(r.temaspec){
+    html += `<div style="margin-bottom:8px;"><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">TEMA ESPECÍFICO:</span><br/><span style="font-size:13px;">${r.temaspec}</span></div>`;
+  }
+  if(r.eixo1 || r.eixo2){
+    html += `<div style="margin-bottom:8px;"><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">EIXOS:</span><br/>`;
+    if(r.eixo1) html += `<span style="font-size:12px;color:var(--azul);">① ${r.eixo1}</span><br/>`;
+    if(r.eixo2) html += `<span style="font-size:12px;color:var(--roxo);">② ${r.eixo2}</span>`;
+    html += `</div>`;
+  }
+  if(r.tese){
+    html += `<div style="margin-bottom:8px;background:rgba(200,153,42,0.06);border-left:3px solid var(--ouro);padding:8px 12px;border-radius:0 6px 6px 0;"><span style="font-family:var(--mono);font-size:9px;color:var(--ouro);">TESE:</span><br/><span style="font-size:13px;font-style:italic;">${r.tese}</span></div>`;
+  }
+  if(r.tf1 || r.tf2){
+    html += `<div style="margin-bottom:8px;"><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">TÓPICOS FRASAIS:</span><br/>`;
+    if(r.tf1) html += `<span style="font-size:12px;color:var(--azul);">§2: ${r.tf1}</span><br/>`;
+    if(r.tf2) html += `<span style="font-size:12px;color:var(--roxo);">§3: ${r.tf2}</span>`;
+    html += `</div>`;
+  }
+  if(r.intro){
+    html += `<div style="margin-bottom:8px;background:rgba(61,184,138,0.05);border-left:3px solid var(--verde);padding:8px 12px;border-radius:0 6px 6px 0;"><span style="font-family:var(--mono);font-size:9px;color:var(--verde);">INTRODUÇÃO RASCUNHADA:</span><br/><span style="font-size:12px;line-height:1.7;">${r.intro}</span></div>`;
+  }
+
+  if(!html) html = '<span style="font-size:12px;color:var(--muted);">Nenhum conteúdo registrado ainda. Complete os níveis anteriores primeiro.</span>';
+
+  return html;
+}
+
+function atualizarPainelProgresso(){
+  const painel = document.getElementById('treino-progresso-painel');
+  const card = document.getElementById('treino-progresso-card');
+  if(!painel || !card) return;
+  const rascunho = montarRascunho();
+  painel.innerHTML = rascunho;
+  // Mostrar só se tiver algo além da mensagem vazia
+  const temConteudo = Object.keys(treinoRespostas).length > 0;
+  card.style.display = temConteudo ? 'block' : 'none';
+}
+
+async function treinoAvaliar(){
+  if(!treinoTemaAtual) return;
+  salvarRespostasNivel();
+  const n = NIVEIS[nivelTreino-1];
+  const respostas = n.campos.map(c => {
+    const el = document.getElementById('treino-campo-'+c);
+    return (labels_pt[c]||c)+': '+(el?.value||'(vazio)');
+  }).join('\n');
+  const btn = document.querySelector('#aba-treino .btn-ouro');
+  setLoading(btn,'Avaliando...');
+  try{
+    const sysTreino=`Você é professor de redação para concursos Cesgranrio (BB/CEF).
+Avalie a resposta do candidato no Nível ${n.num} (${n.label}) de forma direta e específica.
+Estruture o feedback em 3 partes:
+✅ O que está correto:
+⚠️ O que melhorar:
+💡 Dica prática:
+Use linguagem encorajadora. Máx. 5 frases no total. Sem markdown.
+${nivelTreino===3?'ATENÇÃO: verifique se a tese tem EXATAMENTE dois eixos (nem um, nem três).':''}
+${nivelTreino===6?'ATENÇÃO: verifique paragrafação, dois eixos no desenvolvimento, ausência de argumento novo na conclusão.':''}`;
+    const resp = await chamarIA(
+      'Nível '+n.num+' — '+n.label+'\nTema: '+treinoTemaAtual.titulo+'\nFenômeno: '+treinoTemaAtual.fenomeno+'\n\nResposta:\n'+respostas,
+      700, sysTreino
+    );
+    document.getElementById('treino-ia-texto').textContent = resp;
+    document.getElementById('treino-ia-out').classList.add('vis');
+    atualizarPainelProgresso();
+  }catch(e){showError(e.message);}
+  unsetLoading(btn,'✓ Avaliar com IA');
+}
+
+const labels_pt = {
+  fenomeno:'Fenômeno maior', temaspec:'Tema específico',
+  eixo1:'Eixo 1', eixo2:'Eixo 2', tese:'Tese',
+  tf1:'Tópico Frasal 1', tf2:'Tópico Frasal 2',
+  intro:'Introdução', redacao:'Redação completa',
+};
+
+// ══════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════
+window.onload=function(){
+  initFTTD();
+  initTemas();
+  initTreino();
+};
+</script>
+</body>
+</html>
