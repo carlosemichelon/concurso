@@ -1248,9 +1248,16 @@ function renderNivelCampos(){
     html += `<div class="field">
       <label>${labels[c]||c}</label>`;
 
-    // Sugestões de palavras/frases
+    // Sugestões de palavras/frases — ocultas por padrão
     if(sugs.length){
-      html += `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">`;
+      const sugId = `sugs-${c}`;
+      html += `<div style="margin-bottom:6px;">
+        <span onclick="toggleSugs('${sugId}',this)"
+          style="font-size:10px;font-family:var(--mono);color:var(--muted);cursor:pointer;border:1px solid var(--border);border-radius:4px;padding:2px 10px;display:inline-block;">
+          💡 Mostrar sugestões
+        </span>
+      </div>
+      <div id="${sugId}" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px;">`;
       sugs.forEach(s => {
         html += `<span onclick="usarSugestao('treino-campo-${c}','${s.replace(/'/g,"\\'")}',${isTextarea})"
           style="font-size:10px;font-family:var(--mono);background:rgba(74,144,217,0.1);border:1px solid rgba(74,144,217,0.25);color:#4a90d9;border-radius:4px;padding:2px 8px;cursor:pointer;"
@@ -1275,6 +1282,14 @@ function renderNivelCampos(){
   }
 
   el.innerHTML = html;
+}
+
+function toggleSugs(id, btn){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const vis = el.style.display !== 'none';
+  el.style.display = vis ? 'none' : 'flex';
+  btn.textContent = vis ? '💡 Mostrar sugestões' : '🙈 Ocultar sugestões';
 }
 
 function usarSugestao(id, texto, append){
