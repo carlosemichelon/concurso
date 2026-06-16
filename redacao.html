@@ -1100,45 +1100,40 @@ function usarTema(idx){
 // ABA 7 — TREINO
 // ══════════════════════════════════════════════════════════════
 const NIVEIS=[
-  {num:1,label:'IDENTIFICAR FENÔMENO',campos:['fenomeno'],
-   instrucao:'Dado o tema abaixo, qual é o FENÔMENO MAIOR que o originou? (ex: digitalização, desigualdade social, avanço tecnológico)',
-   dica:'💡 O fenômeno é o contexto amplo que deu origem ao tema. Parta do geral para o específico. Uma frase é suficiente.'},
+  {num:1,label:'PLANEJAMENTO FTTD',
+   campos:['fenomeno','temaspec','eixo1','eixo2','tese'],
+   instrucao:'Monte a espinha dorsal da redação: Fenômeno → Tema Específico → dois Eixos → Tese.',
+   dica:'💡 Fórmula da tese: "Embora [tema] represente [avanço], sua consolidação depende de [EIXO1] e [EIXO2]." Dois eixos — nem mais, nem menos.'},
 
-  {num:2,label:'FENÔMENO + TEMA ESPECÍFICO',campos:['fenomeno','temaspec'],
-   instrucao:'Identifique o Fenômeno e escreva o Tema Específico que emerge dele.',
-   dica:'💡 O tema específico é o recorte do fenômeno que a redação vai tratar. Deve ser mais restrito que o fenômeno.'},
+  {num:2,label:'TEEC — EIXO 1 (§2)',
+   campos:['arg1_topico','arg1_explicacao','arg1_exemplo','arg1_consequencia'],
+   instrucao:'Desenvolva o argumento do §2 com a estrutura TEEC: Tópico Frasal · Explicação · Exemplo/Dado · Consequência.',
+   dica:'💡 T = primeira frase do parágrafo (anuncia) · E = fundamenta com raciocínio · E = evidência concreta (dado, lei, caso) · C = impacto/resultado esperado. Cada parte: 1-2 frases.'},
 
-  {num:3,label:'CRIAR TESE COM DOIS EIXOS',campos:['eixo1','eixo2','tese'],
-   instrucao:'Defina EXATAMENTE dois eixos de discussão e monte a tese completa.',
-   dica:'💡 DOIS e apenas dois eixos. Fórmula: "Embora X represente Y, sua efetivação depende de [EIXO1] e [EIXO2]."'},
+  {num:3,label:'TEEC — EIXO 2 (§3)',
+   campos:['arg2_topico','arg2_explicacao','arg2_exemplo','arg2_consequencia'],
+   instrucao:'Desenvolva o argumento do §3 com a mesma estrutura TEEC — mas eixo diferente e complementar.',
+   dica:'💡 O Eixo 2 deve complementar (não repetir) o Eixo 1. Use exemplos e dados distintos. Inicie com conectivo de adição: Ademais · Paralelamente · Por sua vez.'},
 
-  {num:4,label:'ARGUMENTAÇÃO — EIXO 1',campos:['arg1_topico','arg1_explicacao','arg1_exemplo','arg1_consequencia'],
-   instrucao:'Desenvolva o argumento do EIXO 1. Preencha cada parte da estrutura TEEC (Tópico · Explicação · Exemplo/dado · Consequência).',
-   dica:'💡 Estrutura TEEC: Tópico Frasal (anuncia) → Explicação (fundamenta) → Exemplo/Dado concreto (evidencia) → Consequência (impacto). Cada parte em 1-2 frases.'},
+  {num:4,label:'ESCREVER §1 — INTRODUÇÃO',
+   campos:['intro'],
+   instrucao:'Escreva o parágrafo de introdução completo: contextualização (1-2 frases) + tema específico + tese com os dois eixos. Máx. 6 linhas.',
+   dica:'💡 Consulte o painel → seu Fenômeno e Tese já estão prontos. Não copie literalmente — reformule. Use conectivo de ressalva antes dos eixos: Embora · Se por um lado · Ainda que.'},
 
-  {num:5,label:'ARGUMENTAÇÃO — EIXO 2',campos:['arg2_topico','arg2_explicacao','arg2_exemplo','arg2_consequencia'],
-   instrucao:'Desenvolva o argumento do EIXO 2 com a mesma estrutura TEEC.',
-   dica:'💡 O eixo 2 deve ser diferente do eixo 1 mas complementar. Evite repetir os mesmos exemplos ou dados.'},
+  {num:5,label:'ESCREVER §2 E §3 — DESENVOLVIMENTO',
+   campos:['dev1','dev2'],
+   instrucao:'Redija os dois parágrafos de desenvolvimento. Consulte seus TEECs no painel — apenas transforme em texto corrido.',
+   dica:'💡 Cada parágrafo: comece pelo Tópico Frasal → desenvolva com Explicação → insira o Exemplo/Dado → finalize com a Consequência. 6-8 linhas por parágrafo.'},
 
-  {num:6,label:'TÓPICOS FRASAIS',campos:['tf1','tf2'],
-   instrucao:'Com base nos argumentos desenvolvidos, crie os dois tópicos frasais definitivos.',
-   dica:'💡 O tópico frasal é a PRIMEIRA FRASE do parágrafo — já sintetiza o argumento TEEC que vem a seguir. Deve ser afirmativo e direto.'},
+  {num:6,label:'ESCREVER §4 — CONCLUSÃO',
+   campos:['conclusao_agente','conclusao_acao','conclusao_finalidade','conclusao'],
+   instrucao:'Defina o Agente, a Ação e a Finalidade. Depois escreva o parágrafo de conclusão completo.',
+   dica:'💡 Fórmula: "Propõe-se que [AGENTE], como [qualificação], [AÇÃO concreta], a fim de [FINALIDADE social]." SEM argumento novo. Apenas retome a tese e proponha intervenção. 3-4 linhas.'},
 
-  {num:7,label:'INTRODUÇÃO COMPLETA',campos:['intro'],
-   instrucao:'Escreva a introdução completa: contextualização (1-2 frases) + tema específico + tese com dois eixos. Máx. 6 linhas.',
-   dica:'💡 Fórmula: [Fenômeno amplo] → [tema específico] → [tese: Embora X, depende de EIXO1 e EIXO2]. Não cite o título literalmente.'},
-
-  {num:8,label:'DESENVOLVIMENTO COMPLETO',campos:['dev1','dev2'],
-   instrucao:'Escreva os dois parágrafos de desenvolvimento completos. Use o painel lateral para consultar seus argumentos TEEC.',
-   dica:'💡 §2: [Tópico Frasal 1] + [Explicação] + [Exemplo/Dado] + [Consequência] · §3: mesma estrutura com Eixo 2. 6-8 linhas por parágrafo.'},
-
-  {num:9,label:'CONCLUSÃO',campos:['conclusao_agente','conclusao_acao','conclusao_finalidade','conclusao'],
-   instrucao:'Construa a conclusão em partes: defina o AGENTE, a AÇÃO concreta e a FINALIDADE social. Depois escreva o parágrafo completo.',
-   dica:'💡 Fórmula: "Propõe-se que [AGENTE], como [qualificação], [AÇÃO concreta e específica], a fim de [FINALIDADE social ampla]." Não introduza argumento novo! Apenas retome a tese e proponha intervenção.'},
-
-  {num:10,label:'REDAÇÃO COMPLETA',campos:['redacao'],
-   instrucao:'Una tudo: escreva a redação completa com os 4 parágrafos. Use o painel de construção como referência.',
-   dica:'💡 §1 Introdução · §2 Desenvolvimento Eixo 1 · §3 Desenvolvimento Eixo 2 · §4 Conclusão (retome tese + agente + ação + finalidade). Sem argumento novo na conclusão!'},
+  {num:7,label:'REDAÇÃO COMPLETA',
+   campos:['redacao'],
+   instrucao:'Una os 4 parágrafos em uma redação coesa. Consulte o painel com tudo que foi construído e escreva o texto final polido.',
+   dica:'💡 §1 Introdução · §2 Desenvolvimento Eixo 1 · §3 Desenvolvimento Eixo 2 · §4 Conclusão. Revise conectivos entre parágrafos e verifique se a tese é retomada sem ser copiada.'},
 ];
 
 // Sugestões fixas por fenômeno — alinhadas ao tema
@@ -1207,110 +1202,96 @@ function getSugestoesTema(campo){
   if(!treinoTemaAtual) return [];
   const fen = treinoTemaAtual.fenomeno || '';
   const base = SUGESTOES_POR_FENOMENO[fen] || SUGESTOES_GENERICAS;
+  const r = treinoRespostas;
 
-  // Sugestões específicas por campo e nível
-  if(campo === 'fenomeno') return base.fenomeno || [];
-  if(campo === 'temaspec') return base.temaspec || [];
-  if(campo === 'eixo1') return base.eixo1 || [];
-  if(campo === 'eixo2') return base.eixo2 || [];
-  if(campo === 'tese') return [
-    'Embora [tema] represente avanço relevante, sua consolidação depende de '+( base.eixo1[0]||'[eixo1]')+' e '+(base.eixo2[0]||'[eixo2]')+'.',
-    'Se por um lado [tema] amplia as possibilidades de desenvolvimento, por outro exige '+(base.eixo1[1]||'[eixo1]')+' e '+(base.eixo2[1]||'[eixo2]')+'.',
-    'Para que [tema] cumpra seu potencial transformador, torna-se imprescindível '+(base.eixo1[2]||'[eixo1]')+' aliado a '+(base.eixo2[2]||'[eixo2]')+'.',
+  if(campo==='fenomeno') return base.fenomeno||[];
+  if(campo==='temaspec') return base.temaspec||[];
+  if(campo==='eixo1') return base.eixo1||[];
+  if(campo==='eixo2') return base.eixo2||[];
+  if(campo==='tese') return [
+    'Embora '+(r.temaspec||'[tema]')+' represente avanço relevante, sua consolidação depende de '+(r.eixo1||'[eixo1]')+' e '+(r.eixo2||'[eixo2]')+'.',
+    'Se por um lado '+(r.temaspec||'[tema]')+' amplia as possibilidades de desenvolvimento, por outro exige '+(r.eixo1||'[eixo1]')+' e '+(r.eixo2||'[eixo2]')+'.',
+    'Para que '+(r.temaspec||'[tema]')+' cumpra seu potencial transformador, torna-se imprescindível '+(r.eixo1||'[eixo1]')+' aliado a '+(r.eixo2||'[eixo2]')+'.',
   ];
-  if(campo === 'arg1_topico') return base.eixo1 ? [
-    base.eixo1[0] ? base.eixo1[0].charAt(0).toUpperCase()+base.eixo1[0].slice(1)+' constitui fator determinante para a efetivação do tema, pois...' : '',
-    'O '+(base.eixo1[1]||'[eixo1]')+' mostra-se imprescindível para a superação dos desafios apresentados...',
-    'A implementação de '+(base.eixo1[2]||'[eixo1]')+' emerge como condição primeira para o avanço do tema...',
-  ].filter(Boolean) : [];
-  if(campo === 'arg1_explicacao') return [
-    'Isso porque, sem essa medida, os impactos negativos se aprofundam, afetando especialmente as camadas mais vulneráveis da população...',
+  if(campo==='arg1_topico') return [
+    (r.eixo1||'[eixo1]').charAt(0).toUpperCase()+(r.eixo1||'[eixo1]').slice(1)+' constitui condição essencial para a efetivação do tema, pois...',
+    'A promoção de '+(r.eixo1||'[eixo1]')+' emerge como primeiro vetor de transformação, uma vez que...',
+    'No que concerne a '+(r.eixo1||'[eixo1]')+', observa-se que sua ausência compromete diretamente...',
+  ];
+  if(campo==='arg1_explicacao') return [
+    'Isso porque, sem essa medida, os impactos negativos se aprofundam, afetando especialmente os mais vulneráveis...',
     'Tal afirmação se sustenta na medida em que a ausência dessa política gera efeitos sistêmicos sobre a sociedade...',
-    'Nesse sentido, estudos apontam que a implementação dessa medida reduz significativamente os riscos associados ao tema...',
+    'Nesse sentido, a implementação dessa medida reduz significativamente os riscos associados ao tema...',
   ];
-  if(campo === 'arg1_exemplo') return [
+  if(campo==='arg1_exemplo') return [
     'Segundo o Banco Central do Brasil, [dado numérico] demonstra a dimensão do problema...',
     'A título de exemplo, países que adotaram políticas semelhantes registraram [resultado concreto]...',
-    'De acordo com [instituição/relatório], [dado ou evidência que sustenta o argumento]...',
+    'De acordo com [instituição], [dado ou evidência que sustenta o argumento]...',
   ];
-  if(campo === 'arg1_consequencia') return [
-    'Como consequência, a população terá acesso a [benefício concreto], reduzindo desigualdades e promovendo cidadania...',
-    'Dessa forma, o resultado esperado é [impacto positivo mensurável], fortalecendo o desenvolvimento sustentável...',
-    'Assim, essa medida contribui diretamente para [finalidade social ampla], beneficiando especialmente os grupos mais vulneráveis...',
+  if(campo==='arg1_consequencia') return [
+    'Como consequência, a população terá acesso a [benefício concreto], reduzindo desigualdades...',
+    'Dessa forma, o resultado esperado é [impacto positivo], fortalecendo o desenvolvimento sustentável...',
+    'Assim, essa medida contribui diretamente para [finalidade social], beneficiando os mais vulneráveis...',
   ];
-  if(campo === 'arg2_topico') return base.eixo2 ? [
-    base.eixo2[0] ? 'Paralelamente, '+base.eixo2[0]+' representa o segundo vetor indispensável para a resolução do problema...' : '',
-    'No que tange ao segundo eixo, '+(base.eixo2[1]||'[eixo2]')+' complementa a ação anterior ao garantir...',
-    'Ademais, a promoção de '+(base.eixo2[2]||'[eixo2]')+' configura-se como imperativo para a consolidação do tema...',
-  ].filter(Boolean) : [];
-  if(campo === 'arg2_explicacao') return [
-    'Isso se justifica pelo fato de que, sem esse segundo eixo, os avanços do primeiro seriam insuficientes para...',
-    'A complementaridade entre os dois eixos reside na capacidade dessa medida de alcançar grupos que a primeira ação não contempla...',
-    'Em outras palavras, essa segunda dimensão amplia e consolida os efeitos positivos do primeiro eixo, garantindo...',
+  if(campo==='arg2_topico') return [
+    'Paralelamente, '+(r.eixo2||'[eixo2]')+' representa o segundo vetor indispensável para a resolução do problema...',
+    'No que tange ao segundo eixo, '+(r.eixo2||'[eixo2]')+' complementa a ação anterior ao garantir...',
+    'Ademais, a consolidação de '+(r.eixo2||'[eixo2]')+' configura-se como imperativo para a superação dos desafios...',
   ];
-  if(campo === 'arg2_exemplo') return [
+  if(campo==='arg2_explicacao') return [
+    'Isso se justifica pelo fato de que, sem esse segundo eixo, os avanços do primeiro seriam insuficientes...',
+    'A complementaridade entre os dois eixos reside na capacidade dessa medida de alcançar grupos que a primeira não contempla...',
+    'Em outras palavras, essa segunda dimensão amplia e consolida os efeitos positivos do primeiro eixo...',
+  ];
+  if(campo==='arg2_exemplo') return [
     'Nesse contexto, a experiência de [país/estado/instituição] demonstra que [resultado positivo]...',
-    'Dados do [IBGE / BACEN / relatório ONU] indicam que [evidência numérica ou qualitativa]...',
-    'O caso de [exemplo concreto] ilustra como essa medida, quando implementada, gera [impacto mensurável]...',
+    'Dados do [IBGE / BACEN / ONU] indicam que [evidência numérica ou qualitativa]...',
+    'O caso de [exemplo concreto] ilustra como essa medida gera [impacto mensurável]...',
   ];
-  if(campo === 'arg2_consequencia') return [
-    'Como resultado, a soma dos dois eixos cria condições para [objetivo final amplo], promovendo equidade e desenvolvimento...',
-    'Por conseguinte, essa ação completa o ciclo de intervenção necessário para que [tema] alcance seu pleno potencial...',
-    'Diante disso, os benefícios se estendem a [grupo beneficiado], fortalecendo a cidadania e reduzindo vulnerabilidades...',
+  if(campo==='arg2_consequencia') return [
+    'Como resultado, a soma dos dois eixos cria condições para [objetivo final], promovendo equidade...',
+    'Por conseguinte, essa ação completa o ciclo de intervenção necessário para o pleno potencial do tema...',
+    'Diante disso, os benefícios se estendem a [grupo beneficiado], fortalecendo a cidadania...',
   ];
-  if(campo === 'conclusao_agente') return [
-    base.agente || 'o Banco do Brasil, como instituição financeira pública,',
-    'o Governo Federal, por meio do Ministério da Fazenda,',
-    'o Banco Central do Brasil, como autoridade regulatória do sistema financeiro,',
-    'o Congresso Nacional, no exercício de sua função legislativa,',
-  ];
-  if(campo === 'conclusao_acao') return [
-    'implemente políticas públicas integradas de inclusão financeira e digital',
-    'aprimore a regulação dos serviços financeiros digitais, fortalecendo a proteção ao consumidor',
-    'invista em programas de educação financeira nas escolas públicas e comunidades vulneráveis',
-    'amplie o acesso ao crédito consciente por meio de plataformas digitais inclusivas',
-  ];
-  if(campo === 'conclusao_finalidade') return [
-    'a fim de promover o desenvolvimento sustentável e a redução das desigualdades socioeconômicas no Brasil',
-    'de modo a garantir que os avanços tecnológicos beneficiem toda a população, especialmente os mais vulneráveis',
-    'visando à construção de uma sociedade mais justa, equânime e com pleno acesso aos direitos fundamentais',
-    'com vistas à consolidação da cidadania financeira e ao fortalecimento da democracia no país',
-  ];
-  if(campo === 'conclusao') return [
-    'Estrutura: "Propõe-se que [AGENTE], como [qualificação], [AÇÃO], a fim de [FINALIDADE]."',
-    'Retome a tese sem copiá-la: use sinônimos e reformule a ideia central',
-    'Proibido: argumento novo · dados novos · nova tese · nova discussão',
-    'Conclusão ideal: 3-4 linhas = retomada da tese (1 frase) + proposta de intervenção (2-3 frases)',
-  ];
-  if(campo === 'dev1') return [
-    'Estrutura: [Tópico Frasal 1] + [Explicação fundamentada] + [Dado/Exemplo concreto] + [Consequência/Impacto]',
-    'Use seu TEEC do Eixo 1: T='+( treinoRespostas.arg1_topico?.substring(0,40)||'[tópico]')+'...',
-    'Conectivos internos: Isso porque · Nesse sentido · A título de exemplo · Como consequência',
-  ];
-  if(campo === 'dev2') return [
-    'Estrutura: [Tópico Frasal 2] + [Explicação fundamentada] + [Dado/Exemplo concreto] + [Consequência/Impacto]',
-    'Use seu TEEC do Eixo 2: T='+(treinoRespostas.arg2_topico?.substring(0,40)||'[tópico]')+'...',
-    'Conectivos de transição: Paralelamente · Ademais · No que tange a · Por sua vez · Outrossim',
-  ];
-  if(campo === 'tf1') return [
-    'Em relação ao primeiro eixo, '+(base.eixo1[0]||'[eixo1]')+' mostra-se fundamental porque...',
-    'No que concerne a '+(base.eixo1[1]||'[eixo1]')+', observa-se que...',
-    'A ausência de '+(base.eixo1[0]||'[eixo1]')+' compromete diretamente os objetivos propostos, uma vez que...',
-  ];
-  if(campo === 'tf2') return [
-    'No que tange ao segundo eixo, '+(base.eixo2[0]||'[eixo2]')+' é igualmente indispensável...',
-    'Paralelamente, a promoção de '+(base.eixo2[1]||'[eixo2]')+' emerge como imperativo social porque...',
-    'Quanto a '+(base.eixo2[2]||'[eixo2]')+', torna-se necessário reconhecer que...',
-  ];
-  if(campo === 'intro') return [
-    'Estrutura: [Fenômeno em 1 frase] + [tema específico] + [tese: Embora X, depende de Y e Z]',
+  if(campo==='intro') return [
+    'Consulte o painel → seu Fenômeno e Tese já estão prontos. Reformule sem copiar.',
     'Conectivos de ressalva: Embora · Se por um lado · Ainda que · Apesar de · Não obstante',
-    'Verbos de contextualização: tem promovido · impulsiona · emerge · consolida · evidencia · redefine',
+    'Verbos: tem promovido · impulsiona · emerge · consolida · redefine · evidencia',
   ];
-  if(campo === 'redacao') return [
-    'Conclusão: "Propõe-se que '+(base.agente||'[AGENTE]')+' [AÇÃO concreta], a fim de [FINALIDADE social]."',
-    'Conectivos de desenvolvimento: Nesse sentido · Ademais · Paralelamente · Por conseguinte · Diante disso',
-    'Regra de ouro: sem argumento novo na conclusão! Apenas síntese da tese + proposta de intervenção.',
+  if(campo==='dev1') return [
+    'Inicie com seu Tópico Frasal: '+(r.arg1_topico||'[consulte painel → TEEC Eixo 1]').substring(0,60)+'...',
+    'Conectivos internos: Isso porque · Nesse sentido · A título de exemplo · Como consequência',
+    'Exemplo disponível: '+(r.arg1_exemplo||'[consulte painel → TEEC Eixo 1]').substring(0,60)+'...',
+  ];
+  if(campo==='dev2') return [
+    'Inicie com seu Tópico Frasal: '+(r.arg2_topico||'[consulte painel → TEEC Eixo 2]').substring(0,60)+'...',
+    'Conectivos de transição: Paralelamente · Ademais · No que tange a · Por sua vez · Outrossim',
+    'Exemplo disponível: '+(r.arg2_exemplo||'[consulte painel → TEEC Eixo 2]').substring(0,60)+'...',
+  ];
+  if(campo==='conclusao_agente') return (base.agente ? [base.agente] : []).concat([
+    'o Governo Federal, por meio do Ministério da Fazenda,',
+    'o Banco Central do Brasil, como autoridade regulatória,',
+    'o Congresso Nacional, no exercício de sua função legislativa,',
+  ]);
+  if(campo==='conclusao_acao') return [
+    'implemente políticas públicas integradas de '+(r.eixo1||'[eixo1]').substring(0,40),
+    'aprimore a regulação, fortalecendo '+(r.eixo2||'[eixo2]').substring(0,40),
+    'invista em programas de educação e capacitação voltados ao tema',
+  ];
+  if(campo==='conclusao_finalidade') return [
+    'a fim de promover o desenvolvimento sustentável e a redução das desigualdades no Brasil',
+    'de modo a garantir que os avanços beneficiem toda a população, especialmente os mais vulneráveis',
+    'visando à construção de uma sociedade mais justa e com pleno acesso aos direitos fundamentais',
+  ];
+  if(campo==='conclusao') return [
+    'Fórmula: "Propõe-se que [AGENTE], como [qualificação], [AÇÃO], a fim de [FINALIDADE]."',
+    'Retome a tese: '+(r.tese||'[consulte painel]').substring(0,60)+'...',
+    'Proibido: argumento novo · dado novo · nova discussão · nova tese',
+  ];
+  if(campo==='redacao') return [
+    'Consulte o painel — §1, §2, §3 e §4 já construídos. Una com fluidez e conectivos.',
+    'Conectivos entre parágrafos: Nesse contexto · Diante do exposto · Em face do que foi analisado',
+    'Verifique: tese retomada sem cópia · dois eixos · conclusão sem argumento novo',
   ];
   return [];
 }
@@ -1526,7 +1507,7 @@ function treinoExcluir(chave){
 
 function treinoProxNivel(){
   salvarRespostasNivel();
-  nivelTreino = Math.min(nivelTreino+1, 10);
+  nivelTreino = Math.min(nivelTreino+1, 7);
   const iaOut = document.getElementById('treino-ia-out');
   if(iaOut) iaOut.classList.remove('vis');
   renderNivelCampos();
@@ -1543,9 +1524,9 @@ function salvarRespostasNivel(){
 
 function renderNivelCampos(){
   const n = NIVEIS[nivelTreino-1];
-  const pct = Math.round(nivelTreino*100/10);
+  const pct = Math.round(nivelTreino*100/7);
   document.getElementById('treino-prog').style.width = pct+'%';
-  document.getElementById('treino-nivel-badge').textContent = `NÍVEL ${n.num}/10 — ${n.label}`;
+  document.getElementById('treino-nivel-badge').textContent = `NÍVEL ${n.num}/7 — ${n.label}`;
   const instrEl = document.getElementById('treino-instrucao');
   if(instrEl) instrEl.textContent = n.instrucao||'';
 
@@ -1576,11 +1557,10 @@ function renderNivelCampos(){
   // Campos
   n.campos.forEach(c => {
     const isTextarea = true;
-    const rows = ['redacao'].includes(c) ? 22
+    const rows = c==='redacao' ? 22
       : ['intro','dev1','dev2','conclusao'].includes(c) ? 10
-      : ['tese'].includes(c) ? 4
-      : ['arg1_explicacao','arg1_consequencia','arg2_explicacao','arg2_consequencia'].includes(c) ? 4
-      : 5;
+      : ['tese','arg1_explicacao','arg1_consequencia','arg2_explicacao','arg2_consequencia'].includes(c) ? 5
+      : 4;
     const valorSalvo = treinoRespostas[c] || '';
     const sugs = getSugestoesTema(c);
 
@@ -1612,8 +1592,8 @@ function renderNivelCampos(){
     html += `</div>`;
   });
 
-  // A partir do N4 mostrar painel de construção acumulada
-  if(nivelTreino >= 4){
+  // A partir do N2 mostrar painel de construção acumulada
+  if(nivelTreino >= 2){
     html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px;">
       <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--verde);margin-bottom:10px;">📋 SEU RASCUNHO — USE COMO BASE</div>
       ${montarRascunho()}
