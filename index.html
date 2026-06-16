@@ -2609,23 +2609,96 @@ function renderizarApoio(titulo) {
     </div>`;
 
   // === PAINEL MODELO ===
-  const tituloMod = titulo.length > 60 ? titulo.substring(0,57)+'...' : titulo;
-  const dadoMod = tema ? tema.dados[0] : 'Segundo dados recentes, o tema em questão demanda atenção urgente do poder público';
-  const leiMod = tema ? tema.leis[0] : 'a legislação vigente';
-  const propMod = tema ? tema.propostas[0] : 'políticas públicas integradas com participação da sociedade civil';
+  const t = tema;
+  const titulo_curto = titulo.length > 55 ? titulo.substring(0,52)+'...' : titulo;
+
+  // Dados dinâmicos por tema
+  const fenomeno   = t?.fenomeno_ctx  || 'A crescente complexidade das relações sociais e econômicas no Brasil contemporâneo';
+  const dado1      = t?.dados?.[0]    || 'Segundo dados do IBGE, milhões de brasileiros ainda carecem de acesso adequado a serviços essenciais';
+  const lei1       = t?.leis?.[0]     || 'a Constituição Federal de 1988, em seu art. 3º';
+  const eixo1_txt  = t?.eixos?.[0]    || 'a implementação de políticas públicas efetivas e integradas';
+  const eixo2_txt  = t?.eixos?.[1]    || 'a mobilização da sociedade civil e do setor privado';
+  const dado2      = t?.dados?.[1]    || t?.dados?.[0] || 'pesquisas recentes apontam que a ausência de ações coordenadas agrava o problema';
+  const agente     = t?.agente        || 'o Governo Federal, em parceria com estados e municípios';
+  const acao       = t?.proposta      || t?.propostas?.[0] || 'implemente políticas públicas integradas, com metas mensuráveis e participação social';
+  const finalidade = 'a fim de promover o desenvolvimento sustentável e a redução das desigualdades socioeconômicas, garantindo o acesso pleno aos direitos fundamentais previstos na Carta Magna';
+
   document.getElementById('painel-modelo').innerHTML = `
     <div class="section-box">
-      <div class="section-label">📝 MODELO DE REDAÇÃO — USE COMO REFERÊNCIA</div>
-      <div style="font-size:11px;color:#8a9aaa;margin-bottom:8px;">⚠️ Leia, não copie. Use como exemplo de estrutura e linguagem.</div>
-      <div style="font-size:12px;color:#d0c0a0;line-height:1.9;font-style:italic;">
-        <b style="color:var(--rosa);font-style:normal;">INTRODUÇÃO</b><br>
-        ${dadoMod}. Esse cenário evidencia que o tema "${tituloMod}" constitui desafio central para a sociedade brasileira contemporânea, exigindo ações coordenadas e efetivas do poder público e da coletividade.<br><br>
-        <b style="color:var(--rosa);font-style:normal;">DESENVOLVIMENTO 1</b><br>
-        Primeiramente, é necessário compreender as causas estruturais do problema. A herança histórica de desigualdades sociais, aliada à insuficiência das políticas públicas, cria um ciclo vicioso que perpetua a situação. Nesse sentido, ${leiMod} representa um marco regulatório importante, mas sua implementação plena ainda enfrenta obstáculos orçamentários e institucionais.<br><br>
-        <b style="color:var(--rosa);font-style:normal;">DESENVOLVIMENTO 2</b><br>
-        Ademais, os impactos do problema ultrapassam a dimensão individual e afetam toda a coletividade. A ausência de intervenção efetiva resulta em custos sociais e econômicos elevados, comprometendo o desenvolvimento nacional e o bem-estar da população mais vulnerável. Dados recentes reforçam a urgência de mudanças estruturais.<br><br>
-        <b style="color:var(--rosa);font-style:normal;">CONCLUSÃO</b><br>
-        Diante do exposto, é imprescindível que o Estado brasileiro adote medidas concretas para enfrentar esse desafio. Assim, propõe-se que ${propMod}, viabilizando, dessa forma, a construção de uma sociedade mais justa e equânime, em consonância com os objetivos fundamentais da República previstos no art. 3º da Constituição Federal de 1988.
+      <div class="section-label">📝 MODELO FTTD — ESTRUTURA CESGRANRIO</div>
+      <div style="font-size:10px;color:#8a9aaa;margin-bottom:12px;font-family:'IBM Plex Mono',monospace;">
+        ⚠️ Leia e estude a estrutura. Não copie. Use como referência de forma e linguagem.
+      </div>
+
+      <!-- MAPA DA ESTRUTURA -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;">
+        ${[
+          ['§1','INTRODUÇÃO','Fenômeno → Tema → Tese (2 eixos)','var(--verde)'],
+          ['§2','DESENVOLVIMENTO 1','TEEC: Tópico + Explicação + Exemplo + Consequência','var(--azul)'],
+          ['§3','DESENVOLVIMENTO 2','TEEC: mesmo método, eixo diferente','var(--roxo)'],
+          ['§4','CONCLUSÃO','Retomada da tese + Agente + Ação + Finalidade','var(--ouro)'],
+        ].map(([par,nome,desc,cor])=>`
+          <div style="background:${cor}11;border:1px solid ${cor}33;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:${cor};font-weight:700;">${par}</div>
+            <div style="font-size:9px;font-family:'IBM Plex Mono',monospace;color:${cor};margin:3px 0;">${nome}</div>
+            <div style="font-size:9px;color:#8a9aaa;line-height:1.4;">${desc}</div>
+          </div>`).join('')}
+      </div>
+
+      <!-- REDAÇÃO MODELO -->
+      <div style="font-size:13px;color:#d0c8b8;line-height:2;border-top:1px solid rgba(255,255,255,0.07);padding-top:14px;">
+
+        <div style="margin-bottom:16px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--verde);letter-spacing:2px;margin-bottom:6px;">
+            §1 — INTRODUÇÃO <span style="color:#666;font-size:8px;">[fenômeno → tema → tese com 2 eixos]</span>
+          </div>
+          <span style="background:rgba(61,184,138,0.07);border-radius:3px;padding:0 3px;" title="Contextualização do fenômeno">${fenomeno}, tem evidenciado a urgência de se debater o tema "${titulo_curto}" como questão central para o desenvolvimento nacional.</span>
+          <span style="background:rgba(61,184,138,0.12);border-radius:3px;padding:0 3px;" title="Dado + tema específico"> ${dado1}, o que demonstra a relevância do problema e a necessidade de respostas estruturadas.</span>
+          <span style="background:rgba(200,153,42,0.12);border-radius:3px;padding:0 3px;" title="Tese com dois eixos"> Embora iniciativas recentes representem avanços importantes, a plena superação desse desafio depende de <em>${eixo1_txt}</em> e de <em>${eixo2_txt}</em>.</span>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--azul);letter-spacing:2px;margin-bottom:6px;">
+            §2 — DESENVOLVIMENTO 1 <span style="color:#666;font-size:8px;">[TEEC: Tópico · Explicação · Exemplo · Consequência]</span>
+          </div>
+          <span style="background:rgba(74,144,217,0.1);border-radius:3px;padding:0 3px;" title="T — Tópico Frasal">${eixo1_txt.charAt(0).toUpperCase()+eixo1_txt.slice(1)} constitui o primeiro vetor de superação do problema, uma vez que sem essa medida os efeitos negativos tendem a se aprofundar.</span>
+          <span style="background:rgba(74,144,217,0.06);border-radius:3px;padding:0 3px;" title="E — Explicação"> Isso porque ${lei1} estabelece diretrizes claras nesse sentido, mas sua implementação plena ainda enfrenta obstáculos estruturais e orçamentários que precisam ser superados.</span>
+          <span style="background:rgba(61,184,138,0.07);border-radius:3px;padding:0 3px;" title="E — Exemplo/Dado"> A título de exemplo, ${dado1.toLowerCase()}, evidenciando que a ausência de ação coordenada perpetua ciclos de exclusão.</span>
+          <span style="background:rgba(74,144,217,0.1);border-radius:3px;padding:0 3px;" title="C — Consequência"> Como consequência, a adoção dessa medida resultaria em ganhos sociais significativos, beneficiando especialmente as populações mais vulneráveis e fortalecendo a coesão social.</span>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--roxo);letter-spacing:2px;margin-bottom:6px;">
+            §3 — DESENVOLVIMENTO 2 <span style="color:#666;font-size:8px;">[TEEC: eixo diferente, exemplos distintos]</span>
+          </div>
+          <span style="background:rgba(138,106,217,0.1);border-radius:3px;padding:0 3px;" title="T — Tópico Frasal">Paralelamente, ${eixo2_txt} representa o segundo eixo indispensável para a resolução efetiva do problema, complementando a ação anterior.</span>
+          <span style="background:rgba(138,106,217,0.06);border-radius:3px;padding:0 3px;" title="E — Explicação"> Em outras palavras, sem essa segunda dimensão, os avanços obtidos pelo primeiro eixo seriam insuficientes para alcançar os grupos que mais necessitam de atenção, perpetuando desigualdades estruturais.</span>
+          <span style="background:rgba(61,184,138,0.07);border-radius:3px;padding:0 3px;" title="E — Exemplo/Dado"> Nesse sentido, ${dado2}, o que reforça a necessidade de abordagem integrada e multidimensional.</span>
+          <span style="background:rgba(138,106,217,0.1);border-radius:3px;padding:0 3px;" title="C — Consequência"> Por conseguinte, a articulação entre os dois eixos cria as condições necessárias para que o tema seja enfrentado de forma sustentável, produzindo resultados concretos e duradouros.</span>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ouro);letter-spacing:2px;margin-bottom:6px;">
+            §4 — CONCLUSÃO <span style="color:#666;font-size:8px;">[retomada da tese + agente + ação + finalidade — sem argumento novo]</span>
+          </div>
+          <span style="background:rgba(200,153,42,0.08);border-radius:3px;padding:0 3px;" title="Retomada da tese">Diante do exposto, fica evidente que o enfrentamento do tema "${titulo_curto}" exige atuação coordenada em duas frentes complementares: ${eixo1_txt} e ${eixo2_txt}.</span>
+          <span style="background:rgba(200,153,42,0.12);border-radius:3px;padding:0 3px;" title="Proposta: agente + ação + finalidade"> Propõe-se, portanto, que <strong>${agente}</strong>, ${acao}, ${finalidade}.</span>
+        </div>
+      </div>
+
+      <!-- LEGENDA -->
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#666;width:100%;margin-bottom:4px;">LEGENDA DE CORES:</div>
+        ${[
+          ['rgba(61,184,138,0.2)','Contextualização / dado'],
+          ['rgba(200,153,42,0.2)','Tese / Proposta'],
+          ['rgba(74,144,217,0.2)','TEEC Eixo 1'],
+          ['rgba(138,106,217,0.2)','TEEC Eixo 2'],
+        ].map(([cor,label])=>`
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:12px;height:12px;background:${cor};border-radius:2px;"></div>
+            <span style="font-size:9px;color:#8a9aaa;">${label}</span>
+          </div>`).join('')}
       </div>
     </div>`;
 
