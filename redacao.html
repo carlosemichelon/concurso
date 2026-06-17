@@ -418,6 +418,48 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
   <div class="nivel-badge" id="treino-nivel-badge">NÍVEL 1/6 — IDENTIFICAR FENÔMENO</div>
   <div class="progresso-bar"><div class="progresso-fill" id="treino-prog" style="width:16%;"></div></div>
 
+  <!-- Card de referência FTTD — sempre visível, recolhível -->
+  <div class="card" style="margin-bottom:14px;">
+    <div onclick="treino_toggleFTTD()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+      <div class="card-titulo" style="margin-bottom:0;">📐 MÉTODO FTTD — REFERÊNCIA RÁPIDA</div>
+      <span id="fttd-chevron" style="font-size:11px;color:var(--muted);">▼</span>
+    </div>
+    <div id="fttd-conteudo" style="margin-top:12px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:12px;">
+        <div style="background:rgba(61,184,138,0.06);border:1px solid rgba(61,184,138,0.2);border-radius:8px;padding:10px;">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--verde);">F — FENÔMENO</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">Contexto amplo que origina o tema</div>
+        </div>
+        <div style="background:rgba(74,144,217,0.06);border:1px solid rgba(74,144,217,0.2);border-radius:8px;padding:10px;">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--azul);">T — TEMA ESPECÍFICO</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">Recorte específico do fenômeno</div>
+        </div>
+        <div style="background:rgba(200,153,42,0.06);border:1px solid rgba(200,153,42,0.2);border-radius:8px;padding:10px;">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--ouro);">T — TESE</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">Posicionamento com 2 eixos</div>
+        </div>
+        <div style="background:rgba(138,106,217,0.06);border:1px solid rgba(138,106,217,0.2);border-radius:8px;padding:10px;">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--roxo);">D — DESENVOLVIMENTO</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">TEEC × 2 eixos + conclusão</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px;margin-bottom:8px;">
+        <div style="font-family:var(--mono);font-size:9px;color:var(--ouro);margin-bottom:8px;">🧩 MACETE TEEC — PARA NUNCA FICAR SEM ARGUMENTO</div>
+        <div style="font-size:12px;line-height:1.8;">
+          Toda vez que travar num argumento, pergunte-se em sequência:<br/>
+          <strong style="color:var(--azul);">1. O que causa o problema?</strong> → seu Tópico Frasal<br/>
+          <strong style="color:var(--verde);">2. Como ele causa isso?</strong> → sua Explicação<br/>
+          <strong style="color:var(--roxo);">3. Qual é a consequência?</strong> → seu fechamento (+ um Exemplo/Dado no meio)
+        </div>
+      </div>
+
+      <div style="font-size:11px;color:var(--muted);line-height:1.7;">
+        <strong>Estrutura final (4 parágrafos):</strong> §1 Introdução (F+T+T) · §2 Desenvolvimento Eixo 1 (TEEC) · §3 Desenvolvimento Eixo 2 (TEEC) · §4 Conclusão (retoma tese + Agente + Ação + Finalidade)
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-titulo">TEMA DO EXERCÍCIO</div>
 
@@ -478,6 +520,11 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
   <div class="ia-output" id="treino-ia-out">
     <div class="ia-label">🤖 AVALIAÇÃO DA IA</div>
     <div id="treino-ia-texto" style="white-space:pre-wrap;line-height:1.8;"></div>
+    <div id="treino-chat-historico" style="margin-top:10px;"></div>
+    <div style="display:flex;gap:8px;margin-top:12px;">
+      <textarea id="treino-pergunta-ia" rows="2" placeholder="Tem alguma dúvida sobre o feedback? Pergunte aqui..." style="flex:1;font-size:13px;resize:vertical;"></textarea>
+      <button class="btn btn-ghost" onclick="treinoPerguntarIA()" style="font-size:10px;white-space:nowrap;">💬 Perguntar</button>
+    </div>
   </div>
 
   <!-- Painel de construção acumulada -->
@@ -1103,38 +1150,75 @@ const NIVEIS=[
   {num:1,label:'PLANEJAMENTO FTTD',
    campos:['fenomeno','temaspec','eixo1','eixo2','tese'],
    instrucao:'Monte a espinha dorsal da redação: Fenômeno → Tema Específico → dois Eixos → Tese.',
-   dica:'💡 Fórmula da tese: "Embora [tema] represente [avanço], sua consolidação depende de [EIXO1] e [EIXO2]." Dois eixos — nem mais, nem menos.'},
+   dica:'💡 Fórmula da tese: "Embora [tema] represente [avanço], sua consolidação depende de [EIXO1] e [EIXO2]." Dois eixos — nem mais, nem menos.',
+   dicas_extra:[
+     '🎯 O Fenômeno deve ser amplo o bastante para "caber" o tema, mas não tão genérico que vire clichê (evite "desde os primórdios da humanidade").',
+     '🎯 Teste seus eixos: cada um precisa virar UM parágrafo inteiro. Se um eixo for fraco demais para 6-8 linhas, troque por outro.',
+     '🎯 Os eixos devem ser COMPLEMENTARES, não a mesma ideia repetida com outras palavras (ex: "educação" e "ensino" são o mesmo eixo).',
+   ]},
 
   {num:2,label:'TEEC — EIXO 1 (§2)',
    campos:['arg1_topico','arg1_explicacao','arg1_exemplo','arg1_consequencia'],
    instrucao:'Desenvolva o argumento do §2 com a estrutura TEEC: Tópico Frasal · Explicação · Exemplo/Dado · Consequência.',
-   dica:'💡 T = primeira frase do parágrafo (anuncia) · E = fundamenta com raciocínio · E = evidência concreta (dado, lei, caso) · C = impacto/resultado esperado. Cada parte: 1-2 frases.'},
+   dica:'💡 T = primeira frase do parágrafo (anuncia) · E = fundamenta com raciocínio · E = evidência concreta (dado, lei, caso) · C = impacto/resultado esperado. Cada parte: 1-2 frases.',
+   dicas_extra:[
+     '🧩 MACETE para nunca travar: pergunte-se em sequência — (1) O que causa o problema? → vira seu Tópico. (2) Como ele causa isso? → vira sua Explicação. (3) Qual a consequência? → vira seu fechamento.',
+     '🎯 O Exemplo precisa ser CONCRETO: um número, uma lei, um órgão, um caso real. "Muita gente sofre com isso" não é exemplo — é vago.',
+     '🎯 Se não souber um dado exato, use formulações seguras: "segundo levantamentos do setor", "dados recentes indicam que" — mais seguro que inventar números.',
+   ]},
 
   {num:3,label:'TEEC — EIXO 2 (§3)',
    campos:['arg2_topico','arg2_explicacao','arg2_exemplo','arg2_consequencia'],
    instrucao:'Desenvolva o argumento do §3 com a mesma estrutura TEEC — mas eixo diferente e complementar.',
-   dica:'💡 O Eixo 2 deve complementar (não repetir) o Eixo 1. Use exemplos e dados distintos. Inicie com conectivo de adição: Ademais · Paralelamente · Por sua vez.'},
+   dica:'💡 O Eixo 2 deve complementar (não repetir) o Eixo 1. Use exemplos e dados distintos. Inicie com conectivo de adição: Ademais · Paralelamente · Por sua vez.',
+   dicas_extra:[
+     '🧩 Mesmo macete do Eixo 1: O que causa? → Tópico. Como causa? → Explicação. Qual consequência? → fechamento.',
+     '🎯 Pense no Eixo 2 como "a outra metade da solução". Se o Eixo 1 foi sobre regulação, o Eixo 2 pode ser sobre educação/conscientização — dimensões diferentes do mesmo problema.',
+     '🎯 Erro comum: usar o MESMO exemplo do §2 no §3. Force-se a buscar um dado, lei ou caso diferente.',
+   ]},
 
   {num:4,label:'ESCREVER §1 — INTRODUÇÃO',
    campos:['intro'],
    instrucao:'Escreva o parágrafo de introdução completo: contextualização (1-2 frases) + tema específico + tese com os dois eixos. Máx. 6 linhas.',
-   dica:'💡 Consulte o painel → seu Fenômeno e Tese já estão prontos. Não copie literalmente — reformule. Use conectivo de ressalva antes dos eixos: Embora · Se por um lado · Ainda que.'},
+   dica:'💡 Consulte o painel → seu Fenômeno e Tese já estão prontos. Não copie literalmente — reformule. Use conectivo de ressalva antes dos eixos: Embora · Se por um lado · Ainda que.',
+   dicas_extra:[
+     '🎯 Verbos fortes para abrir: "tem promovido", "impulsiona", "redefine", "consolida" — evite "é muito importante" ou "vem crescendo cada vez mais".',
+     '🎯 Não comece com "Nos dias atuais" ou "Desde os primórdios" — são clichês que os corretores penalizam.',
+     '🎯 Termine a introdução SEMPRE com a tese explícita. O corretor precisa identificar sua tese sem precisar adivinhar.',
+   ]},
 
   {num:5,label:'ESCREVER §2 E §3 — DESENVOLVIMENTO',
    campos:['dev1','dev2'],
    instrucao:'Redija os dois parágrafos de desenvolvimento. Consulte seus TEECs no painel — apenas transforme em texto corrido.',
-   dica:'💡 Cada parágrafo: comece pelo Tópico Frasal → desenvolva com Explicação → insira o Exemplo/Dado → finalize com a Consequência. 6-8 linhas por parágrafo.'},
+   dica:'💡 Cada parágrafo: comece pelo Tópico Frasal → desenvolva com Explicação → insira o Exemplo/Dado → finalize com a Consequência. 6-8 linhas por parágrafo.',
+   dicas_extra:[
+     '🎯 Você já tem o TEEC pronto dos níveis anteriores — esse passo é só "costurar" as 4 partes em texto fluido com conectivos.',
+     '🎯 Conectivos para ligar T→E: "Isso porque", "Isso se explica por". Para ligar E→E: "Nesse sentido", "A título de exemplo". Para ligar E→C: "Como consequência", "Dessa forma".',
+     '🎯 Releia em voz alta: se parecer uma lista de frases soltas, falta conectivo. Se parecer um parágrafo só, está no caminho certo.',
+   ]},
 
   {num:6,label:'ESCREVER §4 — CONCLUSÃO',
    campos:['conclusao_agente','conclusao_acao','conclusao_finalidade','conclusao'],
    instrucao:'Defina o Agente, a Ação e a Finalidade. Depois escreva o parágrafo de conclusão completo.',
-   dica:'💡 Fórmula: "Propõe-se que [AGENTE], como [qualificação], [AÇÃO concreta], a fim de [FINALIDADE social]." SEM argumento novo. Apenas retome a tese e proponha intervenção. 3-4 linhas.'},
+   dica:'💡 Fórmula: "Propõe-se que [AGENTE], como [qualificação], [AÇÃO concreta], a fim de [FINALIDADE social]." SEM argumento novo. Apenas retome a tese e proponha intervenção. 3-4 linhas.',
+   dicas_extra:[
+     '🎯 O Agente precisa ser específico: "o Banco Central" é melhor que "o governo"; "o Ministério da Educação" é melhor que "as autoridades".',
+     '🎯 A Ação precisa ser um VERBO + algo concreto: "implemente", "amplie", "regulamente" — nunca "pense em" ou "considere".',
+     '🚫 ERRO FATAL: não traga dado novo, exemplo novo ou argumento novo na conclusão. Ela serve só para AMARRAR o que já foi dito + propor.',
+   ]},
 
   {num:7,label:'REDAÇÃO COMPLETA',
    campos:['redacao'],
    instrucao:'Una os 4 parágrafos em uma redação coesa. Consulte o painel com tudo que foi construído e escreva o texto final polido.',
-   dica:'💡 §1 Introdução · §2 Desenvolvimento Eixo 1 · §3 Desenvolvimento Eixo 2 · §4 Conclusão. Revise conectivos entre parágrafos e verifique se a tese é retomada sem ser copiada.'},
+   dica:'💡 §1 Introdução · §2 Desenvolvimento Eixo 1 · §3 Desenvolvimento Eixo 2 · §4 Conclusão. Revise conectivos entre parágrafos e verifique se a tese é retomada sem ser copiada.',
+   dicas_extra:[
+     '🎯 Releia checando: a tese do §1 aparece de novo (com outras palavras) no §4? Os dois eixos foram realmente desenvolvidos, um em cada parágrafo?',
+     '🎯 Conte as linhas: o ideal Cesgranrio é 25-30 linhas. Menos de 20 é raso demais; mais de 35 começa a fugir do espaço da prova.',
+     '🎯 Por fim, leia em voz alta do início ao fim — é a forma mais rápida de notar repetições, frases longas demais ou quebras de lógica.',
+   ]},
 ];
+
+
 
 // Sugestões fixas por fenômeno — alinhadas ao tema
 const SUGESTOES_POR_FENOMENO = {
@@ -1300,6 +1384,14 @@ function getSugestoesTema(campo){
 let treinoRespostas = {};
 let treinoTemaAtual = null;
 
+function treino_toggleFTTD(){
+  const conteudo = document.getElementById('fttd-conteudo');
+  const chevron = document.getElementById('fttd-chevron');
+  const aberto = conteudo.style.display !== 'none';
+  conteudo.style.display = aberto ? 'none' : 'block';
+  chevron.textContent = aberto ? '▶' : '▼';
+}
+
 function initTreino(){
   treinoNovoTema();
 }
@@ -1366,16 +1458,15 @@ async function treinoBuscarContexto(){
   try {
     const sysCtx = `Você é especialista em concursos públicos (BB/CEF Cesgranrio) e jornalismo financeiro.
 Para o tema dado, gere um contexto de estudo com:
-1. MANCHETES RECENTES (3 manchetes fictícias mas verossímeis, estilo Valor Econômico / Folha)
-2. DADOS E ESTATÍSTICAS (3-4 dados concretos com fonte para usar na redação)
-3. ARGUMENTO PRÓ (1 parágrafo de artigo de opinião favorável ao tema)
-4. ARGUMENTO CONTRA / DESAFIO (1 parágrafo de artigo de opinião crítico/desafiador)
-5. VOCABULÁRIO-CHAVE (8-10 termos técnicos do tema com breve definição)
-Formato: texto corrido com seções em MAIÚSCULAS. Sem markdown. Linguagem jornalística e acadêmica.`;
+1. MANCHETES RECENTES (6 manchetes fictícias mas verossímeis, estilo Valor Econômico / Folha / Estadão, variando o ângulo de cada uma)
+2. DADOS E ESTATÍSTICAS (6-8 dados concretos com fonte para usar na redação, cada um em uma linha)
+3. ARGUMENTOS PRÓ (exatamente 2 argumentos DIFERENTES e favoráveis ao tema, numerados como "Argumento 1:" e "Argumento 2:". Em cada argumento, estruture explicitamente: CAUSA (o que gera essa situação) → EXPLICAÇÃO (por que isso acontece, qual o mecanismo) → EFEITO (qual a consequência prática). Use exatamente os marcadores "Causa:", "Explicação:" e "Efeito:" antes de cada parte.)
+4. ARGUMENTOS CONTRA / DESAFIOS (exatamente 2 argumentos DIFERENTES, críticos ou que apontam desafios do tema, numerados como "Argumento 1:" e "Argumento 2:". Mesma estrutura: "Causa:", "Explicação:" e "Efeito:" para cada argumento.)
+Formato: texto corrido com seções em MAIÚSCULAS. Sem markdown. Linguagem jornalística e acadêmica. Não defina ou explique termos técnicos — apenas use-os naturalmente no texto.`;
 
     const resp = await chamarIA(
       'Gere contexto jornalístico e argumentativo para redação sobre: ' + treinoTemaAtual.titulo,
-      1800, sysCtx
+      2800, sysCtx
     );
 
     painel.style.display = 'block';
@@ -1383,9 +1474,12 @@ Formato: texto corrido com seções em MAIÚSCULAS. Sem markdown. Linguagem jorn
     let html = resp
       .replace(/MANCHETES RECENTES/g, '<strong style="color:#4a90d9;font-family:var(--mono);font-size:10px;letter-spacing:2px;">📰 MANCHETES RECENTES</strong>')
       .replace(/DADOS E ESTATÍSTICAS/g, '<strong style="color:#3db88a;font-family:var(--mono);font-size:10px;letter-spacing:2px;">📊 DADOS E ESTATÍSTICAS</strong>')
-      .replace(/ARGUMENTO PRÓ/g, '<strong style="color:#c8992a;font-family:var(--mono);font-size:10px;letter-spacing:2px;">✅ ARGUMENTO PRÓ</strong>')
-      .replace(/ARGUMENTO CONTRA[^:]*:/g, '<strong style="color:#e05050;font-family:var(--mono);font-size:10px;letter-spacing:2px;">⚠️ DESAFIO / CONTRA-ARGUMENTO:</strong>')
-      .replace(/VOCABULÁRIO.CHAVE/g, '<strong style="color:#8a6ad9;font-family:var(--mono);font-size:10px;letter-spacing:2px;">📚 VOCABULÁRIO-CHAVE</strong>')
+      .replace(/ARGUMENTOS PRÓ/g, '<strong style="color:#c8992a;font-family:var(--mono);font-size:10px;letter-spacing:2px;">✅ ARGUMENTOS PRÓ</strong>')
+      .replace(/ARGUMENTOS CONTRA[^:]*:/g, '<strong style="color:#e05050;font-family:var(--mono);font-size:10px;letter-spacing:2px;">⚠️ DESAFIOS / CONTRA-ARGUMENTOS:</strong>')
+      .replace(/Argumento (\d):/g, '<br/><strong style="color:#8a9aaa;">📌 Argumento $1:</strong>')
+      .replace(/Causa:/g, '<strong style="color:#4a90d9;">🔹 Causa:</strong>')
+      .replace(/Explicação:/g, '<strong style="color:#3db88a;">🔹 Explicação:</strong>')
+      .replace(/Efeito:/g, '<strong style="color:#8a6ad9;">🔹 Efeito:</strong>')
       .replace(/\n\n/g, '<br/><br/>')
       .replace(/\n/g, '<br/>');
     painel.innerHTML = html;
@@ -1552,7 +1646,13 @@ function renderNivelCampos(){
   const el = document.getElementById('treino-campos');
 
   // Dica do nível
-  let html = n.dica ? `<div style="background:rgba(200,153,42,0.08);border:1px solid rgba(200,153,42,0.2);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--ouro);">${n.dica}</div>` : '';
+  let html = n.dica ? `<div style="background:rgba(200,153,42,0.08);border:1px solid rgba(200,153,42,0.2);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:12px;color:var(--ouro);">${n.dica}</div>` : '';
+
+  if(n.dicas_extra && n.dicas_extra.length){
+    html += `<div style="background:rgba(74,144,217,0.05);border:1px solid rgba(74,144,217,0.15);border-radius:8px;padding:10px 14px;margin-bottom:14px;">
+      ${n.dicas_extra.map(d=>`<div style="font-size:11px;color:#a8c0d8;line-height:1.7;margin-bottom:6px;">${d}</div>`).join('')}
+    </div>`;
+  }
 
   // Campos
   n.campos.forEach(c => {
@@ -1696,6 +1796,55 @@ function atualizarPainelProgresso(){
   card.style.display = temConteudo ? 'block' : 'none';
 }
 
+let treinoChatHistorico = [];
+
+async function treinoPerguntarIA(){
+  const input = document.getElementById('treino-pergunta-ia');
+  const pergunta = input.value.trim();
+  if(!pergunta || !treinoChatHistorico.length) return;
+
+  const historico = document.getElementById('treino-chat-historico');
+  const ultimaAvaliacao = treinoChatHistorico[0];
+
+  // Mostrar pergunta do usuário imediatamente
+  historico.innerHTML += `<div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid var(--azul);">
+    <span style="font-family:var(--mono);font-size:9px;color:var(--azul);">VOCÊ:</span><br/>
+    <span style="font-size:12px;">${pergunta}</span>
+  </div>`;
+  input.value = '';
+  input.disabled = true;
+
+  const btnPerg = document.querySelector('button[onclick="treinoPerguntarIA()"]');
+  const textoOriginal = btnPerg.textContent;
+  btnPerg.textContent = '⏳...';
+  btnPerg.disabled = true;
+
+  try{
+    const sysChat = `Você é professor de redação para concursos Cesgranrio (BB/CEF), continuando uma conversa de feedback.
+Você já avaliou a resposta do aluno no nível atual. Agora ele tem uma dúvida sobre seu feedback.
+Responda de forma direta, didática e encorajadora. Máx. 4 frases. Sem markdown.`;
+
+    const contextoCompleto = 'Contexto da avaliação anterior:\n' + ultimaAvaliacao.texto +
+      '\n\nResposta do aluno que foi avaliada:\n' + ultimaAvaliacao.contexto +
+      '\n\nPergunta do aluno agora: ' + pergunta;
+
+    const resp = await chamarIA(contextoCompleto, 500, sysChat);
+
+    historico.innerHTML += `<div style="margin-top:8px;padding:8px 12px;background:rgba(200,153,42,0.06);border-radius:8px;border-left:3px solid var(--ouro);">
+      <span style="font-family:var(--mono);font-size:9px;color:var(--ouro);">🤖 IA:</span><br/>
+      <span style="font-size:12px;line-height:1.7;">${resp}</span>
+    </div>`;
+    treinoChatHistorico.push({papel:'pergunta', texto:pergunta});
+    treinoChatHistorico.push({papel:'resposta', texto:resp});
+  }catch(e){
+    historico.innerHTML += `<div style="margin-top:8px;color:var(--verm);font-size:11px;">Erro: ${e.message}</div>`;
+  }
+
+  input.disabled = false;
+  btnPerg.textContent = textoOriginal;
+  btnPerg.disabled = false;
+}
+
 async function treinoAvaliar(){
   if(!treinoTemaAtual) return;
   salvarRespostasNivel();
@@ -1706,6 +1855,8 @@ async function treinoAvaliar(){
   }).join('\n');
   const btn = document.querySelector('#aba-treino .btn-ouro');
   setLoading(btn,'Avaliando...');
+  treinoChatHistorico = []; // reset histórico ao avaliar nova resposta
+  document.getElementById('treino-chat-historico').innerHTML = '';
   try{
     const sysTreino=`Você é professor de redação para concursos Cesgranrio (BB/CEF).
 Avalie a resposta do candidato no Nível ${n.num} (${n.label}) de forma direta e específica.
@@ -1714,17 +1865,18 @@ Estruture o feedback em 3 partes:
 ⚠️ O que melhorar:
 💡 Dica prática:
 Use linguagem encorajadora. Máx. 5 frases no total. Sem markdown.
-${nivelTreino===3?'ATENÇÃO: verifique se a tese tem EXATAMENTE dois eixos (nem um, nem três).':''}
-${nivelTreino===4||nivelTreino===5?'ATENÇÃO: verifique se o argumento TEEC está completo (Tópico + Explicação + Exemplo concreto + Consequência). O exemplo deve ser específico e o tópico frasal deve anunciar claramente o argumento.':''}
-${nivelTreino===8?'ATENÇÃO: verifique se cada parágrafo tem tópico frasal, explicação, exemplo e consequência. Os parágrafos devem ter entre 6 e 8 linhas.':''}
-${nivelTreino===9?'ATENÇÃO: verifique se a conclusão tem: retomada da tese (sem argumento novo), agente concreto, ação específica e finalidade social. A conclusão NÃO deve introduzir dados ou argumentos novos.':''}
-${nivelTreino===10?'ATENÇÃO: verifique paragrafação, dois eixos no desenvolvimento, ausência de argumento novo na conclusão, proposta com agente+ação+finalidade.':''}`;
+${nivelTreino===1?'ATENÇÃO: verifique se a tese tem EXATAMENTE dois eixos (nem um, nem três) e se o fenômeno é amplo o suficiente para gerar o tema.':''}
+${nivelTreino===2||nivelTreino===3?'ATENÇÃO: verifique se o TEEC está completo — Tópico (anuncia), Explicação (fundamenta), Exemplo concreto (evidencia), Consequência (impacto). Use o macete: O que causa? Como causa? Qual a consequência?':''}
+${nivelTreino===5?'ATENÇÃO: verifique se cada parágrafo tem 6-8 linhas e segue a ordem TEEC. O tópico frasal deve ser a primeira frase de cada parágrafo.':''}
+${nivelTreino===6?'ATENÇÃO: verifique se a conclusão retoma a tese sem argumento novo e se a proposta tem agente concreto, ação específica e finalidade social.':''}
+${nivelTreino===7?'ATENÇÃO: verifique paragrafação, coesão entre parágrafos, dois eixos no desenvolvimento, tese retomada sem cópia e proposta de intervenção completa.':''}`;
     const resp = await chamarIA(
       'Nível '+n.num+' — '+n.label+'\nTema: '+treinoTemaAtual.titulo+'\nFenômeno: '+treinoTemaAtual.fenomeno+'\n\nResposta:\n'+respostas,
       700, sysTreino
     );
     document.getElementById('treino-ia-texto').textContent = resp;
     document.getElementById('treino-ia-out').classList.add('vis');
+    treinoChatHistorico.push({papel:'avaliacao', texto:resp, contexto:respostas, sysTreino});
     atualizarPainelProgresso();
   }catch(e){showError(e.message);}
   unsetLoading(btn,'✓ Avaliar com IA');
@@ -1733,8 +1885,13 @@ ${nivelTreino===10?'ATENÇÃO: verifique paragrafação, dois eixos no desenvolv
 const labels_pt = {
   fenomeno:'Fenômeno maior', temaspec:'Tema específico',
   eixo1:'Eixo 1', eixo2:'Eixo 2', tese:'Tese',
-  tf1:'Tópico Frasal 1', tf2:'Tópico Frasal 2',
-  intro:'Introdução', redacao:'Redação completa',
+  arg1_topico:'Tópico Eixo 1', arg1_explicacao:'Explicação Eixo 1',
+  arg1_exemplo:'Exemplo Eixo 1', arg1_consequencia:'Consequência Eixo 1',
+  arg2_topico:'Tópico Eixo 2', arg2_explicacao:'Explicação Eixo 2',
+  arg2_exemplo:'Exemplo Eixo 2', arg2_consequencia:'Consequência Eixo 2',
+  intro:'Introdução', dev1:'Desenvolvimento 1', dev2:'Desenvolvimento 2',
+  conclusao_agente:'Agente', conclusao_acao:'Ação', conclusao_finalidade:'Finalidade',
+  conclusao:'Conclusão', redacao:'Redação completa',
 };
 
 // ══════════════════════════════════════════════════════════════
