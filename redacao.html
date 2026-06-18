@@ -138,6 +138,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
   <div class="tab" onclick="setTab('temas')">📋 Temas</div>
   <div class="tab" onclick="setTab('treino')">🎯 Treino</div>
   <div class="tab" onclick="setTab('tutor')">🎓 Tutor IA</div>
+  <div class="tab" onclick="setTab('flashcards')">🃏 Flashcards</div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -146,7 +147,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
 <div id="aba-fttd" class="aba ativo">
 
   <div class="fttd-fluxo">
-    <div class="fttd-box"><span>F</span>enômeno</div>
+    <div class="fttd-box" title="Fenômeno e/ou Fato — contextualize antes de delimitar o tema"><span>F</span>enômeno / Fato</div>
     <div class="fttd-arrow">→</div>
     <div class="fttd-box"><span>T</span>ema</div>
     <div class="fttd-arrow">→</div>
@@ -154,7 +155,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
     <div class="fttd-arrow">→</div>
     <div class="fttd-box"><span>D</span>esenv.</div>
   </div>
-  <p style="font-size:11px;color:var(--muted);margin-bottom:10px;font-family:var(--mono);">Toda redação nasce de 4 elementos. Preencha antes de escrever uma linha.</p>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:10px;font-family:var(--mono);">Toda redação nasce de 4 elementos. O <strong style="color:var(--verde);">F</strong> pode ser um fenômeno amplo, um fato concreto, ou os dois — use o que tiver disponível.</p>
 
   <div style="background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.25);border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:12px;line-height:1.7;">
     📌 <strong>Esta aba é só o rascunho rápido de planejamento.</strong> Para escrever a redação completa de forma guiada (com TEEC, desenvolvimento, conclusão e avaliação da IA em cada etapa), use a aba <strong style="color:var(--ouro);">🎯 Treino</strong> — ela aplica o método FTTD por completo, em 7 passos.
@@ -177,10 +178,10 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
 
   <!-- F — FENÔMENO -->
   <div class="card">
-    <div class="card-titulo">F — FENÔMENO <span style="font-weight:400;color:var(--muted)">Qual fenômeno maior gerou esse tema?</span></div>
+    <div class="card-titulo">F — FENÔMENO / FATO <span style="font-weight:400;color:var(--muted)">Contextualize: use um fenômeno amplo, um fato concreto, ou os dois.</span></div>
     <div class="chips" id="chips-fenomeno"></div>
     <div class="field" style="margin-top:10px;">
-      <textarea id="fttd-fenomeno" rows="2" placeholder="Ex: Revolução tecnológica e digitalização dos serviços financeiros"></textarea>
+      <textarea id="fttd-fenomeno" rows="2" placeholder="Ex (fenômeno): Revolução tecnológica e digitalização dos serviços financeiros / Ex (fato): Em 2024, o Brasil registrou 40% de aumento em transações digitais"></textarea>
     </div>
     <div style="font-size:11px;color:var(--muted);margin-top:4px;" id="fttd-contextualizacao"></div>
   </div>
@@ -444,7 +445,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
       <div style="display:flex;align-items:center;gap:4px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;">
         <div style="background:rgba(61,184,138,0.1);border:1px solid rgba(61,184,138,0.3);border-radius:8px;padding:8px 10px;text-align:center;min-width:70px;">
           <div style="font-family:var(--mono);font-size:9px;color:var(--verde);">F</div>
-          <div style="font-size:9px;color:var(--muted);">Fenômeno</div>
+          <div style="font-size:9px;color:var(--muted);">Fenômeno<br/>ou Fato</div>
         </div>
         <div style="color:var(--muted);font-size:12px;">→</div>
         <div style="background:rgba(74,144,217,0.1);border:1px solid rgba(74,144,217,0.3);border-radius:8px;padding:8px 10px;text-align:center;min-width:60px;">
@@ -520,10 +521,11 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
       <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px;margin-bottom:8px;">
         <div style="font-family:var(--mono);font-size:9px;color:var(--ouro);margin-bottom:8px;">🧩 MACETE TEEC — PARA NUNCA FICAR SEM ARGUMENTO</div>
         <div style="font-size:12px;line-height:1.8;">
-          Toda vez que travar num argumento, pergunte-se em sequência:<br/>
-          <strong style="color:var(--azul);">1. O que causa o problema?</strong> → seu Tópico Frasal<br/>
-          <strong style="color:var(--verde);">2. Como ele causa isso?</strong> → sua Explicação<br/>
-          <strong style="color:var(--roxo);">3. Qual é a consequência?</strong> → seu fechamento (+ um Exemplo/Dado no meio)
+          Toda vez que travar num argumento, use a estrutura em 3 partes:<br/>
+          <strong style="color:#4a90d9;">① CAUSA</strong> — O que origina o problema?<br/>
+          <strong style="color:#e05050;">② EXPLICAÇÃO</strong> — Por que / como isso acontece?<br/>
+          <strong style="color:#3db88a;">③ EFEITO</strong> — O que resulta disso?<br/>
+          <span style="color:var(--muted);font-size:11px;">→ Frase-modelo: "[Causa] agrava o problema, <em>pois</em> [explicação]. Como consequência, [efeito]."</span>
         </div>
       </div>
     </div>
@@ -563,7 +565,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
       <button class="btn btn-ghost" onclick="treinoNovoTema()" style="font-size:10px;">🎲 Tema aleatório</button>
       <button class="btn btn-ghost" onclick="treino_toggleSeletor()" style="font-size:10px;" id="btn-seletor-tema">📋 Escolher tema</button>
       <button class="btn btn-ghost" onclick="treinoSugerirEixos()" style="font-size:10px;border-color:rgba(200,153,42,0.4);color:var(--ouro);">📐 Método FTTD</button>
-      <button class="btn btn-ghost" onclick="treino_toggleBrainstorm()" style="font-size:10px;border-color:rgba(224,80,64,0.4);color:#e05050;">🧠 Brainstorm Causa→Efeito</button>
+      <button class="btn btn-ghost" onclick="treino_toggleBrainstorm()" style="font-size:10px;border-color:rgba(224,80,64,0.4);color:#e05050;">🧠 Brainstorm de Argumentos</button>
       <button class="btn btn-ghost" onclick="treinoBuscarContexto()" style="font-size:10px;border-color:rgba(74,144,217,0.4);color:#4a90d9;">📰 Notícias e artigos</button>
       <button class="btn btn-ghost" onclick="treinoSalvar()" id="btn-salvar-treino" style="font-size:10px;border-color:rgba(61,184,138,0.4);color:var(--verde);">💾 Salvar progresso</button>
       <button class="btn btn-ghost" onclick="treinoCarregarMenu()" style="font-size:10px;border-color:rgba(61,184,138,0.4);color:var(--verde);">📂 Progressos salvos</button>
@@ -578,7 +580,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
       </div>
       <div style="padding:14px;">
         <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.7;">
-          Crie um <strong>código pessoal</strong> (ex: seu nome + número) e use o mesmo código em todos os seus dispositivos. Seu progresso será sincronizado automaticamente sempre que você salvar.
+          Crie um <strong>código pessoal</strong> (ex: seu nome + número) e use o mesmo código em todos os seus dispositivos. A partir daqui, <strong>tudo sincroniza automaticamente</strong> — redações, conversas com o Tutor IA, progresso — sem precisar clicar em nada. Os botões abaixo são só para forçar uma sincronização manual se precisar (ex: ao abrir em um dispositivo novo).
         </div>
         <div style="display:flex;gap:8px;margin-bottom:10px;">
           <input type="text" id="sync-code-input" placeholder="Ex: joao_silva_2026" style="flex:1;font-size:13px;"/>
@@ -588,19 +590,24 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
         <div class="btns">
           <button class="btn btn-ghost" onclick="treinoSyncAgora('upload')" style="font-size:10px;">⬆️ Enviar progresso atual para a nuvem</button>
           <button class="btn btn-ghost" onclick="treinoSyncAgora('download')" style="font-size:10px;">⬇️ Baixar progresso da nuvem (substitui local)</button>
+          <button class="btn btn-ghost" onclick="treinoRestaurarBackup()" style="font-size:10px;color:var(--verm);">↩️ Restaurar backup de antes da última sincronização</button>
         </div>
       </div>
     </div>
 
-    <!-- Painel de Brainstorm Causa→Efeito→Consequência -->
+    <!-- Painel de Brainstorm Causa→Explicação→Efeito -->
     <div id="treino-brainstorm-painel" style="display:none;border:1px solid rgba(224,80,64,0.25);border-radius:8px;margin-bottom:14px;overflow:hidden;">
       <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:#e05050;padding:10px 14px;border-bottom:1px solid rgba(224,80,64,0.2);background:rgba(224,80,64,0.06);display:flex;justify-content:space-between;align-items:center;">
-        <span>🧠 BRAINSTORM — GERE O MÁXIMO DE CADEIAS POSSÍVEL</span>
+        <span>🧠 BRAINSTORM DE ARGUMENTOS</span>
         <span onclick="treino_toggleBrainstorm()" style="cursor:pointer;color:var(--muted);">✕</span>
       </div>
       <div style="padding:14px;">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.7;">
-          Para o tema atual, escreva o máximo de cadeias <strong style="color:var(--azul);">Causa</strong> → <strong style="color:var(--roxo);">Efeito</strong> → <strong style="color:var(--verde);">Consequência</strong> que conseguir pensar. Quanto mais cadeias, mais repertório de argumentos você terá pronto na hora da prova. Quando terminar, peça à IA para validar.
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.7;">
+          Para cada argumento, preencha as 3 partes. A frase-modelo te mostra como elas se encaixam no parágrafo:
+        </div>
+        <div style="font-size:11px;background:rgba(200,153,42,0.07);border:1px solid rgba(200,153,42,0.2);border-radius:6px;padding:10px 12px;margin-bottom:14px;line-height:1.9;">
+          <span style="color:var(--azul);font-weight:bold;">A falta de ___</span> agrava o problema, <span style="color:#e05050;font-style:italic;">pois ___</span>. Como consequência, <span style="color:var(--verde);font-weight:bold;">___</span>.<br/>
+          <span style="color:var(--muted);font-size:10px;">① Causa &nbsp;·&nbsp; ② Explicação (por que isso acontece?) &nbsp;·&nbsp; ③ Efeito (o que resulta?)</span>
         </div>
         <div id="treino-brainstorm-cadeias"></div>
         <button class="btn btn-ghost" onclick="brainstormAdicionarCadeia()" style="font-size:10px;margin-top:8px;">➕ Adicionar cadeia</button>
@@ -680,6 +687,70 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════════════
+     ABA 9 — FLASHCARDS DE IDENTIFICAÇÃO
+══════════════════════════════════════════════════════════════ -->
+<div id="aba-flashcards" class="aba">
+  <div class="card" style="margin-bottom:14px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="card-titulo" style="margin-bottom:4px;">🃏 FLASHCARDS — IDENTIFICAÇÃO DE ELEMENTOS</div>
+        <div style="font-size:11px;color:var(--muted);">Leia o trecho e identifique qual elemento da redação está sendo mostrado.</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <select id="fc-filtro" onchange="fcFiltrar()" style="font-family:var(--mono);font-size:10px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 10px;">
+          <option value="todos">Todos os elementos</option>
+          <option value="fenomeno">Fenômeno / Fato</option>
+          <option value="contextualizacao">Contextualização</option>
+          <option value="tema">Tema Específico</option>
+          <option value="tese">Tese</option>
+          <option value="topico_frasal">Tópico Frasal</option>
+          <option value="explicacao">Explicação</option>
+          <option value="exemplo">Exemplo / Dado</option>
+          <option value="consequencia">Consequência</option>
+          <option value="conclusao_parcial">Conclusão Parcial</option>
+          <option value="conclusao">Conclusão Final</option>
+          <option value="proposta">Proposta de Intervenção</option>
+        </select>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);" id="fc-progresso">— / —</div>
+        <button class="btn btn-ghost" onclick="fcEmbaralhar()" style="font-size:10px;">🔀 Embaralhar</button>
+        <button class="btn btn-ghost" onclick="fcReiniciar()" style="font-size:10px;color:var(--verm);">↺ Reiniciar</button>
+      </div>
+    </div>
+    <!-- Barra de progresso -->
+    <div style="margin-top:12px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;">
+      <div id="fc-barra" style="height:100%;background:var(--ouro);width:0%;transition:width .4s;border-radius:2px;"></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:8px;font-family:var(--mono);font-size:9px;">
+      <span style="color:var(--verde);">✓ Acertos: <span id="fc-acertos">0</span></span>
+      <span style="color:var(--verm);">✗ Erros: <span id="fc-erros">0</span></span>
+    </div>
+  </div>
+
+  <!-- Card do flashcard atual -->
+  <div id="fc-card" class="card" style="min-height:260px;display:flex;flex-direction:column;justify-content:space-between;">
+    <div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-bottom:10px;letter-spacing:1px;" id="fc-label-tema">TEMA: —</div>
+      <div style="font-size:14px;line-height:1.9;color:var(--text);border-left:3px solid var(--ouro);padding-left:14px;margin-bottom:18px;font-family:var(--serif);font-style:italic;" id="fc-trecho">"..."</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;">Qual elemento da redação está destacado acima?</div>
+      <!-- Opções -->
+      <div id="fc-opcoes" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+    </div>
+  </div>
+
+  <!-- Feedback -->
+  <div id="fc-feedback" style="display:none;margin-top:10px;" class="card">
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px;" id="fc-feedback-titulo"></div>
+    <div style="font-size:12px;line-height:1.8;color:var(--text);" id="fc-feedback-texto"></div>
+    <div style="margin-top:14px;background:rgba(255,255,255,0.03);border-radius:6px;padding:10px 12px;">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--ouro);margin-bottom:6px;">💡 COMO RECONHECER</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.8;" id="fc-feedback-dica"></div>
+    </div>
+    <button class="btn btn-ouro" onclick="fcProximo()" style="margin-top:14px;width:100%;">Próximo →</button>
+  </div>
+</div>
+
+
 <script>
 // ══════════════════════════════════════════════════════════════
 // FIREBASE — sincronização de progresso entre dispositivos
@@ -705,6 +776,12 @@ async function syncUpload(key, value){
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(value)
     });
+    // Marca que houve sincronização agora, para a detecção de conflito funcionar mesmo em auto-saves
+    const agora = new Date().toISOString();
+    localStorage.setItem('pe_sync_last_upload', agora);
+    await fetch(`${FIREBASE_DB_URL}/usuarios/${encodeURIComponent(code)}/pe_sync_last_upload.json`, {
+      method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(agora)
+    });
   }catch(e){ console.warn('Sync upload falhou:', e.message); }
 }
 
@@ -720,7 +797,32 @@ async function syncDownloadKey(key){
 }
 
 // Baixa TODOS os dados do usuário do Firebase e aplica no localStorage local
-async function syncDownloadAll(){
+// Cria um backup local do estado atual do localStorage antes de qualquer download
+function syncBackupLocal(){
+  try{
+    const backup = {};
+    for(let i=0;i<localStorage.length;i++){
+      const k = localStorage.key(i);
+      if(k && (k.startsWith('treino_') || ['pe_tutor_historico','pe_stats'].includes(k))){
+        backup[k] = localStorage.getItem(k);
+      }
+    }
+    localStorage.setItem('pe_sync_backup', JSON.stringify({dados:backup, em:new Date().toLocaleString('pt-BR')}));
+    return true;
+  }catch(e){ console.warn('Backup falhou:', e.message); return false; }
+}
+
+function syncRestaurarBackup(){
+  try{
+    const raw = localStorage.getItem('pe_sync_backup');
+    if(!raw) return {ok:false, msg:'Nenhum backup encontrado.'};
+    const backup = JSON.parse(raw);
+    Object.keys(backup.dados).forEach(k => localStorage.setItem(k, backup.dados[k]));
+    return {ok:true, msg:`Backup de ${backup.em} restaurado.`};
+  }catch(e){ return {ok:false, msg:'Erro ao restaurar: '+e.message}; }
+}
+
+async function syncDownloadAll(forcar){
   const code = getSyncCode();
   if(!code) return {ok:false, msg:'Nenhum código pessoal configurado.'};
   try{
@@ -729,7 +831,16 @@ async function syncDownloadAll(){
     const dados = await resp.json();
     if(!dados) return {ok:true, msg:'Nenhum dado encontrado na nuvem para este código ainda.'};
 
-    // Aplicar cada chave recebida no localStorage
+    // Checar conflito: se há última sincronização local mais recente que a da nuvem, avisar
+    const ultimoUploadLocal = localStorage.getItem('pe_sync_last_upload');
+    const ultimoUploadNuvem = dados['pe_sync_last_upload'];
+    if(!forcar && ultimoUploadLocal && ultimoUploadNuvem && ultimoUploadLocal > ultimoUploadNuvem){
+      return {ok:false, conflito:true, msg:'Seu progresso local parece mais recente que o da nuvem. Baixar agora pode sobrescrever dados não enviados ainda.'};
+    }
+
+    // Backup de segurança antes de sobrescrever
+    syncBackupLocal();
+
     let chavesAtualizadas = 0;
     for(const key in dados){
       if(dados[key] !== null && dados[key] !== undefined){
@@ -737,7 +848,7 @@ async function syncDownloadAll(){
         chavesAtualizadas++;
       }
     }
-    return {ok:true, msg:`${chavesAtualizadas} item(ns) sincronizado(s) da nuvem.`};
+    return {ok:true, msg:`${chavesAtualizadas} item(ns) sincronizado(s) da nuvem. (Backup do estado anterior foi guardado)`};
   }catch(e){
     return {ok:false, msg:'Erro de conexão: '+e.message};
   }
@@ -748,8 +859,8 @@ async function syncUploadAll(){
   const code = getSyncCode();
   if(!code) return {ok:false, msg:'Nenhum código pessoal configurado.'};
 
+  const agora = new Date().toISOString();
   const chavesParaSync = ['treino_indice', 'pe_tutor_historico', 'pe_stats'];
-  // Incluir também todos os progressos individuais (treino_*)
   for(let i=0;i<localStorage.length;i++){
     const k = localStorage.key(i);
     if(k && k.startsWith('treino_') && k !== 'treino_indice' && !chavesParaSync.includes(k)){
@@ -758,7 +869,7 @@ async function syncUploadAll(){
   }
 
   try{
-    const payload = {};
+    const payload = {pe_sync_last_upload: agora};
     chavesParaSync.forEach(k=>{
       const v = localStorage.getItem(k);
       if(v !== null){
@@ -770,7 +881,8 @@ async function syncUploadAll(){
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(payload)
     });
-    return {ok:true, msg:`${Object.keys(payload).length} item(ns) enviado(s) para a nuvem.`};
+    localStorage.setItem('pe_sync_last_upload', agora);
+    return {ok:true, msg:`${Object.keys(payload).length-1} item(ns) enviado(s) para a nuvem às ${new Date().toLocaleTimeString('pt-BR')}.`};
   }catch(e){
     return {ok:false, msg:'Erro de conexão: '+e.message};
   }
@@ -976,13 +1088,14 @@ let nivelTreino = 1;
 // ══════════════════════════════════════════════════════════════
 function setTab(id) {
   document.querySelectorAll('.tab').forEach((t,i)=>{
-    const ids=['fttd','argumentos','raio_x','cirurgia','checklist','temas','treino','tutor'];
+    const ids=['fttd','argumentos','raio_x','cirurgia','checklist','temas','treino','tutor','flashcards'];
     t.classList.toggle('ativo', ids[i]===id);
   });
   document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativo'));
   const el=document.getElementById('aba-'+id);
   if(el) el.classList.add('ativo');
   if(id==='tutor') tutorInit();
+  if(id==='flashcards') fcInit();
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1099,7 +1212,7 @@ Sua única tarefa é gerar os ELEMENTOS DE PLANEJAMENTO da redação — não a 
 REGRAS:
 1. TESE: deve conter EXATAMENTE DOIS eixos temáticos (não três, não um). Fórmula: "Embora X represente Y, sua efetivação depende de [EIXO1] e [EIXO2]."
 2. EIXOS: eixo1 e eixo2 devem ser concretos, simétricos e diretamente relacionados ao tema — cada um vira um parágrafo de desenvolvimento (mas você não vai escrevê-los aqui).
-3. CONTEXTUALIZAÇÃO (fenômeno): máximo 2 frases, parte do amplo para o específico.
+3. CONTEXTUALIZAÇÃO (fenômeno e/ou fato): máximo 2 frases. Pode começar por um fenômeno amplo, por um fato/dado concreto, ou pelos dois juntos. Vai do amplo para o específico.
 4. TÓPICOS FRASAIS: cada um é APENAS a frase de abertura do parágrafo (1 frase curta), não o parágrafo desenvolvido.
 
 Formato JSON obrigatório (todos os campos são frases curtas, não parágrafos):
@@ -1381,10 +1494,10 @@ function usarTema(idx){
 const NIVEIS=[
   {num:1,label:'PLANEJAMENTO FTTD',
    campos:['fenomeno','temaspec','eixo1','eixo2','tese'],
-   instrucao:'Monte a espinha dorsal da redação: Fenômeno → Tema Específico → dois Eixos → Tese.',
+   instrucao:'Monte a espinha dorsal da redação: Fenômeno e/ou Fato (contexto) → Tema Específico → dois Eixos → Tese.',
    dica:'💡 Fórmula da tese: "Embora [tema] represente [avanço], sua consolidação depende de [EIXO1] e [EIXO2]." Dois eixos — nem mais, nem menos.',
    dicas_extra:[
-     '🎯 O Fenômeno deve ser amplo o bastante para "caber" o tema, mas não tão genérico que vire clichê (evite "desde os primórdios da humanidade").',
+     '🎯 No campo Fenômeno/Fato: use um contexto amplo (fenômeno) e/ou um dado concreto (fato). Os dois juntos fortalecem a abertura — mas se não lembrar um dado, o fenômeno sozinho já funciona. Evite abertura clichê do tipo "desde os primórdios da humanidade".',
      '🎯 Teste seus eixos: cada um precisa virar UM parágrafo inteiro. Se um eixo for fraco demais para 6-8 linhas, troque por outro.',
      '🎯 Os eixos devem ser COMPLEMENTARES, não a mesma ideia repetida com outras palavras (ex: "educação" e "ensino" são o mesmo eixo).',
    ]},
@@ -1394,7 +1507,7 @@ const NIVEIS=[
    instrucao:'Desenvolva o argumento do §2 com a estrutura TEEC: Tópico Frasal · Explicação · Exemplo/Dado · Consequência.',
    dica:'💡 T = primeira frase do parágrafo (anuncia) · E = fundamenta com raciocínio · E = evidência concreta (dado, lei, caso) · C = impacto/resultado esperado. Cada parte: 1-2 frases.',
    dicas_extra:[
-     '🧩 MACETE para nunca travar: pergunte-se em sequência — (1) O que causa o problema? → vira seu Tópico. (2) Como ele causa isso? → vira sua Explicação. (3) Qual a consequência? → vira seu fechamento.',
+     '🧩 MACETE: ① CAUSA (o que origina?) → ② EXPLICAÇÃO (por que acontece? — use "pois") → ③ EFEITO (o que resulta?). Frase-modelo: "[Causa] agrava o problema, pois [explicação]. Como consequência, [efeito]."',
      '🎯 O Exemplo precisa ser CONCRETO: um número, uma lei, um órgão, um caso real. "Muita gente sofre com isso" não é exemplo — é vago.',
      '🎯 Se não souber um dado exato, use formulações seguras: "segundo levantamentos do setor", "dados recentes indicam que" — mais seguro que inventar números.',
    ]},
@@ -1404,7 +1517,7 @@ const NIVEIS=[
    instrucao:'Desenvolva o argumento do §3 com a mesma estrutura TEEC — mas eixo diferente e complementar.',
    dica:'💡 O Eixo 2 deve complementar (não repetir) o Eixo 1. Use exemplos e dados distintos. Inicie com conectivo de adição: Ademais · Paralelamente · Por sua vez.',
    dicas_extra:[
-     '🧩 Mesmo macete do Eixo 1: O que causa? → Tópico. Como causa? → Explicação. Qual consequência? → fechamento.',
+     '🧩 Mesmo macete do Eixo 1: ① CAUSA → ② EXPLICAÇÃO ("pois...") → ③ EFEITO ("como consequência..."). Troque os dados pelo eixo 2.',
      '🎯 Pense no Eixo 2 como "a outra metade da solução". Se o Eixo 1 foi sobre regulação, o Eixo 2 pode ser sobre educação/conscientização — dimensões diferentes do mesmo problema.',
      '🎯 Erro comum: usar o MESMO exemplo do §2 no §3. Force-se a buscar um dado, lei ou caso diferente.',
    ]},
@@ -1636,53 +1749,68 @@ function treino_toggleExemplo(){
 const PARES_EIXOS_CLASSICOS = {
   'Tecnologia':[
     {nome:'Benefícios × Desafios',eixo1:'os benefícios da inovação tecnológica, como agilidade e redução de custos',eixo2:'os desafios de segurança e proteção de dados que a acompanham'},
-    {nome:'Oportunidades × Riscos',eixo1:'as oportunidades de inclusão digital geradas pela tecnologia',eixo2:'os riscos de exclusão e vulnerabilidade para quem não tem acesso a ela'},
-    {nome:'Inovação × Regulação',eixo1:'o avanço da inovação tecnológica no setor',eixo2:'a necessidade de regulação que acompanhe esse ritmo de mudança'},
-    {nome:'Eficiência × Educação Digital',eixo1:'o ganho de eficiência operacional trazido pela tecnologia',eixo2:'a educação digital da população para usá-la com segurança'},
+    {nome:'Inovação × Regulamentação',eixo1:'o avanço da inovação tecnológica no setor',eixo2:'a necessidade de regulamentação que acompanhe esse ritmo de mudança'},
+    {nome:'Eficiência × Segurança',eixo1:'o ganho de eficiência operacional trazido pela tecnologia',eixo2:'a segurança dos dados e a proteção dos usuários como contrapartida necessária'},
+    {nome:'Tecnologia × Capacitação',eixo1:'a adoção de novas tecnologias nos processos produtivos e sociais',eixo2:'a capacitação da população para utilizá-las de forma plena e segura'},
+    {nome:'Praticidade × Vulnerabilidade',eixo1:'a praticidade e comodidade geradas pelas soluções digitais',eixo2:'a vulnerabilidade a fraudes e exclusão digital que essas soluções podem gerar'},
+    {nome:'Transparência × Privacidade',eixo1:'a transparência proporcionada pelo acesso a dados e informações digitais',eixo2:'a privacidade dos usuários como direito fundamental a ser preservado'},
+    {nome:'Inclusão × Exclusão',eixo1:'as oportunidades de inclusão digital geradas pela expansão tecnológica',eixo2:'o risco de exclusão dos que não têm acesso ou habilidade para usar a tecnologia'},
   ],
   'Economia':[
     {nome:'Causas × Consequências',eixo1:'as causas estruturais do problema econômico',eixo2:'as consequências sociais que esse problema gera para a população'},
-    {nome:'Curto Prazo × Longo Prazo',eixo1:'as medidas de alívio imediato para o problema',eixo2:'as reformas estruturais necessárias para uma solução duradoura'},
-    {nome:'Acesso × Educação Financeira',eixo1:'a ampliação do acesso a serviços financeiros',eixo2:'a educação financeira como condição para o uso responsável desse acesso'},
-    {nome:'Regulação × Mercado',eixo1:'a regulação necessária para proteger o consumidor',eixo2:'o estímulo à concorrência e à inovação no mercado'},
+    {nome:'Crescimento × Sustentabilidade',eixo1:'o crescimento econômico e a geração de renda e empregos',eixo2:'a sustentabilidade desse crescimento sem aprofundar desigualdades ou danos ambientais'},
+    {nome:'Acesso × Desigualdade',eixo1:'a ampliação do acesso a serviços financeiros e oportunidades econômicas',eixo2:'a desigualdade estrutural que ainda impede esse acesso para parcelas da população'},
+    {nome:'Curto Prazo × Longo Prazo',eixo1:'as medidas de alívio imediato para o problema econômico',eixo2:'as reformas estruturais necessárias para uma solução duradoura'},
+    {nome:'Regulação × Mercado',eixo1:'a regulação necessária para proteger o consumidor e garantir equilíbrio',eixo2:'o estímulo à concorrência e à inovação no mercado'},
   ],
   'Sociedade':[
-    {nome:'Direitos × Acesso',eixo1:'a garantia formal de direitos previstos em lei',eixo2:'o acesso efetivo da população a esses direitos na prática'},
+    {nome:'Inclusão × Exclusão',eixo1:'as políticas de inclusão de grupos historicamente marginalizados',eixo2:'os mecanismos de exclusão estrutural que ainda persistem na sociedade'},
     {nome:'Causas × Consequências',eixo1:'as causas históricas e estruturais da desigualdade',eixo2:'as consequências sociais que essa desigualdade perpetua'},
+    {nome:'Acesso × Desigualdade',eixo1:'o acesso formal a direitos e serviços públicos previsto em lei',eixo2:'a desigualdade real no exercício desses direitos entre diferentes grupos sociais'},
     {nome:'Estado × Sociedade Civil',eixo1:'o papel do Estado na implementação de políticas públicas',eixo2:'a mobilização da sociedade civil como agente complementar de mudança'},
-    {nome:'Inclusão × Permanência',eixo1:'a inclusão inicial de grupos vulneráveis nos serviços',eixo2:'a permanência e continuidade dessa inclusão a longo prazo'},
+    {nome:'Modernização × Impactos Sociais',eixo1:'a modernização dos serviços e das relações sociais e econômicas',eixo2:'os impactos sociais dessa modernização sobre grupos vulneráveis'},
   ],
   'Segurança':[
     {nome:'Prevenção × Repressão',eixo1:'as estratégias de prevenção e educação para reduzir o problema',eixo2:'o fortalecimento da repressão e fiscalização pelos órgãos competentes'},
     {nome:'Causas × Consequências',eixo1:'as causas sociais e econômicas que alimentam o problema',eixo2:'as consequências para a segurança pública e para os cidadãos'},
-    {nome:'Tecnologia × Direitos Humanos',eixo1:'o uso de tecnologia para aprimorar a fiscalização e a segurança',eixo2:'a garantia dos direitos humanos e da proporcionalidade na ação do Estado'},
-    {nome:'Cooperação × Capacitação',eixo1:'a cooperação entre diferentes órgãos de segurança',eixo2:'a capacitação contínua dos agentes envolvidos'},
+    {nome:'Eficiência × Segurança',eixo1:'a eficiência dos sistemas e processos de controle e monitoramento',eixo2:'a segurança da população como objetivo central das políticas públicas'},
+    {nome:'Tecnologia × Capacitação',eixo1:'o uso de tecnologia para aprimorar a fiscalização e o controle',eixo2:'a capacitação dos agentes de segurança para operá-las com responsabilidade'},
   ],
   'Regulação':[
-    {nome:'Inovação × Proteção',eixo1:'o incentivo à inovação e à concorrência no setor',eixo2:'a proteção do consumidor frente a riscos e abusos'},
-    {nome:'Transparência × Responsabilização',eixo1:'a transparência das instituições na prestação de informações',eixo2:'a responsabilização efetiva em caso de descumprimento das normas'},
-    {nome:'Causas × Consequências',eixo1:'as causas que motivam a necessidade de regulação',eixo2:'as consequências da ausência ou insuficiência regulatória'},
-    {nome:'Nacional × Internacional',eixo1:'o fortalecimento da regulação nacional',eixo2:'a cooperação e os padrões internacionais como referência'},
+    {nome:'Inovação × Regulamentação',eixo1:'o incentivo à inovação e à concorrência no setor',eixo2:'a regulamentação necessária para proteger o consumidor e garantir estabilidade'},
+    {nome:'Transparência × Privacidade',eixo1:'a transparência das instituições na prestação de informações ao público',eixo2:'a privacidade dos cidadãos como limite ao acesso e uso de dados pessoais'},
+    {nome:'Causas × Consequências',eixo1:'as causas que motivam a necessidade de regulação',eixo2:'as consequências da ausência ou insuficiência regulatória para a sociedade'},
+    {nome:'Praticidade × Vulnerabilidade',eixo1:'a praticidade dos serviços desregulamentados e ágeis para o usuário',eixo2:'a vulnerabilidade gerada pela ausência de proteção regulatória adequada'},
   ],
   'Trabalho':[
-    {nome:'Automação × Requalificação',eixo1:'o avanço da automação e seus impactos sobre o emprego',eixo2:'a requalificação profissional como resposta a essa transformação'},
-    {nome:'Benefícios × Desafios',eixo1:'os benefícios da flexibilização das relações de trabalho',eixo2:'os desafios de proteção social que essa flexibilização impõe'},
+    {nome:'Automação × Requalificação',eixo1:'o avanço da automação e seus impactos sobre o mercado de trabalho',eixo2:'a requalificação profissional como resposta necessária a essa transformação'},
+    {nome:'Modernização × Impactos Sociais',eixo1:'a modernização das relações e dos processos de trabalho',eixo2:'os impactos sociais dessa modernização sobre trabalhadores e suas famílias'},
+    {nome:'Tecnologia × Capacitação',eixo1:'a adoção de tecnologia nos ambientes de trabalho como fator de produtividade',eixo2:'a capacitação dos trabalhadores para operar nesse novo contexto'},
     {nome:'Causas × Consequências',eixo1:'as causas da reestruturação do mercado de trabalho',eixo2:'as consequências para a renda e a qualidade de vida dos trabalhadores'},
-    {nome:'Setor Público × Setor Privado',eixo1:'o papel do setor público na requalificação da força de trabalho',eixo2:'a responsabilidade do setor privado na adaptação e retenção de talentos'},
+    {nome:'Crescimento × Sustentabilidade',eixo1:'o crescimento da produtividade e da geração de riqueza',eixo2:'a sustentabilidade das condições de trabalho e dos direitos trabalhistas'},
   ],
   'Meio Ambiente':[
-    {nome:'Desenvolvimento × Sustentabilidade',eixo1:'o desenvolvimento econômico e a geração de renda',eixo2:'a sustentabilidade ambiental como condição para esse desenvolvimento durar'},
+    {nome:'Crescimento × Sustentabilidade',eixo1:'o crescimento econômico e a pressão que exerce sobre os recursos naturais',eixo2:'a sustentabilidade ambiental como condição para que esse crescimento seja duradouro'},
     {nome:'Causas × Consequências',eixo1:'as causas humanas e econômicas da degradação ambiental',eixo2:'as consequências climáticas e sociais dessa degradação'},
+    {nome:'Modernização × Impactos Sociais',eixo1:'a modernização produtiva e energética como caminho para reduzir emissões',eixo2:'os impactos sociais da transição sobre comunidades dependentes de atividades poluentes'},
     {nome:'Regulação × Conscientização',eixo1:'o fortalecimento da regulação e fiscalização ambiental',eixo2:'a conscientização da sociedade para mudança de comportamento'},
-    {nome:'Nacional × Internacional',eixo1:'o compromisso interno do Brasil com metas ambientais',eixo2:'a cooperação internacional necessária para enfrentar o problema'},
   ],
 };
 
 const PARES_EIXOS_GENERICOS = [
-  {nome:'Benefícios × Desafios',eixo1:'os benefícios que o avanço do tema traz para a sociedade',eixo2:'os desafios que ainda precisam ser superados para sua plena efetivação'},
+  {nome:'Benefícios × Desafios',eixo1:'os benefícios que o tema traz para a sociedade',eixo2:'os desafios que ainda precisam ser superados para sua plena efetivação'},
   {nome:'Causas × Consequências',eixo1:'as causas estruturais que originam o problema',eixo2:'as consequências sociais e econômicas que esse problema produz'},
   {nome:'Oportunidades × Riscos',eixo1:'as oportunidades geradas pelo tema para o desenvolvimento do país',eixo2:'os riscos que precisam ser mitigados para que essas oportunidades se concretizem'},
-  {nome:'Estado × Sociedade',eixo1:'o papel do Estado na condução de políticas públicas sobre o tema',eixo2:'a participação da sociedade civil como agente complementar de mudança'},
+  {nome:'Inclusão × Exclusão',eixo1:'as políticas e mecanismos que promovem a inclusão de grupos vulneráveis',eixo2:'os fatores de exclusão estrutural que ainda impedem o acesso pleno a direitos e serviços'},
+  {nome:'Eficiência × Segurança',eixo1:'o ganho de eficiência nos processos e serviços envolvidos no tema',eixo2:'a segurança dos cidadãos e a proteção de seus direitos como contrapartida necessária'},
+  {nome:'Crescimento × Sustentabilidade',eixo1:'o crescimento econômico e social como objetivo do desenvolvimento',eixo2:'a sustentabilidade desse crescimento sem comprometer direitos ou o meio ambiente'},
+  {nome:'Tecnologia × Capacitação',eixo1:'o avanço tecnológico como fator de transformação do tema',eixo2:'a capacitação das pessoas para utilizarem essa tecnologia de forma plena e segura'},
+  {nome:'Inovação × Regulamentação',eixo1:'a inovação como motor de avanço e competitividade no setor',eixo2:'a regulamentação necessária para garantir equilíbrio, proteção e segurança jurídica'},
+  {nome:'Modernização × Impactos Sociais',eixo1:'a modernização dos processos, serviços e relações sociais',eixo2:'os impactos sociais que essa modernização gera, especialmente sobre grupos vulneráveis'},
+  {nome:'Praticidade × Vulnerabilidade',eixo1:'a praticidade e comodidade geradas pelas novas soluções e serviços',eixo2:'a vulnerabilidade a que ficam expostos cidadãos sem proteção adequada'},
+  {nome:'Acesso × Desigualdade',eixo1:'a ampliação do acesso a serviços, direitos e oportunidades',eixo2:'a desigualdade estrutural que ainda impede esse acesso para parcelas da população'},
+  {nome:'Transparência × Privacidade',eixo1:'a transparência como instrumento de controle social e confiança institucional',eixo2:'a privacidade dos cidadãos como direito fundamental a ser preservado'},
+  {nome:'Estado × Sociedade Civil',eixo1:'o papel do Estado na formulação e execução de políticas públicas',eixo2:'a participação da sociedade civil como agente complementar e fiscalizador'},
   {nome:'Curto Prazo × Longo Prazo',eixo1:'as medidas imediatas necessárias para mitigar o problema',eixo2:'as transformações estruturais necessárias para uma solução duradoura'},
 ];
 
@@ -1696,7 +1824,7 @@ function treino_toggleBrainstorm(){
   painel.style.display = aberto ? 'none' : 'block';
   if(!aberto && brainstormCadeias.length === 0){
     // Começa com 3 cadeias vazias para preencher
-    brainstormCadeias = [{causa:'',efeito:'',consequencia:''},{causa:'',efeito:'',consequencia:''},{causa:'',efeito:'',consequencia:''}];
+    brainstormCadeias = [{causa:'',explicacao:'',efeito:''},{causa:'',explicacao:'',efeito:''},{causa:'',explicacao:'',efeito:''}];
     renderBrainstorm();
   }
 }
@@ -1704,19 +1832,28 @@ function treino_toggleBrainstorm(){
 function renderBrainstorm(){
   const el = document.getElementById('treino-brainstorm-cadeias');
   el.innerHTML = brainstormCadeias.map((c,i) => `
-    <div style="border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;position:relative;">
+    <div style="border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:10px;position:relative;">
       <div style="position:absolute;top:8px;right:8px;cursor:pointer;color:var(--muted);font-size:11px;" onclick="brainstormRemoverCadeia(${i})">✕</div>
-      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-bottom:6px;">CADEIA ${i+1}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-bottom:8px;">ARGUMENTO ${i+1}</div>
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <input type="text" placeholder="Causa: o que origina o problema?" value="${c.causa.replace(/"/g,'&quot;')}"
-          oninput="brainstormAtualizar(${i},'causa',this.value)"
-          style="border-left:3px solid #4a90d9;font-size:12px;padding:8px 10px;"/>
-        <input type="text" placeholder="Efeito: o que isso provoca na prática?" value="${c.efeito.replace(/"/g,'&quot;')}"
-          oninput="brainstormAtualizar(${i},'efeito',this.value)"
-          style="border-left:3px solid #8a6ad9;font-size:12px;padding:8px 10px;"/>
-        <input type="text" placeholder="Consequência: qual o impacto maior / a longo prazo?" value="${c.consequencia.replace(/"/g,'&quot;')}"
-          oninput="brainstormAtualizar(${i},'consequencia',this.value)"
-          style="border-left:3px solid #3db88a;font-size:12px;padding:8px 10px;"/>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:9px;font-family:var(--mono);color:#4a90d9;min-width:80px;flex-shrink:0;">① CAUSA</span>
+          <input type="text" placeholder="O que origina o problema? (ex: Uso excessivo das redes sociais)" value="${c.causa.replace(/\"/g,'&quot;')}"            oninput="brainstormAtualizar(${i},'causa',this.value)"
+            style="border-left:3px solid #4a90d9;font-size:12px;padding:8px 10px;flex:1;"/>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:9px;font-family:var(--mono);color:#e05050;min-width:80px;flex-shrink:0;">② EXPLICAÇÃO</span>
+          <input type="text" placeholder="Por que isso acontece? (ex: A exposição a padrões idealizados gera comparações)" value="${(c.explicacao||''). replace(/\"/g,'&quot;')}"            oninput="brainstormAtualizar(${i},'explicacao',this.value)"
+            style="border-left:3px solid #e05050;font-size:12px;padding:8px 10px;flex:1;"/>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:9px;font-family:var(--mono);color:#3db88a;min-width:80px;flex-shrink:0;">③ EFEITO</span>
+          <input type="text" placeholder="O que resulta disso? (ex: Aumento dos casos de ansiedade e baixa autoestima)" value="${c.efeito.replace(/\"/g,'&quot;')}"            oninput="brainstormAtualizar(${i},'efeito',this.value)"
+            style="border-left:3px solid #3db88a;font-size:12px;padding:8px 10px;flex:1;"/>
+        </div>
+        <div style="font-size:10px;color:var(--muted);padding:6px 10px;background:rgba(255,255,255,0.02);border-radius:4px;margin-top:2px;line-height:1.8;">
+          📝 <em><span style="color:#4a90d9;">${c.causa||'[causa]'}</span> agrava o problema, pois <span style="color:#e05050;">${c.explicacao||'[explicação]'}</span>. Como consequência, <span style="color:#3db88a;">${c.efeito||'[efeito]'}</span>.</em>
+        </div>
       </div>
     </div>`).join('');
 }
@@ -1726,7 +1863,7 @@ function brainstormAtualizar(idx,campo,valor){
 }
 
 function brainstormAdicionarCadeia(){
-  brainstormCadeias.push({causa:'',efeito:'',consequencia:''});
+  brainstormCadeias.push({causa:'',explicacao:'',efeito:''});
   renderBrainstorm();
 }
 
@@ -1737,13 +1874,13 @@ function brainstormRemoverCadeia(idx){
 
 function brainstormLimpar(){
   if(!confirm('Limpar todas as cadeias do brainstorm?')) return;
-  brainstormCadeias = [{causa:'',efeito:'',consequencia:''},{causa:'',efeito:'',consequencia:''},{causa:'',efeito:'',consequencia:''}];
+  brainstormCadeias = [{causa:'',explicacao:'',efeito:''},{causa:'',explicacao:'',efeito:''},{causa:'',explicacao:'',efeito:''}];
   renderBrainstorm();
   document.getElementById('treino-brainstorm-feedback').style.display = 'none';
 }
 
 async function brainstormValidar(){
-  const preenchidas = brainstormCadeias.filter(c => c.causa.trim() || c.efeito.trim() || c.consequencia.trim());
+  const preenchidas = brainstormCadeias.filter(c => c.causa.trim() || c.explicacao.trim() || c.efeito.trim());
   if(!preenchidas.length){ alert('Preencha ao menos uma cadeia antes de validar.'); return; }
 
   const btn = document.querySelector('#treino-brainstorm-painel .btn-ouro');
@@ -1751,20 +1888,27 @@ async function brainstormValidar(){
   const fb = document.getElementById('treino-brainstorm-feedback');
 
   const listaTexto = preenchidas.map((c,i)=>
-    `Cadeia ${i+1}: Causa="${c.causa||'(vazio)'}" | Efeito="${c.efeito||'(vazio)'}" | Consequência="${c.consequencia||'(vazio)'}"`
+    `Argumento ${i+1}: Causa="${c.causa||'(vazio)'}" | Explicação="${c.explicacao||'(vazio)'}" | Efeito="${c.efeito||'(vazio)'}"`
   ).join('\n');
 
   const sysBrainstorm = `Você é professor de redação para concursos Cesgranrio (BB/CEF), avaliando um exercício de brainstorm.
-O aluno tentou gerar várias cadeias causais (Causa→Efeito→Consequência) sobre um tema, antes de escrever a redação.
+O aluno gerou argumentos no formato Causa → Explicação → Efeito, que é a espinha dorsal de cada parágrafo de desenvolvimento.
 
-Para CADA cadeia preenchida, faça:
-1. AVALIAÇÃO RÁPIDA: a Causa é realmente um fato gerador (não um efeito disfarçado)? O Efeito decorre logicamente da causa? A Consequência é um impacto mais amplo, não uma repetição do efeito? Aponte o problema específico se houver, ou confirme em 1 frase se estiver boa.
-2. REESCRITA: reescreva a cadeia de forma mais polida e "pronta para usar" em um parágrafo de redação dissertativa — linguagem formal, conectivos adequados (ex: "isso porque", "como consequência", "nesse sentido"). Mantenha a ideia original do aluno, apenas refine a forma.
-3. EXEMPLO ADICIONAL: para pelo menos 2 das cadeias, sugira um dado, lei, órgão ou caso concreto que poderia servir como evidência para aquela cadeia (ex: "Segundo o Banco Central...", "A Lei X/20XX estabelece...").
+A lógica é:
+- CAUSA: o fato gerador do problema (o que origina)
+- EXPLICAÇÃO: o mecanismo pelo qual a causa produz o problema (por que / como isso acontece)
+- EFEITO: o resultado concreto que o leitor vê (o que resulta)
 
-Ao final, indique quais 1-2 cadeias são as mais fortes para usar como TEEC na redação e por quê.
+Frase-modelo para o parágrafo: "[Causa] agrava o problema, pois [explicação]. Como consequência, [efeito]."
 
-Seja didático mas objetivo — não precisa ser longo por cadeia, mas não pule a reescrita nem os exemplos. Sem markdown, use quebras de linha e numeração simples para organizar.`;
+Para CADA argumento preenchido, faça:
+1. AVALIAÇÃO RÁPIDA: a Causa é realmente um fato gerador (não um sintoma disfarçado de causa)? A Explicação responde "por que isso acontece" (não repete a causa nem antecipa o efeito)? O Efeito é um resultado concreto, diferente da explicação? Aponte o problema específico se houver, ou confirme em 1 frase se estiver bem estruturado.
+2. REESCRITA COMO FRASE DE PARÁGRAFO: transforme as 3 partes em 1-2 frases formais, usando a estrutura "[causa] agrava o problema, pois [explicação]. Como consequência, [efeito]." Use conectivos adequados. Mantenha a ideia original do aluno.
+3. EXEMPLO/DADO: para pelo menos 2 dos argumentos, sugira um dado, lei, órgão ou caso concreto que poderia ser inserido como evidência (ex: "Segundo o Banco Central...", "A Lei X/20XX estabelece...").
+
+Ao final, indique quais 1-2 argumentos são os mais fortes para usar nos parágrafos de desenvolvimento e por quê.
+
+Seja didático mas direto. Sem markdown, use quebras de linha e numeração simples.`;
 
   try{
     const resp = await chamarIA(
@@ -1856,15 +2000,32 @@ function treinoSalvarCodigo(){
 async function treinoSyncAgora(direcao){
   if(!getSyncCode()){ alert('Configure um código pessoal primeiro.'); return; }
   const status = document.getElementById('sync-status');
-  status.textContent = '⏳ Sincronizando...';
 
   if(direcao === 'upload'){
+    status.textContent = '⏳ Enviando...';
     const r = await syncUploadAll();
     status.textContent = r.ok ? '✅ '+r.msg : '❌ '+r.msg;
   } else {
-    const r = await syncDownloadAll();
+    if(!confirm('Isso vai SOBRESCREVER o progresso salvo neste dispositivo com o que está na nuvem.\n\nUm backup automático do estado atual será guardado antes, mas confirme se é isso que você quer.')) return;
+
+    status.textContent = '⏳ Verificando...';
+    let r = await syncDownloadAll(false);
+
+    if(r.conflito){
+      const forcar = confirm('⚠️ '+r.msg+'\n\nDeseja baixar mesmo assim e sobrescrever o local? (um backup será feito antes)');
+      if(!forcar){ status.textContent = '⚠️ Download cancelado — envie seu progresso local primeiro com "Enviar progresso".'; return; }
+      r = await syncDownloadAll(true);
+    }
+
     status.textContent = r.ok ? '✅ '+r.msg+' Recarregue a página para ver tudo atualizado.' : '❌ '+r.msg;
   }
+}
+
+function treinoRestaurarBackup(){
+  if(!confirm('Restaurar o backup local mais recente? Isso vai sobrescrever o progresso atual com o backup feito antes da última sincronização.')) return;
+  const r = syncRestaurarBackup();
+  const status = document.getElementById('sync-status');
+  if(status) status.textContent = r.ok ? '✅ '+r.msg+' Recarregue a página.' : '❌ '+r.msg;
 }
 
 // ── UI DE SINCRONIZAÇÃO (fim) ──────────────────────────────────────
@@ -2096,11 +2257,17 @@ function treinoCarregar(chave){
   atualizarPainelProgresso();
 }
 
-function treinoExcluir(chave){
+async function treinoExcluir(chave){
   localStorage.removeItem(chave);
   const indice = JSON.parse(localStorage.getItem('treino_indice')||'[]').filter(k=>k!==chave);
   localStorage.setItem('treino_indice', JSON.stringify(indice));
   treinoCarregarMenu(); // re-renderizar
+
+  // Sincronizar exclusão com a nuvem
+  if(getSyncCode()){
+    await syncUpload(chave, null); // remove na nuvem
+    await syncUpload('treino_indice', indice);
+  }
 }
 
 function treinoProxNivel(){
@@ -2559,8 +2726,9 @@ function tutorRenderChat(){
   area.scrollTop = area.scrollHeight;
 }
 
-function tutorSalvarHistorico(){
+async function tutorSalvarHistorico(){
   try{ localStorage.setItem(TUTOR_HISTORICO_KEY, JSON.stringify(tutorHistorico.slice(-30))); }catch(e){}
+  if(getSyncCode()) await syncUpload(TUTOR_HISTORICO_KEY, tutorHistorico.slice(-30));
 }
 
 async function tutorEnviarMsg(pergunta){
@@ -2575,7 +2743,7 @@ Dados do aluno:
 - Redações em progresso: ${d.temasRedacaoSalvos.map(t=>t.titulo+' (nível '+t.nivel+'/7)').join('; ') || 'nenhuma salva'}
 ${d.totalResp ? '- Questões respondidas: '+d.totalResp+' ('+d.pctAcerto+'% de acerto)' : ''}
 
-Use esses dados para personalizar respostas. Se o aluno perguntar sobre redação, foque no método FTTD (Fenômeno-Tema-Tese-Desenvolvimento) e na estrutura TEEC (Tópico-Explicação-Exemplo-Consequência). Seja direto, encorajador e prático. Não invente dados que não foram fornecidos.`;
+Use esses dados para personalizar respostas. Se o aluno perguntar sobre redação, foque no método FTTD (Fenômeno e/ou Fato → Tema → Tese → Desenvolvimento). O F pode ser um fenômeno amplo, um fato/dado concreto, ou os dois combinados na abertura e na estrutura TEEC (Tópico-Explicação-Exemplo-Consequência). Seja direto, encorajador e prático. Não invente dados que não foram fornecidos.`;
 
   try{
     const resp = await chamarIA(pergunta, 800, sysTutor);
@@ -2619,6 +2787,458 @@ window.onload=function(){
   initTemas();
   initTreino();
 };
+
+
+// ══════════════════════════════════════════════════════════════
+// ABA 9 — FLASHCARDS
+// ══════════════════════════════════════════════════════════════
+
+const FC_BANCO = [
+  // ── FENÔMENO ──
+  {
+    elemento: 'fenomeno',
+    tema: 'Transformação digital',
+    trecho: 'A revolução tecnológica dos últimos trinta anos transformou profundamente as relações humanas, reconfigurando desde a forma como as pessoas trabalham até o modo como se comunicam e consomem informação.',
+    opcoes: ['Fenômeno / Fato','Tese','Contextualização','Tópico Frasal'],
+    correta: 'Fenômeno / Fato',
+    explicacao: 'Este trecho apresenta um fenômeno amplo — a revolução tecnológica — sem ainda delimitar o tema específico da redação. É o pano de fundo que situa o leitor no contexto maior antes de chegar ao problema central.',
+    dica: 'Fenômeno: é sempre amplo, não delimita um problema. Responde "que transformação maior está acontecendo no mundo?" Não traz opinião, não traz solução — só contextualiza o cenário.'
+  },
+  {
+    elemento: 'fenomeno',
+    tema: 'Desigualdade social',
+    trecho: 'Desde a colonização brasileira, a concentração de renda e terra moldou estruturas sociais que atravessaram séculos e ainda hoje determinam o acesso desigual a oportunidades.',
+    opcoes: ['Fenômeno / Fato','Conclusão Final','Tese','Exemplo / Dado'],
+    correta: 'Fenômeno / Fato',
+    explicacao: 'O trecho descreve um fenômeno histórico amplo — a concentração de renda desde a colonização — que serve de pano de fundo para qualquer tema ligado à desigualdade. Não há tese nem delimitação de problema específico.',
+    dica: 'Fenômeno histórico costuma começar com referência temporal ampla ("desde", "ao longo dos séculos", "historicamente"). Cuidado: é diferente de contextualização, que já começa a aproximar o tema.'
+  },
+  // ── FATO ──
+  {
+    elemento: 'fenomeno',
+    tema: 'Saúde mental',
+    trecho: 'Segundo a Organização Mundial da Saúde, o Brasil é o país com maior prevalência de ansiedade no mundo, afetando cerca de 18,6 milhões de pessoas.',
+    opcoes: ['Fenômeno / Fato','Consequência','Tese','Exemplo / Dado'],
+    correta: 'Fenômeno / Fato',
+    explicacao: 'Este é um Fato: um dado concreto e verificável que abre a redação ancorando o leitor num número real. Diferente do fenômeno amplo, o fato já traz precisão — mas ainda não é a tese nem delimita o problema que será discutido.',
+    dica: 'Fato tem número, fonte ou evento concreto ("segundo o IBGE", "em 2023", "pesquisa aponta que X%"). Fenômeno é mais abstrato e histórico. Os dois servem para abrir a redação no campo F do FTTD.'
+  },
+  // ── CONTEXTUALIZAÇÃO ──
+  {
+    elemento: 'contextualizacao',
+    tema: 'Evasão escolar',
+    trecho: 'Em um país marcado por profundas desigualdades, o acesso à educação ainda é distribuído de forma desigual entre diferentes grupos sociais. Nesse cenário, a evasão escolar emerge como uma das expressões mais visíveis dessa injustiça.',
+    opcoes: ['Contextualização','Tese','Fenômeno / Fato','Conclusão Parcial'],
+    correta: 'Contextualização',
+    explicacao: 'A contextualização parte de um cenário amplo (desigualdades + acesso à educação) e vai estreitando até chegar ao problema específico que a redação vai tratar (evasão escolar). É o movimento do geral para o específico, ainda sem posição do autor.',
+    dica: 'Contextualização ≠ Fenômeno: o fenômeno é só o pano de fundo amplo. A contextualização já faz a ponte, movendo do contexto maior até o problema central. Reconheça pelo movimento: "Em um país X... nesse cenário, o problema Y emerge".'
+  },
+  {
+    elemento: 'contextualizacao',
+    tema: 'Violência contra a mulher',
+    trecho: 'Apesar dos avanços legislativos conquistados nas últimas décadas, como a Lei Maria da Penha, a violência doméstica ainda representa uma tragédia cotidiana para milhões de brasileiras, evidenciando que leis sozinhas não bastam para transformar realidades enraizadas culturalmente.',
+    opcoes: ['Contextualização','Proposta de Intervenção','Tese','Tópico Frasal'],
+    correta: 'Contextualização',
+    explicacao: 'O trecho reconhece avanços (Lei Maria da Penha), mas aponta que o problema persiste — é um movimento clássico de contextualização que prepara o terreno para a tese. Ainda não define os eixos da argumentação.',
+    dica: 'Contextualização frequentemente usa estruturas concessivas: "apesar de X, Y ainda persiste". Ela admite que algo existe mas destaca que o problema central permanece, criando tensão que a tese vai resolver.'
+  },
+  // ── TEMA ESPECÍFICO ──
+  {
+    elemento: 'tema',
+    tema: 'Educação financeira',
+    trecho: 'A ausência de educação financeira nas escolas públicas brasileiras constitui, portanto, o núcleo do desafio que esta redação se propõe a examinar.',
+    opcoes: ['Tema Específico','Tese','Conclusão Final','Contextualização'],
+    correta: 'Tema Específico',
+    explicacao: 'O tema específico delimita com precisão sobre o que a redação vai tratar — não é o fenômeno amplo ("educação no Brasil"), nem a tese (que traz posição + eixos). É só a delimitação: "vou falar sobre X".',
+    dica: 'Tema específico responde: "sobre qual parte do problema você vai escrever?" Geralmente aparece depois da contextualização e antes da tese. É uma frase curta e objetiva, sem argumentação.'
+  },
+  {
+    elemento: 'tema',
+    tema: 'Segurança pública',
+    trecho: 'Diante desse panorama, o encarceramento em massa como resposta predominante à criminalidade urbana é o fenômeno que merece análise aprofundada.',
+    opcoes: ['Tema Específico','Fenômeno / Fato','Tese','Tópico Frasal'],
+    correta: 'Tema Específico',
+    explicacao: 'Apesar de usar a palavra "fenômeno", o trecho delimita o tema específico da redação: encarceramento em massa. Não há posição do autor nem eixos de argumentação — apenas a delimitação do recorte temático.',
+    dica: 'Cuidado com a palavra "fenômeno" dentro do texto: ela pode aparecer para nomear o tema específico. O que define o elemento não é a palavra usada, mas a função: delimitar o recorte sem ainda argumentar.'
+  },
+  // ── TESE ──
+  {
+    elemento: 'tese',
+    tema: 'Inclusão digital',
+    trecho: 'Embora a expansão da internet represente avanço inegável, sua democratização efetiva depende tanto da ampliação da infraestrutura de conectividade quanto da promoção de letramento digital nas populações vulneráveis.',
+    opcoes: ['Tese','Contextualização','Tópico Frasal','Conclusão Final'],
+    correta: 'Tese',
+    explicacao: 'Tese clássica com dois eixos: eixo 1 = infraestrutura de conectividade; eixo 2 = letramento digital. A estrutura "Embora X represente Y, sua efetivação depende de [eixo1] e [eixo2]" é o padrão Cesgranrio.',
+    dica: 'Tese sempre tem DOIS eixos na Cesgranrio. Reconheça pela presença de "tanto... quanto", "não apenas... mas também", "seja... seja", ou estrutura concessiva + dois elementos. Se tiver só um argumento, não é tese — é tópico frasal.'
+  },
+  {
+    elemento: 'tese',
+    tema: 'Reforma tributária',
+    trecho: 'A modernização do sistema tributário brasileiro, portanto, requer não apenas a simplificação das obrigações fiscais para empresas, mas também a redistribuição mais justa da carga entre diferentes faixas de renda.',
+    opcoes: ['Tese','Conclusão Final','Exemplo / Dado','Contextualização'],
+    correta: 'Tese',
+    explicacao: 'Dois eixos claros: (1) simplificação fiscal para empresas e (2) redistribuição justa por faixa de renda. A estrutura "não apenas X, mas também Y" sinaliza os dois pilares que serão desenvolvidos nos parágrafos seguintes.',
+    dica: '"Não apenas... mas também" é um dos conectores mais usados para introduzir a tese com dois eixos. Outros: "tanto... quanto", "por um lado... por outro", "seja pela... seja pela".'
+  },
+  {
+    elemento: 'tese',
+    tema: 'Saúde mental jovens',
+    trecho: 'A crise de saúde mental entre jovens brasileiros, embora influenciada por múltiplos fatores, se aprofunda sobretudo pela ausência de políticas públicas de prevenção e pelo papel das redes sociais na amplificação de comparações danosas.',
+    opcoes: ['Tese','Fenômeno / Fato','Conclusão Parcial','Tópico Frasal'],
+    correta: 'Tese',
+    explicacao: 'Dois eixos: (1) ausência de políticas públicas de prevenção e (2) papel das redes sociais. A estrutura concessiva "embora influenciada por múltiplos fatores" reconhece complexidade antes de delimitar a posição com dois pilares.',
+    dica: 'Tese com estrutura concessiva: "embora X, o problema se aprofunda por A e B". A concessão ("embora", "ainda que", "apesar de") admite outros ângulos mas direciona o foco para os dois eixos escolhidos.'
+  },
+  // ── TÓPICO FRASAL ──
+  {
+    elemento: 'topico_frasal',
+    tema: 'Educação no campo',
+    trecho: 'Um dos principais obstáculos ao desenvolvimento da educação rural é a escassez de professores qualificados e dispostos a atuar em regiões remotas do país.',
+    opcoes: ['Tópico Frasal','Tese','Contextualização','Explicação'],
+    correta: 'Tópico Frasal',
+    explicacao: 'O tópico frasal abre o parágrafo de desenvolvimento anunciando o argumento que será desenvolvido. É uma afirmação direta sobre um dos eixos — aqui, o eixo da falta de professores. Não desenvolve, não exemplifica: apenas afirma.',
+    dica: 'Tópico frasal = primeira frase do parágrafo de desenvolvimento. Reconheça pelo fato de ser uma afirmação sobre um eixo específico, curta e direta, que "promete" o que o parágrafo vai provar. Não confunda com tese: a tese anuncia os dois eixos; o tópico frasal apresenta um de cada vez.'
+  },
+  {
+    elemento: 'topico_frasal',
+    tema: 'Mobilidade urbana',
+    trecho: 'A dependência excessiva do transporte individual motorizado é um dos fatores centrais que agravam o colapso da mobilidade nas grandes cidades brasileiras.',
+    opcoes: ['Tópico Frasal','Fenômeno / Fato','Tese','Conclusão Parcial'],
+    correta: 'Tópico Frasal',
+    explicacao: 'Afirmação direta sobre um eixo (transporte individual) que abre o parágrafo de desenvolvimento. Não há dados, não há explicação do mecanismo — só a afirmação que vai ser comprovada ao longo do parágrafo.',
+    dica: 'Diferença tópico frasal × tese: a tese tem dois eixos e aparece na introdução. O tópico frasal tem um eixo e abre o parágrafo de desenvolvimento. Se a frase anuncia só um argumento e vem no início de um §2 ou §3, é tópico frasal.'
+  },
+  // ── EXPLICAÇÃO ──
+  {
+    elemento: 'explicacao',
+    tema: 'Evasão escolar',
+    trecho: 'A necessidade de trabalhar precocemente reduz o tempo disponível para estudos e gera cansaço acumulado, tornando a permanência na escola cada vez mais difícil para jovens em situação de vulnerabilidade econômica.',
+    opcoes: ['Explicação','Exemplo / Dado','Tópico Frasal','Consequência'],
+    correta: 'Explicação',
+    explicacao: 'A explicação responde "por que / como" a causa gera o problema. Aqui: o trabalho precoce (causa) → reduz tempo e gera cansaço (mecanismo explicativo) → dificulta permanência na escola. É o "pois..." da estrutura Causa → Explicação → Efeito.',
+    dica: 'Explicação responde "como isso acontece?" ou "por que a causa gera esse problema?". Costuma conter conectivos como "pois", "uma vez que", "dado que", "visto que". Não é um dado — é o raciocínio que conecta causa e efeito.'
+  },
+  {
+    elemento: 'explicacao',
+    tema: 'Redes sociais e ansiedade',
+    trecho: 'A exposição constante a imagens de vidas aparentemente perfeitas estimula comparações que distorcem a autopercepção dos usuários, alimentando sentimentos de inadequação e insuficiência.',
+    opcoes: ['Explicação','Fenômeno / Fato','Consequência','Contextualização'],
+    correta: 'Explicação',
+    explicacao: 'O trecho explica o mecanismo pelo qual as redes sociais (causa) geram problemas de saúde mental: exposição → comparação → distorção da autopercepção → sentimentos negativos. É o "como isso acontece" que conecta a causa ao efeito.',
+    dica: 'Explicação ≠ Consequência: a explicação descreve o mecanismo interno (como a causa age), enquanto a consequência descreve o resultado final externo e visível. "Alimenta sentimentos de inadequação" ainda é o mecanismo — a consequência seria "aumento nos casos de depressão diagnosticada".'
+  },
+  {
+    elemento: 'explicacao',
+    tema: 'Desigualdade racial',
+    trecho: 'O racismo estrutural opera de forma silenciosa ao restringir o acesso de negros a redes de contato e oportunidades informais de emprego, reproduzindo desigualdades mesmo quando não há discriminação explícita declarada.',
+    opcoes: ['Explicação','Tese','Tópico Frasal','Proposta de Intervenção'],
+    correta: 'Explicação',
+    explicacao: 'O trecho explica como o racismo estrutural (causa) gera desigualdade no mercado de trabalho: ao restringir redes de contato e oportunidades informais. É o mecanismo — o "como" — que conecta a causa ao efeito visível.',
+    dica: 'Explicações sobre causas estruturais tendem a usar "opera", "age", "atua", "funciona ao..." — verbos que descrevem um mecanismo em ação, não um resultado final.'
+  },
+  // ── EXEMPLO / DADO ──
+  {
+    elemento: 'exemplo',
+    tema: 'Inclusão financeira',
+    trecho: 'Segundo o Banco Central do Brasil, em 2023, cerca de 84% da população adulta já possuía conta bancária ativa, reflexo direto da expansão das fintechs e do Pix como meios de inclusão financeira.',
+    opcoes: ['Exemplo / Dado','Tópico Frasal','Tese','Consequência'],
+    correta: 'Exemplo / Dado',
+    explicacao: 'Dado concreto com fonte (Banco Central), número (84%) e ano (2023). Esse tipo de evidência serve para comprovar o argumento do parágrafo — é o "C de Comprovação" no modelo Afirmação → Comprovação → Explicação → Conclusão parcial.',
+    dica: 'Exemplo/Dado: tem fonte, número, caso concreto ou referência verificável. Serve para evidenciar a afirmação do tópico frasal. Sem dados, o argumento fica no campo da opinião. Reconheça por: "segundo X", "em Y ano", "pesquisa aponta que", "a Lei X".'
+  },
+  {
+    elemento: 'exemplo',
+    tema: 'Violência no trânsito',
+    trecho: 'O Brasil registra, em média, 33 mil mortes no trânsito por ano, número que o coloca entre os países com maior índice de mortalidade viária no mundo, conforme dados do Ministério da Saúde.',
+    opcoes: ['Exemplo / Dado','Fenômeno / Fato','Contextualização','Explicação'],
+    correta: 'Exemplo / Dado',
+    explicacao: 'Dado numérico com fonte (Ministério da Saúde) usado para evidenciar a gravidade do problema dentro de um parágrafo de desenvolvimento. É diferente do Fato introdutório: aqui está comprovando um argumento já apresentado pelo tópico frasal.',
+    dica: 'Mesmo trecho pode ser Fato (se for na introdução para contextualizar) ou Exemplo/Dado (se estiver dentro de um parágrafo de desenvolvimento comprovando um argumento). A posição na estrutura é o que diferencia.'
+  },
+  {
+    elemento: 'exemplo',
+    tema: 'Educação',
+    trecho: 'A Finlândia, referência mundial em educação, investe em formação continuada de professores e autonomia pedagógica — modelo que resultou em estudantes no topo do ranking PISA por mais de duas décadas consecutivas.',
+    opcoes: ['Exemplo / Dado','Tópico Frasal','Tese','Conclusão Parcial'],
+    correta: 'Exemplo / Dado',
+    explicacao: 'Exemplo concreto de caso internacional (Finlândia) usado como evidência de que a valorização docente gera resultados. Exemplos de outros países são recursos válidos para ilustrar argumentos em redações dissertativas.',
+    dica: 'Exemplos podem ser: dados numéricos, leis, casos concretos de países ou cidades, citações de autores, referências históricas. O que todos têm em comum: são verificáveis e servem para comprovar o argumento, não para opinar.'
+  },
+  // ── CONSEQUÊNCIA ──
+  {
+    elemento: 'consequencia',
+    tema: 'Desemprego juvenil',
+    trecho: 'Como resultado, milhões de jovens ficam presos em um ciclo de subempregos informais, sem acesso a direitos trabalhistas ou perspectiva de ascensão profissional, o que compromete a própria coesão social do país.',
+    opcoes: ['Consequência','Explicação','Conclusão Parcial','Tópico Frasal'],
+    correta: 'Consequência',
+    explicacao: 'A consequência é o efeito final e visível do problema — o que resulta concretamente. "Como resultado" é um conector clássico de consequência. O trecho não explica por que acontece (isso é explicação) — descreve o que acontece depois.',
+    dica: 'Consequência responde "o que resulta disso?". Conectores típicos: "como resultado", "como consequência", "dessa forma", "isso gera", "o que leva a", "culminando em". É o efeito final externo e observável.'
+  },
+  {
+    elemento: 'consequencia',
+    tema: 'Analfabetismo funcional',
+    trecho: 'Isso gera um ciclo vicioso: sem leitura fluente, o trabalhador não acessa informações sobre seus direitos, o que o torna mais vulnerável a relações de exploração no mercado informal.',
+    opcoes: ['Consequência','Explicação','Contextualização','Exemplo / Dado'],
+    correta: 'Consequência',
+    explicacao: '"Isso gera" é um marcador claro de consequência. O trecho descreve o efeito encadeado do analfabetismo funcional: falta de leitura → desconhecimento de direitos → vulnerabilidade à exploração. É o resultado concreto do problema.',
+    dica: 'Consequências podem ser encadeadas ("ciclo vicioso", "o que leva a... que por sua vez gera..."). Isso é comum em argumentos mais sofisticados: a consequência de A vira a causa de B.'
+  },
+  // ── CONCLUSÃO PARCIAL ──
+  {
+    elemento: 'conclusao_parcial',
+    tema: 'Saneamento básico',
+    trecho: 'Assim, fica evidente que a precariedade do saneamento não é apenas um problema de infraestrutura, mas um obstáculo direto ao desenvolvimento humano e à dignidade das populações periféricas.',
+    opcoes: ['Conclusão Parcial','Tese','Consequência','Contextualização'],
+    correta: 'Conclusão Parcial',
+    explicacao: 'A conclusão parcial fecha o parágrafo de desenvolvimento retomando o argumento de forma sintética e reforçada. "Assim, fica evidente que..." é estrutura clássica de fechamento de parágrafo — não traz argumento novo, sintetiza o que foi dito.',
+    dica: 'Conclusão parcial ≠ consequência: a consequência descreve um efeito concreto. A conclusão parcial sintetiza o argumento do parágrafo e reforça a relevância do eixo. Conectores: "assim", "logo", "portanto", "dessa forma", "nesse sentido, é evidente que".'
+  },
+  {
+    elemento: 'conclusao_parcial',
+    tema: 'Cultura de paz',
+    trecho: 'Portanto, sem investimento em educação socioemocional desde a infância, qualquer política de segurança pública será, no máximo, uma resposta paliativa a um problema de raízes muito mais profundas.',
+    opcoes: ['Conclusão Parcial','Proposta de Intervenção','Tese','Explicação'],
+    correta: 'Conclusão Parcial',
+    explicacao: '"Portanto" fecha o raciocínio do parágrafo reafirmando a tese do eixo trabalhado. Não propõe ação (isso é proposta de intervenção) — apenas conclui o argumento com uma síntese crítica.',
+    dica: 'Cuidado para não confundir com proposta de intervenção: conclusão parcial encerra o argumento de forma analítica. Proposta de intervenção diz "quem deve fazer o quê, como e com qual finalidade" — é ação concreta, geralmente na conclusão final.'
+  },
+  // ── CONCLUSÃO FINAL ──
+  {
+    elemento: 'conclusao',
+    tema: 'Desigualdade educacional',
+    trecho: 'Depreende-se, pois, que a superação da desigualdade educacional exige tanto a ampliação do acesso às escolas quanto a garantia de uma aprendizagem de qualidade — dois eixos indissociáveis para a construção de uma sociedade mais justa e democrática.',
+    opcoes: ['Conclusão Final','Tese','Conclusão Parcial','Contextualização'],
+    correta: 'Conclusão Final',
+    explicacao: 'A conclusão final retoma os dois eixos da tese ("acesso" e "qualidade") de forma sintética, sem trazer argumentos novos. "Depreende-se, pois" é marcador clássico de conclusão. Encerra o raciocínio da redação.',
+    dica: 'Conclusão final: retoma a tese + os dois eixos + sintetiza sem argumentar de novo. Não pode trazer ideia nova — se trouxer, é erro grave. Conectores: "depreende-se", "conclui-se", "em síntese", "diante do exposto".'
+  },
+  {
+    elemento: 'conclusao',
+    tema: 'Segurança alimentar',
+    trecho: 'Em síntese, o combate à insegurança alimentar no Brasil demanda ação coordenada em duas frentes: o fortalecimento das políticas de transferência de renda e a valorização da agricultura familiar como pilar de abastecimento interno.',
+    opcoes: ['Conclusão Final','Tese','Proposta de Intervenção','Tópico Frasal'],
+    correta: 'Conclusão Final',
+    explicacao: '"Em síntese" introduz o fechamento que retoma os dois eixos discutidos. A conclusão final de uma redação Cesgranrio geralmente retoma tese + eixos antes de apresentar a proposta de intervenção.',
+    dica: 'Conclusão final ≠ proposta de intervenção: a conclusão retoma o raciocínio. A proposta diz quem age, o quê faz, como faz e com qual finalidade. Na Cesgranrio, a conclusão costuma ter os dois elementos juntos.'
+  },
+  // ── PROPOSTA DE INTERVENÇÃO ──
+  {
+    elemento: 'proposta',
+    tema: 'Violência doméstica',
+    trecho: 'Cabe ao Estado ampliar a rede de casas-abrigo para mulheres em situação de risco, por meio do aumento do orçamento destinado à assistência social, a fim de garantir proteção imediata e suporte psicológico às vítimas.',
+    opcoes: ['Proposta de Intervenção','Conclusão Final','Consequência','Tópico Frasal'],
+    correta: 'Proposta de Intervenção',
+    explicacao: 'Proposta completa: agente (Estado) + ação (ampliar rede de casas-abrigo) + meio (aumento de orçamento) + finalidade (garantir proteção e suporte). Esse é o modelo exigido pela Cesgranrio: quem faz + o quê + como + para quê.',
+    dica: 'Proposta de intervenção tem 4 partes: AGENTE (quem: Estado, escola, banco, família) + AÇÃO (o quê: criar, ampliar, regulamentar) + MEIO (como: por meio de, mediante, através de) + FINALIDADE (para quê: a fim de, com o objetivo de). Sem esses 4, a proposta fica incompleta.'
+  },
+  {
+    elemento: 'proposta',
+    tema: 'Educação financeira',
+    trecho: 'As instituições bancárias devem promover programas de educação financeira nas comunidades de baixa renda, mediante parcerias com escolas públicas e associações de bairro, com vistas a ampliar a capacidade de planejamento econômico da população.',
+    opcoes: ['Proposta de Intervenção','Conclusão Final','Explicação','Contextualização'],
+    correta: 'Proposta de Intervenção',
+    explicacao: 'Agente: instituições bancárias. Ação: promover programas de educação financeira. Meio: parcerias com escolas e associações. Finalidade: ampliar capacidade de planejamento econômico. Proposta completa e adequada ao contexto BB/CEF.',
+    dica: 'Para redações de concursos bancários (BB/CEF), o agente ideal costuma ser o próprio banco, o Banco Central, o governo federal ou entidades reguladoras. Isso demonstra que você entende o contexto institucional do concurso.'
+  },
+  // ── CASOS MISTOS (identificar em contexto) ──
+  {
+    elemento: 'tese',
+    tema: 'Open Finance',
+    trecho: 'A consolidação do Open Finance no Brasil, embora represente avanço na democratização dos serviços financeiros, demanda tanto a criação de marcos regulatórios robustos quanto o investimento em segurança cibernética para proteger os dados dos usuários.',
+    opcoes: ['Tese','Tópico Frasal','Contextualização','Conclusão Final'],
+    correta: 'Tese',
+    explicacao: 'Dois eixos claros: (1) marcos regulatórios robustos e (2) segurança cibernética. A estrutura concessiva "embora represente avanço... demanda tanto A quanto B" é a fórmula da tese Cesgranrio aplicada ao tema de Open Finance.',
+    dica: 'Em temas bancários e tecnológicos, os dois eixos da tese costumam ser: regulação × segurança, acesso × privacidade, eficiência × inclusão. Reconheça o padrão e use-o.'
+  },
+  {
+    elemento: 'topico_frasal',
+    tema: 'Previdência social',
+    trecho: 'A informalidade no mercado de trabalho é um dos principais obstáculos à sustentabilidade do sistema previdenciário brasileiro.',
+    opcoes: ['Tópico Frasal','Tese','Tema Específico','Conclusão Parcial'],
+    correta: 'Tópico Frasal',
+    explicacao: 'Afirmação direta, curta, sobre um único eixo (informalidade × previdência). É a frase que abre o parágrafo de desenvolvimento e anuncia o que será comprovado a seguir. Não tem estrutura de dois eixos (que seria tese) nem sintetiza (que seria conclusão).',
+    dica: 'Tópico frasal é sempre sobre UM eixo. Se você lê e pensa "isso vai ser desenvolvido no parágrafo", é tópico frasal. Se pensa "isso resume dois eixos que já foram discutidos", é conclusão.'
+  },
+  {
+    elemento: 'contextualizacao',
+    tema: 'DREX',
+    trecho: 'Com o avanço das tecnologias de pagamento e a consolidação do Pix como instrumento de inclusão financeira, o Brasil posicionou-se na vanguarda da inovação bancária mundial. Nesse contexto, a criação do Real Digital — o DREX — representa o próximo passo dessa transformação.',
+    opcoes: ['Contextualização','Fenômeno / Fato','Tese','Tópico Frasal'],
+    correta: 'Contextualização',
+    explicacao: 'O trecho parte de um cenário mais amplo (Pix, inovação bancária) e afunila até o tema específico (DREX). É o movimento clássico da contextualização: do geral para o específico, criando a ponte entre o fenômeno e o tema que será discutido.',
+    dica: 'Contextualização tem movimento: começa amplo e termina apontando para o tema específico. "Nesse contexto", "nesse cenário", "diante disso" são marcadores que indicam essa transição do amplo para o específico.'
+  },
+  {
+    elemento: 'consequencia',
+    tema: 'Superendividamento',
+    trecho: 'O resultado é uma espiral de dívidas que compromete a capacidade de consumo das famílias, reduz a demanda interna e pressiona indicadores macroeconômicos como o crescimento do PIB.',
+    opcoes: ['Consequência','Explicação','Conclusão Parcial','Exemplo / Dado'],
+    correta: 'Consequência',
+    explicacao: '"O resultado é" anuncia a consequência. O trecho descreve os efeitos concretos e encadeados do superendividamento: dívidas → queda do consumo → redução da demanda → pressão no PIB. Cada consequência alimenta a próxima.',
+    dica: 'Consequências macroeconômicas costumam aparecer como fechamento de argumentos em redações de temas bancários/econômicos. "Pressiona", "compromete", "reduz", "afeta" são verbos típicos de consequência.'
+  }
+];
+
+// ── Estado ──
+let fcDeck = [];
+let fcIndice = 0;
+let fcAcertos = 0;
+let fcErros = 0;
+let fcRespondido = false;
+let fcFiltroAtual = 'todos';
+
+function fcInit(){
+  fcFiltrar();
+}
+
+function fcFiltrar(){
+  fcFiltroAtual = document.getElementById('fc-filtro').value;
+  const filtrado = fcFiltroAtual === 'todos'
+    ? [...FC_BANCO]
+    : FC_BANCO.filter(c => c.elemento === fcFiltroAtual);
+  fcDeck = fcEmbaralharArray(filtrado);
+  fcIndice = 0;
+  fcAcertos = 0;
+  fcErros = 0;
+  fcRespondido = false;
+  fcAtualizarContadores();
+  document.getElementById('fc-feedback').style.display = 'none';
+  fcRenderizar();
+}
+
+function fcEmbaralhar(){
+  fcDeck = fcEmbaralharArray(fcDeck);
+  fcIndice = 0;
+  fcAcertos = 0;
+  fcErros = 0;
+  fcRespondido = false;
+  fcAtualizarContadores();
+  document.getElementById('fc-feedback').style.display = 'none';
+  fcRenderizar();
+}
+
+function fcReiniciar(){
+  fcFiltrar();
+}
+
+function fcEmbaralharArray(arr){
+  const a = [...arr];
+  for(let i = a.length-1; i > 0; i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function fcRenderizar(){
+  if(!fcDeck.length){
+    document.getElementById('fc-trecho').textContent = 'Nenhum card disponível para este filtro.';
+    document.getElementById('fc-opcoes').innerHTML = '';
+    document.getElementById('fc-label-tema').textContent = '—';
+    return;
+  }
+  if(fcIndice >= fcDeck.length){
+    fcMostrarFim();
+    return;
+  }
+  const card = fcDeck[fcIndice];
+  document.getElementById('fc-label-tema').textContent = 'TEMA: ' + card.tema.toUpperCase();
+  document.getElementById('fc-trecho').textContent = card.trecho;
+  fcRespondido = false;
+
+  // Embaralhar opções
+  const ops = fcEmbaralharArray(card.opcoes);
+  document.getElementById('fc-opcoes').innerHTML = ops.map(op => `
+    <button onclick="fcResponder('${op.replace(/'/g,"\\'")}', this)"
+      style="padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--card);
+             color:var(--text);cursor:pointer;font-family:var(--serif);font-size:12px;text-align:left;
+             transition:all .15s;line-height:1.4;"
+      onmouseover="if(!this.dataset.respondido)this.style.borderColor='var(--ouro)';this.style.color='var(--ouro)'"
+      onmouseout="if(!this.dataset.respondido)this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+      ${op}
+    </button>`).join('');
+
+  document.getElementById('fc-feedback').style.display = 'none';
+}
+
+function fcResponder(escolha, btn){
+  if(fcRespondido) return;
+  fcRespondido = true;
+  const card = fcDeck[fcIndice];
+  const acertou = escolha === card.correta;
+
+  // Marcar todos os botões
+  document.querySelectorAll('#fc-opcoes button').forEach(b => {
+    b.dataset.respondido = '1';
+    b.style.cursor = 'default';
+    const texto = b.textContent.trim();
+    if(texto === card.correta){
+      b.style.background = 'rgba(61,184,138,0.15)';
+      b.style.borderColor = 'var(--verde)';
+      b.style.color = 'var(--verde)';
+    } else if(texto === escolha && !acertou){
+      b.style.background = 'rgba(224,80,64,0.12)';
+      b.style.borderColor = 'var(--verm)';
+      b.style.color = 'var(--verm)';
+    } else {
+      b.style.opacity = '0.4';
+    }
+  });
+
+  if(acertou) fcAcertos++; else fcErros++;
+  fcAtualizarContadores();
+
+  // Mostrar feedback
+  const fb = document.getElementById('fc-feedback');
+  const titulo = document.getElementById('fc-feedback-titulo');
+  const texto = document.getElementById('fc-feedback-texto');
+  const dica = document.getElementById('fc-feedback-dica');
+
+  if(acertou){
+    titulo.innerHTML = '<span style="color:var(--verde);">✓ Correto!</span> — ' + card.correta;
+    titulo.style.color = 'var(--verde)';
+  } else {
+    titulo.innerHTML = '<span style="color:var(--verm);">✗ Errado.</span> Era: <span style="color:var(--ouro);">' + card.correta + '</span>';
+  }
+  texto.textContent = card.explicacao;
+  dica.textContent = card.dica;
+  fb.style.display = 'block';
+  fb.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function fcProximo(){
+  fcIndice++;
+  document.getElementById('fc-feedback').style.display = 'none';
+  fcRenderizar();
+  document.getElementById('fc-card').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function fcAtualizarContadores(){
+  const total = fcDeck.length;
+  const visto = fcIndice;
+  document.getElementById('fc-progresso').textContent = visto + ' / ' + total;
+  document.getElementById('fc-acertos').textContent = fcAcertos;
+  document.getElementById('fc-erros').textContent = fcErros;
+  const pct = total > 0 ? Math.round((visto/total)*100) : 0;
+  document.getElementById('fc-barra').style.width = pct + '%';
+}
+
+function fcMostrarFim(){
+  const total = fcDeck.length;
+  const pct = total > 0 ? Math.round((fcAcertos/total)*100) : 0;
+  let emoji = pct >= 80 ? '🏆' : pct >= 60 ? '💪' : '📚';
+  let msg = pct >= 80 ? 'Excelente domínio dos elementos!' : pct >= 60 ? 'Bom progresso — revise os erros.' : 'Continue praticando — a identificação vem com repetição.';
+  document.getElementById('fc-card').innerHTML = `
+    <div style="text-align:center;padding:30px 20px;">
+      <div style="font-size:40px;margin-bottom:14px;">${emoji}</div>
+      <div style="font-family:var(--display);font-size:20px;color:var(--ouro);margin-bottom:10px;">Rodada concluída!</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:6px;">${fcAcertos} acertos de ${total} cards (${pct}%)</div>
+      <div style="font-size:12px;color:var(--text);margin-bottom:24px;">${msg}</div>
+      <button class="btn btn-ouro" onclick="fcEmbaralhar()" style="margin-right:8px;">🔀 Nova rodada</button>
+      <button class="btn btn-ghost" onclick="fcReiniciar()">↺ Reiniciar</button>
+    </div>`;
+}
+
 </script>
 </body>
 </html>
