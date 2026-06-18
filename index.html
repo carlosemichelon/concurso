@@ -334,6 +334,26 @@
       <input type="text" id="sheets-url" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv"/>
     </div>
 
+    <!-- Sincronização entre dispositivos -->
+    <div style="margin-bottom:18px;border-top:1px solid rgba(255,255,255,0.07);padding-top:14px;">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <div style="font-size:9px;color:var(--azul);font-family:'IBM Plex Mono',monospace;">☁️ SINCRONIZAR ENTRE DISPOSITIVOS</div>
+        <span style="font-size:9px;color:rgba(61,184,138,0.8);background:rgba(61,184,138,0.1);border:1px solid rgba(61,184,138,0.25);padding:1px 6px;border-radius:10px;">OPCIONAL</span>
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;line-height:1.6;">
+        Crie um código pessoal (ex: seu nome) e use o mesmo em todos os dispositivos — o mesmo código também funciona na aba de Redação.
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <input type="text" id="sync-code-input" placeholder="Ex: joao_silva_2026" style="flex:1;"/>
+        <button class="btn-primary" style="padding:8px 14px;font-size:11px;" onclick="indexSalvarCodigoSync()">Salvar código</button>
+      </div>
+      <div id="sync-status" style="font-size:10px;color:var(--muted);margin-bottom:8px;"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-primary" style="background:rgba(74,144,217,0.15);border:1px solid rgba(74,144,217,0.3);font-size:10px;padding:7px 12px;" onclick="indexSyncAgora('upload')">⬆️ Enviar progresso para a nuvem</button>
+        <button class="btn-primary" style="background:rgba(74,144,217,0.15);border:1px solid rgba(74,144,217,0.3);font-size:10px;padding:7px 12px;" onclick="indexSyncAgora('download')">⬇️ Baixar da nuvem</button>
+      </div>
+    </div>
+
     <!-- Campo de API Key para correção de redação -->
     <div style="margin-bottom:18px;border-top:1px solid rgba(255,255,255,0.07);padding-top:14px;">
       <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
@@ -386,10 +406,32 @@
     <button class="tab" onclick="setAba('revisao')">🔁 Revisão</button>
     <button class="tab rosa" onclick="setAba('redacao'); document.getElementById('tela-redacao').style.display='block'; document.getElementById('tela-inicio').style.display='none'; document.getElementById('btn-menu').classList.add('visible');">✍️ Redação</button>
     <button class="tab" onclick="setAba('stats')">📊 Stats</button>
+    <button class="tab" onclick="setAba('tutor')">🎓 Tutor IA</button>
   </div>
 
   <!-- ABA PLANO SEMANAL -->
   <div id="aba-plano"></div>
+
+  <!-- ABA TUTOR IA -->
+  <div id="aba-tutor" style="display:none;">
+    <div class="section-box">
+      <div class="section-label">🎓 TUTOR IA — SEU PROGRESSO</div>
+      <div id="tutor-resumo" style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:14px;"></div>
+
+      <div id="tutor-chat-area" style="max-height:420px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:10px;"></div>
+
+      <div style="display:flex;gap:8px;">
+        <textarea id="tutor-input" rows="2" placeholder="Pergunte sobre seu progresso, peça revisão de um tema, tire dúvidas..." style="flex:1;font-size:13px;resize:vertical;"></textarea>
+        <button class="btn btn-ouro" onclick="tutorPerguntar()" style="white-space:nowrap;">Enviar</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+        <button class="btn btn-ghost" onclick="tutorAtalho('resumo')" style="font-size:10px;">📊 Resumo do meu progresso</button>
+        <button class="btn btn-ghost" onclick="tutorAtalho('fraco')" style="font-size:10px;">🎯 Meu ponto mais fraco</button>
+        <button class="btn btn-ghost" onclick="tutorAtalho('plano')" style="font-size:10px;">📅 O que estudar hoje</button>
+        <button class="btn btn-ghost" onclick="tutorLimparHistorico()" style="font-size:10px;color:var(--verm);">🗑 Limpar conversa</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ABA QUESTOES -->
   <div id="aba-estudar" style="display:none;">
@@ -586,6 +628,85 @@
 </div><!-- fim app -->
 
 <script>
+// ═══════════════════════════════════════════
+// FIREBASE — sincronização de progresso entre dispositivos
+// (compartilha o mesmo código pessoal e banco do redacao.html)
+// ═══════════════════════════════════════════
+const FIREBASE_DB_URL = 'https://redacao-1f5b4-default-rtdb.firebaseio.com';
+const SYNC_CODE_KEY = 'pe_sync_code';
+
+function getSyncCode(){
+  return localStorage.getItem(SYNC_CODE_KEY) || '';
+}
+function setSyncCode(code){
+  localStorage.setItem(SYNC_CODE_KEY, code);
+}
+
+async function syncUpload(key, value){
+  const code = getSyncCode();
+  if(!code) return;
+  try{
+    await fetch(`${FIREBASE_DB_URL}/usuarios/${encodeURIComponent(code)}/${encodeURIComponent(key)}.json`, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(value)
+    });
+  }catch(e){ console.warn('Sync upload falhou:', e.message); }
+}
+
+async function syncDownloadAll(){
+  const code = getSyncCode();
+  if(!code) return {ok:false, msg:'Nenhum código pessoal configurado.'};
+  try{
+    const resp = await fetch(`${FIREBASE_DB_URL}/usuarios/${encodeURIComponent(code)}.json`);
+    if(!resp.ok) return {ok:false, msg:'Erro ao buscar dados: '+resp.status};
+    const dados = await resp.json();
+    if(!dados) return {ok:true, msg:'Nenhum dado encontrado na nuvem para este código ainda.'};
+    let chavesAtualizadas = 0;
+    for(const key in dados){
+      if(dados[key] !== null && dados[key] !== undefined){
+        localStorage.setItem(key, typeof dados[key]==='string' ? dados[key] : JSON.stringify(dados[key]));
+        chavesAtualizadas++;
+      }
+    }
+    return {ok:true, msg:`${chavesAtualizadas} item(ns) sincronizado(s) da nuvem.`};
+  }catch(e){
+    return {ok:false, msg:'Erro de conexão: '+e.message};
+  }
+}
+
+async function syncUploadAll(){
+  const code = getSyncCode();
+  if(!code) return {ok:false, msg:'Nenhum código pessoal configurado.'};
+
+  const chavesParaSync = ['pe_bancaErros','pe_totalResp','pe_totalAc','pe_stats','pe_progresso_v2','pe_tutor_historico'];
+  // Incluir também progressos de redação salvos (treino_*), caso o usuário tenha usado este navegador para os dois
+  for(let i=0;i<localStorage.length;i++){
+    const k = localStorage.key(i);
+    if(k && k.startsWith('treino_') && !chavesParaSync.includes(k)){
+      chavesParaSync.push(k);
+    }
+  }
+
+  try{
+    const payload = {};
+    chavesParaSync.forEach(k=>{
+      const v = localStorage.getItem(k);
+      if(v !== null){
+        try{ payload[k] = JSON.parse(v); }catch(e){ payload[k] = v; }
+      }
+    });
+    await fetch(`${FIREBASE_DB_URL}/usuarios/${encodeURIComponent(code)}.json`, {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    return {ok:true, msg:`${Object.keys(payload).length} item(ns) enviado(s) para a nuvem.`};
+  }catch(e){
+    return {ok:false, msg:'Erro de conexão: '+e.message};
+  }
+}
+
 // ═══════════════════════════════════════════
 // ESTADO GLOBAL
 // ═══════════════════════════════════════════
@@ -797,6 +918,28 @@ let abaAtiva = 'plano';
 let temaSelecionado = null;
 let sheetsUrl = '';
 let anthropicKey = '';
+
+function indexSalvarCodigoSync(){
+  const input = document.getElementById('sync-code-input');
+  const code = input.value.trim().toLowerCase().replace(/[^a-z0-9_]/g,'_');
+  if(!code){ alert('Digite um código válido.'); return; }
+  setSyncCode(code);
+  document.getElementById('sync-status').textContent = `✅ Código ativo: "${code}" — sincroniza automaticamente ao responder questões.`;
+}
+
+async function indexSyncAgora(direcao){
+  if(!getSyncCode()){ alert('Configure um código pessoal primeiro.'); return; }
+  const status = document.getElementById('sync-status');
+  status.textContent = '⏳ Sincronizando...';
+
+  if(direcao === 'upload'){
+    const r = await syncUploadAll();
+    status.textContent = r.ok ? '✅ '+r.msg : '❌ '+r.msg;
+  } else {
+    const r = await syncDownloadAll();
+    status.textContent = r.ok ? '✅ '+r.msg+' Recarregue a página para ver tudo atualizado.' : '❌ '+r.msg;
+  }
+}
 
 function salvarApiKey(val) {
   anthropicKey = val.trim();
@@ -1556,7 +1699,7 @@ const QUESTOES_LOCAIS = [
 // ═══════════════════════════════════════════
 // PERSISTÊNCIA LOCAL
 // ═══════════════════════════════════════════
-function salvarEstado() {
+async function salvarEstado() {
   try {
     localStorage.setItem('pe_bancaErros', JSON.stringify(bancaErros));
     localStorage.setItem('pe_totalResp', totalResp);
@@ -1564,6 +1707,13 @@ function salvarEstado() {
     localStorage.setItem('pe_sheetsUrl', sheetsUrl);
     if (anthropicKey) localStorage.setItem('pe_anthropic_key', anthropicKey);
   } catch(e) {}
+
+  // Sincronizar com a nuvem se houver código pessoal configurado
+  if(getSyncCode()){
+    await syncUpload('pe_bancaErros', bancaErros);
+    await syncUpload('pe_totalResp', totalResp);
+    await syncUpload('pe_totalAc', totalAc);
+  }
 }
 function carregarEstado() {
   try {
@@ -1574,6 +1724,15 @@ function carregarEstado() {
     anthropicKey = localStorage.getItem('pe_anthropic_key') || '';
   } catch(e) {}
   carregarProgresso();
+
+  // Preencher código de sincronização se já configurado
+  const syncInput = document.getElementById('sync-code-input');
+  const code = getSyncCode();
+  if(syncInput && code){
+    syncInput.value = code;
+    const status = document.getElementById('sync-status');
+    if(status) status.textContent = `✅ Código ativo: "${code}" — sincroniza automaticamente ao responder questões.`;
+  }
 }
 
 // ═══════════════════════════════════════════
@@ -2102,12 +2261,13 @@ function setAba(aba) {
   document.querySelectorAll('.tab').forEach(t => {
     if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(`'${aba}'`)) t.classList.add('active');
   });
-  ['plano','estudar','revisao','stats'].forEach(a => {
+  ['plano','estudar','revisao','stats','tutor'].forEach(a => {
     const el = document.getElementById(`aba-${a}`);
     if (el) el.style.display = a === aba ? 'block' : 'none';
   });
   if (aba === 'revisao') renderizarRevisao();
   if (aba === 'stats') renderizarStats();
+  if (aba === 'tutor') tutorInit();
 }
 
 // ═══════════════════════════════════════════
@@ -2983,6 +3143,165 @@ Escreva APENAS o texto da redação, sem título separado, sem explicações ant
     btn.textContent = '📄 VER MODELO DE RESPOSTA DA IA';
     btn.disabled = false;
   }
+}
+
+// ═══════════════════════════════════════════
+// TUTOR IA — chat com acesso ao progresso do usuário
+// ═══════════════════════════════════════════
+const TUTOR_HISTORICO_KEY = 'pe_tutor_historico';
+let tutorHistorico = [];
+
+function tutorInit(){
+  // Carregar histórico compartilhado (mesmo entre index.html e redacao.html)
+  try{
+    tutorHistorico = JSON.parse(localStorage.getItem(TUTOR_HISTORICO_KEY)||'[]');
+  }catch(e){ tutorHistorico = []; }
+
+  tutorRenderResumo();
+  tutorRenderChat();
+}
+
+function tutorColetarDados(){
+  // Coleta dados reais do progresso do usuário no index.html
+  const questoesErro = (typeof QUESTOES !== 'undefined' ? QUESTOES : []).filter(q => (bancaErros[q.id]?.erros||0) > 0);
+  const erroPorArea = {};
+  questoesErro.forEach(q=>{
+    erroPorArea[q.area] = (erroPorArea[q.area]||0) + (bancaErros[q.id]?.erros||1);
+  });
+  const areaMaisFraca = Object.entries(erroPorArea).sort((a,b)=>b[1]-a[1])[0];
+  const pctAcerto = totalResp > 0 ? Math.round((totalAc/totalResp)*100) : 0;
+
+  // Progresso de redação salvo (se existir, do redacao.html)
+  let temasRedacaoSalvos = [];
+  try{
+    const indice = JSON.parse(localStorage.getItem('treino_indice')||'[]');
+    temasRedacaoSalvos = indice.map(k=>{
+      try{ const d = JSON.parse(localStorage.getItem(k)); return {titulo:d.tema?.titulo, nivel:d.nivel}; }catch(e){return null;}
+    }).filter(Boolean);
+  }catch(e){}
+
+  return {
+    totalQuestoes: (typeof QUESTOES !== 'undefined' ? QUESTOES.length : 0),
+    totalRespondidas: totalResp,
+    totalAcertos: totalAc,
+    pctAcerto,
+    questoesComErro: questoesErro.length,
+    areaMaisFraca: areaMaisFraca ? areaMaisFraca[0] : null,
+    errosNaAreaMaisFraca: areaMaisFraca ? areaMaisFraca[1] : 0,
+    temasRedacaoSalvos,
+  };
+}
+
+function tutorRenderResumo(){
+  const d = tutorColetarDados();
+  const el = document.getElementById('tutor-resumo');
+  if(!el) return;
+
+  if(d.totalRespondidas === 0 && d.temasRedacaoSalvos.length === 0){
+    el.innerHTML = 'Você ainda não respondeu questões nem treinou redação nesta sessão. Comece a estudar e volte aqui — vou acompanhar seu progresso automaticamente.';
+    return;
+  }
+
+  let html = `📝 <strong>${d.totalRespondidas}</strong> questões respondidas · <strong>${d.pctAcerto}%</strong> de acerto`;
+  if(d.areaMaisFraca) html += ` · ponto mais fraco: <strong style="color:var(--verm);">${d.areaMaisFraca}</strong> (${d.errosNaAreaMaisFraca} erros)`;
+  if(d.temasRedacaoSalvos.length) html += `<br/>✍️ ${d.temasRedacaoSalvos.length} redação(ões) em progresso no treino`;
+  el.innerHTML = html;
+}
+
+function tutorRenderChat(){
+  const area = document.getElementById('tutor-chat-area');
+  if(!area) return;
+  area.innerHTML = tutorHistorico.map(m => `
+    <div style="align-self:${m.papel==='user'?'flex-end':'flex-start'};max-width:85%;">
+      <div style="background:${m.papel==='user'?'rgba(74,144,217,0.1)':'rgba(200,153,42,0.08)'};border:1px solid ${m.papel==='user'?'rgba(74,144,217,0.25)':'rgba(200,153,42,0.2)'};border-radius:10px;padding:10px 14px;">
+        <div style="font-family:monospace;font-size:9px;color:${m.papel==='user'?'#4a90d9':'#c8992a'};margin-bottom:4px;">${m.papel==='user'?'VOCÊ':'🎓 TUTOR'}</div>
+        <div style="font-size:13px;line-height:1.7;white-space:pre-wrap;">${m.texto}</div>
+      </div>
+    </div>`).join('');
+  area.scrollTop = area.scrollHeight;
+}
+
+function tutorSalvarHistorico(){
+  try{ localStorage.setItem(TUTOR_HISTORICO_KEY, JSON.stringify(tutorHistorico.slice(-30))); }catch(e){}
+}
+
+async function tutorEnviar(pergunta){
+  if(!pergunta.trim()) return;
+  const key = (typeof anthropicKey !== 'undefined' && anthropicKey) ? anthropicKey : localStorage.getItem('pe_anthropic_key');
+  if(!key || !key.startsWith('sk-ant-')){
+    alert('Configure sua chave de API Anthropic primeiro (aba de configuração).');
+    return;
+  }
+
+  tutorHistorico.push({papel:'user', texto:pergunta});
+  tutorRenderChat();
+  tutorSalvarHistorico();
+
+  const d = tutorColetarDados();
+  const sysTutor = `Você é um tutor pessoal de estudos para concursos bancários (Banco do Brasil e Caixa Econômica Federal, banca Cesgranrio).
+Você tem acesso aos dados reais de desempenho do aluno:
+- Total de questões respondidas: ${d.totalRespondidas}
+- Taxa de acerto: ${d.pctAcerto}%
+- Questões com erro: ${d.questoesComErro}
+- Área mais fraca: ${d.areaMaisFraca || 'ainda não identificada'} (${d.errosNaAreaMaisFraca} erros)
+- Redações em progresso: ${d.temasRedacaoSalvos.map(t=>t.titulo+' (nível '+t.nivel+'/7)').join('; ') || 'nenhuma'}
+
+Use esses dados para personalizar suas respostas. Seja direto, encorajador e prático. Se o aluno perguntar sobre seu progresso, use os números reais acima. Se pedir explicação de matéria, explique de forma clara e objetiva, com exemplos do contexto bancário quando possível. Não invente dados que não foram fornecidos.`;
+
+  try{
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 800,
+        system: sysTutor,
+        messages: tutorHistorico.slice(-10).map(m=>({role: m.papel==='user'?'user':'assistant', content: m.texto}))
+      })
+    });
+    if(!resp.ok){
+      const errText = await resp.text();
+      throw new Error('Erro '+resp.status+': '+errText.slice(0,150));
+    }
+    const data = await resp.json();
+    const texto = data.content?.find(b=>b.type==='text')?.text || '(resposta vazia)';
+    tutorHistorico.push({papel:'tutor', texto});
+    tutorRenderChat();
+    tutorSalvarHistorico();
+  }catch(e){
+    tutorHistorico.push({papel:'tutor', texto:'⚠️ Erro: '+e.message});
+    tutorRenderChat();
+    tutorSalvarHistorico();
+  }
+}
+
+function tutorPerguntar(){
+  const input = document.getElementById('tutor-input');
+  const texto = input.value.trim();
+  if(!texto) return;
+  input.value = '';
+  tutorEnviar(texto);
+}
+
+function tutorAtalho(tipo){
+  const perguntas = {
+    resumo: 'Pode me dar um resumo detalhado do meu progresso até agora?',
+    fraco: 'Qual é meu ponto mais fraco e como devo estudá-lo essa semana?',
+    plano: 'Com base no meu desempenho, o que eu deveria estudar hoje?',
+  };
+  tutorEnviar(perguntas[tipo] || '');
+}
+
+function tutorLimparHistorico(){
+  if(!confirm('Limpar todo o histórico de conversa com o Tutor IA?')) return;
+  tutorHistorico = [];
+  tutorSalvarHistorico();
+  tutorRenderChat();
 }
 </script>
 </body>
