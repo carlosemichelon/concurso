@@ -567,6 +567,29 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
       <button class="btn btn-ghost" onclick="treinoBuscarContexto()" style="font-size:10px;border-color:rgba(74,144,217,0.4);color:#4a90d9;">📰 Notícias e artigos</button>
       <button class="btn btn-ghost" onclick="treinoSalvar()" id="btn-salvar-treino" style="font-size:10px;border-color:rgba(61,184,138,0.4);color:var(--verde);">💾 Salvar progresso</button>
       <button class="btn btn-ghost" onclick="treinoCarregarMenu()" style="font-size:10px;border-color:rgba(61,184,138,0.4);color:var(--verde);">📂 Progressos salvos</button>
+      <button class="btn btn-ghost" onclick="treino_toggleSync()" style="font-size:10px;border-color:rgba(74,144,217,0.4);color:#4a90d9;" id="btn-sync-toggle">☁️ Sincronizar dispositivos</button>
+    </div>
+
+    <!-- Painel de configuração de sincronização -->
+    <div id="treino-sync-painel" style="display:none;border:1px solid rgba(74,144,217,0.25);border-radius:8px;margin-bottom:14px;overflow:hidden;">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:#4a90d9;padding:10px 14px;border-bottom:1px solid rgba(74,144,217,0.2);background:rgba(74,144,217,0.06);display:flex;justify-content:space-between;align-items:center;">
+        <span>☁️ SINCRONIZAR ENTRE DISPOSITIVOS</span>
+        <span onclick="treino_toggleSync()" style="cursor:pointer;color:var(--muted);">✕</span>
+      </div>
+      <div style="padding:14px;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.7;">
+          Crie um <strong>código pessoal</strong> (ex: seu nome + número) e use o mesmo código em todos os seus dispositivos. Seu progresso será sincronizado automaticamente sempre que você salvar.
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;">
+          <input type="text" id="sync-code-input" placeholder="Ex: joao_silva_2026" style="flex:1;font-size:13px;"/>
+          <button class="btn btn-ouro" onclick="treinoSalvarCodigo()" style="font-size:11px;white-space:nowrap;">Salvar código</button>
+        </div>
+        <div id="sync-status" style="font-size:11px;color:var(--muted);margin-bottom:10px;"></div>
+        <div class="btns">
+          <button class="btn btn-ghost" onclick="treinoSyncAgora('upload')" style="font-size:10px;">⬆️ Enviar progresso atual para a nuvem</button>
+          <button class="btn btn-ghost" onclick="treinoSyncAgora('download')" style="font-size:10px;">⬇️ Baixar progresso da nuvem (substitui local)</button>
+        </div>
+      </div>
     </div>
 
     <!-- Painel de Brainstorm Causa→Efeito→Consequência -->
@@ -658,6 +681,101 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
 </div>
 
 <script>
+// ══════════════════════════════════════════════════════════════
+// FIREBASE — sincronização de progresso entre dispositivos
+// ══════════════════════════════════════════════════════════════
+const FIREBASE_DB_URL = 'https://redacao-1f5b4-default-rtdb.firebaseio.com';
+const SYNC_CODE_KEY = 'pe_sync_code';
+
+function getSyncCode(){
+  return localStorage.getItem(SYNC_CODE_KEY) || '';
+}
+
+function setSyncCode(code){
+  localStorage.setItem(SYNC_CODE_KEY, code);
+}
+
+// Sobe uma chave específica do localStorage para o Firebase, sob o código pessoal
+async function syncUpload(key, value){
+  const code = getSyncCode();
+  if(!code) return; // sem código configurado, não sincroniza
+  try{
+    await fetch(`${FIREBASE_DB_URL}/usuarios/${encodeURIComponent(code)}/${encodeURIComponent(key)}.json`, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(value)
+    });
+  }catch(e){ console.warn('Sync upload falhou:', e.message); }
+}
+
+// Busca uma chave específica do Firebase
+async function syncDownloadKey(key){
+  const code = getSyncCode();
+  if(!code) return null;
+  try{
+    const resp = await fetch(`${FIREBASE_DB_URL}/usuarios/${encodeURIComponent(code)}/${encodeURIComponent(key)}.json`);
+    if(!resp.ok) return null;
+    return await resp.json();
+  }catch(e){ console.warn('Sync download falhou:', e.message); return null; }
+}
+
+// Baixa TODOS os dados do usuário do Firebase e aplica no localStorage local
+async function syncDownloadAll(){
+  const code = getSyncCode();
+  if(!code) return {ok:false, msg:'Nenhum código pessoal configurado.'};
+  try{
+    const resp = await fetch(`${FIREBASE_DB_URL}/usuarios/${encodeURIComponent(code)}.json`);
+    if(!resp.ok) return {ok:false, msg:'Erro ao buscar dados: '+resp.status};
+    const dados = await resp.json();
+    if(!dados) return {ok:true, msg:'Nenhum dado encontrado na nuvem para este código ainda.'};
+
+    // Aplicar cada chave recebida no localStorage
+    let chavesAtualizadas = 0;
+    for(const key in dados){
+      if(dados[key] !== null && dados[key] !== undefined){
+        localStorage.setItem(key, typeof dados[key]==='string' ? dados[key] : JSON.stringify(dados[key]));
+        chavesAtualizadas++;
+      }
+    }
+    return {ok:true, msg:`${chavesAtualizadas} item(ns) sincronizado(s) da nuvem.`};
+  }catch(e){
+    return {ok:false, msg:'Erro de conexão: '+e.message};
+  }
+}
+
+// Sobe TODOS os dados relevantes do localStorage para o Firebase
+async function syncUploadAll(){
+  const code = getSyncCode();
+  if(!code) return {ok:false, msg:'Nenhum código pessoal configurado.'};
+
+  const chavesParaSync = ['treino_indice', 'pe_tutor_historico', 'pe_stats'];
+  // Incluir também todos os progressos individuais (treino_*)
+  for(let i=0;i<localStorage.length;i++){
+    const k = localStorage.key(i);
+    if(k && k.startsWith('treino_') && k !== 'treino_indice' && !chavesParaSync.includes(k)){
+      chavesParaSync.push(k);
+    }
+  }
+
+  try{
+    const payload = {};
+    chavesParaSync.forEach(k=>{
+      const v = localStorage.getItem(k);
+      if(v !== null){
+        try{ payload[k] = JSON.parse(v); }catch(e){ payload[k] = v; }
+      }
+    });
+    await fetch(`${FIREBASE_DB_URL}/usuarios/${encodeURIComponent(code)}.json`, {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    return {ok:true, msg:`${Object.keys(payload).length} item(ns) enviado(s) para a nuvem.`};
+  }catch(e){
+    return {ok:false, msg:'Erro de conexão: '+e.message};
+  }
+}
+
 // ══════════════════════════════════════════════════════════════
 // DADOS
 // ══════════════════════════════════════════════════════════════
@@ -1706,6 +1824,50 @@ function initTreino(){
   treinoNovoTema();
 }
 
+// ── UI DE SINCRONIZAÇÃO ──────────────────────────────────────
+function treino_toggleSync(){
+  const painel = document.getElementById('treino-sync-painel');
+  const aberto = painel.style.display !== 'none';
+  painel.style.display = aberto ? 'none' : 'block';
+  if(!aberto){
+    const input = document.getElementById('sync-code-input');
+    const code = getSyncCode();
+    if(code) input.value = code;
+    atualizarStatusSync();
+  }
+}
+
+function atualizarStatusSync(){
+  const status = document.getElementById('sync-status');
+  const code = getSyncCode();
+  status.textContent = code
+    ? `✅ Código ativo: "${code}" — seu progresso sincroniza automaticamente ao salvar.`
+    : '⚠️ Nenhum código configurado ainda. Defina um para começar a sincronizar.';
+}
+
+function treinoSalvarCodigo(){
+  const input = document.getElementById('sync-code-input');
+  const code = input.value.trim().toLowerCase().replace(/[^a-z0-9_]/g,'_');
+  if(!code){ alert('Digite um código válido.'); return; }
+  setSyncCode(code);
+  atualizarStatusSync();
+}
+
+async function treinoSyncAgora(direcao){
+  if(!getSyncCode()){ alert('Configure um código pessoal primeiro.'); return; }
+  const status = document.getElementById('sync-status');
+  status.textContent = '⏳ Sincronizando...';
+
+  if(direcao === 'upload'){
+    const r = await syncUploadAll();
+    status.textContent = r.ok ? '✅ '+r.msg : '❌ '+r.msg;
+  } else {
+    const r = await syncDownloadAll();
+    status.textContent = r.ok ? '✅ '+r.msg+' Recarregue a página para ver tudo atualizado.' : '❌ '+r.msg;
+  }
+}
+
+// ── UI DE SINCRONIZAÇÃO (fim) ──────────────────────────────────────
 function treino_toggleSeletor(){
   const lista = document.getElementById('treino-lista-temas');
   const btn = document.getElementById('btn-seletor-tema');
@@ -1832,7 +1994,7 @@ function _treinoAtualizarDisplay(){
 }
 
 // ── SALVAR / CARREGAR PROGRESSO ──────────────────────────────
-function treinoSalvar(){
+async function treinoSalvar(){
   if(!treinoTemaAtual) return;
   salvarRespostasNivel(); // capturar campos atuais antes de salvar
   const chave = 'treino_' + treinoTemaAtual.titulo.replace(/\s+/g,'_').substring(0,40);
@@ -1860,6 +2022,14 @@ function treinoSalvar(){
   // Feedback visual
   const btn = document.getElementById('btn-salvar-treino');
   if(btn){ btn.textContent='✅ Salvo!'; setTimeout(()=>btn.textContent='💾 Salvar progresso',2000); }
+
+  // Sincronizar com a nuvem (Firebase), se houver código pessoal configurado
+  if(getSyncCode()){
+    if(btn) btn.textContent='☁️ Sincronizando...';
+    await syncUpload(chave, dados);
+    await syncUpload('treino_indice', indice);
+    if(btn) setTimeout(()=>btn.textContent='💾 Salvar progresso',2000);
+  }
 }
 
 function treinoCarregarMenu(){
