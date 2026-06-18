@@ -1638,20 +1638,26 @@ async function brainstormValidar(){
 
   const sysBrainstorm = `Você é professor de redação para concursos Cesgranrio (BB/CEF), avaliando um exercício de brainstorm.
 O aluno tentou gerar várias cadeias causais (Causa→Efeito→Consequência) sobre um tema, antes de escrever a redação.
-Para cada cadeia, avalie rapidamente: a Causa é realmente um fato gerador (não um efeito disfarçado)? O Efeito decorre logicamente da causa? A Consequência é um impacto mais amplo, não uma repetição do efeito?
-Aponte SOMENTE problemas reais — se uma cadeia estiver boa, apenas confirme em 1 frase. Termine indicando quais 1-2 cadeias são as mais fortes para usar como TEEC na redação.
-Seja direto e objetivo. Máx. 8 frases no total. Sem markdown.`;
+
+Para CADA cadeia preenchida, faça:
+1. AVALIAÇÃO RÁPIDA: a Causa é realmente um fato gerador (não um efeito disfarçado)? O Efeito decorre logicamente da causa? A Consequência é um impacto mais amplo, não uma repetição do efeito? Aponte o problema específico se houver, ou confirme em 1 frase se estiver boa.
+2. REESCRITA: reescreva a cadeia de forma mais polida e "pronta para usar" em um parágrafo de redação dissertativa — linguagem formal, conectivos adequados (ex: "isso porque", "como consequência", "nesse sentido"). Mantenha a ideia original do aluno, apenas refine a forma.
+3. EXEMPLO ADICIONAL: para pelo menos 2 das cadeias, sugira um dado, lei, órgão ou caso concreto que poderia servir como evidência para aquela cadeia (ex: "Segundo o Banco Central...", "A Lei X/20XX estabelece...").
+
+Ao final, indique quais 1-2 cadeias são as mais fortes para usar como TEEC na redação e por quê.
+
+Seja didático mas objetivo — não precisa ser longo por cadeia, mas não pule a reescrita nem os exemplos. Sem markdown, use quebras de linha e numeração simples para organizar.`;
 
   try{
     const resp = await chamarIA(
       'Tema: ' + treinoTemaAtual.titulo + '\n\nCadeias geradas pelo aluno:\n' + listaTexto,
-      900, sysBrainstorm
+      1800, sysBrainstorm
     );
     fb.style.display = 'block';
-    fb.textContent = resp;
+    fb.innerHTML = resp.replace(/\n/g,'<br/>');
   }catch(e){
     fb.style.display = 'block';
-    fb.textContent = '⚠️ Erro: ' + e.message;
+    fb.innerHTML = '⚠️ Erro: ' + e.message;
   }
   unsetLoading(btn,'✓ Validar todas com IA');
 }
@@ -2047,8 +2053,13 @@ function renderNivelCampos(){
       html += `</div>`;
     }
 
-    html += isTextarea
-      ? `<textarea id="treino-campo-${c}" rows="${rows}" placeholder="Digite aqui..." style="font-size:14px;line-height:1.9;padding:14px;resize:vertical;">${valorSalvo}</textarea>`
+    const campoLivre = ['intro','dev1','dev2','conclusao','redacao'].includes(c);
+
+    html += campoLivre
+      ? `<div style="position:relative;">
+           <textarea id="treino-campo-${c}" rows="${rows}" placeholder="Digite aqui..." style="font-size:14px;line-height:1.9;padding:14px;resize:vertical;" onmouseup="treinoCheckSelecao('${c}')" onkeyup="treinoCheckSelecao('${c}')">${valorSalvo}</textarea>
+           <button id="btn-reescrever-${c}" onclick="treinoReescreverSelecao('${c}')" style="display:none;position:absolute;font-size:10px;font-family:var(--mono);background:var(--ouro);color:#1a1408;border:none;border-radius:6px;padding:6px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);z-index:10;white-space:nowrap;">✏️ Reescrever trecho</button>
+         </div>`
       : `<textarea id="treino-campo-${c}" rows="${rows}" placeholder="Digite aqui..." style="font-size:14px;line-height:1.9;padding:14px;resize:vertical;">${valorSalvo}</textarea>`;
 
     html += `</div>`;
@@ -2063,6 +2074,60 @@ function renderNivelCampos(){
   }
 
   el.innerHTML = html;
+}
+
+// ── REESCREVER TRECHO SELECIONADO (qualquer campo de texto livre) ──────────
+function treinoCheckSelecao(campo){
+  const ta = document.getElementById('treino-campo-'+campo);
+  const btn = document.getElementById('btn-reescrever-'+campo);
+  if(!ta || !btn) return;
+
+  const inicio = ta.selectionStart, fim = ta.selectionEnd;
+  if(fim - inicio < 5){ btn.style.display = 'none'; return; } // exige seleção mínima
+
+  // Posicionar o botão próximo ao fim da seleção (aproximação simples: canto superior direito da textarea)
+  btn.style.top = '6px';
+  btn.style.right = '6px';
+  btn.style.display = 'block';
+  btn.dataset.inicio = inicio;
+  btn.dataset.fim = fim;
+}
+
+async function treinoReescreverSelecao(campo){
+  const ta = document.getElementById('treino-campo-'+campo);
+  const btn = document.getElementById('btn-reescrever-'+campo);
+  if(!ta || !btn) return;
+
+  const inicio = parseInt(btn.dataset.inicio), fim = parseInt(btn.dataset.fim);
+  const trecho = ta.value.substring(inicio, fim).trim();
+  if(!trecho) return;
+
+  const textoOriginalBtn = btn.textContent;
+  btn.textContent = '⏳...';
+  btn.disabled = true;
+
+  try{
+    const sysReescrever = `Você é professor de redação para concursos Cesgranrio (BB/CEF).
+O aluno travou no meio da escrita e selecionou um trecho que quer melhorar ou continuar.
+Reescreva o trecho de forma mais clara, formal e fluida — mantendo a ideia original, mas com linguagem de redação dissertativa (conectivos adequados, sem coloquialismos).
+Se o trecho parecer incompleto (terminar no meio de uma ideia), continue-o naturalmente por 1-2 frases, como se o aluno tivesse travado ali.
+Retorne APENAS o trecho reescrito/continuado, sem explicações, sem aspas, sem prefixos como "Aqui está:".`;
+
+    const contexto = treinoTemaAtual ? ('Tema da redação: '+treinoTemaAtual.titulo+'\n\n') : '';
+    const resp = await chamarIA(contexto+'Trecho a melhorar/continuar:\n'+trecho, 400, sysReescrever);
+
+    // Substituir o trecho selecionado pelo reescrito
+    const novoValor = ta.value.substring(0,inicio) + resp.trim() + ta.value.substring(fim);
+    ta.value = novoValor;
+    ta.focus();
+    ta.setSelectionRange(inicio, inicio + resp.trim().length);
+
+    btn.style.display = 'none';
+  }catch(e){
+    alert('Erro ao reescrever: ' + e.message);
+  }
+  btn.textContent = textoOriginalBtn;
+  btn.disabled = false;
 }
 
 function toggleSugs(id, btn){
