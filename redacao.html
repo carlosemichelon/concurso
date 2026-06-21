@@ -738,6 +738,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
           <option value="proposta">Proposta de Intervenção</option>
         </select>
         <div style="font-family:var(--mono);font-size:10px;color:var(--muted);" id="fc-progresso">— / —</div>
+        <button class="btn btn-ghost" id="btn-fc-sync" onclick="fcSincronizarAgora()" style="font-size:10px;border-color:rgba(74,144,217,0.4);color:#4a90d9;">☁️ Sincronizar</button>
         <button class="btn btn-ghost" onclick="fcEmbaralhar()" style="font-size:10px;">🔀 Embaralhar</button>
         <button class="btn btn-ghost" onclick="fcReiniciar()" style="font-size:10px;color:var(--verm);">↺ Reiniciar</button>
       </div>
@@ -746,10 +747,12 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
     <div style="margin-top:12px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;">
       <div id="fc-barra" style="height:100%;background:var(--ouro);width:0%;transition:width .4s;border-radius:2px;"></div>
     </div>
-    <div style="display:flex;gap:16px;margin-top:8px;font-family:var(--mono);font-size:9px;">
+    <div style="display:flex;gap:16px;margin-top:8px;font-family:var(--mono);font-size:9px;align-items:center;">
       <span style="color:var(--verde);">✓ Acertos: <span id="fc-acertos">0</span></span>
       <span style="color:var(--verm);">✗ Erros: <span id="fc-erros">0</span></span>
       <span style="color:var(--muted);margin-left:auto;" id="fc-stats-resumo"></span>
+    </div>
+    <div id="fc-sync-status" style="font-size:9px;font-family:var(--mono);color:var(--muted);margin-top:4px;"></div>
     </div>
   </div>
 
@@ -2150,7 +2153,12 @@ async function treinoSyncAgora(direcao){
       r = await syncDownloadAll(true);
     }
 
-    status.textContent = r.ok ? '✅ '+r.msg+' Recarregue a página para ver tudo atualizado.' : '❌ '+r.msg;
+    if(r.ok){
+      status.textContent = '✅ '+r.msg+' Atualizando a página...';
+      setTimeout(() => location.reload(), 900); // recarrega automaticamente para refletir os dados baixados em todas as abas
+    } else {
+      status.textContent = '❌ '+r.msg;
+    }
   }
 }
 
@@ -2158,7 +2166,12 @@ function treinoRestaurarBackup(){
   if(!confirm('Restaurar o backup local mais recente? Isso vai sobrescrever o progresso atual com o backup feito antes da última sincronização.')) return;
   const r = syncRestaurarBackup();
   const status = document.getElementById('sync-status');
-  if(status) status.textContent = r.ok ? '✅ '+r.msg+' Recarregue a página.' : '❌ '+r.msg;
+  if(r.ok){
+    if(status) status.textContent = '✅ '+r.msg+' Atualizando a página...';
+    setTimeout(() => location.reload(), 900);
+  } else {
+    if(status) status.textContent = '❌ '+r.msg;
+  }
 }
 
 // ── UI DE SINCRONIZAÇÃO (fim) ──────────────────────────────────────
@@ -4079,11 +4092,11 @@ const FC_BANCO = [
   },
   {
     tipo: 'classificar_forma',
-    tema: 'Inteligência artificial no atendimento bancário',
-    trecho: 'A incorporação de inteligência artificial nos canais de atendimento bancário, conquanto amplie a eficiência operacional das instituições, não pode prescindir da manutenção de canais humanos para garantir acessibilidade a públicos menos familiarizados com tecnologia.',
+    tema: 'Biometria facial em aplicativos bancários',
+    trecho: 'A adoção de biometria facial em aplicativos bancários, conquanto simplifique o acesso e elimine senhas complexas, não pode prescindir de mecanismos alternativos de autenticação para usuários com deficiências visuais ou condições que dificultem o reconhecimento facial.',
     opcoesForma: ['Concessão → Refutação','Contraste → Tensão → Posição','Comparação (Brasil × outro país)','Analogia'],
     formaCorreta: 'Concessão → Refutação',
-    explicacao: '"Conquanto" (sinônimo de "embora") introduz a concessão (reconhece o ganho de eficiência), e "não pode prescindir de" introduz a refutação (mostra o limite dessa eficiência sem o canal humano).',
+    explicacao: '"Conquanto" (sinônimo de "embora") introduz a concessão (reconhece a praticidade da biometria), e "não pode prescindir de" introduz a refutação (mostra o limite dessa solução sem alternativas de acessibilidade).',
     dica: 'Cuidado: "conquanto" e "embora" também aparecem em Contraste→Tensão→Posição. A diferença é que aqui há uma refutação explícita ("não pode prescindir"), enquanto no Contraste a segunda parte é mais uma tensão do que uma negação direta.'
   },
   // ══════════════════════════════════════════════════════════
@@ -4206,6 +4219,1012 @@ const FC_BANCO = [
     respostaModelo: 'Embora o Open Finance amplie a concorrência no setor financeiro, sua expansão sem salvaguardas robustas de privacidade expõe os usuários a riscos de uso indevido de dados sensíveis. A experiência europeia com o GDPR demonstra que regras rígidas de proteção de dados não impedem a inovação — pelo contrário, fortalecem a confiança do consumidor no sistema.',
     dica: 'Confira a estrutura: você reconheceu um avanço (contraste)? Apontou uma tensão real apesar dele? Fechou com uma posição sustentada por evidência? Os três elementos precisam aparecer nessa ordem.'
   },
+  // ══════════════════════════════════════════════════════════
+  // LOTE 8 — CLASSIFICAR FORMA (+50 cards)
+  // ══════════════════════════════════════════════════════════
+  {
+    tipo: 'classificar_forma',
+    tema: 'Pix e fraudes digitais',
+    trecho: 'A popularização do Pix trouxe agilidade às transações financeiras, pois eliminou etapas burocráticas que antes retardavam pagamentos. Como consequência, o volume de transações eletrônicas no país cresceu exponencialmente em poucos anos.',
+    opcoesForma: ['Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Concessão → Refutação','Analogia'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'A causa (popularização do Pix) é explicada pelo mecanismo ("pois eliminou etapas burocráticas") e fecha com o efeito ("como consequência, cresceu o volume"). Estrutura padrão de Causa→Explicação→Efeito.',
+    dica: '"Pois" + "como consequência" juntos são o par de conectivos mais característico dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Regulação de fintechs',
+    trecho: 'É verdade que a desburocratização facilita a entrada de novos players no mercado financeiro. Contudo, a ausência de exigências mínimas de capital pode comprometer a solidez do sistema. A crise de fintechs menores observada em outros países demonstra que flexibilidade regulatória sem critérios mínimos é arriscada.',
+    opcoesForma: ['Concessão → Refutação','Afirmação → Evidência → Análise','Contraste → Tensão → Posição','Analogia'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que" concede o ponto positivo, "contudo" refuta apontando o risco, e o exemplo final reforça a refutação. É Concessão→Refutação, não Contraste→Tensão→Posição, porque há uma negação direta do argumento concedido.',
+    dica: 'Quando a segunda parte nega ou limita diretamente a primeira ("contudo" + risco concreto), é refutação. Quando apenas aponta uma tensão paralela sem negar, é Contraste→Tensão→Posição.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Letramento digital de idosos',
+    trecho: 'Segundo pesquisa do IBGE, mais de 30% dos brasileiros acima de 60 anos nunca utilizou serviços bancários digitais. Esse dado evidencia que a exclusão digital entre idosos ainda é uma barreira relevante à inclusão financeira plena.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Concessão → Refutação'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do IBGE é apresentado como evidência, seguido da análise do que ele revela ("esse dado evidencia que..."). Não há explicação de mecanismo causal nem comparação internacional.',
+    dica: '"Esse dado evidencia/revela/demonstra que" é o marcador típico do fechamento de Afirmação→Evidência→Análise.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Sistema bancário e organismo vivo',
+    trecho: 'Tal qual um organismo combate infecções por meio de seu sistema imunológico, as instituições financeiras precisam de mecanismos internos de detecção de fraudes para preservar a confiança do sistema como um todo.',
+    opcoesForma: ['Analogia','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: '"Tal qual um organismo combate infecções" estabelece uma comparação com um fenômeno biológico, sem citar país nem dado estatístico. É Analogia clássica.',
+    dica: '"Tal qual" e "assim como" seguidos de um fenômeno de área distinta (biologia, física, natureza) são sinais fortes de Analogia.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Crédito consignado e Singapura',
+    trecho: 'No Brasil, o crédito consignado ainda carece de limites mais rígidos de comprometimento de renda para idosos. Em Singapura, por outro lado, o sistema de crédito a aposentados é vinculado a um teto automático calculado pelo órgão previdenciário. A comparação revela que mecanismos automáticos de proteção reduzem significativamente os casos de superendividamento.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'O parágrafo nomeia Brasil e Singapura explicitamente, contrasta os dois sistemas, e extrai uma lição da comparação. É Comparação Brasil × outro país.',
+    dica: 'A presença de um país nomeado especificamente (não apenas "outros países") e a conclusão extraída diretamente dessa comparação confirmam essa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inteligência artificial e empregos bancários',
+    trecho: 'Embora a inteligência artificial otimize processos repetitivos no setor bancário, sua adoção acelerada sem planejamento de transição pode agravar o desemprego entre funcionários de atendimento. A experiência de bancos que automatizaram processos sem requalificação simultânea mostra que a transição precisa ser gradual e acompanhada de políticas de recolocação.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Comparação (Brasil × outro país)','Analogia'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o benefício (otimização), aponta a tensão (desemprego), e fecha com posição sustentada por evidência (experiência de bancos), sem negar diretamente o ponto inicial — apenas qualifica-o.',
+    dica: 'Se a conclusão não nega o primeiro ponto, mas o qualifica com uma condição ("precisa ser gradual"), tende a ser Contraste→Tensão→Posição, não Concessão→Refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Bancarização rural',
+    trecho: 'A ausência de agências físicas em municípios remotos dificulta o acesso da população rural a serviços bancários básicos, pois a distância impõe custos de deslocamento incompatíveis com a renda dessas famílias. Isso resulta na permanência de grande parte da população rural fora do sistema financeiro formal.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Analogia','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'A causa (ausência de agências) é explicada pelo custo de deslocamento, e fecha com o efeito (permanência fora do sistema financeiro). Estrutura clara de Causa→Explicação→Efeito.',
+    dica: '"Pois" + "isso resulta em" são marcadores claros dessa forma — procure por essa dupla de conectivos.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Banking e dados do Reino Unido',
+    trecho: 'Segundo a Open Banking Implementation Entity, mais de 7 milhões de consumidores britânicos já utilizam serviços baseados em compartilhamento de dados financeiros. Esse número demonstra que a confiança do consumidor em modelos abertos de dados pode ser construída quando há transparência e segurança regulatória.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Concessão → Refutação'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do Reino Unido é citado como evidência e seguido de uma análise sobre o que ele demonstra. Não há comparação direta com o Brasil nem explicação de mecanismo causal — apenas apresentação e interpretação do dado.',
+    dica: 'Cuidado: um dado internacional não é automaticamente Comparação — só é Comparação se o texto contrastar explicitamente esse cenário com o do Brasil.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Microcrédito e plantas em solo árido',
+    trecho: 'Assim como uma planta em solo árido necessita de irrigação constante para sobreviver, pequenos empreendedores em regiões de baixa renda necessitam de acesso contínuo a microcrédito para manter seus negócios em funcionamento.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Contraste → Tensão → Posição'],
+    formaCorreta: 'Analogia',
+    explicacao: '"Assim como uma planta em solo árido" estabelece uma comparação com um fenômeno natural para iluminar a necessidade de microcrédito constante. É Analogia.',
+    dica: 'Analogias com elementos da natureza (plantas, animais, ecossistemas) são comuns e eficazes para tornar argumentos econômicos mais concretos e visuais.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Educação financeira nas escolas',
+    trecho: 'A Finlândia incorporou a educação financeira ao currículo obrigatório desde o ensino fundamental, com resultados consistentes em rankings internacionais de letramento financeiro. O Brasil, por sua vez, ainda trata o tema de forma facultativa e fragmentada entre as redes estaduais de ensino, o que evidencia um descompasso na priorização da formação financeira da juventude.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Afirmação → Evidência → Análise','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'O parágrafo nomeia a Finlândia, contrasta com o cenário brasileiro, e extrai uma conclusão dessa comparação ("descompasso na priorização"). Estrutura clara de Comparação Brasil × outro país.',
+    dica: 'Note o uso de "por sua vez" — esse conector marca a transição típica entre o cenário internacional e o cenário nacional numa estrutura de Comparação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance e GDPR europeu',
+    trecho: 'É certo que a expansão do Open Finance amplia as opções de produtos financeiros disponíveis ao consumidor. No entanto, sem mecanismos rígidos de consentimento, o compartilhamento de dados pode se tornar uma porta de entrada para abusos comerciais. O modelo europeu do GDPR, ao exigir consentimento explícito e renovável, mostra que é possível conciliar abertura de dados com proteção efetiva do usuário.',
+    opcoesForma: ['Concessão → Refutação','Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Causa → Explicação → Efeito'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É certo que" concede o benefício, "no entanto" refuta com o risco, e o exemplo do GDPR reforça a refutação com solução concreta. A presença de "no entanto" como negação direta caracteriza Concessão→Refutação.',
+    dica: 'Mesmo citando um país (GDPR europeu), a estrutura central é de concessão e refutação — o exemplo internacional aqui serve para reforçar a refutação, não para classificar a forma como Comparação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Robotização e desemprego estrutural',
+    trecho: 'O avanço da robotização em linhas de produção reduz a demanda por mão de obra não qualificada, pois tarefas repetitivas tornam-se mais eficientes quando automatizadas. Por consequência, trabalhadores sem formação técnica enfrentam dificuldade crescente de recolocação no mercado.',
+    opcoesForma: ['Causa → Explicação → Efeito','Analogia','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'A causa (robotização) é explicada pelo mecanismo de eficiência das tarefas automatizadas, e fecha com o efeito (dificuldade de recolocação). Estrutura padrão de Causa→Explicação→Efeito.',
+    dica: '"Por consequência" no fechamento é equivalente a "como consequência" — ambos marcam o efeito final dessa estrutura.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Concentração bancária e dados do BC',
+    trecho: 'De acordo com o Banco Central, os cinco maiores bancos do país concentram a maior parte dos ativos do sistema financeiro nacional. Essa concentração indica que a baixa concorrência setorial pode ser um dos fatores explicativos para os elevados spreads bancários praticados no Brasil.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Concessão → Refutação','Analogia'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do Banco Central é a evidência, seguida da análise interpretativa ("essa concentração indica que..."). Não há explicação detalhada de mecanismo nem comparação com outro país.',
+    dica: '"Essa [dado] indica/sugere/aponta que" é o padrão de fechamento típico de Afirmação→Evidência→Análise.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Sistema imunológico e fraudes bancárias',
+    trecho: 'Da mesma forma que um sistema imunológico debilitado deixa o corpo vulnerável a infecções recorrentes, um sistema bancário sem mecanismos robustos de verificação deixa os usuários expostos a fraudes constantes.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: '"Da mesma forma que um sistema imunológico debilitado" relaciona um fenômeno biológico ao problema de segurança bancária. É Analogia clássica, sem dados nem comparação geográfica.',
+    dica: '"Da mesma forma que" tem a mesma função de "assim como" e "tal qual" — todos introduzem comparações analógicas entre fenômenos de áreas diferentes.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance no Brasil e na Austrália',
+    trecho: 'No Brasil, o Open Finance avança de forma regulada pelo Banco Central, com cronograma definido de implementação por etapas. Na Austrália, o Consumer Data Right segue lógica semelhante, mas com setores adicionais além do financeiro já incluídos no sistema de compartilhamento de dados. A comparação sugere que o modelo brasileiro pode evoluir para abranger outros setores no futuro.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Afirmação → Evidência → Análise','Concessão → Refutação'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Austrália são nomeados explicitamente, os sistemas são contrastados, e uma lição é extraída sobre o potencial de evolução do modelo brasileiro. Comparação Brasil × outro país.',
+    dica: 'Quando dois países são comparados ponto a ponto (não apenas um deles), ainda é Comparação — desde que um dos dois seja o Brasil.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Telemedicina e acesso à saúde',
+    trecho: 'A expansão da telemedicina amplia o acesso da população a consultas médicas, pois elimina a necessidade de deslocamento físico até unidades de saúde distantes. Como resultado, regiões com escassez de profissionais médicos passam a contar com atendimento especializado remoto.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Analogia','Concessão → Refutação'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'A causa (expansão da telemedicina) é explicada ("pois elimina a necessidade de deslocamento") e fecha com o efeito ("como resultado, regiões... passam a contar"). Estrutura clássica.',
+    dica: '"Como resultado" é equivalente a "como consequência" — ambos sinalizam o fechamento típico dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inclusão financeira e dados do BC',
+    trecho: 'Apesar de o Pix ter ampliado significativamente o acesso a transações digitais, dados do Banco Central revelam que populações de baixa renda ainda enfrentam barreiras de letramento digital que limitam o uso pleno da ferramenta. Esse cenário evidencia que a inclusão tecnológica, por si só, não garante inclusão financeira efetiva.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Comparação (Brasil × outro país)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o avanço do Pix (contraste), aponta a tensão (barreiras de letramento), e fecha com uma posição analítica sustentada pelo dado do BC, sem negar diretamente o avanço inicial.',
+    dica: '"Apesar de... dados revelam que... esse cenário evidencia que" é uma cadeia típica de Contraste→Tensão→Posição: reconhece, tensiona, conclui.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Cibersegurança e fortalezas medievais',
+    trecho: 'Assim como uma fortaleza medieval precisava de múltiplas camadas de defesa para resistir a invasões, os sistemas bancários modernos necessitam de múltiplas camadas de segurança digital para resistir a ataques cibernéticos cada vez mais sofisticados.',
+    opcoesForma: ['Analogia','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise','Causa → Explicação → Efeito'],
+    formaCorreta: 'Analogia',
+    explicacao: '"Assim como uma fortaleza medieval" relaciona um fenômeno histórico/militar à necessidade de segurança digital bancária. É Analogia, sem citar dados nem outro país.',
+    dica: 'Analogias históricas (fortalezas, guerras, revoluções) funcionam bem para ilustrar a importância de sistemas de defesa ou proteção em qualquer área.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Educação financeira e dados da OCDE',
+    trecho: 'Segundo levantamento da OCDE, o Brasil figura entre os países com piores índices de letramento financeiro entre adolescentes. Esse resultado sugere que a ausência de educação financeira estruturada no currículo escolar compromete a formação econômica das futuras gerações.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Analogia'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado da OCDE é a evidência, e a frase final ("esse resultado sugere que...") é a análise interpretativa. Não há comparação direta com outro país específico nem explicação de mecanismo causal detalhado.',
+    dica: 'Mesmo citando uma posição relativa entre países (ranking da OCDE), se não há um país específico contrastado ponto a ponto com o Brasil, é Afirmação→Evidência→Análise, não Comparação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Automação e a história da Revolução Industrial',
+    trecho: 'Da mesma forma que a Revolução Industrial substituiu trabalho artesanal por produção em massa, gerando tanto desemprego inicial quanto novos empregos especializados ao longo do tempo, a automação digital tende a substituir funções repetitivas, abrindo espaço para novas ocupações ligadas à tecnologia.',
+    opcoesForma: ['Analogia','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Contraste → Tensão → Posição'],
+    formaCorreta: 'Analogia',
+    explicacao: 'A comparação é feita com um processo histórico (Revolução Industrial), não com um país específico nem com dado estatístico — é uma analogia histórica clássica.',
+    dica: 'Cuidado: comparações com eventos históricos (Revolução Industrial, guerras, crises) são Analogia, não Comparação Brasil×outro país — esta última exige um país geograficamente específico e atual.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Pix e cooperativas de crédito',
+    trecho: 'É verdade que o Pix democratizou o acesso a transações instantâneas para milhões de brasileiros. Contudo, comunidades sem acesso à internet de qualidade continuam excluídas desse avanço. Programas de inclusão digital implementados em regiões remotas mostram que infraestrutura de conectividade é pré-requisito, não consequência, da inclusão financeira digital.',
+    opcoesForma: ['Concessão → Refutação','Contraste → Tensão → Posição','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que... contudo..." é a estrutura de concessão seguida de refutação direta, reforçada pelo exemplo final que nega a ordem causal assumida inicialmente.',
+    dica: 'Quando a refutação inverte uma relação de causa e efeito assumida ("pré-requisito, não consequência"), é um sinal forte de Concessão→Refutação bem construída.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Banking e dados de adoção',
+    trecho: 'Levantamento do Banco Central indica que a adesão de pequenas instituições financeiras ao Open Banking brasileiro cresceu progressivamente desde sua implementação. Esse crescimento sugere que o modelo regulatório adotado tem conseguido equilibrar exigências técnicas com viabilidade para players de menor porte.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Concessão → Refutação','Analogia'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do Banco Central serve de evidência para a análise final sobre o sucesso do modelo regulatório. Não há explicação de mecanismo causal nem concessão de ponto contrário.',
+    dica: '"Esse crescimento sugere que" é o padrão de análise que extrai uma conclusão interpretativa do dado apresentado — característico dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Regulação de criptoativos e o MiCA europeu',
+    trecho: 'O Brasil ainda discute o desenho de seu marco regulatório para criptoativos. A União Europeia, por outro lado, já implementa o MiCA desde 2023, com regras claras de transparência para emissores de tokens. A diferença de estágio regulatório sugere que o Brasil pode se beneficiar da experiência europeia para acelerar sua própria regulamentação.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e União Europeia são comparados explicitamente quanto ao estágio regulatório, com uma lição extraída da diferença observada. Comparação Brasil × outro país.',
+    dica: '"Por outro lado" introduzindo o segundo país é comum em estruturas de Comparação — não confundir com o "por outro lado" de Contraste, que normalmente introduz uma tensão, não um segundo país.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inteligência artificial e a fábula da lebre e da tartaruga',
+    trecho: 'Assim como a lebre da fábula perdeu a corrida por confiar excessivamente em sua velocidade, empresas que adotam inteligência artificial sem testes rigorosos de segurança correm o risco de comprometer a confiabilidade de seus sistemas em nome da rapidez de implementação.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: 'A comparação com a fábula da lebre e tartaruga é um recurso literário clássico de Analogia, relacionando um conto popular ao risco de pressa sem segurança na adoção de tecnologia.',
+    dica: 'Fábulas, contos e referências literárias são excelentes fontes de Analogia — desde que a relação com o tema da redação seja clara e direta.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Crédito consignado e dados do INSS',
+    trecho: 'Dados do INSS mostram que o volume de empréstimos consignados a aposentados cresceu significativamente nos últimos anos. Esse crescimento revela uma dependência crescente da população idosa em relação ao crédito como complemento de renda, o que acende um alerta sobre a sustentabilidade financeira desse grupo no longo prazo.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Concessão → Refutação'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do INSS é a evidência, seguida da análise sobre o que esse crescimento revela. Não há mecanismo causal detalhado nem comparação internacional.',
+    dica: '"Esse crescimento revela uma dependência..." segue o padrão de extrair uma interpretação do dado, típico de Afirmação→Evidência→Análise.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Sustentabilidade no agronegócio e a Holanda',
+    trecho: 'O agronegócio brasileiro ainda enfrenta desafios para conciliar produtividade e sustentabilidade ambiental em larga escala. A Holanda, país com território reduzido, conseguiu se tornar uma das maiores exportadoras agrícolas do mundo aplicando tecnologia de precisão e rígidos padrões ambientais simultaneamente. Essa experiência sugere que produtividade e sustentabilidade não são objetivos excludentes.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Causa → Explicação → Efeito','Analogia'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Holanda são comparados quanto à conciliação entre produtividade e sustentabilidade, com lição extraída da experiência holandesa. Comparação Brasil × outro país.',
+    dica: 'O detalhe "país com território reduzido" reforça a comparação, mostrando que o sucesso holandês não depende de escala territorial — isso fortalece a lição extraída.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Burnout e jornadas de trabalho remoto',
+    trecho: 'A intensificação das jornadas em home office, sem limites claros entre vida profissional e pessoal, agrava os casos de burnout entre trabalhadores remotos, pois a ausência de fronteiras físicas entre trabalho e descanso dificulta a desconexão mental necessária à recuperação. Por consequência, aumentam os afastamentos por transtornos psicológicos relacionados ao trabalho.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Analogia','Concessão → Refutação'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'A causa (jornadas sem limites) é explicada pelo mecanismo psicológico (ausência de fronteiras dificulta desconexão), fechando com o efeito (aumento de afastamentos). Estrutura padrão.',
+    dica: '"Pois a ausência de... dificulta..." seguido de "por consequência, aumentam..." é o par clássico Causa→Explicação→Efeito.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance e a ponte entre ilhas',
+    trecho: 'Assim como uma ponte conecta duas ilhas antes isoladas, permitindo trânsito de pessoas e recursos, o Open Finance conecta diferentes instituições financeiras, permitindo o trânsito de dados que antes ficavam isolados em sistemas fechados.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: '"Assim como uma ponte conecta duas ilhas" é uma comparação com um fenômeno físico/estrutural, ilustrando a função do Open Finance de conectar sistemas isolados. É Analogia.',
+    dica: 'Analogias estruturais (pontes, redes, engrenagens) funcionam bem para temas de tecnologia e conectividade — tornam conceitos abstratos mais visuais.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Desemprego estrutural e dados do Fórum Econômico Mundial',
+    trecho: 'Estudo do Fórum Econômico Mundial estima que cerca de 85 milhões de postos de trabalho poderão ser deslocados pela automação até 2030. Essa projeção indica a urgência de políticas de requalificação profissional em larga escala para mitigar os efeitos sociais dessa transição.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Concessão → Refutação'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do Fórum Econômico Mundial é a evidência, seguida da análise sobre a urgência de políticas de requalificação. Estrutura de Afirmação→Evidência→Análise.',
+    dica: '"Essa projeção indica a urgência de..." é o padrão de análise prescritiva que costuma fechar essa forma quando o tema envolve política pública.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inclusão financeira e Estônia digital',
+    trecho: 'O Brasil avançou significativamente na digitalização de serviços bancários, mas ainda concentra grande parte dos serviços públicos digitais fora de uma identidade digital unificada. A Estônia, pioneira em governo digital, integra serviços bancários, de saúde e governamentais sob uma única identidade eletrônica desde os anos 2000. Esse modelo sugere um caminho de integração que o Brasil ainda não percorreu plenamente.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Afirmação → Evidência → Análise','Analogia'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Estônia são comparados quanto à integração de serviços digitais, com lição extraída do modelo estoniano. Comparação Brasil × outro país.',
+    dica: '"Pioneira em" costuma introduzir o país de referência numa Comparação — é um sinal de que o texto vai usar aquele país como modelo a ser observado.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance e a tensão regulatória',
+    trecho: 'Embora a abertura de dados financeiros amplie a oferta de produtos personalizados ao consumidor, a velocidade dessa abertura sem testes adequados de segurança pode comprometer a confiança no sistema como um todo. A implementação gradual por fases, adotada em mercados mais maduros, demonstra que cautela regulatória e inovação podem avançar de forma simultânea.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Comparação (Brasil × outro país)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o benefício (produtos personalizados), aponta a tensão (riscos de segurança), e fecha com posição (implementação gradual concilia os dois lados) sem negar diretamente o benefício inicial.',
+    dica: 'Quando a conclusão concilia os dois lados ("podem avançar de forma simultânea") em vez de escolher um, é mais característico de Contraste→Tensão→Posição do que de Concessão→Refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Letramento financeiro e a metáfora do idioma',
+    trecho: 'Assim como uma pessoa sem domínio de um idioma estrangeiro fica vulnerável a mal-entendidos em negociações internacionais, um cidadão sem letramento financeiro fica vulnerável a decisões econômicas desfavoráveis em um mercado cada vez mais complexo.',
+    opcoesForma: ['Analogia','Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Analogia',
+    explicacao: 'A comparação entre domínio de idioma e letramento financeiro é uma analogia que ilustra a vulnerabilidade gerada pela falta de conhecimento especializado, sem citar dados nem país.',
+    dica: 'Analogias com linguagem e comunicação são úteis para ilustrar temas sobre conhecimento, acesso à informação e capacitação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Regulação bancária e dados do CNJ',
+    trecho: 'Levantamento do Conselho Nacional de Justiça aponta crescimento expressivo de ações judiciais relacionadas a cobranças abusivas em contratos de crédito consignado. Esse dado sugere que os mecanismos atuais de fiscalização e proteção ao consumidor ainda são insuficientes para conter práticas predatórias no setor.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Concessão → Refutação','Analogia'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do CNJ é a evidência, seguida da análise sobre a insuficiência dos mecanismos de fiscalização. Estrutura clara de Afirmação→Evidência→Análise.',
+    dica: 'Dados de órgãos judiciais (CNJ, tribunais) são bons exemplos de evidência em temas relacionados a abusos contratuais e proteção ao consumidor.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance e a Coreia do Sul',
+    trecho: 'O Brasil estrutura seu modelo de Open Finance com foco inicial no setor bancário tradicional. A Coreia do Sul, por sua vez, já expandiu seu sistema de compartilhamento de dados para incluir seguros, investimentos e até serviços de telecomunicações. A diferença de amplitude sugere um caminho possível de expansão para o modelo brasileiro nos próximos anos.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Causa → Explicação → Efeito','Analogia'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Coreia do Sul são comparados quanto à amplitude do Open Finance, com lição extraída da diferença de escopo. Comparação Brasil × outro país.',
+    dica: '"Por sua vez" introduzindo o segundo país, seguido de uma diferença concreta e uma lição, é o padrão estrutural mais comum dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Concentração de mercado digital e tensão regulatória',
+    trecho: 'É certo que grandes plataformas digitais geram ganhos de eficiência e escala que beneficiam o consumidor final em termos de preço e conveniência. No entanto, essa mesma escala pode sufocar a entrada de concorrentes menores, reduzindo a diversidade de opções no longo prazo. Casos de antitruste julgados em outras jurisdições mostram que a intervenção regulatória pode restaurar a concorrência sem eliminar os ganhos de eficiência.',
+    opcoesForma: ['Concessão → Refutação','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise','Causa → Explicação → Efeito'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É certo que... no entanto..." é a estrutura de concessão seguida de refutação, e o exemplo de outras jurisdições reforça a posição de que a intervenção é possível sem eliminar os ganhos — uma refutação construtiva.',
+    dica: 'A refutação não precisa ser uma negação total — pode propor uma solução que concilia, desde que comece com um marcador de oposição como "no entanto" ou "contudo".'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Telemedicina e a metáfora da ponte sobre o rio',
+    trecho: 'Assim como uma ponte permite que pessoas de margens opostas de um rio se conectem sem necessidade de travessia arriscada, a telemedicina permite que pacientes em regiões remotas acessem especialistas sem a necessidade de deslocamentos longos e custosos.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: 'A comparação com a ponte sobre o rio ilustra a função de conexão da telemedicina entre pacientes remotos e especialistas, sem citar dados nem outro país. É Analogia.',
+    dica: 'Analogias com infraestrutura física (pontes, estradas, redes) são particularmente eficazes para temas sobre acesso e conectividade.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Educação financeira e dados do Banco Mundial',
+    trecho: 'Relatório do Banco Mundial aponta que países com programas obrigatórios de educação financeira escolar apresentam menores índices de inadimplência entre jovens adultos. Esse achado reforça a importância de políticas educacionais voltadas à formação financeira desde a infância.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Analogia'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do Banco Mundial é a evidência, e a análise final reforça a importância de políticas educacionais. Não há país específico contrastado com o Brasil nem mecanismo causal detalhado.',
+    dica: '"Esse achado reforça a importância de..." é uma forma comum de fechar com análise prescritiva, sem entrar em comparação direta com um país nomeado.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Banking e dados de competitividade',
+    trecho: 'Estudo setorial indica que a entrada de novos competidores no mercado de crédito brasileiro acelerou após a implementação do Open Banking. Esse movimento sugere que políticas de abertura de dados podem ser uma ferramenta eficaz de fomento à concorrência no setor financeiro.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Concessão → Refutação'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O estudo setorial é a evidência, e a frase final é a análise sobre o potencial das políticas de abertura de dados. Não há comparação internacional nem concessão de ponto contrário.',
+    dica: '"Esse movimento sugere que" segue o padrão de extrair uma generalização a partir de um dado específico, característico dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Automação e o mito de Prometeu',
+    trecho: 'Assim como o mito de Prometeu narra a entrega do fogo aos humanos como dádiva que trouxe tanto progresso quanto risco, a automação industrial entrega ferramentas poderosas de produtividade que, se mal geridas, podem gerar consequências sociais negativas.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Contraste → Tensão → Posição'],
+    formaCorreta: 'Analogia',
+    explicacao: 'A referência ao mito de Prometeu é um recurso de repertório mitológico usado como Analogia, ilustrando a dualidade benefício/risco da automação sem citar dados nem país.',
+    dica: 'Mitos e referências da cultura clássica (gregos, romanos) são repertório valioso para Analogias sofisticadas — desde que a relação com o tema seja clara, evitando forçar a comparação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Regulação de criptoativos e dados da CVM',
+    trecho: 'Dados da Comissão de Valores Mobiliários mostram aumento expressivo de denúncias relacionadas a plataformas de investimento em criptoativos nos últimos anos. Esse crescimento sinaliza uma lacuna regulatória que expõe investidores menos experientes a esquemas fraudulentos.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Concessão → Refutação'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado da CVM é a evidência, seguida da análise sobre a lacuna regulatória. Estrutura clara de Afirmação→Evidência→Análise, sem comparação internacional nem mecanismo causal detalhado.',
+    dica: '"Esse crescimento sinaliza uma lacuna..." é o padrão de análise crítica que costuma fechar essa forma quando o tema envolve falha regulatória.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Pix e o Reino Unido com Faster Payments',
+    trecho: 'O Pix processa transações em poucos segundos, posicionando o Brasil entre os países com sistemas de pagamento instantâneo mais avançados do mundo. O Reino Unido, com seu sistema Faster Payments implementado anos antes, levou mais tempo para alcançar níveis comparáveis de adesão popular. A diferença de velocidade de adoção sugere que o desenho simplificado do Pix favoreceu sua popularização mais rápida.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Afirmação → Evidência → Análise','Contraste → Tensão → Posição','Causa → Explicação → Efeito'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Reino Unido são comparados quanto à velocidade de adoção de seus sistemas de pagamento instantâneo, com lição extraída da diferença. Comparação Brasil × outro país.',
+    dica: 'Mesmo quando o Brasil "sai na frente" na comparação, ainda é Comparação — essa forma não exige que o Brasil seja o lado com a deficiência, apenas que haja contraste direto com outro país.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Trabalho remoto e a tensão da flexibilidade',
+    trecho: 'Embora o trabalho remoto ofereça maior flexibilidade de horários e redução de tempo de deslocamento, a ausência de uma rotina estruturada pode comprometer a produtividade de profissionais com dificuldade de autogestão. Empresas que implementaram modelos híbridos com horários-núcleo definidos demonstram que é possível preservar flexibilidade sem perder estrutura.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Comparação (Brasil × outro país)','Analogia'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o benefício (flexibilidade), aponta a tensão (risco à produtividade), e fecha com posição (modelo híbrido concilia os dois lados), sem negar diretamente a flexibilidade.',
+    dica: 'Quando a solução final concilia ambos os lados em vez de escolher um, geralmente é Contraste→Tensão→Posição — a Refutação tende a ser mais assertiva, escolhendo um lado claramente.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Letramento digital e dados da Anatel',
+    trecho: 'Levantamento da Agência Nacional de Telecomunicações revela que parcela significativa dos municípios brasileiros ainda enfrenta limitações de conectividade de qualidade. Esse cenário evidencia que a inclusão digital plena depende não apenas de dispositivos, mas também de infraestrutura de internet adequada.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Analogia','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado da Anatel é a evidência, seguida da análise sobre a dependência de infraestrutura. Estrutura clara, sem comparação internacional nem mecanismo causal detalhado.',
+    dica: '"Esse cenário evidencia que... depende não apenas de X, mas também de Y" é uma forma comum de analisar um dado apontando múltiplos fatores envolvidos.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inovação bancária e a metáfora do rio que se adapta',
+    trecho: 'Assim como um rio encontra novos caminhos quando obstáculos surgem em seu percurso, o sistema financeiro encontra novas formas de operar quando restrições regulatórias tradicionais não acompanham a velocidade da inovação tecnológica.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Contraste → Tensão → Posição','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: 'A comparação com o rio que encontra novos caminhos é uma Analogia que ilustra a adaptabilidade do sistema financeiro frente a obstáculos regulatórios, sem citar dados nem país.',
+    dica: 'Analogias com elementos naturais dinâmicos (rios, ventos, marés) são úteis para ilustrar temas sobre adaptação, mudança e fluxo — comuns em textos sobre inovação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Crédito consignado e a Alemanha',
+    trecho: 'O sistema de crédito consignado no Brasil permite o desconto direto na folha de pagamento sem grandes limites de comprometimento de renda para idosos. Na Alemanha, mecanismos de crédito a aposentados são vinculados a auditorias regulares de capacidade de pagamento. A diferença de rigor sugere que o Brasil poderia adotar controles semelhantes para reduzir o superendividamento da população idosa.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Causa → Explicação → Efeito','Concessão → Refutação'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Alemanha são comparados quanto ao rigor dos mecanismos de crédito a idosos, com lição extraída da diferença. Comparação Brasil × outro país.',
+    dica: 'A comparação não precisa ser sobre tecnologia ou inovação — também funciona para comparar rigor regulatório, políticas sociais e proteção ao consumidor entre países.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inclusão financeira e dados do Banco Central sobre Pix',
+    trecho: 'Dados do Banco Central mostram que o Pix se tornou o meio de pagamento mais utilizado entre brasileiros de baixa renda em poucos anos de existência. Esse resultado sugere que soluções de baixo custo e alta usabilidade têm maior potencial de adoção entre populações historicamente excluídas do sistema bancário tradicional.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Analogia'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do Banco Central é a evidência, seguida da análise sobre o potencial de soluções de baixo custo. Estrutura clara de Afirmação→Evidência→Análise.',
+    dica: '"Esse resultado sugere que..." generalizando a partir de um caso específico (Pix) para um princípio mais amplo é característico do fechamento analítico dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Segurança cibernética e a tensão entre conveniência e proteção',
+    trecho: 'É verdade que a biometria facial em aplicativos bancários simplifica o acesso e reduz a necessidade de senhas complexas. Contudo, a centralização de dados biométricos sensíveis em servidores únicos cria um ponto crítico de vulnerabilidade caso ocorra uma violação de segurança. Sistemas que adotam criptografia descentralizada de dados biométricos demonstram que é possível manter a conveniência sem concentrar o risco.',
+    opcoesForma: ['Concessão → Refutação','Contraste → Tensão → Posição','Comparação (Brasil × outro país)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que... contudo..." marca a concessão e a refutação, reforçada pelo exemplo de criptografia descentralizada que nega a necessidade de concentrar o risco. Concessão→Refutação.',
+    dica: 'Refutações tecnológicas costumam citar uma solução técnica concreta (criptografia, descentralização, auditoria) que resolve o risco apontado, sem negar o benefício original.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance e a metáfora dos vasos comunicantes',
+    trecho: 'Assim como vasos comunicantes equilibram o nível de líquido entre recipientes conectados, o Open Finance equilibra o acesso à informação financeira entre diferentes instituições, reduzindo a vantagem competitiva que grandes bancos historicamente acumularam pela posse exclusiva de dados.',
+    opcoesForma: ['Analogia','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise','Causa → Explicação → Efeito'],
+    formaCorreta: 'Analogia',
+    explicacao: 'A comparação com vasos comunicantes (fenômeno físico) ilustra o conceito de equilíbrio de informação trazido pelo Open Finance, sem citar dados nem outro país.',
+    dica: 'Analogias com princípios físicos (vasos comunicantes, equilíbrio, pressão) ajudam a explicar conceitos abstratos de forma visual e memorável.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Educação financeira e a Austrália',
+    trecho: 'O currículo escolar brasileiro ainda trata a educação financeira como tema transversal facultativo, dependendo da iniciativa de cada escola. A Austrália, por outro lado, instituiu padrões nacionais obrigatórios de competência financeira a serem desenvolvidos em diferentes etapas do ensino. Esse contraste sugere que a obrigatoriedade curricular pode ser determinante para a efetividade da formação financeira.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Afirmação → Evidência → Análise','Concessão → Refutação'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Austrália são comparados quanto à obrigatoriedade curricular de educação financeira, com lição extraída do contraste. Comparação Brasil × outro país.',
+    dica: '"Esse contraste sugere que" no fechamento ainda confirma Comparação, desde que o contraste seja entre o Brasil e um país nomeado especificamente — não generalize para "outros países".'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Gentrificação urbana e dados de deslocamento',
+    trecho: 'Levantamentos urbanos indicam que bairros centrais valorizados por projetos de revitalização registram aumento expressivo no custo de moradia em poucos anos. Esse padrão sugere que processos de revitalização sem políticas habitacionais compensatórias tendem a deslocar moradores originais para periferias mais distantes.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Analogia'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O levantamento urbano é a evidência, seguida da análise sobre o padrão de deslocamento sem políticas compensatórias. Estrutura clara de Afirmação→Evidência→Análise.',
+    dica: '"Esse padrão sugere que" extraindo uma tendência geral a partir de dados específicos é o fechamento típico dessa forma em temas urbanos e sociais.'
+  },
+  // ══════════════════════════════════════════════════════════
+  // LOTE 9 — CORRIGIR O ERRO (+50 cards)
+  // ══════════════════════════════════════════════════════════
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tese sem dois eixos claros',
+    elementoFoco: 'tese',
+    trecho: 'A inclusão financeira no Brasil depende da modernização tecnológica do setor bancário e da digitalização dos serviços oferecidos aos clientes.',
+    diagnosticos: ['Os dois eixos citados são, na prática, a mesma ideia repetida','Proposta de intervenção ausente','Conclusão sem retomada da tese','Exemplo sem fonte citada'],
+    diagnosticoCorreto: 'Os dois eixos citados são, na prática, a mesma ideia repetida',
+    explicacao: '"Modernização tecnológica do setor bancário" e "digitalização dos serviços" são, na prática, a mesma coisa dita de duas formas. Para ser uma tese válida com dois eixos, eles precisam ser complementares, não sinônimos.',
+    versaoCorrigida: 'A inclusão financeira no Brasil depende tanto da modernização tecnológica do setor bancário quanto da educação financeira da população para o uso seguro dessas ferramentas.',
+    dica: 'Teste seus dois eixos: se você apagar um e reescrever o outro com outras palavras, ele cobre o que o primeiro dizia? Se sim, são a mesma ideia disfarçada.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Exemplo sem fonte',
+    elementoFoco: 'exemplo',
+    trecho: 'Muitos estudos mostram que a maioria dos brasileiros tem dificuldade com educação financeira.',
+    diagnosticos: ['Exemplo vago, sem fonte nem dado específico','Tópico frasal ausente','Consequência usada como causa','Tese com posicionamento ausente'],
+    diagnosticoCorreto: 'Exemplo vago, sem fonte nem dado específico',
+    explicacao: '"Muitos estudos" e "a maioria" são generalizações sem comprovação. Um exemplo/dado precisa citar uma fonte específica (instituição, pesquisa nomeada) e, idealmente, um número concreto.',
+    versaoCorrigida: 'Segundo pesquisa da Confederação Nacional do Comércio (CNC), mais de 60% das famílias brasileiras relatam dificuldade em organizar o orçamento doméstico.',
+    dica: 'Sempre que escrever "estudos mostram" ou "pesquisas indicam" sem nomear a fonte, pare e pergunte: "qual estudo, exatamente?" Se não souber, é melhor reformular sem esse apoio.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta sem finalidade',
+    elementoFoco: 'proposta',
+    trecho: 'O Banco Central deve criar uma campanha de conscientização sobre fraudes digitais por meio de parcerias com instituições financeiras.',
+    diagnosticos: ['Proposta sem finalidade explícita (falta o "para quê")','Agente genérico demais','Ação sem verbo concreto','Meio ausente na proposta'],
+    diagnosticoCorreto: 'Proposta sem finalidade explícita (falta o "para quê")',
+    explicacao: 'A proposta tem agente (Banco Central), ação (criar campanha) e meio (parcerias), mas não diz qual é o objetivo final dessa campanha — falta a finalidade social que justifica a ação.',
+    versaoCorrigida: 'O Banco Central deve criar uma campanha de conscientização sobre fraudes digitais, por meio de parcerias com instituições financeiras, a fim de reduzir a vulnerabilidade de usuários menos familiarizados com tecnologia.',
+    dica: 'Toda proposta precisa responder "para quê isso é feito?" — sem essa parte final, a ação parece arbitrária e sem propósito social claro.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conectivo de causa mal empregado',
+    elementoFoco: 'explicacao',
+    trecho: 'A automação reduz empregos, embora ela substitua trabalhadores por máquinas em tarefas repetitivas.',
+    diagnosticos: ['Conectivo concessivo usado onde deveria haver conectivo explicativo','Tese com apenas um eixo','Exemplo sem fonte','Consequência ausente'],
+    diagnosticoCorreto: 'Conectivo concessivo usado onde deveria haver conectivo explicativo',
+    explicacao: '"Embora" introduz uma concessão (algo apesar de outra coisa), mas a frase precisa de um conectivo explicativo, já que a segunda parte é o mecanismo que explica a primeira — não uma ressalva.',
+    versaoCorrigida: 'A automação reduz empregos, pois substitui trabalhadores por máquinas em tarefas repetitivas.',
+    dica: 'Pergunte: a segunda parte da frase contradiz/limita a primeira, ou explica por que ela acontece? Se explica, use "pois"/"porque"; se contradiz, use "embora"/"apesar de".'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conclusão sem proposta de intervenção',
+    elementoFoco: 'conclusao',
+    trecho: 'Diante do exposto, conclui-se que a inclusão financeira no Brasil depende tanto da expansão da infraestrutura digital quanto do investimento em educação financeira.',
+    diagnosticos: ['Conclusão sem proposta de intervenção','Tese com apenas um eixo','Conectivo de explicação ausente','Exemplo sem fonte'],
+    diagnosticoCorreto: 'Conclusão sem proposta de intervenção',
+    explicacao: 'A conclusão retoma corretamente os dois eixos da tese, mas não apresenta nenhuma proposta concreta de ação — ela para na constatação, sem indicar quem deve agir e como.',
+    versaoCorrigida: 'Diante do exposto, conclui-se que a inclusão financeira no Brasil depende tanto da expansão da infraestrutura digital quanto do investimento em educação financeira. Propõe-se que o Ministério das Comunicações amplie o acesso à internet em regiões remotas, em parceria com operadoras privadas, a fim de garantir conectividade básica a toda a população.',
+    dica: 'Toda conclusão de redação de concurso precisa terminar com uma proposta de intervenção — sem ela, a redação fica incompleta mesmo que a retomada da tese esteja perfeita.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tópico frasal que já é consequência',
+    elementoFoco: 'topico_frasal',
+    trecho: 'Como resultado da automação, milhares de trabalhadores perderam seus empregos nos últimos anos.',
+    diagnosticos: ['Tópico frasal apresentado como se já fosse a consequência do parágrafo','Tese sem dois eixos','Exemplo sem fonte','Proposta sem agente'],
+    diagnosticoCorreto: 'Tópico frasal apresentado como se já fosse a consequência do parágrafo',
+    explicacao: '"Como resultado de" é um conector de consequência, mas está sendo usado para ABRIR o parágrafo — função do tópico frasal. O parágrafo começa já no efeito final, sem espaço para desenvolver explicação e exemplo antes dele.',
+    versaoCorrigida: 'A automação dos processos industriais impõe desafios significativos à manutenção de empregos em setores de baixa qualificação.',
+    dica: 'O tópico frasal deve anunciar o argumento, não encerrá-lo. Se sua primeira frase já usa "como resultado" ou "como consequência", ela pertence ao final do parágrafo, não ao início.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Comparação sem país nomeado',
+    elementoFoco: 'exemplo',
+    trecho: 'Em outros países, a regulação de criptoativos já avançou bastante, ao contrário do que ocorre no Brasil.',
+    diagnosticos: ['Comparação vaga, sem país específico nomeado','Tese com apenas um eixo','Conectivo de finalidade ausente','Conclusão com argumento novo'],
+    diagnosticoCorreto: 'Comparação vaga, sem país específico nomeado',
+    explicacao: '"Em outros países" é genérico demais para servir como evidência sólida de Comparação. Uma comparação eficaz precisa nomear o país específico e, idealmente, citar uma lei, órgão ou marco regulatório concreto desse país.',
+    versaoCorrigida: 'Na União Europeia, a regulação de criptoativos já avançou com a implementação do marco MiCA desde 2023, ao contrário do que ocorre no Brasil, que ainda discute seu desenho regulatório.',
+    dica: 'Sempre que escrever "em outros países" ou "no exterior", pare e pergunte: "qual país, exatamente, e com qual exemplo concreto?" Isso transforma uma generalização vaga em evidência real.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta com agente genérico',
+    elementoFoco: 'proposta',
+    trecho: 'As autoridades competentes devem tomar providências para resolver o problema da exclusão digital bancária.',
+    diagnosticos: ['Agente genérico demais e ação sem verbo concreto','Finalidade ausente','Tese sem dois eixos','Exemplo sem fonte'],
+    diagnosticoCorreto: 'Agente genérico demais e ação sem verbo concreto',
+    explicacao: '"As autoridades competentes" não especifica quem age, e "tomar providências" não diz qual ação será realizada. Uma proposta eficaz precisa de um órgão nomeado e um verbo de ação específico.',
+    versaoCorrigida: 'O Banco Central, em parceria com instituições financeiras, deve ampliar os programas de correspondentes bancários em regiões remotas, a fim de reduzir a exclusão digital da população de baixa renda.',
+    dica: '"As autoridades competentes" e "tomar providências" são os clichês mais comuns de proposta vaga — sempre que os encontrar no seu próprio texto, substitua por um órgão e um verbo específicos.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conclusão que repete a introdução palavra por palavra',
+    elementoFoco: 'conclusao',
+    trecho: 'A inclusão financeira no Brasil depende da expansão da infraestrutura digital e do investimento em educação financeira.',
+    diagnosticos: ['Conclusão copiada literalmente da introdução, sem reformulação','Conclusão com dado novo','Conclusão sem retomada da tese','Proposta sem finalidade'],
+    diagnosticoCorreto: 'Conclusão copiada literalmente da introdução, sem reformulação',
+    explicacao: 'Se essa frase aparece exatamente igual (ou quase igual) na introdução, a conclusão está apenas copiando a tese, sem demonstrar que o raciocínio do texto chegou a essa retomada de forma reflexiva.',
+    versaoCorrigida: 'Diante do exposto, depreende-se que a plena bancarização da população brasileira exige avanços conjuntos em conectividade digital e letramento financeiro.',
+    dica: 'A conclusão deve retomar a MESMA ideia da tese, mas com palavras diferentes — isso demonstra domínio do conteúdo, não memorização de uma frase fixa.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Explicação que não explica nada',
+    elementoFoco: 'explicacao',
+    trecho: 'A falta de regulamentação para criptoativos é um problema porque não há regulamentação suficiente para esse mercado.',
+    diagnosticos: ['Explicação circular que apenas repete a causa com outras palavras','Exemplo sem fonte','Consequência usada como causa','Conectivo de concessão ausente'],
+    diagnosticoCorreto: 'Explicação circular que apenas repete a causa com outras palavras',
+    explicacao: '"É um problema porque não há regulamentação suficiente" apenas reafirma a falta de regulamentação já mencionada, sem explicar POR QUE essa ausência gera problemas reais (riscos de fraude, falta de proteção ao investidor).',
+    versaoCorrigida: 'A falta de regulamentação para criptoativos é um problema, pois a ausência de regras claras sobre custódia e transparência cria espaço para fraudes e esquemas de pirâmide financeira.',
+    dica: 'Teste sua explicação: ela revela um MECANISMO novo, ou só repete a causa com sinônimos? Se só repete, volte e pergunte "e por que isso é um problema, na prática?"'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tese com posicionamento ausente',
+    elementoFoco: 'tese',
+    trecho: 'A regulação de fintechs no Brasil é um tema relevante que envolve diversos aspectos econômicos e sociais.',
+    diagnosticos: ['Tese sem posicionamento real, apenas constatando que o tema é "relevante"','Tema específico ausente','Exemplo sem fonte','Conclusão com argumento novo'],
+    diagnosticoCorreto: 'Tese sem posicionamento real, apenas constatando que o tema é "relevante"',
+    explicacao: 'Dizer que um tema "é relevante" ou "envolve diversos aspectos" não é uma tese — é uma generalização vazia que não assume nenhuma posição nem aponta os dois eixos que serão defendidos.',
+    versaoCorrigida: 'A regulação de fintechs no Brasil depende tanto da flexibilização de exigências para novos entrantes quanto do fortalecimento de critérios mínimos de solidez financeira.',
+    dica: 'Se sua tese poderia ser usada para qualquer tema só trocando o substantivo ("X é um tema relevante que envolve diversos aspectos"), ela não é uma tese real — é um clichê de preenchimento.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Consequência que antecede a causa',
+    elementoFoco: 'consequencia',
+    trecho: 'O aumento de casos de ansiedade entre jovens gera o uso excessivo das redes sociais.',
+    diagnosticos: ['Relação de causa e efeito invertida','Tópico frasal ausente','Exemplo sem fonte','Conectivo de finalidade mal empregado'],
+    diagnosticoCorreto: 'Relação de causa e efeito invertida',
+    explicacao: 'A lógica está invertida: o uso excessivo das redes sociais é geralmente apontado como CAUSA do aumento de ansiedade, não o contrário. A frase apresenta o efeito como se fosse a causa do próprio efeito.',
+    versaoCorrigida: 'O uso excessivo das redes sociais gera aumento de casos de ansiedade entre jovens.',
+    dica: 'Sempre que escrever uma relação causal, pergunte: "o que veio primeiro, na lógica do mundo real?" Se a ordem na frase contradiz essa lógica, é necessário inverter os termos.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta sem meio definido',
+    elementoFoco: 'proposta',
+    trecho: 'O Ministério da Educação deve ampliar a educação financeira nas escolas a fim de formar cidadãos mais preparados financeiramente.',
+    diagnosticos: ['Proposta sem meio (falta o "como" a ação será feita)','Agente genérico','Ação sem verbo concreto','Finalidade ausente'],
+    diagnosticoCorreto: 'Proposta sem meio (falta o "como" a ação será feita)',
+    explicacao: 'A proposta tem agente (Ministério da Educação), ação (ampliar) e finalidade (formar cidadãos preparados), mas não especifica COMO essa ampliação será feita na prática.',
+    versaoCorrigida: 'O Ministério da Educação deve ampliar a educação financeira nas escolas, por meio da inclusão obrigatória do tema no currículo do Ensino Fundamental, a fim de formar cidadãos mais preparados financeiramente.',
+    dica: 'O "meio" da proposta é o que a torna concreta e viável — sem ele, a proposta parece uma boa intenção sem plano de execução.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Contextualização que já traz a conclusão',
+    elementoFoco: 'contextualizacao',
+    trecho: 'É evidente que o Brasil precisa urgentemente regular o setor de criptoativos, problema que será discutido ao longo desta redação.',
+    diagnosticos: ['Contextualização que antecipa o posicionamento, função que pertence à tese','Tema específico ausente','Tese sem dois eixos','Proposta de intervenção antecipada'],
+    diagnosticoCorreto: 'Contextualização que antecipa o posicionamento, função que pertence à tese',
+    explicacao: '"É evidente que... precisa urgentemente" já assume uma posição enfática logo na abertura — isso é função da tese, não da contextualização, que deveria apresentar o cenário de forma mais neutra antes de chegar ao posicionamento.',
+    versaoCorrigida: 'O mercado de criptoativos tem crescido rapidamente no Brasil, acompanhando uma tendência global de digitalização dos investimentos financeiros.',
+    dica: 'Se sua contextualização já usa "é evidente que", "sem dúvida" ou "urgentemente" antes de apresentar o tema, ela está adiantando a tese — mova esse tom mais assertivo para depois do tema específico.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Exemplo desconectado do argumento',
+    elementoFoco: 'exemplo',
+    trecho: 'A automação reduz empregos em setores industriais. Por exemplo, o Brasil tem uma das maiores taxas de urbanização da América Latina.',
+    diagnosticos: ['Exemplo sem relação lógica com o argumento apresentado','Tópico frasal ausente','Consequência usada como exemplo','Tese sem dois eixos'],
+    diagnosticoCorreto: 'Exemplo sem relação lógica com o argumento apresentado',
+    explicacao: 'A taxa de urbanização do Brasil não tem relação direta com o argumento sobre automação e redução de empregos industriais — é um dado real, mas desconectado do raciocínio do parágrafo.',
+    versaoCorrigida: 'A automação reduz empregos em setores industriais. Por exemplo, estudo do Fórum Econômico Mundial estima que 85 milhões de postos de trabalho poderão ser deslocados pela automação até 2030.',
+    dica: 'Antes de inserir um dado, pergunte: "esse número realmente comprova o argumento que acabei de fazer, ou só é um dado interessante sobre o mesmo tema geral?"'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conclusão parcial que introduz novo eixo',
+    elementoFoco: 'conclusao_parcial',
+    trecho: 'Nesse sentido, é evidente que a ausência de regulamentação compromete a proteção do investidor. Além disso, vale destacar que o setor também enfrenta desafios trabalhistas significativos.',
+    diagnosticos: ['Conclusão parcial que introduz um novo argumento em vez de sintetizar','Tópico frasal ausente','Exemplo sem fonte','Proposta sem agente'],
+    diagnosticoCorreto: 'Conclusão parcial que introduz um novo argumento em vez de sintetizar',
+    explicacao: 'A primeira frase fecha corretamente o argumento sobre proteção ao investidor. A segunda frase, porém, introduz um tema completamente novo (desafios trabalhistas) que não pertence a este parágrafo — isso quebra a unidade temática do §2 ou §3.',
+    versaoCorrigida: 'Nesse sentido, é evidente que a ausência de regulamentação compromete a proteção do investidor e a integridade do mercado de criptoativos como um todo.',
+    dica: 'A conclusão parcial deve fechar o argumento do MESMO parágrafo, não abrir a porta para um assunto novo — esse novo assunto deveria ter seu próprio parágrafo, se for relevante.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conectivo de adição usado como oposição',
+    elementoFoco: 'explicacao',
+    trecho: 'O Pix ampliou o acesso a serviços financeiros. Além disso, idosos ainda enfrentam dificuldades de uso por falta de letramento digital.',
+    diagnosticos: ['Conectivo de adição usado onde haveria oposição entre as ideias','Tópico frasal ausente','Exemplo sem fonte','Tese com um eixo só'],
+    diagnosticoCorreto: 'Conectivo de adição usado onde haveria oposição entre as ideias',
+    explicacao: '"Além disso" sugere que a segunda frase soma à primeira no mesmo sentido, mas na verdade ela contrasta com o benefício mencionado (apesar do Pix ampliar acesso, idosos ainda têm dificuldade). O conectivo correto seria de oposição.',
+    versaoCorrigida: 'O Pix ampliou o acesso a serviços financeiros. Contudo, idosos ainda enfrentam dificuldades de uso por falta de letramento digital.',
+    dica: 'Antes de usar "além disso", "ademais" ou "também", verifique se a segunda ideia realmente soma no mesmo sentido da primeira — se ela contradiz ou limita, o conectivo correto é de oposição ("mas", "contudo", "entretanto").'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Dado estatístico sem fonte nem ano',
+    elementoFoco: 'exemplo',
+    trecho: 'Pesquisas apontam que 90% dos brasileiros não sabem o que é taxa Selic.',
+    diagnosticos: ['Dado sem fonte nem ano, o que fragiliza a credibilidade do argumento','Tese sem dois eixos','Conclusão com argumento novo','Conectivo de causa ausente'],
+    diagnosticoCorreto: 'Dado sem fonte nem ano, o que fragiliza a credibilidade do argumento',
+    explicacao: '"Pesquisas apontam" sem nomear qual pesquisa, instituição ou ano torna o dado não verificável — mesmo que o número seja plausível, ele perde força de evidência sem essa atribuição.',
+    versaoCorrigida: 'Segundo levantamento da Confederação Nacional do Comércio realizado em 2023, a maior parte dos brasileiros desconhece o funcionamento básico da taxa Selic.',
+    dica: 'Se você não tem certeza da fonte exata de um dado, prefira formulações qualitativas e mais seguras ("a maior parte", "estudos recentes indicam uma tendência de") em vez de inventar um número específico sem fonte.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tópico frasal vago demais',
+    elementoFoco: 'topico_frasal',
+    trecho: 'A tecnologia é importante para o setor bancário atualmente.',
+    diagnosticos: ['Tópico frasal vago, não anuncia um argumento específico','Conclusão sem proposta','Exemplo sem fonte','Tese com um eixo só'],
+    diagnosticoCorreto: 'Tópico frasal vago, não anuncia um argumento específico',
+    explicacao: '"A tecnologia é importante" é uma afirmação genérica demais — não nomeia o eixo específico que será desenvolvido no parágrafo (ex: segurança digital, inclusão financeira, automação de processos).',
+    versaoCorrigida: 'A adoção de biometria facial em aplicativos bancários reduz significativamente os índices de fraude em transações digitais.',
+    dica: 'Teste seu tópico frasal: ele poderia abrir qualquer parágrafo sobre qualquer tema de tecnologia? Se sim, é vago demais — precisa nomear o argumento específico que você vai defender.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Analogia forçada e sem relação clara',
+    elementoFoco: 'explicacao',
+    trecho: 'Assim como um pássaro voa pelo céu, o sistema bancário precisa de regulamentação adequada para funcionar bem.',
+    diagnosticos: ['Analogia forçada, sem relação lógica clara entre os dois elementos','Tese sem dois eixos','Exemplo sem fonte','Conectivo de causa ausente'],
+    diagnosticoCorreto: 'Analogia forçada, sem relação lógica clara entre os dois elementos',
+    explicacao: 'Voar pelo céu não tem nenhuma propriedade lógica clara (liberdade, leveza, instinto) que se conecte de forma natural com a necessidade de regulamentação bancária — a comparação foi inserida sem construir essa ponte de sentido.',
+    versaoCorrigida: 'Assim como um corpo humano precisa de um sistema imunológico para se defender de agentes externos, o sistema bancário precisa de mecanismos regulatórios para se proteger de riscos sistêmicos.',
+    dica: 'Toda analogia precisa de uma propriedade compartilhada explícita entre os dois elementos comparados — se você não conseguir nomear essa propriedade em uma frase, a analogia provavelmente está forçada.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta repetindo o problema, sem ação',
+    elementoFoco: 'proposta',
+    trecho: 'É fundamental que o problema da exclusão financeira de idosos seja resolvido com urgência pelo poder público.',
+    diagnosticos: ['Proposta que apenas reafirma a urgência do problema, sem indicar ação concreta','Tese com dois eixos repetidos','Tópico frasal ausente','Exemplo sem fonte'],
+    diagnosticoCorreto: 'Proposta que apenas reafirma a urgência do problema, sem indicar ação concreta',
+    explicacao: 'Dizer que algo "precisa ser resolvido com urgência" não é uma proposta — é apenas reforçar a importância do problema, sem dizer QUEM vai agir, QUAL ação será tomada e COMO ela será executada.',
+    versaoCorrigida: 'O Instituto Nacional do Seguro Social deve ampliar os pontos de atendimento presencial em regiões com alta concentração de beneficiários idosos, por meio de parcerias com correios e agências dos correspondentes bancários, a fim de reduzir a exclusão financeira desse público.',
+    dica: '"É fundamental que o problema seja resolvido" é um dos clichês mais comuns de proposta vazia — sempre force a si mesmo a completar com Agente + Ação + Meio + Finalidade.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conectivo de condição usado incorretamente',
+    elementoFoco: 'explicacao',
+    trecho: 'Se a automação substitui trabalhadores por máquinas, ela reduz empregos em setores de baixa qualificação.',
+    diagnosticos: ['Conectivo condicional usado para uma relação que já é factual, não hipotética','Exemplo sem fonte','Tese sem dois eixos','Conclusão com argumento novo'],
+    diagnosticoCorreto: 'Conectivo condicional usado para uma relação que já é factual, não hipotética',
+    explicacao: '"Se" introduz uma condição hipotética, mas a relação entre automação e redução de empregos não é hipotética — é um fato observado e estabelecido. O conectivo correto seria explicativo, não condicional.',
+    versaoCorrigida: 'A automação substitui trabalhadores por máquinas, reduzindo empregos em setores de baixa qualificação.',
+    dica: 'Use "se" apenas quando a relação for genuinamente hipotética ou incerta. Para relações causais já estabelecidas como fato, prefira "pois", "porque" ou simplesmente conectar com vírgula e gerúndio.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tese com dois eixos contraditórios',
+    elementoFoco: 'tese',
+    trecho: 'A regulação do Open Finance depende tanto da total liberdade para inovação das fintechs quanto da total restrição ao compartilhamento de dados sensíveis.',
+    diagnosticos: ['Os dois eixos são logicamente contraditórios, tornando a tese inviável de sustentar','Tese com apenas um eixo','Proposta de intervenção ausente','Exemplo sem fonte'],
+    diagnosticoCorreto: 'Os dois eixos são logicamente contraditórios, tornando a tese inviável de sustentar',
+    explicacao: '"Total liberdade para inovação" e "total restrição ao compartilhamento de dados" são extremos opostos que se anulam mutuamente — não é possível defender os dois ao mesmo tempo sem qualificá-los, o que torna a tese internamente inconsistente.',
+    versaoCorrigida: 'A regulação do Open Finance depende tanto do incentivo à inovação das fintechs quanto da proteção adequada de dados sensíveis dos usuários.',
+    dica: 'Teste seus dois eixos: eles podem coexistir de forma equilibrada, ou um anula completamente o outro? Se forem extremos opostos, suavize os termos para que ambos sejam defensáveis simultaneamente.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Exemplo que na verdade é opinião pessoal',
+    elementoFoco: 'exemplo',
+    trecho: 'Na minha opinião, a maioria das pessoas concorda que a educação financeira deveria ser obrigatória nas escolas.',
+    diagnosticos: ['Exemplo substituído por opinião pessoal não verificável, sem dado nem fonte','Tese sem posicionamento','Conectivo de causa ausente','Conclusão sem proposta'],
+    diagnosticoCorreto: 'Exemplo substituído por opinião pessoal não verificável, sem dado nem fonte',
+    explicacao: '"Na minha opinião" e "a maioria das pessoas concorda" são afirmações subjetivas e não verificáveis — não substituem um exemplo/dado real, que precisa ser uma evidência objetiva e citável.',
+    versaoCorrigida: 'Segundo pesquisa do Instituto Brasileiro de Defesa do Consumidor, a maior parte dos brasileiros considera a educação financeira um conteúdo essencial para o currículo escolar.',
+    dica: 'Redações dissertativo-argumentativas de concurso não usam "na minha opinião" — a posição do autor é expressa pela tese, e os argumentos precisam de evidências objetivas, não de opiniões pessoais declaradas.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conclusão que nega a tese da introdução',
+    elementoFoco: 'conclusao',
+    trecho: 'Diante do exposto, conclui-se que, na verdade, a regulação bancária não é tão importante quanto se pensava inicialmente.',
+    diagnosticos: ['Conclusão que contradiz a tese apresentada na introdução','Conclusão sem retomada de eixos','Proposta sem agente','Exemplo sem fonte'],
+    diagnosticoCorreto: 'Conclusão que contradiz a tese apresentada na introdução',
+    explicacao: 'Se a tese da introdução defendia a importância da regulação bancária, a conclusão não pode "recuar" e afirmar o contrário — isso quebra a coerência argumentativa de toda a redação, fazendo parecer que o autor mudou de posição sem justificativa.',
+    versaoCorrigida: 'Diante do exposto, conclui-se que a regulação bancária adequada é condição indispensável para equilibrar inovação e proteção ao consumidor no sistema financeiro brasileiro.',
+    dica: 'Antes de finalizar, releia sua tese e sua conclusão lado a lado: elas defendem a mesma posição, com palavras diferentes? Se a conclusão parece "recuar" da tese, há um problema de coerência a corrigir.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Comparação sem lição extraída',
+    elementoFoco: 'exemplo',
+    trecho: 'No Brasil, o crédito consignado não tem limites rígidos. Em Singapura, existe um teto automático para esse tipo de crédito.',
+    diagnosticos: ['Comparação apresentada sem nenhuma análise ou lição extraída dela','Tese sem dois eixos','Proposta sem finalidade','Conectivo de adição mal empregado'],
+    diagnosticoCorreto: 'Comparação apresentada sem nenhuma análise ou lição extraída dela',
+    explicacao: 'O parágrafo apresenta os dois cenários (Brasil e Singapura), mas para por aí — não diz o que essa diferença significa nem que lição o Brasil poderia tirar dela. Uma Comparação completa precisa fechar com uma análise.',
+    versaoCorrigida: 'No Brasil, o crédito consignado não tem limites rígidos. Em Singapura, existe um teto automático para esse tipo de crédito. Essa diferença sugere que mecanismos automáticos de proteção podem reduzir significativamente os casos de superendividamento entre idosos.',
+    dica: 'Uma comparação sem lição final é só uma lista de fatos paralelos — sempre feche com "essa diferença sugere/revela/demonstra que..." para transformar dados em argumento.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tema específico confundido com fenômeno',
+    elementoFoco: 'tema',
+    trecho: 'É sobre a tecnologia no mundo moderno que esta redação se propõe a discutir.',
+    diagnosticos: ['Tema específico apresentado de forma tão ampla que ainda funciona como fenômeno','Tese com posicionamento ausente','Exemplo sem fonte','Proposta sem agente'],
+    diagnosticoCorreto: 'Tema específico apresentado de forma tão ampla que ainda funciona como fenômeno',
+    explicacao: '"Tecnologia no mundo moderno" é tão genérico que poderia ser o fenômeno de qualquer redação sobre tecnologia — não delimita um recorte específico. O tema específico precisa nomear exatamente qual aspecto da tecnologia será discutido.',
+    versaoCorrigida: 'É sobre os impactos da automação no mercado de trabalho industrial brasileiro que esta redação se propõe a discutir.',
+    dica: 'Teste seu tema específico: ele poderia abrir 10 redações diferentes sobre o mesmo assunto amplo? Se sim, ainda é fenômeno — falta delimitar o recorte exato.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Explicação com causa e efeito invertidos',
+    elementoFoco: 'explicacao',
+    trecho: 'O baixo letramento financeiro causa a falta de educação financeira nas escolas.',
+    diagnosticos: ['Relação de causa e efeito invertida','Exemplo sem fonte','Tópico frasal ausente','Conectivo de finalidade ausente'],
+    diagnosticoCorreto: 'Relação de causa e efeito invertida',
+    explicacao: 'A lógica correta é o contrário: a FALTA de educação financeira nas escolas é que CAUSA o baixo letramento financeiro da população, não o inverso. A frase inverteu causa e consequência.',
+    versaoCorrigida: 'A falta de educação financeira nas escolas causa o baixo letramento financeiro entre os jovens brasileiros.',
+    dica: 'Sempre que escrever uma relação de causalidade, releia perguntando: "isso faz sentido no mundo real, nessa ordem?" Inversões de causa e efeito são um dos erros mais comuns e mais fáceis de corrigir com essa checagem simples.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta de intervenção impossível de executar',
+    elementoFoco: 'proposta',
+    trecho: 'O Banco Central deve eliminar completamente todas as fraudes financeiras do país por meio de fiscalização rigorosa.',
+    diagnosticos: ['Proposta com meta irreal e inexequível ("eliminar completamente")','Agente genérico','Ação sem verbo concreto','Finalidade ausente'],
+    diagnosticoCorreto: 'Proposta com meta irreal e inexequível ("eliminar completamente")',
+    explicacao: '"Eliminar completamente todas as fraudes" é uma meta absoluta e irrealista — nenhuma política pública consegue eliminar 100% de um problema social ou criminal. Propostas precisam ser plausíveis para sustentar credibilidade argumentativa.',
+    versaoCorrigida: 'O Banco Central deve intensificar a fiscalização sobre transações suspeitas, por meio de sistemas automatizados de detecção de fraudes, a fim de reduzir significativamente os casos de fraude financeira no país.',
+    dica: 'Evite verbos absolutos como "eliminar", "erradicar" ou "acabar com" em propostas de intervenção — prefira "reduzir", "mitigar" ou "diminuir significativamente", que são metas realistas e defensáveis.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Concessão sem refutação correspondente',
+    elementoFoco: 'explicacao',
+    trecho: 'Embora a automação aumente a produtividade industrial, ela aumenta a produtividade industrial em diversos setores da economia.',
+    diagnosticos: ['Concessão sem refutação real — a segunda parte apenas repete a primeira','Exemplo sem fonte','Tese com um eixo só','Proposta sem agente'],
+    diagnosticoCorreto: 'Concessão sem refutação real — a segunda parte apenas repete a primeira',
+    explicacao: '"Embora X, X" não é uma concessão seguida de refutação — é a mesma ideia repetida duas vezes. Uma estrutura concessiva real precisa de uma segunda parte que aponte uma tensão ou limite diferente da primeira.',
+    versaoCorrigida: 'Embora a automação aumente a produtividade industrial, ela também acelera o desemprego entre trabalhadores de baixa qualificação.',
+    dica: 'Depois de escrever "embora X", pergunte: "a parte seguinte traz uma ideia NOVA em tensão com X, ou só repete X com outras palavras?" Se repetir, reescreva a segunda parte.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Dado estatístico incompatível com o argumento',
+    elementoFoco: 'exemplo',
+    trecho: 'A concentração bancária no Brasil prejudica a concorrência. Segundo o IBGE, o país tem mais de 5.500 municípios.',
+    diagnosticos: ['Dado real, mas sem relação lógica com o argumento sobre concentração bancária','Tese sem dois eixos','Tópico frasal ausente','Conclusão com argumento novo'],
+    diagnosticoCorreto: 'Dado real, mas sem relação lógica com o argumento sobre concentração bancária',
+    explicacao: 'O número de municípios brasileiros é um dado real do IBGE, mas não tem nenhuma relação direta com a concentração bancária ou a concorrência no setor financeiro — é um dado desconectado do argumento.',
+    versaoCorrigida: 'A concentração bancária no Brasil prejudica a concorrência. Segundo o Banco Central, os cinco maiores bancos do país concentram a maior parte dos ativos do sistema financeiro nacional.',
+    dica: 'Um dado real não é automaticamente um bom exemplo — ele precisa comprovar especificamente o argumento do parágrafo, não apenas ser verdadeiro sobre o tema em geral.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta direcionada ao agente errado',
+    elementoFoco: 'proposta',
+    trecho: 'Os próprios consumidores devem criar e implementar um sistema nacional de proteção contra fraudes bancárias.',
+    diagnosticos: ['Agente sem poder institucional para executar a ação proposta','Ação sem verbo concreto','Finalidade ausente','Meio ausente'],
+    diagnosticoCorreto: 'Agente sem poder institucional para executar a ação proposta',
+    explicacao: '"Os consumidores" não têm poder institucional, técnico ou legal para criar um sistema nacional de proteção — essa é uma atribuição de órgãos reguladores ou do Estado, não de cidadãos individuais.',
+    versaoCorrigida: 'O Banco Central deve criar e implementar um sistema nacional de monitoramento de fraudes bancárias, em parceria com instituições financeiras, a fim de proteger os consumidores de forma mais eficaz.',
+    dica: 'Antes de definir o agente da sua proposta, pergunte: "esse agente tem o poder institucional, legal ou técnico de realmente executar essa ação?" Se não tiver, escolha um agente mais adequado.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Explicação que introduz um argumento totalmente novo',
+    elementoFoco: 'explicacao',
+    trecho: 'A automação reduz empregos em setores industriais. Além disso, o desmatamento na Amazônia é um problema grave que precisa de atenção.',
+    diagnosticos: ['Explicação substituída por um argumento completamente desconectado do tópico frasal','Exemplo sem fonte','Tese com um eixo só','Conclusão sem proposta'],
+    diagnosticoCorreto: 'Explicação substituída por um argumento completamente desconectado do tópico frasal',
+    explicacao: 'A segunda frase muda completamente de assunto (desmatamento na Amazônia), sem nenhuma relação com a automação e redução de empregos apresentada no tópico frasal. Isso quebra a unidade temática do parágrafo.',
+    versaoCorrigida: 'A automação reduz empregos em setores industriais. Isso ocorre porque tarefas repetitivas e previsíveis tornam-se mais eficientes quando executadas por sistemas automatizados.',
+    dica: 'Cada parágrafo deve desenvolver UM argumento até o fim. Se sua "explicação" muda de assunto, ela pertence a outro parágrafo — ou foi inserida por engano.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tese formulada como pergunta',
+    elementoFoco: 'tese',
+    trecho: 'Será que a inclusão financeira no Brasil depende da tecnologia ou da educação financeira da população?',
+    diagnosticos: ['Tese formulada como pergunta, sem assumir posicionamento','Tema específico ausente','Exemplo sem fonte','Proposta de intervenção ausente'],
+    diagnosticoCorreto: 'Tese formulada como pergunta, sem assumir posicionamento',
+    explicacao: 'Uma tese precisa AFIRMAR uma posição, não perguntar sobre ela. Formular como questão retórica evita o compromisso de defender um argumento, o que é inadequado para uma redação dissertativo-argumentativa.',
+    versaoCorrigida: 'A inclusão financeira no Brasil depende tanto do avanço tecnológico quanto da educação financeira da população.',
+    dica: 'Releia sua tese: ela é uma afirmação categórica, ou uma pergunta disfarçada de afirmação? Redações de concurso exigem posicionamento claro, nunca perguntas abertas como tese.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Consequência que repete a explicação',
+    elementoFoco: 'consequencia',
+    trecho: 'A falta de letramento digital dificulta o uso de aplicativos bancários por idosos. Como consequência, idosos têm dificuldade de usar aplicativos bancários.',
+    diagnosticos: ['Consequência que apenas repete a explicação com outras palavras','Tópico frasal ausente','Exemplo sem fonte','Conectivo de causa ausente'],
+    diagnosticoCorreto: 'Consequência que apenas repete a explicação com outras palavras',
+    explicacao: 'A "consequência" apresentada é basicamente a mesma ideia da explicação anterior, sem avançar para um EFEITO novo e mais concreto (como exposição a fraudes, dependência de terceiros, exclusão financeira).',
+    versaoCorrigida: 'A falta de letramento digital dificulta o uso de aplicativos bancários por idosos. Como consequência, muitos recorrem a intermediários informais, o que os expõe a fraudes e cobranças abusivas.',
+    dica: 'A consequência deve ser um PASSO ADIANTE em relação à explicação, não uma repetição. Pergunte: "o que acontece DEPOIS desse problema, na prática da vida das pessoas?"'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta sem verbo de ação real',
+    elementoFoco: 'proposta',
+    trecho: 'É importante que o governo pense em formas de melhorar a fiscalização bancária.',
+    diagnosticos: ['Verbo "pensar" não constitui uma ação concreta de proposta de intervenção','Agente genérico demais','Finalidade ausente','Meio ausente'],
+    diagnosticoCorreto: 'Verbo "pensar" não constitui uma ação concreta de proposta de intervenção',
+    explicacao: '"Pensar em formas de melhorar" não é uma ação executável — é uma intenção vaga. Uma proposta de intervenção precisa de um verbo que indique uma ação concreta e mensurável (criar, ampliar, implementar, regulamentar).',
+    versaoCorrigida: 'O Banco Central deve implementar auditorias periódicas obrigatórias nas instituições financeiras, a fim de fortalecer a fiscalização bancária.',
+    dica: 'Verbos como "pensar em", "considerar" e "avaliar a possibilidade de" sinalizam proposta vaga — substitua sempre por verbos de ação direta: criar, ampliar, implementar, regulamentar, fiscalizar.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Exemplo internacional sem conexão com o argumento brasileiro',
+    elementoFoco: 'exemplo',
+    trecho: 'A concentração bancária no Brasil prejudica a concorrência. Na Suíça, o turismo de neve é uma importante fonte de receita.',
+    diagnosticos: ['Exemplo internacional sem nenhuma relação com o argumento apresentado','Tópico frasal ausente','Tese sem dois eixos','Conclusão sem proposta'],
+    diagnosticoCorreto: 'Exemplo internacional sem nenhuma relação com o argumento apresentado',
+    explicacao: 'O turismo de neve na Suíça não tem nenhuma relação com concentração bancária ou concorrência financeira — é um exemplo internacional real, mas completamente fora do contexto do argumento.',
+    versaoCorrigida: 'A concentração bancária no Brasil prejudica a concorrência. Em contraste, o sistema bancário australiano, mais fragmentado entre cooperativas regionais, apresenta spreads bancários mais competitivos.',
+    dica: 'Um exemplo internacional só funciona como Comparação se tiver relação direta com o MESMO problema discutido sobre o Brasil — não basta ser um fato real sobre outro país.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta de intervenção em local errado da redação',
+    elementoFoco: 'topico_frasal',
+    trecho: 'O Banco Central deve ampliar a fiscalização sobre fraudes digitais, a fim de proteger os consumidores. Isso porque a digitalização bancária trouxe novos riscos de segurança.',
+    diagnosticos: ['Proposta de intervenção colocada no início do parágrafo de desenvolvimento, no lugar do tópico frasal','Exemplo sem fonte','Tese com um eixo só','Conclusão sem retomada'],
+    diagnosticoCorreto: 'Proposta de intervenção colocada no início do parágrafo de desenvolvimento, no lugar do tópico frasal',
+    explicacao: 'A proposta de intervenção pertence à conclusão da redação, não ao início de um parágrafo de desenvolvimento. Aqui ela substitui o tópico frasal, que deveria apenas afirmar o argumento do eixo, sem ainda propor solução.',
+    versaoCorrigida: 'A digitalização bancária trouxe novos riscos de segurança que ainda não são plenamente endereçados pelos mecanismos atuais de fiscalização.',
+    dica: 'Proposta de intervenção é exclusiva da conclusão (§4). Se você está escrevendo o §2 ou §3 e já sente vontade de "resolver o problema", pare — isso é antecipação que quebra a estrutura da redação.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Analogia sem fechamento explicativo',
+    elementoFoco: 'explicacao',
+    trecho: 'Assim como uma ponte conecta duas margens de um rio, a tecnologia conecta pessoas.',
+    diagnosticos: ['Analogia genérica demais, sem conexão específica com o argumento da redação','Exemplo sem fonte','Tese sem dois eixos','Conclusão com argumento novo'],
+    diagnosticoCorreto: 'Analogia genérica demais, sem conexão específica com o argumento da redação',
+    explicacao: '"Tecnologia conecta pessoas" é tão genérico que poderia se aplicar a qualquer tema de tecnologia, sem nenhuma especificidade sobre o argumento real da redação (qual tecnologia? conecta para quê, especificamente?).',
+    versaoCorrigida: 'Assim como uma ponte conecta margens antes isoladas por um rio, a telemedicina conecta pacientes de regiões remotas a especialistas que antes eram inacessíveis pela distância geográfica.',
+    dica: 'Toda analogia precisa terminar amarrando especificamente ao argumento da sua redação — não pode ficar só na comparação genérica, sem nomear o elemento concreto do seu tema.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tópico frasal que mistura dois eixos',
+    elementoFoco: 'topico_frasal',
+    trecho: 'A falta de infraestrutura digital e também a ausência de educação financeira são dois problemas centrais que afetam a inclusão bancária no Brasil.',
+    diagnosticos: ['Tópico frasal misturando os dois eixos da tese no mesmo parágrafo','Exemplo sem fonte','Conclusão sem proposta','Conectivo de adição mal empregado'],
+    diagnosticoCorreto: 'Tópico frasal misturando os dois eixos da tese no mesmo parágrafo',
+    explicacao: 'Cada parágrafo de desenvolvimento deve tratar de UM eixo por vez. Misturar os dois eixos no mesmo tópico frasal sobrecarrega o parágrafo e impede o desenvolvimento adequado de cada argumento separadamente.',
+    versaoCorrigida: 'A falta de infraestrutura digital em regiões remotas é um dos principais obstáculos à inclusão bancária no Brasil.',
+    dica: 'Se seu tópico frasal usa "e também" para juntar dois argumentos diferentes, separe-os: um vai para o §2, o outro para o §3 — cada eixo merece seu próprio espaço de desenvolvimento.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conclusão que usa primeira pessoa',
+    elementoFoco: 'conclusao',
+    trecho: 'Eu acredito que a inclusão financeira no Brasil ainda precisa avançar muito nos próximos anos.',
+    diagnosticos: ['Uso inadequado da primeira pessoa em redação formal de concurso','Conclusão sem retomada de eixos','Proposta sem agente','Exemplo sem fonte'],
+    diagnosticoCorreto: 'Uso inadequado da primeira pessoa em redação formal de concurso',
+    explicacao: '"Eu acredito" é uma marca de subjetividade pessoal inadequada para o registro formal e impessoal exigido em redações dissertativo-argumentativas de concurso — a posição do autor deve ser expressa de forma impessoal.',
+    versaoCorrigida: 'Diante do exposto, depreende-se que a inclusão financeira no Brasil ainda demanda avanços significativos nos próximos anos.',
+    dica: 'Evite "eu penso", "eu acredito" e "na minha opinião" em qualquer parte da redação formal — substitua por construções impessoais como "conclui-se que", "depreende-se que", "é possível afirmar que".'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Exemplo com número exagerado e implausível',
+    elementoFoco: 'exemplo',
+    trecho: 'Segundo dados recentes, 99,9% dos brasileiros nunca usaram nenhum serviço bancário digital.',
+    diagnosticos: ['Dado implausível e exagerado, prejudicando a credibilidade do argumento','Tópico frasal ausente','Tese sem dois eixos','Conclusão com argumento novo'],
+    diagnosticoCorreto: 'Dado implausível e exagerado, prejudicando a credibilidade do argumento',
+    explicacao: 'Um número como 99,9% é estatisticamente implausível dado o alcance conhecido do Pix e de outros serviços bancários digitais no Brasil — um corretor reconheceria isso como exagero, prejudicando a credibilidade de todo o argumento.',
+    versaoCorrigida: 'Segundo dados do Banco Central, ainda há parcela significativa da população, sobretudo em regiões remotas, sem acesso regular a serviços bancários digitais.',
+    dica: 'Quando não tiver certeza do número exato, prefira expressões qualitativas seguras ("parcela significativa", "grande parte") em vez de inventar uma porcentagem extrema que pode parecer implausível ao corretor.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Conclusão com conectivo de oposição mal empregado',
+    elementoFoco: 'conclusao',
+    trecho: 'Entretanto, conclui-se que a inclusão financeira depende tanto de infraestrutura quanto de educação digital.',
+    diagnosticos: ['Conectivo de oposição usado para introduzir uma conclusão que não se opõe a nada','Conclusão sem retomada de tese','Proposta sem finalidade','Exemplo sem fonte'],
+    diagnosticoCorreto: 'Conectivo de oposição usado para introduzir uma conclusão que não se opõe a nada',
+    explicacao: '"Entretanto" sinaliza uma oposição ao que foi dito antes, mas a conclusão que segue apenas sintetiza o argumento — não há nenhuma ideia contrária sendo introduzida. O conectivo correto seria de conclusão, não de oposição.',
+    versaoCorrigida: 'Diante do exposto, conclui-se que a inclusão financeira depende tanto de infraestrutura quanto de educação digital.',
+    dica: '"Entretanto", "contudo" e "todavia" só devem abrir uma frase que realmente contradiz ou limita a anterior. Para fechar o raciocínio sem oposição, use "diante do exposto", "portanto" ou "assim".'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tese que descreve em vez de posicionar',
+    elementoFoco: 'tese',
+    trecho: 'O Open Finance permite o compartilhamento de dados financeiros entre instituições autorizadas pelo Banco Central.',
+    diagnosticos: ['Frase meramente descritiva/informativa, sem posicionamento argumentativo','Tema específico ausente','Exemplo sem fonte','Proposta de intervenção ausente'],
+    diagnosticoCorreto: 'Frase meramente descritiva/informativa, sem posicionamento argumentativo',
+    explicacao: 'Essa frase apenas explica o QUE é o Open Finance, função de uma definição ou contextualização técnica — não assume nenhuma posição sobre desafios, benefícios ou necessidades, que é o papel da tese.',
+    versaoCorrigida: 'A consolidação do Open Finance depende tanto da ampliação da adesão de pequenas instituições quanto do fortalecimento de garantias de proteção de dados ao consumidor.',
+    dica: 'Teste sua tese: ela está DEFININDO o que algo é, ou DEFENDENDO uma posição sobre o que precisa acontecer? Se só define, falta o componente argumentativo essencial.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta repetida em dois parágrafos diferentes',
+    elementoFoco: 'proposta',
+    trecho: 'O Banco Central deve ampliar a fiscalização sobre fraudes financeiras, a fim de proteger os consumidores. [parágrafo anterior já trazia exatamente esta mesma proposta]',
+    diagnosticos: ['Proposta repetida sem complementar nem aprofundar uma proposta já apresentada','Agente sem poder institucional','Exemplo sem fonte','Tese sem dois eixos'],
+    diagnosticoCorreto: 'Proposta repetida sem complementar nem aprofundar uma proposta já apresentada',
+    explicacao: 'Se a mesma proposta (ampliar fiscalização) já apareceu antes na redação, repeti-la na conclusão sem adicionar nenhum detalhe novo (meio mais específico, novo agente complementar) é redundante e desperdiça o espaço da conclusão.',
+    versaoCorrigida: 'O Banco Central, em parceria com o Ministério Público, deve criar um canal unificado de denúncias de fraudes financeiras, a fim de agilizar a resposta institucional a esse tipo de crime.',
+    dica: 'Se sua proposta de conclusão repete algo já dito no desenvolvimento, adicione um elemento novo — um meio mais específico, um agente complementar, ou amplie o escopo da ação original.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Explicação que generaliza demais',
+    elementoFoco: 'explicacao',
+    trecho: 'A automação reduz empregos porque a tecnologia sempre prejudica os trabalhadores em todas as situações.',
+    diagnosticos: ['Generalização absoluta e historicamente incorreta sobre tecnologia e trabalho','Exemplo sem fonte','Tópico frasal ausente','Conectivo de finalidade ausente'],
+    diagnosticoCorreto: 'Generalização absoluta e historicamente incorreta sobre tecnologia e trabalho',
+    explicacao: '"A tecnologia sempre prejudica os trabalhadores em todas as situações" é uma generalização absoluta e factualmente questionável — historicamente, a tecnologia também criou novos empregos e setores. Generalizações absolutas fragilizam o argumento.',
+    versaoCorrigida: 'A automação reduz empregos em setores específicos porque tarefas repetitivas e previsíveis tornam-se mais eficientes quando executadas por sistemas automatizados.',
+    dica: 'Evite "sempre", "nunca", "todos" e "em todas as situações" em argumentos — esses absolutos são fáceis de contestar e fragilizam a credibilidade do seu raciocínio diante de um corretor crítico.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Proposta sem nenhuma relação com o tema discutido',
+    elementoFoco: 'proposta',
+    trecho: 'O Ministério da Saúde deve ampliar campanhas de vacinação infantil, a fim de reduzir a exclusão financeira bancária.',
+    diagnosticos: ['Proposta totalmente desconectada do problema discutido na redação','Agente genérico','Ação sem verbo concreto','Finalidade ausente'],
+    diagnosticoCorreto: 'Proposta totalmente desconectada do problema discutido na redação',
+    explicacao: 'Campanhas de vacinação infantil não têm nenhuma relação lógica com a redução de exclusão financeira bancária — a proposta parece ter sido copiada de outro tema e inserida por engano nessa redação.',
+    versaoCorrigida: 'O Banco Central deve ampliar os programas de correspondentes bancários em regiões remotas, a fim de reduzir a exclusão financeira da população rural.',
+    dica: 'Sempre releia sua proposta perguntando: "essa ação resolve, de fato, o problema específico discutido nesta redação?" Propostas genéricas reaproveitadas de outros temas raramente se encaixam de forma coerente.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tese com linguagem coloquial inadequada',
+    elementoFoco: 'tese',
+    trecho: 'O Open Finance é tipo uma revolução que vai mudar muito a vida das pessoas com o dinheiro.',
+    diagnosticos: ['Linguagem coloquial inadequada ao registro formal exigido pela redação de concurso','Tese sem dois eixos','Exemplo sem fonte','Conclusão com argumento novo'],
+    diagnosticoCorreto: 'Linguagem coloquial inadequada ao registro formal exigido pela redação de concurso',
+    explicacao: '"É tipo uma revolução" e "vai mudar muito a vida das pessoas com o dinheiro" usam expressões coloquiais ("tipo", "muito") inadequadas ao registro formal e técnico esperado em redações de concursos bancários.',
+    versaoCorrigida: 'A consolidação do Open Finance representa uma transformação significativa na relação dos cidadãos com seus dados e serviços financeiros.',
+    dica: 'Releia sua tese em voz alta: ela soaria adequada em um documento institucional formal? Se tiver gírias, intensificadores informais ("muito", "tipo") ou comparações vagas, reformule com vocabulário mais técnico.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Exemplo datado e desatualizado',
+    elementoFoco: 'exemplo',
+    trecho: 'Segundo dados de 2010, o acesso a serviços bancários digitais no Brasil ainda era extremamente limitado.',
+    diagnosticos: ['Dado desatualizado, inadequado para sustentar um argumento sobre o cenário atual','Tópico frasal ausente','Tese sem dois eixos','Conclusão sem proposta'],
+    diagnosticoCorreto: 'Dado desatualizado, inadequado para sustentar um argumento sobre o cenário atual',
+    explicacao: 'Um dado de 2010 não reflete a realidade atual do acesso bancário digital no Brasil, especialmente após a expansão do Pix e das fintechs na última década — usar esse dado pode dar uma impressão desatualizada e incorreta do cenário.',
+    versaoCorrigida: 'Segundo dados recentes do Banco Central, o acesso a serviços bancários digitais no Brasil expandiu-se significativamente na última década, embora desigualdades regionais persistam.',
+    dica: 'Prefira dados dos últimos 3-5 anos sempre que possível, especialmente em temas de tecnologia que mudam rapidamente — dados antigos podem prejudicar a atualidade e relevância do seu argumento.'
+  },
+  {
+    tipo: 'corrigir_erro',
+    tema: 'Tópico frasal idêntico ao da introdução',
+    elementoFoco: 'topico_frasal',
+    trecho: 'A inclusão financeira no Brasil depende tanto da infraestrutura digital quanto da educação financeira, como já apresentado.',
+    diagnosticos: ['Tópico frasal copiando a tese, sem afirmar um eixo específico do parágrafo','Exemplo sem fonte','Conclusão sem proposta','Conectivo de causa ausente'],
+    diagnosticoCorreto: 'Tópico frasal copiando a tese, sem afirmar um eixo específico do parágrafo',
+    explicacao: 'O tópico frasal deveria afirmar APENAS o eixo que será desenvolvido naquele parágrafo específico — repetir os dois eixos da tese ("como já apresentado") é redundante e não direciona o parágrafo para um argumento único e desenvolvível.',
+    versaoCorrigida: 'A ausência de infraestrutura digital adequada em regiões remotas é um dos principais obstáculos à inclusão financeira plena no Brasil.',
+    dica: 'O tópico frasal de cada parágrafo deve focar em APENAS um dos dois eixos da tese — se ele menciona os dois, está fazendo o trabalho da tese de novo, não abrindo um argumento específico.'
+  },
 ];
 
 // ── Estado ──
@@ -4261,7 +5280,6 @@ function fcRegistrarResposta(card, acertou){
 function fcInit(){
   fcFiltrar();
   fcTentarBaixarStatsDaNuvem();
-  fcAtualizarResumoStats();
 }
 
 async function fcTentarBaixarStatsDaNuvem(){
@@ -4272,9 +5290,60 @@ async function fcTentarBaixarStatsDaNuvem(){
       const local = fcCarregarStats();
       if(!local.ultimaSessao || remoto.ultimaSessao > local.ultimaSessao){
         localStorage.setItem(FC_STATS_KEY, JSON.stringify(remoto));
+        fcAtualizarResumoStats(); // re-renderiza com os dados recém-chegados, sem precisar recarregar a página
       }
     }
   }catch(e){ /* silencioso — sync é best-effort */ }
+}
+
+// Botão manual de sincronização na própria aba de Flashcards — baixa o que houver de mais novo
+// na nuvem e, em seguida, sobe o estado local atualizado, sem precisar trocar de aba nem recarregar a página.
+async function fcSincronizarAgora(){
+  const btn = document.getElementById('btn-fc-sync');
+  const status = document.getElementById('fc-sync-status');
+  const code = getSyncCode();
+
+  if(!code){
+    status.textContent = '⚠️ Nenhum código de sincronização configurado. Configure em Treino → ☁️ Sincronizar dispositivos.';
+    status.style.color = 'var(--verm)';
+    return;
+  }
+
+  const textoOriginal = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = '☁️ Sincronizando...';
+  status.style.color = 'var(--muted)';
+  status.textContent = 'Buscando progresso mais recente na nuvem...';
+
+  try{
+    const remoto = await syncDownloadKey(FC_STATS_KEY);
+    const local = fcCarregarStats();
+    let atualizouDaNuvem = false;
+
+    if(remoto && remoto.ultimaSessao && (!local.ultimaSessao || remoto.ultimaSessao > local.ultimaSessao)){
+      localStorage.setItem(FC_STATS_KEY, JSON.stringify(remoto));
+      atualizouDaNuvem = true;
+    }
+
+    // Sempre envia o estado atual (após eventual atualização) de volta para a nuvem,
+    // garantindo que outros dispositivos também vejam o progresso mais recente.
+    const statsFinal = fcCarregarStats();
+    await syncUpload(FC_STATS_KEY, statsFinal);
+
+    fcAtualizarResumoStats();
+
+    const agora = new Date().toLocaleTimeString('pt-BR');
+    status.style.color = 'var(--verde)';
+    status.textContent = atualizouDaNuvem
+      ? `✓ Progresso atualizado da nuvem e sincronizado às ${agora}.`
+      : `✓ Sincronizado às ${agora} — nenhum progresso mais novo encontrado na nuvem.`;
+  }catch(e){
+    status.style.color = 'var(--verm)';
+    status.textContent = '⚠️ Falha ao sincronizar: ' + e.message;
+  }finally{
+    btn.disabled = false;
+    btn.textContent = textoOriginal;
+  }
 }
 
 function fcFiltrar(){
