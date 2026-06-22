@@ -739,6 +739,9 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
         </select>
         <div style="font-family:var(--mono);font-size:10px;color:var(--muted);" id="fc-progresso">— / —</div>
         <button class="btn btn-ghost" id="btn-fc-sync" onclick="fcSincronizarAgora()" style="font-size:10px;border-color:rgba(74,144,217,0.4);color:#4a90d9;">☁️ Sincronizar</button>
+        <button class="btn btn-ghost" onclick="fcExportarProgresso()" style="font-size:10px;border-color:rgba(61,184,138,0.4);color:var(--verde);">⬇️ Exportar</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('fc-import-input').click()" style="font-size:10px;border-color:rgba(200,153,42,0.4);color:var(--ouro);">⬆️ Importar</button>
+        <input type="file" id="fc-import-input" accept="application/json" style="display:none;" onchange="fcImportarProgresso(event)"/>
         <button class="btn btn-ghost" onclick="fcEmbaralhar()" style="font-size:10px;">🔀 Embaralhar</button>
         <button class="btn btn-ghost" onclick="fcReiniciar()" style="font-size:10px;color:var(--verm);">↺ Reiniciar</button>
       </div>
@@ -753,7 +756,6 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
       <span style="color:var(--muted);margin-left:auto;" id="fc-stats-resumo"></span>
     </div>
     <div id="fc-sync-status" style="font-size:9px;font-family:var(--mono);color:var(--muted);margin-top:4px;"></div>
-    </div>
   </div>
 
   <!-- Card do flashcard atual -->
@@ -5227,6 +5229,23 @@ const FC_BANCO = [
   },
 ];
 
+// ── Gera um ID estável por card (hash simples baseado em tipo+tema+conteúdo) ──
+// Garante que o mesmo card sempre receba o mesmo ID entre sessões/dispositivos,
+// mesmo que a ordem do array mude com futuras edições do banco.
+function fcHashSimples(str){
+  let h = 0;
+  for(let i=0;i<str.length;i++){
+    h = ((h<<5) - h + str.charCodeAt(i))|0;
+  }
+  return (h>>>0).toString(36);
+}
+function fcGerarIdCard(card){
+  const tipo = card.tipo || 'identificacao';
+  const conteudo = card.trecho || card.consigna || (card.partes ? card.partes.map(p=>p.texto).join('|') : '');
+  return tipo + '_' + fcHashSimples((card.tema||'') + '::' + conteudo);
+}
+FC_BANCO.forEach(c => { c.id = fcGerarIdCard(c); });
+
 // ── Estado ──
 let fcDeck = [];
 let fcIndice = 0;
@@ -5236,13 +5255,15 @@ let fcRespondido = false;
 let fcFiltroAtual = 'todos';
 const FC_STATS_KEY = 'treino_flashcards_stats';
 
-// Estrutura persistida: { porElemento: {elemento: {vistos, acertos}}, porTipo: {identificacao:{vistos,acertos}, completar:{vistos,acertos}}, geral:{vistos,acertos}, ultimaSessao: iso }
+// Estrutura persistida: { porElemento: {elemento: {vistos, acertos}}, porTipo: {identificacao:{vistos,acertos}, completar:{vistos,acertos}}, porCard: {cardId: {vistos, acertos, ultimaVez}}, geral:{vistos, acertos}, ultimaSessao: iso }
 function fcCarregarStats(){
   try{
     const raw = localStorage.getItem(FC_STATS_KEY);
-    if(!raw) return {porElemento:{}, porTipo:{}, geral:{vistos:0,acertos:0}, ultimaSessao:null};
-    return JSON.parse(raw);
-  }catch(e){ return {porElemento:{}, porTipo:{}, geral:{vistos:0,acertos:0}, ultimaSessao:null}; }
+    if(!raw) return {porElemento:{}, porTipo:{}, porCard:{}, geral:{vistos:0,acertos:0}, ultimaSessao:null};
+    const parsed = JSON.parse(raw);
+    if(!parsed.porCard) parsed.porCard = {}; // retrocompatibilidade com stats salvas antes desta função existir
+    return parsed;
+  }catch(e){ return {porElemento:{}, porTipo:{}, porCard:{}, geral:{vistos:0,acertos:0}, ultimaSessao:null}; }
 }
 
 function fcSalvarStats(stats){
@@ -5269,6 +5290,13 @@ function fcRegistrarResposta(card, acertou){
   if(!stats.porTipo[tipo]) stats.porTipo[tipo] = {vistos:0, acertos:0};
   stats.porTipo[tipo].vistos++;
   if(acertou) stats.porTipo[tipo].acertos++;
+
+  if(!stats.porCard) stats.porCard = {};
+  const cardId = card.id || fcGerarIdCard(card);
+  if(!stats.porCard[cardId]) stats.porCard[cardId] = {vistos:0, acertos:0, ultimaVez:null};
+  stats.porCard[cardId].vistos++;
+  if(acertou) stats.porCard[cardId].acertos++;
+  stats.porCard[cardId].ultimaVez = new Date().toISOString();
 
   stats.geral.vistos++;
   if(acertou) stats.geral.acertos++;
@@ -5331,6 +5359,7 @@ async function fcSincronizarAgora(){
     await syncUpload(FC_STATS_KEY, statsFinal);
 
     fcAtualizarResumoStats();
+    fcRenderizar(); // reexibe o card atual para que o selo "já feito" reflita o progresso recém-sincronizado
 
     const agora = new Date().toLocaleTimeString('pt-BR');
     status.style.color = 'var(--verde)';
@@ -5344,6 +5373,88 @@ async function fcSincronizarAgora(){
     btn.disabled = false;
     btn.textContent = textoOriginal;
   }
+}
+
+// ── Exportar/Importar progresso como arquivo .json local ──
+// Útil como alternativa/complemento ao código de sincronização: permite levar o progresso
+// para outro dispositivo manualmente, ou guardar uma cópia de segurança fora do navegador.
+function fcExportarProgresso(){
+  const status = document.getElementById('fc-sync-status');
+  try{
+    const stats = fcCarregarStats();
+    const payload = {
+      tipo: 'flashcards_redacao_progresso',
+      versao: 1,
+      exportadoEm: new Date().toISOString(),
+      stats: stats
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const dataFormatada = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = `flashcards-progresso-${dataFormatada}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    status.style.color = 'var(--verde)';
+    status.textContent = '✓ Progresso exportado — arquivo baixado para o seu dispositivo.';
+  }catch(e){
+    status.style.color = 'var(--verm)';
+    status.textContent = '⚠️ Falha ao exportar: ' + e.message;
+  }
+}
+
+function fcImportarProgresso(event){
+  const status = document.getElementById('fc-sync-status');
+  const arquivo = event.target.files[0];
+  if(!arquivo) return;
+
+  const leitor = new FileReader();
+  leitor.onload = function(e){
+    try{
+      const payload = JSON.parse(e.target.result);
+      const statsImportadas = payload && payload.stats ? payload.stats : payload; // aceita tanto o formato com envelope quanto o stats puro
+
+      if(!statsImportadas || typeof statsImportadas !== 'object' || !('geral' in statsImportadas)){
+        throw new Error('Arquivo não parece ser um progresso de flashcards válido.');
+      }
+
+      const local = fcCarregarStats();
+      const localMaisNovo = local.ultimaSessao && statsImportadas.ultimaSessao && local.ultimaSessao > statsImportadas.ultimaSessao;
+
+      if(localMaisNovo){
+        const confirmar = confirm('O progresso salvo neste dispositivo parece mais recente que o do arquivo importado.\n\nImportar mesmo assim vai SOBRESCREVER o progresso local. Continuar?');
+        if(!confirmar){
+          status.style.color = 'var(--ouro)';
+          status.textContent = '⚠️ Importação cancelada — o progresso local foi mantido.';
+          event.target.value = '';
+          return;
+        }
+      }
+
+      if(!statsImportadas.porCard) statsImportadas.porCard = {};
+      localStorage.setItem(FC_STATS_KEY, JSON.stringify(statsImportadas));
+      syncUpload(FC_STATS_KEY, statsImportadas); // também sobe para a nuvem, se houver código configurado
+
+      fcAtualizarResumoStats();
+      fcRenderizar();
+
+      status.style.color = 'var(--verde)';
+      status.textContent = `✓ Progresso importado com sucesso (${Object.keys(statsImportadas.porCard).length} cards no histórico).`;
+    }catch(err){
+      status.style.color = 'var(--verm)';
+      status.textContent = '⚠️ Falha ao importar: ' + err.message;
+    }
+    event.target.value = ''; // permite importar o mesmo arquivo de novo, se necessário
+  };
+  leitor.onerror = function(){
+    status.style.color = 'var(--verm)';
+    status.textContent = '⚠️ Não foi possível ler o arquivo selecionado.';
+  };
+  leitor.readAsText(arquivo);
 }
 
 function fcFiltrar(){
@@ -5385,7 +5496,8 @@ function fcAtualizarResumoStats(){
     return;
   }
   const pct = Math.round((stats.geral.acertos/stats.geral.vistos)*100);
-  el.textContent = `📊 Histórico total: ${stats.geral.acertos}/${stats.geral.vistos} (${pct}%)`;
+  const cardsFeitos = stats.porCard ? Object.keys(stats.porCard).length : 0;
+  el.textContent = `📊 Histórico total: ${stats.geral.acertos}/${stats.geral.vistos} respostas (${pct}%)  ·  ${cardsFeitos}/${FC_BANCO.length} cards já vistos`;
 }
 
 function fcEmbaralhar(){
@@ -5434,6 +5546,27 @@ function fcRenderizar(){
   else if(tipo === 'corrigir_erro') fcRenderizarCorrigirErro(card);
   else if(tipo === 'producao_curta') fcRenderizarProducaoCurta(card);
   else fcRenderizarIdentificacao(card);
+
+  fcAplicarMarcaJaFeito(card); // roda depois do render específico, pois ele sobrescreve o conteúdo de fc-label-tema
+}
+
+// Adiciona um selo "✓ Já feito" ao lado do label de tema quando o card já foi respondido alguma vez.
+// Não impede nem pula o card — apenas avisa visualmente, como pedido: o aluno decide se quer revisar de novo.
+function fcAplicarMarcaJaFeito(card){
+  const stats = fcCarregarStats();
+  const cardId = card.id || fcGerarIdCard(card);
+  const registro = stats.porCard && stats.porCard[cardId];
+  const labelEl = document.getElementById('fc-label-tema');
+  if(!labelEl) return;
+
+  if(registro && registro.vistos > 0){
+    const sempreAcertou = registro.acertos === registro.vistos;
+    const corSelo = sempreAcertou ? 'var(--verde)' : 'var(--ouro)';
+    const textoSelo = sempreAcertou
+      ? `✓ Já feito (${registro.vistos}x — sempre acertou)`
+      : `✓ Já feito (${registro.acertos}/${registro.vistos} acertos)`;
+    labelEl.innerHTML += ` <span style="color:${corSelo};font-weight:600;margin-left:8px;">${textoSelo}</span>`;
+  }
 }
 
 function fcRenderizarIdentificacao(card){
