@@ -215,20 +215,24 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
   <!-- T — TESE -->
   <div class="card">
     <div class="card-titulo">T — TESE <span style="font-weight:400;color:var(--muted)">Quais são os 2 eixos de discussão?</span></div>
-    <div class="chips" id="chips-tese" style="margin-bottom:10px;"></div>
+    <div style="font-size:10px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;">① ESCOLHA UM PAR DE EIXOS (conteúdo)</div>
+    <div class="chips" id="chips-tese" style="margin-bottom:14px;"></div>
     <div style="display:flex;gap:10px;">
       <div class="field" style="flex:1;">
         <label>Eixo 1</label>
-        <input type="text" id="fttd-eixo1" placeholder="Ex: Eficiência operacional"/>
+        <input type="text" id="fttd-eixo1" placeholder="Ex: Eficiência operacional" oninput="fttdMontarTeseFinal()"/>
       </div>
       <div class="field" style="flex:1;">
         <label>Eixo 2</label>
-        <input type="text" id="fttd-eixo2" placeholder="Ex: Inclusão digital"/>
+        <input type="text" id="fttd-eixo2" placeholder="Ex: Inclusão digital" oninput="fttdMontarTeseFinal()"/>
       </div>
     </div>
+    <div style="font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:14px;margin-bottom:6px;">② ESCOLHA A FÓRMULA DA FRASE (estrutura) <span style="color:var(--ouro);">— veja o % de versatilidade em cada uma</span></div>
+    <div class="chips" id="chips-formula-tese" style="margin-bottom:6px;"></div>
+    <div id="formula-tese-explicacao" style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px;min-height:16px;"></div>
     <div class="field">
       <label>Frase da tese (gerada automaticamente)</label>
-      <textarea id="fttd-tese-frase" rows="3" placeholder="Será gerada ao preencher os eixos..."></textarea>
+      <textarea id="fttd-tese-frase" rows="3" placeholder="Será gerada ao escolher eixos + fórmula..."></textarea>
     </div>
   </div>
 
@@ -946,6 +950,209 @@ const MODELOS_TESE = [
   'Praticidade × Vulnerabilidade','Acesso × Desigualdade','Transparência × Privacidade',
 ];
 
+// ── Fórmulas de frase para a tese (estrutura sintática, independente dos eixos escolhidos) ──
+// versatilidade: % aproximado de temas dissertativo-argumentativos em que a fórmula encaixa bem
+// sem soar forçada. Quanto maior, mais "segura" — funciona em quase qualquer tema, mas tende a
+// ser mais neutra. Fórmulas com versatilidade menor exigem um tema com um encaixe lógico mais
+// específico (ex: pré-requisito, condição), mas quando encaixam, soam mais sofisticadas.
+
+// Remove artigo inicial (a/o/as/os) do eixo digitado pelo usuário, já que os templates de frase
+// inserem o conectivo + artigo necessário antes do eixo — evita duplicação tipo "de a expansão".
+function fttdLimparArtigo(texto){
+  return (texto||'').replace(/^(a|o|as|os)\s+/i, '').trim();
+}
+
+// Baixa apenas a primeira letra de uma frase, preservando nomes próprios no meio
+// (ex: "O Brasil" → "o Brasil", mantendo "Brasil" com inicial maiúscula).
+function fttdMinusculaInicial(texto){
+  if(!texto) return texto;
+  return texto.charAt(0).toLowerCase() + texto.slice(1);
+}
+
+const FORMULAS_TESE = [
+  {
+    nome: 'Tanto X quanto Y',
+    versatilidade: 95,
+    template: (tema,e1,e2) => `${tema} depende tanto de ${fttdLimparArtigo(e1).toLowerCase()} quanto de ${fttdLimparArtigo(e2).toLowerCase()}.`,
+    explicacao: 'A fórmula mais segura e versátil. Apresenta os dois eixos em pé de igualdade, sem hierarquia entre eles — funciona bem quando os dois fatores têm peso semelhante no problema.',
+  },
+  {
+    nome: 'Não apenas X, mas também Y',
+    versatilidade: 90,
+    template: (tema,e1,e2) => `${tema} não depende apenas de ${fttdLimparArtigo(e1).toLowerCase()}, mas também de ${fttdLimparArtigo(e2).toLowerCase()}.`,
+    explicacao: 'Quase tão versátil quanto "tanto...quanto", mas sugere uma leve hierarquia: o primeiro eixo é o que normalmente se pensa primeiro, e o segundo amplia essa visão. Boa para temas em que um fator é mais "óbvio" que o outro.',
+  },
+  {
+    nome: 'Se por um lado X, por outro Y',
+    versatilidade: 85,
+    template: (tema,e1,e2) => `${tema} apresenta, se por um lado, avanços relacionados a ${fttdLimparArtigo(e1).toLowerCase()}; por outro, desafios ligados a ${fttdLimparArtigo(e2).toLowerCase()}.`,
+    explicacao: 'Boa quando os dois eixos têm uma relação de tensão ou contraste real entre si (ex: benefício × risco), não quando são simplesmente complementares.',
+  },
+  {
+    nome: 'Embora X, é necessário Y',
+    versatilidade: 80,
+    template: (tema,e1,e2) => `Embora ${fttdMinusculaInicial(tema)} represente avanço em termos de ${fttdLimparArtigo(e1).toLowerCase()}, é necessário também atentar para ${fttdLimparArtigo(e2).toLowerCase()} para que esse avanço se sustente.`,
+    explicacao: 'Estrutura concessiva: reconhece um progresso real e qualifica com uma condição necessária. Funciona muito bem quando o segundo eixo é literalmente uma condição de sucesso do primeiro — não force se os dois eixos forem independentes.',
+  },
+  {
+    nome: 'Para que X funcione, é necessário Y',
+    versatilidade: 65,
+    template: (tema,e1,e2) => `Para que ${fttdMinusculaInicial(tema)} funcione plenamente, é necessário ${fttdLimparArtigo(e2).toLowerCase()}, já que ${fttdLimparArtigo(e1).toLowerCase()} isoladamente não garante esse resultado.`,
+    explicacao: 'Fórmula de pré-requisito / condição: o primeiro eixo é a ação ou avanço principal, e o segundo é o que falta para ele dar certo de verdade. Funciona muito bem em temas de política pública, tecnologia e infraestrutura — mas exige que exista mesmo essa relação de dependência entre os eixos (não force em temas onde os dois fatores são apenas paralelos, sem um depender do outro).',
+  },
+  {
+    nome: 'A superação de X exige Y',
+    versatilidade: 75,
+    template: (tema,e1,e2) => `A superação dos desafios ligados a ${fttdMinusculaInicial(fttdLimparArtigo(tema))} exige tanto ${fttdLimparArtigo(e1).toLowerCase()} quanto ${fttdLimparArtigo(e2).toLowerCase()}.`,
+    explicacao: 'Boa para temas que já são apresentados como "problema" desde a contextualização — funciona menos bem se o tema for mais neutro ou já equilibrado.',
+  },
+  {
+    nome: 'X é condição para Y',
+    versatilidade: 55,
+    template: (tema,e1,e2) => `${e1} é condição indispensável para que ${fttdMinusculaInicial(tema)} resulte, de fato, em ${fttdLimparArtigo(e2).toLowerCase()}.`,
+    explicacao: 'Estrutura mais assertiva e específica — afirma uma relação causal direta entre os eixos. Poderosa quando você tem certeza dessa relação de dependência, mas arriscada se a relação entre os dois eixos for mais frouxa, porque o corretor pode discordar da causalidade afirmada.',
+  },
+];
+
+// ══════════════════════════════════════════════════════════════
+// FORMULAS_TEEC — banco de fórmulas de frase para os 4 elementos do
+// parágrafo de desenvolvimento (Tópico Frasal · Explicação · Exemplo/Dado · Consequência).
+// Mesma lógica das FORMULAS_TESE: cada fórmula tem um % de versatilidade (quão bem encaixa
+// na maioria dos temas sem soar forçada) e uma função template que monta a frase a partir
+// do eixo (sempre disponível) e, quando fizer sentido, de um complemento extra (ex: a causa
+// na Explicação, ou a fonte/dado no Exemplo).
+// ══════════════════════════════════════════════════════════════
+// Coloca a primeira letra em maiúscula, preservando o resto do texto como está
+// (inverso de fttdMinusculaInicial — útil para abrir frase com o eixo capitalizado).
+function fttdMaiusculaInicial(texto){
+  if(!texto) return texto;
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
+// Contrai a preposição "de" com o artigo inicial de um nome próprio/fonte, evitando erros
+// do tipo "Pesquisa de o Banco Central" → corrige para "Pesquisa do Banco Central".
+// Cobre os 4 artigos (o/a/os/as) e devolve o texto sem alterar se não houver artigo.
+function fttdContrairDe(texto){
+  if(!texto) return texto;
+  const m = texto.match(/^(o|a|os|as)\s+(.+)/i);
+  if(!m) return 'de ' + texto;
+  const artigo = m[1].toLowerCase();
+  const resto = m[2];
+  const contracao = {o:'do', a:'da', os:'dos', as:'das'}[artigo];
+  return contracao + ' ' + resto;
+}
+
+const FORMULAS_TEEC = {
+
+  topico: [
+    {
+      nome: 'X é um dos principais fatores',
+      versatilidade: 95,
+      template: (eixo) => `${fttdMaiusculaInicial(fttdMinusculaInicial(fttdLimparArtigo(eixo)))} é um dos principais fatores que explicam o problema discutido.`,
+      explicacao: 'Abertura segura e genérica — funciona para praticamente qualquer eixo, mas é a mais neutra das opções.',
+    },
+    {
+      nome: 'A ausência/presença de X compromete Y',
+      versatilidade: 85,
+      template: (eixo) => `A ausência de ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} compromete diretamente a superação do problema discutido.`,
+      explicacao: 'Forte quando o eixo é algo que falta (ex: "falta de regulação", "ausência de educação financeira"). Se o eixo já é algo positivo que existe, troque para a variação "presença de".',
+    },
+    {
+      nome: 'X emerge como vetor de mudança',
+      versatilidade: 75,
+      template: (eixo) => `A promoção de ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} emerge como vetor essencial de transformação nesse cenário.`,
+      explicacao: 'Tom mais elevado e abstrato — funciona bem em temas sociais/institucionais, soa exagerado em temas muito técnicos ou operacionais.',
+    },
+    {
+      nome: 'No que concerne a X, observa-se Y',
+      versatilidade: 70,
+      template: (eixo) => `No que concerne a ${fttdMinusculaInicial(fttdLimparArtigo(eixo))}, observa-se que sua fragilidade compromete diretamente o avanço do tema.`,
+      explicacao: 'Abertura mais formal e burocrática — boa para temas regulatórios e institucionais, pesada demais para temas humanos/sociais mais sensíveis.',
+    },
+  ],
+
+  explicacao: [
+    {
+      nome: 'Isso ocorre porque... (mecanismo)',
+      versatilidade: 95,
+      template: (eixo) => `Isso ocorre porque a fragilidade em ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} gera efeitos que se espalham por toda a cadeia do problema.`,
+      explicacao: 'A explicação mais segura e direta — sempre funciona, pois apenas anuncia que vai revelar um mecanismo, sem se comprometer com um tipo específico de causa.',
+    },
+    {
+      nome: 'Isso se justifica pelo fato de que',
+      versatilidade: 85,
+      template: (eixo) => `Isso se justifica pelo fato de que, sem avanços em ${fttdMinusculaInicial(fttdLimparArtigo(eixo))}, os impactos negativos tendem a se aprofundar.`,
+      explicacao: 'Tom mais formal e argumentativo — boa para temas que exigem justificar uma posição mais assertiva.',
+    },
+    {
+      nome: 'Tal cenário se sustenta na medida em que',
+      versatilidade: 70,
+      template: (eixo) => `Tal cenário se sustenta na medida em que a ausência de ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} produz efeitos sistêmicos sobre os grupos mais vulneráveis.`,
+      explicacao: 'Boa para temas sociais com recorte de vulnerabilidade — soa deslocada em temas puramente técnicos ou regulatórios sem componente social direto.',
+    },
+    {
+      nome: 'Nesse sentido, X reduz/amplia Y',
+      versatilidade: 80,
+      template: (eixo) => `Nesse sentido, o avanço em ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} reduz significativamente os riscos associados ao problema central.`,
+      explicacao: 'Direta e fácil de adaptar — funciona melhor quando o eixo é uma ação ou política (algo que pode "reduzir" ou "ampliar" algo), menos quando é um conceito abstrato.',
+    },
+  ],
+
+  exemplo: [
+    {
+      nome: 'Segundo [fonte], [dado]',
+      versatilidade: 90,
+      template: (eixo, fonte) => `Segundo ${fonte||'[fonte/instituição]'}, dados recentes demonstram a dimensão do desafio relacionado a ${fttdMinusculaInicial(fttdLimparArtigo(eixo))}.`,
+      explicacao: 'O formato mais seguro e mais usado em redações de banca — sempre cite a fonte antes do dado. Funciona em qualquer tema, desde que você tenha (ou possa formular com segurança) uma fonte plausível.',
+    },
+    {
+      nome: 'A título de exemplo, [caso/país]',
+      versatilidade: 80,
+      template: (eixo, caso) => `A título de exemplo, ${caso||'[país/instituição/caso concreto]'} registrou avanços relevantes ao priorizar ${fttdMinusculaInicial(fttdLimparArtigo(eixo))}.`,
+      explicacao: 'Boa para repertório internacional ou histórico. Exige um caso real e específico — não force se você não tiver um exemplo concreto em mente, prefira a fórmula de dado genérico com fonte.',
+    },
+    {
+      nome: 'De acordo com [instituição], [evidência]',
+      versatilidade: 85,
+      template: (eixo, fonte) => `De acordo com ${fonte||'[instituição/órgão]'}, a carência de ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} já foi identificada como fator crítico em levantamentos recentes.`,
+      explicacao: 'Variação de "segundo [fonte]" com foco em órgão/instituição em vez de pesquisa — boa para temas regulatórios e institucionais.',
+    },
+    {
+      nome: 'Pesquisa de [instituição] revela',
+      versatilidade: 75,
+      template: (eixo, fonte) => `Pesquisa ${fonte ? fttdContrairDe(fonte) : 'de [instituição de pesquisa]'} revela que o investimento em ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} produz efeitos mensuráveis no curto prazo.`,
+      explicacao: 'Boa quando você quer enfatizar um resultado positivo de uma medida relacionada ao eixo — menos versátil quando o argumento é sobre um problema, não uma solução.',
+    },
+  ],
+
+  consequencia: [
+    {
+      nome: 'Como consequência, [efeito]',
+      versatilidade: 95,
+      template: (eixo) => `Como consequência, a fragilidade em ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} compromete o alcance dos resultados esperados para toda a população afetada.`,
+      explicacao: 'O conector de consequência mais seguro e mais usado — funciona em praticamente qualquer eixo e qualquer tema.',
+    },
+    {
+      nome: 'Dessa forma, o resultado é [impacto]',
+      versatilidade: 90,
+      template: (eixo) => `Dessa forma, o resultado é o agravamento das desigualdades relacionadas a ${fttdMinusculaInicial(fttdLimparArtigo(eixo))}, afetando sobretudo os grupos mais vulneráveis.`,
+      explicacao: 'Equivalente a "como consequência", levemente mais formal. Boa alternativa para variar o vocabulário entre os parágrafos §2 e §3.',
+    },
+    {
+      nome: 'Por conseguinte, isso completa o ciclo',
+      versatilidade: 70,
+      template: (eixo) => `Por conseguinte, o fortalecimento de ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} completa o ciclo de medidas necessárias para a resolução plena do problema.`,
+      explicacao: 'Boa para o §3 (segundo eixo), quando você quer dar a sensação de que os dois eixos se somam para resolver o problema por completo. Menos natural no §2 (primeiro eixo), onde ainda não há "ciclo" a completar.',
+    },
+    {
+      nome: 'Assim, contribui-se para [finalidade]',
+      versatilidade: 80,
+      template: (eixo) => `Assim, o avanço em ${fttdMinusculaInicial(fttdLimparArtigo(eixo))} contribui diretamente para a redução das desigualdades associadas ao tema discutido.`,
+      explicacao: 'Boa quando o parágrafo quer terminar com um tom propositivo/social — funciona menos bem em temas puramente técnicos sem recorte social explícito.',
+    },
+  ],
+};
+
 const TEMPLATES_TOPICO = [
   'Um dos principais aspectos relacionados ao tema é {eixo}.',
   'Nesse contexto, destaca-se {eixo}.',
@@ -1161,11 +1368,17 @@ function initFTTD(){
   if(cf) cf.innerHTML=Object.entries(FENOMENOS).map(([n,d])=>
     `<span class="chip" style="border-color:${d.cor}44;color:${d.cor}cc;" onclick="fttdSelecionarFenomeno('${n}')">${n}</span>`
   ).join('');
-  // chips tese
+  // chips tese — pares de eixos (conteúdo)
   const ct=document.getElementById('chips-tese');
   if(ct) ct.innerHTML=MODELOS_TESE.map(m=>
-    `<span class="chip" onclick="fttdSelecionarTese('${m}')">${m}</span>`
+    `<span class="chip" onclick="fttdSelecionarParEixos('${m}')">${m}</span>`
   ).join('');
+  // chips fórmula da tese (estrutura sintática), com % de versatilidade
+  const cft=document.getElementById('chips-formula-tese');
+  if(cft) cft.innerHTML=FORMULAS_TESE.map((f,i) => {
+    const cor = f.versatilidade>=85?'var(--verde)':f.versatilidade>=65?'var(--ouro)':'#e05050';
+    return `<span class="chip" onclick="fttdSelecionarFormula(${i})" title="${f.explicacao.replace(/"/g,'&quot;')}">${f.nome} <span style="color:${cor};font-family:var(--mono);font-size:9px;">${f.versatilidade}%</span></span>`;
+  }).join('');
   // chips topico
   const ctp=document.getElementById('chips-topico');
   if(ctp) ctp.innerHTML=TEMPLATES_TOPICO.map((t,i)=>
@@ -1190,12 +1403,41 @@ function fttdSelecionarFenomeno(nome){
   document.getElementById('fttd-fenomeno').value=d.ctx;
 }
 
+// Estado da última fórmula escolhida, para poder remontar a tese quando o usuário trocar o par de eixos depois
+let fttdFormulaTeseSelecionada = 0;
+
+// Clicar num par de eixos preenche os campos Eixo 1 / Eixo 2 com o conteúdo do par,
+// e já remonta a frase da tese usando a fórmula atualmente selecionada.
+function fttdSelecionarParEixos(modelo){
+  const [a,b] = modelo.split('×').map(s=>s.trim());
+  const e1Input = document.getElementById('fttd-eixo1');
+  const e2Input = document.getElementById('fttd-eixo2');
+  if(!e1Input.value.trim()) e1Input.value = a;
+  if(!e2Input.value.trim()) e2Input.value = b;
+  fttdMontarTeseFinal();
+}
+
+// Mantida por compatibilidade com qualquer chamada antiga — delega para a nova função.
 function fttdSelecionarTese(modelo){
-  const e1=document.getElementById('fttd-eixo1').value||'[eixo 1]';
-  const e2=document.getElementById('fttd-eixo2').value||'[eixo 2]';
-  const [a,b]=modelo.split('×').map(s=>s.trim());
-  document.getElementById('fttd-tese-frase').value=
-    `A informatização bancária amplia a ${e1.toLowerCase() || a.toLowerCase()} dos serviços financeiros, mas também gera desafios relacionados à ${e2.toLowerCase() || b.toLowerCase()}.`;
+  fttdSelecionarParEixos(modelo);
+}
+
+// Clicar numa fórmula de frase remonta a tese usando os eixos já preenchidos (ou os placeholders, se vazios)
+function fttdSelecionarFormula(indice){
+  fttdFormulaTeseSelecionada = indice;
+  const f = FORMULAS_TESE[indice];
+  document.getElementById('formula-tese-explicacao').innerHTML =
+    `<span style="font-family:var(--mono);font-size:9px;color:var(--ouro);">VERSATILIDADE: ${f.versatilidade}%</span> — ${f.explicacao}`;
+  fttdMontarTeseFinal();
+}
+
+// Monta a frase final da tese combinando: tema específico (se preenchido) + eixo1 + eixo2 + fórmula escolhida.
+function fttdMontarTeseFinal(){
+  const tema = document.getElementById('fttd-temaspec').value.trim() || 'O tema discutido';
+  const e1 = document.getElementById('fttd-eixo1').value.trim() || '[eixo 1]';
+  const e2 = document.getElementById('fttd-eixo2').value.trim() || '[eixo 2]';
+  const formula = FORMULAS_TESE[fttdFormulaTeseSelecionada] || FORMULAS_TESE[0];
+  document.getElementById('fttd-tese-frase').value = formula.template(tema, e1, e2);
 }
 
 function fttdSelecionarTopico(i){
@@ -1919,6 +2161,54 @@ const FORMAS_ARGUMENTO = {
     montarFrase: (p1,p2,p3) => `Assim como <span style="color:#4a90d9;">${p1||'[situação-base]'}</span>, <span style="color:#e05050;">${p2||'[ponte com o tema]'}</span>. <span style="color:#3db88a;">${p3||'[conclusão da analogia]'}</span>.`,
     legenda: '① Situação-base (fenômeno semelhante) &nbsp;·&nbsp; ② Ponte (relação com o tema) &nbsp;·&nbsp; ③ Conclusão (o que isso esclarece)',
   },
+  generalizacao: {
+    nome: 'Generalização / Particularização',
+    sigla: 'G/P',
+    indicado: 'partir de um caso concreto para uma regra ampla, ou de um princípio amplo para um caso específico',
+    campos: [
+      {chave:'p1', label:'① CASO/PRINCÍPIO', cor:'#4a90d9', placeholder:'Um caso específico ou um princípio amplo? (ex: A fraude recente no Pix envolvendo engenharia social)'},
+      {chave:'p2', label:'② MOVIMENTO', cor:'#e05050', placeholder:'Você está generalizando (caso→regra) ou particularizando (regra→caso)? (ex: Não é um caso isolado — reflete uma vulnerabilidade estrutural dos sistemas de pagamento instantâneo)'},
+      {chave:'p3', label:'③ CONCLUSÃO', cor:'#3db88a', placeholder:'Qual é a regra geral ou o caso específico resultante? (ex: Isso exige camadas de autenticação que vão além da simples confirmação de chave)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[caso/princípio]'}</span> não é um exemplo isolado: <span style="color:#e05050;">${p2||'[movimento — generaliza ou particulariza]'}</span>. <span style="color:#3db88a;">${p3||'[conclusão]'}</span>.`,
+    legenda: '① Caso ou princípio de partida &nbsp;·&nbsp; ② Movimento (do específico ao geral, ou do geral ao específico) &nbsp;·&nbsp; ③ Conclusão resultante',
+  },
+  refutacao_direta: {
+    nome: 'Refutação Direta',
+    sigla: 'REF',
+    indicado: 'atacar diretamente um argumento contrário, sem conceder nada a ele — diferente de Concessão→Refutação',
+    campos: [
+      {chave:'p1', label:'① ARGUMENTO CONTRÁRIO', cor:'#4a90d9', placeholder:'Qual é o argumento que você vai refutar? (ex: Argumenta-se que a regulação sufoca a inovação no setor financeiro)'},
+      {chave:'p2', label:'② REFUTAÇÃO', cor:'#e05050', placeholder:'Por que esse argumento está errado? (ex: Essa premissa ignora que mercados altamente regulados, como o europeu, lideram em inovação no Open Banking)'},
+      {chave:'p3', label:'③ EVIDÊNCIA', cor:'#3db88a', placeholder:'Qual prova sustenta sua refutação? (ex: O Reino Unido, com regras rígidas de proteção de dados, é hoje referência mundial em fintechs)'},
+    ],
+    montarFrase: (p1,p2,p3) => `Argumenta-se que <span style="color:#4a90d9;">${p1||'[argumento contrário]'}</span>; entretanto, <span style="color:#e05050;">${p2||'[refutação]'}</span>. <span style="color:#3db88a;">${p3||'[evidência]'}</span>.`,
+    legenda: '① Argumento contrário (hipotético, sem conceder nada) &nbsp;·&nbsp; ② Refutação direta &nbsp;·&nbsp; ③ Evidência que sustenta a refutação',
+  },
+  tradeoff: {
+    nome: 'Custo-Benefício (Trade-off)',
+    sigla: 'C-B',
+    indicado: 'pesar ganhos e perdas de forma calculada — bom para decisões de política pública e regulação',
+    campos: [
+      {chave:'p1', label:'① CUSTO', cor:'#4a90d9', placeholder:'Qual é o custo ou perda envolvida? (ex: Exigir capital mínimo elevado de fintechs reduz a entrada de pequenos competidores no mercado)'},
+      {chave:'p2', label:'② BENEFÍCIO', cor:'#e05050', placeholder:'Qual é o ganho que compensa esse custo? (ex: Em contrapartida, reduz significativamente o risco sistêmico de quebras em cadeia)'},
+      {chave:'p3', label:'③ BALANÇO', cor:'#3db88a', placeholder:'Qual lado pesa mais, e por quê? (ex: Esse é um custo aceitável diante do risco de uma crise de confiança generalizada no sistema financeiro)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[custo]'}</span>. Em contrapartida, <span style="color:#e05050;">${p2||'[benefício]'}</span>. <span style="color:#3db88a;">${p3||'[balanço — qual lado pesa mais]'}</span>.`,
+    legenda: '① Custo/perda &nbsp;·&nbsp; ② Benefício/ganho que compensa &nbsp;·&nbsp; ③ Balanço final (qual lado pesa mais e por quê)',
+  },
+  historico_presente: {
+    nome: 'Histórico → Presente',
+    sigla: 'H→P',
+    indicado: 'mostrar como um problema evoluiu no tempo até o estado atual — bom para contextualizar antes de argumentar',
+    campos: [
+      {chave:'p1', label:'① ORIGEM HISTÓRICA', cor:'#4a90d9', placeholder:'Como o problema começou ou se originou? (ex: Desde a criação do Plano Real, o sistema bancário brasileiro priorizou estabilidade monetária)'},
+      {chave:'p2', label:'② EVOLUÇÃO', cor:'#e05050', placeholder:'Como isso mudou (ou não) com o tempo? (ex: Mas a digitalização acelerada da última década não foi acompanhada por avanços equivalentes em inclusão financeira)'},
+      {chave:'p3', label:'③ ESTADO ATUAL', cor:'#3db88a', placeholder:'Qual é a situação hoje, como resultado dessa trajetória? (ex: Hoje, milhões de brasileiros seguem fora do sistema bancário formal, repetindo um padrão histórico de exclusão)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[origem histórica]'}</span>. <span style="color:#e05050;">${p2||'[evolução ao longo do tempo]'}</span>. <span style="color:#3db88a;">${p3||'[estado atual]'}</span>.`,
+    legenda: '① Origem histórica &nbsp;·&nbsp; ② Evolução (o que mudou ou não mudou) &nbsp;·&nbsp; ③ Estado atual (resultado dessa trajetória)',
+  },
 };
 
 let brainstormCadeias = [];
@@ -2030,17 +2320,21 @@ async function brainstormValidar(){
   }).join('\n');
 
   const sysBrainstorm = `Você é professor de redação para concursos Cesgranrio (BB/CEF), avaliando um exercício de brainstorm.
-O aluno gerou argumentos usando uma de 6 formas possíveis de estruturar um parágrafo de desenvolvimento — cada argumento informa qual forma foi usada:
+O aluno gerou argumentos usando uma de 10 formas possíveis de estruturar um parágrafo de desenvolvimento — cada argumento informa qual forma foi usada:
 
 1. CAUSA → EXPLICAÇÃO → EFEITO: indicada para problemas sociais, econômicos, temas de impacto. Frase-modelo: "[causa] agrava o problema, pois [explicação]. Como consequência, [efeito]."
 2. AFIRMAÇÃO → EVIDÊNCIA → ANÁLISE: indicada para temas com dados fortes, contexto bancário/regulatório. Frase-modelo: "[afirmação]. [evidência/dado]. Esse dado [análise]."
 3. CONTRASTE → TENSÃO → POSIÇÃO: indicada para temas com dois lados (ex: Inovação×Regulação). Frase-modelo: "Embora [contraste/avanço], [tensão/problema]. [posição/evidência]."
 4. COMPARAÇÃO (Brasil × outro país): indicada para temas regulatórios/bancários com referência internacional. Frase-modelo: "[cenário Brasil]. Em contraste, [cenário comparado]. [lição/contraste]."
-5. CONCESSÃO → REFUTAÇÃO: indicada para elevar o nível da escrita, mostrando domínio de contra-argumentos. Frase-modelo: "Embora [concessão], [refutação]. [reforço/evidência]."
+5. CONCESSÃO → REFUTAÇÃO: indicada para elevar o nível da escrita, mostrando domínio de contra-argumentos — concede um ponto válido antes de refutar. Frase-modelo: "Embora [concessão], [refutação]. [reforço/evidência]."
 6. ANALOGIA: indicada para gerar repertório sem precisar de dado estatístico. Frase-modelo: "Assim como [situação-base], [ponte com o tema]. [conclusão da analogia]."
+7. GENERALIZAÇÃO / PARTICULARIZAÇÃO: parte de um caso concreto para uma regra ampla, ou de um princípio amplo para um caso específico. Frase-modelo: "[caso/princípio] não é um exemplo isolado: [movimento — generaliza ou particulariza]. [conclusão]."
+8. REFUTAÇÃO DIRETA: ataca diretamente um argumento contrário hipotético, SEM conceder nada a ele (diferente de Concessão→Refutação). Frase-modelo: "Argumenta-se que [argumento contrário]; entretanto, [refutação]. [evidência]."
+9. CUSTO-BENEFÍCIO (TRADE-OFF): pesa ganhos e perdas de forma calculada — bom para temas de política pública e regulação. Frase-modelo: "[custo]. Em contrapartida, [benefício]. [balanço — qual lado pesa mais]."
+10. HISTÓRICO → PRESENTE: mostra como um problema evoluiu no tempo até o estado atual. Frase-modelo: "[origem histórica]. [evolução ao longo do tempo]. [estado atual]."
 
 Para CADA argumento preenchido, faça:
-1. AVALIAÇÃO RÁPIDA: a forma escolhida é adequada ao conteúdo? As 3 partes cumprem suas funções (não há repetição entre elas, nem inversão de papéis)? Para Comparação, a referência internacional é plausível? Para Concessão→Refutação, a concessão é genuína (não um espantalho fácil de derrubar)? Para Analogia, a situação-base é clara e a ponte com o tema é direta (não forçada)? Aponte o problema específico se houver, ou confirme em 1 frase se estiver bem estruturado.
+1. AVALIAÇÃO RÁPIDA: a forma escolhida é adequada ao conteúdo? As 3 partes cumprem suas funções (não há repetição entre elas, nem inversão de papéis)? Para Comparação, a referência internacional é plausível? Para Concessão→Refutação, a concessão é genuína (não um espantalho fácil de derrubar)? Para Refutação Direta, confirme que NÃO há concessão real ao argumento contrário (se houver, sugira trocar para Concessão→Refutação). Para Analogia, a situação-base é clara e a ponte com o tema é direta (não forçada). Para Generalização/Particularização, o movimento entre o específico e o geral está claro. Para Trade-off, o balanço final realmente compara os dois lados (não ignora o custo apontado). Para Histórico→Presente, a linha do tempo é coerente (origem → evolução → presente, sem saltos). Aponte o problema específico se houver, ou confirme em 1 frase se estiver bem estruturado.
 2. REESCRITA COMO FRASE DE PARÁGRAFO: transforme as 3 partes em 1-2 frases formais, seguindo a frase-modelo da forma escolhida. Use conectivos adequados. Mantenha a ideia original do aluno.
 3. EXEMPLO/DADO: para pelo menos 2 dos argumentos, sugira um dado, lei, órgão ou caso concreto que poderia ser inserido como evidência (ex: "Segundo o Banco Central...", "A Lei X/20XX estabelece...").
 
@@ -2538,6 +2832,20 @@ function renderNivelCampos(){
       html += `</div>`;
     }
 
+    // Chips de FÓRMULA (estrutura sintática com % de versatilidade) para os 4 campos do TEEC
+    const tipoFormula = teecMapearCampoParaFormula(c);
+    if(tipoFormula){
+      const lista = FORMULAS_TEEC[tipoFormula];
+      html += `<div style="margin-bottom:8px;">
+        <div style="font-size:9px;font-family:var(--mono);color:var(--muted);margin-bottom:5px;">🧩 FÓRMULAS DE FRASE <span style="color:var(--ouro);">— % = versatilidade</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">`;
+      lista.forEach((f,i) => {
+        const cor = f.versatilidade>=85?'var(--verde)':f.versatilidade>=65?'var(--ouro)':'#e05050';
+        html += `<span class="chip" onclick="teecAplicarFormula('${c}','${tipoFormula}',${i})" title="${f.explicacao.replace(/"/g,'&quot;')}">${f.nome} <span style="color:${cor};font-family:var(--mono);font-size:9px;">${f.versatilidade}%</span></span>`;
+      });
+      html += `</div><div id="formula-explicacao-${c}" style="font-size:10px;color:var(--muted);line-height:1.5;margin-top:5px;min-height:14px;"></div></div>`;
+    }
+
     const campoLivre = ['intro','dev1','dev2','conclusao','redacao'].includes(c);
 
     html += campoLivre
@@ -2621,6 +2929,41 @@ function toggleSugs(id, btn){
   const vis = el.style.display !== 'none';
   el.style.display = vis ? 'none' : 'flex';
   btn.textContent = vis ? '💡 Mostrar sugestões' : '🙈 Ocultar sugestões';
+}
+
+// Identifica a qual banco de FORMULAS_TEEC um campo do TEEC pertence (tópico, explicação, exemplo ou consequência),
+// independente de ser do Eixo 1 (arg1_*) ou Eixo 2 (arg2_*). Retorna null para campos que não são TEEC (ex: tese, intro).
+function teecMapearCampoParaFormula(campo){
+  if(campo==='arg1_topico' || campo==='arg2_topico') return 'topico';
+  if(campo==='arg1_explicacao' || campo==='arg2_explicacao') return 'explicacao';
+  if(campo==='arg1_exemplo' || campo==='arg2_exemplo') return 'exemplo';
+  if(campo==='arg1_consequencia' || campo==='arg2_consequencia') return 'consequencia';
+  return null;
+}
+
+// Aplica a fórmula escolhida ao campo: usa o eixo correto (eixo1 se for arg1_*, eixo2 se for arg2_*),
+// pede uma fonte/caso quando a fórmula de Exemplo precisar, e insere a frase no textarea —
+// anexando ao que já foi escrito (igual ao comportamento das sugestões), em vez de sobrescrever.
+function teecAplicarFormula(campo, tipoFormula, indice){
+  const ehEixo1 = campo.startsWith('arg1_');
+  const eixo = (ehEixo1 ? treinoRespostas.eixo1 : treinoRespostas.eixo2) || (ehEixo1 ? '[eixo 1]' : '[eixo 2]');
+  const formula = FORMULAS_TEEC[tipoFormula][indice];
+
+  let frase;
+  if(tipoFormula === 'exemplo'){
+    const fonte = prompt('Qual fonte/instituição/caso você quer citar? (ex: "o Banco Central", "a OCDE", "a Finlândia")\n\nDeixe em branco para usar um placeholder editável depois.');
+    frase = formula.template(eixo, fonte && fonte.trim() ? fonte.trim() : null);
+  } else {
+    frase = formula.template(eixo);
+  }
+
+  const el = document.getElementById('treino-campo-'+campo);
+  if(!el) return;
+  el.value = el.value.trim() ? el.value.trim() + ' ' + frase : frase;
+  el.focus();
+
+  const expEl = document.getElementById('formula-explicacao-'+campo);
+  if(expEl) expEl.innerHTML = `<span style="color:var(--ouro);">VERSATILIDADE: ${formula.versatilidade}%</span> — ${formula.explicacao}`;
 }
 
 function usarSugestao(id, texto, append){
@@ -5227,8 +5570,444 @@ const FC_BANCO = [
     versaoCorrigida: 'A ausência de infraestrutura digital adequada em regiões remotas é um dos principais obstáculos à inclusão financeira plena no Brasil.',
     dica: 'O tópico frasal de cada parágrafo deve focar em APENAS um dos dois eixos da tese — se ele menciona os dois, está fazendo o trabalho da tese de novo, não abrindo um argumento específico.'
   },
+  // ══════════════════════════════════════════════════════════
+  // LOTE 10 — CLASSIFICAR FORMA com PARÁGRAFOS COMPLETOS (+15 cards)
+  // Parágrafos de desenvolvimento inteiros (TEEC embutido), para
+  // praticar a identificação da forma argumentativa em escala real de redação.
+  // ══════════════════════════════════════════════════════════
+  {
+    tipo: 'classificar_forma',
+    tema: 'Educação financeira escolar (parágrafo completo)',
+    trecho: 'A ausência de disciplinas voltadas à educação financeira no currículo escolar brasileiro compromete a formação de cidadãos capazes de planejar seu próprio futuro econômico. Isso ocorre porque, sem contato com conceitos básicos de orçamento, juros e investimento, os jovens chegam à vida adulta despreparados para tomar decisões financeiras conscientes. Segundo levantamento da OCDE, o Brasil figura entre os países com piores índices de letramento financeiro entre adolescentes. Como consequência, observa-se o aumento do endividamento precoce e a perpetuação de ciclos de vulnerabilidade econômica familiar.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Comparação (Brasil × outro país)','Concessão → Refutação'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'O parágrafo completo segue a lógica causal do início ao fim: a causa (ausência de educação financeira) é explicada pelo mecanismo (jovens despreparados), comprovada por um dado (OCDE) e fechada com o efeito final (endividamento precoce). Mesmo tendo um dado no meio, a espinha dorsal do argumento é Causa→Explicação→Efeito — o dado serve de exemplo, não de evidência central da análise.',
+    dica: 'Em parágrafos completos, repare na ESPINHA DORSAL do raciocínio, não só no dado isolado. Se o parágrafo flui de uma causa para um efeito final através de uma explicação, é Causa→Explicação→Efeito, mesmo que tenha um dado de apoio no meio.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance e regulação europeia (parágrafo completo)',
+    trecho: 'Embora o Open Finance amplie a concorrência e beneficie o consumidor final, sua expansão sem regulamentação adequada cria vulnerabilidades significativas relacionadas à privacidade de dados sensíveis. As instituições financeiras que compartilham informações sem protocolos rígidos de consentimento expõem os usuários a riscos de uso indevido por terceiros não autorizados. A experiência europeia com o PSD2, que exige consentimento explícito e renovável periodicamente, demonstra que marcos regulatórios robustos são condição — não obstáculo — para a inovação sustentável no setor financeiro.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Comparação (Brasil × outro país)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'O parágrafo reconhece um avanço real (concorrência e benefício ao consumidor), aponta uma tensão genuína (vulnerabilidade de dados) explicada em detalhe, e fecha com uma posição sustentada por evidência internacional (PSD2). A conclusão não nega o avanço inicial — apenas o qualifica, o que é característico de Contraste→Tensão→Posição, e não de uma Concessão→Refutação mais assertiva.',
+    dica: 'Em parágrafos longos, a forma fica mais clara observando o INÍCIO (reconhece algo?) e o FECHO (nega, qualifica, ou conclui de forma conciliadora?). Se o fecho concilia em vez de negar, geralmente é Contraste→Tensão→Posição.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Robotização industrial e requalificação (parágrafo completo)',
+    trecho: 'É verdade que a automação dos processos industriais eleva significativamente a produtividade e reduz custos operacionais para as empresas do setor. Contudo, essa redução de custos não pode vir à custa do descarte abrupto da força de trabalho sem qualquer planejamento de transição profissional. Países que investiram simultaneamente em automação e em programas de requalificação, como a Alemanha, mantiveram índices de desemprego estrutural significativamente menores do que nações que adotaram a automação sem essa contrapartida social.',
+    opcoesForma: ['Concessão → Refutação','Afirmação → Evidência → Análise','Analogia','Causa → Explicação → Efeito'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que" introduz a concessão completa (reconhece dois benefícios: produtividade e redução de custos), "contudo" introduz a refutação (nega que isso justifique o descarte sem planejamento), e o exemplo da Alemanha reforça a refutação com evidência concreta — uma negação completa e bem sustentada do argumento concedido.',
+    dica: 'Quando a refutação é uma negação direta e categórica ("não pode vir à custa de"), e não apenas uma ressalva, a forma é Concessão→Refutação — diferente do Contraste→Tensão→Posição, que tende a ser mais conciliador no fechamento.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Concentração bancária e spread (parágrafo completo)',
+    trecho: 'Dados do Banco Central revelam que os cinco maiores bancos do país concentram a maior parte dos ativos do sistema financeiro nacional, configurando um mercado com baixíssima pressão competitiva real. Esse padrão de concentração sugere que a ausência de concorrência efetiva entre as instituições é um dos fatores estruturais que explicam por que o Brasil mantém um dos spreads bancários mais elevados entre as economias emergentes, mesmo após anos de estabilidade macroeconômica e controle inflacionário.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Contraste → Tensão → Posição'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O parágrafo abre direto com o dado do Banco Central (evidência), e todo o resto do texto é a análise interpretativa desse dado — "esse padrão sugere que..." é a análise que conecta a concentração bancária ao problema do spread alto. Não há uma explicação detalhada de mecanismo causal nem comparação direta com outro país nomeado.',
+    dica: 'Quando o parágrafo inteiro gira em torno de UM dado central, do qual tudo o resto é interpretação, é Afirmação→Evidência→Análise — mesmo que o parágrafo seja longo, a estrutura lógica é simples: dado + leitura do dado.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Cibersegurança bancária e sistema imunológico (parágrafo completo)',
+    trecho: 'Assim como um organismo saudável depende de um sistema imunológico capaz de identificar e neutralizar agentes invasores antes que causem dano sistêmico, uma instituição financeira depende de mecanismos internos de detecção de fraudes capazes de identificar transações suspeitas antes que comprometam a confiança de toda a base de clientes. Da mesma forma que a ausência de defesas imunológicas adequadas pode levar um organismo a sucumbir a uma infecção que, isoladamente, seria administrável, a ausência de camadas robustas de segurança digital pode transformar uma tentativa isolada de fraude em uma crise de confiança generalizada no sistema bancário.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: 'Todo o parágrafo é construído sobre uma única comparação extensa entre o sistema imunológico humano e os mecanismos de segurança bancária, sem citar dados nem país. É uma Analogia desenvolvida em profundidade — a mesma lógica das analogias curtas, apenas com mais detalhamento da comparação.',
+    dica: 'Analogias em parágrafos completos costumam manter a MESMA comparação do início ao fim, apenas aprofundando-a — diferente de outras formas, que mudam de foco entre tópico, explicação e exemplo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Educação financeira no Brasil e na Finlândia (parágrafo completo)',
+    trecho: 'A Finlândia incorporou a educação financeira ao currículo escolar obrigatório desde o ensino fundamental, com conteúdos progressivos que acompanham o desenvolvimento cognitivo dos estudantes ao longo de toda a trajetória escolar. Esse modelo tem produzido resultados consistentes: o país figura entre os melhores colocados em rankings internacionais de letramento financeiro juvenil há mais de uma década. O Brasil, por sua vez, ainda trata o tema de forma facultativa e fragmentada, dependendo da iniciativa isolada de escolas e professores individuais, sem uma política nacional coordenada. Essa diferença de tratamento curricular evidencia que a obrigatoriedade e a progressão pedagógica planejada são fatores determinantes para a efetividade da formação financeira de uma geração.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Afirmação → Evidência → Análise','Contraste → Tensão → Posição','Causa → Explicação → Efeito'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'O parágrafo nomeia a Finlândia e o Brasil explicitamente, descreve em detalhe o modelo de cada um, e fecha com uma lição extraída diretamente do contraste entre os dois sistemas educacionais. É uma Comparação Brasil × outro país desenvolvida em profundidade.',
+    dica: 'Em comparações longas, cada país recebe um "parágrafo dentro do parágrafo" antes da lição final — isso é normal e não muda a classificação da forma, só aumenta o detalhamento de cada lado da comparação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Telemedicina e regulamentação médica (parágrafo completo)',
+    trecho: 'A expansão acelerada da telemedicina durante a pandemia de Covid-19 ampliou significativamente o acesso da população a consultas médicas remotas, especialmente em regiões com escassez histórica de profissionais especializados. Isso ocorre porque a eliminação da necessidade de deslocamento físico até grandes centros urbanos permite que pacientes de áreas remotas acessem especialistas que antes estavam geograficamente inacessíveis. O Conselho Federal de Medicina, no entanto, já recebeu múltiplas consultas de profissionais sobre os limites éticos e legais dessa prática, sobretudo em casos de diagnóstico remoto sem exame físico presencial. Como consequência dessa lacuna regulatória, muitos médicos optam por restringir o uso da telemedicina a casos simples, limitando o potencial pleno da tecnologia de transformar o acesso à saúde no país.',
+    opcoesForma: ['Causa → Explicação → Efeito','Concessão → Refutação','Comparação (Brasil × outro país)','Analogia'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'A causa (expansão da telemedicina) é explicada pelo mecanismo de acesso geográfico, complementada por uma evidência (consultas ao CFM) e fechada com o efeito final (restrição do uso pelos médicos). A presença de uma ressalva no meio não muda a estrutura geral: o parágrafo caminha do início ao fim numa lógica causal direta.',
+    dica: 'Não confunda uma ressalva pontual dentro do parágrafo ("no entanto") com a forma Concessão→Refutação completa — esta exige que TODA a estrutura do parágrafo gire em torno de conceder e depois refutar, não apenas uma frase de transição no meio do raciocínio causal.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inteligência artificial e acessibilidade bancária (parágrafo completo)',
+    trecho: 'A incorporação de inteligência artificial nos canais de atendimento bancário, conquanto amplie a eficiência operacional das instituições e reduza os custos de manutenção de grandes estruturas de atendimento humano, não pode prescindir da manutenção de canais alternativos para garantir acessibilidade a públicos menos familiarizados com tecnologia digital. Idosos, pessoas com baixa escolaridade digital e moradores de regiões com conectividade limitada frequentemente enfrentam dificuldades significativas em interagir com assistentes virtuais automatizados, o que pode resultar em frustração, abandono do atendimento ou, em casos mais graves, exclusão efetiva do acesso a serviços financeiros essenciais.',
+    opcoesForma: ['Concessão → Refutação','Contraste → Tensão → Posição','Causa → Explicação → Efeito','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"Conquanto" introduz uma concessão ampla (eficiência E redução de custos), e "não pode prescindir de" é uma refutação categórica que nega que esses benefícios sejam suficientes sem a contrapartida de acessibilidade. O restante do parágrafo detalha as consequências dessa refutação, mas a estrutura central permanece Concessão→Refutação.',
+    dica: 'Fique atento a concessões com MAIS DE UM benefício listado ("eficiência e redução de custos") — isso não muda a forma, mas mostra que a concessão pode ser robusta e ainda assim ser seguida de uma refutação igualmente forte.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Sustentabilidade no agronegócio e modelo holandês (parágrafo completo)',
+    trecho: 'Compatibilizar a expansão do agronegócio brasileiro com a preservação ambiental exige, simultaneamente, o avanço de tecnologias agrícolas de baixo impacto e o fortalecimento da fiscalização sobre áreas legalmente protegidas. A Holanda, país com extensão territorial drasticamente menor que a de qualquer estado brasileiro de grande produção agrícola, conseguiu se tornar uma das maiores exportadoras agrícolas do mundo combinando tecnologia de precisão, uso racional de insumos e rigorosos padrões de proteção ambiental aplicados de forma simultânea, não sequencial. Essa experiência demonstra de forma concreta que produtividade agrícola elevada e sustentabilidade ambiental não são objetivos necessariamente excludentes, mas sim dimensões que podem ser planejadas em conjunto desde a concepção das políticas agrícolas.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Contraste → Tensão → Posição','Causa → Explicação → Efeito','Analogia'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'O parágrafo nomeia a Holanda explicitamente, detalha seu modelo de produção, e extrai uma lição direta para o caso brasileiro ("essa experiência demonstra que..."). É uma Comparação Brasil × outro país com bastante desenvolvimento do exemplo internacional antes da conclusão.',
+    dica: 'Em parágrafos longos de Comparação, é comum que o detalhamento do país estrangeiro ocupe a maior parte do texto — isso não indica outra forma, apenas mostra que o exemplo internacional foi explorado em profundidade antes da lição final.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Burnout no trabalho remoto (parágrafo completo)',
+    trecho: 'A intensificação das jornadas de trabalho em regime remoto, sem limites claros entre vida profissional e pessoal, está entre os principais fatores que explicam o aumento expressivo dos casos de burnout entre trabalhadores nos últimos anos. Isso ocorre porque a ausência de fronteiras físicas entre o ambiente de trabalho e o espaço doméstico dificulta a desconexão mental necessária para a recuperação psicológica adequada ao final do expediente, levando muitos profissionais a permanecerem em estado de alerta cognitivo por períodos prolongados. Levantamentos recentes de associações de saúde ocupacional indicam crescimento significativo nos afastamentos por transtornos psicológicos relacionados ao trabalho remoto desde a popularização desse regime. Por consequência, empresas começam a reavaliar políticas de desconexão digital obrigatória como medida de proteção à saúde mental de suas equipes.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Concessão → Refutação','Analogia'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'O parágrafo segue integralmente a lógica causal: causa (jornadas sem limite) → explicação (mecanismo psicológico da falta de desconexão) → evidência de apoio (levantamentos de afastamento) → efeito final (mudança de política empresarial). É uma estrutura Causa→Explicação→Efeito plenamente desenvolvida.',
+    dica: 'Mesmo quando o parágrafo tem 4-5 frases longas, se você conseguir identificar claramente "isso causa aquilo, porque tal mecanismo, e o resultado final é X", a forma é Causa→Explicação→Efeito — o tamanho do texto não muda a classificação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Crédito consignado e Alemanha (parágrafo completo)',
+    trecho: 'O sistema brasileiro de crédito consignado permite o desconto direto na folha de pagamento de aposentados e pensionistas, com poucos limites efetivos de comprometimento de renda além dos previstos em lei — frequentemente insuficientes para evitar o superendividamento dessa população. Na Alemanha, por outro lado, mecanismos de crédito direcionados a aposentados são vinculados a auditorias periódicas obrigatórias de capacidade real de pagamento, realizadas por instituições independentes das financiadoras, o que reduz significativamente os casos de comprometimento excessivo da renda previdenciária. A diferença estrutural entre os dois modelos sugere que o Brasil poderia adotar mecanismos de auditoria semelhantes, reduzindo a vulnerabilidade financeira de uma população que, por sua idade e muitas vezes baixo letramento financeiro, está mais exposta a práticas de crédito predatório.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Concessão → Refutação','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Alemanha são comparados em detalhe quanto ao rigor de seus mecanismos de proteção ao crédito de aposentados, com uma lição prescritiva extraída diretamente dessa diferença. É Comparação Brasil × outro país, mesmo com bastante detalhamento técnico de ambos os sistemas.',
+    dica: 'Comparações que envolvem mecanismos regulatórios detalhados (auditorias, limites legais, órgãos responsáveis) ainda são Comparação — o nível de detalhe técnico não transforma a forma em outra coisa, desde que a estrutura comparativa entre os dois países permaneça central.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inclusão financeira e Pix (parágrafo completo)',
+    trecho: 'Segundo dados do Banco Central, o Pix se consolidou como o meio de pagamento mais utilizado entre brasileiros de baixa renda em um período de poucos anos desde seu lançamento, superando inclusive o uso de dinheiro físico em diversas faixas de renda. Esse crescimento expressivo sugere que soluções financeiras de baixo custo de adesão, alta usabilidade e ausência de taxas têm um potencial de penetração significativamente maior entre populações historicamente excluídas do sistema bancário tradicional do que produtos financeiros convencionais, que frequentemente envolvem burocracia, taxas e exigências documentais mais complexas.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Analogia'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do Banco Central sobre o Pix é a evidência central do parágrafo, e todo o restante do texto é a análise que generaliza esse caso específico para um princípio mais amplo sobre inclusão financeira. Não há comparação com outro país nem um mecanismo causal detalhado — é uma estrutura de Afirmação→Evidência→Análise.',
+    dica: 'Quando o parágrafo usa UM caso concreto (como o Pix) para sustentar uma CONCLUSÃO GERAL sobre como políticas similares deveriam funcionar, isso é o movimento clássico de Afirmação→Evidência→Análise: do específico para o geral.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Regulação de criptoativos e MiCA europeu (parágrafo completo)',
+    trecho: 'O Brasil ainda discute internamente o desenho de seu marco regulatório definitivo para criptoativos, com diferentes propostas legislativas tramitando simultaneamente no Congresso Nacional sem consenso estabelecido sobre o órgão regulador responsável. A União Europeia, por outro lado, já implementa desde 2023 o MiCA (Markets in Crypto-Assets), um marco regulatório unificado que estabelece regras claras de transparência para emissores de tokens, exigências de capital mínimo para prestadores de serviços e mecanismos de proteção ao investidor aplicáveis uniformemente em todos os países-membros do bloco. A diferença de maturidade regulatória entre os dois blocos sugere que o Brasil pode se beneficiar diretamente da experiência europeia, adaptando elementos do MiCA ao contexto institucional brasileiro para acelerar a consolidação de um marco regulatório nacional coerente.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Afirmação → Evidência → Análise','Contraste → Tensão → Posição','Causa → Explicação → Efeito'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'O Brasil e a União Europeia são comparados em detalhe quanto ao estágio de maturidade regulatória sobre criptoativos, com uma recomendação prescritiva extraída diretamente da diferença observada. É Comparação Brasil × outro país (ou bloco de países, no caso da UE), com bastante desenvolvimento técnico de ambos os lados.',
+    dica: 'A Comparação não precisa ser necessariamente com um único país — comparações com blocos regionais (União Europeia, Mercosul) também contam como Comparação, desde que haja um contraste direto e específico com a situação brasileira.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Letramento digital de idosos e fraudes (parágrafo completo)',
+    trecho: 'A exclusão digital de idosos no acesso a aplicativos bancários decorre de múltiplos fatores que se reforçam mutuamente, como interfaces pouco intuitivas projetadas sem considerar limitações sensoriais ou cognitivas comuns ao envelhecimento, e a ausência de programas estruturados de capacitação tecnológica voltados especificamente a esse público. Como resultado dessa combinação de fatores, muitos idosos acabam recorrendo a terceiros — muitas vezes desconhecidos ou pouco confiáveis — para realizar operações financeiras básicas, o que os expõe a um risco elevado de fraudes, cobranças abusivas e apropriação indevida de recursos por parte de quem deveria apenas auxiliar na operação.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Concessão → Refutação','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'O parágrafo apresenta múltiplas causas combinadas (interfaces + falta de capacitação), e fecha com o efeito concreto (exposição a fraudes através de intermediários). É uma variação de Causa→Explicação→Efeito com causas múltiplas que se somam antes de produzir o efeito final.',
+    dica: 'Causa→Explicação→Efeito pode ter MAIS DE UMA causa contribuindo para o mesmo problema — isso não muda a forma, só mostra um raciocínio causal mais sofisticado, com fatores que se combinam antes de gerar a consequência.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Superendividamento digital e decisões impulsivas (parágrafo completo)',
+    trecho: 'A facilidade crescente de obter crédito por meio de aplicativos financeiros, frequentemente sem as mesmas exigências de análise documental e comprovação de renda exigidas no atendimento presencial tradicional, reduz significativamente a percepção de risco do consumidor no momento da contratação. Essa redução da percepção de risco, combinada com a agilidade do processo digital — que pode levar segundos entre a solicitação e a liberação dos recursos —, incentiva decisões financeiras tomadas sob impulso, sem o tempo de reflexão que caracterizava processos de crédito mais burocráticos. Não surpreende, portanto, que o volume de dívidas contraídas por aplicativos tenha crescido em ritmo mais acelerado do que o crescimento da renda média da população nos últimos anos.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Analogia','Contraste → Tensão → Posição'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'A causa (facilidade de crédito digital) é explicada em duas camadas (redução de percepção de risco + agilidade que incentiva impulsividade), fechando com o efeito observável (crescimento do volume de dívidas acima da renda). É Causa→Explicação→Efeito com uma explicação em duas etapas conectadas.',
+    dica: 'Quando a explicação tem duas partes que se combinam ("a redução do risco, combinada com a agilidade...") antes de chegar ao efeito, ainda é uma única cadeia de Causa→Explicação→Efeito — apenas com uma explicação mais elaborada.'
+  },
+  // ══════════════════════════════════════════════════════════
+  // LOTE 11 — CLASSIFICAR FORMA: as 4 novas formas (+12 cards)
+  // Generalização/Particularização · Refutação Direta · Trade-off · Histórico→Presente
+  // ══════════════════════════════════════════════════════════
+  {
+    tipo: 'classificar_forma',
+    tema: 'Fraude no Pix e vulnerabilidade estrutural',
+    trecho: 'A fraude recente envolvendo engenharia social em transações via Pix não é um caso isolado: reflete uma vulnerabilidade estrutural presente em qualquer sistema de pagamento instantâneo que dependa primariamente da confiança do usuário no momento da autenticação. Isso exige que mecanismos de segurança evoluam para incluir camadas adicionais de verificação, que vão além da simples confirmação de chave.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo parte de um caso específico (a fraude no Pix) e generaliza para um princípio mais amplo ("reflete uma vulnerabilidade estrutural... em qualquer sistema"). É o movimento clássico de Generalização: do específico para o geral.',
+    dica: '"Não é um caso isolado: reflete..." é um marcador clássico de Generalização — sinaliza que o autor está saindo do exemplo específico para afirmar uma regra mais ampla.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Regulação bancária e princípio geral aplicado',
+    trecho: 'É consenso entre economistas que mercados financeiros desregulados tendem a acumular riscos sistêmicos não visíveis no curto prazo. Esse princípio se aplica diretamente ao mercado brasileiro de criptoativos, que opera hoje sem exigências de capital mínimo ou supervisão centralizada — exatamente as condições que, em outros contextos, precederam crises de confiança generalizadas.',
+    opcoesForma: ['Generalização / Particularização','Refutação Direta','Histórico → Presente','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'Aqui o movimento é o inverso do card anterior: parte de um princípio geral (mercados desregulados acumulam risco) e particulariza para o caso específico do mercado brasileiro de criptoativos. Ainda é Generalização/Particularização, só que na direção de "geral para específico".',
+    dica: 'Generalização/Particularização funciona nos dois sentidos — tanto "caso específico → regra geral" quanto "regra geral → caso específico". O que importa é o MOVIMENTO entre os dois níveis, não a direção.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inadimplência e padrão social mais amplo',
+    trecho: 'O aumento da inadimplência entre jovens adultos que contraíram crédito por aplicativos não deve ser lido como um problema apenas individual de gestão financeira pessoal. Trata-se de um padrão que se repete em diferentes faixas de renda e regiões do país, sugerindo uma causa estrutural ligada à ausência de educação financeira formal, e não a decisões isoladas e pontuais de consumo.',
+    opcoesForma: ['Generalização / Particularização','Concessão → Refutação','Afirmação → Evidência → Análise','Analogia'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo rejeita explicitamente uma leitura individual/específica ("não deve ser lido como... apenas individual") e generaliza para um padrão estrutural mais amplo. É Generalização, com a particularidade de começar negando a leitura particularizada antes de afirmar a generalização.',
+    dica: 'Quando o parágrafo começa negando uma interpretação pontual ("não deve ser lido como um problema apenas individual") antes de afirmar o padrão geral, isso ainda é Generalização — a negação inicial reforça o movimento para o nível mais amplo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Regulação financeira e o argumento contra a inovação',
+    trecho: 'Argumenta-se frequentemente que a regulação rígida do setor financeiro sufoca a inovação e afasta investimentos do país. Entretanto, essa premissa é desmentida pelos próprios dados do mercado europeu: o Reino Unido, com uma das estruturas regulatórias mais rígidas do mundo em proteção de dados financeiros, é hoje um dos principais polos globais de fintechs, atraindo investimento estrangeiro em volume superior ao de mercados com regulação mais permissiva.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Comparação (Brasil × outro país)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Argumenta-se que... entretanto, essa premissa é desmentida" ataca diretamente o argumento contrário sem conceder nenhum ponto de validade a ele — diferente de Concessão→Refutação, que reconheceria algo de válido antes de refutar. Aqui a refutação é total desde o início.',
+    dica: 'A palavra-chave para diferenciar de Concessão→Refutação: se o parágrafo NUNCA admite que o argumento contrário tem algum mérito (vai direto para "isso é desmentido"), é Refutação Direta. Se primeiro reconhece um ponto válido ("é verdade que..."), é Concessão→Refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Crítica à crítica sobre o Pix e taxas bancárias',
+    trecho: 'Críticos do sistema bancário tradicional costumam afirmar que os bancos resistem à inovação por interesse em manter taxas elevadas sobre transações financeiras. Essa leitura, contudo, ignora que as próprias instituições financeiras tradicionais foram protagonistas no desenvolvimento técnico do Pix, investindo recursos significativos em infraestrutura que reduziu sua própria receita com taxas de transferência — um movimento que contraria diretamente a lógica de interesse puramente lucrativo atribuída a elas.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Contraste → Tensão → Posição','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: 'O parágrafo apresenta o argumento contrário ("bancos resistem à inovação por interesse") e o refuta diretamente com um fato concreto (bancos investiram no próprio Pix, reduzindo sua receita), sem conceder validade alguma à crítica original.',
+    dica: 'Refutação Direta costuma usar fatos que contradizem DIRETAMENTE a lógica do argumento criticado — aqui, "reduzir a própria receita" é o oposto exato do que a crítica original presumia sobre o comportamento dos bancos.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da telemedicina contra crítica de qualidade',
+    trecho: 'Alega-se, com frequência, que consultas médicas remotas oferecem qualidade inferior às presenciais e deveriam ser tratadas como solução apenas temporária. Tal alegação, no entanto, não resiste à análise de estudos comparativos recentes, que demonstram taxas de acerto diagnóstico em telemedicina equivalentes às do atendimento presencial para uma ampla gama de condições clínicas não emergenciais, evidenciando que a limitação não é de qualidade técnica, mas de adequação a casos específicos.',
+    opcoesForma: ['Refutação Direta','Afirmação → Evidência → Análise','Concessão → Refutação','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Alega-se que... tal alegação, no entanto, não resiste à análise" é uma refutação direta e categórica, sustentada por evidência (estudos comparativos), sem nenhuma concessão inicial ao argumento criticado.',
+    dica: 'Não confunda com Afirmação→Evidência→Análise: lá, o parágrafo começa com SUA PRÓPRIA afirmação. Aqui, o parágrafo começa com o ARGUMENTO DO OUTRO LADO ("alega-se que..."), que é depois desmontado — essa diferença de ponto de partida é o que define Refutação Direta.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Capital mínimo de fintechs e risco sistêmico',
+    trecho: 'Exigir capital mínimo elevado de fintechs reduz a entrada de pequenos competidores no mercado financeiro, encarecendo o custo de operação para empresas em estágio inicial e potencialmente desacelerando a inovação no setor. Em contrapartida, esse mesmo requisito reduz significativamente o risco de quebras em cadeia que poderiam comprometer a confiança de milhões de usuários em caso de insolvência de uma instituição com base de clientes ampla. Esse é um custo aceitável diante do risco sistêmico que a ausência de exigências mínimas representaria para todo o sistema financeiro nacional.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Contraste → Tensão → Posição','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'O parágrafo pesa explicitamente um custo (barreira a pequenos competidores) contra um benefício (redução de risco sistêmico) e fecha com um balanço explícito sobre qual lado pesa mais ("custo aceitável diante do risco"). É a estrutura clássica de Trade-off.',
+    dica: 'O que diferencia Trade-off de Contraste→Tensão→Posição é o FECHAMENTO: o Trade-off termina dizendo explicitamente qual lado "vale mais a pena", enquanto o Contraste→Tensão→Posição termina com uma posição mais qualificada, sem necessariamente declarar qual lado pesa mais.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance: privacidade versus personalização',
+    trecho: 'A ampliação do compartilhamento de dados financeiros entre instituições no modelo de Open Finance reduz a privacidade dos usuários, expondo informações sensíveis a um número maior de empresas participantes do sistema. Por outro lado, esse mesmo compartilhamento permite que instituições financeiras ofereçam produtos de crédito mais personalizados e com taxas mais adequadas ao perfil real de risco de cada cliente, beneficiando especialmente consumidores historicamente mal avaliados por critérios genéricos de score de crédito. Para a maioria dos usuários de baixa renda, esse ganho de personalização tende a superar a perda marginal de privacidade, desde que existam salvaguardas mínimas de proteção de dados.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Concessão → Refutação','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Custo (perda de privacidade) e benefício (crédito mais personalizado) são pesados explicitamente, com uma conclusão final que declara qual lado tende a pesar mais para um grupo específico (usuários de baixa renda) — exatamente a estrutura de Trade-off.',
+    dica: 'Trade-offs costumam qualificar o balanço para um GRUPO ESPECÍFICO ("para a maioria dos usuários de baixa renda") em vez de fazer uma afirmação absoluta — isso é uma boa prática retórica, pois reconhece que o balanço pode variar entre diferentes perfis de usuário.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Automação industrial: produtividade versus emprego',
+    trecho: 'A adoção acelerada de robótica em linhas de produção reduz postos de trabalho para profissionais de baixa qualificação no curto prazo, gerando impacto social imediato sobre famílias que dependem desses empregos. Ainda assim, a mesma automação eleva a produtividade das empresas a níveis que permitem competir globalmente, preservando e até expandindo o número total de empregos na cadeia produtiva mais ampla — incluindo postos de manutenção técnica e supervisão que não existiam antes. Quando analisado o impacto agregado de médio prazo, o ganho de competitividade tende a compensar a perda inicial de postos de trabalho menos qualificados.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Refutação Direta','Generalização / Particularização'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Custo (perda de empregos de baixa qualificação no curto prazo) e benefício (competitividade e novos empregos técnicos) são comparados, com um balanço final explícito sobre o impacto agregado de médio prazo. Estrutura de Trade-off com recorte temporal (curto vs. médio prazo).',
+    dica: 'Trade-offs frequentemente usam recortes temporais diferentes para cada lado ("no curto prazo... no médio prazo...") — isso é uma variação sofisticada da forma, mas a lógica de pesar custo contra benefício permanece a mesma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Sistema bancário brasileiro desde o Plano Real',
+    trecho: 'Desde a criação do Plano Real, em 1994, o sistema bancário brasileiro priorizou a estabilidade monetária como objetivo central de suas políticas, em resposta direta ao histórico recente de hiperinflação que havia corroído a confiança da população nas instituições financeiras. Nas décadas seguintes, esse foco em estabilidade se manteve mesmo durante a digitalização acelerada dos serviços bancários, sem que avanços equivalentes em inclusão financeira acompanhassem a modernização tecnológica do setor. Hoje, ainda que o Brasil seja referência mundial em sistemas de pagamento instantâneo como o Pix, milhões de brasileiros permanecem fora do sistema bancário formal, repetindo um padrão histórico de exclusão que antecede a própria digitalização.',
+    opcoesForma: ['Histórico → Presente','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Generalização / Particularização'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo traça uma linha do tempo completa: origem histórica (Plano Real, 1994) → evolução (digitalização sem inclusão equivalente) → estado atual (exclusão financeira persistente apesar do Pix). É a estrutura clássica de Histórico→Presente.',
+    dica: 'Histórico→Presente sempre tem uma ANCORAGEM TEMPORAL CLARA no início (uma data, um evento, um marco histórico nomeado) — aqui, "desde a criação do Plano Real, em 1994" é o marcador inequívoco dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Evolução da regulação de crédito consignado',
+    trecho: 'Quando o crédito consignado foi regulamentado no início dos anos 2000, a medida foi pensada como mecanismo de acesso a crédito mais barato para trabalhadores formais e beneficiários do INSS, com base na garantia de pagamento via desconto direto em folha. Ao longo dos anos seguintes, no entanto, a ausência de atualização nos limites de comprometimento de renda — que permaneceram praticamente inalterados mesmo com o envelhecimento da população beneficiária — abriu espaço para um uso cada vez mais agressivo do instrumento por parte de instituições financeiras. Atualmente, o crédito consignado a aposentados é apontado como uma das principais causas de superendividamento entre idosos no Brasil, um problema distante da intenção original da política pública que o criou.',
+    opcoesForma: ['Histórico → Presente','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'Origem histórica (regulamentação no início dos anos 2000, com intenção de acesso a crédito barato) → evolução (ausência de atualização dos limites ao longo dos anos) → presente (superendividamento de idosos). É Histórico→Presente com ênfase no contraste entre intenção original e resultado atual.',
+    dica: 'Uma variação poderosa de Histórico→Presente é mostrar como o RESULTADO ATUAL contradiz a INTENÇÃO ORIGINAL da política ou medida — isso reforça a crítica sem precisar de um argumento contrário explícito para refutar.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Trajetória da inclusão digital bancária no Brasil',
+    trecho: 'Nos anos 2000, o acesso a serviços bancários no Brasil dependia quase exclusivamente de agências físicas, concentradas em centros urbanos e inacessíveis a grande parte da população rural e de baixa renda. A expansão dos correspondentes bancários na década seguinte representou um primeiro avanço, levando pontos de atendimento a municípios antes desassistidos, ainda que de forma limitada. Mais recentemente, a digitalização acelerada por aplicativos e pelo Pix completou essa trajetória ao eliminar, para boa parte da população, a necessidade de qualquer ponto físico de atendimento — embora parcelas da população idosa e de regiões com conectividade precária ainda enfrentem barreiras nessa fase mais digital do processo.',
+    opcoesForma: ['Histórico → Presente','Generalização / Particularização','Afirmação → Evidência → Análise','Concessão → Refutação'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre 3 fases temporais distintas (agências físicas nos anos 2000 → correspondentes bancários na década seguinte → digitalização recente), terminando no estado atual com suas limitações remanescentes. É uma versão estendida (3 etapas) de Histórico→Presente.',
+    dica: 'Histórico→Presente pode ter mais de 2 etapas temporais (não só "antes" e "agora") — quando há 3 ou mais fases describing uma evolução gradual, a forma continua sendo a mesma, só mais desenvolvida.'
+  },
+  // ══════════════════════════════════════════════════════════
+  // LOTE 12 — CLASSIFICAR FORMA com parágrafos completos (+20 cards)
+  // Reforço prioritário: Generalização/Particularização, Refutação Direta,
+  // Custo-Benefício (Trade-off), Histórico→Presente, Contraste→Tensão→Posição
+  // ══════════════════════════════════════════════════════════
+  {
+    tipo: 'classificar_forma',
+    tema: 'Golpes via WhatsApp e padrão de vulnerabilidade digital',
+    trecho: 'O golpe recente que utilizou clonagem de número de WhatsApp para solicitar transferências via Pix em nome de contatos da vítima não representa um caso isolado de má-fé individual. Ele evidencia um padrão mais amplo de vulnerabilidade presente em qualquer sistema que combine mensageria instantânea com confirmação social de identidade, no qual o vínculo de confiança entre conhecidos é explorado como vetor de fraude. Esse padrão exige que instituições financeiras desenvolvam mecanismos de verificação que não dependam exclusivamente da familiaridade entre remetente e destinatário.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Refutação Direta','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo parte de um caso concreto (golpe via WhatsApp) e generaliza para um padrão estrutural mais amplo ("evidencia um padrão mais amplo... em qualquer sistema que combine..."). É o movimento clássico de Generalização: do específico para o geral.',
+    dica: '"Não representa um caso isolado... evidencia um padrão mais amplo" é a fórmula mais comum de abertura de Generalização — sinaliza que o autor vai elevar o caso específico a um princípio geral.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Princípio de assimetria de informação aplicado ao crédito',
+    trecho: 'É princípio bem estabelecido na teoria econômica que mercados com assimetria de informação entre as partes tendem a gerar contratos desfavoráveis para o lado menos informado. Esse princípio se materializa de forma particularmente clara no mercado brasileiro de crédito consignado, no qual idosos com baixo letramento financeiro frequentemente não compreendem plenamente as condições de juros compostos e prazos de contratos assinados sob pressão comercial, resultando em comprometimento de renda superior ao que conseguiriam avaliar criticamente no momento da contratação.',
+    opcoesForma: ['Generalização / Particularização','Custo-Benefício (Trade-off)','Histórico → Presente','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'Aqui o movimento é do geral para o específico: parte de um princípio econômico amplo (assimetria de informação) e particulariza para o caso concreto do crédito consignado a idosos. Mesma forma do card anterior, mas na direção inversa.',
+    dica: '"É princípio bem estabelecido que... esse princípio se materializa em..." é o padrão de abertura para Generalização/Particularização na direção "geral → específico" — você está aplicando uma regra conhecida a um caso concreto.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Evasão de pagamentos digitais como fenômeno recorrente',
+    trecho: 'A inadimplência registrada entre usuários de carteiras digitais que parcelam compras de pequeno valor não deve ser interpretada como um problema restrito a esse tipo específico de transação. Trata-se de uma manifestação recente de um fenômeno recorrente em qualquer modalidade de crédito de fácil acesso e baixa fricção burocrática — do cheque especial ao cartão de crédito rotativo —, no qual a ausência de barreiras no momento da contratação favorece decisões de consumo sem avaliação criteriosa da capacidade futura de pagamento.',
+    opcoesForma: ['Generalização / Particularização','Concessão → Refutação','Analogia','Contraste → Tensão → Posição'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo rejeita uma leitura restrita/particular ("não deve ser interpretada como um problema restrito") e generaliza, situando o caso das carteiras digitais dentro de um padrão histórico mais amplo de crédito de fácil acesso. É Generalização.',
+    dica: 'Diferente de Analogia: aqui não há uma comparação com um fenômeno de OUTRA área (como biologia ou física) — a generalização permanece dentro do mesmo domínio (crédito financeiro), apenas ampliando o escopo de um caso específico para uma categoria mais amplas de casos similares.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do Pix contra acusação de informalidade',
+    trecho: 'Alega-se com frequência que a praticidade do Pix favoreceria a informalidade econômica, ao facilitar transações que escapam do controle fiscal tradicionalmente associado a meios de pagamento bancarizados. Tal alegação, contudo, não encontra respaldo nos dados da Receita Federal, que registrou aumento na formalização de pequenos negócios justamente nos anos seguintes à popularização do Pix — uma vez que a rastreabilidade das transações digitais é, na realidade, superior à do dinheiro em espécie que esses mesmos negócios utilizavam anteriormente.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Causa → Explicação → Efeito','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Alega-se que... tal alegação, contudo, não encontra respaldo" ataca diretamente o argumento contrário com dados que o contradizem, sem conceder nenhuma validade a ele. É Refutação Direta — diferente de Concessão→Refutação, que começaria reconhecendo algo de verdadeiro na alegação antes de refutar.',
+    dica: 'O argumento aqui é refutado com uma INVERSÃO LÓGICA: a alegação dizia que o Pix favorece informalidade por reduzir rastreabilidade, mas a refutação mostra que a rastreabilidade do Pix é, na verdade, MAIOR que a do dinheiro físico — um padrão comum de Refutação Direta bem construída.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Refutação sobre regulação e fuga de capital',
+    trecho: 'Defensores da desregulamentação financeira costumam argumentar que exigências regulatórias mais estritas provocam fuga de capital e investimentos para jurisdições mais permissivas. Essa tese, entretanto, é contradita pelo próprio comportamento do mercado global de fintechs nos últimos anos: os maiores volumes de investimento em capital de risco para o setor financeiro digital concentraram-se justamente em mercados com regulação robusta, como Reino Unido e Singapura, e não nas jurisdições com menor exigência regulatória, que permanecem marginais nesse fluxo de capital.',
+    opcoesForma: ['Refutação Direta','Comparação (Brasil × outro país)','Generalização / Particularização','Concessão → Refutação'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: 'O argumento contrário (regulação provoca fuga de capital) é diretamente contradito por evidência empírica (investimento se concentra em mercados regulados), sem qualquer concessão inicial. A menção a dois países (Reino Unido e Singapura) é usada como EVIDÊNCIA da refutação, não como estrutura central de Comparação.',
+    dica: 'Cuidado: citar países dentro de uma Refutação Direta não transforma a forma em Comparação — o que define a forma é a ESTRUTURA GERAL do parágrafo (refutar um argumento contrário), e os países aqui funcionam apenas como prova de apoio a essa refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Refutação sobre telemedicina e acesso desigual',
+    trecho: 'Critica-se frequentemente a expansão da telemedicina sob a justificativa de que ela aprofundaria desigualdades de acesso à saúde, beneficiando apenas pacientes com conectividade de qualidade e dispositivos adequados. Essa crítica, no entanto, ignora que a alternativa à telemedicina, para a maior parte da população de regiões remotas, não é o atendimento presencial de qualidade equivalente, mas sim a ausência completa de qualquer atendimento médico especializado — de modo que a telemedicina, mesmo com suas limitações de acesso, amplia o total de pessoas atendidas em vez de substituir um atendimento presencial que, na prática, frequentemente nem existe nessas localidades.',
+    opcoesForma: ['Refutação Direta','Contraste → Tensão → Posição','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, no entanto, ignora que..." é uma refutação direta que desmonta a premissa do argumento contrário (comparação implícita errada entre telemedicina e atendimento presencial de qualidade, quando a alternativa real é a ausência total de atendimento).',
+    dica: 'Uma Refutação Direta forte costuma revelar uma PREMISSA ESCONDIDA equivocada no argumento criticado — aqui, a premissa de que existiria atendimento presencial de qualidade como alternativa, o que na prática não existe nas regiões discutidas.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Capital mínimo regulatório: barreira versus segurança',
+    trecho: 'A exigência de capital mínimo elevado para operação de fintechs de crédito eleva a barreira de entrada para empresas em estágio inicial, reduzindo a diversidade de competidores no setor e potencialmente desacelerando a velocidade de inovação que caracteriza esse mercado. Em contrapartida, esse mesmo capital mínimo funciona como colchão de segurança em casos de inadimplência em massa ou crise de liquidez, reduzindo a probabilidade de que a quebra de uma única instituição comprometa a confiança de toda a base de usuários do setor. Para o sistema financeiro como um todo, a redução do risco sistêmico tende a justificar o custo de barreira à entrada, ainda que esse custo seja real e mereça ser mitigado por mecanismos complementares de apoio a pequenas fintechs.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Contraste → Tensão → Posição','Concessão → Refutação','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Custo (barreira de entrada) e benefício (segurança sistêmica) são pesados explicitamente, com um balanço final claro ("tende a justificar o custo") qualificado por uma ressalva sobre mitigação — exatamente a estrutura de Trade-off.',
+    dica: 'O Trade-off pode terminar com uma ressalva qualificadora ("ainda que esse custo seja real e mereça ser mitigado") sem deixar de ser Trade-off — isso só torna o balanço mais sofisticado, reconhecendo que a solução ideal pode ainda exigir ajustes complementares.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Biometria facial: praticidade versus privacidade',
+    trecho: 'A adoção de biometria facial como método de autenticação em aplicativos bancários reduz a fricção no acesso a contas, eliminando a necessidade de memorizar senhas complexas e diminuindo o tempo médio de login para a maioria dos usuários. O custo dessa praticidade, contudo, é a centralização de dados biométricos sensíveis — que, diferentemente de uma senha, não podem ser alterados pelo usuário em caso de vazamento, tornando qualquer violação de segurança nesse tipo de dado potencialmente permanente. Diante da gravidade dessa irreversibilidade, muitos especialistas defendem que a praticidade ganha relevância secundária frente à exigência de protocolos rigorosos de criptografia e armazenamento descentralizado desses dados.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Concessão → Refutação','Causa → Explicação → Efeito','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (praticidade, menos fricção) e custo (irreversibilidade do dado biométrico em caso de vazamento) são pesados, com um balanço final que inclina para um lado específico ("a praticidade ganha relevância secundária"). É Trade-off com conclusão que favorece claramente um dos lados.',
+    dica: 'No Trade-off, o balanço final não precisa ser equilibrado 50/50 — pode declarar abertamente que um lado pesa muito mais que o outro, desde que ambos os lados tenham sido apresentados e ponderados antes dessa conclusão.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance: inovação versus exposição de dados',
+    trecho: 'A ampliação do compartilhamento de dados financeiros previsto no Open Finance permite que instituições menores ofereçam produtos de crédito mais competitivos, calculados com base em informações detalhadas do histórico financeiro de cada cliente, em vez de critérios genéricos de score. O preço dessa personalização é a exposição de informações financeiras sensíveis a um número maior de empresas participantes do ecossistema, ampliando a superfície de risco em caso de falha de segurança em qualquer um dos elos dessa cadeia de compartilhamento. Quando se compara o ganho de acesso a crédito mais justo para milhões de pequenos consumidores ao risco pontual de uma falha de segurança isolada, a balança tende a favorecer a continuidade do modelo, desde que acompanhada de auditorias regulares.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Contraste → Tensão → Posição','Refutação Direta','Generalização / Particularização'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'O parágrafo pesa explicitamente o benefício (crédito mais justo) contra o custo (exposição de dados), fechando com uma comparação direta entre os dois e uma conclusão sobre qual lado "a balança tende a favorecer" — a metáfora da balança é, inclusive, um indício linguístico forte de Trade-off.',
+    dica: 'Expressões como "a balança tende a favorecer", "o saldo é positivo/negativo" ou "compensa o custo de" são marcadores linguísticos fortes de que o parágrafo está estruturado como Custo-Benefício (Trade-off).'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Trajetória da regulação bancária brasileira até o Open Finance',
+    trecho: 'A regulação do sistema financeiro nacional, consolidada após a criação do Plano Real em 1994, priorizou historicamente a solidez e a estabilidade das instituições bancárias, em resposta direta ao histórico de crises de confiança que marcaram décadas anteriores de inflação descontrolada. Esse foco em estabilidade institucional permaneceu o eixo central da regulação bancária por praticamente duas décadas, com avanços tecnológicos limitados a melhorias incrementais de segurança e eficiência operacional dentro das próprias instituições já estabelecidas. Apenas na última década, com a criação do Pix e, mais recentemente, do Open Finance, a regulação brasileira passou a tratar explicitamente o acesso a dados e a interoperabilidade entre instituições como objetivos regulatórios centrais, marcando uma mudança de paradigma que prioriza, além da estabilidade, a competitividade e a inclusão financeira como metas igualmente relevantes.',
+    opcoesForma: ['Histórico → Presente','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre claramente 3 fases temporais: origem (Plano Real, 1994, foco em estabilidade) → estagnação relativa (duas décadas de avanços incrementais) → presente (Pix e Open Finance, mudança de paradigma regulatório). É Histórico→Presente bem desenvolvido.',
+    dica: 'Quando o parágrafo menciona explicitamente "permaneceu por duas décadas" antes de chegar ao presente, isso reforça a estrutura temporal de Histórico→Presente — o "período de estagnação relativa" no meio é parte do arco histórico, não uma forma diferente.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Evolução do crédito consignado e seus efeitos atuais',
+    trecho: 'Quando criado no início dos anos 2000, o crédito consignado foi concebido como instrumento de acesso facilitado e seguro a crédito para trabalhadores formais e beneficiários do INSS, baseado na garantia de pagamento via desconto direto em folha — uma inovação que, na época, foi celebrada por reduzir taxas de juros em comparação ao crédito pessoal tradicional. Nas duas décadas seguintes, contudo, a ausência de atualização periódica nos limites de comprometimento de renda permitida, mesmo diante do envelhecimento da população beneficiária e do aumento médio do tempo de vida pós-aposentadoria, abriu espaço para uma exploração cada vez mais agressiva do instrumento por parte de instituições financeiras. Hoje, o crédito consignado a aposentados é apontado como uma das principais portas de entrada para o superendividamento da população idosa brasileira — um resultado distante, e em certo sentido oposto, da intenção protetiva que orientou sua criação original.',
+    opcoesForma: ['Histórico → Presente','Generalização / Particularização','Refutação Direta','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'Origem histórica (criação nos anos 2000, com intenção protetiva) → evolução (ausência de atualização por duas décadas) → presente (superendividamento de idosos). É Histórico→Presente, com a sofisticação adicional de mostrar como o resultado atual contradiz a intenção original — uma variação poderosa dessa forma.',
+    dica: 'Mostrar que o RESULTADO ATUAL é "distante ou oposto" à intenção original de uma política é uma forma sofisticada de Histórico→Presente — a crítica fica implícita na própria trajetória temporal, sem precisar de um argumento contrário explícito para refutar.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Da exclusão bancária à inclusão digital: trajetória de três décadas',
+    trecho: 'Nos anos 1990, o acesso a qualquer serviço bancário no Brasil dependia da existência de uma agência física nas proximidades, o que excluía de forma quase automática grande parte da população rural e das periferias urbanas das grandes cidades. A expansão dos correspondentes bancários ao longo dos anos 2000 representou um primeiro avanço relevante, levando pontos básicos de atendimento — como casas lotéricas e pequenos comércios — a localidades antes completamente desassistidas, ainda que com limitações significativas de serviços oferecidos. A última década, marcada pela digitalização acelerada de aplicativos bancários e, mais recentemente, pela consolidação do Pix como meio universal de pagamento, completou essa trajetória ao tornar dispensável, para a maior parte da população urbana, qualquer ponto físico de atendimento — embora parcelas da população idosa e moradores de regiões com conectividade precária ainda enfrentem barreiras significativas nessa etapa mais digital do processo de inclusão financeira.',
+    opcoesForma: ['Histórico → Presente','Comparação (Brasil × outro país)','Generalização / Particularização','Contraste → Tensão → Posição'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre 3 décadas distintas (anos 1990, anos 2000, última década) em uma progressão temporal clara, terminando no estado atual com suas limitações remanescentes para grupos específicos. É uma versão estendida de Histórico→Presente, com 3 marcos temporais bem definidos.',
+    dica: 'Histórico→Presente com múltiplas décadas costuma seguir o padrão "Nos anos X... Nos anos Y... Na última década..." — cada marco temporal representa uma etapa da evolução, e o fechamento sempre situa o leitor no presente com suas limitações atuais.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Open Finance: avanço reconhecido e tensão regulatória',
+    trecho: 'Embora o Open Finance amplie significativamente a concorrência no setor financeiro e permita que consumidores acessem produtos mais adequados ao seu perfil real, beneficiando especialmente aqueles historicamente mal avaliados por critérios genéricos de score, sua expansão acelerada sem mecanismos rigorosos de consentimento renovável e auditável cria vulnerabilidades reais relacionadas ao uso indevido de dados financeiros sensíveis por parte de empresas com práticas de governança menos transparentes. A experiência regulatória de mercados que já avançaram nesse modelo, como o europeu, sugere que esse equilíbrio entre abertura de dados e proteção do consumidor é alcançável, mas exige supervisão contínua e não apenas uma regulamentação inicial estática.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Custo-Benefício (Trade-off)','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'O parágrafo reconhece um avanço real e duplo (concorrência + benefício a consumidores mal avaliados), aponta uma tensão genuína (vulnerabilidade de dados), e fecha com uma posição que não nega o avanço nem o risco, mas os concilia através de supervisão contínua — típico de Contraste→Tensão→Posição.',
+    dica: 'A diferença chave em relação a Trade-off: aqui a conclusão NÃO declara qual lado pesa mais — ela busca uma CONCILIAÇÃO (supervisão contínua) entre os dois lados, em vez de fazer um balanço de qual vale mais a pena.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Automação bancária: eficiência reconhecida e tensão sobre acessibilidade',
+    trecho: 'Embora a automação de processos de atendimento bancário por meio de assistentes virtuais reduza significativamente o tempo de espera para a maioria das solicitações simples e permita que instituições realoquem recursos humanos para casos mais complexos, a substituição ampla de canais humanos por interfaces automatizadas cria dificuldades reais de acesso para idosos, pessoas com deficiências cognitivas ou sensoriais, e usuários com baixo letramento digital, que frequentemente não conseguem formular suas demandas em termos compreensíveis pelos sistemas de processamento de linguagem natural utilizados por esses assistentes. A manutenção de canais humanos como alternativa garantida, e não apenas como exceção burocrática de difícil acesso, parece ser a posição que melhor concilia o ganho de eficiência com a necessidade de inclusão.',
+    opcoesForma: ['Contraste → Tensão → Posição','Custo-Benefício (Trade-off)','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o avanço (eficiência, realocação de recursos), aponta a tensão real (dificuldade de acesso para grupos específicos), e fecha com uma posição conciliadora ("parece ser a posição que melhor concilia"). É Contraste→Tensão→Posição, sem negar o benefício nem fazer um balanço de custo-benefício explícito.',
+    dica: 'Repare que o fechamento usa "concilia" em vez de "compensa" ou "vale a pena" — esse vocabulário de conciliação, em vez de balanço comparativo, é um sinal de Contraste→Tensão→Posição em vez de Trade-off.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Crédito por aplicativo: agilidade reconhecida e tensão sobre impulsividade',
+    trecho: 'Ainda que a agilidade na concessão de crédito por aplicativos financeiros represente um avanço genuíno para consumidores que precisam de recursos emergenciais e não têm tempo ou paciência para os processos burocráticos do crédito tradicional, a ausência de um intervalo mínimo de reflexão entre a solicitação e a liberação dos recursos favorece decisões financeiras tomadas sob impulso, sem o tempo de ponderação que caracterizava processos de crédito mais demorados. Estabelecer um pequeno intervalo obrigatório de confirmação antes da liberação efetiva dos recursos, sem comprometer significativamente a agilidade geral do processo, surge como uma posição capaz de preservar o benefício original sem ignorar o risco identificado.',
+    opcoesForma: ['Contraste → Tensão → Posição','Refutação Direta','Generalização / Particularização','Histórico → Presente'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o benefício (agilidade para emergências), aponta a tensão (decisões impulsivas), e propõe uma posição de meio-termo (intervalo de confirmação) que preserva o benefício sem ignorar o risco — exatamente a lógica de Contraste→Tensão→Posição.',
+    dica: 'Uma posição de "meio-termo prático" (como um pequeno ajuste que preserva o essencial de ambos os lados) é uma forma muito comum de fechar um Contraste→Tensão→Posição de forma propositiva, sem cair em Trade-off nem em Refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Regulação de stablecoins: estabilidade reconhecida e tensão sobre lastro',
+    trecho: 'Conquanto as stablecoins representem um avanço relevante ao oferecer a agilidade das criptomoedas sem a volatilidade extrema característica desses ativos, sua promessa de estabilidade depende inteiramente da solidez e da transparência do lastro que efetivamente sustenta cada unidade emitida — uma garantia que, na ausência de auditorias externas obrigatórias e regulares, permanece baseada essencialmente na confiança não verificada na emissora. Exigir auditorias periódicas e públicas do lastro de reserva, sem impedir a emissão ou o uso dessas moedas, parece ser o caminho que preserva a inovação trazida pelas stablecoins sem expor os usuários a um risco de colapso semelhante ao já observado em outros mercados internacionais.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Custo-Benefício (Trade-off)','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o avanço (agilidade sem volatilidade), identifica a tensão (dependência de lastro não auditado), e propõe uma posição que concilia inovação com segurança (auditorias obrigatórias sem impedir o uso). Padrão claro de Contraste→Tensão→Posição.',
+    dica: '"Conquanto" é sinônimo formal de "embora" — ambos abrem a concessão inicial em Contraste→Tensão→Posição. O vocabulário mais formal não muda a forma, apenas eleva o registro da escrita.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Refutação sobre microcrédito e dependência assistencialista',
+    trecho: 'Critica-se com frequência o microcrédito produtivo orientado sob a alegação de que ele criaria uma dependência assistencialista entre pequenos empreendedores, substituindo o esforço de capitalização própria por sucessivos ciclos de endividamento subsidiado pelo Estado. Essa crítica, contudo, não se sustenta diante dos dados de impacto do programa: a esmagadora maioria dos beneficiários do microcrédito produtivo orientado contrai o financiamento uma única vez ou poucas vezes ao longo de toda a trajetória empresarial, utilizando o recurso especificamente para capitalização inicial ou expansão pontual de negócios já estabelecidos — um padrão de uso incompatível com a narrativa de dependência crônica atribuída ao programa pelos seus críticos.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Afirmação → Evidência → Análise','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, contudo, não se sustenta diante dos dados" desmonta diretamente o argumento contrário com evidência concreta sobre o padrão real de uso do programa, sem conceder nenhuma validade à crítica original sobre dependência assistencialista.',
+    dica: 'Note que há um dado estatístico dentro da Refutação Direta — isso não a transforma em Afirmação→Evidência→Análise, porque o ponto de partida do parágrafo é o ARGUMENTO DO OUTRO LADO ("critica-se que..."), não uma afirmação própria do autor sendo comprovada.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Refutação sobre regulação de criptoativos e fuga para o exterior',
+    trecho: 'Sustenta-se, em certos círculos do mercado, que a regulamentação de exchanges de criptoativos no Brasil provocaria a migração de usuários para plataformas internacionais sem qualquer supervisão, tornando o mercado nacional ainda mais vulnerável a fraudes do que está atualmente. Esse argumento, entretanto, inverte a relação causal real observada em mercados que já regulamentaram o setor: a clareza regulatória tende a aumentar, e não reduzir, a confiança de usuários em permanecer em plataformas nacionais licenciadas, justamente porque oferecem mecanismos formais de reclamação e proteção inexistentes em exchanges estrangeiras não supervisionadas, que se tornam a opção menos atraente, e não mais atraente, após a regulamentação local.',
+    opcoesForma: ['Refutação Direta','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: 'O argumento contrário é diretamente atacado por inversão lógica: a refutação mostra que a relação de causa e efeito proposta pelos críticos está invertida na prática observada em outros mercados. É Refutação Direta sem concessão inicial ao argumento criticado.',
+    dica: 'Mostrar que o argumento contrário "inverte a relação causal real" é uma forma particularmente forte de Refutação Direta — ataca não apenas a conclusão do argumento, mas a própria lógica causal em que ele se baseia.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Refutação sobre Pix e perda de receita bancária',
+    trecho: 'Alega-se, em análises mais superficiais do setor financeiro, que a popularização do Pix teria reduzido drasticamente a rentabilidade dos bancos tradicionais, ao eliminar taxas que antes incidiam sobre transferências bancárias convencionais. Essa leitura, no entanto, ignora os balanços financeiros publicados pelas próprias instituições nos anos seguintes à implementação do Pix, que registraram crescimento nos lucros líquidos no mesmo período — explicado pela compensação via aumento de receita em outras linhas de negócio, como crédito e investimentos, e pela redução de custos operacionais com a menor necessidade de infraestrutura física para transações simples.',
+    opcoesForma: ['Refutação Direta','Afirmação → Evidência → Análise','Concessão → Refutação','Histórico → Presente'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Alega-se que... essa leitura, no entanto, ignora os balanços..." desmonta diretamente a afirmação contrária com dados financeiros concretos, sem conceder nenhuma validade inicial à alegação sobre perda de rentabilidade dos bancos.',
+    dica: 'Repare que a Refutação Direta aqui usa dados financeiros reais (balanços, lucros) como prova — isso reforça a refutação, mas não muda a forma para Afirmação→Evidência→Análise, porque o parágrafo parte do ataque a um argumento contrário, não de uma afirmação própria do autor.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Da poupança obrigatória ao crédito por aplicativo: trajetória do crédito popular',
+    trecho: 'Nas décadas de 1970 e 1980, o acesso a crédito para a população de baixa renda no Brasil dependia quase exclusivamente de programas governamentais de poupança obrigatória vinculados ao emprego formal, com critérios rígidos de elegibilidade que excluíam trabalhadores informais e autônomos da grande maioria das linhas de financiamento disponíveis. A partir dos anos 2000, a expansão do crédito consignado e, posteriormente, do microcrédito produtivo orientado, ampliou moderadamente esse acesso, ainda que mantendo burocracia significativa e prazos de aprovação que podiam se estender por semanas. Atualmente, aplicativos de crédito digital aprovam e liberam recursos em questão de minutos, utilizando análise automatizada de dados comportamentais — uma transformação de décadas que ampliou exponencialmente o acesso ao crédito, mas que também trouxe, como contrapartida, os riscos de superendividamento por decisões tomadas sem o tempo de reflexão que os processos mais lentos do passado, ainda que excludentes, impunham.',
+    opcoesForma: ['Histórico → Presente','Custo-Benefício (Trade-off)','Generalização / Particularização','Contraste → Tensão → Posição'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre 3 períodos históricos claros (décadas de 1970-80, anos 2000, atualidade) descrevendo a evolução do acesso a crédito popular, terminando no estado atual com seus riscos específicos. É Histórico→Presente bem desenvolvido, mesmo mencionando um trade-off (acesso × risco) como parte do desfecho.',
+    dica: 'Um parágrafo de Histórico→Presente pode terminar mencionando um trade-off como CONSEQUÊNCIA da evolução temporal — isso não muda a forma para Trade-off, porque a estrutura organizadora central do parágrafo é a linha do tempo, não um balanço de custo-benefício isolado.'
+  },
 ];
-
 // ── Gera um ID estável por card (hash simples baseado em tipo+tema+conteúdo) ──
 // Garante que o mesmo card sempre receba o mesmo ID entre sessões/dispositivos,
 // mesmo que a ordem do array mude com futuras edições do banco.
