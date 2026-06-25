@@ -6020,8 +6020,462 @@ const FC_BANCO = [
     explicacao: 'O parágrafo percorre 3 períodos históricos claros (décadas de 1970-80, anos 2000, atualidade) descrevendo a evolução do acesso a crédito popular, terminando no estado atual com seus riscos específicos. É Histórico→Presente bem desenvolvido, mesmo mencionando um trade-off (acesso × risco) como parte do desfecho.',
     dica: 'Um parágrafo de Histórico→Presente pode terminar mencionando um trade-off como CONSEQUÊNCIA da evolução temporal — isso não muda a forma para Trade-off, porque a estrutura organizadora central do parágrafo é a linha do tempo, não um balanço de custo-benefício isolado.'
   },
-];
-// ── Gera um ID estável por card (hash simples baseado em tipo+tema+conteúdo) ──
+  // ══════════════════════════════════════════════════════════
+  // LOTE 13 — CLASSIFICAR FORMA com parágrafos completos, TEMAS VARIADOS (+50 cards)
+  // Cobertura ampliada: educação, saúde, meio ambiente, segurança pública,
+  // urbanismo, mercado de trabalho — além dos temas bancários já existentes.
+  // ══════════════════════════════════════════════════════════
+  {
+    tipo: 'classificar_forma',
+    tema: 'Evasão escolar no ensino técnico noturno',
+    trecho: 'A incompatibilidade entre os horários das aulas técnicas noturnas e as jornadas de trabalho informal exercidas por muitos estudantes de baixa renda dificulta significativamente a conciliação entre estudo e subsistência familiar. Isso ocorre porque grande parte desses alunos depende de empregos com horários variáveis ou turnos estendidos, que frequentemente colidem com o cronograma fixo das aulas presenciais, obrigando-os a escolher entre faltar ao trabalho — com risco de perda de renda imediata — ou abandonar gradualmente a frequência escolar. Levantamentos de secretarias estaduais de educação apontam taxas de evasão superiores a 30% em cursos técnicos noturnos voltados a esse público. Como consequência, grande parte desses jovens interrompe a formação técnica antes da conclusão, perpetuando um ciclo de baixa qualificação profissional.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'A causa (incompatibilidade de horários) é explicada pelo mecanismo (conflito entre trabalho e estudo), comprovada por um dado (taxas de evasão) e fechada com o efeito final (interrupção da formação). É Causa→Explicação→Efeito desenvolvido em parágrafo completo.',
+    dica: 'Mesmo com um dado estatístico no meio do parágrafo, observe a espinha dorsal: se ela vai de uma causa a um efeito através de uma explicação, a forma continua sendo Causa→Explicação→Efeito — o dado é apoio, não o centro da estrutura.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Saúde mental de profissionais de enfermagem',
+    trecho: 'É verdade que a enfermagem sempre foi reconhecida como profissão de alta demanda emocional, dada a proximidade constante com sofrimento humano e decisões de vida ou morte em ambientes hospitalares. Contudo, essa naturalização do desgaste psicológico como "parte do trabalho" não pode servir de justificativa para a ausência de suporte institucional estruturado às equipes de enfermagem. Hospitais que implementaram programas obrigatórios de suporte psicológico continuado para suas equipes registraram redução significativa nas taxas de absenteísmo e rotatividade de profissionais, demonstrando que o cuidado com a saúde mental da equipe não é custo acessório, mas investimento direto na qualidade e continuidade do atendimento prestado aos pacientes.',
+    opcoesForma: ['Concessão → Refutação','Contraste → Tensão → Posição','Causa → Explicação → Efeito','Generalização / Particularização'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que" concede o reconhecimento histórico da demanda emocional da profissão, e "contudo" refuta diretamente que isso justifique a ausência de suporte — uma negação categórica reforçada por evidência hospitalar concreta. É Concessão→Refutação.',
+    dica: 'A concessão aqui não é sobre um benefício, mas sobre um FATO RECONHECIDO (a profissão é emocionalmente exigente) — a refutação ataca a CONCLUSÃO INDEVIDA que se tira desse fato (de que o desgaste deveria ser naturalizado), não o fato em si.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Desmatamento na Amazônia e fiscalização ambiental',
+    trecho: 'Segundo dados do Instituto Nacional de Pesquisas Espaciais, o desmatamento na Amazônia Legal apresentou variações expressivas entre diferentes períodos das últimas duas décadas, com picos coincidindo historicamente com momentos de redução do orçamento destinado a órgãos de fiscalização ambiental. Essa correlação sugere que a capacidade operacional de fiscalização em campo é fator determinante para conter o avanço do desmatamento ilegal, independentemente de mudanças na legislação ambiental vigente, que permaneceu relativamente estável durante todo o período analisado.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Histórico → Presente','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do INPE é a evidência central, e o restante do parágrafo é a análise interpretativa dessa correlação (orçamento de fiscalização × desmatamento). Não há comparação com outro país nem uma linha do tempo histórica desenvolvida — é Afirmação→Evidência→Análise.',
+    dica: 'Mesmo mencionando "últimas duas décadas", o parágrafo não percorre etapas históricas distintas — ele usa esse período apenas para descrever uma correlação estatística, o que mantém a forma como Afirmação→Evidência→Análise, não Histórico→Presente.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Segurança pública e tecnologia de videomonitoramento',
+    trecho: 'A instalação de câmeras de videomonitoramento com reconhecimento facial em vias públicas reduz o tempo médio de identificação de suspeitos em investigações criminais, permitindo respostas mais rápidas das forças de segurança em casos de crimes em série. O custo dessa tecnologia, contudo, recai sobre a privacidade da população em geral, que passa a ter seus deslocamentos cotidianos registrados e processados por sistemas automatizados, independentemente de qualquer suspeita de envolvimento em atividade criminal. Em cidades que adotaram protocolos rígidos de retenção limitada de dados e auditoria independente do uso dessas imagens, o ganho em eficiência investigativa tende a justificar o custo à privacidade, desde que a vigilância não se converta em controle social indiscriminado da população.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Contraste → Tensão → Posição','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (agilidade investigativa) e custo (privacidade) são pesados explicitamente, com balanço final que declara qual lado tende a pesar mais sob certas condições ("tende a justificar o custo, desde que"). É Trade-off com ressalva qualificadora.',
+    dica: 'A expressão "desde que" no fechamento de um Trade-off não muda a forma — ela apenas qualifica as condições sob as quais o balanço se sustenta, mantendo a estrutura central de pesar custo contra benefício.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Mobilidade urbana e expansão de ciclovias',
+    trecho: 'Assim como uma rede de capilares irriga progressivamente tecidos antes mal supridos de sangue em um organismo, a expansão de ciclovias em bairros periféricos tende a irrigar progressivamente regiões da cidade antes mal conectadas pelo transporte público tradicional, criando rotas alternativas de deslocamento que se ramificam a partir de eixos centrais já consolidados. Da mesma forma que a obstrução de um capilar pode comprometer a irrigação de toda uma região do tecido, a interrupção de um trecho da malha cicloviária — por obras inacabadas ou manutenção deficiente — compromete a conectividade de toda uma rede de deslocamento que dependia da continuidade daquele trecho específico.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Generalização / Particularização','Histórico → Presente'],
+    formaCorreta: 'Analogia',
+    explicacao: 'Todo o parágrafo é construído sobre a comparação entre o sistema circulatório humano e a malha cicloviária urbana, sem citar dados nem país — uma Analogia desenvolvida com bastante detalhamento da comparação biológica.',
+    dica: 'Analogias com sistemas biológicos (circulação, sistema imunológico, organismo) são um repertório recorrente e versátil — funcionam bem para qualquer tema que envolva conectividade, redes ou interdependência entre partes de um sistema maior.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Trabalho informal e proteção previdenciária',
+    trecho: 'A ausência de vínculo formal de emprego entre trabalhadores de plataformas digitais de entrega compromete significativamente seu acesso a direitos previdenciários básicos, como aposentadoria por tempo de contribuição e auxílio-doença. Isso ocorre porque a classificação desses trabalhadores como "parceiros autônomos", e não como empregados, exime as plataformas da obrigação de recolhimento automático de contribuições previdenciárias, transferindo essa responsabilidade integralmente ao próprio trabalhador, que frequentemente não possui orientação ou recursos disponíveis para realizar essas contribuições de forma voluntária e regular. Pesquisas do Departamento Intersindical de Estatística e Estudos Socioeconômicos indicam que a grande maioria desses trabalhadores não contribui regularmente ao INSS. Como consequência, projeta-se um contingente crescente de trabalhadores que chegará à idade avançada sem cobertura previdenciária básica, pressionando programas assistenciais não contributivos no futuro.',
+    opcoesForma: ['Causa → Explicação → Efeito','Refutação Direta','Custo-Benefício (Trade-off)','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (ausência de vínculo formal) → explicação (classificação como autônomo exime as plataformas) → evidência (dados do DIEESE) → efeito (projeção de desproteção futura). É Causa→Explicação→Efeito plenamente desenvolvido.',
+    dica: 'Parágrafos que terminam com uma PROJEÇÃO FUTURA ("projeta-se um contingente crescente que...") ainda são Causa→Explicação→Efeito — a projeção é apenas uma forma de expressar o efeito final, só que situado no futuro em vez do presente.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Saneamento básico e desenvolvimento humano',
+    trecho: 'Nas décadas de 1950 e 1960, a expansão da rede de saneamento básico no Brasil concentrou-se quase exclusivamente nas regiões metropolitanas mais industrializadas, refletindo prioridades de investimento público voltadas ao desenvolvimento econômico de polos urbanos já consolidados. Ao longo das décadas seguintes, programas federais de universalização ampliaram moderadamente essa cobertura para cidades de médio porte, ainda que mantendo disparidades regionais significativas, especialmente entre as regiões Sudeste e Nordeste do país. Atualmente, ainda que o Brasil tenha avançado na cobertura de abastecimento de água potável, parcela considerável da população, sobretudo em áreas rurais e periferias urbanas do Norte e Nordeste, ainda não possui acesso a rede de coleta e tratamento de esgoto, um déficit histórico que se traduz diretamente em maiores índices de doenças de veiculação hídrica nessas regiões.',
+    opcoesForma: ['Histórico → Presente','Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre 3 fases temporais (décadas de 1950-60, décadas seguintes, presente), descrevendo a evolução da cobertura de saneamento básico até o estado atual com suas disparidades regionais. É Histórico→Presente bem desenvolvido.',
+    dica: 'Histórico→Presente sobre infraestrutura costuma mostrar como prioridades de investimento de décadas passadas ainda EXPLICAM desigualdades regionais atuais — essa "herança histórica" é um recurso retórico forte dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da reforma curricular contra acusação de improviso',
+    trecho: 'Critica-se com frequência a reformulação do ensino médio brasileiro sob a alegação de que ela teria sido implementada de forma apressada, sem tempo suficiente para capacitação adequada de professores e adaptação da infraestrutura escolar às novas exigências curriculares. Essa crítica, no entanto, ignora que o processo de discussão e elaboração da reforma se estendeu por mais de uma década, incluindo consultas públicas, pareceres técnicos do Conselho Nacional de Educação e períodos de implementação escalonada por estados — um cronograma significativamente mais longo do que o de reformas educacionais anteriores que não receberam a mesma crítica de "apressadas".',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Histórico → Presente','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, no entanto, ignora que..." ataca diretamente o argumento contrário com fatos sobre o cronograma real do processo, sem conceder nenhuma validade inicial à acusação de improviso.',
+    dica: 'Uma Refutação Direta eficaz frequentemente usa COMPARAÇÃO IMPLÍCITA com outros casos ("mais longo do que o de reformas anteriores") para reforçar que a crítica não se sustenta — isso não transforma a forma em Comparação, pois o foco continua sendo desmontar um argumento específico.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Atenção primária à saúde no Brasil e em Cuba',
+    trecho: 'O sistema brasileiro de atenção primária à saúde, estruturado principalmente por meio das Unidades Básicas de Saúde e do Programa Saúde da Família, prioriza o atendimento territorializado com equipes responsáveis por populações geograficamente definidas. Cuba, por sua vez, desenvolveu desde décadas um modelo de medicina de família com razão de médicos por habitante significativamente superior à média latino-americana, combinado com visitas domiciliares regulares e protocolizadas como parte rotineira do acompanhamento de saúde da população. A comparação entre os dois modelos sugere que a combinação de territorialização com alta capilaridade de profissionais — não apenas um dos dois fatores isoladamente — é o que sustenta indicadores robustos de saúde preventiva observados no modelo cubano.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Afirmação → Evidência → Análise','Generalização / Particularização'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Cuba são comparados explicitamente quanto aos modelos de atenção primária, com uma lição extraída da combinação de fatores que sustenta o sucesso do modelo cubano. É Comparação Brasil × outro país.',
+    dica: 'Comparações em saúde pública costumam envolver MAIS DE UM FATOR combinado (aqui: territorialização + capilaridade de profissionais) — a lição final aponta para a importância da combinação, não de um fator isolado.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Política habitacional e financiamento de moradia popular',
+    trecho: 'A redução das taxas de juros em programas de financiamento habitacional voltados à população de baixa renda amplia o número de famílias capazes de arcar com prestações mensais compatíveis com sua renda, ampliando o acesso à moradia própria formal. O custo dessa política para o Estado é o subsídio direto necessário para viabilizar taxas abaixo do custo de captação de recursos no mercado financeiro, um gasto público que compete por recursos orçamentários com outras políticas sociais igualmente relevantes. Considerando que o acesso à moradia própria reduz custos futuros do Estado com programas de aluguel social e abrigos emergenciais, o investimento em subsídio habitacional tende a se justificar no médio e longo prazo, ainda que represente custo fiscal imediato significativo.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Contraste → Tensão → Posição','Histórico → Presente'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (acesso à moradia) e custo (subsídio fiscal) são pesados, com balanço final explícito sobre o horizonte temporal em que o investimento se justifica ("médio e longo prazo"). É Trade-off com recorte temporal no balanço.',
+    dica: 'Trade-offs em política pública costumam comparar custo IMEDIATO com benefício de MÉDIO/LONGO PRAZO — esse recorte temporal no balanço é uma variação comum e sofisticada da forma, sem deixar de ser Trade-off.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Violência doméstica e padrão de subnotificação',
+    trecho: 'O aumento de denúncias de violência doméstica registrado durante períodos de maior permanência domiciliar, como durante restrições sanitárias, não deve ser interpretado isoladamente como um aumento real e exclusivo de casos nesses períodos específicos. Trata-se de uma manifestação mais visível de um padrão estrutural já existente: a violência doméstica tende a ser cronicamente subnotificada em circunstâncias normais, pela dificuldade da vítima em buscar ajuda fora de casa, e a maior visibilidade em situações de confinamento prolongado revela parte de uma realidade que sempre esteve presente, apenas menos reportada anteriormente por barreiras de acesso a canais de denúncia.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Histórico → Presente'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo rejeita uma leitura particular/isolada do aumento de denúncias e generaliza, situando o fenômeno dentro de um padrão estrutural mais amplo de subnotificação crônica. É Generalização — do caso específico (aumento em período de confinamento) para o padrão geral (subnotificação estrutural).',
+    dica: '"Não deve ser interpretado isoladamente... trata-se de uma manifestação de um padrão estrutural" é a mesma fórmula de abertura de Generalização vista em outros temas — funciona em qualquer área que tenha uma "ponta do iceberg" sendo usada para revelar um problema maior.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Energias renováveis e matriz elétrica brasileira',
+    trecho: 'A matriz elétrica brasileira, historicamente baseada predominantemente em geração hidrelétrica desde a construção das primeiras grandes usinas em meados do século XX, enfrentou nas últimas décadas crescente vulnerabilidade a períodos de estiagem prolongada, que reduzem significativamente a capacidade de geração das hidrelétricas em determinados momentos do ano. A diversificação progressiva da matriz com fontes eólica e solar, acelerada principalmente na última década, tem reduzido essa dependência exclusiva da disponibilidade hídrica, ainda que a intermitência dessas fontes renováveis — que não geram energia de forma constante ao longo do dia — exija investimentos paralelos em capacidade de armazenamento e em linhas de transmissão capazes de escoar energia gerada em regiões distantes dos grandes centros de consumo.',
+    opcoesForma: ['Histórico → Presente','Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo traça a evolução da matriz elétrica desde meados do século XX (predominância hidrelétrica) até a diversificação recente com eólica e solar, terminando no desafio atual de intermitência. É Histórico→Presente com boa ancoragem temporal.',
+    dica: '"Desde a construção das primeiras grandes usinas em meados do século XX" é um marcador temporal claro de abertura de Histórico→Presente — frases que ancoram a origem do tema num marco histórico específico sinalizam essa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da telemedicina contra acusação de despersonalização',
+    trecho: 'Alega-se com frequência que a telemedicina despersonaliza o cuidado em saúde, substituindo o vínculo médico-paciente construído ao longo de consultas presenciais repetidas por interações pontuais e impessoais mediadas por uma tela. Tal alegação, contudo, ignora que, para a maior parte da população de regiões remotas atendida por programas de telemedicina, a alternativa real não é um vínculo médico-paciente presencial consolidado, mas a ausência completa de qualquer acompanhamento médico especializado regular — de modo que a telemedicina, com suas limitações reconhecidas de vínculo, ainda representa avanço substancial em relação à inexistência total de cuidado especializado que caracterizava a realidade anterior dessas comunidades.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Custo-Benefício (Trade-off)','Contraste → Tensão → Posição'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Alega-se que... tal alegação, contudo, ignora que..." desmonta diretamente o argumento contrário revelando uma premissa equivocada (a comparação implícita com um vínculo presencial que, na prática, não existe nessas regiões).',
+    dica: 'Esta é uma variação de tema do mesmo padrão argumentativo visto em outro card sobre telemedicina e desigualdade de acesso — mostra que a mesma estrutura de Refutação Direta pode ser aplicada a diferentes críticas sobre o mesmo assunto.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Educação infantil e desenvolvimento cognitivo',
+    trecho: 'Estudos longitudinais de neurociência do desenvolvimento indicam que os primeiros anos de vida concentram a maior parte da formação de conexões neurais relevantes para habilidades cognitivas e socioemocionais ao longo de toda a trajetória de vida do indivíduo. Esse achado sugere que investimentos públicos em educação infantil de qualidade produzem retorno social proporcionalmente maior do que investimentos equivalentes em etapas posteriores da formação educacional, uma vez que intervenções tardias frequentemente precisam compensar déficits que poderiam ter sido evitados ou mitigados na primeira infância.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Histórico → Presente'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O achado de neurociência é a evidência central, e o restante do parágrafo é a análise que generaliza esse achado para uma recomendação sobre prioridade de investimento público. É Afirmação→Evidência→Análise.',
+    dica: 'Embora o parágrafo mencione retorno e investimento — termos que lembram Trade-off —, não há um CUSTO explícito sendo pesado contra um benefício; há apenas uma evidência científica sendo usada para sustentar uma conclusão sobre prioridade, o que mantém a forma como Afirmação→Evidência→Análise.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Gentrificação e remoção de comunidades tradicionais',
+    trecho: 'A valorização imobiliária de bairros centrais submetidos a projetos de revitalização urbana eleva o preço de aluguéis e imóveis na região, atraindo novos moradores com maior poder de compra e investimentos comerciais que diversificam a oferta de serviços locais. O custo desse processo recai sobre moradores originais de baixa renda, que frequentemente não conseguem sustentar o aumento dos custos de moradia e são deslocados para regiões periféricas mais distantes de seus empregos e redes de apoio social construídas ao longo de gerações. Quando a revitalização urbana ocorre sem políticas habitacionais compensatórias para a população original, o custo social do deslocamento tende a superar os ganhos de valorização e diversificação econômica obtidos pela região.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Contraste → Tensão → Posição','Generalização / Particularização'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (valorização, diversificação comercial) e custo (deslocamento de moradores originais) são pesados, com balanço final que declara explicitamente quando o custo social supera o ganho ("sem políticas compensatórias... tende a superar"). É Trade-off com condição.',
+    dica: 'O balanço de um Trade-off pode ser CONDICIONAL — aqui, ele diz que o resultado depende da existência ou não de políticas compensatórias, o que é uma forma sofisticada de declarar qual lado pesa mais em cada cenário possível.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do ensino domiciliar contra crítica de isolamento social',
+    trecho: 'Argumenta-se que o ensino domiciliar privaria crianças do convívio social diversificado proporcionado pelo ambiente escolar tradicional, comprometendo o desenvolvimento de habilidades sociais essenciais para a vida adulta. Esse argumento, entretanto, não se sustenta diante de levantamentos sobre famílias que praticam ensino domiciliar de forma estruturada: a maioria delas participa ativamente de grupos cooperativos, atividades esportivas e culturais compartilhadas com outras famílias na mesma situação, contradizendo a premissa de isolamento social atribuída genericamente a essa modalidade educacional.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Afirmação → Evidência → Análise','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Argumenta-se que... esse argumento, entretanto, não se sustenta diante de..." ataca diretamente a premissa de isolamento social, sem conceder nenhuma validade inicial à crítica, sustentando a refutação com dados sobre o comportamento real dessas famílias.',
+    dica: 'Refutações sobre práticas educacionais alternativas costumam atacar a PREMISSA IMPLÍCITA do crítico (aqui: que ensino domiciliar = isolamento) mostrando que a prática real frequentemente contradiz essa suposição genérica.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Reflorestamento e crédito de carbono',
+    trecho: 'A criação de mercados de crédito de carbono vinculados a projetos de reflorestamento gera incentivo financeiro direto para proprietários rurais que preservam ou recompõem áreas de vegetação nativa, transformando a conservação ambiental em fonte de renda compatível com a atividade econômica da propriedade. O custo desse modelo recai sobre a complexidade de verificação e certificação desses créditos, que exige metodologias rigorosas de monitoramento para evitar fraudes — como a contabilização de florestas que já existiam antes do projeto como se fossem reflorestamento adicional. Apesar da complexidade de verificação, o potencial de mobilizar capital privado para conservação em escala, sem depender exclusivamente de orçamento público, justifica o investimento contínuo em metodologias mais robustas de auditoria desses créditos.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Histórico → Presente','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (incentivo financeiro à conservação) e custo (complexidade de verificação e risco de fraude) são pesados, fechando com um balanço explícito que justifica o investimento em melhorias apesar do custo. É Trade-off.',
+    dica: 'Quando o "custo" de um Trade-off é operacional (complexidade de verificação), e não financeiro direto, a forma continua sendo a mesma — o que importa é a lógica de pesar um lado negativo contra um lado positivo, não a natureza específica do custo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Saúde pública e modelo de atenção primária no Reino Unido',
+    trecho: 'O sistema de saúde brasileiro, estruturado pelo SUS, garante acesso universal e gratuito a serviços de saúde, princípio constitucional que o diferencia da maioria dos sistemas de saúde das Américas. O National Health Service do Reino Unido, criado décadas antes do SUS, compartilha esse princípio de universalidade, mas se diferencia na organização do acesso: pacientes britânicos são obrigatoriamente vinculados a um médico de família específico, que funciona como porta de entrada exclusiva para qualquer encaminhamento a especialistas, um modelo de gatekeeping mais rígido do que o adotado na maior parte do território brasileiro. Essa diferença organizacional sugere que a universalidade de acesso, por si só, não garante eficiência na alocação de recursos — a estrutura de encaminhamento entre níveis de atenção é fator igualmente determinante.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Reino Unido são comparados quanto à organização de seus sistemas universais de saúde, com uma lição extraída da diferença estrutural entre os dois modelos. É Comparação Brasil × outro país.',
+    dica: 'Comparações entre sistemas de saúde costumam revelar que países podem compartilhar um PRINCÍPIO em comum (universalidade) mas diferir significativamente na IMPLEMENTAÇÃO — essa distinção entre princípio e implementação é um recurso analítico forte em Comparação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Trabalho remoto e esvaziamento de centros urbanos comerciais',
+    trecho: 'A consolidação do trabalho remoto como modalidade permanente para parcela significativa da força de trabalho corporativa reduziu a demanda por espaços comerciais em regiões centrais das grandes cidades, antes densamente ocupadas por escritórios. Isso ocorre porque empresas reavaliaram a necessidade de manter grandes estruturas físicas de escritório, optando por modelos híbridos com espaços reduzidos ou compartilhados entre equipes que comparecem presencialmente apenas em dias específicos da semana. Vacância comercial elevada em torres corporativas de centros financeiros tradicionais já é registrada por consultorias imobiliárias em diversas capitais. Como consequência, o comércio de proximidade que dependia do fluxo diário de trabalhadores nesses centros — lanchonetes, papelarias, serviços de conveniência — também sofreu redução expressiva de movimento, exigindo readequação de modelos de negócio voltados a esse público específico.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Custo-Benefício (Trade-off)','Histórico → Presente'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (consolidação do trabalho remoto) → explicação (reavaliação de espaços corporativos) → evidência (vacância comercial) → efeito (impacto no comércio de proximidade). É uma cadeia causal completa e bem desenvolvida.',
+    dica: 'Esse parágrafo mostra uma cadeia causal em duas etapas: a causa afeta primeiro os escritórios, e esse efeito intermediário se torna a causa de um SEGUNDO efeito (impacto no comércio local) — ainda é Causa→Explicação→Efeito, só que com encadeamento mais longo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Política de cotas raciais em universidades públicas',
+    trecho: 'A implementação de políticas de cotas raciais em universidades públicas brasileiras não deve ser analisada isoladamente como medida exclusiva do campo educacional. Ela se insere em um padrão mais amplo de políticas de ação afirmativa adotadas em diferentes países que enfrentaram processos históricos de discriminação racial estrutural, com o objetivo comum de corrigir desigualdades de acesso a oportunidades que persistem mesmo décadas após a formal igualdade jurídica entre grupos raciais ter sido estabelecida em lei.',
+    opcoesForma: ['Generalização / Particularização','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Histórico → Presente'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo parte do caso específico brasileiro (cotas raciais em universidades) e generaliza, situando-o dentro de um padrão internacional mais amplo de políticas de ação afirmativa com objetivo similar. É Generalização — do específico ao geral.',
+    dica: 'Diferente de Comparação, que exigiria nomear um país específico e contrastar diretamente com o Brasil, aqui a generalização é para uma CATEGORIA AMPLA ("diferentes países"), sem desenvolver o contraste detalhado com nenhum país nomeado em particular.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Agricultura familiar e segurança alimentar',
+    trecho: 'A agricultura familiar responde pela maior parte da produção de alimentos básicos consumidos internamente no Brasil, como arroz, feijão e hortaliças, configurando-se como pilar central da segurança alimentar nacional, em contraste com o agronegócio de grande escala, mais voltado à produção de commodities de exportação como soja e milho. Essa distinção de função entre os dois modelos produtivos sugere que políticas de crédito rural deveriam diferenciar critérios de financiamento conforme a destinação da produção — consumo interno versus exportação —, em vez de tratar o setor agrícola como bloco homogêneo nas decisões de política de crédito.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Contraste → Tensão → Posição','Custo-Benefício (Trade-off)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'A afirmação sobre a função da agricultura familiar na segurança alimentar funciona como evidência/constatação central, da qual deriva a análise sobre necessidade de diferenciação de políticas de crédito. É Afirmação→Evidência→Análise.',
+    dica: 'O contraste entre agricultura familiar e agronegócio aqui não é uma TENSÃO entre dois lados de um mesmo argumento (como em Contraste→Tensão→Posição) — é uma DISTINÇÃO DE FUNÇÃO usada como base analítica para uma recomendação de política, o que mantém a forma como Afirmação→Evidência→Análise.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Reforma da previdência e expectativa de vida',
+    trecho: 'Nas décadas seguintes à criação do sistema previdenciário brasileiro moderno, em meados do século XX, a expectativa de vida da população era significativamente inferior à atual, o que tornava os parâmetros originais de idade mínima e tempo de contribuição compatíveis com o equilíbrio atuarial do sistema projetado para a época. Ao longo das décadas seguintes, avanços na medicina e nas condições gerais de vida elevaram substancialmente a expectativa de vida média da população brasileira, sem que parâmetros equivalentes de ajuste automático tenham sido incorporados ao desenho do sistema previdenciário durante esse mesmo período. Atualmente, o desequilíbrio entre o tempo médio de contribuição e o tempo médio de recebimento de benefícios — ampliado pela maior longevidade — é apontado como um dos principais fatores de pressão sobre as contas públicas relacionadas à previdência social.',
+    opcoesForma: ['Histórico → Presente','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre a origem histórica do sistema previdenciário (meados do século XX), sua evolução sem ajustes equivalentes ao longo das décadas, e o estado atual de desequilíbrio. É Histórico→Presente claramente desenvolvido.',
+    dica: 'Histórico→Presente sobre políticas previdenciárias costuma mostrar como PARÂMETROS FIXADOS NO PASSADO se tornam desajustados com o tempo, sem que o desenho institucional acompanhe mudanças demográficas ou sociais — um padrão retórico recorrente dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da vacinação obrigatória contra acusação de autoritarismo',
+    trecho: 'Critica-se a obrigatoriedade de vacinação infantil sob a alegação de que ela representaria interferência indevida do Estado sobre decisões privadas de saúde familiar, configurando uma forma de autoritarismo sanitário incompatível com a autonomia individual. Essa crítica, contudo, ignora a natureza coletiva do benefício gerado pela imunização em massa: doenças com alto potencial de transmissão dependem de cobertura vacinal mínima da população para que a chamada imunidade de rebanho proteja inclusive aqueles que, por razões médicas legítimas, não podem ser vacinados — de modo que a decisão individual de não vacinar afeta diretamente a segurança de terceiros, e não apenas a esfera privada de quem a toma.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, contudo, ignora..." ataca diretamente a premissa de que vacinação seria decisão exclusivamente privada, revelando a dimensão coletiva do benefício (imunidade de rebanho) que o argumento contrário desconsidera. Sem concessão inicial.',
+    dica: 'A Refutação Direta aqui revela que o argumento contrário se baseia numa PREMISSA INCOMPLETA (de que a decisão afeta só quem a toma) — desmontar essa premissa, mostrando o efeito sobre terceiros, é o núcleo da refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Economia criativa e geração de emprego cultural',
+    trecho: 'O setor de economia criativa — que engloba música, audiovisual, design e games — gera empregos com menor exigência de capital físico inicial em comparação a setores industriais tradicionais, favorecendo a entrada de empreendedores com recursos limitados de investimento. O desafio desse modelo de geração de renda é a alta volatilidade e informalidade características do setor, no qual contratos de curto prazo e ausência de vínculos formais prolongados dificultam o planejamento financeiro de longo prazo dos profissionais envolvidos. Para uma política pública de fomento ao setor, equilibrar incentivos à formalização sem sufocar a flexibilidade que caracteriza a própria natureza criativa do trabalho tende a gerar resultados mais sustentáveis do que tentar impor modelos de contratação rígidos típicos de outros setores econômicos.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Contraste → Tensão → Posição','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (baixa barreira de entrada) e custo (volatilidade, informalidade) da economia criativa são pesados, com balanço final sobre qual abordagem de política pública tende a gerar melhor resultado. É Trade-off aplicado a desenho de política setorial.',
+    dica: 'Trade-offs sobre política de fomento setorial costumam terminar comparando DUAS ABORDAGENS DE POLÍTICA possíveis (equilibrar incentivos vs. impor rigidez), em vez de comparar apenas dois efeitos isolados — uma variação que aplica a lógica de balanço à própria decisão de política.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Mortalidade no trânsito e fiscalização eletrônica',
+    trecho: 'Segundo dados da Polícia Rodoviária Federal, trechos de rodovias que receberam radares eletrônicos de velocidade registraram redução expressiva no número de acidentes com vítimas fatais nos anos seguintes à instalação dos equipamentos, mesmo sem alteração nos limites de velocidade previamente estabelecidos para essas vias. Essa redução sugere que a percepção de risco de autuação — e não apenas a velocidade limite em si — é fator determinante no comportamento de condutores, indicando que investimentos em fiscalização eletrônica podem ter impacto mais imediato na redução de mortes no trânsito do que campanhas educativas isoladas sobre direção segura.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Histórico → Presente'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado da PRF é a evidência central, e a análise extrai uma conclusão sobre o mecanismo psicológico por trás do resultado (percepção de risco) e uma recomendação de política. É Afirmação→Evidência→Análise.',
+    dica: 'Mesmo quando a análise especula sobre um MECANISMO PSICOLÓGICO por trás do dado ("percepção de risco é fator determinante"), isso não transforma a forma em Causa→Explicação→Efeito — o ponto de partida continua sendo um dado concreto sendo interpretado, não uma cadeia causal sendo construída passo a passo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da terceirização contra acusação de precarização',
+    trecho: 'Sustenta-se, em certas análises sindicais, que a ampliação da terceirização de serviços em empresas brasileiras necessariamente precariza as condições de trabalho, reduzindo salários e benefícios em comparação a contratações diretas equivalentes. Esse argumento, no entanto, generaliza indevidamente a partir de casos específicos de má aplicação da terceirização para toda a modalidade contratual: levantamentos setoriais mostram que, em segmentos especializados como tecnologia da informação e consultoria técnica, profissionais terceirizados frequentemente recebem remuneração superior à de equivalentes contratados diretamente, contradizendo a premissa de precarização automática atribuída à terceirização como categoria única e homogênea.',
+    opcoesForma: ['Refutação Direta','Generalização / Particularização','Concessão → Refutação','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Sustenta-se que... esse argumento, no entanto, generaliza indevidamente..." ataca diretamente a premissa de precarização automática, mostrando com dados setoriais que ela não se sustenta em todos os casos. É Refutação Direta.',
+    dica: 'Interessante notar que a própria refutação ACUSA o argumento contrário de fazer uma generalização indevida — isso é uma forma de Refutação Direta que ataca não apenas a conclusão, mas o PRÓPRIO RACIOCÍNIO (generalização excessiva) usado para chegar a ela.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Resíduos sólidos e logística reversa de eletrônicos',
+    trecho: 'A obrigatoriedade de logística reversa para fabricantes de equipamentos eletrônicos, que devem recolher e dar destinação adequada a produtos descartados pelos consumidores, reduz o volume de resíduos eletrônicos tóxicos depositados de forma inadequada em aterros sanitários comuns, prevenindo contaminação do solo e de lençóis freáticos por metais pesados presentes nesses componentes. O custo dessa obrigação recai sobre fabricantes, que precisam estruturar pontos de coleta e processos de logística específicos, custo frequentemente repassado, ao menos parcialmente, ao preço final dos produtos para o consumidor. Diante do custo ambiental de longo prazo evitado pela destinação adequada de resíduos tóxicos, o repasse desse custo ao preço dos produtos eletrônicos representa uma internalização razoável de uma externalidade ambiental que, de outra forma, seria suportada por toda a sociedade.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Histórico → Presente','Generalização / Particularização'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (prevenção de contaminação) e custo (repasse ao preço) são pesados, fechando com um balanço que justifica o custo como internalização de externalidade ambiental. É Trade-off com vocabulário técnico de economia ambiental.',
+    dica: 'O conceito de "internalização de externalidade" é uma forma sofisticada de expressar um Trade-off em temas ambientais — reconhece que um custo que antes era "invisível" (suportado difusamente pela sociedade) passa a ser explicitamente contabilizado, o que é o próprio mecanismo de um balanço de custo-benefício.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Identidade digital única e experiência da Estônia',
+    trecho: 'O Brasil avançou na digitalização de serviços públicos por meio de plataformas como o aplicativo gov.br, que centraliza o acesso a diversos serviços governamentais sob um único cadastro de usuário. A Estônia, pioneira mundial em governo digital, foi além ao integrar, sob uma única identidade digital obrigatória para todos os cidadãos desde os anos 2000, não apenas serviços governamentais, mas também serviços bancários, de saúde e eleitorais — incluindo votação eletrônica remota vinculada a essa mesma identidade. Essa diferença de amplitude entre os dois modelos sugere que a integração de uma identidade digital única a múltiplos setores, e não apenas ao setor público, é o que potencializa de forma mais completa os ganhos de eficiência da digitalização.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Estônia são comparados quanto à amplitude de integração de identidade digital, com lição extraída da diferença de escopo entre os dois modelos. É Comparação Brasil × outro país.',
+    dica: '"Pioneira mundial em" é um marcador comum para introduzir o país de referência em Comparação — sinaliza que aquele país será usado como modelo mais avançado a ser observado e potencialmente seguido.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Reciclagem e cooperativas de catadores',
+    trecho: 'A formalização de cooperativas de catadores de material reciclável, com apoio de programas municipais de coleta seletiva, amplia a renda de trabalhadores historicamente marginalizados que já exerciam essa atividade de forma informal, ao mesmo tempo em que profissionaliza e organiza um elo essencial da cadeia de reciclagem urbana. Isso ocorre porque a formalização permite que essas cooperativas estabeleçam contratos diretos com indústrias recicladoras, eliminando intermediários que historicamente se apropriavam de parte significativa do valor gerado pelo trabalho de triagem e separação de materiais. Levantamentos de associações nacionais de catadores apontam aumento médio de renda superior a 40% após a formalização cooperativa. Como consequência, municípios que investem na formalização dessas cooperativas observam, simultaneamente, aumento nas taxas de reciclagem efetiva e redução da informalidade em uma cadeia produtiva antes inteiramente marginal.',
+    opcoesForma: ['Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Custo-Benefício (Trade-off)','Refutação Direta'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (formalização de cooperativas) → explicação (eliminação de intermediários via contratos diretos) → evidência (dado de aumento de renda) → efeito (aumento de reciclagem e redução de informalidade). Cadeia causal completa.',
+    dica: 'Note que o EFEITO final aqui tem dois componentes que ocorrem simultaneamente (aumento de reciclagem + redução de informalidade) — isso não muda a forma, apenas mostra que uma única causa pode gerar múltiplos efeitos relacionados ao mesmo tempo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da escola em tempo integral contra crítica de custo',
+    trecho: 'Argumenta-se que a expansão de escolas de tempo integral representaria gasto público desproporcional em relação ao benefício educacional gerado, considerando o custo significativamente maior por aluno em comparação ao modelo tradicional de meio período. Esse argumento, contudo, não considera os custos sociais evitados pela ampliação do tempo integral: estudos sobre criminalidade juvenil associam períodos de ociosidade no contra-turno escolar, especialmente em territórios de alta vulnerabilidade social, a maior exposição de adolescentes a situações de risco e envolvimento com atividades ilícitas — um custo social que, embora não contabilizado diretamente no orçamento educacional, recai sobre o sistema de segurança pública e assistência social.',
+    opcoesForma: ['Refutação Direta','Custo-Benefício (Trade-off)','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Argumenta-se que... esse argumento, contudo, não considera..." ataca diretamente o argumento contrário, mostrando que ele ignora custos sociais relevantes (criminalidade juvenil) que deveriam ser contabilizados na análise. É Refutação Direta.',
+    dica: 'Cuidado para não confundir com Trade-off: aqui não há um balanço explícito de "qual lado pesa mais" feito pelo autor — o foco é mostrar que o argumento contrário OMITIU uma variável relevante (custo social não contabilizado), o que é o núcleo de uma Refutação Direta, não de um Trade-off completo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Acesso à internet e exclusão digital rural',
+    trecho: 'Nos anos 1990 e início dos 2000, o acesso à internet no Brasil era restrito a conexões discadas, lentas e de custo elevado, disponíveis quase exclusivamente em áreas urbanas com infraestrutura telefônica já consolidada. A expansão da banda larga fixa ao longo da década seguinte ampliou a velocidade e reduziu custos relativos para usuários urbanos, mas manteve áreas rurais praticamente excluídas dessa modernização, pela ausência de infraestrutura de cabeamento economicamente viável para essas regiões de baixa densidade populacional. Mais recentemente, tecnologias de internet via satélite de nova geração começaram a oferecer alternativa tecnicamente viável para conectividade rural, embora a um custo ainda superior ao da banda larga urbana — situação que, se não endereçada por subsídios ou políticas específicas, tende a perpetuar a desigualdade histórica de acesso digital entre o campo e a cidade observada desde os primórdios da internet no país.',
+    opcoesForma: ['Histórico → Presente','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre 3 fases tecnológicas (internet discada nos anos 1990-2000, banda larga na década seguinte, satélite recentemente), terminando no estado atual de desigualdade persistente entre campo e cidade. É Histórico→Presente com boa progressão tecnológica.',
+    dica: 'Histórico→Presente sobre tecnologia costuma mostrar como SUCESSIVAS ONDAS TECNOLÓGICAS tentaram resolver um problema (aqui: acesso rural), mas cada uma trouxe limitações que mantiveram, ainda que parcialmente, a desigualdade original — um padrão retórico que reforça a persistência do problema ao longo do tempo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa de subsídios a transporte público contra acusação de ineficiência',
+    trecho: 'Critica-se com frequência o subsídio público ao transporte coletivo urbano sob a alegação de que ele representaria uso ineficiente de recursos, beneficiando uma operação deficitária que poderia ser resolvida por maior eficiência operacional das empresas concessionárias. Essa crítica, contudo, ignora que sistemas de transporte público em praticamente todas as grandes cidades do mundo — independentemente do nível de eficiência operacional das operadoras — dependem de subsídio público para manter tarifas acessíveis à população de baixa renda, uma vez que tarifas que cobrissem integralmente o custo operacional tornariam o transporte coletivo inacessível justamente para a parcela da população que mais depende dele para se deslocar ao trabalho.',
+    opcoesForma: ['Refutação Direta','Custo-Benefício (Trade-off)','Comparação (Brasil × outro país)','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, contudo, ignora que..." ataca diretamente a premissa de que eficiência operacional resolveria o problema do subsídio, mostrando que a necessidade de subsídio é estrutural e não uma falha corrigível de gestão.',
+    dica: 'Embora mencione "praticamente todas as grandes cidades do mundo", isso funciona como REFORÇO da refutação (mostrando que o padrão é universal), não como uma Comparação estruturada com um país específico — não há contraste detalhado com um caso nomeado.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Segurança alimentar e desperdício na cadeia produtiva',
+    trecho: 'Levantamentos da Empresa Brasileira de Pesquisa Agropecuária estimam que parcela significativa de alimentos produzidos no Brasil se perde antes de chegar ao consumidor final, seja por falhas de armazenamento, transporte inadequado ou descarte por padrões estéticos de comercialização. Essa estimativa sugere que parte relevante do desafio de segurança alimentar no país não reside exclusivamente na capacidade de produção agrícola — que já é elevada e suficiente para abastecer a população —, mas na ineficiência logística que ocorre entre a colheita e o consumo, indicando que investimentos em infraestrutura de armazenamento e transporte podem ter impacto comparável a investimentos em aumento de produção agrícola.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Refutação Direta'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado da Embrapa é a evidência central, e a análise deriva uma conclusão sobre onde está o verdadeiro desafio (logística, não produção) e uma recomendação de investimento. É Afirmação→Evidência→Análise.',
+    dica: 'O parágrafo usa o dado para REDIRECIONAR o foco do debate (de produção para logística) — esse movimento de "o problema real não é X, mas Y" é comum em Afirmação→Evidência→Análise quando o dado revela algo contraintuitivo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inteligência artificial e diagnóstico médico por imagem',
+    trecho: 'Assim como um radar meteorológico detecta padrões em grandes volumes de dados atmosféricos que escapariam à observação humana direta, sistemas de inteligência artificial treinados em diagnóstico por imagem identificam padrões sutis em exames radiológicos que podem passar desapercebidos mesmo a profissionais experientes, especialmente em estágios iniciais de certas doenças. Da mesma forma que um radar meteorológico não substitui o meteorologista, mas amplia sua capacidade de antecipar eventos climáticos, esses sistemas de IA não substituem o médico radiologista, mas funcionam como ferramenta de triagem que amplia sua capacidade de identificar casos que merecem atenção prioritária em meio a grande volume de exames.',
+    opcoesForma: ['Analogia','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: 'O parágrafo é construído sobre a comparação entre radar meteorológico e sistemas de IA em diagnóstico médico, sem citar dados nem país — uma Analogia desenvolvida com bastante paralelismo entre os dois sistemas comparados.',
+    dica: 'Analogias bem construídas costumam manter o PARALELISMO ESTRUTURAL entre os dois elementos comparados ao longo de todo o parágrafo (aqui: "detecta padrões" / "não substitui, mas amplia" se repete nos dois lados) — isso fortalece a clareza da comparação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Política de juros e controle inflacionário',
+    trecho: 'A elevação da taxa básica de juros pelo Banco Central reduz o consumo e o investimento na economia ao tornar o crédito mais caro, o que, por sua vez, contém pressões inflacionárias decorrentes de excesso de demanda em relação à oferta de bens e serviços disponíveis. O custo dessa política recai sobre setores econômicos sensíveis ao crédito, como construção civil e bens duráveis, que registram desaceleração de atividade durante períodos de juros elevados, com possível impacto negativo sobre o emprego nesses setores específicos. Para o Banco Central, o custo de desaceleração setorial localizada tende a ser considerado aceitável frente ao risco de uma inflação descontrolada que afetaria, de forma generalizada e mais severa, o poder de compra de toda a população, especialmente das famílias de menor renda.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Histórico → Presente','Contraste → Tensão → Posição'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Custo (desaceleração setorial e impacto no emprego) e benefício (controle inflacionário generalizado) são pesados, com balanço final explícito sobre qual risco é considerado mais aceitável pela autoridade monetária. É Trade-off clássico de política monetária.',
+    dica: 'Trade-offs de política monetária costumam comparar um custo CONCENTRADO em setores específicos com um benefício DIFUSO para toda a população — esse padrão de "custo localizado vs. benefício generalizado" é recorrente em temas econômicos.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Modelo alemão de ensino técnico dual e formação profissional',
+    trecho: 'O sistema brasileiro de ensino técnico profissionalizante, majoritariamente oferecido em instituições escolares com estágios complementares facultativos, ainda apresenta desarticulação relevante entre o currículo formal e as demandas reais do mercado de trabalho regional. A Alemanha, por sua vez, desenvolveu há décadas um modelo de ensino dual no qual estudantes dividem formalmente seu tempo entre escola técnica e empresa parceira, sob contrato de aprendizagem remunerado e supervisionado conjuntamente por instituição educacional e empregador, desde o início da formação. Essa diferença estrutural sugere que a integração formal e remunerada entre escola e empresa, e não apenas a qualidade do currículo técnico isoladamente, é fator determinante para a empregabilidade dos egressos.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Afirmação → Evidência → Análise','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Alemanha são comparados quanto ao modelo de ensino técnico, com lição extraída da diferença estrutural entre os dois sistemas (integração formal escola-empresa). É Comparação Brasil × outro país.',
+    dica: 'O modelo alemão de ensino dual é um dos exemplos de repertório internacional mais citados em temas de educação profissional — vale ter esse caso específico memorizado como referência para temas relacionados a formação técnica e empregabilidade.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do home office contra acusação de queda de produtividade',
+    trecho: 'Sustenta-se em certos discursos corporativos que o trabalho remoto reduziria a produtividade das equipes, justificando políticas de retorno obrigatório ao trabalho presencial integral. Esse argumento, contudo, não encontra respaldo nos dados de desempenho da maioria das empresas que adotaram modelos remotos ou híbridos de forma estruturada: levantamentos setoriais mostram produtividade equivalente ou superior à do modelo presencial em funções que não dependem de presença física obrigatória, sugerindo que quedas de produtividade observadas em casos específicos relacionam-se mais à ausência de gestão adequada para o modelo remoto do que à modalidade de trabalho em si.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Afirmação → Evidência → Análise','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Sustenta-se que... esse argumento, contudo, não encontra respaldo nos dados..." desmonta diretamente a premissa de queda de produtividade, atribuindo casos isolados de queda a outro fator (gestão inadequada), não à modalidade remota em si.',
+    dica: 'Uma Refutação Direta sofisticada frequentemente REDIRECIONA A CAUSA do problema observado pelos críticos — aqui, em vez de negar que existam casos de queda de produtividade, a refutação atribui essa queda a uma causa diferente da apontada pelo argumento original.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Urbanização acelerada e infraestrutura de drenagem',
+    trecho: 'A impermeabilização do solo decorrente da urbanização acelerada em grandes cidades brasileiras, com a substituição de áreas verdes por pavimentação e construções, reduz significativamente a capacidade natural de absorção de água da chuva pelo solo. Isso ocorre porque a água que antes seria gradualmente absorvida pela vegetação e pelo solo permeável passa a escoar superficialmente em maior volume e velocidade, sobrecarregando sistemas de drenagem urbana frequentemente projetados décadas antes, para um volume de chuvas e uma taxa de impermeabilização muito inferiores às atuais. Registros de defesa civil municipal mostram aumento expressivo na frequência de alagamentos em vias públicas durante eventos de chuva intensa nas últimas duas décadas. Como consequência, bairros inteiros enfrentam interrupções recorrentes de mobilidade e danos materiais a cada período chuvoso mais intenso, situação que tende a se agravar com o aumento projetado na frequência de eventos climáticos extremos.',
+    opcoesForma: ['Causa → Explicação → Efeito','Histórico → Presente','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (impermeabilização do solo) → explicação (sobrecarga de sistemas de drenagem antigos) → evidência (dados de defesa civil) → efeito (alagamentos recorrentes). Cadeia causal completa, com projeção de agravamento futuro no fechamento.',
+    dica: 'Mencionar que sistemas foram "projetados décadas antes" não transforma a forma em Histórico→Presente — aqui essa menção serve apenas para EXPLICAR o mecanismo da causa (descompasso entre projeto antigo e demanda atual), não para estruturar uma linha do tempo completa como elemento organizador do parágrafo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Tributação de grandes fortunas e desigualdade',
+    trecho: 'A criação de alíquotas progressivas mais elevadas sobre grandes patrimônios e herançasamplia a capacidade do Estado de financiar políticas sociais redistributivas, sem necessariamente elevar a carga tributária sobre a maioria da população que não possui patrimônio nessa faixa de tributação. O custo dessa medida é o risco de fuga de capitais e de contribuintes de alta renda para jurisdições com tributação mais favorável, um fenômeno observado em alguns países que elevaram significativamente esse tipo de tributação sem coordenação internacional equivalente. Considerando que a maior parte dos países europeus com tributação progressiva sobre grandes fortunas não registrou fuga de capitais em magnitude capaz de comprometer a arrecadação total, o ganho redistributivo potencial tende a superar o risco de evasão, especialmente quando a medida é acompanhada de mecanismos de cooperação tributária internacional.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Comparação (Brasil × outro país)','Refutação Direta','Histórico → Presente'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (capacidade redistributiva) e custo (risco de fuga de capital) são pesados, com balanço final que se apoia em evidência internacional para concluir que o ganho supera o risco. É Trade-off, mesmo usando referência a outros países como evidência de apoio.',
+    dica: 'Mencionar "países europeus" aqui funciona como EVIDÊNCIA dentro do balanço de Trade-off, não como estrutura central de Comparação — o foco do parágrafo é pesar custo contra benefício, e a referência internacional apenas sustenta esse balanço, sem desenvolver uma comparação detalhada Brasil×país específico.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Cultura digital e direitos de autor na era do streaming',
+    trecho: 'A consolidação de plataformas de streaming como principal meio de consumo de música e audiovisual reduziu drasticamente a pirataria digital de conteúdo, ao oferecer alternativa legal com preço acessível e conveniência superior ao download não autorizado que predominava na década anterior. Isso ocorre porque a maior parte dos consumidores prioriza, quando disponível, a praticidade de acesso instantâneo e legal a um catálogo amplo de conteúdo, em detrimento do esforço técnico e do risco legal associado a métodos não autorizados de obtenção desses mesmos conteúdos. Estudos de entidades de proteção a direitos autorais registraram queda acentuada nos índices de pirataria musical desde a popularização do streaming por assinatura. Como consequência, a indústria fonográfica registrou recuperação de receita após quase duas décadas de declínio causado pela pirataria digital generalizada.',
+    opcoesForma: ['Causa → Explicação → Efeito','Histórico → Presente','Afirmação → Evidência → Análise','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (consolidação do streaming) → explicação (preferência por conveniência legal) → evidência (dados de queda de pirataria) → efeito (recuperação de receita da indústria). É Causa→Explicação→Efeito completo.',
+    dica: 'A menção a "quase duas décadas de declínio" no fechamento poderia sugerir Histórico→Presente, mas o parágrafo não desenvolve etapas temporais distintas com explicação própria para cada uma — ele usa essa referência temporal apenas para dimensionar o efeito final, mantendo Causa→Explicação→Efeito como estrutura central.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Pesca artesanal e competição com pesca industrial',
+    trecho: 'Comunidades de pesca artesanal em regiões costeiras brasileiras enfrentam redução progressiva nos volumes de captura disponíveis, fenômeno relacionado à competição direta com embarcações de pesca industrial de grande porte, que operam com tecnologia de captura em escala significativamente superior à capacidade de qualquer embarcação artesanal individual. Isso ocorre porque a pesca industrial frequentemente opera em áreas próximas à costa, historicamente reservadas de fato — embora nem sempre de direito — à pesca artesanal, reduzindo a disponibilidade de cardumes acessíveis aos pescadores locais que não possuem capacidade técnica para se deslocar a águas mais distantes. Cooperativas de pescadores artesanais relatam redução média superior a 30% na captura por viagem ao longo da última década. Como consequência, muitas famílias que dependiam historicamente da pesca artesanal como atividade econômica principal têm migrado para outras ocupações, comprometendo a continuidade de um modo de vida tradicional em diversas comunidades costeiras.',
+    opcoesForma: ['Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Contraste → Tensão → Posição','Generalização / Particularização'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (competição com pesca industrial) → explicação (disputa por área costeira) → evidência (dados de cooperativas) → efeito (migração de ocupação e perda de modo de vida tradicional). Cadeia causal completa e bem desenvolvida.',
+    dica: 'O parágrafo menciona uma tensão entre dois grupos (pesca artesanal × industrial), mas isso não configura Contraste→Tensão→Posição — não há reconhecimento de um "avanço" da pesca industrial sendo conciliado com uma posição final; a estrutura é puramente causal, terminando em um efeito social negativo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Modelo nórdico de bem-estar social e tributação',
+    trecho: 'Os países nórdicos, como Suécia, Dinamarca e Noruega, mantêm cargas tributárias proporcionalmente mais elevadas sobre a renda da população em comparação à média de países desenvolvidos, financiando em contrapartida sistemas abrangentes de proteção social que incluem educação superior gratuita, sistemas de saúde universal e proteção robusta ao desemprego. O Brasil, com carga tributária concentrada de forma mais regressiva sobre o consumo do que sobre a renda e o patrimônio, mantém sistema de proteção social comparativamente menos abrangente em diversos indicadores, apesar de despesas públicas totais não serem necessariamente inferiores às nórdicas em proporção ao PIB. Essa comparação sugere que não é apenas o volume total de gasto público que determina a qualidade da proteção social oferecida, mas também a estrutura de financiamento — quem efetivamente paga a conta — e a eficiência na alocação desses recursos entre diferentes políticas.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)','Histórico → Presente','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil é comparado a um grupo de países nórdicos quanto à estrutura tributária e ao sistema de proteção social, com uma lição extraída sobre o que realmente determina a qualidade da proteção social. É Comparação, mesmo envolvendo múltiplos países do mesmo perfil regional.',
+    dica: 'Comparação pode envolver um GRUPO de países com características similares (aqui: nórdicos) comparado ao Brasil, em vez de um único país isolado — desde que o contraste com o Brasil permaneça central e específico, ainda é Comparação Brasil × outro país.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa de parques urbanos contra crítica de uso de solo',
+    trecho: 'Critica-se ocasionalmente a destinação de terrenos urbanos valorizados para criação de parques públicos sob a alegação de que esse uso do solo representaria desperdício de potencial econômico, em comparação ao adensamento construtivo que geraria mais arrecadação de impostos e moradia disponível na região. Essa crítica, no entanto, subestima o valor econômico indireto gerado por áreas verdes urbanas: estudos de valorização imobiliária mostram que propriedades localizadas no entorno de parques bem mantidos apresentam valorização superior à média da região, gerando arrecadação adicional de impostos sobre essas propriedades que, somada aos benefícios de saúde pública e qualidade de vida não diretamente monetizáveis, frequentemente supera a arrecadação hipotética de um adensamento construtivo equivalente naquele mesmo terreno.',
+    opcoesForma: ['Refutação Direta','Custo-Benefício (Trade-off)','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, no entanto, subestima..." ataca diretamente a premissa de desperdício econômico, mostrando com dados de valorização imobiliária que o argumento contrário ignora benefícios econômicos indiretos relevantes. É Refutação Direta.',
+    dica: 'Apesar de mencionar valores e arrecadação — termos que lembram Trade-off —, o parágrafo não pesa dois lados de forma equilibrada; ele está REFUTANDO uma crítica específica mostrando que ela subestimou uma variável, o que mantém o foco em desmontar um argumento contrário, não em fazer um balanço aberto.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Imigração qualificada e mercado de trabalho tecnológico',
+    trecho: 'A facilitação de vistos de trabalho para profissionais estrangeiros qualificados em áreas de tecnologia amplia a disponibilidade de talentos especializados em setores com escassez de mão de obra nacional formada nessas competências específicas, acelerando potencialmente a capacidade de inovação de empresas que dependem desses perfis técnicos. O custo dessa política recai sobre a percepção de competição direta por vagas entre profissionais nacionais e estrangeiros nesse mesmo segmento de mercado, ainda que estudos sobre mercados de trabalho com alta especialização tendam a mostrar complementaridade, e não substituição direta, entre talentos importados e profissionais locais em áreas de crescimento acelerado de demanda. Para o setor de tecnologia como um todo, o ganho de capacidade de inovação tende a superar a tensão competitiva pontual, especialmente quando políticas de imigração são acompanhadas de investimento simultâneo em formação técnica nacional.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Contraste → Tensão → Posição','Comparação (Brasil × outro país)','Refutação Direta'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (talentos especializados, inovação) e custo (percepção de competição) são pesados, com balanço final explícito sobre qual lado tende a prevalecer, qualificado por uma condição (investimento simultâneo em formação nacional). É Trade-off.',
+    dica: 'O Trade-off aqui qualifica seu próprio resultado com uma CONDIÇÃO COMPLEMENTAR ("especialmente quando acompanhada de investimento em formação nacional") — isso é uma forma sofisticada de declarar que o balanço positivo não é automático, mas depende de uma política complementar.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Modelo de gestão de resíduos na Suécia e aproveitamento energético',
+    trecho: 'A gestão de resíduos sólidos urbanos no Brasil ainda depende predominantemente de aterros sanitários como destinação final, com taxas de reciclagem efetiva inferiores à média de países desenvolvidos. A Suécia, por outro lado, desenvolveu um sistema no qual praticamente a totalidade dos resíduos urbanos é reaproveitada, seja por reciclagem direta de materiais, seja por incineração controlada com aproveitamento energético para geração de calor e eletricidade — a ponto de o país importar resíduos de nações vizinhas para suprir a capacidade ociosa de suas usinas de aproveitamento energético. Essa diferença de modelo sugere que a gestão de resíduos pode ser tratada não apenas como problema sanitário a ser minimizado, mas como insumo energético a ser aproveitado, uma mudança de perspectiva que demandaria investimento significativo em infraestrutura de tratamento térmico no caso brasileiro.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)','Histórico → Presente','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Suécia são comparados quanto ao modelo de gestão de resíduos, com uma lição sobre mudança de perspectiva (resíduo como insumo energético) extraída do exemplo sueco. É Comparação Brasil × outro país.',
+    dica: 'O dado curioso de que a Suécia "importa resíduos" de outros países é um detalhe que reforça a força do exemplo de Comparação — mostra de forma vívida o quão desenvolvido é o sistema de aproveitamento energético sueco, tornando a comparação com o Brasil ainda mais didática.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Jornada de trabalho reduzida e produtividade',
+    trecho: 'Empresas que adotaram modelos experimentais de redução de jornada semanal sem redução proporcional de salário registraram, em diversos estudos-piloto realizados em diferentes países, manutenção ou mesmo aumento da produtividade por hora trabalhada, atribuído a maior disposição e foco dos funcionários durante o tempo efetivamente dedicado ao trabalho. Essa constatação sugere que a relação entre tempo total de trabalho e produtividade não é necessariamente linear — mais horas trabalhadas não significam automaticamente mais produção —, contrariando a lógica tradicional que orienta grande parte das políticas de jornada de trabalho ainda vigentes em diversos setores econômicos.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Custo-Benefício (Trade-off)','Refutação Direta','Causa → Explicação → Efeito'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'Os estudos-piloto funcionam como evidência central, da qual deriva a análise sobre a relação não linear entre horas trabalhadas e produtividade. É Afirmação→Evidência→Análise, mesmo concluindo que isso contraria uma lógica tradicional.',
+    dica: 'Embora o fechamento "contrariando a lógica tradicional" pareça uma refutação, não há um ARGUMENTO CONTRÁRIO EXPLÍCITO sendo atacado diretamente no início do parágrafo (como em "argumenta-se que...") — o parágrafo começa com a evidência, não com uma crítica a ser refutada, o que mantém a forma como Afirmação→Evidência→Análise.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Saúde mental de adolescentes e regulação de redes sociais',
+    trecho: 'A intensificação do uso de redes sociais entre adolescentes está entre os fatores associados ao aumento de diagnósticos de ansiedade e depressão observado nessa faixa etária nos últimos anos. Isso ocorre porque a exposição constante a conteúdos que estimulam comparação social — corpos idealizados, conquistas materiais e validação pública por meio de curtidas e comentários — intensifica sentimentos de inadequação em uma fase de desenvolvimento já naturalmente marcada por insegurança identitária e busca de aceitação social. Levantamentos de associações de psiquiatria registraram aumento expressivo de casos diagnosticados entre adolescentes que reportam uso intensivo de redes sociais, em comparação a pares com uso mais moderado. Como consequência, especialistas têm defendido a adoção de limites etários mais rígidos e ferramentas de controle parental mais eficazes nas principais plataformas digitais utilizadas por esse público.',
+    opcoesForma: ['Causa → Explicação → Efeito','Histórico → Presente','Custo-Benefício (Trade-off)','Generalização / Particularização'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (uso intenso de redes sociais) → explicação (mecanismo de comparação social) → evidência (dados de associações de psiquiatria) → efeito (defesa de limites regulatórios). É Causa→Explicação→Efeito completo, terminando com uma recomendação derivada do efeito identificado.',
+    dica: 'Quando o EFEITO final de um parágrafo é uma recomendação de política ou ação ("especialistas têm defendido..."), isso ainda é Causa→Explicação→Efeito — a recomendação é apenas a forma de expressar a consequência lógica de tudo que foi exposto antes.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa de zonas de baixa emissão urbana contra crítica de exclusão',
+    trecho: 'Critica-se a criação de zonas de baixa emissão em centros urbanos — áreas que restringem a circulação de veículos mais poluentes — sob a alegação de que essa medida discriminaria proprietários de veículos mais antigos, geralmente associados a famílias de menor renda que não têm condições de substituir seus carros por modelos mais recentes e menos poluentes. Essa crítica, contudo, ignora que a poluição atmosférica gerada por veículos antigos afeta de forma desproporcional justamente as populações de menor renda, que tendem a residir em áreas mais próximas a corredores de tráfego intenso e têm menor acesso a serviços de saúde privados para tratar consequências respiratórias dessa exposição — de modo que a ausência de restrição também penaliza, ainda que de forma diferente, a mesma população que a crítica afirma proteger.',
+    opcoesForma: ['Refutação Direta','Custo-Benefício (Trade-off)','Concessão → Refutação','Contraste → Tensão → Posição'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, contudo, ignora que..." ataca diretamente a premissa de que a medida discriminaria os mais pobres, mostrando que a ausência da medida também penaliza esse mesmo grupo, apenas por um mecanismo diferente (exposição à poluição).',
+    dica: 'Uma Refutação Direta particularmente elegante mostra que o GRUPO QUE O CRÍTICO DIZ PROTEGER é, na verdade, prejudicado pela ausência da medida criticada — um movimento retórico que vira o argumento contrário contra si mesmo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Modelo de microcrédito em Bangladesh e adaptação brasileira',
+    trecho: 'O microcrédito produtivo orientado no Brasil, voltado a pequenos empreendedores informais, inspira-se em parte no modelo pioneiro desenvolvido em Bangladesh nas décadas de 1970 e 1980, que demonstrou que populações de extrema pobreza podem ter taxas de inadimplência baixas quando o crédito é estruturado com acompanhamento técnico próximo e grupos de responsabilidade solidária entre tomadores. A adaptação brasileira do modelo, contudo, diferencia-se ao prescindir da responsabilidade solidária em grupo característica do modelo original, optando por avaliação individual de cada tomador — uma escolha que reduz a pressão social entre vizinhos comum ao modelo original, mas que também elimina um mecanismo de monitoramento informal que contribuía para as baixas taxas de inadimplência observadas no caso pioneiro.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Causa → Explicação → Efeito','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil é comparado ao modelo pioneiro de Bangladesh, com análise da diferença estrutural entre os dois modelos (responsabilidade solidária em grupo vs. avaliação individual) e suas implicações. É Comparação, mesmo com o país de referência sendo menos comum em temas de redação.',
+    dica: 'Bangladesh e o modelo de microcrédito do economista Muhammad Yunus (Grameen Bank) é um repertório histórico relevante para temas de inclusão financeira — vale conhecer esse caso como alternativa aos exemplos europeus mais comuns.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Da exclusão sanitária à universalização parcial: trajetória do SUS',
+    trecho: 'Antes da criação do Sistema Único de Saúde pela Constituição de 1988, o acesso à saúde pública no Brasil era vinculado predominantemente à condição de trabalhador formal contribuinte da previdência social, excluindo de forma estrutural trabalhadores informais, desempregados e suas famílias de qualquer atendimento público de saúde fora de situações de emergência. A criação do SUS, fundamentado no princípio de saúde como direito universal e dever do Estado, eliminou formalmente essa vinculação contributiva, mas a expansão efetiva da rede de atendimento ao longo das décadas seguintes ocorreu de forma desigual entre regiões, com municípios de menor capacidade fiscal enfrentando maior dificuldade para estruturar serviços de saúde de qualidade equivalente aos de regiões mais desenvolvidas. Atualmente, ainda que o princípio de universalidade esteja consolidado e amplamente reconhecido como conquista social, a qualidade e a disponibilidade efetiva de serviços de saúde pública continuam significativamente desiguais entre diferentes regiões do país, revelando que a garantia formal de um direito não elimina automaticamente desigualdades estruturais em sua efetivação prática.',
+    opcoesForma: ['Histórico → Presente','Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre claramente a origem histórica (exclusão pré-1988), a criação do marco legal (Constituição de 1988), a evolução desigual nas décadas seguintes, e o estado atual de desigualdade regional persistente. É Histórico→Presente plenamente desenvolvido.',
+    dica: 'O fechamento "a garantia formal de um direito não elimina automaticamente desigualdades estruturais" é uma reflexão típica de conclusão de Histórico→Presente — sintetiza a tensão entre conquista formal (no papel) e efetivação real (na prática), um padrão comum em temas de direitos sociais.'
+  },
+];// ── Gera um ID estável por card (hash simples baseado em tipo+tema+conteúdo) ──
 // Garante que o mesmo card sempre receba o mesmo ID entre sessões/dispositivos,
 // mesmo que a ordem do array mude com futuras edições do banco.
 function fcHashSimples(str){
