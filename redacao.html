@@ -741,6 +741,19 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
           <option value="conclusao">Conclusão Final</option>
           <option value="proposta">Proposta de Intervenção</option>
         </select>
+        <select id="fc-filtro-forma" onchange="fcFiltrar()" style="font-family:var(--mono);font-size:10px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 10px;display:none;">
+          <option value="todos">Todas as formas</option>
+          <option value="Causa → Explicação → Efeito">Causa → Explicação → Efeito</option>
+          <option value="Afirmação → Evidência → Análise">Afirmação → Evidência → Análise</option>
+          <option value="Contraste → Tensão → Posição">Contraste → Tensão → Posição</option>
+          <option value="Comparação (Brasil × outro país)">Comparação (Brasil × outro país)</option>
+          <option value="Concessão → Refutação">Concessão → Refutação</option>
+          <option value="Analogia">Analogia</option>
+          <option value="Generalização / Particularização">Generalização / Particularização</option>
+          <option value="Refutação Direta">Refutação Direta</option>
+          <option value="Custo-Benefício (Trade-off)">Custo-Benefício (Trade-off)</option>
+          <option value="Histórico → Presente">Histórico → Presente</option>
+        </select>
         <div style="font-family:var(--mono);font-size:10px;color:var(--muted);" id="fc-progresso">— / —</div>
         <button class="btn btn-ghost" id="btn-fc-sync" onclick="fcSincronizarAgora()" style="font-size:10px;border-color:rgba(74,144,217,0.4);color:#4a90d9;">☁️ Sincronizar</button>
         <button class="btn btn-ghost" onclick="fcExportarProgresso()" style="font-size:10px;border-color:rgba(61,184,138,0.4);color:var(--verde);">⬇️ Exportar</button>
@@ -6239,19 +6252,38 @@ function fcImportarProgresso(event){
 function fcFiltrar(){
   fcFiltroAtual = document.getElementById('fc-filtro').value;
   const fcTipoAtual = document.getElementById('fc-tipo').value;
+  const fcFiltroFormaAtual = document.getElementById('fc-filtro-forma').value;
+
+  // Alterna qual dropdown de filtro aparece: "forma" para classificar_forma, "elemento" para os demais tipos
+  const elFiltroElemento = document.getElementById('fc-filtro');
+  const elFiltroForma = document.getElementById('fc-filtro-forma');
+  if(fcTipoAtual === 'classificar_forma'){
+    elFiltroElemento.style.display = 'none';
+    elFiltroForma.style.display = 'inline-block';
+  } else if(fcTipoAtual === 'todos'){
+    elFiltroElemento.style.display = 'inline-block';
+    elFiltroForma.style.display = 'inline-block';
+  } else {
+    elFiltroElemento.style.display = 'inline-block';
+    elFiltroForma.style.display = 'none';
+  }
 
   let filtrado = [...FC_BANCO];
   if(fcTipoAtual !== 'todos'){
     filtrado = filtrado.filter(c => (c.tipo||'identificacao') === fcTipoAtual);
   }
-  // O filtro de elemento só se aplica a tipos com 1 elemento direto; tipos com múltiplos elementos (completar, ordenar, classificar_forma, corrigir_erro) usam lógica própria
+  // Filtro por FORMA ARGUMENTATIVA — se aplica apenas a cards de classificar_forma
+  if(fcFiltroFormaAtual !== 'todos'){
+    filtrado = filtrado.filter(c => (c.tipo||'identificacao') !== 'classificar_forma' || c.formaCorreta === fcFiltroFormaAtual);
+  }
+  // O filtro de elemento só se aplica a tipos com 1 elemento direto; classificar_forma usa o filtro de forma acima
   if(fcFiltroAtual !== 'todos'){
     filtrado = filtrado.filter(c => {
       const tipo = c.tipo||'identificacao';
       if(tipo === 'completar') return c.lacunas && c.lacunas.some(l => l.elemento === fcFiltroAtual);
       if(tipo === 'ordenar') return c.partes && c.partes.some(p => p.elemento === fcFiltroAtual);
       if(tipo === 'corrigir_erro') return c.elementoFoco === fcFiltroAtual;
-      if(tipo === 'classificar_forma' || tipo === 'producao_curta') return true; // não filtráveis por elemento de identificação
+      if(tipo === 'classificar_forma' || tipo === 'producao_curta') return true; // filtrados por forma, não por elemento
       return c.elemento === fcFiltroAtual;
     });
   }
