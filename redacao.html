@@ -753,6 +753,13 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
           <option value="Refutação Direta">Refutação Direta</option>
           <option value="Custo-Benefício (Trade-off)">Custo-Benefício (Trade-off)</option>
           <option value="Histórico → Presente">Histórico → Presente</option>
+          <option value="Argumento Jurídico">Argumento Jurídico</option>
+          <option value="Argumento Sociológico">Argumento Sociológico</option>
+          <option value="Argumento Econômico">Argumento Econômico</option>
+          <option value="Argumento Psicológico">Argumento Psicológico</option>
+          <option value="Argumento Tecnológico">Argumento Tecnológico</option>
+          <option value="Argumento Histórico (lição)">Argumento Histórico (lição)</option>
+          <option value="Argumento Ético">Argumento Ético</option>
         </select>
         <div style="font-family:var(--mono);font-size:10px;color:var(--muted);" id="fc-progresso">— / —</div>
         <button class="btn btn-ghost" id="btn-fc-sync" onclick="fcSincronizarAgora()" style="font-size:10px;border-color:rgba(74,144,217,0.4);color:#4a90d9;">☁️ Sincronizar</button>
@@ -2222,6 +2229,90 @@ const FORMAS_ARGUMENTO = {
     montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[origem histórica]'}</span>. <span style="color:#e05050;">${p2||'[evolução ao longo do tempo]'}</span>. <span style="color:#3db88a;">${p3||'[estado atual]'}</span>.`,
     legenda: '① Origem histórica &nbsp;·&nbsp; ② Evolução (o que mudou ou não mudou) &nbsp;·&nbsp; ③ Estado atual (resultado dessa trajetória)',
   },
+  juridico: {
+    nome: 'Argumento Jurídico',
+    sigla: 'JUR',
+    indicado: 'temas que envolvem direitos fundamentais em tensão — bom quando há princípios constitucionais ou legais aplicáveis',
+    campos: [
+      {chave:'p1', label:'① PRINCÍPIO(S) ENVOLVIDO(S)', cor:'#4a90d9', placeholder:'Quais princípios ou direitos fundamentais estão em jogo? (ex: liberdade de expressão e dignidade da pessoa humana)'},
+      {chave:'p2', label:'② TENSÃO / CONFLITO', cor:'#e05050', placeholder:'Como esses princípios entram em conflito no caso concreto? (ex: discursos ofensivos invocam liberdade de expressão, mas atingem a dignidade de grupos vulneráveis)'},
+      {chave:'p3', label:'③ PONDERAÇÃO / SOLUÇÃO', cor:'#3db88a', placeholder:'Como resolver o conflito preservando ao máximo ambos os direitos? (ex: nenhum direito é absoluto — aplica-se a ponderação para preservar ambos na maior medida possível)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[princípios]'}</span>. <span style="color:#e05050;">${p2||'[tensão/conflito]'}</span>. <span style="color:#3db88a;">${p3||'[ponderação/solução]'}</span>.`,
+    legenda: '① Princípios envolvidos &nbsp;·&nbsp; ② Tensão entre eles no caso concreto &nbsp;·&nbsp; ③ Ponderação (nenhum direito é absoluto)',
+  },
+  sociologico: {
+    nome: 'Argumento Sociológico',
+    sigla: 'SOC',
+    indicado: 'mostrar uma cadeia social estrutural — bom para temas de desigualdade, exclusão, dinâmicas coletivas',
+    campos: [
+      {chave:'p1', label:'① FENÔMENO INICIAL', cor:'#4a90d9', placeholder:'Qual fenômeno social está no início da cadeia? (ex: preconceito disseminado em ambientes informais)'},
+      {chave:'p2', label:'② CADEIA DE EFEITOS SOCIAIS', cor:'#e05050', placeholder:'Como esse fenômeno se desdobra em outros (normalização → exclusão → desigualdade)? (ex: normalização do discurso preconceituoso leva à discriminação cotidiana e, em seguida, à exclusão social)'},
+      {chave:'p3', label:'③ RESULTADO ESTRUTURAL', cor:'#3db88a', placeholder:'Qual é o resultado final no nível estrutural da sociedade? (ex: desigualdade estrutural que se reproduz de geração em geração)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[fenômeno inicial]'}</span>. <span style="color:#e05050;">${p2||'[cadeia de efeitos]'}</span>. <span style="color:#3db88a;">${p3||'[resultado estrutural]'}</span>.`,
+    legenda: '① Fenômeno inicial &nbsp;·&nbsp; ② Cadeia de efeitos sociais &nbsp;·&nbsp; ③ Resultado estrutural (desigualdade, exclusão)',
+  },
+  economico: {
+    nome: 'Argumento Econômico',
+    sigla: 'ECO',
+    indicado: 'mostrar impactos econômicos mensuráveis — bom para temas com efeitos sobre produtividade, mercado de trabalho, custos públicos',
+    campos: [
+      {chave:'p1', label:'① PROBLEMA / PRÁTICA', cor:'#4a90d9', placeholder:'Qual prática ou problema gera o impacto econômico? (ex: discriminação no mercado de trabalho)'},
+      {chave:'p2', label:'② IMPACTOS ECONÔMICOS', cor:'#e05050', placeholder:'Quais efeitos econômicos mensuráveis isso gera? (ex: menor inserção de grupos vulneráveis, desperdício de capital humano, queda de produtividade)'},
+      {chave:'p3', label:'③ CUSTO AGREGADO', cor:'#3db88a', placeholder:'Qual o custo final para a economia ou para o Estado? (ex: aumento dos custos sociais para o Estado e perda de competitividade do país)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[prática/problema]'}</span>. <span style="color:#e05050;">${p2||'[impactos econômicos]'}</span>. <span style="color:#3db88a;">${p3||'[custo agregado]'}</span>.`,
+    legenda: '① Prática/problema &nbsp;·&nbsp; ② Impactos econômicos mensuráveis &nbsp;·&nbsp; ③ Custo agregado (Estado, produtividade)',
+  },
+  psicologico: {
+    nome: 'Argumento Psicológico',
+    sigla: 'PSI',
+    indicado: 'mostrar efeitos sobre a saúde mental e o bem-estar individual — bom para temas de violência simbólica, exclusão, sofrimento subjetivo',
+    campos: [
+      {chave:'p1', label:'① ESTÍMULO / EXPOSIÇÃO', cor:'#4a90d9', placeholder:'A que a vítima é exposta? (ex: exposição reiterada a discurso de ódio nas redes sociais)'},
+      {chave:'p2', label:'② PROCESSO PSÍQUICO', cor:'#e05050', placeholder:'Como isso afeta a psique do indivíduo? (ex: estigmatização internalizada, isolamento social, sentimentos de inadequação)'},
+      {chave:'p3', label:'③ IMPACTO NA QUALIDADE DE VIDA', cor:'#3db88a', placeholder:'Qual o resultado final sobre a vida da pessoa? (ex: aumento de quadros de ansiedade e depressão, comprometendo a qualidade de vida e a participação social)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[estímulo/exposição]'}</span>. <span style="color:#e05050;">${p2||'[processo psíquico]'}</span>. <span style="color:#3db88a;">${p3||'[impacto na qualidade de vida]'}</span>.`,
+    legenda: '① Estímulo/exposição &nbsp;·&nbsp; ② Processo psíquico (estigma, isolamento) &nbsp;·&nbsp; ③ Impacto na qualidade de vida',
+  },
+  tecnologico: {
+    nome: 'Argumento Tecnológico',
+    sigla: 'TEC',
+    indicado: 'mostrar como uma tecnologia ou dinâmica de plataformas digitais agrava um problema — bom para temas atuais sobre redes sociais, IA, algoritmos',
+    campos: [
+      {chave:'p1', label:'① MECANISMO TÉCNICO', cor:'#4a90d9', placeholder:'Que mecanismo tecnológico está em ação? (ex: algoritmos de recomendação que priorizam engajamento)'},
+      {chave:'p2', label:'② DINÂMICA AMPLIADA', cor:'#e05050', placeholder:'Como esse mecanismo amplifica um comportamento ou conteúdo? (ex: conteúdos extremos geram mais reações e são distribuídos a mais usuários, criando bolhas informacionais)'},
+      {chave:'p3', label:'③ CONSEQUÊNCIA SOCIAL', cor:'#3db88a', placeholder:'Qual o resultado social da amplificação técnica? (ex: polarização crescente e naturalização de discursos antes marginais)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[mecanismo técnico]'}</span>. <span style="color:#e05050;">${p2||'[dinâmica ampliada]'}</span>. <span style="color:#3db88a;">${p3||'[consequência social]'}</span>.`,
+    legenda: '① Mecanismo técnico &nbsp;·&nbsp; ② Dinâmica ampliada pela tecnologia &nbsp;·&nbsp; ③ Consequência social',
+  },
+  historico_licao: {
+    nome: 'Argumento Histórico (lição)',
+    sigla: 'HIST',
+    indicado: 'extrair uma lição de episódio histórico para iluminar tema atual — distinto de Histórico→Presente (que mostra a trajetória do mesmo problema)',
+    campos: [
+      {chave:'p1', label:'① EPISÓDIO HISTÓRICO', cor:'#4a90d9', placeholder:'Qual episódio do passado serve como referência? (ex: a propaganda antissemita que antecedeu o Holocausto)'},
+      {chave:'p2', label:'② PADRÃO IDENTIFICADO', cor:'#e05050', placeholder:'Que padrão geral esse episódio revela? (ex: episódios de violência coletiva foram historicamente antecedidos pela normalização de discursos que desumanizam grupos)'},
+      {chave:'p3', label:'③ LIÇÃO PARA O PRESENTE', cor:'#3db88a', placeholder:'O que esse padrão ensina sobre o tema atual? (ex: a tolerância ao discurso de ódio hoje não é uma questão isolada, mas parte de um padrão histórico que merece atenção)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[episódio histórico]'}</span>. <span style="color:#e05050;">${p2||'[padrão identificado]'}</span>. <span style="color:#3db88a;">${p3||'[lição para o presente]'}</span>.`,
+    legenda: '① Episódio histórico &nbsp;·&nbsp; ② Padrão geral identificado &nbsp;·&nbsp; ③ Lição que esse padrão oferece ao presente',
+  },
+  etico: {
+    nome: 'Argumento Ético',
+    sigla: 'ÉTI',
+    indicado: 'mostrar como uma prática viola valores fundamentais — bom para temas de dignidade, justiça, convivência democrática',
+    campos: [
+      {chave:'p1', label:'① VALOR / PILAR ÉTICO', cor:'#4a90d9', placeholder:'Que valor ou princípio ético está em jogo? (ex: a democracia depende simultaneamente da liberdade para discordar e do respeito à dignidade humana)'},
+      {chave:'p2', label:'② TRANSGRESSÃO / VIOLAÇÃO', cor:'#e05050', placeholder:'Como a prática discutida viola esse valor? (ex: quando uma manifestação busca negar a humanidade de um grupo, ela já não está exercendo o direito de discordar)'},
+      {chave:'p3', label:'③ CONSEQUÊNCIA ÉTICA', cor:'#3db88a', placeholder:'Qual o impacto dessa violação sobre o pilar ético em questão? (ex: ela compromete os próprios fundamentos da convivência democrática que pretende invocar)'},
+    ],
+    montarFrase: (p1,p2,p3) => `<span style="color:#4a90d9;">${p1||'[valor ético]'}</span>. <span style="color:#e05050;">${p2||'[transgressão]'}</span>. <span style="color:#3db88a;">${p3||'[consequência ética]'}</span>.`,
+    legenda: '① Valor/pilar ético &nbsp;·&nbsp; ② Transgressão pela prática discutida &nbsp;·&nbsp; ③ Consequência ética (compromete o próprio valor)',
+  },
 };
 
 let brainstormCadeias = [];
@@ -2333,10 +2424,10 @@ async function brainstormValidar(){
   }).join('\n');
 
   const sysBrainstorm = `Você é professor de redação para concursos Cesgranrio (BB/CEF), avaliando um exercício de brainstorm.
-O aluno gerou argumentos usando uma de 10 formas possíveis de estruturar um parágrafo de desenvolvimento — cada argumento informa qual forma foi usada:
+O aluno gerou argumentos usando uma de 17 formas possíveis de estruturar um parágrafo de desenvolvimento — cada argumento informa qual forma foi usada:
 
 1. CAUSA → EXPLICAÇÃO → EFEITO: indicada para problemas sociais, econômicos, temas de impacto. Frase-modelo: "[causa] agrava o problema, pois [explicação]. Como consequência, [efeito]."
-2. AFIRMAÇÃO → EVIDÊNCIA → ANÁLISE: indicada para temas com dados fortes, contexto bancário/regulatório. Frase-modelo: "[afirmação]. [evidência/dado]. Esse dado [análise]."
+2. AFIRMAÇÃO → EVIDÊNCIA → ANÁLISE: estrutura sintática "guarda-chuva" — afirma, sustenta com evidência (dado, exemplo, autoridade) e analisa. Importante: o argumento DENTRO dela pode ser causal, comparativo, analógico, de custo-benefício, de autoridade ou de concessão. Quando o aluno usar AEA, verifique se uma das outras formas (1, 3-17) descreveria com mais precisão a lógica do argumento, e sugira a troca se for o caso. Frase-modelo: "[afirmação]. [evidência/dado/exemplo/autoridade]. Esse dado [análise]."
 3. CONTRASTE → TENSÃO → POSIÇÃO: indicada para temas com dois lados (ex: Inovação×Regulação). Frase-modelo: "Embora [contraste/avanço], [tensão/problema]. [posição/evidência]."
 4. COMPARAÇÃO (Brasil × outro país): indicada para temas regulatórios/bancários com referência internacional. Frase-modelo: "[cenário Brasil]. Em contraste, [cenário comparado]. [lição/contraste]."
 5. CONCESSÃO → REFUTAÇÃO: indicada para elevar o nível da escrita, mostrando domínio de contra-argumentos — concede um ponto válido antes de refutar. Frase-modelo: "Embora [concessão], [refutação]. [reforço/evidência]."
@@ -2345,9 +2436,32 @@ O aluno gerou argumentos usando uma de 10 formas possíveis de estruturar um par
 8. REFUTAÇÃO DIRETA: ataca diretamente um argumento contrário hipotético, SEM conceder nada a ele (diferente de Concessão→Refutação). Frase-modelo: "Argumenta-se que [argumento contrário]; entretanto, [refutação]. [evidência]."
 9. CUSTO-BENEFÍCIO (TRADE-OFF): pesa ganhos e perdas de forma calculada — bom para temas de política pública e regulação. Frase-modelo: "[custo]. Em contrapartida, [benefício]. [balanço — qual lado pesa mais]."
 10. HISTÓRICO → PRESENTE: mostra como um problema evoluiu no tempo até o estado atual. Frase-modelo: "[origem histórica]. [evolução ao longo do tempo]. [estado atual]."
+11. ARGUMENTO JURÍDICO: invoca princípios constitucionais/legais em tensão e aplica ponderação — bom para temas com direitos fundamentais em conflito. Frase-modelo: "[princípios envolvidos]. [tensão entre eles]. [ponderação — nenhum direito é absoluto]."
+12. ARGUMENTO SOCIOLÓGICO: mostra cadeia social estrutural (fenômeno → desdobramentos coletivos → resultado estrutural). Frase-modelo: "[fenômeno inicial]. [cadeia social]. [resultado estrutural — desigualdade, exclusão]."
+13. ARGUMENTO ECONÔMICO: mostra impactos econômicos mensuráveis (capital humano, produtividade, custos públicos). Frase-modelo: "[prática/problema]. [impactos econômicos]. [custo agregado para o país]."
+14. ARGUMENTO PSICOLÓGICO: mostra cadeia psíquica que afeta saúde mental e qualidade de vida. Frase-modelo: "[exposição/estímulo]. [processo psíquico — estigma, isolamento]. [impacto na qualidade de vida]."
+15. ARGUMENTO TECNOLÓGICO: mostra como mecanismo técnico (algoritmos, IA, plataformas) amplifica um problema social. Frase-modelo: "[mecanismo técnico]. [dinâmica ampliada]. [consequência social]."
+16. ARGUMENTO HISTÓRICO (lição): extrai lição de episódio histórico para iluminar tema atual — distinto de Histórico→Presente, que mostra a trajetória do mesmo problema. Frase-modelo: "[episódio histórico]. [padrão identificado]. [lição para o presente]."
+17. ARGUMENTO ÉTICO: mostra como prática viola valores fundamentais da convivência. Frase-modelo: "[valor/pilar ético]. [transgressão]. [consequência ética — compromete o próprio valor]."
 
 Para CADA argumento preenchido, faça:
-1. AVALIAÇÃO RÁPIDA: a forma escolhida é adequada ao conteúdo? As 3 partes cumprem suas funções (não há repetição entre elas, nem inversão de papéis)? Para Comparação, a referência internacional é plausível? Para Concessão→Refutação, a concessão é genuína (não um espantalho fácil de derrubar)? Para Refutação Direta, confirme que NÃO há concessão real ao argumento contrário (se houver, sugira trocar para Concessão→Refutação). Para Analogia, a situação-base é clara e a ponte com o tema é direta (não forçada). Para Generalização/Particularização, o movimento entre o específico e o geral está claro. Para Trade-off, o balanço final realmente compara os dois lados (não ignora o custo apontado). Para Histórico→Presente, a linha do tempo é coerente (origem → evolução → presente, sem saltos). Aponte o problema específico se houver, ou confirme em 1 frase se estiver bem estruturado.
+1. AVALIAÇÃO RÁPIDA: a forma escolhida é adequada ao conteúdo? As 3 partes cumprem suas funções (não há repetição entre elas, nem inversão de papéis)?
+   • Para AEA, identifique qual TIPO DE ARGUMENTO INTERNO está sendo usado (causal, comparativo, analógico, custo-benefício, autoridade ou concessão) e sugira a forma mais específica das 17 quando ela descrever melhor a lógica.
+   • Para Comparação, a referência internacional é plausível?
+   • Para Concessão→Refutação, a concessão é genuína (não um espantalho fácil de derrubar)?
+   • Para Refutação Direta, confirme que NÃO há concessão real ao argumento contrário (se houver, sugira Concessão→Refutação).
+   • Para Analogia, a situação-base é clara e a ponte com o tema é direta (não forçada).
+   • Para Generalização/Particularização, o movimento entre o específico e o geral está claro.
+   • Para Trade-off, o balanço final realmente compara os dois lados (não ignora o custo apontado).
+   • Para Histórico→Presente, a linha do tempo é coerente (origem → evolução → presente, sem saltos).
+   • Para Jurídico, os princípios são reais e há ponderação efetiva (não escolha unilateral).
+   • Para Sociológico, a cadeia social é plausível (sem saltos lógicos entre os elos).
+   • Para Econômico, os impactos são mensuráveis ou ao menos plausíveis em termos econômicos (não meramente morais).
+   • Para Psicológico, a cadeia psíquica não cai em diagnóstico apressado nem patologização.
+   • Para Tecnológico, o mecanismo técnico é descrito com correção (sem demonização vaga da tecnologia).
+   • Para Histórico (lição), o episódio histórico é factual e o paralelo com o presente é proporcional (não exagero retórico).
+   • Para Ético, o valor invocado é genuíno e amplamente reconhecido (não opinião pessoal disfarçada de princípio).
+   Aponte o problema específico se houver, ou confirme em 1 frase se estiver bem estruturado.
 2. REESCRITA COMO FRASE DE PARÁGRAFO: transforme as 3 partes em 1-2 frases formais, seguindo a frase-modelo da forma escolhida. Use conectivos adequados. Mantenha a ideia original do aluno.
 3. EXEMPLO/DADO: para pelo menos 2 dos argumentos, sugira um dado, lei, órgão ou caso concreto que poderia ser inserido como evidência (ex: "Segundo o Banco Central...", "A Lei X/20XX estabelece...").
 
@@ -6475,6 +6589,461 @@ const FC_BANCO = [
     explicacao: 'O parágrafo percorre claramente a origem histórica (exclusão pré-1988), a criação do marco legal (Constituição de 1988), a evolução desigual nas décadas seguintes, e o estado atual de desigualdade regional persistente. É Histórico→Presente plenamente desenvolvido.',
     dica: 'O fechamento "a garantia formal de um direito não elimina automaticamente desigualdades estruturais" é uma reflexão típica de conclusão de Histórico→Presente — sintetiza a tensão entre conquista formal (no papel) e efetivação real (na prática), um padrão comum em temas de direitos sociais.'
   },
+  // ══════════════════════════════════════════════════════════
+  // LOTE 14 — CLASSIFICAR FORMA com parágrafos completos, +50 cards
+  // Reforço: Generalização/Particularização, Contraste→Tensão→Posição, Concessão→Refutação
+  // Temas novos: esporte, ciência, justiça, demografia, energia, agricultura de precisão
+  // ══════════════════════════════════════════════════════════
+  {
+    tipo: 'classificar_forma',
+    tema: 'Doping no esporte e padrão sistêmico de fraude',
+    trecho: 'O recente caso de doping envolvendo uma federação esportiva nacional não deve ser lido como desvio isolado de caráter de poucos atletas individuais. Ele revela um padrão estrutural mais amplo, observado em diferentes modalidades e países, no qual a pressão por resultados imediatos — alimentada por patrocínios, prêmios e prestígio nacional — cria incentivos sistêmicos para burlar controles antidopagem, independentemente do esporte específico ou da nacionalidade dos envolvidos. Isso exige que mecanismos de fiscalização evoluam para monitorar não apenas substâncias proibidas conhecidas, mas também as próprias estruturas de incentivo que tornam a fraude racionalmente atraente para atletas e equipes.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Refutação Direta'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo parte de um caso específico (federação nacional) e generaliza para um padrão estrutural mais amplo presente em diferentes modalidades e países. É Generalização — do específico para o geral.',
+    dica: '"Não deve ser lido como desvio isolado... revela um padrão estrutural mais amplo" é a fórmula recorrente de Generalização — funciona em qualquer tema de fraude ou irregularidade que o autor queira situar como sistêmica, não pontual.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Princípio da presunção de inocência aplicado a julgamentos midiáticos',
+    trecho: 'É princípio constitucional consolidado que nenhum acusado deve ser tratado como culpado antes do trânsito em julgado de sua sentença, garantia que existe precisamente para proteger indivíduos de condenações precipitadas baseadas em indícios ainda não submetidos ao devido processo legal. Esse princípio se aplica de forma particularmente relevante a casos de grande repercussão midiática, nos quais a exposição pública de um acusado antes mesmo da formalização de acusações pode gerar danos irreversíveis à reputação e à vida social do indivíduo, independentemente do resultado final do processo judicial a que venha a ser submetido.',
+    opcoesForma: ['Generalização / Particularização','Custo-Benefício (Trade-off)','Histórico → Presente','Concessão → Refutação'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O movimento aqui é do geral para o específico: parte de um princípio constitucional amplo (presunção de inocência) e particulariza para o caso de exposição midiática de acusados. É Generalização/Particularização na direção "geral → específico".',
+    dica: '"É princípio consolidado que... esse princípio se aplica de forma particularmente relevante a..." é o padrão clássico de Generalização/Particularização na direção geral-específico, usado para aplicar uma regra ampla a um contexto concreto.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Negacionismo científico e padrão de desinformação',
+    trecho: 'A resistência de parte da população a recomendações médicas baseadas em evidência científica consolidada, observada em diferentes contextos de saúde pública, não deve ser tratada como fenômeno exclusivo de um único episódio ou tema específico de desinformação. Ela reflete um padrão mais amplo de desconfiança em instituições científicas e de saúde, alimentado por ecossistemas de informação digital que amplificam conteúdos sensacionalistas independentemente de sua precisão factual, um padrão que se repete em temas tão diversos quanto vacinação, mudanças climáticas e segurança de tratamentos médicos estabelecidos.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Refutação Direta'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo rejeita uma leitura específica/isolada do fenômeno e generaliza para um padrão mais amplo de desconfiança institucional que se manifesta em múltiplos temas. É Generalização — específico (um episódio) para geral (padrão de desinformação).',
+    dica: 'Quando o parágrafo lista múltiplos exemplos de aplicação de um mesmo padrão ("vacinação, mudanças climáticas e segurança de tratamentos"), isso reforça a Generalização — mostra a amplitude do padrão identificado através de vários casos específicos onde ele se manifesta.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Envelhecimento populacional e sistema de saúde',
+    trecho: 'O processo de envelhecimento populacional observado no Brasil nas últimas décadas não constitui fenômeno exclusivamente nacional, mas parte de uma transição demográfica mais ampla, observada de forma ainda mais acentuada em diversos países desenvolvidos que envelheceram décadas antes do Brasil. Esse padrão demográfico mais geral, quando particularizado ao contexto brasileiro, ganha contornos específicos: o país envelhece em ritmo mais acelerado e com renda média per capita inferior à de nações que enfrentaram transição semelhante, o que reduz a capacidade fiscal disponível para adaptar simultaneamente sistemas de saúde e previdência ao novo perfil etário da população.',
+    opcoesForma: ['Generalização / Particularização','Comparação (Brasil × outro país)','Histórico → Presente','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo parte de um padrão demográfico geral (transição observada em diversos países) e particulariza para as características específicas do caso brasileiro (ritmo acelerado, menor renda per capita). É Generalização/Particularização.',
+    dica: 'Diferente de Comparação, que exigiria desenvolver o contraste detalhado com um país específico nomeado, aqui o movimento é entre um NÍVEL DE ABSTRAÇÃO mais geral (transição demográfica mundial) e um nível mais específico (o caso brasileiro particular), sem nomear nem desenvolver o caso de nenhum país individual.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Energia nuclear: segurança reconhecida e tensão sobre rejeitos',
+    trecho: 'Embora a energia nuclear apresente vantagens relevantes como fonte de geração elétrica de baixa emissão de carbono e alta densidade energética, capaz de operar continuamente independentemente de condições climáticas que afetam fontes renováveis intermitentes, sua expansão enfrenta tensão real relacionada ao armazenamento de longo prazo de rejeitos radioativos, que permanecem perigosos por períodos que se estendem por milhares de anos, exigindo soluções de armazenamento geológico ainda não plenamente resolvidas em escala global. Países que mantêm programas nucleares ativos demonstram que essa tensão pode ser administrada com protocolos rigorosos de segurança, sem que isso signifique que o desafio do armazenamento de longo prazo esteja definitivamente superado.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Custo-Benefício (Trade-off)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o avanço (baixa emissão, alta densidade energética), aponta a tensão real (armazenamento de rejeitos), e fecha com uma posição que nem nega o avanço nem ignora o problema, reconhecendo que a tensão "pode ser administrada" sem estar "definitivamente superada". É Contraste→Tensão→Posição.',
+    dica: 'O fechamento que admite que o problema "pode ser administrado, mas não está superado" é característico de Contraste→Tensão→Posição — uma posição honesta que não declara vitória total de nenhum lado, diferente do Trade-off, que tenderia a declarar qual lado pesa mais.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Agricultura de precisão e dependência tecnológica',
+    trecho: 'Ainda que a agricultura de precisão, com uso de sensores, drones e softwares de análise de dados, eleve significativamente a eficiência no uso de insumos agrícolas e a produtividade por hectare cultivado, sua adoção cria uma tensão relacionada à crescente dependência de produtores rurais a fornecedores de tecnologia e softwares proprietários, muitas vezes de empresas multinacionais que detêm o controle sobre dados de produção coletados nas próprias lavouras dos agricultores. Cooperativas agrícolas que negociam coletivamente contratos de uso dessas tecnologias, preservando a propriedade dos dados gerados pelos próprios produtores, demonstram que é possível usufruir dos ganhos de eficiência da agricultura de precisão sem necessariamente ceder controle total sobre informações estratégicas da própria produção.',
+    opcoesForma: ['Contraste → Tensão → Posição','Custo-Benefício (Trade-off)','Refutação Direta','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o avanço (eficiência, produtividade), aponta a tensão (dependência tecnológica e perda de controle sobre dados), e fecha com uma posição conciliadora (negociação coletiva preserva benefício sem ceder controle total). É Contraste→Tensão→Posição.',
+    dica: 'Quando a posição final apresenta uma SOLUÇÃO PRÁTICA já em uso (cooperativas negociando coletivamente) que concilia avanço e tensão, isso reforça a forma Contraste→Tensão→Posição — a conciliação é demonstrada com um exemplo real, não apenas afirmada teoricamente.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do júri popular contra crítica de subjetividade',
+    trecho: 'É verdade que o julgamento por júri popular, ao depender da avaliação de cidadãos sem formação jurídica especializada, introduz maior variabilidade e subjetividade nas decisões em comparação a julgamentos técnicos realizados exclusivamente por magistrados togados. Contudo, essa característica não pode ser vista isoladamente como deficiência do sistema, pois a própria Constituição brasileira reserva o júri especificamente para crimes contra a vida justamente pelo valor atribuído à participação direta da sociedade civil em decisões sobre os bens jurídicos mais graves protegidos pelo ordenamento — um valor democrático que coexiste, de forma deliberada, com a maior variabilidade decisória resultante desse modelo.',
+    opcoesForma: ['Concessão → Refutação','Contraste → Tensão → Posição','Custo-Benefício (Trade-off)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que" concede a variabilidade decisória do júri, e "contudo" refuta que isso seja uma deficiência, argumentando que essa característica é resultado de uma escolha constitucional deliberada com valor próprio. É Concessão→Refutação.',
+    dica: 'A refutação aqui não nega o FATO concedido (a variabilidade existe), mas refuta a INTERPRETAÇÃO NEGATIVA desse fato — mostra que a variabilidade é parte de um valor democrático intencional, não um defeito a ser corrigido.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da terapia genética contra crítica de eugenia',
+    trecho: 'É certo que técnicas de edição genética para correção de doenças hereditárias graves levantam preocupações legítimas sobre os limites entre tratamento terapêutico e seleção genética com finalidades não médicas, um temor historicamente associado a práticas eugenistas condenáveis do século passado. Entretanto, essa preocupação não justifica a rejeição categórica de toda a tecnologia: a distinção entre corrigir uma mutação que causa sofrimento e doença comprovados, e selecionar características estéticas ou comportamentais sem relação com saúde, é tecnicamente e eticamente identificável, permitindo regulação que autorize o uso terapêutico comprovado sem abrir, necessariamente, a porta para aplicações eugenistas que a sociedade amplamente rejeita.',
+    opcoesForma: ['Concessão → Refutação','Refutação Direta','Contraste → Tensão → Posição','Generalização / Particularização'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É certo que" concede a preocupação legítima sobre os limites éticos da tecnologia, e "entretanto" refuta que isso justifique rejeição total, propondo uma distinção técnica e ética que permite uso terapêutico responsável. É Concessão→Refutação.',
+    dica: 'Concessões sobre temas eticamente sensíveis (eugenia, bioética) costumam reconhecer o TEMOR HISTÓRICO como legítimo antes de refutar que ele justifique uma rejeição total da tecnologia — esse cuidado retórico evita parecer que o autor ignora preocupações éticas reais.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Mudança no padrão de consumo de carne e impacto ambiental',
+    trecho: 'Nas décadas de 1960 e 1970, o consumo de carne bovina no Brasil era relativamente moderado em comparação aos padrões atuais, restrito por renda média mais baixa e menor disponibilidade de produção em escala industrial. A partir dos anos 1990, a expansão da pecuária extensiva e a popularização de redes de fast-food e churrascarias ampliaram significativamente o consumo médio per capita de carne entre a população urbana, paralelamente ao crescimento da renda média nas décadas seguintes. Atualmente, o Brasil figura entre os maiores consumidores e produtores mundiais de carne bovina, um padrão de consumo que pressiona diretamente a expansão de fronteira agrícola sobre biomas nativos e contribui de forma relevante para as emissões nacionais de gases de efeito estufa associadas à pecuária.',
+    opcoesForma: ['Histórico → Presente','Custo-Benefício (Trade-off)','Causa → Explicação → Efeito','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre 3 fases temporais (décadas de 1960-70, anos 1990, presente) descrevendo a evolução do consumo de carne e seu impacto ambiental atual. É Histórico→Presente bem desenvolvido, com boa ancoragem em décadas específicas.',
+    dica: 'Histórico→Presente sobre padrões de consumo costuma vincular CRESCIMENTO DE RENDA a mudança de hábitos ao longo do tempo — esse vínculo entre fator econômico e mudança comportamental ao longo de décadas é um recurso narrativo recorrente dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inteligência artificial e composição musical: fronteiras da autoria',
+    trecho: 'Assim como a fotografia, ao ser inventada, gerou debates intensos sobre se poderia ser considerada uma forma de arte equivalente à pintura — debate hoje amplamente superado pelo reconhecimento da fotografia como linguagem artística própria —, a composição musical assistida por inteligência artificial enfrenta atualmente questionamentos similares sobre a legitimidade artística e a autoria de obras geradas com auxílio significativo de algoritmos. Da mesma forma que a fotografia eventualmente desenvolveu convenções próprias de autoria e técnica que a distinguiram claramente da pintura sem deslegitimar nenhuma das duas formas de expressão, é provável que a música assistida por IA desenvolva, com o tempo, critérios próprios de autoria que reconheçam a contribuição humana na curadoria e direção criativa do processo, sem que isso signifique equiparação automática entre compor com auxílio de IA e compor inteiramente sem esse auxílio.',
+    opcoesForma: ['Analogia','Histórico → Presente','Generalização / Particularização','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Analogia',
+    explicacao: 'A comparação central é entre a história da fotografia e o momento atual da música assistida por IA — duas tecnologias diferentes em domínios diferentes, comparadas pela sua trajetória de legitimação artística. É Analogia, mesmo envolvendo referência histórica à fotografia.',
+    dica: 'Cuidado: embora mencione "ao ser inventada" (referência temporal), isso não é Histórico→Presente sobre o MESMO tema — é uma Analogia que usa a trajetória histórica de OUTRA tecnologia (fotografia) para iluminar o debate atual sobre um tema diferente (IA musical).'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da pesquisa básica contra crítica de baixo retorno',
+    trecho: 'Argumenta-se com frequência que o financiamento público de pesquisa científica básica — aquela sem aplicação prática imediata — representaria uso pouco eficiente de recursos, em comparação ao investimento direto em pesquisa aplicada com retorno econômico previsível no curto prazo. Esse argumento, entretanto, ignora a própria história do desenvolvimento tecnológico: tecnologias hoje essenciais à economia, como o GPS, a internet e a ressonância magnética, derivaram diretamente de pesquisas básicas que, à época de sua realização, não apresentavam qualquer aplicação comercial visível, demonstrando que a impossibilidade de prever o retorno imediato de uma pesquisa não equivale à ausência de valor econômico futuro dela.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Histórico → Presente','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Argumenta-se que... esse argumento, entretanto, ignora..." ataca diretamente a premissa de baixo retorno da pesquisa básica, usando exemplos históricos (GPS, internet, ressonância) como evidência de que retorno imprevisível não significa ausência de valor. É Refutação Direta sem concessão inicial.',
+    dica: 'Note que os exemplos históricos (GPS, internet) funcionam como EVIDÊNCIA da refutação, não como uma estrutura Histórico→Presente — o parágrafo não traça uma evolução temporal, apenas cita casos que comprovam que a premissa do argumento contrário está errada.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Polarização política e padrão de bolhas informacionais',
+    trecho: 'O acirramento do debate político observado em períodos eleitorais recentes não constitui fenômeno restrito a um único país ou a um momento eleitoral específico. Trata-se de uma manifestação de um padrão estrutural mais amplo, intensificado pela arquitetura das plataformas digitais que, ao priorizar engajamento, tendem a expor usuários predominantemente a conteúdos que reforçam suas convicções prévias, criando bolhas informacionais que se observam em democracias de diferentes continentes e tradições políticas. Esse padrão sugere que a polarização não decorre apenas de divergências ideológicas genuínas, mas também da própria forma como a informação política circula nos ambientes digitais contemporâneos.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Refutação Direta'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo parte de um caso específico (debate em períodos eleitorais recentes) e generaliza para um padrão estrutural global de bolhas informacionais observado em diferentes democracias. É Generalização — do específico para o geral.',
+    dica: '"Não constitui fenômeno restrito a... trata-se de manifestação de um padrão estrutural mais amplo" é a fórmula recorrente de Generalização — aqui aplicada para situar um fenômeno político nacional dentro de um padrão tecnológico global.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Vacinação animal e saúde pública: abordagem One Health',
+    trecho: 'Assim como o sistema circulatório e o sistema respiratório de um organismo não funcionam isoladamente, mas em interdependência constante, a saúde humana, a saúde animal e a saúde ambiental constituem sistemas interconectados cujos desequilíbrios se propagam mutuamente entre as fronteiras que artificialmente os separamos em nossas estruturas administrativas. Da mesma forma que tratar um sintoma respiratório sem considerar uma causa circulatória subjacente tende a produzir resultados limitados, enfrentar doenças zoonóticas — transmitidas de animais a humanos — sem integrar políticas de saúde animal, vigilância ambiental e saúde humana tende a gerar respostas fragmentadas e menos eficazes diante de ameaças sanitárias que não respeitam essas divisões institucionais.',
+    opcoesForma: ['Analogia','Generalização / Particularização','Causa → Explicação → Efeito','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Analogia',
+    explicacao: 'O parágrafo é construído sobre a comparação entre a interdependência dos sistemas de um organismo e a interdependência entre saúde humana, animal e ambiental, sem citar dados nem país. É Analogia desenvolvida com paralelismo consistente.',
+    dica: 'A Analogia mantém o paralelismo nos dois momentos ("assim como... da mesma forma que...") — primeiro estabelece a comparação geral, depois aplica a mesma lógica ao caso específico, reforçando a clareza da relação analógica.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do investimento em cultura contra crítica de prioridade',
+    trecho: 'É verdade que, diante de demandas urgentes em saúde, educação e segurança, o investimento público em cultura é frequentemente percebido como prioridade secundária, passível de corte em momentos de restrição orçamentária. Contudo, essa percepção desconsidera que o setor cultural, além de seu valor simbólico e formativo, movimenta uma cadeia econômica relevante que gera empregos, arrecadação tributária e atração turística — de modo que tratar cultura como gasto supérfluo, e não como investimento com retorno econômico e social mensurável, parte de uma falsa oposição entre cultura e as demais áreas, quando na prática um setor cultural dinâmico contribui para o financiamento das próprias políticas consideradas prioritárias.',
+    opcoesForma: ['Concessão → Refutação','Refutação Direta','Custo-Benefício (Trade-off)','Contraste → Tensão → Posição'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que" concede que a cultura é percebida como prioridade secundária, e "contudo" refuta essa percepção mostrando o retorno econômico do setor e desmontando a falsa oposição entre cultura e outras áreas. É Concessão→Refutação.',
+    dica: 'A refutação aqui ataca uma FALSA OPOSIÇÃO ("cultura versus outras prioridades") — mostrar que dois elementos apresentados como concorrentes na verdade se complementam é um movimento argumentativo sofisticado dentro de Concessão→Refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Geração distribuída de energia solar e modelo alemão',
+    trecho: 'O Brasil expandiu significativamente a geração distribuída de energia solar nos últimos anos, impulsionado principalmente pela instalação de painéis fotovoltaicos em residências e pequenos comércios que passaram a gerar parte da própria energia consumida. A Alemanha, pioneira mundial nesse modelo desde os anos 2000, estruturou desde cedo um sistema de tarifas de incentivo que remunerava de forma previsível a energia excedente injetada na rede por pequenos geradores, criando segurança jurídica e financeira que acelerou a adesão popular muito antes de a tecnologia se tornar economicamente competitiva por si só. Essa diferença de trajetória sugere que a previsibilidade regulatória de longo prazo, e não apenas o barateamento da tecnologia, é fator determinante para a velocidade de adoção da geração distribuída por pequenos produtores.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Afirmação → Evidência → Análise','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Alemanha são comparados quanto à trajetória de adoção de energia solar distribuída, com lição extraída sobre a importância da previsibilidade regulatória. É Comparação Brasil × outro país.',
+    dica: 'Comparações energéticas costumam destacar não apenas o resultado final, mas a POLÍTICA que levou a ele (aqui: tarifas de incentivo previsíveis) — a lição extraída foca no fator causal replicável, não apenas no estágio atual de cada país.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Automação de portos e produtividade logística',
+    trecho: 'A modernização de terminais portuários com sistemas automatizados de movimentação de contêineres reduz significativamente o tempo médio de carga e descarga de navios, ampliando a capacidade operacional dos portos e reduzindo custos logísticos repassados a toda a cadeia de comércio exterior. Isso ocorre porque equipamentos automatizados operam de forma contínua, com maior precisão e sem as limitações de jornada e fadiga inerentes à operação manual, permitindo que um mesmo terminal processe volume substancialmente maior de cargas no mesmo período de tempo. Dados de autoridades portuárias de terminais modernizados registram redução expressiva no tempo médio de permanência de embarcações atracadas. Como consequência, ganha-se competitividade nas exportações nacionais, cujo custo logístico portuário historicamente elevado representa desvantagem frente a concorrentes internacionais com infraestrutura portuária mais eficiente.',
+    opcoesForma: ['Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (automação portuária) → explicação (operação contínua e precisa) → evidência (dados de autoridades portuárias) → efeito (ganho de competitividade nas exportações). Cadeia causal completa e bem desenvolvida.',
+    dica: 'Mesmo mencionando competitividade frente a "concorrentes internacionais", isso não configura Comparação — não há um país específico contrastado em detalhe; a menção serve apenas para dimensionar a relevância do efeito final na cadeia causal.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa de cotas para pessoas com deficiência contra crítica de mérito',
+    trecho: 'Critica-se a reserva legal de vagas para pessoas com deficiência em empresas sob a alegação de que tal política comprometeria a contratação baseada exclusivamente em mérito e qualificação técnica, supostamente prejudicando a eficiência produtiva das organizações. Essa crítica, no entanto, ignora que a própria noção de "mérito neutro" desconsidera as barreiras estruturais de acesso à educação e à qualificação profissional historicamente enfrentadas por pessoas com deficiência, de modo que a ausência de cotas não reflete uma competição justa entre iguais, mas a perpetuação de desigualdades de partida — e levantamentos sobre empresas que cumprem a cota mostram que, com adaptações razoáveis de ambiente, a produtividade desses profissionais é plenamente equivalente à dos demais.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Generalização / Particularização','Causa → Explicação → Efeito'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, no entanto, ignora..." ataca diretamente a premissa do "mérito neutro", revelando que ela desconsidera barreiras estruturais de partida, e reforça com dados sobre produtividade equivalente. Sem concessão inicial.',
+    dica: 'Uma Refutação Direta poderosa frequentemente DESCONSTRÓI UM CONCEITO usado pelo argumento contrário — aqui, a ideia de "mérito neutro" é mostrada como falsa, pois ignora desigualdades de ponto de partida, atacando a base do raciocínio criticado.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Transição de matriz de transporte de cargas',
+    trecho: 'Desde meados do século XX, a matriz de transporte de cargas no Brasil estruturou-se predominantemente em torno do modal rodoviário, resultado de decisões de política de infraestrutura que priorizaram a construção de rodovias em detrimento de ferrovias e hidrovias durante o período de industrialização acelerada do país. Ao longo das décadas seguintes, essa dependência rodoviária se consolidou e se aprofundou, mesmo diante da evidência de que ferrovias e hidrovias são mais eficientes para o transporte de grandes volumes a longas distâncias, especialmente de commodities agrícolas e minerais. Atualmente, o predomínio rodoviário se traduz em custos logísticos elevados, maior emissão de poluentes por tonelada transportada e vulnerabilidade da economia a oscilações no preço dos combustíveis, um conjunto de desvantagens herdadas de escolhas de infraestrutura feitas há mais de meio século.',
+    opcoesForma: ['Histórico → Presente','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre a origem (decisões de meados do século XX), a consolidação (décadas seguintes) e o estado atual (custos elevados herdados), mostrando como escolhas históricas de infraestrutura ainda determinam desvantagens presentes. É Histórico→Presente.',
+    dica: 'Histórico→Presente sobre infraestrutura frequentemente mostra como DECISÕES DE DÉCADAS ATRÁS criam dependências de trajetória difíceis de reverter — esse conceito de "herança de escolhas passadas" é um recurso recorrente e forte dessa forma.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Telemedicina veterinária e acesso em zonas rurais',
+    trecho: 'Assim como a telemedicina ampliou o acesso de populações humanas remotas a especialistas médicos antes inacessíveis pela distância, a telemedicina veterinária tem o potencial de ampliar o acesso de pequenos produtores rurais a especialistas em sanidade animal, cujo aconselhamento técnico antes dependia de deslocamentos custosos ou simplesmente inexistia em regiões isoladas. Da mesma forma que, na medicina humana, a tecnologia não substitui integralmente o exame presencial em casos complexos, mas amplia o alcance da triagem e do acompanhamento de rotina, na veterinária o monitoramento remoto de rebanhos não elimina a necessidade de visitas técnicas presenciais em situações graves, mas multiplica a capacidade de orientação preventiva que evita que problemas sanitários simples evoluam para perdas significativas.',
+    opcoesForma: ['Analogia','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Generalização / Particularização'],
+    formaCorreta: 'Analogia',
+    explicacao: 'O parágrafo compara a telemedicina humana com a telemedicina veterinária, estabelecendo paralelismo entre os dois domínios sem citar dados nem país. É Analogia entre duas aplicações de uma mesma tecnologia em campos diferentes.',
+    dica: 'Analogias entre aplicações de uma mesma tecnologia em domínios diferentes (medicina humana → veterinária) funcionam bem porque o paralelismo é natural e direto — o leitor já conhece um lado e transfere o entendimento para o outro.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Bioeconomia da floresta em pé versus desmatamento',
+    trecho: 'A exploração de produtos da sociobiodiversidade amazônica — como castanha, açaí, óleos e essências — gera renda para populações tradicionais e cria valor econômico a partir da floresta preservada, oferecendo alternativa ao modelo de conversão de floresta em pasto ou monocultura. O custo desse modelo de bioeconomia é a menor escala e a maior complexidade logística de produção em comparação à pecuária extensiva, que ocupa grandes áreas com baixa exigência de processamento e cadeias de comercialização já consolidadas. Quando se considera o valor de longo prazo dos serviços ecossistêmicos prestados pela floresta preservada — regulação climática, ciclo de chuvas e biodiversidade —, o modelo de floresta em pé tende a apresentar retorno social superior, ainda que dependa de investimento em infraestrutura de processamento e logística para competir economicamente com o desmatamento no curto prazo.',
+    opcoesForma: ['Custo-Benefício (Trade-off)','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Contraste → Tensão → Posição'],
+    formaCorreta: 'Custo-Benefício (Trade-off)',
+    explicacao: 'Benefício (renda + preservação) e custo (menor escala, maior complexidade logística) do modelo de bioeconomia são pesados, com balanço final que considera serviços ecossistêmicos de longo prazo. É Trade-off com horizonte temporal no balanço.',
+    dica: 'Trade-offs ambientais costumam contrastar retorno de CURTO PRAZO (desmatamento, mais simples e imediato) com retorno de LONGO PRAZO (floresta em pé, mais complexo mas sustentável) — esse recorte temporal é central para o balanço final.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da redução de velocidade urbana contra crítica de mobilidade',
+    trecho: 'Argumenta-se que a redução de limites de velocidade em vias urbanas comprometeria a fluidez do tráfego e aumentaria o tempo de deslocamento da população, prejudicando a mobilidade geral nas cidades. Esse argumento, contudo, não se sustenta diante de estudos de engenharia de tráfego: em ambiente urbano com semáforos frequentes, a velocidade máxima atingível entre paradas tem impacto marginal sobre o tempo total de viagem, que é determinado muito mais pela sincronização semafórica e pela densidade do tráfego do que pela velocidade de pico permitida — de modo que a redução de limites melhora significativamente a segurança viária sem o custo de mobilidade que o argumento contrário pressupõe.',
+    opcoesForma: ['Refutação Direta','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise','Concessão → Refutação'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Argumenta-se que... esse argumento, contudo, não se sustenta diante de estudos..." ataca diretamente a premissa de que reduzir velocidade prejudicaria a mobilidade, mostrando que o tempo de viagem urbano depende de outros fatores. É Refutação Direta.',
+    dica: 'A refutação aqui ataca uma RELAÇÃO CAUSAL PRESUMIDA (velocidade máxima = tempo de viagem) mostrando que ela é falsa no contexto urbano específico — desmontar a cadeia causal do argumento contrário é uma forma sólida de Refutação Direta.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Bullying escolar e padrão de violência estrutural',
+    trecho: 'Um caso isolado de violência entre estudantes em uma escola não deve ser compreendido apenas como conflito pontual entre indivíduos específicos com problemas de convivência. Ele frequentemente revela um padrão mais amplo e estrutural de dinâmicas de exclusão e hierarquia social presentes no ambiente escolar, no qual diferenças de classe, aparência, origem ou identidade são exploradas como vetores de humilhação sistemática, um padrão que se reproduz com características semelhantes em escolas de diferentes contextos socioeconômicos e regiões. Reconhecer essa dimensão estrutural é condição para que intervenções deixem de tratar apenas sintomas individuais e passem a abordar as próprias dinâmicas de convivência que produzem a violência.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Concessão → Refutação'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo rejeita a leitura isolada de um caso pontual e generaliza para um padrão estrutural de exclusão presente em escolas diversas. É Generalização — do caso específico (um conflito) para o padrão geral (violência estrutural).',
+    dica: 'A mesma estrutura de Generalização aplicada a fraude, violência doméstica e desinformação aparece aqui no bullying — sempre que o autor quer mostrar que um caso individual "é a ponta de um iceberg" estrutural, essa é a forma adequada.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inteligência artificial generativa e mercado de trabalho criativo',
+    trecho: 'Embora a inteligência artificial generativa amplie a produtividade de profissionais criativos ao automatizar tarefas repetitivas como geração de rascunhos, variações e ajustes técnicos, sua disseminação cria uma tensão real relacionada à desvalorização do trabalho criativo de entrada, antes porta de acesso de profissionais iniciantes ao mercado, agora parcialmente substituível por ferramentas automatizadas. Experiências de setores que integraram a IA como ferramenta de apoio à criação humana — e não como substituição integral dela — sugerem que a posição mais sustentável não é nem a rejeição da tecnologia nem sua adoção indiscriminada, mas a redefinição do papel do profissional criativo em direção a funções de curadoria, direção conceitual e refinamento que a IA ainda não realiza de forma autônoma.',
+    opcoesForma: ['Contraste → Tensão → Posição','Custo-Benefício (Trade-off)','Concessão → Refutação','Causa → Explicação → Efeito'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o avanço (produtividade), aponta a tensão (desvalorização do trabalho de entrada), e fecha com uma posição conciliadora (redefinição do papel criativo), sem negar o avanço nem fazer balanço de custo-benefício. É Contraste→Tensão→Posição.',
+    dica: 'O fechamento "nem rejeição nem adoção indiscriminada, mas redefinição" é uma marca típica de Contraste→Tensão→Posição — a posição final é um caminho do meio que transcende a oposição binária inicial, em vez de declarar qual lado pesa mais (que seria Trade-off).'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa de unidades de conservação contra crítica de entrave econômico',
+    trecho: 'Sustenta-se em certos discursos que a criação de unidades de conservação ambiental representaria entrave ao desenvolvimento econômico regional, ao restringir atividades produtivas como mineração, agropecuária e exploração madeireira em áreas protegidas. Esse argumento, no entanto, contraria a evidência de regiões que combinaram conservação com desenvolvimento: áreas protegidas geram economia baseada em turismo ecológico, pesquisa científica, manejo sustentável e serviços ambientais, frequentemente com geração de renda mais distribuída e duradoura do que atividades extrativas que esgotam recursos não renováveis e deixam passivos ambientais de longo prazo após o fim da exploração.',
+    opcoesForma: ['Refutação Direta','Custo-Benefício (Trade-off)','Concessão → Refutação','Comparação (Brasil × outro país)'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Sustenta-se que... esse argumento, no entanto, contraria a evidência..." ataca diretamente a premissa de que conservação seria entrave ao desenvolvimento, mostrando que áreas protegidas geram economia própria e mais sustentável. Sem concessão inicial.',
+    dica: 'A Refutação Direta aqui contrapõe um TIPO de desenvolvimento (extrativo, finito) a outro (conservação, duradouro), mostrando que o argumento contrário pressupõe falsamente que só o modelo extrativo gera desenvolvimento — atacando a premissa restritiva do crítico.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Acesso a medicamentos e modelo de patentes na Índia',
+    trecho: 'O Brasil enfrenta desafios recorrentes para garantir o acesso da população a medicamentos de alto custo, especialmente os protegidos por patentes que mantêm preços elevados durante o período de exclusividade comercial do fabricante. A Índia, por sua vez, desenvolveu uma indústria robusta de medicamentos genéricos amparada em legislação de patentes mais restritiva quanto ao patenteamento de pequenas modificações de fármacos já existentes, tornando-se uma das principais fornecedoras mundiais de versões acessíveis de medicamentos essenciais, inclusive para programas de saúde de diversos países em desenvolvimento. Essa diferença de abordagem regulatória sugere que critérios mais rigorosos para concessão de patentes farmacêuticas podem ampliar o acesso a medicamentos sem necessariamente eliminar o incentivo à inovação genuína no setor.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)','Refutação Direta','Histórico → Presente'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Índia são comparados quanto à legislação de patentes farmacêuticas e seu impacto no acesso a medicamentos, com lição sobre critérios de patenteamento. É Comparação Brasil × outro país.',
+    dica: 'O modelo indiano de genéricos é um repertório valioso para temas de saúde pública e propriedade intelectual — vale conhecer esse caso como exemplo de país que equilibrou acesso a medicamentos com regulação de patentes.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Despovoamento rural e concentração urbana',
+    trecho: 'A migração contínua de populações jovens de pequenos municípios rurais para centros urbanos de médio e grande porte esvazia progressivamente a força de trabalho economicamente ativa dessas localidades de origem, comprometendo a sustentabilidade econômica e demográfica de comunidades inteiras. Isso ocorre porque a ausência de oportunidades de emprego qualificado, de acesso a serviços educacionais de nível superior e de perspectivas de mobilidade social nessas regiões empurra os jovens para os centros urbanos, deixando para trás populações cada vez mais envelhecidas e dependentes de transferências previdenciárias. Como consequência, muitos pequenos municípios entram em um ciclo de declínio no qual a redução populacional diminui a arrecadação local, que por sua vez reduz a capacidade de oferecer serviços que poderiam reter ou atrair população, retroalimentando o próprio esvaziamento.',
+    opcoesForma: ['Causa → Explicação → Efeito','Histórico → Presente','Generalização / Particularização','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (migração de jovens) → explicação (ausência de oportunidades empurra a saída) → efeito (ciclo de declínio retroalimentado). É Causa→Explicação→Efeito com a sofisticação de um efeito que se torna causa de si mesmo (ciclo vicioso).',
+    dica: 'Quando o efeito final realimenta a causa original, criando um CICLO VICIOSO ("retroalimentando o próprio esvaziamento"), ainda é Causa→Explicação→Efeito — apenas com uma estrutura causal circular, mais sofisticada que a linear.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do ensino de filosofia contra crítica de inutilidade prática',
+    trecho: 'É comum a alegação de que disciplinas como filosofia e sociologia no ensino médio teriam pouca utilidade prática frente a conteúdos diretamente aplicáveis ao mercado de trabalho, devendo ceder espaço a competências técnicas mais imediatamente empregáveis. Tal alegação, contudo, parte de uma concepção restrita de utilidade que ignora que a capacidade de argumentação estruturada, análise crítica de informações e compreensão de contextos sociais — desenvolvidas precisamente por essas disciplinas — é cada vez mais valorizada em um mercado de trabalho que automatiza tarefas técnicas repetitivas e demanda, dos profissionais humanos, justamente as competências de pensamento complexo que as ciências humanas cultivam.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Generalização / Particularização','Contraste → Tensão → Posição'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"É comum a alegação... tal alegação, contudo, parte de uma concepção restrita..." ataca diretamente a premissa de inutilidade prática da filosofia, mostrando que ela se baseia numa noção limitada de utilidade. Sem concessão inicial.',
+    dica: 'Refutar mostrando que o argumento contrário "parte de uma concepção restrita" de um conceito (aqui, de "utilidade") é uma forma elegante de Refutação Direta — ataca a definição implícita que sustenta todo o raciocínio criticado.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Resistência antimicrobiana como ameaça sistêmica',
+    trecho: 'O surgimento de bactérias resistentes a antibióticos em um hospital específico não deve ser interpretado como problema localizado e restrito àquela instituição. Trata-se da manifestação local de um fenômeno global de resistência antimicrobiana, impulsionado pelo uso excessivo e muitas vezes inadequado de antibióticos tanto na medicina humana quanto na produção pecuária em escala mundial, criando pressão seletiva que favorece o surgimento de cepas resistentes que circulam entre países e continentes sem respeitar fronteiras geográficas ou institucionais. Compreender essa dimensão global é essencial, pois soluções restritas a uma única instituição ou país tendem a ter eficácia limitada diante de um problema cuja natureza é inerentemente transnacional.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Histórico → Presente'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo parte de um caso específico (resistência em um hospital) e generaliza para um fenômeno global de resistência antimicrobiana. É Generalização — do local/específico para o global/geral.',
+    dica: 'Temas de saúde com dimensão global (pandemias, resistência antimicrobiana) frequentemente usam Generalização para mostrar que um caso local é parte de um problema transnacional, justificando soluções coordenadas em vez de isoladas.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Trabalho infantil e padrão de vulnerabilidade econômica',
+    trecho: 'A identificação de casos de trabalho infantil em uma cadeia produtiva específica não representa desvio isolado de empregadores individuais inescrupulosos. Ela revela um padrão estrutural mais amplo no qual a pobreza familiar, a fragilidade da fiscalização e a demanda por mão de obra barata em determinados elos de cadeias produtivas se combinam para reproduzir a exploração do trabalho de crianças, um padrão que se manifesta com características semelhantes em diferentes setores econômicos e regiões, ainda que com roupagens distintas conforme o contexto local. Enfrentar esse problema exige, portanto, atacar suas raízes estruturais — pobreza e ausência de fiscalização — e não apenas punir casos individuais à medida que são descobertos.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Refutação Direta','Concessão → Refutação'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo rejeita a leitura isolada (empregadores individuais) e generaliza para um padrão estrutural (pobreza + fiscalização frágil + demanda por mão de obra barata). É Generalização — do caso específico ao padrão sistêmico.',
+    dica: 'A conclusão de uma Generalização frequentemente deriva uma IMPLICAÇÃO PRÁTICA do padrão identificado ("atacar raízes estruturais, não apenas casos individuais") — reconhecer o padrão geral muda a natureza da solução proposta.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do investimento em ciência básica contra acusação de gasto inútil',
+    trecho: 'É verdade que pesquisas em ciência básica frequentemente não geram aplicações práticas no curto prazo, o que torna difícil justificar seu financiamento por critérios de retorno econômico imediato. Contudo, essa característica não pode servir de critério único para avaliar o valor desse tipo de investimento, pois a história demonstra que descobertas hoje essenciais à medicina, à engenharia e à comunicação derivaram, em sua origem, de pesquisas básicas sem aplicação visível na época em que foram realizadas — de modo que abandonar o financiamento da ciência básica em nome do retorno imediato significaria, na prática, comprometer o próprio surgimento das aplicações técnicas que justificam, no futuro, o investimento em ciência aplicada.',
+    opcoesForma: ['Concessão → Refutação','Refutação Direta','Custo-Benefício (Trade-off)','Histórico → Presente'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que" concede a ausência de retorno imediato, e "contudo" refuta que isso justifique abandonar o financiamento, mostrando que retorno imediato não pode ser critério único. É Concessão→Refutação.',
+    dica: 'Note a diferença em relação a uma Refutação Direta que faria sobre o mesmo tema: aqui, o autor RECONHECE o fato que sustenta a crítica (ausência de retorno imediato) como verdadeiro, antes de refutar a conclusão tirada dele — esse reconhecimento é a marca da concessão genuína.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Engajamento cívico digital e modelo taiwanês',
+    trecho: 'O Brasil expandiu seus mecanismos de participação cidadã digital nos últimos anos, com plataformas que permitem consultas públicas online e acompanhamento de processos legislativos. Taiwan, por sua vez, desenvolveu desde a década de 2010 uma plataforma estruturada de deliberação participativa, na qual cidadãos não apenas opinam mas também co-elaboram propostas de regulação em diálogo organizado com órgãos governamentais e setores afetados, modelo conhecido internacionalmente como vTaiwan. Essa diferença de profundidade entre consulta simples e co-elaboração estruturada sugere que a digitalização da participação cidadã pode ir além da coleta de opiniões, evoluindo para mecanismos que efetivamente incorporem a inteligência coletiva na formulação de políticas públicas.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Custo-Benefício (Trade-off)','Generalização / Particularização'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Taiwan são comparados quanto aos modelos de participação cidadã digital, com lição extraída sobre a diferença entre consulta e co-elaboração. É Comparação Brasil × outro país.',
+    dica: 'O modelo vTaiwan é um repertório atual e pouco explorado em temas de democracia digital — vale conhecer como alternativa aos exemplos mais comuns de e-governança da Estônia e do Reino Unido.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Saúde mental no esporte de alto rendimento',
+    trecho: 'É verdade que a alta performance esportiva sempre exigiu disciplina mental rigorosa e capacidade de lidar com pressão competitiva, características historicamente associadas à formação do atleta de elite. Contudo, essa tradição não pode justificar o tabu em torno do reconhecimento público de transtornos psicológicos por atletas, prática que frequentemente leva ao agravamento de quadros tratáveis e ao abandono precoce de carreiras promissoras. Atletas que assumiram publicamente questões de saúde mental nos últimos anos abriram caminho para que clubes e federações implementem estruturas profissionais de apoio psicológico continuado, demonstrando que admitir vulnerabilidade não enfraquece a performance, mas a torna mais sustentável ao longo do tempo.',
+    opcoesForma: ['Concessão → Refutação','Contraste → Tensão → Posição','Generalização / Particularização','Causa → Explicação → Efeito'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que" concede a tradição da disciplina mental no esporte, e "contudo" refuta que essa tradição justifique o tabu sobre saúde mental, com evidência de atletas que abriram esse debate publicamente. É Concessão→Refutação.',
+    dica: 'A refutação aqui inverte uma associação culturalmente naturalizada ("admitir vulnerabilidade enfraquece performance") mostrando o contrário ("torna mais sustentável") — esse tipo de inversão é uma forma eficaz de fechar Concessão→Refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do salário mínimo elevado contra crítica de desemprego',
+    trecho: 'Argumenta-se com frequência que elevações reais do salário mínimo provocariam aumento do desemprego, especialmente entre trabalhadores menos qualificados, pois empresas reduziriam contratações diante do encarecimento da mão de obra. Esse argumento, entretanto, não é confirmado pela maior parte dos estudos empíricos sobre o tema realizados em diferentes países: a relação entre salário mínimo e nível de emprego é significativamente mais complexa do que a previsão linear da teoria econômica clássica, e em diversos casos, aumentos moderados do salário mínimo coincidem com manutenção ou mesmo expansão do emprego nos setores afetados, contradizendo a previsão de desemprego automática frequentemente apresentada como certeza.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Afirmação → Evidência → Análise','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Argumenta-se que... esse argumento, entretanto, não é confirmado..." ataca diretamente a previsão linear da teoria clássica, mostrando que estudos empíricos a contradizem. Sem concessão à premissa de aumento automático do desemprego.',
+    dica: 'A Refutação Direta aqui contrasta uma PREVISÃO TEÓRICA (relação linear salário-emprego) com EVIDÊNCIA EMPÍRICA (estudos que mostram outro padrão) — essa oposição teoria/evidência é um movimento argumentativo forte em refutações econômicas.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Trajetória da regulação do trabalho doméstico',
+    trecho: 'Até meados do século XX, o trabalho doméstico no Brasil era exercido majoritariamente sem qualquer regulação específica, em arranjos informais que perpetuavam, em muitos casos, vínculos de trabalho próximos à servidão herdada do período escravista. A partir dos anos 1970, regulações iniciais reconheceram direitos parciais a essa categoria, como férias e décimo terceiro, ainda que mantendo um regime jurídico significativamente mais restrito do que o aplicado às demais relações de emprego. Apenas em 2015, com a aprovação da Lei Complementar 150, o trabalho doméstico passou a contar com a maior parte dos direitos trabalhistas equiparados aos das demais categorias, embora a fiscalização efetiva desses direitos em ambiente doméstico permaneça um desafio prático até hoje, refletindo a herança de séculos de informalidade que ainda condiciona a relação entre empregadores e trabalhadoras domésticas.',
+    opcoesForma: ['Histórico → Presente','Causa → Explicação → Efeito','Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre 3 fases temporais (até meados do século XX, a partir dos anos 1970, e 2015 em diante) descrevendo a evolução jurídica do trabalho doméstico até o estado atual de regulação formal com fiscalização ainda deficiente. É Histórico→Presente.',
+    dica: 'Histórico→Presente sobre direitos trabalhistas costuma mostrar que CONQUISTAS FORMAIS NO PAPEL nem sempre se traduzem em proteção efetiva na prática — um padrão narrativo recorrente em temas de direitos sociais ao longo do tempo.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Inteligência artificial e o argumento da substituição de empregos',
+    trecho: 'Alega-se, em análises sobre o futuro do trabalho, que a inteligência artificial substituirá rapidamente milhões de empregos, gerando desemprego em massa de proporções inéditas na história econômica. Tal alegação, contudo, repete um padrão de previsões catastróficas feitas em outras revoluções tecnológicas — da mecanização agrícola à introdução do computador pessoal — que, na prática, foram seguidas não pela eliminação líquida de empregos, mas pela transformação da natureza do trabalho, com surgimento de ocupações antes inexistentes que compensaram, em escala agregada, as funções efetivamente automatizadas pela nova tecnologia.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Histórico → Presente','Analogia'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Alega-se que... tal alegação, contudo, repete um padrão de previsões catastróficas..." ataca diretamente a previsão de desemprego em massa, mostrando que previsões similares em outras revoluções tecnológicas não se confirmaram. Sem concessão inicial à premissa catastrófica.',
+    dica: 'Cuidado para não confundir com Histórico→Presente: aqui as referências históricas (mecanização, computador pessoal) não constituem uma linha do tempo do tema atual (IA), mas funcionam como EVIDÊNCIA de que a previsão sobre IA repete padrão errado já visto antes — papel típico em Refutação Direta.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Migração internacional e enriquecimento cultural',
+    trecho: 'Assim como uma língua se enriquece ao incorporar termos de outras culturas com as quais entra em contato, expandindo sua capacidade expressiva sem perder identidade original, sociedades receptoras de fluxos migratórios tendem a se enriquecer culturalmente ao incorporar contribuições gastronômicas, artísticas, religiosas e técnicas das populações migrantes, sem que isso necessariamente comprometa a coesão cultural construída ao longo de sua própria trajetória histórica. Da mesma forma que línguas que se fecham completamente à influência externa tendem a se tornar progressivamente menos funcionais para o intercâmbio com o mundo contemporâneo, sociedades que rejeitam categoricamente fluxos migratórios tendem a perder dinamismo demográfico e capacidade de adaptação a mudanças econômicas e sociais que dependem da renovação de seu capital humano.',
+    opcoesForma: ['Analogia','Generalização / Particularização','Causa → Explicação → Efeito','Concessão → Refutação'],
+    formaCorreta: 'Analogia',
+    explicacao: 'O parágrafo é construído sobre a comparação entre o funcionamento de línguas e o funcionamento de sociedades receptoras de migração, com paralelismo claro nos dois movimentos da analogia. É Analogia bem desenvolvida.',
+    dica: 'A analogia linguística é particularmente fértil para temas de identidade cultural — o leitor já intuitivamente entende que línguas incorporam estrangeirismos sem perder identidade, e essa intuição é transferida para o entendimento do tema social proposto.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do veganismo contra crítica de impraticabilidade nutricional',
+    trecho: 'Critica-se a adoção de dietas baseadas em vegetais sob a alegação de que ela necessariamente comprometeria a obtenção adequada de proteínas, ferro e vitamina B12, gerando deficiências nutricionais que tornariam o veganismo impraticável para a maior parte da população. Essa crítica, no entanto, não corresponde ao posicionamento oficial das principais associações de nutrição do mundo, que reconhecem dietas vegetarianas e veganas adequadamente planejadas como nutricionalmente completas em todas as fases da vida, incluindo gestação, infância e velhice — desde que devidamente acompanhadas por profissionais de nutrição e, no caso da B12, suplementadas por fontes alimentares enriquecidas ou suplementos específicos amplamente disponíveis.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Custo-Benefício (Trade-off)','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, no entanto, não corresponde ao posicionamento oficial..." ataca diretamente a premissa de impraticabilidade nutricional, mostrando que ela contradiz consensos técnicos das principais associações de nutrição. Sem concessão à crítica.',
+    dica: 'Refutações baseadas em CONSENSO DE ESPECIALISTAS (associações técnicas, organizações reconhecidas) têm peso especial — desmontam o argumento contrário não apenas com fatos, mas com a autoridade institucional de quem fala oficialmente sobre o tema.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Conservação marinha e modelo de áreas protegidas chilenas',
+    trecho: 'O Brasil possui faixa litorânea extensa, com biodiversidade marinha rica, mas mantém percentual relativamente modesto de águas territoriais sob proteção integral em comparação a metas internacionais de conservação marinha. O Chile, por sua vez, expandiu nas últimas décadas suas áreas marinhas protegidas a ponto de figurar entre os países com maior percentual de zona econômica exclusiva sob proteção formal, criando reservas em águas oceânicas profundas com pouca atividade econômica direta mas alta importância ecológica para a manutenção de populações de espécies migratórias. Essa diferença de escala sugere que a conservação marinha brasileira poderia avançar significativamente em zonas oceânicas com menor conflito de uso, sem necessariamente afetar atividades pesqueiras já estabelecidas em águas costeiras de uso intensivo.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Chile são comparados quanto à proteção de áreas marinhas, com lição prática sobre onde o avanço brasileiro poderia ocorrer sem conflito de uso. É Comparação Brasil × outro país.',
+    dica: 'Comparações ambientais costumam terminar com SUGESTÕES PRÁTICAS DE APLICAÇÃO da lição extraída ("poderia avançar em zonas com menor conflito"), o que torna a comparação propositiva e não apenas descritiva.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Desigualdade de gênero no mercado de trabalho',
+    trecho: 'A diferença salarial entre homens e mulheres em uma empresa ou setor específico não deve ser tratada como anomalia isolada de uma organização individual mal gerida. Ela se manifesta como expressão local de um padrão estrutural mais amplo, observado em praticamente todos os setores econômicos e em quase todos os países que coletam dados desagregados por gênero, padrão que reflete não apenas decisões pontuais de remuneração, mas também a concentração desproporcional de mulheres em ocupações historicamente menos valorizadas economicamente, interrupções de carreira associadas a responsabilidades reprodutivas e domésticas, e dinâmicas de progressão profissional que penalizam, ainda que sutilmente, trajetórias que se desviam do padrão tradicionalmente masculino.',
+    opcoesForma: ['Generalização / Particularização','Causa → Explicação → Efeito','Afirmação → Evidência → Análise','Refutação Direta'],
+    formaCorreta: 'Generalização / Particularização',
+    explicacao: 'O parágrafo rejeita a leitura isolada (anomalia de uma empresa) e generaliza para um padrão estrutural global observado em quase todos os setores e países. É Generalização — do específico ao sistêmico.',
+    dica: 'Generalizações sobre desigualdade frequentemente listam OS MECANISMOS QUE COMPÕEM O PADRÃO (concentração ocupacional, interrupções, progressão penalizada) — esse detalhamento dos mecanismos do padrão reforça a generalização sem transformar a forma em Causa→Explicação→Efeito.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Educação inclusiva: avanço reconhecido e tensão sobre formação docente',
+    trecho: 'Embora a legislação brasileira de educação inclusiva garanta o direito de estudantes com deficiência à matrícula em escolas regulares, ampliando significativamente o acesso desse público à convivência educacional comum, sua implementação enfrenta uma tensão real ligada à insuficiente formação de professores para atender simultaneamente turmas com perfis cognitivos e sensoriais bastante diversos, sem o suporte de profissionais especializados em número adequado. Investimentos em formação continuada específica para inclusão e em equipes de apoio multidisciplinares nas próprias escolas surgem como a posição que melhor concilia o direito à matrícula em escola regular com a qualidade efetiva do aprendizado, sem retroceder ao modelo segregado de educação especializada apartada da escola comum.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Custo-Benefício (Trade-off)','Causa → Explicação → Efeito'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o avanço (legislação garante acesso), aponta a tensão (formação docente insuficiente), e fecha com uma posição conciliadora (formação continuada + equipes multidisciplinares) que não retrocede ao modelo segregado nem ignora o problema. É Contraste→Tensão→Posição.',
+    dica: 'A posição final que "não retrocede" ao modelo anterior é típica de Contraste→Tensão→Posição em temas de política social — sinaliza um caminho à frente que mantém o avanço conquistado e resolve a tensão prática surgida.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da política de cotas raciais contra crítica de divisão social',
+    trecho: 'Sustenta-se, em certos discursos, que políticas de cotas raciais aprofundariam divisões sociais ao categorizar formalmente cidadãos por raça em políticas públicas, contrariando o ideal de uma sociedade que aspira a se tornar "racialmente cega". Esse argumento, contudo, parte de uma premissa equivocada sobre o ponto de partida: ele pressupõe que a sociedade já opera de forma racialmente neutra na ausência de cotas, quando dados de mercado de trabalho, renda, acesso à educação e expectativa de vida revelam disparidades raciais persistentes que existem precisamente porque mecanismos informais de discriminação operam, ainda que nem sempre explicitamente, mesmo sem categorização formal — de modo que a recusa em reconhecer raça nas políticas não elimina a discriminação racial existente, apenas torna mais difícil enfrentá-la com instrumentos específicos.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Generalização / Particularização','Contraste → Tensão → Posição'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Sustenta-se que... esse argumento, contudo, parte de uma premissa equivocada..." ataca diretamente a premissa de neutralidade racial na ausência de cotas, mostrando que ela não corresponde à realidade observada nos dados. Sem concessão inicial.',
+    dica: 'Refutações baseadas em DESCONSTRUIR A PREMISSA OCULTA do argumento criticado (aqui: a suposta neutralidade racial pré-existente) são particularmente eficazes — elas atacam o fundamento do raciocínio, não apenas a conclusão.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Programa Bolsa Família e impacto na pobreza extrema',
+    trecho: 'Segundo dados do Instituto de Pesquisa Econômica Aplicada, programas de transferência condicionada de renda como o Bolsa Família estão entre os fatores apontados como contribuintes para a redução observada nos índices de pobreza extrema no Brasil nas décadas seguintes ao início do programa. Essa associação sugere que transferências de renda focalizadas em famílias em situação de extrema pobreza, condicionadas a contrapartidas em educação e saúde, podem produzir efeito mensurável sobre indicadores sociais relevantes sem demandar reformas estruturais profundas de difícil implementação, oferecendo uma alternativa de política pública relativamente ágil para enfrentar a face mais grave da desigualdade.',
+    opcoesForma: ['Afirmação → Evidência → Análise','Causa → Explicação → Efeito','Histórico → Presente','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Afirmação → Evidência → Análise',
+    explicacao: 'O dado do IPEA é a evidência central, e o restante do parágrafo é a análise que extrai uma conclusão sobre a eficácia de transferências focalizadas como instrumento de política pública. É Afirmação→Evidência→Análise.',
+    dica: 'O parágrafo poderia se confundir com Causa→Explicação→Efeito, mas note: ele não EXPLICA o mecanismo pelo qual o programa reduz pobreza (canais causais), apenas APRESENTA o dado e INTERPRETA o que ele sugere sobre política pública — esse é o padrão de Afirmação→Evidência→Análise.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Da censura prévia à liberdade editorial: imprensa brasileira',
+    trecho: 'Durante o regime militar instaurado em 1964, a imprensa brasileira operou sob regime de censura prévia, no qual textos jornalísticos eram submetidos à aprovação governamental antes da publicação, prática que restringiu severamente o debate público sobre temas considerados sensíveis pelas autoridades da época. Com a redemocratização e a promulgação da Constituição de 1988, essa censura prévia foi formalmente eliminada, consagrando-se a liberdade editorial como princípio constitucional protegido contra interferência estatal direta. Atualmente, ainda que a liberdade formal de imprensa esteja consolidada, novos desafios surgem na forma de concentração de propriedade dos meios de comunicação, processos judiciais que pressionam veículos a se autocensurarem por receio de prejuízos financeiros, e desinformação difundida por canais digitais que escapam dos critérios editoriais tradicionais — desafios qualitativamente diferentes da censura estatal direta do passado, mas que afetam a qualidade do debate público de formas que merecem reflexão própria.',
+    opcoesForma: ['Histórico → Presente','Comparação (Brasil × outro país)','Causa → Explicação → Efeito','Generalização / Particularização'],
+    formaCorreta: 'Histórico → Presente',
+    explicacao: 'O parágrafo percorre 3 fases temporais (regime militar, redemocratização 1988, presente) descrevendo a evolução da liberdade de imprensa até os desafios contemporâneos qualitativamente diferentes. É Histórico→Presente bem desenvolvido.',
+    dica: 'Histórico→Presente sobre direitos consagrados costuma terminar mostrando que NOVOS DESAFIOS substituem os antigos sem necessariamente representar retrocesso — esse padrão de "ameaças mudam de natureza ao longo do tempo" é uma forma sofisticada dessa estrutura.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da redução de jornada contra crítica de impacto produtivo',
+    trecho: 'É verdade que a redução da jornada semanal de trabalho representa, em primeira análise, um aumento direto do custo unitário do trabalho para as empresas, ao manter remuneração constante diante de redução de horas produtivas contratadas. Contudo, essa análise inicial desconsidera o efeito da redução de jornada sobre a produtividade por hora trabalhada: experiências em diferentes países e setores mostram que trabalhadores com jornadas mais curtas tendem a manter ou ampliar sua produção total, compensando ao menos parcialmente — e em alguns casos integralmente — a redução de horas contratadas, de modo que o aumento de custo unitário previsto na análise estática frequentemente não se materializa na intensidade temida.',
+    opcoesForma: ['Concessão → Refutação','Refutação Direta','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Concessão → Refutação',
+    explicacao: '"É verdade que" concede que a redução de jornada eleva o custo unitário em análise estática, e "contudo" refuta que esse efeito se materialize plenamente quando se considera o ganho de produtividade por hora. É Concessão→Refutação.',
+    dica: 'Concessão→Refutação econômica frequentemente reconhece a validade de uma ANÁLISE ESTÁTICA simplificada antes de refutar sua aplicação prática mostrando que efeitos compensatórios mudam o resultado real — esse movimento "estática vs. dinâmica" é um padrão recorrente.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Mídia tradicional versus redes sociais: confiança pública',
+    trecho: 'Embora os veículos tradicionais de imprensa enfrentem questionamentos crescentes sobre sua independência editorial e suposta parcialidade política, sua estrutura de produção jornalística mantém procedimentos formais de checagem de fatos, edição supervisionada e responsabilização legal por conteúdos publicados, que conferem ao seu produto final um patamar de verificação ausente na maior parte do que circula em redes sociais. Reconhecer essa diferença estrutural não significa atribuir credibilidade automática aos veículos tradicionais nem demonizar integralmente os conteúdos de redes sociais, mas sim manter critérios distintos de avaliação para fontes que operam sob lógicas de produção radicalmente diferentes — uma posição que preserva o senso crítico em ambos os domínios sem cair em equivalência simplista entre fontes que diferem substancialmente em seus mecanismos de produção e responsabilização.',
+    opcoesForma: ['Contraste → Tensão → Posição','Concessão → Refutação','Custo-Benefício (Trade-off)','Refutação Direta'],
+    formaCorreta: 'Contraste → Tensão → Posição',
+    explicacao: 'Reconhece o contraste (imprensa tradicional criticada vs. ausência de checagem em redes), aponta a tensão (manter senso crítico em ambos), e fecha com uma posição equilibrada que evita os dois extremos. É Contraste→Tensão→Posição.',
+    dica: 'A posição final que evita "extremos" ("nem credibilidade automática nem demonização integral") é uma marca típica de Contraste→Tensão→Posição — busca um caminho do meio que não cai em simplificações binárias.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa da reforma agrária contra crítica de inviabilidade econômica',
+    trecho: 'Argumenta-se que assentamentos da reforma agrária seriam economicamente inviáveis, com produtividade significativamente inferior à de propriedades rurais já estabelecidas, justificando-se assim a desaceleração ou interrupção de novos projetos de redistribuição fundiária. Esse argumento, no entanto, ignora estudos comparativos que demonstram que assentamentos com adequado acesso a crédito rural, assistência técnica e infraestrutura de escoamento da produção apresentam produtividade compatível com a de pequenas propriedades familiares tradicionais — de modo que a baixa produtividade observada em alguns assentamentos específicos reflete a ausência dessas condições de apoio, e não uma inviabilidade intrínseca do modelo de reforma agrária em si.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Custo-Benefício (Trade-off)','Generalização / Particularização'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Argumenta-se que... esse argumento, no entanto, ignora estudos comparativos..." ataca diretamente a premissa de inviabilidade intrínseca, atribuindo a baixa produtividade de alguns assentamentos à ausência de condições de apoio, não ao modelo em si. Sem concessão à premissa.',
+    dica: 'A Refutação Direta aqui REDIRECIONA A CAUSA de um fenômeno observado pelo crítico (baixa produtividade) — atribuindo-a a um fator diferente do que o crítico apontava (ausência de apoio vs. inviabilidade do modelo) — um padrão eficaz em refutações.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do imposto sobre dividendos contra acusação de bitributação',
+    trecho: 'Critica-se a proposta de tributação de dividendos no Brasil sob a alegação de que ela representaria bitributação, ao tributar novamente lucros que já teriam sido tributados na pessoa jurídica antes de sua distribuição aos sócios. Essa crítica, no entanto, simplifica indevidamente a discussão técnica: a tributação atual da pessoa jurídica brasileira opera com alíquotas e bases distintas das aplicáveis a pessoas físicas, e a ausência total de tributação sobre dividendos coloca o Brasil em situação singular entre as principais economias desenvolvidas, que combinam tributação corporativa com tributação de dividendos sem que isso seja entendido tecnicamente como bitributação ilegítima — tratando-se, na realidade, de tributação coordenada entre níveis fiscais distintos.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Comparação (Brasil × outro país)','Custo-Benefício (Trade-off)'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Critica-se que... essa crítica, no entanto, simplifica indevidamente..." ataca diretamente o argumento de bitributação, mostrando que ele se baseia em simplificação técnica equivocada, e usa a prática internacional como evidência. Sem concessão inicial.',
+    dica: 'A menção à "situação singular do Brasil entre economias desenvolvidas" funciona como EVIDÊNCIA da refutação, não como Comparação estruturada — não há contraste detalhado com um país específico, apenas referência ao padrão internacional para reforçar a refutação.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Programas de juventude e prevenção à criminalidade',
+    trecho: 'A oferta estruturada de atividades esportivas, culturais e profissionalizantes para adolescentes em territórios de alta vulnerabilidade social ocupa horários ociosos que, na ausência dessas oportunidades, frequentemente coincidem com a maior exposição desses jovens a redes criminais que atuam nessas mesmas regiões. Isso ocorre porque a ausência de atividades estruturadas no contra-turno escolar, combinada com a presença ativa do crime organizado oferecendo renda imediata e pertencimento social a jovens em busca de identidade, cria um ambiente em que a opção pela trajetória criminal se torna não apenas viável, mas frequentemente percebida como a alternativa mais acessível. Estudos de prefeituras que implementaram programas integrais nesses territórios registraram queda no envolvimento juvenil em ocorrências policiais. Como consequência, investimentos preventivos em juventude tendem a reduzir custos futuros do sistema de segurança pública relacionados ao mesmo público em fase adulta.',
+    opcoesForma: ['Causa → Explicação → Efeito','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise','Generalização / Particularização'],
+    formaCorreta: 'Causa → Explicação → Efeito',
+    explicacao: 'Causa (ausência de programas estruturados) → explicação (vácuo preenchido pelo crime organizado) → evidência (estudos de prefeituras) → efeito (redução de envolvimento juvenil e custos futuros do sistema). Cadeia causal completa em parágrafo de desenvolvimento.',
+    dica: 'O efeito final mencionar "redução de custos futuros" não transforma o parágrafo em Trade-off — não há um custo da política sendo pesado contra benefício; o parágrafo segue a lógica causal "ausência de programa → criminalidade → custos futuros evitados pela política", que é Causa→Explicação→Efeito.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Manejo de cheias urbanas e modelo holandês de convivência com a água',
+    trecho: 'O Brasil enfrenta enchentes urbanas recorrentes em diversas cidades, com respostas tradicionalmente baseadas em obras de canalização e barreiras que tentam afastar a água das áreas urbanizadas, abordagem frequentemente superada pela intensidade dos eventos pluviométricos extremos cada vez mais frequentes. A Holanda, país com parte significativa do território abaixo do nível do mar, desenvolveu nas últimas décadas uma abordagem distinta, conhecida como "espaço para o rio", que prioriza criar áreas de inundação controlada em vez de tentar conter integralmente as águas, transformando convivência planejada com cheias em estratégia de longo prazo mais eficaz do que tentar eliminá-las. Essa diferença de paradigma sugere que estratégias brasileiras de manejo urbano de águas podem se beneficiar da mudança de objetivo — de eliminar cheias para conviver com elas de forma planejada — especialmente em cidades onde a urbanização sobre planícies fluviais já tornou inviável o controle integral por engenharia tradicional.',
+    opcoesForma: ['Comparação (Brasil × outro país)','Histórico → Presente','Custo-Benefício (Trade-off)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Comparação (Brasil × outro país)',
+    explicacao: 'Brasil e Holanda são comparados quanto às abordagens de manejo de águas urbanas, com lição sobre mudança de paradigma extraída da experiência holandesa. É Comparação Brasil × outro país.',
+    dica: 'O modelo holandês "espaço para o rio" é repertório atualizado e específico para temas de adaptação climática urbana — vale conhecer como alternativa ao exemplo holandês mais comum (apenas diques), que é mais antigo e menos atual.'
+  },
+  {
+    tipo: 'classificar_forma',
+    tema: 'Defesa do voto obrigatório contra crítica de baixa qualidade decisória',
+    trecho: 'Argumenta-se em algumas análises que o voto obrigatório comprometeria a qualidade do processo democrático, ao trazer às urnas eleitores desinformados ou desinteressados, cujas escolhas teriam, supostamente, menor qualidade decisória do que as de eleitores que votariam espontaneamente em sistemas facultativos. Esse argumento, contudo, pressupõe sem comprovação que o voto facultativo selecionaria automaticamente eleitores mais qualificados, hipótese contradita por evidência de países com voto facultativo nos quais a baixa participação se concentra desproporcionalmente entre populações de menor escolaridade e renda — de modo que tornar o voto facultativo, na prática, tenderia a deslocar a representação política para as faixas socioeconômicas mais altas, não a aprimorar a qualidade decisória geral do eleitorado.',
+    opcoesForma: ['Refutação Direta','Concessão → Refutação','Comparação (Brasil × outro país)','Afirmação → Evidência → Análise'],
+    formaCorreta: 'Refutação Direta',
+    explicacao: '"Argumenta-se que... esse argumento, contudo, pressupõe sem comprovação..." ataca diretamente a premissa de que voto facultativo selecionaria eleitores mais qualificados, mostrando que ele apenas exclui desproporcionalmente populações de menor renda. Sem concessão.',
+    dica: 'Refutações sobre questões eleitorais costumam revelar que uma medida apresentada como melhoria da QUALIDADE democrática, na prática, redistribui PESOS desiguais entre grupos sociais — esse desmascaramento do efeito real, diferente do efeito alegado, é uma forma forte de Refutação Direta.'
+  },
 ];// ── Gera um ID estável por card (hash simples baseado em tipo+tema+conteúdo) ──
 // Garante que o mesmo card sempre receba o mesmo ID entre sessões/dispositivos,
 // mesmo que a ordem do array mude com futuras edições do banco.
@@ -7146,14 +7715,101 @@ function fcResponderClassificarForma(escolha, btn){
   fcAtualizarContadores();
   fcRegistrarResposta(card, acertou);
 
+  // Apenas em parágrafos completos (>400 caracteres) vale a pena fazer a análise estrutural detalhada,
+  // já que frases curtas não têm os 4 elementos do TEEC desenvolvidos para identificar.
+  const ehDesenvolvimentoCompleto = card.trecho && card.trecho.length > 400;
+  const analiseEstrutural = ehDesenvolvimentoCompleto ? fcAnalisarEstruturaParagrafo(card.trecho) : '';
+
   const fb = document.getElementById('fc-feedback');
   document.getElementById('fc-feedback-titulo').innerHTML = acertou
     ? '<span style="color:var(--verde);">✓ Correto!</span> — ' + card.formaCorreta
     : '<span style="color:var(--verm);">✗ Errado.</span> Era: <span style="color:var(--ouro);">' + card.formaCorreta + '</span>';
-  document.getElementById('fc-feedback-texto').textContent = card.explicacao;
+  document.getElementById('fc-feedback-texto').innerHTML = card.explicacao + analiseEstrutural;
   document.getElementById('fc-feedback-dica').textContent = card.dica;
   fb.style.display = 'block';
   fb.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// Analisa um parágrafo de desenvolvimento completo identificando:
+//  • conectivos por categoria sintática (causa, oposição, conclusão, exemplificação, etc.)
+//  • marcadores das 4 partes do TEEC (Tópico Frasal, Explicação, Exemplo/Dado, Consequência)
+// Detecção por padrão lexical — não é 100% precisa (a interpretação final cabe ao usuário),
+// mas mostra os SINAIS LINGUÍSTICOS reais presentes no texto, que é o que o estudante precisa
+// aprender a reconhecer ao ler ou escrever um parágrafo de desenvolvimento.
+function fcAnalisarEstruturaParagrafo(texto){
+  // Categorias de conectivos com padrões regex (i = case-insensitive, \\b = limite de palavra)
+  const categorias = [
+    {nome:'CAUSA / EXPLICAÇÃO', cor:'#4a90d9', padroes:[
+      /\b(porque|pois|já que|uma vez que|visto que|haja vista|posto que|dado que|isso ocorre porque|isso se justifica|isso se deve)\b/gi,
+    ]},
+    {nome:'CONSEQUÊNCIA / EFEITO', cor:'#3db88a', padroes:[
+      /\b(portanto|logo|por conseguinte|como consequência|como resultado|dessa forma|de modo que|de maneira que|por isso|assim)\b/gi,
+    ]},
+    {nome:'OPOSIÇÃO / CONTRASTE', cor:'#e05050', padroes:[
+      /\b(mas|porém|contudo|entretanto|todavia|no entanto|em contrapartida|por outro lado|ainda assim|apesar de|embora|conquanto|ainda que)\b/gi,
+    ]},
+    {nome:'EXEMPLIFICAÇÃO / DADO', cor:'#c8992a', padroes:[
+      /\b(segundo|de acordo com|conforme|a título de exemplo|por exemplo|tal como|como demonstra|levantamentos|estudos|pesquisa|dados de|estima-se)\b/gi,
+    ]},
+    {nome:'CONCESSÃO', cor:'#9a6acc', padroes:[
+      /\b(é verdade que|é certo que|admite-se|reconhece-se|de fato|por mais que|ainda que se reconheça)\b/gi,
+    ]},
+    {nome:'COMPARAÇÃO / ANALOGIA', cor:'#5ab3a8', padroes:[
+      /\b(assim como|da mesma forma|tal qual|do mesmo modo|por sua vez|em comparação|paralelamente)\b/gi,
+    ]},
+    {nome:'ADIÇÃO', cor:'#888888', padroes:[
+      /\b(além disso|ademais|outrossim|também|igualmente|adicionalmente|do mesmo modo)\b/gi,
+    ]},
+  ];
+
+  // Detecta ocorrências de cada categoria
+  const encontrados = [];
+  categorias.forEach(cat => {
+    const matches = new Set();
+    cat.padroes.forEach(re => {
+      let m;
+      while((m = re.exec(texto)) !== null) matches.add(m[0].toLowerCase());
+    });
+    if(matches.size) encontrados.push({nome: cat.nome, cor: cat.cor, conectivos: [...matches]});
+  });
+
+  // Identifica indícios das 4 partes do TEEC com base nos conectivos presentes
+  const indicios = [];
+  const t = texto.toLowerCase();
+  if(/^[A-ZÀ-Ý]/.test(texto) || texto.indexOf('.') < 200) indicios.push({parte:'TÓPICO FRASAL', desc:'a primeira frase abre o argumento sem conectivo subordinativo prévio'});
+  if(/\b(porque|pois|isso ocorre|isso se justifica|já que|uma vez que|visto que)\b/i.test(texto)) indicios.push({parte:'EXPLICAÇÃO', desc:'mecanismo causal explicitado por conectivo explicativo'});
+  if(/\b(segundo|de acordo com|conforme|dados de|estudos|levantamentos|pesquisa|estima-se|registra|aponta)\b/i.test(texto)) indicios.push({parte:'EXEMPLO / DADO', desc:'fonte ou evidência concreta citada'});
+  if(/\b(como consequência|como resultado|portanto|por conseguinte|dessa forma|por isso|de modo que)\b/i.test(texto)) indicios.push({parte:'CONSEQUÊNCIA', desc:'fechamento com conectivo de efeito final'});
+
+  // Monta o HTML do bloco de análise estrutural
+  let html = '<div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);">';
+  html += '<div style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:8px;">🔍 ANÁLISE ESTRUTURAL DO PARÁGRAFO</div>';
+
+  if(encontrados.length){
+    html += '<div style="font-size:11px;margin-bottom:8px;"><strong style="font-family:var(--mono);font-size:9px;color:var(--muted);">CONECTIVOS POR CATEGORIA:</strong></div>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">';
+    encontrados.forEach(cat => {
+      const lista = cat.conectivos.slice(0,4).map(c => `"${c}"`).join(', ');
+      html += `<span style="font-size:10px;background:${cat.cor}22;border:1px solid ${cat.cor}66;color:${cat.cor};border-radius:4px;padding:3px 8px;font-family:var(--mono);"><strong>${cat.nome}:</strong> ${lista}</span>`;
+    });
+    html += '</div>';
+  }
+
+  if(indicios.length){
+    html += '<div style="font-size:11px;margin-bottom:6px;"><strong style="font-family:var(--mono);font-size:9px;color:var(--muted);">PARTES DO TEEC IDENTIFICADAS:</strong></div>';
+    html += '<div style="font-size:11px;line-height:1.8;">';
+    indicios.forEach(i => {
+      html += `<div style="margin-bottom:3px;"><span style="color:var(--ouro);font-family:var(--mono);font-size:10px;">▸ ${i.parte}:</span> <span style="color:var(--muted);">${i.desc}</span></div>`;
+    });
+    html += '</div>';
+  }
+
+  if(!encontrados.length && !indicios.length){
+    html += '<div style="font-size:11px;color:var(--muted);font-style:italic;">Este parágrafo usa pontuação e estrutura sintática para organizar o argumento, sem depender de conectivos explícitos das categorias mais comuns.</div>';
+  }
+
+  html += '</div>';
+  return html;
 }
 
 // ══════════════════════════════════════════════════════════════
