@@ -453,7 +453,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
      ABA 7 — TREINO FTTD (EXERCÍCIO)
 ══════════════════════════════════════════════════════════════ -->
 <div id="aba-treino" class="aba">
-  <div class="nivel-badge" id="treino-nivel-badge">NÍVEL 1/6 — IDENTIFICAR FENÔMENO</div>
+  <div class="nivel-badge" id="treino-nivel-badge">NÍVEL 1/3 — PLANEJAMENTO FTTD</div>
   <div class="progresso-bar"><div class="progresso-fill" id="treino-prog" style="width:16%;"></div></div>
 
   <!-- Card de referência FTTD — sempre visível, recolhível -->
@@ -1835,63 +1835,37 @@ const NIVEIS=[
      '🎯 Os eixos devem ser COMPLEMENTARES, não a mesma ideia repetida com outras palavras (ex: "educação" e "ensino" são o mesmo eixo).',
    ]},
 
-  {num:2,label:'TEEC — EIXO 1 (§2)',
-   campos:['arg1_topico','arg1_explicacao','arg1_exemplo','arg1_consequencia'],
-   instrucao:'Desenvolva o argumento do §2 com a estrutura TEEC: Tópico Frasal · Explicação · Exemplo/Dado · Consequência.',
-   dica:'💡 T = primeira frase do parágrafo (anuncia) · E = fundamenta com raciocínio · E = evidência concreta (dado, lei, caso) · C = impacto/resultado esperado. Cada parte: 1-2 frases.',
+  // NÍVEL 2 — DESENVOLVIMENTO COMPLETO: une os antigos níveis 2, 3 e 5.
+  // O aluno preenche os 4 campos TEEC de cada eixo E escreve os parágrafos §2/§3 corridos.
+  // Os campos arg1_*/arg2_* ficam no início (estrutura), dev1/dev2 ao final (texto fluído).
+  {num:2,label:'DESENVOLVIMENTO §2 E §3',
+   campos:['arg1_topico','arg1_explicacao','arg1_exemplo','arg1_consequencia',
+           'arg2_topico','arg2_explicacao','arg2_exemplo','arg2_consequencia',
+           'dev1','dev2'],
+   instrucao:'Estruture os dois argumentos em TEEC (Tópico · Explicação · Exemplo · Consequência) e depois transforme cada um em parágrafo corrido (§2 e §3).',
+   dica:'💡 Preencha primeiro as 4 partes de cada eixo (estrutura), depois "costure" tudo em texto fluido nos campos §2 e §3. Use conectivos para amarrar as 4 partes do TEEC em prosa.',
    dicas_extra:[
-     '🧩 MACETE: ① CAUSA (o que origina?) → ② EXPLICAÇÃO (por que acontece? — use "pois") → ③ EFEITO (o que resulta?). Frase-modelo: "[Causa] agrava o problema, pois [explicação]. Como consequência, [efeito]."',
-     '🎯 O Exemplo precisa ser CONCRETO: um número, uma lei, um órgão, um caso real. "Muita gente sofre com isso" não é exemplo — é vago.',
-     '🎯 Se não souber um dado exato, use formulações seguras: "segundo levantamentos do setor", "dados recentes indicam que" — mais seguro que inventar números.',
+     '🧩 MACETE TEEC: ① CAUSA (o que origina?) → ② EXPLICAÇÃO (por que acontece? — use "pois") → ③ EFEITO/EXEMPLO concreto → ④ CONSEQUÊNCIA. Mesma estrutura para os dois eixos.',
+     '🎯 O Eixo 2 deve COMPLEMENTAR (não repetir) o Eixo 1. Use exemplos e dados distintos. No §3, inicie com conectivo de adição: Ademais · Paralelamente · Por sua vez.',
+     '🎯 O Exemplo precisa ser CONCRETO: um número, uma lei, um órgão, um caso real. Se não souber dado exato, prefira "segundo levantamentos do setor" a inventar números.',
+     '🎯 Ao escrever §2 e §3: comece pelo Tópico Frasal, ligue à Explicação ("isso porque"), introduza o Exemplo ("a título de exemplo") e feche com a Consequência ("como consequência"). 6-8 linhas cada.',
+     '🎯 Releia em voz alta: se §2 e §3 parecem lista de frases soltas, faltam conectivos. Se parecem parágrafo contínuo, está no caminho.',
    ]},
 
-  {num:3,label:'TEEC — EIXO 2 (§3)',
-   campos:['arg2_topico','arg2_explicacao','arg2_exemplo','arg2_consequencia'],
-   instrucao:'Desenvolva o argumento do §3 com a mesma estrutura TEEC — mas eixo diferente e complementar.',
-   dica:'💡 O Eixo 2 deve complementar (não repetir) o Eixo 1. Use exemplos e dados distintos. Inicie com conectivo de adição: Ademais · Paralelamente · Por sua vez.',
+  // NÍVEL 3 — REDAÇÃO FINAL: une os antigos níveis 4, 6 e 7.
+  // Escreve §1 (introdução), define agente/ação/finalidade da proposta, escreve §4 (conclusão)
+  // e finalmente une os 4 parágrafos numa redação polida.
+  {num:3,label:'REDAÇÃO FINAL — §1, §4 E TEXTO COMPLETO',
+   campos:['intro',
+           'conclusao_agente','conclusao_acao','conclusao_finalidade','conclusao',
+           'redacao'],
+   instrucao:'Escreva o §1 (introdução), defina Agente/Ação/Finalidade da proposta, escreva o §4 (conclusão) e una os 4 parágrafos em uma redação polida.',
+   dica:'💡 §1: contextualização + tema específico + tese com os dois eixos (máx 6 linhas). §4: retome a tese e proponha intervenção — "Propõe-se que [AGENTE] [AÇÃO] a fim de [FINALIDADE]" (3-4 linhas). Redação final: una §1+§2+§3+§4 polindo conectivos entre eles.',
    dicas_extra:[
-     '🧩 Mesmo macete do Eixo 1: ① CAUSA → ② EXPLICAÇÃO ("pois...") → ③ EFEITO ("como consequência..."). Troque os dados pelo eixo 2.',
-     '🎯 Pense no Eixo 2 como "a outra metade da solução". Se o Eixo 1 foi sobre regulação, o Eixo 2 pode ser sobre educação/conscientização — dimensões diferentes do mesmo problema.',
-     '🎯 Erro comum: usar o MESMO exemplo do §2 no §3. Force-se a buscar um dado, lei ou caso diferente.',
-   ]},
-
-  {num:4,label:'ESCREVER §1 — INTRODUÇÃO',
-   campos:['intro'],
-   instrucao:'Escreva o parágrafo de introdução completo: contextualização (1-2 frases) + tema específico + tese com os dois eixos. Máx. 6 linhas.',
-   dica:'💡 Consulte o painel → seu Fenômeno e Tese já estão prontos. Não copie literalmente — reformule. Use conectivo de ressalva antes dos eixos: Embora · Se por um lado · Ainda que.',
-   dicas_extra:[
-     '🎯 Verbos fortes para abrir: "tem promovido", "impulsiona", "redefine", "consolida" — evite "é muito importante" ou "vem crescendo cada vez mais".',
-     '🎯 Não comece com "Nos dias atuais" ou "Desde os primórdios" — são clichês que os corretores penalizam.',
-     '🎯 Termine a introdução SEMPRE com a tese explícita. O corretor precisa identificar sua tese sem precisar adivinhar.',
-   ]},
-
-  {num:5,label:'ESCREVER §2 E §3 — DESENVOLVIMENTO',
-   campos:['dev1','dev2'],
-   instrucao:'Redija os dois parágrafos de desenvolvimento. Consulte seus TEECs no painel — apenas transforme em texto corrido.',
-   dica:'💡 Cada parágrafo: comece pelo Tópico Frasal → desenvolva com Explicação → insira o Exemplo/Dado → finalize com a Consequência. 6-8 linhas por parágrafo.',
-   dicas_extra:[
-     '🎯 Você já tem o TEEC pronto dos níveis anteriores — esse passo é só "costurar" as 4 partes em texto fluido com conectivos.',
-     '🎯 Conectivos para ligar T→E: "Isso porque", "Isso se explica por". Para ligar E→E: "Nesse sentido", "A título de exemplo". Para ligar E→C: "Como consequência", "Dessa forma".',
-     '🎯 Releia em voz alta: se parecer uma lista de frases soltas, falta conectivo. Se parecer um parágrafo só, está no caminho certo.',
-   ]},
-
-  {num:6,label:'ESCREVER §4 — CONCLUSÃO',
-   campos:['conclusao_agente','conclusao_acao','conclusao_finalidade','conclusao'],
-   instrucao:'Defina o Agente, a Ação e a Finalidade. Depois escreva o parágrafo de conclusão completo.',
-   dica:'💡 Fórmula: "Propõe-se que [AGENTE], como [qualificação], [AÇÃO concreta], a fim de [FINALIDADE social]." SEM argumento novo. Apenas retome a tese e proponha intervenção. 3-4 linhas.',
-   dicas_extra:[
-     '🎯 O Agente precisa ser específico: "o Banco Central" é melhor que "o governo"; "o Ministério da Educação" é melhor que "as autoridades".',
-     '🎯 A Ação precisa ser um VERBO + algo concreto: "implemente", "amplie", "regulamente" — nunca "pense em" ou "considere".',
-     '🚫 ERRO FATAL: não traga dado novo, exemplo novo ou argumento novo na conclusão. Ela serve só para AMARRAR o que já foi dito + propor.',
-   ]},
-
-  {num:7,label:'REDAÇÃO COMPLETA',
-   campos:['redacao'],
-   instrucao:'Una os 4 parágrafos em uma redação coesa. Consulte o painel com tudo que foi construído e escreva o texto final polido.',
-   dica:'💡 §1 Introdução · §2 Desenvolvimento Eixo 1 · §3 Desenvolvimento Eixo 2 · §4 Conclusão. Revise conectivos entre parágrafos e verifique se a tese é retomada sem ser copiada.',
-   dicas_extra:[
-     '🎯 Releia checando: a tese do §1 aparece de novo (com outras palavras) no §4? Os dois eixos foram realmente desenvolvidos, um em cada parágrafo?',
-     '🎯 Conte as linhas: o ideal Cesgranrio é 25-30 linhas. Menos de 20 é raso demais; mais de 35 começa a fugir do espaço da prova.',
+     '🎯 Na introdução: verbos fortes ("tem promovido", "impulsiona", "redefine") — evite "é muito importante" ou "vem crescendo cada vez mais". Não comece com "Nos dias atuais" ou "Desde os primórdios". Termine SEMPRE com a tese explícita.',
+     '🎯 Na conclusão: Agente específico ("o Banco Central" > "o governo"). Ação com verbo concreto ("implemente", "amplie", "regulamente"). NUNCA traga dado novo ou argumento novo — só amarre.',
+     '🎯 Na redação final, releia o §1: a tese aparece de novo (com outras palavras) no §4? Os dois eixos foram realmente desenvolvidos um em cada parágrafo?',
+     '🎯 Conte as linhas: o ideal Cesgranrio é 25-30 linhas. Menos de 20 é raso; mais de 35 começa a fugir do espaço da prova.',
      '🎯 Por fim, leia em voz alta do início ao fim — é a forma mais rápida de notar repetições, frases longas demais ou quebras de lógica.',
    ]},
 ];
@@ -2848,13 +2822,13 @@ function treinoCarregarMenu(){
       if(!raw) return '';
       const d = JSON.parse(raw);
       const nivel = d.nivel||1;
-      const pct   = Math.round(nivel*100/7);
+      const pct   = Math.round(nivel*100/3);
       const temNoticias = d.contextoNoticias ? '📰' : '';
       return `<div style="padding:10px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center;">
         <div style="flex:1;">
           <div style="font-size:12px;line-height:1.5;margin-bottom:3px;">${d.tema.titulo} ${temNoticias}</div>
           <div style="font-family:var(--mono);font-size:9px;color:var(--muted);">
-            Nível ${nivel}/7 · ${pct}% · salvo em ${d.salvoEm||'?'}
+            Nível ${nivel}/3 · ${pct}% · salvo em ${d.salvoEm||'?'}
           </div>
           <div style="margin-top:4px;background:var(--border);border-radius:2px;height:3px;width:100%;">
             <div style="background:var(--ouro);width:${pct}%;height:3px;border-radius:2px;"></div>
@@ -2877,7 +2851,8 @@ function treinoCarregar(chave){
   const d = JSON.parse(raw);
   treinoTemaAtual = d.tema;
   treinoRespostas = d.respostas||{};
-  nivelTreino = d.nivel||1;
+  // Compatibilidade com redações antigas salvas no formato de 7 níveis: clampa para o máximo atual (3).
+  nivelTreino = Math.min(d.nivel||1, 3);
   _treinoAtualizarDisplay();
   document.getElementById('treino-ia-out').classList.remove('vis');
 
@@ -2913,7 +2888,7 @@ async function treinoExcluir(chave){
 
 function treinoProxNivel(){
   salvarRespostasNivel();
-  nivelTreino = Math.min(nivelTreino+1, 7);
+  nivelTreino = Math.min(nivelTreino+1, 3);
   const iaOut = document.getElementById('treino-ia-out');
   if(iaOut) iaOut.classList.remove('vis');
   renderNivelCampos();
@@ -2930,13 +2905,9 @@ function salvarRespostasNivel(){
 
 // Mapa de qual(is) parágrafo(s) cada nível afeta, para o mini-mapa visual
 const NIVEL_PARAGRAFO = {
-  1: [1],       // Planejamento FTTD → embasa o §1
-  2: [2],       // TEEC Eixo 1 → embasa o §2
-  3: [3],       // TEEC Eixo 2 → embasa o §3
-  4: [1],       // Escrever §1
-  5: [2,3],     // Escrever §2 e §3
-  6: [4],       // Escrever §4
-  7: [1,2,3,4], // Redação completa
+  1: [1,2,3,4], // Planejamento FTTD — embasa toda a redação (todos os parágrafos)
+  2: [2,3],     // Desenvolvimento — §2 e §3
+  3: [1,2,3,4], // Redação final — todos os parágrafos
 };
 
 function gerarMiniMapa(nivel){
@@ -2963,9 +2934,9 @@ function gerarMiniMapa(nivel){
 
 function renderNivelCampos(){
   const n = NIVEIS[nivelTreino-1];
-  const pct = Math.round(nivelTreino*100/7);
+  const pct = Math.round(nivelTreino*100/3);
   document.getElementById('treino-prog').style.width = pct+'%';
-  document.getElementById('treino-nivel-badge').textContent = `NÍVEL ${n.num}/7 — ${n.label}`;
+  document.getElementById('treino-nivel-badge').textContent = `NÍVEL ${n.num}/3 — ${n.label}`;
   const instrEl = document.getElementById('treino-instrucao');
   if(instrEl) instrEl.textContent = n.instrucao||'';
 
@@ -3320,10 +3291,8 @@ Estruture o feedback em 3 partes:
 💡 Dica prática:
 Use linguagem encorajadora. Máx. 5 frases no total. Sem markdown.
 ${nivelTreino===1?'ATENÇÃO: verifique se a tese tem EXATAMENTE dois eixos (nem um, nem três) e se o fenômeno é amplo o suficiente para gerar o tema.':''}
-${nivelTreino===2||nivelTreino===3?'ATENÇÃO: verifique se o TEEC está completo — Tópico (anuncia), Explicação (fundamenta), Exemplo concreto (evidencia), Consequência (impacto). Use o macete: O que causa? Como causa? Qual a consequência?':''}
-${nivelTreino===5?'ATENÇÃO: verifique se cada parágrafo tem 6-8 linhas e segue a ordem TEEC. O tópico frasal deve ser a primeira frase de cada parágrafo.':''}
-${nivelTreino===6?'ATENÇÃO: verifique se a conclusão retoma a tese sem argumento novo e se a proposta tem agente concreto, ação específica e finalidade social.':''}
-${nivelTreino===7?'ATENÇÃO: verifique paragrafação, coesão entre parágrafos, dois eixos no desenvolvimento, tese retomada sem cópia e proposta de intervenção completa.':''}`;
+${nivelTreino===2?'ATENÇÃO: verifique se o TEEC dos dois eixos está completo — Tópico (anuncia), Explicação (fundamenta), Exemplo concreto (evidencia), Consequência (impacto). Verifique também se os parágrafos §2 e §3 têm 6-8 linhas, seguem a ordem TEEC e os eixos são realmente complementares (não a mesma ideia).':''}
+${nivelTreino===3?'ATENÇÃO: verifique se a introdução termina com a tese explícita, se a conclusão retoma a tese sem trazer argumento novo e tem proposta com agente concreto, ação específica e finalidade social. Na redação final, verifique paragrafação, coesão entre parágrafos e o ideal de 25-30 linhas.':''}`;
     const resp = await chamarIA(
       'Nível '+n.num+' — '+n.label+'\nTema: '+treinoTemaAtual.titulo+'\nFenômeno: '+treinoTemaAtual.fenomeno+'\n\nResposta:\n'+respostas,
       700, sysTreino
@@ -3394,7 +3363,7 @@ function tutorRenderResumo(){
   let html = '';
   if(d.temasRedacaoSalvos.length){
     html += `✍️ <strong>${d.temasRedacaoSalvos.length}</strong> redação(ões) em progresso: `;
-    html += d.temasRedacaoSalvos.map(t=>`${t.titulo?.substring(0,30)}... (nível ${t.nivel}/7)`).join(' · ');
+    html += d.temasRedacaoSalvos.map(t=>`${t.titulo?.substring(0,30)}... (nível ${t.nivel}/3)`).join(' · ');
   }
   if(d.totalResp){
     if(html) html += '<br/>';
@@ -3430,7 +3399,7 @@ async function tutorEnviarMsg(pergunta){
   const d = tutorColetarDados();
   const sysTutor = `Você é um tutor pessoal de estudos para concursos bancários (Banco do Brasil e Caixa Econômica Federal, banca Cesgranrio), especializado em redação dissertativa pelo método FTTD.
 Dados do aluno:
-- Redações em progresso: ${d.temasRedacaoSalvos.map(t=>t.titulo+' (nível '+t.nivel+'/7)').join('; ') || 'nenhuma salva'}
+- Redações em progresso: ${d.temasRedacaoSalvos.map(t=>t.titulo+' (nível '+t.nivel+'/3)').join('; ') || 'nenhuma salva'}
 ${d.totalResp ? '- Questões respondidas: '+d.totalResp+' ('+d.pctAcerto+'% de acerto)' : ''}
 
 Use esses dados para personalizar respostas. Se o aluno perguntar sobre redação, foque no método FTTD (Fenômeno e/ou Fato → Tema → Tese → Desenvolvimento). O F pode ser um fenômeno amplo, um fato/dado concreto, ou os dois combinados na abertura e na estrutura TEEC (Tópico-Explicação-Exemplo-Consequência). Seja direto, encorajador e prático. Não invente dados que não foram fornecidos.`;
