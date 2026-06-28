@@ -157,6 +157,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
   <div class="tab" onclick="setTab('treino')">🎯 Treino</div>
   <div class="tab" onclick="setTab('tutor')">🎓 Tutor IA</div>
   <div class="tab" onclick="setTab('flashcards')">🃏 Flashcards</div>
+  <div class="tab" onclick="setTab('mapa_mental')">🕸️ Mapa Mental</div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -726,6 +727,7 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
           <option value="classificar_forma">🧭 Classificar forma</option>
           <option value="corrigir_erro">🩹 Corrigir o erro</option>
           <option value="producao_curta">✍️ Produção curta</option>
+          <option value="mapa_mental">🕸️ Mapa mental</option>
         </select>
         <select id="fc-filtro" onchange="fcFiltrar()" style="font-family:var(--mono);font-size:10px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 10px;">
           <option value="todos">Todos os elementos</option>
@@ -804,6 +806,44 @@ label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-fam
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════════════
+     ABA MAPA MENTAL — gerador em formato ampulheta:
+       Conceito amplo → 3 ângulos → conceito-pivô → Causas/Consequências/Soluções
+     ══════════════════════════════════════════════════════════════ -->
+<div id="aba-mapa_mental" class="aba">
+  <div class="painel" style="padding:20px;">
+    <h2 style="margin:0 0 8px 0;">🕸️ Mapa Mental de Tema</h2>
+    <p style="color:var(--muted);font-size:12px;margin:0 0 16px 0;line-height:1.6;">
+      Estrutura em <strong>ampulheta</strong>: o conceito amplo desce por 3 ângulos de análise, converge num pivô (o problema central) e abre novamente em Causas / Consequências / Soluções. Cada slot aceita até 4 sub-itens.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+      <div>
+        <label style="font-family:var(--mono);font-size:10px;color:var(--muted);">CONCEITO AMPLO (topo)</label>
+        <input type="text" id="mm-topo" placeholder="Ex: Liberdade de expressão" style="width:100%;padding:8px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:13px;margin-top:4px;">
+      </div>
+      <div>
+        <label style="font-family:var(--mono);font-size:10px;color:var(--muted);">PIVÔ / PROBLEMA CENTRAL</label>
+        <input type="text" id="mm-pivo" placeholder="Ex: Discurso de ódio" style="width:100%;padding:8px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:13px;margin-top:4px;">
+      </div>
+    </div>
+
+    <div style="font-family:var(--mono);font-size:10px;color:var(--muted);margin:4px 0 6px;">CAMADA DE CIMA — 3 ÂNGULOS DE ANÁLISE (entre 1 e 4 sub-itens cada)</div>
+    <div id="mm-camada-topo" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;"></div>
+
+    <div style="font-family:var(--mono);font-size:10px;color:var(--muted);margin:4px 0 6px;">CAMADA DE BAIXO — CAUSAS / CONSEQUÊNCIAS / SOLUÇÕES</div>
+    <div id="mm-camada-baixo" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;"></div>
+
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+      <button class="btn btn-ouro" onclick="mmGerarSVG()">🕸️ Gerar mapa mental</button>
+      <button class="btn btn-ghost" onclick="mmCarregarExemplo()">📋 Carregar exemplo (Liberdade × Discurso de ódio)</button>
+      <button class="btn btn-ghost" onclick="mmLimpar()">↺ Limpar tudo</button>
+      <button class="btn btn-ghost" onclick="mmBaixarSVG()" id="mm-btn-baixar" style="display:none;">⬇ Baixar SVG</button>
+    </div>
+
+    <div id="mm-resultado" style="overflow-x:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;min-height:60px;"></div>
+  </div>
+</div>
 
 <script>
 // ══════════════════════════════════════════════════════════════
@@ -1345,7 +1385,7 @@ let nivelTreino = 1;
 // ══════════════════════════════════════════════════════════════
 function setTab(id) {
   document.querySelectorAll('.tab').forEach((t,i)=>{
-    const ids=['fttd','argumentos','raio_x','cirurgia','checklist','temas','treino','tutor','flashcards'];
+    const ids=['fttd','argumentos','raio_x','cirurgia','checklist','temas','treino','tutor','flashcards','mapa_mental'];
     t.classList.toggle('ativo', ids[i]===id);
   });
   document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativo'));
@@ -1353,6 +1393,7 @@ function setTab(id) {
   if(el) el.classList.add('ativo');
   if(id==='tutor') tutorInit();
   if(id==='flashcards') fcInit();
+  if(id==='mapa_mental') mmInit();
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -2417,12 +2458,6 @@ async function brainstormValidar(){
   setLoading(btn,'Validando...');
   const fb = document.getElementById('treino-brainstorm-feedback');
 
-  const listaTexto = preenchidas.map((c,i)=>{
-    const forma = FORMAS_ARGUMENTO[c.forma || 'causa_efeito'];
-    const rotulos = forma.campos.map(cp => cp.label.replace(/[①②③]\s*/,''));
-    return `Argumento ${i+1} [forma: ${forma.nome}]: ${rotulos[0]}="${c.p1||'(vazio)'}" | ${rotulos[1]}="${c.p2||'(vazio)'}" | ${rotulos[2]}="${c.p3||'(vazio)'}"`;
-  }).join('\n');
-
   const sysBrainstorm = `Você é professor de redação para concursos Cesgranrio (BB/CEF), avaliando um exercício de brainstorm.
 O aluno gerou argumentos usando uma de 17 formas possíveis de estruturar um parágrafo de desenvolvimento — cada argumento informa qual forma foi usada:
 
@@ -2444,7 +2479,7 @@ O aluno gerou argumentos usando uma de 17 formas possíveis de estruturar um par
 16. ARGUMENTO HISTÓRICO (lição): extrai lição de episódio histórico para iluminar tema atual — distinto de Histórico→Presente, que mostra a trajetória do mesmo problema. Frase-modelo: "[episódio histórico]. [padrão identificado]. [lição para o presente]."
 17. ARGUMENTO ÉTICO: mostra como prática viola valores fundamentais da convivência. Frase-modelo: "[valor/pilar ético]. [transgressão]. [consequência ética — compromete o próprio valor]."
 
-Para CADA argumento preenchido, faça:
+Para o argumento que será enviado a seguir, faça:
 1. AVALIAÇÃO RÁPIDA: a forma escolhida é adequada ao conteúdo? As 3 partes cumprem suas funções (não há repetição entre elas, nem inversão de papéis)?
    • Para AEA, identifique qual TIPO DE ARGUMENTO INTERNO está sendo usado (causal, comparativo, analógico, custo-benefício, autoridade ou concessão) e sugira a forma mais específica das 17 quando ela descrever melhor a lógica.
    • Para Comparação, a referência internacional é plausível?
@@ -2462,20 +2497,57 @@ Para CADA argumento preenchido, faça:
    • Para Histórico (lição), o episódio histórico é factual e o paralelo com o presente é proporcional (não exagero retórico).
    • Para Ético, o valor invocado é genuíno e amplamente reconhecido (não opinião pessoal disfarçada de princípio).
    Aponte o problema específico se houver, ou confirme em 1 frase se estiver bem estruturado.
-2. REESCRITA COMO FRASE DE PARÁGRAFO: transforme as 3 partes em 1-2 frases formais, seguindo a frase-modelo da forma escolhida. Use conectivos adequados. Mantenha a ideia original do aluno.
-3. EXEMPLO/DADO: para pelo menos 2 dos argumentos, sugira um dado, lei, órgão ou caso concreto que poderia ser inserido como evidência (ex: "Segundo o Banco Central...", "A Lei X/20XX estabelece...").
 
-Ao final, indique quais 1-2 argumentos são os mais fortes para usar nos parágrafos de desenvolvimento e por quê. Se notar que uma forma diferente serviria melhor a algum argumento, sugira a troca e explique por quê.
+2. DESENVOLVIMENTO COMPLETO (PARÁGRAFO INTEIRO): escreva, a partir do argumento do aluno, UM PARÁGRAFO DE DESENVOLVIMENTO COMPLETO de 5 a 8 frases, seguindo a estrutura TEEC do método:
+   • TÓPICO FRASAL: 1 frase que apresenta a ideia central do parágrafo, ancorada no eixo da tese.
+   • EXPLICAÇÃO: 1-2 frases que desenvolvem o mecanismo, a tensão ou a cadeia lógica conforme a forma escolhida (causal para Causa→Explicação→Efeito, comparativa para Comparação, psíquica para Psicológico, etc.).
+   • EXEMPLO/DADO: 1-2 frases com fonte concreta — dado estatístico de órgão real (IBGE, Banco Central, OCDE, INPE, Embrapa, IPEA, Inep, etc.), referência a lei/marco regulatório com nome e ano quando aplicável, caso histórico nomeado, ou referência internacional plausível. NÃO invente nomes ou estatísticas precisas; quando não souber o número exato, use formulações honestas como "levantamentos do órgão indicam" ou "estudos do setor apontam".
+   • CONSEQUÊNCIA: 1-2 frases que fecham com o efeito final, o impacto social/econômico ou a lição que se extrai do argumento.
+   Use os conectivos típicos da forma argumentativa escolhida (ex: "isso ocorre porque" e "como consequência" para causal; "embora... contudo" para Concessão; "assim como... da mesma forma" para Analogia; "por outro lado" para Comparação; etc.). Escreva em registro formal de banca, sem markdown, sem listas, sem títulos — apenas o parágrafo corrido, como apareceria em uma redação de prova.
 
-Seja didático mas direto. Sem markdown, use quebras de linha e numeração simples.`;
+3. OBSERVAÇÃO ESTRATÉGICA: em 1-2 frases, indique como esse parágrafo poderia ser encaixado na redação (se serve melhor para §2 ou §3, com qual eixo da tese dialoga) e que pequeno ajuste tornaria o argumento ainda mais forte (ex: substituir o exemplo por um mais recente, calibrar a concessão, etc.).
+
+Seja didático mas direto. Sem markdown, use quebras de linha e numeração simples nos 3 blocos acima.`;
 
   try{
-    const resp = await chamarIA(
-      'Tema: ' + treinoTemaAtual.titulo + '\n\nArgumentos gerados pelo aluno:\n' + listaTexto,
-      1800, sysBrainstorm
-    );
+    // Estratégia em paralelo: uma chamada por argumento (cada uma com 4000 tokens, evitando corte
+    // mesmo em parágrafos longos com fontes detalhadas), depois uma chamada final consolidando a
+    // comparação entre eles. Para 1 único argumento, faz apenas a chamada individual sem o passo final.
+    const promessasIndividuais = preenchidas.map((c, i) => {
+      const forma = FORMAS_ARGUMENTO[c.forma || 'causa_efeito'];
+      const rotulos = forma.campos.map(cp => cp.label.replace(/[①②③]\s*/,''));
+      const argTexto = `Tema: ${treinoTemaAtual.titulo}\n\nArgumento ${i+1} [forma: ${forma.nome}]\n${rotulos[0]} = "${c.p1||'(vazio)'}"\n${rotulos[1]} = "${c.p2||'(vazio)'}"\n${rotulos[2]} = "${c.p3||'(vazio)'}"`;
+      return chamarIA(argTexto, 4000, sysBrainstorm)
+        .then(resp => ({i, resp, ok:true}))
+        .catch(err => ({i, resp: '⚠️ Erro neste argumento: ' + err.message, ok:false}));
+    });
+    const resultados = await Promise.all(promessasIndividuais);
+
+    let html = resultados.map(r => {
+      const tituloArg = `<div style="font-family:var(--mono);font-size:11px;color:var(--ouro);margin:18px 0 6px;border-bottom:1px solid var(--border);padding-bottom:4px;">━━━ ARGUMENTO ${r.i+1} ━━━</div>`;
+      return tituloArg + r.resp.replace(/\n/g,'<br/>');
+    }).join('');
+
+    // Comparação final entre argumentos — só faz sentido com 2+ argumentos
+    if(preenchidas.length >= 2){
+      const sysComparacao = `Você é o mesmo professor de redação Cesgranrio. Acabou de avaliar individualmente cada argumento de um aluno sobre o tema "${treinoTemaAtual.titulo}". Agora faça apenas uma análise comparativa final em 4-6 linhas:
+
+1. QUAIS 1-2 ARGUMENTOS SÃO OS MAIS FORTES para usar nos parágrafos de desenvolvimento da redação, e por quê (mencione pela numeração: "Argumento 1", "Argumento 2"...).
+2. SE houver dois argumentos que dialogam bem entre si (um para §2 e outro para §3 da redação), sugira esse pareamento explicando como eles se complementam.
+
+Seja direto. Sem markdown, sem listas, apenas prosa curta.`;
+      const listaResumo = preenchidas.map((c,i)=>{
+        const forma = FORMAS_ARGUMENTO[c.forma || 'causa_efeito'];
+        return `Argumento ${i+1} [${forma.nome}]: ${c.p1||''} | ${c.p2||''} | ${c.p3||''}`;
+      }).join('\n');
+      try{
+        const comparacao = await chamarIA(listaResumo, 700, sysComparacao);
+        html += `<div style="font-family:var(--mono);font-size:11px;color:var(--verde);margin:18px 0 6px;border-bottom:1px solid var(--border);padding-bottom:4px;">━━━ COMPARAÇÃO FINAL ━━━</div>` + comparacao.replace(/\n/g,'<br/>');
+      }catch(e){ /* se a comparação falhar, não bloqueia o resto */ }
+    }
+
     fb.style.display = 'block';
-    fb.innerHTML = resp.replace(/\n/g,'<br/>');
+    fb.innerHTML = html;
   }catch(e){
     fb.style.display = 'block';
     fb.innerHTML = '⚠️ Erro: ' + e.message;
@@ -7044,6 +7116,116 @@ const FC_BANCO = [
     explicacao: '"Argumenta-se que... esse argumento, contudo, pressupõe sem comprovação..." ataca diretamente a premissa de que voto facultativo selecionaria eleitores mais qualificados, mostrando que ele apenas exclui desproporcionalmente populações de menor renda. Sem concessão.',
     dica: 'Refutações sobre questões eleitorais costumam revelar que uma medida apresentada como melhoria da QUALIDADE democrática, na prática, redistribui PESOS desiguais entre grupos sociais — esse desmascaramento do efeito real, diferente do efeito alegado, é uma forma forte de Refutação Direta.'
   },
+  // ══════════════════════════════════════════════════════════
+  // LOTE 15 — TIPO NOVO: MAPA MENTAL (+5 cards)
+  // Mostra o mapa quase completo com um sub-item omitido (???).
+  // O aluno escolhe entre 4 opções qual completa o ramo destacado.
+  // ══════════════════════════════════════════════════════════
+  {
+    tipo: 'mapa_mental',
+    tema: 'Liberdade de expressão × Discurso de ódio',
+    topo: 'Liberdade de expressão',
+    pivo: 'Discurso de ódio',
+    camadaTopo: [
+      { titulo: 'Aspecto jurídico',    subitens: ['Direitos fundamentais','Dignidade humana','Igualdade','Proporcionalidade'] },
+      { titulo: 'Aspecto social',      subitens: ['Preconceito','Exclusão','Violência','Democracia'] },
+      { titulo: 'Aspecto tecnológico', subitens: ['Algoritmos','Redes sociais','Inteligência artificial','Moderação'] },
+    ],
+    camadaBaixo: [
+      { titulo: 'Causas',         subitens: ['Impunidade','Polarização','Extremismo','Desinformação'] },
+      { titulo: 'Consequências',  subitens: ['Violência','Exclusão','Saúde mental','Desigualdade'] },
+      { titulo: 'Soluções',       subitens: ['Educação','Fiscalização','Regulação','Transparência'] },
+    ],
+    omitir: { camada: 'baixo', idxRamo: 2, idxSub: 0 },
+    opcoes: ['Educação','Patrulhamento','Censura prévia','Bloqueio massivo'],
+    correta: 'Educação',
+    explicacao: 'Entre as quatro opções, apenas "Educação" se enquadra como solução estrutural ao discurso de ódio: forma cidadãos críticos sem violar liberdades. Censura prévia e bloqueio massivo são respostas autoritárias que entram em conflito com os princípios do próprio mapa (direitos fundamentais, proporcionalidade). "Patrulhamento" não é uma categoria de solução — é um meio, não um fim.',
+    dica: 'Em mapas mentais de tema social, os ramos "Soluções" geralmente combinam medidas educativas, regulatórias e de fiscalização — esse trio costuma cobrir bem o leque de respostas legítimas ao problema central.'
+  },
+  {
+    tipo: 'mapa_mental',
+    tema: 'Inclusão financeira × Desbancarização',
+    topo: 'Inclusão financeira',
+    pivo: 'Desbancarização',
+    camadaTopo: [
+      { titulo: 'Aspecto econômico',   subitens: ['Crédito','Investimento','Poupança','Pagamentos'] },
+      { titulo: 'Aspecto social',      subitens: ['Vulnerabilidade','Renda','Educação','Confiança'] },
+      { titulo: 'Aspecto tecnológico', subitens: ['Aplicativos','Pix','Open Finance','Identidade digital'] },
+    ],
+    camadaBaixo: [
+      { titulo: 'Causas',         subitens: ['Pobreza','Baixa escolaridade','Burocracia','Distância de agências'] },
+      { titulo: 'Consequências',  subitens: ['Exclusão','Informalidade','Juros abusivos','Vulnerabilidade a fraudes'] },
+      { titulo: 'Soluções',       subitens: ['Contas digitais','Educação financeira','Correspondentes bancários','Regulação simplificada'] },
+    ],
+    omitir: { camada: 'topo', idxRamo: 2, idxSub: 1 },
+    opcoes: ['Pix','Criptomoedas','Caixa eletrônico','Banco físico tradicional'],
+    correta: 'Pix',
+    explicacao: 'O Pix é o exemplo tecnológico brasileiro mais central para inclusão financeira: gratuito, instantâneo e adotado em massa por populações historicamente fora do sistema bancário. Criptomoedas envolvem complexidade e risco incompatíveis com o público desbancarizado. Caixa eletrônico e banco físico são tecnologias antigas, mais associadas ao modelo de exclusão do que à inclusão.',
+    dica: 'Em mapas sobre inclusão financeira, o eixo tecnológico geralmente combina infraestrutura de pagamentos (Pix), interface (aplicativos) e dados (Open Finance) — esse trio organiza bem o repertório bancário atual.'
+  },
+  {
+    tipo: 'mapa_mental',
+    tema: 'Sustentabilidade × Desmatamento',
+    topo: 'Sustentabilidade',
+    pivo: 'Desmatamento',
+    camadaTopo: [
+      { titulo: 'Aspecto ambiental',   subitens: ['Biodiversidade','Clima','Solo','Água'] },
+      { titulo: 'Aspecto econômico',   subitens: ['Agronegócio','Bioeconomia','Crédito de carbono','Turismo'] },
+      { titulo: 'Aspecto institucional', subitens: ['Fiscalização','Legislação','Cooperação internacional','Transparência'] },
+    ],
+    camadaBaixo: [
+      { titulo: 'Causas',         subitens: ['Expansão agrícola','Grilagem','Falta de fiscalização','Demanda externa'] },
+      { titulo: 'Consequências',  subitens: ['Perda de biodiversidade','Mudanças climáticas','Conflitos fundiários','Sanções comerciais'] },
+      { titulo: 'Soluções',       subitens: ['Monitoramento por satélite','Bioeconomia','Pagamento por serviços ambientais','Rastreabilidade'] },
+    ],
+    omitir: { camada: 'topo', idxRamo: 0, idxSub: 1 },
+    opcoes: ['Clima','Petróleo','Tecnologia','Investimento estrangeiro'],
+    correta: 'Clima',
+    explicacao: 'No eixo "Aspecto ambiental", "Clima" completa o quarteto biodiversidade/solo/água — todos sistemas naturais afetados diretamente pelo desmatamento. Petróleo é fonte de impacto ambiental, mas não é um aspecto natural afetado. Tecnologia e investimento estrangeiro pertenceriam a outros eixos (institucional ou econômico), não a esse.',
+    dica: 'Em mapas ambientais, o eixo "Aspecto ambiental" tende a listar os SISTEMAS NATURAIS afetados (clima, solo, água, biodiversidade) — não os causadores nem as ferramentas de resposta, que ficam nos outros eixos.'
+  },
+  {
+    tipo: 'mapa_mental',
+    tema: 'Saúde pública × Resistência antimicrobiana',
+    topo: 'Saúde pública',
+    pivo: 'Resistência antimicrobiana',
+    camadaTopo: [
+      { titulo: 'Aspecto médico',      subitens: ['Diagnóstico','Tratamento','Prescrição','Hospital'] },
+      { titulo: 'Aspecto agropecuário', subitens: ['Uso veterinário','Aditivos em ração','Granjas intensivas','Cadeia alimentar'] },
+      { titulo: 'Aspecto ambiental',   subitens: ['Água','Solo','Esgoto hospitalar','Dispersão entre espécies'] },
+    ],
+    camadaBaixo: [
+      { titulo: 'Causas',         subitens: ['Automedicação','Prescrição excessiva','Uso na pecuária','Descarte inadequado'] },
+      { titulo: 'Consequências',  subitens: ['Infecções intratáveis','Aumento de mortalidade','Custos hospitalares','Crise global'] },
+      { titulo: 'Soluções',       subitens: ['Estoque rotativo','Vigilância integrada','Restrição na pecuária','Pesquisa de novos antibióticos'] },
+    ],
+    omitir: { camada: 'baixo', idxRamo: 0, idxSub: 1 },
+    opcoes: ['Prescrição excessiva','Falta de vacinação','Sedentarismo','Globalização'],
+    correta: 'Prescrição excessiva',
+    explicacao: '"Prescrição excessiva" completa o quarteto de causas com mais coerência: junto com automedicação, uso na pecuária e descarte inadequado, forma o conjunto de práticas que selecionam bactérias resistentes. Falta de vacinação é causa de outras crises (sarampo, pólio), mas não dessa. Sedentarismo é desconexo do tema. Globalização é um amplificador, mas não a causa direta.',
+    dica: 'Em mapas sobre resistência antimicrobiana, as causas humanas (médicas) e veterinárias (agropecuárias) costumam aparecer juntas — refletindo a abordagem One Health que integra saúde humana, animal e ambiental.'
+  },
+  {
+    tipo: 'mapa_mental',
+    tema: 'Educação × Evasão escolar no ensino médio',
+    topo: 'Educação',
+    pivo: 'Evasão escolar no ensino médio',
+    camadaTopo: [
+      { titulo: 'Aspecto pedagógico',   subitens: ['Currículo','Avaliação','Formação docente','Ensino técnico'] },
+      { titulo: 'Aspecto socioeconômico', subitens: ['Trabalho juvenil','Renda familiar','Gravidez precoce','Mobilidade'] },
+      { titulo: 'Aspecto institucional', subitens: ['Infraestrutura','Gestão escolar','Busca ativa','Conselho tutelar'] },
+    ],
+    camadaBaixo: [
+      { titulo: 'Causas',         subitens: ['Necessidade de trabalho','Desinteresse','Distância','Violência'] },
+      { titulo: 'Consequências',  subitens: ['Baixa qualificação','Informalidade','Reprodução da pobreza','Vulnerabilidade'] },
+      { titulo: 'Soluções',       subitens: ['Bolsa-permanência','Ensino integral','Busca ativa','Ensino técnico integrado'] },
+    ],
+    omitir: { camada: 'topo', idxRamo: 0, idxSub: 2 },
+    opcoes: ['Formação docente','Ranking nacional','Cota racial','Auxílio-doença'],
+    correta: 'Formação docente',
+    explicacao: '"Formação docente" completa o eixo pedagógico junto com currículo, avaliação e ensino técnico — todos elementos diretamente ligados à QUALIDADE do ensino oferecido. Ranking nacional é um instrumento de avaliação externa, não um aspecto pedagógico em si. Cota racial é política de acesso (não pedagógica). Auxílio-doença pertence a outro domínio (saúde, trabalho).',
+    dica: 'Em mapas educacionais, o eixo pedagógico tende a agrupar fatores sob CONTROLE DA ESCOLA (currículo, avaliação, formação de professores), enquanto fatores socioeconômicos (trabalho, renda) ficam no eixo paralelo de contexto familiar.'
+  },
 ];// ── Gera um ID estável por card (hash simples baseado em tipo+tema+conteúdo) ──
 // Garante que o mesmo card sempre receba o mesmo ID entre sessões/dispositivos,
 // mesmo que a ordem do array mude com futuras edições do banco.
@@ -7123,6 +7305,196 @@ function fcRegistrarResposta(card, acertou){
 function fcInit(){
   fcFiltrar();
   fcTentarBaixarStatsDaNuvem();
+}
+
+// ══════════════════════════════════════════════════════════════
+// MAPA MENTAL — gerador em formato ampulheta
+// Estrutura: conceito amplo → 3 ângulos (cima) → pivô → 3 ramos (baixo)
+// Cada ramo aceita até 4 sub-itens. Renderiza como SVG.
+// ══════════════════════════════════════════════════════════════
+const MM_CAMADA_TOPO_DEFAULT = [
+  { titulo: 'Aspecto jurídico',    subitens: ['','','',''] },
+  { titulo: 'Aspecto social',      subitens: ['','','',''] },
+  { titulo: 'Aspecto tecnológico', subitens: ['','','',''] },
+];
+const MM_CAMADA_BAIXO_DEFAULT = [
+  { titulo: 'Causas',         subitens: ['','','',''] },
+  { titulo: 'Consequências',  subitens: ['','','',''] },
+  { titulo: 'Soluções',       subitens: ['','','',''] },
+];
+
+let mmCamadaTopo = JSON.parse(JSON.stringify(MM_CAMADA_TOPO_DEFAULT));
+let mmCamadaBaixo = JSON.parse(JSON.stringify(MM_CAMADA_BAIXO_DEFAULT));
+
+function mmRenderizarSlots(){
+  // Camada de cima
+  const elTopo = document.getElementById('mm-camada-topo');
+  elTopo.innerHTML = mmCamadaTopo.map((ramo, idxRamo) => `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;">
+      <input type="text" value="${ramo.titulo.replace(/"/g,'&quot;')}" placeholder="Título do ângulo"
+        oninput="mmAtualizarTitulo('topo',${idxRamo},this.value)"
+        style="width:100%;padding:6px;background:transparent;color:var(--text);border:none;border-bottom:1px solid var(--border);font-weight:bold;font-size:12px;margin-bottom:8px;">
+      ${ramo.subitens.map((sub, idxSub) => `
+        <input type="text" value="${sub.replace(/"/g,'&quot;')}" placeholder="Sub-item ${idxSub+1}"
+          oninput="mmAtualizarSubitem('topo',${idxRamo},${idxSub},this.value)"
+          style="width:100%;padding:5px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:11px;margin-bottom:4px;">
+      `).join('')}
+    </div>
+  `).join('');
+
+  // Camada de baixo
+  const elBaixo = document.getElementById('mm-camada-baixo');
+  elBaixo.innerHTML = mmCamadaBaixo.map((ramo, idxRamo) => `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;">
+      <input type="text" value="${ramo.titulo.replace(/"/g,'&quot;')}" placeholder="Título"
+        oninput="mmAtualizarTitulo('baixo',${idxRamo},this.value)"
+        style="width:100%;padding:6px;background:transparent;color:var(--text);border:none;border-bottom:1px solid var(--border);font-weight:bold;font-size:12px;margin-bottom:8px;">
+      ${ramo.subitens.map((sub, idxSub) => `
+        <input type="text" value="${sub.replace(/"/g,'&quot;')}" placeholder="Sub-item ${idxSub+1}"
+          oninput="mmAtualizarSubitem('baixo',${idxRamo},${idxSub},this.value)"
+          style="width:100%;padding:5px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:11px;margin-bottom:4px;">
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function mmAtualizarTitulo(camada, idxRamo, valor){
+  const arr = camada === 'topo' ? mmCamadaTopo : mmCamadaBaixo;
+  arr[idxRamo].titulo = valor;
+}
+function mmAtualizarSubitem(camada, idxRamo, idxSub, valor){
+  const arr = camada === 'topo' ? mmCamadaTopo : mmCamadaBaixo;
+  arr[idxRamo].subitens[idxSub] = valor;
+}
+
+function mmCarregarExemplo(){
+  document.getElementById('mm-topo').value = 'Liberdade de expressão';
+  document.getElementById('mm-pivo').value = 'Discurso de ódio';
+  mmCamadaTopo = [
+    { titulo: 'Aspecto jurídico',    subitens: ['Direitos fundamentais','Dignidade humana','Igualdade','Proporcionalidade'] },
+    { titulo: 'Aspecto social',      subitens: ['Preconceito','Exclusão','Violência','Democracia'] },
+    { titulo: 'Aspecto tecnológico', subitens: ['Algoritmos','Redes sociais','Inteligência artificial','Moderação'] },
+  ];
+  mmCamadaBaixo = [
+    { titulo: 'Causas',         subitens: ['Impunidade','Polarização','Extremismo','Desinformação'] },
+    { titulo: 'Consequências',  subitens: ['Violência','Exclusão','Saúde mental','Desigualdade'] },
+    { titulo: 'Soluções',       subitens: ['Educação','Fiscalização','Regulação','Transparência'] },
+  ];
+  mmRenderizarSlots();
+}
+
+function mmLimpar(){
+  document.getElementById('mm-topo').value = '';
+  document.getElementById('mm-pivo').value = '';
+  mmCamadaTopo = JSON.parse(JSON.stringify(MM_CAMADA_TOPO_DEFAULT));
+  mmCamadaBaixo = JSON.parse(JSON.stringify(MM_CAMADA_BAIXO_DEFAULT));
+  mmRenderizarSlots();
+  document.getElementById('mm-resultado').innerHTML = '';
+  document.getElementById('mm-btn-baixar').style.display = 'none';
+}
+
+// Gera o SVG do mapa mental no formato ampulheta. Dimensões calculadas
+// dinamicamente a partir do conteúdo de cada ramo para evitar sobreposição.
+function mmGerarSVG(){
+  const topo = document.getElementById('mm-topo').value.trim() || '[Conceito amplo]';
+  const pivo = document.getElementById('mm-pivo').value.trim() || '[Problema central]';
+  // Filtra ramos vazios para não desenhar caixa fantasma
+  const ramosTopo = mmCamadaTopo.filter(r => r.titulo.trim() || r.subitens.some(s => s.trim()));
+  const ramosBaixo = mmCamadaBaixo.filter(r => r.titulo.trim() || r.subitens.some(s => s.trim()));
+
+  // Geometria base
+  const W = 1100;
+  const colTopoW = W / Math.max(ramosTopo.length, 1);
+  const colBaixoW = W / Math.max(ramosBaixo.length, 1);
+  const boxH = 130; // altura de uma caixa de ramo
+  const pivotH = 70;
+  const yTopoNodo = 50;
+  const yTopoBoxes = 130;
+  const yPivot = yTopoBoxes + boxH + 60;
+  const yBaixoBoxes = yPivot + pivotH + 50;
+  const yBaixoFim = yBaixoBoxes + boxH;
+  const H = yBaixoFim + 30;
+
+  // Paleta consistente — cor por posição do ramo (não pela camada)
+  const cores = ['#4a90d9', '#e05050', '#3db88a', '#c8992a'];
+
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;height:auto;font-family:system-ui,sans-serif;">`;
+  svg += `<rect width="${W}" height="${H}" fill="transparent"/>`;
+
+  // Nó topo (conceito amplo)
+  svg += `<rect x="${W/2-180}" y="${yTopoNodo-22}" width="360" height="44" rx="8" fill="#2d3748" stroke="#c8992a" stroke-width="2"/>`;
+  svg += `<text x="${W/2}" y="${yTopoNodo+6}" text-anchor="middle" font-size="16" font-weight="bold" fill="#c8992a">${mmEscapeXML(topo)}</text>`;
+
+  // Linhas do nó topo para cada caixa da camada de cima
+  ramosTopo.forEach((_, i) => {
+    const xCol = colTopoW * (i + 0.5);
+    svg += `<line x1="${W/2}" y1="${yTopoNodo+22}" x2="${xCol}" y2="${yTopoBoxes}" stroke="#666" stroke-width="1.5"/>`;
+  });
+
+  // Caixas da camada de cima
+  ramosTopo.forEach((ramo, i) => {
+    const xCol = colTopoW * (i + 0.5);
+    const cor = cores[i % cores.length];
+    const xBox = xCol - colTopoW/2 + 12;
+    const wBox = colTopoW - 24;
+    svg += `<rect x="${xBox}" y="${yTopoBoxes}" width="${wBox}" height="${boxH}" rx="6" fill="#1a202c" stroke="${cor}" stroke-width="1.5"/>`;
+    svg += `<text x="${xCol}" y="${yTopoBoxes+22}" text-anchor="middle" font-size="13" font-weight="bold" fill="${cor}">${mmEscapeXML(ramo.titulo || '—')}</text>`;
+    const subs = ramo.subitens.filter(s => s.trim());
+    subs.forEach((sub, j) => {
+      svg += `<text x="${xCol}" y="${yTopoBoxes+45+j*20}" text-anchor="middle" font-size="11" fill="#cbd5e0">${mmEscapeXML(sub)}</text>`;
+    });
+    // Linha desce até o pivô
+    svg += `<line x1="${xCol}" y1="${yTopoBoxes+boxH}" x2="${W/2}" y2="${yPivot}" stroke="#666" stroke-width="1.5"/>`;
+  });
+
+  // Pivô (problema central)
+  svg += `<rect x="${W/2-180}" y="${yPivot}" width="360" height="${pivotH}" rx="8" fill="#2d3748" stroke="#e05050" stroke-width="2.5"/>`;
+  svg += `<text x="${W/2}" y="${yPivot+30}" text-anchor="middle" font-size="11" fill="#a0aec0">PROBLEMA CENTRAL</text>`;
+  svg += `<text x="${W/2}" y="${yPivot+55}" text-anchor="middle" font-size="17" font-weight="bold" fill="#e05050">${mmEscapeXML(pivo)}</text>`;
+
+  // Linhas do pivô para cada caixa da camada de baixo
+  ramosBaixo.forEach((_, i) => {
+    const xCol = colBaixoW * (i + 0.5);
+    svg += `<line x1="${W/2}" y1="${yPivot+pivotH}" x2="${xCol}" y2="${yBaixoBoxes}" stroke="#666" stroke-width="1.5"/>`;
+  });
+
+  // Caixas da camada de baixo
+  ramosBaixo.forEach((ramo, i) => {
+    const xCol = colBaixoW * (i + 0.5);
+    const cor = cores[i % cores.length];
+    const xBox = xCol - colBaixoW/2 + 12;
+    const wBox = colBaixoW - 24;
+    svg += `<rect x="${xBox}" y="${yBaixoBoxes}" width="${wBox}" height="${boxH}" rx="6" fill="#1a202c" stroke="${cor}" stroke-width="1.5"/>`;
+    svg += `<text x="${xCol}" y="${yBaixoBoxes+22}" text-anchor="middle" font-size="13" font-weight="bold" fill="${cor}">${mmEscapeXML(ramo.titulo || '—')}</text>`;
+    const subs = ramo.subitens.filter(s => s.trim());
+    subs.forEach((sub, j) => {
+      svg += `<text x="${xCol}" y="${yBaixoBoxes+45+j*20}" text-anchor="middle" font-size="11" fill="#cbd5e0">${mmEscapeXML(sub)}</text>`;
+    });
+  });
+
+  svg += '</svg>';
+  document.getElementById('mm-resultado').innerHTML = svg;
+  document.getElementById('mm-btn-baixar').style.display = 'inline-block';
+}
+
+function mmEscapeXML(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function mmBaixarSVG(){
+  const svg = document.querySelector('#mm-resultado svg');
+  if(!svg) return;
+  const blob = new Blob([svg.outerHTML], {type:'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const tema = (document.getElementById('mm-pivo').value || 'mapa_mental').replace(/[^a-z0-9]+/gi,'_').toLowerCase();
+  a.href = url; a.download = `mapa_mental_${tema}.svg`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function mmInit(){
+  mmRenderizarSlots();
 }
 
 async function fcTentarBaixarStatsDaNuvem(){
@@ -7379,6 +7751,7 @@ function fcRenderizar(){
   else if(tipo === 'classificar_forma') fcRenderizarClassificarForma(card);
   else if(tipo === 'corrigir_erro') fcRenderizarCorrigirErro(card);
   else if(tipo === 'producao_curta') fcRenderizarProducaoCurta(card);
+  else if(tipo === 'mapa_mental') fcRenderizarMapaMental(card);
   else fcRenderizarIdentificacao(card);
 
   fcAplicarMarcaJaFeito(card); // roda depois do render específico, pois ele sobrescreve o conteúdo de fc-label-tema
@@ -7910,6 +8283,144 @@ function fcResponderProducaoCurta(){
   const fb = document.getElementById('fc-feedback');
   document.getElementById('fc-feedback-titulo').innerHTML = '<span style="color:var(--ouro);">✍️ Exemplo de resposta forte</span>';
   document.getElementById('fc-feedback-texto').innerHTML = `<em>${card.respostaModelo}</em>`;
+  document.getElementById('fc-feedback-dica').textContent = card.dica;
+  fb.style.display = 'block';
+  fb.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// Tipo MAPA_MENTAL — mostra um mapa quase completo (com um sub-item omitido em um ramo
+// específico) e pede ao aluno qual das 4 opções é o item que falta naquele ramo.
+// Estrutura do card:
+//   { tipo:'mapa_mental', tema, topo, pivo,
+//     camadaTopo: [{titulo, subitens:['a','b','c','d']}, …3 ramos],
+//     camadaBaixo: [{titulo, subitens:['a','b','c','d']}, …3 ramos],
+//     omitir: { camada:'topo'|'baixo', idxRamo:0..2, idxSub:0..3 },
+//     opcoes: [4 strings], correta, explicacao, dica }
+function fcRenderizarMapaMental(card){
+  document.getElementById('fc-label-tema').textContent = card.tema || 'Mapa mental';
+
+  // Constrói uma cópia das camadas e omite o sub-item escolhido (substitui por placeholder)
+  const camadaTopo = JSON.parse(JSON.stringify(card.camadaTopo));
+  const camadaBaixo = JSON.parse(JSON.stringify(card.camadaBaixo));
+  const alvo = card.omitir.camada === 'topo' ? camadaTopo : camadaBaixo;
+  alvo[card.omitir.idxRamo].subitens[card.omitir.idxSub] = '???';
+
+  // Renderiza o SVG inline no fc-trecho (substituindo o trecho de texto)
+  const svgHtml = fcRenderizarMapaSVG(card.topo, card.pivo, camadaTopo, camadaBaixo, card.omitir);
+  document.getElementById('fc-trecho').innerHTML = `
+    <div style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;">
+      Qual é o sub-item que falta no ramo <strong style="color:var(--ouro);">${alvo[card.omitir.idxRamo].titulo || '—'}</strong>?
+    </div>
+    <div style="overflow-x:auto;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:6px;">${svgHtml}</div>
+  `;
+
+  // Opções como botões
+  const opcoesEmbaralhadas = fcEmbaralharArray([...card.opcoes]);
+  let opcoesHtml = '';
+  opcoesEmbaralhadas.forEach(opt => {
+    opcoesHtml += `<button class="btn btn-ghost" style="display:block;width:100%;margin-bottom:6px;text-align:left;" onclick="fcResponderMapaMental('${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`;
+  });
+  document.getElementById('fc-opcoes').innerHTML = opcoesHtml;
+}
+
+// Versão simplificada do mmGerarSVG, otimizada para renderização compacta no flashcard
+// (largura fixa menor, sem dependência dos inputs do gerador da aba Mapa Mental).
+function fcRenderizarMapaSVG(topo, pivo, camadaTopo, camadaBaixo, omitir){
+  const W = 700;
+  const colTopoW = W / Math.max(camadaTopo.length, 1);
+  const colBaixoW = W / Math.max(camadaBaixo.length, 1);
+  const boxH = 110;
+  const pivotH = 60;
+  const yTopoNodo = 40;
+  const yTopoBoxes = 100;
+  const yPivot = yTopoBoxes + boxH + 40;
+  const yBaixoBoxes = yPivot + pivotH + 35;
+  const H = yBaixoBoxes + boxH + 20;
+  const cores = ['#4a90d9', '#e05050', '#3db88a', '#c8992a'];
+
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;height:auto;font-family:system-ui,sans-serif;">`;
+
+  // Topo
+  svg += `<rect x="${W/2-130}" y="${yTopoNodo-18}" width="260" height="36" rx="6" fill="#2d3748" stroke="#c8992a" stroke-width="2"/>`;
+  svg += `<text x="${W/2}" y="${yTopoNodo+5}" text-anchor="middle" font-size="13" font-weight="bold" fill="#c8992a">${mmEscapeXML(topo)}</text>`;
+
+  camadaTopo.forEach((_, i) => {
+    const xCol = colTopoW * (i + 0.5);
+    svg += `<line x1="${W/2}" y1="${yTopoNodo+18}" x2="${xCol}" y2="${yTopoBoxes}" stroke="#666" stroke-width="1.2"/>`;
+  });
+
+  camadaTopo.forEach((ramo, i) => {
+    const xCol = colTopoW * (i + 0.5);
+    const cor = cores[i % cores.length];
+    const xBox = xCol - colTopoW/2 + 8;
+    const wBox = colTopoW - 16;
+    svg += `<rect x="${xBox}" y="${yTopoBoxes}" width="${wBox}" height="${boxH}" rx="5" fill="#1a202c" stroke="${cor}" stroke-width="1.5"/>`;
+    svg += `<text x="${xCol}" y="${yTopoBoxes+18}" text-anchor="middle" font-size="11" font-weight="bold" fill="${cor}">${mmEscapeXML(ramo.titulo || '—')}</text>`;
+    ramo.subitens.filter(s => s.trim()).forEach((sub, j) => {
+      // Destaca o "???" em dourado quando ele é o omitido
+      const ehOmitido = omitir.camada==='topo' && omitir.idxRamo===i && sub==='???';
+      const cor2 = ehOmitido ? '#c8992a' : '#cbd5e0';
+      const fw = ehOmitido ? 'bold' : 'normal';
+      svg += `<text x="${xCol}" y="${yTopoBoxes+38+j*18}" text-anchor="middle" font-size="10" fill="${cor2}" font-weight="${fw}">${mmEscapeXML(sub)}</text>`;
+    });
+    svg += `<line x1="${xCol}" y1="${yTopoBoxes+boxH}" x2="${W/2}" y2="${yPivot}" stroke="#666" stroke-width="1.2"/>`;
+  });
+
+  // Pivô
+  svg += `<rect x="${W/2-130}" y="${yPivot}" width="260" height="${pivotH}" rx="6" fill="#2d3748" stroke="#e05050" stroke-width="2"/>`;
+  svg += `<text x="${W/2}" y="${yPivot+24}" text-anchor="middle" font-size="9" fill="#a0aec0">PROBLEMA CENTRAL</text>`;
+  svg += `<text x="${W/2}" y="${yPivot+46}" text-anchor="middle" font-size="14" font-weight="bold" fill="#e05050">${mmEscapeXML(pivo)}</text>`;
+
+  camadaBaixo.forEach((_, i) => {
+    const xCol = colBaixoW * (i + 0.5);
+    svg += `<line x1="${W/2}" y1="${yPivot+pivotH}" x2="${xCol}" y2="${yBaixoBoxes}" stroke="#666" stroke-width="1.2"/>`;
+  });
+
+  camadaBaixo.forEach((ramo, i) => {
+    const xCol = colBaixoW * (i + 0.5);
+    const cor = cores[i % cores.length];
+    const xBox = xCol - colBaixoW/2 + 8;
+    const wBox = colBaixoW - 16;
+    svg += `<rect x="${xBox}" y="${yBaixoBoxes}" width="${wBox}" height="${boxH}" rx="5" fill="#1a202c" stroke="${cor}" stroke-width="1.5"/>`;
+    svg += `<text x="${xCol}" y="${yBaixoBoxes+18}" text-anchor="middle" font-size="11" font-weight="bold" fill="${cor}">${mmEscapeXML(ramo.titulo || '—')}</text>`;
+    ramo.subitens.filter(s => s.trim()).forEach((sub, j) => {
+      const ehOmitido = omitir.camada==='baixo' && omitir.idxRamo===i && sub==='???';
+      const cor2 = ehOmitido ? '#c8992a' : '#cbd5e0';
+      const fw = ehOmitido ? 'bold' : 'normal';
+      svg += `<text x="${xCol}" y="${yBaixoBoxes+38+j*18}" text-anchor="middle" font-size="10" fill="${cor2}" font-weight="${fw}">${mmEscapeXML(sub)}</text>`;
+    });
+  });
+
+  svg += '</svg>';
+  return svg;
+}
+
+function fcResponderMapaMental(escolha, btn){
+  if(fcRespondido) return;
+  fcRespondido = true;
+  const card = fcDeck[fcIndice];
+  const acertou = escolha === card.correta;
+
+  document.querySelectorAll('#fc-opcoes button').forEach(b => {
+    b.dataset.respondido = '1';
+    b.style.cursor = 'default';
+    const texto = b.textContent.trim();
+    if(texto === card.correta){
+      b.style.background = 'rgba(61,184,138,0.15)'; b.style.borderColor = 'var(--verde)'; b.style.color = 'var(--verde)';
+    } else if(texto === escolha && !acertou){
+      b.style.background = 'rgba(224,80,64,0.12)'; b.style.borderColor = 'var(--verm)'; b.style.color = 'var(--verm)';
+    } else { b.style.opacity = '0.4'; }
+  });
+
+  if(acertou) fcAcertos++; else fcErros++;
+  fcAtualizarContadores();
+  fcRegistrarResposta(card, acertou);
+
+  const fb = document.getElementById('fc-feedback');
+  document.getElementById('fc-feedback-titulo').innerHTML = acertou
+    ? '<span style="color:var(--verde);">✓ Correto!</span> — ' + card.correta
+    : '<span style="color:var(--verm);">✗ Errado.</span> Era: <span style="color:var(--ouro);">' + card.correta + '</span>';
+  document.getElementById('fc-feedback-texto').textContent = card.explicacao;
   document.getElementById('fc-feedback-dica').textContent = card.dica;
   fb.style.display = 'block';
   fb.scrollIntoView({behavior:'smooth', block:'nearest'});
