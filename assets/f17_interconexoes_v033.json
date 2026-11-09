@@ -1,0 +1,1308 @@
+{
+  "format": "BancoMestreF17InterconexaoV033",
+  "version": "V033",
+  "base": "V015",
+  "created": "2026-11-09",
+  "sources": {
+    "audit": "assets/f17_historico_auditado_v029.json",
+    "answers": "assets/f17_respostas_9_v030.json",
+    "canonical": "assets/cards_000.json..cards_p08_v015.json",
+    "notes": "Os níveis analíticos foram produzidos usando campos originais e observações de correção. Não são novos eventos, gabaritos ou verificação independente da norma."
+  },
+  "method": {
+    "direct": "Núcleo demonstrado em resposta arquivada; não converte o destino em revisão formal",
+    "partial": "Parte do núcleo apareceu, mas faltaram condições, exceções ou aprofundamento",
+    "indirect": "Relação anotada na auditoria F17, sem tentativa formal no destino",
+    "associated": "Apenas associação histórica de janela F17; sem domínio demonstrado",
+    "not_evaluated": "Tema citado como aprofundamento/relacionado, sem resposta avaliada",
+    "contextual": "Proximidade de assunto, ou associação anterior fraca/contestável",
+    "contrast": "Erro/confusão corrigido em relação ao cartão referenciado",
+    "no_cascade": "É proibido promover vínculo contextual, complementar, indireto ou não avaliado a status Bom/Fácil ou atualizar SRS por associação"
+  },
+  "counts": {
+    "historic_events": 21,
+    "archived_answers": 9,
+    "f17_relations": 7,
+    "interpreted_answer_relations": 28,
+    "proposals": 9,
+    "nodes": 53
+  },
+  "edges": [
+    {
+      "id": "F17-AUD-01",
+      "from": "CARD-0095",
+      "to": "CARD-0096",
+      "source": "F17_V029",
+      "kind": "indireta",
+      "evidence": "Observação do evento CARD-0095; agenda F17",
+      "scope": "Vínculo da agenda F17; nenhuma revisão formal é criada no destino",
+      "f17_status": "COBERTO_INDIRETAMENTE_SEM_REVISAO_FORMAL"
+    },
+    {
+      "id": "F17-AUD-02",
+      "from": "CARD-0095",
+      "to": "CARD-0097",
+      "source": "F17_V029",
+      "kind": "indireta",
+      "evidence": "Observação do evento CARD-0095; agenda F17",
+      "scope": "Vínculo da agenda F17; nenhuma revisão formal é criada no destino",
+      "f17_status": "COBERTO_INDIRETAMENTE_SEM_REVISAO_FORMAL"
+    },
+    {
+      "id": "F17-AUD-03",
+      "from": "CARD-0095",
+      "to": "CARD-0098",
+      "source": "F17_V029",
+      "kind": "indireta",
+      "evidence": "Observação do evento CARD-0095; agenda F17",
+      "scope": "Vínculo da agenda F17; nenhuma revisão formal é criada no destino",
+      "f17_status": "COBERTO_INDIRETAMENTE_SEM_REVISAO_FORMAL"
+    },
+    {
+      "id": "F17-AUD-04",
+      "from": "CARD-0095",
+      "to": "CARD-0099",
+      "source": "F17_V029",
+      "kind": "indireta",
+      "evidence": "Observação do evento CARD-0095; agenda F17",
+      "scope": "Vínculo da agenda F17; nenhuma revisão formal é criada no destino",
+      "f17_status": "COBERTO_INDIRETAMENTE_SEM_REVISAO_FORMAL"
+    },
+    {
+      "id": "F17-AUD-05",
+      "from": "CARD-0100",
+      "to": "CARD-0105",
+      "source": "F17_V029",
+      "kind": "associado",
+      "evidence": "Observação do evento CARD-0100",
+      "scope": "Vínculo da agenda F17; nenhuma revisão formal é criada no destino",
+      "f17_status": "ASSOCIADO_SEM_REVISAO_FORMAL"
+    },
+    {
+      "id": "F17-AUD-06",
+      "from": "CARD-0100",
+      "to": "CARD-0106",
+      "source": "F17_V029",
+      "kind": "associado",
+      "evidence": "Observação do evento CARD-0100",
+      "scope": "Vínculo da agenda F17; nenhuma revisão formal é criada no destino",
+      "f17_status": "ASSOCIADO_SEM_REVISAO_FORMAL"
+    },
+    {
+      "id": "F17-AUD-07",
+      "from": "CARD-0100",
+      "to": "CARD-0107",
+      "source": "F17_V029",
+      "kind": "associado",
+      "evidence": "Observação do evento CARD-0100",
+      "scope": "Vínculo da agenda F17; nenhuma revisão formal é criada no destino",
+      "f17_status": "ASSOCIADO_SEM_REVISAO_FORMAL"
+    },
+    {
+      "id": "F17-ANS-01",
+      "from": "CARD-0078",
+      "to": "CARD-0367",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "contraste",
+      "evidence": "TIR foi associada indevidamente a custo indireto/BDI; a resposta precisou correção, não comprova o cartão sobre definição de TIR.",
+      "source_note": "CARD-0367;CARD-1137;CARD-1138",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-02",
+      "from": "CARD-0078",
+      "to": "CARD-1137",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "A relação preço de venda = custo direto × (1+BDI) ficou como lacuna de aprofundamento na resposta.",
+      "source_note": "CARD-0367;CARD-1137;CARD-1138",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-03",
+      "from": "CARD-0078",
+      "to": "CARD-1138",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Componentes do BDI foram abordados com confusões; fatores e exceções não demonstrados integralmente.",
+      "source_note": "CARD-0367;CARD-1137;CARD-1138",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-04",
+      "from": "CARD-0082",
+      "to": "CARD-0085",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Foi mencionado isolamento em camadas, sem identificação explícita de EPS/XPS.",
+      "source_note": "CARD-0085;CARD-1112",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-05",
+      "from": "CARD-0082",
+      "to": "CARD-1112",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "EIFS aparece como complemento da correção; conceito não foi respondido pelo estudante.",
+      "source_note": "CARD-0085;CARD-1112",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-06",
+      "from": "CARD-0088",
+      "to": "CARD-1166",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "direta",
+      "evidence": "A definição de as built como registro do executado foi dada de forma compatível com o núcleo do cartão.",
+      "source_note": "CARD-1166;CARD-0798;CARD-1163",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-07",
+      "from": "CARD-0088",
+      "to": "CARD-0798",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "contextual",
+      "evidence": "O cartão sobre raio em projeto geométrico não é coberto pela explicação de as built. Relação antiga a revisar.",
+      "source_note": "CARD-1166;CARD-0798;CARD-1163",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-08",
+      "from": "CARD-0088",
+      "to": "CARD-1163",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Há conexão com conferência e registro do executado, mas não foi demonstrada a locação de pontos notáveis.",
+      "source_note": "CARD-1166;CARD-0798;CARD-1163",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-09",
+      "from": "CARD-0091",
+      "to": "CARD-0178",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Cadastro e delimitação foram citados, mas pontos de referência e referencial geodésico não foram distinguidos.",
+      "source_note": "CARD-0178;CARD-0860;CARD-0861;CARD-0200",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-10",
+      "from": "CARD-0091",
+      "to": "CARD-0860",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "A rede municipal, seus marcos e a função técnica foram acrescentados na correção, não comprovados na tentativa.",
+      "source_note": "CARD-0178;CARD-0860;CARD-0861;CARD-0200",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-11",
+      "from": "CARD-0091",
+      "to": "CARD-0861",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "Elementos da NBR 14166 não foram enumerados na resposta original.",
+      "source_note": "CARD-0178;CARD-0860;CARD-0861;CARD-0200",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-12",
+      "from": "CARD-0091",
+      "to": "CARD-0200",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Plano Diretor apareceu como fonte de parâmetros urbanísticos, não como resposta literal sobre o instrumento básico legal.",
+      "source_note": "CARD-0178;CARD-0860;CARD-0861;CARD-0200",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-13",
+      "from": "CARD-0094",
+      "to": "CARD-0253",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "A marcação visual 7×3 de degraus não foi tratada; vínculo é somente normativo (NBR 9050).",
+      "source_note": "CARD-0253",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-14",
+      "from": "CARD-0095",
+      "to": "CARD-0096",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Peso próprio demonstrado; equipamentos e elementos fixos não foram explicitados. Relacionado também no F17 como cobertura indireta.",
+      "source_note": "CARD-0095: demonstrado; CARD-0096: parcial/demonstrado para peso próprio mas faltam equipamentos/elementos fixos; CARD-0097: parcial (recalque apenas); CARD-0098: parcial (uso e vento; não temperatura); CARD-0099: indireta demonstrada por impactos excepcionais.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-15",
+      "from": "CARD-0095",
+      "to": "CARD-0097",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Recalque citado, mas não foi explicado todo o conjunto de permanentes indiretas.",
+      "source_note": "CARD-0095: demonstrado; CARD-0096: parcial/demonstrado para peso próprio mas faltam equipamentos/elementos fixos; CARD-0097: parcial (recalque apenas); CARD-0098: parcial (uso e vento; não temperatura); CARD-0099: indireta demonstrada por impactos excepcionais.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-16",
+      "from": "CARD-0095",
+      "to": "CARD-0098",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Sobrecarga de uso e vento citados, mas temperatura ficou sem abordagem.",
+      "source_note": "CARD-0095: demonstrado; CARD-0096: parcial/demonstrado para peso próprio mas faltam equipamentos/elementos fixos; CARD-0097: parcial (recalque apenas); CARD-0098: parcial (uso e vento; não temperatura); CARD-0099: indireta demonstrada por impactos excepcionais.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-17",
+      "from": "CARD-0095",
+      "to": "CARD-0099",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "indireta",
+      "evidence": "Excepcionais foram tratadas em categoria geral; impacto/explosão apenas parcialmente caracterizados.",
+      "source_note": "CARD-0095: demonstrado; CARD-0096: parcial/demonstrado para peso próprio mas faltam equipamentos/elementos fixos; CARD-0097: parcial (recalque apenas); CARD-0098: parcial (uso e vento; não temperatura); CARD-0099: indireta demonstrada por impactos excepcionais.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-18",
+      "from": "CARD-0100",
+      "to": "CARD-0105",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "direta",
+      "evidence": "Equilíbrio, compatibilidade e relação constitutiva abordados conceitualmente na resposta/correção; sem revisão autônoma.",
+      "source_note": "CARD-0100=parcial; CARD-0105=domínio conceitual direto; CARD-0106=parcial; CARD-0107=parcial; CARD-0101=não avaliado (matriz inversa 2x2); CARD-0111=não avaliado (PTV).",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-19",
+      "from": "CARD-0100",
+      "to": "CARD-0106",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Método das forças contextualizado, sem formulação integral dos redundantes.",
+      "source_note": "CARD-0100=parcial; CARD-0105=domínio conceitual direto; CARD-0106=parcial; CARD-0107=parcial; CARD-0101=não avaliado (matriz inversa 2x2); CARD-0111=não avaliado (PTV).",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-20",
+      "from": "CARD-0100",
+      "to": "CARD-0107",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "parcial",
+      "evidence": "Método dos deslocamentos contextualizado, sem pleno detalhamento de rotações e translações nodais.",
+      "source_note": "CARD-0100=parcial; CARD-0105=domínio conceitual direto; CARD-0106=parcial; CARD-0107=parcial; CARD-0101=não avaliado (matriz inversa 2x2); CARD-0111=não avaliado (PTV).",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-21",
+      "from": "CARD-0100",
+      "to": "CARD-0101",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "Cálculo da inversa 2×2 não foi realizado nesta tentativa.",
+      "source_note": "CARD-0100=parcial; CARD-0105=domínio conceitual direto; CARD-0106=parcial; CARD-0107=parcial; CARD-0101=não avaliado (matriz inversa 2x2); CARD-0111=não avaliado (PTV).",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-22",
+      "from": "CARD-0100",
+      "to": "CARD-0111",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "Princípio dos trabalhos virtuais apenas aparece no aprofundamento e PDF de referência; não foi respondido.",
+      "source_note": "CARD-0100=parcial; CARD-0105=domínio conceitual direto; CARD-0106=parcial; CARD-0107=parcial; CARD-0101=não avaliado (matriz inversa 2x2); CARD-0111=não avaliado (PTV).",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-23",
+      "from": "CARD-0101",
+      "to": "CARD-0100",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "contextual",
+      "evidence": "Matriz inversa aparece no mesmo núcleo, mas a resposta não demonstra condições K=F⁻¹.",
+      "source_note": "CARD-0101 parcial; CARD-0100 associação contextual não demonstrada na resposta; CARD-0105/0106/0107 não avaliados nesta resposta.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-24",
+      "from": "CARD-0101",
+      "to": "CARD-0105",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "Compatibilidade para hiperestáticas não foi diretamente avaliada na resposta sobre inversa 2×2.",
+      "source_note": "CARD-0101 parcial; CARD-0100 associação contextual não demonstrada na resposta; CARD-0105/0106/0107 não avaliados nesta resposta.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-25",
+      "from": "CARD-0101",
+      "to": "CARD-0106",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "Método das forças não foi avaliado nesta resposta.",
+      "source_note": "CARD-0101 parcial; CARD-0100 associação contextual não demonstrada na resposta; CARD-0105/0106/0107 não avaliados nesta resposta.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-26",
+      "from": "CARD-0101",
+      "to": "CARD-0107",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "Método dos deslocamentos não foi avaliado nesta resposta.",
+      "source_note": "CARD-0101 parcial; CARD-0100 associação contextual não demonstrada na resposta; CARD-0105/0106/0107 não avaliados nesta resposta.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-27",
+      "from": "CARD-0102",
+      "to": "CARD-0103",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "Regra de ajuste único de água surgiu na complementação; não foi demonstrada na resposta.",
+      "source_note": "CARD-0102: demonstrado principal com confusão contextual; CARD-0103: não avaliado; CARD-0104: não avaliado. Relações conceituais adicionais sem IDs não inventadas.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    },
+    {
+      "id": "F17-ANS-28",
+      "from": "CARD-0102",
+      "to": "CARD-0104",
+      "source": "F17_RESPOSTAS_V030",
+      "kind": "nao_avaliado",
+      "evidence": "Prazo de 2h30 foi complemento da correção, não parte da resposta do estudante.",
+      "source_note": "CARD-0102: demonstrado principal com confusão contextual; CARD-0103: não avaliado; CARD-0104: não avaliado. Relações conceituais adicionais sem IDs não inventadas.",
+      "scope": "Classificação analítica da resposta arquivada; não equivale a revisão formal do cartão de destino"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "PROP-F17-0001",
+      "subject": "Preposições",
+      "question": "Quais são as preposições essenciais da língua portuguesa? Distinga-as das acidentais.",
+      "answer": "a, ante, após, até, com, contra, de, desde, em, entre, para, perante, por, sem, sob, sobre, trás. Uma palavra como “como” pode funcionar como preposição acidental conforme o contexto.",
+      "related_cards": [
+        "CARD-0463"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0009",
+      "subject": "Haver versus existir",
+      "question": "Por que “havia problemas” fica no singular, enquanto “existiam problemas” concorda no plural?",
+      "answer": "Haver com sentido de existir é impessoal, sem sujeito, na 3ª pessoa singular. Existir é pessoal e concorda com o sujeito “problemas”.",
+      "related_cards": [
+        "CARD-0035"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0012",
+      "subject": "Colocação pronominal",
+      "question": "Explique a ênclise em “cultua-se” e a próclise em “não me contou”.",
+      "answer": "Em “cultua-se”, o clítico vem após o verbo: ênclise; em “não me contou”, a palavra negativa atrai o clítico antes do verbo: próclise.",
+      "related_cards": [
+        "CARD-0016",
+        "CARD-0023"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0022",
+      "subject": "Matriz inversa 2×2",
+      "question": "Calcule det A e A⁻¹ para A=[[3,2],[2,4]] e explique a condição de invertibilidade.",
+      "answer": "det A=3·4−2·2=8. A⁻¹=(1/8)[[4,−2],[−2,3]]. Matriz quadrada tem inversa exatamente quando det A≠0.",
+      "related_cards": [
+        "CARD-0101"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0029",
+      "subject": "Esforço cortante",
+      "question": "Ao atravessar uma força pontual Q descendente, de quanto varia o diagrama de esforço cortante e por quê?",
+      "answer": "O diagrama apresenta salto ΔV=−Q (na convenção usual); o módulo do salto é Q, por equilíbrio local. O momento fletor permanece contínuo na ausência de momento concentrado.",
+      "related_cards": [
+        "CARD-1046"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0038",
+      "subject": "Reynolds",
+      "question": "Quais parâmetros controlam o número de Reynolds e qual o efeito de aumentar viscosidade cinemática?",
+      "answer": "Re=ρvD/μ=vD/ν. Aumenta com velocidade v e dimensão D; diminui se ν crescer a v e D constantes.",
+      "related_cards": [
+        "CARD-1127"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0040",
+      "subject": "Flambagem de Euler",
+      "question": "Qual a carga crítica de Euler para coluna esbelta ideal e como o comprimento efetivo influencia?",
+      "answer": "Pcr=π²EI/(K L)². Dobrar KL reduz Pcr a um quarto; K depende das vinculações. Para biarticulada ideal K=1, biengastada ideal K≈0,5.",
+      "related_cards": [
+        "CARD-0333"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0044",
+      "subject": "Adensamento primário",
+      "question": "Como a dissipação do excesso de poropressão produz adensamento?",
+      "answer": "Em solo saturado de baixa permeabilidade, parte do carregamento inicial é suportada por excesso de pressão neutra; ao drenar, u excedente cai, σ′ aumenta e o esqueleto do solo se comprime, gerando recalque.",
+      "related_cards": [
+        "CARD-0472"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0087",
+      "subject": "Conjuntos",
+      "question": "Qual é a fórmula de dois conjuntos para n(A ∪ B)?",
+      "answer": "n(A ∪ B) = n(A) + n(B) − n(A ∩ B).",
+      "related_cards": [
+        "CARD-0003"
+      ],
+      "source": "F17_V029",
+      "approved": false,
+      "status": "EVOLUCAO_HISTORICA",
+      "creates_srs": false
+    }
+  ],
+  "historical": [
+    {
+      "id": "CARD-0001",
+      "date": "2026-10-21",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Errei",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-10-25",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0002",
+      "date": "2026-10-21",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Bom",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-06",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0003",
+      "date": "2026-10-21",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Bom",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-06",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0004",
+      "date": "2026-10-21",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Fácil",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-18",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0008",
+      "date": "2026-10-21",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Fácil",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-18",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0015",
+      "date": "2026-10-21",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Errei",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-10-25",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0022",
+      "date": "2026-10-22",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Bom",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-07",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0028",
+      "date": "2026-10-22",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Bom",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-07",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0034",
+      "date": "2026-10-22",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Bom",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-07",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0040",
+      "date": "2026-10-22",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Bom",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-07",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0046",
+      "date": "2026-10-22",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Difícil",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-10-30",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0052",
+      "date": "2026-10-22",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Bom",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-11-07",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0070",
+      "date": "2026-10-22",
+      "local_time": null,
+      "precision": "Data conhecida; hora não registrada",
+      "evaluation": "Difícil",
+      "origin": "CSV de progresso anterior",
+      "attempt": 1,
+      "existing_due_date": "2026-10-30",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Registro histórico reconstruído; horário não disponível",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0078",
+      "date": "2026-10-22",
+      "local_time": "13:27:52",
+      "precision": "Hora local registrada no momento da classificação",
+      "evaluation": "Difícil",
+      "origin": "Conversa atual",
+      "attempt": 1,
+      "existing_due_date": "2026-10-30",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Avaliação após correção de BDI e discussão sobre TIR; próxima revisão em 2026-10-30",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0082",
+      "date": "2026-10-22",
+      "local_time": "14:05:39",
+      "precision": "Data e hora com fuso America/Sao_Paulo",
+      "evaluation": "Bom",
+      "origin": "Classificação explícita do usuário",
+      "attempt": 1,
+      "existing_due_date": "2026-11-07",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Chapas LSF; conhecimento parcial com boa base; cobertura cruzada não conta como revisão formal",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0088",
+      "date": "2026-10-22",
+      "local_time": "14:10:47",
+      "precision": "Data e hora com fuso America/Sao_Paulo",
+      "evaluation": "Bom",
+      "origin": "Classificação explícita do usuário",
+      "attempt": 1,
+      "existing_due_date": "2026-11-07",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "As built; conhecimento principal demonstrado; cobertura cruzada relacionada não conta como revisão formal; próxima revisão 2026-11-07",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0094",
+      "date": "2026-10-22",
+      "local_time": "15:41:35",
+      "precision": "Hora local confirmada",
+      "evaluation": "Fácil",
+      "origin": "Classificação explícita do usuário",
+      "attempt": 1,
+      "existing_due_date": "2026-11-19",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Correção explícita de avaliação Bom para Fácil, sem nova tentativa; cobertura cruzada separada.",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0095",
+      "date": "2026-10-22",
+      "local_time": "16:06:44",
+      "precision": "Hora local confirmada",
+      "evaluation": "Fácil",
+      "origin": "Classificação explícita do usuário",
+      "attempt": 1,
+      "existing_due_date": "2026-11-19",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Domínio categorias permanentes/variáveis/excepcionais; lacunas complementares; CARD-0096,0097,0098,0099 vinculados à janela sem revisão formal",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0100",
+      "date": "2026-10-22",
+      "local_time": "17:47:00",
+      "precision": "Hora aproximada ao minuto conforme contexto da mensagem; segundos não conhecidos",
+      "evaluation": "Fácil",
+      "origin": "Classificação explícita do usuário",
+      "attempt": 1,
+      "existing_due_date": "2026-11-19",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Matrizes de rigidez e flexibilidade; avaliar lacunas da invertibilidade, sistemas compatíveis, flexibilidade x elasticidade; cartões 0105–0107 associados à janela sem avaliação formal.",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0101",
+      "date": "2026-10-22",
+      "local_time": "18:18:47",
+      "precision": "Hora local confirmada no momento da classificação",
+      "evaluation": "Bom",
+      "origin": "Classificação explícita do usuário",
+      "attempt": 1,
+      "existing_due_date": "2026-11-07",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Matriz 2x2: lembrou fator 1/(ad-bc); erro determinante; omissão adjunta; citou método Gauss-Jordan em complemento; revisão adaptativa futura avaliar execução.",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    },
+    {
+      "id": "CARD-0102",
+      "date": "2026-10-22",
+      "local_time": null,
+      "precision": "Data local conhecida; hora da classificação não confirmada (não usar 20:34 como hora exata)",
+      "evaluation": "Difícil",
+      "origin": "Classificação explícita do usuário",
+      "attempt": 1,
+      "existing_due_date": "2026-10-30",
+      "existing_srs_state": "Em revisão",
+      "source": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "notes": "Mistura mecânica correta; confusão argamassas colantes AC I/II/III; detalhes das propriedades e normas pendentes de revisão",
+      "note": "Registro histórico; avaliação/datas copiadas da fonte existente, nunca recalculadas"
+    }
+  ],
+  "card_nodes": [
+    {
+      "id": "CARD-0001",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Coberturas",
+      "sub": "Terminologia",
+      "front": "Em um telhado, o que é uma água?"
+    },
+    {
+      "id": "CARD-0002",
+      "group": "PORTUGUES",
+      "area": "Português",
+      "subject": "Crase",
+      "sub": "Regência",
+      "front": "Por que há crase em 'dirigiu-se àquele servidor'?"
+    },
+    {
+      "id": "CARD-0003",
+      "group": "MATEMATICA",
+      "area": "Matemática",
+      "subject": "Conjuntos e inclusão-exclusão",
+      "sub": "União de três conjuntos",
+      "front": "Qual é a fórmula de inclusão-exclusão para três conjuntos?"
+    },
+    {
+      "id": "CARD-0004",
+      "group": "MATEMATICA",
+      "area": "Matemática Financeira",
+      "subject": "Nomenclatura",
+      "sub": "PV",
+      "front": "O que representa PV em matemática financeira?"
+    },
+    {
+      "id": "CARD-0008",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Coberturas",
+      "sub": "Terminologia",
+      "front": "O que é o beiral de uma cobertura?"
+    },
+    {
+      "id": "CARD-0015",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Coberturas",
+      "sub": "Terminologia",
+      "front": "Qual é a função do rufo em uma cobertura?"
+    },
+    {
+      "id": "CARD-0016",
+      "group": "PORTUGUES",
+      "area": "Português",
+      "subject": "Colocação pronominal",
+      "sub": "Próclise",
+      "front": "Quais elementos podem atrair próclise?"
+    },
+    {
+      "id": "CARD-0022",
+      "group": "ENG_ESTRUTURAS_CONCRETO",
+      "area": "Engenharia Civil",
+      "subject": "Estruturas de concreto",
+      "sub": "Capacidade resistente",
+      "front": "O que significa capacidade resistente em estruturas?"
+    },
+    {
+      "id": "CARD-0023",
+      "group": "PORTUGUES",
+      "area": "Português",
+      "subject": "Colocação pronominal",
+      "sub": "Ênclise",
+      "front": "Qual é a forma preferível no início de oração na norma-padrão: 'Se sabe' ou 'Sabe-se'?"
+    },
+    {
+      "id": "CARD-0028",
+      "group": "ENG_GEOTECNIA",
+      "area": "Engenharia Civil",
+      "subject": "Geotecnia",
+      "sub": "Triaxial UU",
+      "front": "Como funciona o ensaio triaxial UU?"
+    },
+    {
+      "id": "CARD-0034",
+      "group": "ENG_GEOTECNIA",
+      "area": "Engenharia Civil",
+      "subject": "Geotecnia",
+      "sub": "Triaxial CU",
+      "front": "Qual é a condição de drenagem no ensaio triaxial CU?"
+    },
+    {
+      "id": "CARD-0035",
+      "group": "PORTUGUES",
+      "area": "Português",
+      "subject": "Concordância verbal",
+      "sub": "Verbos impessoais",
+      "front": "Como concordam 'haver' existencial e 'fazer' temporal?"
+    },
+    {
+      "id": "CARD-0040",
+      "group": "ENG_GEOTECNIA",
+      "area": "Engenharia Civil",
+      "subject": "Geotecnia",
+      "sub": "Triaxial CD",
+      "front": "Como funciona o ensaio triaxial CD?"
+    },
+    {
+      "id": "CARD-0046",
+      "group": "ENG_INSTALACOES",
+      "area": "Engenharia Civil",
+      "subject": "Instalações elétricas",
+      "sub": "Perda do neutro",
+      "front": "Por que a perda do neutro é perigosa em rede trifásica desequilibrada?"
+    },
+    {
+      "id": "CARD-0052",
+      "group": "ENG_MATERIAIS",
+      "area": "Engenharia Civil",
+      "subject": "Materiais de construção",
+      "sub": "CP II-E",
+      "front": "Qual adição identifica o cimento CP II-E?"
+    },
+    {
+      "id": "CARD-0070",
+      "group": "ENG_MATERIAIS",
+      "area": "Engenharia Civil",
+      "subject": "Materiais de construção",
+      "sub": "Fabricação cimento",
+      "front": "O que é clínquer na fabricação do cimento Portland?"
+    },
+    {
+      "id": "CARD-0078",
+      "group": "ENG_PLANEJAMENTO",
+      "area": "Engenharia Civil",
+      "subject": "Orçamentos",
+      "sub": "BDI direto x indireto",
+      "front": "Um equipamento diretamente usado na obra entra, em regra, no BDI?"
+    },
+    {
+      "id": "CARD-0082",
+      "group": "ENG_DESEMPENHO",
+      "area": "Engenharia Civil",
+      "subject": "Sistemas construtivos",
+      "sub": "Fechamento LSF",
+      "front": "Cite exemplos de chapas de fechamento no Light Steel Framing."
+    },
+    {
+      "id": "CARD-0085",
+      "group": "ENG_DESEMPENHO",
+      "area": "Engenharia Civil",
+      "subject": "Sistemas construtivos",
+      "sub": "EPS XPS",
+      "front": "Qual a função usual de EPS e XPS no LSF?"
+    },
+    {
+      "id": "CARD-0088",
+      "group": "ENG_TOPOGRAFIA",
+      "area": "Engenharia Civil",
+      "subject": "Topografia",
+      "sub": "As built",
+      "front": "O que representa um levantamento 'as built'?"
+    },
+    {
+      "id": "CARD-0091",
+      "group": "ENG_TOPOGRAFIA",
+      "area": "Engenharia Civil",
+      "subject": "Topografia",
+      "sub": "Levantamento cadastral territorial",
+      "front": "Qual o objetivo do levantamento cadastral territorial?"
+    },
+    {
+      "id": "CARD-0094",
+      "group": "ENG_SEGURANCA",
+      "area": "Engenharia Civil",
+      "subject": "Acessibilidade — NBR 9050",
+      "sub": "Degrau isolado",
+      "front": "Quantos degraus consecutivos podem formar um degrau isolado na NBR 9050:2020?"
+    },
+    {
+      "id": "CARD-0095",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Ações estruturais",
+      "sub": "Classificação geral",
+      "front": "Quais são as categorias gerais de ações estruturais?"
+    },
+    {
+      "id": "CARD-0096",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Ações estruturais",
+      "sub": "Permanentes diretas",
+      "front": "Cite exemplos de ações permanentes diretas."
+    },
+    {
+      "id": "CARD-0097",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Ações estruturais",
+      "sub": "Permanentes indiretas",
+      "front": "Cite exemplos de ações permanentes indiretas."
+    },
+    {
+      "id": "CARD-0098",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Ações estruturais",
+      "sub": "Variáveis",
+      "front": "Cite três ações variáveis usuais em estruturas."
+    },
+    {
+      "id": "CARD-0099",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Ações estruturais",
+      "sub": "Excepcionais",
+      "front": "Explosões e impactos severos são exemplos de que ações?"
+    },
+    {
+      "id": "CARD-0100",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "area": "Engenharia Civil",
+      "subject": "Álgebra aplicada / Matrizes de rigidez",
+      "sub": "Matriz de rigidez K",
+      "front": "Quando a matriz de rigidez K é a inversa da flexibilidade F?"
+    },
+    {
+      "id": "CARD-0101",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "area": "Engenharia Civil",
+      "subject": "Álgebra aplicada / Matrizes de rigidez",
+      "sub": "Inversa 2×2",
+      "front": "Qual é a fórmula da inversa de uma matriz 2×2?"
+    },
+    {
+      "id": "CARD-0102",
+      "group": "ENG_DESEMPENHO",
+      "area": "Engenharia Civil",
+      "subject": "Alvenaria estrutural",
+      "sub": "Homogeneidade",
+      "front": "Como deve ser preparada a argamassa de assentamento na NBR 16868-2:2020?"
+    },
+    {
+      "id": "CARD-0103",
+      "group": "ENG_DESEMPENHO",
+      "area": "Engenharia Civil",
+      "subject": "Alvenaria estrutural",
+      "sub": "Ajuste água",
+      "front": "Quantas vezes a argamassa pode receber água para ajuste de consistência na NBR 16868-2:2020?"
+    },
+    {
+      "id": "CARD-0104",
+      "group": "ENG_DESEMPENHO",
+      "area": "Engenharia Civil",
+      "subject": "Alvenaria estrutural",
+      "sub": "Tempo uso",
+      "front": "Qual é o prazo usual de utilização da argamassa na NBR 16868-2:2020?"
+    },
+    {
+      "id": "CARD-0105",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "area": "Engenharia Civil",
+      "subject": "Análise estrutural",
+      "sub": "Hiperestaticidade",
+      "front": "Por que apenas equilíbrio não resolve uma estrutura hiperestática?"
+    },
+    {
+      "id": "CARD-0106",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "area": "Engenharia Civil",
+      "subject": "Análise estrutural",
+      "sub": "Método das forças",
+      "front": "Qual é a incógnita principal do método das forças?"
+    },
+    {
+      "id": "CARD-0107",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "area": "Engenharia Civil",
+      "subject": "Análise estrutural",
+      "sub": "Método dos deslocamentos",
+      "front": "Qual é a incógnita principal do método dos deslocamentos?"
+    },
+    {
+      "id": "CARD-0111",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "area": "Engenharia Civil",
+      "subject": "Análise estrutural",
+      "sub": "PTV",
+      "front": "O PTV é uma força ou um deslocamento?"
+    },
+    {
+      "id": "CARD-0178",
+      "group": "ENG_TOPOGRAFIA",
+      "area": "Engenharia Civil",
+      "subject": "Topografia",
+      "sub": "Levantamento cadastral territorial",
+      "front": "Conjunto de pontos de referência planimétricos/altimétricos define levantamento cadastral territorial?"
+    },
+    {
+      "id": "CARD-0200",
+      "group": "LEGISLACAO",
+      "area": "Legislação / Ética",
+      "subject": "Estatuto da Cidade",
+      "sub": "Plano diretor",
+      "front": "No texto legal estudado, que exigência específica se aplica a Plano diretor?"
+    },
+    {
+      "id": "CARD-0253",
+      "group": "ENG_SEGURANCA",
+      "area": "Engenharia Civil",
+      "subject": "Acessibilidade — NBR 9050",
+      "sub": "Escada: 7×3",
+      "front": "Qual relação matemática define Escada: 7×3 no contexto de Acessibilidade — NBR 9050?"
+    },
+    {
+      "id": "CARD-0333",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "area": "Engenharia Civil",
+      "subject": "Estruturas / Estabilidade e deformações",
+      "sub": "16. FLAMBAGEM DE EULER",
+      "front": "Qual é a carga crítica de Euler e como entra o comprimento efetivo?"
+    },
+    {
+      "id": "CARD-0367",
+      "group": "MATEMATICA",
+      "area": "Matemática Financeira",
+      "subject": "TIR",
+      "sub": "Conceito",
+      "front": "O que se entende por Conceito no assunto TIR?"
+    },
+    {
+      "id": "CARD-0463",
+      "group": "PORTUGUES",
+      "area": "Português",
+      "subject": "Preposições",
+      "sub": "Função",
+      "front": "Em Preposições, qual é a regra ou conclusão registrada para Função?"
+    },
+    {
+      "id": "CARD-0472",
+      "group": "ENG_GEOTECNIA",
+      "area": "Engenharia Civil",
+      "subject": "Geotecnia",
+      "sub": "Adensamento secundário e recalque",
+      "front": "Em Geotecnia, qual é a regra ou conclusão registrada para Adensamento secundário e recalque?"
+    },
+    {
+      "id": "CARD-0798",
+      "group": "ENG_RODOVIAS",
+      "area": "Engenharia Civil",
+      "subject": "Projeto geométrico",
+      "sub": "Raio executado",
+      "front": "O que caracteriza Raio executado em Projeto geométrico?"
+    },
+    {
+      "id": "CARD-0860",
+      "group": "ENG_TOPOGRAFIA",
+      "area": "Engenharia Civil",
+      "subject": "Topografia",
+      "sub": "Rede de referência cadastral",
+      "front": "Qual a função da Rede de Referência Cadastral Municipal?"
+    },
+    {
+      "id": "CARD-0861",
+      "group": "ENG_TOPOGRAFIA",
+      "area": "Engenharia Civil",
+      "subject": "Topografia",
+      "sub": "Rede de referência cadastral",
+      "front": "Que quatro tipos de elementos aparecem no registro da NBR 14166:1998, item 4.2?"
+    },
+    {
+      "id": "CARD-1046",
+      "group": "ENG_ESTRUTURAS_VIGAS",
+      "area": "Engenharia Civil",
+      "subject": "Estruturas / Quadro isostático e cortante",
+      "sub": "Força concentrada e cortante",
+      "front": "Em Estruturas / Quadro isostático e cortante, o que significa força concentrada e cortante?"
+    },
+    {
+      "id": "CARD-1112",
+      "group": "ENG_DESEMPENHO",
+      "area": "Engenharia Civil",
+      "subject": "Light Steel Framing",
+      "sub": "EIFS",
+      "front": "Em Light Steel Framing, o que significa EIFS?"
+    },
+    {
+      "id": "CARD-1127",
+      "group": "ENG_HIDRAULICA",
+      "area": "Engenharia Civil",
+      "subject": "Mecânica dos fluidos",
+      "sub": "Mecânica dos fluidos",
+      "front": "Como o número de Reynolds se relaciona ao regime laminar?"
+    },
+    {
+      "id": "CARD-1137",
+      "group": "ENG_PLANEJAMENTO",
+      "area": "Engenharia Civil",
+      "subject": "Orçamentos",
+      "sub": "BDI preço final",
+      "front": "Qual relação matemática define BDI preço final no contexto de Orçamentos?"
+    },
+    {
+      "id": "CARD-1138",
+      "group": "ENG_PLANEJAMENTO",
+      "area": "Engenharia Civil",
+      "subject": "Orçamentos",
+      "sub": "BDI variável",
+      "front": "Em Orçamentos, qual condição ou exceção precisa ser observada para BDI variável?"
+    },
+    {
+      "id": "CARD-1163",
+      "group": "ENG_RODOVIAS",
+      "area": "Engenharia Civil",
+      "subject": "Projeto geométrico",
+      "sub": "Locação e as built",
+      "front": "Em Projeto geométrico, o que significa locação e as built?"
+    },
+    {
+      "id": "CARD-1166",
+      "group": "ENG_DESEMPENHO",
+      "area": "Engenharia Civil",
+      "subject": "Projetos arquitetônicos",
+      "sub": "As built",
+      "front": "Em Projetos arquitetônicos, o que significa as built?"
+    }
+  ]
+}
