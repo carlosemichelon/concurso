@@ -1,0 +1,40 @@
+
+/* V033 — Auditoria F17 por evidência e relações entre assuntos. */
+.f17Summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 18px}
+.f17Summary .f17Stat{border:1px solid #d3e0df;padding:13px 12px;border-radius:10px;background:#fff}
+.f17Summary .f17Stat strong{display:block;color:#15383b;font-size:25px;line-height:1.2;font-variant-numeric:tabular-nums}
+.f17Summary .f17Stat span{display:block;font-size:12px;color:#5a6f72;margin-top:4px}
+#f17Results{display:grid;gap:10px;margin:16px 0}
+#f17Results .f17Edge,#f17Results .f17Item,#f17Results .f17Response{margin:0}
+.f17Edge,.f17Item,.f17Response,.f17CardEvidence{border:1px solid #dce7e5;border-radius:11px;background:#fff;padding:12px;min-width:0}
+.f17EdgeHead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.f17Status{font-size:12px;letter-spacing:.01em;padding:4px 8px;border-radius:6px;color:#1e4752;background:#eef4f5}
+.f17Status.direta{color:#1c5b40;background:#e8f5ed}
+.f17Status.parcial{color:#795b15;background:#f9f3df}
+.f17Status.contraste{color:#8b4141;background:#fcf0f0}
+.f17Status.nao_avaliado,.f17Status.contextual{color:#5b636e;background:#f1f3f5}
+.f17SourceCaption{font-size:11px;color:#627679}
+.f17EdgeNodes{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0}
+.f17Arrow{color:#617777;font-size:19px}
+.f17Node,.f17Chip{padding:6px 9px;font-size:12px;border-radius:8px;border-color:#cad7d4;text-align:left;max-width:100%;overflow-wrap:anywhere;line-height:1.35}
+.f17Node{background:#eff7f5;flex:1 1 160px}
+.f17Note{font-size:12px;line-height:1.52;color:#3f5559;white-space:pre-wrap;margin:7px 0;overflow-wrap:anywhere}
+.f17Caution{font-style:italic;color:#69767b}
+.f17Tools{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:9px 0 2px}
+.f17Source{color:#12616c;font-size:12px;display:inline-block;padding:6px 9px;overflow-wrap:anywhere}
+.f17CardEvidence{margin-top:15px}
+.f17CardEvidence h4{margin:0 0 8px;font-size:14px}
+.f17CardEvidence .f17Edge{background:#f9fbfb;margin:8px 0;padding:10px}
+.f17CardEvidence details{border-top:1px solid #e4eae8;margin-top:10px;padding-top:8px}
+.f17Timeline{border-left:3px solid #a7c3bc;padding-left:10px;margin:10px 0}
+.f17QuickSummary{margin-top:9px}
+#topicRelated .f17Edge{margin:8px 0}
+#topicRelated .f17TopicRecord{padding:7px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px dashed #dde4e1;font-size:12px}
+#topicRelated .f17Proposal{padding:9px 0;border-bottom:1px solid #e1e7e6}
+#topicRelated .f17Tools{margin:10px 0}
+#topicRelated details{border-top:1px solid #e2e9e7;padding-top:10px;margin-top:10px}
+.f17Response{display:block}
+.f17Response summary{font-size:14px}
+.f17Response .f17Note{margin:11px 0}
+.f17IntroNote{color:#415c60;line-height:1.6}
+@media(max-width:640px){.f17Summary{grid-template-columns:repeat(2,minmax(0,1fr))}.f17EdgeNodes{flex-direction:column;align-items:stretch}.f17Arrow{text-align:center;transform:rotate(90deg)}.f17Node{flex-basis:auto}.f17Summary .f17Stat strong{font-size:22px}#f17Mode,#f17Kind{width:100%;max-width:none}}
