@@ -60,7 +60,7 @@ function enhancedCard(article){
  if(!confirmed.length)addPara(ans,'Sem vínculo cruzado documentado para este ID nos registros F17/F14-F16 disponíveis. Isso não significa ausência de relação conceitual.');
  const buttons=article.querySelector('.buttons');
  const t=findTopic(c);if(t&&buttons)buttons.prepend(chip('Abrir guia do assunto',()=>openTopic(t)));
- linkReferences(ans);
+ linkReferences(ans);linkReferences(article.querySelector('h3'));
 }
 const priorCardRender=cardRender;
 cardRender=function(){priorCardRender();byId('coverageSummary').replaceChildren();
@@ -142,5 +142,8 @@ imgRender=async function(){await priorImgRender();for(const article of byId('ima
  const im=imgs.find(x=>x.no===idOf(article));const node=article.querySelector(':scope > .tag');if(!im||!node)continue;
  node.tabIndex=0;node.setAttribute('role','button');node.title='Abrir '+im.no+' em tela cheia';node.onclick=()=>imgOpen(im);node.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();imgOpen(im)}};
  }};
+// Os manipuladores de entrada antigos guardavam a função anterior por valor.
+byId('topicSearch').oninput=topicRender;byId('topicArea').onchange=topicRender;
+byId('pdfSearch').oninput=pdfRender;byId('pdfFilter').onchange=pdfRender;byId('pdfHidden').onchange=pdfRender;
 window.BancoMestreV031={openTopic,gotoCard};
 })();
