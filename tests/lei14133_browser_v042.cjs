@@ -9,7 +9,9 @@ const {PDFDocument}=require('pdf-lib');
  const pdf=Buffer.from(await doc.save());
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  const page=await browser.newPage({viewport:{width:1440,height:900}});
- let downloads=0;
+ let downloads=0,fileChoosers=0,browserDownloads=0;
+ page.on('filechooser',()=>fileChoosers++);
+ page.on('download',()=>browserDownloads++);
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.route('https://accounts.google.com/gsi/client',async route=>{
   await route.fulfill({status:200,contentType:'application/javascript',body:
@@ -43,12 +45,15 @@ const {PDFDocument}=require('pdf-lib');
   const connect=page.locator('#driveConnectInPdfV042');
   await connect.waitFor({state:'visible',timeout:15000});
   assert.equal(await connect.isEnabled(),true);
-  await connect.click();
+  // A ação principal Editar deve obter o PDF do Drive sem pedir arquivo nem efetuar download.
+  await page.locator('#pdfChooseLocal').click();
   await page.waitForFunction(()=>window.BancoMestrePDFV042?.editing&&/Página 1 de 2/.test(document.getElementById('pdfPager')?.textContent||''),null,{timeout:90000});
   assert.equal(await page.locator('#pdfDialog').evaluate(d=>d.open),true,'PDF deve permanecer na janela');
   await connect.waitFor({state:'hidden',timeout:15000});
   assert.equal(await connect.isVisible(),false,'Botão de autorização deve desaparecer após abertura');
-  assert.equal(downloads,1,'Download OAuth simulado deve acontecer uma vez');
+  assert.equal(downloads,1,'A leitura OAuth simulada deve acontecer uma vez');
+  assert.equal(fileChoosers,0,'Editar PDF do Drive não pode abrir seletor de arquivo');
+  assert.equal(browserDownloads,0,'Editar PDF do Drive não pode baixar arquivo ao computador');
   await page.locator('#pdfMarker').click();
   const ink=page.locator('#pdfInkCanvas');const rect=await ink.boundingBox();
   assert.ok(rect&&rect.width>100&&rect.height>100,'O grifo deve estar acessível');
@@ -66,6 +71,6 @@ const {PDFDocument}=require('pdf-lib');
   await page.waitForFunction(()=>window.BancoMestrePDFV042?.editing&&/Página 1 de 2/.test(document.getElementById('pdfPager')?.textContent||''),null,{timeout:90000});
   assert.equal(downloads,1,'Ao reabrir, a versão do navegador deve ser recuperada sem novo token');
   assert.equal(errors.length,0,'Falhas JS: '+errors.join(' | '));
-  console.log(JSON.stringify({result:'PASS',law:'14.133/2021',oauth_in_dialog:true,edited:true,local_highlight:true,reopened_from_storage:true,original_unchanged:true}));
+  console.log(JSON.stringify({result:'PASS',law:'14.133/2021',oauth_on_edit_click:true,no_download:true,edited:true,local_highlight:true,reopened_from_storage:true,original_unchanged:true}));
  }finally{await browser.close()}
 })().catch(e=>{console.error('LEI14133_V042_FAIL',e.stack||String(e));process.exitCode=1});
