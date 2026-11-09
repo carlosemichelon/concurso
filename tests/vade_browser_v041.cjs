@@ -29,6 +29,7 @@ const fs=require('node:fs');
    return keys.map(key=>({key,marks:JSON.parse(localStorage.getItem(key)||'[]')}));
   });
   assert.ok(stored.some(x=>x.marks.some(m=>m.type==='highlighter')),'Marcação não gravada no navegador');
+  await page.locator('#pdfClose').click();
   const exportBackup=page.waitForEvent('download',{timeout:30000});
   await page.getByRole('button',{name:'Exportar backup dos grifos'}).click();
   const file=await exportBackup;
@@ -36,7 +37,6 @@ const fs=require('node:fs');
   const backupFile=JSON.parse(fs.readFileSync(await file.path(),'utf8'));
   assert.equal(backupFile.pdf_id,'VADE-SENADO-2026-GUIA');
   assert.ok(backupFile.items.some(x=>x.marks.some(m=>m.type==='highlighter')),'Backup JSON não contém a marcação');
-  await page.locator('#pdfClose').click();
   await page.getByRole('button',{name:'Abrir e marcar o PDF'}).click();
   await page.waitForFunction(()=>window.BancoMestrePDFV038?.editing===true&&/Página 1 de \d+/.test(document.getElementById('pdfPager')?.textContent||''),null,{timeout:120000});
   const restored=await page.evaluate(()=>{
