@@ -117,7 +117,7 @@ $('pdfPrev').onclick=()=>{if(!pdf||pageNumber<=1)return;pageNumber--;renderPage(
 $('pdfNext').onclick=()=>{if(!pdf||pageNumber>=pdf.numPages)return;pageNumber++;renderPage()};
 $('pdfZoomOut').onclick=()=>{if(!pdf)return;scale=Math.max(.5,+(scale/1.25).toFixed(2));renderPage()};
 $('pdfZoomIn').onclick=()=>{if(!pdf)return;scale=Math.min(3,+(scale*1.25).toFixed(2));renderPage()};
-$('pdfDraw').onclick=editPage;$('pdfLocalCanvas').onclick=editPage;
+$('pdfDraw').onclick=editPage;$('pdfLocalCanvas').onclick=editPage;$('pdfLocalCanvas').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();editPage()}};
 $('pdfExportPNG').onclick=()=>{if(!pdf||!fileInfo||working)return;const a=document.createElement('a');a.href=$('pdfLocalCanvas').toDataURL('image/png');a.download=selectedPDF.id+'_pagina_'+pageNumber+'_anotada.png';a.click()};
 $('pdfDialog').addEventListener('close',closeLocal);
 $('imageDialog').addEventListener('close',()=>{if($('hideOpened').hidden){$('hideOpened').hidden=false;if(pdf)renderPage()}});
