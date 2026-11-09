@@ -7,7 +7,7 @@ const INDEX='assets/f17_rede_referencias_v033.json';
 const $=id=>document.getElementById(id);
 const make=(tag,cls,content)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(content!==undefined)x.textContent=content;return x};
 const add=(parent,tag,cls,content)=>{const x=make(tag,cls,content);parent.append(x);return x};
-const sourceLabel={auditoria_f17:'Auditoria F17',resposta_arquivada:'Resposta histórica F14/F16'};
+const sourceLabel={auditoria_f17:'Histórico de revisões',resposta_arquivada:'Resposta histórica F14/F16'};
 const labels={
  indireta_historica:'Indireta registrada · sem revisão',
  associado_sem_tentativa:'Associação registrada · sem revisão',
@@ -97,7 +97,7 @@ function evolution(p){
  add(x,'p','',p.pergunta);
  add(x,'p','f17-muted','Complemento histórico: '+p.complemento);
  const links=make('div','f17-link-row');for(const id of p.ids)links.append(refButton(id));
- x.append(links,sourceLink(index.sources.auditoria,'Proposta do F17 · não promovida'));
+ x.append(links,sourceLink(index.sources.auditoria,'Proposta histórica · não incorporada'));
  return x;
 }
 function cardBlock(id,compact=false){
@@ -187,7 +187,7 @@ async function renderForTopic(t){
    if(edges.length){add(box,'h4','','Conhecimentos associados e grau de cobertura');for(const e of edges)box.append(itemEdge(e,null))}
    if(evols.length){add(box,'h4','','Evoluções históricas relacionadas');for(const p of evols)box.append(evolution(p))}
   }
-  const nav=btn('Auditoria F17 completa',()=>{section('auditoria');dashboard()});
+  const nav=btn('Ver todas as relações',()=>{section('auditoria');dashboard()});
   nav.className='f17-view-all';box.append(nav);
  }catch(e){add(box,'p','f17-error','Rede F17 indisponível: '+e.message)}
  if($('topicHeading')?.textContent!==t.subject)return;
@@ -208,7 +208,7 @@ function renderForCard(article){
  else add(block,'p','f17-muted','Não há relação de cobertura registrada para este ID. Proximidade temática não significa acerto.');
  if(prop.length){add(block,'h4','','Evoluções (não incluídas automaticamente)');for(const p of prop)block.append(evolution(p))}
  const actions=make('div','f17-link-row');
- actions.append(btn('Ver registro F17',()=>{section('auditoria');$('f17Search').value=id;dashboard()}));block.append(actions);
+ actions.append(btn('Ver histórico e relações',()=>{section('auditoria');$('f17Search').value=id;dashboard()}));block.append(actions);
  answer.append(block);
 }
 const priorCardRender=cardRender;
