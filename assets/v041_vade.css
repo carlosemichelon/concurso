@@ -1,0 +1,8 @@
+/* V041 · botões do editor de Vade Mecum sem afetar os demais módulos */
+.bm-vade{display:block;max-width:100%;margin:16px 0 22px}
+.bm-vade-actions{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 10px}
+.bm-vade .bm-vade-secondary{background:#fff!important;border:1.5px solid #648a88!important;color:#245963!important}
+.bm-vade .bm-vade-secondary:hover{background:#e9f4f2!important}
+.bm-vade-status{border-left:3px solid #548b87;background:#f0f7f5;padding:11px 13px!important;font-size:13px;color:#26545b!important;white-space:pre-wrap}
+.bm-vade button{white-space:normal}
+@media(max-width:560px){.bm-vade-actions{display:grid;grid-template-columns:1fr}.bm-vade-actions button{width:100%}}
