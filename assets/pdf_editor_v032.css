@@ -1,0 +1,19 @@
+
+#bmPdfEditor{width:100vw;height:100dvh;max-width:none;max-height:none;inset:0;margin:0;border:0;border-radius:0;padding:0;background:#edf2f2;color:#19343b}
+#bmPdfEditor::backdrop{background:#0d253aaa}
+#bmPdfEditor .pe-head{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:11px 15px;background:#fff;border-bottom:1px solid #cadbda}
+#bmPdfEditor .pe-head strong{font-size:16px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#bmPdfEditor .pe-toolbar{background:#fff;border-bottom:1px solid #cadbda;display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:9px 12px}
+#bmPdfEditor button,#bmPdfEditor select{border:1px solid #bfd2d0;border-radius:6px;background:#fff;color:#18434a;padding:6px 10px;font:inherit;cursor:pointer}
+#bmPdfEditor button.active{background:#145d65;color:white}
+#bmPdfEditor button:disabled{opacity:.45;cursor:not-allowed}
+#bmPdfEditor .pe-toolbar input[type=color]{width:30px;height:29px;vertical-align:middle;border:1px solid #ccc;padding:1px}
+#bmPdfEditor .pe-toolbar label{font-size:12px}
+#bmPdfEditor .pe-toolbar input[type=range]{width:70px;vertical-align:middle}
+#bmPdfEditor .pe-status{padding:7px 14px;background:#f7fcfb;font-size:12px;color:#48646a;border-bottom:1px solid #dbe6e4}
+#bmPdfEditor .pe-stage{height:calc(100dvh - 165px);overflow:auto;padding:20px;text-align:center;touch-action:pan-x pan-y}
+#bmPdfEditor .pe-page{display:inline-block;position:relative;background:white;box-shadow:0 8px 35px #1233;line-height:0;vertical-align:top;max-width:none}
+#bmPdfEditor .pe-page canvas{display:block}
+#bmPdfEditor #peInk{position:absolute;left:0;top:0;touch-action:none;cursor:crosshair}
+#bmPdfEditor .pe-tip{font-size:12px;color:#577078;margin-left:8px}
+@media(max-width:650px){#bmPdfEditor .pe-stage{height:calc(100dvh - 210px);padding:8px}#bmPdfEditor .pe-toolbar{padding:6px}}
