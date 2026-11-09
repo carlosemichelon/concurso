@@ -86,7 +86,7 @@ const priorCardRender=cardRender;
 cardRender=function(){priorCardRender();byId('coverageSummary').replaceChildren();
  const header=document.createElement('p');header.className='notice';header.textContent='Cobertura cruzada = relações entre conhecimentos da base. Arestas do F17 têm fontes e graus de evidência distintos; mesmo assunto não prova cobertura. Nenhuma tentativa nem evento SRS é gerado.';
  byId('coverageSummary').append(header);
- // O resumo detalhado fica na aba Auditoria F17.
+ // O resumo detalhado fica na aba Relações entre assuntos.
  for(const a of byId('cardRows').querySelectorAll('article.card'))enhancedCard(a);
 };
 function makeTopicNote(title,subtitle,text){
@@ -174,7 +174,7 @@ topicRender=function(){priorTopicRender();
   if(!list[i])return;
   const t=list[i];node.onclick=()=>openTopic(t);
   const n=window.BM033Cross?.countForSubject?.(t.group,t.subject)||0;
-  if(n){const small=node.querySelector('small');if(small)small.textContent+=' · '+n+' conexão(ões) F17';}
+  if(n){const small=node.querySelector('small');if(small)small.textContent+=' · '+n+' relações documentadas';}
  });
 };
 const priorPdfRender=pdfRender;
