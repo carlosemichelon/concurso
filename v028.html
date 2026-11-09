@@ -111,9 +111,86 @@ function topicRender(){
 $('topicSearch').oninput=topicRender;$('topicArea').onchange=topicRender;
 
 async function loadMeta(){if(meta)return meta;const r=await fetch('assets/meta_v021.json');if(!r.ok)throw Error('Metadados indisponíveis');meta=await r.json();return meta}
-async function loadCards(){if(loadedCards)return;loadedCards=true;try{const m=await loadMeta(),all=await Promise.all(m.card_files.map(async f=>{const r=await fetch('assets/'+f);if(!r.ok)throw Error('Falta '+f);return r.json()}));const ijR=await fetch('assets/ijui_flashcards_operacionais_v027.json',{cache:'no-store'});if(!ijR.ok)throw Error('Flashcards de Ijuí indisponíveis');const ij=await ijR.json();if(ij.cards.length!==22||ij.format!=='BancoMestreIjuíInc001V027')throw Error('Cópia operacional de Ijuí incompatível');const base=all.flat();if(base.length!==1494)throw Error('Base canônica alterada');const ijui=ij.cards.map(c=>({...c,provisional:true,discipline:'Legislação Ijuí — cópia operacional',subject:c.subject||'Lei anexa'}));cards=[...ijui,...base];for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){$('cardRows').textContent=e.message}}
-function cardRender(){const h=hidden('CARD'),show=$('cardHidden').checked,q=fold($('cardSearch').value),f=$('cardFilter').value;const a=cards.filter(c=>(show||!h.has(c.id))&&(f==='all'||c.discipline===f)&&fold(c.id+' '+c.front+' '+c.subject).includes(q));$('cardCount').textContent=a.length+' cartões';const out=$('cardRows');out.replaceChildren();for(const c of a.slice(0,cardLimit)){const off=h.has(c.id),x=card(c.front,c.id,c.discipline+' · '+c.subject+(c.provisional?' · SEM SRS / NÃO CANÔNICO':'')+(off?' · oculto':'')),d=el('details',null),ans=el('div',null);d.append(el('summary','Mostrar resposta'));ans.append(el('strong',c.back||'Resposta não cadastrada'));if(c.expl)ans.append(el('p',c.expl));d.append(ans);x.c.insertBefore(d,x.buttons);x.buttons.append(action(off?'Restaurar':'Excluir',()=>{if(exclude('CARD',c.id,!off))cardRender()},off?'':'danger'));out.append(x.c)}$('moreCards').disabled=a.length<=cardLimit}
-$('cardSearch').oninput=()=>{cardLimit=24;cardRender()};$('cardFilter').onchange=cardRender;$('cardHidden').onchange=cardRender;$('moreCards').onclick=()=>{cardLimit+=24;cardRender()};
+async function loadCards(){if(loadedCards)return;loadedCards=true;try{const m=await loadMeta(),all=await Promise.all(m.card_files.map(async f=>{const r=await fetch('assets/'+f);if(!r.ok)throw Error('Falta '+f);return r.json()}));const ijR=await fetch('assets/ijui_flashcards_operacionais_v027.json',{cache:'no-store'});if(!ijR.ok)throw Error('Flashcards de Ijuí indisponíveis');const ij=await ijR.json();if(ij.cards.length!==22||ij.format!=='BancoMestreIjuíInc001V027')throw Error('Cópia operacional de Ijuí incompatível');try{const guideRes=await fetch('assets/guias_ijui_v028.json',{cache:'no-store'});if(guideRes.ok){guideData=await guideRes.json();if(guideData.contagens.modelos!==11||guideData.contagens.macetes!==41)throw Error('Guias de Ijuí incompletos')}}catch(e){console.warn('Guia complementar não foi carregado:',e);guideData=null}
+const base=all.flat();if(base.length!==1494)throw Error('Base canônica alterada');const ijui=ij.cards.map(c=>({...c,provisional:true,discipline:'Legislação Ijuí — cópia operacional',subject:c.subject||'Lei anexa'}));cards=[...ijui,...base];for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){$('cardRows').textContent=e.message}}
+
+function infoBlock(parent,title,text){
+ if(text===undefined||text===null||text==='')return;
+ const section=el('div',null,'richSection');
+ section.append(el('h4',title),el('p',String(text)));
+ parent.append(section);
+}
+function infoList(parent,title,items,format){
+ if(!items?.length)return;const block=el('div',null,'richSection');block.append(el('h4',title));const ul=el('ul');
+ for(const x of items){const li=el('li',format(x));ul.append(li)}block.append(ul);parent.append(block);
+}
+function linkedQuestions(cardId){
+ if(!guideData)return [];
+ return Object.values(guideData.questoes).filter(q=>q.vinculos_cartoes.some(x=>x.cartao===cardId));
+}
+function legalCoverage(){
+ const root=$('coverageSummary');root.replaceChildren();if(!guideData)return;
+ const wrap=el('details');const summary=el('summary','Cobertura das 25 normas estudadas em Ijuí (planejamento, não domínio)');
+ wrap.append(summary);const grid=el('div',null,'grid');grid.style.marginTop='15px';
+ for(const x of guideData.cobertura_leis){
+  const b=card(x.lei,x.lei_id,'PDF: '+x.pdf);
+  b.c.append(el('p','Núcleos previstos: '+x.nucleos_planejados+' · com questões liberadas: '+x.nucleos_cobertos));
+  b.c.append(el('p','Situação: '+x.dominio));
+  grid.append(b.c);
+ }wrap.append(grid);root.append(wrap);
+}
+function cardRender(){
+ const h=hidden('CARD'),show=$('cardHidden').checked,q=fold($('cardSearch').value),f=$('cardFilter').value;
+ const a=cards.filter(c=>(show||!h.has(c.id))&&(f==='all'||c.discipline===f)&&(!focusGroup||(focusGroup==='LEGISLACAO'&&c.provisional)||c.group===focusGroup)&&fold(c.id+' '+c.front+' '+c.subject+' '+(c.sub||'')+' '+(c.back||'')).includes(q));
+ $('cardCount').textContent=a.length+' cartões · frente/verso com guia metodológico quando disponível';
+ const out=$('cardRows');out.replaceChildren();
+ for(const c of a.slice(0,cardLimit)){
+  const off=h.has(c.id),x=card(c.front,c.id,c.discipline+' · '+c.subject+(c.provisional?' · proposta Ijuí sem SRS':'')+(off?' · oculto':'')),d=el('details');
+  d.append(el('summary','Revelar resposta, fundamento, guia e cobertura'));
+  const ans=el('div',null,'answer');
+  infoBlock(ans,c.provisional?'Verso registrado na cópia operacional':'Resposta exata do cartão original',c.back||'Sem resposta cadastrada');
+  infoBlock(ans,'Explicação da base',c.expl);
+  infoBlock(ans,'Macete original',c.mnemonic);
+  if(c.sub)infoBlock(ans,'Subassunto',c.sub);
+  if(c.prior)infoBlock(ans,'Prioridade histórica na base (não é nota SRS)',c.prior);
+  if(c.provisional){
+   infoBlock(ans,'Situação editorial','PROP-IJUI — cópia operacional, sem promoção canônica. ID anterior proposto: '+(c.legacy_proposed_card_id||'não informado')+'. O ID original conflita com a V015 e não pode ser reutilizado.');
+   infoBlock(ans,'Fundamento da proposta',c.reference);
+   infoBlock(ans,'Origem da questão',c.origin_question_id);
+   const g=guideData?.questoes?.[c.origin_question_id];
+   if(g){
+    infoBlock(ans,'Conhecimento mínimo para acertar',g.resposta_minima);
+    infoBlock(ans,'Resposta-modelo pós-correção',g.resposta_modelo);
+    infoBlock(ans,'Fundamento legal',g.dispositivo);
+    infoBlock(ans,'PDF original / páginas',g.fonte);
+    infoBlock(ans,'Pegadinhas e exceções',g.pegadinhas);
+    if(g.tentativa_registrada)infoBlock(ans,'Tentativa anterior registrada (questão, não flashcard)','Data: '+g.tentativa_data+' · avaliação informada: '+g.avaliacao_informada+' · revisão prevista no checkpoint: '+g.revisao_prevista_no_checkpoint+'. O texto integral permanece na planilha privada.');
+    infoBlock(ans,'O que já foi compreendido',g.acertos_do_estudo);
+    infoBlock(ans,'Pontos a corrigir da resposta anterior',g.lacunas_do_estudo);
+    infoList(ans,'Macetes associados',g.macetes,m=>m.id+' — '+m.frase+' | '+m.interpretacao+(m.alerta?' | Alerta: '+m.alerta:''));
+    infoList(ans,'Lacunas de fixação',g.lacunas,l=>l.id+' ('+l.prioridade+'; '+l.estado+') — '+l.fixar);
+    infoList(ans,'Interconexões com o Banco Mestre',g.vinculos_cartoes,v=>v.cartao+' — '+v.tema+' · '+v.tratamento+' (domínio não demonstrado)');
+    infoBlock(ans,'Cobertura e método','A questão '+g.questao_id+' possui guia pós-tentativa. Cobertura direta do núcleo não equivale a domínio. '+g.aviso_srs);
+   }else infoBlock(ans,'Auditoria de cobertura','Ainda não há resposta-modelo desta questão na planilha auditada; não completar a partir de suposição.');
+  }else{
+   const links=linkedQuestions(c.id);
+   if(links.length)infoList(ans,'Cobertura cruzada com questões de Ijuí',links,q=>q.questao_id+' — '+q.tema+' (associação histórica; não comprova domínio)');
+   else infoBlock(ans,'Cobertura cruzada','Não há associação específica auditada com questões de Ijuí para este ID nos dados consultados.');
+   infoBlock(ans,'Estado de respostas anteriores / SRS','Histórico de tentativas de cartões não foi importado nesta publicação. Consulta não altera SRS.');
+  }
+  if(c.provisional&&guideData?.link_fonte_privada){
+   const a=link('Ver planilha original com a resposta discursiva privada',guideData.link_fonte_privada);
+   ans.append(a);
+  }
+  d.append(ans);x.c.insertBefore(d,x.buttons);
+  x.buttons.append(action(off?'Restaurar':'Excluir da visualização',()=>{if(exclude('CARD',c.id,!off))cardRender()},off?'':'danger'));
+  out.append(x.c);
+ }
+ $('moreCards').disabled=a.length<=cardLimit;
+ legalCoverage();
+}
+
+$('cardSearch').oninput=()=>{focusGroup='';cardLimit=24;cardRender()};$('cardFilter').onchange=()=>{focusGroup='';cardRender()};$('cardHidden').onchange=cardRender;$('moreCards').onclick=()=>{cardLimit+=24;cardRender()};
 async function loadImages(){if(loadedImages)return;loadedImages=true;try{imgs=(await loadMeta()).images;for(const g of [...new Set(imgs.map(x=>x.category))].sort())$('imageFilter').add(new Option(g,g));await imgRender()}catch(e){$('imageRows').textContent=e.message}}
 async function thumb(x){if(x.shard===undefined||!meta.image_files[x.shard])return null;if(!shards[x.shard])shards[x.shard]=fetch('assets/'+meta.image_files[x.shard]).then(r=>{if(!r.ok)throw Error('Prévia ausente');return r.json()});try{return (await shards[x.shard])[x.no]||null}catch{return null}}
 async function imgRender(){const h=new Map((await api.all()).map(x=>[x.id,x.status])),show=$('imageHidden').checked,q=fold($('imageSearch').value),f=$('imageFilter').value;const a=imgs.filter(x=>(show||h.get(x.no)!=='hidden')&&(f==='all'||x.category===f)&&fold(x.no+' '+x.title+' '+x.category).includes(q));$('imageCount').textContent=a.length+' imagens';const out=$('imageRows');out.replaceChildren();for(const x of a.slice(0,imgLimit)){const off=h.get(x.no)==='hidden',c=card(x.title,x.no,x.category+(off?' · oculta':''));const preview=el('img',null,'thumb');preview.loading='lazy';preview.alt='Prévia de '+x.no;c.c.insertBefore(preview,c.c.querySelector('h3'));thumb(x).then(src=>{if(!preview.isConnected)return;if(src)preview.src=src;else preview.replaceWith(el('p','Prévia não publicada.','muted'))});if(x.shard!==undefined)c.buttons.append(action('Grifar',()=>imgOpen(x),'primary'));c.buttons.append(action(off?'Restaurar':'Excluir',async()=>{try{await api.setStatus(x.no,off?'visible':'hidden');await imgRender()}catch(e){alert(e.message)}},off?'':'danger'));out.append(c.c)}$('moreImages').disabled=a.length<=imgLimit}
