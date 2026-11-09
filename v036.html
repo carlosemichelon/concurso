@@ -214,7 +214,7 @@ try{
  const rr=await rx.json();if(rr.format!=='BancoMestreRespostasHistoricasF17V030'||rr.count!==9||Object.keys(rr.por_id||{}).length!==9)throw Error('Arquivo de respostas inconsistentes');
  answersF17=rr;
 }catch(e){console.warn('Respostas históricas indisponíveis, sem reconstrução',e);answersF17=null}
-const base=all.flat();if(base.length!==1494)throw Error('Base canônica alterada');const ijui=ij.cards.map(c=>({...c,provisional:true,discipline:'Legislação Ijuí — cópia operacional',subject:c.subject||'Lei anexa'}));cards=[...ijui,...base];for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){$('cardRows').textContent=e.message}}
+const base=all.flat();if(base.length!==1494)throw Error('Base canônica alterada');const ijui=ij.cards.map(c=>({...c,provisional:true,discipline:'Legislação de Ijuí',subject:c.subject||'Lei anexa'}));cards=[...ijui,...base];for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){$('cardRows').textContent=e.message}}
 
 function infoBlock(parent,title,text){
  if(text===undefined||text===null||text==='')return;
@@ -252,10 +252,10 @@ function cardRender(){
  $('cardCount').textContent=a.length+' cartões · frente/verso com guia metodológico quando disponível';
  const out=$('cardRows');out.replaceChildren();
  for(const c of a.slice(0,cardLimit)){
-  const off=h.has(c.id),x=card(c.front,c.id,c.discipline+' · '+c.subject+(c.provisional?' · proposta Ijuí sem SRS':'')+(off?' · oculto':'')),d=el('details');
+  const off=h.has(c.id),x=card(c.front,c.id,c.discipline+' · '+c.subject+(c.provisional?' · módulo de Ijuí':'')+(off?' · oculto':'')),d=el('details');
   d.append(el('summary','Revelar resposta, fundamento, guia e cobertura'));
   const ans=el('div',null,'answer');
-  infoBlock(ans,c.provisional?'Verso registrado na cópia operacional':'Resposta exata do cartão original',c.back||'Sem resposta cadastrada');
+  infoBlock(ans,c.provisional?'Resposta registrada — módulo Ijuí':'Resposta exata do cartão original',c.back||'Sem resposta cadastrada');
   infoBlock(ans,'Explicação da base',c.expl);
   infoBlock(ans,'Macete original',c.mnemonic);
   const gg=generalGuide?.por_id?.[c.id];
