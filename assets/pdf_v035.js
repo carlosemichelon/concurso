@@ -93,7 +93,14 @@ function markTool(name){
  inkCanvas.style.pointerEvents=tool==='pan'?'none':'auto';
 }
 function stroke(ctx,m,w,h){
- if(!m||!Array.isArray(m.points)||!m.points.length)return;
+ if(!m)return;
+ if(m.type==='rect'&&Array.isArray(m.box)&&m.box.length===4){
+  const b=m.box;ctx.save();ctx.globalAlpha=.32;
+  ctx.fillStyle=m.color||'#ffd400';
+  ctx.fillRect(Math.min(b[0],b[2])*w,Math.min(b[1],b[3])*h,Math.abs(b[2]-b[0])*w,Math.abs(b[3]-b[1])*h);
+  ctx.restore();return;
+ }
+ if(!Array.isArray(m.points)||!m.points.length)return;
  ctx.save();
  const isPen=m.type==='pen',opacity=isPen?1:.32;
  ctx.globalAlpha=opacity;ctx.lineCap='round';ctx.lineJoin='round';
@@ -257,7 +264,7 @@ async function exportPDF(){
   const lib=await pdflib(),pdfOutput=await lib.PDFDocument.load(sourceBytes.slice());
   const pages=pdfOutput.getPages();let count=0;
   for(let k=1;k<=pages.length;k++){
-   const strokes=annotations(k).filter(m=>m&&m.points?.length);
+   const strokes=annotations(k).filter(m=>m&&(m.points?.length||m.type==='rect'&&m.box?.length===4));
    if(!strokes.length)continue;
    const cv=document.createElement('canvas');cv.width=1400;cv.height=Math.round(1400*pages[k-1].getHeight()/Math.max(1,pages[k-1].getWidth()));
    const ctx=cv.getContext('2d');for(const mark of strokes)stroke(ctx,mark,cv.width,cv.height);
