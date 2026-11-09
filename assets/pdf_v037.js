@@ -357,6 +357,9 @@ if(peTools){
 markTool('marker');
 function openAndEdit(doc){
  pdfOpen(doc);
+ const local=String(doc.id||'').startsWith('LOCAL-');
+ $('pdfOriginal').hidden=local;
+ if(local){$('pdfFrame').src='about:blank';$('pdfIntro').textContent='PDF-guia original deste navegador. As marcações permanecem vinculadas a este arquivo. Exporte o PDF anotado como cópia de segurança.';}
  const storedFlag=localStorage.getItem('BM_PDF_HAS_SOURCE_V037:'+doc.id)==='1';
  if(storedFlag){
   storedFile(doc.id).then(record=>{
