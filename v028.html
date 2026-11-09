@@ -139,6 +139,11 @@ function legalCoverage(){
   b.c.append(el('p','Situação: '+x.dominio));
   grid.append(b.c);
  }wrap.append(grid);root.append(wrap);
+ for(const item of guideData.pendencias_pos_checkpoint||[]){
+   const n=el('div',null,'notice');
+   n.append(el('strong',item.questao_id+' — '+item.tema),el('p',item.evento+' · '+item.estado));
+   root.append(n);
+ }
 }
 function cardRender(){
  const h=hidden('CARD'),show=$('cardHidden').checked,q=fold($('cardSearch').value),f=$('cardFilter').value;
