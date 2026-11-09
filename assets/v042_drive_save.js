@@ -33,7 +33,14 @@ async function prepare(){
   });
   if(!cfg.client_id||!/^[A-Za-z0-9_-]+\.apps\.googleusercontent\.com$/.test(cfg.client_id))
    throw Error('Client ID OAuth não configurado.');
-  if(!window.google?.accounts?.oauth2?.initTokenClient)throw Error('Google Identity Services ainda não foi carregado. Recarregue a página.');
+  if(!window.google?.accounts?.oauth2?.initTokenClient){
+   await new Promise((resolve,reject)=>{
+    const sc=document.createElement('script');sc.src='https://accounts.google.com/gsi/client';sc.async=true;
+    sc.onload=resolve;sc.onerror=()=>reject(Error('Google Identity Services indisponível.'));
+    document.head.append(sc);
+   });
+  }
+  if(!window.google?.accounts?.oauth2?.initTokenClient)throw Error('Google Identity Services não inicializado.');
   client=google.accounts.oauth2.initTokenClient({
    client_id:cfg.client_id,
    scope:SCOPE,
@@ -115,7 +122,7 @@ async function checkOwnedCopy(item,doc,token){
 }
 function legalName(name){
  const safe=String(name||'PDF').replace(/[\\/:*?"<>|\x00-\x1f]/g,'_').slice(0,180);
- return safe.replace(/\.pdf$/i,'')+'_BANCO_MESTRE_ANOTADO.pdf';
+ return safe.replace(/(?:_ANOTADO)?\.pdf$/i,'')+'_BANCO_MESTRE_ANOTADO.pdf';
 }
 function validateSession(url){
  const u=new URL(url);
