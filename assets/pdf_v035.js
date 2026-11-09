@@ -9,7 +9,7 @@
 const $=id=>document.getElementById(id);
 const versionTag='V035';
 const DB_NAME='BancoMestrePDFLocalV035',STORE='sources';
-let selected=null,pdf=null,sourceBytes=null,info=null,pageNo=1,zoom=1,task=Promise.resolve(),serial=0,painting=false,tool='marker',draft=null,undo=new Map(),redo=new Map(),loadingLib=null,loadingSaveLib=null,dbPromise=null,exportBusy=false;
+let selected=null,pdf=null,sourceBytes=null,info=null,pageNo=1,zoom=1,task=Promise.resolve(),serial=0,painting=false,tool='marker',draft=null,undo=new Map(),redo=new Map(),loadingLib=null,loadingSaveLib=null,dbPromise=null,exportBusy=false,cachedSource=null;
 const pageCanvas=$('pdfLocalCanvas'),inkCanvas=$('pdfInkCanvas');
 const pageWrap=$('pdfPageWrap'),inkCtx=inkCanvas.getContext('2d');
 const menu=['pdfPrev','pdfNext','pdfZoomOut','pdfZoomIn','pdfDraw','pdfMarker','pdfEraser','pdfPan','pdfUndo','pdfRedo','pdfClearPage','pdfExportPNG','pdfExportPDF','pdfChangeFile'];
@@ -226,11 +226,15 @@ async function openCached(){
  if(!saved?.blob)return false;
  await openBytes(saved.blob,saved.name,false);return !!pdf;
 }
-async function enterEditor(){
+function enterEditor(){
  if(!selected)return;
  if(pdf){$('pdfLocalMode').classList.add('active');return}
- const cached=await openCached();if(cached)return;
- status('Para editar um PDF privado do Drive, selecione-o uma vez em seu computador. O PDF e as marcações ficam neste navegador.');
+ if(cachedSource?.id===selected.id&&cachedSource.blob){
+  openBytes(cachedSource.blob,cachedSource.name,false);return;
+ }
+ // Chamada síncrona no clique do usuário: navegadores podem bloquear o
+ // seletor de arquivos quando .click() ocorre após uma espera assíncrona.
+ status('Escolha uma cópia autorizada deste PDF uma vez. A edição é feita aqui, sem upload.');
  $('pdfFileInput').click();
 }
 function selectFile(file){
@@ -269,7 +273,7 @@ async function exportPDF(){
  finally{exportBusy=false;controls(!!pdf)}
 }
 function close(){
- serial++;const p=pdf;pdf=null;info=null;sourceBytes=null;selected=null;pageNo=1;undo.clear();redo.clear();draft=null;
+ serial++;const p=pdf;pdf=null;info=null;sourceBytes=null;selected=null;cachedSource=null;pageNo=1;undo.clear();redo.clear();draft=null;
  $('pdfLocalMode').classList.remove('active');$('pdfFrame').classList.remove('localHidden');$('pdfLocalTools').hidden=true;
  $('pdfFileInput').value='';$('pdfFileName').textContent='';$('pdfIntro').hidden=false;
  if(p)p.destroy().catch(()=>{});
@@ -277,7 +281,14 @@ function close(){
 const priorPdfOpen=pdfOpen;
 pdfOpen=function(doc){
  close();selected=doc;priorPdfOpen(doc);
- status('Para marcar o PDF no próprio site, clique em “Editar PDF”. Arquivos privados exigem seleção local inicial; depois podem reabrir neste navegador.');
+ $('pdfChooseLocal').textContent='✎ Editar PDF';
+ status('Para grifar e editar nesta página, clique em “Editar PDF”. Documentos privados do Drive precisam de seleção local inicial.');
+ storedFile(doc.id).then(record=>{
+  if(selected?.id!==doc.id||!record?.blob)return;
+  cachedSource={...record,id:doc.id};
+  $('pdfChooseLocal').textContent='✎ Continuar edição';
+  status('Cópia autorizada já salva neste navegador. Clique em “Continuar edição” para abrir as páginas e grifos.');
+ }).catch(()=>{});
 };
 $('pdfChooseLocal').onclick=enterEditor;
 $('pdfFileInput').onchange=e=>{const f=e.target.files?.[0];e.target.value='';selectFile(f)};
