@@ -93,6 +93,11 @@ function appendEdge(root,e,compact){
  box.append(tool);root.append(box);
 }
 function cardEvidence(id){return data?.edges.filter(e=>e.from===id||e.to===id)||[]}
+function countForSubject(group,subject){
+ if(!data)return 0;
+ const ids=new Set(data.card_nodes.filter(n=>n.group===group&&n.subject===subject).map(n=>n.id));
+ return data.edges.filter(e=>ids.has(e.from)||ids.has(e.to)).length;
+}
 function classifyLabel(id){return labels[id]||id}
 function renderCardSummary(parent){
  if(!data)return;
@@ -282,9 +287,10 @@ if(nav)nav.addEventListener('click',()=>renderDashboard());
 $('f17Search')?.addEventListener('input',renderDashboard);
 $('f17Mode')?.addEventListener('change',()=>{$('f17Kind').disabled=$('f17Mode').value!=='vinculos';renderDashboard()});
 $('f17Kind')?.addEventListener('change',renderDashboard);
-window.BM033Cross={ready,renderCardSummary,decorateCard,renderTopic,openDashboard,renderDashboard};
+window.BM033Cross={ready,renderCardSummary,decorateCard,renderTopic,openDashboard,renderDashboard,countForSubject};
 ready().then(()=>{
  if(document.querySelector('#cartoes.active')&&cards.length)cardRender();
+ if(document.querySelector('#assuntos.active')&&topicRows.length)topicRender();
  if(document.querySelector('#f17.active'))renderDashboard();
 }).catch(e=>console.warn('Mapa F17:',e));
 if(location.hash==='#f17'){section('f17');renderDashboard()}
