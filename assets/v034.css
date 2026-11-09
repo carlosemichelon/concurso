@@ -1,0 +1,93 @@
+
+/* V034 — imagem livre; controles compactos em painel lateral, sem sobreposição */
+#imageDialog{
+ width:min(1580px,98vw)!important;
+ height:min(94dvh,1040px)!important;
+ max-height:94dvh!important;
+ max-width:98vw!important;
+ overflow:hidden;
+ border-radius:14px;
+}
+#imageDialog[open]{display:flex;flex-direction:column}
+#imageDialog>.dhead{flex:0 0 auto;min-height:46px!important;padding:6px 13px!important}
+#imageDialog>.dhead strong{font-size:13px;max-width:calc(100% - 100px)}
+#imageDialog>.dbody{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) 220px;
+ grid-template-rows:auto minmax(0,1fr);
+ flex:1 1 auto;min-height:0!important;height:auto!important;
+ padding:0!important;gap:0;
+}
+#imageDialog .editor-tools{
+ grid-column:2;grid-row:1 / span 2;
+ display:flex!important;flex-direction:column;align-items:stretch;
+ justify-content:flex-start;flex-wrap:nowrap!important;
+ min-height:0;max-height:none!important;overflow-y:auto;overflow-x:hidden;
+ padding:9px 8px!important;gap:9px!important;
+ background:#f8fbfa;border-left:1px solid #cddad6;border-bottom:0!important;
+ position:static!important;z-index:auto!important;
+}
+#imageDialog .editor-tools .toolgroup{
+ border-right:0!important;border-bottom:1px solid #d9e4e2;
+ padding:0 0 9px!important;gap:5px;flex-wrap:wrap;
+ display:flex;align-items:center;justify-content:flex-start;
+}
+#imageDialog .editor-tools button{padding:5px 7px!important;min-height:30px!important;font-size:11px!important}
+#imageDialog .editor-tools .swatch{width:24px;height:24px;min-width:24px;min-height:24px}
+#imageDialog .editor-tools label{font-size:11px;max-width:100%}
+#imageDialog .editor-tools input[type=range]{width:82px}
+#imageDialog .editor-meta{
+ grid-column:1;grid-row:1;
+ border-bottom:1px solid #d1e1dd;
+ min-height:36px;max-height:100px;overflow-y:auto;
+ padding:5px 10px!important;gap:5px!important;
+ font-size:11px;position:relative!important;
+ z-index:2;
+}
+#imageDialog .editor-meta button,#imageDialog .editor-meta a{font-size:11px!important;padding:3px 7px!important;min-height:25px}
+#imageDialog #imageStage{
+ grid-column:1;grid-row:2;
+ min-height:0!important;height:auto!important;max-height:none!important;
+ overflow:auto;position:relative;z-index:1;
+ padding:12px;background:#d9e5e2;
+}
+#imageDialog #imageStage .canvases{margin:0 auto;max-width:none;vertical-align:top}
+#imageDialog #imageStage canvas{max-width:none!important;max-height:none!important}
+#imageDialog #grifo{touch-action:none}
+#imageDialog .v034-local-btn{background:#e3f1ec;border-color:#9fc5b7;font-size:12px!important}
+#imageDialog .editor-tools .toolgroup:last-child{border-bottom:0}
+#imageRows .v034-local{background:#e9f3ee;border-color:#b4d1bf}
+#imageRows .v034-origin{display:block;margin-top:8px;color:#20684e;font-size:12px}
+#imageRows .v034-drive{font-size:12px;padding:6px 8px}
+#imagens .originalHelp{font-size:13px;color:#456367;border-left:3px solid #b7d2ca;padding:8px 12px;margin:12px 0}
+#tema .v034SubjectOutline{background:#f4f9f7;border:1px solid #d6e5df;border-radius:11px;padding:13px;margin:8px 0 16px}
+#tema .v034SubjectOutline h3{font-size:16px;margin:3px 0 8px}
+#tema .v034TopicSummary{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+#tema .v034TopicSummary span{font-size:12px;border:1px solid #d7e5e1;background:#f7faf9;border-radius:7px;padding:5px 9px;color:#335a5e}
+#tema .v034Subtopic{margin:9px 0;border:1px solid #d3e2dc;border-radius:10px;background:white;padding:0}
+#tema .v034Subtopic>summary{font-size:15px;padding:12px 14px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+#tema .v034SubtopicBody{padding:10px 15px 15px}
+#tema .v034Concept{padding:12px 0;border-top:1px solid #e3eae7}
+#tema .v034Concept:first-child{border-top:0}
+#tema .v034Concept strong{color:#20515b;display:block;margin-bottom:5px}
+#tema .v034Concept p{white-space:pre-wrap;margin:4px 0 7px;font-size:14px;line-height:1.6}
+#tema .v034Concept button{font-size:12px;padding:4px 9px}
+#tema .v034Norms{display:flex;flex-wrap:wrap;gap:7px;padding-top:8px}
+#tema .v034Norms span{font-size:12px;border:1px solid #ccddda;border-radius:7px;background:#fff;padding:5px 8px}
+#tema .v034NextTopics{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+#tema .v034NextTopics button{font-size:12px;padding:6px 10px;border-radius:8px}
+@media(max-width:780px){
+ #imageDialog{width:99vw!important;max-width:99vw!important;height:96dvh!important;max-height:96dvh!important}
+ #imageDialog>.dbody{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr)}
+ #imageDialog .editor-tools{
+  grid-row:2;grid-column:1;max-height:125px!important;
+  display:flex!important;flex-direction:row;flex-wrap:wrap!important;
+  overflow:auto;align-content:flex-start;
+  padding:6px!important;border-left:0;border-bottom:1px solid #d5e2df!important;gap:4px!important;
+ }
+ #imageDialog .editor-tools .toolgroup{padding:0 7px 0 0!important;margin:0;border-right:1px solid #d5e2df!important;border-bottom:0}
+ #imageDialog .editor-tools button{font-size:10px!important;padding:4px 6px!important}
+ #imageDialog .editor-meta{grid-column:1;grid-row:1;max-height:80px}
+ #imageDialog #imageStage{grid-column:1;grid-row:3;padding:5px}
+ #imageDialog>.dhead{min-height:43px!important}
+}
