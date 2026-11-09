@@ -5,6 +5,20 @@
 (function(){
 'use strict';
 const INDEX_PATH='assets/imagens_assuntos_v032.json';
+const priorSetStatus=api.setStatus.bind(api),priorAllStatus=api.all.bind(api);
+const validP10=/^IMG-P10-\d{2}$/;
+api.setStatus=async function(id,status){
+ if(!validP10.test(id))return priorSetStatus(id,status);
+ if(status!=='visible'&&status!=='hidden')throw Error('Situação inválida');
+ localStorage.setItem('BM032_VIS_'+id,status);
+ return {id,status,updatedAt:new Date().toISOString()};
+};
+api.all=async function(){
+ const a=await priorAllStatus();
+ const r=[];
+ for(let n=1;n<=16;n++){const id='IMG-P10-'+String(n).padStart(2,'0');const status=localStorage.getItem('BM032_VIS_'+id);if(status)r.push({id,status})}
+ return [...a,...r];
+};
 let sourcePromise=null,applied=false;
 const validKey=/^IMG-(?:P10-)?[0-9]{1,4}$/;
 async function getIndex(){
@@ -78,6 +92,13 @@ loadTopics=async function(){
    }
   }
   for(const t of topicRows)t.imgCount=imagePerTopic.get(t.group+'|'+t.subject)||0;
+  for(const button of document.querySelectorAll('#areaRows button.topicCard')){
+    const area=button.querySelector('strong')?.textContent;
+    const a=topicRows.filter(t=>t.area===area);
+    const sum=a.reduce((n,t)=>n+(t.imgCount||0),0);
+    const count=button.querySelector('small');
+    if(count)count.textContent=a.length+' assuntos · '+sum+' associações visuais; clique para explorar.';
+  }
   const caption=document.querySelector('#assuntos .intro');
   if(caption)caption.textContent='Abra cada assunto para ler explicações, consultar imagens e PDFs e, quando houver, praticar os cartões. Alguns assuntos possuem imagens mesmo sem flashcards.';
   topicRender();
@@ -109,7 +130,8 @@ imgRender=async function(){
   const id=a.querySelector(':scope > .tag')?.textContent?.trim();
   const im=imgs.find(x=>x.no===id);if(!im?.external)continue;
   const target=a.querySelector('.buttons');
-  if(target&&!target.querySelector('.v032-open')){const b=action('Abrir e grifar',()=>imgOpen(im),'primary');b.classList.add('v032-open');target.prepend(b)}
+  if(target&&!target.querySelector('.v032-open')){const b=action('Abrir e grifar',()=>imgOpen(im),'primary');b.classList.add('v032-open');target.prepend(b);target.append(link('Original no Drive',im.source_url))}
+  const preview=a.querySelector('img.thumb');if(preview)preview.onerror=()=>{preview.alt='Prévia indisponível; abra pelo botão Original no Drive';preview.title=preview.alt};
  }
 };
 const route=location.hash.slice(1);
