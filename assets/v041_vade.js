@@ -67,6 +67,11 @@ async function fetchOriginal(){
  if(!/startxref\s*\d+\s*%%EOF\s*$/.test(tail))throw Error('Final do PDF ou tabela de referências inválida.');
  const blob=new Blob(parts,{type:'application/pdf'});
  if(blob.size!==rawTotal)throw Error('Não foi possível reconstruir o PDF completo.');
+ if(!crypto?.subtle)throw Error('Validação de integridade exige HTTPS ou navegador seguro.');
+ const hash=new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()));
+ const actual=[...hash].map(x=>x.toString(16).padStart(2,'0')).join('');
+ const expected='6eeac7822562b6944ea9c7587b6ecb28a575830a89eeb03861f9e1e7ebed7a39';
+ if(actual!==expected)throw Error('SHA-256 do arquivo diverge do PDF original validado; nada será carregado.');
  return blob;
 }
 function makeDownload(blob,name){
