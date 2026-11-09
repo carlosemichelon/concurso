@@ -66,6 +66,34 @@ const root=$('pdfAreaNavV036');
 if(root)root.before(ui);
 const button=$('driveConnectV038');if(button){button.onclick=authorize;button.disabled=true}
 inlineButton.onclick=authorize;inlineButton.disabled=true;
+// Na V042, "Editar PDF" deve usar o Drive, não abrir o seletor/baixar o original.
+// O seletor local continua disponível para PDFs importados sem file_id.
+const mainEdit=$('pdfChooseLocal'),localEdit=mainEdit?.onclick;
+if(mainEdit){
+ mainEdit.onclick=()=>{
+  const doc=window.BancoMestrePDFV042?.currentDoc;
+  if(doc?.file_id){
+   if(window.BancoMestrePDFV042?.editing){
+    notify('O PDF já está aberto para grifar nesta janela.');
+    return;
+   }
+   if(!client){
+    waitingDoc=doc;
+    notify('O Google Drive ainda está inicializando. Aguarde o botão Conectar Drive ficar disponível.');
+    showConnect(true);
+    return;
+   }
+   if(!token||expires<=Date.now()){
+    waitingDoc=doc;
+    notify('Autorizando leitura para editar o PDF diretamente neste site, sem download...');
+    authorize(); // clique real: preserva gesto do usuário exigido pelo OAuth.
+    return;
+   }
+   openAndEdit(doc);return;
+  }
+  if(typeof localEdit==='function')localEdit();
+ };
+}
 prepare().then(ok=>{
  if(!button)return;
  if(ok){button.disabled=false;inlineButton.disabled=false;notify('Conexão Google pronta. Autorize esta página para abrir PDFs privados do Drive.')}
@@ -91,12 +119,14 @@ async function openAndEdit(doc){
   // Anotações + cópia autorizada já guardadas: um clique, sem login nem seleção.
   if(await window.BancoMestrePDFV038.openStored(doc)){waitingDoc=null;showConnect(false);notify('PDF-guia restaurado. Suas marcações antigas permanecem nas páginas originais.');return}
   if(!client){
+   if($('pdfChooseLocal'))$('pdfChooseLocal').textContent='✎ Editar aqui (Drive)';
    window.BancoMestrePDFV038.openPreview(doc);
    waitingDoc=doc;showConnect(true);
    notify('Espere carregar o Google e clique em “Conectar Drive e editar esta lei” nesta janela.');
    return;
   }
   if(!token||expires<=Date.now()){
+   if($('pdfChooseLocal'))$('pdfChooseLocal').textContent='✎ Editar aqui (Drive)';
    window.BancoMestrePDFV038.openPreview(doc);
    waitingDoc=doc;showConnect(true);
    notify('Esta página precisa de autorização de leitura. Clique em “Conectar Drive e editar esta lei” nesta janela; após autorizar, a lei abrirá automaticamente.');
@@ -105,6 +135,7 @@ async function openAndEdit(doc){
   notify('Carregando o PDF original autorizado diretamente para o editor…');
   const blob=await fetchPDF(doc);
   await window.BancoMestrePDFV038.openFromDrive(doc,blob);
+  if($('pdfChooseLocal'))$('pdfChooseLocal').textContent='✎ Edição ativa';
   waitingDoc=null;showConnect(false);
   notify('PDF original aberto no editor. Caneta, grifo, borracha, notas e vínculos CARD serão salvos automaticamente. Não precisa baixar nada.');
  }catch(e){
