@@ -1,0 +1,41 @@
+name: Diagnóstico GitHub Pages V042
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - '.github/workflows/diagnostico-pages-v042.yml'
+  workflow_dispatch:
+jobs:
+  verificar-publicacao:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Conferir origem configurada do Pages
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          curl -sSL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/carlosemichelon/concurso/pages > /tmp/pages-config.json
+          python3 - <<'PY'
+          import json
+          try:
+              d=json.load(open('/tmp/pages-config.json'))
+              print('PAGES-CONFIG',json.dumps({k:d.get(k) for k in ('status','url','html_url','source','build_type','message')},ensure_ascii=False))
+          except Exception as e:print('PAGES-INFO-INACCESSIBLE',type(e).__name__)
+          PY
+      - name: Conferir resposta dos arquivos públicos
+        run: |
+          python3 - <<'PY'
+          import urllib.request, urllib.error
+          base='https://carlosemichelon.github.io/concurso/'
+          for path in ('','v041.html','v042.html','assets/v042_drive_save.js','assets/pdf_v042.js'):
+              url=base+path+'?probe=20261109_v042'
+              req=urllib.request.Request(url,headers={'User-Agent':'BancoMestrePagesDiagnostico/1.0','Cache-Control':'no-cache'})
+              try:
+                  with urllib.request.urlopen(req,timeout=20) as r:
+                      start=r.read(220).decode('utf-8',errors='replace')
+                      print('PUBLIC-STATUS',path or '/',r.status,'URL',r.url,'TYPE',r.headers.get('Content-Type'),'PREFIX',repr(start[:100]))
+              except urllib.error.HTTPError as e:print('PUBLIC-STATUS',path or '/',e.code,'URL',e.url)
+              except Exception as e:print('PUBLIC-ERROR',path or '/',type(e).__name__,str(e)[:150])
+          PY
