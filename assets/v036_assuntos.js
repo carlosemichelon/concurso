@@ -38,7 +38,7 @@ function matching(){
  });
 }
 function topicTile(t){
- const box=btn('',()=>openTopic(t),'v036-topic-tile');
+ const box=btn('',()=>window.BancoMestreV034.openTopic(t),'v036-topic-tile');
  const info=detail(t);
  const top=n('div','v036-topic-label',t.area);
  const title=n('strong','v036-topic-name',t.subject);
@@ -114,6 +114,7 @@ function subjectFilterOptions(){
 }
 const previousCardRender=cardRender;
 cardRender=function(){
+ if($('cardSearch').value.trim().match(/^(?:CARD-\d{4}|IJUI-[\w-]+)$/i)||focusGroup){if($('cardTopicFilter'))$('cardTopicFilter').value='all'}
  subjectFilterOptions();
  previousCardRender();
  const root=$('cardRows');if(!root)return;
@@ -157,10 +158,10 @@ const oldSearch=$('cardSearch').oninput;
 $('cardSearch').oninput=()=>{const sel=$('cardTopicFilter');if(sel)sel.value='all';oldSearch?.()};
 $('cardFilter').onchange=()=>{focusGroup='';cardLimit=24;subjectFilterOptions();cardRender()};
 $('cardTopicFilter').onchange=()=>{focusGroup='';cardLimit=24;cardRender()};
-const originalGoto=gotoCard;
-gotoCard=function(id){if($('cardTopicFilter'))$('cardTopicFilter').value='all';return originalGoto(id)};
-const originalTopic=openTopic;
-openTopic=async function(t){
+const originalGoto=window.BancoMestreV034.gotoCard;
+window.BancoMestreV034.gotoCard=function(id){if($('cardTopicFilter'))$('cardTopicFilter').value='all';return originalGoto(id)};
+const originalTopic=window.BancoMestreV034.openTopic;
+window.BancoMestreV034.openTopic=async function(t){
  if($('cardTopicFilter'))$('cardTopicFilter').value='all';
  await originalTopic(t);
  const guide=$('topicStudyBlocks');
@@ -173,7 +174,7 @@ openTopic=async function(t){
   guide.before(panel);
  }else if($('topicExpandV036'))$('topicExpandV036').remove();
 };
-window.BancoMestreAssuntosV036={topicRender,cardRender,openTopic};
+window.BancoMestreAssuntosV036={topicRender,cardRender,openTopic:window.BancoMestreV034.openTopic};
 if(topicRows.length)topicRender();
 if(cards.length)cardRender();
 })();
