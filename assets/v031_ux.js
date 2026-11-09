@@ -42,6 +42,20 @@ function relationGroup(parent,title,items,subtitle){
  for(const item of items){row.append(chip(item.label||item.id,()=>gotoCard(item.id)))}
  div.append(row);parent.append(div);
 }
+
+function foldAnswer(ans){
+ const sets=[
+  ['Meu histórico e correções',/Tentativa|Histórico formal|RESPOSTA DISCURSIVA|Conhecimentos demonstrados|Conhecimentos parciais|Erros corrigidos|Lacunas identificadas|Complementações da correção|Macete da revisão|Cobertura cruzada informada|IDs de cobertura|Classificação histórica|Observação de rastreabilidade|Precisão do registro|Próxima revisão|Observações originais|Pendências de conciliação|Precisão da fonte|Resposta discursiva integral/i],
+  ['Fontes, versões e rastreabilidade',/Referência da base|Referência de PDF|Fundamento da proposta|PDF original|Origem da questão|Situação editorial|Subassunto|Prioridade histórica/i],
+  ['Aprofundamento e evoluções',/Evoluções complementares|Perguntas evolutivas/i]
+ ];
+ for(const [name,re] of sets){
+  const picked=[...ans.children].filter(n=>n.classList?.contains('richSection')&&re.test(n.querySelector('h4')?.textContent||''));
+  if(!picked.length)continue;
+  const d=document.createElement('details');d.className='answerFold';const s=document.createElement('summary');s.textContent=name+' ('+picked.length+')';d.append(s);
+  const b=document.createElement('div');b.className='answerFoldBody';for(const n of picked)b.append(n);d.append(b);ans.append(d);
+ }
+}
 function enhancedCard(article){
  const id=idOf(article),c=cards.find(x=>x.id===id);if(!c)return;
  const ans=article.querySelector('.answer');if(!ans)return;
@@ -60,7 +74,7 @@ function enhancedCard(article){
  if(!confirmed.length)addPara(ans,'Sem vínculo cruzado documentado para este ID nos registros F17/F14-F16 disponíveis. Isso não significa ausência de relação conceitual.');
  const buttons=article.querySelector('.buttons');
  const t=findTopic(c);if(t&&buttons)buttons.prepend(chip('Abrir guia do assunto',()=>openTopic(t)));
- linkReferences(ans);linkReferences(article.querySelector('h3'));
+ linkReferences(ans);linkReferences(article.querySelector('h3'));foldAnswer(ans);
 }
 const priorCardRender=cardRender;
 cardRender=function(){priorCardRender();byId('coverageSummary').replaceChildren();
