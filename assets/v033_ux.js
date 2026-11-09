@@ -77,17 +77,16 @@ function enhancedCard(article){
 
  // V033: evidência direcional e tipologia explícita de cobertura.
  // Nunca confundir referência temática com nova revisão ou domínio demonstrado.
- if(window.BM033Cross?.decorateCard)window.BM033Cross.decorateCard(article,c,ans);
- else addPara(ans,'Auditoria cruzada F17: carregando índice de evidências e referências.');
+ // A rede F17 é inserida após a renderização pelo módulo de auditoria.
  const buttons=article.querySelector('.buttons');
  const t=findTopic(c);if(t&&buttons)buttons.prepend(chip('Abrir guia do assunto',()=>openTopic(t)));
  linkReferences(ans);linkReferences(article.querySelector('h3'));foldAnswer(ans);
 }
 const priorCardRender=cardRender;
 cardRender=function(){priorCardRender();byId('coverageSummary').replaceChildren();
- const header=document.createElement('p');header.className='notice';header.textContent='Cobertura cruzada = relações entre conhecimentos da base. Vínculos comprovados aparecem por ID; cartões semelhantes são apenas sugestões de consulta. Nenhum evento novo é lançado no SRS.';
+ const header=document.createElement('p');header.className='notice';header.textContent='Cobertura cruzada = relações entre conhecimentos da base. Arestas do F17 têm fontes e graus de evidência distintos; mesmo assunto não prova cobertura. Nenhuma tentativa nem evento SRS é gerado.';
  byId('coverageSummary').append(header);
- if(window.BM033Cross?.renderCardSummary)window.BM033Cross.renderCardSummary(byId('coverageSummary'));
+ // O resumo detalhado fica na aba Auditoria F17.
  for(const a of byId('cardRows').querySelectorAll('article.card'))enhancedCard(a);
 };
 function makeTopicNote(title,subtitle,text){
@@ -160,8 +159,8 @@ async function openTopic(t){
   const rel=byId('topicRelated');rel.replaceChildren();
   addTitle(rel,'Conexões dentro do Banco Mestre');
 
-  if(window.BM033Cross?.renderTopic)await window.BM033Cross.renderTopic(t,subset,rel);
-  else addPara(rel,'Carregando conexões por evidência F17. A consulta de imagens e PDFs permanece disponível.');
+  if(window.BancoMestreF17?.renderForTopic)await window.BancoMestreF17.renderForTopic(t);
+  else addPara(rel,'Rede F17 indisponível neste momento; materiais e cartões seguem acessíveis.');
   const bt=byId('topicGoCards');bt.hidden=!subset.length;bt.onclick=()=>{focusGroup=t.group;byId('cardSearch').value=t.subject==='Ijuí — legislação FUNDATEC'?'':t.subject;byId('cardFilter').value='all';cardLimit=24;section('cartoes');cardRender()};
   byId('topicBack').onclick=()=>section('assuntos');
   scrollTo({top:0,behavior:'smooth'});
