@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banco Mestre V043 — PDF com ferramentas compactas</title>
+<style>body{font:16px/1.5 system-ui,Arial,sans-serif;margin:5rem auto;max-width:48rem;padding:0 1.5rem;color:#17353b}a{color:#17616a}</style>
+</head><body>
+<h1>Banco Mestre V043</h1><p id="status">Carregando o editor PDF compacto…</p>
+<p><a href="v042.html">Voltar à V042 sem o novo layout</a></p>
+<script>
+(async()=>{
+ try{
+  const r=await fetch('./v041.html',{cache:'no-store'});
+  if(!r.ok)throw Error('A base do editor não está disponível (HTTP '+r.status+')');
+  let source=await r.text();
+  if(!source.includes('assets/pdf_v038.js')||!source.includes('assets/v041_vade.js'))throw Error('Versão base inesperada');
+  source=source.replace(/V041/g,'V043');
+  source=source.replace('assets/pdf_v038.js','assets/pdf_v042.js?v=v043compact');
+  source=source.replace('assets/drive_direct_v038.js','assets/drive_direct_v042.js?v=v043compact');
+  source=source.replace('</head>','<link rel="stylesheet" href="assets/v043_pdf_compact.css?v=1"></head>');
+  source=source.replace('<script src="assets/v041_vade.js"></'+'script>',
+     '<script src="assets/v041_vade.js"></'+'script>'+
+     '<script src="assets/v042_drive_save.js"></'+'script>'+
+     '<script src="assets/v043_pdf_compact.js?v=1"></'+'script>');
+  if(!source.includes('assets/v043_pdf_compact.js')||!source.includes('assets/v042_drive_save.js'))throw Error('Módulos do editor compacto ausentes');
+  document.open();document.write(source);document.close();
+ }catch(e){document.getElementById('status').textContent='Falha ao carregar a V043: '+e.message}
+})();
+</script>
+</body></html>
