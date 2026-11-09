@@ -164,6 +164,24 @@ const originalTopic=window.BancoMestreV034.openTopic;
 window.BancoMestreV034.openTopic=async function(t){
  if($('cardTopicFilter'))$('cardTopicFilter').value='all';
  await originalTopic(t);
+ // Leitura opcional da mesma disciplina: vínculo editorial, não prova de cobertura.
+ const media=$('topicMedia');
+ if(media&&docs.length){
+  const titles=new Set(norm(t.subject).split(/[^a-z0-9]+/).filter(w=>w.length>=5&&
+   !['engenharia','assuntos','concreto','normas','gerais','estruturas','materiais'].includes(w)));
+  const list=docs.filter(d=>d.category===t.group)
+   .map(d=>({doc:d,score:[...titles].filter(w=>norm(d.title).includes(w)).length}))
+   .sort((a,b)=>b.score-a.score||a.doc.title.localeCompare(b.doc.title,'pt-BR'))
+   .filter(x=>!media.textContent.includes(x.doc.id)).slice(0,5);
+  if(list.length){
+   const box=n('div','v036-topic-pdfs');
+   box.append(n('h3','','Capítulos e PDFs da mesma disciplina'));
+   box.append(n('p','v036-topic-pdf-note','Relação pela classificação do acervo; não significa que o capítulo cubra integralmente este cartão.'));
+   const row=n('div','v036-topic-pdf-links');
+   for(const item of list)row.append(btn(item.doc.title,()=>pdfOpen(item.doc),'v036-topic-pdf-link'));
+   box.append(row);media.append(box);
+  }
+ }
  const guide=$('topicStudyBlocks');
  if(!guide)return;
  const subtopics=[...guide.querySelectorAll('.v034Subtopic')];
