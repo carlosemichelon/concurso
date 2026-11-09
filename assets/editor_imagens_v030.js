@@ -98,6 +98,7 @@ function zoomTo(next,at){
  stage.scrollLeft=Math.max(0,px*scale-ax);stage.scrollTop=Math.max(0,py*scale-ay);
 }
 function fit(){zoomTo(Math.min((stage.clientWidth-26)/sourceW,(stage.clientHeight-26)/sourceH));stage.scrollLeft=0;stage.scrollTop=0;}
+function fitWidth(){zoomTo(clamp((stage.clientWidth-24)/sourceW,.2,3));stage.scrollLeft=0;stage.scrollTop=0;}
 function erase(p){let i=findStroke(p);if(i<0)return;
  if(!working?.changed){checkpoint();working={type:'eraser',changed:true}}
  strokes.splice(i,1);selected.clear();draw();save();}
@@ -160,7 +161,7 @@ async function open({image,imageId:targetId,title,quality,sourceUrl,warning,onEx
  $('originalDriveLink').hidden=!sourceUrl;if(sourceUrl)$('originalDriveLink').href=sourceUrl;
  $('imageWarning').textContent=warning||'Originais preservados. Grifos salvos apenas neste navegador.';
  setTool('highlighter');setColor('#ffd400');draw();dialog.showModal();
- requestAnimationFrame(()=>{fit();draw();canvas.focus({preventScroll:true})});
+ requestAnimationFrame(()=>{fitWidth();draw();canvas.focus({preventScroll:true})});
 }
 function close(){imageId=null;working=null;onExclude=null;selected.clear();undo=[];redo=[];pinch=null;fingers.clear()}
 for(const b of document.querySelectorAll('#imageDialog [data-ink-tool]'))b.onclick=()=>setTool(b.dataset.inkTool);
@@ -168,7 +169,7 @@ for(const b of document.querySelectorAll('#imageDialog [data-ink-color]'))b.oncl
 $('inkColor').oninput=e=>setColor(e.target.value);
 $('inkWidth').oninput=e=>{size=clamp(Number(e.target.value),1,40);$('widthValue').textContent=size+' px'};
 $('zoomOutImage').onclick=()=>zoomTo(scale/1.3);$('zoomInImage').onclick=()=>zoomTo(scale*1.3);
-$('zoomFitImage').onclick=fit;$('zoomActualImage').onclick=()=>zoomTo(1);
+$('zoomFitImage').onclick=fit;$('zoomWidthImage').onclick=fitWidth;$('zoomActualImage').onclick=()=>zoomTo(1);
 $('undo').onclick=()=>applyHistory('undo');$('redo').onclick=()=>applyHistory('redo');
 $('deleteSelected').onclick=deleteSelected;$('imgClose').onclick=()=>dialog.close();
 $('hideOpened').onclick=async()=>{if(!imageId||!onExclude)return;try{await onExclude(imageId);dialog.close()}catch(e){note('Erro ao ocultar: '+e.message)}};
