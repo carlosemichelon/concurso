@@ -1,0 +1,13 @@
+
+/* V032: documentação visual por assunto com origem e confiança aparente */
+#tema .topicVisualGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:12px;margin:14px 0 18px}
+#tema .topicVisualCard{border:1px solid #d0e0dc;border-radius:11px;padding:10px;background:white;min-width:0;display:flex;flex-direction:column;gap:6px}
+#tema .topicVisualCard img{height:145px;width:100%;object-fit:contain;background:#f2f6f4;border:1px solid #e2e9e5;border-radius:8px;cursor:zoom-in}
+#tema .topicVisualCard img.imageMissing{opacity:.5}
+#tema .topicVisualCard p{margin:0;font-size:13px;line-height:1.45;font-weight:650;overflow-wrap:anywhere}
+#tema .topicVisualCard small{font-size:11px;color:#586f70}
+#tema .topicVisualCard .media-ref{align-self:start}
+#tema .topicVisualCard .chipLinks button{font-size:11px;padding:3px 8px}
+#assuntos .topicCard small{line-height:1.5}
+#imageRows .thumb{cursor:zoom-in}
+@media(max-width:600px){#tema .topicVisualGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#tema .topicVisualCard img{height:125px}}
