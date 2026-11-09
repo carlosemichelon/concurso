@@ -32,7 +32,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-si
 <form class="searchbox" id="searchForm"><input id="search" type="search" autocomplete="off" placeholder="Ex.: concreto armado, NR-18, topografia, crase, rodovias..." aria-label="Buscar assunto"/><button type="submit">Buscar assunto</button></form>
 <div class="heroStats"><span id="statCards">Carregando cartões…</span><span id="statImages">Imagens…</span><span id="statManuscript">Manuscrito…</span><span id="statSrs">Registros SRS: não importados</span></div></section>
 <div class="notice">Os conteúdos do acervo são uma cópia pública da base V015, não uma sincronização ao vivo com a planilha. Os registros de revisão SRS só aparecem após importação local da planilha; PDFs e manuscritos privados permanecem no Drive ou neste navegador.</div>
-<section id="topics"><h2 class="sectionTitle">Comece por uma área</h2><div id="areas" class="grid"></div><h2 class="sectionTitle">Assuntos do Banco Mestre</h2><p class="meta">Selecione uma área ou busque uma palavra para localizar todas as relações disponíveis.</p><div id="topicsGrid" class="grid"></div></section>
+<section id="topics"><h2 class="sectionTitle">Comece por uma área</h2><div id="areas" class="grid"></div><h2 class="sectionTitle">Assuntos do Banco Mestre</h2><p class="meta">Selecione uma área ou busque uma palavra para localizar todas as relações disponíveis.</p><div id="topicsGrid" class="grid"></div><div class="links"><button class="btn" id="allTopics" type="button">Mostrar todos os assuntos</button></div></section>
 <section id="results" hidden><div class="row"><h2 id="resultTitle" class="sectionTitle">Assuntos encontrados</h2><button id="clearSearch" class="btn">Limpar busca</button></div><p id="resultCount" class="meta"></p><div id="resultList" class="grid"></div></section>
 <section id="detail" hidden><div class="row"><button id="back" class="btn ghost">← Voltar aos assuntos</button><span class="pill" id="detailArea"></span></div><h2 id="detailTitle"></h2><p id="detailSub"></p>
 <div class="links"><a id="openAllCards" class="btn primary">Ver todos os cartões</a><a id="openAllImages" class="btn">Abrir imagens e prints</a><a id="openManuscript" class="btn">Ver manuscrito</a><a href="./estudo-ativo-v022.html" class="btn">Biblioteca de PDFs</a></div>
@@ -67,7 +67,7 @@ function buildTopics(){
  topics.sort((a,b)=>findGroup(a.group).localeCompare(findGroup(b.group),'pt-BR')||a.title.localeCompare(b.title,'pt-BR'));
 }
 function topicHtml(t,info=''){return '<button class="tile" data-key="'+esc(t.key)+'"><span class="n">'+esc(findGroup(t.group))+'</span><strong>'+esc(t.title)+'</strong><small>'+t.cards.length+' cartões · '+t.imageCount+' imagens do grupo · '+t.chapters.length+' capítulo(s) relacionado(s)</small>'+(info?'<small>'+esc(info)+'</small>':'')+'</button>'}
-function drawTopics(){const frequent=[...topics].sort((a,b)=>b.cards.length-a.cards.length).slice(0,18);$('topicsGrid').innerHTML=frequent.map(t=>topicHtml(t)).join('');activateTopics($('topicsGrid'))}
+function drawTopics(all=false){const rows=all?topics:[...topics].sort((a,b)=>b.cards.length-a.cards.length).slice(0,18);$('topicsGrid').innerHTML=rows.map(t=>topicHtml(t)).join('');activateTopics($('topicsGrid'));$('allTopics').hidden=all}
 function activateTopics(el){el.querySelectorAll('[data-key]').forEach(b=>b.onclick=()=>selectTopic(b.dataset.key))}
 function performSearch(q,area=''){
  q=q.trim();$('search').value=q;current=null;$('detail').hidden=true;
@@ -132,7 +132,7 @@ function readSRSRows(rows){
  if(head<0)throw Error('Não encontrei as colunas ID, Tentativas e Avaliação na aba SRS.');
  const h=rows[head].map(norm),col=k=>h.findIndex(x=>x===norm(k));const ids=new Set(cards.map(c=>c.id)),out={};
  for(const row of rows.slice(head+1)){const id=String(row[col('ID')]||'').trim();if(!ids.has(id))continue;
- out[id]={attempts:String(row[col('Tentativas')]||'0'),rating:String(row[col('Avaliação')]||''),last:String(row[col('Última revisão')]||''),next:String(row[col('Próxima revisão')]||''),status:String(row[col('Estado')]||'')};}return out;
+ const attempts=String(row[col('Tentativas')]||'0'),rating=String(row[col('Avaliação')]||'').trim();if(!(Number(attempts)>0||rating))continue;out[id]={attempts,rating,last:String(row[col('Última revisão')]||''),next:String(row[col('Próxima revisão')]||''),status:String(row[col('Estado')]||'')};}return out;
 }
 async function uploadSRS(file){
  let rows=[];if(/\.csv$/i.test(file.name))rows=parseCSV(await file.text());
@@ -141,7 +141,7 @@ async function uploadSRS(file){
  const parsed=readSRSRows(rows);if(!Object.keys(parsed).length)throw Error('Nenhum ID de cartão da base V015 foi reconhecido.');
  srs=parsed;localStorage.setItem('BancoMestre_SRS_V022',JSON.stringify(srs));updateSrsStatus('Importado de '+file.name);if(current&&tab==='records')drawDetail();
 }
-function updateSrsStatus(extra=''){const n=Object.keys(srs).length;$('statSrs').textContent=n+' registros SRS locais';$('srsStatus').textContent=n?n+' cartões vinculados por ID à base V015. '+extra:'Nenhum registro de revisão importado neste navegador.';}
+function updateSrsStatus(extra=''){const n=Object.keys(srs).length;$('statSrs').textContent=n+' registros SRS locais';$('srsStatus').textContent=n?n+' cartões com revisão realizada, vinculados por ID à base V015. '+extra:'Nenhum registro de revisão importado neste navegador.';}
 function downloadSrs(){const blob=new Blob([JSON.stringify({format:'BancoMestre_SRS_Local_V022',records:srs},null,2)],{type:'application/json'}),a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download='BACKUP_SRS_LOCAL_V022.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),2000)}
 async function init(){
  try{[meta,manu]=await Promise.all([getJSON('meta_v021.json'),getJSON('manuscrito_indice_v021.json')]);if(meta.base!=='V015'||meta.counts.cards!==1494||manu.chapters.length!==34)throw Error('Base ou índice incompatível');
@@ -151,7 +151,7 @@ async function init(){
  const qp=new URLSearchParams(location.search);if(qp.has('tema'))selectTopic(qp.get('tema'),false);else if(qp.has('busca')||qp.has('area'))performSearch(qp.get('busca')||'',qp.get('area')||'');
  }catch(e){$('topicsGrid').innerHTML='<div class="empty">Não foi possível carregar a base: '+esc(e.message)+'</div>';$('statCards').textContent='Falha no catálogo';}
 }
-$('searchForm').onsubmit=e=>{e.preventDefault();performSearch($('search').value)};
+$('searchForm').onsubmit=e=>{e.preventDefault();performSearch($('search').value)};$('allTopics').onclick=()=>drawTopics(true);
 $('clearSearch').onclick=()=>performSearch('');$('back').onclick=()=>performSearch('');
 document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));drawDetail()});
 $('srsInput').onchange=async e=>{const f=e.target.files[0];if(f)try{await uploadSRS(f)}catch(err){alert('Falha ao importar a planilha SRS: '+err.message)}e.target.value=''};
