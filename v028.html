@@ -50,7 +50,7 @@ footer{font-size:12px;color:var(--sub);margin-top:30px}
 'use strict';
 const $=id=>document.getElementById(id),fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const api=window.BancoMestreImagens;let docs=[],meta=null,cards=[],imgs=[],cardLimit=24,imgLimit=24,loadedCards=false,loadedImages=false;
-let guideData=null,origMap={},focusGroup='',topicRows=[],imgScale=1,imgW=0,imgH=0;
+let guideData=null,generalGuide=null,origMap={},focusGroup='',topicRows=[],imgScale=1,imgW=0,imgH=0;
 let shards={},opened=null,marks=[],draft=null;
 function el(tag,text,cls){const x=document.createElement(tag);if(text!==null)x.textContent=text;if(cls)x.className=cls;return x}
 function action(label,fn,cl){const b=el('button',label,cl||'');b.onclick=fn;return b}
@@ -112,6 +112,7 @@ $('topicSearch').oninput=topicRender;$('topicArea').onchange=topicRender;
 
 async function loadMeta(){if(meta)return meta;const r=await fetch('assets/meta_v021.json');if(!r.ok)throw Error('Metadados indisponíveis');meta=await r.json();return meta}
 async function loadCards(){if(loadedCards)return;loadedCards=true;try{const m=await loadMeta(),all=await Promise.all(m.card_files.map(async f=>{const r=await fetch('assets/'+f);if(!r.ok)throw Error('Falta '+f);return r.json()}));const ijR=await fetch('assets/ijui_flashcards_operacionais_v027.json',{cache:'no-store'});if(!ijR.ok)throw Error('Flashcards de Ijuí indisponíveis');const ij=await ijR.json();if(ij.cards.length!==22||ij.format!=='BancoMestreIjuíInc001V027')throw Error('Cópia operacional de Ijuí incompatível');try{const guideRes=await fetch('assets/guias_ijui_v028.json',{cache:'no-store'});if(guideRes.ok){guideData=await guideRes.json();if(guideData.contagens.modelos!==11||guideData.contagens.macetes!==41)throw Error('Guias de Ijuí incompletos')}}catch(e){console.warn('Guia complementar não foi carregado:',e);guideData=null}
+try{const r=await fetch('assets/guia_geral_v028.json',{cache:'no-store'});if(r.ok){const g=await r.json();if(g.contagens.cartoes===1494)generalGuide=g}}catch(e){console.warn('Metadados da base V015 indisponíveis:',e)}
 const base=all.flat();if(base.length!==1494)throw Error('Base canônica alterada');const ijui=ij.cards.map(c=>({...c,provisional:true,discipline:'Legislação Ijuí — cópia operacional',subject:c.subject||'Lei anexa'}));cards=[...ijui,...base];for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){$('cardRows').textContent=e.message}}
 
 function infoBlock(parent,title,text){
@@ -151,6 +152,9 @@ function cardRender(){
   infoBlock(ans,c.provisional?'Verso registrado na cópia operacional':'Resposta exata do cartão original',c.back||'Sem resposta cadastrada');
   infoBlock(ans,'Explicação da base',c.expl);
   infoBlock(ans,'Macete original',c.mnemonic);
+  const gg=generalGuide?.por_id?.[c.id];
+  if(gg?.ref)infoBlock(ans,'Referência da base geral V015',gg.ref);
+  if(gg?.evolucoes?.length)infoList(ans,'Evoluções complementares registradas em P08',gg.evolucoes,e=>e.id+' — '+e.pergunta+' | '+e.resposta_complementar+' · '+e.origem);
   if(c.sub)infoBlock(ans,'Subassunto',c.sub);
   if(c.prior)infoBlock(ans,'Prioridade histórica na base (não é nota SRS)',c.prior);
   if(c.provisional){
