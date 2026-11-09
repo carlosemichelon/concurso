@@ -89,6 +89,7 @@ if(fileInput)fileInput.onchange=async function(){
  }catch(e){alert('Imagem ilegível: '+e.message);return}
  finally{URL.revokeObjectURL(url)}
  try{await write(x.no,file)}catch(e){console.warn('Original não persistiu:',e);alert('A fonte abrirá, mas não pôde ser armazenada para acessos futuros.')}
+ const oldModal=byId('imageDialog');if(oldModal?.open)oldModal.close();
  await localOpen(x,{blob:file,name:file.name});
 };
 const previousImgOpen=imgOpen;
