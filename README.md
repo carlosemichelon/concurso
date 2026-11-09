@@ -1,2 +1,3 @@
-# Banco Mestre — Publicação GitHub Pages
-Portal web de consulta V010. Conteúdo montado a partir de 18 fragmentos estáticos em `assets/` para contornar limites de envio. Não contém as 252 páginas privadas do manuscrito nem links diretos para a base privada do Drive. A biblioteca inclui 1.375 flashcards, 1.388 conhecimentos e 156 miniaturas de imagens, várias com auditoria técnica pendente. O sistema é apenas de consulta; o SRS principal e a governança PMS-1 permanecem no Google Drive. Versão do portal V010 não é a Parte 10 dos estudos Petrobras.
+# Banco Mestre V015 — edição pública leve
+
+HTML inicial e dados separados em assets. Sem manuscrito, links Drive privados ou SRS. Para imagens integrais, usar a versão privada V014 no Drive.
