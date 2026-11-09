@@ -23,7 +23,7 @@
     "archived_responses": 9,
     "distinct_primary_cards": 22,
     "audited_indirect_edges": 7,
-    "archived_mention_edges": 26,
+    "archived_mention_edges": 28,
     "proposal_evolutions": 9,
     "proposal_related_ids": 10,
     "distinct_graph_cards": 41,
@@ -33,10 +33,12 @@
       "associado_sem_tentativa": 3,
       "citacao_sem_grau": 13,
       "parcial_informada": 5,
-      "direta_informada": 2,
-      "nao_avaliado": 6
+      "indireta_informada": 1,
+      "direta_informada": 1,
+      "nao_avaliado": 7,
+      "nao_demonstrada": 1
     },
-    "cross_subject_edges": 14
+    "cross_subject_edges": 16
   },
   "nodes": [
     {
@@ -1044,7 +1046,7 @@
       "from": "CARD-0095",
       "to": "CARD-0099",
       "kind": "resposta_arquivada",
-      "classification": "direta_informada",
+      "classification": "indireta_informada",
       "level": "relato_historico_a_conferir",
       "evidence": "CARD-0099: indireta demonstrada por impactos excepcionais.",
       "source": "assets/f17_respostas_9_v030.json",
@@ -1104,7 +1106,7 @@
       "from": "CARD-0101",
       "to": "CARD-0100",
       "kind": "resposta_arquivada",
-      "classification": "nao_avaliado",
+      "classification": "nao_demonstrada",
       "level": "relato_historico_a_conferir",
       "evidence": "CARD-0100 associação contextual não demonstrada na resposta",
       "source": "assets/f17_respostas_9_v030.json",
@@ -1116,7 +1118,7 @@
       "kind": "resposta_arquivada",
       "classification": "nao_avaliado",
       "level": "relato_historico_a_conferir",
-      "evidence": "CARD-0105/0106/0107 não avaliados nesta resposta.",
+      "evidence": "CARD-0105/0106/0107 não avaliados nesta resposta. — referência abreviada também a CARD-0106 e CARD-0107.",
       "source": "assets/f17_respostas_9_v030.json",
       "creates_srs": false
     },
@@ -1137,6 +1139,26 @@
       "classification": "nao_avaliado",
       "level": "relato_historico_a_conferir",
       "evidence": "CARD-0104: não avaliado. Relações conceituais adicionais sem IDs não inventadas.",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0101",
+      "to": "CARD-0106",
+      "kind": "resposta_arquivada",
+      "classification": "nao_avaliado",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0105/0106/0107 não avaliados nesta resposta (IDs abreviados no CSV)",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0101",
+      "to": "CARD-0107",
+      "kind": "resposta_arquivada",
+      "classification": "nao_avaliado",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0105/0106/0107 não avaliados nesta resposta (IDs abreviados no CSV)",
       "source": "assets/f17_respostas_9_v030.json",
       "creates_srs": false
     }
@@ -1251,5 +1273,11 @@
       "kind": "proposta_historica",
       "creates_srs": false
     }
+  ],
+  "audit_notes": [
+    "O campo de CARD-0101 cita CARD-0105/0106/0107 de forma abreviada; os três IDs foram expandidos como 'não avaliados', não como cobertura.",
+    "A referência CARD-0099 é 'indireta demonstrada' no histórico, nunca cobertura direta.",
+    "A associação contextual a CARD-0100 na resposta de CARD-0101 está marcada como não demonstrada.",
+    "Os números de arestas contam origens documentais separadas: F17 e CSV podem apontar para o mesmo par, sem constituir duas tentativas."
   ]
 }
