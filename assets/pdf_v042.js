@@ -330,7 +330,13 @@ function close(){
 }
 const priorPdfOpen=pdfOpen;
 pdfOpen=function(doc){
- close();selected=doc;priorPdfOpen(doc);
+ close();selected=doc;
+ // Se a janela já estiver aberta durante OAuth, não chamar showModal novamente.
+ if($('pdfDialog').open){
+  $('docTitle').textContent=doc.title;
+  $('pdfOriginal').href=doc.url||'';
+  if(doc.file_id)$('pdfFrame').src='https://drive.google.com/file/d/'+encodeURIComponent(doc.file_id)+'/preview';
+ }else priorPdfOpen(doc);
  $('pdfChooseLocal').textContent='✎ Editar PDF';
  status('Para grifar e editar nesta página, clique em “Editar PDF”. Documentos privados do Drive precisam de seleção local inicial.');
  storedFile(doc.id).then(record=>{
