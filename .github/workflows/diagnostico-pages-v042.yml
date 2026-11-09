@@ -39,3 +39,26 @@ jobs:
               except urllib.error.HTTPError as e:print('PUBLIC-STATUS',path or '/',e.code,'URL',e.url)
               except Exception as e:print('PUBLIC-ERROR',path or '/',type(e).__name__,str(e)[:150])
           PY
+      - name: Instalar Chromium para diagnóstico do site publicado
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.55.1
+          npx playwright install --with-deps chromium
+      - name: Observar JavaScript e conteúdo renderizado da V042 pública
+        run: |
+          node - <<'JS'
+          const {chromium}=require('playwright');
+          (async()=>{
+            const b=await chromium.launch({headless:true,args:['--no-sandbox']});
+            const p=await b.newPage({viewport:{width:1440,height:900}});
+            const errors=[],consoleErrors=[],badRequests=[];
+            p.on('pageerror',x=>errors.push(x.message));
+            p.on('console',x=>{if(x.type()==='error')consoleErrors.push(x.text())});
+            p.on('requestfailed',r=>badRequests.push({url:r.url(),error:r.failure()?.errorText}));
+            try{
+              const response=await p.goto('https://carlosemichelon.github.io/concurso/v042.html?utm_source=chatgpt.com',{waitUntil:'domcontentloaded',timeout:60000});
+              await p.waitForTimeout(6000);
+              const body=await p.evaluate(()=>({title:document.title,heading:document.querySelector('h1')?.innerText||'',body:document.body.innerText.slice(0,600),pdfStatus:document.querySelector('#pdfLocalStatus')?.innerText||'',hasPdfArea:!!document.getElementById('pdfAreaNavV036'),hasSaveModule:!!window.BancoMestreDriveSaveV042,hasPdfModule:!!window.BancoMestrePDFV042,hasSaveButton:!!document.getElementById('pdfSaveDriveV042')}));
+              console.log('BROWSER-PUBLIC',JSON.stringify({status:response?.status(),body,errors:errors.slice(0,12),consoleErrors:consoleErrors.slice(0,12),badRequests:badRequests.slice(0,12)}));
+            }finally{await b.close()}
+          })().catch(e=>{console.error('BROWSER-PUBLIC-ERROR',e.message);process.exitCode=1})
+          JS
