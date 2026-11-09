@@ -135,7 +135,7 @@ imgRender=async function(){
  }
 };
 const route=location.hash.slice(1);
-if(['assuntos','pdfs','cartoes','imagens','f17'].includes(route))section(route);
+if(['assuntos','pdfs','cartoes','imagens','auditoria'].includes(route))section(route);
 else section('assuntos');
 window.BancoMestreMediaV033={getIndex};
 })();
