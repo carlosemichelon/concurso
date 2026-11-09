@@ -46,6 +46,7 @@ const {PDFDocument}=require('pdf-lib');
   await connect.click();
   await page.waitForFunction(()=>window.BancoMestrePDFV042?.editing&&/Página 1 de 2/.test(document.getElementById('pdfPager')?.textContent||''),null,{timeout:90000});
   assert.equal(await page.locator('#pdfDialog').evaluate(d=>d.open),true,'PDF deve permanecer na janela');
+  await connect.waitFor({state:'hidden',timeout:15000});
   assert.equal(await connect.isVisible(),false,'Botão de autorização deve desaparecer após abertura');
   assert.equal(downloads,1,'Download OAuth simulado deve acontecer uma vez');
   await page.locator('#pdfMarker').click();
