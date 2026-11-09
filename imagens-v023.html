@@ -1,0 +1,97 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Banco Mestre — Gerenciar imagens V023</title>
+<style>
+:root{--fg:#153237;--sub:#50686a;--border:#d5e1df;--accent:#17515a;--bg:#f3f7f6}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,Arial,sans-serif}header{background:#fff;border-bottom:1px solid var(--border);padding:13px 4%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+main{max-width:1240px;padding:20px 18px 80px;margin:auto}h1{font-size:clamp(25px,3vw,36px);margin:6px 0}h2{font-size:19px}p{color:var(--sub);margin:7px 0 13px}
+button,.btn{background:white;border:1px solid #b8d0cc;color:var(--fg);border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:650;font:600 13px system-ui,Arial,sans-serif;text-decoration:none;display:inline-block}button:disabled{opacity:.5;cursor:default}.primary{background:var(--accent);color:#fff}.red{color:#a13636}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}.toolbar input[type=search]{flex:1;min-width:200px}.toolbar input,.toolbar select,textarea{padding:9px;border:1px solid #c2d3d0;border-radius:8px;font:inherit}
+.notice{background:#fff8e8;border:1px solid #e8d7b2;padding:13px;border-radius:9px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:13px}.card{background:white;border:1px solid var(--border);padding:12px;border-radius:12px}.card img{display:block;width:100%;height:170px;object-fit:contain;background:#eaf0ef;border-radius:8px;cursor:pointer}.card .missing{height:170px;display:grid;place-items:center;background:#eef3f1;color:var(--sub);border-radius:8px}.card h3{font-size:15px;line-height:1.35;margin:7px 0}.small{font-size:12px;color:var(--sub)}.line{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:9px}.tag{font-weight:700;font-size:11px;border-radius:50px;padding:3px 8px;background:#e8f1ee;color:#155148}.tag.hidden{background:#ffeae5;color:#9b3f35}.tag.review{background:#fff2d4;color:#795e2b}
+.pager{display:flex;justify-content:center;gap:14px;margin:19px}
+dialog{border:1px solid var(--border);border-radius:15px;max-width:96vw;width:min(1160px,96vw);max-height:94vh;padding:0;box-shadow:0 18px 80px #142b3555}dialog::backdrop{background:#173238aa}
+.dialogHead{background:white;padding:12px 16px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.dialogBody{padding:15px;overflow:auto;max-height:80vh;display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:14px}
+.canvasPane{background:#e6edeb;border:1px solid var(--border);border-radius:9px;padding:10px;overflow:auto;text-align:center;max-height:70vh}
+canvas{display:block;max-width:100%;height:auto;cursor:crosshair}.canvasWrap{position:relative;display:inline-block;line-height:0;max-width:100%}#overlay{position:absolute;inset:0;touch-action:none}
+.panel{background:white;border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:10px}.panel label{display:block;margin:8px 0 3px;font-size:12px}.panel input[type=range]{width:100%}
+textarea{width:100%;min-height:64px}.status{font-size:12px;color:var(--sub);margin:8px 0}input[type=file]{max-width:100%}@media(max-width:760px){.dialogBody{grid-template-columns:1fr}.canvasPane{max-height:50vh}}
+</style></head><body>
+<header><strong>Banco Mestre · Gestão de imagens V023</strong><nav class="line"><a class="btn" href="./v023.html">⌂ Início</a><a class="btn" href="./acervo-v023.html#atlas">Atlas</a><a class="btn" href="./estudo-ativo-v023.html">PDFs e editor</a></nav></header>
+<main><h1>Revisar, editar e excluir imagens ruins</h1><p>Examine as 254 imagens e prints catalogados. Substitua os arquivos ilegíveis, melhore o enquadramento ou retire itens ruins da visualização.</p>
+<div class="notice"><strong>Exclusão reversível:</strong> “Excluir” oculta a imagem deste navegador e das páginas de estudo neste dispositivo. Não apaga o original no GitHub ou Drive. Para remover definitivamente do acervo público, exporte os IDs ocultados para auditoria editorial. Sem autorização autenticada, um site estático não pode alterar o repositório de forma segura.</div>
+<div class="toolbar"><input type="search" id="search" placeholder="Buscar código IMG, título ou assunto"><select id="filter"><option value="all">Todas</option><option value="visible">Visíveis</option><option value="hidden">Excluídas</option><option value="review">A revisar</option><option value="replaced">Substituídas</option></select><span id="counter" class="small"></span></div>
+<div class="toolbar"><button id="backup">Exportar backup das alterações</button><label for="importBackup" class="btn">Importar backup</label><input id="importBackup" type="file" accept=".json,application/json" hidden><button id="exportDelete" class="red">Exportar IDs excluídos</button><span id="summary" class="small"></span></div>
+<div class="grid" id="cards">Carregando acervo…</div><div class="pager"><button id="previous">Anterior</button><span id="pages" class="small"></span><button id="next">Próxima</button></div>
+<dialog id="dialog"><div class="dialogHead"><div><strong id="caption"></strong><div id="category" class="small"></div></div><div class="line"><a class="btn" id="markLink" target="_blank" rel="noopener">Grifar e anotar</a><button id="close">Fechar</button></div></div>
+<div class="dialogBody"><div><div class="canvasPane"><div class="canvasWrap"><canvas id="canvas"></canvas><canvas id="overlay"></canvas></div></div><div id="pixelInfo" class="status"></div></div>
+<div><div class="panel"><strong>Substituir imagem ruim</strong><p class="small">Selecione PNG, JPG ou WEBP original em melhor resolução, até 16 MB. Só altera a cópia local.</p><input id="upload" type="file" accept="image/png,image/jpeg,image/webp"></div>
+<div class="panel"><strong>Editar recorte e contraste</strong><div class="line"><button id="rotateL">↶ Girar</button><button id="rotateR">↷ Girar</button><button id="crop">Recortar seleção</button></div><label for="brightness">Brilho <output id="brightValue">100%</output></label><input type="range" id="brightness" min="50" max="150" value="100">
+<label for="contrast">Contraste <output id="contrastValue">100%</output></label><input type="range" id="contrast" min="50" max="175" value="100">
+<div class="line"><button id="saveEdit" class="primary">Salvar edição</button><button id="download">Baixar PNG</button><button id="reset">Restaurar original</button></div></div>
+<div class="panel"><strong>Qualidade / exclusão</strong><label for="note">Observação</label><textarea id="note" placeholder="Ex.: fórmulas erradas, baixa resolução, duplicada"></textarea><div class="line"><button id="review">Marcar a revisar</button><button class="red" id="hide">Excluir da visualização</button><button id="restore">Restaurar visibilidade</button></div></div><div class="status" id="message"></div></div></div></dialog>
+</main><script src="assets/imagens-v023.js"></script><script>
+'use strict';
+const $=id=>document.getElementById(id),api=window.BancoMestreImagens;
+let catalog=null,shards={},statuses={},list=[],page=0,item=null,img=null,original=null,rotation=0,selection=null,dragId=null,seq=0;
+const fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function notify(t){$('message').textContent=t}
+async function thumbnail(x){if(x.shard===undefined)return null;if(!shards[x.shard]){const p=catalog.image_files[x.shard],r=await fetch('assets/'+p+'?v=023',{cache:'force-cache'});if(!r.ok)throw Error('Miniatura indisponível');shards[x.shard]=await r.json()}return shards[x.shard][x.no]||null}
+async function refresh(){statuses=Object.fromEntries((await api.all()).map(x=>[x.id,x]));const f=$('filter').value,q=fold($('search').value);list=catalog.images.filter(x=>(!q||fold(x.no+' '+x.title+' '+x.category).includes(q))&&(f==='all'||(f==='replaced'?statuses[x.no]?.replacement instanceof Blob:(statuses[x.no]?.status||'visible')===f)));page=0;render()}
+async function render(){
+ const token=++seq,rows=list.slice(page*24,(page+1)*24),root=$('cards');root.replaceChildren();
+ $('counter').textContent=list.length+' / '+catalog.images.length+' imagens';
+ $('summary').textContent=Object.values(statuses).filter(v=>v.status==='hidden').length+' ocultas · '+Object.values(statuses).filter(v=>v.replacement instanceof Blob).length+' substituídas';
+ $('pages').textContent='Página '+(page+1)+' / '+Math.max(1,Math.ceil(list.length/24));$('previous').disabled=page===0;$('next').disabled=(page+1)*24>=list.length;
+ if(!rows.length)root.textContent='Nenhuma imagem corresponde aos filtros.';
+ for(const x of rows){const st=statuses[x.no]||{},box=document.createElement('article');box.className='card';
+ const code=document.createElement('span');code.className='small';code.textContent=x.no;
+ const frame=document.createElement('div');frame.className='missing';frame.textContent='Carregando…';frame.style.cursor='pointer';frame.onclick=()=>open(x);
+ const title=document.createElement('h3');title.textContent=x.title;const category=document.createElement('p');category.className='small';category.textContent=x.category;
+ const state=document.createElement('span');state.className='tag '+(st.status||'visible');state.textContent=st.status==='hidden'?'Ocultada':st.status==='review'?'A revisar':st.replacement?'Substituída':'Visível';
+ const line=document.createElement('div');line.className='line';
+ const edit=document.createElement('button');edit.className='primary';edit.textContent='Editar / ampliar';edit.onclick=()=>open(x);
+ const del=document.createElement('button');del.className=st.status==='hidden'?'':'red';del.textContent=st.status==='hidden'?'Restaurar':'Excluir';del.onclick=async()=>{if(st.status!=='hidden'&&!confirm('Ocultar '+x.no+' neste navegador? O original será preservado.'))return;await api.setStatus(x.no,st.status==='hidden'?'visible':'hidden',st.note||'');refresh()};
+ line.append(edit,del);box.append(code,frame,title,category,state,line);root.append(box);
+ (async()=>{let url=null;try{url=await api.replacementUrl(x.no)||await thumbnail(x);if(token!==seq){if(url?.startsWith('blob:'))URL.revokeObjectURL(url);return}if(url){const im=document.createElement('img');im.src=url;im.alt=x.title;im.loading='lazy';im.onclick=()=>open(x);im.onload=()=>{if(url.startsWith('blob:'))URL.revokeObjectURL(url)};frame.replaceWith(im)}else frame.textContent='Sem prévia'}catch(e){frame.textContent='Sem prévia'}})();
+ }}
+function loadImage(src){return new Promise((resolve,reject)=>{let i=new Image();i.onload=()=>resolve(i);i.onerror=()=>reject(Error('Imagem ilegível'));i.src=src})}
+async function open(x){
+ item=x;selection=null;rotation=0;resetSliders();$('caption').textContent=x.no+' — '+x.title;$('category').textContent=x.category;
+ $('markLink').href='./estudo-ativo-v023.html?atlas='+encodeURIComponent(x.no);
+ const st=await api.get(x.no);$('note').value=st.note||'';$('dialog').showModal();
+ try{original=await thumbnail(x);const local=await api.replacementUrl(x.no);const src=local||original;
+ if(!src){img=null;$('pixelInfo').textContent='Prévia ausente. Use Substituir para carregar uma imagem original.';return}
+ img=await loadImage(src);if(local)URL.revokeObjectURL(local);paint();notify('Edite e salve. O arquivo do GitHub permanece intacto.');
+ }catch(e){img=null;notify(e.message)}
+}
+function resetSliders(){$('brightness').value='100';$('contrast').value='100';$('brightValue').value='100%';$('contrastValue').value='100%'}
+function paint(){
+ if(!img)return;const c=$('canvas'),over=$('overlay'),swap=rotation%180!==0,iw=img.naturalWidth,ih=img.naturalHeight,scale=Math.min(1,4500/Math.max(iw,ih),Math.sqrt(18000000/(iw*ih)));
+ const w=Math.max(1,Math.round((swap?ih:iw)*scale)),h=Math.max(1,Math.round((swap?iw:ih)*scale));
+ c.width=w;c.height=h;over.width=w;over.height=h;
+ const cx=c.getContext('2d');cx.clearRect(0,0,w,h);cx.save();cx.translate(w/2,h/2);cx.rotate(rotation*Math.PI/180);cx.filter='brightness('+$('brightness').value+'%) contrast('+$('contrast').value+'%)';cx.drawImage(img,-iw*scale/2,-ih*scale/2,iw*scale,ih*scale);cx.restore();
+ $('pixelInfo').textContent='Original: '+iw+'×'+ih+' px; edição: '+w+'×'+h+' px. Aumentar o zoom não recupera detalhes ausentes.';drawSelection();
+}
+function drawSelection(){const c=$('overlay'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);if(!selection)return;const a=selection,x=Math.min(a[0],a[2]),y=Math.min(a[1],a[3]),w=Math.abs(a[2]-a[0]),h=Math.abs(a[3]-a[1]);ctx.strokeStyle='#2256a7';ctx.lineWidth=Math.max(2,c.width/700);ctx.setLineDash([12,8]);ctx.strokeRect(x,y,w,h);ctx.fillStyle='#4a8ae522';ctx.fillRect(x,y,w,h)}
+function point(e){const c=$('overlay'),r=c.getBoundingClientRect();return [Math.max(0,Math.min(c.width,(e.clientX-r.left)*c.width/r.width)),Math.max(0,Math.min(c.height,(e.clientY-r.top)*c.height/r.height))]}
+$('overlay').onpointerdown=e=>{if(!img)return;const p=point(e);selection=[p[0],p[1],p[0],p[1]];dragId=e.pointerId;$('overlay').setPointerCapture(e.pointerId);drawSelection()};
+$('overlay').onpointermove=e=>{if(e.pointerId!==dragId||!selection)return;const p=point(e);selection[2]=p[0];selection[3]=p[1];drawSelection()};
+$('overlay').onpointerup=e=>{if(dragId===e.pointerId)dragId=null};$('overlay').onpointercancel=()=>dragId=null;
+$('crop').onclick=async()=>{if(!img||!selection)return alert('Arraste uma seleção retangular na imagem.');const a=selection,x=Math.round(Math.min(a[0],a[2])),y=Math.round(Math.min(a[1],a[3])),w=Math.round(Math.abs(a[2]-a[0])),h=Math.round(Math.abs(a[3]-a[1]));if(w<20||h<20)return alert('Seleção pequena');const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage($('canvas'),x,y,w,h,0,0,w,h);img=await loadImage(c.toDataURL('image/png'));rotation=0;selection=null;resetSliders();paint();notify('Recorte aplicado à prévia; clique em Salvar edição.')};
+$('rotateL').onclick=()=>{rotation=(rotation+270)%360;selection=null;paint()};$('rotateR').onclick=()=>{rotation=(rotation+90)%360;selection=null;paint()};
+for(const [a,b] of [['brightness','brightValue'],['contrast','contrastValue']])$(a).oninput=()=>{$(b).value=$(a).value+'%';selection=null;paint()};
+function pngBlob(){return new Promise(resolve=>$('canvas').toBlob(resolve,'image/png'))}
+$('saveEdit').onclick=async()=>{if(!item||!img)return;try{let blob=await pngBlob();if(blob.size>16000000)blob=await new Promise(resolve=>$('canvas').toBlob(resolve,'image/jpeg',.92));await api.replace(item.no,blob);notify('Edição salva neste navegador.');statuses=Object.fromEntries((await api.all()).map(x=>[x.id,x]));render()}catch(e){notify(e.message)}};
+function download(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+$('download').onclick=async()=>{if(img)download(await pngBlob(),item.no+'_EDITADA.png')};
+$('upload').onchange=async e=>{const f=e.target.files?.[0];e.target.value='';if(!f||!item)return;try{await api.replace(item.no,f);const url=URL.createObjectURL(f);img=await loadImage(url);URL.revokeObjectURL(url);rotation=0;selection=null;resetSliders();paint();notify('Imagem melhor substituiu a prévia neste navegador.');statuses=Object.fromEntries((await api.all()).map(x=>[x.id,x]));render()}catch(e){alert(e.message)}};
+$('reset').onclick=async()=>{if(!item||!confirm('Restaurar original e descartar substituição local?'))return;await api.resetImage(item.no);img=original?await loadImage(original):null;rotation=0;selection=null;resetSliders();if(img)paint();notify('Original restaurado.');statuses=Object.fromEntries((await api.all()).map(x=>[x.id,x]));render()};
+async function updateStatus(status){if(!item)return;if(status==='hidden'&&!confirm('Excluir '+item.no+' da visualização deste navegador?'))return;await api.setStatus(item.no,status,$('note').value);notify(status==='hidden'?'Ocultada. Original preservado.':status==='review'?'Marcada para revisão.':'Visibilidade restaurada.');refresh()}
+$('review').onclick=()=>updateStatus('review');$('hide').onclick=()=>updateStatus('hidden');$('restore').onclick=()=>updateStatus('visible');
+$('close').onclick=()=>$('dialog').close();$('dialog').onclose=()=>{item=null;img=null;selection=null};
+$('search').oninput=refresh;$('filter').onchange=refresh;$('previous').onclick=()=>{if(page){page--;render();window.scrollTo(0,0)}};$('next').onclick=()=>{if((page+1)*24<list.length){page++;render();window.scrollTo(0,0)}};
+$('backup').onclick=async()=>{try{download(new Blob([JSON.stringify(await api.backup())],{type:'application/json'}),'BANCO_MESTRE_IMAGENS_BACKUP_V023.json')}catch(e){alert(e.message)}};
+$('importBackup').onchange=async e=>{const f=e.target.files?.[0];e.target.value='';if(!f)return;try{if(!confirm('Importar backup no navegador?'))return;const n=await api.restore(JSON.parse(await f.text()));alert(n+' registros importados');refresh()}catch(e){alert(e.message)}};
+$('exportDelete').onclick=async()=>{const ids=(await api.all()).filter(x=>x.status==='hidden').map(x=>({id:x.id,note:x.note||''}));download(new Blob([JSON.stringify({format:'BancoMestreRevisaoExclusoesV023',items:ids},null,2)],{type:'application/json'}),'IDS_IMAGENS_RUINS_REVISAO.json')};
+window.addEventListener('storage',e=>{if(e.key==='BM_IMAGENS_V023_CHANGE')refresh()});
+(async()=>{try{const r=await fetch('assets/meta_v021.json?v=023',{cache:'no-store'});if(!r.ok)throw Error('Catálogo indisponível');catalog=await r.json();const p=new URL(location.href).searchParams.get('imagem');if(/^IMG-\d{3}$/.test(p||''))$('search').value=p;await refresh()}catch(e){$('cards').textContent='Falha ao carregar: '+e.message}})();
+</script></body></html>
