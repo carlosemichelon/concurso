@@ -1,0 +1,37 @@
+
+/* Banco Mestre V030 - editor de anotacoes em tela cheia, sem upload */
+#imageDialog{background:#edf2f1;color:#17353b;overscroll-behavior:contain}
+#imageDialog .dhead{height:auto;min-height:52px;padding:10px 15px;z-index:5}
+#imageDialog .dbody{height:calc(100dvh - 52px);padding:0;display:flex;flex-direction:column;min-height:0}
+#imageDialog .editor-tools{display:flex;flex-wrap:wrap;gap:7px;align-items:center;min-height:52px;padding:8px 12px;background:#fff;border-bottom:1px solid #d7e2e1;position:relative;z-index:4}
+#imageDialog .editor-tools .toolgroup{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding-right:10px;border-right:1px solid #d7e2e1}
+#imageDialog .editor-tools button{font-size:13px;padding:6px 9px;min-height:34px}
+#imageDialog .editor-tools button[aria-pressed=true]{background:#16616a;color:white;border-color:#16616a}
+#imageDialog .editor-tools .swatch{width:27px;height:27px;min-height:0;padding:0;min-width:27px;border:2px solid white;outline:1px solid #b4c9c4;border-radius:50%;background:var(--swatch)}
+#imageDialog .editor-tools .swatch[aria-pressed=true]{outline:3px solid #16616a}
+#imageDialog .editor-tools input[type=color]{width:34px;height:32px;border:1px solid #b6cfcc;padding:2px;cursor:pointer;background:#fff;border-radius:7px}
+#imageDialog .editor-tools input[type=range]{width:88px;accent-color:#16616a}
+#imageDialog .editor-tools label{font-size:12px;display:flex;align-items:center;gap:5px;color:#526b71}
+#imageDialog .editor-meta{font-size:12px;color:#53696b;display:flex;align-items:center;gap:8px;padding:5px 12px;background:#fff;border-bottom:1px solid #d7e2e1;flex-wrap:wrap}
+#imageDialog .editor-meta a{font-size:12px;padding:3px 6px}
+#imageDialog .editor-meta #imgMessage{flex:1}
+#imageDialog #imageStage{flex:1;min-height:0;max-height:none;height:auto;overflow:auto;overscroll-behavior:contain;background:#dce6e5;position:relative;text-align:center;padding:14px;scrollbar-color:#9cb6b1 #dce6e5}
+#imageDialog #imageStage .canvases{display:inline-block;position:relative;background:#fff;box-shadow:0 3px 17px #0d34352b;vertical-align:top;max-width:none}
+#imageDialog #imageStage canvas{display:block;max-width:none;max-height:none}
+#imageDialog #grifo{position:absolute;left:0;top:0;z-index:1;touch-action:none;cursor:crosshair}
+#imageDialog #grifo[data-tool=pan]{cursor:grab}
+#imageDialog #grifo[data-tool=select]{cursor:crosshair}
+#imageDialog #grifo[data-tool=eraser]{cursor:cell}
+#imageDialog .editor-tools button:focus-visible,#imageDialog #grifo:focus-visible{outline:3px solid #e3b84c}
+#imageDialog .editor-tools .editor-danger{color:#a54b3f}
+#imageDialog .editor-tools .editor-divider{color:#adbab7}
+#imageDialog #imageStage:has(.canvases){touch-action:pan-x pan-y}
+@media (max-width:700px){
+ #imageDialog .dhead{padding:8px 10px;min-height:47px}
+ #imageDialog .dbody{height:calc(100dvh - 47px)}
+ #imageDialog .editor-tools{gap:5px;padding:6px;max-height:40dvh;overflow:auto}
+ #imageDialog .editor-tools .toolgroup{padding-right:5px}
+ #imageDialog .editor-tools button{font-size:12px;padding:5px 7px}
+ #imageDialog .editor-meta{padding:4px 7px}
+ #imageDialog #imageStage{padding:5px}
+}
