@@ -10,10 +10,10 @@ let token=null,expires=0,client=null,config=null,pending=null,ready=null,busy=fa
 const editBar=document.getElementById('pdfChooseLocal')?.parentElement;
 const inlineButton=document.createElement('button');
 inlineButton.id='driveConnectInPdfV042';inlineButton.type='button';inlineButton.className='primary';
-inlineButton.hidden=true;inlineButton.textContent='Conectar Drive e editar esta lei';
+inlineButton.hidden=true;inlineButton.style.display='none';inlineButton.textContent='Conectar Drive e editar esta lei';
 inlineButton.title='Autorizar leitura do Drive para abrir a lei diretamente no editor';
 if(editBar)editBar.insertBefore(inlineButton,document.getElementById('pdfChooseLocal'));
-function showConnect(on){inlineButton.hidden=!on;}
+function showConnect(on){inlineButton.hidden=!on;inlineButton.style.display=on?'':'none';}
 const $=id=>document.getElementById(id);
 function notify(message){
  const el=$('driveDirectStatusV038');if(el)el.textContent=message;
