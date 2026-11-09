@@ -51,17 +51,17 @@ function proposalsFor(id){return (index?.evolutions||[]).filter(p=>p.ids.include
 function showCard(id){
  if(!$('cardSearch'))return;
  $('cardFilter').value='all';$('cardRecoveredOnly').checked=false;$('cardReviewedOnly').checked=false;$('cardHidden').checked=true;
- window.BancoMestreV032.gotoCard(id);
+ window.BancoMestreV033.gotoCard(id);
  const a=[...document.querySelectorAll('#cardRows article.card')].find(el=>el.querySelector(':scope > .tag')?.textContent.trim()===id);
  if(a){a.querySelector('details')?.setAttribute('open','');a.scrollIntoView({block:'start',behavior:'smooth'})}
 }
 async function showTopic(id){
  await ensureCards();
  const t=topicOf(id);
- if(t){await window.BancoMestreV032.openTopic(t);return}
+ if(t){await window.BancoMestreV033.openTopic(t);return}
  // Carregar os assuntos quando o destino ainda não foi materializado.
  await loadTopics();
- const next=topicOf(id);if(next)await window.BancoMestreV032.openTopic(next);
+ const next=topicOf(id);if(next)await window.BancoMestreV033.openTopic(next);
  else showCard(id);
 }
 function btn(name,func,cls=''){const b=make('button',cls,name);b.type='button';b.onclick=func;return b}
@@ -170,10 +170,10 @@ async function dashboard(){
 async function renderForTopic(t){
  const target=$('topicRelated');if(!target)return;
  target.querySelector('#f17TopicReferences')?.remove();
- const box=make('section','f17-topic');box.id='f17TopicReferences';add(box,'h3','','Referências cruzadas auditáveis — F17');
+ const box=make('div','f17-topic');box.id='f17TopicReferences';add(box,'h3','','Referências cruzadas auditáveis — F17');
  try{
   await load();await ensureCards();
-  const relevant=index.context_cards.filter(c=>c.group===t.group&&c.subject===t.subject);
+  const relevant=[...new Map([...index.context_cards,...index.nodes].filter(c=>c.group===t.group&&c.subject===t.subject).map(c=>[c.id,c])).values()];
   const seeds=index.nodes.filter(c=>c.group===t.group&&c.subject===t.subject);
   // Somente relações explícitas com ao menos um cartão do assunto.
   const ids=new Set(relevant.map(x=>x.id));
@@ -190,6 +190,7 @@ async function renderForTopic(t){
   const nav=btn('Auditoria F17 completa',()=>{section('auditoria');dashboard()});
   nav.className='f17-view-all';box.append(nav);
  }catch(e){add(box,'p','f17-error','Rede F17 indisponível: '+e.message)}
+ if($('topicHeading')?.textContent!==t.subject)return;
  target.append(box);
 }
 function renderForCard(article){
