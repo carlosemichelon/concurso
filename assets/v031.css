@@ -1,0 +1,44 @@
+
+/* Banco Mestre V031 — leitura por assunto, cartões e vínculos verificáveis */
+#tema .topicLead{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
+#tema .studyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px;margin-top:14px}
+#tema .studyNote{border:1px solid var(--line);background:#fff;border-radius:11px;padding:13px 15px;min-width:0}
+#tema .studyNote h3{font-size:16px;margin:2px 0 7px}
+#tema .studyNote p{font-size:14px;white-space:pre-wrap;color:var(--ink);line-height:1.65;margin:4px 0}
+#tema .studyNote .small{font-size:12px}
+#tema .sectionTitle{margin:24px 0 9px}
+#tema .chipLinks{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+#tema .chipLinks button{border-radius:20px;font-size:12px;padding:5px 10px}
+#tema .contextNote{font-size:13px;color:var(--sub)}
+#cardRows.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:15px;align-items:start}
+#cardRows .card{padding:18px 19px;border-color:#cbdedb;box-shadow:0 2px 8px #17353b08}
+#cardRows .card h3{font-size:17px;line-height:1.55;letter-spacing:0;margin:11px 0}
+#cardRows .card>.tag{display:inline-flex;background:#e5f2f0;border-radius:6px;padding:4px 9px;font-size:12px}
+#cardRows .card>p{font-size:12px;color:#546c71;line-height:1.5}
+#cardRows .card details{margin-top:13px;border-top:1px solid var(--line);padding-top:12px}
+#cardRows .card details>summary{padding:5px 0;font-size:14px}
+#cardRows .richSection{padding:13px 0}
+#cardRows .richSection:first-child{padding:15px;margin-top:10px;background:#f0f7f5;border-radius:9px;border:1px solid #cfe2dd}
+#cardRows .richSection:first-child h4,#cardRows .richSection:first-child p{margin-left:13px;margin-right:13px}
+#cardRows .richSection h4{font-size:13px;color:#16545e;text-transform:none}
+#cardRows .richSection p{font-size:14px;line-height:1.7}
+#cardRows .answer{max-width:100%;overflow-wrap:anywhere}
+#cardRows .subgroup{font-size:14px;color:#184b55;border-bottom:1px solid var(--line);margin:18px 0 6px;padding-bottom:5px}
+#cardRows .buttons{border-top:1px solid #e1eae8;padding-top:12px}
+.media-ref{border:0!important;background:transparent!important;text-decoration:underline;text-underline-offset:2px;padding:0 2px!important;color:#076b8a!important;font-weight:750;font-size:inherit!important;cursor:pointer}
+.media-ref:hover{color:#004e5e!important}
+#cardRows .relationPanel{border:1px solid #d3e5e1;border-radius:9px;background:#fbfefd;padding:12px;margin:11px 0}
+#cardRows .relationPanel strong{display:block;margin-bottom:5px}
+#cardRows .relationPanel small{display:block;color:var(--sub);margin:4px 0 7px}
+#cardRows .relationPanel .chipLinks{display:flex;gap:7px;flex-wrap:wrap}
+#cardRows .relationPanel .chipLinks button{padding:5px 9px;font-size:12px;border-radius:20px}
+#pdfRows .tag,#imageRows .tag{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+#pdfRows .tag:focus-visible,#imageRows .tag:focus-visible{outline:3px solid #dcae32}
+#pdfDialog #pdfLocalMode{display:none;height:calc(100dvh - 165px);overflow:auto;background:#dfe9e8;text-align:center;padding:13px}
+#pdfDialog #pdfLocalMode.active{display:block}
+#pdfDialog #pdfLocalCanvas{display:block;margin:0 auto;max-width:100%;height:auto;box-shadow:0 5px 25px #153b3b33;background:white;cursor:zoom-in}
+#pdfDialog .pdfMiniTools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:5px}
+#pdfDialog .pdfMiniTools button{font-size:13px;padding:5px 9px}
+#pdfDialog .pdfHint{font-size:12px;color:var(--sub)}
+#pdfDialog #pdfFrame.localHidden{display:none}
+@media(max-width:650px){#cardRows .card{padding:13px}#cardRows .richSection p{font-size:13px}}
