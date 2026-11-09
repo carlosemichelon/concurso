@@ -370,5 +370,9 @@ function openAndEdit(doc){
  }else enterEditor();
 }
 window.BancoMestrePDFV035={get editing(){return !!pdf},render,exportPDF};
-window.BancoMestrePDFV037={get editing(){return !!pdf},render,exportPDF,openAndEdit,openLocal:openAndEdit};
+function openLocalFile(doc,file){
+ pdfOpen(doc);$('pdfOriginal').hidden=true;$('pdfFrame').src='about:blank';
+ selectFile(file);
+}
+window.BancoMestrePDFV037={get editing(){return !!pdf},render,exportPDF,openAndEdit,openLocal:openAndEdit,openLocalFile};
 })();
