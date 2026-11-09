@@ -55,8 +55,9 @@ async function ready(){
  }).catch(e=>{pending=null;throw e});
  return pending;
 }
-function openCard(id){
- if(!cards.length){note($('f17Results'),'Os cartões ainda não foram carregados. Abra a aba Flashcards e tente novamente.');return}
+async function openCard(id){
+ if(!cards.length)await loadCards();
+ if(!cards.length){note($('f17Results'),'Os cartões ainda não foram carregados; tente novamente após abrir Flashcards.');return}
  window.BancoMestreV033?.gotoCard(id);
 }
 async function openSubject(group,subject){
@@ -236,6 +237,7 @@ async function renderDashboard(){
     [chip('Abrir cartão',()=>openCard(x.id)),link('Fonte F17 V029',refUrl('F17_V029'))]));
   }count=matches.length;
  }else if(mode==='respostas'){
+  if(!answersF17)await loadCards();
   const source=answersF17?.por_id||{};
   for(const [id,x] of Object.entries(source)){
    if(!eligible([id,cardNode(id).subject,x.conhecimentos_demonstrados,x.conhecimentos_parciais,x.lacunas_em_relacao_ao_enunciado,x.erros_corrigidos].join(' ')))continue;
