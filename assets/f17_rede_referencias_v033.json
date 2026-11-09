@@ -1,0 +1,1255 @@
+{
+  "format": "BancoMestreF17RedeV033",
+  "version": "V033",
+  "generated": "2026-11-09",
+  "scope": "Camada somente de consulta e auditoria; originais V015/F17, avaliações e SRS preservados.",
+  "rules": [
+    "Aresta registrada não é nova revisão, acerto ou domínio confirmado.",
+    "Atributos 'direta_informada', 'parcial_informada' e 'indireta_informada' descrevem anotações históricas, não avaliação independente da abrangência.",
+    "Associações sem grau e conteúdo não avaliado não integram cobertura demonstrada.",
+    "Vinculação por mesmo assunto é contexto de navegação e NÃO aresta de cobertura.",
+    "Evoluções históricas não são cartões canônicos até autorização expressa.",
+    "Fonte CSV: resposta arquivada, não reprodução completa confirmada da conversa.",
+    "Próxima revisão: somente campo preservado F17; não recalcular calendários."
+  ],
+  "sources": {
+    "auditoria": "https://github.com/carlosemichelon/concurso/blob/gh-pages/assets/f17_historico_auditado_v029.json",
+    "respostas": "https://github.com/carlosemichelon/concurso/blob/gh-pages/assets/f17_respostas_9_v030.json",
+    "planilha_f17": "https://docs.google.com/spreadsheets/d/1rrBx4ufDCDIx9juH9On8ALVoBieZEibP/edit",
+    "planilha_v015": "https://docs.google.com/spreadsheets/d/1AsdYmdfM9tiU3ZMDxJM7Fig0nHov3wlx/edit"
+  },
+  "counts": {
+    "formal_events": 21,
+    "archived_responses": 9,
+    "distinct_primary_cards": 22,
+    "audited_indirect_edges": 7,
+    "archived_mention_edges": 26,
+    "proposal_evolutions": 9,
+    "proposal_related_ids": 10,
+    "distinct_graph_cards": 41,
+    "related_only_targets": 31,
+    "classifications": {
+      "indireta_historica": 4,
+      "associado_sem_tentativa": 3,
+      "citacao_sem_grau": 13,
+      "parcial_informada": 5,
+      "direta_informada": 2,
+      "nao_avaliado": 6
+    },
+    "cross_subject_edges": 14
+  },
+  "nodes": [
+    {
+      "id": "CARD-0001",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "discipline": "Engenharia Civil",
+      "subject": "Coberturas",
+      "sub": "Terminologia",
+      "front": "Em um telhado, o que é uma água?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Errei",
+      "event_date": "2026-10-21",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-10-25",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0002",
+      "group": "PORTUGUES",
+      "discipline": "Português",
+      "subject": "Crase",
+      "sub": "Regência",
+      "front": "Por que há crase em 'dirigiu-se àquele servidor'?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-21",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-06",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0003",
+      "group": "MATEMATICA",
+      "discipline": "Matemática",
+      "subject": "Conjuntos e inclusão-exclusão",
+      "sub": "União de três conjuntos",
+      "front": "Qual é a fórmula de inclusão-exclusão para três conjuntos?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-21",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-06",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": true
+    },
+    {
+      "id": "CARD-0004",
+      "group": "MATEMATICA",
+      "discipline": "Matemática Financeira",
+      "subject": "Nomenclatura",
+      "sub": "PV",
+      "front": "O que representa PV em matemática financeira?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Fácil",
+      "event_date": "2026-10-21",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-18",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0008",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "discipline": "Engenharia Civil",
+      "subject": "Coberturas",
+      "sub": "Terminologia",
+      "front": "O que é o beiral de uma cobertura?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Fácil",
+      "event_date": "2026-10-21",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-18",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0015",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "discipline": "Engenharia Civil",
+      "subject": "Coberturas",
+      "sub": "Terminologia",
+      "front": "Qual é a função do rufo em uma cobertura?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Errei",
+      "event_date": "2026-10-21",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-10-25",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0022",
+      "group": "ENG_ESTRUTURAS_CONCRETO",
+      "discipline": "Engenharia Civil",
+      "subject": "Estruturas de concreto",
+      "sub": "Capacidade resistente",
+      "front": "O que significa capacidade resistente em estruturas?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-07",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0028",
+      "group": "ENG_GEOTECNIA",
+      "discipline": "Engenharia Civil",
+      "subject": "Geotecnia",
+      "sub": "Triaxial UU",
+      "front": "Como funciona o ensaio triaxial UU?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-07",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0034",
+      "group": "ENG_GEOTECNIA",
+      "discipline": "Engenharia Civil",
+      "subject": "Geotecnia",
+      "sub": "Triaxial CU",
+      "front": "Qual é a condição de drenagem no ensaio triaxial CU?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-07",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0040",
+      "group": "ENG_GEOTECNIA",
+      "discipline": "Engenharia Civil",
+      "subject": "Geotecnia",
+      "sub": "Triaxial CD",
+      "front": "Como funciona o ensaio triaxial CD?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-07",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0046",
+      "group": "ENG_INSTALACOES",
+      "discipline": "Engenharia Civil",
+      "subject": "Instalações elétricas",
+      "sub": "Perda do neutro",
+      "front": "Por que a perda do neutro é perigosa em rede trifásica desequilibrada?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Difícil",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-10-30",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0052",
+      "group": "ENG_MATERIAIS",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais de construção",
+      "sub": "CP II-E",
+      "front": "Qual adição identifica o cimento CP II-E?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-11-07",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0070",
+      "group": "ENG_MATERIAIS",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais de construção",
+      "sub": "Fabricação cimento",
+      "front": "O que é clínquer na fabricação do cimento Portland?",
+      "has_formal_event": true,
+      "has_archived_response": false,
+      "formal_evaluation": "Difícil",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data conhecida; hora não registrada",
+      "next_review_preserved": "2026-10-30",
+      "record_classification": null,
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0078",
+      "group": "ENG_PLANEJAMENTO",
+      "discipline": "Engenharia Civil",
+      "subject": "Orçamentos",
+      "sub": "BDI direto x indireto",
+      "front": "Um equipamento diretamente usado na obra entra, em regra, no BDI?",
+      "has_formal_event": true,
+      "has_archived_response": true,
+      "formal_evaluation": "Difícil",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Hora local registrada no momento da classificação",
+      "next_review_preserved": "2026-10-30",
+      "record_classification": "Difícil",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0082",
+      "group": "ENG_DESEMPENHO",
+      "discipline": "Engenharia Civil",
+      "subject": "Sistemas construtivos",
+      "sub": "Fechamento LSF",
+      "front": "Cite exemplos de chapas de fechamento no Light Steel Framing.",
+      "has_formal_event": true,
+      "has_archived_response": true,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data e hora com fuso America/Sao_Paulo",
+      "next_review_preserved": "2026-11-07",
+      "record_classification": "Bom",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0088",
+      "group": "ENG_TOPOGRAFIA",
+      "discipline": "Engenharia Civil",
+      "subject": "Topografia",
+      "sub": "As built",
+      "front": "O que representa um levantamento 'as built'?",
+      "has_formal_event": true,
+      "has_archived_response": true,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data e hora com fuso America/Sao_Paulo",
+      "next_review_preserved": "2026-11-07",
+      "record_classification": "Bom",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0094",
+      "group": "ENG_SEGURANCA",
+      "discipline": "Engenharia Civil",
+      "subject": "Acessibilidade — NBR 9050",
+      "sub": "Degrau isolado",
+      "front": "Quantos degraus consecutivos podem formar um degrau isolado na NBR 9050:2020?",
+      "has_formal_event": true,
+      "has_archived_response": true,
+      "formal_evaluation": "Fácil",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Hora local confirmada",
+      "next_review_preserved": "2026-11-19",
+      "record_classification": "Fácil",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0095",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "discipline": "Engenharia Civil",
+      "subject": "Ações estruturais",
+      "sub": "Classificação geral",
+      "front": "Quais são as categorias gerais de ações estruturais?",
+      "has_formal_event": true,
+      "has_archived_response": true,
+      "formal_evaluation": "Fácil",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Hora local confirmada",
+      "next_review_preserved": "2026-11-19",
+      "record_classification": "Pendente — não registrar revisão formal",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0100",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "discipline": "Engenharia Civil",
+      "subject": "Álgebra aplicada / Matrizes de rigidez",
+      "sub": "Matriz de rigidez K",
+      "front": "Quando a matriz de rigidez K é a inversa da flexibilidade F?",
+      "has_formal_event": true,
+      "has_archived_response": true,
+      "formal_evaluation": "Fácil",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Hora aproximada ao minuto conforme contexto da mensagem; segundos não conhecidos",
+      "next_review_preserved": "2026-11-19",
+      "record_classification": "Fácil (22/10/2026, 17:47 local; 28 dias; 19/11/2026)",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0101",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "discipline": "Engenharia Civil",
+      "subject": "Álgebra aplicada / Matrizes de rigidez",
+      "sub": "Inversa 2×2",
+      "front": "Qual é a fórmula da inversa de uma matriz 2×2?",
+      "has_formal_event": true,
+      "has_archived_response": true,
+      "formal_evaluation": "Bom",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Hora local confirmada no momento da classificação",
+      "next_review_preserved": "2026-11-07",
+      "record_classification": "Bom",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": true
+    },
+    {
+      "id": "CARD-0102",
+      "group": "ENG_DESEMPENHO",
+      "discipline": "Engenharia Civil",
+      "subject": "Alvenaria estrutural",
+      "sub": "Homogeneidade",
+      "front": "Como deve ser preparada a argamassa de assentamento na NBR 16868-2:2020?",
+      "has_formal_event": true,
+      "has_archived_response": true,
+      "formal_evaluation": "Difícil",
+      "event_date": "2026-10-22",
+      "event_timestamp_accuracy": "Data local conhecida; hora da classificação não confirmada (não usar 20:34 como hora exata)",
+      "next_review_preserved": "2026-10-30",
+      "record_classification": "Difícil",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [
+        "F17_2026-11-05: 01_FLASHCARDS/Historico_Preservado.csv",
+        "F17_2026-11-05: HISTORICO 21",
+        "V015_2026-11-08: Progresso_SRS"
+      ],
+      "has_evolution": false
+    },
+    {
+      "id": "CARD-0091",
+      "group": "ENG_TOPOGRAFIA",
+      "discipline": "Engenharia Civil",
+      "subject": "Topografia",
+      "sub": "Levantamento cadastral territorial",
+      "front": "Qual o objetivo do levantamento cadastral territorial?",
+      "has_formal_event": false,
+      "has_archived_response": true,
+      "formal_evaluation": null,
+      "event_date": null,
+      "event_timestamp_accuracy": null,
+      "next_review_preserved": null,
+      "record_classification": "Pendente",
+      "complete_user_answer_source": "Arquivo CSV histórico (não transcrição integral independente)",
+      "sources": [],
+      "has_evolution": false
+    }
+  ],
+  "context_cards": [
+    {
+      "id": "CARD-0095",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "subject": "Ações estruturais",
+      "sub": "Classificação geral",
+      "front": "Quais são as categorias gerais de ações estruturais?"
+    },
+    {
+      "id": "CARD-0096",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "subject": "Ações estruturais",
+      "sub": "Permanentes diretas",
+      "front": "Cite exemplos de ações permanentes diretas."
+    },
+    {
+      "id": "CARD-0097",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "subject": "Ações estruturais",
+      "sub": "Permanentes indiretas",
+      "front": "Cite exemplos de ações permanentes indiretas."
+    },
+    {
+      "id": "CARD-0098",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "subject": "Ações estruturais",
+      "sub": "Variáveis",
+      "front": "Cite três ações variáveis usuais em estruturas."
+    },
+    {
+      "id": "CARD-0099",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "subject": "Ações estruturais",
+      "sub": "Excepcionais",
+      "front": "Explosões e impactos severos são exemplos de que ações?"
+    },
+    {
+      "id": "CARD-0100",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "subject": "Álgebra aplicada / Matrizes de rigidez",
+      "sub": "Matriz de rigidez K",
+      "front": "Quando a matriz de rigidez K é a inversa da flexibilidade F?"
+    },
+    {
+      "id": "CARD-0105",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "subject": "Análise estrutural",
+      "sub": "Hiperestaticidade",
+      "front": "Por que apenas equilíbrio não resolve uma estrutura hiperestática?"
+    },
+    {
+      "id": "CARD-0106",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "subject": "Análise estrutural",
+      "sub": "Método das forças",
+      "front": "Qual é a incógnita principal do método das forças?"
+    },
+    {
+      "id": "CARD-0107",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "subject": "Análise estrutural",
+      "sub": "Método dos deslocamentos",
+      "front": "Qual é a incógnita principal do método dos deslocamentos?"
+    },
+    {
+      "id": "CARD-0078",
+      "group": "ENG_PLANEJAMENTO",
+      "subject": "Orçamentos",
+      "sub": "BDI direto x indireto",
+      "front": "Um equipamento diretamente usado na obra entra, em regra, no BDI?"
+    },
+    {
+      "id": "CARD-0367",
+      "group": "MATEMATICA",
+      "subject": "TIR",
+      "sub": "Conceito",
+      "front": "O que se entende por Conceito no assunto TIR?"
+    },
+    {
+      "id": "CARD-1137",
+      "group": "ENG_PLANEJAMENTO",
+      "subject": "Orçamentos",
+      "sub": "BDI preço final",
+      "front": "Qual relação matemática define BDI preço final no contexto de Orçamentos?"
+    },
+    {
+      "id": "CARD-1138",
+      "group": "ENG_PLANEJAMENTO",
+      "subject": "Orçamentos",
+      "sub": "BDI variável",
+      "front": "Em Orçamentos, qual condição ou exceção precisa ser observada para BDI variável?"
+    },
+    {
+      "id": "CARD-0082",
+      "group": "ENG_DESEMPENHO",
+      "subject": "Sistemas construtivos",
+      "sub": "Fechamento LSF",
+      "front": "Cite exemplos de chapas de fechamento no Light Steel Framing."
+    },
+    {
+      "id": "CARD-0085",
+      "group": "ENG_DESEMPENHO",
+      "subject": "Sistemas construtivos",
+      "sub": "EPS XPS",
+      "front": "Qual a função usual de EPS e XPS no LSF?"
+    },
+    {
+      "id": "CARD-1112",
+      "group": "ENG_DESEMPENHO",
+      "subject": "Light Steel Framing",
+      "sub": "EIFS",
+      "front": "Em Light Steel Framing, o que significa EIFS?"
+    },
+    {
+      "id": "CARD-0088",
+      "group": "ENG_TOPOGRAFIA",
+      "subject": "Topografia",
+      "sub": "As built",
+      "front": "O que representa um levantamento 'as built'?"
+    },
+    {
+      "id": "CARD-1166",
+      "group": "ENG_DESEMPENHO",
+      "subject": "Projetos arquitetônicos",
+      "sub": "As built",
+      "front": "Em Projetos arquitetônicos, o que significa as built?"
+    },
+    {
+      "id": "CARD-0798",
+      "group": "ENG_RODOVIAS",
+      "subject": "Projeto geométrico",
+      "sub": "Raio executado",
+      "front": "O que caracteriza Raio executado em Projeto geométrico?"
+    },
+    {
+      "id": "CARD-1163",
+      "group": "ENG_RODOVIAS",
+      "subject": "Projeto geométrico",
+      "sub": "Locação e as built",
+      "front": "Em Projeto geométrico, o que significa locação e as built?"
+    },
+    {
+      "id": "CARD-0091",
+      "group": "ENG_TOPOGRAFIA",
+      "subject": "Topografia",
+      "sub": "Levantamento cadastral territorial",
+      "front": "Qual o objetivo do levantamento cadastral territorial?"
+    },
+    {
+      "id": "CARD-0178",
+      "group": "ENG_TOPOGRAFIA",
+      "subject": "Topografia",
+      "sub": "Levantamento cadastral territorial",
+      "front": "Conjunto de pontos de referência planimétricos/altimétricos define levantamento cadastral territorial?"
+    },
+    {
+      "id": "CARD-0860",
+      "group": "ENG_TOPOGRAFIA",
+      "subject": "Topografia",
+      "sub": "Rede de referência cadastral",
+      "front": "Qual a função da Rede de Referência Cadastral Municipal?"
+    },
+    {
+      "id": "CARD-0861",
+      "group": "ENG_TOPOGRAFIA",
+      "subject": "Topografia",
+      "sub": "Rede de referência cadastral",
+      "front": "Que quatro tipos de elementos aparecem no registro da NBR 14166:1998, item 4.2?"
+    },
+    {
+      "id": "CARD-0200",
+      "group": "LEGISLACAO",
+      "subject": "Estatuto da Cidade",
+      "sub": "Plano diretor",
+      "front": "No texto legal estudado, que exigência específica se aplica a Plano diretor?"
+    },
+    {
+      "id": "CARD-0094",
+      "group": "ENG_SEGURANCA",
+      "subject": "Acessibilidade — NBR 9050",
+      "sub": "Degrau isolado",
+      "front": "Quantos degraus consecutivos podem formar um degrau isolado na NBR 9050:2020?"
+    },
+    {
+      "id": "CARD-0253",
+      "group": "ENG_SEGURANCA",
+      "subject": "Acessibilidade — NBR 9050",
+      "sub": "Escada: 7×3",
+      "front": "Qual relação matemática define Escada: 7×3 no contexto de Acessibilidade — NBR 9050?"
+    },
+    {
+      "id": "CARD-0101",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "subject": "Álgebra aplicada / Matrizes de rigidez",
+      "sub": "Inversa 2×2",
+      "front": "Qual é a fórmula da inversa de uma matriz 2×2?"
+    },
+    {
+      "id": "CARD-0111",
+      "group": "ENG_ESTRUTURAS_TRELICAS",
+      "subject": "Análise estrutural",
+      "sub": "PTV",
+      "front": "O PTV é uma força ou um deslocamento?"
+    },
+    {
+      "id": "CARD-0102",
+      "group": "ENG_DESEMPENHO",
+      "subject": "Alvenaria estrutural",
+      "sub": "Homogeneidade",
+      "front": "Como deve ser preparada a argamassa de assentamento na NBR 16868-2:2020?"
+    },
+    {
+      "id": "CARD-0103",
+      "group": "ENG_DESEMPENHO",
+      "subject": "Alvenaria estrutural",
+      "sub": "Ajuste água",
+      "front": "Quantas vezes a argamassa pode receber água para ajuste de consistência na NBR 16868-2:2020?"
+    },
+    {
+      "id": "CARD-0104",
+      "group": "ENG_DESEMPENHO",
+      "subject": "Alvenaria estrutural",
+      "sub": "Tempo uso",
+      "front": "Qual é o prazo usual de utilização da argamassa na NBR 16868-2:2020?"
+    },
+    {
+      "id": "CARD-0463",
+      "group": "PORTUGUES",
+      "subject": "Preposições",
+      "sub": "Função",
+      "front": "Em Preposições, qual é a regra ou conclusão registrada para Função?"
+    },
+    {
+      "id": "CARD-0035",
+      "group": "PORTUGUES",
+      "subject": "Concordância verbal",
+      "sub": "Verbos impessoais",
+      "front": "Como concordam 'haver' existencial e 'fazer' temporal?"
+    },
+    {
+      "id": "CARD-0016",
+      "group": "PORTUGUES",
+      "subject": "Colocação pronominal",
+      "sub": "Próclise",
+      "front": "Quais elementos podem atrair próclise?"
+    },
+    {
+      "id": "CARD-0023",
+      "group": "PORTUGUES",
+      "subject": "Colocação pronominal",
+      "sub": "Ênclise",
+      "front": "Qual é a forma preferível no início de oração na norma-padrão: 'Se sabe' ou 'Sabe-se'?"
+    },
+    {
+      "id": "CARD-1046",
+      "group": "ENG_ESTRUTURAS_VIGAS",
+      "subject": "Estruturas / Quadro isostático e cortante",
+      "sub": "Força concentrada e cortante",
+      "front": "Em Estruturas / Quadro isostático e cortante, o que significa força concentrada e cortante?"
+    },
+    {
+      "id": "CARD-1127",
+      "group": "ENG_HIDRAULICA",
+      "subject": "Mecânica dos fluidos",
+      "sub": "Mecânica dos fluidos",
+      "front": "Como o número de Reynolds se relaciona ao regime laminar?"
+    },
+    {
+      "id": "CARD-0333",
+      "group": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "subject": "Estruturas / Estabilidade e deformações",
+      "sub": "16. FLAMBAGEM DE EULER",
+      "front": "Qual é a carga crítica de Euler e como entra o comprimento efetivo?"
+    },
+    {
+      "id": "CARD-0472",
+      "group": "ENG_GEOTECNIA",
+      "subject": "Geotecnia",
+      "sub": "Adensamento secundário e recalque",
+      "front": "Em Geotecnia, qual é a regra ou conclusão registrada para Adensamento secundário e recalque?"
+    },
+    {
+      "id": "CARD-0003",
+      "group": "MATEMATICA",
+      "subject": "Conjuntos e inclusão-exclusão",
+      "sub": "União de três conjuntos",
+      "front": "Qual é a fórmula de inclusão-exclusão para três conjuntos?"
+    }
+  ],
+  "edges": [
+    {
+      "from": "CARD-0095",
+      "to": "CARD-0096",
+      "kind": "auditoria_f17",
+      "classification": "indireta_historica",
+      "level": "registrado_f17",
+      "evidence": "Observação do evento CARD-0095; agenda F17",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0095",
+      "to": "CARD-0097",
+      "kind": "auditoria_f17",
+      "classification": "indireta_historica",
+      "level": "registrado_f17",
+      "evidence": "Observação do evento CARD-0095; agenda F17",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0095",
+      "to": "CARD-0098",
+      "kind": "auditoria_f17",
+      "classification": "indireta_historica",
+      "level": "registrado_f17",
+      "evidence": "Observação do evento CARD-0095; agenda F17",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0095",
+      "to": "CARD-0099",
+      "kind": "auditoria_f17",
+      "classification": "indireta_historica",
+      "level": "registrado_f17",
+      "evidence": "Observação do evento CARD-0095; agenda F17",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0100",
+      "to": "CARD-0105",
+      "kind": "auditoria_f17",
+      "classification": "associado_sem_tentativa",
+      "level": "registrado_f17",
+      "evidence": "Observação do evento CARD-0100",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0100",
+      "to": "CARD-0106",
+      "kind": "auditoria_f17",
+      "classification": "associado_sem_tentativa",
+      "level": "registrado_f17",
+      "evidence": "Observação do evento CARD-0100",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0100",
+      "to": "CARD-0107",
+      "kind": "auditoria_f17",
+      "classification": "associado_sem_tentativa",
+      "level": "registrado_f17",
+      "evidence": "Observação do evento CARD-0100",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0078",
+      "to": "CARD-0367",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0367",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0078",
+      "to": "CARD-1137",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-1137",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0078",
+      "to": "CARD-1138",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-1138",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0082",
+      "to": "CARD-0085",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0085",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0082",
+      "to": "CARD-1112",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-1112",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0088",
+      "to": "CARD-1166",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-1166",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0088",
+      "to": "CARD-0798",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0798",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0088",
+      "to": "CARD-1163",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-1163",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0091",
+      "to": "CARD-0178",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0178",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0091",
+      "to": "CARD-0860",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0860",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0091",
+      "to": "CARD-0861",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0861",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0091",
+      "to": "CARD-0200",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0200",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0094",
+      "to": "CARD-0253",
+      "kind": "resposta_arquivada",
+      "classification": "citacao_sem_grau",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0253",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0095",
+      "to": "CARD-0096",
+      "kind": "resposta_arquivada",
+      "classification": "parcial_informada",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0096: parcial/demonstrado para peso próprio mas faltam equipamentos/elementos fixos",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0095",
+      "to": "CARD-0097",
+      "kind": "resposta_arquivada",
+      "classification": "parcial_informada",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0097: parcial (recalque apenas)",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0095",
+      "to": "CARD-0098",
+      "kind": "resposta_arquivada",
+      "classification": "parcial_informada",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0098: parcial (uso e vento; não temperatura)",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0095",
+      "to": "CARD-0099",
+      "kind": "resposta_arquivada",
+      "classification": "direta_informada",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0099: indireta demonstrada por impactos excepcionais.",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0100",
+      "to": "CARD-0105",
+      "kind": "resposta_arquivada",
+      "classification": "direta_informada",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0105=domínio conceitual direto",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0100",
+      "to": "CARD-0106",
+      "kind": "resposta_arquivada",
+      "classification": "parcial_informada",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0106=parcial",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0100",
+      "to": "CARD-0107",
+      "kind": "resposta_arquivada",
+      "classification": "parcial_informada",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0107=parcial",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0100",
+      "to": "CARD-0101",
+      "kind": "resposta_arquivada",
+      "classification": "nao_avaliado",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0101=não avaliado (matriz inversa 2x2)",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0100",
+      "to": "CARD-0111",
+      "kind": "resposta_arquivada",
+      "classification": "nao_avaliado",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0111=não avaliado (PTV).",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0101",
+      "to": "CARD-0100",
+      "kind": "resposta_arquivada",
+      "classification": "nao_avaliado",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0100 associação contextual não demonstrada na resposta",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0101",
+      "to": "CARD-0105",
+      "kind": "resposta_arquivada",
+      "classification": "nao_avaliado",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0105/0106/0107 não avaliados nesta resposta.",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0102",
+      "to": "CARD-0103",
+      "kind": "resposta_arquivada",
+      "classification": "nao_avaliado",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0103: não avaliado",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    },
+    {
+      "from": "CARD-0102",
+      "to": "CARD-0104",
+      "kind": "resposta_arquivada",
+      "classification": "nao_avaliado",
+      "level": "relato_historico_a_conferir",
+      "evidence": "CARD-0104: não avaliado. Relações conceituais adicionais sem IDs não inventadas.",
+      "source": "assets/f17_respostas_9_v030.json",
+      "creates_srs": false
+    }
+  ],
+  "evolutions": [
+    {
+      "id": "PROP-F17-0001",
+      "tema": "Preposições",
+      "ids": [
+        "CARD-0463"
+      ],
+      "pergunta": "Quais são as preposições essenciais da língua portuguesa? Distinga-as das acidentais.",
+      "complemento": "a, ante, após, até, com, contra, de, desde, em, entre, para, perante, por, sem, sob, sobre, trás. Uma palavra como “como” pode funcionar como preposição acidental conforme o contexto.",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0009",
+      "tema": "Haver versus existir",
+      "ids": [
+        "CARD-0035"
+      ],
+      "pergunta": "Por que “havia problemas” fica no singular, enquanto “existiam problemas” concorda no plural?",
+      "complemento": "Haver com sentido de existir é impessoal, sem sujeito, na 3ª pessoa singular. Existir é pessoal e concorda com o sujeito “problemas”.",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0012",
+      "tema": "Colocação pronominal",
+      "ids": [
+        "CARD-0016",
+        "CARD-0023"
+      ],
+      "pergunta": "Explique a ênclise em “cultua-se” e a próclise em “não me contou”.",
+      "complemento": "Em “cultua-se”, o clítico vem após o verbo: ênclise; em “não me contou”, a palavra negativa atrai o clítico antes do verbo: próclise.",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0022",
+      "tema": "Matriz inversa 2×2",
+      "ids": [
+        "CARD-0101"
+      ],
+      "pergunta": "Calcule det A e A⁻¹ para A=[[3,2],[2,4]] e explique a condição de invertibilidade.",
+      "complemento": "det A=3·4−2·2=8. A⁻¹=(1/8)[[4,−2],[−2,3]]. Matriz quadrada tem inversa exatamente quando det A≠0.",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0029",
+      "tema": "Esforço cortante",
+      "ids": [
+        "CARD-1046"
+      ],
+      "pergunta": "Ao atravessar uma força pontual Q descendente, de quanto varia o diagrama de esforço cortante e por quê?",
+      "complemento": "O diagrama apresenta salto ΔV=−Q (na convenção usual); o módulo do salto é Q, por equilíbrio local. O momento fletor permanece contínuo na ausência de momento concentrado.",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0038",
+      "tema": "Reynolds",
+      "ids": [
+        "CARD-1127"
+      ],
+      "pergunta": "Quais parâmetros controlam o número de Reynolds e qual o efeito de aumentar viscosidade cinemática?",
+      "complemento": "Re=ρvD/μ=vD/ν. Aumenta com velocidade v e dimensão D; diminui se ν crescer a v e D constantes.",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0040",
+      "tema": "Flambagem de Euler",
+      "ids": [
+        "CARD-0333"
+      ],
+      "pergunta": "Qual a carga crítica de Euler para coluna esbelta ideal e como o comprimento efetivo influencia?",
+      "complemento": "Pcr=π²EI/(K L)². Dobrar KL reduz Pcr a um quarto; K depende das vinculações. Para biarticulada ideal K=1, biengastada ideal K≈0,5.",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0044",
+      "tema": "Adensamento primário",
+      "ids": [
+        "CARD-0472"
+      ],
+      "pergunta": "Como a dissipação do excesso de poropressão produz adensamento?",
+      "complemento": "Em solo saturado de baixa permeabilidade, parte do carregamento inicial é suportada por excesso de pressão neutra; ao drenar, u excedente cai, σ′ aumenta e o esqueleto do solo se comprime, gerando recalque.",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    },
+    {
+      "id": "PROP-F17-0087",
+      "tema": "Conjuntos",
+      "ids": [
+        "CARD-0003"
+      ],
+      "pergunta": "Qual é a fórmula de dois conjuntos para n(A ∪ B)?",
+      "complemento": "n(A ∪ B) = n(A) + n(B) − n(A ∩ B).",
+      "source": "assets/f17_historico_auditado_v029.json",
+      "kind": "proposta_historica",
+      "creates_srs": false
+    }
+  ]
+}
