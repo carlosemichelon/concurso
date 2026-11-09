@@ -23,7 +23,7 @@ dialog{border:1px solid var(--line);border-radius:13px;padding:0;width:min(1080p
 .richSection p{font-size:13px;color:var(--ink);white-space:pre-wrap}
 .richSection ul{margin:6px 0 0;padding-left:20px;font-size:13px}
 .card:has(details[open]){grid-column:1/-1;border-color:#8cb4b1}
-dialog{width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;inset:0!important;margin:0!important;border:0!important;border-radius:0!important}
+dialog{position:fixed!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;inset:0!important;margin:0!important;border:0!important;border-radius:0!important}
 dialog .dhead{position:sticky;top:0;z-index:2}
 #pdfDialog .dbody{height:calc(100dvh - 65px);padding:8px 12px}
 #imageDialog .dbody{height:calc(100dvh - 62px);padding:9px 12px;display:flex;flex-direction:column}
@@ -44,7 +44,7 @@ footer{font-size:12px;color:var(--sub);margin-top:30px}
 <section id="cartoes"><div class="panel"><h2>Flashcards</h2><p class="intro">22 cartões do estudo de Ijuí em cópia operacional separada e 1.494 cartões da base V015. Revelar resposta não altera o SRS; nenhum código CARD da base canônica foi substituído.</p><div class="controls"><input id="cardSearch" type="search" placeholder="Buscar tema, número ou pergunta"><select id="cardFilter"><option value="all">Todas as disciplinas</option></select><label class="checkbox"><input id="cardHidden" type="checkbox">Mostrar ocultos</label><span id="cardCount" class="small muted"></span></div><div id="cardRows" class="grid"></div><p><button id="moreCards">Mostrar mais</button></p><div id="coverageSummary"></div></div></section>
 <section id="imagens"><div class="panel"><h2>Imagens e pranchas</h2><p class="intro">Grifo local e exclusão reversível; original e ID permanecem preservados.</p><div class="notice">As cinco imagens de recortes normativos restritos não possuem prévia pública. Os grifos de imagens são salvos somente neste dispositivo.</div><div class="controls"><input id="imageSearch" type="search" placeholder="Buscar IMG, assunto ou título"><select id="imageFilter"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="imageHidden" type="checkbox">Mostrar ocultas</label><span id="imageCount" class="small muted"></span></div><div id="imageRows" class="grid"></div><p><button id="moreImages">Mostrar mais</button></p></div></section>
 <footer>V028 · PDFs no Drive · nenhuma publicação de arquivos PDF, anexos ou alteração da base canônica · exclusão reversível neste navegador.</footer></main>
-<dialog id="pdfDialog"><div class="dhead"><strong id="docTitle"></strong><button id="pdfClose">Fechar</button></div><div class="dbody"><div class="toolbar"><a id="pdfOriginal" class="action primary" target="_blank" rel="noopener noreferrer">Abrir no Drive</a><span class="small muted">Leitor em tela inteira; para grifos no PDF, utilize um leitor compatível no Drive. O site não altera o PDF.</span></div><iframe id="pdfFrame" class="pdfpreview" title="Prévia do PDF" referrerpolicy="no-referrer"></iframe></div></dialog>
+<dialog id="pdfDialog"><div class="dhead"><strong id="docTitle"></strong><button id="pdfClose">Fechar</button></div><div class="dbody"><div class="toolbar"><a id="pdfOriginal" class="action primary" target="_blank" rel="noopener noreferrer">Abrir no Drive</a><span class="small muted">PDF original em tela inteira. Grifos persistentes dependem das ferramentas externas do leitor do Drive; não há edição direta do PDF neste site.</span></div><iframe id="pdfFrame" class="pdfpreview" title="Prévia do PDF" referrerpolicy="no-referrer"></iframe></div></dialog>
 <dialog id="imageDialog"><div class="dhead"><strong id="imgTitle"></strong><button id="imgClose">Fechar</button></div><div class="dbody"><div class="toolbar"><strong class="tag">Grifar imagem</strong><button id="zoomOutImage">− Zoom</button><button id="zoomFitImage">Ajustar</button><button id="zoomInImage">+ Zoom</button><span id="zoomPct" class="small muted"></span><button id="undo">Desfazer grifo</button><button id="hideOpened" class="danger">Excluir da visualização</button><a id="originalDriveLink" class="action" target="_blank" rel="noopener noreferrer" hidden>Abrir original no Drive</a><span id="imgMessage" class="small muted"></span></div><div class="stage"><div class="canvases"><canvas id="base"></canvas><canvas id="grifo"></canvas></div></div></div></dialog>
 <script src="assets/visibilidade-v026.js"></script><script>
 'use strict';
@@ -177,6 +177,11 @@ function cardRender(){
    if(links.length)infoList(ans,'Cobertura cruzada com questões de Ijuí',links,q=>q.questao_id+' — '+q.tema+' (associação histórica; não comprova domínio)');
    else infoBlock(ans,'Cobertura cruzada','Não há associação específica auditada com questões de Ijuí para este ID nos dados consultados.');
    infoBlock(ans,'Estado de respostas anteriores / SRS','Histórico de tentativas de cartões não foi importado nesta publicação. Consulta não altera SRS.');
+   const relatedI=(meta?.images||[]).filter(i=>i.group===c.group);
+   if(relatedI.length)infoList(ans,'Imagens relacionadas por grupo — vínculo de ID ainda não confirmado',relatedI.slice(0,6),i=>i.no+' — '+i.title);
+   const relatedP=docs.filter(p=>p.category===c.group);
+   if(relatedP.length)infoList(ans,'PDFs relacionados por categoria — vínculo temático',relatedP.slice(0,6),p=>p.title+(p.pages?' (páginas '+p.pages.join('–')+')':''));
+   infoBlock(ans,'Cobertura do assunto','O cadastro deste cartão não comprova que todas as condições, exceções e aplicações do assunto foram revisadas. A análise aprofundada permanece vinculada às fontes e aos registros originais.');
   }
   if(c.provisional&&guideData?.link_fonte_privada){
    const a=link('Ver planilha original com a resposta discursiva privada',guideData.link_fonte_privada);
