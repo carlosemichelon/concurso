@@ -156,7 +156,7 @@ async function openTopic(t){
   const line=document.createElement('div');line.className='chipLinks';
   for(const x of cross){const other=subset.some(c=>c.id===x.cartao)?x.origem:x.cartao;if(cards.some(c=>c.id===other))line.append(chip(other+' · '+x.status,()=>gotoCard(other)))}
   rel.append(line);
-  const bt=byId('topicGoCards');bt.onclick=()=>{focusGroup=t.group;byId('cardSearch').value=t.subject==='Ijuí — legislação FUNDATEC'?'':t.subject;byId('cardFilter').value='all';cardLimit=24;section('cartoes');cardRender()};
+  const bt=byId('topicGoCards');bt.hidden=!subset.length;bt.onclick=()=>{focusGroup=t.group;byId('cardSearch').value=t.subject==='Ijuí — legislação FUNDATEC'?'':t.subject;byId('cardFilter').value='all';cardLimit=24;section('cartoes');cardRender()};
   byId('topicBack').onclick=()=>section('assuntos');
   scrollTo({top:0,behavior:'smooth'});
  }catch(e){alert('Não foi possível abrir o assunto: '+e.message)}
