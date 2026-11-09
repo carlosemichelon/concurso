@@ -28,7 +28,7 @@ function tokenButton(token){
  return b;
 }
 function linkReferences(parent){
- const re=/\b(?:IMG-\d{1,4}|(?:IJUI|P\d{2})-PDF-\d{1,4})\b/gi;
+ const re=/\b(?:IMG-\d{1,4}|IJUI-PDF-\d{1,4}|PETRO10-CONAMA-\d{1,4}|MANUSCRITO-252|CAP-\d{1,3}|GUIA-[A-Z0-9-]+)\b/gi;
  const walker=document.createTreeWalker(parent,NodeFilter.SHOW_TEXT);
  const pending=[];while(walker.nextNode()){const n=walker.currentNode;if(n.parentElement?.closest('button,a,code,summary'))continue;if(re.test(n.nodeValue)){pending.push(n)}re.lastIndex=0}
  for(const node of pending){const str=node.nodeValue,fragment=document.createDocumentFragment();let idx=0;for(const match of str.matchAll(re)){fragment.append(document.createTextNode(str.slice(idx,match.index)),tokenButton(match[0]));idx=match.index+match[0].length}fragment.append(document.createTextNode(str.slice(idx)));node.replaceWith(fragment)}
