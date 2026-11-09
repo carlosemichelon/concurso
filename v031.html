@@ -1,0 +1,340 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V031 — Estudar</title>
+<style>
+:root{--bg:#f5f7f7;--paper:#fff;--ink:#17353b;--sub:#597078;--accent:#16616a;--line:#d7e2e1;--soft:#ebf3f2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,Arial,sans-serif}header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.head{max-width:1180px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{font-size:21px;font-weight:850}.version{font-size:12px;color:var(--sub)}
+button,a.action{font:inherit;cursor:pointer;border:1px solid #bbcfcc;border-radius:9px;padding:9px 13px;color:var(--ink);background:white;text-decoration:none;display:inline-block}button.primary,a.primary,nav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}button:disabled{opacity:.5;cursor:default}
+nav{display:flex;gap:6px;flex-wrap:wrap}main{max-width:1180px;margin:0 auto;padding:25px 18px 70px}
+h1{font-size:clamp(24px,3vw,34px);letter-spacing:-.6px;margin:4px 0}h2{font-size:22px;margin:0 0 5px}h3{font-size:15px;line-height:1.35;margin:7px 0}.muted{color:var(--sub)}.small{font-size:12px}.hero{margin-bottom:20px}.hero p{margin:5px 0;color:var(--sub)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.stat{border:1px solid var(--line);border-radius:11px;background:white;padding:12px}.stat b{display:block;font-size:24px}.stat span{font-size:12px;color:var(--sub)}
+section{display:none}section.active{display:block}.panel{border:1px solid var(--line);border-radius:13px;background:#fff;padding:18px;margin-bottom:12px}.intro{font-size:13px;color:var(--sub);margin:3px 0 15px}.notice{font-size:13px;border-left:3px solid #afcac5;background:#edf5f3;padding:10px 12px;margin:12px 0;border-radius:0 7px 7px 0}
+.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}input[type=search],select{font:inherit;border:1px solid #bdcfcd;border-radius:8px;padding:10px;color:var(--ink);background:white}input[type=search]{flex:1;min-width:215px}select{max-width:310px}.checkbox{font-size:12px;color:var(--sub);display:flex;gap:6px;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:11px}.card{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fff;min-width:0}.card p{font-size:12px;color:var(--sub);margin:6px 0}.card .buttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.card .buttons button,.card .buttons a{font-size:13px}.group{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#497076;margin:24px 0 10px}.tag{font-size:11px;color:var(--accent);font-weight:800}.danger{border-color:#dfc9c1;color:#9b4b40}.thumb{width:100%;height:150px;object-fit:contain;background:var(--soft);border-radius:8px;display:block;margin:8px 0}
+details{font-size:13px;border-top:1px solid var(--line);padding-top:8px}summary{color:var(--accent);cursor:pointer;font-weight:750}details p{white-space:pre-wrap}
+dialog{border:1px solid var(--line);border-radius:13px;padding:0;width:min(1080px,96vw);max-height:96vh;box-shadow:0 15px 75px #0b283d66}dialog::backdrop{background:#152f3799}.dhead{background:#fff;padding:13px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.dhead strong{overflow-wrap:anywhere}.dbody{padding:14px;background:var(--bg)}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:11px}.pdfpreview{width:100%;height:min(78vh,850px);background:#fff;border:1px solid var(--line);border-radius:9px}
+.stage{max-height:70vh;overflow:auto;text-align:center;padding:12px;background:#dfebea;border-radius:9px}.canvases{display:inline-block;position:relative;max-width:100%;line-height:0;background:white}.canvases canvas{display:block;max-width:100%;height:auto}#grifo{position:absolute;inset:0;touch-action:none;cursor:crosshair}
+/* V028: áreas e leitores ocupam toda a janela, sem caixas modais pequenas */
+.topicCards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.topicCard{width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:white;padding:16px}
+.topicCard strong{display:block;font-size:15px}.topicCard small{display:block;color:var(--sub);margin-top:5px}
+.topicCard:hover{border-color:var(--accent)}
+.richSection{border-top:1px solid var(--line);padding:13px 0}
+.richSection h4{margin:0 0 6px;font-size:14px}
+.richSection p{font-size:13px;color:var(--ink);white-space:pre-wrap}
+.richSection ul{margin:6px 0 0;padding-left:20px;font-size:13px}
+.card:has(details[open]){grid-column:1/-1;border-color:#8cb4b1}
+dialog{position:fixed!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;inset:0!important;margin:0!important;border:0!important;border-radius:0!important}
+dialog .dhead{position:sticky;top:0;z-index:2}
+#pdfDialog .dbody{height:calc(100dvh - 65px);padding:8px 12px}
+#imageDialog .dbody{height:calc(100dvh - 62px);padding:9px 12px;display:flex;flex-direction:column}
+.pdfpreview{height:calc(100dvh - 123px)!important;min-height:0}
+#imageDialog .stage{height:auto;flex:1;max-height:none;overflow:auto;padding:15px}
+.canvases{max-width:none;line-height:0}.canvases canvas{max-width:none}
+body:has(dialog[open]){overflow:hidden}
+footer{font-size:12px;color:var(--sub);margin-top:30px}
+@media(max-width:650px){main{padding:14px 11px 45px}.head{padding:12px}.stat{padding:9px}.stat b{font-size:20px}.panel{padding:12px}.pdfpreview{height:65vh}}
+</style><link rel="stylesheet" href="assets/editor_imagens_v030.css"><link rel="stylesheet" href="assets/v031.css"></head><body>
+<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">V031 · base V015</span></div><div class="version">PDFs primeiro · conteúdo atualizado pela conversa</div></div><nav aria-label="Seções"><button class="active" data-page="assuntos">Assuntos</button><button data-page="pdfs">PDFs</button><button data-page="cartoes">Flashcards</button><button data-page="imagens">Imagens</button></nav></div></header>
+<main><div class="hero"><h1>O que deseja estudar?</h1><p>As áreas e os assuntos originais estão de volta. Selecione o tema para encontrar flashcards, imagens e PDFs relacionados, com guias de estudo quando disponíveis.</p></div>
+<div class="stats"><div class="stat"><b id="pdfStat">63</b><span>PDFs catalogados</span></div><div class="stat"><b>1.494 + 22</b><span>Base canônica + Ijuí (cópia de estudo)</span></div><div class="stat"><b>254</b><span>Imagens</span></div></div>
+<section id="assuntos" class="active"><div class="panel"><h2>Comece por uma área</h2><p class="intro">Engenharia Civil, Português, Matemática, Legislação e Informática, incluindo o estudo de Ijuí.</p><div id="areaRows" class="topicCards"></div><h2 style="margin-top:26px">Assuntos do Banco Mestre</h2><div class="controls"><input id="topicSearch" type="search" placeholder="Pesquisar assunto, conceito, norma ou dúvida"><select id="topicArea"><option value="all">Todas as áreas</option></select><span id="topicCount" class="small muted"></span></div><div id="topicRows" class="topicCards"></div></div></section>
+<section id="pdfs"><div class="panel"><h2>PDFs para estudo</h2><p class="intro">Primeiro as 23 leis de Ijuí recuperadas, depois Petrobras 10, manuscrito e guias.</p>
+<div class="notice">As 23 leis de Ijuí estão em uma pasta restrita do Google Drive: entre com sua conta autorizada. Clique no ID ou no título do PDF para abrir a leitura em tela cheia. Para grifar, escolha uma cópia local pelo botão “Grifar PDF neste aparelho”; nenhuma cópia é enviada ao site. Os PDFs originais continuam apenas no Drive.</div>
+<div class="controls"><input id="pdfSearch" type="search" placeholder="Buscar norma, capítulo ou assunto"><select id="pdfFilter"><option value="all">Todos os grupos</option></select><label class="checkbox"><input id="pdfHidden" type="checkbox">Mostrar excluídos</label><span id="pdfCount" class="small muted"></span></div><div id="pdfRows"></div></div></section>
+<section id="tema"><div class="panel">
+ <div class="topicLead"><div><span class="tag">Biblioteca do Banco Mestre</span><h2 id="topicHeading">Assunto</h2><p id="topicGroupCaption" class="muted"></p></div><button id="topicBack">← Todos os assuntos</button></div>
+ <p class="intro">Leia os conceitos, subassuntos, explicações, materiais encontrados e relações documentadas. Os flashcards são apenas uma das formas de estudar o tema.</p>
+ <div id="topicOverview" class="studyGrid"></div>
+ <h3 class="sectionTitle">Conceitos e explicações cadastradas</h3><div id="topicStudyBlocks" class="studyGrid"></div>
+ <h3 class="sectionTitle">Macetes do acervo</h3><div id="topicMacetes" class="studyGrid"></div>
+ <div id="topicMedia"></div><div id="topicRelated"></div>
+ <p class="notice">Material orientativo derivado dos registros existentes; verifique a versão e a fonte normativa antes de tratar conteúdo técnico como vigente.</p>
+ <button id="topicGoCards" class="primary">Praticar flashcards deste assunto</button>
+ </div></section>
+<section id="cartoes"><div class="panel"><h2>Flashcards</h2><p class="intro">22 cartões de Ijuí e 1.494 cartões V015. F17: 21 eventos formais, 9 respostas arquivadas F14/F16, 7 vínculos indiretos e 9 evoluções. Nenhum evento SRS é recalculado.</p><div class="controls"><input id="cardSearch" type="search" placeholder="Buscar tema, número ou pergunta"><select id="cardFilter"><option value="all">Todas as disciplinas</option></select><label class="checkbox"><input id="cardHidden" type="checkbox">Mostrar ocultos</label><label class="checkbox"><input id="cardReviewedOnly" type="checkbox">Somente eventos F17 (21)</label><label class="checkbox"><input id="cardRecoveredOnly" type="checkbox">Somente respostas recuperadas (9)</label><span id="cardCount" class="small muted"></span></div><div id="cardRows" class="grid"></div><p><button id="moreCards">Mostrar mais</button></p><div id="coverageSummary"></div></div></section>
+<section id="imagens"><div class="panel"><h2>Imagens e pranchas</h2><p class="intro">Grifo local e exclusão reversível; original e ID permanecem preservados.</p><div class="notice">As cinco imagens de recortes normativos restritos não possuem prévia pública. Os grifos de imagens são salvos somente neste dispositivo.</div><div class="controls"><input id="imageSearch" type="search" placeholder="Buscar IMG, assunto ou título"><select id="imageFilter"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="imageHidden" type="checkbox">Mostrar ocultas</label><span id="imageCount" class="small muted"></span></div><div id="imageRows" class="grid"></div><p><button id="moreImages">Mostrar mais</button></p></div></section>
+<footer>V031 · PDFs no Drive · nenhuma publicação de arquivos PDF, anexos ou alteração da base canônica · exclusão reversível neste navegador.</footer></main>
+<dialog id="pdfDialog"><div class="dhead"><strong id="docTitle"></strong><button id="pdfClose">Fechar</button></div><div class="dbody"><div class="toolbar"><a id="pdfOriginal" class="action primary" target="_blank" rel="noopener noreferrer">Abrir no Drive</a><button id="pdfChooseLocal" class="primary" title="Abrir uma cópia local somente para leitura e grifos">✎ Grifar PDF neste aparelho</button>
+ <input id="pdfFileInput" type="file" accept=".pdf,application/pdf" hidden>
+ <span class="small muted">A prévia do Drive não permite desenho direto; o editor local associa as anotações ao PDF e à página, sem upload.</span></div><div id="pdfLocalTools" class="pdfMiniTools" hidden>
+ <button id="pdfPrev" disabled>← Página</button><strong id="pdfPager" class="small">Página 1</strong><button id="pdfNext" disabled>Próxima →</button>
+ <button id="pdfZoomOut" disabled>− Zoom</button><button id="pdfZoomIn" disabled>+ Zoom</button>
+ <button id="pdfDraw" class="primary" disabled>Canetas e grifos na página</button>
+ <button id="pdfExportPNG" disabled>Salvar página anotada (PNG)</button>
+ <span id="pdfFileName" class="pdfHint"></span>
+ </div>
+ <p id="pdfLocalStatus" class="pdfHint" aria-live="polite"></p>
+ <iframe id="pdfFrame" class="pdfpreview" title="Prévia do PDF" referrerpolicy="no-referrer"></iframe>
+ <div id="pdfLocalMode"><canvas id="pdfLocalCanvas" title="Clique para marcar esta página do PDF" role="button" tabindex="0"></canvas></div>
+ </div></dialog>
+<dialog id="imageDialog" aria-label="Editor de imagens em tela cheia">
+<div class="dhead"><strong id="imgTitle"></strong><button id="imgClose">Fechar</button></div>
+<div class="dbody">
+<div class="editor-tools" aria-label="Ferramentas do editor">
+ <div class="toolgroup" role="group" aria-label="Tipo de ferramenta">
+  <button data-ink-tool="pen" aria-pressed="false" title="Caneta livre">✎ Caneta</button>
+  <button data-ink-tool="highlighter" aria-pressed="true" title="Marca-texto semitransparente">▤ Grifar</button>
+  <button data-ink-tool="eraser" aria-pressed="false" title="Apaga o traço tocado">⌫ Borracha</button>
+  <button data-ink-tool="select" aria-pressed="false" title="Selecione por toque ou retângulo; arraste para mover">▢ Selecionar</button>
+  <button data-ink-tool="pan" aria-pressed="false" title="Deslocar a imagem ampliada">✥ Mover tela</button>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Cores da caneta">
+  <button class="swatch" data-ink-color="#ffd400" style="--swatch:#ffd400" aria-label="Amarelo" aria-pressed="true"></button>
+  <button class="swatch" data-ink-color="#ff514b" style="--swatch:#ff514b" aria-label="Vermelho" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#32b66f" style="--swatch:#32b66f" aria-label="Verde" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#3d88ea" style="--swatch:#3d88ea" aria-label="Azul" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#202b36" style="--swatch:#202b36" aria-label="Preto" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#9b61c7" style="--swatch:#9b61c7" aria-label="Roxo" aria-pressed="false"></button>
+  <label>Cor <input id="inkColor" type="color" value="#ffd400" aria-label="Escolher outra cor"></label>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Espessura da ferramenta">
+  <label>Espessura <input id="inkWidth" type="range" min="1" max="40" value="16" aria-label="Espessura"><span id="widthValue">16 px</span></label>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Histórico e seleção">
+  <button id="undo" title="Ctrl+Z" disabled>↶ Desfazer</button>
+  <button id="redo" title="Ctrl+Y" disabled>↷ Refazer</button>
+  <button id="deleteSelected" class="editor-danger" disabled>Apagar seleção</button>
+  <span id="selectedCount" class="small muted"></span>
+ </div>
+ <div class="toolgroup">
+  <button id="hideOpened" class="danger" title="Oculta este registro, sem apagar arquivo">Excluir da visualização</button>
+ </div>
+</div>
+<div class="editor-meta">
+ <span id="imagePixels">Dimensão da imagem</span>
+ <button id="zoomOutImage" title="Reduzir zoom">−</button>
+ <button id="zoomWidthImage" title="Leitura ampliada na largura disponível">Largura</button><button id="zoomFitImage" title="Mostrar a página inteira">Ajustar</button>
+ <button id="zoomActualImage" title="Exibir a 100%">100%</button>
+ <button id="zoomInImage" title="Ampliar">+</button>
+ <strong id="zoomPct">100%</strong>
+ <a id="originalDriveLink" class="action" target="_blank" rel="noopener noreferrer" hidden>Abrir original no Drive</a>
+ <span id="imgMessage">Anotações automáticas locais</span>
+ <span id="imageWarning" class="small muted"></span>
+</div>
+<div class="stage" id="imageStage"><div class="canvases"><canvas id="base" aria-hidden="true"></canvas><canvas id="grifo" tabindex="0" aria-label="Área para desenhar, apagar ou selecionar"></canvas></div></div>
+</div></dialog>
+<script src="assets/visibilidade-v026.js"></script><script src="assets/editor_imagens_v030.js"></script><script>
+'use strict';
+const $=id=>document.getElementById(id),fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const api=window.BancoMestreImagens;let docs=[],meta=null,cards=[],imgs=[],cardLimit=24,imgLimit=24,loadedCards=false,loadedImages=false;
+let guideData=null,generalGuide=null,auditF17=null,answersF17=null,origMap={},focusGroup='',topicRows=[],imgScale=1,imgW=0,imgH=0;
+let shards={},opened=null,marks=[],draft=null;
+function el(tag,text,cls){const x=document.createElement(tag);if(text!==null)x.textContent=text;if(cls)x.className=cls;return x}
+function action(label,fn,cl){const b=el('button',label,cl||'');b.onclick=fn;return b}
+function link(label,url){const a=el('a',label,'action');a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a}
+function hidden(type){try{return new Set(JSON.parse(localStorage.getItem('BM026_EXCLUDE_'+type)||'[]'))}catch{return new Set()}}
+function exclude(type,id,yes){const ids=hidden(type);yes?ids.add(id):ids.delete(id);try{localStorage.setItem('BM026_EXCLUDE_'+type,JSON.stringify([...ids]));return true}catch(e){alert('Não foi possível gravar no navegador: '+e.message);return false}}
+function card(title,tag,subtitle){const c=el('article',null,'card');c.append(el('span',tag,'tag'),el('h3',title),el('p',subtitle));const buttons=el('div',null,'buttons');c.append(buttons);return {c,buttons}}
+function section(name){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));document.querySelectorAll('main section').forEach(s=>s.classList.toggle('active',s.id===name));history.replaceState(null,'','#'+name);if(name==='cartoes')loadCards();if(name==='imagens')loadImages();if(name==='assuntos')loadTopics()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>section(b.dataset.page));
+async function pdfInit(){try{const r=await fetch('assets/pdf_catalog_v027.json',{cache:'no-store'});if(!r.ok)throw Error('Catálogo indisponível');const d=await r.json();if(d.format!=='BancoMestrePDFCatalogV027'||d.documents.length!==63)throw Error('Catálogo incompatível');docs=d.documents;$('pdfStat').textContent=docs.length;for(const g of [...new Set(docs.map(x=>x.section))])$('pdfFilter').add(new Option(g,g));pdfRender()}catch(e){$('pdfRows').textContent='Erro ao carregar PDFs: '+e.message}}
+function pdfRender(){const q=fold($('pdfSearch').value),f=$('pdfFilter').value,show=$('pdfHidden').checked,h=hidden('PDF');let a=docs.filter(x=>(show||!h.has(x.id))&&(f==='all'||x.section===f)&&fold(x.title+' '+x.section+' '+x.id+' '+x.category).includes(q));$('pdfCount').textContent=a.length+' PDFs';const out=$('pdfRows');out.replaceChildren();for(const group of [...new Set(a.map(x=>x.section))]){out.append(el('h3',group,'group'));const grid=el('div',null,'grid');for(const p of a.filter(x=>x.section===group)){const off=h.has(p.id),pages=p.pages?' · págs. '+p.pages.join('–'):'',size=p.size?' · '+(p.size/1048576).toFixed(1)+' MB':'';const x=card(p.title,p.id,'Google Drive'+pages+size+(off?' · excluído localmente':''));x.buttons.append(action('Ler PDF',()=>pdfOpen(p),'primary'),link('Abrir no Drive',p.url),action(off?'Restaurar':'Excluir',()=>{if(exclude('PDF',p.id,!off))pdfRender()},off?'':'danger'));grid.append(x.c)}out.append(grid)}if(!a.length)out.append(el('p','Nenhum PDF encontrado.','muted'))}
+function pdfOpen(p){$('docTitle').textContent=p.title;$('pdfOriginal').href=p.url;$('pdfFrame').src='https://drive.google.com/file/d/'+encodeURIComponent(p.file_id)+'/preview';$('pdfDialog').showModal()}
+$('pdfClose').onclick=()=>$('pdfDialog').close();$('pdfDialog').addEventListener('close',()=>{$('pdfFrame').src='about:blank'});
+$('pdfSearch').oninput=pdfRender;$('pdfFilter').onchange=pdfRender;$('pdfHidden').onchange=pdfRender;
+
+function topicAreaOf(g){
+ if(g==='PORTUGUES')return 'Português';
+ if(g==='MATEMATICA')return 'Matemática';
+ if(g==='LEGISLACAO')return 'Legislação';
+ if(g==='INFORMATICA')return 'Informática';
+ if(g&&g.startsWith('ENG_'))return 'Engenharia Civil';
+ return 'Outros';
+}
+async function loadTopics(){
+ try{
+  await loadCards();const m=await loadMeta();
+  const cardsByGroup=new Map();
+  for(const c of cards){const g=c.provisional?'LEGISLACAO':c.group||'OUTROS';if(!cardsByGroup.has(g))cardsByGroup.set(g,[]);cardsByGroup.get(g).push(c)}
+  const labels=new Map(m.groups.map(g=>[g.id,g.title]));
+  const areas=['Engenharia Civil','Português','Matemática','Legislação','Informática'];
+  const areaRoot=$('areaRows');areaRoot.replaceChildren();
+  for(const area of areas){
+   const count=[...cardsByGroup].filter(([g])=>topicAreaOf(g)===area).reduce((a,[,v])=>a+v.length,0);
+   const b=el('button',null,'topicCard');b.append(el('strong',area),el('small',count+' cartões, agrupados por assuntos'));b.onclick=()=>{$('topicArea').value=area;topicRender()};areaRoot.append(b);
+  }
+  topicRows=[];
+  for(const [group,arr] of cardsByGroup){
+   const grouped=new Map();
+   for(const c of arr){const k=c.provisional?'Ijuí — legislação FUNDATEC':c.subject||'Outros';if(!grouped.has(k))grouped.set(k,0);grouped.set(k,grouped.get(k)+1)}
+   for(const [subject,count] of grouped){topicRows.push({group,subject,count,area:topicAreaOf(group),label:labels.get(group)||group})}
+  }
+  topicRows.sort((a,b)=>a.area.localeCompare(b.area,'pt-BR')||a.subject.localeCompare(b.subject,'pt-BR'));
+  if($('topicArea').options.length===1)for(const a of areas)$('topicArea').add(new Option(a,a));
+  topicRender();
+ }catch(e){$('topicRows').textContent='Falha ao carregar assuntos: '+e.message}
+}
+function topicRender(){
+ const q=fold($('topicSearch').value),area=$('topicArea').value;
+ const visible=topicRows.filter(x=>(area==='all'||x.area===area)&&fold(x.subject+' '+x.label+' '+x.area).includes(q));
+ $('topicCount').textContent=visible.length+' assuntos';const out=$('topicRows');out.replaceChildren();
+ for(const t of visible.slice(0,180)){
+  const b=el('button',null,'topicCard');b.append(el('span',t.area,'tag'),el('strong',t.subject),el('small',t.count+' cartão(ões) · '+t.label));
+  b.onclick=async()=>{focusGroup=t.group;const query=t.subject==='Ijuí — legislação FUNDATEC'?'':t.subject;$('cardSearch').value=query;$('cardFilter').value='all';cardLimit=24;section('cartoes');cardRender()};
+  out.append(b);
+ }
+ if(!visible.length)out.textContent='Nenhum assunto localizado; tente outro termo.';
+}
+$('topicSearch').oninput=topicRender;$('topicArea').onchange=topicRender;
+
+async function loadMeta(){if(meta)return meta;const r=await fetch('assets/meta_v021.json');if(!r.ok)throw Error('Metadados indisponíveis');meta=await r.json();return meta}
+async function loadCards(){if(loadedCards)return;loadedCards=true;try{const m=await loadMeta(),all=await Promise.all(m.card_files.map(async f=>{const r=await fetch('assets/'+f);if(!r.ok)throw Error('Falta '+f);return r.json()}));const ijR=await fetch('assets/ijui_flashcards_operacionais_v027.json',{cache:'no-store'});if(!ijR.ok)throw Error('Flashcards de Ijuí indisponíveis');const ij=await ijR.json();if(ij.cards.length!==22||ij.format!=='BancoMestreIjuíInc001V027')throw Error('Cópia operacional de Ijuí incompatível');try{const guideRes=await fetch('assets/guias_ijui_v028.json',{cache:'no-store'});if(guideRes.ok){guideData=await guideRes.json();if(guideData.contagens.modelos!==11||guideData.contagens.macetes!==41)throw Error('Guias de Ijuí incompletos')}}catch(e){console.warn('Guia complementar não foi carregado:',e);guideData=null}
+try{const r=await fetch('assets/guia_geral_v028.json',{cache:'no-store'});if(r.ok){const g=await r.json();if(g.contagens.cartoes===1494)generalGuide=g}}catch(e){console.warn('Metadados da base V015 indisponíveis:',e)}
+try{const fr=await fetch('assets/f17_historico_auditado_v029.json',{cache:'no-store'});if(!fr.ok)throw Error('Histórico F17 ausente');const f=await fr.json();if(f.format!=='BancoMestreF17AuditoriaV029'||Object.keys(f.historico_por_id||{}).length!==21)throw Error('Histórico não reconciliado');auditF17=f}catch(e){console.warn('Histórico F17 indisponível; NÃO inferir revisões',e);auditF17=null}
+try{
+ const rx=await fetch('assets/f17_respostas_9_v030.json',{cache:'no-store'});
+ if(!rx.ok)throw Error('Arquivo de respostas históricas ausente');
+ const rr=await rx.json();if(rr.format!=='BancoMestreRespostasHistoricasF17V030'||rr.count!==9||Object.keys(rr.por_id||{}).length!==9)throw Error('Arquivo de respostas inconsistentes');
+ answersF17=rr;
+}catch(e){console.warn('Respostas históricas indisponíveis, sem reconstrução',e);answersF17=null}
+const base=all.flat();if(base.length!==1494)throw Error('Base canônica alterada');const ijui=ij.cards.map(c=>({...c,provisional:true,discipline:'Legislação Ijuí — cópia operacional',subject:c.subject||'Lei anexa'}));cards=[...ijui,...base];for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){$('cardRows').textContent=e.message}}
+
+function infoBlock(parent,title,text){
+ if(text===undefined||text===null||text==='')return;
+ const section=el('div',null,'richSection');
+ section.append(el('h4',title),el('p',String(text)));
+ parent.append(section);
+}
+function infoList(parent,title,items,format){
+ if(!items?.length)return;const block=el('div',null,'richSection');block.append(el('h4',title));const ul=el('ul');
+ for(const x of items){const li=el('li',format(x));ul.append(li)}block.append(ul);parent.append(block);
+}
+function linkedQuestions(cardId){
+ if(!guideData)return [];
+ return Object.values(guideData.questoes).filter(q=>q.vinculos_cartoes.some(x=>x.cartao===cardId));
+}
+function legalCoverage(){
+ const root=$('coverageSummary');root.replaceChildren();if(!guideData)return;
+ const wrap=el('details');const summary=el('summary','Cobertura das 25 normas estudadas em Ijuí (planejamento, não domínio)');
+ wrap.append(summary);const grid=el('div',null,'grid');grid.style.marginTop='15px';
+ for(const x of guideData.cobertura_leis){
+  const b=card(x.lei,x.lei_id,'PDF: '+x.pdf);
+  b.c.append(el('p','Núcleos previstos: '+x.nucleos_planejados+' · com questões liberadas: '+x.nucleos_cobertos));
+  b.c.append(el('p','Situação: '+x.dominio));
+  grid.append(b.c);
+ }wrap.append(grid);root.append(wrap);
+ for(const item of guideData.pendencias_pos_checkpoint||[]){
+   const n=el('div',null,'notice');
+   n.append(el('strong',item.questao_id+' — '+item.tema),el('p',item.evento+' · '+item.estado));
+   root.append(n);
+ }
+}
+function cardRender(){
+ const h=hidden('CARD'),show=$('cardHidden').checked,q=fold($('cardSearch').value),f=$('cardFilter').value;
+ const a=cards.filter(c=>(!$('cardRecoveredOnly').checked||!!answersF17?.por_id?.[c.id])&&(!$('cardReviewedOnly').checked||!!auditF17?.historico_por_id?.[c.id])&&(show||!h.has(c.id))&&(f==='all'||c.discipline===f)&&(!focusGroup||(focusGroup==='LEGISLACAO'&&c.provisional)||c.group===focusGroup)&&fold(c.id+' '+c.front+' '+c.subject+' '+(c.sub||'')+' '+(c.back||'')).includes(q));
+ $('cardCount').textContent=a.length+' cartões · frente/verso com guia metodológico quando disponível';
+ const out=$('cardRows');out.replaceChildren();
+ for(const c of a.slice(0,cardLimit)){
+  const off=h.has(c.id),x=card(c.front,c.id,c.discipline+' · '+c.subject+(c.provisional?' · proposta Ijuí sem SRS':'')+(off?' · oculto':'')),d=el('details');
+  d.append(el('summary','Revelar resposta, fundamento, guia e cobertura'));
+  const ans=el('div',null,'answer');
+  infoBlock(ans,c.provisional?'Verso registrado na cópia operacional':'Resposta exata do cartão original',c.back||'Sem resposta cadastrada');
+  infoBlock(ans,'Explicação da base',c.expl);
+  infoBlock(ans,'Macete original',c.mnemonic);
+  const gg=generalGuide?.por_id?.[c.id];
+  if(gg?.ref)infoBlock(ans,'Referência da base geral V015',gg.ref);
+  if(gg?.evolucoes?.length)infoList(ans,'Evoluções complementares registradas em P08',gg.evolucoes,e=>e.id+' — '+e.pergunta+' | '+e.resposta_complementar+' · '+e.origem);
+  if(c.sub)infoBlock(ans,'Subassunto',c.sub);
+  if(c.prior)infoBlock(ans,'Prioridade histórica na base (não é nota SRS)',c.prior);
+  if(c.provisional){
+   infoBlock(ans,'Situação editorial','PROP-IJUI — cópia operacional, sem promoção canônica. ID anterior proposto: '+(c.legacy_proposed_card_id||'não informado')+'. O ID original conflita com a V015 e não pode ser reutilizado.');
+   infoBlock(ans,'Fundamento da proposta',c.reference);
+   infoBlock(ans,'Origem da questão',c.origin_question_id);
+   const g=guideData?.questoes?.[c.origin_question_id];
+   if(g){
+    infoBlock(ans,'Conhecimento mínimo para acertar',g.resposta_minima);
+    infoBlock(ans,'Resposta-modelo pós-correção',g.resposta_modelo);
+    infoBlock(ans,'Fundamento legal',g.dispositivo);
+    infoBlock(ans,'PDF original / páginas',g.fonte);
+    infoBlock(ans,'Pegadinhas e exceções',g.pegadinhas);
+    if(g.tentativa_registrada)infoBlock(ans,'Tentativa anterior registrada (questão, não flashcard)','Data: '+g.tentativa_data+' · avaliação informada: '+g.avaliacao_informada+' · revisão prevista no checkpoint: '+g.revisao_prevista_no_checkpoint+'. O texto integral permanece na planilha privada.');
+    infoBlock(ans,'O que já foi compreendido',g.acertos_do_estudo);
+    infoBlock(ans,'Pontos a corrigir da resposta anterior',g.lacunas_do_estudo);
+    infoList(ans,'Macetes associados',g.macetes,m=>m.id+' — '+m.frase+' | '+m.interpretacao+(m.alerta?' | Alerta: '+m.alerta:''));
+    infoList(ans,'Lacunas de fixação',g.lacunas,l=>l.id+' ('+l.prioridade+'; '+l.estado+') — '+l.fixar);
+    infoList(ans,'Interconexões com o Banco Mestre',g.vinculos_cartoes,v=>v.cartao+' — '+v.tema+' · '+v.tratamento+' (domínio não demonstrado)');
+    infoBlock(ans,'Cobertura e método','A questão '+g.questao_id+' possui guia pós-tentativa. Cobertura direta do núcleo não equivale a domínio. '+g.aviso_srs);
+   }else infoBlock(ans,'Auditoria de cobertura','Ainda não há resposta-modelo desta questão na planilha auditada; não completar a partir de suposição.');
+  }else{
+   const links=linkedQuestions(c.id);
+   if(links.length)infoList(ans,'Cobertura cruzada com questões de Ijuí',links,q=>q.questao_id+' — '+q.tema+' (associação histórica; não comprova domínio)');
+   else infoBlock(ans,'Cobertura cruzada','Não há associação específica auditada com questões de Ijuí para este ID nos dados consultados.');
+   const evF17=auditF17?.historico_por_id?.[c.id];
+   if(evF17){
+    infoBlock(ans,'Tentativa F17 preservada','Tentativa '+evF17.tentativa+' · '+evF17.avaliacao+' · '+evF17.data_local+(evF17.hora_local?' às '+evF17.hora_local+' (fuso -03:00)':' (hora não comprovada)')+' · fonte: '+evF17.origem_evento);
+    infoBlock(ans,'Observações originais sobre sua resolução',evF17.observacoes_da_correcao);
+    infoBlock(ans,'Precisão do registro',evF17.precisao_temporal);
+    infoBlock(ans,'Próxima revisão já registrada na V015',evF17.proxima_revisao_existente_v015||'Não registrada');
+    
+    ans.append(link('Consultar auditoria F17 no Drive','https://drive.google.com/file/d/1QaiI6lp-JRsW_7S8vWB9whTF3QB5kfOM/view'));
+   }else infoBlock(ans,'Histórico formal de tentativa','Nenhum evento F17 confirmado para este ID; cadastro não é tentativa, acerto ou revisão.');
+   const recovered=answersF17?.por_id?.[c.id];
+   if(recovered){
+    infoBlock(ans,'RESPOSTA DISCURSIVA ARQUIVADA — CSV F14/F16',recovered.resposta_original_arquivada);
+    infoBlock(ans,'Conhecimentos demonstrados no estudo',recovered.conhecimentos_demonstrados);
+    infoBlock(ans,'Conhecimentos parciais',recovered.conhecimentos_parciais);
+    infoBlock(ans,'Erros corrigidos',recovered.erros_corrigidos);
+    infoBlock(ans,'Lacunas identificadas',recovered.lacunas_em_relacao_ao_enunciado);
+    infoBlock(ans,'Complementações da correção',recovered.informacoes_novas_de_complementacao);
+    infoBlock(ans,'Macete da revisão',recovered.macete);
+    infoBlock(ans,'Cobertura cruzada informada (não lançar SRS)',recovered.cobertura_cruzada_ids_informados);
+    infoBlock(ans,'Referência de PDF registrada no CSV',recovered.referencia_pdf_confirmada_no_csv);
+    infoBlock(ans,'Classificação histórica do CSV (não sobrescreve V015)',recovered.classificacao_historica_csv);
+    infoBlock(ans,'Observação de rastreabilidade',recovered.observacao_de_rastreabilidade);
+    if(recovered.conflitos_pendentes?.length)infoList(ans,'Pendências de conciliação — NÃO resolver automaticamente',recovered.conflitos_pendentes,x=>String(x));
+    infoBlock(ans,'Precisão da fonte','Texto preservado no campo do CSV F14/F16; não é certificação de transcrição literal completa do chat. Sem alteração do SRS.');
+   }else if(evF17)infoBlock(ans,'Resposta discursiva integral','Não localizada nos checkpoints consultados para este ID; nenhuma resposta foi inventada.');
+   const crossed=auditF17?.vinculos_indiretos?.filter(x=>x.cartao===c.id||x.origem===c.id)||[];
+   if(crossed.length)infoList(ans,'Cobertura cruzada F17 sem tentativa adicional',crossed,x=>x.origem+' → '+x.cartao+' · '+x.status+' · '+x.evidencia);
+   const evos=auditF17?.evolucoes_registradas?.filter(x=>x.ids_relacionados.includes(c.id))||[];
+   if(evos.length)infoList(ans,'Perguntas evolutivas F17 — vinculadas, sem SRS',evos,x=>x.proposta+' | '+x.pergunta+' | '+x.resposta_fonte);
+   const relatedI=[]; // V031: grupo em comum NÃO comprova vínculo imagem-cartão.
+   if(relatedI.length)infoList(ans,'Imagens relacionadas por grupo — vínculo de ID ainda não confirmado',relatedI.slice(0,6),i=>i.no+' — '+i.title);
+   const relatedP=[]; // V031: categoria em comum NÃO comprova vínculo PDF-cartão.
+   if(relatedP.length)infoList(ans,'PDFs relacionados por categoria — vínculo temático',relatedP.slice(0,6),p=>p.title+(p.pages?' (páginas '+p.pages.join('–')+')':''));
+   infoBlock(ans,'Cobertura do assunto','O cadastro deste cartão não comprova que todas as condições, exceções e aplicações do assunto foram revisadas. A análise aprofundada permanece vinculada às fontes e aos registros originais.');
+  }
+  if(c.provisional&&guideData?.link_fonte_privada){
+   const a=link('Ver planilha original com a resposta discursiva privada',guideData.link_fonte_privada);
+   ans.append(a);
+  }
+  d.append(ans);x.c.insertBefore(d,x.buttons);
+  x.buttons.append(action(off?'Restaurar':'Excluir da visualização',()=>{if(exclude('CARD',c.id,!off))cardRender()},off?'':'danger'));
+  out.append(x.c);
+ }
+ $('moreCards').disabled=a.length<=cardLimit;
+ legalCoverage();
+}
+
+$('cardSearch').oninput=()=>{focusGroup='';cardLimit=24;cardRender()};$('cardFilter').onchange=()=>{focusGroup='';cardRender()};$('cardHidden').onchange=cardRender;$('cardReviewedOnly').onchange=()=>{cardLimit=24;cardRender()};$('cardRecoveredOnly').onchange=()=>{cardLimit=24;cardRender()};$('moreCards').onclick=()=>{cardLimit+=24;cardRender()};
+async function loadImages(){if(loadedImages)return;loadedImages=true;try{
+ imgs=(await loadMeta()).images;
+ try{const r=await fetch('assets/originais_candidatos_v028.json',{cache:'no-store'});if(r.ok){const x=await r.json();if(x.matched_count===76)origMap=x.images||{}}}catch(e){console.warn('Originais não disponíveis; usando prévias:',e)}
+ for(const g of [...new Set(imgs.map(x=>x.category))].sort())$('imageFilter').add(new Option(g,g));
+ await imgRender()
+ }catch(e){$('imageRows').textContent=e.message}}
+async function thumb(x){if(x.shard===undefined||!meta.image_files[x.shard])return null;if(!shards[x.shard])shards[x.shard]=fetch('assets/'+meta.image_files[x.shard]).then(r=>{if(!r.ok)throw Error('Prévia ausente');return r.json()});try{return (await shards[x.shard])[x.no]||null}catch{return null}}
+async function imgRender(){const h=new Map((await api.all()).map(x=>[x.id,x.status])),show=$('imageHidden').checked,q=fold($('imageSearch').value),f=$('imageFilter').value;const a=imgs.filter(x=>(show||h.get(x.no)!=='hidden')&&(f==='all'||x.category===f)&&fold(x.no+' '+x.title+' '+x.category).includes(q));$('imageCount').textContent=a.length+' imagens';const out=$('imageRows');out.replaceChildren();for(const x of a.slice(0,imgLimit)){const off=h.get(x.no)==='hidden',c=card(x.title,x.no,x.category+(off?' · oculta':''));const preview=el('img',null,'thumb');preview.loading='lazy';preview.alt='Abrir '+x.no+' em tela cheia';preview.title='Clique para abrir em tela cheia, ampliar e grifar';preview.tabIndex=0;preview.setAttribute('role','button');preview.style.cursor='zoom-in';preview.onclick=()=>imgOpen(x);preview.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();imgOpen(x)}};c.c.insertBefore(preview,c.c.querySelector('h3'));{
+ const source=origMap[x.no]?.verified===true?origMap[x.no]:null;
+ const fallback=()=>thumb(x).then(src=>{if(!preview.isConnected)return;if(src)preview.src=src;else preview.replaceWith(el('p','Prévia não publicada.','muted'))});
+ if(source){preview.onerror=fallback;preview.src=source.preview_url;preview.title='Original candidato do Drive; validação técnica pendente';}
+ else fallback();
+ }if(x.shard!==undefined||origMap[x.no])c.buttons.append(action('Abrir em tela cheia',()=>imgOpen(x),'primary'));c.buttons.append(action(off?'Restaurar':'Excluir',async()=>{try{await api.setStatus(x.no,off?'visible':'hidden');await imgRender()}catch(e){alert(e.message)}},off?'':'danger'));out.append(c.c)}$('moreImages').disabled=a.length<=imgLimit}
+$('imageSearch').oninput=()=>{imgLimit=24;imgRender()};$('imageFilter').onchange=imgRender;$('imageHidden').onchange=imgRender;$('moreImages').onclick=()=>{imgLimit+=24;imgRender()};
+function picture(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Imagem não carregada'));im.src=src})}
+async function imgOpen(x){
+ try{
+  let image=null,src=origMap[x.no]?.verified===true?origMap[x.no]:null,quality='prévia compactada do catálogo';
+  if(src){try{image=await picture(src.preview_url);quality='arquivo maior do Drive (correspondência por nome, não validada tecnicamente)'}catch(e){console.warn('Original não abriu; usando prévia',e)}}
+  if(!image){const fallback=await thumb(x);if(!fallback)throw Error('Imagem sem prévia. Consulte o arquivo no Drive.');image=await picture(fallback);}
+  const w=image.naturalWidth,h=image.naturalHeight;
+  const low=w<700?'Atenção: esta fonte tem menos de 700 px; ampliar não recupera detalhes perdidos. ':'';
+  const risk=['IMG-001','IMG-117'].includes(x.no)?'Atenção: conteúdo técnico ainda não aprovado. ':'';
+  await BancoMestreEditorV030.open({image,imageId:x.no,title:x.title,quality,sourceUrl:src?.source_url||'',
+   warning:low+risk+'Os grifos permanecem apenas no navegador. Original preservado.',
+   onExclude:async id=>{await api.setStatus(id,'hidden');await imgRender()}
+  });
+ }catch(e){alert('Falha ao abrir imagem: '+e.message)}
+}
+pdfInit();const requested=location.hash.slice(1);if(['assuntos','pdfs','cartoes','imagens'].includes(requested))section(requested);else loadTopics();
+</script><script src="assets/v031_ux.js"></script><script src="assets/pdf_v031.js"></script></body></html>
