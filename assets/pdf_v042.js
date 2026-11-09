@@ -427,6 +427,7 @@ window.BancoMestrePDFV042={
  get editing(){return !!pdf},
  buildAnnotated,
  get currentId(){return selected?.id||null},
+ get currentDoc(){return selected?{...selected}:null},
  get sourceHash(){return info?.hash||null}
 };
 })();
