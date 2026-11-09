@@ -250,18 +250,18 @@ async function exportPDF(){
  if(!pdf||!sourceBytes||!info||exportBusy)return;
  exportBusy=true;controls(false);status('Preparando uma nova cópia PDF com seus grifos; original preservado...');
  try{
-  const lib=await pdflib(),document=await lib.PDFDocument.load(sourceBytes.slice());
-  const pages=document.getPages();let count=0;
+  const lib=await pdflib(),pdfOutput=await lib.PDFDocument.load(sourceBytes.slice());
+  const pages=pdfOutput.getPages();let count=0;
   for(let k=1;k<=pages.length;k++){
    const strokes=annotations(k).filter(m=>m&&m.points?.length);
    if(!strokes.length)continue;
    const cv=document.createElement('canvas');cv.width=1400;cv.height=Math.round(1400*pages[k-1].getHeight()/Math.max(1,pages[k-1].getWidth()));
    const ctx=cv.getContext('2d');for(const mark of strokes)stroke(ctx,mark,cv.width,cv.height);
-   const img=await document.embedPng(cv.toDataURL('image/png'));
+   const img=await pdfOutput.embedPng(cv.toDataURL('image/png'));
    const pg=pages[k-1];pg.drawImage(img,{x:0,y:0,width:pg.getWidth(),height:pg.getHeight(),opacity:1});
    count++;
   }
-  const bytes=await document.save({useObjectStreams:true});
+  const bytes=await pdfOutput.save({useObjectStreams:true});
   const name=info.name.replace(/\.pdf$/i,'')+'_ANOTADO.pdf';
   download(new Blob([bytes],{type:'application/pdf'}),name);
   status('Cópia '+name+' gerada com '+count+' página(s) anotada(s). O PDF original do Drive não foi alterado.');
