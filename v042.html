@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banco Mestre V042 — PDF anotado no Google Drive</title>
+<style>body{font:16px/1.5 system-ui,Arial,sans-serif;margin:5rem auto;max-width:48rem;padding:0 1.5rem;color:#17353b}a{color:#17616a}p{margin:1rem 0}</style>
+</head><body>
+<h1>Banco Mestre V042</h1><p id="status">Preparando a edição isolada com salvamento no Drive…</p>
+<p><a href="v041.html">Abrir V041 anterior (sem salvamento remoto)</a></p>
+<script>
+(async()=>{
+ try{
+  const response=await fetch('./v041.html',{cache:'no-store'});
+  if(!response.ok)throw Error('V041 indisponível (HTTP '+response.status+')');
+  let source=await response.text();
+  if(!source.includes('assets/pdf_v038.js')||!source.includes('assets/v041_vade.js'))throw Error('Modelo V041 inesperado');
+  source=source.replace(/V041/g,'V042');
+  source=source.replace('assets/pdf_v038.js','assets/pdf_v042.js');
+  source=source.replace('<script src="assets/v041_vade.js"></'+'script>',
+    '<script src="assets/v041_vade.js"></'+'script><script src="assets/v042_drive_save.js"></'+'script>');
+  if(!source.includes('assets/v042_drive_save.js'))throw Error('Módulo de gravação não foi integrado');
+  document.open();document.write(source);document.close();
+ }catch(e){document.getElementById('status').textContent='Não foi possível abrir V042: '+e.message}
+})();
+</script>
+</body></html>
