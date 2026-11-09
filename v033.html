@@ -33,8 +33,8 @@ dialog .dhead{position:sticky;top:0;z-index:2}
 body:has(dialog[open]){overflow:hidden}
 footer{font-size:12px;color:var(--sub);margin-top:30px}
 @media(max-width:650px){main{padding:14px 11px 45px}.head{padding:12px}.stat{padding:9px}.stat b{font-size:20px}.panel{padding:12px}.pdfpreview{height:65vh}}
-</style><link rel="stylesheet" href="assets/editor_imagens_v030.css"><link rel="stylesheet" href="assets/v031.css"><link rel="stylesheet" href="assets/v032.css"><link rel="stylesheet" href="assets/v033.css"></head><body>
-<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">V033 · base V015</span></div><div class="version">PDFs primeiro · conteúdo atualizado pela conversa</div></div><nav aria-label="Seções"><button class="active" data-page="assuntos">Assuntos</button><button data-page="pdfs">PDFs</button><button data-page="cartoes">Flashcards</button><button data-page="f17">Conexões F17</button><button data-page="imagens">Imagens</button></nav></div></header>
+</style><link rel="stylesheet" href="assets/editor_imagens_v030.css"><link rel="stylesheet" href="assets/v031.css"><link rel="stylesheet" href="assets/v032.css"><link rel="stylesheet" href="assets/f17_rede_v033.css"></head><body>
+<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">V033 · base V015</span></div><div class="version">PDFs primeiro · conteúdo atualizado pela conversa</div></div><nav aria-label="Seções"><button class="active" data-page="assuntos">Assuntos</button><button data-page="pdfs">PDFs</button><button data-page="cartoes">Flashcards</button><button data-page="auditoria">Conexões F17</button><button data-page="imagens">Imagens</button></nav></div></header>
 <main><div class="hero"><h1>O que deseja estudar?</h1><p>As áreas e os assuntos originais estão de volta. Selecione o tema para encontrar flashcards, imagens e PDFs relacionados, com guias de estudo quando disponíveis.</p></div>
 <div class="stats"><div class="stat"><b id="pdfStat">63</b><span>PDFs catalogados</span></div><div class="stat"><b>1.494 + 22</b><span>Base canônica + Ijuí (cópia de estudo)</span></div><div class="stat"><b>270</b><span>Imagens no Atlas (254 + 16 P10)</span></div></div>
 <section id="assuntos" class="active"><div class="panel"><h2>Comece por uma área</h2><p class="intro">Engenharia Civil, Português, Matemática, Legislação e Informática, incluindo o estudo de Ijuí.</p><div id="areaRows" class="topicCards"></div><h2 style="margin-top:26px">Assuntos do Banco Mestre</h2><div class="controls"><input id="topicSearch" type="search" placeholder="Pesquisar assunto, conceito, norma ou dúvida"><select id="topicArea"><option value="all">Todas as áreas</option></select><span id="topicCount" class="small muted"></span></div><div id="topicRows" class="topicCards"></div></div></section>
@@ -51,45 +51,8 @@ footer{font-size:12px;color:var(--sub);margin-top:30px}
  <p class="notice">Material orientativo derivado dos registros existentes; verifique a versão e a fonte normativa antes de tratar conteúdo técnico como vigente.</p>
  <button id="topicGoCards" class="primary">Praticar flashcards deste assunto</button>
  </div></section>
-
-<section id="f17"><div class="panel">
- <h2>Auditoria F17 — interconexões e referências</h2>
- <p class="intro">Histórico preservado, respostas discursivas, relações entre conhecimentos, propostas de evolução e referências por assunto. Uma relação não é revisão formal.</p>
- <div class="f17Summary">
-  <div class="f17Stat"><strong>21</strong><span>Eventos históricos F17</span></div>
-  <div class="f17Stat"><strong>9</strong><span>Respostas discursivas arquivadas</span></div>
-  <div class="f17Stat"><strong>7</strong><span>Relações da agenda F17</span></div>
-  <div class="f17Stat"><strong>9</strong><span>Propostas históricas de evolução</span></div>
- </div>
- <p class="notice">Cobertura direta, parcial, indireta e vínculo contextual são coisas diferentes. Não atribua Bom/Fácil, adie revisão ou altere um cartão de destino sem tentativa e avaliação válidas. As 28 relações analíticas das respostas estão separadas dos 7 vínculos da agenda.</p>
- <div class="controls">
-  <input id="f17Search" type="search" aria-label="Buscar IDs, assuntos, lacunas ou evidência" placeholder="Buscar por ID, tema, resposta ou evidência">
-  <select id="f17Mode" aria-label="Tipo de registro F17">
-   <option value="vinculos">Vínculos e evidências</option>
-   <option value="assuntos">Referências por assunto</option>
-   <option value="respostas">Respostas, erros e lacunas</option>
-   <option value="eventos">Revisões históricas</option>
-   <option value="propostas">Evoluções históricas</option>
-  </select>
-  <select id="f17Kind" aria-label="Filtrar tipo de cobertura">
-   <option value="all">Todos os níveis</option>
-   <option value="direta">Núcleo demonstrado</option>
-   <option value="parcial">Parcial</option>
-   <option value="indireta">Indireta</option>
-   <option value="nao_avaliado">Não avaliado</option>
-   <option value="associado">Associação F17</option>
-   <option value="contextual">Contexto</option>
-   <option value="contraste">Erro/contraste</option>
-  </select>
- </div>
- <p id="f17Metrics" class="small muted" aria-live="polite">Abrindo dados históricos F17…</p>
- <p id="f17ResultCount" class="small muted" aria-live="polite"></p>
- <div id="f17Results"></div>
- <details><summary>Critérios, fontes e limites do levantamento</summary>
- <p>Os eventos e datas vêm de <a href="https://github.com/carlosemichelon/concurso/blob/gh-pages/assets/f17_historico_auditado_v029.json" target="_blank" rel="noopener noreferrer">F17 V029</a>; as respostas e lacunas são do <a href="https://github.com/carlosemichelon/concurso/blob/gh-pages/assets/f17_respostas_9_v030.json" target="_blank" rel="noopener noreferrer">arquivo V030</a>. O mapa V033 atribui rótulos de evidência analíticos, mas não valida integralmente todas as normas ou as respostas históricas. Somente 9 respostas discursivas estão recuperadas neste conjunto; não inferir respostas de eventos sem transcrição.</p>
- </details>
- </div></section>
-<section id="cartoes"><div class="panel"><h2>Flashcards</h2><p class="intro">22 cartões de Ijuí e 1.494 cartões V015. F17: 21 eventos formais, 9 respostas arquivadas F14/F16, 7 vínculos indiretos e 9 evoluções. Nenhum evento SRS é recalculado.</p><div class="controls"><input id="cardSearch" type="search" placeholder="Buscar tema, número ou pergunta"><select id="cardFilter"><option value="all">Todas as disciplinas</option></select><label class="checkbox"><input id="cardHidden" type="checkbox">Mostrar ocultos</label><label class="checkbox"><input id="cardReviewedOnly" type="checkbox">Somente eventos F17 (21)</label><label class="checkbox"><input id="cardRecoveredOnly" type="checkbox">Somente respostas recuperadas (9)</label><span id="cardCount" class="small muted"></span></div><div id="cardRows" class="grid"></div><p><button id="moreCards">Mostrar mais</button></p><div id="coverageSummary"></div></div></section>
+<section id="auditoria"><div class="panel"><h2>Auditoria F17 — interconexões e referências</h2><p class="intro">Relações históricas por ID, evidência, grau de cobertura e fonte. Não gera eventos, avaliações nem revisões SRS. Assunto semelhante é apenas contexto, não comprova domínio.</p><div id="f17Stats" class="f17-stat-grid"></div><div class="controls"><input id="f17Search" type="search" placeholder="Buscar assunto, número, conceito ou ID relacionado"><select id="f17Kind" aria-label="Tipo de registro"><option value="all">Todos os registros</option><option value="formal">Com evento F17</option><option value="response">Com resposta arquivada</option><option value="links">Com interconexões</option><option value="evolution">Com proposta evolutiva</option></select></div><p id="f17Count" class="intro"></p><div id="f17Rows"></div><div id="f17SubjectNetwork"></div><div id="f17Proposals"></div><p class="notice">Fontes F17 e CSV histórico permanecem distintas. Anotações de cobertura direta, parcial, indireta ou não avaliada não alteram o SRS de outro cartão.</p></div></section>
+<section id="cartoes"><div class="panel"><h2>Flashcards</h2><p class="intro">22 cartões de Ijuí e 1.494 cartões V015. F17: 21 eventos formais e 9 respostas arquivadas. A aba Conexões F17 mostra 7 vínculos da auditoria, 28 menções nos textos históricos, 9 evoluções e fontes por ID. Nenhum SRS é recalculado.</p><div class="controls"><input id="cardSearch" type="search" placeholder="Buscar tema, número ou pergunta"><select id="cardFilter"><option value="all">Todas as disciplinas</option></select><label class="checkbox"><input id="cardHidden" type="checkbox">Mostrar ocultos</label><label class="checkbox"><input id="cardReviewedOnly" type="checkbox">Somente eventos F17 (21)</label><label class="checkbox"><input id="cardRecoveredOnly" type="checkbox">Somente respostas recuperadas (9)</label><span id="cardCount" class="small muted"></span></div><div id="cardRows" class="grid"></div><p><button id="moreCards">Mostrar mais</button></p><div id="coverageSummary"></div></div></section>
 <section id="imagens"><div class="panel"><h2>Imagens e pranchas</h2><p class="intro">Grifo local e exclusão reversível; original e ID permanecem preservados.</p><div class="notice">Atlas revisado por assunto: 254 registros anteriores e 16 imagens Petrobras 10 com ID IMG-P10-xx. Imagens sem evidência temática permanecem pesquisáveis, sem vínculo automático aos flashcards. Grifos salvos localmente.</div><div class="controls"><input id="imageSearch" type="search" placeholder="Buscar IMG, assunto ou título"><select id="imageFilter"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="imageHidden" type="checkbox">Mostrar ocultas</label><span id="imageCount" class="small muted"></span></div><div id="imageRows" class="grid"></div><p><button id="moreImages">Mostrar mais</button></p></div></section>
 <footer>V033 · PDFs no Drive · nenhuma publicação de arquivos PDF, anexos ou alteração da base canônica · exclusão reversível neste navegador.</footer></main>
 <dialog id="pdfDialog"><div class="dhead"><strong id="docTitle"></strong><button id="pdfClose">Fechar</button></div><div class="dbody"><div class="toolbar"><a id="pdfOriginal" class="action primary" target="_blank" rel="noopener noreferrer">Abrir no Drive</a><button id="pdfChooseLocal" class="primary" title="Abrir uma cópia local somente para leitura e grifos">✎ Grifar PDF neste aparelho</button>
@@ -374,5 +337,5 @@ async function imgOpen(x){
   });
  }catch(e){alert('Falha ao abrir imagem: '+e.message)}
 }
-pdfInit(); // Roteamento e índice auditado executados após os módulos V032.
-</script><script src="assets/v033_ux.js"></script><script src="assets/pdf_v031.js"></script><script src="assets/v033_boot.js"></script><script src="assets/f17_v033.js"></script></body></html>
+pdfInit(); // Roteamento e índice de F17 após carregar os módulos V033.
+</script><script src="assets/v033_ux.js"></script><script src="assets/pdf_v031.js"></script><script src="assets/v033_boot.js"></script><script src="assets/f17_rede_v033.js"></script></body></html>
