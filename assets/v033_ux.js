@@ -170,7 +170,12 @@ const priorTopicRender=topicRender;
 topicRender=function(){priorTopicRender();
  const q=plain(byId('topicSearch').value),area=byId('topicArea').value;
  const list=topicRows.filter(x=>(area==='all'||x.area===area)&&plain(x.subject+' '+x.label+' '+x.area).includes(q));
- [...byId('topicRows').querySelectorAll('button.topicCard')].forEach((node,i)=>{if(list[i])node.onclick=()=>openTopic(list[i])});
+ [...byId('topicRows').querySelectorAll('button.topicCard')].forEach((node,i)=>{
+  if(!list[i])return;
+  const t=list[i];node.onclick=()=>openTopic(t);
+  const n=window.BM033Cross?.countForSubject?.(t.group,t.subject)||0;
+  if(n){const small=node.querySelector('small');if(small)small.textContent+=' · '+n+' conexão(ões) F17';}
+ });
 };
 const priorPdfRender=pdfRender;
 pdfRender=function(){priorPdfRender();for(const article of byId('pdfRows').querySelectorAll('article.card')){
