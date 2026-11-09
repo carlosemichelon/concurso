@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Banco Mestre V025 — Início por assunto</title>
+<meta name="theme-color" content="#173f44"><meta http-equiv="Cache-Control" content="no-store">
+<style>
+:root{--ink:#193337;--muted:#52686b;--brand:#18535a;--bg:#f4f7f6;--surface:#fff;--line:#d8e4e2;--pale:#e9f2ef;--gold:#b7832c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px/1.55 system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:#fff;border-bottom:1px solid var(--line)}.head{max-width:1220px;margin:auto;padding:15px 22px;display:flex;align-items:center;gap:18px;justify-content:space-between;flex-wrap:wrap}
+.brand{font-size:20px;letter-spacing:-.65px;font-weight:850}.version{font-size:11px;color:var(--muted);margin-left:10px}.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+a{color:var(--brand)}.nav a,.btn{font:600 13px/1.3 system-ui,Arial;border:1px solid var(--line);border-radius:9px;padding:10px 12px;text-decoration:none;background:#fff;color:var(--ink);display:inline-block;cursor:pointer}
+.nav a:hover,.btn:hover{border-color:#7faeaa}.btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}.btn.ghost{background:var(--pale);color:var(--brand)}.btn.small{font-size:12px;padding:7px 10px}.btn:disabled{opacity:.5;cursor:default}
+main{max-width:1220px;margin:auto;padding:26px 22px 80px}.hero{background:linear-gradient(115deg,#173e43,#25636a);padding:30px 34px;border-radius:18px;color:#fff}
+.eyebrow{font-weight:800;text-transform:uppercase;letter-spacing:1.8px;font-size:11px;color:#bde2dc}.hero h1{font-size:clamp(29px,4vw,45px);margin:8px 0;line-height:1.16;letter-spacing:-1.1px}
+.hero p{color:#dbebe8;max-width:760px;margin:8px 0 18px}.searchbox{display:flex;gap:8px;max-width:940px;flex-wrap:wrap}.searchbox input{font:inherit;flex:1;min-width:260px;border-radius:10px;border:2px solid #b3d0cc;padding:15px 17px;background:white;color:#172b2f}.searchbox button{padding:14px 20px;border-radius:10px;background:#e6f2ef;color:#16464b;border:0;font-weight:800;cursor:pointer}
+.heroStats{display:flex;gap:18px;flex-wrap:wrap;color:#e4f0ed;font-size:12px;margin-top:15px}
+.sectionTitle{margin:28px 0 12px;font-size:20px;letter-spacing:-.5px}h2,h3{line-height:1.3}p{margin:7px 0 10px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:13px}.tile,.panel,.entry{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:17px;min-width:0}
+.tile{text-align:left;cursor:pointer;width:100%}.tile:hover{border-color:#93bdb7;box-shadow:0 7px 25px #143f4412}.tile strong{display:block;font-size:15px}.tile small{display:block;color:var(--muted);margin-top:7px}.n{font:700 11px ui-monospace,Consolas,monospace;color:var(--brand)}
+.row{display:flex;align-items:center;gap:11px;justify-content:space-between;flex-wrap:wrap}.links{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.pill{border-radius:50px;background:var(--pale);color:var(--brand);padding:5px 9px;font-size:11px;font-weight:750}
+.searchLabel{font-size:13px;color:var(--muted);margin:10px 0}.notice{background:#fff9e9;border:1px solid #eadbb8;border-radius:10px;padding:12px 15px;font-size:12px;color:#5b502f;margin:13px 0}
+.tabrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.tabrow button{padding:9px 14px;border-radius:50px;background:white;border:1px solid var(--line);font-weight:700;cursor:pointer;color:var(--ink)}.tabrow button.active{background:var(--brand);color:white}
+.block{margin-top:17px}.cardQ{font-size:14px;font-weight:650;color:var(--ink);line-height:1.5}.cardA{border-left:3px solid #8eaead;background:#eef6f3;padding:10px;margin-top:9px;color:#234147;white-space:pre-wrap}.empty{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--muted)}
+input[type=file]{max-width:300px}.srson{display:inline-block;color:#1e6948;font-weight:700}.srsOff{color:#8b6940}.thumb{height:145px;background:#edf2f1;border:1px solid #e6ecea;border-radius:9px;display:grid;place-items:center;overflow:hidden;margin:8px 0}.thumb img{height:100%;width:100%;object-fit:contain}
+#detail[hidden],#results[hidden],#topics[hidden]{display:none!important}
+#detail h2{font-size:25px;margin:6px 0}.meta{font-size:12px;color:var(--muted)}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+@media(max-width:600px){main{padding:12px 12px 60px}.head{padding:12px}.hero{padding:24px 18px}.nav{gap:5px}.nav a{padding:7px 9px}.searchbox input{min-width:100%}.sectionTitle{margin-top:22px}.grid{grid-template-columns:1fr}.row{align-items:flex-start}}
+</style></head><body>
+<header><div class="head"><div><span class="brand">Banco Mestre</span><span class="version">V025 · base de cartões V015</span></div><nav class="nav" aria-label="Acesso aos módulos"><a href="./acervo-v024.html#atlas">Atlas de imagens</a><a href="./imagens-v025.html">Gerenciar imagens</a><a href="./acervo-v024.html#cards">Flashcards</a><a href="./estudo-ativo-v024.html?manuscrito=1">Manuscrito</a><a href="./estudo-ativo-v024.html">PDFs e editor</a></nav></div></header>
+<main>
+<section class="hero"><div class="eyebrow">Sua biblioteca de estudo interligada</div><h1>O que deseja estudar?</h1><p>Pesquise o assunto primeiro. Encontre os cartões, imagens e prints, capítulos do manuscrito, PDFs e informações associadas da base de estudos.</p>
+<form class="searchbox" id="searchForm"><input id="search" type="search" autocomplete="off" placeholder="Ex.: concreto armado, NR-18, topografia, crase, rodovias..." aria-label="Buscar assunto"/><button type="submit">Buscar assunto</button></form>
+<div class="heroStats"><span id="statCards">Carregando cartões…</span><span id="statImages">Imagens…</span><span id="statManuscript">Manuscrito…</span><span id="statSrs">Registros SRS: não importados</span></div></section>
+<div class="notice">Os conteúdos do acervo são uma cópia pública da base V015, não uma sincronização ao vivo com a planilha. Os registros de revisão SRS só aparecem após importação local da planilha; PDFs e manuscritos privados permanecem no Drive ou neste navegador.</div><div class="notice"><strong>Auditoria de imagens V025:</strong> 215 imagens com menos de 700 px de largura e 5 sem prévia. <a href="./imagens-v025.html">Abra a fila de correção</a> para revisar, substituir ou excluir da visualização. Nenhuma exclusão automática foi aplicada.</div>
+<section id="topics"><h2 class="sectionTitle">Comece por uma área</h2><div id="areas" class="grid"></div><h2 class="sectionTitle">Assuntos do Banco Mestre</h2><p class="meta">Selecione uma área ou busque uma palavra para localizar todas as relações disponíveis.</p><div id="topicsGrid" class="grid"></div><div class="links"><button class="btn" id="allTopics" type="button">Mostrar todos os assuntos</button></div></section>
+<section id="results" hidden><div class="row"><h2 id="resultTitle" class="sectionTitle">Assuntos encontrados</h2><button id="clearSearch" class="btn">Limpar busca</button></div><p id="resultCount" class="meta"></p><div id="resultList" class="grid"></div></section>
+<section id="detail" hidden><div class="row"><button id="back" class="btn ghost">← Voltar aos assuntos</button><span class="pill" id="detailArea"></span></div><h2 id="detailTitle"></h2><p id="detailSub"></p>
+<div class="links"><a id="openAllCards" class="btn primary">Ver todos os cartões</a><a id="openAllImages" class="btn">Abrir imagens e prints</a><a id="openManuscript" class="btn">Ver manuscrito</a><a href="./estudo-ativo-v024.html" class="btn">Biblioteca de PDFs</a></div>
+<div id="detailStats" class="heroStats" style="color:var(--muted)"></div>
+<div class="tabrow"><button type="button" class="active" data-tab="cards">Cartões</button><button type="button" data-tab="images">Imagens / prints</button><button type="button" data-tab="manuscript">Manuscrito e PDFs</button><button type="button" data-tab="records">Registros SRS</button></div><div id="detailBody"></div></section>
+<section id="source" class="block panel"><div class="row"><div><h2 style="margin:0;font-size:18px">Planilha Mestre e revisões já realizadas</h2><p class="meta">Importe a planilha V015 (.xlsx) ou um CSV da aba SRS. O site relaciona os registros pelo ID dos cartões sem publicar o histórico.</p></div><span class="pill">Somente neste navegador</span></div>
+<div class="links"><label class="btn primary" for="srsInput">Importar planilha/CSV</label><input id="srsInput" type="file" accept=".xlsx,.xls,.csv,text/csv" style="display:none"/><button class="btn" id="clearSrs">Limpar dados locais SRS</button><button class="btn" id="exportSrs">Backup JSON dos registros locais</button></div><div id="srsStatus" class="meta">Nenhum registro de revisão importado neste navegador.</div><div class="notice">Importar é somente uma leitura local. Não grava avaliações, não recalcula SRS e não altera o arquivo do Google Drive. Se o navegador for limpo, reimporte a planilha ou o backup.</div></section>
+<footer>Banco Mestre · Navegação temática V025 · Atlas e flashcards públicos da base V015. Questões e normas em auditoria mantêm seus próprios status. Consulte as edições normativas aplicáveis.</footer>
+</main>
+<script src="assets/imagens-v023.js"></script><script>
+'use strict';
+const $=id=>document.getElementById(id), norm=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let meta=null,manu=null,cards=[],topics=[],current=null,tab='cards',srs={};
+const GROUPS={ENG:'Engenharia Civil',PORT:'Português',MATH:'Matemática',LAW:'Legislação',IT:'Informática'};
+const statArea=id=>id.startsWith('ENG_')?'Engenharia Civil':id==='PORTUGUES'?'Português':id==='MATEMATICA'?'Matemática':id==='LEGISLACAO'?'Legislação':'Informática';
+const findGroup=id=>meta?.groups.find(g=>g.id===id)?.title||id;
+const getJSON=async f=>{const r=await fetch('assets/'+f+'?v=V025',{cache:'no-store'});if(!r.ok)throw Error('Não foi possível carregar '+f);return r.json()};
+const escapeParam=s=>encodeURIComponent(s);
+const cardsUrl=(group,q='')=>'./acervo-v024.html?aba=cards&grupo='+escapeParam(group)+'&busca='+escapeParam(q);
+const atlasUrl=(group,q='')=>'./acervo-v024.html?aba=atlas&grupo='+escapeParam(group)+'&busca='+escapeParam(q);
+const manuUrl=group=>'./estudo-ativo-v024.html?manuscrito=1&grupo='+escapeParam(group);
+function areaCards(){
+ const byArea={};for(const c of cards){const a=statArea(c.group);byArea[a]=(byArea[a]||0)+1}
+ const a=['Engenharia Civil','Português','Matemática','Legislação','Informática'];
+ $('areas').innerHTML=a.map(x=>'<button class="tile" data-area="'+esc(x)+'"><strong>'+esc(x)+'</strong><small>'+(byArea[x]||0)+' cartões na base pública · explorar assuntos</small></button>').join('');
+ $('areas').querySelectorAll('button').forEach(b=>b.onclick=()=>performSearch('',b.dataset.area));
+}
+function buildTopics(){
+ const map=new Map();for(const c of cards){const title=c.subject||'Outros',key=c.group+'||'+title;
+ if(!map.has(key))map.set(key,{key,group:c.group,title,subject:c.subject||'',cards:[],imageCount:0,chapters:[]});map.get(key).cards.push(c);}
+ topics=[...map.values()];for(const t of topics){t.imageCount=meta.images.filter(i=>i.group===t.group).length;t.chapters=manu.chapters.filter(c=>c.groups.includes(t.group));}
+ topics.sort((a,b)=>findGroup(a.group).localeCompare(findGroup(b.group),'pt-BR')||a.title.localeCompare(b.title,'pt-BR'));
+}
+function topicHtml(t,info=''){return '<button class="tile" data-key="'+esc(t.key)+'"><span class="n">'+esc(findGroup(t.group))+'</span><strong>'+esc(t.title)+'</strong><small>'+t.cards.length+' cartões · '+t.imageCount+' imagens do grupo · '+t.chapters.length+' capítulo(s) relacionado(s)</small>'+(info?'<small>'+esc(info)+'</small>':'')+'</button>'}
+function drawTopics(all=false){const rows=all?topics:[...topics].sort((a,b)=>b.cards.length-a.cards.length).slice(0,18);$('topicsGrid').innerHTML=rows.map(t=>topicHtml(t)).join('');activateTopics($('topicsGrid'));$('allTopics').hidden=all}
+function activateTopics(el){el.querySelectorAll('[data-key]').forEach(b=>b.onclick=()=>selectTopic(b.dataset.key))}
+function performSearch(q,area=''){
+ q=q.trim();$('search').value=q;current=null;$('detail').hidden=true;
+ const normalized=norm(q);
+ if(!q&&!area){$('topics').hidden=false;$('results').hidden=true;history.replaceState({},'',location.pathname);return;}
+ let hits=topics.filter(t=>(!area||statArea(t.group)===area)&&(!q||norm([t.title,findGroup(t.group),...t.cards.map(c=>[c.sub,c.front,c.back,c.expl].join(' '))].join(' ')).includes(normalized)));
+ if(q){hits.sort((a,b)=>{const sa=norm(a.title).includes(normalized)?0:1,sb=norm(b.title).includes(normalized)?0:1;return sa-sb||b.cards.length-a.cards.length})}
+ $('topics').hidden=true;$('results').hidden=false;
+ $('resultTitle').textContent=area||('Resultados para “'+q+'”');$('resultCount').textContent=hits.length+' assuntos encontrados';
+ $('resultList').innerHTML=hits.length?hits.slice(0,120).map(t=>topicHtml(t)).join(''):'<div class="empty">Nenhum assunto encontrado. Pesquise um termo mais amplo, como concreto, solos, hidráulica ou legislação.</div>';
+ activateTopics($('resultList'));history.replaceState({},'',location.pathname+'?'+(area?'area='+escapeParam(area)+'&':'')+'busca='+escapeParam(q));}
+async function selectTopic(key,updateHistory=true){
+ const t=topics.find(x=>x.key===key);if(!t)return;current=t;tab='cards';$('topics').hidden=true;$('results').hidden=true;$('detail').hidden=false;
+ $('detailArea').textContent=findGroup(t.group);$('detailTitle').textContent=t.title;
+ $('detailSub').textContent=t.cards.length+' cartões catalogados neste assunto · relação temática com imagens e capítulos de '+statArea(t.group);
+ $('openAllCards').href=cardsUrl(t.group,t.title);$('openAllImages').href=atlasUrl(t.group,t.title);$('openManuscript').href=manuUrl(t.group);
+ $('detailStats').innerHTML='<span>'+t.cards.length+' cartões</span><span>'+t.imageCount+' imagens no grupo</span><span>'+t.chapters.length+' capítulos do manuscrito</span>';
+ document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+ await drawDetail();if(updateHistory)history.replaceState({},'',location.pathname+'?tema='+escapeParam(key));$('detail').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function srsFor(id){return srs[id]||null}
+async function drawDetail(){
+ if(!current)return;const t=current,root=$('detailBody');root.innerHTML='';
+ if(tab==='cards'){
+ const frag=document.createDocumentFragment();
+ for(const c of t.cards.slice(0,60)){const d=document.createElement('article');d.className='entry block';
+ const st=srsFor(c.id),head=document.createElement('div');head.className='row';head.innerHTML='<span class="n">'+esc(c.id)+' · '+esc(c.sub||c.subject)+'</span><span class="meta">'+(st?esc('SRS: '+(st.rating||'sem avaliação')+' · '+(st.attempts||'0')+' tentativa(s)'):'sem registro SRS local')+'</span>';
+ const h=document.createElement('div');h.className='cardQ';h.textContent=c.front;
+ const b=document.createElement('button');b.className='btn small';b.textContent='Revelar resposta original';
+ const ans=document.createElement('div');ans.hidden=true;ans.className='cardA';ans.textContent=c.back;
+ b.onclick=()=>{ans.hidden=!ans.hidden;b.textContent=ans.hidden?'Revelar resposta original':'Ocultar resposta'};d.append(head,h,b,ans);frag.append(d)}
+ root.append(frag);
+ if(t.cards.length>60){const p=document.createElement('p');p.textContent='Mostrando 60 cartões. Use “Ver todos os cartões” para navegar pelo conjunto completo.';root.append(p)}
+ }else if(tab==='images'){
+ const hiddenIds=new Set((await window.BancoMestreImagens.all()).filter(x=>x.status==='hidden').map(x=>x.id));const imgs=meta.images.filter(i=>i.group===t.group&&!hiddenIds.has(i.no)).sort((a,b)=>norm(a.title).includes(norm(t.title))?-1:1).slice(0,32);
+ if(!imgs.length){root.innerHTML='<div class="empty">Ainda não há imagens catalogadas para esta área.</div>';return}
+ const list=document.createElement('div');list.className='grid';root.append(list);
+ const shards=[...new Set(imgs.slice(0,12).filter(i=>i.shard!==undefined).map(i=>i.shard))],parts={};
+ await Promise.all(shards.map(async n=>{try{parts[n]=await getJSON(meta.image_files[n])}catch(e){parts[n]={}}}));
+ for(const x of imgs){const div=document.createElement('div');div.className='tile';div.style.cursor='default';const imgSrc=await window.BancoMestreImagens.replacementUrl(x.no)||parts[x.shard]?.[x.no];
+ div.innerHTML='<span class="n">'+esc(x.no)+'</span><div class="thumb">'+(imgSrc?'<img loading="lazy" alt="'+esc(x.title)+'" src="'+imgSrc+'">':'<span class="meta">Prévia no Atlas</span>')+'</div><strong>'+esc(x.title)+'</strong><small>'+esc(x.category)+'</small>';
+ const a=document.createElement('a');a.className='btn small';a.href='./estudo-ativo-v024.html?atlas='+escapeParam(x.no);a.textContent='Abrir e marcar';const manage=document.createElement('a');manage.href='./imagens-v025.html?imagem='+escapeParam(x.no);manage.className='btn small';manage.textContent='Editar / excluir';div.append(a,manage);list.append(div)}
+ }else if(tab==='manuscript'){
+ const chapters=manu.chapters.filter(c=>c.groups.includes(t.group));
+ root.innerHTML='<div class="notice">Os PDFs originais estão no Drive privado. Para grifar, vincule o capítulo no leitor com seu índice privado e anexe o PDF ao navegador. A associação abaixo é temática, não uma identificação de cada página com cada imagem.</div>';
+ const grid=document.createElement('div');grid.className='grid';root.append(grid);
+ for(const ch of chapters){const b=document.createElement('article');b.className='tile';b.style.cursor='default';b.innerHTML='<span class="n">'+esc(ch.id)+' · págs. '+ch.page_start+'–'+ch.page_end+'</span><strong>'+esc(ch.title)+'</strong>';const a=document.createElement('a');a.href=manuUrl(t.group);a.className='btn small';a.textContent='Abrir no leitor';b.append(a);grid.append(b)}
+ if(!chapters.length)root.innerHTML+='<div class="empty">Não há capítulo temático indexado para este grupo. Utilize a biblioteca PDF para anexar materiais relacionados.</div>';
+ }else if(tab==='records'){
+ const counted=t.cards.map(c=>({c,st:srsFor(c.id)})),known=counted.filter(x=>x.st);
+ root.innerHTML='<div class="notice">Os registros mostrados vêm exclusivamente da planilha que foi importada neste navegador. Não são recalculados, enviados ao GitHub ou registrados como novas revisões.</div><p class="meta">'+known.length+' de '+t.cards.length+' cartões deste assunto com registro SRS local.</p>';
+ const grid=document.createElement('div');grid.className='grid';root.append(grid);
+ for(const {c,st} of known.slice(0,60)){const x=document.createElement('div');x.className='tile';x.style.cursor='default';x.innerHTML='<span class="n">'+esc(c.id)+'</span><strong>'+esc(c.front)+'</strong><small>Avaliação: '+esc(st.rating)+'<br>Tentativas: '+esc(st.attempts)+'<br>Última revisão: '+esc(st.last||'—')+'<br>Próxima revisão: '+esc(st.next||'—')+'<br>Estado: '+esc(st.status||'—')+'</small>';grid.append(x)}
+ if(!known.length)root.innerHTML+='<div class="empty">Nenhum registro SRS importado para esses cartões. Importe a planilha na seção “Planilha Mestre”.</div>';
+ }}
+function parseCSV(input){
+ const str=input.replace(/^\uFEFF/,'');let rows=[],row=[],field='',quoted=false;
+ for(let i=0;i<str.length;i++){const ch=str[i];if(ch==='"'){if(quoted&&str[i+1]==='"'){field+='"';i++}else quoted=!quoted;}else if(ch===','&&!quoted){row.push(field);field=''}else if((ch==='\n'||ch==='\r')&&!quoted){if(ch==='\r'&&str[i+1]==='\n')i++;row.push(field);if(row.some(x=>x.trim()))rows.push(row);row=[];field=''}else field+=ch}row.push(field);if(row.some(x=>x.trim()))rows.push(row);return rows;
+}
+function readSRSRows(rows){
+ const head=rows.findIndex(row=>row.some(v=>norm(v)==='id')&&row.some(v=>norm(v)==='tentativas')&&row.some(v=>norm(v)==='avaliacao'));
+ if(head<0)throw Error('Não encontrei as colunas ID, Tentativas e Avaliação na aba SRS.');
+ const h=rows[head].map(norm),col=k=>h.findIndex(x=>x===norm(k));const ids=new Set(cards.map(c=>c.id)),out={};
+ for(const row of rows.slice(head+1)){const id=String(row[col('ID')]||'').trim();if(!ids.has(id))continue;
+ const attempts=String(row[col('Tentativas')]||'0'),rating=String(row[col('Avaliação')]||'').trim();if(!(Number(attempts)>0||rating))continue;out[id]={attempts,rating,last:String(row[col('Última revisão')]||''),next:String(row[col('Próxima revisão')]||''),status:String(row[col('Estado')]||'')};}return out;
+}
+async function uploadSRS(file){
+ let rows=[];if(/\.csv$/i.test(file.name))rows=parseCSV(await file.text());
+ else{const src='https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';if(!window.XLSX){await new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(Error('Não foi possível carregar o leitor XLSX. Exporte a aba SRS como CSV e tente novamente.'));document.head.append(s)})}
+ const wb=window.XLSX.read(await file.arrayBuffer(),{type:'array'});for(const sheet of wb.SheetNames){const a=window.XLSX.utils.sheet_to_json(wb.Sheets[sheet],{header:1,raw:false,defval:''});if(a.some(row=>row.some(v=>norm(v)==='id')&&row.some(v=>norm(v)==='tentativas')&&row.some(v=>norm(v)==='avaliacao'))){rows=a;break}}}
+ const parsed=readSRSRows(rows);if(!Object.keys(parsed).length)throw Error('Nenhum ID de cartão da base V015 foi reconhecido.');
+ srs=parsed;localStorage.setItem('BancoMestre_SRS_V023',JSON.stringify(srs));updateSrsStatus('Importado de '+file.name);if(current&&tab==='records')drawDetail();
+}
+function updateSrsStatus(extra=''){const n=Object.keys(srs).length;$('statSrs').textContent=n+' registros SRS locais';$('srsStatus').textContent=n?n+' cartões com revisão realizada, vinculados por ID à base V015. '+extra:'Nenhum registro de revisão importado neste navegador.';}
+function downloadSrs(){const blob=new Blob([JSON.stringify({format:'BancoMestre_SRS_Local_V025',records:srs},null,2)],{type:'application/json'}),a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download='BACKUP_SRS_LOCAL_V025.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),2000)}
+async function init(){
+ try{[meta,manu]=await Promise.all([getJSON('meta_v021.json'),getJSON('manuscrito_indice_v021.json')]);if(meta.base!=='V015'||meta.counts.cards!==1494||manu.chapters.length!==34)throw Error('Base ou índice incompatível');
+ const groups=await Promise.all(meta.card_files.map(getJSON));cards=groups.flat();if(cards.length!==1494)throw Error('Quantidade de cartões diverge do manifesto.');
+ try{srs=JSON.parse(localStorage.getItem('BancoMestre_SRS_V023')||'{}')}catch(e){srs={}}
+ buildTopics();const hidden=new Set((await window.BancoMestreImagens.all()).filter(x=>x.status==='hidden').map(x=>x.id));for(const t of topics)t.imageCount=meta.images.filter(i=>i.group===t.group&&!hidden.has(i.no)).length;areaCards();drawTopics();$('statCards').textContent=cards.length+' cartões · '+cards.filter(c=>c.active).length+' ativos';$('statImages').textContent=(meta.images.length-hidden.size)+' imagens/prints visíveis neste navegador';$('statManuscript').textContent=manu.chapters.length+' capítulos · '+manu.pages+' páginas';updateSrsStatus();
+ const qp=new URLSearchParams(location.search);if(qp.has('tema'))selectTopic(qp.get('tema'),false);else if(qp.has('busca')||qp.has('area'))performSearch(qp.get('busca')||'',qp.get('area')||'');
+ }catch(e){$('topicsGrid').innerHTML='<div class="empty">Não foi possível carregar a base: '+esc(e.message)+'</div>';$('statCards').textContent='Falha no catálogo';}
+}
+$('searchForm').onsubmit=e=>{e.preventDefault();performSearch($('search').value)};$('allTopics').onclick=()=>drawTopics(true);
+$('clearSearch').onclick=()=>performSearch('');$('back').onclick=()=>performSearch('');
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));drawDetail()});
+$('srsInput').onchange=async e=>{const f=e.target.files[0];if(f)try{await uploadSRS(f)}catch(err){alert('Falha ao importar a planilha SRS: '+err.message)}e.target.value=''};
+$('clearSrs').onclick=()=>{if(!confirm('Limpar apenas os registros SRS importados neste navegador?'))return;srs={};localStorage.removeItem('BancoMestre_SRS_V023');updateSrsStatus();if(current&&tab==='records')drawDetail()};
+$('exportSrs').onclick=downloadSrs;
+init();
+</script></body></html>
