@@ -13,6 +13,7 @@ const fs=require('node:fs');
   await page.getByRole('button',{name:'Abrir e marcar o PDF'}).click();
   await page.waitForFunction(()=>window.BancoMestrePDFV038?.editing===true&&/Página 1 de \d+/.test(document.getElementById('pdfPager')?.textContent||''),null,{timeout:120000});
   assert.equal(await page.locator('#pdfDialog').evaluate(el=>el.open),true);
+  await page.waitForFunction(()=>document.getElementById('pdfOriginal')?.hidden===true,null,{timeout:15000});
   assert.equal(await page.locator('#pdfOriginal').isVisible(),false,'Link do Drive não deveria aparecer no Vade hospedado');
   await page.locator('#pdfMarker').click();
   const ink=page.locator('#pdfInkCanvas');
