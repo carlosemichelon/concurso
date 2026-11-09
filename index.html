@@ -1,19 +1,62 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Banco Mestre — Portal público V010</title>
-<style>body{font-family:system-ui,sans-serif;background:#f5f7f7;color:#192b32;min-height:70vh;display:grid;place-items:center;margin:0;padding:24px}.loader{max-width:600px;padding:32px;background:#fff;border:1px solid #d4dddd;border-radius:16px;box-shadow:0 5px 30px #0001}h1{font-size:24px}.sub{color:#637175}a{color:#174b54}</style>
-</head><body><main class="loader"><h1>Banco Mestre — Portal V010</h1><p id="status">Carregando biblioteca de estudos, flashcards e imagens...</p><p class="sub">Versão pública: sem acesso aos arquivos privados do Drive nem ao manuscrito.</p><noscript>Ative o JavaScript para consultar o portal.</noscript></main>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Banco Mestre — Estudo por imagens e flashcards</title>
+<style>
+:root{color-scheme:light;--ink:#18282d;--muted:#617177;--line:#d9e4e4;--accent:#174b54;--soft:#eaf3f2}
+*{box-sizing:border-box}body{margin:0;background:#f4f7f7;color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}header{background:white;border-bottom:1px solid var(--line);padding:16px 24px}header strong{font-size:18px}header span{color:var(--muted);font-size:13px;margin-left:14px}
+main{max-width:970px;margin:auto;padding:45px 22px 80px}h1{font-size:clamp(30px,4vw,48px);line-height:1.17;letter-spacing:-1.2px;margin:8px 0 16px}p{color:var(--muted)}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;margin:24px 0;box-shadow:0 7px 28px #12272b09}.pill{background:var(--soft);border-radius:9px;padding:8px 12px;font-size:13px;font-weight:750;color:var(--accent);display:inline-block;margin:5px 8px 5px 0}h2{font-size:20px;margin:0 0 10px}.filePicker{border:2px dashed #a7c0c1;display:block;padding:28px;text-align:center;border-radius:14px;cursor:pointer;background:#fafdfd;transition:.15s}.filePicker:hover,.filePicker:focus-within{background:var(--soft)}.filePicker input{display:none}.filePicker strong{display:block;font-size:18px}.filePicker small{display:block;margin:10px;color:var(--muted)}button{font:inherit;cursor:pointer;background:#174b54;color:white;padding:10px 16px;border:0;border-radius:10px}button:disabled{opacity:.45;cursor:default}#study{display:none}#frame{width:100%;height:calc(100vh - 115px);min-height:520px;border:0;background:white}.appTop{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 20px;background:white;border-bottom:1px solid var(--line)}.appTop small{color:var(--muted)}#msg{font-size:13px;padding:10px;color:#5a7376}footer{margin-top:30px;font-size:12px;color:var(--muted)}
+body.studying header,body.studying main{display:none}body.studying #study{display:block}
+@media(max-width:600px){header span{display:block;margin:2px 0}main{padding:25px 15px}.panel{padding:18px}#frame{height:calc(100dvh - 110px);min-height:400px}}
+</style>
+</head>
+<body>
+<header><strong>BM · Banco Mestre</strong><span>Portal privado de estudo · acesso pela web</span></header>
+<main>
+  <div class="eyebrow">Atlas e flashcards</div>
+  <h1>Estudar por imagens e cartões.</h1>
+  <p>Interface de acesso à edição privada do Banco Mestre. O conteúdo completo não é publicado no GitHub: você abre o arquivo HTML que salvou no computador.</p>
+  <div class="panel">
+    <h2>Base de trabalho V013 · interface V014</h2>
+    <span class="pill">217 imagens catalogadas</span><span class="pill">1.429 cartões cadastrados</span><span class="pill">1.428 cartões ativos</span>
+    <p>As imagens são seu guia visual; os flashcards servem para recuperação ativa. Seu manuscrito permanece separado para leitura aprofundada. Há 14 itens pendentes de conferência normativa, identificados na base.</p>
+  </div>
+  <div class="panel">
+    <h2>Abra seu acervo privado</h2>
+    <p>Baixe no Google Drive o arquivo <strong>BANCO_MESTRE_PORTAL_V014_ATLAS_FLASHCARDS_PRIVADO_2026-11-08.html</strong>. Depois selecione-o abaixo.</p>
+    <label class="filePicker" id="drop">
+      <strong>Escolher HTML V014 do computador</strong>
+      <small>Ou arraste o arquivo HTML para esta área. Ele é aberto localmente; esta página não envia o arquivo a servidores.</small>
+      <input id="file" type="file" accept=".html,text/html"/>
+    </label>
+    <p id="msg" role="status">Nenhum arquivo selecionado.</p>
+  </div>
+  <footer>O portal é um leitor de consulta e não registra avaliações SRS. Para revisões formais, continue os flashcards com o ChatGPT e a metodologia PMS-1.</footer>
+</main>
+<div id="study">
+  <div class="appTop"><button id="back" type="button">Escolher outro arquivo</button><strong id="loaded">Atlas + Flashcards</strong><small>Estudo local · dados privados</small></div>
+  <iframe id="frame" title="Banco Mestre privado" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads" referrerpolicy="no-referrer"></iframe>
+</div>
 <script>
-(async()=>{
-  const files=Array.from({length:18},(_,i)=>"assets/part-"+String(i+1).padStart(3,"0")+".txt");
-  const html=(await Promise.all(files.map(async(name)=>{
-    const response=await fetch(name,{cache:"no-store"});
-    if(!response.ok) throw new Error("Falha ao carregar "+name+": HTTP "+response.status);
-    return await response.text();
-  }))).join("");
-  if(html.length!==10498493 || !html.includes('<script id="data"') || !html.includes('</body></html>'))throw new Error("Conteúdo do portal incompleto; não foi aberto.");
-  document.open();document.write(html);document.close();
-})().catch(err=>{
-  document.getElementById("status").textContent="Não foi possível carregar o portal: "+err.message;
-});
-</script></body></html>
+(()=>{'use strict';let current=null;
+const fileEl=document.getElementById('file'),msg=document.getElementById('msg');
+function load(file){
+ if(!file)return;
+ if(!/\.html?$/i.test(file.name)){msg.textContent='Selecione o arquivo HTML original do Banco Mestre.';return;}
+ if(!file.name.includes('BANCO_MESTRE_PORTAL_')){msg.textContent='Este arquivo não parece ser o portal Banco Mestre. Confira o nome antes de abrir.';return;}
+ if(current)URL.revokeObjectURL(current);
+ current=URL.createObjectURL(file);
+ document.getElementById('frame').src=current;
+ document.getElementById('loaded').textContent=file.name;
+ document.body.classList.add('studying');
+}
+fileEl.addEventListener('change',e=>load(e.target.files[0]));
+const drop=document.getElementById('drop');
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.background='#eaf3f2'});
+drop.addEventListener('dragleave',()=>drop.style.background='');
+drop.addEventListener('drop',e=>{e.preventDefault();drop.style.background='';load(e.dataTransfer.files[0])});
+document.getElementById('back').addEventListener('click',()=>{document.body.classList.remove('studying');document.getElementById('frame').removeAttribute('src');if(current){URL.revokeObjectURL(current);current=null;}fileEl.value='';msg.textContent='Nenhum arquivo selecionado.'});
+})();
+</script>
+</body></html>
