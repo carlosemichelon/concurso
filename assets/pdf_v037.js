@@ -100,7 +100,7 @@ function stroke(ctx,m,w,h){
   ctx.fillRect(Math.min(b[0],b[2])*w,Math.min(b[1],b[3])*h,Math.abs(b[2]-b[0])*w,Math.abs(b[3]-b[1])*h);
   ctx.restore();return;
  }
- if((m.type==='note'||m.type==='card')&&Array.isArray(m.pos)){
+ if((m.type==='note'||m.type==='card'||m.type==='status')&&Array.isArray(m.pos)){
   ctx.save();ctx.globalAlpha=1;ctx.fillStyle=m.color||'#17616a';
   const fontSize=Math.max(10,Math.min(w,h)*.025);
   ctx.font='bold '+fontSize+'px system-ui,Arial,sans-serif';
@@ -146,10 +146,16 @@ function near(m,p){
 inkCanvas.addEventListener('pointerdown',e=>{
  if(!pdf||painting||exportBusy||tool==='pan'||e.button>0)return;
  const p=at(e);
- if(tool==='note'||tool==='card'){
-  let typed=prompt(tool==='card'?'ID(s) de cartões (ex.: CARD-1280):':'Anotação textual nesta página da lei:');
+ if(tool==='note'||tool==='card'||tool==='status'){
+  let typed=tool==='status'?prompt('Cobertura do dispositivo: 1=Integral; 2=Parcial; 3=Sem cartão; 4=Não auditado'):
+   prompt(tool==='card'?'ID(s) de cartões (ex.: CARD-1280):':'Anotação textual nesta página da lei:');
   if(!typed||!typed.trim())return;
   typed=typed.trim();
+  if(tool==='status'){
+   const labels={'1':'[COBERTO]','2':'[PARCIAL]','3':'[SEM CARTAO]','4':'[NAO AUDITADO]'};
+   if(!labels[typed]){status('Escolha um número de 1 a 4.');return}
+   typed=labels[typed];
+  }
   if(tool==='card'){
    const matches=typed.toUpperCase().match(/(?:CARD-\d{4,}|PROP-IJUI-\d+)/g);
    if(!matches?.length){status('Informe um ID de cartão válido (CARD-0001 ou PROP-IJUI-001).');return}
@@ -348,7 +354,7 @@ $('pdfDialog').addEventListener('close',()=>{$('pdfFrame').src='about:blank';clo
 // Novos controles são agregados, preservando todas as ferramentas e grifos anteriores.
 const peTools=$('pdfLocalTools')?.querySelector('.pdfGroup[aria-label="Ferramentas do PDF"]');
 if(peTools){
- for(const [id,label,kind] of [['pdfNoteV037','Nota','note'],['pdfCardV037','Vincular CARD','card']]){
+ for(const [id,label,kind] of [['pdfNoteV037','Nota','note'],['pdfCardV037','Vincular CARD','card'],['pdfStatusV037','Cobertura','status']]){
   const button=document.createElement('button');button.id=id;button.type='button';button.textContent=label;
   button.title=kind==='card'?'Registre ID de cartão na página do dispositivo':'Escreva anotação textual nesta página';
   button.onclick=()=>markTool(kind);peTools.append(button);
