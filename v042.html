@@ -15,9 +15,10 @@
   if(!source.includes('assets/pdf_v038.js')||!source.includes('assets/v041_vade.js'))throw Error('Modelo V041 inesperado');
   source=source.replace(/V041/g,'V042');
   source=source.replace('assets/pdf_v038.js','assets/pdf_v042.js');
+  source=source.replace('assets/drive_direct_v038.js','assets/drive_direct_v042.js');
   source=source.replace('<script src="assets/v041_vade.js"></'+'script>',
     '<script src="assets/v041_vade.js"></'+'script><script src="assets/v042_drive_save.js"></'+'script>');
-  if(!source.includes('assets/v042_drive_save.js'))throw Error('Módulo de gravação não foi integrado');
+  if(!source.includes('assets/v042_drive_save.js')||!source.includes('assets/drive_direct_v042.js'))throw Error('Módulos de Drive não foram integrados');
   document.open();document.write(source);document.close();
  }catch(e){document.getElementById('status').textContent='Não foi possível abrir V042: '+e.message}
 })();
