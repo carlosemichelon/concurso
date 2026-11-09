@@ -1,0 +1,33 @@
+name: Validar salvamento anotado no Drive V042
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'v042.html'
+      - 'assets/pdf_v042.js'
+      - 'assets/v042_drive_save.js'
+      - 'tests/drive_save_browser_v042.cjs'
+      - '.github/workflows/validar-drive-v042.yml'
+  workflow_dispatch:
+jobs:
+  teste-drive-anotado:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar dependências de teste
+        run: npm install --no-save --ignore-scripts --no-audit --no-fund pdfjs-dist@3.11.174 pdf-lib@1.17.1 playwright@1.55.1
+      - name: Verificar PDF original e geração de PDF anotado
+        run: node tests/vade_integridade_v041.cjs
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Testar Drive simulado, criação, atualização e falha
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-http.log 2>&1 &
+          sleep 2
+          node tests/drive_save_browser_v042.cjs
