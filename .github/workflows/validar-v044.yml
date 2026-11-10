@@ -1,0 +1,38 @@
+name: Validar V044 — Atlas, painel e Vade do Drive
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'v044.html'
+      - 'assets/v044_*.js'
+      - 'assets/v044_*.css'
+      - 'tests/v044_browser.cjs'
+      - '.github/workflows/validar-v044.yml'
+  workflow_dispatch:
+jobs:
+  regressao-v044:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Bibliotecas de validação
+        run: npm install --no-save --ignore-scripts --no-audit --no-fund pdfjs-dist@3.11.174 pdf-lib@1.17.1 playwright@1.55.1
+      - name: Validar fonte Vade hospedada e SHA histórico
+        run: node tests/vade_integridade_v041.cjs
+      - name: Preparar Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Testar Drive simulado, Atlas e UI
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v044-http.log 2>&1 &
+          sleep 2
+          node tests/v044_browser.cjs
+      - name: Garantir regressão do editor e da cópia anotada
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v044-http2.log 2>&1 &
+          sleep 2
+          node tests/drive_save_browser_v042.cjs
