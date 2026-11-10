@@ -1,5 +1,5 @@
 {
-  "version": "V068",
+  "version": "V069",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -17,9 +17,9 @@
     "pdfs": 65
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V068 — grifador avançado com menu flutuante de cores semânticas inspirado no fluxo de A Bússola Highlights, marcação rápida/assistida, sublinhado/tachado/ocultar, editor de notas estruturadas, tags, favoritos, vínculo a IDs existentes, ajuste do trecho com ID estável, histórico limitado, desfazer exclusão, paleta e atalhos configuráveis. Biblioteca e painel mostram campos adicionais, sem converter grifos V060 automaticamente. Núcleo V061 preservado; cópia V068 incremental de código. 65 PDFs, V067 diagnóstico e backups preservados. V067 — diagnóstico sob demanda e somente leitura de versão, catálogo de PDFs (65), leitor/grifador, painel lateral, backup, SHA-256, integridade de registros locais, retângulos de ancoragem, IDs repetidos, imagens excluídas nos assuntos e colisão de cabeçalho de Cartão rápido quando aberto. Não envia dados nem modifica flashcards, PDFs, SRS, marcadores ou exclusões. V066 e backups anteriores preservados. V066 — preparar/baixar backup JSON de grifos com SHA-256 e, após confirmação explícita do usuário, criar cópia privada no Google Drive via OAuth drive.file. Nunca sobrescreve arquivo remoto, não faz sincronização bidirecional nem importação automática. Preserva correção da janela Cartão rápido V065, painel PDF V064, imagens excluídas ocultas, Biblioteca V063 e catálogo V062 de 65 PDFs. V065 — correção visual isolada da prévia Cartão rápido: cabeçalho e botão de fechar da própria prévia ficam abaixo dos controles flutuantes do leitor PDF, com botão × acessível, inclusive em telas pequenas. CSS adicional sem alterar lógica da prévia, cards, SRS e PDFs. V064 — imagens excluídas deixam de aparecer nos assuntos, seus cards, contagens e vínculos IMG; exclusão/restauração mantém o ID e armazenamento originais. Painel lateral retrátil e redimensionável de grifos dentro do editor PDF: lista por página, pesquisa, navegação por trechos, notas textuais e visuais, revisão de fonte por hash; usa grifos locais V061/V063. Base V062 (65 PDFs CONAMA incluídos) preservada. Não migra grifos antigos nem sincroniza dados privados. V063 — Etapa 2 (primeiro módulo): Biblioteca local de Grifos com busca, filtros, favoritos, categorias, notas e exportação TXT/Markdown/JSON/relatório PDF via impressão; backup manual de todas as marcações locais BM030_STROKES_PDF sem incluir arquivos IndexedDB/SRS. Integração pela base V062 em carregador de extensão que mantém os 65 PDFs. OCR, migração assistida, sincronização Drive e painel lateral dentro do leitor permanecem pendentes. V062 — catálogo de PDFs ampliado de 63 para 65: dois textos de resolução CONAMA marcados ORIGINAL, separados das apostilas TEC Concursos. Arquivos no Google Drive, sem alteração dos originais, do editor V061, dos cartões, SRS ou anotações pessoais. V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
+  "notes": "V069 — estabilização incremental do grifador avançado: seleção ativada após fim completo da renderização PDF, evento único de armazenamento persistido para atualizar Biblioteca/painel, desfazer exclusão protegido contra alterações intermediárias, seleção reversa com âncora corrigida, sublinhado duplo acessível na interface e troca de estilo sem alterar cor anterior. Código V068 preservado e 65 PDFs mantidos. V068 — grifador avançado com menu flutuante de cores semânticas inspirado no fluxo de A Bússola Highlights, marcação rápida/assistida, sublinhado/tachado/ocultar, editor de notas estruturadas, tags, favoritos, vínculo a IDs existentes, ajuste do trecho com ID estável, histórico limitado, desfazer exclusão, paleta e atalhos configuráveis. Biblioteca e painel mostram campos adicionais, sem converter grifos V060 automaticamente. Núcleo V061 preservado; cópia V068 incremental de código. 65 PDFs, V067 diagnóstico e backups preservados. V067 — diagnóstico sob demanda e somente leitura de versão, catálogo de PDFs (65), leitor/grifador, painel lateral, backup, SHA-256, integridade de registros locais, retângulos de ancoragem, IDs repetidos, imagens excluídas nos assuntos e colisão de cabeçalho de Cartão rápido quando aberto. Não envia dados nem modifica flashcards, PDFs, SRS, marcadores ou exclusões. V066 e backups anteriores preservados. V066 — preparar/baixar backup JSON de grifos com SHA-256 e, após confirmação explícita do usuário, criar cópia privada no Google Drive via OAuth drive.file. Nunca sobrescreve arquivo remoto, não faz sincronização bidirecional nem importação automática. Preserva correção da janela Cartão rápido V065, painel PDF V064, imagens excluídas ocultas, Biblioteca V063 e catálogo V062 de 65 PDFs. V065 — correção visual isolada da prévia Cartão rápido: cabeçalho e botão de fechar da própria prévia ficam abaixo dos controles flutuantes do leitor PDF, com botão × acessível, inclusive em telas pequenas. CSS adicional sem alterar lógica da prévia, cards, SRS e PDFs. V064 — imagens excluídas deixam de aparecer nos assuntos, seus cards, contagens e vínculos IMG; exclusão/restauração mantém o ID e armazenamento originais. Painel lateral retrátil e redimensionável de grifos dentro do editor PDF: lista por página, pesquisa, navegação por trechos, notas textuais e visuais, revisão de fonte por hash; usa grifos locais V061/V063. Base V062 (65 PDFs CONAMA incluídos) preservada. Não migra grifos antigos nem sincroniza dados privados. V063 — Etapa 2 (primeiro módulo): Biblioteca local de Grifos com busca, filtros, favoritos, categorias, notas e exportação TXT/Markdown/JSON/relatório PDF via impressão; backup manual de todas as marcações locais BM030_STROKES_PDF sem incluir arquivos IndexedDB/SRS. Integração pela base V062 em carregador de extensão que mantém os 65 PDFs. OCR, migração assistida, sincronização Drive e painel lateral dentro do leitor permanecem pendentes. V062 — catálogo de PDFs ampliado de 63 para 65: dois textos de resolução CONAMA marcados ORIGINAL, separados das apostilas TEC Concursos. Arquivos no Google Drive, sem alteração dos originais, do editor V061, dos cartões, SRS ou anotações pessoais. V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v068.html",
+  "home": "v069.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -39,7 +39,7 @@
     "answer_initially_hidden": true,
     "version": "V060"
   },
-  "previous_version": "V067",
+  "previous_version": "V068",
   "style_sheet": "assets/v061_selecao_texto.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
@@ -358,5 +358,36 @@
       "reancoragem de grifos em outra versão do PDF ainda exige implementação assistida",
       "teste real de cliques, selection layer, zoom, exportação PDF e atalhos no navegador pendente"
     ]
+  },
+  "pdf_highlighter_stability_v069": {
+    "version": "V069",
+    "backup_before": "backup/v068-before-highlighter-stability-v069-2026-11-10",
+    "features": [
+      "não liberar seleção antes de pintura e páginas vizinhas finalizadas",
+      "sinalizar gravação localStorage somente após sucesso da persistência",
+      "sincronizar Biblioteca de Grifos e painel PDF após gravação local",
+      "desfazer exclusão apenas no mesmo documento, hash, página e sem outra alteração posterior",
+      "âncoras prefixo/sufixo calculadas a partir do Range para seleção inversa",
+      "controle explícito do sublinhado duplo",
+      "mudança de estilo preserva cor anterior"
+    ],
+    "source_files": [
+      "assets/pdf_v069.js",
+      "assets/v069_grifador.js",
+      "assets/v069_biblioteca_grifos.js",
+      "assets/v069_painel_grifos.js"
+    ],
+    "preserved": "V068 original, 65 PDFs, flashcards, SRS, imagens e grifos legados",
+    "tests": "sintaxe e integração; testes isolados de criação, duplicação, edição, remoção, integridade de ID e proteção de retângulos",
+    "manual_checks_pending": [
+      "grifo multlinha em PDF real",
+      "página vizinha e zoom",
+      "menu flutuante em mobile",
+      "exportação de PDF anotado",
+      "edição com persistência localStorage",
+      "PDF escaneado",
+      "confirmar interface no navegador do usuário"
+    ],
+    "limitations": "OCR, extensão Chrome, conector ChatGPT e sincronização bidirecional Google Drive não implementados"
   }
 }
