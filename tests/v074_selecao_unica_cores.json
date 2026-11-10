@@ -1,0 +1,110 @@
+{
+  "schema": "BancoMestreV074Regression",
+  "version": "V074",
+  "purpose": "Uma seleção cria um único grifo com uma única cor; auto só quando unívoca; ambígua pede escolha manual.",
+  "tests": [
+    {
+      "text": "É vedado executar a obra",
+      "expected_status": "clara",
+      "expected_kind": "proibicao",
+      "expected_hex": "#FF8F96"
+    },
+    {
+      "text": "Não poderá executar",
+      "expected_status": "clara",
+      "expected_kind": "proibicao",
+      "expected_hex": "#FF8F96"
+    },
+    {
+      "text": "Deverá apresentar",
+      "expected_status": "clara",
+      "expected_kind": "obrigacao",
+      "expected_hex": "#86DCAA"
+    },
+    {
+      "text": "Compete ao engenheiro",
+      "expected_status": "clara",
+      "expected_kind": "obrigacao",
+      "expected_hex": "#86DCAA"
+    },
+    {
+      "text": "Em até 30 dias",
+      "expected_status": "clara",
+      "expected_kind": "prazo_numero",
+      "expected_hex": "#FFEA70"
+    },
+    {
+      "text": "Art. 5º",
+      "expected_status": "clara",
+      "expected_kind": "prazo_numero",
+      "expected_hex": "#FFEA70"
+    },
+    {
+      "text": "Salvo disposição em contrário",
+      "expected_status": "clara",
+      "expected_kind": "excecao",
+      "expected_hex": "#89C7FF"
+    },
+    {
+      "text": "Exclusivamente",
+      "expected_status": "clara",
+      "expected_kind": "banca",
+      "expected_hex": "#CCA7FF"
+    },
+    {
+      "text": "Sempre",
+      "expected_status": "clara",
+      "expected_kind": "banca",
+      "expected_hex": "#CCA7FF"
+    },
+    {
+      "text": "O licenciamento ambiental compreende três etapas.",
+      "expected_status": "indefinida"
+    },
+    {
+      "text": "Deverá entregar em 30 dias",
+      "expected_status": "ambigua",
+      "expected_candidates": [
+        "obrigacao",
+        "prazo_numero"
+      ]
+    },
+    {
+      "text": "É vedado construir salvo autorização",
+      "expected_status": "ambigua",
+      "expected_candidates": [
+        "proibicao",
+        "excecao"
+      ]
+    },
+    {
+      "text": "Compete ao fiscal atuar exclusivamente",
+      "expected_status": "ambigua",
+      "expected_candidates": [
+        "obrigacao",
+        "banca"
+      ]
+    },
+    {
+      "text": "Art. 5º. O plano diretor orienta a organização da cidade.",
+      "expected_status": "ambigua"
+    }
+  ],
+  "required_guarantees": [
+    "Seleção ambígua: nenhum grifo salvo antes da escolha manual",
+    "Cor manual escolhida tem prioridade sobre classificação automática",
+    "Um único ID e um único registro de grifo por seleção inteira",
+    "Trecho multilinha: vários retângulos, um único registro",
+    "Recolorir trecho existente atualiza mesmo ID sem duplicar",
+    "Nenhum grifo histórico é automaticamente convertido, mesclado ou recolorido",
+    "Cor escolhida permanece mesmo que a seleção contenha gatilhos de outra categoria"
+  ],
+  "manual_validation": [
+    "Abrir PDF real e selecionar trecho em duas linhas",
+    "Selecionar frase com obrigação+prazo, escolher uma cor e conferir apenas um item na Biblioteca",
+    "Selecionar de novo mesmo trecho, alterar cor, verificar ID estável",
+    "Usar grifo rápido em vedação isolada e verificar vermelho",
+    "Fechar/reabrir PDF, conferir marca inteira e notas",
+    "Conferir que registros antigos separados permanecem sem mutação"
+  ]
+}
