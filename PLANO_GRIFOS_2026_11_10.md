@@ -52,3 +52,12 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Limitações: backup não inclui PDFs, IndexedDB, flashcards nem SRS; grifos antigos ainda não têm correspondência de texto verificada; painel lateral no leitor PDF e integração Drive permanecem futuros.
 - Validação feita: sintaxe das rotinas, integridade estrutural e apontadores de versão; teste sintético de carregamento dinâmico em Chromium. Não há confirmação de navegação/grifo com PDF real no navegador do estudante.
 - A pergunta 22 sobre importação não foi aprovada; **não implementar importação automática** sem decisão expressa.
+
+## V064 — painel lateral de grifos e imagens excluídas (10/11/2026)
+- Nova versão `v064.html` lançada mantendo a V062 como base imutável e preservando a Biblioteca V063.
+- Backup do código anterior: `backup/v063-before-image-filter-and-pdf-panel-2026-11-10`, origem `4fb2ab187684e85a50a5d4acfe2314a5408ef60f`. O backup GitHub não contém anotações privadas do navegador.
+- **Correção de exclusões:** ler os status `hidden` de `BancoMestreImagens.all()` (legado/IndexedDB e Petrobras 10/localStorage), retirar miniaturas e botões IMG dos assuntos, recalcular contagens visíveis e retirar assuntos apenas visuais sem mídia disponível. Não apagar imagens; restaurar via Atlas.
+- **Painel do leitor PDF:** lista marcas `text_highlight`, `highlighter` e `rect` por número de página; busca texto/nota/página, navegação ao trecho (fonte preservada por ID + hash), edição de notas e painel retrátil/redimensionável. O painel fica associado ao PDF editável atual, não à prévia de terceiros.
+- Arquivos: `assets/v064_imagens_visibilidade.js`, `assets/v064_painel_grifos.js`, `assets/v064_painel_grifos.css`.
+- **Não foi feito:** migração automática de grifos anteriores, reconhecimento OCR, sincronização com Drive, alteração dos flashcards, SRS ou documentos originais. A importação da pergunta 22 permanece sem aprovação.
+- Verificado por inspeção de repositório e sintaxe JavaScript. Faltam testes de interação no navegador com PDFs e imagens ocultas reais.
