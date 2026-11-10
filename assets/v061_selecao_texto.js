@@ -117,7 +117,8 @@
   const range=sel.getRangeAt(0);
   const rects=rectsFromRange(range);if(!rects.length)return;
   const last=range.getBoundingClientRect();
-  const mark=api().addTextHighlight({text,rects,page:lastContext.page,documentId:lastContext.documentId,sourceHash:lastContext.sourceHash,color:$('pdfInkColor')?.value});
+  let color='#ffe000';try{color=localStorage.getItem('BM_PDF_TEXT_COLOR_V061')||color}catch(_){}
+  const mark=api().addTextHighlight({text,rects,page:lastContext.page,documentId:lastContext.documentId,sourceHash:lastContext.sourceHash,color});
   if(!mark)return;
   sel.removeAllRanges();
   show(mark,{x:last.right,y:last.bottom});
@@ -129,7 +130,9 @@
  },true);
  $('bmV061PopupClose').onclick=dismiss;
  $('bmV061PopupColor').addEventListener('input',e=>{
-  if(activeId&&api()?.updateTextHighlight(activeId,{color:e.target.value})&&$('pdfInkColor'))$('pdfInkColor').value=e.target.value;
+  if(activeId&&api()?.updateTextHighlight(activeId,{color:e.target.value})){
+   try{localStorage.setItem('BM_PDF_TEXT_COLOR_V061',e.target.value)}catch(_){}
+  }
  });
  $('bmV061PopupNote').onclick=()=>{
   if(!activeId)return;
