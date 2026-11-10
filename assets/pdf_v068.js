@@ -841,7 +841,7 @@ function addTextHighlight(r){
  const id='BM-TXT-'+(globalThis.crypto?.randomUUID?.()||Date.now()+'-'+Math.random().toString(36).slice(2));
  const color=/^#[0-9a-f]{6}$/i.test(r.color||'')?r.color:($('pdfInkColor')?.value||'#ffe000');
  const duplicate=annotationsInView.find(m=>m?.type==='text_highlight'&&m.text===text&&
-   Array.isArray(m.rects)&&m.rects.length===rects.length&&m.rects.every((b,i)=>b.every((v,j)=>Math.abs(v-rects[i][j])<.001)));
+   Array.isArray(m.rects)&&m.rects.length===rects.length&&m.rects.every((b,i)=>Array.isArray(b)&&b.length===4&&b.every((v,j)=>Number.isFinite(v)&&Math.abs(v-rects[i][j])<.001)));
  if(duplicate)return {...duplicate,duplicate:true};
  const mark={type:'text_highlight',id,text,rects,color,opacity:markerOpacity,
   style:['highlight','underline','double-underline','strike','conceal'].includes(r.style)?r.style:'highlight',
@@ -884,11 +884,14 @@ function updateTextHighlight(id,patch){
  const changed=['color','color_label','style','note','text','rects','note_structured','tags','favorite','card_ids']
   .some(k=>Object.hasOwn(patch,k)&&JSON.stringify(mark[k])!==JSON.stringify(previous[k]));
  if(!changed)return true;
- mark.history=[...(Array.isArray(previous.history)?previous.history:[]).slice(-24),{
-  at:new Date().toISOString(),action:'edit',
-  previous:{text:previous.text,rects:previous.rects,color:previous.color,color_label:previous.color_label,
-   style:previous.style||'highlight',note:previous.note,card_ids:previous.card_ids,
-   tags:previous.tags,favorite:previous.favorite,note_structured:previous.note_structured}
+ // Histórico incremental: registrar apenas campos alterados para preservar espaço do navegador.
+ const fields=['color','color_label','style','note','text','rects','note_structured','tags','favorite','card_ids'];
+ const before={};
+ for(const name of fields){
+  if(JSON.stringify(mark[name])!==JSON.stringify(previous[name]))before[name]=previous[name]??null;
+ }
+ mark.history=[...(Array.isArray(previous.history)?previous.history:[]).slice(-19),{
+  at:new Date().toISOString(),action:'edit',before
  }];
  mark.updated_at=new Date().toISOString();
  snapshot();annotationsInView[i]=mark;
