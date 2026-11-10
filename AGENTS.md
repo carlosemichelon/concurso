@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V070** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V071** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -83,3 +83,10 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Metadados `classification_status: sugestao` indicam não confirmado. Confirmar manualmente através de cor ou salvamento de nota. Mostrar sempre o status em Biblioteca/painel/exportação.
 - Nenhuma importação automática, OCR, extensão Chrome, conector ChatGPT ou sincronização bidirecional Drive foi adicionada.
 - Arquivos V069 e anteriores são imutáveis; script, CSS e núcleo V070 ficam isolados.
+
+## V071 — seis cores oficiais de grifo
+- `v071.html` é a versão atual. Preserve V070 e as anteriores; backup `backup/v070-before-six-colors-2026-11-10`.
+- Nova correspondência: `proibicao=#FF8F96` vermelho, `obrigacao=#86DCAA` verde, `prazo_numero=#FFEA70` amarelo, `excecao=#89C7FF` azul, `banca=#CCA7FF` roxo, `regra=#FFB86B` laranja.
+- Não recolorir nem migrar automaticamente grifos antigos. Aceitar categorias legadas `agente`, `condicao` e `nao_classificado`.
+- O classificador é heurístico e local; a cor, o assunto e a nota sugeridos não dispensam revisão e confirmação humana. Não gerar flashcards automaticamente, nem alterar SRS.
+- Scripts exclusivos V071: `assets/pdf_v071.js`, `assets/v071_classificador.js`, `assets/v071_grifador.js`, `assets/v071_cores.css`. Manter catálogo V062 de 65 PDFs.
