@@ -54,6 +54,7 @@ const {PDFDocument}=require('pdf-lib');
 
   await page.evaluate(()=>api.setStatus('IMG-001','hidden'));
   await page.evaluate(()=>api.setStatus('IMG-P10-02','hidden'));
+  await page.waitForFunction(()=>document.querySelector('header .bm-v046-header-stats .stat:nth-child(3) b')?.textContent==='268',null,{timeout:18000});
   const exclusions=await page.evaluate(()=>window.BancoMestreDriveExclusionsV046.preview());
   assert.equal(exclusions.count,2);
   assert.ok(exclusions.items.find(x=>x.id==='IMG-001'&&x.needs_identity_check===true),'Associação por nome não pode ser tratada como verificada');
