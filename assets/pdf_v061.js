@@ -689,6 +689,9 @@ function bm059ExtractPageText(textContent,viewport,highlights,pdfUtil){
   return Math.hypot(x-(ax+t*dx),y-(ay+t*dy));
  }
  function hitsGlyph(mark,g){
+  if(mark.type==='text_highlight'&&Array.isArray(mark.rects)&&mark.rects.length){
+   return mark.rects.some(b=>Array.isArray(b)&&b.length===4&&g.right>=b[0]*width-1&&g.left<=b[2]*width+1&&g.y>=b[1]*height-g.height*.4&&g.y<=b[3]*height+g.height*.4);
+  }
   if(mark.type==='rect'&&Array.isArray(mark.box)&&mark.box.length===4){
    const [ax,ay,bx,by]=mark.box;
    const x0=Math.min(ax,bx)*width,x1=Math.max(ax,bx)*width;
@@ -758,7 +761,8 @@ async function bm059ExtractHighlights({scope='all',onProgress}={}){
   if(scope==='current'&&n!==pageNo)continue;
   const marks=annotations(n).filter(m=>
    (m?.type==='highlighter'&&Array.isArray(m.points)&&m.points.length)||
-   (m?.type==='rect'&&Array.isArray(m.box)&&m.box.length===4));
+   (m?.type==='rect'&&Array.isArray(m.box)&&m.box.length===4)||
+   (m?.type==='text_highlight'&&Array.isArray(m.rects)&&m.rects.length));
   if(marks.length)pages.push({number:n,marks});
  }
  const result={
@@ -787,9 +791,12 @@ async function bm059ExtractHighlights({scope='all',onProgress}={}){
    if(!parsed.hasDigitalText)scanned++;
    if(parsed.rotatedIgnored)result.warnings.push('Página '+record.number+': '+parsed.rotatedIgnored+' trechos rotacionados não analisados.');
    for(const t of parsed.texts){
-    if(t.status==='sem_correspondencia_geometrica')unmatched++;
+    const sourceMark=record.marks[t.mark_index-1];
+    const precise=sourceMark?.type==='text_highlight'&&typeof sourceMark.text==='string'&&!!sourceMark.text.trim();
+    if(t.status==='sem_correspondencia_geometrica'&&!precise)unmatched++;
     result.entries.push({page:record.number,mark:t.mark_index,
-     text:t.text,status:t.status});
+     text:precise?sourceMark.text:t.text,status:precise?'texto_selecionado':t.status,
+     anchor_id:precise?sourceMark.id:null});
    }
   }catch(e){
    errors++;
@@ -802,7 +809,7 @@ async function bm059ExtractHighlights({scope='all',onProgress}={}){
  if(scanned)result.warnings.push(scanned+' página(s) grifada(s) sem camada de texto digital; essas páginas exigem OCR.');
  if(unmatched)result.warnings.push(unmatched+' grifo(s) não corresponderam a texto detectável; confira posicionamento, direção ou qualidade do PDF.');
  if(errors)result.warnings.push(errors+' página(s) não puderam ser processadas.');
- result.extracted_count=result.entries.filter(e=>e.status==='extraido_para_conferencia'&&e.text).length;
+ result.extracted_count=result.entries.filter(e=>(e.status==='extraido_para_conferencia'||e.status==='texto_selecionado')&&e.text).length;
  return result;
 }
 
