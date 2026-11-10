@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V083.
+- **Site publicado:** V084.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v083.html`.
-- **Versão anterior preservada:** `gh-pages/v082.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v084.html`.
+- **Versão anterior preservada:** `gh-pages/v083.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -259,3 +259,12 @@
 - **Limitação importante:** o artigo tem fundamentos da República (conteúdo central) sem palavras-chave típicas de obrigação/proibição/exceção. A cor laranja permanece **manual**; não alegar que a V083 reconheça semanticamente os cinco fundamentos.
 - Testes de regressão: texto literal da página 12, versão normalizada, `Parágrafo único` isolado, artigos com proibição/obrigação e `não será autorizada`; **6/6 aprovados**. Teste do leitor com o PDF real no Android do titular ainda pendente.
 - Backup do código V082 em `backup/v082-before-article1-cf-v083-2026-11-10`; PDFs, biblioteca, grifos, IDs, SRS, Drive e catálogo de 72 documentos preservados.
+
+## V084 — Atlas sincronizado com Google Drive (10/11/2026)
+
+- Base publicada: `gh-pages/v084.html`, derivada da V083, preservando leitor PDF, classificador normativo V083, grifador V082, seis cores e 270 registros antigos. Backup `backup/v083-before-image-sync-v084-2026-11-10`.
+- Nova pasta dedicada no Drive: `CONCURSOS – ENGENHARIA CIVIL/07 – Atlas de Imagens (sincronização)`; ID `1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6`. Está inicialmente vazia. Os arquivos em outras pastas e subpastas NÃO são acompanhados automaticamente.
+- Módulo `assets/v084_drive_images_sync.js` apresenta uma seção dentro do Atlas com consentimento OAuth Google `drive.readonly`, busca só nessa pasta, atualiza a cada 120 s enquanto página/token válidos, exibe somente JPEG, PNG, WEBP e GIF de até 15 MB, e obtém os bytes com token somente na sessão via `Blob` e `URL.createObjectURL`. Nenhuma imagem privada é postada no GitHub nem salva no cache persistente do aplicativo.
+- Identificador estável de novas imagens `DRIVE-IMG-<fileId>`; não cria ou altera `IMG-001..254` nem `IMG-P10-01..16`, não propaga a classificação temática sem auditoria. Os controles do Atlas antigo e a ordem dos scripts permanecem intactos.
+- Abertura pelo editor visual `BancoMestreEditorV030.open` permite grifos salvos somente no navegador, separadamente por ID. Em falhas de conexão ou fim da autorização, a base estática permanece disponível; reconexão necessária. Não há atualização em segundo plano quando o site está fechado.
+- Testados sintaxe JavaScript, preflight do manifesto e HTML, existência da pasta, identificador estável, preservação do Atlas e escopo de leitura do token. **Teste real OAuth e exibição das imagens na conta do titular pendentes**, pois a pasta está vazia e a autorização interativa só pode ocorrer no navegador.
