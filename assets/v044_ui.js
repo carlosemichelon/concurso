@@ -40,17 +40,17 @@
  if(intro&&/Leia cada explicação/i.test(intro.textContent||'')){
   intro.textContent='Consulte os cartões deste assunto, com pergunta, explicação, fonte e vínculos disponíveis. Para revisar com SRS, use “Praticar flashcards”.';
  }
- // 254 IDs confirmados (IMG-001 a IMG-254); P10 é acervo separado, ainda não integrado.
+ // 270 IDs no Atlas em execução: 254 originais + 16 IMG-P10 (via v034_boot.js).
  const third=document.querySelector('main > .stats .stat:nth-child(3)');
  if(third){
   const b=third.querySelector('b'),note=third.querySelector('span');
-  if(b)b.textContent='254';
-  if(note)note.textContent='Imagens indexadas · 16 P10 à parte';
+  if(b)b.textContent='270';
+  if(note)note.textContent='Imagens indexadas · 254 + 16 P10';
  }
  const statLabels=document.querySelectorAll('main > .stats .stat');
  statLabels.forEach((card,i)=>{
   const label=card.querySelector('span');
-  if(label)card.title=['Quantidade de PDFs no catálogo','Base canônica e cartões adicionais de Ijuí (cópia de estudo)','Atlas principal (IMG-001 a IMG-254); 16 imagens P10 ainda separadas'][i]||'';
+  if(label)card.title=['Quantidade de PDFs no catálogo','Base canônica e cartões adicionais de Ijuí (cópia de estudo)','270 imagens: IMG-001 a IMG-254 e IMG-P10-01 a IMG-P10-16'][i]||'';
  });
  window.BancoMestreUiV044={get ready(){return !!drive&&!!title},get driveHeader(){return !!document.querySelector('.bm-v044-pdf-heading #driveConnectV038')}};
 })();
