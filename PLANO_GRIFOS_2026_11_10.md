@@ -61,3 +61,16 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Arquivos: `assets/v064_imagens_visibilidade.js`, `assets/v064_painel_grifos.js`, `assets/v064_painel_grifos.css`.
 - **Não foi feito:** migração automática de grifos anteriores, reconhecimento OCR, sincronização com Drive, alteração dos flashcards, SRS ou documentos originais. A importação da pergunta 22 permanece sem aprovação.
 - Verificado por inspeção de repositório e sintaxe JavaScript. Faltam testes de interação no navegador com PDFs e imagens ocultas reais.
+
+## V065 — correção da prévia Cartão rápido
+- Correção visual para a janela `#pdfQuickPanelV047` e cabeçalho `.bm-v047-card-header`: afastar do botão flutuante Fechar PDF, manter título e × internos acessíveis.
+- CSS independente `assets/v065_cartao_rapido_header.css`. Backup de código `backup/v064-before-quick-card-header-fix-2026-11-10`. Sem alteração de dados e SRS.
+
+## V066 — cópia segura de grifos no Google Drive (etapa progressiva)
+- Backup local de grifos `BM030_STROKES_PDF:*` + `BM062_GRIFOS_META` em JSON, SHA-256 do arquivo, transferência local por botão manual.
+- O usuário confirma que salvou o backup e explicitamente clica para autorizar um **novo** upload privado no Drive usando OAuth `drive.file`. Não utilizar tokens persistentes ou sobrescrever arquivo.
+- Upload resumable com confirmação de tamanho e metadados; erro não implica reenvio automático (evitar duplicatas).
+- **Não é sincronização bidirecional:** restauração, conflitos, mescla, vigência OCR e conector ChatGPT continuam futuros. Não inclui PDF, IndexedDB, flashcards ou SRS.
+- Arquivos de código: `assets/v066_backup_drive_grifos.js`, `assets/v066_backup_drive_grifos.css` e `v066.html`.
+- Backup anterior: `backup/v065-before-drive-grifos-2026-11-10`. Não houve acesso ou upload de dados particulares do usuário pelo assistente.
+- Verificação estática realizada; operação OAuth/Drive requer ação e conferência no navegador do usuário.
