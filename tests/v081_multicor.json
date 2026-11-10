@@ -1,0 +1,87 @@
+{
+  "schema": "BancoMestreV081ParagraphMulticolor",
+  "version": "V081",
+  "date": "2026-11-10",
+  "contract": {
+    "one_user_selection": "produz até 12 trechos coloridos completos com IDs individuais, gravados em um único lote e um único desfazer",
+    "auto_colors": [
+      "proibicao",
+      "obrigacao",
+      "prazo_numero",
+      "excecao",
+      "banca"
+    ],
+    "orange": "somente manual",
+    "auto_application": "após seleção do parágrafo o usuário confere a prévia e clica Aplicar cores identificadas",
+    "no_segmented_words": true,
+    "no_neutral_autocolor": true,
+    "overlap_guard": true,
+    "conservative_fallback": "geometria/ordem incorreta bloqueia multicolorido, seleção manual ainda possível",
+    "old_data_untouched": true,
+    "existing_srs_untouched": true,
+    "catalog_pdf_count": 72
+  },
+  "verified_synthetic_cases": [
+    {
+      "text": "É vedado iniciar a obra, salvo autorização da autoridade competente, que deverá analisar o pedido em até 30 dias.",
+      "expected": [
+        "proibicao",
+        "excecao",
+        "obrigacao",
+        "prazo_numero"
+      ]
+    },
+    {
+      "text": "É vedado construir, exceto nos casos previstos.",
+      "expected": [
+        "proibicao",
+        "excecao"
+      ]
+    },
+    {
+      "text": "O engenheiro deverá apresentar em até 30 dias.",
+      "expected": [
+        "obrigacao",
+        "prazo_numero"
+      ]
+    },
+    {
+      "text": "Exclusivamente quando autorizado.",
+      "expected": [
+        "banca"
+      ]
+    },
+    {
+      "text": "O planejamento é importante para a obra.",
+      "expected": []
+    },
+    {
+      "text": "Deverá respeitar exclusivamente os prazos.",
+      "expected": [
+        "obrigacao",
+        "banca",
+        "prazo_numero"
+      ]
+    }
+  ],
+  "static_validation": {
+    "pure_plan_tests_passed": 13,
+    "geometry_split_word_passed": true,
+    "geometry_partial_word_blocked": true,
+    "atomic_batch_success_passed": true,
+    "atomic_batch_rollback_passed": true,
+    "svg_or_pdf_real_browser_tested": false,
+    "google_oauth_tested": false
+  },
+  "manual_acceptance": [
+    "Abrir um PDF com camada de texto na V081 e selecionar frase com 4 categorias",
+    "Ver prévia de 4 linhas, cada cor e texto completo, antes de qualquer grifo novo",
+    "Clicar Aplicar cores identificadas e verificar exatamente 4 IDs",
+    "Desfazer uma vez e confirmar remoção apenas do lote criado",
+    "Repetir seleção e verificar que não duplica nem recolore grifos antigos",
+    "Aumentar zoom, navegar página e reabrir PDF, confirmando âncoras",
+    "Testar seleção parcialmente dentro de palavra: não deve multicolorir",
+    "Testar PDF sem texto digital: oferecer grifo livre/seleção manual, não inventar marcações",
+    "Testar Android: seleção por toque e botão de aprovação"
+  ]
+}
