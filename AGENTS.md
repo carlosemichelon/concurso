@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V061** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V063** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -24,3 +24,9 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Regras de produto e etapas em `gh-pages/PLANO_GRIFOS_2026_11_10.md`.
 - Não apresentar as 21 decisões de alinhamento como implementadas: a V061 contém só o primeiro estágio de grifos por seleção de texto.
 - O GitHub não armazena automaticamente os grifos/SRS que o usuário tem em localStorage/IndexedDB. Não substituir essas bases nem realizar migrações sem cópia e confirmação.
+
+## Biblioteca V063
+- O manifesto `gh-pages/assets/version.json` e `gh-pages/index.html` devem apontar para `v063.html`.
+- `v063.html` carrega, em tempo de execução, o HTML preservado `v062.html` (65 PDFs, dois CONAMA originais) e adiciona os módulos `assets/v063_grifos_navegacao.js`, `assets/v062_biblioteca_grifos.js` e seu CSS. O carregador deve ser testado em navegador antes de ser considerado plenamente validado.
+- V062 preservada como HTML estático. Backup de código `backup/v062-before-grifos-v063-2026-11-10`.
+- A Biblioteca lê dados de grifos no **navegador do usuário**; GitHub não guarda grifos privados. Nenhuma migração ou sincronização automática permitida. O botão backup exporta somente localStorage das anotações; avisar que não inclui PDFs, IndexedDB, cartões ou SRS.
