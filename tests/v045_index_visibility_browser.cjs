@@ -42,6 +42,13 @@ const {chromium}=require('playwright');
   await visible(270);
   // Exclusão de imagem legada, que usa IndexedDB.
   await page.evaluate(()=>api.setStatus('IMG-005','hidden'));
+  await page.waitForTimeout(900);
+  console.log('V045_AFTER_LEGACY_DELETE',JSON.stringify(await page.evaluate(async()=>({
+   status:await window.BancoMestreAtlasV045.getIndexStatus(),
+   home:document.querySelector('main > .stats .stat:nth-child(3) b')?.textContent,
+   count:document.getElementById('imageCount')?.textContent,
+   errors:(window.BancoMestreAtlasV045?.filtered||'')
+  }))), 'JS_ERRORS',JSON.stringify(errors));
   await visible(269);
   let st=await page.evaluate(()=>window.BancoMestreAtlasV045.getIndexStatus());
   assert.deepEqual(st.hidden,['IMG-005']);
