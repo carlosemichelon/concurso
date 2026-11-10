@@ -1,0 +1,33 @@
+/* V049 — botão de olho no próprio flashcard e consulta na página ativa. */
+#cartoes article.card{position:relative}
+#cartoes article.card>.bm-v049-peek-button{
+ float:right;position:relative;z-index:1;
+ display:inline-flex;align-items:center;justify-content:center;
+ margin:1px 0 8px 8px;padding:4px 8px;min-height:27px;
+ background:#eaf4f1;border:1px solid #9bbeb5;border-radius:7px;
+ font:700 11px/1.2 system-ui,Arial,sans-serif;color:#195f63;
+ cursor:pointer;white-space:nowrap
+}
+#cartoes article.card>.bm-v049-peek-button:hover,
+#cartoes article.card>.bm-v049-peek-button:focus-visible{
+ background:#d7ebe5;outline:2px solid #6da9a0;outline-offset:1px
+}
+.bm-v049-peek[hidden]{display:none!important}
+.bm-v049-peek{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:14px}
+.bm-v049-peek-backdrop{position:absolute;inset:0;background:rgba(12,32,38,.58)}
+.bm-v049-peek-panel{position:relative;z-index:1;width:min(650px,96vw);max-height:90dvh;overflow:auto;
+ background:#fff;color:#17353b;border-radius:12px;border:1px solid #a9c9c1;
+ box-shadow:0 18px 60px #132e3b59;padding:16px 19px;display:flex;flex-direction:column;gap:9px}
+.bm-v049-peek-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bm-v049-peek-header strong{font-size:15px}
+.bm-v049-peek-close{padding:3px 8px;min-height:30px;font-size:16px;line-height:1}
+.bm-v049-peek-meta{font-size:11px;color:#56727a;margin:0}
+.bm-v049-peek-panel small{font-size:10px;letter-spacing:.06em;font-weight:800;color:#3a6c73}
+.bm-v049-peek-front{font-size:17px;font-weight:650;line-height:1.5;white-space:pre-wrap;margin:0 0 7px}
+.bm-v049-peek-answer{border-top:1px solid #e0ebe8;padding-top:12px;display:flex;flex-direction:column;gap:5px}
+.bm-v049-peek-answer[hidden]{display:none!important}
+.bm-v049-peek-answer p{font-size:13px;line-height:1.5;white-space:pre-wrap;margin:0 0 9px}
+.bm-v049-peek-reveal{background:#16616a;color:#fff;border-color:#16616a;font-weight:700;align-self:flex-start;padding:7px 13px}
+.bm-v049-peek-note{font-size:11px;color:#56727a;margin:4px 0 0}
+body.bm-v049-peek-open{overflow:hidden}
+@media(max-width:550px){#cartoes article.card>.bm-v049-peek-button{font-size:10px;padding:4px 6px}.bm-v049-peek-panel{padding:12px}}
