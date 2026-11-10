@@ -1,0 +1,41 @@
+/* V054 — cabeçalho de assunto compacto, mantendo leitura acessível. */
+#tema .topicLead{
+ display:flex!important;align-items:center!important;justify-content:space-between;
+ gap:8px!important;padding:6px 10px!important;margin:0 0 7px!important;
+ border:1px solid #cddce9!important;border-radius:6px!important;
+ background:#f7fafd!important;min-height:0!important;
+}
+#tema .topicLead > div{flex:1 1 auto;min-width:0}
+#tema .topicLead .tag{
+ display:inline-block;font-size:8px!important;line-height:1.15!important;
+ letter-spacing:.015em!important;font-weight:600!important;
+ padding:0!important;margin:0!important;color:#6c7c8f!important;
+ background:transparent!important;
+}
+#tema .topicLead h2#topicHeading{
+ font-size:14px!important;line-height:1.25!important;letter-spacing:-.012em!important;
+ font-weight:700!important;color:#243e57!important;
+ margin:2px 0 2px!important;padding:0!important;overflow-wrap:anywhere;
+}
+#tema .topicLead p#topicGroupCaption{
+ font-size:9px!important;line-height:1.28!important;letter-spacing:0!important;
+ margin:2px 0 0!important;color:#728196!important;overflow-wrap:anywhere;
+}
+#tema .topicLead #topicBack{
+ flex:0 0 auto;align-self:center;min-height:26px!important;padding:5px 8px!important;
+ border:1px solid #cad7e3!important;border-radius:5px!important;
+ background:#fff!important;color:#315a78!important;
+ font-size:10px!important;font-weight:650!important;line-height:1.2!important;
+ white-space:nowrap!important;
+}
+#tema .topicLead #topicBack:hover{background:#edf6fc!important;border-color:#96c1df!important}
+#tema .panel > p.intro{
+ font-size:10px!important;line-height:1.4!important;
+ margin:4px 0 10px!important;color:#708096!important;
+}
+@media(max-width:620px){
+ #tema .topicLead{padding:6px 7px!important;gap:5px!important;align-items:flex-start!important}
+ #tema .topicLead h2#topicHeading{font-size:12.5px!important}
+ #tema .topicLead p#topicGroupCaption{font-size:8.5px!important}
+ #tema .topicLead #topicBack{font-size:9px!important;max-width:104px;white-space:normal!important;text-align:center;padding:5px!important}
+}
