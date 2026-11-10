@@ -1,5 +1,5 @@
 {
-  "version": "V055",
+  "version": "V056",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -16,9 +16,9 @@
     "f17_historic_evolutions": 9
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V055: todos os grupos de PDFs iniciam recolhidos (mesmo ao filtrar), flashcards em grade compacta com pergunta no topo e formulário discursivo expansível; leitor rápido exibe pergunta antes dos metadados. Atlas aceita favoritar imagens, filtrar favoritas e editar/restaurar títulos exibidos, salvos localmente por ID no navegador, sem alterar os títulos canônicos. Editor pan, tema, navegação, PDFs, SRS, IDs e conteúdos anteriores preservados; V054 intacta.",
+  "notes": "V056: leitor e editor de PDF em tela inteira, com página vertical ocupando a área útil; cabeçalho com título/Fechar e toolbar fixa não são exibidos. Dois controles flutuantes discretos permitem fechar e abrir menu com recursos originais, incluindo edição, cartão e Drive; barra de grifos recolhida até solicitada. V055 preservada; PDFs, cartões, grifos, SRS, Atlas, IDs e arquivos originais intactos.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v055.html",
+  "home": "v056.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -36,10 +36,10 @@
     "changes_srs": false,
     "opens_new_tab": false,
     "answer_initially_hidden": true,
-    "version": "V055"
+    "version": "V056"
   },
-  "previous_version": "V054",
-  "style_sheet": "assets/v055_ui_compact.css",
+  "previous_version": "V055",
+  "style_sheet": "assets/v056_pdf_fullscreen.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
   "topic_navigation": "history.pushState com #tema?g=<grupo>&s=<assunto>; popstate e deep links",
@@ -49,5 +49,7 @@
     "scope": "somente neste navegador; não sincroniza com Drive; originais inalterados"
   },
   "card_preview_front_first": true,
-  "pdf_groups_collapsed_by_default": true
+  "pdf_groups_collapsed_by_default": true,
+  "pdf_reader_fullscreen": true,
+  "pdf_reader_controls": "dois botões flutuantes (opções/fechar); ferramentas de grifos por menu; toolbar e dhead sem faixa permanente"
 }
