@@ -13,7 +13,7 @@ const names=[
  {color:'#dbc4ff',label:'Revisar'},
  {color:'#ffca8c',label:'Exceção'}
 ];
-const KEY_COLOR='BM_PDF_TEXT_COLOR_V061',KEY_QUICK='BM068_GRIFO_RAPIDO',KEY_HOTKEYS='BM068_HOTKEYS',META='BM062_GRIFOS_META';
+const KEY_COLOR='BM_PDF_TEXT_COLOR_V061',KEY_QUICK='BM068_GRIFO_RAPIDO',KEY_HOTKEYS='BM068_HOTKEYS',KEY_LABELS='BM068_COLOR_LABELS',META='BM062_GRIFOS_META';
 const allowed=['highlight','underline','double-underline','strike','conceal'];
 let activeLayer=null,serial=0,context=null,activeId=null,reselection=null,popupEnabled=true,lastAt={x:240,y:120};
 let quick=true,lastColor='#ffe04d',lastStyle='highlight',toastTimer=0,keys={quick:'Alt+Q',panel:'Alt+W'};
@@ -23,6 +23,13 @@ try{quick=localStorage.getItem(KEY_QUICK)!=='0';lastColor=localStorage.getItem(K
 }catch{}
 const goodColor=x=>/^#[0-9a-f]{6}$/i.test(x||'');
 if(!goodColor(lastColor))lastColor='#ffe04d';
+try{
+ const customLabels=JSON.parse(localStorage.getItem(KEY_LABELS)||'{}');
+ if(customLabels&&typeof customLabels==='object')for(const item of names){
+  const label=customLabels[item.color];
+  if(typeof label==='string'&&label.trim())item.label=label.trim().slice(0,45);
+ }
+}catch{}
 const selectBtn=document.createElement('button');selectBtn.id='bm068SelectTool';selectBtn.type='button';
 selectBtn.textContent='🖍 Grifar palavras';selectBtn.title='Selecionar texto diretamente no PDF';
 selectBtn.setAttribute('aria-pressed','false');marker.parentNode.insertBefore(selectBtn,marker);
@@ -72,7 +79,7 @@ const settings=document.createElement('section');settings.id='bm068SettingsBox';
 settings.innerHTML='<div class="bm068-settings-card"><strong>⚙ Atalhos de teclado</strong><p>Configure atalhos sem conflito com o navegador. Use Alt+letra ou Alt+Shift+letra.</p>'+
  '<label>Marcador rápido<input id="bm068KeyQuick" type="text" maxlength="18" value="Alt+Q"></label>'+
  '<label>Painel de grifos<input id="bm068KeyPanel" type="text" maxlength="18" value="Alt+W"></label>'+
- '<p id="bm068SettingsMessage" role="status"></p><div class="bm068-settings-actions"><button type="button" id="bm068SettingsCancel">Cancelar</button><button type="button" id="bm068SettingsSave">Salvar</button></div></div>';
+ '<button type="button" id="bm068EditColors">Editar significados das cores</button><p id="bm068SettingsMessage" role="status"></p><div class="bm068-settings-actions"><button type="button" id="bm068SettingsCancel">Cancelar</button><button type="button" id="bm068SettingsSave">Salvar</button></div></div>';
 dlg.append(settings);
 const toast=document.createElement('div');toast.id='bm068Toast';toast.hidden=true;
 toast.innerHTML='<span id="bm068ToastMessage"></span><button id="bm068ToastUndo" type="button" hidden>Desfazer</button>';
@@ -106,6 +113,23 @@ $('bm068QuickToggle').onclick=()=>{quick=!quick;safeWrite(KEY_QUICK,quick?'1':'0
 $('bm068OpenPanel').onclick=()=>{const panel=$('bm064TogglePanel');if(panel)panel.click();else status('O painel de grifos ainda não carregou')};
 $('bm068Settings').onclick=()=>{$('bm068KeyQuick').value=keys.quick;$('bm068KeyPanel').value=keys.panel;settings.hidden=false;$('bm068KeyQuick').focus()};
 $('bm068SettingsCancel').onclick=()=>settings.hidden=true;
+$('bm068EditColors').onclick=()=>{
+ const colorLabels={};try{Object.assign(colorLabels,JSON.parse(safeRead(KEY_LABELS)||'{}'))}catch{}
+ for(const item of names){
+  const chosen=prompt('Nome de estudo para a cor '+item.color+':',item.label);
+  if(chosen===null)break;
+  if(chosen.trim()){
+   item.label=chosen.trim().slice(0,45);colorLabels[item.color]=item.label;
+  }
+ }
+ if(safeWrite(KEY_LABELS,JSON.stringify(colorLabels))){
+  for(const b of $('bm068Colors').querySelectorAll('button[data-color]')){
+   const item=names.find(x=>x.color===b.dataset.color);
+   if(item){b.title=item.label;b.setAttribute('aria-label',item.label+' ('+item.color+')')}
+  }
+  $('bm068SettingsMessage').textContent='Legendas de cores salvas neste navegador.';
+ }else $('bm068SettingsMessage').textContent='Não foi possível salvar a legenda das cores.';
+};
 function validKey(s){return /^Alt\+(?:Shift\+)?[A-Z]$/.test(s)&&!['Alt+F','Alt+E','Alt+D','Alt+H','Alt+L','Alt+S','Alt+P','Alt+Shift+F'].includes(s)}
 $('bm068SettingsSave').onclick=()=>{
  const a=$('bm068KeyQuick').value.trim().toUpperCase().replace('ALT+SHIFT+','Alt+Shift+').replace('ALT+','Alt+');
@@ -130,6 +154,7 @@ function show(mark,x,y,pending=false){
  $('bm068CurrentText').textContent=mark?.text?.slice(0,85)||'Seleção de texto';
  $('bm068Apply').hidden=!pending;
  $('bm068Resize').disabled=!mark?.id;$('bm068Delete').disabled=!mark?.id;
+ $('bm068Hide').textContent=mark?.style==='conceal'?'◉ Mostrar':'⋯ Ocultar';
  $('bm068Cards').disabled=!mark?.id;$('bm068Note').disabled=!mark?.id;
  for(const b of $('bm068Colors').querySelectorAll('button[data-color]')){
   b.setAttribute('aria-pressed',String((mark?.color||lastColor).toLowerCase()===b.dataset.color));
@@ -166,7 +191,7 @@ function applyStyle(style){
 }
 $('bm068Underline').onclick=()=>applyStyle('underline');
 $('bm068Strike').onclick=()=>applyStyle('strike');
-$('bm068Hide').onclick=()=>applyStyle('conceal');
+$('bm068Hide').onclick=()=>applyStyle(current()?.style==='conceal'?'highlight':'conceal');
 $('bm068FloatClose').onclick=closeMenu;
 let pending=null;
 function commitPending(color=lastColor,style=lastStyle){
@@ -321,9 +346,9 @@ wrap.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{
  if(!dlg.open)return;
  if(e.key==='Escape'){
-  if(!editor.hidden){closeEditor();e.stopPropagation();return}
-  if(!settings.hidden){settings.hidden=true;e.stopPropagation();return}
-  if(!popup.hidden){closeMenu();e.stopPropagation();return}
+  if(!editor.hidden){closeEditor();e.preventDefault();e.stopPropagation();return}
+  if(!settings.hidden){settings.hidden=true;e.preventDefault();e.stopPropagation();return}
+  if(!popup.hidden){closeMenu();e.preventDefault();e.stopPropagation();return}
  }
  const target=e.target?.closest?.('input,textarea,[contenteditable="true"],select');
  if(target||e.repeat)return;
