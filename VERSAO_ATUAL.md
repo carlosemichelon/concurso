@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V084.
+- **Site publicado:** V085.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v084.html`.
-- **Versão anterior preservada:** `gh-pages/v083.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v085.html`.
+- **Versão anterior preservada:** `gh-pages/v084.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -268,3 +268,12 @@
 - Identificador estável de novas imagens `DRIVE-IMG-<fileId>`; não cria ou altera `IMG-001..254` nem `IMG-P10-01..16`, não propaga a classificação temática sem auditoria. Os controles do Atlas antigo e a ordem dos scripts permanecem intactos.
 - Abertura pelo editor visual `BancoMestreEditorV030.open` permite grifos salvos somente no navegador, separadamente por ID. Em falhas de conexão ou fim da autorização, a base estática permanece disponível; reconexão necessária. Não há atualização em segundo plano quando o site está fechado.
 - Testados sintaxe JavaScript, preflight do manifesto e HTML, existência da pasta, identificador estável, preservação do Atlas e escopo de leitura do token. **Teste real OAuth e exibição das imagens na conta do titular pendentes**, pois a pasta está vazia e a autorização interativa só pode ocorrer no navegador.
+
+
+## V085 — auditoria e ícones do editor PDF (10/11/2026)
+
+- Auditoria da V084 identificou dezenas de botões com caracteres tipográficos minúsculos ou significado ambíguo em uma barra lateral de 116 px desktop / 83 px celular. O núcleo já tinha ações reais para navegação, zoom, desenho, grifo livre, seleção de texto, borracha, mover, notas, cartões, cobertura, desfazer/refazer e exportação.
+- `assets/v085_pdf_toolbar.js`: ícones **SVG próprios do aplicativo**, sem fontes nem dependências externas; preserva **os elementos DOM e respectivos listeners/IDs**, adicionando rótulos claros, aria-label/title, foco por teclado, agrupamento visual, estado de ferramenta, modo de barra compacto/amplo, ajuda e atalhos Shift+S (texto), Shift+C (caneta), Shift+G (grifo livre), Shift+B (borracha) e Shift+H (mover). Conserva os atalhos originais Ctrl+Z/Y e o campo de página já existente V057 (não duplica).
+- `assets/v085_pdf_toolbar.css`: layout de sidebar 202px/102px no desktop e 160px/102px no celular, cartões de ferramenta com alvos maiores, seleção visual, paleta acessível e respeito aos estados hidden/disabled. Somente editor PDF, sem alterar o editor de imagens.
+- `assets/pdf_v085.js`: mantém PDF V081 completo, incluindo `addTextHighlights`; expõe **resetZoomV085()** e `zoomPercent`, reestabelecendo ajuste original (100%) sob solicitação; protege a ação **Limpar página** com cópia e rollback do histórico e marcas se `localStorage` falhar.
+- A V084 **permanece preservada**, assim como a janela V084 experimental, Atlas, sincronização de imagens e arquivos privados, catálogo de 72 PDFs, biblioteca, grifos, IDs de cartões, SRS e versões anteriores. Backup do código em `backup/v084-before-pdf-editor-ux-v085-2026-11-10`. Testes com navegador real Chrome/Android ainda pendentes.
