@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<title>Banco Mestre V069 — Grifador Estabilizado</title>
+<style>
+body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
+#loading{max-width:720px;margin:15vh auto;padding:24px}
+#loading a{color:#16616a;font-weight:700}
+</style>
+</head>
+<body>
+<div id="loading" role="status" aria-live="polite">
+<h1>Banco Mestre V064</h1>
+<p>Carregando Banco Mestre e a janela de Cartão rápido...</p>
+<p><a href="./v068.html">Abrir a versão anterior V068</a></p>
+</div>
+<script>
+(async function(){
+ 'use strict';
+ const info=document.getElementById('loading');
+ try{
+  const response=await fetch('./v062.html?base=V062',{cache:'no-store'});
+  if(!response.ok)throw Error('Base V062 indisponível ('+response.status+')');
+  let source=await response.text();
+  if(!source.includes('pdf_catalog_v062.json')||
+     !source.includes('assets/pdf_v061.js')||
+     !source.includes('documents.length!==65')||
+     !source.includes('</head>')||!source.includes('</body>'))
+   throw Error('A base foi alterada. O carregamento seguro foi interrompido.');
+  const tag=name=>'<scr'+'ipt src="assets/'+name+'"></scr'+'ipt>';
+  const styles=[
+   '<link rel="stylesheet" href="assets/v062_biblioteca_grifos.css?v=062">',
+   '<link rel="stylesheet" href="assets/v064_painel_grifos.css?v=064">',
+   '<link rel="stylesheet" href="assets/v065_cartao_rapido_header.css?v=065">',
+   '<link rel="stylesheet" href="assets/v066_backup_drive_grifos.css?v=066">',
+   '<link rel="stylesheet" href="assets/v067_diagnostico_local.css?v=067">',
+   '<link rel="stylesheet" href="assets/v068_grifador.css?v=068">'
+  ].join('');
+  const scripts=[
+   'v063_grifos_navegacao.js?v=063',
+   'v069_biblioteca_grifos.js?v=069',
+   'v064_imagens_visibilidade.js?v=064',
+   'v069_painel_grifos.js?v=069',
+   'v066_backup_drive_grifos.js?v=066',
+   'v067_diagnostico_local.js?v=067'
+  ].map(tag).join('');
+  // V068 — apenas no HTML montado: motor PDF e grifador atuais substituem V061,
+  // mantendo a V062 e a V067 preservadas em seus próprios arquivos.
+  if(!source.includes('assets/pdf_v061.js?v=061')||
+     !source.includes('assets/v061_selecao_texto.js?v=061'))
+   throw Error('O motor de PDF foi alterado; aplicação da V068 interrompida para proteger os grifos.');
+  source=source.replace('assets/pdf_v061.js?v=061','assets/pdf_v069.js?v=069')
+   .replace('assets/v061_selecao_texto.js?v=061','assets/v069_grifador.js?v=069');
+  source=source.replace('</head>',styles+'</head>');
+  source=source.replace('</body>',scripts+'</body>');
+  source=source.replace('Banco Mestre V062 — Estudos','Banco Mestre V069 — Estudos')
+   .replaceAll('V062 · base V015','V069 · base V015')
+   .replace('<footer>V062 ·','<footer>V069 ·');
+  document.open();document.write(source);document.close();
+ }catch(error){
+  console.error('V064: inicialização interrompida',error);
+  info.querySelector('p').textContent='Não foi possível abrir esta versão: '+error.message;
+ }
+})();
+</script>
+</body>
+</html>
