@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V067** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V068** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -56,3 +56,13 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Diagnóstico verifica estrutura, versão, catálogo de 65 PDFs, imagens excluídas, integridade/âncoras dos grifos, SHA-256, painel e sobreposição da prévia do cartão. Não escreve dados nem acessa Drive; relatório inclui somente resultados e totais agregados.
 - Backup de código: `backup/v066-before-diagnostics-2026-11-10`.
 - Testes com PDF real, páginas de assunto com exclusões e OAuth continuam pendentes; não confundir presença de código com execução validada.
+
+## V068 — grifador avançado e visual de seleção
+- A versão atual `gh-pages/v068.html` modifica **somente na montagem dinâmica** os scripts legados de seleção/core do HTML-base V062, apontando para `assets/pdf_v068.js` e `assets/v068_grifador.js`. Biblioteca e painel usam `assets/v068_biblioteca_grifos.js` e `assets/v068_painel_grifos.js`; CSS `assets/v068_grifador.css`. As versões anteriores permanecem imutáveis.
+- Backup do código anterior: `backup/v067-before-complete-highlighter-2026-11-10`. Isso **não** copia grifos, PDFs guardados no navegador nem SRS.
+- Preservar IDs `BM-TXT-*`, chave `BM030_STROKES_PDF:<id>:<hash>:P<n>`, âncoras textuais e coordenadas e histórico incremental. Não mudar grifos legados ao abrir.
+- O menu de seleção permite cores semânticas/edição do significado, sublinhar, tachar, ocultar/mostrar, notas estruturadas, tags e favorito; vinculando IDs apenas, sem criar flashcards. Toda proposta de criação de flashcard deve respeitar as regras de erros/dificuldade e aprovação expressa do usuário.
+- A exclusão é direta com desfazer imediatamente (sem lixeira) e as edições preservam ID e histórico. As notas classificadas também atualizam `BM062_GRIFOS_META` sem migrar os registros antigos.
+- Atalhos configuráveis (Alt+Q/Alt+W), evitando conflitos comuns de navegador; não enviar dados sem consentimento. O envio manual de backups V066 permanece independente.
+- **Testes manuais pendentes:** seleção real sobre PDF, zoom e troca de página, exportação PDF anotado, menu mobile, PDF escaneado, ocultar/mostrar, biblioteca/painel e atalhos.
+- OCR, sincronização bidirecional Drive, Chrome extension e conector ChatGPT continuam projetos distintos. Não alegar conclusão dessas funcionalidades.
