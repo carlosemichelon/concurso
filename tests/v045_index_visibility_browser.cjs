@@ -102,9 +102,9 @@ const currentFile='v'+currentVersion.slice(1)+'.html';
   const fallback=await context.newPage();
   await fallback.route('**/assets/version.json*',r=>r.fulfill({status:503,body:'offline'}));
   await fallback.goto(root+'index.html',{waitUntil:'domcontentloaded'});
-  await fallback.waitForFunction(()=>document.getElementById('entrar')?.getAttribute('href')?.includes('v045.html'),null,{timeout:10000});
+  await fallback.waitForFunction(expected=>document.getElementById('entrar')?.getAttribute('href')?.includes(expected),currentFile,{timeout:10000});
   const link=await fallback.locator('#entrar').getAttribute('href');
-  assert.ok(link.includes(currentFile),'Fallback deve apontar para V045, não V037');
+  assert.ok(link.includes(currentFile),'Fallback deve apontar para a versão atual, não V037');
   console.log(JSON.stringify({result:'PASS',fallback:currentVersion}));
   await fallback.close();
  }finally{await browser.close()}
