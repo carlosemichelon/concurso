@@ -1,5 +1,5 @@
-/* V044 — Atlas: índice auditado 254 IMG-001...IMG-254 e filtros multifatoriais.
-   Os 16 P10 NÃO constam do meta_v021.json; nenhum registro é inventado.
+/* V044 — Atlas: 254 IMG-001...254 e 16 IMG-P10-01...16 com filtros multifatoriais.
+   Os 16 P10 são adicionados por v034_boot.js ao meta em execução; IDs preservados.
    Reutiliza IDs, miniaturas, editor, estado de ocultação e arquivos originais. */
 (function(){
  'use strict';
@@ -15,7 +15,7 @@
  };
  const area=select('imageAreaV044',[['Todas as áreas','all']],'Filtrar imagens por área');
  const source=select('imageSourceV044',[
-  ['Todas as fontes','all'],['Com imagem disponível','visual'],['Sem imagem vinculada','missing'],['Original verificado','verified']
+  ['Todas as fontes','all'],['Com imagem disponível','visual'],['Sem imagem vinculada','missing'],['Originais verificados','verified'],['Somente Petrobras 10','p10']
  ],'Filtrar imagens por disponibilidade do arquivo');
  const sort=select('imageSortV044',[
   ['ID crescente (IMG-001…)','id-asc'],['ID decrescente','id-desc'],['Título A–Z','title'],['Assunto A–Z','category']
@@ -27,7 +27,12 @@
  filters.after(summary);
  let indexed=false;
  const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
- const num=x=>Number(String(x.no||'').match(/(\d+)$/)?.[1]||0);
+ const num=x=>{
+  const id=String(x.no||'');
+  const p10=id.match(/^IMG-P10-(\d{2})$/);
+  if(p10)return 254+Number(p10[1]);
+  return Number(id.match(/^IMG-(\d{3})$/)?.[1]||0);
+ };
  const discipline=x=>{
   const name=String(x.category||'');
   if(/^engenharia civil/i.test(name))return 'Engenharia Civil';
@@ -36,21 +41,24 @@
   if(/^legisla[cç][aã]o/i.test(name))return 'Legislação';
   return name.split(/[\/—]/)[0].trim()||'Outras';
  };
- const hasVisual=x=>Number.isInteger(x.shard)&&!!meta?.image_files?.[x.shard]||!!origMap[x.no]?.preview_url;
+ const hasVisual=x=>!!(Number.isInteger(x.shard)&&meta?.image_files?.[x.shard]||origMap[x.no]?.preview_url||x.external&&x.preview_url);
  const isVerified=x=>origMap[x.no]?.verified===true;
  function setup(){
   if(indexed||!Array.isArray(imgs)||!imgs.length)return;
   indexed=true;
   const ids=imgs.map(num).sort((a,b)=>a-b);
   const unique=new Set(imgs.map(x=>x.no));
-  const continuous=ids.length===254&&unique.size===254&&ids.every((n,i)=>n===i+1);
+  const legacy=imgs.filter(x=>/^IMG-\d{3}$/.test(x.no));
+  const petro=imgs.filter(x=>/^IMG-P10-\d{2}$/.test(x.no));
+  const continuous=ids.length===270&&unique.size===270&&legacy.length===254&&petro.length===16&&ids.every((n,i)=>n===i+1);
   const areaNames=[...new Set(imgs.map(discipline))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
   areaNames.forEach(x=>area.add(new Option(x,x)));
   buildCategories();
   const heading=root.querySelector('.notice');
   if(heading)heading.textContent=
-   'Atlas principal: '+imgs.length+' imagens identificadas'+(continuous?' (IMG-001 a IMG-254, sem lacunas)':' (há divergências no índice; conferir auditoria)')+
-   '. Os 16 registros P10 são um acervo complementar separado, ainda não presente neste índice. O original e as marcações de cada imagem permanecem vinculados ao ID.';
+   'Atlas com '+imgs.length+' registros: 254 imagens principais (IMG-001 a IMG-254) e 16 Petrobras 10 (IMG-P10-01 a IMG-P10-16)'+
+   (continuous?', sem lacunas ou IDs duplicados.':'; confira a consistência do índice.')+
+   ' Os filtros respeitam os IDs e preservam as imagens originais e respectivas marcações.';
   const stat=document.querySelector('main > .stats .stat:nth-child(3) b');
   if(stat)stat.textContent=String(imgs.length);
  }
@@ -89,14 +97,14 @@
    (show||hidden.get(x.no)!=='hidden')&&
    (areaVal==='all'||discipline(x)===areaVal)&&
    (categoryVal==='all'||x.category===categoryVal)&&
-   (sourceVal==='all'||(sourceVal==='visual'&&hasVisual(x))||(sourceVal==='missing'&&!hasVisual(x))||(sourceVal==='verified'&&isVerified(x)))&&
+   (sourceVal==='all'||(sourceVal==='visual'&&hasVisual(x))||(sourceVal==='missing'&&!hasVisual(x))||(sourceVal==='verified'&&isVerified(x))||(sourceVal==='p10'&&x.external===true))&&
    queryMatches(x,raw)
   );
   const byId=(a,b)=>num(a)-num(b);
   selected.sort(order==='id-desc'?(a,b)=>byId(b,a):order==='title'?(a,b)=>a.title.localeCompare(b.title,'pt-BR')||byId(a,b):order==='category'?(a,b)=>a.category.localeCompare(b.category,'pt-BR')||byId(a,b):byId);
   const visible=selected.slice(0,imgLimit);
   count.textContent=selected.length+' de '+imgs.length+' imagens no índice principal';
-  summary.textContent='Exibindo '+visible.length+' de '+selected.length+' resultado(s). Índice principal: '+imgs.length+' IDs únicos. P10: 16 registros separados. Filtros não alteram nem excluem arquivos.';
+  summary.textContent='Exibindo '+visible.length+' de '+selected.length+' resultado(s). Catálogo: '+imgs.length+' IDs (254 originais + 16 Petrobras 10 integrados). Os filtros não alteram nem excluem arquivos.';
   const out=$('imageRows');out.replaceChildren();
   if(!selected.length){out.append(el('p','Nenhuma imagem corresponde aos filtros.','muted'))}
   for(const x of visible){
@@ -118,7 +126,11 @@
     preview.src=sourceData.preview_url;
     preview.title='Fonte associada ao ID e verificada';
    }else fallback();
-   if(hasVisual(x))c.buttons.append(action('Abrir em tela cheia',()=>imgOpen(x),'primary'));
+   if(x.external){
+    const edit=action('Abrir e grifar',()=>imgOpen(x),'primary');edit.classList.add('v032-open');
+    c.buttons.append(edit);
+    if(x.source_url)c.buttons.append(link('Original no Drive',x.source_url));
+   }else if(hasVisual(x))c.buttons.append(action('Abrir em tela cheia',()=>imgOpen(x),'primary'));
    c.buttons.append(action(off?'Restaurar':'Excluir',async()=>{
     try{await api.setStatus(x.no,off?'visible':'hidden');await imgRender()}
     catch(e){alert(e.message)}
