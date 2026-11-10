@@ -152,7 +152,7 @@
     if(x.source_url)c.buttons.append(link('Original no Drive',x.source_url));
    }else if(hasVisual(x))c.buttons.append(action('Abrir em tela cheia',()=>imgOpen(x),'primary'));
    c.buttons.append(action(off?'Restaurar':'Excluir',async()=>{
-    try{await api.setStatus(x.no,off?'visible':'hidden');await imgRender()}
+    try{await api.setStatus(x.no,off?'visible':'hidden')}
     catch(e){alert(e.message)}
    },off?'':'danger'));
    out.append(c.c);
@@ -177,7 +177,14 @@
   if(refreshQueued)return;refreshQueued=true;
   Promise.resolve().then(()=>{refreshQueued=false;if(indexed)imgRender()});
  };
- window.addEventListener('bm-imagens-atualizadas',refresh);
+ // A camada P10 grava em localStorage e não emite o evento das imagens
+ // antigas. Envolvemos a função existente para atualizar ambos os grupos.
+ const originalSetStatus=api.setStatus.bind(api);
+ api.setStatus=async function(id,status){
+  const result=await originalSetStatus(id,status);
+  if(indexed)await enhancedRender();
+  return result;
+ };
  window.addEventListener('storage',e=>{
   if(e.key==='BM_IMAGENS_V023_CHANGE'||e.key?.startsWith('BM032_VIS_'))refresh();
  });
