@@ -29,9 +29,9 @@ function analyze(tokens,selectionText){
  const candidates=[...new Set(evidence.map(x=>x.kind))];
  // Uma nova oração autônoma separada por ponto e com texto substantivo não pode
  // receber automaticamente a cor de um pequeno sinal da oração anterior.
- const meaningfulSentences=text.split(/(?<=[.!?])\s+(?=[\p{Lu}§\d])/u)
-  .filter(s=>s.trim().length>=15);
- const otherClauses=meaningfulSentences.length>1&&
+ const normalizedSentenceBoundaries=text.replace(/\b(?:Art|arts|n|inc)\.(?=\s*\d)/giu,m=>m.slice(0,-1));
+ const sentences=normalizedSentenceBoundaries.split(/(?<=[.!?])\s+(?=[\p{Lu}§\d])/u);
+ const otherClauses=sentences.length>1&&
   parsed.some(p=>p.kind==='regra'&&p.text.trim().length>12);
  const uncertain=candidates.length===0||otherClauses;
  if(candidates.length>1||otherClauses){
