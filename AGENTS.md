@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V075** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V076** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -127,3 +127,10 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Uma seleção = um registro + um ID + uma cor. Em conflito de categorias exigir cor manual; nota e assunto continuam sugestões sem confirmação automática.
 - Scripts V075 carregam após o classificador V072: `assets/v075_seis_cores.js` -> `assets/v075_analise_selecao.js` -> `assets/v075_grifador.js`; motor `assets/pdf_v075.js`. Regressão `tests/v075_seis_cores_fixas.json`.
 - Teste de visual e gravação real com PDF ainda pendente; não alegar validação completa.
+
+## V076 — sincronização privada de flashcards
+- Publicação de referência: `assets/version.json` com `version=V076` e `home=v076.html`. Verificar estado atual antes de futuras alterações. A versão V075 e o grifador de seis cores são preservados.
+- Fonte privada: XLSX do Drive `1SA-PKBrlaovuNLFMPBx7BByH3BH0Tcsr`, aba `Cartoes_V015`. A página nova carrega cartões do Excel via OAuth somente após consentimento e enquanto token válido, verificando alterações a cada 120 segundos. Novas cópias de XLSX NÃO são capturadas automaticamente; preservar ID de arquivo ou atualizar configuração explicitamente.
+- Sem token, usar dados estáticos V015; não anunciar atualização recente. O consentimento real ainda precisa ser testado no navegador da conta dona, inclusive configuração da origem no Google Cloud.
+- O módulo de sincronização não escreve no Drive, no GitHub, no SRS nem no armazenamento local, não envia grifos e não migra respostas. Não tornar público o XLSX, credenciais, histórico privado ou tokens.
+- Metodologia de todos os flashcards: estrutura-base de lei seca; versos literais apenas para texto normativo verificável; explicação, macete, fonte e exceções separados; não reescrever em massa cartões históricos; gatilho erro + Difícil e aprovação se aplica a novos cartões.
