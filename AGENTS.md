@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V072** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V073** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -98,3 +98,12 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Persistir `classification_confidence` e `classification_basis` apenas em novos grifos; Biblioteca/painel exibem justificativa e ressalvam que a classificação é provisória.
 - Manter cores V071, registros existentes, IDs, flashcards, SRS, imagens ocultas e 65 PDFs. Nenhuma reclassificação histórica silenciosa.
 - Testes de regressão: `tests/v072_classificacao_contextual.json`. A validação real no navegador com PDFs continua necessária; não afirmar conclusão de OCR, sincronização bidirecional ou migração assistida.
+
+## V073 — ciclo de seleção seguro e diagnóstico
+- Manifesto e portal devem apontar para `v073.html`. Backup do código V072 `backup/v072-before-selection-stability-v073-2026-11-10`.
+- Motor `assets/pdf_v073.js`: evento `bm-pdf-render-start` invalida seleção antiga ao iniciar renderização; `bm-pdf-active-page-rendered` só é emitido quando o PDF está pronto.
+- `assets/v073_grifador.js`: anexar textLayer antes de executar `pdfjsLib.renderTextLayer` para medições válidas; manter `pointer-events:none!important` na camada até a promessa concluir e retirar camada obsoleta se o ticket de renderização mudar.
+- Snapshot de grifos, pilhas undo/redo e anotações devem ser restaurados se persistência local falhar; nunca anunciar um desfazer como bem-sucedido quando localStorage não gravou.
+- Diagnóstico de grifos `assets/v073_teste_grifador.js` é apenas leitura: não altera o PDF nem o banco, não transmite dados privados.
+- Não migrar/recolorir grifos históricos; preservar as seis cores, 65 PDFs, flashcards/IDs/SRS e política de imagens excluídas.
+- Verificação manual real com PDF (multilinha, zoom, reabertura, exportação) ainda obrigatória antes de chamar o leitor de validado integralmente.
