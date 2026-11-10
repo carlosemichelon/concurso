@@ -1,0 +1,52 @@
+/* Banco Mestre V070 — quatro cores oficiais, sugestões de nota e assunto
+   identificadas até a confirmação explícita; aplica-se sobre o estilo V068. */
+#pdfDialog #bm068QuickBar #bm070Smart{
+ grid-column:1 / -1!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ gap:6px!important;min-height:33px!important;padding:5px 6px!important;
+ font:700 11px/1.25 system-ui,Arial,sans-serif!important;
+ border:1px solid #b5ced9!important;border-radius:7px!important;
+ background:#f4f8fa!important;color:#375b69!important;
+}
+#pdfDialog #bm068QuickBar #bm070Smart[aria-pressed="true"]{
+ color:#176048!important;background:#e0f4e9!important;border-color:#73b99a!important;
+}
+#pdfDialog #bm068ModeHint{font-weight:650!important}
+#pdfDialog #bm068Palette .bm068-colors{justify-content:center;gap:11px;padding:8px 4px}
+#pdfDialog #bm068Palette .bm068-swatch{flex-basis:36px!important;width:36px!important;
+ height:36px!important;min-height:36px!important;border-radius:11px!important}
+#pdfDialog #bm068Palette .bm068-swatch:focus-visible{outline:2px solid #156b57!important;outline-offset:3px}
+#pdfDialog #bm068Palette #bm068CustomColor{margin-left:5px;flex:0 0 36px;width:36px;height:36px}
+#pdfDialog #bm068Palette .bm068-commands #bm070ApplyAuto{
+ display:flex!important;grid-column:1/-1!important;
+ justify-content:center!important;min-height:33px!important;
+ border-color:#83b3a1!important;background:#e2f5ea!important;
+ color:#185f48!important;font-weight:800!important;font-size:11px!important;
+}
+#pdfDialog #bm068Palette .bm068-commands #bm070ApplyAuto[hidden]{display:none!important}
+#pdfDialog #bm068Palette .bm068-commands #bm068Apply[hidden]{display:none!important}
+#pdfDialog #bm070Suggestion{
+ display:block;max-width:calc(100% - 34px);margin:12px 17px 0;
+ padding:9px 10px;border:1px dashed #a6c8b6;border-radius:8px;
+ background:#f1f9f4;color:#245e47;
+ font:700 11px/1.5 system-ui,Arial,sans-serif;
+}
+#pdfDialog #bm070Suggestion[hidden]{display:none!important}
+#grifos .bm070-suggestion-label{
+ display:block!important;font-weight:800!important;color:#8b621d;
+ margin:6px 0 2px!important;font-size:11px!important
+}
+#grifos .bm070-note-suggestion{
+ border-left:3px solid #d0aa5f!important;
+ background:#fffaf0!important;color:#5b4e37!important;font-style:italic;
+}
+#pdfDialog .bm070-panel-suggestion{
+ border-left:3px solid #d2b276!important;
+ background:#fffaf1!important;color:#654d26!important;
+ font-size:10px!important;line-height:1.45!important;
+}
+@media(max-width:700px){
+ #pdfDialog #bm068Palette .bm068-colors{gap:9px}
+ #pdfDialog #bm068Palette .bm068-swatch{flex-basis:31px!important;width:31px!important;height:31px!important;min-height:31px!important}
+ #pdfDialog #bm070Suggestion{margin:8px 10px 0;max-width:calc(100% - 20px)}
+}
