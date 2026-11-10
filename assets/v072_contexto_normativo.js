@@ -10,8 +10,8 @@ const COLORS=previous.COLORS;
 const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const word=s=>{
  const str=normalize(s).trim();
- if(/^§/.test(str))return '§';
- return str.replace(/^[^\p{L}\d]+|[^\p{L}\dºª%/]+$/gu,'');
+ if(/^§\s*$/.test(str))return '§';
+ return str.replace(/^[^\p{L}\d§]+|[^\p{L}\d§ºª%/]+$/gu,'');
 };
 const compact=s=>String(s||'').replace(/\s+/g,' ').trim();
 const numeric=/^\d+(?:(?:[.,:/-])\d+)*(?:%|º|ª)?$/;
@@ -58,7 +58,7 @@ function referenceAt(words,i){
 function end(s){
  const v=String(s||'').trim();
  if(/^(?:art\.|arts\.|n\.|inc\.)$/i.test(v))return false;
- return /[;.!?:]$/.test(v);
+ return /[,;.!?:]$/.test(v);
 }
 function classifyWords(tokens,options={}){
  if(!Array.isArray(tokens)||!tokens.length||tokens.length>180)return [];
