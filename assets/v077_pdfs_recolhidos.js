@@ -124,7 +124,18 @@ byId('pdfSearch').placeholder='Pesquisar título, norma, assunto ou código';
 byId('pdfSearch').oninput=()=>pdfRender();
 byId('pdfFilter').onchange=()=>pdfRender();
 byId('pdfHidden').onchange=()=>pdfRender();
-window.BancoMestrePDFGruposV036={ready,render,getGroup:id=>lookup?.get(id)};
+window.BancoMestrePDFGruposV036={
+ ready,render,getGroup:id=>lookup?.get(id),
+ registerExternal(records){
+  if(!data||!lookup||!groups)throw Error('Índice de PDFs não iniciado');
+  for(const rec of records){
+   if(!rec||!/^DRIVE-PDF-[A-Za-z0-9_-]{15,}$/.test(rec.id))throw Error('ID de PDF externo inválido');
+   const group=groups.get(rec.group);
+   if(!group)throw Error('Grupo desconhecido: '+rec.group);
+   if(!lookup.has(rec.id)){lookup.set(rec.id,group);data.assigned.push({id:rec.id,group:rec.group,confidence:'Metadados do Drive autenticado'});}
+  }
+ }
+};
 if(docs.length)pdfRender();
 
 /* PDFs locais: usar sempre a mesma cópia no IndexedDB, sem publicar no repositório. */
