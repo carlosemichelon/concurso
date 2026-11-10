@@ -228,7 +228,7 @@ $('bm068Underline').onclick=()=>applyStyle('underline');
 $('bm068DoubleUnderline').onclick=()=>applyStyle('double-underline');
 $('bm068Strike').onclick=()=>applyStyle('strike');
 $('bm068Hide').onclick=()=>applyStyle(current()?.style==='conceal'?'highlight':'conceal');
-$('bm068FloatClose').onclick=()=>{pending=null;pendingAnalysis=null;closeMenu()};
+$('bm068FloatClose').onclick=()=>{pending=null;pendingAnalysis=null;pendingMulti=null;closeMenu()};
 let pending=null,pendingAnalysis=null,pendingMulti=null;
 function computeSelectionAnalysis(){
  return window.BancoMestreAnaliseSelecaoV075?.analyze(pending?.words||[],pending?.text||'')||{
@@ -238,7 +238,23 @@ function computeSelectionAnalysis(){
 }
 function confirmOrSuggest(){
  if(!pending)return;
- pendingAnalysis=computeSelectionAnalysis();
+ pendingAnalysis=computeSelectionAnalysis();pendingMulti=null;
+ if(smart&&Array.isArray(pending.positionedWords)){
+  const plan=window.BancoMestreMulticorV081?.prepare(pending.positionedWords,pending.text);
+  if(plan?.status==='ready'&&plan.segments.length){
+   pendingMulti=plan;
+   // Trecho curto com uma só categoria preserva o grifo rápido da V080.
+   if(quick&&plan.selection_exact&&pending.text.length<=90&&pendingAnalysis.status==='clara'){
+    pendingMulti=null;commitPending(pendingAnalysis.color,lastStyle,true);return;
+   }
+   show({text:pending.text,color:plan.segments[0].color},lastAt.x,lastAt.y,true);
+   status('Revise '+plan.segments.length+' trecho(s) na prévia e clique em Aplicar cores identificadas.');return;
+  }
+ }
+ if(smart&&pending.text.length>90){
+  show({text:pending.text,color:lastColor},lastAt.x,lastAt.y,true);
+  status('O PDF não permitiu localizar todas as palavras. Reduza a seleção ou escolha uma cor manual.');return;
+ }
  if(quick&&smart&&pendingAnalysis.status==='clara'){
   commitPending(pendingAnalysis.color,lastStyle,true);return;
  }
@@ -299,12 +315,44 @@ function commitPending(color=lastColor,style=lastStyle,auto=smart,manualChoice=n
  if(!mark){
   status('Falha ao salvar. A seleção continua disponível para tentar novamente.');return;
  }
- pending=null;pendingAnalysis=null;
+ pending=null;pendingAnalysis=null;pendingMulti=null;
  show(mark,lastAt.x,lastAt.y);
  status(existing?(auto?'O grifo já existia: cor preservada.':'Cor alterada no mesmo grifo e ID.'):
   'Um único grifo salvo para a seleção inteira'+(auto?' com cor sugerida.':' com a cor escolhida.')+
   ' Assunto e nota continuam sujeitos a revisão.');
 }
+function commitMulticolor(){
+ if(!pending||!pendingMulti||pendingMulti.status!=='ready'||!matches(pending.context)){
+  status('Seleção expirada; selecione o parágrafo novamente.');return;
+ }
+ if(window.BancoMestreMulticorV081?.intersectsExisting(pendingMulti.segments,api()?.currentMarks)){
+  status('Existem grifos anteriores nesses trechos. Nenhuma sobreposição foi criada.');return;
+ }
+ const cls=window.BancoMestreClassificadorV075||window.BancoMestreClassificadorV072;
+ const title=api()?.currentDoc?.title||api()?.currentDoc?.name||'';
+ const records=pendingMulti.segments.map(part=>({
+  text:part.text,rects:part.rects,
+  anchor:{quote:part.text,
+   prefix:pending.text.slice(Math.max(0,part.start-90),part.start),
+   suffix:pending.text.slice(part.end,part.end+90)},
+  page:pending.page,documentId:pending.documentId,sourceHash:pending.sourceHash,
+  color:part.color,color_label:part.label,style:'highlight',
+  confidence:part.confidence,detail:part.detail,
+  classification_kind:part.kind,classification_status:'sugestao',
+  segment_index:part.segment_index,segment_total:part.segment_total,
+  subject_suggestion:cls?.suggestSubject?.(part.text,title)||{},
+  note_suggestion:cls?.suggestNote?.({text:part.text,kind:part.kind,detail:part.detail})?.text||''
+ }));
+ // Motor V081: uma única operação de armazenamento e um único desfazer.
+ const result=api()?.addTextHighlights?.(records);
+ if(!result){status('Não foi possível salvar o conjunto. Nenhum trecho parcial foi mantido.');return}
+ const count=result.marks?.length||0;
+ pending=null;pendingAnalysis=null;pendingMulti=null;closeMenu();
+ status(count?count+' trecho(s) coloridos foram salvos em uma operação. Desfazer recupera o estado anterior.':
+  'Os trechos já estavam salvos. Nenhum novo grifo duplicado.');
+}
+multiApply.addEventListener('click',commitMulticolor);
+
 $('bm068Apply').onclick=()=>commitPending(lastColor,lastStyle,false);
 $('bm070ApplyAuto').onclick=()=>commitPending(pendingAnalysis?.color||lastColor,lastStyle,true);
 $('bm068Note').onclick=()=>{
@@ -390,7 +438,7 @@ function clearTextLayer(reason){
   selection.removeAllRanges();
  }
  if(activeLayer){activeLayer.remove();activeLayer=null}
- context=null;pending=null;pendingAnalysis=null;reselection=null;closeMenu();
+ context=null;pending=null;pendingAnalysis=null;pendingMulti=null;reselection=null;closeMenu();
  dlg.classList.remove('bm-v061-text-mode','bm068-selecting');
  if(reason)$('bm068ModeHint').textContent=reason;
 }
@@ -400,7 +448,7 @@ window.addEventListener('bm-pdf-render-start',()=>{
 window.addEventListener('bm-pdf-active-page-rendered',async event=>{
  const c=event.detail,ticket=++serial;
  if(activeLayer){activeLayer.remove();activeLayer=null}
- context=null;pending=null;pendingAnalysis=null;closeMenu();
+ context=null;pending=null;pendingAnalysis=null;pendingMulti=null;closeMenu();
  if(!matches(c))return;
  const layer=makeLayer();
  let attached=false;
