@@ -110,3 +110,11 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - `addTextHighlights` salva vários registros independentes em uma operação atômica, mantendo undo único, posição, ID e rastreabilidade.
 - Scripts `assets/pdf_v070.js`, `assets/v070_classificador.js`, `assets/v070_grifador.js`, `assets/v070_biblioteca_grifos.js`, `assets/v070_painel_grifos.js`, `assets/v070_cores_metodologia.css`. HTML `v070.html`.
 - Testado estaticamente e por simulação de duplicata/falha de armazenamento. Revisão manual em PDF real e avaliação de acurácia por temas ainda pendentes.
+
+## V071 — atualização das cores a pedido do usuário (10/11/2026)
+- Seis cores atualizadas: vermelho (proibição), verde (dever), amarelo (prazo/número), azul (exceção), roxo (palavra absoluta/pegadinha de banca), laranja (regra principal).
+- Evitar confusão: "é vedado" e "não poderá" vermelhos; "deverá" e "compete" verdes; "em até 30 dias" amarelo; "salvo" azul; "exclusivamente" e "jamais" roxo; regras gerais laranja.
+- Criados `assets/v071_classificador.js`, `assets/v071_grifador.js`, `assets/pdf_v071.js`, `assets/v071_cores.css`, integrados em `v071.html`.
+- Backup do código V070: `backup/v070-before-six-colors-2026-11-10`. Grifos existentes e SRS não são alterados/recoloridos.
+- Mantém a segmentação em trechos atômicos, a revisão manual de notas e assuntos e os demais recursos das versões anteriores. O classificador não produz interpretação normativa garantida.
+- Testes estáticos e do classificador concluídos; teste visual em navegador real pendente.
