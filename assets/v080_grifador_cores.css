@@ -1,0 +1,15 @@
+/* V080 — corrigir comandos que permaneciam visíveis mesmo com atributo hidden. */
+#pdfDialog #bm068Palette button[hidden]{display:none!important}
+#pdfDialog #bm068Palette #bm070ApplyAuto:not([hidden]){
+  display:flex!important;grid-column:1/-1;
+  background:#eaf5ef!important;border-color:#98c9ad!important;
+  color:#215946!important;font-weight:800!important;min-height:35px!important;
+}
+#pdfDialog #bm068Palette .bm068-swatch[aria-pressed="true"]{
+  outline:3px solid #206e58!important;outline-offset:2px!important;
+}
+#pdfDialog #bm068Palette #bm074ColorAdvice:not([hidden]){
+  display:block!important;line-height:1.45!important;
+  padding:7px 8px!important;border-radius:7px!important;
+  background:#fff7e8!important;color:#6d4a11!important;font-weight:600!important;
+}

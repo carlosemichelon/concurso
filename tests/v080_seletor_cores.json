@@ -1,0 +1,115 @@
+{
+  "schema": "BancoMestreV080SelectiveColorsRegression",
+  "version": "V080",
+  "date": "2026-11-10",
+  "purpose": "Regressões de cores por seleção PDF, preservando um único grifo e prioridade manual",
+  "tests": [
+    {
+      "name": "Proibição com fragmentação de palavra",
+      "input": "É vedado executar",
+      "fragments": [
+        "É",
+        "ve",
+        "dado",
+        "executar"
+      ],
+      "expected": "proibicao"
+    },
+    {
+      "name": "Proibição 'não poderá' fragmentada",
+      "input": "Não poderá atuar",
+      "fragments": [
+        "Não",
+        "po",
+        "derá",
+        "atuar"
+      ],
+      "expected": "proibicao"
+    },
+    {
+      "name": "Obrigação fragmentada",
+      "input": "Deverá apresentar",
+      "fragments": [
+        "De",
+        "verá",
+        "apresentar"
+      ],
+      "expected": "obrigacao"
+    },
+    {
+      "name": "Exceção fragmentada",
+      "input": "Salvo disposição em contrário",
+      "fragments": [
+        "Sal",
+        "vo",
+        "disposição",
+        "em",
+        "contrário"
+      ],
+      "expected": "excecao"
+    },
+    {
+      "name": "Palavra da banca fragmentada",
+      "input": "Exclusivamente para este caso",
+      "fragments": [
+        "Exclusi",
+        "vamente",
+        "para",
+        "este",
+        "caso"
+      ],
+      "expected": "banca"
+    },
+    {
+      "name": "Prazo",
+      "input": "Em até 30 dias",
+      "fragments": [
+        "Em",
+        "até",
+        "30",
+        "dias"
+      ],
+      "expected": "prazo_numero"
+    },
+    {
+      "name": "Conflito dever/prazo",
+      "input": "Deverá entregar em 30 dias",
+      "fragments": [
+        "De",
+        "verá",
+        "entregar",
+        "em",
+        "30",
+        "dias"
+      ],
+      "expected_status": "ambigua"
+    },
+    {
+      "name": "Texto neutro não é laranja automaticamente",
+      "input": "O licenciamento ambiental compreende três etapas.",
+      "fragments": [
+        "O",
+        "licenciamento",
+        "ambiental",
+        "compreende",
+        "três",
+        "etapas."
+      ],
+      "expected_status": "indefinida"
+    }
+  ],
+  "interface_guarantees": [
+    "Modo manual com rápido ligado abre paleta sem salvar última cor",
+    "Botão oculto não reaparece por CSS display flex importante",
+    "Seleção mista não grava antes da cor manual",
+    "Clique em swatch manual efetiva cor/ID único",
+    "Nenhuma recoloração/migração de grifos históricos",
+    "Estilos adicionais exigem primeiro a cor no modo manual"
+  ],
+  "original_regression_tests": 21,
+  "new_fragmentation_and_ui_tests": 10,
+  "additional_manual_flow_checks": 5,
+  "static_all_passed": true,
+  "browser_pdf_real_pending": true,
+  "no_srs_or_data_writes_in_implementation": true
+}
