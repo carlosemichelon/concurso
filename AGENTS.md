@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V073** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V074** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -107,3 +107,13 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Diagnóstico de grifos `assets/v073_teste_grifador.js` é apenas leitura: não altera o PDF nem o banco, não transmite dados privados.
 - Não migrar/recolorir grifos históricos; preservar as seis cores, 65 PDFs, flashcards/IDs/SRS e política de imagens excluídas.
 - Verificação manual real com PDF (multilinha, zoom, reabertura, exportação) ainda obrigatória antes de chamar o leitor de validado integralmente.
+
+## V074 — UMA seleção = UM grifo e UMA cor
+- Versão atual `v074.html`; backup do código `backup/v073-before-unified-highlights-v074-2026-11-10`; V073 e anteriores intactas.
+- Não criar vários registros por palavras ou sequências identificadas dentro de uma seleção. Use `BancoMestreAnaliseSelecaoV074.analyze` só para sugerir **uma** categoria e `planOneHighlight` para construir **um** registro por seleção inteira.
+- A API pública em `assets/pdf_v074.js` não expõe `addTextHighlights`; chamadas do grifador usam exclusivamente `addTextHighlight`. Grifos antigos segmentados são preservados sem mescla ou reclassificação.
+- Se houver categorias conflitantes ou texto sem pista suficiente, **não salvar automaticamente**: apresentar paleta e aguardar cor escolhida pelo usuário. Cor manual prevalece, inclusive sobre a sugestão.
+- Uma seleção de várias linhas terá vários retângulos de posição, mas um único ID e uma única entrada na Biblioteca.
+- Recolorir a mesma seleção deve atualizar o ID existente, não criar outro registro. Não excluir notas nem flashcards associados.
+- `classification_status:confirmada` da escolha manual se aplica à cor, não à nota ou ao assunto sugerido. Não criar flashcards nem alterar SRS.
+- Testes isolados e fixture de regressão `tests/v074_selecao_unica_cores.json`; teste real no navegador com PDF e reabertura permanece pendente.
