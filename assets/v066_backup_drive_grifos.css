@@ -1,0 +1,37 @@
+/* Banco Mestre V066 — envio consentido de backup de grifos para o Drive */
+#grifos #bm066DriveBackup{
+ margin:16px 0 20px;padding:15px 17px;
+ border:1px solid #bfd3dc;border-radius:9px;
+ background:linear-gradient(165deg,#fafcfd,#f1f8fb);color:#213e4b;
+}
+#grifos #bm066DriveBackup h3{font-size:15px;margin:0 0 7px;color:#184e65}
+#grifos #bm066DriveBackup p{font-size:12px;line-height:1.55;margin:7px 0}
+#grifos #bm066DriveBackup .bm066-actions{
+ display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0;
+}
+#grifos #bm066DriveBackup button{
+ min-height:35px!important;padding:7px 11px!important;
+ border-radius:6px;font-size:12px!important;
+ border:1px solid #abc8d5;color:#1a4f65;background:#fff;
+}
+#grifos #bm066DriveBackup button:not(:disabled):hover{background:#e9f6fb}
+#grifos #bm066DriveBackup button:disabled{opacity:.46;cursor:not-allowed}
+#grifos #bm066DriveBackup #bm066Upload{font-weight:800;border-color:#387b92;background:#e7f5fb}
+#grifos #bm066DriveBackup .bm066-consent{
+ display:flex;align-items:flex-start;gap:8px;margin:10px 0;
+ font:12px/1.45 system-ui,Arial,sans-serif;
+}
+#grifos #bm066DriveBackup .bm066-consent input{flex:0 0 auto;margin-top:3px;accent-color:#147c8a}
+#grifos #bm066DriveBackup .bm066-hash{
+ font-size:11px!important;color:#335c69;word-break:break-all;
+ background:#fff;padding:8px 9px;border:1px solid #d4e2e8;border-radius:6px;
+}
+#grifos #bm066DriveBackup .bm066-status{font-weight:700;color:#2b6673;overflow-wrap:anywhere}
+#grifos #bm066DriveBackup .bm066-foot{color:#687b83;font-size:10px!important}
+#grifos #bm066DriveBackup code{font-size:10px;overflow-wrap:anywhere}
+#grifos #bm066DriveLink{font-size:12px;font-weight:750;color:#13637a;text-decoration:underline;overflow-wrap:anywhere}
+@media(max-width:650px){
+ #grifos #bm066DriveBackup{padding:12px}
+ #grifos #bm066DriveBackup .bm066-actions{flex-direction:column;align-items:stretch}
+ #grifos #bm066DriveBackup .bm066-actions button{width:100%}
+}
