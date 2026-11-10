@@ -25,6 +25,18 @@ const notify=s=>status.textContent=s;
 let busy=false;
 // PDF fonte obrigatório: Drive. A versão histórica em GitHub não é consultada.
 const expectedSha256='6eeac7822562b6944ea9c7587b6ecb28a575830a89eeb03861f9e1e7ebed7a39';
+function readMarks(){
+ const items=[];
+ try{
+  for(let i=0;i<localStorage.length;i++){
+   const key=localStorage.key(i);
+   if(!key||!key.startsWith(markPrefix))continue;
+   const value=JSON.parse(localStorage.getItem(key)||'null');
+   if(Array.isArray(value))items.push({key,marks:value});
+  }
+ }catch(e){throw Error('Falha ao ler anotações locais: '+e.message)}
+ return items.sort((a,b)=>a.key.localeCompare(b.key));
+}
 function makeDownload(blob,name){
  const u=URL.createObjectURL(blob),a=node('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();
  setTimeout(()=>URL.revokeObjectURL(u),30000);
