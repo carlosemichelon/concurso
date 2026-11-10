@@ -81,3 +81,14 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Relatórios com estados OK/problema/alerta/não testado: versão, catálogo 65 PDFs, grifos locais/IDs/âncoras, exclusões de imagens em assuntos carregados, tela de Cartão rápido, texto PDF e existência dos controles Drive.
 - O diagnóstico não modifica registros, arquivos nem dados privados; não inclui texto dos grifos/IDs privados, não pede autorização Drive, não executa upload.
 - Continua pendente teste no navegador com PDF real, exclusões, salvamento/recuperação e OAuth. Não ativar sincronização bidirecional ou migração V060 antes de validação.
+
+## V068 — grifador de PDF avançado, visual inspirado na Bússola (10/11/2026)
+- Publicação `v068.html`, preservando `v067.html` e `v062.html`. Backup de código `backup/v067-before-complete-highlighter-2026-11-10`.
+- Grifo por seleção textual e cores semânticas: seis opções editáveis, cor personalizada, marcador rápido Alt+Q, painel Alt+W, atalhos configuráveis, menu flutuante com aparência compacta de estudo.
+- Novos estilos de anotação: grifo opaco, sublinhado, sublinhado duplo suportado no motor, tachado e ocultação visual/mostrar. Grifo livre e desenho V060 preservados.
+- Opções avançadas: ajustar trecho grifado por seleção mantendo ID; histórico incremental (máximo 20 versões locais recentes); impedir duplicação exata de trecho e coordenadas; exclusão direta com desfazer; copiar texto; cartões vinculados somente por ID.
+- Notas estruturadas: nota, explicação, dúvida, correção, macete, pegadinha, fundamento normativo e fonte; disciplina, assunto, tags e favorito. Integração com Biblioteca e painel PDF para consulta/exportação.
+- Armazenamento compatível com `BM030_STROKES_PDF` e metadados `BM062_GRIFOS_META`; grifos antigos não são regravados nem submetidos a OCR automático.
+- **NÃO foram implementados**: OCR, remapeamento entre versões do PDF, extensão Chrome, sincronização bidirecional com Drive nem conector ChatGPT. Backup consentido V066 permanece.
+- Arquivos novos: `assets/pdf_v068.js`, `assets/v068_grifador.js`, `assets/v068_grifador.css`, `assets/v068_biblioteca_grifos.js`, `assets/v068_painel_grifos.js`.
+- Verificação de sintaxe dos arquivos, integração do loader, testes isolados de alterações de registros e desenho dos estilos. Teste com PDF real no navegador e acesso real Drive pendentes.
