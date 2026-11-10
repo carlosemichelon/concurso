@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V066.
+- **Site publicado:** V067.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v066.html`.
-- **Versão anterior preservada:** `gh-pages/v065.html` (V064, V063, V062, V061 e V060 igualmente preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v067.html`.
+- **Versão anterior preservada:** `gh-pages/v066.html` (V065, V064, V063, V062, V061 e V060 igualmente preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -75,3 +75,14 @@
 - **Não é sincronização bidirecional**, nem importação: não houve mescla/remoção de dados nem abertura de arquivos privados do usuário pelo assistente. A ferramenta GitHub não tem acesso ao navegador.
 - Backup do código anterior: `backup/v065-before-drive-grifos-2026-11-10`.
 - **Validação:** código JS, referências e estrutura checados. Teste real de autenticação, upload, interface e segurança depende de ação autorizada no navegador do usuário; não presumir que já foi realizado.
+
+## V067 — diagnóstico funcional sem alterações de dados (10/11/2026)
+
+- A **V066 foi preservada integralmente**. Backup de código: `backup/v066-before-diagnostics-2026-11-10` (branch de `gh-pages` criada antes da V067).
+- Nova versão `v067.html`, com dois arquivos independentes: `assets/v067_diagnostico_local.js` e `assets/v067_diagnostico_local.css`.
+- Na **Biblioteca de Grifos**, botão **Verificar agora** lista OK, problemas, alertas e verificações não executadas; botão **Copiar relatório sem dados privados** permite compartilhar somente status e totais agregados.
+- No leitor de PDF, botão **Diagnóstico do leitor** permite conferir camada de seleção, identidade da fonte e sobreposição do cabeçalho Cartão rápido aos controles flutuantes quando a prévia está aberta.
+- Confere manifesto, catálogo de **65 PDFs**, APIs do leitor/painel, backup, WebCrypto, leitura estrutural dos grifos em localStorage, âncoras e possíveis IDs duplicados, e imagens excluídas que eventualmente ainda apareçam na página de assunto carregada.
+- **Privacidade e preservação:** nenhuma gravação em localStorage/IndexedDB nem upload ao Drive; a verificação de imagens usa `BancoMestreImagens.all()` apenas para leitura. O relatório não inclui texto de grifos, IDs de documentos ou tokens.
+- **Não é substituto do teste real:** em páginas sem PDF aberto o diagnóstico marca testes como não executados; as operações de OAuth e upload **não são exercitadas**.
+- Validação até agora: sintaxe e integração estática. Execução do diagnóstico sobre dados reais depende do clique do usuário no site.
