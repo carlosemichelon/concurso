@@ -14,7 +14,7 @@
   let source=await r.text();
   if(!source.includes('assets/v041_vade.js')||!source.includes('assets/pdf_v038.js')||!source.includes('assets/drive_direct_v038.js'))
    throw Error('Versão base incompatível');
-  source=source.replace(/V041/g,'V045');
+  source=source.replace(/V041/g,'V046');
   source=source.replace('assets/pdf_v038.js','assets/pdf_v046.js?v=v046');
   source=source.replace('assets/drive_direct_v038.js','assets/drive_direct_v044.js?v=v044');
   source=source.replace('</head>', 
@@ -31,7 +31,7 @@
   document.open();document.write(source);document.close();
  }catch(e){
   const status=document.getElementById('status');
-  if(status)status.textContent='Não foi possível iniciar V045: '+e.message;
+  if(status)status.textContent='Não foi possível iniciar V046: '+e.message;
  }
 })();
 </script>
