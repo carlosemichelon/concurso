@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V076** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V077** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -140,3 +140,12 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Para cada cartão aprovado, auditar duplicatas e IDs, consultar o mestre atual, produzir atualização incremental com os demais registros preservados, validar conteúdo e SRS; guardar backup recuperável antes de substituir. Usar `mcp__Google_Drive__update_file` com `file_uri` **no mesmo fileId**, nunca `upload_file`/`import_spreadsheet` como nova fonte ativa. Confirmar ID e conteúdo após a operação.
 - Se existir alteração concorrente ou faltar uma referência de arquivo válida para o `update_file`, não alegar sincronização; preservar o mestre e avisar a pendência. Checkpoints e backups são cópias históricas, não novas bases operacionais.
 - O site lê essa planilha via autorização OAuth; consulta de 120 s somente com site aberto e token ativo. A gravação pelo ChatGPT na base mestre e a leitura pelo navegador são operações distintas, ambas devem ser verificadas separadamente.
+
+## V077 — catálogo e sincronização autenticada de PDFs
+- O manifesto V077 aponta `v077.html`; sempre verificar `gh-pages/assets/version.json` antes de editar. V076 e V075, grifos, PDF.js, SRS, cartões e IDs anteriores preservados.
+- Fonte estática: `assets/pdf_catalog_v077.json` (72/72 PDFs). Índice de navegação por assunto: `assets/pdf_grupos_v077.json` (72/72 entradas); leitor: `assets/v077_pdfs_recolhidos.js`. Ambos os PDF originais CONAMA aparecem no índice, não apenas no catálogo.
+- Novas fontes: NRs 01, 05, 06, 07, 17, 18 e Lei 15.190/2025, todos com arquivos intactos e metadados no Drive. Não confundir edição fornecida de uma NR com certificação de vigência em 2026.
+- Módulo `assets/v077_drive_pdf_sync.js`: busca PDFs exclusivamente em `06 – PDFs e Materiais/Normas Regulamentadoras` e `/Licenciamento Ambiental` após autorização OAuth `drive.readonly`; verifica a cada 120 s enquanto aberto/token válido. Inclusões futuras em outras pastas exigem expandir a configuração ou atualizar catálogo por novo deploy. Não existe sincronização irrestrita de todo o Drive.
+- Não subir arquivos privados à branch pública, somente IDs, títulos e metadados mínimos. O leitor original e os grifos locais não são reescritos; sem OAuth, catálogo estático de 72 documentos continua disponível para titulares com acesso ao Drive.
+- Se novos PDFs forem aprovados e enviados ao Drive, preservar IDs existentes e deduplicar por file_id/nome. Atualização automática de novos PDFs em pastas monitoradas ocorre apenas na sessão Google autorizada; alterações no catálogo estático exigem revisão e deploy. Novos grupos precisam ser adicionados ao índice correspondente.
+- Validação real do OAuth/visualização em navegador autenticado permanece pendente; não alegar sucesso definitivo de rede privada até testado.
