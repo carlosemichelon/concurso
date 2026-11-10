@@ -1,5 +1,5 @@
 {
-  "version": "V070",
+  "version": "V071",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -17,9 +17,9 @@
     "pdfs": 65
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V070 — grifo rápido com as quatro cores metodológicas oficiais (amarelo regra principal, verde agente/autoridade/competência, rosa exceção/ressalva, azul condição/requisito/prazo). Uma seleção pode ser separada em palavras e sequências com registros independentes; a gravação é atômica por seleção. O algoritmo local sugere disciplina/assunto/subassunto e nota do trecho; sugestões ficam não confirmadas até edição e salvamento explícito. Cores manuais prevalecem e são confirmadas pelo usuário. Preservados V069, 65 PDFs, grifos antigos, cartões e SRS. V069 — estabilização incremental do grifador avançado: seleção ativada após fim completo da renderização PDF, evento único de armazenamento persistido para atualizar Biblioteca/painel, desfazer exclusão protegido contra alterações intermediárias, seleção reversa com âncora corrigida, sublinhado duplo acessível na interface e troca de estilo sem alterar cor anterior. Código V068 preservado e 65 PDFs mantidos. V068 — grifador avançado com menu flutuante de cores semânticas inspirado no fluxo de A Bússola Highlights, marcação rápida/assistida, sublinhado/tachado/ocultar, editor de notas estruturadas, tags, favoritos, vínculo a IDs existentes, ajuste do trecho com ID estável, histórico limitado, desfazer exclusão, paleta e atalhos configuráveis. Biblioteca e painel mostram campos adicionais, sem converter grifos V060 automaticamente. Núcleo V061 preservado; cópia V068 incremental de código. 65 PDFs, V067 diagnóstico e backups preservados. V067 — diagnóstico sob demanda e somente leitura de versão, catálogo de PDFs (65), leitor/grifador, painel lateral, backup, SHA-256, integridade de registros locais, retângulos de ancoragem, IDs repetidos, imagens excluídas nos assuntos e colisão de cabeçalho de Cartão rápido quando aberto. Não envia dados nem modifica flashcards, PDFs, SRS, marcadores ou exclusões. V066 e backups anteriores preservados. V066 — preparar/baixar backup JSON de grifos com SHA-256 e, após confirmação explícita do usuário, criar cópia privada no Google Drive via OAuth drive.file. Nunca sobrescreve arquivo remoto, não faz sincronização bidirecional nem importação automática. Preserva correção da janela Cartão rápido V065, painel PDF V064, imagens excluídas ocultas, Biblioteca V063 e catálogo V062 de 65 PDFs. V065 — correção visual isolada da prévia Cartão rápido: cabeçalho e botão de fechar da própria prévia ficam abaixo dos controles flutuantes do leitor PDF, com botão × acessível, inclusive em telas pequenas. CSS adicional sem alterar lógica da prévia, cards, SRS e PDFs. V064 — imagens excluídas deixam de aparecer nos assuntos, seus cards, contagens e vínculos IMG; exclusão/restauração mantém o ID e armazenamento originais. Painel lateral retrátil e redimensionável de grifos dentro do editor PDF: lista por página, pesquisa, navegação por trechos, notas textuais e visuais, revisão de fonte por hash; usa grifos locais V061/V063. Base V062 (65 PDFs CONAMA incluídos) preservada. Não migra grifos antigos nem sincroniza dados privados. V063 — Etapa 2 (primeiro módulo): Biblioteca local de Grifos com busca, filtros, favoritos, categorias, notas e exportação TXT/Markdown/JSON/relatório PDF via impressão; backup manual de todas as marcações locais BM030_STROKES_PDF sem incluir arquivos IndexedDB/SRS. Integração pela base V062 em carregador de extensão que mantém os 65 PDFs. OCR, migração assistida, sincronização Drive e painel lateral dentro do leitor permanecem pendentes. V062 — catálogo de PDFs ampliado de 63 para 65: dois textos de resolução CONAMA marcados ORIGINAL, separados das apostilas TEC Concursos. Arquivos no Google Drive, sem alteração dos originais, do editor V061, dos cartões, SRS ou anotações pessoais. V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
+  "notes": "V071 — paleta revisada com seis cores definidas pelo usuário: vermelho proibições/vedações; verde obrigações/deveres; amarelo prazos/números; azul exceções/ressalvas; roxo palavras-chave da banca; laranja regra principal. Classificador por trechos e notas sugeridas atualizado, respeitando grifos históricos sem recoloração automática. V070 — grifo rápido com as quatro cores metodológicas oficiais (amarelo regra principal, verde agente/autoridade/competência, rosa exceção/ressalva, azul condição/requisito/prazo). Uma seleção pode ser separada em palavras e sequências com registros independentes; a gravação é atômica por seleção. O algoritmo local sugere disciplina/assunto/subassunto e nota do trecho; sugestões ficam não confirmadas até edição e salvamento explícito. Cores manuais prevalecem e são confirmadas pelo usuário. Preservados V069, 65 PDFs, grifos antigos, cartões e SRS. V069 — estabilização incremental do grifador avançado: seleção ativada após fim completo da renderização PDF, evento único de armazenamento persistido para atualizar Biblioteca/painel, desfazer exclusão protegido contra alterações intermediárias, seleção reversa com âncora corrigida, sublinhado duplo acessível na interface e troca de estilo sem alterar cor anterior. Código V068 preservado e 65 PDFs mantidos. V068 — grifador avançado com menu flutuante de cores semânticas inspirado no fluxo de A Bússola Highlights, marcação rápida/assistida, sublinhado/tachado/ocultar, editor de notas estruturadas, tags, favoritos, vínculo a IDs existentes, ajuste do trecho com ID estável, histórico limitado, desfazer exclusão, paleta e atalhos configuráveis. Biblioteca e painel mostram campos adicionais, sem converter grifos V060 automaticamente. Núcleo V061 preservado; cópia V068 incremental de código. 65 PDFs, V067 diagnóstico e backups preservados. V067 — diagnóstico sob demanda e somente leitura de versão, catálogo de PDFs (65), leitor/grifador, painel lateral, backup, SHA-256, integridade de registros locais, retângulos de ancoragem, IDs repetidos, imagens excluídas nos assuntos e colisão de cabeçalho de Cartão rápido quando aberto. Não envia dados nem modifica flashcards, PDFs, SRS, marcadores ou exclusões. V066 e backups anteriores preservados. V066 — preparar/baixar backup JSON de grifos com SHA-256 e, após confirmação explícita do usuário, criar cópia privada no Google Drive via OAuth drive.file. Nunca sobrescreve arquivo remoto, não faz sincronização bidirecional nem importação automática. Preserva correção da janela Cartão rápido V065, painel PDF V064, imagens excluídas ocultas, Biblioteca V063 e catálogo V062 de 65 PDFs. V065 — correção visual isolada da prévia Cartão rápido: cabeçalho e botão de fechar da própria prévia ficam abaixo dos controles flutuantes do leitor PDF, com botão × acessível, inclusive em telas pequenas. CSS adicional sem alterar lógica da prévia, cards, SRS e PDFs. V064 — imagens excluídas deixam de aparecer nos assuntos, seus cards, contagens e vínculos IMG; exclusão/restauração mantém o ID e armazenamento originais. Painel lateral retrátil e redimensionável de grifos dentro do editor PDF: lista por página, pesquisa, navegação por trechos, notas textuais e visuais, revisão de fonte por hash; usa grifos locais V061/V063. Base V062 (65 PDFs CONAMA incluídos) preservada. Não migra grifos antigos nem sincroniza dados privados. V063 — Etapa 2 (primeiro módulo): Biblioteca local de Grifos com busca, filtros, favoritos, categorias, notas e exportação TXT/Markdown/JSON/relatório PDF via impressão; backup manual de todas as marcações locais BM030_STROKES_PDF sem incluir arquivos IndexedDB/SRS. Integração pela base V062 em carregador de extensão que mantém os 65 PDFs. OCR, migração assistida, sincronização Drive e painel lateral dentro do leitor permanecem pendentes. V062 — catálogo de PDFs ampliado de 63 para 65: dois textos de resolução CONAMA marcados ORIGINAL, separados das apostilas TEC Concursos. Arquivos no Google Drive, sem alteração dos originais, do editor V061, dos cartões, SRS ou anotações pessoais. V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v070.html",
+  "home": "v071.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -39,7 +39,7 @@
     "answer_initially_hidden": true,
     "version": "V060"
   },
-  "previous_version": "V069",
+  "previous_version": "V070",
   "style_sheet": "assets/v061_selecao_texto.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
@@ -444,5 +444,76 @@
     "privacy": "classificação por regras no navegador; sem upload nem consulta a IA remota",
     "limits": "não é interpretação legal verificada, pode errar classificação em textos complexos; OCR, vínculo automático a novos flashcards, sincronização bidirecional Drive e migração entre PDFs permanecem pendentes",
     "tests": "sintaxe e integração; amostras com casos de competência, exceção, prazo, regra e palavra isolada; simulação de escrita atômica, duplicatas, rollback e IDs distintos. Teste visual com PDF real pendente"
+  },
+  "pdf_highlighter_semantic_colors_v071": {
+    "version": "V071",
+    "colors": [
+      {
+        "kind": "proibicao",
+        "hex": "#FF8F96",
+        "meaning": "proibições e vedações",
+        "examples": [
+          "é vedado",
+          "não poderá"
+        ]
+      },
+      {
+        "kind": "obrigacao",
+        "hex": "#86DCAA",
+        "meaning": "obrigações e deveres",
+        "examples": [
+          "deverá",
+          "compete"
+        ]
+      },
+      {
+        "kind": "prazo_numero",
+        "hex": "#FFEA70",
+        "meaning": "prazos e números",
+        "examples": [
+          "em até 30 dias",
+          "2 anos"
+        ]
+      },
+      {
+        "kind": "excecao",
+        "hex": "#89C7FF",
+        "meaning": "exceções e ressalvas",
+        "examples": [
+          "salvo",
+          "exceto",
+          "ressalvada"
+        ]
+      },
+      {
+        "kind": "banca",
+        "hex": "#CCA7FF",
+        "meaning": "palavras-chave da banca",
+        "examples": [
+          "exclusivamente",
+          "sempre",
+          "jamais"
+        ]
+      },
+      {
+        "kind": "regra",
+        "hex": "#FFB86B",
+        "meaning": "regra principal",
+        "examples": [
+          "O licenciamento compreende três etapas"
+        ]
+      }
+    ],
+    "storage_compatible": "BM030_STROKES_PDF e BM062_GRIFOS_META, aceitando valores antigos agente/condicao",
+    "backward_compatibility": "não converter, recolorir, excluir ou renomear os grifos existentes",
+    "source_files": [
+      "assets/pdf_v071.js",
+      "assets/v071_classificador.js",
+      "assets/v071_grifador.js",
+      "assets/v071_cores.css"
+    ],
+    "backup_before": "backup/v070-before-six-colors-2026-11-10",
+    "notes": "Assunto e nota continuam sugestões não confirmadas até revisão do usuário; sem criação automática de flashcards.",
+    "limitations": "Classificador heurístico local; revisão humana necessária para frases normativas e termos ambíguos; validação end-to-end com PDF real pendente."
   }
 }
