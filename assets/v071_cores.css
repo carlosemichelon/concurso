@@ -1,0 +1,34 @@
+/* V071 — seis cores semânticas oficiais do Banco Mestre.
+ * Vermelho proibição; verde obrigação; amarelo prazo/número;
+ * azul exceção; roxo palavras-chave da banca; laranja regra principal.
+ * Não altera nem recolore grifos históricos.
+ */
+#pdfDialog #bm068Palette .bm068-colors{
+ display:flex!important;justify-content:space-around!important;
+ gap:5px!important;flex-wrap:nowrap!important;padding:8px 3px!important;
+}
+#pdfDialog #bm068Palette .bm068-swatch{
+ flex:0 0 34px!important;width:34px!important;height:34px!important;
+ min-width:34px!important;min-height:34px!important;
+ border-radius:10px!important;
+}
+#pdfDialog #bm068Palette #bm068CustomColor{
+ flex:0 0 32px!important;width:32px!important;height:34px!important;
+ margin-left:3px!important;min-width:32px!important;
+}
+#pdfDialog #bm071Legend{
+ margin:0!important;padding:6px 4px!important;
+ font:600 10px/1.5 system-ui,Arial,sans-serif!important;
+ color:#536c63!important;white-space:normal!important;
+ border-bottom:1px solid #e5eee8!important;
+}
+#pdfDialog #bm068Palette{width:min(384px,calc(100% - 12px))!important}
+#pdfDialog .bm068-colors [aria-pressed="true"]{
+ outline:2px solid #236857!important;outline-offset:2px!important;
+}
+@media(max-width:650px){
+ #pdfDialog #bm068Palette .bm068-colors{gap:3px!important;padding:5px 0!important}
+ #pdfDialog #bm068Palette .bm068-swatch{flex-basis:29px!important;width:29px!important;height:30px!important;min-width:29px!important;min-height:30px!important}
+ #pdfDialog #bm068Palette #bm068CustomColor{flex-basis:28px!important;width:28px!important;height:30px!important;min-width:28px!important}
+ #pdfDialog #bm071Legend{font-size:9px!important}
+}
