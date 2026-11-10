@@ -175,7 +175,7 @@ let loaded=false;
 async function open(){
  if(!loaded){
   loaded=true;
-  try{const r=await fetch('assets/pdf_catalog_v027.json',{cache:'no-store'});
+  try{const r=await fetch('assets/pdf_catalog_v062.json',{cache:'no-store'});
    if(!r.ok)throw Error('Indisponível');
    catalog=new Map((await r.json()).documents.map(d=>[String(d.id),d]));
   }catch{status('Catálogo não disponível; IDs de documentos continuarão visíveis.')}
