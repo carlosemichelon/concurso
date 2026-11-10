@@ -8,6 +8,7 @@ on:
       - 'assets/v047_card_preview.js'
       - 'assets/v047_pdf.css'
       - 'tests/v047_browser.cjs'
+      - 'tests/v047_regression_v046.cjs'
       - '.github/workflows/validar-v047.yml'
   workflow_dispatch:
 jobs:
@@ -31,6 +32,6 @@ jobs:
           sleep 2
           node tests/v047_browser.cjs
       - name: Regressão V046 — leitor com transparência, toolbar e Drive
-        run: node tests/v046_browser.cjs
+        run: node tests/v047_regression_v046.cjs
       - name: Regressão V044 — Vade Mecum vindo do Drive
         run: node tests/v044_browser.cjs
