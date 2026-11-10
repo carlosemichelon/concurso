@@ -1,0 +1,87 @@
+/* V064 — painel de grifos retrátil e filtro de imagens ocultas, sem alterar os originais. */
+#tema.bm064-auditing-images #topicMedia{visibility:hidden!important}
+#pdfDialog .bm-v046-pdf-content .bm064-reader{
+ display:flex;flex:1 1 auto;min-height:0;min-width:0;max-height:100%;
+ overflow:hidden;position:relative;
+}
+#pdfDialog .bm064-reader:has(#pdfLocalMode:not(.active)){display:none!important}
+#pdfDialog .bm064-reader #pdfLocalMode.active{
+ flex:1 1 auto!important;width:0!important;min-width:0!important;
+ height:100%!important;max-height:none!important;overflow:auto!important;
+}
+#pdfDialog #bm064TogglePanel{
+ display:block!important;width:100%!important;min-height:32px!important;
+ margin:0 0 6px;padding:5px!important;background:#eaf5fb!important;
+ border:1px solid #aacbdc!important;border-radius:6px!important;
+ color:#215b70!important;font-size:11px!important;font-weight:800!important;
+ white-space:normal!important;
+}
+#pdfDialog #bm064TogglePanel[aria-expanded="true"]{background:#d7effb!important;border-color:#438cad!important}
+#pdfDialog .bm064-grip,#pdfDialog .bm064-highlight-panel{display:none!important}
+#pdfDialog .bm064-reader.bm064-show-grifos .bm064-grip{
+ display:block!important;width:7px!important;min-width:7px!important;
+ flex:0 0 7px!important;cursor:col-resize;background:#e2ecef;
+ border-left:1px solid #b7ccd3;border-right:1px solid #b7ccd3;
+ touch-action:none;position:relative;z-index:3;
+}
+#pdfDialog .bm064-reader.bm064-show-grifos .bm064-grip:hover,
+#pdfDialog .bm064-reader.bm064-show-grifos .bm064-grip:focus{background:#a6cedb;outline:1px solid #477e91}
+#pdfDialog .bm064-reader.bm064-show-grifos .bm064-highlight-panel{
+ display:flex!important;flex:0 0 var(--bm064-panel-width,315px)!important;
+ width:var(--bm064-panel-width,315px)!important;
+ min-width:245px!important;max-width:min(620px,80vw)!important;
+ min-height:0!important;max-height:100%!important;flex-direction:column;
+ background:#f8fbfc;border-left:1px solid #c2d6dd;
+ overflow:hidden;box-shadow:-5px 0 16px #173c4912;
+ font:12px/1.4 system-ui,Arial,sans-serif;
+}
+#pdfDialog .bm064-head{
+ display:flex;align-items:center;justify-content:space-between;gap:6px;
+ padding:10px 11px;border-bottom:1px solid #c9dce1;background:#eef6f9
+}
+#pdfDialog .bm064-head strong{font-size:13px;color:#1a4c5c}
+#pdfDialog .bm064-head button{padding:2px 7px!important;min-height:24px!important;font-size:18px!important;line-height:1!important}
+#pdfDialog .bm064-caption{
+ margin:0;padding:7px 11px;color:#52717b;font-size:11px;
+ border-bottom:1px solid #e0eaed
+}
+#pdfDialog .bm064-panel-controls{
+ display:flex;gap:5px;align-items:center;padding:7px 9px;border-bottom:1px solid #d8e6ea
+}
+#pdfDialog .bm064-panel-controls input{
+ width:100%;min-width:0;min-height:32px;padding:5px 7px;
+ border-radius:6px;border:1px solid #b3c9d1;font:12px system-ui,Arial;background:#fff
+}
+#pdfDialog .bm064-panel-controls button{padding:4px 8px!important;min-height:32px!important;font-size:16px!important}
+#pdfDialog .bm064-list{flex:1 1 auto;min-height:0;overflow:auto;padding:6px 9px 14px}
+#pdfDialog .bm064-list h4{
+ margin:12px 0 6px;padding:3px 0;border-bottom:1px solid #cedde3;
+ color:#2b5e6a;font-size:11px;text-transform:uppercase;letter-spacing:.025em
+}
+#pdfDialog .bm064-mark{
+ border:1px solid #d4e0e5;border-left:5px solid var(--bm064-mark-color,#ffd400);
+ border-radius:7px;padding:8px;margin:6px 0;background:#fff;overflow-wrap:anywhere
+}
+#pdfDialog .bm064-mark-active-page{border-color:#7caebd;border-left-color:var(--bm064-mark-color,#ffd400)}
+#pdfDialog .bm064-mark-head{display:flex;gap:5px;align-items:center;justify-content:space-between;color:#5f7880;font-size:10px}
+#pdfDialog .bm064-mark-head button{padding:2px 6px!important;min-height:24px!important;font-size:10px!important}
+#pdfDialog .bm064-preview{
+ display:block!important;width:100%!important;border:0!important;background:transparent!important;
+ font:12px/1.45 system-ui,Arial,sans-serif!important;text-align:left!important;
+ color:#193f4a!important;white-space:normal!important;padding:7px 0 3px!important;
+ overflow-wrap:anywhere!important;cursor:pointer
+}
+#pdfDialog .bm064-preview:hover{text-decoration:underline}
+#pdfDialog .bm064-note{white-space:pre-wrap;font-size:11px;line-height:1.4;background:#f1f7f5;
+ padding:6px;border-radius:5px;color:#2d555d;margin:5px 0}
+#pdfDialog .bm064-mark small{color:#5b7580;font-size:10px}
+#pdfDialog .bm064-empty{font-size:12px;color:#647780;padding:14px 4px}
+#pdfDialog .bm064-footer{display:block;color:#637680;font-size:10px;padding:6px 10px;border-top:1px solid #d2e1e6}
+@media(max-width:760px){
+ #pdfDialog .bm064-reader.bm064-show-grifos .bm064-highlight-panel{
+  flex-basis:min(var(--bm064-panel-width,315px),54vw)!important;
+  width:min(var(--bm064-panel-width,315px),54vw)!important;
+  min-width:180px!important
+ }
+ #pdfDialog .bm064-panel-controls input{font-size:11px}
+}
