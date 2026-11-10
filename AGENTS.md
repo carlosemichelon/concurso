@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V063** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V064** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -26,7 +26,15 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - O GitHub não armazena automaticamente os grifos/SRS que o usuário tem em localStorage/IndexedDB. Não substituir essas bases nem realizar migrações sem cópia e confirmação.
 
 ## Biblioteca V063
-- O manifesto `gh-pages/assets/version.json` e `gh-pages/index.html` devem apontar para `v063.html`.
+- A versão V063 foi publicada com apontamento para `v063.html`; hoje o manifesto e a entrada apontam para V064.
 - `v063.html` carrega, em tempo de execução, o HTML preservado `v062.html` (65 PDFs, dois CONAMA originais) e adiciona os módulos `assets/v063_grifos_navegacao.js`, `assets/v062_biblioteca_grifos.js` e seu CSS. O carregador deve ser testado em navegador antes de ser considerado plenamente validado.
 - V062 preservada como HTML estático. Backup de código `backup/v062-before-grifos-v063-2026-11-10`.
 - A Biblioteca lê dados de grifos no **navegador do usuário**; GitHub não guarda grifos privados. Nenhuma migração ou sincronização automática permitida. O botão backup exporta somente localStorage das anotações; avisar que não inclui PDFs, IndexedDB, cartões ou SRS.
+
+## V064 — filtro de imagens excluídas e painel lateral de grifos
+- Manifesto e `gh-pages/index.html` apontam para `v064.html`.
+- V064 preserva HTML V062 (65 PDFs e resoluções CONAMA originais), com módulos da Biblioteca V063 mais `assets/v064_imagens_visibilidade.js`, `assets/v064_painel_grifos.js` e `assets/v064_painel_grifos.css`.
+- Imagens com status `hidden` não podem ser mostradas nos assuntos, sumários e atalhos de imagem da base. Atlas conserva a opção `Mostrar excluídos` para restauração.
+- Painel de grifos é local por documento/hash; não transferir entre versões, não alterar originais.
+- Backup V063: `backup/v063-before-image-filter-and-pdf-panel-2026-11-10`.
+- Testar imagens previamente excluídas e painel em PDF real antes de considerar validação de interface definitiva.
