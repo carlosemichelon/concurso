@@ -16,7 +16,7 @@ const currentFile='v'+currentVersion.slice(1)+'.html';
   await page.waitForFunction(()=>window.BancoMestreAtlasV045?.indexed&&window.BancoMestreAtlasV045.total===270,null,{timeout:18000});
  };
  const visible=async(n)=>{
-  await page.waitForFunction(v=>document.querySelector('main > .stats .stat:nth-child(3) b')?.textContent===String(v),n,{timeout:20000});
+  await page.waitForFunction(v=>(document.querySelector('header .bm-v046-header-stats .stat:nth-child(3) b')||document.querySelector('main > .stats .stat:nth-child(3) b'))?.textContent===String(v),n,{timeout:20000});
   await page.waitForFunction(v=>document.querySelector('#imageCount')?.textContent?.startsWith(v+' de '+v),n,{timeout:20000});
  };
  try{
