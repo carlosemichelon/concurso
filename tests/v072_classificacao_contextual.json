@@ -1,0 +1,159 @@
+{
+  "schema": "BancoMestreV072TesteContexto",
+  "created_at": "2026-11-10",
+  "cases": [
+    {
+      "text": "Art. 5º",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "Art.5º",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "§ 2º",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "§2º",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "parágrafo único",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "inciso IV",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "incisos II",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "alínea a",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "Lei 14.133/2021",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "Lei nº 14.133/2021",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "NBR 6118",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "3 anos",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "no prazo de 30 dias",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "até 60 dias",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "2,5%",
+      "expected_kind": "prazo_numero"
+    },
+    {
+      "text": "é vedado",
+      "expected_kind": "proibicao"
+    },
+    {
+      "text": "não poderá",
+      "expected_kind": "proibicao"
+    },
+    {
+      "text": "não deverá",
+      "expected_kind": "proibicao"
+    },
+    {
+      "text": "não será permitido",
+      "expected_kind": "proibicao"
+    },
+    {
+      "text": "proibida",
+      "expected_kind": "proibicao"
+    },
+    {
+      "text": "deverá",
+      "expected_kind": "obrigacao"
+    },
+    {
+      "text": "compete",
+      "expected_kind": "obrigacao"
+    },
+    {
+      "text": "obrigatoriamente",
+      "expected_kind": "obrigacao"
+    },
+    {
+      "text": "salvo disposição em contrário",
+      "expected_kind": "excecao"
+    },
+    {
+      "text": "exceto",
+      "expected_kind": "excecao"
+    },
+    {
+      "text": "ressalvada",
+      "expected_kind": "excecao"
+    },
+    {
+      "text": "desde que",
+      "expected_kind": "excecao"
+    },
+    {
+      "text": "não se aplica",
+      "expected_kind": "excecao"
+    },
+    {
+      "text": "exclusivamente",
+      "expected_kind": "banca"
+    },
+    {
+      "text": "sempre",
+      "expected_kind": "banca"
+    },
+    {
+      "text": "jamais",
+      "expected_kind": "banca"
+    },
+    {
+      "text": "somente",
+      "expected_kind": "banca"
+    },
+    {
+      "text": "O licenciamento ambiental compreende três etapas",
+      "expected_kind": "regra"
+    }
+  ],
+  "mixed": {
+    "text": "É vedado executar a obra, salvo autorização, no prazo de 30 dias, exclusivamente por engenheiro.",
+    "expected_kinds": [
+      "proibicao",
+      "excecao",
+      "prazo_numero",
+      "banca",
+      "regra"
+    ]
+  },
+  "notes": [
+    "§ 2º",
+    "30 dias"
+  ],
+  "manual_required": [
+    "abrir PDF real",
+    "selecionar texto em linha e múltiplas linhas",
+    "inspecionar cor e nota no painel",
+    "testar zoom e desfazer",
+    "confirmar que grifos antigos continuam iguais"
+  ]
+}
