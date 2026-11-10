@@ -134,7 +134,7 @@ function makeEditor(e){
   const before=metadata[e.identity];metadata[e.identity]=entry;
   if(!saveMeta()){if(before)metadata[e.identity]=before;else delete metadata[e.identity];return}
   const updated=String(form.elements.note.value).slice(0,12000);
-  if(updated!==String(d.note||'')&&!editNote(e,updated))return;
+  if((updated!==String(d.note||'')||e.kind==='text'&&e.mark.classification_status==='sugestao')&&!editNote(e,updated))return;
   status('Classificação e nota revisadas. PDF e flashcards originais não foram alterados.');
   load();
  };
