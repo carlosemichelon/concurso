@@ -37,7 +37,18 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
  });
  try{
   await page.goto('http://127.0.0.1:8765/v044.html',{waitUntil:'domcontentloaded',timeout:60000});
-  await page.waitForFunction(()=>window.BancoMestreUiV044?.ready&&window.BancoMestreCompactV043?.ready&&window.BancoMestreVadeV044&&window.BancoMestreDriveV042?.ready,null,{timeout:45000});
+  await page.waitForTimeout(2500);
+  const init=await page.evaluate(()=>({
+   title:document.title,
+   body:(document.body.innerText||'').slice(0,210),
+   loadedScripts:[...document.scripts].map(x=>x.getAttribute('src')).filter(Boolean).slice(-12),
+   ui:!!window.BancoMestreUiV044?.ready,compact:!!window.BancoMestreCompactV043?.ready,
+   vade:!!window.BancoMestreVadeV044,driveReady:!!window.BancoMestreDriveV042?.ready,
+   pdfTools:!!document.getElementById('pdfLocalTools'),
+   heading:document.querySelector('#pdfs .panel h2')?.textContent
+  }));
+  console.log('V044_INIT',JSON.stringify(init),'JS_ERRORS',JSON.stringify(errors));
+  await page.waitForFunction(()=>window.BancoMestreUiV044?.ready&&window.BancoMestreCompactV043?.ready&&window.BancoMestreVadeV044&&window.BancoMestreDriveV042?.ready,null,{timeout:16000});
   const layout=await page.evaluate(()=>{
    const stats=document.querySelector('main > .stats');
    return {
