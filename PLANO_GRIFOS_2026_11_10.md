@@ -143,3 +143,12 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Núcleo `assets/pdf_v074.js` preserva leitura de dados antigos e não expõe criação em lote no objeto público. CSS `assets/v074_grifo_unico.css` mostra aviso de ambiguidade no menu.
 - Testes de regressão `tests/v074_selecao_unica_cores.json` e simulações de frase mista, seleção multilinha e cor manual. Grifos históricos segmentados NÃO são mesclados ou recoloridos.
 - Backup de código anterior: `backup/v073-before-unified-highlights-v074-2026-11-10`; teste visual e de persistência real ainda pendente.
+
+## V075 — seis cores fixas por solicitação do usuário
+- Paleta definitiva: vermelho=proibições, verde=obrigações, amarelo=prazos/números, azul=exceções, roxo=palavras-chave da banca, laranja=conteúdo importante a destacar.
+- Laranja exige escolha humana; frase sem pista semântica não deve receber cor automaticamente. As outras categorias podem ser sugeridas quando a detecção é unívoca.
+- Removidos do novo grifador o seletor livre e a alteração de nomes das cores. Os valores guardados previamente não são apagados.
+- Mantida a V074: texto de uma ou várias linhas continua uma marcação com um ID e uma cor; conflito entre categorias exige escolha manual.
+- Histórico já salvo com regra principal/cores antigas é mantido sem migração, conversão ou recoloração.
+- Arquivos `assets/pdf_v075.js`, `assets/v075_seis_cores.js`, `assets/v075_analise_selecao.js`, `assets/v075_grifador.js`, `assets/v075_paleta_fixa.css`, HTML `v075.html`, regressão `tests/v075_seis_cores_fixas.json`.
+- Backup de código `backup/v074-before-fixed-six-colors-v075-2026-11-10`; testes de classificação e integração estática realizados. Teste em PDF real pendente.
