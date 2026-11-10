@@ -2,13 +2,22 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V061.
+- **Site publicado:** V062.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v061.html`.
-- **Versão anterior preservada:** `gh-pages/v060.html` (e V059, V058, V057, V056, V055, V054, V053, V052, V051 e V050 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v062.html`.
+- **Versão anterior preservada:** `gh-pages/v061.html` (V060 igualmente preservada) (e V059, V058, V057, V056, V055, V054, V053, V052, V051 e V050 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
+
+## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
+
+- Catálogo V062: `assets/pdf_catalog_v062.json` com **65 PDFs**, mantendo os 63 anteriores e respectivos IDs.
+- Duas entradas adicionais, distintas das apostilas TEC Concursos: `PETRO10-CONAMA-001-ORIGINAL` (texto da resolução CONAMA 001/1986, 5 páginas) e `PETRO10-CONAMA-237-ORIGINAL` (CONAMA 237/1997, 11 páginas).
+- “ORIGINAL” significa cópia do texto da norma fornecida pelo estudante, **não** certificação de consolidação/vigência. Validar atos posteriores ao estudar lei seca.
+- Arquivos no Drive: `1NXA2iF85ngyuY4dqQo5mcldbQgk12lpY` e `1qwRg_qaNa7Vin6yTZUIYeYeXjC35FJLj`.
+- Editor de PDF V061 mantido sem mudanças; origem dos grifos é o próprio estudante; preservar anotações locais, IDs canônicos, SRS e apostilas já cadastradas.
+- `v061.html` e `assets/pdf_catalog_v027.json` preservados como versão anterior. Nova página `v062.html` lê exclusivamente `assets/pdf_catalog_v062.json`.
 
 ## Procedimento obrigatório antes de editar o site
 
