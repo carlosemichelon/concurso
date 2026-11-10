@@ -202,3 +202,13 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Falha real 3: o classificador não identificava `não será autorizada` como proibição. `assets/v082_contexto_normativo.js` acrescenta variantes de autorização e mantém as demais expressões normativas.
 - Motor atômico de grifos `assets/pdf_v081.js`, seis cores fixas, laranja manual, 72 PDFs no catálogo, flashcards, SRS e Drive preservados.
 - Backup anterior: `backup/v081-before-vade-test-fixes-v082-2026-11-10`. V081 também permanece disponível. **Pendente:** homologação do PDF real pelo leitor V082 em navegador Chrome/Android com conta do titular.
+
+
+## V083 — auditoria do art. 1º da Constituição no Vade Mecum (10/11/2026)
+
+- Art. 1º localizado na página 12 do PDF (índice de arquivo 11, primeira coluna); cópia original e a cópia “Banco Mestre Anotado” examinadas. O PDF anotado possui grifo amarelo já achatado no conteúdo, abrangendo caput e incisos I a V; original sem grifo. Ambas as páginas possuem zero anotações PDF editáveis detectáveis; não reescrever ou apagar PDF algum.
+- Na V082 o classificador **não reconhecia** o numeral impresso `Art. 1o` e marcava `Parágrafo único` de amarelo, mesmo sem prazo/número. No texto normalizado, espalhava amarelo do número do artigo para palavras do caput.
+- `assets/v083_contexto_normativo.js` corrige o reconhecimento do ordinal de artigo (`1o`/`1º`), interrompe propagação de `referencia_normativa` e remove a associação falsa de `Parágrafo único` à categoria numérica. Comportamento esperado: sugestão amarela só para `Art. 1o` como referência; **fundamentos e parágrafo único permanecem sem cor automática**.
+- **Limitação importante:** o artigo tem fundamentos da República (conteúdo central) sem palavras-chave típicas de obrigação/proibição/exceção. A cor laranja permanece **manual**; não alegar que a V083 reconheça semanticamente os cinco fundamentos.
+- Testes de regressão: texto literal da página 12, versão normalizada, `Parágrafo único` isolado, artigos com proibição/obrigação e `não será autorizada`; **6/6 aprovados**. Teste do leitor com o PDF real no Android do titular ainda pendente.
+- Backup do código V082 em `backup/v082-before-article1-cf-v083-2026-11-10`; PDFs, biblioteca, grifos, IDs, SRS, Drive e catálogo de 72 documentos preservados.
