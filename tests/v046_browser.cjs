@@ -99,7 +99,7 @@ const {PDFDocument}=require('pdf-lib');
   assert.ok(pdfDesk.sidebarWidth>=80&&pdfDesk.sidebarWidth<=130,'PDF: barra não compacta');
   assert.ok(pdfDesk.readerWidth>750);
   assert.ok(pdfDesk.sideX<pdfDesk.readerX,'PDF: barra deve estar à esquerda');
-  assert.equal(pdfDesk.slider,'24','Transparência inicial deve ser 24%');
+  assert.equal(pdfDesk.slider,'25','Transparência inicial deve ser 25%');
   assert.equal(pdfDesk.previewHidden,true);
   await page.locator('#pdfMarker').click();
   await page.locator('#pdfMarkerOpacityV046').evaluate(el=>{
