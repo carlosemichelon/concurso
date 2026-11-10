@@ -1,0 +1,80 @@
+{
+  "schema": "BancoMestreV075FixedPalette",
+  "version": "V075",
+  "fixed_color_count": 6,
+  "categories": [
+    {
+      "kind": "proibicao",
+      "hex": "#FF8F96",
+      "label": "Proibições e vedações",
+      "examples": [
+        "é vedado",
+        "não poderá"
+      ]
+    },
+    {
+      "kind": "obrigacao",
+      "hex": "#86DCAA",
+      "label": "Obrigações e deveres",
+      "examples": [
+        "deverá",
+        "compete"
+      ]
+    },
+    {
+      "kind": "prazo_numero",
+      "hex": "#FFEA70",
+      "label": "Prazos e números",
+      "examples": [
+        "em até 30 dias",
+        "2 anos"
+      ]
+    },
+    {
+      "kind": "excecao",
+      "hex": "#89C7FF",
+      "label": "Exceções e ressalvas",
+      "examples": [
+        "salvo",
+        "exceto",
+        "ressalvada"
+      ]
+    },
+    {
+      "kind": "banca",
+      "hex": "#CCA7FF",
+      "label": "Palavras-chave da banca",
+      "examples": [
+        "exclusivamente",
+        "sempre",
+        "jamais"
+      ]
+    },
+    {
+      "kind": "destaque",
+      "hex": "#FFB86B",
+      "label": "Conteúdo importante a destacar",
+      "examples": [
+        "seleção manual de conteúdo importante"
+      ]
+    }
+  ],
+  "expected_behavior": [
+    "Todos os seis significados são fixos e não podem ser renomeados pela interface",
+    "A interface de grifos não oferece seletor de outras cores",
+    "Laranja é selecionado pelo usuário para conteúdo importante; texto neutro não fica laranja automaticamente",
+    "As cinco categorias com gatilhos evidentes podem ser sugeridas automaticamente",
+    "Seleção com categorias conflitantes exige escolha manual de uma cor única",
+    "Uma seleção, inclusive multilinha, mantém um ID e um registro de grifo",
+    "O histórico V074 e anterior é preservado com cores e categorias originais, sem migração",
+    "As notas e assuntos sugeridos continuam pendentes de revisão"
+  ],
+  "manual_tests": [
+    "Abrir o PDF, ativar Grifar palavras, conferir seis círculos coloridos",
+    "Selecionar frase importante comum e conferir que não é pintada automaticamente de laranja",
+    "Escolher laranja e confirmar apenas um grifo, ID estável após reabertura",
+    "Selecionar é vedado e conferir vermelho",
+    "Selecionar deverá e prazo de 30 dias juntos; escolher uma cor e conferir que não fragmentou",
+    "Conferir grifos históricos V074 e anteriores sem alteração"
+  ]
+}
