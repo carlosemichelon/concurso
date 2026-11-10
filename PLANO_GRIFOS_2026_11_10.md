@@ -41,3 +41,14 @@
 
 ## Etapas futuras (não implementadas na V061)
 Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/backup local, OCR, migração V060, sugestões de flashcards/resumos, extensão, conector, gestão de duplicatas, atalhos e edição avançada. Não declarar nenhuma delas concluída antes de testada.
+
+## V063 — Etapa 2, Biblioteca local de Grifos (publicada em 10/11/2026)
+- Antes da integração, conferida V062 publicada com 65 PDFs (incluindo CONAMA 001 e 237 originais) e criada a branch `backup/v062-before-grifos-v063-2026-11-10`.
+- A Biblioteca foi implementada como módulo de leitura de `BM030_STROKES_PDF`, incluindo grifos V061 e grifos visuais antigos sem migração.
+- Busca e filtros: texto, PDF, disciplina, assunto, cor, tipo, favoritos; edição local de classificações e notas e vínculo ao documento para navegar à página.
+- Exportação selecionável TXT, Markdown, JSON e relatório imprimível (Salvar como PDF). Backup JSON manual integral das chaves de marcação PDF no localStorage e seus metadados.
+- Site: `v063.html` carrega a base estática `v062.html` preservada e acrescenta `assets/v062_biblioteca_grifos.js`, `assets/v062_biblioteca_grifos.css` e `assets/v063_grifos_navegacao.js`. Manifesto, entrada e versão documentada apontam para V063.
+- Não há exclusão, migração automática, sincronização Drive ou alteração de flashcards, IDs e SRS.
+- Limitações: backup não inclui PDFs, IndexedDB, flashcards nem SRS; grifos antigos ainda não têm correspondência de texto verificada; painel lateral no leitor PDF e integração Drive permanecem futuros.
+- Validação feita: sintaxe das rotinas, integridade estrutural e apontadores de versão; teste sintético de carregamento dinâmico em Chromium. Não há confirmação de navegação/grifo com PDF real no navegador do estudante.
+- A pergunta 22 sobre importação não foi aprovada; **não implementar importação automática** sem decisão expressa.
