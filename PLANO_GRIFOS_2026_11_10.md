@@ -100,3 +100,13 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Inclusão de evento após persistência das anotações locais para sincronizar a vista da Biblioteca e do painel.
 - Desfazer após excluir foi condicionado a contexto estável, sem novas edições; âncora textual de seleção reversa ajustada; sublinhado duplo ganhou comando; mudança de estilo preserva a cor.
 - Testes estáticos e unitários isolados; teste end-to-end no navegador, importação, OCR, reancoragem de versões e sincronização bidirecional com Drive continuam pendentes.
+
+## V070 — sugestão de cores, assunto e nota por sequência/palavra
+- Preservado `backup/v069-before-semantic-colors-2026-11-10`.
+- Base V070 aplica padrão oficial de quatro cores por trecho, sem recolorir dados antigos.
+- Classificador em JavaScript local identifica palavras-gatilho (ex.: `salvo`, `autoridade`, `desde que`, `no prazo`) e agrupa sequências por categoria; segmentos podem ser corrigidos manualmente. Ambiguidades permanecem propostas.
+- Identificação de disciplina/assunto/subassunto baseada em palavras-chave e título do PDF; nota curta sugerida por categoria com trecho-fonte, sem afirmar interpretação legal validada.
+- O usuário seleciona pessoalmente o texto para gerar os grifos. A classificação e a nota são propostas até confirmação explícita, sem novo flashcard nem mudança do SRS.
+- `addTextHighlights` salva vários registros independentes em uma operação atômica, mantendo undo único, posição, ID e rastreabilidade.
+- Scripts `assets/pdf_v070.js`, `assets/v070_classificador.js`, `assets/v070_grifador.js`, `assets/v070_biblioteca_grifos.js`, `assets/v070_painel_grifos.js`, `assets/v070_cores_metodologia.css`. HTML `v070.html`.
+- Testado estaticamente e por simulação de duplicata/falha de armazenamento. Revisão manual em PDF real e avaliação de acurácia por temas ainda pendentes.
