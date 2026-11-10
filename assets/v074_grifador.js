@@ -190,8 +190,9 @@ function show(mark,x,y,pending=false){
  $('bm068Resize').disabled=!mark?.id;$('bm068Delete').disabled=!mark?.id;
  $('bm068Hide').textContent=mark?.style==='conceal'?'◉ Mostrar':'⋯ Ocultar';
  $('bm068Cards').disabled=!mark?.id;$('bm068Note').disabled=!mark?.id;
+ const selectedColor=pending&&smart&&pendingAnalysis?.status!=='clara'?null:(mark?.color||lastColor);
  for(const b of $('bm068Colors').querySelectorAll('button[data-color]')){
-  b.setAttribute('aria-pressed',String((mark?.color||lastColor).toLowerCase()===b.dataset.color));
+  b.setAttribute('aria-pressed',String(!!selectedColor&&selectedColor.toLowerCase()===b.dataset.color.toLowerCase()));
  }
  popupAt(x,y);
 }
