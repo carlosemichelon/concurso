@@ -95,7 +95,7 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   const filtered=await page.locator('#imageCount').innerText();
   assert.ok(/\d+ de 270/.test(filtered));
   await page.getByRole('button',{name:'Limpar filtros'}).click();
-  assert.ok((await page.locator('#imageCount').innerText()).startsWith('270 de 270'));
+  await page.waitForFunction(()=>document.querySelector('#imageCount')?.textContent?.startsWith('270 de 270'),null,{timeout:15000});
   await page.locator('#imageSourceV044').selectOption('p10');
   await page.waitForFunction(()=>document.querySelector('#imageCount')?.textContent?.startsWith('16 de 270'),null,{timeout:15000});
   assert.ok((await page.locator('#imageRows').innerText()).includes('IMG-P10-01'));
