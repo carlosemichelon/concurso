@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V076.
+- **Site publicado:** V077.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v076.html`.
-- **Versão anterior preservada:** `gh-pages/v075.html` (V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v077.html`.
+- **Versão anterior preservada:** `gh-pages/v076.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -190,3 +190,12 @@
 - Falhas de rede, autenticação ou leitura conservam os cartões já disponíveis e não alteram ID, SRS, PDFs, grifos ou respostas. Os 1.494 cartões V015 permanecem como fallback estático, acrescidos dos 22 Ijuí provisórios.
 - Teste JavaScript, leitura/validação do XLSX e fluxo de autorização em navegador simulado passaram (1.497 cartões e IDs CARD-1495 a CARD-1497). **Autorização OAuth real no navegador do usuário e implantação visual ainda pendentes de confirmação**; não apresentar como teste real completo.
 - Contrato metodológico: todos os cartões usam a estrutura de lei seca (frente concisa, verso exato e verificável, explicação/macete/fontes separados). Literalidade jurídica apenas para dispositivos legais; demais disciplinas exigem correção técnica e contexto. Cartões antigos preservados até auditoria de atualização. Metodologia oficial atualizada no Google Doc vigente, 10/11/2026.
+
+## V077 — Catálogo completo de PDFs e sincronização por pastas privadas (10/11/2026)
+
+- Manifesto `assets/version.json` e entrada do site apontam para `v077.html`, derivada da V076, sem substituir o grifador de seis cores V075 nem a sincronização de cartões. Branch backup `backup/v076-before-pdf-sync-v077-2026-11-10`.
+- Catálogo `assets/pdf_catalog_v077.json` possui **72 PDFs**, preservando 65 anteriores e acrescentando seis PDFs NR fornecidos (01, 05, 06, 07, 17 e 18) e a Lei 15.190/2025 (30 páginas, Câmara dos Deputados). Todos os sete arquivos novos estão na pasta `06 – PDFs e Materiais` do Google Drive, em subpastas NRs e Licenciamento Ambiental. Os PDFs permanecem no Drive; apenas metadados/referências no GitHub. A vigência integral dos PDFs NR não foi revalidada para novembro/2026, e seus títulos identificam versão do arquivo fornecido.
+- Índice `assets/pdf_grupos_v077.json` atribui **72/72 IDs** a um grupo de consulta. Corrige omissão de ambos os PDF originais CONAMA 001/1986 e 237/1997 no agrupamento anterior. `assets/v077_pdfs_recolhidos.js` mantém os grupos recolhidos por padrão e permite registros dinâmicos detectados no Drive.
+- `assets/v077_drive_pdf_sync.js` acrescenta conexão Google OAuth `drive.readonly` somente mediante ação explícita do titular na aba PDFs. Após consentimento, lista PDFs existentes nas pastas do Drive identificadas por IDs `1_IgIlki_2ZlMmOaKmYuzhiMSjyLa-cnV` (NRs) e `18MsuWSayX7xpBhNmGjSvFmiiv1hF6YZk` (Licenciamento), deduplica IDs/nomes estáticos e revalida a cada **120 s** enquanto a página e o token estiverem ativos. Arquivos novos nessas pastas surgem somente na sessão autorizada, sem a necessidade de atualizar o GitHub. Novas pastas fora dessas duas NÃO são monitoradas. Não há serviço de sincronização em segundo plano nem publicação pública dos bytes.
+- Falha de rede/autorização conserva catálogo/grifos/IDs SRS; imagens e flashcards intactos. `assets/v077_diagnostico_local.js` confere manifesto e 72 PDFs. A origem PDF no Drive não é modificada pelo site.
+- Verificações: catálogo e grupos 72/72 sem IDs duplicados; arquivos originais de PDF presentes no Drive, permissões privadas verificadas em amostras NR-01/Lei 15.190; scripts estáticos e referências conferidos no GitHub. OAuth real e visualização PDF no navegador do titular **ainda precisam de teste em sessão autenticada**.
