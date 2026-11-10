@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V074** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V075** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -117,3 +117,13 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Recolorir a mesma seleção deve atualizar o ID existente, não criar outro registro. Não excluir notas nem flashcards associados.
 - `classification_status:confirmada` da escolha manual se aplica à cor, não à nota ou ao assunto sugerido. Não criar flashcards nem alterar SRS.
 - Testes isolados e fixture de regressão `tests/v074_selecao_unica_cores.json`; teste real no navegador com PDF e reabertura permanece pendente.
+
+## V075 — seis categorias de cores fixas
+- `v075.html` é a versão atual. Backup do código `backup/v074-before-fixed-six-colors-v075-2026-11-10`; preservar V074 e anteriores.
+- Cores fixas: `proibicao=#FF8F96` vermelho, `obrigacao=#86DCAA` verde, `prazo_numero=#FFEA70` amarelo, `excecao=#89C7FF` azul, `banca=#CCA7FF` roxo, `destaque=#FFB86B` laranja.
+- **Laranja significa conteúdo importante escolhido pelo usuário**, não regra principal. Não destacar automaticamente frases comuns sem indício de categoria.
+- Não oferecer seletor livre de novas cores nem alteração dos rótulos de categoria no grifador. Preservar as configurações e cores já gravadas nos históricos sem migrá-las.
+- Conservar `regra`, `agente`, `condicao` e outras categorias legadas para leitura e edição dos grifos antigos; somente novos registros laranja levam `classification_kind:destaque`.
+- Uma seleção = um registro + um ID + uma cor. Em conflito de categorias exigir cor manual; nota e assunto continuam sugestões sem confirmação automática.
+- Scripts V075 carregam após o classificador V072: `assets/v075_seis_cores.js` -> `assets/v075_analise_selecao.js` -> `assets/v075_grifador.js`; motor `assets/pdf_v075.js`. Regressão `tests/v075_seis_cores_fixas.json`.
+- Teste de visual e gravação real com PDF ainda pendente; não alegar validação completa.
