@@ -43,6 +43,8 @@ const W=[
 ];
 function referenceAt(words,i){
  const head=words[i],next=words[i+1],more=words[i+2];
+ if(/^(?:art\.?\d+(?:º|ª)?|§\d+(?:º|ª)?)$/.test(head))return 1;
+ if(/^(?:paragrafo|§)$/.test(head)&&next==='unico')return 2;
  if(!next)return 0;
  if(/^(?:art|artigo|artigos|§|paragrafo|paragrafos|inciso|incisos|alinea|alineas|lei|leis|decreto|decretos|resolucao|resolucoes|nbr|nr)$/.test(head)){
   if(numeric.test(next))return 2;
