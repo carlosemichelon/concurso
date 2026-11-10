@@ -8,10 +8,10 @@ const dlg=$('pdfDialog'),wrap=$('pdfPageWrap'),pageCanvas=$('pdfLocalCanvas'),to
 const api=()=>window.BancoMestrePDFV042;
 if(!dlg||!wrap||!pageCanvas||!marker||!tools||$('bm068SelectTool'))return;
 const names=[
- {color:'#ffe04d',label:'Regra principal'},
- {color:'#92e8c0',label:'Quem pode agir / competência'},
- {color:'#ffb3c5',label:'Exceção / ressalva'},
- {color:'#a6d7ff',label:'Condições / limites / prazos'}
+ {kind:'regra',color:'#ffe04d',label:'Regra principal'},
+ {kind:'agente',color:'#92e8c0',label:'Quem pode agir / competência'},
+ {kind:'excecao',color:'#ffb3c5',label:'Exceção / ressalva'},
+ {kind:'condicao',color:'#a6d7ff',label:'Condições / limites / prazos'}
 ];
 const KEY_COLOR='BM_PDF_TEXT_COLOR_V061',KEY_QUICK='BM068_GRIFO_RAPIDO',KEY_HOTKEYS='BM068_HOTKEYS',KEY_LABELS='BM068_COLOR_LABELS',KEY_SMART='BM070_CLASSIFICACAO_RAPIDA',META='BM062_GRIFOS_META';
 const allowed=['highlight','underline','double-underline','strike','conceal'];
@@ -190,7 +190,7 @@ for(const item of names){
  b.addEventListener('click',()=>{
   lastColor=item.color;lastStyle='highlight';safeWrite(KEY_COLOR,lastColor);
   if(activeId){
-   if(api()?.updateTextHighlight(activeId,{color:lastColor,color_label:item.label,style:'highlight'}))status('Cor: '+item.label);
+   if(api()?.updateTextHighlight(activeId,{color:lastColor,color_label:item.label,style:'highlight',classification_kind:item.kind,classification_status:'confirmada'}))status('Cor: '+item.label);
   }else if(!quick)commitPending(lastColor,'highlight',false);
   updateMode();
  });
@@ -200,7 +200,7 @@ const custom=document.createElement('input');custom.type='color';custom.id='bm06
 custom.setAttribute('aria-label','Cor personalizada');
 custom.addEventListener('input',()=>{
  lastColor=custom.value;lastStyle='highlight';safeWrite(KEY_COLOR,lastColor);
- if(activeId)api()?.updateTextHighlight(activeId,{color:lastColor,color_label:'Personalizado',style:'highlight'});
+ if(activeId)api()?.updateTextHighlight(activeId,{color:lastColor,color_label:'Personalizado',style:'highlight',classification_kind:'nao_classificado',classification_status:'confirmada'});
  else if(!quick)commitPending(lastColor,'highlight',false);
 });
 $('bm068Colors').append(custom);
