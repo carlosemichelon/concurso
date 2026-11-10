@@ -1,0 +1,63 @@
+/* Banco Mestre V084 experimental — janela de seleção textual e grifos revisáveis. */
+#pdfDialog #bm084Window[hidden]{display:none!important}
+#pdfDialog #bm084Window{
+ position:fixed;left:50%;top:5vh;transform:translateX(-50%);
+ z-index:3000;box-sizing:border-box;width:min(720px,calc(100vw - 24px));
+ max-height:90dvh;overflow-y:auto;overscroll-behavior:contain;
+ padding:16px;background:#f8faf9;color:#18313a;border:2px solid #4c6f73;
+ border-radius:15px;box-shadow:0 16px 50px rgba(0,0,0,.3);
+ font:14px/1.5 system-ui,-apple-system,Arial,sans-serif;
+ pointer-events:auto!important;user-select:text!important;
+}
+#pdfDialog #bm084Window *{box-sizing:border-box}
+#pdfDialog #bm084Window header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#pdfDialog #bm084Window header strong{font-size:18px}
+#pdfDialog #bm084Window header button{min-width:38px;min-height:38px;font-size:24px}
+#pdfDialog #bm084Window p{margin:6px 0}
+#pdfDialog #bm084Origin{display:block;margin:3px 0 6px;color:#4b6266}
+#pdfDialog #bm084Text{
+ white-space:pre-wrap;word-break:normal;overflow-wrap:break-word;
+ margin:6px 0 8px;min-height:110px;max-height:30dvh;overflow:auto;
+ padding:12px 13px;border:1px solid #abc3c2;border-radius:9px;
+ background:white;color:#162d32;font:15px/1.6 system-ui,Arial,sans-serif;
+ user-select:text!important;-webkit-user-select:text!important;
+ touch-action:pan-y!important;cursor:text;tab-size:4;
+}
+#pdfDialog #bm084Text::selection{background:#78b5ef;color:#12242a}
+#pdfDialog #bm084Chosen{font-size:12px;min-height:32px;line-height:1.45;color:#24556b;
+ padding:5px 8px;background:#e6f4fd;border-radius:6px;overflow-wrap:anywhere}
+#pdfDialog .bm084-colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+#pdfDialog .bm084-swatch{
+ border:1px solid #b6c5c5!important;border-left:9px solid var(--swatch)!important;
+ border-radius:8px!important;padding:9px!important;font-size:12px!important;
+ color:#172f36!important;background:#fff!important;min-height:40px;
+ white-space:normal!important;line-height:1.3!important;
+}
+#pdfDialog .bm084-swatch:focus-visible{outline:3px solid #286a88}
+#pdfDialog .bm084-actions{display:flex;flex-wrap:wrap;gap:6px}
+#pdfDialog .bm084-actions button{flex:1 1 145px;min-height:36px;font-size:12px}
+#pdfDialog .bm084-actions button:disabled{opacity:.55;cursor:not-allowed}
+#pdfDialog #bm084Window h3{font-size:14px;margin:11px 0 5px}
+#pdfDialog .bm084-list{display:flex;flex-direction:column;gap:6px;max-height:26dvh;overflow:auto}
+#pdfDialog .bm084-row{display:flex;align-items:flex-start;gap:9px;border:1px solid #d1dede;
+ border-radius:8px;padding:8px;background:white}
+#pdfDialog .bm084-row>input{flex:none;margin-top:6px;width:18px;height:18px}
+#pdfDialog .bm084-main{min-width:0;flex:1;display:flex;flex-direction:column;gap:3px}
+#pdfDialog .bm084-quote{overflow-wrap:anywhere;white-space:pre-wrap;font-weight:500}
+#pdfDialog .bm084-main select{max-width:100%;font-size:12px;padding:6px}
+#pdfDialog .bm084-main small{color:#60757d;overflow-wrap:anywhere}
+#pdfDialog .bm084-row>button{font-size:12px}
+#pdfDialog .bm084-status{min-height:22px;color:#2d5262!important;overflow-wrap:anywhere}
+#pdfDialog .bm084-footer{display:flex;gap:8px;justify-content:flex-end;
+ position:sticky;bottom:-16px;padding:12px 0;background:#f8faf9;z-index:1}
+#pdfDialog .bm084-footer button{min-height:40px}
+#pdfDialog #bm084Apply:not(:disabled){font-weight:750;background:#cde8d8;border:2px solid #4f8c69;color:#16432b}
+#pdfDialog #bm084Apply:disabled{opacity:.55}
+#pdfDialog #bm084Launch{border:2px solid #4d7f9a!important;background:#eaf6fc!important;color:#18435b!important;font-weight:700!important}
+@media(max-width:550px){
+ #pdfDialog #bm084Window{top:2dvh;width:calc(100vw - 12px);max-height:96dvh;padding:11px}
+ #pdfDialog #bm084Text{max-height:26dvh;font-size:15px}
+ #pdfDialog .bm084-colors{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #pdfDialog .bm084-list{max-height:22dvh}
+ #pdfDialog .bm084-footer{bottom:-11px}
+}

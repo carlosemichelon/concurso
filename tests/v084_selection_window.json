@@ -1,0 +1,42 @@
+{
+  "version": "V084 experimental",
+  "publishedMain": false,
+  "source": "Vade Mecum Senado Federal 3ª ed. — Constituição, art. 1º, página PDF 12",
+  "scope": "Janela manual de seleção e sugestões locais; botão Claude bloqueado até backend privado",
+  "selection_engine": {
+    "tests": 7,
+    "passed": 7,
+    "checks": [
+      "source",
+      "sixOrange",
+      "valid",
+      "AI",
+      "unknownText",
+      "overlap",
+      "records"
+    ]
+  },
+  "worker_mock": {
+    "tests": 5,
+    "passed": 5,
+    "checks": [
+      "noAccess403",
+      "wrongIdentity403",
+      "foreignOrigin403",
+      "validAuthorized200",
+      "oneAPICall"
+    ]
+  },
+  "prototype": {
+    "newBrowserPDFInteractionTested": false,
+    "cloudflareDeployed": false,
+    "anthropicAPIInvoked": false
+  },
+  "safety": {
+    "noSecretCopied": true,
+    "originalVersion": "V083",
+    "retainedPDFs": 72,
+    "originalSRSChanged": false,
+    "noAutomaticHighlightWithoutApproval": true
+  }
+}
