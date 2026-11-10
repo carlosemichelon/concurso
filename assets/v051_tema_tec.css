@@ -1,0 +1,82 @@
+/* Banco Mestre V051 — apresentação inspirada na clareza visual do TEC Concursos.
+   Apenas CSS. Sem alterar dados, IDs, SRS, leitores ou navegação. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+:root{
+ --bg:#f4f6f9;--paper:#fff;--ink:#27364a;--sub:#66768b;--accent:#228aca;--line:#dce3ec;--soft:#edf5fb;
+ --bm-text:#27364a;--bm-muted:#617186;--bm-border:#d9e2ed;--bm-light:#f5f8fc;--bm-accent:#228aca;
+ --tec-border:#d9e2ed;--tec-blue:#2589c3;--tec-blue-dark:#156e9e
+}
+html{-webkit-text-size-adjust:100%}
+body,button,input,select,textarea{font-family:Inter,"Segoe UI",Arial,sans-serif!important}
+body{background:#f4f6f9!important;color:#27364a!important;font-size:14px;line-height:1.58}
+header{background:#fff!important;border-bottom:1px solid #dfe6ee!important;box-shadow:0 1px 5px #192b4611}
+.brand{color:#25415f!important;font-weight:800;letter-spacing:-.045em}
+.brand:before{content:"BM";display:inline-grid;place-items:center;width:26px;height:26px;background:#228aca;color:white;border-radius:5px;font:800 10px Inter,Arial,sans-serif;letter-spacing:0;vertical-align:middle;margin-right:7px}
+.version,header .version{color:#738396!important}
+header .bm-v046-header-stats .stat b{color:#247dad!important}
+header .bm-v046-header-stats .stat span{color:#687e91!important}
+header nav button{border-radius:6px!important;font-weight:650!important;color:#4e6781!important}
+header nav button:hover:not(.active){background:#eef5fb!important;color:#176c9f!important}
+header nav button.active{background:#248dc7!important;color:#fff!important;border-color:#248dc7!important;box-shadow:none!important}
+main{color:#27364a}
+h1,h2,h3,h4{color:#253d5b;letter-spacing:-.015em}
+section>.panel>h2{color:#2b415b}
+.panel{border:1px solid #dfe5ed!important;border-radius:8px!important;box-shadow:0 2px 7px #2439530a!important;background:white!important}
+main > .stats .stat b{color:#237aab!important}
+main > .stats .stat span{color:#68788d!important}
+.intro,.muted,.topicCard small{color:#64758b!important}
+.notice,section .notice{background:#eef6fc!important;border-left-color:#3498d0!important;color:#405d77!important}
+a{color:#147db8}
+a:hover{color:#126590}
+button,a.action{font-weight:600;border-color:#cfdce8;border-radius:6px;background:white;color:#31506e}
+button:hover:not(:disabled),a.action:hover{background:#f4faff;border-color:#a9cde5}
+button.primary,a.primary{background:#238dcc!important;color:#fff!important;border-color:#238dcc!important}
+button.primary:hover:not(:disabled),a.primary:hover{background:#177bac!important}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #b4dcf3!important;outline-offset:2px}
+input[type=search],select,input:not([type]),textarea{border:1px solid #cad7e5!important;border-radius:6px!important;background:#fff!important;color:#253a50!important;box-shadow:0 1px 2px #172d4808}
+input[type=search]::placeholder{color:#8290a2}
+input[type=search]:focus,select:focus,textarea:focus{border-color:#47a4d8!important;outline:2px solid #d6effd}
+.controls input[type=checkbox]{accent-color:#238dcc!important}
+#cartoes .controls{background:#f6f9fc!important;border-color:#dbe4ef!important}
+#cardCount,#imageCount,#topicCount,#pdfCount{color:#61788c!important}
+.topicCard,#topicRows .v036-topic-tile{border:1px solid #dfe7ef!important;border-radius:7px!important;background:#fff!important;color:#29435c!important;box-shadow:0 1px 3px #1b426409;transition:background .14s,border-color .14s}
+.topicCard:hover,#topicRows .v036-topic-tile:hover{border-color:#93c5e5!important;background:#f7fbff!important}
+.topicCard strong{color:#2c4864}
+#topicRows .v036-topic-area-head,#topicRows .v036-topic-cluster-summary{background:#f3f7fb!important;border-color:#dce5ee!important;color:#284a64!important}
+#topicRows .v036-topic-cluster-summary strong,#topicRows .v036-topic-area-head strong{color:#264965}
+#cardRows .v036-card-group-summary{background:#f5f8fc!important;color:#31516b!important;border-color:#dbe5ed!important}
+#cardRows article.card,#cartoes article.card,#imagens article.card,#pdfs .v036-pdf-card{background:white!important;border:1px solid #dce5ee!important;border-radius:7px!important;box-shadow:0 1px 5px #193b5410!important}
+#cartoes article.card{border-left:3px solid #73b8de!important}
+#cartoes article.card:hover,#imagens article.card:hover{box-shadow:0 4px 13px #173c5a1c!important}
+#cartoes article.card>.tag{background:#eaf5fd!important;color:#2379aa!important}
+#cartoes article.card>.v036-card-path span{background:#f5f9fc!important;border-color:#e1eaf3!important;color:#5a7088!important}
+#cartoes article.card>h3,#imagens article.card>h3{color:#253c57!important}
+#cartoes article.card>.bm-v050-peek-button{background:#e9f6fe!important;border-color:#a5d2ea!important;color:#116d9a!important;font-family:Inter,Arial,sans-serif!important}
+#cartoes article.card>.bm-v050-peek-button:hover{background:#daf0fd!important}
+#cardRows article.card .bm-open-card{border-color:#aacbdf!important;color:#1b74a5!important;background:#f9fcff!important}
+#imagens #imageRows article.card>.tag{color:#237da9!important}
+#imagens #imageRows article.card>.thumb{background:#f5f8fb!important}
+#imagens #imageRows .bm-v048-image-description{color:#3b5269!important}
+#tema .richSection h4,#cartoes .answer h4{color:#226d98!important}
+.bm-v050-peek-backdrop{background:rgba(20,39,61,.55)}
+.bm-v050-peek-panel{border-color:#c8dbe7!important;border-radius:9px!important;color:#253b52!important;box-shadow:0 18px 55px #0b2c4f35}
+.bm-v050-peek-header strong,.bm-v050-peek-front{color:#263d55!important}
+.bm-v050-peek-meta,.bm-v050-provenance,.bm-v050-peek-guidance{color:#66788e!important}
+.bm-v050-peek-panel small{color:#2a799f!important}
+.bm-v050-peek-reveal{background:#238dcc!important;border-color:#238dcc!important;color:white!important}
+.bm-v050-peek-reveal:hover{background:#1477b0!important}
+.bm-v050-peek-answer{border-top-color:#d9e6ef!important}
+#pdfDialog .dhead,#imageDialog .dhead{border-bottom-color:#dbe5ed!important}
+#pdfDialog .bm-v046-pdf-side{background:#f6f9fc!important;border-right-color:#d6e2ee!important}
+#pdfDialog .bm-v046-pdf-side .pdfGroup{border-bottom-color:#dce7f0!important}
+#pdfDialog .bm-v048-page-caption{background:#eaf4fb;color:#315a7a}
+#pdfDialog .toolbar #pdfQuickCardV047{background:#edf8ff!important;color:#186d9a!important;border-color:#a7d4eb!important}
+#pdfDialog .toolbar #pdfQuickCardV047[aria-expanded=true]{background:#238dcc!important;color:white!important}
+footer{color:#77879b!important}
+@media(max-width:700px){
+ body{font-size:13px}
+ header .brand:before{width:22px;height:22px;font-size:9px;margin-right:5px}
+ .panel{border-radius:7px!important}
+ #cartoes article.card{padding:14px!important}
+}
+@media(prefers-reduced-motion:reduce){.topicCard,#topicRows .v036-topic-tile{transition:none}}
