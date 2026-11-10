@@ -344,6 +344,7 @@ function clearTextLayer(reason){
  }
  if(activeLayer){activeLayer.remove();activeLayer=null}
  context=null;pending=null;reselection=null;closeMenu();
+ dlg.classList.remove('bm-v061-text-mode','bm068-selecting');
  if(reason)$('bm068ModeHint').textContent=reason;
 }
 window.addEventListener('bm-pdf-render-start',()=>{
@@ -369,11 +370,11 @@ window.addEventListener('bm-pdf-active-page-rendered',async event=>{
   layer.style.setProperty('--scale-factor',String(c.viewportScale));
   if(!window.pdfjsLib?.renderTextLayer)throw Error('Camada de texto PDF.js indisponível');
   // O PDF.js precisa medir a camada já anexada ao documento real.
-  layer.style.pointerEvents='none';wrap.append(layer);attached=true;
+  layer.style.setProperty('pointer-events','none','important');wrap.append(layer);attached=true;
   const task=window.pdfjsLib.renderTextLayer({textContentSource:content,container:layer,viewport,textDivs:[]});
   await task.promise;
   if(ticket!==serial||!matches(c))return;
-  layer.style.pointerEvents='';
+  layer.style.removeProperty('pointer-events');
   activeLayer=layer;context=c;updateMode();
  }catch(err){
   if(ticket===serial){
