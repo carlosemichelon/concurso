@@ -1,0 +1,31 @@
+/* Banco Mestre V074: UMA seleção de texto -> UM grifo + UMA cor.
+   A paleta só exige revisão quando há conflito entre categorias.
+   Não altera visual nem conteúdo dos registros antigos. */
+#pdfDialog #bm068Palette #bm074ColorAdvice{
+ display:block!important;margin:0!important;padding:8px 9px!important;
+ border:1px solid #c9d5db!important;background:#f8fafb!important;
+ color:#2d4b57!important;border-radius:8px!important;
+ font:600 11px/1.5 system-ui,Arial,sans-serif!important;
+ overflow-wrap:anywhere!important;
+}
+#pdfDialog #bm068Palette #bm074ColorAdvice[hidden]{display:none!important}
+#pdfDialog #bm068Palette .bm068-swatch[aria-pressed="false"]{
+ outline:none!important;
+}
+#pdfDialog #bm068Palette .bm068-swatch:focus-visible{
+ outline:2px solid #205d5b!important;outline-offset:2px!important;
+}
+#pdfDialog #bm068Palette #bm070ApplyAuto{
+ grid-column:1/-1!important;
+ padding:8px 6px!important;
+ white-space:normal!important;
+}
+#pdfDialog #bm068Palette #bm068Apply[hidden],
+#pdfDialog #bm068Palette #bm070ApplyAuto[hidden]{display:none!important}
+#pdfDialog #bm068QuickBar #bm070Smart{
+ font-size:10.5px!important;
+ line-height:1.35!important;
+}
+@media(max-width:640px){
+ #pdfDialog #bm068Palette #bm074ColorAdvice{font-size:10px!important;padding:7px!important}
+}
