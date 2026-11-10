@@ -1,5 +1,5 @@
 {
-  "version": "V064",
+  "version": "V065",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -17,9 +17,9 @@
     "pdfs": 65
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V064 — imagens excluídas deixam de aparecer nos assuntos, seus cards, contagens e vínculos IMG; exclusão/restauração mantém o ID e armazenamento originais. Painel lateral retrátil e redimensionável de grifos dentro do editor PDF: lista por página, pesquisa, navegação por trechos, notas textuais e visuais, revisão de fonte por hash; usa grifos locais V061/V063. Base V062 (65 PDFs CONAMA incluídos) preservada. Não migra grifos antigos nem sincroniza dados privados. V063 — Etapa 2 (primeiro módulo): Biblioteca local de Grifos com busca, filtros, favoritos, categorias, notas e exportação TXT/Markdown/JSON/relatório PDF via impressão; backup manual de todas as marcações locais BM030_STROKES_PDF sem incluir arquivos IndexedDB/SRS. Integração pela base V062 em carregador de extensão que mantém os 65 PDFs. OCR, migração assistida, sincronização Drive e painel lateral dentro do leitor permanecem pendentes. V062 — catálogo de PDFs ampliado de 63 para 65: dois textos de resolução CONAMA marcados ORIGINAL, separados das apostilas TEC Concursos. Arquivos no Google Drive, sem alteração dos originais, do editor V061, dos cartões, SRS ou anotações pessoais. V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
+  "notes": "V065 — correção visual isolada da prévia Cartão rápido: cabeçalho e botão de fechar da própria prévia ficam abaixo dos controles flutuantes do leitor PDF, com botão × acessível, inclusive em telas pequenas. CSS adicional sem alterar lógica da prévia, cards, SRS e PDFs. V064 — imagens excluídas deixam de aparecer nos assuntos, seus cards, contagens e vínculos IMG; exclusão/restauração mantém o ID e armazenamento originais. Painel lateral retrátil e redimensionável de grifos dentro do editor PDF: lista por página, pesquisa, navegação por trechos, notas textuais e visuais, revisão de fonte por hash; usa grifos locais V061/V063. Base V062 (65 PDFs CONAMA incluídos) preservada. Não migra grifos antigos nem sincroniza dados privados. V063 — Etapa 2 (primeiro módulo): Biblioteca local de Grifos com busca, filtros, favoritos, categorias, notas e exportação TXT/Markdown/JSON/relatório PDF via impressão; backup manual de todas as marcações locais BM030_STROKES_PDF sem incluir arquivos IndexedDB/SRS. Integração pela base V062 em carregador de extensão que mantém os 65 PDFs. OCR, migração assistida, sincronização Drive e painel lateral dentro do leitor permanecem pendentes. V062 — catálogo de PDFs ampliado de 63 para 65: dois textos de resolução CONAMA marcados ORIGINAL, separados das apostilas TEC Concursos. Arquivos no Google Drive, sem alteração dos originais, do editor V061, dos cartões, SRS ou anotações pessoais. V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v064.html",
+  "home": "v065.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -39,7 +39,7 @@
     "answer_initially_hidden": true,
     "version": "V060"
   },
-  "previous_version": "V063",
+  "previous_version": "V064",
   "style_sheet": "assets/v061_selecao_texto.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
@@ -261,6 +261,18 @@
     "source_version": "V063",
     "branch": "backup/v063-before-image-filter-and-pdf-panel-2026-11-10",
     "commit": "4fb2ab187684e85a50a5d4acfe2314a5408ef60f",
+    "includes_browser_data": false
+  },
+  "quick_card_preview_fix": {
+    "version": "V065",
+    "css": "assets/v065_cartao_rapido_header.css",
+    "cause": "painel v047 em top 28px sobreposto pelos controles flutuantes do PDF v056 top 7px",
+    "solution": "top 58px desktop e 50px mobile; cabeçalho sticky top 0; botão interno 34px; z-index abaixo do botão global Fechar PDF",
+    "changes_to_srs": false,
+    "validation": "sintaxe/estrutura CSS e loader; teste visual em navegador do usuário pendente"
+  },
+  "backup_before_v065": {
+    "branch": "backup/v064-before-quick-card-header-fix-2026-11-10",
     "includes_browser_data": false
   }
 }
