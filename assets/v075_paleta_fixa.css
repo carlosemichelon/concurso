@@ -1,0 +1,39 @@
+/* Banco Mestre V075 — paleta fixa de seis cores conforme metodologia.
+   Sem novas cores personalizadas; não modifica estilos de grifos históricos. */
+#pdfDialog #bm068Palette .bm068-colors{
+ display:grid!important;
+ grid-template-columns:repeat(6,minmax(0,1fr))!important;
+ align-items:center!important;justify-items:center!important;
+ gap:7px!important;padding:9px 6px!important;
+}
+#pdfDialog #bm068Palette .bm068-swatch{
+ display:inline-flex!important;
+ width:37px!important;height:37px!important;
+ min-width:37px!important;min-height:37px!important;
+ flex:none!important;
+ border-radius:11px!important;
+ border:2px solid rgba(20,45,36,.12)!important;
+ cursor:pointer!important;
+}
+#pdfDialog #bm068Palette .bm068-swatch:focus-visible{
+ outline:2px solid #285d69!important;outline-offset:3px!important;
+}
+#pdfDialog #bm071Legend{
+ margin:0!important;
+ padding:7px 4px!important;
+ line-height:1.65!important;
+ font:600 10px/1.65 system-ui,Arial,sans-serif!important;
+ color:#425a52!important;
+}
+#pdfDialog .bm075-fixed-colors{
+ margin:6px 0!important;padding:6px 8px!important;
+ color:#527266!important;background:#f2f8f4!important;
+ border-radius:7px!important;font-size:11px!important;
+}
+@media(max-width:650px){
+ #pdfDialog #bm068Palette .bm068-colors{gap:3px!important;padding:7px 0!important}
+ #pdfDialog #bm068Palette .bm068-swatch{
+  width:30px!important;height:32px!important;
+  min-width:30px!important;min-height:32px!important;
+ }
+}
