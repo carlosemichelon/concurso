@@ -1,0 +1,35 @@
+/* V044 — compactação do painel principal e filtros do Atlas; sem alterar dados. */
+main > .stats{display:flex;flex-wrap:wrap;align-items:center;gap:5px 12px;margin:4px 0 15px;padding:0}
+main > .stats .stat{display:flex;gap:5px;align-items:baseline;border:0;background:transparent;padding:2px 1px;border-radius:0;min-width:0;box-shadow:none}
+main > .stats .stat b{display:inline;font-size:13px;line-height:1.2;font-weight:800;color:#1c5960}
+main > .stats .stat span{display:inline;font-size:11px;line-height:1.3;color:#506972}
+main > .stats .stat:not(:last-child)::after{content:"·";color:#8aaba4;font-size:12px;margin-left:7px}
+#v037LocalGuides{display:none!important}
+#pdfs .bm-v044-pdf-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+#pdfs .bm-v044-pdf-heading h2{margin:0;min-width:0}
+#pdfs #driveConnectV038{font-size:12px;line-height:1.2;min-height:29px;padding:5px 10px;border-radius:7px;background:#e5f4ef;border-color:#8bb6aa;color:#155a51;font-weight:700;white-space:nowrap}
+#pdfs .bm-v044-drive-status{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+#pdfs .bm-v044-drive-status.bm-v044-drive-warning{position:static!important;width:auto;height:auto;overflow:visible;display:block;margin:0 0 9px;padding:5px 8px;font-size:11px;border-left:3px solid #ab7452;background:#fff6ef}
+#pdfs #driveDirectV038{display:none!important}
+#imagens .bm-v044-atlas-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:8px 0 5px}
+#imagens .bm-v044-atlas-controls select{flex:1 1 150px;min-width:120px;max-width:260px;font-size:12px;min-height:34px;padding:6px 8px}
+#imagens .bm-v044-atlas-controls button{font-size:12px;min-height:33px;padding:5px 9px}
+#imagens .bm-v044-atlas-summary{font-size:11px;color:#4d6770;margin:3px 0 13px}
+#imagens #imageFilter{min-width:180px;max-width:365px;font-size:12px;min-height:34px;padding:6px 8px}
+#imagens #imageSearch{min-width:160px}
+#imagens .bm-v044-atlas-indicator{font-size:11px;color:#647b82}
+#imagens .bm-v044-atlas-sep{border-top:1px solid #dce6e4;margin:6px 0}
+.bm-vade .bm-vade-actions{gap:6px;margin:7px 0}
+.bm-vade .bm-vade-actions button{font-size:12px;padding:6px 9px;min-height:32px}
+.bm-vade > p{font-size:12px;line-height:1.45}
+.bm-vade > h3{margin:4px 0 5px}
+@media(max-width:700px){
+ main > .stats{gap:2px 7px;margin:2px 0 10px}
+ main > .stats .stat b{font-size:12px}
+ main > .stats .stat span{font-size:10px}
+ main > .stats .stat:not(:last-child)::after{margin-left:3px}
+ #pdfs .bm-v044-pdf-heading{align-items:flex-start}
+ #pdfs #driveConnectV038{font-size:11px;min-height:30px}
+ #imagens .bm-v044-atlas-controls select{flex:1 1 42%;max-width:none;min-width:0}
+ #imagens .bm-v044-atlas-controls button{flex:0 0 auto}
+}
