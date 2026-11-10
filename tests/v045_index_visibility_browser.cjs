@@ -10,7 +10,7 @@ const {chromium}=require('playwright');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const root='http://127.0.0.1:8765/';
  const loaded=async()=>{
-  await page.waitForFunction(()=>window.BancoMestreAtlasV045?.indexed&&window.BancoMestreAtlasV045.total===270,null,{timeout:50000});
+  await page.waitForFunction(()=>window.BancoMestreAtlasV045?.indexed&&window.BancoMestreAtlasV045.total===270,null,{timeout:18000});
  };
  const visible=async(n)=>{
   await page.waitForFunction(v=>document.querySelector('main > .stats .stat:nth-child(3) b')?.textContent===String(v),n,{timeout:20000});
@@ -20,6 +20,19 @@ const {chromium}=require('playwright');
   const indexResp=await page.goto(root+'index.html#imagens',{waitUntil:'domcontentloaded',timeout:60000});
   assert.equal(indexResp.status(),200);
   await page.waitForURL(/\/v045\.html\?versao=V045.*#imagens/,{timeout:40000});
+  await page.waitForTimeout(2200);
+  const diagnostics=await page.evaluate(()=>({
+   url:location.href,title:document.title,route:location.hash,
+   body:document.body.innerText.slice(0,220),
+   atlasExists:!!window.BancoMestreAtlasV045,
+   indexed:window.BancoMestreAtlasV045?.indexed,
+   imageRows:document.querySelector('#imageRows')?.textContent.slice(0,150),
+   imageCount:document.getElementById('imageCount')?.textContent,
+   loadedImages:typeof loadedImages!=='undefined'?loadedImages:'unavailable',
+   images:typeof imgs!=='undefined'?imgs.length:'unavailable',
+   scripts:[...document.scripts].map(x=>x.getAttribute('src')).filter(Boolean).slice(-8)
+  }));
+  console.log('V045_DIAGNOSTICO',JSON.stringify(diagnostics),'JS_ERRORS',JSON.stringify(errors));
   await loaded();
   assert.equal(await page.locator('#imagens').evaluate(e=>e.classList.contains('active')),true,'O redirecionamento deve preservar o hash da seção');
   const initial=await page.evaluate(()=>window.BancoMestreAtlasV045.getIndexStatus());
