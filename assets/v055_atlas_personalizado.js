@@ -36,12 +36,12 @@
  const favKey='BM055_ATLAS_FAVORITES',titlesKey='BM055_ATLAS_CUSTOM_TITLES';
  function readStore(key,fallback){try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):fallback}catch(e){console.warn('Preferência local indisponível',e);return fallback}}
  let favorites=new Set((Array.isArray(readStore(favKey,[]))?readStore(favKey,[]):[])
-   .filter(id=>/^IMG-(?:\\d{3}|P10-\\d{2})$/.test(id)));
+   .filter(id=>/^IMG-(?:\d{3}|P10-\d{2})$/.test(id)));
  const savedTitles=readStore(titlesKey,{});
  let customTitles=Object.create(null);
  if(savedTitles&&typeof savedTitles==='object'&&!Array.isArray(savedTitles))
   for(const [id,value] of Object.entries(savedTitles))
-   if(/^IMG-(?:\\d{3}|P10-\\d{2})$/.test(id)&&typeof value==='string'&&value.trim())
+   if(/^IMG-(?:\d{3}|P10-\d{2})$/.test(id)&&typeof value==='string'&&value.trim())
     customTitles[id]=value.trim().slice(0,160);
  const displayTitle=x=>customTitles[x.no]||x.studyTitle||x.title;
  function persist(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}
