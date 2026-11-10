@@ -134,3 +134,9 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Sem token, usar dados estáticos V015; não anunciar atualização recente. O consentimento real ainda precisa ser testado no navegador da conta dona, inclusive configuração da origem no Google Cloud.
 - O módulo de sincronização não escreve no Drive, no GitHub, no SRS nem no armazenamento local, não envia grifos e não migra respostas. Não tornar público o XLSX, credenciais, histórico privado ou tokens.
 - Metodologia de todos os flashcards: estrutura-base de lei seca; versos literais apenas para texto normativo verificável; explicação, macete, fonte e exceções separados; não reescrever em massa cartões históricos; gatilho erro + Difícil e aprovação se aplica a novos cartões.
+
+## DECISÃO DE BASE ÚNICA — 10/11/2026
+- Não gerar V017/V018 ou planilha nova como destino operacional de cartões aprovados. O único arquivo mestre de flashcards é o XLSX do Google Drive ID `1SA-PKBrlaovuNLFMPBx7BByH3BH0Tcsr`, aba `Cartoes_V015`; o sincronizador do portal V076 depende deste ID fixo.
+- Para cada cartão aprovado, auditar duplicatas e IDs, consultar o mestre atual, produzir atualização incremental com os demais registros preservados, validar conteúdo e SRS; guardar backup recuperável antes de substituir. Usar `mcp__Google_Drive__update_file` com `file_uri` **no mesmo fileId**, nunca `upload_file`/`import_spreadsheet` como nova fonte ativa. Confirmar ID e conteúdo após a operação.
+- Se existir alteração concorrente ou faltar uma referência de arquivo válida para o `update_file`, não alegar sincronização; preservar o mestre e avisar a pendência. Checkpoints e backups são cópias históricas, não novas bases operacionais.
+- O site lê essa planilha via autorização OAuth; consulta de 120 s somente com site aberto e token ativo. A gravação pelo ChatGPT na base mestre e a leitura pelo navegador são operações distintas, ambas devem ser verificadas separadamente.
