@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V071** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V072** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -90,3 +90,11 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Não recolorir nem migrar automaticamente grifos antigos. Aceitar categorias legadas `agente`, `condicao` e `nao_classificado`.
 - O classificador é heurístico e local; a cor, o assunto e a nota sugeridos não dispensam revisão e confirmação humana. Não gerar flashcards automaticamente, nem alterar SRS.
 - Scripts exclusivos V071: `assets/pdf_v071.js`, `assets/v071_classificador.js`, `assets/v071_grifador.js`, `assets/v071_cores.css`. Manter catálogo V062 de 65 PDFs.
+
+## V072 — classificador contextual normativo
+- Versão: `v072.html`. Backup de código antes das alterações: `backup/v071-before-contextual-legal-highlights-v072-2026-11-10`.
+- Os scripts mantêm a sequência: V071 classificador -> V072 contexto normativo -> V071 grifador, com núcleo de PDF `assets/pdf_v072.js`. Não reescrever V071.
+- Reconhecer referência normativa numérica como amarela, mas **nunca** confundi-la com prazo na nota sugerida. Encerrar propagação de categorias na vírgula e em pontuação de oração, exceto abreviaturas de dispositivo `Art.`.
+- Persistir `classification_confidence` e `classification_basis` apenas em novos grifos; Biblioteca/painel exibem justificativa e ressalvam que a classificação é provisória.
+- Manter cores V071, registros existentes, IDs, flashcards, SRS, imagens ocultas e 65 PDFs. Nenhuma reclassificação histórica silenciosa.
+- Testes de regressão: `tests/v072_classificacao_contextual.json`. A validação real no navegador com PDFs continua necessária; não afirmar conclusão de OCR, sincronização bidirecional ou migração assistida.
