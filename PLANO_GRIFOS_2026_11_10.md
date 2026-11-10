@@ -127,3 +127,11 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Núcleo `assets/pdf_v072.js` registra motivo e confiança nos novos grifos; Biblioteca e painel V072 mostram e exportam a justificativa.
 - Testes `tests/v072_classificacao_contextual.json` com 33 verificações isoladas e frase de cinco segmentos; sintaxe e loader verificados. Teste manual com PDF real ainda pendente.
 - Preservados histórico, IDs, 65 PDFs, SRS, imagens excluídas e as versões V071 anteriores. Nenhuma sincronização remota nem migração automática.
+
+## V073 — recuperação e estabilidade do leitor PDF (10/11/2026)
+- Backup de código `backup/v072-before-selection-stability-v073-2026-11-10`.
+- Seleção e zoom: invalidar texto antigo ao iniciar a pintura; medir camada de texto PDF.js dentro do DOM e não capturar cliques até concluir.
+- Histórico: operação de criar (simples/lote), editar, excluir, desfazer e refazer tem rollback de pilhas e estado em caso de falha de gravação; preservação de IDs e grifos originais.
+- Novo botão somente leitura **Verificar grifos**, mostra alinhamento, grifos multilinha, validade de âncoras e armazenamento local.
+- Código `assets/pdf_v073.js`, `assets/v073_grifador.js`, `assets/v073_teste_grifador.js`, CSS e `v073.html`.
+- Testes isolados com falhas simuladas passaram; não foi possível testar seleção e aparência com PDF real no navegador do estudante. Prosseguir com validação prática antes de OCR ou sincronização bidirecional.
