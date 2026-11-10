@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V069** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V070** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -74,3 +74,12 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Desfazer exclusão imediata só quando o ID removido for o último evento de edição no mesmo documento/hash/página. Nunca desfazer outra alteração em seu lugar.
 - Backup de código antes de V069: `backup/v068-before-highlighter-stability-v069-2026-11-10`. Não confundir com backup de grifos privados.
 - Teste no navegador, inclusive PDF com múltiplas linhas/zoom e janela pequena, ainda necessário. Não inferir validação completa por testes isolados.
+
+## V070 — cores metodológicas e confirmação de sugestões
+- `v070.html` é a versão atual. V069 intacta em backup `backup/v069-before-semantic-colors-2026-11-10`.
+- Quatro cores oficiais: amarelo regra; verde agente/autoridade/competência; rosa exceção/ressalva; azul condições/limitações/requisitos/prazos. Respeitar cores personalizadas e não remapear grifos históricos automaticamente.
+- `assets/v070_classificador.js` é um classificador heurístico local **de sugestões**: ele não faz interpretação legal validada e não deve criar cartões, modificar SRS nem gravar notas formais automaticamente.
+- Cada trecho deve reter ID, texto, âncora própria e retângulos. Em seleção com múltiplos trechos usar `addTextHighlights` (transação única com rollback), nunca salvar parcialmente uma classificação.
+- Metadados `classification_status: sugestao` indicam não confirmado. Confirmar manualmente através de cor ou salvamento de nota. Mostrar sempre o status em Biblioteca/painel/exportação.
+- Nenhuma importação automática, OCR, extensão Chrome, conector ChatGPT ou sincronização bidirecional Drive foi adicionada.
+- Arquivos V069 e anteriores são imutáveis; script, CSS e núcleo V070 ficam isolados.
