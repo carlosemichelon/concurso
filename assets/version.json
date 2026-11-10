@@ -1,5 +1,5 @@
 {
-  "version": "V049",
+  "version": "V050",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -16,9 +16,9 @@
     "f17_historic_evolutions": 9
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V049: adiciona botão 👁 Visualizar a cada flashcard na seção Flashcards, abrindo uma prévia local com frente, verso opcional, explicação e macete, sem avaliação ou alterações no SRS, e sem abrir nova aba. Mantém os recursos do Atlas, Drive e PDF da V048.",
+  "notes": "V050: revisão de tipografia, espaçamento, títulos e textos de navegação nas áreas Assuntos, Flashcards, PDFs e Atlas. Leitor de cartão na própria página com pergunta, resposta essencial, explicação e macete separados, com verso oculto até solicitar; SRS e dados originais preservados. Atlas: descrições técnicas editoriais mais específicas, 51 títulos aprimorados, 270 IDs estáveis, 31 registros pendentes e 2 sinalizados para revisão técnica. Mantém leitor PDF, Drive e versões anteriores.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v049.html",
+  "home": "v050.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -27,14 +27,15 @@
     "exclusions": "reversíveis, por ID, sem excluir originais ou SRS",
     "storage": "IndexedDB BancoMestreImagensV023 / localStorage BM032_VIS_IMG-P10-*",
     "drive_delete": "pendente de identificação e validação dos arquivos exatos excluídos localmente; exportação por chat, sem exclusão automática",
-    "descriptions": "assets/imagens_descritivas_v048.json: classificação textual derivada, com pendentes e revisões técnicas sinalizados"
+    "descriptions": "assets/imagens_descritivas_v050.json: textos editoriais técnicos derivados; não substituem inspeção visual ou conferência normativa"
   },
   "pdf_update_policy": "Edições novas do manuscrito são registradas como versões separadas e comparadas por hash, páginas e conteúdo; backup antes de qualquer migração; não transferir grifos somente pelo número da página. O leitor V048 não modifica o original e não move os grifos entre versões diferentes do PDF.",
   "card_readonly_preview": {
     "scope": "Flashcards",
-    "button": "👁 Visualizar",
+    "button": "👁 Ver cartão",
     "changes_srs": false,
     "opens_new_tab": false,
-    "answer_initially_hidden": true
+    "answer_initially_hidden": true,
+    "version": "V050"
   }
 }
