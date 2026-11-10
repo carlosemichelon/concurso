@@ -1,5 +1,5 @@
 {
-  "version": "V058",
+  "version": "V059",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -16,9 +16,9 @@
     "f17_historic_evolutions": 9
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V058: botão ▤ Grifar fixo e destacado no leitor PDF; clique inicial e clique final criam grifo horizontal alinhado à altura do primeiro clique, com prévia entre cliques e Esc para cancelar. Arrastar mantém grifo livre. As marcações seguem o mesmo formato compatível com Ctrl+Z, páginas vizinhas e exportação. Extração automática de texto grifado não está implementada; PDFs digitais permitem futura extração via texto/posições do PDF.js, escaneados exigem OCR. V057 preservada; documentos, cartões, SRS e mídias intactos.",
+  "notes": "V059: implementa extração para conferência de textos sob grifos em PDFs com texto digital. Menu ⋮ > Extrair textos grifados; página atual ou documento inteiro, identificação de documento/hash/página, visualização por trecho, copiar texto, baixar TXT e JSON. Correspondência geométrica aproximada de coordenadas dos grifos com camada de texto PDF.js; PDFs escaneados sem texto indicam OCR necessário, não aplicado automaticamente. V058 e anteriores, grifos, SRS, cartões, PDFs e originais preservados.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v058.html",
+  "home": "v059.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -36,10 +36,10 @@
     "changes_srs": false,
     "opens_new_tab": false,
     "answer_initially_hidden": true,
-    "version": "V058"
+    "version": "V059"
   },
-  "previous_version": "V057",
-  "style_sheet": "assets/v058_pdf_reto.css",
+  "previous_version": "V058",
+  "style_sheet": "assets/v059_pdf_extrair.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
   "topic_navigation": "history.pushState com #tema?g=<grupo>&s=<assunto>; popstate e deep links",
@@ -68,8 +68,21 @@
     "storage": "mesmas anotações locais e exportação PDF"
   },
   "pdf_highlight_text_extraction": {
-    "implemented": false,
-    "feasible_for": "PDF com texto digital extraível",
-    "scanned": "exige OCR e verificação do resultado"
+    "implemented": true,
+    "ui": "Menu ⋮ do leitor PDF > Extrair textos grifados",
+    "scopes": [
+      "pagina_ativa",
+      "documento_inteiro"
+    ],
+    "outputs": [
+      "visualizar_por_pagina",
+      "copiar_texto",
+      "baixar_TXT",
+      "baixar_JSON"
+    ],
+    "source": "PDF.js getTextContent + coordenadas dos grifos locais",
+    "precision": "aproximada; revisão manual obrigatória",
+    "scanned": "sem camada digital: sinaliza necessidade de OCR; não executa OCR",
+    "writeback": "nenhuma modificação automática em PDF, grifos, flashcards ou SRS"
   }
 }
