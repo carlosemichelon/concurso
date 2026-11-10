@@ -56,6 +56,15 @@
     if(last.confidence==='indefinida')last.confidence=item.confidence;
    }else grouped.push({kind:item.kind,confidence:item.confidence,tokens:[item.token]});
   }
+  // Artigos curtos no início de uma classificação pertencem ao trecho seguinte:
+  // "A autoridade" é uma única sequência verde, e não "A" solto em amarelo.
+  for(let i=grouped.length-2;i>=0;i--){
+   const left=grouped[i],right=grouped[i+1];
+   if(left.kind===null&&right.kind&&left.tokens.length<=2&&
+      left.tokens.every(t=>/^(?:a|o|as|os|ao|aos|um|uma|uns|umas)$/i.test(plain(t.text)))){
+    right.tokens.unshift(...left.tokens);grouped.splice(i,1);
+   }
+  }
   if(grouped.length>40)return []; // nunca produzir centenas de registros em uma seleção
   return grouped.map((g,i)=>({
    kind:g.kind,confidence:g.confidence,
