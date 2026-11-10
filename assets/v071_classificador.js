@@ -39,9 +39,9 @@
  ];
  const MATCHERS=[
   {kind:'proibicao',re:/^(?:vedad[oa]s?|proibid[oa]s?|proibir|vedar|impedid[oa]s?)$/},
-  {kind:'obrigacao',re:/^(?:dever(?:a|ao)|deve(?:m)?|dever|compete|competem|competira|competirao|obrigator(?:io|ia|ios|ias)|incumb(?:e|em)|exig(?:e|em)|responsabiliza(?:-se)?)$/},
+  {kind:'obrigacao',re:/^(?:dever(?:a|ao)|deve(?:m)?|dever|compete|competem|competira|competirao|obrigator(?:io|ia|ios|ias|iamente)|obrigad[oa]s?|incumb(?:e|em)|exig(?:e|em)|responsabiliza(?:-se)?)$/},
   {kind:'excecao',re:/^(?:salvo|exceto|ressalvad[oa]s?|ressalva(?:s)?|excepcional(?:mente)?|excetuad[oa]s?)$/},
-  {kind:'banca',re:/^(?:exclusivamente|sempre|jamais|somente|apenas|unicamente|necessariamente|obrigatoriamente|nunca)$/},
+  {kind:'banca',re:/^(?:exclusivamente|sempre|jamais|somente|apenas|unicamente|necessariamente|nunca)$/},
   {kind:'prazo_numero',re:/^(?:prazo|prazos|dias?|horas?|mes(?:es)?|anos?|semanas?|ate|vencimento|periodo|duracao|vigencia)$/}
  ];
  const number=/^\d+(?:(?:[.,:/-])\d+)*(?:%|º|ª)?$/;
