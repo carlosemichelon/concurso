@@ -99,14 +99,14 @@ function editNote(e,newNote){
  if(e.kind==='legacy'){metadata[e.identity]={...(metadata[e.identity]||{}),note:newNote};return saveMeta()}
  const api=window.BancoMestrePDFV042;
  if(api?.editing&&api.currentId===e.docId&&api.sourceHash===e.hash&&api.currentPage===e.page){
-  return !!api.updateTextHighlight(e.mark.id,{note:newNote});
+  return !!api.updateTextHighlight(e.mark.id,{note:newNote,classification_status:'confirmada'});
  }
  try{
   const list=JSON.parse(localStorage.getItem(e.key)||'[]');
   if(!Array.isArray(list))throw Error('Estrutura inválida');
   const i=list.findIndex(m=>m?.type==='text_highlight'&&m.id===e.mark.id);
   if(i<0)throw Error('ID do grifo não localizado');
-  list[i]={...list[i],note:newNote,updated_at:new Date().toISOString()};
+  list[i]={...list[i],note:newNote,classification_status:'confirmada',updated_at:new Date().toISOString()};
   localStorage.setItem(e.key,JSON.stringify(list));return true;
  }catch(err){status('Nota não gravada: '+err.message);return false}
 }
