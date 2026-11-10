@@ -69,33 +69,38 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   assert.equal(layout.title,'Cartões cadastrados');
   assert.equal(layout.vadeSource,'google-drive');
   assert.equal(layout.vadeDriveId,'1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI');
-  assert.equal(layout.statsContent[2],'254');
+  assert.equal(layout.statsContent[2],'270');
   assert.ok(layout.statsHeight<68,'Indicadores continuam altos: '+layout.statsHeight);
   assert.ok(!/GitHub|21 partes/i.test(layout.vadeText),'Texto do Vade continua referindo GitHub');
 
   await page.locator('nav button[data-page="imagens"]').click();
-  await page.waitForFunction(()=>window.BancoMestreAtlasV044?.indexed&&window.BancoMestreAtlasV044.total===254,null,{timeout:45000});
+  await page.waitForFunction(()=>window.BancoMestreAtlasV044?.indexed&&window.BancoMestreAtlasV044.total===270,null,{timeout:45000});
   let count=await page.locator('#imageCount').innerText();
-  assert.ok(/254/.test(count),'Atlas deve informar 254: '+count);
+  assert.ok(/270/.test(count),'Atlas deve informar 270: '+count);
   const index=await page.locator('#imageIndexV044').innerText();
-  assert.ok(/16 registros separados/.test(index)||/P10: 16/.test(index),'P10 precisa estar distinto do Atlas principal');
+  assert.ok(/254 originais \+ 16 Petrobras 10 integrados/.test(index),'P10 precisa estar integrado ao Atlas');
   const areas=await page.locator('#imageAreaV044 option').allTextContents();
   assert.ok(areas.includes('Engenharia Civil')&&areas.includes('Português')&&areas.includes('Matemática'));
   await page.locator('#imageSearch').fill('IMG-254');
   await page.waitForFunction(()=>document.querySelector('#imageRows')?.textContent?.includes('IMG-254'),null,{timeout:15000});
-  assert.ok((await page.locator('#imageCount').innerText()).startsWith('1 de 254'));
+  assert.ok((await page.locator('#imageCount').innerText()).startsWith('1 de 270'));
   await page.locator('#imageSearch').fill('42');
   await page.waitForFunction(()=>document.querySelector('#imageRows')?.textContent?.includes('IMG-042'),null,{timeout:15000});
   await page.locator('#imageSearch').fill('');
   await page.locator('#imageSortV044').selectOption('id-desc');
-  await page.waitForFunction(()=>document.querySelector('#imageRows .card')?.textContent?.includes('IMG-254'),null,{timeout:15000});
+  await page.waitForFunction(()=>document.querySelector('#imageRows .card')?.textContent?.includes('IMG-P10-16'),null,{timeout:15000});
   await page.locator('#imageAreaV044').selectOption('Português');
-  await page.waitForFunction(()=>document.querySelector('#imageCount')?.textContent?.startsWith('19 de 254'),null,{timeout:15000});
+  await page.waitForFunction(()=>document.querySelector('#imageCount')?.textContent?.startsWith('19 de 270'),null,{timeout:15000});
   await page.locator('#imageSourceV044').selectOption('visual');
   const filtered=await page.locator('#imageCount').innerText();
-  assert.ok(/\d+ de 254/.test(filtered));
+  assert.ok(/\d+ de 270/.test(filtered));
   await page.getByRole('button',{name:'Limpar filtros'}).click();
-  assert.ok((await page.locator('#imageCount').innerText()).startsWith('254 de 254'));
+  assert.ok((await page.locator('#imageCount').innerText()).startsWith('270 de 270'));
+  await page.locator('#imageSourceV044').selectOption('p10');
+  await page.waitForFunction(()=>document.querySelector('#imageCount')?.textContent?.startsWith('16 de 270'),null,{timeout:15000});
+  assert.ok((await page.locator('#imageRows').innerText()).includes('IMG-P10-01'));
+  assert.ok((await page.locator('#imageRows').getByRole('link',{name:'Original no Drive'}).count())>=1,'Fonte original de P10 deve continuar acessível');
+  await page.getByRole('button',{name:'Limpar filtros'}).click();
 
   await page.locator('nav button[data-page="pdfs"]').click();
   await page.getByRole('button',{name:'Abrir e marcar o PDF'}).click();
@@ -121,6 +126,6 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   const marksLater=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('BM030_STROKES_PDF:VADE-SENADO-2026-GUIA:')).flatMap(k=>JSON.parse(localStorage.getItem(k)||'[]')).filter(m=>m.type==='highlighter').length);
   assert.ok(marksLater>=1,'Marcações não persistiram após reabertura pelo Drive');
   assert.equal(errors.length,0,'Erros de JavaScript: '+errors.join(' | '));
-  console.log(JSON.stringify({result:'PASS',statsHeight:layout.statsHeight,stats254:true,removedImportPanel:true,driveHeader:true,cardTitle:true,atlasIndexed:254,atlasFilters:true,p10Separate:true,vadeSource:'google-drive',vadePages:809,vadeDriveFetches:requests.length,githubChunksLoaded:network.length,marksPersisted:true,jsErrors:errors.length}));
+  console.log(JSON.stringify({result:'PASS',statsHeight:layout.statsHeight,stats270:true,removedImportPanel:true,driveHeader:true,cardTitle:true,atlasIndexed:270,atlasFilters:true,p10Integrated:true,vadeSource:'google-drive',vadePages:809,vadeDriveFetches:requests.length,githubChunksLoaded:network.length,marksPersisted:true,jsErrors:errors.length}));
  }finally{await browser.close()}
 })().catch(e=>{console.error('V044_BROWSER_FAIL',e.stack||String(e));process.exitCode=1});
