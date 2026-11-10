@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V073.
+- **Site publicado:** V074.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v073.html`.
-- **Versão anterior preservada:** `gh-pages/v072.html` (V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v074.html`.
+- **Versão anterior preservada:** `gh-pages/v073.html` (V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -154,3 +154,15 @@
 - Diagnóstico sob demanda `assets/v073_teste_grifador.js` + CSS: botão **Verificar grifos** no leitor PDF; confere se a camada selecionável está alinhada, marcações locais são legíveis, IDs e retângulos válidos e se existem grifos multilinha; orienta teste de zoom e reabertura sem alterar o documento.
 - **Testes isolados:** 10 cenários de criação multilinha em lote, undo/redo, falhas simuladas de criação/edição/exclusão e recuperação das pilhas de histórico; sintaxe e integração checadas. **Ainda não é teste end-to-end real:** zoom, seleção com mouse, recuperação após reabrir e precisão visual dependem de execução no navegador do usuário.
 - Preservados PDF/IDs/SRS e marcações históricas, incluindo exclusões de imagens. OCR, reancoragem assistida entre versões PDF, extensão Chrome e Drive bidirecional permanecem pendentes.
+
+## V074 — um grifo por seleção, sem dividir em segmentos (10/11/2026)
+
+- **Nova regra do usuário:** cada seleção inteira, de uma ou de várias linhas, cria **uma anotação, um ID e uma cor única**. A base de dados NÃO recebe um registro diferente por palavra ou sequência.
+- O classificador ainda consegue examinar sinais de cores diferentes dentro do texto, mas essa análise serve apenas para decidir **se há uma cor única defensável**. Nunca chama `addTextHighlights` pelo grifador V074.
+- **Cor manual tem prioridade absoluta.** Ao escolher um dos seis botões, grava o trecho inteiro com aquela cor; se o mesmo trecho já está marcado, atualiza a cor mantendo o ID e as notas existentes.
+- Automático: um único sinal de categoria confiável aplica **uma cor sugerida para todo o trecho**; sinais conflitantes (ex.: obrigação + prazo) ou ausência de evidência deixam a seleção pendente no menu até escolha manual. Não usa silenciosamente a última cor.
+- Notas e assuntos sugeridos continuam não confirmados até revisão. Mudança de cor pelo usuário confirma somente a cor, não a nota/assunto.
+- Mantém as seis cores: vermelho `#FF8F96`, verde `#86DCAA`, amarelo `#FFEA70`, azul `#89C7FF`, roxo `#CCA7FF`, laranja `#FFB86B`.
+- Arquivos: `assets/pdf_v074.js`, `assets/v074_analise_selecao.js`, `assets/v074_grifador.js`, `assets/v074_grifo_unico.css`; HTML `v074.html`; regressão `tests/v074_selecao_unica_cores.json`.
+- Backup anterior: `backup/v073-before-unified-highlights-v074-2026-11-10`. Todos os grifos segmentados *existentes* permanecem sem migração e sem mescla automática; nenhuma anotação é apagada ou recolorida.
+- **Testes:** reconhecimento de cinco cores com gatilhos explícitos, bloqueio de seleção ambígua, criação única multilinha, prioridade da cor manual e alteração com ID preservado foram simulados e passaram. **Pendente:** teste no navegador do usuário com PDF real, reabertura, zoom e interface mobile.
