@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V052.
+- **Site publicado:** V053.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v052.html`.
-- **Versão anterior preservada:** `gh-pages/v051.html` (e V050 também preservada).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v053.html`.
+- **Versão anterior preservada:** `gh-pages/v052.html` (e V051 e V050 também preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## Procedimento obrigatório antes de editar o site
