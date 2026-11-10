@@ -37,7 +37,8 @@ function analyze(tokens,selectionText){
  if(candidates.length>1||otherClauses){
   return {
    status:'ambigua',kind:null,confidence:'indefinida',candidates,
-   reason:'A seleção contém '+(candidates.length>1?'mais de uma categoria':'orações de categorias diferentes')+
+   reason:'A seleção contém '+(candidates.length>1?
+    candidates.map(k=>LABELS[k]||k).join(' + '):'orações de categorias diferentes')+
     '. Escolha uma única cor para todo o trecho; não haverá divisão.',
    text,segments_analyzed:parsed.length
   };
