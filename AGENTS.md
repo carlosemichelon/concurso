@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V077** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V084** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -149,3 +149,10 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Não subir arquivos privados à branch pública, somente IDs, títulos e metadados mínimos. O leitor original e os grifos locais não são reescritos; sem OAuth, catálogo estático de 72 documentos continua disponível para titulares com acesso ao Drive.
 - Se novos PDFs forem aprovados e enviados ao Drive, preservar IDs existentes e deduplicar por file_id/nome. Atualização automática de novos PDFs em pastas monitoradas ocorre apenas na sessão Google autorizada; alterações no catálogo estático exigem revisão e deploy. Novos grupos precisam ser adicionados ao índice correspondente.
 - Validação real do OAuth/visualização em navegador autenticado permanece pendente; não alegar sucesso definitivo de rede privada até testado.
+
+## V084 — Imagens do Drive (Atlas autenticado)
+- Página principal `v084.html`, manifesto V084, preservando V083 e todas as alterações do grifador/cores.
+- Monitorar SOMENTE a pasta de imagens do projeto `07 – Atlas de Imagens (sincronização)`, Drive ID `1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6`; a inclusão de imagens nessa pasta deve ser feita pelo usuário. Pasta recém-criada inicialmente vazia. Outras pastas e subpastas não são monitoradas.
+- Script `assets/v084_drive_images_sync.js` adiciona ao Atlas seção separada dos 270 registros anteriores. Google OAuth `drive.readonly` com token em memória, consulta a cada 120 s enquanto site aberto, exibição de JPEG/PNG/WEBP/GIF até 15 MB. Imagens privadas não são publicadas como arquivo no GitHub; miniaturas via download autorizado com blob URL temporária.
+- IDs novos = `DRIVE-IMG-<fileId>`, sem criar `IMG-###`, sem modificar base F17, histórico de imagens, aprovação temática, SRS ou grifos legados. Grifos de novas imagens são locais com ID específico no editor. Não classificar automaticamente por conteúdo, sem auditoria.
+- Consentimento OAuth real e abertura de imagem real ainda precisam de teste no navegador; não reportar esse teste como concluído.
