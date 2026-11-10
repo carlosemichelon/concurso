@@ -78,13 +78,13 @@ if(mainEdit){
     return;
    }
    if(!client){
-    waitingDoc={doc,options};
+    waitingDoc=waitingDoc?.doc?.id===doc.id?waitingDoc:{doc,options:{}};
     notify('O Google Drive ainda está inicializando. Aguarde o botão Conectar Drive ficar disponível.');
     showConnect(true);
     return;
    }
    if(!token||expires<=Date.now()){
-    waitingDoc=doc;
+    waitingDoc=waitingDoc?.doc?.id===doc.id?waitingDoc:{doc,options:{}};
     notify('Autorizando leitura para editar o PDF diretamente neste site, sem download...');
     authorize(); // clique real: preserva gesto do usuário exigido pelo OAuth.
     return;
