@@ -258,10 +258,14 @@ $('bm068Note').onclick=()=>{
  closeEditor();const form=$('bm068Form'),extra=mark.note_structured||{};
  const meta=readMeta(),d=meta[identity(mark)]||{},suggested=mark.subject_suggestion||{};
  const hint=$('bm070Suggestion');
- hint.hidden=mark.classification_status==='confirmada'||(!mark.note_suggestion&&!suggested.topic);
- hint.textContent=hint.hidden?'':'SUGESTÃO NÃO CONFIRMADA · '+(mark.color_label||'')+
-  (suggested.topic?' · '+suggested.topic:'')+
-  '. Confira a cor, o assunto e a nota antes de salvar.';
+ const needsColor=mark.classification_status!=='confirmada',
+  needsSubject=!!suggested.topic&&!d.topic,
+  needsNote=!!mark.note_suggestion&&!mark.note;
+ hint.hidden=!(needsColor||needsSubject||needsNote);
+ hint.textContent=hint.hidden?'':('REVISÃO NECESSÁRIA · '+
+  [needsColor?'Cor sugerida':null,needsSubject?'Assunto sugerido':null,
+   needsNote?'Nota pré-preenchida, ainda não confirmada':null].filter(Boolean).join(' • ')+
+  '. Confira a fonte e clique em Salvar nota para aceitar suas alterações.');
  const read=(name,value)=>{form.elements[name].value=value||''};
  read('note',mark.note||mark.note_suggestion||'');
  read('discipline',d.discipline||suggested.discipline);
