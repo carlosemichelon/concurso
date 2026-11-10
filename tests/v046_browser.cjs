@@ -33,8 +33,8 @@ const {PDFDocument}=require('pdf-lib');
    side:{x:side.x,y:side.y,width:side.width,height:side.height}}
  });
  try{
-  await page.goto('http://127.0.0.1:8765/index.html#imagens',{waitUntil:'domcontentloaded',timeout:60000});
-  await page.waitForURL(/v046\.html\?versao=V046.*#imagens/,{timeout:25000});
+  await page.goto('http://127.0.0.1:8765/v046.html#imagens',{waitUntil:'domcontentloaded',timeout:60000});
+  await page.waitForFunction(()=>document.title.includes('V046'),null,{timeout:25000});
   await page.waitForFunction(()=>window.BancoMestreLayoutV046?.ready&&window.BancoMestreLayoutV046?.heroRemoved,null,{timeout:25000});
   await waitImage();
   const header=await page.evaluate(()=>{

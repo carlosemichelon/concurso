@@ -1,0 +1,37 @@
+name: Testar V047 — rolagem PDF e cartão rápido
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'v047.html'
+      - 'assets/pdf_v047.js'
+      - 'assets/v047_card_preview.js'
+      - 'assets/v047_pdf.css'
+      - 'tests/v047_browser.cjs'
+      - 'tests/v047_regression_v046.cjs'
+      - '.github/workflows/validar-v047.yml'
+  workflow_dispatch:
+jobs:
+  navegador:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar dependências de testes
+        run: npm install --no-save --ignore-scripts --no-audit --no-fund pdfjs-dist@3.11.174 pdf-lib@1.17.1 playwright@1.55.1
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Testar V047 leitura por rolagem e preview CARD
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v047-http.log 2>&1 &
+          sleep 2
+          node tests/v047_browser.cjs
+      - name: Regressão V046 — leitor com transparência, toolbar e Drive
+        run: node tests/v047_regression_v046.cjs
+      - name: Regressão V044 — Vade Mecum vindo do Drive
+        run: node tests/v044_browser.cjs

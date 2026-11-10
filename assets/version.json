@@ -1,7 +1,7 @@
 {
-  "version": "V046",
+  "version": "V047",
   "base": "V015",
-  "updated_utc": "2026-11-09",
+  "updated_utc": "2026-11-10",
   "counts": {
     "cards": 1494,
     "active": 1493,
@@ -16,9 +16,9 @@
     "f17_historic_evolutions": 9
   },
   "cache_policy": "versioned_entrypoint_no_store_bootstrap",
-  "notes": "V046: estatísticas no cabeçalho, texto inicial removido, edição lateral de PDF/imagem, marcador PDF transparente com opacidade ajustável. Atlas exporta IDs excluídos para confirmação de arquivos Drive; nenhuma exclusão Drive automática ou por vínculo candidato. SRS e dados preservados.",
+  "notes": "V047: leitura do PDF com rolagem no interior da página e troca automática ao chegar ao fim/início; ícone de cartão rápido vinculado à página com verso inicialmente oculto e sem SRS. Mantém os editores laterais, transparência do grifo e o acervo anterior. Nenhuma atualização de manuscrito ou migração de grifos é automática.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v046.html",
+  "home": "v047.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -27,5 +27,6 @@
     "exclusions": "reversíveis, por ID, sem excluir originais ou SRS",
     "storage": "IndexedDB BancoMestreImagensV023 / localStorage BM032_VIS_IMG-P10-*",
     "drive_delete": "pendente de identificação e validação dos arquivos exatos excluídos localmente; exportação por chat, sem exclusão automática"
-  }
+  },
+  "pdf_update_policy": "Edições novas do manuscrito são registradas como versões separadas e comparadas por hash, páginas e conteúdo; backup antes de qualquer migração; não transferir grifos somente pelo número da página."
 }
