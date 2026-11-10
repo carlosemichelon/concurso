@@ -527,6 +527,51 @@ function wordsFromRange(range){
  }
  return words;
 }
+// Captura palavras inteiras usando offsets do próprio Range, inclusive em vários spans.
+// Se o mapeamento DOM/PDF não for exato, devolve null e impede aplicação multicolorida.
+function wordsWithGeometry(range){
+ if(!activeLayer||!range)return null;
+ const walker=document.createTreeWalker(activeLayer,NodeFilter.SHOW_TEXT),parts=[];
+ let node;
+ while((node=walker.nextNode())){
+  if(!range.intersectsNode(node))continue;
+  const val=node.textContent||'',from=node===range.startContainer?range.startOffset:0,
+   to=node===range.endContainer?range.endOffset:val.length;
+  if(from<0||to>val.length||to<=from)continue;
+  parts.push({node,from,to,raw:val.slice(from,to)});
+ }
+ const joined=parts.map(p=>p.raw).join('');
+ if(!joined||joined.replace(/\u00a0/g,' ')!==String(range.toString()||'').replace(/\u00a0/g,' '))return null;
+ const leading=joined.length-joined.trimStart().length;
+ const text=joined.trim().replace(/\u00a0/g,' ');
+ if(!text||text.length>20000)return null;
+ const first=parts[0],last=parts.at(-1);
+ if(first?.from>0&&/[\p{L}\p{N}]/u.test(first.node.textContent[first.from-1]||'')&&
+    /^[\p{L}\p{N}]/u.test(text))return null;
+ if(last?.to<(last.node.textContent||'').length&&
+    /[\p{L}\p{N}]/u.test(last.node.textContent[last.to]||'')&&
+    /[\p{L}\p{N}]$/u.test(text))return null;
+ function position(i,end){
+  let n=0;
+  for(const p of parts){
+   const limit=n+p.raw.length;
+   if(i<limit||end&&i===limit)return {node:p.node,offset:p.from+i-n};
+   n=limit;
+  }
+  return null;
+ }
+ const result=[];
+ for(const m of text.matchAll(/\S+/gu)){
+  const start=m.index,end=start+m[0].length,a=position(leading+start,false),b=position(leading+end,true);
+  if(!a||!b)return null;
+  const sub=document.createRange();sub.setStart(a.node,a.offset);sub.setEnd(b.node,b.offset);
+  const boxes=rects(sub);if(!boxes.length)return null;
+  result.push({text:m[0],start,end,rects:boxes});
+  if(result.length>180)return null;
+ }
+ return result.length?result:null;
+}
+
 function readSelection(){
  if(!inSelect()||!activeLayer||!matches(context))return;
  const selection=window.getSelection();
@@ -534,7 +579,7 @@ function readSelection(){
  const range=selection.getRangeAt(0),text=String(selection.toString()||'').replace(/\u00a0/g,' ').trim();
  if(!text||text.length>20000)return;
  const boxes=rects(range);if(!boxes.length)return;
- const words=wordsFromRange(range);
+ const words=wordsFromRange(range),positionedWords=wordsWithGeometry(range);
  const end=range.getBoundingClientRect(),at={x:end.right,y:end.bottom};
  // Usar os limites normalizados do Range (inclusive seleções reversas).
  const anchor={prefix:range.startContainer?.textContent?.slice(Math.max(0,range.startOffset-60),range.startOffset)||'',
@@ -551,9 +596,14 @@ function readSelection(){
   }else status('Não foi possível alterar o trecho; original preservado');
   updateMode();return;
  }
- pending={text,rects:boxes,anchor,words,page:context.page,documentId:context.documentId,sourceHash:context.sourceHash,context};
+ pending={text,rects:boxes,anchor,words,positionedWords,page:context.page,documentId:context.documentId,sourceHash:context.sourceHash,context};
  confirmOrSuggest();
 }
+// Em dispositivos móveis, seleção por toque pode não disparar mouseup.
+document.addEventListener('touchend',()=>{
+ if(!inSelect()||!activeLayer||!editor.hidden||!settings.hidden)return;
+ setTimeout(readSelection,220);
+},true);
 document.addEventListener('mouseup',e=>{
  if(e.button!==0||!inSelect()||!activeLayer||editor.hidden===false||settings.hidden===false)return;
  setTimeout(readSelection,0);
