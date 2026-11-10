@@ -1,0 +1,71 @@
+/* V057 — controles de grifo e página sempre acessíveis em cima do PDF.
+   Não cria uma nova barra superior e não ocupa a altura de leitura. */
+#pdfDialog #bmV057PdfDock{
+ display:flex!important;align-items:center!important;flex-wrap:nowrap!important;
+ gap:3px!important;position:absolute!important;top:7px!important;left:7px!important;
+ z-index:73!important;box-sizing:border-box!important;
+ width:max-content!important;max-width:calc(100vw - 100px)!important;
+ margin:0!important;padding:3px 4px!important;
+ background:rgba(255,255,255,.94)!important;
+ border:1px solid rgba(110,147,171,.55)!important;border-radius:7px!important;
+ box-shadow:0 2px 13px rgba(24,50,71,.2)!important;
+}
+#pdfDialog #bmV057PdfDock button{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ min-height:29px!important;height:29px!important;min-width:29px!important;
+ width:auto!important;padding:3px 7px!important;
+ background:#fff!important;color:#2e5674!important;
+ border:1px solid #b9ccdb!important;border-radius:5px!important;
+ font:650 12px/1.2 system-ui,Arial,sans-serif!important;
+ white-space:nowrap!important;cursor:pointer;
+}
+#pdfDialog #bmV057PdfDock button:hover:not(:disabled){background:#eaf4fc!important;border-color:#76aacd!important}
+#pdfDialog #bmV057PdfDock button[aria-pressed="true"]{
+ background:#cceaf7!important;border-color:#518caf!important;
+ color:#154b6b!important;box-shadow:inset 0 0 0 1px #83b3d3!important;
+}
+#pdfDialog #bmV057PdfDock button:disabled{
+ opacity:.4!important;cursor:not-allowed!important;
+}
+#pdfDialog #bmV057PdfDock .bm-v057-separator{
+ width:1px;height:22px;flex:0 0 1px;background:#c6d5e2;margin:0 3px;
+}
+#pdfDialog #bmV057PdfDock label{
+ font-size:10px!important;font-weight:700!important;color:#516d85!important;
+ white-space:nowrap!important;margin:0!important;
+}
+#pdfDialog #bmV057PdfDock #bmV057PageNumber{
+ width:49px!important;min-width:0!important;height:29px!important;
+ padding:4px 5px!important;margin:0!important;
+ background:white!important;border:1px solid #b0c7d8!important;border-radius:5px!important;
+ font:650 12px/1.2 system-ui,Arial,sans-serif!important;color:#20445e!important;
+ text-align:center!important;appearance:textfield;
+}
+#pdfDialog #bmV057PdfDock #bmV057PageNumber::-webkit-inner-spin-button,
+#pdfDialog #bmV057PdfDock #bmV057PageNumber::-webkit-outer-spin-button{
+ -webkit-appearance:none;margin:0;
+}
+#pdfDialog #bmV057PdfDock #bmV057PageTotal{
+ font:600 11px/1.2 system-ui,Arial,sans-serif;color:#526a7b;
+ white-space:nowrap;min-width:29px;text-align:center;
+}
+#pdfDialog #bmV057PdfDock #bmV057GoPage{background:#edf7fd!important;font-weight:750!important}
+#pdfDialog #bmV057PdfDock .bm-v057-visually-hidden{
+ position:absolute!important;left:-9999px!important;top:auto!important;
+ width:1px!important;height:1px!important;overflow:hidden!important;
+}
+#pdfDialog #bmV057PdfDock :focus-visible{
+ outline:2px solid #227fb2!important;outline-offset:1px!important;
+}
+@media(max-width:620px){
+ /* Afastar os comandos existentes ⋮ e ×, sem cobrir a barra compacta. */
+ #pdfDialog #bmV057PdfDock{
+  top:41px!important;left:4px!important;max-width:calc(100vw - 8px)!important;
+  padding:3px!important;gap:2px!important;
+ }
+ #pdfDialog #bmV057PdfDock button{padding:3px 5px!important;font-size:11px!important;min-width:28px!important;height:27px!important;min-height:27px!important}
+ #pdfDialog #bmV057PdfDock label{font-size:9px!important}
+ #pdfDialog #bmV057PdfDock #bmV057PageNumber{width:40px!important;height:27px!important;font-size:11px!important}
+ #pdfDialog #bmV057PdfDock #bmV057PageTotal{font-size:10px!important;min-width:22px}
+ #pdfDialog #bmV057PdfDock .bm-v057-separator{margin:0 1px}
+}
