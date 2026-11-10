@@ -63,6 +63,7 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
     vadeText:document.querySelector('#bmVade041 p')?.textContent
    }
   });
+  console.log('V044_LAYOUT',JSON.stringify(layout));
   assert.equal(layout.panelRemoved,true,'Painel de importar lei não foi retirado');
   assert.equal(layout.connectInPdfHeader,true,'Conectar Drive deveria estar no cabeçalho de PDFs');
   assert.equal(layout.title,'Cartões cadastrados');
