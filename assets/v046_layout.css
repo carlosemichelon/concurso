@@ -1,0 +1,99 @@
+/* V046 — cabeçalho minimalista + barras laterais de ferramentas. */
+
+/* Indicadores no próprio cabeçalho, sem o bloco "O que deseja estudar?" */
+main > .hero{display:none!important}
+header .head{max-width:1500px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px 14px;padding:7px 13px}
+header .head>.bm-v046-header-stats{display:flex;justify-content:center;align-items:center;gap:3px 9px;min-width:0;margin:0;padding:0;flex-wrap:wrap}
+header .bm-v046-header-stats .stat{display:flex;gap:4px;align-items:baseline;min-width:0;padding:0;margin:0;border:0;box-shadow:none;background:transparent}
+header .bm-v046-header-stats .stat b{display:inline;font-size:12px;font-weight:800;line-height:1.25;color:#145d63}
+header .bm-v046-header-stats .stat span{display:inline;font-size:10px;line-height:1.25;color:#4e7074;white-space:nowrap}
+header .bm-v046-header-stats .stat:not(:last-child)::after{content:'·';color:#a0b8b3;margin-left:5px}
+header nav{justify-content:flex-end;gap:4px}
+header nav button{font-size:12px;padding:5px 8px;min-height:29px;border-radius:7px}
+header .brand{font-size:18px;line-height:1.2}
+header .version{font-size:10px;line-height:1.35}
+main{padding-top:12px}
+
+/* PDF — barra vertical à esquerda, área de leitura à direita */
+#pdfDialog>.dbody{min-height:0;height:auto!important;display:flex;flex-direction:column;overflow:hidden}
+#pdfDialog .bm-v046-pdf-workspace{display:grid;grid-template-columns:116px minmax(0,1fr);gap:0;flex:1 1 auto;min-height:0;height:100%;overflow:hidden}
+#pdfDialog .bm-v046-pdf-workspace:has(#pdfLocalTools[hidden]){grid-template-columns:minmax(0,1fr)}
+#pdfDialog .bm-v046-pdf-side{min-height:0;min-width:0;overflow:hidden;background:#f7fbfa;border-right:1px solid #cbdad6}
+#pdfDialog .bm-v046-pdf-side:has(#pdfLocalTools[hidden]){display:none}
+#pdfDialog .bm-v046-pdf-content{display:flex;min-height:0;min-width:0;flex:1 1 auto;flex-direction:column;overflow:hidden}
+#pdfDialog .bm-v046-pdf-content #pdfFrame{flex:1 1 auto;min-height:0;height:100%;max-height:none}
+#pdfDialog .bm-v046-pdf-content #pdfLocalMode{flex:1 1 auto;min-height:0;min-width:0;max-height:none;height:100%;padding:9px;overflow:auto}
+#pdfDialog .bm-v046-pdf-content #pdfLocalMode.active{min-height:0!important}
+#pdfDialog .bm-v046-pdf-side .pdfMiniTools{height:100%;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;padding:3px 2px;background:transparent;display:flex;flex-direction:column;align-items:stretch;gap:3px;scrollbar-width:thin}
+#pdfDialog .bm-v046-pdf-side .bm-v043-main{width:100%;max-width:none;min-height:0;flex:0 0 auto;display:flex;flex-direction:column;gap:5px;padding:3px 4px;overflow:visible;white-space:normal}
+#pdfDialog .bm-v046-pdf-side .pdfGroup{display:flex!important;flex:0 0 auto;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px!important;width:100%;margin:0!important;padding:0 0 6px!important;border-right:0!important;border-bottom:1px solid #c9ddd7}
+#pdfDialog .bm-v046-pdf-side .pdfGroup button{width:calc(50% - 2px);min-width:0!important;max-width:100%;height:29px;min-height:29px;line-height:1;padding:2px 4px;font-size:12px!important;border-radius:6px}
+#pdfDialog .bm-v046-pdf-side .pdfGroup .bm-v043-icon{width:calc(50% - 2px)!important;min-width:0!important;font-size:15px!important}
+#pdfDialog .bm-v046-pdf-side #pdfPager{width:100%;min-width:0!important;order:-1;font-size:10px;white-space:normal}
+#pdfDialog .bm-v046-pdf-side #pdfInkColor{height:27px;width:32px}
+#pdfDialog .bm-v046-pdf-side .pdfGroup label{width:100%;display:flex;align-items:center;justify-content:center;font-size:0}
+#pdfDialog .bm-v046-pdf-side #pdfExportPDF,#pdfDialog .bm-v046-pdf-side #pdfSaveDriveV042,
+#pdfDialog .bm-v046-pdf-side #pdfCardV037,#pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityWrapV046{
+ width:100%;max-width:100%;font-size:11px!important;white-space:normal;min-width:0;overflow-wrap:anywhere
+}
+#pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityWrapV046{display:flex;flex-direction:column;gap:2px;padding:3px;border:1px solid #d4e6e1;border-radius:6px;background:white}
+#pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityWrapV046 span{font-size:11px}
+#pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityV046{width:92%;height:20px;accent-color:#308b89}
+#pdfDialog .bm-v046-pdf-side #pdfOpacityValueV046{font-size:10px;font-variant-numeric:tabular-nums}
+#pdfDialog .bm-v046-pdf-side #pdfMoreV043{height:28px;width:100%!important;max-width:none}
+#pdfDialog .bm-v046-pdf-side .bm-v043-advanced{display:flex;flex-direction:column;align-items:stretch;flex:0 0 auto;gap:4px;border-top:0;padding:3px 5px}
+#pdfDialog .bm-v046-pdf-side .bm-v043-advanced[hidden]{display:none!important}
+#pdfDialog .bm-v046-pdf-side .bm-v043-advanced button{width:100%;height:auto;min-height:29px;white-space:normal;padding:4px 3px;font-size:10px}
+#pdfDialog .bm-v046-pdf-side #pdfFileName{position:absolute!important;width:1px!important;height:1px!important}
+#pdfDialog .bm-v046-pdf-content #pdfLocalStatus{font-size:10px;padding:3px 8px;flex:0 0 auto}
+#pdfDialog .bm-v046-pdf-side .bm-drive-save-status{padding:5px 4px;border-top:1px solid #d5e6e0;flex-wrap:wrap;overflow-wrap:anywhere;font-size:10px}
+#pdfDialog .bm-v046-pdf-side .bm-drive-save-status small{white-space:normal;overflow-wrap:anywhere}
+#pdfDialog .bm-v046-pdf-side .bm-drive-save-status a{white-space:normal;overflow-wrap:anywhere}
+
+/* Imagens — já possuíam barra lateral desktop na V034; tornar compacta e
+   preservar a barra também em telas pequenas, sem sobrepor a imagem. */
+#imageDialog>.dbody{display:grid!important;grid-template-columns:minmax(0,1fr) 156px!important;grid-template-rows:auto minmax(0,1fr)!important;min-height:0!important;height:auto!important}
+#imageDialog .editor-tools{grid-column:2!important;grid-row:1/span 2!important;max-height:none!important;min-height:0!important;display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;overflow-y:auto!important;overflow-x:hidden!important;padding:7px 5px!important;gap:7px!important;border-left:1px solid #ccdcd7!important;border-bottom:0!important}
+#imageDialog .editor-tools .toolgroup{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:4px!important;margin:0!important;padding:0 0 6px!important;border-right:0!important;border-bottom:1px solid #d9e7e4!important}
+#imageDialog .editor-tools button[data-ink-tool]{font-size:18px!important;min-height:30px!important;min-width:34px;padding:2px 6px!important}
+#imageDialog .editor-tools .swatch{width:25px;min-width:25px;height:25px}
+#imageDialog .editor-tools label{display:flex;flex-wrap:wrap;justify-content:center;font-size:10px}
+#imageDialog .editor-tools input[type=range]{max-width:90px}
+#imageDialog .editor-tools #hideOpened{width:100%;font-size:10px!important;white-space:normal}
+#imageDialog .editor-meta{grid-column:1!important;grid-row:1!important;min-height:32px;max-height:80px}
+#imageDialog #imageStage{grid-column:1!important;grid-row:2!important;min-height:0!important;overflow:auto}
+
+/* Preparação segura da lista para exclusões Drive; nada é apagado sem conferir. */
+#imagens #exportExcludedV046{font-size:11px;background:#fff8f3;border-color:#d8b8a2;color:#82473b;padding:5px 7px;min-height:32px}
+#imagens #exportExcludedStatusV046{font-size:11px;max-width:500px;color:#365b63}
+
+@media(max-width:1050px){
+ header .head{grid-template-columns:minmax(0,1fr) auto;gap:4px 8px}
+ header .head>.bm-v046-header-stats{grid-column:1/-1;grid-row:2;justify-content:flex-start;width:100%}
+ header .head nav{grid-column:2;grid-row:1}
+ header .head>.bm-v046-header-stats .stat span{font-size:10px}
+}
+@media(max-width:700px){
+ header .head{padding:5px 7px;gap:3px 6px}
+ header .brand{font-size:15px}
+ header nav button{font-size:11px;padding:4px 6px;min-height:27px}
+ header .head>.bm-v046-header-stats{flex-wrap:wrap;gap:1px 7px}
+ header .bm-v046-header-stats .stat b{font-size:11px}
+ header .bm-v046-header-stats .stat span{font-size:9px}
+ main{padding-top:7px}
+ #pdfDialog .bm-v046-pdf-workspace{grid-template-columns:83px minmax(0,1fr)}
+ #pdfDialog .bm-v046-pdf-side .bm-v043-main{padding:3px 2px;gap:4px}
+ #pdfDialog .bm-v046-pdf-side .pdfGroup button{width:calc(50% - 2px);min-height:30px;height:30px;font-size:11px!important;padding:2px 1px}
+ #pdfDialog .bm-v046-pdf-side .pdfGroup .bm-v043-icon{font-size:14px!important}
+ #pdfDialog .bm-v046-pdf-side #pdfPager{font-size:9px}
+ #pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityWrapV046{padding:2px 0}
+ #imageDialog>.dbody{grid-template-columns:minmax(0,1fr) 88px!important;grid-template-rows:auto minmax(0,1fr)!important}
+ #imageDialog .editor-tools{grid-column:2!important;grid-row:1/span 2!important;max-height:none!important;flex-direction:column!important;flex-wrap:nowrap!important;padding:5px 3px!important;gap:5px!important}
+ #imageDialog .editor-tools .toolgroup{border-right:0!important;border-bottom:1px solid #d9e7e4!important;padding:0 0 4px!important;gap:3px!important}
+ #imageDialog .editor-tools button[data-ink-tool]{font-size:17px!important;min-width:32px!important;min-height:30px!important}
+ #imageDialog .editor-tools .swatch{width:23px;height:23px;min-width:23px;min-height:23px}
+ #imageDialog .editor-tools label{font-size:9px;flex-wrap:wrap}
+ #imageDialog .editor-tools input[type=range]{width:64px!important}
+ #imageDialog .editor-meta{grid-column:1!important;grid-row:1!important;max-height:72px}
+ #imageDialog #imageStage{grid-column:1!important;grid-row:2!important;padding:4px}
+}

@@ -1,0 +1,39 @@
+name: Validar V046 — barras laterais e grifos transparentes
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'v046.html'
+      - 'assets/pdf_v046.js'
+      - 'assets/v046_atlas_filters.js'
+      - 'assets/v046_layout.js'
+      - 'assets/v046_layout.css'
+      - 'assets/version.json'
+      - 'index.html'
+      - 'tests/v046_browser.cjs'
+      - '.github/workflows/validar-v046.yml'
+  workflow_dispatch:
+jobs:
+  regressao-v046:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Dependências
+        run: npm install --no-save --ignore-scripts --no-audit --no-fund pdfjs-dist@3.11.174 pdf-lib@1.17.1 playwright@1.55.1
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Testar V046 no desktop e celular
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v046.log 2>&1 &
+          sleep 2
+          node tests/v046_browser.cjs
+      - name: Verificar Vade Mecum do Drive e edição V044
+        run: node tests/v044_browser.cjs
+      - name: Verificar exportação e cópia Drive da V042
+        run: node tests/drive_save_browser_v042.cjs

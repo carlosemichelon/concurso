@@ -3,6 +3,9 @@
 'use strict';
 const assert=require('node:assert/strict');
 const {chromium}=require('playwright');
+const fs=require('node:fs');
+const currentVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).version;
+const currentFile='v'+currentVersion.slice(1)+'.html';
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  const context=await browser.newContext({viewport:{width:1366,height:900}});
@@ -13,13 +16,13 @@ const {chromium}=require('playwright');
   await page.waitForFunction(()=>window.BancoMestreAtlasV045?.indexed&&window.BancoMestreAtlasV045.total===270,null,{timeout:18000});
  };
  const visible=async(n)=>{
-  await page.waitForFunction(v=>document.querySelector('main > .stats .stat:nth-child(3) b')?.textContent===String(v),n,{timeout:20000});
+  await page.waitForFunction(v=>(document.querySelector('header .bm-v046-header-stats .stat:nth-child(3) b')||document.querySelector('main > .stats .stat:nth-child(3) b'))?.textContent===String(v),n,{timeout:20000});
   await page.waitForFunction(v=>document.querySelector('#imageCount')?.textContent?.startsWith(v+' de '+v),n,{timeout:20000});
  };
  try{
   const indexResp=await page.goto(root+'index.html#imagens',{waitUntil:'domcontentloaded',timeout:60000});
   assert.equal(indexResp.status(),200);
-  await page.waitForURL(/\/v045\.html\?versao=V045.*#imagens/,{timeout:40000});
+  await page.waitForURL(url=>url.pathname.endsWith('/'+currentFile)&&url.searchParams.get('versao')===currentVersion&&url.hash==='#imagens',{timeout:40000});
   await page.waitForTimeout(2200);
   const diagnostics=await page.evaluate(()=>({
    url:location.href,title:document.title,route:location.hash,
@@ -94,15 +97,15 @@ const {chromium}=require('playwright');
   await page.locator('#imageVisibilityV045').selectOption('all');
   await page.waitForFunction(()=>document.querySelector('#imageCount')?.textContent?.startsWith('270 de 270'),null,{timeout:15000});
   assert.equal(errors.length,0,'Falhas JavaScript: '+errors.join(' | '));
-  console.log(JSON.stringify({result:'PASS',defaultRedirect:'V045',hashPreserved:true,cataloged:270,hiddenLegacy:true,hiddenP10:true,visibleAfterHide:268,filteredIndex:true,refreshPersistence:true,restored:true,originalIdsPreserved:true,jsErrors:errors.length}));
+  console.log(JSON.stringify({result:'PASS',defaultRedirect:currentVersion,hashPreserved:true,cataloged:270,hiddenLegacy:true,hiddenP10:true,visibleAfterHide:268,filteredIndex:true,refreshPersistence:true,restored:true,originalIdsPreserved:true,jsErrors:errors.length}));
   // Se o manifesto falhar, fallback do index também deve ser a versão atual.
   const fallback=await context.newPage();
   await fallback.route('**/assets/version.json*',r=>r.fulfill({status:503,body:'offline'}));
   await fallback.goto(root+'index.html',{waitUntil:'domcontentloaded'});
-  await fallback.waitForFunction(()=>document.getElementById('entrar')?.getAttribute('href')?.includes('v045.html'),null,{timeout:10000});
+  await fallback.waitForFunction(expected=>document.getElementById('entrar')?.getAttribute('href')?.includes(expected),currentFile,{timeout:10000});
   const link=await fallback.locator('#entrar').getAttribute('href');
-  assert.ok(link.includes('v045.html'),'Fallback deve apontar para V045, não V037');
-  console.log(JSON.stringify({result:'PASS',fallback:'V045'}));
+  assert.ok(link.includes(currentFile),'Fallback deve apontar para a versão atual, não V037');
+  console.log(JSON.stringify({result:'PASS',fallback:currentVersion}));
   await fallback.close();
  }finally{await browser.close()}
 })().catch(e=>{console.error('V045_INDEX_FAIL',e.stack||String(e));process.exitCode=1});

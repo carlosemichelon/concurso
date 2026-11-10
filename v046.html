@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banco Mestre V046 — Drive e Atlas com filtros</title>
+<style>body{font:16px/1.5 system-ui,Arial,sans-serif;margin:5rem auto;max-width:48rem;padding:0 1.5rem;color:#17353b}a{color:#17616a}</style>
+</head><body>
+<h1>Banco Mestre V046</h1><p id="status">Preparando editores laterais e Atlas…</p>
+<p><a href="v043.html">Abrir V043 anterior</a></p>
+<script>
+(async()=>{
+ try{
+  const r=await fetch('./v041.html',{cache:'no-store'});
+  if(!r.ok)throw Error('Editor base indisponível (HTTP '+r.status+')');
+  let source=await r.text();
+  if(!source.includes('assets/v041_vade.js')||!source.includes('assets/pdf_v038.js')||!source.includes('assets/drive_direct_v038.js'))
+   throw Error('Versão base incompatível');
+  source=source.replace(/V041/g,'V046');
+  source=source.replace('assets/pdf_v038.js','assets/pdf_v046.js?v=v046');
+  source=source.replace('assets/drive_direct_v038.js','assets/drive_direct_v044.js?v=v044');
+  source=source.replace('</head>', 
+   '<link rel="stylesheet" href="assets/v043_pdf_compact.css?v=v044">'+
+   '<link rel="stylesheet" href="assets/v044_ui.css?v=1">'+'<link rel="stylesheet" href="assets/v046_layout.css?v=1"></head>');
+  source=source.replace('<script src="assets/v041_vade.js"></'+'script>',
+    '<script src="assets/v042_drive_save.js"></'+'script>'+
+    '<script src="assets/v043_pdf_compact.js"></'+'script>'+
+    '<script src="assets/v044_vade_drive.js?v=1"></'+'script>'+
+    '<script src="assets/v044_ui.js?v=1"></'+'script>'+
+    '<script src="assets/v046_atlas_filters.js?v=1"></'+'script>'+'<script src="assets/v046_layout.js?v=1"></'+'script>');
+  if(!source.includes('v044_vade_drive.js')||!source.includes('v046_atlas_filters.js')||!source.includes('v046_layout.js'))
+   throw Error('Módulos V046 não incluídos');
+  document.open();document.write(source);document.close();
+ }catch(e){
+  const status=document.getElementById('status');
+  if(status)status.textContent='Não foi possível iniciar V046: '+e.message;
+ }
+})();
+</script>
+</body></html>
