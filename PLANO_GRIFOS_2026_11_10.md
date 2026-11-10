@@ -135,3 +135,11 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Novo botão somente leitura **Verificar grifos**, mostra alinhamento, grifos multilinha, validade de âncoras e armazenamento local.
 - Código `assets/pdf_v073.js`, `assets/v073_grifador.js`, `assets/v073_teste_grifador.js`, CSS e `v073.html`.
 - Testes isolados com falhas simuladas passaram; não foi possível testar seleção e aparência com PDF real no navegador do estudante. Prosseguir com validação prática antes de OCR ou sincronização bidirecional.
+
+## V074 — grifos unificados (uma cor por seleção)
+- Em pedido explícito do usuário, a V074 substitui a divisão de uma seleção em várias marcações por um único registro com cor única, um ID e a seleção integral, inclusive multilinha.
+- Classificador V072 continua reconhecendo termos internamente, mas o novo `assets/v074_analise_selecao.js` usa isso apenas para avaliar se a categoria é unívoca. Se obrigação + prazo etc. coexistirem, nenhuma cor automática é aplicada até confirmação manual.
+- Nova interface `assets/v074_grifador.js` usa somente `addTextHighlight` e mantém cor manual prioritária; selecionar novamente o mesmo trecho para trocar a cor atualiza o ID existente, com notas preservadas.
+- Núcleo `assets/pdf_v074.js` preserva leitura de dados antigos e não expõe criação em lote no objeto público. CSS `assets/v074_grifo_unico.css` mostra aviso de ambiguidade no menu.
+- Testes de regressão `tests/v074_selecao_unica_cores.json` e simulações de frase mista, seleção multilinha e cor manual. Grifos históricos segmentados NÃO são mesclados ou recoloridos.
+- Backup de código anterior: `backup/v073-before-unified-highlights-v074-2026-11-10`; teste visual e de persistência real ainda pendente.
