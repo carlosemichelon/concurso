@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V060.
+- **Site publicado:** V061.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v060.html`.
-- **Versão anterior preservada:** `gh-pages/v059.html` (e V058, V057, V056, V055, V054, V053, V052, V051 e V050 também preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v061.html`.
+- **Versão anterior preservada:** `gh-pages/v060.html` (e V059, V058, V057, V056, V055, V054, V053, V052, V051 e V050 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## Procedimento obrigatório antes de editar o site
@@ -21,3 +21,12 @@
 7. A referência deste documento é um **registro histórico**: a autoridade operacional é sempre o `version.json` da branch `gh-pages`, checado de novo antes de cada edição.
 
 **Regra prioritária:** nunca assumir que a branch padrão `main` representa a versão online; nela o manifesto pode estar muitas versões atrás.
+
+## Backup e etapa do grifador V061
+
+- Código V060 preservado também na branch `backup/v060-before-text-selection-2026-11-10`, commit de origem `a4c6be8198f028b3ac5f35d0f8dcb70363d88f85`.
+- V061 inicia o grifo por seleção textual PDF.js: seleção automática de palavras, menu de cor/nota/ID de cartão/desfazer; grifo livre anterior permanece.
+- O armazenamento local de grifos `BM030_STROKES_PDF` continua compatível. Originais, flashcards, SRS, IDs, Drive, PDFs e V060 não foram modificados por essa etapa.
+- O **backup GitHub não cobre localStorage nem IndexedDB do navegador**. Sincronização Drive, OCR, biblioteca de grifos e extensão Chrome ainda são etapas futuras.
+- Consulte `gh-pages/PLANO_GRIFOS_2026_11_10.md` para as 21 decisões aprovadas e o escopo preciso.
+- A sintaxe e os arquivos foram verificados; falta conferir interação visual em navegador com PDF real.
