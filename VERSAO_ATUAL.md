@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V072.
+- **Site publicado:** V073.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v072.html`.
-- **Versão anterior preservada:** `gh-pages/v071.html` (V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v073.html`.
+- **Versão anterior preservada:** `gh-pages/v072.html` (V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -144,3 +144,13 @@
 - CSS adicional `assets/v072_contexto_normativo.css` e testes de regressão em `tests/v072_classificacao_contextual.json`.
 - **Validação:** 33/33 casos isolados, uma frase mista com cinco categorias, notas distintas de dispositivo e de prazo, sintaxe dos arquivos. **Pendente:** teste completo no navegador com PDF real, zoom, salvamento e reprodução da seleção.
 - Backup de código V071: `backup/v071-before-contextual-legal-highlights-v072-2026-11-10`. Nenhum grifo pessoal, PDF, cartão, SRS ou status de imagem excluída foi migrado ou apagado.
+
+## V073 — seleção PDF e histórico transacional (10/11/2026)
+
+- Nova versão `v073.html`, preservando `v072.html` e o HTML-base V062 com **65 PDFs**.
+- Backup do código V072: `backup/v072-before-selection-stability-v073-2026-11-10`; o backup GitHub não guarda grifos privados do navegador.
+- Motor evolutivo `assets/pdf_v073.js`: evento `bm-pdf-render-start` avisa que uma troca de página ou zoom começou; desfazer/refazer restaura anotações e pilhas de histórico em qualquer falha de persistência; criações individuais/lotes, edições e exclusões restauram as pilhas anteriores se o localStorage falhar.
+- Grifador `assets/v073_grifador.js`: ao iniciar renderização, remove seleção/âncora antiga; ao renderizar camada PDF.js, **anexa a camada antes de calcular medidas**, impede cliques até ficar pronta, remove versões obsoletas e só então permite marcar palavras; mantém seis cores e classificação contextual V072.
+- Diagnóstico sob demanda `assets/v073_teste_grifador.js` + CSS: botão **Verificar grifos** no leitor PDF; confere se a camada selecionável está alinhada, marcações locais são legíveis, IDs e retângulos válidos e se existem grifos multilinha; orienta teste de zoom e reabertura sem alterar o documento.
+- **Testes isolados:** 10 cenários de criação multilinha em lote, undo/redo, falhas simuladas de criação/edição/exclusão e recuperação das pilhas de histórico; sintaxe e integração checadas. **Ainda não é teste end-to-end real:** zoom, seleção com mouse, recuperação após reabrir e precisão visual dependem de execução no navegador do usuário.
+- Preservados PDF/IDs/SRS e marcações históricas, incluindo exclusões de imagens. OCR, reancoragem assistida entre versões PDF, extensão Chrome e Drive bidirecional permanecem pendentes.
