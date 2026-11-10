@@ -253,7 +253,8 @@ function commitPending(color=lastColor,style=lastStyle,auto=smart){
  const mark=api().addTextHighlight({...original,color,style,color_label:colorName(color),
   subject_suggestion:classifier?.suggestSubject(original.text,api()?.currentDoc?.title||''),
   note_suggestion:classifier?.suggestNote({text:original.text,kind:null})?.text||'',
-  classification_kind:'nao_classificado',classification_status:'sugestao'});
+  classification_kind:(names.find(n=>n.color.toLowerCase()===String(color).toLowerCase())?.kind||'nao_classificado'),
+  classification_status:'sugestao'});
  if(mark){show(mark,lastAt.x,lastAt.y);status(mark.duplicate?'Este trecho já estava grifado.':'Grifo salvo. Assunto e nota podem ser revisados.')}
  else status('Não foi possível salvar o grifo; confira o armazenamento.');
 }
