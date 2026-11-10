@@ -1,0 +1,79 @@
+/* Banco Mestre V052 — refinamentos pontuais de leitura.
+   Escopo: assuntos, notas de cobertura e introdução de PDFs.
+   Nenhum dado, cartão, vínculo, SRS, imagem ou leitor foi alterado. */
+
+/* Rótulo secundário fica abaixo do título do cartão, em letra menor. */
+#assuntos .v036-topic-tile > .v036-topic-name{
+  order:1;
+  font-size:14px;
+  line-height:1.36;
+}
+#assuntos .v036-topic-tile > .v036-topic-label{
+  order:2;
+  display:block;
+  font-size:9px!important;
+  line-height:1.3;
+  letter-spacing:.025em;
+  text-transform:none;
+  font-weight:600;
+  color:#6c7f91!important;
+}
+#assuntos .v036-topic-tile > .v036-topic-examples{
+  order:3;
+  font-size:10.5px!important;
+  line-height:1.44;
+  color:#67798b!important;
+  margin:0!important;
+}
+#assuntos .v036-topic-tile > .v036-topic-metrics{order:4}
+#assuntos .v036-topic-tile > .v036-topic-link{order:5}
+
+/* Notas de cobertura documental: texto pequeno, mas IDs ainda clicáveis. */
+#tema p:has(> button.media-ref),
+#tema p:has(> .media-ref),
+#tema .f17-evidence{
+  font-size:10px!important;
+  line-height:1.45!important;
+  color:#697a8b!important;
+}
+#tema p:has(> button.media-ref) button.media-ref,
+#tema p:has(> .media-ref) .media-ref,
+#tema .f17-evidence button.media-ref{
+  font-size:inherit!important;
+  line-height:inherit!important;
+  padding:2px 5px!important;
+  vertical-align:baseline;
+}
+/* Para trechos de cobertura apresentados em parágrafos dentro do mesmo bloco. */
+#tema p:has(> button.media-ref) p,
+#tema p:has(> .media-ref) p{font-size:inherit!important;line-height:inherit!important}
+
+/* O bloco de imagens e PDFs ganha contorno no próprio assunto. */
+#tema #topicMedia{
+  margin:17px 0 18px;
+  padding:14px 16px;
+  border:1px solid #c8d7e6;
+  border-radius:8px;
+  background:#fbfdff;
+}
+#tema #topicMedia > h3.sectionTitle{
+  font-size:15px!important;
+  line-height:1.4;
+  padding:0 0 10px;
+  margin:0 0 11px;
+  border-bottom:1px solid #d9e5ef;
+  color:#2a567b!important;
+}
+
+/* Texto introdutório da área de PDFs menor e mais discreto. */
+#pdfs .panel > p.intro{
+  font-size:11px!important;
+  line-height:1.48!important;
+  color:#718092!important;
+  margin:4px 0 12px!important;
+}
+@media(max-width:700px){
+ #tema #topicMedia{padding:11px 10px;margin:12px 0}
+ #assuntos .v036-topic-tile > .v036-topic-name{font-size:13px}
+ #assuntos .v036-topic-tile > .v036-topic-examples{font-size:10px!important}
+}
