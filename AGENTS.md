@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V068** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V069** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -66,3 +66,11 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Atalhos configuráveis (Alt+Q/Alt+W), evitando conflitos comuns de navegador; não enviar dados sem consentimento. O envio manual de backups V066 permanece independente.
 - **Testes manuais pendentes:** seleção real sobre PDF, zoom e troca de página, exportação PDF anotado, menu mobile, PDF escaneado, ocultar/mostrar, biblioteca/painel e atalhos.
 - OCR, sincronização bidirecional Drive, Chrome extension e conector ChatGPT continuam projetos distintos. Não alegar conclusão dessas funcionalidades.
+
+## V069 — estabilidade e preservação
+- Entrada e manifesto devem apontar para `v069.html`; motor PDF `assets/pdf_v069.js`, paleta `assets/v069_grifador.js`, Biblioteca `assets/v069_biblioteca_grifos.js` e painel `assets/v069_painel_grifos.js`. CSS V068 e scripts de outras áreas preservados.
+- **Não** editar os arquivos V068 anteriores nem converter grifos legados automaticamente.
+- Emitir evento `bm-pdf-active-page-rendered` apenas após renderização e liberação do estado de edição. Informar `bm-pdf-storage-changed` somente após persistência bem-sucedida.
+- Desfazer exclusão imediata só quando o ID removido for o último evento de edição no mesmo documento/hash/página. Nunca desfazer outra alteração em seu lugar.
+- Backup de código antes de V069: `backup/v068-before-highlighter-stability-v069-2026-11-10`. Não confundir com backup de grifos privados.
+- Teste no navegador, inclusive PDF com múltiplas linhas/zoom e janela pequena, ainda necessário. Não inferir validação completa por testes isolados.
