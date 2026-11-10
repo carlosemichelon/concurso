@@ -1,0 +1,42 @@
+
+/* Banco Mestre V062 — Biblioteca de Grifos local, responsiva e acessível */
+#grifos .bm062-panel{max-width:1140px;margin:0 auto}
+#grifos .bm062-top{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;flex-wrap:wrap}
+#grifos .bm062-top h2{margin:0 0 5px}
+#grifos .bm062-topbuttons{display:flex;gap:7px;flex-wrap:wrap}
+#grifos .bm062-topbuttons button{font-size:12px}
+#grifos .bm062-stats{font-size:13px;font-weight:800;margin:8px 0 12px;color:#245568}
+#grifos .bm062-filters{display:grid;grid-template-columns:minmax(240px,2fr) repeat(3,minmax(140px,1fr));gap:8px;margin:18px 0 10px}
+#grifos .bm062-filters input[type="search"],#grifos .bm062-filters select{
+ display:block;width:100%;max-width:100%;min-width:0;min-height:38px;
+ font:13px system-ui,Arial,sans-serif;padding:7px 9px;border:1px solid #b7c9cc;
+ border-radius:7px;background:#fff;color:#17353b}
+#grifos .bm062-check{display:flex;gap:7px;align-items:center;font-size:12px}
+#grifos .bm062-export{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0 18px}
+#grifos .bm062-export span{margin-right:auto;font-size:12px;font-weight:800;color:#46606a}
+#grifos .bm062-export button{font-size:12px;padding:7px 10px}
+#grifos .bm062-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
+#grifos .bm062-item{border:1px solid #c9d8dd;border-left:5px solid var(--mark-color,#ffd400);border-radius:9px;background:#fff;padding:13px;min-width:0;box-shadow:0 3px 12px #244b5d0b}
+#grifos .bm062-rowhead{display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap;margin-bottom:7px}
+#grifos .bm062-type{font-size:10px;font-weight:800;border-radius:4px;padding:3px 5px;background:#eaf3f8;color:#21536a}
+#grifos .bm062-origin{font-size:12px;overflow-wrap:anywhere;flex:1 1 145px}
+#grifos .bm062-page{font-size:11px;color:#5b6971;font-weight:700}
+#grifos .bm062-quote{font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;line-height:1.5;color:#233e44;max-height:16em;overflow:auto}
+#grifos .bm062-secondary{font-size:11px;color:#26606a;font-weight:700;overflow-wrap:anywhere}
+#grifos .bm062-note{font-size:12px;line-height:1.4;white-space:pre-wrap;background:#f6faf8;padding:8px;border-radius:6px;overflow-wrap:anywhere}
+#grifos .bm062-source{font-size:10px;color:#647981;overflow-wrap:anywhere;margin:7px 0}
+#grifos .bm062-itembuttons{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+#grifos .bm062-itembuttons button,#grifos .bm062-itembuttons a{font-size:11px;line-height:1.3;min-height:28px;padding:6px 8px;border:1px solid #c2d2da;border-radius:6px;background:#fff;color:#164b57;text-decoration:none;cursor:pointer}
+#grifos .bm062-itembuttons button:hover,#grifos .bm062-itembuttons a:hover{background:#eef7f7}
+#grifos .bm062-form{margin-top:12px;border-top:1px solid #cfdde0;padding:10px 0 0;display:grid;gap:8px}
+#grifos .bm062-form[hidden]{display:none!important}
+#grifos .bm062-form label{display:grid;gap:4px;font-size:11px;font-weight:750;color:#284b53}
+#grifos .bm062-form input,#grifos .bm062-form textarea{max-width:100%;width:100%;min-width:0;border:1px solid #bfced3;border-radius:6px;padding:7px;font:13px/1.4 system-ui,Arial,sans-serif;color:#17353b;background:#fff}
+#grifos .bm062-form textarea{resize:vertical}
+#grifos .bm062-formactions{display:flex;gap:7px}
+#grifos .bm062-formactions button{font-size:12px;min-height:30px;padding:6px 10px}
+#grifos .bm062-msg{font-size:12px;color:#245568;min-height:18px;overflow-wrap:anywhere}
+#grifos #bm062More{font-size:12px}
+@media(max-width:880px){#grifos .bm062-filters{grid-template-columns:repeat(2,minmax(0,1fr))}#grifos #bm062Search{grid-column:1/-1}}
+@media(max-width:600px){#grifos .bm062-filters{grid-template-columns:1fr}#grifos #bm062Search{grid-column:auto}
+ #grifos .bm062-results{grid-template-columns:1fr}#grifos .bm062-panel{padding:12px}#grifos .bm062-topbuttons{width:100%}}
