@@ -153,6 +153,12 @@
  async function enhancedRender(){
   if(!Array.isArray(imgs)||!imgs.length)return;
   await enrich();setup();
+  // Atualizar a lista de áreas quando a classificação textual for personalizada.
+  const selectedArea=area.value;
+  const areasNow=[...new Set(imgs.map(displayArea))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  area.replaceChildren(new Option('Todas as áreas','all'));
+  for(const name of areasNow)area.add(new Option(name,name));
+  area.value=areasNow.includes(selectedArea)?selectedArea:'all';
   const records=await api.all();
   const hidden=new Map(records.map(x=>[x.id,x.status]));
   const activeCount=imgs.filter(x=>hidden.get(x.no)!=='hidden').length;
