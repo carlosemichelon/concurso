@@ -102,11 +102,15 @@
  if(typeof loadTopics==='function'){
   const old=loadTopics;
   loadTopics=async function(){
-   const result=await old();
-   await read();
-   updateTopicData();
-   updateStats();
-   return result;
+   const area=document.getElementById('assuntos');
+   area?.classList.add('bm064-auditing-images');
+   try{
+    const result=await old();
+    await read();
+    updateTopicData();
+    updateStats();
+    return result;
+   }finally{area?.classList.remove('bm064-auditing-images')}
   };
  }
  // Um cartão antigo pode conter um botão gerado de IMG; não abrir se foi excluído.
