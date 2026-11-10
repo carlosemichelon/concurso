@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V075.
+- **Site publicado:** V076.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v075.html`.
-- **Versão anterior preservada:** `gh-pages/v074.html` (V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v076.html`.
+- **Versão anterior preservada:** `gh-pages/v075.html` (V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -181,3 +181,12 @@
 - Arquivos novos: `assets/pdf_v075.js`, `assets/v075_seis_cores.js`, `assets/v075_analise_selecao.js`, `assets/v075_grifador.js`, `assets/v075_paleta_fixa.css`; página `v075.html`; testes `tests/v075_seis_cores_fixas.json`.
 - Backup do código anterior: `backup/v074-before-fixed-six-colors-v075-2026-11-10`. Não equivale a backup de dados privados do navegador.
 - Sintaxe, classificação, seleção ambígua e preservação das categorias legadas testadas isoladamente. Ainda falta validar a operação visual em PDF real no navegador.
+
+## V076 — flashcards sincronizados com planilha privada do Google Drive (10/11/2026)
+
+- Publicada a página `gh-pages/v076.html`, derivada da V075 **sem alterar o grifador, seis cores, 65 PDFs, imagens, SRS ou o armazenamento local**. Backup de código: `backup/v075-before-drive-sync-v076-2026-11-10`.
+- Módulo independente `assets/v075_drive_cards_sync.js`: botão de consentimento Google OAuth `drive.readonly` na área Flashcards. Lê diretamente o arquivo XLSX privado no Drive, ID `1SA-PKBrlaovuNLFMPBx7BByH3BH0Tcsr` (aba `Cartoes_V015`) e valida 1.497 IDs, após autorização do titular. O XLSX e as respostas privadas NÃO são publicados no repositório.
+- Atualização automática a cada 120 segundos **somente enquanto a página estiver aberta e o token OAuth estiver válido**. Fora dessas condições não há sincronização do lado do servidor. Alterações futuras devem ser gravadas no mesmo ID de arquivo no Drive; novas cópias requerem reconfiguração do ID. O sistema é de **consulta somente leitura**, não envia alterações do site de volta à planilha.
+- Falhas de rede, autenticação ou leitura conservam os cartões já disponíveis e não alteram ID, SRS, PDFs, grifos ou respostas. Os 1.494 cartões V015 permanecem como fallback estático, acrescidos dos 22 Ijuí provisórios.
+- Teste JavaScript, leitura/validação do XLSX e fluxo de autorização em navegador simulado passaram (1.497 cartões e IDs CARD-1495 a CARD-1497). **Autorização OAuth real no navegador do usuário e implantação visual ainda pendentes de confirmação**; não apresentar como teste real completo.
+- Contrato metodológico: todos os cartões usam a estrutura de lei seca (frente concisa, verso exato e verificável, explicação/macete/fontes separados). Literalidade jurídica apenas para dispositivos legais; demais disciplinas exigem correção técnica e contexto. Cartões antigos preservados até auditoria de atualização. Metodologia oficial atualizada no Google Doc vigente, 10/11/2026.
