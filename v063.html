@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<title>Banco Mestre V063 — Biblioteca de Grifos</title>
+<style>body{margin:0;font:16px/1.5 system-ui,Arial;background:#f5f7f7;color:#17353b}
+#loading{max-width:650px;margin:15vh auto;padding:24px}
+#loading a{color:#16616a;font-weight:700}</style>
+</head><body>
+<div id="loading" role="status" aria-live="polite">
+<h1>Banco Mestre V063</h1>
+<p>Carregando os 65 PDFs, o leitor e a Biblioteca de Grifos...</p>
+<p><a href="./v062.html">Abrir a versão anterior V062</a></p>
+</div>
+<script>
+(async function(){
+ 'use strict';
+ const info=document.getElementById('loading');
+ try{
+  const response=await fetch('./v062.html?base=V062',{cache:'no-store'});
+  if(!response.ok)throw Error('Arquivo original V062 indisponível ('+response.status+')');
+  let source=await response.text();
+  if(!source.includes('pdf_catalog_v062.json')||
+     !source.includes('assets/pdf_v061.js')||
+     !source.includes('</head>')||!source.includes('</body>'))
+    throw Error('Estrutura da versão base diferente da esperada; nenhuma migração foi realizada');
+  const scriptClose='</scr'+'ipt>';
+  const tag=name=>'<scr'+'ipt src="assets/'+name+'"></scr'+'ipt>';
+  const css='<link rel="stylesheet" href="assets/v062_biblioteca_grifos.css?v=062">';
+  source=source.replace('</head>',css+'</head>');
+  source=source.replace('</body>',
+     tag('v063_grifos_navegacao.js?v=063')+
+     tag('v062_biblioteca_grifos.js?v=062')+'</body>');
+  source=source.replace('Banco Mestre V062 — Estudos','Banco Mestre V063 — Estudos')
+     .replaceAll('V062 · base V015','V063 · base V015')
+     .replace('<footer>V062 ·','<footer>V063 ·');
+  document.open();document.write(source);document.close();
+ }catch(e){
+  console.error('V063: carregamento interrompido:',e);
+  info.querySelector('p').textContent='Não foi possível carregar a Biblioteca: '+e.message;
+ }
+})();
+</script>
+</body></html>
