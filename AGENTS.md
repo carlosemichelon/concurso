@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V066** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V067** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -49,3 +49,10 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - O JSON contém somente `BM030_STROKES_PDF:*` e `BM062_GRIFOS_META`. **Não** inclui PDFs/IndexedDB/flashcards/SRS. Apresentar limitações e nunca dizer que dados locais foram copiados ao GitHub.
 - Backup de código: `backup/v065-before-drive-grifos-2026-11-10`.
 - Testes visuais/OAuth/envio real pendentes. Nunca presumir operação no Google Drive sem confirmação da API após consentimento do usuário no navegador.
+
+## V067 — diagnóstico local não destrutivo
+- Versão publicada: `v067.html`, manifesto e entrada apontam para V067. V066 e versões anteriores preservadas.
+- `assets/v067_diagnostico_local.js` e `assets/v067_diagnostico_local.css` acrescentam diagnóstico manual na Biblioteca e no leitor PDF.
+- Diagnóstico verifica estrutura, versão, catálogo de 65 PDFs, imagens excluídas, integridade/âncoras dos grifos, SHA-256, painel e sobreposição da prévia do cartão. Não escreve dados nem acessa Drive; relatório inclui somente resultados e totais agregados.
+- Backup de código: `backup/v066-before-diagnostics-2026-11-10`.
+- Testes com PDF real, páginas de assunto com exclusões e OAuth continuam pendentes; não confundir presença de código com execução validada.
