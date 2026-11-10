@@ -61,5 +61,24 @@ function analyze(tokens,selectionText){
   text,segments_analyzed:parsed.length
  };
 }
-window.BancoMestreAnaliseSelecaoV074={analyze,CATEGORIES,LABELS};
+function planOneHighlight(selection,analysis,manualChoice,style='highlight'){
+ if(!selection||typeof selection.text!=='string'||!selection.text.trim()||
+  !Array.isArray(selection.rects)||!selection.rects.length)return {status:'invalid'};
+ const manual=!!manualChoice;
+ if(!manual&&analysis?.status!=='clara')return {status:'review'};
+ const kind=manual?CATEGORIES.includes(manualChoice.kind)?manualChoice.kind:'nao_classificado':analysis.kind;
+ const color=manual?manualChoice.color:analysis.color;
+ if(!/^#[0-9a-f]{6}$/i.test(color||''))return {status:'invalid'};
+ const mark={
+  text:selection.text,rects:selection.rects,anchor:selection.anchor,
+  page:selection.page,documentId:selection.documentId,sourceHash:selection.sourceHash,
+  color,color_label:manual?String(manualChoice.label||'Personalizado'):String(analysis.label),
+  style,classification_kind:kind,classification_status:manual?'confirmada':'sugestao',
+  confidence:manual?'indefinida':analysis.confidence,
+  detail:manual?'escolha_manual':analysis.detail,
+  segment_index:null,segment_total:1
+ };
+ return {status:'ready',mark,manual};
+}
+window.BancoMestreAnaliseSelecaoV074={analyze,planOneHighlight,CATEGORIES,LABELS};
 })();
