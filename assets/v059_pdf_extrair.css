@@ -1,0 +1,96 @@
+/* V059 — extração de texto dos grifos: painel de leitura sem sobreposição
+   permanente ao PDF. Mantém a lateral de ferramentas e os dados originais. */
+#pdfDialog #bmV059ExtractMenu{
+ font-weight:700!important;background:#edf7fd!important;
+ border:1px solid #95bbd1!important;color:#1b536f!important;
+}
+#pdfDialog #bmV059ExtractPanel[hidden]{display:none!important}
+#pdfDialog #bmV059ExtractPanel{
+ position:absolute!important;top:46px!important;right:7px!important;
+ bottom:7px!important;z-index:89!important;
+ box-sizing:border-box!important;
+ display:flex!important;flex-direction:column!important;gap:10px!important;
+ width:min(540px,calc(100vw - 14px))!important;max-width:calc(100vw - 14px)!important;
+ min-height:0!important;max-height:calc(100dvh - 54px)!important;
+ padding:14px!important;margin:0!important;
+ background:#fff!important;color:#243c4d!important;
+ border:1px solid #bacfda!important;border-radius:9px!important;
+ box-shadow:0 10px 40px #142a4160!important;
+ overflow:auto!important;
+ font:13px/1.48 system-ui,Arial,sans-serif!important;
+}
+#pdfDialog .bm-v059-panel-head{
+ display:flex!important;justify-content:space-between;align-items:center;
+ gap:12px;padding-bottom:8px;border-bottom:1px solid #d5e2e9;
+}
+#pdfDialog .bm-v059-panel-head strong{
+ font-size:16px!important;color:#1e4664!important;
+}
+#pdfDialog .bm-v059-panel-head button{
+ min-width:31px;min-height:31px;border:1px solid #cad9e2;
+ border-radius:6px;font-size:20px;line-height:1;background:#f6f9fc;
+ color:#3d586b;cursor:pointer;
+}
+#pdfDialog .bm-v059-description,#pdfDialog .bm-v059-note{
+ margin:0;font-size:11px!important;line-height:1.5!important;
+ color:#5b7280!important;
+}
+#pdfDialog .bm-v059-controls{
+ display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:wrap;
+}
+#pdfDialog .bm-v059-controls label{font-size:11px;font-weight:700;white-space:nowrap}
+#pdfDialog .bm-v059-controls select{
+ flex:1 1 190px;min-width:0;min-height:34px;padding:6px;
+ background:white;color:#26485b;border:1px solid #adcadb;border-radius:6px;
+ font-size:12px;
+}
+#pdfDialog .bm-v059-controls button,#pdfDialog .bm-v059-export button{
+ min-height:34px;padding:7px 10px;border:1px solid #9bb9cd;
+ border-radius:6px;background:#eaf5fc;color:#1a5675;
+ font-size:12px;font-weight:700;cursor:pointer;
+}
+#pdfDialog .bm-v059-controls button:disabled,#pdfDialog .bm-v059-export button:disabled{
+ opacity:.4;cursor:not-allowed;
+}
+#pdfDialog #bmV059Status{
+ margin:0!important;padding:8px 9px!important;
+ background:#eef6fb;border-radius:5px;font-size:11px!important;
+ line-height:1.43!important;color:#385c72!important;
+}
+#pdfDialog .bm-v059-summary{display:flex;flex-direction:column;gap:5px}
+#pdfDialog .bm-v059-summary p{margin:0!important;font-size:11px!important;line-height:1.45!important}
+#pdfDialog .bm-v059-summary .bm-v059-metrics{font-weight:700;color:#2e596f}
+#pdfDialog .bm-v059-warning{color:#855323!important;font-size:11px!important}
+#pdfDialog .bm-v059-results{
+ flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;
+ border:1px solid #d7e4ec;border-radius:7px;background:#f8fbfe;
+ padding:6px;scrollbar-width:thin;
+}
+#pdfDialog .bm-v059-result{
+ border:1px solid #dae5ea!important;border-radius:6px!important;
+ background:white!important;padding:9px 10px!important;
+ margin:4px 0 7px!important;
+}
+#pdfDialog .bm-v059-result strong{font-size:11px;color:#235773}
+#pdfDialog .bm-v059-result p{
+ margin:4px 0 0!important;line-height:1.55!important;
+ color:#2a4350!important;font-size:12px!important;overflow-wrap:anywhere;
+}
+#pdfDialog .bm-v059-empty{margin:6px;font-size:12px}
+#pdfDialog .bm-v059-export{
+ display:flex!important;gap:7px!important;flex-wrap:wrap!important;
+ padding-top:8px;border-top:1px solid #d4e4ec;
+}
+#pdfDialog .bm-v059-export button{flex:1 1 125px!important}
+#pdfDialog #bmV059ExtractPanel button:focus-visible,
+#pdfDialog #bmV059ExtractPanel select:focus-visible{
+ outline:2px solid #2a8aa9;outline-offset:1px;
+}
+@media(max-width:650px){
+ #pdfDialog #bmV059ExtractPanel{
+  right:3px!important;top:78px!important;bottom:3px!important;
+  width:calc(100vw - 6px)!important;max-height:calc(100dvh - 81px)!important;
+  padding:10px!important;gap:7px!important;
+ }
+ #pdfDialog .bm-v059-panel-head strong{font-size:14px!important}
+}
