@@ -118,3 +118,12 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Backup do código V070: `backup/v070-before-six-colors-2026-11-10`. Grifos existentes e SRS não são alterados/recoloridos.
 - Mantém a segmentação em trechos atômicos, a revisão manual de notas e assuntos e os demais recursos das versões anteriores. O classificador não produz interpretação normativa garantida.
 - Testes estáticos e do classificador concluídos; teste visual em navegador real pendente.
+
+## V072 — contexto de artigo, parágrafo, inciso, prazo e exceção
+- Backup anterior: `backup/v071-before-contextual-legal-highlights-v072-2026-11-10`.
+- Classificador por regras locais `assets/v072_contexto_normativo.js`, com reconhecimento da estrutura normativa: `Art.`, `§`, parágrafo único, inciso, alínea, Lei, Decreto, NBR e NR.
+- Um mesmo amarelo recebe **notas diferentes**: prazo / termo inicial quando há unidade temporal; conferência do dispositivo integral e edição vigente em referência normativa.
+- Regra contextual para finalizar cor automática na vírgula/fecho de oração. Preserva segmentação e decisão manual em trechos de interpretação ambígua.
+- Núcleo `assets/pdf_v072.js` registra motivo e confiança nos novos grifos; Biblioteca e painel V072 mostram e exportam a justificativa.
+- Testes `tests/v072_classificacao_contextual.json` com 33 verificações isoladas e frase de cinco segmentos; sintaxe e loader verificados. Teste manual com PDF real ainda pendente.
+- Preservados histórico, IDs, 65 PDFs, SRS, imagens excluídas e as versões V071 anteriores. Nenhuma sincronização remota nem migração automática.
