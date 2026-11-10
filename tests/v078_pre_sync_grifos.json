@@ -1,0 +1,31 @@
+{
+  "schema": "BancoMestrePreSyncGrifos",
+  "stage": "V078",
+  "status": "staged_not_live",
+  "test_date": "2026-11-10",
+  "test_colors": {
+    "passed": 16,
+    "total": 16
+  },
+  "comparison_fixture": {
+    "identical": 1,
+    "only_local": 0,
+    "only_remote": 1,
+    "conflict": 1,
+    "metadata_equal": true
+  },
+  "security": [
+    "Escopo OAuth drive.file no clique explícito",
+    "O arquivo remoto só é considerado após tamanho e SHA-256 conferidos",
+    "Valida esquema do backup V066 e chaves duplicadas",
+    "Não grava em localStorage/IndexedDB",
+    "Não faz upload, migração, importação ou exclusão",
+    "Resultado em contagens sem incluir conteúdo privado"
+  ],
+  "pending_tests": [
+    "Validação de seleção em PDF real",
+    "Teste OAuth real pelo titular",
+    "Comparação de cópia Drive real",
+    "Compatibilização com V077 em desenvolvimento concorrente"
+  ]
+}
