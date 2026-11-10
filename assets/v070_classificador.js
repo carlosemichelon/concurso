@@ -63,6 +63,9 @@
    rects:g.tokens.flatMap(t=>Array.isArray(t.rects)?t.rects:[]).slice(0,250),
    color:g.kind?COLORS[g.kind].color:(options.fallbackColor||'#ffe04d'),
    color_label:g.kind?COLORS[g.kind].label:'Sem classificação confirmada',
+   anchor:{quote:compact(g.tokens.map(t=>t.text).join(' ')),
+    prefix:String(g.tokens[0]?.prefix||'').slice(-100),
+    suffix:String(g.tokens[g.tokens.length-1]?.suffix||'').slice(0,100)},
    classification_status:'sugestao',classification_kind:g.kind||'nao_classificado',
    segment_index:i+1,segment_total:grouped.length
   }));
