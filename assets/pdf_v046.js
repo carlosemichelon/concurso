@@ -11,7 +11,7 @@ const versionTag='V038';
 const DB_NAME='BancoMestrePDFLocalV035',STORE='sources';
 let selected=null,pdf=null,sourceBytes=null,info=null,pageNo=1,zoom=1,task=Promise.resolve(),serial=0,painting=false,tool='marker',draft=null,undo=new Map(),redo=new Map(),loadingLib=null,loadingSaveLib=null,dbPromise=null,exportBusy=false,cachedSource=null;
 const OPACITY_KEY='BM_PDF_MARKER_OPACITY_V046';
-let markerOpacity=.24;
+let markerOpacity=.25;
 try{const saved=Number(localStorage.getItem(OPACITY_KEY));if(saved>=.1&&saved<=.65)markerOpacity=saved}catch(_){};
 const pageCanvas=$('pdfLocalCanvas'),inkCanvas=$('pdfInkCanvas');
 const pageWrap=$('pdfPageWrap'),inkCtx=inkCanvas.getContext('2d');
@@ -98,7 +98,7 @@ function markTool(name){
 function stroke(ctx,m,w,h){
  if(!m)return;
  if(m.type==='rect'&&Array.isArray(m.box)&&m.box.length===4){
-  const b=m.box;ctx.save();ctx.globalAlpha=Math.max(.1,Math.min(.65,Number(m.opacity)||.24));
+  const b=m.box;ctx.save();ctx.globalAlpha=Math.max(.1,Math.min(.65,Number(m.opacity)||.25));
   ctx.fillStyle=m.color||'#ffd400';
   ctx.fillRect(Math.min(b[0],b[2])*w,Math.min(b[1],b[3])*h,Math.abs(b[2]-b[0])*w,Math.abs(b[3]-b[1])*h);
   ctx.restore();return;
@@ -112,7 +112,7 @@ function stroke(ctx,m,w,h){
  }
  if(!Array.isArray(m.points)||!m.points.length)return;
  ctx.save();
- const isPen=m.type==='pen',opacity=isPen?1:Math.max(.1,Math.min(.65,Number(m.opacity)||.24));
+ const isPen=m.type==='pen',opacity=isPen?1:Math.max(.1,Math.min(.65,Number(m.opacity)||.25));
  ctx.globalAlpha=opacity;ctx.lineCap='round';ctx.lineJoin='round';
  ctx.strokeStyle=m.color||(isPen?'#174059':'#ffd400');ctx.fillStyle=ctx.strokeStyle;
  const thick=Math.max(1,Math.min(w,h)*(m.size||3)/1000*(isPen?1:1.7));
