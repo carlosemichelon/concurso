@@ -1,0 +1,36 @@
+name: Validar V045 — versão padrão e exclusões do Atlas
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'index.html'
+      - 'assets/version.json'
+      - 'v045.html'
+      - 'assets/v045_atlas_filters.js'
+      - 'tests/v045_index_visibility_browser.cjs'
+      - '.github/workflows/validar-v045.yml'
+  workflow_dispatch:
+jobs:
+  regressao-v045:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Dependências de teste
+        run: npm install --no-save --ignore-scripts --no-audit --no-fund pdfjs-dist@3.11.174 pdf-lib@1.17.1 playwright@1.55.1
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Validar redirecionamento V045 e exclusões reversíveis
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v045.log 2>&1 &
+          sleep 2
+          node tests/v045_index_visibility_browser.cjs
+      - name: Regressão V044 — Atlas 270 + Vade Drive + edição
+        run: node tests/v044_browser.cjs
+      - name: Regressão gravação de cópia Drive V042
+        run: node tests/drive_save_browser_v042.cjs

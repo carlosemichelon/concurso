@@ -1,5 +1,5 @@
 {
-  "version": "V037",
+  "version": "V045",
   "base": "V015",
   "updated_utc": "2026-11-09",
   "counts": {
@@ -16,8 +16,15 @@
     "f17_historic_evolutions": 9
   },
   "cache_policy": "versioned_entrypoint_no_store_bootstrap",
-  "notes": "V037 sobre V036: títulos de assuntos detalhados e cartão identificado por pergunta/ID; macetes apenas nos cartões; interface discursiva para todos os cartões com resposta pessoal, lacunas, guia local e exportação; PDF editável dentro do portal com grifos, notas, referências CARD, classificação de cobertura, importação e salvamento local. Original do Drive, versões e SRS não alterados.",
+  "notes": "V045: v044 com Vade do Drive e editor compacto; Atlas exibe índice dinâmico de imagens ativas e excluídas pelo usuário neste navegador, com restauração. A versão padrão redireciona para v045.html; catálogo 270 IDs, arquivos originais e SRS preservados.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v037.html",
-  "source_base": "V015"
+  "home": "v045.html",
+  "source_base": "V015",
+  "image_index": {
+    "total_cataloged": 270,
+    "groups": "254 imagens históricas + 16 Petrobras 10",
+    "active_count": "calculado no navegador conforme exclusões locais",
+    "exclusions": "reversíveis, por ID, sem excluir originais ou SRS",
+    "storage": "IndexedDB BancoMestreImagensV023 / localStorage BM032_VIS_IMG-P10-*"
+  }
 }
