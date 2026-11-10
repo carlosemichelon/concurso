@@ -1,0 +1,114 @@
+{
+  "version": "V082",
+  "evidence": {
+    "document": "Vade Mecum Senado Federal 3ª ed., atualizado até jan/2026",
+    "pages": 809,
+    "text_equal_on_all_pages_between_copies": true
+  },
+  "examined_pages": [
+    {
+      "pdf_page": 17,
+      "provision": "Constituição art. 19",
+      "classes": [
+        "prazo_numero",
+        "proibicao",
+        "excecao"
+      ]
+    },
+    {
+      "pdf_page": 126,
+      "provision": "Código Civil art. 315",
+      "classes": [
+        "prazo_numero",
+        "obrigacao",
+        "prazo_numero",
+        "excecao"
+      ]
+    },
+    {
+      "pdf_page": 137,
+      "provision": "Código Civil art. 584",
+      "classes": [
+        "prazo_numero",
+        "proibicao",
+        "banca"
+      ]
+    },
+    {
+      "pdf_page": 643,
+      "provision": "ECA art. 185",
+      "classes": [
+        "prazo_numero",
+        "proibicao",
+        "prazo_numero",
+        "obrigacao",
+        "excecao",
+        "prazo_numero"
+      ]
+    },
+    {
+      "pdf_page": 728,
+      "provision": "Lei 14.133 art. 25",
+      "classes": [
+        "prazo_numero",
+        "obrigacao",
+        "banca",
+        "excecao"
+      ]
+    },
+    {
+      "pdf_page": 768,
+      "provision": "LRF art. 38",
+      "classes": [
+        "prazo_numero",
+        "prazo_numero",
+        "banca",
+        "prazo_numero",
+        "obrigacao",
+        "prazo_numero",
+        "prazo_numero",
+        "proibicao"
+      ]
+    }
+  ],
+  "regressions": [
+    {
+      "case": "não unir amarelo através de texto neutro",
+      "pass": true
+    },
+    {
+      "case": "respeitar palavras inteiras e páginas com três colunas",
+      "pass": true
+    },
+    {
+      "case": "incluir quebra de linha virtual de Selection",
+      "pass": true
+    },
+    {
+      "case": "rejeitar divergência entre DOM e seleção",
+      "pass": true
+    },
+    {
+      "case": "não gravar quando seleção estiver geométrica ou semanticamente incerta",
+      "pass": true
+    },
+    {
+      "case": "identificar não será autorizada como proibição",
+      "pass": true
+    },
+    {
+      "case": "não colorir trecho neutro em laranja automaticamente",
+      "pass": true
+    },
+    {
+      "case": "restaurar lote em falha de gravação atômica",
+      "pass": true
+    }
+  ],
+  "boundaries": {
+    "real_pdf_text_tested": true,
+    "actual_browser_pdf_reader_tested": false,
+    "drive_originals_modified": false
+  },
+  "notes": "A análise de texto foi realizada sobre a extração real de PDFs locais; os retângulos e quebras em navegador foram verificados por simulação. Teste no próprio site com OAuth e dispositivo permanece pendente."
+}

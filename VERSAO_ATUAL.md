@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V081.
+- **Site publicado:** V082.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v081.html`.
-- **Versão anterior preservada:** `gh-pages/v080.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v082.html`.
+- **Versão anterior preservada:** `gh-pages/v081.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -238,3 +238,14 @@
 - `assets/pdf_v081.js` reexpõe a operação `addTextHighlights` já existente no núcleo, com **uma escrita em localStorage e um desfazer** para o lote; falhas restauram o estado anterior sem gravação parcial. Anotações antigas não sofrem migração.
 - Arquivos independentes `assets/v081_multicor.css`, `tests/v081_multicor.json` e `docs/V081_GRIFOS_MULTICOR.md`. Versão V080 e backups preservados em `backup/v080-before-paragraph-multicolor-v081-2026-11-10`.
 - **Testes concluídos:** classificação sintética 13/13, palavra fragmentada em spans, bloqueio de palavra parcial, atomicidade e rollback. **Ainda pendente:** homologação com PDF real, zoom e reabertura no Chrome/Android do titular; classificação local é heurística, não interpretação normativa confiável.
+
+
+## V082 — testes com Vade Mecum real e correção de falsos grifos (10/11/2026)
+
+- Auditoria com duas versões reais do **Vade Mecum Senado Federal 3ª edição** (809 páginas cada). Texto digital de ambas as versões coincide nas 809 páginas. PDFs originais privados no Google Drive, não migrados e sem qualquer escrita/alteração.
+- Páginas verificadas: **17** (CF art. 19), **126** (CC art. 315), **137** (CC art. 584), **643** (ECA art. 185), **728** (Lei 14.133 art. 25) e **768** (LRF art. 38). Reconhecimento com os trechos extraídos do PDF: seis casos avaliados e aprovados após correção.
+- Falha real 1: o planejador multicolorido V081 unia dois segmentos da mesma cor separados por muitas palavras sem categoria, criando grifo amarelo excessivo. `assets/v082_multicor.js` só une os segmentos quando existe **apenas espaço em branco** entre eles e a expressão anterior não termina em pontuação forte.
+- Falha real 2: `Selection.toString()` insere quebra de linha virtual de elementos `<br>` em PDF.js; o `Range.toString()` não a inclui. `assets/v082_grifador.js` mapeia as palavras aos caracteres DOM mesmo nessa condição e **não salva automaticamente** se o alinhamento não é seguro.
+- Falha real 3: o classificador não identificava `não será autorizada` como proibição. `assets/v082_contexto_normativo.js` acrescenta variantes de autorização e mantém as demais expressões normativas.
+- Motor atômico de grifos `assets/pdf_v081.js`, seis cores fixas, laranja manual, 72 PDFs no catálogo, flashcards, SRS e Drive preservados.
+- Backup anterior: `backup/v081-before-vade-test-fixes-v082-2026-11-10`. V081 também permanece disponível. **Pendente:** homologação do PDF real pelo leitor V082 em navegador Chrome/Android com conta do titular.
