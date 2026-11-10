@@ -1,0 +1,14 @@
+/* Pré-sincronização V078 — estilo isolado, sem impacto no editor legado. */
+#bmPreSyncGrifos{margin:14px 0;padding:15px;border:1px solid #bad5cf;background:#f7fbfa;border-radius:10px}
+#bmPreSyncGrifos h3{font-size:16px;margin:0 0 8px;color:#28504b}
+#bmPreSyncGrifos p{font-size:13px;line-height:1.5;margin:6px 0}
+#bmPreSyncGrifos small{font-size:11px;color:#4c6661}
+#bmPreSyncGrifos .bmps-controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+#bmPreSyncGrifos button{padding:8px 12px;border:1px solid #91b7b0;border-radius:7px;background:#fff;cursor:pointer;color:#244c49}
+#bmPreSyncGrifos button:disabled{cursor:not-allowed;opacity:.5}
+#bmpsResults{max-height:270px;overflow:auto}
+#bmpsResults p{padding:5px 1px;margin:0;border-bottom:1px solid #e0ece8;overflow-wrap:anywhere}
+#bmpsResults p[data-kind="ok"]{color:#266044}
+#bmpsResults p[data-kind="warning"],#bmpsResults p[data-kind="error"]{color:#a13a38}
+#bmpsResults p[data-kind="info"]{color:#42636d}
+@media(max-width:650px){#bmPreSyncGrifos button{width:100%}}
