@@ -1,0 +1,51 @@
+{
+  "schema": "BancoMestreVersionDiagnosticsV079",
+  "version": "V079",
+  "checks": [
+    {
+      "version": "V079",
+      "home": "v079.html",
+      "page": "/concurso/v079.html",
+      "expected": "ok",
+      "actual": "ok"
+    },
+    {
+      "version": "V079",
+      "home": "v079.html",
+      "page": "/concurso/v078.html",
+      "expected": "warning",
+      "actual": "warning"
+    },
+    {
+      "version": "V079",
+      "home": "v078.html",
+      "page": "/concurso/v079.html",
+      "expected": "problem",
+      "actual": "problem"
+    },
+    {
+      "version": "invalid",
+      "home": "v079.html",
+      "page": "/concurso/v079.html",
+      "expected": "problem",
+      "actual": "problem"
+    },
+    {
+      "version": "V079",
+      "home": "v079.html",
+      "page": "/concurso/index.html",
+      "expected": "ok",
+      "actual": "ok"
+    },
+    {
+      "version": "V079",
+      "home": "v079.html",
+      "page": "/concurso/v079.html?x=1",
+      "expected": "ok",
+      "actual": "ok"
+    }
+  ],
+  "passed": 6,
+  "total": 6,
+  "notes": "Manifesto coerente, página histórica, manifesto inconsistente; verificação sem escrita."
+}
