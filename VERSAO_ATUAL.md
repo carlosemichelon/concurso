@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V074.
+- **Site publicado:** V075.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v074.html`.
-- **Versão anterior preservada:** `gh-pages/v073.html` (V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v075.html`.
+- **Versão anterior preservada:** `gh-pages/v074.html` (V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -166,3 +166,18 @@
 - Arquivos: `assets/pdf_v074.js`, `assets/v074_analise_selecao.js`, `assets/v074_grifador.js`, `assets/v074_grifo_unico.css`; HTML `v074.html`; regressão `tests/v074_selecao_unica_cores.json`.
 - Backup anterior: `backup/v073-before-unified-highlights-v074-2026-11-10`. Todos os grifos segmentados *existentes* permanecem sem migração e sem mescla automática; nenhuma anotação é apagada ou recolorida.
 - **Testes:** reconhecimento de cinco cores com gatilhos explícitos, bloqueio de seleção ambígua, criação única multilinha, prioridade da cor manual e alteração com ID preservado foram simulados e passaram. **Pendente:** teste no navegador do usuário com PDF real, reabertura, zoom e interface mobile.
+
+## V075 — exatamente seis cores fixas na metodologia (10/11/2026)
+
+- **Vermelho `#FF8F96`:** Proibições e vedações (é vedado, não poderá).
+- **Verde `#86DCAA`:** Obrigações e deveres (deverá, compete).
+- **Amarelo `#FFEA70`:** Prazos e números (em até 30 dias, 2 anos).
+- **Azul `#89C7FF`:** Exceções e ressalvas (salvo, exceto, ressalvada).
+- **Roxo `#CCA7FF`:** Palavras-chave da banca (exclusivamente, sempre, jamais).
+- **Laranja `#FFB86B`:** Conteúdo importante a destacar, **escolhido manualmente**; substitui o significado de "regra principal" nas marcações NOVAS.
+- Paleta do novo grifador tem somente essas seis cores: retirados o seletor de cor livre e a opção de alterar o significado das categorias. Configurações históricas de cores não são apagadas, apenas não alteram a nova paleta.
+- Cores sugeridas continuam disponíveis para as cinco categorias objetivas. Seleção neutra ou ambígua solicita escolha manual; não é automaticamente destacada em laranja.
+- Mantida V074: **uma seleção = um grifo, um ID e uma cor**, inclusive multilinha. Grifos antigos (inclusive `regra`, `agente`, `condicao` e cores personalizadas históricas) permanecem intactos.
+- Arquivos novos: `assets/pdf_v075.js`, `assets/v075_seis_cores.js`, `assets/v075_analise_selecao.js`, `assets/v075_grifador.js`, `assets/v075_paleta_fixa.css`; página `v075.html`; testes `tests/v075_seis_cores_fixas.json`.
+- Backup do código anterior: `backup/v074-before-fixed-six-colors-v075-2026-11-10`. Não equivale a backup de dados privados do navegador.
+- Sintaxe, classificação, seleção ambígua e preservação das categorias legadas testadas isoladamente. Ainda falta validar a operação visual em PDF real no navegador.
