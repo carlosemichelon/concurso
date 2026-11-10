@@ -1,5 +1,5 @@
 {
-  "version": "V061",
+  "version": "V062",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -13,12 +13,13 @@
     "f17_archived_answers": 9,
     "f17_documented_links": 7,
     "f17_archived_mentions": 28,
-    "f17_historic_evolutions": 9
+    "f17_historic_evolutions": 9,
+    "pdfs": 65
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
+  "notes": "V062 — catálogo de PDFs ampliado de 63 para 65: dois textos de resolução CONAMA marcados ORIGINAL, separados das apostilas TEC Concursos. Arquivos no Google Drive, sem alteração dos originais, do editor V061, dos cartões, SRS ou anotações pessoais. V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v061.html",
+  "home": "v062.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -38,7 +39,7 @@
     "answer_initially_hidden": true,
     "version": "V060"
   },
-  "previous_version": "V060",
+  "previous_version": "V061",
   "style_sheet": "assets/v061_selecao_texto.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
@@ -182,5 +183,25 @@
     ],
     "reference": "PLANO_GRIFOS_2026_11_10.md",
     "question22_approved": false
+  },
+  "pdf_originals_added_v062": {
+    "catalog": "assets/pdf_catalog_v062.json",
+    "count_before": 63,
+    "count_after": 65,
+    "items": [
+      {
+        "id": "PETRO10-CONAMA-001-ORIGINAL",
+        "file_id": "1NXA2iF85ngyuY4dqQo5mcldbQgk12lpY",
+        "pages": 5
+      },
+      {
+        "id": "PETRO10-CONAMA-237-ORIGINAL",
+        "file_id": "1qwRg_qaNa7Vin6yTZUIYeYeXjC35FJLj",
+        "pages": 11
+      }
+    ],
+    "legacy_catalog": "assets/pdf_catalog_v027.json",
+    "site_previous": "v061.html",
+    "annotation_policy": "O estudante realiza os próprios grifos; sem gravação automática no Drive; cópias históricas, conferir vigência"
   }
 }
