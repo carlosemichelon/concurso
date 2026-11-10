@@ -1,5 +1,5 @@
 {
-  "version": "V053",
+  "version": "V054",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -16,9 +16,9 @@
     "f17_historic_evolutions": 9
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V053: o editor de imagens passa a abrir com a ferramenta ✥ Deslocar (pan) selecionada, inclusive ao reabrir. Demais ferramentas, grifos, imagens, base, PDFs, SRS, scripts e funcionalidades preservados. V052 anterior intacta.",
+  "notes": "V054: cabeçalho do assunto muito menor (título, rótulo, trilha e botão voltar), navegação de temas pelo histórico Voltar/Avançar e endereços específicos por grupo/assunto, permitindo abertura direta por link. Editor pan V053, dados, imagens, SRS, PDFs, cartões e leitores preservados; V053 intacta.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v053.html",
+  "home": "v054.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -36,10 +36,11 @@
     "changes_srs": false,
     "opens_new_tab": false,
     "answer_initially_hidden": true,
-    "version": "V053"
+    "version": "V054"
   },
-  "previous_version": "V052",
-  "style_sheet": "assets/v052_refinamentos.css",
+  "previous_version": "V053",
+  "style_sheet": "assets/v054_topico_compacto.css",
   "image_editor_default_tool": "pan",
-  "image_editor_script": "assets/editor_imagens_v053.js"
+  "image_editor_script": "assets/editor_imagens_v053.js",
+  "topic_navigation": "history.pushState com #tema?g=<grupo>&s=<assunto>; popstate e deep links"
 }
