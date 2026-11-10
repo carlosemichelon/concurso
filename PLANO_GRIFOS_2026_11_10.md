@@ -92,3 +92,11 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - **NÃO foram implementados**: OCR, remapeamento entre versões do PDF, extensão Chrome, sincronização bidirecional com Drive nem conector ChatGPT. Backup consentido V066 permanece.
 - Arquivos novos: `assets/pdf_v068.js`, `assets/v068_grifador.js`, `assets/v068_grifador.css`, `assets/v068_biblioteca_grifos.js`, `assets/v068_painel_grifos.js`.
 - Verificação de sintaxe dos arquivos, integração do loader, testes isolados de alterações de registros e desenho dos estilos. Teste com PDF real no navegador e acesso real Drive pendentes.
+
+## V069 — estabilização e auditoria de regressão (10/11/2026)
+- Backup de código V068: `backup/v068-before-highlighter-stability-v069-2026-11-10`.
+- Novos scripts `assets/pdf_v069.js`, `assets/v069_grifador.js`, `assets/v069_biblioteca_grifos.js`, `assets/v069_painel_grifos.js`. HTML `v069.html`; a base V062 com 65 PDFs permanece preservada.
+- Corrigida a janela de tempo em que a camada de texto podia ser usada antes do término da pintura da página.
+- Inclusão de evento após persistência das anotações locais para sincronizar a vista da Biblioteca e do painel.
+- Desfazer após excluir foi condicionado a contexto estável, sem novas edições; âncora textual de seleção reversa ajustada; sublinhado duplo ganhou comando; mudança de estilo preserva a cor.
+- Testes estáticos e unitários isolados; teste end-to-end no navegador, importação, OCR, reancoragem de versões e sincronização bidirecional com Drive continuam pendentes.
