@@ -1,5 +1,5 @@
 {
-  "version": "V060",
+  "version": "V061",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -16,9 +16,9 @@
     "f17_historic_evolutions": 9
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
+  "notes": "V061 — primeira etapa do grifador por seleção textual: camada PDF.js, modo Selecionar texto inicial, grifo automático de palavras com cor/nota/IDs de flashcards/desfazer no menu flutuante. Registro local por texto exato + retângulos, documento/hash/página; PDF anotado e grifo livre existentes preservados. V060 imutável e copiada integralmente em backup/v060-before-text-selection-2026-11-10. A biblioteca completa, sincronização Drive, OCR, migração e extensão Chrome permanecem futuras. V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v060.html",
+  "home": "v061.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -38,8 +38,8 @@
     "answer_initially_hidden": true,
     "version": "V060"
   },
-  "previous_version": "V059",
-  "style_sheet": "assets/v060_barras_edicao.css",
+  "previous_version": "V060",
+  "style_sheet": "assets/v061_selecao_texto.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
   "topic_navigation": "history.pushState com #tema?g=<grupo>&s=<assunto>; popstate e deep links",
@@ -51,16 +51,16 @@
   "card_preview_front_first": true,
   "pdf_groups_collapsed_by_default": true,
   "pdf_reader_fullscreen": true,
-  "pdf_reader_controls": "dois botões flutuantes (opções/fechar); ferramentas de grifos por menu; toolbar e dhead sem faixa permanente",
+  "pdf_reader_controls": "Barra completa V060 na lateral do PDF editável; seleção nativa de texto ativada por padrão V061; grifo livre, caneta, borracha e navegação preservados.",
   "pdf_reader_dock": {
     "toolbar": "fixa e flutuante (▤ Grifar, ✥ Mover, ↶ Desfazer, ↷ Refazer, Pág. N, Ir)",
     "page_jump": "via editor PDF local e identificador de página",
     "undo_shortcut": "Ctrl+Z ou Cmd+Z na página ativa; Ctrl+Y ou Ctrl+Shift+Z refaz",
-    "default_tool": "marker",
+    "default_tool": "select",
     "scope": "editor PDF, sem alterações no SRS e nos originais"
   },
   "pdf_highlight_two_clicks": {
-    "default_tool": "marker",
+    "default_tool": "marker, quando grifo livre for selecionado",
     "usage": "um clique no começo, outro clique no fim da mesma linha",
     "alignment": "horizontal, altura definida pelo primeiro clique",
     "drag_compatibility": "grifo livre preservado",
@@ -80,8 +80,8 @@
       "baixar_TXT",
       "baixar_JSON"
     ],
-    "source": "PDF.js getTextContent + coordenadas dos grifos locais",
-    "precision": "aproximada; revisão manual obrigatória",
+    "source": "texto nativo selecionado via PDF.js renderTextLayer nos grifos V061; getTextContent + coordenadas nos grifos legados",
+    "precision": "texto exato para grifos nativos V061; geométrica aproximada para grifos anteriores V060; revisar OCR/trechos",
     "scanned": "sem camada digital: sinaliza necessidade de OCR; não executa OCR",
     "writeback": "nenhuma modificação automática em PDF, grifos, flashcards ou SRS"
   },
@@ -113,5 +113,74 @@
       "SRS"
     ],
     "cloud_sync": false
+  },
+  "pdf_text_selection": {
+    "version": "V061",
+    "implemented": true,
+    "scope": "somente PDF editável no leitor local, com camada de texto digital",
+    "default_tool": "select",
+    "fallback": "marcador livre da V058 preservado",
+    "ui": "botão Selecionar texto; menu flutuante após grifar com cor, nota, IDs de flashcards existentes e desfazer",
+    "source": "PDF.js 3.11.174 renderTextLayer + seleção nativa do navegador",
+    "storage": "BM030_STROKES_PDF:<documentId>:<hash>:P<page>; marca type text_highlight",
+    "metadata": [
+      "id",
+      "text",
+      "rects",
+      "color",
+      "opacity",
+      "source_id",
+      "source_hash",
+      "page",
+      "created_at",
+      "note",
+      "card_ids"
+    ],
+    "export": "PDF com anotação compatível; TXT/JSON pela extração V061",
+    "not_done": [
+      "biblioteca_central",
+      "sincronizacao_Drive",
+      "OCR",
+      "migração_V060",
+      "extensao_Chrome",
+      "conector_ChatGPT"
+    ],
+    "confidence": "testes de sintaxe e estrutura; não foi possível testar visualmente em navegador com PDF real"
+  },
+  "backup_before_v061": {
+    "source_version": "V060",
+    "branch": "backup/v060-before-text-selection-2026-11-10",
+    "commit": "a4c6be8198f028b3ac5f35d0f8dcb70363d88f85",
+    "browser_data_included": false
+  },
+  "highlight_alignment_decisions": {
+    "approved": 21,
+    "option_A": [
+      1,
+      19
+    ],
+    "option_B": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      21
+    ],
+    "reference": "PLANO_GRIFOS_2026_11_10.md",
+    "question22_approved": false
   }
 }
