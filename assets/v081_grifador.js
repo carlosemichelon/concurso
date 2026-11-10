@@ -1,3 +1,4 @@
+/* V081 — prévia multicolorida por cláusulas e gravação conjunta após confirmação. */
 /* V080 — modo manual pede escolha de cor; histórico de grifos inalterado. */
 /* V075 — seis cores fixas e laranja para conteúdo importante; grifos antigos intactos. */
 /* V074 — um grifo por seleção, cor automática conservadora e escolha manual prioritária. */
@@ -42,7 +43,7 @@ topBar.innerHTML='<div class="bm068-brand"><span class="bm068-symbol">◈</span>
  '<div class="bm068-reader-actions"><button type="button" id="bm068QuickToggle">Rápido</button>'+
  '<button type="button" id="bm068OpenPanel">☰ Meus grifos</button>'+
  '<button type="button" id="bm068Settings">⚙ Atalhos</button>'+
- '<button type="button" id="bm070Smart" aria-pressed="true" title="Sugerir uma cor para toda a seleção, sem fragmentar">◈ Uma cor por seleção</button></div>'+
+ '<button type="button" id="bm070Smart" aria-pressed="true" title="Reconhecer várias cores dentro do parágrafo, por trecho completo">◈ Cores por trecho</button></div>'+
  '<small id="bm068ModeHint" role="status">Arraste para selecionar palavras</small>';
 tools.prepend(topBar);
 const popup=document.createElement('div');popup.id='bm068Palette';popup.hidden=true;
@@ -64,6 +65,13 @@ dlg.append(popup);
 const advice=document.createElement('p');advice.id='bm074ColorAdvice';advice.hidden=true;
 advice.setAttribute('role','status');advice.setAttribute('aria-live','polite');
 popup.querySelector('.bm068-commands').before(advice);
+const multiPreview=document.createElement('div');multiPreview.id='bm081Preview';multiPreview.hidden=true;
+multiPreview.setAttribute('role','status');multiPreview.setAttribute('aria-live','polite');
+advice.after(multiPreview);
+const multiApply=document.createElement('button');
+multiApply.id='bm081ApplyMulti';multiApply.type='button';multiApply.hidden=true;
+multiApply.textContent='Aplicar cores identificadas';
+popup.querySelector('.bm068-commands').prepend(multiApply);
 const editor=document.createElement('section');editor.id='bm068Editor';editor.hidden=true;
 editor.setAttribute('role','dialog');editor.setAttribute('aria-modal','true');editor.setAttribute('aria-label','Anotações do trecho selecionado');
 editor.innerHTML='<div class="bm068-editor-card"><header><div><strong>✎ Notas do grifo</strong><small id="bm068NoteExcerpt"></small></div>'+
@@ -123,17 +131,17 @@ function updateMode(){
  selectBtn.setAttribute('aria-pressed',String(active));
  $('bm068QuickToggle').setAttribute('aria-pressed',String(quick));
  $('bm070Smart').setAttribute('aria-pressed',String(smart));
- $('bm070Smart').textContent=smart?'◈ Uma cor por seleção: automática':'◈ Uma cor por seleção: manual';
+ $('bm070Smart').textContent=smart?'◈ Cores por trecho: automático':'◈ Cores por trecho: manual';
  $('bm068QuickToggle').textContent=quick?'⚡ Rápido ligado':'⚡ Rápido desligado';
  $('bm068ModeHint').textContent=!active?'Ative Grifar palavras para selecionar texto':
   reselection?'Selecione outro trecho para atualizar o grifo existente':
-  quick?(smart?'Selecione o trecho: uma única cor e um único grifo':'Selecione: uma única marca com a cor manual atual'):'Selecione o trecho inteiro e escolha uma única cor';
+  quick?(smart?'Selecione o parágrafo e confira as cores sugeridas':'Selecione e escolha a cor manual'):'Selecione o texto e confirme os trechos encontrados';
  if(!active)closeMenu();
 }
 window.addEventListener('bm-pdf-tool-change',updateMode);
 $('bm068QuickToggle').onclick=()=>{quick=!quick;safeWrite(KEY_QUICK,quick?'1':'0');updateMode();status(quick?'Marcador rápido ativado':'Marcador rápido desativado')};
 $('bm070Smart').onclick=()=>{smart=!smart;safeWrite(KEY_SMART,smart?'1':'0');updateMode();
- status(smart?'Sugestão de uma cor ativada; trechos mistos exigem escolha manual.':'Cor automática desligada; cor manual ativa. Grifos anteriores mantidos.')};
+ status(smart?'Reconhecimento multicolorido ativado; revise a prévia antes de salvar.':'Cor automática desligada; cor manual ativa. Grifos anteriores mantidos.')};
 $('bm068OpenPanel').onclick=()=>{const panel=$('bm064TogglePanel');if(panel)panel.click();else status('O painel de grifos ainda não carregou')};
 $('bm068Settings').onclick=()=>{$('bm068KeyQuick').value=keys.quick;$('bm068KeyPanel').value=keys.panel;settings.hidden=false;$('bm068KeyQuick').focus()};
 $('bm068SettingsCancel').onclick=()=>settings.hidden=true;
@@ -159,11 +167,23 @@ function popupAt(x,y){
 function show(mark,x,y,pending=false){
  activeId=mark?.id||null;lastAt={x,y};
  $('bm068CurrentText').textContent=mark?.text?.slice(0,85)||'Seleção de texto';
- const canSuggest=pending&&smart&&pendingAnalysis?.status==='clara';
+ const canSuggest=pending&&smart&&pendingAnalysis?.status==='clara'&&!pendingMulti;
+ const multicolor=!!(pending&&smart&&pendingMulti?.status==='ready');
+ multiApply.hidden=!multicolor;multiPreview.hidden=!multicolor;multiPreview.replaceChildren();
+ if(multicolor){
+  for(const part of pendingMulti.segments){
+   const item=document.createElement('div');item.className='bm081-preview-row';
+   const color=document.createElement('span');color.className='bm081-preview-swatch';
+   color.style.backgroundColor=part.color;color.setAttribute('aria-hidden','true');
+   const label=document.createElement('span');label.textContent=part.label+': '+part.text.slice(0,95);
+   item.append(color,label);multiPreview.append(item);
+  }
+  multiApply.textContent='Aplicar '+pendingMulti.segments.length+' trecho(s) colorido(s)';
+ }
  $('bm068Apply').hidden=true; // V080: modo manual requer clique em uma das seis cores
  $('bm070ApplyAuto').hidden=!canSuggest;
  if(canSuggest)$('bm070ApplyAuto').textContent='◈ Grifar tudo em '+pendingAnalysis.label;
- advice.hidden=!pending;
+ advice.hidden=!pending||multicolor;
  if(pending)advice.textContent=smart?(pendingAnalysis?.reason||'Escolha uma cor para o trecho inteiro.'):
   'Modo manual: escolha uma única cor. O texto inteiro será um grifo.';
  else advice.textContent='';
@@ -209,7 +229,7 @@ $('bm068DoubleUnderline').onclick=()=>applyStyle('double-underline');
 $('bm068Strike').onclick=()=>applyStyle('strike');
 $('bm068Hide').onclick=()=>applyStyle(current()?.style==='conceal'?'highlight':'conceal');
 $('bm068FloatClose').onclick=()=>{pending=null;pendingAnalysis=null;closeMenu()};
-let pending=null,pendingAnalysis=null;
+let pending=null,pendingAnalysis=null,pendingMulti=null;
 function computeSelectionAnalysis(){
  return window.BancoMestreAnaliseSelecaoV075?.analyze(pending?.words||[],pending?.text||'')||{
   status:'indefinida',kind:null,reason:'Classificador indisponível. Escolha uma cor manualmente.',
