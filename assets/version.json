@@ -1,5 +1,5 @@
 {
-  "version": "V059",
+  "version": "V060",
   "base": "V015",
   "updated_utc": "2026-11-10",
   "counts": {
@@ -16,9 +16,9 @@
     "f17_historic_evolutions": 9
   },
   "cache_policy": "static_versioned_entrypoint_preserves_older_versions",
-  "notes": "V059: implementa extração para conferência de textos sob grifos em PDFs com texto digital. Menu ⋮ > Extrair textos grifados; página atual ou documento inteiro, identificação de documento/hash/página, visualização por trecho, copiar texto, baixar TXT e JSON. Correspondência geométrica aproximada de coordenadas dos grifos com camada de texto PDF.js; PDFs escaneados sem texto indicam OCR necessário, não aplicado automaticamente. V058 e anteriores, grifos, SRS, cartões, PDFs e originais preservados.",
+  "notes": "V060: barra original #pdfMainV043 com navegação, zoom, caneta, grifo, borracha, mover, cores, cartões, desfazer/refazer, PDF/Drive permanece visível na lateral enquanto o PDF está em edição. Campo Ir para página mantido na mesma lateral; o menu de extrair textos grifados V059 é preservado. Imagem: título, Fechar e barra de metadados/zoom movidos para a lateral, eliminando o cabeçalho superior. Atlas: Editar cartão permite personalizar título, área, assunto, descrição e notas por ID em armazenamento local, com restauração dos textos originais; ID, alertas técnicos, SRS, PDFs e fontes preservados. V059 intacta.",
   "note": "A correção discursiva automática por IA e o cotejo de literalidade/vigência para cada cartão ainda requerem avaliação individual; textos genéricos não são apresentados como resposta-guia desenvolvida. Anotações e arquivos locais não sincronizam com o Drive.",
-  "home": "v059.html",
+  "home": "v060.html",
   "source_base": "V015",
   "image_index": {
     "total_cataloged": 270,
@@ -36,10 +36,10 @@
     "changes_srs": false,
     "opens_new_tab": false,
     "answer_initially_hidden": true,
-    "version": "V059"
+    "version": "V060"
   },
-  "previous_version": "V058",
-  "style_sheet": "assets/v059_pdf_extrair.css",
+  "previous_version": "V059",
+  "style_sheet": "assets/v060_barras_edicao.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
   "topic_navigation": "history.pushState com #tema?g=<grupo>&s=<assunto>; popstate e deep links",
@@ -84,5 +84,34 @@
     "precision": "aproximada; revisão manual obrigatória",
     "scanned": "sem camada digital: sinaliza necessidade de OCR; não executa OCR",
     "writeback": "nenhuma modificação automática em PDF, grifos, flashcards ou SRS"
+  },
+  "pdf_tools_sidebar": {
+    "persistent": true,
+    "source": "elementos e handlers originais #pdfMainV043",
+    "during": "editor PDF ativo",
+    "sidebar": "rolagem vertical com ferramentas e paginação da V057"
+  },
+  "image_editor_sidebar": {
+    "header_removed_from_top": true,
+    "title_close_in_sidebar": true,
+    "zoom_metadata_in_sidebar": true
+  },
+  "atlas_card_text_editing": {
+    "fields": [
+      "titulo",
+      "area",
+      "assunto",
+      "descricao",
+      "observacoes_pessoais"
+    ],
+    "storage": "localStorage BM060_ATLAS_CARD_FIELDS + BM055_ATLAS_CUSTOM_TITLES",
+    "restore_original": true,
+    "immutable": [
+      "ID",
+      "status de verificação",
+      "originais",
+      "SRS"
+    ],
+    "cloud_sync": false
   }
 }
