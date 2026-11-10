@@ -1,0 +1,31 @@
+/* V048 — Atlas técnico, cartão rápido sempre acessível e rolagem do PDF. */
+#imagens .bm-v048-image-description{font-size:12px;line-height:1.45;color:#37575c;margin:7px 0 0}
+#imagens .bm-v048-image-warning{display:block;color:#8a5333;font-size:11px;font-weight:700;margin:5px 0}
+#imagens .bm-v044-atlas-controls{gap:7px;flex-wrap:wrap}
+#imagens .bm-v044-atlas-controls select{min-width:145px}
+#pdfDialog .toolbar #pdfQuickCardV047{
+ display:inline-flex;align-items:center;justify-content:center;gap:4px;
+ white-space:nowrap;padding:4px 9px;min-height:28px;min-width:72px;width:auto!important;
+ font-size:12px!important;font-weight:750;background:#edf7f4;border-color:#8cbcb0;color:#145e63;
+}
+#pdfDialog .toolbar #pdfQuickCardV047[aria-expanded="true"]{background:#16616a;color:white}
+#pdfDialog .bm-v047-card-panel{top:5px;bottom:5px;right:5px;z-index:15}
+#pdfDialog #pdfLocalMode{scroll-behavior:auto;overscroll-behavior:contain}
+#pdfDialog #pdfPageWrap{margin:9px auto 15px!important}
+#pdfDialog .bm-v048-neighbor{
+ position:relative;display:block;margin:11px auto 15px;
+ max-width:none;border-radius:2px;background:white;
+ box-shadow:0 5px 20px #2442403a;
+}
+#pdfDialog .bm-v048-neighbor[hidden]{display:none!important}
+#pdfDialog .bm-v048-neighbor-canvas{position:relative;line-height:0}
+#pdfDialog .bm-v048-neighbor-canvas canvas{display:block;max-width:none;max-height:none}
+#pdfDialog .bm-v048-neighbor-canvas canvas+canvas{position:absolute;left:0;top:0;pointer-events:none}
+#pdfDialog .bm-v048-page-caption{
+ display:block;position:relative;min-height:18px;padding:1px 5px;line-height:17px;
+ background:#edf4f2;color:#335f66;font:10px/17px system-ui,sans-serif;text-align:left;
+}
+@media(max-width:700px){
+ #pdfDialog .toolbar #pdfQuickCardV047{min-width:62px;font-size:11px!important;padding:3px 5px}
+ #imagens .bm-v044-atlas-controls select{min-width:125px;max-width:100%}
+}
