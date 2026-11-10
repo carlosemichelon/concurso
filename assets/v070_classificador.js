@@ -105,14 +105,22 @@
  }
  function suggestNote(segment){
   const text=compact(segment?.text||'').slice(0,280);
-  const category=segment?.kind||'';
-  const intro={
-   regra:'Regra principal a conferir no contexto da fonte',
-   agente:'Verificar quem possui competência para agir e em quais limites',
-   excecao:'Ressalva à regra geral; identificar a hipótese e seus efeitos',
-   condicao:'Condição, prazo ou requisito; identificar quando se aplica'
-  }[category]||'Trecho a classificar após leitura do contexto';
-  return {text:intro+(text?': “'+text+'”':''),status:'sugestao_nao_confirmada'};
+  const category=segment?.kind||'',normalized=plain(text);
+  const limit=normalized.match(/\b\d+(?:[.,]\d+)?\s*(?:dias?|horas?|mes(?:es)?|anos?|semanas?|%|metros?|cm|mm)\b/);
+  const actor=normalized.match(/\b(?:orgao(?:\s+ambiental)?|autoridade(?:\s+competente)?|prefeitura|municipio|conselho|engenheiro(?:\s+responsavel)?)\b/);
+  let intro;
+  if(category==='condicao'){
+   intro=limit?'Prazo/limite indicado: '+limit[0]+'. Verificar marco inicial, hipótese e exceções':
+    'Identificar o requisito e a situação em que esta condição se aplica';
+  }else if(category==='agente'){
+   intro=actor?'Agente citado: '+actor[0]+'. Conferir a competência e o ato que pode praticar':
+    'Identificar quem pode agir, o fundamento e o limite da competência';
+  }else if(category==='excecao'){
+   intro='Hipótese de exceção/ressalva: conferir qual regra geral é afastada e em que condições';
+  }else if(category==='regra'){
+   intro='Regra principal: conferir obrigação, alcance e eventual consequência';
+  }else intro='Trecho sem classificação segura; revisar a fonte antes de atribuir cor e assunto';
+  return {text:intro+(text?'. Trecho-fonte: “'+text+'”':''),status:'sugestao_nao_confirmada'};
  }
  window.BancoMestreClassificadorV070={COLORS,classifyWords,suggestSubject,suggestNote,plain};
 })();
