@@ -1,0 +1,48 @@
+/* V043: editor PDF com comandos compactos e área de leitura prioritária. */
+/* Escopo restrito a #pdfDialog: outras telas e editores permanecem intactos. */
+#pdfDialog{width:min(1650px,99vw);max-width:99vw;height:98dvh;max-height:98dvh;border-radius:9px}
+#pdfDialog>.dhead{min-height:35px;padding:4px 8px;gap:8px}
+#pdfDialog>.dhead strong{font-size:13px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#pdfDialog>.dhead #pdfClose{margin-left:auto;flex-shrink:0;min-height:28px;padding:3px 9px;font-size:12px}
+#pdfDialog .toolbar{min-height:32px;padding:3px 7px;gap:5px;flex-wrap:nowrap}
+#pdfDialog .toolbar button,#pdfDialog .toolbar a.action{min-height:27px;padding:3px 7px;font-size:11px;white-space:nowrap}
+#pdfDialog .toolbar .pdfInfo{display:none!important}
+#pdfDialog:has(#pdfLocalMode.active) .toolbar #pdfChooseLocal{display:none}
+#pdfDialog .pdfMiniTools{display:flex;flex:0 0 auto;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:0;padding:0;background:#fff;max-height:none;overflow:visible}
+#pdfDialog .pdfMiniTools[hidden]{display:none!important}
+#pdfDialog .bm-v043-main{display:flex;align-items:center;gap:3px;white-space:nowrap;min-height:36px;padding:3px 6px;max-width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#aec5c0 transparent;overscroll-behavior-x:contain}
+#pdfDialog .bm-v043-main .pdfGroup{flex:0 0 auto;gap:3px;margin:0 4px 0 0;padding:0 6px 0 0;min-height:27px;border-right:1px solid #cbded9}
+#pdfDialog .bm-v043-main .pdfGroup:last-of-type{margin-right:0}
+#pdfDialog .bm-v043-main button,#pdfDialog .bm-v043-advanced button{
+ min-height:28px;height:28px;border-radius:6px;font-size:11px;line-height:1;
+ padding:3px 7px;white-space:nowrap;flex:0 0 auto;touch-action:manipulation
+}
+#pdfDialog .bm-v043-main button.bm-v043-icon{min-width:29px;width:29px;padding:2px 4px;font-size:16px}
+#pdfDialog .bm-v043-main button.bm-v043-save{font-weight:700;min-width:66px}
+#pdfDialog .bm-v043-main #pdfPager{min-width:76px;font-size:11px;font-variant-numeric:tabular-nums;text-align:center}
+#pdfDialog .bm-v043-main .pdfGroup label{font-size:0;gap:0;white-space:nowrap}
+#pdfDialog #pdfInkColor{width:29px;height:28px;padding:1px;border-radius:6px}
+#pdfDialog .bm-v043-advanced{display:flex;gap:5px;align-items:center;flex-wrap:wrap;padding:4px 7px;border-top:1px solid #e0e9e7;background:#f7faf9}
+#pdfDialog .bm-v043-advanced[hidden]{display:none!important}
+#pdfDialog #pdfMoreV043[aria-expanded="true"]{background:#e0efec;border-color:#8bafa9}
+#pdfDialog .bm-v043-main button:focus-visible,#pdfDialog .bm-v043-advanced button:focus-visible{outline:2px solid #1c7280;outline-offset:1px}
+#pdfDialog #pdfFileName{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important}
+#pdfDialog #pdfLocalStatus{flex:0 0 auto;min-height:17px;padding:2px 8px;font-size:10px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pdfDialog #pdfLocalStatus.bm-v043-error{white-space:normal;overflow:visible;font-size:11px;line-height:1.4;padding:5px 8px}
+#pdfDialog .bm-drive-save-status{display:none;align-items:center;gap:9px;padding:3px 8px;font-size:11px;line-height:1.4;background:#ecf7f4;border-bottom:1px solid #d8e7e3;min-width:0}
+#pdfDialog .bm-drive-save-status.bm-v043-notice{display:flex}
+#pdfDialog .bm-drive-save-status small{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#pdfDialog .bm-drive-save-status a{flex-shrink:0;font-size:11px;white-space:nowrap}
+#pdfDialog #pdfIntro{padding:4px 8px;font-size:11px}
+#pdfDialog #pdfLocalMode{padding:5px}
+@media(max-width:700px){
+ #pdfDialog{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;border-radius:0}
+ #pdfDialog>.dhead{min-height:33px;padding:3px 6px}
+ #pdfDialog .toolbar{padding:3px 5px;min-height:31px;gap:3px}
+ #pdfDialog .bm-v043-main{min-height:37px;padding:3px 4px;gap:2px;scrollbar-width:thin}
+ #pdfDialog .bm-v043-main .pdfGroup{gap:2px;padding:0 5px 0 0;margin:0 2px 0 0}
+ #pdfDialog .bm-v043-main button{min-height:29px;height:29px}
+ #pdfDialog #pdfLocalMode{padding:2px}
+ #pdfDialog #pdfLocalStatus{padding:2px 6px}
+ #pdfDialog .bm-drive-save-status{padding:3px 6px}
+}

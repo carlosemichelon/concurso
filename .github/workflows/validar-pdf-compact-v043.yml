@@ -1,0 +1,31 @@
+name: Validar toolbar PDF compacta V043
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'v043.html'
+      - 'assets/v043_pdf_compact.css'
+      - 'assets/v043_pdf_compact.js'
+      - 'tests/pdf_compact_browser_v043.cjs'
+      - '.github/workflows/validar-pdf-compact-v043.yml'
+  workflow_dispatch:
+jobs:
+  testar-toolbar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar bibliotecas para testar PDFs e Chromium
+        run: npm install --no-save --ignore-scripts --no-audit --no-fund pdfjs-dist@3.11.174 pdf-lib@1.17.1 playwright@1.55.1
+      - name: Preparar navegador
+        run: npx playwright install --with-deps chromium
+      - name: Comparar V042 e V043 desktop/celular, grifo e exportações
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v043-http.log 2>&1 &
+          sleep 2
+          node tests/pdf_compact_browser_v043.cjs
