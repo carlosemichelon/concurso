@@ -1,0 +1,217 @@
+/* V060 — barra completa do PDF sempre aberta no modo de edição;
+   imagem com controles somente na lateral; edição integral do cartão do Atlas. */
+
+/* PDF: a V056 ocultava a barra, que já continha todos os comandos originais. */
+#pdfDialog[open] .bm-v046-pdf-workspace:has(#pdfLocalTools:not([hidden])){
+ display:grid!important;grid-template-columns:170px minmax(0,1fr)!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])),
+#pdfDialog[open].bm-v056-annotation-open .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){
+ display:flex!important;flex-direction:column!important;
+ position:relative!important;left:auto!important;right:auto!important;
+ top:auto!important;bottom:auto!important;inset:auto!important;
+ width:auto!important;min-width:0!important;max-width:none!important;
+ height:100%!important;min-height:0!important;max-height:100%!important;
+ z-index:3!important;overflow:hidden!important;
+ border:0!important;border-right:1px solid #c4d6e2!important;
+ border-radius:0!important;box-shadow:none!important;
+ background:#f8fbfe!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfLocalTools:not([hidden]){
+ display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
+ gap:5px!important;height:100%!important;min-height:0!important;
+ max-height:100%!important;width:100%!important;
+ padding:6px 5px!important;overflow-y:auto!important;overflow-x:hidden!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:5px!important;flex:0 0 auto!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ padding:0!important;overflow:visible!important;white-space:normal!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043>.pdfGroup{
+ display:flex!important;visibility:visible!important;
+ flex:0 0 auto!important;width:100%!important;
+ justify-content:center!important;flex-wrap:wrap!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 #pdfPager{
+ display:block!important;width:100%!important;
+ white-space:normal!important;text-align:center!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #bmV056CloseAnnotations,
+#pdfDialog[open] #bmV056ShowAnnotations{display:none!important}
+/* Campo de página da V057 continua utilizável na mesma lateral. */
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock{
+ position:static!important;inset:auto!important;z-index:auto!important;
+ display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+ gap:4px!important;align-items:center!important;justify-content:center!important;
+ flex:0 0 auto!important;width:100%!important;max-width:100%!important;
+ margin:4px 0 0!important;padding:6px 2px!important;
+ border:1px solid #ccdae5!important;border-radius:5px!important;
+ box-shadow:none!important;background:#f0f6fb!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock>#bmV057Marker,
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock>#bmV057Pan,
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock>#bmV057Undo,
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock>#bmV057Redo,
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock>.bm-v057-separator{
+ display:none!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock label{
+ display:inline!important;font-size:10px!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock #bmV057PageNumber{
+ width:50px!important;min-width:0!important;flex:0 0 50px!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock #bmV057PageTotal{
+ width:100%!important;min-width:0!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock #bmV057GoPage{
+ width:auto!important;min-width:38px!important;
+}
+#pdfDialog[open] .bm-v046-pdf-side #bmV058MarkerHint{
+ position:static!important;margin:0!important;max-width:100%!important;
+ white-space:normal!important;flex:1 1 100%!important;
+}
+#pdfDialog[open] .bm-v046-pdf-content{
+ min-width:0!important;overflow:hidden!important;
+}
+
+/* Imagem: título, Fechar, zoom e metadados na lateral, sem barra superior. */
+#imageDialog.bm-v060-image-side-only[open]{
+ width:100vw!important;max-width:100vw!important;
+ height:100dvh!important;max-height:100dvh!important;
+ margin:0!important;padding:0!important;
+ border:0!important;border-radius:0!important;
+ display:flex!important;flex-direction:column!important;overflow:hidden!important;
+}
+#imageDialog.bm-v060-image-side-only>.dbody{
+ display:grid!important;flex:1 1 auto!important;
+ grid-template-columns:minmax(0,1fr) 172px!important;
+ grid-template-rows:minmax(0,1fr)!important;
+ width:100%!important;height:100%!important;max-height:none!important;
+ min-width:0!important;min-height:0!important;
+ padding:0!important;gap:0!important;overflow:hidden!important;
+}
+#imageDialog.bm-v060-image-side-only .editor-tools{
+ grid-column:2!important;grid-row:1!important;
+ display:flex!important;flex-direction:column!important;
+ gap:6px!important;align-items:stretch!important;
+ min-height:0!important;height:100%!important;max-height:100%!important;
+ padding:6px 5px!important;overflow-y:auto!important;overflow-x:hidden!important;
+ background:#f8fbfe!important;
+}
+#imageDialog.bm-v060-image-side-only #imageStage{
+ grid-column:1!important;grid-row:1!important;
+ min-width:0!important;min-height:0!important;
+ width:100%!important;height:100%!important;
+ margin:0!important;padding:4px!important;overflow:auto!important;
+}
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-header{
+ position:sticky!important;top:-6px!important;z-index:9!important;
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:5px!important;flex:0 0 auto!important;
+ width:100%!important;height:auto!important;min-height:0!important;
+ margin:0!important;padding:5px!important;
+ background:#eef6fc!important;border:1px solid #d0e2ed!important;
+ border-radius:6px!important;
+}
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-header #imgTitle{
+ display:block!important;font-size:11px!important;
+ line-height:1.35!important;font-weight:750!important;
+ overflow-wrap:anywhere!important;white-space:normal!important;
+}
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-header #imgClose{
+ display:block!important;width:100%!important;min-height:31px!important;
+ margin:0!important;padding:5px 6px!important;
+ border-radius:5px!important;font-size:11px!important;cursor:pointer;
+}
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta{
+ display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+ align-items:center!important;justify-content:center!important;
+ gap:4px!important;flex:0 0 auto!important;
+ width:100%!important;height:auto!important;min-height:0!important;
+ max-height:none!important;margin:0!important;padding:6px 3px!important;
+ background:#f1f7fa!important;border:1px solid #d6e4ec!important;
+ border-radius:5px!important;overflow:visible!important;
+}
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta>*{
+ max-width:100%!important;overflow-wrap:anywhere!important;
+}
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta #imagePixels,
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta #imgMessage,
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta #imageWarning,
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta #originalDriveLink,
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta #v034SelectOriginal{
+ flex:1 1 100%!important;font-size:10px!important;line-height:1.35!important;
+ white-space:normal!important;
+}
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta button{
+ min-height:29px!important;padding:5px 6px!important;
+ font-size:11px!important;
+}
+
+/* Atlas: formulário completo com campos identificados. */
+#imagens #imageRows article.card>.bm-v060-card-form{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ flex-wrap:nowrap!important;gap:8px!important;
+ margin:8px 0 10px!important;padding:10px!important;max-width:100%!important;
+}
+#imagens #imageRows article.card>.bm-v060-card-form[hidden]{display:none!important}
+#imagens #imageRows .bm-v060-card-form .bm-v060-field{
+ display:flex!important;flex:0 0 auto!important;
+ flex-direction:column!important;gap:3px!important;
+ width:100%!important;max-width:100%!important;
+ margin:0!important;color:#36596f!important;
+ font-size:11px!important;font-weight:700!important;
+}
+#imagens #imageRows .bm-v060-card-form .bm-v060-field input,
+#imagens #imageRows .bm-v060-card-form .bm-v060-field textarea{
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ box-sizing:border-box!important;
+ margin:0!important;padding:7px 9px!important;
+ background:white!important;color:#263f52!important;
+ border:1px solid #b7cede!important;border-radius:5px!important;
+ font:400 12px/1.5 system-ui,Arial,sans-serif!important;
+ resize:vertical!important;
+}
+#imagens #imageRows .bm-v060-card-form .bm-v060-field textarea{
+ min-height:88px!important;white-space:pre-wrap!important;
+}
+#imagens #imageRows .bm-v060-card-form .bm-v060-form-actions{
+ display:flex!important;gap:6px!important;flex-wrap:wrap!important;
+ width:100%!important;
+}
+#imagens #imageRows .bm-v060-card-form .bm-v060-form-actions button{
+ flex:1 1 120px!important;min-height:32px!important;
+ padding:6px 8px!important;font-size:11px!important;
+}
+#imagens #imageRows .bm-v060-card-form>small{
+ font-size:10px!important;color:#5f7184!important;line-height:1.4!important;
+}
+#imagens #imageRows article.card .bm-v060-image-note{
+ margin:6px 0 0!important;padding:7px 9px!important;
+ background:#f2f9ff!important;border-left:3px solid #73a6c9!important;
+ border-radius:4px!important;color:#315d75!important;
+ font-size:11px!important;line-height:1.5!important;white-space:pre-wrap!important;
+}
+#imagens #imageRows article.card>.buttons .bm-v060-edit-card{
+ font-weight:750!important;
+}
+@media(max-width:700px){
+ #pdfDialog[open] .bm-v046-pdf-workspace:has(#pdfLocalTools:not([hidden])){
+  grid-template-columns:112px minmax(0,1fr)!important;
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfLocalTools:not([hidden]){
+  padding:4px 2px!important;gap:3px!important;
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #bmV057PdfDock{
+  padding:5px 2px!important;
+ }
+ #imageDialog.bm-v060-image-side-only>.dbody{
+  grid-template-columns:minmax(0,1fr) 105px!important;
+ }
+ #imageDialog.bm-v060-image-side-only .editor-tools{padding:4px 2px!important}
+ #imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-header #imgTitle{font-size:9px!important}
+ #imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta button{padding:4px 3px!important;font-size:10px!important}
+}
