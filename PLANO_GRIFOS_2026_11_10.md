@@ -74,3 +74,10 @@ Biblioteca de grifos, painel lateral, sincronização Drive, exportação ampla/
 - Arquivos de código: `assets/v066_backup_drive_grifos.js`, `assets/v066_backup_drive_grifos.css` e `v066.html`.
 - Backup anterior: `backup/v065-before-drive-grifos-2026-11-10`. Não houve acesso ou upload de dados particulares do usuário pelo assistente.
 - Verificação estática realizada; operação OAuth/Drive requer ação e conferência no navegador do usuário.
+
+## V067 — auditoria funcional em modo somente leitura (10/11/2026)
+- Código V066 preservado em `backup/v066-before-diagnostics-2026-11-10`.
+- Site `v067.html` integra `assets/v067_diagnostico_local.js` e CSS. Botões sob demanda em Biblioteca de Grifos e no leitor PDF.
+- Relatórios com estados OK/problema/alerta/não testado: versão, catálogo 65 PDFs, grifos locais/IDs/âncoras, exclusões de imagens em assuntos carregados, tela de Cartão rápido, texto PDF e existência dos controles Drive.
+- O diagnóstico não modifica registros, arquivos nem dados privados; não inclui texto dos grifos/IDs privados, não pede autorização Drive, não executa upload.
+- Continua pendente teste no navegador com PDF real, exclusões, salvamento/recuperação e OAuth. Não ativar sincronização bidirecional ou migração V060 antes de validação.
