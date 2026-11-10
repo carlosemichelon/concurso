@@ -1,0 +1,48 @@
+/* V065 — corrige cabeçalho do Cartão rápido atrás do Fechar PDF.
+   Correção apenas visual, posterior ao CSS V047 e ao layout V064. */
+#pdfDialog[open] .bm-v046-pdf-content #pdfQuickPanelV047.bm-v047-card-panel{
+ position:absolute!important;
+ top:58px!important;right:10px!important;bottom:10px!important;
+ z-index:69!important; /* menu PDF 70 e Fechar PDF 75 continuam acessíveis */
+ box-sizing:border-box!important;
+ min-height:0!important;
+ max-height:calc(100% - 68px)!important;
+ overflow-x:hidden!important;overflow-y:auto!important;
+ padding:0 12px 12px!important;
+ scroll-padding-top:55px;
+}
+#pdfDialog[open] #pdfQuickPanelV047 .bm-v047-card-header{
+ display:flex!important;
+ flex:0 0 auto!important;align-items:center!important;justify-content:space-between!important;
+ gap:10px!important;
+ position:sticky!important;top:0!important;left:0!important;right:0!important;
+ z-index:2!important;
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;
+ min-height:44px!important;
+ margin:0 0 6px!important;padding:7px 1px!important;
+ background:#fff!important;border-bottom:1px solid #d7e4e8!important;
+}
+#pdfDialog[open] #pdfQuickPanelV047 .bm-v047-card-header strong{
+ display:block!important;flex:1 1 auto!important;min-width:0!important;
+ font-size:14px!important;line-height:1.3!important;overflow-wrap:anywhere;
+}
+#pdfDialog[open] #pdfQuickPanelV047 .bm-v047-card-header button{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ position:static!important;flex:0 0 34px!important;
+ width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;
+ margin:0!important;padding:0!important;
+ font-size:23px!important;line-height:1!important;
+ background:#f6fafb!important;border:1px solid #bfd1d8!important;border-radius:6px!important;
+ color:#294c5b!important;cursor:pointer!important;
+}
+#pdfDialog[open] #pdfQuickPanelV047 .bm-v047-card-header button:focus-visible{
+ outline:2px solid #2680a6!important;outline-offset:2px!important;
+}
+@media(max-width:700px){
+ #pdfDialog[open] .bm-v046-pdf-content #pdfQuickPanelV047.bm-v047-card-panel{
+  top:50px!important;right:5px!important;bottom:5px!important;
+  width:min(300px,calc(100% - 10px))!important;
+  max-height:calc(100% - 55px)!important;
+  padding:0 9px 9px!important;
+ }
+}
