@@ -25,6 +25,21 @@ function certified(segment){
  return !!(segment?.legal_article&&segment?.legal_source_key==='CF88')||
   /CF\/88 art\. 1º/u.test(String(segment?.calibration_evidence||''));
 }
+function nextTokenAfter(segment,tokens){
+ let last=Number.isInteger(segment.end)?segment.end:-1;
+ if(last<0){
+  const rs=new Set((segment.rects||[]).map(r=>Array.isArray(r)?
+   r.map(x=>Number(x).toFixed(6)).join('|'):''));
+  for(let i=0;i<tokens.length;i++)if((tokens[i].rects||[]).some(r=>
+   Array.isArray(r)&&rs.has(r.map(x=>Number(x).toFixed(6)).join('|'))))last=i;
+ }
+ return last>=0?normal(tokens[last+1]?.text||'').replace(/[^\p{L}\p{N}]+$/gu,''):'';
+}
+const newClauseStarts=new Set([
+ 'sendo','salvo','ressalvado','ressalvada','exceto','quando',
+ 'desde','ficando','cabendo','observado','observada'
+]);
+
 function inspectSegment(segment,tokens){
  if(certified(segment))return {safe:true,reason:'literal_contextual'};
  const text=String(segment?.text||'').trim(),norm=cleanEnding(text);
@@ -39,6 +54,8 @@ function inspectSegment(segment,tokens){
   return {safe:false,reason:'operador_sem_complemento'};
  const words=norm.match(/[\p{L}\p{N}]+/gu)||[];
  if(words.length<2)return {safe:false,reason:'nucleo_sem_contexto'};
+ if(/,$/u.test(text)&&!newClauseStarts.has(nextTokenAfter(segment,tokens)))
+  return {safe:false,reason:'virgula_nao_encerra_nucleo'};
  if(/[.,;!?]$/u.test(text)||completeNominals.has(norm))
   return {safe:true,reason:'oracao_delimitada'};
  // An isolated phrase recognized by keyword can be truncated by a fixed
