@@ -104,8 +104,10 @@ function legalReference(tokens,profileId='geral'){
    if(item.key){target=item.key+':art'+number;resolution='explicit_law';basis=item.evidence}
    else {resolution='unsupported_law';basis=item.evidence+' fora do catalogo reconhecido'}
   }else if(selfRef&&active){
-   target=active+':art'+number;resolution='explicit_internal';
-   basis='Remissao textual a esta lei/Constituicao, com perfil escolhido';
+   // "desta Lei" is internally explicit but the selected PDF profile may be wrong.
+   // Do not certify a reference to an unverified document identity.
+   suggested_target=active+':art'+number;resolution='profile_dependent_internal';
+   basis='Referência interna expressa; identidade da lei depende do perfil escolhido e não foi cotejada';
   }else{
    suggested_target=active?active+':art'+number:null;
    resolution=selfRef?'document_unknown':'contextual_unverified';
