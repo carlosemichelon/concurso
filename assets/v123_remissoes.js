@@ -39,9 +39,15 @@ function relationContext(flat,i){
 function lawsInPhrase(phrase){
  const found=[];
  const mark=(key,evidence)=>{if(!found.some(x=>x.key===key&&x.evidence===evidence))found.push({key,evidence})};
- if(/\b(?:constituicao(?: da republica| federal)?|cf(?:\s*88)?)\b/u.test(phrase))
-  mark('CF88','referencia expressa a Constituicao/CF');
- const pattern=/\b(?:lei\s+complementar|lc|lei)\s+(?:n(?:o|umero)?\s+)?(\d{1,6})(?:\s+(\d{3}))?(?:\s+(\d{4}))?\b/gu;
+ // A later mention of "a Constituição" or "a Lei" is NOT an attribution
+ // to the cited article. Only an attached prepositional expression counts.
+ const attachment='(?:da|do|na|no|pela|pelo|desta|deste)';
+ const constitution=new RegExp('\\b'+attachment+
+  '\\s+(?:constituicao(?:\\s+(?:da\\s+republica|federal))?|cf(?:\\s*88)?)\\b','gu');
+ if(constitution.test(phrase))mark('CF88','referencia expressa a Constituicao/CF');
+ const pattern=new RegExp('\\b'+attachment+
+  '\\s+(?:lei\\s+complementar|lc|lei)\\s+(?:n(?:o|umero)?\\s+)?'+
+  '(\\d{1,6})(?:\\s+(\\d{3}))?(?:\\s+(\\d{4}))?\\b','gu');
  let match;
  while((match=pattern.exec(phrase))){
   const head=match[0],parts=[match[1],match[2]].filter(Boolean),number=parts.join('');
