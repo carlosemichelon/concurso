@@ -1,0 +1,170 @@
+/* Banco Mestre V115 — compactação dos cinco cabeçalhos de biblioteca.
+   Somente apresentação. Não altera dados, SRS, grifos, originais ou cartões.
+   Evita alterar o leitor/editor PDF, os diálogos e os registros abaixo dos filtros. */
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos,#grifos) > .panel{
+  padding:11px 13px!important;
+  margin-bottom:8px!important;
+}
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos,#grifos) > .panel > h2,
+#grifos .bm062-top h2{
+  font-size:18px!important;line-height:1.25!important;
+  margin:0 0 3px!important;
+}
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos,#grifos) > .panel > p.intro,
+#grifos .bm062-top p.intro{
+  font-size:11.5px!important;line-height:1.4!important;
+  margin:2px 0 8px!important;max-width:none!important;
+}
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos,#grifos) > .panel > .notice,
+#imagens .panel > #bm087-visibility-info,
+#imagens .panel > .originalHelp,
+#grifos .bm062-panel > .notice{
+  font-size:11px!important;line-height:1.4!important;
+  padding:6px 9px!important;margin:6px 0!important;
+  border-radius:3px!important;
+}
+#imagens .panel > #bm087-visibility-info{border-left-width:3px!important}
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos) .controls{
+  gap:6px!important;margin:8px 0!important;
+  align-items:center!important;
+}
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos) .controls input[type="search"],
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos) .controls select{
+  min-height:34px!important;height:34px!important;
+  padding:5px 9px!important;font-size:12px!important;
+}
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos) .controls .checkbox{
+  font-size:11px!important;gap:5px!important;
+  margin:0!important;
+}
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos) .controls input[type="checkbox"]{
+  width:14px!important;height:14px!important;margin:0!important;
+}
+main > section:is(#imagens,#cartoes,#pdfs,#assuntos) .controls .small{
+  font-size:10.5px!important;line-height:1.35!important;
+}
+#cartoes .panel > .controls{
+  padding:7px 9px!important;gap:6px!important;
+  margin:8px 0!important;
+}
+#cartoes .panel > .controls > *{
+  min-width:0;
+}
+#cartoes .panel > .controls button{
+  min-height:33px!important;padding:5px 9px!important;font-size:11.5px!important;
+}
+#cartoes .panel > [id*="sync" i],
+#cartoes .panel > [class*="sync" i]{
+  margin-top:6px!important;margin-bottom:7px!important;
+  padding:7px 10px!important;
+}
+#imagens .panel > .bm109-image-help{
+  margin:4px 0 7px!important;padding:0!important;
+}
+#imagens .panel > .bm109-image-help > summary{
+  min-height:28px!important;padding:6px 9px!important;
+  font-size:11px!important;
+}
+#imagens .panel > p:has(> #moreImages),
+#cartoes .panel > p:has(> #moreCards){
+  margin:7px 0!important;
+}
+/* PDFs: compactar navegação, conexão com Drive e avisos, sem tocar no editor. */
+#pdfs #pdfAreaNavV036{
+  margin:7px 0!important;gap:5px!important;
+}
+#pdfs #pdfAreaNavV036 button{
+  min-height:32px!important;padding:5px 9px!important;
+  font-size:11.5px!important;margin:0!important;
+}
+#pdfs #bm-pdf-sync{
+  margin:7px 0!important;padding:7px 9px!important;gap:6px!important;
+}
+#pdfs #bm-pdf-sync > strong{font-size:11.5px!important}
+#pdfs #bm-pdf-sync > button{
+  padding:6px 10px!important;min-height:32px!important;
+  font-size:11px!important;
+}
+#pdfs #bm-pdf-sync-status{
+  font-size:10.5px!important;line-height:1.35!important;
+}
+/* Cartões de área e campo de busca mais próximos do conteúdo de estudo. */
+#assuntos .panel > h2:nth-of-type(2){
+  margin:9px 0 5px!important;font-size:16px!important;line-height:1.25!important;
+}
+#assuntos #areaRows.topicCards{
+  gap:6px!important;margin:6px 0 9px!important;
+}
+#assuntos #areaRows .topicCard{
+  padding:7px 9px!important;gap:3px!important;
+  min-height:0!important;
+}
+#assuntos #areaRows .topicCard strong{font-size:12px!important}
+#assuntos #areaRows .topicCard small{font-size:10px!important}
+#assuntos #areaRows .topicCard svg,
+#assuntos #areaRows .topicCard .icon{
+  max-height:17px!important;
+}
+#assuntos .panel > .controls{margin:6px 0 9px!important}
+/* Grifos: os resultados completos continuam sem qualquer truncamento. */
+#grifos .bm062-top{
+  gap:5px 10px!important;margin:0 0 3px!important;
+}
+#grifos .bm062-topbuttons{gap:5px!important}
+#grifos .bm062-topbuttons button{
+  min-height:32px!important;padding:5px 9px!important;font-size:11px!important;
+}
+#grifos .bm062-stats{
+  font-size:11.5px!important;margin:5px 0 7px!important;line-height:1.35!important;
+}
+#grifos .bm062-filters{
+  gap:6px!important;margin:8px 0 7px!important;
+}
+#grifos .bm062-filters input[type="search"],
+#grifos .bm062-filters select{
+  min-height:34px!important;height:34px!important;
+  padding:5px 8px!important;font-size:12px!important;
+}
+#grifos .bm062-check{
+  font-size:11px!important;min-height:30px!important;gap:5px!important;
+}
+#grifos .bm062-export{
+  margin:7px 0 9px!important;gap:5px!important;
+}
+#grifos .bm062-export button{
+  min-height:31px!important;padding:5px 8px!important;font-size:11px!important;
+}
+#grifos .bm062-export span{font-size:11px!important}
+@media(max-width:760px){
+  main > section:is(#imagens,#cartoes,#pdfs,#assuntos,#grifos) > .panel{
+    padding:9px 10px!important;margin-bottom:7px!important;
+  }
+  main > section:is(#imagens,#cartoes,#pdfs,#assuntos,#grifos) > .panel > h2,
+  #grifos .bm062-top h2{
+    font-size:16px!important;margin-bottom:3px!important;
+  }
+  main > section:is(#imagens,#cartoes,#pdfs,#assuntos,#grifos) > .panel > p.intro,
+  #grifos .bm062-top p.intro{
+    font-size:11px!important;line-height:1.35!important;margin:2px 0 7px!important;
+  }
+  main > section:is(#imagens,#cartoes,#pdfs,#assuntos) .controls input[type="search"],
+  main > section:is(#imagens,#cartoes,#pdfs,#assuntos) .controls select,
+  #grifos .bm062-filters input[type="search"],
+  #grifos .bm062-filters select{
+    min-height:40px!important;height:40px!important;
+    font-size:16px!important;
+  }
+  #cartoes .bm109-filters > select,#imagens .bm109-filters > select{
+    min-height:40px!important;height:40px!important;
+  }
+  #pdfs #pdfAreaNavV036 button,
+  #pdfs #bm-pdf-sync > button,
+  #grifos .bm062-topbuttons button,
+  #grifos .bm062-export button{
+    min-height:40px!important;
+  }
+  #grifos .bm062-filters{margin:7px 0!important;gap:6px!important}
+  #grifos .bm062-topbuttons{gap:5px!important}
+  #assuntos #areaRows.topicCards{gap:5px!important;margin:5px 0 8px!important}
+  #assuntos #areaRows .topicCard{padding:7px 8px!important}
+}
