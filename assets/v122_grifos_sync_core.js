@@ -147,7 +147,7 @@ function deleteMarks(storage,page,marks,options={}){
   joins=joins.map(x=>({...x,markIds:(x.markIds||[]).filter(id=>!rawIds.has(id))}))
    .filter(x=>x.markIds.length>=2);
  }
- const backup={page:before,[DELETIONS]:beforeDeletions};
+ const backup={[page]:before,[DELETIONS]:beforeDeletions};
  if(beforeMeta&&meta)backup[META]=beforeMeta;
  if(options.joinKey&&beforeJoins)backup[options.joinKey]=beforeJoins;
  try{
