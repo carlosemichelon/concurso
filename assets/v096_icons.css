@@ -1,0 +1,111 @@
+/* V096 — sistemas de ícones originais e layout de ferramentas inspirado em
+   plataformas de estudo e apps de notas, sem copiar recursos proprietários. */
+:root{--bm096-line:#d5e0e5;--bm096-ink:#334851;--bm096-focus:#167e88}
+header nav button[data-bm096-icon]{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;
+ padding:9px 12px!important;min-height:41px!important;border-radius:9px!important;
+ font-weight:700!important;letter-spacing:0!important;
+}
+header nav button[data-bm096-icon].active,
+header nav button[data-bm096-icon][aria-current="page"]{
+ box-shadow:inset 0 -2px 0 #197c85!important;
+}
+header nav button[data-bm096-icon]::before,
+button[data-bm096-icon]::before,
+a[data-bm096-icon]::before,
+.topicCard[data-bm096-icon]::before{
+ content:"";display:inline-block;flex:0 0 auto;
+ width:18px;height:18px;background:currentColor;
+ -webkit-mask:var(--bm096-mask) center/contain no-repeat;
+ mask:var(--bm096-mask) center/contain no-repeat;
+}
+.topicCard[data-bm096-icon]::before{display:block;width:22px;height:22px;color:#2d7482;margin-bottom:8px}
+#areaRows .topicCard[data-bm096-icon],
+#topicRows .topicCard[data-bm096-icon]{
+ border-color:#d4e3e5!important;border-radius:12px!important;
+ transition:border-color .14s ease,box-shadow .14s ease;
+}
+#areaRows .topicCard[data-bm096-icon]:hover,
+#topicRows .topicCard[data-bm096-icon]:hover{
+ border-color:#75afb4!important;box-shadow:0 4px 14px #17495315;
+}
+button[data-bm096-context="site"]{
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;
+}
+input.bm096-search{
+ padding-left:39px!important;background-repeat:no-repeat!important;
+ background-size:17px 17px!important;background-position:12px center!important;
+}
+#pdfDialog button[data-bm096-context="notes"],
+#imageDialog button[data-bm096-context="notes"],
+#pdfDialog a[data-bm096-context="notes"],
+#imageDialog a[data-bm096-context="notes"]{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ gap:6px!important;vertical-align:middle;
+ font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;
+ font-weight:650!important;line-height:1.2!important;
+ transition:background-color .12s ease,border-color .12s ease,box-shadow .12s ease!important;
+}
+#pdfDialog button[data-bm096-context="notes"]::before,
+#imageDialog button[data-bm096-context="notes"]::before,
+#pdfDialog a[data-bm096-context="notes"]::before,
+#imageDialog a[data-bm096-context="notes"]::before{
+ width:19px;height:19px;opacity:.86;
+}
+#pdfDialog #pdfLocalTools button[data-bm096-context="notes"],
+#imageDialog .editor-tools button[data-bm096-context="notes"]{
+ min-height:39px!important;padding:7px 8px!important;
+ border-radius:9px!important;border:1px solid #cddde3!important;
+ background:#fff!important;color:#2d4c58!important;
+}
+#pdfDialog #pdfLocalTools button[data-bm096-context="notes"]:hover:not(:disabled),
+#imageDialog .editor-tools button[data-bm096-context="notes"]:hover:not(:disabled){
+ background:#eef7f9!important;border-color:#84bcc4!important;
+}
+#pdfDialog button[data-bm096-context="notes"][aria-pressed="true"],
+#imageDialog button[data-bm096-context="notes"][aria-pressed="true"],
+#imageDialog .editor-tools button[data-bm096-context="notes"].active{
+ background:#e0f1f2!important;border-color:#6daeb2!important;
+ color:#17646a!important;box-shadow:inset 0 0 0 1px #d4eeef!important;
+}
+#pdfDialog button[data-bm096-context="notes"]:disabled,
+#imageDialog button[data-bm096-context="notes"]:disabled{
+ opacity:.5;cursor:not-allowed;box-shadow:none!important;
+}
+#pdfDialog button[data-bm096-context="notes"]:focus-visible,
+#imageDialog button[data-bm096-context="notes"]:focus-visible,
+header nav button[data-bm096-icon]:focus-visible{
+ outline:3px solid #55a6ba!important;outline-offset:2px!important;
+}
+/* Samsung Notes-like: ferramentas pequenas, traço fino, hierarquia visual sem
+   alterar o grid legado, as regiões de zoom nem a seleção de texto. */
+#pdfDialog #bm068SelectTool[data-bm096-icon]{
+ background:#dff2ed!important;border:2px solid #77bba7!important;color:#185d51!important;
+}
+#pdfDialog #bm068QuickBar button[data-bm096-icon]{
+ gap:5px!important;min-height:35px!important;
+}
+#pdfDialog #bm068Palette .bm068-commands button[data-bm096-icon]{
+ gap:5px!important;min-height:34px!important;
+}
+#pdfDialog #bm068Palette .bm068-commands button[data-bm096-icon]::before{
+ width:16px;height:16px;
+}
+#imageDialog .editor-tools .toolgroup{
+ gap:6px!important;
+}
+#imageDialog .editor-tools [data-ink-tool][aria-pressed="true"]{
+ background:#e1f3ee!important;border-color:#68b59d!important;color:#165e50!important;
+}
+@media(max-width:640px){
+ header nav button[data-bm096-icon]{min-height:42px!important;padding:8px 9px!important;gap:5px!important}
+ header nav button[data-bm096-icon]::before{width:17px;height:17px}
+ #pdfDialog #pdfLocalTools button[data-bm096-context="notes"],
+ #imageDialog .editor-tools button[data-bm096-context="notes"]{
+  min-height:42px!important;padding:7px 5px!important;font-size:11px!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ #pdfDialog button[data-bm096-context="notes"],
+ #imageDialog button[data-bm096-context="notes"]{transition:none!important}
+}
