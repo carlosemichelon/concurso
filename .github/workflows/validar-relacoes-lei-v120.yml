@@ -1,0 +1,40 @@
+name: Banco Mestre — relações normativas V120
+on:
+  push:
+    branches:
+      - gh-pages
+      - feature/v120-relacoes-normativas-20261111
+    paths:
+      - 'assets/v120_relacoes_normativas.js'
+      - 'assets/v114_cf_artigo1.js'
+      - 'assets/v114_ia_lei_seca.js'
+      - 'assets/v112_perfis_lei_seca.js'
+      - 'tests/v120_relacoes_normativas.cjs'
+      - 'tests/v120_integridade_portal.cjs'
+      - 'v120.html'
+      - 'assets/v120_calibrador_ui.js'
+      - '.github/workflows/validar-relacoes-lei-v119.yml'
+  pull_request:
+    paths:
+      - 'assets/v120_relacoes_normativas.js'
+      - 'tests/v120_relacoes_normativas.cjs'
+      - 'tests/v120_integridade_portal.cjs'
+      - 'v120.html'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regressão do classificador constitucional antigo
+        run: node tests/v114_cf_ia.cjs
+      - name: Artigos 2–4, relacionamentos e negações adversariais
+        run: node tests/v120_relacoes_normativas.cjs
+      - name: Conferir carregamento V120 e compatibilidade da V118
+        run: node tests/v120_integridade_portal.cjs
