@@ -113,6 +113,33 @@ for(const text of [CF2,CF3,CF4,ARTICLE1]){
  assert.equal(r.recognized,false,'ativou sem perfil CF');
  negative++;
 }
+
+const genericProfiles=['licitacoes','improbidade','estatuto','servidores','processo',
+ 'lgpd','lai','lrf','lbi','pnma','lc95','cf88'];
+let structural=0;
+for(const prof of genericProfiles){
+ const text='Art. 10. Compete à autoridade analisar o pedido.\n'+
+  '§ 1º O interessado deverá requerer.\nI - requerimento escrito;\n'+
+  'II - prova documental;\na) documento assinado.\n'+
+  'Art. 11. A decisão seguirá nos termos do art. 7º.';
+ const structure=w.BancoMestreRelacoesNormativasV119.inspectDocument(tokens(text),prof);
+ assert.ok(structure.document_key,'Lei não vinculada ao perfil '+prof);
+ assert.equal(structure.verified_source,false,'Não afirmar cotejo de vigência por perfil');
+ assert.equal(structure.articles.length,2,'Artigos não indexados '+prof);
+ assert.equal(structure.devices.filter(x=>x.type==='paragrafo').length,1);
+ assert.equal(structure.devices.filter(x=>x.type==='inciso').length,2);
+ assert.equal(structure.devices.filter(x=>x.type==='alinea').length,1);
+ assert.equal(structure.references.length,1,'Remissão ausente '+prof);
+ assert.ok(structure.references[0].target.startsWith(structure.document_key+':'));
+ structural++;
+}
+const onlyOne=w.BancoMestreRelacoesNormativasV119.inspectDocument(
+ tokens('Art. 8º As decisões serão motivadas. Parágrafo único. A motivação será escrita.'),'processo');
+assert.equal(onlyOne.devices.filter(x=>x.type==='paragrafo').length,1,
+ 'Parágrafo único grafado por extenso não indexado');
+assert.equal(w.BancoMestreRelacoesNormativasV119.inspectDocument(
+ tokens('Art. 10. Texto com remissão ao art. 3º.'),'geral').document_key,null);
+
 const union=ARTICLE1+'\n'+CF2+'\n'+CF3+'\n'+CF4;
 const all=tokens(union);
 const scan=w.BancoMestreRelacoesNormativasV119.inspect(all,'cf88');
@@ -147,4 +174,4 @@ assert.equal(suites.art1.tests.full,10);
 assert.equal(suites.art1.tests.denials,10);
 assert.equal(w.BancoMestreIALeiSecaV114.examples,154);
 console.log(JSON.stringify({ok:true,positive,negative,adversarial,source,graph,legacy,
- supported:[2,3,4],notes:'Métricas são cenários de regressão controlados, não precisão estatística em leis novas.'},null,2));
+ supported:[2,3,4],structural,notes:'Métricas são cenários de regressão controlados, não precisão estatística em leis novas.'},null,2));
