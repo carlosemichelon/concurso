@@ -13,7 +13,7 @@ on:
       - 'tests/v120_integridade_portal.cjs'
       - 'v120.html'
       - 'assets/v120_calibrador_ui.js'
-      - '.github/workflows/validar-relacoes-lei-v119.yml'
+      - '.github/workflows/validar-relacoes-lei-v120.yml'
   pull_request:
     paths:
       - 'assets/v120_relacoes_normativas.js'
@@ -36,5 +36,5 @@ jobs:
         run: node tests/v114_cf_ia.cjs
       - name: Artigos 2–4, relacionamentos e negações adversariais
         run: node tests/v120_relacoes_normativas.cjs
-      - name: Conferir carregamento V120 e compatibilidade da V118
+      - name: Conferir carregamento V120 e compatibilidade da V119
         run: node tests/v120_integridade_portal.cjs
