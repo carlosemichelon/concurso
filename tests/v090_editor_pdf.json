@@ -1,0 +1,50 @@
+{
+  "version": "V090",
+  "date": "2026-11-10",
+  "baseVersion": "V089",
+  "goal": "manual precise color PDF editor",
+  "selection": {
+    "engine": "v089_pdf_selection_core.js",
+    "unchanged": true,
+    "manual": true,
+    "automatic": false
+  },
+  "colors": [
+    "#FF8F96",
+    "#86DCAA",
+    "#FFEA70",
+    "#89C7FF",
+    "#CCA7FF",
+    "#FFB86B"
+  ],
+  "features": {
+    "manualTopic": true,
+    "note": true,
+    "sameIDEdit": true,
+    "deleteConfirm": true,
+    "multicolorQueue": true,
+    "batchAtomicUndo": true,
+    "toolbarNavigation": true,
+    "move": true,
+    "zoom": true,
+    "undoRedo": true,
+    "exportPDF": true,
+    "drive": true
+  },
+  "simulatedTests": {
+    "sixColorSelectionsPassed": true,
+    "sameIdEditPassed": true,
+    "twoColorBatchPassed": true,
+    "noAutoSave": true
+  },
+  "preserved": {
+    "pdfs": 72,
+    "images": 270,
+    "cardDataV018": true,
+    "Atlas": true,
+    "SRS": true,
+    "IDs": true,
+    "priorHighlights": true
+  },
+  "browserE2ETested": false
+}

@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V089.
+- **Site publicado:** V090.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v089.html`.
-- **Versão anterior preservada:** `gh-pages/v088.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v090.html`.
+- **Versão anterior preservada:** `gh-pages/v089.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -313,3 +313,15 @@
 - **UX:** barra lateral 142px desktop/88px celular, Selecionar Texto, Mover, Zoom, Histórico e Salvar visíveis. Caneta, borracha, limpeza, grifo livre e exportações secundárias disponíveis em `Mais ferramentas`.
 - **Preservação:** mantém PDF core V087 (inclusive original dos grifos), backend de sincronização e dados de cartões V018, cache-bust V018, 72 PDFs, 270 imagens, Atlas global, importação reversível das exclusões, IDs, SRS, notas e Drive. Backup `backup/v088-with-v018-before-precision-selector-v089-2026-11-10`.
 - **Testes internos:** sintaxe e fechamento da página, detector de três colunas com variações de largura, falha segura em caso de sobreposição, interação simulada selecionar início/fim e salvar exatamente um grifo com assunto. **Teste real dentro do navegador do usuário ainda necessário.**
+
+## V090 — editor PDF reconstruído em três etapas (10/11/2026)
+
+**Etapa 1 — preservar seletor preciso V089:** arquivo `v089_pdf_selection_core.js` e a geometria de `v090_pdf_precise.js` seguem o mesmo algoritmo de coordenadas/colunas, sem voltar à seleção de spans nativos. Seis cores testadas com um registro/assunto por cor. O grifo automático continua desativado.
+
+**Etapa 2 — edição unificada:** `assets/v090_pdf_precise.js` permite criar, escolher cor e assunto, registrar nota, editar sem trocar ID, excluir com confirmação e listar grifos. Fila de cores: selecionar trechos distintos, adicionar à fila, abrir fila pela barra superior e salvar em lote via `addTextHighlights` (uma operação de desfazer); protege contra sobreposições. `assets/pdf_v090.js` grava a nota já no registro original da criação.
+
+**Etapa 3 — interface:** `v090_pdf_toolbar.js` e `v090_pdf_layout.css` substituem a barra lateral sobrecarregada por barra horizontal navegável e botões reais para seleção, mover, página, zoom, desfazer/refazer, biblioteca, exportar, Drive e Mais ferramentas. As ações chamam o núcleo original. O editor de imagem não é alterado.
+
+**Preservação:** V089 continua disponível; backup `backup/v089-before-v090-editor-2026-11-10`. 72 PDFs, 270 imagens, cartões V018, Atlas, IDs, SRS, arquivos Drive e todas as anotações antigos preservados. Não fazer migração nem reclassificação automática.
+
+**Limitação:** testes de módulos, seleção e simulação de interface concluídos; validação visual real no navegador do usuário ainda necessária.
