@@ -10,6 +10,10 @@
 - **Versão anterior preservada:** `gh-pages/v108.html` (V107 e versões anteriores também preservadas) (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
+## V121 — IA jurídica estrutural (11/11/2026)
+
+Acrescenta `assets/v121_relacoes_normativas.js` e calibrador V121 à interface V120, preservando a base de 1.499 cartões, agrupamento de grifos por parágrafo e todos os dados/SRS. Testes `tests/v121_relacoes_normativas.cjs` e `tests/v121_integridade_portal.cjs`; homologação visual/OAuth ainda pendentes.
+
 ## V109 — integração privada dos cartões aprovados (11/11/2026)
 
 - Manifesto/entrada apontam para `v109.html` e preservam `v108.html`.
