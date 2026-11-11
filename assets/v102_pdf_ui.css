@@ -1,0 +1,152 @@
+/* V102 — organização compacta de grifos, cor e legibilidade sem modificar dados. */
+#pdfDialog #bm064HighlightPanel .bm102-merge-controls{
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:6px!important;
+ padding:8px 10px!important;background:#f4f8fc!important;border-bottom:1px solid #dce6ef!important
+}
+#pdfDialog #bm064HighlightPanel .bm102-merge-controls button{
+ border:1px solid #bed6e8!important;background:#fff!important;color:#225a7f!important;
+ font:700 11px/1.2 system-ui,Arial,sans-serif!important;
+ padding:7px 9px!important;min-height:33px!important;border-radius:7px!important;
+ cursor:pointer
+}
+#pdfDialog #bm064HighlightPanel .bm102-merge-controls #bm102MergeSave{
+ background:#1682b7!important;border-color:#1682b7!important;color:#fff!important
+}
+#pdfDialog #bm064HighlightPanel .bm102-merge-controls button:disabled{
+ opacity:.45!important;cursor:not-allowed!important
+}
+#pdfDialog #bm064HighlightPanel .bm102-merge-controls [hidden]{display:none!important}
+#pdfDialog #bm064HighlightPanel #bm102MergeCounter{
+ color:#59748a!important;font:650 10px/1.4 system-ui,Arial,sans-serif!important
+}
+#pdfDialog #bm064HighlightPanel .bm102-select-wrap{
+ border:1px solid #d9e5ef!important;border-radius:9px!important;
+ margin:9px 0!important;padding:5px!important;background:#fcfdff!important
+}
+#pdfDialog #bm064HighlightPanel .bm102-select-wrap.bm102-checked{
+ border-color:#5fa8d2!important;background:#f1f8fd!important
+}
+#pdfDialog #bm064HighlightPanel .bm102-select-label{
+ display:flex!important;align-items:center!important;gap:7px!important;
+ padding:6px 6px 3px!important;color:#285b7c!important;
+ font:700 11px/1.3 system-ui,Arial,sans-serif!important;cursor:pointer
+}
+#pdfDialog #bm064HighlightPanel .bm102-select-label input{
+ width:16px!important;height:16px!important;flex:0 0 16px!important;
+ margin:0!important;accent-color:#1684bc!important
+}
+#pdfDialog #bm064HighlightPanel .bm102-select-wrap>.bm064-mark{
+ margin:4px 0!important
+}
+#pdfDialog #bm064HighlightPanel .bm102-separate{
+ border:1px solid #b6cedd!important;color:#385f79!important;
+ background:#f4f8fc!important;border-radius:7px!important;
+ padding:5px 8px!important;min-height:28px!important;
+ font-size:10px!important;font-weight:750!important
+}
+#pdfDialog #bm064HighlightPanel .bm064-mark-head{flex-wrap:wrap!important;gap:6px!important}
+#pdfDialog #bm064HighlightPanel .bm097-paragraph{
+ border-left:4px solid #5aaccb!important
+}
+#pdfDialog #bm064HighlightPanel .bm064-preview{
+ font:500 12.5px/1.65 system-ui,-apple-system,'Segoe UI',Arial,sans-serif!important;
+ color:#213e57!important;letter-spacing:0!important;text-align:left!important
+}
+#pdfDialog #bm064HighlightPanel .bm097-details>summary{
+ line-height:1.45!important;padding:7px 0!important
+}
+/* Evita qualquer aparição residual dos chips longos da V097. */
+#pdfDialog #bm064HighlightPanel .bm097-colors{display:none!important}
+/* Editor de cores: quatro tons fáceis, seletor nativo e prévia real. */
+#pdfDialog #pdfMainV043 .bm100-ink:has(#bm102InkPalette){
+ gap:8px!important;min-width:0!important
+}
+#pdfDialog #pdfMainV043 #bm102InkPalette{
+ display:block!important;min-width:0!important;max-width:100%!important;
+ padding:0!important;margin:0!important;border:0!important;background:transparent!important
+}
+#pdfDialog #pdfMainV043 .bm102-ink-title{
+ margin:0 0 4px!important;color:#2b536e!important;
+ font:750 11px/1.3 system-ui,Arial,sans-serif!important
+}
+#pdfDialog #pdfMainV043 .bm102-ink-desc,
+#pdfDialog #pdfMainV043 .bm102-ink-hint{
+ margin:2px 0 6px!important;color:#5d7485!important;
+ font:450 10px/1.45 system-ui,Arial,sans-serif!important
+}
+#pdfDialog #pdfMainV043 .bm102-colors{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:6px!important;margin-top:8px!important;min-width:0!important
+}
+#pdfDialog #pdfMainV043 button.bm102-color-choice{
+ position:relative!important;display:flex!important;flex-direction:column!important;
+ gap:5px!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ height:auto!important;min-height:59px!important;
+ padding:7px 4px!important;margin:0!important;
+ border:1px solid #d6e2ed!important;border-radius:9px!important;
+ background:#f8fbfe!important;color:#35536c!important;
+ font:720 10px/1.2 system-ui,Arial,sans-serif!important;
+ text-align:center!important;white-space:normal!important
+}
+#pdfDialog #pdfMainV043 button.bm102-color-choice::before{
+ content:""!important;display:block!important;position:static!important;
+ width:24px!important;height:19px!important;flex:0 0 19px!important;
+ background:var(--bm102-color)!important;border-radius:6px!important;
+ border:1px solid #324b601d!important;
+ -webkit-mask:none!important;mask:none!important
+}
+#pdfDialog #pdfMainV043 button.bm102-color-choice[aria-pressed="true"]{
+ background:#e6f3fb!important;border-color:#61a9d0!important;
+ box-shadow:inset 0 0 0 1px #b4d9ee!important;color:#1a6694!important
+}
+#pdfDialog #pdfMainV043 .bm102-preview-panel{
+ background:#fff!important;border:1px solid #dae6ef!important;
+ border-radius:8px!important;padding:8px!important;min-width:0!important
+}
+#pdfDialog #pdfMainV043 .bm102-sample{
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+ gap:5px!important;color:#263c4c!important;
+ font:600 11px/1.55 Georgia,serif!important;min-width:0!important
+}
+#pdfDialog #pdfMainV043 .bm102-sample-label{font-weight:400!important}
+#pdfDialog #pdfMainV043 .bm102-sample-text{
+ padding:1px 2px!important;border-radius:2px!important;color:#122433!important
+}
+#pdfDialog #pdfMainV043 .bm102-preview-panel .bm102-ink-hint{
+ margin:6px 0 0!important;font-size:9.5px!important
+}
+#pdfDialog #pdfMainV043 .bm102-readable-label{
+ display:flex!important;flex-wrap:wrap!important;align-items:flex-start!important;
+ justify-content:flex-start!important;gap:6px!important;cursor:pointer!important;
+ color:#254961!important;font:750 10px/1.45 system-ui,Arial,sans-serif!important
+}
+#pdfDialog #pdfMainV043 .bm102-readable-label input{
+ width:15px!important;height:15px!important;min-width:15px!important;margin:1px 0 0!important;
+ accent-color:#1686ba!important
+}
+#pdfDialog #pdfMainV043 .bm102-coverage-hint{
+ margin:8px 0 0!important;padding:8px!important;
+ color:#526f81!important;background:#f1f7fb!important;
+ border:1px solid #dcebf4!important;border-radius:7px!important;
+ font:450 10px/1.5 system-ui,Arial,sans-serif!important
+}
+#pdfDialog #pdfMainV043 #pdfStatusV037[data-bm096-context="notes"]{
+ white-space:normal!important;overflow-wrap:break-word!important;
+ min-height:49px!important
+}
+@media(max-width:700px){
+ #pdfDialog #pdfMainV043 .bm102-colors{gap:4px!important}
+ #pdfDialog #pdfMainV043 button.bm102-color-choice{
+  min-height:52px!important;font-size:9px!important;padding:6px 2px!important
+ }
+ #pdfDialog #bm064HighlightPanel .bm102-merge-controls{
+  gap:4px!important;padding:6px!important
+ }
+ #pdfDialog #bm064HighlightPanel .bm102-merge-controls button{
+  min-height:32px!important;padding:6px!important;font-size:10px!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ #pdfDialog #pdfMainV043 button.bm102-color-choice{transition:none!important}
+}
