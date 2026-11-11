@@ -33,8 +33,8 @@ function hexHash(input){
 }
 function markId(m){
  if(m&&typeof m.id==='string'&&/^[A-Za-z0-9_-]{4,160}$/.test(m.id))return 'id:'+m.id;
- if(m&&['highlighter','rect'].includes(m.type)&&(Array.isArray(m.points)||Array.isArray(m.box)))
-  return 'g:'+hexHash(literal([m.type,m.points||m.box,m.created_at||'']));
+ if(m&&typeof m.type==='string'&&(Array.isArray(m.points)||Array.isArray(m.box)||Array.isArray(m.rects)))
+  return 'g:'+hexHash(literal([m.type,m.points||m.box||m.rects,m.created_at||'']));
  return 'l:'+hexHash(literal(m));
 }
 const markTimestamp=m=>Date.parse(m?.bm108_deleted_at||m?.bm108_changed_at||m?.updated_at||'')||0;
@@ -60,6 +60,18 @@ function parse(key,text){
 function readDeletes(storage){
  try{return deletedMap(JSON.parse(storage.getItem(DELETIONS)||'{}'))}
  catch(e){throw Error('Registro mínimo de exclusões inválido: '+e.message)}
+}
+function cleanMeta(meta,deletions){
+ const out={...meta};
+ for(const [page,ids] of Object.entries(deletions)){
+  const matched=/^BM030_STROKES_PDF:(.+):([^:]+):P\d+$/.exec(page);
+  if(!matched)continue;
+  for(const id of Object.keys(ids)){
+   if(!id.startsWith('id:'))continue;
+   delete out['TXT:'+matched[1]+':'+matched[2]+':'+id.slice(3)];
+  }
+ }
+ return out;
 }
 function cleanPage(key,marks,deletions){
  const ids=deletions[key]||{},output=[];
@@ -114,13 +126,19 @@ function migrate(storage){
   }
   if(kept.length!==entries.length)changes.push({key,before:raw,after:kept.length?literal(kept):null});
  }
- if(!changes.length)return {removed:0};
+ const metaBefore=storage.getItem(META);
+ const metaClean=metaBefore?literal(cleanMeta(parse(META,metaBefore),deleted)):null;
+ const metaChanged=metaBefore!==null&&metaClean!==metaBefore;
+ if(!changes.length&&!metaChanged)return {removed:0};
+
  try{
   storage.setItem(DELETIONS,literal(deleted));
+  if(metaChanged)storage.setItem(META,metaClean);
   for(const c of changes){if(c.after===null)storage.removeItem(c.key);else storage.setItem(c.key,c.after)}
  }catch(e){
   for(const c of changes){try{c.before===null?storage.removeItem(c.key):storage.setItem(c.key,c.before)}catch(_){}}
   try{previous===null?storage.removeItem(DELETIONS):storage.setItem(DELETIONS,previous)}catch(_){}
+  if(metaChanged)try{storage.setItem(META,metaBefore)}catch(_){}
   throw Error('Migração interrompida sem apagar originais: '+e.message);
  }
  return {removed:count};
@@ -238,6 +256,11 @@ function plan(storage,bundles){
   if(r.conflicts.length)conflicts.push({key,type:'mesmo_id',count:r.conflicts.length});
   pending.set(key,literal(r.merged));
  }
+ const rawMeta=pending.has(META)?pending.get(META):storage.getItem(META);
+ if(rawMeta){
+  const filtered=cleanMeta(parse(META,rawMeta),mergedDeletions);
+  if(literal(filtered)!==rawMeta)pending.set(META,literal(filtered));
+ }
  const previous=storage.getItem(DELETIONS);
  if(literal(mergedDeletions)!==literal(readDeletes(storage)))pending.set(DELETIONS,literal(mergedDeletions));
  const keys=new Set([...pending.keys()]);
@@ -268,7 +291,7 @@ function apply(storage,result){
  return result.writes.length;
 }
 const api=Object.freeze({SCHEMA,META,DELETIONS,LIMIT_BYTES,validKey,markId,parse,
- mergeArray,mergeObject,mergeDeletions,readDeletes,cleanPage,deleteMarks,persistPage,
+ mergeArray,mergeObject,mergeDeletions,readDeletes,cleanPage,cleanMeta,deleteMarks,persistPage,
  migrate,capture,validate,plan,apply});
 window.BancoMestreGrifosSyncCoreV103=api;
 })();
