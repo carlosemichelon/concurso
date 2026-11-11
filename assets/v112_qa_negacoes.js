@@ -1,0 +1,40 @@
+/* V112 — 66 adversarial negative examples, six typography variants, 15 filenames.
+ * No storage mutation, no live API calls. Verify absence of false automatic color.
+ */
+(function(){
+'use strict';
+const NEGATIVES=[{"profile":"licitacoes","category":"!excecao","text":"Não é inexigível a licitação para este caso."},{"profile":"licitacoes","category":"!excecao","text":"Não é dispensável a licitação."},{"profile":"licitacoes","category":"!excecao","text":"Nunca é dispensável a licitação nesse caso."},{"profile":"licitacoes","category":"!excecao","text":"Jamais é inexigível a licitação."},{"profile":"licitacoes","category":"!excecao","text":"É; inexigível a licitação por outro motivo."},{"profile":"licitacoes","category":"!excecao","text":"É. dispensável a licitação na situação."},{"profile":"licitacoes","category":"!excecao","text":"A dispensa de licitação foi analisada em reunião."},{"profile":"licitacoes","category":"!agente","text":"O agente de contratação."},{"profile":"licitacoes","category":"!agente","text":"A comissão de contratação."},{"profile":"licitacoes","category":"!agente","text":"O gestor do contrato."},{"profile":"cf88","category":"!regra","text":"Não é livre a manifestação nessa hipótese."},{"profile":"cf88","category":"!regra","text":"Nunca é livre a circulação nesse local."},{"profile":"cf88","category":"!regra","text":"Não é assegurado esse benefício."},{"profile":"cf88","category":"!regra","text":"É. livre a manifestação do pensamento."},{"profile":"cf88","category":"!regra","text":"É; assegurado o direito no projeto."},{"profile":"cf88","category":"!regra","text":"O documento foi assegurado no sistema."},{"profile":"cf88","category":"!regra","text":"O relatório foi garantido no processo."},{"profile":"cf88","category":"!agente","text":"Não compete privativamente à União decidir esse caso."},{"profile":"cf88","category":"!agente","text":"Nunca compete aos Municípios decidir."},{"profile":"cf88","category":"!agente","text":"Compete. aos Municípios regular."},{"profile":"cf88","category":"!agente","text":"A competência privativa da União."},{"profile":"cf88","category":"!condicao","text":"Não é por maioria absoluta que será decidido."},{"profile":"improbidade","category":"!regra","text":"Jamais constitui ato de improbidade essa conduta."},{"profile":"improbidade","category":"!regra","text":"Não constitui ato de improbidade."},{"profile":"improbidade","category":"!regra","text":"Nunca constitui ato de improbidade."},{"profile":"improbidade","category":"!regra","text":"A tipificação de ato de improbidade foi estudada."},{"profile":"improbidade","category":"!agente","text":"Agente público."},{"profile":"improbidade","category":"!agente","text":"O agente público não integra esse grupo."},{"profile":"estatuto","category":"!regra","text":"Não é o plano diretor o instrumento indicado."},{"profile":"estatuto","category":"!regra","text":"O título Plano Diretor foi escrito na capa."},{"profile":"estatuto","category":"!agente","text":"Poder Público municipal."},{"profile":"servidores","category":"!regra","text":"Não são deveres do servidor aquelas atividades."},{"profile":"servidores","category":"!regra","text":"Ao servidor não é proibido apresentar petição."},{"profile":"servidores","category":"!regra","text":"Jamais é assegurado ao servidor esse direito."},{"profile":"servidores","category":"!agente","text":"Servidor público."},{"profile":"processo","category":"!agente","text":"Autoridade competente."},{"profile":"processo","category":"!excecao","text":"Não independe de caução o recurso."},{"profile":"lgpd","category":"!excecao","text":"Não independe do consentimento."},{"profile":"lgpd","category":"!excecao","text":"Não está dispensado o consentimento do titular."},{"profile":"lgpd","category":"!agente","text":"Agentes de tratamento."},{"profile":"lgpd","category":"!agente","text":"Titular dos dados pessoais."},{"profile":"lai","category":"!regra","text":"Não é dever do Estado garantir esse documento."},{"profile":"lai","category":"!agente","text":"Os órgãos e entidades públicas."},{"profile":"lrf","category":"!regra","text":"Não é nulo de pleno direito esse ato."},{"profile":"lrf","category":"!agente","text":"O Poder Executivo."},{"profile":"lbi","category":"!regra","text":"Não é assegurado à pessoa com deficiência esse benefício."},{"profile":"lbi","category":"!regra","text":"Não é proibida qualquer forma de discriminação."},{"profile":"lbi","category":"!agente","text":"Pessoa com deficiência."},{"profile":"pnma","category":"!regra","text":"Não são instrumentos da política nacional do meio ambiente esses procedimentos."},{"profile":"pnma","category":"!agente","text":"Conselho Nacional do Meio Ambiente."},{"profile":"pnma","category":"!agente","text":"Órgão ambiental competente."},{"profile":"lc95","category":"!regra","text":"Não é a unidade básica de articulação o artigo nessa hipótese."},{"profile":"lc95","category":"!regra","text":"Os artigos. desdobrar-se-ão na sequência."},{"profile":"geral","category":"!excecao","text":"O arquivo foi salvo na pasta."},{"profile":"geral","category":"!excecao","text":"O documento salvo foi aberto."},{"profile":"geral","category":"!excecao","text":"A lista era composta de a) documentos; b) projetos."},{"profile":"geral","category":"!excecao","text":"O inciso I traz exigências e o inciso II contém direitos."},{"profile":"geral","category":"!condicao","text":"Caso a caso a análise continuará."},{"profile":"geral","category":"!condicao","text":"A prefeitura possui 10 servidores."},{"profile":"geral","category":"!regra","text":"O documento foi assegurado no sistema."},{"profile":"geral","category":"!regra","text":"O arquivo foi garantido no repositório."},{"profile":"geral","category":"!regra","text":"Não é obrigatório concluir o serviço nessa hipótese."},{"profile":"geral","category":"!regra","text":"Não é vedado o acesso ao arquivo."},{"profile":"geral","category":"!regra","text":"Não foi proibido o acesso ao local."},{"profile":"geral","category":"!agente","text":"Servidor público."},{"profile":"geral","category":"!agente","text":"O órgão público."}];
+const FILENAMES=[["Constituicao_Federal_1988.pdf","cf88"],["Lei_14.133_2021.pdf","licitacoes"],["Lei_8.429_1992.pdf","improbidade"],["Estatuto-da-Cidade.pdf","estatuto"],["Lei_nº_9.784.pdf","processo"],["LC_101_2000_LRF.pdf","lrf"],["Lei_Brasileira_de_Inclusao.pdf","lbi"],["Politica-Nacional-do-Meio-Ambiente.pdf","pnma"],["Constituicao_Federal_e_LGPD.pdf",null],["Lei_14.133_e_Lei_8.429.pdf",null],["Coleção_de_livros.pdf",null],["Lei 12.527.pdf","lai"],["LC_95.pdf","lc95"],["Lei_13.709.pdf","lgpd"],["Lei_8.112.pdf","servidores"]];
+const transform=[
+ x=>x,x=>x.toLocaleUpperCase('pt-BR'),x=>x.normalize('NFD'),
+ x=>x.replace(/ /g,'\u00A0'),
+ x=>x.split(/\s+/u).map((z,i)=>i%2?z.toUpperCase():z.toLowerCase()).join(' \n '),
+ x=>x.replace(/ /g,'   ')
+];
+function tokens(text){
+ return text.match(/\S+/gu)?.map((word,i)=>({
+  text:word,rects:[[i*.0025,.2,i*.0025+.002,.24]],line:Math.floor(i/16)
+ }))||[];
+}
+function run(model=window.BancoMestreCalibradoresV110){
+ const failures=[];
+ for(const item of NEGATIVES){
+  for(let v=0;v<transform.length;v++){
+   const result=model.analyzeWords(tokens(transform[v](item.text)),item.profile);
+   const forbidden=item.category.slice(1);
+   const found=result.segments.filter(s=>s.kind===forbidden&&s.confidence==='alta'&&!s.requires_review);
+   if(found.length)failures.push({profile:item.profile,phrase:item.text,variant:v,forbidden,found:found.map(s=>s.text)});
+  }
+ }
+ for(const [name,expected] of FILENAMES){
+  const found=model.detectDocument(name);
+  if(found!==expected)failures.push({filename:name,expected,found});
+ }
+ return {ok:!failures.length,stats:{
+  negative:NEGATIVES.length,typographyVariants:transform.length,negativeCases:NEGATIVES.length*transform.length,
+  titleCases:FILENAMES.length,passed:NEGATIVES.length*transform.length+FILENAMES.length-failures.length,
+  failed:failures.length
+ },failures};
+}
+window.BancoMestreCalibradorQANegV112=Object.freeze({run});
+})();
