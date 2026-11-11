@@ -1,0 +1,29 @@
+name: Banco Mestre — segurança de grifos V125 experimental
+on:
+  push:
+    branches:
+      - feature/v125-qualidade-clausulas-20261111
+    paths:
+      - 'assets/v125_qualidade_clausulas.js'
+      - 'tests/v125_qualidade_clausulas.cjs'
+      - '.github/workflows/validar-qualidade-v125.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirmar leis anteriores e regressoes V114
+        run: node tests/v114_cf_ia.cjs
+      - name: Confirmar remissões V124
+        run: node tests/v124_remissoes.cjs
+      - name: Corpus oficial/adversarial V124
+        run: node tests/v124_corpus_referencias_oficiais.cjs
+      - name: Filtro de trechos incompletos V125
+        run: node tests/v125_qualidade_clausulas.cjs
