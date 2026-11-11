@@ -6,6 +6,8 @@ on:
     paths:
       - 'assets/v125_qualidade_clausulas.js'
       - 'tests/v125_qualidade_clausulas.cjs'
+      - 'tests/v125_semente_bio_lei_seca.json'
+      - 'tests/v125_seed_annotation.cjs'
       - '.github/workflows/validar-qualidade-v125.yml'
   workflow_dispatch:
 permissions:
@@ -27,3 +29,5 @@ jobs:
         run: node tests/v124_corpus_referencias_oficiais.cjs
       - name: Filtro de trechos incompletos V125
         run: node tests/v125_qualidade_clausulas.cjs
+      - name: Integridade da semente de corpus BIO
+        run: node tests/v125_seed_annotation.cjs
