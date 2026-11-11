@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V090.
+- **Site publicado:** V091.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v090.html`.
-- **Versão anterior preservada:** `gh-pages/v089.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v091.html`.
+- **Versão anterior preservada:** `gh-pages/v090.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -325,3 +325,10 @@
 **Preservação:** V089 continua disponível; backup `backup/v089-before-v090-editor-2026-11-10`. 72 PDFs, 270 imagens, cartões V018, Atlas, IDs, SRS, arquivos Drive e todas as anotações antigos preservados. Não fazer migração nem reclassificação automática.
 
 **Limitação:** testes de módulos, seleção e simulação de interface concluídos; validação visual real no navegador do usuário ainda necessária.
+
+## V091 — rolagem estável e edição do PDF (10/11/2026)
+
+- **Falha corrigida:** V090 herdou a virtualização V048 com páginas vizinhas, captions como “Página 2 — role para ativar a edição” e `promoteByScroll()`. Rolagem contínua alternava `pageNo`, re-renderizava PDF e reinicializava o seletor, dando impressão de travamento. Em `assets/pdf_v091.js`, remover completamente `renderNeighbor()`, `promoteByScroll()` e qualquer `scroll` handler que inicie render. A leitura rola dentro da página atual, sem troca de página. Páginas anteriores/seguintes passam apenas por Anterior, Próxima e Ir. O zoom funciona como antes. As páginas vizinhas ficam ocultas.
+- **Por que não editava no link V089:** `v089.html?utm_source=chatgpt.com#pdfs` abre uma versão anterior do site, não um PDF editável. Cada item tem prévia do Google Drive em `iframe` (somente leitura). O PDF deve ser aberto pelo botão **Editar PDF**, selecionando uma cópia autorizada local uma vez. Se já foi guardado via IndexedDB, **Continuar edição** reabre sem novo envio. Não inferir permissão para buscar arquivos privados via URL do Drive.
+- **Proteção:** continuar usando seleção por coordenadas V089, editor manual V090, 72 PDFs, 270 imagens, base V018, IDs, SRS, grifos, notas, biblioteca e Drive. Não modificar V089/V090. Backup `backup/v090-before-stable-pdf-scroll-v091-2026-11-10`.
+- **Limitação:** testes estáticos de ausência de render por scroll e pré-validação de loader não substituem navegação real com PDF do usuário.
