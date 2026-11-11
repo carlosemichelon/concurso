@@ -167,7 +167,7 @@ function inspectDocument(tokens,profileId='geral'){
   if(!art)continue;
   const raw=String(tokens[i].text||'').trim();
   const next=String(tokens[i+1]?.text||'').trim();
-  if(/^par[aá]grafo$/iu.test(raw)&&/^u[́ú]nico[.]?$/iu.test(next)){
+  if(normalize(raw)==='paragrafo'&&lex(next)[0]==='unico'){
    paragraph=art+':p-unico';inciso=null;
    devices.push({type:'paragrafo',id:paragraph,token_start:i,parent:art,verified_literal:false});
    continue;
