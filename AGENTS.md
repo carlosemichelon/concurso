@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V084** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V086** em `gh-pages`; `main` mostra **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -156,3 +156,10 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Script `assets/v084_drive_images_sync.js` adiciona ao Atlas seção separada dos 270 registros anteriores. Google OAuth `drive.readonly` com token em memória, consulta a cada 120 s enquanto site aberto, exibição de JPEG/PNG/WEBP/GIF até 15 MB. Imagens privadas não são publicadas como arquivo no GitHub; miniaturas via download autorizado com blob URL temporária.
 - IDs novos = `DRIVE-IMG-<fileId>`, sem criar `IMG-###`, sem modificar base F17, histórico de imagens, aprovação temática, SRS ou grifos legados. Grifos de novas imagens são locais com ID específico no editor. Não classificar automaticamente por conteúdo, sem auditoria.
 - Consentimento OAuth real e abertura de imagem real ainda precisam de teste no navegador; não reportar esse teste como concluído.
+
+## V086 — Exclusões privadas e reversíveis do Atlas
+- Fonte privada JSON `BancoMestreExcluirImagensDriveV046` (184 IDs antigos IMG-###) no Drive ID `1PLYugdUTxtpDmoxOe56LtCG-a1cDKGej`. NÃO colocar o conteúdo da lista no repositório público. A solicitação refere-se a exclusões do acervo visual **no navegador**, nunca a exclusão de arquivos no Drive.
+- 36 `drive_file_id` são apenas candidatos por nome, identidade não verificada; 148 registros não têm vínculo. Ignore esses campos ao aplicar exclusões. Todos 184 IDs foram confirmados no catálogo original de 254.
+- `v086.html` carrega `assets/v086_exclusoes_atlas_privadas.js` após os scripts da V085. O usuário clica conectar Google e confirma a aplicação. Escrita atômica em `IndexedDB/BancoMestreImagensV023`, com backup prévio `BM086_EXCLUSOES_BACKUP_V1` e opção desfazer último lote; preservar alterações manuais posteriores. Sem acesso OAuth ou sem confirmação, os 184 estados não são aplicados automaticamente.
+- Arquivos do Drive, imagens estáticas, 270 IDs legados, legendas, PDFs, grifos, cartões e SRS intactos. Evitar publicar chaves, tokens, títulos privados e lista de exclusões no GitHub.
+- OAuth real e operação no navegador ainda não testadas; verificar importação e reversão com a conta do titular antes de considerar conclusão funcional completa.
