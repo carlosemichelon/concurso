@@ -14,8 +14,8 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
 <body>
 <div id="loading" role="status" aria-live="polite">
 <h1>Banco Mestre V113</h1>
-<p>Carregando grifador de lei seca com validações de textos oficiais...</p>
-<p><a href="./v112.html">Abrir a versão anterior V111</a></p>
+<p>Carregando bibliotecas compactas para celular...</p>
+<p><a href="./v112.html">Abrir a versão anterior V112</a></p>
 </div>
 <script>
 (async function(){
@@ -55,7 +55,8 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
    '<link rel="stylesheet" href="assets/v107_mobile_study_icons.css?v=107">',
    '<link rel="stylesheet" href="assets/v108_grifos_editor.css?v=108">',
    '<link rel="stylesheet" href="assets/v109_mobile_library.css?v=109">',
-   '<link rel="stylesheet" href="assets/v110_calibrador.css?v=110">'
+   '<link rel="stylesheet" href="assets/v110_calibrador.css?v=110">',
+   '<link rel="stylesheet" href="assets/v113_compact_bibliotecas.css?v=113">'
   ].join('');
   const scripts=[
    'v063_grifos_navegacao.js?v=063',
@@ -92,7 +93,7 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   if(!source.includes("fetch('assets/'+f)"))throw Error('Leitor de cartões alterado');
   source=source.replace("fetch('assets/'+f)","fetch('assets/'+f+'?bm=018',{cache:'no-store'})");
   source=source.replace('</head>',styles+'</head>');
-  source=source.replace('</body>',scripts+tag('v109_drive_cards_sync.js?v=109')+tag('v077_drive_pdf_sync.js?v=077')+tag('v084_drive_images_sync.js?v=084')+tag('v086_exclusoes_atlas_privadas.js?v=086')+tag('v097_pdf_selection_core.js?v=097')+tag('v104_precise_touch.js?v=104')+tag('v096_icons.js?v=096')+tag('v098_portal_text.js?v=098')+tag('v106_assuntos_compactos.js?v=106')+tag('v099_legenda_grifos.js?v=099')+tag('v100_pdf_tools.js?v=100')+tag('v106_ink_ui.js?v=106')+tag('v103_mobile_pdf.js?v=103')+tag('v104_mobile_gestures.js?v=104')+tag('v105_pdf_horizontal.js?v=105')+tag('v108_sync_core.js?v=108')+tag('v108_master_core.js?v=108')+tag('v104_drive_master.js?v=104')+tag('v109_mobile_library.js?v=109')+tag('v111_calibrador_ui.js?v=111')+'</body>');
+  source=source.replace('</body>',scripts+tag('v093_drive_cards_sync.js?v=093')+tag('v077_drive_pdf_sync.js?v=077')+tag('v084_drive_images_sync.js?v=084')+tag('v086_exclusoes_atlas_privadas.js?v=086')+tag('v097_pdf_selection_core.js?v=097')+tag('v104_precise_touch.js?v=104')+tag('v096_icons.js?v=096')+tag('v098_portal_text.js?v=098')+tag('v106_assuntos_compactos.js?v=106')+tag('v099_legenda_grifos.js?v=099')+tag('v100_pdf_tools.js?v=100')+tag('v106_ink_ui.js?v=106')+tag('v103_mobile_pdf.js?v=103')+tag('v104_mobile_gestures.js?v=104')+tag('v105_pdf_horizontal.js?v=105')+tag('v108_sync_core.js?v=108')+tag('v108_master_core.js?v=108')+tag('v104_drive_master.js?v=104')+tag('v109_mobile_library.js?v=109')+tag('v111_calibrador_ui.js?v=111')+tag('v113_compact_bibliotecas.js?v=113')+'</body>');
   source=source.replace('Banco Mestre V062 — Estudos','Banco Mestre V113 — Estudos')
    .replaceAll('V062 · base V015','V113 · base V015')
    .replace('<footer>V062 ·','<footer>V113 ·');
