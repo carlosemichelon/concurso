@@ -1,0 +1,131 @@
+{
+  "schema": "BancoMestreLeiSecaBIOv1",
+  "status": "proposta_sem_homologacao_humana",
+  "annotation_scope": "nucleo_literal_de_dispositivo",
+  "legal_verification": "URL oficial consultada; PDF do usuário e edição não cotejados",
+  "created_date": "2026-11-11",
+  "classes": [
+    "regra",
+    "agente",
+    "condicao",
+    "excecao"
+  ],
+  "policy": "Uma cor por token; sobreposições e trechos não essenciais recebem revisão. Testar por lei independente, não por frases sorteadas.",
+  "examples": [
+    {
+      "id": "CF88-5-IV",
+      "law": "CF88",
+      "device": "art5-incIV",
+      "source": "https://www4.planalto.gov.br/legislacao/legis-federal/constituicao",
+      "text": "IV - é livre a manifestação do pensamento, sendo vedado o anonimato;",
+      "spans": [
+        {
+          "kind": "regra",
+          "quote": "é livre a manifestação do pensamento"
+        },
+        {
+          "kind": "regra",
+          "quote": "vedado o anonimato"
+        }
+      ]
+    },
+    {
+      "id": "CF88-5-VI",
+      "law": "CF88",
+      "device": "art5-incVI",
+      "source": "https://www4.planalto.gov.br/legislacao/legis-federal/constituicao",
+      "text": "VI - é inviolável a liberdade de consciência e de crença, sendo assegurado o livre exercício dos cultos religiosos e garantida, na forma da lei, a proteção aos locais de culto e a suas liturgias;",
+      "spans": [
+        {
+          "kind": "regra",
+          "quote": "é inviolável a liberdade de consciência e de crença"
+        },
+        {
+          "kind": "condicao",
+          "quote": "na forma da lei"
+        }
+      ]
+    },
+    {
+      "id": "CF88-5-VIII",
+      "law": "CF88",
+      "device": "art5-incVIII",
+      "source": "https://www4.planalto.gov.br/legislacao/legis-federal/constituicao",
+      "text": "VIII - ninguém será privado de direitos por motivo de crença religiosa ou de convicção filosófica ou política, salvo se as invocar para eximir-se de obrigação legal a todos imposta e recusar-se a cumprir prestação alternativa, fixada em lei;",
+      "spans": [
+        {
+          "kind": "regra",
+          "quote": "ninguém será privado de direitos por motivo de crença religiosa ou de convicção filosófica ou política"
+        },
+        {
+          "kind": "excecao",
+          "quote": "salvo se as invocar para eximir-se de obrigação legal a todos imposta e recusar-se a cumprir prestação alternativa, fixada em lei"
+        }
+      ]
+    },
+    {
+      "id": "LC95-10",
+      "law": "LC95",
+      "device": "art10-caput",
+      "source": "https://www2.camara.leg.br/legin/fed/leicom/1998/leicomplementar-95-26-fevereiro-1998-363948-normaatualizada-pl.html",
+      "text": "Art. 10. Os textos legais serão articulados com observância dos seguintes princípios:",
+      "spans": [
+        {
+          "kind": "regra",
+          "quote": "Os textos legais serão articulados com observância dos seguintes princípios"
+        }
+      ]
+    },
+    {
+      "id": "L9784-2",
+      "law": "LEI9784",
+      "device": "art2-caput",
+      "source": "https://www2.camara.leg.br/legin/fed/lei/1999/lei-9784-29-janeiro-1999-322239-normaatualizada-pl.html",
+      "text": "Art. 2º A Administração Pública obedecerá, dentre outros, aos princípios da legalidade, finalidade, motivação, razoabilidade, proporcionalidade, moralidade, ampla defesa, contraditório, segurança jurídica, interesse público e eficiência.",
+      "spans": [
+        {
+          "kind": "agente",
+          "quote": "A Administração Pública"
+        },
+        {
+          "kind": "regra",
+          "quote": "obedecerá, dentre outros, aos princípios da legalidade, finalidade, motivação, razoabilidade, proporcionalidade, moralidade, ampla defesa, contraditório, segurança jurídica, interesse público e eficiência"
+        }
+      ]
+    },
+    {
+      "id": "L8429-1P1",
+      "law": "LEI8429",
+      "device": "art1-p1",
+      "source": "https://www2.camara.leg.br/legin/fed/lei/1992/lei-8429-2-junho-1992-357452-normaatualizada-pl.html",
+      "text": "§ 1º Consideram-se atos de improbidade administrativa as condutas dolosas tipificadas nos arts. 9º, 10 e 11 desta Lei, ressalvados tipos previstos em leis especiais.",
+      "spans": [
+        {
+          "kind": "regra",
+          "quote": "Consideram-se atos de improbidade administrativa as condutas dolosas tipificadas nos arts. 9º, 10 e 11 desta Lei"
+        },
+        {
+          "kind": "excecao",
+          "quote": "ressalvados tipos previstos em leis especiais"
+        }
+      ]
+    },
+    {
+      "id": "L14133-1P1",
+      "law": "LEI14133",
+      "device": "art1-p1",
+      "source": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm",
+      "text": "§ 1º Não são abrangidas por esta Lei as empresas públicas, as sociedades de economia mista e as suas subsidiárias, regidas pela Lei nº 13.303, de 30 de junho de 2016, ressalvado o disposto no art. 178 desta Lei.",
+      "spans": [
+        {
+          "kind": "excecao",
+          "quote": "Não são abrangidas por esta Lei as empresas públicas, as sociedades de economia mista e as suas subsidiárias"
+        },
+        {
+          "kind": "excecao",
+          "quote": "ressalvado o disposto no art. 178 desta Lei"
+        }
+      ]
+    }
+  ]
+}
