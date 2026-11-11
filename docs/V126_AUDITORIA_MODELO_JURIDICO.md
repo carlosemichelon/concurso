@@ -50,3 +50,19 @@ Referências de engenharia de NLP legal brasileiro:
 - Não exigir número de parâmetros ou volume arbitrário de exemplos sem medição de generalização. O primeiro objetivo é uma alta **precisão seletiva**, aceitando abstenções onde não há evidência suficiente.
 
 **Conclusão:** a versão de produção continua V124. A V126 experimental melhorou o bloqueio de alguns padrões perigosos, mas não atingiu cobertura segura e **não foi publicada**.
+
+
+## Medição adicionada — intervalos exatos por cor (V126)
+
+A suíte `tests/v126_avaliacao_spans.cjs` comparou duas versões sobre uma **semente provisória não homologada de 7 dispositivos, 5 normas e 13 intervalos de referência**. Os resultados são exclusivamente diagnósticos:
+
+| Sistema | Trechos automáticos | Trechos exatamente iguais à referência | Precisão estrita (diagnóstica) | Recuperação estrita |
+| --- | ---: | ---: | ---: | ---: |
+| V124 (base) | 11 | 5 | 45,45% | 38,46% |
+| V126 (filtro) | 5 | 4 | 80,00% | 30,77% |
+
+O filtro reduz marcações incompletas, mas perde cobertura — por isso **não está liberado para publicação**. A amostra é pequena, os rótulos ainda não passaram por auditoria humana independente e os dados não são um conjunto cego. Os percentuais **não devem ser divulgados como acurácia ou confiabilidade geral**.
+
+O relatório `tests/v126_auditoria_cobertura.cjs` confirma a perda de 111 das 216 verificações V112 de presença de categoria, e define `releaseGate.passed=false`. O fluxo de GitHub Actions passa porque avalia **integridade do experimento**, não porque o modelo foi aprovado para grifos automáticos. Manter a V125 pública intacta e a V126 somente em branch até superar os critérios de validação.
+
+Próximo passo de qualidade: ampliar o corpus de trechos oficiais para amostras independentes de cada lei, revisar os quatro intervalos semânticos e suas exclusões com dupla anotação, medir concordância entre anotadores e executar avaliação estratificada por norma/edição com limiares definidos previamente. A arquitetura de modelo neural contextual só será escolhida depois dessa auditoria.
