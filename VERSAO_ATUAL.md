@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V091.
+- **Site publicado:** V092.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v091.html`.
-- **Versão anterior preservada:** `gh-pages/v090.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v092.html`.
+- **Versão anterior preservada:** `gh-pages/v091.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -332,3 +332,12 @@
 - **Por que não editava no link V089:** `v089.html?utm_source=chatgpt.com#pdfs` abre uma versão anterior do site, não um PDF editável. Cada item tem prévia do Google Drive em `iframe` (somente leitura). O PDF deve ser aberto pelo botão **Editar PDF**, selecionando uma cópia autorizada local uma vez. Se já foi guardado via IndexedDB, **Continuar edição** reabre sem novo envio. Não inferir permissão para buscar arquivos privados via URL do Drive.
 - **Proteção:** continuar usando seleção por coordenadas V089, editor manual V090, 72 PDFs, 270 imagens, base V018, IDs, SRS, grifos, notas, biblioteca e Drive. Não modificar V089/V090. Backup `backup/v090-before-stable-pdf-scroll-v091-2026-11-10`.
 - **Limitação:** testes estáticos de ausência de render por scroll e pré-validação de loader não substituem navegação real com PDF do usuário.
+
+## V092 — rollback isolado do editor ao primeiro grifador automático de 4 cores (V070, 10/11/2026)
+
+- **Escopo exclusivo:** reverter a experiência de edição/classificação de grifos para o comportamento original de quatro cores e sugestões automáticas V070. Não reverter biblioteca, carregador dos dados, V089 de seleção, V091 de rolagem ou PDF core.
+- **Código histórico:** reutiliza diretamente `assets/v070_classificador.js`, regras locais de `classifyWords`, `suggestSubject` e `suggestNote`. As cores exatas retornam: `regra=#ffe04d` (amarelo), `agente=#92e8c0` (verde), `excecao=#ffb3c5` (rosa), `condicao=#a6d7ff` (azul). Esse arquivo é carregado antes de `v092_editor_v070.js`.
+- **Adaptação necessária:** `assets/v092_editor_v070.js` usa `BancoMestrePreciseCoreV089` e o mesmo mecanismo `pointerdown/move/up` de V089 para construir palavras/retângulos, sem voltar à camada nativa PDF.js de V070 que selecionava colunas incorretamente. O algoritmo histórico sugere a classificação por trechos depois da seleção, exibe prévia de cores e notas, e só grava ao pressionar **Aplicar as cores sugeridas**. Disponível também o grifo inteiro com escolha manual de uma das quatro cores. Modo automático habilitado inicialmente, podendo ser desligado na janela. Não chama IA externa nem usa chave.
+- **Segurança:** cores e notas automáticas permanecem `classification_status='sugestao'`; salvar os segmentos é uma única operação via `addTextHighlights`, respeita grifos anteriores, permite Desfazer. Editar grifo anterior não altera ID nem atribui automaticamente uma nova cor, mesmo que ele tenha uma cor histórica de V091.
+- **Arquivos preservados byte a byte:** `assets/v089_pdf_selection_core.js`, `assets/pdf_v091.js`, `assets/v090_pdf_toolbar.js`, dados SRS/Drive, 72 PDFs e 270 imagens. V091 permanece em `v091.html`; backup `backup/v091-before-v070-editor-rollback-2026-11-10`.
+- **Testes:** em página sintética de três colunas, a mesma seleção precisa V089 produziu sete trechos classificados nas quatro cores, com zero gravações antes de aplicar e gravação única em lote. Edição posterior de assunto e nota manteve o ID. Falta homologação visual em navegador real.

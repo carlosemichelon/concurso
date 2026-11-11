@@ -1,0 +1,97 @@
+/* V092 — rollback SOMENTE do editor para o classificador V070 de quatro cores.
+   Seletor preciso V089, rolagem estável V091 e barra de ferramentas mantidos. */
+#pdfDialog.bm090-streamlined #bm090Drafts{display:none!important}
+#pdfDialog #bm068Palette{display:none!important}
+#pdfDialog #bm089Editor{
+ width:min(455px,calc(100vw - 12px))!important;
+ border:2px solid #abc8d0!important;
+}
+#pdfDialog #bm089Editor .bm089-head strong{font-size:16px!important}
+#pdfDialog #bm089Editor .bm092-mode{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ margin:12px 0 6px;padding:9px 10px;background:#f0f8f7;
+ border:1px solid #c2deda;border-radius:9px;
+}
+#pdfDialog #bm089Editor .bm092-mode span{
+ font:750 12px/1.4 system-ui,Arial,sans-serif;color:#225b57;
+}
+#pdfDialog #bm089Editor #bm092Toggle{
+ min-height:40px!important;flex:0 0 auto;padding:7px 10px!important;
+ border-radius:8px!important;border:1px solid #7aafa4!important;
+ background:#dcf3e9!important;color:#1b5a4b!important;
+ font:800 11px/1.2 system-ui,Arial,sans-serif!important;
+}
+#pdfDialog #bm089Editor #bm092Toggle[aria-pressed="false"]{
+ background:#eef0f1!important;color:#42565a!important;border-color:#bdcbd0!important;
+}
+#pdfDialog #bm089Editor .bm089-colors{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ margin:8px 0 14px!important;gap:8px!important;
+}
+#pdfDialog #bm089Editor .bm089-colors .bm089-color{
+ min-height:57px!important;font:750 12px/1.25 system-ui,Arial,sans-serif!important;
+}
+#pdfDialog #bm089Editor .bm092-suggestions{
+ margin:10px 0 12px;padding:11px;
+ background:#f7faf9;border:1px solid #c5d9db;border-radius:10px;
+}
+#pdfDialog #bm089Editor .bm092-suggestions[hidden]{display:none!important}
+#pdfDialog #bm089Editor .bm092-suggestions>strong{
+ display:block;margin-bottom:6px;font:800 13px system-ui,Arial,sans-serif;color:#254f5b;
+}
+#pdfDialog #bm089Editor .bm092-caution{
+ font:600 11px/1.45 system-ui,Arial,sans-serif!important;color:#637777;margin:0 0 9px;
+}
+#pdfDialog #bm089Editor #bm092Segments{
+ display:flex;flex-direction:column;gap:6px;
+ max-height:208px;overflow-y:auto;overscroll-behavior:contain;
+}
+#pdfDialog #bm089Editor .bm092-segment{
+ display:flex;align-items:flex-start;gap:9px;
+ padding:7px;background:#fff;border:1px solid #deebea;border-radius:8px;
+}
+#pdfDialog #bm089Editor .bm092-segment-dot{
+ flex:none;display:block;width:17px;min-width:17px;height:32px;
+ border:1px solid #adc1be;border-radius:5px;
+}
+#pdfDialog #bm089Editor .bm092-segment-text{
+ display:flex;flex-direction:column;gap:2px;min-width:0;overflow-wrap:anywhere;
+ font:12px/1.45 system-ui,Arial,sans-serif!important;color:#284f54;
+}
+#pdfDialog #bm089Editor .bm092-segment-text strong{font-weight:800}
+#pdfDialog #bm089Editor .bm092-actions{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:8px!important;position:sticky;bottom:-16px;background:white;
+ padding-top:12px!important;
+}
+#pdfDialog #bm089Editor .bm092-actions button{
+ min-height:47px!important;padding:9px!important;border-radius:9px!important;
+ font:750 12px/1.25 system-ui,Arial,sans-serif!important;
+ background:white;border:1px solid #b4cad0;color:#285569;
+}
+#pdfDialog #bm089Editor #bm092AutoApply{
+ grid-column:1/-1!important;color:#195d44!important;
+ background:#d8f0e2!important;border:2px solid #73b69a!important;
+ font-size:13px!important;
+}
+#pdfDialog #bm089Editor #bm092AutoApply[hidden]{display:none!important}
+#pdfDialog #bm089Editor #bm092AutoApply:disabled{
+ opacity:.55!important;cursor:not-allowed!important;
+}
+#pdfDialog #bm089Editor #bm089Save{
+ grid-column:1/-1!important;background:#f0f6fb!important;
+ color:#245572!important;border:1px solid #a1c8de!important;
+}
+#pdfDialog #bm089Editor #bm092Delete{
+ color:#8f3837!important;background:#fff1ef!important;border-color:#dfb2ae!important;
+}
+#pdfDialog #bm089Editor .bm092-actions button[hidden]{display:none!important}
+#pdfDialog #bm089Editor :is(button,input):focus-visible{
+ outline:3px solid #70ade0!important;outline-offset:2px!important;
+}
+@media(max-width:700px){
+ #pdfDialog #bm089Editor .bm092-mode{padding:7px;gap:5px}
+ #pdfDialog #bm089Editor .bm092-mode span{font-size:11px!important}
+ #pdfDialog #bm089Editor #bm092Toggle{font-size:10px!important;padding:6px!important}
+ #pdfDialog #bm089Editor #bm092Segments{max-height:155px}
+}
