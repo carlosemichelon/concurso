@@ -6,6 +6,12 @@ const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),asse
 const root=path.resolve(__dirname,'..');
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const page=read('v120.html');
+const manifest=JSON.parse(read('assets/version.json'));
+assert.equal(manifest.version,'V120');
+assert.equal(manifest.home,'v120.html');
+assert.equal(manifest.counts.cards,1499,'A base pública V119 deve permanecer');
+assert.equal(manifest.counts.pdfs,72);
+assert.ok(read('index.html').includes('v120.html?versao=V120'),'Entrada pública não aponta V120');
 const prior=read('v119.html');
 assert.ok(page.includes("tag('v120_relacoes_normativas.js?v=120')+grifadorTag"),
  'Novo módulo tem de ser carregado ANTES do grifador');
