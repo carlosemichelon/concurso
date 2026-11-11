@@ -1,0 +1,42 @@
+name: Banco Mestre — integridade jurídica V124
+on:
+  push:
+    branches: [gh-pages, feature/v124-juridico-publicacao-20261111]
+    paths:
+      - 'assets/v124_remissoes.js'
+      - 'v124.html'
+      - 'assets/version.json'
+      - 'index.html'
+      - 'tests/v124_remissoes.cjs'
+      - 'tests/v124_corpus_referencias_oficiais.cjs'
+      - 'tests/v124_integridade_portal.cjs'
+      - '.github/workflows/validar-juridico-v124.yml'
+  pull_request:
+    paths:
+      - 'assets/v124_remissoes.js'
+      - 'v124.html'
+      - 'tests/v124_remissoes.cjs'
+      - 'tests/v124_corpus_referencias_oficiais.cjs'
+      - 'tests/v124_integridade_portal.cjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Classificador anterior V114
+        run: node tests/v114_cf_ia.cjs
+      - name: Estrutura anterior V121
+        run: node tests/v121_relacoes_normativas.cjs
+      - name: Remissões e cores preservadas
+        run: node tests/v124_remissoes.cjs
+      - name: Corpus oficial e adversariais
+        run: node tests/v124_corpus_referencias_oficiais.cjs
+      - name: HTML e base V123 preservados
+        run: node tests/v124_integridade_portal.cjs
