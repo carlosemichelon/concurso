@@ -1,0 +1,111 @@
+/* V120: mesma lista de seleções/parágrafos do painel de grifos do PDF.
+   A Biblioteca usa o agrupador V120 e os próprios registros BM030/BM102. */
+#grifos #bm062Results.bm120-grouped-list{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ gap:7px!important;align-items:stretch!important;
+}
+#grifos .bm120-paragraph{
+ min-width:0!important;padding:9px 11px!important;
+ border:1px solid #d5e2ea!important;border-radius:8px!important;
+ background:#fff!important;box-shadow:0 1px 3px #203c4d0b!important;
+ color:#253c4e!important;
+}
+#grifos .bm120-paragraph.bm108-archived{
+ opacity:.68!important;border-style:dashed!important;
+}
+#grifos .bm120-head{
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;
+ gap:4px 9px!important;margin:0 0 4px!important;
+ font-size:11.5px!important;line-height:1.3!important;
+}
+#grifos .bm120-document{
+ font-size:12px!important;line-height:1.3!important;
+ flex:1 1 190px!important;overflow-wrap:anywhere!important;
+}
+#grifos .bm120-page,#grifos .bm120-kind{
+ font-size:10.5px!important;color:#526d7e!important;
+}
+#grifos .bm120-head button{
+ border:1px solid #bed4df!important;padding:4px 7px!important;
+ min-height:28px!important;margin:0!important;
+ font:700 10.5px/1.2 system-ui,Arial,sans-serif!important;
+}
+#grifos .bm120-preview{
+ width:100%!important;display:-webkit-box!important;
+ -webkit-box-orient:vertical!important;-webkit-line-clamp:3!important;
+ overflow:hidden!important;text-align:left!important;
+ font:500 12.5px/1.45 system-ui,Arial,sans-serif!important;
+ padding:3px 1px!important;margin:2px 0 5px!important;
+ min-height:0!important;max-height:5em!important;
+ background:transparent!important;border:0!important;
+ color:#223c54!important;box-shadow:none!important;
+ cursor:pointer!important;white-space:normal!important;
+ overflow-wrap:anywhere!important;
+}
+#grifos .bm120-preview:hover{
+ color:#086a9b!important;text-decoration:underline!important;
+}
+#grifos .bm120-colors{
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;
+ gap:4px 6px!important;margin:3px 0 5px!important;
+}
+#grifos .bm120-color{
+ display:inline-flex!important;align-items:center!important;gap:5px!important;
+ font:650 10px/1.2 system-ui,Arial,sans-serif!important;
+ border:1px solid #d8e3e8!important;border-radius:5px!important;
+ background:#f8fbfd!important;padding:3px 6px!important;
+ max-width:100%!important;overflow-wrap:anywhere!important;
+}
+#grifos .bm120-color::before{
+ content:'';display:inline-block;flex:none!important;
+ height:10px;width:10px;border-radius:3px;
+ background:var(--bm120-color,#ffd400)!important;
+ border:1px solid #0002!important;
+}
+#grifos .bm120-note-count{
+ font:600 10px/1.3 system-ui,Arial,sans-serif!important;color:#546b7b!important;
+}
+#grifos .bm120-detail{
+ margin:5px 0 0!important;border:0!important;padding:0!important;
+}
+#grifos .bm120-detail>summary{
+ display:list-item!important;list-style:revert!important;
+ padding:5px 7px!important;margin:0!important;
+ font:700 10.5px/1.3 system-ui,Arial,sans-serif!important;
+ border:1px solid #d9e4eb!important;border-radius:5px!important;
+ background:#f4f8fb!important;color:#285f7e!important;
+ cursor:pointer!important;
+}
+#grifos .bm120-detail[open]>summary{
+ border-radius:5px 5px 0 0!important;
+}
+#grifos .bm120-detail-body{
+ display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(255px,100%),1fr))!important;
+ gap:7px!important;padding:8px!important;
+ border:1px solid #e0e8ec!important;border-top:0!important;
+ border-radius:0 0 6px 6px!important;
+}
+#grifos .bm120-detail:not([open])>.bm120-detail-body{
+ display:none!important;
+}
+#grifos .bm120-detail-body>.bm062-item{
+ margin:0!important;padding:9px!important;min-width:0!important;
+ box-shadow:none!important;
+}
+#grifos .bm120-detail-body .bm062-itembuttons{
+ gap:5px!important;
+}
+@media(max-width:760px){
+ #grifos .bm120-paragraph{padding:8px!important}
+ #grifos .bm120-preview{
+  font-size:12px!important;line-height:1.4!important;
+  -webkit-line-clamp:3!important;
+ }
+ #grifos .bm120-detail-body{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  gap:6px!important;padding:6px!important;
+ }
+ #grifos .bm120-head button,#grifos .bm120-detail>summary{
+  min-height:38px!important;
+ }
+}
