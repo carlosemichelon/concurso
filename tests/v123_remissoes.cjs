@@ -76,6 +76,21 @@ for(const [label,text,expected] of [
  if(expected===null)unsafePrevented++;
 }
 
+for(const [label,text,expected] of [
+ ['menção sem vínculo a Constituição',
+  'Art. 10. Conforme art. 5º, a Constituição é estudada em outro contexto.',null],
+ ['menção sem vínculo a Lei',
+  'Art. 10. Conforme art. 5º, a Lei 14.133 é mencionada no comentário.',null],
+ ['vínculo por inciso intermediário',
+  'Art. 10. Conforme art. 5º, inciso II, da Constituição Federal, segue a regra.','CF88:art5']
+]){
+ const refs=engine.legalReference(tokenize(text),'processo');
+ assert.equal(refs.length,1,'Artigo perdido: '+label);
+ assert.equal(refs[0].target,expected,'Lei sem ligação gramatical não pode ser destino: '+label);
+ cases++;
+ if(expected===null)unsafePrevented++;
+}
+
 for(const [profile,text] of [
  ['processo','Art. 10. O pedido será encaminhado.'],
  ['processo','a autoridade recebeu o documento.'],
