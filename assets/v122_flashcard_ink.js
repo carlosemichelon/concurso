@@ -32,7 +32,7 @@
   control.dataset.tool=value;toolButtons.set(value,control);tools.append(control);
  }
  const colorLabel=node('label','Cor: ');
- const color=document.createElement('input');color.type='color';color.value='#FFE066';color.setAttribute('aria-label','Cor do traço');
+ const color=document.createElement('input');color.type='color';color.value='#174059';color.setAttribute('aria-label','Cor do traço');
  colorLabel.append(color);
  const sizeLabel=node('label','Espessura: ');
  const size=document.createElement('input');size.type='range';size.min='2';size.max='28';size.value='7';size.step='1';
@@ -108,6 +108,8 @@
   for(const s of data?.[side]||[])drawStroke(ctx,s,w,h);
  }
  function modeChange(next){
+  if(next==='highlight'&&color.value.toLowerCase()==='#174059')color.value='#fde68a';
+  else if(next==='pen'&&color.value.toLowerCase()==='#fde68a')color.value='#174059';
   mode=next;
   for(const [k,b] of toolButtons)b.setAttribute('aria-pressed',String(k===mode));
   canvas.style.pointerEvents=mode==='read'?'none':'auto';
