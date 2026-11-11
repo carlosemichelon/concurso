@@ -1,0 +1,34 @@
+name: Banco Mestre — auditoria de remissões V123
+on:
+  push:
+    branches: [feature/v123-remissoes-vinculos-20261111, gh-pages]
+    paths:
+      - 'assets/v123_remissoes.js'
+      - 'tests/v123_remissoes.cjs'
+      - 'tests/v123_portal.cjs'
+      - 'v123.html'
+      - '.github/workflows/validar-remissoes-v123.yml'
+  pull_request:
+    paths:
+      - 'assets/v123_remissoes.js'
+      - 'tests/v123_remissoes.cjs'
+      - 'tests/v123_portal.cjs'
+      - 'v123.html'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regredir classificação constitucional V114
+        run: node tests/v114_cf_ia.cjs
+      - name: Regredir estrutura V121
+        run: node tests/v121_relacoes_normativas.cjs
+      - name: Remissões precisas e falsos vínculos entre leis
+        run: node tests/v123_remissoes.cjs
