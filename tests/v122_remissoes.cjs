@@ -61,6 +61,21 @@ for(const ex of examples){
   'V122 não pode alterar nenhuma cor/posição de grifo');
  colorsPreserved++;cases++;
 }
+for(const [label,text,expected] of [
+ ['frase seguinte com Constituicao',
+  'Art. 10. Nos termos do art. 5º. A Constituição Federal será estudada depois.',null],
+ ['frase seguinte com Lei 14.133',
+  'Art. 10. Nos termos do art. 5º; a Lei nº 14.133 terá aplicação diferente.',null],
+ ['abreviatura n. da Lei 9.784',
+  'Art. 10. Segundo o art. 5º da Lei n. 9.784/1999, cabe recurso.','LEI9784:art5']
+]){
+ const refs=engine.legalReference(tokenize(text),'processo');
+ assert.equal(refs.length,1,'Delimitador de frase: '+label);
+ assert.equal(refs[0].target,expected,'Norma de outra frase nao pode contaminar remissao: '+label);
+ cases++;
+ if(expected===null)unsafePrevented++;
+}
+
 for(const [profile,text] of [
  ['processo','Art. 10. O pedido será encaminhado.'],
  ['processo','a autoridade recebeu o documento.'],
