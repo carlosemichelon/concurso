@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V088.
+- **Site publicado:** V089.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v088.html`.
-- **Versão anterior preservada:** `gh-pages/v087.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v089.html`.
+- **Versão anterior preservada:** `gh-pages/v088.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -303,3 +303,13 @@
 - Estado `visible`/`hidden` EXPRESSAMENTE registrado no IndexedDB pelo usuário tem precedência sobre o padrão para permitir restaurar ou ocultar individualmente no navegador. Desfazer importação V086 não apaga a regra de site: ela é um padrão público; a restauração explícita de cada ID continua disponível.
 - Esta operação é **sincronização pontual da seleção V046 com o site**, não sincronização contínua do estado local entre dispositivos e Google Drive. Exclusões posteriores feitas somente em um navegador não entram no padrão global até uma nova exportação/auditoria/publicação. Não apagar documentos do Drive a partir de 36 mapeamentos candidatos por nome, ainda não validados.
 - Auditoria técnica: módulo avaliado em JavaScript simulando estados locais, resultando em 184 ocultas padrão, 183 após restaurar uma excluída, 184 após ocultar uma anteriormente ativa. Manifesto e loader V088 inspecionados; teste visual no navegador do titular ainda pendente.
+
+
+## V089 — reparação do PDF, carregador e seleção por coluna (10/11/2026)
+
+- **Falha fatal encontrada na V088:** a string `const atlasInit='<script src="..."></script>';` continha `</script>` literal dentro do script principal. O HTML encerra prematuramente o bloco, deixando código inválido. V089 substituiu a montagem por concatenação `'<scr'+'ipt ... </scr'+'ipt>'`, mantendo o texto final da tag exatamente igual. Teste de parsing de toda a página passou, com um único fechamento real de `<script>`.
+- **Salto de palavras no Vade Mecum:** seleção nativa dos spans PDF.js em páginas com 3 colunas pode atravessar a ordem DOM/colunas. O novo motor `assets/v089_pdf_selection_core.js` trabalha com retângulos extraídos do `getTextContent()`, aplica `Util.transform()`, separa faixas de coluna por corredores verticais, ordena palavras por linhas e impede atravessar colunas. Geometria ambígua, sobreposição e seleções excessivas recusadas em vez de gravar dados incorretos.
+- **Seleção:** clique/toque na palavra inicial e na palavra final (ou arraste com mouse). Prévia azul das palavras efetivamente escolhidas. Uma caixa pede a cor entre seis categorias e o Assunto; Disciplina e Subassunto opcionais. Nenhum clique de seleção ou cor grava automaticamente.
+- **UX:** barra lateral 142px desktop/88px celular, Selecionar Texto, Mover, Zoom, Histórico e Salvar visíveis. Caneta, borracha, limpeza, grifo livre e exportações secundárias disponíveis em `Mais ferramentas`.
+- **Preservação:** mantém PDF core V087 (inclusive original dos grifos), backend de sincronização e dados de cartões V018, cache-bust V018, 72 PDFs, 270 imagens, Atlas global, importação reversível das exclusões, IDs, SRS, notas e Drive. Backup `backup/v088-with-v018-before-precision-selector-v089-2026-11-10`.
+- **Testes internos:** sintaxe e fechamento da página, detector de três colunas com variações de largura, falha segura em caso de sobreposição, interação simulada selecionar início/fim e salvar exatamente um grifo com assunto. **Teste real dentro do navegador do usuário ainda necessário.**

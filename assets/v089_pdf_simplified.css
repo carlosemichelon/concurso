@@ -1,0 +1,218 @@
+/* Banco Mestre V089 — editor PDF simplificado e seleção física por palavras.
+ * Não altera estilos da galeria ou editor de imagens. */
+#pdfDialog.bm089-simplified{
+ --bm089-bg:#f9fcfb;--bm089-ink:#193b45;--bm089-edge:#b7cfd1;--bm089-accent:#2276a4;
+}
+#pdfDialog.bm089-simplified .bm-v046-pdf-workspace:has(#pdfLocalTools:not([hidden])){
+ grid-template-columns:142px minmax(0,1fr)!important;
+}
+#pdfDialog.bm089-simplified .bm-v046-pdf-side{
+ background:#f4f9f8!important;border-right:1px solid #d4e4e2!important;
+}
+#pdfDialog.bm089-simplified .bm-v046-pdf-side #pdfLocalTools{
+ padding:8px 4px!important;gap:6px!important;
+}
+#pdfDialog.bm089-simplified #bm089Hint{
+ border:1px solid #a8cedb;background:#eaf6fb;color:#21546c;
+ border-radius:9px;padding:8px 7px;margin:4px 2px;
+ font:650 11px/1.45 system-ui,Arial,sans-serif;overflow-wrap:anywhere;
+}
+#pdfDialog.bm089-simplified #bm089MoreTools{
+ display:flex;align-items:center;justify-content:center;
+ width:100%;min-height:42px;border-radius:9px;
+ font:700 11px system-ui,Arial,sans-serif;
+ color:#235269;background:#fff;border:1px solid #bfd5db;
+}
+#pdfDialog.bm089-simplified #bm068SelectTool{
+ display:flex!important;align-items:center;justify-content:center;
+ flex:1 1 100%!important;width:100%!important;max-width:none!important;
+ min-height:58px!important;height:auto!important;line-height:1.25!important;
+ color:#153f65!important;background:#e1f1ff!important;
+ border:2px solid #7faaca!important;border-radius:11px!important;
+ padding:9px 4px!important;font:800 12px/1.25 system-ui,Arial,sans-serif!important;
+ white-space:normal!important;touch-action:manipulation;
+}
+#pdfDialog.bm089-simplified #bm068SelectTool[aria-pressed="true"]{
+ color:#073f66!important;background:#cce6fc!important;
+ border:3px solid #156a9b!important;box-shadow:inset 0 0 0 1px #fff!important;
+}
+#pdfDialog.bm089-simplified #bm068QuickToggle,
+#pdfDialog.bm089-simplified #bm070Smart,
+#pdfDialog.bm089-simplified #bm068Settings,
+#pdfDialog.bm089-simplified .bm068-brand,
+#pdfDialog.bm089-simplified #bm068ModeHint{display:none!important}
+#pdfDialog.bm089-simplified #bm068QuickBar{padding:4px 3px!important;border:0!important;background:transparent!important}
+#pdfDialog.bm089-simplified #bm068OpenPanel{
+ display:flex!important;align-items:center;justify-content:center;
+ min-height:42px!important;width:100%!important;font-size:11px!important;
+ background:white!important;border:1px solid #bcd0d0!important;color:#284f59!important;
+ border-radius:9px!important;
+}
+#pdfDialog.bm089-simplified #pdfDraw,
+#pdfDialog.bm089-simplified #pdfMarker,
+#pdfDialog.bm089-simplified #pdfEraser,
+#pdfDialog.bm089-simplified #pdfInkColor,
+#pdfDialog.bm089-simplified #pdfClearPage,
+#pdfDialog.bm089-simplified #pdfExportPNG,
+#pdfDialog.bm089-simplified #pdfChangeFile,
+#pdfDialog.bm089-simplified #pdfMarkerOpacityWrapV046{
+ display:none!important;
+}
+#pdfDialog.bm089-simplified.bm089-more #pdfDraw,
+#pdfDialog.bm089-simplified.bm089-more #pdfMarker,
+#pdfDialog.bm089-simplified.bm089-more #pdfEraser,
+#pdfDialog.bm089-simplified.bm089-more #pdfInkColor,
+#pdfDialog.bm089-simplified.bm089-more #pdfClearPage,
+#pdfDialog.bm089-simplified.bm089-more #pdfExportPNG,
+#pdfDialog.bm089-simplified.bm089-more #pdfChangeFile,
+#pdfDialog.bm089-simplified.bm089-more #pdfMarkerOpacityWrapV046{
+ display:flex!important;
+}
+#pdfDialog.bm089-simplified #pdfPan{min-height:45px!important}
+#pdfDialog.bm089-simplified #pdfUndo,
+#pdfDialog.bm089-simplified #pdfRedo,
+#pdfDialog.bm089-simplified #pdfZoomOut,
+#pdfDialog.bm089-simplified #pdfZoomIn{min-height:44px!important}
+#pdfDialog.bm089-simplified .bm-v046-pdf-side .pdfGroup[data-bm085-label]::before{
+ font-size:10px!important;color:#58757a!important;letter-spacing:0!important;
+}
+#pdfDialog.bm089-simplified .bm-v046-pdf-side .pdfGroup{
+ gap:5px!important;padding:0 0 8px!important;
+}
+#pdfDialog.bm089-simplified .bm-v046-pdf-side .pdfGroup #pdfExportPDF,
+#pdfDialog.bm089-simplified .bm-v046-pdf-side .pdfGroup #pdfSaveDriveV042{
+ min-height:44px!important;
+}
+/* Desativar COMPLETAMENTE a seleção nativa de spans, que pode saltar entre colunas. */
+#pdfDialog.bm089-simplified .bm-v061-text-layer,
+#pdfDialog.bm089-simplified .bm-v061-text-layer *{
+ pointer-events:none!important;user-select:none!important;-webkit-user-select:none!important;
+}
+#pdfDialog #pdfPageWrap{position:relative!important}
+#pdfDialog #bm089WordPointer{
+ position:absolute!important;inset:0!important;z-index:30!important;
+ cursor:text!important;touch-action:pan-y!important;
+ user-select:none!important;-webkit-user-select:none!important;
+ pointer-events:none!important;
+}
+#pdfDialog.bm089-precise #bm089WordPointer:not([hidden]){
+ pointer-events:auto!important;
+}
+#pdfDialog #bm089WordPointer[hidden]{display:none!important}
+#pdfDialog #bm089RectPreview{
+ position:absolute;inset:0;pointer-events:none!important;
+}
+#pdfDialog #bm089RectPreview .bm089-word-rect{
+ position:absolute;display:block;pointer-events:none!important;
+ background:rgba(42,128,222,.25);outline:1px solid rgba(21,98,171,.38);
+ border-radius:1px;
+}
+#pdfDialog #bm089RectPreview .bm089-focus-word{
+ position:absolute;display:block;pointer-events:none!important;
+ background:rgba(48,146,236,.40);outline:2px solid #1767aa;border-radius:1px;
+}
+/* Uma caixa simples de classificação, sem misturar com as antigas paletas automáticas. */
+#pdfDialog #bm089Editor{
+ position:fixed!important;z-index:3200!important;
+ top:clamp(56px,8dvh,100px)!important;right:clamp(8px,3vw,38px)!important;
+ box-sizing:border-box!important;width:min(425px,calc(100vw - 18px))!important;
+ max-height:calc(100dvh - 90px)!important;overflow-y:auto!important;
+ overscroll-behavior:contain!important;
+ background:#fff!important;border:2px solid #99c0c6!important;border-radius:16px!important;
+ box-shadow:0 20px 56px rgba(13,48,61,.38)!important;
+ padding:16px!important;
+ font:14px/1.45 system-ui,-apple-system,Arial,sans-serif!important;color:#193d49!important;
+ pointer-events:auto!important;
+}
+#pdfDialog #bm089Editor[hidden]{display:none!important}
+#pdfDialog #bm089Editor *{box-sizing:border-box!important}
+#pdfDialog #bm089Editor .bm089-head{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ padding-bottom:11px;border-bottom:1px solid #dcebed;
+}
+#pdfDialog #bm089Editor .bm089-head strong{font-size:17px}
+#pdfDialog #bm089Editor #bm089Close{
+ display:flex;align-items:center;justify-content:center;flex:none;
+ width:40px!important;height:40px!important;font-size:25px!important;
+ background:#f3f7f8!important;border:1px solid #c2d4d7!important;border-radius:10px!important;
+}
+#pdfDialog #bm089Editor .bm089-excerpt{
+ white-space:pre-wrap!important;overflow-wrap:anywhere!important;
+ max-height:140px;overflow-y:auto;
+ background:#ecf5ff;border-left:4px solid #3d87c5;
+ border-radius:7px;padding:11px!important;margin:12px 0 6px;
+ font:13px/1.55 system-ui,-apple-system,Arial,sans-serif!important;
+}
+#pdfDialog #bm089Editor .bm089-tip{display:block;font-size:11px;color:#587078;margin-bottom:10px}
+#pdfDialog #bm089Editor .bm089-label{
+ font-size:13px;font-weight:800;margin:12px 0 8px;color:#284957;
+}
+#pdfDialog #bm089Editor .bm089-colors{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;
+}
+#pdfDialog #bm089Editor .bm089-color{
+ --markcolor:#ddd;
+ display:flex;align-items:center;justify-content:center;
+ font:650 11px/1.25 system-ui,Arial,sans-serif!important;
+ min-height:50px!important;white-space:normal!important;overflow-wrap:anywhere;
+ padding:7px 5px 7px 9px!important;border-radius:9px!important;
+ background:#fff!important;border:1px solid #b8cbd0!important;
+ border-left:10px solid var(--markcolor)!important;
+ color:#22424a!important;touch-action:manipulation!important;
+}
+#pdfDialog #bm089Editor .bm089-color[aria-pressed="true"]{
+ background:#e8f5f4!important;border:2px solid #166b90!important;
+ border-left:10px solid var(--markcolor)!important;
+ box-shadow:0 0 0 2px #b4dbe7!important;
+}
+#pdfDialog #bm089Editor .bm089-field{
+ display:flex;flex-direction:column;gap:5px;
+ font:700 12px/1.45 system-ui,Arial,sans-serif!important;margin-top:8px;
+}
+#pdfDialog #bm089Editor .bm089-field input{
+ width:100%!important;min-width:0!important;min-height:46px!important;
+ font:15px/1.35 system-ui,Arial,sans-serif!important;
+ padding:10px!important;background:#fff!important;color:#193c49!important;
+ border:1px solid #95b9bf!important;border-radius:8px!important;
+}
+#pdfDialog #bm089Editor .bm089-field input:focus-visible,
+#pdfDialog #bm089Editor button:focus-visible{
+ outline:3px solid #6aa5da!important;outline-offset:2px!important;
+}
+#pdfDialog #bm089Editor .bm089-extra{
+ border:1px solid #dae6e7;border-radius:8px;
+ padding:8px 10px;margin:11px 0;
+}
+#pdfDialog #bm089Editor .bm089-extra summary{cursor:pointer;font-size:12px;font-weight:700;color:#345f69}
+#pdfDialog #bm089Editor .bm089-alert{
+ min-height:30px;margin:10px 0;padding:7px 8px;
+ background:#f4f9fb;color:#375f6a;border-radius:8px;
+ font-size:12px;
+}
+#pdfDialog #bm089Editor .bm089-footer{
+ display:grid;grid-template-columns:1fr 1.25fr;gap:8px;
+ position:sticky;bottom:-16px;padding:12px 0 0;background:#fff;
+}
+#pdfDialog #bm089Editor .bm089-footer button{
+ min-height:46px!important;font-size:13px!important;font-weight:750!important;
+ border-radius:9px!important;
+}
+#pdfDialog #bm089Editor #bm089Save{
+ background:#d0efd9!important;border:2px solid #43996c!important;color:#145336!important;
+}
+#pdfDialog #bm089Editor #bm089Retry{background:#fff!important;border:1px solid #b1ccd0!important;color:#245365!important}
+@media(max-width:700px){
+ #pdfDialog.bm089-simplified .bm-v046-pdf-workspace:has(#pdfLocalTools:not([hidden])){
+  grid-template-columns:88px minmax(0,1fr)!important;
+ }
+ #pdfDialog.bm089-simplified .bm-v046-pdf-side #pdfLocalTools{padding:5px 2px!important}
+ #pdfDialog.bm089-simplified #bm089Hint{font-size:10px!important;padding:6px 3px}
+ #pdfDialog.bm089-simplified #bm068SelectTool{font-size:10px!important;min-height:54px!important;padding:5px 2px!important}
+ #pdfDialog #bm089Editor{
+  left:4px!important;right:4px!important;top:auto!important;bottom:4px!important;
+  width:calc(100vw - 8px)!important;max-height:83dvh!important;padding:12px!important;
+  border-radius:16px!important;
+ }
+ #pdfDialog #bm089Editor .bm089-field input{font-size:16px!important}
+}
+@media(prefers-reduced-motion:reduce){#pdfDialog #bm089Editor *{transition:none!important}}

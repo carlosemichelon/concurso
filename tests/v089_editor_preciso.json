@@ -1,0 +1,38 @@
+{
+  "version": "V089",
+  "date": "2026-11-10",
+  "base": "V088 plus V018",
+  "bugfixes": [
+    "V088 premature </script> in inline string",
+    "native DOM selection across PDF columns",
+    "excessive PDF toolbar clutter"
+  ],
+  "preserved": {
+    "pdfs": 72,
+    "images": 270,
+    "baseDataV018": true,
+    "drive": true,
+    "srs": true,
+    "notes": true,
+    "atlas": true
+  },
+  "selection": {
+    "source": "PDF getTextContent geometry",
+    "multiColumn": true,
+    "tapStartEnd": true,
+    "desktopDrag": true,
+    "manualColor": true,
+    "topicRequired": true,
+    "automatic": false
+  },
+  "tests": {
+    "loaderSyntax": true,
+    "oneScriptClosing": true,
+    "threeColumnCore": true,
+    "slightOverlapSafe": true,
+    "majorOverlapFailsClosed": true,
+    "simulatedPointerSave": true,
+    "noAutomaticSave": true
+  },
+  "realBrowserStillPending": true
+}
