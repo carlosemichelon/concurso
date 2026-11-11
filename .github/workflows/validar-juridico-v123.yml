@@ -1,0 +1,44 @@
+name: Banco Mestre — grifador jurídico seguro V123
+on:
+  push:
+    branches:
+      - gh-pages
+      - feature/v123-juridico-validado-20261111
+    paths:
+      - 'assets/v123_remissoes.js'
+      - 'assets/version.json'
+      - 'index.html'
+      - 'v123.html'
+      - 'tests/v123_remissoes.cjs'
+      - 'tests/v123_corpus_referencias_oficiais.cjs'
+      - 'tests/v123_integridade_portal.cjs'
+      - '.github/workflows/validar-juridico-v123.yml'
+  pull_request:
+    paths:
+      - 'assets/v123_remissoes.js'
+      - 'v123.html'
+      - 'tests/v123_remissoes.cjs'
+      - 'tests/v123_corpus_referencias_oficiais.cjs'
+      - 'tests/v123_integridade_portal.cjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regressão constitucional anterior V114
+        run: node tests/v114_cf_ia.cjs
+      - name: Regressão estrutural anterior V121
+        run: node tests/v121_relacoes_normativas.cjs
+      - name: Remissões e imutabilidade das cores
+        run: node tests/v123_remissoes.cjs
+      - name: Corpus oficial de 20 trechos e 32 adversariais
+        run: node tests/v123_corpus_referencias_oficiais.cjs
+      - name: Preservação integral da interface V122
+        run: node tests/v123_integridade_portal.cjs
