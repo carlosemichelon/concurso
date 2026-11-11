@@ -10,6 +10,16 @@
 - **Versão anterior preservada:** `gh-pages/v108.html` (V107 e versões anteriores também preservadas) (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
+## V123 — remissões verificáveis entre leis (11/11/2026)
+
+- Base: V122 publicada com 1.499 cartões públicos, leitor PDF e sincronização de grifos. V122 íntegra em `v122.html`.
+- `v123.html` adiciona **somente** o módulo `assets/v123_remissoes.js` depois do V121 e antes do grifador: identifica lei citada explicitamente e evita associar artigo à norma errada do perfil.
+- `desta Lei` e `desta Constituição`, sem identidade de fonte confrontada, não geram vínculo confirmado: `target:null`, com sugestão separada quando cabível.
+- Não declara vigência, nem executa inferência neural nova; permanece `verified_source:false`. Quatro cores e grifos originais não são alterados.
+- Testes: `tests/v123_remissoes.cjs`, `tests/v123_corpus_referencias_oficiais.cjs`, `tests/v123_integridade_portal.cjs`, regressões V114 e V121. Corpus de desenvolvimento: 20 excertos oficiais e 32 adversariais; não mede precisão geral em leis não vistas.
+- Mantidos PDF V122, grifos agrupados/sincronizados, anotações em flashcards, 72 PDFs, 270 imagens, SRS e 22 cartões separados de Ijuí. Homologação visual/OAuth em dispositivo real permanece necessária.
+
+
 ## V121 — IA jurídica estrutural (11/11/2026)
 
 Acrescenta `assets/v121_relacoes_normativas.js` e calibrador V121 à interface V120, preservando a base de 1.499 cartões, agrupamento de grifos por parágrafo e todos os dados/SRS. Testes `tests/v121_relacoes_normativas.cjs` e `tests/v121_integridade_portal.cjs`; homologação visual/OAuth ainda pendentes.
