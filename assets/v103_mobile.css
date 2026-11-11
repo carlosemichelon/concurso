@@ -1,0 +1,203 @@
+/* V103 — layout móvel revisado. Compatível com leitor V102 e painel V102.
+   A barra do PDF só é escondida por decisão do usuário ou padrão móvel inicial. */
+html{max-width:100%;-webkit-text-size-adjust:100%}
+body{max-width:100%;overflow-x:clip}
+#pdfDialog #bm103ToggleTools,
+#pdfDialog #bm103TextSelect,#pdfDialog #bm103CurrentPage{display:none}
+#pdfDialog #bm103SelectStage[hidden]{display:none!important}
+#pdfDialog #bm103SelectStage{
+ position:absolute!important;bottom:max(10px,env(safe-area-inset-bottom))!important;
+ left:50%!important;transform:translateX(-50%)!important;z-index:76!important;
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ gap:9px!important;max-width:calc(100% - 20px)!important;width:max-content!important;
+ padding:9px 12px!important;background:#142e42eb!important;color:#fff!important;
+ border:1px solid #728b9c!important;border-radius:13px!important;
+ box-shadow:0 5px 17px #0a233445!important;
+ font:700 12px/1.3 system-ui,Arial,sans-serif!important;
+ text-align:center!important;pointer-events:auto!important
+}
+#pdfDialog #bm103SelectStage button{
+ margin:0!important;border-radius:7px!important;background:#fff!important;
+ border:0!important;color:#175b87!important;font:750 11px/1.2 system-ui,Arial,sans-serif!important;
+ padding:8px 10px!important;min-height:34px!important
+}
+#pdfDialog #bm103SelectStage button[hidden]{display:none!important}
+@media(max-width:760px){
+ body>header{position:sticky!important;top:0!important;z-index:20!important}
+ body>header .head{display:flex!important;flex-wrap:wrap!important;
+  align-items:center!important;justify-content:space-between!important;
+  padding:9px 10px!important;gap:6px 10px!important;max-width:100%!important}
+ body>header .brand{font-size:18px!important;line-height:1.25!important}
+ body>header .version{font-size:10px!important;line-height:1.35!important;
+  max-width:65%;overflow-wrap:anywhere}
+ body>header nav{
+  display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start!important;
+  gap:5px!important;max-width:100%!important;width:100%!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x proximity;scrollbar-width:thin!important;
+  padding:2px 0 5px!important;-webkit-overflow-scrolling:touch!important
+ }
+ body>header nav button[data-page]{
+  flex:0 0 auto!important;white-space:nowrap!important;
+  scroll-snap-align:start;min-width:max-content!important;
+  max-width:none!important;min-height:43px!important;
+  padding:9px 11px!important;font-size:12px!important
+ }
+ main{width:100%!important;max-width:100%!important;
+  padding:12px 10px max(50px,env(safe-area-inset-bottom))!important}
+ main .hero h1{font-size:22px!important;line-height:1.25!important}
+ main .hero p{font-size:13px!important;line-height:1.55!important}
+ main .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+ main .stats .stat{min-width:0!important;padding:10px 11px!important}
+ main .stats .stat b{font-size:21px!important}
+ main .stats .stat span{font-size:11px!important;overflow-wrap:anywhere!important}
+ main .panel,main section>.panel{width:100%!important;min-width:0!important;
+  max-width:100%!important;padding:13px 11px!important;margin:0 0 10px!important}
+ main .panel>h2{font-size:19px!important;line-height:1.3!important}
+ main .panel p.intro{font-size:13px!important;line-height:1.55!important}
+ main .grid,main .topicCards,main #pdfRows .grid,main #cardRows.grid,
+ main #imageRows.grid{grid-template-columns:minmax(0,1fr)!important}
+ main .card,main .topicCard,main article.card{min-width:0!important;
+  max-width:100%!important;overflow-wrap:anywhere!important}
+ main .card .buttons,main .topicCard .buttons{
+  display:flex!important;flex-wrap:wrap!important;gap:7px!important
+ }
+ main .card .buttons button,main .card .buttons a,
+ main .panel button,main .panel a.action{
+  min-height:42px!important;font-size:12.5px!important;
+  line-height:1.3!important;overflow-wrap:anywhere!important
+ }
+ main .controls{display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  align-items:stretch!important;gap:8px!important;margin:12px 0!important}
+ main .controls > *,main .controls label{max-width:100%!important;min-width:0!important}
+ main .controls input[type=search],main .controls select{
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  min-height:44px!important;font-size:16px!important
+ }
+ main .controls .checkbox{display:flex!important;align-items:center!important;
+  gap:8px!important;font-size:12px!important;white-space:normal!important}
+ main #topicArea,main #topicSearch,main #pdfFilter,main #pdfSearch,
+ main #cardSearch,main #imageSearch{width:100%!important;min-width:0!important;max-width:100%!important}
+ main #grifos .bm062-filters{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  gap:8px!important;align-items:stretch!important
+ }
+ main #grifos .bm062-filters>*{width:100%!important;min-width:0!important;max-width:100%!important}
+ main #grifos .bm062-export{display:flex!important;flex-wrap:wrap!important;gap:6px!important}
+ main #grifos .bm062-top{display:flex!important;flex-direction:column!important;gap:10px!important}
+ main #grifos .bm062-topbuttons{width:100%!important;flex-wrap:wrap!important}
+ main #grifos .bm062-topbuttons button{flex:1 1 145px!important}
+ main #pdfRows .buttons button,main #pdfRows .buttons a,
+ main #cardRows .buttons button,main #imageRows .buttons button{
+  flex:1 1 auto!important
+ }
+ main .bm-v050-peek-panel{width:100%!important;max-width:100%!important;
+  min-width:0!important;overflow-wrap:anywhere!important}
+ dialog:not(#pdfDialog):not(#imageDialog)[open]{
+  max-width:calc(100vw - 12px)!important;width:calc(100vw - 12px)!important;
+  max-height:calc(100dvh - 16px)!important;overflow:auto!important
+ }
+ dialog .dbody{min-width:0!important}
+ /* O PDF ocupa toda a largura quando a barra é recolhida. */
+ #pdfDialog[open].bm103-tools-collapsed .bm-v046-pdf-workspace:has(#pdfLocalTools:not([hidden])){
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important
+ }
+ #pdfDialog[open].bm103-tools-collapsed .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){
+  display:none!important
+ }
+ #pdfDialog[open].bm103-tools-collapsed .bm-v046-pdf-content{
+  width:100%!important;min-width:0!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-workspace:has(#pdfLocalTools[data-bm100-ready="1"]:not([hidden])){
+  grid-template-columns:148px minmax(0,1fr)!important
+ }
+ #pdfDialog[open].bm103-tools-collapsed .bm-v046-pdf-workspace:has(#pdfLocalTools[data-bm100-ready="1"]:not([hidden])){
+  grid-template-columns:minmax(0,1fr)!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfLocalTools[data-bm100-ready="1"]{
+  padding:7px 4px!important;scrollbar-width:thin!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls{
+  position:absolute!important;right:7px!important;
+  top:max(7px,env(safe-area-inset-top))!important;
+  z-index:82!important;display:flex!important;align-items:center!important;
+  flex-wrap:nowrap!important;gap:3px!important;max-width:calc(100% - 14px)!important;
+  padding:4px!important;background:#fffef5!important;border-radius:10px!important;
+  box-shadow:0 2px 11px #233c4b44!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103ToggleTools,
+ #pdfDialog[open] #bmV056FloatingControls #bm103TextSelect{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 auto!important;min-height:38px!important;height:38px!important;
+  width:auto!important;min-width:41px!important;
+  padding:6px 8px!important;white-space:nowrap!important;
+  font:760 11px/1.2 system-ui,Arial,sans-serif!important;
+  color:#195b7e!important;background:#eef7fd!important;border:1px solid #bdd9e8!important;
+  border-radius:7px!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103CurrentPage{
+  display:inline-block!important;white-space:nowrap!important;
+  min-width:0!important;font:750 10px/1.2 system-ui,Arial,sans-serif!important;
+  color:#355a73!important;padding:0 3px!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103ToggleTools[hidden],
+ #pdfDialog[open] #bmV056FloatingControls #bm103TextSelect[hidden],
+ #pdfDialog[open] #bmV056FloatingControls #bm103CurrentPage[hidden]{display:none!important}
+ #pdfDialog[open] #bmV056FloatingControls #bmV056ClosePDF,
+ #pdfDialog[open] #bmV056FloatingControls #bmV056OpenPdfMenu{
+  min-height:38px!important;height:38px!important;width:38px!important;
+  min-width:38px!important;padding:5px!important;border-radius:7px!important
+ }
+ #pdfDialog[open] .bm064-reader.bm064-show-grifos .bm064-grip{display:none!important}
+ #pdfDialog[open] .bm064-reader.bm064-show-grifos .bm064-highlight-panel{
+  position:absolute!important;right:0!important;top:0!important;bottom:0!important;
+  z-index:78!important;flex:0 0 auto!important;
+  width:min(94vw,410px)!important;min-width:0!important;
+  max-width:min(94vw,410px)!important;height:100%!important;
+  box-shadow:-5px 0 20px #1c3d5a60!important;
+  border-left:1px solid #a8c8df!important
+ }
+ #pdfDialog[open] .bm064-head button,
+ #pdfDialog[open] #bm102MergeToggle{min-height:38px!important}
+ #pdfDialog #bm103SelectStage{
+  max-width:calc(100% - 16px)!important;
+  bottom:max(10px,env(safe-area-inset-bottom))!important;
+  font-size:11px!important
+ }
+ #pdfDialog.bm094-precise #bm094WordPointer:not([hidden]){
+  touch-action:pan-y!important
+ }
+ #imageDialog.bm-v060-image-side-only[open]>.dbody{
+  grid-template-columns:minmax(0,1fr) 116px!important;
+  min-width:0!important;max-width:100%!important
+ }
+ #imageDialog.bm-v060-image-side-only .editor-tools{
+  min-width:0!important;max-width:116px!important;padding:5px 3px!important;
+  overflow-x:hidden!important
+ }
+ #imageDialog.bm-v060-image-side-only #imageStage{
+  min-width:0!important;max-width:100%!important;padding:3px!important
+ }
+ #imageDialog .editor-tools .toolgroup{
+  display:flex!important;flex-direction:column!important;max-width:100%!important
+ }
+ #imageDialog .editor-tools .toolgroup button{min-height:40px!important;
+  overflow-wrap:anywhere!important;white-space:normal!important}
+}
+@media(max-width:390px){
+ body>header .brand{font-size:16px!important}
+ body>header nav button[data-page]{font-size:11px!important;padding:8px 9px!important}
+ #pdfDialog[open] #bmV056FloatingControls{gap:2px!important;padding:3px!important}
+ #pdfDialog[open] #bmV056FloatingControls #bm103ToggleTools,
+ #pdfDialog[open] #bmV056FloatingControls #bm103TextSelect{
+  padding:5px 6px!important;font-size:10px!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103CurrentPage{font-size:9px!important;padding:0 2px!important}
+ #pdfDialog[open] #bmV056FloatingControls #bmV056ClosePDF,
+ #pdfDialog[open] #bmV056FloatingControls #bmV056OpenPdfMenu{
+  width:34px!important;min-width:34px!important
+ }
+}
+@media(min-width:761px){
+ #pdfDialog #bm103SelectStage{display:none!important}
+}

@@ -1,0 +1,68 @@
+/* V103 — conexão privada de grifos, compacta em computador e celular */
+#grifos #bm103DriveSync{
+ display:block!important;visibility:visible!important;
+ margin:18px 0 4px!important;padding:16px!important;
+ background:#f6fafe!important;border:1px solid #d2e2ee!important;
+ border-radius:12px!important;box-shadow:0 1px 7px #23435c10!important;
+ min-width:0!important;max-width:100%!important
+}
+#grifos #bm103DriveSync h3{
+ margin:0 0 8px!important;font:800 17px/1.35 system-ui,Arial,sans-serif!important;
+ color:#214563!important
+}
+#grifos #bm103DriveSync p{
+ color:#4b687e!important;font:450 12.5px/1.6 system-ui,Arial,sans-serif!important;
+ margin:7px 0!important;overflow-wrap:anywhere!important
+}
+#grifos #bm103DriveSync .bm103-sync-actions{
+ display:flex!important;align-items:stretch!important;flex-wrap:wrap!important;
+ gap:8px!important;margin:12px 0!important
+}
+#grifos #bm103DriveSync .bm103-sync-actions button{
+ flex:1 1 168px!important;min-height:43px!important;
+ border-radius:9px!important;border:1px solid #b4d1e5!important;
+ background:#fff!important;color:#245d81!important;
+ padding:9px 11px!important;font:750 12px/1.3 system-ui,Arial,sans-serif!important;
+ white-space:normal!important;overflow-wrap:anywhere!important
+}
+#grifos #bm103DriveSync .bm103-sync-actions #bm103SyncNow{
+ background:#1882b9!important;color:#fff!important;border-color:#1882b9!important
+}
+#grifos #bm103DriveSync .bm103-sync-actions button:disabled{
+ opacity:.55!important;cursor:not-allowed!important
+}
+#grifos #bm103DriveSync .bm103-sync-auto{
+ display:flex!important;align-items:flex-start!important;gap:9px!important;
+ color:#375875!important;font:650 12px/1.55 system-ui,Arial,sans-serif!important;
+ margin:8px 0!important
+}
+#grifos #bm103DriveSync .bm103-sync-auto input{
+ width:18px!important;height:18px!important;flex:0 0 18px!important;
+ margin:2px 0 0!important;accent-color:#1882b9!important
+}
+#grifos #bm103SyncStatus{
+ padding:9px 12px!important;margin:12px 0 6px!important;
+ border-radius:8px!important;background:#edf7fb!important;
+ border:1px solid #c8e0ec!important;color:#2b6481!important;
+ font:650 12px/1.5 system-ui,Arial,sans-serif!important
+}
+#grifos #bm103SyncStatus.bm103-sync-error{
+ background:#fff4ef!important;color:#a14434!important;border-color:#e9c3b6!important
+}
+#grifos #bm103SyncStatus.bm103-sync-warning{
+ background:#fffaf0!important;color:#87621e!important;border-color:#ead8a4!important
+}
+#grifos #bm103DriveSync .bm103-sync-note{
+ font-size:11px!important;color:#667f8e!important;line-height:1.55!important
+}
+@media(max-width:700px){
+ #grifos #bm103DriveSync{padding:12px 10px!important;margin-top:12px!important}
+ #grifos #bm103DriveSync h3{font-size:16px!important}
+ #grifos #bm103DriveSync .bm103-sync-actions{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:7px!important
+ }
+ #grifos #bm103DriveSync .bm103-sync-actions button{
+  width:100%!important;max-width:100%!important;min-height:44px!important;
+  font-size:13px!important
+ }
+}
