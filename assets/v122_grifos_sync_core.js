@@ -162,6 +162,29 @@ function deleteMarks(storage,page,marks,options={}){
  }
  return array.length-remaining.length;
 }
+function persistPage(storage,page,next){
+ if(!isPage(page)||!Array.isArray(next))throw Error('Página inválida');
+ const before=storage.getItem(page),beforeDeletes=storage.getItem(DELETIONS);
+ const current=before?parse(page,before):[];
+ const future=new Set(next.map(markId));
+ const removed=current.filter(m=>!future.has(markId(m)));
+ const deletions=readDeletes(storage);
+ if(removed.length){
+  if(!deletions[page])deletions[page]={};
+  const stamp=now();
+  for(const mark of removed)deletions[page][markId(mark)]=stamp;
+ }
+ const clean=cleanPage(page,next,deletions);
+ try{
+  if(removed.length)storage.setItem(DELETIONS,literal(deletions));
+  clean.length?storage.setItem(page,literal(clean)):storage.removeItem(page);
+ }catch(e){
+  try{before===null?storage.removeItem(page):storage.setItem(page,before)}catch(_){}
+  try{beforeDeletes===null?storage.removeItem(DELETIONS):storage.setItem(DELETIONS,beforeDeletes)}catch(_){}
+  throw Error('Grifos não salvos: '+e.message);
+ }
+ return {saved:clean.length,removed:removed.length};
+}
 function capture(storage,device){
  migrate(storage);
  const records={};
@@ -245,7 +268,7 @@ function apply(storage,result){
  return result.writes.length;
 }
 const api=Object.freeze({SCHEMA,META,DELETIONS,LIMIT_BYTES,validKey,markId,parse,
- mergeArray,mergeObject,mergeDeletions,readDeletes,cleanPage,deleteMarks,
+ mergeArray,mergeObject,mergeDeletions,readDeletes,cleanPage,deleteMarks,persistPage,
  migrate,capture,validate,plan,apply});
 window.BancoMestreGrifosSyncCoreV103=api;
 })();
