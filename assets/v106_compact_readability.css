@@ -1,0 +1,123 @@
+/* V106 — assuntos compactos e ajustes de legibilidade do grifo no editor. */
+#assuntos .panel > h2:first-child{
+ font-size:clamp(16px,1.7vw,20px)!important;
+ line-height:1.3!important;
+ margin:0 0 3px!important
+}
+#assuntos .panel > p.intro{
+ margin:0 0 11px!important;
+ font-size:12px!important;
+ line-height:1.4!important;
+ color:#63788a!important
+}
+#assuntos .panel > h2:nth-of-type(2){
+ margin:14px 0 6px!important;
+ font-size:clamp(15px,1.5vw,19px)!important
+}
+#assuntos #areaRows.topicCards{
+ gap:8px!important;
+ margin:0 0 13px!important
+}
+#assuntos #areaRows .topicCard{
+ padding:10px 11px!important;
+ min-height:0!important;
+ gap:4px!important
+}
+#assuntos #areaRows .topicCard strong{
+ font-size:13px!important;
+ line-height:1.3!important
+}
+#assuntos #areaRows .topicCard small{
+ font-size:10px!important;
+ line-height:1.3!important
+}
+#assuntos #topicRows .v036-topic-tile{
+ padding:9px 10px!important;
+ gap:4px!important;
+ min-height:0!important
+}
+#assuntos #topicRows .v036-topic-name{
+ font-size:13px!important;
+ line-height:1.35!important
+}
+#assuntos #topicRows .v036-topic-examples{
+ display:-webkit-box!important;
+ -webkit-box-orient:vertical!important;
+ -webkit-line-clamp:1!important;
+ overflow:hidden!important;
+ max-height:1.5em!important;
+ font-size:10px!important;
+ line-height:1.5!important
+}
+#assuntos #topicRows .v036-topic-metrics{
+ gap:4px!important;
+ font-size:10px!important
+}
+#assuntos #topicRows .v036-topic-link{
+ font-size:11px!important
+}
+#assuntos #topicRows .v036-topic-cluster-summary{
+ padding:8px 10px!important
+}
+body:has(#assuntos.active) main > .hero{
+ margin-bottom:9px!important
+}
+body:has(#assuntos.active) main > .hero h1{
+ font-size:clamp(19px,2.2vw,24px)!important;
+ line-height:1.25!important
+}
+body:has(#assuntos.active) main > .hero p{
+ font-size:11.5px!important;
+ margin:2px 0 0!important;
+ line-height:1.45!important
+}
+#pdfDialog #pdfMainV043 .bm106-tint-label{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) auto!important;
+ align-items:center!important;
+ column-gap:7px!important;
+ row-gap:5px!important;
+ width:100%!important;
+ margin:2px 0!important;
+ color:#31566d!important;
+ font:700 10.5px/1.4 system-ui,Arial,sans-serif!important
+}
+#pdfDialog #pdfMainV043 .bm106-tint-label > span{
+ grid-column:1/-1!important;
+ font-size:10.5px!important
+}
+#pdfDialog #pdfMainV043 #bm106TintStrength{
+ grid-column:1!important;
+ width:100%!important;
+ min-width:0!important;
+ height:24px!important;
+ accent-color:#328eb2!important
+}
+#pdfDialog #pdfMainV043 #bm106TintValue{
+ grid-column:2!important;
+ min-width:35px!important;
+ color:#286780!important;
+ text-align:right!important;
+ font-variant-numeric:tabular-nums!important;
+ font:750 11px system-ui,Arial,sans-serif!important
+}
+#pdfDialog #pdfMainV043 .bm106-tint-label[hidden],
+#pdfDialog #pdfMainV043 #bm106TintNote[hidden]{
+ display:none!important
+}
+@media(max-width:760px){
+ #assuntos .panel > h2:first-child{font-size:17px!important}
+ #assuntos .panel > p.intro{font-size:11px!important;margin-bottom:8px!important}
+ #assuntos .panel > h2:nth-of-type(2){font-size:16px!important}
+ #assuntos #areaRows .topicCard{
+  padding:9px!important;min-height:0!important
+ }
+ #assuntos #topicRows .v036-topic-tile{
+  padding:9px!important;gap:3px!important
+ }
+ #assuntos #topicRows .v036-topic-examples{
+  display:none!important
+ }
+ #assuntos #topicRows .v036-topic-name{font-size:12.5px!important}
+ #assuntos #topicRows .v036-topic-metrics{font-size:10px!important}
+}
