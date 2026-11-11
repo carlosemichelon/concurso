@@ -11,11 +11,11 @@ assert.equal(manifest.version,'V121');
 assert.equal(manifest.home,'v121.html');
 assert.equal(manifest.counts.cards,1499,'A base pública V119 deve permanecer');
 assert.equal(manifest.counts.pdfs,72);
-assert.ok(read('index.html').includes('v121.html?versao=V121'),'Entrada pública não aponta V120');
+assert.ok(read('index.html').includes('v121.html?versao=V121'),'Entrada pública não aponta V121');
 const prior=read('v120.html');
-assert.ok(page.includes("tag('v121_relacoes_normativas.js?v=120')+grifadorTag"),
+assert.ok(page.includes("tag('v121_relacoes_normativas.js?v=121')+grifadorTag"),
  'Novo módulo tem de ser carregado ANTES do grifador');
-assert.ok(page.includes("tag('v121_calibrador_ui.js?v=120')"),
+assert.ok(page.includes("tag('v121_calibrador_ui.js?v=121')"),
  'UI do calibrador deve descrever o alcance real');
 assert.ok(page.includes("tag('v118_ui_compact.js?v=118')"),
  'Compactação V118 não pode ser removida');
@@ -29,7 +29,7 @@ assert.ok(page.includes('pdf_v111.js?v=111'),'Núcleo PDF anterior perdido');
 assert.ok(page.includes('v097_pdf_selection_core.js?v=097'),'Seletor preciso anterior perdido');
 assert.ok(page.includes('v104_mobile_gestures.js?v=104'),'Zoom com pinça anterior perdido');
 for(const marker of ['v118_ui_compact','v119_public_cards_ui','v120_highlight_groups','v120_painel_grifos','v120_biblioteca_grifos','meta_public_v024','pdf_v111','v097_pdf_selection_core'])
- assert.ok(prior.includes(marker)&&page.includes(marker),'Origem V118 não preservada: '+marker);
+ assert.ok(prior.includes(marker)&&page.includes(marker),'Origem V120 não preservada: '+marker);
 for(const f of ['assets/v121_relacoes_normativas.js','assets/v121_calibrador_ui.js']){
  const source=read(f);
  new vm.Script(source,{filename:f,timeout:4000});
@@ -37,4 +37,4 @@ for(const f of ['assets/v121_relacoes_normativas.js','assets/v121_calibrador_ui.
 const loader=page.match(/<script>([\s\S]*?)<\/script>/u);
 assert.ok(loader,'carregador ausente');
 new vm.Script(loader[1],{filename:'v121.html#loader',timeout:4000});
-console.log('V121: carregador e módulos sintaticamente válidos; motor PDF, Drive e UI V118 preservados.');
+console.log('V121: carregador e módulos sintaticamente válidos; motor PDF, Drive e UI V120 preservados.');
