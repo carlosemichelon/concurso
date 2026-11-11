@@ -1,0 +1,156 @@
+/* V118 — barras compactas de sincronizacao e Vade Mecum.
+   Escopo exclusivamente nos paineis, sem alterar editor, conteudo ou dados. */
+#cartoes #bm-v075-sync,
+#assuntos #bm-v114-home-sync,
+#assuntos #bm-v116-home-sync,
+#pdfs #bm-pdf-sync{
+  display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+  gap:4px 7px!important;margin:4px 0 7px!important;
+  padding:4px 7px!important;min-height:0!important;
+  border-radius:6px!important;box-shadow:none!important;
+}
+#cartoes #bm-v075-sync > strong,
+#assuntos #bm-v114-home-sync > strong,
+#assuntos #bm-v116-home-sync > strong,
+#pdfs #bm-pdf-sync > strong{
+  font:750 11px/1.25 system-ui,Arial,sans-serif!important;
+  white-space:nowrap!important;margin:0!important;
+}
+#cartoes #bm-v075-sync > button,
+#assuntos #bm-v114-home-sync > button,
+#assuntos #bm-v116-home-sync > button,
+#pdfs #bm-pdf-sync > button,
+#pdfs #driveDirectV038 > button{
+  box-sizing:border-box!important;min-height:28px!important;
+  height:auto!important;padding:4px 7px!important;
+  margin:0!important;white-space:normal!important;
+  font:650 10.5px/1.2 system-ui,Arial,sans-serif!important;
+  border-radius:5px!important;
+}
+#cartoes #bm-v075-status,
+#assuntos #bm-v114-home-status,
+#assuntos #bm-v116-home-status,
+#pdfs #bm-pdf-sync-status{
+  flex:1 1 170px!important;flex-basis:170px!important;
+  min-width:90px!important;max-width:100%!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  font:400 10px/1.3 system-ui,Arial,sans-serif!important;
+  margin:0!important;padding:0!important;
+}
+#cartoes #bm-v075-sync:has(#bm-v075-status),
+#assuntos #bm-v116-home-sync:has(#bm-v116-home-status){
+  max-width:100%!important;
+}
+/* A conexao para abrir PDFs no editor e uma funcao distinta da
+   indexacao de pastas; manter ambos os controles pequenos e identificaveis. */
+#pdfs #driveDirectV038{
+  display:flex!important;flex-wrap:wrap!important;
+  align-items:center!important;gap:4px 7px!important;
+  padding:4px 7px!important;margin:4px 0 6px!important;
+  border-radius:6px!important;min-height:0!important;
+}
+#pdfs #driveDirectV038 > strong{
+  font-size:11px!important;line-height:1.25!important;
+  margin:0!important;
+}
+#pdfs #driveDirectV038 > p{
+  display:none!important;
+}
+#pdfs #driveDirectV038 > small{
+  flex:1 1 140px!important;font-size:10px!important;
+  line-height:1.25!important;min-width:0!important;
+  margin:0!important;
+}
+/* Vade: apenas titulo, abrir e uma pequena area expansivel de backup.
+   Explicacoes e estado continuam visiveis dentro do recolhivel. */
+#pdfs #bmVade041.bm118-ready{
+  display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+  gap:5px 10px!important;
+  padding:5px 8px!important;margin:5px 0 7px!important;
+  border:1px solid #b6d0cc!important;border-radius:6px!important;
+  background:#fff!important;box-shadow:none!important;
+  max-width:100%!important;
+}
+#pdfs #bmVade041.bm118-ready > h3{
+  font:750 12px/1.25 system-ui,Arial,sans-serif!important;
+  margin:0!important;flex:0 0 auto!important;
+}
+#pdfs #bmVade041.bm118-ready > .bm-vade-actions{
+  display:flex!important;flex:1 1 auto!important;
+  flex-wrap:wrap!important;align-items:center!important;
+  gap:5px!important;margin:0!important;
+}
+#pdfs #bmVade041.bm118-ready > .bm-vade-actions > button{
+  min-height:29px!important;padding:5px 8px!important;
+  margin:0!important;font:700 11px/1.2 system-ui,Arial,sans-serif!important;
+}
+#pdfs #bmVade041 .bm118-vade-more{
+  display:block!important;min-width:0!important;
+  padding:0!important;margin:0!important;border:0!important;
+  position:relative!important;
+}
+#pdfs #bmVade041 .bm118-vade-more > summary{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  box-sizing:border-box!important;min-height:29px!important;
+  padding:5px 7px!important;border:1px solid #bfd1d9!important;
+  border-radius:5px!important;background:#f4f9fb!important;
+  color:#235775!important;cursor:pointer!important;
+  font:700 10.5px/1.2 system-ui,Arial,sans-serif!important;
+  list-style:none!important;
+}
+#pdfs #bmVade041 .bm118-vade-more > summary::-webkit-details-marker{display:none}
+#pdfs #bmVade041 .bm118-vade-more > summary:before{
+  content:'▸';margin-right:5px;font-size:10px;
+}
+#pdfs #bmVade041 .bm118-vade-more[open] > summary:before{content:'▾'}
+#pdfs #bmVade041 .bm118-vade-more[data-attention="1"] > summary{
+  border-color:#cc9268!important;
+}
+#pdfs #bmVade041 .bm118-vade-body{
+  display:flex!important;flex-wrap:wrap!important;
+  gap:5px 7px!important;align-items:center!important;
+  margin:6px 0 0!important;padding:7px!important;
+  background:#f6f9fb!important;border:1px solid #d8e5eb!important;
+  border-radius:6px!important;
+}
+#pdfs #bmVade041 .bm118-vade-body > p{
+  flex:1 1 100%!important;margin:0!important;
+  font-size:10px!important;line-height:1.4!important;
+}
+#pdfs #bmVade041 .bm118-vade-body > button{
+  min-height:29px!important;padding:5px 8px!important;
+  font-size:10.5px!important;margin:0!important;
+}
+#pdfs #bmVade041 .bm118-vade-body > .bm-vade-status{
+  font-size:10px!important;line-height:1.35!important;
+  padding:5px 7px!important;white-space:pre-wrap!important;
+}
+@media(max-width:760px){
+  #cartoes #bm-v075-sync,
+  #assuntos #bm-v114-home-sync,
+  #assuntos #bm-v116-home-sync,
+  #pdfs #bm-pdf-sync{
+    gap:5px!important;padding:5px 6px!important;margin:4px 0 6px!important;
+  }
+  #cartoes #bm-v075-sync > button,
+  #assuntos #bm-v114-home-sync > button,
+  #assuntos #bm-v116-home-sync > button,
+  #pdfs #bm-pdf-sync > button,
+  #pdfs #driveDirectV038 > button,
+  #pdfs #bmVade041.bm118-ready > .bm-vade-actions > button,
+  #pdfs #bmVade041 .bm118-vade-more > summary,
+  #pdfs #bmVade041 .bm118-vade-body > button{
+    min-height:39px!important;
+  }
+  #cartoes #bm-v075-status,
+  #assuntos #bm-v114-home-status,
+  #assuntos #bm-v116-home-status,
+  #pdfs #bm-pdf-sync-status{
+    flex:1 1 100%!important;flex-basis:100%!important;
+    white-space:normal!important;overflow-wrap:anywhere!important;
+  }
+  #pdfs #bmVade041.bm118-ready{padding:6px!important;gap:5px!important}
+  #pdfs #bmVade041.bm118-ready > h3{font-size:11.5px!important}
+  #pdfs #bmVade041.bm118-ready > .bm-vade-actions{flex:1 1 100%!important}
+}
