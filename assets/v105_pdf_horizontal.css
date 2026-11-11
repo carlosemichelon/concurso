@@ -1,0 +1,74 @@
+/* V105 — rolagem lateral real do PDF ampliado em telas sensíveis ao toque.
+   Não altera a captura de grifos, as 4 cores, o zoom, o PDF original ou a rolagem vertical. */
+#pdfDialog #bm105PanToggle{display:none!important}
+@media (max-width:760px), (pointer:coarse){
+ #pdfDialog[open] #pdfLocalMode.active{
+  overflow-x:auto!important;
+  overflow-y:auto!important;
+  touch-action:pan-x pan-y!important;
+  overscroll-behavior-x:contain!important;
+  overscroll-behavior-y:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  scroll-behavior:auto!important;
+  scrollbar-width:thin!important
+ }
+ #pdfDialog[open] #pdfPageWrap{
+  max-width:none!important;
+  min-width:0!important;
+  box-sizing:content-box!important;
+ }
+ #pdfDialog[open] #pdfPageWrap canvas{
+  max-width:none!important;
+  max-height:none!important
+ }
+ #pdfDialog[open] .bm-v048-neighbor,
+ #pdfDialog[open] .bm-v048-neighbor-canvas{
+  max-width:none!important
+ }
+ /* V094 e V103 restringiam a pan-y; isso impedia arrastar lateralmente
+    enquanto Grifar palavras estava ativo. Um toque curto continua selecionando. */
+ #pdfDialog[open] #bm094WordPointer,
+ #pdfDialog[open].bm094-precise #bm094WordPointer:not([hidden]){
+  touch-action:pan-x pan-y!important;
+  -ms-touch-action:pan-x pan-y!important
+ }
+ #pdfDialog[open] #bm105PanToggle:not([hidden]){
+  position:absolute!important;
+  left:max(9px,env(safe-area-inset-left))!important;
+  bottom:max(72px,calc(env(safe-area-inset-bottom) + 61px))!important;
+  z-index:78!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:94px!important;
+  max-width:calc(100vw - 30px)!important;
+  min-height:41px!important;
+  height:auto!important;
+  padding:8px 11px!important;
+  border:1px solid #98bfd9!important;
+  border-radius:12px!important;
+  color:#235777!important;
+  background:rgba(247,252,255,.96)!important;
+  box-shadow:0 3px 13px #163a5455!important;
+  font:760 12px/1.25 system-ui,Arial,sans-serif!important;
+  white-space:nowrap!important;
+  touch-action:manipulation!important
+ }
+ #pdfDialog[open] #bm105PanToggle[aria-pressed="true"]{
+  color:#fff!important;
+  background:#1e729e!important;
+  border-color:#1e729e!important
+ }
+ #pdfDialog[open] #bm105PanToggle:focus-visible{
+  outline:3px solid #ffda57!important;
+  outline-offset:2px!important
+ }
+ #pdfDialog[open] #bm105PanToggle[hidden]{display:none!important}
+}
+@media(max-width:360px){
+ #pdfDialog[open] #bm105PanToggle:not([hidden]){
+  min-width:78px!important;
+  font-size:11px!important;
+  padding:7px 8px!important
+ }
+}
