@@ -34,7 +34,7 @@ const examples=[
  {p:'licitacoes',text:'Art. 1º § 1º Não são abrangidas por esta Lei as empresas públicas, as sociedades de economia mista e as suas subsidiárias, regidas pela Lei nº 13.303, de 30 de junho de 2016, ressalvado o disposto no art. 178 desta Lei.',
    safe:[],review:1},
  {p:'improbidade',text:'Art. 1º § 1º Consideram-se atos de improbidade administrativa as condutas dolosas tipificadas nos arts. 9º, 10 e 11 desta Lei, ressalvados tipos previstos em leis especiais.',
-   safe:['ressalvados tipos previstos em leis especiais.'],review:1}
+   safe:['Consideram-se atos de improbidade administrativa','ressalvados tipos previstos em leis especiais.'],review:0}
 ];
 let gated=0,blocked=0,baseTotal=0,retained=0;
 for(const [index,row] of examples.entries()){
