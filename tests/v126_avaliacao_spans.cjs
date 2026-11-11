@@ -25,7 +25,7 @@ function evaluate(model){
  let documents=0,goldSpans=0,predSpans=0,exact=0,partialOnly=0,unmatched=0,review=0;
  const samples=[];
  for(const item of data.examples){
-  const p={cf88:'cf88',LC95:'lc95',LEI9784:'processo',LEI8429:'improbidade',LEI14133:'licitacoes'}[item.law];
+  const p={CF88:'cf88',LC95:'lc95',LEI9784:'processo',LEI8429:'improbidade',LEI14133:'licitacoes'}[item.law];
   assert.ok(p,'Lei sem perfil reconhecido: '+item.law);
   const prediction=model.analyzeWords(words(item.text),p);
   const gold=item.spans.map(s=>({kind:s.kind,text:norm(s.quote)}));
