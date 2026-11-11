@@ -87,8 +87,10 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   const atlasInit='<script src="assets/visibilidade-v026.js"></script>';
   if(!source.includes(atlasInit))throw Error('Inicialização de visibilidade mudou; atualização interrompida');
   source=source.replace(atlasInit,atlasInit+tag('v087_atlas_visibilidade_global.js?v=087'));
+  if(!source.includes("fetch('assets/'+f)"))throw Error('Leitor de cartões alterado: não atualizar cache');
+  source=source.replace("fetch('assets/'+f)","fetch('assets/'+f+'?bm=018',{cache:'no-store'})");
   source=source.replace('</head>',styles+'</head>');
-  source=source.replace('</body>',scripts+tag('v075_drive_cards_sync.js?v=075')+tag('v077_drive_pdf_sync.js?v=077')+tag('v078_pre_sync_grifos.js?v=078')+tag('v084_drive_images_sync.js?v=084')+tag('v085_pdf_toolbar.js?v=085')+tag('v086_exclusoes_atlas_privadas.js?v=086')+'</body>');
+  source=source.replace('</body>',scripts+tag('v075_drive_cards_sync.js?v=018')+tag('v077_drive_pdf_sync.js?v=077')+tag('v078_pre_sync_grifos.js?v=078')+tag('v084_drive_images_sync.js?v=084')+tag('v085_pdf_toolbar.js?v=085')+tag('v086_exclusoes_atlas_privadas.js?v=086')+'</body>');
   source=source.replace('Banco Mestre V062 — Estudos','Banco Mestre V088 — Estudos')
    .replaceAll('V062 · base V015','V088 · base V015')
    .replace('<footer>V062 ·','<footer>V088 ·');
