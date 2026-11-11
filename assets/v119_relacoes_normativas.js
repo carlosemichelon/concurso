@@ -123,7 +123,7 @@ function segment(tokens,kind,found,reason,article,role){
   anchor:{quote:text,prefix:'',suffix:''},start:found.start,end:found.stop};
 }
 function rangesOverlap(a,b){return !(a.end<b.start||b.end<a.start)}
-function legalReferences(flat,tokens,heads){
+function legalReferences(flat,tokens,heads,lawKey='CF88'){
  const links=[];
  for(let i=0;i<flat.length-1;i++){
   if(flat[i].word!=='art'||!/^\d+(?:º|°)?$/u.test(flat[i+1].word))continue;
@@ -132,12 +132,72 @@ function legalReferences(flat,tokens,heads){
   const prefix=flat.slice(Math.max(0,i-5),i).map(t=>t.word).join(' ');
   const r=/(?:nos termos|na forma|conforme|previsto|disposto|observado|referido|definido)/u.test(prefix);
   if(!r)continue;
-  links.push({type:'remissao_expressa',target:'CF88:art'+num,
+  links.push({type:'remissao_expressa',target:lawKey+':art'+num,
    text:tokens.slice(flat[i].index,flat[i+1].index+1).map(x=>x.text).join(' '),
    token_start:flat[i].index,token_end:flat[i+1].index});
  }
  return links;
 }
+
+const REGISTRY=Object.freeze({
+ cf88:'CF88',licitacoes:'LEI14133',improbidade:'LEI8429',
+ estatuto:'LEI10257',servidores:'LEI8112',processo:'LEI9784',
+ lgpd:'LEI13709',lai:'LEI12527',lrf:'LC101',lbi:'LEI13146',
+ pnma:'LEI6938',lc95:'LC95'
+});
+function inspectDocument(tokens,profileId='geral'){
+ const code=REGISTRY[profileId];
+ const empty={profile:profileId,document_key:code||null,
+  verified_source:false,articles:[],devices:[],references:[],
+  warning:'A associação à lei depende do perfil selecionado; vigência e edição do PDF não foram cotejadas.'};
+ if(!code||!Array.isArray(tokens)||!tokens.length)return empty;
+ const flat=flatten(tokens),headings=headers(flat,tokens),devices=[],articleKeys=[];
+ const refs=legalReferences(flat,tokens,headings,code);
+ let art=null,paragraph=null,inciso=null;
+ const headerAt=new Map(headings.map(h=>[h.start,h]));
+ const roman=/^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|xiii|xiv|xv|xvi|xvii|xviii|xix|xx)$/iu;
+ for(let i=0;i<tokens.length;i++){
+  if(headerAt.has(i)){
+   const head=headerAt.get(i);
+   art=code+':art'+head.num;paragraph=null;inciso=null;
+   articleKeys.push({id:art,number:head.num,token_start:i});
+   devices.push({type:'artigo',id:art,token_start:i,parent:code,verified_literal:false});
+   continue;
+  }
+  if(!art)continue;
+  const raw=String(tokens[i].text||'').trim();
+  const next=String(tokens[i+1]?.text||'').trim();
+  if(/^par[aá]grafo$/iu.test(raw)&&/^u[́ú]nico[.]?$/iu.test(next)){
+   paragraph=art+':p-unico';inciso=null;
+   devices.push({type:'paragrafo',id:paragraph,token_start:i,parent:art,verified_literal:false});
+   continue;
+  }
+  if(/^§(?:\d+(?:[º°])?)?$/u.test(raw)){
+   const numeral=(raw.match(/\d+/)||next.match(/^\d+/u)||[])[0];
+   if(numeral){
+    paragraph=art+':p'+numeral;inciso=null;
+    devices.push({type:'paragrafo',id:paragraph,token_start:i,parent:art,verified_literal:false});
+   }
+   continue;
+  }
+  const marker=raw.match(/^(I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV|XVI|XVII|XVIII|XIX|XX)[.)\-–—]?$/iu);
+  const newline=i>0&&tokens[i].line!=null&&tokens[i-1].line!=null&&
+   tokens[i].line!==tokens[i-1].line;
+  const punctuation=/[.)\-–—]$/u.test(raw)||/^[-–—]$/u.test(next);
+  if(marker&&roman.test(marker[1])&&(punctuation||newline)){
+   inciso=(paragraph||art)+':inc'+marker[1].toUpperCase();
+   devices.push({type:'inciso',id:inciso,token_start:i,parent:paragraph||art,
+    verified_literal:false});
+   continue;
+  }
+  if(/^[a-z][)]$/u.test(raw)){
+   devices.push({type:'alinea',id:(inciso||paragraph||art)+':al'+raw[0],
+    token_start:i,parent:inciso||paragraph||art,verified_literal:false});
+  }
+ }
+ return {...empty,articles:articleKeys,devices,references:refs};
+}
+
 function inspect(tokens,profileId='geral'){
  const empty={recognized:false,segments:[],relations:[],articles:[],references:[],source_url:null};
  if(profileId!=='cf88'||!Array.isArray(tokens)||tokens.length<3)return empty;
@@ -182,12 +242,16 @@ function inspect(tokens,profileId='geral'){
  segments.sort((a,b)=>a.start-b.start);
  const refs=legalReferences(flat,tokens,heads);
  return {recognized:segments.length>0,segments,relations,articles,references:refs,
-  source_url:SOURCE,model:'literal-structure-graph-v119'};
+  source_url:SOURCE,document_structure:inspectDocument(tokens,profileId),model:'literal-structure-graph-v119'};
 }
 function analyzeWords(tokens,profileId='geral'){
  const general=previous.analyzeWords(tokens,profileId);
  const scan=inspect(tokens,profileId);
- if(!scan.recognized)return general;
+ if(!scan.recognized){
+  const structure=inspectDocument(tokens,profileId);
+  return structure.articles.length||structure.references.length?
+   {...general,legal_structure:{...structure,automatic_span_count:0}}:general;
+ }
  const owned=new Set(scan.segments.flatMap(s=>Array.from({length:s.end-s.start+1},(_,i)=>s.start+i)));
  function overlapping(s){
   if(Number.isInteger(s.start)&&Number.isInteger(s.end))
@@ -203,13 +267,14 @@ function analyzeWords(tokens,profileId='geral'){
  return {...general,profileId:'cf88',segments:all,suggestions:all,
   review:warnings,legal_structure:{
    articles:scan.articles,relations:scan.relations,references:scan.references,
-   source_url:SOURCE,automatic_span_count:scan.segments.length},
+   source_url:SOURCE,document_structure:scan.document_structure,
+   automatic_span_count:scan.segments.length},
   coverage:tokens.length?scannedCoverage/tokens.length:0,
   structural_evidence:'Texto constitucional e articulação dos arts. 2º–4º'};
 }
 window.BancoMestreCalibradoresV110=Object.freeze({...previous,analyzeWords});
 window.BancoMestreRelacoesNormativasV119=Object.freeze({
  inspect,sourceUrl:SOURCE,version:'V119-CF-ART2-4',supportedArticles:[2,3,4],
- legalReferences
+ legalReferences,inspectDocument,registry:REGISTRY
 });
 })();
