@@ -214,7 +214,7 @@ async function applyCards(fresh,modified){
  });
  const provisional=cards.filter(c=>c.provisional);cards.splice(0,cards.length,...provisional,...merged);
  const total=document.querySelector('.stats .stat:nth-child(2) b');if(total)total.textContent=merged.filter(c=>c.active).length+' ativos / '+merged.length+' IDs + '+provisional.length+' Ijuí';
- document.querySelectorAll('header span').forEach(s=>{if(s.textContent.includes('V114 · base V015'))s.textContent=s.textContent.replace('V114 · base V015','V114 · base V024 privada');});
+ document.querySelectorAll('header span').forEach(s=>{if(s.textContent.includes('V116 · base V015'))s.textContent=s.textContent.replace('V116 · base V015','V116 · base V024 privada');});
  const opts=$('cardFilter');if(opts){const used=new Set(Array.from(opts.options).map(o=>o.value));for(const d of new Set(merged.map(c=>c.discipline))){if(d&&!used.has(d)){opts.add(new Option(d,d));used.add(d);}}}
  if(typeof loadTopics==='function')await loadTopics();if(typeof cardRender==='function')cardRender();
  lastModified=modified;lastCount=merged.length;
