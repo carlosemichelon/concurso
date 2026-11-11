@@ -58,9 +58,12 @@ function inspectSegment(segment,tokens){
   return {safe:false,reason:'virgula_nao_encerra_nucleo'};
  if(/[.,;!?]$/u.test(text)||completeNominals.has(norm))
   return {safe:true,reason:'oracao_delimitada'};
- // An isolated phrase recognized by keyword can be truncated by a fixed
- // token limit and falsely presented as high confidence.
- return {safe:false,reason:'nucleo_possivelmente_truncado'};
+ // Short keywords can be a complete *nucleus* even without the full clause:
+ // blocking every unpunctuated match caused 180/216 V112 regressions.
+ // A long, unpunctuated match with subsequent words is riskier.
+ if(words.length>=9&&nextTokenAfter(segment,tokens))
+  return {safe:false,reason:'nucleo_longo_sem_limite_textual'};
+ return {safe:true,reason:'nucleo_curto_explicito'};
 }
 function evaluate(tokens,profileId='geral'){
  const baseline=previous.analyzeWords(tokens,profileId);
