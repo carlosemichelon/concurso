@@ -1,0 +1,147 @@
+/* Banco Mestre V098 — visual claro e hierárquico de plataforma de estudos.
+   Inspiração funcional TecConcursos; sem uso de identidade, logos ou ativos de terceiros.
+   Não altera paleta semântica dos grifos, dados, SRS, PDF.js ou editor de imagem. */
+:root{
+ --bg:#f1f3f6;--paper:#fff;--ink:#25364a;--sub:#66798d;
+ --accent:#1685c0;--line:#dce3eb;--soft:#edf5fb;
+ --bm-text:#25364a;--bm-muted:#66798d;--bm-border:#dce3eb;
+ --bm-light:#f6f9fc;--bm-accent:#1685c0;
+ --tec-border:#dce3eb;--tec-blue:#1685c0;--tec-blue-dark:#096b9e;
+ --bm098-focus:#77bbdf;--bm098-green:#2caa75
+}
+html{-webkit-text-size-adjust:100%}
+body,button,input,select,textarea{
+ font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif!important
+}
+body{background:#f1f3f6!important;color:#25364a!important;font-size:14px;line-height:1.6}
+body>header{background:#283746!important;border-bottom:1px solid #405163!important;
+ box-shadow:0 2px 8px #14223519!important}
+body>header .head{max-width:1320px!important;min-height:69px;gap:13px!important;padding:12px 20px!important}
+body>header .brand{color:#f7f9fc!important;font-size:19px!important;font-weight:800!important;
+ letter-spacing:-.035em}
+body>header .brand:before{background:#1685c0!important;color:#fff!important}
+body>header .version{color:#c7d1db!important;font-size:11px!important;line-height:1.48}
+body>header nav{gap:5px!important;flex-wrap:wrap!important;align-items:center!important}
+body>header nav button[data-page]{
+ color:#e2eaf1!important;background:transparent!important;border:1px solid transparent!important;
+ border-radius:7px!important;box-shadow:none!important;font-size:12px!important;
+ line-height:1.35!important;font-weight:690!important;white-space:nowrap!important;
+ min-height:40px!important;padding:9px 11px!important
+}
+body>header nav button[data-page]:hover:not(.active){
+ background:#3b4c5e!important;border-color:#4d6275!important;color:#fff!important
+}
+body>header nav button[data-page].active{
+ background:#167eb7!important;border-color:#3097c9!important;color:#fff!important;
+ box-shadow:inset 0 -2px 0 #b4e1fb3d!important
+}
+body>header .bm-v046-header-stats .stat{background:#35495b!important;border-color:#516276!important}
+body>header .bm-v046-header-stats .stat b{color:#fff!important}
+body>header .bm-v046-header-stats .stat span{color:#c1d0dd!important}
+main{max-width:1320px!important;padding:24px 18px 64px!important;color:#25364a!important}
+.hero{padding:4px 0 12px;margin:0 0 14px!important}
+.hero h1{font-size:clamp(23px,2.3vw,30px)!important;color:#21374d!important;
+ letter-spacing:-.028em;line-height:1.22;font-weight:760!important}
+.hero p{font-size:13px!important;color:#62778a!important;line-height:1.6;max-width:900px}
+main .stats{gap:11px!important;margin:12px 0 20px!important}
+main .stats .stat{background:#fff!important;border:1px solid #dae3eb!important;
+ box-shadow:0 1px 4px #233b4f0c!important;border-radius:8px!important;padding:13px 16px}
+main .stats .stat b{color:#1681b5!important;font-size:23px!important;font-weight:800!important}
+main .stats .stat span{color:#667a8c!important;font-size:11px!important}
+section>.panel,.panel{background:#fff!important;border:1px solid #dae3ec!important;
+ border-radius:9px!important;box-shadow:0 2px 9px #233d5110!important;
+ padding:clamp(15px,1.7vw,22px)!important}
+section>.panel>h2{color:#243f56!important;font-size:clamp(18px,2vw,22px)!important;
+ font-weight:760!important;letter-spacing:-.018em}
+section>.panel>p.intro{color:#5f7185!important;font-size:13px!important;line-height:1.62!important;
+ max-width:920px;margin:5px 0 16px!important}
+#pdfs .panel>p.intro{font-size:13px!important;color:#64788a!important;line-height:1.55!important}
+.group,.sectionTitle{color:#304d67!important;font-weight:800!important;letter-spacing:.018em}
+.tag{color:#167da9!important}
+button:not([data-ink-color]),a.action{border-radius:7px}
+main button.primary,main a.primary,main #topicGoCards.primary{
+ color:#fff!important;background:#1686bf!important;border-color:#1686bf!important;
+ font-weight:730!important;box-shadow:none!important
+}
+main button.primary:hover:not(:disabled),main a.primary:hover,main #topicGoCards.primary:hover:not(:disabled){
+ background:#0d6e9e!important;border-color:#0d6e9e!important
+}
+a:not(.action){color:#137eaf}
+a:not(.action):hover{color:#08628d}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+ outline:3px solid #80bfdf!important;outline-offset:2px!important
+}
+input[type=search],select,input:not([type]),textarea{
+ border:1px solid #c8d5e2!important;border-radius:7px!important;
+ background:#fff!important;color:#273e51!important;box-shadow:none!important;
+ font-size:13px!important
+}
+input[type=search]::placeholder{color:#8393a3!important}
+input[type=search]:focus,select:focus,textarea:focus{border-color:#2696cc!important;outline:2px solid #d8effd!important}
+.controls{gap:9px!important;align-items:center!important}
+.controls input[type=search]{min-height:40px!important}
+.controls select{min-height:40px!important}
+.controls .checkbox{color:#5f7384!important}
+.controls input[type=checkbox]{accent-color:#1686bf!important}
+#cartoes .controls{background:#f7f9fc!important;border:1px solid #e0e7ef!important;border-radius:8px!important}
+#cardCount,#imageCount,#topicCount,#pdfCount{color:#617789!important;font-size:11px!important}
+#areaRows .topicCard,#topicRows .topicCard,
+#topicRows .v036-topic-tile,#pdfs .v036-pdf-card,
+#cartoes article.card,#imagens article.card{
+ border:1px solid #dbe5ed!important;border-radius:8px!important;
+ background:#fff!important;box-shadow:0 1px 4px #22394c0c!important;
+ color:#283e51!important
+}
+#areaRows .topicCard:hover,#topicRows .topicCard:hover,
+#topicRows .v036-topic-tile:hover,#pdfs .v036-pdf-card:hover,
+#cartoes article.card:hover,#imagens article.card:hover{
+ border-color:#78b8dc!important;box-shadow:0 4px 13px #254b6920!important
+}
+#areaRows .topicCard::before,#topicRows .topicCard::before{
+ color:#2085ba!important
+}
+#areaRows .topicCard strong,#topicRows .topicCard strong,
+#topicRows .v036-topic-name,#pdfs .v036-pdf-card h3{
+ color:#28435d!important;font-weight:750!important
+}
+#topicRows .v036-topic-area-head,#topicRows .v036-topic-cluster-summary,
+#cardRows .v036-card-group-summary{
+ background:#f1f6fa!important;border-color:#dae5ee!important;color:#2c536e!important
+}
+#cartoes article.card{border-left:3px solid #63aeda!important}
+#cartoes article.card>h3{color:#263c55!important;font-size:14px!important;
+ font-weight:690!important;line-height:1.46!important}
+#cartoes article.card>.tag{background:#edf6fc!important;color:#247da8!important}
+#cartoes article.card>.v036-card-path span{color:#536d82!important}
+#cartoes article.card>.bm-v050-peek-button{
+ background:#eaf6fd!important;color:#126e9c!important;border-color:#a2d1e7!important
+}
+#imagens #imageRows article.card>h3{color:#253e57!important;font-size:14px!important;line-height:1.44!important}
+#imagens #imageRows .bm-v048-image-description{color:#4a6175!important;font-size:12px!important}
+#tema #topicMedia{background:#fcfdff!important;border-color:#d4e2ed!important}
+#tema .richSection h4{color:#256f9d!important}
+main .notice,section .notice{background:#eef6fc!important;border-left-color:#2995c8!important;color:#3c607b!important}
+.bm-v050-peek-panel{color:#25384c!important;border:1px solid #d6e3ee!important;border-radius:11px!important}
+.bm-v050-peek-body>header strong,.bm-v050-peek-front{color:#263e56!important}
+.bm-v050-peek-reveal{background:#1686bf!important;border-color:#1686bf!important;color:#fff!important}
+.bm-v050-peek-reveal:hover{background:#0b6c9c!important}
+footer{color:#788b9c!important}
+@media(max-width:760px){
+ body>header .head{padding:10px 12px!important;gap:9px!important}
+ body>header nav{width:100%;justify-content:flex-start}
+ body>header nav button[data-page]{flex:1 1 auto;padding:8px 7px!important;min-height:38px!important;font-size:11px!important}
+ main{padding:14px 10px 52px!important}
+ section>.panel,.panel{padding:13px!important}
+ section>.panel>p.intro{font-size:12px!important}
+ main .stats .stat{padding:10px 9px!important}
+ main .stats .stat b{font-size:19px!important}
+}
+@media(max-width:410px){
+ body>header nav button[data-page]{gap:4px!important;padding:8px 5px!important;font-size:10px!important}
+ body>header nav button[data-page]::before{width:15px!important;height:15px!important}
+ main .stats{gap:6px!important}
+ main .stats .stat span{font-size:10px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #areaRows .topicCard,#topicRows .topicCard{transition:none!important}
+}
