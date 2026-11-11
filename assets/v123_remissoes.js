@@ -31,7 +31,7 @@ function flatten(tokens){
  });
  return output;
 }
-const supportsRel=/\b(?:conforme|previsto|prevista|disposto|disposta|referido|referida|observado|observada|segundo|citada|citado|referencia)\b/u;
+const supportsRel=/\b(?:conforme|previsto|prevista|disposto|disposta|referido|referida|observado|observada|observa|observara|observarao|observar|segundo|citado|citada|referencia|remete|aplica|aplicar)\b/u;
 function relationContext(flat,i){
  const before=flat.slice(Math.max(0,i-9),i).map(x=>x.word).join(' ');
  return supportsRel.test(before)||/\b(?:nos termos|na forma|de acordo|em cumprimento|em conformidade|em observancia)\b/u.test(before);
