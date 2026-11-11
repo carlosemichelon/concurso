@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V085.
+- **Site publicado:** V086.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v085.html`.
-- **Versão anterior preservada:** `gh-pages/v084.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v086.html`.
+- **Versão anterior preservada:** `gh-pages/v085.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -277,3 +277,11 @@
 - `assets/v085_pdf_toolbar.css`: layout de sidebar 202px/102px no desktop e 160px/102px no celular, cartões de ferramenta com alvos maiores, seleção visual, paleta acessível e respeito aos estados hidden/disabled. Somente editor PDF, sem alterar o editor de imagens.
 - `assets/pdf_v085.js`: mantém PDF V081 completo, incluindo `addTextHighlights`; expõe **resetZoomV085()** e `zoomPercent`, reestabelecendo ajuste original (100%) sob solicitação; protege a ação **Limpar página** com cópia e rollback do histórico e marcas se `localStorage` falhar.
 - A V084 **permanece preservada**, assim como a janela V084 experimental, Atlas, sincronização de imagens e arquivos privados, catálogo de 72 PDFs, biblioteca, grifos, IDs de cartões, SRS e versões anteriores. Backup do código em `backup/v084-before-pdf-editor-ux-v085-2026-11-10`. Testes com navegador real Chrome/Android ainda pendentes.
+
+## V086 — Importação das 184 exclusões privadas do Atlas (10/11/2026)
+
+- Fonte fornecida pelo titular: JSON `BancoMestreExcluirImagensDriveV046`, exatamente **184 IDs distintos IMG-###** entre 254 IDs antigos. Lista original preservada no Drive, arquivo privado `1PLYugdUTxtpDmoxOe56LtCG-a1cDKGej`. Dos 184 registros, 36 apontam para arquivos candidatos no Drive, **sem conferência de identidade**; 148 não têm vínculo. Não apagar nem mover arquivos do Drive com base nessa lista.
+- Versão do site: `v086.html`, derivada de V085 e preservando por completo o leitor PDF V085, ferramentas do grifador, 72 PDFs, sincronização de cartões, sincronização de imagens V084, 270 imagens existentes e SRS. Branch de backup: `backup/v085-before-private-image-exclusions-v086-2026-11-10`.
+- Script: `assets/v086_exclusoes_atlas_privadas.js`. Adiciona ao Atlas, após Google OAuth `drive.readonly`, leitura do JSON privado por ID, conferência de formato, contagem, unicidade e existência dos 184 IDs no catálogo. Permite **confirmar** a importação para o IndexedDB `BancoMestreImagensV023`, em transação atômica; gera backup prévio local `BM086_EXCLUSOES_BACKUP_V1` e oferece reversão das alterações do último lote, respeitando intervenções manuais posteriores.
+- Aplicar a lista significa definir status `hidden` para os IDs selecionados **somente no navegador autorizado**. Não publica a lista em GitHub, não altera imagens originais no Drive e não muda grifos/SRS. Não há sincronização dessas exclusões em segundo plano entre navegadores; para aplicar em outro dispositivo é necessário conectar e confirmar novamente.
+- Auditoria de origem: 184 IDs únicos, todos presentes no catálogo base de 254, nenhum IMG-P10. A identidade dos 36 links candidatos do Drive NÃO foi validada. Inspeção estática e sintaxe JavaScript validadas; **teste real OAuth e aplicação no navegador do usuário ainda pendentes**.
