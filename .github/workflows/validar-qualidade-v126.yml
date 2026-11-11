@@ -1,0 +1,33 @@
+name: Banco Mestre — precisão jurídica V126 experimental
+on:
+  push:
+    branches:
+      - feature/v126-ia-juridica-precisao-20261111
+    paths:
+      - 'assets/v126_qualidade_clausulas.js'
+      - 'tests/v126_qualidade_clausulas.cjs'
+      - 'tests/v126_semente_bio_lei_seca.json'
+      - 'tests/v126_seed_annotation.cjs'
+      - '.github/workflows/validar-qualidade-v126.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regressão do modelo constitucional V114
+        run: node tests/v114_cf_ia.cjs
+      - name: Regressão das remissões V124
+        run: node tests/v124_remissoes.cjs
+      - name: Corpus oficial e adversarial de remissões V124
+        run: node tests/v124_corpus_referencias_oficiais.cjs
+      - name: Avaliar bloqueio experimental de fragmentos V126
+        run: node tests/v126_qualidade_clausulas.cjs
+      - name: Integridade da semente BIO de anotação jurídica V126
+        run: node tests/v126_seed_annotation.cjs
