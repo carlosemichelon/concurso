@@ -2,11 +2,11 @@
 
 **Registro conferido em 11/11/2026.**
 
-- **Site publicado:** V109.
+- **Site publicado:** V113.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v109.html`.
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v113.html`.
 - **Versão anterior preservada:** `gh-pages/v108.html` (V107 e versões anteriores também preservadas) (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
@@ -17,6 +17,14 @@
 - Controles esperados após OAuth da conta proprietária: 1.499 IDs, 1.482 ativos, 17 inativos; 175 reformulações H13 + 3 fusões H14; SRS prévio intocado.
 - Módulos do grifador V108, o arquivo mestre de grifos, 72 PDFs, Atlas, dados locais e versões antigas permanecem intactos.
 - A sincronização precisa ser conferida em navegador real com OAuth; publicação do código não comprova autorização nem atualização de cartões na sessão do usuário.
+
+## V113 — Base Técnica V024 novamente ligada ao portal (11/11/2026)
+
+- A V112 carregava o módulo de cartões `assets/v093_drive_cards_sync.js` (V022 antiga) apesar de indicar V024 no manifesto.
+- A V113 preserva `v112.html` e seus recursos de grifos, leitor PDF, SRS, Atlas, 72 PDFs e imagens, trocando apenas o módulo de cartões para `assets/v109_drive_cards_sync.js`.
+- Após conectar Google Drive na seção Flashcards, espera-se carregar V024 H14 com 1.499 IDs e 1.482 ativos, mantendo o calendário SRS e fazendo verificação a cada 120 segundos durante a sessão autorizada.
+- Sem OAuth, permanece a base V015 pública (1.494 cartões), propositalmente não atualizada com conteúdo privado.
+- A publicação de código não comprova teste OAuth no navegador do usuário.
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
 
