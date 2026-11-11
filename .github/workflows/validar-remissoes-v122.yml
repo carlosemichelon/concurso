@@ -1,0 +1,38 @@
+name: Banco Mestre — remissões normativas V122
+on:
+  push:
+    branches: [gh-pages, feature/v122-remissoes-verificaveis-20261111]
+    paths:
+      - 'assets/v122_remissoes.js'
+      - 'v122.html'
+      - 'assets/version.json'
+      - 'index.html'
+      - 'tests/v122_remissoes.cjs'
+      - 'tests/v122_portal.cjs'
+      - '.github/workflows/validar-remissoes-v122.yml'
+  pull_request:
+    paths:
+      - 'assets/v122_remissoes.js'
+      - 'v122.html'
+      - 'tests/v122_remissoes.cjs'
+      - 'tests/v122_portal.cjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validação da lei seca anterior V114
+        run: node tests/v114_cf_ia.cjs
+      - name: Validação da estrutura anterior V121
+        run: node tests/v121_relacoes_normativas.cjs
+      - name: Auditoria de remissões internas/externas V122
+        run: node tests/v122_remissoes.cjs
+      - name: Integridade da interface anterior V121
+        run: node tests/v122_portal.cjs
