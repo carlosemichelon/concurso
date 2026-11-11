@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V085.
+- **Site publicado:** V086.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v085.html`.
-- **Versão anterior preservada:** `gh-pages/v084.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v086.html`.
+- **Versão anterior preservada:** `gh-pages/v085.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -277,3 +277,13 @@
 - `assets/v085_pdf_toolbar.css`: layout de sidebar 202px/102px no desktop e 160px/102px no celular, cartões de ferramenta com alvos maiores, seleção visual, paleta acessível e respeito aos estados hidden/disabled. Somente editor PDF, sem alterar o editor de imagens.
 - `assets/pdf_v085.js`: mantém PDF V081 completo, incluindo `addTextHighlights`; expõe **resetZoomV085()** e `zoomPercent`, reestabelecendo ajuste original (100%) sob solicitação; protege a ação **Limpar página** com cópia e rollback do histórico e marcas se `localStorage` falhar.
 - A V084 **permanece preservada**, assim como a janela V084 experimental, Atlas, sincronização de imagens e arquivos privados, catálogo de 72 PDFs, biblioteca, grifos, IDs de cartões, SRS e versões anteriores. Backup do código em `backup/v084-before-pdf-editor-ux-v085-2026-11-10`. Testes com navegador real Chrome/Android ainda pendentes.
+
+
+## V086 — Grifo simples com classificação manual de assunto (10/11/2026)
+
+- **Nova decisão do usuário:** abandonar por enquanto o grifo automático e o fluxo de parágrafo integral para IA. Fluxo adotado: **selecionar texto → escolher uma das seis cores → informar assunto (obrigatório) → salvar**; disciplina e subassunto opcionais.
+- O menu não salva ao clicar na cor. `assets/v086_grifador.js` remove o reconhecimento automático da seleção, bloqueia atalhos automáticos e `bm070Smart`, `bm070ApplyAuto`, `bm081ApplyMulti` e modo rápido. Não apaga as preferências históricas: apenas ignora-as nesta versão.
+- Seleção visual continua visível em `bm086SelectionOverlay` enquanto a paleta estiver aberta. A CSS V086 apresenta cursor de texto e paleta adaptada ao celular.
+- `assets/pdf_v086.js` permite atualizar `subject_suggestion` em um grifo já existente, validando assunto e registrando alteração no histórico com as rotinas de `snapshot`, `storeStrokes` e rollback. Novo grifo grava cor, categoria e assunto juntos; biblioteca registra metadados por ID.
+- As seis cores tradicionais permanecem: vermelho proibições, verde obrigações, amarelo prazos/números, azul exceções, roxo palavras-chave e laranja conteúdo central. **A escolha é inteiramente manual.**
+- Backup do código: `backup/v085-before-simple-highlight-v086-2026-11-10`; V085 e todas as versões anteriores mantidas. Biblioteca, 72 PDFs, registros, notas, IDs e SRS preservados. Browser real com PDFs originais ainda deve ser homologado.

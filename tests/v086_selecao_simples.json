@@ -1,0 +1,38 @@
+{
+  "version": "V086",
+  "base": "V085",
+  "date": "2026-11-10",
+  "scope": "Seleção simples com cor e assunto manuais",
+  "rules": {
+    "autoHighlight": false,
+    "autoMulticolor": false,
+    "quickMode": false,
+    "manualColorRequired": true,
+    "topicRequired": true,
+    "disciplineOptional": true,
+    "subtopicOptional": true,
+    "sixColors": true
+  },
+  "assets": [
+    "assets/pdf_v086.js",
+    "assets/v086_grifador.js",
+    "assets/v086_grifador.css"
+  ],
+  "preservation": {
+    "pdfs": 72,
+    "oldVersion": "v085.html",
+    "srs": true,
+    "annotations": true,
+    "cardIDs": true,
+    "driveSync": true
+  },
+  "tests": {
+    "syntax": true,
+    "noAutomaticPath": true,
+    "manualSaveGate": true,
+    "topicInRecord": true,
+    "editingHistory": true,
+    "privacyNoClaude": true
+  },
+  "realBrowserTestPending": true
+}

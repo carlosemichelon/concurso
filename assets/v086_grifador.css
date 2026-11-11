@@ -1,0 +1,133 @@
+/* V086 — seleção convencional no PDF: cor + assunto; automático indisponível. */
+#pdfDialog.bm-v061-text-mode #pdfPageWrap .bm-v061-text-layer{
+ cursor:text!important;user-select:text!important;-webkit-user-select:text!important;
+ pointer-events:auto!important;touch-action:auto!important;
+}
+#pdfDialog.bm-v061-text-mode #pdfPageWrap .bm-v061-text-layer span{
+ cursor:text!important;user-select:text!important;-webkit-user-select:text!important;
+}
+#pdfDialog.bm-v061-text-mode #pdfPageWrap .bm-v061-text-layer ::selection{
+ background:rgba(35,128,230,.46)!important;
+}
+#pdfDialog #bm086SelectionOverlay{
+ position:absolute!important;inset:0!important;z-index:7!important;
+ pointer-events:none!important;user-select:none!important;overflow:hidden!important;
+}
+#pdfDialog #bm086SelectionOverlay[hidden]{display:none!important}
+#pdfDialog #bm086SelectionOverlay .bm086SelectionRect{
+ position:absolute;display:block;background:rgba(45,145,240,.28);
+ outline:1px solid rgba(24,101,195,.4);pointer-events:none!important;border-radius:2px;
+}
+#pdfDialog #bm068SelectTool{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;min-height:56px!important;height:auto!important;
+ background:#e7f3ff!important;border:2px solid #91b6d6!important;
+ border-radius:10px!important;color:#174971!important;font-weight:800!important;
+ font-size:12px!important;padding:8px!important;white-space:normal!important;
+ cursor:text!important;
+}
+#pdfDialog #bm068SelectTool[aria-pressed="true"]{
+ background:#cce9ff!important;border:3px solid #187bbd!important;
+ box-shadow:0 0 0 2px rgba(24,123,189,.1),inset 0 0 0 1px #fff!important;
+ color:#0b4575!important;
+}
+#pdfDialog #bm068QuickToggle{display:none!important}
+#pdfDialog #bm070Smart:disabled{
+ opacity:.72!important;cursor:not-allowed!important;
+ color:#60727c!important;background:#eceff1!important;
+ border:1px dashed #b6c4c9!important;
+}
+#pdfDialog #bm068ModeHint{
+ display:block;background:#e9f4fe;border:1px solid #afcfeb;
+ border-radius:9px;padding:9px!important;color:#194b70!important;
+ font:600 11px/1.5 system-ui,Arial,sans-serif!important;white-space:normal!important;
+}
+#pdfDialog #bm068Palette{
+ width:min(435px,calc(100vw - 14px))!important;
+ max-width:calc(100vw - 14px)!important;
+ max-height:min(740px,calc(100dvh - 55px))!important;
+ overflow-y:auto!important;overscroll-behavior:contain!important;
+ padding:12px!important;border:2px solid #a6c7d2!important;
+ border-radius:15px!important;background:#fff!important;
+ box-shadow:0 15px 44px #112e3870!important;
+ color:#213a42!important;font:13px/1.45 system-ui,Arial,sans-serif!important;
+ z-index:1000!important;
+}
+#pdfDialog #bm068Palette[hidden]{display:none!important}
+#pdfDialog #bm068Palette .bm068-floating-head{
+ position:sticky;top:-12px;z-index:2;background:#fff;
+ border-bottom:1px solid #dce8eb;padding:5px 0 10px;margin-bottom:8px;
+}
+#pdfDialog #bm068Palette #bm068CurrentText{
+ font-weight:750;font-size:13px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;
+}
+#pdfDialog #bm068Palette .bm068-colors{
+ display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;
+ gap:7px!important;margin:12px 0 8px!important;align-items:center;
+}
+#pdfDialog #bm068Palette .bm068-colors button.bm068-swatch{
+ width:100%!important;min-width:0!important;height:46px!important;min-height:46px!important;
+ border:2px solid #b9c9cd!important;border-radius:10px!important;cursor:pointer!important;
+ touch-action:manipulation!important;
+}
+#pdfDialog #bm068Palette .bm068-colors button.bm068-swatch[aria-pressed="true"]{
+ border:3px solid #17466e!important;box-shadow:0 0 0 3px rgba(48,109,183,.2)!important;
+}
+#pdfDialog #bm086SubjectPanel{
+ background:#f3f9fc;border:1px solid #c2d8e6;
+ border-radius:12px;padding:11px 12px;margin:11px 0;min-width:0;
+}
+#pdfDialog #bm086SubjectPanel[hidden]{display:none!important}
+#pdfDialog #bm086SubjectPanel .bm086Step{
+ margin:1px 0 11px;color:#1a5c74;font-weight:800;font-size:13px;
+}
+#pdfDialog #bm086SubjectPanel .bm086Fields{display:flex;flex-direction:column;gap:9px}
+#pdfDialog #bm086SubjectPanel label{
+ display:flex;flex-direction:column;gap:5px;min-width:0;
+ color:#284d5c;font:700 12px/1.35 system-ui,Arial,sans-serif!important;
+}
+#pdfDialog #bm086SubjectPanel input{
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;
+ min-height:44px!important;border-radius:9px!important;
+ padding:10px 11px!important;border:1px solid #9bb9c8!important;
+ background:#fff!important;color:#102e3b!important;
+ font:14px/1.4 system-ui,Arial,sans-serif!important;
+}
+#pdfDialog #bm086SubjectPanel input:focus-visible{
+ outline:3px solid rgba(29,123,184,.38)!important;outline-offset:1px!important;
+ border-color:#176caa!important;
+}
+#pdfDialog #bm068Palette .bm068-commands{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px!important;
+}
+#pdfDialog #bm068Palette #bm068Apply:not([hidden]){
+ display:flex!important;grid-column:1/-1;justify-content:center;align-items:center;
+ width:100%!important;min-height:52px!important;padding:12px!important;
+ background:#d9f2e4!important;color:#155334!important;
+ border:2px solid #4a9d6e!important;border-radius:10px!important;
+ font-weight:850!important;font-size:14px!important;letter-spacing:.01em;
+}
+#pdfDialog #bm068Palette #bm068Apply:not([hidden]):hover{background:#c5ebd5!important}
+#pdfDialog #bm068Palette .bm068-commands button{
+ min-height:43px!important;touch-action:manipulation;
+}
+#pdfDialog #bm068Palette .bm068-commands button[hidden]{display:none!important}
+#pdfDialog #bm068Palette button:disabled{cursor:not-allowed!important;opacity:.46!important}
+@media(max-width:700px){
+ #pdfDialog #bm068Palette{
+  position:fixed!important;left:4px!important;right:4px!important;
+  top:auto!important;bottom:4px!important;
+  width:auto!important;max-width:none!important;
+  max-height:min(80dvh,770px)!important;border-radius:16px!important;
+  padding:11px!important;
+ }
+ #pdfDialog #bm068Palette .bm068-colors button.bm068-swatch{
+  min-height:48px!important;height:48px!important;
+ }
+ #pdfDialog #bm086SubjectPanel{padding:9px}
+ #pdfDialog #bm086SubjectPanel input{font-size:16px!important}
+ #pdfDialog #bm068Palette .bm068-commands{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){
+ #pdfDialog #bm068Palette *,#pdfDialog #bm086SelectionOverlay *{transition:none!important}
+}
