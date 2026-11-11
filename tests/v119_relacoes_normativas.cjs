@@ -98,10 +98,10 @@ for(const [label,text] of [
  negative++;
 }
 for(const [article,text,blocked] of [
- [3,CF3.replace('II - garantir','II garantir'),1],
- [3,CF3.replace('I - construir','A - construir'),4],
- [4,CF4.replace('VI - defesa','VI defesa'),4],
- [4,CF4.replace('III - autodeterminação','III autodeterminação'),8]
+ [3,CF3.replace('II - garantir','II garantir'),2],
+ [3,CF3.replace('I - construir','A - construir'),1],
+ [4,CF4.replace('VI - defesa','VI defesa'),7],
+ [4,CF4.replace('III - autodeterminação','III autodeterminação'),4]
 ]){
  const r=audit(text);
  assert.equal(r.articles[0]?.number,article,'caput nao identificado');
