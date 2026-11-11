@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V087.
+- **Site publicado:** V088.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v087.html`.
-- **Versão anterior preservada:** `gh-pages/v086.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v088.html`.
+- **Versão anterior preservada:** `gh-pages/v087.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -294,3 +294,12 @@
 - `assets/v087_grifador.js`, `assets/v087_grifador.css` e `assets/pdf_v087.js` contêm as alterações; nenhum outro código histórico foi reescrito. O assunto também fica registrado no objeto `subject_suggestion` e no índice `BM062_GRIFOS_META`. Atualizar classificação de um grifo existente preserva ID e histórico com rollback.
 - Integra a V086 **mais recente** (importação privada e reversível de exclusões do Atlas). Módulo `v086_exclusoes_atlas_privadas.js?v=086` permanece carregado; V086 inteira preservada e backup `backup/v086-before-simple-highlight-v087-2026-11-10` criado.
 - Mantidos 72 PDFs, 270 imagens, todas as anotações anteriores, SRS, notas, flashcards, arquivos Drive, IDs e backups. Verificação real Chrome/Android permanece necessária.
+
+## V088 — Sincronização da visibilidade das 184 imagens excluídas (10/11/2026)
+
+- A exportação do usuário `BancoMestreExcluirImagensDriveV046` contém 184 IDs únicos de imagens IMG-###, todos auditados no catálogo de 254 imagens anteriores. O JSON original, com títulos, associações candidatas e informações de Drive, permanece PRIVADO em Google Drive ID `1PLYugdUTxtpDmoxOe56LtCG-a1cDKGej`.
+- **V088** é cópia da V087, preservando todas as melhorias atuais do grifador de PDF, leitor, seis cores, 72 PDFs, 1.494 cartões públicos, sincronizações anteriores e SRS, assim como os 270 registros de imagens. Backup de código: `backup/v087-before-visibility-sync-v088-2026-11-10`.
+- O módulo `assets/v087_atlas_visibilidade_global.js` foi injetado imediatamente após `assets/visibilidade-v026.js` no HTML montado. Aplica globalmente um **padrão reversível de 184 ocultas** por meio de `BancoMestreImagens.all()`; não escreve no IndexedDB por padrão, não altera a fonte canônica e não elimina thumbnails nem grifos. Os **70 IDs legados ativos** e os 16 IMG-P10 permanecem visíveis em navegador sem alterações individuais anteriores. A lista pública contém apenas os 70 IDs ativos; o JSON privado completo, nomes e vínculos Drive não são publicados.
+- Estado `visible`/`hidden` EXPRESSAMENTE registrado no IndexedDB pelo usuário tem precedência sobre o padrão para permitir restaurar ou ocultar individualmente no navegador. Desfazer importação V086 não apaga a regra de site: ela é um padrão público; a restauração explícita de cada ID continua disponível.
+- Esta operação é **sincronização pontual da seleção V046 com o site**, não sincronização contínua do estado local entre dispositivos e Google Drive. Exclusões posteriores feitas somente em um navegador não entram no padrão global até uma nova exportação/auditoria/publicação. Não apagar documentos do Drive a partir de 36 mapeamentos candidatos por nome, ainda não validados.
+- Auditoria técnica: módulo avaliado em JavaScript simulando estados locais, resultando em 184 ocultas padrão, 183 após restaurar uma excluída, 184 após ocultar uma anteriormente ativa. Manifesto e loader V088 inspecionados; teste visual no navegador do titular ainda pendente.
