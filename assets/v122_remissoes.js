@@ -51,10 +51,19 @@ function lawsInPhrase(phrase){
  }
  return found;
 }
-function afterReference(flat,i){
+function afterReference(flat,i,tokens){
+ // A law cited in a later sentence must never be used to assign this
+ // article. A bare "art. 5º." has no explicit target.
  let upper=Math.min(flat.length,i+24);
- for(let j=i+2;j<upper-1;j++){
-  if(j>i+2&&flat[j].word==='art'&&/^\d+$/u.test(flat[j+1].word)){
+ for(let j=i+2;j<upper;j++){
+  if(flat[j].word==='art'&&/^\d+$/u.test(flat[j+1]?.word||'')){
+   upper=j;break;
+  }
+  if(flat[j].index===flat[j-1].index)continue;
+  const raw=String(tokens[flat[j-1].index]?.text||'').trim();
+  // "Lei n. 9.784" uses an abbreviation, not a sentence boundary.
+  const abbreviation=/^(?:n|no|nr|art)\.$/iu.test(raw);
+  if(!abbreviation&&/[;.!?]$/u.test(raw)){
    upper=j;break;
   }
  }
@@ -76,7 +85,7 @@ function legalReference(tokens,profileId='geral'){
   const begin=flat[i].index,end=flat[i+1].index;
   if(headings.has(begin))continue;
   const prefixOK=relationContext(flat,i);
-  const following=afterReference(flat,i);
+  const following=afterReference(flat,i,tokens);
   const evidence=lawsInPhrase(following);
   const selfRef=/\b(?:desta|deste|da presente|do presente|dessa|desse)\s+(?:lei|diploma|codigo|constituicao)\b/u.test(following);
   const explicit=!!evidence.length||selfRef;
