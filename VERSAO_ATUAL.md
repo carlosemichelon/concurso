@@ -10,6 +10,16 @@
 - **Versão anterior preservada:** `gh-pages/v108.html` (V107 e versões anteriores também preservadas) (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
+## V122 — remissões verificáveis sem mudança de grifos (11/11/2026)
+
+- Página `v122.html` isolada a partir da V121. `assets/v122_remissoes.js` é carregado imediatamente após `assets/v121_relacoes_normativas.js`, antes do grifador.
+- Ao ler menção a artigo de **outra norma expressa** (ex.: art. 37 da Constituição Federal em texto da Lei 9.784/1999), o vínculo aponta à norma mencionada, não à lei selecionada no perfil. `verified_source:false` indica que o texto/edição não foram cotejados.
+- Citação apenas contextual (ex.: “nos termos do art. 7º”) não recebe destino confirmado: `target:null`, `resolution:contextual_unverified` e `suggested_target` separado.
+- Lei citada fora do catálogo não é inventada; vínculos com duas leis concorrentes permanecem sem decisão automática.
+- Uma mudança de vínculo **não altera cor**, intervalo, nota, fonte, ID de grifo ou registros históricos. Integração testada com `tests/v122_remissoes.cjs`, `tests/v122_portal.cjs` e regressão V121.
+- Preservar dados públicos de 1.499 cartões, SRS, 72 PDFs, 270 imagens, 22 cartões Ijuí e agrupamento por parágrafo da V120.
+- Limites: somente referências explícitas de artigo; não é cotejo de vigência/revogação/jurisprudência. Nem PDF real/OAuth foi homologado.
+
 ## V121 — IA jurídica estrutural (11/11/2026)
 
 Acrescenta `assets/v121_relacoes_normativas.js` e calibrador V121 à interface V120, preservando a base de 1.499 cartões, agrupamento de grifos por parágrafo e todos os dados/SRS. Testes `tests/v121_relacoes_normativas.cjs` e `tests/v121_integridade_portal.cjs`; homologação visual/OAuth ainda pendentes.
