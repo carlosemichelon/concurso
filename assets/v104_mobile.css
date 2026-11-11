@@ -1,0 +1,46 @@
+/* V104 — barra flutuante móvel: desfazer sempre acessível + pinch PDF */
+#pdfDialog #bm104FloatingUndo{display:none!important}
+#pdfDialog #pdfPageWrap.bm104-pinching{
+ will-change:transform!important;transition:none!important;
+ filter:none!important
+}
+@media(max-width:760px){
+ #pdfDialog[open] #bmV056FloatingControls #bm104FloatingUndo:not([hidden]){
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:38px!important;min-width:38px!important;height:38px!important;min-height:38px!important;
+  border-radius:7px!important;padding:3px!important;margin:0!important;
+  background:#e6f3ff!important;color:#195783!important;
+  border:1px solid #a8cade!important;
+  font:800 26px/1 system-ui,Arial,sans-serif!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm104FloatingUndo:disabled{
+  background:#f0f3f6!important;color:#85939e!important;opacity:.62!important;
+  border-color:#d4dfe6!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm104FloatingUndo[hidden]{display:none!important}
+ #pdfDialog #pdfLocalMode{touch-action:pan-x pan-y!important}
+ #pdfDialog.bm094-precise #bm094WordPointer:not([hidden]){
+  touch-action:pan-y!important
+ }
+}
+@media(max-width:430px){
+ #pdfDialog[open] #bmV056FloatingControls #bm103CurrentPage{
+  display:none!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm104FloatingUndo:not([hidden]){
+  min-width:35px!important;width:35px!important;height:36px!important;min-height:36px!important
+ }
+}
+@media(max-width:355px){
+ #pdfDialog[open] #bmV056FloatingControls #bm103ToggleTools{
+  max-width:87px!important;overflow:hidden!important;
+  text-overflow:ellipsis!important;font-size:10px!important;padding:4px 5px!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103TextSelect{
+  padding:4px 6px!important;min-width:39px!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bmV056OpenPdfMenu,
+ #pdfDialog[open] #bmV056FloatingControls #bmV056ClosePDF{
+  min-width:32px!important;width:32px!important
+ }
+}
