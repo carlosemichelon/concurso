@@ -10,6 +10,13 @@
 - **Versão anterior preservada:** `gh-pages/v108.html` (V107 e versões anteriores também preservadas) (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
+## V124 — remissões jurídicas conservadoras (11/11/2026)
+
+A partir da V123 publicada (cartões da Base Técnica), o portal passa a adicionar `assets/v124_remissoes.js` depois do módulo normativo V121 e antes do grifador. Referência explícita a Constituição Federal ou lei reconhecida fica ligada à norma citada; referência à “desta Lei”, “desta Constituição” ou artigo sem identificação confirmada fica com `target:null` e sugestão separada. Não muda cores, grifos existentes, anotações, IDs, planilha, SRS, PDFs ou cartões.
+
+Testes: V114, V121, `tests/v124_remissoes.cjs`, `tests/v124_corpus_referencias_oficiais.cjs` (20 trechos de fontes oficiais + 32 adversariais) e `tests/v124_integridade_portal.cjs` (HTML V123 preservado). Os 52 cenários são de desenvolvimento e **não** aferem taxa de acerto em leis inéditas. A validação de vigência por edição/hash do PDF, a homologação móvel/OAuth e o corpus BIO maior permanecem pendentes.
+
+
 ## V121 — IA jurídica estrutural (11/11/2026)
 
 Acrescenta `assets/v121_relacoes_normativas.js` e calibrador V121 à interface V120, preservando a base de 1.499 cartões, agrupamento de grifos por parágrafo e todos os dados/SRS. Testes `tests/v121_relacoes_normativas.cjs` e `tests/v121_integridade_portal.cjs`; homologação visual/OAuth ainda pendentes.
