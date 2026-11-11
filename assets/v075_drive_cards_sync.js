@@ -3,7 +3,7 @@
    ao abrir e a cada 120s. A base estática e o SRS permanecem intactos se a consulta falhar. */
 (function(){
 'use strict';
-const SOURCE_FILE_ID='1SA-PKBrlaovuNLFMPBx7BByH3BH0Tcsr';
+const SOURCE_FILE_ID='1dcBOttLw0qHS1f5xGj49mEcUOHsem8Oa';
 const SCOPE='https://www.googleapis.com/auth/drive.readonly';
 const API='https://www.googleapis.com/drive/v3/files/';
 const CHECK_MS=120000;
@@ -94,7 +94,7 @@ async function parseWorkbook(buf){
   const d=String(row[I.disc]||'');const group=/Legisla|Direito/i.test(d)?'LEGISLACAO':/Portugu/i.test(d)?'PORTUGUES':/Matem|Estat|Financ/i.test(d)?'MATEMATICA':/Inform|AutoCAD/i.test(d)?'INFORMATICA':'ENG_GERAL';
   output.push({id,group,discipline:d,subject:String(row[I.subj]||''),sub:String(row[I.sub]||''),front:String(row[I.front]||''),back:String(row[I.back]||''),expl:String(row[I.expl]||''),mnemonic:String(row[I.mnem]||''),reference:String(row[I.source]||''),active:String(row[I.active])!=='0'});
  }
- for(const id of ['CARD-1495','CARD-1496','CARD-1497'])if(!ids.has(id))throw Error('Checkpoint V016-R1 incompleto: '+id);
+ for(const id of ['CARD-1495','CARD-1496','CARD-1497','CARD-1498'])if(!ids.has(id))throw Error('Checkpoint V018 incompleto: '+id);
  return output;
 }
 async function waitCards(){
