@@ -193,7 +193,7 @@ async function openTopic(t){
     const details=document.createElement('details');details.className='v034Subtopic';
     details.id='v034-sub-'+[...groups.keys()].indexOf(sub);
     details.open=false; // V122: todos os subassuntos recolhidos na abertura
-    const sum=document.createElement('summary');sum.textContent=sub+' · '+list.length+' registro(s)';details.append(sum);
+    const sum=document.createElement('summary');sum.textContent=sub+' · '+list.length+' cartão(ões) · abrir';details.append(sum);
     const body=document.createElement('div');body.className='v034SubtopicBody';details.append(body);
     // Um cartão por ID: não deduplicar pelo verso, pois perguntas distintas
     // podem ter a mesma resposta. Mostrar a pergunta; ocultar o gabarito.
