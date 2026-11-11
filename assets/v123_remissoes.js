@@ -42,9 +42,11 @@ function lawsInPhrase(phrase){
  // A later mention of "a Constituição" or "a Lei" is NOT an attribution
  // to the cited article. Only an attached prepositional expression counts.
  const attachment='(?:da|do|na|no|pela|pelo|desta|deste)';
- const constitution=new RegExp('\\b'+attachment+
-  '\\s+(?:constituicao(?:\\s+(?:da\\s+republica|federal))?|cf(?:\\s*88)?)\\b','gu');
- if(constitution.test(phrase))mark('CF88','referencia expressa a Constituicao/CF');
+ const constitution=new RegExp('\\b(?:da|do|na|no|pela|pelo)'+
+  '\\s+(?:constituicao\\s+(?:da\\s+republica|federal)|cf(?:\\s*88)?)\\b','gu');
+ // "desta Constituição" or "da Constituição" does not prove it is the
+ // Brazilian federal constitution. It may be a state or foreign constitution.
+ if(constitution.test(phrase))mark('CF88','referencia expressa a CF/88');
  const pattern=new RegExp('\\b'+attachment+
   '\\s+(?:lei\\s+complementar|lc|lei)\\s+(?:n(?:o|umero)?\\s+)?'+
   '(\\d{1,6})(?:\\s+(\\d{3}))?(?:\\s+(\\d{4}))?\\b','gu');
