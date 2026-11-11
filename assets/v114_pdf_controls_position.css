@@ -1,0 +1,86 @@
+/* V114 — posicionamento estável dos botões flutuantes do leitor.
+   V056 dava display:inline-flex (seletor com 2 IDs + elemento), anulando
+   display:none da V103 no desktop. Correção de especificidade, não de dados. */
+#pdfDialog #bmV056FloatingControls #bm103ToggleTools,
+#pdfDialog #bmV056FloatingControls #bm103TextSelect,
+#pdfDialog #bmV056FloatingControls #bm103CurrentPage{
+ display:none!important
+}
+#pdfDialog #bmV056FloatingControls #bm103ToggleTools[hidden],
+#pdfDialog #bmV056FloatingControls #bm103TextSelect[hidden],
+#pdfDialog #bmV056FloatingControls #bm103CurrentPage[hidden]{
+ display:none!important
+}
+@media(max-width:760px){
+ #pdfDialog[open] #bmV056FloatingControls{
+  position:absolute!important;
+  left:auto!important;right:max(7px,env(safe-area-inset-right))!important;
+  top:max(7px,env(safe-area-inset-top))!important;
+  bottom:auto!important;
+  display:flex!important;flex-direction:row!important;
+  justify-content:flex-end!important;align-items:center!important;
+  flex-wrap:nowrap!important;gap:3px!important;
+  box-sizing:border-box!important;
+  width:max-content!important;max-width:calc(100% - 14px)!important;
+  min-width:0!important;
+  margin:0!important;padding:4px!important;
+  transform:none!important;
+  border-radius:9px!important;z-index:87!important;
+  white-space:nowrap!important;
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103ToggleTools:not([hidden]){
+  display:inline-flex!important;position:static!important;
+  flex:0 1 auto!important;
+  box-sizing:border-box!important;
+  width:auto!important;min-width:83px!important;max-width:121px!important;
+  min-height:39px!important;height:39px!important;
+  padding:7px 8px!important;
+  font:760 11px/1.1 system-ui,Arial,sans-serif!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  border:1px solid #accbda!important;border-radius:7px!important;
+  background:#ebf5fc!important;color:#235e81!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103TextSelect:not([hidden]){
+  display:inline-flex!important;position:static!important;
+  flex:0 0 auto!important;width:auto!important;min-width:43px!important;
+  min-height:39px!important;height:39px!important;padding:6px!important;
+  font-size:10.5px!important;white-space:nowrap!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103CurrentPage{
+  display:none!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bmV056ClosePDF,
+ #pdfDialog[open] #bmV056FloatingControls #bmV056OpenPdfMenu,
+ #pdfDialog[open] #bmV056FloatingControls #bm104FloatingUndo:not([hidden]){
+  position:static!important;flex:0 0 auto!important;
+  box-sizing:border-box!important;
+  min-width:36px!important;width:36px!important;
+  min-height:39px!important;height:39px!important;
+  margin:0!important;padding:3px!important
+ }
+}
+@media(max-width:390px){
+ #pdfDialog[open] #bmV056FloatingControls{
+  gap:2px!important;padding:3px!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103ToggleTools:not([hidden]){
+  min-width:76px!important;max-width:95px!important;
+  padding:6px 5px!important;font-size:10px!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bm103TextSelect:not([hidden]){
+  min-width:39px!important;padding:5px 4px!important;font-size:10px!important
+ }
+ #pdfDialog[open] #bmV056FloatingControls #bmV056ClosePDF,
+ #pdfDialog[open] #bmV056FloatingControls #bmV056OpenPdfMenu,
+ #pdfDialog[open] #bmV056FloatingControls #bm104FloatingUndo:not([hidden]){
+  min-width:33px!important;width:33px!important
+ }
+}
+@media(min-width:761px){
+ #pdfDialog #bmV056FloatingControls #bm103ToggleTools,
+ #pdfDialog #bmV056FloatingControls #bm103TextSelect,
+ #pdfDialog #bmV056FloatingControls #bm103CurrentPage{
+  display:none!important
+ }
+}

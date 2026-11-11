@@ -1,0 +1,29 @@
+name: Banco Mestre — IA e grifador CF/88 V114
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - 'assets/v109_classificador_lei_seca.js'
+      - 'assets/v112_perfis_lei_seca.js'
+      - 'assets/v114_ia_lei_seca.js'
+      - 'assets/v114_cf_artigo1.js'
+      - 'assets/v114_qa_cf_artigo1.js'
+      - 'assets/v111_calibrador_qa.js'
+      - 'assets/v112_qa_trechos_oficiais.js'
+      - 'assets/v112_qa_negacoes.js'
+      - 'tests/v114_cf_ia.cjs'
+      - '.github/workflows/validar-ia-cf-v114.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar lei seca e modelo treinado
+        run: node tests/v114_cf_ia.cjs
