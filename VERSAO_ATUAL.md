@@ -10,6 +10,15 @@
 - **Versão anterior preservada:** `gh-pages/v108.html` (V107 e versões anteriores também preservadas) (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
+## V124 — remissões jurídicas conservadoras (11/11/2026)
+
+- Derivação do HTML **V123**, preservando correção de carregamento de 1.499 cartões do GitHub, mais as funções de grifos e PDF da V122.
+- Módulo exclusivo: `assets/v124_remissoes.js`. Resolve referências explícitas de CF/88 e leis federais reconhecidas; se a fonte não está identificada, retorna `target:null`, mesmo que o perfil sugira uma lei.
+- O componente não modifica cores, retângulos, notas, IDs, eventos SRS, grifos históricos, PDFs ou arquivos privados.
+- 20 excertos de normas oficiais + 32 casos adversariais de desenvolvimento em `tests/v124_corpus_referencias_oficiais.cjs`, além de `tests/v124_remissoes.cjs` e `tests/v124_integridade_portal.cjs`. Não equivalem a avaliação estatística geral.
+- Teste efetivo de OCR, PDF em aparelho móvel, Google OAuth e corpus de treinamento BIO por palavra permanecem pendentes.
+
+
 ## V121 — IA jurídica estrutural (11/11/2026)
 
 Acrescenta `assets/v121_relacoes_normativas.js` e calibrador V121 à interface V120, preservando a base de 1.499 cartões, agrupamento de grifos por parágrafo e todos os dados/SRS. Testes `tests/v121_relacoes_normativas.cjs` e `tests/v121_integridade_portal.cjs`; homologação visual/OAuth ainda pendentes.
