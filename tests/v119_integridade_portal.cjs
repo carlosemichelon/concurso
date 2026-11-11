@@ -21,7 +21,7 @@ assert.ok(page.includes('v084_drive_images_sync.js?v=084'),'Atlas perdido');
 assert.ok(page.includes('pdf_v111.js?v=111'),'Núcleo PDF anterior perdido');
 assert.ok(page.includes('v097_pdf_selection_core.js?v=097'),'Seletor preciso anterior perdido');
 assert.ok(page.includes('v104_mobile_gestures.js?v=104'),'Zoom com pinça anterior perdido');
-for(const marker of ['bmV056','v118_ui_compact','v116_drive_cards_sync','pdf_v111'])
+for(const marker of ['v118_ui_compact','v116_drive_cards_sync','pdf_v111','v097_pdf_selection_core'])
  assert.ok(prior.includes(marker)&&page.includes(marker),'Origem V118 não preservada: '+marker);
 for(const f of ['assets/v119_relacoes_normativas.js','assets/v119_calibrador_ui.js']){
  const source=read(f);
