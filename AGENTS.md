@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- A versão atualmente registrada em 10/11/2026 é **V086** em `gh-pages`; `main` mostra **V031 legado**.
+- A versão atualmente registrada em 10/11/2026 é **V088** em `gh-pages`; `main` contém **V031 legado**.
 
 ## Preflight obrigatório
 
@@ -163,3 +163,9 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - `v086.html` carrega `assets/v086_exclusoes_atlas_privadas.js` após os scripts da V085. O usuário clica conectar Google e confirma a aplicação. Escrita atômica em `IndexedDB/BancoMestreImagensV023`, com backup prévio `BM086_EXCLUSOES_BACKUP_V1` e opção desfazer último lote; preservar alterações manuais posteriores. Sem acesso OAuth ou sem confirmação, os 184 estados não são aplicados automaticamente.
 - Arquivos do Drive, imagens estáticas, 270 IDs legados, legendas, PDFs, grifos, cartões e SRS intactos. Evitar publicar chaves, tokens, títulos privados e lista de exclusões no GitHub.
 - OAuth real e operação no navegador ainda não testadas; verificar importação e reversão com a conta do titular antes de considerar conclusão funcional completa.
+
+## V088 — Visibilidade global das exclusões
+- A solicitação de sincronizar as imagens já excluídas foi atendida como **snapshot global reversível** de 184 IDs IMG-###, sem excluir os arquivos Drive. O JSON original detalhado permanece privado (Drive `1PLYugdUTxtpDmoxOe56LtCG-a1cDKGej`).
+- `assets/v087_atlas_visibilidade_global.js` carrega imediatamente após `visibilidade-v026.js` em `v088.html`, antes da construção do Atlas. O código público contém somente os 70 IDs legados ativos; 184 ausentes ficam ocultos por padrão via API `BancoMestreImagens.all()`. Os 16 Petrobras P10 permanecem inalterados; total 270 IDs preservados.
+- Estados locais explícitos de restauração/ocultação têm prioridade; o comportamento padrão NÃO escreve no IndexedDB e não toca nos grifos. Não converter 36 links candidatos do Drive em operações de exclusão. Preservar a V087 e sua nova lógica de grifador.
+- Novas exclusões feitas no navegador NÃO serão sincronizadas automaticamente para todos até atualizar a fonte pública novamente. Não afirmar sincronização bidirecional contínua; é apenas um retrato global da lista exportada.
