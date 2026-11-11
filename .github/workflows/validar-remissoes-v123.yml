@@ -5,6 +5,7 @@ on:
     paths:
       - 'assets/v123_remissoes.js'
       - 'tests/v123_remissoes.cjs'
+      - 'tests/v123_corpus_referencias_oficiais.cjs'
       - 'tests/v123_portal.cjs'
       - 'v123.html'
       - '.github/workflows/validar-remissoes-v123.yml'
@@ -32,3 +33,5 @@ jobs:
         run: node tests/v121_relacoes_normativas.cjs
       - name: Remissões precisas e falsos vínculos entre leis
         run: node tests/v123_remissoes.cjs
+      - name: Corpus oficial e adversariais independentes de classificação
+        run: node tests/v123_corpus_referencias_oficiais.cjs
