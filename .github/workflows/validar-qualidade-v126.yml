@@ -8,6 +8,7 @@ on:
       - 'tests/v126_qualidade_clausulas.cjs'
       - 'tests/v126_semente_bio_lei_seca.json'
       - 'tests/v126_seed_annotation.cjs'
+      - 'tests/v126_auditoria_cobertura.cjs'
       - '.github/workflows/validar-qualidade-v126.yml'
   workflow_dispatch:
 permissions:
@@ -29,5 +30,7 @@ jobs:
         run: node tests/v124_corpus_referencias_oficiais.cjs
       - name: Avaliar bloqueio experimental de fragmentos V126
         run: node tests/v126_qualidade_clausulas.cjs
+      - name: Auditar cobertura e bloquear elegibilidade de publicação
+        run: node tests/v126_auditoria_cobertura.cjs
       - name: Integridade da semente BIO de anotação jurídica V126
         run: node tests/v126_seed_annotation.cjs
