@@ -2,12 +2,12 @@
 
 **Registro conferido em 10/11/2026.**
 
-- **Site publicado:** V086.
+- **Site publicado:** V087.
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v086.html`.
-- **Versão anterior preservada:** `gh-pages/v085.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
+- **Arquivo HTML correspondente no momento do registro:** `gh-pages/v087.html`.
+- **Versão anterior preservada:** `gh-pages/v086.html` (V075, V074, V073, V072, V071, V070, V069, V068, V067, V066, V065, V064, V063, V062, V061 e V060 preservadas).
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 ## V062 — inclusão de dois PDFs “ORIGINAL” da CONAMA (10/11/2026)
@@ -285,3 +285,12 @@
 - Script: `assets/v086_exclusoes_atlas_privadas.js`. Adiciona ao Atlas, após Google OAuth `drive.readonly`, leitura do JSON privado por ID, conferência de formato, contagem, unicidade e existência dos 184 IDs no catálogo. Permite **confirmar** a importação para o IndexedDB `BancoMestreImagensV023`, em transação atômica; gera backup prévio local `BM086_EXCLUSOES_BACKUP_V1` e oferece reversão das alterações do último lote, respeitando intervenções manuais posteriores.
 - Aplicar a lista significa definir status `hidden` para os IDs selecionados **somente no navegador autorizado**. Não publica a lista em GitHub, não altera imagens originais no Drive e não muda grifos/SRS. Não há sincronização dessas exclusões em segundo plano entre navegadores; para aplicar em outro dispositivo é necessário conectar e confirmar novamente.
 - Auditoria de origem: 184 IDs únicos, todos presentes no catálogo base de 254, nenhum IMG-P10. A identidade dos 36 links candidatos do Drive NÃO foi validada. Inspeção estática e sintaxe JavaScript validadas; **teste real OAuth e aplicação no navegador do usuário ainda pendentes**.
+
+
+## V087 — seleção de grifo com classificação manual (10/11/2026)
+
+- Nova metodologia solicitada: **seleção comum do trecho no PDF → escolha manual de uma das seis cores → assunto obrigatório, disciplina/subassunto opcionais → confirmação em Salvar grifo**.
+- Todos os botões automáticos bloqueados. Não dividir o texto automaticamente nem abrir IA. Clicar na cor não grava grifo. A camada PDF.js mostra cursor de texto, e a seleção é temporariamente destacada em azul enquanto a paleta de classificação estiver aberta.
+- `assets/v087_grifador.js`, `assets/v087_grifador.css` e `assets/pdf_v087.js` contêm as alterações; nenhum outro código histórico foi reescrito. O assunto também fica registrado no objeto `subject_suggestion` e no índice `BM062_GRIFOS_META`. Atualizar classificação de um grifo existente preserva ID e histórico com rollback.
+- Integra a V086 **mais recente** (importação privada e reversível de exclusões do Atlas). Módulo `v086_exclusoes_atlas_privadas.js?v=086` permanece carregado; V086 inteira preservada e backup `backup/v086-before-simple-highlight-v087-2026-11-10` criado.
+- Mantidos 72 PDFs, 270 imagens, todas as anotações anteriores, SRS, notas, flashcards, arquivos Drive, IDs e backups. Verificação real Chrome/Android permanece necessária.
