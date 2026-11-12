@@ -28,7 +28,10 @@ const listing=document.createElement('div');listing.id='bm153GroupListing';
 directory.append(heading,areaNav,toolbar,listing);
 const results=document.createElement('div');results.id='bm153Results';
 const controls=panel.querySelector('.controls');
-if(controls)controls.before(directory);else rows.before(directory);
+const filterSummary=$('imageIndexV044');
+if(filterSummary)filterSummary.after(directory);
+else if(controls)controls.after(directory);
+else rows.before(directory);
 directory.after(results);
 results.append(rows,more);
 const sheet=document.createElement('style');
@@ -65,7 +68,7 @@ sheet.textContent=[
  '@media(max-width:680px){#imagens .bm153Directory{padding:10px}#imagens details.bm153Group>summary{padding:10px}#imagens .bm153GroupBody{padding:9px}#imagens .bm153GroupBody #imageRows{grid-template-columns:1fr}}'
 ].join('\n');document.head.append(sheet);
 const groupState={area:'all',group:'all'};
-let config=null,promise=null,openTarget=null,browsing=false;
+let config=null,promise=null,openTarget=null,browsing=false,degraded=false;
 function loadConfig(){
  if(config)return Promise.resolve(config);
  if(promise)return promise;
@@ -94,6 +97,7 @@ function activeOtherFilters(){
  return Boolean(search)||area!=='all'||category!=='all'||fav==='favorites';
 }
 function matches(x){
+ if(degraded)return true;
  if(groupState.group!=='all'){
   const group=config?.assigned?.find(y=>y.id===x.no)?.group;
   return group===groupState.group;
@@ -119,7 +123,7 @@ function selectArea(id){
 }
 async function beforeCards(hidden,mode){
  try{
-  const d=await loadConfig();
+  const d=await loadConfig();degraded=false;
   const byId=new Map(d.assigned.map(x=>[x.id,x.group]));
   const groupDefs=new Map(d.groups.map(x=>[x.id,x]));
   const source=Array.isArray(imgs)?imgs:[];
@@ -186,6 +190,7 @@ async function beforeCards(hidden,mode){
   const drive=$('bm084-sync');
   if(drive&&drive.parentNode===panel)panel.append(drive);
  }catch(err){
+  degraded=true;
   console.warn('Biblioteca de imagens V153:',err);
   status.textContent='Organização indisponível: '+err.message;
   // Se o diretório falhar, a renderização original continua acessível.
