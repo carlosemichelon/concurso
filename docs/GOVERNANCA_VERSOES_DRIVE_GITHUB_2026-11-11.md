@@ -20,7 +20,7 @@
 Pasta: https://drive.google.com/drive/folders/1squNqRXuxfT1YRjT3i4nw8TRnFtLOcuE
 
 - `00 – Painel e Planilhas`: visão principal do estudo, inventário, Caderno Mestre e base V024 H14 usada pelo portal.
-- `00 – Painel e Planilhas/90 – Histórico de versões da base (preservado)`: versões V016 (duas), V018, V022 e V023 retiradas da visão principal **sem excluir nem mudar IDs de arquivo**.
+- `00 – Painel e Planilhas/90 – Histórico de versões da base (preservado)`: versões V016 (duas), V018, V022, V023 e cópia antiga `Caderno Mestre – Eng Civil Concurso.xlsx` retiradas da visão principal **sem excluir nem mudar IDs de arquivo**.
 - `00 – Painel e Planilhas/Checkpoints Banco Mestre`: checkpoints, evidências, auditorias e V025–V029. Preservar sem mesclar automaticamente.
 - `01 – Engenharia Civil`, `02 – Português`, `03 – Legislação Municipal`, `04 – Matemática`: materiais por disciplina.
 - `05 – Editais e Provas`; `06 – PDFs e Materiais`; `07 – Atlas de Imagens`: fontes e mídias.
@@ -82,7 +82,7 @@ Repositório: https://github.com/carlosemichelon/concurso
 ## 6. LOG de organização — 11/11/2026
 - Inventário de duas árvores Drive, pasta de checkpoints e repositório GitHub.
 - Criação de `90 – Histórico de versões da base (preservado)` no Painel.
-- Movimentação, preservando IDs originais, de 5 XLSX: V016 R1, V016 três cartões, V018, V022 e V023.
+- Movimentação, preservando IDs originais, de 6 XLSX: V016 R1, V016 três cartões, V018, V022, V023 e cópia Excel antiga do Caderno Mestre. O Caderno Mestre Google Sheets permanece no Painel.
 - V024 H14 mantida no Painel para não romper a referência atual do portal.
 - V029 mantida no diretório de checkpoints; nenhuma aprovação/integração SRS executada.
 - Documentação GitHub alinhada à versão publicada; nenhum HTML, ativo, arquivo JSON da base ou branch de backup alterado.
