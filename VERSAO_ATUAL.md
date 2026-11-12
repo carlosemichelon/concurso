@@ -1,3 +1,15 @@
+# Banco Mestre — V157: sincronização privada da Parte 12 (12/11/2026)
+
+A página publicada em `gh-pages/index.html` direciona para `v157.html`, mantendo `v156.html` e o catálogo público V024 H14 intactos. O módulo `assets/v157_private_sync.js` acrescenta em **Flashcards** a opção **Conectar Drive e carregar V045**. A autorização Google OAuth é de **somente leitura**, por ação do usuário; tokens e dados não são escritos no GitHub, localStorage ou IndexedDB.
+
+A fonte `BANCO_MESTRE_PRIVADO_V045_SYNC_2026-11-12.json` fica em pasta **restrita ao proprietário no Google Drive** (ID do arquivo `1Xl_SpP1N1VgaeMAfovlgtOvMQwB6xQR4`). São **1.518 cartões** (1.501 ativos), **19 questões**, **1.518 registros de SRS de referência** e **11 imagens vinculadas**. O botão de importação valida formato, contagens, unicidade dos IDs e SHA-256 da fonte, preserva os cartões operacionais de Ijuí e não sobrescreve o SRS local. O catálogo público continua 1.499 IDs, 1.482 ativos.
+
+Os **11 PNGs originais IMG-P12-001 a IMG-P12-011** foram copiados para a pasta privada do Atlas (`1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6`), que já conta com o leitor de imagens autenticado V084. O acervo público de 86 imagens e as exclusões anteriores não foram alterados. O usuário deve autorizar a leitura na aba **Imagens** para abrir essa biblioteca.
+
+**Verificações efetuadas:** versão/entrada/HTML/módulo consistentes e estrutura da fonte conferida; permissões da fonte privada restritas ao proprietário. **Pendência:** o OAuth e o carregamento efetivo devem ser testados no navegador do usuário, porque o conector não executa uma sessão Google interativa de terceiros. Não afirmar sucesso de login sem esse teste.
+
+---
+
 # Banco Mestre — V156: reclassificação visual de 86 imagens ativas (12/11/2026)
 
 Reclassificação concluída com inspeção visual da totalidade dos registros ativos: **70 prévias JPEG publicadas** e **16 recortes originais PNG lidos do Google Drive**, sem restaurar os **184 IDs excluídos**. Cada ID recebeu disciplina, assunto geral, assunto específico, subassunto, título descritivo, evidência e status de auditoria em `assets/image_classificacao_v156.json`.
