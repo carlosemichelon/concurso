@@ -129,10 +129,6 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   source=source.replace('const a=cards.filter(c=>',
    'const a=cards.filter(c=>(c.provisional||c.active!==false||document.getElementById("bm119ShowInactive")?.checked)&&');
 
-  // V152: filtros hierárquicos independentes do cadastro original.
-  const bm152Predicate="(window.BM128General?.matches?.(c)!==false)&&";
-  if(!source.includes(bm152Predicate))throw Error('Filtro geral original alterado; não substituir');
-  source=source.replace(bm152Predicate,"(window.BM152FlashFilters?.matches?.(c)!==false)&&");
   // V123: o carregador antigo marcava loadedCards=true antes de concluir
   // as requisições, fazendo Assuntos/Flashcards competirem pela lista vazia.
   const bm123OldStart='async function loadCards(){if(loadedCards)return;loadedCards=true;try{';
@@ -167,6 +163,11 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   const bm128GeneralAnchor="(f==='all'||c.discipline===f)&&($('cardTopicFilter').value==='all'||";
   if(!source.includes(bm128GeneralAnchor))throw Error('Filtro original de cartões mudou; módulo de assuntos gerais não foi aplicado');
   source=source.replace(bm128GeneralAnchor,"(f==='all'||c.discipline===f)&&(window.BM128General?.matches?.(c)!==false)&&($('cardTopicFilter').value==='all'||");
+  // V152: filtros hierárquicos independentes do cadastro original.
+  const bm152Predicate="(window.BM128General?.matches?.(c)!==false)&&";
+  if(!source.includes(bm152Predicate))throw Error('Filtro geral original alterado; não substituir');
+  source=source.replace(bm152Predicate,"(window.BM152FlashFilters?.matches?.(c)!==false)&&");
+
   // V129: trocar a fonte antiga GitHub do Vade por Drive, preservando o ID dos grifos.
   // O V041 criava o painel antes de V044 e impedia a execução do leitor Drive.
   const bm129VadeGitHub='<scr'+'ipt src="assets/v041_vade.js"></scr'+'ipt>';
