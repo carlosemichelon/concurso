@@ -1,0 +1,13 @@
+/* V133 — Temas e Treino, com exercícios de redação como modo interno */
+.tabs{gap:6px;align-items:center;overflow-x:auto;padding:7px 14px;background:#fff}
+.tabs .tab{font-size:13px;letter-spacing:0;border:1px solid #d3e2df;border-radius:9px;padding:9px 18px;background:#f8fbfa;min-width:92px;font-weight:700}
+.tabs .tab.ativo{background:#e2f2ee;border-color:#8dbfb6;color:#075e63}
+.tabs .tab:focus-visible,.bm133-training-switch button:focus-visible{outline:2px solid #096c6c;outline-offset:2px}
+.bm133-training-switch{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:9px 14px;background:#edf7f4;border-bottom:1px solid #d4e5e0}
+.bm133-training-switch[hidden]{display:none!important}
+.bm133-training-switch button{background:#fff;border:1px solid #c9dcd8;border-radius:8px;color:#2a6062;cursor:pointer;font:650 12px/1.4 system-ui,Arial,sans-serif;padding:9px 11px}
+.bm133-training-switch button.ativo{background:#0c6b69;color:#fff;border-color:#0c6b69}
+.bm133-training-switch button.bm133-connective{margin-left:auto;background:transparent}
+.bm133-practice-note{font-size:12px;line-height:1.5;background:#e8f4f1;border:1px solid #c9e1dc;border-radius:8px;padding:10px 12px;color:#285b5d;margin:0 0 12px}
+#con-fab{display:none!important}
+@media(max-width:520px){.tabs{padding:7px 8px}.tabs .tab{flex:1;min-width:0;text-align:center}.bm133-training-switch{padding:8px;gap:5px}.bm133-training-switch button{flex:1;font-size:11px;padding:9px 7px}.bm133-training-switch button.bm133-connective{flex-basis:100%;margin:0}}
