@@ -1,0 +1,31 @@
+
+#aba-treino .bm145-save{background:#f7fbfd;border:1px solid #c5dce9;border-radius:11px;padding:14px 16px;margin:0 0 17px}
+#aba-treino .bm145-head{display:flex;justify-content:space-between;gap:9px;align-items:center;flex-wrap:wrap;margin:0 0 11px}
+#aba-treino .bm145-head strong{display:block;color:#234b61;font-size:16px}
+#aba-treino .bm145-head small{display:block;color:#56717e;font-size:12px;line-height:1.6}
+#aba-treino .bm145-status{font-size:13px;color:#225c80;padding:7px 11px;background:#eaf5fb;border:1px solid #c8e2f0;border-radius:8px;font-weight:750}
+#aba-treino .bm145-status[data-type=ok]{background:#e9f7ef;color:#166446;border-color:#bbdfc9}
+#aba-treino .bm145-status[data-type=error]{background:#fff0ed;color:#963841;border-color:#e5c3c5}
+#aba-treino .bm145-status[data-type=pending]{background:#fff5e5;color:#7b5a25;border-color:#ecd4a6}
+#aba-treino .bm145-progress{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 13px}
+#aba-treino .bm145-step{border:1px solid #d7e4ed;background:white;border-radius:8px;padding:10px}
+#aba-treino .bm145-step.is-active{background:#e9f5fb;border-color:#8ebed6}
+#aba-treino .bm145-step-line{display:flex;justify-content:space-between;gap:6px;align-items:center;margin:0 0 8px}
+#aba-treino .bm145-step-line b{color:#27566e;font-size:13px}
+#aba-treino .bm145-step-line span{font-size:12px;color:#4e6977}
+#aba-treino .bm145-track{height:6px;background:#d8e8f0;border-radius:8px;overflow:hidden}
+#aba-treino .bm145-fill{height:100%;background:#2b84a5;border-radius:8px}
+#aba-treino .bm145-buttons{display:flex;gap:7px;flex-wrap:wrap}
+#aba-treino .bm145-buttons button,#aba-treino .bm145-history button{font-size:13px!important;background:#fff;color:#205f85;border:1px solid #c3d9e5;border-radius:8px;padding:9px 11px;cursor:pointer;min-height:38px}
+#aba-treino .bm145-buttons .bm145-primary{color:#fff;background:#16805f;border-color:#16805f;font-weight:800}
+#aba-treino .bm145-buttons button:hover{filter:brightness(.96)}
+#aba-treino .bm145-history{margin-top:13px;border-top:1px solid #d5e6ee;padding-top:12px}
+#aba-treino .bm145-history[hidden]{display:none}
+#aba-treino .bm145-history p{font-size:13px;color:#58717c}
+#aba-treino .bm145-history-item{display:flex;gap:7px;align-items:center;flex-wrap:wrap;padding:8px;background:#fff;border:1px solid #dde8ec;border-radius:7px;margin-bottom:7px}
+#aba-treino .bm145-history-item span{font-size:13px;color:#4a6474;flex:1}
+#bm145-pdf-check{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px;padding:10px 13px;border:1px solid #cce1ea;border-radius:9px;background:#eff7fb;margin:0 0 12px}
+#bm145-pdf-check span{font-size:13px;color:#28607c;line-height:1.6}
+#bm145-pdf-check[data-ok=no]{background:#fff3ef;border-color:#e5c8c1}
+#bm145-pdf-check button{font-size:12px;border:1px solid #bed4e0;border-radius:7px;background:#fff;color:#1c6386;padding:8px 11px}
+@media(max-width:740px){#aba-treino .bm145-progress{grid-template-columns:1fr}#aba-treino .bm145-save{padding:12px}#aba-treino .bm145-buttons button{flex:1 1 145px}}
