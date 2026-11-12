@@ -1,3 +1,7 @@
+# Banco Mestre — V130, Redação e Discursivas
+
+Nova aba integrada ao portal V129, preservando a V129 e versões anteriores. Recuperado o método FTTD do arquivo histórico `main/redacao.html`; adicionados modo Redação, modo Discursivas, checklist, histórico local com versões imutáveis, importação/exportação JSON e prompt para correção no ChatGPT. Não há nota de IA no site, nem sincronização automática com Drive ou SRS. Chaves locais: `BM130_ESCRITA_V1`, `BM130_RASCUNHOS_V1`. Requer validação visual em navegador real.
+
 # Banco Mestre — versão atual e política de alterações
 
 **Registro conferido em 11/11/2026.**

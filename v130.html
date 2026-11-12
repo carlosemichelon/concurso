@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
-<title>Banco Mestre V130 — sincronização completa de PDFs do Drive</title>
+<title>Banco Mestre V130 — Vade Mecum atualizado e sincronização Drive</title>
 <style>
 body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
 #loading{max-width:720px;margin:15vh auto;padding:24px}
@@ -15,7 +15,7 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
 <div id="loading" role="status" aria-live="polite">
 <h1>Banco Mestre V130</h1>
 <p>Carregando bibliotecas compactas no computador e no celular...</p>
-<p><a href="./v129.html">Abrir a versão anterior V129</a></p>
+<p><a href="./v128.html">Abrir a versão anterior V128</a></p>
 </div>
 <script>
 (async function(){
@@ -63,7 +63,8 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
    '<link rel="stylesheet" href="assets/v119_public_cards_ui.css?v=119">',
    '<link rel="stylesheet" href="assets/v120_grifos_paragrafos.css?v=120">',
    '<link rel="stylesheet" href="assets/v122_visual_compact.css?v=122">',
-   '<link rel="stylesheet" href="assets/v124_assuntos_cartoes.css?v=124">'
+   '<link rel="stylesheet" href="assets/v124_assuntos_cartoes.css?v=124">',
+   '<link rel="stylesheet" href="assets/v130_redacao.css?v=130">'
   ].join('');
   const scripts=[
    'v063_grifos_navegacao.js?v=063',
@@ -104,7 +105,7 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
    .replace("d.format!=='BancoMestrePDFCatalogV062'","d.format!=='BancoMestrePDFCatalogV077'")
    .replace('d.documents.length!==65','d.documents.length!==72')
    .replace('id="pdfStat">65','id="pdfStat">72')
-   .replace('assets/v055_pdfs_recolhidos.js?v=055','assets/v130_pdfs_recolhidos.js?v=130');
+   .replace('assets/v055_pdfs_recolhidos.js?v=055','assets/v077_pdfs_recolhidos.js?v=077');
   const atlasInit='<scr'+'ipt src="assets/visibilidade-v026.js"></scr'+'ipt>';
   if(!source.includes(atlasInit))throw Error('Inicialização do Atlas alterada');
   source=source.replace(atlasInit,atlasInit+tag('v087_atlas_visibilidade_global.js?v=087'));
@@ -170,10 +171,10 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   source=source.replace(bm129VadeGitHub,tag('v127_vade_drive.js?v=129'))
                .replace(bm129VadeDuplicate,'<!-- Leitor antigo duplicado do Vade removido em V129 -->');
   source=source.replace('</head>',styles+'</head>');
-  source=source.replace('</body>',scripts+tag('v130_drive_pdf_sync.js?v=130')+tag('v084_drive_images_sync.js?v=084')+tag('v086_exclusoes_atlas_privadas.js?v=086')+tag('v097_pdf_selection_core.js?v=097')+tag('v104_precise_touch.js?v=104')+tag('v096_icons.js?v=096')+tag('v098_portal_text.js?v=098')+tag('v106_assuntos_compactos.js?v=106')+tag('v099_legenda_grifos.js?v=099')+tag('v100_pdf_tools.js?v=100')+tag('v106_ink_ui.js?v=106')+tag('v103_mobile_pdf.js?v=103')+tag('v104_mobile_gestures.js?v=104')+tag('v105_pdf_horizontal.js?v=105')+tag('v122_grifos_master_core.js?v=122')+tag('v122_grifos_drive.js?v=122')+tag('v109_mobile_library.js?v=109')+tag('v121_calibrador_ui.js?v=121')+tag('v113_compact_bibliotecas.js?v=113')+tag('v118_ui_compact.js?v=118')+tag('v119_public_cards_ui.js?v=119')+tag('v122_flashcard_ink.js?v=122')+tag('v122_visual_compact.js?v=122')+tag('v123_cards_recovery.js?v=123')+tag('v128_assuntos_gerais.js?v=128')+'</body>');
+  source=source.replace('</body>',scripts+tag('v077_drive_pdf_sync.js?v=077')+tag('v084_drive_images_sync.js?v=084')+tag('v086_exclusoes_atlas_privadas.js?v=086')+tag('v097_pdf_selection_core.js?v=097')+tag('v104_precise_touch.js?v=104')+tag('v096_icons.js?v=096')+tag('v098_portal_text.js?v=098')+tag('v106_assuntos_compactos.js?v=106')+tag('v099_legenda_grifos.js?v=099')+tag('v100_pdf_tools.js?v=100')+tag('v106_ink_ui.js?v=106')+tag('v103_mobile_pdf.js?v=103')+tag('v104_mobile_gestures.js?v=104')+tag('v105_pdf_horizontal.js?v=105')+tag('v122_grifos_master_core.js?v=122')+tag('v122_grifos_drive.js?v=122')+tag('v109_mobile_library.js?v=109')+tag('v121_calibrador_ui.js?v=121')+tag('v113_compact_bibliotecas.js?v=113')+tag('v118_ui_compact.js?v=118')+tag('v119_public_cards_ui.js?v=119')+tag('v122_flashcard_ink.js?v=122')+tag('v122_visual_compact.js?v=122')+tag('v123_cards_recovery.js?v=123')+tag('v128_assuntos_gerais.js?v=128')+tag('v130_redacao.js?v=130')+'</body>');
   source=source.replace('Banco Mestre V062 — Estudos','Banco Mestre V130 — Estudos')
-   .replaceAll('V062 · base V015','V130 · base V024 pública')
-   .replace('<footer>V062 ·','<footer>V130 ·');
+   .replaceAll('V062 · base V015','V129 · base V024 pública')
+   .replace('<footer>V062 ·','<footer>V129 ·');
   document.open();document.write(source);document.close();
  }catch(error){
   console.error('V070: inicialização interrompida',error);
