@@ -17,7 +17,7 @@
 ## 2. Navegação no Google Drive
 
 ### A. CONCURSOS – ENGENHARIA CIVIL
-Pasta: https://drive.google.com/drive/folders/1squNqRXuxfT1YRjT3i4nw8TRnFtLOcuE
+Localização: Google Drive conectado, pasta raiz `CONCURSOS – ENGENHARIA CIVIL` (link privado não publicado neste repositório).
 
 - `00 – Painel e Planilhas`: visão principal do estudo, inventário, Caderno Mestre e base V024 H14 usada pelo portal.
 - `00 – Painel e Planilhas/90 – Histórico de versões da base (preservado)`: versões V016 (duas), V018, V022, V023 e cópia antiga `Caderno Mestre – Eng Civil Concurso.xlsx` retiradas da visão principal **sem excluir nem mudar IDs de arquivo**.
@@ -25,17 +25,12 @@ Pasta: https://drive.google.com/drive/folders/1squNqRXuxfT1YRjT3i4nw8TRnFtLOcuE
 - `01 – Engenharia Civil`, `02 – Português`, `03 – Legislação Municipal`, `04 – Matemática`: materiais por disciplina.
 - `05 – Editais e Provas`; `06 – PDFs e Materiais`; `07 – Atlas de Imagens`: fontes e mídias.
 
-Pasta de arquivo das versões anteriores:
-https://drive.google.com/drive/folders/11qoyFeaZ8nCT9000wMP_AHDSesDv5ITS
+Pasta de arquivo das versões anteriores: `CONCURSOS – ENGENHARIA CIVIL/00 – Painel e Planilhas/90 – Histórico de versões da base (preservado)`.
 
-Pasta do painel:
-https://drive.google.com/drive/folders/1FD4-tAeMQSWVbCOAu6ADu1uPBR0UY9ae
-
-Checkpoint V029, não homologado como substituição:
-https://drive.google.com/file/d/1g1e1H49LoW6ns7dpbFiGOeht2sAgpkIg/view
+Checkpoint V029: localizar na subpasta `Checkpoints Banco Mestre`. Não homologado como substituição.
 
 ### B. DataBase_Concurso
-Pasta: https://drive.google.com/drive/folders/1yvwhb-W-vMUMu5DmikE3hR-i01cnrWdK
+Localização: Google Drive conectado, pasta `DataBase_Concurso` (link privado não publicado neste repositório).
 
 | Diretório | Uso |
 | --- | --- |
