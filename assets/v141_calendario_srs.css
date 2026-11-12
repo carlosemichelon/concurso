@@ -1,0 +1,58 @@
+
+/* Banco Mestre V141: calendario SRS TEC-friendly */
+#calendario{--cm:#1e6688;--cb:#d1e0e8;--ci:#293e4b;color:var(--ci)}
+#calendario .c141-wrap{max-width:1260px;margin:auto}
+#calendario .c141-title{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:13px;margin-bottom:19px}
+#calendario .c141-title h2{font-size:clamp(24px,3vw,30px);color:#253c4b;margin:2px 0 6px}
+#calendario .c141-title p{font-size:14px;color:#4f6875;line-height:1.65;margin:0;max-width:840px}
+#calendario .c141-kicker{font-size:11px;letter-spacing:.7px;font-weight:800;color:#286988}
+#calendario .c141-limit{border:1px solid #a5d0bd;background:#e8f5ed;padding:9px 14px;border-radius:9px;color:#1e704e;font-size:15px;font-weight:800}
+#calendario .c141-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 13px}
+#calendario .c141-stat{background:#fff;border:1px solid var(--cb);border-radius:10px;padding:14px 15px}
+#calendario .c141-stat strong{display:block;font-size:24px;color:#175d7d;font-variant-numeric:tabular-nums}
+#calendario .c141-stat span{display:block;font-size:12px;color:#536e7b;line-height:1.5}
+#calendario .c141-settings{border:1px solid var(--cb);background:white;padding:13px 15px;border-radius:10px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:13px}
+#calendario .c141-settings label{font-size:13px;color:#345669;font-weight:720}
+#calendario .c141-settings select{font-size:14px;min-width:170px;max-width:260px;background:#fff;color:#263c4a;border:1px solid #b6cedb}
+#calendario .c141-check{display:flex;align-items:center;gap:8px;flex:1 1 260px;line-height:1.5}
+#calendario .c141-check input{width:17px;height:17px;accent-color:#1b806e;flex:none}
+#calendario .c141-note{border-left:4px solid #4f99b8;background:#eff7fb;padding:11px 13px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.75;color:#355264;margin:0 0 15px}
+#calendario .c141-status{font-size:13px;color:#435e6c;margin-bottom:10px}
+#calendario button{font-size:13px;font-weight:730;padding:8px 12px;min-height:39px;border-radius:8px;border:1px solid #bad0dc;color:#205f7f;background:#fff}
+#calendario button:hover{background:#eaf4fa}
+#calendario button:focus-visible,#calendario select:focus-visible,#calendario summary:focus-visible{outline:2px solid #4b9cbd;outline-offset:2px}
+#calendario button:disabled{opacity:.4;cursor:default}
+#calendario .c141-primary{background:#197a9d;color:#fff;border-color:#197a9d}
+#calendario .c141-primary:hover{background:#155f80}
+#calendario .c141-board{background:#fff;border:1px solid var(--cb);border-radius:10px;overflow:hidden}
+#calendario .c141-boardhead{padding:13px 15px;background:#fafcfd;border-bottom:1px solid var(--cb);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+#calendario .c141-boardhead h3{margin:0;font-size:15px;color:#2c4c5c}
+#calendario .c141-actions{display:flex;gap:7px}
+#calendario .c141-scroll{overflow-x:auto}
+#calendario table{border-collapse:collapse;width:100%;min-width:700px;font-size:13px;line-height:1.55}
+#calendario th{background:#eff5f8;color:#3f6072;font-weight:800;text-align:left;font-size:12px;padding:12px;border-bottom:1px solid #cbdce7}
+#calendario td{padding:11px 12px;vertical-align:top;border-bottom:1px solid #e3ebf0}
+#calendario tr:last-child td{border-bottom:0}
+#calendario tbody tr.c141-today{background:#edf8f5}
+#calendario .c141-date{font-weight:750;color:#304755;white-space:nowrap}
+#calendario .c141-date small{display:block;font-size:11px;font-weight:500;color:#657b88}
+#calendario .c141-planned{font-weight:760;color:#146b4f;white-space:nowrap}
+#calendario .c141-tag{display:inline-block;color:#225e81;background:#e9f3fa;border:1px solid #c0ddec;border-radius:7px;font-size:11px;font-weight:760;padding:3px 7px}
+#calendario .c141-tag.late{background:#fcefee;color:#a03d43;border-color:#e5c3c6}
+#calendario .c141-muted{color:#70828d}
+#calendario details{border:0;padding:0}
+#calendario summary{font-size:12px;font-weight:780;color:#176b8b}
+#calendario .c141-items{list-style:none;padding:5px 0 0;margin:0;display:grid;gap:7px}
+#calendario .c141-items li{background:#f7fbfc;border:1px solid #dde8ef;border-radius:7px;padding:9px;display:flex;gap:9px;align-items:flex-start;justify-content:space-between}
+#calendario .c141-items b{color:#1b556e;font-size:12px}
+#calendario .c141-items p{color:#3e5b69;font-size:12px;line-height:1.45;margin:4px 0}
+#calendario .c141-items small{color:#677d88;font-size:11px}
+#calendario .c141-items button{font-size:11px;min-height:32px;padding:6px 9px;white-space:nowrap}
+#calendario .c141-import{background:#fff;border:1px solid var(--cb);border-radius:10px;margin-top:14px;padding:16px}
+#calendario .c141-import h3{font-size:15px;color:#2d4e5d;margin:0 0 7px}
+#calendario .c141-import p{font-size:13px;line-height:1.65;color:#4b6977;margin:0 0 12px}
+#calendario .c141-import code{background:#e7f1f6;color:#285570;padding:2px 5px;border-radius:4px}
+#calendario .c141-result{font-size:12px;line-height:1.65;color:#2f6b4f;margin-top:9px}
+#calendario .c141-result.error{color:#aa4548}
+@media(max-width:900px){#calendario .c141-stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){#calendario .c141-stats{gap:7px}#calendario .c141-stat{padding:10px}#calendario .c141-stat strong{font-size:21px}#calendario .c141-actions button{font-size:11px;padding:7px}#calendario .c141-settings select{max-width:100%}}
