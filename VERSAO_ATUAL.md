@@ -1,3 +1,29 @@
+# Banco Mestre — V154: biblioteca ativa limpa + Vade atual validado (12/11/2026)
+
+## Exclusão efetiva da biblioteca de imagens
+O arquivo privado `EXCLUSOES_ATLAS_184_V046_ORIGINAL_2026-11-10.json` contém 184 exclusões por ID. Foram removidos **184 registros do catálogo de produção**, e criados arquivos independentes `meta_public_v154.json`, `imagens_assuntos_v154.json`, `image_grupos_v154.json`, `imagens_descritivas_v154.json` e sete arquivos `img_live_v154_00.json` a `img_live_v154_06.json` com **somente 70 imagens históricas remanescentes**. Mais os 16 recortes Petrobras 10, a biblioteca ativa soma **86 registros**. O filtro de excluídas não reconstrói os 184 IDs removidos. Foram mantidos os estados locais das demais imagens; nenhuma operação apagou o histórico dos cartões, grifos ou imagens remanescentes.
+
+**Limite de segurança:** 36 vínculos candidatos do arquivo de exclusões apontam para arquivos do Google Drive, mas são *associações por nome não verificadas*; nenhum deles recebeu autorização de deleção pelo critério de identidade do arquivo. Assim, **zero arquivos do Google Drive foram fisicamente excluídos**. Cópias e catálogos históricos V153 e anteriores continuam no repositório como backups; o catálogo de produção e as prévias carregadas não os acessam.
+
+Arquivos ativos: `v154.html`, `assets/v154_boot_topic.js`, `assets/v154_atlas_edicao_completa.js`, `assets/v154_image_library.js`. O importador de exclusões V086 e a camada de 184 ocultos V087 não integram mais a página ativa.
+
+## Vade Mecum vigente e autorização
+Google Drive vigente: `1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI`, edição Senado 3ª edição com grifos e negritos. O PDF atual de 37.143.909 bytes teve seu **SHA-256 verificado** como `2c836a11dcdae84e62e3e4cac8e449de760f82d9acd13278da50c5634f296a90`.
+
+O módulo `assets/v154_vade_current.js` consulta a cópia local do navegador (IndexedDB) por ID e calcula o hash antes de reabrir. Uma cópia antiga é **recusada**, não excluída, e o botão tenta buscar a fonte atual no Google Drive. O botão `Sincronizar Vade` sempre força uma conferência do Drive. O leitor genérico `assets/v154_drive_direct.js` também obriga a edição vigente ao usar Editar PDF para o ID de estudo do Vade.
+
+O OAuth do site GitHub Pages é client-side e usa access tokens temporários (~1 hora), não refresh tokens. A autorização anterior de consentimento pode ser reconhecida sem guardar credenciais; cópias locais atuais verificadas permitem abrir sem nova conexão. **Não se deve armazenar um refresh token no localStorage de uma página estática**. Renovação permanente segura exigiria fluxo de authorization code com back-end e armazenagem segura do refresh token.
+
+## Auditoria
+- 70 miniaturas em sete arquivos de produção; 70 metadados históricos ativos; 16 recortes externos; total 86 IDs sem duplicatas.
+- Fonte descritiva e associação de grupos com 86 itens cada.
+- Bootstrap V154 montou 50 mil caracteres sem erros de sintaxe, mantendo PDF V002 de 274 páginas (78 PDFs ativos), Flashcards V152, Redação V146 e SRS.
+- Testes simulados de navegação em grupos, Petrobras 10, pesquisa global e filtro de excluídas passaram.
+- Hash de Vade atual conferido com download autenticado, não estimado.
+- **Teste com o OAuth real do navegador do usuário ainda pendente.**
+
+---
+
 # Banco Mestre — V153: Atlas de imagens organizado por assunto (12/11/2026)
 
 A biblioteca **Imagens e pranchas** agora usa áreas e grupos temáticos equivalentes aos da biblioteca de PDFs. Foram associados **270 IDs** pelo catálogo `assets/imagens_assuntos_v032.json`: **254 imagens históricas e 16 recortes Petrobras 10**; as três correções de classificação IMG-044 a IMG-046 foram mantidas. A camada de organização usa `assets/image_grupos_v153.json` com 16 grupos em 3 áreas, sem editar a catalogação técnica original.
