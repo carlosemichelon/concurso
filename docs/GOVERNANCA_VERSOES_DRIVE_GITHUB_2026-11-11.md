@@ -8,8 +8,8 @@
 | Site publicado | `gh-pages/assets/version.json` + `gh-pages/index.html` | V126 / `v126.html`, 11/11/2026 |
 | Branch de desenvolvimento legado | `main` | V031 (não é o site atual) |
 | Base servida pelo portal | `BANCO_MESTRE_CANONICO_V024_H14_3_FUSOES_1482_ATIVOS_1499_IDS.xlsx`, no Drive | A V126 declara 1.499 IDs e 1.482 ativos da linha V024 H14, distribuídos por arquivos estáticos versionados; não equivale a comprovação de conciliação com V029 |
-| Checkpoint mais recente localizado na pasta de checkpoints | `BANCO_MESTRE_CANONICO_V029_PETRO11_ENCERRADA.xlsx` | Histórico/candidato a conciliação, **não** promover por numeração sem comparar conteúdo, aprovação, IDs e eventos |
-| Metodologia | `DataBase_Concurso/00_CONTROLE/00_METODOLOGIA_MESTRE_VIGENTE_v009` | Documento nominalmente vigente, com versões históricas separadas. Conferir se conteúdo e título estão sincronizados antes de editar |
+| Checkpoint mais recente localizado na pasta de checkpoints | `BANCO_MESTRE_CANONICO_V029_PETRO11_ENCERRADA.xlsx` | Auditada: 1.503 IDs, 1.486 ativos; os 1.499 cartões e respectivos eventos SRS de V024 foram preservados sem diferença, e 4 novos cartões aprovados foram acrescentados. Não publicada |
+| Metodologia | `DataBase_Concurso/00_CONTROLE/00_METODOLOGIA_MESTRE_VIGENTE_v010` | Título e abertura conciliados com o adendo V010 em 11/11/2026, sem apagar os textos-base históricos |
 | Revisões privadas | Drive / navegador | Não presumir sincronização de SRS, grifos, IndexedDB e localStorage com GitHub |
 
 **Atenção:** V126 (versão do portal), V029 (arquivo da base), V024 H14 (linha de dados do portal) e v009 (metodologia) usam contagens independentes. Nunca ordenar tudo em uma única sequência Vnnn.
@@ -54,7 +54,7 @@ Repositório: https://github.com/carlosemichelon/concurso
 - **Branch publicada = `gh-pages`.** A fonte operacional para conferir é `assets/version.json`, comparada a `index.html` e à presença de `vNNN.html`.
 - **Branch padrão `main` = legado V031** no momento da auditoria. Não publicar nela.
 - As páginas `vNNN.html` na raiz de `gh-pages` são URLs históricas, não duplicatas descartáveis. Não renomear/mover sem verificar redirecionamentos e dependências.
-- [Inventário nominal das 102 branches](INVENTARIO_BRANCHES_2026-11-11.md).
+- [Inventário nominal das 102 branches](INVENTARIO_BRANCHES_2026-11-11.md): 32 branches de desenvolvimento/experimentos auditadas, 20 sem commits exclusivos, 12 divergentes com commits exclusivos; nenhuma exclusão.
 - Inventário das 102 branches: 68 `backup/`, 21 `feature/` e 13 outras (incluindo `main`, `gh-pages` e experimentais `bm-*`). **Nenhuma foi apagada**.
 - PR #7 de diagnóstico da V042 permanece aberta, sem decisão de fechamento nesta auditoria.
 - O README antigo da `gh-pages` descrevia V015, e o cabeçalho de `VERSAO_ATUAL.md` descrevia V113. A documentação foi atualizada para explicar a distinção sem alterar páginas, módulos, dados ou manifesto.
@@ -68,10 +68,10 @@ Repositório: https://github.com/carlosemichelon/concurso
 6. Para grifos, PDF, IndexedDB e SRS, verificar exportação/restauração privada própria; GitHub não é backup desses dados.
 
 ## 5. Pendências da auditoria
-- Comparar em nível de ID/cartão/evento o conteúdo V024 H14 e o checkpoint V029. Decidir linha canônica após auditoria e autorizações; manter originais.
+- Comparação de IDs/cartões/eventos V024 versus V029 concluída em 11/11: 1.499 antigos inalterados, 4 novos (CARD-1501 a CARD-1504), SRS dos quatro não iniciado. Antes de promoção, conferir eventuais incrementos Petrobras Parte 12, validação de tabelas multimodais e privacidade do build; manter originais.
 - Auditar o compartilhamento dos documentos Drive (não foi modificado nesta organização).
 - Revisar se 102 branches precisam continuar como pontos de recuperação, antes de qualquer exclusão, e examinar a PR #7.
-- Verificar se a guia metodológica nomeada v009 está realmente atualizada internamente.
+- Guia metodológica renomeada para v010 e abertura corrigida para distinguir texto-base v005 de adendos v010; manter links pelo mesmo ID Drive.
 - Comparar possíveis duplicatas por hash/conteúdo; nome idêntico ou arquivo de mesmo tamanho **não basta**.
 - Não foi feita validação visual/OAuth da V126 nesta etapa.
 
@@ -82,3 +82,9 @@ Repositório: https://github.com/carlosemichelon/concurso
 - V024 H14 mantida no Painel para não romper a referência atual do portal.
 - V029 mantida no diretório de checkpoints; nenhuma aprovação/integração SRS executada.
 - Documentação GitHub alinhada à versão publicada; nenhum HTML, ativo, arquivo JSON da base ou branch de backup alterado.
+
+## 7. Atualização da auditoria — 11/11/2026
+- A V029 foi efetivamente confrontada com a V024 por todas as colunas do cadastro de 1.499 cartões e da tabela SRS correspondente; sem diferenças nos IDs antigos, 4 novos cartões aprovados e 4 registros SRS não iniciados.
+- A pasta DataBase_Concurso/00_CONTROLE recebeu um mapa privado de versões e links (Google Docs). O guia 00_COMECE_AQUI foi atualizado para informar V126 do portal, V024 da publicação e V029 do checkpoint.
+- Documentação metodológica renomeada de v009 para v010 após constatar o adendo V010 no próprio arquivo. Nenhum cartão ou calendário SRS foi alterado.
+- Branches com commits exclusivos preservadas, conforme inventário nominal; 68 backups ainda exigem auditoria própria, não foram deletados.
