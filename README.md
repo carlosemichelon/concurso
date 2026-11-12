@@ -9,6 +9,7 @@
 - [Mapa de versões e organização Drive/GitHub](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md)
 - [Manifesto da versão publicada](assets/version.json)
 - [Registro detalhado de versões](VERSAO_ATUAL.md)
+- [Inventário das 102 branches](docs/INVENTARIO_BRANCHES_2026-11-11.md)
 - [Regras para agentes e alterações](AGENTS.md)
 - No Google Drive conectado: pastas `CONCURSOS – ENGENHARIA CIVIL` e `DataBase_Concurso`. Seus links privados não são publicados aqui.
 
