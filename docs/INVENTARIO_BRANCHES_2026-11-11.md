@@ -117,3 +117,24 @@
 - Avaliar a PR #7 de diagnóstico V042, aberta na data desta auditoria, antes de fechar.
 - Para backups, comparar pontos de recuperação ao histórico de `gh-pages` antes de substituir por tags imutáveis.
 - Não renomear nem apagar `gh-pages` e `main` como parte desta triagem.
+
+## Auditoria de ancestralidade em relação a `gh-pages` — 11/11/2026
+
+A API de comparação de commits foi aplicada individualmente às 21 branches `feature/*` e às 11 `bm-*` (32 no total). **20 ficaram com `ahead_by = 0`**, isto é, sem commits exclusivos frente à `gh-pages` nesta data; **12 registraram `ahead_by > 0` e status `diverged`**. Esses 12 precisam ser preservados para investigação de alterações não incorporadas. São eles:
+
+- `feature/pre-sync-grifos-2026-11-10`
+- `feature/v081-paragraph-multicolor-2026-11-10`
+- `feature/v086-simple-highlight-2026-11-10`
+- `feature/v119-relacoes-lei-seca-20261111`
+- `feature/v120-relacoes-normativas-20261111`
+- `feature/v122-remissoes-verificaveis-20261111`
+- `feature/v123-juridico-validado-20261111`
+- `feature/v123-remissoes-vinculos-20261111`
+- `feature/v124-remissoes-seguras-20261111`
+- `feature/v125-qualidade-clausulas-20261111`
+- `feature/v126-ia-juridica-precisao-20261111`
+- `bm-pages-diagnostico-v042-20261109`
+
+As demais 20 branches `feature/*` e `bm-*` estavam integralmente atrás da `gh-pages` na comparação (`status: behind`, `ahead_by: 0`). Isso NÃO autoriza exclusão automática: verificar usos externos, PRs, pipelines e política de backup antes de decidir. As 68 branches `backup/*` não passaram por esta auditoria individual de ancestralidade; permanecem intactas.
+
+A PR #7 aponta para `bm-pages-diagnostico-v042-20261109`, que possui 2 commits exclusivos; **não fechar nem mesclar automaticamente**.
