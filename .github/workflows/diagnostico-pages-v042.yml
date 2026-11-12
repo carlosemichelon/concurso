@@ -1,0 +1,64 @@
+name: Diagnóstico GitHub Pages V042
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - '.github/workflows/diagnostico-pages-v042.yml'
+  workflow_dispatch:
+jobs:
+  verificar-publicacao:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Conferir origem configurada do Pages
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          curl -sSL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/carlosemichelon/concurso/pages > /tmp/pages-config.json
+          python3 - <<'PY'
+          import json
+          try:
+              d=json.load(open('/tmp/pages-config.json'))
+              print('PAGES-CONFIG',json.dumps({k:d.get(k) for k in ('status','url','html_url','source','build_type','message')},ensure_ascii=False))
+          except Exception as e:print('PAGES-INFO-INACCESSIBLE',type(e).__name__)
+          PY
+      - name: Conferir resposta dos arquivos públicos
+        run: |
+          python3 - <<'PY'
+          import urllib.request, urllib.error
+          base='https://carlosemichelon.github.io/concurso/'
+          for path in ('','v041.html','v042.html','assets/v042_drive_save.js','assets/pdf_v042.js'):
+              url=base+path+'?probe=20261109_v042'
+              req=urllib.request.Request(url,headers={'User-Agent':'BancoMestrePagesDiagnostico/1.0','Cache-Control':'no-cache'})
+              try:
+                  with urllib.request.urlopen(req,timeout=20) as r:
+                      start=r.read(220).decode('utf-8',errors='replace')
+                      print('PUBLIC-STATUS',path or '/',r.status,'URL',r.url,'TYPE',r.headers.get('Content-Type'),'PREFIX',repr(start[:100]))
+              except urllib.error.HTTPError as e:print('PUBLIC-STATUS',path or '/',e.code,'URL',e.url)
+              except Exception as e:print('PUBLIC-ERROR',path or '/',type(e).__name__,str(e)[:150])
+          PY
+      - name: Instalar Chromium para diagnóstico do site publicado
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.55.1
+          npx playwright install --with-deps chromium
+      - name: Observar JavaScript e conteúdo renderizado da V042 pública
+        run: |
+          node - <<'JS'
+          const {chromium}=require('playwright');
+          (async()=>{
+            const b=await chromium.launch({headless:true,args:['--no-sandbox']});
+            const p=await b.newPage({viewport:{width:1440,height:900}});
+            const errors=[],consoleErrors=[],badRequests=[];
+            p.on('pageerror',x=>errors.push(x.message));
+            p.on('console',x=>{if(x.type()==='error')consoleErrors.push(x.text())});
+            p.on('requestfailed',r=>badRequests.push({url:r.url(),error:r.failure()?.errorText}));
+            try{
+              const response=await p.goto('https://carlosemichelon.github.io/concurso/v042.html?utm_source=chatgpt.com',{waitUntil:'domcontentloaded',timeout:60000});
+              await p.waitForTimeout(6000);
+              const body=await p.evaluate(()=>({title:document.title,heading:document.querySelector('h1')?.innerText||'',body:document.body.innerText.slice(0,600),pdfStatus:document.querySelector('#pdfLocalStatus')?.innerText||'',hasPdfArea:!!document.getElementById('pdfAreaNavV036'),hasSaveModule:!!window.BancoMestreDriveSaveV042,hasPdfModule:!!window.BancoMestrePDFV042,hasSaveButton:!!document.getElementById('pdfSaveDriveV042')}));
+              console.log('BROWSER-PUBLIC',JSON.stringify({status:response?.status(),body,errors:errors.slice(0,12),consoleErrors:consoleErrors.slice(0,12),badRequests:badRequests.slice(0,12)}));
+            }finally{await b.close()}
+          })().catch(e=>{console.error('BROWSER-PUBLIC-ERROR',e.message);process.exitCode=1})
+          JS
