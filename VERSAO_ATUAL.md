@@ -1,3 +1,19 @@
+# Banco Mestre — V156: reclassificação visual de 86 imagens ativas (12/11/2026)
+
+Reclassificação concluída com inspeção visual da totalidade dos registros ativos: **70 prévias JPEG publicadas** e **16 recortes originais PNG lidos do Google Drive**, sem restaurar os **184 IDs excluídos**. Cada ID recebeu disciplina, assunto geral, assunto específico, subassunto, título descritivo, evidência e status de auditoria em `assets/image_classificacao_v156.json`.
+
+**Resultado:** 84 imagens tiveram o assunto identificado com boa confiança. Permanecem duas ressalvas: **IMG-001** é um material já identificado como tecnicamente problemático (preservado com advertência, sem homologação de fórmulas), e **IMG-044** exige leitura do original em maior resolução por ter prévia insuficiente. A auditoria de assunto não equivale à validação normativa de fórmulas, prazos ou gabaritos.
+
+As principais correções foram: pórticos IMG-004/010/024, esquadrias de madeira IMG-052, coletores públicos e poços de visita IMG-079/085, ensaio de ductilidade IMG-094, NR-7/PCMSO IMG-112, vocabulário de interpretação IMG-144, validade de argumentos IMG-146, geometria plana IMG-151. Os três recortes Petrobras antes pendentes (P10-01, P10-03 e P10-04) tiveram seus assuntos identificados com base no texto dos originais.
+
+A biblioteca agora lê `assets/image_classificacao_v156.json`, `assets/imagens_assuntos_v156.json`, `assets/imagens_descritivas_v156.json` e `assets/image_grupos_v156.json`. O renderizador `assets/v156_atlas_edicao_completa.js` mantém favoritos, títulos personalizados, edição, originais e grifos; o menu `assets/v156_image_classified_library.js` continua com filtros encadeados e contagens. Os **16 recortes ambientais** são consultáveis também sob Legislação, por vínculo secundário, sem duplicar a mídia.
+
+Auditorias: 86 IDs presentes em quatro arquivos novos; 13 categorias gerais idênticas aos flashcards; grupos de Pórticos (3), NR-7 (3), Estruturas (20), Legislação ambiental (16); busca por ID, reset e ausência dos 184 excluídos foram testados. Bootstrap de V156 montado sem erros de sintaxe; PDFs V002 (78), Flashcards V152, SRS, Vade V154 e Redação V146 foram preservados. **Validação no navegador autenticado do usuário ainda não executada.**
+
+Relatório individual: `AUDITORIA_IMAGENS_ATIVAS_V156.md` — **86 linhas por ID**, com disciplina, assunto geral, assunto específico, subassunto e status.
+
+---
+
 # Banco Mestre — V155: Classificação das imagens igual aos flashcards (12/11/2026)
 
 O Atlas de imagens passa a usar filtros **Disciplina → Assunto geral → Assunto específico → Subassunto** com contagens dinâmicas, seletores encadeados e botão Limpar filtros. O segundo nível reutiliza integralmente as **13 categorias gerais de flashcards V128**; somente opções presentes na seleção aparecem. O assunto específico segue a categoria temática dos metadados originais e o subassunto segue as relações de estudo documentadas (sem criar conteúdos quando não foram identificados).
