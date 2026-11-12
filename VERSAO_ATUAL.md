@@ -1,3 +1,9 @@
+# Banco Mestre — V146: dicas compactas e auditoria do encadeamento da Redação
+
+A Produção guiada mantém as três etapas FTTD/TEEC, mas oculta o mini-mapa decorativo com quatro caixas e apresenta um único ícone 💡 ao lado de **Dicas e modelos desta etapa**, em resumo acessível recolhível. Alteração CSS isolada em `assets/v146_redacao_compact.css`, carregada somente por `redacao_temas_treino_v146.html`, sem alteração das respostas, editor, abas Temas/Treino, salvamento V145, fontes, PDFs, SRS ou grifos. A V145 permanece intacta.
+
+**Auditoria funcional:** `treinoProxNivel()` chama `salvarRespostasNivel()`, mantém os valores no objeto `treinoRespostas` e renderiza os campos da próxima etapa, mas não gera, reescreve nem cola automaticamente os textos anteriores. `montarRascunho()` apenas exibe a síntese de respostas; `treinoAvaliar()` avalia os campos da etapa ativa. Melhorias propostas e não implementadas nesta versão: referência lateral dos eixos/TEEC, rascunho composto não destrutivo, comparação de reescritas e validação transversal de tese→argumentos→conclusão. Teste visual em navegador real ainda recomendado.
+
 # Banco Mestre — V144: conferência de compatibilidade da consulta da Redação
 
 Pequeno reparo após auditoria da V143: quando `treinoBuscarContexto` é invocada sem receber um botão explícito, o seletor CSS de fallback passa a ser válido. Isso mantém também o comportamento dos botões legados que não utilizam o novo painel. Os módulos `v143_producao_base.js`, `v143_janelas_redacao.js` e `v143_janelas_redacao.css` permanecem intactos; a Redação V144 carrega exatamente esses mesmos módulos com o reparo no HTML, e o portal V144 redireciona à nova página. Calendário V141, PDFs V140, SRS, Drive/Vade/Grifos não modificados. A publicação via GitHub Pages não substitui homologação visual no navegador.

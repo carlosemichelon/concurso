@@ -1,0 +1,50 @@
+/* Banco Mestre V146 — Produção guiada: resumo compacto sem mapa grande.
+   Apenas apresentação; não modifica os campos, as respostas ou o SRS. */
+#aba-treino #treino-campos > .bm138-mini-map {
+  display: none !important;
+}
+#aba-treino .bm138-guidance {
+  margin: 8px 0 16px !important;
+  border: 1px solid #c7deea !important;
+  border-radius: 9px !important;
+  background: #f5fafc !important;
+}
+#aba-treino .bm138-guidance > summary {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-height: 42px;
+  padding: 10px 13px !important;
+  color: #205b7b !important;
+  font-size: 15px !important;
+  font-weight: 750 !important;
+  line-height: 1.5 !important;
+  list-style: none !important;
+  cursor: pointer;
+}
+#aba-treino .bm138-guidance > summary::-webkit-details-marker {
+  display: none;
+}
+#aba-treino .bm138-guidance > summary::before {
+  content: "💡";
+  font-size: 17px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+#aba-treino .bm138-guidance > summary::after {
+  content: "⌄";
+  margin-left: auto;
+  font: 700 20px/1 system-ui, sans-serif;
+  color: #537c91;
+  transition: transform .15s ease;
+}
+#aba-treino .bm138-guidance[open] > summary::after {
+  transform: rotate(180deg);
+}
+#aba-treino .bm138-guidance > summary:hover {
+  background: #e8f4fa !important;
+}
+#aba-treino .bm138-guidance > summary:focus-visible {
+  outline: 3px solid #4699c4;
+  outline-offset: -3px;
+}
