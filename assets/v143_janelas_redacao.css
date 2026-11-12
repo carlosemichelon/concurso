@@ -1,0 +1,71 @@
+/* Banco Mestre V143 — janelas de consulta lateral e retorno à escrita. */
+.bm143-tool-dock{--bm143-width:min(720px,48vw);display:none;position:fixed;z-index:1005;inset:0 0 0 auto;width:var(--bm143-width);height:100vh;height:100dvh;min-height:0;background:#fff;color:#263d4e;border-left:1px solid #c4d9e4;box-shadow:-12px 0 35px rgba(22,47,60,.16);font:15px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;flex-direction:column;overflow:hidden}
+.bm143-tool-dock.is-open{display:flex}
+.bm143-tool-dock .bm143-tool-head{position:relative;flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 18px;background:#edf6fb;border-bottom:1px solid #c9dfeb;z-index:2}
+.bm143-tool-dock .bm143-eyebrow{display:block;color:#376a83;font-size:11px;font-weight:780;letter-spacing:.55px}
+.bm143-tool-dock .bm143-tool-title{margin:2px 0 0;font-size:clamp(17px,2vw,20px);color:#21465e;line-height:1.35;font-weight:820}
+.bm143-tool-dock button{border-radius:8px;border:1px solid #bad1df;background:#fff;color:#165e84;cursor:pointer;font:740 13px/1.4 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:40px;padding:9px 12px;white-space:normal;letter-spacing:0}
+.bm143-tool-dock button:hover{background:#e6f3fa;border-color:#86b8d1}
+.bm143-tool-dock button:focus-visible{outline:2px solid #2881b0;outline-offset:2px}
+.bm143-tool-dock .bm143-close-top{flex:none;font-weight:800;color:#355b70;min-height:38px}
+.bm143-tool-tabs{display:flex;gap:7px;align-items:center;overflow-x:auto;scrollbar-width:thin;flex:none;padding:10px 15px;background:#fafcfe;border-bottom:1px solid #d6e3ec}
+.bm143-tool-dock .bm143-tool-tab{min-width:max-content;white-space:nowrap;padding:9px 11px;font-size:12px;min-height:37px;border-radius:8px}
+.bm143-tool-dock .bm143-tool-tab.is-active{background:#176b8f;border-color:#176b8f;color:#fff}
+.bm143-tool-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px 18px 24px;scrollbar-color:#aacad9 #eff6fa;scrollbar-width:thin}
+.bm143-tool-status{font-size:14px;background:#edf6fa;border:1px solid #c4deeb;border-radius:9px;padding:12px 13px;margin:0 0 12px;color:#2a6079}
+.bm143-tool-status[hidden],.bm143-news-warning[hidden],.bm143-refresh[hidden]{display:none!important}
+.bm143-tool-notice{font-size:13px;color:#455e6d;line-height:1.6;margin:0 0 12px}
+.bm143-news-warning{padding:10px 13px;border-left:4px solid #bc822e;background:#fff6e9;border-radius:0 8px 8px 0;font-size:13px;font-weight:650;color:#765323;line-height:1.6;margin-bottom:12px}
+.bm143-tool-dock .bm143-refresh{margin:0 0 14px;font-size:13px;color:#176b8c;background:#eff7fb;border-color:#bbd8e6}
+.bm143-tool-panels{min-width:0}
+.bm143-tool-dock .bm143-moved-panel{display:block!important;position:static!important;background:#fff!important;border:0!important;padding:0!important;margin:0!important;box-shadow:none!important;overflow:visible!important;color:#293f4f!important;font-size:15px!important;line-height:1.75!important}
+.bm143-tool-dock .bm143-moved-panel:not(.bm143-active-panel){display:none!important}
+.bm143-tool-dock .bm143-active-panel[style*="display: none"]{display:none!important}
+.bm143-tool-dock .bm143-moved-panel>div:first-child{color:#235f81!important;border-radius:7px!important;font-size:14px!important;font-weight:800!important;letter-spacing:0!important;line-height:1.5!important;background:#edf6fa!important;border-bottom:1px solid #d1e4ed!important}
+.bm143-tool-dock .bm143-moved-panel [style*="font-size:8px"],.bm143-tool-dock .bm143-moved-panel [style*="font-size:9px"],.bm143-tool-dock .bm143-moved-panel [style*="font-size:10px"],.bm143-tool-dock .bm143-moved-panel [style*="font-size:11px"],.bm143-tool-dock .bm143-moved-panel [style*="font-size:12px"]{font-size:14px!important;line-height:1.65!important}
+.bm143-tool-dock .bm143-moved-panel [style*="color:var(--muted)"],.bm143-tool-dock .bm143-moved-panel [style*="color:#a8c0d8"]{color:#4b6473!important}
+.bm143-tool-dock .bm143-moved-panel [style*="color:#4a90d9"],.bm143-tool-dock .bm143-moved-panel [style*="color:var(--azul)"]{color:#1b658a!important}
+.bm143-tool-dock .bm143-moved-panel [style*="color:var(--ouro)"]{color:#24647d!important}
+.bm143-tool-dock .bm143-moved-panel [style*="color:var(--verde)"]{color:#1b704d!important}
+.bm143-tool-dock .bm143-moved-panel [style*="color:#e05050"],.bm143-tool-dock .bm143-moved-panel [style*="color:var(--verm)"]{color:#a33a43!important}
+.bm143-tool-dock .bm143-moved-panel [style*="color:var(--roxo)"]{color:#664e95!important}
+.bm143-tool-dock .bm143-moved-panel :is(input,select,textarea){font-size:15px!important;background:#fff!important;color:#263e4e!important;border:1px solid #b8cedc!important;min-height:42px!important;padding:9px 11px!important;border-radius:8px;max-width:100%}
+.bm143-tool-dock .bm143-moved-panel input::placeholder{color:#637685!important}
+.bm143-tool-dock .bm143-moved-panel button.btn{font-size:13px!important;min-height:39px!important;color:#195f84!important;background:#fff!important;border-color:#bad2e0!important}
+.bm143-tool-dock .bm143-moved-panel button.btn-ouro{background:#177f62!important;color:white!important;border-color:#177f62!important}
+.bm143-tool-dock .bm143-moved-panel #treino-eixos-lista>div{background:#f7fbfd;border:1px solid #d4e5ed!important;border-radius:8px!important;padding:12px!important}
+.bm143-tool-dock .bm143-moved-panel #treino-eixos-lista>div:hover{background:#eaf5fb!important}
+.bm143-tool-dock .bm143-moved-panel #treino-brainstorm-cadeias>div{background:#fbfdfd;border-color:#d4e3eb!important}
+.bm143-tool-dock #treino-contexto{white-space:normal;overflow-wrap:anywhere}
+.bm143-tool-dock #treino-contexto strong{font-weight:800;color:#235f81!important}
+.bm143-tool-dock #treino-contexto strong[style*="color:#e05050"]{color:#a83b42!important}
+.bm143-tool-dock .bm143-tool-footer{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 17px;background:#f5f9fb;border-top:1px solid #cddfea}
+.bm143-tool-dock .bm143-footer-hint{font-size:12px;color:#4e6573;line-height:1.4}
+.bm143-tool-dock .bm143-return{flex:none;min-height:44px;padding:10px 15px;border:1px solid #116f57;background:#167d60;color:#fff;font-size:14px;font-weight:800}
+.bm143-tool-dock .bm143-return:hover{background:#0f634b;border-color:#0f634b}
+#aba-treino .bm138-expansions{display:none!important}
+@media(min-width:1100px){
+ body.bm143-tool-open #aba-treino{max-width:none!important;width:calc(100vw - min(720px,48vw) - 14px)!important;margin:0!important;padding:16px 16px 42px!important}
+ body.bm143-tool-open #aba-treino .bm138-workspace{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"editor"!important}
+ body.bm143-tool-open #aba-treino .bm138-sidebar{display:none!important}
+ body.bm143-tool-open #aba-treino .bm138-main{min-width:0!important}
+ body.bm143-tool-open #aba-treino .bm138-editor{padding:17px!important}
+ body.bm143-tool-open #aba-treino .bm138-progress{margin-bottom:13px}
+}
+@media(max-width:1099px){
+ body.bm143-tool-open{overflow:hidden!important}
+ .bm143-tool-dock{width:100vw;height:100dvh;border-left:0;box-shadow:none}
+ .bm143-tool-dock .bm143-tool-content{padding:13px 15px 23px}
+ .bm143-tool-dock .bm143-tool-footer{padding:12px 15px}
+}
+@media(max-width:570px){
+ .bm143-tool-dock .bm143-tool-head{padding:12px 13px;gap:8px}
+ .bm143-tool-dock .bm143-close-top{font-size:12px;padding:8px 9px}
+ .bm143-tool-dock .bm143-tool-title{font-size:17px}
+ .bm143-tool-tabs{padding:8px 11px;gap:6px}
+ .bm143-tool-dock .bm143-tool-tab{font-size:12px;padding:8px 10px}
+ .bm143-tool-dock .bm143-tool-footer{padding:10px 12px}
+ .bm143-tool-dock .bm143-footer-hint{display:none}
+ .bm143-tool-dock .bm143-return{width:100%;min-height:46px}
+ .bm143-tool-dock .bm143-moved-panel :is(input,select,textarea){font-size:16px!important}
+}
