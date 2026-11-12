@@ -4,7 +4,7 @@
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
 - A **única branch de publicação do site é `gh-pages`**, mesmo quando o acesso padrão do GitHub mostra `main`.
-- Em 11/11/2026 o manifesto da branch `gh-pages` registrava **V126**; `main` continha **V031 legado**. Não assumir que estes números continuam vigentes: verificar `gh-pages/assets/version.json` e `gh-pages/index.html` antes de cada edição. Consulte [o mapa de governança](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md).
+- Em 11/11/2026, após uma publicação concorrente, o manifesto da branch `gh-pages` passou a registrar **V128**; `main` continha **V031 legado**. Não assumir que estes números continuam vigentes: verificar `gh-pages/assets/version.json` e `gh-pages/index.html` antes de cada edição. Consulte [o mapa de governança](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md).
 
 ## Preflight obrigatório
 
