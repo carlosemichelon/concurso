@@ -1,0 +1,399 @@
+/* V139 — ajuste fino de fontes e contraste da Produção Guiada.
+ * Mantém o layout em 2 colunas, o treino FTTD/TEEC e os dados V138.
+ * Prioridade: textos pequenos do código legado dinâmico (8–12 px). */
+#aba-treino{
+ --bm139-ink:#263b49;
+ --bm139-secondary:#435c6b;
+ --bm139-blue:#195f86;
+ --bm139-border:#cbdbe5;
+ --bm139-surface:#f6f9fb;
+ color:var(--bm139-ink)!important;
+ font-size:15px!important;
+ line-height:1.65!important;
+}
+#aba-treino .bm134-hero h2{font-size:clamp(24px,2.5vw,29px)!important;line-height:1.35!important;color:#263b4c!important}
+#aba-treino .bm134-hero p{font-size:15px!important;line-height:1.7!important;color:#425b69!important}
+#aba-treino .bm138-progress .bm138-kicker{font-size:13px!important;color:#354e60!important;font-weight:830!important;letter-spacing:.2px}
+#aba-treino .bm138-progress #treino-nivel-badge{font-size:14px!important;line-height:1.4!important;color:#1d5b7d!important;background:#eaf4fa!important;border-color:#afd2e5!important}
+#aba-treino .bm138-progress .bm134-step{color:#354f61!important;font-size:13px!important;font-weight:760!important}
+#aba-treino .bm138-progress .bm134-step span{font-size:13px!important;line-height:1.35!important}
+#aba-treino .bm138-progress .bm134-step b{font-size:13px!important;color:#26546c!important;background:#f2f8fa!important}
+#aba-treino .bm138-progress .bm134-step.active{background:#e7f4fa!important;color:#164c72!important}
+#aba-treino .bm138-progress .bm134-step.active b{color:#fff!important;background:#1c7099!important}
+#aba-treino .bm138-progress .bm134-step.done{background:#edf7f2!important;color:#245d49!important}
+#aba-treino .bm138-theme-box,
+#aba-treino .bm138-editor,
+#aba-treino .bm138-sidebar .bm135-action-group,
+#aba-treino .bm138-sidebar .bm138-tools-detail,
+#aba-treino .bm138-sidebar .bm135-guide{
+ border-color:#cddce5!important;
+ background:#fff!important;
+ box-shadow:0 2px 10px rgba(31,59,82,.055)!important;
+}
+#aba-treino .bm138-theme-box .bm138-tag,
+#aba-treino .bm138-sidebar .bm135-action-group h3,
+#aba-treino .bm138-sidebar .bm138-tools-detail summary,
+#aba-treino .bm138-sidebar .bm135-guide .card-titulo{
+ font-size:14px!important;
+ line-height:1.45!important;
+ letter-spacing:0!important;
+ color:#255c7d!important;
+ font-weight:820!important;
+}
+#aba-treino .bm138-theme-box #treino-tema-display{
+ font-size:20px!important;
+ line-height:1.5!important;
+ color:#233c4c!important;
+ font-weight:800!important;
+}
+#aba-treino .bm138-theme-box #treino-tema-meta{
+ color:#425a68!important;
+ font-size:14px!important;
+ line-height:1.65!important;
+}
+#aba-treino .bm138-theme-box #treino-tema-meta span{font-size:14px!important}
+#aba-treino .bm138-theme-box #treino-busca-tema,
+#aba-treino .bm138-theme-box #treino-filtro-cat{
+ font-size:15px!important;
+ line-height:1.5!important;
+ color:#263d4c!important;
+ background:#fff!important;
+ border:1px solid #b5cbd9!important;
+ padding:9px 11px!important;
+ height:auto!important;
+ min-height:45px!important;
+}
+#aba-treino #treino-lista-temas{background:#fff!important;border-color:#cbdce5!important}
+#aba-treino #treino-lista-temas,
+#aba-treino #treino-lista-temas>div,
+#aba-treino #treino-lista-temas [style*="font-size:"]{
+ font-size:14px!important;
+ line-height:1.6!important;
+ color:#2f4757!important;
+}
+#aba-treino .bm138-sidebar .bm135-action-group button,
+#aba-treino .bm138-sidebar .bm138-tools-buttons button{
+ min-height:42px!important;
+ font-size:14px!important;
+ line-height:1.45!important;
+ color:#225f84!important;
+ background:#fff!important;
+ border-color:#c4d8e5!important;
+ font-weight:700!important;
+}
+#aba-treino .bm138-sidebar .bm135-action-group button:hover,
+#aba-treino .bm138-sidebar .bm138-tools-buttons button:hover{
+ background:#eef7fb!important;
+ color:#15567d!important;
+}
+#aba-treino .bm138-sidebar .bm135-action-group button:focus-visible,
+#aba-treino .bm138-sidebar .bm138-tools-buttons button:focus-visible{
+ outline:2px solid #368eb7!important;
+ outline-offset:2px;
+}
+#aba-treino .bm138-tools-detail summary{
+ min-height:48px;
+ padding:13px 15px!important;
+ background:#fff!important;
+}
+#aba-treino .bm138-tools-detail[open] summary{
+ color:#175b83!important;
+ background:#ebf5fa!important;
+}
+#aba-treino .bm138-editor-heading h3{
+ font-size:23px!important;
+ line-height:1.4!important;
+ color:#253c4e!important;
+ font-weight:820!important;
+}
+#aba-treino .bm138-editor-heading .bm138-small{
+ font-size:13px!important;
+ color:#245f85!important;
+ font-weight:830!important;
+ letter-spacing:0!important;
+}
+#aba-treino #treino-instrucao{
+ font-size:15px!important;
+ line-height:1.75!important;
+ color:#344c5d!important;
+}
+#aba-treino .bm138-filled{
+ font-size:13px!important;
+ line-height:1.4!important;
+ color:#255973!important;
+ background:#eef6fb!important;
+ border-color:#b9d7e7!important;
+ padding:8px 11px!important;
+ white-space:normal!important;
+}
+#aba-treino .bm138-filled.is-complete{
+ color:#155d43!important;background:#eaf6ee!important;border-color:#afd5c0!important
+}
+#aba-treino .bm138-guidance{background:#f8fbfd!important;border-color:#cbdfea!important}
+#aba-treino .bm138-guidance summary{
+ font-size:15px!important;
+ color:#1f5e83!important;
+ font-weight:790!important;
+ line-height:1.5!important;
+}
+#aba-treino .bm138-guidance-body{padding:14px 15px!important}
+#aba-treino .bm138-guidance-body>div{
+ color:#2b4555!important;
+ font-size:14px!important;
+ line-height:1.8!important;
+ background:#fff!important;
+ border-color:#d4e2eb!important;
+}
+#aba-treino .bm138-guidance-body>div>div{
+ color:#2b4555!important;
+ font-size:14px!important;
+ line-height:1.75!important;
+}
+#aba-treino .bm138-mini-map{
+ background:#f6f9fb!important;
+ border:1px solid #cfdee8!important;
+ border-radius:9px;
+ padding:7px!important;
+ margin-bottom:13px!important;
+ gap:8px!important;
+}
+#aba-treino .bm138-mini-map>div{
+ border-radius:7px!important;
+ background:#eff5f9!important;
+ min-height:57px!important;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ padding:7px 6px!important;
+}
+#aba-treino .bm138-mini-map>div:nth-child(1){border-bottom:3px solid #2e896f!important}
+#aba-treino .bm138-mini-map>div:nth-child(2){border-bottom:3px solid #3c87b0!important}
+#aba-treino .bm138-mini-map>div:nth-child(3){border-bottom:3px solid #806aa8!important}
+#aba-treino .bm138-mini-map>div:nth-child(4){border-bottom:3px solid #a47833!important}
+#aba-treino .bm138-mini-map>div>div{
+ font-size:13px!important;
+ font-weight:740!important;
+ color:#2d485a!important;
+ line-height:1.35!important;
+ margin-top:0!important;
+}
+#aba-treino #treino-campos>.axis-heading{
+ font-size:17px!important;
+ font-weight:810!important;
+ color:#255d82!important;
+ line-height:1.45!important;
+}
+#aba-treino #treino-campos>.field{
+ background:#fff!important;
+ border-color:#d2dfe7!important;
+ padding:18px 18px 17px!important;
+}
+#aba-treino #treino-campos>.field label{
+ font-size:16px!important;
+ line-height:1.5!important;
+ font-weight:810!important;
+ color:#263c4c!important;
+ margin-bottom:10px!important;
+ letter-spacing:0!important;
+}
+#aba-treino #treino-campos>.field textarea{
+ font-size:16px!important;
+ line-height:1.8!important;
+ letter-spacing:0!important;
+ color:#233745!important;
+ background:#fff!important;
+ border:1px solid #b5c8d4!important;
+ padding:13px 14px!important;
+ min-height:110px!important;
+}
+#aba-treino #treino-campos>.field textarea::placeholder{
+ color:#61717c!important;opacity:1!important
+}
+#aba-treino #treino-campos>.field textarea:focus{
+ border-color:#2780ab!important;
+ outline:2px solid #b3dbea!important;
+ outline-offset:1px
+}
+/* Modelo TEEC, fórmulas e sugestões são gerados novamente a cada nível. */
+#aba-treino #treino-campos>.field [style*="font-size:9px"],
+#aba-treino #treino-campos>.field [style*="font-size:10px"],
+#aba-treino #treino-campos>.field [style*="font-size:11px"]{
+ font-size:13px!important;
+ line-height:1.55!important;
+}
+#aba-treino #treino-campos>.field [style*="font-size:12px"]{
+ font-size:14px!important;
+ line-height:1.55!important;
+}
+#aba-treino #treino-campos>.field [style*="color:#a8c0d8"],
+#aba-treino #treino-campos>.field [style*="color:#c0d8f0"]{
+ color:#344f61!important;
+}
+#aba-treino #treino-campos>.field [style*="color:#4a90d9"],
+#aba-treino #treino-campos>.field [style*="color:var(--ouro)"]{
+ color:#1d6289!important;
+}
+#aba-treino #treino-campos>.field [style*="color:#e05050"]{color:#a33238!important}
+#aba-treino #treino-campos>.field [style*="color:var(--verde)"]{color:#176749!important}
+#aba-treino #treino-campos>.field [style*="color:var(--roxo)"]{color:#584888!important}
+#aba-treino #treino-campos>.field [style*="color:var(--muted)"]{color:#4a6170!important}
+#aba-treino #treino-campos>.field [id^="sugs-"]>span,
+#aba-treino #treino-campos>.field .chip{
+ display:inline-flex!important;
+ align-items:center!important;
+ min-height:32px!important;
+ padding:6px 10px!important;
+ border:1px solid #cadde9!important;
+ border-radius:7px!important;
+ background:#eff7fb!important;
+ color:#255d80!important;
+ font-size:13px!important;
+ line-height:1.45!important;
+ white-space:normal!important;
+ cursor:pointer;
+}
+#aba-treino #treino-campos>.field .chip:hover,
+#aba-treino #treino-campos>.field [id^="sugs-"]>span:hover{
+ color:#164f74!important;
+ background:#deeffa!important;
+ border-color:#9cc8df!important;
+}
+#aba-treino #treino-campos>.field [id^="formula-explicacao-"]{
+ font-size:14px!important;
+ color:#344e60!important;
+ line-height:1.65!important;
+ min-height:0!important;
+}
+#aba-treino #treino-campos>.field button[id^="btn-reescrever-"]{
+ font-size:13px!important;
+ color:#fff!important;
+ background:#207ba6!important;
+ border-radius:7px!important;
+ padding:8px 11px!important;
+ font-weight:730!important;
+}
+/* Guia lateral FTTD: diagramas, exemplo de redação, alertas e subtítulos. */
+#aba-treino #fttd-conteudo{
+ font-size:14px!important;
+ line-height:1.75!important;
+ color:#2d4555!important;
+}
+#aba-treino #fttd-conteudo [style*="font-size:8px"],
+#aba-treino #fttd-conteudo [style*="font-size:9px"],
+#aba-treino #fttd-conteudo [style*="font-size:10px"],
+#aba-treino #fttd-conteudo [style*="font-size:11px"]{
+ font-size:13px!important;
+ line-height:1.5!important;
+}
+#aba-treino #fttd-conteudo [style*="font-size:12px"]{
+ font-size:14px!important;
+ line-height:1.6!important;
+}
+#aba-treino #fttd-conteudo [style*="color:var(--muted)"],
+#aba-treino #fttd-conteudo [style*="color:#a8c0d8"]{color:#485d69!important}
+#aba-treino #fttd-conteudo [style*="color:var(--ouro)"],
+#aba-treino #fttd-conteudo [style*="color:var(--azul)"]{color:#1d6187!important}
+#aba-treino #fttd-conteudo [style*="color:var(--verde)"]{color:#156749!important}
+#aba-treino #fttd-conteudo [style*="color:var(--roxo)"]{color:#5b458a!important}
+#aba-treino #fttd-conteudo>div:first-child{
+ scrollbar-width:thin;
+ scrollbar-color:#95b6ca #eef6fb;
+ padding:5px 0 12px!important;
+}
+#aba-treino #fttd-conteudo>div:first-child>div{
+ line-height:1.45!important;
+}
+#aba-treino #fttd-exemplo-redacao{
+ font-size:14px!important;
+ line-height:1.85!important;
+ color:#293f4e!important;
+ background:#fff!important;
+}
+/* Dados/argumentos/contexto/progressos expandidos: antes tinham texto pálido e mínimo. */
+#aba-treino .bm138-expansions{
+ color:#2f4555!important;
+ font-size:14px!important;
+ line-height:1.75!important;
+}
+#aba-treino .bm138-expansions [style*="font-size:9px"],
+#aba-treino .bm138-expansions [style*="font-size:10px"],
+#aba-treino .bm138-expansions [style*="font-size:11px"]{
+ font-size:13px!important;line-height:1.6!important;
+}
+#aba-treino .bm138-expansions [style*="font-size:12px"]{
+ font-size:14px!important;line-height:1.7!important;
+}
+#aba-treino .bm138-expansions [style*="color:#4a90d9"]{color:#175c86!important}
+#aba-treino .bm138-expansions [style*="color:#e05050"]{color:#a02d36!important}
+#aba-treino .bm138-expansions [style*="color:#3db88a"]{color:#196949!important}
+#aba-treino .bm138-expansions [style*="color:var(--muted)"]{color:#455c6b!important}
+#aba-treino .bm138-expansions input,
+#aba-treino .bm138-expansions select,
+#aba-treino .bm138-expansions textarea{
+ font-size:15px!important;
+ color:#2b3f4c!important;
+ background:#fff!important;
+ border-color:#b8cbd8!important;
+ line-height:1.6!important;
+}
+#aba-treino .bm138-footer{
+ padding-top:17px!important;gap:9px!important;
+}
+#aba-treino .bm138-footer button{
+ font-size:14px!important;
+ line-height:1.4!important;
+ font-weight:770!important;
+ min-height:46px!important;
+ padding:11px 14px!important;
+}
+#aba-treino .bm138-save-hint{
+ font-size:13px!important;
+ line-height:1.5!important;
+ color:#506576!important;
+}
+/* Feedback e rascunho acumulado: rótulos e respostas ficam legíveis. */
+#aba-treino #treino-ia-out,
+#aba-treino #treino-progresso-card{
+ background:#f6fafc!important;
+ border-color:#ccdee9!important;
+ color:#294254!important;
+}
+#aba-treino #treino-ia-out [style*="font-size:9px"],
+#aba-treino #treino-ia-out [style*="font-size:10px"],
+#aba-treino #treino-progresso-painel [style*="font-size:9px"],
+#aba-treino #treino-progresso-painel [style*="font-size:10px"]{
+ font-size:13px!important;
+}
+#aba-treino #treino-ia-out [style*="font-size:11px"],
+#aba-treino #treino-ia-out [style*="font-size:12px"],
+#aba-treino #treino-progresso-painel [style*="font-size:11px"],
+#aba-treino #treino-progresso-painel [style*="font-size:12px"]{
+ font-size:14px!important;
+}
+#aba-treino #treino-progresso-painel,
+#aba-treino #treino-ia-texto,
+#aba-treino #treino-chat-historico{
+ font-size:15px!important;
+ line-height:1.85!important;
+ color:#294355!important;
+ overflow-wrap:anywhere;
+}
+#aba-treino #treino-progresso-painel [style*="color:var(--verde)"]{color:#176847!important}
+#aba-treino #treino-progresso-painel [style*="color:var(--ouro)"]{color:#1b5d81!important}
+#aba-treino #treino-progresso-painel [style*="color:var(--azul)"]{color:#1b618a!important}
+#aba-treino #treino-progresso-painel [style*="color:var(--roxo)"]{color:#58458a!important}
+#aba-treino #treino-progresso-painel [style*="color:var(--muted)"]{color:#485e6c!important}
+#aba-treino #treino-progresso-painel strong{font-weight:800!important}
+/* Responsive: manter escrita com fonte >= 16px e sem compressão. */
+@media(max-width:820px){
+ #aba-treino .bm138-progress .bm134-step span{font-size:12px!important}
+ #aba-treino .bm138-sidebar .bm135-action-group button{min-height:43px!important}
+}
+@media(max-width:550px){
+ #aba-treino .bm138-editor-heading h3{font-size:21px!important}
+ #aba-treino .bm138-editor-heading{gap:8px!important}
+ #aba-treino #treino-campos>.field{padding:14px!important}
+ #aba-treino #treino-campos>.field textarea{font-size:16px!important}
+ #aba-treino #fttd-conteudo{max-height:none!important}
+ #aba-treino .bm138-footer button{font-size:13px!important;padding:10px 9px!important}
+}
