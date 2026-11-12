@@ -89,3 +89,6 @@ Repositório: https://github.com/carlosemichelon/concurso
 - A pasta DataBase_Concurso/00_CONTROLE recebeu um mapa privado de versões e links (Google Docs). O guia 00_COMECE_AQUI foi atualizado para informar V126 do portal, V024 da publicação e V029 do checkpoint.
 - Documentação metodológica renomeada de v009 para v010 após constatar o adendo V010 no próprio arquivo. Nenhum cartão ou calendário SRS foi alterado.
 - Branches com commits exclusivos preservadas, conforme inventário nominal; 68 backups ainda exigem auditoria própria, não foram deletados.
+
+### Organização dos checkpoints após a conciliação — 11/11/2026
+O diretório de checkpoints, antes com 108 arquivos diretamente na raiz, passou a conter cinco subpastas: **01 – Bases incrementais V025–V029 (5 arquivos)**; **02 – Pacotes de auditorias H e etapas (34)**; **03 – Relatórios e evidências H1–H14 (63)**; **04 – Checkpoints de sessões Petrobras (4)**; **05 – Publicação e pacotes complementares (2)**. A leitura de volta confirmou 108 arquivos distribuídos, nenhum arquivo solto; todos foram movidos dentro da mesma árvore, preservando IDs. O Google Drive privado contém links e detalhes no documento `01_MAPA_ATUAL_DAS_BASES_E_VERSOES — AUDITORIA 11-11-2026`. Nenhum conteúdo XLSX, ZIP ou SRS foi regravado.
