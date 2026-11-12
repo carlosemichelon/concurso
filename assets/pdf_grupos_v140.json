@@ -1,0 +1,831 @@
+{
+  "format": "BancoMestrePDFGroupsV140",
+  "version": "V140",
+  "base_catalog": "pdf_catalog_v140.json",
+  "policy": "79 PDFs catalogados, sete acrescentados com ID do Drive. Grupos externos continuam dinâmicos; V130 e V077 preservados.",
+  "areas": [
+    {
+      "id": "eng",
+      "label": "Engenharia Civil",
+      "description": "Materiais, estruturas, solos, instalações, segurança e planejamento",
+      "order": 10
+    },
+    {
+      "id": "leg",
+      "label": "Legislação",
+      "description": "Normas gerais e documentos municipais de Ijuí, separados",
+      "order": 20
+    },
+    {
+      "id": "lang",
+      "label": "Português, Matemática e Informática",
+      "description": "Gramática, raciocínio lógico e ferramentas de informática",
+      "order": 30
+    },
+    {
+      "id": "apoio",
+      "label": "Obra completa",
+      "description": "Manuscrito geral preservado em volume único",
+      "order": 40
+    }
+  ],
+  "groups": [
+    {
+      "id": "eng_materiais",
+      "area": "eng",
+      "label": "Materiais e tecnologia do concreto",
+      "subtitle": "Cimento, agregados, concreto, argamassas e alvenaria",
+      "order": 10
+    },
+    {
+      "id": "eng_geotecnia",
+      "area": "eng",
+      "label": "Geotecnia, solos e fundações",
+      "subtitle": "Mecânica dos solos, aterros, taludes e fundações",
+      "order": 20
+    },
+    {
+      "id": "eng_estruturas",
+      "area": "eng",
+      "label": "Estruturas, concreto, aço e madeira",
+      "subtitle": "Vigas, esforços, NBR 6118, NBR 8800 e estruturas de madeira",
+      "order": 30
+    },
+    {
+      "id": "eng_instalacoes",
+      "area": "eng",
+      "label": "Instalações elétricas",
+      "subtitle": "Projeto elétrico e NBR 5410",
+      "order": 40
+    },
+    {
+      "id": "eng_hidraulica",
+      "area": "eng",
+      "label": "Hidráulica e saneamento",
+      "subtitle": "Fluidos, redes prediais, água, esgoto, tratamento e drenagem",
+      "order": 50
+    },
+    {
+      "id": "eng_ambiental",
+      "area": "eng",
+      "label": "Meio ambiente e licenciamento",
+      "subtitle": "CONAMA, EIA/RIMA, resíduos e aterros",
+      "order": 60
+    },
+    {
+      "id": "eng_rodovias",
+      "area": "eng",
+      "label": "Rodovias e pontes",
+      "subtitle": "Pavimentação, tráfego e estruturas de pontes",
+      "order": 70
+    },
+    {
+      "id": "eng_topografia",
+      "area": "eng",
+      "label": "Topografia",
+      "subtitle": "Poligonais, rumos, azimutes e levantamento",
+      "order": 80
+    },
+    {
+      "id": "eng_patologias",
+      "area": "eng",
+      "label": "Patologias e manutenção",
+      "subtitle": "Diagnóstico e manutenção predial",
+      "order": 90
+    },
+    {
+      "id": "eng_seguranca",
+      "area": "eng",
+      "label": "Segurança, NRs e acessibilidade",
+      "subtitle": "NRs, combate a incêndio, saídas e acessibilidade",
+      "order": 100
+    },
+    {
+      "id": "eng_desempenho",
+      "area": "eng",
+      "label": "Desempenho de edificações",
+      "subtitle": "NBR 15575",
+      "order": 110
+    },
+    {
+      "id": "eng_planejamento",
+      "area": "eng",
+      "label": "Planejamento e orçamento",
+      "subtitle": "Avaliação de bens, custos e gerenciamento",
+      "order": 120
+    },
+    {
+      "id": "leg_ijui",
+      "area": "leg",
+      "label": "Legislação municipal de Ijuí",
+      "subtitle": "Estatuto, Lei Orgânica, Plano Diretor, cargos e PREVIJUÍ",
+      "order": 10
+    },
+    {
+      "id": "leg_geral",
+      "area": "leg",
+      "label": "Legislação geral para concursos",
+      "subtitle": "Constituição, licitações, improbidade, urbanismo, LGPD e outras leis nacionais",
+      "order": 20
+    },
+    {
+      "id": "leg_apostila",
+      "area": "leg",
+      "label": "Legislação e prefeituras — apostila",
+      "subtitle": "Capítulo do manuscrito geral, sem substituição das leis originais",
+      "order": 30
+    },
+    {
+      "id": "lang_port",
+      "area": "lang",
+      "label": "Português",
+      "subtitle": "Morfologia, sintaxe e macetes",
+      "order": 10
+    },
+    {
+      "id": "lang_math",
+      "area": "lang",
+      "label": "Matemática e lógica",
+      "subtitle": "Cálculos, tabelas-verdade e equivalências",
+      "order": 20
+    },
+    {
+      "id": "completo",
+      "area": "apoio",
+      "label": "Manuscrito completo de Engenharia Civil",
+      "subtitle": "252 páginas em um único volume de referência",
+      "order": 10
+    },
+    {
+      "id": "eng_outros",
+      "area": "eng",
+      "label": "Outros PDFs de Engenharia Civil",
+      "subtitle": "Novos materiais sem tema técnico identificado",
+      "order": 900
+    },
+    {
+      "id": "leg_outros",
+      "area": "leg",
+      "label": "Outros PDFs de Legislação",
+      "subtitle": "Normas e materiais jurídicos aguardando classificação mais específica",
+      "order": 900
+    },
+    {
+      "id": "lang_outros",
+      "area": "lang",
+      "label": "Outros PDFs de Português e Matemática",
+      "subtitle": "Materiais de linguagem e matemática aguardando classificação",
+      "order": 900
+    },
+    {
+      "id": "apoio_provas",
+      "area": "apoio",
+      "label": "Editais, provas e gabaritos",
+      "subtitle": "Arquivos identificados nos diretórios de concursos e provas",
+      "order": 20
+    },
+    {
+      "id": "apoio_drive",
+      "area": "apoio",
+      "label": "Novos PDFs do Drive — outros temas",
+      "subtitle": "Arquivos localizados automaticamente, sem categorização por assunto confirmada",
+      "order": 90
+    },
+    {
+      "id": "lang_info",
+      "area": "lang",
+      "label": "Informática e AutoCAD",
+      "subtitle": "Comandos CAD e informática para concursos",
+      "order": 30
+    }
+  ],
+  "assigned": [
+    {
+      "id": "IJUI-PDF-05",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-09",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-01",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-10",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-19",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-20",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-21",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-12",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-13",
+      "group": "leg_ijui",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação municipal de Ijuí",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-02",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-15",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-04",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-18",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-08",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-06",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-07",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-14",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-16",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-17",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-22",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-23",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-11",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "IJUI-PDF-03",
+      "group": "leg_geral",
+      "source_section": "Ijuí — 23 leis anexadas",
+      "source_category": "Legislação geral / normas de concurso",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "PETRO10-CONAMA-001",
+      "group": "eng_ambiental",
+      "source_section": "Petrobras 10 — Licenciamento ambiental",
+      "source_category": "ENG_AMBIENTAL",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "PETRO10-CONAMA-237",
+      "group": "eng_ambiental",
+      "source_section": "Petrobras 10 — Licenciamento ambiental",
+      "source_category": "ENG_AMBIENTAL",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "MANUSCRITO-252",
+      "group": "completo",
+      "source_section": "Manuscrito completo",
+      "source_category": "ENG_OUTROS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-01",
+      "group": "eng_materiais",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_MATERIAIS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-02",
+      "group": "eng_materiais",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_MATERIAIS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-03",
+      "group": "eng_materiais",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_MATERIAIS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-04",
+      "group": "eng_materiais",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_MATERIAIS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-05",
+      "group": "eng_materiais",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_MATERIAIS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-06",
+      "group": "eng_materiais",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_MATERIAIS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-07",
+      "group": "eng_geotecnia",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_GEOTECNIA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-08",
+      "group": "eng_geotecnia",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_GEOTECNIA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-09",
+      "group": "eng_estruturas",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_ESTRUTURAS_VIGAS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-10",
+      "group": "eng_estruturas",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_ESTRUTURAS_VIGAS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-11",
+      "group": "eng_estruturas",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_ESTRUTURAS_CONCRETO",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-12",
+      "group": "eng_estruturas",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_ESTRUTURAS_VIGAS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-13",
+      "group": "eng_estruturas",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_ESTRUTURAS_TRELICAS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-14",
+      "group": "eng_estruturas",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-15",
+      "group": "eng_estruturas",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_ESTRUTURAS_ACO_MADEIRA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-16",
+      "group": "eng_instalacoes",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_INSTALACOES",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-17",
+      "group": "eng_hidraulica",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_HIDRAULICA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-18",
+      "group": "eng_hidraulica",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_HIDRAULICA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-19",
+      "group": "eng_hidraulica",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_HIDRAULICA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-20",
+      "group": "eng_hidraulica",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_HIDRAULICA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-21",
+      "group": "eng_hidraulica",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_HIDRAULICA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-22",
+      "group": "eng_ambiental",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_AMBIENTAL",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-23",
+      "group": "eng_rodovias",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_RODOVIAS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-24",
+      "group": "eng_rodovias",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_RODOVIAS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-25",
+      "group": "eng_topografia",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_TOPOGRAFIA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-26",
+      "group": "eng_patologias",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_PATOLOGIAS",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-27",
+      "group": "eng_seguranca",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-28",
+      "group": "eng_seguranca",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-29",
+      "group": "eng_seguranca",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-30",
+      "group": "eng_desempenho",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_DESEMPENHO",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-31",
+      "group": "eng_planejamento",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_PLANEJAMENTO",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-32",
+      "group": "eng_planejamento",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "ENG_PLANEJAMENTO",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-33",
+      "group": "leg_apostila",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "LEGISLACAO",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "CAP-34",
+      "group": "lang_math",
+      "source_section": "Manuscrito por assunto",
+      "source_category": "MATEMATICA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "GUIA-CONCRETO-6118",
+      "group": "eng_estruturas",
+      "source_section": "Guias adicionais",
+      "source_category": "ENG_ESTRUTURAS_CONCRETO",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "GUIA-PORTUGUES-SINTAXE",
+      "group": "lang_port",
+      "source_section": "Guias adicionais",
+      "source_category": "PORTUGUES",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "GUIA-LOGICA-VERDADE",
+      "group": "lang_math",
+      "source_section": "Guias adicionais",
+      "source_category": "MATEMATICA",
+      "confidence": "classificação editorial pelo catálogo e título; conteúdo integral não revalidado"
+    },
+    {
+      "id": "PETRO10-CONAMA-001-ORIGINAL",
+      "group": "eng_ambiental",
+      "source_section": "Petrobras 10 — Licenciamento ambiental",
+      "source_category": "ENG_AMBIENTAL",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "PETRO10-CONAMA-237-ORIGINAL",
+      "group": "eng_ambiental",
+      "source_section": "Petrobras 10 — Licenciamento ambiental",
+      "source_category": "ENG_AMBIENTAL",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "NR-01-ORIGINAL-2022",
+      "group": "eng_seguranca",
+      "source_section": "Normas Regulamentadoras — SST",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "NR-05-ORIGINAL-2022",
+      "group": "eng_seguranca",
+      "source_section": "Normas Regulamentadoras — SST",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "NR-06-ORIGINAL-2022",
+      "group": "eng_seguranca",
+      "source_section": "Normas Regulamentadoras — SST",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "NR-07-ORIGINAL-2022",
+      "group": "eng_seguranca",
+      "source_section": "Normas Regulamentadoras — SST",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "NR-17-ORIGINAL-2022",
+      "group": "eng_seguranca",
+      "source_section": "Normas Regulamentadoras — SST",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "NR-18-ORIGINAL-2025",
+      "group": "eng_seguranca",
+      "source_section": "Normas Regulamentadoras — SST",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "PETRO10-LEI-15190-ORIGINAL",
+      "group": "eng_ambiental",
+      "source_section": "Petrobras 10 — Licenciamento ambiental",
+      "source_category": "ENG_AMBIENTAL",
+      "confidence": "verificado por ID e nome do PDF; vigência normativa não certificada"
+    },
+    {
+      "id": "BMPDF-20261112-DNIT",
+      "group": "eng_rodovias",
+      "source_section": "Engenharia Civil / Rodovias e Pavimentação",
+      "source_category": "ENG_RODOVIAS",
+      "confidence": "ID, título e origem Drive conferidos; conteúdo normativo não homologado"
+    },
+    {
+      "id": "BMPDF-20261112-PORTUGUES",
+      "group": "lang_port",
+      "source_section": "Português / Gramática",
+      "source_category": "LING_PORTUGUES",
+      "confidence": "ID, título e origem Drive conferidos; conteúdo normativo não homologado"
+    },
+    {
+      "id": "BMPDF-20261112-INFORMATICA",
+      "group": "lang_info",
+      "source_section": "Informática / AutoCAD",
+      "source_category": "LING_INFORMATICA",
+      "confidence": "ID, título e origem Drive conferidos; conteúdo normativo não homologado"
+    },
+    {
+      "id": "BMPDF-20261112-ENGCIVIL",
+      "group": "completo",
+      "source_section": "Engenharia Civil / Caderno geral",
+      "source_category": "ENG_GERAL",
+      "confidence": "ID, título e origem Drive conferidos; conteúdo normativo não homologado"
+    },
+    {
+      "id": "BMPDF-20261112-MATEMATICA",
+      "group": "lang_math",
+      "source_section": "Matemática / Raciocínio Lógico",
+      "source_category": "LING_MATEMATICA",
+      "confidence": "ID, título e origem Drive conferidos; conteúdo normativo não homologado"
+    },
+    {
+      "id": "BMPDF-20261112-CONFEA",
+      "group": "leg_geral",
+      "source_section": "Legislação Geral / Sistema CONFEA-CREA",
+      "source_category": "LEG_PROFISSIONAL",
+      "confidence": "ID, título e origem Drive conferidos; conteúdo normativo não homologado"
+    },
+    {
+      "id": "BMPDF-20261112-NBR9050-9077",
+      "group": "eng_seguranca",
+      "source_section": "Segurança, Incêndio e Acessibilidade",
+      "source_category": "ENG_SEGURANCA",
+      "confidence": "ID, título e origem Drive conferidos; conteúdo normativo não homologado"
+    }
+  ],
+  "counts": [
+    {
+      "id": "eng_materiais",
+      "count": 6
+    },
+    {
+      "id": "eng_geotecnia",
+      "count": 2
+    },
+    {
+      "id": "eng_estruturas",
+      "count": 8
+    },
+    {
+      "id": "eng_instalacoes",
+      "count": 1
+    },
+    {
+      "id": "eng_hidraulica",
+      "count": 5
+    },
+    {
+      "id": "eng_ambiental",
+      "count": 6
+    },
+    {
+      "id": "eng_rodovias",
+      "count": 2
+    },
+    {
+      "id": "eng_topografia",
+      "count": 1
+    },
+    {
+      "id": "eng_patologias",
+      "count": 1
+    },
+    {
+      "id": "eng_seguranca",
+      "count": 9
+    },
+    {
+      "id": "eng_desempenho",
+      "count": 1
+    },
+    {
+      "id": "eng_planejamento",
+      "count": 2
+    },
+    {
+      "id": "leg_ijui",
+      "count": 9
+    },
+    {
+      "id": "leg_geral",
+      "count": 14
+    },
+    {
+      "id": "leg_apostila",
+      "count": 1
+    },
+    {
+      "id": "lang_port",
+      "count": 1
+    },
+    {
+      "id": "lang_math",
+      "count": 2
+    },
+    {
+      "id": "completo",
+      "count": 1
+    }
+  ]
+}
