@@ -2,15 +2,23 @@
 
 **Registro conferido em 11/11/2026.**
 
-- **Site configurado para publicação:** V128 (última conferência em 11/11/2026, após a auditoria da V126).
+- **Site configurado para publicação:** V129 (11/11/2026; Vade Mecum sincronizado pelo Drive e V128 preservada).
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente na última conferência:** `gh-pages/v128.html`.
-- **Versão anterior preservada:** `gh-pages/v126.html` (não há v127.html na raiz verificada); as demais páginas históricas `vNNN.html` permanecem preservadas.
+- **Arquivo HTML correspondente na última conferência:** `gh-pages/v129.html`.
+- **Versão anterior preservada:** `gh-pages/v128.html`. V127 é experimento intermediário não publicado como página inicial; demais páginas históricas permanecem preservadas.
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 **Navegação e auditoria de versões:** [Mapa de governança Drive/GitHub](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md). Nota: o texto abaixo contém marcos *históricos*; não interpretar seções V113/V124 como declaração da versão em execução.
+
+## V129 — Vade Mecum no Drive com sincronização manual (11/11/2026)
+
+- O Vade Mecum de estudo (3ª edição do Senado, legislação até janeiro de 2026, com grifos e negritos e sem comentários) foi gravado **no mesmo ID** do arquivo principal no Drive: `1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI`, conservando o endereço existente. Backup anterior: `1JpnoON_KQxhxF0QIFSFcn4AJNcjJOFmr`.
+- O portal V128 carregava `assets/v041_vade.js` (21 partes do GitHub) antes de `assets/v044_vade_drive.js`; ambos usavam o mesmo identificador de painel, impedindo a execução da fonte Drive. A V129 troca **na montagem da página** V041 pelo novo módulo `assets/v127_vade_drive.js` e remove o duplicado V044, sem editar o leitor PDF canônico.
+- Botões **Abrir Vade Mecum (Drive)**, **Sincronizar Vade do Drive** e link direto para a versão atual. A sincronização usa OAuth Drive somente após consentimento do usuário, exige a leitura atual do arquivo (não usa cache IndexedDB nem partes GitHub), confere hash SHA-256 e salva uma nova cópia no IndexedDB sob ID de estudo estável `VADE-SENADO-2026-GUIA`. Os grifos por página continuam associados àquele ID; exportar backup é recomendado.
+- Permanecem 1.499 cartões canônicos, 1.482 ativos, 72 PDFs do catálogo geral, 270 imagens, cartões de Ijuí separados, recursos V128 de assuntos gerais e SRS sem reprocessamento.
+- Verificação estática de 15 propriedades de carregamento, fonte, hash e preservação de módulos. **Autorização OAuth real e renderização no navegador Android ainda não homologadas.** Se o Google exigir consentimento, usar o botão de conexão no editor do PDF.
 
 ## V124 — remissões jurídicas conservadoras (11/11/2026)
 
