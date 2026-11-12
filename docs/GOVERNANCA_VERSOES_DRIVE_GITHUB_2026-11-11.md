@@ -54,6 +54,7 @@ Repositório: https://github.com/carlosemichelon/concurso
 - **Branch publicada = `gh-pages`.** A fonte operacional para conferir é `assets/version.json`, comparada a `index.html` e à presença de `vNNN.html`.
 - **Branch padrão `main` = legado V031** no momento da auditoria. Não publicar nela.
 - As páginas `vNNN.html` na raiz de `gh-pages` são URLs históricas, não duplicatas descartáveis. Não renomear/mover sem verificar redirecionamentos e dependências.
+- [Inventário nominal das 102 branches](INVENTARIO_BRANCHES_2026-11-11.md).
 - Inventário das 102 branches: 68 `backup/`, 21 `feature/` e 13 outras (incluindo `main`, `gh-pages` e experimentais `bm-*`). **Nenhuma foi apagada**.
 - PR #7 de diagnóstico da V042 permanece aberta, sem decisão de fechamento nesta auditoria.
 - O README antigo da `gh-pages` descrevia V015, e o cabeçalho de `VERSAO_ATUAL.md` descrevia V113. A documentação foi atualizada para explicar a distinção sem alterar páginas, módulos, dados ou manifesto.
