@@ -10,6 +10,7 @@
 - [Manifesto da versão publicada](assets/version.json)
 - [Registro detalhado de versões](VERSAO_ATUAL.md)
 - [Inventário das 102 branches](docs/INVENTARIO_BRANCHES_2026-11-11.md)
+- [Índice das 108 versões HTML históricas](docs/INDICE_PUBLICACAO_E_HISTORICO_HTML_2026-11-11.md)
 - [Regras para agentes e alterações](AGENTS.md)
 - No Google Drive conectado: pastas `CONCURSOS – ENGENHARIA CIVIL` e `DataBase_Concurso`. Seus links privados não são publicados aqui.
 
