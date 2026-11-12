@@ -5,9 +5,9 @@
 ## 1. Quadro de referência conferido
 | Camada | Referência | Situação verificada |
 | --- | --- | --- |
-| Site publicado | `gh-pages/assets/version.json` + `gh-pages/index.html` | V126 / `v126.html`, 11/11/2026 |
+| Site publicado | `gh-pages/assets/version.json` + `gh-pages/index.html` | V128 / `v128.html`, 11/11/2026 (após atualização concorrente; V126 preservada) |
 | Branch de desenvolvimento legado | `main` | V031 (não é o site atual) |
-| Base servida pelo portal | `BANCO_MESTRE_CANONICO_V024_H14_3_FUSOES_1482_ATIVOS_1499_IDS.xlsx`, no Drive | A V126 declara 1.499 IDs e 1.482 ativos da linha V024 H14, distribuídos por arquivos estáticos versionados; não equivale a comprovação de conciliação com V029 |
+| Base servida pelo portal | `BANCO_MESTRE_CANONICO_V024_H14_3_FUSOES_1482_ATIVOS_1499_IDS.xlsx`, no Drive | A V128 declara 1.499 IDs e 1.482 ativos da linha V024 H14, distribuídos por arquivos estáticos versionados; não equivale a comprovação de conciliação com V029 |
 | Checkpoint mais recente localizado na pasta de checkpoints | `BANCO_MESTRE_CANONICO_V029_PETRO11_ENCERRADA.xlsx` | Auditada: 1.503 IDs, 1.486 ativos; os 1.499 cartões e respectivos eventos SRS de V024 foram preservados sem diferença, e 4 novos cartões aprovados foram acrescentados. Não publicada |
 | Metodologia | `DataBase_Concurso/00_CONTROLE/00_METODOLOGIA_MESTRE_VIGENTE_v010` | Título e abertura conciliados com o adendo V010 em 11/11/2026, sem apagar os textos-base históricos |
 | Revisões privadas | Drive / navegador | Não presumir sincronização de SRS, grifos, IndexedDB e localStorage com GitHub |
