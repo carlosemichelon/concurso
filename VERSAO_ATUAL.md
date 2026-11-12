@@ -1,3 +1,7 @@
+# Banco Mestre — V131, sincronização geral dos PDFs
+
+Nova versão que preserva Redação/Discursivas V130, Vade Mecum V129, filtros V128, flashcards, SRS e grifos. O botão **Sincronizar todos os PDFs** foi reformulado: consulta recursivamente pastas e subpastas dos dois repositórios de concurso no Google Drive, incluindo acervos extras de NRs e licenciamento. Reconhece novos PDFs por ID ao clicar, evita duplicatas e mantém os 72 PDFs canônicos; novos arquivos aparecem na lista autenticada da sessão. Não publica bytes privados no GitHub nem escreve nos PDFs. Em nova sessão, a consulta pode exigir autorização OAuth novamente. A leitura dos PDFs sincronizados usa o arquivo atual do Drive, evitando a cópia local antiga. Teste funcional simulado: segundo clique identificou 1 PDF novo após a inclusão e preservou os existentes. Navegador Android/OAuth real não homologados.
+
 # Banco Mestre — V130, Redação e Discursivas
 
 Nova aba integrada ao portal V129, preservando a V129 e versões anteriores. Recuperado o método FTTD do arquivo histórico `main/redacao.html`; adicionados modo Redação, modo Discursivas, checklist, histórico local com versões imutáveis, importação/exportação JSON e prompt para correção no ChatGPT. Não há nota de IA no site, nem sincronização automática com Drive ou SRS. Chaves locais: `BM130_ESCRITA_V1`, `BM130_RASCUNHOS_V1`. Requer validação visual em navegador real.
@@ -6,12 +10,12 @@ Nova aba integrada ao portal V129, preservando a V129 e versões anteriores. Rec
 
 **Registro conferido em 11/11/2026.**
 
-- **Site configurado para publicação:** V129 (11/11/2026; Vade Mecum sincronizado pelo Drive e V128 preservada).
+- **Site configurado para publicação:** V131 (11/11/2026; PDFs sincronizados em todo o acervo, Redação V130 preservada).
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente na última conferência:** `gh-pages/v129.html`.
-- **Versão anterior preservada:** `gh-pages/v128.html`. V127 é experimento intermediário não publicado como página inicial; demais páginas históricas permanecem preservadas.
+- **Arquivo HTML correspondente na última conferência:** `gh-pages/v131.html`.
+- **Versão anterior preservada:** `gh-pages/v130.html` (Redação e Discursivas). V129, V128 e demais páginas históricas continuam preservadas.
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 **Navegação e auditoria de versões:** [Mapa de governança Drive/GitHub](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md). Nota: o texto abaixo contém marcos *históricos*; não interpretar seções V113/V124 como declaração da versão em execução.
