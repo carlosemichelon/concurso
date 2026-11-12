@@ -1,3 +1,11 @@
+# Banco Mestre — V152: novos filtros de flashcards (12/11/2026)
+
+O portal agora permite selecionar **disciplina → assunto geral → assunto específico → subassunto**, com opções encadeadas, números de cartões por categoria, layout responsivo e botão para limpar. Engenharia Civil reúne seus subgrupos canônicos e legados; Matemática agrupa Matemática Financeira e Estatística; Legislação reúne a base geral e Ijuí; Português e Informática têm filtros próprios. Os 13 assuntos gerais continuam sendo a classificação editorial V128 e o assunto/subassunto específico continuam sendo os dados originais de cada cartão. Busca exata por ID e atalhos do estudo continuam disponíveis.
+
+Implementação: `v152.html` usa `assets/v152_flash_filters.js`, com adaptação somente do predicado de exibição da biblioteca no HTML montado. A classificação foi auditada contra 1.504 cartões ativos públicos+operacionais (1.482 + 22) sem grupos não classificados. Foram realizados testes estáticos do bootstrap (50.253 caracteres montados, sem erros de sintaxe) e testes simulados de filtros encadeados, busca por ID e limpeza. **Navegador autenticado real não homologado.** Todos os cartões, dados de SRS, histórico, PDFs V002, Redação e grifos estão intactos. 78 PDFs ativos.
+
+---
+
 # Banco Mestre — V151: correção da verificação de PDFs (12/11/2026)
 
 A mensagem “Catálogo disponível, mas os PDFs ainda não foram exibidos. Atualize a página.” era emitida pelo verificador V145 porque ainda exigia 79 documentos da configuração V140. O site vigente V150 usa o catálogo `assets/pdf_catalog_v149.json`, que contém **78 PDFs** — incluindo o manuscrito completo atual V002 com 274 páginas e 34 capítulos atualizados.
