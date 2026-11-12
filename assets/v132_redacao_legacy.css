@@ -1,0 +1,45 @@
+/* V132 — variante clara da oficina histórica, isolada do DOM do Banco Mestre */
+:root{
+ --bg:#f5f8f7;--surface:#ffffff;--card:#ffffff;--border:#d4e3e0;
+ --ouro:#096c6c;--verde:#187650;--verm:#b23d36;--azul:#165f99;
+ --roxo:#624fa8;--rosa:#a33977;--ciano:#19797d;--muted:#587078;
+ --text:#19373d;--mono:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+ --serif:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+ --display:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+html,body{background:#f5f8f7;color:var(--text);font-family:var(--serif);font-size:14px;}
+.hdr{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;position:relative;top:auto}
+.hdr-title{font-size:18px;color:var(--ouro);font-weight:800}
+.hdr-badge{background:#e9f3f1;color:var(--ouro);border:1px solid var(--border);font-size:11px;letter-spacing:0}
+.hdr-back{font-size:12px;border:1px solid var(--border);color:var(--ouro)}
+.tabs{background:#fff;border-bottom:1px solid var(--border);padding:0 8px;position:sticky;top:0;z-index:80;box-shadow:0 2px 8px #102e3010}
+.tab{color:#4a666b;font-family:var(--mono);font-size:12px;font-weight:650;letter-spacing:0;padding:12px 13px;border:0;border-bottom:3px solid transparent;background:transparent;cursor:pointer}
+.tab.ativo,.tab:hover{color:var(--ouro);border-bottom-color:var(--ouro)}
+.aba{max-width:980px;padding:16px 12px}
+.card{background:#fff;border:1px solid var(--border);box-shadow:0 2px 8px #12383708}
+.card-titulo,.section-label,.check-group{font-size:11px;letter-spacing:.6px;color:var(--ouro);font-weight:760}
+input[type=text],input[type=number],textarea,select{background:#fff!important;color:#18383e!important;border:1px solid #cadbd8!important;font-family:var(--serif);font-size:14px;line-height:1.65}
+input::placeholder,textarea::placeholder{color:#667f82;opacity:1}
+input:focus,textarea:focus,select:focus{outline:2px solid #9dc9c3;outline-offset:1px}
+.btn{font:650 12px/1.4 var(--mono);letter-spacing:0;padding:9px 14px;border-radius:9px}
+.btn-ouro{background:#096c6c;color:#fff}
+.btn-ghost{color:#2f5d60;border-color:#b6ceca}
+.btn-verde{background:#e7f4ee;color:#187650}
+.btn-azul{background:#e7f0f9;color:#165f99}
+.chip{font-size:12px;border-color:#b9d2cd;color:#2f5961}
+.chip.sel{color:var(--ouro);background:#e8f3f1}
+.nivel-badge{color:#096c6c;background:#e8f2f0;border-color:#abcac5}
+.progresso-bar{background:#e5efed}
+.ia-output{background:#ecf5fa;color:#214860;border-color:#cadde8}
+.cir-texto{background:#f5f8f7;border-color:var(--border)}
+.tema-card{background:#fff;border-color:var(--border)}
+.fttd-box{background:#e8f4f1;color:#096c6c;border-color:#b8d2ce}
+.bm132-notice{background:#edf7f4;padding:12px 17px;border-bottom:1px solid #c6dfd8;color:#1f4548;font:13px/1.6 var(--mono)}
+.bm132-notice-title{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:4px}
+.bm132-notice-title strong{font-size:15px}
+.bm132-notice-title a{color:#075d63;font-weight:750}
+.bm132-notice p{margin:5px 0 7px}
+.bm132-cloud{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px}
+.bm132-cloud button{border:1px solid #a3c9be;color:#075b56;background:#fff;border-radius:7px;padding:5px 9px;font-size:12px;cursor:pointer}
+.bm132-cloud button[hidden]{display:none}
+@media(max-width:540px){.hdr-title{font-size:15px}.hdr-badge{font-size:9px}.tabs{padding:0 4px}.tab{font-size:11px;padding:10px 9px}.aba{padding:12px 8px}.card{padding:13px}.bm132-notice{padding:10px 12px}.bm132-notice-title strong{font-size:13px}}
