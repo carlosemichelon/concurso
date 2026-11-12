@@ -1,0 +1,106 @@
+
+/* V134 — página Temas e Treino: design do Banco Mestre sem alterar a lógica legada. */
+:root{--accent:#0d7169;--ink:#1c3f42;--pale:#eaf6f1;--edge:#d0e2dc;--softshadow:0 3px 15px #1d53470a}
+body{background:#f5f9f7;color:var(--ink);font-size:14px}
+body.bm134-embedded .hdr{display:none!important}
+.aba{max-width:1080px;margin:0 auto;padding:16px 16px 38px}
+.tabs{padding:8px max(16px,calc((100vw - 1080px)/2));gap:8px;position:sticky;top:0;z-index:80;background:#fff;border-bottom:1px solid var(--edge)}
+.tabs .tab{padding:11px 26px;font-size:14px;min-width:130px;border:1px solid transparent!important;border-radius:9px!important;background:#fff!important;color:#4c706a;font-weight:700}
+.tabs .tab.ativo{color:#08645d;background:#e8f5ee!important;border-color:#afd5c5!important}
+.bm133-training-switch{background:#f0f8f4;border-color:var(--edge);padding:10px max(16px,calc((100vw - 1080px)/2));gap:8px}
+.bm133-training-switch button{font-size:12px;border-radius:9px;padding:10px 13px}
+.bm133-training-switch button.ativo{background:#0a6c65;border-color:#0a6c65;color:white}
+.bm134-hero{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:17px;padding:5px 2px}
+.bm134-hero .eyebrow{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#1b8174;font-weight:800}
+.bm134-hero h2{color:#164347;font-size:clamp(21px,3vw,27px);margin:4px 0 5px;font-weight:800;line-height:1.2}
+.bm134-hero p{color:#5a7879;font-size:13px;line-height:1.6;max-width:750px;margin:0}
+.bm134-hero strong{padding:9px 13px;border-radius:10px;border:1px solid #c4e4d4;color:#1f6c58;background:#e8f5ee;white-space:nowrap;font-size:12px}
+.card{border-color:var(--edge);border-radius:13px;box-shadow:var(--softshadow);background:#fff;padding:18px}
+#aba-temas >.card .card-titulo{display:none}
+#aba-temas >.card{padding:17px;margin-bottom:15px}
+#tema-busca{font-size:15px!important;min-height:49px;background:#fcfefd!important;border:1px solid #b8d6cf!important;border-radius:10px!important;padding:12px 15px!important}
+#chips-categoria{display:flex;gap:7px;flex-wrap:wrap;margin:0!important}
+#chips-categoria .chip{background:#fff;border-color:#c2dad2;color:#366862;padding:7px 12px;border-radius:22px;font-size:12px;font-weight:700}
+#chips-categoria .chip.sel,#chips-categoria .chip:hover{border-color:#78bbaa;background:#e5f5ed;color:#0a625c}
+.bm134-count{font-size:12px;color:#597573;margin:0 2px 12px}
+#lista-temas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#lista-temas .tema-card{margin:0;padding:17px 18px;border-radius:13px;border:1px solid var(--edge);background:#fff;box-shadow:var(--softshadow);min-height:132px;display:flex;flex-direction:column;gap:12px;transition:border-color .15s,transform .15s}
+#lista-temas .tema-card:hover,#lista-temas .tema-card:focus-visible{border-color:#7cb9a9;transform:translateY(-2px);outline:none}
+#lista-temas .tema-card[hidden]{display:none!important}
+#lista-temas .tema-titulo{font-size:15px;font-weight:760;line-height:1.4;color:#173d40}
+#lista-temas .tema-meta{font-size:11px;line-height:1.8;margin-top:auto}
+#lista-temas .tema-meta span{font-size:11px!important}
+.bm134-more{display:block;width:min(450px,100%);margin:19px auto 0;background:#e9f7f1;color:#12675e;border:1px solid #b8dbcc;border-radius:10px;padding:11px 16px;font-size:13px;font-weight:760;cursor:pointer}
+.bm134-more[hidden]{display:none!important}
+#aba-treino >.nivel-badge{display:inline-block;padding:7px 12px;border-radius:20px;background:#e9f6ef;border-color:#b4dbc9;color:#176b5e;font-size:12px;letter-spacing:0;margin:0 0 10px}
+#aba-treino >.progresso-bar{height:7px;background:#d9eae4;border-radius:4px;margin:0 0 12px}
+#aba-treino >.progresso-bar .progresso-fill{height:100%;background:#168075;border-radius:4px}
+.bm134-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.bm134-step{display:flex;align-items:center;gap:9px;border:1px solid #d5e6df;border-radius:11px;padding:10px 11px;background:#fff;color:#63827b;font-size:12px;font-weight:700}
+.bm134-step b{border:1px solid #d4e8df;border-radius:50%;background:#eef7f2;display:grid;place-items:center;width:28px;height:28px;flex:none}
+.bm134-step.active{background:#e3f5eb;color:#166953;border-color:#9dcfba}
+.bm134-step.active b{color:#fff;background:#0d7367;border-color:#0d7367}
+.bm134-step.done{color:#396f5a;background:#f2f9f5}
+#aba-treino > .card:first-of-type{background:#f9fcfb;border:1px dashed #b5d2c7;box-shadow:none;padding:13px 16px}
+#aba-treino > .card:nth-of-type(2){padding:18px}
+#treino-tema-display{font-size:clamp(20px,2.5vw,24px)!important;color:#164348!important;font-weight:800!important;line-height:1.35!important;margin:7px 0 11px!important}
+#treino-tema-meta{font-size:12px!important;color:#67817e!important;margin-bottom:14px!important}
+#treino-seletor >div:first-child{flex-wrap:wrap!important}
+#treino-busca-tema{flex:1 1 220px!important;min-width:0;height:43px}
+#treino-filtro-cat{flex:1 1 180px!important;min-width:0;max-width:100%!important;height:43px;font-size:12px!important}
+#treino-lista-temas{max-height:280px!important;border-color:#bbd9cd!important;border-radius:10px!important}
+#aba-treino .btn{font-size:12px!important;padding:10px 12px;border-radius:8px}
+#aba-treino .btn-ouro{background:#096e66;color:#fff}
+#btn-salvar-treino{color:#195e43!important;background:#e1f4e7;border-color:#a8d1b7!important;font-weight:750}
+#treino-campos{display:grid;gap:12px}
+#treino-campos>.field{padding:15px 17px;margin:0;background:#fff;border:1px solid #d6e7e1;border-radius:11px}
+#treino-campos>.field>label{font-size:13px;font-weight:760;color:#27575a;letter-spacing:0}
+#treino-campos>.field textarea{padding:12px 14px!important;font-size:14px!important;line-height:1.75!important;max-width:100%;border-radius:9px!important;min-height:85px;color:#214648!important}
+#treino-campos>.field.axis1{border-left:3px solid #4caba3}
+#treino-campos>.field.axis2{border-left:3px solid #9d83c5}
+#treino-campos>.field.final{background:#f5fbf8;border-color:#b5d6c9}
+#treino-campos>.axis-heading{font-size:14px;color:#1b736b;margin:12px 3px 0;font-weight:800}
+#treino-campos div[style*="color:#a8c0d8"]{color:#385d64!important}
+#treino-campos .chip{background:#f2f9f6;border-radius:8px}
+#treino-campos >div[style*="background:rgba(74,144,217"]{background:#eef7f9!important}
+.bm134-wordcount{text-align:right;color:#567874;font-size:12px;font-weight:700;margin:4px}
+#aba-flashcards>.card:first-of-type{padding:18px}
+#aba-flashcards>.card:first-of-type >div:first-child{display:block!important}
+#aba-flashcards>.card:first-of-type >div:first-child >div:first-child{margin-bottom:14px}
+#aba-flashcards .card-titulo{font-size:14px;color:#1d615a}
+#fc-instrucao{font-size:13px!important;line-height:1.55!important;color:#5e7779!important}
+.bm134-fc-tools{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:11px!important}
+.bm134-fc-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;width:100%}
+.bm134-fc-filters label{font-size:11px;font-weight:760;color:#5b7975;min-width:0}
+.bm134-fc-filters select{display:block;width:100%;height:42px;border-radius:9px!important;margin-top:5px;font-size:12px!important;padding:7px!important;min-width:0}
+.bm134-fc-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.bm134-fc-actions button{font-size:11px!important;padding:8px 11px;border-radius:8px}
+#fc-progresso{font-size:12px!important;font-weight:770;color:#0f7068!important;margin-top:6px}
+#fc-trecho{border-left:3px solid #158277!important;padding-left:15px!important;font-size:16px!important;line-height:1.8!important;color:#244c4c!important}
+#fc-opcoes{gap:9px!important}
+#fc-opcoes button{border-radius:9px!important;min-height:44px;font-size:13px!important}
+#fc-feedback{background:#f0f8f4}
+.bm134-privacy{background:#f6faf8;border-bottom:1px solid #d3e4dc;font-size:12px;color:#547774;padding:5px 17px}
+.bm134-privacy summary{cursor:pointer;padding:5px 0;font-weight:670}
+.bm134-privacy .bm132-notice{margin:7px 0;padding:10px;border:1px solid #c6ded2;border-radius:8px}
+@media(max-width:760px){
+ #lista-temas{grid-template-columns:1fr}
+ .aba{padding:12px 12px 30px}
+ #aba-treino >.card:nth-of-type(2),#aba-flashcards>.card:first-of-type{padding:13px}
+ #treino-campos>.field{padding:12px}
+ .bm134-fc-filters{grid-template-columns:1fr 1fr}
+ .bm134-fc-filters label:last-child{grid-column:1/-1}
+}
+@media(max-width:520px){
+ .tabs{padding:8px 10px}.tabs .tab{min-width:0;flex:1;font-size:13px;padding:10px 14px}
+ .bm133-training-switch{padding:8px}.bm133-training-switch button{font-size:11px}
+ .bm134-hero{align-items:flex-start}.bm134-hero h2{font-size:22px}
+ #chips-categoria{flex-wrap:nowrap;overflow:auto;padding:0 0 6px;scrollbar-width:thin}
+ #chips-categoria .chip{white-space:nowrap;flex:none}
+ #lista-temas .tema-card{min-height:0;padding:15px}
+ #lista-temas .tema-titulo{font-size:14px}
+ .bm134-steps{gap:5px}.bm134-step{flex-direction:column;text-align:center;justify-content:center;padding:9px 5px;font-size:10px;gap:5px}.bm134-step b{width:25px;height:25px}
+ .bm134-fc-filters{grid-template-columns:1fr}.bm134-fc-filters label:last-child{grid-column:auto}
+ #fc-opcoes{grid-template-columns:1fr!important}#fc-trecho{font-size:14px!important}
+}
+@media(prefers-reduced-motion:reduce){#lista-temas .tema-card{transition:none}}
