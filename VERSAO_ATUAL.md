@@ -1,3 +1,13 @@
+# Banco Mestre — V150: usar somente a versão atual do manuscrito (12/11/2026)
+
+**Ativa:** manuscrito de Engenharia Civil V002, 274 páginas, PDF integral e 34 capítulos por assunto. Biblioteca V149/V150: 78 PDFs ativos (os 34 capítulos de 252 páginas e o caderno de outubro foram removidos apenas da listagem, sem exclusão física nem alteração de grifos).
+
+**V150 corrige também a sincronização recursiva:** o novo módulo `assets/v150_drive_pdf_sync.js` exclui da exibição 36 IDs antigos conhecidos e arquivos do caderno geral datados de 22/10/2026, mesmo após o botão Sincronizar todos os PDFs. O código original V130 e as fontes históricas permanecem intactos. Essa filtragem atua sobre a lista do site, sem apagar nada do Drive. A autenticação em navegador real ainda deve ser verificada na sessão do usuário.
+
+**Arquivos ativos:** `v150.html`, `assets/pdf_catalog_v149.json`, `assets/pdf_grupos_v149.json`, `assets/v149_pdfs_recolhidos.js`, `assets/v150_drive_pdf_sync.js`, `assets/version.json`. ID do PDF-mestre mantido para preservar vínculos históricos de grifos. Demais PDFs não relacionados, flashcards, SRS, Redação e leitores preservados.
+
+---
+
 # Banco Mestre — V148: manuscrito de Engenharia Civil atualizado em 34 capítulos (12/11/2026)
 
 Publicada a versão V148, com a **versão V002 do manuscrito de 274 páginas** distribuída em **34 PDFs por assunto**, em nova pasta versionada do Google Drive. O índice original de 252 páginas não é reutilizado: as faixas foram remapeadas e todas as 274 páginas foram verificadas sem perda ou repetição. O PDF completo permanece no mesmo ID de Drive e foi atualizado para 274 páginas no catálogo.
