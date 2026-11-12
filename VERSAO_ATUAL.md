@@ -1,3 +1,13 @@
+# Banco Mestre — V153: Atlas de imagens organizado por assunto (12/11/2026)
+
+A biblioteca **Imagens e pranchas** agora usa áreas e grupos temáticos equivalentes aos da biblioteca de PDFs. Foram associados **270 IDs** pelo catálogo `assets/imagens_assuntos_v032.json`: **254 imagens históricas e 16 recortes Petrobras 10**; as três correções de classificação IMG-044 a IMG-046 foram mantidas. A camada de organização usa `assets/image_grupos_v153.json` com 16 grupos em 3 áreas, sem editar a catalogação técnica original.
+
+A interface apresenta grupos inicialmente recolhidos e monta os cartões de cada grupo sob demanda, preservando o limite original de 24 e o botão Mostrar mais. A renderização continua feita pelo Atlas V060 versionado em `assets/v153_atlas_edicao_completa.js`, incluindo favoritos, edição de título/área/assunto/descrição/notas locais, prévias e originais associados, edição/grifos, vínculos, classificação e status. A navegação usa `assets/v153_image_library.js`. As imagens privadas sincronizadas pelo Drive V084 continuam em painel independente. Os estados de visibilidade pré-existentes, inclusive as 184 exclusões históricas por padrão, permanecem reversíveis e não foram apagados; o que o navegador já marcou explicitamente continua prevalecendo.
+
+**Auditoria:** catálogo de 270 IDs sem duplicatas, associação por grupos sem faltas; bootstrap dinâmico de `v153.html` gerado com sucesso e sem erros de sintaxe; validação de recursos presentes no Atlas legado; testes simulados de diretório recolhido, 86 visíveis por padrão (70+16), grupo P10 com 16 imagens, modo excluídas e busca geral. **Sem teste OAuth real no navegador do usuário.** PDF V002, catálogo de 78 PDFs, filtros de flashcards V152, SRS e Redação V146 preservados.
+
+---
+
 # Banco Mestre — V152: novos filtros de flashcards (12/11/2026)
 
 O portal agora permite selecionar **disciplina → assunto geral → assunto específico → subassunto**, com opções encadeadas, números de cartões por categoria, layout responsivo e botão para limpar. Engenharia Civil reúne seus subgrupos canônicos e legados; Matemática agrupa Matemática Financeira e Estatística; Legislação reúne a base geral e Ijuí; Português e Informática têm filtros próprios. Os 13 assuntos gerais continuam sendo a classificação editorial V128 e o assunto/subassunto específico continuam sendo os dados originais de cada cartão. Busca exata por ID e atalhos do estudo continuam disponíveis.
