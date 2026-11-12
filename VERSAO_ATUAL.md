@@ -2,12 +2,12 @@
 
 **Registro conferido em 11/11/2026.**
 
-- **Site publicado:** V126 (conferido em 11/11/2026).
+- **Site configurado para publicação:** V128 (última conferência em 11/11/2026, após a auditoria da V126).
 - **Branch de publicação:** `gh-pages` (**não** `main`).
 - **Arquivo de entrada:** `gh-pages/index.html`.
 - **Fonte de verdade da versão em execução:** `gh-pages/assets/version.json` — conferir os campos `version` e `home` **em toda nova solicitação**.
-- **Arquivo HTML correspondente no momento da auditoria:** `gh-pages/v126.html`.
-- **Versão imediatamente anterior:** `gh-pages/v125.html`; as demais páginas históricas `vNNN.html` permanecem preservadas.
+- **Arquivo HTML correspondente na última conferência:** `gh-pages/v128.html`.
+- **Versão anterior preservada:** `gh-pages/v126.html` (não há v127.html na raiz verificada); as demais páginas históricas `vNNN.html` permanecem preservadas.
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
 **Navegação e auditoria de versões:** [Mapa de governança Drive/GitHub](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md). Nota: o texto abaixo contém marcos *históricos*; não interpretar seções V113/V124 como declaração da versão em execução.
