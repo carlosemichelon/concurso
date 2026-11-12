@@ -1,3 +1,13 @@
+# Banco Mestre — V148: manuscrito de Engenharia Civil atualizado em 34 capítulos (12/11/2026)
+
+Publicada a versão V148, com a **versão V002 do manuscrito de 274 páginas** distribuída em **34 PDFs por assunto**, em nova pasta versionada do Google Drive. O índice original de 252 páginas não é reutilizado: as faixas foram remapeadas e todas as 274 páginas foram verificadas sem perda ou repetição. O PDF completo permanece no mesmo ID de Drive e foi atualizado para 274 páginas no catálogo.
+
+O catálogo V148 contém **113 PDFs** (79 registros anteriores preservados + 34 novos capítulos), e o novo índice de grupos foi expandido de modo correspondente. Os capítulos V002 usam IDs próprios `CAP-V002-01` a `CAP-V002-34` para **não aplicar automaticamente grifos dos PDFs anteriores a páginas deslocadas**. Os PDFs históricos, seus IDs, notas, grifos, SRS, 1.499 cartões, redação e leitor V147 foram preservados. As anotações manuscritas não passaram por OCR nem validação técnica/normativa. Abertura de PDF privado com OAuth em navegador real não foi homologada nesta mudança.
+
+Arquivos principais: `v148.html`, `assets/pdf_catalog_v148.json`, `assets/pdf_grupos_v148.json`, `assets/v148_pdfs_recolhidos.js`, `assets/manuscrito_indice_v148.json`, `assets/version.json`. A fonte principal continua no Drive; as versões anteriores permanecem acessíveis.
+
+---
+
 # Banco Mestre — V147: diagnóstico e recuperação da abertura de PDFs no Drive
 
 O erro “Não foi possível abrir a edição direta: Failed to fetch” vinha de `assets/v048_drive.js`, no `fetch()` autorizado de `https://www.googleapis.com/drive/v3/files/{id}?alt=media`. Trata-se de ausência de resposta HTTP, sem prova de falta de permissão ou de PDF inválido.
