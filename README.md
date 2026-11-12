@@ -1,3 +1,23 @@
-# Banco Mestre V015 — edição pública leve
+# Banco Mestre — Portal de estudo (Engenharia Civil / Concursos)
 
-HTML inicial e dados separados em assets. Sem manuscrito, links Drive privados ou SRS. Para imagens integrais, usar a versão privada V014 no Drive.
+**Site publicado:** [Abrir Banco Mestre](https://carlosemichelon.github.io/concurso/)  
+**Branch de publicação:** [`gh-pages`](https://github.com/carlosemichelon/concurso/tree/gh-pages)  
+**Situação conferida em 11/11/2026:** V126, conforme `gh-pages/assets/version.json` e `gh-pages/index.html`. Em futuras consultas, **verifique novamente esses dois arquivos**: o número poderá mudar.
+
+## Por onde começar
+
+- [Mapa de versões e organização Drive/GitHub](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md)
+- [Manifesto da versão publicada](assets/version.json)
+- [Registro detalhado de versões](VERSAO_ATUAL.md)
+- [Regras para agentes e alterações](AGENTS.md)
+- [Pasta principal de estudos no Drive](https://drive.google.com/drive/folders/1squNqRXuxfT1YRjT3i4nw8TRnFtLOcuE)
+- [DataBase_Concurso no Drive](https://drive.google.com/drive/folders/1yvwhb-W-vMUMu5DmikE3hR-i01cnrWdK)
+
+## Distinguir as versões
+**Portal V126** ≠ **Base V024 H14** ≠ **checkpoint V029** ≠ **metodologia v009**. A numeração pertence a linhas diferentes.
+
+Em V126, o manifesto do site registra 1.499 IDs de cartões, 1.482 ativos, 72 PDFs e 270 imagens; os 22 cartões operacionais de Ijuí são separados. Isso não autoriza publicar material privado nem concluir que o checkpoint V029 já está integrado.
+
+O site é publicado por `gh-pages`. A branch padrão `main` contém portal legado V031, e não deve ser usada para editar a versão atual.
+
+**Preservação:** versões históricas `vNNN.html`, branches de backup e arquivos de estudo não foram excluídos. Grifos, SRS, PDFs e dados privados do navegador exigem backups independentes. Uma alteração de HTML ou branch no GitHub não salva `localStorage`/`IndexedDB`.
