@@ -1,3 +1,15 @@
+# Banco Mestre — V155: Classificação das imagens igual aos flashcards (12/11/2026)
+
+O Atlas de imagens passa a usar filtros **Disciplina → Assunto geral → Assunto específico → Subassunto** com contagens dinâmicas, seletores encadeados e botão Limpar filtros. O segundo nível reutiliza integralmente as **13 categorias gerais de flashcards V128**; somente opções presentes na seleção aparecem. O assunto específico segue a categoria temática dos metadados originais e o subassunto segue as relações de estudo documentadas (sem criar conteúdos quando não foram identificados).
+
+A camada `assets/image_classificacao_v155.json` liga os 86 IDs da base ativa V154 à hierarquia; registra grupo original, categoria, assunto, origem da classificação, evidência e status técnico. Existem 70 imagens históricas e 16 recortes Petrobras, com 4 referências cruzadas explícitas à disciplina Legislação, sem duplicar arquivos. Alguns recortes têm subassunto pendente ou carecem de auditoria visual; essas pendências foram preservadas, não substituídas por inferências.
+
+O módulo `assets/v155_image_classified_library.js` reaproveita o renderizador e as funções de favoritos, editor e grifos de V154. Os grupos permanecem recolhidos enquanto nenhum filtro estiver escolhido. Ao filtrar, o Atlas mostra os cartões correspondentes, respeita a paginação e a busca por ID, e permite limpar filtros. Os 184 IDs excluídos na V154 continuam ausentes; **86 imagens ativas**, **78 PDFs** e a versão corrente do Vade Mecum com cache SHA-256 permanecem inalterados.
+
+**Validação:** 86 IDs classificados sem duplicatas, 13 categorias gerais idênticas às de flashcards, simulações positivas de Engenharia Civil (73), Estruturas (21), Vigas (10), Momento de inércia (1), Matemática (5), Legislação cruzada (4), reset, busca exata por ID e impossibilidade de restaurar os 184 excluídos. Bootstrap completo V155 montado com 50.185 caracteres e sem erros de sintaxe; leitor de PDF/Redação/SRS preservados. Navegação autenticada real ainda não homologada.
+
+---
+
 # Banco Mestre — V154: biblioteca ativa limpa + Vade atual validado (12/11/2026)
 
 ## Exclusão efetiva da biblioteca de imagens
