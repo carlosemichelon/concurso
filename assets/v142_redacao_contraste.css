@@ -1,0 +1,171 @@
+/* V142 — leitura consistente em TODO o módulo de Redação.
+   Elementos gerados por JS com estilos legados de 8–12px são cobertos.
+   Alterações somente visuais: a lógica SRS/treino/redação não é modificada. */
+:root{
+ --bg:#f3f6f8;
+ --surface:#fff;
+ --card:#fff;
+ --border:#cfdde6;
+ --text:#253744;
+ --muted:#476171;
+ --ouro:#1b658a;
+ --azul:#17668d;
+ --verde:#176949;
+ --verm:#a7333c;
+ --roxo:#5e4886;
+ --ciano:#176a7c;
+ --rosa:#90496d;
+ --bm142-font:min(4px,var(--bm136-font-extra,0px));
+}
+html,body{color:#253744!important;background:#f2f5f7!important}
+.aba{color:#263e4d;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;font-size:calc(15px + var(--bm136-font-extra,0px))!important;line-height:1.7}
+.aba :is(p,span,div,small,summary,label,li,option){text-wrap:pretty}
+.aba .card{background:#fff!important;border-color:#d0dfe7!important}
+.aba .card-titulo{font-size:calc(14px + var(--bm136-font-extra,0px))!important;line-height:1.4!important;letter-spacing:.2px!important;color:#225e81!important;font-weight:810!important}
+.aba .section-label{font-size:calc(14px + var(--bm136-font-extra,0px))!important;letter-spacing:0!important;color:#3c6072!important}
+.aba :is(p,li,summary,small){line-height:1.7}
+.aba :is(input,select,textarea){font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;color:#243947!important;background:#fff!important;border-color:#afc5d2!important}
+.aba :is(input,select,textarea)::placeholder{color:#607484!important;opacity:1!important}
+.aba :is(input,select,textarea):focus{outline:2px solid #a2cbdf!important;outline-offset:1px;border-color:#3084b0!important}
+.aba button{letter-spacing:0!important}
+.aba button:focus-visible,.aba [role=button]:focus-visible,.aba .chip:focus-visible{outline:2px solid #448fb3!important;outline-offset:2px}
+.aba .chip{font-size:calc(13px + var(--bm136-font-extra,0px))!important;color:#315c72!important;line-height:1.45!important;white-space:normal}
+.aba .chip.sel{background:#e7f3fb!important;border-color:#8bbcd5!important;color:#155a83!important}
+.aba .btn{font-size:calc(13px + var(--bm136-font-extra,0px))!important;line-height:1.45!important;min-height:40px!important;font-weight:710!important}
+.aba .btn-ouro{color:white!important;background:#177c64!important;border-color:#177c64!important}
+.aba .btn-ghost{color:#195f85!important;background:#fff!important;border-color:#b7d0dc!important}
+.aba .btn-ghost:hover{background:#eaf5fb!important}
+/* Tema: título, dificuldade, categoria e origem antes ilegíveis */
+#aba-temas .bm134-hero p,#aba-temas .bm134-count{font-size:calc(14px + var(--bm136-font-extra,0px))!important;color:#435f70!important}
+#aba-temas #tema-busca{font-size:calc(16px + var(--bm136-font-extra,0px))!important;min-height:50px!important}
+#aba-temas #chips-categoria .chip{font-size:calc(14px + var(--bm136-font-extra,0px))!important;min-height:40px!important;color:#334e5f!important}
+#aba-temas #chips-categoria .chip.sel{color:#155d85!important;background:#e6f2fa!important}
+#aba-temas .bm136-catalog-filters .card-titulo{font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+#aba-temas #lista-temas .tema-titulo{font-size:calc(17px + var(--bm136-font-extra,0px))!important;line-height:1.55!important;font-weight:770!important;color:#263b49!important}
+#aba-temas #lista-temas .tema-meta,
+#aba-temas #lista-temas .tema-meta span,
+#aba-temas #lista-temas .tema-meta [style*="font-size:9px"]{font-size:calc(13px + var(--bm136-font-extra,0px))!important;line-height:1.65!important;color:#435d6d!important}
+#aba-temas #lista-temas .tema-meta [style*="color:var(--verde)"]{color:#166a4e!important}
+#aba-temas #lista-temas .tema-meta [style*="color:var(--verm)"]{color:#a3383e!important}
+#aba-temas #lista-temas .tema-meta [style*="color:var(--ouro)"]{color:#8b601b!important}
+#aba-temas #lista-temas .tema-meta [style*="color:var(--azul)"]{color:#155f8b!important}
+#aba-temas #lista-temas .bm135-theme-action{font-size:calc(13px + var(--bm136-font-extra,0px))!important;padding:7px 12px!important;color:#17684c!important}
+#aba-temas #lista-temas .tema-card{background:#fff!important;border-color:#d0dce4!important;overflow-wrap:anywhere}
+#aba-temas #lista-temas .tema-card:hover{border-color:#74b1d0!important}
+#aba-temas .bm134-more{font-size:calc(14px + var(--bm136-font-extra,0px))!important}
+/* Treino: seções e componentes estáticos */
+#aba-treino .bm134-hero p{font-size:calc(15px + var(--bm136-font-extra,0px))!important;color:#405867!important}
+#aba-treino .bm138-progress .bm134-step span{font-size:calc(13px + var(--bm136-font-extra,0px))!important}
+#aba-treino .bm138-theme-box #treino-tema-display{font-size:calc(20px + var(--bm136-font-extra,0px))!important;color:#263b4c!important}
+#aba-treino .bm138-theme-box #treino-tema-meta,#aba-treino .bm138-theme-box #treino-tema-meta span{font-size:calc(14px + var(--bm136-font-extra,0px))!important;color:#486072!important}
+#aba-treino .bm138-theme-box :is(input,select){font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+#aba-treino .bm138-editor-heading h3{font-size:calc(22px + var(--bm136-font-extra,0px))!important;color:#273d4d!important}
+#aba-treino #treino-instrucao{font-size:calc(16px + var(--bm136-font-extra,0px))!important;color:#3b5566!important}
+#aba-treino #treino-campos>.field>label{font-size:calc(16px + var(--bm136-font-extra,0px))!important;color:#263d4d!important}
+#aba-treino #treino-campos>.field textarea{font-size:calc(16px + var(--bm136-font-extra,0px))!important;line-height:1.85!important}
+#aba-treino #treino-campos>.axis-heading{font-size:calc(17px + var(--bm136-font-extra,0px))!important}
+#aba-treino .bm138-guidance summary{font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+#aba-treino .bm138-filled{font-size:calc(13px + var(--bm136-font-extra,0px))!important}
+#aba-treino .bm138-guidance-body{color:#334b5c!important}
+#aba-treino .bm138-guidance-body>div{font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+#aba-treino #treino-campos>.field [id^=sugs-]>span,
+#aba-treino #treino-campos>.field [id^=formula-explicacao-],
+#aba-treino #treino-campos>.field .chip{font-size:calc(14px + var(--bm136-font-extra,0px))!important;color:#285b75!important}
+#aba-treino .bm138-mini-map>div>div{font-size:calc(13px + var(--bm136-font-extra,0px))!important;color:#2d4b5a!important}
+#aba-treino .bm138-sidebar .bm135-action-group button,
+#aba-treino .bm138-sidebar .bm138-tools-buttons button{font-size:calc(14px + var(--bm136-font-extra,0px))!important}
+#aba-treino #fttd-conteudo{color:#2d4353!important;font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+#aba-treino #fttd-exemplo-redacao{color:#2d4353!important;font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+#aba-treino #treino-progresso-painel,#aba-treino #treino-ia-texto,#aba-treino #treino-chat-historico{font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+/* Trata textos antigos gerados por JS nas duas modalidades de Treino.
+   CSS importante supera os estilos inline persistentes. */
+#aba-treino [style*="font-size:8px"],#aba-treino [style*="font-size:9px"],
+#aba-treino [style*="font-size:10px"],#aba-treino [style*="font-size:11px"],
+#aba-treino [style*="font-size:12px"]{
+ font-size:calc(14px + var(--bm136-font-extra,0px))!important;
+ line-height:1.55!important;
+}
+#aba-treino [style*="font-size:13px"]{font-size:calc(15px + var(--bm136-font-extra,0px))!important;line-height:1.6!important}
+#aba-treino [style*="font-size:14px"]{font-size:calc(16px + var(--bm136-font-extra,0px))!important;line-height:1.65!important}
+#aba-treino [style*="color:#a8c0d8"],#aba-treino [style*="color:#c0d8f0"],
+#aba-treino [style*="color:#7a7a9a"],#aba-treino [style*="color:var(--muted)"]{color:#455e6d!important}
+#aba-treino [style*="color:#4a90d9"],#aba-treino [style*="color:#6ab0e0"],#aba-treino [style*="color:var(--azul)"]{color:#1d668b!important}
+#aba-treino [style*="color:var(--ouro)"]{color:#1e6589!important}
+#aba-treino [style*="color:var(--verde)"]{color:#16674c!important}
+#aba-treino [style*="color:var(--roxo)"]{color:#604a91!important}
+#aba-treino [style*="color:#e05050"],#aba-treino [style*="color:var(--verm)"]{color:#a2353e!important}
+#aba-treino [style*="background:rgba(255,255,255,0.03)"],
+#aba-treino [style*="background:rgba(255,255,255,0.04)"],
+#aba-treino [style*="background:rgba(255,255,255,0.05)"]{background:#f2f7fa!important}
+#aba-treino [style*="background:#1a3a5a"]{background:#e4f1fa!important}
+#aba-treino [style*="background:#2a3a1a"]{background:#edf7ed!important}
+#aba-treino [style*="background:#3a2a0a"]{background:#fff3df!important}
+#aba-treino [style*="background:#2a1a3a"]{background:#f3eefa!important}
+#aba-treino .bm138-footer button{font-size:calc(14px + var(--bm136-font-extra,0px))!important}
+/* Exercícios (antiga aba de flashcards de redação) */
+#aba-flashcards{font-size:calc(15px + var(--bm136-font-extra,0px))!important;color:#263e4d!important}
+#aba-flashcards .bm134-hero p{font-size:calc(15px + var(--bm136-font-extra,0px))!important;color:#435d6e!important}
+#aba-flashcards .bm133-practice-note{font-size:calc(14px + var(--bm136-font-extra,0px))!important;color:#324e60!important;line-height:1.75!important}
+#aba-flashcards .bm136-practice-tools .card-titulo{font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+#aba-flashcards .bm134-fc-filters label{font-size:calc(14px + var(--bm136-font-extra,0px))!important;color:#38596b!important}
+#aba-flashcards .bm134-fc-filters select{font-size:calc(15px + var(--bm136-font-extra,0px))!important;color:#263e4c!important;min-height:44px!important}
+#aba-flashcards .bm134-fc-actions button{font-size:calc(13px + var(--bm136-font-extra,0px))!important;min-height:39px!important}
+#aba-flashcards #fc-instrucao{font-size:calc(15px + var(--bm136-font-extra,0px))!important;color:#3c5667!important;line-height:1.7!important}
+#aba-flashcards #fc-label-tema,#aba-flashcards #fc-progresso,#aba-flashcards #fc-stats-resumo{font-size:calc(13px + var(--bm136-font-extra,0px))!important;color:#456475!important;line-height:1.6!important}
+#aba-flashcards #fc-trecho{font-size:calc(18px + var(--bm136-font-extra,0px))!important;color:#243846!important;line-height:1.8!important}
+#aba-flashcards #fc-opcoes button,#aba-flashcards #fc-opcoes .btn{
+ font-size:calc(15px + var(--bm136-font-extra,0px))!important;
+ line-height:1.65!important;
+ background:#f8fbfd!important;
+ color:#25485e!important;
+ border:1px solid #b9d2e0!important;
+ min-height:48px!important;
+ padding:12px 14px!important;
+ opacity:1;
+}
+#aba-flashcards #fc-opcoes button:hover:not([data-respondido="1"]){background:#eaf4fb!important;border-color:#75abc8!important}
+#aba-flashcards #fc-opcoes button[data-respondido="1"][style*="rgba(61"]{background:#e4f5ec!important;border-color:#2e855f!important;color:#135c43!important}
+#aba-flashcards #fc-opcoes button[data-respondido="1"][style*="rgba(224"]{background:#fceae9!important;border-color:#bd4d55!important;color:#952e37!important}
+#aba-flashcards #fc-opcoes button[data-respondido="1"]:not([style*="rgba(61"]):not([style*="rgba(224"]){opacity:.65!important}
+#aba-flashcards #fc-opcoes button.btn-ouro{background:#177a61!important;color:#fff!important;border-color:#177a61!important}
+#aba-flashcards #fc-opcoes button:disabled{opacity:.48!important;cursor:not-allowed!important}
+#aba-flashcards #fc-feedback{background:#f5fafc!important;border:1px solid #cfdee8!important;color:#263d4c!important}
+#aba-flashcards #fc-feedback-titulo{font-size:calc(17px + var(--bm136-font-extra,0px))!important;color:#263e50!important}
+#aba-flashcards #fc-feedback-texto,#aba-flashcards #fc-feedback-dica{font-size:calc(15px + var(--bm136-font-extra,0px))!important;line-height:1.75!important;color:#354f60!important}
+#aba-flashcards [style*="font-size:8px"],#aba-flashcards [style*="font-size:9px"],
+#aba-flashcards [style*="font-size:10px"],#aba-flashcards [style*="font-size:11px"],
+#aba-flashcards [style*="font-size:12px"]{
+ font-size:calc(14px + var(--bm136-font-extra,0px))!important;line-height:1.55!important;
+}
+#aba-flashcards [style*="font-size:13px"]{font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+#aba-flashcards [style*="color:#a8c0d8"],#aba-flashcards [style*="color:#7a7a9a"],
+#aba-flashcards [style*="color:var(--muted)"]{color:#476171!important}
+#aba-flashcards [style*="color:var(--ouro)"]{color:#1e6588!important}
+#aba-flashcards [style*="color:var(--verde)"]{color:#1a704f!important}
+#aba-flashcards [style*="color:var(--verm)"]{color:#a1343c!important}
+#aba-flashcards [style*="color:var(--azul)"]{color:#20678c!important}
+#aba-flashcards [style*="background:rgba(255,255,255,0.03)"],
+#aba-flashcards [style*="background:rgba(255,255,255,0.04)"],
+#aba-flashcards [style*="background:rgba(255,255,255,0.05)"]{background:#f1f7fa!important}
+#aba-flashcards :is(.fc-lacuna,[id^="fc-lacuna-"]){font-size:calc(16px + var(--bm136-font-extra,0px))!important;line-height:1.55!important;color:#175c86!important;background:#e9f4fa!important;border:1px solid #a5cde0!important;border-radius:7px!important;cursor:pointer}
+#aba-flashcards [id^="fc-btn-conferir"]:not(:disabled){background:#177a61!important;color:#fff!important;border-color:#177a61!important}
+/* Guia de conectivos, avisos e painel de fontes da própria ferramenta */
+#con-fab,#con-popup,.bm132-notice{color:#293f4e!important}
+#con-popup [style*="font-size:9px"],#con-popup [style*="font-size:10px"],
+#con-popup [style*="font-size:11px"],#con-popup [style*="font-size:12px"]{font-size:calc(14px + var(--bm136-font-extra,0px))!important}
+#con-popup [style*="color:var(--muted)"]{color:#4d6572!important}
+.bm134-privacy summary,.bm132-notice p{font-size:calc(13px + var(--bm136-font-extra,0px))!important;line-height:1.6!important}
+/* Em celulares, priorizar área de escrita e controles sem cortes. */
+@media(max-width:840px){
+ .aba{font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+ #aba-temas #lista-temas .tema-titulo{font-size:calc(16px + var(--bm136-font-extra,0px))!important}
+ #aba-flashcards #fc-trecho{font-size:calc(17px + var(--bm136-font-extra,0px))!important}
+ #aba-flashcards #fc-opcoes button{font-size:calc(15px + var(--bm136-font-extra,0px))!important}
+}
+@media(max-width:560px){
+ #aba-treino .bm138-progress .bm134-step span{font-size:calc(12px + var(--bm136-font-extra,0px))!important}
+ #aba-treino #treino-campos>.field textarea{font-size:calc(16px + var(--bm136-font-extra,0px))!important}
+ #aba-flashcards #fc-opcoes{grid-template-columns:1fr!important}
+ .bm133-training-switch button{line-height:1.45!important;white-space:normal!important}
+ #aba-temas #chips-categoria .chip{min-height:42px!important}
+}
