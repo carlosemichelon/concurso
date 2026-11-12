@@ -179,6 +179,9 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
                .replace(bm129VadeDuplicate,'<!-- Leitor antigo duplicado do Vade removido em V129 -->')
                .replace(bm129DriveReader,tag('v147_drive_direct.js?v=147'));
   // V153: somente a cópia versionada do adaptador de download mudou, não o PDF.js nem o catálogo.
+  // V153: substituir apenas o renderizador do Atlas pela cópia com hooks temáticos.
+  if(!source.includes('assets/v060_atlas_edicao_completa.js?v=060'))throw Error('Atlas V060 não encontrado');
+  source=source.replace('assets/v060_atlas_edicao_completa.js?v=060','assets/v153_atlas_edicao_completa.js?v=153');
   source=source.replace('</head>',styles+'</head>');
   source=source.replace('</body>',scripts+tag('v150_drive_pdf_sync.js?v=150')+tag('v084_drive_images_sync.js?v=084')+tag('v086_exclusoes_atlas_privadas.js?v=086')+tag('v097_pdf_selection_core.js?v=097')+tag('v104_precise_touch.js?v=104')+tag('v096_icons.js?v=096')+tag('v098_portal_text.js?v=098')+tag('v106_assuntos_compactos.js?v=106')+tag('v099_legenda_grifos.js?v=099')+tag('v100_pdf_tools.js?v=100')+tag('v106_ink_ui.js?v=106')+tag('v103_mobile_pdf.js?v=103')+tag('v104_mobile_gestures.js?v=104')+tag('v105_pdf_horizontal.js?v=105')+tag('v122_grifos_master_core.js?v=122')+tag('v122_grifos_drive.js?v=122')+tag('v109_mobile_library.js?v=109')+tag('v121_calibrador_ui.js?v=121')+tag('v113_compact_bibliotecas.js?v=113')+tag('v118_ui_compact.js?v=118')+tag('v119_public_cards_ui.js?v=119')+tag('v122_flashcard_ink.js?v=122')+tag('v122_visual_compact.js?v=122')+tag('v123_cards_recovery.js?v=123')+tag('v128_assuntos_gerais.js?v=128')+tag('v130_redacao.js?v=130')+tag('v146_redacao_redirect.js?v=146')+tag('v141_calendario_srs.js?v=141')+tag('v152_flash_filters.js?v=152')+tag('v151_pdf_check.js?v=151')+tag('v153_image_library.js?v=153')+'</body>');
   source=source.replace('Banco Mestre V062 — Estudos','Banco Mestre V153 — Estudos')
