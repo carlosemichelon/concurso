@@ -10,7 +10,9 @@
 - **Versão imediatamente anterior:** `gh-pages/v125.html`; as demais páginas históricas `vNNN.html` permanecem preservadas.
 - **Branch `main`:** contém código legado, cujo `assets/version.json` indica V031. **Não utilizar a versão da branch `main` para identificar a versão publicada.**
 
-**Navegação e auditoria de versões:** [Mapa de governança Drive/GitHub](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md). Nota: o texto abaixo contém marcos *históricos*; não interpretar seções V113/V124 como declaração da versão em execução.\n\n## V124 — remissões jurídicas conservadoras (11/11/2026)
+**Navegação e auditoria de versões:** [Mapa de governança Drive/GitHub](docs/GOVERNANCA_VERSOES_DRIVE_GITHUB_2026-11-11.md). Nota: o texto abaixo contém marcos *históricos*; não interpretar seções V113/V124 como declaração da versão em execução.
+
+## V124 — remissões jurídicas conservadoras (11/11/2026)
 
 A partir da V123 publicada (cartões da Base Técnica), o portal passa a adicionar `assets/v124_remissoes.js` depois do módulo normativo V121 e antes do grifador. Referência explícita a Constituição Federal ou lei reconhecida fica ligada à norma citada; referência à “desta Lei”, “desta Constituição” ou artigo sem identificação confirmada fica com `target:null` e sugestão separada. Não muda cores, grifos existentes, anotações, IDs, planilha, SRS, PDFs ou cartões.
 
