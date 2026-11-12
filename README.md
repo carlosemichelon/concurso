@@ -10,8 +10,7 @@
 - [Manifesto da versão publicada](assets/version.json)
 - [Registro detalhado de versões](VERSAO_ATUAL.md)
 - [Regras para agentes e alterações](AGENTS.md)
-- [Pasta principal de estudos no Drive](https://drive.google.com/drive/folders/1squNqRXuxfT1YRjT3i4nw8TRnFtLOcuE)
-- [DataBase_Concurso no Drive](https://drive.google.com/drive/folders/1yvwhb-W-vMUMu5DmikE3hR-i01cnrWdK)
+- No Google Drive conectado: pastas `CONCURSOS – ENGENHARIA CIVIL` e `DataBase_Concurso`. Seus links privados não são publicados aqui.
 
 ## Distinguir as versões
 **Portal V126** ≠ **Base V024 H14** ≠ **checkpoint V029** ≠ **metodologia v009**. A numeração pertence a linhas diferentes.
