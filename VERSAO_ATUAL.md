@@ -1,3 +1,11 @@
+# Banco Mestre — V151: correção da verificação de PDFs (12/11/2026)
+
+A mensagem “Catálogo disponível, mas os PDFs ainda não foram exibidos. Atualize a página.” era emitida pelo verificador V145 porque ainda exigia 79 documentos da configuração V140. O site vigente V150 usa o catálogo `assets/pdf_catalog_v149.json`, que contém **78 PDFs** — incluindo o manuscrito completo atual V002 com 274 páginas e 34 capítulos atualizados.
+
+Foi criado `assets/v151_pdf_check.js` e publicado `v151.html` para conferir o catálogo vigente, os 34 capítulos V002, IDs únicos e a montagem das linhas na biblioteca. O botão **Verificar PDFs** solicita a montagem da lista sem exigir recarregamento. O código legado V145 está preservado, mas não é carregado pelo portal V151. O catálogo V149, o leitor do Drive V147, a sincronização V150, os PDFs, grifos, cartões, SRS e Redação não foram alterados. **Testes estáticos passaram; abertura autenticada em navegador privado ainda não foi homologada.**
+
+---
+
 # Banco Mestre — V150: usar somente a versão atual do manuscrito (12/11/2026)
 
 **Ativa:** manuscrito de Engenharia Civil V002, 274 páginas, PDF integral e 34 capítulos por assunto. Biblioteca V149/V150: 78 PDFs ativos (os 34 capítulos de 252 páginas e o caderno de outubro foram removidos apenas da listagem, sem exclusão física nem alteração de grifos).
