@@ -1,3 +1,11 @@
+# Banco Mestre — V147: diagnóstico e recuperação da abertura de PDFs no Drive
+
+O erro “Não foi possível abrir a edição direta: Failed to fetch” vinha de `assets/v048_drive.js`, no `fetch()` autorizado de `https://www.googleapis.com/drive/v3/files/{id}?alt=media`. Trata-se de ausência de resposta HTTP, sem prova de falta de permissão ou de PDF inválido.
+
+A V147 preserva a V048 e usa uma cópia isolada `assets/v147_drive_direct.js`, carregada somente pelo portal `v147.html`. Em erro de transporte na primeira URL, tenta `https://content.googleapis.com/drive/v3/files/{id}?alt=media&supportsAllDrives=true`. Diferencia HTTP 401, 403, 404, indisponibilidade temporária e rede/CORS/extensão. Só renderiza bytes com cabeçalho PDF; mostra **Abrir cópia local do PDF** após falha para vincular a mesma identidade e grifos armazenados. O fallback é local, não envia arquivos nem altera a pasta do Google Drive. O usuário pode continuar a usar **Abrir no Drive**.
+
+Os 79 registros, file_id, grifos, notas, SRS, Banco Mestre V024 e Redação V146 continuam intactos. Testes de edição/OAuth com arquivos privados no navegador da pessoa ainda não foram executados: publicação de código não comprova sucesso do download. Antes de novo diagnóstico, verificar a situação e a requisição de rede na sessão autenticada.
+
 # Banco Mestre — V146: dicas compactas e auditoria do encadeamento da Redação
 
 A Produção guiada mantém as três etapas FTTD/TEEC, mas oculta o mini-mapa decorativo com quatro caixas e apresenta um único ícone 💡 ao lado de **Dicas e modelos desta etapa**, em resumo acessível recolhível. Alteração CSS isolada em `assets/v146_redacao_compact.css`, carregada somente por `redacao_temas_treino_v146.html`, sem alteração das respostas, editor, abas Temas/Treino, salvamento V145, fontes, PDFs, SRS ou grifos. A V145 permanece intacta.
