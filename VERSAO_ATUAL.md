@@ -1,3 +1,9 @@
+# Versão principal: V165 — decisão do usuário (13/11/2026)
+
+O usuário preferiu o layout V165 em vez do V164. O arquivo v165.html foi preservado sem modificações e é novamente a versão ativa da publicação. O endereço principal redireciona à V165; links específicos para V164, V166 e V167 permanecem válidos como históricos. Nenhum cartão, ID, SRS, resposta, imagem, PDF ou dado do Google Drive foi alterado. Esta alteração muda apenas ponteiros de versão e a documentação.
+
+---
+
 # Versão principal RESTAURADA: V164 (13/11/2026)
 
 **Decisão do usuário:** desfazer a escolha das interfaces V165, V166 e V167 e voltar ao portal V164. A branch publicada `gh-pages` mantém os arquivos históricos, sem os excluir nem reescrever, mas a entrada `index.html` e o manifesto `assets/version.json` agora direcionam para `v164.html`.
