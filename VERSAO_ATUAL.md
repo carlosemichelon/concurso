@@ -1,3 +1,15 @@
+# Banco Mestre — V159: buscador de imagens unificado (13/11/2026)
+
+**Mudança publicada:** barra visual duplicada `bm-v044-atlas-controls` oculta apenas após a realocação bem-sucedida dos controles. O filtro principal permanece o V156 com Disciplina → Assunto geral → Assunto específico → Subassunto, contagens e busca por ID/título. Os filtros exclusivos (favoritas, ordenação, visibilidade local) e a ação "Copiar excluídas p/ Drive" foram transferidos para o painel recolhível "Mais opções" sem recriar dados nem redefinir eventos.
+
+**Arquivos:** `v159.html` é derivado de V158; adiciona `assets/v159_atlas_clean_ui.js` após `assets/v156_image_classified_library.js`. V158 permanece intacta. `gh-pages/index.html` redireciona V159 e `assets/version.json` publica `version=V159`, `home=v159.html`.
+
+**Preservação:** 86 imagens ativas, 184 IDs já removidos da biblioteca ativa, 78 PDFs, cartão em aba V158, acesso privado Drive V157, favoritos e títulos/ocultações locais, manuscrito/Vade, grifos e SRS. Nenhum dado ou arquivo no Google Drive foi excluído nem sobrescrito. O painel "Visibilidade local" serve apenas para ocultações/restaurações locais, não para reintroduzir registros anteriormente removidos.
+
+**Validações:** arquivos V159 disponíveis em `gh-pages`; checagem de sintaxe JavaScript e consistência do carregamento e contagens do manifesto. Testes visuais no navegador real/autenticado ainda pendentes.
+
+---
+
 # Banco Mestre — V158: correção de cartão individual e retorno (12/11/2026)
 
 **Problema confirmado:** o link `v055.html?cartao=CARD-0130#cartoes` abre a edição histórica V055. O módulo `assets/v055_card_window.js` também continha **endereços fixos V055** para abrir um cartão e para o botão **Voltar aos cartões**, causando retorno a uma versão obsoleta.
