@@ -1,3 +1,17 @@
+# Banco Mestre — V163: cartões claros e leitura em modal com rolagem (13/11/2026)
+
+**Mudança:** V163 publicada em `gh-pages/v163.html`, com módulos novos `v163_card_reader.js`, `v163_card_window.js`, `v163_card_polish.js`, `v163_lei_seca_literal.js` e `v163_cards.css`. A V162 e módulos históricos não foram editados.
+
+- Clicar na área livre do cartão abre a leitura detalhada na própria página; o botão *Ler cartão* tem a mesma função. Botões, links, campos e controles aninhados conservam o próprio comportamento, sem disparar o modal inadvertidamente. O link **Abrir aba completa** continua disponível e aponta para `index.html?cartao=ID#cartoes` — nunca fixa uma versão antiga.
+- Cartão com identificação visual de disciplina, tipo da fonte, assunto e subassunto, guia aprofundado quando disponível e referência cadastrada **sem atribuir verificação normativa à referência original**. A pergunta permanece o elemento principal.
+- O leitor rápido ganha cabeçalho/rodapé fixos e área central rolável, com resposta original explicitamente separada, bloco aprofundado (mínimo, resposta-modelo e explicação), macetes, pegadinhas, lacunas, histórico documentado da questão versus cartão, fundamento e páginas do PDF quando presentes. Conteúdos ausentes não são inventados; os grupos são recolhíveis para leitura extensa.
+- Resposta original e **lei seca** começam ocultas independentemente. O botão legal recupera os dados literais da V162, com fonte, alcance e aviso de referência divergente quando houver. Ele também existe na lista. Consulta sem gravar SRS/avaliação.
+- A visualização preserva IDs, texto original do verso, estados de anotações, links diretos, formulário discursivo, biblioteca de PDFs e imagens e a importação privada V045 (se autorizada pelo usuário).
+
+**Auditoria:** sintaxe e dependências conferidas; homologação visual em navegador autenticado e importação real do Google Drive ainda pendentes.
+
+---
+
 # Banco Mestre — V162: maior cobertura de lei seca por cartão (13/11/2026)
 
 A V162 adiciona **14 transcrições literais de dispositivos** à V161 sem substituir os versos originais: 6 artigos/trechos do Decreto RS 23.430/1974 (arts. 57, 61–63), 4 incisos do art. 5º da CONAMA 001/1986, 1 art. 8º da CONAMA 237/1997 (com aviso de confrontar com Lei 15.190/2025), 2 do art. 9º do Código de Ética Confea e 1 art. 37, V da CF.
