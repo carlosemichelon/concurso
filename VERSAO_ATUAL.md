@@ -1,3 +1,17 @@
+# Banco Mestre — V160: ocultar e revelar a lei seca (13/11/2026)
+
+**Publicação:** `gh-pages/v160.html`, novo módulo `assets/v160_lei_seca_toggle.js`. Entrada `index.html` e manifesto `assets/version.json` apontam para V160. A V159 foi preservada.
+
+**Interface:** cada cartão de legislação oferece uma segunda área recolhível, independente da resposta geral. O texto inicia oculto por padrão, e é possível mostrar e ocultar novamente pelo próprio cartão. A opção global "Ocultar por padrão" afeta os cartões visíveis. O estado individual é retido apenas em memória, inclusive ao trocar filtros. A janela individual V158 usa o mesmo módulo.
+
+**Precisão jurídica:** CARD-1495, CARD-1496 e CARD-1497 apresentam lei seca literal no verso e são identificados como tal. Nos demais cartões de legislação, inclusive Ijuí, o verso original é recolhível com aviso explícito de que não se confirmou transcrição literal do artigo. Se a base trouxer campo independente de lei seca (`texto_lei_seca`, `lei_seca_texto`, `lei_seca`, `legal_text`, `law_text`, `legal_excerpt`), a transcrição é ocultada separadamente da resposta conceitual. Não se inventa texto legal.
+
+**Integridade:** V024 H14 (1.499 IDs, 1.482 ativos), 22 Ijuí, V045 privada (1.518 IDs quando carregados), SRS, anotações, 78 PDFs, 86 imagens ativas, referências e textos originais não foram modificados. Módulo sem escrita em localStorage/IndexedDB/Drive.
+
+**Auditoria:** JS do módulo e do loader V160 conferidos sintaticamente, nomes e referências de versão validados, contagens do manifesto preservadas. Navegador pessoal autenticado ainda não homologado.
+
+---
+
 # Banco Mestre — V159: buscador de imagens unificado (13/11/2026)
 
 **Mudança publicada:** barra visual duplicada `bm-v044-atlas-controls` oculta apenas após a realocação bem-sucedida dos controles. O filtro principal permanece o V156 com Disciplina → Assunto geral → Assunto específico → Subassunto, contagens e busca por ID/título. Os filtros exclusivos (favoritas, ordenação, visibilidade local) e a ação "Copiar excluídas p/ Drive" foram transferidos para o painel recolhível "Mais opções" sem recriar dados nem redefinir eventos.
