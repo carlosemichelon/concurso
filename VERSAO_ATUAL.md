@@ -1,3 +1,15 @@
+# Banco Mestre — V162: maior cobertura de lei seca por cartão (13/11/2026)
+
+A V162 adiciona **14 transcrições literais de dispositivos** à V161 sem substituir os versos originais: 6 artigos/trechos do Decreto RS 23.430/1974 (arts. 57, 61–63), 4 incisos do art. 5º da CONAMA 001/1986, 1 art. 8º da CONAMA 237/1997 (com aviso de confrontar com Lei 15.190/2025), 2 do art. 9º do Código de Ética Confea e 1 art. 37, V da CF.
+
+**Cobertura total:** 36+14=50 transcrições novas públicas, acrescidas a 3 versos literais preservados = **53/65 públicos**. Ijuí: **15/22 operacionais** com lei seca. Total **68/87**, com 19 cartões restantes honestamente apresentados como 'Lei seca a conferir'. Parte desses 19 são jurisprudência, legislação municipal não identificada ou conflito normativo, e nunca devem receber texto inventado. Dados V045 privados, quando importados, seguem a política de verificação de literalidade sem publicação do acervo.
+
+O módulo `assets/v162_lei_seca_literal.js` substitui somente o V161 na entrada nova; `assets/lei_seca_complementos_v162.json` registra cada ID, trecho, dispositivo, fonte e ressalvas. `v161.html` e versões precedentes intactos. O comportamento segue **um botão por cartão**, sem expor o texto automaticamente e sem abrir a resposta conceitual. SRS, IDs, JSON canônico, Drive, Vade, PDFs, imagens, grifos e históricos não modificados.
+
+**Auditoria:** sintaxe do carregador e módulo, unicidade de 65 IDs entre 3 sidecars, HTTPS das fontes, manifesto e índices conferidos. A interação de navegador pessoal, inclusive Drive OAuth, permanece pendente.
+
+---
+
 # Banco Mestre — V161: botão literal de lei seca por cartão (13/11/2026)
 
 **Motivo:** Na V160, ocultar o resumo do verso não exibia o texto legal. A V161 substitui (não sobrepõe) `v160_lei_seca_toggle.js` por `assets/v161_lei_seca_literal.js`; o texto explicativo e o verso canônico são mantidos inalterados.
