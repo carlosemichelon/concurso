@@ -1,3 +1,11 @@
+# Banco Mestre — V164: refinamento mobile da leitura V163 (13/11/2026)
+
+A V164 preserva os módulos de cartões aprofundados publicados na V163 e corrige no CSS novo `assets/v164_cards.css` a ordem do botão **Ler cartão** na visualização estreita. Clique na superfície do cartão abre o leitor local; resposta e lei seca separadas e ocultas inicialmente; leitor com rolagem interna. Ações, editor discursivo e janela individual continuam disponíveis. Nenhum ID, texto, SRS, histórico, PDF, imagem, Vade ou Drive foi regravado.
+
+**Validação:** manifesto V164, entrada, módulo do leitor e CSS conferidos; teste funcional simulado do PROP-IJUI-001 abriu e fechou o leitor, verificou resposta inicialmente oculta, resposta-modelo, verso original intacto e botão separado de lei seca. O teste no navegador do usuário ainda não foi executado.
+
+---
+
 # Banco Mestre — V163: cartões claros e leitura em modal com rolagem (13/11/2026)
 
 **Mudança:** V163 publicada em `gh-pages/v163.html`, com módulos novos `v163_card_reader.js`, `v163_card_window.js`, `v163_card_polish.js`, `v163_lei_seca_literal.js` e `v163_cards.css`. A V162 e módulos históricos não foram editados.
