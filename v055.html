@@ -1,4 +1,16 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V055 — Estudos, Flashcards, PDFs e Atlas</title>
+<script>
+(function(){
+ // Compatibilidade de links antigos para cartões individuais; os outros usos
+ // históricos da V055 continuam intactos. Não tocar em cartões ou SRS.
+ var card=new URLSearchParams(location.search).get('cartao');
+ if(!card||!/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Z0-9_-]+)$/i.test(card))return;
+ var u=new URL('./index.html',location.href);
+ u.searchParams.set('cartao',card);
+ u.hash='cartoes';
+ location.replace(u.href);
+})();
+</script>
 <style>
 :root{--bg:#f5f7f7;--paper:#fff;--ink:#17353b;--sub:#597078;--accent:#16616a;--line:#d7e2e1;--soft:#ebf3f2}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,Arial,sans-serif}header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.head{max-width:1180px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{font-size:21px;font-weight:850}.version{font-size:12px;color:var(--sub)}
