@@ -1,3 +1,15 @@
+# Banco Mestre — V165: somente biblioteca + pop-up completo (13/11/2026)
+
+**Ajustes solicitados:** As duas barras de "Cartão individual" da captura eram geradas pelos módulos V060 e V163, carregados juntos. A V165 não carrega nenhum deles, mantendo a biblioteca como interface única. O filtro continua na biblioteca, mas deixa de existir uma página individual com filtros redundantes. Os links antigos `?cartao=PROP-IJUI-001` passam a abrir o pop-up do cartão automaticamente.
+
+**Leitura:** ao clicar na superfície do cartão ou no comando "Abrir leitura", a janela modal apresenta pergunta, verso original, conhecimento mínimo, resposta-modelo, explicações, macetes, pegadinhas, lacunas, fundamentos, interconexões, histórico, fontes e rastreabilidade existentes. Trechos originais da página são copiados apenas para apresentação — não editados nem resumidos. Conteúdos ausentes não são inventados. Lei seca permanece independente, oculta por padrão e com a fonte.
+
+**Navegação:** lista lateral com cartões relacionados ou pesquisa por ID/assunto em toda a base, anterior/próximo, botão recolher lista, leitura rolável e layout móvel. Ao trocar de cartão, resposta e lei seca voltam a ficar ocultas. Ações próprias da biblioteca não abrem o pop-up acidentalmente.
+
+**Preservação:** V164 e versões anteriores intactas; IDs, base, SRS, respostas originais, acervo do Drive, imagens, PDFs, grifos e Vade não sobrescritos. Testes de sintaxe e integração conferidos; ainda não homologado no navegador autenticado do usuário.
+
+---
+
 # Banco Mestre — V164: refinamento mobile da leitura V163 (13/11/2026)
 
 A V164 preserva os módulos de cartões aprofundados publicados na V163 e corrige no CSS novo `assets/v164_cards.css` a ordem do botão **Ler cartão** na visualização estreita. Clique na superfície do cartão abre o leitor local; resposta e lei seca separadas e ocultas inicialmente; leitor com rolagem interna. Ações, editor discursivo e janela individual continuam disponíveis. Nenhum ID, texto, SRS, histórico, PDF, imagem, Vade ou Drive foi regravado.
