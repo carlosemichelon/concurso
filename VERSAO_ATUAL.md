@@ -1,3 +1,19 @@
+# Banco Mestre — V161: botão literal de lei seca por cartão (13/11/2026)
+
+**Motivo:** Na V160, ocultar o resumo do verso não exibia o texto legal. A V161 substitui (não sobrepõe) `v160_lei_seca_toggle.js` por `assets/v161_lei_seca_literal.js`; o texto explicativo e o verso canônico são mantidos inalterados.
+
+**Comportamento:** Cada cartão de legislação tem botão visível na frente, **“📜 Mostrar lei seca”** / **“📜 Ocultar lei seca”**. O controle apresenta apenas o dispositivo literal acompanhado da norma, artigo, alcance da transcrição e link à fonte. Não abre automaticamente a resposta original. Mantém estado temporário por ID durante filtros e navegação na sessão, sem gravar SRS/localStorage.
+
+**Cobertura auditada desta etapa:** `assets/lei_seca_literais_v161.json` contém 36 IDs públicos; `assets/lei_seca_ijui_v161.json` contém 15 cartões operacionais de Ijuí; os três versos legais da Lei 15.190/2025 (CARD-1495/1496/1497) são reaproveitados na íntegra. Resultado: 39/65 cartões públicos de Legislação, 15/22 Ijuí = 54/87 com trecho de lei seca documentado, sem transformar resumos em citações. Os demais 33 continuam como **“Lei seca a conferir”** ao tocar no botão; isto não significa que uma transcrição foi concluída. Fontes e alcances constam dos JSONs. Em V045 privada, usar apenas registros verificados e não copiar dados ao GitHub.
+
+**Alerta jurídico:** O original PROP-IJUI-001 cita a Lei 7.540/2024 art. 2º, mas a definição de cargo/investidura foi encontrada nos arts. 2º e 3º da Lei 3.871/2001, em PDF disponibilizado pela Câmara Municipal; o módulo apresenta a transcrição **com alerta de divergência**, sem editar o ID e a referência original. Não realizar promoção canônica nem migração silenciosa.
+
+**Preservação:** 1.499 IDs públicos (1.482 ativos), 22 Ijuí, 1.518 IDs do Drive privado opcional, SRS e histórias, 78 PDFs, 86 imagens, Vade e grifos preservados. Apenas o HTML loader, o manifesto, o redirecionamento e módulos de apresentação foram modificados.
+
+**Verificação:** JavaScript do módulo e loader conferidos sintaticamente, JSON com IDs únicos e fontes HTTPS; teste visual em sessão de usuário real, inclusive Google OAuth privado, permanece pendente.
+
+---
+
 # Banco Mestre — V160: ocultar e revelar a lei seca (13/11/2026)
 
 **Publicação:** `gh-pages/v160.html`, novo módulo `assets/v160_lei_seca_toggle.js`. Entrada `index.html` e manifesto `assets/version.json` apontam para V160. A V159 foi preservada.
