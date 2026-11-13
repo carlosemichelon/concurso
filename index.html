@@ -5,13 +5,13 @@
 <meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
 <style>body{font:16px/1.6 system-ui,Arial,sans-serif;background:#f3f7f6;color:#183438;margin:0;padding:8vh 5vw;max-width:700px}a{color:#006e68;font-weight:700}small{display:block;margin-top:14px;color:#526b6f}</style>
 </head><body><h1>Banco Mestre</h1><p id="st">Verificando a edição mais recente do portal...</p>
-<p><a id="entrar" href="./v166.html?versao=V166">Abrir Banco Mestre V166</a></p>
+<p><a id="entrar" href="./v167.html?versao=V167">Abrir Banco Mestre V167</a></p>
 <small>Este endereço verifica qual versão publicar. Caso não redirecione, clique em Abrir Banco Mestre.</small>
 <script>
 (function(){
- var fallback='V166';
+ var fallback='V167';
  function cardParam(){var id=new URLSearchParams(location.search).get('cartao');return id&&/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Z0-9_-]+)$/i.test(id)?'&cartao='+encodeURIComponent(id):'';}
  function go(version){if(!/^V[0-9]{3}$/.test(version))version=fallback;var link='v'+version.slice(1)+'.html?versao='+version+'&nova='+Date.now()+cardParam()+location.hash;document.getElementById('entrar').href=link;location.replace(new URL(link,location.href).href);}
- fetch('./assets/version.json?verificar='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('Manifesto indisponível');return r.json()}).then(function(v){go(v.version)}).catch(function(){document.getElementById('st').textContent='Não foi possível verificar a atualização. Acesse diretamente a versão V166 pelo link abaixo.';document.getElementById('entrar').href='./v166.html?versao=V166&nova='+Date.now()+cardParam()+location.hash;});
+ fetch('./assets/version.json?verificar='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('Manifesto indisponível');return r.json()}).then(function(v){go(v.version)}).catch(function(){document.getElementById('st').textContent='Não foi possível verificar a atualização. Acesse diretamente a versão V167 pelo link abaixo.';document.getElementById('entrar').href='./v167.html?versao=V167&nova='+Date.now()+cardParam()+location.hash;});
 })();
 </script></body></html>

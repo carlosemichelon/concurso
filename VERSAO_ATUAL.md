@@ -1,3 +1,19 @@
+# Banco Mestre V167 — Assuntos e subassuntos responsivos (13/11/2026)
+
+## Navegação e apresentação
+- O link `#tema?g=ENG_GERAL&s=Estruturas%20%2F%20Resist%C3%AAncia%20dos%20materiais` continua compatível com o mecanismo de restauração por grupo e título da V126. Assunto vinculado a 10 cartões originalmente `ENG_MATERIAIS`, sem reclassificar IDs nem afirmar vinculação temática como revisão.
+- Nova camada `assets/v167_topic_ui.js`: barra com atalhos Subassuntos, Macetes, Imagens e PDFs, Relações; botões **Expandir todos**/**Recolher todos**; subassuntos com contagens e índice compacto; IDs separados visualmente da pergunta.
+- Macetes, imagens/PDFs e relações aparecem em painéis recolhíveis. As seções `topicOverview`, `topicMacetes`, `topicRelated` originalmente ocultas são reveladas somente quando têm conteúdo e respeitam o acionamento do usuário.
+- Novo CSS `assets/v167_assuntos_responsivos.css`: fontes maiores e contrastadas, títulos legíveis, ações para toque, espaçamentos adequados, cartões em 2 colunas apenas no desktop amplo (≥1110px) e 1 coluna no celular; navegação horizontal para telas estreitas; grade de imagens proporcional.
+- Cópia versionada `assets/v167_assuntos_rapidos.js` preserva a navegação e o material de V126; **Estudar no pop-up** chama `window.BM166Reader.open(id)` quando presente. Sem interação automática com SRS; se o pop-up estiver indisponível, mantém a navegação antiga como fallback.
+- Os textos literais do verso e os campos canônicos nunca são sobrescritos. Alterações nos títulos de cartão são somente na DOM de apresentação, para separar ID e pergunta.
+
+## Integridade
+- `gh-pages` continua a branch publicada; V166 intacta; índice, histórico, SRS, V045 privada, PDFs, Atlas e Vade não editados.
+- Sintaxe dos módulos e carregamento versionado auditados. Teste visual/interativo autenticado no navegador do usuário ainda não homologado.
+
+---
+
 # Banco Mestre V166 — leitor funcional e avaliação local (13/11/2026)
 
 ## Correção funcional
