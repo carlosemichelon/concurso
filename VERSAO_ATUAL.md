@@ -1,3 +1,11 @@
+# Versão principal RESTAURADA: V164 (13/11/2026)
+
+**Decisão do usuário:** desfazer a escolha das interfaces V165, V166 e V167 e voltar ao portal V164. A branch publicada `gh-pages` mantém os arquivos históricos, sem os excluir nem reescrever, mas a entrada `index.html` e o manifesto `assets/version.json` agora direcionam para `v164.html`.
+
+O rollback é somente da **versão ativa**: não substitui dados, SRS, IDs, PDFs, imagens, registros locais, Drive ou conteúdo canônico. Links que apontem **explicitamente** para `v165.html`, `v166.html` ou `v167.html` continuarão abrindo suas versões históricas. Acesse o endereço principal ou `v164.html` para usar a interface restaurada.
+
+---
+
 # Banco Mestre V167 — Assuntos e subassuntos responsivos (13/11/2026)
 
 ## Navegação e apresentação
