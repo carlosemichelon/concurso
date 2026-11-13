@@ -1,3 +1,21 @@
+# Banco Mestre V166 — leitor funcional e avaliação local (13/11/2026)
+
+## Correção funcional
+A V165 foi relatada como não funcional ao clicar em cartões. V166 usa `assets/v166_card_reader.js` como leitor independente; elimina o módulo de navegação V165 no loader e mantém desativado o V060 gerador de cabeçalho individual. Um clique na superfície ou no botão **Abrir estudo** abre diretamente a janela pop-up. Links `?cartao=ID` abrem a biblioteca com a janela do cartão, sem filtros individuais. Lista de outros cartões, busca e anterior/próximo permanecem na mesma janela.
+
+## Conteúdo, campos e formatação
+A pergunta e a escrita aparecem primeiro. Explicações, resposta-modelo, verso literal preservado e macetes vêm em seções com rolagem. Lei seca tem controle independente, apenas para texto literal verificado e com fonte. Informações editoriais/administrativas do cartão ficam recolhidas em **Cadastro e referências**, sem ocupar a frente. O conteúdo canônico original é clonado para visualização quando disponível; nunca é modificado.
+
+## Registro de respostas e classificação
+O botão **Registrar e comparar** salva a resposta no armazenamento local `BM_V037_CARTAO_GUIA_{id}`, acrescentando evento `resposta_discursiva_nao_avaliada`. Após comparar, o usuário pode atribuir **Errei (4 d), Difícil (8 d), Bom (16 d), Fácil (28 d)**. A avaliação é gravada separadamente em `BM_V166_AVALIACOES_LOCAIS_V1`, vinculada ao ID da tentativa e com prazo-base *sugerido*. Não realiza o cálculo completo de repetição (multiplicador/teto), não cria evento no SRS canônico nem sincroniza com Drive. Mudar a classificação da mesma tentativa atualiza o registro local sem criar um evento duplicado. **Consultar sem registrar** libera a correção sem gerar tentativa.
+
+É possível copiar o pedido de correção para uma conversa do ChatGPT: o site estático não oferece avaliação automática. A exportação JSON inclui as respostas locais, as classificações e `revisoes` compatíveis com o formato de importação do Calendário SRS local (sem alterar o histórico oficial).
+
+## Proteção de dados
+Sem mudanças nos 1.499 cartões públicos, 22 operacionais de Ijuí, 1.518 privados opcionais, histórico F17, IDs, Vade, PDFs, imagens e revisões oficiais. V165 e anteriores intactas. Testes estáticos e funcionais simulados executados; homologação em navegador real autenticado ainda pendente.
+
+---
+
 # Banco Mestre — V165: somente biblioteca + pop-up completo (13/11/2026)
 
 **Ajustes solicitados:** As duas barras de "Cartão individual" da captura eram geradas pelos módulos V060 e V163, carregados juntos. A V165 não carrega nenhum deles, mantendo a biblioteca como interface única. O filtro continua na biblioteca, mas deixa de existir uma página individual com filtros redundantes. Os links antigos `?cartao=PROP-IJUI-001` passam a abrir o pop-up do cartão automaticamente.
