@@ -1,3 +1,13 @@
+# Banco Mestre — V158: correção de cartão individual e retorno (12/11/2026)
+
+**Problema confirmado:** o link `v055.html?cartao=CARD-0130#cartoes` abre a edição histórica V055. O módulo `assets/v055_card_window.js` também continha **endereços fixos V055** para abrir um cartão e para o botão **Voltar aos cartões**, causando retorno a uma versão obsoleta.
+
+**Correções publicadas:** o antigo `v055.html` redireciona somente links seguros com `?cartao=ID` para `index.html`; o redirecionador `index.html` preserva o ID validado e o fragmento, encaminhando à versão mais recente (`V158`). O novo `assets/v158_card_window.js`, carregado em `v158.html`, abre uma visualização individual numa aba separada por `index.html?cartao=CARD-0130#cartoes`, sem antecipar a resposta, preservando o verso e sem alterar dados; **Voltar aos cartões** direciona a `index.html#cartoes` (versão atual). Há acesso aos PDFs atuais no mesmo menu.
+
+**Auditoria:** `CARD-0130` localizado em `cards_public_v024_000.json`, sobre Qi e Qf de redes coletoras (NBR 9649). Bootstrap da versão nova gerou ~50 mil caracteres, scripts internos sem erros de sintaxe, com arquivos V157 de sincronização privada, V156 de imagens, V154 de Vade, V152 de flashcards e catálogo de 78 PDFs mantidos. Simulação das URLs validou: abertura individual, retorno, redirecionamento de V055, preservação da busca por ID no index e rejeição de parâmetros inválidos. Nenhum SRS, cartão, grifo ou PDF foi modificado. **Teste dentro do navegador real do usuário não realizado.**
+
+---
+
 # Banco Mestre — V157: sincronização privada da Parte 12 (12/11/2026)
 
 A página publicada em `gh-pages/index.html` direciona para `v157.html`, mantendo `v156.html` e o catálogo público V024 H14 intactos. O módulo `assets/v157_private_sync.js` acrescenta em **Flashcards** a opção **Conectar Drive e carregar V045**. A autorização Google OAuth é de **somente leitura**, por ação do usuário; tokens e dados não são escritos no GitHub, localStorage ou IndexedDB.
