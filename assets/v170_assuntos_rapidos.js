@@ -104,13 +104,11 @@ function makeTopicNote(title,subtitle,text){
 
 /* V169: somente mídia do assunto, sob demanda e sem disparar novo pdfInit duplicado. */
 let bm169MediaSequence=0;
-let bm169ThumbObserver=null;
 let bm170TopicRequest=0;
 function showTopicImages(t){
  const root=byId('topicMedia');
  if(!root)return;
  const run=String(++bm169MediaSequence);
- if(bm169ThumbObserver){bm169ThumbObserver.disconnect();bm169ThumbObserver=null;}
  root.dataset.bm169Run=run;
  root.replaceChildren();
  addTitle(root,'Imagens e PDFs do assunto');
@@ -120,7 +118,6 @@ function showTopicImages(t){
   (r.relations||[]).some(rel=>rel.group===t.group&&rel.subject===t.subject)
  );
  addPara(root,results.length?results.length+' imagem(ns) com associação de assunto documentada ou compatível com título específico. Verifique a indicação de fonte: a classificação por título não é auditoria do conteúdo técnico da imagem.':'Nenhuma imagem com correspondência específica confirmada para este assunto; o Atlas mantém os arquivos sem associação automática.');
- const pendingThumbs=[];
  if(results.length){
   const grid=document.createElement('div');grid.className='topicVisualGrid bm169-topic-images';
   const byImageId=new Map(meta.images.map(x=>[x.no,x]));
@@ -128,25 +125,23 @@ function showTopicImages(t){
    const x=byImageId.get(rec.id);if(!x)continue;
    const div=document.createElement('article');div.className='topicVisualCard bm169-topic-card';
    const img=document.createElement('img');
-   img.loading='lazy';img.decoding='async';img.width=420;img.height=240;
+   img.loading=grid.children.length<3?'eager':'lazy';img.decoding='async';img.width=420;img.height=240;
+   if(grid.children.length<3)img.setAttribute('fetchpriority','high');
    img.alt='Imagem '+rec.id+' — '+rec.title;img.title='Clique para ampliar e grifar '+rec.id;
    img.onclick=async()=>{if(!imgs.length)await loadImages();await imgOpen(x)};
    div.append(img);
    const markUnavailable=()=>{
     if(root.dataset.bm169Run!==run||!img.isConnected)return;
-    img.alt='Miniatura indisponível: '+rec.id+' — abrir pelo identificador';
+    img.alt='Miniatura indisponível; abrir pelo identificador '+rec.id;
     img.classList.add('imageMissing');
    };
-   const loadPreview=()=>{
-    if(img.dataset.bm169Requested)return;
-    img.dataset.bm169Requested='1';
-    Promise.resolve(x.external?x.preview_url:thumb(x)).then(src=>{
-     if(root.dataset.bm169Run!==run||!img.isConnected)return;
-     if(!src){markUnavailable();return;}
-     img.onerror=markUnavailable;img.src=src;
-    }).catch(markUnavailable);
+   img.onerror=()=>{
+    img.onerror=null;
+    if(x.external){markUnavailable();return}
+    void thumb(x).then(t=>{if(t&&img.isConnected&&root.dataset.bm169Run===run)img.src=t;else markUnavailable()}).catch(markUnavailable);
    };
-   pendingThumbs.push({img,loadPreview});
+   const src=x.external?x.preview_url:(/^IMG-\d{3}$/.test(rec.id)?'assets/topic_thumbs_v170/'+rec.id+'.jpg':null);
+   if(src)img.src=src;else markUnavailable();
    const ident=chip(rec.id,async()=>{if(!imgs.length)await loadImages();await imgOpen(x)});
    ident.className='media-ref';div.append(ident);
    const title=document.createElement('p');title.textContent=rec.title;div.append(title);
@@ -161,17 +156,6 @@ function showTopicImages(t){
    grid.append(div);
   }
   root.append(grid);
- }
- if(pendingThumbs.length){
-  if(typeof IntersectionObserver==='function'){
-   bm169ThumbObserver=new IntersectionObserver(entries=>{
-    for(const entry of entries)if(entry.isIntersecting){
-     const rec=pendingThumbs.find(x=>x.img===entry.target);
-     if(rec){bm169ThumbObserver?.unobserve(entry.target);rec.loadPreview();}
-    }
-   },{rootMargin:'320px 0px',threshold:0.01});
-   for(const rec of pendingThumbs)bm169ThumbObserver.observe(rec.img);
-  }else for(const rec of pendingThumbs)rec.loadPreview();
  }
  const pdfHolder=document.createElement('div');pdfHolder.className='bm169-topic-pdf-holder';
  root.append(pdfHolder);
