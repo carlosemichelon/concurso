@@ -1,0 +1,42 @@
+/* Banco Mestre V169 — imagens visíveis primeiro na aba Assuntos.
+ * Alterações restritas ao layout da seção de mídia, sem mudar conteúdos. */
+#tema .bm169-topic-images{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));
+ gap:12px;
+ margin:12px 0 18px;
+ align-items:start;
+}
+#tema .bm169-topic-card{
+ min-width:0;
+ border:1px solid #d3e2de;
+ border-radius:10px;
+ padding:11px;
+ background:#fff;
+ overflow:hidden;
+}
+#tema .bm169-topic-card img{
+ display:block;
+ width:100%;
+ height:185px;
+ max-width:100%;
+ object-fit:contain;
+ background:#f2f7f6;
+ border:1px solid #e1e9e7;
+ border-radius:7px;
+ margin:0 0 10px;
+ cursor:zoom-in;
+}
+#tema .bm169-topic-card img.imageMissing{object-fit:contain;background:#f9f6f2}
+#tema .bm169-topic-card p{font-size:13px;line-height:1.5;overflow-wrap:anywhere;margin:8px 0 6px}
+#tema .bm169-topic-card small{font-size:11px;line-height:1.5;display:block}
+#tema .bm169-topic-card button.media-ref{min-height:40px;padding:7px 10px}
+#tema .bm169-topic-pdf-holder{display:block;margin:10px 0 16px}
+#tema .bm169-topic-pdf-holder .bm169-pdf-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+#tema .bm169-topic-pdf-holder button{min-height:42px;max-width:100%;overflow-wrap:anywhere;white-space:normal;text-align:left}
+#tema .bm169-media-status{font-size:12px;color:#5c767a;line-height:1.55;margin:10px 0}
+@media(max-width:620px){
+ #tema .bm169-topic-images{grid-template-columns:1fr;gap:11px}
+ #tema .bm169-topic-card img{height:200px}
+ #tema .bm169-topic-card{padding:10px}
+}
