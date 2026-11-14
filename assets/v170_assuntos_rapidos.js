@@ -144,7 +144,7 @@ function showTopicImages(t){
     if(x.external){markUnavailable();return}
     void thumb(x).then(t=>{if(t&&img.isConnected&&root.dataset.bm169Run===run)img.src=t;else markUnavailable()}).catch(markUnavailable);
    };
-   const src=x.external?x.preview_url:(/^IMG-\d{3}$/.test(rec.id)?'assets/topic_thumbs_v170/'+rec.id+'.jpg':null);
+   const src=x.external?(String(x.preview_url||'').startsWith('https://drive.google.com/thumbnail?')?String(x.preview_url).replace(/([?&])sz=w\d+/,'$1sz=w600'):x.preview_url):(/^IMG-\d{3}$/.test(rec.id)?'assets/topic_thumbs_v170/'+rec.id+'.jpg':null);
    if(src)img.src=src;else markUnavailable();
    const ident=chip(rec.id,async()=>{if(!imgs.length)await loadImages();await imgOpen(x)});
    ident.className='media-ref';div.append(ident);
