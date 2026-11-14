@@ -1,3 +1,18 @@
+# Banco Mestre V171 — mídias do assunto somente sob demanda (14/11/2026)
+
+Motivação: na V170, o usuário relatou demora excessiva e textos sem valor na seção "Imagens e PDFs do assunto" ao navegar em Assuntos com S Pen. Muitas matérias não têm imagem vinculada e exibiam mensagens genéricas e PDFs escolhidos por semelhança de título.
+
+Correção:
+- O assunto abre mostrando **apenas um botão textual** "Consultar imagens e PDFs deste assunto". Nenhuma miniatura ou catálogo rápido de PDFs é solicitado pelo módulo do assunto antes da ativação desse botão. Movimento/hover com S Pen não abre a biblioteca, apenas um clique/toque intencional.
+- Ao acionar, a galeria e os links anteriores são carregados usando os JPEGs e o índice PDF compacto da V170. Não exibir o texto longo "Nenhuma imagem com correspondência..." quando não houver imagens. Manter breve observação de que sugestões por título não comprovam vínculo documental.
+- O módulo original V037 foi clonado para `assets/v171_assuntos_navegacao.js` e deixa de anexar automaticamente blocos de PDFs à página ao fim da leitura de cartões; a consulta sob demanda ainda recupera PDFs por categoria quando o catálogo principal já estiver disponível.
+- Arquivos novos: `v171.html`, `assets/v171_assuntos_rapidos.js`, `assets/v171_assuntos_navegacao.js` e `assets/v171_topic_media_on_demand.css`. Sem novos ícones; botão acessível a dedo, mouse e S Pen.
+- V170 permanece disponível, e backup anterior à intervenção: `backup/v170-before-on-demand-topic-media-v171-2026-11-14`.
+- Base preservada: 1.499 cartões (1.482 ativos), 86 imagens, 78 PDFs, conteúdo e resposta integral dos cartões, SRS, grifos, dados locais e permissões Google Drive.
+- Auditoria estática de sintaxe, referências e gatilho de ativação concluída. O comportamento e o desempenho no dispositivo Android/S Pen ainda precisam de teste real.
+
+---
+
 # Banco Mestre V170 — imagens e PDFs imediatamente dentro do assunto (14/11/2026)
 
 Nova versão baseada em V169 com prioridade para mídia na entrada do assunto, sem alterar acervo canônico ou leitores históricos.
