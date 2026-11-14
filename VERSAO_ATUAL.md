@@ -1,3 +1,18 @@
+# Banco Mestre V168 — Outros cartões no celular (14/11/2026)
+
+A nova versão publicada utiliza a interface e o leitor V165 como base, acrescentando apenas `assets/v168_mobile_related.css` e `assets/v168_mobile_related.js` em `v168.html`.
+
+- Em telas de até 760 px, o painel **Outros cartões** começa recolhido; ao tocar no botão, aparece como gaveta com lista vertical rolável, pesquisa e seleção legível por ID e pergunta.
+- A gaveta oferece fechamento explícito, fechamento ao tocar fora, retorno à pergunta após escolher outro cartão e Escape para fechar a lista antes de fechar o cartão.
+- Os itens têm maior área de toque e fonte legível; entrada de busca com 16 px evita zoom automático em dispositivos móveis que aplicam essa regra.
+- No desktop, o comportamento de barra lateral da V165 é mantido. A interface V165 permanece preservada integralmente como alternativa.
+- Não foram alterados dados, IDs, versos, históricos, SRS, armazenamento do navegador, PDFs, imagens, Vade Mecum nem conexões com Google Drive.
+- A alteração está restrita à navegação visual. O relato anterior de cartões que não abrem em todos os caminhos de acesso ainda requer teste de reprodução com IDs específicos; não declarar resolução generalizada.
+- Validação: referências, estrutura da montagem V062 e contratos DOM conferidos estaticamente; homologação visual no navegador Android real ainda pendente.
+- Backup de código pré-ativação: `backup/v165-before-activate-v168-mobile-2026-11-14`.
+
+---
+
 # Versão principal: V165 — decisão do usuário (13/11/2026)
 
 O usuário preferiu o layout V165 em vez do V164. O arquivo v165.html foi preservado sem modificações e é novamente a versão ativa da publicação. O endereço principal redireciona à V165; links específicos para V164, V166 e V167 permanecem válidos como históricos. Nenhum cartão, ID, SRS, resposta, imagem, PDF ou dado do Google Drive foi alterado. Esta alteração muda apenas ponteiros de versão e a documentação.
