@@ -1,0 +1,35 @@
+/* V171: o conteúdo de mídia nunca inicia automaticamente na aba de Assuntos.
+   Acesso textual, sem ícone novo, compatível com toque e S Pen. */
+#tema #topicMedia.bm171-media-closed{
+ display:block!important;
+ border:0!important;
+ box-shadow:none!important;
+ background:transparent!important;
+ padding:0!important;
+ margin:8px 0 14px!important;
+ min-height:0!important;
+}
+#tema #topicMedia.bm171-media-closed .bm171-open-media{
+ display:block;
+ max-width:100%;
+ width:auto;
+ min-height:44px;
+ padding:10px 14px;
+ border:1px solid #b7d1cd;
+ border-radius:8px;
+ background:#fff;
+ color:#214d54;
+ font:700 14px/1.4 system-ui,Arial,sans-serif;
+ text-align:left;
+ cursor:pointer;
+ touch-action:manipulation;
+}
+#tema #topicMedia.bm171-media-closed .bm171-open-media:hover{
+ border-color:#85aaa6;background:#f6faf9;
+}
+#tema #topicMedia.bm171-media-closed .bm171-open-media:focus-visible{
+ outline:2px solid #327a7b;outline-offset:3px;
+}
+@media(max-width:620px){
+ #tema #topicMedia.bm171-media-closed .bm171-open-media{width:100%}
+}
