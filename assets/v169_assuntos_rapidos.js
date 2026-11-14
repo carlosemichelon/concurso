@@ -35,7 +35,7 @@ function tokenButton(token){
    try{if(!meta)await loadMeta();if(!imgs.length)await loadImages();const x=meta.images.find(i=>i.no===normalized);if(!x){alert('Imagem não localizada no Atlas: '+normalized);return}await imgOpen(x)}
    catch(e){alert('Não foi possível abrir '+normalized+': '+e.message)}
   }else{
-   if(!docs.length)await pdfInit();
+   if(!docs.length)await (window.BM169PdfInitPromise||pdfInit());
    const p=docs.find(x=>x.id.toUpperCase()===normalized);
    if(p)pdfOpen(p);else alert('PDF não localizado no catálogo: '+normalized);
   }
