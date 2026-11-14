@@ -1,3 +1,19 @@
+# Banco Mestre V169 — carregamento progressivo de mídias em Assuntos (14/11/2026)
+
+A V169 herda a interface V168 e corrige somente o caminho de abertura dos assuntos e a montagem das imagens/PDFs relacionados. Arquivos novos `v169.html`, `assets/v169_assuntos_rapidos.js` (cópia controlada do módulo V126) e `assets/v169_topic_media_fast.css`.
+
+- O assunto aparece com título e indicador de carregamento antes de terminar a leitura da base; a chegada dos PDFs não impede a visualização de seus cartões.
+- A inicialização original de PDFs continua ocorrendo **uma só vez**; a V169 expõe sua Promise para o assunto esperar os links de modo não bloqueante, sem repetir a montagem de toda a biblioteca. Links acionados por ID reutilizam a mesma inicialização quando ela está pendente.
+- Miniaturas do assunto são requisitadas somente ao se aproximarem da área visível (`IntersectionObserver`, margem de 320 px). As sete partes históricas `img_live_v154_00...06.json`, que contêm 70 imagens, permanecem intactas; os 16 recortes externos também. Sem `IntersectionObserver`, mantém-se carregamento convencional como fallback.
+- A lista dos PDFs usa as associações por título já presentes; a camada V036 continua responsável pelos capítulos e PDFs da mesma disciplina. Não amplia artificialmente vínculos documentais.
+- Proteção contra resultados atrasados: cada abertura de assunto tem token de renderização e descarta miniaturas/PDFs que chegarem após a troca de tema.
+- O Google Drive pode continuar demorando para abrir o **arquivo PDF original** ou uma miniatura externa, conforme conexão e autorização; V169 reduz bloqueios da interface, não muda o serviço.
+- Base pública V024 H14, 1.499 IDs, 1.482 ativos, cartões e versos, histórico/SRS, 78 PDFs, 86 imagens, Vade, grifos, arquivos Drive e preferências locais preservados. V168 e anteriores continuam acessíveis.
+- Verificações estáticas de sintaxe, referências e integridade concluídas; medições e homologação em navegador Android/Google OAuth permanecem pendentes.
+- Backup de código antes da ativação: `backup/v168-before-topic-media-v169-2026-11-14`.
+
+---
+
 # Banco Mestre V168 — Outros cartões no celular (14/11/2026)
 
 A nova versão publicada utiliza a interface e o leitor V165 como base, acrescentando apenas `assets/v168_mobile_related.css` e `assets/v168_mobile_related.js` em `v168.html`.
