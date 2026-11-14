@@ -105,6 +105,10 @@ function makeTopicNote(title,subtitle,text){
 /* V169: somente mídia do assunto, sob demanda e sem disparar novo pdfInit duplicado. */
 let bm169MediaSequence=0;
 let bm170TopicRequest=0;
+const bm170QuickPdf=fetch('assets/topic_pdf_links_v170.json',{cache:'force-cache'})
+ .then(async r=>{if(!r.ok)throw Error('Catálogo rápido não acessível');return r.json()})
+ .then(d=>{if(d.format!=='BancoMestreTopicPDFLinksV170'||d.documents?.length!==78)throw Error('Índice PDF incompatível');return d.documents})
+ .catch(e=>{console.warn('PDFs do assunto:',e);return null});
 function showTopicImages(t){
  const root=byId('topicMedia');
  if(!root)return;
@@ -159,29 +163,28 @@ function showTopicImages(t){
  }
  const pdfHolder=document.createElement('div');pdfHolder.className='bm169-topic-pdf-holder';
  root.append(pdfHolder);
- const renderPdfs=()=>{
+ const renderPdfs=(fast)=>{
   if(root.dataset.bm169Run!==run||!pdfHolder.isConnected)return;
   pdfHolder.replaceChildren();
-  if(!Array.isArray(docs)||!docs.length){
+  const source=docs.length?docs:(Array.isArray(fast)?fast:[]);
+  if(!source.length){
    addPara(pdfHolder,'O catálogo de PDFs não ficou disponível. Você ainda pode consultar a biblioteca de PDFs.','contextNote');
    return;
   }
   const keys=[...new Set(plain(t.subject).split(/[^a-z0-9]+/).filter(w=>w.length>=6&&!['gerais','estudo','assunto','concurso','revisao','licenciamento'].includes(w)))];
-  const pdfs=docs.filter(d=>keys.some(w=>plain(d.title).includes(w))).slice(0,7);
+  const pdfs=source.filter(d=>keys.some(w=>plain(d.title).includes(w))).slice(0,7);
   if(pdfs.length){
    const wrap=document.createElement('div');wrap.className='chipLinks bm169-pdf-links';
-   for(const p of pdfs)wrap.append(chip('PDF · '+p.id+' — '+p.title.slice(0,35),()=>pdfOpen(p)));
+   for(const p of pdfs)wrap.append(chip('PDF · '+p.id+' — '+p.title.slice(0,35),()=>pdfOpen(docs.find(x=>x.id===p.id)||p)));
    addPara(pdfHolder,'PDFs sugeridos por correspondência de termos no título — referências temáticas, não vínculo documental confirmado.');
    pdfHolder.append(wrap);
   }
 
  };
- if(docs.length)renderPdfs();
+ if(docs.length)renderPdfs(docs);
  else{
-  addPara(pdfHolder,'Carregando referências de PDFs sem bloquear a leitura do assunto…','bm169-media-status');
-  const ready=window.BM169PdfInitPromise;
-  if(ready&&typeof ready.then==='function')void ready.then(renderPdfs).catch(renderPdfs);
-  else if(typeof pdfInit==='function')void pdfInit().then(renderPdfs).catch(renderPdfs);
+  addPara(pdfHolder,'Localizando PDFs relacionados…','bm169-media-status');
+  void bm170QuickPdf.then(renderPdfs).catch(()=>renderPdfs(null));
  }
 }
 
