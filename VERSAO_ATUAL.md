@@ -1,3 +1,19 @@
+# Banco Mestre V170 — imagens e PDFs imediatamente dentro do assunto (14/11/2026)
+
+Nova versão baseada em V169 com prioridade para mídia na entrada do assunto, sem alterar acervo canônico ou leitores históricos.
+
+- O bloco `#topicMedia` é movido **somente na interface** para imediatamente depois do resumo inicial, antes da lista extensa de cartões. O assunto mostra título, galeria e links antes de concluir o processamento dos cartões.
+- As 70 miniaturas históricas agora têm arquivos JPEG públicos separados `assets/topic_thumbs_v170/IMG-XXX.jpg`; são cópias byte a byte das imagens compactas já publicadas nos sete JSONs `img_live_v154_00...06.json`, que permanecem intactos. A primeira faixa de até três miniaturas usa prioridade de carregamento; as seguintes usam lazy load. Na falta de um JPG, há fallback ao `thumb(x)` antigo.
+- Os 16 recortes Petrobras P10 permanecem referenciando a fonte Google Drive. A visualização usa miniatura de largura de 600 px em vez de pedir a versão `w2400`, sem alterar o acesso ao original.
+- Índice de leitura rápida `assets/topic_pdf_links_v170.json`, com 78 referências, construído dos IDs e links já constantes de `pdf_catalog_v149.json`; a lista aparece sem aguardar a inicialização/renderização de toda a biblioteca de PDFs. O PDF original continua acessado pelos leitores e permissões existentes.
+- No celular, a galeria é uma faixa horizontal rolável, evitando uma coluna muito alta antes dos conceitos. Botões permanecem acessíveis por ID.
+- Código novo `assets/v170_assuntos_rapidos.js` e `assets/v170_topic_speed.css`; `v170.html` herda todos os demais componentes da V169 (inclusive a gaveta de cartões da V168). V169 e anteriores permanecem intocados.
+- Contagens esperadas: 1.499 cartões canônicos, 1.482 ativos, 86 imagens ativas (70 JPEG históricos +16 Drive), 78 PDFs. Sem alteração de IDs, SRS, grifos, respostas, Histórico F17, vade, dados privados ou edição dos arquivos do Drive.
+- Testes estáticos de sintaxe e presença dos arquivos concluídos, incluindo conferência dos 70 JPEGs e 78 entradas PDF. Sem medição de tempo ou homologação em navegador Android autenticado: o tempo real depende de dispositivo, conexão e rede Google.
+- Backup pré-mudança: `backup/v169-before-topic-image-speed-v170-2026-11-14`.
+
+---
+
 # Banco Mestre V169 — carregamento progressivo de mídias em Assuntos (14/11/2026)
 
 A V169 herda a interface V168 e corrige somente o caminho de abertura dos assuntos e a montagem das imagens/PDFs relacionados. Arquivos novos `v169.html`, `assets/v169_assuntos_rapidos.js` (cópia controlada do módulo V126) e `assets/v169_topic_media_fast.css`.
