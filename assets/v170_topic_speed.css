@@ -1,0 +1,49 @@
+/* Banco Mestre V170 — galeria rápida de mídias no topo do assunto.
+   Camada visual, sem tocar arquivos, IDs ou dados locais. */
+#tema #topicMedia{
+ display:block!important;
+ margin:12px 0 18px;
+ padding:12px 13px;
+ border:1px solid #d3e3df;
+ border-radius:12px;
+ background:#f8fbfa;
+ min-height:68px;
+}
+#tema #topicMedia>.sectionTitle{font-size:16px;line-height:1.4;margin:0 0 8px;color:#244f55}
+#tema .bm170-gallery{margin:12px 0 10px}
+#tema .bm170-card{min-width:0;content-visibility:auto;contain-intrinsic-size:auto 285px}
+#tema .bm170-card img{
+ display:block;
+ width:100%;
+ height:170px;
+ object-fit:contain;
+ background:#f1f6f5;
+ border-radius:8px;
+}
+#tema .bm170-topic-pdfs{margin-top:10px}
+#tema .bm170-topic-pdfs .bm169-pdf-links{display:flex;gap:7px;flex-wrap:wrap}
+#tema .bm170-topic-pdfs button{min-height:42px}
+@media(max-width:760px){
+ #tema #topicMedia{padding:10px 9px;margin:10px 0 16px}
+ #tema .bm170-gallery{
+  display:flex!important;
+  flex-wrap:nowrap;
+  gap:10px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:2px 3px 9px;
+  scroll-snap-type:x proximity;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+ }
+ #tema .bm170-gallery>.bm170-card{
+  flex:0 0 min(76vw,300px);
+  width:min(76vw,300px);
+  max-width:none;
+  scroll-snap-align:start;
+  padding:9px;
+ }
+ #tema .bm170-gallery>.bm170-card img{height:155px}
+ #tema .bm170-card p{font-size:12px}
+ #tema .bm170-topic-pdfs button{width:100%;text-align:left;justify-content:flex-start}
+}
