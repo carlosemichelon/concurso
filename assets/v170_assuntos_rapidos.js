@@ -105,6 +105,7 @@ function makeTopicNote(title,subtitle,text){
 /* V169: somente mídia do assunto, sob demanda e sem disparar novo pdfInit duplicado. */
 let bm169MediaSequence=0;
 let bm169ThumbObserver=null;
+let bm170TopicRequest=0;
 function showTopicImages(t){
  const root=byId('topicMedia');
  if(!root)return;
@@ -202,13 +203,20 @@ function showTopicImages(t){
 
 async function openTopic(t){
  try{
+  const request=++bm170TopicRequest;
   window.BM054PendingTopic={group:t.group,subject:t.subject};
-   section('tema');
-   byId('topicHeading').textContent=t.subject;
-   byId('topicGroupCaption').textContent=t.area+' · '+t.label;
-   byId('topicStudyBlocks').textContent='Carregando os cartões e subassuntos…';
-   byId('topicMedia').textContent='Preparando as imagens e os PDFs relacionados…';
-   await loadCards();await loadMeta();
+  section('tema');
+  byId('topicHeading').textContent=t.subject;
+  byId('topicGroupCaption').textContent=t.area+' · '+t.label;
+  const mediaNode=byId('topicMedia'),overviewNode=byId('topicOverview');
+  if(mediaNode?.parentNode===overviewNode?.parentNode)overviewNode.after(mediaNode);
+  byId('topicStudyBlocks').textContent='Carregando os cartões e subassuntos…';
+  mediaNode.textContent='Preparando imagens e links dos PDFs…';
+  await loadMeta();
+  if(request!==bm170TopicRequest)return;
+  showTopicImages(t);
+  await loadCards();
+  if(request!==bm170TopicRequest)return;
   // Respect original groups. On visual-only subjects, link same-title cards
   // only if exactly one canonical group owns that subject.
   const direct=cards.filter(c=>(
@@ -349,7 +357,6 @@ async function openTopic(t){
   const tipbox=byId('topicMacetes');tipbox.replaceChildren();
   if(tips.length){for(const x of tips)tipbox.append(makeTopicNote('Macete do acervo','Memorização',x))}
   else addPara(tipbox,'Nenhum macete validado está registrado para este tema.');
-  showTopicImages(t);
   const rel=byId('topicRelated');rel.replaceChildren();
   addTitle(rel,'Relações documentadas e referências');
   if(window.BancoMestreF17?.renderForTopic)await window.BancoMestreF17.renderForTopic(t);
