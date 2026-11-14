@@ -188,23 +188,7 @@ function showTopicImages(t){
    addPara(pdfHolder,'PDFs sugeridos por correspondência de termos no título — referências temáticas, não vínculo documental confirmado.');
    pdfHolder.append(wrap);
   }
-  /* Se a inicialização terminou depois do assunto, preserve também os
-     capítulos da mesma disciplina que a camada V036 exibiria. */
-  if(!root.querySelector('.v036-topic-pdfs')){
-   const terms=new Set(plain(t.subject).split(/[^a-z0-9]+/).filter(w=>w.length>=5&&!['engenharia','assuntos','concreto','normas','gerais','estruturas','materiais'].includes(w)));
-   const groupDocs=docs.filter(d=>d.category===t.group)
-    .map(d=>({doc:d,score:[...terms].filter(w=>plain(d.title).includes(w)).length}))
-    .sort((a,b)=>b.score-a.score||a.doc.title.localeCompare(b.doc.title,'pt-BR'))
-    .filter(x=>!pdfs.some(p=>p.id===x.doc.id)).slice(0,5);
-   if(groupDocs.length){
-    const box=document.createElement('div');box.className='v036-topic-pdfs';
-    addTitle(box,'Capítulos e PDFs da mesma disciplina');
-    addPara(box,'Relação pela classificação do acervo; não significa que o capítulo cubra integralmente este cartão.','v036-topic-pdf-note');
-    const row=document.createElement('div');row.className='v036-topic-pdf-links';
-    for(const item of groupDocs){const b=chip(item.doc.title,()=>pdfOpen(item.doc));b.className='v036-topic-pdf-link';row.append(b);}
-    box.append(row);pdfHolder.append(box);
-   }
-  }
+
  };
  if(docs.length)renderPdfs();
  else{
