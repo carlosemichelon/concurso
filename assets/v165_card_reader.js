@@ -313,8 +313,12 @@ reveal.addEventListener('click',()=>{
   appendAnswer(c);
   // V194: a resposta evolutiva deve ser anexada neste clique, sem depender de MutationObserver.
   const loader=window.BM194VersosPublicos;
-  if(loader&&typeof loader.attachToModal==='function')loader.attachToModal(currentId);
-  else if(loader&&typeof loader.abrirProximoCartao==='function')loader.abrirProximoCartao();
+  const inV194=/V194/.test(document.title);
+  if(loader&&typeof loader.attachToModal==='function'){
+   const shown=loader.attachToModal(currentId);
+   if(inV194&&!shown)answer.append(create('p','bm194-error','Não foi possível ativar o aprofundamento deste cartão. Atualize a página e tente novamente.'));
+  }else if(loader&&typeof loader.abrirProximoCartao==='function')loader.abrirProximoCartao();
+  else if(inV194)answer.append(create('p','bm194-error','Leitor das 11 seções indisponível nesta sessão. Recarregue o site para consultar a resposta evolutiva.'));
  }
  reveal.setAttribute('aria-expanded',String(!answer.hidden));
  reveal.replaceChildren(icon('eye'),document.createTextNode(answer.hidden?'Revelar resposta':'Ocultar resposta'));
