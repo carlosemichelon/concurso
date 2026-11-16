@@ -1056,13 +1056,29 @@
     "classification": "assets/image_classificacao_v156.json",
     "hierarchy": "discipline > general > specific > sub"
   },
+
+  "media_sync_v182": {
+    "status": "code published / OAuth browser session unverified",
+    "site_entry": "v180.html",
+    "metadata_core": "assets/v182_media_core.js",
+    "pdf_reader": "assets/v182_drive_direct.js",
+    "pdf_catalog_sync": "assets/v182_drive_pdf_sync.js",
+    "image_folder_sync": "assets/v182_drive_images_sync.js",
+    "scope": "PDFs com file_id no Drive, imagens da pasta Atlas e miniaturas do Drive atualmente exibidas",
+    "on_open": "PDF sempre verifica versão atual do Drive; SHA-256 local confere bytes antes de reutilizar cache",
+    "on_image_view": "miniaturas visíveis verificadas após autorização, quando carregadas, e novamente ao percorrer a galeria",
+    "manual_action": "Conferir atualizações no Drive: busca PDFs e imagens e atualiza referências da sessão",
+    "privacy": "token OAuth temporário somente na memória; PDF e imagens privados não são publicados no GitHub",
+    "markings": "ID e hash da fonte preservados; não transferir grifos automaticamente entre edições com conteúdo ou paginação diferente",
+    "limitations": "Requer autorização OAuth válida. Arquivos estáticos sem ID Drive, imagens privadas inacessíveis e objetos nunca indexados não podem ser comparados por versão. O navegador real ainda não foi testado."
+  },
   "vade_current": {
     "version": "V181",
     "file_id": "1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI",
     "last_audited_pdf_sha256": "c842ae638ef4b820715a93425fe9541171635cf13938821b3eb21ce7e17c4d5e",
     "opening": "Consultar metadados atuais do Drive; usar cache somente se versão, tamanho, modificação e MD5 corresponderem; caso contrário baixar PDF atualizado",
     "cache": "IndexedDB BancoMestrePDFLocalV035, preservando marcações locais por ID e hash de cada edição, sem migração automática",
-    "reader": "assets/v181_drive_direct.js",
+    "reader": "assets/v182_drive_direct.js",
     "module": "assets/v181_vade_current.js",
     "oauth": "GIS token temporário; sem refresh token persistido em site estático",
     "sync": "Conferência por metadados a cada abertura; não requer novo deploy do site quando a fonte PDF do mesmo ID mudar",
