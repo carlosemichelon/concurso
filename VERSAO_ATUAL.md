@@ -1,3 +1,14 @@
+# Banco Mestre V196 — abas de informações sempre recolhidas (16/11/2026)
+
+- No leitor dos flashcards, **todas as abas de informações** começam fechadas, incluindo as 11 camadas da resposta evolutiva, aprofundamentos, fundamentos, macetes, pegadinhas, fontes, histórico e detalhes da resposta discursiva.
+- Ao reabrir ou trocar de cartão, as abas voltam a ficar recolhidas. Uma aba pode ser expandida manualmente; abas irmãs fecham para evitar sobreposição.
+- **Pergunta visível; verso do cartão só aparece com comando de revelação.** Não fechar uma aba pelo simples carregamento de conteúdo enquanto o estudante a lê.
+- Arquivos V165/V194/V195 e registros preservados; sem modificações em SRS, respostas, PDFs, imagens, Drive ou dados locais.
+- Implementação aditiva: `assets/v196_abas_recolhidas.js`, `v196.html`. Testes de sintaxe e ligação de módulos; visualização real ainda recomendada. Rollback: `v195.html`.
+- [Relatório V196](docs/V196_ABAS_CARTOES_RECOLHIDAS.md).
+
+---
+
 # Banco Mestre V195 — respostas discursivas no portal atual (16/11/2026)
 
 - Adiciona botão **Responder discursivamente** ao leitor de cada cartão, antes da V2. Texto livre, nota de dificuldade e classificação Errei/Difícil/Bom/Fácil.
