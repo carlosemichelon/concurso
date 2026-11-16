@@ -75,12 +75,44 @@ function calculate(){
  try{localStorage.setItem(prefKey,JSON.stringify({minutes:minute,addNew}))}catch{}
  render();
 }
-function openCard(id){
- const input=$('cardSearch');if(input){input.value=id;input.dispatchEvent(new Event('input',{bubbles:true}))}
- if(typeof window.section==='function')window.section('cartoes');
- const job=typeof window.loadCards==='function'?window.loadCards():null;
- Promise.resolve(job).then(()=>{if(input){input.value=id;input.dispatchEvent(new Event('input',{bubbles:true}))}}).catch(console.warn);
- window.scrollTo(0,0);
+let cardOpenRequest=0;
+async function openCard(id,origin){
+ const request=++cardOpenRequest;
+ const sourceButton=origin||document.activeElement;
+ const status=$('c141-status');
+ if(origin)origin.disabled=true;
+ try{
+  let reader=window.BancoMestreVisualizarCardV050;
+  if(!reader||typeof reader.showId!=='function')throw Error('Leitor do popup indisponível.');
+  let opened=reader.showId(id,sourceButton);
+  if(!opened){
+   if(typeof window.loadCards!=='function')throw Error('Carregador de cartões indisponível.');
+   await window.loadCards();
+   if(request!==cardOpenRequest)return;
+   reader=window.BancoMestreVisualizarCardV050;
+   opened=!!reader?.showId?.(id,sourceButton);
+  }
+  if(!opened)throw Error('ID '+id+' não encontrado na biblioteca carregada.');
+  // O popup é aberto SOBRE o planejamento; fechar retorna à tabela sem alterar filtros.
+  const modal=$('bmCardPeekV050'),back=modal?.querySelector('.bm165-footer-close');
+  const label=back&&Array.from(back.childNodes).find(n=>n.nodeType===3);
+  if(label){
+   if(typeof modal.bmSrsBackCleanup==='function')modal.bmSrsBackCleanup();
+   const previous=label.textContent;
+   label.textContent='Voltar ao planejamento SRS';
+   const watcher=new MutationObserver(()=>{if(modal.hidden)restore()});
+   function restore(){
+    watcher.disconnect();label.textContent=previous;delete modal.bmSrsBackCleanup;
+   }
+   modal.bmSrsBackCleanup=restore;
+   watcher.observe(modal,{attributes:true,attributeFilter:['hidden']});
+  }
+ }catch(error){
+  console.warn('Falha ao abrir cartão no Planejamento SRS:',id,error);
+  if(status)status.textContent='Não foi possível abrir '+id+': '+error.message;
+ }finally{
+  if(origin)origin.disabled=false;
+ }
 }
 function render(){
  if(!loaded)return;
@@ -106,7 +138,7 @@ function render(){
     info.append(create('b',item.id+' · '+(item.kind==='novo'?'Novo':item.rating||'Revisão')));
     info.append(create('p',card.front||'Pergunta'));
     info.append(create('small',(card.discipline||'')+' · '+(card.subject||'')+(item.due?' · Venc.: '+dayText(item.due):'')+' · '+item.source));
-    const button=create('button','Ver cartão');button.onclick=()=>openCard(item.id);
+    const button=create('button','Ver cartão');button.type='button';button.onclick=()=>void openCard(item.id,button);
   li.append(info,button);ul.append(li);
    }
    det.append(sum,ul);detailCell.append(det);
