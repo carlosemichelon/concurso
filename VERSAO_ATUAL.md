@@ -1,3 +1,13 @@
+# Banco Mestre V178 — PETROBRAS 14 e índice privado do Atlas (16/11/2026)
+
+- Preservadas as 66 imagens-fonte da Parte 14 no Drive; 38 SVGs receberam prévias PNG separadas e os vetores originais não foram substituídos. Índice privado de 104 registros com referência e hashes, incluindo 13 possíveis imagens enviadas pelo estudante, cuja autoria ainda requer confirmação.
+- Pasta privada de conhecimento V005: 24 versos integrais recuperados, 27 questões históricas Q001–Q027, Q028–Q047 indexadas somente como referências parciais. Os C001/C002/C004 e a transcrição literal integral permanecem pendentes.
+- V178 mantém a galeria V177 e faz leitura autenticada do índice da Parte 14 na raiz privada do Atlas; abre os materiais de cartão em pasta privada separada, sem incluir informações privadas nos arquivos públicos.
+- Sem integração dos novos cartões ao baralho operacional, sem mudança em SRS/IDs/dados locais. O acesso real OAuth no Android e a renderização permanecem sem homologação.
+- Versão V177 preservada. Arquivos novos: `v178.html`, `assets/v178_drive_images_sync.js`; `index.html` e `assets/version.json` apontam V178 após publicação.
+
+---
+
 # Banco Mestre V171 — mídias do assunto somente sob demanda (14/11/2026)
 
 Motivação: na V170, o usuário relatou demora excessiva e textos sem valor na seção "Imagens e PDFs do assunto" ao navegar em Assuntos com S Pen. Muitas matérias não têm imagem vinculada e exibiam mensagens genéricas e PDFs escolhidos por semelhança de título.
