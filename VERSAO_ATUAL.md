@@ -1,3 +1,15 @@
+# Banco Mestre V195 — respostas discursivas no portal atual (16/11/2026)
+
+- Adiciona botão **Responder discursivamente** ao leitor de cada cartão, antes da V2. Texto livre, nota de dificuldade e classificação Errei/Difícil/Bom/Fácil.
+- Armazena cada tentativa com ID e data no IndexedDB do navegador, sem sobrescrever os registros anteriores; exportação JSON integral e histórico consultável.
+- Sob OAuth Google e escolha da pasta pelo titular, grava cópias JSON verificadas em `DataBase_Concurso/02_HISTORICOS/RESPOSTAS_DISCURSIVAS`, preservando ID, resposta integral, autoavaliação e versão de referência.
+- Pasta criada no Drive, permissões herdadas/preservadas. O ID de pasta **não** é colocado no código público do GitHub; usuário deve informar uma vez no navegador.
+- Não reativa cronômetro nem calendário; não modifica SRS oficial, cartões, verso original, 11 camadas da V194, grifos, imagens ou PDFs.
+- Sintaxe JS e injeção de HTML/CSS verificadas por inspeção. **OAuth, gravação remota e fluxo de interface em navegador real pendentes**; não afirmar homologação completa.
+- Versão V194 permanece disponível para rollback. [Detalhes e limitações](docs/V195_RESPOSTAS_DISCURSIVAS_DRIVE.md).
+
+---
+
 # Banco Mestre V194 — respostas completas no site, sem conectar Drive (16/11/2026)
 
 - Site carrega **1.518 cartões originais** diretamente dos JSONs públicos (1.501 ativos e 17 inativos).
