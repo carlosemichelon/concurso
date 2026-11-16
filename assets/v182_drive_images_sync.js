@@ -26,7 +26,7 @@ function ui(){
  const box=el('section','bm084-drive-images');box.id='bm084-sync';
  box.style.cssText='margin:14px 0 22px;padding:15px;border:1px solid #c9d9d5;border-radius:12px;background:#f3f8f6';
  const h=el('h3','', 'Imagens do Google Drive — sincronização');h.style.margin='0 0 8px';
- const desc=el('p','', 'Novas imagens da pasta Atlas no Drive aparecem aqui após autorização. Os 270 registros antigos, seus IDs e seus grifos permanecem separados.');
+ const desc=el('p','', 'Novas imagens da pasta Atlas no Drive aparecem aqui após autorização. O catálogo existente do Banco Mestre, seus IDs e suas marcações permanecem preservados.');
  desc.style.cssText='font-size:13px;margin:0 0 10px';
  const controls=el('div','');controls.style.cssText='display:flex;flex-wrap:wrap;align-items:center;gap:9px';
  const connect=el('button','','Conectar Drive e sincronizar imagens');connect.type='button';connect.id='bm084-connect';connect.disabled=true;
@@ -161,7 +161,7 @@ async function refreshList(force){
   for(const [id,data] of blobs)if(!current.has(id)||incoming.find(x=>x.id===id)?.modifiedTime!==data.modified){URL.revokeObjectURL(data.url);blobs.delete(id);}
   photos=incoming;
   render();
-  msg('Drive sincronizado: '+photos.length+' imagem(ns) nesta pasta; '+newCount+' nova(s), '+edits+' atualizada(s). Verificação a cada 2 minutos enquanto conectado. Os registros originais continuam separados.');
+  msg('Drive sincronizado: '+photos.length+' imagem(ns) nesta pasta; '+newCount+' nova(s), '+edits+' atualizada(s). Verificação a cada 2 minutos enquanto conectado. O catálogo histórico continua preservado.');
   return {found:photos.length,added:newCount,updated:edits};
  }catch(e){msg('Falha na sincronização: '+e.message+'. Imagens carregadas anteriormente preservadas.',true);return null;}
  finally{checking=false;if(button&&validToken())button.disabled=false;}
