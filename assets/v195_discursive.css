@@ -1,0 +1,35 @@
+/* Banco Mestre V195: editor discursivo opcional, sem modificar cartões ou SRS. */
+#bm195Discursive[hidden]{display:none!important}
+#bm195Discursive{background:#f9fbfc;color:#17353b;border:1px solid #c5d4d8;border-radius:12px;margin:12px 4px;padding:16px;max-width:100%;box-sizing:border-box}
+#bm195Discursive h3{font-size:1.08rem;line-height:1.4;margin:0 0 8px;color:#17353b}
+#bm195Discursive p{font-size:.92rem;line-height:1.5;margin:7px 0 12px}
+#bm195Discursive small{display:block;font-size:.79rem;color:#425861;line-height:1.4;margin-top:9px}
+#bm195Discursive .bm195-label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 5px}
+#bm195Discursive textarea,#bm195Discursive input{display:block;width:100%;box-sizing:border-box;border:1px solid #a4bcc1;border-radius:8px;padding:10px;background:white;color:#152d33;font:inherit;font-weight:400;line-height:1.5;min-width:0}
+#bm195Discursive textarea{resize:vertical;min-height:64px}
+#bm195Discursive textarea[data-bm195-answer]{min-height:180px}
+#bm195Discursive textarea:focus,#bm195Discursive input:focus{outline:2px solid #277a87;outline-offset:1px}
+#bm195Discursive button,.bm195-open{cursor:pointer;border:1px solid #8daab2;border-radius:8px;background:#fff;color:#17353b;padding:9px 12px;font:inherit;font-weight:600}
+#bm195Discursive button:hover,.bm195-open:hover{background:#e8f3f5}
+#bm195Discursive button:disabled{cursor:not-allowed;opacity:.55}
+#bm195Discursive .bm195-primary{background:#1c5b66;color:white;border-color:#1c5b66}
+#bm195Discursive .bm195-primary:hover{background:#174b55;color:white}
+#bm195Discursive .bm195-rates{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+#bm195Discursive .bm195-rates button{min-width:72px;flex:1}
+#bm195Discursive .bm195-rates button[aria-pressed="true"]{background:#205c69;color:white;outline:2px solid #205c69;outline-offset:2px}
+#bm195Discursive .bm195-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#bm195Discursive .bm195-drive{border:1px solid #d3dee1;border-radius:9px;padding:12px;margin-top:14px;background:#fff}
+#bm195Discursive .bm195-drive summary{font-weight:700;cursor:pointer}
+#bm195Discursive [data-bm195-status]{border-top:1px solid #d2dddf;margin-top:12px;padding:12px 0;font-weight:600;overflow-wrap:anywhere}
+#bm195Discursive [data-bm195-status][data-error="yes"]{color:#a42323}
+#bm195Discursive [data-bm195-history]{border-top:1px solid #d6e2e5;margin-top:12px;padding-top:8px}
+#bm195Discursive [data-bm195-history][hidden]{display:none}
+#bm195Discursive .bm195-entry{border:1px solid #d6e2e5;border-radius:6px;margin:8px 0;padding:8px}
+#bm195Discursive .bm195-entry summary{cursor:pointer;font-size:.86rem;font-weight:700}
+#bm195Discursive .bm195-entry pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;line-height:1.5}
+#bm195Discursive .bm195-entry a{display:inline-block;margin-top:6px}
+@media(max-width:600px){
+ #bm195Discursive{margin:8px 0;padding:12px}
+ #bm195Discursive .bm195-actions button{flex:1 1 130px}
+ #bm195Discursive .bm195-rates button{min-width:40%}
+}
