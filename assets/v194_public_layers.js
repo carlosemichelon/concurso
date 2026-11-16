@@ -34,14 +34,29 @@
  }
  async function shard(index){
   if(!cache.has(index)){
+   // Apenas o lote do cartão consultado; mantém sete arquivos públicos estáticos e cache local de leitura.
    const filename='assets/layers_public_v194_'+String(index).padStart(3,'0')+'.json?v=194';
-   const promise=fetch(filename,{cache:'force-cache'}).then(r=>{
-    if(!r.ok)throw Error('Arquivo de explicações indisponível (HTTP '+r.status+').');return r.json();
-   }).then(rows=>{
-    if(!Array.isArray(rows))throw Error('Formato das explicações inválido.');
-    const map=new Map();for(const x of rows){if(!/^CARD-\d{4}$/.test(x.id)||!Array.isArray(x.layers)||x.layers.length!==11||map.has(x.id))throw Error('Lote técnico incompleto: '+x.id);map.set(x.id,x)}return map;
-   });
-   cache.set(index,promise);promise.catch(()=>{if(cache.get(index)===promise)cache.delete(index)});
+   const promise=(async()=>{
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),30000);
+    let response;
+    try{response=await fetch(filename,{cache:'default',signal:controller.signal});}
+    finally{clearTimeout(timeout)}
+    if(!response.ok)throw Error('Arquivo de explicações não disponível (HTTP '+response.status+').');
+    const rows=await response.json();
+    if(!Array.isArray(rows))throw Error('O arquivo não contém uma lista de cartões.');
+    const map=new Map();
+    for(const x of rows){
+     if(!/^CARD-\\d{4}$/.test(x.id)||!Array.isArray(x.layers)||x.layers.length!==11||map.has(x.id))
+      throw Error('Lote técnico incompleto: '+String(x.id));
+     if(x.layers.some((l,i)=>l.ord!==i+1||!String(l.titulo||'').trim()||!String(l.texto||'').trim()))
+      throw Error('Uma das 11 seções está vazia ou fora de ordem: '+x.id);
+     map.set(x.id,x);
+    }
+    return map;
+   })();
+   cache.set(index,promise);
+   promise.catch(()=>{if(cache.get(index)===promise)cache.delete(index)});
   }
   return cache.get(index);
  }
@@ -49,19 +64,39 @@
   if(!eligible(id))return;
   const target=box.querySelector('.bm194-detail');if(!target)return;
   const idx=shardFor(id);if(idx<0)return;
+  target.replaceChildren(el('p','Carregando as 11 seções do cartão '+id+'…','bm194-loading'));
   shard(idx).then(rows=>{
-   if(!box.isConnected || currentId()!==id || !answer || answer.hidden || modal.hidden)return;
-   const card=rows.get(id);target.replaceChildren();
-   if(!card){target.append(el('p','Aprofundamento público não disponível para este cartão. A resposta original continua preservada.'));return}
+   // A leitura pode terminar depois que o estudante trocou de cartão.
+   if(!box.isConnected||currentId()!==id)return;
+   const card=rows.get(id);
+   if(!card){
+    const existing=(typeof cards!=='undefined'&&Array.isArray(cards))?cards.find(c=>c.id===id):null;
+    const msg=existing?.active===false
+      ?'Este registro histórico está inativo. A resposta original foi preservada e não há 11 camadas aprovadas para ele.'
+      :'O lote foi carregado, mas não contém as 11 camadas deste cartão. A resposta original permanece preservada.';
+    target.replaceChildren(el('p',msg,'bm194-error'));
+    return;
+   }
+   const fragment=document.createDocumentFragment();
    for(const layer of card.layers){
     const section=el('section',undefined,'bm194-layer');
     section.append(el('h4',String(layer.ord).padStart(2,'0')+' · '+layer.titulo));
     appendText(section,layer.texto);
-    target.append(section);
+    fragment.append(section);
    }
+   target.replaceChildren(fragment);
+   box.dataset.loaded='true';
+   const summary=box.querySelector('summary');
+   if(summary)summary.textContent='Resposta evolutiva integral · 11 seções';
   }).catch(error=>{
    if(!box.isConnected||currentId()!==id)return;
-   target.replaceChildren(el('p','Não foi possível carregar o texto integral: '+error.message));
+   const msg=error?.name==='AbortError'
+    ?'O carregamento excedeu 30 segundos. Confira a conexão e tente novamente.'
+    :'Não foi possível carregar as 11 seções: '+String(error?.message||error);
+   const retry=el('button','Tentar carregar os textos novamente','bm194-retry');
+   retry.type='button';
+   retry.addEventListener('click',()=>{cache.delete(idx);render(id,box)});
+   target.replaceChildren(el('p',msg,'bm194-error'),retry);
   });
  }
  function sync(){
@@ -80,9 +115,8 @@
   }
   if(answer.querySelector('.bm194-deferred'))answer.querySelector('.bm194-deferred').remove();
   const box=el('details',undefined,'bm194-public-layers');box.dataset.cardId=id;box.open=true;
-  box.append(el('summary','Aprofundamento integral · 11 camadas (sem Drive)'));
-  box.append(el('p','Material didático evolutivo; pontos normativos e documentais ainda podem exigir cotejo.','bm194-note'));
-  box.append(el('div','Carregando as 11 camadas…','bm194-detail'));
+  box.append(el('summary','Resposta evolutiva integral · 11 seções'));
+  box.append(el('div','Carregando textos detalhados…','bm194-detail'));
   answer.append(box);
   render(id,box);
  }
@@ -97,6 +131,19 @@
   observer=new MutationObserver(schedule);
   observer.observe(answer,{childList:true,attributes:true,attributeFilter:['hidden']});
   observer.observe(modal,{attributes:true,attributeFilter:['hidden']});
+  // Pré-carrega somente o lote do cartão aberto; nenhum lote é baixado na abertura do site.
+  const title=document.getElementById('bmCardPeekTitleV050');
+  if(title){
+   const prefetch=()=>{
+    const id=currentId();
+    if(modal.hidden||!eligible(id))return;
+    const idx=shardFor(id);
+    if(idx>=0)shard(idx).catch(()=>{}); // eventuais falhas são apresentadas após revelar o verso
+   };
+   const titleObserver=new MutationObserver(prefetch);
+   titleObserver.observe(title,{childList:true,characterData:true,subtree:true});
+   prefetch();
+  }
   schedule();
  }
  window.BM194VersosPublicos=Object.freeze({
