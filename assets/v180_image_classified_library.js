@@ -102,11 +102,12 @@ let config=null,promise=null,openTarget=null,browsing=false,degraded=false;
 function loadConfig(){
  if(config)return Promise.resolve(config);
  if(promise)return promise;
- promise=fetch('assets/image_grupos_v180.json',{cache:'no-store'}).then(async r=>{
+ const expected=Array.isArray(imgs)&&imgs.length===179?179:86;
+ promise=fetch(expected===179?'assets/image_grupos_v180.json':'assets/image_grupos_v156.json',{cache:'no-store'}).then(async r=>{
   if(!r.ok)throw Error('índice temático indisponível (HTTP '+r.status+')');
   const d=await r.json();
-  if(d.format!=='BancoMestreImageGroupsV156'||d.source_count!==179||
-    d.assigned?.length!==179||new Set(d.assigned.map(x=>x.id)).size!==179)
+  if(d.format!=='BancoMestreImageGroupsV156'||d.source_count!==expected||
+    d.assigned?.length!==expected||new Set(d.assigned.map(x=>x.id)).size!==expected)
    throw Error('índice temático incompatível com as 270 imagens');
   config=d;return d;
  }).catch(err=>{promise=null;throw err});
@@ -116,11 +117,12 @@ function loadConfig(){
 function loadClassification(){
  if(classification)return Promise.resolve(classification);
  if(classPromise)return classPromise;
- classPromise=fetch('assets/image_classificacao_v180.json',{cache:'no-store'}).then(async response=>{
+ const expected=Array.isArray(imgs)&&imgs.length===179?179:86;
+ classPromise=fetch(expected===179?'assets/image_classificacao_v180.json':'assets/image_classificacao_v156.json',{cache:'no-store'}).then(async response=>{
   if(!response.ok)throw Error('classificação de imagens indisponível (HTTP '+response.status+')');
   const data=await response.json();
-  if(data.format!=='BancoMestreImageClassificationV156'||data.total!==179||data.records?.length!==179||data.generals?.length!==14||
-     new Set(data.records.map(x=>x.id)).size!==179)
+  if(data.format!=='BancoMestreImageClassificationV156'||data.total!==expected||data.records?.length!==expected||data.generals?.length!==(expected===179?14:13)||
+     new Set(data.records.map(x=>x.id)).size!==expected)
    throw Error('classificação de imagens V155 incompatível');
   classById=new Map(data.records.map(x=>[x.id,x]));
   classification=data;return data;
@@ -254,7 +256,7 @@ async function beforeCards(hidden,mode){
   const byId=new Map(d.assigned.map(x=>[x.id,x.group]));
   const groupDefs=new Map(d.groups.map(x=>[x.id,x]));
   const source=Array.isArray(imgs)?imgs:[];
-  if(source.length!==179)throw Error('Atlas incompleto: '+source.length+' de 86 imagens');
+  if(source.length!==86&&source.length!==179)throw Error('Atlas incompleto: '+source.length+' imagens');
   const eligible=source.filter(x=>mode==='all'||(hidden.get(x.no)==='hidden')===(mode==='hidden'));
   updateClassOptions(eligible);
   const counts=new Map();
