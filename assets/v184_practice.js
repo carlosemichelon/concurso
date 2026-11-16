@@ -53,7 +53,7 @@ if(calBtn)calBtn.before(navBtn);else if(cardsBtn)cardsBtn.after(navBtn);else nav
 let all=[],queue=[],current=null,active=false,done=0,queuePos=0,seen=new Set(),questionAt=0;
 let clockMs=0,clockStart=0,clockTick=0,selectedDisc='all',selectedSubject='all',lastReview=null,finished=false;
 function currentMs(){return clockMs+(clockStart?Math.max(0,Date.now()-clockStart):0)}
-function beginClock(){if(!clockStart&&document.visibilityState!=='hidden')clockStart=Date.now()}
+function beginClock(){if(!clockStart&&document.visibilityState!=='hidden'&&root.classList.contains('active'))clockStart=Date.now()}
 function stopClock(){if(clockStart){clockMs+=Math.max(0,Date.now()-clockStart);clockStart=0}}
 document.addEventListener('visibilitychange',()=>{if(!active)return;if(document.visibilityState==='hidden')stopClock();else beginClock()});
 function showTime(){
@@ -85,8 +85,8 @@ function plannedQueue(){
  const discipline=$('bm184-pr-discipline').value,subject=$('bm184-pr-subject').value,mode=$('bm184-pr-mode').value,today=db.localDay();
  const candidates=all.filter(c=>(discipline==='all'||c.discipline===discipline)&&(subject==='all'||c.subject===subject));
  const records=candidates.map(c=>({card:c,last:db.latest(c.id)}));
- return records.filter(x=>mode==='all'||mode==='new'?!mode==='all'&&!x.last:
-    !x.last||x.last.due<=today)
+ return records.filter(x=>mode==='all'?true:mode==='new'?!x.last:
+    (!x.last||x.last.due<=today))
   .sort((a,b)=>{
    if(mode==='all')return a.card.id.localeCompare(b.card.id);
    const pa=a.last?0:1,pb=b.last?0:1;if(pa!==pb)return pa-pb;
@@ -186,8 +186,10 @@ function logTime(){
 function open(){
  if(typeof section==='function')section('pratica');
  else{document.querySelectorAll('main > section').forEach(x=>x.classList.toggle('active',x===root))}
+ if(active)beginClock();
  void load().catch(e=>{$('bm184-pr-status').textContent=e.message});
 }
+nav.addEventListener('click',e=>{if(!active)return;const btn=e.target.closest('button[data-page]');if(!btn)return;if(btn.dataset.page==='pratica')beginClock();else stopClock()},true);
 navBtn.onclick=open;
 $('bm184-pr-discipline').onchange=fillTopics;
 $('bm184-pr-start').onclick=()=>{void start()};
@@ -201,6 +203,19 @@ $('bm184-pr-save-time').onclick=logTime;
 $('bm184-pr-no-time').onclick=()=>{finished=false;$('bm184-pr-end').hidden=true;$('bm184-pr-status').textContent='Tempo não lançado. Tentativas permanecem salvas.'};
 $('bm184-pr-full').onclick=()=>{if(current)window.BancoMestreVisualizarCardV050?.showId?.(current.id)};
 $('bm184-pr-calendar').onclick=()=>{window.BM141Calendar?.open?.();if(typeof section==='function')section('calendario')};
+function startCard(id){
+ if(active){$('bm184-pr-status').textContent='Encerre a sessão atual antes de iniciar pelo cartão '+id+'.';return}
+ open();
+ void load().then(()=>{
+  const c=all.find(x=>x.id===id);if(!c)throw Error('Cartão não encontrado: '+id);
+  queue=[c];queuePos=0;done=0;clockMs=0;clockStart=0;active=true;beginClock();current=c;
+  selectedDisc=c.discipline||'Outros';selectedSubject=c.subject||'';seen=new Set();finished=false;
+  $('bm184-pr-ratings').querySelectorAll('button').forEach(b=>b.disabled=false);
+  renderCard();clearInterval(clockTick);clockTick=setInterval(showTime,1000);
+  $('bm184-pr-status').textContent='Prática iniciada pelo cartão '+id+'.';
+ }).catch(e=>{$('bm184-pr-status').textContent=e.message});
+}
+
 function attachReaderButton(){
  const c=document.querySelector('#bmCardPeekV050 .bm163-preview-controls');
  if(!c||document.getElementById('bm184-reader-practice'))return;
@@ -208,17 +223,11 @@ function attachReaderButton(){
  button.textContent='Praticar este cartão';
  button.onclick=()=>{const id=window.BancoMestreVisualizarCardV050?.currentId;
   if(!id)return;window.BancoMestreVisualizarCardV050.close();
-  open();const selector=$('bm184-pr-mode');selector.value='all';void load().then(()=>{
-   const c=all.find(x=>x.id===id);if(!c)return;
-   if(active){$('bm184-pr-status').textContent='Encerre a prática atual para iniciar pelo cartão '+id+'.';return}
-   queue=[c];queuePos=0;done=0;clockMs=0;clockStart=0;beginClock();active=true;current=c;
-   selectedDisc=c.discipline||'Outros';selectedSubject=c.subject||'';seen=new Set();renderCard();
-   clearInterval(clockTick);clockTick=setInterval(showTime,1000);
-  }).catch(e=>{$('bm184-pr-status').textContent=e.message});
+  startCard(id);
  };
  c.append(button);
 }
 attachReaderButton();
-window.BM184Practice=Object.freeze({open,start,finish,get active(){return active},get reviewed(){return done},get lastReview(){return lastReview}});
+window.BM184Practice=Object.freeze({open,start,startCard,finish,get active(){return active},get reviewed(){return done},get lastReview(){return lastReview}});
 if(location.hash==='#pratica')open();
 })();
