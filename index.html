@@ -11,7 +11,7 @@
 (function(){
  var fallback='V194';
  function cardParam(){var id=new URLSearchParams(location.search).get('cartao');return id&&/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Z0-9_-]+)$/i.test(id)?'&cartao='+encodeURIComponent(id):'';}
- function go(version){if(!/^V[0-9]{3}$/.test(version))version=fallback;var link='v'+version.slice(1)+'.html?versao='+version+'&nova='+Date.now()+cardParam()+location.hash;document.getElementById('entrar').href=link;location.replace(new URL(link,location.href).href);}
- fetch('./assets/version.json?verificar='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('Manifesto indisponível');return r.json()}).then(function(v){go(v.version)}).catch(function(){document.getElementById('st').textContent='Não foi possível verificar a atualização. Acesse diretamente a versão V194 pelo link abaixo.';document.getElementById('entrar').href='./v194.html?versao=V194&nova='+Date.now()+cardParam()+location.hash;});
+ function go(version){if(!/^V[0-9]{3}$/.test(version))version=fallback;var link='v'+version.slice(1)+'.html?versao='+version+'&nova='+version+'-perf1'+cardParam()+location.hash;document.getElementById('entrar').href=link;location.replace(new URL(link,location.href).href);}
+ fetch('./assets/version.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('Manifesto indisponível');return r.json()}).then(function(v){go(v.version)}).catch(function(){document.getElementById('st').textContent='Não foi possível verificar a atualização. Acesse diretamente a versão V194 pelo link abaixo.';document.getElementById('entrar').href='./v194.html?versao=V194&nova='+Date.now()+cardParam()+location.hash;});
 })();
 </script></body></html>
