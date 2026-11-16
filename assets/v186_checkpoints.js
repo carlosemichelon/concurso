@@ -8,8 +8,7 @@
 if(window.BM186Checkpoints)return;
 const ROOTS=[
  {id:'1348cILBcxFG9p2cfPJ3WubmHswPRbD24',name:'Checkpoints Banco Mestre'},
- {id:'1ziAHgnvKfroZ8meSAjdtJ_M0BNGYQi0S',name:'Backups / checkpoints históricos'},
- {id:'1J5qUbnUWh6HSCh46OKWRaA7tshPbR6Lh',name:'Registros incrementais'}
+ {id:'1ziAHgnvKfroZ8meSAjdtJ_M0BNGYQi0S',name:'Backups / checkpoints históricos'}
 ];
 const TARGET=ROOTS[0].id;
 const API='https://www.googleapis.com/drive/v3/files';
@@ -184,7 +183,9 @@ async function scan(){
     if(files.size>2500)throw Error('Mais de 2.500 registros; consulta interrompida sem alterar índice.');
    }
   }
-  const raw=[...files.values()],manifests=raw.filter(f=>MANIFEST.test(f.name)).slice(0,250);
+  const raw=[...files.values()],allManifests=raw.filter(f=>MANIFEST.test(f.name));
+  if(allManifests.length>250)throw Error('Mais de 250 manifestos; consulta parcial bloqueada para não registrar checkpoints duplicados.');
+  const manifests=allManifests;
   const parsed=new Map();
   for(let i=0;i<manifests.length;i+=4){
    await Promise.all(manifests.slice(i,i+4).map(async file=>{
@@ -272,6 +273,9 @@ async function upload(){
  writing=true;const save=$('bm186Save');if(save)save.disabled=true;
  try{
   const source=selected;const name='BM_CHECKPOINT_MANIFEST_V1__'+source.id+'.json';
+  if(!authRead())throw Error('Autorize a leitura do Drive antes de registrar; não é seguro duplicar sem verificar os IDs.');
+  if(!lastScan||Date.now()-scanAt>120000)await scan();
+  if(!lastScan||Date.now()-scanAt>120000)throw Error('Não foi possível conferir os IDs existentes no Drive. Registro bloqueado.');
   if(knownIds.has(source.id))throw Error('Checkpoint já existente; registre uma nova versão com novo ID.');
   const access=authWrite();if(!access)throw Error('A autorização de escrita expirou.');
   const boundary='bmcheckpoint_'+Date.now()+'_'+Math.floor(Math.random()*1000000);
