@@ -105,13 +105,19 @@ function sectionIcon(t){
  if(/cobertura|transfer|aplica|distin[cç]/.test(s))return 'layers';
  return 'file';
 }
-function excerpt(text){
+function excerpt(text,role){
  const lines=String(text||'').split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
  const tableLine=lines[0]?.startsWith('|')&&isTable(lines,0)?lines[2]:null;
  let chosen=tableLine?pipeCells(tableLine).filter(Boolean).join(' · '):'';
  if(!chosen){
-  chosen=lines.find(x=>!x.startsWith('|')&&!/^#{1,4}\s/.test(x)&&
-   !/^(?:VERSO(?: ORIGINAL| HIST[ÓO]RICO)|RESPOSTA M[ÍI]NIMA|F[ÓO]RMULAS?, VARI[ÁA]VEIS|MACETE(?: ORIGINAL| HIST[ÓO]RICO)|FONTE HIST[ÓO]RICA|PARECER(?: FINAL)?|FUNDAMENTO E EDI[ÇC][ÃA]O)[^:]{0,90}:\s*$/i.test(x))||lines[0]||'';
+  const good=lines.filter(x=>!x.startsWith('|')&&!/^#{1,4}\s/.test(x)&&
+   !/^(?:VERSO(?: ORIGINAL| HIST[ÓO]RICO)|RESPOSTA M[ÍI]NIMA|F[ÓO]RMULAS?, VARI[ÁA]VEIS|MACETE(?: ORIGINAL| HIST[ÓO]RICO)|FONTE HIST[ÓO]RICA|PARECER(?: FINAL)?|FUNDAMENTO E EDI[ÇC][ÃA]O)[^:]{0,90}:\s*$/i.test(x)&&
+   !/^(?:CON-\d[\w-]*|H\d{2}-[\w-]*|CARD-\d{4}|V0?\d{2,3})$/i.test(x));
+  // Não usar apenas códigos internos de rastreabilidade como se fossem o fundamento.
+  if(role==='Fundamento e fonte')
+   chosen=good.find(x=>/ABNT|NBR|NR[-– ]\d|Lei\s+\d|Resolu[cç][ãa]o|[Mm]atem[aá]tica|[Ee]quil[ií]brio|[Mm]ec[aâ]nica|[Ff]undament|[Ff]onte\/editoria/i.test(x))||good[0]||'';
+  else chosen=good[0]||'';
+  if(!chosen)chosen=lines[0]||'';
  }
  const v=clean(chosen);
  if(v.length<=260)return v;
@@ -131,7 +137,7 @@ function render(host,record,id){
  for(const [role,re,fallback,symbol] of roles){
   let idx=layers.findIndex(x=>re.test(x.titulo));if(idx<0)idx=fallback;
   const row=e('tr'),head=e('th','bm198-topic'),cell=e('td'),link=e('td');
-  head.append(icon(symbol),document.createTextNode(role));cell.textContent=excerpt(layers[idx].texto);
+  head.append(icon(symbol),document.createTextNode(role));cell.textContent=excerpt(layers[idx].texto,role);
   const b=e('button','bm198-jump','Mód. '+String(idx+1).padStart(2,'0'));b.type='button';
   b.setAttribute('aria-label','Ir para '+sectionName(layers[idx],idx));
   link.append(b);row.append(head,cell,link);tbody.append(row);jump.push({idx,b});
