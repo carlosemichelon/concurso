@@ -1,0 +1,23 @@
+/* "Todos" = coleção única na grade, sem agrupamentos que parecem cartões destacados. */
+#cartoes #cardRows.bm191-all-grid{
+ display:grid!important;
+ grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr))!important;
+ align-items:start;
+ gap:10px;
+ width:100%;
+ min-width:0;
+}
+#cartoes #cardRows.bm191-all-grid > article.card{
+ min-width:0;
+ width:100%;
+ max-width:none;
+ grid-column:auto;
+ box-sizing:border-box;
+ content-visibility:auto;
+ contain-intrinsic-size:auto 290px;
+}
+#cartoes .bm191-card-count{display:block;margin:8px 0 12px;color:#49686d;font-size:12px;line-height:1.5}
+#cartoes #moreCards[hidden]{display:none!important}
+@media(max-width:680px){
+ #cartoes #cardRows.bm191-all-grid{grid-template-columns:minmax(0,1fr)!important}
+}
