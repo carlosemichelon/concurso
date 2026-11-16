@@ -93,8 +93,11 @@ function mount(details){
    const item=await record(id);
    if(!panel.isConnected)return;
    if(!item){body.replaceChildren(el('p','bm195-pending','A resposta evolutiva deste ID ainda não foi publicada; o verso original está preservado.'));return}
-   if(window.BM198Format?.render)window.BM198Format.render(body,item,id);
-   else render(body,item);
+   const enriched=window.BM199Reauditoria?.enrich?await window.BM199Reauditoria.enrich(id,item):item;
+   if(!panel.isConnected)return;
+   if(window.BM198Format?.render)window.BM198Format.render(body,enriched,id);
+   else render(body,enriched);
+   if(enriched?.v199_warning)body.prepend(el('p','bm195-pending',enriched.v199_warning));
   }catch(e){
    if(!panel.isConnected)return;
    const retry=el('button','bm195-retry','Tentar novamente');retry.type='button';retry.addEventListener('click',load);
