@@ -125,7 +125,7 @@
    cardRender();
    const home=$('bm119PublicSource');
    if(home)home.textContent='Snapshot privado '+data.version+' do Drive · '+data.cards.length+' cartões verificados nesta sessão · sem publicação pública ou alteração do SRS';
-   window.BM183Header?.updateCards?.(data.cards.length,operational.length,newCards);
+   (window.BM184Header||window.BM183Header)?.updateCards?.(data.cards.length,operational.length,newCards);
    loaded={id:meta.id,version:data.version,count:data.cards.length,questions:data.questions?.length||0,images:data.images?.length||0,sourceName:meta.name};
    document.dispatchEvent(new CustomEvent('bm-v185-cards-synced',{detail:{version:loaded.version,count:loaded.count}}));
    status('Carregado: '+data.version+' · '+loaded.count+' cartões + '+operational.length+' operacionais Ijuí · '+loaded.questions+' questões e '+loaded.images+' vínculos de imagem no arquivo. Os eventos SRS NÃO foram aplicados. Nenhum dado foi enviado ao GitHub.');
