@@ -309,7 +309,13 @@ function show(id,origin){
 reveal.addEventListener('click',()=>{
  const c=getCard(currentId);if(!c)return;
  answer.hidden=!answer.hidden;
- if(!answer.hidden)appendAnswer(c);
+ if(!answer.hidden){
+  appendAnswer(c);
+  // V194: a resposta evolutiva deve ser anexada neste clique, sem depender de MutationObserver.
+  const loader=window.BM194VersosPublicos;
+  if(loader&&typeof loader.attachToModal==='function')loader.attachToModal(currentId);
+  else if(loader&&typeof loader.abrirProximoCartao==='function')loader.abrirProximoCartao();
+ }
  reveal.setAttribute('aria-expanded',String(!answer.hidden));
  reveal.replaceChildren(icon('eye'),document.createTextNode(answer.hidden?'Revelar resposta':'Ocultar resposta'));
  status.textContent=answer.hidden?'Resposta ocultada novamente.':'Resposta e materiais complementares disponíveis abaixo, com seções recolhíveis.';
