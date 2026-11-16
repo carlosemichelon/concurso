@@ -93,7 +93,8 @@ function mount(details){
    const item=await record(id);
    if(!panel.isConnected)return;
    if(!item){body.replaceChildren(el('p','bm195-pending','A resposta evolutiva deste ID ainda não foi publicada; o verso original está preservado.'));return}
-   render(body,item);
+   if(window.BM198Format?.render)window.BM198Format.render(body,item,id);
+   else render(body,item);
   }catch(e){
    if(!panel.isConnected)return;
    const retry=el('button','bm195-retry','Tentar novamente');retry.type='button';retry.addEventListener('click',load);
