@@ -71,12 +71,14 @@ function taggedUrl(value,revision){
 function revision(m){
  return (m.md5Checksum||m.version||m.modifiedTime||m.size).replace(/[^A-Za-z0-9_.:-]/g,'').slice(0,70);
 }
-function imageCandidates(){
+function imageCandidates(force=false){
  const host=document.getElementById('imagens');
  if(!host)return [];
  const found=[],seen=new Set();
  for(const img of host.querySelectorAll('img[src]')){
   if(!img.isConnected||!img.getClientRects().length||img.src.startsWith('blob:'))continue;
+  if(!force){const rect=img.getBoundingClientRect(),h=window.innerHeight||800;
+   if(rect.bottom < -h||rect.top > h*2)continue; }
   const id=img.dataset.bmMediaId||fileIdFromUrl(img.src);
   if(!id||!ID.test(id)||seen.has(img))continue;
   seen.add(img);found.push({img,id});
@@ -86,7 +88,7 @@ function imageCandidates(){
 }
 async function refreshVisibleImages(force=false){
  if(!token())return {checked:0,updated:0,unavailable:0};
- const list=imageCandidates();let pos=0,done=0,updated=0,unavailable=0;
+ const list=imageCandidates(force);let pos=0,done=0,updated=0,unavailable=0;
  const worker=async()=>{while(pos<list.length){
   const item=list[pos++],img=item.img;
   try{
@@ -140,6 +142,18 @@ function addControl(host,id){
 function init(){
  addControl(document.querySelector('#pdfs .panel'),'bm182-status-pdf');
  addControl(document.querySelector('#imagens .panel'),'bm182-status-img');
+ const images=document.getElementById('imagens');
+ if(images&&typeof MutationObserver!=='undefined'){
+  let scheduled=0;
+  const queue=()=>{if(!token()||scheduled)return;scheduled=setTimeout(()=>{
+   scheduled=0;void refreshVisibleImages(false);
+  },500);};
+  const observer=new MutationObserver(records=>{
+   if(records.some(r=>r.type==='childList'||r.attributeName==='src'||r.attributeName==='hidden'||r.attributeName==='class'))queue();
+  });
+  observer.observe(images,{subtree:true,childList:true,attributes:true,attributeFilter:['src','class','hidden']});
+  window.addEventListener('scroll',queue,{passive:true});
+ }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
 else init();
