@@ -1,0 +1,101 @@
+{
+  "schema": "BancoMestreReauditoriaAdendaV199",
+  "created_at": "2026-11-16",
+  "status": "ADENDOS_TECNICOS_COM_COTEJO_PONTUAL",
+  "base": "7 arquivos históricos V194 preservados; somente acrescenta texto aos módulos correspondentes",
+  "source_scope": "paráfrases e exemplos próprios, não reprodução integral de norma",
+  "records": [
+    {
+      "id": "CARD-0751",
+      "status": "COTEJO_PONTUAL_ABNT_17054_2022",
+      "source_links": [
+        "https://sistema.ceteclins.com.br/Uploads/PDF/22A0B4B2-7A63-4172-B14F-ECE6C59128A2_06072022155025.pdf",
+        "https://biopdi.com.br/artigos/granulometria-do-solo-nbr-7181/"
+      ],
+      "addenda": {
+        "3": "REVISÃO TÉCNICA V199 — COTEJO DOCUMENTAL:\nABNT NBR 17054:2022, escopo e itens 3.1–3.3: ensaio de composição granulométrica de agregados para argamassa e concreto; define séries de peneiras, dimensão máxima característica (DMC) e módulo de finura (MF). Itens 5.1, 6.1 e 7.1–7.2: amostragem, execução, cálculos e conteúdo do relatório. A NBR NM 248:2001 foi substituída pela edição de 2022.\nFONTE LIDA (edição histórica específica): https://sistema.ceteclins.com.br/Uploads/PDF/22A0B4B2-7A63-4172-B14F-ECE6C59128A2_06072022155025.pdf\nSOLOS: um ensaio de solo não deve receber automaticamente o método de agregados. Uma fonte técnica de atualização indica NBR 7181:2025, com versão corrigida em 2026; a confirmação dessa situação no catálogo primário da ABNT permanece pendente.",
+        "4": "EXPLICAÇÃO PROGRESSIVA — POR QUE AS GRANDEZAS SÃO DIFERENTES:\n1. Ordenam-se as peneiras por abertura decrescente. Cada grão fica na primeira malha por onde não consegue passar, originando massa retida m_i.\n2. A retenção simples r_i mede a fração retida apenas na peneira i. A retenção acumulada R_i inclui todas as peneiras desde a maior até a peneira i. Ao descer a sequência, R_i não pode diminuir.\n3. O MF agrega dez valores R_i das peneiras NORMAIS; por isso resume a distribuição, mas não fornece sozinho uma curva granulométrica completa.\n4. A DMC localiza o menor vão de malha que ainda atende ao critério de retenção acumulada até 5%, considerando peneiras NORMAIS e INTERMEDIÁRIAS.\n5. Em solo com partículas muito finas, o peneiramento isolado pode ser insuficiente; a análise geotécnica pode exigir sedimentação. Não transportar o MF de agregados para classificação universal de solos.",
+        "5": "SÍMBOLOS E UNIDADES:\nM [g] = massa seca total da amostra; m_i [g] = massa retida em cada peneira; r_i=100·m_i/M [%]; R_i=Σr_j [%] das peneiras anteriores até i; MF=(ΣR_i das 10 peneiras normais)/100 [adimensional].\nAs aberturas são medidas em mm; 600 µm = 0,600 mm. DMC [mm] = abertura nominal normal ou intermediária correspondente à transição do percentual acumulado de até 5% para maior que 5%.",
+        "6": "EXEMPLO AUDITÁVEL — PROPORÇÕES DIDÁTICAS, NÃO DADOS HISTÓRICOS:\nConsidere M=1.000 g, com retenções acumuladas nas dez peneiras normais: 0; 0; 0; 0; 2; 12; 35; 61; 75; 90 (%), em ordem decrescente de abertura. A soma é 275; portanto MF=275/100=2,75. A retenção simples em 2,36 mm é 12−2=10%, equivalente a 100 g. A DMC é 4,75 mm neste exemplo, pois R(4,75)=2% e R(2,36)=12%, sem peneira intermediária menor entre elas. Verificação final: os 10% que passaram 0,150 mm ficam no fundo do conjunto.",
+        "7": "QUADRO TÉCNICO — PROPRIEDADES DIFERENTES:\n| Grandeza | Obtida de | Interpretação | Erro típico |\n|---|---|---|---|\n| Retida simples r_i | Massa de UMA peneira | Fração local [%] | Somar como acumulada |\n| Retida acumulada R_i | Soma desde a maior abertura | Percentual retido até a malha | Admitir redução ao descer peneiras |\n| MF | Dez R_i da série normal | Índice adimensional | Somar seis intermediárias |\n| DMC | R_i nas séries normal ou intermediária | Abertura nominal [mm] com critério de 5% | Usar só peneiras normais |\n| Granulometria de solo | Método geotécnico aplicável | Frações e curva do solo | Aplicar automaticamente MF de concreto |",
+        "8": "RESTRIÇÕES E CONTROLE DO ENSAIO — ABNT NBR 17054:2022:\nAmostras: duas determinações. A secagem é feita a (105 ± 5) °C por 24 h ou até massa constante, sob os critérios do item 6.1.1. Na verificação do balanço de massa, a soma das massas retidas e no fundo deve diferir de m1 no máximo 0,3% (item 6.1.9). Conforme 7.1.1, as duas amostras precisam resultar na mesma DMC e respeitar diferença máxima de 4 pontos percentuais nas retenções por peneira aplicáveis; caso contrário, repetir o ensaio. O MF é expresso com duas casas decimais. Valores de massa mínima dependem da DMC; não se adota sempre a mesma amostra.",
+        "9": "PEGADINHAS ESPECÍFICAS:\n- A frase “série intermediária não existe no ensaio” é falsa; ela pode ser relevante para DMC, embora não entre no MF.\n- A igualdade 5% é admitida para DMC; 5,1% não é 5%.\n- O relatório técnico precisa indicar DMC, MF e percentuais, não apenas uma fotografia da curva.\n- Percentual acumulado não pode diminuir quando a abertura da peneira diminui.\n- A norma de agregado não se converte em norma de classificação de solos.",
+        "10": "MACETE VALIDADO PELA DEFINIÇÃO: **MF soma apenas Normal; DMC procura a malha Normal OU Intermediária com até 5%.**\nSequência de raciocínio: MASSA → RETENÇÃO SIMPLES → ACUMULADA → MF ou DMC (duas saídas diferentes).",
+        "11": "STATUS DA REAUDITORIA V199: conferidos por leitura os itens 3.1–3.3, 5.1, 6.1 e 7.1–7.2 da NBR 17054:2022. Os números do exemplo são construídos para ensino e conferidos aritmeticamente, não pertencem à amostra histórica do estudante. A edição da NBR 7181 para solo está sinalizada como atualização a confirmar no catálogo primário. ID e verso históricos intactos."
+      }
+    },
+    {
+      "id": "CARD-0752",
+      "status": "COTEJO_PONTUAL_ABNT_17054_2022",
+      "source_links": [
+        "https://sistema.ceteclins.com.br/Uploads/PDF/22A0B4B2-7A63-4172-B14F-ECE6C59128A2_06072022155025.pdf"
+      ],
+      "addenda": {
+        "3": "COTEJO V199: NBR 17054:2022, Tabela 1 e itens 3.3, 6.1 e 7.1.3. Confirmadas as dez malhas da série normal e a definição de MF; a norma substitui a NBR NM 248:2001. Fonte: https://sistema.ceteclins.com.br/Uploads/PDF/22A0B4B2-7A63-4172-B14F-ECE6C59128A2_06072022155025.pdf",
+        "4": "POR QUE A SOMA USA RETIDAS ACUMULADAS: se 10% do material fica preso em 2,36 mm e outros 23% em 1,18 mm, a retenção acumulada de 1,18 mm corresponde aos retidos anteriores MAIS esses 23%, e não somente ao valor da peneira 1,18. Esse acúmulo é o que entra no índice de finura. Não confundir a série normal do MF com a montagem física obrigatória de um único conjunto para qualquer agregado.",
+        "5": "DADOS E UNIDADES: aberturas normais decrescentes [mm]: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18; 0,600; 0,300; 0,150. MF=ΣR_normal/100. r_i=100m_i/M. R_i=Σ_{j≤i}r_j. Todas as retenções são porcentagens em massa; MF não possui unidade.",
+        "6": "DEMONSTRAÇÃO NUMÉRICA COMPLETA — AMOSTRA FICTÍCIA DE 1.000 g:\n| Malha normal (mm) | Massa retida (g) | r_i (%) | R_i (%) |\n|---|---:|---:|---:|\n| 75 | 0 | 0 | 0 |\n| 37,5 | 0 | 0 | 0 |\n| 19 | 0 | 0 | 0 |\n| 9,5 | 0 | 0 | 0 |\n| 4,75 | 20 | 2 | 2 |\n| 2,36 | 100 | 10 | 12 |\n| 1,18 | 230 | 23 | 35 |\n| 0,600 | 260 | 26 | 61 |\n| 0,300 | 140 | 14 | 75 |\n| 0,150 | 150 | 15 | 90 |\n| Fundo (não soma no MF) | 100 | 10 | 100 |\nSoma de massas: 1.000 g; soma das porcentagens acumuladas das dez peneiras normais: 275%; MF = 275/100 = **2,75**. A retenção do fundo serve ao balanço de massa, mas não integra as dez parcelas do MF.",
+        "7": "VERIFICAÇÃO DO EXEMPLO: 20+100+230+260+140+150+100 = 1.000 g. O valor R_i só cresce ou permanece estável ao passar de abertura maior para menor. O cálculo do MF não é substituto da repetição do ensaio com a segunda amostra nem dos critérios normativos de diferenças de retenção.",
+        "8": "CONDIÇÕES DO ENSAIO: NBR 17054:2022 prevê duas amostras, critérios de secagem, limites de material em cada peneira, controle de perda mássica e comparação das determinações. Os resultados de laboratório devem obedecer ao procedimento real. A tabela acima é apenas um exemplo matematicamente coerente, não um laudo de laboratório.",
+        "9": "PEGADINHA: a média de porcentagens retidas simples não é MF. Outra: esquecer o fundo na soma de massas é erro de balanço; mas incluir a retenção acumulada do fundo como 11ª parcela do MF é erro de índice.",
+        "10": "MACETE: **10 peneiras NORMAIS; some as ACUMULADAS, divida por 100.** 600/300/150 µm equivalem a 0,600/0,300/0,150 mm.",
+        "11": "AUDITORIA V199: série normal e conceito de MF confrontados com NBR 17054:2022, itens 3.1–3.3, 7.1.3. Demonstração criada neste adendo, com massas, percentuais e fechamento conferidos. Não substitui o verso original ou o procedimento de ensaio integral."
+      }
+    },
+    {
+      "id": "CARD-0753",
+      "status": "COTEJO_PONTUAL_ABNT_17054_2022",
+      "source_links": [
+        "https://sistema.ceteclins.com.br/Uploads/PDF/22A0B4B2-7A63-4172-B14F-ECE6C59128A2_06072022155025.pdf"
+      ],
+      "addenda": {
+        "3": "FONTE CONFERIDA: NBR 17054:2022, Tabela 1 (séries normal/intermediária), item 3.2 (DMC) e 3.3 (MF). Texto da edição consultada: https://sistema.ceteclins.com.br/Uploads/PDF/22A0B4B2-7A63-4172-B14F-ECE6C59128A2_06072022155025.pdf",
+        "4": "MECANISMO: cada peneira intermediária acrescenta uma oportunidade de determinar em que abertura a retenção acumulada ultrapassa 5%. Ela torna a leitura da DMC potencialmente mais precisa em relação a usar somente os saltos de abertura da série normal. O MF, por definição, mantém sempre suas dez parcelas normais: inserir ou retirar uma intermediária NÃO altera a expressão do MF, desde que os dados das peneiras normais correspondam à mesma distribuição de material.",
+        "5": "SERIAÇÃO [mm] — SÉRIE NORMAL: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18; 0,600; 0,300; 0,150.\nSÉRIE INTERMEDIÁRIA: 63; 50; 31,5; 25; 12,5; 6,3.\nATENÇÃO: o diâmetro de 600 µm corresponde a 0,600 mm, não 600 mm.",
+        "6": "TABELA DE INTERCALAÇÃO (ABERTURAS EM ORDEM DECRESCENTE):\n| Série normal [mm] | Intermediária entre malhas normais [mm] | Aplicação do intervalo |\n|---|---|---|\n| 75 → 37,5 | 63; 50 | Refina DMC na faixa mais grossa |\n| 37,5 → 19 | 31,5; 25 | Refina DMC antes da malha 19 |\n| 19 → 9,5 | 12,5 | Pode deslocar a DMC para 12,5 |\n| 9,5 → 4,75 | 6,3 | Pode deslocar a DMC para 6,3 |\n| 4,75 → 0,150 | Nenhuma intermediária da Tabela 1 | As dez normais continuam a definir o MF |\nCASO PRÁTICO: R(19)=2%, R(12,5)=7%, R(9,5)=20%. Com intermediária, DMC=19 mm. Se R(12,5)=4% e R(9,5)=20%, DMC=12,5 mm. A transição de 5% ocorreu entre aberturas diferentes.",
+        "7": "APLICAÇÃO EM LAUDO: identifique as duas colunas de série, confira a retenção acumulada (não só a retida simples), encontre o cruzamento de 5% na sequência completa e selecione a abertura pertinente. Para MF, procure exclusivamente os dez R_i da normal; não use 63, 50, 31,5, 25, 12,5 nem 6,3 no somatório.",
+        "8": "CONDIÇÃO DE VALIDADE: a comparação pressupõe o mesmo agregado, a mesma massa seca de referência e resultados de ensaio coerentes. R acumulada não decresce ao avançar para malhas menores; se o laudo mostra R(12,5)<R(19), há um problema de dados ou de ordenação.",
+        "9": "PEGADINHAS: “Intermediária nunca participa do ensaio” (falso); “Intermediária entra no MF porque está entre duas normais” (falso); “DMC e MF têm a mesma unidade” (falso: DMC [mm], MF adimensional).",
+        "10": "MACETE: **DMC = 10 normais + 6 intermediárias possíveis; MF = só 10 normais.** Não memorizar seis valores sem entender onde se intercalam.",
+        "11": "PARECER V199: série intermediária cotejada com a Tabela 1 da NBR 17054:2022. Situação de edição posterior requer verificação periódica no catálogo oficial; nenhuma atualização da base canônica ou SRS efetuada."
+      }
+    },
+    {
+      "id": "CARD-0754",
+      "status": "COTEJO_PONTUAL_ABNT_17054_2022",
+      "source_links": [
+        "https://sistema.ceteclins.com.br/Uploads/PDF/22A0B4B2-7A63-4172-B14F-ECE6C59128A2_06072022155025.pdf"
+      ],
+      "addenda": {
+        "3": "ABNT NBR 17054:2022, item 3.2: a definição de dimensão máxima característica usa retenção acumulada igual ou imediatamente inferior a 5%, em peneira da série normal ou intermediária. Item 7.1 trata da determinação. Consulta: https://sistema.ceteclins.com.br/Uploads/PDF/22A0B4B2-7A63-4172-B14F-ECE6C59128A2_06072022155025.pdf",
+        "4": "RACIOCÍNIO PASSO A PASSO: organize as malhas da maior para a menor; leia os R_i acumulados nessa mesma ordem. Como se acumulam massas, R_i permanece igual ou aumenta ao diminuir a abertura. Localize onde deixa de atender ao critério de até 5%. A DMC é a menor abertura ainda com R_i ≤ 5%, imediatamente antes da ultrapassagem. Não calcule por interpolação entre peneiras.",
+        "5": "REGRAS: R_i [%] = 100·(Σ massas retidas até i)/M. Critério da DMC: R_i ≤ 5%. Limite estrito incorreto: R_i<5%, pois excluiria a igualdade admitida pela norma. Cada abertura tem unidade mm.",
+        "6": "CASOS REAUDITADOS — TODOS SÃO DADOS DIDÁTICOS:\n| Caso | R(25 mm) | R(19 mm) | R(12,5 mm) | R(9,5 mm) | DMC | Justificativa |\n|---|---:|---:|---:|---:|---|---|\n| A | 0% | 5% | 12% | 24% | 19 mm | Igualdade 5% atende; 12% não |\n| B | 2% | 6% | 12% | 24% | 25 mm | 19 mm já excede 5% |\n| C | 0% | 3% | 5% | 11% | 12,5 mm | Intermediária 12,5 ainda atende |\nOBS: estes casos trazem retenções acumuladas não decrescentes ao diminuir a malha; os valores não substituem um ensaio completo.",
+        "7": "TRANSFERÊNCIA: para um conjunto no qual R(19)=4% e R(12,5)=18%, a abertura de 19 mm permanece a DMC. Se trocar somente o valor R(19) para 7%, procure acima, por exemplo 25 mm, mas NÃO assuma automaticamente que R(25) é ≤5%; o laudo deve fornecer o valor ou permitir a determinação.",
+        "8": "CONDIÇÕES: o resultado depende da série realmente ensaiada e dos percentuais válidos. Um relatório com massas incompatíveis, falta de peneiras pertinentes ou retenção acumulada decrescente precisa de revisão antes de atribuir DMC. Em caso de amostras duplicadas discordantes quanto à DMC, rever ensaio segundo item 7.1.1.",
+        "9": "ERROS FREQUENTES: dizer que “igual a cinco não serve”; escolher 12,5 mm porque é intermediária mesmo com R=12%; usar a peneira mais grossa com R=0 em vez da menor que ainda atende; confundir porcentagem PASSANTE com RETIDA acumulada.",
+        "10": "MACETE: **Até cinco pode, seis não.** Leia a curva da malha GROSSA para a FINA e pare na última abertura com retenção acumulada até 5%.",
+        "11": "VALIDAÇÃO V199: verificado item 3.2 da NBR 17054:2022 e coerência monotônica dos três exemplos. Os resultados são demonstrações próprias, não dados de laudo ou revisão de ensaio do usuário."
+      }
+    },
+    {
+      "id": "CARD-1001",
+      "status": "COTEJO_PONTUAL_ABNT_9062_2017_COM_PENDENCIAS_DE_PROJETO",
+      "source_links": [
+        "https://professor.pucgoias.edu.br/sitedocente/admin/arquivosUpload/14026/material/NBR9062_2017.pdf",
+        "https://buscadorsinapi.com.br/normas/nbr-9062-projeto-e-execucao-de-estruturas-de-concreto-pre-moldado"
+      ],
+      "addenda": {
+        "3": "FUNDAMENTOS CONFERIDOS — ABNT NBR 9062:2017:\nItem 7.3.5.3: expressão admitida para consolo curto 0,5<a/d≤1,0; exige aproximações e verificações da modelagem (7.3.2.2-b).\nItem 7.3.5.5: ancoragem do tirante no elemento-suporte remete à NBR 6118.\nItens 7.3.3 e 7.3.4: requisitos de detalhamento e verificação da biela comprimida; item 7.3.6: costura; itens 7.3.7 e 7.3.8: armaduras transversal e de suspensão. Fonte lida (2017): https://professor.pucgoias.edu.br/sitedocente/admin/arquivosUpload/14026/material/NBR9062_2017.pdf\nA referência à edição vigente da NBR 6118 precisa ser cotejada no projeto específico; NÃO foi auditada integralmente neste cartão.",
+        "4": "MECANISMO FÍSICO, EXPLICADO POR FORÇAS:\n1. A viga transmite a reação vertical F_d ao aparelho de apoio/área carregada no topo do consolo, e pode introduzir força horizontal H_d conforme a ligação.\n2. A compressão percorre uma região diagonal do concreto entre o local da reação e o pilar: é a biela. O componente horizontal do equilíbrio é resistido pelo tirante de aço junto à região superior.\n3. O tirante precisa ser ancorado na extremidade livre do consolo e ancorado de forma adequada no elemento-suporte (pilar ou viga-suporte). Se faltar ancoragem, a barra pode escorregar ou provocar ruptura/fissuração localizada antes de desenvolver sua resistência de cálculo.\n4. A ligação global viga–pilar é outra questão: um apoio com rotação permitida não se torna engastamento só porque o aço interno do consolo foi ancorado no pilar. Transmitir reação não significa transmitir momento fletor como nó rígido.",
+        "5": "EXPRESSÃO APLICÁVEL A CONSOL0 CURTO (0,5<a/d≤1,0), NÃO A TODO CONSOLO:\nA_sv=(0,1+a/d)·F_d/f_yd.\nA_s,tir=A_sv+H_d/f_yd.\nAs áreas são em mm² quando F_d e H_d são em N e f_yd em N/mm² (MPa). a é a distância mecânica da carga à face do apoio e d é altura útil; ambos nas mesmas unidades. Para a/d≤0,5 o modelo simplificado de 7.3.5.4 é diferente. A fórmula de 7.3.5.3 não substitui a verificação do modelo e das demais armaduras.",
+        "6": "LIMITE DA CONFERÊNCIA HISTÓRICA: a frente original pergunta sobre ancoragem, não sobre dimensionar todo o consolo. O verso continua correto no núcleo “ancorar adequadamente em ambas as extremidades”, mas a edição normativa consultada em V199 é a de 2017; não há dados geométricos de ancoragem e cobrimento para calcular comprimento de desenvolvimento da barra em um projeto concreto. É erro apresentar um comprimento único sem esses dados.",
+        "7": "RESOLUÇÃO NUMÉRICA CONTROLADA — EXEMPLO DIDÁTICO:\nSuponha F_d=100 kN=100.000 N; H_d=16 kN=16.000 N; a/d=0,75 e f_yd=435 N/mm². A_sv=(0,1+0,75)×100.000/435=195,40 mm². O incremento horizontal é H_d/f_yd=16.000/435=36,78 mm². Logo A_s,tir≈232,18 mm² no modelo simplificado do item 7.3.5.3, ANTES das demais verificações. Se a força horizontal não fosse informada, NÃO se deveria impor 16% por hábito: a determinação depende do aparelho de apoio, da liberdade de deslocamento horizontal e do item 7.3.9.",
+        "8": "QUADRO PARA NÃO CONFUNDIR ELEMENTOS E COMPROVAÇÕES:\n| Elemento/verificação | Papel mecânico | O que não demonstra sozinho |\n|---|---|---|\n| Biela comprimida | Conduz compressão diagonal no concreto | Não prova ancoragem do aço |\n| Tirante principal | Fecha equilíbrio pela tração | Não prova ligação rígida viga–pilar |\n| Ancoragem livre | Desenvolve aço no extremo da carga | Não dimensiona o trecho no pilar |\n| Ancoragem no suporte | Desenvolve força no pilar/elemento suporte | Não substitui checagem da biela |\n| Costura/estribos | Controlam mecanismos específicos, fissuração e distribuição | Não substituem tirante principal |\n| Ligação global | Define transferência de esforços e rigidez entre peças | Não resulta só da ancoragem interna |",
+        "9": "EXCEÇÕES E CONDIÇÕES: para 0,5<a/d≤1,0 usar o regime de consolo curto; para a/d≤0,5, a NBR 9062:2017 traz procedimento distinto com parâmetro de interface no item 7.3.5.4; para relações maiores há outras hipóteses de projeto. Costura é tratada no item 7.3.6. Carga indireta exige verificar armadura de suspensão. Verificar compressão da biela, fendilhamento, geometria e detalhamento do aparelho de apoio. As equações não abrangem todas as verificações estruturais.",
+        "10": "PEGADINHAS PARA CONCURSOS: (a) achar que “tirante ancorado = viga engastada”; (b) calcular só A_s,tir e esquecer biela, costura e comprimento de ancoragem; (c) aplicar 7.3.5.3 quando a/d≤0,5; (d) trocar F_d vertical por H_d horizontal; (e) usar kN com MPa sem converter; (f) confundir força positiva de tração na barra com solicitação de tração na área comprimida.",
+        "11": "MACETE E PARECER: **Biela COMPRIME; tirante TRACIONA; ancoragem TRANSFERE; vínculo global depende do DETALHE.** Fonte técnica conferida: NBR 9062:2017, 7.3.3–7.3.9, com foco em 7.3.5.3 e 7.3.5.5. Exemplo numérico é hipotético. O projeto completo e a NBR 6118 em sua edição aplicável continuam fora do escopo deste cotejo. Texto histórico e SRS preservados."
+      }
+    }
+  ]
+}
