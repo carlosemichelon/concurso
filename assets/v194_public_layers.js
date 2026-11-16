@@ -80,7 +80,8 @@
    const fragment=document.createDocumentFragment();
    for(const layer of card.layers){
     const section=el('section',undefined,'bm194-layer');
-    section.append(el('h4',String(layer.ord).padStart(2,'0')+' · '+layer.titulo));
+    const heading=String(layer.titulo||'').trim();
+    section.append(el('h4',/^0?\d{1,2}\s*[-—–.:]/.test(heading)?heading:String(layer.ord).padStart(2,'0')+' · '+heading));
     appendText(section,layer.texto);
     fragment.append(section);
    }
