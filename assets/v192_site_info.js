@@ -20,7 +20,7 @@ function render(){
  const version=document.querySelector('header .brand > .version');
  const source=state.origin==='privada'?'pacote privado '+(state.privateVersion||'carregado'):'base pública V024 H14';
  if(version)version.textContent='V192 · '+source;
- const tagline=document.querySelector('header .head .brand')?.parentElement?.querySelector(':scope > .version:not(.brand .version)');
+ const tagline=document.querySelector('header .head > div:first-child > .version');
  if(tagline)tagline.textContent='Biblioteca e consulta · prática, correções e avaliações SRS no ChatGPT';
  const footer=document.querySelector('main > footer');
  if(footer)footer.textContent='V192 · Catálogo e histórico preservados · arquivos privados somente após autorização Google · estudo dos cartões no ChatGPT.';
