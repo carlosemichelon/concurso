@@ -1,3 +1,14 @@
+# Banco Mestre V187 — 1.490 versos evolutivos privados na janela de flashcards (16/11/2026)
+
+- Nova versão `v187.html` preserva V186 (checkpoints), V185 (Drive), V184 (prática/diário), PDFs, imagens, SRS e os 17 cartões inativos.
+- Na janela do cartão V165, após **Revelar resposta**, há uma seção fechada por padrão: **Aprofundamento integral (11 camadas)**. O conteúdo vem da V157 privada após OAuth Drive e checagem SHA-256; nada do material privado é copiado para o GitHub.
+- 1.490 dos 1.501 cartões ativos são elegíveis; 11 críticos adiados sem nova homologação ou atualização dos seus versos. A base pública permanece com 1.499 IDs / 1.482 ativos até carregar snapshot privado aprovado no sincronizador V185.
+- Nenhuma mudança no SRS nem gravação em localStorage/IndexedDB pelo novo módulo; a resposta original e o histórico local continuam em seus próprios componentes.
+- Testes simulados de integração: 13/13; teste navegador/OAuth real ainda **pendente**, pois o ambiente de testes bloqueia navegação. O módulo é opt-in e não carrega dados sem o clique do proprietário.
+- Backup de código: `backup/v186-before-evolutivos-v187-2026-11-16`. Reversão: `v186.html`. Documento: [V187 — aprofundamentos](docs/V187_APROFUNDAMENTOS_1490_11_ADIADOS.md).
+
+---
+
 # Banco Mestre V178 — PETROBRAS 14 e índice privado do Atlas (16/11/2026)
 
 - Preservadas as 66 imagens-fonte da Parte 14 no Drive; 38 SVGs receberam prévias PNG separadas e os vetores originais não foram substituídos. Índice privado de 104 registros com referência e hashes, incluindo 13 possíveis imagens enviadas pelo estudante, cuja autoria ainda requer confirmação.
