@@ -110,5 +110,5 @@ root.addEventListener('click',e=>{
  if(d?.tagName==='DETAILS'&&d.parentElement?.matches?.('article.card'))queueMicrotask(()=>{if(d.open)mount(d)});
 },true);
 root.querySelectorAll('article.card > details[open]').forEach(mount);
-window.BM195EvolutiveInline=Object.freeze({installed:true,refresh(){root.querySelectorAll('article.card > details[open]').forEach(mount)}});
+window.BM195EvolutiveInline=Object.freeze({installed:true,mount,refresh(){root.querySelectorAll('article.card > details[open]').forEach(mount)}});
 })();
