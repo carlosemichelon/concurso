@@ -332,6 +332,7 @@ async function bm199Enrich(id,original){
   return {...original,v199_warning:'Complemento V199 não foi carregado ('+String(error?.message||error)+'). Os 11 módulos históricos continuam disponíveis.'};
  }
 }
+window.BM199Reauditoria=Object.freeze({enrich:bm199Enrich,ids:[...bm199Audited],status:'Adendos técnicos com cotejo pontual; originais preservados'});
 function bm197RenderText(host,raw){
  const lines=String(raw||'').split(/\r?\n/);
  for(let i=0;i<lines.length;){
