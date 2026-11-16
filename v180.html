@@ -180,9 +180,9 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   const bm129DriveReader='<scr'+'ipt src="assets/v048_drive.js?v=048"></scr'+'ipt>';
   if(!source.includes(bm129VadeGitHub)||!source.includes(bm129VadeDuplicate)||!source.includes(bm129DriveReader))
    throw Error('Módulos do Vade/Drive incompatíveis; versão V128 preservada');
-  source=source.replace(bm129VadeGitHub,tag('v154_vade_current.js?v=154'))
+  source=source.replace(bm129VadeGitHub,tag('v181_vade_current.js?v=181'))
                .replace(bm129VadeDuplicate,'<!-- Leitor antigo duplicado do Vade removido em V129 -->')
-               .replace(bm129DriveReader,tag('v154_drive_direct.js?v=154'));
+               .replace(bm129DriveReader,tag('v181_drive_direct.js?v=181'));
   // V156: somente a cópia versionada do adaptador de download mudou, não o PDF.js nem o catálogo.
   // V156: substituir apenas o renderizador do Atlas pela cópia com hooks temáticos.
   if(!source.includes('assets/v060_atlas_edicao_completa.js?v=060'))throw Error('Atlas V060 não encontrado');
