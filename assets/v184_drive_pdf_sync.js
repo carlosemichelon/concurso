@@ -26,7 +26,7 @@ function isArchivedManuscript(f){
 }
 const MAX_FOLDERS=1500,MAX_PDFS=30000,CONCURRENCY=5;
 let token='',expires=0,client=null,scanning=false,lastResult=null;
-let automaticScanTimer=0;
+let automaticScanTimer=0,lastScanStartedAt=0;
 const $=id=>document.getElementById(id);
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const label=s=>String(s||'Documento PDF').replace(/\.pdf$/i,'').replace(/[_]+/g,' ').replace(/\s+/g,' ').trim().slice(0,180);
@@ -92,7 +92,7 @@ async function initialize(){
    if(automaticScanTimer)clearTimeout(automaticScanTimer);
    automaticScanTimer=setTimeout(()=>{
     automaticScanTimer=0;
-    if(authorized()&&!scanning)void refresh();
+    if(authorized()&&!scanning&&Date.now()-lastScanStartedAt>10000)void refresh();
    },400);
   });
   status('Pronto: clique em Sincronizar todos os PDFs. Busca em DataBase_Concurso, CONCURSOS – ENGENHARIA CIVIL e acervos complementares.');
@@ -194,6 +194,7 @@ function driveUrl(id){return 'https://drive.google.com/file/d/'+encodeURICompone
 async function refresh(){
  if(scanning)return lastResult;
  if(!authorized()){status('Conecte o Google Drive para sincronizar todos os PDFs.',true);return null;}
+ lastScanStartedAt=Date.now();
  scanning=true;
  const sync=$('bm-pdf-sync-refresh'),connect=$('bm-pdf-sync-connect');
  if(sync)sync.disabled=true;
