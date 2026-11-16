@@ -11,24 +11,30 @@
   if(!node||node.nodeType!==1)return [];
   return (isDetails(node)?[node]:[]).concat(Array.from(node.querySelectorAll('details')));
  };
+ // A resposta evolutiva é o conteúdo principal, NÃO uma aba informativa.
+ // A abertura manual da resposta na grade também não deve ser desfeita.
+ const isMainAnswer=d=>isDetails(d)&&(
+  d.classList.contains('bm194-public-layers')||
+  d.parentElement?.matches?.('article.card')
+ );
  function closeAll(root){
-  for(const d of childrenDetails(root)){seen.add(d);if(d.open)d.open=false;}
+  for(const d of childrenDetails(root)){seen.add(d);if(!isMainAnswer(d)&&d.open)d.open=false;}
  }
  function closeNew(root){
   for(const d of childrenDetails(root)){
    if(seen.has(d))continue;
    seen.add(d);
-   if(d.open)d.open=false;
+   if(!isMainAnswer(d)&&d.open)d.open=false;
   }
  }
  function accordion(event){
   const current=event.target;
-  if(!isDetails(current)||!current.open)return;
+  if(!isDetails(current)||!current.open||isMainAnswer(current))return;
   const parent=current.parentElement;
   if(!parent)return;
   // Apenas abas irmãs. Nunca fecha a seção ancestral de uma subaba interna.
   for(const sibling of parent.children){
-   if(sibling!==current&&isDetails(sibling)&&sibling.open)sibling.open=false;
+   if(sibling!==current&&isDetails(sibling)&&!isMainAnswer(sibling)&&sibling.open)sibling.open=false;
   }
  }
  function mount(){
@@ -75,7 +81,7 @@
   },true);
   resetOnCardChange();
   window.BM196AbasRecolhidas=Object.freeze({
-   version:'V196',status:'abas recolhidas ao abrir ou trocar cartão',scope:'apresentação',
+   version:'V196',status:'abas informativas recolhidas; resposta evolutiva visível',scope:'apresentação',
    preserveSRS:true
   });
   return true;
