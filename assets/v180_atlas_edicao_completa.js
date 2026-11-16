@@ -118,7 +118,7 @@
   const unique=new Set(imgs.map(x=>x.no));
   const legacy=imgs.filter(x=>/^IMG-\d{3}$/.test(x.no));
   const petro=imgs.filter(x=>/^IMG-P10-\d{2}$/.test(x.no));
-  const continuous=unique.size===179&&legacy.length===70&&petro.length===16;
+  const continuous=(unique.size===86||unique.size===179)&&legacy.length===70&&petro.length===16;
   const areaNames=[...new Set(imgs.map(discipline))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
   areaNames.forEach(x=>area.add(new Option(x,x)));
   const heading=root.querySelector('.notice');
