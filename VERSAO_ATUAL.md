@@ -1,3 +1,12 @@
+# Banco Mestre V188 — grade consistente de cartões no agrupamento Geral (16/11/2026)
+
+- Corrigido o cartão isolado exibido com largura total na grade de **Geral** (ex.: CARD-0001 / Instalações e Edificações). A causa era `auto-fit` que expandia a trilha única; V188 aplica `auto-fill` em CSS isolado.
+- Desktop mantém células de grade mesmo com 1 ou 2 cartões, celular mantém uma coluna. Testado em Chromium nas larguras 1440, 900, 620 e 390 px; validação na interface do navegador do usuário ainda recomendada.
+- Nenhum cartão, ID, resposta, imagem, SRS, integração privada ou ficha inativa alterado. V187 preservada em `v187.html`; backup em `backup/v187-before-general-cards-grid-v188-20261116`.
+- Arquivos: `v188.html`, `assets/v188_general_cards_grid.css`, manifesto e página inicial. [Relatório V188](docs/V188_CORRECAO_GRADE_GERAL.md).
+
+---
+
 # Banco Mestre V187 — 1.490 versos evolutivos privados na janela de flashcards (16/11/2026)
 
 - Nova versão `v187.html` preserva V186 (checkpoints), V185 (Drive), V184 (prática/diário), PDFs, imagens, SRS e os 17 cartões inativos.
