@@ -123,6 +123,7 @@ function renderCard(){
  $('bm184-pr-next').hidden=true;
  $('bm184-pr-back-box').hidden=true;
  $('bm184-pr-reveal').disabled=false;$('bm184-pr-dontknow').disabled=false;
+ $('bm184-pr-ratings').querySelectorAll('button').forEach(button=>button.disabled=false);
  $('bm184-pr-answer').value='';$('bm184-pr-note').value='';
  $('bm184-pr-end').hidden=true;
  if(!current){$('bm184-pr-card').hidden=true;$('bm184-pr-feedback').textContent='Todos os cartões desta fila foram concluídos. Encerre a sessão para registrar o tempo.';return}
