@@ -83,7 +83,7 @@ async function openLatest(action){
   const reader=window.BancoMestreDriveV042||window.BancoMestreDriveV038;
   if(!reader?.openAndEdit)throw Error('Conector Google Drive indisponível nesta versão.');
   notify('Buscando o PDF atualizado diretamente do Google Drive; não será usada a cópia do GitHub nem a versão salva no navegador. Autorize o Drive, se solicitado.');
-  const opened=await reader.openAndEdit(doc,{forceDrive:true,forceRefresh:action==='sync'});
+  const opened=await reader.openAndEdit(doc,{forceDrive:true,forceRefresh:false});
   if(opened===true){
    notify('Versão do PDF conferida no Google Drive. Arquivo atual aberto (cache validado ou leitura nova); marcações locais anteriores preservadas por versão.');
   }else{
