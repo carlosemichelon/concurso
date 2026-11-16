@@ -120,7 +120,7 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   if(!source.includes(atlasInit))throw Error('Inicialização do Atlas alterada');
   // V156: não há injeção da antiga lista de excluídas; elas foram removidas da base ativa.
   if(!source.includes("fetch('assets/'+f)"))throw Error('Leitor de cartões alterado');
-  source=source.replace("fetch('assets/'+f)","fetch('assets/'+f+'?bm=018',{cache:'no-store'})");
+  source=source.replace("fetch('assets/'+f)","fetch('assets/'+f+'?bm=194-fast1',{cache:'default'})");
   // Retidos para rastreabilidade: os 17 IDs inativos não compõem a lista de estudo.
   if(!source.includes('const a=cards.filter(c=>')||!source.includes('for(const c of cards){const g=c.provisional?'))
    throw Error('Filtro de cartões alterado; segurança interrompe a atualização');
