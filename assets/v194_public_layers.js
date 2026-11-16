@@ -152,6 +152,13 @@
   source:'Arquivos públicos V194, sem autorização Google',
   get reservado(){return [...RESERVED]},
   get ativo(){return !!observer},
+  // Chamada direta do botão Revelar resposta; o observer é apenas alternativa.
+  attachToModal:id=>{
+   if(!modal||!answer){init();return false}
+   if(modal.hidden||answer.hidden||currentId()!==id)return false;
+   sync();
+   return !!answer.querySelector('details.bm194-public-layers, .bm194-deferred');
+  },
   load:async id=>{const i=shardFor(id);return eligible(id)&&i>=0?(await shard(i)).get(id)||null:null;},
   abrirProximoCartao:()=>schedule()
  });
