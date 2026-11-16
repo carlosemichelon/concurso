@@ -47,7 +47,7 @@
     if(!Array.isArray(rows))throw Error('O arquivo não contém uma lista de cartões.');
     const map=new Map();
     for(const x of rows){
-     if(!/^CARD-\\d{4}$/.test(x.id)||!Array.isArray(x.layers)||x.layers.length!==11||map.has(x.id))
+     if(!/^CARD-\d{4}$/.test(x.id)||!Array.isArray(x.layers)||x.layers.length!==11||map.has(x.id))
       throw Error('Lote técnico incompleto: '+String(x.id));
      if(x.layers.some((l,i)=>l.ord!==i+1||!String(l.titulo||'').trim()||!String(l.texto||'').trim()))
       throw Error('Uma das 11 seções está vazia ou fora de ordem: '+x.id);
