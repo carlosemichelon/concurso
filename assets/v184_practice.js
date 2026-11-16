@@ -18,6 +18,7 @@ root.innerHTML=[
  '<option value="due">Vencidos e ainda não estudados</option>',
  '<option value="new">Somente ainda não estudados</option>',
  '<option value="all">Todos os cartões ativos</option></select></label>',
+ '<label>Cartões por sessão <select id="bm184-pr-limit"><option value="10">10 cartões</option><option value="20" selected>20 cartões</option><option value="30">30 cartões</option><option value="50">50 cartões</option><option value="100">100 cartões</option></select></label>',
  '<button class="bm184-primary" id="bm184-pr-start" type="button">Iniciar prática</button></div>',
  '<div class="bm184-pr-metrics"><span id="bm184-pr-progress">Nenhuma sessão iniciada</span>',
  '<span id="bm184-pr-time">0h00m de prática visível</span><span id="bm184-pr-history">0 tentativas locais</span></div>',
@@ -44,7 +45,9 @@ root.innerHTML=[
  '<div class="bm184-actions"><button class="bm184-primary" id="bm184-pr-save-time" type="button">Registrar horas no calendário</button>',
  '<button id="bm184-pr-no-time" type="button">Não registrar tempo (já anotei)</button></div></div>',
  '<div class="bm184-actions"><button id="bm184-pr-calendar" type="button">Abrir calendário e horas</button>',
- '<span id="bm184-pr-status" role="status"></span></div></section>'
+ '<span id="bm184-pr-status" role="status"></span></div>',
+ '<details class="bm184-pr-journal"><summary>Histórico de tentativas e próximas revisões</summary>',
+ '<div id="bm184-pr-history-list"></div></details></section>'
 ].join('');
 const footer=main.querySelector('footer');if(footer)footer.before(root);else main.append(root);
 const navBtn=document.createElement('button');navBtn.type='button';navBtn.dataset.page='pratica';navBtn.textContent='Praticar cartões';
@@ -59,6 +62,25 @@ document.addEventListener('visibilitychange',()=>{if(!active)return;if(document.
 function showTime(){
  $('bm184-pr-time').textContent=formatTime(Math.round(currentMs()/1000))+' de prática visível';
  $('bm184-pr-history').textContent=db.counts.reviews+' tentativas locais';
+}
+function displayHistory(){
+ const host=$('bm184-pr-history-list');host.replaceChildren();
+ const list=db.listReviews().slice(0,30);
+ if(!list.length){const p=document.createElement('p');p.textContent='Nenhuma tentativa registrada nesta conta do navegador.';host.append(p);return}
+ for(const row of list){
+  const item=document.createElement('article');item.className='bm184-session';
+  const info=document.createElement('div');
+  const title=document.createElement('strong');title.textContent=row.cardId+' · '+row.rating+' · '+row.day;
+  const details=document.createElement('p');details.textContent=row.discipline+
+    (row.subject?' › '+row.subject:'')+' · próxima revisão local: '+row.due;
+  info.append(title,details);
+  const text=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Resposta e anotação';
+  text.append(summary);
+  const attempt=document.createElement('p');attempt.style.whiteSpace='pre-wrap';attempt.textContent='Sua resposta: '+row.answer;
+  const note=document.createElement('p');note.style.whiteSpace='pre-wrap';note.textContent='Observação: '+(row.note||'—');
+  text.append(attempt,note);info.append(text);
+  item.append(info);host.append(item);
+ }
 }
 function sources(){
  return typeof cards!=='undefined'&&Array.isArray(cards)?cards.filter(c=>c&&(c.active!==false||c.provisional)&&
@@ -94,7 +116,7 @@ function plannedQueue(){
     const priority={Errei:0,'Difícil':1,Bom:2,'Fácil':3};
     const rank=(priority[a.last.rating]??4)-(priority[b.last.rating]??4);if(rank)return rank}
    return a.card.id.localeCompare(b.card.id);
-  }).map(x=>x.card);
+  }).map(x=>x.card).slice(0,Number($('bm184-pr-limit').value)||20);
 }
 function renderCard(){
  $('bm184-pr-feedback').textContent='';
@@ -151,7 +173,7 @@ function grade(rating){
   $('bm184-pr-feedback').textContent='Tentativa registrada: '+rating+
    ' · previsão local de revisão em '+review.due+' ('+review.interval+' dias). Não foi lançado no SRS canônico.';
   $('bm184-pr-next').hidden=false;$('bm184-pr-progress').textContent=done+' de '+queue.length+' cartões avaliados';
-  showTime();
+  showTime();displayHistory();
  }catch(error){$('bm184-pr-feedback').textContent='Não foi possível salvar a tentativa: '+error.message}
 }
 function nextCard(){
@@ -187,6 +209,7 @@ function open(){
  if(typeof section==='function')section('pratica');
  else{document.querySelectorAll('main > section').forEach(x=>x.classList.toggle('active',x===root))}
  if(active)beginClock();
+ displayHistory();
  void load().catch(e=>{$('bm184-pr-status').textContent=e.message});
 }
 nav.addEventListener('click',e=>{if(!active)return;const btn=e.target.closest('button[data-page]');if(!btn)return;if(btn.dataset.page==='pratica')beginClock();else stopClock()},true);
@@ -227,7 +250,7 @@ function attachReaderButton(){
  };
  c.append(button);
 }
-attachReaderButton();
+attachReaderButton();displayHistory();
 window.BM184Practice=Object.freeze({open,start,startCard,finish,get active(){return active},get reviewed(){return done},get lastReview(){return lastReview}});
 if(location.hash==='#pratica')open();
 })();
