@@ -17,7 +17,7 @@ const READ_SCOPE='https://www.googleapis.com/auth/drive.readonly';
 const WRITE_SCOPE='https://www.googleapis.com/auth/drive.file';
 const FOLDER='application/vnd.google-apps.folder';
 const MANIFEST=/^BM_CHECKPOINT_MANIFEST_V1__(CP-[A-Z0-9_-]{6,100})\.json$/i;
-const LEGACY=/(?:CHECKPOINT|SINCRONIZACAO_INCREMENTAL|TRANSFERENCIA|PACOTE_DE_AUDITORIA).*\.(?:zip|json|md|txt|xlsx)$/i;
+const LEGACY=/(?:CHECKPOINT|BACKUP|CONSOLIDADO|SINCRONIZACAO_INCREMENTAL|TRANSFERENCIA|PACOTE|AUDITORIA).*\.(?:zip|json|md|txt|xlsx)$/i;
 const ID=/^[A-Za-z0-9_-]{15,}$/;
 const $=id=>document.getElementById(id);
 let reader=null,writer=null,readToken='',writeToken='',readExpiry=0,writeExpiry=0;
@@ -211,7 +211,7 @@ async function scan(){
   report('Consulta incompleta: '+e.message+'. Registros anteriores preservados.',true);
  }finally{scanning=false;if(reload)reload.disabled=false}
 }
-function driveLink(f){return 'https://drive.google.com/file/d/'+encodeURIComponent(f.id)+'/view'}
+function driveLink(f){return f.mimeType==='application/vnd.google-apps.document'?'https://docs.google.com/document/d/'+encodeURIComponent(f.id)+'/edit':'https://drive.google.com/file/d/'+encodeURIComponent(f.id)+'/view'}
 function render(){
  const host=$('bm186Records');if(!host)return;host.replaceChildren();
  const search=normalize($('bm186Search')?.value);
@@ -313,7 +313,7 @@ async function init(){
   await prepareOauth();
   window.setInterval(()=>{if(authRead()&&!scanning&&Date.now()-scanAt>120000)void scan()},120000);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&authRead()&&!scanning&&Date.now()-scanAt>120000)void scan()});
-  report('Conector preparado. Autorize a leitura para conferir checkpoints no Drive. O site não lê mensagens privadas do ChatGPT.');
+  if(!authRead())report('Conector preparado. Autorize a leitura para conferir checkpoints no Drive. O site não lê mensagens privadas do ChatGPT.');
  }catch(e){report('Registro de checkpoints indisponível: '+e.message,true)}
 }
 window.BM186Checkpoints=Object.freeze({
