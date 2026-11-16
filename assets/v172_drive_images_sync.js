@@ -10,7 +10,7 @@ const REGISTERED_PRIVATE=15; // 1 P11, 11 P12, 3 P13 verificados em 15/11/2026.
 function groupOf(file){
  const code=String(file.name||'').match(/^IMG-(P\d{2})-/i)?.[1]?.toUpperCase();
  if(code==='P11')return 'Petrobras 11 — Segurança do Trabalho';
- if(code==='P12')return 'Petrobras 12 — NR-7 e NR-17';
+ if(code==='P12')return /_NR17_/i.test(file.name)?'Petrobras 12 — NR-17 (Ergonomia)':'Petrobras 12 — NR-7 (PCMSO)';
  if(code==='P13')return 'Petrobras 13 — Normas Regulamentadoras';
  return file.folderLabel||'Outras imagens do Drive';
 }
