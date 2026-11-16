@@ -1,3 +1,16 @@
+# Banco Mestre V194 — respostas completas no site, sem conectar Drive (16/11/2026)
+
+- Site carrega **1.518 cartões originais** diretamente dos JSONs públicos (1.501 ativos e 17 inativos).
+- Depois de **Revelar resposta**, aparecem automaticamente as **11 camadas integrais didáticas** de cada um dos **1.490 cartões liberados**, sem autenticação Drive e sem publicação do histórico SRS.
+- Os **11 cartões críticos** permanecem reservados e mostram apenas resposta original, conforme decisão do estudante.
+- 19 IDs que faltavam na base pública passaram a fazer parte do catálogo didático. Os 22 operacionais Ijuí continuam em coleção separada.
+- Originais E/F/G/H foram preservados; exemplos, fórmulas, pegadinhas e macetes incluídos. URLs Drive particulares e notas administrativas de revisão não foram publicados.
+- Preserva V193 (rótulos/planejamento SRS), V191 (grade Todos), V186 (checkpoints), PDFs, imagens, grifos e históricos privados. **Nenhum evento SRS foi migrado ou alterado.**
+- Auditoria estrutural: 1.518 IDs únicos, 16.390 camadas, 11 adiados, zero registros SRS nos arquivos públicos. Teste Chromium real pendente por limitação do ambiente.
+- Backup de código `backup/v193-before-didactic-public-v194-20261116`; rollback `v193.html`. [Detalhes](docs/V194_PUBLICACAO_CARTOES_COMPLETOS_SEM_DRIVE.md).
+
+---
+
 # Banco Mestre V191 — todos os cartões na grade + snapshot privado V158 (16/11/2026)
 
 - Corrigido o filtro **Todos**: não exibe apenas os primeiros 24. Lista todos os cartões da base atualmente carregada em **uma única grade**, sem grupos destacados; quando houver filtro específico, a paginação de 24 e os grupos voltam.
