@@ -52,7 +52,7 @@
 .bm184-backup{border:1px solid #d6e5e9;border-radius:10px;padding:12px;margin-top:16px}
 .bm184-backup summary{font-size:13px;font-weight:800;color:#345b6b;cursor:pointer}
 .bm184-practice .panel{max-width:1180px;margin:auto}
-.bm184-practice .bm184-practice-config{grid-template-columns:repeat(3,minmax(0,1fr)) auto;align-items:end}
+.bm184-practice .bm184-practice-config{grid-template-columns:repeat(4,minmax(0,1fr)) auto;align-items:end}
 .bm184-pr-metrics{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:12px;background:#f1f7f9;border:1px solid #d8e6eb;border-radius:8px;font-size:12px;margin:16px 0}
 .bm184-warning{padding:10px 12px;border-left:3px solid #6e9eab;background:#f5f8f9}
 .bm184-pr-card{padding:18px;border:1px solid #b8d2dd;border-radius:11px;background:#fff}
@@ -71,3 +71,10 @@
 #bm184-pr-end-text{font-weight:600}
 @media(max-width:820px){.bm184-under{grid-template-columns:1fr}.bm184-practice .bm184-practice-config{grid-template-columns:1fr 1fr}.bm184-diary .bm184-totals{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:530px){#calendario .bm184-diary{padding:11px}.bm184-diary .bm184-fields,.bm184-practice .bm184-practice-config{grid-template-columns:1fr}.bm184-diary button.bm184-day{min-height:55px;padding:6px 4px}.bm184-diary .bm184-month-nav{gap:7px}.bm184-month-nav strong{min-width:105px;font-size:13px}.bm184-ratings{grid-template-columns:1fr 1fr}.bm184-session{flex-direction:column}.bm184-diary .bm184-totals strong{font-size:19px}}
+
+.bm184-pr-journal{border:1px solid #d8e6eb;border-radius:9px;margin-top:20px;padding:13px;background:#fff}
+.bm184-pr-journal>summary{font-size:13px;font-weight:760;color:#365e72;cursor:pointer}
+.bm184-pr-journal .bm184-session{padding:10px 0}
+.bm184-pr-journal .bm184-session p{white-space:pre-wrap;overflow-wrap:anywhere}
+.bm184-pr-journal .bm184-session details{margin:8px 0}
+.bm184-pr-journal .bm184-session summary{cursor:pointer}
