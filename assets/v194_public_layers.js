@@ -72,6 +72,9 @@
   if(existing?.dataset.cardId===id)return;
   if(existing)existing.remove();
   if(RESERVED.has(id)){
+   const prior=answer.querySelector('.bm194-deferred');
+   if(prior?.dataset.cardId===id)return;
+   if(prior)prior.remove();
    const p=el('p','Este cartão permanece reservado para homologação. A resposta original está preservada.','bm194-deferred');
    p.dataset.cardId=id;answer.append(p);return;
   }
