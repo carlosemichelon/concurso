@@ -12,6 +12,7 @@ function groupOf(file){
  if(file.origin==='chat'){
   const path=String(file.folderLabel||'');
   if(/ORIGINAIS_RECUPERADOS_CONVERSAS_11_12_13_14/i.test(path)){
+   if(/COPIAS_FIEIS_IDENTIFICADAS_EM_CARTOES/i.test(path))return 'Cópias fiéis documentadas — Parte 14';
    const match=path.match(/PARTE_(1[1234])_/);
    return match?'Originais enviados — parte '+match[1]+' (data a conferir)':'Originais enviados — partes 11 a 14';
   }
@@ -43,9 +44,10 @@ const MAX_BYTES=15000000;
 const INDEX_NAME='INDICE_VINCULOS_IMAGENS_P11_P14_2026-11-16.json';
 const RECOVERY_ID='1pp1CL9oMYVFHPPzv117DZpy1kA-wyJQo';
 let indexMap=new Map();
-function isRecovered(file){return file.origin==='chat'&&/ORIGINAIS_RECUPERADOS_CONVERSAS_11_12_13_14/i.test(file.folderLabel||'');}
+function isRecovered(file){return file.origin==='chat'&&/ORIGINAIS_RECUPERADOS_CONVERSAS_11_12_13_14/i.test(file.folderLabel||'')&&!/COPIAS_FIEIS_IDENTIFICADAS_EM_CARTOES/i.test(file.folderLabel||'');}
+function isDocumentedCopy(file){return /COPIAS_FIEIS_IDENTIFICADAS_EM_CARTOES/i.test(file.folderLabel||'');}
 function linked(file){return indexMap.get(file.name)||null;}
-function priorityOrder(file){return isRecovered(file)?0:linked(file)?1:file.origin==='chat'?2:3;}
+function priorityOrder(file){return isRecovered(file)?0:isDocumentedCopy(file)?1:linked(file)?2:file.origin==='chat'?3:4;}
 function linkDetails(file){
  const entry=linked(file);
  if(!entry)return null;
