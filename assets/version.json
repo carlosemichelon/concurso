@@ -1057,14 +1057,16 @@
     "hierarchy": "discipline > general > specific > sub"
   },
   "vade_current": {
-    "version": "V154",
+    "version": "V181",
     "file_id": "1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI",
-    "file_sha256": "2c836a11dcdae84e62e3e4cac8e449de760f82d9acd13278da50c5634f296a90",
-    "opening": "Cópia local somente se hash idêntico; senão forçar Drive; sincronização explícita sempre Drive",
-    "cache": "IndexedDB BancoMestrePDFLocalV035, arquivo do usuário, sem armazenar token OAuth",
-    "reader": "assets/v154_drive_direct.js",
-    "module": "assets/v154_vade_current.js",
-    "oauth": "GIS token temporário; sem refresh token persistido em site estático"
+    "last_audited_pdf_sha256": "c842ae638ef4b820715a93425fe9541171635cf13938821b3eb21ce7e17c4d5e",
+    "opening": "Consultar metadados atuais do Drive; usar cache somente se versão, tamanho, modificação e MD5 corresponderem; caso contrário baixar PDF atualizado",
+    "cache": "IndexedDB BancoMestrePDFLocalV035, preservando marcações locais por ID e hash de cada edição, sem migração automática",
+    "reader": "assets/v181_drive_direct.js",
+    "module": "assets/v181_vade_current.js",
+    "oauth": "GIS token temporário; sem refresh token persistido em site estático",
+    "sync": "Conferência por metadados a cada abertura; não requer novo deploy do site quando a fonte PDF do mesmo ID mudar",
+    "validation_scope": "Código e referências GitHub; leitura OAuth no navegador do usuário não testada"
   },
   "image_classification": {
     "version": "V156",
