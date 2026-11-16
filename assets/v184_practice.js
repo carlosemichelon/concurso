@@ -127,7 +127,7 @@ function reveal(){
  $('bm184-pr-feedback').textContent='Compare sua resposta com o verso original e registre a avaliação. A classificação é manual.';
 }
 async function start(){
- if(active){$('bm184-pr-status').textContent='Já existe uma sessão em andamento. Conclua-a antes de iniciar outra.';return}
+ if(active||finished){$('bm184-pr-status').textContent=finished?'Finalize o registro de horas da sessão anterior antes de iniciar outra.':'Já existe uma sessão em andamento. Conclua-a antes de iniciar outra.';return}
  $('bm184-pr-start').disabled=true;
  try{
   await load();queue=plannedQueue();
@@ -202,9 +202,9 @@ $('bm184-pr-stop').onclick=()=>{if(active&&done&&!confirm('Encerrar sem registra
 $('bm184-pr-save-time').onclick=logTime;
 $('bm184-pr-no-time').onclick=()=>{finished=false;$('bm184-pr-end').hidden=true;$('bm184-pr-status').textContent='Tempo não lançado. Tentativas permanecem salvas.'};
 $('bm184-pr-full').onclick=()=>{if(current)window.BancoMestreVisualizarCardV050?.showId?.(current.id)};
-$('bm184-pr-calendar').onclick=()=>{window.BM141Calendar?.open?.();if(typeof section==='function')section('calendario')};
+$('bm184-pr-calendar').onclick=()=>{stopClock();window.BM141Calendar?.open?.();if(typeof section==='function')section('calendario')};
 function startCard(id){
- if(active){$('bm184-pr-status').textContent='Encerre a sessão atual antes de iniciar pelo cartão '+id+'.';return}
+ if(active||finished){$('bm184-pr-status').textContent='Encerre e finalize as horas da sessão atual antes de iniciar pelo cartão '+id+'.';return}
  open();
  void load().then(()=>{
   const c=all.find(x=>x.id===id);if(!c)throw Error('Cartão não encontrado: '+id);
