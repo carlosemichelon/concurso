@@ -290,7 +290,47 @@ async function bm197Record(id){
   bm197Cache.set(batch,pending);
   pending.catch(()=>{if(bm197Cache.get(batch)===pending)bm197Cache.delete(batch)});
  }
- return (await bm197Cache.get(batch)).get(id)||null;
+ const original=(await bm197Cache.get(batch)).get(id)||null;
+ if(!original)return null;
+ // V199: adendos auditados só para IDs cotejados. Histórico original permanece literal.
+ return await bm199Enrich(id,original);
+}
+/* V199 — enriquecimentos documentados, sem alterar o JSON histórico. */
+const bm199Audited=new Set(['CARD-0751','CARD-0752','CARD-0753','CARD-0754','CARD-1001']);
+let bm199OverlayPromise=null;
+async function bm199Enrich(id,original){
+ if(!bm199Audited.has(id))return original;
+ try{
+  if(!bm199OverlayPromise){
+   bm199OverlayPromise=fetch('assets/v199_reauditoria_adenda_5_cartoes.json?v=199-01',{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw Error('Adendo V199: HTTP '+r.status);return r.json()})
+    .then(data=>{
+     if(data?.schema!=='BancoMestreReauditoriaAdendaV199'||!Array.isArray(data.records))
+      throw Error('Adendo V199 incompatível');
+     const m=new Map();
+     for(const card of data.records){
+      if(!bm199Audited.has(card.id)||m.has(card.id)||!card.addenda||typeof card.addenda!=='object')
+       throw Error('ID repetido ou não homologado no adendo');
+      for(const [num,val] of Object.entries(card.addenda))
+       if(!/^(?:[1-9]|10|11)$/.test(num)||!String(val||'').trim())throw Error('Seção inválida no adendo: '+card.id);
+      m.set(card.id,card);
+     }
+     return m;
+    });
+   bm199OverlayPromise.catch(()=>{bm199OverlayPromise=null});
+  }
+  const map=await bm199OverlayPromise,adendo=map.get(id);
+  if(!adendo)throw Error('Adendo não contém '+id);
+  if(!Array.isArray(original.layers)||original.layers.length!==11)throw Error('11 módulos originais indisponíveis');
+  const layers=original.layers.map((x,i)=>{
+   const addition=adendo.addenda[String(i+1)];
+   return addition?{...x,texto:x.texto+'\n\nREANÁLISE DOCUMENTADA V199 — COMPLEMENTO NÃO SUBSTITUTIVO:\n'+addition}:x;
+  });
+  return {...original,layers,v199_status:adendo.status};
+ }catch(error){
+  console.warn('Reauditoria complementar indisponível:',id,error);
+  return {...original,v199_warning:'Complemento V199 não foi carregado ('+String(error?.message||error)+'). Os 11 módulos históricos continuam disponíveis.'};
+ }
 }
 function bm197RenderText(host,raw){
  const lines=String(raw||'').split(/\r?\n/);
@@ -347,7 +387,9 @@ function bm197ShowEvolution(c){
     });
     state.replaceChildren(create('p','bm197-pending','O quadro informativo não carregou; exibindo os 11 textos originais.'),fragment);
    }
-   heading.textContent='📖 Resposta evolutiva integral · 11 seções · '+c.id;
+   if(record.v199_status)heading.textContent='📖 Resposta evolutiva integral · 11 seções · '+c.id+' · reauditoria V199';
+   else heading.textContent='📖 Resposta evolutiva integral · 11 seções · '+c.id;
+   if(record.v199_warning)state.prepend(create('p','bm197-pending',record.v199_warning));
   }catch(e){
    if(!pane.isConnected||pane.dataset.cardId!==currentId)return;
    const err=create('p','bm197-error','Não foi possível mostrar a resposta evolutiva: '+String(e?.message||e));
