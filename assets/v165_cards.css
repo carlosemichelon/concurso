@@ -328,3 +328,22 @@
 @media(max-height:580px) and (min-width:761px){
  #bmCardPeekV050 .bm163-panel.bm165-panel{height:98dvh!important}
 }
+
+/* V197 — resposta evolutiva diretamente no leitor principal, sem abas automáticas */
+#bmCardPeekV050 .bm197-evolutive{display:block!important;visibility:visible!important;opacity:1!important;position:relative;max-width:100%;min-width:0;overflow:visible;background:#fff;border:1px solid #bdd8d1;border-radius:12px;padding:0;margin:8px 0 15px}
+#bmCardPeekV050 .bm197-title{display:block;font-size:17px;line-height:1.45;letter-spacing:-.01em;font-weight:800;margin:0;padding:13px 16px;background:#eaf4f0;color:#15453c;border-radius:12px 12px 0 0;border-bottom:1px solid #c5dcd5}
+#bmCardPeekV050 .bm197-state{padding:0 16px 10px}
+#bmCardPeekV050 .bm197-layer{display:block!important;visibility:visible!important;padding:14px 0 12px;border-bottom:1px solid #e1eae7}
+#bmCardPeekV050 .bm197-layer:last-child{border-bottom:0}
+#bmCardPeekV050 .bm197-layer-title{font-size:14px;line-height:1.45;font-weight:800;margin:0 0 11px;color:#1d4a44}
+#bmCardPeekV050 .bm197-paragraph{font-size:14px;line-height:1.75;margin:0 0 9px;color:#263d3b;white-space:pre-wrap;overflow-wrap:anywhere}
+#bmCardPeekV050 .bm197-paragraph:last-child{margin-bottom:0}
+#bmCardPeekV050 .bm197-table-scroll{width:100%;overflow-x:auto;margin:7px 0 11px}
+#bmCardPeekV050 .bm197-table{border-collapse:collapse;width:100%;min-width:420px;font-size:13px}
+#bmCardPeekV050 .bm197-table th,#bmCardPeekV050 .bm197-table td{text-align:left;vertical-align:top;border:1px solid #cfddd8;padding:8px;white-space:pre-wrap}
+#bmCardPeekV050 .bm197-table th{background:#eff7f4;color:#1d4a44}
+#bmCardPeekV050 .bm197-loading,#bmCardPeekV050 .bm197-pending{font-size:13px;color:#4c6862;line-height:1.6;margin:12px 0}
+#bmCardPeekV050 .bm197-error{font-size:13px;color:#952f24;font-weight:650;line-height:1.65;margin:12px 0}
+#bmCardPeekV050 .bm197-retry{border-radius:8px;border:1px solid #75a99e;padding:9px 12px;background:#eff9f6;color:#20564a;font-size:13px;font-weight:750;cursor:pointer}
+#bmCardPeekV050 .bm197-retry:focus-visible{outline:2px solid #176d58;outline-offset:2px}
+@media(max-width:600px){#bmCardPeekV050 .bm197-title{font-size:15px;padding:11px 12px}#bmCardPeekV050 .bm197-state{padding:0 12px 9px}#bmCardPeekV050 .bm197-paragraph{font-size:13.5px}}
