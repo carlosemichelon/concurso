@@ -96,7 +96,7 @@ async function refreshVisibleImages(force=false){
    if(!m.mimeType.startsWith('image/')){unavailable++;continue}
    const rev=revision(m);
    if(!rev)continue;
-   const next=taggedUrl(img.currentSrc||img.src,rev);
+   const next=taggedUrl(img.src,rev);
    if(next&&img.isConnected){img.dataset.bmMediaId=item.id;img.src=next;updated++}
    done++;
   }catch(_){unavailable++}
