@@ -39,6 +39,7 @@ host.innerHTML=[
  '<p>Registros apenas neste navegador. Para usar outro aparelho, exporte o JSON e importe nele. O backup inclui também tentativas e avaliações da prática local; não altera o SRS canônico.</p>',
  '<div class="bm184-actions"><button type="button" id="bm184-json">Exportar backup JSON</button>',
  '<button type="button" id="bm184-csv">Exportar horas CSV</button>',
+ '<button type="button" id="bm184-review-csv">Exportar previsões de revisão CSV</button>',
  '<button type="button" id="bm184-import-button">Importar backup JSON</button>',
  '<input type="file" id="bm184-import" accept=".json,application/json" hidden></div>',
  '<p id="bm184-backup-status" role="status"></p></details>'
@@ -156,6 +157,14 @@ $('bm184-csv').onclick=()=>{
  for(const e of db.listSessions().sort((a,b)=>a.day.localeCompare(b.day)))lines.push([e.day,e.discipline,e.subject,e.activity,e.minutes,(e.minutes/60).toFixed(2),e.note]);
  download(new Blob(['\ufeff'+lines.map(x=>x.map(csv).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'}),'BancoMestre_Horas_'+today+'.csv');
  $('bm184-backup-status').textContent='CSV gerado; use o JSON para preservar também o histórico de prática.';
+};
+$('bm184-review-csv').onclick=()=>{
+ const rows=[['id','proxima_revisao','avaliacao','data_tentativa','intervalo_dias','disciplina','assunto','observacao']];
+ for(const e of db.nextReviews().sort((a,b)=>a.cardId.localeCompare(b.cardId)))
+  rows.push([e.cardId,e.due,e.rating,e.day,e.interval,e.discipline,e.subject,e.note]);
+ const text='\ufeff'+rows.map(row=>row.map(csv).join(';')).join('\r\n');
+ download(new Blob([text],{type:'text/csv;charset=utf-8'}),'BancoMestre_Previsoes_Praticas_'+today+'.csv');
+ $('bm184-backup-status').textContent='Previsões locais exportadas. Não são eventos SRS canônicos; confira-as antes de importar para outro sistema.';
 };
 $('bm184-import-button').onclick=()=>$('bm184-import').click();
 $('bm184-import').onchange=async e=>{
