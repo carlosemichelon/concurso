@@ -1,0 +1,23 @@
+/* V188 — Grade de flashcards da categoria Geral.
+ * A V128 usa auto-fit: 1 cartão preenche a linha inteira.
+ * auto-fill mantém colunas vazias e impede o destaque involuntário.
+ * Apenas layout: sem alteração no leitor modal, IDs ou SRS. */
+#cartoes .bm128CardsGroup > .bm128CardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
+  gap: 9px;
+  align-items: start;
+  min-width: 0;
+}
+#cartoes .bm128CardsGroup > .bm128CardsGrid > article.card {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  box-sizing: border-box;
+  grid-column: auto;
+}
+@media (max-width: 680px) {
+  #cartoes .bm128CardsGroup > .bm128CardsGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
