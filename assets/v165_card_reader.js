@@ -262,6 +262,97 @@ function appendAnswer(c){
  }
  if(!summary&&!mn&&!refs&&!rel)answer.append(create('p','bm163-missing-guide','Não há guia complementar auditado para este ID; o verso original permanece disponível.'));
 }
+
+/* V197 — renderizador direto no leitor do gabarito.
+ * O título aparece sincronicamente; dados e SRS nunca são modificados. */
+const bm197Cache=new Map();
+const bm197Reserved=new Set(['CARD-0138','CARD-0194','CARD-0248','CARD-0286','CARD-0350','CARD-0424','CARD-0445','CARD-0502','CARD-0509','CARD-0510','CARD-0693']);
+function bm197Shard(id){
+ if(!/^CARD-\d{4}$/.test(id))return -1;
+ const n=Number(id.slice(5));return n>=1&&n<=1519?Math.floor((n-1)/250):-1;
+}
+async function bm197Record(id){
+ const batch=bm197Shard(id);
+ if(batch<0)return null;
+ if(!bm197Cache.has(batch)){
+  const uri='assets/layers_public_v194_'+String(batch).padStart(3,'0')+'.json?v=197-direct';
+  const pending=(async()=>{
+   const controller=new AbortController();
+   const timer=setTimeout(()=>controller.abort(),30000);
+   let response;
+   try{response=await fetch(uri,{cache:'no-store',signal:controller.signal})}
+   finally{clearTimeout(timer)}
+   if(!response.ok)throw Error('HTTP '+response.status+' ao abrir '+uri);
+   const parsed=await response.json();
+   if(!Array.isArray(parsed))throw Error('Formato inválido do arquivo de aprofundamento');
+   return new Map(parsed.map(row=>[row.id,row]));
+  })();
+  bm197Cache.set(batch,pending);
+  pending.catch(()=>{if(bm197Cache.get(batch)===pending)bm197Cache.delete(batch)});
+ }
+ return (await bm197Cache.get(batch)).get(id)||null;
+}
+function bm197RenderText(host,raw){
+ const lines=String(raw||'').split(/\r?\n/);
+ for(let i=0;i<lines.length;){
+  if(!lines[i].trim()){i++;continue}
+  if(lines[i].trim().startsWith('|')&&i+1<lines.length&&/^\s*\|?\s*:?-{3,}/.test(lines[i+1])){
+   const table=create('table','bm197-table'),thead=create('thead'),tbody=create('tbody');
+   const labels=lines[i].trim().replace(/^\||\|$/g,'').split('|').map(x=>x.trim());
+   const row=create('tr');labels.forEach(x=>row.append(create('th','',x)));thead.append(row);
+   i+=2;
+   while(i<lines.length&&lines[i].trim().startsWith('|')){
+    const cells=lines[i].trim().replace(/^\||\|$/g,'').split('|'),tr=create('tr');
+    labels.forEach((_,k)=>tr.append(create('td','',(cells[k]||'').trim())));tbody.append(tr);i++;
+   }
+   table.append(thead,tbody);const scroll=create('div','bm197-table-scroll');scroll.append(table);host.append(scroll);continue;
+  }
+  let chunk=[];
+  while(i<lines.length&&lines[i].trim()&&!(lines[i].trim().startsWith('|')&&i+1<lines.length&&/^\s*\|?\s*:?-{3,}/.test(lines[i+1])))chunk.push(lines[i++]);
+  if(chunk.length)host.append(create('p','bm197-paragraph',chunk.join('\n')));
+ }
+}
+function bm197ShowEvolution(c){
+ if(!c||!/^CARD-\d{4}$/.test(c.id)||answer.hidden)return;
+ if(answer.querySelector('.bm197-evolutive'))return;
+ const pane=create('section','bm197-evolutive'),heading=create('h3','bm197-title','📖 Resposta evolutiva integral · 11 seções');
+ const state=create('div','bm197-state','Carregando os textos completos do cartão '+c.id+'…');
+ pane.dataset.cardId=c.id;pane.append(heading,state);
+ const primary=answer.querySelector(':scope > .bm163-essential, :scope > .bm165-essential');
+ if(primary)primary.after(pane);else answer.prepend(pane);
+ if(bm197Reserved.has(c.id)){
+  state.replaceChildren(create('p','bm197-pending','Cartão reservado para homologação. O verso original continua disponível acima.'));
+  return;
+ }
+ const load=async()=>{
+  state.replaceChildren(create('p','bm197-loading','Carregando 11 seções do '+c.id+'…'));
+  try{
+   const record=await bm197Record(c.id);
+   if(!pane.isConnected||pane.dataset.cardId!==currentId)return;
+   if(!record)throw Error('ID '+c.id+' não encontrado no lote público.');
+   if(!Array.isArray(record.layers)||record.layers.length!==11||
+      record.layers.some((x,i)=>x.ord!==i+1||!String(x.titulo||'').trim()||!String(x.texto||'').trim()))
+    throw Error('Registro sem as 11 seções completas.');
+   const fragment=document.createDocumentFragment();
+   record.layers.forEach((layer,i)=>{
+    const item=create('section','bm197-layer');
+    const title=String(layer.titulo).trim();
+    item.append(create('h4','bm197-layer-title',/^\d{1,2}\s*[-—–.:]/.test(title)?title:String(i+1).padStart(2,'0')+' · '+title));
+    bm197RenderText(item,layer.texto);
+    fragment.append(item);
+   });
+   state.replaceChildren(fragment);
+   heading.textContent='📖 Resposta evolutiva integral · 11 seções · '+c.id;
+  }catch(e){
+   if(!pane.isConnected||pane.dataset.cardId!==currentId)return;
+   const err=create('p','bm197-error','Não foi possível mostrar a resposta evolutiva: '+String(e?.message||e));
+   const retry=create('button','bm197-retry','Tentar carregar novamente');retry.type='button';retry.addEventListener('click',load);
+   state.replaceChildren(err,retry);
+  }
+ };
+ void load();
+}
+
 function renderLaw(rec,c){
  lawPanel.replaceChildren();
  if(rec){
@@ -311,14 +402,8 @@ reveal.addEventListener('click',()=>{
  answer.hidden=!answer.hidden;
  if(!answer.hidden){
   appendAnswer(c);
-  // V194: a resposta evolutiva deve ser anexada neste clique, sem depender de MutationObserver.
-  const loader=window.BM194VersosPublicos;
-  const inV194=/V194/.test(document.title);
-  if(loader&&typeof loader.attachToModal==='function'){
-   const shown=loader.attachToModal(currentId);
-   if(inV194&&!shown)answer.append(create('p','bm194-error','Não foi possível ativar o aprofundamento deste cartão. Atualize a página e tente novamente.'));
-  }else if(loader&&typeof loader.abrirProximoCartao==='function')loader.abrirProximoCartao();
-  else if(inV194)answer.append(create('p','bm194-error','Leitor das 11 seções indisponível nesta sessão. Recarregue o site para consultar a resposta evolutiva.'));
+  // A seção nasce no próprio leitor, antes da requisição remota.
+  bm197ShowEvolution(c);
  }
  reveal.setAttribute('aria-expanded',String(!answer.hidden));
  reveal.replaceChildren(icon('eye'),document.createTextNode(answer.hidden?'Revelar resposta':'Ocultar resposta'));
