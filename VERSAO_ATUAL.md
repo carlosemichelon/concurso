@@ -1,3 +1,13 @@
+# Banco Mestre V191 — todos os cartões na grade + snapshot privado V158 (16/11/2026)
+
+- Corrigido o filtro **Todos**: não exibe apenas os primeiros 24. Lista todos os cartões da base atualmente carregada em **uma única grade**, sem grupos destacados; quando houver filtro específico, a paginação de 24 e os grupos voltam.
+- **Base privada V158 preparada e salva no Drive** (1.518 IDs / 1.501 ativos; 1.490 aprofundamentos e 11 críticos adiados). Os 1.518 SRS da V045 foram preservados exatamente, mas os históricos de outras conversas e navegadores ainda não estão integralmente conciliados.
+- A base pública continua com 1.499 IDs / 1.482 ativos. Para mostrar os outros 19, usar o sincronizador privado V185, carregar a V158; os 22 operacionais Ijuí permanecem separados. Inativos exigem habilitação própria.
+- Testes sintéticos Chromium em 1440, 900 e 390 px: Todos=1.523 ativos com base privada+Ijuí, filtro específico=24, Todos+inativos=1.540. OAuth e renderização completa no navegador do titular permanecem sem homologação.
+- Arquivos: `v191.html`, `assets/v191_all_cards_grid.js`, `assets/v191_all_cards_grid.css`; preservar V190. [Relatório](docs/V191_TODOS_CARTOES_GRADE_E_SNAPSHOT_V158.md).
+
+---
+
 # Banco Mestre V188 — grade consistente de cartões no agrupamento Geral (16/11/2026)
 
 - Corrigido o cartão isolado exibido com largura total na grade de **Geral** (ex.: CARD-0001 / Instalações e Edificações). A causa era `auto-fit` que expandia a trilha única; V188 aplica `auto-fill` em CSS isolado.
