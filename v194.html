@@ -197,7 +197,7 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   source=source.replace('assets/v055_card_reader.js?v=055','assets/v165_card_reader.js?v=165-rich198');
    const bm198ReaderTag=tag('v165_card_reader.js?v=165-rich198');
    if(!source.includes(bm198ReaderTag))throw Error('Leitor de cartões V198 não encontrado na montagem');
-   source=source.replace(bm198ReaderTag,tag('v198_evolutive_format.js?v=198-001')+bm198ReaderTag);
+   source=source.replace(bm198ReaderTag,tag('v198_evolutive_format.js?v=198-002')+bm198ReaderTag);
   // V165 remove a primeira barra duplicada (janela V060) sem editar módulos históricos.
   const oldWindow=tag('v060_card_window.js?v=060');
   if(!source.includes(oldWindow))throw Error('Janela individual V060 não encontrada na base');
