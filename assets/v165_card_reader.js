@@ -333,15 +333,20 @@ function bm197ShowEvolution(c){
    if(!Array.isArray(record.layers)||record.layers.length!==11||
       record.layers.some((x,i)=>x.ord!==i+1||!String(x.titulo||'').trim()||!String(x.texto||'').trim()))
     throw Error('Registro sem as 11 seções completas.');
-   const fragment=document.createDocumentFragment();
-   record.layers.forEach((layer,i)=>{
-    const item=create('section','bm197-layer');
-    const title=String(layer.titulo).trim();
-    item.append(create('h4','bm197-layer-title',/^\d{1,2}\s*[-—–.:]/.test(title)?title:String(i+1).padStart(2,'0')+' · '+title));
-    bm197RenderText(item,layer.texto);
-    fragment.append(item);
-   });
-   state.replaceChildren(fragment);
+   if(window.BM198Format?.render){
+    // Mesmo renderizador para modal e grade: quadro informativo + 11 módulos por extenso.
+    window.BM198Format.render(state,record,c.id);
+   }else{
+    // Fallback fiel: manter conteúdo visível mesmo se o estilo opcional falhar.
+    const fragment=document.createDocumentFragment();
+    record.layers.forEach((layer,i)=>{
+     const item=create('section','bm197-layer');
+     const title=String(layer.titulo).trim();
+     item.append(create('h4','bm197-layer-title',/^\d{1,2}\s*[-—–.:]/.test(title)?title:String(i+1).padStart(2,'0')+' · '+title));
+     bm197RenderText(item,layer.texto);fragment.append(item);
+    });
+    state.replaceChildren(create('p','bm197-pending','O quadro informativo não carregou; exibindo os 11 textos originais.'),fragment);
+   }
    heading.textContent='📖 Resposta evolutiva integral · 11 seções · '+c.id;
   }catch(e){
    if(!pane.isConnected||pane.dataset.cardId!==currentId)return;
