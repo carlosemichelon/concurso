@@ -102,6 +102,8 @@
  }
  function sync(){
   if(!modal || !answer || modal.hidden || answer.hidden)return;
+  // O leitor V197 já renderiza o corpo principal. Não criar uma cópia paralela.
+  if(answer.querySelector('.bm197-evolutive'))return;
   const id=currentId();
   if(!/^CARD-\d{4}$/.test(id))return;
   const existing=answer.querySelector('details.bm194-public-layers');
@@ -133,19 +135,7 @@
   observer=new MutationObserver(schedule);
   observer.observe(answer,{childList:true,attributes:true,attributeFilter:['hidden']});
   observer.observe(modal,{attributes:true,attributeFilter:['hidden']});
-  // Pré-carrega somente o lote do cartão aberto; nenhum lote é baixado na abertura do site.
-  const title=document.getElementById('bmCardPeekTitleV050');
-  if(title){
-   const prefetch=()=>{
-    const id=currentId();
-    if(modal.hidden||!eligible(id))return;
-    const idx=shardFor(id);
-    if(idx>=0)shard(idx).catch(()=>{}); // eventuais falhas são apresentadas após revelar o verso
-   };
-   const titleObserver=new MutationObserver(prefetch);
-   titleObserver.observe(title,{childList:true,characterData:true,subtree:true});
-   prefetch();
-  }
+  // Os arquivos são carregados somente quando a resposta é solicitada.
   schedule();
  }
  window.BM194VersosPublicos=Object.freeze({
