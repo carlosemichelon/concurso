@@ -1,0 +1,95 @@
+/* Banco Mestre V198: quadro de consulta em todos os cartões com evolução e 11 módulos legíveis. */
+#bmCardPeekV050 .bm198-overview,
+#cardRows .bm198-overview{border:1px solid #cbded8;border-radius:11px;background:#fff;margin:12px 0 18px;overflow:hidden}
+#bmCardPeekV050 .bm198-overview-top,
+#cardRows .bm198-overview-top{display:flex;align-items:center;gap:10px;background:#eef6f3;padding:13px 15px;border-bottom:1px solid #dbe7e2}
+#bmCardPeekV050 .bm198-overview-top h4,
+#cardRows .bm198-overview-top h4{font-size:15px;font-weight:800;line-height:1.35;color:#1d4c43;margin:0}
+#bmCardPeekV050 .bm198-overview-top p,
+#cardRows .bm198-overview-top p{font-size:12px;color:#56736b;line-height:1.5;margin:3px 0 0;white-space:normal}
+#bmCardPeekV050 .bm198-overview-icon,
+#cardRows .bm198-overview-icon{display:grid;place-items:center;width:34px;height:34px;flex:none;background:#dfeee8;border-radius:8px;color:#206553}
+#bmCardPeekV050 .bm198-icon,
+#cardRows .bm198-icon{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
+#bmCardPeekV050 .bm198-table-scroll,
+#cardRows .bm198-table-scroll{overflow:auto;max-width:100%;margin:8px 0 11px;scrollbar-color:#b4ccc4 transparent;overscroll-behavior-x:contain}
+#bmCardPeekV050 .bm198-overview-table,
+#cardRows .bm198-overview-table{border-collapse:collapse;border-spacing:0;min-width:590px;width:100%;table-layout:fixed;font-size:12.7px;line-height:1.55}
+#bmCardPeekV050 .bm198-overview-table thead th,
+#cardRows .bm198-overview-table thead th{font-size:11.5px;letter-spacing:.015em;text-align:left;font-weight:800;background:#f7faf8;color:#41645c;border-bottom:2px solid #d8e5df;padding:10px}
+#bmCardPeekV050 .bm198-overview-table th:first-child,
+#cardRows .bm198-overview-table th:first-child{width:26%}
+#bmCardPeekV050 .bm198-overview-table th:last-child,
+#cardRows .bm198-overview-table th:last-child{width:86px}
+#bmCardPeekV050 .bm198-overview-table tbody tr:nth-child(even),
+#cardRows .bm198-overview-table tbody tr:nth-child(even){background:#fafcfb}
+#bmCardPeekV050 .bm198-overview-table td,
+#bmCardPeekV050 .bm198-overview-table tbody th,
+#cardRows .bm198-overview-table td,
+#cardRows .bm198-overview-table tbody th{font-size:12.8px;line-height:1.65;text-align:left;vertical-align:top;padding:10px;border-bottom:1px solid #e4ebe8;white-space:normal!important;overflow-wrap:anywhere;color:#28433d}
+#bmCardPeekV050 .bm198-overview-table tr:last-child td,
+#bmCardPeekV050 .bm198-overview-table tr:last-child th,
+#cardRows .bm198-overview-table tr:last-child td,
+#cardRows .bm198-overview-table tr:last-child th{border-bottom:0}
+#bmCardPeekV050 .bm198-topic,
+#cardRows .bm198-topic{font-weight:730;color:#234f43}
+#bmCardPeekV050 .bm198-topic .bm198-icon,
+#cardRows .bm198-topic .bm198-icon{display:inline-block;width:15px;height:15px;margin-right:6px;vertical-align:-3px}
+#bmCardPeekV050 button.bm198-jump,
+#cardRows button.bm198-jump{white-space:nowrap;font:inherit;font-size:11.5px;font-weight:750;padding:6px 9px;border-radius:7px;border:1px solid #aaccc1;background:#f1f8f5;color:#185e4a;cursor:pointer}
+#bmCardPeekV050 button.bm198-jump:focus-visible,
+#cardRows button.bm198-jump:focus-visible{outline:2px solid #1c7157;outline-offset:2px}
+#bmCardPeekV050 .bm198-note,
+#cardRows .bm198-note{font-size:11px;line-height:1.5;color:#688079;padding:1px 14px 13px;margin:0;white-space:normal}
+#bmCardPeekV050 .bm198-modules,
+#cardRows .bm198-modules{display:flex;flex-direction:column;gap:13px;margin:0 0 16px}
+#bmCardPeekV050 .bm198-module,
+#cardRows .bm198-module{display:block;visibility:visible;min-width:0;border:1px solid #dce7e2;border-radius:10px;background:#fff;scroll-margin-top:22px;overflow:hidden}
+#bmCardPeekV050 .bm198-module-head,
+#cardRows .bm198-module-head{display:flex;align-items:center;gap:9px;background:#f3f8f6;border-bottom:1px solid #dfebe6;padding:11px 13px;min-width:0}
+#bmCardPeekV050 .bm198-number,
+#cardRows .bm198-number{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;border:1px solid #bfd8cd;border-radius:7px;background:#fff;color:#286451;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+#bmCardPeekV050 .bm198-section-icon,
+#cardRows .bm198-section-icon{display:inline-flex;color:#3a7867}
+#bmCardPeekV050 .bm198-module-title,
+#cardRows .bm198-module-title{font-size:14.5px;line-height:1.45;font-weight:780;margin:0;min-width:0;overflow-wrap:anywhere;color:#20493f}
+#bmCardPeekV050 .bm198-module-body,
+#cardRows .bm198-module-body{padding:13px 16px 14px;overflow-wrap:anywhere}
+#bmCardPeekV050 .bm198-paragraph,
+#cardRows .bm198-paragraph{font-size:14px;line-height:1.75;font-weight:400;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 11px;color:#283e3a}
+#bmCardPeekV050 .bm198-paragraph:last-child,
+#cardRows .bm198-paragraph:last-child{margin-bottom:0}
+#bmCardPeekV050 .bm198-paragraph strong,
+#cardRows .bm198-paragraph strong{font-weight:800;color:#183c32}
+#bmCardPeekV050 .bm198-label,
+#cardRows .bm198-label{display:block;font-size:11.5px;line-height:1.5;font-weight:830;letter-spacing:.015em;color:#255d49;text-transform:none;margin:13px 0 5px}
+#bmCardPeekV050 .bm198-label:first-child,
+#cardRows .bm198-label:first-child{margin-top:0}
+#bmCardPeekV050 .bm198-equation,
+#cardRows .bm198-equation{background:#f3f8f5;border-left:3px solid #52927a;color:#163f32;padding:9px 12px;border-radius:0 6px 6px 0;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13.5px}
+#bmCardPeekV050 .bm198-list,
+#cardRows .bm198-list{padding-left:23px;margin:6px 0 12px;color:#28463d}
+#bmCardPeekV050 .bm198-list li,
+#cardRows .bm198-list li{font-size:14px;line-height:1.7;padding:0 0 3px;white-space:pre-wrap}
+#bmCardPeekV050 .bm198-subheading,
+#cardRows .bm198-subheading{font-size:13.5px;line-height:1.55;font-weight:800;margin:14px 0 8px;color:#245343}
+#bmCardPeekV050 .bm198-native-table,
+#cardRows .bm198-native-table{border-collapse:collapse;width:100%;min-width:440px;font-size:12.8px;line-height:1.55}
+#bmCardPeekV050 .bm198-native-table th,
+#bmCardPeekV050 .bm198-native-table td,
+#cardRows .bm198-native-table th,
+#cardRows .bm198-native-table td{padding:8px 10px;border:1px solid #d4e1d9;text-align:left;vertical-align:top;overflow-wrap:anywhere;white-space:normal;color:#2c433d}
+#bmCardPeekV050 .bm198-native-table th,
+#cardRows .bm198-native-table th{font-weight:760;background:#edf6f0}
+#bmCardPeekV050 .bm198-native-table tr:nth-child(even),
+#cardRows .bm198-native-table tr:nth-child(even){background:#fafcfb}
+#bmCardPeekV050 .bm198-url,
+#cardRows .bm198-url{color:#176654;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:680px){
+ #bmCardPeekV050 .bm198-module-head,#cardRows .bm198-module-head{padding:9px 10px;gap:6px}
+ #bmCardPeekV050 .bm198-module-title,#cardRows .bm198-module-title{font-size:13.5px}
+ #bmCardPeekV050 .bm198-module-body,#cardRows .bm198-module-body{padding:11px 12px}
+ #bmCardPeekV050 .bm198-paragraph,#cardRows .bm198-paragraph{font-size:13.5px;line-height:1.72}
+ #bmCardPeekV050 .bm198-overview-top,#cardRows .bm198-overview-top{padding:11px 12px}
+ #bmCardPeekV050 .bm198-overview-table,#cardRows .bm198-overview-table{font-size:12px}
+}
