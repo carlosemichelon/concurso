@@ -199,7 +199,8 @@ async function refresh(){
   await api.ready();
   status('Consultando as pastas e subpastas dos acervos no Drive…');
   const {found,checked}=await crawl();
-  const previousDynamic=new Set(docs.filter(p=>p._driveDynamic).map(p=>p.id));
+  const previousDynamicDocs=docs.filter(p=>p._driveDynamic).map(p=>({...p}));
+  const previousDynamic=new Set(previousDynamicDocs.map(p=>p.id));
   const staticDocs=docs.filter(p=>!p._driveDynamic).map(p=>({...p}));
   const known=new Map(staticDocs.filter(p=>p.file_id).map(p=>[p.file_id,p]));
   const extra=[];
@@ -224,9 +225,17 @@ async function refresh(){
    });
   }
   extra.sort((x,y)=>x.title.localeCompare(y.title,'pt-BR'));
-  api.registerExternal(extra);
-  // Commit atômico após conferência total. Nenhum ID estático é removido.
-  docs.splice(0,docs.length,...staticDocs,...extra);
+  // Um PDF que saiu da varredura pode ter sido movido ou estar inacessível.
+  // Preservar sua referência e seus IDs até uma revisão explícita do usuário.
+  const current=new Set(extra.map(x=>x.id));
+  const staticIds=new Set(staticDocs.map(x=>x.id));
+  const knownIds=new Set(staticDocs.filter(x=>x.file_id).map(x=>x.file_id));
+  const unconfirmed=previousDynamicDocs.filter(x=>!current.has(x.id)&&!staticIds.has(x.id)&&!knownIds.has(x.file_id)).map(x=>({
+   ...x,_driveNotFound:true,status:'Não localizado na última varredura do Drive; referência histórica preservada'
+  }));
+  api.registerExternal([...extra,...unconfirmed]);
+  // Commit atômico após conferência total. Nenhum documento ou ID é apagado.
+  docs.splice(0,docs.length,...staticDocs,...extra,...unconfirmed);
   if($('pdfStat'))$('pdfStat').textContent=String(docs.length);
   const newlyAdded=extra.filter(p=>!previousDynamic.has(p.id)).length;
   if(newlyAdded&&$('pdfSearch')&&$('pdfFilter')){
@@ -235,7 +244,7 @@ async function refresh(){
   pdfRender();
   const summary=checked+' pastas consultadas; '+found.size+' PDFs do Drive encontrados; '+
     newlyAdded+' novo(s) nesta sessão; '+extra.length+' além dos '+staticDocs.length+
-    ' do catálogo principal. Clique novamente após adicionar documentos. Nenhum arquivo ou grifo foi apagado.';
+    ' do catálogo principal; '+unconfirmed.length+' referência(s) histórica(s) não localizada(s), preservada(s). Nenhum arquivo ou grifo foi apagado.';
   status('Sincronização concluída: '+summary);
   lastResult={folders:checked,found:found.size,added:newlyAdded,dynamic:extra.length,static:staticDocs.length,matchedStatic:refreshed};
   return lastResult;
