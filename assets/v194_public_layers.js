@@ -118,7 +118,8 @@
   const box=el('details',undefined,'bm194-public-layers');box.dataset.cardId=id;box.open=true;
   box.append(el('summary','Resposta evolutiva integral · 11 seções'));
   box.append(el('div','Carregando textos detalhados…','bm194-detail'));
-  answer.append(box);
+  const essential=answer.querySelector(':scope > .bm163-essential, :scope > .bm165-essential');
+  if(essential?.parentElement===answer)essential.after(box);else answer.prepend(box);
   render(id,box);
  }
  function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;sync()})}
@@ -151,6 +152,7 @@
   source:'Arquivos públicos V194, sem autorização Google',
   get reservado(){return [...RESERVED]},
   get ativo(){return !!observer},
+  load:async id=>{const i=shardFor(id);return eligible(id)&&i>=0?(await shard(i)).get(id)||null:null;},
   abrirProximoCartao:()=>schedule()
  });
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
