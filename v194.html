@@ -22,7 +22,7 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
  'use strict';
  const info=document.getElementById('loading');
  try{
-  const response=await fetch('./v062.html?base=V062',{cache:'no-store'});
+  const response=await fetch('./v062.html?base=V062',{cache:'default'});
   if(!response.ok)throw Error('Base V062 indisponível ('+response.status+')');
   let source=await response.text();
   if(!source.includes('pdf_catalog_v062.json')||
