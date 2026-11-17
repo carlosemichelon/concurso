@@ -1,0 +1,38 @@
+name: Banco Mestre V217 - cartoes GitHub e midias Drive
+on:
+  push:
+    branches:
+      - staging/v217-drive-canonical-auto-sync-2026-11-17
+      - gh-pages
+    paths:
+      - v217.html
+      - index.html
+      - assets/version.json
+      - assets/v217_drive_pdf_sync.js
+      - assets/v217_drive_gallery_feed.js
+      - assets/v217_single_image_viewer.js
+      - assets/v217_library_counter.js
+      - assets/v217_media_policy.js
+      - tests/v217_hybrid_drive_media.cjs
+      - .github/workflows/validar-v217-hibrido.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  drive-media:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Sintaxe JavaScript dos módulos V217
+        run: |
+          node --check assets/v217_drive_pdf_sync.js
+          node --check assets/v217_drive_gallery_feed.js
+          node --check assets/v217_single_image_viewer.js
+          node --check assets/v217_library_counter.js
+          node --check assets/v217_media_policy.js
+          node --check tests/v217_hybrid_drive_media.cjs
+      - name: Garantir layout V1 e regras de fontes
+        run: node tests/v217_hybrid_drive_media.cjs
