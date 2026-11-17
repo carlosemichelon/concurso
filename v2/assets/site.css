@@ -210,3 +210,15 @@ footer{margin-top:auto;padding:18px 4vw;border-top:1px solid #e1e7e8;color:#6b7e
 .v2-pdf-overlay-base,.v2-pdf-overlay-ink{display:block;position:absolute;inset:0;max-width:none}
 .v2-pdf-overlay-ink{pointer-events:none}
 @media(max-width:700px){.v2-pdf-overlay-view{padding:8px 3px}.v2-pdf-overlay-nav{gap:6px}.v2-pdf-overlay-nav button,.v2-pdf-overlay-nav select{padding:7px 9px}}
+
+/* Homologação OAuth V2: estado explícito, compacto e sem exibir credenciais. */
+.oauth-readiness{display:grid;gap:8px}
+.oauth-readiness h3{margin:0}
+.oauth-readiness .checks{grid-template-columns:repeat(auto-fit,minmax(min(100%,275px),1fr));gap:7px}
+.oauth-readiness .check{display:grid;gap:3px;min-width:0}
+.oauth-readiness .check strong{font-size:.73rem}
+.oauth-readiness .check span{font-size:.75rem;overflow-wrap:anywhere}
+.v2-oauth-controls{display:flex;flex-wrap:wrap;gap:8px}
+.v2-oauth-controls button{border:1px solid #acc9c5;border-radius:8px;background:#f3f8f7;color:#154752;font-size:.79rem;font-weight:700;padding:9px 12px;cursor:pointer}
+.v2-oauth-controls button:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:700px){.v2-oauth-controls button{flex:1 1 210px}}
