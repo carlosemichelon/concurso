@@ -1,3 +1,15 @@
+# Banco Mestre V197 — classificação editorial de imagens e navegação até cartões (17/11/2026)
+
+- Metodologia aprovada: **Imagem de conteúdo** (guia/prancha/tabela/esquema) × **Imagem de cartão** (enunciado, figura ou explicação incorporada); estado pendente não é terceiro tipo. Classificação temática V180 permanece independente.
+- Aba Imagens: filtro por tipo sobre o Atlas de 179 imagens e a grade de imagens privadas sincronizadas; editor individual de tipo, subtipo e IDs de cartões, com botão para abrir cartão existente em pop-up.
+- Preserva evidências já documentadas em `cards` do catálogo (cinco registros recuperados, um com ID histórico ainda sem rota); itens sem evidência não recebem ligação inventada.
+- Registros manuais em chave isolada do navegador, com exportação e importação JSON versionada para checkpoints. Drive continua **somente leitura**; não afirmar que os vínculos locais foram sincronizados automaticamente.
+- Mantém HTML V196, ativos anteriores, imagens originais, PDFs, SRS, grifos, favoritos e checkpoints. Arquivos criados: `v197.html`, `assets/v197_image_links.js`, `assets/v197_atlas_edicao_completa.js`, `assets/v197_image_classified_library.js`, `assets/v197_drive_images_sync.js`.
+- Auditoria de sintaxe e presença de referências realizada; uso real do Google Drive, importação no navegador do titular e navegação até pop-up precisam de validação adicional.
+- [Metodologia e procedimento de checkpoint V197](docs/V197_METODOLOGIA_CLASSIFICACAO_IMAGENS_CARTOES.md). Rollback: `v196.html`.
+
+---
+
 # Banco Mestre V196 — abas de informações sempre recolhidas (16/11/2026)
 
 - No leitor dos flashcards, **todas as abas de informações** começam fechadas, incluindo as 11 camadas da resposta evolutiva, aprofundamentos, fundamentos, macetes, pegadinhas, fontes, histórico e detalhes da resposta discursiva.
