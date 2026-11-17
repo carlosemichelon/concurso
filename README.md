@@ -1,3 +1,13 @@
+# Banco Mestre — Portal V212 (17/11/2026)
+
+**Portal:** https://carlosemichelon.github.io/concurso/  
+**Novo cartão TRT — eficácia contida:** https://carlosemichelon.github.io/concurso/?cartao=TRT01-C002  
+**Cartão anterior — eficácia limitada:** https://carlosemichelon.github.io/concurso/?cartao=TRT01-C001
+
+A **V212** mantém a V211 e acrescenta o cartão operacional `TRT01-C002` da questão `TRT01-Q002` (art. 5º, XIII, Constituição Federal) com onze módulos e três imagens originais vinculadas na galeria privada do Drive. A resposta incorreta E e o gabarito A estão preservados, sem lançar evento SRS. Os três originais estão na pasta oficial do Atlas; o ZIP/checkpoint está salvo na pasta canônica de Checkpoints. As prévias precisam de OAuth do titular; exibição real em navegador não verificada. A base pública mantém 1.518 IDs, Atlas público 179 imagens e 78 PDFs. Detalhes: [V212 TRT01-C002](docs/V212_TRT01_C002_EFICACIA_CONTIDA.md).
+
+---
+
 # Banco Mestre — Portal V211 (17/11/2026)
 
 **Abrir:** https://carlosemichelon.github.io/concurso/  
