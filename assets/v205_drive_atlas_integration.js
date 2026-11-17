@@ -106,7 +106,14 @@ async function init(){
   msg('Pronto. Uma conta Google autorizada pode atualizar estas imagens sem novo login. Verificação a cada 2 minutos, enquanto conectado.');
   setInterval(()=>{
    if(validToken()){void refreshList(false);return;}
-   if(access){access='';$('bm084-refresh').disabled=true;msg('Sessão expirada. Reconecte para continuar a sincronização.',true);}
+   if(access||photos.length||blobs.size){
+   access='';expires=0;
+   for(const data of blobs.values())URL.revokeObjectURL(data.url);
+   blobs.clear();photos=[];alreadyPublic=0;
+   if($('bm084-refresh'))$('bm084-refresh').disabled=true;
+   render();
+   msg('Sessão expirada. Pré-visualizações privadas foram retiradas desta página; reconecte para consultar o Drive.',true);
+  }
   },INTERVAL);
  }catch(e){msg('Sincronização indisponível: '+e.message,true);}
 }
@@ -187,9 +194,9 @@ async function listImages(){
   skippedSvg,skippedLarge,folders:visited.size};
 }
 async function getImageUrl(file){
+ if(!validToken())throw Error('Reconecte o Drive para abrir a imagem');
  const prior=blobs.get(file.id);
  if(prior&&prior.modified===file.modifiedTime)return prior.url;
- if(!validToken())throw Error('Reconecte o Drive para abrir a imagem');
  const r=await authorized(API+'/'+encodeURIComponent(file.id)+'?alt=media');
  const blob=await r.blob();if(!PREVIEW_MIME.has(blob.type))throw Error('Formato não suportado');if(blob.size>MAX_BYTES)throw Error('Imagem maior que 15 MB');
  const url=URL.createObjectURL(blob);
