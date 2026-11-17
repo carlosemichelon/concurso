@@ -232,6 +232,8 @@ async function initialize(){
 
     service.onChange(event=>{
       if(event.type==='connected'){
+        // Uma nova conta/token nunca herda miniaturas ou títulos da anterior.
+        renderPrivate();
         message('Drive autorizado somente para leitura. Iniciando consulta das pastas monitoradas.');
         updateControls();void scanBoth();
       }else if(['expired','disconnected'].includes(event.type)){
