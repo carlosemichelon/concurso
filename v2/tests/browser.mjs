@@ -250,6 +250,22 @@ try{
 
  await page.locator('[data-view="sync"]').click();
  await page.locator('#v2AuditPanel').waitFor();
+ await page.locator('#v2ImageAssociationAudit').waitFor();
+ assert.equal(await page.locator('#v2ImageAuditStart').isEnabled(),true);
+ await page.locator('#v2ImageAuditStart').click();
+ await page.waitForFunction(()=>document.querySelector('#v2ImageAuditStatus')?.textContent.includes('Auditoria concluída'),
+   null,{timeout:30000});
+ assert.match(await page.locator('#v2ImageAuditStats').textContent(),/100/);
+ assert.equal(await page.locator('#v2ImageAuditSummary').isEnabled(),true,
+   'o resumo de estatísticas públicas independe do login');
+ assert.equal(await page.locator('#v2ImageAuditDetails').isDisabled(),true,
+   'sem autorização, bloquear exportação de inventário com IDs privados');
+ await page.locator('#v2ImageAuditFilter').selectOption('documental');
+ assert.equal(await page.locator('#v2ImageAuditRows .image-audit-record').count(),9);
+ await page.locator('#v2ImageAuditQuery').fill('IMG-C14-013');
+ assert.match(await page.locator('#v2ImageAuditRows').textContent(),/PETRO14-C017/);
+ assert.equal(await page.locator('#v2ImageAuditRows .image-audit-record').count(),1);
+
  assert.equal(await page.locator('#v2AuditPanel .audit-export button:disabled').count(),2,
    'sem OAuth não habilitar exportação privada');
  await page.setViewportSize({width:390,height:844});
