@@ -109,9 +109,11 @@ export function mountPdfIdProbe(snapshot,service,target){
     more.hidden=rows.length<=limit;
     if(!more.hidden)more.textContent='Mostrar mais ('+fmt(rows.length-limit)+' restantes)';
   }
-  function clear(){
+  function clear(reason='disconnected'){
     report=null;busy=false;limit=30;
-    status.textContent='Autorização encerrada. Relatório privado descartado; conecte para repetir.';
+    status.textContent=reason==='connected'?
+      'Drive conectado. Clique em “Conferir 78 IDs no Drive” para verificar os documentos desta conta.':
+      'Autorização encerrada. Relatório privado descartado; conecte para repetir.';
     render();
   }
   button.addEventListener('click',async()=>{
@@ -144,7 +146,7 @@ export function mountPdfIdProbe(snapshot,service,target){
   filter.addEventListener('change',()=>{limit=30;render()});
   search.addEventListener('input',()=>{limit=30;render()});
   service.onChange(event=>{
-    if(['disconnected','expired','connected'].includes(event.type))clear();
+    if(['disconnected','expired','connected'].includes(event.type))clear(event.type);
   });
   render();
   return Object.freeze({refresh:render,clear});
