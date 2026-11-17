@@ -275,7 +275,14 @@ function render(){
  const grid=$('bm084-grid');if(!grid)return;grid.replaceChildren();
  const q=($('bm084-search')?.value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const mainQuery=normalize($('imageSearch')?.value||'');
+ // Imagens sem curadoria temática ainda não podem ser atribuídas a filtros
+ // de assunto, favoritos ou ocultações por simples inferência do nome da pasta.
+ const requiresKnownTopic=['imageFilter','imageAreaV044','bm155DisciplinaImagem',
+  'bm155AssuntoGeralImagem','bm155AssuntoEspecificoImagem','bm155SubassuntoImagem']
+  .some(id=>{const control=$(id);return Boolean(control&&control.value&&control.value!=='all');});
+ const onlyFavorites=$('imageFavoriteV055')?.value==='favorites';
  const items=photos.filter(f=>{
+  if(requiresKnownTopic||onlyFavorites)return false;
   if(window.BM197MediaLinks?.matchesDrive?.(f)===false)return false;
   const hay=normalize(String(f.id||'')+' '+String(f.name||'')+' '+String(f.drivePath||'')+' '+idOf(f));
   return hay.includes(q)&&hay.includes(mainQuery);
