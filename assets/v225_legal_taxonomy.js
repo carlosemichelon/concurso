@@ -28,7 +28,9 @@ const CATS=Object.freeze([
 function isLegal(c){return c?.group==='LEGISLACAO'||/^TRT01-C\d{3}$/.test(c?.id||'')||/legisl|direito/i.test(c?.discipline||'');}
 function general(c){
  if(!isLegal(c))return null;
- const s=norm([c.discipline,c.subject,c.sub].join(' '));
+ // O campo antigo de disciplina é genérico (ex.: 'Legislação / Ética').
+ // Classificar pelo assunto/subassunto documentados, não por esse rótulo herdado.
+ const s=norm([c.subject,c.sub].join(' '));
  if(/^TRT01-C\d{3}$/.test(c.id||'')||/direito constitucional|constitui(c|ç)ao|cf\/?88|principios fundamentais|preambulo/.test(s))return 'leg_constitucional';
  if(/codigo municipal|municipal|decreto rs|legislacao local|legislacao estadual|diretrizes urbanisticas municipais/.test(s))return 'leg_local';
  if(/lei 14\.133|licitac|contrato administrativo|projeto executivo/.test(s))return 'leg_licitacoes';
