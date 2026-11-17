@@ -135,7 +135,7 @@ try{
  await page.locator('#v2ImageAuditQuery').fill('IMG-C14-013');
  assert.equal(await page.locator('#v2ImageAuditRows .image-audit-record').count(),1);
  assert.match(await page.locator('#v2ImageAuditRows').textContent(),/PETRO14-C017/);
- assert.match(await page.locator('#v2ImageAuditRows').textContent(),/não criar novo CARD/);
+ assert.match(await page.locator('#v2ImageAuditRows').textContent(),/sem criar novo CARD/);
  assert.equal(await page.locator('#v2ImageAuditSummary').isEnabled(),true);
  assert.equal(await page.locator('#v2ImageAuditDetails').isEnabled(),true);
  await page.locator('#v2ImageAuditQuery').fill('');
