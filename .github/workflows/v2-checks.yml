@@ -44,7 +44,7 @@ jobs:
           node v2/tests/evolutive.mjs
           node v2/tests/related-images.mjs
   browser-smoke:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
