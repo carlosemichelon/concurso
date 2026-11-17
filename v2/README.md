@@ -2,7 +2,7 @@
 
 **Início:** 17/11/2026
 **Branch de trabalho:** feature/site-v2-foundation-2026-11-17
-**Produção preservada:** gh-pages (backup criado quando a V1 estava na V205; V209 verificada nesta etapa, podendo avançar; o retorno usa sempre index.html)
+**Produção preservada:** gh-pages (cópia de segurança V205, produção V210 conferida em 17/11/2026; a numeração da V1 poderá avançar independentemente)
 **Backup verificado:** backup/site-v1-before-v2-2026-11-17, commit 975dd96135fa9c30c38176c5a3860472794731cb
 
 ## Etapas 1 e 2 — módulos implementados na branch de desenvolvimento
@@ -25,7 +25,7 @@ O novo portal fica em v2/, com arquitetura modular, navegação por teclado, lay
 | PDFs | assets/pdf_catalog_v149.json | 78 referências por ID; originais no Drive |
 | Destinos canônicos | assets/v202_storage_contract.json | IDs de pastas; contrato, não prova de upload |
 
-A etapa 2 consulta metadados e prévias de mídias privadas SOMENTE após OAuth de leitura, sem salvar tokens e sem publicá-las no GitHub. SRS, grifos, notas, IndexedDB, localStorage, planilhas de cartões privadas, checkpoints pessoais e permissões não são lidos nem alterados. O leitor com 11 seções evolutivas permanece na V1 publicada, acessível via ../index.html. A produção foi conferida em V207 (home v207.html, fallback V207); sua numeração evolui independentemente da V2 e o painel da V2 sempre relê o manifesto no endereço publicado.
+A V2 consulta mídias privadas somente mediante OAuth de leitura, sem persistir tokens ou publicar originais no GitHub. O leitor de cartões evolutivos **já apresenta as 11 seções** dos registros públicos; a consulta de grifos PDF da V1 é **opcional, somente leitura e disparada pelo titular** no mesmo navegador/origem. A V2 **não** altera SRS, respostas, grifos, notas, IndexedDB, localStorage ou checkpoints pessoais. A V1 permanece publicada, operacional e independente; o painel da V2 relê o manifesto da produção sem assumir que o seu número de versão é o da V2.
 
 ## Roadmap aprovado como sequência técnica
 
