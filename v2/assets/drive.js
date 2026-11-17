@@ -1,6 +1,7 @@
 /* Banco Mestre V2: consulta privada em sessão autenticada, sem publicação no GitHub.
    OAuth token exclusivo em memória. Não registra chaves no localStorage nem envia telemetria. */
 import {driveApiFileUrl,boundedMediaBytes,boundedPdfBytes,MAX_DRIVE_IMAGE_BYTES} from './drive-media.js';
+import {EXPECTED_SCOPE,friendlyOauthError} from './oauth-readiness.js';
 export const DRIVE_SCOPE='https://www.googleapis.com/auth/drive.readonly';
 export const DRIVE_API='https://www.googleapis.com/drive/v3/files';
 export const GIS_SCRIPT='https://accounts.google.com/gsi/client';
@@ -69,6 +70,7 @@ export class DriveReadonly {
     this.accessToken='';
     this.expiresAt=0;
     this.oauth=null;
+    this.authConfig=null;
     this.scanning=false;
     this.abort=null;
     this.lastImages=null;
@@ -106,6 +108,11 @@ export class DriveReadonly {
     const config=await configResponse.json();
     if(!/^[0-9A-Za-z_-]+\.apps\.googleusercontent\.com$/.test(config.client_id||''))
       throw Error('Identificador público OAuth inválido');
+    if(config.scope!==EXPECTED_SCOPE)throw Error('Escopo OAuth público diferente de drive.readonly');
+    this.authConfig=Object.freeze({client_id:config.client_id,scope:config.scope,
+      authorized_javascript_origin:String(config.authorized_javascript_origin||''),
+      status:String(config.status||'')});
+    this.emit('config-ready');
     if(!globalThis.google?.accounts?.oauth2?.initTokenClient){
       await new Promise((resolve,reject)=>{
         const existing=document.querySelector('script[data-bm-v2-gis]');
@@ -121,8 +128,13 @@ export class DriveReadonly {
     if(!globalThis.google?.accounts?.oauth2?.initTokenClient)throw Error('API de autenticação Google não disponível');
     this.oauth=globalThis.google.accounts.oauth2.initTokenClient({
       client_id:config.client_id,scope:DRIVE_SCOPE,
+      error_callback:error=>{
+        this.emit('auth-error',{message:friendlyOauthError(error)});
+      },
       callback:result=>{
-        if(result?.error||!result?.access_token){this.emit('auth-error',{message:'Autorização recusada ou cancelada'});return}
+        if(result?.error||!result?.access_token){
+          this.emit('auth-error',{message:friendlyOauthError(result)});return
+        }
         const seconds=Number(result.expires_in);
         if(!Number.isFinite(seconds)||seconds<=90){this.emit('auth-error',{message:'Prazo do token Google não confirmado'});return}
         // Substituir credencial revoga todos os downloads da sessão anterior.
