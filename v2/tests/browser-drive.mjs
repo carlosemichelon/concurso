@@ -76,6 +76,14 @@ try{
    }
    await route.fulfill({status:404,body:'não encontrado',headers:cors});return;
   }
+  // files.get por ID permite auditar os 78 documentos sem varrer outras pastas.
+  const metadataId=parsed.pathname.match(/^\/drive\/v3\/files\/([A-Za-z0-9_-]{10,200})$/)?.[1];
+  if(metadataId&&parsed.searchParams.has('fields')){
+    await route.fulfill({status:200,contentType:'application/json',headers:cors,
+      body:JSON.stringify({id:metadataId,name:'PDF do catálogo verificado.pdf',
+        mimeType:'application/pdf',size:'1234',parents:['pasta_protegida'],trashed:false})});
+    return;
+  }
   const query=parsed.searchParams.get('q')||'';
   const folder=query.match(/^'([^']+)' in parents/)?.[1]||'';
   const files=folder===canonicalImageRoot?
@@ -98,6 +106,17 @@ try{
  assert.equal(await page.locator('#v2DriveState').textContent(),'Conectado · leitura');
  assert.match(await page.locator('#overviewStats .stat').nth(1).textContent(),/\+1 arquivo\(s\) Drive/);
  assert.equal((await page.locator('#overviewStats .stat').nth(1).locator('strong').textContent()).trim(),'179');
+ // Este relatório é independente da varredura recursiva e só roda com clique.
+ await page.locator('[data-view="sync"]').click();
+ assert.equal(await page.locator('#v2PdfIdProbeStart').isEnabled(),true);
+ await page.locator('#v2PdfIdProbeStart').click();
+ await page.waitForFunction(()=>document.querySelector('#v2PdfIdProbeStatus')?.textContent.includes('Conferência por IDs concluída'),
+   null,{timeout:30000});
+ assert.match(await page.locator('#v2PdfIdProbeStatus').textContent(),/78 confirmados/);
+ assert.equal(await page.locator('#v2PdfIdProbeExport').isEnabled(),true);
+ assert.equal(await page.locator('#v2PdfIdProbeRecords .audit-record').count(),0,
+   'filtro padrão exibe só problemas; 78 documentos confirmados não são pendência');
+
  await page.locator('[data-view="images"]').click();
  await page.locator('#v2DriveImagesList').getByRole('button',{name:'Ver prévia'}).click();
  await page.waitForFunction(()=>document.querySelector('#v2DriveImagesList .bm-v2-drive-preview')?.naturalWidth>0,
@@ -113,6 +132,7 @@ try{
  await page.evaluate(()=>document.querySelector('#v2DriveDisconnect').click());
  await page.waitForFunction(()=>!document.querySelector('#v2PdfDialog')?.open,
   null,{timeout:10000});
+ assert.equal(await page.locator('#v2PdfIdProbeExport').isDisabled(),true);
  assert.equal(await page.locator('#v2DriveImagesList .drive-private-item').count(),0);
  assert.equal(await page.locator('#v2DrivePdfsList .drive-private-item').count(),0);
  assert.equal((await page.locator('#overviewStats .stat').nth(1).locator('strong').textContent()).trim(),'179');
