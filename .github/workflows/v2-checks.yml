@@ -1,0 +1,31 @@
+name: Banco Mestre — verificacoes Site V2
+on:
+  push:
+    branches:
+      - 'feature/site-v2-*'
+    paths:
+      - 'v2/**'
+      - '.github/workflows/v2-checks.yml'
+  pull_request:
+    branches:
+      - gh-pages
+    paths:
+      - 'v2/**'
+      - '.github/workflows/v2-checks.yml'
+permissions:
+  contents: read
+jobs:
+  v2-catalogs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar sintaxe da V2
+        run: |
+          node --check v2/assets/data.js
+          node --check v2/assets/app.js
+      - name: Conferir integridade da base pública e contrato
+        run: node v2/tests/smoke.mjs
