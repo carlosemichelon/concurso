@@ -117,13 +117,14 @@ function draw(data){
  const before=$('cardRows')||panel.querySelector('.controls');
  panel.insertBefore(main,before);
  if(location.hash==='#trt01-c001'||new URLSearchParams(location.search).get('cartao')===ID){
+  const btn=document.querySelector('nav button[data-page="cartoes"]');if(btn)btn.click();
   details.open=true;
   setTimeout(()=>main.scrollIntoView({behavior:'smooth',block:'start'}),500);
  }
 }
 function openCard(){
  if(!main)return false;
- const nav=document.querySelector('nav button[data-section="cartoes"],nav button[data-target="cartoes"]');
+ const nav=document.querySelector('nav button[data-page="cartoes"]');
  if(nav)nav.click();else if($('cartoes'))$('cartoes').hidden=false;
  details.open=true;
  main.scrollIntoView({behavior:'smooth',block:'start'});
