@@ -1,3 +1,14 @@
+# Banco Mestre V218 — TRT01-C004, eficácia plena / direito de resposta (17/11/2026)
+
+- **Cartão operacional:** `TRT01-C004` (questão `TRT01-Q004`), 11 módulos completos, enunciado reexplicado, art. 5º, V e §1º, ADPF 130 e Lei 13.188/2015; resposta original A incorreta, gabarito E.
+- **SRS:** avaliação explícita **Difícil**, intervalo de oito dias e próxima revisão operacional **25/11/2026**. SRS F17 canônico não alterado.
+- **Imagem:** original salvo e verificado no Drive na pasta Atlas canônica, id `1Ts7WCczYjI9hV-L1aqoue0Hm-v-UFVxU`; galeria de imagem do cartão usa autorização OAuth.
+- **Checkpoint:** ZIP e índice SRS/mídia no Drive, pasta Checkpoints canônica. A cópia ZIP contém original e metadados, enquanto os 11 módulos permanecem no GitHub.
+- **Portal:** `v218.html` (V217 preservada); 1.518 cartões canônicos preservados, PDFs, Atlas, rotas TRT C001–C003 e política híbrida não substituídos. GitHub Pages publicado; teste de imagem com OAuth real ainda pendente.
+- [Relatório de auditoria V218](docs/V218_TRT01_C004_EFICACIA_PLENA.md).
+
+---
+
 # Banco Mestre V213 — Google Drive como fonte principal das imagens na V1 (17/11/2026)
 
 - **Portal V1 preservado:** `v213.html` herda o layout da V212 e o leitor PDF, os cartões, grifos, SRS, bases e abas existentes. **V2 pausada** no PR #29.
