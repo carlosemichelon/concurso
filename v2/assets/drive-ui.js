@@ -57,6 +57,8 @@ function addToolbar(){
   });
   scan.addEventListener('click',()=>{void scanBoth(true)});
   disconnect.addEventListener('click',()=>{
+    if(auditPanel?.hasPendingReview?.()&&
+      !confirm('Existem decisões de vínculos sem checkpoint exportado. Sair apagará essas decisões da memória. Deseja continuar?'))return;
     service?.disconnect();
     message('Drive desconectado. Metadados privados e prévias retirados desta página.');
     renderPrivate();
