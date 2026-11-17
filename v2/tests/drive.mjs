@@ -49,4 +49,13 @@ assert.equal(scanned.pages,3);
 assert.equal(scanned.scope,'authorized_browser_session_only');
 assert.equal(reader.lastImages,null,'walk isolado não escreve estado de sessão');
 assert.equal(reader.accessToken,'','nenhum token persistido');
+
+// Reautorizar no botão não deve forçar a janela de consentimento em toda visita.
+// Não testar nem simular persistência de tokens: o modelo atual permanece temporário.
+const oauthCalls=[];
+reader.oauth={requestAccessToken:options=>oauthCalls.push(options)};
+reader.connect();
+assert.deepEqual(oauthCalls,[{prompt:''}],'não forçar consentimento no Google após uma permissão prévia');
+assert.equal(reader.accessToken,'','autorizar não salva acesso localmente');
+
 console.log('V2 Drive tests OK:',{roots:roots.length,found:scanned.found,new:scanned.newFiles,known:scanned.alreadyCataloged,folderCount:scanned.folderCount});
