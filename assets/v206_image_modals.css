@@ -1,0 +1,205 @@
+/* Banco Mestre V204 — somente controles de navegação visíveis no cartão de imagem.
+   Toda edição de metadados abre janela modal (não substitui editor de imagem/grifos). */
+#imagens .bm202-image-actions,
+#bm084-grid .bm202-image-actions{
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:9px;
+}
+#imagens .bm202-image-actions button,
+#bm084-grid .bm202-image-actions button{
+  padding:8px 12px;min-height:36px;font-size:12px;line-height:1.4;
+  border-radius:8px;white-space:normal;
+}
+#imagens .bm202-image-actions .bm197-open-card,
+#bm084-grid .bm202-image-actions .bm197-open-card{
+  border-color:#72a8a0;background:#eaf6f3;color:#125c56;font-weight:650;
+}
+#imagens .bm202-image-actions .bm202-edit-image,
+#bm084-grid .bm202-image-actions .bm202-edit-image{
+  color:#375963;background:#fff;border-color:#c4d7d4;
+}
+#imagens .bm202-card-status,#bm084-grid .bm202-card-status{
+  font-size:11px;color:#825b24;line-height:1.45;
+}
+dialog.bm202-image-dialog,dialog.bm202-atlas-dialog{
+  position:fixed;inset:0;
+  box-sizing:border-box;width:min(88vw,320px);max-width:320px;
+  max-height:min(56vh,500px);margin:auto;
+  padding:9px 11px;border:1px solid #c3d5d2;border-radius:14px;
+  box-shadow:0 16px 54px rgba(15,43,46,.25);
+  overflow-y:auto;background:#fff;color:#183438;
+  font:12px/1.35 system-ui,Arial,sans-serif;z-index:99999;
+}
+dialog.bm202-image-dialog::backdrop,dialog.bm202-atlas-dialog::backdrop{
+  background:rgba(18,35,38,.68);
+}
+.bm202-dialog-heading{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.bm202-dialog-heading h2{font-size:13px;line-height:1.25;margin:0 0 4px;overflow-wrap:anywhere}
+.bm202-modal-close{min-width:32px;flex-shrink:0;min-height:30px;font-size:11px;border-radius:7px;padding:4px 6px}
+.bm202-dialog-note{font-size:12.5px;color:#526a70;margin:6px 0 12px;overflow-wrap:anywhere}
+dialog.bm202-image-dialog .bm197-origin{display:block;font-size:12px;color:#576b70}
+dialog.bm202-image-dialog .bm197-fields{display:grid;gap:12px;margin:16px 0}
+dialog.bm202-image-dialog label,dialog.bm202-atlas-dialog .bm-v060-field,
+dialog.bm202-image-dialog .bm202-import{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:650}
+dialog.bm202-image-dialog input,dialog.bm202-image-dialog select,
+dialog.bm202-atlas-dialog input,dialog.bm202-atlas-dialog textarea{
+ box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:36px;
+ border:1px solid #b5cfcb;border-radius:8px;padding:7px 9px;
+ background:#fff;color:#183438;font:13px/1.4 system-ui,Arial,sans-serif;
+}
+dialog.bm202-atlas-dialog textarea{min-height:66px;resize:vertical}
+dialog.bm202-atlas-dialog form.bm-v060-card-form{
+ display:grid;gap:8px;margin:0;max-width:100%;
+}
+dialog.bm202-atlas-dialog .bm-v060-form-actions,
+dialog.bm202-image-dialog .bm202-modal-actions{
+ display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:9px
+}
+dialog.bm202-image-dialog button,dialog.bm202-atlas-dialog button{
+ min-height:30px;padding:5px 7px;border-radius:6px;white-space:normal
+}
+dialog.bm202-image-dialog .bm202-import{margin:15px 0 8px}
+dialog.bm202-image-dialog .bm197-feedback{min-height:1.35em;font-size:12px;color:#a34029}
+dialog.bm202-atlas-dialog .bm-v055-favorite{margin:0}
+@media(max-width:480px){
+ dialog.bm202-image-dialog,dialog.bm202-atlas-dialog{
+  width:min(calc(100vw - 20px),320px);max-height:68vh;padding:9px 10px;border-radius:9px
+ }
+ .bm202-dialog-heading h2{font-size:13px}
+ #imagens .bm202-image-actions button,#bm084-grid .bm202-image-actions button{min-height:40px}
+}
+
+/* V203: janela única com abas; nunca exibir o painel inativo. */
+dialog.bm203-atlas-dialog [hidden],
+dialog.bm202-image-dialog [hidden]{display:none!important}
+dialog.bm203-atlas-dialog .bm203-modal-tabs{
+ display:grid;grid-template-columns:1fr 1fr;gap:5px;
+ margin:2px 0 7px;padding:2px;background:#eef4f3;border-radius:9px
+}
+dialog.bm203-atlas-dialog .bm203-modal-tabs button{
+ min-height:30px;padding:4px 5px;border:1px solid transparent;
+ border-radius:7px;background:transparent;font-size:12px;font-weight:600;color:#49676a
+}
+dialog.bm203-atlas-dialog .bm203-modal-tabs button[aria-selected="true"]{
+ border-color:#bbd5ce;background:#fff;color:#184e52;
+ box-shadow:0 1px 4px rgba(20,60,57,.09)
+}
+dialog.bm203-atlas-dialog .bm203-links-panel .bm197-fields{
+ display:grid;gap:6px;margin:5px 0
+}
+dialog.bm203-atlas-dialog .bm203-links-panel label{
+ display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:650
+}
+dialog.bm203-atlas-dialog .bm203-links-panel input,
+dialog.bm203-atlas-dialog .bm203-links-panel select{
+ box-sizing:border-box;width:100%;max-width:100%;
+ padding:5px 7px;min-height:32px;border:1px solid #b5cfcb;
+ border-radius:7px;font:13px/1.4 system-ui,Arial,sans-serif
+}
+dialog.bm203-atlas-dialog .bm203-links-panel .bm197-origin,
+dialog.bm203-atlas-dialog .bm203-links-panel .bm203-editor-evidence{
+ font-size:11px;color:#526a70;display:block;margin:0 0 6px
+}
+dialog.bm203-atlas-dialog .bm203-links-panel .bm197-feedback{
+ font-size:12px;color:#9d372b
+}
+dialog.bm203-atlas-dialog .bm-v060-field textarea{min-height:48px}
+
+/* V204: miniatura real dentro de ambas as janelas de edição. */
+dialog.bm202-image-dialog .bm204-editor-preview,
+dialog.bm203-atlas-dialog .bm204-editor-preview{
+  display:grid;align-items:center;justify-items:center;
+  box-sizing:border-box;margin:5px 0 7px;padding:4px;
+  width:100%;height:104px;min-height:0;
+  border:1px solid #d7e4e0;border-radius:7px;
+  background:#f6f9f8;overflow:hidden
+}
+dialog.bm202-image-dialog .bm204-editor-preview img,
+dialog.bm203-atlas-dialog .bm204-editor-preview img{
+ display:block;max-width:100%;max-height:94px;width:auto;height:auto;
+ object-fit:contain;border-radius:4px
+}
+dialog.bm202-image-dialog .bm204-editor-preview .bm204-preview-state,
+dialog.bm203-atlas-dialog .bm204-editor-preview .bm204-preview-state{
+ margin:0;text-align:center;font-size:10px;line-height:1.3;color:#607579
+}
+dialog.bm202-image-dialog .bm204-editor-preview .bm204-preview-state[hidden],
+dialog.bm203-atlas-dialog .bm204-editor-preview .bm204-preview-state[hidden]{display:none!important}
+dialog.bm203-atlas-dialog .bm-v060-field{font-size:11px;gap:2px}
+dialog.bm203-atlas-dialog form.bm-v060-card-form{gap:5px}
+dialog.bm202-image-dialog .bm197-fields{gap:6px;margin:7px 0}
+dialog.bm202-image-dialog .bm202-dialog-note{margin:3px 0 5px;font-size:11px}
+dialog.bm203-atlas-dialog .bm203-links-panel label{font-size:11px}
+@media(max-height:650px){
+ dialog.bm202-image-dialog .bm204-editor-preview,
+ dialog.bm203-atlas-dialog .bm204-editor-preview{height:80px}
+ dialog.bm202-image-dialog .bm204-editor-preview img,
+ dialog.bm203-atlas-dialog .bm204-editor-preview img{max-height:70px}
+}
+
+/* V206 — editor dividido: figura à esquerda, campos à direita. */
+dialog.bm206-editor-dialog{
+  box-sizing:border-box;
+  width:min(92vw,640px);max-width:640px;
+  max-height:min(64vh,570px);padding:11px 13px;
+  overflow:hidden;border-radius:11px;
+}
+dialog.bm206-editor-dialog .bm202-dialog-heading{
+  align-items:center;margin-bottom:7px;
+}
+dialog.bm206-editor-dialog .bm206-editor-layout{
+  display:grid;grid-template-columns:minmax(0,44%) minmax(0,56%);
+  gap:12px;min-height:225px;max-height:min(49vh,480px);
+  overflow:hidden;align-items:stretch;
+}
+dialog.bm206-editor-dialog .bm206-editor-visual{
+  display:flex;align-items:stretch;justify-content:center;min-width:0;min-height:0;
+  border:1px solid #d8e6e2;border-radius:8px;overflow:hidden;background:#f4f8f7;
+}
+dialog.bm206-editor-dialog .bm206-editor-visual .bm204-editor-preview{
+  box-sizing:border-box;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  width:100%;height:100%;max-height:none;min-height:0;
+  margin:0;padding:8px;border:0;background:transparent;overflow:hidden;
+}
+dialog.bm206-editor-dialog .bm206-editor-visual .bm204-editor-preview img{
+  display:block;width:auto;height:auto;max-width:100%;
+  max-height:100%;object-fit:contain;
+}
+dialog.bm206-editor-dialog .bm206-editor-fields{
+  box-sizing:border-box;min-width:0;min-height:0;
+  overflow-y:auto;overflow-x:hidden;padding:0 5px 2px 0;
+  overscroll-behavior:contain;scrollbar-gutter:stable;
+}
+dialog.bm206-editor-dialog .bm203-modal-tabs{position:sticky;top:0;z-index:2}
+dialog.bm206-editor-dialog .bm-v060-field textarea{min-height:52px}
+dialog.bm206-editor-dialog .bm203-links-panel .bm197-fields{margin:5px 0;gap:6px}
+dialog.bm206-editor-dialog .bm203-links-panel .bm197-feedback{
+  white-space:normal;overflow-wrap:anywhere;
+}
+/* Em telas estreitas, priorizar legibilidade: a figura fica acima dos campos. */
+@media(max-width:590px){
+ dialog.bm206-editor-dialog{
+  width:min(calc(100vw - 18px),400px);max-width:400px;
+  max-height:80vh;padding:9px 10px;overflow-y:auto;
+ }
+ dialog.bm206-editor-dialog .bm206-editor-layout{
+  display:flex;flex-direction:column;min-height:0;max-height:none;
+  gap:8px;overflow:visible;
+ }
+ dialog.bm206-editor-dialog .bm206-editor-visual{
+  display:flex;flex:0 0 auto;height:148px;min-height:0;
+ }
+ dialog.bm206-editor-dialog .bm206-editor-visual .bm204-editor-preview{
+  height:100%;max-height:none;padding:5px
+ }
+ dialog.bm206-editor-dialog .bm206-editor-visual .bm204-editor-preview img{
+  max-width:100%;max-height:138px
+ }
+ dialog.bm206-editor-dialog .bm206-editor-fields{
+  max-height:none;overflow:visible;padding:0
+ }
+}
+@media(max-height:560px) and (min-width:591px){
+ dialog.bm206-editor-dialog{max-height:75vh}
+ dialog.bm206-editor-dialog .bm206-editor-layout{max-height:57vh}
+}
