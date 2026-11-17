@@ -1,3 +1,14 @@
+# Banco Mestre V212 — TRT Parte 01, eficácia contida com três imagens (17/11/2026)
+
+- **Nova página:** `v212.html`; a V211 permanece intacta em `v211.html`, assim como a V210 em `v210.html`.
+- **Cartão operacional aprovado:** `TRT01-C002`, fonte `TRT01-Q002`, art. 5º, XIII, da CF/88; resposta E incorreta, gabarito A. Eleven módulos didáticos com lei seca, ressalvas, análise das alternativas, enunciado reexplicado e ligação cruzada com `TRT01-C001`.
+- **Imagens originais:** três PNGs no Drive, pasta canônica `1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6`, classificados como **imagem de cartão**. Galeria usa OAuth autorizado, preservando privacidade dos originais.
+- **Checkpoint:** ZIP contendo três imagens byte a byte e manifesto SHA-256 na pasta `1348cILBcxFG9p2cfPJ3WubmHswPRbD24`.
+- **Bases preservadas:** 1.518 cartões públicos V194, 179 imagens públicas V198, 78 PDFs V149; sem novos eventos SRS e sem gerar ID `CARD-XXXX` canônico até reconciliação da base privada.
+- **Limite:** publicação no GitHub não comprova exibição autenticada no navegador do usuário. [Relatório V212](docs/V212_TRT01_C002_EFICACIA_CONTIDA.md).
+
+---
+
 # Banco Mestre V211 — TRT Parte 01, cartão com cinco imagens (17/11/2026)
 
 - **Edição online:** `v211.html`, publicada na branch `gh-pages` com `assets/version.json.version=V211`; V210 preservada em `v210.html`.
