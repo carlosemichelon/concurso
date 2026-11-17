@@ -154,7 +154,7 @@ function loadPreview(img,file){
 function render(){
  const grid=$('bm084-grid');if(!grid)return;grid.replaceChildren();
  const q=($('bm084-search')?.value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
- const items=photos.filter(f=>(window.BM197MediaLinks?.matchesDrive?.(f)!==false)&&(String(f.name||'')+' '+String(f.drivePath||'')).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q));
+ const items=photos.filter(f=>(window.BM197MediaLinks?.matchesDrive?.(f)!==false)&&(String(f.id||'')+' '+String(f.name||'')+' '+String(f.drivePath||'')).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q));
  for(const file of items.slice(0,visible)){
   const card=el('article','');card.style.cssText='background:white;border:1px solid #d5e2dd;border-radius:9px;padding:10px;min-width:0';
   const pic=el('img','');pic.loading='lazy';pic.alt='Prévia de '+title(file);pic.style.cssText='width:100%;height:140px;object-fit:contain;background:#f8faf8;border-radius:5px;cursor:zoom-in';
