@@ -44,7 +44,7 @@ assert.equal(filterImageAssociationAudit(bare,{query:'PETRO14-C017'}).length,1);
 const known=recovered[0];
 const files=[
  {id:known.driveFileId,name:known.name,path:'Atlas oficial',mimeType:'image/png'},
- {id:'new_drive_explicit_card_0001',name:'Questão CARD-1504.pdf.png',
+ {id:'new_drive_explicit_card_0001',name:'Questao_CARD-1504_prova.png',
   path:'Atlas privado',mimeType:'image/png',webUrl:'https://drive.google.com/file/d/new_drive_explicit_card_0001/view'},
  {id:'new_drive_explicit_card_0001',name:'Duplicada.png',path:'Originais'},
  {id:'new_drive_missing_card_0002',name:'Enunciado CARD-9999.png',
