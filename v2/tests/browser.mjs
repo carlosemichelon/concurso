@@ -137,8 +137,8 @@ try{
  const storageKey='BM030_STROKES_PDF:IJUI-PDF-05:'+pdfHash+':P1';
  const otherKey='BM030_STROKES_PDF:IJUI-PDF-05:aaaaaaaaaaaaaaaaaaaaaaaa:P2';
  const seed=[
-  {id:'mark_test_123',type:'text_highlight',text:'Trecho de prova'},
-  {id:'mark_test_234',type:'text_highlight',text:'Marca removida'}
+  {id:'mark_test_123',type:'text_highlight',text:'Trecho de prova',rects:[[.12,.20,.38,.27]],color:'#FDE68A',opacity:.40},
+  {id:'mark_test_234',type:'text_highlight',text:'Marca removida',rects:[[.60,.40,.80,.50]],color:'#FF0000'}
  ];
  await page.evaluate(({storageKey,otherKey,seed})=>{
    localStorage.setItem(storageKey,JSON.stringify(seed));
@@ -154,6 +154,33 @@ try{
  assert.equal(await page.locator('#v2PdfExportHighlights').isEnabled(),true);
  assert.equal(await page.evaluate(key=>localStorage.getItem(key),storageKey),storageBefore,
    'leitor não pode alterar dados históricos da V1');
+
+ // O PDF.js é servido localmente no runner; nunca exige bytes de um PDF privado.
+ await page.addScriptTag({url:'/node_modules/pdfjs-dist/build/pdf.min.js'});
+ await page.evaluate(()=>{
+   window.pdfjsLib.GlobalWorkerOptions.workerSrc='/node_modules/pdfjs-dist/build/pdf.worker.min.js';
+ });
+ assert.equal(await page.locator('#v2PdfOverlayShow').isEnabled(),true);
+ await page.locator('#v2PdfOverlayShow').click();
+ await page.locator('#v2PdfOverlayView').waitFor({state:'visible'});
+ await page.waitForFunction(()=>{
+   const c=document.querySelector('#v2PdfOverlayBase');
+   return !!c&&c.width>0&&c.height>0&&document.querySelector('#v2PdfReaderNote')?.textContent.includes('exibido(s)');
+ },{timeout:30000});
+ assert.equal(await page.locator('#v2PdfOverlayPage').inputValue(),'1');
+ assert.equal(await page.locator('#v2PdfOverlayPrev').isDisabled(),true);
+ const pixels=await page.evaluate(()=>{
+   const canvas=document.querySelector('#v2PdfOverlayBase'),context=canvas.getContext('2d');
+   const at=(x,y)=>[...context.getImageData(Math.floor(x*canvas.width),Math.floor(y*canvas.height),1,1).data].slice(0,3);
+   return {present:at(.2,.235),deletedArea:at(.7,.45),blank:at(.9,.9)};
+ });
+ assert.ok(pixels.present[2]<pixels.blank[2],'grifo autorizado aparece sobre raster PDF');
+ assert.deepEqual(pixels.deletedArea,pixels.blank,'grifo tombstone não reaparece');
+ assert.equal(await page.evaluate(key=>localStorage.getItem(key),storageKey),storageBefore,
+   'renderização sobre PDF não modifica localStorage');
+ await page.locator('#v2PdfOverlayOriginal').click();
+ assert.equal(await page.locator('#v2PdfReaderFrame').isVisible(),true);
+
  await page.locator('.v2-pdf-close').click();
  assert.equal(await page.locator('#v2PdfDialog').evaluate(x=>x.open),false);
  assert.equal(await page.locator('#v2PdfReaderFrame').getAttribute('src'),null);
@@ -168,7 +195,7 @@ try{
  console.log('V2 browser smoke OK:',{
    cards:'verso oculto e módulos on-demand',
    modules:11,priority:'08→04→05→06→09→10→01→02→03→07→11',
-   atlas:'bidirecional',pdf:'abertura local e hash V1 sem escrita',drive:'sem exportação privada anônima',mobileWidth:390
+   atlas:'bidirecional',pdf:'PDF.js real + grifos V1 e exclusões sem escrita',drive:'sem exportação privada anônima',mobileWidth:390
  });
 }finally{
  await page?.close();
