@@ -31,6 +31,13 @@ try{
   await page.locator('#cardsList .item').first().waitFor({timeout:20000});
   await page.locator('[data-view="images"]').click();
   await page.locator('#imagesList .item').first().waitFor({timeout:20000});
+  assert.equal(await page.locator('#v2PrivateImages').count(),0,
+    'não deve existir segunda galeria de imagens');
+  assert.equal(await page.locator('#imagesList .item').count(),40,
+    'lista única deve iniciar com 40 imagens');
+  await page.locator('#moreImages').click();
+  assert.equal(await page.locator('#imagesList .item').count(),80,
+    'único botão Mostrar mais deve carregar as próximas 40');
   await page.locator('[data-view="pdfs"]').click();
   await page.locator('#pdfsList .item').first().waitFor({timeout:20000});
   await page.locator('[data-view="sync"]').click();
@@ -42,7 +49,8 @@ try{
   const manifest=await manifestResponse.json();
   assert.equal(manifest.publishScope,'v2-preview/ only');
   assert.equal(manifest.containsPrivateFiles,false);
-  assert.equal(manifest.sourceCommit,'875ba50fe2a022be3f4d6f1dba326d8e63f3ce7b');
+  assert.match(manifest.sourceCommit,/^[a-f0-9]{40}$/,'manifesto deve guardar um SHA de origem verificável');
+  assert.equal(manifest.atlasMode,'single_viewer_editorial_plus_live_drive');
   const original=await page.request.get(base+'index.html');
   assert.equal(original.status(),200,'entrada original V1 deve continuar publicada');
   assert.equal(await page.evaluate(()=>localStorage.length),0,
