@@ -42,7 +42,7 @@ function currentToken(){return (access&&Date.now()<expires?access:'')||window.Ba
 function validToken(){return Boolean(currentToken());}
 function idOf(file){return 'DRIVE-IMG-'+file.id;}
 function fileLink(file){return 'https://drive.google.com/file/d/'+encodeURIComponent(file.id)+'/view';}
-function title(file){return String(file.name||'Imagem').replace(/\.(png|jpe?g|webp|gif)$/i,'').replace(/_/g,' ').slice(0,170);}
+function title(file){return String(file.name||'Imagem').replace(/\.(png|jpe?g|webp|gif|svg)$/i,'').replace(/_/g,' ').slice(0,170);}
 function moveToAtlas(box){
  const dir=$('bm153Directory');if(!dir)return false;
  const heading=dir.querySelector('.bm153Heading');
@@ -254,7 +254,6 @@ async function getImageUrl(file){
 async function openImage(file){
  try{
   msg('Abrindo imagem '+title(file)+'...');
-  if(file.mimeType===SVG){window.open(fileLink(file),'_blank','noopener,noreferrer');msg('SVG original aberto no Google Drive; editor de grifos não disponível para SVG.');return;}
   const src=await getImageUrl(file);
   const image=new Image();image.src=src;await image.decode();
   if(typeof BancoMestreEditorV030?.open==='function'){
@@ -288,7 +287,7 @@ function render(){
   const h=el('h4','',title(file));h.style.cssText='font-size:13px;line-height:1.3;margin:7px 0;overflow-wrap:anywhere';
   const id=el('small','',idOf(file));id.style.cssText='display:block;color:#52656a;font-size:10px;overflow-wrap:anywhere';
   const actions=el('div','');actions.style.cssText='display:flex;gap:8px;flex-wrap:wrap;margin-top:8px';
-  const open=el('button','',file.mimeType===SVG?'Abrir SVG no Drive':'Abrir e grifar');open.type='button';open.style.fontSize='12px';open.onclick=()=>{void openImage(file)};
+  const open=el('button','','Abrir imagem');open.type='button';open.style.fontSize='12px';open.onclick=()=>{void openImage(file)};
   const link=el('a','','Original no Drive');link.href=fileLink(file);link.target='_blank';link.rel='noopener noreferrer';link.style.fontSize='12px';
   actions.append(open,link);
    const location=el('small','',file.drivePath||'Atlas');location.style.cssText='display:block;font-size:10px;color:#657a7b;margin-top:4px';
