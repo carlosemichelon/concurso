@@ -37,6 +37,8 @@ const browser=await chromium.launch({headless:true});
 let page;
 try{
  page=await browser.newPage({viewport:{width:1280,height:900}});
+ page.on('pageerror',error=>console.error('BROWSER PAGE ERROR:',error.message));
+ page.on('console',msg=>{if(msg.type()==='error')console.error('BROWSER CONSOLE ERROR:',msg.text())});
  // Evita autenticação externa. O fluxo de acervos públicos deve continuar operando.
  await page.route('https://accounts.google.com/**',route=>route.abort());
  await page.goto(url,{waitUntil:'domcontentloaded'});
@@ -54,7 +56,11 @@ try{
  assert.equal(await card.locator('.answer').isVisible(),true);
  assert.equal(await card.locator('.v2-evo-panel').evaluate(e=>e.open),false,'11 módulos iniciam recolhidos');
  await card.locator('.v2-evo-panel > summary').click();
- await card.locator('.v2-evo-module').first().waitFor({timeout:30000});
+ try{await card.locator('.v2-evo-module').first().waitFor({timeout:12000});}
+ catch(error){
+   console.error('DIAGNÓSTICO EVOLUTIVO:',await card.locator('.v2-evo-host').textContent());
+   throw error;
+ }
  assert.equal(await card.locator('.v2-evo-module').count(),11);
  const origins=await card.locator('.v2-evo-source').allTextContents();
  assert.deepEqual(origins.map(x=>Number(x.replace(/\D/g,''))),[8,4,5,6,9,10,1,2,3,7,11]);
