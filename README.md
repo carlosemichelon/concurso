@@ -1,3 +1,12 @@
+# Banco Mestre — Portal V211 (17/11/2026)
+
+**Abrir:** https://carlosemichelon.github.io/concurso/  
+**Cartão TRT com cinco imagens:** https://carlosemichelon.github.io/concurso/?cartao=TRT01-C001
+
+A **V211** incorpora um cartão operacional aprofundado de Direito Constitucional (`TRT01-C001`, 11 módulos), com cinco originais da questão `TRT01-Q001` associados por IDs e disponíveis em prévia autenticada do Google Drive. Os originais estão salvos na pasta oficial do Atlas no Drive; o ZIP/inventário estão na pasta canônica de Checkpoints. A exibição OAuth das imagens em navegador real ainda precisa ser testada. O cartão é **operacional e separado**: a base pública V194 continua com **1.518 IDs**, o Atlas público V198 com **179 imagens** e os PDFs V149 com **78 documentos**; não há nova revisão SRS. A V210 está preservada em `v210.html`. Detalhes em [V211 TRT + imagens](docs/V211_TRT01_CARTAO_CINCO_IMAGENS.md).
+
+---
+
 # Banco Mestre — Portal de estudo (Engenharia Civil / Concursos)
 
 **Site:** [Abrir Banco Mestre](https://carlosemichelon.github.io/concurso/)  
