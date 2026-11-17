@@ -26,7 +26,7 @@ win.BancoMestreDriveImagesV182={
 };
 win.BM208AtlasUnified.refresh();
 assert.equal(num.textContent,'217');
-assert.match(subtitle.textContent,/179 publicadas \+ 38 do Drive/);
+assert.match(subtitle.textContent,/179 publicadas \+ 38 (?:sincronizadas )?do Drive/);
 assert.match(count.textContent,/217 imagens no Atlas/);
 assert.match(summary.textContent,/Atlas total: 217 imagens/);
 assert.equal(group.dataset.bmUnifiedAtlasTotal,'217');
