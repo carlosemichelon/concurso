@@ -68,7 +68,36 @@ export class DriveOnlyClient {
     if(result.source!=='google-drive')throw new DriveOnlyError('Status de fonte inesperada','INVALID_RESPONSE');
     return result;
   }
-  async signOut(){return this.#request('/logout',{method:'POST',body:{}})}
+  /**
+   * Login se inicia uma ÚNICA vez via redirecionamento ao servidor OAuth.
+   * O servidor armazena refresh token criptografado e mantém a sessão por cookie HttpOnly.
+   */
+  signInPath(){return this.base+'/auth/google/start'}
+  /** Reutiliza o cookie de sessão; abrir mídia não solicita autorização Google novamente. */
+  async media(mediaKey,{purpose='image'}={}){
+    if(!['image','pdf'].includes(purpose))throw new DriveOnlyError('Tipo de visualização inválido','INVALID_MEDIA');
+    const url=this.mediaPath(mediaKey);
+    let response;
+    try {
+      response=await this.fetcher(url,{
+        method:'GET',credentials:'include',redirect:'error',cache:'no-store',
+        headers:{Accept:purpose==='image'?'image/png,image/jpeg,image/webp,image/gif':'application/pdf'}
+      });
+    }catch(_){throw new DriveOnlyError('Não foi possível consultar o arquivo no Drive','UNAVAILABLE')}
+    if(response.status===401)throw new DriveOnlyError('Sessão expirada; novo login necessário','LOGIN_REQUIRED');
+    if(response.status===403)throw new DriveOnlyError('Permissão Drive insuficiente','FORBIDDEN');
+    if(!response.ok)throw new DriveOnlyError('Arquivo privado indisponível ('+response.status+')','HTTP_ERROR');
+    const mime=String(response.headers?.get?.('content-type')||'').split(';')[0].trim().toLowerCase();
+    if(purpose==='pdf'&&mime!=='application/pdf')throw new DriveOnlyError('Tipo de PDF inesperado','INVALID_MEDIA');
+    if(purpose==='image'&&!['image/png','image/jpeg','image/webp','image/gif'].includes(mime))
+      throw new DriveOnlyError('Tipo de imagem inesperado','INVALID_MEDIA');
+    // A requisição não transporta Bearer no JavaScript; o backend renova acesso ao Drive.
+    return response.blob();
+  }
+  async signOut(csrfToken){
+    if(typeof csrfToken!=='string'||csrfToken.length<12)throw new DriveOnlyError('Token CSRF de sessão ausente','CSRF_REQUIRED');
+    return this.#request('/logout',{method:'POST',body:{csrfToken}});
+  }
   // Um link só é fornecido pelo servidor após validar conta e lista permitida de IDs.
   mediaPath(mediaKey){
     if(typeof mediaKey!=='string'||!/^[A-Za-z0-9_-]{8,160}$/.test(mediaKey))
