@@ -86,13 +86,13 @@ vm.runInNewContext(fs.readFileSync('assets/v210_compact_sections.js','utf8'),{
  document:doc,window:{matchMedia:()=>({matches:false})},setTimeout:()=>{},
  Event:class{constructor(type){this.type=type}},console
 });
-const toolbar=named.get('bm210PdfToolbar'),bar=named.get('bm209SyncBar'),quick=named.get('bm210CardQuick');
+const toolbar=doc.getElementById('bm210PdfToolbar'),bar=named.get('bm209SyncBar'),quick=doc.getElementById('bm210CardQuick');
 assert.ok(toolbar&&bar&&quick);
 assert.equal(toolbar.contains,undefined);
 assert.equal(named.get('pdfSearch').parentNode,pdfControls);
-assert.equal(pdfControls.parentNode,named.get('bm210PdfFilters'));
-assert.equal(named.get('bm-pdf-sync-refresh').parentNode,named.get('bm210PdfActions'));
-assert.equal(gpdfButton.parentNode,named.get('bm210PdfActions'));
+assert.equal(pdfControls.parentNode,doc.getElementById('bm210PdfFilters'));
+assert.equal(named.get('bm-pdf-sync-refresh').parentNode,doc.getElementById('bm210PdfActions'));
+assert.equal(gpdfButton.parentNode,doc.getElementById('bm210PdfActions'));
 gpdfButton.onclick();assert.equal(gpdfButton.touched,true);
 assert.equal(named.get('imageSearch').parentNode,bar);
 assert.equal(named.get('bm155DisciplinaImagem').closest('label').parentNode,bar);
@@ -101,5 +101,5 @@ assert.equal(named.get('bm155Reset').parentNode,bar);
 assert.equal(named.get('cardSearch').parentNode,quick);
 assert.equal(named.get('cardReviewedOnly').closest('label').parentNode,quick);
 assert.equal(named.get('cardCount').parentNode,cfooter);
-assert.equal(named.get('bm210ImageInfo').parentNode,bar);
+assert.equal(doc.getElementById('bm210ImageInfo').parentNode,bar);
 console.log('V210 layout OK: barras PDF, Imagens e Flashcards, IDs e handlers preservados');
