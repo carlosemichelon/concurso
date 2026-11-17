@@ -1,3 +1,16 @@
+# Banco Mestre V221 — TRT Parte 01, cartão 006 e imagem-macete (17/11/2026)
+
+- **Portal:** `v221.html`; `v220.html` preservada.
+- **Cartão operacional:** `TRT01-C006` da questão `TRT01-Q006`, gabarito A correto: contida (CF art. 5º XIII), limitada (art. 7º XI), limitada (art. 37 VII).
+- **11 módulos completos:** lei seca literal, diferenças entre restringir/integrar, Lei 10.101/2000 e STF ADO 85, exemplos, pegadinhas e ressalvas. Vínculos cruzados a C001–C005 sem novas revisões indiretas.
+- **Imagem original:** um PNG privado em Drive Atlas, id `1LoJnBAEfckAVHBdxCNPuT-IGSVhoReYg`; macete preservado com alerta de que expressões legais isoladas não são critério universal de eficácia.
+- **Checkpoint:** ZIP e manifesto no Drive oficial de Checkpoints; imagem verificada por SHA-256 e CRC. Módulos integrais mantidos em JSON no GitHub.
+- **SRS:** não foi informada classificação Errei/Difícil/Bom/Fácil; nenhum evento SRS criado, F17 canônico inalterado.
+- **Integração:** política híbrida GitHub/Drive preservada; teste de OAuth de imagem real permanece pendente.
+- [Relatório V221](docs/V221_TRT01_C006_EFICACIA_TRES_ARTIGOS.md).
+
+---
+
 # Banco Mestre V220 — TRT Parte 01, cartão 005 e 2 imagens (17/11/2026)
 
 - **Versão ativa:** `v220.html`, mantendo `v219.html` intacta.
