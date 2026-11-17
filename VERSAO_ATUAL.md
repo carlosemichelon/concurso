@@ -1,3 +1,15 @@
+# Banco Mestre V227 — TRT C009: fundamentos, democracia e dois mapas (17/11/2026)
+
+- **Versão ativa:** `v227.html`, derivada da `v226.html` com melhorias de apresentação de grifos e filtros TRT preservadas.
+- **Cartão operacional:** `TRT01-C009`, fonte `TRT01-Q009`. Resposta original A incorreta; correta B, com erro na palavra "exclusivamente": art. 1º admite poder por representantes eleitos **ou diretamente**.
+- **11 módulos completos:** lei seca integral dos arts. 1º–4º, arts. 14 e 127, cinco fundamentos (SO–CI–DI–VA–PLU), três Poderes, MP não é quarto Poder, integração cultural e não intervenção.
+- **Duas imagens originais:** Drive Atlas ids `1w-o0i1uM-tA8TikcsPlRg08nV1VyqI36` e `1hBQSdoeqanyfSP8W32ND18neAJXj8SC-`, preservadas e vinculadas como imagens de cartão. Ressalva registrada para afirmação generalizada incorreta sobre eficácia limitada.
+- **SRS:** nenhuma avaliação Errei/Difícil/Bom/Fácil foi informada; nenhum evento e nenhuma data de revisão criados. Base pública V194 de 1.518 cartões e SRS canônico F17 inalterados.
+- **Grade TRT:** nove cartões operacionais, C001–C009. Checkpoint ZIP no Drive oficial: `1xOLMwRvd0W2bkcxSWaVp-z7sv3LXkZ3f`.
+- **Limite:** teste em navegador com Google OAuth das imagens privadas permanece pendente. [Relatório V227](docs/V227_TRT01_C009_FUNDAMENTOS.md).
+
+---
+
 ## V226 — Biblioteca de Grifos desativada na interface (17/11/2026)
 
 - Publicação em `gh-pages/v226.html` com atualização atômica de `index.html`, `assets/version.json` e deste histórico; V225 preservada.
