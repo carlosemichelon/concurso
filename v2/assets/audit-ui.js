@@ -10,7 +10,7 @@ const element=(name,cls='',text='')=>{
 const fmt=value=>value===null||value===undefined?'Não conferido':Number(value).toLocaleString('pt-BR');
 const STATUS={
   listed_and_referenced:'No Drive e referenciado no catálogo',
-  new_in_drive:'Novo no Drive (fora do catálogo)',
+  new_in_drive:'Localizado no Drive, fora do catálogo',
   not_observed_in_monitored_roots:'Não observado nas pastas monitoradas'
 };
 function textDate(value){
@@ -55,7 +55,7 @@ export function mountReconciliation(snapshot,service,target){
   label.htmlFor='v2AuditFilter';
   const select=element('select');select.id='v2AuditFilter';
   for(const [key,value] of [
-    ['new_in_drive','Novos no Drive'],
+    ['new_in_drive','Fora do catálogo público'],
     ['not_observed_in_monitored_roots','Não observados nas pastas'],
     ['listed_and_referenced','Referenciados e localizados'],
     ['all','Todos os resultados']
@@ -135,9 +135,9 @@ export function mountReconciliation(snapshot,service,target){
     audit=report();
     const i=audit.images,p=audit.pdfs;
     stats.replaceChildren(
-      stat('Novas imagens no Drive','Fora dos 93 IDs de imagens recuperadas',i.newInDrive),
+      stat('Imagens fora do catálogo','Listadas no Drive sem referência entre os 93 IDs',i.newInDrive),
       stat('Imagens não observadas','Não significa exclusão',i.notObserved),
-      stat('PDFs adicionais no Drive','Fora dos 78 IDs referenciados',p.newInDrive),
+      stat('PDFs fora do catálogo','Listados no Drive sem referência entre os 78 IDs',p.newInDrive),
       stat('PDFs não observados','Não significa exclusão',p.notObserved),
       stat('Imagens visualizadas','Prévia carregada nesta sessão',i.previewed)
     );
