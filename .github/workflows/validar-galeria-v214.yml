@@ -1,0 +1,22 @@
+name: Banco Mestre — V214 Drive e catálogo
+on:
+  push:
+    branches:
+      - gh-pages
+      - staging/v214-drive-first-static-fallback-2026-11-17
+  workflow_dispatch:
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar IDs, bytes e versões
+        run: node tests/v214_gallery_integrity.cjs
+      - name: Sintaxe dos módulos novos
+        run: |
+          node --check assets/v214_public_gallery_fallback.js
+          node --check assets/v214_single_image_viewer.js
+          node --check assets/v214_library_counter.js
