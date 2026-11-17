@@ -1,0 +1,34 @@
+name: Banco Mestre V218 - imagens com titulos e assuntos
+on:
+  push:
+    branches:
+      - staging/v218-image-titles-subjects-2026-11-17
+      - gh-pages
+    paths:
+      - v218.html
+      - index.html
+      - assets/version.json
+      - assets/v218_image_metadata.js
+      - assets/v218_drive_gallery_feed.js
+      - assets/v218_single_image_viewer.js
+      - tests/v218_image_metadata.cjs
+      - .github/workflows/validar-v218-imagens.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  nomes-e-assuntos:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar sintaxe JavaScript
+        run: |
+          node --check assets/v218_image_metadata.js
+          node --check assets/v218_drive_gallery_feed.js
+          node --check assets/v218_single_image_viewer.js
+          node --check tests/v218_image_metadata.cjs
+      - name: Validar indices, titulos e ausencia de classificacao inventada
+        run: node tests/v218_image_metadata.cjs
