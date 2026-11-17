@@ -1,6 +1,7 @@
 import {loadSnapshot} from './data.js';
 import {DriveReadonly} from './drive.js';
 import {mountReconciliation} from './audit-ui.js';
+import {attachPdfReaderAction,registerPdfDrive} from './pdf-reader.js';
 
 /* UI privada do Drive, isolada da V1 e do estado SRS/IndexedDB.
    O grupo de imagens adicionais aparece DENTRO da aba Atlas, não como galeria externa. */
@@ -201,6 +202,7 @@ function renderPdfs(){
     const link=dom('a','','Abrir PDF original no Drive');
     link.href=file.webUrl;link.target='_blank';link.rel='noopener noreferrer';
     actions.append(link,infoChip('Não publicado no catálogo V149'));
+    attachPdfReaderAction(actions,{id:'DRIVE-PDF-'+file.id,file_id:file.id,filename:file.name,title:file.name});
     item.append(actions);list.append(item);
   }
   const more=$('v2DriveMorePdfs');more.hidden=pending.length<=pdfLimit;
@@ -244,6 +246,7 @@ async function initialize(){
     const publicImageIds=[...snapshot.recoveredByImageId.values()].map(x=>x.driveFileId||x.id).filter(Boolean);
     const publicPdfIds=snapshot.pdf.documents.map(x=>x.file_id).filter(Boolean);
     service=new DriveReadonly({contract:snapshot.storage,publicImageIds,publicPdfIds});
+    registerPdfDrive(service);
     auditPanel=mountReconciliation(snapshot,service,$('view-sync'));
     service.onChange(event=>{
       if(event.type==='connected'){
