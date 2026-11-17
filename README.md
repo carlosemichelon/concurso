@@ -1,3 +1,20 @@
+# Banco Mestre — Portal V213 (17/11/2026)
+
+**Portal:** https://carlosemichelon.github.io/concurso/  
+**Biblioteca de imagens V1:** https://carlosemichelon.github.io/concurso/v213.html#imagens
+
+A **V213** publica 237 arquivos originais copiados do Drive no GitHub Pages, sendo
+**93 já referenciados** no Atlas público V198 e **144 inéditos**, alcançando
+**323 imagens distintas** no visualizador único da V1. Os arquivos novos utilizam
+a biblioteca e o editor da V1; não substituem a V212, os dois cartões TRT, os
+1.518 cartões V194, os 78 PDFs ou o SRS. A V2 ficou em pausa. Os 237 arquivos
+estão agora publicamente acessíveis no GitHub, sem alterar os originais do Drive.
+Imagens privadas futuras continuam exigindo autorização Google.
+**Validação visual em navegador real pendente.**
+[Auditoria da V213](docs/V213_PUBLICACAO_GALERIA_E_AUDITORIA.md).
+
+---
+
 # Banco Mestre — Portal V212 (17/11/2026)
 
 **Portal:** https://carlosemichelon.github.io/concurso/  
