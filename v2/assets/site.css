@@ -111,3 +111,13 @@ footer{margin-top:auto;padding:18px 4vw;border-top:1px solid #e1e7e8;color:#6b7e
 .audit-export button:disabled{opacity:.5;cursor:not-allowed}
 .audit-footnote{font-size:.8rem;color:#6a7779;border-top:1px solid #e3e8e9;padding-top:14px;line-height:1.6;margin-top:12px}
 @media(max-width:700px){.audit-filters{grid-template-columns:1fr}.audit-filters label,.audit-filters #v2AuditSearch,.audit-filters #v2AuditFilter{grid-column:1;grid-row:auto}.audit-export button{width:100%}.audit-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* V2 diagnóstico da publicação: independente do scanner de dados privados. */
+.audit-refresh{border:1px solid #9bb9b9;color:#164b55;background:white;padding:8px 12px;border-radius:9px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.audit-refresh:hover:not(:disabled){background:#e7f3f3}
+.audit-refresh:disabled{opacity:.55;cursor:default}
+#v2DeploymentPanel .section-heading{align-items:center}
+#v2DeploymentPanel .section-heading h3{margin:0}
+#v2DeploymentStatus{margin:12px 0}
+#v2DeploymentChecks .check{gap:3px}
+@media(max-width:700px){#v2DeploymentPanel .section-heading{align-items:flex-start}}
