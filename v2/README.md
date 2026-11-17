@@ -128,6 +128,24 @@ Testes automatizados Node/Actions conferem integridade **dos dados e dos módulo
 
 Depois da homologação de interface: leitor de PDF e grifos, com compatibilidade do armazenamento existente. Não migrar dados históricos privados sem inventário e backup específico.
 
+
+### Verificação funcional automatizada (Chromium)
+
+Foi acrescentado o teste \`v2/tests/browser.mjs\` com servidor HTTP local de arquivos públicos e Chromium via Playwright. O fluxo exercita:
+- página geral e contagens;
+- pesquisa por \`CARD-1502\`, verso inicialmente oculto e revelação apenas por clique;
+- carregamento tardio das 11 seções, ordem visual priorizada e renderização de tabela normativa nativa;
+- \`CARD-0138\` reservado, sem aprofundamento artificial;
+- navegação Atlas \`IMG-C12-025\` → \`CARD-1504\` → imagens relacionadas;
+- painel de sincronização sem login, exportação de dados privados desabilitada;
+- layout na largura de 390 px e ausência de transbordamento horizontal.
+
+A instalação dos navegadores de teste está isolada no job \`browser-smoke\` da CI. A imagem do runner foi fixada em \`ubuntu-24.04\` para compatibilidade com Playwright 1.56.1. **A aprovação do teste de navegador deve ser verificada no GitHub Actions; teste automatizado não substitui autorização OAuth e validação do titular.**
+
+Com Playwright instalado no computador local, o comando é:
+
+    node v2/tests/browser.mjs
+
 ## Rollback
 
 A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
