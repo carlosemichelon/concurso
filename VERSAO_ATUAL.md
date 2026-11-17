@@ -1,3 +1,15 @@
+# Banco Mestre V220 — TRT Parte 01, cartão 005 e 2 imagens (17/11/2026)
+
+- **Versão ativa:** `v220.html`, mantendo `v219.html` intacta.
+- **Cartão operacional aprovado:** `TRT01-C005`, questão `TRT01-Q005`; alternativa C correta. Onze módulos com lei seca, explicação, MI × MS × HD e duas imagens originais.
+- **Mídias:** dois PNGs privados verificados na pasta Atlas canônica do Drive `1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6`. Vínculos nos metadados do cartão, sem publicar binários.
+- **Checkpoint:** originais + manifesto + README em `TRT01_C005_CHECKPOINT_V001_2026-11-17.zip`, salvo na pasta oficial Checkpoints do Drive.
+- **SRS:** nenhuma avaliação nova foi dada neste turno. Não houve gravação no SRS canônico F17 nem marcação de revisão cruzada dos cartões C001–C004.
+- **Rastreabilidade:** [Relatório V220](docs/V220_TRT01_C005_MANDADO_INJUNCAO.md).
+- **Limite da verificação:** publicação e exibição autenticada do Google Drive são auditorias distintas; o teste OAuth real ainda depende de navegação com a conta proprietária.
+
+---
+
 # Banco Mestre V218 — TRT01-C004, eficácia plena / direito de resposta (17/11/2026)
 
 - **Cartão operacional:** `TRT01-C004` (questão `TRT01-Q004`), 11 módulos completos, enunciado reexplicado, art. 5º, V e §1º, ADPF 130 e Lei 13.188/2015; resposta original A incorreta, gabarito E.
