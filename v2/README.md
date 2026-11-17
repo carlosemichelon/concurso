@@ -308,6 +308,27 @@ A V2 agora usa **uma única lista Atlas**, com busca, filtros e **um único bot�
 - Testes em `tests/image-associations.mjs` verificam a contagem real 9/76/94, as 100 referências CARD existentes e a histórica externa, 3 arquivos Drive simulados (inclusive nomes com sublinhados), ausência de aprovação automática, filtro e exportação segura. Testes Chromium verificam o painel, o filtro documental e o descarte na saída.
 
 **Pendências de homologação:** nenhum arquivo novo do Drive foi classificado de forma permanente nem teve associação aprovada sem inspeção; continuam necessários o OAuth real, a verificação visual e uma decisão editorial explícita antes de sincronizar mudanças no GitHub.
+## Etapa 13 — propostas humanas de vínculos com checkpoint SHA-256
+
+A V2 possui agora uma bancada de revisão anexa ao painel de auditoria de imagens. Cada decisão é uma **proposta registrada**, e não uma modificação aprovada do catálogo editorial ou do cartão.
+
+1. Na aba **Sincronização**, execute **Conferir vínculos com os 1.518 cartões**. Nas imagens pendentes, clique em **Revisar associação** ou escolha uma imagem na lista da bancada.
+2. Escolha uma ação: **Propor vínculo com cartão**, **Aprovar como conteúdo**, **Rejeitar vínculo candidato** ou **Manter pendente**. Somente ações de vínculo exigem ID `CARD-xxxx` realmente existente no banco V194.
+3. Informe evidência verificada, justificativa específica de no mínimo 15 caracteres e confirme explicitamente a decisão. O registro é acrescentado ao histórico, nunca reescrevendo as decisões anteriores.
+4. Clique **Baixar checkpoint das decisões** para produzir JSON versão `BancoMestreV2AssociationReviewCheckpointV1` com evento sequencial, data, imagem e arquivo de origem, ID do cartão quando pertinente, ação, evidência, justificativa e digest SHA-256.
+5. Para continuar após recarregar a página, utilize **Restaurar checkpoint (.json)**. A restauração confere versão, estrutura, ordem dos eventos e SHA-256. Checkpoints alterados ou corrompidos são rejeitados, sem sobrescrever as decisões presentes.
+6. Na restauração, as decisões são conciliadas pelo ID literal da imagem e pelo ID de arquivo original, além de verificar o CARD no banco. Uma imagem que ainda não foi reencontrada no Drive permanece **pendente**, não é aplicada a outro arquivo parecido.
+
+**Limites de segurança:**
+
+- Nenhum evento é persistido automaticamente em `localStorage`, `IndexedDB`, Drive ou GitHub; as decisões vivem só na memória da sessão. O usuário precisa conferir o download do checkpoint para preservá-las.
+- Logout/troca da conta Google limpam os dados privados e as decisões locais. Checkpoints exportados anteriormente continuam disponíveis no dispositivo para reimportação.
+- Checkpoints podem conter IDs privados de arquivos e justificativas pessoais: devem ser guardados em local privado e NÃO incorporados aos arquivos públicos do GitHub Pages.
+- SHA-256 confirma integridade do conteúdo, **não comprova autoria nem constitui assinatura digital**.
+- Aprovação no formulário não publica nem altera as 179 classificações ou os vínculos oficiais V198; isso exigirá etapa posterior de consolidação revisada e autorização editorial.
+- O código é somente leitura dos originais, não altera SRS, PDFs nem imagens do usuário.
+
+**Testes:** `v2/tests/association-review-checkpoint.mjs` prova validação de CARD, justificativa, não duplicação, histórico append-only, SHA-256, rejeição de adulteração e importação mesmo sem imagem privada observada. Chromium simula o ciclo registrar → exportar → sair → restaurar → reauditar.
 ## Rollback
 
 A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
