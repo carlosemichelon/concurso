@@ -40,8 +40,8 @@ const fixture=new Storage({
   [page1]:{'id:deleted_mark_234':'2026-11-17T12:01:00Z'}
  }),
  BM062_GRIFOS_META:JSON.stringify({
-  'TXT:'+doc+':'+hash+':valid_mark_123':{note:'Nota autorizada para o PDF'},
-  'TXT:OUTRO-PDF:'+hash+':foreign_mark_123':{note:'Não exportar anotação de outro documento'},
+  ['TXT:'+doc+':'+hash+':valid_mark_123']:{note:'Nota autorizada para o PDF'},
+  ['TXT:OUTRO-PDF:'+hash+':foreign_mark_123']:{note:'Não exportar anotação de outro documento'},
   'TXT:privado':'não exportar metadado global'
  }),
  ['BM102_PDF_HIGHLIGHT_JOINS:'+encodeURIComponent(doc)+':'+hash]:JSON.stringify([{id:'join_sample',markIds:['valid_mark_123']}])
