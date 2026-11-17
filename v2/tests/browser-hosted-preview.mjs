@@ -41,7 +41,20 @@ try{
   await page.locator('[data-view="pdfs"]').click();
   await page.locator('#pdfsList .item').first().waitFor({timeout:20000});
   await page.locator('[data-view="sync"]').click();
-  await page.locator('#v2OAuthReadiness').waitFor({timeout:10000});
+  try{
+    await page.locator('#v2OAuthReadiness').waitFor({timeout:15000});
+  }catch(error){
+    console.error('HOSTED PREVIEW DRIVE DIAGNOSTIC',await page.evaluate(()=>({
+      driveNote:document.querySelector('#v2DriveNote')?.textContent,
+      driveState:document.querySelector('#v2DriveState')?.textContent,
+      hasToolbar:!!document.querySelector('#v2DriveToolbar'),
+      hasAudit:!!document.querySelector('#v2AuditPanel'),
+      hasPdfProbe:!!document.querySelector('#v2PdfIdProbe'),
+      scripts:[...document.querySelectorAll('script[src]')].map(x=>x.src),
+      snapshotNotice:document.querySelector('#notice')?.textContent
+    })),{pageErrors:errors});
+    throw error;
+  }
   assert.equal(await page.locator('#v2OAuthTestPdf').isDisabled(),true,
     'acesso real a PDF não pode estar habilitado sem autorização Google');
   const manifestResponse=await page.request.get(preview+'preview-manifest.json');
