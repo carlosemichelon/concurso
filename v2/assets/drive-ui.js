@@ -1,5 +1,6 @@
 import {loadSnapshot} from './data.js';
 import {DriveReadonly} from './drive.js';
+import {mountReconciliation} from './audit-ui.js';
 
 /* UI privada do Drive, isolada da V1 e do estado SRS/IndexedDB.
    O grupo de imagens adicionais aparece DENTRO da aba Atlas, não como galeria externa. */
@@ -10,6 +11,7 @@ const dom=(tag,cls='',label='')=>{
   if(label!==undefined)item.textContent=String(label);return item;
 };
 let service=null,busy=false,connected=false,lastScan=0,prepared=false;
+let auditPanel=null;
 let imageLimit=30,pdfLimit=30;
 const previews=new Map();
 const timeString=iso=>{
@@ -129,8 +131,10 @@ function previewButton(file,outer){
       previews.set(file.id,url);
       outer.querySelector('.bm-v2-drive-preview')?.remove();
       const img=dom('img','bm-v2-drive-preview');
-      img.src=url;img.alt='Prévia autorizada: '+file.name;
+      img.alt='Prévia autorizada: '+file.name;
       img.loading='lazy';img.decoding='async';
+      img.addEventListener('load',()=>auditPanel?.markPreviewed(file.id),{once:true});
+      img.src=url;
       img.addEventListener('error',()=>{img.remove();message('Formato não pôde ser exibido; use Abrir original.',true)},{once:true});
       outer.append(img);
       button.textContent='Atualizar prévia';
@@ -202,7 +206,7 @@ function renderPdfs(){
   const more=$('v2DriveMorePdfs');more.hidden=pending.length<=pdfLimit;
   if(!more.hidden)more.textContent='Mostrar mais ('+format(pending.length-pdfLimit)+' restantes)';
 }
-function renderPrivate(){previewClear();renderImages();renderPdfs();updateControls();showSyncStatus()}
+function renderPrivate(){previewClear();renderImages();renderPdfs();updateControls();showSyncStatus();auditPanel?.refresh()}
 function showSyncStatus(){
   const target=$('v2DriveDetails');if(!target||!service)return;
   target.replaceChildren();
@@ -240,14 +244,17 @@ async function initialize(){
     const publicImageIds=[...snapshot.recoveredByImageId.values()].map(x=>x.driveFileId||x.id).filter(Boolean);
     const publicPdfIds=snapshot.pdf.documents.map(x=>x.file_id).filter(Boolean);
     service=new DriveReadonly({contract:snapshot.storage,publicImageIds,publicPdfIds});
+    auditPanel=mountReconciliation(snapshot,service,$('view-sync'));
     service.onChange(event=>{
       if(event.type==='connected'){
         message('Drive autorizado somente para leitura. Iniciando consulta das pastas monitoradas.');
         updateControls();void scanBoth();
       }else if(['expired','disconnected'].includes(event.type)){
+        auditPanel?.clear();
         renderPrivate();
         if(event.type==='expired')message('Autorização expirada; reconecte para consultar mídias privadas.',true);
-      }else if(event.type==='auth-error')message(event.message,true);
+      }else if(event.type==='scan-done')auditPanel?.refresh();
+      else if(event.type==='auth-error')message(event.message,true);
       else if(event.type==='scan-error')message('Falha na varredura: '+event.message,true);
     });
     renderPrivate();
