@@ -36,4 +36,13 @@ assert.ok(policy.includes('imgRender=async function()'),'renderização de image
 assert.ok(!policy.includes("localStorage.setItem"),'sem armazenamento de dados pessoais no adaptador');
 assert.ok(counter.includes("return {public:0,drive,total:drive"),'contagem só de imagens Drive');
 assert.ok(!page.includes('v217_drive_cards'),'cartões permanecem no GitHub');
+const manifest=JSON.parse(read('assets/version.json'));
+const index=read('index.html');
+assert.equal(manifest.version,'V217');
+assert.equal(manifest.home,'v217.html');
+assert.equal(manifest.previous_version,'V216');
+assert.equal(manifest.current_versions.public_cards.source_of_truth,'GitHub (V194 public card data + operational additions)');
+assert.equal(manifest.release_v217.srs_private_unchanged,true);
+assert.ok(index.includes('var fallback=\'V217\''),'entrada do portal na V217');
+assert.ok(index.includes('TRT01-C00[123]'),'links para os três cartões TRT preservados');
 console.log('V217: cartões GitHub preservados, imagens/PDFs Drive-only, SRS não alterado.');
