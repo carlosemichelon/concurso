@@ -16,7 +16,7 @@ export async function boundedMediaBytes(response,{maxBytes,signal}={}){
     throw Error('Limite da leitura privada inválido');
   if(signal?.aborted)throw new DOMException('Download cancelado','AbortError');
   const declared=Number(response.headers?.get?.('content-length')||0);
-  if(Number.isFinite(declared)&&declared>maxBytes)throw Error('Arquivo excede o limite de '+Math.round(maxBytes/1e6)+' MB');
+  if(Number.isFinite(declared)&&declared>maxBytes)throw Error('Arquivo excede o limite de '+maxBytes+' bytes');
   const chunks=[];let total=0;
   if(response.body?.getReader){
     const reader=response.body.getReader();
@@ -27,7 +27,7 @@ export async function boundedMediaBytes(response,{maxBytes,signal}={}){
         if(done)break;
         if(!(value instanceof Uint8Array))throw Error('Resposta binária inesperada');
         total+=value.byteLength;
-        if(total>maxBytes)throw Error('Download interrompido por exceder '+Math.round(maxBytes/1e6)+' MB');
+        if(total>maxBytes)throw Error('Download interrompido: limite de '+maxBytes+' bytes excedido');
         chunks.push(value);
       }
     }catch(e){try{await reader.cancel()}catch(_){}throw e}
@@ -35,7 +35,7 @@ export async function boundedMediaBytes(response,{maxBytes,signal}={}){
   }else{
     const bytes=new Uint8Array(await response.arrayBuffer());
     total=bytes.byteLength;
-    if(total>maxBytes)throw Error('Arquivo excede limite de '+Math.round(maxBytes/1e6)+' MB');
+    if(total>maxBytes)throw Error('Arquivo excede limite de '+maxBytes+' bytes');
     chunks.push(bytes);
   }
   if(signal?.aborted)throw new DOMException('Download cancelado','AbortError');
