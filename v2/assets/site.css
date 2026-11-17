@@ -172,3 +172,27 @@ footer{margin-top:auto;padding:18px 4vw;border-top:1px solid #e1e7e8;color:#6b7e
 .v2-related-item button{flex:none;border:1px solid #a3bfc1;background:#eff7f6;padding:8px 12px;border-radius:8px;color:#23525a;font-weight:700;font-size:.77rem}
 .v2-related-item button:hover{background:#ddedeb}
 @media(max-width:700px){.v2-related-item{align-items:start;flex-direction:column;gap:8px}.v2-related-item button{width:100%}}
+
+/* Leitor PDF V2: modal de consulta; não substitui grifador da V1. */
+.v2-pdf-action{border:1px solid #aac7c7;border-radius:8px;background:#f1f9f7;color:#155260;font-size:.79rem;font-weight:700;padding:9px 11px;cursor:pointer}
+.v2-pdf-action:hover{background:#e3f1ed}
+.v2-pdf-dialog{position:fixed;inset:3vh 3vw;max-width:calc(100vw - 6vw);width:1080px;max-height:94vh;margin:auto;padding:0;border:1px solid #b8cccf;border-radius:14px;color:#274149;background:#fff;box-shadow:0 20px 80px #051f3055;overflow:auto}
+.v2-pdf-dialog::backdrop{background:#0c252dc4}
+.v2-pdf-shell{padding:14px;display:flex;flex-direction:column;gap:10px}
+.v2-pdf-top{display:flex;align-items:center;gap:15px;justify-content:space-between;min-width:0}
+.v2-pdf-top h2{font-size:1.1rem;margin:0;overflow-wrap:anywhere}
+.v2-pdf-close{border:1px solid #bad1d0;border-radius:8px;background:#fff;color:#224850;font-weight:740;padding:8px 13px;flex:none;cursor:pointer}
+.v2-pdf-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.v2-pdf-controls button{border:1px solid #96bdba;border-radius:8px;background:#f1f7f6;color:#164953;font-size:.78rem;font-weight:710;padding:9px 12px;cursor:pointer}
+.v2-pdf-controls button:disabled{opacity:.47;cursor:not-allowed}
+.v2-pdf-controls button:hover:not(:disabled){background:#daece9}
+.v2-pdf-note{font-size:.8rem;color:#236159;line-height:1.5;margin:0}
+.v2-pdf-note.is-error,.v2-pdf-warning{color:#9a3b31}
+.v2-pdf-identity{font-size:.76rem;color:#506d70;overflow-wrap:anywhere;margin:0}
+.v2-pdf-marks{font-size:.82rem;line-height:1.5}
+.v2-pdf-marks p{margin:7px 0}
+.v2-pdf-mark-table{border-collapse:collapse;width:100%;font-size:.77rem}
+.v2-pdf-mark-table td,.v2-pdf-mark-table th{padding:7px 10px;text-align:left;border:1px solid #d4e2e1}
+.v2-pdf-mark-table th{background:#f0f7f5}
+.v2-pdf-frame{width:100%;height:min(64vh,820px);min-height:360px;border:1px solid #d6e4e4;border-radius:8px;background:#e9eeee}
+@media(max-width:700px){.v2-pdf-dialog{width:100%;height:100%;max-width:100%;max-height:100%;inset:0;border-radius:0}.v2-pdf-top h2{font-size:1rem}.v2-pdf-shell{padding:11px}.v2-pdf-controls button{flex:1}.v2-pdf-frame{height:60vh;min-height:260px}}
