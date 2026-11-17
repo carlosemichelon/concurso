@@ -2,20 +2,20 @@
 
 **Site:** [Abrir Banco Mestre](https://carlosemichelon.github.io/concurso/)  
 **Branch de publicação:** [`gh-pages`](https://github.com/carlosemichelon/concurso/tree/gh-pages)  
-**Manifesto atual (17/11/2026):** **Portal V201** — a página inicial `index.html` redireciona conforme `assets/version.json`; a página anterior **V200** fica preservada em `v200.html`.
+**Manifesto atual (17/11/2026):** **Portal V202** — a página inicial `index.html` redireciona conforme `assets/version.json`; a página anterior **V201** fica preservada em `v201.html`.
 
 ## Entender os números de versão
 
 | Componente | Versão | Conteúdo |
 |---|---|---|
-| **Portal** | **V201** | Código/página principal `v201.html`; anterior V200 |
+| **Portal** | **V202** | Código/página principal `v202.html`; anterior V201 |
 | **Base didática pública de cartões** | **V194** | 1.518 IDs: 1.501 ativos + 17 inativos; 22 cartões operacionais de Ijuí à parte |
 | **Atlas editorial de imagens** | **V198** | 179 imagens públicas catalogadas: 85 de cartão e 94 de conteúdo |
 | **PDFs** | **Catálogo V149** | 78 documentos; o esquema histórico de leitura é V140 |
-| **Respostas discursivas** | **Formato V195** | Armazenamento e backups históricos compatíveis; novas tentativas registram o portal V201 |
+| **Respostas discursivas** | **Formato V195** | Armazenamento e backups históricos compatíveis; novas tentativas registram o portal V202 |
 | **Metodologia** | **Documento-mestre próprio** | O número do documento e dos adendos **não** acompanha a versão do portal |
 
-O cabeçalho deve identificar **Portal V201 · cartões V194 · Atlas V198**. Esses números não indicam uma divergência: são linhas de versionamento distintas. Marcas mais antigas como V022, V024, V062, V165 e V186 permanecem em módulos ou históricos e não significam que o site está desatualizado.
+O cabeçalho deve identificar **Portal V202 · cartões V194 · Atlas V198**. Esses números não indicam uma divergência: são linhas de versionamento distintas. Marcas mais antigas como V022, V024, V062, V165 e V186 permanecem em módulos ou históricos e não significam que o site está desatualizado.
 
 **Histórico:** em 11/11/2026, o portal era V131 (1.499 cartões originais, 72 PDFs e 270 registros no inventário anterior). Esses dados são **históricos**, não representam a edição vigente de 17/11/2026. O número V200 é o identificador da edição, **não** uma contagem de 200 páginas: o repositório contém páginas históricas e módulos sem HTML próprio.
 
@@ -23,6 +23,7 @@ O cabeçalho deve identificar **Portal V201 · cartões V194 · Atlas V198**. Es
 
 - [Manifesto e número atual de versão](assets/version.json)
 - [Histórico de alterações — VERSAO_ATUAL](VERSAO_ATUAL.md)
+- [Regras V202 de janelas de edição e pastas canônicas](docs/V202_METODOLOGIA_IMAGENS_CHECKPOINTS_PASTAS_FIXAS.md)
 - [Auditoria de sincronização Drive/GitHub V201](docs/V201_AUDITORIA_DRIVE_GITHUB_SITE.md)
 - [Auditoria da numeração de versões V200](docs/V200_AUDITORIA_NUMERACAO_VERSOES.md)
 - [Auditoria de ícones, textos e layout V199](docs/V199_AUDITORIA_INTERFACE_ICONES_TEXTOS_VERSOES.md)
@@ -32,6 +33,10 @@ O cabeçalho deve identificar **Portal V201 · cartões V194 · Atlas V198**. Es
 - [Índice histórico das páginas HTML](docs/INDICE_PUBLICACAO_E_HISTORICO_HTML_2026-11-11.md)
 
 A publicação é feita pela branch `gh-pages`; a branch `main` contém uma edição legada V031 e não deve ser tratada como a versão online atual.
+
+## Pastas canônicas obrigatórias (V202)
+
+Para **novas imagens**, o destino obrigatório no Drive é **07 – Atlas de Imagens (sincronização)** (`1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6`). Para **novos checkpoints ZIP/JSON**, o destino obrigatório é **Checkpoints Banco Mestre** (`1348cILBcxFG9p2cfPJ3WubmHswPRbD24`). Os IDs exatos constam de `assets/v202_storage_contract.json`; as pastas antigas de recuperação permanecem apenas para leitura. Cada upload externo deve confirmar `parents` via Google Drive; o site só faz upload do manifesto JSON, não do ZIP.
 
 ## Sincronização e preservação
 
