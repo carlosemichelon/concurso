@@ -143,6 +143,34 @@ try{
  assert.equal(await page.locator('#v2ImageAuditRows .image-audit-record').count(),1,
    'uma imagem Drive ainda provisória, sem associação aprovada');
 
+ // Fluxo de revisão humana: propor vínculo, exigir justificativa e exportar
+ // checkpoint com SHA-256 antes de sair da conta. Nenhum link é aplicado ao V198.
+ assert.equal(await page.locator('#v2ReviewWorkbench').count(),1);
+ await page.locator('#v2ImageAuditRows .image-audit-record').getByRole('button',{name:'Revisar associação'}).click();
+ assert.equal(await page.locator('#v2ReviewRecord').isEnabled(),true);
+ assert.match(await page.locator('#v2ReviewImage').inputValue(),/^DRIVE-IMG-/);
+ await page.locator('#v2ReviewAction').selectOption('vincular_cartao');
+ await page.locator('#v2ReviewCard').fill('CARD-1504');
+ await page.locator('#v2ReviewEvidence').selectOption('enunciado_original_conferido');
+ await page.locator('#v2ReviewReason').fill('Conferência visual documentada da imagem original com o enunciado do CARD-1504.');
+ await page.locator('#v2ReviewRecord').click();
+ assert.match(await page.locator('#v2ReviewNotice').textContent(),/Confirmação explícita/);
+ assert.equal(await page.locator('#v2ReviewHistory .v2-review-event').count(),0);
+ await page.locator('#v2ReviewConfirm').check();
+ await page.locator('#v2ReviewRecord').click();
+ assert.equal(await page.locator('#v2ReviewHistory .v2-review-event').count(),1);
+ assert.match(await page.locator('#v2ReviewCounts').textContent(),/1 evento/);
+ const [checkpointDownload]=await Promise.all([
+   page.waitForEvent('download'),page.locator('#v2ReviewExport').click()
+ ]);
+ const checkpoint=JSON.parse(await readFile(await checkpointDownload.path(),'utf8'));
+ assert.equal(checkpoint.events.length,1);
+ assert.match(checkpoint.integrity.digest,/^[a-f0-9]{64}$/);
+ assert.equal(checkpoint.events[0].cardId,'CARD-1504');
+ assert.equal(checkpoint.events[0].action,'vincular_cartao');
+ assert.equal(await page.evaluate(()=>localStorage.length),0,
+   'decisões de revisão não entram no localStorage');
+
  assert.equal(await page.locator('#v2PdfIdProbeStart').isEnabled(),true);
  await page.locator('#v2PdfIdProbeStart').click();
  await page.waitForFunction(()=>document.querySelector('#v2PdfIdProbeStatus')?.textContent.includes('Conferência por IDs concluída'),
@@ -188,6 +216,22 @@ try{
  assert.equal(await page.locator('#v2ImageAuditSummary').isDisabled(),true);
  assert.equal(await page.locator('#v2ImageAuditDetails').isDisabled(),true);
  assert.match(await page.locator('#v2ImageAuditStatus').textContent(),/descartado/);
+ assert.equal(await page.locator('#v2ReviewHistory .v2-review-event').count(),0,
+   'sessão encerrada descarta histórico privado da memória');
+ await page.locator('#v2ReviewImport').setInputFiles({
+   name:'checkpoint-validado.json',mimeType:'application/json',
+   buffer:Buffer.from(JSON.stringify(checkpoint),'utf8')
+ });
+ await page.waitForFunction(()=>document.querySelector('#v2ReviewNotice')?.textContent.includes('Checkpoint íntegro restaurado'),
+   null,{timeout:8000});
+ assert.equal(await page.locator('#v2ReviewHistory .v2-review-event').count(),1,
+   'checkpoint reimportado restaura evento sem gravar catálogo');
+ await page.locator('#v2ImageAuditStart').click();
+ await page.waitForFunction(()=>document.querySelector('#v2ImageAuditStatus')?.textContent.includes('Auditoria concluída'),
+   null,{timeout:30000});
+ assert.match(await page.locator('#v2ReviewCounts').textContent(),/pendente\(s\) por divergência\/ausência/,
+   'imagem privada não observada depois do logout deve permanecer pendente');
+
  assert.equal(await page.locator('#v2OAuthTestPdf').isDisabled(),true);
  assert.match(await page.locator('#v2OAuthSampleResult').textContent(),/ainda não testado/);
  // Rejeição de pop-up da conta: explicar e não reter credenciais.
