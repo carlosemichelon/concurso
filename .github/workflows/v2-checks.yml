@@ -48,6 +48,8 @@ jobs:
           node --check v2/assets/image-inventory.js
           node --check v2/assets/image-associations.js
           node --check v2/assets/image-associations-ui.js
+          node --check v2/assets/association-review-checkpoint.js
+          node --check v2/assets/association-review-ui.js
       - name: Conferir integridade da base pública e contrato
         run: |
           node v2/tests/smoke.mjs
@@ -63,6 +65,7 @@ jobs:
           node v2/tests/oauth-readiness.mjs
           node v2/tests/image-inventory.mjs
           node v2/tests/image-associations.mjs
+          node v2/tests/association-review-checkpoint.mjs
   browser-smoke:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
