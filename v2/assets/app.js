@@ -86,6 +86,42 @@ async function showCards() {
   }
   renderCards();
 }
+function openImageFromCard(imageId){
+  if(!/^IMG-[A-Z0-9-]+$/.test(String(imageId||'')))return;
+  $('imageQuery').value=imageId;
+  $('imageType').value='all';
+  state.imagesLimit=40;
+  setView('images');
+  $('imageQuery').focus();
+}
+function attachRelatedImages(answer,cardId){
+  const records=state.snapshot?.editorial?.records;
+  if(!Array.isArray(records))return;
+  const related=records.filter(item=>
+    Array.isArray(item.cardIds)&&item.cardIds.includes(cardId) &&
+    /^IMG-[A-Z0-9-]+$/.test(String(item.imageId||'')));
+  if(!related.length)return;
+  const box=node('details','v2-related-images');
+  const summary=node('summary','',
+    'Imagens relacionadas ao cartão ('+fmt(related.length)+')');
+  box.append(summary);
+  const list=node('div','v2-related-list');
+  for(const img of related){
+    const item=node('div','v2-related-item');
+    const desc=node('div','v2-related-description');
+    append(desc,node('strong','',img.title||img.imageId),
+      node('span','muted',
+        img.imageId+' · '+(img.basis==='associacao_documental_existente'?'Vínculo documental':
+          img.basis==='questao_documentada_conciliada_com_cartao'?'Questão conciliada':
+          img.basis==='correspondencia_didatica_especifica'?'Associação didática':
+          'Referência do catálogo')));
+    const button=node('button','','Abrir no Atlas');
+    button.type='button';button.addEventListener('click',()=>openImageFromCard(img.imageId));
+    item.append(desc,button);list.append(item);
+  }
+  box.append(list);answer.append(box);
+}
+
 function renderCards() {
   if(!state.cards)return;
   const query=$('cardQuery').value.trim().toLocaleLowerCase('pt-BR');
@@ -112,6 +148,7 @@ function renderCards() {
     if(card.mnemonic)append(answer,node('h4','','Macete original'),node('p','',card.mnemonic));
     // O aprofundamento fica recolhido e só busca o lote V194 depois do clique.
     attachEvolutive(answer,card.id,state.snapshot.meta);
+    attachRelatedImages(answer,card.id);
     reveal.addEventListener('click',()=>{
       answer.hidden=!answer.hidden;
       reveal.textContent=answer.hidden?'Mostrar resposta':'Ocultar resposta';
