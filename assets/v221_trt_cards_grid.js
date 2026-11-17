@@ -44,7 +44,7 @@ function foldSource(){
  }else{
   if(source.parentElement!==d)d.append(source);
   if(d.parentElement===panel&&d!==panel.lastElementChild)panel.append(d);
-  if(d.open)d.open=false;
+  // A caixa inicia recolhida, mas respeita a abertura voluntária do estudante.
  }
 }
 function wrapperFor(id,main){
