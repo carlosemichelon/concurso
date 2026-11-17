@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const page=fs.readFileSync('v226.html','utf8');
+const footer=fs.readFileSync('assets/v226_footer_version.js','utf8');
+assert.ok(page.includes("tag('v226_footer_version.js?v=226')"));
+assert.ok(!page.includes("tag('v222_footer_version.js?v=222')"));
+assert.ok(page.includes('bm226BibliotecaGrifosOff'));
+assert.ok(page.includes("v225_legal_taxonomy.js"));
+assert.ok(page.includes("v225_flash_filters.js"));
+assert.ok(page.includes("v225_trt_cards_grid.js"));
+assert.ok(page.includes("v225_drive_reconnect.js"));
+assert.ok(page.includes("trt01_c008_loader.js"));
+assert.ok(footer.includes("const CURRENT='V226'"));
+console.log('V226: preservados filtros V225 e ocultação de Grifos; rodapé atual.');
