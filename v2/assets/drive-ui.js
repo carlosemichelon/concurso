@@ -2,6 +2,7 @@ import {loadSnapshot} from './data.js';
 import {DriveReadonly} from './drive.js';
 import {mountReconciliation} from './audit-ui.js';
 import {mountPdfIdProbe} from './catalog-probe-ui.js';
+import {mountOAuthDiagnostics} from './oauth-readiness-ui.js';
 import {attachPdfReaderAction,registerPdfDrive} from './pdf-reader.js';
 
 /* UI privada do Drive, isolada da V1 e do estado SRS/IndexedDB.
@@ -257,6 +258,7 @@ async function initialize(){
     const publicPdfIds=snapshot.pdf.documents.map(x=>x.file_id).filter(Boolean);
     service=new DriveReadonly({contract:snapshot.storage,publicImageIds,publicPdfIds});
     registerPdfDrive(service);
+    mountOAuthDiagnostics(service,snapshot.pdf.documents[0],$('view-sync'));
     auditPanel=mountReconciliation(snapshot,service,$('view-sync'));
     mountPdfIdProbe(snapshot,service,$('view-sync'));
 
@@ -287,6 +289,7 @@ async function initialize(){
       if(!document.hidden&&service?.connected&&!busy&&Date.now()-lastScan>=120000)void scanBoth();
     });
   }catch(e){
+    service?.emit('prepare-error');
     message('Drive indisponível nesta prévia: '+e.message,true);
     $('v2DriveState').textContent='Indisponível';
   }
