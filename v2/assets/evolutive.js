@@ -55,7 +55,8 @@ export function presentationLayers(record){
 export class PublicEvolutiveReader {
  constructor(meta,{fetcher=fetch,timeoutMs=30000}={}){
    this.config=validateManifest(meta);
-   this.fetcher=fetcher;
+   // Chrome exige o receiver Window na chamada de fetch; sem bind ocorre Illegal invocation.
+   this.fetcher=fetcher.bind(globalThis);
    this.timeoutMs=timeoutMs;
    this.cache=new Map();
  }
