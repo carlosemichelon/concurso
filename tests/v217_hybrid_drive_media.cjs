@@ -1,0 +1,39 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const read=p=>fs.readFileSync(p,'utf8');
+const page=read('v217.html');
+const prior=read('v216.html');
+const image=read('assets/v217_single_image_viewer.js');
+const gallery=read('assets/v217_drive_gallery_feed.js');
+const pdf=read('assets/v217_drive_pdf_sync.js');
+const policy=read('assets/v217_media_policy.js');
+const counter=read('assets/v217_library_counter.js');
+
+assert.ok(page.includes("tag('v215_trt01_c003.js?v=215')"),'cartão TRT01-C003 preservado');
+assert.ok(page.includes("tag('v194_public_layers.js?v=194-direct197')"),'11 camadas públicas preservadas');
+assert.ok(page.includes("tag('v195_evolutive_cards.js?v=195-reaudit199')"),'formatação evolutiva preservada');
+assert.ok(prior.includes("tag('v215_trt01_c003.js?v=215')"),'base V216 disponível para rollback');
+for(const part of ['v217_drive_pdf_sync.js','v217_drive_gallery_feed.js','v217_single_image_viewer.js','v217_library_counter.js','v217_media_policy.js']){
+ assert.equal(page.split(part).length-1,1,'módulo duplicado: '+part);
+}
+assert.ok(!page.includes("tag('v214_public_gallery_fallback.js"),'não carregar cópias estáticas de imagens');
+assert.ok(!page.includes("tag('v214_single_image_viewer.js"),'visualizador antigo não deve carregar');
+assert.ok(!page.includes("tag('v215_drive_pdf_sync.js"),'sincronizador PDF misto não deve carregar');
+assert.ok(!page.includes("tag('v215_drive_gallery_feed.js"),'galeria mista não deve carregar');
+assert.ok(page.includes('bm217-pdf-verified'),'lista PDF espera verificação no Drive');
+assert.ok(image.includes("area.dataset.bm213Source='drive'"),'somente visualizador Drive');
+assert.ok(image.includes("get mode(){return 'drive_only'}"));
+assert.ok(!image.includes('sourcePreference='),'preferência antiga de catálogo não deve influir');
+assert.ok(gallery.includes('function historicalDriveIds()'),'vínculos opcionais não bloqueiam novas imagens');
+assert.ok(!gallery.includes("fetch(PUBLIC_CATALOG"),'mídias novas não dependem de publicação do catálogo');
+assert.ok(gallery.includes("get atlasMode(){return 'drive_only'}"));
+assert.ok(pdf.includes('verifiedStatic.push(knownStatic)'),'IDs históricos válidos preservados');
+assert.ok(pdf.includes('docs.splice(0,docs.length,...verified)'),'somente arquivos encontrados no Drive');
+assert.ok(!pdf.includes('...staticDocs,...extra,...unconfirmed'),'lista mista desligada');
+assert.ok(pdf.includes("source:'google_drive_only'"));
+assert.ok(policy.includes('loadImages=async function()'),'não carregar as miniaturas estáticas');
+assert.ok(policy.includes('imgRender=async function()'),'renderização de imagens delegada ao Drive');
+assert.ok(!policy.includes("localStorage.setItem"),'sem armazenamento de dados pessoais no adaptador');
+assert.ok(counter.includes("return {public:0,drive,total:drive"),'contagem só de imagens Drive');
+assert.ok(!page.includes('v217_drive_cards'),'cartões permanecem no GitHub');
+console.log('V217: cartões GitHub preservados, imagens/PDFs Drive-only, SRS não alterado.');
