@@ -1,3 +1,16 @@
+# Banco Mestre V200 — correção dos números de versão (17/11/2026)
+
+- Portal atual **V200** (`v200.html`, `gh-pages`), anterior **V199**. Atualização restrita a metadados e camada de apresentação/diagnóstico: cartões, originais, PDF, imagem, SRS e grifos intactos.
+- Rótulo explícito no portal: **Portal V200 · cartões V194 · Atlas V198**. V194 = 1.518 cartões (1.501 ativos/17 inativos), mais 22 Ijuí à parte; V198 = 179 imagens (85 cartão/94 conteúdo).
+- Corrigidas discrepâncias anteriores: `assets/version.json` tinha `home=v196.html` e `previous_version=V195` com `version=V199`; `base` e `cache_policy` descreviam 1.499/1.482 da V024, e o README apresentava V131 histórico como referência principal.
+- O diagnóstico carregado era V193 e exigia que o portal atual fosse V193. Criado módulo V200 com expectativa correta do manifesto e sem falsear alertas. Corrigida API pública antiga de cartões que declarava 1.499/1.482, embora a base V194 tivesse 1.518/1.501.
+- Mensagem de carregamento agora menciona **base pública V194**, e novas respostas discursivas registram `site_version=V200`, mantendo formato de registro e IndexedDB **V195** sem conversão nem perda de históricos antigos.
+- V200 introduz somente `v200.html`, `v200_site_info.js`, `v200_diagnostico_local.js`, `v200_public_cards_ui.js` e `v200_discursive.js`. Preservadas as páginas V199 e anteriores, rotas, filtros, imagens, dados, grifos e SRS.
+- Foram cotejados **86 scripts + 73 folhas de estilo** na montagem simulada; nenhum nome de asset ausente ou duplicado. A verificação visual em navegador real continua pendente.
+- [Relatório de auditoria V200](docs/V200_AUDITORIA_NUMERACAO_VERSOES.md). Rollback: `v199.html`.
+
+---
+
 # Banco Mestre V199 — auditoria de ícones, textos, layout e versões (17/11/2026)
 
 - Foi simulada com sucesso a montagem do portal sobre `v062.html`; foram encontrados **159/159 assets** referenciados no repositório, sem duplicação dos 86 scripts e 73 CSS. Os ícones principais têm caminhos SVG cadastrados.
