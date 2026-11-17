@@ -117,13 +117,10 @@ export function legacySnapshot(storage,documentId,hash){
       if(!mark||typeof mark!=='object'||mark.bm108_deleted_at||
          Object.hasOwn(tombstones,legacyMarkId(mark)))continue;
       kept.push(mark);
-      if(typeof mark.id==='string'&&mark.id){
-        activeMarkIds.add(mark.id);
-        if(mark.type==='text_highlight')
-          activeTextMeta.add('TXT:'+documentId+':'+hash+':'+mark.id);
-      }else{
-        activeLegacyMeta.add('LEGACY:'+key+':'+index);
-      }
+      if(typeof mark.id==='string'&&mark.id)activeMarkIds.add(mark.id);
+      if(mark.type==='text_highlight'&&typeof mark.id==='string'&&mark.id)
+        activeTextMeta.add('TXT:'+documentId+':'+hash+':'+mark.id);
+      else activeLegacyMeta.add('LEGACY:'+key+':'+index);
     }
     if(kept.length)records[key]=JSON.stringify(kept);
     if(Object.hasOwn(deletions,key))picked[key]=deletions[key];
