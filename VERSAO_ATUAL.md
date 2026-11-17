@@ -1,3 +1,14 @@
+# Banco Mestre V204 — janela muito menor e imagem visível (17/11/2026)
+
+- Pop-up de edição reduzido de 450 px / 74vh para **320 px / 56vh** (teto 500 px), com rolagem interna. No celular, altura máxima 68vh.
+- A imagem **do próprio cartão** agora aparece no topo da janela, em quadro de 104 px com `object-fit: contain`; mantém proporção e não altera a origem. A prévia acompanha o carregamento assíncrono, inclusive de imagens privadas com OAuth.
+- Mantida a janela única `Editar imagem`, com abas **Dados** e **Tipo e cartões**; o botão **Mostrar cartão** permanece na imagem quando houver vínculo.
+- Os caminhos canônicos do Drive, o contrato de pastas V202, o Atlas V198, cartões V194, PDFs V149 e SRS permanecem inalterados.
+- Validação estrutural estática: **86 scripts e 74 estilos**, todos presentes sem duplicados. Teste de navegador/OAuth ainda pendente.
+- [Relatório V204](docs/V204_JANELA_MENOR_PREVIA_IMAGEM.md).
+
+---
+
 # Banco Mestre V203 — um só botão Editar imagem e pop-up compacto (17/11/2026)
 
 - **Causa dos dois botões:** V202 inseria separadamente `Editar imagem` em `v202_atlas_editor_dialog.js` (dados/textos) e `v202_image_links_modal.js` (tipo/vínculos). Não eram dois arquivos de imagem, mas duas ações concorrentes.
