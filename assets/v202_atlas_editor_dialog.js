@@ -357,6 +357,7 @@
     try{await api.setStatus(x.no,off?'visible':'hidden');closeAtlasDialog()}
     catch(e){alert(e.message)}
    },off?'':'danger');
+   visibilityAction.type='button';
    actions.append(visibilityAction);
    window.BM197MediaLinks?.decorate?.(c.c,x);
    out.append(c.c);
