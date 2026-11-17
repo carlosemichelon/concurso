@@ -198,7 +198,7 @@ function initReverse(){
  const root=$('bmCardPeekV050'),scroller=root?.querySelector('.bm163-scroll');
  const title=$('bmCardPeekTitleV050');
  if(!scroller||!title||$('bm197-related-images'))return;
- const panel=make('section',null,'bm197-related-images');panel.id='bm197-related-images';
+ const panel=make('div',null,'bm197-related-images');panel.id='bm197-related-images';
  const h=make('strong','Imagens relacionadas ao cartão');
  const body=make('div',null,'bm197-related-image-list');
  panel.append(h,body);scroller.append(panel);
