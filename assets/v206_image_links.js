@@ -88,7 +88,7 @@ function closeEditor(){
 /* V206: a imagem fica à esquerda do formulário. Reutiliza a miniatura do cartão.
  * Acompanha carregamentos tardios (thumb assíncrono / Drive OAuth) e preserva URLs exatas.
  */
-function mountImagePreview(host,card,id){
+function mountImagePreview(host,card,id,lifecycle){
  const frame=make('figure',null,'bm204-editor-preview');
  const visual=make('img');visual.alt='Prévia da imagem '+id;visual.loading='eager';visual.decoding='async';
  const caption=make('figcaption','Carregando prévia…','bm204-preview-state');caption.setAttribute('role','status');
@@ -105,7 +105,7 @@ function mountImagePreview(host,card,id){
  origin.addEventListener('load',sync);
  const observer=new MutationObserver(sync);
  observer.observe(origin,{attributes:true,attributeFilter:['src','srcset']});
- host.addEventListener('close',()=>{origin.removeEventListener('load',sync);observer.disconnect();},{once:true});
+ (lifecycle||host).addEventListener('close',()=>{origin.removeEventListener('load',sync);observer.disconnect();},{once:true});
  sync();
  return frame;
 }
@@ -175,7 +175,7 @@ function openEditorDialog(id,source,trigger){
  const layout=make('div',null,'bm206-editor-layout');
  const visual=make('div',null,'bm206-editor-visual');
  const fields=make('div',null,'bm206-editor-fields');
- mountImagePreview(visual,trigger?.closest('article'),id);
+ mountImagePreview(visual,trigger?.closest('article'),id,dialog);
  mountEditorForm(fields,id,source,closeEditor);
  layout.append(visual,fields);dialog.append(layout);
  dialog.addEventListener('close',()=>{if(activeEditor===dialog)activeEditor=null;dialog.remove();if(trigger?.isConnected)trigger.focus();});
