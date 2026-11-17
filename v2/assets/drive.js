@@ -149,7 +149,7 @@ export class DriveReadonly {
       const params=new URLSearchParams({
         q:"'"+parentId+"' in parents and trashed = false",
         fields:'nextPageToken,files(id,name,mimeType,size,modifiedTime,parents)',
-        pageSize:'1000',orderBy:'name',spaces:'drive'
+        pageSize:'1000',orderBy:'name',spaces:'drive',supportsAllDrives:'true',includeItemsFromAllDrives:'true'
       });
       if(pageToken)params.set('pageToken',pageToken);
       const response=await this.authorized(DRIVE_API+'?'+params,{signal});
