@@ -163,10 +163,22 @@ try{
  assert.equal(await page.locator('#v2PdfOverlayShow').isEnabled(),true);
  await page.locator('#v2PdfOverlayShow').click();
  await page.locator('#v2PdfOverlayView').waitFor({state:'visible'});
- await page.waitForFunction(()=>{
+ try{
+  await page.waitForFunction(()=>{
    const c=document.querySelector('#v2PdfOverlayBase');
    return !!c&&c.width>0&&c.height>0&&document.querySelector('#v2PdfReaderNote')?.textContent.includes('exibido(s)');
- },{timeout:30000});
+  },null,{timeout:12000});
+ }catch(error){
+  console.error('DIAGNÓSTICO SOBREPOSIÇÃO:',await page.evaluate(()=>({
+   note:document.querySelector('#v2PdfReaderNote')?.textContent,
+   canvasWidth:document.querySelector('#v2PdfOverlayBase')?.width,
+   canvasHeight:document.querySelector('#v2PdfOverlayBase')?.height,
+   viewerVisible:!document.querySelector('#v2PdfOverlayView')?.hidden,
+   pdfjs:typeof window.pdfjsLib?.getDocument,
+   nav:document.querySelector('#v2PdfOverlayNav')?.textContent
+  })));
+  throw error;
+ }
  assert.equal(await page.locator('#v2PdfOverlayPage').inputValue(),'1');
  assert.equal(await page.locator('#v2PdfOverlayPrev').isDisabled(),true);
  const pixels=await page.evaluate(()=>{
