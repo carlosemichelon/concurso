@@ -196,6 +196,26 @@ try{
  await page.locator('.v2-pdf-close').click();
  assert.equal(await page.locator('#v2PdfDialog').evaluate(x=>x.open),false);
  assert.equal(await page.locator('#v2PdfReaderFrame').getAttribute('src'),null);
+ // A mesma identidade, mas bytes de outra revisão, NÃO podem herdar os grifos.
+ await page.locator('#pdfsList .item').first().getByRole('button',{name:'Ler PDF na V2'}).click();
+ const variant=Buffer.concat([pdfBytes,Buffer.from('\n%TESTE NOVA REVISAO\n')]);
+ await page.locator('#v2PdfInput').setInputFiles({name:'teste-versao-diferente.pdf',mimeType:'application/pdf',buffer:variant});
+ await page.waitForFunction(()=>document.querySelector('#v2PdfReaderIdentity')?.textContent.includes('SHA-256'));
+ await page.locator('#v2PdfInspect').click();
+ assert.match(await page.locator('#v2PdfReaderMarks').textContent(),/Grifos nesta revisão \(estimativa\): 0/);
+ assert.match(await page.locator('#v2PdfReaderMarks').textContent(),/outra\(s\) versão/);
+ assert.equal(await page.locator('#v2PdfOverlayShow').isDisabled(),true);
+ await page.locator('.v2-pdf-close').click();
+ // Reabertura do PDF original precisa preservar os canvases e reutilizar a versão certa.
+ await page.locator('#pdfsList .item').first().getByRole('button',{name:'Ler PDF na V2'}).click();
+ await page.locator('#v2PdfInput').setInputFiles({name:'teste-v2.pdf',mimeType:'application/pdf',buffer:pdfBytes});
+ await page.waitForFunction(hash=>document.querySelector('#v2PdfReaderIdentity')?.textContent.includes(hash),pdfHash);
+ await page.locator('#v2PdfInspect').click();
+ assert.equal(await page.locator('#v2PdfOverlayShow').isEnabled(),true);
+ await page.locator('#v2PdfOverlayShow').click();
+ await page.waitForFunction(()=>document.querySelector('#v2PdfReaderNote')?.textContent.includes('exibido(s)'),null,{timeout:20000});
+ assert.ok((await page.locator('#v2PdfOverlayBase').evaluate(el=>el.width))>100);
+ await page.locator('.v2-pdf-close').click();
 
  await page.locator('[data-view="sync"]').click();
  await page.locator('#v2AuditPanel').waitFor();
