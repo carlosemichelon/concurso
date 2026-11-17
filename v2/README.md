@@ -208,6 +208,27 @@ Os arquivos \`v2/assets/pdf-overlay.js\` e \`pdf-overlay-ui.js\` adicionam um mo
 - A V1 permanece na branch de produção \`gh-pages\`, independente da V2, atualmente em \`feature/site-v2-foundation-2026-11-17\` e PR rascunho #29. A versão pública V1 já chegou a V210; não houve merge/publicação da V2.
 
 
+
+## Etapa 8 — auditoria da biblioteca PDF por ID exato (17/11/2026)
+
+A busca recursiva por pastas e a conferência direta dos IDs são operações diferentes.
+Uma referência PDF não vista nas pastas monitoradas **não é prova de arquivo ausente**.
+
+- A V2 agora contém o painel **Conferência direta dos 78 PDFs por ID** na aba Sincronização.
+- Após autorizar o Drive no navegador, clicar em **Conferir 78 IDs no Drive** chama uma vez o endpoint de metadados para cada referência do catálogo V149 (78 IDs únicos, três consultas concorrentes). Não baixa o conteúdo dos PDFs, não modifica o Drive e não cria arquivos públicos.
+- Para cada ID o painel classifica: **confirmado** (ID e MIME de PDF correspondentes), **sem acesso confirmado** (HTTP 403/404, que não prova remoção), **divergente** (ID/MIME/lixeira) ou **erro temporário** (por exemplo 429).
+- Ao encerrar ou expirar a sessão OAuth, a checagem em andamento é abortada e os registros privados do relatório são removidos da interface. O botão de exportação produz somente contagens agregadas, sem IDs ou nomes.
+- Há teste unitário em `tests/catalog-probe.mjs` e teste de integração no Chromium com autorização Google simulada em `tests/browser-drive.mjs`. A opção de consulta **nunca é executada automaticamente**, para evitar 78 requisições involuntárias.
+- A camada de consulta direta não altera a política editorial: o catálogo continua com **78 PDFs públicos referenciados**, e as mídias privadas continuam disponíveis somente por sessão autorizada. A auditoria não implica sincronização com GitHub.
+
+### Verificação independente feita no Google Drive conectado ao ChatGPT
+
+Foram conferidos diretamente os metadados dos **78 IDs de arquivos** da lista V149, em 17/11/2026.
+Resultado: **78/78 encontrados com o ID esperado e MIME `application/pdf`**, zero falhas de acesso e zero divergências de formato nesse conector. Também foram confirmadas como pastas as sete referências: Atlas oficial, originais históricos, quatro fontes/documentos de referência e checkpoints.
+
+A consulta do Drive por este conector é **independente do OAuth do navegador do site**: esse resultado não prova que a V2 terá autorização para os mesmos arquivos na conta/login que o titular selecionar. Também não confirma hashes, integridade visual, edição de grifos ou permissões de publicação. Esses pontos ficam pendentes de homologação real pelo titular.
+
+
 ## Rollback
 
 A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
