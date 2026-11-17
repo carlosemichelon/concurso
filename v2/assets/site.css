@@ -67,3 +67,24 @@ footer{margin-top:auto;padding:18px 4vw;border-top:1px solid #e1e7e8;color:#6b7e
 @media(max-width:700px){.shell{display:block}.sidebar{padding:13px;gap:14px}.brand{padding:0 4px}.navigation{display:flex;gap:6px;overflow:auto;padding-bottom:3px}.nav-button{white-space:nowrap;min-height:42px;padding:10px 12px}.sidebar-end{display:none}.topbar{padding:17px 18px}.top-actions{justify-content:flex-end}.external{display:none}main{padding:24px 16px 50px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{padding:16px}.panel,.item{padding:17px}.filters{grid-template-columns:1fr}.filters label:first-child,.filters input,.filters label[for="imageType"],.filters select{grid-column:1;grid-row:auto}.section-heading{align-items:start}.lead{font-size:.92rem}}
 @media(max-width:400px){.stats{grid-template-columns:1fr}.topbar .version{font-size:.7rem}.item-header{display:block}.tag{display:inline-block;margin-top:8px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* V2 etapa 2 — uma única barra de autenticação; sessões privadas sem armazenamento persistente. */
+.drive-toolbar{display:flex;align-items:center;gap:9px 12px;flex-wrap:wrap;margin:-5px 0 24px;padding:12px 15px;border:1px solid #c8dcda;background:#eef6f5;border-radius:12px}
+.drive-toolbar strong{color:#19494e;font-size:.88rem}
+.drive-toolbar button{font-size:.78rem;border-radius:8px;padding:8px 11px;border:1px solid #a7c2c0;background:#fff;color:#16454b;font-weight:670}
+.drive-toolbar .drive-connect{background:#14535b;color:#fff;border-color:#14535b}
+.drive-toolbar button:disabled{opacity:.5;cursor:not-allowed}
+.drive-toolbar button:hover:not(:disabled){box-shadow:inset 0 0 0 1px #447e82}
+.drive-state{font-size:.76rem;color:#7a4c2b;font-weight:650;background:#fff3df;border-radius:100px;padding:6px 9px}
+.drive-state.is-connected{color:#126151;background:#d8efea}
+.drive-note{font-size:.8rem;color:#4e696b;flex-basis:100%;line-height:1.5}
+.drive-note.is-error{color:#954032}
+.drive-region{margin:30px 0 0;padding-top:23px;border-top:1px solid #dae5e4}
+.drive-region-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:5px}
+.drive-region-head h3{margin:0;font-size:1.05rem}
+.drive-region .helper{margin:8px 0 16px}
+.drive-private-item .item-actions{margin-bottom:0}
+.bm-v2-drive-preview{display:block;width:min(100%,460px);max-height:340px;object-fit:contain;border:1px solid #d4e0e1;border-radius:9px;background:#f7fafb;margin-top:14px}
+.drive-more{display:block;margin:20px auto;border:0;background:#144b55;color:#fff;border-radius:8px;padding:10px 16px;font-size:.84rem;font-weight:650;cursor:pointer}
+.drive-more:hover{background:#0d333a}
+@media(max-width:700px){.drive-toolbar{gap:8px;padding:10px 12px}.drive-toolbar strong{width:100%}.drive-toolbar button{flex:1}.drive-state{margin-left:auto}}
