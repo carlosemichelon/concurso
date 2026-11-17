@@ -1,0 +1,25 @@
+name: Banco Mestre — galeria V213
+on:
+  push:
+    branches:
+      - gh-pages
+      - staging/v213-static-drive-gallery-v1-2026-11-17
+  workflow_dispatch:
+jobs:
+  auditar-galeria:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Conferir arquivos, tamanho, catálogo e versões
+        run: node tests/v213_gallery_integrity.cjs
+      - name: Sintaxe JavaScript dos módulos V213
+        run: |
+          node --check assets/v213_public_gallery_v1.js
+          node --check assets/v213_drive_gallery_feed.js
+          node --check assets/v213_library_counter.js
+          node --check assets/v213_single_image_viewer.js
