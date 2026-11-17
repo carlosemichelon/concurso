@@ -51,6 +51,7 @@ Da raiz do repositório, executar em Node 22:
     node v2/tests/evolutive.mjs
     node v2/tests/related-images.mjs
     node v2/tests/pdf-compat.mjs
+    node v2/tests/drive-media.mjs
 
 Esses testes não comprovam a autenticação real no Drive nem o carregamento de imagem e PDF. Para homologar será necessário inspecionar a interface no navegador real e comparar os IDs e os arquivos acessíveis.
 
@@ -181,6 +182,30 @@ Os arquivos \`v2/assets/pdf-overlay.js\` e \`pdf-overlay-ui.js\` adicionam um mo
 - **Teste funcional:** \`tests/browser.mjs\` abre PDF de exemplo com PDF.js local no runner e confere pixels da marca ativa e área de marca removida, além de assegurar que o \`localStorage\` não mudou. Resultado final deve ser verificado na execução do GitHub Actions antes de considerar homologado.
 
 **Limitações:** ainda falta validar PDFs reais da conta do titular, capas digitalizadas, rotação/cortes especiais, diferenças de zoom/retina e versões sem hash correspondente. A V2 continua sem editor de grifos, sem sincronizador do mestre privado e sem publicação em produção; a V1 continua o editor oficial.
+
+
+
+## Etapa 7 — segurança de mídias Drive e exclusões históricas (2026-11-17)
+
+### Backup de grifos V1 sem conteúdo já excluído
+
+- A identidade dos grifos V122 foi centralizada em \`assets/pdf-identity.js\`; o mesmo algoritmo \`id:\`, \`g:\`, \`l:\` agora orienta tanto o desenho quanto a contagem e exportação, incluindo tombstones geométricos e legados.
+- A V2, sem **modificar** nenhum registro da V1, **não coloca texto, cor, pontos ou notas de marcas excluídas no backup JSON**; só preserva os IDs mínimos de exclusão por página para impedir ressurgimento.
+- Notas de texto e notas de caneta não-textual são filtradas por registro ainda ativo no mesmo PDF/hash. Associações entre grifos que passaram a incluir uma marca excluída são depuradas; somente associações com ao menos duas marcas ativas permanecem.
+- Não é um mecanismo de restauração. A origem (localStorage do navegador) e a cópia mestre do Drive não foram alteradas. Teste \`tests/pdf-compat.mjs\` verifica que material excluído e notas de outro PDF não saem na cópia.
+
+### Download protegido de PDF/imagem
+
+- \`assets/drive-media.js\` valida destino HTTPS na API oficial \`www.googleapis.com/drive/v3/files\`, lê por streaming e interrompe dados acima de **120 MB (PDF)** ou **15 MB (prévia de imagem)**, mesmo sem Content-Length confiável. Confere assinatura \`%PDF-\` e MIME permitido quando informado.
+- \`assets/drive.js\` mantém token apenas em memória; incrementa a geração da sessão ao desconectar/expirar/trocar credencial e cancela todos os downloads privados ainda ativos. Respostas atrasadas de sessões encerradas são rejeitadas e descartadas; também impede anexar Bearer a URLs fora da API oficial.
+- \`assets/pdf-reader.js\` utiliza \`downloadPdf\` em vez de ler um \`Response.arrayBuffer()\` sem limite. Se houver logout **durante** a obtenção ou verificação do PDF, encerra o modal e rejeita resultados atrasados; não mantém uma URL Blob privada.
+- \`tests/drive-media.mjs\` cobre origem permitida/proibida, corpo sem tamanho anunciado, PDF sem assinatura correta, downloads maiores que limite, logout durante requisição, HTTP 401, SVG e ausência de gravações locais.
+
+### Homologação de fluxo com OAuth simulado
+
+- O novo \`tests/browser-drive.mjs\` reproduz uma autorização GIS **fictícia**, com respostas Drive mockadas no Chromium; verifica pastas oficiais, contagem separada das 179 imagens editoriais, prévia SVG, leitura de PDF e limpeza de metadados/Blob no logout.
+- Esse teste não acede uma conta Google verdadeira, não valida permissões da conta do titular nem prova que os documentos reais abrem. A execução da CI deve ser conferida no GitHub Actions antes de declarar o teste aprovado.
+- A V1 permanece na branch de produção \`gh-pages\`, independente da V2, atualmente em \`feature/site-v2-foundation-2026-11-17\` e PR rascunho #29. A versão pública V1 já chegou a V210; não houve merge/publicação da V2.
 
 
 ## Rollback
