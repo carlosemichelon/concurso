@@ -1,3 +1,11 @@
+## V226 — Biblioteca de Grifos desativada na interface (17/11/2026)
+
+- Publicação em `gh-pages/v226.html` com atualização atômica de `index.html`, `assets/version.json` e deste histórico; V225 preservada.
+- Aba **Grifos**, a tela **Biblioteca de Grifos** e seus links internos `#grifos` ocultos. Acesso inicial direto a `#grifos` redirecionado a PDFs.
+- Biblioteca mantém apenas a inicialização técnica necessária às rotinas de sincronização; nenhum grifo, PDF, metadado ou registro foi apagado do navegador ou do Drive.
+- O **grifador e o painel dentro do PDF** continuam ativos, como também flashcards/SRS, imagens/Atlas e Drive.
+- Verificações estáticas realizadas; teste visual no navegador autenticado pendente.
+
 # Banco Mestre V224 — TRT01-C008, preâmbulo da CF/88 (17/11/2026)
 
 - **Portal:** `v224.html`; V223 e melhorias anteriores preservadas. [Abrir cartão](https://carlosemichelon.github.io/concurso/?cartao=TRT01-C008).
