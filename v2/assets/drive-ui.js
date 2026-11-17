@@ -77,7 +77,8 @@ function addRegion(parentId,afterId,descriptionId,kind){
     if(kind==='image'){imageLimit+=30;renderImages()}else{pdfLimit+=30;renderPdfs()}
   });
   box.append(top,desc,list,more);
-  anchor.insertAdjacentElement('afterend',box);
+  // Complementos privados aparecem no Atlas antes da lista pública extensa.
+  anchor.insertAdjacentElement(kind==='image'?'beforebegin':'afterend',box);
 }
 function updateControls(){
   if(!service)return;
@@ -208,7 +209,15 @@ function renderPdfs(){
   const more=$('v2DriveMorePdfs');more.hidden=pending.length<=pdfLimit;
   if(!more.hidden)more.textContent='Mostrar mais ('+format(pending.length-pdfLimit)+' restantes)';
 }
-function renderPrivate(){previewClear();renderImages();renderPdfs();updateControls();showSyncStatus();auditPanel?.refresh()}
+function renderPrivate(){previewClear();renderImages();renderPdfs();updateControls();showSyncStatus();auditPanel?.refresh();publishAtlasCount()}
+function publishAtlasCount(){
+  document.dispatchEvent(new CustomEvent('v2-drive-images-updated',{
+    detail:service?.connected&&service.lastImages?{
+      newFiles:service.lastImages.newFiles,found:service.lastImages.found,
+      alreadyCataloged:service.lastImages.alreadyCataloged,checkedAt:service.lastImages.checkedAt
+    }:null
+  }));
+}
 function showSyncStatus(){
   const target=$('v2DriveDetails');if(!target||!service)return;
   target.replaceChildren();
@@ -256,7 +265,10 @@ async function initialize(){
         auditPanel?.clear();
         renderPrivate();
         if(event.type==='expired')message('Autorização expirada; reconecte para consultar mídias privadas.',true);
-      }else if(event.type==='scan-done')auditPanel?.refresh();
+      }else if(event.type==='scan-done'){
+        auditPanel?.refresh();
+        if(event.kind==='image')publishAtlasCount();
+      }
       else if(event.type==='auth-error')message(event.message,true);
       else if(event.type==='scan-error')message('Falha na varredura: '+event.message,true);
     });
