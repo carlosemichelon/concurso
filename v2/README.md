@@ -295,6 +295,19 @@ A V2 agora usa **uma única lista Atlas**, com busca, filtros e **um único bot�
 
 **Pendente:** OAuth real e associação manual comprovada de arquivos que não têm ID editorial. A prévia pública permanece somente leitura e não publica conteúdo privado.
 
+## Etapa 12 — auditoria cruzada de vínculos entre imagens e cartões
+
+- O painel **Auditoria de vínculos — imagens × cartões** é exibido na aba Sincronização e só executa a comparação após clicar no botão **Conferir vínculos com os 1.518 cartões**.
+- A consulta é feita com as 179 imagens do catálogo editorial V198, os metadados dos 93 originais recuperados e os sete lotes públicos de 1.518 cartões, acrescidos das imagens privadas **somente quando estiverem listadas durante o OAuth ativo**.
+- A classificação da evidência é preservada: 9 registros com vínculo documental (incluindo origem de questão conciliada), 76 correspondências didáticas e 94 conteúdos editoriais sem cartão. Os números derivam do V198, não são reclassificações.
+- Existem **101 referências editoriais a cartões**: 100 correspondem a IDs do banco público; a restante é a referência histórica `PETRO14-C017` da imagem `IMG-C14-013`, preservada como referência **externa à numeração CARD**. Não criar ID de cartão a partir da referência histórica.
+- Imagens com ID de questão original mas sem CARD comprovado aparecem na fila de revisão de origem, **sem** criar associação. Nomes de arquivo Drive que contenham explicitamente um ID `CARD-xxxx` existente são tratados como **candidatos para revisão manual**, não como vínculos aprovados; outros assuntos semelhantes não geram associação por inferência.
+- O painel permite filtrar vínculos documentais, didáticos, conteúdos, arquivos privados pendentes, casos de revisão e inconsistências, além de localizar uma imagem diretamente no Atlas único.
+- O download do resumo contém **somente contagens agregadas**, sem nomes, caminhos, imagens ou IDs privados. O inventário completo com nomes/IDs exige sessão OAuth ativa e confirmação explícita; o JSON é montado localmente e baixado só no dispositivo.
+- No logout, no vencimento/troca da sessão ou depois de uma nova varredura de imagens, o resultado anterior é **descartado** e precisa ser gerado de novo. Nenhuma alteração é escrita nos catálogos V194/V198, no Drive, no GitHub ou no SRS.
+- Testes em `tests/image-associations.mjs` verificam a contagem real 9/76/94, as 100 referências CARD existentes e a histórica externa, 3 arquivos Drive simulados (inclusive nomes com sublinhados), ausência de aprovação automática, filtro e exportação segura. Testes Chromium verificam o painel, o filtro documental e o descarte na saída.
+
+**Pendências de homologação:** nenhum arquivo novo do Drive foi classificado de forma permanente nem teve associação aprovada sem inspeção; continuam necessários o OAuth real, a verificação visual e uma decisão editorial explícita antes de sincronizar mudanças no GitHub.
 ## Rollback
 
 A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
