@@ -196,3 +196,17 @@ footer{margin-top:auto;padding:18px 4vw;border-top:1px solid #e1e7e8;color:#6b7e
 .v2-pdf-mark-table th{background:#f0f7f5}
 .v2-pdf-frame{width:100%;height:min(64vh,820px);min-height:360px;border:1px solid #d6e4e4;border-radius:8px;background:#e9eeee}
 @media(max-width:700px){.v2-pdf-dialog{width:100%;height:100%;max-width:100%;max-height:100%;inset:0;border-radius:0}.v2-pdf-top h2{font-size:1rem}.v2-pdf-shell{padding:11px}.v2-pdf-controls button{flex:1}.v2-pdf-frame{height:60vh;min-height:260px}}
+
+/* V2 — visualização de grifos da V1 em PDF.js, sem edição nem escrita.
+   A imagem base já contém os grifos em Multiply e Conceal, como na V1. */
+.v2-pdf-overlay-view[hidden]{display:none!important}
+.v2-pdf-overlay-view{display:grid;gap:10px;max-width:100%;overflow-x:auto;padding:12px 8px;background:#f1f4f3;border-radius:10px;border:1px solid #d1e1e1}
+.v2-pdf-overlay-nav{display:flex;align-items:center;gap:9px;flex-wrap:wrap;position:sticky;left:0;z-index:2}
+.v2-pdf-overlay-nav button,.v2-pdf-overlay-nav select{font-size:.79rem;border:1px solid #9fb9b7;border-radius:8px;padding:9px 12px;background:#fff;color:#18505a;font-weight:700}
+.v2-pdf-overlay-nav button:not(:disabled){cursor:pointer}
+.v2-pdf-overlay-nav button:disabled{opacity:.45;cursor:not-allowed}
+.v2-pdf-overlay-nav label{font-size:.76rem;font-weight:690;color:#34555d}
+.v2-pdf-overlay-stage{position:relative;margin:auto;background:#fff;box-shadow:0 2px 13px #1a394133;max-width:none;min-width:1px}
+.v2-pdf-overlay-base,.v2-pdf-overlay-ink{display:block;position:absolute;inset:0;max-width:none}
+.v2-pdf-overlay-ink{pointer-events:none}
+@media(max-width:700px){.v2-pdf-overlay-view{padding:8px 3px}.v2-pdf-overlay-nav{gap:6px}.v2-pdf-overlay-nav button,.v2-pdf-overlay-nav select{padding:7px 9px}}
