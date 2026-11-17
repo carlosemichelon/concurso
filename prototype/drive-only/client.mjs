@@ -91,7 +91,7 @@ export class DriveOnlyClient {
     if(purpose==='pdf'&&mime!=='application/pdf')throw new DriveOnlyError('Tipo de PDF inesperado','INVALID_MEDIA');
     if(purpose==='image'&&!['image/png','image/jpeg','image/webp','image/gif'].includes(mime))
       throw new DriveOnlyError('Tipo de imagem inesperado','INVALID_MEDIA');
-    // A requisição não transporta Bearer no JavaScript; o backend renova acesso ao Drive.
+    // Nenhuma credencial de acesso é enviada pelo JavaScript; o servidor renova a autorização.
     return response.blob();
   }
   async signOut(csrfToken){
