@@ -17,7 +17,7 @@ assert.ok(gallery.includes('BM228DriveImageEditor?.meta?.(file)'));
 assert.ok(gallery.includes('BM228DriveImageEditor?.decorate'));
 assert.ok(gallery.includes('m.description,m.note'),'busca abrange dados editados');
 for(const expected of ['Informações','Tipo e cartões','Arquivo e backup','Descrição técnica e conceitos',
- 'Observações pessoais e correções','BM197MediaLinks?.mountEditorForm','Exportar checkpoint JSON','Importar checkpoint JSON'])
+ 'Observações pessoais e correções','lib?.mountEditorForm','Exportar checkpoint JSON','Importar checkpoint JSON'])
  assert.ok(editor.includes(expected),expected+' deve existir no editor');
 assert.ok(editor.includes('BM055_ATLAS_CUSTOM_TITLES'),'preservar títulos anteriores');
 assert.ok(editor.includes('BM060_ATLAS_CARD_FIELDS'),'preservar anotações anteriores');
