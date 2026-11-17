@@ -41,6 +41,8 @@ jobs:
           node --check v2/assets/pdf-overlay-ui.js
           node --check v2/assets/pdf-identity.js
           node --check v2/assets/drive-media.js
+          node --check v2/assets/catalog-probe.js
+          node --check v2/assets/catalog-probe-ui.js
       - name: Conferir integridade da base pública e contrato
         run: |
           node v2/tests/smoke.mjs
@@ -52,6 +54,7 @@ jobs:
           node v2/tests/pdf-compat.mjs
           node v2/tests/pdf-overlay.mjs
           node v2/tests/drive-media.mjs
+          node v2/tests/catalog-probe.mjs
   browser-smoke:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
