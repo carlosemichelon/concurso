@@ -2,6 +2,7 @@
  * Não faz OAuth real, não acessa dados privados, não modifica a V1.
  */
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {chromium} from 'playwright';
 
 const base='https://carlosemichelon.github.io/concurso/';
@@ -55,6 +56,29 @@ try{
   assert.equal(await page.locator('#v2ImageAuditDetails').isDisabled(),true,
     'sem OAuth, impedir exportar inventário detalhado com IDs privados');
 
+  await page.locator('#v2ReviewWorkbench').waitFor({timeout:15000});
+  assert.equal(await page.locator('#v2ReviewRecord').isEnabled(),true,
+    'auditoria pública permite decisões sem login privado');
+  await page.locator('#v2ReviewAction').selectOption('manter_conteudo');
+  await page.locator('#v2ReviewEvidence').selectOption('sem_correspondencia_confirmada');
+  await page.locator('#v2ReviewReason').fill(
+    'Imagem de conteúdo sem correspondência documental comprovada com cartão do banco público.'
+  );
+  await page.locator('#v2ReviewConfirm').check();
+  await page.locator('#v2ReviewRecord').click();
+  assert.match(await page.locator('#v2ReviewNotice').textContent(),/Decisão registrada/);
+  assert.equal(await page.locator('#v2ReviewHistory .v2-review-event').count(),1);
+  const [reviewDownload]=await Promise.all([
+    page.waitForEvent('download'),page.locator('#v2ReviewExport').click()
+  ]);
+  const reviewCheckpoint=JSON.parse(await readFile(await reviewDownload.path(),'utf8'));
+  assert.match(reviewCheckpoint.integrity.digest,/^[a-f0-9]{64}$/);
+  assert.equal(reviewCheckpoint.events[0].action,'manter_conteudo');
+  assert.equal(reviewCheckpoint.events.length,1);
+  assert.equal(await page.evaluate(()=>localStorage.length),0,
+    'checkpoint público é baixado, jamais guardado no armazenamento local');
+
+
   }catch(error){
     console.error('HOSTED PREVIEW DRIVE DIAGNOSTIC',await page.evaluate(()=>({
       driveNote:document.querySelector('#v2DriveNote')?.textContent,
@@ -77,6 +101,7 @@ try{
   assert.match(manifest.sourceCommit,/^[a-f0-9]{40}$/,'manifesto deve guardar um SHA de origem verificável');
   assert.equal(manifest.atlasMode,'single_viewer_editorial_plus_live_drive');
   assert.match(manifest.associationReview,/documental\/didactic\/history/);
+  assert.match(manifest.associationDecisionFlow,/SHA-256 verified checkpoint/);
   const original=await page.request.get(base+'index.html');
   assert.equal(original.status(),200,'entrada original V1 deve continuar publicada');
   assert.equal(await page.evaluate(()=>localStorage.length),0,
