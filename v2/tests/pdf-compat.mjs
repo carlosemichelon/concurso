@@ -43,6 +43,7 @@ const fixture=new Storage({
   ['TXT:'+doc+':'+hash+':valid_mark_123']:{note:'Nota autorizada para o PDF'},
   ['TXT:OUTRO-PDF:'+hash+':foreign_mark_123']:{note:'Não exportar anotação de outro documento'},
   ['TXT:'+doc+':'+hash+':deleted_mark_234']:{note:'Nota de marca excluída secreta'},
+  ['LEGACY:'+page1+':2']:{note:'Nota de caneta ativa'},
   'TXT:privado':'não exportar metadado global'
  }),
  ['BM102_PDF_HIGHLIGHT_JOINS:'+encodeURIComponent(doc)+':'+hash]:JSON.stringify([{id:'join_sample',markIds:['valid_mark_123','stroke_mark_345','deleted_mark_234']}])
@@ -63,7 +64,8 @@ assert.equal(snapshot.schema,'BancoMestreV2LegacyGrifosBackupV1');
 assert.equal(Object.keys(snapshot.records).length,2);
 assert.ok(snapshot.records[page1].includes('Trecho privado'));
 assert.deepEqual(Object.keys(snapshot.deletedHighlights),[page1]);
-assert.equal(Object.keys(snapshot.metadata).length,1);
+assert.equal(Object.keys(snapshot.metadata).length,2);
+assert.equal(snapshot.metadata['LEGACY:'+page1+':2'].note,'Nota de caneta ativa');
 assert.equal(snapshot.metadata['TXT:'+doc+':'+hash+':valid_mark_123'].note,'Nota autorizada para o PDF');
 assert.equal(snapshot.highlightJoins.records.length,1);
 assert.deepEqual(snapshot.highlightJoins.records[0].markIds,['valid_mark_123','stroke_mark_345']);
