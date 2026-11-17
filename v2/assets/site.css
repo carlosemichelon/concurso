@@ -158,3 +158,17 @@ footer{margin-top:auto;padding:18px 4vw;border-top:1px solid #e1e7e8;color:#6b7e
 .v2-evo-table th{background:#eaf5f2;font-weight:770;color:#1c4b4d}
 .v2-evo-content strong{font-weight:790;color:#1c4245}
 @media(max-width:740px){.v2-evo-reader-head{grid-template-columns:1fr}.v2-evo-reader-head strong,.v2-evo-reader-head span,.v2-evo-reader-head label,.v2-evo-select{grid-column:1;grid-row:auto}.v2-evo-content{padding:12px}.v2-evo-module>summary{gap:7px;padding:10px}.v2-evo-source{font-size:.65rem}.v2-evo-number{width:25px;height:25px}.v2-evo-title{font-size:.81rem}}
+
+/* V2: vínculos de imagem explícitos por ID, sem thumbnails privadas por padrão. */
+.v2-related-images{margin-top:12px;border:1px solid #d5e2e3;border-radius:10px;background:#fafcfc;overflow:hidden}
+.v2-related-images>summary{cursor:pointer;padding:12px 15px;font-size:.85rem;color:#275c62;font-weight:750}
+.v2-related-images[open]>summary{border-bottom:1px solid #dce8e8}
+.v2-related-list{padding:6px 13px}
+.v2-related-item{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:11px 2px;border-bottom:1px solid #e4eded}
+.v2-related-item:last-child{border-bottom:0}
+.v2-related-description{min-width:0;display:grid;gap:4px}
+.v2-related-description strong{font-size:.84rem;color:#25464c;overflow-wrap:anywhere}
+.v2-related-description .muted{font-size:.73rem}
+.v2-related-item button{flex:none;border:1px solid #a3bfc1;background:#eff7f6;padding:8px 12px;border-radius:8px;color:#23525a;font-weight:700;font-size:.77rem}
+.v2-related-item button:hover{background:#ddedeb}
+@media(max-width:700px){.v2-related-item{align-items:start;flex-direction:column;gap:8px}.v2-related-item button{width:100%}}
