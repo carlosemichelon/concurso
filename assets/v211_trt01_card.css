@@ -29,3 +29,23 @@
 #bm211-trt-card .bm211-plain{white-space:pre-wrap;font-size:13px;line-height:1.55}
 .bm211-to-card{font-size:12px!important;padding:6px 8px!important}
 @media(max-width:650px){#bm211-trt-card .bm211-body{padding:9px}#bm211-trt-card .bm211-grid{grid-template-columns:1fr}#bm211-trt-card .bm211-frame{max-height:510px}#bm211-trt-card .bm211-image{max-height:500px}}
+
+/* A base V062 esconde todos os section por padrão; este cartão possui seções próprias. */
+#bm211-trt-card,#bm211-trt-card .bm211-media,#bm211-trt-card .bm211-module,#bm211-trt-card .bm198-overview,#bm211-trt-card .bm198-module{display:block!important;visibility:visible}
+#bm211-trt-card .bm198-modules{display:flex;flex-direction:column;gap:13px}
+#bm211-trt-card .bm198-module{border:1px solid #dce7e2;border-radius:10px;background:#fff;overflow:hidden}
+#bm211-trt-card .bm198-module-head{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#f3f8f6;border-bottom:1px solid #dfebe6}
+#bm211-trt-card .bm198-module-head h4{font-size:14px;margin:0}
+#bm211-trt-card .bm198-module-body{padding:12px 14px;font-size:13px;line-height:1.62}
+#bm211-trt-card .bm198-paragraph{white-space:pre-wrap;overflow-wrap:anywhere}
+#bm211-trt-card .bm198-overview{border:1px solid #cbded8;border-radius:10px;margin-bottom:14px}
+#bm211-trt-card .bm198-overview-top{display:flex;align-items:center;gap:8px;background:#eef6f3;padding:12px}
+#bm211-trt-card .bm198-overview-top h4{font-size:14px;margin:0}
+#bm211-trt-card .bm198-overview-top p{font-size:11px;margin:0}
+#bm211-trt-card .bm198-table-scroll{overflow-x:auto;max-width:100%}
+#bm211-trt-card .bm198-overview-table,#bm211-trt-card .bm198-native-table{width:100%;border-collapse:collapse;min-width:460px;font-size:12px}
+#bm211-trt-card .bm198-overview-table th,#bm211-trt-card .bm198-overview-table td,#bm211-trt-card .bm198-native-table th,#bm211-trt-card .bm198-native-table td{padding:8px 10px;border-bottom:1px solid #e0eae6;text-align:left;vertical-align:top}
+#bm211-trt-card .bm198-list{margin:6px 0;padding-left:22px}
+#bm211-trt-card .bm198-number{font-weight:800;color:#186052}
+#bm211-trt-card .bm198-icon{width:17px;height:17px;flex:none}
+#bm211-trt-card .bm198-note{font-size:11px;padding:8px 12px;color:#596b67}
