@@ -1,3 +1,15 @@
+# Banco Mestre V203 — um só botão Editar imagem e pop-up compacto (17/11/2026)
+
+- **Causa dos dois botões:** V202 inseria separadamente `Editar imagem` em `v202_atlas_editor_dialog.js` (dados/textos) e `v202_image_links_modal.js` (tipo/vínculos). Não eram dois arquivos de imagem, mas duas ações concorrentes.
+- **Correção:** o cartão público possui apenas **um** botão `Editar imagem`. Sua **única janela** contém as abas **Dados** (título, descrição, assunto, favorito e visibilidade) e **Tipo e cartões** (Conteúdo/Cartão, função e IDs). `Mostrar cartão` continua visível junto à imagem quando houver vínculo.
+- Para imagens privadas Drive que não têm editor textual do Atlas, a classificação é acessada por um único botão próprio.
+- Pop-up menor: **450 px de largura máxima**, **74% da altura da janela** (teto 690px), rolagem interna e dimensões responsivas no celular.
+- Nenhum original, tipo canônico V198, cartão V194, PDF V149, SRS ou pasta de Drive foi alterado. O contrato V202 de destinos continua vigente.
+- V203 publicada na branch `gh-pages` como `v203.html`, com V202 preservada para rollback. **86 scripts e 74 CSS** referenciados, todos presentes, sem duplicação. Teste visual real pendente.
+- [Auditoria e correção V203](docs/V203_EDITOR_UNIFICADO_POPUP_COMPACTO.md).
+
+---
+
 # Banco Mestre V202 — janelas de edição e pastas fixas (17/11/2026)
 
 - A seção extensa **Tipo de imagem e cartões vinculados** saiu da face visível de cada imagem. Os botões **Mostrar cartão** e **Editar imagem** continuam disponíveis. O tipo Conteúdo/Cartão, função, IDs e evidência são editados somente em diálogo, sem reescrever a classificação V198.
