@@ -1,0 +1,36 @@
+name: Validar Atlas integrado V208
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - "assets/v208_atlas_unified_counter.js"
+      - "v208.html"
+      - "tests/v208_atlas_unified_counter.cjs"
+      - ".github/workflows/validar-atlas-v208.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  atlas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar sintaxe e estados de sincronizacao
+        run: |
+          node --check assets/v208_atlas_unified_counter.js
+          node tests/v208_atlas_unified_counter.cjs
+      - name: Validar bootstrap da V208
+        run: |
+          python3 - <<'PY'
+          import pathlib,re,json
+          html=pathlib.Path('v208.html').read_text()
+          assert 'v208_atlas_unified_counter.js?v=208' in html
+          assert "v207_drive_atlas_sync.js?v=207" in html
+          assert html.index("v207_drive_atlas_sync.js?v=207") < html.index("v208_atlas_unified_counter.js?v=208")
+          match=re.search(r'<script>\s*(.*?)</script>',html,re.S)
+          assert match
+          pathlib.Path('/tmp/v208_inline.js').write_text(match.group(1))
+          contract=json.loads(pathlib.Path('assets/v202_storage_contract.json').read_text())
+          assert contract['canonical_write_destinations']['images']['folder_id'] == '1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6'
+          PY
+          node --check /tmp/v208_inline.js
