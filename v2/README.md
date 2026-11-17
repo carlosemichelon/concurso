@@ -46,6 +46,8 @@ Da raiz do repositório, executar em Node 22:
     node --check v2/assets/drive-ui.js
     node v2/tests/smoke.mjs
     node v2/tests/drive.mjs
+    node v2/tests/audit.mjs
+    node v2/tests/deployment.mjs
 
 Esses testes não comprovam a autenticação real no Drive nem o carregamento de imagem e PDF. Para homologar será necessário inspecionar a interface no navegador real e comparar os IDs e os arquivos acessíveis.
 
@@ -60,6 +62,40 @@ Esses testes não comprovam a autenticação real no Drive nem o carregamento de
 - **Logout/expiração:** descarta listas privadas em memória e revoga object URLs das prévias. Não cria flashcards, classificações editoriais presumidas ou relações por simples coincidência.
 - **Limites:** não há sincronização pública Drive → GitHub, agendamento de servidor, acesso offline a privados, autenticação verificada em navegador titular nem homologação visual. A configuração OAuth existente indica que origem autorizada e consentimento precisam ser testados com a conta real.
 - **Validações:** Github Actions executa testes Node de contrato V202, URLs seguras, SVG, deduplicação, travessia recursiva e ausência de persistência de token; não equivalem a teste real do Google Drive.
+
+
+## Etapa 3 — auditoria de sincronização e versões (implementação de código)
+
+A V2 dispõe agora de duas verificações independentes.
+
+### Conciliação Drive × catálogos
+
+- Compara **somente por ID estável** os 93 originais do Atlas V180/V198 e os 78 PDFs V149 com as varreduras autenticadas da sessão. Os 86 registros históricos do Atlas sem ID do Drive verificável não entram no teste de presença remota: permanecem contabilizados separadamente.
+- Estados por arquivo: \`listed_and_referenced\` (arquivo listado nas pastas e ID referenciado no catálogo), \`new_in_drive\` (arquivo novo apenas na consulta privada) e \`not_observed_in_monitored_roots\` (ID do catálogo não observado nas pastas examinadas).
+- **Não observado não é exclusão nem arquivo faltante comprovado.** Pode ocorrer por pastas fora das raízes, permissões ou cobertura parcial da busca.
+- Visualização de imagem só é registrada quando o elemento de prévia dispara o evento de carregamento. Ter URL, MIME ou metadados NÃO demonstra que bytes foram carregados.
+- Contagens de novos e não observados entram no painel Sincronização. Os filtros permitem examinar cada grupo de status e pesquisar ID/nome. Não altera classificações editoriais nem cria vínculos.
+- **Exportação protegida:** botão de resumo gera JSON agregado **sem IDs**; inventário detalhado (IDs, nomes e caminhos privados) exige clique e confirmação explícita. Nenhuma modalidade envia dados à rede; o arquivo é gerado e baixado somente no navegador. Nada é enviado ao Drive/GitHub.
+- Limites: não verifica modificação por hash ou revisão, nem confirma integridade dos bytes remotos, publicação do GitHub, autorização de acesso a cada item ou exclusão permanente. A conciliação é de METADADOS observados em sessão autorizada.
+
+### Versão publicada e caminhos
+
+- Busca \`assets/version.json\` e \`index.html\` pelo mesmo endereço/origem do portal; confere o campo \`version\`, o \`home\` correspondente a \`vNNN.html\`, contagens principais, fallback estático e o redirecionamento por manifesto.
+- Faz verificação HTTP \`HEAD\` do HTML indicado, sem executar o site legado. Código inesperado ou manifesto divergente produz aviso/erro, não força rollback nem sobrescreve a produção.
+- O fato de receber HTTP 200 **não homologa** interface, OAuth, PDFs, grifos nem imagens. É um cheque estrutural e pontual de caminho.
+- O painel pode ser atualizado manualmente, sem modificar \`gh-pages\`.
+
+### Arquivos e testes desta etapa
+
+- \`assets/audit.js\`: conciliação pura e payload de exportação.
+- \`assets/audit-ui.js\`: filtros, indicadores e exportação confirmada.
+- \`assets/deployment.js\`: inspeção do manifesto/redirecionamento/HTTP.
+- \`assets/deployment-ui.js\`: apresentação de diagnóstico e atualização.
+- \`tests/audit.mjs\`: confirma três estados, ausência não conclusiva, relatório agregado sem IDs e inventário com autorização explícita de UI.
+- \`tests/deployment.mjs\`: detecta mismatch do \`home\`, HTTP 404, fallback divergente e contagens públicas alteradas.
+- CI Node 22: sintaxe, catálogos, OAuth/simulações, reconciliação e versões; **não** é teste de navegador com login real.
+
+O backup anterior à V2 continua no SHA \`975dd96135fa9c30c38176c5a3860472794731cb\`; a V1 permanece em \`gh-pages\`. Todas as alterações desta etapa ficam no PR rascunho **#29**.
 
 ## Rollback
 
