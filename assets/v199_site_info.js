@@ -21,9 +21,9 @@ function render(){
  const source=state.origin==='privada'?'cartões privados '+(state.privateVersion||'do Drive'):'cartões V194';
  if(version)version.textContent='Portal V199 · '+source+' · Atlas V198';
  const tagline=document.querySelector('header .head > div:first-child > .version');
- if(tagline)tagline.textContent='Base de cartões V194 · Atlas de imagens V198 · registros de estudo locais não substituem SRS oficial';
+ if(tagline)tagline.textContent=(state.origin==='privada'?'Cartões privados '+(state.privateVersion||'do Drive'):'Base pública de cartões V194')+' · Atlas V198 · SRS oficial preservado';
  const footer=document.querySelector('main > footer');
- if(footer)footer.textContent='Portal V199 · base de cartões V194 · Atlas V198 · PDFs e históricos preservados · acesso a arquivos privados mediante autorização';
+ if(footer)footer.textContent='Portal V199 · '+(state.origin==='privada'?'cartões privados autorizados':'base pública de cartões V194')+' · Atlas V198 · PDFs e históricos preservados';
  const n=Number($('pdfStat')?.textContent?.replace(/\D/g,''));
  if(Number.isFinite(n)&&n>=defaults.pdfBase)state.pdfs=n;
  stat(0,state.pdfs,'PDFs na biblioteca',
