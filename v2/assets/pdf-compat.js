@@ -2,6 +2,7 @@
  * A V1 usa docId + SHA256(primeiros 12 bytes hex) + Pn.
  * NÃO chama migrate/capture/persistPage, não altera localStorage nem IndexedDB.
  */
+import {legacyMarkId} from './pdf-identity.js';
 export const LEGACY_STROKES_PREFIX='BM030_STROKES_PDF:';
 export const LEGACY_DELETIONS_KEY='BM122_DELETED_HIGHLIGHT_IDS';
 export const LEGACY_META_KEY='BM062_GRIFOS_META';
@@ -49,8 +50,7 @@ export function inspectLegacyHighlights(storage,documentId,hash){
   if(storage.length>KEY_LIMIT)throw Error('Mais de 10 mil chaves no armazenamento; auditoria bloqueada');
   const deletions=parseDeletionMap(storage);
   const prefix=LEGACY_STROKES_PREFIX+documentId+':';
-  const byVersion=new Map(),pages=[],unknownTombstones=[];
-  let ambiguousDeletionIdentity=0;
+  const byVersion=new Map(),pages=[];
   for(let i=0;i<storage.length;i++){
     const key=storage.key(i);
     if(!key?.startsWith(prefix))continue;
@@ -71,18 +71,13 @@ export function inspectLegacyHighlights(storage,documentId,hash){
     let active=0,deleted=0,textHighlights=0,otherMarks=0;
     for(const mark of marks){
       if(!mark||typeof mark!=='object'){otherMarks++;continue}
-      const itemId=typeof mark.id==='string'?'id:'+mark.id:'';
-      const hasLegacyIdentity=!itemId;
-      // Identidades g:/l: legadas dependem de hash normalizado, não tentar adivinhar.
-      const removed=Boolean(mark.bm108_deleted_at||(itemId&&Object.hasOwn(tombstones,itemId)));
+      // A identidade g:/l: usa exatamente o mesmo algoritmo de exclusão da V122.
+      const removed=Boolean(mark.bm108_deleted_at||Object.hasOwn(tombstones,legacyMarkId(mark)));
       if(removed){deleted++;continue}
-      if(hasLegacyIdentity&&Object.keys(tombstones).some(t=>t.startsWith('g:')||t.startsWith('l:')))
-        ambiguousDeletionIdentity++;
       active++;
       if(mark.type==='text_highlight')textHighlights++;else otherMarks++;
     }
     pages.push({page:info.page,active,deleted,textHighlights,otherMarks,rawKey:key});
-    if(ambiguousDeletionIdentity)unknownTombstones.push(info.page);
   }
   pages.sort((a,b)=>a.page-b.page);
   const counts={
@@ -91,41 +86,58 @@ export function inspectLegacyHighlights(storage,documentId,hash){
     text:pages.reduce((v,x)=>v+x.textHighlights,0),
     other:pages.reduce((v,x)=>v+x.otherMarks,0),
     deletedFiltered:pages.reduce((v,x)=>v+x.deleted,0),
-    ambiguousLegacyDeletionIdentities:ambiguousDeletionIdentity
+    ambiguousLegacyDeletionIdentities:0
   };
   return Object.freeze({
     documentId,hash,scope:'read_only_same_browser_origin',
     counts,
     pages:pages.map(({rawKey,...p})=>p),
     otherVersions:[...byVersion.entries()].map(([versionHash,pageCount])=>({versionHash,pageCount})),
-    warning:ambiguousDeletionIdentity>0?
-      'Identidades antigas de exclusão sem ID exigem conferência na V1. Contagem potencialmente superior ao número real.':
-      null
+    warning:null
   });
 }
 export function legacySnapshot(storage,documentId,hash){
   const inspection=inspectLegacyHighlights(storage,documentId,hash);
-  const records={};
+  // Backups de leitura NÃO reintroduzem o conteúdo de grifos já excluídos.
+  // Preservar apenas marcas ativas da revisão exata e IDs mínimos de exclusão.
+  const deletions=parseDeletionMap(storage),records={},picked={};
+  const activeTextMeta=new Set(),activeLegacyMeta=new Set(),activeMarkIds=new Set();
   for(const page of inspection.pages){
     const key=pageStorageKey(documentId,hash,page.page);
     const raw=storage.getItem(key);
-    if(raw!==null)records[key]=raw;
+    if(raw===null)continue;
+    if(raw.length>12000000)throw Error('Página acima de 12 MB');
+    const list=JSON.parse(raw);
+    if(!Array.isArray(list)||list.length>MARK_LIMIT)
+      throw Error('Grifos da página não formam uma lista válida');
+    const tombstones=deletions[key]||{};
+    const kept=[];
+    for(let index=0;index<list.length;index++){
+      const mark=list[index];
+      if(!mark||typeof mark!=='object'||mark.bm108_deleted_at||
+         Object.hasOwn(tombstones,legacyMarkId(mark)))continue;
+      kept.push(mark);
+      if(typeof mark.id==='string'&&mark.id){
+        activeMarkIds.add(mark.id);
+        if(mark.type==='text_highlight')
+          activeTextMeta.add('TXT:'+documentId+':'+hash+':'+mark.id);
+      }else{
+        activeLegacyMeta.add('LEGACY:'+key+':'+index);
+      }
+    }
+    if(kept.length)records[key]=JSON.stringify(kept);
+    if(Object.hasOwn(deletions,key))picked[key]=deletions[key];
   }
-  const deletions=parseDeletionMap(storage),picked={};
-  for(const key of Object.keys(records))if(Object.hasOwn(deletions,key))picked[key]=deletions[key];
-  // V1 V122 mantém notas/favoritos em uma chave global. Copiar apenas os
-  // registros pertencentes a este documento e hash, nunca o objeto inteiro.
-  const rawMeta=storage.getItem(LEGACY_META_KEY);
-  const metadata={};
+  // A V1 mantém notas e favoritos em uma chave GLOBAL. Copiar apenas as notas
+  // de marcas ativas do mesmo documento/hash; não vazar notas de marcas apagadas.
+  const rawMeta=storage.getItem(LEGACY_META_KEY),metadata={};
   if(rawMeta){
     if(rawMeta.length>12000000)throw Error('Metadados de grifos acima de 12 MB');
     const all=JSON.parse(rawMeta);
     if(!all||typeof all!=='object'||Array.isArray(all))
       throw Error('Metadados de grifos incompatíveis');
-    const textPrefix='TXT:'+documentId+':'+hash+':';
-    const legacyPrefix='LEGACY:'+LEGACY_STROKES_PREFIX+documentId+':'+hash+':P';
     for(const [key,value] of Object.entries(all)){
-      if(key.startsWith(textPrefix)||key.startsWith(legacyPrefix))metadata[key]=value;
+      if(activeTextMeta.has(key)||activeLegacyMeta.has(key))metadata[key]=value;
     }
   }
   const joinsKey='BM102_PDF_HIGHLIGHT_JOINS:'+encodeURIComponent(documentId)+':'+hash;
@@ -135,7 +147,12 @@ export function legacySnapshot(storage,documentId,hash){
     if(rawJoins.length>12000000)throw Error('Uniões de grifos acima de 12 MB');
     const joins=JSON.parse(rawJoins);
     if(!Array.isArray(joins))throw Error('Uniões de grifos incompatíveis');
-    highlightJoins={key:joinsKey,records:joins};
+    const retained=joins.flatMap(join=>{
+      if(!join||typeof join!=='object'||!Array.isArray(join.markIds))return [];
+      const valid=join.markIds.filter(id=>typeof id==='string'&&activeMarkIds.has(id));
+      return valid.length>=2?[{...join,markIds:valid}]:[];
+    });
+    if(retained.length)highlightJoins={key:joinsKey,records:retained};
   }
   return {
     schema:'BancoMestreV2LegacyGrifosBackupV1',
