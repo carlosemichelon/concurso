@@ -19,12 +19,12 @@ const mime={
  '.png':'image/png',
  '.jpg':'image/jpeg'
 };
-function examplePdf(){
+function examplePdf({rotate=0,crop=false}={}){
  const content='BT /F1 16 Tf 72 720 Td (Banco Mestre V2 - PDF de teste) Tj ET';
  const objects=[
   '<< /Type /Catalog /Pages 2 0 R >>',
   '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
-  '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>',
+  '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] '+(crop?'/CropBox [100 100 512 692] ':'')+(rotate?'/Rotate '+rotate+' ':'')+'/Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>',
   '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
   '<< /Length '+Buffer.byteLength(content)+' >>\nstream\n'+content+'\nendstream'
  ];
@@ -217,6 +217,34 @@ try{
  assert.ok((await page.locator('#v2PdfOverlayBase').evaluate(el=>el.width))>100);
  await page.locator('.v2-pdf-close').click();
 
+ // Página com /Rotate 90 e /CropBox: mesma regra de coordenadas da V1.
+ const rotated=examplePdf({rotate:90,crop:true});
+ const rotatedHash=createHash('sha256').update(rotated).digest('hex').slice(0,24);
+ const rotatedKey='BM030_STROKES_PDF:IJUI-PDF-05:'+rotatedHash+':P1';
+ await page.evaluate(key=>localStorage.setItem(key,JSON.stringify([
+  {id:'rotate_mark_123',type:'text_highlight',rects:[[.12,.20,.38,.26]],color:'#FDE68A'}
+ ])),rotatedKey);
+ const rotatedBefore=await page.evaluate(key=>localStorage.getItem(key),rotatedKey);
+ await page.locator('#pdfsList .item').first().getByRole('button',{name:'Ler PDF na V2'}).click();
+ await page.locator('#v2PdfInput').setInputFiles({
+  name:'pagina-rotacionada-cortada.pdf',mimeType:'application/pdf',buffer:rotated
+ });
+ await page.waitForFunction(hash=>document.querySelector('#v2PdfReaderIdentity')?.textContent.includes(hash),rotatedHash);
+ await page.locator('#v2PdfInspect').click();
+ assert.match(await page.locator('#v2PdfReaderMarks').textContent(),/Grifos nesta revisão \(estimativa\): 1/);
+ await page.locator('#v2PdfOverlayShow').click();
+ await page.waitForFunction(()=>document.querySelector('#v2PdfReaderNote')?.textContent.includes('exibido(s)'),
+  null,{timeout:20000});
+ const rotatedMetrics=await page.evaluate(()=>{
+  const canvas=document.querySelector('#v2PdfOverlayBase'),ctx=canvas.getContext('2d');
+  const pixel=(x,y)=>[...ctx.getImageData(Math.floor(canvas.width*x),Math.floor(canvas.height*y),1,1).data].slice(0,3);
+  return {width:canvas.width,height:canvas.height,highlight:pixel(.2,.23),blank:pixel(.9,.9)};
+ });
+ assert.ok(rotatedMetrics.width>rotatedMetrics.height,'PDF /Rotate 90 precisa ser paisagem');
+ assert.ok(rotatedMetrics.highlight[2]<rotatedMetrics.blank[2],'marca normalizada permanece no CropBox');
+ assert.equal(await page.evaluate(key=>localStorage.getItem(key),rotatedKey),rotatedBefore);
+ await page.locator('.v2-pdf-close').click();
+
  await page.locator('[data-view="sync"]').click();
  await page.locator('#v2AuditPanel').waitFor();
  assert.equal(await page.locator('#v2AuditPanel .audit-export button:disabled').count(),2,
@@ -227,7 +255,7 @@ try{
  console.log('V2 browser smoke OK:',{
    cards:'verso oculto e módulos on-demand',
    modules:11,priority:'08→04→05→06→09→10→01→02→03→07→11',
-   atlas:'bidirecional',pdf:'PDF.js real + grifos V1 e exclusões sem escrita',drive:'sem exportação privada anônima',mobileWidth:390
+   atlas:'bidirecional',pdf:'PDF.js real, rotação 90°/CropBox e grifos V1 sem escrita',drive:'sem exportação privada anônima',mobileWidth:390
  });
 }finally{
  await page?.close();
