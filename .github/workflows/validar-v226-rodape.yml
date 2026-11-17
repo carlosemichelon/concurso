@@ -1,0 +1,26 @@
+name: Banco Mestre V226 - rodape e filtro
+on:
+  push:
+    branches:
+      - staging/v226-footer-consistency-2026-11-17
+      - gh-pages
+    paths:
+      - v226.html
+      - assets/v226_footer_version.js
+      - tests/v226_footer.cjs
+      - .github/workflows/validar-v226-rodape.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Sintaxe
+        run: node --check assets/v226_footer_version.js && node --check tests/v226_footer.cjs
+      - name: Versao e regressao
+        run: node tests/v226_footer.cjs
