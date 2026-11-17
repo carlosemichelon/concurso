@@ -226,6 +226,7 @@ try{
    null,{timeout:8000});
  assert.equal(await page.locator('#v2ReviewHistory .v2-review-event').count(),1,
    'checkpoint reimportado restaura evento sem gravar catálogo');
+ await page.locator('[data-view="sync"]').click();
  await page.locator('#v2ImageAuditStart').click();
  await page.waitForFunction(()=>document.querySelector('#v2ImageAuditStatus')?.textContent.includes('Auditoria concluída'),
    null,{timeout:30000});
