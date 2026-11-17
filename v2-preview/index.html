@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Prévia isolada do Banco Mestre V2: cartões, Atlas, PDFs e integridade das fontes.">
+  <title>Banco Mestre V2 — homologação isolada (não é a V1)</title>
+  <link rel="stylesheet" href="./assets/site.css">
+  <script type="module" src="./assets/app.js"></script>
+  <script type="module" src="./assets/drive-ui.js"></script>
+  <script type="module" src="./assets/deployment-ui.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Ir para o conteúdo</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Navegação da V2">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">BM</span>
+        <div><strong>Banco Mestre</strong><span>Portal V2 · prévia</span></div>
+      </div>
+      <nav class="navigation" aria-label="Áreas">
+        <button type="button" class="nav-button is-active" data-view="overview" aria-current="page">Visão geral</button>
+        <button type="button" class="nav-button" data-view="cards">Cartões</button>
+        <button type="button" class="nav-button" data-view="images">Atlas de imagens</button>
+        <button type="button" class="nav-button" data-view="pdfs">Biblioteca PDF</button>
+        <button type="button" class="nav-button" data-view="sync">Sincronização</button>
+      </nav>
+      <div class="sidebar-end"><span class="pill">Somente leitura</span>
+        <a href="../index.html">Abrir portal V1 atual</a>
+        <small>A V2 não modifica cartões, SRS, grifos ou arquivos do Drive.</small>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div><div class="eyebrow">ENGENHARIA CIVIL · CONCURSOS</div>
+          <h1 id="pageTitle">Visão geral</h1></div>
+        <div class="top-actions"><span class="version">V2 · homologação técnica</span><a class="external" href="../index.html">Voltar à V1</a></div>
+      </header>
+      <main id="main" tabindex="-1">
+        <div id="notice" class="notice" role="status" aria-live="polite">Conferindo os catálogos públicos versionados...</div>
+        <section class="view is-visible" id="view-overview" aria-labelledby="overview-title">
+          <div class="section-heading"><div><div class="eyebrow">FONTE E CONTAGEM</div><h2 id="overview-title">Acervo em um só lugar</h2></div></div>
+          <p class="lead">A V2 começa com consulta confiável, separando o que está publicado no GitHub do que exige autorização do Google Drive.</p>
+          <div class="stats" id="overviewStats" aria-label="Estatísticas dos catálogos"></div>
+          <div class="two-col">
+            <section class="panel"><h3>Integridade das fontes</h3><div id="checks" class="checks"></div></section>
+            <section class="panel"><h3>Limites desta prévia</h3>
+              <p>Os cartões públicos são os da base V194; o Atlas editorial é V198; o catálogo de PDFs é V149. Estes números não são a versão do portal.</p>
+              <p>A leitura privada do Drive é autorizada somente após login e fica na sessão do navegador. A V2 não publica mídias no GitHub, não importa SRS, não sincroniza grifos e não executa o ciclo de revisão.</p>
+              <a href="../index.html">Continuar no portal operacional atual</a>
+            </section>
+          </div>
+        </section>
+        <section class="view" id="view-cards" hidden aria-labelledby="cards-title">
+          <div class="section-heading"><div><div class="eyebrow">BANCO PÚBLICO V194</div><h2 id="cards-title">Cartões</h2></div><span id="cardsCounter" class="muted"></span></div>
+          <div class="panel filter-panel">
+            <label for="cardQuery">Pesquisar pergunta, assunto ou ID</label>
+            <input id="cardQuery" type="search" autocomplete="off" placeholder="Ex.: CARD-0326, concreto, crase">
+            <label class="inline-check"><input id="showInactive" type="checkbox"> Incluir cartões inativos (consulta histórica)</label>
+          </div>
+          <p class="helper">O gabarito permanece oculto até clicar em “Mostrar resposta”. Esta prévia não registra avaliação nem altera o SRS.</p>
+          <div id="cardsList" class="item-list"></div>
+          <div class="pagination"><button type="button" id="moreCards" hidden>Mostrar mais cartões</button></div>
+        </section>
+        <section class="view" id="view-images" hidden aria-labelledby="images-title">
+          <div class="section-heading"><div><div class="eyebrow">CATÁLOGO EDITORIAL V198</div><h2 id="images-title">Atlas de imagens</h2></div><span class="muted" id="imagesCounter"></span></div>
+          <div class="panel filters">
+            <label for="imageQuery">Pesquisar imagem ou cartão vinculado</label>
+            <input id="imageQuery" type="search" placeholder="Título, IMG-..., CARD-...">
+            <label for="imageType">Classificação</label>
+            <select id="imageType">
+              <option value="all">Todas</option><option value="cartao">Imagem de cartão</option>
+              <option value="conteudo">Imagem de conteúdo</option>
+            </select>
+          </div>
+          <p class="helper">Associações documentais e didáticas são identificadas separadamente. As miniaturas privadas exigem autorização; o catálogo não comprova sua acessibilidade.</p>
+          <div id="imagesList" class="item-list"></div>
+          <div class="pagination"><button type="button" id="moreImages" hidden>Mostrar mais imagens</button></div>
+        </section>
+        <section class="view" id="view-pdfs" hidden aria-labelledby="pdfs-title">
+          <div class="section-heading"><div><div class="eyebrow">CATÁLOGO V149</div><h2 id="pdfs-title">Biblioteca PDF</h2></div><span id="pdfCounter" class="muted"></span></div>
+          <div class="panel filter-panel"><label for="pdfQuery">Pesquisar título ou tema</label><input id="pdfQuery" type="search" placeholder="Ex.: NBR, licenciamento, Ijuí"></div>
+          <p class="helper">Links apontam para os originais do Drive. Acesso depende das permissões da sua conta; grifos e marcadores continuam no leitor da V1.</p>
+          <div id="pdfsList" class="item-list"></div>
+        </section>
+        <section class="view" id="view-sync" hidden aria-labelledby="sync-title">
+          <div class="section-heading"><div><div class="eyebrow">RASTREABILIDADE</div><h2 id="sync-title">Sincronização e checkpoints</h2></div></div>
+          <div class="panel"><h3>Estado das integrações</h3><div id="syncStatus" class="checks"></div></div>
+          <div class="panel"><h3>Regras preservadas na V2</h3>
+            <p>Imagens novas e checkpoints mantêm os destinos canônicos por ID da metodologia V202. A consulta autenticada mostra arquivos localizados, mas não comprova que foram publicados no GitHub ou renderizados. Prévia e link do original são operações distintas.</p>
+            <p>Classificações Conteúdo/Cartão, IDs de mídia, relações N:N com cartões, histórico de versões e SRS não são migrados silenciosamente.</p>
+            <p>Para edição avançada de imagens, grifos, leitura anotada de PDFs e estudo com as 11 seções, use a <a href="../index.html">V1 preservada</a>. A consulta Drive da V2 é somente leitura.</p>
+          </div>
+        </section>
+      </main>
+      <footer>Prévia V2 isolada · dados estáticos públicos do GitHub · nenhuma gravação no Drive ou no SRS</footer>
+    </div>
+  </div>
+  <noscript>Esta prévia requer JavaScript para carregar os catálogos. <a href="../index.html">Abra a V1.</a></noscript>
+</body>
+</html>
