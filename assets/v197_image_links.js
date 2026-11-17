@@ -102,7 +102,7 @@ function decorateUI(card,id,source){
  save.addEventListener('click',()=>{
   try{
    const refs=parseRefs(ids.value);
-   if(kind.value==='pendente')throw Error('Escolha Conteúdo ou Cartão para salvar. O estado pendente pode permanecer sem gravação.');
+   if(kind.value==='pendente'){const next=Object.assign(Object.create(null),saved);delete next[id];if(persist(next)){say('Classificação particular de '+id+' retirada; classificação de origem preservada.');rerender();}return;}
    const entry={type:kind.value,subtype:kind.value==='cartao'?role.value:'',cardIds:refs,updatedAt:new Date().toISOString()};
    if(!validItem(id,entry))throw Error('Classificação não pôde ser validada.');
    const next=Object.assign(Object.create(null),saved,{[id]:entry});
@@ -199,5 +199,5 @@ function init(){
  document.head.append(css);
 }
 init();
-window.BM197MediaLinks=Object.freeze({matches,matchesDrive,decorate,decorateDrive,exportJson,get:(imageId)=>dataOf(imageId,typeof imgs!=='undefined'?imgs.find(x=>x.no===imageId):null)});
+window.BM197MediaLinks=Object.freeze({matches,matchesDrive,decorate,decorateDrive,exportJson,filterActive:()=>filter!=='todas',get:(imageId)=>dataOf(imageId,typeof imgs!=='undefined'?imgs.find(x=>x.no===imageId):null)});
 })();
