@@ -15,6 +15,11 @@ function queueReconcile(){
 function reconcile(){
  const rows=$('imageRows');
  if(!rows)return;
+ if(privateCards.length){
+  for(const node of [...rows.children]){
+   if(node.tagName==='P'&&/Nenhuma imagem corresponde aos filtros/i.test(node.textContent||''))node.remove();
+  }
+ }
  for(const card of privateCards){
   if(!card.isConnected||card.parentElement!==rows)rows.append(card);
  }
