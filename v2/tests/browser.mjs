@@ -104,12 +104,15 @@ try{
  await card.locator('.v2-evo-help').waitFor();
  assert.match(await card.locator('.v2-evo-help').textContent(),/reservado/);
  await page.locator('[data-view="images"]').click();
- assert.equal(await page.locator('#v2PrivateImages').count(),1);
- const extraBeforeCatalog=await page.evaluate(()=>{
-   const extras=document.querySelector('#v2PrivateImages'),catalog=document.querySelector('#imagesList');
-   return !!(extras.compareDocumentPosition(catalog)&Node.DOCUMENT_POSITION_FOLLOWING);
- });
- assert.equal(extraBeforeCatalog,true,'imagens adicionais devem aparecer antes do catálogo longo');
+ assert.equal(await page.locator('#v2PrivateImages').count(),0,
+   'uma única galeria: sem seção separada Atlas x Drive');
+ assert.equal(await page.locator('#imagesList .item').count(),40,
+   'primeiro lote das imagens editoriais aparece em um único visualizador');
+ assert.equal(await page.locator('#moreImages').isVisible(),true,
+   'Mostrar mais deve continuar funcionando sem OAuth');
+ await page.locator('#moreImages').click();
+ assert.equal(await page.locator('#imagesList .item').count(),80,
+   'Mostrar mais acrescenta imagens do mesmo catálogo');
  await page.locator('#imageType').selectOption('cartao');
  await page.locator('#imageQuery').fill('IMG-C12-025');
  await page.waitForFunction(()=>document.querySelectorAll('#imagesList .item').length===1);
