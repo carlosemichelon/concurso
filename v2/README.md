@@ -48,6 +48,8 @@ Da raiz do repositório, executar em Node 22:
     node v2/tests/drive.mjs
     node v2/tests/audit.mjs
     node v2/tests/deployment.mjs
+    node v2/tests/evolutive.mjs
+    node v2/tests/related-images.mjs
 
 Esses testes não comprovam a autenticação real no Drive nem o carregamento de imagem e PDF. Para homologar será necessário inspecionar a interface no navegador real e comparar os IDs e os arquivos acessíveis.
 
@@ -96,6 +98,35 @@ A V2 dispõe agora de duas verificações independentes.
 - CI Node 22: sintaxe, catálogos, OAuth/simulações, reconciliação e versões; **não** é teste de navegador com login real.
 
 O backup anterior à V2 continua no SHA \`975dd96135fa9c30c38176c5a3860472794731cb\`; a V1 permanece em \`gh-pages\`. Todas as alterações desta etapa ficam no PR rascunho **#29**.
+
+
+## Etapa 4 — leitor evolutivo e vínculos bidirecionais (implementada em código)
+
+### Evolutivos V194, com 11 módulos por cartão
+
+- Reutilizar o manifesto público existente: \`meta_public_v194.json\` → \`evolutive_public.layers_files\`, sete arquivos \`layers_public_v194_000.json\` a \`_006.json\`. **Não** criar versões novas de cartões ou substituir os textos originais.
+- \`assets/evolutive.js\` consulta somente o lote do cartão aberto. Usa leitura e cache por lote, validação de ID, 11 módulos obrigatórios, ordem canônica 01–11 e texto não vazio. Um erro de carregamento permite repetir consulta manualmente.
+- Conforme a metodologia do Banco Mestre, a **ordem visual priorizada** da V2 é **08 → 04 → 05 → 06 → 09 → 10 → 01 → 02 → 03 → 07 → 11**. Cada seção mostra número de apresentação 01–11 e sua origem canônica em marcador "Fonte NN". O JSON fonte permanece intocado.
+- A pergunta continua visível; o **verso original só aparece ao clicar Mostrar resposta**. Dentro da resposta, "Abrir aprofundamento técnico" também começa recolhido. Após abri-lo, **cada um dos 11 módulos continua recolhido**; é possível abrir individualmente ou navegar pelo seletor de módulos.
+- Quadro e distinções (origem 08) são apresentados primeiro. Textos são renderizados com parágrafos, cabeçalhos, negrito, listas e tabelas Markdown em elementos nativos, sem executar HTML do JSON.
+- Os 11 cartões listados como \`deferred_ids\` na base V194 permanecem reservados, sem fabricação de aprofundamentos. Registros inativos e sem 11 seções retornam explicação de indisponibilidade, sem apagar o verso histórico.
+- \`tests/evolutive.mjs\` verifica os sete lotes de produção, **1.490 registros evolutivos íntegros**, todos com 11 seções, ID único, ordem de origem, apresentação priorizada, imutabilidade, cache, recarga e os 11 cartões reservados.
+- Sem alteração de SRS, tentativas, IndexedDB, localStorage, notas, grifos ou resposta discursiva. O módulo usa somente o acervo público.
+
+### Cartão ↔ Atlas em duas direções
+
+- A aba Atlas já apresenta botão "Ver CARD-..." para vínculos navegáveis.
+- Agora, após abrir a resposta de um cartão, aparece um quadro recolhido **Imagens relacionadas ao cartão** para vínculos registrados no catálogo V198; cada item abre a imagem filtrada na mesma aba Atlas.
+- O rótulo distingue vínculo documental, questão conciliada e associação didática; não declara automaticamente que uma imagem didática já fazia parte do cartão original.
+- \`tests/related-images.mjs\` valida **101 relações sem duplicatas**, das quais **100 se referem a cartões navegáveis** e uma é referência histórica \`PETRO14-C017\`, que não ganha rota inventada. Ações não alteram origem, classificação nem SRS.
+
+### Estado de testes e limites
+
+Testes automatizados Node/Actions conferem integridade **dos dados e dos módulos**. Ainda é necessária a homologação em navegador real de desktop e celular, com verificação dos 11 painéis, navegação por teclado, tabelas largas, abertura de documentos/figuras e autenticação Google. A qualidade científica e a atualização normativa de cada texto **não são certificadas** pelo teste estrutural.
+
+### Próxima migração
+
+Depois da homologação de interface: leitor de PDF e grifos, com compatibilidade do armazenamento existente. Não migrar dados históricos privados sem inventário e backup específico.
 
 ## Rollback
 
