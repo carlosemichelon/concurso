@@ -160,6 +160,15 @@ try{
  await page.locator('#v2ReviewRecord').click();
  assert.equal(await page.locator('#v2ReviewHistory .v2-review-event').count(),1);
  assert.match(await page.locator('#v2ReviewCounts').textContent(),/1 evento/);
+ // O botão Sair deve avisar quando existe decisão ainda sem checkpoint.
+ page.once('dialog',dialog=>{
+   assert.match(dialog.message(),/decisões de vínculos sem checkpoint/);
+   return dialog.dismiss();
+ });
+ await page.locator('#v2DriveDisconnect').click();
+ assert.equal(await page.locator('#v2DriveState').textContent(),'Conectado · leitura',
+   'cancelar aviso protege decisões não exportadas');
+
  const [checkpointDownload]=await Promise.all([
    page.waitForEvent('download'),page.locator('#v2ReviewExport').click()
  ]);
