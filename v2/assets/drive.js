@@ -152,7 +152,9 @@ export class DriveReadonly {
   /** Chamar somente dentro do clique real; nunca de setInterval/effect. */
   connect(){
     if(!this.oauth)throw Error('Autenticação ainda não preparada');
-    this.oauth.requestAccessToken({prompt:this.connected?'':'consent'});
+    // Não exigir consentimento a cada visita: o Google só volta a pedi-lo quando necessário.
+    // A credencial continua somente em memória; isto NÃO habilita login persistente/offline.
+    this.oauth.requestAccessToken({prompt:''});
   }
   async authorized(url,{signal}={}){
     if(!driveApiFileUrl(url))throw Error('Acesso com token bloqueado fora da API oficial do Google Drive');
