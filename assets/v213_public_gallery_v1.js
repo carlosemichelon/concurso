@@ -172,6 +172,15 @@
     '. O acervo anterior da V1 permanece acessível.';
    return;
   }
+  // Preferir as cópias estáticas integrais das 93 imagens já catalogadas,
+  // sem editar a classificação, o conteúdo do Drive nem os IDs da V180.
+  if(Array.isArray(imgs)&&typeof origMap==='object'&&origMap){
+   for(const item of imgs){
+    const media=item.driveFileId&&byDrive.get(item.driveFileId);
+    if(media)origMap[item.no]={...(origMap[item.no]||{}),verified:true,
+     preview_url:media.path,source_url:media.path};
+   }
+  }
   await realImgRender(...args);
   await drawNew();
  };
