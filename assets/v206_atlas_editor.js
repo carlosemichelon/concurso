@@ -324,7 +324,7 @@
     const layout=document.createElement('div');layout.className='bm206-editor-layout';
     const visual=document.createElement('div');visual.className='bm206-editor-visual';
     const fields=document.createElement('div');fields.className='bm206-editor-fields';
-    window.BM197MediaLinks?.mountImagePreview?.(visual,c.c,x.no);
+    window.BM197MediaLinks?.mountImagePreview?.(visual,c.c,x.no,dialog);
     const tabs=document.createElement('div');tabs.className='bm203-modal-tabs';tabs.setAttribute('role','tablist');
     const tabData=document.createElement('button');tabData.type='button';tabData.textContent='Dados';tabData.setAttribute('role','tab');
     const tabLinks=document.createElement('button');tabLinks.type='button';tabLinks.textContent='Tipo e cartões';tabLinks.setAttribute('role','tab');
