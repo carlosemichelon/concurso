@@ -83,6 +83,7 @@ assert.equal(rows.children[0],sourceCard);
 assert.equal(rows.children[1],a);
 assert.equal(section.dataset.bm213Source,'catalog','antes do acesso Drive, manter catálogo salvo');
 window.BancoMestreDriveImagesV182={connected:true,lastSuccess:'2026-11-17T17:00:00Z',lastCount:237};
+driveGrid.append(a,b);
 for(const cb of events['bm209-drive-render']||[])cb({type:'bm209-drive-render'});
 assert.equal(section.dataset.bm213Source,'drive','após consulta autorizada, priorizar Drive');
 const toggle=registry.find(x=>x.id==='bm213SourceToggle');
