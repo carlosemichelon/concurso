@@ -59,6 +59,7 @@ assert.ok(api,'taxonomia inicializada');
  'v218_drive_gallery_feed.js','v222_images_live.js','v222_pdf_editor_route.js']){
   assert.ok(page.includes(x),'módulo necessário na V225: '+x);
  }
+ assert.ok(page.includes("tag('v225_footer_version.js?v=225')"),'versão V225 aparece no rodapé');
  assert.ok(previous.includes('trt01_c008_loader.js'),'V224 anterior preservada para rollback');
  assert.ok(!oauth.includes('localStorage.setItem'),'não armazenar token Google em localStorage');
  assert.ok(!oauth.includes('sessionStorage.setItem'),'não guardar credencial de acesso em sessão');
