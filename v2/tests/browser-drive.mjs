@@ -120,6 +120,29 @@ try{
  assert.equal((await page.locator('#overviewStats .stat').nth(1).locator('strong').textContent()).trim(),'179');
  // Este relatório é independente da varredura recursiva e só roda com clique.
  await page.locator('[data-view="sync"]').click();
+ // Auditoria cruzada: o catálogo V198 não se confunde com o arquivo Drive
+ // encontrado, e a referência histórica PETRO14-C017 não vira CARD inventado.
+ assert.equal(await page.locator('#v2ImageAssociationAudit').count(),1);
+ await page.locator('#v2ImageAuditStart').click();
+ await page.waitForFunction(()=>document.querySelector('#v2ImageAuditStatus')?.textContent.includes('Auditoria concluída'),
+   null,{timeout:30000});
+ const counters=await page.locator('#v2ImageAuditStats').textContent();
+ assert.match(counters,/100/,'100 referências a cartões reais no banco público');
+ assert.match(counters,/1/,'uma referência histórica fora do banco público');
+ await page.locator('#v2ImageAuditFilter').selectOption('documental');
+ assert.equal(await page.locator('#v2ImageAuditRows .image-audit-record').count(),9,
+   'nove registros com evidência documental');
+ await page.locator('#v2ImageAuditQuery').fill('IMG-C14-013');
+ assert.equal(await page.locator('#v2ImageAuditRows .image-audit-record').count(),1);
+ assert.match(await page.locator('#v2ImageAuditRows').textContent(),/PETRO14-C017/);
+ assert.match(await page.locator('#v2ImageAuditRows').textContent(),/não criar novo CARD/);
+ assert.equal(await page.locator('#v2ImageAuditSummary').isEnabled(),true);
+ assert.equal(await page.locator('#v2ImageAuditDetails').isEnabled(),true);
+ await page.locator('#v2ImageAuditQuery').fill('');
+ await page.locator('#v2ImageAuditFilter').selectOption('drive_pendente');
+ assert.equal(await page.locator('#v2ImageAuditRows .image-audit-record').count(),1,
+   'uma imagem Drive ainda provisória, sem associação aprovada');
+
  assert.equal(await page.locator('#v2PdfIdProbeStart').isEnabled(),true);
  await page.locator('#v2PdfIdProbeStart').click();
  await page.waitForFunction(()=>document.querySelector('#v2PdfIdProbeStatus')?.textContent.includes('Conferência por IDs concluída'),
@@ -162,6 +185,9 @@ try{
  await page.waitForFunction(()=>!document.querySelector('#v2PdfDialog')?.open,
   null,{timeout:10000});
  assert.equal(await page.locator('#v2PdfIdProbeExport').isDisabled(),true);
+ assert.equal(await page.locator('#v2ImageAuditSummary').isDisabled(),true);
+ assert.equal(await page.locator('#v2ImageAuditDetails').isDisabled(),true);
+ assert.match(await page.locator('#v2ImageAuditStatus').textContent(),/descartado/);
  assert.equal(await page.locator('#v2OAuthTestPdf').isDisabled(),true);
  assert.match(await page.locator('#v2OAuthSampleResult').textContent(),/ainda não testado/);
  // Rejeição de pop-up da conta: explicar e não reter credenciais.
