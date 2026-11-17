@@ -16,7 +16,7 @@ export class DriveOnlyError extends Error {
 export class DriveOnlyClient {
   constructor({fetcher=globalThis.fetch,base='/api/banco-mestre'}={}) {
     if(typeof fetcher!=='function') throw new TypeError('Fetch autenticado necessário');
-    if(!new RegExp('^/[A-Za-z0-9/_-]+throw new TypeError('API somente no mesmo domínio');
+    if(!new RegExp('^/[A-Za-z0-9/_-]+$').test(base)||base.includes('//'))throw new TypeError('API somente no mesmo domínio');
     this.fetcher=fetcher;
     this.base=base;
   }
