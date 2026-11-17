@@ -1,0 +1,68 @@
+name: Validar V1 Drive direto V213
+on:
+  push:
+    branches:
+      - gh-pages
+      - feature/v1-drive-first-v213-2026-11-17
+    paths:
+      - "assets/v213_*.js"
+      - "tests/v213_*.cjs"
+      - "v213.html"
+      - ".github/workflows/validar-v1-drive-v213.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar sintaxe e testes da galeria
+        run: |
+          node --check assets/v213_drive_gallery_feed.js
+          node --check assets/v213_single_image_viewer.js
+          node --check assets/v213_library_counter.js
+          node tests/v213_single_image_viewer.cjs
+          node tests/v213_library_counter.cjs
+      - name: Validar o loader, a fonte Drive e a integridade da V1
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re
+          html=Path('v213.html').read_text()
+          modules=[
+            'v213_drive_gallery_feed.js?v=213',
+            'v209_image_single_library.js?v=209',
+            'v209_image_links_single.js?v=209',
+            'v213_library_counter.js?v=213',
+            'v213_single_image_viewer.js?v=213',
+            'v210_compact_sections.js?v=210',
+            'v211_trt01_card.js?v=211',
+            'v212_trt01_c002.js?v=212'
+          ]
+          for name in modules:
+              assert html.count(name)==1,name
+          assert html.index(modules[0])<html.index(modules[1])<html.index(modules[3])<html.index(modules[4])<html.index(modules[5])
+          js=re.search(r'<script>\s*(.*?)</script>',html,re.S)
+          assert js
+          Path('/tmp/v213_bootstrap.js').write_text(js.group(1))
+          src=Path('assets/v213_drive_gallery_feed.js').read_text()
+          assert "requestAccessToken({prompt:''})" in src
+          assert "const allFiles=[...unique.values()]" in src
+          assert "const publicIds=await publicDriveIds()" in src
+          assert "get atlasMode(){return 'drive_authorized_primary_catalog_fallback'}" in src
+          assert 'assets/v202_storage_contract.json' in src
+          assert "URL.revokeObjectURL" in src
+          assert 'const MAX_BYTES=15000000' in src
+          assert "https://www.googleapis.com/auth/drive.readonly" in src
+          assert 'URL.createObjectURL' in src
+          viewer=Path('assets/v213_single_image_viewer.js').read_text()
+          assert "BM213_IMAGE_SOURCE_V1" in viewer
+          assert "data-bm213-source" in viewer
+          assert "document.dispatchEvent(new Event('bm213-source-change'))" in viewer
+          contract=json.loads(Path('assets/v202_storage_contract.json').read_text())
+          assert len(contract['runtime_scan_roots']['images'])==2
+          assert Path('assets/v209_single_image_viewer.js').exists(),'V1 histórica preservada'
+          assert Path('v212.html').exists(),'Versão precedente preservada'
+          PY
+          node --check /tmp/v213_bootstrap.js

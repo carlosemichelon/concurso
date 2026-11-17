@@ -1,3 +1,15 @@
+# Banco Mestre V213 — Google Drive como fonte principal das imagens na V1 (17/11/2026)
+
+- **Portal V1 preservado:** `v213.html` herda o layout da V212 e o leitor PDF, os cartões, grifos, SRS, bases e abas existentes. **V2 pausada** no PR #29.
+- **Biblioteca de imagens:** após uma consulta OAuth válida, exibe diretamente os originais de duas raízes canônicas do Drive, inclusive os 93 arquivos que já tinham referências editoriais públicas; a deduplicação é por `fileId`, sem copiar imagens ao GitHub.
+- **Alternativa:** botão `Ver catálogo salvo` permite consultar as 179 imagens públicas V198 se o Drive não estiver autorizado ou por escolha do usuário; o modo preferido é salvo somente como `drive`/`catalog` no navegador.
+- **Acesso:** solicitação GIS `prompt:''` ao clicar em Conectar, evitando forçar consentimento repetido; o Google ainda pode pedir login/permissão. Tokens ficam somente em memória e não oferecem login persistente entre visitas. Para isso é necessário servidor seguro.
+- **Atualização automática enquanto aberto:** varredura a cada 120 segundos na sessão válida, com reaproveitamento dos `Blob URLs` para arquivos não alterados. Não trabalha quando o site está fechado.
+- **Testes:** sintaxe JS e bootstrap, alternância do visualizador, contagem sem soma duplicada e preservação dos IDs/cartões antigos; testes V213 aprovados em GitHub Actions. Login OAuth real, privacidade entre contas e abertura com arquivos privados no navegador do proprietário ainda precisam de homologação.
+- [Relatório técnico V213](docs/V213_DRIVE_FONTE_PRINCIPAL.md). Backup do código: `backup/v212-before-v213-drive-primary-publish-2026-11-17`.
+
+---
+
 # Banco Mestre V212 — TRT Parte 01, eficácia contida com três imagens (17/11/2026)
 
 - **Nova página:** `v212.html`; a V211 permanece intacta em `v211.html`, assim como a V210 em `v210.html`.
