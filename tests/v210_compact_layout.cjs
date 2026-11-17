@@ -7,6 +7,7 @@ const docListeners={};
 class El {
  constructor(tag,id){
   this.tagName=tag.toUpperCase();this.id=id||'';this.parentNode=null;this.children=[];
+  Object.defineProperty(this,'parentElement',{get:()=>this.parentNode});
   this.textContent='';this.title='';this.value='all';this.handlers={};this._class=new Set();
   this.classList={add:(...values)=>values.forEach(v=>this._class.add(v)),
    contains:v=>this._class.has(v)};
