@@ -1,3 +1,15 @@
+# Banco Mestre V201 — caminhos e sincronização Drive ↔ site (17/11/2026)
+
+- **Escopo confirmado diretamente:** 93/93 imagens recuperadas P11–P14 localizadas por ID, nome, MIME e pasta; **78/78 PDFs** do catálogo V149 existentes e com `application/pdf`; 7 PDFs de NRs/licenciamento já incluídos entre os 78.
+- **Cartões:** cópia pública V194 de 1.518 cartões (1.501 ativos e 17 inativos) cotejada com arquivo privado V045 de 12/11/2026. IDs e 11 campos agregados coincidem; 1.518 registros SRS privados não são publicados. **Não há carregamento automático do XLSX/feed privado na página V201**: a fonte de cartões operacionais no site é o JSON GitHub V194, e novas alterações precisam de publicação auditada.
+- **Imagens do Drive:** o módulo V201 consulta, sob OAuth somente leitura, a pasta do Atlas **e** a pasta de originais recuperados P11–P14, recursivamente, durante a sessão. Imagens SVG não entram automaticamente no editor: sua quantidade é informada. O painel foi tornado visível contra a regra CSS antiga `section{display:none}`. As 179 imagens catalogadas publicamente continuam estáticas, com URLs de arquivos do Drive; a consulta privada não publica novos originais no GitHub.
+- **PDFs do Drive:** quatro raízes, incluindo DataBase_Concurso, Concursos–Engenharia Civil, NRs e Licenciamento; atualização por leitura autenticada na sessão, sem escrever catálogo público nem grifos. Mensagem de êxito não deve sugerir publicação.
+- **Manifesto corrigido:** `sync` deixa de reivindicar atualizações automáticas de cartões por XLSX e registra o módulo legado separadamente; `pdf_sync` e `image_sync` refletem os caminhos efetivamente percorridos.
+- **Limites:** sem verificação de OAuth e renderização em navegador real nem comprovação de deploy live; permissões do Drive, dados e originais intactos. A V200 está preservada para retorno.
+- [Auditoria detalhada V201](docs/V201_AUDITORIA_DRIVE_GITHUB_SITE.md).
+
+---
+
 # Banco Mestre V200 — correção dos números de versão (17/11/2026)
 
 - Portal atual **V200** (`v200.html`, `gh-pages`), anterior **V199**. Atualização restrita a metadados e camada de apresentação/diagnóstico: cartões, originais, PDF, imagem, SRS e grifos intactos.
