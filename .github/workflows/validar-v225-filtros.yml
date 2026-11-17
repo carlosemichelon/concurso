@@ -1,0 +1,36 @@
+name: Banco Mestre V225 - pesquisa TRT legislacao Drive
+on:
+  push:
+    branches:
+      - staging/v225-search-legislation-trt-auth-2026-11-17
+      - gh-pages
+    paths:
+      - v225.html
+      - index.html
+      - assets/version.json
+      - assets/v225_legal_taxonomy.js
+      - assets/v225_flash_filters.js
+      - assets/v225_trt_cards_grid.js
+      - assets/v225_drive_reconnect.js
+      - tests/v225_legal_search_oauth.cjs
+      - .github/workflows/validar-v225-filtros.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  legality-and-layout:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Conferir sintaxe
+        run: |
+          node --check assets/v225_legal_taxonomy.js
+          node --check assets/v225_flash_filters.js
+          node --check assets/v225_trt_cards_grid.js
+          node --check assets/v225_drive_reconnect.js
+          node --check tests/v225_legal_search_oauth.cjs
+      - name: Conferir os oito TRT, assuntos e renovação OAuth
+        run: node tests/v225_legal_search_oauth.cjs
