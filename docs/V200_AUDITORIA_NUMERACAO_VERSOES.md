@@ -38,6 +38,9 @@ Antes da V200, foram localizadas **179 páginas HTML versionadas**, de `v018.htm
 - Todas as **86 referências a scripts e 73 folhas de estilo** foram cotejadas com o diretório de assets e existem. Sem duplicação de carregamentos por nome.
 - Scripts de diagnóstico V193, estatísticas de cartões V194, cabeçalho V199 e discursivas V195 **não são carregados pela V200**; são substituídos pelos equivalentes V200, com preservação das versões anteriores como arquivos separados.
 - JavaScript parseado em validação estática. Nenhum OAuth, SRS ou dado pessoal alterado.
+- Conferidos os **7 arquivos de cartões públicos V194**: 1.518 IDs distintos, 1.501 ativos, 17 inativos; e a cópia operacional Ijuí V027: 22 IDs próprios, total de 1.540 registros de consulta.
+- Conferidos os **179 registros do catálogo editorial V198** (85 cartão / 94 conteúdo) e os **78 documentos do catálogo PDF V149**.
+- Após a criação de V200, recontado o diretório da branch: **180 páginas versionadas** entre V018 e V200, sem HTML V039, V181 e V182. Não foi presumida exclusão indevida dessas lacunas.
 - **Limitação:** a renderização real e o deploy concluído no GitHub Pages não foram medidos com navegador acessível; confirmação do repositório não equivale a teste de interface do usuário.
 
 ## Guia de leitura dos números no portal
