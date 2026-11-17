@@ -3,6 +3,7 @@
  */
 import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
+import {createHash} from 'node:crypto';
 import {readFile,stat} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -18,6 +19,27 @@ const mime={
  '.png':'image/png',
  '.jpg':'image/jpeg'
 };
+function examplePdf(){
+ const content='BT /F1 16 Tf 72 720 Td (Banco Mestre V2 - PDF de teste) Tj ET';
+ const objects=[
+  '<< /Type /Catalog /Pages 2 0 R >>',
+  '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+  '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>',
+  '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+  '<< /Length '+Buffer.byteLength(content)+' >>\nstream\n'+content+'\nendstream'
+ ];
+ let result='%PDF-1.4\n';const offsets=[0];
+ for(let i=0;i<objects.length;i++){
+  offsets.push(Buffer.byteLength(result,'utf8'));
+  result+=(i+1)+' 0 obj\n'+objects[i]+'\nendobj\n';
+ }
+ const startxref=Buffer.byteLength(result,'utf8');
+ result+='xref\n0 '+(objects.length+1)+'\n0000000000 65535 f \n';
+ for(const offset of offsets.slice(1))result+=String(offset).padStart(10,'0')+' 00000 n \n';
+ result+='trailer\n<< /Size '+(objects.length+1)+' /Root 1 0 R >>\nstartxref\n'+startxref+'\n%%EOF\n';
+ return Buffer.from(result,'utf8');
+}
+
 const server=createServer(async (request,response)=>{
   try{
     const pathname=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
@@ -87,6 +109,43 @@ try{
  await page.locator('.v2-related-images > summary').click();
  await page.locator('.v2-related-item button').first().click();
  await page.waitForFunction(()=>document.querySelector('#imageQuery')?.value.startsWith('IMG-'));
+ // A V2 lê um PDF local em memória, reconhece hash/chave V122 e não regrava grifos.
+ await page.locator('[data-view="pdfs"]').click();
+ await page.locator('#pdfQuery').fill('IJUI-PDF-05');
+ await page.waitForFunction(()=>document.querySelectorAll('#pdfsList .item').length===1);
+ await page.locator('#pdfsList .item').first().getByRole('button',{name:'Ler PDF na V2'}).click();
+ assert.equal(await page.locator('#v2PdfDialog').evaluate(x=>x.open),true);
+ assert.equal(await page.locator('#v2PdfExportHighlights').isDisabled(),true);
+ const pdfBytes=examplePdf();
+ const pdfHash=createHash('sha256').update(pdfBytes).digest('hex').slice(0,24);
+ await page.locator('#v2PdfInput').setInputFiles({name:'teste-v2.pdf',mimeType:'application/pdf',buffer:pdfBytes});
+ await page.waitForFunction(()=>document.querySelector('#v2PdfReaderIdentity')?.textContent.includes('SHA-256'));
+ assert.ok((await page.locator('#v2PdfReaderIdentity').textContent()).includes(pdfHash));
+ assert.ok((await page.locator('#v2PdfReaderFrame').getAttribute('src')).startsWith('blob:'));
+ const storageKey='BM030_STROKES_PDF:IJUI-PDF-05:'+pdfHash+':P1';
+ const otherKey='BM030_STROKES_PDF:IJUI-PDF-05:aaaaaaaaaaaaaaaaaaaaaaaa:P2';
+ const seed=[
+  {id:'mark_test_123',type:'text_highlight',text:'Trecho de prova'},
+  {id:'mark_test_234',type:'text_highlight',text:'Marca removida'}
+ ];
+ await page.evaluate(({storageKey,otherKey,seed})=>{
+   localStorage.setItem(storageKey,JSON.stringify(seed));
+   localStorage.setItem(otherKey,'[{"id":"legacy_diff","type":"text_highlight"}]');
+   localStorage.setItem('BM122_DELETED_HIGHLIGHT_IDS',
+     JSON.stringify({[storageKey]:{'id:mark_test_234':'2026-11-17T12:00:00Z'}}));
+ },{storageKey,otherKey,seed});
+ const storageBefore=await page.evaluate(key=>localStorage.getItem(key),storageKey);
+ await page.locator('#v2PdfInspect').click();
+ await page.waitForFunction(()=>document.querySelector('#v2PdfReaderMarks')?.textContent.includes('Grifos nesta revisão'));
+ assert.match(await page.locator('#v2PdfReaderMarks').textContent(),/Grifos nesta revisão \(estimativa\): 1/);
+ assert.match(await page.locator('#v2PdfReaderMarks').textContent(),/outra\(s\) versão/);
+ assert.equal(await page.locator('#v2PdfExportHighlights').isEnabled(),true);
+ assert.equal(await page.evaluate(key=>localStorage.getItem(key),storageKey),storageBefore,
+   'leitor não pode alterar dados históricos da V1');
+ await page.locator('.v2-pdf-close').click();
+ assert.equal(await page.locator('#v2PdfDialog').evaluate(x=>x.open),false);
+ assert.equal(await page.locator('#v2PdfReaderFrame').getAttribute('src'),null);
+
  await page.locator('[data-view="sync"]').click();
  await page.locator('#v2AuditPanel').waitFor();
  assert.equal(await page.locator('#v2AuditPanel .audit-export button:disabled').count(),2,
@@ -97,7 +156,7 @@ try{
  console.log('V2 browser smoke OK:',{
    cards:'verso oculto e módulos on-demand',
    modules:11,priority:'08→04→05→06→09→10→01→02→03→07→11',
-   atlas:'bidirecional',drive:'sem exportação privada anônima',mobileWidth:390
+   atlas:'bidirecional',pdf:'abertura local e hash V1 sem escrita',drive:'sem exportação privada anônima',mobileWidth:390
  });
 }finally{
  await page?.close();
