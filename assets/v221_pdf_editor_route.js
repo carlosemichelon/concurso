@@ -1,11 +1,11 @@
-/* V221 — abrir PDFs diretamente no editor da V1, sem passagem obrigatória
+/* V221 — clique da biblioteca abre PDFs diretamente no editor, sem passagem obrigatória
  * pelo iframe Google Drive; atualizar a lista após reconectar/voltar à aba. */
 (function(){
 'use strict';
 if(window.BM221PdfEditorRoute)return;
 const $=id=>document.getElementById(id);
 const ID=/^[A-Za-z0-9_-]{15,}$/;
-const original=typeof pdfOpen==='function'?pdfOpen:null;
+// Não sobrescrever pdfOpen: o próprio renderizador PDF usa esta função internamente.
 let refreshAt=0;
 function source(doc){
  if(!doc||typeof doc!=='object')return null;
@@ -20,10 +20,7 @@ function reader(){return window.BancoMestreDriveV042||window.BancoMestreDriveV03
 function open(doc){
  const managed=source(doc);
  const connect=reader();
- if(!managed||!connect?.openAndEdit){
-  if(original)return original(doc);
-  return false;
- }
+ if(!managed||!connect?.openAndEdit)return false;
  // Se o PDF já está aberto com anotações, não perder os grifos ao pressionar novamente.
  if(window.BancoMestrePDFV042?.editing&&
     window.BancoMestrePDFV042?.currentDoc?.id===managed.id)return true;
@@ -51,7 +48,19 @@ function update(force=false){
  return true;
 }
 function init(){
- if(typeof pdfOpen==='function')pdfOpen=open;
+ const list=$('pdfRows');
+ // Captura apenas o gesto "Ler / editar PDF" na biblioteca.
+ // Deixa pdfOpen intocado para o próprio PDF.js inicializar a tela sem recursão.
+ list?.addEventListener('click',event=>{
+  const button=event.target.closest?.('button');
+  if(!button||!/^Ler\s*\/\s*editar\s+PDF$/i.test(button.textContent?.trim()||''))return;
+  const article=button.closest('article.card'),id=article?.querySelector(':scope > .tag')?.textContent?.trim();
+  if(!id||typeof docs==='undefined'||!Array.isArray(docs))return;
+  const record=docs.find(x=>x.id===id);
+  if(!source(record)||!reader()?.openAndEdit)return;
+  event.preventDefault();event.stopImmediatePropagation();
+  void open(record);
+ },true);
  document.addEventListener('bm-media-drive-authorized',()=>{
   // O módulo de PDF já programou a varredura inicial após a autorização.
   const status=$('bm-pdf-sync-status');
@@ -66,5 +75,5 @@ function init(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
 else init();
-window.BM221PdfEditorRoute=Object.freeze({open,source,update,get installed(){return typeof pdfOpen==='function'&&pdfOpen===open}});
+window.BM221PdfEditorRoute=Object.freeze({open,source,update,get installed(){return Boolean($('pdfRows'))}});
 })();
