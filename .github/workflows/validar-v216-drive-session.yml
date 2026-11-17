@@ -1,0 +1,32 @@
+name: Banco Mestre V216 - autorizacao unica Drive
+on:
+  push:
+    branches:
+      - staging/v216-one-drive-connection-2026-11-17
+      - gh-pages
+    paths:
+      - v216.html
+      - assets/v215_drive_direct.js
+      - assets/v215_drive_pdf_sync.js
+      - assets/v215_drive_gallery_feed.js
+      - tests/v216_single_drive_auth.cjs
+      - .github/workflows/validar-v216-drive-session.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  drive-shared-session:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Checar sintaxe dos módulos
+        run: |
+          node --check assets/v215_drive_direct.js
+          node --check assets/v215_drive_pdf_sync.js
+          node --check assets/v215_drive_gallery_feed.js
+          node --check tests/v216_single_drive_auth.cjs
+      - name: Preservar layout V1 e compartilhar OAuth
+        run: node tests/v216_single_drive_auth.cjs
