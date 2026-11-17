@@ -92,7 +92,8 @@ export function reconcile(snapshot,{images=null,pdfs=null,previewedIds=[]}={}){
     interpretation:[
       'Referenciado significa ID no catálogo estático, NÃO hospedagem dos bytes no GitHub.',
       'Não observado na varredura NÃO significa removido, corrompido ou inexistente no Drive.',
-      'Novos arquivos listados exigem classificação, aprovação e publicação separada.',
+      'Arquivos fora do catálogo podem ser antigos; a classificação não comprova data de upload.',
+      'Arquivos fora do catálogo exigem classificação, aprovação e publicação separada.',
       'Metadados, permissões, alterações de conteúdo e hashes NÃO foram auditados por esta comparação.'
     ]
   });
