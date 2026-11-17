@@ -65,4 +65,6 @@ jobs:
           npm install --no-save playwright@1.56.1 pdfjs-dist@3.11.174
           npx playwright install --with-deps chromium
       - name: Testar a V2 no Chromium sem login privado
-        run: node v2/tests/browser.mjs
+        run: |
+          node v2/tests/browser.mjs
+          node v2/tests/browser-drive.mjs
