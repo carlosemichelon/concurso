@@ -1,0 +1,39 @@
+name: Validar migração Drive-only (prévia não publicada)
+on:
+  push:
+    branches:
+      - feature/v1-drive-only-secure-auth-2026-11-17
+    paths:
+      - "prototype/drive-only/**"
+      - "docs/DRIVE_ONLY_MIGRACAO_V1_2026-11-17.md"
+      - ".github/workflows/validar-drive-only-staging.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  drive-only:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testes de cliente autenticado, sem fallback GitHub
+        run: |
+          node --check prototype/drive-only/client.mjs
+          node prototype/drive-only/tests/client.test.mjs
+      - name: Verificar que o protótipo não contém snapshots nem tokens
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          base=Path('prototype/drive-only')
+          texts=[p.read_text(encoding='utf-8') for p in base.rglob('*') if p.is_file() and p.suffix in {'.mjs','.js','.json'}]
+          assert texts
+          assert not any('apps.googleusercontent.com' in t or 'Bearer ' in t for t in texts)
+          assert not any('assets/meta_public' in t or 'assets/pdf_catalog' in t for t in texts)
+          assert not any('localStorage.setItem' in t or 'refresh_token=' in t for t in texts)
+          assert not list(base.rglob('*.xlsx'))
+          assert not list(base.rglob('*.pdf'))
+          assert not list(base.rglob('*.png'))
+          print('Protótipo contém apenas código de integração, sem base ou credenciais.')
+          PY
