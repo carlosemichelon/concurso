@@ -4,7 +4,7 @@ import {attachPdfReaderAction} from './pdf-reader.js';
 
 const $ = id => document.getElementById(id);
 const state = {snapshot:null,cards:null,cardLoading:null,view:'overview',
-  cardsLimit:40,imagesLimit:40,errors:[]};
+  cardsLimit:40,imagesLimit:40,errors:[],driveImages:null};
 const sections = Object.freeze({
   overview:'Visão geral',cards:'Cartões',images:'Atlas de imagens',
   pdfs:'Biblioteca PDF',sync:'Sincronização'
@@ -51,7 +51,9 @@ function renderOverview() {
   const s=state.snapshot;if(!s)return;
   const entries=[
     [s.cardCount,'Cartões públicos V194','1.501 ativos · 17 históricos inativos'],
-    [s.imageCount,'Imagens editoriais V198','85 de cartão · 94 de conteúdo'],
+    [s.imageCount,'Imagens editoriais V198',state.driveImages?
+  '85 de cartão · 94 de conteúdo · +'+fmt(state.driveImages.newFiles)+' arquivo(s) Drive fora do catálogo, ainda privados':
+  '85 de cartão · 94 de conteúdo'],
     [s.pdfCount,'Documentos PDF V149','Referências por ID aos originais do Drive']
   ];
   const target=$('overviewStats');target.replaceChildren();
@@ -243,6 +245,10 @@ function showSync() {
   );
 }
 function bindControls() {
+  document.addEventListener('v2-drive-images-updated',event=>{
+    state.driveImages=event.detail||null;
+    if(state.snapshot)renderOverview();
+  });
   document.querySelectorAll('.nav-button').forEach(button=>button.addEventListener('click',()=>setView(button.dataset.view)));
   $('cardQuery').addEventListener('input',()=>{state.cardsLimit=40;renderCards()});
   $('showInactive').addEventListener('change',()=>{state.cardsLimit=40;renderCards()});
