@@ -1,0 +1,36 @@
+name: Banco Mestre V222 - biblioteca de imagens PDF e cartões TRT
+on:
+  push:
+    branches:
+      - staging/v222-fix-images-trt-pdf-v1-2026-11-17
+      - gh-pages
+    paths:
+      - v222.html
+      - index.html
+      - assets/version.json
+      - assets/v222_trt_cards_grid.js
+      - assets/v222_images_live.js
+      - assets/v222_pdf_editor_route.js
+      - assets/v222_footer_version.js
+      - tests/v222_v1_regressions.cjs
+      - .github/workflows/validar-v222-ui.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar sintaxe
+        run: |
+          node --check assets/v222_trt_cards_grid.js
+          node --check assets/v222_images_live.js
+          node --check assets/v222_pdf_editor_route.js
+          node --check assets/v222_footer_version.js
+          node --check tests/v222_v1_regressions.cjs
+      - name: Testar grade TRT e mídia
+        run: node tests/v222_v1_regressions.cjs
