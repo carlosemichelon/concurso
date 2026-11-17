@@ -1,0 +1,23 @@
+/* Banco Mestre V205 — novas imagens Drive como um grupo do próprio Atlas (OAuth). */
+#imagens #bm084-sync.bm205DriveGroup{
+ display:block;margin:10px 0 15px!important;
+ border:1px solid #b8d3cb;border-radius:9px;background:#f7fbf9;
+ overflow:hidden
+}
+#imagens #bm084-sync>summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;min-height:42px;background:#f0f7f4}
+#imagens #bm084-sync>summary strong{font-size:13px;color:#215b57}
+#imagens #bm084-sync #bm205-drive-count{font-size:11px;color:#4c7770}
+#imagens #bm084-sync[open]>summary{border-bottom:1px solid #d1e5dc}
+#imagens #bm084-sync .bm205DriveBody{display:block;padding:11px;background:#fff}
+#imagens #bm084-sync #bm084-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:10px}
+#imagens #bm084-sync #bm084-grid>article{min-width:0;max-width:100%;box-sizing:border-box}
+#imagens #bm084-sync #bm084-grid img{width:100%;object-fit:contain;max-width:100%}
+#imagens #bm084-sync button{min-height:36px}
+#imagens #bm084-sync input{min-height:36px}
+#imagens #bm084-sync #bm084-status{font-size:11px;line-height:1.45}
+#imagens #bm084-sync [hidden]{display:none!important}
+@media(max-width:600px){
+ #imagens #bm084-sync #bm084-grid{grid-template-columns:1fr}
+ #imagens #bm084-sync>summary{padding:10px;gap:4px}
+ #imagens #bm084-sync .bm205DriveBody{padding:9px}
+}
