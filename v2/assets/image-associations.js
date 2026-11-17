@@ -6,7 +6,7 @@
 import {buildAtlasInventory} from './image-inventory.js';
 
 const CARD=/^CARD-\d{4,}$/;
-const FILE_CARD=/\bCARD[-_ ]?(\d{4,})\b/gi;
+const FILE_CARD=/(?:^|[^A-Z0-9])CARD[-_ ]?(\d{4,})(?!\d)/gi;
 const DOCUMENTAL=new Set(['associacao_documental_existente',
   'questao_documentada_conciliada_com_cartao']);
 const DIDATIC='correspondencia_didatica_especifica';
