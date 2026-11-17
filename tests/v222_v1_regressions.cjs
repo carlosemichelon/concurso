@@ -19,6 +19,7 @@ for(const id of ['TRT01-C001','TRT01-C002','TRT01-C003','TRT01-C004','TRT01-C005
  assert.ok(cards.includes(id),'cartão TRT incluído: '+id);
 assert.ok(cards.includes("wrap.className='card bm221-trt-card'"),'TRT entra como artigo card da grade');
 assert.ok(cards.includes('rows.append(wrap)'),'TRT na grade');
+assert.ok(cards.includes("document.addEventListener('bm-media-drive-authorized'"),'TRT aberto consulta imagem após autenticar');
 assert.ok(cards.includes("d.id='bm221CardInformation'"),'quadro de fonte informado no fim');
 assert.ok(cards.includes("panel.append(d)"),'quadro de fonte no final');
 assert.ok(cards.includes("const info=document.createElement('details')"),'informações TRT recolhidas em details');
@@ -54,4 +55,10 @@ assert.equal(openCount,1,'lei abre no editor');
 assert.equal(originalCalls,0,'não abrir somente preview');
 assert.equal(prevented,1);assert.equal(stopped,1);assert.equal(authorizedCount,0,'sessão Drive reaproveitada');
 assert.equal(context.window.BM221PdfEditorRoute.source({id:'X',url:'https://drive.google.com/file/d/1234567890abcDEF/view'}).file_id,'1234567890abcDEF');
+const manifest=JSON.parse(read('assets/version.json'));
+assert.equal(manifest.version,'V222');
+assert.equal(manifest.home,'v222.html');
+assert.equal(manifest.previous_version,'V221');
+assert.ok(read('index.html').includes("var fallback='V222'"));
+assert.ok(read('index.html').includes('TRT01-C00[123456]'));
 console.log('V222: TRT C001-C006 na grade; imagens visíveis sem recarga; leis direto no editor; versão V221 preservada.');
