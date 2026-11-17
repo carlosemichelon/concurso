@@ -113,12 +113,36 @@ export function legacySnapshot(storage,documentId,hash){
   }
   const deletions=parseDeletionMap(storage),picked={};
   for(const key of Object.keys(records))if(Object.hasOwn(deletions,key))picked[key]=deletions[key];
+  // V1 V122 mantém notas/favoritos em uma chave global. Copiar apenas os
+  // registros pertencentes a este documento e hash, nunca o objeto inteiro.
+  const rawMeta=storage.getItem(LEGACY_META_KEY);
+  const metadata={};
+  if(rawMeta){
+    if(rawMeta.length>12000000)throw Error('Metadados de grifos acima de 12 MB');
+    const all=JSON.parse(rawMeta);
+    if(!all||typeof all!=='object'||Array.isArray(all))
+      throw Error('Metadados de grifos incompatíveis');
+    const textPrefix='TXT:'+documentId+':'+hash+':';
+    const legacyPrefix='LEGACY:'+LEGACY_STROKES_PREFIX+documentId+':'+hash+':P';
+    for(const [key,value] of Object.entries(all)){
+      if(key.startsWith(textPrefix)||key.startsWith(legacyPrefix))metadata[key]=value;
+    }
+  }
+  const joinsKey='BM102_PDF_HIGHLIGHT_JOINS:'+encodeURIComponent(documentId)+':'+hash;
+  const rawJoins=storage.getItem(joinsKey);
+  let highlightJoins=null;
+  if(rawJoins!==null){
+    if(rawJoins.length>12000000)throw Error('Uniões de grifos acima de 12 MB');
+    const joins=JSON.parse(rawJoins);
+    if(!Array.isArray(joins))throw Error('Uniões de grifos incompatíveis');
+    highlightJoins={key:joinsKey,records:joins};
+  }
   return {
     schema:'BancoMestreV2LegacyGrifosBackupV1',
     exportedAt:new Date().toISOString(),
     documentId,sourceHash:hash,
     scope:'backup_read_only_current_source_hash_no_restore',
-    records,deletedHighlights:picked,
+    records,deletedHighlights:picked,metadata,highlightJoins,
     includesPdfBytes:false,includesSrs:false,restored:false
   };
 }
