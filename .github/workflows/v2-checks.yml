@@ -29,7 +29,10 @@ jobs:
           node --check v2/assets/app.js
           node --check v2/assets/drive.js
           node --check v2/assets/drive-ui.js
+          node --check v2/assets/audit.js
+          node --check v2/assets/audit-ui.js
       - name: Conferir integridade da base pública e contrato
         run: |
           node v2/tests/smoke.mjs
           node v2/tests/drive.mjs
+          node v2/tests/audit.mjs
