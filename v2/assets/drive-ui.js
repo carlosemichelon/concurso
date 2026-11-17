@@ -104,7 +104,7 @@ async function scanBoth(manual=false){
       if(!service.connected)break;
       try{
         const result=await service.scan(kind);
-        if(kind==='image')renderImages();else renderPdfs();
+        if(kind==='pdf')renderPdfs();
         message((kind==='image'?'Atlas':'PDFs')+': '+format(result.found)+' arquivos localizados em '+
           format(result.folderCount)+' pastas. Verificando '+(kind==='image'?'PDFs...':'conclusão...'));
       }catch(e){errors.push((kind==='image'?'Atlas':'PDFs')+': '+e.message);}
