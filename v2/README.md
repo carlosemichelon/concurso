@@ -50,6 +50,7 @@ Da raiz do repositório, executar em Node 22:
     node v2/tests/deployment.mjs
     node v2/tests/evolutive.mjs
     node v2/tests/related-images.mjs
+    node v2/tests/pdf-compat.mjs
 
 Esses testes não comprovam a autenticação real no Drive nem o carregamento de imagem e PDF. Para homologar será necessário inspecionar a interface no navegador real e comparar os IDs e os arquivos acessíveis.
 
@@ -145,6 +146,24 @@ A instalação dos navegadores de teste está isolada no job \`browser-smoke\` d
 Com Playwright instalado no computador local, o comando é:
 
     node v2/tests/browser.mjs
+
+
+## Etapa 5 — PDFs na V2 e proteção dos grifos legados
+
+O novo leitor da V2 implementa somente a visualização, não a edição das marcas. Ele NÃO importa, converte, substitui nem sincroniza grifos, e não cria PDF anotado. O editor completo permanece na V1 até auditoria de migração própria.
+
+- **Abertura pública e privada:** documentos do catálogo PDF V149 e PDFs adicionais descobertos na sessão OAuth oferecem botão \`Ler PDF na V2\`. O leitor aceita cópia local selecionada manualmente (sem armazenamento permanente) ou busca bytes pela Drive API usando a autorização read-only existente na barra. Não usa cookies do iframe Google Drive como prova de acesso.
+- **Exibição:** PDF original em \`iframe\` de URL Blob gerada no navegador; limita a 120 MB, exige assinatura de arquivo \`%PDF-\` e calcula hash SHA-256. A URL temporária é revogada ao fechar; nenhum PDF é enviado ao GitHub nem incluído nos metadados públicos.
+- **Identidade compatível com V1:** o editor legado usa \`BM030_STROKES_PDF:<documentId>:<hash>:P<page>\`, em que \`hash\` são os primeiros 12 bytes (24 dígitos hexadecimais) de SHA-256 do PDF. O V2 computa exatamente o mesmo identificador antes de consultar marcas.
+- **Consulta sob clique:** \`Conferir grifos desta versão\` acessa somente as chaves do mesmo **documentId e hash** no \`localStorage\` da mesma origem web e do mesmo perfil do navegador. Não chama rotinas legadas de migração, mesclagem nem persistência. Mostra totais por página, estimativas de cores/textos e alerta quando há hashes diferentes do mesmo ID.
+- **Exclusões:** a auditoria considera a chave \`BM122_DELETED_HIGHLIGHT_IDS\` e \`bm108_deleted_at\`; preserva os registros mínimos de exclusão, sem ressuscitar textos apagados. Para identidades legadas sem ID estável, declara possível ambiguidade ao invés de afirmar cobertura perfeita.
+- **Backup local de uma versão:** botão explícito com confirmação cria JSON de leitura do documento/hash com traços originais, marcadores mínimos de exclusão e notas/unificações filtradas do mesmo arquivo. Não copia dados de outros PDFs nem o objeto global inteiro de metadados. **Não é restaurador nem checkpoint completo**; não contém bytes do PDF, dados SRS ou todos os grifos da V1.
+- **Limitações importantes:** grifos ainda não são sobrepostos na visualização da V2; a versão histórica original permanece legível e editável apenas na V1. O scanner da V2 não busca automaticamente o mestre privado de grifos no Drive. Sem o mesmo navegador ou backup histórico importado explicitamente, a V2 não pode exibir as marcas de outros dispositivos.
+- **Segurança:** tokens OAuth apenas em memória; nenhum \`localStorage.setItem\`/\`removeItem\` e nenhuma escrita IndexedDB/Drive/GitHub. A sessão Drive expirada encerra o PDF remoto da V2.
+- **Testes:** \`tests/pdf-compat.mjs\` valida hash V1, chaves por página, versões distintas, tombstones, notas/uniões filtradas, exportação sem dados alheios e ausência de gravação. O \`browser.mjs\` abre um PDF válido de teste em Chromium, compara hash, mostra os registros de teste locais, verifica exclusões e confirma que não altera as chaves previamente existentes. O teste no Chromium comprova UI e URL Blob, mas não garante que todos os PDFs privados reais renderizem corretamente.
+
+A V1 e os grifos armazenados permanecem intocados. Este módulo é uma etapa de compatibilidade, não uma autorização para alterar os históricos.
+
 
 ## Rollback
 
