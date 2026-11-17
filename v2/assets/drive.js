@@ -152,6 +152,35 @@ export class DriveReadonly {
     if(!response.ok)throw Error('Consulta Google Drive: HTTP '+response.status);
     return response;
   }
+  /** Consulta só de metadados dos PDFs editoriais, por ID exato conhecido.
+   *  Um 403/404 significa não confirmado para esta conta, não arquivo excluído.
+   *  Cancela consulta no logout, expiração ou troca de token.
+   */
+  async probePdfFileMetadata(fileId,{signal}={}){
+    if(!isDriveId(fileId)||!this.knownPdfs.has(fileId))
+      throw Error('ID de PDF fora do catálogo público V149');
+    if(!this.connected)throw Error('Conecte o Drive para consulta de metadados');
+    const epoch=this.sessionEpoch;
+    const controller=new AbortController();
+    const cancel=()=>controller.abort();
+    if(signal?.aborted)controller.abort();
+    else signal?.addEventListener('abort',cancel,{once:true});
+    this.activeMedia.add(controller);
+    try{
+      const fields='id,name,mimeType,size,parents,trashed,modifiedTime';
+      const url=DRIVE_API+'/'+encodeURIComponent(fileId)+'?'+
+        new URLSearchParams({fields,supportsAllDrives:'true'});
+      const response=await this.authorized(url,{signal:controller.signal});
+      const json=await response.json();
+      if(controller.signal.aborted||this.sessionEpoch!==epoch||!this.connected)
+        throw Error('Consulta de metadados descartada: sessão encerrada');
+      if(!json||json.id!==fileId)throw Error('Drive respondeu metadados com ID divergente');
+      return json;
+    }finally{
+      this.activeMedia.delete(controller);
+      signal?.removeEventListener('abort',cancel);
+    }
+  }
   async listFolder(parentId,signal){
     if(!isDriveId(parentId))throw Error('ID de pasta inválido');
     let pageToken='',pages=0;
