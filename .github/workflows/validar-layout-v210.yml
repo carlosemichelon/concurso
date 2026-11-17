@@ -1,0 +1,41 @@
+name: Validar barras compactas V210
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - "v210.html"
+      - "assets/v210_compact_sections.js"
+      - "assets/v210_compact_sections.css"
+      - "tests/v210_compact_layout.cjs"
+      - ".github/workflows/validar-layout-v210.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  layout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sintaxe JS e realocacao segura dos elementos
+        run: |
+          node --check assets/v210_compact_sections.js
+          node tests/v210_compact_layout.cjs
+      - name: Validar HTML dinamico e CSS
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          html=Path("v210.html").read_text()
+          assert html.count("v210_compact_sections.js?v=210")==1
+          assert html.count("v210_compact_sections.css?v=210")==1
+          assert html.index("v209_single_image_viewer.js?v=209")<html.index("v210_compact_sections.js?v=210")
+          m=re.search(r"<script>\s*(.*?)</script>",html,re.S)
+          assert m,"Bootstrap V210 nao encontrado"
+          Path("/tmp/v210_boot.js").write_text(m.group(1))
+          css=Path("assets/v210_compact_sections.css").read_text()
+          for id in ["bm210PdfToolbar","bm210ImageToolbar","bm210CardToolbar","bm186CheckpointPanel","pdfSearch","cardSearch","imageSearch"]:
+              assert id in css,id
+          for path in ["assets/v209_drive_gallery_feed.js","assets/v209_single_image_viewer.js","assets/v209_image_links_single.js"]:
+              assert Path(path).exists(),path
+          PY
+          node --check /tmp/v210_boot.js
