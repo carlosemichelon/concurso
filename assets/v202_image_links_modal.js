@@ -154,13 +154,13 @@ function decorateUI(card,id,source){
  const editable=make('button','Editar imagem','bm202-edit-image');editable.type='button';
  editable.title='Abrir janela para editar tipo de imagem e cartões vinculados';
  editable.setAttribute('aria-label','Editar tipo e vínculos da imagem '+id);
- editable.addEventListener('click',()=>openEditorDialog(id,source,editable));
+ editable.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openEditorDialog(id,source,editable);});
  const usable=d.cardIds.filter(x=>VALID_CARD.test(x));
  for(const cardId of usable){
   const button=make('button',usable.length===1?'Mostrar cartão':'Mostrar '+cardId,'bm197-open-card');button.type='button';
   button.title='Abrir '+cardId+' no leitor';
   button.setAttribute('aria-label','Mostrar cartão '+cardId+' relacionado à imagem '+id);
-  button.addEventListener('click',()=>{void openCard(cardId,feedback)});
+  button.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();void openCard(cardId,feedback);});
   wrap.append(button);
  }
  wrap.append(editable,feedback);card.append(wrap);
