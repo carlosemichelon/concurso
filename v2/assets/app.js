@@ -194,8 +194,8 @@ function showSync() {
   }
   target.append(
     check('Catálogos públicos lidos','Cartões V194, imagens V198, PDFs V149 e pastas V202 passaram pelas verificações estruturais.'),
-    check('Drive → sessão privada','Não implementado nesta prévia: requer OAuth legítimo e leitura autenticada.','pending'),
-    check('Drive → GitHub Pages','Não há publicação automática de novos cartões, imagens ou PDFs. Exige revisão, geração de catálogo e deploy.','pending'),
+    check('Drive → sessão privada','Módulo de leitura OAuth/GIS implementado para imagens e PDFs, com atualização em sessão autorizada. Login real ainda requer teste com a conta do titular.','pending'),
+    check('Drive → GitHub Pages','O scanner consulta arquivos adicionais, mas não altera o catálogo público. Publicação exige auditoria e atualização explícita no repositório.','pending'),
     check('Checkpoint ZIP + manifesto no Drive','Não criado pela V2. A pasta de destino está apenas identificada e seu ID foi validado no contrato.','pending'),
     check('Renderização e abertura dos originais','Não verificadas no navegador do titular: requer testes funcionais com arquivos reais.','pending')
   );
