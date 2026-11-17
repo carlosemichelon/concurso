@@ -73,7 +73,12 @@ for(const id of ['cardHidden','cardReviewedOnly','cardRecoveredOnly'])labeled(ca
 cardControls.append(make('span','cardCount'),make('span','bm191CardCount'),make('label','bm119InactiveLabel'));
 const doc={readyState:'complete',
  querySelector:s=>s==='#pdfs .panel'?pdfpanel:s==='#imagens .panel'?imgpanel:s==='#cartoes .panel'?cardpanel:null,
- getElementById:id=>named.get(id)||null,
+ getElementById:id=>{
+  if(named.has(id))return named.get(id);
+  const queue=[pdf,img,cards];
+  while(queue.length){const x=queue.shift();if(x.id===id)return x;queue.push(...x.children);}
+  return null;
+ },
  createElement:tag=>make(tag),
  addEventListener:(event,cb)=>{(docListeners[event]??=[]).push(cb)}
 };
