@@ -5,7 +5,7 @@
 **Produção preservada:** gh-pages (V205 no instante do backup; V206 ao concluir esta etapa; link operacional sempre via index.html)
 **Backup verificado:** backup/site-v1-before-v2-2026-11-17, commit 975dd96135fa9c30c38176c5a3860472794731cb
 
-## Etapa 1 — implementada
+## Etapas 1 e 2 — módulos implementados na branch de desenvolvimento
 
 O novo portal fica em v2/, com arquitetura modular, navegação por teclado, layout responsivo, buscas e catálogos em modo somente leitura. Não altera entrada da produção, index.html, assets/version.json ou a V1.
 
@@ -25,12 +25,12 @@ O novo portal fica em v2/, com arquitetura modular, navegação por teclado, lay
 | PDFs | assets/pdf_catalog_v149.json | 78 referências por ID; originais no Drive |
 | Destinos canônicos | assets/v202_storage_contract.json | IDs de pastas; contrato, não prova de upload |
 
-A V2 ainda não lê nem escreve dados privados: SRS, grifos, notas, IndexedDB, localStorage, planilhas privadas, backups pessoais ou permissões. O leitor com 11 seções evolutivas permanece no portal operacional V205. V205 identifica a versão histórica do portal antigo, não a numeração conceitual do novo Site V2.
+A etapa 2 consulta metadados e prévias de mídias privadas SOMENTE após OAuth de leitura, sem salvar tokens e sem publicá-las no GitHub. SRS, grifos, notas, IndexedDB, localStorage, planilhas de cartões privadas, checkpoints pessoais e permissões não são lidos nem alterados. O leitor com 11 seções evolutivas permanece na V1 publicada, acessível via ../index.html. A V1 estava em V206 na conferência desta etapa; sua numeração evolui independentemente da V2.
 
 ## Roadmap aprovado como sequência técnica
 
 1. Base responsiva e leitura segura dos catálogos, incluindo diagnóstico de versão (esta entrega).
-2. Drive OAuth autorizado; leitura de imagens, PDFs e pastas canônicas; deduplicação e estado por item (listado / acessível / renderizado / publicado). Nunca publicar credenciais ou tokens.
+2. **Módulo programado:** Drive OAuth (GIS) com escopo drive.readonly, token apenas em memória, busca recursiva de imagens (duas raízes canônicas V202) e PDFs (quatro raízes da V201), deduplicação por fileId e consulta a cada 120 s enquanto página visível e sessão válida. O estado registrado distingue arquivo listado do catálogo GitHub; a prévia exige clique. OAuth real ainda precisa ser homologado pelo titular.
 3. Auditoria de sincronização Drive ↔ GitHub ↔ exibição no navegador. Publicação automática NÃO existe nesta etapa; nenhuma mudança de visibilidade privada sem autorização.
 4. Atlas V2: tipos Conteúdo e Cartão, subtipos enunciado/figura/explicação, vínculos N:N, distinção entre documento de origem e associação didática, editor e checkpoint rastreável.
 5. Leitor e editor de PDF: migração apenas após testes reais, preservando chaves e históricos locais e todos os 11 módulos dos cartões.
@@ -42,10 +42,25 @@ Da raiz do repositório, executar em Node 22:
 
     node --check v2/assets/data.js
     node --check v2/assets/app.js
+    node --check v2/assets/drive.js
+    node --check v2/assets/drive-ui.js
     node v2/tests/smoke.mjs
+    node v2/tests/drive.mjs
 
 Esses testes não comprovam a autenticação real no Drive nem o carregamento de imagem e PDF. Para homologar será necessário inspecionar a interface no navegador real e comparar os IDs e os arquivos acessíveis.
 
+
+## Etapa 2 — integração de sessão Google Drive (implementada em código)
+
+- **Acesso:** o botão Conectar só fica disponível após carregamento da configuração OAuth pública e do Google Identity Services. A autorização depende de clique explícito; o token OAuth não é enviado ao GitHub, ao checkpoint ou ao armazenamento local.
+- **Atlas:** novas imagens JPEG, PNG, WebP, GIF e SVG da pasta canônica e da árvore histórica são listadas na MESMA aba Atlas, em um grupo complementar. Os 93 originais já presentes no catálogo V198 são descontados por fileId. O catálogo público de 179 imagens não é modificado.
+- **PDFs:** lista adicional de PDFs do Drive, com remoção dos IDs conhecidos pelo catálogo V149. O leitor avançado com grifos continua na V1, sem forçar nova identidade ou migração.
+- **Consulta periódica:** a cada 120 segundos enquanto a aba está visível, conectada e não existe outra varredura em curso. A página não consegue atualizar quando está fechada, offline ou sem token.
+- **Prévia:** imagem privada só é baixada em memória após o comando Ver prévia (limite 15 MB). Um arquivo localizado por metadados não é declarado visualizado até a prévia ser carregada; a URL do original abre com as permissões da conta.
+- **Logout/expiração:** descarta listas privadas em memória e revoga object URLs das prévias. Não cria flashcards, classificações editoriais presumidas ou relações por simples coincidência.
+- **Limites:** não há sincronização pública Drive → GitHub, agendamento de servidor, acesso offline a privados, autenticação verificada em navegador titular nem homologação visual. A configuração OAuth existente indica que origem autorizada e consentimento precisam ser testados com a conta real.
+- **Validações:** Github Actions executa testes Node de contrato V202, URLs seguras, SVG, deduplicação, travessia recursiva e ausência de persistência de token; não equivalem a teste real do Google Drive.
+
 ## Rollback
 
-A produção continua na V205 sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
+A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
