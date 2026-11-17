@@ -1,0 +1,105 @@
+/* Banco Mestre V203 — somente controles de navegação visíveis no cartão de imagem.
+   Toda edição de metadados abre janela modal (não substitui editor de imagem/grifos). */
+#imagens .bm202-image-actions,
+#bm084-grid .bm202-image-actions{
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:9px;
+}
+#imagens .bm202-image-actions button,
+#bm084-grid .bm202-image-actions button{
+  padding:8px 12px;min-height:36px;font-size:12px;line-height:1.4;
+  border-radius:8px;white-space:normal;
+}
+#imagens .bm202-image-actions .bm197-open-card,
+#bm084-grid .bm202-image-actions .bm197-open-card{
+  border-color:#72a8a0;background:#eaf6f3;color:#125c56;font-weight:650;
+}
+#imagens .bm202-image-actions .bm202-edit-image,
+#bm084-grid .bm202-image-actions .bm202-edit-image{
+  color:#375963;background:#fff;border-color:#c4d7d4;
+}
+#imagens .bm202-card-status,#bm084-grid .bm202-card-status{
+  font-size:11px;color:#825b24;line-height:1.45;
+}
+dialog.bm202-image-dialog,dialog.bm202-atlas-dialog{
+  position:fixed;inset:0;
+  box-sizing:border-box;width:min(91vw,450px);max-width:450px;
+  max-height:min(74vh,690px);margin:auto;
+  padding:14px 16px;border:1px solid #c3d5d2;border-radius:14px;
+  box-shadow:0 16px 54px rgba(15,43,46,.25);
+  overflow-y:auto;background:#fff;color:#183438;
+  font:13px/1.45 system-ui,Arial,sans-serif;z-index:99999;
+}
+dialog.bm202-image-dialog::backdrop,dialog.bm202-atlas-dialog::backdrop{
+  background:rgba(18,35,38,.68);
+}
+.bm202-dialog-heading{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.bm202-dialog-heading h2{font-size:15px;line-height:1.3;margin:0 0 7px;overflow-wrap:anywhere}
+.bm202-modal-close{min-width:42px;flex-shrink:0;min-height:38px;font-size:12px;border-radius:8px;padding:6px 9px}
+.bm202-dialog-note{font-size:12.5px;color:#526a70;margin:6px 0 12px;overflow-wrap:anywhere}
+dialog.bm202-image-dialog .bm197-origin{display:block;font-size:12px;color:#576b70}
+dialog.bm202-image-dialog .bm197-fields{display:grid;gap:12px;margin:16px 0}
+dialog.bm202-image-dialog label,dialog.bm202-atlas-dialog .bm-v060-field,
+dialog.bm202-image-dialog .bm202-import{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:650}
+dialog.bm202-image-dialog input,dialog.bm202-image-dialog select,
+dialog.bm202-atlas-dialog input,dialog.bm202-atlas-dialog textarea{
+ box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:36px;
+ border:1px solid #b5cfcb;border-radius:8px;padding:7px 9px;
+ background:#fff;color:#183438;font:13px/1.4 system-ui,Arial,sans-serif;
+}
+dialog.bm202-atlas-dialog textarea{min-height:66px;resize:vertical}
+dialog.bm202-atlas-dialog form.bm-v060-card-form{
+ display:grid;gap:8px;margin:0;max-width:100%;
+}
+dialog.bm202-atlas-dialog .bm-v060-form-actions,
+dialog.bm202-image-dialog .bm202-modal-actions{
+ display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:9px
+}
+dialog.bm202-image-dialog button,dialog.bm202-atlas-dialog button{
+ min-height:36px;padding:7px 10px;border-radius:8px;white-space:normal
+}
+dialog.bm202-image-dialog .bm202-import{margin:15px 0 8px}
+dialog.bm202-image-dialog .bm197-feedback{min-height:1.35em;font-size:12px;color:#a34029}
+dialog.bm202-atlas-dialog .bm-v055-favorite{margin:0}
+@media(max-width:480px){
+ dialog.bm202-image-dialog,dialog.bm202-atlas-dialog{
+  width:calc(100vw - 18px);max-height:82vh;padding:12px 11px;border-radius:10px
+ }
+ .bm202-dialog-heading h2{font-size:16px}
+ #imagens .bm202-image-actions button,#bm084-grid .bm202-image-actions button{min-height:40px}
+}
+
+/* V203: janela única com abas; nunca exibir o painel inativo. */
+dialog.bm203-atlas-dialog [hidden],
+dialog.bm202-image-dialog [hidden]{display:none!important}
+dialog.bm203-atlas-dialog .bm203-modal-tabs{
+ display:grid;grid-template-columns:1fr 1fr;gap:5px;
+ margin:3px 0 12px;padding:3px;background:#eef4f3;border-radius:9px
+}
+dialog.bm203-atlas-dialog .bm203-modal-tabs button{
+ min-height:34px;padding:6px 7px;border:1px solid transparent;
+ border-radius:7px;background:transparent;font-size:12px;font-weight:600;color:#49676a
+}
+dialog.bm203-atlas-dialog .bm203-modal-tabs button[aria-selected="true"]{
+ border-color:#bbd5ce;background:#fff;color:#184e52;
+ box-shadow:0 1px 4px rgba(20,60,57,.09)
+}
+dialog.bm203-atlas-dialog .bm203-links-panel .bm197-fields{
+ display:grid;gap:9px;margin:8px 0
+}
+dialog.bm203-atlas-dialog .bm203-links-panel label{
+ display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:650
+}
+dialog.bm203-atlas-dialog .bm203-links-panel input,
+dialog.bm203-atlas-dialog .bm203-links-panel select{
+ box-sizing:border-box;width:100%;max-width:100%;
+ padding:7px 9px;min-height:36px;border:1px solid #b5cfcb;
+ border-radius:7px;font:13px/1.4 system-ui,Arial,sans-serif
+}
+dialog.bm203-atlas-dialog .bm203-links-panel .bm197-origin,
+dialog.bm203-atlas-dialog .bm203-links-panel .bm203-editor-evidence{
+ font-size:11px;color:#526a70;display:block;margin:0 0 6px
+}
+dialog.bm203-atlas-dialog .bm203-links-panel .bm197-feedback{
+ font-size:12px;color:#9d372b
+}
+dialog.bm203-atlas-dialog .bm-v060-field textarea{min-height:60px}
