@@ -88,3 +88,26 @@ footer{margin-top:auto;padding:18px 4vw;border-top:1px solid #e1e7e8;color:#6b7e
 .drive-more{display:block;margin:20px auto;border:0;background:#144b55;color:#fff;border-radius:8px;padding:10px 16px;font-size:.84rem;font-weight:650;cursor:pointer}
 .drive-more:hover{background:#0d333a}
 @media(max-width:700px){.drive-toolbar{gap:8px;padding:10px 12px}.drive-toolbar strong{width:100%}.drive-toolbar button{flex:1}.drive-state{margin-left:auto}}
+
+/* V2 auditoria Drive × catálogos: filtros densos, sem representar faltas como exclusão. */
+.reconciliation-panel{margin-top:20px}
+.audit-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:18px 0}
+.audit-stat{display:grid;gap:4px;padding:13px;border:1px solid #dce5e6;border-radius:10px;background:#f7faf9}
+.audit-stat strong{font-size:1.6rem;letter-spacing:-.045em;color:#203e45;line-height:1.1}
+.audit-stat span{font-size:.79rem;font-weight:700;color:#2b545b}
+.audit-stat small{font-size:.72rem;color:#687b80;line-height:1.35}
+.audit-filters{display:grid;grid-template-columns:minmax(180px,1fr) minmax(200px,1fr);column-gap:13px;row-gap:8px;margin:18px 0}
+.audit-filters select,.audit-filters input{width:100%;padding:10px 12px}
+.audit-filters label{grid-row:1}
+.audit-filters #v2AuditSearch{grid-column:2;grid-row:2}
+.audit-filters #v2AuditFilter{grid-column:1;grid-row:2}
+.audit-results>.muted{display:block;margin-bottom:12px}
+.audit-record{padding:15px 17px}
+.audit-record .tag{max-width:100%;white-space:normal}
+.audit-record .meta{overflow-wrap:anywhere}
+.audit-export{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
+.audit-export button{border:1px solid #91b5b6;background:#f8fbfb;color:#164c55;font-weight:700;font-size:.82rem;padding:10px 14px;border-radius:9px}
+.audit-export button:hover:not(:disabled){background:#e6f3f2}
+.audit-export button:disabled{opacity:.5;cursor:not-allowed}
+.audit-footnote{font-size:.8rem;color:#6a7779;border-top:1px solid #e3e8e9;padding-top:14px;line-height:1.6;margin-top:12px}
+@media(max-width:700px){.audit-filters{grid-template-columns:1fr}.audit-filters label,.audit-filters #v2AuditSearch,.audit-filters #v2AuditFilter{grid-column:1;grid-row:auto}.audit-export button{width:100%}.audit-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
