@@ -1,3 +1,16 @@
+# Banco Mestre V202 — janelas de edição e pastas fixas (17/11/2026)
+
+- A seção extensa **Tipo de imagem e cartões vinculados** saiu da face visível de cada imagem. Os botões **Mostrar cartão** e **Editar imagem** continuam disponíveis. O tipo Conteúdo/Cartão, função, IDs e evidência são editados somente em diálogo, sem reescrever a classificação V198.
+- Título, área, assunto, descrição, observações, favoritos e ocultação/restauração também foram movidos para janela de edição. Edição de grifos/desenhos mantém o editor próprio.
+- Contrato único de caminhos: `assets/v202_storage_contract.json`. **Novas imagens originais:** Drive `07 – Atlas de Imagens (sincronização)`, ID `1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6`; **novos ZIPs/manifestos de checkpoint:** Drive `Checkpoints Banco Mestre`, ID `1348cILBcxFG9p2cfPJ3WubmHswPRbD24`.
+- Pastas históricas de imagens recuperadas e checkpoints permanecem disponíveis para consulta, mas **não** são destinos de novas gravações.
+- Registro de checkpoint pelo site é limitado a **manifesto JSON**, verifica contrato/pasta/parents e relê o conteúdo. Envio do ZIP continua sendo etapa externa do ChatGPT/Drive e exige conferência do folder_id após upload. Nenhuma publicação GitHub implícita.
+- A V202 utiliza `v202.html`, mantém V201 intacta para rollback, 1.518 cartões V194, 179 imagens editoriais V198, 78 PDFs V149 e SRS privado inalterado.
+- Montagem estática: **86 scripts + 74 estilos**, sem faltantes ou duplicados. Teste visual do navegador e gravação real no Drive **pendentes**.
+- [Relatório e metodologia V202](docs/V202_METODOLOGIA_IMAGENS_CHECKPOINTS_PASTAS_FIXAS.md).
+
+---
+
 # Banco Mestre V201 — caminhos e sincronização Drive ↔ site (17/11/2026)
 
 - **Escopo confirmado diretamente:** 93/93 imagens recuperadas P11–P14 localizadas por ID, nome, MIME e pasta; **78/78 PDFs** do catálogo V149 existentes e com `application/pdf`; 7 PDFs de NRs/licenciamento já incluídos entre os 78.
