@@ -30,8 +30,13 @@ export function resetPdfOverlay(){
  if(view){view.hidden=true;view.setAttribute('aria-hidden','true')}
  const frame=$('v2PdfReaderFrame');if(frame)frame.hidden=false;
  const nav=$('v2PdfOverlayNav');if(nav)nav.replaceChildren();
+ // Preservar os dois canvases estáveis do modal; apagar somente seus pixels.
+ for(const id of ['v2PdfOverlayBase','v2PdfOverlayInk']){
+  const canvas=$(id);
+  if(canvas){canvas.width=1;canvas.height=1;canvas.style.width='1px';canvas.style.height='1px'}
+ }
  const stage=$('v2PdfOverlayStage');
- if(stage)stage.replaceChildren();
+ if(stage){stage.style.width='1px';stage.style.height='1px'}
 }
 export function preparePdfOverlay(buffer,documentId,hash){
  resetPdfOverlay();
