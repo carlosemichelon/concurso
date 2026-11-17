@@ -229,6 +229,34 @@ Resultado: **78/78 encontrados com o ID esperado e MIME `application/pdf`**, zer
 A consulta do Drive por este conector é **independente do OAuth do navegador do site**: esse resultado não prova que a V2 terá autorização para os mesmos arquivos na conta/login que o titular selecionar. Também não confirma hashes, integridade visual, edição de grifos ou permissões de publicação. Esses pontos ficam pendentes de homologação real pelo titular.
 
 
+## Etapa 9 — preparo verificável do OAuth no navegador (17/11/2026)
+
+O arquivo público \`assets/drive_auth_v038.json\` informa um Client ID de aplicativo Web, escopo \`drive.readonly\`, origem declarada \`https://carlosemichelon.github.io\` e status histórico de autorização **a confirmar**. A existência desse arquivo não prova configuração válida no console do Google.
+
+### Diagnóstico do próprio navegador
+
+- \`v2/assets/oauth-readiness.js\` distingue condições verificáveis localmente: formato do Client ID, escopo estrito de leitura, contexto seguro, API GIS carregada, origem atual e origem nominal no código. A saída registra explicitamente \`googleCloudOriginVerified:false\` até teste real.
+- \`v2/assets/oauth-readiness-ui.js\` acrescenta o painel **Homologação Google — origem e permissões** à aba Sincronização. O usuário pode copiar o roteiro de homologação ou clicar em **Testar acesso a 1 PDF** depois do login real. Este botão solicita apenas os metadados do primeiro ID do catálogo V149, já conhecido pela aplicação, e confirma ID/MIME (não faz download do PDF).
+- Sem clique do titular, **não** é efetuada uma requisição privada extra de teste. As 78 requisições de \`Conferir 78 IDs no Drive\` continuam em botão separado, opcional.
+- No logout, na troca/expiração de sessão ou em uma autorização recusada, o painel limpa o resultado e informa a causa conhecida com mensagem amigável. Pop-up bloqueado, janela fechada, \`access_denied\`, \`origin_mismatch\` e \`invalid_client\` são reconhecidos quando o Google fornece esses códigos. Nenhum token, nome de conta ou conteúdo privado é mostrado.
+- A aplicação valida o escopo publicado antes de criar o cliente OAuth. A configuração pública de origem é **diagnóstico**, não substitui o cadastro real em Google Cloud.
+
+### Passos para homologar com a conta real
+
+1. Usar a origem efetiva da página no navegador (por exemplo, a origem nominal hospedada do projeto). A página isolada atualmente existe só na branch do PR: ainda não há URL pública da V2. **Não compartilhar nem trocar a produção V1 para fazer o teste sem autorização expressa.**
+2. No **Google Cloud Console → APIs e serviços → Credenciais**, verificar se o Client ID Web da V2 admite a origem exata observada no painel. A configuração JavaScript exige apenas o domínio/origem, sem caminho \`/concurso/\`.
+3. Se o consentimento OAuth estiver em modo teste, confirmar se o usuário do Google que fará login está autorizado como usuário de teste.
+4. Após o acesso real, clicar em **Testar acesso a 1 PDF**; somente a resposta compatível de \`files.get\` comprova acesso real daquele login a esse PDF.
+5. Usar, se necessário, **Conferir 78 IDs no Drive** para o restante da biblioteca; não confundir 403/404 com exclusão de arquivo. Conferir também visualmente uma imagem e um PDF, grifos e rotação.
+6. Clicar em **Sair** e verificar que metadados privados, resultados e URLs temporárias desapareceram.
+
+### Testes sem conta real
+
+- \`v2/tests/oauth-readiness.mjs\` cobre config pública V038, origem nominal, origem \`localhost\` divergente, contexto inseguro, escopo inválido, erros OAuth e checklist que não inclui tokens.
+- \`v2/tests/browser-drive.mjs\` cobre no Chromium a advertência de origem local, login fictício, confirmação do primeiro PDF, auditoria dos 78 IDs, logout e erro simulado de janela de autenticação bloqueada.
+- Nenhum desses testes prova a aprovação do Google Cloud para a origem de produção; a autenticação real permanece pendente.
+
+
 ## Rollback
 
 A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
