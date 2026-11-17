@@ -1,5 +1,6 @@
 import {loadSnapshot,loadPublicCards,approvedDocumentUrl} from './data.js';
 import {attachEvolutive} from './evolutive-ui.js';
+import {attachPdfReaderAction} from './pdf-reader.js';
 
 const $ = id => document.getElementById(id);
 const state = {snapshot:null,cards:null,cardLoading:null,view:'overview',
@@ -224,6 +225,7 @@ function showPdfs() {
     const safeUrl=approvedDocumentUrl(doc.url);
     if(safeUrl){const link=node('a','','Abrir original no Drive');link.href=safeUrl;link.target='_blank';link.rel='noopener noreferrer';actions.append(link)}
     else actions.append(node('span','meta','Endereço do original não validado'));
+    attachPdfReaderAction(actions,doc);
     append(item,actions);list.append(item);
   }
 }
