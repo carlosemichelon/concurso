@@ -1,5 +1,6 @@
 /* Banco Mestre V2: consulta privada em sessão autenticada, sem publicação no GitHub.
    OAuth token exclusivo em memória. Não registra chaves no localStorage nem envia telemetria. */
+import {driveApiFileUrl,boundedMediaBytes,boundedPdfBytes,MAX_DRIVE_IMAGE_BYTES} from './drive-media.js';
 export const DRIVE_SCOPE='https://www.googleapis.com/auth/drive.readonly';
 export const DRIVE_API='https://www.googleapis.com/drive/v3/files';
 export const GIS_SCRIPT='https://accounts.google.com/gsi/client';
@@ -73,6 +74,8 @@ export class DriveReadonly {
     this.lastImages=null;
     this.lastPdfs=null;
     this.listeners=new Set();
+    this.sessionEpoch=0;
+    this.activeMedia=new Set();
   }
   onChange(listener){this.listeners.add(listener);return()=>this.listeners.delete(listener)}
   emit(type,details={}){for(const callback of this.listeners)callback({type,...details})}
@@ -81,7 +84,10 @@ export class DriveReadonly {
     return Boolean(this.accessToken);
   }
   clear(reason='disconnected'){
+    this.sessionEpoch++;
     this.abort?.abort();
+    for(const pending of this.activeMedia)pending.abort();
+    this.activeMedia.clear();
     this.accessToken='';this.expiresAt=0;
     this.lastImages=null;this.lastPdfs=null;
     this.emit(reason);
@@ -119,6 +125,11 @@ export class DriveReadonly {
         if(result?.error||!result?.access_token){this.emit('auth-error',{message:'Autorização recusada ou cancelada'});return}
         const seconds=Number(result.expires_in);
         if(!Number.isFinite(seconds)||seconds<=90){this.emit('auth-error',{message:'Prazo do token Google não confirmado'});return}
+        // Substituir credencial revoga todos os downloads da sessão anterior.
+        this.sessionEpoch++;
+        for(const pending of this.activeMedia)pending.abort();
+        this.activeMedia.clear();
+        this.lastImages=null;this.lastPdfs=null;
         this.accessToken=result.access_token;
         this.expiresAt=Date.now()+Math.max(1,seconds-60)*1000;
         this.emit('connected');
@@ -132,6 +143,7 @@ export class DriveReadonly {
     this.oauth.requestAccessToken({prompt:this.connected?'':'consent'});
   }
   async authorized(url,{signal}={}){
+    if(!driveApiFileUrl(url))throw Error('Acesso com token bloqueado fora da API oficial do Google Drive');
     if(!this.connected)throw Error('Sessão Drive expirada; reconecte');
     const response=await fetch(url,{method:'GET',
       headers:{Authorization:'Bearer '+this.accessToken},cache:'no-store',
@@ -202,14 +214,51 @@ export class DriveReadonly {
       throw error;
     }finally{this.scanning=false;this.abort=null}
   }
+  async readPrivateMedia(fileId,{signal,kind='pdf'}={}){
+    if(!isDriveId(fileId))throw Error('ID do arquivo privado inválido');
+    if(!['pdf','image'].includes(kind))throw Error('Formato de download não permitido');
+    if(!this.connected)throw Error('Sessão Drive expirada; reconecte');
+    const epoch=this.sessionEpoch;
+    const controller=new AbortController();
+    const cancel=()=>controller.abort();
+    if(signal?.aborted)controller.abort();
+    else signal?.addEventListener('abort',cancel,{once:true});
+    this.activeMedia.add(controller);
+    try{
+      if(controller.signal.aborted)throw new DOMException('Cancelado','AbortError');
+      const url=DRIVE_API+'/'+encodeURIComponent(fileId)+'?alt=media';
+      const response=await fetch(url,{
+        method:'GET',headers:{Authorization:'Bearer '+this.accessToken},
+        cache:'no-store',credentials:'omit',referrerPolicy:'no-referrer',
+        signal:controller.signal
+      });
+      if(response.status===401){
+        this.clear('expired');throw Error('Autorização Google expirou; reconecte');
+      }
+      if(!response.ok)throw Error('Download Google Drive HTTP '+response.status);
+      const contentType=String(response.headers?.get?.('content-type')||'').split(';')[0].trim().toLowerCase();
+      const buffer=kind==='pdf'?
+        await boundedPdfBytes(response,{signal:controller.signal}):
+        await boundedMediaBytes(response,{maxBytes:MAX_DRIVE_IMAGE_BYTES,signal:controller.signal});
+      if(controller.signal.aborted||!this.connected||this.sessionEpoch!==epoch)
+        throw Error('Sessão Drive encerrada durante o download. Dados descartados.');
+      return Object.freeze({buffer,contentType});
+    }finally{
+      this.activeMedia.delete(controller);
+      signal?.removeEventListener('abort',cancel);
+    }
+  }
+  /** PDF privado: bytes apenas em memória, verificação por assinatura e até 120 MB. */
+  async downloadPdf(fileId,{signal}={}){
+    const result=await this.readPrivateMedia(fileId,{signal,kind:'pdf'});
+    return result.buffer;
+  }
   async preview(file,signal){
-    if(!file?.previewAllowed||!imageKind(file.mimeType))throw Error('Prévia não permitida para este formato/tamanho');
-    if(!this.connected)throw Error('Autorização Drive expirada');
-    const response=await this.authorized(DRIVE_API+'/'+encodeURIComponent(file.id)+'?alt=media',{signal});
-    const blob=await response.blob();
-    if(blob.size>MAX_PREVIEW_BYTES)throw Error('Prévia maior que o limite de 15 MB');
-    const baseType=blob.type.split(';')[0];
-    if(baseType && !imageKind(baseType))throw Error('Formato da prévia incompatível com a imagem catalogada');
-    return blob;
+    if(!file?.previewAllowed||!imageKind(file.mimeType))
+      throw Error('Prévia não permitida para este formato/tamanho');
+    const result=await this.readPrivateMedia(file.id,{signal,kind:'image'});
+    if(result.contentType&&!imageKind(result.contentType))
+      throw Error('Formato da prévia diferente do catálogo autorizado');
+    return new Blob([result.buffer],{type:result.contentType||file.mimeType});
   }
 }
