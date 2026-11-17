@@ -4,6 +4,7 @@ import {DriveReadonly} from './drive.js';
 import {mountReconciliation} from './audit-ui.js';
 import {mountPdfIdProbe} from './catalog-probe-ui.js';
 import {mountOAuthDiagnostics} from './oauth-readiness-ui.js';
+import {mountImageAssociationAudit} from './image-associations-ui.js';
 import {attachPdfReaderAction,registerPdfDrive} from './pdf-reader.js';
 
 /* UI privada do Drive, isolada da V1 e do estado SRS/IndexedDB.
@@ -228,6 +229,7 @@ async function initialize(){
     registerPdfDrive(service);
     mountOAuthDiagnostics(service,snapshot.pdf.documents[0],$('view-sync'));
     auditPanel=mountReconciliation(snapshot,service,$('view-sync'));
+    mountImageAssociationAudit(snapshot,service,$('view-sync'));
     mountPdfIdProbe(snapshot,service,$('view-sync'));
 
     service.onChange(event=>{
