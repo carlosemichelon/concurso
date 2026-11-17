@@ -48,7 +48,7 @@ function examplePdf(){
  return Buffer.from(body);
 }
 const pdf=examplePdf();
-const fakeGIS='window.google={accounts:{oauth2:{initTokenClient:({callback})=>({requestAccessToken:()=>callback({access_token:"TEST_ONLY_NOT_REAL",expires_in:3600})}),revoke:(_token,done)=>done?.()}}};';
+const fakeGIS='window.google={accounts:{oauth2:{initTokenClient:({callback,error_callback})=>({requestAccessToken:()=>{if(window.__failNextGoogle){window.__failNextGoogle=false;error_callback({type:"popup_failed_to_open"});return;}callback({access_token:"TEST_ONLY_NOT_REAL",expires_in:3600})}}),revoke:(_token,done)=>done?.()}}};';
 const cors={'access-control-allow-origin':'*',
  'access-control-allow-methods':'GET,OPTIONS',
  'access-control-allow-headers':'authorization,content-type'};
@@ -100,10 +100,22 @@ try{
  await page.waitForFunction(()=>!document.querySelector('#v2DriveConnect')?.disabled,
   null,{timeout:20000});
  assert.equal((await page.locator('#overviewStats .stat').nth(1).locator('strong').textContent()).trim(),'179');
+ // Pré-voo mostra a origem local da CI e NÃO afirma Cloud homologado.
+ await page.locator('[data-view="sync"]').click();
+ assert.equal(await page.locator('#v2OAuthReadiness').count(),1);
+ assert.match(await page.locator('#v2OAuthChecks').textContent(),/127\.0\.0\.1/);
+ assert.match(await page.locator('#v2OAuthSummary').textContent(),/localhost/);
+ assert.equal(await page.locator('#v2OAuthTestPdf').isDisabled(),true);
+
  await page.locator('#v2DriveConnect').click();
  await page.waitForFunction(()=>document.querySelectorAll('#v2DriveImagesList .drive-private-item').length===1&&
   document.querySelectorAll('#v2DrivePdfsList .drive-private-item').length===1,null,{timeout:25000});
  assert.equal(await page.locator('#v2DriveState').textContent(),'Conectado · leitura');
+ assert.equal(await page.locator('#v2OAuthTestPdf').isEnabled(),true);
+ await page.locator('#v2OAuthTestPdf').click();
+ await page.waitForFunction(()=>document.querySelector('#v2OAuthSampleResult')?.textContent.includes('Acesso confirmado'),null,{timeout:12000});
+ assert.match(await page.locator('#v2OAuthChecks').textContent(),/Acesso confirmado/);
+
  assert.match(await page.locator('#overviewStats .stat').nth(1).textContent(),/\+1 arquivo\(s\) Drive/);
  assert.equal((await page.locator('#overviewStats .stat').nth(1).locator('strong').textContent()).trim(),'179');
  // Este relatório é independente da varredura recursiva e só roda com clique.
@@ -133,6 +145,14 @@ try{
  await page.waitForFunction(()=>!document.querySelector('#v2PdfDialog')?.open,
   null,{timeout:10000});
  assert.equal(await page.locator('#v2PdfIdProbeExport').isDisabled(),true);
+ assert.equal(await page.locator('#v2OAuthTestPdf').isDisabled(),true);
+ assert.match(await page.locator('#v2OAuthSampleResult').textContent(),/ainda não testado/);
+ // Rejeição de pop-up da conta: explicar e não reter credenciais.
+ await page.evaluate(()=>{window.__failNextGoogle=true});
+ await page.locator('#v2DriveConnect').click();
+ await page.waitForFunction(()=>document.querySelector('#v2DriveNote')?.textContent.includes('pop-ups'),null,{timeout:5000});
+ assert.equal(await page.locator('#v2DriveState').textContent(),'Não conectado');
+
  assert.equal(await page.locator('#v2DriveImagesList .drive-private-item').count(),0);
  assert.equal(await page.locator('#v2DrivePdfsList .drive-private-item').count(),0);
  assert.equal((await page.locator('#overviewStats .stat').nth(1).locator('strong').textContent()).trim(),'179');
