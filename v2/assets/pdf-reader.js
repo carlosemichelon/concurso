@@ -1,4 +1,5 @@
 import {sourceHash,inspectLegacyHighlights,legacySnapshot,MAX_PDF_BYTES} from './pdf-compat.js';
+import {resetPdfOverlay,preparePdfOverlay,enablePdfOverlay,installPdfOverlay} from './pdf-overlay-ui.js';
 
 /* V2 PDF preview — browser-local or OAuth Drive, read-only.
  * NEVER imports, migrates, merges or edits historical highlights.
@@ -19,6 +20,7 @@ function note(value,error=false){
  target.textContent=value;target.classList.toggle('is-error',error);
 }
 function clearBytes(){
+ resetPdfOverlay();
  api.abort?.abort();api.abort=null;
  if(api.url){URL.revokeObjectURL(api.url);api.url=''}
  const frame=document.getElementById('v2PdfReaderFrame');
@@ -67,7 +69,7 @@ function buildModal(){
  download.addEventListener('click',backupMarks);
  buttons.append(local,input,remote,inspect,download);
  const help=el('p','helper',
-  'Este leitor apenas exibe os bytes escolhidos. Grifos da V1 dependem do mesmo ID e hash de conteúdo; a V2 não os redesenha nem altera. Para edição, use a V1.');
+  'É possível visualizar os grifos da V1 sobre este PDF apenas quando ID, hash e página coincidem. A V2 não edita nem transfere anotações; para editar, use a V1.');
  const status=el('p','v2-pdf-note','Escolha um arquivo local ou autorize o Google Drive.');
  status.id='v2PdfReaderNote';status.setAttribute('role','status');status.setAttribute('aria-live','polite');
  const signature=el('p','v2-pdf-identity','Nenhum PDF carregado');signature.id='v2PdfReaderIdentity';
@@ -76,6 +78,7 @@ function buildModal(){
  frame.title='Visualização somente leitura do PDF';frame.referrerPolicy='no-referrer';
  frame.setAttribute('loading','lazy');
  panel.append(top,buttons,help,status,signature,markContainer,frame);
+ installPdfOverlay(panel,frame);
  dialog.append(panel);document.body.append(dialog);
  dialog.addEventListener('cancel',e=>{e.preventDefault();closePdfReader()});
  dialog.addEventListener('close',()=>{clearBytes();api.doc=null});
@@ -88,6 +91,7 @@ async function openBuffer(buffer,filename,remote=false){
  const blob=new Blob([buffer],{type:'application/pdf'});
  const url=URL.createObjectURL(blob);
  api.url=url;api.identity=digest;api.inspected=null;api.remote=remote;
+ preparePdfOverlay(buffer,api.doc.id,digest);
  const frame=document.getElementById('v2PdfReaderFrame');
  frame.src=url+'#toolbar=1&navpanes=0';
  document.getElementById('v2PdfReaderIdentity').textContent=
@@ -124,6 +128,7 @@ function inspectMarks(){
  try{
   const report=inspectLegacyHighlights(localStorage,api.doc.id,api.identity);
   api.inspected=report;
+  enablePdfOverlay(report);
   const box=document.getElementById('v2PdfReaderMarks');box.replaceChildren();
   const total=el('p','',
     'Grifos nesta revisão (estimativa): '+report.counts.marks+' · Texto: '+report.counts.text+
@@ -151,7 +156,7 @@ function inspectMarks(){
    document.getElementById('v2PdfExportHighlights').disabled=false;
   }
   note('Auditoria local concluída, somente leitura. Grifos não foram modificados nem importados.');
- }catch(e){api.inspected=null;note('Não foi possível auditar grifos: '+e.message,true)}
+ }catch(e){api.inspected=null;resetPdfOverlay();note('Não foi possível auditar grifos: '+e.message,true)}
 }
 function backupMarks(){
  if(!api.doc||!api.identity||!api.inspected)return;
