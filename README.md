@@ -1,3 +1,19 @@
+# Banco Mestre — Portal V214 (17/11/2026)
+
+**Portal:** https://carlosemichelon.github.io/concurso/  
+**Catálogo alternativo ampliado:** https://carlosemichelon.github.io/concurso/v214.html#imagens
+
+A **V214** preserva o Drive como fonte principal das imagens na V1 (quando autorizado) e
+oferece o catálogo estático de **323 imagens distintas** como alternativa.
+Foram reaproveitados 237 arquivos já transferidos para a branch de preparação:
+93 já catalogados e 144 imagens inéditas. As cópias no GitHub são públicas,
+sem alterar os originais do Drive. V212/V213, cartões, PDFs, classificações
+históricas e SRS preservados. V2 continua em pausa.
+**Teste visual e OAuth real no navegador ainda pendentes.**
+[Auditoria V214](docs/V214_DRIVE_PRIORITARIO_CATALOGO_ESTATICO.md).
+
+---
+
 # Banco Mestre — Portal V212 (17/11/2026)
 
 **Portal:** https://carlosemichelon.github.io/concurso/  
