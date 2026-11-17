@@ -21,6 +21,7 @@ Classificação temática por área/assunto/subassunto não deve ser confundida 
 - A aba **Imagens** permite filtrar por: Todas / Conteúdo / Cartão / A classificar, mantendo os filtros por assunto e visibilidade.
 - Em cada cartão de imagem, selecionar tipo, subtipo e IDs; salvar no **navegador atual**, com efeito imediato nos filtros.
 - Para vínculos com cartão público válido, o botão **Abrir CARD-...** abre a janela do leitor de flashcards, após carregar a base. Se o destino não existir, registrar erro e manter o vínculo para conferência.
+- No próprio leitor, mostrar **Imagens relacionadas ao cartão** para vínculos explícitos e permitir retorno à imagem no Atlas, preservando a ampliação/grifos da miniatura.
 - É possível retirar uma classificação manual escolhendo **Pendente**, retornando à classificação de origem; links históricos documentados não são apagados.
 - As imagens privadas recém-sincronizadas do Google Drive recebem o mesmo editor, usando o ID do arquivo do Drive. O filtro também incide sobre sua grade.
 
