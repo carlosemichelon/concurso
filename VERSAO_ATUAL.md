@@ -1,3 +1,14 @@
+# Banco Mestre V224 — TRT01-C008, preâmbulo da CF/88 (17/11/2026)
+
+- **Portal:** `v224.html`; V223 e melhorias anteriores preservadas. [Abrir cartão](https://carlosemichelon.github.io/concurso/?cartao=TRT01-C008).
+- **11 módulos completos:** preâmbulo literal, pegadinhas "justiça social" e "direitos sociais e coletivos", STF ADI 2076, ADCT, elementos constitucionais e análise das alternativas. Questão TRT01-Q008: C marcada corretamente.
+- **3 imagens originais:** verificadas no Drive Atlas, sem modificar originais ou torná-los públicos. Galeria vinculada por OAuth. Ressalvas corrigem imprecisão na imagem sobre ADCT e natureza normativa do preâmbulo.
+- **SRS:** nenhum rating atribuído (Errei/Difícil/Bom/Fácil); F17 e 1.518 cartões canônicos permanecem inalterados, oito cartões TRT operacionais agora disponíveis.
+- **Checkpoint:** ZIP com originais, resumo/questão/lei seca e manifesto salvo no Drive canônico, id `1Q1CTlIW1z9ABesCKNMWdB8VNhmB5ZaDH`. JSON de 11 módulos está no GitHub (referenciado no ZIP).
+- **Status de autenticação:** teste real OAuth de visualização das imagens no navegador segue pendente. [Relatório V224](docs/V224_TRT01_C008_PREAMBULO.md).
+
+---
+
 # Banco Mestre V223 — TRT C007, autodeterminação dos povos (17/11/2026)
 
 - **Portal ativo:** `v223.html`, V222 anterior preservada integralmente, inclusive melhorias da interface.
