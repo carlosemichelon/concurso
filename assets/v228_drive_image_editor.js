@@ -11,15 +11,34 @@ let saved=Object.create(null),current=null;
 function valid(id,entry){return VALID.test(id)&&entry&&typeof entry==='object'&&!Array.isArray(entry)&&Object.entries(FIELDS).every(([k,n])=>entry[k]===undefined||(typeof entry[k]==='string'&&entry[k].length<=n));}
 function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(x&&typeof x==='object'&&!Array.isArray(x))for(const [id,v] of Object.entries(x))if(valid(id,v))saved[id]=v;}catch(err){console.warn('Metadados locais de imagens:',err);}}
 load();
+const legacyByDrive=new Map();
+let legacyTitles={},legacyFields={};
+try{legacyTitles=JSON.parse(localStorage.getItem('BM055_ATLAS_CUSTOM_TITLES')||'{}')||{};}catch(_){}
+try{legacyFields=JSON.parse(localStorage.getItem('BM060_ATLAS_CARD_FIELDS')||'{}')||{};}catch(_){}
+function previousEdit(fileId){
+ const id=legacyByDrive.get(fileId);
+ if(!id)return {};
+ const fields=legacyFields[id]||{};
+ return {title:legacyTitles[id]||'',area:fields.area||'',subject:fields.subject||'',
+  description:fields.description||'',note:fields.note||''};
+}
+void fetch('assets/v211_published_images.json?v=211',{cache:'no-store'}).then(r=>{
+ if(!r.ok)throw Error('Índice legado indisponível');
+ return r.json();
+}).then(catalog=>{
+ for(const row of catalog.records||[])
+  if(typeof row.driveFileId==='string'&&typeof row.imageId==='string')legacyByDrive.set(row.driveFileId,row.imageId);
+ $('bm084-search')?.dispatchEvent(new Event('input'));
+}).catch(e=>console.warn('Migração visual de edições anteriores:',e.message));
 function base(file){return window.BM218ImageMetadata?.resolve?.(file)||{displayTitle:file.name||'Imagem sem título descritivo',fileName:file.name||'',area:'',subject:'',subsubject:'',classified:false,cards:[]};}
 function meta(file){
- const x=base(file),e=saved[file.id]||{};
- const get=(k,original)=>Object.prototype.hasOwnProperty.call(e,k)?e[k]:(original||'');
+ const x=base(file),e=saved[file.id]||{},previous=previousEdit(file.id);
+ const get=(k,original)=>Object.prototype.hasOwnProperty.call(e,k)?e[k]:(previous[k]||original||'');
  const subject=get('subject',x.subject);
  return {...x,displayTitle:get('title',x.displayTitle)||'Imagem sem título descritivo',
   area:get('area',x.area),subject,subsubject:get('subsubject',x.subsubject),detail:get('detail',''),
   description:get('description',''),note:get('note',''),classified:Boolean(subject),
-  classificationOrigin:saved[file.id]?'Edição manual neste navegador':x.classified?'Catálogo editorial':'Pendente',
+  classificationOrigin:saved[file.id]?'Edição manual neste navegador':legacyByDrive.has(file.id)&&(legacyTitles[legacyByDrive.get(file.id)]||legacyFields[legacyByDrive.get(file.id)])?'Edição anterior recuperada':x.classified?'Catálogo editorial':'Pendente',
   fileName:x.fileName||file.name||'',editedLocally:Boolean(saved[file.id])};
 }
 function update(fileId){
