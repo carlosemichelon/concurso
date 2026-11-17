@@ -28,7 +28,7 @@ function title(file){return String(file.name||'Imagem').replace(/\.(png|jpe?g|we
 function ui(){
  const host=$('imagens')?.querySelector('.panel');if(!host||$('bm084-sync'))return;
  const box=el('section','bm084-drive-images');box.id='bm084-sync';
- box.style.cssText='margin:14px 0 22px;padding:15px;border:1px solid #c9d9d5;border-radius:12px;background:#f3f8f6';
+ box.style.cssText='display:block;margin:14px 0 22px;padding:15px;border:1px solid #c9d9d5;border-radius:12px;background:#f3f8f6';
  const h=el('h3','', 'Imagens do Google Drive — sincronização');h.style.margin='0 0 8px';
  const desc=el('p','', 'Consulte as imagens do Atlas e os originais recuperados das conversas P11–P14 após autorização. Esta é uma visualização privada nesta sessão: não envia imagens ao GitHub, não cria cartões e não altera o catálogo público V198.');
  desc.style.cssText='font-size:13px;margin:0 0 10px';
