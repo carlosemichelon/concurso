@@ -44,6 +44,16 @@
 - [ ] Versão GitHub sem artefatos de dados, com remediação específica dos históricos públicos (não basta remover arquivos do HEAD)
 - [ ] Rollback validado; produção só muda após todos os critérios aprovados
 
+## UX de login único confirmada pelo usuário (17/11/2026)
+
+- **Um login Google para o portal completo.** Durante o primeiro acesso, o backend deverá solicitar de uma só vez identificação e permissão de leitura do Drive. Após essa autorização, a página inteira usa a **mesma sessão**.
+- **Sem consentimento por mídia.** Abrir prévias, imagens de cartões, Atlas ou PDF chama a API segura com cookie de sessão; nenhuma dessas ações chama `requestAccessToken` ou abre popup do Google.
+- **Renovação transparente.** Tokens de acesso ao Drive são renovados no servidor com refresh token criptografado; se houver revogação/expiração real, mostrar login apenas então.
+- **Mesmo domínio.** Hospedagem do frontend e da API deve aceitar cookies protegidos. O domínio público GitHub Pages isolado não possui esse backend; para produção, publicar a V1 também na hospedagem segura escolhida ou usar domínio com proxy controlado.
+- **Proteção das mídias.** Proibir execução direta de SVG não higienizado; responder com MIME verificado, `Cache-Control: no-store`, `X-Content-Type-Options: nosniff` e autorização de leitura por usuário.
+- **Testes de regressão disponíveis:** `prototype/drive-only/tests/media.test.mjs` e `prototype/drive-only/tests/viewer.test.mjs` verificam imagem e PDF abertos em uma sessão, ausência de popup, logout, 401/403 e limpeza de URLs privadas.
+- **Estado:** protótipo validado por GitHub Actions; NÃO significa backend OAuth implantado ou integração integral da V1 homologada.
+
 ## O que foi implementado nesta branch
 - `prototype/drive-only/client.mjs`: cliente de leitura para API same-origin; **sem fallback GitHub, sem tokens, sem JSON de banco, sem URLs privadas**. Não está incluído no HTML V1 publicado.
 - `prototype/drive-only/tests/client.test.mjs`: teste de origem Drive, sessão, permissões, falha segura, contagens e ausência de referências a base GitHub.
