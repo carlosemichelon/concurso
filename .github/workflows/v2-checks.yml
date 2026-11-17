@@ -37,6 +37,8 @@ jobs:
           node --check v2/assets/evolutive-ui.js
           node --check v2/assets/pdf-compat.js
           node --check v2/assets/pdf-reader.js
+          node --check v2/assets/pdf-overlay.js
+          node --check v2/assets/pdf-overlay-ui.js
       - name: Conferir integridade da base pública e contrato
         run: |
           node v2/tests/smoke.mjs
@@ -46,6 +48,7 @@ jobs:
           node v2/tests/evolutive.mjs
           node v2/tests/related-images.mjs
           node v2/tests/pdf-compat.mjs
+          node v2/tests/pdf-overlay.mjs
   browser-smoke:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
@@ -56,7 +59,7 @@ jobs:
           node-version: '22'
       - name: Instalar Playwright para teste de interface
         run: |
-          npm install --no-save playwright@1.56.1
+          npm install --no-save playwright@1.56.1 pdfjs-dist@3.11.174
           npx playwright install --with-deps chromium
       - name: Testar a V2 no Chromium sem login privado
         run: node v2/tests/browser.mjs
