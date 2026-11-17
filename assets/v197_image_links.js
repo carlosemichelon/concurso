@@ -30,7 +30,7 @@ function load(){
 }
 load();
 function persist(next){
- try{localStorage.setItem(STORAGE,JSON.stringify(next));saved=next;return true;}
+ try{localStorage.setItem(STORAGE,JSON.stringify(next));saved=next;window.dispatchEvent(new Event('bm197-links-changed'));return true;}
  catch(err){say('Falha ao gravar classificação: '+err.message,true);return false;}
 }
 function sourceIds(x){
@@ -153,6 +153,84 @@ async function importJson(file){
   if(persist(next)){say('Importação concluída: '+obj.records.length+' registros examinados; '+Object.keys(saved).length+' classificações locais.');rerender();}
  }catch(err){say('Importação recusada: '+err.message,true);}
 }
+/* Navegação reversa: cartão -> imagens explicitamente relacionadas. */
+let sourcePromise=null;
+function sourceRecords(){
+ if(!sourcePromise)sourcePromise=fetch('assets/v180_native_image_additions.json?v=180',{cache:'default'})
+  .then(r=>{if(!r.ok)throw Error('Catálogo recuperado indisponível');return r.json();})
+  .then(d=>d.schema==='BancoMestreNativeImageAdditionsV180'&&Array.isArray(d.records)?d.records:[])
+  .catch(e=>{console.warn('Associações históricas de imagens:',e);return []});
+ return sourcePromise;
+}
+function imageEntries(cardId,source){
+ const byId=new Map();
+ for(const x of source){
+  if(!x.no||!VALID_IMAGE.test(x.no))continue;
+  const rel=dataOf(x.no,x);
+  if(rel.cardIds.includes(cardId))byId.set(x.no,{id:x.no,title:String(x.studyTitle||x.title||x.no).slice(0,130)});
+ }
+ if(typeof imgs!=='undefined'&&Array.isArray(imgs)){
+  for(const x of imgs){
+   if(!x.no||!VALID_IMAGE.test(x.no))continue;
+   const rel=dataOf(x.no,x);
+   if(rel.cardIds.includes(cardId))byId.set(x.no,{id:x.no,title:String(x.studyTitle||x.title||x.no).slice(0,130)});
+   else byId.delete(x.no);
+  }
+ }
+ for(const [id,rec] of Object.entries(saved)){
+  if(rec.cardIds.includes(cardId)&&!byId.has(id))byId.set(id,{id,title:id});
+  else if(!rec.cardIds.includes(cardId))byId.delete(id);
+ }
+ return [...byId.values()].sort((a,b)=>a.id.localeCompare(b.id,'pt-BR'));
+}
+async function goToImage(imageId){
+ window.BancoMestreVisualizarCardV050?.close?.();
+ filter='todas';if($('bm197-type-filter'))$('bm197-type-filter').value='todas';
+ if(typeof section==='function')section('imagens');
+ if(imageId.startsWith('DRIVE-IMG-')){
+  const q=$('bm084-search');if(q){q.value=imageId.slice('DRIVE-IMG-'.length);q.dispatchEvent(new Event('input'));}
+ }else{
+  if(typeof loadImages==='function')await loadImages();
+  const q=$('imageSearch');if(q){q.value=imageId;q.dispatchEvent(new Event('input',{bubbles:true}));}
+ }
+}
+function initReverse(){
+ const root=$('bmCardPeekV050'),scroller=root?.querySelector('.bm163-scroll');
+ const title=$('bmCardPeekTitleV050');
+ if(!scroller||!title||$('bm197-related-images'))return;
+ const panel=make('section',null,'bm197-related-images');panel.id='bm197-related-images';
+ const h=make('strong','Imagens relacionadas ao cartão');
+ const body=make('div',null,'bm197-related-image-list');
+ panel.append(h,body);scroller.append(panel);
+ panel.hidden=true;
+ let seq=0;
+ async function refreshReverse(){
+  const id=window.BancoMestreVisualizarCardV050?.currentId||'';
+  const token=++seq;
+  if(!VALID_CARD.test(id)){panel.hidden=true;return;}
+  const records=await sourceRecords();
+  if(token!==seq)return;
+  const matches=imageEntries(id,records);
+  body.replaceChildren();
+  panel.hidden=!matches.length;
+  for(const x of matches){
+   const btn=make('button',x.id+' · '+x.title);btn.type='button';
+   btn.className='bm197-reverse-link';
+   btn.addEventListener('click',()=>{void goToImage(x.id)});
+   body.append(btn);
+  }
+ }
+ new MutationObserver(()=>{void refreshReverse()}).observe(title,{childList:true,characterData:true,subtree:true});
+ window.addEventListener('bm197-links-changed',()=>{void refreshReverse()});
+ const css=make('style');css.textContent=[
+  '#bm197-related-images{margin:12px 0;padding:11px;border:1px solid #c9dedb;border-radius:10px;background:#f7fbfa}',
+  '#bm197-related-images strong{display:block;font-size:13px;margin-bottom:8px}',
+  '#bm197-related-images .bm197-related-image-list{display:grid;gap:6px}',
+  '#bm197-related-images button{font-size:12px;text-align:left;white-space:normal;overflow-wrap:anywhere;border-radius:7px;padding:8px 10px}'
+ ].join('\n');document.head.append(css);
+ if(window.BancoMestreVisualizarCardV050?.currentId)void refreshReverse();
+}
+
 function init(){
  const root=$('imagens'),parent=root?.querySelector('.panel');
  if(!parent||$('bm197-classification-controls'))return;
@@ -199,5 +277,6 @@ function init(){
  document.head.append(css);
 }
 init();
+initReverse();
 window.BM197MediaLinks=Object.freeze({matches,matchesDrive,decorate,decorateDrive,exportJson,filterActive:()=>filter!=='todas',get:(imageId)=>dataOf(imageId,typeof imgs!=='undefined'?imgs.find(x=>x.no===imageId):null)});
 })();
