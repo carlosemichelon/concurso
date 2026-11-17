@@ -2,20 +2,20 @@
 
 **Site:** [Abrir Banco Mestre](https://carlosemichelon.github.io/concurso/)  
 **Branch de publicação:** [`gh-pages`](https://github.com/carlosemichelon/concurso/tree/gh-pages)  
-**Manifesto atual (17/11/2026):** **Portal V202** — a página inicial `index.html` redireciona conforme `assets/version.json`; a página anterior **V201** fica preservada em `v201.html`.
+**Manifesto atual (17/11/2026):** **Portal V203** — a página inicial `index.html` redireciona conforme `assets/version.json`; a página anterior **V202** fica preservada em `v202.html`.
 
 ## Entender os números de versão
 
 | Componente | Versão | Conteúdo |
 |---|---|---|
-| **Portal** | **V202** | Código/página principal `v202.html`; anterior V201 |
+| **Portal** | **V203** | Código/página principal `v203.html`; anterior V202 |
 | **Base didática pública de cartões** | **V194** | 1.518 IDs: 1.501 ativos + 17 inativos; 22 cartões operacionais de Ijuí à parte |
 | **Atlas editorial de imagens** | **V198** | 179 imagens públicas catalogadas: 85 de cartão e 94 de conteúdo |
 | **PDFs** | **Catálogo V149** | 78 documentos; o esquema histórico de leitura é V140 |
-| **Respostas discursivas** | **Formato V195** | Armazenamento e backups históricos compatíveis; novas tentativas registram o portal V202 |
+| **Respostas discursivas** | **Formato V195** | Armazenamento e backups históricos compatíveis; novas tentativas registram o portal V203 |
 | **Metodologia** | **Documento-mestre próprio** | O número do documento e dos adendos **não** acompanha a versão do portal |
 
-O cabeçalho deve identificar **Portal V202 · cartões V194 · Atlas V198**. Esses números não indicam uma divergência: são linhas de versionamento distintas. Marcas mais antigas como V022, V024, V062, V165 e V186 permanecem em módulos ou históricos e não significam que o site está desatualizado.
+O cabeçalho deve identificar **Portal V203 · cartões V194 · Atlas V198**. Esses números não indicam uma divergência: são linhas de versionamento distintas. Marcas mais antigas como V022, V024, V062, V165 e V186 permanecem em módulos ou históricos e não significam que o site está desatualizado.
 
 **Histórico:** em 11/11/2026, o portal era V131 (1.499 cartões originais, 72 PDFs e 270 registros no inventário anterior). Esses dados são **históricos**, não representam a edição vigente de 17/11/2026. O número V200 é o identificador da edição, **não** uma contagem de 200 páginas: o repositório contém páginas históricas e módulos sem HTML próprio.
 
@@ -23,6 +23,7 @@ O cabeçalho deve identificar **Portal V202 · cartões V194 · Atlas V198**. Es
 
 - [Manifesto e número atual de versão](assets/version.json)
 - [Histórico de alterações — VERSAO_ATUAL](VERSAO_ATUAL.md)
+- [Correção V203 — botão único e janela compacta](docs/V203_EDITOR_UNIFICADO_POPUP_COMPACTO.md)
 - [Regras V202 de janelas de edição e pastas canônicas](docs/V202_METODOLOGIA_IMAGENS_CHECKPOINTS_PASTAS_FIXAS.md)
 - [Auditoria de sincronização Drive/GitHub V201](docs/V201_AUDITORIA_DRIVE_GITHUB_SITE.md)
 - [Auditoria da numeração de versões V200](docs/V200_AUDITORIA_NUMERACAO_VERSOES.md)
@@ -48,4 +49,4 @@ O Atlas público tem 179 registros (86 históricos + 93 recuperados), e os 93 or
 
 No Drive do titular encontram-se as pastas `CONCURSOS – ENGENHARIA CIVIL` e `DataBase_Concurso`. A leitura de arquivos Drive, a publicação de imagens, os cartões e o SRS são processos distintos. Um arquivo no Drive ou catálogo não comprova exibição no site. Versões históricas `vNNN.html` e dados locais anteriores foram preservados; `localStorage`, `IndexedDB`, grifos e eventos SRS exigem backups independentes.
 
-**Validação:** a consistência estrutural de V201 e os 93 IDs de imagens/78 PDFs foram conferidos; carregamento real, autenticação e renderização no navegador do titular permanecem sujeitos a teste.
+**Validação:** a consistência estrutural de V203 e os 93 IDs de imagens/78 PDFs foram conferidos; carregamento real, autenticação e renderização no navegador do titular permanecem sujeitos a teste.
