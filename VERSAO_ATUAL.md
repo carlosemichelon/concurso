@@ -1,3 +1,13 @@
+# Banco Mestre V199 — auditoria de ícones, textos, layout e versões (17/11/2026)
+
+- Foi simulada com sucesso a montagem do portal sobre `v062.html`; foram encontrados **159/159 assets** referenciados no repositório, sem duplicação dos 86 scripts e 73 CSS. Os ícones principais têm caminhos SVG cadastrados.
+- Não conformidades corrigidas na interface: cabeçalho/rodapé que identificavam o portal V198 como **V194**; `section.bm198-overview` sem `display:block` frente ao CSS global V062 que oculta `section`; indicadores de cabeçalho em **9–10 px** (até 8 px no celular); alinhamento e área de toque dos ícones/controles.
+- **Portal V199** identifica versões distintas de modo transparente: **cartões públicos V194 / Atlas editorial V198**, com variante adequada quando um pacote privado do Drive está ativo.
+- Implementação aditiva: `assets/v199_site_info.js`, `assets/v199_ui_audit.css`, `v199.html`. Preservados base, grifos, SRS, originais, classificações V198 e `v198.html` para retorno.
+- **Auditoria de código e montagem, não homologação visual do site ao vivo**: nesta sessão, o endereço GitHub Pages não pôde ser renderizado em navegador real. [Relatório V199](docs/V199_AUDITORIA_INTERFACE_ICONES_TEXTOS_VERSOES.md).
+
+---
+
 # Banco Mestre V198 — imagens pendentes classificadas e relacionadas a cartões (17/11/2026)
 
 - Auditoria textual cruzada de **179 registros do Atlas V180** com os **1.518 cartões JSON publicados**. Classificação: **85 imagens de cartão** e **94 imagens de conteúdo**, sem registros pendentes nesse acervo. Foram catalogadas 101 relações de ID (100 links navegáveis e uma referência histórica sem cartão público).
