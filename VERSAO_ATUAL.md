@@ -1,3 +1,15 @@
+# Banco Mestre V211 — TRT Parte 01, cartão com cinco imagens (17/11/2026)
+
+- **Edição online:** `v211.html`, publicada na branch `gh-pages` com `assets/version.json.version=V211`; V210 preservada em `v210.html`.
+- **Cartão operacional:** `TRT01-C001` da questão `TRT01-Q001`, 11 módulos e lei seca vinculada à Constituição Federal; cinco imagens originais classificadas como **imagem de cartão** e associadas aos IDs `TRT01-Q001-IMG01…IMG05`.
+- **Drive:** todos os cinco originais verificados na pasta `1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6`. ZIP e índice do checkpoint salvos na pasta `1348cILBcxFG9p2cfPJ3WubmHswPRbD24`.
+- **Exibição:** galeria no cartão usa sessão OAuth existente do site; links individuais abrem os originais no Drive. **Teste de exibição autenticada no navegador ainda pendente**; não declarar sincronização visual completa.
+- **Bases preservadas:** cartão público V194 = **1.518 IDs** (1.501 ativos), Atlas público V198 = **179 imagens**, catálogo PDFs V149 = **78 documentos**; SRS inalterado. Cartão TRT operacional separado não soma à base canônica.
+- **Norma metodológica:** página exata do PDF é opcional para vínculos jurídicos; norma, dispositivo e URL/fonte oficial permanecem necessários.
+- **Relatório e rastreabilidade:** [V211 TRT01-C001](docs/V211_TRT01_CARTAO_CINCO_IMAGENS.md).
+
+---
+
 # Banco Mestre V206 — imagem à esquerda e edição à direita; SVG corrigido (17/11/2026)
 
 - **Edição de imagens:** no computador, pop-up com imagem à **esquerda (44%)** e campos/abas à **direita (56%)**, largura máxima 640px e altura máxima 64vh. A área de campos tem rolagem interna. Em telas pequenas (até 590px), a imagem passa para cima por legibilidade. Continua um botão **Editar imagem**; **Mostrar cartão** permanece no cartão quando associado.
