@@ -105,7 +105,9 @@ async function renderPage(pageNo){
   await model.task.promise;
   if(model.serial!==sequence)return;
   const marks=readLegacyPage(localStorage,model.docId,model.hash,pageNo);
-  const result=renderLegacyAnnotations(ink.getContext('2d'),marks.marks,width,height);
+  // Desenhar diretamente no canvas rasterizado, como na V1: 'multiply' preserva
+  // o texto escuro e 'conceal' branco mantém seu efeito de ocultação.
+  const result=renderLegacyAnnotations(ctx,marks.marks,width,height);
   say('Página '+pageNo+' de '+instance.numPages+' · '+result.drawn+
     ' grifo(s) V1 exibido(s) · '+marks.removed+' excluído(s) · '+
     result.skipped+' sem geometria. Não houve gravação.');
