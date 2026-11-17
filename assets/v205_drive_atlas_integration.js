@@ -131,6 +131,10 @@ async function publicDriveIds(){
     throw Error('ID de imagem pública ausente ou repetido');
    ids.add(id);
   }
+  // Além dos 93 originais V180, respeitar IDs Drive explicitados nas demais imagens já carregadas do Atlas.
+  if(typeof imgs!=='undefined'&&Array.isArray(imgs)){
+   for(const x of imgs)if(typeof x.driveFileId==='string'&&(/^[A-Za-z0-9_-]{15,}$/).test(x.driveFileId))ids.add(x.driveFileId);
+  }
   return ids;
  }).catch(e=>{publicIdsPromise=null;throw e});
  return publicIdsPromise;
