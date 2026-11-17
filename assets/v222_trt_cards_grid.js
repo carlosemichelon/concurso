@@ -127,6 +127,13 @@ function init(){
  }
  document.addEventListener('bm-v185-cards-synced',schedule);
  document.addEventListener('bm221-card-rendered',schedule);
+ document.addEventListener('bm-media-drive-authorized',()=>{
+  // Cartão TRT já aberto passa a buscar as imagens sem fechar/abrir novamente.
+  for(const card of wrappers.values()){
+   const details=card.querySelector('.bm211-details');
+   if(details?.open)details.dispatchEvent(new Event('toggle'));
+  }
+ });
  schedule();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
