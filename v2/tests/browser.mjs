@@ -68,6 +68,12 @@ try{
  assert.equal(await page.locator('#overviewStats .stat').count(),3);
  assert.match(await page.locator('#notice').textContent(),/1\.518 cartões/);
  assert.equal(await page.locator('#v2DriveConnect').count(),1,'barra de Drive única');
+ // Imagens adicionais privadas não alteram 179 IDs editoriais já publicados.
+ await page.evaluate(()=>document.dispatchEvent(new CustomEvent('v2-drive-images-updated',{detail:{newFiles:12}})));
+ assert.equal((await page.locator('#overviewStats .stat').nth(1).locator('strong').textContent()).trim(),'179');
+ assert.match(await page.locator('#overviewStats .stat').nth(1).textContent(),/\+12 arquivo\(s\) Drive/);
+ await page.evaluate(()=>document.dispatchEvent(new CustomEvent('v2-drive-images-updated',{detail:null})));
+ assert.equal(await page.locator('#overviewStats .stat').count(),3);
  await page.locator('[data-view="cards"]').click();
  await page.locator('#cardsList .item').first().waitFor();
  await page.locator('#cardQuery').fill('CARD-1502');
@@ -98,6 +104,12 @@ try{
  await card.locator('.v2-evo-help').waitFor();
  assert.match(await card.locator('.v2-evo-help').textContent(),/reservado/);
  await page.locator('[data-view="images"]').click();
+ assert.equal(await page.locator('#v2PrivateImages').count(),1);
+ const extraBeforeCatalog=await page.evaluate(()=>{
+   const extras=document.querySelector('#v2PrivateImages'),catalog=document.querySelector('#imagesList');
+   return !!(extras.compareDocumentPosition(catalog)&Node.DOCUMENT_POSITION_FOLLOWING);
+ });
+ assert.equal(extraBeforeCatalog,true,'imagens adicionais devem aparecer antes do catálogo longo');
  await page.locator('#imageType').selectOption('cartao');
  await page.locator('#imageQuery').fill('IMG-C12-025');
  await page.waitForFunction(()=>document.querySelectorAll('#imagesList .item').length===1);
