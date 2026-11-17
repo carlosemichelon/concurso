@@ -64,7 +64,7 @@ function renderOverview() {
     check('IDs editoriais sem duplicação','IDs de imagens e documentos conferidos nos catálogos públicos.'),
     check('Pastas canônicas V202 verificadas no contrato','Destino de imagens e destino de checkpoints conferidos por folder_id.'),
     check('Acesso aos arquivos no Drive não homologado','OAuth, permissões, miniaturas e abertura real de cada documento exigem teste autenticado.','pending'),
-    check('Dados pessoais preservados','Esta prévia não lê nem grava SRS, grifos, respostas discursivas ou preferências locais.','pending')
+    check('Dados pessoais preservados','A V2 não grava SRS, grifos nem preferências. A leitura de grifos locais só acontece após solicitação no leitor PDF.','pending')
   );
 }
 async function ensureCards() {
