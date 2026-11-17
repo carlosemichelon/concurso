@@ -207,5 +207,6 @@ export function mountImageAssociationAudit(snapshot,service,target){
       invalidate('Novas imagens detectadas no Drive; execute a auditoria para atualizar os vínculos.');
   });
   render();
-  return Object.freeze({refresh:render,invalidate});
+  return Object.freeze({refresh:render,invalidate,
+    hasPendingReview:()=>review.hasUnsaved()});
 }
