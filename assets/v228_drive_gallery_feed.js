@@ -346,7 +346,7 @@ function render(){
   const linked=m.cards.length?el('small','',m.cards.length+' cartão(ões) relacionado(s) no índice'):null;
   if(linked)linked.style.cssText='display:block;font-size:10px;color:#52666a;margin-top:4px';
   card.append(pic,h,category,...(linked?[linked]:[]),actions,details);
-  window.BM228DriveImageEditor?.decorate?.(card,file)||window.BM197MediaLinks?.decorateDrive?.(card,file);grid.append(card);
+  if(window.BM228DriveImageEditor?.decorate)window.BM228DriveImageEditor.decorate(card,file);else window.BM197MediaLinks?.decorateDrive?.(card,file);grid.append(card);
   loadPreview(pic,file);
  }
  const more=$('bm084-more');if(more)more.hidden=items.length<=visible;
