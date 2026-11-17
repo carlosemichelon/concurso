@@ -1,3 +1,15 @@
+# Banco Mestre V198 — imagens pendentes classificadas e relacionadas a cartões (17/11/2026)
+
+- Auditoria textual cruzada de **179 registros do Atlas V180** com os **1.518 cartões JSON publicados**. Classificação: **85 imagens de cartão** e **94 imagens de conteúdo**, sem registros pendentes nesse acervo. Foram catalogadas 101 relações de ID (100 links navegáveis e uma referência histórica sem cartão público).
+- Das 85 imagens vinculadas, 5 já tinham campo de cartão explícito, 4 foram conciliadas por questão documental presente no cartão e 76 receberam **novas associações didáticas específicas**. Estas últimas não constituem prova de incorporação histórica ao cartão nem de correção técnica verificada pixel a pixel.
+- Arquivo auditável `assets/v198_editorial_images_catalog.json`: IDs, tipo/subtipo, ID(s) de cartão, base de associação, título, referências de questão e status técnico histórico preservado.
+- Novo módulo `assets/v198_image_links.js` carrega o catálogo, mantém filtros, editor local e navegação de mão dupla. Os ajustes particulares continuam no armazenamento V197 do navegador; exportação/importação de checkpoint só transporta esses ajustes, não substitui o catálogo público.
+- Mantidos originais e alertas de erros ou de imagens anteriormente não aprovadas. `IMG-C14-013` conserva `PETRO14-C017` como referência histórica indisponível no leitor público, sem inventar um CARD equivalente.
+- Não examinadas para reclassificação automática as imagens privadas adicionais trazidas apenas pela autorização do Drive, fora dos 179 registros. V197 permanece preservada para rollback. Cartões, respostas, SRS e grifos não alterados.
+- [Auditoria de imagens V198](docs/V198_AUDITORIA_IMAGENS_VINCULOS.md). Testes estruturais de JSON, IDs e sintaxe passaram; validação completa em navegador do titular permanece pendente.
+
+---
+
 # Banco Mestre V197 — classificação editorial de imagens e navegação até cartões (17/11/2026)
 
 - Metodologia aprovada: **Imagem de conteúdo** (guia/prancha/tabela/esquema) × **Imagem de cartão** (enunciado, figura ou explicação incorporada); estado pendente não é terceiro tipo. Classificação temática V180 permanece independente.
