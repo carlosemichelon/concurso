@@ -1,0 +1,51 @@
+/* V212 — cartão operacional TRT e galeria privada de imagens */
+#bm212-trt-card{margin:15px 0 18px;border:1px solid #bfd5d0;border-radius:12px;overflow:hidden;background:#fff;color:#17353b;box-shadow:0 2px 8px rgba(21,65,60,.05)}
+#bm212-trt-card .bm211-kicker{font-size:12px;font-weight:800;letter-spacing:.02em;padding:10px 14px;color:#1d5d57;background:#eaf4f1;border-bottom:1px solid #d7e6e1}
+#bm212-trt-card .bm211-summary{padding:13px 16px;cursor:pointer;display:flex;flex-direction:column;gap:7px;line-height:1.45}
+#bm212-trt-card .bm211-summary strong{font-size:14px}
+#bm212-trt-card .bm211-summary small{font-size:12px;color:#59716d}
+#bm212-trt-card .bm211-body{padding:12px 14px 18px}
+#bm212-trt-card .bm211-answer{background:#f7faf9;border:1px solid #dbe8e4;padding:12px 14px;border-radius:10px;margin-bottom:16px}
+#bm212-trt-card .bm211-meta{font-size:12px;color:#426860;font-weight:700}
+#bm212-trt-card .bm211-core{font-size:14px;font-weight:700;line-height:1.6;margin:8px 0}
+#bm212-trt-card .bm211-preserve{font-size:12px;color:#566b68;margin:8px 0 0}
+#bm212-trt-card .bm211-layers{min-width:0}
+#bm212-trt-card .bm211-media{border:1px solid #c6d8d2;background:#fbfdfc;padding:12px;border-radius:10px;margin:18px 0}
+#bm212-trt-card .bm211-mediahead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:12px}
+#bm212-trt-card .bm211-mediahead h4{font-size:14px;flex:1 1 220px;margin:0}
+#bm212-trt-card .bm211-mediahead p{font-size:12px;color:#546d6a;margin:0;flex:1 1 100%}
+#bm212-trt-card .bm211-fetch{background:#e3f0ec;border:1px solid #a9c6bd;color:#164c45;border-radius:7px;padding:8px 10px;font-size:12px}
+#bm212-trt-card .bm211-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+#bm212-trt-card .bm211-figure{margin:0;border:1px solid #d3e2dd;border-radius:9px;padding:8px;background:#fff;min-width:0}
+#bm212-trt-card .bm211-frame{display:flex;align-items:center;justify-content:center;background:#f6f9f8;min-height:120px;max-height:420px;overflow:auto}
+#bm212-trt-card .bm211-placeholder{font-size:12px;text-align:center;color:#597370;padding:16px;line-height:1.5}
+#bm212-trt-card .bm211-image{max-width:100%;max-height:410px;object-fit:contain;display:block}
+#bm212-trt-card .bm211-image[hidden],#bm212-trt-card .bm211-placeholder[hidden]{display:none!important}
+#bm212-trt-card .bm211-figcaption{display:flex;flex-direction:column;gap:5px;padding:8px 2px 3px;font-size:12px;line-height:1.4}
+#bm212-trt-card .bm211-figcaption small{color:#627575;font-size:10.5px}
+#bm212-trt-card .bm211-link{color:#17646c;font-size:12px;text-decoration:underline}
+#bm212-trt-card .bm211-module{padding:14px;border-bottom:1px solid #e2e8e5}
+#bm212-trt-card .bm211-module h4{margin:0 0 7px;font-size:14px}
+#bm212-trt-card .bm211-plain{white-space:pre-wrap;font-size:13px;line-height:1.55}
+.bm211-to-card{font-size:12px!important;padding:6px 8px!important}
+@media(max-width:650px){#bm212-trt-card .bm211-body{padding:9px}#bm212-trt-card .bm211-grid{grid-template-columns:1fr}#bm212-trt-card .bm211-frame{max-height:510px}#bm212-trt-card .bm211-image{max-height:500px}}
+
+/* A base V062 esconde todos os section por padrão; este cartão possui seções próprias. */
+#bm212-trt-card,#bm212-trt-card .bm211-media,#bm212-trt-card .bm211-module,#bm212-trt-card .bm198-overview,#bm212-trt-card .bm198-module{display:block!important;visibility:visible}
+#bm212-trt-card .bm198-modules{display:flex;flex-direction:column;gap:13px}
+#bm212-trt-card .bm198-module{border:1px solid #dce7e2;border-radius:10px;background:#fff;overflow:hidden}
+#bm212-trt-card .bm198-module-head{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#f3f8f6;border-bottom:1px solid #dfebe6}
+#bm212-trt-card .bm198-module-head h4{font-size:14px;margin:0}
+#bm212-trt-card .bm198-module-body{padding:12px 14px;font-size:13px;line-height:1.62}
+#bm212-trt-card .bm198-paragraph{white-space:pre-wrap;overflow-wrap:anywhere}
+#bm212-trt-card .bm198-overview{border:1px solid #cbded8;border-radius:10px;margin-bottom:14px}
+#bm212-trt-card .bm198-overview-top{display:flex;align-items:center;gap:8px;background:#eef6f3;padding:12px}
+#bm212-trt-card .bm198-overview-top h4{font-size:14px;margin:0}
+#bm212-trt-card .bm198-overview-top p{font-size:11px;margin:0}
+#bm212-trt-card .bm198-table-scroll{overflow-x:auto;max-width:100%}
+#bm212-trt-card .bm198-overview-table,#bm212-trt-card .bm198-native-table{width:100%;border-collapse:collapse;min-width:460px;font-size:12px}
+#bm212-trt-card .bm198-overview-table th,#bm212-trt-card .bm198-overview-table td,#bm212-trt-card .bm198-native-table th,#bm212-trt-card .bm198-native-table td{padding:8px 10px;border-bottom:1px solid #e0eae6;text-align:left;vertical-align:top}
+#bm212-trt-card .bm198-list{margin:6px 0;padding-left:22px}
+#bm212-trt-card .bm198-number{font-weight:800;color:#186052}
+#bm212-trt-card .bm198-icon{width:17px;height:17px;flex:none}
+#bm212-trt-card .bm198-note{font-size:11px;padding:8px 12px;color:#596b67}
