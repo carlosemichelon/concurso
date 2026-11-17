@@ -1,4 +1,5 @@
 import {loadSnapshot} from './data.js';
+import {updateDriveAtlas} from './app.js';
 import {DriveReadonly} from './drive.js';
 import {mountReconciliation} from './audit-ui.js';
 import {mountPdfIdProbe} from './catalog-probe-ui.js';
@@ -15,7 +16,7 @@ const dom=(tag,cls='',label='')=>{
 };
 let service=null,busy=false,connected=false,lastScan=0,prepared=false;
 let auditPanel=null;
-let imageLimit=30,pdfLimit=30;
+let pdfLimit=30;
 const previews=new Map();
 const timeString=iso=>{
   if(!iso)return 'não verificado';
@@ -103,7 +104,7 @@ async function scanBoth(manual=false){
       if(!service.connected)break;
       try{
         const result=await service.scan(kind);
-        if(kind==='image')renderImages();else renderPdfs();
+        if(kind==='pdf')renderPdfs();
         message((kind==='image'?'Atlas':'PDFs')+': '+format(result.found)+' arquivos localizados em '+
           format(result.folderCount)+' pastas. Verificando '+(kind==='image'?'PDFs...':'conclusão...'));
       }catch(e){errors.push((kind==='image'?'Atlas':'PDFs')+': '+e.message);}
@@ -148,42 +149,12 @@ function previewButton(file,outer){
   return button;
 }
 function renderImages(){
-  const list=$('v2DriveImagesList');if(!list||!service)return;
-  list.replaceChildren();
-  const result=service.connected?service.lastImages:null;
-  $('v2ImageSyncCount').textContent=result?
-    format(result.newFiles)+' novos · '+format(result.alreadyCataloged)+' já catalogados · '+timeString(result.checkedAt):
-    'Não consultado nesta sessão';
-  if(!result){
-    list.append(dom('p','helper','Conecte sua conta Google para consultar imagens privadas. O Atlas público permanece disponível acima.'));
-    $('v2DriveMoreImages').hidden=true;return;
-  }
-  const query=$('imageQuery').value.trim().toLocaleLowerCase('pt-BR');
-  const type=$('imageType').value;
-  const pending=result.files.filter(f=>!f.isInPublicCatalog).filter(f=>
-    !query||[f.id,f.name,f.path].some(x=>String(x).toLocaleLowerCase('pt-BR').includes(query)));
-  // As imagens não curadas NÃO recebem classificação Conteúdo/Cartão presumida.
-  if(type!=='all'){
-    list.append(dom('p','helper','As imagens novas ainda não passaram por classificação editorial; escolha “Todas” para consultá-las.'));
-    $('v2DriveMoreImages').hidden=true;return;
-  }
-  if(!pending.length){list.append(dom('p','helper','Não há imagens adicionais para os filtros atuais.'));$('v2DriveMoreImages').hidden=true;return}
-  for(const file of pending.slice(0,imageLimit)){
-    const item=dom('article','item drive-private-item');
-    const header=dom('div','item-header');
-    header.append(dom('div','meta','DRIVE-IMG-'+file.id),infoChip('Classificação pendente'));
-    item.append(header,dom('h3','item-title',file.name),
-      dom('p','muted','Local: '+file.path+' · MIME: '+file.mimeType+' · Atualizado: '+timeString(file.modifiedTime)));
-    const actions=dom('div','item-actions');
-    const link=dom('a','','Abrir original no Drive');
-    link.href=file.webUrl;link.target='_blank';link.rel='noopener noreferrer';
-    actions.append(link);
-    if(file.previewAllowed)actions.append(previewButton(file,item));
-    else actions.append(dom('span','meta','Prévia indisponível ou tamanho acima de 15 MB'));
-    item.append(actions);list.append(item);
-  }
-  const more=$('v2DriveMoreImages');more.hidden=pending.length<=imageLimit;
-  if(!more.hidden)more.textContent='Mostrar mais ('+format(pending.length-imageLimit)+' restantes)';
+  // Uma única lista Atlas: esta camada só entrega os metadados autorizados
+  // ao renderizador principal. As miniaturas são carregadas após clique.
+  previewClear();
+  const result=service?.connected?service.lastImages:null;
+  updateDriveAtlas(result?.files||[],result?previewButton:null);
+  publishAtlasCount();
 }
 function renderPdfs(){
   const list=$('v2DrivePdfsList');if(!list||!service)return;
@@ -211,7 +182,7 @@ function renderPdfs(){
   const more=$('v2DriveMorePdfs');more.hidden=pending.length<=pdfLimit;
   if(!more.hidden)more.textContent='Mostrar mais ('+format(pending.length-pdfLimit)+' restantes)';
 }
-function renderPrivate(){previewClear();renderImages();renderPdfs();updateControls();showSyncStatus();auditPanel?.refresh();publishAtlasCount()}
+function renderPrivate(){renderImages();renderPdfs();updateControls();showSyncStatus();auditPanel?.refresh()}
 function publishAtlasCount(){
   document.dispatchEvent(new CustomEvent('v2-drive-images-updated',{
     detail:service?.connected&&service.lastImages?{
@@ -238,13 +209,10 @@ function showSyncStatus(){
   }
 }
 function attachEvents(){
-  $('imageQuery').addEventListener('input',()=>{imageLimit=30;renderImages()});
-  $('imageType').addEventListener('change',()=>{imageLimit=30;renderImages()});
   $('pdfQuery').addEventListener('input',()=>{pdfLimit=30;renderPdfs()});
 }
 async function initialize(){
   addToolbar();
-  addRegion('view-images','imagesList','images-title','image');
   addRegion('view-pdfs','pdfsList','pdfs-title','pdf');
   const sync=dom('section','panel');
   const heading=dom('h3','','Relatório da leitura privada');
@@ -264,6 +232,8 @@ async function initialize(){
 
     service.onChange(event=>{
       if(event.type==='connected'){
+        // Uma nova conta/token nunca herda miniaturas ou títulos da anterior.
+        renderPrivate();
         message('Drive autorizado somente para leitura. Iniciando consulta das pastas monitoradas.');
         updateControls();void scanBoth();
       }else if(['expired','disconnected'].includes(event.type)){
@@ -272,7 +242,7 @@ async function initialize(){
         if(event.type==='expired')message('Autorização expirada; reconecte para consultar mídias privadas.',true);
       }else if(event.type==='scan-done'){
         auditPanel?.refresh();
-        if(event.kind==='image')publishAtlasCount();
+        if(event.kind==='image')renderImages();
       }
       else if(event.type==='auth-error')message(event.message,true);
       else if(event.type==='scan-error')message('Falha na varredura: '+event.message,true);
