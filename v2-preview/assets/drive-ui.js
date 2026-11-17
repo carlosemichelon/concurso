@@ -16,7 +16,7 @@ const dom=(tag,cls='',label='')=>{
   if(label!==undefined)item.textContent=String(label);return item;
 };
 let service=null,busy=false,connected=false,lastScan=0,prepared=false;
-let auditPanel=null;
+let auditPanel=null,associationPanel=null;
 let pdfLimit=30;
 const previews=new Map();
 const timeString=iso=>{
@@ -57,6 +57,8 @@ function addToolbar(){
   });
   scan.addEventListener('click',()=>{void scanBoth(true)});
   disconnect.addEventListener('click',()=>{
+    if(associationPanel?.hasPendingReview?.()&&
+      !confirm('Existem decisões de vínculos sem checkpoint exportado. Sair apagará essas decisões da memória. Deseja continuar?'))return;
     service?.disconnect();
     message('Drive desconectado. Metadados privados e prévias retirados desta página.');
     renderPrivate();
@@ -229,7 +231,7 @@ async function initialize(){
     registerPdfDrive(service);
     mountOAuthDiagnostics(service,snapshot.pdf.documents[0],$('view-sync'));
     auditPanel=mountReconciliation(snapshot,service,$('view-sync'));
-    mountImageAssociationAudit(snapshot,service,$('view-sync'));
+    associationPanel=mountImageAssociationAudit(snapshot,service,$('view-sync'));
     mountPdfIdProbe(snapshot,service,$('view-sync'));
 
     service.onChange(event=>{

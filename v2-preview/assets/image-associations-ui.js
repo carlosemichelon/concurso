@@ -1,4 +1,5 @@
 import {loadPublicCards} from './data.js';
+import {mountReviewDecisionWorkbench} from './association-review-ui.js';
 import {buildImageAssociationAudit,filterImageAssociationAudit,
   exportAssociationAudit,ASSOCIATION_LABELS} from './image-associations.js';
 
@@ -22,7 +23,7 @@ function save(payload,suffix){
 export function mountImageAssociationAudit(snapshot,service,target){
   if(!target||!snapshot?.editorial?.records||!snapshot?.recoveredByImageId)
     throw Error('Fontes do Atlas indisponíveis para auditoria');
-  let report=null,busy=false,limit=30,generation=0;
+  let report=null,busy=false,limit=30,generation=0,cachedCards=null;
   const section=el('section','panel image-association-audit');
   section.id='v2ImageAssociationAudit';
   const title=el('h3','','Auditoria de vínculos — imagens × cartões');
@@ -69,6 +70,9 @@ export function mountImageAssociationAudit(snapshot,service,target){
   more.type='button';more.hidden=true;
   section.append(title,description,controls,notice,status,stats,filters,count,rows,more);
   target.append(section);
+  const review=mountReviewDecisionWorkbench(section,{
+    getReport:()=>report,getCards:()=>cachedCards,service
+  });
 
   function entries(){
     if(!report)return [];
@@ -121,7 +125,13 @@ export function mountImageAssociationAudit(snapshot,service,target){
       const actions=el('div','item-actions');
       const open=el('button','','Localizar no Atlas');open.type='button';
       open.addEventListener('click',()=>openAtlas(item));
-      actions.append(open);article.append(actions);rows.append(article);
+      actions.append(open);
+      if(item.reviewNeeded||item.kind==='drive'||item.association==='conteudo'){
+        const decide=el('button','','Revisar associação');decide.type='button';
+        decide.addEventListener('click',()=>review.select(item.key));
+        actions.append(decide);
+      }
+      article.append(actions);rows.append(article);
     }
     more.hidden=matches.length<=limit;
     if(!more.hidden)more.textContent='Mostrar mais ('+fmt(matches.length-limit)+' restantes)';
@@ -153,7 +163,7 @@ export function mountImageAssociationAudit(snapshot,service,target){
   function invalidate(reason){
     ++generation;report=null;busy=false;limit=30;
     status.textContent=reason||'Relatório invalidado após mudança da sessão. Execute a auditoria novamente.';
-    render();
+    review.refresh();render();
   }
   auditButton.addEventListener('click',async()=>{
     if(busy)return;
@@ -163,9 +173,11 @@ export function mountImageAssociationAudit(snapshot,service,target){
     try{
       const cards=await loadPublicCards(snapshot.meta);
       if(serial!==generation)return;
+      cachedCards=cards;
       const driveFiles=service?.connected?service.lastImages?.files||[]:[];
       report=buildImageAssociationAudit(snapshot.editorial.records,
         snapshot.recoveredByImageId,cards,driveFiles);
+      review.refresh();
       status.textContent='Auditoria concluída: '+fmt(report.records.length)+
         ' imagens, '+fmt(report.publicCards)+' cartões consultados. '+
         'Nenhuma classificação ou associação foi gravada.';
@@ -195,5 +207,6 @@ export function mountImageAssociationAudit(snapshot,service,target){
       invalidate('Novas imagens detectadas no Drive; execute a auditoria para atualizar os vínculos.');
   });
   render();
-  return Object.freeze({refresh:render,invalidate});
+  return Object.freeze({refresh:render,invalidate,
+    hasPendingReview:()=>review.hasUnsaved()});
 }
