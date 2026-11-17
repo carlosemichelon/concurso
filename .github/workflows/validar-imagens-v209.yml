@@ -1,0 +1,57 @@
+name: Validar visualizador unico V209
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - "assets/v209_*.js"
+      - "v209.html"
+      - "tests/v209_*.cjs"
+      - ".github/workflows/validar-imagens-v209.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  viewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sintaxe dos modulos de imagens
+        run: |
+          node --check assets/v209_drive_gallery_feed.js
+          node --check assets/v209_image_single_library.js
+          node --check assets/v209_image_links_single.js
+          node --check assets/v209_library_counter.js
+          node --check assets/v209_single_image_viewer.js
+      - name: Teste visualizador unificado e contador com Drive
+        run: |
+          node tests/v209_single_image_viewer.cjs
+          node tests/v209_library_counter.cjs
+      - name: Montagem V209, fontes e origem Drive
+        run: |
+          python3 - <<'PY'
+          import pathlib,re,json
+          html=pathlib.Path('v209.html').read_text()
+          keys=[
+            'v209_drive_gallery_feed.js?v=209',
+            'v209_image_single_library.js?v=209',
+            'v209_image_links_single.js?v=209',
+            'v209_library_counter.js?v=209',
+            'v209_single_image_viewer.js?v=209',
+          ]
+          assert all(html.count(x)==1 for x in keys)
+          assert html.index(keys[0])<html.index(keys[1])<html.index(keys[2])<html.index(keys[3])<html.index(keys[4])
+          a=re.search(r'<script>\s*(.*?)</script>',html,re.S)
+          assert a
+          pathlib.Path('/tmp/v209_loader.js').write_text(a.group(1))
+          source=pathlib.Path('assets/v209_drive_gallery_feed.js').read_text()
+          assert "bm209-drive-render" in source
+          assert "bm084-grid" in source
+          assert "function safeSvgPreview" in source
+          assert "const PUBLIC_CATALOG='assets/v180_native_image_additions.json?v=180'" in source
+          c=json.loads(pathlib.Path('assets/v202_storage_contract.json').read_text())
+          assert c['canonical_write_destinations']['images']['folder_id']=='1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6'
+          classified=pathlib.Path('assets/v209_image_single_library.js').read_text()
+          assert "source.length!==86&&source.length!==179" in classified
+          assert "browsing=true;" in classified
+          PY
+          node --check /tmp/v209_loader.js
