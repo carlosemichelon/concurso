@@ -1,6 +1,7 @@
 import {loadSnapshot} from './data.js';
 import {DriveReadonly} from './drive.js';
 import {mountReconciliation} from './audit-ui.js';
+import {mountPdfIdProbe} from './catalog-probe-ui.js';
 import {attachPdfReaderAction,registerPdfDrive} from './pdf-reader.js';
 
 /* UI privada do Drive, isolada da V1 e do estado SRS/IndexedDB.
@@ -257,6 +258,8 @@ async function initialize(){
     service=new DriveReadonly({contract:snapshot.storage,publicImageIds,publicPdfIds});
     registerPdfDrive(service);
     auditPanel=mountReconciliation(snapshot,service,$('view-sync'));
+    mountPdfIdProbe(snapshot,service,$('view-sync'));
+
     service.onChange(event=>{
       if(event.type==='connected'){
         message('Drive autorizado somente para leitura. Iniciando consulta das pastas monitoradas.');
