@@ -1,3 +1,14 @@
+# Banco Mestre V206 — imagem à esquerda e edição à direita; SVG corrigido (17/11/2026)
+
+- **Edição de imagens:** no computador, pop-up com imagem à **esquerda (44%)** e campos/abas à **direita (56%)**, largura máxima 640px e altura máxima 64vh. A área de campos tem rolagem interna. Em telas pequenas (até 590px), a imagem passa para cima por legibilidade. Continua um botão **Editar imagem**; **Mostrar cartão** permanece no cartão quando associado.
+- **Correção da prévia SVG do Drive:** valida o arquivo como SVG/XML, aceita resposta de mídia com MIME genérico quando o Drive indica SVG e gera um `Blob image/svg+xml` de prévia em memória, removendo código ativo e referências externas. O original permanece no Drive e o SVG ainda não entra no grifador.
+- **Arquitetura:** Drive como armazenamento dos originais, Atlas como interface didática. A cada 120 segundos enquanto o site permanecer aberto e autorizado pelo Google, atualiza a consulta privada de imagens; sem publicação automática de imagens no catálogo público GitHub.
+- Pastas canônicas Drive, 1.518 cartões V194, 179 imagens públicas V198, 78 PDFs V149, checkpoints e SRS preservados.
+- Validação estrutural estática: 86 JS e 75 CSS, sem faltas ou duplicados; **teste real de OAuth/SVG e disposição visual ainda pendente**.
+- [Relatório V206](docs/V206_LAYOUT_LATERAL_PREVIA_SVG_SYNC_DRIVE.md).
+
+---
+
 # Banco Mestre V205 — imagens novas do Drive no Atlas (17/11/2026)
 
 - **Causa corrigida:** a V204 mantinha os 179 registros do Atlas público em uma biblioteca e as imagens do Drive em uma grade isolada. O upload no Drive não fazia parte da navegação do Atlas.
