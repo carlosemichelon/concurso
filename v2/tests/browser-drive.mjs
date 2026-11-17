@@ -108,7 +108,7 @@ try{
  assert.equal(await page.locator('#v2OAuthTestPdf').isDisabled(),true);
 
  await page.locator('#v2DriveConnect').click();
- await page.waitForFunction(()=>document.querySelectorAll('#v2DriveImagesList .drive-private-item').length===1&&
+ await page.waitForFunction(()=>document.querySelectorAll('#imagesList .drive-private-item').length===1&&
   document.querySelectorAll('#v2DrivePdfsList .drive-private-item').length===1,null,{timeout:25000});
  assert.equal(await page.locator('#v2DriveState').textContent(),'Conectado · leitura');
  assert.equal(await page.locator('#v2OAuthTestPdf').isEnabled(),true);
@@ -130,8 +130,25 @@ try{
    'filtro padrão exibe só problemas; 78 documentos confirmados não são pendência');
 
  await page.locator('[data-view="images"]').click();
- await page.locator('#v2DriveImagesList').getByRole('button',{name:'Ver prévia'}).click();
- await page.waitForFunction(()=>document.querySelector('#v2DriveImagesList .bm-v2-drive-preview')?.naturalWidth>0,
+ assert.match(await page.locator('#imagesCounter').textContent(),/180/);
+ assert.match(await page.locator('#imagesList .drive-private-item .tag').textContent(),/conteúdo.*provisória/);
+ assert.equal(await page.locator('#imagesList .drive-private-item').count(),1,
+   'imagem privada deve aparecer no mesmo Atlas das editoriais');
+ assert.equal(await page.locator('#v2PrivateImages').count(),0,
+   'não manter galeria Drive duplicada');
+ assert.equal(await page.locator('#moreImages').isVisible(),true);
+ await page.locator('#moreImages').click();
+ assert.equal(await page.locator('#imagesList .item').count(),80,
+   'um único Mostrar mais pagina imagens privadas e editoriais');
+ await page.locator('#imageType').selectOption('cartao');
+ assert.equal(await page.locator('#imagesList .drive-private-item').count(),0,
+   'conteúdo provisório sem cartão não deve aparecer como imagem de cartão');
+ await page.locator('#imageType').selectOption('conteudo');
+ assert.equal(await page.locator('#imagesList .drive-private-item').count(),1);
+ await page.locator('#imageType').selectOption('all');
+
+ await page.locator('#imagesList .drive-private-item').getByRole('button',{name:'Ver prévia'}).click();
+ await page.waitForFunction(()=>document.querySelector('#imagesList .bm-v2-drive-preview')?.naturalWidth>0,
   null,{timeout:15000});
  await page.locator('[data-view="pdfs"]').click();
  await page.locator('#v2DrivePdfsList').getByRole('button',{name:'Ler PDF na V2'}).click();
@@ -153,7 +170,8 @@ try{
  await page.waitForFunction(()=>document.querySelector('#v2DriveNote')?.textContent.includes('pop-ups'),null,{timeout:5000});
  assert.equal(await page.locator('#v2DriveState').textContent(),'Não conectado');
 
- assert.equal(await page.locator('#v2DriveImagesList .drive-private-item').count(),0);
+ assert.match(await page.locator('#imagesCounter').textContent(),/179/);
+ assert.equal(await page.locator('#imagesList .drive-private-item').count(),0);
  assert.equal(await page.locator('#v2DrivePdfsList .drive-private-item').count(),0);
  assert.equal((await page.locator('#overviewStats .stat').nth(1).locator('strong').textContent()).trim(),'179');
  assert.equal(await page.evaluate(()=>localStorage.length),0,'nenhum token ou anotação persistido');
@@ -161,7 +179,8 @@ try{
  assert.equal(calls.some(x=>!['GET','OPTIONS'].includes(x.method)),false);
  console.log('V2 simulated Drive browser OK:',{
    image:'SVG privado simulado',pdf:'PDF por OAuth simulado',
-   logout:'PDF e imagens descartados',publishedAtlas:179,writeRequests:0
+   logout:'PDF e imagens descartados',atlas:'uma lista + botão Mostrar mais',
+   publishedAtlas:179,writeRequests:0
  });
 }finally{
  await page?.close();await browser.close();await new Promise(r=>server.close(r));
