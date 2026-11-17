@@ -23,7 +23,7 @@ Data: 17/11/2026. Origem: revisão solicitada de ícones, textos e versões do p
 ## Testes executados
 - Executada **simulação da montagem do wrapper** em ambiente JavaScript, usando a fonte exata `v062.html`. Resultado: `document.write` gerou HTML, sem erro no processo de substituições.
 - **86 scripts** e **73 estilos** presentes e sem referências duplicadas; **159/159 caminhos** existem no repositório.
-- Os cinco ícones principais de navegação (assuntos, PDFs, flashcards, imagens e grifos) possuem caminhos SVG definidos no mapa V096.
+- O mapa V096 registra **45 SVGs**; **35 nomes distintos** são referenciados pelas listas de ferramentas, imagens e navegação, e **nenhum está ausente**. Os cinco ícones de navegação (assuntos, PDFs, flashcards, imagens e grifos) existem. Um seletor (`#pdfSaveDriveV042`) é listado duas vezes para a mesma atribuição idempotente, sem criar dois ícones nem nós duplicados.
 - Correção CSS para `#bmCardPeekV050 section.bm198-overview` explicitamente testada por inspeção de seletor e regra.
 - Sintaxe de `v199_site_info.js` e do wrapper validada.
 
