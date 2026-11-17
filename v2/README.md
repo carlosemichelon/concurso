@@ -2,7 +2,7 @@
 
 **Início:** 17/11/2026
 **Branch de trabalho:** feature/site-v2-foundation-2026-11-17
-**Produção preservada:** gh-pages (V205 no instante do backup; conferida V207 durante a etapa 3; a numeração pode continuar evoluindo; link operacional sempre via index.html)
+**Produção preservada:** gh-pages (backup criado quando a V1 estava na V205; V209 verificada nesta etapa, podendo avançar; o retorno usa sempre index.html)
 **Backup verificado:** backup/site-v1-before-v2-2026-11-17, commit 975dd96135fa9c30c38176c5a3860472794731cb
 
 ## Etapas 1 e 2 — módulos implementados na branch de desenvolvimento
@@ -58,7 +58,7 @@ Esses testes não comprovam a autenticação real no Drive nem o carregamento de
 ## Etapa 2 — integração de sessão Google Drive (implementada em código)
 
 - **Acesso:** o botão Conectar só fica disponível após carregamento da configuração OAuth pública e do Google Identity Services. A autorização depende de clique explícito; o token OAuth não é enviado ao GitHub, ao checkpoint ou ao armazenamento local.
-- **Atlas:** novas imagens JPEG, PNG, WebP, GIF e SVG da pasta canônica e da árvore histórica são listadas na MESMA aba Atlas, em um grupo complementar. Os 93 originais já presentes no catálogo V198 são descontados por fileId. O catálogo público de 179 imagens não é modificado.
+- **Atlas:** novas imagens JPEG, PNG, WebP, GIF e SVG da pasta canônica e da árvore histórica aparecem no topo da MESMA aba Atlas, em grupo complementar antes do catálogo público extenso. Os 93 originais já presentes no catálogo V198 são descontados por fileId. O catálogo público de 179 imagens não é modificado.
 - **PDFs:** lista adicional de PDFs do Drive, com remoção dos IDs conhecidos pelo catálogo V149. O leitor avançado com grifos continua na V1, sem forçar nova identidade ou migração.
 - **Consulta periódica:** a cada 120 segundos enquanto a aba está visível, conectada e não existe outra varredura em curso. A página não consegue atualizar quando está fechada, offline ou sem token.
 - **Prévia:** imagem privada só é baixada em memória após o comando Ver prévia (limite 15 MB). Um arquivo localizado por metadados não é declarado visualizado até a prévia ser carregada; a URL do original abre com as permissões da conta.
@@ -147,6 +147,8 @@ Com Playwright instalado no computador local, o comando é:
 
     node v2/tests/browser.mjs
 
+
+**Contagem não enganosa do Atlas:** o painel principal continua mostrando os 179 registros editoriais publicados, acompanhados de "+X arquivos Drive fora do catálogo" somente após consulta OAuth. A V2 não soma arquivos privados ao total publicado sem aprovação/editoria, evitando aparentar uma publicação inexistente. O teste Chromium exercita esse estado e a ordem de exibição das imagens privadas na aba Atlas.
 
 ## Etapa 5 — PDFs na V2 e proteção dos grifos legados
 
