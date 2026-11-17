@@ -5,7 +5,7 @@ import {resetPdfOverlay,preparePdfOverlay,enablePdfOverlay,installPdfOverlay} fr
  * NEVER imports, migrates, merges or edits historical highlights.
  * Original bytes and token remain in memory; no IndexedDB/localStorage writes.
  */
-const api={drive:null,dialog:null,doc:null,url:'',abort:null,identity:'',inspected:null,remote:false};
+const api={drive:null,dialog:null,doc:null,url:'',abort:null,identity:'',inspected:null,remote:false,remotePending:false,generation:0};
 const el=(tag,cls='',label)=>{
   const x=document.createElement(tag);
   if(cls)x.className=cls;
@@ -20,6 +20,7 @@ function note(value,error=false){
  target.textContent=value;target.classList.toggle('is-error',error);
 }
 function clearBytes(){
+ api.generation++;
  resetPdfOverlay();
  api.abort?.abort();api.abort=null;
  if(api.url){URL.revokeObjectURL(api.url);api.url=''}
@@ -31,7 +32,7 @@ function clearBytes(){
  if(notes)notes.replaceChildren();
  const exportButton=document.getElementById('v2PdfExportHighlights');
  if(exportButton)exportButton.disabled=true;
- api.identity='';api.inspected=null;api.remote=false;
+ api.identity='';api.inspected=null;api.remote=false;api.remotePending=false;
 }
 export function closePdfReader(){
  if(!api.dialog)return;
@@ -85,9 +86,12 @@ function buildModal(){
  api.dialog=dialog;return dialog;
 }
 async function openBuffer(buffer,filename,remote=false){
- clearBytes();
+ const expectedDoc=api.doc,expectedGeneration=api.generation;
  const digest=await sourceHash(buffer);
- if(!api.doc||!isDocumentId(api.doc.id))throw Error('Documento sem ID canônico');
+ if(!expectedDoc||!isDocumentId(expectedDoc.id))throw Error('Documento sem ID canônico');
+ if(api.doc!==expectedDoc||api.generation!==expectedGeneration||!api.dialog?.open||
+    (remote&&(!api.drive?.connected||!api.remotePending)))return;
+ clearBytes();
  const blob=new Blob([buffer],{type:'application/pdf'});
  const url=URL.createObjectURL(blob);
  api.url=url;api.identity=digest;api.inspected=null;api.remote=remote;
@@ -107,20 +111,18 @@ async function openRemote(){
  api.abort?.abort();api.abort=new AbortController();
  const controller=api.abort;
  const button=document.getElementById('v2PdfRemote');button.disabled=true;
+ const requestedDoc=api.doc;
+ api.remotePending=true;
  note('Lendo o PDF pela autorização atual do Google Drive...');
  try{
-  const endpoint='https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(api.doc.fileId)+'?alt=media';
-  const response=await api.drive.authorized(endpoint,{signal:controller.signal});
-  const size=Number(response.headers.get('content-length')||0);
-  if(size>MAX_PDF_BYTES)throw Error('PDF acima do limite de leitura de 120 MB');
-  const buffer=await response.arrayBuffer();
-  if(api.abort!==controller||!api.dialog?.open)return;
-  await openBuffer(buffer,api.doc.filename||api.doc.title||api.doc.id,true);
+  const buffer=await api.drive.downloadPdf(requestedDoc.fileId,{signal:controller.signal});
+  if(api.abort!==controller||!api.dialog?.open||api.doc!==requestedDoc||!api.drive.connected)return;
+  await openBuffer(buffer,requestedDoc.filename||requestedDoc.title||requestedDoc.id,true);
  }catch(error){
   if(error?.name!=='AbortError')note('Leitura do Drive não concluída: '+error.message,true);
  }finally{
   button.disabled=false;
-  if(api.abort===controller)api.abort=null;
+  if(api.abort===controller){api.abort=null;api.remotePending=false;}
  }
 }
 function inspectMarks(){
@@ -175,7 +177,7 @@ export function registerPdfDrive(service){
  api.drive=service||null;
  if(service){
   service.onChange(event=>{
-   if(['disconnected','expired'].includes(event.type)&&api.remote)closePdfReader();
+   if(['disconnected','expired'].includes(event.type)&&(api.remote||api.remotePending))closePdfReader();
   });
  }
 }
