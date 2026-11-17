@@ -257,6 +257,29 @@ O arquivo público \`assets/drive_auth_v038.json\` informa um Client ID de aplic
 - Nenhum desses testes prova a aprovação do Google Cloud para a origem de produção; a autenticação real permanece pendente.
 
 
+## Etapa 10 — prévia HTTPS isolada no GitHub Pages (17/11/2026)
+
+**Endereço de homologação:** https://carlosemichelon.github.io/concurso/v2-preview/
+
+- A prévia é pública para quem conhecer a URL; \`noindex\` reduz indexação mas **não limita o acesso**. Ela não contém mídias privadas, histórico SRS, tokens ou backups pessoais.
+- A prévia foi montada a partir do commit de desenvolvimento \`875ba50fe2a022be3f4d6f1dba326d8e63f3ce7b\`. Copia **21 módulos CSS/JS** e uma página HTML adaptada apenas para incluir \`noindex\` e indicar homologação; inclui também um manifesto público com o commit de origem.
+- O commit isolado de publicação em \`gh-pages\` é \`bfe90f9e7335ad08bbffdddf216ecc85aae08aff\`. A comparação de git registrou **23 adições somente sob \`v2-preview/\`**, zero modificações e zero exclusões nos arquivos existentes da V1.
+- A publicação do Pages foi aprovada no run https://github.com/carlosemichelon/concurso/actions/runs/44129550884. O novo teste \`tests/browser-hosted-preview.mjs\` abre o **HTTPS publicado em Chromium**, confirma catálogos públicos de 1.518 cartões/179 imagens/78 PDFs, navegação, manifesto, URL de retorno à V1 e nenhum acesso privado sem login.
+- A V1 continua com o **índice e os arquivos originais preservados** (V210 no momento da implantação da prévia). A prévia não é merge da branch V2; futuras alterações na branch de desenvolvimento **não são atualizadas automaticamente** na página publicada — requerem nova publicação isolada e verificada.
+- O Javascript publicado usa caminhos relativos: seus próprios scripts em \`v2-preview/assets/\`; os catálogos públicos e o Client ID da origem em \`/concurso/assets/\`; o link de volta à V1 em \`/concurso/index.html\`. A origem HTTPS é \`https://carlosemichelon.github.io\`.
+
+### Homologação manual necessária no navegador real
+
+1. Abrir a **prévia** (não o portal V1), ir para **Sincronização → Homologação Google** e ler origem/escopo.
+2. Se o Google não autorizar a sessão, abrir o Google Cloud Console e conferir as **Origens JavaScript autorizadas** do Client ID já existente: a origem do site é \`https://carlosemichelon.github.io\` (sem \`/concurso/v2-preview/\` no campo de origem). Confirmar ainda a tela de consentimento e eventuais usuários de teste.
+3. Clicar **Conectar** na V2. Autorizar \`drive.readonly\` na conta escolhida pelo titular. Nunca colar token ou segredo em relatórios, tickets, chats ou código.
+4. Clicar **Testar acesso a 1 PDF**. Se aprovado, opcionalmente clicar **Conferir 78 IDs no Drive** para comparar os resultados da conta com a conferência feita via conector (78/78 confirmados).
+5. Abrir uma imagem privada e um PDF autorizado, conferir visualmente uma página com grifos reais na mesma origem/navegador e usar **Sair**. Confirmar que o relatório e as prévias privadas foram eliminados.
+6. Registrar apenas **sucesso/falha e mensagens não sensíveis**; não inserir nomes dos arquivos privados, IDs, links autenticados ou imagens pessoais em artefatos públicos.
+
+**Ainda não homologado:** autenticação OAuth real da conta no navegador, permissões individuais reais sob esse OAuth, casos especiais de anotação em documentos de produção e sincronização de conteúdo privado GitHub/Drive. A existência da prévia não autoriza a substituição da V1 por V2.
+
+
 ## Rollback
 
 A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
