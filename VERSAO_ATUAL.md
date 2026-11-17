@@ -1,3 +1,16 @@
+# Banco Mestre V223 — TRT C007, autodeterminação dos povos (17/11/2026)
+
+- **Portal ativo:** `v223.html`, V222 anterior preservada integralmente, inclusive melhorias da interface.
+- **Cartão operacional:** `TRT01-C007`, fonte `TRT01-Q007`, Direito Constitucional. Alternativa B correta (art. 4º, III, da CF/88).
+- **11 módulos completos:** lei seca literal dos arts. 3º e 4º, dez princípios de relações internacionais, quatro objetivos fundamentais, integração latino-americana no parágrafo único, análise das alternativas, ressalvas e mnemônicos.
+- **Imagem original:** PNG dos objetivos e relações externas, verificada no Drive Atlas, id `1Qa4UlGm0Yc7fCGylRmch3xNO-gnh7QA_`, preservada e vinculada como imagem de cartão.
+- **Checkpoint:** ZIP com imagem original, enunciado, manifesto e README, id `1sS5tnQaZTtYgVkznvjgPo4oICYQAxP75` no Drive, pasta oficial de Checkpoints. Texto integral do cartão no GitHub.
+- **Grade de cartões TRT:** sete cartões operacionais separados da base pública V194; SRS F17 e os seis cartões anteriores preservados. Não há avaliação SRS atribuída à questão 007.
+- **Limitação:** visualização OAuth da imagem no navegador do usuário ainda não testada.
+- [Relatório V223](docs/V223_TRT01_C007_AUTODETERMINACAO.md).
+
+---
+
 # Banco Mestre V221 — TRT Parte 01, cartão 006 e imagem-macete (17/11/2026)
 
 - **Portal:** `v221.html`; `v220.html` preservada.
