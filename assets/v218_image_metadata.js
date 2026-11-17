@@ -32,16 +32,17 @@ function opaque(value){
 function friendly(value){
  let s=stripExtension(value)
   .replace(/^IMG[-_](?:C|P)\d+[-_]\d+[-_\s]*/i,'')
-  .replace(/^PETRO(?:BRAS)?[-_]?\d+[-_]Q\d{1,4}[-_\s]*/i,'')
+  .replace(/^PETRO(?:BRAS)?[-_\s]?\d+[-_\s]+Q\d{1,4}[-_\s]+/i,'')
   .replace(/^Q\d{1,4}[-_\s]+/i,'')
-  .replace(/[_]+/g,' ').replace(/\s*[-–—]+\s*/g,' — ')
+  .replace(/[_]+/g,' ').replace(/\s+[-–—]+\s+/g,' — ')
   .replace(/\s+/g,' ').trim();
  if(!s||opaque(s))return '';
  const words=s.split(' ');
- const upperAcronyms=new Set(['NR','NBR','PCMSO','PGR','GRO','EIA','RIMA','RAP','RQD','LSF','ELU','ELS','BDI','PVC','RITTER','AET','EPC','EPI','CIPA','SESMT','SPT']);
+ const upperAcronyms=new Set(['NR','NBR','PCMSO','PGR','GRO','EIA','RIMA','RAP','RQD','LSF','ELU','ELS','BDI','PVC','AET','EPC','EPI','CIPA','SESMT','SPT']);
  s=words.map((w,i)=>{
   const clean=w.replace(/[^A-Za-zÀ-ÿ]/g,'');
-  if(upperAcronyms.has(clean.toUpperCase())||/^(?:NR|NBR)\d+$/i.test(w))return w.toUpperCase().replace(/^NR(?=\d)/,'NR-').replace(/^NBR(?=\d)/,'NBR ');
+  if(clean.toUpperCase()==='NRS')return 'NRs';
+  if(upperAcronyms.has(clean.toUpperCase())||/^(?:NR|NBR)\d+$/i.test(w)||/^[A-Z]{2,6}(?:\/[A-Z]{2,6})+$/.test(w))return w.toUpperCase().replace(/^NR(?=\d)/,'NR-').replace(/^NBR(?=\d)/,'NBR ');
   if(/^\d+$/.test(w)||w==='—')return w;
   const low=w.toLocaleLowerCase('pt-BR');
   return i===0?low.slice(0,1).toLocaleUpperCase('pt-BR')+low.slice(1):low;
