@@ -33,7 +33,7 @@ assert.ok(pdf.includes("connect.openAndEdit(managed)"),'usa leitor com anotaçõ
 assert.ok(pdf.includes("if(!connect.connected&&connect.ready)connect.authorize()"),'reutiliza OAuth da sessão');
 assert.ok(footer.includes("V221"),'rodapé identifica versão nova');
 const events={};let openCount=0,authorizedCount=0,defaultCount=0;
-const button={textContent:'Ler / editar PDF',closest:selector=>selector==='article.card'?article:null};
+const button={textContent:'Ler / editar PDF',closest:selector=>selector==='button'?button:selector==='article.card'?article:null};
 const article={querySelector:()=>({textContent:'DRIVE-PDF-x'})};
 const list={addEventListener:(name,cb,capture)=>{events[name]=cb;assert.equal(capture,true)}};
 const window={BancoMestreDriveV042:{connected:true,ready:true,openAndEdit:async doc=>{openCount++;assert.equal(doc.file_id,'1234567890abcDEF');return true;},authorize:()=>authorizedCount++},
