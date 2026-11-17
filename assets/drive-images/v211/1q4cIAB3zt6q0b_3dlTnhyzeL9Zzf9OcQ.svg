@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 465" role="img" aria-label="A plataforma rígida sofre translação vertical u2 e rotação theta. A coluna 1 está a a à esquerda da coluna 2 e desloca-se u1=u2-a theta; a coluna 3 está a 2a à direita e desloca-se u3=u2+2a theta.">
+<style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#171717;font-size:20px}.title{font-weight:700;font-size:25px}.note{font-size:17px}.thin{stroke:#444;stroke-width:2;fill:none}.struct{stroke:#171717;stroke-width:5;fill:none}.initial{stroke:#777;stroke-width:2.3;stroke-dasharray:10 7;fill:none}.ref{stroke:#888;stroke-dasharray:6 7;stroke-width:1.7}.disp{stroke:#176887;stroke-width:3;fill:none}.accent{stroke:#555;stroke-width:2;fill:none}.box{stroke:#444;fill:#fafafa;stroke-width:1}
+</style>
+<rect x="0" y="0" width="960" height="465" fill="#fff"/>
+<text x="35" y="39" class="title">Rotação θ — referência na coluna 2</text>
+<text x="35" y="72" class="note">Deslocamentos positivos para baixo; rotação positiva aumenta u da esquerda para a direita</text>
+<path d="M119 112 H791" class="initial"/><text x="795" y="116" class="note">original</text>
+<path d="M119 161 L790 278" class="struct"/>
+<path d="M119 112 V161 M343 112 V200 M790 112 V278" class="disp"/>
+<path d="M111 150 l8 11 8 -11 M335 189 l8 11 8 -11 M782 267 l8 11 8 -11" class="disp"/>
+<g fill="#c9c9c9" stroke="#565656" stroke-width="1.5">
+<rect x="108" y="161" width="22" height="179"/><rect x="332" y="200" width="22" height="140"/><rect x="779" y="278" width="22" height="62"/>
+</g>
+<path d="M80 340 H844" stroke="#202020" stroke-width="5"/>
+<g text-anchor="middle">
+<text x="119" y="380">Coluna 1</text><text x="343" y="380">Coluna 2</text><text x="790" y="380">Coluna 3</text>
+<text x="119" y="94">u₁</text><text x="343" y="94">u₂</text><text x="790" y="94">u₃</text>
+</g>
+<path d="M119 406 H343 M343 406 H790 M119 397 V415 M343 397 V415 M790 397 V415" class="thin"/>
+<text x="225" y="431">a</text><text x="550" y="431">2a</text>
+<path d="M343 200 H795" class="ref"/><text x="806" y="203" class="note">nível u₂</text>
+<path d="M161 161 V200 M156 168 L161 161 L166 168 M156 193 L161 200 L166 193" class="accent"/>
+<text x="175" y="252" class="note">d₁ = u₂ − u₁ ≈ aθ</text>
+<path d="M741 200 V278 M736 207 L741 200 L746 207 M736 271 L741 278 L746 271" class="accent"/>
+<text x="505" y="305" class="note">d₃ = u₃ − u₂ ≈ 2aθ</text>
+<path d="M343 200 h75" class="ref"/><path d="M347 201 l65 12" class="accent"/>
+<text x="379" y="176" class="note">θ</text>
+<text x="35" y="458" class="note">Esquema didático ampliado, sem escala. Coluna 2 é referência móvel; não é pivô fixo.</text>
+</svg>
