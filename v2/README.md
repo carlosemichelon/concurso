@@ -2,7 +2,7 @@
 
 **Início:** 17/11/2026
 **Branch de trabalho:** feature/site-v2-foundation-2026-11-17
-**Produção preservada:** gh-pages, Portal V205 (v205.html)
+**Produção preservada:** gh-pages (V205 no instante do backup; V206 ao concluir esta etapa; link operacional sempre via index.html)
 **Backup verificado:** backup/site-v1-before-v2-2026-11-17, commit 975dd96135fa9c30c38176c5a3860472794731cb
 
 ## Etapa 1 — implementada
