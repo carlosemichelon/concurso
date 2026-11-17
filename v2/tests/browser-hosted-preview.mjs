@@ -43,6 +43,18 @@ try{
   await page.locator('[data-view="sync"]').click();
   try{
     await page.locator('#v2OAuthReadiness').waitFor({timeout:15000});
+  // Auditar vínculos públicos na própria URL HTTPS publicada, sem OAuth.
+  await page.locator('#v2ImageAssociationAudit').waitFor({timeout:12000});
+  assert.equal(await page.locator('#v2ImageAuditStart').isEnabled(),true);
+  await page.locator('#v2ImageAuditStart').click();
+  await page.waitForFunction(()=>document.querySelector('#v2ImageAuditStatus')?.textContent.includes('Auditoria concluída'),
+    null,{timeout:30000});
+  const statsImage=await page.locator('#v2ImageAuditStats').textContent();
+  assert.match(statsImage,/100/,'cem referências a CARD válidos precisam ser encontradas');
+  assert.match(statsImage,/Referências históricas externas/,'não converter PETRO14-C017 em CARD');
+  assert.equal(await page.locator('#v2ImageAuditDetails').isDisabled(),true,
+    'sem OAuth, impedir exportar inventário detalhado com IDs privados');
+
   }catch(error){
     console.error('HOSTED PREVIEW DRIVE DIAGNOSTIC',await page.evaluate(()=>({
       driveNote:document.querySelector('#v2DriveNote')?.textContent,
@@ -64,6 +76,7 @@ try{
   assert.equal(manifest.containsPrivateFiles,false);
   assert.match(manifest.sourceCommit,/^[a-f0-9]{40}$/,'manifesto deve guardar um SHA de origem verificável');
   assert.equal(manifest.atlasMode,'single_viewer_editorial_plus_live_drive');
+  assert.match(manifest.associationReview,/documental\/didactic\/history/);
   const original=await page.request.get(base+'index.html');
   assert.equal(original.status(),200,'entrada original V1 deve continuar publicada');
   assert.equal(await page.evaluate(()=>localStorage.length),0,
