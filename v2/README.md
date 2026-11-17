@@ -167,6 +167,22 @@ O novo leitor da V2 implementa somente a visualização, não a edição das mar
 A V1 e os grifos armazenados permanecem intocados. Este módulo é uma etapa de compatibilidade, não uma autorização para alterar os históricos.
 
 
+
+## Etapa 6 — sobreposição dos grifos V1 (implementada, homologação em andamento)
+
+Os arquivos \`v2/assets/pdf-overlay.js\` e \`pdf-overlay-ui.js\` adicionam um modo opcional de **visualizar** os grifos legados por cima de uma página PDF, sem convertê-los nem alterá-los.
+
+- **Protocolo de acesso:** o estudante escolhe um PDF (local ou Drive autenticado), confere a identidade do arquivo e aciona \`Conferir grifos desta versão\`. Só após essa inspeção aparece \`Exibir grifos sobre o PDF\`, habilitado se houver marcas. Um hash diferente continua bloqueado de transferir grifos de outra versão.
+- **Identidades exatas:** além dos IDs \`id:\`, reproduz o algoritmo V122 para identificadores geométricos \`g:\` e legados \`l:\`. A filtragem consulta \`BM122_DELETED_HIGHLIGHT_IDS\` sem importar informações apagadas. Esse é um aprimoramento em relação à auditoria resumida anterior, que admitia ambiguidade nos IDs históricos.
+- **Desenho:** PDF.js 3.11.174 renderiza a página para um canvas temporário e a V2 reproduz grifos de texto, sublinhado, sublinhado duplo, tachado, ocultação \`conceal\`, retângulo, caneta, marcador e notas. A geometria normalizada é convertida para a escala do canvas. Grifos de texto padrão usam multiplicação da cor sobre a imagem renderizada para preservar caracteres escuros; o estilo \`conceal\` preserva a área branca.
+- **Navegação:** uma página por vez, controles Anterior/Próxima e seletor de página. O botão \`PDF original\` retorna à visualização sem sobreposição. Não cria um novo PDF ou grifo.
+- **Proteção:** limite de até 120 MB no PDF e até 20 milhões de pixels na página renderizada; dados temporários são descartados ao fechar o modal, ao abrir outro PDF ou quando expira a autorização do Drive. A autenticação/token não é entregue ao PDF.js; somente os bytes do PDF selecionado são processados localmente.
+- **Testes de dados:** \`tests/pdf-overlay.mjs\` prova IDs V122, exclusões de marcas com ID e sem ID, conversão das coordenadas 0..1, estilos, sem escrita no armazenamento.
+- **Teste funcional:** \`tests/browser.mjs\` abre PDF de exemplo com PDF.js local no runner e confere pixels da marca ativa e área de marca removida, além de assegurar que o \`localStorage\` não mudou. Resultado final deve ser verificado na execução do GitHub Actions antes de considerar homologado.
+
+**Limitações:** ainda falta validar PDFs reais da conta do titular, capas digitalizadas, rotação/cortes especiais, diferenças de zoom/retina e versões sem hash correspondente. A V2 continua sem editor de grifos, sem sincronizador do mestre privado e sem publicação em produção; a V1 continua o editor oficial.
+
+
 ## Rollback
 
 A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
