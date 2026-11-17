@@ -1,3 +1,16 @@
+# Banco Mestre V205 — imagens novas do Drive no Atlas (17/11/2026)
+
+- **Causa corrigida:** a V204 mantinha os 179 registros do Atlas público em uma biblioteca e as imagens do Drive em uma grade isolada. O upload no Drive não fazia parte da navegação do Atlas.
+- **Nova visualização:** um grupo **Google Drive · imagens novas no Atlas** aparece na organização da aba Imagens. Conecte o Google Drive para incorporar na sessão os arquivos privados não contemplados nas 179 imagens publicadas. A pesquisa geral também filtra esses itens.
+- A V205 compara o `driveFileId` com as 93 imagens públicas recuperadas V180 e demais IDs Drive presentes no Atlas, evitando mostrar os mesmos arquivos duplicados.
+- Formatos privados compatíveis: JPEG, PNG, WebP, GIF e SVG. SVG abre a fonte no Drive, sem suporte a grifos.
+- **Permanente × sessão:** o Atlas público permanece em 179 registros; o grupo de imagens extras depende de OAuth da conta autorizada e não publica imagens privadas no GitHub Pages. Publicação permanente requer aprovação e atualização dos catálogos.
+- Caminhos canônicos para novas imagens, checkpoints/ZIP e arquivos originais mantidos (contrato V202). Cartões V194, SRS e PDFs V149 intactos.
+- Validação estrutural: 86 scripts e 75 folhas de estilo, sem arquivos ausentes ou duplicados. Scanner testado com duas raízes e imagens simuladas. OAuth e visualização real ainda pendentes.
+- [Relatório da integração V205](docs/V205_ATLAS_INTEGRACAO_IMAGENS_DRIVE.md).
+
+---
+
 # Banco Mestre V204 — janela muito menor e imagem visível (17/11/2026)
 
 - Pop-up de edição reduzido de 450 px / 74vh para **320 px / 56vh** (teto 500 px), com rolagem interna. No celular, altura máxima 68vh.
