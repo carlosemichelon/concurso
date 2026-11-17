@@ -1,4 +1,5 @@
 import {loadSnapshot,loadPublicCards,approvedDocumentUrl} from './data.js';
+import {attachEvolutive} from './evolutive-ui.js';
 
 const $ = id => document.getElementById(id);
 const state = {snapshot:null,cards:null,cardLoading:null,view:'overview',
@@ -108,7 +109,9 @@ function renderCards() {
     const answer=node('div','answer');answer.hidden=true;
     append(answer,node('h4','','Verso original'),node('p','',card.back||'Sem verso publicado'));
     if(card.expl)append(answer,node('h4','','Explicação'),node('p','',card.expl));
-    if(card.mnemonic)append(answer,node('h4','','Macete'),node('p','',card.mnemonic));
+    if(card.mnemonic)append(answer,node('h4','','Macete original'),node('p','',card.mnemonic));
+    // O aprofundamento fica recolhido e só busca o lote V194 depois do clique.
+    attachEvolutive(answer,card.id,state.snapshot.meta);
     reveal.addEventListener('click',()=>{
       answer.hidden=!answer.hidden;
       reveal.textContent=answer.hidden?'Mostrar resposta':'Ocultar resposta';
