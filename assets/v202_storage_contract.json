@@ -1,0 +1,71 @@
+{
+  "schema": "BancoMestreStorageContractV202",
+  "version": "V202",
+  "updated": "2026-11-17",
+  "canonical_write_destinations": {
+    "images": {
+      "folder_id": "1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6",
+      "folder_name": "07 – Atlas de Imagens (sincronização)",
+      "tree": "CONCURSOS – ENGENHARIA CIVIL / 07 – Atlas de Imagens (sincronização)",
+      "mode": "originais_e_novas_midias_no_mesmo_folder_id",
+      "allowed": "imagem original, diagrama original, miniatura derivada vinculada, índice de mídia versionado",
+      "rule": "Sempre usar folder_id exato em parents ao criar imagem; ler de volta fileId, parents e checksum quando disponível; impedir publicação se destino divergir",
+      "publication": "upload Drive não equivale à publicação GitHub Pages"
+    },
+    "checkpoints": {
+      "folder_id": "1348cILBcxFG9p2cfPJ3WubmHswPRbD24",
+      "folder_name": "Checkpoints Banco Mestre",
+      "mode": "novo_zip_manifesto_indices_no_mesmo_folder_id",
+      "allowed": "ZIP, manifesto JSON, índice CSV/JSON e relatório de checkpoint",
+      "rule": "Sempre salvar novos checkpoints ZIP e manifestos no mesmo folder_id; reler metadata.parents após upload; abortar se caminho divergir"
+    }
+  },
+  "read_only_legacy_sources": {
+    "images": [
+      "1pp1CL9oMYVFHPPzv117DZpy1kA-wyJQo"
+    ],
+    "checkpoints": [
+      "1ziAHgnvKfroZ8meSAjdtJ_M0BNGYQi0S"
+    ]
+  },
+  "runtime_scan_roots": {
+    "images": [
+      "1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6",
+      "1pp1CL9oMYVFHPPzv117DZpy1kA-wyJQo"
+    ],
+    "checkpoints": [
+      "1348cILBcxFG9p2cfPJ3WubmHswPRbD24",
+      "1ziAHgnvKfroZ8meSAjdtJ_M0BNGYQi0S"
+    ]
+  },
+  "github": {
+    "branch": "gh-pages",
+    "public_atlas": "assets/v198_editorial_images_catalog.json",
+    "public_card_index": "assets/meta_public_v194.json",
+    "public_pdf_index": "assets/pdf_catalog_v149.json",
+    "rule": "Drive é repositório de originais privados; site público usa catálogos versionados, devendo distinguir acesso autorizado do arquivo efetivamente publicado"
+  },
+  "checkpoint_required_fields_for_new_packages": [
+    "image_id",
+    "original_drive_file_id",
+    "original_parent_folder_id",
+    "media_type",
+    "source_question_id",
+    "linked_card_ids",
+    "editorial_type",
+    "approval_status",
+    "sha256_if_available",
+    "zip_status",
+    "site_publication_status",
+    "browser_display_test_status"
+  ],
+  "safeguards": [
+    "Fonte da verdade para destinos novos = folder_id, nunca nome ou data de pasta",
+    "Não criar pasta paralela ou aceitar nova pasta como destino sem atualizar este contrato e as leituras do portal de forma coordenada",
+    "Preservar arquivos históricos em pastas antigas; leitura adicional não altera o destino de novas gravações",
+    "Para cada novo upload validar metadata.parents === pasta canônica esperada antes de declarar Drive confirmado",
+    "Não declarar site sincronizado só com upload Drive; exigir publicação/catálogo e verificação de exibição",
+    "Original, seu SHA-256 quando comprovado e os vínculos imagem↔cartão devem integrar o manifesto do checkpoint",
+    "Não enviar automaticamente material privado ao GitHub nem reescrever original, SRS ou versões de cartão"
+  ]
+}
