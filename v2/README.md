@@ -280,6 +280,21 @@ O arquivo público \`assets/drive_auth_v038.json\` informa um Client ID de aplic
 **Ainda não homologado:** autenticação OAuth real da conta no navegador, permissões individuais reais sob esse OAuth, casos especiais de anotação em documentos de produção e sincronização de conteúdo privado GitHub/Drive. A existência da prévia não autoriza a substituição da V1 por V2.
 
 
+## Etapa 11 — Atlas como visualizador único do Drive e do catálogo editorial
+
+A V2 agora usa **uma única lista Atlas**, com busca, filtros e **um único botão Mostrar mais imagens**. A mudança é restrita ao desenvolvimento e à prévia isolada; não altera a V1.
+
+- Os 179 registros editoriais V198 continuam preservados, com os vínculos a cartões, classificação e IDs estabelecidos.
+- Cada imagem encontrada no Drive recebe identidade única pelo ID do arquivo. Se esse ID já corresponde a original editorial recuperado, aparece apenas uma vez, no cartão editorial, com prévia privada acessível após clique.
+- Imagens sem vínculo comprovado a cartão aparecem na mesma lista como **Imagem de conteúdo · provisória**, sem presumir associação. A classificação é só visual; não grava no GitHub nem no Drive.
+- A busca consulta ID editorial, ID Drive, nome, caminho e cartão; o filtro de cartão preserva associações documentadas, e o de conteúdo inclui as provisórias.
+- Mostrar mais avança a mesma lista em lotes de 40, misturando imagens editoriais e arquivos novos quando necessário.
+- A varredura de pastas monitoradas continua automática a cada 120 segundos em sessão OAuth válida e página visível. Isso **não** faz upload Drive → GitHub, nem consulta toda a conta; examina as duas raízes canônicas e subpastas.
+- Desconectar ou substituir a sessão apaga imediatamente os nomes privados, thumbnails e URLs temporárias anteriores.
+- Testes: tests/image-inventory.mjs (179 editoriais + 60 arquivos simulados) e testes Chromium de paginação, filtros, prévia privada e limpeza no logout.
+
+**Pendente:** OAuth real e associação manual comprovada de arquivos que não têm ID editorial. A prévia pública permanece somente leitura e não publica conteúdo privado.
+
 ## Rollback
 
 A produção continua na branch gh-pages com seu próprio manifesto, sem redirecionar para a V2. Se esta prévia falhar, basta descartar a branch de desenvolvimento; a cópia completa da árvore de código preexistente está na branch de backup. O backup do repositório NÃO é backup do conteúdo privado do navegador nem ZIP integral do Drive.
