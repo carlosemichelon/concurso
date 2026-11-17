@@ -181,7 +181,7 @@ function openCard(id) {
 export function updateDriveAtlas(files,previewFactory=null){
   state.driveAtlasFiles=Array.isArray(files)?files:[];
   state.imagePreviewFactory=typeof previewFactory==='function'?previewFactory:null;
-  if(state.snapshot&&state.view==='images')showImages();
+  if(state.snapshot)showImages();
 }
 function showImages() {
   const s=state.snapshot;
