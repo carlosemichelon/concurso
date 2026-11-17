@@ -1,0 +1,36 @@
+name: Banco Mestre V221 - UI TRT imagens PDF editor
+on:
+  push:
+    branches:
+      - staging/v220-v1-cards-images-pdf-fixes-2026-11-17
+      - gh-pages
+    paths:
+      - v221.html
+      - index.html
+      - assets/version.json
+      - assets/v221_trt_cards_grid.js
+      - assets/v221_images_live.js
+      - assets/v221_pdf_editor_route.js
+      - assets/v221_footer_version.js
+      - tests/v221_v1_regressions.cjs
+      - .github/workflows/validar-v221-ui-editor.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  site-regressions:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar sintaxe
+        run: |
+          node --check assets/v221_trt_cards_grid.js
+          node --check assets/v221_images_live.js
+          node --check assets/v221_pdf_editor_route.js
+          node --check assets/v221_footer_version.js
+          node --check tests/v221_v1_regressions.cjs
+      - name: Teste de regressao da V1
+        run: node tests/v221_v1_regressions.cjs
