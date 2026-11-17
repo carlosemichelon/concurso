@@ -83,6 +83,8 @@ export function appendReviewEvent(ledger,report,publicCards,{
     throw Error('Vínculo já existe no catálogo editorial; não criar duplicata');
   if(action==='rejeitar_candidato'&&item.publicCardIds.includes(cardId))
     throw Error('Não rejeitar associação editorial existente nesta fila de propostas');
+  if(action==='manter_conteudo'&&item.publicCardIds.length)
+    throw Error('O catálogo já possui vínculo de cartão; abra auditoria específica antes de alterar a classificação');
   if(ledger?.schema!==REVIEW_CHECKPOINT_SCHEMA||!Array.isArray(ledger.events))
     throw Error('Histórico de decisões inválido');
   if(ledger.events.length>=10000)throw Error('Limite de eventos do checkpoint atingido');
