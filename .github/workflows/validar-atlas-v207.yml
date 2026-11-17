@@ -1,0 +1,42 @@
+name: Validar Atlas Drive V207
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - "assets/v207_drive_atlas_sync.js"
+      - "v207.html"
+      - ".github/workflows/validar-atlas-v207.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sintaxe do leitor de imagens
+        run: node --check assets/v207_drive_atlas_sync.js
+      - name: Sintaxe do HTML dinamico e vinculo ao modulo
+        run: |
+          python3 - <<'PY'
+          import pathlib,re
+          html=pathlib.Path("v207.html").read_text()
+          assert "v207_drive_atlas_sync.js?v=207" in html
+          assert "v207.html" not in html.split("<script>")[-1], "Redirecionamento recursivo"
+          match=re.search(r"<script>\s*(.*?)</script>",html,re.S)
+          assert match, "script inline nao localizado"
+          pathlib.Path("/tmp/atlas_v207_inline.js").write_text(match.group(1))
+          PY
+          node --check /tmp/atlas_v207_inline.js
+      - name: Verificar fontes imutaveis e caminhos
+        run: |
+          python3 - <<'PY'
+          import json,pathlib
+          root=pathlib.Path("assets")
+          contract=json.loads((root/"v202_storage_contract.json").read_text())
+          assert contract["schema"]=="BancoMestreStorageContractV202"
+          assert contract["canonical_write_destinations"]["images"]["folder_id"] in contract["runtime_scan_roots"]["images"]
+          script=(root/"v207_drive_atlas_sync.js").read_text()
+          for needle in ["safeSvgPreview","refreshOnResume" if "refreshOnResume" in script else "const resume=","bm207-sync-time","get lastSuccess","const INTERVAL=120000"]:
+              assert needle in script, needle
+          PY
