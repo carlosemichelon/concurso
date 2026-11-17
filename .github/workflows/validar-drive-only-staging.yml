@@ -22,6 +22,9 @@ jobs:
         run: |
           node --check prototype/drive-only/client.mjs
           node prototype/drive-only/tests/client.test.mjs
+          node --check prototype/drive-only/viewer.mjs
+          node prototype/drive-only/tests/media.test.mjs
+          node prototype/drive-only/tests/viewer.test.mjs
       - name: Verificar que o protótipo não contém snapshots nem tokens
         run: |
           python3 - <<'PY'
