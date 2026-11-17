@@ -55,7 +55,7 @@ assert.equal(contract.canonical_write_destinations.checkpoints.folder_id,'1348cI
 const home=readFileSync(resolve(root,'v2/index.html'),'utf8');
 const scriptPaths=[...home.matchAll(/(?:src|href)="(\.\/assets\/[^"]+)"/g)].map(x=>x[1]);
 for(const path of scriptPaths) assert.ok(existsSync(resolve(root,'v2',path)),'asset V2 ausente: '+path);
-assert.match(home,/v205\.html/,'rollback explícito para V1');
+assert.match(home,/\.\.\/index\.html/,'rollback explícito para V1');
 const source=readFileSync(resolve(root,'v2/assets/app.js'),'utf8');
 assert.doesNotMatch(source,/localStorage\.setItem|indexedDB\.open|drive\.files\.create/,'V2 não pode escrever dados privados');
 console.log('Site V2 smoke OK:',{cards:cards.length,active:1501,images:images.records.length,pdfs:pdf.documents.length,
