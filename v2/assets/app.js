@@ -1,10 +1,12 @@
 import {loadSnapshot,loadPublicCards,approvedDocumentUrl} from './data.js';
 import {attachEvolutive} from './evolutive-ui.js';
 import {attachPdfReaderAction} from './pdf-reader.js';
+import {buildAtlasInventory,filterAtlasInventory} from './image-inventory.js';
 
 const $ = id => document.getElementById(id);
 const state = {snapshot:null,cards:null,cardLoading:null,view:'overview',
-  cardsLimit:40,imagesLimit:40,errors:[],driveImages:null};
+  cardsLimit:40,imagesLimit:40,errors:[],driveImages:null,
+  driveAtlasFiles:[],imagePreviewFactory:null};
 const sections = Object.freeze({
   overview:'Visão geral',cards:'Cartões',images:'Atlas de imagens',
   pdfs:'Biblioteca PDF',sync:'Sincronização'
@@ -173,28 +175,46 @@ function openCard(id) {
   $('cardQuery').value=id;state.cardsLimit=40;setView('cards');
   $('cardQuery').focus();
 }
+/* Atualizado somente pela UI privada após consulta OAuth. Imagens reais do Drive
+ * permanecem em memória; nenhuma foto/token é salva no acervo público.
+ */
+export function updateDriveAtlas(files,previewFactory=null){
+  state.driveAtlasFiles=Array.isArray(files)?files:[];
+  state.imagePreviewFactory=typeof previewFactory==='function'?previewFactory:null;
+  if(state.snapshot&&state.view==='images')showImages();
+}
 function showImages() {
   const s=state.snapshot;
   if(!s){empty($('imagesList'),'Catálogo ainda não disponível.');return}
   const query=$('imageQuery').value.trim().toLocaleLowerCase('pt-BR');
   const type=$('imageType').value;
-  const matches=s.editorial.records.filter(x=>
-    (type==='all'||x.type===type) &&
-    (!query||[x.imageId,x.title,x.subtype,...(x.cardIds||[])].some(v=>String(v||'').toLocaleLowerCase('pt-BR').includes(query)))
-  );
-  $('imagesCounter').textContent=fmt(matches.length)+' de '+fmt(s.imageCount);
+  const inventory=buildAtlasInventory(s.editorial.records,s.recoveredByImageId,state.driveAtlasFiles);
+  const matches=filterAtlasInventory(inventory.records,{query,type});
+  $('imagesCounter').textContent=fmt(matches.length)+' de '+
+    fmt(inventory.editorialCount+inventory.additionalCount)+
+    (inventory.additionalCount?' · 179 editoriais + '+fmt(inventory.additionalCount)+' do Drive':' · catálogo público');
   const list=$('imagesList');list.replaceChildren();
-  if(!matches.length){empty(list,'Nenhuma imagem correspondente.');$('moreImages').hidden=true;return}
+  if(!matches.length){
+    empty(list,'Nenhuma imagem correspondente.');$('moreImages').hidden=true;return;
+  }
   for(const image of matches.slice(0,state.imagesLimit)){
-    const item=node('article','item');
+    const item=node('article','item'+(image.kind==='drive'?' drive-private-item':''));
     const header=node('div','item-header');
-    append(header,node('div','meta',image.imageId+' · '+evidenceLabel(image.basis)),
-      node('span','tag '+(image.type==='cartao'?'card':''),image.type==='cartao'?'Imagem de cartão':'Imagem de conteúdo'));
-    append(item,header,node('h3','item-title',image.title||image.imageId));
+    append(header,node('div','meta',image.key+' · '+
+      (image.provisional?'Arquivo do Drive (sem cartão associado)':evidenceLabel(image.basis))),
+      node('span','tag '+(image.type==='cartao'?'card':''),
+        image.type==='cartao'?'Imagem de cartão':
+        image.provisional?'Imagem de conteúdo · provisória':'Imagem de conteúdo'));
+    append(item,header,node('h3','item-title',image.title||image.key));
     if(image.subtype)append(item,node('p','muted','Função: '+image.subtype));
-    const links=(image.cardIds||[]).filter(Boolean);
+    if(image.provisional){
+      append(item,node('p','helper',
+        'Classificação provisória como conteúdo por não haver vínculo comprovado a cartão. '+
+        'Não grava esta classificação no Drive ou no GitHub.'));
+      if(image.driveFile?.path)append(item,node('p','muted','Pasta: '+image.driveFile.path));
+    }
     const actions=node('div','item-actions');
-    for(const cardId of links.slice(0,5)){
+    for(const cardId of image.cardIds.slice(0,5)){
       if(/^CARD-\d+$/.test(cardId)){
         const button=node('button','','Ver '+cardId);button.type='button';
         button.addEventListener('click',()=>openCard(cardId));actions.append(button);
@@ -202,14 +222,24 @@ function showImages() {
         actions.append(node('span','meta','Referência histórica: '+cardId));
       }
     }
-    const file=s.recoveredByImageId.get(image.imageId);
-    const source=approvedDocumentUrl(file?.source_url);
-    if(source){const a=node('a','','Abrir original no Drive');a.href=source;a.target='_blank';a.rel='noopener noreferrer';actions.append(a)}
-    if(!source && !links.length)actions.append(node('span','meta','Consulta visual completa disponível na V1'));
+    const source=approvedDocumentUrl(image.sourceUrl||image.driveFile?.webUrl||'');
+    if(source){
+      const a=node('a','','Abrir original no Drive');
+      a.href=source;a.target='_blank';a.rel='noopener noreferrer';actions.append(a);
+    }
+    if(image.driveFile?.previewAllowed&&state.imagePreviewFactory){
+      const button=state.imagePreviewFactory(image.driveFile,item);
+      if(button)actions.append(button);
+    }else if(image.driveFile&&!image.driveFile.previewAllowed){
+      actions.append(node('span','meta','Prévia indisponível (formato ou >15 MB)'));
+    }
+    if(!source&&!image.cardIds.length&&!image.driveFile)
+      actions.append(node('span','meta','Arquivo não identificado na sessão Drive'));
     append(item,actions);list.append(item);
   }
   const more=$('moreImages');more.hidden=matches.length<=state.imagesLimit;
-  if(!more.hidden)more.textContent='Mostrar mais ('+fmt(matches.length-state.imagesLimit)+' restantes)';
+  if(!more.hidden)more.textContent='Mostrar mais ('+
+    fmt(matches.length-state.imagesLimit)+' restantes)';
 }
 function showPdfs() {
   const s=state.snapshot;if(!s){empty($('pdfsList'),'Catálogo ainda não disponível.');return}
