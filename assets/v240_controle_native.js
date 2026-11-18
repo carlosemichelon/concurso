@@ -31,6 +31,21 @@ const mount=async()=>{
     location.hash='controle-estudos';
    }
  });
+ // Rota e seleção precisam coincidir: o bootstrap da V242 pode reativar "Assuntos"
+ // depois da montagem nativa. Vigiar somente as classes das seções de topo.
+ const alignNativeRoute=()=>{
+  if(location.hash!=='#controle-estudos')return;
+  const active=document.querySelector('main>section.active');
+  if(active===section&&button.classList.contains('active'))return;
+  document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('active',s===section));
+  document.querySelectorAll('header nav button[data-page]').forEach(b=>b.classList.toggle('active',b===button));
+ };
+ const routeObserver=new MutationObserver(alignNativeRoute);
+ for(const page of main.querySelectorAll(':scope>section')){
+  routeObserver.observe(page,{attributes:true,attributeFilter:['class']});
+ }
+ window.addEventListener('hashchange',alignNativeRoute);
+
  try{
   const response=await fetch('./controle-estudos-v240.html?ref=240',{cache:'no-cache'});
   if(!response.ok)throw Error('Interface indisponível ('+response.status+')');
