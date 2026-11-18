@@ -21,8 +21,11 @@ const mount=async()=>{
  const loading=document.createElement('p');loading.textContent='Carregando Controle de Estudos...';loading.style.padding='25px';
  root.append(loading);
  button.addEventListener('click',()=>{
-   if(typeof window.section==='function')window.section('controle-estudos');
-   else{
+   // A base relativa ../ do staging exige manter o caminho aninhado ao navegar.
+   // Não chamar o roteador legado nesta aba de homologação: sua URL hash é resolvida na raiz.
+   if(typeof window.section==='function'&&!location.pathname.includes('/homologacao-v243/')){
+    window.section('controle-estudos');
+   }else{
     document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('active',s===section));
     document.querySelectorAll('header nav button[data-page]').forEach(b=>b.classList.toggle('active',b===button));
     location.hash='controle-estudos';
