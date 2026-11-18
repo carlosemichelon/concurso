@@ -194,3 +194,9 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Após Google Drive OAuth, filtros de imagens usam `area > subject > subsubject > detail` reais, não os códigos do Atlas de 179 imagens. Incluir pendências explícitas, preservar texto buscado, favoritos e estado correto das seleções.
 - Filtros de flashcards evitam classificações arbitrárias e incluem TRT só para navegação, sem SRS. Conferir contagens e inconsistências de filtros antigos.
 - Atualizar metodologia técnica GitHub, Metodologia Mestre Drive e cache da página ATIVA; verificar separadamente testes estáticos e experiência real em navegador/OAuth.
+
+
+## V258 — proteção de textos explicativos no MathML (18/11/2026)
+- O renderizador não deve converter palavras de hipóteses, unidades, exemplos ou explicações em identificadores matemáticos sem espaços. Separar texto comum de símbolos/equações no DOM e preservar integralmente o texto vindo do Drive.
+- A implementação específica é `assets/v258_math_refinement.js` + CSS, carregados após o MathML V256 na página `v258.html`; não alterar conteúdos canônicos, cartões, lacunas ou SRS por motivo de apresentação.
+- Auditoria e evidência de testes: `docs/V258_FORMATACAO_MISTA_FORMULAS_2026-11-18.md`. Retorno reversível: `v257.html`. Não considerar simulação de DOM como prova de OAuth ou teste visual real.
