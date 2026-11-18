@@ -119,7 +119,7 @@ async function syncAll(){
     warnings.push(control?.message||'Controle: não conferido');
    else notes.push(control.message);
    const gaps=window.BM242LacunasDrive?.sync?await window.BM242LacunasDrive.sync(writeToken()):null;
-   if(!gaps||!['uploaded','downloaded','unchanged','empty'].includes(gaps.state))warnings.push(gaps?.message||'Lacunas: sincronização não verificada');
+   if(!gaps||!['uploaded','downloaded','unchanged'].includes(gaps.state))warnings.push(gaps?.message||'Lacunas: mestre privado não conferido');
    else notes.push(gaps.message);
    const g=window.BancoMestreGrifosDriveSyncV104;
    if(g?.sync){
