@@ -5,7 +5,7 @@
 if(window.BM241SyncTruth)return;
 const $=id=>document.getElementById(id);
 const TYPES=[
- {key:'pdfs',label:'PDFs',evidence:/78 PDFs consultados no Drive/i,warn:/^PDFs:|^Consulta de mídias/i},
+ {key:'pdfs',label:'PDFs',evidence:/^PDFs: consulta do Drive concluída,/i,warn:/^PDFs:|^Consulta de mídias/i},
  {key:'cards',label:'Cartões',excluded:true},
  {key:'atlas',label:'Imagens',evidence:/\d+ imagens originais consultadas no Drive/i,warn:/^Atlas:|^Consulta de mídias/i},
  {key:'control',label:'Controle',evidence:/^Controle:/i,warn:/^Controle:|^Permissão drive\.file/i},
