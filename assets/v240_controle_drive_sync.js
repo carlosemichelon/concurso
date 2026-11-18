@@ -134,9 +134,64 @@ async function work(token){
   rememberVerified(original,localHash);
   return {state:'uploaded',message:'Controle: alterações enviadas e verificadas no Drive'};
  }
- const conflict='Controle: versões divergentes entre dispositivos. Nenhum registro remoto foi sobrescrito; exporte as duas cópias para auditoria.';
- status(conflict);
- return {state:'conflict',message:conflict};
+ const preview=await inspectConflict(token,{file,remote,local:original,localHash,remoteHash,baseline});
+ status(preview.message);
+ return preview;
+}
+async function inspectConflict(token,known){
+ const file=known?.file||await locate(token);
+ if(!file)return {state:'empty',message:'Ainda não existe arquivo de homologação no Drive'};
+ const local=known?.local||localData();
+ const remote=known?.remote||await get(token,file);
+ const localHash=known?.localHash||await sha(local);
+ const remoteHash=known?.remoteHash||await sha(remote);
+ const baseline=known?.baseline??localStorage.getItem(BASE);
+ if(localHash===remoteHash)return {state:'unchanged',message:'Controle: cópias local e remota idênticas'};
+ if(!baseline||baseline==='RESTORE_REQUIRES_RECONCILIATION')
+  return {state:'conflict',message:'Controle: não há base comum verificada (ou existe restauração pendente); nenhuma gravação automática',conflicts:['Sem base comum confirmada']};
+ const raw=localStorage.getItem(SNAPSHOT);
+ if(!raw)return {state:'conflict',message:'Controle: instantâneo-base indisponível. Exporte cópias e reconcilie manualmente.',conflicts:['Sem instantâneo-base']};
+ let base;
+ try{base=JSON.parse(raw)}catch{return {state:'conflict',message:'Instantâneo-base inválido. Nenhum dado será substituído',conflicts:['Base corrompida']}}
+ if(await sha(base)!==baseline)
+  return {state:'conflict',message:'Hash do instantâneo-base divergente. Conciliação bloqueada.',conflicts:['Falha de integridade da base']};
+ const candidate=window.BM240Reconcile?.reconcile(base,local,remote);
+ if(!candidate)return {state:'error',message:'Conciliador de conflitos V240 não carregado'};
+ if(!candidate.ok)return {state:'conflict',message:'Controle: '+candidate.conflicts.length+' conflito(s) específicos — nenhuma substituição.',conflicts:candidate.conflicts.slice(0,60)};
+ return {state:'merge_ready',message:'Controle: alterações independentes conciliáveis. Confirme a operação na aba Backup antes de gravar.',conflicts:[],localHash,remoteHash};
+}
+async function mergeSafe(token){
+ if(running)throw Error('Sincronização em andamento. Conclua-a antes de conciliar.');
+ const file=await locate(token);
+ if(!file)throw Error('Mestre de homologação não localizado');
+ const local=localData(),remote=await get(token,file);
+ const preview=await inspectConflict(token,{file,local,remote});
+ if(preview.state!=='merge_ready')throw Error(preview.message);
+ const timerRaw=localStorage.getItem(CLOCK);
+ if(timerRaw){
+  let clock;
+  try{clock=JSON.parse(timerRaw)}catch{throw Error('Cronômetro local inválido; conciliação suspensa')}
+  if(clock?.running||Number(clock?.elapsed)>0||clock?.transferPending||clock?.availableForTransfer)
+   throw Error('Há sessão em curso ou transferência pendente: salve-a antes de conciliar');
+ }
+ const base=JSON.parse(localStorage.getItem(SNAPSHOT));
+ const candidate=window.BM240Reconcile.reconcile(base,local,remote);
+ if(!candidate.ok)throw Error('Conflito surgiu na segunda verificação');
+ const hash=await sha(candidate.merged),beforeLocal=await sha(local),beforeRemote=await sha(remote);
+ if(beforeLocal!==preview.localHash||beforeRemote!==preview.remoteHash)
+  throw Error('Os originais mudaram durante a auditoria: operação interrompida');
+ const preserved=await window.BM240StudyBackups?.preservePremerge(token,remote,local);
+ if(!Array.isArray(preserved)||preserved.length!==2)
+  throw Error('Não foi possível verificar os dois backups originais. Nenhum envio realizado.');
+ if(await sha(localData())!==beforeLocal)
+  throw Error('Registros locais alterados durante backups: nenhum envio realizado.');
+ await update(token,file,candidate.merged,hash);
+ safeImport(candidate.merged);
+ rememberVerified(candidate.merged,hash);
+ const report={state:'merged',message:'Controle: alterações independentes conciliadas e verificadas; 2 originais preservados no Drive',backups:preserved.map(x=>x.id)};
+ lastResult=report;
+ document.dispatchEvent(new CustomEvent('bm240-control-verified',{detail:{state:'merged'}}));
+ return report;
 }
 async function verifyTimerOwnership(token,sessionId,ownerId){
  if(!token||!sessionId||!ownerId)return false;
@@ -157,5 +212,5 @@ async function sync(token){
  }).finally(()=>running=null);
  return running;
 }
-window.BM240ControlDrive=Object.freeze({sync,verifyTimerOwnership,get lastResult(){return lastResult}});
+window.BM240ControlDrive=Object.freeze({sync,inspectConflict,mergeSafe,verifyTimerOwnership,get lastResult(){return lastResult}});
 })();
