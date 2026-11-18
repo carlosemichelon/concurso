@@ -65,3 +65,33 @@ test('Controle de Estudos V240 - layout em aparelho celular e offline isolado',a
  await page.screenshot({path:'test-results/v240-mobile.png',fullPage:true});
  await context.close();
 });
+
+
+test('Cabeçalho compacto compartilha o mesmo cronômetro nativo sem segunda contagem',async({page})=>{
+ await page.goto(BASE,{waitUntil:'domcontentloaded',timeout:60000});
+ await expect(page.locator('#bm240-study-tab')).toBeAttached({timeout:90000});
+ const host=page.locator('#bm240-native-host');
+ await expect(host.locator('#timerStart')).toBeAttached({timeout:45000});
+ await expect(page.locator('#bm240h-bar')).toBeVisible({timeout:20000});
+ await host.locator('[data-tab="planejamento"]').click();
+ await host.locator('#subjectName').fill('Engenharia Civil');
+ await host.locator('#subjectForm button[type="submit"]').click();
+ await page.locator('#bm240h-subject').selectOption({label:'Engenharia Civil'});
+ await page.locator('#bm240h-topic').fill('Concreto');
+ await page.locator('#bm240h-start').click();
+ await expect(page.locator('#bm240h-bar')).toHaveAttribute('data-state','running');
+ let clock=await page.evaluate(()=>JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_TIMER')));
+ expect(clock.running).toBe(true);
+ await page.waitForTimeout(1400);
+ await page.locator('#bm240h-pause').click();
+ await expect(page.locator('#bm240h-bar')).toHaveAttribute('data-state','paused');
+ clock=await page.evaluate(()=>JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_TIMER')));
+ expect(clock.running).toBe(false);
+ expect(clock.elapsed).toBeGreaterThan(1000);
+ await page.locator('#bm240h-save').click();
+ const state=await page.evaluate(()=>JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_CONTROLE')));
+ expect(state.sessions.length).toBe(1);
+ expect(state.sessions[0].minutes).toBeGreaterThan(0);
+ expect(state.sessions[0].topic).toBe('Concreto');
+ await expect(page.locator('#bm240h-bar')).toHaveAttribute('data-state','idle');
+});
