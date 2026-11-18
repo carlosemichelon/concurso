@@ -511,6 +511,15 @@ async function bm242OperationalStudy(id){
    create('p','','ID original: '+id+' · Origem: '+(rec.question_id||'não informada')),
    create('p','','Arquivo fonte do Google Drive preservado. Publicação operacional não corresponde a alteração do Banco Mestre canônico.'),
    create('p','','Abertura de leitura não registra avaliação ou evento SRS.'));
+  const linked=(window.BM242Lacunas?.data?.records||[]).filter(x=>x.cardIds?.includes(id));
+  history.append(create('p','',linked.length+' lacuna(s) relacionada(s) no cadastro privado.'));
+  const see=btn('Ver lacunas vinculadas','link','bm242-related-gaps');
+  see.addEventListener('click',()=>{
+   hide();document.getElementById('bm242-nav')?.click();
+   const query=document.getElementById('bm242-search');
+   if(query){query.value=id;window.BM242Lacunas?.render?.();query.focus();}
+  });
+  history.append(see);
   overview.append(history);
   heading.textContent='Material original '+id+' · 11 módulos';
  }catch(e){
