@@ -1,0 +1,115 @@
+/* V241 — cabeçalho compacto, status real e cronômetro semelhante ao modelo fornecido. */
+body>header .head{
+ grid-template-areas:"brand stats" "nav nav" "timer timer"!important;
+ row-gap:5px!important;
+ padding-top:8px!important;padding-bottom:6px!important;
+}
+body>header .head .brand{font-size:17px!important}
+body>header .head>.bm-v046-header-stats{gap:4px!important}
+body>header .head>.bm-v046-header-stats>.stat{
+ width:99px!important;min-width:88px!important;max-width:106px!important;
+ min-height:46px!important;height:49px!important;padding:4px 5px!important;
+ column-gap:4px!important;border-radius:7px!important;
+ grid-template-columns:14px minmax(0,1fr)!important;
+}
+body>header .head>.bm-v046-header-stats>.stat::before{
+ width:14px!important;height:14px!important;font-size:9px!important;border-radius:3px!important
+}
+body>header .head>.bm-v046-header-stats>.stat b{font-size:12px!important}
+body>header .head>.bm-v046-header-stats>.stat span{
+ max-width:100%!important;font-size:9px!important;line-height:1.12!important;
+}
+body>header .head>.bm-v046-header-stats>.stat .bm241-verification{
+ grid-area:status;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ font:650 9px/1.1 system-ui;display:block;min-width:0;
+}
+body>header .head>.bm-v046-header-stats>.stat[data-sync-status="verified"] .bm241-verification{color:#156f59}
+body>header .head>.bm-v046-header-stats>.stat[data-sync-status="pending"] .bm241-verification,
+body>header .head>.bm-v046-header-stats>.stat[data-sync-status="excluded"] .bm241-verification{color:#6a6262}
+body>header .head>.bm-v046-header-stats>.stat[data-sync-status="partial"] .bm241-verification,
+body>header .head>.bm-v046-header-stats>.stat[data-sync-status="error"] .bm241-verification{color:#98552e}
+body>header .head>.bm-v046-header-stats>.stat[data-sync-status="syncing"] .bm241-verification{color:#23658c}
+body>header .head>.bm-v046-header-stats>.bm241-control.stat::before{content:"◷"!important}
+body>header .head>.bm-v046-header-stats>.bm241-grifos.stat::before{content:"✎"!important}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action{
+ min-width:135px!important;max-width:154px!important;min-height:35px!important;
+ border-radius:7px!important;padding:5px 7px!important;
+ font-size:10px!important;line-height:1.18!important
+}
+body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+ font-size:9px!important;max-width:126px!important;max-height:39px!important;
+ line-height:1.15!important;
+}
+body>header .head>nav[aria-label="Seções"]{
+ padding:4px 0 3px!important;gap:3px!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page]{
+ min-height:31px!important;padding:5px 8px!important;
+ font-size:10.5px!important;border-radius:6px!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-bm096-icon]::before{
+ width:13px!important;height:13px!important;flex:0 0 13px!important
+}
+.bm241-timer-bar{
+ grid-area:timer;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+ min-width:0;width:100%;padding:5px 7px!important;
+ border-top:1px solid #e4ebea;background:#f7faf9;box-sizing:border-box;
+ font:500 11px/1.4 system-ui;color:#234c51;border-radius:7px;
+}
+.bm241-timer-choose,.bm241-timer-live{
+ display:flex;align-items:center;gap:5px;flex:1;flex-wrap:wrap;min-width:0;
+}
+.bm241-timer-bar [hidden]{display:none!important}
+.bm241-timer-bar select,.bm241-timer-bar input{
+ box-sizing:border-box;min-width:0;height:30px;max-width:220px;
+ border:1px solid #c5d6d2;border-radius:6px;background:#fff;
+ color:#204b50;padding:4px 7px;font:inherit;
+}
+.bm241-timer-bar #bm241-subject{width:180px}
+.bm241-timer-bar #bm241-topic{width:200px;flex:1 1 180px}
+.bm241-timer-bar button{
+ min-height:30px!important;min-width:0!important;max-width:none!important;
+ padding:4px 8px!important;border:1px solid #bfd3ce;border-radius:6px;
+ background:#fff;color:#1d5653;font:700 11px/1.2 system-ui;cursor:pointer;white-space:nowrap;
+}
+.bm241-timer-bar .bm241-primary{background:#116f62;color:#fff;border-color:#116f62}
+.bm241-timer-bar .bm241-discard{color:#8f3f38}
+.bm241-timer-bar button:focus-visible,.bm241-timer-bar input:focus-visible,
+.bm241-timer-bar select:focus-visible{outline:2px solid #d4a640;outline-offset:2px}
+.bm241-timer-label{display:flex;align-items:center;min-width:0;gap:3px;max-width:350px}
+.bm241-timer-label strong,.bm241-timer-label>span:last-child{
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:155px
+}
+.bm241-live-glyph{font-size:11px;color:#21756b}
+.bm241-clock{font:750 13px/1 system-ui;white-space:nowrap;
+ font-variant-numeric:tabular-nums;padding:3px 7px;border-radius:5px;background:#e3f0eb}
+.bm241-timer-status{color:#687d7a;font-size:10px;flex:0 1 auto}
+.bm241-timer-status[data-kind="running"]{color:#126c59}
+.bm241-timer-status[data-kind="paused"]{color:#8c6024}
+.bm241-create{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.bm241-create input{width:170px}
+@media(max-width:1024px){
+ body>header .head{grid-template-areas:"brand" "stats" "nav" "timer"!important}
+}
+@media(max-width:600px){
+ body>header .head{padding:6px!important;row-gap:3px!important}
+ body>header .head>.bm-v046-header-stats{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:4px!important
+ }
+ body>header .head>.bm-v046-header-stats>.stat{
+  min-width:0!important;max-width:none!important;width:100%!important;
+  min-height:47px!important;height:47px!important;padding:3px 4px!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat b{font-size:11px!important}
+ body>header .head>.bm-v046-header-stats>.stat span,
+ body>header .head>.bm-v046-header-stats>.stat .bm241-verification{font-size:8.5px!important}
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action{grid-column:1/3;max-width:none!important;width:100%}
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details{grid-column:3/4;max-width:none!important}
+ .bm241-timer-bar{padding:5px!important;gap:5px}
+ .bm241-timer-bar #bm241-subject{flex:1 1 120px;width:100px}
+ .bm241-timer-bar #bm241-topic{flex:1 1 125px;width:130px}
+ .bm241-timer-label{max-width:100%;flex:1 1 150px}
+ .bm241-timer-label strong{max-width:110px}
+ .bm241-timer-label>span:last-child{max-width:115px}
+ .bm241-timer-status{display:none}
+}
