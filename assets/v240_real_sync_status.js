@@ -37,19 +37,23 @@ function refresh(){
  const global=window.BM239DriveGlobal;
  const running=$('bm239-drive-action')?.getAttribute('aria-busy')==='true';
  const pdf=window.BancoMestrePDFSyncV130?.lastResult;
+ const pdfMessage=String($('bm-pdf-sync-status')?.textContent||'');
+ const pdfFailed=/consulta do Drive incompleta|falha na sincronização|não foi possível consultar|não foi possível verificar/i.test(pdfMessage);
  const images=window.BancoMestreDriveImagesV182;
- if(pdf&&Number.isFinite(Number(pdf.found))&&Number(pdf.found)>=0){
+ if(pdfFailed){
+  statusFor('pdf','Falha na consulta','error','PDFs: '+pdfMessage+'. Resultados anteriores não provam sucesso na atualização.');
+ }else if(running&&connected)statusFor('pdf','⟳ consultando','syncing',
+  'PDFs: consulta ao Google Drive em andamento; não existe confirmação desta varredura.');
+ else if(pdf&&Number.isFinite(Number(pdf.found))&&Number(pdf.found)>=0){
   const n=fmt(pdf.found);
   const text=connected?'✓ '+n+' consultados':'Última: '+n;
   statusFor('pdf',text,connected?'verified':'pending',
    'PDFs: '+n+' arquivos localizados na última varredura concluída do Google Drive nesta visita.'+
    (pdf.folders!==undefined?' '+fmt(pdf.folders)+' pastas verificadas.':'')+
    (connected?' Conexão de leitura ativa.':' Conexão expirada ou ausente; resultado não é uma verificação atual.'));
- }else if(running&&connected)statusFor('pdf','⟳ consultando','syncing',
-  'PDFs: consulta ao Google Drive em andamento; não existe resultado concluído desta consulta.');
- else statusFor('pdf','Drive não verificado','pending',
+ }else statusFor('pdf','Drive não verificado','pending',
   'PDFs: 78 registros no catálogo público, mas nenhuma varredura autorizada foi concluída nesta sessão.');
- statusFor('cards','Base local/pública','pending',
+ statusFor('cards','Sem SRS no Drive','pending',
   'Cartões: 1.518 IDs públicos canônicos e 22 registros operacionais Ijuí disponíveis no portal. Não foi confirmada sincronização de alterações de cartões nem de eventos SRS com o Google Drive.');
  if(images?.lastError){
   statusFor('images','Falha na consulta','error',
@@ -77,15 +81,15 @@ function refresh(){
  const ctlOK=['uploaded','downloaded','unchanged'].includes(ctl?.state);
  const ctlConflict=ctl?.state==='conflict';
  const ctlError=ctl?.state==='error';
- const controlInfo=ctlOK?'Controle: '+(ctl.state==='uploaded'?'gravado e relido':
+ const controlInfo=ctlOK?'Controle (última conferência): '+(ctl.state==='uploaded'?'gravado e relido':
    ctl.state==='downloaded'?'recebido e salvo localmente':'conferido sem diferenças'):
    ctlConflict?'Controle: conflito preservado':
    ctlError?'Controle: falha':ctl?.state==='empty'?'Controle: sem dados locais a enviar':
    'Controle: não conferido';
- const grifosInfo=grifosVerified?'Grifos: mestre conferido':
+ const grifosInfo=grifosVerified?'Grifos: última verificação do mestre concluída':
    /^Não sincronizado com o mestre:/.test(grifosText)?'Grifos: falha':'Grifos: não conferidos';
- const goodPdf=Boolean(pdf&&connected);
- const goodImages=Boolean(images?.lastSuccess&&connected&&!images?.lastError);
+ const goodPdf=Boolean(pdf&&connected&&!pdfFailed&&!running);
+ const goodImages=Boolean(images?.lastSuccess&&connected&&!images?.lastError&&!running);
  const allGood=goodPdf&&goodImages&&ctlOK&&grifosVerified;
  const partial=Boolean(ctlConflict||ctlError||images?.lastError||(!allGood&&(goodPdf||goodImages||ctlOK||grifosVerified)));
  const button=$('bm239-drive-action');
