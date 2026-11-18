@@ -177,3 +177,9 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Registrar mudanças de apresentação no METODOLOGIA_V037_FLASHCARDS_PDF.md e aqui; antes de publicar testar ordem, presença de 11 módulos, leitura, CSS de section, responsividade, preservação de SRS/IDs/Drive e ausência de regressões.
 
 - Cartões TRT devem reproduzir a sequência DOM do CARD-1338 (ribbon/área e origem, pergunta com Abrir leitura no alto à direita, ID, referências, ações na base). Grifar/escrever compartilhado via V122 com ID TRT; quadro informativo obrigatoriamente após os 11 módulos. Não confundir revisão sintática com homologação visual em navegador.
+
+## Verificação de regressão obrigatória — leitor TRT e filtros de bibliotecas
+- TRT01-C### e TRT02-C### abrem o MESMO modal V165 por clique, botão e teclado; manter resposta oculta, 11 módulos e imagens e quadro final.
+- Após Google Drive OAuth, filtros de imagens usam `area > subject > subsubject > detail` reais, não os códigos do Atlas de 179 imagens. Incluir pendências explícitas, preservar texto buscado, favoritos e estado correto das seleções.
+- Filtros de flashcards evitam classificações arbitrárias e incluem TRT só para navegação, sem SRS. Conferir contagens e inconsistências de filtros antigos.
+- Atualizar metodologia técnica GitHub, Metodologia Mestre Drive e cache da página ATIVA; verificar separadamente testes estáticos e experiência real em navegador/OAuth.
