@@ -29,10 +29,10 @@ Origem: decisões 1–18 aprovadas pelo estudante nesta conversa de 18/11/2026. 
 | Separação SRS formal | Aderência estática; regressão real pendente | sem eventos SRS disparados pelo Controle |
 | Sincronização Drive e conflito | Teste de API simulada concluído; OAuth real pendente | criação, atualização e conflito sem perda |
 | Transferência do cronômetro | Protocolo de pausa + confirmação; teste real pendente | não garante bloqueio distribuído quando aparelho de origem permanece offline |
-| Backup 30+12 com restauração | Criação/verificação/rotação implementadas; restauração GUIADA pendente | sem teste de Drive real |
-| Offline computador/celular | Cache implementado; inspeção e teste real pendentes | Service Worker sem dados privados |
+| Backup 30+12 com restauração | Código de cópias e restauração local implementado; teste simulado aprovado | sem OAuth real |
+| Offline computador/celular | Cache público isolado no caminho de homologação, teste real pendente | não controla produção |
 | Importação histórica auditada | Rotina parcial implementada; fontes não enumeradas no Drive | V184 local no navegador |
-| Hierarquia completa de assuntos/filtros | PENDENTE | controle atual tem disciplina e campo livre, não as quatro listas reais |
+| Hierarquia de disciplinas/assuntos | Parcial | catálogo público V194 importado, 3 campos + subassunto livre; falta quarta camada canônica |
 | Painel de integridade por módulo | Parcial | mensagens no cabeçalho; não contém contadores completos de pendências |
 | Histórico entre dispositivos / prevenção absoluta de concorrência offline | PENDENTE | conflito detectado e não sobrescrito; sem transação distribuída |
 
@@ -44,6 +44,24 @@ Origem: decisões 1–18 aprovadas pelo estudante nesta conversa de 18/11/2026. 
 4. Simulação de API Drive com SHA e estados remoto/local: criar mestre, atualizar e detectar conflito preservando ambas as versões. **PASSOU**.
 
 **Não realizadas:** navegação autenticada real, uso entre celular e computador, app em modo avião, contingência com OAuth expirado, restauração privada, renderização visual em produção. A criação do branch/PR é somente produção de código, não implantação.
+
+
+## Evolução de 18/11/2026 — isolamento e recuperação
+
+- **Isolamento completo do ensaio:** `BM240_HOMOLOGACAO_CONTROLE`, `BM240_HOMOLOGACAO_TIMER` e `BM240_HOMOLOGACAO_DRIVE_BASE_SHA256` não são chaves de produção. O arquivo mestre Drive tem `bm_kind=bm_controle_estudos_v240_homologacao`, e backups `bm_kind=bm_controle_estudos_v240_homologacao_backup`. O mestre V239 e `BM_CONTROLE_ESTUDOS_V238` são somente lidos pela rotina de importação explícita, **nunca modificados** pelo Controle V240.
+- **Importação read-only:** com confirmação, sessões válidas V239 são copiadas para V240 com prefixo de ID `V239:` e proveniência; acertos não excedem resolvidas e dados sem data/duração adequada são rejeitados. Os originais, o cronômetro principal e SRS não são alterados.
+- **Falha segura:** histórico local JSON malformado ou esquema incompatível impede inicialização em vez de limpar dados. Gravações de aba desatualizada são bloqueadas sem sobrescrever a versão persistida.
+- **Backup remoto:** inventário e restauração SHA-256 via interface; restaura somente na base de homologação do navegador, guardando o estado anterior. Após restauração, o marcador `RESTORE_REQUIRES_RECONCILIATION` impede envio automático ao mestre privado.
+- **Cronômetro:** pausar normalmente permanece disponível offline; a transferência exige liberação explícita e confirmação no Drive. O cancelamento exige conferir a propriedade remota. Duas sessões simultâneas offline não têm exclusão distribuída garantida e devem ser reconciliadas antes da consolidação.
+- **Service Worker isolado:** `homologacao-v240/sw.js` só controla clientes da rota `homologacao-v240/`. O antigo `sw-v240.js` de raiz foi desativado, e o registro não é acionado na página principal. A instalação prepara cache apenas de assets públicos, sem armazenar tokens nem registros privados.
+- **Hierarquia extraída dos cartões públicos V194:** 22 disciplinas, 336 assuntos gerais e 1.411 ocorrências de assuntos específicos. Subassunto é um campo livre complementar até existir catálogo canônico de 4 níveis; não inventar a quarta camada.
+- **Integridade visual:** painel por módulo já apresenta consulta PDFs/imagens, estado do Controle, grifos e backups; acompanhamento por objeto, contadores de pendências e confirmação visual final ainda requerem testes reais.
+- **Testes simulados executados:** 111 identificadores DOM sem duplicação/referência ausente, cadastro, sessão 75min 20/15, exclusão/restauração, plano 50min, importação V239 preservando fonte e bloqueio de sobrescrita em aba desatualizada. Mock Drive: 2 cópias criadas/verificadas (diária/mensal), restauração local e trava de conciliação. São testes de lógica, **não** homologação real OAuth ou mobile.
+- **Concorrência editorial:** outra branch `homologacao/v241-cronometro-cabecalho-2026-11-18` propõe alterações que podem se sobrepor à V240 (PR #33). Ambas são rascunhos separados; não integrar automaticamente, comparar antes da publicação.
+
+### Estado de disponibilidade
+
+**Código de homologação armazenado no GitHub, PR #32 aberto como rascunho.** Não mesclado, não exposto pelo endereço principal do portal, não homologado em navegadores reais. O manifesto principal consultado continua V239. Não foram salvos registros reais do usuário no Drive nesta interação.
 
 ## Critérios para homologação e futura publicação
 
