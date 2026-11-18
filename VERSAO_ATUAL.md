@@ -1,3 +1,15 @@
+# Banco Mestre V244 — Biblioteca de Lacunas integrada (18/11/2026)
+
+- **Versão principal:** `v244.html`, acionada por `index.html` e `assets/version.json`. A V242 permanece disponível em `v242.html` como retorno seguro.
+- **Escopo integrado:** aba nativa **Lacunas** (pesquisa, registro de questões, origem do erro, relato literal do estudante, diagnóstico independente do assistente, filtros hierárquicos reais, origem/fonte/histórico, cartões relacionados); ponte entre Controle de Estudos e Lacunas; cartão original `PETRO14-C014` no leitor V165 em 11 módulos com pergunta visível e resposta oculta até revelação; sem lançamento SRS automático.
+- **Drive:** botão global da V242 substituído na V244 por camada que inclui sincronização privada de lacunas, snapshots de recuperação verificados antes de gravar e backups rotativos (30 datas diárias, 12 competências mensais), sem misturar dados privados ao GitHub.
+- **Teste verificado nesta integração:** montagem integral do HTML a partir da fonte V062 reproduzida em ambiente controlado, 123 scripts externos (biblioteca de diagnóstico incluída), leitor único sem duplicação, dependências carregadas na ordem correta; SHA dos arquivos publicados conferido no GitHub, manifestos e homepage encaminhando para V244.
+- **Atenção:** **testes de navegador público, OAuth real de Drive, restauração interdispositivos, visuais no celular/computador e atomicidade concorrente ainda pendentes**. Integração no site ≠ sincronização do Drive comprovada. Não certificar estes itens sem evidência.
+- **Preservação:** frontend V242, cronômetro de rodapé, cartões públicos V194, ID das lacunas, fontes, SRS, PDF, Atlas, Grifos e documentos canônicos não foram substituídos. O PR #34 permanece histórico e não deve ser mesclado cegamente, pois os arquivos próprios da prévia foram publicados separadamente.
+- **Rollback:** o arquivo `v242.html` está preservado; os SHAs anteriores de `index.html` e `assets/version.json` estão na história GitHub (respectivamente `bde35766ef147afbf06bc88957b5e98c8c958ed6` e `6ecb1955f8caab2170ab52e5fc0a65d29dcf4c83`).
+
+---
+
 # Banco Mestre V242 — cronômetro fixo no rodapé (18/11/2026)
 
 - **Versão publicada:** `v242.html` por `index.html` e `assets/version.json`, preservando `v241.html` e versões anteriores.
