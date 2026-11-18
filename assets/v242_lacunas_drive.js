@@ -4,7 +4,8 @@
 'use strict';
 if(window.BM242LacunasDrive)return;
 const KEY='BM_LACUNAS_V242',BASE='BM242_LACUNAS_REMOTE_SHA256',
- KIND='bm_lacunas_v242',API='https://www.googleapis.com/drive/v3/files',
+ KIND='bm_lacunas_v242',PRIVATE_PARENT='1cDkoy-QgXYdzhOzi8SMSr7g4eB4oskBD',
+ API='https://www.googleapis.com/drive/v3/files',
  UPLOAD='https://www.googleapis.com/upload/drive/v3/files',MAX=5000000;
 let running=null,lastResult=null;
 function local(){
@@ -39,7 +40,7 @@ async function locate(token){
    o arquivo original jamais será alterado. */
 async function locateSeed(token){
  const url=new URL(API);
- const parent='1cDkoy-QgXYdzhOzi8SMSr7g4eB4oskBD';
+ const parent=PRIVATE_PARENT;
  const name='PROPOSTA_LACUNA_PETRO14_C014_2026-11-18.json';
  url.searchParams.set('q',"trashed = false and name = '"+name+"' and '"+parent+"' in parents");
  url.searchParams.set('fields','nextPageToken,incompleteSearch,files(id,name,mimeType,parents)');
@@ -77,14 +78,14 @@ async function create(token,d,expected){
  const payload=JSON.stringify({format:'BancoMestreLacunasDriveV242',updatedAt:new Date().toISOString(),data:d});
  if(payload.length>MAX)throw Error('Cadastro muito grande');
  const boundary='bm242-'+crypto.randomUUID(),meta={name:'BancoMestre_Lacunas_Mestre_V242.json',mimeType:'application/json',
-  appProperties:{bm_kind:KIND,bm_schema:'V242'}};
+  parents:[PRIVATE_PARENT],appProperties:{bm_kind:KIND,bm_schema:'V242'}};
  const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+
   '\r\n--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+payload+
   '\r\n--'+boundary+'--';
- const res=await req(token,UPLOAD+'?uploadType=multipart&fields=id,appProperties',
+ const res=await req(token,UPLOAD+'?uploadType=multipart&fields=id,appProperties,parents',
   {method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});
  const out=await res.json();
- if(!out.id||out.appProperties?.bm_kind!==KIND)throw Error('ID do arquivo criado não confirmado');
+ if(!out.id||out.appProperties?.bm_kind!==KIND||!out.parents?.includes(PRIVATE_PARENT))throw Error('Gravação no diretório privado não confirmada');
  await confirmed(token,out.id,expected);return out;
 }
 async function update(token,file,d,expected){
