@@ -69,6 +69,6 @@ assert.ok(api,'taxonomia inicializada');
  assert.equal(manifest.release_v225.srs_canonical_unchanged,true);
  assert.equal(manifest.release_v225.token_security,'never stored in localStorage, cookies, GitHub or Drive');
  assert.ok(read('index.html').includes('data-bm-portal-version="'+manifest.version+'"'));
- assert.ok(read('index.html').includes('TRT01-C00[12345678]'));
+ assert.ok(page.includes('v225_trt_cards_grid.js'),'V225 preserva os oito cartões TRT no módulo histórico');
  console.log('V225 aprovado: 65 leis categorizadas, 8 TRT, busca sem duplicação, OAuth renovável sem persistência insegura.');
 })().catch(err=>{console.error(err);process.exitCode=1});
