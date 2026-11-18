@@ -73,10 +73,36 @@ async function confirmed(token,id,expected){
  const d=await fetchData(token,id);
  if(await hash(d)!==expected)throw Error('Leitura pós-gravação divergente');
 }
+// Escrita antecipada e imutável para permitir recuperação após corrida de atualização.
+// A versão de backup é importável pela própria interface, sem alterar o mestre.
+async function archive(token,d,reason,expected){
+ const payload=JSON.stringify({format:'BancoMestreLacunasV242',backupAt:new Date().toISOString(),backupReason:reason,data:d},null,2);
+ if(payload.length>MAX)throw Error('Backup privado excede limite');
+ const boundary='bm242-backup-'+crypto.randomUUID();
+ const meta={name:'BancoMestre_Lacunas_Recuperacao_'+new Date().toISOString().replace(/[:.]/g,'-')+'_'+crypto.randomUUID().slice(0,8)+'.json',
+   mimeType:'application/json',parents:[PRIVATE_PARENT],
+   appProperties:{bm_kind:'bm_lacunas_recovery_v242',bm_schema:'V242',bm_reason:reason}};
+ const body='--'+boundary+'\\r\\nContent-Type: application/json; charset=UTF-8\\r\\n\\r\\n'+JSON.stringify(meta)+
+  '\\r\\n--'+boundary+'\\r\\nContent-Type: application/json; charset=UTF-8\\r\\n\\r\\n'+payload+
+  '\\r\\n--'+boundary+'--';
+ const res=await req(token,UPLOAD+'?uploadType=multipart&fields=id,parents,appProperties',{
+  method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});
+ const out=await res.json();
+ if(!out.id||!out.parents?.includes(PRIVATE_PARENT)||out.appProperties?.bm_kind!=='bm_lacunas_recovery_v242')
+  throw Error('Cópia de recuperação não foi confirmada na pasta privada');
+ const raw=await(await req(token,API+'/'+encodeURIComponent(out.id)+'?alt=media')).text();
+ if(raw.length>MAX)throw Error('Cópia de recuperação ultrapassou o limite');
+ const back=JSON.parse(raw);
+ if(back.format!=='BancoMestreLacunasV242')throw Error('Formato de recuperação incorreto');
+ window.BM242Lacunas.validate(back.data);
+ if(await hash(back.data)!==expected)throw Error('Cópia de recuperação não corresponde aos dados originais');
+ return out.id;
+}
 async function create(token,d,expected){
  const check=await locate(token);if(check)throw Error('Outro cadastro surgiu no Drive durante a sincronização');
  const payload=JSON.stringify({format:'BancoMestreLacunasDriveV242',updatedAt:new Date().toISOString(),data:d});
  if(payload.length>MAX)throw Error('Cadastro muito grande');
+ await archive(token,d,'antes_criacao_mestre',expected);
  const boundary='bm242-'+crypto.randomUUID(),meta={name:'BancoMestre_Lacunas_Mestre_V242.json',mimeType:'application/json',
   parents:[PRIVATE_PARENT],appProperties:{bm_kind:KIND,bm_schema:'V242'}};
  const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+
@@ -88,7 +114,9 @@ async function create(token,d,expected){
  if(!out.id||out.appProperties?.bm_kind!==KIND||!out.parents?.includes(PRIVATE_PARENT))throw Error('Gravação no diretório privado não confirmada');
  await confirmed(token,out.id,expected);return out;
 }
-async function update(token,file,d,expected){
+async function update(token,file,d,expected,remote,remoteHash){
+ await archive(token,remote,'antes_atualizacao_remoto',remoteHash);
+ await archive(token,d,'candidato_local_pre_envio',expected);
  const latest=await(await req(token,API+'/'+encodeURIComponent(file.id)+'?fields=id,version,appProperties')).json();
  if(latest.id!==file.id||String(latest.version)!==String(file.version)||latest.appProperties?.bm_kind!==KIND)
   throw Error('Alteração concorrente do cadastro remoto; original preservado');
@@ -135,7 +163,7 @@ async function work(token){
  }
  if(baseline&&baseline===remoteHash){
   if(await hash(local())!==localHash)throw Error('Dados locais alterados durante envio');
-  await update(token,file,d,localHash);
+  await update(token,file,d,localHash,remote,remoteHash);
   localStorage.setItem(BASE,localHash);
   return status({state:'uploaded',message:'Lacunas: alterações gravadas e verificadas no Drive'});
  }
