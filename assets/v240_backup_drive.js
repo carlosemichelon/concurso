@@ -4,8 +4,8 @@
 if(window.BM240StudyBackups)return;
 const API='https://www.googleapis.com/drive/v3/files',
 UP='https://www.googleapis.com/upload/drive/v3/files',
-KEY='BM_CONTROLE_ESTUDOS_V238',
-KIND='bm_controle_estudos_v240_backup',MAX=10_000_000;
+KEY='BM240_HOMOLOGACAO_CONTROLE',
+KIND='bm_controle_estudos_v240_homologacao_backup',MAX=10_000_000;
 let ongoing=null,lastResult=null;
 async function request(token,url,options={}){
  if(!token)throw Error('Token de escrita não disponível');
@@ -55,7 +55,7 @@ async function verified(token,id,hash){
 async function create(token,data,period,day,hash){
  const payload=JSON.stringify({format:'BancoMestreControleBackupV240',createdAt:new Date().toISOString(),period,day,sha256:hash,data});
  if(payload.length>MAX)throw Error('Backup excede 10MB; exporte uma cópia manual e revise o acervo');
- const meta={name:'BM_Controle_'+period+'_'+day+'.json',mimeType:'application/json',
+ const meta={name:'BM_HOMOLOGACAO_V240_'+period+'_'+day+'.json',mimeType:'application/json',
  appProperties:{bm_kind:KIND,bm_period:period,bm_day:day,bm_sha256:hash}};
  const boundary='bm240-'+crypto.randomUUID();
  const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+
@@ -125,7 +125,7 @@ async function restoreToLocal(token,id){
  if(!chosen)throw Error('Backup não identificado na lista do Drive; nenhuma alteração aplicada');
  const data=await verified(token,id,chosen.sha256);
  const old=localStorage.getItem(KEY);
- const timerRaw=localStorage.getItem('BM_CONTROLE_TIMER_V238');
+ const timerRaw=localStorage.getItem('BM240_HOMOLOGACAO_TIMER');
  if(timerRaw){
   let c;
   try{c=JSON.parse(timerRaw)}catch{throw Error('Cronômetro local inválido: preserve-o antes de restaurar')}
@@ -134,19 +134,19 @@ async function restoreToLocal(token,id){
  }
  if(old!==localStorage.getItem(KEY))throw Error('Histórico alterado durante a conferência: restauração suspensa');
  const prefix='BM240_PRE_RESTORE_'+new Date().toISOString().replace(/[:.]/g,'-');
- const previousBaseline=localStorage.getItem('BM240_CONTROLE_DRIVE_BASE_SHA256');
+ const previousBaseline=localStorage.getItem('BM240_HOMOLOGACAO_DRIVE_BASE_SHA256');
  // Não sobrescrever silenciosamente: uma cópia anterior é persistida primeiro.
  localStorage.setItem(prefix,old===null?JSON.stringify({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60}):old);
  try{
   // Marca a origem como divergente para IMPEDIR que o sincronizador envie automaticamente uma restauração antiga sobre o mestre do Drive.
-  localStorage.setItem('BM240_CONTROLE_DRIVE_BASE_SHA256','RESTORE_REQUIRES_RECONCILIATION');
+  localStorage.setItem('BM240_HOMOLOGACAO_DRIVE_BASE_SHA256','RESTORE_REQUIRES_RECONCILIATION');
   localStorage.setItem(KEY,JSON.stringify(data));
   window.BM240ControlApp?.reload?.();
  }catch(e){
   try{
    if(old===null)localStorage.removeItem(KEY);else localStorage.setItem(KEY,old);
-   if(previousBaseline===null)localStorage.removeItem('BM240_CONTROLE_DRIVE_BASE_SHA256');
-   else localStorage.setItem('BM240_CONTROLE_DRIVE_BASE_SHA256',previousBaseline);
+   if(previousBaseline===null)localStorage.removeItem('BM240_HOMOLOGACAO_DRIVE_BASE_SHA256');
+   else localStorage.setItem('BM240_HOMOLOGACAO_DRIVE_BASE_SHA256',previousBaseline);
   }catch(_){}
   throw Error('Restauração local não concluída: '+e.message);
  }
