@@ -202,6 +202,7 @@ function install(){
  new MutationObserver(syncTabs).observe(tabs,{attributes:true,attributeFilter:['class'],subtree:true});
  tabs.addEventListener('click',()=>{today();syncTabs()});
  window.addEventListener('bm240-study-changed',today);
+ window.addEventListener('bm243-catalog-ready',today);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)today()});
  window.addEventListener('storage',e=>{if(e.key===KEY)today()});
  syncTabs();today();attached=true;
