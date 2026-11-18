@@ -6,7 +6,7 @@ if(window.BM241TimerHeader)return;
 const PREFIX='bm241-',BASE_TITLE=document.title;
 const $=id=>document.getElementById(PREFIX+id);
 const CLOCK='BM240_HOMOLOGACAO_TIMER';
-let state=null,subjSignature='',knownSubjects=[],currentSubject='',pendingSubject='',ready=false;
+let state=null,subjSignature='',areaSignature='',knownSubjects=[],currentSubject='',pendingSubject='',ready=false;
 const examples=[
  'Agregados','Cimento e concreto','Estruturas de aço','Estruturas de madeira','ETE ETA',
  'Gerenciamento Orçamentação','Hidráulica e Hidrologia','Isostática','NBR 10844 Pluvial',
@@ -22,6 +22,7 @@ function request(){
  if(!t){ready=false;setStatus();return}
  state={kind:t.running?'running':t.elapsedMs>0?'paused':'idle',elapsedMs:t.elapsedMs,
   sentAt:Date.now(),subjectId:t.subjectId,subjectName:t.subjectName,topic:t.topic,
+  general:t.general||'',specific:t.specific||'',subtopic:t.subtopic||'',
   subjects:t.subjects,topics:[],transferPending:t.transferPending,availableForTransfer:t.availableForTransfer};
  ready=true;render();
 }
@@ -40,7 +41,16 @@ function command(action,fields={}){
  if(!target){$('status').textContent='Comando do cronômetro indisponível';return}
  if(action==='start'){
   const subject=root.getElementById('timerSubject'),topic=root.getElementById('timerTopic');
-  subject.value=fields.subjectId||'';topic.value=String(fields.topic||'').slice(0,220);
+  subject.value=fields.subjectId||'';
+  const general=root.getElementById('timerGeneral'),specific=root.getElementById('timerSpecific'),
+   subtopic=root.getElementById('timerSubtopic');
+  const areas=app.catalogForSubject?.(subject.value)||[];
+  general.replaceChildren(new Option('Selecione a matéria',''));
+  for(const a of areas)general.add(new Option(a.name,a.name));
+  general.value=fields.general||'';
+  specific.value=String(fields.specific||'').slice(0,220);
+  subtopic.value=String(fields.subtopic||'').slice(0,220);
+  topic.value=String(fields.topic||fields.specific||'').slice(0,220);
  }
  if(action==='discard-confirmed')window.BM240DiscardConfirmed=true;
  target.click();
@@ -92,15 +102,27 @@ function setStatus(){
  else{msg.textContent=state?.transferPending?'Transferência pendente de confirmação no Drive':state?.availableForTransfer?'Sessão liberada para transferência':'Pausado · tempo líquido preservado';msg.dataset.kind='paused'}
 }
 function updateTopicOptions(){
- const list=$('topic-list'),id=$('subject').value;
- if(!list)return;
+ const list=$('topic-list'),subList=$('subtopic-list'),area=$('area'),id=$('subject').value;
+ if(!list||!area||!subList)return;
+ const branches=window.BM240ControlApp?.catalogForSubject?.(id)||[];
+ const signature=id+'|'+branches.map(x=>x.name).join('|');
+ if(signature!==areaSignature){
+  const old=area.value||((state?.subjectId===id)?state.general:'');
+  area.replaceChildren(new Option('Matéria / assunto geral',''));
+  for(const x of branches)area.add(new Option(x.name,x.name));
+  area.value=branches.some(x=>x.name===old)?old:'';
+  areaSignature=signature;
+ }
+ const selected=branches.find(x=>x.name===area.value);
+ const subjects=selected?.subjects||[];
  list.replaceChildren();
- const selected=knownSubjects.find(s=>s.id===id);
- const topics=selected&&/engenharia civil/i.test(selected.name)?examples:[];
- const recent=state?.subjectId===id&&Array.isArray(state.topics)?state.topics:[];
- for(const v of [...new Set([...recent,...topics])]){
-  if(!v)continue;
-  const o=document.createElement('option');o.value=v;list.append(o);
+ for(const value of subjects.map(x=>x.name)){
+  const opt=document.createElement('option');opt.value=value;list.append(opt);
+ }
+ const specific=subjects.find(x=>x.name===$('topic').value);
+ subList.replaceChildren();
+ for(const value of specific?.subtopics||[]){
+  const opt=document.createElement('option');opt.value=value;subList.append(opt);
  }
 }
 function updateSubjectOptions(){
@@ -110,7 +132,7 @@ function updateSubjectOptions(){
  subjSignature=sig;knownSubjects=subjects;
  const select=$('subject');if(!select)return;
  const previously=select.value||currentSubject;
- select.replaceChildren(new Option('Escolha a matéria',''));
+ select.replaceChildren(new Option('Escolha a disciplina',''));
  for(const s of subjects)select.add(new Option(s.name,s.id));
  let chosen=subjects.some(s=>s.id===previously)?previously:'';
  if(pendingSubject){
@@ -145,9 +167,13 @@ function init(){
  const bar=el('div','bm241-timer-bar');bar.id='bm241-bar';
  bar.setAttribute('aria-label','Cronômetro de estudo');
  const idle=el('div','bm241-timer-choose');idle.id='bm241-choose';
- const subject=el('select');subject.id='bm241-subject';subject.setAttribute('aria-label','Matéria');subject.add(new Option('Escolha a matéria',''));
+ const subject=el('select');subject.id='bm241-subject';subject.setAttribute('aria-label','Disciplina');subject.add(new Option('Escolha a disciplina',''));
+ const area=el('select');area.id='bm241-area';area.setAttribute('aria-label','Matéria / assunto geral');area.add(new Option('Matéria / assunto geral',''));
  const topic=el('input');topic.id='bm241-topic';topic.type='text';topic.maxLength=140;topic.placeholder='Conteúdo, ex.: NBR 6118';topic.setAttribute('aria-label','Conteúdo');
  const list=el('datalist');list.id='bm241-topic-list';topic.setAttribute('list',list.id);
+ const subtopic=el('input');subtopic.id='bm241-subtopic';subtopic.type='text';subtopic.maxLength=220;
+ subtopic.placeholder='Subassunto (opcional)';subtopic.setAttribute('aria-label','Subassunto');
+ const subList=el('datalist');subList.id='bm241-subtopic-list';subtopic.setAttribute('list',subList.id);
  const start=el('button','bm241-primary','▶ Iniciar');start.type='button';start.id='bm241-start';
  const add=el('button','bm241-add','+ Nova matéria');add.id='bm241-add';add.type='button';
  const create=el('div','bm241-create');create.id='bm241-create';create.hidden=true;
@@ -155,7 +181,7 @@ function init(){
  const createBtn=el('button','','Salvar matéria');createBtn.type='button';createBtn.id='bm241-new-save';
  const cancel=el('button','','Cancelar');cancel.type='button';cancel.id='bm241-new-cancel';
  create.append(name,createBtn,cancel);
- idle.append(subject,topic,list,start,add,create);
+ idle.append(subject,area,topic,list,subtopic,subList,start,add,create);
  const live=el('div','bm241-timer-live');live.id='bm241-live';live.hidden=true;
  const label=el('span','bm241-timer-label');
  const ico=el('span','bm241-live-glyph');ico.id='bm241-run-icon';
@@ -174,11 +200,15 @@ function init(){
  document.addEventListener('bm240-study-mounted',()=>{ready=true;request();setStatus()});
  if(window.BM240ControlApp){ready=true;request();}
 
- subject.addEventListener('change',()=>{currentSubject=subject.value;updateTopicOptions()});
+ document.addEventListener('bm243-catalog-ready',()=>{areaSignature='';request()});
+ subject.addEventListener('change',()=>{currentSubject=subject.value;areaSignature='';area.value='';topic.value='';subtopic.value='';updateTopicOptions()});
+ area.addEventListener('change',()=>{topic.value='';subtopic.value='';updateTopicOptions()});
+ topic.addEventListener('input',()=>{subtopic.value='';updateTopicOptions()});
  start.addEventListener('click',()=>{
   if(!ready){status.textContent='Controle ainda carregando';return}
-  if(!subject.value){status.textContent='Selecione uma matéria ou cadastre uma nova.';return}
-  command('start',{subjectId:subject.value,topic:topic.value.trim()});
+  if(!subject.value){status.textContent='Selecione uma disciplina ou cadastre uma nova.';return}
+  command('start',{subjectId:subject.value,general:area.value,
+    specific:topic.value.trim(),subtopic:subtopic.value.trim(),topic:topic.value.trim()});
  });
  pause.addEventListener('click',()=>command('pause'));
  resume.addEventListener('click',()=>command('resume'));
