@@ -15,13 +15,14 @@ const DISC=[
  {id:'eng',label:'Engenharia Civil'},
  {id:'port',label:'Português'},
  {id:'math',label:'Matemática, Lógica e Estatística'},
- {id:'leg',label:'Legislação geral e municipal'},
- {id:'info',label:'Informática'}
+ {id:'leg',label:'Legislação'},
+ {id:'info',label:'Informática'},
+ {id:'outros',label:'Sem disciplina identificada'}
 ];
-const CAT=[...(window.BM128General?.categories||[]),...(window.BM225LegalTaxonomy?.categories||[])];
+const CAT=[...(window.BM128General?.categories||[]),...(window.BM225LegalTaxonomy?.categories||[]),{id:'sem_classificacao',label:'Assunto geral não classificado'}];
 const state={disc:'all',general:'all',subject:'all',sub:'all'};
 let lastLegacy=byId('bm128CardGeneral')?.value||'all';
-function subject(c){return c.provisional?'Ijuí — legislação FUNDATEC':String(c.subject||'Outros')}
+function subject(c){return String(c.subject||'').trim()||'Assunto não cadastrado'}
 function sub(c){return String(c.sub||'').trim()||'Sem subassunto informado'}
 function area(c){
  const g=String(c.group||'');
@@ -35,9 +36,14 @@ function area(c){
  if(/legislacao|direito/.test(d))return'leg';
  if(/matematica|estatistica/.test(d))return'math';
  if(/portugues/.test(d))return'port';
- return'info';
+ return'outros';
 }
-function general(c){return window.BM225LegalTaxonomy?.general(c)||window.BM128General?.classificationOf?.(c)||'eng_outros'}
+function general(c){
+ const law=window.BM225LegalTaxonomy?.general(c);
+ if(law)return law;
+ if(area(c)==='outros')return 'sem_classificacao';
+ return window.BM128General?.classificationOf?.(c)||'sem_classificacao';
+}
 function exact(){return /^(?:CARD-\d{4,}|IJUI-[A-Za-z0-9_-]+|PROP-IJUI-\d+|TRT0[12]-C\d{3})$/i.test(byId('cardSearch')?.value.trim()||'')}
 function matches(c){
  if(exact()||(typeof focusGroup!=='undefined'&&focusGroup))return true;
@@ -85,7 +91,7 @@ function available(){
  const showInactive=!!byId('bm119ShowInactive')?.checked;
  const base=cards.filter(c=>c&&(showInactive||c.provisional||c.active!==false)&&!excluded.has(c.id));
  const trt=window.BM225LegalTaxonomy?.all?.()||[];
- return [...base,...trt]; // Apenas contadores/filtros; TRT não entra no SRS nem no array canônico.
+ return [...base,...trt.filter(c=>window.BM236TrtCardsGrid?.isHidden?.(c.id)!==true)]; // Navegação TRT sem alterar SRS.
 }
 function counter(arr,fn){
  const m=new Map();for(const x of arr){const id=fn(x);m.set(id,(m.get(id)||0)+1)}return m;
@@ -94,7 +100,8 @@ function option(text,value){return new Option(text,value)}
 function fill(sel,all,arr,selected){
  sel.replaceChildren(option(all,'all'));
  for(const item of arr)sel.add(option(item.label+' ('+item.count+')',item.value));
- sel.value=arr.some(x=>x.value===selected)?selected:'all';
+ if(selected!=='all'&&!arr.some(x=>x.value===selected))sel.add(option(selected+' (0 nesta busca)',selected));
+ sel.value=selected;
  return sel.value;
 }
 function sorted(map,labels){
@@ -113,7 +120,8 @@ function syncTopicLink(){
  }
 }
 function updateOptions(){
- const all=available();
+ const q=norm(byId('cardSearch')?.value.trim()||'');
+ const all=available().filter(c=>!q||norm([c.id,c.front,c.back,c.discipline,c.subject,c.sub].filter(Boolean).join(' ')).includes(q));
  const dc=counter(all,area);
  state.disc=fill(discSel,'Todas as disciplinas ('+all.length+')',
   DISC.filter(x=>dc.has(x.id)).map(x=>({...x,value:x.id,count:dc.get(x.id)})),state.disc);
@@ -136,8 +144,8 @@ function updateOptions(){
  if(state.subject!=='all')chosen.push(state.subject);
  if(state.sub!=='all')chosen.push(state.sub);
  const title=chosen.length?chosen.join(' › '):'Todas as disciplinas e assuntos';
- const count=byId('cardCount')?.textContent.match(/^\d+ cartões/)?.[0]||'';
- status.textContent=title+' · '+(count||all.length+' cartões no acervo')+(exact()?' · busca direta por ID':'');
+ const matchCount=all.filter(matches).length;
+ status.textContent=title+' · '+matchCount+' cartão(ões) nessa seleção'+(q?' · busca textual aplicada':'')+' · TRT operacionais sem evento SRS';
 }
 function apply(){
  if(byId('cardFilter'))byId('cardFilter').value='all';
