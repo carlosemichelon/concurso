@@ -14,6 +14,7 @@ on:
       - 'tests/v240_controle.test.cjs'
       - 'tests/v240_merge.test.cjs'
       - 'tests/v240_browser.spec.js'
+      - 'tests/v240_v242_compat.spec.js'
       - '.github/workflows/v240-controle.yml'
   workflow_dispatch:
 jobs:
@@ -46,7 +47,7 @@ jobs:
           mkdir -p test-results
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v240-http.log 2>&1 &
       - name: Testar desktop e celular em navegador real
-        run: npx playwright test tests/v240_browser.spec.js --workers=1 --reporter=line
+        run: npx playwright test tests/v240_browser.spec.js tests/v240_v242_compat.spec.js --workers=1 --reporter=line
       - name: Preservar capturas e logs de falhas
         if: always()
         uses: actions/upload-artifact@v4
