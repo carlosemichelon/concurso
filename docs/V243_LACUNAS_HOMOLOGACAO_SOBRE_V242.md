@@ -74,3 +74,26 @@ A ficha previamente gravada pelo chat no Drive `PROPOSTA_LACUNA_PETRO14_C014_202
 - Testes controlados das APIs sem navegador real: importação da ficha do Drive, preservação literal do relato e separação de autoria, rejeição de estados e duplicidades inválidos, carregamento e cache do cartão PETRO14-C014, todos aprovados.
 - **PENDENTE**: acesso efetivo do Google Pages para a prévia, teste em navegador real, OAuth no navegador do usuário, escrita de mestre a partir do site, download no segundo dispositivo, ensaio de conflito sob concorrência e homologação visual/mobile.
 - **SEM PROMOÇÃO**: `index.html` e `assets/version.json` continuam apontando para a V242 do cronômetro; a prévia `homologacao-lacunas-v243.html` não é página inicial.
+
+
+## Resultado da homologação técnica — 18/11/2026 (continuação)
+
+**Status formal: homologação de código/testes controlados aprovada; homologação de produção bloqueada.**
+
+Alterações adicionais conferidas por SHA e leitura de retorno no `gh-pages`:
+- `assets/v242_lacunas.js`: gravação local transacional com restauração após erro; não sobrescrever alteração detectada em outra aba.
+- `assets/v242_lacunas_drive.js`: criação do arquivo mestre com `parents=['1cDkoy-QgXYdzhOzi8SMSr7g4eB4oskBD']`, exigindo confirmação do pai.
+- `assets/v242_global_drive.js`: resposta `empty` agora representa pendência, não sincronização concluída.
+- `assets/v243_lacunas_smoke.js`: diagnóstico interativo, somente leitura, sem eventos SRS ou gravação Drive.
+- `assets/v242_lacunas.css`: visual do diagnóstico.
+- `homologacao-lacunas-v243.html`: inclusão do autoteste, cache bust de recursos alterados e preservação do cronômetro V242.
+
+**Testes concluídos**: 4 cenários de persistência local (escrita, conflito de abas, falha de quota, esquema inválido); 7 cenários de sincronização simulada (primeira criação/importação, download, atualização, conflito entre clientes, idempotência, versão remota divergente, mestre duplicado); 1 cenário específico de destino privado no Drive; comparação literal da frente e dos 11 módulos entre arquivo original Drive e JSON publicado (zero divergências). Arquivos GitHub e versão oficial consultados novamente: `index.html` / `assets/version.json` apontam para V242, não a prévia.
+
+**Pendências impeditivas**: portal HTTP público não acessível pelas restrições de rede deste ambiente; ausência de teste real no navegador e no celular; OAuth autenticado não executado; arquivo `BancoMestre_Lacunas_Mestre_V242.json` não encontrado no Drive (logo, não sincronizado pelo portal); concorrência simultânea sem precondição de escrita atômica comprovada; ciclo de 30 backups diários/12 mensais não testado; SVG original de fluência não localizado.
+
+**Rastreabilidade confirmada no Drive**:
+- Relatório: ID `10npIp_a7j6AJ-aiALH1Q7CCto41FKrXh`;
+- Checkpoint da homologação: ID `1jbFr226pOJJS81C3edWi0voYaZPnTn3y`.
+
+**Decisão**: manter V243 isolada como prévia, **não mesclar nem promover como página inicial até execução dos testes impeditivos**, sem modificar cartões nem gerar eventos SRS.
