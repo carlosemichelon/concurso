@@ -109,6 +109,14 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;b
 <div class="actions"><button type="button" id="bm240-list-backups">Consultar backups verificados</button>
 <span id="bm240-backup-restore-status" role="status" class="status"></span></div>
 <div id="bm240-backup-restore-list" class="scroll"></div></div>
+<div class="panel" id="bm240-conflict-panel" style="margin-top:14px">
+<h3>Conciliação entre dispositivos</h3>
+<p class="muted">A conciliação só é liberada para alterações independentes sobre a mesma base confirmada no Drive. Se dois aparelhos modificarem o mesmo registro, nenhuma gravação ocorre.</p>
+<div class="actions"><button type="button" id="bm240-inspect-conflict">Auditar diferenças entre aparelhos</button>
+<button type="button" class="primary" id="bm240-merge-safe" disabled>Conciliar apenas mudanças independentes</button></div>
+<p id="bm240-conflict-status" class="muted" role="status">Nenhuma auditoria de divergências realizada.</p>
+<div id="bm240-conflict-items"></div>
+</div>
 <p id="backupSummary" class="muted"></p><p id="backupStatus" role="status" class="status"></p></div></section>
 </main>
 </body></html>
