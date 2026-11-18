@@ -24,6 +24,7 @@ async function runUI(){
  add('Fonte do iframe de estudos preservada',($('bm238-study-frame')?.getAttribute('src')||'').includes('controle-estudos-v242.html'));
  add('Validador de dados de lacunas carregado',typeof api?.validate==='function');
  add('Sincronizador Drive carregado (sem executar)',typeof window.BM242LacunasDrive?.sync==='function');
+ add('Rotação de backups diária/mensal conectada ao botão Drive',window.BM243LacunasRetention?.ready===true);
  add('Leitor único com API de consulta carregado',typeof reader?.showId==='function');
  add('Formatador dos 11 módulos carregado',typeof window.BM198Format?.render==='function');
  try{api.validate(api.data);add('Dados locais passam na validação',true)}
@@ -46,7 +47,11 @@ async function runUI(){
    add('Resposta começa oculta',!!answer&&answer.hidden===true);
    const reveal=overlay?.querySelector('.bm-v050-peek-reveal');
    if(!reveal)throw Error('Controle de revelação não localizado');
-   reveal.click();await new Promise(resolve=>setTimeout(resolve,150));
+   reveal.click();
+   for(let attempt=0;attempt<40;attempt++){
+    if((answer?.querySelectorAll('.bm198-module').length||0)===11||answer?.querySelector('.bm197-error'))break;
+    await new Promise(resolve=>setTimeout(resolve,200));
+   }
    const modules=answer?.querySelectorAll('.bm198-module')||[];
    add('Revelação mostra 11 módulos',modules.length===11);
    const last=answer?.querySelector('.bm198-module:last-child');
