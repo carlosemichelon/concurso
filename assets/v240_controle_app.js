@@ -215,6 +215,48 @@ function previewLegacy(){
  }
  return {valid,rejected,duplicates};
 }
+function importActiveControl(){
+ const sourceKey='BM_CONTROLE_ESTUDOS_V238',raw=localStorage.getItem(sourceKey);
+ if(!raw){$('bm240-import-active-status').textContent='Nenhuma sessão da versão principal foi encontrada neste navegador.';return}
+ let source;
+ try{source=JSON.parse(raw)}catch{throw Error('Histórico principal corrompido; não foi modificado nem importado')}
+ if(!source||source.schema!==1||!Array.isArray(source.subjects)||!Array.isArray(source.sessions))
+  throw Error('Histórico principal com formato incompatível. Nada importado.');
+ const labels=new Map(source.subjects.filter(x=>x&&typeof x.id==='string'&&typeof x.name==='string').map(x=>[x.id,x.name.trim()]));
+ const existingIds=new Set(data.sessions.map(x=>x.id));
+ const proposals=[],rejected=[];
+ for(const row of source.sessions){
+  if(!row||typeof row.id!=='string'||!row.id||row.deletedAt)continue;
+  const name=labels.get(row.subjectId);
+  if(!name||!validDate(row.date)||!(Number(row.minutes)>0)||Number(row.minutes)>1440||
+   !Number.isInteger(row.questions)||row.questions<0||!Number.isInteger(row.correct)||
+   row.correct<0||row.correct>row.questions){rejected.push(row.id);continue}
+  const id='V239:'+row.id;
+  if(existingIds.has(id))continue;
+  existingIds.add(id);
+  proposals.push({...structuredClone(row),id,sourceId:row.id,sourceSubject:name,
+   provenance:{source:'BM_CONTROLE_ESTUDOS_V238',sourceId:row.id,importedAt:new Date().toISOString(),status:'registro local validado'}});
+ }
+ $('bm240-import-active-status').textContent=proposals.length+' sessões verificáveis novas · '+rejected.length+' ignoradas por falta de evidência.';
+ if(!proposals.length)return;
+ if(!confirm('Importar '+proposals.length+' sessões da V239 para a HOMOLOGAÇÃO? Os originais e o cronômetro principal não serão modificados.'))return;
+ const subjects=new Map(data.subjects.map(x=>[x.name.toLocaleLowerCase('pt-BR'),x.id]));
+ for(const record of proposals){
+  let subjectId=subjects.get(record.sourceSubject.toLocaleLowerCase('pt-BR'));
+  if(!subjectId){
+   subjectId=uid();
+   data.subjects.push({id:subjectId,name:record.sourceSubject,color:'#277f79',difficulty:3,weight:1,exam:0,daily:0,weekly:0,monthly:0});
+   subjects.set(record.sourceSubject.toLocaleLowerCase('pt-BR'),subjectId);
+  }
+  record.subjectId=subjectId;
+  delete record.sourceSubject;
+  data.sessions.push(record);
+ }
+ if(!store())throw Error('Não foi possível salvar a importação na base de testes');
+ refresh();
+ $('bm240-import-active-status').textContent=proposals.length+' sessões incorporadas SOMENTE à cópia de homologação. Original V239 preservado.';
+}
+
 function importLegacy(){
  const report=previewLegacy();
  $('bm240-import-preview').textContent=report.valid.length+' sessões verificáveis · '+report.duplicates+' já importadas · '+report.rejected.length+' rejeitadas por falta de dados.';
@@ -290,6 +332,7 @@ $('reviewRows').addEventListener('click',e=>{const b=e.target.closest('button');
 $('exportJson').addEventListener('click',()=>dl('controle-estudos-backup-'+today()+'.json',JSON.stringify({format:'BancoMestreControleV238',exportedAt:new Date().toISOString(),data},null,2),'application/json'));
 $('exportAllCsv').addEventListener('click',()=>dl('controle-estudos-'+today()+'.csv',csv(data.sessions),'text/csv;charset=utf-8'));
 $('bm240-import-legacy').addEventListener('click',()=>{try{importLegacy()}catch(e){$('bm240-import-preview').textContent='Importação não realizada: '+e.message}});
+ $('bm240-import-active').addEventListener('click',()=>{try{importActiveControl()}catch(e){$('bm240-import-active-status').textContent='Importação não realizada: '+e.message}});
  $('bm240-list-backups').addEventListener('click',async ()=>{
   const status=$('bm240-backup-restore-status');
   try{
