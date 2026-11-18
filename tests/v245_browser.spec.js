@@ -198,3 +198,17 @@ test('Relatórios filtráveis apresentam horas, acertos e evolução',async({pag
  await expect(host.locator('#reportMetrics')).toContainText('1h 30m');
  await expect(host.locator('#reportByMonth')).toContainText('2026-11');
 });
+
+
+test('Diagnóstico comparativo da biblioteca de imagens V244 e V245',async({browser})=>{
+ for(const version of ['v244','v245']){
+  const page=await browser.newPage();
+  const errs=[];page.on('pageerror',e=>errs.push(e.stack||e.message));
+  await page.goto('http://127.0.0.1:8765/'+version+'.html#imagens',{waitUntil:'domcontentloaded',timeout:60000});
+  await page.waitForTimeout(2200);
+  const d=await page.evaluate(()=>({hash:location.hash,imageRows:document.getElementById('imageRows')?.children?.length||0,
+    count:document.getElementById('imageCount')?.textContent||'',initialVersion:document.title}));
+  console.log('V245_IMAGE_COMPARE',JSON.stringify({version,diagnostic:d,errors:errs.slice(0,5)}));
+  await page.close();
+ }
+});
