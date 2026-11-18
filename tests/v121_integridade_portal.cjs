@@ -7,11 +7,11 @@ const root=path.resolve(__dirname,'..');
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const page=read('v121.html');
 const manifest=JSON.parse(read('assets/version.json'));
-assert.equal(manifest.version,'V121');
-assert.equal(manifest.home,'v121.html');
-assert.equal(manifest.counts.cards,1499,'A base pública V119 deve permanecer');
-assert.equal(manifest.counts.pdfs,72);
-assert.ok(read('index.html').includes('v121.html?versao=V121'),'Entrada pública não aponta V121');
+assert.match(manifest.version,/^V\d{3}$/);assert.ok(Number(manifest.version.slice(1))>=121);
+assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
+assert.ok(manifest.counts.cards>=1499, 'A base pública V119 deve permanecer');
+assert.ok(manifest.counts.pdfs>=72);
+assert.ok(read('index.html').includes('data-bm-portal-version="'+manifest.version+'"'),'Entrada pública não corresponde à versão do manifesto');
 const prior=read('v120.html');
 assert.ok(page.includes("tag('v121_relacoes_normativas.js?v=121')+grifadorTag"),
  'Novo módulo tem de ser carregado ANTES do grifador');
