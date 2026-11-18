@@ -161,7 +161,7 @@ const cal={mode:'month',date:today(),selected:today()};
 function calParse(s){return new Date(s+'T12:00:00')}
 function calMove(s,mode,n){
  const d=calParse(s);
- if(mode==='month'){d.setMonth(d.getMonth()+n);d.setDate(1)}
+ if(mode==='month')return today(new Date(d.getFullYear(),d.getMonth()+n,1,12))
  else d.setDate(d.getDate()+n*(mode==='week'?7:1));
  return today(d);
 }
