@@ -1,3 +1,15 @@
+# Banco Mestre V239 — Controle de Estudos como início e Drive central (18/11/2026)
+
+- **Versão ativa:** `v239.html`, entrada `index.html`, manifesto `assets/version.json` na branch `gh-pages`. V238 e anteriores preservadas.
+- **Página inicial:** o primeiro botão do menu é **Controle de Estudos**; acesso sem hash e sem deep link abre `#controle-estudos`. URL com `#assuntos`, `#cartoes`, `#pdfs`, `#imagens`, rota de assunto ou `?cartao=` conserva o destino explícito.
+- **Layout:** indicadores compactos com ícones e descrições legíveis em desktop/celular. Atlas distingue **179 registros catalogados** de **originais únicos efetivamente consultados** no Drive, sem mostrar zero catalogado ao desconectar.
+- **Drive:** botão central **Conectar e sincronizar Drive** compartilha leitura de Atlas, PDFs e miniaturas e tenta sincronizar grifos e Controle de Estudos em arquivo mestre privado. A permissão `drive.file` é solicitada no mesmo OAuth do botão, sem armazenar token no navegador em disco.
+- **Controle de Estudos:** `controle-estudos-v239.html` preserva os dados locais em `BM_CONTROLE_ESTUDOS_V238`. Sincronizador `assets/v239_controle_drive_sync.js` usa conferência SHA-256, restauração cautelosa e cópia de recuperação, bloqueando divergências entre dispositivos; não considera prova de sincronização entre dispositivos sem teste real.
+- **Limites:** sincronização do **SRS canônico**, respostas e alterações de cartões não é reivindicada; nenhum evento SRS foi produzido. PDF/imagem original não é regravado pelo sincronizador. Conexão, permissão de escrita, visualização OAuth, propagação de grifos e recuperação entre dispositivos precisam de testes autenticados no navegador do proprietário.
+- **Auditoria feita:** HTML, sintaxe JS, referências, manifesto, versão e redirecionamento verificados; não há atestado de teste visual nem de deploy concluído sem consulta pública.
+
+---
+
 # Banco Mestre V227 — TRT C009: fundamentos, democracia e dois mapas (17/11/2026)
 
 - **Versão ativa:** `v227.html`, derivada da `v226.html` com melhorias de apresentação de grifos e filtros TRT preservadas.
