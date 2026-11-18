@@ -5,7 +5,7 @@ function install(){
  if(document.getElementById('bm238-study-tab'))return;
  const nav=document.querySelector('header nav[aria-label="Seções"]')||document.querySelector('header nav');
  const main=document.querySelector('main');
- if(!nav||!main){console.warn('V239: menu principal indisponível');return}
+ if(!nav||!main){console.warn('V238: menu principal indisponível');return}
  const button=document.createElement('button');
  button.id='bm238-study-tab';button.type='button';button.dataset.page='controle-estudos';
  button.textContent='Controle de Estudos';button.title='Horas líquidas, planejamento, exercícios e revisões de conteúdo';
