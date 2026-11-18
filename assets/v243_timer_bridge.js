@@ -200,7 +200,7 @@ function init(){
  document.addEventListener('bm240-study-mounted',()=>{ready=true;request();setStatus()});
  if(window.BM240ControlApp){ready=true;request();}
 
- document.addEventListener('bm243-catalog-ready',()=>{areaSignature='';request()});
+ window.addEventListener('bm243-catalog-ready',()=>{areaSignature='';request()});
  subject.addEventListener('change',()=>{currentSubject=subject.value;areaSignature='';area.value='';topic.value='';subtopic.value='';updateTopicOptions()});
  area.addEventListener('change',()=>{topic.value='';subtopic.value='';updateTopicOptions()});
  topic.addEventListener('input',()=>{subtopic.value='';updateTopicOptions()});
