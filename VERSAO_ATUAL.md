@@ -1,3 +1,13 @@
+# Banco Mestre V242 — cronômetro fixo no rodapé (18/11/2026)
+
+- **Versão publicada:** `v242.html` por `index.html` e `assets/version.json`, preservando `v241.html` e versões anteriores.
+- **Mudança:** a mesma barra do cronômetro foi deslocada do cabeçalho para a borda inferior fixa do navegador, permanecendo visível ao rolar a página. Espaço de conteúdo ajustado à altura real do rodapé para não ocultar formulários, com ajustes de celular e áreas seguras.
+- **Funcionalidade preservada:** matéria, conteúdo, iniciar/pausar/continuar/salvar/descartar, nova matéria, histórico de sessão única, tempo na aba/favicon, dados locais e sincronia já existente.
+- **Integridade:** não alterados cartão canônico, SRS, PDFs, grifos, imagens, bases e chaves de persistência. Sem comprovação de OAuth Google nem de transferência de relógio ativo entre dispositivos.
+- **Testes:** 7 verificações estáticas + 8 testes Chromium, todos aprovados, inclusive rolagem fixa, compensação de espaço e ampliação da barra no celular.
+- **Versão/LOG:** [PR #35](https://github.com/carlosemichelon/concurso/pull/35), merge `fb3469a8ad649e92c481cf7058940492cee40de5`.
+
+---
 # Banco Mestre V241 — Controle de Estudos, cronômetro de aba e indicadores auditáveis (18/11/2026)
 
 - **Publicação:** código V241 integrado em `gh-pages` após aprovação explícita, preservando `v239.html` e anteriores. Entrada `index.html` e manifesto `assets/version.json` devem apontar para V241.
