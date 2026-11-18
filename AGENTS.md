@@ -172,6 +172,6 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 
 ## Contrato permanente de interface dos cartões (17/11/2026)
 - Padrão ÚNICO da frente: o mesmo layout/posicionamento/estilo dos cartões canônicos (ex.: CARD-1338) para TRT e demais disciplinas; reutilizar classes V163/V165 e evitar estilos concorrentes ou botões não funcionais.
-- Padrão ÚNICO do verso V198: os 11 módulos completos e imagens vêm ANTES de “Quadro informativo do cartão”, que deve ser o ÚLTIMO bloco informativo da resposta. Histórico operacional recolhido só depois, como metadado final.
+- Padrão ÚNICO do verso V198: os 11 módulos completos e imagens vêm ANTES de “Quadro informativo do cartão”, que deve ser o ÚLTIMO bloco da resposta. Histórico operacional recolhido DENTRO desse quadro final, não como bloco posterior.
 - “Informações da base e dos cartões” ao fim da página, recolhido. Nunca deixar quadro de informação geral entre os cartões.
 - Registrar mudanças de apresentação no METODOLOGIA_V037_FLASHCARDS_PDF.md e aqui; antes de publicar testar ordem, presença de 11 módulos, leitura, CSS de section, responsividade, preservação de SRS/IDs/Drive e ausência de regressões.
