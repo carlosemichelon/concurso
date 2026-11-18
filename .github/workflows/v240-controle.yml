@@ -1,10 +1,16 @@
 name: V240 Controle de Estudos - testes sintéticos
 on:
+  push:
+    branches:
+      - 'feature/controle-estudos-v240-homologacao'
   pull_request:
     paths:
       - 'assets/v240_*'
       - 'controle-estudos-v240.html'
       - 'v240.html'
+      - 'homologacao-v240/**'
+      - 'sw-v240.js'
+      - 'assets/v240_estudo_hierarquia.json'
       - 'tests/v240_controle.test.cjs'
       - '.github/workflows/v240-controle.yml'
   workflow_dispatch:
