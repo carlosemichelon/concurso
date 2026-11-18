@@ -180,3 +180,20 @@ test('Disciplinas já prontas e filtros encadeados até o subassunto no cronôme
  await host.locator('#sessionSpecific').fill('Ações estruturais');
  await expect(host.locator('#bm243SessionSubOptions option[value="Classificação geral"]')).toHaveCount(1);
 });
+
+
+test('Filtros públicos distinguem Estatística e Segurança do Trabalho nos grupos legados',async({page})=>{
+ await page.goto(BASE,{waitUntil:'domcontentloaded',timeout:60000});
+ await page.waitForFunction(()=>Boolean(window.BM128General?.classificationOf&&window.BM152FlashFilters?.area),null,{timeout:60000});
+ const result=await page.evaluate(()=>{
+  const stat={id:'CARD-TEST',group:'ENG_GERAL',discipline:'Estatística',subject:'Testes de hipóteses',sub:'Hipótese nula'};
+  const nr={id:'CARD-TEST-NR',group:'ENG_GERAL',discipline:'Segurança do Trabalho',subject:'NR-17 Geral',sub:'Organização e pausas'};
+  return {
+   statDisc:window.BM152FlashFilters.area(stat),
+   statGeneral:window.BM128General.classificationOf(stat),
+   nrDisc:window.BM152FlashFilters.area(nr),
+   nrGeneral:window.BM128General.classificationOf(nr)
+  };
+ });
+ expect(result).toEqual({statDisc:'math',statGeneral:'matematica',nrDisc:'eng',nrGeneral:'seguranca'});
+});
