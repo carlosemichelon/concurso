@@ -80,6 +80,8 @@ test('Rodapé V242 controla exatamente uma sessão do módulo nativo, sem iframe
  expect(await page.locator('#bm238-study-frame').count()).toBe(0);
  expect(await page.locator('#bm240h-bar').count()).toBe(0);
  expect(await bar.evaluate(n=>n.parentElement===document.body)).toBe(true);
+ const routeState=await page.evaluate(()=>({flag:window.BM240OpenStudyDefault,hash:location.hash,path:location.pathname,active:document.querySelector('main section.active')?.id||''}));
+ console.log('V243 initial route:',JSON.stringify(routeState));
  await expect(page.locator('main section#controle-estudos')).toHaveClass(/active/);
  await host.locator('[data-tab="planejamento"]').click();
  await host.locator('#subjectName').fill('Engenharia Civil');
