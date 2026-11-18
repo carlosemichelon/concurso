@@ -6,7 +6,7 @@
 if(window.BM165CardsNavigation)return;
 const root=document.getElementById('cardRows');
 if(!root)return;
-const valid=/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Za-z0-9_-]+)$/i;
+const valid=/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Za-z0-9_-]+|TRT0[12]-C\d{3})$/i;
 const idOf=article=>article?.querySelector(':scope > .tag')?.textContent?.trim()||'';
 const read=id=>window.BancoMestreVisualizarCardV050?.showId?.(id);
 function decorate(){
