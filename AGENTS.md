@@ -175,3 +175,5 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Padrão ÚNICO do verso V198: os 11 módulos completos e imagens vêm ANTES de “Quadro informativo do cartão”, que deve ser o ÚLTIMO bloco da resposta. Histórico operacional recolhido DENTRO desse quadro final, não como bloco posterior.
 - “Informações da base e dos cartões” ao fim da página, recolhido. Nunca deixar quadro de informação geral entre os cartões.
 - Registrar mudanças de apresentação no METODOLOGIA_V037_FLASHCARDS_PDF.md e aqui; antes de publicar testar ordem, presença de 11 módulos, leitura, CSS de section, responsividade, preservação de SRS/IDs/Drive e ausência de regressões.
+
+- Cartões TRT devem reproduzir a sequência DOM do CARD-1338 (ribbon/área e origem, pergunta com Abrir leitura no alto à direita, ID, referências, ações na base). Grifar/escrever compartilhado via V122 com ID TRT; quadro informativo obrigatoriamente após os 11 módulos. Não confundir revisão sintática com homologação visual em navegador.
