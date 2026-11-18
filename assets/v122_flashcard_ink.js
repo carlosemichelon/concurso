@@ -7,7 +7,7 @@
  if(!root)return;
  const KEY='BM122_CARD_INK:';
  const cardId=article=>article?.querySelector(':scope > .tag')?.textContent?.trim()||'';
- const valid=id=>/^(?:CARD-\d{4,5}|PROP-IJUI-[A-Za-z0-9_-]+)$/.test(id);
+ const valid=id=>/^(?:CARD-\d{4,5}|PROP-IJUI-[A-Za-z0-9_-]+|TRT0[12]-C00[1-9])$/.test(id);
  const node=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==undefined)x.textContent=text;if(cls)x.className=cls;return x};
  const button=(text,fn,cls)=>{const b=node('button',text,cls);b.type='button';b.addEventListener('click',fn);return b};
  const overlay=node('div',undefined,'bm122-ink-overlay');overlay.id='bm122CardInk';overlay.hidden=true;
@@ -121,7 +121,7 @@
   if(!data)return;
   if(working){working=null;save()}
   side=next;sheetCaption.textContent=next==='front'?'FRENTE — PERGUNTA':'VERSO — RESPOSTA';
-  const c=(typeof cards!=='undefined'&&Array.isArray(cards))?cards.find(x=>x.id===id):null;
+  const c=((typeof cards!=='undefined'&&Array.isArray(cards))?cards.find(x=>x.id===id):null)||window.BM236TrtCardsGrid?.getRecord?.(id);
   question.textContent=next==='front'?(c?.front||'Sem pergunta'):(c?.back||'Sem resposta cadastrada');
   frontButton.setAttribute('aria-pressed',String(next==='front'));
   backButton.setAttribute('aria-pressed',String(next==='back'));
@@ -169,7 +169,7 @@
  function open(cardId,focus){
   if(!valid(cardId))return;
   const collection=typeof cards!=='undefined'&&Array.isArray(cards)?cards:[];
-  if(!collection.some(c=>c.id===cardId))return;
+  if(!collection.some(c=>c.id===cardId)&&!window.BM236TrtCardsGrid?.getRecord?.(cardId)?.front)return;
   if(!overlay.hidden)hide();
   id=cardId;data=read(cardId);returnFocus=focus||document.activeElement;
   name.textContent='✎ Anotar flashcard '+cardId;notes.value=data.note||'';
