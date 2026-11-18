@@ -1,0 +1,41 @@
+/* V242 — cronômetro persistente no rodapé; conteúdo sempre acessível. */
+body>header .head{
+ grid-template-areas:"brand stats" "nav nav"!important;
+}
+@media(max-width:1024px){
+ body>header .head{grid-template-areas:"brand" "stats" "nav"!important}
+}
+html.bm242-dock-enabled body{
+ padding-bottom:calc(var(--bm242-dock-height,60px) + 12px + env(safe-area-inset-bottom,0px))!important;
+}
+body>.bm241-timer-bar.bm242-bottom-dock{
+ position:fixed!important;
+ left:0!important;right:0!important;bottom:0!important;top:auto!important;
+ z-index:2000!important;
+ grid-area:auto!important;
+ width:100%!important;max-width:none!important;min-width:0!important;
+ box-sizing:border-box!important;
+ margin:0!important;
+ border-radius:0!important;
+ border-top:1px solid #b9d1cb!important;
+ box-shadow:0 -4px 18px rgba(12,43,41,.11)!important;
+ padding:7px max(12px,env(safe-area-inset-left,0px)) calc(7px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-right,0px))!important;
+ background:#f7faf9!important;
+ max-height:min(45dvh,260px)!important;
+ overflow-y:auto!important;
+ overscroll-behavior:contain;
+}
+body>.bm242-bottom-dock .bm241-timer-choose,
+body>.bm242-bottom-dock .bm241-timer-live{max-width:100%}
+body>.bm242-bottom-dock .bm241-timer-status{font-size:10px}
+@media(max-width:600px){
+ body>.bm241-timer-bar.bm242-bottom-dock{
+  padding:6px max(8px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px))!important;
+  gap:4px!important;
+ }
+ body>.bm242-bottom-dock .bm241-timer-status{display:none}
+ body>.bm242-bottom-dock .bm241-timer-label{max-width:100%}
+ body>.bm242-bottom-dock select,body>.bm242-bottom-dock input,body>.bm242-bottom-dock button{
+  touch-action:manipulation;
+ }
+}
