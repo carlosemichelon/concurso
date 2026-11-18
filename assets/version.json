@@ -3476,7 +3476,7 @@
     }
   },
   "release_v262": {
-    "status": "proposed_branch_pending_browser_oauth_and_publication",
+    "status": "merged_gh_pages; public_deployment_and_publication_audit_passed; private_oauth_unverified",
     "previous_version": "V261",
     "header_static_slots": 5,
     "css": "assets/v262_layout_stability.css",
@@ -3484,6 +3484,13 @@
     "verification": "assets/v262_sync_truth.js",
     "preserves": ["public_card_ids", "canonical_srs", "pdf_originals", "image_originals", "private_study_data"],
     "live_drive_oauth": "unverified",
-    "mobile_browser": "unverified"
+    "mobile_browser": "Playwright Chromium desktop_1366_and_mobile_390_passed; real_device_oauth_unverified",
+    "public_deployment": "GitHub Pages deployment success on merge 316afeeb900851306e8caa3d849f9071e88b07f6",
+    "publication_verification": "Github Actions Banco Mestre verificar publicação pública succeeded for merge 316afeeb",
+    "js_browser_test": "PASS: 0 JS errors; desktop header navTop 128px across three samples; mobile 390px",
+    "pdf_verification_policy": "Drive scan requires source=google_drive_only; found count independent from 78 historical catalog; historical verified ID count shown separately",
+    "empty_control_policy": "0 local sessions and no remote source = pending, not data loss",
+    "historical_regressions": "V121 V124 V214 V216 V217 V219 V222 V225 V228 passed; legacy V044 mismatched mock sha256 rejected safely",
+    "audit_report": "docs/PORTAL_V262_LAYOUT_DADOS_JS_AUDITORIA_2026-11-18.md"
   }
 }
