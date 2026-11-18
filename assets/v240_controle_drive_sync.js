@@ -4,8 +4,8 @@
 (function(){
 'use strict';
 if(window.BM240ControlDrive)return;
-const KEY='BM_CONTROLE_ESTUDOS_V238',BASE='BM240_CONTROLE_DRIVE_BASE_SHA256',
- CLOCK='BM_CONTROLE_TIMER_V238',KIND='bm_controle_estudos_v239',
+const KEY='BM240_HOMOLOGACAO_CONTROLE',BASE='BM240_HOMOLOGACAO_DRIVE_BASE_SHA256',
+ CLOCK='BM240_HOMOLOGACAO_TIMER',KIND='bm_controle_estudos_v240_homologacao',
  API='https://www.googleapis.com/drive/v3/files', UPLOAD='https://www.googleapis.com/upload/drive/v3/files',
  MAX=10000000;
 const valid=d=>d&&d.schema===1&&['subjects','sessions','reviews','cycle'].every(x=>Array.isArray(d[x]))&&(!d.plans||Array.isArray(d.plans))&&(!d.audit||Array.isArray(d.audit));
@@ -43,7 +43,7 @@ async function get(token,file){
  const raw=await response.text();
  if(raw.length>MAX)throw Error('Arquivo de controle excede 10 MB');
  const doc=JSON.parse(raw);
- if(doc.format!=='BancoMestreControleDriveV239'||!valid(doc.data))throw Error('Mestre remoto com esquema diferente');
+ if(doc.format!=='BancoMestreControleDriveV240Homologacao'||!valid(doc.data))throw Error('Mestre remoto com esquema diferente');
  return doc.data;
 }
 async function confirmRead(token,id,expected){
@@ -51,10 +51,10 @@ async function confirmRead(token,id,expected){
  if(await sha(saved)!==expected)throw Error('A conferência pós-gravação não confirmou os dados');
 }
 async function create(token,d,hash){
- const payload=JSON.stringify({format:'BancoMestreControleDriveV239',updatedAt:new Date().toISOString(),data:d});
+ const payload=JSON.stringify({format:'BancoMestreControleDriveV240Homologacao',updatedAt:new Date().toISOString(),data:d});
  if(payload.length>MAX)throw Error('Controle local excede 10 MB');
- const meta={name:'BancoMestre_Controle_Estudos_Mestre_V239.json',mimeType:'application/json',
-  appProperties:{bm_kind:KIND,bm_schema:'V239'}};
+ const meta={name:'BM_TESTE_Controle_V240_Homologacao.json',mimeType:'application/json',
+  appProperties:{bm_kind:KIND,bm_schema:'V240_TESTE'}};
  const boundary='bm239-'+crypto.randomUUID();
  const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+
    '\r\n--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+payload+
@@ -68,7 +68,7 @@ async function update(token,file,d,hash){
  const latest=await (await req(token,API+'/'+encodeURIComponent(file.id)+'?fields=id,version,appProperties')).json();
  if(latest.id!==file.id||String(latest.version)!==String(file.version)||latest.appProperties?.bm_kind!==KIND)
   throw Error('Mestre alterado por outro dispositivo: nenhuma substituição realizada');
- const payload=JSON.stringify({format:'BancoMestreControleDriveV239',updatedAt:new Date().toISOString(),data:d});
+ const payload=JSON.stringify({format:'BancoMestreControleDriveV240Homologacao',updatedAt:new Date().toISOString(),data:d});
  if(payload.length>MAX)throw Error('Controle local excede 10 MB');
  const r=await req(token,UPLOAD+'/'+encodeURIComponent(file.id)+'?uploadType=media&fields=id,version',
   {method:'PATCH',headers:{'Content-Type':'application/json; charset=UTF-8'},body:payload});
@@ -80,7 +80,7 @@ function safeImport(d){
  if(clock?.running||Number(clock?.elapsed)>0)throw Error('Cronômetro com tempo não salvo: encerre ou descarte antes de importar o controle remoto');
  const old=localStorage.getItem(KEY);
  if(old){
-  const id='BM239_CONTROLE_RECUPERACAO_'+new Date().toISOString().replace(/[:.]/g,'-');
+  const id='BM240_HOMOLOGACAO_RECUPERACAO_'+new Date().toISOString().replace(/[:.]/g,'-');
   localStorage.setItem(id,old);
  }
  localStorage.setItem(KEY,JSON.stringify(d));
