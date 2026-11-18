@@ -293,7 +293,7 @@ function legacyFilterMatch(m){
 }
 function render(){
  const grid=$('bm084-grid');if(!grid)return;grid.replaceChildren();
- window.BM153ImageLibrary?.setDriveRecords?.(photos.map(info));
+ if(lastGoodAt||photos.length)window.BM153ImageLibrary?.setDriveRecords?.(photos.map(info));
  syncMetaFilters();
  const q=normalize($('bm084-search')?.value||''),mainQuery=normalize($('imageSearch')?.value||'');
  const selectedArea=$('bm218-area-filter')?.value||'all';
