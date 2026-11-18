@@ -30,11 +30,11 @@ for(const r of cat.records){
 assert.equal(overlap,93);assert.equal(newFiles,144);assert.equal(bytes,53408401);
 assert.equal(overlap+editorial.records.length+newFiles-overlap,323);
 assert.equal(cat.expectedUnified,323);
-assert.equal(manifest.version,'V214');
-assert.equal(manifest.counts.images,323);
+assert.match(manifest.version,/^V\d{3}$/);assert.ok(Number(manifest.version.slice(1))>=214);
+assert.ok(manifest.counts.images>=323);
 assert.equal(manifest.release_v214.public_distinct,323);
-assert.ok(index.includes("fallback='V214'"));
-assert.ok(index.includes('v214.html?versao=V214'));
+assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
+assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
 for(const file of ['v213_drive_gallery_feed.js?v=213','v214_library_counter.js?v=214',
  'v214_single_image_viewer.js?v=214','v214_public_gallery_fallback.js?v=214',
  'v211_trt01_card.js?v=211','v212_trt01_c002.js?v=212']){

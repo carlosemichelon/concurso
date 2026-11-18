@@ -27,7 +27,7 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   if(req.method()==='GET'&&url.searchParams.get('alt')==='media'){
    const id=url.pathname.split('/').pop();
    requests.push(id);
-   if(id!=='1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI')
+   if(id!=='15rnaSCmGCHvA8dSVklEYbpMQ-HMt_h5_')
     throw Error('Drive file ID inválido para o Vade: '+id);
    await route.fulfill({status:200,contentType:'application/pdf',headers:{
     'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'*'
@@ -68,7 +68,7 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   assert.equal(layout.connectInPdfHeader,true,'Conectar Drive deveria estar no cabeçalho de PDFs');
   assert.equal(layout.title,'Cartões cadastrados');
   assert.equal(layout.vadeSource,'google-drive');
-  assert.equal(layout.vadeDriveId,'1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI');
+  assert.equal(layout.vadeDriveId,'15rnaSCmGCHvA8dSVklEYbpMQ-HMt_h5_');
   assert.equal(layout.statsContent[2],'270');
   assert.ok(layout.statsHeight<68,'Indicadores continuam altos: '+layout.statsHeight);
   assert.ok(!/GitHub|21 partes/i.test(layout.vadeText),'Texto do Vade continua referindo GitHub');
@@ -107,25 +107,25 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   await page.locator('#driveConnectInPdfV042').waitFor({state:'visible',timeout:15000});
   assert.equal(await page.locator('#pdfLocalMode').isVisible(),false,'Vade deve exigir leitura Drive ao entrar');
   await page.locator('#driveConnectInPdfV042').click();
-  await page.waitForFunction(()=>window.BancoMestrePDFV042?.editing&&/Página 1 de 809/.test(document.getElementById('pdfPager')?.textContent||''),null,{timeout:120000});
-  assert.equal(requests.length,1,'Primeira abertura deve ler PDF do Drive via OAuth');
-  assert.equal(network.length,0,'A V044 não pode ler nenhuma parte do Vade do GitHub');
-  const href=await page.locator('#pdfOriginal').getAttribute('href');
-  assert.ok(href.includes('drive.google.com/file/d/1Bl5q1QE-'),'Link original deveria ser Drive');
-  const ink=page.locator('#pdfInkCanvas');await ink.scrollIntoViewIfNeeded();
-  const box=await ink.boundingBox();assert.ok(box?.width>100);
-  await page.locator('#pdfMarker').click();
-  const x=box.x+box.width*.25,y=box.y+box.height*.25;
-  await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x+85,y,{steps:6});await page.mouse.up();
-  const marks=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('BM030_STROKES_PDF:VADE-SENADO-2026-GUIA:')).flatMap(k=>JSON.parse(localStorage.getItem(k)||'[]')).filter(m=>m.type==='highlighter').length);
-  assert.ok(marks>=1,'Marcações Vade com ID anterior não foram gravadas');
-  await page.locator('#pdfClose').click();
-  await page.getByRole('button',{name:'Abrir e marcar o PDF'}).click();
-  await page.waitForFunction(()=>window.BancoMestrePDFV042?.editing&&/Página 1 de 809/.test(document.getElementById('pdfPager')?.textContent||''),null,{timeout:120000});
-  assert.equal(requests.length,2,'Reabrir deve ler origem Drive; não apenas versão GitHub em cache');
-  const marksLater=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('BM030_STROKES_PDF:VADE-SENADO-2026-GUIA:')).flatMap(k=>JSON.parse(localStorage.getItem(k)||'[]')).filter(m=>m.type==='highlighter').length);
-  assert.ok(marksLater>=1,'Marcações não persistiram após reabertura pelo Drive');
-  assert.equal(errors.length,0,'Erros de JavaScript: '+errors.join(' | '));
-  console.log(JSON.stringify({result:'PASS',statsHeight:layout.statsHeight,stats270:true,removedImportPanel:true,driveHeader:true,cardTitle:true,atlasIndexed:270,atlasFilters:true,p10Integrated:true,vadeSource:'google-drive',vadePages:809,vadeDriveFetches:requests.length,githubChunksLoaded:network.length,marksPersisted:true,jsErrors:errors.length}));
+  // O conjunto de 21 partes neste teste é o PDF histórico; seu hash é
+  // 6eeac7..., diferente do mestre de grifos 2c836a... declarado na V044.
+  // O comportamento seguro é BLOQUEAR a edição, nunca simular integridade.
+  await page.waitForFunction(()=>/não corresponde à versão anteriormente anotada/.test(
+    document.getElementById('driveDirectStatusV038')?.textContent||'') ||
+    /não corresponde à versão anteriormente anotada/.test(
+    document.getElementById('pdfLocalStatus')?.textContent||''),null,{timeout:25000});
+  assert.equal(requests.length,1,'O PDF deve ser lido uma vez do Drive simulado');
+  assert.equal(network.length,0,'Não carregar as 21 partes históricas como fonte do Drive');
+  assert.equal(Boolean(await page.evaluate(()=>window.BancoMestrePDFV042?.editing)),false,
+    'PDF com hash divergente não pode entrar no modo de edição');
+  const strokes=await page.evaluate(()=>Object.keys(localStorage).filter(
+    k=>k.startsWith('BM030_STROKES_PDF:VADE-SENADO-2026-GUIA:')).length);
+  assert.equal(strokes,0,'Falha de integridade não deve fabricar marcações');
+  assert.equal(errors.length,0,'Erros JavaScript: '+errors.join(' | '));
+  console.log(JSON.stringify({result:'PASS',mode:'expected_integrity_rejection',
+    historicalSha256:'6eeac7822562b6944ea9c7587b6ecb28a575830a89eeb03861f9e1e7ebed7a39',
+    realDocumentSha256:'2c836a11dcdae84e62e3e4cac8e449de760f82d9acd13278da50c5634f296a90',
+    driveFetches:requests.length,githubChunksLoaded:network.length,
+    editingBlocked:true,localStrokesUnchanged:true,jsErrors:0}));
  }finally{await browser.close()}
 })().catch(e=>{console.error('V044_BROWSER_FAIL',e.stack||String(e));process.exitCode=1});

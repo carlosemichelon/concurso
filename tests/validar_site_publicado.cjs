@@ -25,7 +25,7 @@ async function verify(){
  const online=JSON.parse(versionText);
  assert.equal(online.version,version,'CDN ainda não publica a versão esperada');
  assert.equal(online.home,file,'página inicial informada pelo manifesto é inconsistente');
- assert.equal(index.includes('var fallback=\''+version+'\''),true,'fallback do index não corresponde à versão');
+ assert.ok(index.includes('data-bm-portal-version="'+version+'"')||index.includes("var fallback='"+version+"'"),'entrada do index não corresponde à versão');
  assert.equal(page.includes('Banco Mestre '+version),true,'HTML da versão não corresponde ao manifesto');
  if(version==='V241'||version==='V242'){
   assert.ok(page.includes("tag('v241_timer_header.js"),'cronômetro V241 não publicado');
