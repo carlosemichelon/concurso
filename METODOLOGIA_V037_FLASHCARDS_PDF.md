@@ -32,3 +32,13 @@ Data: 09/11/2026. Aplicação: todos os cartões existentes e novos, de qualquer
 - A interface para captura de resposta, lacunas, resposta-guia local e exportação foi disponibilizada para **todos os cartões, inclusive novos**.
 - A produção de **respostas-guia aprofundadas individualmente para todos os 1.494+22 registros** e a correção automática por IA **não estão concluídas**. Onde não existe guia auditado, a interface marca isso explicitamente.
 - O site não altera base V015, contagens do atlas, origem, PDFs do Drive ou SRS; alterações da V037 concentram-se na apresentação e armazenamento voluntário no navegador.
+
+## Contrato permanente de formatação dos cartões — atualização 17/11/2026
+
+- **Um único padrão visual obrigatório:** cartões de TRT, Engenharia, Legislação e qualquer outra disciplina devem usar a mesma hierarquia e classes visuais dos cartões originais do Banco Mestre (referência de comparação: CARD-1338 no site), sem criar um segundo layout/grade paralelo.
+- **Frente:** classificação da disciplina e origem; enunciado legível; botão de leitura no mesmo posicionamento dos demais; ID estável; assunto/subassunto e referência quando cadastrados. Não inventar botões que não funcionam nem acionar avaliações sem consentimento.
+- **Verso aprofundado:** manter os **11 módulos íntegros na sequência numérica**, incluindo imagens vinculadas. Somente DEPOIS desses módulos apresentar o **“Quadro informativo do cartão”** (resumo de consulta). Não antecipá-lo, não usá-lo para substituir explicações, não omitir nenhum módulo.
+- **Metadados administrativos e histórico operacional** ficam recolhidos no final do cartão, depois dos módulos e do quadro, nunca no início da resposta.
+- **“Informações da base e dos cartões”** (informação geral da biblioteca) deve ser o último bloco da página de cartões, inicialmente recolhido.
+- **Auditoria e publicação:** antes de publicar, verificar estruturalmente a ordem dos 11 módulos e do quadro, comparar o cartão novo com um original, conferir que os botões visíveis funcionam, testar comportamento responsivo e preservar íntegros IDs, texto original, imagens, fonte, histórico, SRS e sincronização.
+- **Manutenção obrigatória:** registrar toda decisão/correção de formatação neste contrato metodológico e no AGENTS.md, evitando depender apenas de mensagens de conversa ou comentários no código. Correção visual não significa integração do SRS canônico.
