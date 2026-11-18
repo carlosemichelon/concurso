@@ -62,3 +62,20 @@ O teste de navegador deve confirmar apenas um `#bm241-bar`, nenhum `#bm238-study
 6. Aprovação de homologação completa antes de substituir `index.html` ou `assets/version.json`.
 
 **Separações importantes:** código salvo no GitHub ≠ integração publicada; conexão Google ≠ sincronização verificada; teste simulado ≠ escrita real.
+
+## Auditoria de matérias, disciplinas e filtros — 18/11/2026
+
+**Fontes verificadas:** os sete fragmentos `cards_public_v194_000..006.json` (1.518 cartões públicos), `meta_public_v194.json`, `v236_flash_filters.js` (disciplinas globais), `v128_assuntos_gerais.js` (agrupamento editorial) e `v237_legal_taxonomy.js` (categorias de legislação).
+
+**Inconsistência diagnosticada:** há 22 rótulos brutos em `card.discipline`, incluindo Topografia, Geotecnia, Segurança do Trabalho, Materiais, Matemática Financeira e Estatística, mas o filtro público correto possui cinco disciplinas principais. Os cartões não devem ser duplicados no cronômetro por causa dessa diferença editorial.
+
+**Correção no ambiente de homologação:**
+- `assets/v243_estudo_catalogo.json`: cinco disciplinas reais (**Engenharia Civil, Português, Matemática/Lógica/Estatística, Legislação e Informática**), 21 áreas/matérias, 338 ocorrências de assuntos específicos por área e 1.411 ocorrências de subassuntos sob seus assuntos específicos. A soma de `cardCount` permanece 1.518, sem cartão perdido.
+- `assets/v243_assuntos_gerais.js` e `assets/v243_flash_filters.js` preservam os comportamentos existentes e corrigem apenas a apresentação: **3 cartões de Estatística** (testes de hipóteses, anteriormente no grupo legado `ENG_GERAL`) para Matemática e **20 cartões de NRs** para Segurança e Meio Ambiente. Restam 2 assuntos legítimos em “Outros assuntos de Engenharia Civil” (Dutos e Terminais; Normas técnicas — Vigência).
+- `assets/v240_controle_app.js`: as cinco disciplinas aparecem prontas no Controle e no cronômetro; são disponibilizadas inicialmente **somente em memória** e apenas persistidas quando o usuário executa uma gravação explícita de estudo. Nomes personalizados e IDs históricos continuam intactos.
+- Campos encadeados: disciplina → matéria/assunto geral → assunto específico → subassunto, tanto no registro manual quanto nas sugestões do cronômetro da barra inferior V242. O histórico mantém filtros por disciplina, matéria, assunto e subassunto.
+- Subassuntos não presentes no catálogo podem ser digitados livremente; nenhum campo presume que todos os temas de uma norma já estejam cadastrados. O catálogo é **de cobertura existente**, não um edital programático completo.
+- O código de classificação V243 fica em arquivos novos da homologação; os 1.518 cartões, grupos originais, respostas, metadados de origem e avaliações SRS **não foram regravados**.
+
+**Verificação:** [GitHub Actions #44350802286](https://github.com/carlosemichelon/concurso/actions/runs/44350802286): suites Node.js e Chromium concluídas com sucesso, incluindo classificação visual dos casos Estatística/NR, disciplinas pré-carregadas, campos hierárquicos do cronômetro, sessão salva com classificação e compatibilidade com a barra inferior original da V242. O teste em celular foi em viewport emulada; autenticação OAuth, gravação real no Drive e uso em dois aparelhos físicos continuam pendentes.
+
