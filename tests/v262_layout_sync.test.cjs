@@ -30,13 +30,15 @@ for(const asset of ['v262_layout_stability.css','v262_global_drive.js','v262_syn
  assert.ok(html.includes('assets/'+asset));
  assert.ok(fs.statSync('assets/'+asset).size>1000);
 }
-for(const asset of ['v262_global_drive.js','v262_sync_truth.js']){
+for(const asset of ['v262_global_drive.js','v262_sync_truth.js','v262_ink_ui.js']){
  const source=read('assets/'+asset);
  new vm.Script(source,{filename:asset});
 }
 const global=read('assets/v262_global_drive.js');
 assert.ok(global.includes("existing.onclick=click"),'OAuth perdeu seu handler de clique');
 assert.ok(global.includes('backgroundBusy=true;lastRun=Date.now()'),'Sincronização periódica sem bloqueio');
+const ink=read('assets/v262_ink_ui.js');
+assert.ok(ink.includes("const preview=node('div','bm102-preview-panel')"),'Prévia do marca-texto precisa ser declarada');
 assert.ok(!global.includes('?.sync(writeToken()).then('),'Chamada concorrente ou indefinida legada');
 const truth=read('assets/v262_sync_truth.js');
 assert.ok(truth.includes("'Sem autorização'"),'Falha de permissão não deve ser tratada como perda de dados');
