@@ -1,3 +1,13 @@
+# V242 — Lacunas vinculadas a cartões (HOMOLOGAÇÃO SEPARADA; 18/11/2026)
+
+- **Não é versão ativa.** Branch de homologação `feature/lacunas-v242-homologacao`, derivada da V241 em homologação. `gh-pages/index.html` e `assets/version.json` continuam a apontar para **V239**.
+- Nova aba Lacunas: registros privados de questões/pesquisas, relato literal do estudante, diagnóstico em campo separado, taxonomia, pesquisa, filtros, links ao leitor único, auditoria declarada e histórico. Registro no Controle abre a aba e transmite contexto básico.
+- Synchronização privada com Drive: código integrado ao botão único com verificação SHA-256, bloqueio de conflitos e readback; **OAuth/transferência real e testes visuais ainda pendentes**.
+- Exemplo PETRO14-C014: cobertura direta comprovada no arquivo original do Drive; cartão ainda não confirmado como disponível no leitor público. Nenhum registro SRS ou novo cartão foi lançado.
+- Auditoria/pendências: [docs/V242_LACUNAS_HOMOLOG.md](docs/V242_LACUNAS_HOMOLOG.md).
+
+---
+
 # Banco Mestre V239 — Controle de Estudos como início e Drive central (18/11/2026)
 
 - **Versão ativa:** `v239.html`, entrada `index.html`, manifesto `assets/version.json` na branch `gh-pages`. V238 e anteriores preservadas.
