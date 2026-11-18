@@ -88,6 +88,16 @@ O manifesto principal foi verificado em `gh-pages/assets/version.json`: **V241**
 
 **Não realizados nesta interação:** autenticação OAuth verdadeira do titular, publicação em gh-pages, sincronização efetiva de registros reais, teste com celular físico, acesso do visitante à branch de homologação no GitHub Pages.
 
+
+## Checkpoint de verificação — 18/11/2026
+
+**Teste automatizado concluído com sucesso:** [GitHub Actions V240, run 44338113789](https://github.com/carlosemichelon/concurso/actions/runs/44338113789). Os jobs `static-and-smoke` (Node.js, dados sintéticos, prova de conciliação com API Drive simulada) e `browser-smoke` (Chromium em formatos desktop e celular) concluíram com êxito.
+
+Foram corrigidos e novamente testados: aba **Controle de Estudos** como página inicial quando não existe link profundo, cronômetro único do cabeçalho integrado aos controles nativos e navegação de meses sem pular fevereiro nos dias 29–31.
+
+**Limites:** integração com V241 publicada deve ser feita sem retroceder a versão de produção; OAuth real, transferência entre aparelhos físicos, recuperação de backup privado no Drive real e integridade ponta a ponta permanecem pendentes de homologação. O site principal não foi modificado neste incremento e o PR #32 continua em rascunho.
+
+
 ## Critérios para homologação e futura publicação
 
 1. Testar cenário offline após primeira carga e reabertura do site em celular e computador.
