@@ -69,7 +69,7 @@ function total(arr){return arr.reduce((v,s)=>v+nval(s.minutes,0,1e7),0)}
 function relevant(from,to){return data.sessions.filter(s=>!s.deletedAt&&(!from||s.date>=from)&&(!to||s.date<=to))}
 function options(id,all){const e=$(id);if(!e)return;const v=e.value;e.replaceChildren();if(all)e.add(new Option('Todas as disciplinas','all'));else e.add(new Option('Selecione',''));for(const s of data.subjects)e.add(new Option(s.name,s.id));if([...e.options].some(o=>o.value===v))e.value=v}
 function typeOptions(id,all){const e=$(id),v=e.value;e.replaceChildren();if(all)e.add(new Option('Todos os tipos','all'));for(const t of types)e.add(new Option(t,t));if([...e.options].some(o=>o.value===v))e.value=v}
-function refreshOpts(){for(const id of ['timerSubject','sessionSubject','reviewSubject','planSubject'])options(id,false);options('historySubject',true);typeOptions('timerType',false);typeOptions('sessionType',false);typeOptions('historyType',true)}
+function refreshOpts(){for(const id of ['timerSubject','sessionSubject','reviewSubject','planSubject'])options(id,false);options('historySubject',true);options('reportSubject',true);typeOptions('timerType',false);typeOptions('sessionType',false);typeOptions('historyType',true)}
 function applyDatalist(id,items){
  const host=$(id);if(!host)return;
  host.replaceChildren();
@@ -153,9 +153,55 @@ async function loadTaxonomy(){
   $('bm240TaxStatus').textContent='Catálogo não carregado: '+e.message+'. Disciplinas já cadastradas e texto livre continuam disponíveis.';
  }
 }
-function go(id){root.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));root.querySelectorAll('section.pane').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='painel')renderDashboard();if(id==='historico')renderHistory();if(id==='planejamento')renderSubjects();if(id==='ciclo')renderCycle();if(id==='revisoes')renderReviews();if(id==='backup')renderBackup();if(id==='calendarioControle')renderCalendar();resize()}
+function go(id){root.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));root.querySelectorAll('section.pane').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='painel')renderDashboard();if(id==='relatorios')renderReports();if(id==='historico')renderHistory();if(id==='planejamento')renderSubjects();if(id==='ciclo')renderCycle();if(id==='revisoes')renderReviews();if(id==='backup')renderBackup();if(id==='calendarioControle')renderCalendar();resize()}
 function resize(){}
 function toggleMessage(id,text){$(id).textContent=text}
+function reportRows(){
+ const from=$('reportStart').value,to=$('reportEnd').value,subject=$('reportSubject').value;
+ return relevant(from||undefined,to||undefined).filter(x=>!subject||subject==='all'||x.subjectId===subject);
+}
+function renderReports(){
+ const rows=reportRows(),minutes=total(rows),
+  questions=rows.reduce((v,x)=>v+(Number(x.questions)||0),0),
+  correct=rows.reduce((v,x)=>v+(Number(x.correct)||0),0),
+  distinctDays=new Set(rows.map(x=>x.date)).size,
+  performance=questions?Math.round(correct/questions*100)+'%':'—';
+ $('reportMetrics').innerHTML=[
+  ['Horas líquidas',timeText(minutes)],
+  ['Sessões registradas',String(rows.length)],
+  ['Questões e acertos',correct+' / '+questions],
+  ['Aproveitamento',performance]
+ ].map(x=>'<div class="metric"><span>'+esc(x[0])+'</span><b>'+esc(x[1])+'</b></div>').join('');
+ const grouped=new Map(),monthly=new Map(),byType=new Map();
+ for(const row of rows){
+  const stats=grouped.get(row.subjectId)||{minutes:0,questions:0,correct:0,count:0};
+  stats.minutes+=Number(row.minutes)||0;stats.questions+=Number(row.questions)||0;
+  stats.correct+=Number(row.correct)||0;stats.count++;grouped.set(row.subjectId,stats);
+  const month=row.date.slice(0,7),days=monthly.get(month)||{minutes:0,questions:0,correct:0};
+  days.minutes+=Number(row.minutes)||0;days.questions+=Number(row.questions)||0;
+  days.correct+=Number(row.correct)||0;monthly.set(month,days);
+  byType.set(row.type||'Outros',(byType.get(row.type||'Outros')||0)+(Number(row.minutes)||0));
+ }
+ const ordered=[...grouped.entries()].sort((a,b)=>b[1].minutes-a[1].minutes);
+ $('reportBySubject').innerHTML=ordered.map(([id,st])=>
+   '<div class="item"><b>'+esc(subjectName(id))+'</b> · '+esc(timeText(st.minutes))+' · '+st.count+' sessões'+
+   '<div class="progress"><i style="width:'+Math.round(st.minutes/Math.max(1,minutes)*100)+'%"></i></div></div>').join('')||
+   '<p class="empty">Nenhuma sessão registrada neste período.</p>';
+ $('reportQuestions').innerHTML=ordered.map(([id,st])=>
+   '<div class="item"><b>'+esc(subjectName(id))+'</b> · '+st.correct+'/'+st.questions+
+   ' acertos · '+(st.questions?Math.round(st.correct/st.questions*100)+'%':'sem questões registradas')+'</div>').join('')||
+   '<p class="empty">Sem questões registradas.</p>';
+ $('reportByMonth').innerHTML=[...monthly].sort((a,b)=>a[0].localeCompare(b[0])).map(([month,st])=>
+   '<div class="item"><b>'+esc(month)+'</b> · '+esc(timeText(st.minutes))+
+   ' · '+st.correct+'/'+st.questions+' acertos'+
+   '<div class="progress"><i style="width:'+Math.round(st.minutes/Math.max(1,minutes)*100)+'%"></i></div></div>').join('')||
+   '<p class="empty">Sem registros mensais para exibir.</p>';
+ $('reportByType').innerHTML=[...byType].sort((a,b)=>b[1]-a[1]).map(([kind,value])=>
+   '<div class="item"><b>'+esc(kind)+'</b> · '+esc(timeText(value))+
+   '<div class="progress"><i style="width:'+Math.round(value/Math.max(1,minutes)*100)+'%"></i></div></div>').join('')||
+   '<p class="empty">Nenhuma atividade no período.</p>';
+ $('reportStatus').textContent=distinctDays+' dias com estudo · '+rows.length+' sessões verificadas · questões não contabilizadas por flashcards SRS';
+}
 function renderDashboard(){
 const t=today(),ws=weekStart(),month=t.slice(0,7),all=relevant(),daily=relevant(t,t),weekly=relevant(ws,t),monthly=relevant().filter(s=>s.date.startsWith(month));
 const q=all.reduce((a,x)=>a+(Number(x.questions)||0),0),c=all.reduce((a,x)=>a+(Number(x.correct)||0),0);
@@ -202,7 +248,7 @@ function renderBackup(){
  $('bm240-audit').innerHTML=(deleted.length?'<h4>Sessões excluídas recuperáveis</h4>'+deleted.map(x=>'<div class="item"><b>'+esc(x.date)+' · '+esc(subjectName(x.subjectId))+'</b> · '+esc(timeText(x.minutes))+' <button data-restore-session="'+esc(x.id)+'">Restaurar</button></div>').join(''):'<p class="muted">Nenhuma sessão excluída.</p>')+
   '<h4>Últimas alterações</h4>'+(events.map(e=>'<div class="item small">'+esc(e.at)+' · '+esc(e.kind)+' · '+esc(e.event)+' · '+esc(e.entityId)+'</div>').join('')||'<p class="muted">Nenhuma alteração registrada.</p>');
 }
-function refresh(){refreshOpts();refreshTaxonomy();renderDashboard();renderHistory();renderSubjects();renderCycle();renderReviews();renderCalendar();renderBackup();resize()}
+function refresh(){refreshOpts();refreshTaxonomy();renderDashboard();renderReports();renderHistory();renderSubjects();renderCycle();renderReviews();renderCalendar();renderBackup();resize()}
 function addSession(s,review){if(!subject(s.subjectId))throw Error('Selecione uma disciplina cadastrada.');if(!(Number(s.minutes)>0))throw Error('Duração inválida.');if(!Number.isInteger(s.questions)||!Number.isInteger(s.correct)||s.correct<0||s.questions<0||s.correct>s.questions)throw Error('Acertos não podem exceder as questões.');
 if(editId){const old=data.sessions.find(x=>x.id===editId&&!x.deletedAt);if(!old)throw Error('Sessão original não localizada.');Object.assign(old,s);editId=null;}
  else{if(s.id&&data.sessions.some(x=>x.id===s.id))throw Error('Cronômetro já registrado; duplicidade bloqueada.');data.sessions.push({...s,id:s.id||uid(),createdAt:new Date().toISOString()})}
@@ -417,7 +463,10 @@ $('sessionSubject').addEventListener('change',()=>{$('sessionGeneral').value='';
  $('bm240ImportDisciplines').addEventListener('click',()=>{if(!taxonomy?.disciplines){void loadTaxonomy();return}const added=seedCatalogDisciplines();refresh();refreshTaxonomy();$('bm240TaxStatus').textContent=added+' disciplinas disponíveis, sem duplicar nomes ou substituir registros.'});
  void loadTaxonomy();
  $('sessionCancel').addEventListener('click',()=>{clearForm();toggleMessage('sessionStatus','')});
-for(const id of ['historySubject','historyType','historyFrom','historyTo','historyGeneral','historySpecific','historySubtopic'])$(id).addEventListener('change',renderHistory);
+for(const id of ['reportSubject','reportStart','reportEnd'])$(id).addEventListener('change',renderReports);
+ $('reportClear').addEventListener('click',()=>{$('reportStart').value='';$('reportEnd').value='';$('reportSubject').value='all';renderReports()});
+ $('reportCsv').addEventListener('click',()=>dl('banco-mestre-relatorio-'+today()+'.csv',csv(reportRows()),'text/csv;charset=utf-8'));
+ for(const id of ['historySubject','historyType','historyFrom','historyTo','historyGeneral','historySpecific','historySubtopic'])$(id).addEventListener('change',renderHistory);
 $('historyClear').addEventListener('click',()=>{for(const id of ['historyFrom','historyTo','historyGeneral','historySpecific','historySubtopic'])$(id).value='';$('historySubject').value='all';$('historyType').value='all';renderHistory()});
 $('historyCsv').addEventListener('click',()=>dl('controle-estudos-filtrado-'+today()+'.csv',csv(renderHistory()),'text/csv;charset=utf-8'));
 $('historyRows').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.editSession||b.dataset.deleteSession;const s=data.sessions.find(x=>x.id===id);if(!s)return;
@@ -534,7 +583,7 @@ $('bm240-import-legacy').addEventListener('click',()=>{try{importLegacy()}catch(
  }catch(err){data=original;toggleMessage('backupStatus','Nenhum dado importado: '+err.message)}
  finally{e.target.value=''}
 });
-refreshOpts();$('historySubject').value='all';$('historyType').value='all';refresh();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;showTimer();
+refreshOpts();$('historySubject').value='all';$('historyType').value='all';$('reportSubject').value='all';refresh();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;showTimer();
 tick=setInterval(()=>{showTimer();if(clock.running)storeClock()},1000);
 document.addEventListener('bm240-control-verified',()=>{
   if(clock.transferPending){
