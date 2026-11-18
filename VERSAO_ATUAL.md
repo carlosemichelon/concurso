@@ -1,3 +1,13 @@
+# Banco Mestre V258 — Fórmulas com contexto textual preservado (18/11/2026)
+
+- **Página ativa:** `v258.html`, por `gh-pages/index.html` e `assets/version.json`. Rollback: `v257.html`, preservada.
+- **Correção:** texto explicativo que antecede ou acompanha equações deixa de ser interpretado como identificadores matemáticos; fórmulas isoladas continuam em MathML com frações verticais e índices. Linhas com várias expressões são separadas visualmente quando seguro.
+- **Fonte canônica:** Guia de Fórmulas no Google Drive permanece intacto, assim como 11 módulos, lacunas, autoria, dados privados, cards e SRS.
+- **Auditoria:** 128 linhas inicialmente classificadas como equação; 96 reorganizadas e 32 mantidas no renderizador anterior. Seis testes unitários em DOM simulado passaram; HTTP público, navegador real, OAuth e sincronização continuam pendentes de homologação separada.
+- **Arquivos:** `assets/v258_math_refinement.js`, `assets/v258_math_refinement.css`, `tests/v258_math_refinement.test.cjs`. Log: `docs/V258_FORMATACAO_MISTA_FORMULAS_2026-11-18.md`.
+
+---
+
 # Banco Mestre V244 — Biblioteca de Lacunas integrada (18/11/2026)
 
 - **Versão principal:** `v244.html`, acionada por `index.html` e `assets/version.json`. A V242 permanece disponível em `v242.html` como retorno seguro.
