@@ -85,18 +85,25 @@ function wrapperFor(id,main){
   wrap=document.createElement('article');wrap.className='card bm221-trt-card';wrap.dataset.bm221Id=id;
   const tag=document.createElement('span');tag.className='tag';tag.textContent=id;
   const heading=document.createElement('h3');heading.textContent=main.querySelector('.bm211-summary strong')?.textContent||id;
-  const badges=document.createElement('div');badges.className='bm221-trt-badges';
-  for(const label of ['Legislação Geral', id.startsWith('TRT02-')?'Direito Administrativo':'Direito Constitucional']){
-   const badge=document.createElement('span');badge.className='bm221-trt-badge';badge.textContent=label;badges.append(badge);
+  // Uma única hierarquia visual, igual à dos cartões originais V163/V165.
+  wrap.dataset.bm163HeadingReady='yes';
+  const ribbon=document.createElement('div');ribbon.className='bm163-card-ribbon';
+  for(const [label,kind] of [
+   ['⚖  Legislação Geral','bm163-area'],
+   ['Cópia operacional','bm163-provisional']]){
+   const badge=document.createElement('span');badge.className='bm163-card-badge '+kind;badge.textContent=label;ribbon.append(badge);
   }
-  wrap.append(badges,heading,tag);
+  const subjects=document.createElement('div');subjects.className='bm163-card-info';
+  const subject=document.createElement('span');subject.className='bm163-card-badge bm163-topic';
+  subject.textContent=id.startsWith('TRT02-')?'Direito Administrativo':'Direito Constitucional';
+  subjects.append(subject);
+  wrap.append(ribbon,heading,tag,subjects);
   const summary=main.querySelector('.bm211-summary');
   if(summary){summary.setAttribute('aria-label','Abrir resposta e explicações do '+id);
    const small=summary.querySelector('small');if(small)small.textContent='Abrir resposta, 11 módulos e imagens';}
-  const status=document.createElement('small');status.className='bm221-operational-label';
-  status.textContent='Legislação · TRT · cartão operacional · sem lançar SRS automaticamente';
-  const actions=document.createElement('div');actions.className='bm221-trt-actions';
-  const openButton=document.createElement('button');openButton.type='button';openButton.className='bm221-trt-open';
+  const openButton=document.createElement('button');openButton.type='button';
+  openButton.className='bm-v050-peek-button bm221-trt-open';
+  openButton.title='Abrir leitura detalhada no cartão sem registrar revisão SRS';
   const details=main.querySelector('.bm211-details');
   const syncButton=()=>{
    openButton.textContent=details?.open?'Fechar leitura':'Abrir leitura';
@@ -104,15 +111,17 @@ function wrapperFor(id,main){
   };
   openButton.addEventListener('click',()=>{if(details)details.open=!details.open;syncButton();});
   if(details)details.addEventListener('toggle',syncButton);
-  syncButton();actions.append(openButton);
-  wrap.append(status,actions,main);wrappers.set(id,wrap);
+  syncButton();heading.after(openButton);
+  wrap.append(main);wrappers.set(id,wrap);
   const answer=main.querySelector('.bm211-answer');
   if(answer){
    const metainfo=[...answer.querySelectorAll('.bm211-meta,.bm211-preserve')];
    if(metainfo.length){
     const info=document.createElement('details');info.className='bm221-trt-info';
     const sum=document.createElement('summary');sum.textContent='Informações do cartão e histórico operacional';
-    info.append(sum,...metainfo);
+    const note=document.createElement('small');note.textContent='Cartão operacional TRT: a consulta não registra avaliação SRS automaticamente.';
+    info.append(sum,...metainfo,note);
+    // Histórico final, depois dos 11 módulos e do quadro de resumo.
     main.querySelector('.bm211-details .bm211-body')?.append(info);
    }
   }
@@ -152,11 +161,8 @@ function init(){
  '#cardRows[data-bm225-trt-visible="true"]>p[hidden]{display:none!important}',
  '#cardRows>.bm221-trt-card>h3{font-size:14px;line-height:1.45;margin:2px 0 4px;overflow-wrap:anywhere;white-space:normal}',
  '#cardRows>.bm221-trt-card>.tag{align-self:flex-start}',
- '#cardRows>.bm221-trt-card>.bm221-trt-badges{display:flex;gap:5px;flex-wrap:wrap}',
- '#cardRows>.bm221-trt-card .bm221-trt-badge{border:1px solid #bfd9d6;background:#f0f7f6;color:#1f555c;border-radius:6px;padding:4px 7px;font-size:11px;line-height:1.2;font-weight:650}',
- '#cardRows>.bm221-trt-card .bm221-trt-actions{display:flex;flex-wrap:wrap;gap:7px}',
- '#cardRows>.bm221-trt-card .bm221-trt-open{min-height:36px;border-radius:6px;border:1px solid #bcd8d3;background:#eff8f6;color:#185962;font-weight:650;font-size:12px;padding:8px 12px;cursor:pointer}',
- '#cardRows>.bm221-trt-card .bm221-trt-open:hover{background:#e2f1ed}',
+ '#cardRows>.bm221-trt-card .bm221-trt-open{cursor:pointer}',
+ '#cardRows>.bm221-trt-card .bm221-trt-open:hover{background:#e4f4f0!important}',
  '#cardRows>.bm221-trt-card .bm221-trt-open:focus-visible{outline:2px solid #287c7c;outline-offset:2px}',
  '#cardRows>.bm221-trt-card[hidden]{display:none}',
  '.bm221-trt-card>.bm211-card{display:block!important;visibility:visible!important;width:100%;max-width:100%;min-width:0;margin:0;padding:0;border:0;box-shadow:none;background:transparent}',
@@ -182,8 +188,6 @@ function init(){
  '.bm221-trt-card>.bm211-card .bm211-kicker{display:none}',
  '.bm221-trt-card>.bm211-card>.bm211-details{width:100%;max-width:100%;margin:0}',
  '.bm221-trt-card>.bm211-card .bm211-summary{display:none!important}',
- '.bm221-trt-card>.bm211-card .bm211-summary{box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;max-width:100%;overflow-wrap:anywhere;white-space:normal;font-size:12px;line-height:1.4;padding:10px;border-radius:8px}',
- '.bm221-trt-card>.bm211-card .bm211-summary small{font-size:12px;line-height:1.4;white-space:normal;overflow-wrap:anywhere}',
  '.bm221-operational-label{font-size:11px;color:#557276}',
  '.bm221-trt-info{margin:14px 0 0;border-top:1px solid #dce7e6;padding:10px}',
  '.bm221-trt-info>summary{font-size:12px;color:#557276;cursor:pointer}',
