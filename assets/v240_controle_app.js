@@ -3,6 +3,14 @@ return function(root){
 'use strict';
 const KEY='BM_CONTROLE_ESTUDOS_V238', TIMER='BM_CONTROLE_TIMER_V238';
 const types=['Teoria','Questões','Revisão','Lei seca','Flashcards','Simulado','Outros'];
+const DEVICE_KEY='BM240_CONTROLE_DEVICE';
+let device=localStorage.getItem(DEVICE_KEY);
+if(!device){device=crypto.randomUUID();localStorage.setItem(DEVICE_KEY,device)}
+function mirrorTimer(){
+ const active=clock&&(clock.running||Number(clock.elapsed)>0);
+ data.activeTimer=active?{...clock,ownerId:device,updatedAt:new Date().toISOString()}:null;
+ return store();
+}
 const $=id=>root.getElementById(id);
 const fresh=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60});
 let data, clock, editId=null, reviewFilter='due', tick;
@@ -98,12 +106,12 @@ function renderBackup(){
 function refresh(){refreshOpts();renderDashboard();renderHistory();renderSubjects();renderCycle();renderReviews();renderCalendar();renderBackup();resize()}
 function addSession(s,review){if(!subject(s.subjectId))throw Error('Selecione uma disciplina cadastrada.');if(!(Number(s.minutes)>0))throw Error('Duração inválida.');if(!Number.isInteger(s.questions)||!Number.isInteger(s.correct)||s.correct<0||s.questions<0||s.correct>s.questions)throw Error('Acertos não podem exceder as questões.');
 if(editId){const old=data.sessions.find(x=>x.id===editId&&!x.deletedAt);if(!old)throw Error('Sessão original não localizada.');Object.assign(old,s);editId=null;}
- else{data.sessions.push({...s,id:uid(),createdAt:new Date().toISOString()})}
+ else{if(s.id&&data.sessions.some(x=>x.id===s.id))throw Error('Cronômetro já registrado; duplicidade bloqueada.');data.sessions.push({...s,id:s.id||uid(),createdAt:new Date().toISOString()})}
 if(!store())throw Error('Não foi possível gravar.');refresh();}
 function clearForm(){$('sessionForm').reset();$('sessionDate').value=today();$('sessionTime').value=new Date().toTimeString().slice(0,5);editId=null;$('sessionSubmit').textContent='Salvar sessão';$('sessionQuestions').value='0';$('sessionCorrect').value='0'}
 function runTime(){return Math.max(0,Number(clock.elapsed)||0)+(clock.running?Math.max(0,Date.now()-clock.start):0)}
 function showTimer(){if(clock.running&&clock.alarmMinutes>0&&!clock.alarmed&&runTime()>=clock.alarmMinutes*60000){clock.alarmed=true;storeClock();toggleMessage('timerStatus','Alarme: tempo planejado alcançado.');alert('Alarme de estudo: '+clock.alarmMinutes+' minutos líquidos concluídos.')}const sec=Math.floor(runTime()/1000),hh=String(Math.floor(sec/3600)).padStart(2,'0'),mm=String(Math.floor(sec%3600/60)).padStart(2,'0'),ss=String(sec%60).padStart(2,'0');$('timerDisplay').textContent=hh+':'+mm+':'+ss;$('timerSubject').disabled=clock.running||runTime()>0;$('timerTopic').disabled=clock.running||runTime()>0;$('timerType').disabled=clock.running||runTime()>0;$('timerAlarm').disabled=clock.running||runTime()>0;$('timerPause').disabled=!clock.running;$('timerSave').disabled=runTime()<1000;$('timerStart').disabled=clock.running}
-function saveTimer(){const ms=runTime();if(ms<1000)return;try{const date=today();const s={date,startTime:new Date(clock.firstStartedAt||Date.now()-ms).toTimeString().slice(0,5),subjectId:clock.subject,topic:clock.topic,type:clock.type,minutes:Math.max(.02,Math.round(ms/600)/100),questions:0,correct:0,notes:''};const previousEdit=editId;editId=null;try{addSession(s,false)}finally{editId=previousEdit}clock={running:false,start:0,elapsed:0,firstStartedAt:0,subject:'',topic:'',type:'Teoria'};storeClock();showTimer();toggleMessage('timerStatus','Sessão salva com sucesso. Questões e anotações podem ser adicionadas no Histórico.');}catch(e){toggleMessage('timerStatus',e.message)}}
+function saveTimer(){const ms=runTime();if(ms<1000)return;try{const date=today();const s={date,startTime:new Date(clock.firstStartedAt||Date.now()-ms).toTimeString().slice(0,5),subjectId:clock.subject,topic:clock.topic,type:clock.type,minutes:Math.max(.02,Math.round(ms/600)/100),questions:0,correct:0,notes:'',id:clock.sessionId||uid()};const previousEdit=editId;editId=null;try{addSession(s,false)}finally{editId=previousEdit}clock={running:false,start:0,elapsed:0,firstStartedAt:0,subject:'',topic:'',type:'Teoria'};storeClock();mirrorTimer();showTimer();toggleMessage('timerStatus','Sessão salva com sucesso. Questões e anotações podem ser adicionadas no Histórico.');}catch(e){toggleMessage('timerStatus',e.message)}}
 function weight(s){return Math.max(.1,Number(s.difficulty)||1)*Math.max(.1,Number(s.weight)||1)*Math.max(1,Number(s.exam)||1)}
 function dl(name,contents,mime){const blob=new Blob([contents],{type:mime}),url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function csv(rows){const fields=['date','startTime','subject','topic','type','minutes','questions','correct','notes'];const cell=x=>'"'+(/^[=+@\-\t\r]/.test(String(x??''))?"'":'')+String(x??'').replace(/"/g,'""')+'"';return [fields.join(';'),...rows.map(s=>[s.date,s.startTime,subjectName(s.subjectId),s.topic,s.type,s.minutes,s.questions,s.correct,s.notes].map(cell).join(';'))].join('\r\n')}
@@ -158,9 +166,21 @@ $('calGrid').addEventListener('click',e=>{const b=e.target.closest('[data-cal-da
  $('planForm').addEventListener('submit',e=>{e.preventDefault();const date=$('planDate').value,sub=$('planSubject').value,topic=$('planTopic').value.trim(),minutes=Number($('planMinutes').value);if(!validDate(date)||!subject(sub)||!topic||!Number.isInteger(minutes)||minutes<5||minutes>1440){toggleMessage('planStatus','Confira a data, disciplina, assunto e minutos.');return}data.plans.push({id:uid(),date,subjectId:sub,topic,minutes,createdAt:new Date().toISOString()});if(store()){cal.selected=cal.date=date;$('planTopic').value='';toggleMessage('planStatus','Atividade planejada e salva localmente.');renderCalendar()}});
  $('calPlans').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.calToggle||b.dataset.calRemove;const p=data.plans.find(x=>x.id===id&&!x.deletedAt);if(!p)return;if(b.dataset.calRemove){p.deletedAt=new Date().toISOString()}else if(p.doneAt)delete p.doneAt;else p.doneAt=new Date().toISOString();store();renderCalendar()});
  $('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;
-$('timerStart').addEventListener('click',()=>{if(!clock.running){if(!runTime()){if(!subject($('timerSubject').value)){toggleMessage('timerStatus','Cadastre e selecione uma disciplina antes de iniciar.');return}clock.subject=$('timerSubject').value;clock.topic=$('timerTopic').value.trim();clock.type=$('timerType').value;clock.alarmMinutes=nval($('timerAlarm').value,0,600);clock.alarmed=false}clock.start=Date.now();if(!clock.firstStartedAt)clock.firstStartedAt=clock.start;clock.running=true;storeClock();showTimer()}});
-$('timerPause').addEventListener('click',()=>{clock.elapsed=runTime();clock.start=0;clock.running=false;storeClock();showTimer()});
-$('timerSave').addEventListener('click',saveTimer);$('timerDiscard').addEventListener('click',()=>{if(!runTime()||confirm('Descartar o tempo ainda não salvo?')){clock={running:false,start:0,elapsed:0,subject:'',topic:'',type:'Teoria'};storeClock();showTimer()}});
+$('timerStart').addEventListener('click',()=>{if(!clock.running){if(!runTime()){if(data.activeTimer&&data.activeTimer.ownerId!==device){toggleMessage('timerStatus','Existe uma sessão em outro dispositivo. Pause e sincronize-a antes de assumir.');return}if(!subject($('timerSubject').value)){toggleMessage('timerStatus','Cadastre e selecione uma disciplina antes de iniciar.');return}clock.sessionId=clock.sessionId||uid();clock.ownerId=device;clock.subject=$('timerSubject').value;clock.topic=$('timerTopic').value.trim();clock.type=$('timerType').value;clock.alarmMinutes=nval($('timerAlarm').value,0,600);clock.alarmed=false}clock.start=Date.now();if(!clock.firstStartedAt)clock.firstStartedAt=clock.start;clock.running=true;storeClock();mirrorTimer();showTimer()}});
+$('timerPause').addEventListener('click',()=>{clock.elapsed=runTime();clock.start=0;clock.running=false;storeClock();mirrorTimer();showTimer()});
+$('timerClaim').addEventListener('click',()=>{
+ const remote=data.activeTimer;
+ if(clock.running||runTime()>0){toggleMessage('timerStatus','Encerre o tempo local antes de transferir.');return}
+ if(!remote){toggleMessage('timerStatus','Nenhuma sessão sincronizada para transferir.');return}
+ if(remote.running){toggleMessage('timerStatus','O cronômetro remoto está em execução. Pause-o e sincronize no aparelho de origem.');return}
+ if(!subject(remote.subject)){toggleMessage('timerStatus','A disciplina sincronizada não está cadastrada.');return}
+ clock={...remote,ownerId:device,running:false,start:0};
+ delete clock.updatedAt;
+ if(!mirrorTimer()){toggleMessage('timerStatus','Falha ao assumir sessão; dados anteriores preservados.');return}
+ storeClock();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;
+ showTimer();toggleMessage('timerStatus','Sessão pausada assumida localmente. Sincronize no Drive antes de retomar.');
+ });
+ $('timerSave').addEventListener('click',saveTimer);$('timerDiscard').addEventListener('click',()=>{if(!runTime()||confirm('Descartar o tempo ainda não salvo?')){clock={running:false,start:0,elapsed:0,subject:'',topic:'',type:'Teoria'};storeClock();mirrorTimer();showTimer()}});
 $('sessionForm').addEventListener('submit',e=>{e.preventDefault();try{const s={date:$('sessionDate').value,startTime:$('sessionTime').value,minutes:Number($('sessionMinutes').value),subjectId:$('sessionSubject').value,type:$('sessionType').value,topic:$('sessionTopic').value.trim(),questions:Number($('sessionQuestions').value),correct:Number($('sessionCorrect').value),notes:$('sessionNotes').value};if(!validDate(s.date))throw Error('Informe uma data válida.');addSession(s,false);clearForm();toggleMessage('sessionStatus','Sessão salva e indicadores atualizados.')}catch(ex){toggleMessage('sessionStatus',ex.message)}});
 $('sessionCancel').addEventListener('click',()=>{clearForm();toggleMessage('sessionStatus','')});
 for(const id of ['historySubject','historyType','historyFrom','historyTo'])$(id).addEventListener('change',renderHistory);
