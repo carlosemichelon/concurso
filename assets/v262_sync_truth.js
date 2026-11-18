@@ -76,6 +76,8 @@ function refresh(){
   const success=notes.find(n=>t.evidence.test(String(n)));
   if(failure&&/^Permissão drive\.file/i.test(String(failure))){
    icon(t.key,'Sem autorização','pending',t.label+': '+String(failure)+'. Os dados locais e originais permanecem intactos.');
+  }else if(failure&&t.key==='control'&&/sem registros locais para enviar|ainda não existe arquivo de homologação no Drive/i.test(String(failure))){
+   icon(t.key,'Sem dados','pending',t.label+': '+String(failure)+'. Nenhuma transferência foi considerada concluída.');
   }else if(failure){
    icon(t.key,/conflito|divergênc/i.test(String(failure))?'Conflito':'Parcial / falha',
     /conflito|divergênc/i.test(String(failure))?'partial':'error',
