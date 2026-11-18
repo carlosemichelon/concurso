@@ -220,6 +220,13 @@ test('Catálogo V243 replica o filtro canônico do portal e preserva todos os 1.
  assert.equal(catalog.counts.subtopics,1411);
  assert.equal(catalog.counts.aliases,22);
  assert.equal(catalog.counts.unknown,0);
+ assert.equal(catalog.counts.engineeringFallback,0,'As NRs e Estatística não devem permanecer no grupo residual');
+ const stat=catalog.disciplines.find(d=>d.id==='math').areas.flatMap(a=>a.subjects).find(s=>s.name==='Testes de hipóteses');
+ assert.equal(stat?.cardCount,3);
+ const safety=catalog.disciplines.find(d=>d.id==='eng').areas.find(a=>a.id==='seguranca');
+ assert.ok(safety.subjects.some(s=>s.name==='NR-17 Geral'));
+ assert.equal(catalog.visualReclassifications.moves.reduce((n,x)=>n+x.cards,0),23);
+ assert.equal(catalog.visualReclassifications.moves.length,12);
  const total=catalog.disciplines.reduce((n,d)=>n+d.areas.reduce((j,a)=>j+a.subjects.reduce((v,b)=>v+b.cardCount,0),0),0);
  assert.equal(total,1518,'Nenhum cartão deve desaparecer da classificação');
  const eng=catalog.disciplines.find(x=>x.id==='eng');
