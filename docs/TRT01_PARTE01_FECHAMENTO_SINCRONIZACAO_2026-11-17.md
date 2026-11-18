@@ -35,4 +35,4 @@ Ao abrir outro chat, usar o ZIP consolidado, não duplicar C001–C009. Preserva
 Somente vincular os dois eventos C003/C004 ao SRS F17 depois de identificar a base canônica aprovada e conciliar os IDs sem duplicar conteúdos. Encerramento solicitado pelo usuário, mas **não confundir checkpoint operacional com promoção F17/PMS-1**.
 
 ## Integridade
-As 9 fontes JSON foram relidas no GitHub e mostraram `layers.length=11`. Os 9 ZIPs de fonte foram verificados localmente por CRC e os hashes constam do manifesto. A leitura de volta do arquivo ZIP consolidado após upload ao Drive deve ser documentada separadamente quando confirmada.
+As 9 fontes JSON foram relidas no GitHub e mostraram `layers.length=11`. Os 9 ZIPs de fonte foram verificados localmente por CRC e os hashes constam do manifesto. **Leitura de volta concluída:** ZIP original recuperado do Google Drive com `download_raw_file=true`, tamanho **28.317.350 bytes** e SHA-256 **`f0bcf6d551e26b295ef47449544290936f843c803af01bba8b76e47e4eb3ce93`**, idêntico ao local. CRC validado, 51 entradas, 9 ZIPs individuais e 20 imagens extraídas. Confirmação de sincronização do arquivo concluída.
