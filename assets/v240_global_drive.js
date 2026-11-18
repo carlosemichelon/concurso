@@ -117,18 +117,20 @@ async function syncAll(){
   const result=await m.syncAll();
   const pdf=window.BancoMestrePDFSyncV130?.lastResult||result?.pdf;
   const gallery=window.BancoMestreDriveImagesV182;
-  if(pdf)notes.push((pdf.found??'—')+' PDFs consultados');
-  else warnings.push('PDFs sem conferência concluída');
-  if(gallery?.lastSuccess)notes.push((gallery.lastCount??'—')+' imagens originais consultadas');
-  else warnings.push('Atlas ainda não confirmado');
+  if(pdf){notes.push((pdf.found??'—')+' PDFs consultados');reportModule('pdfs','Consulta de '+(pdf.found??'—')+' documentos concluída; abertura individual não comprovada');}
+  else{warnings.push('PDFs sem conferência concluída');reportModule('pdfs','Consulta pendente');}
+  if(gallery?.lastSuccess){notes.push((gallery.lastCount??'—')+' imagens originais consultadas');reportModule('imagens','Consulta de '+(gallery.lastCount??'—')+' originais concluída; prévia individual não verificada');}
+  else{warnings.push('Atlas ainda não confirmado');reportModule('imagens','Consulta pendente');}
   if(writeToken()){
    const control=window.BM240ControlDrive?.sync?
     await window.BM240ControlDrive.sync(writeToken()):null;
+   reportModule('controle',control?.message||'Sem confirmação');
    if(control?.state==='conflict'||control?.state==='error'||!control)
     warnings.push(control?.message||'Controle de Estudos sem verificação');
    else notes.push(control.message);
    if(control&&['uploaded','downloaded','unchanged'].includes(control.state)){
     const backup=await window.BM240StudyBackups?.afterSync(writeToken());
+    reportModule('backups',backup?.message||'Cópias ainda não confirmadas');
     if(backup?.state==='verified')notes.push(backup.message);
     else warnings.push(backup?.message||'Backups: módulo não disponível');
    }
@@ -136,16 +138,16 @@ async function syncAll(){
    if(g?.sync){
     try{
      await g.sync();
-     const result=String(g.lastStatus||'');
+     const result=String(g.lastStatus||'');reportModule('grifos',result||'Verificação inconclusiva');
      if(/confirmados no Drive|arquivo mestre único|sincronizadas|sem divergências/i.test(result))
       notes.push('Grifos: mestre privado conferido');
      else if(/não sincronizado|feche o PDF|não foi possível/i.test(result))
       warnings.push('Grifos: '+result.slice(0,140));
      else warnings.push('Grifos: confira o estado no módulo de PDFs');
-    }catch(e){warnings.push('Grifos: '+e.message)}
-   }else warnings.push('Mestre de grifos não inicializado');
+    }catch(e){warnings.push('Grifos: '+e.message);reportModule('grifos','Erro: '+e.message)}
+   }else{warnings.push('Mestre de grifos não inicializado');reportModule('grifos','Mestre não inicializado');}
   }else{
-   warnings.push('Permissão drive.file não concedida: Controle e grifos não foram enviados');
+   warnings.push('Permissão drive.file não concedida: Controle e grifos não foram enviados');reportModule('controle','Permissão de gravação ausente');reportModule('grifos','Permissão de gravação ausente');reportModule('backups','Permissão de gravação ausente');
   }
   lastRun=Date.now();
   window.BM208AtlasUnified?.refresh?.();
@@ -165,6 +167,10 @@ async function syncAll(){
 }
 function init(){
  install();
+ window.addEventListener('bm240-study-changed',()=>{
+  integrity.controle='Registros locais alterados; verificação remota pendente';renderIntegrity();
+  state('Controle salvo localmente; sincronização remota pendente.','partial');
+ });
  document.addEventListener('bm-media-drive-authorized',()=>{
   if(!busy&&!active())state('Drive autorizado para arquivos de leitura. Use o botão único para sincronizar também dados privados.');
  });
