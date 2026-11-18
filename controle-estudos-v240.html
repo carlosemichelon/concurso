@@ -48,7 +48,10 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;b
 <div class="panel"><h2>Desempenho por disciplina</h2><div id="performance"></div></div></section>
 <section class="pane" id="registro"><div class="twocol">
 <div class="panel"><h2>Cronômetro de horas líquidas</h2><div class="fields two"><label>Disciplina<select id="timerSubject"></select></label><label>Tipo de estudo<select id="timerType"></select></label></div>
-<label style="margin-top:9px">Conteúdo / subassunto<input id="timerTopic" placeholder="Ex.: Flexão simples / NBR 6118"></label><label style="margin-top:9px">Alarme visual (minutos, 0 = desligado)<input id="timerAlarm" type="number" min="0" max="600" step="1" value="0"></label>
+<div class="fields"><label>Matéria / assunto geral<select id="timerGeneral"><option value="">Escolha a disciplina</option></select></label>
+<label>Assunto específico<input id="timerSpecific" list="bm243TimerSpecificOptions" maxlength="220" placeholder="Sugestões dos cartões"></label><datalist id="bm243TimerSpecificOptions"></datalist>
+<label>Subassunto<input id="timerSubtopic" list="bm243TimerSubtopicOptions" maxlength="220" placeholder="Opcional"></label><datalist id="bm243TimerSubtopicOptions"></datalist></div>
+<label style="margin-top:9px">Detalhamento livre<input id="timerTopic" maxlength="220" placeholder="Ex.: NBR 6118 / flexão simples"></label><label style="margin-top:9px">Alarme visual (minutos, 0 = desligado)<input id="timerAlarm" type="number" min="0" max="600" step="1" value="0"></label>
 <div id="timerDisplay" class="timer" role="timer">00:00:00</div><div class="actions" style="justify-content:center">
 <button class="primary" id="timerStart">Iniciar / continuar</button><button id="timerPause">Pausar</button><button id="timerRelease" type="button">Pausar e liberar transferência</button><button id="timerReclaim" type="button">Cancelar transferência</button><button id="timerSave">Encerrar e salvar</button><button class="danger" id="timerDiscard">Descartar</button><button id="timerClaim" type="button">Assumir sessão pausada de outro dispositivo</button></div>
 <p class="hint">As pausas não entram nas horas líquidas. O cronômetro é recuperado após recarregar. Para transferir a sessão, pause no primeiro aparelho, sincronize o Drive e só então assuma no segundo.</p><p class="status" id="timerStatus" role="status"></p></div>
@@ -56,7 +59,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;b
 <label>Hora de início<input type="time" id="sessionTime"></label><label>Duração líquida (min)<input type="number" id="sessionMinutes" step="0.01" min="0.01" required></label>
 <label>Disciplina<select id="sessionSubject" required></select></label><label>Tipo de estudo<select id="sessionType"></select></label><label>Assunto geral<input list="bm240GeneralOptions" id="sessionGeneral" maxlength="220" placeholder="Sugestões do Banco Mestre"><datalist id="bm240GeneralOptions"></datalist></label>
 <label>Assunto específico<input list="bm240SpecificOptions" id="sessionSpecific" maxlength="220" placeholder="Sugestões do assunto geral"><datalist id="bm240SpecificOptions"></datalist></label>
-<label>Subassunto<input id="sessionSubtopic" maxlength="220" placeholder="Detalhamento, quando disponível"></label>
+<label>Subassunto<input id="sessionSubtopic" list="bm243SessionSubOptions" maxlength="220" placeholder="Sugestões dos cartões; permite texto livre"><datalist id="bm243SessionSubOptions"></datalist></label>
 <label>Conteúdo / tópico livre<input id="sessionTopic" placeholder="Descrição complementar"></label>
 <label>Questões resolvidas<input type="number" id="sessionQuestions" min="0" step="1" value="0"></label><label>Acertos<input type="number" id="sessionCorrect" min="0" step="1" value="0"></label>
 <label>Agenda manual (não SRS)<select id="sessionReview"><option value="0">Não agendar</option></select></label></div>
@@ -65,13 +68,13 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;b
 </div></section>
 <section class="pane" id="historico"><div class="panel"><h2>Histórico de sessões</h2>
 <div class="fields"><label>Disciplina<select id="historySubject"></select></label><label>Tipo<select id="historyType"></select></label><label>De<input type="date" id="historyFrom"></label><label>Até<input type="date" id="historyTo"></label>
-<label>Assunto geral<input type="search" id="historyGeneral" placeholder="Filtrar assunto"></label>
-<label>Assunto específico<input type="search" id="historySpecific" placeholder="Filtrar assunto"></label>
-<label>Subassunto<input type="search" id="historySubtopic" placeholder="Filtrar subassunto"></label></div>
+<label>Matéria / assunto geral<input type="search" list="bm243HistoryGeneralOptions" id="historyGeneral" placeholder="Filtrar matéria"><datalist id="bm243HistoryGeneralOptions"></datalist></label>
+<label>Assunto específico<input type="search" list="bm243HistorySpecificOptions" id="historySpecific" placeholder="Filtrar assunto"><datalist id="bm243HistorySpecificOptions"></datalist></label>
+<label>Subassunto<input type="search" list="bm243HistorySubOptions" id="historySubtopic" placeholder="Filtrar subassunto"><datalist id="bm243HistorySubOptions"></datalist></label></div>
 <div class="actions"><button id="historyClear">Limpar filtros</button><button id="historyCsv">Exportar CSV filtrado</button><span class="muted" id="historyCount"></span></div><div class="scroll"><table><thead><tr><th>Data / início</th><th>Disciplina / assunto</th><th>Tipo</th><th>Tempo</th><th>Questões</th><th>Ações</th></tr></thead><tbody id="historyRows"></tbody></table></div></div></section>
 <section class="pane" id="planejamento"><div class="panel"><h2>Disciplinas e prioridades</h2>
-<div class="notice"><b>Hierarquia real da base pública V194.</b> Sugestões de disciplinas, assuntos gerais e assuntos específicos são extraídas dos cartões públicos; subassuntos podem ser descritos manualmente quando não constarem do catálogo.
-<div class="actions"><button type="button" id="bm240ImportDisciplines">Adicionar disciplinas do catálogo público</button><span id="bm240TaxStatus" class="status" role="status"></span></div></div>
+<div class="notice"><b>Classificação verificada dos cartões públicos V194.</b> Cinco disciplinas principais conforme os filtros do Banco Mestre; matérias, assuntos específicos e subassuntos vêm dos 1.518 cartões. O cronômetro recebe as disciplinas prontas, sem alterar suas sessões, cartões ou SRS. Matérias personalizadas continuam permitidas.
+<div class="actions"><button type="button" id="bm240ImportDisciplines">Atualizar disciplinas disponíveis</button><span id="bm240TaxStatus" class="status" role="status"></span></div></div>
 <form id="subjectForm"><div class="fields"><label>Nova disciplina<input id="subjectName" required placeholder="Ex.: Engenharia Civil"></label>
 <label>Dificuldade (1–5)<input id="subjectDiff" type="number" min="1" max="5" value="3"></label><label>Peso na prova (1–5)<input id="subjectWeight" type="number" min="1" max="5" value="1"></label>
 <label>Questões previstas na prova<input id="subjectExam" type="number" min="0" value="0"></label><label>Meta semanal (horas)<input id="subjectWeekly" type="number" min="0" step=".25" value="3"></label><label>Meta diária (horas)<input id="subjectDaily" type="number" min="0" step=".25" value=".5"></label>
