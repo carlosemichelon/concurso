@@ -22,7 +22,7 @@ function isNarrative(fragment){
  if(/^[\p{L}À-ÿ]{6,}(?:-[\p{L}À-ÿ]{3,})*$/u.test(lhs)&&lhs===lhs.toLocaleLowerCase('pt-BR'))return true;
  if(lhsWords.length>=2&&lhsWords.some(x=>/^[\p{L}À-ÿ]{3,}$/u.test(x)))return true;
  // Explanatory clauses or units must never become invisible-spaced MathML identifiers.
- if(/(?:^|[\s,;])(?:para|quando|onde|conforme|sendo|então|depois|somente|sinais|definida|definido|dependem|depende|inclusive|exceto|porque|aquecimento|resfriamento|impedida|considerando|respectivamente|sob|medido|extremidade|oposta|engastada|articulada|equilíbrio|convenção|definição|nos|nas|aplicáveis|compatíveis)\b/iu.test(rhs))return true;
+ if(/(?:^|[\s,;])(?:para|quando|onde|conforme|com|sendo|então|depois|somente|sinais|definida|definido|dependem|depende|inclusive|exceto|porque|aquecimento|resfriamento|impedida|considerando|respectivamente|sob|medido|extremidade|oposta|engastada|articulada|equilíbrio|convenção|definição|nos|nas|aplicáveis|compatíveis)\b/iu.test(rhs))return true;
  if(/(?:[.!?]\s+[\p{L}]{3,})/u.test(rhs))return true;
  if(/\[[^\]]*(?:\s+[\p{L}]{2,}){2,}[^\]]*\]/u.test(rhs))return true;
  return false;
