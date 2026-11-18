@@ -13,7 +13,7 @@ function mirrorTimer(){
 }
 const $=id=>root.getElementById(id);
 const fresh=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60});
-let data, clock, editId=null, reviewFilter='due', tick, taxonomy={}, lastReadRaw=null;
+let data, clock, editId=null, reviewFilter='due', tick, taxonomy=null, lastReadRaw=null;
 function uid(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2)}
 function validDate(x){return /^\d{4}-\d{2}-\d{2}$/.test(String(x||''))}
 function today(d){const z=d||new Date();return z.getFullYear()+'-'+String(z.getMonth()+1).padStart(2,'0')+'-'+String(z.getDate()).padStart(2,'0')}
@@ -77,23 +77,81 @@ function applyDatalist(id,items){
   const opt=document.createElement('option');opt.value=name;host.append(opt);
  }
 }
+function normalized(x){return String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase()}
+function catalogDiscipline(name){
+ if(!taxonomy?.disciplines)return null;
+ const exact=taxonomy.disciplines.find(d=>normalized(d.name)===normalized(name));
+ if(exact)return exact;
+ const alias=taxonomy.sourceDisciplineLabels?.find(x=>normalized(x.sourceLabel)===normalized(name));
+ return alias?taxonomy.disciplines.find(d=>d.id===alias.discipline)||null:null;
+}
+function catalogAreas(id){
+ const item=subject(id);
+ return catalogDiscipline(item?.name)?.areas||[];
+}
+function catalogSubjects(id,areaName){
+ const area=catalogAreas(id).find(a=>normalized(a.name)===normalized(areaName));
+ return area?.subjects||[];
+}
+function catalogSubtopics(id,areaName,specific){
+ return catalogSubjects(id,areaName).find(s=>normalized(s.name)===normalized(specific))?.subtopics||[];
+}
+function seedCatalogDisciplines(){
+ if(!Array.isArray(taxonomy?.disciplines))return 0;
+ let added=0;
+ for(const d of taxonomy.disciplines){
+  const aliases=d.id==='math'?['Matemática','Matemática, Lógica e Estatística']:[d.name];
+  if(data.subjects.some(s=>aliases.some(n=>normalized(n)===normalized(s.name))))continue;
+  const id='bm243-catalog-'+d.id;
+  if(data.subjects.some(s=>s.id===id))continue;
+  data.subjects.push({id,name:d.name,catalogDiscipline:d.id,color:'#277f79',difficulty:3,weight:1,exam:0,daily:0,weekly:0,monthly:0});
+  added++;
+ }
+ return added; // catálogo apenas em memória até gravação explícita de um evento de estudo
+}
+function fillSelect(id,items,placeholder,keep=true){
+ const e=$(id);if(!e)return;
+ const previous=keep?e.value:'';
+ e.replaceChildren();
+ e.add(new Option(placeholder,''));
+ for(const name of [...new Set(items)])e.add(new Option(name,name));
+ if(items.includes(previous))e.value=previous;
+}
 function refreshTaxonomy(){
- const d=subjectName($('sessionSubject').value),groups=taxonomy[d]||{};
- applyDatalist('bm240GeneralOptions',Object.keys(groups));
- applyDatalist('bm240SpecificOptions',groups[$('sessionGeneral').value.trim()]||[]);
+ if(!taxonomy?.disciplines)return;
+ const session=$('sessionSubject').value,sessionArea=$('sessionGeneral').value.trim();
+ const areas=catalogAreas(session);
+ applyDatalist('bm240GeneralOptions',areas.map(a=>a.name));
+ applyDatalist('bm240SpecificOptions',catalogSubjects(session,sessionArea).map(s=>s.name));
+ applyDatalist('bm243SessionSubOptions',catalogSubtopics(session,sessionArea,$('sessionSpecific').value.trim()));
+ const timer=$('timerSubject').value;
+ fillSelect('timerGeneral',catalogAreas(timer).map(a=>a.name),'Selecione a matéria');
+ applyDatalist('bm243TimerSpecificOptions',catalogSubjects(timer,$('timerGeneral').value).map(s=>s.name));
+ applyDatalist('bm243TimerSubtopicOptions',catalogSubtopics(timer,$('timerGeneral').value,$('timerSpecific').value.trim()));
+ const hSub=$('historySubject').value,hA=$('historyGeneral').value.trim(),hS=$('historySpecific').value.trim();
+ const allAreas=hSub==='all'?taxonomy.disciplines.flatMap(d=>d.areas):catalogAreas(hSub);
+ applyDatalist('bm243HistoryGeneralOptions',allAreas.map(x=>x.name));
+ const inArea=allAreas.filter(x=>!hA||normalized(x.name)===normalized(hA));
+ applyDatalist('bm243HistorySpecificOptions',inArea.flatMap(x=>x.subjects.map(z=>z.name)));
+ applyDatalist('bm243HistorySubOptions',inArea.flatMap(x=>x.subjects.filter(z=>!hS||normalized(z.name)===normalized(hS)).flatMap(z=>z.subtopics)));
 }
 async function loadTaxonomy(){
  try{
-  const r=await fetch('./assets/v240_estudo_hierarquia.json',{cache:'default'});
-  if(!r.ok)throw Error('Catálogo público indisponível');
+  const r=await fetch('./assets/v243_estudo_catalogo.json',{cache:'default'});
+  if(!r.ok)throw Error('Catálogo de estudo indisponível');
   const json=await r.json();
-  if(json.format!=='BancoMestreControleHierarquiaV240'||!json.hierarchy||typeof json.hierarchy!=='object')
-   throw Error('Catálogo com formato inesperado');
-  taxonomy=json.hierarchy;
-  const disciplineCount=Object.keys(taxonomy).length;
-  $('bm240TaxStatus').textContent=disciplineCount+' disciplinas da base pública disponíveis para importar.';
+  if(json.format!=='BancoMestreEstudosCatalogoV243'||json.counts?.cards!==1518||
+   json.disciplines?.length!==5||json.counts.unknown!==0)throw Error('Catálogo sem auditoria de integridade');
+  taxonomy=json;
+  const added=seedCatalogDisciplines();
+  refresh();
   refreshTaxonomy();
- }catch(e){$('bm240TaxStatus').textContent='Catálogo não carregado: '+e.message+'. Registro manual continua disponível.'}
+  $('bm240TaxStatus').textContent='5 disciplinas prontas · '+json.counts.areas+' matérias · '+
+    json.counts.specificSubjects+' assuntos · '+json.counts.subtopics+' subassuntos. '+(added?added+' disciplinas disponibilizadas sem sobrescrever originais.':'');
+  window.dispatchEvent(new CustomEvent('bm243-catalog-ready',{detail:{disciplines:json.counts.disciplines,areas:json.counts.areas}}));
+ }catch(e){
+  $('bm240TaxStatus').textContent='Catálogo não carregado: '+e.message+'. Disciplinas já cadastradas e texto livre continuam disponíveis.';
+ }
 }
 function go(id){root.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));root.querySelectorAll('section.pane').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='painel')renderDashboard();if(id==='historico')renderHistory();if(id==='planejamento')renderSubjects();if(id==='ciclo')renderCycle();if(id==='revisoes')renderReviews();if(id==='backup')renderBackup();if(id==='calendarioControle')renderCalendar();resize()}
 function resize(){}
@@ -144,7 +202,7 @@ function renderBackup(){
  $('bm240-audit').innerHTML=(deleted.length?'<h4>Sessões excluídas recuperáveis</h4>'+deleted.map(x=>'<div class="item"><b>'+esc(x.date)+' · '+esc(subjectName(x.subjectId))+'</b> · '+esc(timeText(x.minutes))+' <button data-restore-session="'+esc(x.id)+'">Restaurar</button></div>').join(''):'<p class="muted">Nenhuma sessão excluída.</p>')+
   '<h4>Últimas alterações</h4>'+(events.map(e=>'<div class="item small">'+esc(e.at)+' · '+esc(e.kind)+' · '+esc(e.event)+' · '+esc(e.entityId)+'</div>').join('')||'<p class="muted">Nenhuma alteração registrada.</p>');
 }
-function refresh(){refreshOpts();renderDashboard();renderHistory();renderSubjects();renderCycle();renderReviews();renderCalendar();renderBackup();resize()}
+function refresh(){refreshOpts();refreshTaxonomy();renderDashboard();renderHistory();renderSubjects();renderCycle();renderReviews();renderCalendar();renderBackup();resize()}
 function addSession(s,review){if(!subject(s.subjectId))throw Error('Selecione uma disciplina cadastrada.');if(!(Number(s.minutes)>0))throw Error('Duração inválida.');if(!Number.isInteger(s.questions)||!Number.isInteger(s.correct)||s.correct<0||s.questions<0||s.correct>s.questions)throw Error('Acertos não podem exceder as questões.');
 if(editId){const old=data.sessions.find(x=>x.id===editId&&!x.deletedAt);if(!old)throw Error('Sessão original não localizada.');Object.assign(old,s);editId=null;}
  else{if(s.id&&data.sessions.some(x=>x.id===s.id))throw Error('Cronômetro já registrado; duplicidade bloqueada.');data.sessions.push({...s,id:s.id||uid(),createdAt:new Date().toISOString()})}
@@ -338,9 +396,14 @@ $('timerRelease').addEventListener('click',()=>{
  });
  $('timerSave').addEventListener('click',saveTimer);$('timerDiscard').addEventListener('click',()=>{if(!runTime()||window.BM240DiscardConfirmed===true||confirm('Descartar o tempo ainda não salvo?')){clock={running:false,start:0,elapsed:0,subject:'',topic:'',type:'Teoria'};storeClock();mirrorTimer();showTimer()}});
 $('sessionForm').addEventListener('submit',e=>{e.preventDefault();try{const s={date:$('sessionDate').value,startTime:$('sessionTime').value,minutes:Number($('sessionMinutes').value),subjectId:$('sessionSubject').value,type:$('sessionType').value,topic:$('sessionTopic').value.trim(),general:$('sessionGeneral').value.trim(),specific:$('sessionSpecific').value.trim(),subtopic:$('sessionSubtopic').value.trim(),questions:Number($('sessionQuestions').value),correct:Number($('sessionCorrect').value),notes:$('sessionNotes').value};if(!validDate(s.date))throw Error('Informe uma data válida.');addSession(s,false);clearForm();toggleMessage('sessionStatus','Sessão salva e indicadores atualizados.')}catch(ex){toggleMessage('sessionStatus',ex.message)}});
-$('sessionSubject').addEventListener('change',()=>{$('sessionGeneral').value='';$('sessionSpecific').value='';refreshTaxonomy()});
- $('sessionGeneral').addEventListener('input',()=>{$('sessionSpecific').value='';refreshTaxonomy()});
- $('bm240ImportDisciplines').addEventListener('click',()=>{const names=Object.keys(taxonomy);if(!names.length){$('bm240TaxStatus').textContent='Catálogo indisponível. Tente novamente quando online.';return}let added=0;for(const name of names){if(data.subjects.some(s=>s.name.toLocaleLowerCase('pt-BR')===name.toLocaleLowerCase('pt-BR')))continue;data.subjects.push({id:uid(),name,color:'#277f79',difficulty:3,weight:1,exam:0,daily:0,weekly:0,monthly:0});added++}if(added&&!store())return;refresh();$('bm240TaxStatus').textContent=added+' disciplinas importadas; as anteriores foram preservadas.'});
+$('sessionSubject').addEventListener('change',()=>{$('sessionGeneral').value='';$('sessionSpecific').value='';$('sessionSubtopic').value='';refreshTaxonomy()});
+ $('sessionGeneral').addEventListener('input',()=>{$('sessionSpecific').value='';$('sessionSubtopic').value='';refreshTaxonomy()});
+ $('sessionSpecific').addEventListener('input',()=>{$('sessionSubtopic').value='';refreshTaxonomy()});
+ $('timerSubject').addEventListener('change',()=>{$('timerGeneral').value='';$('timerSpecific').value='';$('timerSubtopic').value='';refreshTaxonomy()});
+ $('timerGeneral').addEventListener('change',()=>{$('timerSpecific').value='';$('timerSubtopic').value='';refreshTaxonomy()});
+ $('timerSpecific').addEventListener('input',()=>{$('timerSubtopic').value='';refreshTaxonomy()});
+ for(const id of ['historySubject','historyGeneral','historySpecific'])$(id).addEventListener('input',refreshTaxonomy);
+ $('bm240ImportDisciplines').addEventListener('click',()=>{if(!taxonomy?.disciplines){void loadTaxonomy();return}const added=seedCatalogDisciplines();refresh();refreshTaxonomy();$('bm240TaxStatus').textContent=added+' disciplinas disponíveis, sem duplicar nomes ou substituir registros.'});
  void loadTaxonomy();
  $('sessionCancel').addEventListener('click',()=>{clearForm();toggleMessage('sessionStatus','')});
 for(const id of ['historySubject','historyType','historyFrom','historyTo','historyGeneral','historySpecific','historySubtopic'])$(id).addEventListener('change',renderHistory);
@@ -494,7 +557,10 @@ window.BM240ControlApp=Object.freeze({
   refresh();
   return entry.id;
  },
+ catalogForSubject(id){return catalogAreas(id).map(a=>({name:a.name,subjects:a.subjects.map(s=>({name:s.name,subtopics:s.subtopics.slice()}))}))},
+ get taxonomyCount(){return taxonomy?.counts||null},
  get timer(){return {running:!!clock.running,elapsedMs:runTime(),subjectId:clock.subject||'',subjectName:subjectName(clock.subject),
+  general:clock.general||'',specific:clock.specific||'',subtopic:clock.subtopic||'',
   topic:clock.topic||'',transferPending:!!clock.transferPending,availableForTransfer:!!clock.availableForTransfer,
   subjects:data.subjects.map(s=>({id:s.id,name:s.name}))}},
  get status(){return {sessions:relevant().length,deleted:data.sessions.filter(x=>x.deletedAt).length,audit:data.audit.length}}
