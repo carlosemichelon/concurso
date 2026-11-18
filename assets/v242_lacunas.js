@@ -79,6 +79,9 @@ function install(){
  '<label>Tipo<select name="tipo"></select></label><label>Cobertura<select name="cobertura"></select></label>',
  '<label>Prioridade<select name="prioridade"><option>Normal</option><option>Alta</option><option>Baixa</option></select></label>',
  '</div>',
+ '<label>Enunciado da questão (opcional; preservação textual)<textarea rows="3" name="enunciado"></textarea></label>',
+ '<label>Minha resposta / alternativa marcada (opcional)<textarea rows="2" name="respostaEstudante"></textarea></label>',
+ '<label>Gabarito oficial (opcional)<input name="gabarito" maxlength="400" placeholder="Sem resposta, deixe vazio"></label>',
  '<label>Por que errei? / O que não compreendi? — relato literal do estudante<textarea rows="3" name="relatoEstudante"></textarea></label>',
  '<label>Descrição da lacuna ou conhecimento a pesquisar<textarea rows="2" name="descricao" required></textarea></label>',
  '<label>Fontes, normas, edições e páginas<textarea rows="2" name="fonte"></textarea></label>',
@@ -108,6 +111,7 @@ function install(){
     createdAt:now,updatedAt:now,origem:g('origem'),questaoId:g('questaoId'),cardIds:linked,
     disciplina:g('disciplina'),assuntoGeral:g('assuntoGeral'),assuntoEspecifico:g('assuntoEspecifico'),subassunto:g('subassunto'),
     tipo:g('tipo'),cobertura:g('cobertura'),prioridade:g('prioridade'),etapa:'Identificada',
+    enunciado:String(v.get('enunciado')||''),respostaEstudante:String(v.get('respostaEstudante')||''),gabarito:g('gabarito'),
     relatoEstudante:String(v.get('relatoEstudante')||''),diagnosticoAssistente:'',diagnosticoConfianca:'',diagnosticoEvidencias:'',
     descricao:g('descricao'),fonte:g('fonte'),pesquisa:g('pesquisa'),auditoriaStatus:'Cobertura declarada manualmente; não auditada pelo portal',
     resolucaoEvidencia:'',historico:[]};
@@ -214,7 +218,7 @@ function render(){
  g=$('bm242-general').value,sp=$('bm242-specific').value,sub=$('bm242-sub').value,p=$('bm242-priority').value,
  c=$('bm242-cover').value,s=$('bm242-stage').value;
  const filtered=data.records.filter(r=>(!d||r.disciplina===d)&&(!g||r.assuntoGeral===g)&&(!sp||r.assuntoEspecifico===sp)&&(!sub||r.subassunto===sub)&&(!p||r.prioridade===p)&&(!t||r.tipo===t)&&(!c||r.cobertura===c)&&(!s||r.etapa===s)&&
- (!q||norm([r.id,r.descricao,r.relatoEstudante,r.diagnosticoAssistente,r.questaoId,...r.cardIds,r.disciplina,r.assuntoGeral,r.assuntoEspecifico,r.subassunto,r.fonte,r.pesquisa].join(' ')).includes(q)));
+ (!q||norm([r.id,r.descricao,r.relatoEstudante,r.diagnosticoAssistente,r.enunciado,r.respostaEstudante,r.gabarito,r.questaoId,...r.cardIds,r.disciplina,r.assuntoGeral,r.assuntoEspecifico,r.subassunto,r.fonte,r.pesquisa].join(' ')).includes(q)));
  $('bm242-count').textContent=filtered.length+' de '+data.records.length+' lacunas · '+data.log.length+' eventos de histórico';
  $('bm242-list').innerHTML=filtered.length?filtered.slice().reverse().map(r=>{
   const links=r.cardIds.map(id=>'<button data-open="'+esc(id)+'" type="button">Abrir '+esc(id)+' no leitor</button>').join(' ')||'<em>Cartão a auditar</em>';
@@ -222,6 +226,7 @@ function render(){
   return '<article class="bm242-item"><strong>'+esc(r.descricao)+'</strong> <code>'+esc(r.id)+'</code>'+
   '<p>'+esc([r.disciplina,r.assuntoGeral,r.assuntoEspecifico,r.subassunto].filter(Boolean).join(' › '))+'</p>'+
   '<p class="bm242-muted">'+esc(r.tipo)+' · '+esc(r.cobertura)+' · '+esc(r.etapa)+' · '+esc(r.prioridade)+'</p>'+
+  (r.enunciado?'<details><summary>Enunciado e tentativa</summary><p>'+esc(r.enunciado)+'</p><p><b>Resposta registrada:</b> '+esc(r.respostaEstudante||'não informada')+'</p><p><b>Gabarito:</b> '+esc(r.gabarito||'não informado')+'</p></details>':'')+
   (r.relatoEstudante?'<p><b>Relato literal:</b> '+esc(r.relatoEstudante)+'</p>':'')+
   (r.diagnosticoAssistente?'<p><b>Diagnóstico do assistente ('+esc(r.diagnosticoConfianca||'não confirmado')+'):</b> '+esc(r.diagnosticoAssistente)+'</p>':'')+
   '<p><b>Origem:</b> '+esc(r.origem)+(r.questaoId?' · '+esc(r.questaoId):'')+'</p>'+
