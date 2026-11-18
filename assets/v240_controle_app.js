@@ -155,6 +155,42 @@ function renderCalendar(){
  $('calPlans').innerHTML=scheduled.map(p=>'<div class="item"><div class="item-head"><div><b>'+esc(subjectName(p.subjectId))+'</b> · '+esc(p.topic)+' <span class="tag">'+esc(p.minutes)+' min previstos</span><div class="muted">'+(p.doneAt?'Planejamento concluído (não gera horas nem SRS)':'Pendente')+'</div></div><div class="row"><button data-cal-toggle="'+esc(p.id)+'">'+(p.doneAt?'Reabrir':'Concluir')+'</button><button class="danger" data-cal-remove="'+esc(p.id)+'">Excluir</button></div></div></div>').join('')||'<p class="muted">Nenhuma tarefa planejada para esta data.</p>';
 }
 
+
+function previewLegacy(){
+ const raw=localStorage.getItem('BM184_STUDY_SESSIONS_V1');
+ if(!raw)return {valid:[],rejected:[],duplicates:0};
+ const values=JSON.parse(raw);if(!Array.isArray(values)||values.length>6000)throw Error('Histórico legado inválido; nada será importado');
+ const valid=[],rejected=[];let duplicates=0;
+ for(const s of values){
+  const match=s&&typeof s.id==='string'&&validDate(s.day)&&String(s.discipline||'').trim()&&
+   Number.isInteger(s.minutes)&&s.minutes>=1&&s.minutes<=1440;
+  if(!match){rejected.push(s?.id||'(sem ID)');continue}
+  const id='BM184:'+s.id,existing=data.sessions.find(x=>x.id===id);
+  if(existing){duplicates++;continue}
+  valid.push({id,date:s.day,startTime:'',subjectName:String(s.discipline).trim().slice(0,120),
+   topic:String(s.subject||'').slice(0,220),type:types.includes(s.activity)?s.activity:'Outros',
+   minutes:s.minutes,questions:0,correct:0,notes:String(s.note||'').slice(0,3000),
+   provenance:{source:'BM184_STUDY_SESSIONS_V1',sourceId:s.id,verified:'registro local com duração e data'}});
+ }
+ return {valid,rejected,duplicates};
+}
+function importLegacy(){
+ const report=previewLegacy();
+ $('bm240-import-preview').textContent=report.valid.length+' sessões verificáveis · '+report.duplicates+' já importadas · '+report.rejected.length+' rejeitadas por falta de dados.';
+ if(!report.valid.length)return;
+ if(!confirm('Importar '+report.valid.length+' sessões verificáveis do diário V184, sem alterar os originais?'))return;
+ const before=localStorage.getItem(KEY);
+ localStorage.setItem('BM240_BEFORE_LEGACY_IMPORT_'+new Date().toISOString().replace(/[:.]/g,'-'),before||JSON.stringify(fresh()));
+ const names=new Map(data.subjects.map(x=>[x.name.toLocaleLowerCase('pt-BR'),x.id]));
+ for(const row of report.valid){
+  let id=names.get(row.subjectName.toLocaleLowerCase('pt-BR'));
+  if(!id){id=uid();data.subjects.push({id,name:row.subjectName,color:'#277f79',difficulty:3,weight:1,exam:0,daily:0,weekly:0,monthly:0});names.set(row.subjectName.toLocaleLowerCase('pt-BR'),id)}
+  const {subjectName,...session}=row;data.sessions.push({...session,subjectId:id});
+ }
+ if(!store())throw Error('A importação não pôde ser persistida');
+ refresh();$('bm240-import-preview').textContent=report.valid.length+' sessões importadas com origem e trilha de auditoria. Originais V184 intactos.';
+}
+
 function init(){
 load();$('sessionDate').value=today();$('sessionTime').value=new Date().toTimeString().slice(0,5);$('reviewDue').value=shift(today(),1);
 for(const b of root.querySelectorAll('#tabs [data-tab]'))b.addEventListener('click',()=>go(b.dataset.tab));for(const b of root.querySelectorAll('[data-goto]'))b.addEventListener('click',()=>go(b.dataset.goto));
@@ -207,7 +243,8 @@ root.querySelectorAll('[data-review-filter]').forEach(b=>b.addEventListener('cli
 $('reviewRows').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.completeReview||b.dataset.reopenReview||b.dataset.deleteReview;const r=data.reviews.find(x=>x.id===id);if(!r)return;if(b.dataset.deleteReview){if(!confirm('Excluir esta revisão de conteúdo?'))return;data.reviews=data.reviews.filter(x=>x.id!==id)}else if(b.dataset.completeReview){r.done=true;r.doneAt=new Date().toISOString()}else{r.done=false;delete r.doneAt}store();renderReviews();renderDashboard()});
 $('exportJson').addEventListener('click',()=>dl('controle-estudos-backup-'+today()+'.json',JSON.stringify({format:'BancoMestreControleV238',exportedAt:new Date().toISOString(),data},null,2),'application/json'));
 $('exportAllCsv').addEventListener('click',()=>dl('controle-estudos-'+today()+'.csv',csv(data.sessions),'text/csv;charset=utf-8'));
-$('importJson').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>10_000_000)throw Error('Arquivo acima de 10 MB.');const obj=JSON.parse(await f.text());if(obj.format!=='BancoMestreControleV238'||obj.data?.schema!==1||!Array.isArray(obj.data?.subjects)||!Array.isArray(obj.data?.sessions)||!Array.isArray(obj.data?.reviews)||!Array.isArray(obj.data?.cycle))throw Error('Formato de backup inválido.');if(!confirm('Substituir todos os registros locais deste módulo pelo backup importado?'))return;data=obj.data;if(!store())throw Error('Falha ao persistir a importação.');refresh();toggleMessage('backupStatus','Backup importado e conferido estruturalmente.')}catch(err){toggleMessage('backupStatus',err.message)}finally{e.target.value=''}});
+$('bm240-import-legacy').addEventListener('click',()=>{try{importLegacy()}catch(e){$('bm240-import-preview').textContent='Importação não realizada: '+e.message}});
+ $('importJson').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>10_000_000)throw Error('Arquivo acima de 10 MB.');const obj=JSON.parse(await f.text());if(obj.format!=='BancoMestreControleV238'||obj.data?.schema!==1||!Array.isArray(obj.data?.subjects)||!Array.isArray(obj.data?.sessions)||!Array.isArray(obj.data?.reviews)||!Array.isArray(obj.data?.cycle))throw Error('Formato de backup inválido.');if(!confirm('Substituir todos os registros locais deste módulo pelo backup importado?'))return;data=obj.data;if(!store())throw Error('Falha ao persistir a importação.');refresh();toggleMessage('backupStatus','Backup importado e conferido estruturalmente.')}catch(err){toggleMessage('backupStatus',err.message)}finally{e.target.value=''}});
 refreshOpts();$('historySubject').value='all';$('historyType').value='all';refresh();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;showTimer();
 tick=setInterval(()=>{showTimer();if(clock.running)storeClock()},1000);
 window.addEventListener('pagehide',storeClock);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(resize).observe(root.querySelector('main'))}
