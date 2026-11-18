@@ -1,0 +1,30 @@
+/* V242: guia visual da biblioteca de lacunas; acompanha tema do Banco Mestre. */
+#lacunas .bm242-shell{max-width:1180px;margin:0 auto;padding:18px 12px 30px;color:#183c43}
+#lacunas .bm242-shell h2{font-size:1.35rem;margin:0 0 5px}
+#lacunas .bm242-muted{color:#58777c;font-size:.9rem;line-height:1.5}
+#lacunas .bm242-status{border:1px solid #c4dadd;border-radius:8px;padding:9px 12px;background:#f6fbfb;font-size:.88rem;overflow-wrap:anywhere}
+#lacunas .bm242-filters,#lacunas .bm242-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+#lacunas .bm242-filters label:first-child{grid-column:span 2}
+#lacunas label{font-size:.85rem;display:flex;flex-direction:column;gap:5px;font-weight:600}
+#lacunas input,#lacunas select,#lacunas textarea{min-width:0;width:100%;background:#fff;color:#163941;border:1px solid #adc8ce;border-radius:7px;padding:9px;box-sizing:border-box;font:inherit}
+#lacunas textarea{resize:vertical}
+#lacunas button{background:#fff;border:1px solid #8db9bc;border-radius:7px;color:#17646a;padding:9px 12px;cursor:pointer;font:inherit;font-size:.9rem;font-weight:650}
+#lacunas button:focus-visible,#lacunas summary:focus-visible{outline:3px solid #5d9aa3;outline-offset:2px}
+#lacunas .bm242-item{background:#fff;border:1px solid #d4e4e5;border-radius:10px;padding:16px;margin:11px 0;overflow-wrap:anywhere}
+#lacunas .bm242-item strong{font-size:1.02rem}
+#lacunas .bm242-item p{margin:8px 0;white-space:pre-wrap}
+#lacunas .bm242-item code{color:#527175;font-size:.75rem;margin-left:8px}
+#lacunas .bm242-actions{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:10px 0}
+#lacunas .bm242-form{background:#f9fbfb;border:1px solid #c9dfdf;border-radius:10px;padding:14px;margin-top:22px}
+#lacunas .bm242-form summary{cursor:pointer;font-size:1rem;font-weight:700}
+#lacunas .bm242-form label{margin:8px 0}
+#lacunas .bm242-form button{background:#176e72;color:#fff}
+#lacunas .bm242-item details summary{cursor:pointer;color:#315e65}
+@media(max-width:760px){
+ #lacunas .bm242-filters,#lacunas .bm242-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #lacunas .bm242-filters label:first-child{grid-column:span 2}
+}
+@media(max-width:460px){
+ #lacunas .bm242-filters,#lacunas .bm242-fields{grid-template-columns:1fr}
+ #lacunas .bm242-filters label:first-child{grid-column:span 1}
+}
