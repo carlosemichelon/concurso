@@ -60,6 +60,7 @@ sheet.textContent=[
  '#imagens #bm155FilterSummary{flex:1;min-width:180px;color:#576f75;font-size:12px;line-height:1.5}',
  '#imagens #bm155Reset{min-height:36px;font-size:12px;border-radius:8px;padding:8px 12px}',
  '#imagens .bm153AreaNav,#imagens .bm153Toolbar{display:none!important}',
+ 'html[data-bm238-drive-filters="active"] #imagens #imageFilter{display:none!important}',
  '#imagens #bm153GroupListing[hidden]{display:none!important}',
  '#imagens .bm155Help{font-size:12px;color:#61787d;margin:8px 0}',
  '@media(max-width:900px){#imagens .bm155ImageFilters{grid-template-columns:repeat(2,minmax(0,1fr))}}',
@@ -134,6 +135,9 @@ function updateDriveOptions(){
 }
 function setDriveRecords(items){
  driveRecords=Array.isArray(items)?items:null;
+ document.documentElement.dataset.bm238DriveFilters=driveRecords!==null?'active':'inactive';
+ const title=heading.querySelector('strong');
+ if(title)title.textContent=driveRecords!==null?'Imagens do Drive — filtros por classificação cadastrada':'Imagens organizadas por assunto';
  updateDriveOptions();
 }
 let classification=null,classPromise=null,classById=new Map();
@@ -242,7 +246,7 @@ function filterChange(level,value){
  const order=['disc','general','specific','sub'];
  state[level]=value;for(const later of order.slice(order.indexOf(level)+1))state[later]='all';
  groupState.group='all';groupState.area='all';
- setDefaultAdvanced();
+ // Alterar categoria não apaga a busca textual nem favoritos escolhidos.
  if(typeof imgLimit!=='undefined')imgLimit=24;
  if(typeof imgRender==='function')void imgRender();
  document.dispatchEvent(new Event('bm153-drive-filter-change'));
@@ -390,6 +394,10 @@ subSel.onchange=()=>filterChange('sub',subSel.value);
 reset155.onclick=()=>{
  for(const key of ['disc','general','specific','sub'])state[key]='all';
  groupState.area='all';groupState.group='all';setDefaultAdvanced();
+ for(const id of ['bm218-area-filter','bm218-subject-filter','bm218-status-filter']){
+  const field=$(id);if(field)field.value='all';
+ }
+ const extraSearch=$('bm084-search');if(extraSearch)extraSearch.value='';
  if(typeof imgLimit!=='undefined')imgLimit=24;
  if(typeof imgRender==='function')void imgRender();
  document.dispatchEvent(new Event('bm153-drive-filter-change'));
