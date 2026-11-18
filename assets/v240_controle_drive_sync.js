@@ -124,6 +124,13 @@ async function work(token){
  status(conflict);
  return {state:'conflict',message:conflict};
 }
+async function verifyTimerOwnership(token,sessionId,ownerId){
+ if(!token||!sessionId||!ownerId)return false;
+ const file=await locate(token);
+ if(!file)return false;
+ const d=await get(token,file),a=d.activeTimer;
+ return Boolean(a&&a.sessionId===sessionId&&a.ownerId===ownerId&&a.availableForTransfer&&!a.running);
+}
 async function sync(token){
  if(running)return running;
  running=work(token).then(r=>{
@@ -136,5 +143,5 @@ async function sync(token){
  }).finally(()=>running=null);
  return running;
 }
-window.BM240ControlDrive=Object.freeze({sync,get lastResult(){return lastResult}});
+window.BM240ControlDrive=Object.freeze({sync,verifyTimerOwnership,get lastResult(){return lastResult}});
 })();
