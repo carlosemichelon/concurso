@@ -264,6 +264,9 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   if(!source.includes('</head>'))throw Error('Cabeçalho não localizado');
   source=source.replace('</head>',
    '<style id="bm226BibliotecaGrifosOff">header nav [data-page="grifos"],section#grifos,a[href="#grifos"]{display:none!important}</style></head>');
+  // Apenas nesta homologação, o cabeçalho fixo da V242 não intercepta as abas internas do Controle em telas pequenas.
+  source=source.replace('</head>',
+   '<style id="bm243StudyMobileNav">@media(max-width:650px){html:has(main section#controle-estudos.active) body>header{position:relative!important;top:auto!important}html:has(main section#controle-estudos.active) #bm240-native-host{scroll-margin-top:8px}}</style></head>');
   if(location.hash.toLowerCase()==='#grifos')
    history.replaceState(null,'',location.pathname+location.search+'#pdfs');
   source=source.replace('</head>','<base href="../"></head>');
