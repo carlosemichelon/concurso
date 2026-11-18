@@ -97,6 +97,45 @@ sheet.textContent=[
 ].join('\n');document.head.append(sheet);
 const groupState={area:'all',group:'all'};
 const state={disc:'all',general:'all',specific:'all',sub:'all'};
+let driveRecords=null;
+const pending='__pendente__';
+const driveKeys=m=>({
+ disc:String(m?.area||'').trim()||pending,
+ general:String(m?.subject||'').trim()||pending,
+ specific:String(m?.subsubject||'').trim()||pending,
+ sub:String(m?.detail||'').trim()||pending
+});
+function driveMatches(m){
+ if(driveRecords===null)return true;
+ const keys=driveKeys(m);
+ return Object.entries(state).every(([k,v])=>v==='all'||keys[k]===v);
+}
+function driveChoices(items,key){
+ const counts=new Map();
+ for(const m of items){
+  const v=driveKeys(m)[key];counts.set(v,(counts.get(v)||0)+1);
+ }
+ return [...counts].map(([value,count])=>({value,count,label:value===pending?'Sem classificação cadastrada':value}))
+  .sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'pt-BR'));
+}
+function updateDriveOptions(){
+ if(driveRecords===null)return;
+ const all=driveRecords;
+ const fields=[['disc',discSel,'Todas as disciplinas'],['general',generalSel,'Todos os assuntos gerais'],['specific',specificSel,'Todos os assuntos específicos'],['sub',subSel,'Todos os subassuntos']];
+ let eligible=all;
+ for(const [key,select,label] of fields){
+  const options=driveChoices(eligible,key);
+  state[key]=fillSelect(select,label+' ('+eligible.length+')',options,state[key]);
+  eligible=eligible.filter(m=>state[key]==='all'||driveKeys(m)[key]===state[key]);
+  select.disabled=key!=='disc'&&eligible.length===0;
+ }
+ const pendingCount=all.filter(m=>!m?.classified||!m.area||!m.subject).length;
+ summary155.textContent=eligible.length+' de '+all.length+' imagens do Drive nesta seleção · '+pendingCount+' sem classificação completa';
+}
+function setDriveRecords(items){
+ driveRecords=Array.isArray(items)?items:null;
+ updateDriveOptions();
+}
 let classification=null,classPromise=null,classById=new Map();
 let config=null,promise=null,openTarget=null,browsing=false,degraded=false;
 function loadConfig(){
@@ -162,6 +201,7 @@ function fillSelect(sel,allLabel,choices,selected){
  return sel.value;
 }
 function updateClassOptions(eligible){
+ if(driveRecords!==null){updateDriveOptions();return;}
  if(!classification)return;
  const discLabels=new Map(classification.disciplines.map(x=>[x.id,x.label]));
  const generalLabels=new Map(classification.generals.map(x=>[x.id,x.label]));
@@ -205,6 +245,7 @@ function filterChange(level,value){
  setDefaultAdvanced();
  if(typeof imgLimit!=='undefined')imgLimit=24;
  if(typeof imgRender==='function')void imgRender();
+ document.dispatchEvent(new Event('bm153-drive-filter-change'));
 }
 
 const make=(tag,cls,text)=>{
@@ -351,6 +392,7 @@ reset155.onclick=()=>{
  groupState.area='all';groupState.group='all';setDefaultAdvanced();
  if(typeof imgLimit!=='undefined')imgLimit=24;
  if(typeof imgRender==='function')void imgRender();
+ document.dispatchEvent(new Event('bm153-drive-filter-change'));
 };
 groupSel.onchange=()=>selectGroup(groupSel.value);
 const oldSearch=$('imageSearch');
@@ -358,7 +400,7 @@ oldSearch?.addEventListener('input',()=>{
  if(oldSearch.value.trim()&&groupState.group!=='all')groupState.group='all';
  },true);
 window.BM153ImageLibrary=Object.freeze({
- ready:async()=>Promise.all([loadConfig(),loadClassification()]),matches,beforeCards,afterCards,
+ ready:async()=>Promise.all([loadConfig(),loadClassification()]),matches,beforeCards,afterCards,driveMatches,setDriveRecords,
  get filters(){return {...state}}, reset:()=>reset155.click(),
  get selection(){return {...groupState}},
  selectGroup,selectArea,
