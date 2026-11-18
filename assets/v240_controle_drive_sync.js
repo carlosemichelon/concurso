@@ -126,7 +126,12 @@ async function work(token){
 }
 async function sync(token){
  if(running)return running;
- running=work(token).then(r=>{lastResult=r;return r}).catch(e=>{
+ running=work(token).then(r=>{
+ lastResult=r;
+ if(['uploaded','downloaded','unchanged'].includes(r?.state))
+  document.dispatchEvent(new CustomEvent('bm240-control-verified',{detail:{state:r.state}}));
+ return r;
+ }).catch(e=>{
    lastResult={state:'error',message:'Controle: '+e.message};return lastResult
  }).finally(()=>running=null);
  return running;
