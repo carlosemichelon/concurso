@@ -369,6 +369,36 @@ $('exportJson').addEventListener('click',()=>dl('controle-estudos-backup-'+today
 $('exportAllCsv').addEventListener('click',()=>dl('controle-estudos-'+today()+'.csv',csv(data.sessions),'text/csv;charset=utf-8'));
 $('bm240-import-legacy').addEventListener('click',()=>{try{importLegacy()}catch(e){$('bm240-import-preview').textContent='Importação não realizada: '+e.message}});
  $('bm240-import-active').addEventListener('click',()=>{try{importActiveControl()}catch(e){$('bm240-import-active-status').textContent='Importação não realizada: '+e.message}});
+ $('bm240-inspect-conflict').addEventListener('click',async()=>{
+  const status=$('bm240-conflict-status'),items=$('bm240-conflict-items'),button=$('bm240-merge-safe');
+  button.disabled=true;items.replaceChildren();
+  try{
+   const token=window.BM239DriveGlobal?.writeToken?.();
+   if(!token)throw Error('Autorize a leitura e a gravação no Drive pelo botão do cabeçalho.');
+   status.textContent='Comparando as duas versões e a base verificada…';
+   const report=await window.BM240ControlDrive?.inspectConflict(token);
+   if(!report)throw Error('Conciliador não inicializado');
+   status.textContent=report.message;
+   if(report.conflicts?.length){
+    for(const message of report.conflicts){
+     const row=document.createElement('p');row.textContent=message;items.append(row);
+    }
+   }
+   button.disabled=report.state!=='merge_ready';
+  }catch(e){status.textContent='Auditoria não concluída: '+e.message}
+ });
+ $('bm240-merge-safe').addEventListener('click',async()=>{
+  const status=$('bm240-conflict-status'),button=$('bm240-merge-safe');
+  const token=window.BM239DriveGlobal?.writeToken?.();
+  if(!token){status.textContent='Sem autorização do Drive.';return}
+  if(!confirm('Conciliar somente mudanças independentes? Serão criadas e verificadas duas cópias privadas antes do envio. Nenhum cartão SRS nem arquivo da V241 será alterado.'))return;
+  button.disabled=true;status.textContent='Verificando cópias e gravando apenas dados conciliáveis…';
+  try{
+   const result=await window.BM240ControlDrive.mergeSafe(token);
+   status.textContent=result.message;
+   refresh();
+  }catch(e){status.textContent='Conciliação suspensa: '+e.message}
+ });
  $('bm240-list-backups').addEventListener('click',async ()=>{
   const status=$('bm240-backup-restore-status');
   try{
