@@ -178,7 +178,7 @@ test('Conciliação de alterações offline: união de IDs distintos, sem altera
  remote.audit.push({id:'remote-log',kind:'sessions',event:'criacao',entityId:'c'});
  const r=global.BM240Reconcile.reconcile(base,local,remote);
  assert.equal(r.ok,true);
- assert.deepEqual([...r.merged.sessions.map(x=>x.id)].sort(),['a','b','c']);
+ assert.deepEqual(Array.from(r.merged.sessions,x=>x.id).sort(),['a','b','c']);
  assert.deepEqual(base.sessions.map(x=>x.id),['a'],'base histórica não pode ser alterada');
  assert.equal(r.merged.audit.length,1);
  const other=structuredClone(remote);other.sessions[0].minutes=99;
