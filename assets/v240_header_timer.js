@@ -30,8 +30,8 @@ function render(){
   lastSubjects=ids;
  }
  const active=data.running||data.elapsedMs>0;
- $('config').hidden=active;
- $('live').hidden=!active;
+ $('config').hidden=active;$('config').style.display=active?'none':'flex';
+ $('live').hidden=!active;$('live').style.display=active?'flex':'none';
  const sec=Math.floor(data.elapsedMs/1000);
  $('clock').textContent=String(Math.floor(sec/3600)).padStart(2,'0')+':'+
   String(Math.floor(sec%3600/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
@@ -53,7 +53,7 @@ function send(action){
  const host=root(),status=$('status');
  const button=host?.getElementById('timer'+action);
  if(!button){status.textContent='Controle nativo indisponível';return}
- if(action==='Start'){
+ if(action==='Start'&&!(api()?.timer?.elapsedMs>0)){
   const subject=host.getElementById('timerSubject'),topic=host.getElementById('timerTopic');
   if(!subject)return;
   subject.value=$('subject').value;
