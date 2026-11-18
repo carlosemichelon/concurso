@@ -42,3 +42,9 @@ Data: 09/11/2026. Aplicação: todos os cartões existentes e novos, de qualquer
 - **“Informações da base e dos cartões”** (informação geral da biblioteca) deve ser o último bloco da página de cartões, inicialmente recolhido.
 - **Auditoria e publicação:** antes de publicar, verificar estruturalmente a ordem dos 11 módulos e do quadro, comparar o cartão novo com um original, conferir que os botões visíveis funcionam, testar comportamento responsivo e preservar íntegros IDs, texto original, imagens, fonte, histórico, SRS e sincronização.
 - **Manutenção obrigatória:** registrar toda decisão/correção de formatação neste contrato metodológico e no AGENTS.md, evitando depender apenas de mensagens de conversa ou comentários no código. Correção visual não significa integração do SRS canônico.
+
+### Validação da frente TRT após correção de 17/11/2026
+- Critério visual obrigatório: reproduzir a hierarquia do CARD-1338: **rótulos de disciplina e origem → pergunta → botão Abrir leitura alinhado no canto direito da pergunta → identificador → etiquetas de assunto/fonte → referência → linha divisória → ações de lei seca, grifar/escrever, guia e excluir da visualização**.
+- Controles devem ser executáveis, não decorativos. Para cartões TRT, a ferramenta de anotação usa a mesma interface V122 em armazenamento local isolado pelo ID TRT. Consulta normativa não deve afirmar possuir transcrição literal sem cotejo.
+- Quadro informativo após os 11 módulos e imagens, metadados recolhidos dentro dele; informação geral da biblioteca no rodapé da página.
+- Documentar conferência de código e conferência de navegador separadamente: teste de sintaxe não prova igualdade visual. Não anunciar homologação visual sem captura/validação no navegador.
