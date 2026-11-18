@@ -28,7 +28,7 @@ const FILES={
  'TRT01-C005':'assets/trt01_c005_v220.json','TRT01-C006':'assets/trt01_c006_v221.json',
  'TRT01-C007':'assets/trt01_c007_v222.json','TRT01-C008':'assets/trt01_c008_v224.json',
  'TRT01-C009':'assets/trt01_c009_v227.json','TRT02-C001':'assets/trt02_c001_v230.json',
- 'TRT02-C002':'assets/trt02_c002_v231.json','TRT02-C004':'assets/trt02_c004_v232.json',
+ 'TRT02-C002':'assets/trt02_c002_v237.json','TRT02-C004':'assets/trt02_c004_v232.json',
  'TRT02-C005':'assets/trt02_c005_v235.json','TRT02-C006':'assets/trt02_c006_v236.json'
 };
 let hiddenCards=new Set();
