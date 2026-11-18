@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const at=relative=>fs.readFileSync(path.join(__dirname,'..',relative),'utf8');
 const sources=[
- 'assets/v240_controle_app.js','assets/v240_controle_native.js','assets/v240_controle_drive_sync.js',
+ 'assets/v240_controle_app.js','assets/v240_controle_native.js','assets/v240_reconcile.js','assets/v240_controle_drive_sync.js',
  'assets/v240_backup_drive.js','assets/v240_global_drive.js','assets/v240_offline.js','sw-v240.js','homologacao-v240/sw.js'
 ];
 test('Todos os scripts V240 compilam',()=>{
@@ -163,4 +163,43 @@ test('Backups privados isolados: hash, consulta e recuperação local sem altera
  assert.equal(JSON.parse(storage.getItem('BM240_HOMOLOGACAO_CONTROLE')).sessions.length,1);
  assert.equal(storage.getItem('BM240_HOMOLOGACAO_DRIVE_BASE_SHA256'),'RESTORE_REQUIRES_RECONCILIATION');
  assert.equal(storage.getItem('BM_CONTROLE_ESTUDOS_V238'),'PRODUCAO_INTACTA');
+});
+
+
+test('Conciliação de alterações offline: união de IDs distintos, sem alterar a base',()=>{
+ const global={};
+ vm.runInNewContext(at('assets/v240_reconcile.js'),{window:global},{timeout:1500});
+ const base={schema:1,subjects:[{id:'s1',name:'Engenharia Civil'}],
+  sessions:[{id:'a',subjectId:'s1',date:'2026-11-18',minutes:40,questions:0,correct:0}],
+  reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60};
+ const local=structuredClone(base),remote=structuredClone(base);
+ local.sessions.push({id:'b',subjectId:'s1',date:'2026-11-18',minutes:20,questions:0,correct:0});
+ remote.sessions.push({id:'c',subjectId:'s1',date:'2026-11-18',minutes:35,questions:0,correct:0});
+ remote.audit.push({id:'remote-log',kind:'sessions',event:'criacao',entityId:'c'});
+ const r=global.BM240Reconcile.reconcile(base,local,remote);
+ assert.equal(r.ok,true);
+ assert.deepEqual([...r.merged.sessions.map(x=>x.id)].sort(),['a','b','c']);
+ assert.deepEqual(base.sessions.map(x=>x.id),['a'],'base histórica não pode ser alterada');
+ assert.equal(r.merged.audit.length,1);
+ const other=structuredClone(remote);other.sessions[0].minutes=99;
+ local.sessions[0].minutes=44;
+ const conflict=global.BM240Reconcile.reconcile(base,local,other);
+ assert.equal(conflict.ok,false);
+ assert.ok(conflict.conflicts.some(x=>x.includes('sessions/a')));
+ assert.equal(conflict.merged,null);
+ const erased=structuredClone(base);erased.sessions=[];
+ const edited=structuredClone(base);edited.sessions[0].minutes=101;
+ assert.equal(global.BM240Reconcile.reconcile(base,erased,edited).ok,false,
+  'Exclusão concorrente com edição deve bloquear escrita');
+ const invalid=structuredClone(base);invalid.sessions.push({...invalid.sessions[0]});
+ assert.equal(global.BM240Reconcile.validate(invalid),'ID duplicado ou inválido em sessions');
+});
+test('Conciliação do Controle V240 não usa chave de produção ou SRS',()=>{
+ const rec=at('assets/v240_reconcile.js'),drive=at('assets/v240_controle_drive_sync.js'),
+       backup=at('assets/v240_backup_drive.js'),html=at('controle-estudos-v240.html');
+ assert.ok(drive.includes('BM240_HOMOLOGACAO_VERIFIED_BASE_DOC'));
+ assert.ok(drive.includes('preservePremerge'));
+ assert.ok(backup.includes("period")&&backup.includes("premerge"));
+ assert.ok(html.includes('id="bm240-merge-safe"'));
+ assert.ok(!rec.includes('fetch(')&&!rec.includes('localStorage')&&!rec.includes('BM184_PRACTICE_EVENTS_V1'));
 });
