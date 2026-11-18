@@ -169,3 +169,9 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - `assets/v087_atlas_visibilidade_global.js` carrega imediatamente após `visibilidade-v026.js` em `v088.html`, antes da construção do Atlas. O código público contém somente os 70 IDs legados ativos; 184 ausentes ficam ocultos por padrão via API `BancoMestreImagens.all()`. Os 16 Petrobras P10 permanecem inalterados; total 270 IDs preservados.
 - Estados locais explícitos de restauração/ocultação têm prioridade; o comportamento padrão NÃO escreve no IndexedDB e não toca nos grifos. Não converter 36 links candidatos do Drive em operações de exclusão. Preservar a V087 e sua nova lógica de grifador.
 - Novas exclusões feitas no navegador NÃO serão sincronizadas automaticamente para todos até atualizar a fonte pública novamente. Não afirmar sincronização bidirecional contínua; é apenas um retrato global da lista exportada.
+
+## Contrato permanente de interface dos cartões (17/11/2026)
+- Padrão ÚNICO da frente: o mesmo layout/posicionamento/estilo dos cartões canônicos (ex.: CARD-1338) para TRT e demais disciplinas; reutilizar classes V163/V165 e evitar estilos concorrentes ou botões não funcionais.
+- Padrão ÚNICO do verso V198: os 11 módulos completos e imagens vêm ANTES de “Quadro informativo do cartão”, que deve ser o ÚLTIMO bloco informativo da resposta. Histórico operacional recolhido só depois, como metadado final.
+- “Informações da base e dos cartões” ao fim da página, recolhido. Nunca deixar quadro de informação geral entre os cartões.
+- Registrar mudanças de apresentação no METODOLOGIA_V037_FLASHCARDS_PDF.md e aqui; antes de publicar testar ordem, presença de 11 módulos, leitura, CSS de section, responsividade, preservação de SRS/IDs/Drive e ausência de regressões.
