@@ -132,7 +132,7 @@ async function syncAll(){
    const control=window.BM240ControlDrive?.sync?
     await window.BM240ControlDrive.sync(writeToken()):null;
    reportModule('controle',control?.message||'Sem confirmação');
-   if(control?.state==='conflict'||control?.state==='error'||!control)
+   if(control?.state==='conflict'||control?.state==='merge_ready'||control?.state==='error'||!control)
     warnings.push(control?.message||'Controle de Estudos sem verificação');
    else notes.push(control.message);
    if(control&&['uploaded','downloaded','unchanged'].includes(control.state)){
@@ -186,7 +186,7 @@ function init(){
  setInterval(()=>{
   if(!busy&&writeToken()&&document.visibilityState==='visible'&&Date.now()-lastRun>=120000){
    void window.BM240ControlDrive?.sync(writeToken()).then(async r=>{
-    if(r?.state==='conflict'||r?.state==='error'){
+    if(r?.state==='conflict'||r?.state==='merge_ready'||r?.state==='error'){
       integrity.controle=r.message;renderIntegrity();state(r.message,'partial');
      }else if(r&&['unchanged','uploaded','downloaded'].includes(r.state)){
       integrity.controle=r.message;
