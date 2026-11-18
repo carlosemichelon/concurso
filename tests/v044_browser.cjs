@@ -27,7 +27,7 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   if(req.method()==='GET'&&url.searchParams.get('alt')==='media'){
    const id=url.pathname.split('/').pop();
    requests.push(id);
-   if(id!=='1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI')
+   if(id!=='15rnaSCmGCHvA8dSVklEYbpMQ-HMt_h5_')
     throw Error('Drive file ID inválido para o Vade: '+id);
    await route.fulfill({status:200,contentType:'application/pdf',headers:{
     'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'*'
@@ -68,7 +68,7 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   assert.equal(layout.connectInPdfHeader,true,'Conectar Drive deveria estar no cabeçalho de PDFs');
   assert.equal(layout.title,'Cartões cadastrados');
   assert.equal(layout.vadeSource,'google-drive');
-  assert.equal(layout.vadeDriveId,'1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI');
+  assert.equal(layout.vadeDriveId,'15rnaSCmGCHvA8dSVklEYbpMQ-HMt_h5_');
   assert.equal(layout.statsContent[2],'270');
   assert.ok(layout.statsHeight<68,'Indicadores continuam altos: '+layout.statsHeight);
   assert.ok(!/GitHub|21 partes/i.test(layout.vadeText),'Texto do Vade continua referindo GitHub');
@@ -111,7 +111,7 @@ assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'6eeac7822562
   assert.equal(requests.length,1,'Primeira abertura deve ler PDF do Drive via OAuth');
   assert.equal(network.length,0,'A V044 não pode ler nenhuma parte do Vade do GitHub');
   const href=await page.locator('#pdfOriginal').getAttribute('href');
-  assert.ok(href.includes('drive.google.com/file/d/1Bl5q1QE-'),'Link original deveria ser Drive');
+  assert.ok(href.includes('drive.google.com/file/d/15rnaSCm-'),'Link original deveria ser Drive');
   const ink=page.locator('#pdfInkCanvas');await ink.scrollIntoViewIfNeeded();
   const box=await ink.boundingBox();assert.ok(box?.width>100);
   await page.locator('#pdfMarker').click();
