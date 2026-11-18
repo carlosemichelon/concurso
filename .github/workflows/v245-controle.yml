@@ -1,0 +1,54 @@
+name: V245 Controle de Estudos - pré-publicação
+on:
+  push:
+    branches:
+      - 'deploy/v245-controle-estudos-20261118'
+  pull_request:
+    paths:
+      - 'v245.html'
+      - 'controle-estudos-v245.html'
+      - 'assets/v245_*'
+      - 'tests/v245_*'
+      - '.github/workflows/v245-controle.yml'
+  workflow_dispatch:
+concurrency:
+  group: v245-release-check
+  cancel-in-progress: true
+jobs:
+  static-and-smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testar módulos e simular backup/conflitos Drive
+        run: node --test tests/v245_controle.test.cjs tests/v245_merge.test.cjs
+  browser-smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preparar Chromium e servidor estático
+        run: |
+          npm install --no-save @playwright/test
+          npx playwright install --with-deps chromium
+          mkdir -p test-results
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v245-http.log 2>&1 &
+      - name: Testar calendários, relatórios e cronômetro em desktop/celular
+        run: npx playwright test tests/v245_browser.spec.js --workers=1 --reporter=line
+      - name: Salvar capturas e evidências
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v245-release-evidence
+          path: test-results/
+          if-no-files-found: ignore
