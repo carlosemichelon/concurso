@@ -237,7 +237,7 @@ test('Catálogo V243 replica o filtro canônico do portal e preserva todos os 1.
  const html=at('controle-estudos-v245.html'),app=at('assets/v245_controle_app.js'),bridge=at('assets/v245_timer_bridge.js');
  assert.ok(html.includes('id="timerGeneral"')&&html.includes('id="sessionSubtopic"'));
  assert.ok(html.includes('id="bm243HistorySpecificOptions"'));
- assert.ok(app.includes('bm243-catalog-')&&app.includes('v243_estudo_catalogo.json'));
+ assert.ok(app.includes('bm243-catalog-')&&app.includes('v245_estudo_catalogo.json'));
  assert.ok(bridge.includes('catalogForSubject'));
  assert.ok(!bridge.includes('bm238-study-frame'),'O cronômetro não pode duplicar o iframe legado');
 });
