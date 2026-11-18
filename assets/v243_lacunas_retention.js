@@ -91,6 +91,22 @@ async function keepPeriods(token,data,hash){
  const count=p=>new Set(verified.filter(x=>x.appProperties.bm_period===p).map(x=>x.appProperties.bm_period_key)).size;
  return {daily:count('daily'),monthly:count('monthly'),pruned};
 }
+async function confirmMasterCurrent(token,expected){
+ const u=new URL(API);
+ u.searchParams.set('q',"trashed = false and appProperties has { key='bm_kind' and value='bm_lacunas_v242' }");
+ u.searchParams.set('fields','nextPageToken,incompleteSearch,files(id,appProperties)');
+ u.searchParams.set('pageSize','100');
+ const listing=await(await req(token,u.href)).json();
+ if(listing.incompleteSearch||listing.nextPageToken)throw Error('Busca do mestre após backups incompleta');
+ const masters=(listing.files||[]).filter(x=>x.appProperties?.bm_kind==='bm_lacunas_v242');
+ if(masters.length!==1||!masters[0].id)throw Error('Mestre privado duplicado ou ausente após backups');
+ const raw=await(await req(token,API+'/'+encodeURIComponent(masters[0].id)+'?alt=media')).text();
+ if(raw.length>MAX)throw Error('Mestre remoto excede limite');
+ const body=JSON.parse(raw);
+ if(body.format!=='BancoMestreLacunasDriveV242')throw Error('Mestre remoto com formato inválido');
+ window.BM242Lacunas.validate(body.data);
+ if(await digest(body.data)!==expected)throw Error('Mestre modificado por outro dispositivo durante o backup');
+}
 function state(r){latest=r;document.dispatchEvent(new CustomEvent('bm242-lacunas-drive-status',{detail:r}));return r}
 async function sync(token){
  if(active)return active;
@@ -103,6 +119,10 @@ async function sync(token){
    const expected=await digest(d);
    if(localStorage.getItem(BASE)!==expected)throw Error('Dados locais diferem da última confirmação do mestre');
    const result=await keepPeriods(token,d,expected);
+   const finalRaw=localStorage.getItem(KEY);
+   if(!finalRaw||await digest(JSON.parse(finalRaw))!==expected)
+    throw Error('Cadastro local modificado enquanto backups eram verificados');
+   await confirmMasterCurrent(token,expected);
    return state({...r,message:r.message+' · backups verificados: '+result.daily+' datas diárias e '+result.monthly+' meses'+(result.pruned?' · '+result.pruned+' cópias antigas depuradas':'')});
   }catch(e){return state({state:'partial',message:r.message+' · backup rotativo pendente: '+e.message})}
  })().finally(()=>{active=null});return active;
