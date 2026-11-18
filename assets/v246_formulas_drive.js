@@ -32,8 +32,7 @@ function parseDocument(raw){
  const head=/^\s*(\d{1,2})\.\s+(.{4,})\s*$/;
  for(const line of lines){
   const match=line.match(head);
-  if(match && (match[2]===match[2].toLocaleUpperCase('pt-BR') ||
-                /^ADENDO CUMULATIVO/i.test(match[2]))){
+  if(match && Number(match[1])>=1 && Number(match[1])<=99){
    if(current)items.push(current);
    current={number:Number(match[1]),title:match[2].trim(),category:category(match[1],match[2]),lines:[]};
   }else if(current)current.lines.push(line);
