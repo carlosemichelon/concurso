@@ -65,7 +65,7 @@ Origem: decisões 1–18 aprovadas pelo estudante nesta conversa de 18/11/2026. 
 
 **Calendário SRS:** conexão de consulta ao planejamento já existente do Banco Mestre. O Controle não calcula nem grava previsões SRS próprias; o histórico F17/importações pode estar defasado em relação à fonte canônica.
 
-**Código de homologação armazenado no GitHub, PR #32 aberto como rascunho.** Não mesclado, não exposto pelo endereço principal do portal, não homologado em navegadores reais. O manifesto principal consultado agora é V241. Não foram salvos registros reais do usuário no Drive nesta interação.
+**Código de homologação armazenado no GitHub, PR #32 aberto como rascunho.** Não mesclado, não exposto pelo endereço principal do portal, não homologado em navegadores reais. O manifesto principal consultado foi atualizado para V242. Não foram salvos registros reais do usuário no Drive nesta interação.
 
 
 ## Incremento técnico após publicação da V241 (18/11/2026)
@@ -97,6 +97,13 @@ Foram corrigidos e novamente testados: aba **Controle de Estudos** como página 
 
 **Limites:** integração com V241 publicada deve ser feita sem retroceder a versão de produção; OAuth real, transferência entre aparelhos físicos, recuperação de backup privado no Drive real e integridade ponta a ponta permanecem pendentes de homologação. O site principal não foi modificado neste incremento e o PR #32 continua em rascunho.
 
+
+
+## Atualização de compatibilidade — produção V242 (18/11/2026)
+
+Nova conferência em `gh-pages/assets/version.json`: **V242** está ativa; `v242.html` declara cronômetro na barra inferior. A V240 de homologação contém cronômetro compacto no cabeçalho controlando a sessão nativa. **Não mesclar ambos sem resolver a sobreposição**, garantindo um único contador por sessão e preservando as melhorias V242. Na última comparação, a branch V240 estava 52 commits atrás da `gh-pages`; rebase/cópia auditada em base V242 é impeditivo de publicação.
+
+As alterações desta branch V240 continuam salvas em GitHub PR #32, **não** integradas à versão oficial. Último workflow de código V240 comprovadamente aprovado: run 44338113789 (Chromium e Node). O run de documentação/estado posterior deve ser verificado separadamente.
 
 ## Critérios para homologação e futura publicação
 
