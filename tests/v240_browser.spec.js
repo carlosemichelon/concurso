@@ -143,6 +143,7 @@ test('Disciplinas já prontas e filtros encadeados até o subassunto no cronôme
  const host=page.locator('#bm240-native-host');
  await expect(host.locator('#timerSubject')).toBeAttached({timeout:45000});
  await page.waitForFunction(()=>window.BM240ControlApp?.taxonomyCount?.cards===1518,null,{timeout:30000});
+ await expect(page.locator('#bm241-subject option')).toHaveCount(6,{timeout:15000});
  const names=await page.locator('#bm241-subject option').allTextContents();
  expect(names).toContain('Engenharia Civil');
  expect(names).toContain('Português');
