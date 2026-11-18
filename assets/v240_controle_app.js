@@ -282,6 +282,18 @@ $('calGrid').addEventListener('click',e=>{const b=e.target.closest('[data-cal-da
  $('calPrev').onclick=()=>{cal.date=calMove(cal.date,cal.mode,-1);cal.selected=cal.date;renderCalendar()};
  $('calNext').onclick=()=>{cal.date=calMove(cal.date,cal.mode,1);cal.selected=cal.date;renderCalendar()};
  $('calToday').onclick=()=>{cal.date=cal.selected=today();renderCalendar()};
+ $('bm240-open-srs').addEventListener('click',()=>{
+  const panel=document.getElementById('calendario');
+  if(!panel||typeof window.section!=='function'){
+   $('bm240-srs-status').textContent='Agenda histórica indisponível nesta sessão; SRS preservado.';
+   return;
+  }
+  const c=window.BM141Calendar?.counts?.();
+  $('bm240-srs-status').textContent=c&&Number.isFinite(c.verified)?
+   c.verified+' datas históricas conhecidas; verifique atualidade. SRS não modificado.':
+   'Abrindo planejamento SRS histórico sem alterações.';
+  window.section('calendario');
+ });
  $('planForm').addEventListener('submit',e=>{e.preventDefault();const date=$('planDate').value,sub=$('planSubject').value,topic=$('planTopic').value.trim(),minutes=Number($('planMinutes').value);if(!validDate(date)||!subject(sub)||!topic||!Number.isInteger(minutes)||minutes<5||minutes>1440){toggleMessage('planStatus','Confira a data, disciplina, assunto e minutos.');return}data.plans.push({id:uid(),date,subjectId:sub,topic,minutes,createdAt:new Date().toISOString()});if(store()){cal.selected=cal.date=date;$('planTopic').value='';toggleMessage('planStatus','Atividade planejada e salva localmente.');renderCalendar()}});
  $('calPlans').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.calToggle||b.dataset.calRemove;const p=data.plans.find(x=>x.id===id&&!x.deletedAt);if(!p)return;if(b.dataset.calRemove){p.deletedAt=new Date().toISOString()}else if(p.doneAt)delete p.doneAt;else p.doneAt=new Date().toISOString();store();renderCalendar()});
  $('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;
