@@ -63,14 +63,18 @@ test('Homologação V242: recarregar Controle offline após instalação do cach
  await host.locator('#subjectForm button[type="submit"]').click();
  const before=await page.evaluate(()=>localStorage.getItem('BM240_HOMOLOGACAO_CONTROLE'));
  expect(before).toContain('Matemática');
+ expect(page.url()).toContain('/homologacao-v240/compat-v242.html');
  await page.evaluate(async()=>{
   const registration=await navigator.serviceWorker.ready;
   if(!registration.active)throw Error('Service Worker não ativado');
   if(!registration.scope.endsWith('/homologacao-v240/'))
    throw Error('Escopo excede homologação: '+registration.scope);
+  const cached=await caches.match(new URL('/homologacao-v240/compat-v242.html',location.origin).href);
+  if(!cached)throw Error('Página de homologação não foi armazenada para reabertura offline');
  });
  // Once the page becomes controlled, the offline shell must be independently navigable.
  await page.reload({waitUntil:'domcontentloaded',timeout:60000});
+ expect(page.url()).toContain('/homologacao-v240/compat-v242.html');
  await expect(page.locator('#bm240-study-tab')).toBeAttached({timeout:55000});
  await context.setOffline(true);
  await page.reload({waitUntil:'domcontentloaded',timeout:60000});
