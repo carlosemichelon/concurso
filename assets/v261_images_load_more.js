@@ -6,7 +6,7 @@
 'use strict';
 if(window.BM261ImagePaging)return;
 const $=id=>document.getElementById(id);
-let installed=false,shown=0,matching=0,lastEvent=false;
+let installed=false,listenersReady=false,shown=0,matching=0,lastEvent=false;
 const format=n=>Number(n).toLocaleString('pt-BR');
 function driveReady(){
  const s=window.BancoMestreDriveImagesV182;
@@ -80,12 +80,12 @@ function receive(ev){
  update();
 }
 function init(){
- if(installed)return;
+ if(listenersReady)return;
  // O V221 monta o viewport em DOMContentLoaded; este módulo é carregado por último.
  if(!mount())return;
+ listenersReady=true;
  const native=$('bm084-more');
  if(native)new MutationObserver(update).observe(native,{attributes:true,attributeFilter:['hidden','disabled']});
- document.addEventListener('bm209-drive-render',receive);
  document.addEventListener('bm-media-drive-authorized',update);
  document.addEventListener('bm218-image-filter-change',()=>{lastEvent=false;update()});
  document.addEventListener('bm153-drive-filter-change',()=>{lastEvent=false;update()});
