@@ -33,3 +33,15 @@ Data: 18/11/2026. Estado: PROPOSTO / HOMOLOGAÇÃO. Base: gh-pages V239. A vers�
 5. Após aprovação, atualizar index.html, assets/version.json e VERSAO_ATUAL.md, conferir publicação e validar site real.
 
 LOG: 2026-11-18 | V241 | proposto/homologação | GitHub alterado em branch separada | base privada e SRS intactos | testes estáticos OK | OAuth e publicação pendentes.
+
+## Auditoria E2E em Chromium — 18/11/2026
+- A primeira execução de navegador expôs um erro real: o bootstrap v156 redirecionava a rota vazia para `#assuntos` antes de o Controle ser montado.
+- Correção introduzida em `assets/v241_boot_topic.js`, referenciada por `v241.html`: rotas vazia e `#controle-estudos` são preservadas para o módulo da página inicial, sem afetar deep link `#pdfs`.
+- Após a correção: 6 testes de contrato e 6 cenários E2E de navegador em Chromium **aprovados**.
+- Cenários navegador: página inicial; início/pausa/retomada/salvamento único; persistência após recarregar; link direto para PDFs; viewport de celular; simulação da mudança dos estados do Drive de não verificado para conferido e para conflito nos grifos (SRS sempre excluído).
+- O último cenário emprega **dados simulados de retorno do sincronizador**. Não deve ser descrito como teste OAuth real.
+- Execução aprovada no commit `e68f2b5bcf8478baf69468011c7c643cbb0c1258`: https://github.com/carlosemichelon/concurso/actions/runs/44332004736
+- Os testes rodaram em servidor HTTP isolado com armazenamento descartável; nenhum acesso a arquivos privados ou operação de gravação Drive foi executada.
+- Estado de homologação: `teste automatizado aprovado`, `OAuth real pendente`, `gravação Drive real pendente`, `interdispositivos real pendente`, `publicação principal pendente`.
+
+LOG: 2026-11-18 | E2E V241 | falha de rota inicial encontrada e corrigida | 6/6 contratos e 6/6 browser aprovados | sem alterações privadas | branch de homologação preservada.
