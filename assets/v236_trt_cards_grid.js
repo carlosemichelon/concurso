@@ -121,8 +121,16 @@ function wrapperFor(id,main){
     const sum=document.createElement('summary');sum.textContent='Informações do cartão e histórico operacional';
     const note=document.createElement('small');note.textContent='Cartão operacional TRT: a consulta não registra avaliação SRS automaticamente.';
     info.append(sum,...metainfo,note);
-    // Histórico final, depois dos 11 módulos e do quadro de resumo.
+    // O histórico permanece acessível, mas recolhido dentro do QUADRO FINAL.
+    // Quando o conteúdo é carregado, o quadro informativo continua sendo o último bloco.
     main.querySelector('.bm211-details .bm211-body')?.append(info);
+    const relocate=()=>{
+     if(!details?.open)return;
+     const overview=main.querySelector('.bm198-overview');
+     if(overview&&info.parentElement!==overview)overview.append(info);
+    };
+    details?.addEventListener('toggle',relocate);
+    relocate();
    }
   }
  }else if(main.parentElement!==wrap)wrap.append(main);
