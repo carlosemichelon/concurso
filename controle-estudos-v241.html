@@ -225,7 +225,10 @@ init();
   }else if(action==='pause'){$('timerPause').click()}
    else if(action==='resume'){$('timerStart').click()}
    else if(action==='save'){$('timerSave').click()}
-   else if(action==='discard'){$('timerDiscard').click()}
+   else if(action==='discard-confirmed'){
+    clock={running:false,start:0,elapsed:0,firstStartedAt:0,subject:'',topic:'',type:'Teoria'};
+    storeClock();showTimer();toggleMessage('timerStatus','Tempo descartado neste navegador.');
+   }
    else if(action==='new-subject'){
     const name=clean(payload.name,80).trim();
     if(!name||name.length<2){setMessage('Informe uma matéria válida.');return}
@@ -245,7 +248,7 @@ init();
   if(e.source!==window.parent||e.origin!==ORIGIN||!e.data||e.data.type!=='bm241-timer-command')return;
   const action=String(e.data.action||'');
   if(action==='request'){publish();return}
-  if(!['start','pause','resume','save','discard','new-subject'].includes(action))return;
+  if(!['start','pause','resume','save','discard-confirmed','new-subject'].includes(action))return;
   act(action,e.data);
  });
  // As alterações feitas pelo usuário dentro do Controle também atualizam o cabeçalho.
