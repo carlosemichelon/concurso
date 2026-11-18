@@ -1,10 +1,11 @@
-/* V240 — offline cache for public site; browser still holds private study records. */
+/* Register offline worker only in V240 isolated staging; never control public homepage. */
 (function(){
 'use strict';
 if(!('serviceWorker' in navigator)||!window.isSecureContext)return;
+if(!location.pathname.includes('/homologacao-v240/'))return;
 window.addEventListener('load',()=>{
- navigator.serviceWorker.register('./sw-v240.js',{scope:'./'}).then(reg=>{
-  console.info('V240 public offline cache',reg.scope);
- }).catch(e=>console.warn('V240 offline unavailable',e.message));
+ const script=new URL('./homologacao-v240/sw.js',document.baseURI);
+ const scope=new URL('./homologacao-v240/',document.baseURI);
+ navigator.serviceWorker.register(script.href,{scope:scope.href}).catch(e=>console.warn('Modo offline da homologação indisponível:',e.message));
 },{once:true});
 })();
