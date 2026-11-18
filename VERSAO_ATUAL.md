@@ -1,3 +1,15 @@
+# Banco Mestre V241 — Controle de Estudos, cronômetro de aba e indicadores auditáveis (18/11/2026)
+
+- **Publicação:** código V241 integrado em `gh-pages` após aprovação explícita, preservando `v239.html` e anteriores. Entrada `index.html` e manifesto `assets/version.json` devem apontar para V241.
+- **Página inicial:** `#controle-estudos` por padrão, com as rotas diretas `#pdfs`, `#imagens`, `#cartoes`, `#assuntos`, `#tema?...` e parâmetros profundos preservados. Corrigida disputa do bootstrap que inicialmente forçava `#assuntos`.
+- **Cabeçalho:** ícones e indicadores menores, incluindo estado por PDFs, imagens, Controle, grifos, cartões/SRS; não equivale a confirmação de sincronização por catálogo.
+- **Cronômetro:** matéria, conteúdo, iniciar/pausar/continuar/salvar/descartar e cadastro de matéria no cabeçalho; tempo líquido e título/favicone da aba refletindo a sessão única do Controle. Persistência local no relógio original `BM_CONTROLE_TIMER_V238`; histórico no `BM_CONTROLE_ESTUDOS_V238`.
+- **Sincronização:** ferramenta tenta verificação dos módulos Drive; não pode declarar sucesso após divergência, ausência de permissão ou falha. Cartões canônicos/SRS não estão incluídos no botão. Cronômetro ativo transferido entre dispositivos e concorrência offline ainda não homologados.
+- **Testes:** 6 testes de contrato + 6 testes em Chromium, incluindo navegador móvel, início/pausa/retomada/salvamento/recarregamento, página inicial e simulação de estados. Testes aprovados em [GitHub Actions](https://github.com/carlosemichelon/concurso/actions/runs/44332004736); novo ciclo após correção também aprovado. Simulação dos estados NÃO valida OAuth real.
+- **Pendências:** testes OAuth no navegador do titular, leitura de volta autenticada de PDFs/imagens/grifos/Controle, dois dispositivos e colisões offline. Nenhum original, ID canônico, evento SRS ou backup foi modificado na promoção.
+- **Origem e rastreabilidade:** [PR #33](https://github.com/carlosemichelon/concurso/pull/33), merge `3a2624bb64664f1fd171cb24b3cf610beab33937`. Documentação de homologação: `docs/V241_CRONOMETRO_CABECALHO_HOMOLOGACAO.md`.
+
+---
 # Banco Mestre V239 — Controle de Estudos como início e Drive central (18/11/2026)
 
 - **Versão ativa:** `v239.html`, entrada `index.html`, manifesto `assets/version.json` na branch `gh-pages`. V238 e anteriores preservadas.
