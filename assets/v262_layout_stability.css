@@ -1,0 +1,98 @@
+/* Banco Mestre V262 — espaço reservado desde o HTML para evitar CLS.
+   Apenas apresentação: nenhuma alteração no Drive, nos IDs, no SRS ou nos dados. */
+body>header .head {
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ grid-template-areas:"brand" "stats" "nav"!important;
+ row-gap:7px!important;
+ align-items:start!important;
+}
+body>header .head>.bm-v046-header-stats {
+ grid-area:stats;
+ display:grid!important;
+ grid-template-columns:repeat(5,minmax(85px,1fr)) minmax(140px,1.3fr) minmax(125px,1.2fr)!important;
+ gap:7px!important;
+ align-items:stretch!important;
+ justify-content:stretch!important;
+ width:100%!important;max-width:100%!important;
+ min-height:65px!important;
+ margin:0!important;padding:0!important;
+}
+body>header .head>.bm-v046-header-stats>.stat{
+ display:grid!important;
+ grid-template-columns:16px minmax(0,1fr)!important;
+ grid-template-areas:"glyph number" "caption caption" "status status"!important;
+ width:100%!important;min-width:0!important;max-width:none!important;
+ height:65px!important;min-height:65px!important;max-height:65px!important;
+ padding:6px 7px!important;align-content:center!important;
+ gap:2px 5px!important;overflow:hidden!important;
+}
+body>header .head>.bm-v046-header-stats>.stat b{
+ grid-area:number!important;min-width:0!important;
+ font-variant-numeric:tabular-nums!important;
+ white-space:nowrap!important;
+ overflow:hidden!important;text-overflow:ellipsis!important;
+}
+body>header .head>.bm-v046-header-stats>.stat span{
+ grid-area:caption!important;
+ min-width:0!important;width:100%!important;max-width:100%!important;
+ display:block!important;white-space:nowrap!important;
+ overflow:hidden!important;text-overflow:ellipsis!important;
+}
+body>header .head>.bm-v046-header-stats>.stat .bm241-verification {
+ grid-area:status!important;display:block!important;
+ min-width:0!important;width:100%!important;
+ font:650 9.5px/1.25 system-ui,sans-serif!important;
+ white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action {
+ grid-column:auto!important;
+ min-width:0!important;max-width:none!important;width:100%!important;
+ min-height:65px!important;height:65px!important;
+ padding:6px 8px!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+ grid-column:auto!important;
+ align-self:stretch!important;min-width:0!important;max-width:none!important;
+ min-height:65px!important;max-height:65px!important;
+ display:-webkit-box!important;-webkit-box-orient:vertical!important;
+ -webkit-line-clamp:3!important;
+ padding:10px 5px!important;overflow:hidden!important;overflow-wrap:anywhere!important;
+}
+@media(max-width:1100px){
+ body>header .head>.bm-v046-header-stats{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ }
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action{
+  grid-column:1/4!important;min-height:43px!important;height:43px!important;
+ }
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+  grid-column:4/6!important;min-height:43px!important;max-height:43px!important;
+  padding:6px 8px!important;
+ }
+}
+@media(max-width:620px){
+ body>header .head>.bm-v046-header-stats{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat{
+  height:60px!important;min-height:60px!important;max-height:60px!important;
+  padding:5px!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat .bm241-verification{
+  font-size:8.7px!important;
+ }
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action{
+  grid-column:1/3!important;min-height:44px!important;height:44px!important;
+ }
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+  grid-column:3/4!important;min-height:44px!important;max-height:44px!important;
+ }
+}
+@media(max-width:360px){
+ body>header .head>.bm-v046-header-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action,
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+  grid-column:1/-1!important;
+ }
+}
