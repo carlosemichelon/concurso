@@ -1,0 +1,22 @@
+name: V240 Controle de Estudos - testes sintéticos
+on:
+  pull_request:
+    paths:
+      - 'assets/v240_*'
+      - 'controle-estudos-v240.html'
+      - 'v240.html'
+      - 'tests/v240_controle.test.cjs'
+      - '.github/workflows/v240-controle.yml'
+  workflow_dispatch:
+jobs:
+  static-and-smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testar app e contratos DOM
+        run: node --test tests/v240_controle.test.cjs
