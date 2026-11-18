@@ -14,12 +14,15 @@ function isNarrative(fragment){
  const idx=s.indexOf('=');
  if(idx<0)return true;
  const lhs=s.slice(0,idx).trim(),rhs=s.slice(idx+1).trim();
+ if(/^\[.*\]$/.test(lhs))return true;
+ if(/^[\p{L}À-ÿ]{5,}(?:\b|$)/u.test(rhs)&&!/[·×*+−-]/.test(rhs.slice(0,15)))return true;
+ if(/[\p{L}]{4,}\s+(?:[\p{L}]{1,3}\s+)?[\p{L}]{4,}/u.test(rhs))return true;
  // A left-hand description ("M nos engastes") is not an algebraic symbol.
  const lhsWords=lhs.split(/\s+/).filter(Boolean);
  if(/^[\p{L}À-ÿ]{6,}(?:-[\p{L}À-ÿ]{3,})*$/u.test(lhs)&&lhs===lhs.toLocaleLowerCase('pt-BR'))return true;
  if(lhsWords.length>=2&&lhsWords.some(x=>/^[\p{L}À-ÿ]{3,}$/u.test(x)))return true;
  // Explanatory clauses or units must never become invisible-spaced MathML identifiers.
- if(/(?:^|[\s,;])(?:para|quando|onde|conforme|sendo|então|depois|somente|sinais|definida|definido|dependem|depende|inclusive|exceto|porque|aquecimento|resfriamento|impedida|considerando|respectivamente)\b/iu.test(rhs))return true;
+ if(/(?:^|[\s,;])(?:para|quando|onde|conforme|sendo|então|depois|somente|sinais|definida|definido|dependem|depende|inclusive|exceto|porque|aquecimento|resfriamento|impedida|considerando|respectivamente|sob|medido|extremidade|oposta|engastada|articulada|equilíbrio|convenção|definição|nos|nas|aplicáveis|compatíveis)\b/iu.test(rhs))return true;
  if(/(?:[.!?]\s+[\p{L}]{3,})/u.test(rhs))return true;
  if(/\[[^\]]*(?:\s+[\p{L}]{2,}){2,}[^\]]*\]/u.test(rhs))return true;
  return false;
@@ -38,7 +41,8 @@ function separate(raw){
   }
  }
  const fields=remainder.split(/\s*;\s*/).filter(Boolean);
- const parts=fields.map(value=>({value,kind:isNarrative(value)?'text':'math'}));
+ const unitGlossary=/^\s*\[[^\]]+\]\s*=/.test(remainder);
+ const parts=fields.map(value=>({value,kind:unitGlossary||isNarrative(value)?'text':'math'}));
  const needsRepair=Boolean(context)||parts.length>1||parts.some(x=>x.kind==='text');
  if(!needsRepair)return null;  // A simple, pure formula stays with the established V256 renderer.
  return {source,context,parts};
