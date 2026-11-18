@@ -1,6 +1,6 @@
 # Controle de Estudos V240 — homologação separada
 
-**Estado:** PROPOSTO / STAGING. NÃO PUBLICADO em produção. A versão principal segue V238 conforme `gh-pages/assets/version.json`.
+**Estado:** PROPOSTO / STAGING. NÃO PUBLICADO em produção. A versão principal estava em V238 no início deste trabalho, mas avançou para **V239** durante a execução, confirmado por leitura de `gh-pages/assets/version.json` e `gh-pages/index.html` em 18/11/2026. A branch de homologação foi criada do estado anterior e está 4 commits atrás de `gh-pages`; revisar/atualizar a base antes de eventual merge.
 
 ## Governança
 
@@ -57,4 +57,4 @@ Origem: decisões 1–18 aprovadas pelo estudante nesta conversa de 18/11/2026. 
 
 ### Registro de integridade
 
-A branch de homologação conserva o `gh-pages/index.html`, `gh-pages/assets/version.json`, arquivos PDF, cartões, planilha de Drive e SRS intactos. Não declarar cópia ou sincronização de dados privados sem a autorização e leitura de volta realizadas no navegador.
+A branch de homologação não modifica o `gh-pages/index.html`, `gh-pages/assets/version.json`, arquivos PDF, cartões, planilha de Drive e SRS intactos. Não declarar cópia ou sincronização de dados privados sem a autorização e leitura de volta realizadas no navegador.
