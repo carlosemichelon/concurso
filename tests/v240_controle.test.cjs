@@ -174,8 +174,8 @@ test('Conciliação de alterações offline: união de IDs distintos, sem altera
   sessions:[{id:'a',subjectId:'s1',date:'2026-11-18',minutes:40,questions:0,correct:0}],
   reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60};
  const local=structuredClone(base),remote=structuredClone(base);
- local.sessions.push({id:'b',subjectId:'s1',date:'2026-11-18',minutes:20,questions:0,correct:0});
- remote.sessions.push({id:'c',subjectId:'s1',date:'2026-11-18',minutes:35,questions:0,correct:0});
+ local.sessions.push({id:'b',subjectId:'s1',date:'2026-11-18',startTime:'10:00',minutes:20,questions:0,correct:0});
+ remote.sessions.push({id:'c',subjectId:'s1',date:'2026-11-18',startTime:'11:00',minutes:35,questions:0,correct:0});
  remote.audit.push({id:'remote-log',kind:'sessions',event:'criacao',entityId:'c'});
  const r=global.BM240Reconcile.reconcile(base,local,remote);
  assert.equal(r.ok,true);
@@ -192,6 +192,21 @@ test('Conciliação de alterações offline: união de IDs distintos, sem altera
  const edited=structuredClone(base);edited.sessions[0].minutes=101;
  assert.equal(global.BM240Reconcile.reconcile(base,erased,edited).ok,false,
   'Exclusão concorrente com edição deve bloquear escrita');
+ const simultaneousL=structuredClone(base),simultaneousR=structuredClone(base);
+ simultaneousL.sessions.push({id:'local-session',subjectId:'s1',date:'2026-11-18',startTime:'10:00',minutes:50,questions:0,correct:0});
+ simultaneousR.sessions.push({id:'remote-session',subjectId:'s1',date:'2026-11-18',startTime:'10:30',minutes:30,questions:0,correct:0});
+ const simultaneous=global.BM240Reconcile.reconcile(base,simultaneousL,simultaneousR);
+ assert.equal(simultaneous.ok,false,'Sessões em horários sobrepostos não podem ser contabilizadas em conjunto');
+ assert.ok(simultaneous.conflicts.some(x=>x.includes('contagem dupla')));
+ delete simultaneousR.sessions[1].startTime;
+ const unknown=global.BM240Reconcile.reconcile(base,simultaneousL,simultaneousR);
+ assert.equal(unknown.ok,false,'Horário desconhecido no mesmo dia exige auditoria humana');
+ assert.ok(unknown.conflicts.some(x=>x.includes('Horários insuficientes')));
+ const activeRemote=structuredClone(base),unrelatedLocal=structuredClone(base);
+ activeRemote.activeTimer={running:true,sessionId:'x',ownerId:'outro'};
+ unrelatedLocal.plans.push({id:'p',subjectId:'s1',date:'2026-11-19',minutes:30});
+ const active=global.BM240Reconcile.reconcile(base,unrelatedLocal,activeRemote);
+ assert.equal(active.ok,false,'Cronômetro em execução impede conciliação automática');
  const invalid=structuredClone(base);invalid.sessions.push({...invalid.sessions[0]});
  assert.equal(global.BM240Reconcile.validate(invalid),'ID duplicado ou inválido em sessions');
 });
