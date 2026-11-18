@@ -87,6 +87,17 @@ function render(){
  root.replaceChildren();
  const visibleGroups=new Set(selected.map(p=>lookup.get(p.id)?.id));
  const compact=search.length>0||f!=='all';
+ // Atualizar contagens mesmo quando o Drive retorna zero PDFs confirmados.
+ byId('pdfCount').textContent=selected.length+' PDF(s) em '+visibleGroups.size+' grupo(s)';
+ const tabs=byId('pdfAreaNavV036');
+ if(tabs){for(const b of tabs.querySelectorAll('button')){
+  const id=b.textContent==='Todos'?'all':'area:'+(data.areas.find(x=>x.label===b.textContent)?.id||'');
+  b.classList.toggle('selected',f===id);
+ }}
+ if(!selected.length){
+  root.append(node('p','v036-empty','Nenhum PDF localizado. Altere o filtro ou o termo pesquisado; se a consulta ao Drive foi concluída, confira a mensagem de sincronização.'));
+  return;
+ }
  let openedAny=false;
  for(const area of data.areas){
   const areaDocs=selected.filter(p=>lookup.get(p.id).area===area.id);
