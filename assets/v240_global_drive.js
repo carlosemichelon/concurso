@@ -111,16 +111,23 @@ async function syncAll(){
  const notes=[],warnings=[];
  const reportModule=(name,value)=>{integrity[name]=value;renderIntegrity()};
  try{
+  // Cada módulo falha independentemente: indisponibilidade do catálogo NÃO bloqueia o backup das sessões.
   const m=media();
-  if(!m?.token?.())throw Error('Token de leitura não foi disponibilizado ao portal');
-  // O core não grava mídias; confirma diretamente a fonte do Drive.
-  const result=await m.syncAll();
-  const pdf=window.BancoMestrePDFSyncV130?.lastResult||result?.pdf;
+  let pdf=null;
   const gallery=window.BancoMestreDriveImagesV182;
-  if(pdf){notes.push((pdf.found??'—')+' PDFs consultados');reportModule('pdfs','Consulta de '+(pdf.found??'—')+' documentos concluída; abertura individual não comprovada');}
-  else{warnings.push('PDFs sem conferência concluída');reportModule('pdfs','Consulta pendente');}
-  if(gallery?.lastSuccess){notes.push((gallery.lastCount??'—')+' imagens originais consultadas');reportModule('imagens','Consulta de '+(gallery.lastCount??'—')+' originais concluída; prévia individual não verificada');}
-  else{warnings.push('Atlas ainda não confirmado');reportModule('imagens','Consulta pendente');}
+  try{
+   if(!m?.token?.()||typeof m.syncAll!=='function')throw Error('Leitura do Drive indisponível');
+   const result=await m.syncAll();
+   pdf=window.BancoMestrePDFSyncV130?.lastResult||result?.pdf;
+   if(pdf){notes.push((pdf.found??'—')+' PDFs consultados');reportModule('pdfs','Consulta de '+(pdf.found??'—')+' documentos concluída; abertura individual não comprovada');}
+   else{warnings.push('PDFs sem conferência concluída');reportModule('pdfs','Consulta pendente');}
+   if(gallery?.lastSuccess){notes.push((gallery.lastCount??'—')+' imagens originais consultadas');reportModule('imagens','Consulta de '+(gallery.lastCount??'—')+' originais concluída; prévia individual não verificada');}
+   else{warnings.push('Atlas ainda não confirmado');reportModule('imagens','Consulta pendente');}
+  }catch(error){
+   warnings.push('Consulta PDFs/imagens: '+error.message);
+   reportModule('pdfs','Falha na consulta; sem confirmação');
+   reportModule('imagens','Consulta não confirmada');
+  }
   if(writeToken()){
    const control=window.BM240ControlDrive?.sync?
     await window.BM240ControlDrive.sync(writeToken()):null;
@@ -179,7 +186,15 @@ function init(){
  setInterval(()=>{
   if(!busy&&writeToken()&&document.visibilityState==='visible'&&Date.now()-lastRun>=120000){
    void window.BM240ControlDrive?.sync(writeToken()).then(async r=>{
-    if(r?.state==='conflict'||r?.state==='error')state(r.message,'partial'); else if(r&&['unchanged','uploaded','downloaded'].includes(r.state))await window.BM240StudyBackups?.afterSync(writeToken());
+    if(r?.state==='conflict'||r?.state==='error'){
+      integrity.controle=r.message;renderIntegrity();state(r.message,'partial');
+     }else if(r&&['unchanged','uploaded','downloaded'].includes(r.state)){
+      integrity.controle=r.message;
+      const backup=await window.BM240StudyBackups?.afterSync(writeToken());
+      integrity.backups=backup?.message||'Backup não confirmado';
+      renderIntegrity();
+      if(backup?.state==='error')state(backup.message,'partial');
+     }
    });
   }
  },120000);
