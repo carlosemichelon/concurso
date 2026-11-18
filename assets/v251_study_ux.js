@@ -29,8 +29,8 @@ function getData(){
   const raw=localStorage.getItem(KEY);
   if(!raw)return {state:'empty',subjects:[],sessions:[],plans:[],reviews:[],cycle:[],cycleIndex:0};
   const x=JSON.parse(raw);
-  if(x?.schema!==1||!Array.isArray(x.subjects)||!Array.isArray(x.sessions)||!Array.isArray(x.reviews)||!Array.isArray(x.plans)||!Array.isArray(x.cycle))return {state:'invalid'};
-  return {...x,state:'ok'};
+  if(x?.schema!==1||!Array.isArray(x.subjects)||!Array.isArray(x.sessions)||!Array.isArray(x.reviews))return {state:'invalid'};
+  return {...x,plans:Array.isArray(x.plans)?x.plans:[],cycle:Array.isArray(x.cycle)?x.cycle:[],state:'ok'};
  }catch{return {state:'invalid'}}
 }
 function navTo(id){
@@ -51,7 +51,7 @@ function today(){
   const error=node('p','bm251-warning','Não foi possível conferir os registros locais; nenhuma alteração foi feita. Confira a integridade em Dados e backup.');
   host.append(error,createJump('Examinar dados','backup',true));return;
  }
- const date=dateLocal(),subjects=dat.subjects||[];
+ const date=dateLocal(),subjects=(dat.subjects?.length?dat.subjects:(window.BM240ControlApp?.timer?.subjects||[]));
  const sessions=(dat.sessions||[]).filter(x=>!x.deletedAt&&x.date===date);
  const plans=(dat.plans||[]).filter(x=>!x.deletedAt&&x.date===date&&!x.doneAt);
  const reviews=(dat.reviews||[]).filter(x=>!x.done&&typeof x.due==='string'&&x.due<=date);
