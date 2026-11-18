@@ -117,8 +117,17 @@ async function syncAll(){
   const gallery=window.BancoMestreDriveImagesV182;
   if(!fresh)warnings.push('Consulta de mídias sem confirmação desta execução');
   const foundPdf=pdf?.found==null?NaN:Number(pdf.found);
-  if(Number.isSafeInteger(foundPdf)&&foundPdf===78)notes.push('78 PDFs consultados no Drive');
-  else warnings.push('PDFs: '+(Number.isSafeInteger(foundPdf)?foundPdf+' de 78 localizados':'consulta não confirmada'));
+  const scannedPdfFolders=pdf?.folders==null?NaN:Number(pdf.folders);
+  const historicalPdfIds=pdf?.static==null?NaN:Number(pdf.static);
+  if(pdf?.source==='google_drive_only'&&Number.isSafeInteger(foundPdf)&&foundPdf>=0&&
+     Number.isSafeInteger(scannedPdfFolders)&&scannedPdfFolders>0&&
+     Number.isSafeInteger(historicalPdfIds)&&historicalPdfIds>=0&&historicalPdfIds<=78){
+   notes.push('PDFs: consulta do Drive concluída, '+foundPdf+' arquivos localizados em '+
+    scannedPdfFolders+' pastas; '+historicalPdfIds+' dos 78 IDs históricos confirmados');
+   // Quantidade de PDFs existentes e cobertura do catálogo são métricas distintas.
+   // Nunca exigir found === 78: acervos novos podem conter mais originais.
+  }else warnings.push('PDFs: consulta não confirmada'+
+    (Number.isSafeInteger(foundPdf)?' ('+foundPdf+' registros informados)':''));
   const imgFound=img?.found==null?NaN:Number(img.found),galleryCount=gallery?.lastCount==null?NaN:Number(gallery.lastCount);
   if(Number.isSafeInteger(imgFound)&&imgFound>0&&Number.isSafeInteger(galleryCount)&&galleryCount===imgFound&&gallery?.lastSuccess)
    notes.push(imgFound+' imagens originais consultadas no Drive');
