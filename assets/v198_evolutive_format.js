@@ -129,7 +129,7 @@ function render(host,record,id){
  if(!Array.isArray(layers)||layers.length!==11||layers.some((x,i)=>x.ord!==i+1||!String(x.titulo||'').trim()||!String(x.texto||'').trim()))throw Error('Cartão '+id+' sem 11 módulos íntegros');
  const frag=document.createDocumentFragment(),overview=e('section','bm198-overview');
  const top=e('div','bm198-overview-top'),ic=e('span','bm198-overview-icon');ic.append(icon('book'));
- const labels=e('div');labels.append(e('h4','','Quadro informativo do cartão'),e('p','','Informações extraídas dos módulos; a explicação completa está abaixo'));
+ const labels=e('div');labels.append(e('h4','','Quadro informativo do cartão'),e('p','','Resumo consultivo dos 11 módulos apresentados acima'));
  top.append(ic,labels);overview.append(top);
  const scroll=e('div','bm198-table-scroll'),table=e('table','bm198-overview-table'),thead=e('thead'),tr=e('tr');
  ['Ponto de revisão','Informação do cartão','Seção'].forEach(x=>tr.append(e('th','',x)));
@@ -144,7 +144,6 @@ function render(host,record,id){
  }
  table.append(thead,tbody);scroll.append(table);overview.append(scroll);
  overview.append(e('p','bm198-note','Trechos dos módulos, sem substituir a explicação integral ou a consulta às fontes.'));
- frag.append(overview);
  const sections=[],moduleGroup=e('div','bm198-modules');
  for(const [i,layer] of layers.entries()){
   const n=e('section','bm198-module'),bar=e('div','bm198-module-head'),num=e('span','bm198-number',String(i+1).padStart(2,'0'));
@@ -152,7 +151,8 @@ function render(host,record,id){
   bar.append(num,ico,e('h4','bm198-module-title',name));const body=e('div','bm198-module-body');
   drawText(body,layer.texto);n.append(bar,body);moduleGroup.append(n);sections.push(n);
  }
- frag.append(moduleGroup);host.replaceChildren(frag);
+ // Regra permanente: onze módulos primeiro; quadro informativo somente no final.
+ frag.append(moduleGroup,overview);host.replaceChildren(frag);
  jump.forEach(({idx,b})=>b.addEventListener('click',()=>sections[idx]?.scrollIntoView?.({behavior:'smooth',block:'start'})));
  return {modules:sections.length,tableRows:roles.length};
 }
