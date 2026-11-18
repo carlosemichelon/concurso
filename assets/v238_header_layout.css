@@ -1,0 +1,101 @@
+/* Banco Mestre V238 — cabeçalho em duas faixas, sem interferir no catálogo/SRS.
+   Sobrescreve apenas a apresentação do header das camadas V046/V103/V122/V199. */
+body>header .head{
+ display:grid!important;
+ grid-template-columns:minmax(230px,1fr) minmax(0,auto)!important;
+ grid-template-areas:'brand stats' 'nav nav';
+ align-items:center!important;justify-content:stretch!important;
+ column-gap:16px!important;row-gap:9px!important;
+ width:100%!important;max-width:1440px!important;min-width:0!important;
+ padding:11px 16px 9px!important;box-sizing:border-box!important;
+}
+body>header .head>div:first-child{grid-area:brand;min-width:0;max-width:100%}
+body>header .head .brand{font-size:19px!important;line-height:1.3!important;letter-spacing:-.25px}
+body>header .head .brand>.version{display:inline;font-size:11px!important;font-weight:500;letter-spacing:0}
+body>header .head>div:first-child>.version{
+ display:block;font-size:11px!important;line-height:1.4!important;
+ max-width:100%!important;white-space:normal;overflow-wrap:break-word;
+}
+body>header .head>.bm-v046-header-stats{
+ grid-area:stats;display:flex!important;align-items:stretch!important;
+ justify-content:flex-end!important;flex-wrap:wrap!important;
+ gap:6px!important;width:auto!important;max-width:100%!important;
+ min-width:0!important;margin:0!important;padding:0!important;
+}
+body>header .head>.bm-v046-header-stats>.stat{
+ display:inline-flex!important;align-items:center!important;gap:5px!important;
+ min-width:0!important;max-width:100%!important;min-height:33px!important;
+ margin:0!important;padding:5px 8px!important;
+ border:1px solid #dae6e3!important;border-radius:8px!important;
+ background:#f5faf8!important;box-shadow:none!important;
+}
+body>header .head>.bm-v046-header-stats>.stat:not(:last-child)::after{content:none!important}
+body>header .head>.bm-v046-header-stats>.stat b{
+ display:inline!important;flex:0 0 auto;font-size:13px!important;
+ line-height:1.3!important;font-weight:800!important;
+ font-variant-numeric:tabular-nums;
+}
+body>header .head>.bm-v046-header-stats>.stat span{
+ display:block!important;min-width:0!important;max-width:170px!important;
+ overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+ font-size:11px!important;line-height:1.35!important;
+}
+body>header .head>nav[aria-label='Seções']{
+ grid-area:nav;display:flex!important;justify-content:flex-start!important;
+ flex-wrap:nowrap!important;align-items:center!important;gap:6px!important;
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ overflow-x:auto!important;overflow-y:hidden!important;
+ padding:8px 0 3px!important;margin:0!important;
+ border-top:1px solid #e2eae8;scrollbar-width:thin;
+ -webkit-overflow-scrolling:touch;
+}
+body>header .head>nav[aria-label='Seções']>button[data-page]{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ flex:0 0 auto!important;min-width:0!important;max-width:none!important;
+ min-height:39px!important;height:auto!important;
+ padding:8px 11px!important;gap:6px!important;
+ white-space:nowrap!important;font-size:12px!important;line-height:1.25!important;
+ border-radius:8px!important;
+}
+body>header .head>nav[aria-label='Seções']>button[data-bm096-icon]::before{
+ width:16px!important;height:16px!important;flex:0 0 16px!important;
+}
+@media(max-width:1024px){
+ body>header .head{
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-areas:'brand' 'stats' 'nav';
+  row-gap:7px!important;padding:9px 12px 7px!important;
+ }
+ body>header .head>.bm-v046-header-stats{
+  width:100%!important;justify-content:flex-start!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat span{max-width:200px!important}
+}
+@media(max-width:600px){
+ body>header .head{row-gap:6px!important;padding:8px 9px 6px!important}
+ body>header .head .brand{font-size:17px!important}
+ body>header .head .brand>.version{display:block;font-size:10.5px!important}
+ body>header .head>div:first-child>.version{display:none}
+ body>header .head>.bm-v046-header-stats{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  align-items:stretch!important;justify-content:stretch!important;
+  gap:5px!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat{
+  flex-direction:column!important;align-items:flex-start!important;
+  gap:1px!important;max-width:100%!important;min-width:0!important;
+  min-height:45px!important;padding:4px 6px!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat b{font-size:13px!important}
+ body>header .head>.bm-v046-header-stats>.stat span{
+  width:100%!important;max-width:100%!important;font-size:10px!important;
+  line-height:1.3!important;
+ }
+ body>header .head>nav[aria-label='Seções']{padding:6px 0 3px!important;gap:4px!important}
+ body>header .head>nav[aria-label='Seções']>button[data-page]{
+  min-height:40px!important;padding:7px 9px!important;font-size:11.5px!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ body>header .head>nav[aria-label='Seções']{scroll-behavior:auto}
+}
