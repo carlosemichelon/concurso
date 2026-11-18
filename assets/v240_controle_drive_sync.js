@@ -5,7 +5,7 @@
 'use strict';
 if(window.BM240ControlDrive)return;
 const KEY='BM240_HOMOLOGACAO_CONTROLE',BASE='BM240_HOMOLOGACAO_DRIVE_BASE_SHA256',
- CLOCK='BM240_HOMOLOGACAO_TIMER',KIND='bm_controle_estudos_v240_homologacao',
+ CLOCK='BM240_HOMOLOGACAO_TIMER',SNAPSHOT='BM240_HOMOLOGACAO_VERIFIED_BASE_DOC',KIND='bm_controle_estudos_v240_homologacao',
  API='https://www.googleapis.com/drive/v3/files', UPLOAD='https://www.googleapis.com/upload/drive/v3/files',
  MAX=10000000;
 const valid=d=>d&&d.schema===1&&['subjects','sessions','reviews','cycle'].every(x=>Array.isArray(d[x]))&&(!d.plans||Array.isArray(d.plans))&&(!d.audit||Array.isArray(d.audit));
@@ -20,6 +20,20 @@ async function sha(data){
  const bytes=new TextEncoder().encode(JSON.stringify(data));
  const hash=new Uint8Array(await crypto.subtle.digest('SHA-256',bytes));
  return Array.from(hash,b=>b.toString(16).padStart(2,'0')).join('');
+}
+function rememberVerified(data,hash){
+ const originalSnapshot=localStorage.getItem(SNAPSHOT);
+ const originalHash=localStorage.getItem(BASE);
+ try{
+  localStorage.setItem(SNAPSHOT,JSON.stringify(data));
+  localStorage.setItem(BASE,hash);
+ }catch(e){
+  try{
+   if(originalSnapshot===null)localStorage.removeItem(SNAPSHOT);else localStorage.setItem(SNAPSHOT,originalSnapshot);
+   if(originalHash===null)localStorage.removeItem(BASE);else localStorage.setItem(BASE,originalHash);
+  }catch(_){}
+  throw Error('Gravação no Drive verificada, mas marco de sincronização local falhou; preserve o backup: '+e.message);
+ }
 }
 async function req(token,url,options={}){
  if(!token)throw Error('Drive desconectado');
@@ -98,26 +112,26 @@ async function work(token){
   const before=await locate(token);
   if(before)throw Error('Outro dispositivo criou o mestre durante a consulta');
   await create(token,original,localHash);
-  localStorage.setItem(BASE,localHash);
+  rememberVerified(original,localHash);
   return {state:'uploaded',message:'Controle: mestre privado criado e verificado'};
  }
  const remote=await get(token,file),remoteHash=await sha(remote);
  if(localHash===remoteHash){
-  localStorage.setItem(BASE,localHash);
+  rememberVerified(original,localHash);
   return {state:'unchanged',message:'Controle: dados conferidos, sem diferenças'};
  }
  // Primeiro uso em outro dispositivo: só importar se o Controle local estiver vazio.
  if((baseline&&localHash===baseline)||(!baseline&&empty(original))){
   if(await sha(localData())!==localHash)throw Error('Controle local mudou durante o download');
   safeImport(remote);
-  localStorage.setItem(BASE,remoteHash);
+  rememberVerified(remote,remoteHash);
   return {state:'downloaded',message:'Controle: registros remotos importados, cópia local anterior preservada'};
  }
  // Alteração local sobre uma base remota conhecida.
  if(baseline&&remoteHash===baseline){
   if(await sha(localData())!==localHash)throw Error('Controle local mudou durante a sincronização');
   await update(token,file,original,localHash);
-  localStorage.setItem(BASE,localHash);
+  rememberVerified(original,localHash);
   return {state:'uploaded',message:'Controle: alterações enviadas e verificadas no Drive'};
  }
  const conflict='Controle: versões divergentes entre dispositivos. Nenhum registro remoto foi sobrescrito; exporte as duas cópias para auditoria.';
