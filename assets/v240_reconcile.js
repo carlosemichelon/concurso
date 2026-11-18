@@ -66,8 +66,8 @@ function reconcile(base,local,remote){
  // potencialmente simultâneas criadas offline em dois aparelhos distintos.
  function minutesWindow(row){
   if(!row||row.deletedAt||typeof row.date!=='string'||typeof row.startTime!=='string')return null;
-  const match=row.startTime.match(/^([01]\\d|2[0-3]):([0-5]\\d)$/);
-  const date=row.date.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);
+  const match=row.startTime.match(/^([01]\d|2[0-3]):([0-5]\d)$/);
+  const date=row.date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   const length=Number(row.minutes);
   if(!match||!date||!Number.isFinite(length)||length<=0||length>1440)return null;
   const start=Date.UTC(Number(date[1]),Number(date[2])-1,Number(date[3]),Number(match[1]),Number(match[2]))/60000;
