@@ -52,16 +52,24 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;b
 <p class="hint">As pausas não entram nas horas líquidas. O cronômetro é recuperado após recarregar. Para transferir a sessão, pause no primeiro aparelho, sincronize o Drive e só então assuma no segundo.</p><p class="status" id="timerStatus" role="status"></p></div>
 <div class="panel"><h2>Registrar sessão manualmente</h2><form id="sessionForm"><div class="fields"><label>Data<input type="date" id="sessionDate" required></label>
 <label>Hora de início<input type="time" id="sessionTime"></label><label>Duração líquida (min)<input type="number" id="sessionMinutes" step="0.01" min="0.01" required></label>
-<label>Disciplina<select id="sessionSubject" required></select></label><label>Tipo de estudo<select id="sessionType"></select></label><label>Conteúdo<input id="sessionTopic" placeholder="Assunto ou subassunto"></label>
+<label>Disciplina<select id="sessionSubject" required></select></label><label>Tipo de estudo<select id="sessionType"></select></label><label>Assunto geral<input list="bm240GeneralOptions" id="sessionGeneral" maxlength="220" placeholder="Sugestões do Banco Mestre"><datalist id="bm240GeneralOptions"></datalist></label>
+<label>Assunto específico<input list="bm240SpecificOptions" id="sessionSpecific" maxlength="220" placeholder="Sugestões do assunto geral"><datalist id="bm240SpecificOptions"></datalist></label>
+<label>Subassunto<input id="sessionSubtopic" maxlength="220" placeholder="Detalhamento, quando disponível"></label>
+<label>Conteúdo / tópico livre<input id="sessionTopic" placeholder="Descrição complementar"></label>
 <label>Questões resolvidas<input type="number" id="sessionQuestions" min="0" step="1" value="0"></label><label>Acertos<input type="number" id="sessionCorrect" min="0" step="1" value="0"></label>
 <label>Agenda manual (não SRS)<select id="sessionReview"><option value="0">Não agendar</option></select></label></div>
 <label style="margin-top:10px">Anotações<textarea id="sessionNotes" placeholder="Resumo, dificuldade, observações..."></textarea></label>
 <div class="actions"><button class="primary" type="submit" id="sessionSubmit">Salvar sessão</button><button type="button" id="sessionCancel">Limpar</button><span class="status" id="sessionStatus" role="status"></span></div></form></div>
 </div></section>
 <section class="pane" id="historico"><div class="panel"><h2>Histórico de sessões</h2>
-<div class="fields"><label>Disciplina<select id="historySubject"></select></label><label>Tipo<select id="historyType"></select></label><label>De<input type="date" id="historyFrom"></label><label>Até<input type="date" id="historyTo"></label></div>
+<div class="fields"><label>Disciplina<select id="historySubject"></select></label><label>Tipo<select id="historyType"></select></label><label>De<input type="date" id="historyFrom"></label><label>Até<input type="date" id="historyTo"></label>
+<label>Assunto geral<input type="search" id="historyGeneral" placeholder="Filtrar assunto"></label>
+<label>Assunto específico<input type="search" id="historySpecific" placeholder="Filtrar assunto"></label>
+<label>Subassunto<input type="search" id="historySubtopic" placeholder="Filtrar subassunto"></label></div>
 <div class="actions"><button id="historyClear">Limpar filtros</button><button id="historyCsv">Exportar CSV filtrado</button><span class="muted" id="historyCount"></span></div><div class="scroll"><table><thead><tr><th>Data / início</th><th>Disciplina / assunto</th><th>Tipo</th><th>Tempo</th><th>Questões</th><th>Ações</th></tr></thead><tbody id="historyRows"></tbody></table></div></div></section>
 <section class="pane" id="planejamento"><div class="panel"><h2>Disciplinas e prioridades</h2>
+<div class="notice"><b>Hierarquia real da base pública V194.</b> Sugestões de disciplinas, assuntos gerais e assuntos específicos são extraídas dos cartões públicos; subassuntos podem ser descritos manualmente quando não constarem do catálogo.
+<div class="actions"><button type="button" id="bm240ImportDisciplines">Adicionar disciplinas do catálogo público</button><span id="bm240TaxStatus" class="status" role="status"></span></div></div>
 <form id="subjectForm"><div class="fields"><label>Nova disciplina<input id="subjectName" required placeholder="Ex.: Engenharia Civil"></label>
 <label>Dificuldade (1–5)<input id="subjectDiff" type="number" min="1" max="5" value="3"></label><label>Peso na prova (1–5)<input id="subjectWeight" type="number" min="1" max="5" value="1"></label>
 <label>Questões previstas na prova<input id="subjectExam" type="number" min="0" value="0"></label><label>Meta semanal (horas)<input id="subjectWeekly" type="number" min="0" step=".25" value="3"></label><label>Meta diária (horas)<input id="subjectDaily" type="number" min="0" step=".25" value=".5"></label>
