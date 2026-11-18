@@ -7,7 +7,7 @@ if(window.BancoMestreVisualizarCardV050)return;
 const root=document.getElementById('cardRows');
 if(!root)return;
 const idOf=article=>article?.querySelector(':scope > .tag')?.textContent?.trim()||'';
-const pattern=/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Za-z0-9_-]+)$/;
+const pattern=/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Za-z0-9_-]+|TRT0[12]-C\d{3})$/;
 const create=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=String(text);return n};
 const svgPaths={
  book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
@@ -34,7 +34,7 @@ function btn(label,ic,cls){
  const b=create('button',cls||'');
  b.type='button';b.append(icon(ic),document.createTextNode(label));return b;
 }
-function getCard(id){return typeof cards!=='undefined'&&Array.isArray(cards)?cards.find(c=>c.id===id):null}
+function getCard(id){const c=typeof cards!=='undefined'&&Array.isArray(cards)?cards.find(c=>c.id===id):null;return c||(/^TRT0[12]-C\d{3}$/.test(id)?window.BM236TrtCardsGrid?.getRecord?.(id):null)}
 function getGuide(c){return c?.origin_question_id&&typeof guideData!=='undefined'?guideData?.questoes?.[c.origin_question_id]:null}
 function getAudit(id){return typeof auditF17!=='undefined'?auditF17?.historico_por_id?.[id]:null}
 const overlay=create('div','bm-v050-peek bm163-peek');overlay.id='bmCardPeekV050';overlay.hidden=true;overlay.setAttribute('role','presentation');
@@ -87,8 +87,8 @@ const footerClose=btn('Voltar aos cartões','x','bm165-footer-close');
 footer.append(note,footerClose);
 scroll.append(questionBlock,controls,lawPanel,answer,status);
 panel.append(header,layout,footer);overlay.append(backdrop,panel);document.body.append(overlay);
-let focusedBefore=null,currentId='',previousOverflow='',asideQuery='',asideAll=false;
-function allCards(){return typeof cards!=='undefined'&&Array.isArray(cards)?cards:[]}
+let focusedBefore=null,currentId='',previousOverflow='',asideQuery='',asideAll=false;const trtUrls=[];function freeTrtUrls(){while(trtUrls.length)URL.revokeObjectURL(trtUrls.pop())}
+function allCards(){return (typeof cards!=='undefined'&&Array.isArray(cards)?cards:[]).concat(window.BM225LegalTaxonomy?.all?.()||[])}
 function norm(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
 function sameArea(a,b){if(a.provisional||b.provisional)return !!(a.provisional&&b.provisional);
  return !!(a.group&&a.group===b.group)||(a.discipline&&a.discipline===b.discipline)}
@@ -131,7 +131,7 @@ sidebarToggle.addEventListener('click',()=>{
 function visibleElement(el){return el&&!(el.closest('[hidden]'))&&!el.disabled}
 function hide(){
  if(overlay.hidden)return;
- overlay.hidden=true;document.body.classList.remove('bm-v050-peek-open');
+ freeTrtUrls();overlay.hidden=true;document.body.classList.remove('bm-v050-peek-open');
  document.body.style.overflow=previousOverflow;
  const restore=focusedBefore;focusedBefore=null;currentId='';
  restore?.focus?.({preventScroll:true});
@@ -431,10 +431,10 @@ function show(id,origin){
   overlay.hidden=false;document.body.classList.add('bm-v050-peek-open');
   panel.focus({preventScroll:true});
  }
- currentId=id;title.textContent='Cartão '+id;
+ freeTrtUrls();currentId=id;title.textContent='Cartão '+id;
  front.textContent=c.front||'Pergunta não cadastrada';
  meta.textContent=[c.discipline,c.subject,c.sub].filter(Boolean).join(' › ');
- provenance.textContent=c.provisional?'Cópia operacional de Ijuí · sem promoção canônica':'Cartão da base original · ID preservado';
+ provenance.textContent=/^TRT0[12]-C\d{3}$/.test(id)?'TRT · registro operacional · não modifica SRS':c.provisional?'Cópia operacional de Ijuí · sem promoção canônica':'Cartão da base original · ID preservado';
  if(window.BM163LeiSeca?.getRecord(id)?.notice)provenance.textContent+=' · referência normativa divergente';
  reveal.setAttribute('aria-expanded','false');
  reveal.replaceChildren(icon('eye'),document.createTextNode('Revelar resposta'));
@@ -451,7 +451,7 @@ reveal.addEventListener('click',()=>{
  if(!answer.hidden){
   appendAnswer(c);
   // A seção nasce no próprio leitor, antes da requisição remota.
-  bm197ShowEvolution(c);
+  if(/^TRT0[12]-C\d{3}$/.test(c.id))void trtStudy(c.id);else bm197ShowEvolution(c);
  }
  reveal.setAttribute('aria-expanded',String(!answer.hidden));
  reveal.replaceChildren(icon('eye'),document.createTextNode(answer.hidden?'Revelar resposta':'Ocultar resposta'));
@@ -463,7 +463,7 @@ lawButton.addEventListener('click',()=>{
  lawButton.setAttribute('aria-expanded',String(!lawPanel.hidden));
  lawButton.replaceChildren(icon('book'),document.createTextNode(lawPanel.hidden?'Mostrar lei seca':'Ocultar lei seca'));
  if(!lawPanel.hidden){
-  renderLaw(window.BM163LeiSeca?.getRecord(currentId),c);
+  if(/^TRT0[12]-C\d{3}$/.test(c.id))void trtLaw(c.id);else renderLaw(window.BM163LeiSeca?.getRecord(currentId),c);
   const wanted=currentId;
   const ready=window.BM163LeiSeca?.whenReady;
   if(ready&&typeof ready.then==='function')void ready.then(()=>{
