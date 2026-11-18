@@ -190,7 +190,8 @@ $('exportJson').addEventListener('click',()=>dl('controle-estudos-backup-'+today
 $('exportAllCsv').addEventListener('click',()=>dl('controle-estudos-'+today()+'.csv',csv(data.sessions),'text/csv;charset=utf-8'));
 $('importJson').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>10_000_000)throw Error('Arquivo acima de 10 MB.');const obj=JSON.parse(await f.text());if(obj.format!=='BancoMestreControleV238'||obj.data?.schema!==1||!Array.isArray(obj.data?.subjects)||!Array.isArray(obj.data?.sessions)||!Array.isArray(obj.data?.reviews)||!Array.isArray(obj.data?.cycle))throw Error('Formato de backup inválido.');if(!confirm('Substituir todos os registros locais deste módulo pelo backup importado?'))return;data=obj.data;if(!store())throw Error('Falha ao persistir a importação.');refresh();toggleMessage('backupStatus','Backup importado e conferido estruturalmente.')}catch(err){toggleMessage('backupStatus',err.message)}finally{e.target.value=''}});
 refreshOpts();$('historySubject').value='all';$('historyType').value='all';refresh();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;showTimer();
-tick=setInterval(()=>{showTimer();if(clock.running)storeClock()},1000);
+// Tempo líquido vem de clock.start + elapsed: não gravar o mesmo estado a cada segundo.
+ tick=setInterval(showTimer,1000);
 window.addEventListener('pagehide',storeClock);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(resize).observe(document.querySelector('main'))}
 }
 init();
