@@ -22,8 +22,11 @@ const currentFile='v'+currentVersion.slice(1)+'.html';
  try{
   const indexResp=await page.goto(root+'index.html#imagens',{waitUntil:'domcontentloaded',timeout:60000});
   assert.equal(indexResp.status(),200);
-  await page.waitForURL(url=>url.pathname.endsWith('/'+currentFile)&&url.searchParams.get('versao')===currentVersion&&url.hash==='#imagens',{timeout:40000});
-  await page.waitForTimeout(2200);
+  assert.equal(new URL(page.url()).pathname,'/index.html','Entrada atual é HTML direto, não redirecionamento histórico');
+  assert.equal(await page.locator('html').getAttribute('data-bm-portal-version'),currentVersion);
+  // Após conferir a entrada ATUAL, realizar as regressões do Atlas na página V045.
+  await page.goto(root+'v045.html#imagens',{waitUntil:'domcontentloaded',timeout:60000});
+  await page.waitForTimeout(1500);
   const diagnostics=await page.evaluate(()=>({
    url:location.href,title:document.title,route:location.hash,
    body:document.body.innerText.slice(0,220),
@@ -98,14 +101,13 @@ const currentFile='v'+currentVersion.slice(1)+'.html';
   await page.waitForFunction(()=>document.querySelector('#imageCount')?.textContent?.startsWith('270 de 270'),null,{timeout:15000});
   assert.equal(errors.length,0,'Falhas JavaScript: '+errors.join(' | '));
   console.log(JSON.stringify({result:'PASS',defaultRedirect:currentVersion,hashPreserved:true,cataloged:270,hiddenLegacy:true,hiddenP10:true,visibleAfterHide:268,filteredIndex:true,refreshPersistence:true,restored:true,originalIdsPreserved:true,jsErrors:errors.length}));
-  // Se o manifesto falhar, fallback do index também deve ser a versão atual.
+  // Entrada moderna V262 independe de buscar o manifesto para exibir a página.
   const fallback=await context.newPage();
   await fallback.route('**/assets/version.json*',r=>r.fulfill({status:503,body:'offline'}));
   await fallback.goto(root+'index.html',{waitUntil:'domcontentloaded'});
-  await fallback.waitForFunction(expected=>document.getElementById('entrar')?.getAttribute('href')?.includes(expected),currentFile,{timeout:10000});
-  const link=await fallback.locator('#entrar').getAttribute('href');
-  assert.ok(link.includes(currentFile),'Fallback deve apontar para a versão atual, não V037');
-  console.log(JSON.stringify({result:'PASS',fallback:currentVersion}));
+  assert.equal(await fallback.locator('html').getAttribute('data-bm-portal-version'),currentVersion);
+  assert.ok(await fallback.locator('#bm239-drive-action').count(),'Cabeçalho direto permanece visível com manifesto offline');
+  console.log(JSON.stringify({result:'PASS',directBootstrap:currentVersion}));
   await fallback.close();
  }finally{await browser.close()}
 })().catch(e=>{console.error('V045_INDEX_FAIL',e.stack||String(e));process.exitCode=1});
