@@ -206,7 +206,7 @@ function install(){
   if(form){
    const wrap=el('details');wrap.id='bm252-plan-add';
    const summ=el('summary','','Adicionar atividade planejada');
-   form.before(wrap);wrap.append(summ,form);
+   form.before(wrap);wrap.append(summ,form);if(planned)planned.after(wrap);
   }
  }
  const previousCal=$('calGrid');
