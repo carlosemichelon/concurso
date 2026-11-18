@@ -24,3 +24,20 @@ jobs:
           node tests/v222_v1_regressions.cjs
           node tests/v225_legal_search_oauth.cjs
           node tests/v228_drive_editor.cjs
+  v262-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegador de homologação
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.55.1
+          npx playwright install --with-deps chromium
+      - name: Avaliar layout real e JS V262
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v262.log 2>&1 &
+          sleep 2
+          node tests/v262_browser.cjs
