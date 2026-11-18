@@ -32,7 +32,7 @@ test('Controle de Estudos V240 - desktop: montagem, registro, exclusão e calend
  expect(state.sessions[0].specific).toBe('Vigas');
  expect(await page.evaluate(()=>localStorage.getItem('BM_CONTROLE_ESTUDOS_V238'))).toBeNull();
  await host.locator('[data-tab="historico"]').click();
- await expect(host.locator('#historyRows')).toContainText('75');
+ await expect(host.locator('#historyRows')).toContainText('1h 15m');
  page.once('dialog',dialog=>dialog.accept());
  await host.locator('[data-delete-session]').click();
  state=await page.evaluate(()=>JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_CONTROLE')));
