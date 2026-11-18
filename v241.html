@@ -122,7 +122,7 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
   // todas as listas de disciplinas, cartões e assuntos visuais.
   const bm126Boot='<scr'+'ipt src="assets/v034_boot.js"></scr'+'ipt>';
   if(!source.includes(bm126Boot))throw Error('Bootstrap visual não encontrado');
-  source=source.replace(bm126Boot,tag('v156_boot_topic.js?v=156'));
+  source=source.replace(bm126Boot,tag('v241_boot_topic.js?v=241'));
   // A classificação precisa estar disponível ANTES da inicialização do menu.
   const grifadorTag=tag('v111_grifador.js?v=111');
   if(!source.includes(grifadorTag))throw Error('Ordem de scripts do grifador alterada');
