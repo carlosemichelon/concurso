@@ -14,8 +14,9 @@ test('fonte V241 montada com dependências estáticas existentes',()=>{
  assert.match(page,/v241_global_drive\.js/);
  assert.match(page,/v241_timer_header\.js/);
  assert.match(page,/v241_timer_header\.css/);
- const assetPaths=new Set([...page.matchAll(/assets\/([a-zA-Z0-9_.-]+\.(?:js|css|json))/g)].map(m=>m[1]));
- assert.ok(assetPaths.size>100,'Módulos históricos não deveriam desaparecer');
+ const assetPaths=new Set([...page.matchAll(/assets\/([a-zA-Z0-9_.-]+\.(?:json|css|js)(?![A-Za-z0-9]))/g)].map(m=>m[1]));
+ for(const match of page.matchAll(/tag\('([^']+)'\)/g))assetPaths.add(match[1].split('?')[0]);
+ assert.ok(assetPaths.size>120,'Módulos históricos não deveriam desaparecer');
  for(const file of assetPaths)assert.ok(fs.existsSync(path.join(root,'assets',file)),file+' ausente');
  const inline=page.match(/<script>([\s\S]*?)<\/script>/);
  assert.ok(inline,'Script principal V241 não encontrado');
@@ -68,7 +69,7 @@ test('somente evidências reais habilitam indicação de sincronização',()=>{
  assert.match(drive,/\['uploaded','downloaded','unchanged'\]/);
  assert.match(states,/SRS não enviado/);
  for(const key of ['pdfs','cards','atlas','control','grifos'])assert.match(states,new RegExp("key:'"+key+"'"));
- assert.match(states,/data\.syncStatus=state/);
+ assert.match(states,/dataset\.syncStatus=state/);
  assert.match(states,/Não verificado/);
 });
 
