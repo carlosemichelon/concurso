@@ -60,7 +60,8 @@ test('Controle de Estudos V243 - layout em aparelho celular e offline isolado',a
  await page.locator('#bm240-study-tab').evaluate(b=>b.click());
  const host=page.locator('#bm240-native-host');
  await expect(host.locator('#tabs')).toBeAttached({timeout:45000});
- await host.locator('[data-tab="calendarioControle"]').click();
+ await page.screenshot({path:'test-results/v243-mobile-before-calendar.png'});
+ await host.locator('[data-tab="calendarioControle"]').click({timeout:15000});
  await expect(host.locator('#calGrid')).toBeVisible();
  await page.screenshot({path:'test-results/v243-mobile.png',fullPage:true});
  await context.close();
