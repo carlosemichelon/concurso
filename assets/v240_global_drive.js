@@ -9,6 +9,17 @@ const READ='https://www.googleapis.com/auth/drive.readonly',
 let client=null,token='',expires=0,write=false,busy=false,ready=false,lastRun=0,
  lastReport=null;
 const $=id=>document.getElementById(id);
+const integrity={pdfs:'Não conferido',imagens:'Não conferido',controle:'Não conferido',grifos:'Não conferido',backups:'Não conferido'};
+function renderIntegrity(){
+ const panel=$('bm240-integrity');
+ if(!panel)return;
+ panel.replaceChildren();
+ for(const [name,value] of Object.entries(integrity)){
+  const row=document.createElement('p');row.style.margin='6px 0';
+  const strong=document.createElement('strong');strong.textContent=name.toUpperCase()+': ';
+  const text=document.createElement('span');text.textContent=value;row.append(strong,text);panel.append(row);
+ }
+}
 const media=()=>window.BancoMestreMediaSyncV182;
 function active(){return token&&Date.now()<expires?token:''}
 function writeToken(){return write?active():''}
@@ -35,7 +46,11 @@ function install(){
  const detail=document.createElement('span');
  detail.id='bm239-sync-details';detail.setAttribute('role','status');
  detail.setAttribute('aria-live','polite');detail.textContent='Preparando conexão segura…';
- host.append(btn,detail);
+ const more=document.createElement('details');more.id='bm240-integrity-panel';
+ more.style.cssText='font-size:12px;min-width:190px;max-width:320px;padding:6px 9px;border:1px solid #d6e4e0;border-radius:9px';
+ const summary=document.createElement('summary');summary.textContent='Integridade por módulo';
+ const statuses=document.createElement('div');statuses.id='bm240-integrity';more.append(summary,statuses);
+ host.append(btn,detail,more);renderIntegrity();
 }
 async function gis(){
  if(window.google?.accounts?.oauth2?.initTokenClient)return;
@@ -94,6 +109,7 @@ async function syncAll(){
  if(busy&&lastReport?.running)return;
  busy=true;lastReport={running:true};state('Sincronizando imagens, PDFs, grifos e Controle…');
  const notes=[],warnings=[];
+ const reportModule=(name,value)=>{integrity[name]=value;renderIntegrity()};
  try{
   const m=media();
   if(!m?.token?.())throw Error('Token de leitura não foi disponibilizado ao portal');
