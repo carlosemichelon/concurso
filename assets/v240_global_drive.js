@@ -141,7 +141,7 @@ async function syncAll(){
     if(backup?.state==='verified')notes.push(backup.message);
     else warnings.push(backup?.message||'Backups: módulo não disponível');
    }
-   const g=window.BancoMestreGrifosDriveSyncV104;
+   const g=null; // STAGING: writes of canonical highlights are intentionally disabled
    if(g?.sync){
     try{
      await g.sync();
@@ -152,7 +152,7 @@ async function syncAll(){
       warnings.push('Grifos: '+result.slice(0,140));
      else warnings.push('Grifos: confira o estado no módulo de PDFs');
     }catch(e){warnings.push('Grifos: '+e.message);reportModule('grifos','Erro: '+e.message)}
-   }else{warnings.push('Mestre de grifos não inicializado');reportModule('grifos','Mestre não inicializado');}
+   }else{warnings.push('Grifos: sincronização canônica desativada na homologação para proteger os originais');reportModule('grifos','Somente leitura no ambiente de teste; dados canônicos preservados');}
   }else{
    warnings.push('Permissão drive.file não concedida: Controle e grifos não foram enviados');reportModule('controle','Permissão de gravação ausente');reportModule('grifos','Permissão de gravação ausente');reportModule('backups','Permissão de gravação ausente');
   }
