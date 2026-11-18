@@ -20,7 +20,7 @@ let attached=false,root=null;
 const $=id=>root?.getElementById(id);
 const node=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
 const dateLocal=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
-const fmt=n=>{const v=Math.max(0,Number(n)||0);return Math.floor(v/60)+'h '+String(Math.round(v%60)).padStart(2,'0')+'m'};
+const fmt=n=>{const v=Math.round(Math.max(0,Number(n)||0));return Math.floor(v/60)+'h '+String(v%60).padStart(2,'0')+'m'};
 const h=n=>String(Math.max(0,n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
 const style="\n/* Styles hosted in the native study Shadow DOM. */\n:host{--bm251-deep:#174c52;--bm251-line:#dce8e5;display:block}\nheader{padding:14px 16px 12px!important}\nheader h1{font-size:23px!important;letter-spacing:-.025em}\nheader p{margin:0 0 10px!important;font-size:12px!important;max-width:930px}\n#tabs{display:flex!important;flex-wrap:wrap;gap:6px;padding-top:5px}\n#tabs button{font-size:12px;min-height:38px;padding:8px 12px;border-radius:8px}\n#tabs button.active{background:#175e5b;border-color:#175e5b}\n#tabs button:focus-visible{outline:3px solid #68a69c;outline-offset:2px}\n.bm251-hero{border:1px solid #d9e6e4;background:#fff;padding:18px;border-radius:12px;margin:0 0 14px}\n.bm251-hero h2{font-size:19px;margin:0 0 3px}\n.bm251-hero-caption{margin:0 0 13px;font-size:12px;color:#5b7378}\n.bm251-today-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}\n.bm251-today-card{display:flex;flex-direction:column;gap:3px;border:1px solid #dbe8e5;border-radius:10px;padding:11px 12px;background:#f8fbfa;min-width:0}\n.bm251-today-card small{font-size:11px;font-weight:700;color:#507178}\n.bm251-today-card strong{font-size:21px;line-height:1.15;color:#1c5557;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}\n.bm251-today-card span{font-size:11px;line-height:1.3;color:#6a7b7d;overflow-wrap:anywhere}\n.bm251-next{margin-top:12px;padding:12px 14px;border:1px solid #b4d7ca;border-radius:10px;background:#f0f8f4;display:flex;align-items:center;justify-content:space-between;gap:16px}\n.bm251-next-text{min-width:0;max-width:800px}\n.bm251-next-text small{display:block;font-size:10px;color:#517269;font-weight:750;text-transform:uppercase;letter-spacing:.04em}\n.bm251-next-text strong{display:block;font-size:14px;margin:3px 0 4px;color:#174f49}\n.bm251-next-text p{margin:0;font-size:12px;color:#43645e}\nbutton.bm251-primary{background:#136e68;border-color:#136e68;color:#fff}\nbutton.bm251-primary:hover{background:#105a55}\n.bm251-next button{flex:0 0 auto}\n.bm251-warning{font-size:12px;color:#8c4031}\n#painel>.grid{margin:0 0 14px}\n#painel>.panel{margin-bottom:13px}\n.bm251-details{border:1px solid #d7e5e2;background:#fff;border-radius:10px;margin:13px 0;padding:0 13px 8px}\n.bm251-details>summary{cursor:pointer;padding:14px 1px;min-height:44px;font-size:15px;font-weight:750;color:#18545b}\n.bm251-details>summary span{font-weight:450;font-size:11px;display:block;color:#607a7f;margin:3px 0}\n.bm251-details>.twocol{margin:3px 0 0}\n.bm251-details>.panel{margin-bottom:6px}\n#planejamento>.panel:first-child{border-left:3px solid #6ca69b}\n#painel>.actions{margin:0 0 13px}\n@media(max-width:800px){\n .bm251-today-grid{grid-template-columns:repeat(2,minmax(0,1fr))}\n .bm251-hero{padding:13px}\n .bm251-next{align-items:flex-start;flex-direction:column;gap:9px}\n}\n@media(max-width:600px){\n header{padding:12px 10px 9px!important}\n header h1{font-size:20px!important}\n header p{font-size:11.5px!important}\n #tabs{flex-wrap:nowrap!important;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;-webkit-overflow-scrolling:touch;padding-bottom:7px;gap:5px}\n #tabs button{flex:0 0 auto!important;min-height:42px;padding:8px 10px;font-size:11.5px;scroll-snap-align:start}\n #tabs{scroll-snap-type:x proximity}\n main{padding:10px 8px 24px!important}\n .bm251-hero{padding:12px 10px;margin-bottom:10px}\n .bm251-hero h2{font-size:17px}\n .bm251-today-grid{gap:6px}\n .bm251-today-card{padding:9px 8px}\n .bm251-today-card strong{font-size:18px}\n .bm251-today-card small,.bm251-today-card span{font-size:10px}\n .bm251-next{padding:11px}\n .bm251-next button{width:100%;min-height:42px}\n .bm251-details{padding:0 9px 7px}\n .item-head{flex-wrap:wrap}\n .scroll{overflow-x:auto}\n}\n@media(prefers-reduced-motion:reduce){#tabs{scroll-behavior:auto!important}}\n";
 /* The String.rawCSS sentinel is replaced by the static style literal in this module. */
@@ -70,7 +70,6 @@ function today(){
  host.append(grid);
  const next=node('div','bm251-next');
  const text=node('div','bm251-next-text');
- const heading=node('strong','','');
  let title='',detail='',go='registro',button='Registrar estudo';
  if(!subjects.length){
   title='Comece cadastrando suas disciplinas';
@@ -148,6 +147,7 @@ function install(){
  else pane.prepend(hero);
  if(metrics)hero.after(metrics);
  if(summary&&metrics)metrics.after(summary);
+ if(oldActions)hero.after(oldActions);
  if(charts){
   const details=node('details','bm251-details');
   details.id='bm251-analises';
@@ -158,6 +158,7 @@ function install(){
   if(performance)details.append(performance);
   pane.append(details);
  }
+ if(oldIntro)pane.append(oldIntro);
  const meta=$('planejamento');
  if(meta){
   const panels=[...meta.querySelectorAll(':scope > .panel')];
