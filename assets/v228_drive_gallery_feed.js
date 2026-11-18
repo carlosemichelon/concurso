@@ -90,6 +90,7 @@ function ui(){
  more.onclick=()=>{visible+=24;render();};
  $('imageSearch')?.addEventListener('input',()=>{visible=24;render()});
  document.addEventListener('bm218-image-filter-change',()=>{visible=24;render();});
+ document.addEventListener('bm153-drive-filter-change',()=>{visible=24;render();});
  for(const id of ['imageFilter','imageAreaV044','bm155DisciplinaImagem','bm155AssuntoGeralImagem','bm155AssuntoEspecificoImagem','bm155SubassuntoImagem'])
   $(id)?.addEventListener('change',()=>{visible=24;render()});
 }
@@ -287,23 +288,12 @@ function syncMetaFilters(){
  if(subjects.includes(selectedSubject))subject.value=selectedSubject;
 }
 function legacyFilterMatch(m){
- const mapping=[
-  ['imageFilter',[m.area,m.subject,m.group]],
-  ['imageAreaV044',[m.area,m.group]],
-  ['bm155DisciplinaImagem',[m.area,m.group]],
-  ['bm155AssuntoGeralImagem',[m.area,m.subject]],
-  ['bm155AssuntoEspecificoImagem',[m.subject,m.subsubject]],
-  ['bm155SubassuntoImagem',[m.subsubject]]
- ];
- return mapping.every(([id,values])=>{
-  const control=$(id),selected=String(control?.value||'');
-  if(!selected||selected==='all')return true;
-  const v=normalize(selected);
-  return values.some(s=>normalize(s)===v||normalize(s).split(' · ').includes(v));
- });
+ // Never compare public Atlas classification IDs with Drive metadata labels.
+ return window.BM153ImageLibrary?.driveMatches?.(m)!==false;
 }
 function render(){
  const grid=$('bm084-grid');if(!grid)return;grid.replaceChildren();
+ window.BM153ImageLibrary?.setDriveRecords?.(photos.map(info));
  syncMetaFilters();
  const q=normalize($('bm084-search')?.value||''),mainQuery=normalize($('imageSearch')?.value||'');
  const selectedArea=$('bm218-area-filter')?.value||'all';
