@@ -146,3 +146,44 @@ test('visual compacto é operável em viewport de celular',async()=>{
   assert.ok(nav&&nav.width<=395,'menu externo à viewport');
  }finally{await context.close()}
 });
+
+
+test('simulação dos indicadores: sucesso somente com evidência e conflito preservado',async()=>{
+ const {page,context}=await newPage();
+ try{
+  await portal(page);
+  const before=await page.evaluate(()=>window.BM241SyncTruth.snapshot);
+  for(const k of ['pdfs','atlas','control','grifos'])assert.notEqual(before[k].state,'verified');
+  await page.evaluate(()=>{
+   window.BM239DriveGlobal={
+    connected:true,
+    lastReport:{
+     at:new Date().toISOString(),
+     notes:['78 PDFs consultados no Drive','101 imagens originais consultadas no Drive',
+      'Controle: mestre privado criado e verificado',
+      'Grifos: mestre privado conferido, sem divergências'],
+     warnings:[],complete:true,
+     summary:'SIMULAÇÃO AUTOMATIZADA — não é prova de OAuth Google'
+    }
+   };
+   window.BM241SyncTruth.refresh();
+  });
+  const complete=await page.evaluate(()=>window.BM241SyncTruth.snapshot);
+  for(const k of ['pdfs','atlas','control','grifos'])
+   assert.equal(complete[k].state,'verified',k+' não reconheceu evidência simulada');
+  assert.equal(complete.cards.state,'excluded','SRS nunca deve ser atestado');
+  await page.evaluate(()=>{
+   window.BM239DriveGlobal.lastReport={
+    ...window.BM239DriveGlobal.lastReport,
+    notes:['78 PDFs consultados no Drive','101 imagens originais consultadas no Drive',
+      'Controle: mestre privado criado e verificado'],
+    warnings:['Grifos: Existem 2 divergência(s) preservada(s) para revisão.'],
+    complete:false
+   };
+   window.BM241SyncTruth.refresh();
+  });
+  const conflict=await page.evaluate(()=>window.BM241SyncTruth.snapshot);
+  assert.equal(conflict.grifos.state,'partial','divergência não pode ser sucesso');
+  assert.equal(conflict.cards.state,'excluded');
+ }finally{await context.close()}
+});
