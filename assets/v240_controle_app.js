@@ -244,7 +244,40 @@ $('reviewRows').addEventListener('click',e=>{const b=e.target.closest('button');
 $('exportJson').addEventListener('click',()=>dl('controle-estudos-backup-'+today()+'.json',JSON.stringify({format:'BancoMestreControleV238',exportedAt:new Date().toISOString(),data},null,2),'application/json'));
 $('exportAllCsv').addEventListener('click',()=>dl('controle-estudos-'+today()+'.csv',csv(data.sessions),'text/csv;charset=utf-8'));
 $('bm240-import-legacy').addEventListener('click',()=>{try{importLegacy()}catch(e){$('bm240-import-preview').textContent='Importação não realizada: '+e.message}});
- $('importJson').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>10_000_000)throw Error('Arquivo acima de 10 MB.');const obj=JSON.parse(await f.text());if(obj.format!=='BancoMestreControleV238'||obj.data?.schema!==1||!Array.isArray(obj.data?.subjects)||!Array.isArray(obj.data?.sessions)||!Array.isArray(obj.data?.reviews)||!Array.isArray(obj.data?.cycle))throw Error('Formato de backup inválido.');if(!confirm('Substituir todos os registros locais deste módulo pelo backup importado?'))return;data=obj.data;if(!store())throw Error('Falha ao persistir a importação.');refresh();toggleMessage('backupStatus','Backup importado e conferido estruturalmente.')}catch(err){toggleMessage('backupStatus',err.message)}finally{e.target.value=''}});
+ $('importJson').addEventListener('change',async e=>{
+ const f=e.target.files?.[0];if(!f)return;
+ const original=structuredClone(data);
+ try{
+  if(f.size>10_000_000)throw Error('Arquivo acima de 10 MB');
+  const obj=JSON.parse(await f.text()),d=obj.data;
+  if(obj.format!=='BancoMestreControleV238'||d?.schema!==1||!['subjects','sessions','reviews','cycle'].every(k=>Array.isArray(d[k])))
+   throw Error('Backup incompatível');
+  if(clock.running||runTime()>0)throw Error('Existe cronômetro não salvo; conclua-o antes de importar');
+  const additions=[];
+  for(const kind of ['subjects','sessions','reviews','plans']){
+   const seen=new Set(),cur=new Map((data[kind]||[]).map(x=>[x.id,x]));
+   for(const row of (d[kind]||[])){
+    if(!row?.id||seen.has(row.id))throw Error('ID inválido ou duplicado em '+kind);
+    seen.add(row.id);
+    const same=cur.get(row.id);
+    if(same&&JSON.stringify(same)!==JSON.stringify(row))throw Error('Conflito no ID '+row.id+'; importação suspensa');
+    if(!same){
+     if(kind==='sessions'&&(!(Number(row.minutes)>0)||!validDate(row.date)||!Number.isInteger(row.questions)||!Number.isInteger(row.correct)||row.correct>row.questions||row.correct<0))
+      throw Error('Sessão importada inválida: '+row.id);
+     additions.push([kind,row]);
+    }
+   }
+  }
+  if(!additions.length){toggleMessage('backupStatus','Backup já representado nos registros locais.');return}
+  if(!confirm('Adicionar '+additions.length+' registros, preservando os anteriores?'))return;
+  localStorage.setItem('BM240_BEFORE_JSON_IMPORT_'+new Date().toISOString().replace(/[:.]/g,'-'),JSON.stringify(original));
+  for(const [kind,row] of additions)data[kind].push(structuredClone(row));
+  if(!data.cycle.length&&d.cycle.length)data.cycle=structuredClone(d.cycle);
+  if(!store())throw Error('Falha no armazenamento; recuperação disponível no backup pré-importação');
+  refresh();toggleMessage('backupStatus',additions.length+' novos registros importados sem substituir originais, com histórico auditável.');
+ }catch(err){data=original;toggleMessage('backupStatus','Nenhum dado importado: '+err.message)}
+ finally{e.target.value=''}
+});
 refreshOpts();$('historySubject').value='all';$('historyType').value='all';refresh();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;showTimer();
 tick=setInterval(()=>{showTimer();if(clock.running)storeClock()},1000);
 window.addEventListener('pagehide',storeClock);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(resize).observe(root.querySelector('main'))}
