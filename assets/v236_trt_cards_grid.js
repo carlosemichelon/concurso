@@ -88,7 +88,7 @@ function counterStatus(visibleIds){
   const all=$('bm191CardCount');
   if(all&&/\b0\s+cart/i.test(all.textContent||''))all.textContent=extra+' cartão(ões) TRT na grade';
   const label=$('bm152FilterStatus');
-  if(label&&/\b0\s+cart/i.test(label.textContent||''))label.textContent=extra+' cartão(ões) TRT encontrados · Direito Constitucional';
+  if(label&&/\b0\s+cart/i.test(label.textContent||''))label.textContent=extra+' cartão(ões) TRT encontrados · '+(visibleIds.some(id=>id.startsWith('TRT02-'))?'Direito Administrativo / Constitucional':'Direito Constitucional');
  }
 }
 function foldSource(){
@@ -304,5 +304,5 @@ function init(){
  schedule();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-window.BM236TrtCardsGrid=Object.freeze({refresh:schedule,getRecord,loadRecord,get loaded(){return wrappers.size},ids:IDS.map(x=>x[0])});
+window.BM236TrtCardsGrid=Object.freeze({refresh:schedule,getRecord,loadRecord,isHidden:id=>hiddenCards.has(id),get loaded(){return wrappers.size},ids:IDS.map(x=>x[0])});
 })();
