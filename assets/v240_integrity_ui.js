@@ -57,9 +57,7 @@
      '. '+(warnings.length?'Existem pendências.':'Sem pendências relatadas pelos quatro módulos.')+
      ' A autorização Google e a persistência entre dispositivos exigem teste real no navegador.'}
    catch(_){stamp.textContent='Auditoria registrada nesta sessão.'}
-   origin.title=report.summary||origin.textContent;
-   origin.textContent=warnings.length?'Drive: sincronização parcial · abra os detalhes':
-    'Drive: conferência concluída · abra os detalhes';
+   origin.title=report.summary||origin.title;
   }
   document.addEventListener('bm239-sync-finished',refresh);
   refresh();
