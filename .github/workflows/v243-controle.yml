@@ -1,0 +1,60 @@
+name: V243 Controle Nativo - compatibilidade V242
+on:
+  push:
+    branches:
+      - 'homologacao/v243-controle-nativo-compat-v242-20261118'
+  pull_request:
+    paths:
+      - 'assets/v240_*'
+      - 'controle-estudos-v240.html'
+      - 'v243.html'
+      - 'homologacao-v243/**'
+      - 'assets/v243_*'
+      - 'assets/v240_estudo_hierarquia.json'
+      - 'assets/v243_timer_bridge.js'
+      - 'assets/v243_sync_truth.js'
+      - 'tests/v240_controle.test.cjs'
+      - 'tests/v240_merge.test.cjs'
+      - 'tests/v240_browser.spec.js'
+      - '.github/workflows/v240-controle.yml'
+  workflow_dispatch:
+jobs:
+  static-and-smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testar app e contratos DOM
+        run: node --test tests/v240_controle.test.cjs tests/v240_merge.test.cjs
+
+  browser-smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preparar Chromium e servidor estático
+        run: |
+          npm install --no-save @playwright/test
+          npx playwright install --with-deps chromium
+          mkdir -p test-results
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v243-http.log 2>&1 &
+      - name: Testar desktop e celular em navegador real
+        run: npx playwright test tests/v240_browser.spec.js --workers=1 --reporter=line
+      - name: Preservar capturas e logs de falhas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v243-browser-evidences
+          path: |
+            test-results/
+            /tmp/bm-v243-http.log
+          if-no-files-found: ignore
