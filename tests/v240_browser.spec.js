@@ -107,3 +107,23 @@ test('Rodapé V242 controla exatamente uma sessão do módulo nativo, sem iframe
  expect(await page.locator('#bm241-bar').count()).toBe(1);
  await page.screenshot({path:'test-results/v243-timer-dock.png',fullPage:true});
 });
+
+
+test('Shell do Controle V243 reabre offline sem assumir o portal oficial',async({browser})=>{
+ const context=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'allow'});
+ const page=await context.newPage();
+ await page.goto(BASE,{waitUntil:'load',timeout:60000});
+ await expect(page.locator('#bm240-study-tab')).toBeAttached({timeout:45000});
+ await page.waitForFunction(()=>Boolean(navigator.serviceWorker?.controller),null,{timeout:45000});
+ const reg=await page.evaluate(()=>navigator.serviceWorker.controller?.scriptURL||'');
+ expect(reg).toContain('/homologacao-v243/sw.js');
+ await context.setOffline(true);
+ await page.reload({waitUntil:'domcontentloaded',timeout:45000});
+ await expect(page.locator('#bm240-study-tab')).toBeAttached({timeout:40000});
+ const host=page.locator('#bm240-native-host');
+ await expect(host.locator('#calGrid')).toBeAttached({timeout:40000});
+ expect(await page.locator('#bm238-study-frame').count()).toBe(0);
+ expect(await page.evaluate(()=>localStorage.getItem('BM_CONTROLE_ESTUDOS_V238'))).toBeNull();
+ await context.setOffline(false);
+ await context.close();
+});
