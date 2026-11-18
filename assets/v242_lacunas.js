@@ -16,7 +16,7 @@ function validate(d){
   ids.add(r.id);
   if(!Array.isArray(r.cardIds)||r.cardIds.some(x=>typeof x!=='string'))throw Error('Cartões inválidos');
   if(typeof r.relatoEstudante!=='string'||typeof r.diagnosticoAssistente!=='string')throw Error('Autoria inválida');
-  if(!coverage.includes(r.cobertura)||!stages.includes(r.etapa))throw Error('Estado inválido');
+  if(!coverage.includes(r.cobertura)||!stages.includes(r.etapa)||!Array.isArray(r.historico))throw Error('Estado ou histórico inválido');
  }
  return d;
 }
@@ -31,12 +31,14 @@ function write(event,r){
  data.updatedAt=at;data.log.push({id:crypto.randomUUID(),at,event,lacunaId:r?.id||null});
  try{localStorage.setItem(KEY,JSON.stringify(data))}
  catch(e){data=JSON.parse(backup);throw Error('Gravação local falhou: '+e.message)}
+ syncState='Lacunas: alterações locais ainda não verificadas no Drive';
  render();document.dispatchEvent(new CustomEvent('bm242-lacunas-change',{detail:{at}}));
 }
 function applyRemote(d){
  validate(d);const old=localStorage.getItem(KEY);
  if(old)localStorage.setItem('BM242_LACUNAS_RECUPERACAO_'+new Date().toISOString().replace(/[:.]/g,'-'),old);
- localStorage.setItem(KEY,JSON.stringify(d));data=structuredClone(d);render();
+ localStorage.setItem(KEY,JSON.stringify(d));data=structuredClone(d);
+ syncState='Lacunas: importação concluída localmente; confirmação Drive pendente';render();
 }
 function cards(raw){
  const v=[...new Set(String(raw||'').split(/[;,\s]+/).map(x=>x.trim()).filter(Boolean))];
@@ -118,6 +120,25 @@ function install(){
     $('bm242-form-msg').textContent='Cartão '+open.dataset.open+' não disponível no leitor atual; vínculo preservado como pendente.';
    return;
   }
+  const fill=e.target.closest('button[data-fill]');
+  if(fill&&data){
+   const r=data.records.find(x=>x.id===fill.dataset.fill);if(!r)return;
+   const note=prompt(r.relatoEstudante?'Acrescente uma observação posterior (o relato literal original será preservado):':'Registre com suas palavras por que errou ou não compreendeu:');
+   if(note===null||!note.trim())return;
+   r.updatedAt=new Date().toISOString();
+   if(!r.relatoEstudante)r.relatoEstudante=note;
+   else r.historico.push({at:r.updatedAt,evento:'complemento_estudante',nota:note});
+   write('relato_ou_complemento_adicionado',r);return;
+  }
+  const noteBtn=e.target.closest('button[data-note]');
+  if(noteBtn&&data){
+   const r=data.records.find(x=>x.id===noteBtn.dataset.note);if(!r)return;
+   const note=prompt('Acrescente uma pesquisa, evidência, observação ou fonte (não altera o relato original):');
+   if(note===null||!note.trim())return;
+   r.updatedAt=new Date().toISOString();
+   r.historico.push({at:r.updatedAt,evento:'complemento',nota:note});
+   write('complemento_adicionado',r);return;
+  }
   const change=e.target.closest('button[data-stage]');if(!change||!data)return;
   const r=data.records.find(x=>x.id===change.dataset.stage);if(!r)return;
   const next=change.dataset.next;if(!stages.includes(next))return;
@@ -190,8 +211,8 @@ function render(){
   (r.diagnosticoAssistente?'<p><b>Diagnóstico do assistente ('+esc(r.diagnosticoConfianca||'não confirmado')+'):</b> '+esc(r.diagnosticoAssistente)+'</p>':'')+
   '<p><b>Origem:</b> '+esc(r.origem)+(r.questaoId?' · '+esc(r.questaoId):'')+'</p>'+
   (r.pesquisa?'<p><b>Pesquisa:</b> '+esc(r.pesquisa)+'</p>':'')+
-  '<div class="bm242-actions">'+links+(next?'<button type="button" data-stage="'+esc(r.id)+'" data-next="'+esc(next)+'">Avançar para '+esc(next)+'</button>':'')+'</div>'+
-  '<details><summary>Fonte, auditoria e histórico</summary><p>'+esc(r.fonte||'Sem fonte cadastrada')+'</p><p>'+esc(r.auditoriaStatus)+'</p><p>Origem: '+esc(r.createdAt)+'</p><p>Evidência de domínio: '+esc(r.resolucaoEvidencia||'nenhuma')+'</p></details></article>';
+  '<div class="bm242-actions">'+links+'<button type="button" data-fill="'+esc(r.id)+'">'+(r.relatoEstudante?'Complementar relato':'Informar por que errei')+'</button>'+'<button type="button" data-note="'+esc(r.id)+'">Adicionar nota/fonte</button>'+(next?'<button type="button" data-stage="'+esc(r.id)+'" data-next="'+esc(next)+'">Avançar para '+esc(next)+'</button>':'')+'</div>'+
+  '<details><summary>Fonte, auditoria e histórico</summary><p>'+esc(r.fonte||'Sem fonte cadastrada')+'</p><p>'+esc(r.auditoriaStatus)+'</p><p>Origem: '+esc(r.createdAt)+'</p><p>Evidência de domínio: '+esc(r.resolucaoEvidencia||'nenhuma')+'</p>'+r.historico.map(h=>'<p>'+esc(h.at||'')+' · '+esc(h.evento||h.to||'registro')+' · '+esc(h.nota||h.evidencia||'')+'</p>').join('')+'</details></article>';
  }).join(''):'<p class="bm242-muted">Nenhuma lacuna cadastrada ou localizada com estes filtros.</p>';
 }
 window.BM242Lacunas=Object.freeze({get data(){return data?structuredClone(data):null},validate,applyRemote,render,openForm(){document.dispatchEvent(new Event('bm242-open-lacuna'))}});
