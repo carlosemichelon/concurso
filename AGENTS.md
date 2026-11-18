@@ -1,5 +1,16 @@
 # Instruções de edição para agentes — Banco Mestre
 
+## REGRA OBRIGATÓRIA — LEITURA DA METODOLOGIA NO INÍCIO DE CADA NOVA CONVERSA (17/11/2026)
+
+**Prioridade máxima no projeto:** antes de estudar, corrigir questões, criar/auditar cartões, trabalhar em TRT/Petrobras/lei seca/concursos ou alterar Banco Mestre, Atlas, Drive ou site, consultar a **versão vigente e integral** da Metodologia Mestre e das regras técnicas aplicáveis. Não confiar apenas em lembranças, resumos ou instruções de uma conversa anterior.
+
+**Fonte mestre no Drive:** `00_METODOLOGIA_MESTRE_VIGENTE_v014` (ID `1HXpal_7FFV4_yJsvfhEAEKpB36ym4LEzpb4t1PXHmcc`); o número no título é histórico, verificar revisões e eventuais substituições oficiais. **Fonte técnica de implementação:** `METODOLOGIA_V037_FLASHCARDS_PDF.md`, este `AGENTS.md`, `VERSAO_ATUAL.md`, contratos de armazenamento e manifesto da branch ativa `gh-pages`. As decisões mais recentes verificadas prevalecem onde compatíveis, sem apagar histórico.
+
+**Protocolo de início de sessão:** (1) localizar e ler a metodologia mestre atual; (2) ler adendos e regras referentes à tarefa; (3) conferir versão ativa e fontes reais se houver alteração no site; (4) identificar conflitos e pendências, sem presumir que o conteúdo foi carregado; (5) somente então executar a tarefa, respeitando 11 seções, auditoria cruzada, SRS, aprovações, IDs, Drive e distinção entre produção/publicação/homologação. **Se a fonte estiver inacessível, declarar a limitação; não fingir leitura nem inventar regras.** Não exigir que o usuário repita essa solicitação em cada novo chat.
+
+**Persistência:** registrar essa regra nas metodologias e checkpoints de transferência; memória de chat não substitui leitura dos documentos, nem garante acesso automático a ferramentas ou arquivos em novos chats.
+
+
 **Leia `VERSAO_ATUAL.md` antes de qualquer alteração.**
 
 Este repositório tem duas branches que podem conter portais de versões diferentes:
