@@ -21,7 +21,24 @@ const IDS=[
  ['TRT02-C005','bmtrt02-c005'],
  ['TRT02-C006','bmtrt02-c006']
 ];
-const wrappers=new Map();
+const wrappers=new Map(),records=new Map();
+const FILES={
+ 'TRT01-C001':'assets/trt01_c001_v211.json','TRT01-C002':'assets/trt01_c002_v212.json',
+ 'TRT01-C003':'assets/trt01_c003_v215.json','TRT01-C004':'assets/trt01_c004_v217.json',
+ 'TRT01-C005':'assets/trt01_c005_v220.json','TRT01-C006':'assets/trt01_c006_v221.json',
+ 'TRT01-C007':'assets/trt01_c007_v222.json','TRT01-C008':'assets/trt01_c008_v224.json',
+ 'TRT01-C009':'assets/trt01_c009_v227.json','TRT02-C001':'assets/trt02_c001_v230.json',
+ 'TRT02-C002':'assets/trt02_c002_v231.json','TRT02-C004':'assets/trt02_c004_v232.json',
+ 'TRT02-C005':'assets/trt02_c005_v235.json','TRT02-C006':'assets/trt02_c006_v236.json'
+};
+let hiddenCards=new Set();
+try{const value=JSON.parse(localStorage.getItem('BM236_TRT_HIDDEN')||'[]');if(Array.isArray(value))hiddenCards=new Set(value.filter(id=>Object.hasOwn(FILES,id)));}catch(_){}
+function getRecord(id){const w=wrappers.get(id);return records.get(id)||{id,front:w?.querySelector(':scope > h3')?.textContent||'',back:w?.querySelector('.bm211-core')?.textContent||''};}
+function refreshRestore(){
+ const b=$('bm236RestoreTrt');if(!b)return;
+ b.hidden=hiddenCards.size===0;
+ b.textContent=hiddenCards.size?'Restaurar '+hiddenCards.size+' cartão(ões) TRT ocultos':'';
+}
 let queued=false,muted=false;
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 function validFilters(article,id){
@@ -81,59 +98,78 @@ function foldSource(){
 }
 function wrapperFor(id,main){
  let wrap=wrappers.get(id);
- if(!wrap){
-  wrap=document.createElement('article');wrap.className='card bm221-trt-card';wrap.dataset.bm221Id=id;
-  const tag=document.createElement('span');tag.className='tag';tag.textContent=id;
-  const heading=document.createElement('h3');heading.textContent=main.querySelector('.bm211-summary strong')?.textContent||id;
-  // Uma única hierarquia visual, igual à dos cartões originais V163/V165.
-  wrap.dataset.bm163HeadingReady='yes';
-  const ribbon=document.createElement('div');ribbon.className='bm163-card-ribbon';
-  for(const [label,kind] of [
-   ['⚖  Legislação Geral','bm163-area'],
-   ['Cópia operacional','bm163-provisional']]){
-   const badge=document.createElement('span');badge.className='bm163-card-badge '+kind;badge.textContent=label;ribbon.append(badge);
-  }
-  const subjects=document.createElement('div');subjects.className='bm163-card-info';
-  const subject=document.createElement('span');subject.className='bm163-card-badge bm163-topic';
-  subject.textContent=id.startsWith('TRT02-')?'Direito Administrativo':'Direito Constitucional';
-  subjects.append(subject);
-  wrap.append(ribbon,heading,tag,subjects);
-  const summary=main.querySelector('.bm211-summary');
-  if(summary){summary.setAttribute('aria-label','Abrir resposta e explicações do '+id);
-   const small=summary.querySelector('small');if(small)small.textContent='Abrir resposta, 11 módulos e imagens';}
-  const openButton=document.createElement('button');openButton.type='button';
-  openButton.className='bm-v050-peek-button bm221-trt-open';
-  openButton.title='Abrir leitura detalhada no cartão sem registrar revisão SRS';
-  const details=main.querySelector('.bm211-details');
-  const syncButton=()=>{
-   openButton.textContent=details?.open?'Fechar leitura':'Abrir leitura';
-   openButton.setAttribute('aria-expanded',String(Boolean(details?.open)));
-  };
-  openButton.addEventListener('click',()=>{if(details)details.open=!details.open;syncButton();});
-  if(details)details.addEventListener('toggle',syncButton);
-  syncButton();heading.after(openButton);
-  wrap.append(main);wrappers.set(id,wrap);
-  const answer=main.querySelector('.bm211-answer');
-  if(answer){
-   const metainfo=[...answer.querySelectorAll('.bm211-meta,.bm211-preserve')];
-   if(metainfo.length){
-    const info=document.createElement('details');info.className='bm221-trt-info';
-    const sum=document.createElement('summary');sum.textContent='Informações do cartão e histórico operacional';
-    const note=document.createElement('small');note.textContent='Cartão operacional TRT: a consulta não registra avaliação SRS automaticamente.';
-    info.append(sum,...metainfo,note);
-    // O histórico permanece acessível, mas recolhido dentro do QUADRO FINAL.
-    // Quando o conteúdo é carregado, o quadro informativo continua sendo o último bloco.
-    main.querySelector('.bm211-details .bm211-body')?.append(info);
-    const relocate=()=>{
-     if(!details?.open)return;
-     const overview=main.querySelector('.bm198-overview');
-     if(overview&&info.parentElement!==overview)overview.append(info);
-    };
-    details?.addEventListener('toggle',relocate);
-    relocate();
+ if(wrap){if(main.parentElement!==wrap)wrap.append(main);return wrap;}
+ wrap=document.createElement('article');wrap.className='card bm221-trt-card';wrap.dataset.bm221Id=id;wrap.dataset.bm163HeadingReady='yes';
+ const node=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n;};
+ const ribbon=node('div','bm163-card-ribbon');
+ ribbon.append(node('span','bm163-card-badge bm163-area','⚖ Legislação Geral'),node('span','bm163-card-badge bm163-provisional','Cópia operacional TRT'));
+ const h=node('h3','',main.querySelector('.bm211-summary strong')?.textContent||id);
+ const read=node('button','bm-v050-peek-button bm221-trt-open','◉ Abrir leitura');read.type='button';
+ const tag=node('span','tag',id);
+ const subjects=node('div','v036-card-path bm221-trt-references');
+ const reference=node('p','bm163-card-ref');
+ reference.append(node('span','bm163-ref-icon','§'),node('span','bm221-reference-text','Referências normativas da questão TRT'));
+ const controls=node('div','buttons');
+ const law=node('button','bm161-law-button','📜 Mostrar lei seca');law.type='button';
+ const guide=node('button','bm-open-card','Abrir guia do assunto');guide.type='button';
+ const remove=node('button','danger','Excluir da visualização');remove.type='button';
+ controls.append(law,guide,remove);
+ const lawPanel=node('div','bm161-law-panel');lawPanel.hidden=true;
+ const details=main.querySelector('.bm211-details');
+ const summary=main.querySelector('.bm211-summary');
+ if(summary)summary.setAttribute('aria-label','Abrir as 11 seções do cartão '+id);
+ const sync=()=>{const open=!!details?.open;read.textContent=open?'◉ Fechar leitura':'◉ Abrir leitura';read.setAttribute('aria-expanded',String(open));main.hidden=!open;};
+ read.addEventListener('click',()=>{if(details)details.open=!details.open;sync();});
+ details?.addEventListener('toggle',sync);
+ guide.addEventListener('click',()=>{if(!details)return;details.open=true;sync();requestAnimationFrame(()=>main.querySelector('.bm211-layers')?.scrollIntoView({behavior:'smooth',block:'start'}));});
+ law.addEventListener('click',async()=>{
+  lawPanel.hidden=!lawPanel.hidden;
+  law.textContent=lawPanel.hidden?'📜 Mostrar lei seca':'📜 Ocultar lei seca';
+  law.setAttribute('aria-expanded',String(!lawPanel.hidden));
+  if(lawPanel.hidden)return;
+  lawPanel.replaceChildren(node('p','bm161-law-heading','Consultando fontes normativas…'));
+  const f=FILES[id];if(!f)return;
+  try{
+   let data=records.get(id);
+   if(!data){const r=await fetch(f+'?bm=trt-face-1',{cache:'default'});if(!r.ok)throw Error('HTTP '+r.status);data=await r.json();records.set(id,data);}
+   if(lawPanel.hidden)return;
+   lawPanel.replaceChildren(node('p','bm161-law-heading','LEI SECA — fontes normativas'),
+    node('p','bm161-law-pending','A transcrição literal integral não foi validada neste cartão. Consulte o texto dos dispositivos em fonte oficial.'));
+   for(const l of (Array.isArray(data.laws)?data.laws:[])){
+    if(!/^https:\/\//.test(l.source_url||''))continue;
+    const link=node('a','bm161-law-link',(l.norm||'Norma')+' · '+(l.article||'dispositivo'));
+    link.href=l.source_url;link.target='_blank';link.rel='noopener noreferrer';
+    lawPanel.append(link,node('div',''));
    }
+  }catch(e){lawPanel.replaceChildren(node('p','bm161-law-pending','Referências não carregadas: '+String(e.message||e)));}
+ });
+ remove.addEventListener('click',()=>{
+  wrap.hidden=true;hiddenCards.add(id);
+  try{localStorage.setItem('BM236_TRT_HIDDEN',JSON.stringify([...hiddenCards]));}catch(_){}
+  refreshRestore();schedule();
+ });
+ wrap.append(ribbon,h,read,tag,subjects,reference,controls,lawPanel,main);
+ wrappers.set(id,wrap);sync();
+ // Preencher só com informações encontradas no JSON original.
+ const path=FILES[id];
+ if(path)void fetch(path+'?bm=trt-face-1',{cache:'default'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(data=>{
+  if(data.id!==id)return;records.set(id,data);
+  subjects.replaceChildren();
+  for(const label of [data.discipline,data.subject,data.sub].filter(Boolean).slice(0,3))subjects.append(node('span','',label));
+  const norms=(data.laws||[]).map(l=>(l.norm||'')+(l.article?' · '+l.article:'')).filter(Boolean);
+  reference.querySelector('.bm221-reference-text').textContent='Referência cadastrada: '+(norms.join(' | ')||data.question_id||id);
+ }).catch(()=>subjects.append(node('span','','TRT · fonte a conferir')));
+ const answer=main.querySelector('.bm211-answer');
+ if(answer){
+  const meta=[...answer.querySelectorAll('.bm211-meta,.bm211-preserve')];
+  if(meta.length){
+   const info=node('details','bm221-trt-info'),title=node('summary','','Informações do cartão e histórico operacional');
+   info.append(title,...meta,node('small','','Consulta sem lançamento automático no SRS.'));
+   main.querySelector('.bm211-details .bm211-body')?.append(info);
+   const relocate=()=>{if(!details?.open)return;const ov=main.querySelector('.bm198-overview');if(ov&&info.parentElement!==ov)ov.append(info);};
+   details?.addEventListener('toggle',relocate);relocate();
   }
- }else if(main.parentElement!==wrap)wrap.append(main);
+ }
  return wrap;
 }
 function arrange(){
@@ -148,7 +184,7 @@ function arrange(){
    if(!main&&!wrap)continue;
    wrap=wrapperFor(id,main);
    if(validFilters(wrap,id)){
-    wrap.hidden=false;visibleIds.push(id);
+    wrap.hidden=hiddenCards.has(id);if(!wrap.hidden)visibleIds.push(id);
     if(wrap.parentElement!==rows)rows.append(wrap);
    }else if(wrap.parentElement===rows)wrap.remove();
   }
@@ -163,6 +199,9 @@ function schedule(){
 function init(){
  const panel=$('cartoes')?.querySelector('.panel'),rows=$('cardRows');
  if(!panel||!rows)return;
+ const restore=document.createElement('button');restore.id='bm236RestoreTrt';restore.type='button';restore.className='bm221-restore';
+ restore.addEventListener('click',()=>{hiddenCards.clear();try{localStorage.setItem('BM236_TRT_HIDDEN','[]')}catch(_){}refreshRestore();schedule();});
+ rows.before(restore);refreshRestore();
  const css=document.createElement('style');css.id='bm221-trt-grid-style';
  css.textContent=[
  '#cardRows>.bm221-trt-card{min-width:0;box-sizing:border-box;display:flex;flex-direction:column;gap:7px;overflow:hidden}',
@@ -227,5 +266,5 @@ function init(){
  schedule();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-window.BM236TrtCardsGrid=Object.freeze({refresh:schedule,get loaded(){return wrappers.size},ids:IDS.map(x=>x[0])});
+window.BM236TrtCardsGrid=Object.freeze({refresh:schedule,getRecord,get loaded(){return wrappers.size},ids:IDS.map(x=>x[0])});
 })();
