@@ -82,9 +82,9 @@ async function archive(token,d,reason,expected){
  const meta={name:'BancoMestre_Lacunas_Recuperacao_'+new Date().toISOString().replace(/[:.]/g,'-')+'_'+crypto.randomUUID().slice(0,8)+'.json',
    mimeType:'application/json',parents:[PRIVATE_PARENT],
    appProperties:{bm_kind:'bm_lacunas_recovery_v242',bm_schema:'V242',bm_reason:reason}};
- const body='--'+boundary+'\\r\\nContent-Type: application/json; charset=UTF-8\\r\\n\\r\\n'+JSON.stringify(meta)+
-  '\\r\\n--'+boundary+'\\r\\nContent-Type: application/json; charset=UTF-8\\r\\n\\r\\n'+payload+
-  '\\r\\n--'+boundary+'--';
+ const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+
+  '\r\n--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+payload+
+  '\r\n--'+boundary+'--';
  const res=await req(token,UPLOAD+'?uploadType=multipart&fields=id,parents,appProperties',{
   method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});
  const out=await res.json();
