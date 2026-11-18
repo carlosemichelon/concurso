@@ -1,0 +1,731 @@
+/* Source: assets/editor_imagens_v030.css */
+
+/* Banco Mestre V030 - editor de anotacoes em tela cheia, sem upload */
+#imageDialog{background:#edf2f1;color:#17353b;overscroll-behavior:contain}
+#imageDialog .dhead{height:auto;min-height:52px;padding:10px 15px;z-index:5}
+#imageDialog .dbody{height:calc(100dvh - 52px);padding:0;display:flex;flex-direction:column;min-height:0}
+#imageDialog .editor-tools{display:flex;flex-wrap:wrap;gap:7px;align-items:center;min-height:52px;padding:8px 12px;background:#fff;border-bottom:1px solid #d7e2e1;position:relative;z-index:4}
+#imageDialog .editor-tools .toolgroup{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding-right:10px;border-right:1px solid #d7e2e1}
+#imageDialog .editor-tools button{font-size:13px;padding:6px 9px;min-height:34px}
+#imageDialog .editor-tools button[aria-pressed=true]{background:#16616a;color:white;border-color:#16616a}
+#imageDialog .editor-tools .swatch{width:27px;height:27px;min-height:0;padding:0;min-width:27px;border:2px solid white;outline:1px solid #b4c9c4;border-radius:50%;background:var(--swatch)}
+#imageDialog .editor-tools .swatch[aria-pressed=true]{outline:3px solid #16616a}
+#imageDialog .editor-tools input[type=color]{width:34px;height:32px;border:1px solid #b6cfcc;padding:2px;cursor:pointer;background:#fff;border-radius:7px}
+#imageDialog .editor-tools input[type=range]{width:88px;accent-color:#16616a}
+#imageDialog .editor-tools label{font-size:12px;display:flex;align-items:center;gap:5px;color:#526b71}
+#imageDialog .editor-meta{font-size:12px;color:#53696b;display:flex;align-items:center;gap:8px;padding:5px 12px;background:#fff;border-bottom:1px solid #d7e2e1;flex-wrap:wrap}
+#imageDialog .editor-meta a{font-size:12px;padding:3px 6px}
+#imageDialog .editor-meta #imgMessage{flex:1}
+#imageDialog #imageStage{flex:1;min-height:0;max-height:none;height:auto;overflow:auto;overscroll-behavior:contain;background:#dce6e5;position:relative;text-align:center;padding:14px;scrollbar-color:#9cb6b1 #dce6e5}
+#imageDialog #imageStage .canvases{display:inline-block;position:relative;background:#fff;box-shadow:0 3px 17px #0d34352b;vertical-align:top;max-width:none}
+#imageDialog #imageStage canvas{display:block;max-width:none;max-height:none}
+#imageDialog #grifo{position:absolute;left:0;top:0;z-index:1;touch-action:none;cursor:crosshair}
+#imageDialog #grifo[data-tool=pan]{cursor:grab}
+#imageDialog #grifo[data-tool=select]{cursor:crosshair}
+#imageDialog #grifo[data-tool=eraser]{cursor:cell}
+#imageDialog .editor-tools button:focus-visible,#imageDialog #grifo:focus-visible{outline:3px solid #e3b84c}
+#imageDialog .editor-tools .editor-danger{color:#a54b3f}
+#imageDialog .editor-tools .editor-divider{color:#adbab7}
+#imageDialog #imageStage:has(.canvases){touch-action:pan-x pan-y}
+@media (max-width:700px){
+ #imageDialog .dhead{padding:8px 10px;min-height:47px}
+ #imageDialog .dbody{height:calc(100dvh - 47px)}
+ #imageDialog .editor-tools{gap:5px;padding:6px;max-height:40dvh;overflow:auto}
+ #imageDialog .editor-tools .toolgroup{padding-right:5px}
+ #imageDialog .editor-tools button{font-size:12px;padding:5px 7px}
+ #imageDialog .editor-meta{padding:4px 7px}
+ #imageDialog #imageStage{padding:5px}
+}
+
+
+/* Source: assets/v037.css */
+
+/* V037: estudo por respostas, lacunas e PDF-guia persistente. */
+#tema #topicOverview,#tema #topicMacetes,#tema #topicRelated{display:none!important}
+#cardRows .card details[hidden],#tema [hidden]{display:none!important}
+.v037-train{border-top:1px solid #d7e2e1;margin-top:12px;padding-top:12px}
+.v037-train-title{font-size:15px;margin:0 0 4px}
+.v037-help,.v037-message{font-size:12px;line-height:1.5;color:#5b7174;display:block;margin-bottom:6px}
+.v037-answer{width:100%;min-height:110px;resize:vertical;line-height:1.5;border:1px solid #c1d2d0;border-radius:8px;padding:9px;font:inherit;background:#fff}
+.v037-actions{display:flex;flex-wrap:wrap;gap:6px;margin:7px 0}
+.v037-actions button{font-size:12px;padding:7px 10px}
+button.v037-primary{background:#17616a;color:#fff;border-color:#17616a}
+.v037-guide{border-top:2px solid #b9d1ce;margin-top:12px;padding-top:9px}
+.v037-guide>h3{font-size:15px;margin-bottom:8px}
+.v037-guide-piece{padding:8px 0;border-top:1px solid #e1ebeb}
+.v037-guide-piece h4{font-size:13px;margin:0 0 4px;color:#175f67}
+.v037-guide-piece p{white-space:pre-wrap;font-size:13px;line-height:1.55;margin:0}
+.v037-edit{padding:10px;border:1px solid #bfcfcd;border-radius:9px;margin-top:12px}
+.v037-edit textarea{width:100%;min-height:75px;font:inherit;border:1px solid #cedbd9;border-radius:7px;padding:8px;resize:vertical}
+.v037-field-label{display:block;font-size:12px;font-weight:700;margin:9px 0 4px}
+.v037-local-panel{border:1px solid #ccdfdd;border-radius:10px;background:#f8fbfa;padding:14px;margin:10px 0 16px}
+.v037-local-panel h3{margin:0 0 7px;font-size:17px}
+.v037-local-panel p{font-size:12px;margin:5px 0 10px}
+.v037-local-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:10px}
+.v037-local-card{background:#fff;padding:10px;border:1px solid #d3e1e0;border-radius:8px;display:flex;flex-direction:column;gap:6px}
+.v037-local-card strong{font-size:13px;overflow-wrap:anywhere}
+.v037-local-card small{font-size:11px;color:#586e74}
+#pdfNoteV037,#pdfCardV037{font-size:13px}
+#pdfDialog #pdfLocalMode.active{min-height:55vh}
+.v036-topic-name{line-height:1.3;display:block;overflow-wrap:anywhere}
+.v036-topic-examples{line-height:1.4}
+.v034Concept>strong{font-size:13px;line-height:1.45;display:block}
+
+
+/* Source: assets/v031.css */
+
+/* Banco Mestre V031 — leitura por assunto, cartões e vínculos verificáveis */
+#tema .topicLead{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
+#tema .studyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px;margin-top:14px}
+#tema .studyNote{border:1px solid var(--line);background:#fff;border-radius:11px;padding:13px 15px;min-width:0}
+#tema .studyNote h3{font-size:16px;margin:2px 0 7px}
+#tema .studyNote p{font-size:14px;white-space:pre-wrap;color:var(--ink);line-height:1.65;margin:4px 0}
+#tema .studyNote .small{font-size:12px}
+#tema .sectionTitle{margin:24px 0 9px}
+#tema .chipLinks{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+#tema .chipLinks button{border-radius:20px;font-size:12px;padding:5px 10px}
+#tema .contextNote{font-size:13px;color:var(--sub)}
+#cardRows.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:15px;align-items:start}
+#cardRows .card{padding:18px 19px;border-color:#cbdedb;box-shadow:0 2px 8px #17353b08}
+#cardRows .card h3{font-size:17px;line-height:1.55;letter-spacing:0;margin:11px 0}
+#cardRows .card>.tag{display:inline-flex;background:#e5f2f0;border-radius:6px;padding:4px 9px;font-size:12px}
+#cardRows .card>p{font-size:12px;color:#546c71;line-height:1.5}
+#cardRows .card details{margin-top:13px;border-top:1px solid var(--line);padding-top:12px}
+#cardRows .card details>summary{padding:5px 0;font-size:14px}
+#cardRows .richSection{padding:13px 0}
+#cardRows .richSection:first-child{padding:15px;margin-top:10px;background:#f0f7f5;border-radius:9px;border:1px solid #cfe2dd}
+#cardRows .richSection:first-child h4,#cardRows .richSection:first-child p{margin-left:13px;margin-right:13px}
+#cardRows .richSection h4{font-size:13px;color:#16545e;text-transform:none}
+#cardRows .richSection p{font-size:14px;line-height:1.7}
+#cardRows .answer{max-width:100%;overflow-wrap:anywhere}
+#cardRows .subgroup{font-size:14px;color:#184b55;border-bottom:1px solid var(--line);margin:18px 0 6px;padding-bottom:5px}
+#cardRows .buttons{border-top:1px solid #e1eae8;padding-top:12px}
+.media-ref{border:0!important;background:transparent!important;text-decoration:underline;text-underline-offset:2px;padding:0 2px!important;color:#076b8a!important;font-weight:750;font-size:inherit!important;cursor:pointer}
+.media-ref:hover{color:#004e5e!important}
+#cardRows .relationPanel{border:1px solid #d3e5e1;border-radius:9px;background:#fbfefd;padding:12px;margin:11px 0}
+#cardRows .relationPanel strong{display:block;margin-bottom:5px}
+#cardRows .relationPanel small{display:block;color:var(--sub);margin:4px 0 7px}
+#cardRows .relationPanel .chipLinks{display:flex;gap:7px;flex-wrap:wrap}
+#cardRows .relationPanel .chipLinks button{padding:5px 9px;font-size:12px;border-radius:20px}
+#pdfRows .tag,#imageRows .tag{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+#pdfRows .tag:focus-visible,#imageRows .tag:focus-visible{outline:3px solid #dcae32}
+#pdfDialog #pdfLocalMode{display:none;height:calc(100dvh - 165px);overflow:auto;background:#dfe9e8;text-align:center;padding:13px}
+#pdfDialog #pdfLocalMode.active{display:block}
+#pdfDialog #pdfLocalCanvas{display:block;margin:0 auto;max-width:100%;height:auto;box-shadow:0 5px 25px #153b3b33;background:white;cursor:zoom-in}
+#pdfDialog .pdfMiniTools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:5px}
+#pdfDialog .pdfMiniTools button{font-size:13px;padding:5px 9px}
+#pdfDialog .pdfHint{font-size:12px;color:var(--sub)}
+#pdfDialog #pdfFrame.localHidden{display:none}
+@media(max-width:650px){#cardRows .card{padding:13px}#cardRows .richSection p{font-size:13px}}
+
+#cardRows .answerFold{margin:10px 0;border:1px solid #dae6e3;border-radius:9px;background:#fff;padding:0}
+#cardRows .answerFold>summary{padding:10px 12px;font-size:13px;background:#f5f9f8;border-radius:9px}
+#cardRows .answerFoldBody{padding:0 12px 10px}
+#cardRows .answerFoldBody .richSection:first-child{background:transparent;border:0;padding:12px 0;margin:0}
+#cardRows .answerFoldBody .richSection:first-child h4,#cardRows .answerFoldBody .richSection:first-child p{margin-left:0;margin-right:0}
+
+#pdfDialog #pdfLocalTools[hidden]{display:none!important}
+
+
+/* Source: assets/v032.css */
+
+/* V032: documentação visual por assunto com origem e confiança aparente */
+#tema .topicVisualGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:12px;margin:14px 0 18px}
+#tema .topicVisualCard{border:1px solid #d0e0dc;border-radius:11px;padding:10px;background:white;min-width:0;display:flex;flex-direction:column;gap:6px}
+#tema .topicVisualCard img{height:145px;width:100%;object-fit:contain;background:#f2f6f4;border:1px solid #e2e9e5;border-radius:8px;cursor:zoom-in}
+#tema .topicVisualCard img.imageMissing{opacity:.5}
+#tema .topicVisualCard p{margin:0;font-size:13px;line-height:1.45;font-weight:650;overflow-wrap:anywhere}
+#tema .topicVisualCard small{font-size:11px;color:#586f70}
+#tema .topicVisualCard .media-ref{align-self:start}
+#tema .topicVisualCard .chipLinks button{font-size:11px;padding:3px 8px}
+#assuntos .topicCard small{line-height:1.5}
+#imageRows .thumb{cursor:zoom-in}
+@media(max-width:600px){#tema .topicVisualGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#tema .topicVisualCard img{height:125px}}
+
+
+/* Source: assets/f17_rede_v033.css */
+
+/* V033: auditoria F17 com graus de evidência, sem alterar o calendário. */
+.f17-summary{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.f17-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}
+.f17-stat{border:1px solid #d5e2e0;border-radius:10px;background:#f7faf9;padding:12px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.f17-stat strong{font-size:24px;color:#14626c;font-variant-numeric:tabular-nums}
+.f17-stat span{font-size:12px;color:#48656a}
+#f17Rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,370px),1fr));gap:11px;margin:14px 0}
+.f17-item{min-width:0;border:1px solid #d0dfdd;border-radius:11px;padding:13px;background:white}
+.f17-item-head{display:flex;align-items:flex-start;gap:9px}
+.f17-item-head>div{min-width:0;flex:1}
+.f17-item-head strong{display:block;font-size:14px}
+.f17-item-head small{display:block;color:#5c6d70;line-height:1.35;white-space:normal}
+.f17-item .f17-detail{margin-top:11px}
+.f17-detail-body{margin-top:10px;display:grid;gap:8px}
+.f17-detail-body h4{margin:10px 0 0;font-size:13px}
+.f17-detail-body>p{margin:3px 0}
+.f17-flags{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0}
+.f17-mini{display:inline-block;color:#315967;background:#e8f3f4;border-radius:6px;padding:4px 7px;font-size:11px}
+.f17-id{font-size:12px;padding:5px 7px;font-weight:760;background:#e9f2f2;border-color:#c5dad8;flex-shrink:0}
+.f17-link-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:8px 0}
+.f17-link-row button{font-size:12px;padding:6px 9px}
+.f17-edge{border-left:3px solid #95bbb7;background:#f8fbfa;border-radius:3px 7px 7px 3px;padding:9px 11px;margin:7px 0;min-width:0}
+.f17-edge-line{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
+.f17-degree{font-size:11px;border:1px solid #d1e0d9;background:#ecf4ef;border-radius:5px;padding:3px 6px;color:#315e47}
+.f17-degree-muted{color:#815342;background:#faf0ec;border-color:#e8cec0}
+.f17-edge-direction,.f17-edge-topic{font-size:11px;color:#5e7475}
+.f17-edge p{font-size:12px!important;white-space:pre-wrap;color:#314c4f!important;margin:5px 0!important;overflow-wrap:anywhere}
+.f17-evidence-footer{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:11px;color:#6a7578;margin-top:6px}
+.f17-source{font-size:11px;text-decoration:underline;color:#176a72}
+.f17-evolution{border:1px solid #d4dee6;border-radius:9px;background:#f7fafc;padding:11px;margin:8px 0}
+.f17-evolution strong{font-size:12px}
+.f17-evolution p{font-size:12px!important;margin:6px 0!important}
+.f17-knowledge{padding:7px 0;border-bottom:1px solid #e2ebe9}
+.f17-knowledge strong{font-size:12px}
+.f17-knowledge p{margin:4px 0!important;font-size:12px!important;white-space:pre-wrap}
+.f17-raw{padding:9px;margin:7px 0}
+.f17-raw p{white-space:pre-wrap;overflow-wrap:anywhere}
+.f17-muted{color:#657578;font-size:12px;line-height:1.5}
+.f17-error{color:#8b312b;font-size:13px}
+#f17SubjectNetwork,#f17Proposals{margin:17px 0}
+#f17SubjectNetwork h3,#f17Proposals h3{font-size:16px;padding:8px 0}
+.f17-topic,.f17-card-references{border:1px solid #c8dddc;border-radius:10px;background:#fff;padding:14px;margin-top:15px}
+.f17-topic h3,.f17-card-references h3{font-size:16px}
+.f17-topic h4,.f17-card-references h4{font-size:13px;margin:17px 0 5px}
+.f17-view-all{margin-top:14px}
+#f17SubjectNetwork{max-height:680px;overflow:auto;overscroll-behavior:contain;padding-right:7px}
+#f17Proposals{max-height:500px;overflow:auto;overscroll-behavior:contain}
+@media(max-width:610px){#f17Rows{grid-template-columns:minmax(0,1fr)}.f17-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.f17-item{padding:11px}.f17-link-row button{font-size:11px}}
+
+
+/* Source: assets/v034.css */
+
+/* V034 — imagem livre; controles compactos em painel lateral, sem sobreposição */
+#imageDialog{
+ width:min(1580px,98vw)!important;
+ height:min(94dvh,1040px)!important;
+ max-height:94dvh!important;
+ max-width:98vw!important;
+ overflow:hidden;
+ border-radius:14px;
+}
+#imageDialog[open]{display:flex;flex-direction:column}
+#imageDialog>.dhead{flex:0 0 auto;min-height:46px!important;padding:6px 13px!important}
+#imageDialog>.dhead strong{font-size:13px;max-width:calc(100% - 100px)}
+#imageDialog>.dbody{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) 220px;
+ grid-template-rows:auto minmax(0,1fr);
+ flex:1 1 auto;min-height:0!important;height:auto!important;
+ padding:0!important;gap:0;
+}
+#imageDialog .editor-tools{
+ grid-column:2;grid-row:1 / span 2;
+ display:flex!important;flex-direction:column;align-items:stretch;
+ justify-content:flex-start;flex-wrap:nowrap!important;
+ min-height:0;max-height:none!important;overflow-y:auto;overflow-x:hidden;
+ padding:9px 8px!important;gap:9px!important;
+ background:#f8fbfa;border-left:1px solid #cddad6;border-bottom:0!important;
+ position:static!important;z-index:auto!important;
+}
+#imageDialog .editor-tools .toolgroup{
+ border-right:0!important;border-bottom:1px solid #d9e4e2;
+ padding:0 0 9px!important;gap:5px;flex-wrap:wrap;
+ display:flex;align-items:center;justify-content:flex-start;
+}
+#imageDialog .editor-tools button{padding:5px 7px!important;min-height:30px!important;font-size:11px!important}
+#imageDialog .editor-tools .swatch{width:24px;height:24px;min-width:24px;min-height:24px}
+#imageDialog .editor-tools label{font-size:11px;max-width:100%}
+#imageDialog .editor-tools input[type=range]{width:82px}
+#imageDialog .editor-meta{
+ grid-column:1;grid-row:1;
+ border-bottom:1px solid #d1e1dd;
+ min-height:36px;max-height:100px;overflow-y:auto;
+ padding:5px 10px!important;gap:5px!important;
+ font-size:11px;position:relative!important;
+ z-index:2;
+}
+#imageDialog .editor-meta button,#imageDialog .editor-meta a{font-size:11px!important;padding:3px 7px!important;min-height:25px}
+#imageDialog #imageStage{
+ grid-column:1;grid-row:2;
+ min-height:0!important;height:auto!important;max-height:none!important;
+ overflow:auto;position:relative;z-index:1;
+ padding:12px;background:#d9e5e2;
+}
+#imageDialog #imageStage .canvases{margin:0 auto;max-width:none;vertical-align:top}
+#imageDialog #imageStage canvas{max-width:none!important;max-height:none!important}
+#imageDialog #grifo{touch-action:none}
+#imageDialog .v034-local-btn{background:#e3f1ec;border-color:#9fc5b7;font-size:12px!important}
+#imageDialog .editor-tools .toolgroup:last-child{border-bottom:0}
+#imageRows .v034-local{background:#e9f3ee;border-color:#b4d1bf}
+#imageRows .v034-origin{display:block;margin-top:8px;color:#20684e;font-size:12px}
+#imageRows .v034-drive{font-size:12px;padding:6px 8px}
+#imagens .originalHelp{font-size:13px;color:#456367;border-left:3px solid #b7d2ca;padding:8px 12px;margin:12px 0}
+#tema .v034SubjectOutline{background:#f4f9f7;border:1px solid #d6e5df;border-radius:11px;padding:13px;margin:8px 0 16px}
+#tema .v034SubjectOutline h3{font-size:16px;margin:3px 0 8px}
+#tema .v034TopicSummary{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+#tema .v034TopicSummary span{font-size:12px;border:1px solid #d7e5e1;background:#f7faf9;border-radius:7px;padding:5px 9px;color:#335a5e}
+#tema .v034Subtopic{margin:9px 0;border:1px solid #d3e2dc;border-radius:10px;background:white;padding:0}
+#tema .v034Subtopic>summary{font-size:15px;padding:12px 14px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+#tema .v034SubtopicBody{padding:10px 15px 15px}
+#tema .v034Concept{padding:12px 0;border-top:1px solid #e3eae7}
+#tema .v034Concept:first-child{border-top:0}
+#tema .v034Concept strong{color:#20515b;display:block;margin-bottom:5px}
+#tema .v034Concept p{white-space:pre-wrap;margin:4px 0 7px;font-size:14px;line-height:1.6}
+#tema .v034Concept button{font-size:12px;padding:4px 9px}
+#tema .v034Norms{display:flex;flex-wrap:wrap;gap:7px;padding-top:8px}
+#tema .v034Norms span{font-size:12px;border:1px solid #ccddda;border-radius:7px;background:#fff;padding:5px 8px}
+#tema .v034NextTopics{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+#tema .v034NextTopics button{font-size:12px;padding:6px 10px;border-radius:8px}
+@media(max-width:780px){
+ #imageDialog{width:99vw!important;max-width:99vw!important;height:96dvh!important;max-height:96dvh!important}
+ #imageDialog>.dbody{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr)}
+ #imageDialog .editor-tools{
+  grid-row:2;grid-column:1;max-height:125px!important;
+  display:flex!important;flex-direction:row;flex-wrap:wrap!important;
+  overflow:auto;align-content:flex-start;
+  padding:6px!important;border-left:0;border-bottom:1px solid #d5e2df!important;gap:4px!important;
+ }
+ #imageDialog .editor-tools .toolgroup{padding:0 7px 0 0!important;margin:0;border-right:1px solid #d5e2df!important;border-bottom:0}
+ #imageDialog .editor-tools button{font-size:10px!important;padding:4px 6px!important}
+ #imageDialog .editor-meta{grid-column:1;grid-row:1;max-height:80px}
+ #imageDialog #imageStage{grid-column:1;grid-row:3;padding:5px}
+ #imageDialog>.dhead{min-height:43px!important}
+}
+
+
+/* Source: assets/v035.css */
+
+/* Banco Mestre V035 — editor de PDF incorporado, leitor claro, sem modal sobreposto. */
+#pdfDialog{width:min(1450px,98vw);height:min(94dvh,1050px);max-width:98vw;max-height:96dvh;overflow:hidden;border:1px solid #cbdedb;border-radius:13px;padding:0}
+#pdfDialog[open]{display:flex;flex-direction:column}
+#pdfDialog>.dhead{min-height:50px;flex-shrink:0;padding:8px 13px;gap:10px}
+#pdfDialog>.dbody{display:flex;flex:1;min-height:0;height:auto;flex-direction:column;padding:0;overflow:hidden}
+#pdfDialog .toolbar{flex:0 0 auto;padding:8px 12px;background:#f4f9f7;border-bottom:1px solid #d5e2df;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+#pdfDialog .toolbar .primary{font-size:13px}
+#pdfDialog .toolbar .pdfInfo{font-size:12px;color:#50696b;flex:1 1 280px}
+#pdfDialog .pdfMiniTools{
+ flex:0 0 auto;display:flex;align-items:center;flex-wrap:wrap;gap:6px;
+ padding:7px 11px;background:#fff;border-bottom:1px solid #dce7e4;
+}
+#pdfDialog .pdfMiniTools[hidden]{display:none!important}
+#pdfDialog .pdfMiniTools button{padding:5px 9px;font-size:12px;min-height:31px}
+#pdfDialog .pdfMiniTools button[aria-pressed="true"]{background:#16616a;color:#fff;border-color:#16616a}
+#pdfDialog .pdfMiniTools #pdfPager{min-width:95px;font-size:12px;text-align:center}
+#pdfDialog .pdfMiniTools #pdfFileName{width:100%;font-size:11px;color:#546969;overflow-wrap:anywhere}
+#pdfDialog #pdfLocalStatus{font-size:12px;line-height:1.45;color:#445f62;background:#f6f9f8;margin:0;padding:6px 12px;border-bottom:1px solid #dce7e3}
+#pdfDialog #pdfIntro{font-size:12px;color:#52696b;padding:8px 12px;margin:0}
+#pdfDialog #pdfFrame{flex:1 1 auto;min-height:0;width:100%;height:auto;border:0}
+#pdfDialog #pdfFrame.localHidden{display:none!important}
+#pdfDialog #pdfLocalMode{display:none;flex:1 1 auto;min-height:0;max-height:none;height:auto;overflow:auto;background:#dce6e3;padding:16px;text-align:center;overscroll-behavior:contain;scrollbar-color:#a2bbb4 #e5eded}
+#pdfDialog #pdfLocalMode.active{display:block}
+#pdfDialog #pdfPageWrap{display:block;position:relative;background:white;box-shadow:0 5px 22px #2442403a;width:max-content;max-width:none;margin:0 auto}
+#pdfDialog #pdfPageWrap canvas{display:block;max-width:none;max-height:none;border:0}
+#pdfDialog #pdfInkCanvas{position:absolute;inset:0;z-index:2;touch-action:none;cursor:crosshair}
+#pdfDialog #pdfInkColor{width:34px;height:30px;padding:0;border:1px solid #b5d2c9;border-radius:6px}
+#pdfDialog #pdfChooseLocal{background:#16616a;color:white}
+#pdfDialog #pdfExportPDF{font-weight:750;background:#dff3e9;border-color:#7fbca4}
+#pdfDialog .pdfGroup{display:flex;align-items:center;gap:5px;padding:0 8px 0 0;margin-right:3px;border-right:1px solid #dce7e4}
+#pdfDialog .pdfGroup:last-child{border-right:0}
+#pdfDialog .pdfGroup label{font-size:12px;display:flex;align-items:center;gap:5px}
+#pdfDialog .pdfDanger{color:#a54740}
+#pdfRows .buttons .pdf-v035-edit{background:#e5f4ed;border-color:#9ecab3;font-weight:750}
+@media(max-width:700px){
+ #pdfDialog{width:100vw;max-width:100vw;height:99dvh;max-height:99dvh;border-radius:0}
+ #pdfDialog>.dhead{padding:6px 8px;min-height:44px}
+ #pdfDialog .toolbar{padding:5px 7px;gap:5px}
+ #pdfDialog .pdfMiniTools{padding:5px;gap:4px;max-height:145px;overflow-y:auto}
+ #pdfDialog .pdfMiniTools button{font-size:11px;padding:4px 6px;min-height:29px}
+ #pdfDialog #pdfLocalMode{padding:6px}
+ #pdfDialog #pdfLocalStatus{font-size:11px;padding:5px 7px}
+}
+
+
+/* Source: assets/v036.css */
+
+/* Banco Mestre V036 — biblioteca de PDFs e trilha de estudos */
+#pdfs .panel,#assuntos .panel,#cartoes .panel{background:linear-gradient(#fbfdfc,#fff 180px)}
+#pdfs h2,#assuntos h2,#cartoes h2{letter-spacing:-.35px}
+#pdfAreasV036{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0 7px}
+#pdfAreasV036 .v036-pdf-pill{padding:7px 12px;border-radius:22px;font-size:12px;border:1px solid #c4d7d2;background:#fff}
+#pdfAreasV036 .v036-pdf-pill.selected{background:#174d57;color:#fff;border-color:#174d57}
+#pdfRows{display:block}
+.v036-pdf-area{margin:22px 0;border:1px solid #d0e2dc;border-radius:14px;overflow:hidden;background:#fff}
+.v036-area-head{display:flex;gap:10px;justify-content:space-between;align-items:center;padding:14px 18px 7px;background:#eef6f3}
+.v036-area-head h3{font-size:18px;line-height:1.4;margin:0}
+.v036-area-head .v036-count{font-size:12px}
+.v036-area-desc{font-size:12px;color:#5a7370;margin:0;padding:0 18px 13px;background:#eef6f3}
+.v036-pdf-group{margin:0;padding:0!important;border-top:1px solid #d9e7e2}
+.v036-pdf-summary{display:flex;align-items:center;justify-content:space-between;gap:13px;list-style:none;padding:14px 18px}
+.v036-pdf-summary::-webkit-details-marker{display:none}
+.v036-pdf-heading{display:flex;flex-direction:column;gap:3px;min-width:0}
+.v036-pdf-heading strong{font-size:15px;color:#1a5055}
+.v036-pdf-heading small{font-weight:450;font-size:12px;color:#647e79}
+.v036-count{font-size:11px;font-weight:700;background:#e4f0eb;border-radius:20px;padding:5px 9px;white-space:nowrap;color:#315a58}
+.v036-pdf-summary:after{content:"⌄";font-size:16px;color:#467a73}
+.v036-pdf-group[open]>.v036-pdf-summary:after{content:"⌃"}
+.v036-pdf-group[open]>.v036-pdf-summary{background:#f8fbfa}
+.v036-pdf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:10px;padding:10px 16px 16px}
+.v036-pdf-card{border:1px solid #dae7e3;border-radius:11px;background:#fff;padding:13px;display:flex;flex-direction:column;min-width:0;gap:9px}
+.v036-pdf-card:hover{border-color:#8db5aa;box-shadow:0 3px 9px #173e300b}
+.v036-pdf-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11px;color:#6c7e80}
+.v036-pdf-id{font-weight:800;color:#205c68;background:#eaf4f4;padding:3px 6px;border-radius:5px;font-variant-numeric:tabular-nums}
+.v036-pdf-title{font-size:15px!important;line-height:1.45;margin:0!important;flex:1 1 auto;cursor:pointer;overflow-wrap:anywhere}
+.v036-pdf-title:hover{text-decoration:underline;text-underline-offset:3px}
+.v036-pdf-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.v036-pdf-actions button,.v036-pdf-actions a{padding:6px 9px!important;font-size:12px!important;border-radius:7px;line-height:1.3;white-space:normal}
+.v036-pdf-actions .v036-primary{background:#155e66;color:#fff;border-color:#155e66}
+.v036-pdf-link{border:1px solid #cadbd7;color:#216775;background:#fff;text-decoration:none;display:inline-block}
+.v036-danger{color:#9d4c46;border-color:#e5cdc9}
+.v036-soft{background:#f0f5f2}
+.v036-muted{color:#a3564e}
+.v036-empty{padding:18px;margin:15px 0;background:#f7fbfa;border:1px dashed #c2d5d0;border-radius:9px;font-size:13px;color:#4c6865}
+#topicRows{display:block!important}
+#areaRows .topicCard{background:#f8fbfa}
+#areaRows .topicCard.v036-area-active{background:#e8f5ef;border-color:#2a7972}
+.v036-topic-area{border:1px solid #d7e5e1;border-radius:14px;margin:21px 0;overflow:hidden}
+.v036-topic-area-head{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#f0f7f5;padding:14px 16px}
+.v036-topic-area-head h3{font-size:17px;margin:0}
+.v036-topic-cluster{margin:0;padding:0!important;border-top:1px solid #dbe6e2}
+.v036-topic-cluster-summary{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px 16px}
+.v036-topic-cluster-summary strong{font-size:14px;line-height:1.35}
+.v036-topic-cluster[open]>.v036-topic-cluster-summary{background:#fbfdfc}
+.v036-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,245px),1fr));gap:10px;padding:4px 14px 15px}
+.v036-topic-tile{display:flex!important;flex-direction:column;align-items:stretch;text-align:left;gap:7px;min-width:0;min-height:143px;padding:13px!important;border:1px solid #d6e5de;border-radius:10px;background:#fff}
+.v036-topic-tile:hover{border-color:#22766f;background:#f7fcfa}
+.v036-topic-label{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#667f7a;font-weight:750}
+.v036-topic-name{font-size:15px;line-height:1.45;overflow-wrap:anywhere}
+.v036-topic-examples{font-size:12px;color:#536d69;line-height:1.55;margin:0;flex:1 1 auto}
+.v036-topic-metrics{display:flex;flex-wrap:wrap;gap:5px}
+.v036-topic-metrics span{font-size:11px;background:#edf4f2;border-radius:6px;padding:4px 6px;color:#3e6460}
+.v036-topic-link{font-size:12px;font-weight:700;color:#14726b;text-decoration:underline;text-underline-offset:3px}
+#tema .topicLead{padding:13px 15px;border:1px solid #d5e7e0;background:#f2f8f6;border-radius:12px}
+#tema .topicLead h2{font-size:clamp(21px,2.2vw,28px);line-height:1.3}
+#tema #topicStudyBlocks{display:block;max-width:100%}
+#tema .v034Subtopic{max-width:none;border-color:#d2e5db;margin:10px 0 13px}
+#tema .v034Subtopic>summary{font-weight:750;font-size:15px;padding:13px 16px}
+#tema .v034Subtopic[open]>summary{background:#edf6f2}
+#tema .v034SubtopicBody{padding:9px 16px 17px}
+#tema .v034Concept p{font-size:14px;line-height:1.75;max-width:100ch}
+#tema .v034Concept strong{font-size:13px}
+#tema .v034SubjectOutline{margin:16px 0;background:#f5faf7}
+#tema .v036-topic-expand{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 10px}
+#tema .v036-topic-expand button{font-size:12px;border-radius:7px;padding:5px 11px}
+#cardTopicFilter{max-width:min(100%,340px)}
+#cardRows.v036-card-buckets{display:block!important}
+.v036-card-group{padding:0!important;border:1px solid #d5e4de;border-radius:12px;margin:15px 0;background:#fff;overflow:hidden}
+.v036-card-group-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;background:#f2f8f5}
+.v036-card-group-summary>span:first-child{display:flex;flex-direction:column;gap:3px}
+.v036-card-group-summary strong{font-size:15px}
+.v036-card-group-summary small{color:#617a73;font-size:11px}
+.v036-card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,385px),1fr));gap:12px;padding:12px}
+.v036-card-grid>.card{border:1px solid #d9e6e1;box-shadow:none;min-width:0}
+.v036-card-grid>.card:has(details[open]){grid-column:1/-1;max-width:950px}
+#cardRows .v036-card-path{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:9px 0}
+#cardRows .v036-card-path span{color:#496e69;background:#f0f7f4;font-size:11px;border-radius:5px;padding:4px 8px}
+#cardRows .card h3{font-size:clamp(15px,1.6vw,18px);line-height:1.56;font-weight:690}
+#cardRows .answerFold{background:#fafdfc}
+#cardRows .answerFold>summary{font-size:13px}
+#cardRows .richSection:first-child{background:#f5fbf7;border:1px solid #d3e7db}
+@media(max-width:730px){
+ .v036-pdf-area{margin:15px 0}.v036-pdf-grid{grid-template-columns:1fr;gap:8px;padding:8px}
+ .v036-pdf-summary{padding:11px}.v036-area-head{padding:11px}
+ .v036-topic-grid{grid-template-columns:1fr;padding:8px}
+ .v036-topic-tile{min-height:0;padding:12px!important}
+ .v036-card-grid{grid-template-columns:1fr;padding:8px}
+ .v036-card-group-summary{padding:10px}.v036-card-grid>.card{padding:12px!important}
+ #tema .v034SubtopicBody{padding:7px 11px 15px}
+}
+
+/* Leituras por disciplina, sem atribuir domínio ao cartão */
+#tema .v036-topic-pdfs{margin:18px 0;padding:14px;border:1px solid #d5e5de;border-radius:11px;background:#f8fcfa}
+#tema .v036-topic-pdfs h3{font-size:15px;margin:0 0 6px}
+#tema .v036-topic-pdf-note{font-size:12px;color:#617872;line-height:1.5;margin:0 0 10px}
+#tema .v036-topic-pdf-links{display:flex;flex-wrap:wrap;gap:7px}
+#tema .v036-topic-pdf-link{font-size:12px;padding:7px 10px;border:1px solid #bcd7cf;background:#fff;border-radius:8px;max-width:100%;text-align:left}
+
+
+/* Source: assets/v040_contornos.css */
+/* V040 · reforço visual sem modificar dados, cartões, PDFs ou SRS */
+:root{--bm-outline:#8daea9;--bm-outline-strong:#356d70;--bm-shadow:0 2px 9px rgba(20,52,58,.09)}
+body{background:#f2f6f5}
+header{border-bottom:2px solid #9eb8b5;box-shadow:0 2px 10px rgba(22,53,59,.06)}
+nav button{border:1.5px solid #95b2ae;font-weight:700}
+nav button.active{box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.panel,.stat,.topicCard,.topic-card,article.card,.v036-pdf-card,.v036-pdf-group,.v037-local-card,.v037-train,.v038-drive-direct{
+ border:1.5px solid var(--bm-outline)!important;
+ box-shadow:var(--bm-shadow);
+ border-radius:12px
+}
+.panel{border-color:#a8bfbc!important}
+article.card{border-left:4px solid var(--bm-outline-strong)!important;background:#fff}
+.topicCard:hover,.v036-pdf-card:hover,article.card:hover{
+ border-color:var(--bm-outline-strong)!important;
+ box-shadow:0 5px 17px rgba(22,66,73,.16)
+}
+button,a.action,.v036-primary,.v037-primary{border-width:1.5px;font-weight:650}
+button:focus-visible,a:focus-visible,summary:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{
+ outline:3px solid #17838b!important;outline-offset:3px
+}
+input[type=search],input[type=text],textarea,select{border:1.5px solid #8ea9a7;border-radius:8px;background:#fff}
+summary{padding:7px 4px}
+.v036-pdf-summary{border-bottom:1px solid #ccdbd8}
+dialog[open]{border:2px solid #6e9692;box-shadow:0 20px 90px #12333d66}
+.dhead,.toolbar,.editor-tools{border-bottom:1.5px solid #b8cfcb}
+.pdfpreview,.stage,.pdf-local-stage{border:1.5px solid #7c9f9a}
+.v037-train textarea,.v037-guide textarea{width:100%;max-width:100%;border:1.5px solid #90aaa6;padding:11px;line-height:1.5}
+#cardRows article.card .bm-open-card{
+ display:inline-flex;align-items:center;gap:5px;
+ background:#165d66;color:#fff!important;text-decoration:none;
+ border:1.5px solid #165d66;border-radius:8px;padding:9px 12px;
+ font-size:13px;font-weight:800;line-height:1.3
+}
+#cardRows article.card .bm-open-card:hover{background:#0f4d55}
+#cardRows article.card .bm-open-hint{font-size:12px;color:#41686a;margin:8px 0 0;line-height:1.45}
+html:not(.bm-single-card) #cardRows article.card{cursor:pointer}
+html:not(.bm-single-card) #cardRows article.card > details,
+html:not(.bm-single-card) #cardRows article.card > .v037-train{display:none!important}
+html.bm-single-card header,
+html.bm-single-card nav,
+html.bm-single-card main .hero,
+html.bm-single-card main .stats,
+html.bm-single-card main section:not(#cartoes){display:none!important}
+html.bm-single-card body{background:#eff5f4}
+html.bm-single-card main{max-width:1000px;padding:20px 16px 80px}
+html.bm-single-card main section#cartoes{display:block!important}
+html.bm-single-card #cartoes .panel{padding:14px;border:0!important;background:transparent;box-shadow:none}
+html.bm-single-card #cartoes .panel > h2,
+html.bm-single-card #cartoes .panel > p.intro,
+html.bm-single-card #cartoes .controls,
+html.bm-single-card #cartoes #cardCount,
+html.bm-single-card #cartoes #moreCards,
+html.bm-single-card #cartoes #coverageSummary{display:none!important}
+html.bm-single-card #cardRows{display:block!important}
+html.bm-single-card #cardRows article.card{width:100%;margin:0 auto;border:2px solid #4a8688!important;border-left:6px solid #165d66!important;box-shadow:0 8px 22px rgba(29,68,73,.12);padding:24px;border-radius:16px;cursor:default}
+html.bm-single-card #cardRows article.card > .tag{font-size:13px}
+html.bm-single-card #cardRows article.card > h3{font-size:clamp(18px,3vw,26px);line-height:1.35;margin:10px 0}
+html.bm-single-card #cardRows article.card > .v037-train{display:block!important;margin-top:22px;padding:18px;border:1.5px solid #92b2ad!important}
+html.bm-single-card #cardRows article.card > details{display:block!important;margin-top:18px}
+html.bm-single-card #cardRows article.card .bm-open-card,
+html.bm-single-card #cardRows article.card .bm-open-hint{display:none!important}
+.bm-focusbar{position:sticky;top:0;z-index:30;background:#fff;border-bottom:2px solid #8ea9a5;box-shadow:0 4px 12px rgba(26,61,66,.08);padding:13px max(16px,calc((100vw - 1000px)/2));display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.bm-focusbar strong{font-size:16px}
+.bm-focusbar small{display:block;font-size:12px;color:#4f6e72}
+.bm-focusbar a,.bm-focusbar button{border:1.5px solid #658d89;border-radius:8px;background:white;padding:9px 12px;font:700 13px system-ui,sans-serif;color:#245960;text-decoration:none;cursor:pointer}
+.bm-focusbar .bm-back{background:#155e66;color:#fff}
+.bm-focus-empty{border:1.5px solid #cb9b7f;background:#fff8f3;border-radius:9px;padding:14px;margin-top:18px}
+.bm-vade{border:2px solid #789e9b;background:#fff;border-radius:12px;padding:17px;margin:15px 0;box-shadow:var(--bm-shadow)}
+.bm-vade h3{margin:0 0 4px;font-size:17px}
+.bm-vade p{margin:5px 0 10px;color:#44676c;font-size:13px}
+.bm-vade small{display:block;margin-top:8px;color:#49666b}
+.bm-vade button{background:#155f67;color:#fff;border:1.5px solid #155f67;padding:10px 14px;border-radius:8px;font-weight:750}
+.bm-vade button:disabled{opacity:.65}
+@media(max-width:650px){
+ .panel,article.card,.topicCard{border-radius:9px}
+ .bm-focusbar{padding:11px 12px}
+ html.bm-single-card main{padding:10px 8px 45px}
+ html.bm-single-card #cartoes .panel{padding:6px}
+ html.bm-single-card #cardRows article.card{padding:14px}
+ html.bm-single-card #cardRows article.card > .v037-train{padding:12px}
+}
+
+/* Source: assets/v041_vade.css */
+/* V041 · botões do editor de Vade Mecum sem afetar os demais módulos */
+.bm-vade{display:block;max-width:100%;margin:16px 0 22px}
+.bm-vade-actions{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 10px}
+.bm-vade .bm-vade-secondary{background:#fff!important;border:1.5px solid #648a88!important;color:#245963!important}
+.bm-vade .bm-vade-secondary:hover{background:#e9f4f2!important}
+.bm-vade-status{border-left:3px solid #548b87;background:#f0f7f5;padding:11px 13px!important;font-size:13px;color:#26545b!important;white-space:pre-wrap}
+.bm-vade button{white-space:normal}
+@media(max-width:560px){.bm-vade-actions{display:grid;grid-template-columns:1fr}.bm-vade-actions button{width:100%}}
+/* [hidden] deve prevalecer sobre a.action {display:inline-block} do tema */
+#pdfOriginal[hidden]{display:none!important}
+
+
+/* Source: assets/v043_pdf_compact.css?v=048 */
+/* V043: editor PDF com comandos compactos e área de leitura prioritária. */
+/* Escopo restrito a #pdfDialog: outras telas e editores permanecem intactos. */
+#pdfDialog{width:min(1650px,99vw);max-width:99vw;height:98dvh;max-height:98dvh;border-radius:9px}
+#pdfDialog>.dhead{min-height:35px;padding:4px 8px;gap:8px}
+#pdfDialog>.dhead strong{font-size:13px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#pdfDialog>.dhead #pdfClose{margin-left:auto;flex-shrink:0;min-height:28px;padding:3px 9px;font-size:12px}
+#pdfDialog .toolbar{min-height:32px;padding:3px 7px;gap:5px;flex-wrap:nowrap}
+#pdfDialog .toolbar button,#pdfDialog .toolbar a.action{min-height:27px;padding:3px 7px;font-size:11px;white-space:nowrap}
+#pdfDialog .toolbar .pdfInfo{display:none!important}
+#pdfDialog:has(#pdfLocalMode.active) .toolbar #pdfChooseLocal{display:none}
+#pdfDialog .pdfMiniTools{display:flex;flex:0 0 auto;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:0;padding:0;background:#fff;max-height:none;overflow:visible}
+#pdfDialog .pdfMiniTools[hidden]{display:none!important}
+#pdfDialog .bm-v043-main{display:flex;align-items:center;gap:3px;white-space:nowrap;min-height:36px;padding:3px 6px;max-width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#aec5c0 transparent;overscroll-behavior-x:contain}
+#pdfDialog .bm-v043-main .pdfGroup{flex:0 0 auto;gap:3px;margin:0 4px 0 0;padding:0 6px 0 0;min-height:27px;border-right:1px solid #cbded9}
+#pdfDialog .bm-v043-main .pdfGroup:last-of-type{margin-right:0}
+#pdfDialog .bm-v043-main button,#pdfDialog .bm-v043-advanced button{
+ min-height:28px;height:28px;border-radius:6px;font-size:11px;line-height:1;
+ padding:3px 7px;white-space:nowrap;flex:0 0 auto;touch-action:manipulation
+}
+#pdfDialog .bm-v043-main button.bm-v043-icon{min-width:29px;width:29px;padding:2px 4px;font-size:16px}
+#pdfDialog .bm-v043-main button.bm-v043-save{font-weight:700;min-width:66px}
+#pdfDialog .bm-v043-main #pdfPager{min-width:76px;font-size:11px;font-variant-numeric:tabular-nums;text-align:center}
+#pdfDialog .bm-v043-main .pdfGroup label{font-size:0;gap:0;white-space:nowrap}
+#pdfDialog #pdfInkColor{width:29px;height:28px;padding:1px;border-radius:6px}
+#pdfDialog .bm-v043-advanced{display:flex;gap:5px;align-items:center;flex-wrap:wrap;padding:4px 7px;border-top:1px solid #e0e9e7;background:#f7faf9}
+#pdfDialog .bm-v043-advanced[hidden]{display:none!important}
+#pdfDialog #pdfMoreV043[aria-expanded="true"]{background:#e0efec;border-color:#8bafa9}
+#pdfDialog .bm-v043-main button:focus-visible,#pdfDialog .bm-v043-advanced button:focus-visible{outline:2px solid #1c7280;outline-offset:1px}
+#pdfDialog #pdfFileName{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important}
+#pdfDialog #pdfLocalStatus{flex:0 0 auto;min-height:17px;padding:2px 8px;font-size:10px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pdfDialog #pdfLocalStatus.bm-v043-error{white-space:normal;overflow:visible;font-size:11px;line-height:1.4;padding:5px 8px}
+#pdfDialog .bm-drive-save-status{display:none;align-items:center;gap:9px;padding:3px 8px;font-size:11px;line-height:1.4;background:#ecf7f4;border-bottom:1px solid #d8e7e3;min-width:0}
+#pdfDialog .bm-drive-save-status.bm-v043-notice{display:flex}
+#pdfDialog .bm-drive-save-status small{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#pdfDialog .bm-drive-save-status a{flex-shrink:0;font-size:11px;white-space:nowrap}
+#pdfDialog #pdfIntro{padding:4px 8px;font-size:11px}
+#pdfDialog #pdfLocalMode{padding:5px}
+@media(max-width:700px){
+ #pdfDialog{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;border-radius:0}
+ #pdfDialog>.dhead{min-height:33px;padding:3px 6px}
+ #pdfDialog .toolbar{padding:3px 5px;min-height:31px;gap:3px}
+ #pdfDialog .bm-v043-main{min-height:37px;padding:3px 4px;gap:2px;scrollbar-width:thin}
+ #pdfDialog .bm-v043-main .pdfGroup{gap:2px;padding:0 5px 0 0;margin:0 2px 0 0}
+ #pdfDialog .bm-v043-main button{min-height:29px;height:29px}
+ #pdfDialog #pdfLocalMode{padding:2px}
+ #pdfDialog #pdfLocalStatus{padding:2px 6px}
+ #pdfDialog .bm-drive-save-status{padding:3px 6px}
+}
+
+
+/* Source: assets/v044_ui.css?v=048 */
+/* V044 — compactação do painel principal e filtros do Atlas; sem alterar dados. */
+main > .stats{display:flex;flex-wrap:wrap;align-items:center;gap:5px 12px;margin:4px 0 15px;padding:0}
+main > .stats .stat{display:flex;gap:5px;align-items:baseline;border:0;background:transparent;padding:2px 1px;border-radius:0;min-width:0;box-shadow:none}
+main > .stats .stat b{display:inline;font-size:13px;line-height:1.2;font-weight:800;color:#1c5960}
+main > .stats .stat span{display:inline;font-size:11px;line-height:1.3;color:#506972}
+main > .stats .stat:not(:last-child)::after{content:"·";color:#8aaba4;font-size:12px;margin-left:7px}
+#v037LocalGuides{display:none!important}
+#pdfs .bm-v044-pdf-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+#pdfs .bm-v044-pdf-heading h2{margin:0;min-width:0}
+#pdfs #driveConnectV038{font-size:12px;line-height:1.2;min-height:29px;padding:5px 10px;border-radius:7px;background:#e5f4ef;border-color:#8bb6aa;color:#155a51;font-weight:700;white-space:nowrap}
+#pdfs .bm-v044-drive-status{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+#pdfs .bm-v044-drive-status.bm-v044-drive-warning{position:static!important;width:auto;height:auto;overflow:visible;display:block;margin:0 0 9px;padding:5px 8px;font-size:11px;border-left:3px solid #ab7452;background:#fff6ef}
+#pdfs #driveDirectV038{display:none!important}
+#imagens .bm-v044-atlas-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:8px 0 5px}
+#imagens .bm-v044-atlas-controls select{flex:1 1 150px;min-width:120px;max-width:260px;font-size:12px;min-height:34px;padding:6px 8px}
+#imagens .bm-v044-atlas-controls button{font-size:12px;min-height:33px;padding:5px 9px}
+#imagens .bm-v044-atlas-summary{font-size:11px;color:#4d6770;margin:3px 0 13px}
+#imagens #imageFilter{min-width:180px;max-width:365px;font-size:12px;min-height:34px;padding:6px 8px}
+#imagens #imageSearch{min-width:160px}
+#imagens .bm-v044-atlas-indicator{font-size:11px;color:#647b82}
+#imagens .bm-v044-atlas-sep{border-top:1px solid #dce6e4;margin:6px 0}
+.bm-vade .bm-vade-actions{gap:6px;margin:7px 0}
+.bm-vade .bm-vade-actions button{font-size:12px;padding:6px 9px;min-height:32px}
+.bm-vade > p{font-size:12px;line-height:1.45}
+.bm-vade > h3{margin:4px 0 5px}
+@media(max-width:700px){
+ main > .stats{gap:2px 7px;margin:2px 0 10px}
+ main > .stats .stat b{font-size:12px}
+ main > .stats .stat span{font-size:10px}
+ main > .stats .stat:not(:last-child)::after{margin-left:3px}
+ #pdfs .bm-v044-pdf-heading{align-items:flex-start}
+ #pdfs #driveConnectV038{font-size:11px;min-height:30px}
+ #imagens .bm-v044-atlas-controls select{flex:1 1 42%;max-width:none;min-width:0}
+ #imagens .bm-v044-atlas-controls button{flex:0 0 auto}
+}
+
+
+/* Source: assets/v046_layout.css?v=048 */
+/* V046 — cabeçalho minimalista + barras laterais de ferramentas. */
+
+/* Indicadores no próprio cabeçalho, sem o bloco "O que deseja estudar?" */
+main > .hero{display:none!important}
+header .head{max-width:1500px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px 14px;padding:7px 13px}
+header .head>.bm-v046-header-stats{display:flex;justify-content:center;align-items:center;gap:3px 9px;min-width:0;margin:0;padding:0;flex-wrap:wrap}
+header .bm-v046-header-stats .stat{display:flex;gap:4px;align-items:baseline;min-width:0;padding:0;margin:0;border:0;box-shadow:none;background:transparent}
+header .bm-v046-header-stats .stat b{display:inline;font-size:12px;font-weight:800;line-height:1.25;color:#145d63}
+header .bm-v046-header-stats .stat span{display:inline;font-size:10px;line-height:1.25;color:#4e7074;white-space:nowrap}
+header .bm-v046-header-stats .stat:not(:last-child)::after{content:'·';color:#a0b8b3;margin-left:5px}
+header nav{justify-content:flex-end;gap:4px}
+header nav button{font-size:12px;padding:5px 8px;min-height:29px;border-radius:7px}
+header .brand{font-size:18px;line-height:1.2}
+header .version{font-size:10px;line-height:1.35}
+main{padding-top:12px}
+
+/* PDF — barra vertical à esquerda, área de leitura à direita */
+#pdfDialog>.dbody{min-height:0;height:auto!important;display:flex;flex-direction:column;overflow:hidden}
+#pdfDialog .bm-v046-pdf-workspace{display:grid;grid-template-columns:116px minmax(0,1fr);gap:0;flex:1 1 auto;min-height:0;height:100%;overflow:hidden}
+#pdfDialog .bm-v046-pdf-workspace:has(#pdfLocalTools[hidden]){grid-template-columns:minmax(0,1fr)}
+#pdfDialog .bm-v046-pdf-side{min-height:0;min-width:0;overflow:hidden;background:#f7fbfa;border-right:1px solid #cbdad6}
+#pdfDialog .bm-v046-pdf-side:has(#pdfLocalTools[hidden]){display:none}
+#pdfDialog .bm-v046-pdf-content{display:flex;min-height:0;min-width:0;flex:1 1 auto;flex-direction:column;overflow:hidden}
+#pdfDialog .bm-v046-pdf-content #pdfFrame{flex:1 1 auto;min-height:0;height:100%;max-height:none}
+#pdfDialog .bm-v046-pdf-content #pdfLocalMode{flex:1 1 auto;min-height:0;min-width:0;max-height:none;height:100%;padding:9px;overflow:auto}
+#pdfDialog .bm-v046-pdf-content #pdfLocalMode.active{min-height:0!important}
+#pdfDialog .bm-v046-pdf-side .pdfMiniTools{height:100%;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;padding:3px 2px;background:transparent;display:flex;flex-direction:column;align-items:stretch;gap:3px;scrollbar-width:thin}
+#pdfDialog .bm-v046-pdf-side .bm-v043-main{width:100%;max-width:none;min-height:0;flex:0 0 auto;display:flex;flex-direction:column;gap:5px;padding:3px 4px;overflow:visible;white-space:normal}
+#pdfDialog .bm-v046-pdf-side .pdfGroup{display:flex!important;flex:0 0 auto;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px!important;width:100%;margin:0!important;padding:0 0 6px!important;border-right:0!important;border-bottom:1px solid #c9ddd7}
+#pdfDialog .bm-v046-pdf-side .pdfGroup button{width:calc(50% - 2px);min-width:0!important;max-width:100%;height:29px;min-height:29px;line-height:1;padding:2px 4px;font-size:12px!important;border-radius:6px}
+#pdfDialog .bm-v046-pdf-side .pdfGroup .bm-v043-icon{width:calc(50% - 2px)!important;min-width:0!important;font-size:15px!important}
+#pdfDialog .bm-v046-pdf-side #pdfPager{width:100%;min-width:0!important;order:-1;font-size:10px;white-space:normal}
+#pdfDialog .bm-v046-pdf-side #pdfInkColor{height:27px;width:32px}
+#pdfDialog .bm-v046-pdf-side .pdfGroup label{width:100%;display:flex;align-items:center;justify-content:center;font-size:0}
+#pdfDialog .bm-v046-pdf-side #pdfExportPDF,#pdfDialog .bm-v046-pdf-side #pdfSaveDriveV042,
+#pdfDialog .bm-v046-pdf-side #pdfCardV037,#pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityWrapV046{
+ width:100%;max-width:100%;font-size:11px!important;white-space:normal;min-width:0;overflow-wrap:anywhere
+}
+#pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityWrapV046{display:flex;flex-direction:column;gap:2px;padding:3px;border:1px solid #d4e6e1;border-radius:6px;background:white}
+#pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityWrapV046 span{font-size:11px}
+#pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityV046{width:92%;height:20px;accent-color:#308b89}
+#pdfDialog .bm-v046-pdf-side #pdfOpacityValueV046{font-size:10px;font-variant-numeric:tabular-nums}
+#pdfDialog .bm-v046-pdf-side #pdfMoreV043{height:28px;width:100%!important;max-width:none}
+#pdfDialog .bm-v046-pdf-side .bm-v043-advanced{display:flex;flex-direction:column;align-items:stretch;flex:0 0 auto;gap:4px;border-top:0;padding:3px 5px}
+#pdfDialog .bm-v046-pdf-side .bm-v043-advanced[hidden]{display:none!important}
+#pdfDialog .bm-v046-pdf-side .bm-v043-advanced button{width:100%;height:auto;min-height:29px;white-space:normal;padding:4px 3px;font-size:10px}
+#pdfDialog .bm-v046-pdf-side #pdfFileName{position:absolute!important;width:1px!important;height:1px!important}
+#pdfDialog .bm-v046-pdf-content #pdfLocalStatus{font-size:10px;padding:3px 8px;flex:0 0 auto}
+#pdfDialog .bm-v046-pdf-side .bm-drive-save-status{padding:5px 4px;border-top:1px solid #d5e6e0;flex-wrap:wrap;overflow-wrap:anywhere;font-size:10px}
+#pdfDialog .bm-v046-pdf-side .bm-drive-save-status small{white-space:normal;overflow-wrap:anywhere}
+#pdfDialog .bm-v046-pdf-side .bm-drive-save-status a{white-space:normal;overflow-wrap:anywhere}
+
+/* Imagens — já possuíam barra lateral desktop na V034; tornar compacta e
+   preservar a barra também em telas pequenas, sem sobrepor a imagem. */
+#imageDialog>.dbody{display:grid!important;grid-template-columns:minmax(0,1fr) 156px!important;grid-template-rows:auto minmax(0,1fr)!important;min-height:0!important;height:auto!important}
+#imageDialog .editor-tools{grid-column:2!important;grid-row:1/span 2!important;max-height:none!important;min-height:0!important;display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;overflow-y:auto!important;overflow-x:hidden!important;padding:7px 5px!important;gap:7px!important;border-left:1px solid #ccdcd7!important;border-bottom:0!important}
+#imageDialog .editor-tools .toolgroup{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:4px!important;margin:0!important;padding:0 0 6px!important;border-right:0!important;border-bottom:1px solid #d9e7e4!important}
+#imageDialog .editor-tools button[data-ink-tool]{font-size:18px!important;min-height:30px!important;min-width:34px;padding:2px 6px!important}
+#imageDialog .editor-tools .swatch{width:25px;min-width:25px;height:25px}
+#imageDialog .editor-tools label{display:flex;flex-wrap:wrap;justify-content:center;font-size:10px}
+#imageDialog .editor-tools input[type=range]{max-width:90px}
+#imageDialog .editor-tools #hideOpened{width:100%;font-size:10px!important;white-space:normal}
+#imageDialog .editor-meta{grid-column:1!important;grid-row:1!important;min-height:32px;max-height:80px}
+#imageDialog #imageStage{grid-column:1!important;grid-row:2!important;min-height:0!important;overflow:auto}
+
+/* Preparação segura da lista para exclusões Drive; nada é apagado sem conferir. */
+#imagens #exportExcludedV046{font-size:11px;background:#fff8f3;border-color:#d8b8a2;color:#82473b;padding:5px 7px;min-height:32px}
+#imagens #exportExcludedStatusV046{font-size:11px;max-width:500px;color:#365b63}
+
+@media(max-width:1050px){
+ header .head{grid-template-columns:minmax(0,1fr) auto;gap:4px 8px}
+ header .head>.bm-v046-header-stats{grid-column:1/-1;grid-row:2;justify-content:flex-start;width:100%}
+ header .head nav{grid-column:2;grid-row:1}
+ header .head>.bm-v046-header-stats .stat span{font-size:10px}
+}
+@media(max-width:700px){
+ header .head{padding:5px 7px;gap:3px 6px}
+ header .brand{font-size:15px}
+ header nav button{font-size:11px;padding:4px 6px;min-height:27px}
+ header .head>.bm-v046-header-stats{flex-wrap:wrap;gap:1px 7px}
+ header .bm-v046-header-stats .stat b{font-size:11px}
+ header .bm-v046-header-stats .stat span{font-size:9px}
+ main{padding-top:7px}
+ #pdfDialog .bm-v046-pdf-workspace{grid-template-columns:83px minmax(0,1fr)}
+ #pdfDialog .bm-v046-pdf-side .bm-v043-main{padding:3px 2px;gap:4px}
+ #pdfDialog .bm-v046-pdf-side .pdfGroup button{width:calc(50% - 2px);min-height:30px;height:30px;font-size:11px!important;padding:2px 1px}
+ #pdfDialog .bm-v046-pdf-side .pdfGroup .bm-v043-icon{font-size:14px!important}
+ #pdfDialog .bm-v046-pdf-side #pdfPager{font-size:9px}
+ #pdfDialog .bm-v046-pdf-side #pdfMarkerOpacityWrapV046{padding:2px 0}
+ #imageDialog>.dbody{grid-template-columns:minmax(0,1fr) 88px!important;grid-template-rows:auto minmax(0,1fr)!important}
+ #imageDialog .editor-tools{grid-column:2!important;grid-row:1/span 2!important;max-height:none!important;flex-direction:column!important;flex-wrap:nowrap!important;padding:5px 3px!important;gap:5px!important}
+ #imageDialog .editor-tools .toolgroup{border-right:0!important;border-bottom:1px solid #d9e7e4!important;padding:0 0 4px!important;gap:3px!important}
+ #imageDialog .editor-tools button[data-ink-tool]{font-size:17px!important;min-width:32px!important;min-height:30px!important}
+ #imageDialog .editor-tools .swatch{width:23px;height:23px;min-width:23px;min-height:23px}
+ #imageDialog .editor-tools label{font-size:9px;flex-wrap:wrap}
+ #imageDialog .editor-tools input[type=range]{width:64px!important}
+ #imageDialog .editor-meta{grid-column:1!important;grid-row:1!important;max-height:72px}
+ #imageDialog #imageStage{grid-column:1!important;grid-row:2!important;padding:4px}
+}
+
