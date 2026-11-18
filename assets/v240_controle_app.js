@@ -481,6 +481,12 @@ document.addEventListener('bm240-control-verified',()=>{
  window.addEventListener('pagehide',storeClock);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(resize).observe(root.querySelector('main'))}
 }
 init();
-window.BM240ControlApp=Object.freeze({reload(){load();refresh();showTimer()},get status(){return {sessions:relevant().length,deleted:data.sessions.filter(x=>x.deletedAt).length,audit:data.audit.length}}});
+window.BM240ControlApp=Object.freeze({
+ reload(){load();refresh();showTimer()},
+ get timer(){return {running:!!clock.running,elapsedMs:runTime(),subjectId:clock.subject||'',subjectName:subjectName(clock.subject),
+  topic:clock.topic||'',transferPending:!!clock.transferPending,availableForTransfer:!!clock.availableForTransfer,
+  subjects:data.subjects.map(s=>({id:s.id,name:s.name}))}},
+ get status(){return {sessions:relevant().length,deleted:data.sessions.filter(x=>x.deletedAt).length,audit:data.audit.length}}
+});
 };
 })();
