@@ -2,7 +2,7 @@ const {test,expect}=require('@playwright/test');
 const URL='http://127.0.0.1:8765/homologacao-v240/compat-v242.html';
 test.setTimeout(120000);
 test('V242 compatible staging: one native Controle, one bottom timer, original production untouched',async({page})=>{
- const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const errors=[];page.on('pageerror',e=>errors.push(e.stack||e.message));
  await page.goto(URL,{waitUntil:'domcontentloaded',timeout:60000});
  const controlTab=page.locator('#bm240-study-tab');
  await expect(controlTab).toBeAttached({timeout:90000});
