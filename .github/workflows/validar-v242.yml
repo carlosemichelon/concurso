@@ -1,0 +1,24 @@
+name: V242 - Cronômetro fixo no rodapé
+on:
+  push:
+    branches: ['homologacao/v242-*']
+  pull_request:
+    branches: [gh-pages]
+permissions:
+  contents: read
+jobs:
+  teste:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar scripts e dependências V242
+        run: node --test tests/v242_smoke.test.cjs
+      - name: Preparar Chromium para teste visual funcional
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Testar a barra fixa, conteúdo, relógio e celular
+        run: node --test tests/v242_browser.test.cjs
