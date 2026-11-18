@@ -24,20 +24,36 @@ function load(){
  try{const s=localStorage.getItem(KEY);return s?validate(JSON.parse(s)):blank()}
  catch(e){console.error('Lacunas V242: bloqueio seguro de dados ilegíveis',e);return null}
 }
-let data=load(),syncState='Local: Drive ainda não conferido';
+let data=load(),persisted=data?JSON.stringify(data):null,
+ syncState='Local: Drive ainda não conferido';
 function write(event,r){
  if(!data)throw Error('Dados inválidos: escrita bloqueada');
- const backup=JSON.stringify(data),at=new Date().toISOString();
- data.updatedAt=at;data.log.push({id:crypto.randomUUID(),at,event,lacunaId:r?.id||null});
- try{localStorage.setItem(KEY,JSON.stringify(data))}
- catch(e){data=JSON.parse(backup);throw Error('Gravação local falhou: '+e.message)}
+ const current=localStorage.getItem(KEY);
+ // A imagem persistida é o ponto de recuperação; callbacks já podem ter alterado data.
+ if(current!==null&&persisted!==null&&current!==persisted){
+  data=load();persisted=data?JSON.stringify(data):null;render();
+  throw Error('Outra aba modificou as lacunas. Atualizamos a leitura, sem sobrescrever alterações concorrentes.');
+ }
+ const at=new Date().toISOString();
+ try{
+  data.updatedAt=at;data.log.push({id:crypto.randomUUID(),at,event,lacunaId:r?.id||null});
+  validate(data);
+  const encoded=JSON.stringify(data);
+  localStorage.setItem(KEY,encoded);
+  persisted=encoded;
+ }catch(e){
+  data=persisted?JSON.parse(persisted):blank();
+  render();
+  throw Error('Gravação local cancelada e restaurada: '+e.message);
+ }
  syncState='Lacunas: alterações locais ainda não verificadas no Drive';
  render();document.dispatchEvent(new CustomEvent('bm242-lacunas-change',{detail:{at}}));
 }
 function applyRemote(d){
  validate(d);const old=localStorage.getItem(KEY);
  if(old)localStorage.setItem('BM242_LACUNAS_RECUPERACAO_'+new Date().toISOString().replace(/[:.]/g,'-'),old);
- localStorage.setItem(KEY,JSON.stringify(d));data=structuredClone(d);
+ const encoded=JSON.stringify(d);
+ localStorage.setItem(KEY,encoded);data=structuredClone(d);persisted=encoded;
  syncState='Lacunas: importação concluída localmente; confirmação Drive pendente';render();
 }
 function cards(raw){
@@ -179,7 +195,7 @@ function install(){
   finally{e.target.value=''}
  };
  document.addEventListener('bm242-lacunas-drive-status',e=>{syncState=e.detail?.message||syncState;render()});
- window.addEventListener('storage',e=>{if(e.key===KEY){data=load();render()}});
+ window.addEventListener('storage',e=>{if(e.key===KEY){data=load();persisted=data?JSON.stringify(data):null;render()}});
  document.addEventListener('bm242-open-lacuna',()=>{button.click();$('bm242-new').open=true;$('bm242-new').scrollIntoView({block:'start'})});
  window.addEventListener('message',e=>{
   if(e.origin!==location.origin||e.data?.type!=='bm242-open-lacuna'||e.source!==$('bm238-study-frame')?.contentWindow)return;
