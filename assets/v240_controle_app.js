@@ -285,9 +285,33 @@ $('calGrid').addEventListener('click',e=>{const b=e.target.closest('[data-cal-da
  $('planForm').addEventListener('submit',e=>{e.preventDefault();const date=$('planDate').value,sub=$('planSubject').value,topic=$('planTopic').value.trim(),minutes=Number($('planMinutes').value);if(!validDate(date)||!subject(sub)||!topic||!Number.isInteger(minutes)||minutes<5||minutes>1440){toggleMessage('planStatus','Confira a data, disciplina, assunto e minutos.');return}data.plans.push({id:uid(),date,subjectId:sub,topic,minutes,createdAt:new Date().toISOString()});if(store()){cal.selected=cal.date=date;$('planTopic').value='';toggleMessage('planStatus','Atividade planejada e salva localmente.');renderCalendar()}});
  $('calPlans').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.calToggle||b.dataset.calRemove;const p=data.plans.find(x=>x.id===id&&!x.deletedAt);if(!p)return;if(b.dataset.calRemove){p.deletedAt=new Date().toISOString()}else if(p.doneAt)delete p.doneAt;else p.doneAt=new Date().toISOString();store();renderCalendar()});
  $('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;
-$('timerStart').addEventListener('click',()=>{if(!clock.running){if(clock.transferPending){toggleMessage('timerStatus','Transferência pendente. Sincronize e confirme o Drive antes de continuar.');return}if(!runTime()){if(data.activeTimer&&data.activeTimer.ownerId!==device){toggleMessage('timerStatus','Existe uma sessão em outro dispositivo. Pause e sincronize-a antes de assumir.');return}if(!subject($('timerSubject').value)){toggleMessage('timerStatus','Cadastre e selecione uma disciplina antes de iniciar.');return}clock.sessionId=clock.sessionId||uid();clock.ownerId=device;clock.subject=$('timerSubject').value;clock.topic=$('timerTopic').value.trim();clock.type=$('timerType').value;clock.alarmMinutes=nval($('timerAlarm').value,0,600);clock.alarmed=false}clock.availableForTransfer=false;clock.start=Date.now();if(!clock.firstStartedAt)clock.firstStartedAt=clock.start;clock.running=true;storeClock();mirrorTimer();showTimer()}});
-$('timerPause').addEventListener('click',()=>{clock.elapsed=runTime();clock.start=0;clock.running=false;clock.availableForTransfer=true;storeClock();mirrorTimer();showTimer()});
-$('timerClaim').addEventListener('click',()=>{
+$('timerStart').addEventListener('click',()=>{if(!clock.running){if(clock.transferPending||clock.availableForTransfer){toggleMessage('timerStatus','Transferência bloqueada: sincronize e confirme o Drive antes de continuar.');return}if(!runTime()){if(data.activeTimer&&data.activeTimer.ownerId!==device){toggleMessage('timerStatus','Existe uma sessão em outro dispositivo. Pause e sincronize-a antes de assumir.');return}if(!subject($('timerSubject').value)){toggleMessage('timerStatus','Cadastre e selecione uma disciplina antes de iniciar.');return}clock.sessionId=clock.sessionId||uid();clock.ownerId=device;clock.subject=$('timerSubject').value;clock.topic=$('timerTopic').value.trim();clock.type=$('timerType').value;clock.alarmMinutes=nval($('timerAlarm').value,0,600);clock.alarmed=false}clock.availableForTransfer=false;clock.start=Date.now();if(!clock.firstStartedAt)clock.firstStartedAt=clock.start;clock.running=true;storeClock();mirrorTimer();showTimer()}});
+$('timerPause').addEventListener('click',()=>{clock.elapsed=runTime();clock.start=0;clock.running=false;clock.availableForTransfer=false;storeClock();mirrorTimer();showTimer()});
+$('timerRelease').addEventListener('click',()=>{
+  if(!runTime()){toggleMessage('timerStatus','Nenhum período iniciado para transferir.');return}
+  if(clock.running){clock.elapsed=runTime();clock.start=0;clock.running=false}
+  if(clock.ownerId&&clock.ownerId!==device){toggleMessage('timerStatus','Este dispositivo não é o proprietário da sessão.');return}
+  clock.ownerId=device;clock.sessionId=clock.sessionId||uid();
+  clock.availableForTransfer=true;
+  storeClock();
+  if(!mirrorTimer()){toggleMessage('timerStatus','Falha ao liberar: histórico não salvo.');return}
+  showTimer();
+  toggleMessage('timerStatus','Sessão pausada e disponível para transferência depois que o Drive confirmar a sincronização.');
+ });
+ $('timerReclaim').addEventListener('click',async()=>{
+  if(!clock.availableForTransfer||clock.ownerId!==device){toggleMessage('timerStatus','Não há transferência local para cancelar.');return}
+  const token=window.BM239DriveGlobal?.writeToken?.();
+  if(!token){toggleMessage('timerStatus','Para cancelar com segurança, conecte o Drive e confirme a propriedade da sessão.');return}
+  toggleMessage('timerStatus','Verificando a propriedade atual da sessão no Drive…');
+  try{
+   const allowed=await window.BM240ControlDrive?.verifyTimerOwnership(token,clock.sessionId,device);
+   if(!allowed)throw Error('A sessão já não pertence exclusivamente a este dispositivo ou ainda não foi confirmada no Drive');
+   clock.availableForTransfer=false;clock.transferPending=true;
+   storeClock();if(!mirrorTimer())throw Error('Falha no salvamento local');
+   toggleMessage('timerStatus','Cancelamento gravado localmente. Sincronize novamente antes de retomar.');
+  }catch(e){toggleMessage('timerStatus','Cancelamento não aplicado: '+e.message)}
+ });
+ $('timerClaim').addEventListener('click',()=>{
  const remote=data.activeTimer;
  if(clock.running||runTime()>0){toggleMessage('timerStatus','Encerre o tempo local antes de transferir.');return}
  if(!remote){toggleMessage('timerStatus','Nenhuma sessão sincronizada para transferir.');return}
