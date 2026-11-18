@@ -41,6 +41,17 @@ O teste de navegador deve confirmar apenas um `#bm241-bar`, nenhum `#bm238-study
 - A suíte Chromium verifica computador, viewport de celular, registro 75min/20 questões/15 acertos, histórico e calendário, além da barra única fixa da V242 comandando uma sessão nativa.
 - Testes no CI são simulados; apenas relatório de job `success` confirma que efetivamente passaram. Não confundir Chromium emulação com dispositivo físico.
 
+## Checkpoint de testes automatizados — 18/11/2026
+
+**APROVADOS:** [GitHub Actions #44345834962](https://github.com/carlosemichelon/concurso/actions/runs/44345834962) (commit `533fb14af7cc6ff19cd297484e4ad86bc96f8c4e`):
+
+- `static-and-smoke`: syntax, contratos de elementos DOM, salvamento/edição/exclusão lógica/restauração, métricas, plano de estudos, isolamento SRS e simulações de Drive/conciliação em três vias.
+- `browser-smoke`: Chromium desktop e viewport celular emulado, formulário de sessões, calendário, histórico, **barra inferior original V242 integrada a somente uma sessão nativa (nenhum iframe)**.
+- **Offline isolado:** Service Worker do caminho `homologacao-v243/` confirmou Cache Storage, recarga do documento sem rede e reconstrução da interface nativa, sem controlar a página principal.
+- Ajustes validados durante os testes: cabeçalho fixo sem impedir os toques no calendário no celular; preservação da URL aninhada após hash de navegação; seleção da aba Controle coerente com `#controle-estudos` após carregamento assíncrono da base V242.
+
+**Limitação expressa:** Chromium em CI não substitui dois aparelhos reais, conta OAuth do titular, sincronização/autenticidade de Drive ou teste de restauração privada no serviço Google. Não há aprovação para publicar em `gh-pages`.
+
 ## Impedimentos para publicar
 
 1. Comprovar no navegador do titular autenticação OAuth real, Drive test namespace, gravação/leitura e restauração.
