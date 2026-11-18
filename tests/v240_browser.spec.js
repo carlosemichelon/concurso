@@ -73,6 +73,7 @@ test('Cabeçalho compacto compartilha o mesmo cronômetro nativo sem segunda con
  const host=page.locator('#bm240-native-host');
  await expect(host.locator('#timerStart')).toBeAttached({timeout:45000});
  await expect(page.locator('#bm240h-bar')).toBeVisible({timeout:20000});
+ await expect(page.locator('main section#controle-estudos')).toHaveClass(/active/);
  await host.locator('[data-tab="planejamento"]').click();
  await host.locator('#subjectName').fill('Engenharia Civil');
  await host.locator('#subjectForm button[type="submit"]').click();
