@@ -38,3 +38,39 @@
 `assets/v242_global_drive.js`, `assets/v242_controle_tab.js`, `controle-estudos-v242.html`, `v242.html`.
 
 Estado: **PROPOSTO / HOMOLOGAÇÃO TÉCNICA**; não integrado à base canônica, não publicado como home, nenhum evento SRS.
+
+
+## Continuação de implementação — 18/11/2026, após atualização concorrente
+O site público foi promovido por outro fluxo da V241 para a **V242 (cronômetro em dock)**, verificado em `gh-pages/assets/version.json`, `gh-pages/index.html` e `gh-pages/v242.html`.
+Por integridade, o arquivo público `v242.html` foi preservado, sem tentativa de sobrescrita. A homologação de lacunas foi consolidada na URL separada
+`homologacao-lacunas-v243.html`, construída sobre o HTML V242 ativo e preservando o módulo `v242_timer_dock.js`.
+
+### Novo escopo efetivamente gravado e conferido por leitura no GitHub `gh-pages`
+- `homologacao-lacunas-v243.html`
+- `controle-estudos-v242.html`
+- `assets/v242_lacunas.js`, `assets/v242_lacunas.css`
+- `assets/v242_lacunas_drive.js`, `assets/v242_global_drive.js`, `assets/v242_controle_tab.js`
+- `assets/v242_operational_cards.js`, `assets/v242_card_reader.js`
+- `assets/petro14_c014_v242.json`
+
+### Vínculo real com cartão original
+O registro `PETRO14-C014` foi extraído do arquivo original do Drive (ID `1lV1VrH_1E5B1SEssNX6dcA102lesL4BI`) e disponibilizado com 11 módulos de texto integral no leitor V165 estendido. A busca privada de lacunas pode abrir o ID e o painel administrativo do cartão pode retornar à busca. Não foi criado um segundo cartão SRS.
+
+A fonte menciona a figura `fluencia_carga_descarga.svg`, mas o arquivo não foi localizado na busca Drive; galeria do leitor declara a ausência e fornece o link ao original. Não houve imagem fictícia.
+
+### Carregamento da lacuna privada
+A ficha previamente gravada pelo chat no Drive `PROPOSTA_LACUNA_PETRO14_C014_2026-11-18.json` foi confirmada (fileId `1VsgPA9lAKwV2MRld-HMFodV4luibPNcG`). Na primeira conexão OAuth, **somente com cadastro local e mestre remoto vazios**, o módulo busca essa ficha pelo nome exato e pela pasta oficial privada, confere o ID da lacuna e cria o arquivo mestre próprio com leitura pós-gravação e hash. O original não é modificado. Com cadastros divergentes, a sincronização bloqueia sobrescrita e comunica conflito.
+
+### Novos recursos
+- Quatro filtros hierárquicos reais (Disciplina → Assunto geral → Assunto específico → Subassunto), tipo, cobertura, prioridade, estado e busca textual sem distinção de acentos.
+- Registro individual de questão com enunciado, tentativa/gabarito, relato literal e campos de diagnóstico independentes; origem, fontes, cartões, pesquisas e histórico.
+- Complementos posteriores ao relato literal preservam o original e são lançados no histórico; dominada requer justificativa de recuperação ativa.
+- Ação no Controle de Estudos que abre o formulário de lacuna e transmite disciplina/assunto por `postMessage` com restrição de origem.
+- Nenhum evento SRS é criado por essas interações.
+
+### Verificações
+- Dez arquivos publicados na branch `gh-pages` **como prévia separada**, cada um com leitura de retorno e SHA de conteúdo idêntico ao da branch de trabalho.
+- Sintaxe de JavaScript e scripts inline validada; JSON técnico contém 11 módulos não vazios.
+- Testes controlados das APIs sem navegador real: importação da ficha do Drive, preservação literal do relato e separação de autoria, rejeição de estados e duplicidades inválidos, carregamento e cache do cartão PETRO14-C014, todos aprovados.
+- **PENDENTE**: acesso efetivo do Google Pages para a prévia, teste em navegador real, OAuth no navegador do usuário, escrita de mestre a partir do site, download no segundo dispositivo, ensaio de conflito sob concorrência e homologação visual/mobile.
+- **SEM PROMOÇÃO**: `index.html` e `assets/version.json` continuam apontando para a V242 do cronômetro; a prévia `homologacao-lacunas-v243.html` não é página inicial.
