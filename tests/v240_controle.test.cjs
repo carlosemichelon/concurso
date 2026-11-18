@@ -207,3 +207,32 @@ test('Conciliação do Controle V240 não usa chave de produção ou SRS',()=>{
  assert.ok(html.includes('id="bm240-merge-safe"'));
  assert.ok(!rec.includes('fetch(')&&!rec.includes('localStorage')&&!rec.includes('BM184_PRACTICE_EVENTS_V1'));
 });
+
+
+test('Catálogo V243 replica o filtro canônico do portal e preserva todos os 1.518 cartões',()=>{
+ const catalog=JSON.parse(at('assets/v243_estudo_catalogo.json'));
+ assert.equal(catalog.format,'BancoMestreEstudosCatalogoV243');
+ assert.equal(catalog.counts.cards,1518);
+ assert.equal(catalog.counts.disciplines,5);
+ assert.deepEqual(catalog.disciplines.map(x=>x.id),['eng','port','math','leg','info']);
+ assert.equal(catalog.counts.areas,21);
+ assert.equal(catalog.counts.specificSubjects,338);
+ assert.equal(catalog.counts.subtopics,1411);
+ assert.equal(catalog.counts.aliases,22);
+ assert.equal(catalog.counts.unknown,0);
+ const total=catalog.disciplines.reduce((n,d)=>n+d.areas.reduce((j,a)=>j+a.subjects.reduce((v,b)=>v+b.cardCount,0),0),0);
+ assert.equal(total,1518,'Nenhum cartão deve desaparecer da classificação');
+ const eng=catalog.disciplines.find(x=>x.id==='eng');
+ assert.ok(eng.areas.find(x=>x.name==='Geotecnia e Fundações'));
+ assert.ok(eng.areas.find(x=>x.name==='Estruturas')?.subjects.find(x=>x.name==='Ações estruturais')?.subtopics.includes('Classificação geral'));
+ const sourceNames=new Set(catalog.sourceDisciplineLabels.map(x=>x.sourceLabel));
+ assert.ok(sourceNames.has('Topografia'),'Rótulos originais devem permanecer rastreáveis');
+ assert.ok(sourceNames.has('Matemática Financeira'));
+ assert.ok(sourceNames.has('Legislação / Ética'));
+ const html=at('controle-estudos-v240.html'),app=at('assets/v240_controle_app.js'),bridge=at('assets/v243_timer_bridge.js');
+ assert.ok(html.includes('id="timerGeneral"')&&html.includes('id="sessionSubtopic"'));
+ assert.ok(html.includes('id="bm243HistorySpecificOptions"'));
+ assert.ok(app.includes('bm243-catalog-')&&app.includes('v243_estudo_catalogo.json'));
+ assert.ok(bridge.includes('catalogForSubject'));
+ assert.ok(!bridge.includes('bm238-study-frame'),'O cronômetro não pode duplicar o iframe legado');
+});
