@@ -33,6 +33,33 @@ async function locate(token){
  if(files.length>1)throw Error('Foram encontrados dois cadastros mestres; nenhum será substituído');
  return files[0]||null;
 }
+
+/* O registro histórico de PETRO16 foi preparado no Drive pelo chat.
+   A localização é read-only, exclusiva para inicialização de um mestre vazio;
+   o arquivo original jamais será alterado. */
+async function locateSeed(token){
+ const url=new URL(API);
+ const parent='1cDkoy-QgXYdzhOzi8SMSr7g4eB4oskBD';
+ const name='PROPOSTA_LACUNA_PETRO14_C014_2026-11-18.json';
+ url.searchParams.set('q',"trashed = false and name = '"+name+"' and '"+parent+"' in parents");
+ url.searchParams.set('fields','nextPageToken,incompleteSearch,files(id,name,mimeType,parents)');
+ url.searchParams.set('pageSize','100');
+ const listing=await(await req(token,url.href)).json();
+ if(listing.incompleteSearch||listing.nextPageToken)throw Error('Busca inicial de fichas incompleta');
+ const found=(listing.files||[]).filter(x=>x.name===name&&x.mimeType==='application/json'&&x.parents?.includes(parent));
+ if(found.length>1)throw Error('Fichas históricas duplicadas: importação automática bloqueada');
+ return found[0]||null;
+}
+async function seedData(token,source){
+ const text=await(await req(token,API+'/'+encodeURIComponent(source.id)+'?alt=media')).text();
+ if(text.length>MAX)throw Error('Ficha de lacuna inicial excede 5 MB');
+ const obj=JSON.parse(text);
+ if(obj.format!=='BancoMestreLacunasV242')throw Error('Ficha histórica não possui formato de importação esperado');
+ window.BM242Lacunas.validate(obj.data);
+ if(obj.data.records.length!==1||obj.data.records[0].id!=='LAC-PETRO16-FLUENCIA-20261118-01')
+  throw Error('Registro inicial diferente da ficha auditada, importação bloqueada');
+ return obj.data;
+}
 async function fetchData(token,id){
  const s=await(await req(token,API+'/'+encodeURIComponent(id)+'?alt=media')).text();
  if(s.length>MAX)throw Error('Cadastro remoto excede limite');
@@ -79,7 +106,16 @@ async function work(token){
  if(!crypto?.subtle||!window.BM242Lacunas?.validate)throw Error('Módulo de integridade de lacunas indisponível');
  const d=local(),localHash=await hash(d),baseline=localStorage.getItem(BASE),file=await locate(token);
  if(!file){
-  if(!d.records.length)return status({state:'empty',message:'Lacunas: sem registros para enviar ao Drive'});
+  if(!d.records.length){
+   const seed=await locateSeed(token);
+   if(!seed)return status({state:'empty',message:'Lacunas: nenhum registro privado encontrado para sincronizar'});
+   const initial=await seedData(token,seed),seedHash=await hash(initial);
+   if(await hash(local())!==localHash)throw Error('Cadastro local alterado durante busca do histórico');
+   await create(token,initial,seedHash);
+   window.BM242Lacunas.applyRemote(initial);
+   localStorage.setItem(BASE,seedHash);
+   return status({state:'uploaded',message:'Lacunas: ficha PETRO16 auditada importada e mestre Drive criado e conferido'});
+  }
   if(await hash(local())!==localHash)throw Error('Dados locais alterados durante consulta');
   await create(token,d,localHash);
   localStorage.setItem(BASE,localHash);
