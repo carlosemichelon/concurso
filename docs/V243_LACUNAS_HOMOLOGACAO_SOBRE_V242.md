@@ -97,3 +97,24 @@ Alterações adicionais conferidas por SHA e leitura de retorno no `gh-pages`:
 - Checkpoint da homologação: ID `1jbFr226pOJJS81C3edWi0voYaZPnTn3y`.
 
 **Decisão**: manter V243 isolada como prévia, **não mesclar nem promover como página inicial até execução dos testes impeditivos**, sem modificar cartões nem gerar eventos SRS.
+
+
+## Continuação da homologação — 18/11/2026
+
+### Correções e implementação verificadas por commits
+- `assets/v242_lacunas.js`: a proteção entre abas passa a detectar também exclusão do registro local; não sobrescreve estado removido por outra aba. Teste de regressão: exclusão concorrente bloqueada e gravação normal aprovada.
+- `assets/v242_lacunas_drive.js`: criou rotina de **snapshots imutáveis antes de criação e atualização do mestre**, no mesmo diretório privado, cada um com `bm_kind=bm_lacunas_recovery_v242`. A rotina verifica a cópia gravada por leitura e hash antes de permitir substituir o mestre. Falha de backup bloqueia a atualização. Não utiliza o mesmo `bm_kind` do arquivo mestre.
+- `assets/v243_lacunas_retention.js`: **novo módulo de backups rotativos** com 30 datas diárias e 12 competências mensais, calculadas pelo fuso `America/Sao_Paulo`. Pesquisa e audita os metadados na pasta privada, cria um backup importável `BancoMestreLacunasV242`, verifica pai e conteúdo pós-gravação, mantém as datas/competências mais recentes e exclui somente backups rotativos antigos depois de revalidar seus metadados. A rotina **nunca exclui os snapshots imutáveis pré-gravação**.
+- `homologacao-lacunas-v243.html`: incorpora a rotação imediatamente depois do sincronizador V242, antes do botão global de Drive. Não alterou `index.html`, `v242.html` ou `assets/version.json`.
+- `assets/v243_lacunas_smoke.js`: o autoteste de leitura agora aguarda a rede por até 8 segundos antes de diagnosticar erro no carregamento dos módulos e verifica a presença da rotação de backups.
+
+### Resultados observados nesta sessão
+- Ciclo Drive **simulado** da pré-gravação: snapshot + criação do mestre; dois snapshots (remoto original e candidato local) antes de atualizar o mestre; cópias privadas em formato importável; falha de snapshot impede alteração do mestre — **4/4 cenários aprovados**.
+- Rotação Drive **simulada**: primeira criação de backups diário/mensal, idempotência no mesmo dia, retenção de 30 dias/12 meses por competência, não interferência nos snapshots imutáveis, situação parcial quando a gravação de backup falha — **5/5 cenários aprovados**.
+- Exclusão concorrente de `localStorage` e gravação normal — **2/2 cenários aprovados**.
+- Código e prévia existentes na `gh-pages`, com leitura de retorno da versão gravada. Fonte de rotação copiada no Drive privado com ID `1W4h5I6Uf6WAV-M408DGoA670-Dxb7tnk` e comparada antes de subir ao GitHub.
+
+### Limites não superados
+Ainda não houve verificação HTTP no endereço público via navegador autenticado, autorização OAuth do portal, criação efetiva do mestre pelo site, teste de restauração real em dois aparelhos, ou prova de atualização atômica do Google Drive. O ambiente de rede usado nesta sessão não conseguiu resolver `carlosemichelon.github.io` ou `raw.githubusercontent.com`; a consulta externa ao endereço também não conseguiu abrir a página. As provas acima são **testes de código e mocks**, não equivalem a operação autenticada. Backups só são criados quando a sincronização autorizada é executada: não há operação em segundo plano com o site fechado.
+
+**Classificação:** implementação e testes controlados aprovados; publicação canônica ainda bloqueada até teste OAuth e interface real. Histórico SRS, cartões, questões e index público preservados.
