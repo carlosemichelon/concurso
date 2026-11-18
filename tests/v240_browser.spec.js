@@ -136,3 +136,46 @@ test('Shell do Controle V243 reabre offline sem assumir o portal oficial',async(
  await context.setOffline(false);
  await context.close();
 });
+
+
+test('Disciplinas já prontas e filtros encadeados até o subassunto no cronômetro único',async({page})=>{
+ await page.goto(BASE,{waitUntil:'domcontentloaded',timeout:60000});
+ const host=page.locator('#bm240-native-host');
+ await expect(host.locator('#timerSubject')).toBeAttached({timeout:45000});
+ await page.waitForFunction(()=>window.BM240ControlApp?.taxonomyCount?.cards===1518,null,{timeout:30000});
+ const names=await page.locator('#bm241-subject option').allTextContents();
+ expect(names).toContain('Engenharia Civil');
+ expect(names).toContain('Português');
+ expect(names).toContain('Matemática, Lógica e Estatística');
+ expect(names).toContain('Legislação');
+ expect(names).toContain('Informática');
+ expect(names.filter(n=>n==='Engenharia Civil')).toHaveLength(1);
+ expect(await page.evaluate(()=>localStorage.getItem('BM_CONTROLE_ESTUDOS_V238'))).toBeNull();
+ await page.locator('#bm241-subject').selectOption({label:'Engenharia Civil'});
+ await expect(page.locator('#bm241-area')).toContainText('Geotecnia e Fundações');
+ await page.locator('#bm241-area').selectOption({label:'Estruturas'});
+ await expect(page.locator('#bm241-topic-list option[value="Ações estruturais"]')).toHaveCount(1);
+ await page.locator('#bm241-topic').fill('Ações estruturais');
+ await expect(page.locator('#bm241-subtopic-list option[value="Classificação geral"]')).toHaveCount(1);
+ await page.locator('#bm241-subtopic').fill('Classificação geral');
+ await page.locator('#bm241-start').click();
+ let clock=await page.evaluate(()=>JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_TIMER')));
+ expect(clock.general).toBe('Estruturas');
+ expect(clock.specific).toBe('Ações estruturais');
+ expect(clock.subtopic).toBe('Classificação geral');
+ await page.waitForTimeout(1100);
+ await page.locator('#bm241-pause').click();
+ await page.locator('#bm241-save').click();
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_CONTROLE')));
+ expect(saved.sessions).toHaveLength(1);
+ expect(saved.sessions[0].general).toBe('Estruturas');
+ expect(saved.sessions[0].specific).toBe('Ações estruturais');
+ expect(saved.sessions[0].subtopic).toBe('Classificação geral');
+ await host.locator('[data-tab="registro"]').click();
+ await host.locator('#sessionSubject').selectOption({label:'Engenharia Civil'});
+ await expect(host.locator('#bm240GeneralOptions option[value="Estruturas"]')).toHaveCount(1);
+ await host.locator('#sessionGeneral').fill('Estruturas');
+ await expect(host.locator('#bm240SpecificOptions option[value="Ações estruturais"]')).toHaveCount(1);
+ await host.locator('#sessionSpecific').fill('Ações estruturais');
+ await expect(host.locator('#bm243SessionSubOptions option[value="Classificação geral"]')).toHaveCount(1);
+});
