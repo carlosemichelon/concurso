@@ -61,6 +61,10 @@ Origem: decisões 1–18 aprovadas pelo estudante nesta conversa de 18/11/2026. 
 
 ### Estado de disponibilidade
 
+**Homologação automática em Chromium (CI):** execução [44331510447](https://github.com/carlosemichelon/concurso/actions/runs/44331510447) passou nos jobs `static-and-smoke` e `browser-smoke`, com navegador Chromium, formulários, histórico e calendário em viewports desktop e celular emulados. Evidências `v240-desktop.png` e `v240-mobile.png` foram anexadas ao job. Não é teste em hardware físico nem autenticação OAuth.
+
+**Calendário SRS:** conexão de consulta ao planejamento já existente do Banco Mestre. O Controle não calcula nem grava previsões SRS próprias; o histórico F17/importações pode estar defasado em relação à fonte canônica.
+
 **Código de homologação armazenado no GitHub, PR #32 aberto como rascunho.** Não mesclado, não exposto pelo endereço principal do portal, não homologado em navegadores reais. O manifesto principal consultado continua V239. Não foram salvos registros reais do usuário no Drive nesta interação.
 
 ## Critérios para homologação e futura publicação
