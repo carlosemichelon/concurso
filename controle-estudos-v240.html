@@ -100,7 +100,12 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;b
 <section class="pane" id="backup"><div class="panel"><p id="bm240-local-status" class="notice" role="status">Os dados deste Controle são salvos localmente. O Drive só estará confirmado após leitura de volta.</p><h3>Histórico auditável e recuperação</h3><div class="notice"><strong>Importação auditada</strong><p>Somente sessões do diário V184 gravadas neste navegador. Não transforma avaliações SRS nem mensagens de estudo em horas.</p><button id="bm240-import-legacy" type="button">Conferir e importar diário V184</button><span id="bm240-import-preview" class="muted" role="status"></span></div><div id="bm240-audit" class="scroll" style="max-height:280px;overflow:auto"></div><h2>Integridade e cópias de segurança</h2><div class="notice">Este módulo salva imediatamente no <b>navegador</b>. O botão único <b>Conectar e sincronizar Drive</b> no cabeçalho do portal permite sincronizar o Controle entre dispositivos com verificação SHA-256 e bloqueio de conflitos. Sem conexão, os dados permanecem locais. Exporte um backup antes de limpar os dados do navegador.</div>
 <div class="actions"><button class="primary" id="exportJson">Exportar backup JSON</button><button id="exportAllCsv">Exportar sessões CSV</button></div>
 <label style="margin-top:16px">Importar backup JSON do próprio Controle de Estudos<input type="file" id="importJson" accept=".json,application/json"></label>
-<p class="hint">A importação substitui somente os dados deste módulo, após confirmação. Não modifica Banco Mestre, PDFs, imagens, comentários, respostas ou SRS.</p>
+<p class="hint">A importação JSON é aditiva, com verificação de IDs e bloqueio de conflitos. Não altera cartões, PDFs, imagens ou SRS.</p>
+<div class="panel" style="margin-top:14px"><h3>Recuperar cópia privada do Google Drive</h3>
+<p class="muted">É necessária autorização no botão de sincronização do cabeçalho. Uma restauração preserva uma cópia local anterior e NÃO substitui automaticamente o arquivo mestre no Drive.</p>
+<div class="actions"><button type="button" id="bm240-list-backups">Consultar backups verificados</button>
+<span id="bm240-backup-restore-status" role="status" class="status"></span></div>
+<div id="bm240-backup-restore-list" class="scroll"></div></div>
 <p id="backupSummary" class="muted"></p><p id="backupStatus" role="status" class="status"></p></div></section>
 </main>
 </body></html>
