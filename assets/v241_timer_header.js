@@ -161,7 +161,9 @@ function init(){
  pause.addEventListener('click',()=>command('pause'));
  resume.addEventListener('click',()=>command('resume'));
  save.addEventListener('click',()=>command('save'));
- discard.addEventListener('click',()=>command('discard'));
+ discard.addEventListener('click',()=>{
+  if(window.confirm('Descartar o tempo líquido ainda não salvo?'))command('discard-confirmed');
+ });
  add.addEventListener('click',()=>{create.hidden=false;name.focus()});
  cancel.addEventListener('click',()=>{create.hidden=true;name.value=''});
  createBtn.addEventListener('click',()=>{
