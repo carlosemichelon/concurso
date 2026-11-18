@@ -25,13 +25,13 @@ function load(){
  catch(e){console.error('Lacunas V242: bloqueio seguro de dados ilegíveis',e);return null}
 }
 let data=load(),persisted=data?JSON.stringify(data):null,
- syncState='Local: Drive ainda não conferido';
+ persistedRaw=localStorage.getItem(KEY),syncState='Local: Drive ainda não conferido';
 function write(event,r){
  if(!data)throw Error('Dados inválidos: escrita bloqueada');
  const current=localStorage.getItem(KEY);
  // A imagem persistida é o ponto de recuperação; callbacks já podem ter alterado data.
- if(current!==null&&persisted!==null&&current!==persisted){
-  data=load();persisted=data?JSON.stringify(data):null;render();
+ if(current!==persistedRaw){
+  data=load();persisted=data?JSON.stringify(data):null;persistedRaw=current;render();
   throw Error('Outra aba modificou as lacunas. Atualizamos a leitura, sem sobrescrever alterações concorrentes.');
  }
  const at=new Date().toISOString();
@@ -40,7 +40,7 @@ function write(event,r){
   validate(data);
   const encoded=JSON.stringify(data);
   localStorage.setItem(KEY,encoded);
-  persisted=encoded;
+  persisted=encoded;persistedRaw=encoded;
  }catch(e){
   data=persisted?JSON.parse(persisted):blank();
   render();
@@ -53,7 +53,7 @@ function applyRemote(d){
  validate(d);const old=localStorage.getItem(KEY);
  if(old)localStorage.setItem('BM242_LACUNAS_RECUPERACAO_'+new Date().toISOString().replace(/[:.]/g,'-'),old);
  const encoded=JSON.stringify(d);
- localStorage.setItem(KEY,encoded);data=structuredClone(d);persisted=encoded;
+ localStorage.setItem(KEY,encoded);data=structuredClone(d);persisted=encoded;persistedRaw=encoded;
  syncState='Lacunas: importação concluída localmente; confirmação Drive pendente';render();
 }
 function cards(raw){
@@ -195,7 +195,7 @@ function install(){
   finally{e.target.value=''}
  };
  document.addEventListener('bm242-lacunas-drive-status',e=>{syncState=e.detail?.message||syncState;render()});
- window.addEventListener('storage',e=>{if(e.key===KEY){data=load();persisted=data?JSON.stringify(data):null;render()}});
+ window.addEventListener('storage',e=>{if(e.key===KEY){data=load();persisted=data?JSON.stringify(data):null;persistedRaw=e.newValue;render()}});
  document.addEventListener('bm242-open-lacuna',()=>{button.click();$('bm242-new').open=true;$('bm242-new').scrollIntoView({block:'start'})});
  window.addEventListener('message',e=>{
   if(e.origin!==location.origin||e.data?.type!=='bm242-open-lacuna'||e.source!==$('bm238-study-frame')?.contentWindow)return;
