@@ -115,7 +115,7 @@ async function listAvailable(token){
   period:f.appProperties?.bm_period,
   day:f.appProperties?.bm_day,
   sha256:f.appProperties?.bm_sha256
- })).filter(f=>f.id&&f.sha256&&['daily','monthly'].includes(f.period))
+ })).filter(f=>f.id&&f.sha256&&['daily','monthly','premerge'].includes(f.period))
    .sort((a,b)=>String(b.day).localeCompare(String(a.day)));
 }
 async function restoreToLocal(token,id){
@@ -153,10 +153,22 @@ async function restoreToLocal(token,id){
  return {state:'restored-local-only',count:data.sessions.length,backupName:chosen.name,
   message:'Cópia validada e restaurada APENAS neste navegador. Mestre remoto preservado; conciliação pendente antes de sincronizar.'};
 }
+async function preservePremerge(token,remote,local){
+ if(!remote||!local)throw Error('Originais ausentes; nenhuma conciliação permitida');
+ const stamp=new Date().toISOString().replace(/[:.]/g,'-')+'_'+crypto.randomUUID();
+ const records=[];
+ for(const [label,data] of [['remote',remote],['local',local]]){
+  const hash=await digest(data);
+  const out=await create(token,data,'premerge',stamp+'_'+label,hash);
+  records.push({id:out.id,label,hash});
+ }
+ if(records.length!==2)throw Error('Backups prévios incompletos');
+ return records;
+}
 async function afterSync(token){
  if(ongoing)return ongoing;
  ongoing=work(token).then(r=>(lastResult=r,r)).catch(e=>(lastResult={state:'error',message:'Backup: '+e.message},lastResult)).finally(()=>ongoing=null);
  return ongoing;
 }
-window.BM240StudyBackups=Object.freeze({afterSync,listAvailable,restoreToLocal,get lastResult(){return lastResult}});
+window.BM240StudyBackups=Object.freeze({afterSync,listAvailable,restoreToLocal,preservePremerge,get lastResult(){return lastResult}});
 })();
