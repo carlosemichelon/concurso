@@ -290,6 +290,33 @@ $('reviewRows').addEventListener('click',e=>{const b=e.target.closest('button');
 $('exportJson').addEventListener('click',()=>dl('controle-estudos-backup-'+today()+'.json',JSON.stringify({format:'BancoMestreControleV238',exportedAt:new Date().toISOString(),data},null,2),'application/json'));
 $('exportAllCsv').addEventListener('click',()=>dl('controle-estudos-'+today()+'.csv',csv(data.sessions),'text/csv;charset=utf-8'));
 $('bm240-import-legacy').addEventListener('click',()=>{try{importLegacy()}catch(e){$('bm240-import-preview').textContent='Importação não realizada: '+e.message}});
+ $('bm240-list-backups').addEventListener('click',async ()=>{
+  const status=$('bm240-backup-restore-status');
+  try{
+   const token=window.BM239DriveGlobal?.writeToken?.();
+   if(!token)throw Error('Conecte e autorize a gravação no Drive pelo cabeçalho.');
+   status.textContent='Consultando cópias privadas…';
+   const list=await window.BM240StudyBackups?.listAvailable(token);
+   if(!list)throw Error('Módulo de restauração não disponível.');
+   $('bm240-backup-restore-list').innerHTML=list.map(x=>'<div class="item"><b>'+esc(x.day)+'</b> · '+esc(x.period)+' · hash '+esc(String(x.sha256).slice(0,12))+
+    ' <button data-restore-id="'+esc(x.id)+'">Restaurar somente neste navegador</button></div>').join('')||'<p class="muted">Nenhuma cópia privada desta versão foi localizada.</p>';
+   status.textContent=list.length+' cópias localizadas. A integridade integral será verificada antes de restaurar.';
+  }catch(e){status.textContent='Consulta não concluída: '+e.message}
+ });
+ $('bm240-backup-restore-list').addEventListener('click',async e=>{
+  const button=e.target.closest('[data-restore-id]');if(!button)return;
+  const token=window.BM239DriveGlobal?.writeToken?.();
+  const status=$('bm240-backup-restore-status');
+  if(!token){status.textContent='Sem autorização para consultar o Drive.';return}
+  if(!confirm('Restaurar esta cópia SOMENTE neste navegador? O estado local atual será preservado em uma cópia de recuperação, mas o envio automático ao mestre ficará BLOQUEADO até conciliação.'))return;
+  button.disabled=true;status.textContent='Conferindo integridade SHA-256 e preparando recuperação…';
+  try{
+   const result=await window.BM240StudyBackups.restoreToLocal(token,button.dataset.restoreId);
+   status.textContent=result.message;
+   window.dispatchEvent(new CustomEvent('bm240-study-changed',{detail:{pending:true,restore:true}}));
+  }catch(err){status.textContent='Restauração suspensa: '+err.message}
+  finally{button.disabled=false}
+ });
  $('importJson').addEventListener('change',async e=>{
  const f=e.target.files?.[0];if(!f)return;
  const original=structuredClone(data);
