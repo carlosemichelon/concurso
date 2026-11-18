@@ -21,3 +21,9 @@ jobs:
           node-version: '22'
       - name: Testar contratos do portal
         run: node --test tests/v241_smoke.test.cjs
+      - name: Instalar Chromium para testes de interação
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Testar cronômetro e navegação em navegador real (sem OAuth)
+        run: node --test tests/v241_browser.test.cjs
