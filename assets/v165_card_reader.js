@@ -220,7 +220,7 @@ function appendAnswer(c){
   piece('Fundamento detalhado registrado na correção',g?.dispositivo),
   piece('Origem da questão',c.origin_question_id),
   piece('PDF original e páginas',g?.fonte),
-  piece('Situação editorial',c.provisional?'Cópia operacional de Ijuí, ainda não promovida à base canônica.':'Cartão original da base canônica.')
+  piece('Situação editorial',c.provisional?'Cópia operacional de Ijuí, ainda não promovida à base canônica.':/^TRT0[12]-C\d{3}$/.test(c.id)?'Cartão TRT operacional preservado separadamente, sem promoção para a base canônica.':'Cartão original da base canônica.')
  ]);
  if(refs)answer.append(refs);
  const rel=group('Relações e histórico de estudo','layers',[
