@@ -1,0 +1,188 @@
+/* Source: assets/v047_pdf.css?v=048 */
+/* V047 — painel de flashcard rápido no próprio PDF, sem sobrepor barra lateral. */
+#pdfDialog .bm-v046-pdf-content{position:relative}
+#pdfDialog .bm-v047-card-icon{font-size:18px!important;font-weight:750;width:100%!important;min-height:30px;max-width:none!important;background:#e7f3f0;border-color:#8ebbb4;color:#15565b}
+#pdfDialog .bm-v047-card-icon[aria-expanded="true"]{background:#16616a;color:white;border-color:#16616a}
+#pdfDialog .bm-v047-card-panel{
+ position:absolute;z-index:8;right:8px;top:28px;bottom:8px;
+ display:flex;flex-direction:column;gap:8px;
+ width:min(335px,calc(100% - 16px));max-width:none;min-height:0;overflow-y:auto;
+ padding:11px 12px;border:1px solid #9fbdb8;border-radius:9px;background:#fff;
+ box-shadow:0 8px 30px #17353b31;color:#17353b;
+}
+#pdfDialog .bm-v047-card-panel[hidden]{display:none!important}
+#pdfDialog .bm-v047-card-header{display:flex;align-items:center;justify-content:space-between;gap:8px;position:sticky;top:-11px;background:#fff;padding:4px 0;z-index:1}
+#pdfDialog .bm-v047-card-header strong{font-size:14px}
+#pdfDialog .bm-v047-card-header button{font-size:20px;line-height:1;width:28px;height:28px;padding:2px;border-radius:6px}
+#pdfDialog .bm-v047-card-hint{font-size:11px;line-height:1.4;margin:0;color:#536f70}
+#pdfDialog .bm-v047-linked{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+#pdfDialog .bm-v047-linked small{width:100%;font-size:11px;color:#526b70}
+#pdfDialog .bm-v047-linked button{font-size:11px;padding:3px 7px;min-height:25px;border-radius:5px}
+#pdfDialog .bm-v047-card-search{display:flex;gap:4px;min-width:0}
+#pdfDialog .bm-v047-card-search input{flex:1;min-width:0;max-width:none;padding:5px 7px;font-size:12px;border:1px solid #b6cfca;border-radius:6px}
+#pdfDialog .bm-v047-card-search button{padding:5px 9px;min-height:29px;font-size:12px}
+#pdfDialog .bm-v047-card-result{font-size:12px;overflow-wrap:anywhere;display:flex;flex-direction:column;gap:7px}
+#pdfDialog .bm-v047-card-result small{display:block;font-size:11px;font-weight:750;color:#36717a}
+#pdfDialog .bm-v047-card-result p{white-space:pre-wrap;font-size:13px;line-height:1.45;margin:4px 0}
+#pdfDialog .bm-v047-reveal{font-size:12px;font-weight:750;color:#174f59;background:#e3f3ef;border-color:#9bbdb6;padding:7px}
+#pdfDialog .bm-v047-answer[hidden]{display:none!important}
+#pdfDialog .bm-v047-answer{display:flex;flex-direction:column;gap:7px;border-top:1px solid #e1eeeb;padding-top:8px}
+#pdfDialog a.bm-v047-full{font-size:11px;color:#145f68;font-weight:750;text-decoration:underline;align-self:flex-start;margin-top:7px}
+#pdfDialog #pdfLocalMode{overscroll-behavior:contain;scrollbar-width:thin}
+#pdfDialog #pdfLocalMode:focus-visible{outline:2px solid #2f8388;outline-offset:-2px}
+@media(max-width:700px){
+ #pdfDialog .bm-v047-card-panel{width:min(280px,calc(100% - 8px));top:4px;right:4px;bottom:4px;padding:8px}
+ #pdfDialog .bm-v047-card-header{top:-8px}
+ #pdfDialog .bm-v047-card-result p{font-size:12px}
+}
+
+/* Source: assets/v048_ui.css?v=048 */
+/* V048 — Atlas técnico, cartão rápido sempre acessível e rolagem do PDF. */
+#imagens .bm-v048-image-description{font-size:12px;line-height:1.45;color:#37575c;margin:7px 0 0}
+#imagens .bm-v048-image-warning{display:block;color:#8a5333;font-size:11px;font-weight:700;margin:5px 0}
+#imagens .bm-v044-atlas-controls{gap:7px;flex-wrap:wrap}
+#imagens .bm-v044-atlas-controls select{min-width:145px}
+#pdfDialog .toolbar #pdfQuickCardV047{
+ display:inline-flex;align-items:center;justify-content:center;gap:4px;
+ white-space:nowrap;padding:4px 9px;min-height:28px;min-width:72px;width:auto!important;
+ font-size:12px!important;font-weight:750;background:#edf7f4;border-color:#8cbcb0;color:#145e63;
+}
+#pdfDialog .toolbar #pdfQuickCardV047[aria-expanded="true"]{background:#16616a;color:white}
+#pdfDialog .bm-v047-card-panel{top:5px;bottom:5px;right:5px;z-index:15}
+#pdfDialog #pdfLocalMode{scroll-behavior:auto;overscroll-behavior:contain}
+#pdfDialog #pdfPageWrap{margin:9px auto 15px!important}
+#pdfDialog .bm-v048-neighbor{
+ position:relative;display:block;margin:11px auto 15px;
+ max-width:none;border-radius:2px;background:white;
+ box-shadow:0 5px 20px #2442403a;
+}
+#pdfDialog .bm-v048-neighbor[hidden]{display:none!important}
+#pdfDialog .bm-v048-neighbor-canvas{position:relative;line-height:0}
+#pdfDialog .bm-v048-neighbor-canvas canvas{display:block;max-width:none;max-height:none}
+#pdfDialog .bm-v048-neighbor-canvas canvas+canvas{position:absolute;left:0;top:0;pointer-events:none}
+#pdfDialog .bm-v048-page-caption{
+ display:block;position:relative;min-height:18px;padding:1px 5px;line-height:17px;
+ background:#edf4f2;color:#335f66;font:10px/17px system-ui,sans-serif;text-align:left;
+}
+@media(max-width:700px){
+ #pdfDialog .toolbar #pdfQuickCardV047{min-width:62px;font-size:11px!important;padding:3px 5px}
+ #imagens .bm-v044-atlas-controls select{min-width:125px;max-width:100%}
+}
+
+/* Source: assets/v050_readability.css?v=050 */
+/* V050 — leitura técnica consistente sem alterar dados, eventos ou SRS.
+   Tipografia arejada, hierarquia de assuntos e cartões, painéis responsivos. */
+:root{--bm-text:#183d42;--bm-muted:#536e73;--bm-border:#c8d8d5;--bm-light:#f5f9f8;--bm-accent:#155e66}
+body{color:var(--bm-text);line-height:1.55}
+main{max-width:1320px}
+.panel{padding:clamp(14px,2vw,23px);background:#fff!important}
+section>.panel>h2{font-size:clamp(19px,2vw,24px);line-height:1.25;letter-spacing:-.015em;margin:0 0 7px}
+section>.panel>p.intro{max-width:900px;color:var(--bm-muted);font-size:13px;line-height:1.58;margin:6px 0 16px}
+section .notice{font-size:12px;line-height:1.5;padding:9px 11px;margin:10px 0;border-left-color:#a8c6bd;background:#f4f8f7}
+.controls{gap:9px 10px;align-items:center}
+.controls input[type=search]{min-height:39px;padding:9px 12px}
+.controls select{min-height:39px;padding:8px 11px}
+.controls .checkbox{font-size:12px;line-height:1.25;white-space:normal}
+.controls input[type=checkbox]{accent-color:var(--bm-accent)}
+#cardCount,#imageCount,#topicCount,#pdfCount{font-size:12px;color:#506b70;font-variant-numeric:tabular-nums}
+#cartoes .controls{padding:12px;border:1px solid #dbe7e3;border-radius:11px;background:#f7faf9}
+#cartoes .controls #cardSearch{flex:1 1 350px;min-width:min(100%,240px)}
+#cartoes .controls #cardFilter{flex:0 1 205px}
+#cartoes .controls #cardTopicFilter{flex:0 1 250px}
+#cartoes .controls #cardCount{flex:1 1 100%;margin:0}
+#cardRows .v036-card-group{margin:15px 0 18px;border-radius:11px;overflow:visible}
+#cardRows .v036-card-group-summary{
+ background:#f5f8f7;align-items:center;gap:12px;padding:13px 16px;line-height:1.38
+}
+#cardRows .v036-card-group-summary strong{font-size:15px;letter-spacing:-.01em}
+#cardRows .v036-card-group-summary small{font-size:11px;line-height:1.5}
+#cardRows .v036-card-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:12px;padding:13px}
+#cartoes article.card{padding:16px 17px 14px!important;min-width:0;position:relative;border-radius:10px!important;box-shadow:0 1px 4px #143c3711!important;border-left:3px solid #8db8b1!important;background:#fff}
+#cartoes article.card:hover{box-shadow:0 4px 13px #183a4020!important}
+#cartoes article.card>.tag{font-size:11px;font-weight:800;letter-spacing:.018em;display:inline-block;margin:0 104px 6px 0;padding:3px 6px;background:#f0f6f4;border-radius:4px;line-height:1.45;color:#255e64}
+#cartoes article.card>.v036-card-path{gap:5px;margin:4px 0 10px}
+#cartoes article.card>.v036-card-path span{font-size:10.5px;line-height:1.3;padding:4px 7px;background:#f3f7f5;border:1px solid #e2ece8;color:#4d6d6b}
+#cartoes article.card>h3{font-size:clamp(15px,1.3vw,18px);font-weight:660;line-height:1.52;letter-spacing:-.005em;margin:7px 0 15px;overflow-wrap:anywhere}
+#cartoes article.card>.bm-v050-peek-button{
+ float:none;position:absolute;right:13px;top:12px;z-index:1;
+ min-height:30px;max-width:108px;width:auto;padding:5px 9px;
+ display:inline-flex;align-items:center;justify-content:center;
+ border-radius:7px;border:1px solid #a6c6be;background:#ebf5f2;
+ color:#145b63;font:700 11px/1.3 system-ui,Arial,sans-serif;white-space:nowrap;cursor:pointer
+}
+#cartoes article.card>.bm-v050-peek-button:hover{background:#dcefe9;border-color:#5b9a92}
+#cardRows article.card .bm-open-card{
+ min-height:31px;padding:7px 10px;font-size:11px;font-weight:690;
+ border:1px solid #95b5af;border-radius:7px;background:white;color:#205d63!important;
+ box-shadow:none;text-decoration:none
+}
+#cardRows article.card .bm-open-card:hover{background:#f0f7f5;color:#0d4f54!important}
+#cardRows article.card .bm-open-hint{display:none!important}
+#cardRows article.card>.buttons{margin-top:auto;padding-top:5px;border-top:1px solid #eef2f1}
+#cardRows .v036-card-group[open]>.v036-card-group-summary{border-bottom:1px solid #d6e3df}
+#imagens #imageRows{grid-template-columns:repeat(auto-fill,minmax(min(100%,295px),1fr));gap:13px}
+#imagens #imageRows article.card{padding:14px;display:flex;flex-direction:column}
+#imagens #imageRows article.card>.tag{font-size:10px;letter-spacing:.04em;color:#2b7075}
+#imagens #imageRows article.card>.thumb{height:190px;object-fit:contain;background:#f4f8f7;margin:10px 0 12px}
+#imagens #imageRows article.card>h3{font-size:15px;line-height:1.4;min-height:0;margin:2px 0 8px;font-weight:720}
+#imagens #imageRows article.card>p:not(.bm-v048-image-description){font-size:11px;line-height:1.46;color:#608080;margin:3px 0 6px}
+#imagens #imageRows .bm-v048-image-description{font-size:12.5px;line-height:1.6;color:#334e53;margin:7px 0 9px;flex:1}
+#imagens #imageRows article.card .buttons{margin-top:auto;padding-top:10px;border-top:1px solid #e6efeb}
+#imagens #imageRows article.card .buttons button{font-size:12px;padding:7px 9px}
+#imagens .bm-v044-atlas-summary{font-size:11px;line-height:1.5;color:#657b7a}
+#imagens .bm-v044-atlas-controls{gap:8px;padding:6px 0}
+#imagens .bm-v044-atlas-controls select{min-width:min(100%,170px);max-width:245px}
+#imagens .originalHelp{font-size:11px;line-height:1.45;color:#617778}
+#areaRows .topicCard{padding:14px}
+#topicRows .v036-topic-area-head{padding:12px 15px}
+#topicRows .v036-topic-cluster-summary{padding:12px 15px}
+#topicRows .v036-topic-tile{min-height:132px}
+#tema .v034SubtopicBody .richSection,#cartoes .answer .richSection{padding:12px 0}
+#tema .richSection h4,#cartoes .answer h4{font-size:13px;line-height:1.4;margin:0 0 5px;color:#215c62}
+#tema .richSection p,#cartoes .answer p{font-size:13px;line-height:1.62;white-space:pre-wrap}
+#pdfs .panel>.intro,#pdfs .notice{max-width:1000px}
+#pdfs .v036-pdf-card{padding:14px;line-height:1.5}
+
+/* Visualização — tipografia focada na pergunta e resposta, sem aparência de prova respondida. */
+.bm-v050-peek[hidden]{display:none!important}
+.bm-v050-peek{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px}
+.bm-v050-peek-backdrop{position:absolute;inset:0;background:rgba(16,36,40,.55)}
+.bm-v050-peek-panel{
+ position:relative;z-index:1;display:flex;flex-direction:column;gap:11px;
+ width:min(720px,96vw);max-height:min(90dvh,880px);overflow-y:auto;
+ padding:clamp(16px,2.5vw,27px);border:1px solid #a6c3bd;border-radius:13px;
+ box-shadow:0 14px 50px #102c3240;background:#fff;color:#1a3b40;
+ outline:none
+}
+.bm-v050-peek-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bm-v050-peek-header strong{font-size:16px;font-weight:790;line-height:1.35}
+.bm-v050-peek-close{font-size:18px;line-height:1;padding:5px 10px;min-height:32px}
+.bm-v050-peek-meta{font-size:12px;line-height:1.55;color:#567479;margin:0}
+.bm-v050-provenance{font-size:11px;line-height:1.45;color:#577173;margin:0}
+.bm-v050-peek-guidance{border-top:1px solid #e4eeeb;padding-top:9px;font-size:12px;line-height:1.5;color:#4f6970;margin:0}
+.bm-v050-peek-panel small{font-size:10px;font-weight:800;letter-spacing:.075em;color:#35696c;line-height:1.3}
+.bm-v050-peek-front{font-size:clamp(18px,2.1vw,23px);font-weight:650;line-height:1.5;letter-spacing:-.012em;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 7px}
+.bm-v050-peek-reveal{align-self:flex-start;min-height:38px;padding:9px 16px;border:1px solid #155e66;border-radius:7px;background:#155e66;color:#fff;font-weight:750;font-size:13px}
+.bm-v050-peek-reveal:hover{background:#124e55}
+.bm-v050-peek-answer{display:flex;flex-direction:column;gap:6px;margin-top:4px;padding-top:15px;border-top:1px solid #d6e5e1}
+.bm-v050-peek-answer[hidden]{display:none!important}
+.bm-v050-peek-answer>small:not(:first-child){margin-top:10px}
+.bm-v050-peek-answer p{font-size:14px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;margin:2px 0 7px}
+.bm-v050-peek-answer>p:nth-of-type(1){font-size:16px;font-weight:660;color:#174e54}
+.bm-v050-peek-note{font-size:11px;color:#587075;line-height:1.5;margin:8px 0 0}
+body.bm-v050-peek-open{overflow:hidden}
+@media(max-width:750px){
+ main{padding:10px 9px 50px}
+ section>.panel>p.intro{font-size:12.5px}
+ #cartoes .controls{padding:9px;gap:7px}
+ #cartoes .controls select{flex:1 1 42%!important;min-width:0!important;max-width:100%}
+ #cardRows .v036-card-grid{grid-template-columns:1fr;padding:8px}
+ #cartoes article.card{padding:14px!important}
+ #cartoes article.card>h3{font-size:16px}
+ #imagens #imageRows{grid-template-columns:1fr}
+ #imagens #imageRows article.card>.thumb{height:210px}
+ .bm-v050-peek{padding:8px}
+ .bm-v050-peek-panel{width:100%;max-height:95dvh;padding:17px 14px}
+}
+@media(prefers-reduced-motion:reduce){#cartoes article.card,#imagens article.card{transition:none}}
+
