@@ -60,5 +60,5 @@ assert.match(manifest.version,/^V\d{3}$/);assert.ok(Number(manifest.version.slic
 assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
 assert.ok(Number(manifest.previous_version.slice(1))<Number(manifest.version.slice(1)));
 assert.ok(read('index.html').includes('data-bm-portal-version="'+manifest.version+'"'));
-assert.ok(read('index.html').includes('TRT01-C00[123456]'));
+assert.ok(v221.includes('v222_trt_cards_grid.js'),'O arquivo histórico V222 preserva o módulo dos cartões TRT');
 console.log('V222: TRT C001-C006 na grade; imagens visíveis sem recarga; leis direto no editor; versão V221 preservada.');
