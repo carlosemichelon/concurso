@@ -25,14 +25,16 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;b
 .empty{font-size:12px;color:#657b80;padding:12px 0}.type-row{display:flex;gap:9px;align-items:center;margin:9px 0;font-size:12px}
 @media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.twocol{grid-template-columns:1fr}header{padding:12px}main{padding:12px 10px}.panel{padding:12px}}
 @media(max-width:470px){.fields,.fields.two{grid-template-columns:1fr}.timer{font-size:36px}.metric b{font-size:22px}nav button{flex:1}}
-\n:host{display:block;background:#f6f9f9;color:#17363d;font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+
+:host{display:block;background:#f6f9f9;color:#17363d;font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
 .bm240-weeklabels,.bm240-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
 .bm240-weeklabels span{font-size:12px;font-weight:700;color:#5b747b;padding:7px}
 .bm240-day{min-height:94px;display:flex;flex-direction:column;text-align:left;gap:6px;justify-content:flex-start;white-space:normal;padding:9px;overflow-wrap:anywhere}
 .bm240-day.selected{border:2px solid #136e68;background:#eef8f6}
 .bm240-day span{font-weight:750}.bm240-day small{font-size:10px;font-weight:500}
 .bm240-cal-grid{margin-top:15px}.bm240-pad{min-height:65px;background:#f5f8f8;border-radius:8px}
-@media(max-width:680px){.bm240-days{grid-template-columns:repeat(2,minmax(0,1fr))}.bm240-weeklabels{display:none}.bm240-day{min-height:74px}.bm240-pad{display:none}}\n</style></head>
+@media(max-width:680px){.bm240-days{grid-template-columns:repeat(2,minmax(0,1fr))}.bm240-weeklabels{display:none}.bm240-day{min-height:74px}.bm240-pad{display:none}}
+</style></head>
 <body><header><h1>Controle de Estudos</h1><p>Horas líquidas, planejamento, questões, ciclos e revisões de conteúdo — independente do SRS dos flashcards.</p>
 <nav id="tabs" aria-label="Módulos do controle de estudos">
 <button type="button" data-tab="painel" class="active">Painel</button><button type="button" data-tab="registro">Cronômetro e registro</button>
