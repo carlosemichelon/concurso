@@ -155,6 +155,9 @@ function install(){
  window.addEventListener('message',e=>{
   if(e.origin!==location.origin||e.data?.type!=='bm242-open-lacuna'||e.source!==$('bm238-study-frame')?.contentWindow)return;
   document.dispatchEvent(new Event('bm242-open-lacuna'));
+  const context=e.data.context||{},f=$('bm242-form');
+  if(f&&context.discipline&&!/^escolha/i.test(context.discipline))f.elements.disciplina.value=String(context.discipline).slice(0,150);
+  if(f&&context.topic)f.elements.subassunto.value=String(context.topic).slice(0,150);
  });
  if(location.hash==='#lacunas')button.click();
  render();
