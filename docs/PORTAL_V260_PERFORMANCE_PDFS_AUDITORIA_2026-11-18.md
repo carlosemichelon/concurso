@@ -40,3 +40,16 @@
 - `v259.html`: entrada direta e correções da verificação, sem paginação progressiva.
 - `v258.html`: shell anterior (etapas de abertura antigas), preservada no GitHub.
 - `docs/index_v258_redirect_backup.html`: cópia do redirect antigo.
+
+## Homologação isolada adicional do renderizador V260
+
+No teste de execução do trecho real da função `render()`, em um DOM simulado com dois grupos (40 PDFs no primeiro e 10 no segundo), foram comprovados:
+
+- Primeiro grupo aberto, segundo inicialmente recolhido;
+- **24 cartões** criados no primeiro render (em vez de 50);
+- Ação **Mostrar mais** criou os **16 restantes**, totalizando 40;
+- Abrir o segundo grupo criou seus **10 cartões** sob demanda, totalizando 50;
+- Contador exato de **50 PDFs em 2 grupos**;
+- Para zero registros: estado visível de **Nenhum PDF localizado** e **0 PDFs em 0 grupos**.
+
+**7/7 testes de comportamento aprovados**. A primeira edição da V260 havia omitido a mensagem para zero resultados e o contador; isso foi detectado no teste e corrigido antes desta validação. A inspeção da fonte e da leitura de volta ainda não substitui teste no navegador real.
