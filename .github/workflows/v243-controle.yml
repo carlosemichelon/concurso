@@ -16,8 +16,11 @@ on:
       - 'tests/v240_controle.test.cjs'
       - 'tests/v240_merge.test.cjs'
       - 'tests/v240_browser.spec.js'
-      - '.github/workflows/v240-controle.yml'
+      - '.github/workflows/v243-controle.yml'
   workflow_dispatch:
+concurrency:
+  group: v243-controle-nativo-compat-v242
+  cancel-in-progress: true
 jobs:
   static-and-smoke:
     runs-on: ubuntu-latest
