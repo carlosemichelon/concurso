@@ -4,7 +4,7 @@ const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const at=relative=>fs.readFileSync(path.join(__dirname,'..',relative),'utf8');
 const sources=[
  'assets/v240_controle_app.js','assets/v240_controle_native.js','assets/v240_reconcile.js','assets/v240_controle_drive_sync.js',
- 'assets/v240_backup_drive.js','assets/v240_global_drive.js','assets/v240_offline.js','homologacao-v240/sw.js'
+ 'assets/v240_backup_drive.js','assets/v240_global_drive.js','assets/v240_stage_history.js','assets/v240_offline.js','homologacao-v240/sw.js'
 ];
 test('Todos os scripts V240 compilam',()=>{
  for(const p of sources)assert.doesNotThrow(()=>new vm.Script(at(p),{filename:p}),p);
