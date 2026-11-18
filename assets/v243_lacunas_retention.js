@@ -21,6 +21,21 @@ function keys(){
  if(!/^\d{4}$/.test(m.year)||!/^\d{2}$/.test(m.month)||!/^\d{2}$/.test(m.day))throw Error('Data local inconsistente');
  return {daily:m.year+'-'+m.month+'-'+m.day,monthly:m.year+'-'+m.month};
 }
+function validKey(period,key){
+ if(period==='monthly'){
+  if(!/^\d{4}-\d{2}$/.test(key||''))return false;
+  const [year,month]=key.split('-').map(Number);
+  return year>=2000&&year<=9999&&month>=1&&month<=12;
+ }
+ if(period==='daily'){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(key||''))return false;
+  const [year,month,day]=key.split('-').map(Number);
+  if(year<2000||year>9999||month<1||month>12||day<1||day>31)return false;
+  const date=new Date(Date.UTC(year,month-1,day));
+  return date.getUTCFullYear()===year&&date.getUTCMonth()+1===month&&date.getUTCDate()===day;
+ }
+ return false;
+}
 async function list(token){
  const url=new URL(API);
  url.searchParams.set('q',"trashed = false and '"+FOLDER+"' in parents and appProperties has { key='bm_kind' and value='"+KIND+"' }");
@@ -29,7 +44,7 @@ async function list(token){
  const d=await(await req(token,url.href)).json();
  if(d.incompleteSearch||d.nextPageToken)throw Error('Listagem de backups incompleta');
  const files=(d.files||[]).filter(x=>x.parents?.includes(FOLDER)&&x.appProperties?.bm_kind===KIND);
- if(files.some(x=>!x.id||!['daily','monthly'].includes(x.appProperties?.bm_period)||!/^\d{4}-\d{2}(?:-\d{2})?$/.test(x.appProperties?.bm_period_key||'')))
+ if(files.some(x=>!x.id||!validKey(x.appProperties?.bm_period,x.appProperties?.bm_period_key)))
   throw Error('Metadados de backup inesperados: retenção bloqueada');
  return files;
 }
