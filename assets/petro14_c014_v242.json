@@ -1,0 +1,75 @@
+{
+  "format": "BancoMestreCardV242",
+  "version": "V242",
+  "id": "PETRO14-C014",
+  "question_id": "PETRO14-Q020",
+  "discipline": "Engenharia Civil",
+  "subject": "Estruturas de concreto",
+  "sub": "Fluência, retração e deformações",
+  "group": "ENGENHARIA_CIVIL",
+  "operational": true,
+  "canonical_srs_event_created": false,
+  "front": "Explique as deformações dependentes do tempo no concreto e diferencie: deformação elástica imediata, fluência rápida, fluência lenta reversível, fluência lenta irreversível e retração. A partir de quando são contadas as primeiras 24 horas? Quais parcelas são recuperadas após descarregamento? Escreva a decomposição da deformação total e do coeficiente de fluência, indique fatores de influência e as consequências estruturais. Aplique a conceitos de vigas, lajes e pilares.",
+  "back": "A fluência rápida (ε_cca) é irreversível e ocorre durante as primeiras 24 horas após a aplicação da carga, não após a concretagem. A fluência lenta divide-se em parcelas reversível e irreversível.",
+  "original_full_source": "https://drive.google.com/file/d/1lV1VrH_1E5B1SEssNX6dcA102lesL4BI/view",
+  "source_description": "PETRO14-C014_FLUENCIA_CONCRETO_COMPLETO.md — texto do cartão existente preservado nos 11 módulos",
+  "images": [],
+  "media_audit": "O original menciona fluencia_carga_descarga.svg, mas não foi identificado no Drive. Não inventar mídia.",
+  "layers": [
+    {
+      "ord": 1,
+      "titulo": "VERSO INTEGRAL — 1. Resposta mínima para acertar",
+      "texto": "A **fluência rápida** (ε_cca) é **irreversível** e ocorre **durante as primeiras 24 horas após a aplicação da carga** (não após a concretagem). A fluência lenta possui uma componente **irreversível** (ε_ccf) e outra **reversível** (ε_ccd). **Alternativa B**.\n\n| Parcela | Símbolo | Causa/época | Recuperação idealizada |\n|---|---|---|---|\n| Elástica imediata | ε_c(t₀) | Instante de carga | Essencialmente recuperável após descarga |\n| Fluência rápida | ε_cca | 0–24 h após carga | Irreversível |\n| Fluência lenta irreversível | ε_ccf | Evolução no tempo | Não se recupera |\n| Fluência lenta reversível | ε_ccd | Evolução no tempo | Recuperação gradual após descarga |\n| Retração | ε_cs | Variação de umidade/processos internos, mesmo sem carga | Não é parcela da fluência; exige análise própria |"
+    },
+    {
+      "ord": 2,
+      "titulo": "2. NORMA SECA — recorte literal verificado",
+      "texto": "**ABNT NBR 6118:2003, Anexo A, item A.2.2.1 (Generalidades):** “durante as primeiras 24 h após a aplicação da carga”. Esta é transcrição de fragmento CURTO, não cópia integral. O item define a deformação rápida como irreversível e subdivide a lenta nas componentes ε_ccf (irreversível) e ε_ccd (reversível). O Anexo A é **informativo**.\n\n**ABNT NBR 6118:2023, A.2.2.1:** mantém a descrição da fluência rápida nas primeiras 24 horas e das duas parcelas da fluência lenta. **Emenda 1:2026:** altera notação e equações envolvendo Eci no Anexo A; não transportar automaticamente todas as fórmulas de 2003 para projetos atuais sem conferir a edição consolidada. A atualização de 2026 não foi reproduzida integralmente aqui. Referências verificadas ao final."
+    },
+    {
+      "ord": 3,
+      "titulo": "3. Mecanismo físico e linha temporal",
+      "texto": "Uma carga que permanece aplicada a um pilar provoca **deformação elástica quase instantânea** e **deformação adicional dependente do tempo (fluência)**. A magnitude dessa deformação adicional evolui nas primeiras horas, dias, meses e anos. A parcela rápida adotada pelo modelo normativo é irreversível e ocorre até 24 h da aplicação da carga. A parcela lenta se divide em parte reversível e irreversível.\n\n**No descarregamento:** há recuperação elástica imediata; depois, recuperação diferida da parcela reversível da fluência; permanecem deformações irreversíveis. A retração pode coexistir e deve ser contabilizada separadamente.\n\nVeja o desenho funcional `fluencia_carga_descarga.svg` (autoral, qualitativo e sem escala). A curva não substitui cálculo ou ensaio do concreto."
+    },
+    {
+      "ord": 4,
+      "titulo": "4. Equações e variáveis, NBR 6118:2003",
+      "texto": "**Fluência:**\n\nε_cc = ε_cca + ε_ccf + ε_ccd\n\n**Deformação total livre de impedimentos, para hipóteses de carregamento e retração da norma:**\n\nε_c(t) = ε_c(t₀) + ε_cc(t) + ε_cs(t)\n\n**Deformação elástica imediata:**\n\nε_c(t₀) = σ_c(t₀) / E_ci(t₀)\n\n**Fluência histórica na edição 2003:**\n\nε_cc(t) = [σ_c(t₀) / E_ci28] · φ(t,t₀)\n\n**Decomposição do coeficiente:**\n\nφ = φ_a + φ_f + φ_d\n\nφ_a: rápida; φ_f: lenta irreversível; φ_d: lenta reversível. ε é deformação específica (adimensional, por vezes em ‰); σ é tensão (MPa); E é módulo de deformação (MPa); φ é adimensional. Atenção: a emenda de 2026 atualiza a notação de E_ci em relações de fluência. Não converter a expressão simplificada ε_c,tot = ε_c(1+φ) da edição histórica em cálculo atual sem compatibilizar os módulos de elasticidade adotados."
+    },
+    {
+      "ord": 5,
+      "titulo": "5. Exemplo numérico — deformação total",
+      "texto": "Suponha, apenas para exercício, um elemento de comprimento inicial **3,00 m**, livre para deformar axialmente, com as seguintes deformações de mesmo sinal:\n\n- imediata: ε_c(t₀) = 0,50 ‰;\n- fluência acumulada: ε_cc = 0,75 ‰;\n- retração: ε_cs = 0,20 ‰.\n\nEntão ε_total = 0,50 + 0,75 + 0,20 = **1,45 ‰**. A variação de comprimento idealizada é ΔL = ε_total × L = 0,00145 × 3000 mm = **4,35 mm**. A parcela atribuída somente à fluência é 0,00075 × 3000 = **2,25 mm**. São dados hipotéticos, não deformações de projeto prescritas pela NBR."
+    },
+    {
+      "ord": 6,
+      "titulo": "6. Fatores da fluência (hipóteses do item A.2.2.2)",
+      "texto": "- Umidade relativa do ambiente;\n- Consistência do concreto no lançamento;\n- Espessura fictícia da peça;\n- Idade do concreto no instante do carregamento;\n- Tempo decorrido desde o carregamento;\n- Propriedades e microestrutura do concreto, resistência e condições de cura, conforme modelos apropriados.\n\nNa abordagem normativa, φ_d da parcela lenta reversível depende da duração do carregamento; φ_f é influenciado por umidade, consistência, geometria e idades. As hipóteses de linearidade e superposição se aplicam sob as condições indicadas na norma para tensões de serviço, não irrestritamente a qualquer nível de tensão."
+    },
+    {
+      "ord": 7,
+      "titulo": "7. Diferenças e aplicações",
+      "texto": "| Questão | Resposta técnica |\n|---|---|\n| Fluência precisa de tensão aplicada? | Sim: é a deformação dependente do tempo associada a um histórico de tensões. |\n| Retração precisa de carga? | Não; pode ocorrer sem carregamento externo. |\n| Fluência é o encurtamento imediato? | Não; a deformação imediata é separada. |\n| Fluência lenta é sempre permanente? | Não; contém parcela reversível e irreversível. |\n| 24 horas contadas a partir de quê? | **Da aplicação da carga**, não da concretagem. |\n| Consequências em pilares? | Encurtamento diferido, redistribuição de esforços dependendo do sistema. |\n| Consequências em vigas/lajes? | Acréscimo de flechas ao longo do tempo e possíveis efeitos de serviço. |\n| Consequências em concreto protendido? | A fluência contribui para perdas diferidas de protensão. |"
+    },
+    {
+      "ord": 8,
+      "titulo": "8. Pegadinhas da banca e macetes",
+      "texto": "1. “Primeiro mês” — ERRADO para fluência rápida; **primeiras 24 h**.\n2. “Após a concretagem” — ERRADO; **após aplicar a carga**.\n3. “Fluência rápida reversível” — ERRADO; **irreversível**.\n4. “Fluência lenta totalmente reversível” — ERRADO; tem duas partes.\n5. “Retração é causada necessariamente por uma carga” — ERRADO.\n6. “O Anexo A é normativo obrigatório em toda sua extensão” — ERRADO; é **informativo**, aplicável conforme suas hipóteses.\n7. “Deformação imediata = rápida” — ERRADO: elástica imediata e fluência rápida são parcelas distintas.\n\n**MACETE 1:** RÁPIDA = UM DIA = NÃO VOLTA.  \n**MACETE 2:** LENTA = DUAS PARTES = UMA VOLTA, OUTRA FICA.  \n**MACETE 3:** FLUÊNCIA = FORÇA MANTIDA; RETRAÇÃO = SEM FORÇA.  \n**MACETE 4:** PRAZO CONTA DA CARGA."
+    },
+    {
+      "ord": 9,
+      "titulo": "9. Transferência — exemplos de perguntas para revisões futuras",
+      "texto": "**A.** Um pilar recebeu carga permanente às 14 h de terça. Segundo a NBR 6118:2003, a parcela de fluência rápida ocorre até quando? **Até aproximadamente 14 h de quarta (24 h após a carga).**\n\n**B.** Uma viga é descarregada. Que parcela da fluência retorna lentamente? **Fluência lenta reversível ε_ccd** (não confundir com recuperação elástica imediata).\n\n**C.** Uma peça encurta sem receber carregamento adicional e perde água por secagem. A deformação será exclusivamente fluência? **Não.** Pode haver retração, que não deve ser confundida com fluência."
+    },
+    {
+      "ord": 10,
+      "titulo": "10. Auditoria de cobertura e persistência",
+      "texto": "**Cobertura:** prazo, marco inicial, irreversibilidade, componentes, efeito da descarga, equações, fatores, comparação com retração, aplicação em pilares/vigas/protensão e pegadinhas. **ID preservado:** PETRO14-C014. **Nova questão:** PETRO14-Q020. **SRS:** não iniciado nesta criação; depende de classificação explícita. **Prioridade:** máxima (5/5) como metadado de estudo, sem agendamento automático. **Integração:** arquivo local criado; Planilha Mestre/Atlas ainda não sincronizados."
+    },
+    {
+      "ord": 11,
+      "titulo": "Fontes para conferência",
+      "texto": "1. ABNT NBR 6118:2003, Anexo A, A.2.1–A.2.2.3 (edição cobrada): https://jpd09.wordpress.com/wp-content/uploads/2013/05/nbr-6118-2007.pdf (arquivo consultado com conteúdo da 2003 e emenda posterior).\n2. ABNT NBR 6118:2023, Anexo A, A.2.1 e A.2.2.1, p. 211: https://ikigai.eco.br/download/nbr-6118.pdf .\n3. NBR 6118:2023/Emenda 1:2026: mudanças de notação em A.2.1, A.2.2.1 e A.2.2.3, conforme resumo técnico: https://blog.apl.eng.br/nbr-61182026-o-que-mudou-com-a-revisao-e-como-aplicar-cada-alteracao/ . Conferir o texto consolidado oficialmente para projeto."
+    }
+  ]
+}

@@ -194,3 +194,12 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Após Google Drive OAuth, filtros de imagens usam `area > subject > subsubject > detail` reais, não os códigos do Atlas de 179 imagens. Incluir pendências explícitas, preservar texto buscado, favoritos e estado correto das seleções.
 - Filtros de flashcards evitam classificações arbitrárias e incluem TRT só para navegação, sem SRS. Conferir contagens e inconsistências de filtros antigos.
 - Atualizar metodologia técnica GitHub, Metodologia Mestre Drive e cache da página ATIVA; verificar separadamente testes estáticos e experiência real em navegador/OAuth.
+
+
+## V242 — lacunas vinculadas aos cartões (somente homologação; 18/11/2026)
+- Consultar o adendo `GESTÃO DE LACUNAS` da Metodologia Mestre antes de modificar a biblioteca, os cartões ou o Control de Estudos. Consultar `docs/V242_LACUNAS_HOMOLOG.md`.
+- O relato literal do estudante e o diagnóstico fundamentado do assistente são campos **separados e de autoria distinta**. Nunca inferir a declaração do usuário nem afirmar auditoria de cobertura que não foi feita.
+- Lacuna não é novo cartão nem nova unidade SRS. Auditar cobertura direta, indireta, parcial ou ausente; vincular o ID existente antes de propor duplicações. Preservar registros históricos, mesmo quando dominados.
+- O módulo V242 escreve em arquivo privado próprio do Drive por OAuth no navegador; o GitHub só recebe código e documentação, jamais dados pessoais. Eventos SRS, originais, mídias e cartões existentes são intocados.
+- Se o ID vinculado não estiver no leitor V165, exibir claramente **pendência de navegação**. Não simular abertura de cartão. Comprovar por testes em navegador real, inclusive Drive, antes de promover V242 a publicação.
+- A versão publicada permanece V239 enquanto `gh-pages/index.html` e `assets/version.json` assim indicarem. A branch de trabalho V242 não autoriza merge/publicação.
