@@ -56,9 +56,9 @@ test('Concilia sessões independentes após 2 backups privados verificados',asyn
  const initial=await sync.sync('token');assert.equal(initial.state,'uploaded');
  const master=[...records.values()].find(x=>x.appProperties.bm_kind==='bm_controle_estudos_v240_homologacao');
  assert.ok(master);
- const local=clone(base);local.sessions.push({id:'local',subjectId:'civil',date:'2026-11-18',minutes:20,questions:0,correct:0});
+ const local=clone(base);local.sessions.push({id:'local',subjectId:'civil',date:'2026-11-18',startTime:'10:00',minutes:20,questions:0,correct:0});
  store.setItem(testKey,JSON.stringify(local));
- const remote=clone(base);remote.sessions.push({id:'remote',subjectId:'civil',date:'2026-11-18',minutes:35,questions:0,correct:0});
+ const remote=clone(base);remote.sessions.push({id:'remote',subjectId:'civil',date:'2026-11-18',startTime:'11:00',minutes:35,questions:0,correct:0});
  master.doc.data=remote;master.version++;
  const preview=await sync.sync('token');
  assert.equal(preview.state,'merge_ready','Mudanças independentes não devem gravar automaticamente');
