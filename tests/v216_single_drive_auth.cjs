@@ -40,5 +40,5 @@ assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
 assert.ok(Number(manifest.previous_version.slice(1))<Number(manifest.version.slice(1)));
 assert.equal(manifest.current_versions.portal.home,manifest.home);
 assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
-assert.ok(page.includes('TRT01-C00[123]'),'Links aos cartões TRT 001–003 preservados');
+assert.ok(page.includes('v215_trt01_c003.js?v=215'),'Módulo TRT C003 preservado no arquivo histórico V216');
 console.log('V216: 1 ponto OAuth, sessão compartilhada para imagem/PDF, layout e cartão TRT preservados.');
