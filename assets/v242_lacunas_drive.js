@@ -103,6 +103,7 @@ async function create(token,d,expected){
  const payload=JSON.stringify({format:'BancoMestreLacunasDriveV242',updatedAt:new Date().toISOString(),data:d});
  if(payload.length>MAX)throw Error('Cadastro muito grande');
  await archive(token,d,'antes_criacao_mestre',expected);
+ if(await locate(token))throw Error('Outro mestre apareceu após o snapshot; nenhuma criação duplicada será tentada');
  const boundary='bm242-'+crypto.randomUUID(),meta={name:'BancoMestre_Lacunas_Mestre_V242.json',mimeType:'application/json',
   parents:[PRIVATE_PARENT],appProperties:{bm_kind:KIND,bm_schema:'V242'}};
  const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+
