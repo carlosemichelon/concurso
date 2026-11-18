@@ -401,6 +401,89 @@ function bm197ShowEvolution(c){
  void load();
 }
 
+// TRT shares the original reader and its V198 renderer. No SRS writes.
+async function trtLaw(id){
+ lawPanel.replaceChildren(create('p','bm163-law-warning','Carregando referências…'));
+ try{
+  const data=await window.BM236TrtCardsGrid.loadRecord(id);
+  if(currentId!==id||lawPanel.hidden)return;
+  lawPanel.replaceChildren(create('h3','bm163-piece-title','Fontes normativas do cartão'),
+   create('p','bm163-law-warning','A íntegra literal não foi certificada: consulte os dispositivos diretamente nas fontes oficiais.'));
+  for(const item of data.laws||[]){
+   if(!/^https:\/\//.test(item.source_url||''))continue;
+   const a=create('a','bm163-law-source',(item.norm||'Norma')+' · '+(item.article||'dispositivo'));
+   a.href=item.source_url;a.target='_blank';a.rel='noopener noreferrer';lawPanel.append(a);
+  }
+ }catch(e){if(currentId===id&&!lawPanel.hidden)lawPanel.replaceChildren(create('p','bm163-law-warning','Fonte indisponível: '+String(e.message||e)));}
+}
+function trtMedia(images){
+ const zone=create('section','bm211-media bm165-trt-media');
+ const title=create('h3','','Imagens originais vinculadas');
+ const button=btn('Carregar prévias do Drive','file','bm211-fetch');
+ const status=create('p','bm211-status','As prévias exigem autorização na aba Imagens. Links originais disponíveis abaixo.');
+ const grid=create('div','bm211-grid');zone.append(title,button,status,grid);
+ const list=[];
+ for(const [i,item] of images.entries()){
+  const fig=create('figure','bm211-figure'),frame=create('div','bm211-frame');
+  const placeholder=create('div','bm211-placeholder','Prévia privada');
+  const pic=create('img','bm211-image');pic.hidden=true;pic.loading='lazy';pic.alt=item.title||'Imagem original';
+  frame.append(placeholder,pic);
+  const caption=create('figcaption','bm211-figcaption');
+  caption.append(create('strong','',(i+1)+' — '+(item.title||'Imagem original')));
+  if(/^https:\/\//.test(item.drive_url||'')){
+   const link=create('a','bm211-link','Abrir original no Drive');link.href=item.drive_url;link.target='_blank';link.rel='noopener noreferrer';caption.append(link);
+  }
+  fig.append(frame,caption);grid.append(fig);list.push({item,placeholder,pic});
+ }
+ button.addEventListener('click',async()=>{
+  const token=window.BancoMestreMediaSyncV182?.token?.()||'';
+  if(!token){status.textContent='Conecte o Google Drive na aba Imagens antes de carregar as prévias.';return;}
+  button.disabled=true;status.textContent='Carregando prévias autorizadas…';
+  let ok=0;
+  await Promise.all(list.map(async ({item,pic,placeholder})=>{
+   if(pic.dataset.loaded==='1'){ok++;return;}
+   if(!/^[A-Za-z0-9_-]{15,}$/.test(item.file_id||''))return;
+   try{
+    const r=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(item.file_id)+'?alt=media',{headers:{Authorization:'Bearer '+token},cache:'no-store'});
+    if(!r.ok)throw Error('HTTP '+r.status);
+    const blob=await r.blob();
+    if(blob.size>15000000||!/^image\/(png|jpeg|webp|gif)$/.test(blob.type))throw Error('tipo/tamanho inválido');
+    const url=URL.createObjectURL(blob);trtUrls.push(url);pic.src=url;pic.hidden=false;pic.dataset.loaded='1';placeholder.hidden=true;ok++;
+   }catch(e){placeholder.textContent='Prévia indisponível ('+String(e.message||e)+')';}
+  }));
+  if(zone.isConnected)status.textContent=ok+' de '+images.length+' imagens carregadas.';
+  button.disabled=false;
+ });
+ return zone;
+}
+async function trtStudy(id){
+ const pane=create('section','bm197-evolutive bm165-trt-study');
+ const heading=create('h3','bm197-title','Conteúdo TRT · 11 seções');
+ const state=create('div','bm197-state','Carregando conteúdo…');pane.append(heading,state);answer.append(pane);
+ try{
+  const data=await window.BM236TrtCardsGrid.loadRecord(id);
+  if(currentId!==id||!pane.isConnected||answer.hidden)return;
+  if(data.layers.some((x,i)=>x.ord!==i+1||!String(x.titulo||'').trim()||!String(x.texto||'').trim()))throw Error('Módulos incompletos');
+  if(!window.BM198Format?.render)throw Error('Leitor aprofundado indisponível');
+  window.BM198Format.render(state,data,id);
+  if(data.images?.length){
+   const mods=state.querySelectorAll('.bm198-module'),gallery=trtMedia(data.images);
+   if(mods[5])mods[5].after(gallery);else state.querySelector('.bm198-overview')?.before(gallery);
+  }
+  const info=create('details','bm221-trt-info');
+  info.append(create('summary','','Informações do cartão e histórico operacional'),
+    create('p','','Questão: '+(data.question_id||id)),
+    create('p','','Tentativa: '+(data.student_answer||'não registrada')),
+    create('p','','Abertura de leitura: não cria evento SRS.'));
+  (state.querySelector('.bm198-overview')||state).append(info);
+  heading.textContent='Resposta aprofundada TRT · '+id+' · 11 seções';
+ }catch(e){
+  if(currentId!==id||!pane.isConnected)return;
+  const retry=btn('Tentar novamente','file','bm197-retry');
+  retry.addEventListener('click',()=>{pane.remove();void trtStudy(id);});
+  state.replaceChildren(create('p','bm197-error','Falha ao carregar o cartão: '+String(e.message||e)),retry);
+ }
+}
 function renderLaw(rec,c){
  lawPanel.replaceChildren();
  if(rec){
