@@ -51,3 +51,37 @@ test('V242 compatible staging: bottom timer and calendar accessible in mobile vi
  await page.screenshot({path:'test-results/v240-on-v242-mobile.png',fullPage:true});
  await context.close();
 });
+test('Homologação V242: recarregar Controle offline após instalação do cache sem alterar dados canônicos',async({browser})=>{
+ test.setTimeout(180000);
+ const context=await browser.newContext({serviceWorkers:'allow'});
+ const page=await context.newPage();
+ await page.goto(URL,{waitUntil:'domcontentloaded',timeout:60000});
+ const host=page.locator('#bm240-native-host');
+ await expect(host.locator('#subjectForm')).toBeAttached({timeout:55000});
+ await host.locator('[data-tab="planejamento"]').click();
+ await host.locator('#subjectName').fill('Matemática');
+ await host.locator('#subjectForm button[type="submit"]').click();
+ const before=await page.evaluate(()=>localStorage.getItem('BM240_HOMOLOGACAO_CONTROLE'));
+ expect(before).toContain('Matemática');
+ await page.evaluate(async()=>{
+  const registration=await navigator.serviceWorker.ready;
+  if(!registration.active)throw Error('Service Worker não ativado');
+  if(!registration.scope.endsWith('/homologacao-v240/'))
+   throw Error('Escopo excede homologação: '+registration.scope);
+ });
+ // Once the page becomes controlled, the offline shell must be independently navigable.
+ await page.reload({waitUntil:'domcontentloaded',timeout:60000});
+ await expect(page.locator('#bm240-study-tab')).toBeAttached({timeout:55000});
+ await context.setOffline(true);
+ await page.reload({waitUntil:'domcontentloaded',timeout:60000});
+ await expect(page.locator('#bm240-study-tab')).toBeAttached({timeout:55000});
+ await expect(page.locator('#bm240-native-host').locator('#sessionForm')).toBeAttached({timeout:55000});
+ const after=await page.evaluate(()=>({data:localStorage.getItem('BM240_HOMOLOGACAO_CONTROLE'),
+   canonic:localStorage.getItem('BM_CONTROLE_ESTUDOS_V238'),
+   sw:navigator.serviceWorker.controller?.scriptURL||''}));
+ expect(after.data).toBe(before);
+ expect(after.canonic).toBeNull();
+ expect(after.sw).toContain('/homologacao-v240/sw.js');
+ await context.setOffline(false);
+ await context.close();
+});
