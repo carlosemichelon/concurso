@@ -122,3 +122,17 @@ A branch de homologação não modifica o `gh-pages/index.html`, `gh-pages/asset
 ## Nova branch de homologação a partir da V242 (18/11/2026)
 
 A branch `feature/controle-estudos-v242-integracao-20261118` foi criada diretamente de `gh-pages` na V242 e recebeu os módulos auditados do PR #32, sem sobrescrever arquivos de produção. A página `homologacao-v240/compat-v242.html` é a referência de integração. O cronômetro V241 e o dock V242 originais **não são montados neste ambiente**; seu layout inferior é reaproveitado no único cronômetro nativo do Controle. O arquivo histórico `v240.html` no site principal foi mantido intacto. Testes da branch nova devem ser considerados separadamente dos resultados da branch antiga.
+
+## Checkpoint de homologação V242 — testes offline e isolamento
+
+Em 18/11/2026, o trabalho de integração foi portado para a branch `feature/controle-estudos-v242-integracao-20261118`, derivada diretamente de `gh-pages` com manifesto V242. **PR #37** está aberto como rascunho. O PR #32 original foi identificado como versão histórica substituída, preservado para auditoria e **não deve ser mesclado**.
+
+**Evidência funcional:** [GitHub Actions 44349726338](https://github.com/carlosemichelon/concurso/actions/runs/44349726338), jobs `static-and-smoke` e `browser-smoke` concluídos com sucesso. A suíte inclui criação de disciplina, cronômetro único na barra inferior, sessão registrada, calendário, restaurar exclusão, simulação de conflitos e teste de recarga offline com cache e dados locais preservados.
+
+**Correção crítica de navegação:** o HTML aninhado utiliza `<base href="../">`; o roteador V062 escreve rotas com `#...` e podia trocar `/homologacao-v240/compat-v242.html` por `/#controle-estudos`, abrindo caminho para o redirecionamento do `index.html` publicado. O arquivo `assets/v240_stage_history.js` corrige exclusivamente as operações hash-only na homologação, mantendo o caminho isolado. O SW usa escopo `/homologacao-v240/`, cache-first para a página de testes e fallback somente para ela.
+
+**Contagem segura:** `assets/v240_reconcile.js` agora bloqueia a fusão automática de sessões novas entre dois dispositivos se houver sobreposição horária, horários ausentes no mesmo dia, cronômetro ativo ou transferência pendente. Sessões em períodos comprovadamente distintos podem ser conciliadas, com duas cópias originais verificadas antes da gravação simulada. Persistem limitações de concorrência da API Drive que exigem homologação real.
+
+**Módulo PDF V106:** a página V242 publicada tinha uma exceção `preview is not defined` no editor de cores. Foi adicionada somente uma linha `const preview=node('div','bm102-preview-panel');` na branch de testes. A suíte Chromium não registrou a exceção após a correção; o PDF-mestre e seus grifos não foram modificados.
+
+**Pendências bloqueantes:** OAuth real com usuário, sincronização entre dois aparelhos físicos, teste de conflito real entre gravações simultâneas, restauração de backup real em pasta privada, revisão de segurança do Google Drive e aprovação de publicação. Nenhuma dessas provas foi substituída por simulações. O portal publicado permanece V242.
