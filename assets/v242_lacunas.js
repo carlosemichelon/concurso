@@ -59,6 +59,10 @@ function install(){
  '<div class="bm242-filters">',
  '<label>Pesquisar assunto, fórmula, dúvida ou cartão<input id="bm242-search" type="search" placeholder="Ex.: fluência pós-carga; PETRO14-C014"></label>',
  '<label>Disciplina<select id="bm242-discipline"><option value="">Todas</option></select></label>',
+ '<label>Assunto geral<select id="bm242-general"><option value="">Todos</option></select></label>',
+ '<label>Assunto específico<select id="bm242-specific"><option value="">Todos</option></select></label>',
+ '<label>Subassunto<select id="bm242-sub"><option value="">Todos</option></select></label>',
+ '<label>Prioridade<select id="bm242-priority"><option value="">Todas</option></select></label>',
  '<label>Tipo<select id="bm242-type"><option value="">Todos</option></select></label>',
  '<label>Cobertura<select id="bm242-cover"><option value="">Todas</option></select></label>',
  '<label>Situação<select id="bm242-stage"><option value="">Todas</option></select></label>',
@@ -88,7 +92,7 @@ function install(){
  ].join('');
  main.append(section);
  button.onclick=()=>{if(typeof window.section==='function')window.section('lacunas');else{main.querySelectorAll('section').forEach(x=>x.classList.toggle('active',x===section));nav.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===button));location.hash='lacunas'}};
- for(const id of ['bm242-search','bm242-discipline','bm242-type','bm242-cover','bm242-stage']){
+ for(const id of ['bm242-search','bm242-discipline','bm242-general','bm242-specific','bm242-sub','bm242-type','bm242-cover','bm242-stage','bm242-priority']){
   $(id).addEventListener('input',render);$(id).addEventListener('change',render);
  }
  for(const t of types)$('bm242-form').elements.tipo.add(new Option(t,t));
@@ -193,12 +197,23 @@ function render(){
   el.value=[...el.options].some(x=>x.value===keep)?keep:'';
  }
  select('bm242-discipline',[...new Set(data.records.map(x=>x.disciplina).filter(Boolean))].sort(),'Todas');
+ const discipline=$('bm242-discipline').value;
+ const byDisc=data.records.filter(x=>!discipline||x.disciplina===discipline);
+ select('bm242-general',[...new Set(byDisc.map(x=>x.assuntoGeral).filter(Boolean))].sort(),'Todos');
+ const gen=$('bm242-general').value;
+ const byGeneral=byDisc.filter(x=>!gen||x.assuntoGeral===gen);
+ select('bm242-specific',[...new Set(byGeneral.map(x=>x.assuntoEspecifico).filter(Boolean))].sort(),'Todos');
+ const specific=$('bm242-specific').value;
+ const bySpecific=byGeneral.filter(x=>!specific||x.assuntoEspecifico===specific);
+ select('bm242-sub',[...new Set(bySpecific.map(x=>x.subassunto).filter(Boolean))].sort(),'Todos');
+ select('bm242-priority',[...new Set(data.records.map(x=>x.prioridade).filter(Boolean))].sort(),'Todas');
  select('bm242-type',types.filter(x=>data.records.some(r=>r.tipo===x)),'Todos');
  select('bm242-cover',coverage.filter(x=>data.records.some(r=>r.cobertura===x)),'Todas');
  select('bm242-stage',stages.filter(x=>data.records.some(r=>r.etapa===x)),'Todas');
  const q=norm($('bm242-search').value),d=$('bm242-discipline').value,t=$('bm242-type').value,
+ g=$('bm242-general').value,sp=$('bm242-specific').value,sub=$('bm242-sub').value,p=$('bm242-priority').value,
  c=$('bm242-cover').value,s=$('bm242-stage').value;
- const filtered=data.records.filter(r=>(!d||r.disciplina===d)&&(!t||r.tipo===t)&&(!c||r.cobertura===c)&&(!s||r.etapa===s)&&
+ const filtered=data.records.filter(r=>(!d||r.disciplina===d)&&(!g||r.assuntoGeral===g)&&(!sp||r.assuntoEspecifico===sp)&&(!sub||r.subassunto===sub)&&(!p||r.prioridade===p)&&(!t||r.tipo===t)&&(!c||r.cobertura===c)&&(!s||r.etapa===s)&&
  (!q||norm([r.id,r.descricao,r.relatoEstudante,r.diagnosticoAssistente,r.questaoId,...r.cardIds,r.disciplina,r.assuntoGeral,r.assuntoEspecifico,r.subassunto,r.fonte,r.pesquisa].join(' ')).includes(q)));
  $('bm242-count').textContent=filtered.length+' de '+data.records.length+' lacunas · '+data.log.length+' eventos de histórico';
  $('bm242-list').innerHTML=filtered.length?filtered.slice().reverse().map(r=>{
