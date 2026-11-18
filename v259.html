@@ -44,7 +44,17 @@ footer{font-size:12px;color:var(--sub);margin-top:30px}
  window.BM240OpenStudyDefault=!(location.hash&&location.hash!=='#')&&!q.has('cartao')&&!q.has('tema')&&!q.has('pdf');
  if(location.hash.toLowerCase()==='#grifos')history.replaceState(null,'',location.pathname+location.search+'#pdfs');
 })();
-</script></head><body>
+</script><style id="bm259-pdf-sync-visible">
+/* Rehabilita controles da biblioteca ocultados por CSS historico V210/V217.
+   Nao exibe dados privados sem OAuth; so torna visiveis os botoes e o estado. */
+#pdfs #bm-pdf-sync{display:flex!important;visibility:visible!important}
+#pdfs #bm-pdf-sync button{min-height:40px;max-width:100%;white-space:normal}
+#pdfs #bm-pdf-sync-status{flex-basis:100%;overflow-wrap:anywhere}
+#pdfs #pdfRows{display:block!important;visibility:visible!important;min-width:0}
+@media(max-width:620px){#pdfs #bm-pdf-sync{gap:6px;padding:8px;margin:7px 0}
+#pdfs #bm-pdf-sync button{flex:1 1 135px;font-size:11px}
+#pdfs #pdfRows>.v036-pdf-area{max-width:100%;overflow-wrap:anywhere}}
+</style></head><body>
 <header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Portal V259 · cartões V194 · Controle de Estudos e Lacunas</span></div><div class="version">Assuntos, PDFs, cartões e Atlas para revisão técnica</div></div><nav aria-label="Seções"><button class="active" data-page="assuntos">Assuntos</button><button data-page="pdfs">PDFs</button><button data-page="cartoes">Flashcards</button><button data-page="imagens">Imagens</button></nav></div></header>
 <main><div class="hero"><h1>O que deseja estudar?</h1><p>As áreas e os assuntos originais estão de volta. Selecione o tema para encontrar flashcards, imagens e PDFs relacionados, com guias de estudo quando disponíveis.</p></div>
 <div class="stats"><div class="stat"><b id="pdfStat">78</b><span>PDFs catalogados</span></div><div class="stat"><b>1.540</b><span>registros: base didática V194 + Ijuí</span></div><div class="stat"><b>—</b><span>Imagens disponíveis: contador atualizado ao carregar a biblioteca</span></div></div>
