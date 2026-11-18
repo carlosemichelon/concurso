@@ -62,6 +62,33 @@ function reconcile(base,local,remote){
   if(!equal(b,l)||!equal(b,r))conflicts.push('Campo desconhecido divergente: '+key);
   else out[key]=copy(b);
  }
+ // Datas de sessões não representam relógios independentes: impedir soma de horas
+ // potencialmente simultâneas criadas offline em dois aparelhos distintos.
+ function minutesWindow(row){
+  if(!row||row.deletedAt||typeof row.date!=='string'||typeof row.startTime!=='string')return null;
+  const match=row.startTime.match(/^([01]\\d|2[0-3]):([0-5]\\d)$/);
+  const date=row.date.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);
+  const length=Number(row.minutes);
+  if(!match||!date||!Number.isFinite(length)||length<=0||length>1440)return null;
+  const start=Date.UTC(Number(date[1]),Number(date[2])-1,Number(date[3]),Number(match[1]),Number(match[2]))/60000;
+  return {start,end:start+length};
+ }
+ const baseSessionIds=new Set(base.sessions.map(s=>s.id));
+ const newlyLocal=local.sessions.filter(s=>!baseSessionIds.has(s.id)&&!s.deletedAt);
+ const newlyRemote=remote.sessions.filter(s=>!baseSessionIds.has(s.id)&&!s.deletedAt);
+ for(const l of newlyLocal)for(const r of newlyRemote){
+  if(l.id===r.id||!l.date||!r.date)continue;
+  const a=minutesWindow(l),b=minutesWindow(r);
+  if(a&&b){
+   if(a.start<b.end&&b.start<a.end)
+    conflicts.push('Sessões potencialmente simultâneas: '+l.id+' / '+r.id+' — contagem dupla bloqueada');
+  }else if(l.date===r.date){
+   conflicts.push('Horários insuficientes para afastar sobreposição em '+l.date+': '+l.id+' / '+r.id);
+  }
+ }
+ if(out.activeTimer&&(out.activeTimer.running||out.activeTimer.transferPending||out.activeTimer.availableForTransfer))
+  conflicts.push('Cronômetro/transferência ainda ativo em um aparelho; conciliação bloqueada');
+
  const invalid=validate(out);
  if(invalid)conflicts.push('Resultado não atende integridade: '+invalid);
  return {ok:conflicts.length===0,conflicts,merged:conflicts.length?null:out,
