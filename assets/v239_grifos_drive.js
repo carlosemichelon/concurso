@@ -10,7 +10,7 @@
 if(window.BancoMestreGrifosDriveSyncV104)return;
 const core=window.BancoMestreGrifosSyncCoreV103,
       masterCore=window.BancoMestreGrifosMasterV104,
-      library=document.getElementById('grifos');
+      library=document.getElementById('grifos')||document.getElementById('pdfs');
 if(!core||!masterCore||!library)return;
 const API='https://www.googleapis.com/drive/v3/files',
       UPLOAD='https://www.googleapis.com/upload/drive/v3/files',
@@ -50,7 +50,7 @@ status.setAttribute('role','status');status.setAttribute('aria-live','polite');
 const note=el('p','Segurança: as exclusões são propagadas por identificadores mínimos; nenhum conteúdo apagado é mantido no mestre atual. Backups antigos do dispositivo e revisões históricas do Drive não são apagados automaticamente. Faça backups periódicos dos grifos ainda existentes.');
 note.className='bm103-sync-note';
 section.append(title,explain,controls,label,status,note);
-library.querySelector('.bm062-panel')?.append(section);
+(library.querySelector('.bm062-panel')||library.querySelector('.panel'))?.append(section);
 function say(text,error=false){
  status.textContent=text;status.classList.toggle('bm103-sync-error',error);
 }
