@@ -1,9 +1,9 @@
 window.BM240ControlInit=(function(){
 return function(root){
 'use strict';
-const KEY='BM_CONTROLE_ESTUDOS_V238', TIMER='BM_CONTROLE_TIMER_V238';
+const KEY='BM240_HOMOLOGACAO_CONTROLE', TIMER='BM240_HOMOLOGACAO_TIMER';
 const types=['Teoria','Questões','Revisão','Lei seca','Flashcards','Simulado','Outros'];
-const DEVICE_KEY='BM240_CONTROLE_DEVICE';
+const DEVICE_KEY='BM240_HOMOLOGACAO_DEVICE';
 let device=localStorage.getItem(DEVICE_KEY);
 if(!device){device=crypto.randomUUID();localStorage.setItem(DEVICE_KEY,device)}
 function mirrorTimer(){
