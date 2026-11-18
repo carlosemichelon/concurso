@@ -41,7 +41,16 @@ async function verified(token,id,hash){
  const doc=JSON.parse(text);
  if(doc.format!=='BancoMestreControleBackupV240'||doc.sha256!==hash||await digest(doc.data)!==hash)
   throw Error('Falha na auditoria SHA-256 da cópia remota');
- return true;
+ if(!doc.data||doc.data.schema!==1||!['subjects','sessions','reviews','cycle'].every(k=>Array.isArray(doc.data[k])))
+  throw Error('Cópia remota com estrutura incompatível');
+ for(const k of ['subjects','sessions','reviews']){
+  const ids=new Set();
+  for(const row of doc.data[k]){
+   if(!row||typeof row.id!=='string'||ids.has(row.id))throw Error('IDs duplicados ou ausentes na cópia remota: '+k);
+   ids.add(row.id);
+  }
+ }
+ return doc.data;
 }
 async function create(token,data,period,day,hash){
  const payload=JSON.stringify({format:'BancoMestreControleBackupV240',createdAt:new Date().toISOString(),period,day,sha256:hash,data});
@@ -98,10 +107,56 @@ async function work(token){
  const removedMonthly=await prune(token,verifiedList,'monthly',12);
  return {state:'verified',message:'Backups: '+added.length+' novos, diário e mensal conferidos; rotação '+removedDaily+' diários e '+removedMonthly+' mensais'};
 }
+async function listAvailable(token){
+ const files=await list(token);
+ return files.map(f=>({
+  id:f.id,
+  name:f.name,
+  period:f.appProperties?.bm_period,
+  day:f.appProperties?.bm_day,
+  sha256:f.appProperties?.bm_sha256
+ })).filter(f=>f.id&&f.sha256&&['daily','monthly'].includes(f.period))
+   .sort((a,b)=>String(b.day).localeCompare(String(a.day)));
+}
+async function restoreToLocal(token,id){
+ if(typeof id!=='string'||!id)throw Error('Identificador do backup inválido');
+ const available=await listAvailable(token);
+ const chosen=available.find(f=>f.id===id);
+ if(!chosen)throw Error('Backup não identificado na lista do Drive; nenhuma alteração aplicada');
+ const data=await verified(token,id,chosen.sha256);
+ const old=localStorage.getItem(KEY);
+ const timerRaw=localStorage.getItem('BM_CONTROLE_TIMER_V238');
+ if(timerRaw){
+  let c;
+  try{c=JSON.parse(timerRaw)}catch{throw Error('Cronômetro local inválido: preserve-o antes de restaurar')}
+  if(c?.running||Number(c?.elapsed)>0||c?.transferPending)
+   throw Error('Cronômetro pendente: pause, encerre ou descarte antes de restaurar');
+ }
+ if(old!==localStorage.getItem(KEY))throw Error('Histórico alterado durante a conferência: restauração suspensa');
+ const prefix='BM240_PRE_RESTORE_'+new Date().toISOString().replace(/[:.]/g,'-');
+ const previousBaseline=localStorage.getItem('BM240_CONTROLE_DRIVE_BASE_SHA256');
+ // Não sobrescrever silenciosamente: uma cópia anterior é persistida primeiro.
+ localStorage.setItem(prefix,old===null?JSON.stringify({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60}):old);
+ try{
+  // Marca a origem como divergente para IMPEDIR que o sincronizador envie automaticamente uma restauração antiga sobre o mestre do Drive.
+  localStorage.setItem('BM240_CONTROLE_DRIVE_BASE_SHA256','RESTORE_REQUIRES_RECONCILIATION');
+  localStorage.setItem(KEY,JSON.stringify(data));
+  window.BM240ControlApp?.reload?.();
+ }catch(e){
+  try{
+   if(old===null)localStorage.removeItem(KEY);else localStorage.setItem(KEY,old);
+   if(previousBaseline===null)localStorage.removeItem('BM240_CONTROLE_DRIVE_BASE_SHA256');
+   else localStorage.setItem('BM240_CONTROLE_DRIVE_BASE_SHA256',previousBaseline);
+  }catch(_){}
+  throw Error('Restauração local não concluída: '+e.message);
+ }
+ return {state:'restored-local-only',count:data.sessions.length,backupName:chosen.name,
+  message:'Cópia validada e restaurada APENAS neste navegador. Mestre remoto preservado; conciliação pendente antes de sincronizar.'};
+}
 async function afterSync(token){
  if(ongoing)return ongoing;
  ongoing=work(token).then(r=>(lastResult=r,r)).catch(e=>(lastResult={state:'error',message:'Backup: '+e.message},lastResult)).finally(()=>ongoing=null);
  return ongoing;
 }
-window.BM240StudyBackups=Object.freeze({afterSync,get lastResult(){return lastResult}});
+window.BM240StudyBackups=Object.freeze({afterSync,listAvailable,restoreToLocal,get lastResult(){return lastResult}});
 })();
