@@ -16,6 +16,7 @@ function isNarrative(fragment){
  const lhs=s.slice(0,idx).trim(),rhs=s.slice(idx+1).trim();
  // A left-hand description ("M nos engastes") is not an algebraic symbol.
  const lhsWords=lhs.split(/\s+/).filter(Boolean);
+ if(/^[\p{L}À-ÿ]{6,}(?:-[\p{L}À-ÿ]{3,})*$/u.test(lhs)&&lhs===lhs.toLocaleLowerCase('pt-BR'))return true;
  if(lhsWords.length>=2&&lhsWords.some(x=>/^[\p{L}À-ÿ]{3,}$/u.test(x)))return true;
  // Explanatory clauses or units must never become invisible-spaced MathML identifiers.
  if(/(?:^|[\s,;])(?:para|quando|onde|conforme|sendo|então|depois|somente|sinais|definida|definido|dependem|depende|inclusive|exceto|porque|aquecimento|resfriamento|impedida|considerando|respectivamente)\b/iu.test(rhs))return true;
