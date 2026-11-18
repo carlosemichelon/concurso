@@ -336,7 +336,7 @@ $('timerRelease').addEventListener('click',()=>{
  storeClock();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;
  showTimer();toggleMessage('timerStatus','Sessão pausada assumida localmente. Sincronize no Drive antes de retomar.');
  });
- $('timerSave').addEventListener('click',saveTimer);$('timerDiscard').addEventListener('click',()=>{if(!runTime()||confirm('Descartar o tempo ainda não salvo?')){clock={running:false,start:0,elapsed:0,subject:'',topic:'',type:'Teoria'};storeClock();mirrorTimer();showTimer()}});
+ $('timerSave').addEventListener('click',saveTimer);$('timerDiscard').addEventListener('click',()=>{if(!runTime()||window.BM240DiscardConfirmed===true||confirm('Descartar o tempo ainda não salvo?')){clock={running:false,start:0,elapsed:0,subject:'',topic:'',type:'Teoria'};storeClock();mirrorTimer();showTimer()}});
 $('sessionForm').addEventListener('submit',e=>{e.preventDefault();try{const s={date:$('sessionDate').value,startTime:$('sessionTime').value,minutes:Number($('sessionMinutes').value),subjectId:$('sessionSubject').value,type:$('sessionType').value,topic:$('sessionTopic').value.trim(),general:$('sessionGeneral').value.trim(),specific:$('sessionSpecific').value.trim(),subtopic:$('sessionSubtopic').value.trim(),questions:Number($('sessionQuestions').value),correct:Number($('sessionCorrect').value),notes:$('sessionNotes').value};if(!validDate(s.date))throw Error('Informe uma data válida.');addSession(s,false);clearForm();toggleMessage('sessionStatus','Sessão salva e indicadores atualizados.')}catch(ex){toggleMessage('sessionStatus',ex.message)}});
 $('sessionSubject').addEventListener('change',()=>{$('sessionGeneral').value='';$('sessionSpecific').value='';refreshTaxonomy()});
  $('sessionGeneral').addEventListener('input',()=>{$('sessionSpecific').value='';refreshTaxonomy()});
@@ -483,6 +483,17 @@ document.addEventListener('bm240-control-verified',()=>{
 init();
 window.BM240ControlApp=Object.freeze({
  reload(){load();refresh();showTimer()},
+ createSubject(name){
+  const n=String(name||'').trim();
+  if(n.length<2||n.length>80)throw Error('O nome deve conter entre 2 e 80 caracteres');
+  const existing=data.subjects.find(x=>x.name.toLocaleLowerCase('pt-BR')===n.toLocaleLowerCase('pt-BR'));
+  if(existing)return existing.id;
+  const entry={id:uid(),name:n,color:'#277f79',difficulty:3,weight:1,exam:0,daily:0,weekly:0,monthly:0};
+  data.subjects.push(entry);
+  if(!store()){data.subjects.pop();throw Error('Armazenamento local indisponível')}
+  refresh();
+  return entry.id;
+ },
  get timer(){return {running:!!clock.running,elapsedMs:runTime(),subjectId:clock.subject||'',subjectName:subjectName(clock.subject),
   topic:clock.topic||'',transferPending:!!clock.transferPending,availableForTransfer:!!clock.availableForTransfer,
   subjects:data.subjects.map(s=>({id:s.id,name:s.name}))}},
