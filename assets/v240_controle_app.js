@@ -202,15 +202,16 @@ $('calGrid').addEventListener('click',e=>{const b=e.target.closest('[data-cal-da
  $('planForm').addEventListener('submit',e=>{e.preventDefault();const date=$('planDate').value,sub=$('planSubject').value,topic=$('planTopic').value.trim(),minutes=Number($('planMinutes').value);if(!validDate(date)||!subject(sub)||!topic||!Number.isInteger(minutes)||minutes<5||minutes>1440){toggleMessage('planStatus','Confira a data, disciplina, assunto e minutos.');return}data.plans.push({id:uid(),date,subjectId:sub,topic,minutes,createdAt:new Date().toISOString()});if(store()){cal.selected=cal.date=date;$('planTopic').value='';toggleMessage('planStatus','Atividade planejada e salva localmente.');renderCalendar()}});
  $('calPlans').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.calToggle||b.dataset.calRemove;const p=data.plans.find(x=>x.id===id&&!x.deletedAt);if(!p)return;if(b.dataset.calRemove){p.deletedAt=new Date().toISOString()}else if(p.doneAt)delete p.doneAt;else p.doneAt=new Date().toISOString();store();renderCalendar()});
  $('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;
-$('timerStart').addEventListener('click',()=>{if(!clock.running){if(!runTime()){if(data.activeTimer&&data.activeTimer.ownerId!==device){toggleMessage('timerStatus','Existe uma sessão em outro dispositivo. Pause e sincronize-a antes de assumir.');return}if(!subject($('timerSubject').value)){toggleMessage('timerStatus','Cadastre e selecione uma disciplina antes de iniciar.');return}clock.sessionId=clock.sessionId||uid();clock.ownerId=device;clock.subject=$('timerSubject').value;clock.topic=$('timerTopic').value.trim();clock.type=$('timerType').value;clock.alarmMinutes=nval($('timerAlarm').value,0,600);clock.alarmed=false}clock.start=Date.now();if(!clock.firstStartedAt)clock.firstStartedAt=clock.start;clock.running=true;storeClock();mirrorTimer();showTimer()}});
-$('timerPause').addEventListener('click',()=>{clock.elapsed=runTime();clock.start=0;clock.running=false;storeClock();mirrorTimer();showTimer()});
+$('timerStart').addEventListener('click',()=>{if(!clock.running){if(clock.transferPending){toggleMessage('timerStatus','Transferência pendente. Sincronize e confirme o Drive antes de continuar.');return}if(!runTime()){if(data.activeTimer&&data.activeTimer.ownerId!==device){toggleMessage('timerStatus','Existe uma sessão em outro dispositivo. Pause e sincronize-a antes de assumir.');return}if(!subject($('timerSubject').value)){toggleMessage('timerStatus','Cadastre e selecione uma disciplina antes de iniciar.');return}clock.sessionId=clock.sessionId||uid();clock.ownerId=device;clock.subject=$('timerSubject').value;clock.topic=$('timerTopic').value.trim();clock.type=$('timerType').value;clock.alarmMinutes=nval($('timerAlarm').value,0,600);clock.alarmed=false}clock.availableForTransfer=false;clock.start=Date.now();if(!clock.firstStartedAt)clock.firstStartedAt=clock.start;clock.running=true;storeClock();mirrorTimer();showTimer()}});
+$('timerPause').addEventListener('click',()=>{clock.elapsed=runTime();clock.start=0;clock.running=false;clock.availableForTransfer=true;storeClock();mirrorTimer();showTimer()});
 $('timerClaim').addEventListener('click',()=>{
  const remote=data.activeTimer;
  if(clock.running||runTime()>0){toggleMessage('timerStatus','Encerre o tempo local antes de transferir.');return}
  if(!remote){toggleMessage('timerStatus','Nenhuma sessão sincronizada para transferir.');return}
+ if(!remote.availableForTransfer){toggleMessage('timerStatus','Sessão ainda não foi liberada para transferência. Pause no aparelho de origem e sincronize o Drive.');return}
  if(remote.running){toggleMessage('timerStatus','O cronômetro remoto está em execução. Pause-o e sincronize no aparelho de origem.');return}
  if(!subject(remote.subject)){toggleMessage('timerStatus','A disciplina sincronizada não está cadastrada.');return}
- clock={...remote,ownerId:device,running:false,start:0};
+ clock={...remote,ownerId:device,running:false,start:0,availableForTransfer:false,transferPending:true};
  delete clock.updatedAt;
  if(!mirrorTimer()){toggleMessage('timerStatus','Falha ao assumir sessão; dados anteriores preservados.');return}
  storeClock();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;
@@ -280,7 +281,17 @@ $('bm240-import-legacy').addEventListener('click',()=>{try{importLegacy()}catch(
 });
 refreshOpts();$('historySubject').value='all';$('historyType').value='all';refresh();$('timerSubject').value=clock.subject;$('timerTopic').value=clock.topic;$('timerType').value=clock.type;$('timerAlarm').value=clock.alarmMinutes||0;showTimer();
 tick=setInterval(()=>{showTimer();if(clock.running)storeClock()},1000);
-window.addEventListener('pagehide',storeClock);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(resize).observe(root.querySelector('main'))}
+document.addEventListener('bm240-control-verified',()=>{
+  if(clock.transferPending){
+   clock.transferPending=false;
+   clock.availableForTransfer=false;
+   storeClock();
+   mirrorTimer();
+   toggleMessage('timerStatus','Transferência confirmada pelo Drive. Você pode retomar o cronômetro.');
+   showTimer();
+  }
+ });
+ window.addEventListener('pagehide',storeClock);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(resize).observe(root.querySelector('main'))}
 }
 init();
 window.BM240ControlApp=Object.freeze({reload(){load();refresh();showTimer()},get status(){return {sessions:relevant().length,deleted:data.sessions.filter(x=>x.deletedAt).length,audit:data.audit.length}}});
