@@ -20,6 +20,10 @@ body{margin:0;background:#f5f7f7;color:#17353b;font:16px/1.5 system-ui,Arial}
 <script>
 (async function(){
  'use strict';
+ // Interpretar a rota antes do portal-base escolher uma aba padrão.
+ const originalQuery=new URLSearchParams(location.search);
+ window.BM240OpenStudyDefault=!(location.hash&&location.hash!=='#')&&
+  !originalQuery.has('cartao')&&!originalQuery.has('tema')&&!originalQuery.has('pdf');
  const info=document.getElementById('loading');
  try{
   const response=await fetch('./v062.html?base=V062',{cache:'no-cache'});
