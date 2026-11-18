@@ -13,7 +13,7 @@ function mirrorTimer(){
 }
 const $=id=>root.getElementById(id);
 const fresh=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60});
-let data, clock, editId=null, reviewFilter='due', tick, taxonomy={};
+let data, clock, editId=null, reviewFilter='due', tick, taxonomy={}, lastReadRaw=null;
 function uid(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2)}
 function validDate(x){return /^\d{4}-\d{2}-\d{2}$/.test(String(x||''))}
 function today(d){const z=d||new Date();return z.getFullYear()+'-'+String(z.getMonth()+1).padStart(2,'0')+'-'+String(z.getDate()).padStart(2,'0')}
@@ -23,7 +23,9 @@ function esc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function nval(x,min,max){return Math.min(max,Math.max(min,Number(x)||0))}
 function store(){
  try{
-  const old=JSON.parse(localStorage.getItem(KEY)||'null')||fresh();
+  const currentRaw=localStorage.getItem(KEY);
+  if(currentRaw!==lastReadRaw)throw Error('Controle foi alterado em outra aba. Nenhum dado sobrescrito; atualize para reconciliar.');
+  const old=currentRaw===null?fresh():JSON.parse(currentRaw);
   data.audit=Array.isArray(data.audit)?data.audit:(Array.isArray(old.audit)?old.audit.slice():[]);
   for(const kind of ['sessions','subjects','reviews','plans']){
    const previous=new Map((old[kind]||[]).map(x=>[x.id,x]));
@@ -37,17 +39,28 @@ function store(){
       before:before?structuredClone(before):null,after:after?structuredClone(after):null});
    }
   }
-  localStorage.setItem(KEY,JSON.stringify(data));
+  const nextRaw=JSON.stringify(data);
+  localStorage.setItem(KEY,nextRaw);
+  lastReadRaw=nextRaw;
   window.dispatchEvent(new CustomEvent('bm240-study-changed',{detail:{pending:true}}));
   return true;
  }catch(e){alert('Erro ao salvar no navegador: '+e.message);return false}
 }
 function storeClock(){try{localStorage.setItem(TIMER,JSON.stringify(clock))}catch(e){$('timerStatus').textContent='Falha na persistência do cronômetro: '+e.message}}
-function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');data=d&&d.schema===1&&Array.isArray(d.subjects)&&Array.isArray(d.sessions)&&Array.isArray(d.reviews)?d:fresh()}catch{data=fresh()}
-data.plans=Array.isArray(data.plans)?data.plans:[];
+function load(){
+ const raw=localStorage.getItem(KEY);let d=null;
+ if(raw!==null){
+  try{d=JSON.parse(raw)}catch{throw Error('Histórico corrompido: dados originais preservados. Não houve substituição.')}
+  if(!d||d.schema!==1||!Array.isArray(d.subjects)||!Array.isArray(d.sessions)||!Array.isArray(d.reviews)||
+    (d.plans!==undefined&&!Array.isArray(d.plans))||(d.audit!==undefined&&!Array.isArray(d.audit)))
+   throw Error('Formato do histórico incompatível: dados originais preservados.');
+ }
+ data=d||fresh();lastReadRaw=raw;
+ data.plans=Array.isArray(data.plans)?data.plans:[];
  data.audit=Array.isArray(data.audit)?data.audit:[];
- try{clock=JSON.parse(localStorage.getItem(TIMER)||'null')||null}catch{clock=null}
-if(!clock||typeof clock!=='object')clock={running:false,start:0,elapsed:0,subject:'',topic:'',type:'Teoria'};
+ const rawClock=localStorage.getItem(TIMER);
+ try{clock=rawClock===null?null:JSON.parse(rawClock)}catch{throw Error('Cronômetro corrompido, mantido para recuperação; nenhuma alteração automática.')}
+ if(!clock||typeof clock!=='object')clock={running:false,start:0,elapsed:0,subject:'',topic:'',type:'Teoria'};
 }
 function subject(id){return data.subjects.find(x=>x.id===id)}
 function subjectName(id){return subject(id)?.name||'Disciplina não localizada'}
@@ -321,6 +334,12 @@ document.addEventListener('bm240-control-verified',()=>{
    mirrorTimer();
    toggleMessage('timerStatus','Transferência confirmada pelo Drive. Você pode retomar o cronômetro.');
    showTimer();
+  }
+ });
+ window.addEventListener('storage',event=>{
+  if(event.key===KEY&&event.newValue!==lastReadRaw){
+   toggleMessage('sessionStatus','Histórico modificado em outra aba. Gravação bloqueada até reconciliar.');
+   toggleMessage('timerStatus','Histórico diferente em outra aba. Pause e verifique antes de continuar.');
   }
  });
  window.addEventListener('pagehide',storeClock);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(resize).observe(root.querySelector('main'))}
