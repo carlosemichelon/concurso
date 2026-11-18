@@ -104,7 +104,7 @@ function wrapperFor(id,main){
  const ribbon=node('div','bm163-card-ribbon');
  ribbon.append(node('span','bm163-card-badge bm163-area','⚖ Legislação Geral'),node('span','bm163-card-badge bm163-provisional','Cópia operacional TRT'));
  const h=node('h3','',main.querySelector('.bm211-summary strong')?.textContent||id);
- const read=node('button','bm-v050-peek-button bm221-trt-open','◉ Abrir leitura');read.type='button';
+ const read=node('button','bm-v050-peek-button bm221-trt-open','Abrir leitura');read.type='button';
  const tag=node('span','tag',id);
  const subjects=node('div','v036-card-path bm221-trt-references');
  const reference=node('p','bm163-card-ref');
@@ -118,7 +118,10 @@ function wrapperFor(id,main){
  const details=main.querySelector('.bm211-details');
  const summary=main.querySelector('.bm211-summary');
  if(summary)summary.setAttribute('aria-label','Abrir as 11 seções do cartão '+id);
- const sync=()=>{const open=!!details?.open;read.textContent=open?'◉ Fechar leitura':'◉ Abrir leitura';read.setAttribute('aria-expanded',String(open));main.hidden=!open;};
+ const sync=()=>{const open=!!details?.open;const icon=document.querySelector('#cardRows article.card:not(.bm221-trt-card)>.bm-v050-peek-button .bm163-ic');
+  read.replaceChildren();
+  if(icon)read.append(icon.cloneNode(true));
+  read.append(document.createTextNode(open?'Fechar leitura':'Abrir leitura'));read.setAttribute('aria-expanded',String(open));main.hidden=!open;};
  read.addEventListener('click',()=>{if(details)details.open=!details.open;sync();});
  details?.addEventListener('toggle',sync);
  guide.addEventListener('click',()=>{if(!details)return;details.open=true;sync();requestAnimationFrame(()=>main.querySelector('.bm211-layers')?.scrollIntoView({behavior:'smooth',block:'start'}));});
@@ -242,7 +245,19 @@ function init(){
  '#bm221CardInformation>summary{cursor:pointer;font-weight:600;color:#385c61}',
  '#bm221CardInformation #bm119PublicSource{border:0;background:transparent;margin:10px 0 0}',
  '#cardRows.bm191-all-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}',
- '#cardRows>.bm221-trt-card .bm211-body{min-width:0;overflow-wrap:anywhere}'
+ '#cardRows>.bm221-trt-card .bm211-body{min-width:0;overflow-wrap:anywhere}',
+ '#cardRows>.bm221-trt-card>.bm211-card[hidden]{display:none!important}',
+ '#cardRows>.bm221-trt-card>.bm-v050-peek-button{position:absolute!important;top:53px!important;right:13px!important;width:auto!important;min-height:37px!important;padding:7px 10px!important;font-size:11px!important;display:inline-flex!important;z-index:1}',
+ '#cardRows>.bm221-trt-card>h3{padding-right:110px!important;line-height:1.5!important;font-size:clamp(14px,1.15vw,16px)!important;margin:2px 0 5px!important}',
+ '#cardRows>.bm221-trt-card>.bm221-trt-references{display:flex;gap:5px;flex-wrap:wrap;margin:1px 0 2px}',
+ '#cardRows>.bm221-trt-card>.bm221-trt-references span{border:1px solid #d2e0e6;background:#f9fbfd;border-radius:5px;padding:3px 6px;font-size:10px;line-height:1.35;color:#486777;max-width:100%;overflow-wrap:anywhere}',
+ '#cardRows>.bm221-trt-card>.bm163-card-ref{margin:1px 0 3px!important}',
+ '#cardRows>.bm221-trt-card>.buttons{display:flex!important;flex-wrap:wrap;gap:7px!important;margin-top:auto!important;padding-top:10px!important;border-top:1px solid #e4ecea}',
+ '#cardRows>.bm221-trt-card>.buttons button{min-height:35px!important;font-size:11px!important;line-height:1.3!important;padding:7px 10px!important;border-radius:7px!important}',
+ '#cardRows>.bm221-trt-card>.bm211-card{margin-top:2px!important}',
+ '#cardRows>.bm221-trt-card .bm161-law-panel[hidden],#bm236RestoreTrt[hidden]{display:none!important}',
+ '#cardRows>.bm221-trt-card .bm161-law-link{display:inline-block;margin:3px 0}',
+ '@media(max-width:650px){#cardRows>.bm221-trt-card>.bm-v050-peek-button{position:static!important;align-self:flex-start;order:0;margin:3px 0!important;font-size:12px!important;min-height:40px!important}#cardRows>.bm221-trt-card>h3{padding-right:0!important}#cardRows>.bm221-trt-card>.buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))}}'
  ].join('\n');
  document.head.append(css);
  const label=document.createElement('small');label.id='bm221TrtCount';
