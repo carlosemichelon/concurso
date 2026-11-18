@@ -33,7 +33,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;b
 <button type="button" data-tab="ciclo">Ciclo de estudos</button><button type="button" data-tab="revisoes">Revisões</button><button type="button" data-tab="backup">Backup</button>
 </nav></header><main>
 <section class="pane active" id="painel"><div class="grid" id="metrics"></div>
-<div class="twocol" style="margin-top:13px"><div class="panel"><h2>Evolução dos últimos 14 dias</h2><div class="bars" id="timeline"></div><p class="hint">Barras por dia, em horas líquidas. Sessões salvas, não tempo estimado.</p></div>
+<div class="twocol" style="margin-top:13px"><div class="panel"><h2>Evolução dos últimos 14 dias</h2><div class="bars" id="timeline"></div><p class="hint">Barras empilhadas por disciplina, em horas líquidas. Passe o cursor para consultar os dias.</p></div>
 <div class="panel"><h2>Horas por disciplina</h2><div id="distribution"></div><h3 style="margin-top:18px">Tipos de estudo</h3><div id="types"></div></div></div>
 <div class="panel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Metas da semana</h2><button data-goto="planejamento">Ajustar metas</button></div><div id="goalSummary"></div></div>
 <div class="panel"><h2>Desempenho por disciplina</h2><div id="performance"></div></div></section>
@@ -115,7 +115,7 @@ const q=all.reduce((a,x)=>a+(Number(x.questions)||0),0),c=all.reduce((a,x)=>a+(N
 const overdue=data.reviews.filter(r=>!r.done&&r.due<=t).length;
 $('metrics').innerHTML=[['Hoje',timeText(total(daily))],['Esta semana',timeText(total(weekly))],['Este mês',timeText(total(monthly))],['Acertos',q?Math.round(c/q*100)+'%':'—']].map(x=>'<div class="metric"><span>'+esc(x[0])+'</span><b>'+esc(x[1])+'</b></div>').join('');
 const days=Array.from({length:14},(_,i)=>shift(t,i-13)),values=days.map(d=>total(data.sessions.filter(s=>s.date===d)));const max=Math.max(60,...values);
-$('timeline').innerHTML=days.map((d,i)=>'<div class="barcol" title="'+esc(d+' · '+timeText(values[i]))+'"><div class="bar" style="height:'+Math.round(values[i]/max*115)+'px"></div><small>'+esc(d.slice(8))+'</small></div>').join('');
+$('timeline').innerHTML=days.map((d,i)=>{const slices=data.subjects.map(sub=>({sub,m:total(data.sessions.filter(x=>x.date===d&&x.subjectId===sub.id))})).filter(x=>x.m>0);return '<div class="barcol" title="'+esc(d+' · '+timeText(values[i]))+'"><div class="bar" style="height:'+Math.round(values[i]/max*115)+'px;display:flex;flex-direction:column-reverse;overflow:hidden">'+slices.map(x=>'<i title="'+esc(x.sub.name)+'" style="height:'+Math.round(x.m/Math.max(.01,values[i])*100)+'%;background:'+esc(x.sub.color||'#318980')+';width:100%;flex:none"></i>').join('')+'</div><small>'+esc(d.slice(8))+'</small></div>'}).join('');
 const by=data.subjects.map(s=>({s,minutes:total(all.filter(x=>x.subjectId===s.id))})).filter(x=>x.minutes>0).sort((a,b)=>b.minutes-a.minutes);
 const allMinutes=Math.max(1,total(all));
 $('distribution').innerHTML=by.length?by.map(x=>'<div class="type-row"><span style="min-width:115px;max-width:170px;overflow-wrap:anywhere">'+esc(x.s.name)+'</span><div class="progress" style="flex:1"><i style="width:'+Math.round(x.minutes/allMinutes*100)+'%;background:'+esc(x.s.color||'#318980')+'"></i></div><strong>'+esc(timeText(x.minutes))+'</strong></div>').join(''):'<p class="empty">Nenhuma sessão registrada.</p>';
