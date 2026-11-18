@@ -67,6 +67,23 @@ test('Criar sessão, auditoria, exclusão recuperável e agenda não alteram o S
  assert.equal(localStorage.getItem('BM_CONTROLE_ESTUDOS_V238'),original,'Histórico da V239 não pode ser modificado');
  d=JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_CONTROLE'));
  assert.ok(d.sessions.some(s=>s.id==='V239:prod-session'),'Histórico verificado da V239 não importado no staging');
+ // Pausa comum não libera a posse para outro aparelho.
+ get('timerSubject').value=sid;get('timerType').value='Teoria';get('timerTopic').value='Mecânica dos Solos';
+ send('timerStart','click');
+ let clock=JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_TIMER'));
+ assert.equal(clock.running,true);
+ send('timerPause','click');
+ clock=JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_TIMER'));
+ assert.equal(clock.running,false);
+ assert.equal(clock.availableForTransfer,false,'Pausa local não é uma transferência');
+ clock.elapsed=60000;clock.running=false;clock.ownerId=localStorage.getItem('BM240_HOMOLOGACAO_DEVICE');
+ localStorage.setItem('BM240_HOMOLOGACAO_TIMER',JSON.stringify(clock));
+ window.BM240ControlApp.reload();
+ send('timerRelease','click');
+ clock=JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_TIMER'));
+ assert.equal(clock.availableForTransfer,true);
+ send('timerStart','click');
+ assert.equal(JSON.parse(localStorage.getItem('BM240_HOMOLOGACAO_TIMER')).running,false,'Transferência liberada não pode ser retomada sem Drive');
  const staged=localStorage.getItem('BM240_HOMOLOGACAO_CONTROLE');
  const divergent=JSON.parse(staged);divergent.availabilityWeek=987;
  localStorage.setItem('BM240_HOMOLOGACAO_CONTROLE',JSON.stringify(divergent));
@@ -95,4 +112,55 @@ test('Deploy principal é separado da versão de homologação',()=>{
  assert.ok(sync.includes("BM240_HOMOLOGACAO_CONTROLE"));
  assert.ok(sync.includes("bm_controle_estudos_v240_homologacao"));
  assert.ok(backup.includes("bm_controle_estudos_v240_homologacao_backup"));
+});
+
+
+test('Backups privados isolados: hash, consulta e recuperação local sem alterar a V239',async()=>{
+ const source=at('assets/v240_backup_drive.js');
+ const crypto=require('node:crypto').webcrypto;
+ const documents=new Map(),mem=new Map();
+ const original={schema:1,subjects:[{id:'d',name:'Engenharia Civil'}],
+  sessions:[{id:'a',date:'2026-11-18',subjectId:'d',minutes:42,questions:4,correct:3}],
+  reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60};
+ mem.set('BM240_HOMOLOGACAO_CONTROLE',JSON.stringify(original));
+ mem.set('BM_CONTROLE_ESTUDOS_V238','PRODUCAO_INTACTA');
+ const storage={getItem:k=>mem.has(k)?mem.get(k):null,setItem:(k,v)=>mem.set(k,String(v)),removeItem:k=>mem.delete(k)};
+ const okay=data=>({ok:true,json:async()=>data,text:async()=>JSON.stringify(data)});
+ let sequence=0;
+ async function fetch(url,options={}){
+  const u=new URL(url),method=options.method||'GET';
+  if(method==='GET'&&u.pathname==='/drive/v3/files')
+   return okay({files:[...documents.values()].map(x=>({id:x.id,name:x.name,createdTime:x.createdTime,appProperties:x.appProperties}))});
+  if(method==='POST'&&u.pathname==='/upload/drive/v3/files'){
+   const parts=String(options.body).split('\r\n\r\n'),
+    meta=JSON.parse(parts[1].split('\r\n--')[0]),
+    doc=JSON.parse(parts[2].split('\r\n--')[0]),id='backup-'+(++sequence);
+   const record={id,name:meta.name,appProperties:meta.appProperties,doc,createdTime:new Date().toISOString()};
+   documents.set(id,record);return okay({id,name:record.name,appProperties:record.appProperties});
+  }
+  if(method==='GET'&&u.pathname.startsWith('/drive/v3/files/')){
+   const record=documents.get(u.pathname.split('/').at(-1));
+   if(!record)return {ok:false,status:404};
+   return okay(u.searchParams.get('alt')==='media'?record.doc:{id:record.id});
+  }
+  if(method==='DELETE'&&u.pathname.startsWith('/drive/v3/files/')){
+   documents.delete(u.pathname.split('/').at(-1));return okay({});
+  }
+  throw Error('Chamada mock não esperada: '+method+' '+url);
+ }
+ const window={BM240ControlApp:{reload(){}}};
+ vm.runInNewContext(source,{window,fetch,localStorage:storage,crypto,TextEncoder,URL,Date,JSON,
+  setTimeout}, {timeout:1500});
+ const first=await window.BM240StudyBackups.afterSync('token-test');
+ assert.equal(first.state,'verified');
+ const list=await window.BM240StudyBackups.listAvailable('token-test');
+ assert.equal(list.length,2);
+ const changed=structuredClone(original);
+ changed.sessions.push({id:'b',date:'2026-11-18',subjectId:'d',minutes:20,questions:0,correct:0});
+ storage.setItem('BM240_HOMOLOGACAO_CONTROLE',JSON.stringify(changed));
+ const result=await window.BM240StudyBackups.restoreToLocal('token-test',list[0].id);
+ assert.equal(result.state,'restored-local-only');
+ assert.equal(JSON.parse(storage.getItem('BM240_HOMOLOGACAO_CONTROLE')).sessions.length,1);
+ assert.equal(storage.getItem('BM240_HOMOLOGACAO_DRIVE_BASE_SHA256'),'RESTORE_REQUIRES_RECONCILIATION');
+ assert.equal(storage.getItem('BM_CONTROLE_ESTUDOS_V238'),'PRODUCAO_INTACTA');
 });
