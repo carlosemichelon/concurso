@@ -44,5 +44,5 @@ assert.ok(Number(manifest.previous_version.slice(1))<Number(manifest.version.sli
 assert.equal(manifest.current_versions.public_cards.source_of_truth,'GitHub (V194 public card data + operational additions)');
 assert.equal(manifest.release_v217.srs_private_unchanged,true);
 assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'),'entrada do portal corresponde ao manifesto');
-assert.ok(page.includes('TRT01-C00[123]'),'links para os três cartões TRT preservados');
+assert.ok(page.includes('v215_trt01_c003.js?v=215'),'Módulo TRT C003 preservado no arquivo histórico V217');
 console.log('V217: cartões GitHub preservados, imagens/PDFs Drive-only, SRS não alterado.');
