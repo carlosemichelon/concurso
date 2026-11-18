@@ -12,6 +12,7 @@ on:
       - 'sw-v240.js'
       - 'assets/v240_estudo_hierarquia.json'
       - 'tests/v240_controle.test.cjs'
+      - 'tests/v240_merge.test.cjs'
       - 'tests/v240_browser.spec.js'
       - '.github/workflows/v240-controle.yml'
   workflow_dispatch:
@@ -26,7 +27,7 @@ jobs:
         with:
           node-version: '22'
       - name: Testar app e contratos DOM
-        run: node --test tests/v240_controle.test.cjs
+        run: node --test tests/v240_controle.test.cjs tests/v240_merge.test.cjs
 
   browser-smoke:
     runs-on: ubuntu-latest
