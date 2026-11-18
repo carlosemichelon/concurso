@@ -1,0 +1,1353 @@
+/* Source: assets/v062_biblioteca_grifos.css?v=062 */
+
+/* Banco Mestre V062 — Biblioteca de Grifos local, responsiva e acessível */
+#grifos .bm062-panel{max-width:1140px;margin:0 auto}
+#grifos .bm062-top{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;flex-wrap:wrap}
+#grifos .bm062-top h2{margin:0 0 5px}
+#grifos .bm062-topbuttons{display:flex;gap:7px;flex-wrap:wrap}
+#grifos .bm062-topbuttons button{font-size:12px}
+#grifos .bm062-stats{font-size:13px;font-weight:800;margin:8px 0 12px;color:#245568}
+#grifos .bm062-filters{display:grid;grid-template-columns:minmax(240px,2fr) repeat(3,minmax(140px,1fr));gap:8px;margin:18px 0 10px}
+#grifos .bm062-filters input[type="search"],#grifos .bm062-filters select{
+ display:block;width:100%;max-width:100%;min-width:0;min-height:38px;
+ font:13px system-ui,Arial,sans-serif;padding:7px 9px;border:1px solid #b7c9cc;
+ border-radius:7px;background:#fff;color:#17353b}
+#grifos .bm062-check{display:flex;gap:7px;align-items:center;font-size:12px}
+#grifos .bm062-export{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0 18px}
+#grifos .bm062-export span{margin-right:auto;font-size:12px;font-weight:800;color:#46606a}
+#grifos .bm062-export button{font-size:12px;padding:7px 10px}
+#grifos .bm062-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
+#grifos .bm062-item{border:1px solid #c9d8dd;border-left:5px solid var(--mark-color,#ffd400);border-radius:9px;background:#fff;padding:13px;min-width:0;box-shadow:0 3px 12px #244b5d0b}
+#grifos .bm062-rowhead{display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap;margin-bottom:7px}
+#grifos .bm062-type{font-size:10px;font-weight:800;border-radius:4px;padding:3px 5px;background:#eaf3f8;color:#21536a}
+#grifos .bm062-origin{font-size:12px;overflow-wrap:anywhere;flex:1 1 145px}
+#grifos .bm062-page{font-size:11px;color:#5b6971;font-weight:700}
+#grifos .bm062-quote{font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;line-height:1.5;color:#233e44;max-height:16em;overflow:auto}
+#grifos .bm062-secondary{font-size:11px;color:#26606a;font-weight:700;overflow-wrap:anywhere}
+#grifos .bm062-note{font-size:12px;line-height:1.4;white-space:pre-wrap;background:#f6faf8;padding:8px;border-radius:6px;overflow-wrap:anywhere}
+#grifos .bm062-source{font-size:10px;color:#647981;overflow-wrap:anywhere;margin:7px 0}
+#grifos .bm062-itembuttons{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+#grifos .bm062-itembuttons button,#grifos .bm062-itembuttons a{font-size:11px;line-height:1.3;min-height:28px;padding:6px 8px;border:1px solid #c2d2da;border-radius:6px;background:#fff;color:#164b57;text-decoration:none;cursor:pointer}
+#grifos .bm062-itembuttons button:hover,#grifos .bm062-itembuttons a:hover{background:#eef7f7}
+#grifos .bm062-form{margin-top:12px;border-top:1px solid #cfdde0;padding:10px 0 0;display:grid;gap:8px}
+#grifos .bm062-form[hidden]{display:none!important}
+#grifos .bm062-form label{display:grid;gap:4px;font-size:11px;font-weight:750;color:#284b53}
+#grifos .bm062-form input,#grifos .bm062-form textarea{max-width:100%;width:100%;min-width:0;border:1px solid #bfced3;border-radius:6px;padding:7px;font:13px/1.4 system-ui,Arial,sans-serif;color:#17353b;background:#fff}
+#grifos .bm062-form textarea{resize:vertical}
+#grifos .bm062-formactions{display:flex;gap:7px}
+#grifos .bm062-formactions button{font-size:12px;min-height:30px;padding:6px 10px}
+#grifos .bm062-msg{font-size:12px;color:#245568;min-height:18px;overflow-wrap:anywhere}
+#grifos #bm062More{font-size:12px}
+@media(max-width:880px){#grifos .bm062-filters{grid-template-columns:repeat(2,minmax(0,1fr))}#grifos #bm062Search{grid-column:1/-1}}
+@media(max-width:600px){#grifos .bm062-filters{grid-template-columns:1fr}#grifos #bm062Search{grid-column:auto}
+ #grifos .bm062-results{grid-template-columns:1fr}#grifos .bm062-panel{padding:12px}#grifos .bm062-topbuttons{width:100%}}
+
+
+/* Source: assets/v064_painel_grifos.css?v=064 */
+/* V064 — painel de grifos retrátil e filtro de imagens ocultas, sem alterar os originais. */
+#assuntos.bm064-auditing-images #topicRows{visibility:hidden!important}
+#tema.bm064-auditing-images #topicMedia{visibility:hidden!important}
+#pdfDialog .bm-v046-pdf-content .bm064-reader{
+ display:flex;flex:1 1 auto;min-height:0;min-width:0;max-height:100%;
+ overflow:hidden;position:relative;
+}
+#pdfDialog .bm064-reader:has(#pdfLocalMode:not(.active)){display:none!important}
+#pdfDialog .bm064-reader #pdfLocalMode.active{
+ flex:1 1 auto!important;width:0!important;min-width:0!important;
+ height:100%!important;max-height:none!important;overflow:auto!important;
+}
+#pdfDialog #bm064TogglePanel{
+ display:block!important;width:100%!important;min-height:32px!important;
+ margin:0 0 6px;padding:5px!important;background:#eaf5fb!important;
+ border:1px solid #aacbdc!important;border-radius:6px!important;
+ color:#215b70!important;font-size:11px!important;font-weight:800!important;
+ white-space:normal!important;
+}
+#pdfDialog #bm064TogglePanel[aria-expanded="true"]{background:#d7effb!important;border-color:#438cad!important}
+#pdfDialog .bm064-grip,#pdfDialog .bm064-highlight-panel{display:none!important}
+#pdfDialog .bm064-reader.bm064-show-grifos .bm064-grip{
+ display:block!important;width:7px!important;min-width:7px!important;
+ flex:0 0 7px!important;cursor:col-resize;background:#e2ecef;
+ border-left:1px solid #b7ccd3;border-right:1px solid #b7ccd3;
+ touch-action:none;position:relative;z-index:3;
+}
+#pdfDialog .bm064-reader.bm064-show-grifos .bm064-grip:hover,
+#pdfDialog .bm064-reader.bm064-show-grifos .bm064-grip:focus{background:#a6cedb;outline:1px solid #477e91}
+#pdfDialog .bm064-reader.bm064-show-grifos .bm064-highlight-panel{
+ display:flex!important;flex:0 0 var(--bm064-panel-width,315px)!important;
+ width:var(--bm064-panel-width,315px)!important;
+ min-width:245px!important;max-width:min(620px,80vw)!important;
+ min-height:0!important;max-height:100%!important;flex-direction:column;
+ background:#f8fbfc;border-left:1px solid #c2d6dd;
+ overflow:hidden;box-shadow:-5px 0 16px #173c4912;
+ font:12px/1.4 system-ui,Arial,sans-serif;
+}
+#pdfDialog .bm064-head{
+ display:flex;align-items:center;justify-content:space-between;gap:6px;
+ padding:10px 11px;border-bottom:1px solid #c9dce1;background:#eef6f9
+}
+#pdfDialog .bm064-head strong{font-size:13px;color:#1a4c5c}
+#pdfDialog .bm064-head button{padding:2px 7px!important;min-height:24px!important;font-size:18px!important;line-height:1!important}
+#pdfDialog .bm064-caption{
+ margin:0;padding:7px 11px;color:#52717b;font-size:11px;
+ border-bottom:1px solid #e0eaed
+}
+#pdfDialog .bm064-panel-controls{
+ display:flex;gap:5px;align-items:center;padding:7px 9px;border-bottom:1px solid #d8e6ea
+}
+#pdfDialog .bm064-panel-controls input{
+ width:100%;min-width:0;min-height:32px;padding:5px 7px;
+ border-radius:6px;border:1px solid #b3c9d1;font:12px system-ui,Arial;background:#fff
+}
+#pdfDialog .bm064-panel-controls button{padding:4px 8px!important;min-height:32px!important;font-size:16px!important}
+#pdfDialog .bm064-list{flex:1 1 auto;min-height:0;overflow:auto;padding:6px 9px 14px}
+#pdfDialog .bm064-list h4{
+ margin:12px 0 6px;padding:3px 0;border-bottom:1px solid #cedde3;
+ color:#2b5e6a;font-size:11px;text-transform:uppercase;letter-spacing:.025em
+}
+#pdfDialog .bm064-mark{
+ border:1px solid #d4e0e5;border-left:5px solid var(--bm064-mark-color,#ffd400);
+ border-radius:7px;padding:8px;margin:6px 0;background:#fff;overflow-wrap:anywhere
+}
+#pdfDialog .bm064-mark-active-page{border-color:#7caebd;border-left-color:var(--bm064-mark-color,#ffd400)}
+#pdfDialog .bm064-mark-head{display:flex;gap:5px;align-items:center;justify-content:space-between;color:#5f7880;font-size:10px}
+#pdfDialog .bm064-mark-head button{padding:2px 6px!important;min-height:24px!important;font-size:10px!important}
+#pdfDialog .bm064-preview{
+ display:block!important;width:100%!important;border:0!important;background:transparent!important;
+ font:12px/1.45 system-ui,Arial,sans-serif!important;text-align:left!important;
+ color:#193f4a!important;white-space:normal!important;padding:7px 0 3px!important;
+ overflow-wrap:anywhere!important;cursor:pointer
+}
+#pdfDialog .bm064-preview:hover{text-decoration:underline}
+#pdfDialog .bm064-note{white-space:pre-wrap;font-size:11px;line-height:1.4;background:#f1f7f5;
+ padding:6px;border-radius:5px;color:#2d555d;margin:5px 0}
+#pdfDialog .bm064-mark small{color:#5b7580;font-size:10px}
+#pdfDialog .bm064-empty{font-size:12px;color:#647780;padding:14px 4px}
+#pdfDialog .bm064-footer{display:block;color:#637680;font-size:10px;padding:6px 10px;border-top:1px solid #d2e1e6}
+@media(max-width:760px){
+ #pdfDialog .bm064-reader.bm064-show-grifos .bm064-highlight-panel{
+  flex-basis:min(var(--bm064-panel-width,315px),54vw)!important;
+  width:min(var(--bm064-panel-width,315px),54vw)!important;
+  min-width:180px!important
+ }
+ #pdfDialog .bm064-panel-controls input{font-size:11px}
+}
+
+
+/* Source: assets/v065_cartao_rapido_header.css?v=065 */
+/* V065 — corrige cabeçalho do Cartão rápido atrás do Fechar PDF.
+   Correção apenas visual, posterior ao CSS V047 e ao layout V064. */
+#pdfDialog[open] .bm-v046-pdf-content #pdfQuickPanelV047.bm-v047-card-panel{
+ position:absolute!important;
+ top:58px!important;right:10px!important;bottom:10px!important;
+ z-index:69!important; /* menu PDF 70 e Fechar PDF 75 continuam acessíveis */
+ box-sizing:border-box!important;
+ min-height:0!important;
+ max-height:calc(100% - 68px)!important;
+ overflow-x:hidden!important;overflow-y:auto!important;
+ padding:0 12px 12px!important;
+ scroll-padding-top:55px;
+}
+#pdfDialog[open] #pdfQuickPanelV047 .bm-v047-card-header{
+ display:flex!important;
+ flex:0 0 auto!important;align-items:center!important;justify-content:space-between!important;
+ gap:10px!important;
+ position:sticky!important;top:0!important;left:0!important;right:0!important;
+ z-index:2!important;
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;
+ min-height:44px!important;
+ margin:0 0 6px!important;padding:7px 1px!important;
+ background:#fff!important;border-bottom:1px solid #d7e4e8!important;
+}
+#pdfDialog[open] #pdfQuickPanelV047 .bm-v047-card-header strong{
+ display:block!important;flex:1 1 auto!important;min-width:0!important;
+ font-size:14px!important;line-height:1.3!important;overflow-wrap:anywhere;
+}
+#pdfDialog[open] #pdfQuickPanelV047 .bm-v047-card-header button{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ position:static!important;flex:0 0 34px!important;
+ width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;
+ margin:0!important;padding:0!important;
+ font-size:23px!important;line-height:1!important;
+ background:#f6fafb!important;border:1px solid #bfd1d8!important;border-radius:6px!important;
+ color:#294c5b!important;cursor:pointer!important;
+}
+#pdfDialog[open] #pdfQuickPanelV047 .bm-v047-card-header button:focus-visible{
+ outline:2px solid #2680a6!important;outline-offset:2px!important;
+}
+@media(max-width:700px){
+ #pdfDialog[open] .bm-v046-pdf-content #pdfQuickPanelV047.bm-v047-card-panel{
+  top:50px!important;right:5px!important;bottom:5px!important;
+  width:min(300px,calc(100% - 10px))!important;
+  max-height:calc(100% - 55px)!important;
+  padding:0 9px 9px!important;
+ }
+}
+
+
+/* Source: assets/v066_backup_drive_grifos.css?v=066 */
+/* Banco Mestre V066 — envio consentido de backup de grifos para o Drive */
+#grifos #bm066DriveBackup{
+ margin:16px 0 20px;padding:15px 17px;
+ border:1px solid #bfd3dc;border-radius:9px;
+ background:linear-gradient(165deg,#fafcfd,#f1f8fb);color:#213e4b;
+}
+#grifos #bm066DriveBackup h3{font-size:15px;margin:0 0 7px;color:#184e65}
+#grifos #bm066DriveBackup p{font-size:12px;line-height:1.55;margin:7px 0}
+#grifos #bm066DriveBackup .bm066-actions{
+ display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0;
+}
+#grifos #bm066DriveBackup button{
+ min-height:35px!important;padding:7px 11px!important;
+ border-radius:6px;font-size:12px!important;
+ border:1px solid #abc8d5;color:#1a4f65;background:#fff;
+}
+#grifos #bm066DriveBackup button:not(:disabled):hover{background:#e9f6fb}
+#grifos #bm066DriveBackup button:disabled{opacity:.46;cursor:not-allowed}
+#grifos #bm066DriveBackup #bm066Upload{font-weight:800;border-color:#387b92;background:#e7f5fb}
+#grifos #bm066DriveBackup .bm066-consent{
+ display:flex;align-items:flex-start;gap:8px;margin:10px 0;
+ font:12px/1.45 system-ui,Arial,sans-serif;
+}
+#grifos #bm066DriveBackup .bm066-consent input{flex:0 0 auto;margin-top:3px;accent-color:#147c8a}
+#grifos #bm066DriveBackup .bm066-hash{
+ font-size:11px!important;color:#335c69;word-break:break-all;
+ background:#fff;padding:8px 9px;border:1px solid #d4e2e8;border-radius:6px;
+}
+#grifos #bm066DriveBackup .bm066-status{font-weight:700;color:#2b6673;overflow-wrap:anywhere}
+#grifos #bm066DriveBackup .bm066-foot{color:#687b83;font-size:10px!important}
+#grifos #bm066DriveBackup code{font-size:10px;overflow-wrap:anywhere}
+#grifos #bm066DriveLink{font-size:12px;font-weight:750;color:#13637a;text-decoration:underline;overflow-wrap:anywhere}
+@media(max-width:650px){
+ #grifos #bm066DriveBackup{padding:12px}
+ #grifos #bm066DriveBackup .bm066-actions{flex-direction:column;align-items:stretch}
+ #grifos #bm066DriveBackup .bm066-actions button{width:100%}
+}
+
+
+/* Source: assets/v067_diagnostico_local.css?v=067 */
+/* Banco Mestre V067 — diagnóstico local em modo somente leitura */
+#grifos #bm067Audit{
+ margin:12px 0 18px;padding:14px 15px;
+ border:1px solid #c8d6db;border-radius:9px;background:#f8fbfc;color:#244a58;
+}
+#grifos #bm067Audit h3{font-size:15px;line-height:1.3;margin:0 0 7px}
+#grifos #bm067Audit p{font-size:12px;line-height:1.45;margin:6px 0}
+#grifos #bm067Audit .bm067-actions{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:11px 0}
+#grifos #bm067Audit button{font-size:12px;min-height:33px;padding:6px 10px;border:1px solid #9ebcc9;background:white;color:#245467;border-radius:6px}
+#grifos #bm067Audit button:disabled{opacity:.45}
+#grifos #bm067Status{font-size:12px;font-weight:750;color:#225c6c}
+#grifos #bm067Audit .bm067-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:7px;margin:12px 0}
+#grifos #bm067Audit .bm067-result{display:flex;flex-direction:column;gap:5px;padding:9px;border:1px solid #d4dfe4;border-radius:6px;background:#fff;overflow-wrap:anywhere}
+#grifos #bm067Audit .bm067-result strong{font-size:12px;color:#234754}
+#grifos #bm067Audit .bm067-result span{font-size:11px;line-height:1.35;color:#566e78}
+#grifos #bm067Audit .bm067-problem{border-left:4px solid #b66654}
+#grifos #bm067Audit .bm067-warning{border-left:4px solid #d0a345}
+#grifos #bm067Audit .bm067-ok{border-left:4px solid #7baaaa}
+#grifos #bm067Audit small{display:block;color:#64747c;font-size:11px;line-height:1.4}
+#pdfDialog #bm067ReaderRun{min-height:31px!important;width:100%!important;font-size:11px!important;white-space:normal!important;padding:5px!important;background:#edf7f8!important;border:1px solid #a4c9ce!important}
+#pdfDialog #bm067ReaderStatus{display:block;font-size:10px;line-height:1.4;color:#4f6e78;overflow-wrap:anywhere;margin:2px 0 6px}
+@media(max-width:600px){#grifos #bm067Audit{padding:10px}#grifos #bm067Audit .bm067-actions{align-items:stretch;flex-direction:column}#grifos #bm067Audit .bm067-actions button{width:100%}#grifos #bm067Audit .bm067-results{grid-template-columns:1fr}}
+
+
+/* Source: assets/v068_grifador.css?v=068 */
+/* Banco Mestre V068 — visual de estudo por seleção: paleta discreta, contrastes suaves,
+   inspirado no fluxo da Bússola Highlights, sem usar identidade visual/propriedade dela. */
+#pdfDialog #bm068SelectTool{
+ min-height:36px!important;padding:6px 8px!important;
+ width:100%!important;background:#e8f8f2!important;color:#165b50!important;
+ border:1px solid #79bd9e!important;border-radius:8px!important;font-size:12px!important;
+ font-weight:800!important;white-space:normal!important;
+}
+#pdfDialog #bm068SelectTool[aria-pressed="true"]{background:#c9f1df!important;border:2px solid #26966b!important}
+#pdfDialog #bm068QuickBar{
+ display:flex;flex-direction:column;gap:6px;flex:0 0 auto;align-items:stretch;
+ padding:9px 7px;border-radius:10px;background:#fff;border:1px solid #d7e9e2;
+ box-shadow:0 2px 7px rgba(20,89,76,.045);color:#22544a;
+}
+#pdfDialog .bm068-brand{display:flex;align-items:center;gap:5px}
+#pdfDialog .bm068-brand strong{font-size:13px;letter-spacing:-.025em}
+#pdfDialog .bm068-brand small{font-size:9px;color:#739188;margin-left:auto}
+#pdfDialog .bm068-symbol{display:inline-flex;align-items:center;justify-content:center;
+ width:24px;height:24px;background:#dfefe7;border-radius:7px;color:#247b60;font-size:16px}
+#pdfDialog .bm068-reader-actions{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+#pdfDialog .bm068-reader-actions button{font-size:10px!important;min-height:30px!important;
+ border:1px solid #b9d5c9!important;border-radius:7px!important;padding:4px!important;
+ white-space:normal!important;background:#f7fbf8!important;color:#235a4b!important}
+#pdfDialog .bm068-reader-actions #bm068QuickToggle{grid-column:1/-1;font-weight:800!important}
+#pdfDialog .bm068-reader-actions #bm068QuickToggle[aria-pressed="true"]{
+ background:#d4f5e5!important;color:#176548!important;border-color:#68bb8e!important}
+#pdfDialog #bm068ModeHint{font-size:10px!important;line-height:1.3!important;color:#607d71}
+#pdfDialog #bm068Palette{
+ position:absolute!important;z-index:95!important;
+ width:356px;max-width:calc(100% - 14px);box-sizing:border-box;
+ display:flex;flex-direction:column;gap:8px;
+ padding:9px;border:1px solid #d5e5dc;border-radius:14px;
+ background:rgba(255,255,253,.98);box-shadow:0 12px 45px #143b3240;
+ color:#214c42;font:12px/1.3 system-ui,Arial,sans-serif;
+}
+#pdfDialog #bm068Palette[hidden]{display:none!important}
+#pdfDialog .bm068-floating-head{display:flex;align-items:center;gap:8px;justify-content:space-between}
+#pdfDialog #bm068CurrentText{display:block;min-width:0;max-width:285px;flex:1 1 auto;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-weight:800}
+#pdfDialog #bm068FloatClose{width:25px!important;height:25px!important;min-width:25px!important;
+ min-height:25px!important;display:inline-flex!important;align-items:center;justify-content:center;
+ border:0!important;background:transparent!important;font-size:19px!important;line-height:1!important}
+#pdfDialog .bm068-colors{display:flex;gap:7px;align-items:center;padding:6px 0 4px;
+ border-top:1px solid #eaf1ed;border-bottom:1px solid #eaf1ed}
+#pdfDialog .bm068-colors .bm068-swatch{display:inline-flex!important;justify-content:center!important;
+ align-items:center!important;flex:0 0 31px!important;height:31px!important;min-height:31px!important;
+ padding:0!important;border-radius:10px!important;background:var(--swatch)!important;
+ border:2px solid rgba(0,0,0,.07)!important;box-shadow:0 0 0 1px #fff inset!important;
+ font-size:16px!important;color:#31483b!important;cursor:pointer!important}
+#pdfDialog .bm068-swatch span{opacity:0}
+#pdfDialog .bm068-swatch[aria-pressed="true"]{outline:2px solid #287a63!important;outline-offset:2px!important}
+#pdfDialog .bm068-swatch[aria-pressed="true"] span{opacity:1}
+#pdfDialog #bm068CustomColor{margin-left:auto;flex:0 0 31px;width:31px;height:31px;
+ padding:2px;border:1px solid #b8cfc3;border-radius:9px;cursor:pointer;background:#fff}
+#pdfDialog .bm068-commands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+#pdfDialog .bm068-commands button{display:flex!important;align-items:center!important;
+ justify-content:center!important;min-height:30px!important;padding:5px 3px!important;
+ font-size:10px!important;font-weight:700!important;line-height:1.2!important;
+ border:1px solid #dce8e2!important;border-radius:7px!important;background:#f7faf7!important;
+ color:#34574c!important;white-space:normal!important;cursor:pointer}
+#pdfDialog .bm068-commands button:hover{background:#e5f4eb!important;border-color:#9bc7b1!important}
+#pdfDialog .bm068-commands button:disabled{opacity:.35;cursor:not-allowed}
+#pdfDialog .bm068-commands #bm068Apply{grid-column:1/-1;background:#237e5a!important;
+ color:white!important;border-color:#237e5a!important;min-height:33px!important}
+#pdfDialog .bm068-commands #bm068Apply[hidden]{display:none!important}
+#pdfDialog #bm068Editor,#pdfDialog #bm068SettingsBox{
+ position:absolute!important;z-index:150!important;inset:0!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ background:rgba(14,40,34,.45)!important;padding:12px!important;box-sizing:border-box;
+}
+#pdfDialog #bm068Editor[hidden],#pdfDialog #bm068SettingsBox[hidden]{display:none!important}
+#pdfDialog .bm068-editor-card{display:flex;flex-direction:column;max-height:min(92%,850px);
+ width:min(650px,96%);background:#fff;border:1px solid #c9ddd1;border-radius:16px;
+ box-shadow:0 16px 55px #15382f55;overflow:hidden;color:#254f43}
+#pdfDialog .bm068-editor-card header{display:flex;justify-content:space-between;gap:10px;
+ padding:14px 18px;background:#eff8f2;border-bottom:1px solid #d4e8dc}
+#pdfDialog .bm068-editor-card header strong{display:block;font-size:17px}
+#pdfDialog .bm068-editor-card header small{display:block;font-size:11px;line-height:1.5;
+ color:#648477;margin-top:5px;max-height:3.8em;overflow:hidden}
+#pdfDialog #bm068EditorClose{min-width:32px!important;width:32px!important;height:32px!important;
+ min-height:32px!important;background:#fff!important;border:1px solid #c7dacf!important;
+ border-radius:8px!important;font-size:21px!important}
+#pdfDialog #bm068Form{overflow:auto;min-height:0;display:flex;flex-direction:column}
+#pdfDialog .bm068-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:16px 18px}
+#pdfDialog .bm068-form-grid label{display:flex;flex-direction:column;gap:4px;
+ font-size:12px;font-weight:750;color:#2e6150;min-width:0}
+#pdfDialog .bm068-form-grid .bm068-wide{grid-column:1/-1}
+#pdfDialog .bm068-form-grid textarea,#pdfDialog .bm068-form-grid input{
+ display:block!important;width:100%!important;min-width:0!important;box-sizing:border-box;
+ padding:9px 10px!important;font:13px/1.5 system-ui,Arial,sans-serif!important;
+ border:1px solid #c1d7cc!important;border-radius:8px!important;background:#fcfefd!important;
+ color:#25473d!important;resize:vertical}
+#pdfDialog .bm068-form-grid textarea:focus,#pdfDialog .bm068-form-grid input:focus{
+ border-color:#259b72!important;outline:2px solid #bfe9d4!important}
+#pdfDialog .bm068-editor-footer{display:flex;gap:9px;align-items:center;justify-content:flex-end;
+ padding:11px 17px;border-top:1px solid #e0ede4;background:#f8fbf9}
+#pdfDialog .bm068-editor-footer label{display:flex;gap:7px;align-items:center;margin-right:auto;
+ font-size:12px;color:#4f665c}
+#pdfDialog .bm068-editor-footer button{padding:8px 12px!important;min-height:35px!important;
+ border-radius:7px!important;border:1px solid #bfd5c9!important;font-size:12px!important}
+#pdfDialog .bm068-editor-footer .bm068-primary{background:#267955!important;color:white!important;
+ border-color:#267955!important;font-weight:800!important}
+#pdfDialog .bm068-settings-card{display:flex;flex-direction:column;gap:10px;padding:22px;
+ width:min(400px,94vw);max-width:100%;background:#fff;border:1px solid #b9d3c7;
+ border-radius:14px;box-shadow:0 12px 30px #113a3040;font:13px/1.4 system-ui,Arial}
+#pdfDialog .bm068-settings-card strong{font-size:17px}
+#pdfDialog .bm068-settings-card p{margin:0;color:#5c7971}
+#pdfDialog .bm068-settings-card label{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#pdfDialog .bm068-settings-card input{padding:8px!important;max-width:130px;border:1px solid #bfcec7;border-radius:7px}
+#pdfDialog .bm068-settings-actions{display:flex;gap:8px;justify-content:flex-end}
+#pdfDialog .bm068-settings-actions button{min-height:34px!important;padding:7px 10px!important}
+#pdfDialog #bm068Toast{position:absolute!important;z-index:230!important;bottom:25px;left:50%;
+ transform:translateX(-50%);max-width:min(500px,90%);background:#1e5143;color:white;
+ padding:10px 13px;border-radius:10px;box-shadow:0 6px 20px #002d2344;
+ display:flex;align-items:center;gap:12px;font:12px/1.35 system-ui,Arial,sans-serif}
+#pdfDialog #bm068Toast[hidden]{display:none!important}
+#pdfDialog #bm068ToastUndo{background:#daf5e6!important;color:#1e5143!important;
+ border:0!important;border-radius:6px!important;padding:5px 8px!important;
+ min-height:26px!important;font-weight:800!important;font-size:11px!important}
+@media(max-width:700px){
+ #pdfDialog #bm068Palette{width:min(346px,calc(100vw - 12px));padding:7px}
+ #pdfDialog .bm068-colors{gap:5px}
+ #pdfDialog .bm068-colors .bm068-swatch{flex-basis:29px!important;height:29px!important;min-height:29px!important}
+ #pdfDialog .bm068-editor-card{max-height:95%;width:100%}
+ #pdfDialog .bm068-form-grid{grid-template-columns:1fr;gap:9px;padding:12px}
+ #pdfDialog .bm068-form-grid .bm068-wide{grid-column:auto}
+ #pdfDialog .bm068-editor-card header{padding:11px 13px}
+ #pdfDialog .bm068-editor-footer{flex-wrap:wrap;padding:9px}
+}
+
+
+/* Source: assets/v070_cores_metodologia.css?v=070 */
+/* Banco Mestre V070 — quatro cores oficiais, sugestões de nota e assunto
+   identificadas até a confirmação explícita; aplica-se sobre o estilo V068. */
+#pdfDialog #bm068QuickBar #bm070Smart{
+ grid-column:1 / -1!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ gap:6px!important;min-height:33px!important;padding:5px 6px!important;
+ font:700 11px/1.25 system-ui,Arial,sans-serif!important;
+ border:1px solid #b5ced9!important;border-radius:7px!important;
+ background:#f4f8fa!important;color:#375b69!important;
+}
+#pdfDialog #bm068QuickBar #bm070Smart[aria-pressed="true"]{
+ color:#176048!important;background:#e0f4e9!important;border-color:#73b99a!important;
+}
+#pdfDialog #bm068ModeHint{font-weight:650!important}
+#pdfDialog #bm068Palette .bm068-colors{justify-content:center;gap:11px;padding:8px 4px}
+#pdfDialog #bm068Palette .bm068-swatch{flex-basis:36px!important;width:36px!important;
+ height:36px!important;min-height:36px!important;border-radius:11px!important}
+#pdfDialog #bm068Palette .bm068-swatch:focus-visible{outline:2px solid #156b57!important;outline-offset:3px}
+#pdfDialog #bm068Palette #bm068CustomColor{margin-left:5px;flex:0 0 36px;width:36px;height:36px}
+#pdfDialog #bm068Palette .bm068-commands #bm070ApplyAuto{
+ display:flex!important;grid-column:1/-1!important;
+ justify-content:center!important;min-height:33px!important;
+ border-color:#83b3a1!important;background:#e2f5ea!important;
+ color:#185f48!important;font-weight:800!important;font-size:11px!important;
+}
+#pdfDialog #bm068Palette .bm068-commands #bm070ApplyAuto[hidden]{display:none!important}
+#pdfDialog #bm068Palette .bm068-commands #bm068Apply[hidden]{display:none!important}
+#pdfDialog #bm070Suggestion{
+ display:block;max-width:calc(100% - 34px);margin:12px 17px 0;
+ padding:9px 10px;border:1px dashed #a6c8b6;border-radius:8px;
+ background:#f1f9f4;color:#245e47;
+ font:700 11px/1.5 system-ui,Arial,sans-serif;
+}
+#pdfDialog #bm070Suggestion[hidden]{display:none!important}
+#grifos .bm070-suggestion-label{
+ display:block!important;font-weight:800!important;color:#8b621d;
+ margin:6px 0 2px!important;font-size:11px!important
+}
+#grifos .bm070-note-suggestion{
+ border-left:3px solid #d0aa5f!important;
+ background:#fffaf0!important;color:#5b4e37!important;font-style:italic;
+}
+#pdfDialog .bm070-panel-suggestion{
+ border-left:3px solid #d2b276!important;
+ background:#fffaf1!important;color:#654d26!important;
+ font-size:10px!important;line-height:1.45!important;
+}
+@media(max-width:700px){
+ #pdfDialog #bm068Palette .bm068-colors{gap:9px}
+ #pdfDialog #bm068Palette .bm068-swatch{flex-basis:31px!important;width:31px!important;height:31px!important;min-height:31px!important}
+ #pdfDialog #bm070Suggestion{margin:8px 10px 0;max-width:calc(100% - 20px)}
+}
+
+
+/* Source: assets/v094_precise_selector.css?v=094 */
+/* V094: somente a camada operacional da seleção precisa V089.
+   Não altera layout, paleta, barra ou formatação original V070. */
+#pdfDialog.bm094-precise .bm-v061-text-layer,
+#pdfDialog.bm094-precise .bm-v061-text-layer *{
+ pointer-events:none!important;user-select:none!important;-webkit-user-select:none!important
+}
+#pdfDialog #bm094WordPointer{position:absolute;inset:0;z-index:70;
+ pointer-events:none;user-select:none;-webkit-user-select:none;
+ touch-action:pan-y;cursor:text}
+#pdfDialog.bm094-precise #bm094WordPointer:not([hidden]){pointer-events:auto}
+#pdfDialog #bm094WordPointer[hidden]{display:none!important}
+#pdfDialog #bm094RectPreview{position:absolute;inset:0;pointer-events:none}
+#pdfDialog #bm094RectPreview .bm094-word-rect,
+#pdfDialog #bm094RectPreview .bm094-focus-word{
+ position:absolute;display:block;pointer-events:none;
+ background:rgba(42,128,222,.24);outline:1px solid rgba(21,98,171,.4);border-radius:1px
+}
+#pdfDialog #bm094RectPreview .bm094-focus-word{
+ background:rgba(48,146,236,.38);outline:2px solid #1767aa
+}
+
+
+/* Source: assets/v096_icons.css?v=096 */
+/* V096 — sistemas de ícones originais e layout de ferramentas inspirado em
+   plataformas de estudo e apps de notas, sem copiar recursos proprietários. */
+:root{--bm096-line:#d5e0e5;--bm096-ink:#334851;--bm096-focus:#167e88}
+header nav button[data-bm096-icon]{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;
+ padding:9px 12px!important;min-height:41px!important;border-radius:9px!important;
+ font-weight:700!important;letter-spacing:0!important;
+}
+header nav button[data-bm096-icon].active,
+header nav button[data-bm096-icon][aria-current="page"]{
+ box-shadow:inset 0 -2px 0 #197c85!important;
+}
+header nav button[data-bm096-icon]::before,
+button[data-bm096-icon]::before,
+a[data-bm096-icon]::before,
+.topicCard[data-bm096-icon]::before{
+ content:"";display:inline-block;flex:0 0 auto;
+ width:18px;height:18px;background:currentColor;
+ -webkit-mask:var(--bm096-mask) center/contain no-repeat;
+ mask:var(--bm096-mask) center/contain no-repeat;
+}
+.topicCard[data-bm096-icon]::before{display:block;width:22px;height:22px;color:#2d7482;margin-bottom:8px}
+#areaRows .topicCard[data-bm096-icon],
+#topicRows .topicCard[data-bm096-icon]{
+ border-color:#d4e3e5!important;border-radius:12px!important;
+ transition:border-color .14s ease,box-shadow .14s ease;
+}
+#areaRows .topicCard[data-bm096-icon]:hover,
+#topicRows .topicCard[data-bm096-icon]:hover{
+ border-color:#75afb4!important;box-shadow:0 4px 14px #17495315;
+}
+button[data-bm096-context="site"]{
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;
+}
+input.bm096-search{
+ padding-left:39px!important;background-repeat:no-repeat!important;
+ background-size:17px 17px!important;background-position:12px center!important;
+}
+#pdfDialog button[data-bm096-context="notes"],
+#imageDialog button[data-bm096-context="notes"],
+#pdfDialog a[data-bm096-context="notes"],
+#imageDialog a[data-bm096-context="notes"]{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ gap:6px!important;vertical-align:middle;
+ font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;
+ font-weight:650!important;line-height:1.2!important;
+ transition:background-color .12s ease,border-color .12s ease,box-shadow .12s ease!important;
+}
+#pdfDialog button[data-bm096-context="notes"]::before,
+#imageDialog button[data-bm096-context="notes"]::before,
+#pdfDialog a[data-bm096-context="notes"]::before,
+#imageDialog a[data-bm096-context="notes"]::before{
+ width:19px;height:19px;opacity:.86;
+}
+#pdfDialog #pdfLocalTools button[data-bm096-context="notes"],
+#imageDialog .editor-tools button[data-bm096-context="notes"]{
+ min-height:39px!important;padding:7px 8px!important;
+ border-radius:9px!important;border:1px solid #cddde3!important;
+ background:#fff!important;color:#2d4c58!important;
+}
+#pdfDialog #pdfLocalTools button[data-bm096-context="notes"]:hover:not(:disabled),
+#imageDialog .editor-tools button[data-bm096-context="notes"]:hover:not(:disabled){
+ background:#eef7f9!important;border-color:#84bcc4!important;
+}
+#pdfDialog button[data-bm096-context="notes"][aria-pressed="true"],
+#imageDialog button[data-bm096-context="notes"][aria-pressed="true"],
+#imageDialog .editor-tools button[data-bm096-context="notes"].active{
+ background:#e0f1f2!important;border-color:#6daeb2!important;
+ color:#17646a!important;box-shadow:inset 0 0 0 1px #d4eeef!important;
+}
+#pdfDialog button[data-bm096-context="notes"]:disabled,
+#imageDialog button[data-bm096-context="notes"]:disabled{
+ opacity:.5;cursor:not-allowed;box-shadow:none!important;
+}
+#pdfDialog button[data-bm096-context="notes"]:focus-visible,
+#imageDialog button[data-bm096-context="notes"]:focus-visible,
+header nav button[data-bm096-icon]:focus-visible{
+ outline:3px solid #55a6ba!important;outline-offset:2px!important;
+}
+/* Samsung Notes-like: ferramentas pequenas, traço fino, hierarquia visual sem
+   alterar o grid legado, as regiões de zoom nem a seleção de texto. */
+#pdfDialog #bm068SelectTool[data-bm096-icon]{
+ background:#dff2ed!important;border:2px solid #77bba7!important;color:#185d51!important;
+}
+#pdfDialog #bm068QuickBar button[data-bm096-icon]{
+ gap:5px!important;min-height:35px!important;
+}
+#pdfDialog #bm068Palette .bm068-commands button[data-bm096-icon]{
+ gap:5px!important;min-height:34px!important;
+}
+#pdfDialog #bm068Palette .bm068-commands button[data-bm096-icon]::before{
+ width:16px;height:16px;
+}
+#imageDialog .editor-tools .toolgroup{
+ gap:6px!important;
+}
+#imageDialog .editor-tools [data-ink-tool][aria-pressed="true"]{
+ background:#e1f3ee!important;border-color:#68b59d!important;color:#165e50!important;
+}
+@media(max-width:640px){
+ header nav button[data-bm096-icon]{min-height:42px!important;padding:8px 9px!important;gap:5px!important}
+ header nav button[data-bm096-icon]::before{width:17px;height:17px}
+ #pdfDialog #pdfLocalTools button[data-bm096-context="notes"],
+ #imageDialog .editor-tools button[data-bm096-context="notes"]{
+  min-height:42px!important;padding:7px 5px!important;font-size:11px!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ #pdfDialog button[data-bm096-context="notes"],
+ #imageDialog button[data-bm096-context="notes"]{transition:none!important}
+}
+
+
+/* Source: assets/v097_grifos_painel.css?v=097 */
+/* V097 — somente o painel de grifos */
+#pdfDialog #bm064PanelList .bm097-paragraph{border-left:3px solid #6fadb3!important}
+#pdfDialog #bm064PanelList .bm097-paragraph .bm064-mark-head small{
+ font-size:10px;font-weight:750;color:#42656c;white-space:nowrap
+}
+#pdfDialog #bm064PanelList .bm097-colors{
+ display:flex;gap:5px;flex-wrap:wrap;margin:8px 0
+}
+#pdfDialog #bm064PanelList .bm097-color{
+ display:inline-flex;align-items:center;gap:4px;padding:3px 7px;
+ font-size:10px;font-weight:650;border:1px solid #d7e3e5;border-radius:8px;
+ background:#fff;color:#36545c
+}
+#pdfDialog #bm064PanelList .bm097-color::before{
+ content:"";width:11px;height:11px;border-radius:4px;
+ background:var(--bm097-color);border:1px solid #0002
+}
+#pdfDialog #bm064PanelList .bm097-details{margin-top:6px;padding-top:7px}
+#pdfDialog #bm064PanelList .bm097-details>summary{
+ cursor:pointer;font-size:11px;font-weight:800;color:#215b64
+}
+#pdfDialog #bm064PanelList .bm097-details>.bm064-mark{
+ margin:9px 0 0 6px;padding:9px;border-radius:8px;
+ border-left:3px solid var(--bm064-mark-color,#d7e2e5)!important;
+ background:#fcfefe
+}
+
+
+/* Source: assets/v098_tec_visual.css?v=098 */
+/* Banco Mestre V098 — visual claro e hierárquico de plataforma de estudos.
+   Inspiração funcional TecConcursos; sem uso de identidade, logos ou ativos de terceiros.
+   Não altera paleta semântica dos grifos, dados, SRS, PDF.js ou editor de imagem. */
+:root{
+ --bg:#f1f3f6;--paper:#fff;--ink:#25364a;--sub:#66798d;
+ --accent:#1685c0;--line:#dce3eb;--soft:#edf5fb;
+ --bm-text:#25364a;--bm-muted:#66798d;--bm-border:#dce3eb;
+ --bm-light:#f6f9fc;--bm-accent:#1685c0;
+ --tec-border:#dce3eb;--tec-blue:#1685c0;--tec-blue-dark:#096b9e;
+ --bm098-focus:#77bbdf;--bm098-green:#2caa75
+}
+html{-webkit-text-size-adjust:100%}
+body,button,input,select,textarea{
+ font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif!important
+}
+body{background:#f1f3f6!important;color:#25364a!important;font-size:14px;line-height:1.6}
+body>header{background:#283746!important;border-bottom:1px solid #405163!important;
+ box-shadow:0 2px 8px #14223519!important}
+body>header .head{max-width:1320px!important;min-height:69px;gap:13px!important;padding:12px 20px!important}
+body>header .brand{color:#f7f9fc!important;font-size:19px!important;font-weight:800!important;
+ letter-spacing:-.035em}
+body>header .brand:before{background:#1685c0!important;color:#fff!important}
+body>header .version{color:#c7d1db!important;font-size:11px!important;line-height:1.48}
+body>header nav{gap:5px!important;flex-wrap:wrap!important;align-items:center!important}
+body>header nav button[data-page]{
+ color:#e2eaf1!important;background:transparent!important;border:1px solid transparent!important;
+ border-radius:7px!important;box-shadow:none!important;font-size:12px!important;
+ line-height:1.35!important;font-weight:690!important;white-space:nowrap!important;
+ min-height:40px!important;padding:9px 11px!important
+}
+body>header nav button[data-page]:hover:not(.active){
+ background:#3b4c5e!important;border-color:#4d6275!important;color:#fff!important
+}
+body>header nav button[data-page].active{
+ background:#167eb7!important;border-color:#3097c9!important;color:#fff!important;
+ box-shadow:inset 0 -2px 0 #b4e1fb3d!important
+}
+body>header .bm-v046-header-stats .stat{background:#35495b!important;border-color:#516276!important}
+body>header .bm-v046-header-stats .stat b{color:#fff!important}
+body>header .bm-v046-header-stats .stat span{color:#c1d0dd!important}
+main{max-width:1320px!important;padding:24px 18px 64px!important;color:#25364a!important}
+.hero{padding:4px 0 12px;margin:0 0 14px!important}
+.hero h1{font-size:clamp(23px,2.3vw,30px)!important;color:#21374d!important;
+ letter-spacing:-.028em;line-height:1.22;font-weight:760!important}
+.hero p{font-size:13px!important;color:#62778a!important;line-height:1.6;max-width:900px}
+main .stats{gap:11px!important;margin:12px 0 20px!important}
+main .stats .stat{background:#fff!important;border:1px solid #dae3eb!important;
+ box-shadow:0 1px 4px #233b4f0c!important;border-radius:8px!important;padding:13px 16px}
+main .stats .stat b{color:#1681b5!important;font-size:23px!important;font-weight:800!important}
+main .stats .stat span{color:#667a8c!important;font-size:11px!important}
+section>.panel,.panel{background:#fff!important;border:1px solid #dae3ec!important;
+ border-radius:9px!important;box-shadow:0 2px 9px #233d5110!important;
+ padding:clamp(15px,1.7vw,22px)!important}
+section>.panel>h2{color:#243f56!important;font-size:clamp(18px,2vw,22px)!important;
+ font-weight:760!important;letter-spacing:-.018em}
+section>.panel>p.intro{color:#5f7185!important;font-size:13px!important;line-height:1.62!important;
+ max-width:920px;margin:5px 0 16px!important}
+#pdfs .panel>p.intro{font-size:13px!important;color:#64788a!important;line-height:1.55!important}
+.group,.sectionTitle{color:#304d67!important;font-weight:800!important;letter-spacing:.018em}
+.tag{color:#167da9!important}
+button:not([data-ink-color]),a.action{border-radius:7px}
+main button.primary,main a.primary,main #topicGoCards.primary{
+ color:#fff!important;background:#1686bf!important;border-color:#1686bf!important;
+ font-weight:730!important;box-shadow:none!important
+}
+main button.primary:hover:not(:disabled),main a.primary:hover,main #topicGoCards.primary:hover:not(:disabled){
+ background:#0d6e9e!important;border-color:#0d6e9e!important
+}
+a:not(.action){color:#137eaf}
+a:not(.action):hover{color:#08628d}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+ outline:3px solid #80bfdf!important;outline-offset:2px!important
+}
+input[type=search],select,input:not([type]),textarea{
+ border:1px solid #c8d5e2!important;border-radius:7px!important;
+ background:#fff!important;color:#273e51!important;box-shadow:none!important;
+ font-size:13px!important
+}
+input[type=search]::placeholder{color:#8393a3!important}
+input[type=search]:focus,select:focus,textarea:focus{border-color:#2696cc!important;outline:2px solid #d8effd!important}
+.controls{gap:9px!important;align-items:center!important}
+.controls input[type=search]{min-height:40px!important}
+.controls select{min-height:40px!important}
+.controls .checkbox{color:#5f7384!important}
+.controls input[type=checkbox]{accent-color:#1686bf!important}
+#cartoes .controls{background:#f7f9fc!important;border:1px solid #e0e7ef!important;border-radius:8px!important}
+#cardCount,#imageCount,#topicCount,#pdfCount{color:#617789!important;font-size:11px!important}
+#areaRows .topicCard,#topicRows .topicCard,
+#topicRows .v036-topic-tile,#pdfs .v036-pdf-card,
+#cartoes article.card,#imagens article.card{
+ border:1px solid #dbe5ed!important;border-radius:8px!important;
+ background:#fff!important;box-shadow:0 1px 4px #22394c0c!important;
+ color:#283e51!important
+}
+#areaRows .topicCard:hover,#topicRows .topicCard:hover,
+#topicRows .v036-topic-tile:hover,#pdfs .v036-pdf-card:hover,
+#cartoes article.card:hover,#imagens article.card:hover{
+ border-color:#78b8dc!important;box-shadow:0 4px 13px #254b6920!important
+}
+#areaRows .topicCard::before,#topicRows .topicCard::before{
+ color:#2085ba!important
+}
+#areaRows .topicCard strong,#topicRows .topicCard strong,
+#topicRows .v036-topic-name,#pdfs .v036-pdf-card h3{
+ color:#28435d!important;font-weight:750!important
+}
+#topicRows .v036-topic-area-head,#topicRows .v036-topic-cluster-summary,
+#cardRows .v036-card-group-summary{
+ background:#f1f6fa!important;border-color:#dae5ee!important;color:#2c536e!important
+}
+#cartoes article.card{border-left:3px solid #63aeda!important}
+#cartoes article.card>h3{color:#263c55!important;font-size:14px!important;
+ font-weight:690!important;line-height:1.46!important}
+#cartoes article.card>.tag{background:#edf6fc!important;color:#247da8!important}
+#cartoes article.card>.v036-card-path span{color:#536d82!important}
+#cartoes article.card>.bm-v050-peek-button{
+ background:#eaf6fd!important;color:#126e9c!important;border-color:#a2d1e7!important
+}
+#imagens #imageRows article.card>h3{color:#253e57!important;font-size:14px!important;line-height:1.44!important}
+#imagens #imageRows .bm-v048-image-description{color:#4a6175!important;font-size:12px!important}
+#tema #topicMedia{background:#fcfdff!important;border-color:#d4e2ed!important}
+#tema .richSection h4{color:#256f9d!important}
+main .notice,section .notice{background:#eef6fc!important;border-left-color:#2995c8!important;color:#3c607b!important}
+.bm-v050-peek-panel{color:#25384c!important;border:1px solid #d6e3ee!important;border-radius:11px!important}
+.bm-v050-peek-body>header strong,.bm-v050-peek-front{color:#263e56!important}
+.bm-v050-peek-reveal{background:#1686bf!important;border-color:#1686bf!important;color:#fff!important}
+.bm-v050-peek-reveal:hover{background:#0b6c9c!important}
+footer{color:#788b9c!important}
+@media(max-width:760px){
+ body>header .head{padding:10px 12px!important;gap:9px!important}
+ body>header nav{width:100%;justify-content:flex-start}
+ body>header nav button[data-page]{flex:1 1 auto;padding:8px 7px!important;min-height:38px!important;font-size:11px!important}
+ main{padding:14px 10px 52px!important}
+ section>.panel,.panel{padding:13px!important}
+ section>.panel>p.intro{font-size:12px!important}
+ main .stats .stat{padding:10px 9px!important}
+ main .stats .stat b{font-size:19px!important}
+}
+@media(max-width:410px){
+ body>header nav button[data-page]{gap:4px!important;padding:8px 5px!important;font-size:10px!important}
+ body>header nav button[data-page]::before{width:15px!important;height:15px!important}
+ main .stats{gap:6px!important}
+ main .stats .stat span{font-size:10px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #areaRows .topicCard,#topicRows .topicCard{transition:none!important}
+}
+
+/* Source: assets/v098_pdf_image_icons_fix.css?v=098 */
+/* V098 — reconciliação da iconografia V096 com barras laterais V060 e V070.
+   Apenas layout: os mesmos botões/eventos/IDs são mantidos.
+   Evitar o excesso de largura causado por ícone e legenda na barra de 170/112 px. */
+#pdfDialog .bm-v046-pdf-side,
+#pdfDialog .bm-v046-pdf-side #pdfLocalTools,
+#pdfDialog .bm-v046-pdf-side #pdfMainV043,
+#pdfDialog .bm-v046-pdf-side .pdfGroup,
+#pdfDialog .bm-v046-pdf-side #bm068QuickBar{
+ box-sizing:border-box!important;min-width:0!important;max-width:100%!important
+}
+#pdfDialog .bm-v046-pdf-side #pdfLocalTools{
+ align-items:stretch!important;gap:7px!important;padding:8px!important;overflow-x:hidden!important
+}
+#pdfDialog .bm-v046-pdf-side #pdfLocalTools .pdfGroup,
+#pdfDialog .bm-v046-pdf-side #pdfMainV043>.pdfGroup{
+ display:flex!important;flex-flow:column nowrap!important;align-items:stretch!important;
+ justify-content:center!important;gap:5px!important;width:100%!important;max-width:100%!important;
+ padding:6px 0!important;margin:0!important;white-space:normal!important;
+ border-right:0!important;border-bottom:1px solid #e0e7ec!important
+}
+#pdfDialog .bm-v046-pdf-side #pdfMainV043{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:3px!important;overflow:visible!important;white-space:normal!important;padding:0!important
+}
+#pdfDialog .bm-v046-pdf-side #pdfLocalTools .pdfGroup button[data-bm096-context="notes"],
+#pdfDialog .bm-v046-pdf-side #pdfMainV043 .pdfGroup button[data-bm096-context="notes"],
+#pdfDialog .bm-v046-pdf-side #bm068SelectTool[data-bm096-context="notes"]{
+ display:grid!important;grid-template-columns:18px minmax(0,1fr)!important;
+ align-items:center!important;justify-content:stretch!important;
+ column-gap:7px!important;row-gap:0!important;
+ text-align:left!important;white-space:normal!important;word-break:normal!important;
+ overflow-wrap:break-word!important;min-width:0!important;width:100%!important;
+ max-width:100%!important;min-height:37px!important;height:auto!important;
+ padding:7px 9px!important;font-size:11px!important;line-height:1.3!important;
+ border-radius:8px!important;flex:0 0 auto!important;box-sizing:border-box!important
+}
+#pdfDialog .bm-v046-pdf-side #pdfLocalTools .pdfGroup button[data-bm096-context="notes"]::before,
+#pdfDialog .bm-v046-pdf-side #pdfMainV043 .pdfGroup button[data-bm096-context="notes"]::before,
+#pdfDialog .bm-v046-pdf-side #bm068SelectTool[data-bm096-context="notes"]::before{
+ content:""!important;display:block!important;position:static!important;
+ width:18px!important;height:18px!important;margin:0!important;
+ grid-column:1!important;align-self:center!important;justify-self:center!important;
+ opacity:1!important;flex:0 0 18px!important
+}
+#pdfDialog .bm-v046-pdf-side .pdfGroup #pdfPager{
+ display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ white-space:normal!important;text-align:center!important;margin:3px 0!important;
+ font-size:11px!important;line-height:1.35!important
+}
+#pdfDialog .bm-v046-pdf-side .pdfGroup label{
+ display:flex!important;flex-wrap:wrap!important;justify-content:center!important;
+ align-items:center!important;gap:5px!important;max-width:100%!important;
+ white-space:normal!important;font-size:10px!important
+}
+#pdfDialog .bm-v046-pdf-side #pdfInkColor{
+ width:36px!important;max-width:100%!important;height:29px!important;min-width:0!important
+}
+#pdfDialog .bm-v046-pdf-side #bmV057PdfDock{
+ gap:5px!important;padding:7px 4px!important;border-radius:8px!important
+}
+#pdfDialog .bm-v046-pdf-side #bmV057PdfDock #bmV057GoPage{
+ width:auto!important;min-width:0!important;max-width:100%!important;min-height:34px!important;
+ padding:6px 8px!important;font-size:11px!important
+}
+#pdfDialog .bm-v046-pdf-side #bm068QuickBar{
+ width:100%!important;align-items:stretch!important;padding:8px!important;
+ gap:7px!important;border-radius:9px!important
+}
+#pdfDialog .bm-v046-pdf-side .bm068-reader-actions{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:5px!important;min-width:0!important
+}
+#pdfDialog .bm-v046-pdf-side .bm068-reader-actions button[data-bm096-context="notes"]{
+ display:flex!important;flex-direction:column!important;align-items:center!important;
+ justify-content:center!important;gap:3px!important;
+ min-width:0!important;width:100%!important;min-height:51px!important;
+ padding:6px 3px!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ text-align:center!important;font-size:10px!important;line-height:1.2!important
+}
+#pdfDialog .bm-v046-pdf-side .bm068-reader-actions #bm068QuickToggle[data-bm096-context="notes"]{
+ grid-column:1/-1!important;display:grid!important;
+ grid-template-columns:18px minmax(0,1fr)!important;gap:7px!important;
+ min-height:37px!important;text-align:left!important;padding:7px 9px!important
+}
+#pdfDialog .bm-v046-pdf-side .bm068-reader-actions button[data-bm096-context="notes"]::before{
+ display:block!important;width:17px!important;height:17px!important;
+ margin:0!important;flex:0 0 auto!important
+}
+#pdfDialog .bm-v046-pdf-side #bm070Smart[data-bm096-context="notes"]{
+ display:grid!important;grid-template-columns:18px minmax(0,1fr)!important;
+ gap:7px!important;text-align:left!important;min-width:0!important;
+ padding:8px!important;white-space:normal!important;line-height:1.3!important
+}
+#pdfDialog #bm068Palette{
+ width:min(390px,calc(100vw - 18px))!important;max-width:calc(100vw - 16px)!important;
+ max-height:min(78dvh,620px)!important;overflow-y:auto!important;
+ overflow-x:hidden!important;box-sizing:border-box!important
+}
+#pdfDialog #bm068Palette .bm068-commands{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important
+}
+#pdfDialog #bm068Palette .bm068-commands button[data-bm096-context="notes"]{
+ display:grid!important;grid-template-columns:17px minmax(0,1fr)!important;
+ align-items:center!important;justify-content:stretch!important;
+ gap:6px!important;min-width:0!important;max-width:100%!important;
+ min-height:41px!important;height:auto!important;padding:7px!important;
+ overflow-wrap:anywhere!important;white-space:normal!important;text-align:left!important;
+ font-size:10px!important;line-height:1.3!important
+}
+#pdfDialog #bm068Palette .bm068-commands #bm068Apply[data-bm096-context="notes"],
+#pdfDialog #bm068Palette .bm068-commands #bm070ApplyAuto[data-bm096-context="notes"]{
+ grid-column:1/-1!important;min-height:40px!important
+}
+#pdfDialog #bm068Palette #bm068FloatClose{
+ width:29px!important;min-width:29px!important;height:29px!important;min-height:29px!important;
+ padding:3px!important;font-size:18px!important;line-height:1!important
+}
+#pdfDialog #bm068Palette #bm068FloatClose::before{display:none!important}
+#pdfDialog #bm068Palette .bm068-colors{display:flex!important;flex-wrap:wrap!important;gap:10px!important}
+#pdfDialog .bm068-editor-card button[data-bm096-context="notes"]{
+ min-width:0!important;box-sizing:border-box!important;white-space:normal!important
+}
+#pdfDialog .bm068-editor-card #bm068EditorClose::before{display:none!important}
+/* A barra da imagem é estreita, sobretudo em smartphone. */
+#imageDialog.bm-v060-image-side-only .editor-tools{
+ overflow-x:hidden!important;align-items:stretch!important;min-width:0!important;
+ padding:8px 6px!important;gap:9px!important
+}
+#imageDialog .editor-tools .toolgroup{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ min-width:0!important;width:100%!important;max-width:100%!important;gap:6px!important;
+ padding:0 0 8px!important;border-bottom:1px solid #e0e8ef!important
+}
+#imageDialog .editor-tools .toolgroup[aria-label="Cores da caneta"]{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ justify-content:center!important;justify-items:center!important;gap:6px!important
+}
+#imageDialog .editor-tools .toolgroup[aria-label="Cores da caneta"] label{
+ grid-column:1/-1!important;display:flex!important;align-items:center!important;
+ justify-content:center!important;flex-wrap:wrap!important;gap:4px!important
+}
+#imageDialog .editor-tools .toolgroup[aria-label="Cores da caneta"] .swatch{
+ width:26px!important;height:26px!important;min-width:0!important;
+ border-radius:9px!important;padding:0!important;box-sizing:border-box!important
+}
+#imageDialog .editor-tools .toolgroup[aria-label="Espessura da ferramenta"] label{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:6px!important;min-width:0!important;overflow-wrap:anywhere!important
+}
+#imageDialog .editor-tools .toolgroup[aria-label="Espessura da ferramenta"] input{
+ width:100%!important;min-width:0!important
+}
+#imageDialog .editor-tools .toolgroup button[data-bm096-context="notes"]{
+ display:grid!important;grid-template-columns:18px minmax(0,1fr)!important;
+ align-items:center!important;justify-content:stretch!important;
+ gap:7px!important;text-align:left!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ height:auto!important;min-height:39px!important;padding:7px 8px!important;
+ white-space:normal!important;overflow-wrap:anywhere!important;
+ font-size:11px!important;line-height:1.28!important;box-sizing:border-box!important
+}
+#imageDialog .editor-tools .toolgroup button[data-bm096-context="notes"]::before{
+ width:18px!important;height:18px!important;flex:0 0 18px!important;
+ justify-self:center!important;align-self:center!important
+}
+#imageDialog .editor-tools [data-ink-tool][aria-pressed="true"]{
+ background:#e6f5fa!important;border-color:#70b6d5!important;color:#1d688f!important
+}
+#imageDialog.bm-v060-image-side-only .bm-v060-image-sidebar-meta{
+ min-width:0!important;gap:5px!important
+}
+#imageDialog .bm-v060-image-sidebar-meta button[data-bm096-context="notes"]{
+ display:flex!important;flex-direction:column!important;gap:3px!important;
+ min-width:0!important;max-width:100%!important;
+ font-size:10px!important;line-height:1.2!important;padding:6px 5px!important;
+ overflow-wrap:anywhere!important;white-space:normal!important
+}
+#imageDialog #zoomInImage[data-bm096-context="notes"],
+#imageDialog #zoomOutImage[data-bm096-context="notes"]{
+ font-size:0!important;min-width:34px!important;min-height:34px!important
+}
+#imageDialog #zoomInImage[data-bm096-context="notes"]::before,
+#imageDialog #zoomOutImage[data-bm096-context="notes"]::before{
+ width:18px!important;height:18px!important;opacity:1!important
+}
+#pdfDialog .bm-v046-pdf-side button[data-bm096-context="notes"]:focus-visible,
+#imageDialog .editor-tools button[data-bm096-context="notes"]:focus-visible{
+ outline:3px solid #83c4e7!important;outline-offset:1px!important
+}
+@media(max-width:700px){
+ #pdfDialog .bm-v046-pdf-side #pdfLocalTools{padding:5px 3px!important;gap:5px!important}
+ #pdfDialog .bm-v046-pdf-side .pdfGroup button[data-bm096-context="notes"],
+ #pdfDialog .bm-v046-pdf-side #bm068SelectTool[data-bm096-context="notes"]{
+  grid-template-columns:15px minmax(0,1fr)!important;gap:4px!important;
+  min-height:38px!important;font-size:10px!important;padding:7px 4px!important
+ }
+ #pdfDialog .bm-v046-pdf-side .pdfGroup button[data-bm096-context="notes"]::before{
+  width:15px!important;height:15px!important
+ }
+ #pdfDialog .bm-v046-pdf-side #bm068QuickBar{padding:5px 4px!important}
+ #pdfDialog .bm-v046-pdf-side .bm068-reader-actions{grid-template-columns:1fr!important}
+ #pdfDialog .bm-v046-pdf-side .bm068-reader-actions button[data-bm096-context="notes"]{
+  display:grid!important;grid-template-columns:15px minmax(0,1fr)!important;
+  gap:5px!important;min-height:36px!important;text-align:left!important;
+  padding:6px 5px!important
+ }
+ #pdfDialog .bm-v046-pdf-side .bm068-reader-actions #bm068QuickToggle[data-bm096-context="notes"]{
+  grid-column:auto!important;grid-template-columns:15px minmax(0,1fr)!important
+ }
+ #imageDialog.bm-v060-image-side-only .editor-tools{padding:5px 3px!important;gap:7px!important}
+ #imageDialog .editor-tools .toolgroup button[data-bm096-context="notes"]{
+  grid-template-columns:15px minmax(0,1fr)!important;gap:5px!important;
+  min-height:41px!important;font-size:10px!important;padding:7px 4px!important
+ }
+ #imageDialog .editor-tools .toolgroup button[data-bm096-context="notes"]::before{
+  width:15px!important;height:15px!important
+ }
+ #imageDialog .editor-tools .toolgroup[aria-label="Cores da caneta"]{gap:4px!important}
+ #imageDialog .editor-tools .toolgroup[aria-label="Cores da caneta"] .swatch{
+  width:21px!important;height:21px!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ #pdfDialog button[data-bm096-context="notes"],
+ #imageDialog button[data-bm096-context="notes"]{transition:none!important}
+}
+
+/* Source: assets/v099_legenda_grifos.css?v=099 */
+/* V099 — apenas legenda compacta e visual da paleta; não modifica o seletor */
+#pdfDialog #bm099LawLegend{
+ margin:3px 0 0!important;padding:6px 7px!important;border:1px solid #cbdfe9!important;
+ border-radius:8px!important;background:#f6fbff!important;font-size:11px!important;
+ min-width:0!important;max-width:100%!important;color:#294b65!important
+}
+#pdfDialog #bm099LawLegend>summary{
+ display:list-item!important;margin:0!important;padding:3px 0!important;
+ font-size:11px!important;line-height:1.3!important;font-weight:760!important;
+ white-space:normal!important;color:#276e9d!important
+}
+#pdfDialog #bm099LawLegend .bm099-legend-row{
+ display:grid!important;grid-template-columns:16px minmax(0,1fr)!important;
+ align-items:start!important;gap:6px!important;
+ margin-top:7px!important;min-width:0!important
+}
+#pdfDialog #bm099LawLegend .bm099-legend-swatch{
+ display:block!important;width:16px;height:16px;border-radius:5px;
+ border:1px solid #34445919
+}
+#pdfDialog #bm099LawLegend .bm099-legend-row strong{
+ display:block!important;white-space:normal!important;
+ font-size:10px!important;line-height:1.35!important;color:#274154!important
+}
+#pdfDialog #bm099LawLegend .bm099-legend-row small{
+ display:block!important;white-space:normal!important;font-size:9.5px!important;
+ line-height:1.45!important;color:#627b8d!important
+}
+#pdfDialog #bm099LawLegend .bm099-legend-hint{
+ display:block!important;margin:9px 0 0!important;padding-top:7px!important;
+ border-top:1px solid #e0eaf1;color:#536d7a;
+ line-height:1.45;font-size:9.5px!important
+}
+#pdfDialog #bm068Palette .bm068-colors .bm068-swatch{
+ border-color:#64748b40!important;box-shadow:inset 0 0 0 1px #fff8!important
+}
+#pdfDialog #bm068Palette .bm068-colors .bm068-swatch[aria-pressed="true"]{
+ outline:2px solid #3b79ac!important;outline-offset:2px!important
+}
+
+
+/* Source: assets/v100_pdf_tools.css?v=100 */
+/* V100 — layout setorizado do editor PDF, a partir do HTML real enviado.
+   IDs/eventos originais intactos. Regras só entram quando a organização
+   concluiu com sucesso (data-bm100-ready="1"). Não toca PDF.js nem rolagem. */
+#pdfDialog[open] .bm-v046-pdf-workspace:has(#pdfLocalTools[data-bm100-ready="1"]:not([hidden])){
+ grid-template-columns:194px minmax(0,1fr)!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfLocalTools[data-bm100-ready="1"]{
+ gap:8px!important;padding:9px 8px!important;background:#f3f7fc!important;
+ scrollbar-width:thin!important;scrollbar-color:#adbfcd transparent!important
+}
+#pdfDialog[open] #pdfLocalTools[data-bm100-ready="1"]>#bm064TogglePanel{
+ display:none!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043{
+ gap:8px!important;padding:0!important;white-space:normal!important;
+ overflow:visible!important;align-items:stretch!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043>.pdfGroup.bm100-section{
+ display:block!important;visibility:visible!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ box-sizing:border-box!important;margin:0!important;padding:10px 8px!important;
+ border:1px solid #d8e3ee!important;border-radius:11px!important;
+ background:#fff!important;box-shadow:0 1px 4px #243b5311!important;
+ flex:0 0 auto!important;overflow:visible!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043>.pdfGroup.bm100-section>.bm100-heading{
+ display:flex!important;align-items:center!important;gap:6px!important;
+ min-width:0!important;margin:0 0 9px!important;padding:0 0 7px!important;
+ font:750 10px/1.25 system-ui,Arial,sans-serif!important;letter-spacing:.05em!important;
+ text-transform:uppercase!important;color:#55718b!important;
+ border-bottom:1px solid #e7edf4!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043>.pdfGroup.bm100-section>.bm100-heading::before{
+ content:""!important;display:block!important;width:4px;height:14px;flex:0 0 4px;
+ background:#2a91c7!important;border-radius:8px!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ align-items:stretch!important;gap:6px!important;margin:0!important;
+ padding:0!important;min-width:0!important;max-width:100%!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row+.bm100-row{
+ margin-top:6px!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row>button[data-bm096-context="notes"]{
+ display:flex!important;flex-direction:column!important;align-items:center!important;
+ justify-content:center!important;grid-template-columns:none!important;
+ min-width:0!important;width:100%!important;max-width:100%!important;
+ height:auto!important;min-height:53px!important;
+ margin:0!important;padding:7px 3px!important;gap:5px!important;
+ background:#f8fbfe!important;color:#35536c!important;
+ border:1px solid #dbe5ed!important;border-radius:9px!important;
+ font:670 10px/1.2 system-ui,Arial,sans-serif!important;
+ text-align:center!important;white-space:normal!important;
+ overflow-wrap:anywhere!important;box-sizing:border-box!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row>button[data-bm096-context="notes"]::before{
+ display:block!important;position:static!important;
+ width:19px!important;height:19px!important;flex:0 0 19px!important;
+ align-self:center!important;justify-self:center!important;
+ margin:0!important;grid-column:auto!important;opacity:1!important;
+ background:currentColor!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row>button[data-bm096-context="notes"]:hover:not(:disabled){
+ border-color:#8cc6df!important;background:#eaf6fd!important;color:#1a719e!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row>button[data-bm096-context="notes"][aria-pressed="true"]{
+ background:#e0f1fa!important;border-color:#6db5d7!important;
+ box-shadow:inset 0 0 0 1px #b7e1f4!important;color:#13658f!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row>button:disabled{
+ opacity:.48!important;box-shadow:none!important;cursor:not-allowed!important
+}
+/* Página corrente na primeira linha e setas simétricas abaixo. */
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-pages{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-pages #pdfPager{
+ display:block!important;grid-row:1!important;grid-column:1/-1!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ margin:0 0 4px!important;padding:5px 2px!important;
+ border-radius:7px!important;background:#eff7fc!important;
+ color:#235878!important;font:750 11px/1.35 system-ui,Arial,sans-serif!important;
+ white-space:normal!important;text-align:center!important;
+ font-variant-numeric:tabular-nums!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-pages #pdfPrev{
+ grid-row:2!important;grid-column:1!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-pages #pdfNext{
+ grid-row:2!important;grid-column:2!important
+}
+/* Campo de navegação V057: preserva o formulário e seu submit, mas deixa de
+   parecer uma segunda barra independente. */
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-section #bmV057PdfDock{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+ align-items:center!important;justify-content:stretch!important;gap:5px!important;
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ padding:9px 0 0!important;margin:10px 0 0!important;
+ border:0!important;border-top:1px dashed #dce6ee!important;
+ border-radius:0!important;box-shadow:none!important;background:transparent!important;
+ position:static!important;inset:auto!important;white-space:normal!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-section #bmV057PdfDock>label{
+ display:block!important;grid-column:1/-1!important;font-size:10px!important;
+ font-weight:750!important;color:#526e86!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-section #bmV057PageNumber{
+ display:block!important;grid-column:1!important;min-width:0!important;
+ width:100%!important;max-width:100%!important;flex:none!important;
+ height:33px!important;box-sizing:border-box!important;margin:0!important;
+ font-size:12px!important;background:#fff!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-section #bmV057PageTotal{
+ display:block!important;grid-column:2!important;width:auto!important;min-width:0!important;
+ max-width:56px!important;white-space:nowrap!important;
+ text-align:center!important;font-size:10px!important;font-variant-numeric:tabular-nums
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-section #bmV057GoPage{
+ display:flex!important;flex-direction:row!important;grid-column:1/-1!important;
+ align-items:center!important;justify-content:center!important;gap:6px!important;
+ width:100%!important;min-width:0!important;min-height:35px!important;height:auto!important;
+ margin:0!important;padding:6px 8px!important;
+ font:750 11px/1.2 system-ui,Arial,sans-serif!important;
+ background:#e9f5fc!important;color:#206f9c!important;
+ border:1px solid #a7d0e9!important;border-radius:8px!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-section #bmV057GoPage::before{
+ display:block!important;width:15px!important;height:15px!important;flex:0 0 15px!important
+}
+/* Seleção precisa: botão único em largura total. */
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 [data-bm100-group="selection"] #bm068SelectTool{
+ display:grid!important;grid-template-columns:19px minmax(0,1fr)!important;align-items:center!important;
+ gap:7px!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ min-height:42px!important;height:auto!important;padding:9px 8px!important;
+ text-align:left!important;white-space:normal!important;overflow-wrap:break-word!important;
+ border-radius:9px!important;border:1px solid #93c9b5!important;
+ background:#e9f8f1!important;color:#246c59!important;
+ font:740 11px/1.3 system-ui,Arial,sans-serif!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 [data-bm100-group="selection"] #bm068SelectTool::before{
+ width:19px!important;height:19px!important;flex:0 0 19px!important;grid-column:1!important;
+ justify-self:center!important;margin:0!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 [data-bm100-group="selection"] #bm068SelectTool[aria-pressed="true"]{
+ background:#d8f3e6!important;border-color:#59b58e!important;
+ box-shadow:0 0 0 1px #b8e4cf inset!important
+}
+/* Desenho: quatro ações; cor e opacidade abaixo, sem colidir com os botões. */
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-ink{
+ display:flex!important;flex-direction:column!important;
+ gap:8px!important;margin:9px 0 0!important;padding-top:8px!important;
+ border-top:1px dashed #dce6ee!important;min-width:0!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-ink>label{
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+ justify-content:space-between!important;gap:4px!important;width:100%!important;
+ max-width:100%!important;min-width:0!important;
+ color:#4e697e!important;font:700 10px/1.35 system-ui,Arial,sans-serif!important;
+ white-space:normal!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-ink #pdfInkColor{
+ width:39px!important;min-width:39px!important;height:29px!important;
+ padding:2px!important;border:1px solid #c6d6df!important;border-radius:7px!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-ink #pdfMarkerOpacityV046{
+ width:100%!important;min-width:0!important;flex:1 1 100%!important;
+ height:20px!important;accent-color:#228bb6!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-ink #pdfOpacityValueV046{
+ margin-left:auto!important;font-size:10px!important;font-variant-numeric:tabular-nums!important
+}
+/* Ferramentas de anotação com rótulos íntegros. */
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-annotations{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-annotations #pdfStatusV037{
+ grid-column:1/-1!important;min-height:41px!important;flex-direction:row!important;
+ gap:8px!important
+}
+/* Salvar: um botão por linha para não confundir PDF local e Drive. */
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-save{
+ grid-template-columns:minmax(0,1fr)!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-save>button[data-bm096-context="notes"]{
+ flex-direction:row!important;min-height:42px!important;justify-content:flex-start!important;
+ gap:8px!important;padding:8px 9px!important;text-align:left!important;
+ font-size:10.5px!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-save #pdfExportPDF{
+ background:#e7f5fc!important;color:#186d9d!important;border-color:#9bcae5!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 #pdfMoreV043[data-bm096-context="notes"]{
+ display:grid!important;grid-template-columns:18px minmax(0,1fr)!important;
+ align-items:center!important;justify-content:stretch!important;
+ gap:7px!important;width:100%!important;max-width:100%!important;
+ min-width:0!important;min-height:40px!important;height:auto!important;
+ padding:9px 10px!important;text-align:left!important;white-space:normal!important;
+ background:#eef5fa!important;border:1px solid #d7e3ed!important;border-radius:9px!important;
+ color:#426781!important;font:740 11px/1.2 system-ui,Arial,sans-serif!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 #pdfMoreV043::before{
+ display:block!important;width:18px!important;height:18px!important;grid-column:1!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 #pdfMoreV043[aria-expanded="true"]{
+ background:#dfeef9!important;border-color:#8fc1da!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfAdvancedV043{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ gap:6px!important;padding:9px 8px!important;margin:0!important;
+ border:1px solid #d8e3ee!important;border-radius:9px!important;background:#fff!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfAdvancedV043[hidden]{display:none!important}
+#pdfDialog[open] .bm-v046-pdf-side #pdfAdvancedV043 button[data-bm096-context="notes"]{
+ display:grid!important;grid-template-columns:18px minmax(0,1fr)!important;gap:7px!important;
+ align-items:center!important;width:100%!important;max-width:100%!important;
+ min-width:0!important;height:auto!important;min-height:38px!important;
+ padding:7px!important;white-space:normal!important;
+ font-size:10.5px!important;text-align:left!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #pdfAdvancedV043 #pdfClearPage{
+ color:#a84242!important;border-color:#e3b4b4!important;background:#fff4f4!important
+}
+/* Grifador V099: botões de ação padronizados, sem duplicar o painel lateral. */
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar.bm100-shortcuts{
+ background:#fff!important;border:1px solid #d8e3ee!important;
+ box-shadow:0 1px 4px #243b5311!important;padding:10px 8px!important;
+ gap:9px!important;border-radius:11px!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ align-items:stretch!important;gap:6px!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm096-context="notes"]{
+ display:flex!important;flex-direction:column!important;justify-content:center!important;
+ align-items:center!important;gap:5px!important;
+ min-height:52px!important;min-width:0!important;width:100%!important;
+ max-width:100%!important;margin:0!important;padding:7px 3px!important;
+ white-space:normal!important;overflow-wrap:anywhere!important;
+ text-align:center!important;font:710 10px/1.2 system-ui,Arial,sans-serif!important;
+ border:1px solid #dbe5ed!important;border-radius:9px!important;
+ background:#f9fbfd!important;color:#39576f!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm096-context="notes"]::before{
+ width:18px!important;height:18px!important;flex:0 0 18px!important;display:block!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions #bm068QuickToggle,
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions #bm070Smart{
+ grid-column:1/-1!important;display:grid!important;
+ grid-template-columns:19px minmax(0,1fr)!important;
+ align-items:center!important;justify-content:stretch!important;
+ column-gap:8px!important;min-height:39px!important;
+ padding:8px 9px!important;text-align:left!important;
+ font-size:10.5px!important;line-height:1.3!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions #bm068QuickToggle[aria-pressed="true"],
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions #bm070Smart[aria-pressed="true"]{
+ background:#e5f4fc!important;border-color:#8cc8e5!important;color:#176c98!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar #bm068ModeHint{
+ display:block!important;font:500 10px/1.45 system-ui,Arial,sans-serif!important;
+ color:#637d90!important;white-space:normal!important;overflow-wrap:break-word!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #bm067ReaderRun[data-bm096-context="notes"]{
+ display:grid!important;grid-template-columns:18px minmax(0,1fr)!important;gap:6px!important;
+ align-items:center!important;min-width:0!important;width:100%!important;
+ min-height:36px!important;height:auto!important;
+ padding:7px 8px!important;color:#577088!important;background:#eef4f9!important;
+ border:1px solid #d7e3ee!important;border-radius:8px!important;
+ font-size:10px!important;white-space:normal!important
+}
+#pdfDialog[open] .bm-v046-pdf-side #bm067ReaderStatus{
+ display:block!important;color:#8493a3!important;
+ font:450 9.5px/1.35 system-ui,Arial,sans-serif!important;
+ min-width:0!important;overflow-wrap:break-word!important
+}
+@media(max-width:700px){
+ #pdfDialog[open] .bm-v046-pdf-workspace:has(#pdfLocalTools[data-bm100-ready="1"]:not([hidden])){
+  grid-template-columns:132px minmax(0,1fr)!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfLocalTools[data-bm100-ready="1"]{
+  padding:5px 4px!important;gap:6px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfMainV043>.pdfGroup.bm100-section{
+  padding:8px 5px!important;border-radius:8px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfMainV043>.pdfGroup.bm100-section>.bm100-heading{
+  font-size:9px!important;letter-spacing:.025em!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row{
+  gap:4px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row>button[data-bm096-context="notes"]{
+  min-height:47px!important;font-size:9px!important;padding:6px 2px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row>button[data-bm096-context="notes"]::before{
+  width:17px!important;height:17px!important;flex-basis:17px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar.bm100-shortcuts{
+  padding:7px 5px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions{gap:4px!important}
+ #pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm096-context="notes"]{
+  min-height:47px!important;font-size:9px!important;padding:6px 2px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions #bm068QuickToggle,
+ #pdfDialog[open] .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions #bm070Smart{
+  grid-template-columns:16px minmax(0,1fr)!important;
+  gap:5px!important;padding:7px 5px!important;font-size:9px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 [data-bm100-group="selection"] #bm068SelectTool{
+  grid-template-columns:17px minmax(0,1fr)!important;
+  gap:5px!important;padding:7px 5px!important;font-size:10px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-ink>label{
+  font-size:9px!important
+ }
+ #pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 .bm100-pages #pdfPager{
+  font-size:10px!important;padding:5px 1px!important
+ }
+}
+@media(max-width:360px){
+ #pdfDialog[open] .bm-v046-pdf-workspace:has(#pdfLocalTools[data-bm100-ready="1"]:not([hidden])){
+  grid-template-columns:122px minmax(0,1fr)!important
+ }
+}
+
