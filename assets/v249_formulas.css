@@ -1,0 +1,67 @@
+/* V246: Guia de Fórmulas vinculado ao Drive privado, dentro de Assuntos. */
+#assuntos .bm246-formula-shortcut{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:13px 16px;margin:0 0 16px;border:1px solid #bad3d3;background:#f6fbfb;border-radius:10px}
+.bm246-formula-shortcut>div{display:flex;flex-direction:column;gap:2px;min-width:200px}
+.bm246-formula-shortcut small{font-size:11px;font-weight:700;color:#476b73}
+.bm246-formula-shortcut strong{font-size:17px;color:#154e55}
+.bm246-formula-shortcut span{font-size:12px;color:#5b7277}
+.bm246-formula-shortcut button{background:#16616a;color:#fff;border:1px solid #16616a;font-weight:750;min-height:37px}
+#formulas{min-width:0}
+#formulas .bm246-formulas-panel{max-width:1100px;margin:0 auto;min-width:0}
+.bm246-formula-breadcrumb{display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:#58717a;font-size:12px;margin-bottom:12px}
+.bm246-formula-breadcrumb button{font-size:12px;padding:6px 10px}
+#formulas h2{margin:5px 0 6px}
+.bm246-formula-toolbar,.bm246-formula-filters{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0}
+.bm246-formula-toolbar button,.bm246-formula-toolbar a{font-size:12px;min-height:35px;padding:8px 11px}
+.bm246-formula-filters input{flex:1;min-width:min(100%,240px);font-size:13px}
+.bm246-formula-filters select{font-size:13px;max-width:350px}
+.bm246-formula-status{padding:10px 12px;border:1px solid #d8e4e7;background:#f8fbfc;color:#395b65;border-radius:8px;font-size:12px;overflow-wrap:anywhere}
+.bm246-formula-status[data-state=ok]{border-color:#c4dcd4}
+.bm246-formula-status[data-state=error]{border-color:#d7bcb4;color:#93473a}
+.bm246-formula-entry{margin:9px 0;padding:0!important;border:1px solid #d8e4e6!important;border-radius:9px;background:#fff;overflow:hidden}
+.bm246-formula-entry>summary{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;cursor:pointer;padding:13px 15px;color:#173c47;font-size:14px}
+.bm246-formula-entry>summary strong{overflow-wrap:anywhere;min-width:0;flex:1}
+.bm246-formula-entry[open]>summary{border-bottom:1px solid #e1e9eb}
+.bm246-formula-group{font-size:11px;font-weight:600;color:#547079}
+.bm246-formula-raw{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;margin:0;padding:14px 16px;max-width:100%;box-sizing:border-box;font:13px/1.65 system-ui,Arial,sans-serif;color:#203b45;background:#fff}
+.bm246-empty{padding:20px;color:#61777b}
+#bm246FormulaFrame{display:block;width:100%;height:min(76vh,960px);min-height:460px;border:1px solid #d6e3e3;background:white;border-radius:7px}
+@media(max-width:680px){
+ #assuntos .bm246-formula-shortcut{padding:11px}
+ .bm246-formula-shortcut button{width:100%}
+ .bm246-formula-toolbar>*{flex:1 1 auto}
+ .bm246-formula-filters>*{width:100%;max-width:none!important}
+ .bm246-formula-entry>summary{padding:11px;font-size:13px}
+ .bm246-formula-raw{padding:12px;font-size:12px}
+ #bm246FormulaFrame{height:70vh;min-height:380px}
+}
+
+/* V249 — editorial styling: source text unchanged; hierarchy only in reader. */
+#formulas .bm246-formulas-panel{max-width:1100px}
+#formulas .bm249-jump{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0 8px}
+#formulas .bm249-jump label{font-weight:700;font-size:13px;color:#284d59}
+#formulas .bm249-jump select{flex:1;min-width:220px;max-width:650px;min-height:40px;font-size:13px}
+#formulas .bm249-editions{font-size:12px;line-height:1.55;color:#73572f;border-left:3px solid #bd9557;background:#fdfaf4;padding:9px 12px;margin:12px 0}
+#formulas .bm249-body{padding:14px 20px 18px;max-width:100%;background:transparent;overflow-wrap:anywhere;line-height:1.65}
+#formulas .bm249-line{margin:0 0 8px;font-size:14px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;color:#243a45}
+#formulas .bm249-line:last-child{margin-bottom:0}
+#formulas .bm249-subhead{margin:15px 0 9px;font-size:13px;line-height:1.5;font-weight:800;letter-spacing:.02em;color:#205763}
+#formulas .bm249-equation{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',monospace;font-weight:650;background:#f5f8f9;border-left:3px solid #51828c;padding:9px 11px;margin:9px 0 12px;white-space:pre-wrap}
+#formulas .bm249-step{padding-left:5px}
+#formulas .bm249-metadata{color:#385b64;background:#f7fafb;padding:8px 10px;border-radius:5px;margin:11px 0}
+#formulas .bm249-caution{color:#614d33;background:#fdfaf3;padding:9px 11px;border-left:3px solid #b89c6f;margin:12px 0}
+#formulas .bm249-blockgap{height:12px}
+#formulas .bm246-formula-entry{scroll-margin-top:18px}
+#formulas .bm246-formula-entry>summary{min-height:46px}
+#formulas select:focus-visible,#formulas input:focus-visible,#formulas button:focus-visible,#formulas a:focus-visible,#formulas summary:focus-visible{outline:3px solid #3e7883;outline-offset:2px}
+@media(max-width:680px){
+ #formulas .bm249-jump{align-items:stretch;gap:6px;flex-direction:column}
+ #formulas .bm249-jump select{width:100%;min-width:0;max-width:100%}
+ #formulas .bm249-body{padding:13px 12px 16px}
+ #formulas .bm249-line{font-size:13px;line-height:1.72}
+ #formulas .bm249-equation{font-size:13px;padding:9px 8px;word-break:break-word}
+ #formulas .bm249-subhead{font-size:12px}
+ #formulas .bm249-editions{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ #formulas *{scroll-behavior:auto!important}
+}
