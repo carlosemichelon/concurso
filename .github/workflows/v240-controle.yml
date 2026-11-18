@@ -1,0 +1,59 @@
+name: V240 Controle de Estudos - testes sintéticos
+on:
+  push:
+    branches:
+      - 'feature/controle-estudos-v242-integracao-20261118'
+  pull_request:
+    paths:
+      - 'assets/v240_*'
+      - 'controle-estudos-v240.html'
+      - 'v240.html'
+      - 'homologacao-v240/**'
+      - 'sw-v240.js'
+      - 'assets/v240_estudo_hierarquia.json'
+      - 'tests/v240_controle.test.cjs'
+      - 'tests/v240_merge.test.cjs'
+      - 'tests/v240_browser.spec.js'
+      - 'tests/v240_v242_compat.spec.js'
+      - '.github/workflows/v240-controle.yml'
+  workflow_dispatch:
+jobs:
+  static-and-smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testar app e contratos DOM
+        run: node --test tests/v240_controle.test.cjs tests/v240_merge.test.cjs
+
+  browser-smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preparar Chromium e servidor estático
+        run: |
+          npm install --no-save @playwright/test
+          npx playwright install --with-deps chromium
+          mkdir -p test-results
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v240-http.log 2>&1 &
+      - name: Testar desktop e celular em navegador real
+        run: npx playwright test tests/v240_browser.spec.js tests/v240_v242_compat.spec.js --workers=1 --reporter=line
+      - name: Preservar capturas e logs de falhas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v240-browser-evidences
+          path: |
+            test-results/
+            /tmp/bm-v240-http.log
+          if-no-files-found: ignore
