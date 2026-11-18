@@ -85,13 +85,27 @@ function wrapperFor(id,main){
   wrap=document.createElement('article');wrap.className='card bm221-trt-card';wrap.dataset.bm221Id=id;
   const tag=document.createElement('span');tag.className='tag';tag.textContent=id;
   const heading=document.createElement('h3');heading.textContent=main.querySelector('.bm211-summary strong')?.textContent||id;
-  wrap.append(tag,heading);
+  const badges=document.createElement('div');badges.className='bm221-trt-badges';
+  for(const label of ['Legislação Geral', id.startsWith('TRT02-')?'Direito Administrativo':'Direito Constitucional']){
+   const badge=document.createElement('span');badge.className='bm221-trt-badge';badge.textContent=label;badges.append(badge);
+  }
+  wrap.append(badges,heading,tag);
   const summary=main.querySelector('.bm211-summary');
   if(summary){summary.setAttribute('aria-label','Abrir resposta e explicações do '+id);
    const small=summary.querySelector('small');if(small)small.textContent='Abrir resposta, 11 módulos e imagens';}
   const status=document.createElement('small');status.className='bm221-operational-label';
   status.textContent='Legislação · TRT · cartão operacional · sem lançar SRS automaticamente';
-  wrap.append(status,main);wrappers.set(id,wrap);
+  const actions=document.createElement('div');actions.className='bm221-trt-actions';
+  const openButton=document.createElement('button');openButton.type='button';openButton.className='bm221-trt-open';
+  const details=main.querySelector('.bm211-details');
+  const syncButton=()=>{
+   openButton.textContent=details?.open?'Fechar leitura':'Abrir leitura';
+   openButton.setAttribute('aria-expanded',String(Boolean(details?.open)));
+  };
+  openButton.addEventListener('click',()=>{if(details)details.open=!details.open;syncButton();});
+  if(details)details.addEventListener('toggle',syncButton);
+  syncButton();actions.append(openButton);
+  wrap.append(status,actions,main);wrappers.set(id,wrap);
   const answer=main.querySelector('.bm211-answer');
   if(answer){
    const metainfo=[...answer.querySelectorAll('.bm211-meta,.bm211-preserve')];
@@ -138,11 +152,36 @@ function init(){
  '#cardRows[data-bm225-trt-visible="true"]>p[hidden]{display:none!important}',
  '#cardRows>.bm221-trt-card>h3{font-size:14px;line-height:1.45;margin:2px 0 4px;overflow-wrap:anywhere;white-space:normal}',
  '#cardRows>.bm221-trt-card>.tag{align-self:flex-start}',
+ '#cardRows>.bm221-trt-card>.bm221-trt-badges{display:flex;gap:5px;flex-wrap:wrap}',
+ '#cardRows>.bm221-trt-card .bm221-trt-badge{border:1px solid #bfd9d6;background:#f0f7f6;color:#1f555c;border-radius:6px;padding:4px 7px;font-size:11px;line-height:1.2;font-weight:650}',
+ '#cardRows>.bm221-trt-card .bm221-trt-actions{display:flex;flex-wrap:wrap;gap:7px}',
+ '#cardRows>.bm221-trt-card .bm221-trt-open{min-height:36px;border-radius:6px;border:1px solid #bcd8d3;background:#eff8f6;color:#185962;font-weight:650;font-size:12px;padding:8px 12px;cursor:pointer}',
+ '#cardRows>.bm221-trt-card .bm221-trt-open:hover{background:#e2f1ed}',
+ '#cardRows>.bm221-trt-card .bm221-trt-open:focus-visible{outline:2px solid #287c7c;outline-offset:2px}',
  '#cardRows>.bm221-trt-card[hidden]{display:none}',
- '.bm221-trt-card>.bm211-card{width:100%;max-width:100%;min-width:0;margin:0;padding:0;border:0;box-shadow:none;background:transparent}',
+ '.bm221-trt-card>.bm211-card{display:block!important;visibility:visible!important;width:100%;max-width:100%;min-width:0;margin:0;padding:0;border:0;box-shadow:none;background:transparent}',
+ '#cardRows>.bm221-trt-card .bm211-media,#cardRows>.bm221-trt-card .bm211-module,#cardRows>.bm221-trt-card .bm198-overview,#cardRows>.bm221-trt-card .bm198-module{display:block!important;visibility:visible!important}',
+ '#cardRows>.bm221-trt-card .bm198-modules{display:flex;flex-direction:column;gap:12px}',
+ '#cardRows>.bm221-trt-card .bm198-module{border:1px solid #dce7e2;border-radius:9px;overflow:hidden;background:#fff}',
+ '#cardRows>.bm221-trt-card .bm198-module-head{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#f3f8f6}',
+ '#cardRows>.bm221-trt-card .bm198-module-body{padding:12px;font-size:13px;line-height:1.6}',
+ '#cardRows>.bm221-trt-card .bm198-paragraph{white-space:pre-wrap;overflow-wrap:anywhere}',
+ '#cardRows>.bm221-trt-card .bm198-table-scroll{overflow:auto;max-width:100%}',
+ '#cardRows>.bm221-trt-card .bm211-body{padding:12px 0 2px}',
+ '#cardRows>.bm221-trt-card .bm211-answer{padding:10px 12px;border:1px solid #dae8e4;background:#f7faf9;border-radius:8px;margin-bottom:12px}',
+ '#cardRows>.bm221-trt-card .bm211-core{font-size:13px;font-weight:650;line-height:1.5}',
+ '#cardRows>.bm221-trt-card .bm211-media{border:1px solid #c6d8d2;background:#fbfdfc;padding:12px;border-radius:10px;margin:14px 0}',
+ '#cardRows>.bm221-trt-card .bm211-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}',
+ '#cardRows>.bm221-trt-card .bm211-frame{display:flex;align-items:center;justify-content:center;min-height:120px;max-height:460px;overflow:auto}',
+ '#cardRows>.bm221-trt-card .bm211-image{max-width:100%;max-height:440px;object-fit:contain}',
+ '#cardRows>.bm221-trt-card .bm211-image[hidden],#cardRows>.bm221-trt-card .bm211-placeholder[hidden]{display:none!important}',
+ '#cardRows>.bm221-trt-card .bm211-plain{white-space:pre-wrap;font-size:13px;line-height:1.55}',
+ '#cardRows>.bm221-trt-card .bm211-figcaption{font-size:12px;line-height:1.5}',
+ '#cardRows>.bm221-trt-card .bm211-link{color:#17646c;text-decoration:underline}',
+ '@media(max-width:650px){#cardRows>.bm221-trt-card .bm211-grid{grid-template-columns:1fr}}',
  '.bm221-trt-card>.bm211-card .bm211-kicker{display:none}',
  '.bm221-trt-card>.bm211-card>.bm211-details{width:100%;max-width:100%;margin:0}',
- '.bm221-trt-card>.bm211-card .bm211-summary strong{display:none!important}',
+ '.bm221-trt-card>.bm211-card .bm211-summary{display:none!important}',
  '.bm221-trt-card>.bm211-card .bm211-summary{box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;max-width:100%;overflow-wrap:anywhere;white-space:normal;font-size:12px;line-height:1.4;padding:10px;border-radius:8px}',
  '.bm221-trt-card>.bm211-card .bm211-summary small{font-size:12px;line-height:1.4;white-space:normal;overflow-wrap:anywhere}',
  '.bm221-operational-label{font-size:11px;color:#557276}',
