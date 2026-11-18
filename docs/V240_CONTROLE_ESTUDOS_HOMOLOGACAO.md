@@ -65,7 +65,28 @@ Origem: decisões 1–18 aprovadas pelo estudante nesta conversa de 18/11/2026. 
 
 **Calendário SRS:** conexão de consulta ao planejamento já existente do Banco Mestre. O Controle não calcula nem grava previsões SRS próprias; o histórico F17/importações pode estar defasado em relação à fonte canônica.
 
-**Código de homologação armazenado no GitHub, PR #32 aberto como rascunho.** Não mesclado, não exposto pelo endereço principal do portal, não homologado em navegadores reais. O manifesto principal consultado continua V239. Não foram salvos registros reais do usuário no Drive nesta interação.
+**Código de homologação armazenado no GitHub, PR #32 aberto como rascunho.** Não mesclado, não exposto pelo endereço principal do portal, não homologado em navegadores reais. O manifesto principal consultado agora é V241. Não foram salvos registros reais do usuário no Drive nesta interação.
+
+
+## Incremento técnico após publicação da V241 (18/11/2026)
+
+O manifesto principal foi verificado em `gh-pages/assets/version.json`: **V241**, não V239. Esta branch V240 permanece isolada e defasada da branch publicada; deve ser rebaseada ou integrada de forma auditada **sem reverter a V241**. Também existe trabalho em paralelo na PR #33. Nenhuma mesclagem automática está autorizada.
+
+**Conciliação 3-vias implementada em homologação:**
+- `assets/v240_reconcile.js` compara um instantâneo-base SHA-256 previamente confirmado, o estado local e o estado remoto por ID de disciplina, sessão, revisão manual, atividade planejada e evento de auditoria, além de dados escalares, inclusive `activeTimer`.
+- Alteração concorrente do mesmo item, exclusão versus edição, campo desconhecido divergente e referências quebradas produzem conflito bloqueante. Nenhum item é removido ou atualizado automaticamente nesses casos.
+- Divergências **independentes** geram proposta, mas não acionam gravação automática. Na aba Backup o usuário pode inspecionar e confirmar a conciliação; dois instantâneos privados são criados, lidos de volta e verificados por SHA-256 antes da atualização do mestre V240 de testes.
+- O sincronizador mantém `BM240_HOMOLOGACAO_VERIFIED_BASE_DOC` como base conferida. O fluxo de restauração mantém `RESTORE_REQUIRES_RECONCILIATION` e **não permite** reconciliar automaticamente uma restauração histórica sem base confiável.
+- Há riscos residuais de concorrência de rede entre a última consulta de versão e o PATCH do Google Drive; a homologação entre dois aparelhos e a verificação posterior são indispensáveis antes de afirmar exclusão distribuída de conflitos.
+
+**Cronômetro no cabeçalho implementado:**
+- `assets/v240_header_timer.js` mostra a mesma sessão da aba nativa, delegando ações aos controles existentes em seu Shadow DOM, sem contar tempo paralelamente.
+- Mostra disciplina, assunto, tempo líquido, pausa/retomada, salvar e estado de transferência pendente.
+- Não registra SRS ou horas por simples navegação. O código foi incluído no cache público isolado e na suíte de navegador Chromium.
+
+**Verificação recente:** testes estáticos, integridade de DOM, dados sintéticos e cenários simulados de conflito passaram no GitHub Actions. A suite Chromium de cabeçalho e o simulado fim-a-fim de conciliação devem ser conferidos pelo run mais recente antes de afirmar sucesso dessa ampliação.
+
+**Não realizados nesta interação:** autenticação OAuth verdadeira do titular, publicação em gh-pages, sincronização efetiva de registros reais, teste com celular físico, acesso do visitante à branch de homologação no GitHub Pages.
 
 ## Critérios para homologação e futura publicação
 
