@@ -79,6 +79,7 @@ function init(){
   tintOutput.textContent=Math.round((result??.55)*100)+'%';
  });
 
+ const preview=node('div','bm102-preview-panel');
  preview.className='bm102-preview-panel';preview.append(sample,message);
  function updatePreview(){
   const hex=nativeColor.value||'#17616a';
