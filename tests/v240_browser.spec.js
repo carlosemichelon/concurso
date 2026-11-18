@@ -117,6 +117,13 @@ test('Shell do Controle V243 reabre offline sem assumir o portal oficial',async(
  await page.waitForFunction(()=>Boolean(navigator.serviceWorker?.controller),null,{timeout:45000});
  const reg=await page.evaluate(()=>navigator.serviceWorker.controller?.scriptURL||'');
  expect(reg).toContain('/homologacao-v243/sw.js');
+ const cacheEvidence=await page.evaluate(async()=>{
+  const url=new URL(location.href);
+  const keys=await caches.keys();
+  const entry=await caches.match(url.origin+url.pathname);
+  return {keys,cachedDocument:Boolean(entry),request:url.origin+url.pathname};
+ });
+ expect(cacheEvidence.cachedDocument,JSON.stringify(cacheEvidence)).toBe(true);
  await context.setOffline(true);
  await page.reload({waitUntil:'domcontentloaded',timeout:45000});
  await expect(page.locator('#bm240-study-tab')).toBeAttached({timeout:40000});
