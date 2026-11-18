@@ -36,12 +36,13 @@ function refresh(){
  const connected=Boolean(core?.token?.());
  const global=window.BM239DriveGlobal;
  const running=$('bm239-drive-action')?.getAttribute('aria-busy')==='true';
+ const freshnessIssue=Boolean(global?.lastReport?.warnings?.some?.(x=>/Consulta de mídias sem atualização confirmada/i.test(String(x))));
  const pdf=window.BancoMestrePDFSyncV130?.lastResult;
  const pdfMessage=String($('bm-pdf-sync-status')?.textContent||'');
  const pdfFailed=/consulta do Drive incompleta|falha na sincronização|não foi possível consultar|não foi possível verificar/i.test(pdfMessage);
  const images=window.BancoMestreDriveImagesV182;
- if(pdfFailed){
-  statusFor('pdf','Falha na consulta','error','PDFs: '+pdfMessage+'. Resultados anteriores não provam sucesso na atualização.');
+ if(pdfFailed||freshnessIssue){
+  statusFor('pdf','Não confirmado','error',freshnessIssue?'PDFs: relatório anterior reutilizado durante consulta concorrente.':'PDFs: '+pdfMessage+'. Resultados anteriores não provam sucesso na atualização.');
  }else if(running&&connected)statusFor('pdf','⟳ consultando','syncing',
   'PDFs: consulta ao Google Drive em andamento; não existe confirmação desta varredura.');
  else if(pdf&&Number.isFinite(Number(pdf.found))&&Number(pdf.found)>=0){
@@ -55,7 +56,9 @@ function refresh(){
   'PDFs: 78 registros no catálogo público, mas nenhuma varredura autorizada foi concluída nesta sessão.');
  statusFor('cards','Sem SRS no Drive','pending',
   'Cartões: 1.518 IDs públicos canônicos e 22 registros operacionais Ijuí disponíveis no portal. Não foi confirmada sincronização de alterações de cartões nem de eventos SRS com o Google Drive.');
- if(images?.lastError){
+ if(freshnessIssue){
+  statusFor('images','Não confirmado','error','Atlas: a consulta desta execução não foi confirmada; contagem anterior não prova atualização.');
+ }else if(images?.lastError){
   statusFor('images','Falha na consulta','error',
    'Imagens: erro ao consultar o Drive: '+String(images.lastError)+
    (images.lastSuccess?' A consulta anterior desta visita não representa a atualização atual.':''));
@@ -89,8 +92,8 @@ function refresh(){
  const grifosInfo=grifosVerified?'Grifos: mestre conferido sem divergências':
    /Existem \d+ divergência\(s\) preservada\(s\)/.test(grifosText)?'Grifos: divergências preservadas':
    /^Não sincronizado com o mestre:/.test(grifosText)?'Grifos: falha':'Grifos: não conferidos';
- const goodPdf=Boolean(pdf&&connected&&!pdfFailed&&!running&&Number(pdf.found)===78);
- const goodImages=Boolean(images?.lastSuccess&&connected&&!images?.lastError&&!running&&Number.isSafeInteger(Number(images.lastCount))&&Number(images.lastCount)>0);
+ const goodPdf=Boolean(pdf&&connected&&!pdfFailed&&!freshnessIssue&&!running&&Number(pdf.found)===78);
+ const goodImages=Boolean(images?.lastSuccess&&connected&&!images?.lastError&&!freshnessIssue&&!running&&Number.isSafeInteger(Number(images.lastCount))&&Number(images.lastCount)>0);
  const allGood=goodPdf&&goodImages&&ctlOK&&grifosVerified;
  const partial=Boolean(ctlConflict||ctlError||images?.lastError||(!allGood&&(goodPdf||goodImages||ctlOK||grifosVerified)));
  const button=$('bm239-drive-action');
