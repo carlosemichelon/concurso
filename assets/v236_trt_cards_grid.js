@@ -33,7 +33,20 @@ const FILES={
 };
 let hiddenCards=new Set();
 try{const value=JSON.parse(localStorage.getItem('BM236_TRT_HIDDEN')||'[]');if(Array.isArray(value))hiddenCards=new Set(value.filter(id=>Object.hasOwn(FILES,id)));}catch(_){}
-function getRecord(id){const w=wrappers.get(id);return records.get(id)||{id,front:w?.querySelector(':scope > h3')?.textContent||'',back:w?.querySelector('.bm211-core')?.textContent||''};}
+function getRecord(id){
+ if(!Object.hasOwn(FILES,id))return null;
+ const w=wrappers.get(id);
+ return records.get(id)||window.BM225LegalTaxonomy?.byId?.(id)||{id,group:'LEGISLACAO',discipline:id.startsWith('TRT02-')?'Direito Administrativo':'Direito Constitucional',operational:true,front:w?.querySelector(':scope > h3')?.textContent||'',back:w?.querySelector('.bm211-core')?.textContent||''};
+}
+async function loadRecord(id){
+ if(!Object.hasOwn(FILES,id))throw Error('Cartão TRT desconhecido');
+ if(records.has(id))return records.get(id);
+ const response=await fetch(FILES[id]+'?bm=trt-v237-modal',{cache:'default'});
+ if(!response.ok)throw Error('Arquivo TRT HTTP '+response.status);
+ const data=await response.json();
+ if(data.id!==id||!Array.isArray(data.layers)||data.layers.length!==11)throw Error('Registro TRT com módulos incompletos');
+ records.set(id,data);return data;
+}
 function refreshRestore(){
  const b=$('bm236RestoreTrt');if(!b)return;
  b.hidden=hiddenCards.size===0;
@@ -122,9 +135,19 @@ function wrapperFor(id,main){
   read.replaceChildren();
   if(icon)read.append(icon.cloneNode(true));
   read.append(document.createTextNode(open?'Fechar leitura':'Abrir leitura'));read.setAttribute('aria-expanded',String(open));main.hidden=!open;};
- read.addEventListener('click',()=>{if(details)details.open=!details.open;sync();});
+ read.addEventListener('click',event=>{
+  event.preventDefault();event.stopPropagation();
+  const reader=window.BancoMestreVisualizarCardV050;
+  if(reader?.showId){reader.showId(id,read);return;}
+  // Apenas contingência se o leitor comum ainda não tiver inicializado.
+  if(details)details.open=!details.open;sync();
+ });
  details?.addEventListener('toggle',sync);
- guide.addEventListener('click',()=>{if(!details)return;details.open=true;sync();requestAnimationFrame(()=>main.querySelector('.bm211-layers')?.scrollIntoView({behavior:'smooth',block:'start'}));});
+ guide.addEventListener('click',()=>{
+  const reader=window.BancoMestreVisualizarCardV050;
+  if(reader?.showId){reader.showId(id,guide);return;}
+  if(details)details.open=true;sync();
+ });
  law.addEventListener('click',async()=>{
   lawPanel.hidden=!lawPanel.hidden;
   law.textContent=lawPanel.hidden?'📜 Mostrar lei seca':'📜 Ocultar lei seca';
@@ -281,5 +304,5 @@ function init(){
  schedule();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-window.BM236TrtCardsGrid=Object.freeze({refresh:schedule,getRecord,get loaded(){return wrappers.size},ids:IDS.map(x=>x[0])});
+window.BM236TrtCardsGrid=Object.freeze({refresh:schedule,getRecord,loadRecord,get loaded(){return wrappers.size},ids:IDS.map(x=>x[0])});
 })();
