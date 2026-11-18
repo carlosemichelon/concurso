@@ -35,7 +35,13 @@ const mount=async()=>{
   if(!doc.getElementById('tabs')||!doc.getElementById('sessionForm')||!doc.getElementById('calGrid'))throw Error('Estrutura de interface incompleta');
   const style=document.createElement('style');
   style.textContent=doc.querySelector('style')?.textContent||'';
+  style.textContent+='\n.bm243-homologation{padding:9px 14px;background:#edf2f2;color:#41575b;border-bottom:1px solid #cbd6d5;font:650 12px/1.5 system-ui}';
   root.replaceChildren(style);
+  const banner=document.createElement('div');
+  banner.className='bm243-homologation';
+  banner.setAttribute('role','status');
+  banner.textContent='HOMOLOGAÇÃO V243 · Dados de teste separados do Banco Mestre oficial; não registre horas reais nesta versão.';
+  root.append(banner);
   for(const element of [...doc.body.children]){
    if(element.tagName!=='SCRIPT')root.append(element);
   }
