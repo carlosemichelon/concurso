@@ -8,7 +8,7 @@ const {chromium}=require('playwright');
  try {
   const context=await browser.newContext({viewport:{width:1366,height:900}});
   const page=await context.newPage(),errors=[];
-  page.on('pageerror',err=>errors.push(String(err.message)));
+  page.on('pageerror',err=>errors.push(String(err.stack||err.message)));
   await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
   await page.waitForFunction(()=>!!document.querySelector('header .bm-v046-header-stats #bm239-drive-action'),null,{timeout:20000});
   const sample=()=>page.evaluate(()=>{
