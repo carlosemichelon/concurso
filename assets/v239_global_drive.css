@@ -1,0 +1,87 @@
+/* V239 — Indicadores compactos e botão único do Drive. Interface apenas. */
+body>header .head>.bm-v046-header-stats>.stat{
+  display:grid!important;grid-template-columns:24px minmax(0,1fr)!important;
+  grid-template-areas:"glyph number" "glyph caption"!important;
+  column-gap:8px!important;row-gap:1px!important;
+  min-width:150px!important;max-width:255px!important;min-height:51px!important;
+  padding:7px 10px!important;border:1px solid #d6e4e0!important;
+  border-radius:12px!important;background:#fff!important;
+  box-shadow:0 1px 4px rgba(18,56,53,.045)!important;
+}
+body>header .head>.bm-v046-header-stats>.stat::before{
+  grid-area:glyph;align-self:start;display:grid;place-items:center;
+  width:24px;height:24px;background:#e6f2ef;color:#13655d;
+  border-radius:7px;font:700 16px/1 system-ui;content:"▦";
+}
+body>header .head>.bm-v046-header-stats>.stat:nth-child(1)::before{content:"▤"}
+body>header .head>.bm-v046-header-stats>.stat:nth-child(2)::before{content:"◷"}
+body>header .head>.bm-v046-header-stats>.stat:nth-child(3)::before{content:"▧"}
+body>header .head>.bm-v046-header-stats>.stat b{
+  grid-area:number!important;font-size:17px!important;font-weight:800!important;
+  line-height:1.13!important;color:#153b3b!important;align-self:end;
+}
+body>header .head>.bm-v046-header-stats>.stat span{
+  grid-area:caption!important;display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;
+  white-space:normal!important;overflow-wrap:break-word!important;
+  max-width:100%!important;color:#52676a!important;
+  font-size:11px!important;line-height:1.35!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 13px;min-height:48px;min-width:188px;
+  border:1px solid #166a62;border-radius:11px;background:#12685e;
+  color:#fff;font:700 12px/1.3 system-ui;cursor:pointer;
+  box-shadow:0 2px 5px rgba(14,79,71,.15);white-space:normal;text-align:center;
+}
+#bm239-drive-action::before{content:"⟳";font:700 19px/1 system-ui}
+#bm239-drive-action[data-connected="true"]{background:#fff;color:#12685e}
+#bm239-drive-action[disabled]{cursor:progress;opacity:.7}
+#bm239-drive-action:focus-visible{outline:3px solid #efae39;outline-offset:3px}
+#bm239-sync-details{font:500 11px/1.35 system-ui;color:#466565;
+  display:block;max-width:225px;min-width:80px;align-self:center}
+#bm239-sync-details[data-state="error"]{color:#963c32}
+#bm239-sync-details[data-state="partial"]{color:#875914}
+html.bm239-global-ready #driveConnectV038,
+html.bm239-global-ready #driveConnectInPdfV042,
+html.bm239-global-ready #bm084-connect,
+html.bm239-global-ready #bm084-refresh,
+html.bm239-global-ready #bm-pdf-sync-connect,
+html.bm239-global-ready #bm-pdf-sync-refresh,
+html.bm239-global-ready .bm225-drive-auth,
+html.bm239-global-ready #bm103SyncConnect,
+html.bm239-global-ready #bm103SyncNow,
+html.bm239-global-ready #bm182-status-pdf~button,
+html.bm239-global-ready #bm182-status-img~button{display:none!important}
+html.bm239-global-ready #pdfs .panel>div:has(>#bm182-status-pdf)>button,
+html.bm239-global-ready #imagens .panel>div:has(>#bm182-status-img)>button{display:none!important}
+body>header .head>nav[aria-label="Seções"]>button[data-page]{
+  border-radius:10px!important;font-weight:600!important;letter-spacing:0!important;
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page].active{
+  outline-offset:-1px!important;box-shadow:inset 0 -2px currentColor;
+}
+@media(max-width:1024px){
+ body>header .head>.bm-v046-header-stats{justify-content:flex-start!important}
+}
+@media(max-width:600px){
+ body>header .head>.bm-v046-header-stats{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:6px!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat{
+  grid-template-columns:1fr!important;grid-template-areas:"glyph" "number" "caption"!important;
+  min-width:0!important;width:100%!important;max-width:none!important;
+  min-height:94px!important;padding:7px!important;align-content:start;
+ }
+ body>header .head>.bm-v046-header-stats>.stat b{font-size:17px!important}
+ body>header .head>.bm-v046-header-stats>.stat span{font-size:10px!important}
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action{
+  grid-column:1/-1;min-width:0;width:100%;min-height:42px;
+ }
+ #bm239-sync-details{grid-column:1/-1;max-width:none;padding:0 2px}
+}
+@media(prefers-reduced-motion:no-preference){
+ #bm239-drive-action:not(:disabled):hover{filter:brightness(1.045)}
+}
