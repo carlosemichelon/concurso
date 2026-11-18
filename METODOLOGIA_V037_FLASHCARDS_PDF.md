@@ -48,3 +48,11 @@ Data: 09/11/2026. Aplicação: todos os cartões existentes e novos, de qualquer
 - Controles devem ser executáveis, não decorativos. Para cartões TRT, a ferramenta de anotação usa a mesma interface V122 em armazenamento local isolado pelo ID TRT. Consulta normativa não deve afirmar possuir transcrição literal sem cotejo.
 - Quadro informativo após os 11 módulos e imagens, metadados recolhidos dentro dele; informação geral da biblioteca no rodapé da página.
 - Documentar conferência de código e conferência de navegador separadamente: teste de sintaxe não prova igualdade visual. Não anunciar homologação visual sem captura/validação no navegador.
+
+## Contrato de correção de filtros e leitor TRT — 17/11/2026
+
+- **Leitor/modal único:** qualquer cartão TRT01/TRT02 usa o mesmo leitor de janela V165 dos cartões canônicos por clique no corpo, botão ou teclado. Não expandir conteúdo dentro da grade como fluxo principal. Frente visível; resposta oculta até revelar; 11 módulos íntegros e galeria privada do Drive. Quadro informativo por último e histórico recolhido dentro dele.
+- **Imagens após autorização do Drive:** usar exclusivamente os metadados reais das imagens carregadas: `area` = disciplina, `subject` = assunto geral, `subsubject` = assunto específico e `detail` = subassunto. Nunca aplicar códigos do Atlas público como se fossem esses campos textuais. Contagens e opções devem corresponder ao conjunto carregado, inclusive classificação pendente.
+- **Flashcards:** disciplina, categoria, assunto e subassunto reais; não classificar grupo desconhecido como Informática e não reduzir todos os registros de Ijuí a um assunto genérico se houver assunto cadastrado. TRT fica na apresentação e filtros, sem alterar o SRS canônico.
+- **Operação:** alterar um filtro não apaga pesquisa digitada nem favoritos. Apenas Limpar filtros restaura o estado geral; evitar seletores antigos incompatíveis. Manter seleção vazia explícita em vez de redefini-la silenciosamente.
+- **Auditoria:** conferir sintaxe, IDs, versão ativa, abertura em janela, 11 seções, ordem do quadro, imagens privadas OAuth, filtro hierárquico completo, busca/zero resultados/reset e responsividade. Diferenciar validação estática de homologação visual no navegador.
