@@ -1,0 +1,15 @@
+/* V258 — Texto explicativo permanece texto; apenas fórmulas recebem MathML. */
+.bm249-equation:has(.bm258-composed-math),
+.bm198-equation:has(.bm258-composed-math){text-align:left!important;font-family:system-ui,-apple-system,'Segoe UI',sans-serif!important;white-space:normal!important;overflow-wrap:normal!important}
+.bm258-composed-math{max-width:100%;min-width:0;display:flex;flex-direction:column;gap:9px;align-items:stretch}
+.bm258-context,.bm258-prose{margin:0!important;font:500 .94rem/1.65 system-ui,-apple-system,'Segoe UI',sans-serif!important;white-space:pre-wrap!important;text-align:left;color:inherit;overflow-wrap:anywhere}
+.bm258-context{font-weight:680!important;color:#234c57}
+.bm258-equation{max-width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;padding:4px 6px;text-align:center}
+.bm258-equation math{display:block;margin:0 auto;font-size:1.16rem;white-space:nowrap}
+.bm258-original-source{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:700px){
+ .bm258-composed-math{gap:7px}
+ .bm258-context,.bm258-prose{font-size:.9rem!important;line-height:1.65!important}
+ .bm258-equation{padding:5px 1px}
+ .bm258-equation math{font-size:1.08rem}
+}
