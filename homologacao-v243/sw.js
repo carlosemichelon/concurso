@@ -30,6 +30,12 @@ self.addEventListener('fetch',e=>{
  if(!/\.(html|js|css|json|svg|png|webp|jpg|jpeg)$/i.test(u.pathname)&&request.mode!=='navigate')return;
  e.respondWith((async()=>{
   const cache=await caches.open(CACHE),key=u.origin+u.pathname;
+  // Navegação do ambiente de homologação usa o shell validado em cache mesmo em modo avião.
+  if(request.mode==='navigate'){
+   const cached=await cache.match(key)||
+     await cache.match(new URL('homologacao-v243/index.html',root).href);
+   if(cached)return cached;
+  }
   try{
    const response=await fetch(request);
    if(response.ok&&response.type==='basic'&&Number(response.headers.get('content-length')||0)<7000000)
