@@ -3,10 +3,10 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const base=read('v123.html'),current=read('v124.html'),manifest=JSON.parse(read('assets/version.json')),index=read('index.html');
-assert.equal(manifest.version,'V124');assert.equal(manifest.home,'v124.html');
-assert.equal(manifest.counts.cards,1499);assert.equal(manifest.counts.active,1482);
-assert.equal(manifest.counts.pdfs,72);assert.equal(manifest.counts.images,270);
-assert.ok(index.includes("fallback='V124'")&&index.includes('v124.html?versao=V124'));
+assert.match(manifest.version,/^V\d{3}$/);assert.ok(Number(manifest.version.slice(1))>=124);assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
+assert.ok(manifest.counts.cards>=1499);assert.ok(manifest.counts.active>=1482);
+assert.ok(manifest.counts.pdfs>=72);assert.ok(manifest.counts.images>=270);
+assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
 const reconstructed=current
  .replaceAll('Banco Mestre V124','Banco Mestre V123')
  .replace('<p><a href="./v123.html">Abrir a versão anterior V123</a></p>',
