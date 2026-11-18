@@ -1,0 +1,14 @@
+/* V240: reduzir ruído visual e exibir auditoria por módulo sob demanda. */
+#bm239-sync-details{max-width:215px!important;line-height:1.35!important;overflow-wrap:anywhere!important}
+#bm240-integrity{align-self:center;max-width:260px;min-width:160px;border:1px solid #d7e4e1;border-radius:9px;padding:7px 10px;background:#fbfdfc;color:#385b5c;font:500 11px/1.45 system-ui}
+#bm240-integrity>summary{cursor:pointer;font-weight:700;outline-offset:3px}
+#bm240-integrity[open]{max-width:min(490px,100%);width:100%}
+.bm240-module-list{list-style:none;padding:4px 0 0;margin:0}
+.bm240-module-list li{display:flex;justify-content:space-between;gap:9px;padding:6px 0;border-top:1px solid #e4ecea}
+.bm240-module-list strong{min-width:96px}
+.bm240-module-list span{overflow-wrap:anywhere;text-align:right}
+.bm240-module-list [data-result="ok"]{color:#216c51}
+.bm240-module-list [data-result="warning"]{color:#855712}
+.bm240-module-list [data-result="pending"],.bm240-module-list [data-result="excluded"]{color:#56676b}
+.bm240-audit-stamp{margin:6px 0 0;font-size:10px;color:#5a7072}
+@media(max-width:600px){#bm240-integrity{grid-column:1/-1;width:100%;max-width:none}#bm240-integrity[open]{max-width:none}}
