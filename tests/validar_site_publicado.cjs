@@ -27,7 +27,7 @@ async function verify(){
  assert.equal(online.home,file,'página inicial informada pelo manifesto é inconsistente');
  assert.equal(index.includes('var fallback=\''+version+'\''),true,'fallback do index não corresponde à versão');
  assert.equal(page.includes('Banco Mestre '+version),true,'HTML da versão não corresponde ao manifesto');
- if(version==='V241'){
+ if(version==='V241'||version==='V242'){
   assert.ok(page.includes("tag('v241_timer_header.js"),'cronômetro V241 não publicado');
   assert.ok(page.includes("tag('v241_sync_truth.js"),'indicadores V241 não publicados');
   assert.ok(page.includes("tag('v241_controle_tab.js"),'Controle V241 não publicado');
@@ -35,6 +35,14 @@ async function verify(){
     'assets/v241_controle_tab.js','controle-estudos-v241.html']){
    const raw=await text(base+asset+suffix);
    assert.ok(raw.length>100,'arquivo publicado vazio: '+asset);
+  }
+ }
+ if(version==='V242'){
+  assert.ok(page.includes("tag('v242_timer_dock.js"),'script V242 do rodapé não publicado');
+  assert.ok(page.includes('assets/v242_timer_dock.css'),'CSS V242 do rodapé não publicado');
+  for(const asset of ['assets/v242_timer_dock.js','assets/v242_timer_dock.css']){
+   const raw=await text(base+asset+suffix);
+   assert.ok(raw.length>100,'arquivo V242 publicado vazio: '+asset);
   }
  }
  return {version,html:file,cardCount:online.counts?.cards,
