@@ -1,0 +1,2348 @@
+{
+  "format": "BancoMestrePublic11ModulesV274",
+  "schema": 1,
+  "source_version": "V164",
+  "date": "2026-11-19",
+  "records": [
+    {
+      "id": "CARD-0118",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "O que representam os domínios de deformação no ELU de seções de concreto armado?\n\nDesenvolva: Defina domínios de deformação no ELU e distinga-os dos estádios I, II e III da viga sob aumento das ações. O domínio 2 vem depois do estádio III?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "Distribuições-limite de deformações do concreto e do aço sob esforços normais.\n\nEsclarecimento: Os domínios são configurações-limite do aço e do concreto no ELU. Não são etapas cronológicas após o estádio III; estádio II não equivale a deformação de 2‰."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, diagramas de deformações últimas e hipóteses de cálculo de resistência; classificação de estádios é ferramenta didática clássica de comportamento sob flexão. Valores específicos dependem da classe e da edição."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Estádios descrevem evolução do comportamento: I seção não fissurada; II fissurada, compressão ainda aproximadamente linear; III resistência última e compressão não linear. Domínios classificarão estados-limites das deformações do aço e do concreto no modelo ELU."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "Para LN dentro da seção e deformações lineares: εs/εc=(d−x)/x; β=x/d. εc2=2‰ é ponto do diagrama de compressão até C50; εcu=3,5‰ limite convencional. Esses valores não definem “estádio II”."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Ideia | Estádios I–III | Domínios 1–5 |\n| Natureza | evolução do comportamento com carga | configurações-limite convencionais |\n| Serviço | I e II frequentemente usados | não definem estádios |\n| Resistência última | III, de modo didático | domínio 2,3,4 etc para seção sob ELU |\n| Número 2 | estádio fissurado | domínio 2: aço a 10‰ |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Ao aumentar o momento, uma viga pode passar de não fissurada para fissurada e depois atingir resistência última. No dimensionamento da seção ao ELU, um modelo de domínio 2 ainda pode ter εc<2‰, apesar de não ser “estádio II”."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Em questão: primeiro pergunte se solicita “comportamento ao longo do carregamento” ou “limites de deformações no ELU”. Não deduzir um a partir da numeração romana do outro."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "A associação estádio III ↔ análise de resistência última é uma aproximação didática; os domínios são critérios normativos de cálculo de seção, não observação literal de sequência temporal."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "“Domínio 2 = estádio 2”; “estádio 2 = 2%”; “domínios ocorrem depois do estágio III”: todas essas afirmações são incorretas."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "ESTÁDIOS = HISTÓRIA da viga sob cargas. DOMÍNIOS = FOTO LIMITE das deformações no ELU. Numerais iguais não significam conceitos iguais."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0175",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Onde surgem as fissuras típicas de flexão em uma viga e por quê?\n\nDesenvolva: Em viga à flexão simples, onde aparecem fissuras quando muda do estádio I para II? Compare momento positivo e negativo."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "Na zona tracionada, frequentemente quase perpendiculares ao eixo da viga, após a tensão de tração superar a resistência do concreto.\n\nEsclarecimento: Fissuras de flexão nascem na zona tracionada após a tensão de tração superar a resistência do concreto; no M positivo, frequentemente embaixo no vão; no M negativo, em cima junto ao apoio."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "Concreto armado, fissuração e estados-limites de serviço segundo fundamentos da NBR 6118:2023; estádios I–III são interpretação mecânica de seção."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Com a flexão, fibras tracionadas alongam; quando a resistência à tração do concreto é superada, fissura aproximadamente perpendicular ao eixo da viga e o aço participa fortemente da tração."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "Antes da fissuração, σt≈M y/I num modelo elástico simplificado; fissuração ocorre quando σt ultrapassa resistência à tração de referência do concreto. Abertura w_k é grandeza de ELS, medida em mm."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Região | Momento | Face tracionada | Posição típica de fissuras |\n| Meio de vão biapoiado | positivo | inferior | verticais partindo de baixo |\n| Apoio interno viga contínua | negativo | superior | verticais partindo de cima |\n| Próximo a apoios sob cortante | pode ter diagonal | variável | distinguir cisalhamento de flexão |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Uma viga biapoiada com carregamento distribuído apresenta M+ no meio: fissuras quase verticais nascem embaixo. Para uma viga contínua sobre apoio intermediário, M− tende a tracionar a face superior."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Identifique o sinal do momento e a face tracionada antes de localizar fissuras. Relacione ao estádio II e aos controles de fissuração e flecha."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Abertura de fissura isolada não identifica causa nem implica colapso. Fissuras de retração, assentamento plástico e tração diagonal têm outros mecanismos."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Não dizer que todas fissuras de flexão são inferiores; isso só vale nas regiões com M positivo. Não chamar todo estágio fissurado de estádio III."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“Positivo abre EMBAIXO; negativo abre EM CIMA”. Estádio I sem fissura; II fissura; III compressão não linear."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0333",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Qual é a fórmula de Euler para carga crítica elástica, como depende de E, I e ℓe=KL, e como compará-la com o esmagamento de uma seção comprimida?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima e verso literal",
+          "texto": "Pcr=π²EI/(KL)². Se KL dobra, Pcr cai para 1/4, com E e I constantes. Peça pouco esbelta pode esgotar resistência do material antes da flambagem ideal."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Fundamento técnico e norma aplicável",
+          "texto": "Teoria clássica de estabilidade elástica de barras comprimidas. A expressão de Euler caracteriza barra ideal, reta, elástica e suficientemente esbelta, com vinculação representada por K; normas de concreto armado e aço introduzem imperfeições e critérios de resistência próprios."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Definição e mecanismo físico",
+          "texto": "Sob compressão, o estado perfeitamente reto de uma barra ideal pode perder estabilidade e surgir configuração fletida (bifurcação). Quanto maior a rigidez EI, maior a carga crítica; quanto maior o comprimento efetivo, menor a carga crítica. Em barras curtas pode controlar a resistência material antes da bifurcação ideal."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Fórmulas, variáveis e unidades",
+          "texto": "Pcr=π²EI/ℓe²; ℓe=K·L. E [N/m²], I [m⁴], L e ℓe [m], Pcr [N]. Razão Pcr,2/Pcr,1=(ℓe,1/ℓe,2)² para E e I iguais. λ=ℓe/√(I/A) ajuda a avaliar a esbeltez geométrica."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Apoio ideal aproximado | K clássico | Consequência |\n|---|---:|---|\n| Biarticulado | 1,0 | Comprimento efetivo L |\n| Engaste-engaste sem translação | 0,5 | ℓe menor; Pcr maior |\n| Engaste-articulação sem translação | ≈0,7 | Situação intermediária |\n| Engaste-livre | 2,0 | ℓe maior; Pcr menor |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Resolução e exemplo numérico",
+          "texto": "E=200 GPa, I=8×10⁻⁶ m⁴, L=4 m e K=1: Pcr≈987 kN. Se o comprimento dobra para L=8 m, Pcr≈247 kN. Nenhum parâmetro da seção foi alterado; a queda resulta do quadrado no denominador."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e transferência para prova",
+          "texto": "Comparar duas colunas de mesmo material e seção mudando somente travamentos, comprimento ou eixo de flambagem. Em concreto armado real, verificar resistência à compressão/flexocompressão e momentos de segunda ordem; Euler não fornece diretamente N_Rd."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Condições, hipóteses e exceções",
+          "texto": "A expressão supõe elasticidade linear, vínculos idealizados, ausência de imperfeições e geometria compatível com instabilidade elástica. Em peça curta, esmagamento/escoamento pode preceder a carga teórica de Euler. Não generalizar valores de K sem avaliar o sistema."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas e distinções conceituais",
+          "texto": "Pcr é força crítica de instabilidade ideal, não carga última de uma peça real. Não confundir comprimento físico L com ℓe=KL, nem I do eixo forte com o eixo crítico. Dobrar EI duplica Pcr; dobrar ℓe divide Pcr por quatro."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete e recuperação integrada",
+          "texto": "“EULER: comprimento ao quadrado EMBAIXO”. Dobrou ℓe → força crítica ficou ¼. Curto pode comprimir antes de flambear; longo tende a encurvar."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0468",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "O que é a linha neutra em um diagrama longitudinal de deformações de seção fletida?\n\nDesenvolva: O que é linha neutra e o que muda ao passar do estádio I para II na rigidez? Por que domínios de deformação não são estádios?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "É o lugar geométrico de deformação longitudinal nula; quando atravessa a seção, separa fibras alongadas e encurtadas.\n\nEsclarecimento: Linha neutra (LN): fibras com deformação longitudinal nula. Em flexão com LN interna, ela separa regiões comprimidas e tracionadas; estádios tratam fissuração, domínios tratam ELU."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "Fundamento de Bernoulli (seções planas) e compatibilidade de deformações; ABNT NBR 6118:2023 para análise de seções. A posição da LN exige equilíbrio e depende do estado da seção."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "A distribuição de deformações é linear com a altura pela hipótese de seção plana, mesmo quando a tensão do concreto comprimido não é linear no estádio III. Fissuração altera rigidez e pode alterar a posição da LN."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "LN: ε=0. Profundidade x medida da borda comprimida. β=x/d. Para LN interna: εs/εc=(d−x)/x. Em estádio II, concreto tracionado é desprezado nas fissuras para modelo fissurado."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Conceito | Critério |\n| LN | ε longitudinal nula |\n| Estádio I | seção não fissurada |\n| Estádio II | seção fissurada |\n| Estádio III | resistência última / compressão não linear |\n| Domínios | diagramas de deformações-limite do ELU |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Com seção de d=40 cm e LN a x=10 cm, β=0,25. Com εc=3‰ (exemplo de ELU compatível), εs=3×(40−10)/10=9‰; a posição de LN é grandeza geométrica, não percentual."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Em questões com desenho, marque a fibra extrema comprimida, LN e a camada de aço em d antes de calcular deformações. Diferencie gráfico de ε (linear) do de tensão σ (pode ser não linear)."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Quando a LN fica fora da seção não há alternância de sinal dentro da seção. Regras de estádios e domínios não são índices de esbeltez ou classificação geométrica de elemento."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Não confundir linha neutra com a metade exata da altura; sua posição depende das forças. Nem concluir que εc2=2‰ define estádio II."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“LN = deformação ZERO; x mede desde a compressão”. Estádio II fissura; domínio 2 aço em 10‰."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0480",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "O que muda na distribuição de esforços aço–concreto após a fissuração?\n\nDesenvolva: O que ocorre com tração, rigidez e fissuração ao passar do estádio I para II? Em que o estádio III se distingue?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "A rigidez local diminui e a parcela tracionada é redistribuída, principalmente à armadura e ao concreto entre fissuras.\n\nEsclarecimento: Após fissurar, o aço assume maior parcela tracionada e a rigidez efetiva diminui; entre fissuras, concreto ainda colabora por aderência. O estádio III acrescenta não linearidade forte em compressão."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "Concreto armado — comportamento em flexão e verificações de ELS e ELU, com fundamento na ABNT NBR 6118:2023. A distinção em estádios é interpretação didática, não limites fixos por percentuais."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Antes da fissuração, a seção íntegra transmite tração pelo concreto. Ao superar a resistência à tração, formam-se fissuras e as forças passam para o aço nas seções fissuradas; a aderência tensiona concreto intermediário e a rigidez de serviço varia."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "Na fase elástica simplificada, σ=M y/I; após fissuração, usar rigidez fissurada/efetiva EI apropriada e fatores de duração conforme modelo normativo. Não há εc=2‰ universal para estádio II."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Estádio | Fissuras | Compressão do concreto | Uso usual |\n| I | não fissurada | linear | serviço antes de fissurar |\n| II | fissurada | aproxim. linear | flechas/fissuras em serviço |\n| III | intensa | não linear | resistência última |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Uma viga biapoiada sob M positivo começa com concreto inferior tracionado; após fissurar junto ao meio do vão, o aço inferior passa a resistir majoritariamente à tração e a flecha aumenta relativamente à seção íntegra."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Em revisão discursiva, explique o caminho de forças antes/depois da fissuração e por que o cálculo de flecha precisa rigidez adequada; depois diferencie do estado de resistência última."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "A deformação e a abertura de fissuras dependem de armadura, aderência, carregamento e concreto; não inferir ruptura imediata por existir fissura."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Estádio II NÃO significa “concreto inteiro em deformação 2%”. Diagrama de deformações continua linear na altura, enquanto tensões de compressão podem sair da linearidade no estádio III."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“I INTEIRO, II FISSURADO, III RESISTÊNCIA ÚLTIMA”. Aço assume tração no II; concreto comprimido não é automaticamente plástico."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0543",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Segundo a NBR 6118:2023, quais são as larguras mínimas usuais de vigas e vigas-parede, e em que condição podem chegar a 10 cm?\n\nDesenvolva: Quais larguras mínimas usuais de viga e viga-parede? Explique por que esse limite não se confunde com a razão ℓ/h que define viga-parede."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "Vigas: 12 cm; vigas-parede: 15 cm. Excepcionalmente, podem chegar a 10 cm se forem garantidos alojamento das armaduras, cobrimentos e espaçamentos, lançamento e adensamento adequados.\n\nEsclarecimento: Viga comum: b≥12 cm; viga-parede: b≥15 cm; redução excepcional até 10 cm apenas com detalhamento e execução adequados."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, item 13.2.2 (larguras mínimas), em conjunto com 22.4.1 (viga-parede por relação vão/altura). Não supor automaticamente que emenda de 2026 manteve redação idêntica."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Largura b influencia alojamento das armaduras, cobrimento, vibração e concretagem. A classificação como viga-parede decorre de comportamento de elemento alto em relação ao vão, frequentemente com transmissão por campos de compressão, não apenas de ter 15 cm de largura."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "Largura mínima usual: b_viga≥12 cm e b_viga-parede≥15 cm. Excepcional b≥10 cm com condições. Proporção de viga-parede: ℓ/h<2 (biapoiada) e ℓ/h<3 (contínua), onde ℓ é vão e h altura total."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Pergunta | Valor | O que está medindo |\n| Largura viga | 12 cm usual | b, seção transversal |\n| Largura viga-parede | 15 cm usual | b, seção transversal |\n| Largura excepcional | 10 cm | condicionada |\n| Viga-parede biapoiada | ℓ/h<2 | esbeltez do vão |\n| Viga-parede contínua | ℓ/h<3 | esbeltez do vão |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Viga-parede biapoiada com ℓ=300 cm e h=160 cm: ℓ/h=1,875<2; é viga-parede pelo critério de vão/altura. Se b=14 cm, fica abaixo da largura usual de 15 cm e exige verificar a possibilidade excepcional."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Primeiro classificar a viga pelo vão e altura; depois verificar largura mínima para armaduras e concretagem; por fim dimensionar a resistência e detalhar a peça com seu modelo apropriado."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "O excepcional 10 cm não é permissão generalizada: checar armaduras, cobrimentos, espaçamentos, lançamento e adensamento. Os limites geométricos citados pertencem à NBR 6118:2023."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Confundir largura 15 cm com altura/vão 2 ou 3. Escolher largura 10 cm sempre que a arquitetura pedir é incorreto; também não usar ℓ/h≤2, pois a condição é estrita."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“VIGA 12, PAREDE 15; 10 SÓ EXCEÇÃO. BIAPOIADA <2, CONTÍNUA <3” — são duas decisões independentes."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0547",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Qual a espessura mínima de uma laje maciça de cobertura sem balanço pela NBR 6118:2023? Em que situação seria errado responder 7 cm? Reconstrua também a sequência de mínimos para cobertura, piso e balanço."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima e verso literal",
+          "texto": "7 cm. Laje maciça de cobertura NÃO em balanço: h ≥ 7 cm."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Fundamento técnico e norma aplicável",
+          "texto": "ABNT NBR 6118:2023, item 13.2.4.1, alínea a: h mínimo de laje maciça de cobertura não em balanço. É requisito geométrico mínimo; para projetos atuais conferir a redação consolidada aplicável."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Definição e mecanismo físico",
+          "texto": "A laje trabalha predominantemente à flexão e transfere carregamentos aos apoios. A espessura afeta rigidez à flexão, fissuração, vibração, cobrimento e concretagem. O mínimo de 7 cm não significa que a seção resista automaticamente a todos os esforços."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Fórmulas, variáveis e unidades",
+          "texto": "h_min,cobertura=7 cm=0,07 m. Peso próprio estimado g_k≈γ_c h; com γ_c≈25 kN/m³, g_k≈25×0,07=1,75 kN/m². h é espessura total, não altura útil d."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Situação | Mínimo (cm) | Critério |\n|---|---:|---|\n| Cobertura maciça sem balanço | 7 | Uso de cobertura |\n| Piso maciço sem balanço | 8 | Uso de piso |\n| Laje maciça em balanço | 10 | Apoio em balanço |\n| Garagem P≤30 kN | 10 | Peso total do veículo |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Resolução e exemplo numérico",
+          "texto": "Uma laje de cobertura sem balanço de 6 cm não atende ao mínimo de 7 cm; 7 cm passa somente na checagem de espessura geométrica. Se a mesma peça for uma marquise em balanço, o limite a usar é 10 cm."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e transferência para prova",
+          "texto": "Primeiro identificar se é laje maciça, se é de cobertura e se não tem balanço; depois verificar h e o dimensionamento de flexão, fissuração, deformações, durabilidade e execução. A classificação do uso vem antes da escolha do número."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Condições, hipóteses e exceções",
+          "texto": "Os 7 cm não se transferem para coberturas em balanço; vãos, cargas, cobrimento, armadura, resistência ou deformações podem exigir maior espessura. As espessuras estudadas são da edição 2023 e não substituem o texto normativo vigente."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas e distinções conceituais",
+          "texto": "Não trocar “cobertura sem balanço” por “qualquer teto”; não confundir cobertura 7 com piso 8, balanço 10 ou garagem 10/12; não usar altura útil d no lugar de h."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete e recuperação integrada",
+          "texto": "CASA: TETO 7, PISO 8, BALANÇO 10. A escada completa é 7–8–10 | garagem 10–12 | especiais 14–15–16. Recite o uso junto ao valor."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0548",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Para laje maciça de piso sem balanço, qual o mínimo de espessura? Diga por que esse valor não deve ser usado automaticamente em uma garagem."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima e verso literal",
+          "texto": "8 cm. Laje maciça de piso NÃO em balanço: h ≥ 8 cm."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Fundamento técnico e norma aplicável",
+          "texto": "ABNT NBR 6118:2023, item 13.2.4.1, alínea b. Piso sem balanço tem mínimo 8 cm; lajes sujeitas a veículos estão em alíneas específicas do mesmo item."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Definição e mecanismo físico",
+          "texto": "O piso transmite ações permanentes e variáveis aos apoios; sua rigidez depende fortemente da espessura. A exigência mínima de 8 cm é geométrica e não substitui o dimensionamento do vão e das ações."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Fórmulas, variáveis e unidades",
+          "texto": "h_min,piso=8 cm=0,08 m. Com γ_c≈25 kN/m³, peso próprio g_k≈25×0,08=2,0 kN/m². Compare h, espessura total, com d, altura útil entre face comprimida e centro da armadura tracionada."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Tipo de laje maciça | Mínimo (cm) |\n|---|---:|\n| Cobertura sem balanço | 7 |\n| Piso sem balanço | 8 |\n| Em balanço | 10 |\n| Garagem para P≤30 kN | 10 |\n| Garagem para P>30 kN | 12 |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Resolução e exemplo numérico",
+          "texto": "Uma laje de piso convencional com h=7,5 cm não atende ao mínimo 8 cm. Com h=8 cm atende ao critério geométrico, mas deve ser dimensionada para a solicitação; se receber veículos de 30 kN, o mínimo do caso é 10 cm."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e transferência para prova",
+          "texto": "Em questões CESGRANRIO, classificar primeiro a utilização: cobertura ou piso comum, balanço, garagem, protensão, laje lisa/cogumelo. Uma laje de garagem não vira automaticamente “piso comum de 8 cm”."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Condições, hipóteses e exceções",
+          "texto": "Aplica-se ao caso de piso maciço sem balanço na edição 2023. O cumprimento de h_min é condição necessária, e não suficiente, para verificar ELS e ELU."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas e distinções conceituais",
+          "texto": "Não usar 8 cm para garagem, sacada em balanço ou laje lisa. A carga de veículos não é equivalente à sobrecarga genérica de um piso comum para fins do mínimo geométrico."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete e recuperação integrada",
+          "texto": "TETO 7 — PISO 8 — BALANÇO 10. Oito é o “piso simples”, não o piso de garagem. Garagem: 30 → 10; acima de 30 → 12."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0549",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Em uma laje maciça em balanço com h=10 cm (NBR 6118:2023), qual é o coeficiente adicional γn e sobre que grandeza atua? Compare com o mínimo de espessura."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima e verso literal",
+          "texto": "γn=1,45, multiplicando os esforços solicitantes finais de cálculo. A espessura mínima da laje maciça em balanço é 10 cm."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Fundamento técnico e norma aplicável",
+          "texto": "ABNT NBR 6118:2023, item 13.2.4.1 e Tabela 13.2: h mínima 10 cm para laje maciça em balanço e majoração adicional dos esforços de cálculo no intervalo normativo de espessuras."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Definição e mecanismo físico",
+          "texto": "No balanço, os momentos negativos se concentram na região do engaste, e a armadura superior e sua ancoragem são essenciais. Quanto menor a espessura, maior a sensibilidade a deformações e falhas de detalhamento; a norma acrescenta fator sobre solicitações."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Fórmulas, variáveis e unidades",
+          "texto": "Para o intervalo tabelado de 10≤h≤18 cm, γn=1,95−0,05h (h em cm). Em h=10 cm: γn=1,45. Esforço majorado S_d,maj=γn·S_d; em h=12 cm: γn=1,35; a partir de h≥19 cm: γn=1,00."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Laje maciça | h_min (cm) | Particularidade |\n|---|---:|---|\n| Cobertura sem balanço | 7 | Não usar fator do balanço |\n| Piso sem balanço | 8 | Não usar fator do balanço |\n| Em balanço | 10 | Tabela γn conforme espessura |\n| Veículos ≤30 kN | 10 | Mínimo por peso total do veículo |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Resolução e exemplo numérico",
+          "texto": "Para h=10 cm e M_sd=20 kN·m por metro, γn=1,45 e M_sd,maj=29 kN·m/m. A majoração atua sobre o momento solicitante, NÃO transforma h=10 em 14,5 cm."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e transferência para prova",
+          "texto": "Identificar balanço em cortes e plantas (laje engastada de um lado, borda livre). Conferir armadura negativa superior, ancoragem, fissuração, flecha, cobrimento e condições de uso antes de adotar o mínimo."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Condições, hipóteses e exceções",
+          "texto": "O fator é específico do enquadramento de lajes maciças em balanço do item e da faixa de espessuras; um piso convencional sem balanço não recebe esse γn pelo simples fato de ter h=10 cm."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas e distinções conceituais",
+          "texto": "Não confundir γn com γf das ações ou com multiplicador de espessura. Em h=10 cm o fator não é 1,00; em h=19 cm, não prolongar γn=1,95−0,05h para produzir fator menor que 1."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete e recuperação integrada",
+          "texto": "BALANÇO 10 pede 1,45 NOS ESFORÇOS. CASA: teto 7, piso 8, balanço 10; veículo ≤30 kN também tem mínimo 10, mas por outro motivo."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0551",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Qual a espessura mínima de laje maciça para veículos de peso total até 30 kN, inclusive, e para veículos acima de 30 kN? Reconstrua as duas faixas e a pegadinha da igualdade."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima e verso literal",
+          "texto": "P≤30 kN: h≥10 cm. P>30 kN: h≥12 cm. Exatamente P=30 kN fica na primeira faixa."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Fundamento técnico e norma aplicável",
+          "texto": "ABNT NBR 6118:2023, item 13.2.4.1, alíneas d/e: espessuras geométricas mínimas para lajes maciças destinadas a suportar veículos conforme peso total. Necessárias também verificações de capacidade, serviço e detalhamento."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Definição e mecanismo físico",
+          "texto": "Veículos transferem ações pelas rodas/eixos, com concentrações locais, posições desfavoráveis e efeitos de uso. A maior faixa de peso impõe mínimo geométrico maior, mas a espessura definitiva depende de vão, apoio, aço, concreto e verificações."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Fórmulas, variáveis e unidades",
+          "texto": "P é peso total do veículo em kN; P≤30 kN ⇒ h_min=10 cm=0,10 m; P>30 kN ⇒ h_min=12 cm=0,12 m. 30 kN≈3,06 tf para orientação, não se deve substituir a classificação normativa em força por massa."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Categoria | Condição | h mínimo | Distinção |\n|---|---|---:|---|\n| Garagem leve | P≤30 kN, inclusive 30 | 10 cm | Peso total |\n| Garagem mais pesada | P>30 kN | 12 cm | Valor estritamente acima de 30 |\n| Piso comum sem balanço | Sem condição de veículos | 8 cm | Outra alínea |\n| Protendida apoiada em vigas | Critério específico | 15 cm e limites do vão | Não é o caso da garagem comum |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Resolução e exemplo numérico",
+          "texto": "P=29,9 kN ⇒ 10 cm; P=30,0 kN ⇒ 10 cm; P=30,1 kN ⇒ 12 cm. Uma garagem de h=15 cm pode ser dimensionada por outras razões, mas 15 cm NÃO é o mínimo pedido para P≤30 kN."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e transferência para prova",
+          "texto": "Antes de dimensionar, identificar peso total do veículo, carga por rodas/eixos, vãos, apoios e arranjo estrutural. Analisar flexão, punção se pertinente, cisalhamento, ELS e durabilidade; não aprovar uso apenas por alcançar h_min."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Condições, hipóteses e exceções",
+          "texto": "As faixas por veículo são para lajes maciças; outras tipologias (laje lisa/cogumelo, protensão) têm requisitos próprios, alguns concomitantes. Espessura mínima não é garantia de resistência à carga."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas e distinções conceituais",
+          "texto": "Pegadinhas: “menor OU IGUAL” inclui 30 no grupo de 10; 30,1 muda para 12. Não confundir h mínimo 15 cm de protensão sobre vigas com garagem leve; nem carga total do veículo com carga concentrada de uma roda."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete e recuperação integrada",
+          "texto": "GARAGEM: “30 no carro, 10 na laje; passou de 30, sobe para 12”. Escada total: CASA 7–8–10 | GARAGEM 10–12 | ESPECIAIS cogumelo 14, protensão 15, lisa 16."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0552",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Diferencie os mínimos geométricos de laje-cogumelo fora do capitel e laje lisa na NBR 6118:2023. Explique por que o capitel altera o modelo e o risco de punção."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima e verso literal",
+          "texto": "Laje-cogumelo: h≥14 cm FORA do capitel; laje lisa: h≥16 cm no critério geral de 2023."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Fundamento técnico e norma aplicável",
+          "texto": "ABNT NBR 6118:2023, item 13.2.4.1, alínea g: mínimos de lajes lisas e lajes-cogumelo. A terminologia de capitel/engrossamento recebeu alterações normativas posteriores; distinguir regra histórica da redação vigente em projeto."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Definição e mecanismo físico",
+          "texto": "Lajes apoiadas diretamente em pilares, sem vigas usuais, concentram reações na região de apoio; há transferência por flexão e cisalhamento localizado (punção). Capitel/engrossamento modifica a geometria e pode ampliar capacidade e rigidez nessa região."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Fórmulas, variáveis e unidades",
+          "texto": "h_lisa,min=16 cm=0,16 m; h_cogumelo,fora,min=14 cm=0,14 m. São espessuras totais geométricas, não alturas úteis d. Perímetros críticos de punção e capacidade resistente precisam cálculo independente."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Categoria | Mínimo 2023 | Onde medir |\n|---|---:|---|\n| Laje-cogumelo | 14 cm | Fora do capitel |\n| Laje lisa | 16 cm | Região corrente da laje |\n| Laje protendida apoiada em vigas | 15 cm e condições por vão | Sistema estrutural distinto |\n| Piso maciço comum sem balanço | 8 cm | Não é laje lisa/cogumelo |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Resolução e exemplo numérico",
+          "texto": "Laje lisa com h=15 cm não alcança os 16 cm. Laje-cogumelo com 14 cm fora do capitel atende apenas ao mínimo geométrico antigo; a espessura do capitel e a armadura devem ser calculadas considerando flexão e punção."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e transferência para prova",
+          "texto": "Na prova, identificar se as cargas vão diretamente da laje aos pilares e se há capitel; só então associar os números. No projeto, verificar armadura negativa sobre pilares, flecha e punção."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Condições, hipóteses e exceções",
+          "texto": "As espessuras históricas de 2023 não dispensam dimensionamento. Emenda posterior pode modificar terminologia de sistemas; antes de aplicar à obra é obrigatório verificar a versão normativa exigida."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas e distinções conceituais",
+          "texto": "Não usar 14 cm de cogumelo para a laje lisa. “Fora do capitel” não é espessura total da região engrossada. Não confundir h mínima com altura útil d nem com a exigência de punção."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete e recuperação integrada",
+          "texto": "ESPECIAIS sobem: COGUMELO 14, PROTENDIDA EM VIGAS 15, LISA 16. “Cogumelo usa chapéu”; distinguir capitel da região de 14 cm."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0553",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Qual é o mínimo da laje lisa maciça na NBR 6118:2023? Compare explicitamente com a laje-cogumelo fora do capitel e com piso convencional sem balanço."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima e verso literal",
+          "texto": "Laje lisa: h≥16 cm. Laje-cogumelo fora do capitel: h≥14 cm."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Fundamento técnico e norma aplicável",
+          "texto": "ABNT NBR 6118:2023, item 13.2.4.1, alínea g. Valores vinculados ao enquadramento de lajes lisas e cogumelo da edição estudada. Verificar terminologia de edições posteriores antes de aplicar em projeto."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Definição e mecanismo físico",
+          "texto": "Laje lisa normalmente se apoia diretamente sobre pilares sem vigas; o caminho das cargas cria altos momentos negativos junto aos apoios e pode produzir punção. A espessura maior que a de piso comum reflete sistema estrutural distinto."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Fórmulas, variáveis e unidades",
+          "texto": "h_lisa,min=16 cm=0,16 m; h_cogumelo,fora=14 cm=0,14 m. A altura útil d é menor que a espessura total h por causa do cobrimento e das armaduras; verificação de punção não se reduz a h mínimo."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Sistema | Espessura mínima (2023) | Comparação |\n|---|---:|---|\n| Piso comum maciço sem balanço | 8 cm | Apoios usuais, não lisa |\n| Laje-cogumelo fora do capitel | 14 cm | Possui região de capitel |\n| Laje com protensão apoiada em vigas | 15 cm + limites de vão | Outro sistema |\n| Laje lisa | 16 cm | Critério específico |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Resolução e exemplo numérico",
+          "texto": "Uma laje lisa de 15 cm não atende ao mínimo de 16 cm. A de 16 cm atende ao mínimo geométrico apenas; verificar se armadura e espessura resistem à flexão, à punção e às deformações."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e transferência para prova",
+          "texto": "Em planta sem vigas, confirmar o tipo estrutural: apoio direto nos pilares, existência de capitel, espessura corrente e regiões críticas. Aplicar critérios de punção, armadura de reforço, ancoragem e ELS."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Condições, hipóteses e exceções",
+          "texto": "Os mínimos dependem do enquadramento da edição 2023; uma região engrossada sobre pilar não é licença para usar h=14 cm em toda laje classificada como lisa. Conferir definição normativa vigente."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas e distinções conceituais",
+          "texto": "Não trocar 16 (lisa) por 14 (cogumelo), nem escolher 8 cm de piso convencional. A área do capitel não é o local ao qual se refere o valor de 14 cm."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete e recuperação integrada",
+          "texto": "“LISA 16, cogumelo 14 (fora do capitel), protendida em vigas 15”: os especiais fecham 14–15–16. Lisa sem chapéu: 16."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0579",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Calcule λ de um pilar a partir de ℓe e i=√(I/A), e explique como esse parâmetro distingue a tendência de instabilidade de um elemento curto ou esbelto. Qual direção controla?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima e verso literal",
+          "texto": "λ=ℓe/i, com i=√(I/A) na direção examinada. λ maior tende a significar maior sensibilidade a efeitos de instabilidade; deve-se verificar os dois eixos e os vínculos reais."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Fundamento técnico e norma aplicável",
+          "texto": "Mecânica da estabilidade de barras comprimidas e ABNT NBR 6118:2023, critérios da seção 15 sobre instabilidade e efeitos locais de segunda ordem. A comparação λ<λ1 é uma condição normativa para possível dispensa de efeitos locais, não definição universal de ruptura."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Definição e mecanismo físico",
+          "texto": "A força comprimindo um pilar com excentricidade ou deslocamento lateral gera momento adicional N·Δ, amplificado quando rigidez lateral é baixa. O comprimento efetivo aumenta a esbeltez; a seção com menor i controla geralmente em condições iguais de vínculo."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Fórmulas, variáveis e unidades",
+          "texto": "λ=ℓe/i (adimensional); i=√(I/A), com I em cm⁴ e A em cm² ⇒ i em cm; ℓe em cm. Para seção retangular, em cada direção i=b/√12, onde b é a dimensão na direção da flexão. Pcr,ideal=π²EI/ℓe²."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Variável/resultado | Se aumenta | Efeito esperado mantido o resto |\n|---|---|---|\n| ℓe | Comprimento efetivo | λ aumenta; Pcr de Euler diminui |\n| I | Rigidez geométrica | i aumenta; λ diminui |\n| A com I fixo | Área da seção | i diminui; λ aumenta |\n| Direção fraca | Menor i | Maior esbeltez na mesma ℓe |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Resolução e exemplo numérico",
+          "texto": "Seção 20×40 cm: A=800 cm². No eixo fraco i=20/√12=5,77 cm e, para ℓe=300 cm, λ≈52. No eixo forte i=40/√12=11,55 cm, λ≈26, se ℓe for igual. É a direção fraca que tende a exigir maior atenção."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e transferência para prova",
+          "texto": "Em projeto, determinar vínculos, comprimento equivalente em cada direção, imperfeições geométricas, excentricidades e combinações; verificar o critério de segunda ordem e resistência conforme norma, não somente a relação L/h."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Condições, hipóteses e exceções",
+          "texto": "Não existe um único valor de λ que por si só determine se um pilar real romperá por esmagamento ou instabilidade. O limite λ1 normativo depende de excentricidade e diagrama de momentos; a fórmula de Euler é idealizada."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas e distinções conceituais",
+          "texto": "Pilar-parede é classificado por proporção entre lados da seção, não por esbeltez ao longo da altura. Não confundir L livre com ℓe, raio i com inércia I, nem “pilar curto” com “consolo curto”."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete e recuperação integrada",
+          "texto": "“ESBELTEZ = comprimento efetivo / raio”. CURTO COMPRIME; LONGO ENCURVA. Mesmo pilar: menor dimensão transversal tende a indicar o eixo fraco."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0621",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Como interpretar os domínios de deformação do ELU de uma seção de concreto armado?\n\nDesenvolva: Compare domínios 2, 3 e 4 para flexão, destacando o aço tracionado e o concreto comprimido. Diga por que domínio 2 não significa estádio II."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "São faixas do diagrama de compatibilidade associadas ao estado deformacional do concreto e do aço; domínio 3 tende a permitir escoamento do aço tracionado, enquanto domínio 4 pode romper concreto sem esse escoamento.\n\nEsclarecimento: Domínios são faixas-limite do ELU: D2 aço a 10‰ e concreto antes de εcu; D3 concreto em εcu e aço escoado; D4 concreto em εcu e aço sem escoamento prévio."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, análise ELU de seções sob esforços normais e diagramas de deformações. A descrição por estádios I–III é outra classificação conceitual."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Com seção plana, x pequeno implica maior distanciamento relativo do aço à linha neutra e alongamento elevado; x maior reduz alongamento do aço para εc fixa. O domínio pode mudar de 3 para 4 sem mudar o material."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "εs=εc(d−x)/x. Domínio 2: εs=10‰, 0≤εc≤εcu. Domínio 3: εc=εcu e εs≥εyd. Domínio 4: εc=εcu e 0≤εs<εyd, em flexão normal simples."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Domínio | Concreto comprimido | Aço tracionado |\n| 2 | εc variável antes de εcu | 10‰ |\n| 3 | εcu | escoa (εs≥εyd) |\n| 4 | εcu | não escoou (εs<εyd) |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Para εcu=3,5‰ e β=0,4: εs=3,5×0,6/0,4=5,25‰, maior que εyd típico de CA-50; D3. Para β=0,7: εs=1,5‰<εyd; D4."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Classifique pela condição simultânea concreto+aço e pelos limites normativos; não pela palavra “fissurado” isolada. Associe com dimensionamento à flexão e ductilidade exigida."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Os limites β e εyd dependem de aço, concreto, modelo e edição; β do domínio 3 não substitui automaticamente limite de ductilidade prescrito."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Não confundir εc2=2‰ com domínio 2, nem εcu=3,5‰ com estádio III obrigatório para todas as fibras. A fibra extrema comprimida governa εc."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "DOIS: aço DEZ. TRÊS: concreto CU, aço escoou. QUATRO: concreto CU, aço ainda não escoou."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0623",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "De onde se mede x e o que significa a razão x/d numa seção sob flexão?\n\nDesenvolva: Explique a posição da linha neutra x, a razão β=x/d e como calcular εc no domínio 2. O que significa β=0,167?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "x vai da borda mais comprimida à linha neutra; x/d é a profundidade relativa, adimensional.\n\nEsclarecimento: x se mede da fibra mais comprimida até a linha neutra; β=x/d é razão geométrica sem unidade. No domínio 2, β≈0,167 implica εc≈2‰ para εs=10‰."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, hipótese de seções planas e diagramas de deformação usados na flexão. A equivalência β↔εc depende do domínio e dos parâmetros adotados."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "A deformação longitudinal varia linearmente com a distância à linha neutra. Com εs fixada, afastar a LN da borda comprimida aumenta a compressão extrema para a mesma altura útil d."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "β=x/d; εc=εs β/(1−β) para LN interna e aço tracionado em d. No domínio 2 εs=10‰; β=0,167 → εc≈2,0‰; β=0,259 → εc≈3,5‰."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| β=x/d | εc com εs=10‰ | Leitura |\n| 0,10 | 1,11‰ | D2, compressão abaixo de 2‰ |\n| 0,167 | ≈2‰ | início do patamar do material |\n| 0,20 | 2,5‰ | D2 |\n| 0,2593 | ≈3,5‰ | transição D2/D3 |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Se d=40 cm, x=8 cm: β=0,2; εc=10×0,2/0,8=2,5‰. O número 0,2 é geometria, NÃO uma deformação de 0,2%."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Em questão discursiva, desenhe a fibra comprimida, a LN e o aço em d; forme dois triângulos de deformação antes de substituir números."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "A fórmula acima considera seção plana, LN interna e εs=10‰ no domínio 2. Não se aplica sem adaptação a estados sem aço tracionado ou outros domínios."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Confundir x/d=0,2 com εc=0,2% ou esquecer o denominador (1−β) é erro frequente. A razão β é adimensional; deformações são ‰ ou %."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“x é espaço, ε é deformação”. No D2: β → 10β/(1−β). 0,167 dá 2‰; 0,259 dá 3,5‰."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0624",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Onde se lê εc máximo no diagrama de deformações do concreto?\n\nDesenvolva: Onde se lê a deformação extrema εc no diagrama da viga? Todas as fibras comprimidas têm deformação igual a εc2 ou εcu?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "Na fibra extrema mais comprimida da seção.\n\nEsclarecimento: εc extremo é lido na fibra mais comprimida; demais fibras têm deformação menor em módulo e a LN tem ε=0 quando atravessa a seção."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, hipóteses de compatibilidade de deformações. Os diagramas de seção na flexão e o diagrama tensão–deformação do material são representações diferentes."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Ao fletir, seções planas permanecem aproximadamente planas, produzindo distribuição linear de deformações longitudinais. A distribuição de tensões no concreto pode ser não linear no estádio III."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "Para LN interna: ε(y)=εc(1−y/x) se y medido da fibra comprimida, 0≤y≤x. Na LN y=x: ε=0. εc2=2‰ e εcu=3,5‰ até C50 são parâmetros do material, não deformações uniformes."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Posição | Deformação |\n| Fibra comprimida externa | εc (máxima em módulo na região comprimida) |\n| Metade da zona comprimida (y=x/2) | εc/2 |\n| Linha neutra y=x | 0 |\n| Aço tracionado em d | εs conforme compatibilidade |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Com εc=3,5‰ e x=20 cm, na profundidade y=10 cm a deformação longitudinal do concreto comprimido é 1,75‰; na linha neutra, zero."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Identifique primeiro qual gráfico é de DEFORMAÇÕES (linear com y) e qual é de TENSÕES (pode formar parábola-retângulo). A máxima compressão não ocorre em toda a altura comprimida."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "A demonstração adota flexão com LN interna, compatibilidade e ausência de deformações adicionais incompatíveis com o modelo. Se LN externa, a interpretação da região muda."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "“Estádio III, todas fibras acima de 2‰” é falso. Apenas a fibra extrema pode atingir o máximo; a LN permanece com ε=0."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“Extremo comprime mais; na linha neutra zera.” Linear é o diagrama de ε por altura, não necessariamente o diagrama de σ."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0625",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Qual εcu para concreto até C50 no diagrama clássico e sua conversão em %?\n\nDesenvolva: Quanto é εcu até C50, em ‰ e %, e como esse valor se relaciona com a fronteira entre domínios 2/3?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "εcu=3,5‰=0,35%.\n\nEsclarecimento: εcu=3,5‰=0,35% até C50 no modelo clássico; é deformação convencional última da fibra mais comprimida, não deformação de todas as fibras."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, modelo idealizado de concreto comprimido, para concretos até C50. Verificar o diagrama e parâmetros de classes superiores à C50 separadamente."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Quando o concreto atinge εcu na fibra externa, a análise da seção entra em condições-limite convencionais de compressão. Isso não significa que todas as fibras se comprimem a 3,5‰."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "εcu=0,0035=3,5‰=0,35%; εc2=0,0020=2‰=0,20%. No limite D2/D3 com εs=10‰, β=x/d=3,5/(3,5+10)≈0,2593."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Parâmetro | Valor até C50 | Significado |\n| εc2 | 2‰=0,20% | início do patamar σ–ε idealizado |\n| εcu | 3,5‰=0,35% | deformação última convencional |\n| εs em D2 | 10‰=1% | limite convencional de tração no aço |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Com d=50 cm e εs=10‰, x=d×3,5/13,5≈12,96 cm na transição D2/D3. O valor não é 35‰ nem 3,5%."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Leia a unidade de deformação e o local da fibra. Para domínio 3, associe εc=εcu e εs≥εyd; para domínio 4, εc=εcu com aço ainda não escoado."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Para classes >C50 os parâmetros variam. εcu convencional não deve ser tratado como deformação medida universal de ruptura de qualquer concreto real."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Confundir εcu com εc2, ou converter 3,5‰ como 3,5% (10 vezes maior) altera completamente a classificação."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“CU é o teto: 3,5 por mil = 0,35 por cento.” No D2/D3, 3,5 somado ao 10 do aço define β≈0,259."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0626",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Qual εc2 no diagrama clássico para concreto até C50?\n\nDesenvolva: Quanto vale εc2 até C50 e que evento marca? Esse número define o estádio II ou o domínio 2?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "εc2=2,0‰=0,20%.\n\nEsclarecimento: εc2=2‰=0,20%; inicia o patamar do diagrama idealizado de compressão. Não define estádio II nem domínio 2."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, diagrama parábola-retângulo para concreto até C50; distinguir diagrama σ–ε do material e distribuição de ε pela altura da seção."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "No concreto comprimido, a tensão cresce segundo trecho parabólico até εc2; depois há patamar idealizado até εcu. Isso é uma simplificação constitutiva, não escoamento metálico verdadeiro."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "εc2=0,002=2‰=0,20%; εcu=0,0035=3,5‰=0,35%. Para domínio 2 e εs=10‰, β=εc/(εc+10‰); quando εc=2‰, β=2/12=1/6≈0,1667."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Número 2 | Significa |\n| Estádio II | seção fissurada, compressão ainda aproxim. linear |\n| Domínio 2 | aço tracionado em 10‰, concreto antes de εcu |\n| εc2=2‰ | valor do diagrama material σ–ε |\nOs três conceitos NÃO são equivalentes."
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "No D2 com d=60 cm e β=1/6, x=10 cm e εc=10×(1/6)/(5/6)=2‰. O concreto no topo atinge εc2, embora a configuração da seção continue no D2."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Recuperar os dois gráficos em separado: σ–ε mostra patamar do material; seção fletida mostra triângulo linear de deformações e tensão de compressão não linear quando aplicável."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Os 2‰ citados são para até C50. Não atribuir “2%” ao estádio II, nem interpretar o patamar como escoamento de todas as fibras."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Pegadinha: 2‰=0,2% e NÃO 2%; 2% são 20‰. Domínio 2 pode ocorrer com εc abaixo OU acima de εc2, até o limite εcu."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“εc2: dois por mil no MATERIAL; estádio II: fissura; domínio 2: aço dez por mil.”"
+        }
+      ]
+    },
+    {
+      "id": "CARD-0629",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Quanto equivale 10‰ em porcentagem e por que não é igual a εyd?\n\nDesenvolva: Qual a conversão de 10‰ em %, e por que esse valor não é εyd do aço? Qual papel ele desempenha no domínio 2?"
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "10‰=1%; é alongamento convencional do diagrama clássico de domínios, diferente do início de escoamento εyd (≈2,07‰ para os parâmetros CA-50).\n\nEsclarecimento: 10‰=1%. É alongamento convencional limite do diagrama dos domínios; não é a deformação de início de escoamento εyd, que depende de fyd e Es."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, diagramas deformacionais de ELU e modelo de armadura passiva, com verificação de parâmetros de aço por classe. Edição e hipóteses explicitadas em projeto."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "No D2, a armadura tracionada está na deformação convencional de 10‰; já em D3, εs pode ser menor que 10‰, desde que igual ou superior a εyd. A deformação de escoamento é material, não “número do domínio”."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "10‰=0,010=1%; εyd=fyd/Es (adimensional). Para CA-50: fyd≈500/1,15=435 MPa; Es≈210000 MPa ⇒ εyd≈0,00207≈2,07‰."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Grandeza | Exemplo | Papel |\n| εs limite D2 | 10‰ | alongamento convencional |\n| εyd CA-50 | ≈2,07‰ | início de escoamento de projeto |\n| εc2 | 2‰ | diagrama do concreto |\n| εcu | 3,5‰ | limite convencional concreto |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Com εs=10‰ e εc=2,5‰, β=εc/(εc+εs)=2,5/12,5=0,20, dentro do domínio 2 convencional."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Em cálculos de x/d, igualar εs=10‰ somente quando a configuração realmente é de D2; nos domínios seguintes, usar deformação compatível com a condição de concreto."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Valores ilustrativos de εyd dependem de aço, coeficiente parcial e Es da edição adotada. 10‰ não equivale a rotura física universal do aço."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Não converter 10‰ para 10% nem igualar 10‰ a εyd. Se adotar εs=10‰ indevidamente em D3/D4, o x/d calculado não representa a configuração."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“Dez por MIL = UM por CENTO”; “dez é D2, εyd é aço escoando”."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0631",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "O que caracteriza o domínio 2 em flexão de concreto armado?\n\nDesenvolva: No domínio 2, o aço e o concreto têm quais deformações? Calcule εc para β=x/d=0,20 e explique por que não é estádio II."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "Concreto comprimido abaixo de εcu; armadura tracionada no limite de 10‰.\n\nEsclarecimento: D2: aço tracionado a 10‰; concreto comprimido com εc<εcu (até 3,5‰ para até C50). Não é estágio temporal de carregamento."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, domínios de deformações últimas do ELU. Os estádios I–III descrevem fissuração e não linearidade da seção; não são equivalentes aos domínios numéricos."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Conforme aumenta x/d mantendo εs=10‰, a compressão extrema do concreto cresce segundo semelhança de triângulos até εcu, onde se passa ao limite com D3."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "εc=10‰×β/(1−β), β=x/d. β=0,20→εc=2,5‰. Fronteira D2/D3: β=3,5/(3,5+10)≈0,2593, para até C50."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| β | εc | Situação |\n| 0,10 | 1,11‰ | D2 antes de εc2 |\n| 1/6 | 2,00‰ | D2 em εc2 |\n| 0,20 | 2,50‰ | D2 acima de εc2 |\n| 0,2593 | 3,50‰ | limite D2/D3 |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Com d=40 cm e x=8 cm, β=0,2; εc=10×8/(40−8)=2,5‰. É configuração D2 mesmo sendo εc maior que 2‰."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Primeiro identifique d e x, depois β, e use compatibilidade. Em discursivas, desenhe triângulos de deformação para justificar o denominador d−x."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "A fórmula pressupõe LN interna, seções planas e aço tracionado atingindo 10‰. Não estenda a configuração para β>0,2593 sem mudar as condições de domínio."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "“D2 só tem 2‰ no concreto” é falso; εc varia. “D2 acontece depois de estádio III” também: domínios são condições do modelo de ELU."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "DOIS = aço DEZ, concreto VARIA. β 1/6 dá 2‰; β 0,259 dá 3,5‰."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0632",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Como estão concreto comprimido e aço tracionado no domínio 3?\n\nDesenvolva: Caracterize domínio 3 simultaneamente em concreto/aço; diferencie D3 de D2 e D4 e relacione com estádios de flexão."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "Concreto alcança εcu; aço tracionado está escoado (εs≥εyd).\n\nEsclarecimento: D3: fibra mais comprimida do concreto atinge εcu (3,5‰ até C50); aço tracionado já atingiu εyd. Domínio é modelo ELU, não estádio cronológico."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, diagramas de deformação e estados-limites últimos para flexão normal, sob hipóteses de seção plana e materiais idealizados."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "No D3 o concreto atinge limite convencional de compressão e o aço tracionado tem alongamento suficiente para escoamento; pode ocorrer capacidade de redistribuição de deformação antes do esgotamento resistente."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "εs=εcu(d−x)/x; β=x/d. Para CA-50 ilustrativo εyd≈2,07‰ e εcu=3,5‰, fronteira D3/D4 com β=εcu/(εcu+εyd)≈3,5/(3,5+2,07)≈0,628."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Domínio | Concreto | Aço tracionado |\n| D2 | εc<εcu | 10‰ |\n| D3 | εc=εcu | εs≥εyd |\n| D4 | εc=εcu | εs<εyd |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Com β=0,40, εs=3,5(1−0,40)/0,40=5,25‰>2,07‰: D3. Com β=0,70, εs=1,5‰<2,07‰: D4."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Classifique a flexão pelo par de deformações, não por “tem fissura”. Para projeto, verificar também limites de ductilidade e redistribuição prescritos."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "O limite ≈0,628 decorre dos parâmetros ilustrativos; não é automaticamente o limite normativo máximo de x/d para qualquer viga. Seções submetidas a outras condições exigem adaptação."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Não confundir 3,5‰ da fibra extrema com deformação de toda a seção; nem supor que D3 é etapa temporal depois do estádio III."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "TRÊS: “concreto CU, aço esCOU”. QUATRO: “concreto CU, aço não esCOU”."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0642",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Para εc=3,5‰, εs=10‰ e d=50 cm, quanto vale a profundidade x da linha neutra?\n\nDesenvolva: Calcule x para εc=3,5‰, εs=10‰ e d=50 cm; interprete β e indique a fronteira dos domínios."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "x=d·εc/(εc+εs)=50×3,5/13,5≈12,96 cm.\n\nEsclarecimento: x≈12,96 cm; β=x/d≈0,2593. Corresponde à fronteira de deformações D2/D3 para concreto até C50 no modelo clássico."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, compatibilidade de deformações últimas com seção plana. O número decorre de εcu=3,5‰ e do alongamento convencional do aço em D2 de 10‰."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "Triângulos semelhantes dão x/d=εc/(εc+εs). A profundidade da zona comprimida é proporcional à parcela da deformação total representada por εc."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "x=d·εc/(εc+εs); com ε em mesma unidade. β=εc/(εc+εs), sem unidade. εc=3,5‰, εs=10‰, d=50 cm."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Etapa | Conta | Resultado |\n| Soma de deformações | 3,5+10 | 13,5‰ |\n| Fração comprimida | 3,5/13,5 | 0,25926 |\n| x | 50×0,25926 | 12,96 cm |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Se d=60 cm e as deformações forem mantidas, x=60×3,5/13,5≈15,56 cm; a razão β permanece 0,2593."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "No ELU, verifique qual deformação está fixada pelo domínio antes de usar a fórmula. No D2, εs=10‰; no D3, εc=εcu."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Pressupõe LN entre fibra comprimida e aço em d; valores 3,5‰/10‰ são os convencionais do modelo histórico. Para outras classes materiais, revisar parâmetros."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Não confundir 0,2593 (razão geométrica) com 25,93% de deformação; 3,5‰ e 10‰ não são 3,5% e 10%."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“x é a fatia da compressão na soma dos dois triângulos”: 3,5/(3,5+10)×d."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1033",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Como se obtém o cobrimento nominal cnom a partir do cobrimento mínimo?\n\nDesenvolva: Reconstrua cnom=cmin+Δc e, usando CAA II, compare laje e viga de CA e bainha/armadura ativa de CP na tabela de cobrimentos."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "cnom=cmin+Δc.\n\nEsclarecimento: cnom=cmin+Δc; o acréscimo Δc é tolerância de execução. O cobrimento protege a armadura e é medido até a superfície do aço mais externo."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, seção 7.4 e Tabela 7.2 (∆c usual de 10 mm para a tabela citada). A nota histórica de 2003/2007 sobre armadura passiva envolvendo a bainha não deve ser aplicada sem distinção à edição 2014/2023."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "O cobrimento é barreira de proteção à armadura frente à agressividade. A bainha ou armadura ativa de peça protendida tem requisitos de proteção diferentes da armadura passiva, cuja nota moderna remete aos cobrimentos do concreto armado."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "cnom [mm]=cmin [mm]+Δc [mm]. Para ca laje CAA I–IV: 20/25/35/45 mm; CA viga/pilar: 25/30/40/50 mm; CP laje (bainha/armadura ativa): 25/30/40/50 mm; CP viga/pilar: 30/35/45/55 mm (Tabela 7.2:2023, ∆c=10 mm)."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| CAA | CA laje | CA viga/pilar | CP laje, bainha/ativa | CP viga/pilar, bainha/ativa |\n| I | 20 | 25 | 25 | 30 |\n| II | 25 | 30 | 30 | 35 |\n| III | 35 | 40 | 40 | 45 |\n| IV | 45 | 50 | 50 | 55 |\nTodos os números em mm; verificar notas da tabela."
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Em CAA II, se cmin=20 mm e Δc=10 mm, cnom=30 mm. Em uma viga com estribo Ø6,3 e barra Ø16, distância aproximada da face ao centro da barra principal =30+6,3+8=44,3 mm."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Para decorar a tabela: comece em CA laje 20; avance por CAA com +5/+10/+10; de CA laje para CA viga acrescente +5 por coluna; CP laje coincide com CA viga na tabela; CP viga mais +5."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Valores de 2023 dependem de tolerância, controle e notas; outros casos (solo, revestimento, proteção especial) requerem leitura específica. Não confundir armadura ativa/bainha com armadura passiva da peça protendida."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "cnom não é distância ao eixo da barra. A regra histórica “armadura passiva envolvendo a bainha: superior em todos” não corresponde literalmente à nota moderna, que distingue a bainha/fios/cabos do aço passivo."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "Comece 20, some +5/+10/+10 na CAA; suba uma linha de proteção com +5. “Concreto armado laje, concreto armado viga = protendida laje, protendida viga”."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1034",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Quais são os quatro níveis da classe de agressividade ambiental CAA?\n\nDesenvolva: Além de nomear I–IV, associe CAA, ambiente típico e risco de deterioração; explique por que rural e submerso têm a mesma classe."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "I fraca; II moderada; III forte; IV muito forte.\n\nEsclarecimento: Rural e submerso: classe I (fraca), risco insignificante. Distinga III marinha de IV respingos de maré."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, Tabela 6.1. Edição histórica 2007 também associa rural e submersa à classe I; se banca cobrar ano específico, ler notas daquela edição. Edição consolidada 2026 não foi integralmente cotejada."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "CAA classifica agressividade dos agentes ambientais à durabilidade, não a intensidade das cargas. Classe mais alta pede requisitos mais exigentes de concreto e proteção da armadura."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "CAA é ordinal I, II, III, IV, sem unidade: riscos típicos insignificante, pequeno, grande, elevado. Não confundir CAA com cobrimento cnom em mm."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Classe | Agressividade | Ambiente típico | Risco |\n| I | fraca | rural; submersa | insignificante |\n| II | moderada | urbana | pequeno |\n| III | forte | marinha; industrial usual | grande |\n| IV | muito forte | respingos de maré; industrial agressiva | elevado |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Uma estrutura rural fora de exposição agressiva enquadra-se na referência CAA I; um elemento permanentemente submerso também figura em I na tabela histórica. Já respingos de maré são classe IV, diferentemente de marinha usual III."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "No projeto: identificar microambiente e exposição, determinar CAA, então escolher qualidade do concreto, cnom e demais exigências. Na prova: ler se a pergunta quer classe, risco ou cobrimento."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "Notas da tabela e exposição específica importam; a classificação simplificada por tipo de ambiente não dispensa avaliação de agentes químicos, ciclos de molhagem/secagem e microclima."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Rural e submersa não recebem riscos diferentes na tabela de referência. Não confundir risco PEQUENO (II) com INSIGNIFICANTE (I), nem marinha III com respingos de maré IV."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "RO-SU = I, insignificante. UR = II, pequeno. MA-IN = III, grande. RESPINGOS = IV, elevado. Recite classe + ambiente + risco na mesma recuperação."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1386",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — Recuperação ativa",
+          "texto": "Quando um elemento prismático é classificado como linear no critério geométrico histórico da NBR 6118?\n\nDesenvolva: Dado comprimento L e seção retangular, diga se o elemento é linear pelo limite ≥3; diferencie a razão de seção de um pilar-parede e a de vão/altura de viga-parede."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — Resposta mínima / original preservado",
+          "texto": "Quando o comprimento longitudinal é pelo menos 3 vezes a maior dimensão transversal, no critério registrado.\n\nEsclarecimento: Elemento linear quando L≥3 vezes a maior dimensão transversal. É critério de proporção longitudinal, não de compressão nem de classificação do pilar-parede."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — Referência normativa ou técnica",
+          "texto": "ABNT NBR 6118:2023, item 14.4.1 (elementos lineares); comparação pedagógica com item 14.4.2.4 (pilar-parede) e 22.4.1 (viga-parede). Verificar edição exigida pelo edital."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — Mecanismo e interpretação",
+          "texto": "A hipótese de barra depende de o eixo longitudinal ser predominante. Pilar-parede depende da proporção ENTRE os dois lados da seção; viga-parede se caracteriza por altura significativa em relação ao vão e condições de apoio."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — Relações, valores e unidades",
+          "texto": "Linear: L/bmax≥3. Pilar-parede retangular: B/b>5. Viga-parede biapoiada: ℓ/h<2; contínua: ℓ/h<3. Todas são razões adimensionais, porém com grandezas diferentes."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — Quadro técnico de comparação",
+          "texto": "| Tipo | Grandezas comparadas | Limite | Igualdade? |\n| Elemento linear | L/bmax | ≥3 | SIM |\n| Pilar-parede | B/b | >5 | NÃO |\n| Viga-parede biapoiada | ℓ/h | <2 | NÃO |\n| Viga-parede contínua | ℓ/h | <3 | NÃO |"
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — Exemplo resolvido",
+          "texto": "Seção 25×40 cm e L=120 cm: L/bmax=120/40=3, logo atende a “linear”. Pilar com seção 25×125: B/b=5 exatamente, NÃO atende a pilar-parede."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — Aplicação e recuperação",
+          "texto": "Em prova, sublinhe “comprimento da peça”, “dimensões de seção transversal” ou “vão/altura”; somente depois escolha a desigualdade adequada. Um elemento pode ter classificação geométrica de barra e outra de função estrutural."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — Limitações e condições",
+          "texto": "O critério geométrico não substitui a verificação de efeitos localizados, regiões de descontinuidade ou comportamento real; espessura/largura mínima de viga-parede é outra pergunta."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — Pegadinhas de prova",
+          "texto": "Não usar o lado MENOR da seção para testar linearidade. Em L/bmax=3, a igualdade vale; em B/b=5 ou ℓ/h=2/3 da viga-parede, não vale."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — Macete de retenção",
+          "texto": "“3 no COMPRIMENTO (inclui igual); mais de 5 NA SEÇÃO; BI-2, CONTÍNUA-3 — nos últimos, menor estrito.”"
+        }
+      ]
+    },
+    {
+      "id": "CARD-1520",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — resposta mínima necessária",
+          "texto": "desbitolamento = variação de largura ou espessura na mesma peça por serragem defeituosa. aplainamento = operação de regularização/acabamento superficial. encruamento = tensões internas residuais associadas à secagem. encanoamento = empenamento transversal da face, com aspecto de calha. alternativa B, não D."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — evidência e terminologia",
+          "texto": "Fonte histórica da questão: Cesgranrio, Petrobras Parte 16, madeira serrada; aluno escolheu D (encruamento), gabarito B (desbitolamento). ABNT NBR 12551:2002, Madeira serrada — Terminologia, termo 2.38 para desbitolamento e termos de empenamento. Não substituir as definições de edição histórica por norma nova sem cotejo do texto correspondente. Aplainamento e beneficiamento são processos, não sinônimos de defeito."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — definições para reconhecimento",
+          "texto": "bitola: dimensão nominal padronizada de espessura/largura. desdobro: cortes longitudinais que convertem tora em peças. destopamento: corte transversal de extremidade. aplainamento: uso de plaina para gerar superfície mais regular. sobremedida: dimensão excedente em relação ao padrão pretendido. superfície rugosa: face com acabamento irregular. desbitolamento: variabilidade dimensional por corte inadequado."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — mecanismo físico e origem",
+          "texto": "na serragem, um guia desajustado pode gerar espessura variável ao longo da peça; isso é desbitolamento. na secagem, retrações distintas nas partes da peça geram empenamentos e, dependendo do gradiente e histórico, tensões internas remanescentes, associadas ao encruamento. nós, alburno/brancal e bolsas de resina são características/anomalias naturais e não defeitos gerados necessariamente pela serra."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — quadro de comparação",
+          "texto": "desbitolamento → espessura/largura irregular → serragem. aplainamento → superfície regular → acabamento. encanoamento → arco na largura → empenamento transversal. encurvamento → curvatura longitudinal da face. arqueamento → curvatura longitudinal da borda. torcimento → faces das extremidades giram entre si. esmoado → falta material em uma quina da peça. encruamento → tensões residuais de secagem."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — questão original e correção",
+          "texto": "enunciado: peças apresentam variação na espessura ou largura em função de serragem mal feita. alternativas: aplainamento; desbitolamento; brancais; encruamento; encanoamento. resposta selecionada D incorreta, gabarito B. núcleo de decisão: CAUSA = serragem defeituosa; SINTOMA = variação dimensional."
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — transferência para nova situação",
+          "texto": "tábua tem 25 mm de espessura em uma ponta, 22 mm no meio e 27 mm na outra, sem curvatura marcante; problema de bitola, portanto desbitolamento. se a espessura permanece uniforme, mas a face se curva transversalmente como calha após secagem, o problema é encanoamento. uma peça pode apresentar ambos."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — condições, ressalvas e exceções",
+          "texto": "um empenamento pode resultar de efeitos combinados de orientação dos anéis, grã, secagem e tensões de crescimento. aplainamento não repõe madeira onde a dimensão já está abaixo do mínimo. o encruamento não equivale a endurecimento metálico por deformação plástica; na terminologia de secagem de madeira, trata de condição de tensões internas. brancal pode designar alburno e nem sempre configura defeito estrutural universal."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — pegadinhas específicas",
+          "texto": "não confundir fenômeno (desbitolamento) com operação de correção (aplainamento). 'encruamento' não significa apenas secagem rápida, nem variação de bitola. 'encanoamento' altera forma, enquanto 'desbitolamento' altera medida. ao ler a banca, localizar primeiro a causa e a geometria descrita."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — macete para recuperar",
+          "texto": "DESBITOLAMENTO = DESvio da BITOLA. APLAINAMENTO = PLANA a face. ENCANoamento = CANO / CALHA. TORCimento = TORCe a peça. ENCRUAMENTO = tensões de secagem, não corte."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — fonte, cobertura cruzada e integridade",
+          "texto": "fontes: questão histórica enviada no chat Petrobras Parte 16; ABNT NBR 12551:2002 (terminologia, conforme resumos consultados); critérios de secagem do USDA Wood Handbook. relação com água de impregnação, ponto de saturação das fibras e empenamentos (PETRO16-C013). sem imagem original do enunciado desta questão; não inventar página nem arquivo.."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1521",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — resposta mínima necessária",
+          "texto": "cavalete de locação é o CONJUNTO com dois pontaletes cravados no terreno e travessa/tábua horizontal para marcar eixos e alinhamentos. pontalete é cada peça de apoio vertical. gastalhos/gravatas são arranjos de travamento de fôrmas, e não a resposta do enunciado. gabarito A; aluno assinalou B."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — origem visual e descrição fiel",
+          "texto": "Figura 2.13a: vista lateral de um cavalete isolado; dois pontaletes verticais cravados no solo suportam peça horizontal marcada; do material de origem anotou 'pontalete' indicando uma perna. Figura 2.13b: distribuição de muitos cavaletes periféricos com linhas pontilhadas definindo o traçado. Figura 4.18: esquemas de montagem de fôrma de viga com legenda b=travessos; c=travessões; i=gravatas (gastalhos); l=pontaletes; m=escoras; n=chapuzes; o=talas; p=cunhas. A figura não representa locação por cavaletes, mas carpintaria de fôrmas."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — definições das peças",
+          "texto": "cavalete: conjunto autônomo de marcação. pontalete: peça vertical de madeira que suporta o conjunto/fôrma. tábua corrida/gabarito contínuo: sistema com tábuas contínuas e pontaletes, em oposição a apoios isolados. travesso e travessão: peças horizontais de ligação e suporte, com papel variando pelo sistema. gravata/gastalho: fixação/travamento de fôrmas. escora/mão-francesa: apoio inclinado ou estabilizador. chapuz: pequena peça de apoio. tala: peça para união/reforço. cunha: ajuste por calçamento/aperto."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — funcionamento do conjunto",
+          "texto": "locação: marcar a projeção em planta e manter linhas alinhadas enquanto a movimentação de terra ocorre. os pontaletes transferem esforços ao terreno; a tábua transversal serve de referência de pregos e fios. nas fôrmas, travamentos reduzem abertura, deslocamento e instabilidade sob a pressão do concreto fresco; o caminho da força é distinto."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — quadro comparativo",
+          "texto": "cavalete (2 pernas + tábua) → LOCAÇÃO. pontalete (peça vertical) → SUSTENTAÇÃO. gravata/gastalho → TRAVAMENTO DE FÔRMA. escora → ESTABILIZAÇÃO/APOIO. travessão → APOIO HORIZONTAL. chapuz → APOIO LOCAL. tala → EMENDA. cunha → AJUSTE. gabarito de tábuas corridas → REFERÊNCIA CONTÍNUA DE LOCAÇÃO."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — resolução da questão original",
+          "texto": "questão: 'peças, feitas geralmente de madeira (sarrafos largos), pregadas sobre dois pontaletes cravados no terreno e usadas em gabaritos na locação da obra' → cavaletes. alternativas: A cavaletes; B gastalhos; C formas; D escoras; E gravatas. resposta marcada B, correta A. pista definitiva: DOIS PONTALETES e uso na LOCAÇÃO."
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — aplicação de transferência",
+          "texto": "se a obra precisa marcar os quatro eixos de um pequeno edifício, cada alinhamento pode ser referenciado por cavaletes individuais fora da área escavada. se uma fôrma de viga precisa impedir abertura lateral durante concretagem, usam-se travamentos/gravatas e outros elementos projetados, não cavaletes de locação. se a ponta da fôrma precisa de regulagem fina de altura, uma cunha pode auxiliar o calçamento."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — condições, ressalvas e exceções",
+          "texto": "denominações tradicionais podem variar por região e sistema de carpintaria. gastalho às vezes indica quadro/peça de posicionamento, gravata é conjunto de aperto/travamento. função efetiva deve ser definida pelo arranjo físico e projeto. não tratar as figuras como desenho executivo para dimensionamento; a fonte bibliográfica das figuras foi não informada do material de origem, portanto não atribuir autor/edição inventados."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — pegadinhas",
+          "texto": "pontalete é apenas a perna, NÃO o conjunto; 'gastalhos' pertence ao vocabulário de fôrmas, não ao conjunto pedido. 'escora' pode ser inclinada ou vertical conforme uso, mas não designa genericamente o gabarito da locação. uma figura com vigas e linhas auxiliares pode ser de locação; ver função e o arranjo."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — macete",
+          "texto": "CAVALETE = duas PERNAS + uma TÁBUA. PONTALETE = a PERNA. GASTALHO/GRAVATA = segura a FÔRMA. CHAPUZ = pequeno APOIO. CUNHA = APERTA e AJUSTA."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — fontes, imagens e cobertura cruzada",
+          "texto": "origem: enunciado e duas imagens originais fornecidas em Petrobras Parte 16, 'Figura 2.13a/b' e 'Figura 4.18'. Imagens 1 e 2 a incorporar na galeria após os módulos, preservando os arquivos do material de origem sem alteração. conexões: madeira de construção, escoramento, NR-18 e fôrmas. A edição e os autores das figuras não foram informados e permanecem sem atribuição."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1522",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — resposta mínima necessária",
+          "texto": "madeira maciça é fortemente anisotrópica: rigidez e resistência diferem conforme direção das fibras. compensado tem lâminas de madeira coladas com orientações alternadas, usualmente a 90°, conferindo melhor distribuição de esforços em duas direções e maior estabilidade dimensional no PLANO que a madeira maciça. útil em almas de vigas; correta A, não B."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — origem, termos e fontes",
+          "texto": "origem: Cesgranrio/TCE-RO 2007 (conforme questão do material de origem), gabarito A. material tecnicamente verificável: APA — Plywood; USDA Wood Handbook, capítulos de compósitos à base de madeira. NÃO registrar 'compensado = material isotrópico': a modelagem usual é ORTOTRÓPICA, com propriedades em eixos principais diferentes, mesmo que mais equilibradas."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — mecanismos e definições",
+          "texto": "anisotrópico = propriedades dependem da direção. ortotrópico = caso de anisotropia com direções principais ortogonais. compensado (plywood) = lâminas de madeira finas, aderidas com linhas de cola, cujas fibras são normalmente cruzadas. não confundir com LVL, em que as lâminas são predominantemente paralelas, nem CLT, em que as lamelas são bem mais espessas e dispostas ortogonalmente."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — por que melhora a estabilidade",
+          "texto": "madeira natural geralmente retrai mais transversalmente às fibras do que longitudinalmente. ao colar uma lâmina girada 90° sobre a vizinha, cada uma restringe parte da variação dimensional da outra; a chapa fica mais estável no plano. isso NÃO elimina inchamento por umidade, especialmente em espessura, bordas e sob umidade persistente."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — quadro comparativo",
+          "texto": "maciça → direção das fibras dominante, anisotropia acentuada, retração transversal importante. compensado → fibras cruzadas, rigidez e resistência em dois sentidos, menor movimento dimensional no plano. LVL → fibras predominantes paralelas, uso em vigas/colunas. OSB → lascas orientadas em camadas, não lâminas contínuas. CLT → lamelas/placas estruturais cruzadas de madeira maciça, construção distinta."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — questão da prova",
+          "texto": "alternativas: A vantagem do compensado sob tensões biaxiais, exemplo alma de viga = correta. B madeira maciça retrai/incha menos = falsa e foi marcada. C lâminas sempre 7–12 mm = falsa, confunde chapa pronta com lâmina. D sempre número PAR de lâminas = falsa; composições simétricas geralmente têm 3, 5, 7 etc. E 'aliviadores de pressão' são usados para evitar empenamento = falsa no contexto; estabilidade deriva principalmente do projeto da chapa e controle de umidade/colagem."
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — alma de viga e cisalhamento",
+          "texto": "em viga I, mesas resistem principalmente a tração e compressão de flexão, enquanto a alma transmite esforço cortante significativo. cisalhamento puro produz tensões principais em direções aproximadamente 45°. como o painel compensado possui laminados em duas orientações, pode atuar eficientemente em estados de tensão multiaxial se o painel, colagem, espessura, emendas e conexão às mesas forem dimensionados."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — limites e ressalvas",
+          "texto": "nem toda lâmina cruzada fornece propriedades iguais nos sentidos x/y. número de lâminas não determina sozinho a resistência; dependem espécie, espessura, grau, cola, umidade, solicitação e direção. para uso estrutural, escolher painel apropriado, verificar cisalhamento no plano, rolamento, ligação e flambagem. simetria no empilhamento é frequente para estabilidade, mas não afirmar como lei universal número ímpar sem verificar especificação."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — pegadinhas",
+          "texto": "B inverte a vantagem real: compensado geralmente mais estável dimensionalmente no PLANO. A correta não implica 'isotrópico perfeito'. C usa 7-12 mm como espessura de lâminas individuais — não é intervalo universal. D usa SEMPRE e número PAR: absolutização falsa. E inventa aliviadores de pressão como solução típica."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — macete prioritário",
+          "texto": "COMPENSADO COMPENSA a fraqueza direcional da madeira. FIBRAS CRUZADAS → dimensões mais CONTROLADAS. MACIÇA = UMA orientação predominante; COMPENSADO = ORIENTAÇÕES alternadas."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — fontes e cobertura cruzada",
+          "texto": "Macete: COMPENSADO COMPENSA a fraqueza direcional da madeira. FIBRAS CRUZADAS → dimensões mais CONTROLADAS. MACIÇA = UMA orientação predominante; COMPENSADO = ORIENTAÇÕES alternadas.\nReferência técnica: APA plywood; USDA Wood Handbook | origem editorial PETRO16-C011 | estudo Parte 16"
+        }
+      ]
+    },
+    {
+      "id": "CARD-1523",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — resposta mínima necessária",
+          "texto": "no contexto histórico da prova, I é FALSA: grampos foram classificados como auxiliares e não conectores estruturais definitivos. II VERDADEIRA: braçadeiras atuam como auxiliares de montagem. III VERDADEIRA: parafuso passante convencional possui cabeça em uma extremidade e rosca/porca na outra. IV VERDADEIRA para a redação histórica sobre não empregar geralmente autoatarraxantes; hoje existem parafusos estruturais rosqueados especificados e dimensionados."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — evidência e ressalva normativa",
+          "texto": "questão Cesgranrio encaminhada em Petrobras Parte 16: resposta marcada D (II e III), correta A (apenas I). Interpretação deve ser histórica: classificar 'grampo' e 'braçadeira' como auxiliares no repertório da prova NÃO significa proibir toda peça grampeada/braçadeira como solução resistente em projeto específico. A NBR 7190-1:2022 inclui alternativas de fixação rosqueada; não reproduzir proibição absoluta de autoatarraxantes sem identificar o produto e item normativo."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — definições e formas",
+          "texto": "parafuso passante: corpo que atravessa as peças e tem porca e arruelas. parafuso de rosca soberba/autoatarraxante: fixação pela própria rosca na madeira, conforme produto. prego: pino metálico por cravação, se dimensionado. cavilha: pino de madeira; já estudado CARD-0500. braçadeira: abraçamento/posicionamento; grampo: fixação/auxílio de montagem no contexto da prova. chapa, anel e conector especial: podem fazer parte de ligações estruturais se projetados."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — mecanismo resistente",
+          "texto": "ligações projetadas transmitem esforços por embutimento e cisalhamento de pinos, compressão de contato, tração/arrancamento em roscas, apoio e outros mecanismos conforme tipologia. fixação provisória evita movimento na montagem, mas não autoriza assumir capacidade estrutural sem projeto. carga nos parafusos depende da geometria de peças e planos de corte."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — quadro comparativo",
+          "texto": "GRAMPO da prova → auxiliar; não computar como elo estrutural principal. BRAÇADEIRA da prova → auxiliar. PASSANTE → cabeça + porca/arruela; conector estrutural quando dimensionado. PREGO → estrutural possível se apropriado. CAVILHA → pino de madeira em furo, CARD-0500. ROSCA SOBERBA/AUTOATARRAXANTE MODERNO → pode ser estrutural, mas requer especificação, pré-furo e verificações."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — questão original e leitura atenta",
+          "texto": "I diz 'grampos utilizados como elementos definitivos de montagem, sendo considerados elementos de ligação estrutural' → falsa na classificação tradicional. II braçadeiras apenas auxiliares e não consideradas estruturais → verdadeira no contexto. III parafuso liso com cabeça e porca → verdadeira ao descrever passante. IV 'geralmente não se empregam autoatarraxantes' → verdadeira para o manual histórico, mas não generalizar à engenharia atual. Pergunta FALSA(S) APENAS, portanto A."
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — aplicação de transferência",
+          "texto": "em ligação madeira-madeira de esforço relevante com parafuso passante, escolher diâmetro, arruelas, distâncias às bordas, número efetivo e conferir embutimento e corte conforme projeto. grampos que apenas seguram a montagem não devem ser computados como resistência permanente. para uma solução moderna com parafusos de rosca soberba, consultar catálogo técnico e edição vigente da NBR 7190; não usar automaticamente regra de prova antiga."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — cavilhas e regra adicional vinculada",
+          "texto": "na questão anterior, cavilhas torneadas estruturais d=16,18,20 mm e pré-furo de mesmo diâmetro na NBR 7190:1997 apresentada do material de origem: E correta, Bom. Este detalhe pode evoluir o CARD-0500 mediante conferência da edição, em vez de criar cartão repetido. Não confundir cavilha de madeira com pino metálico e nem converter dimensão histórica em exigência da edição 2022."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — pegadinhas de atenção",
+          "texto": "a palavra 'FALSAS APENAS' inverte o objetivo, exigindo selecionar somente I. do material de origem declarou erro por desatenção; criar hábito de marcar V/F por assertiva antes de olhar alternativas. A palavra 'geralmente' não é 'proibido'; 'estrutural' pressupõe verificação, não mera aparência de fixação."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — macete",
+          "texto": "GRAMPO e BRAÇADEIRA = MONTAM (na banca histórica). PASSANTE = PASSA e tem PORCA. CAVILHA = madeira. AÇÃO DE PROVA: sublinhar FALSA(S), julgar I–IV, só depois escolher a letra."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — fontes e cobertura cruzada",
+          "texto": "fontes: questão original do material de origem; NBR 7190:1997 para o histórico das cavilhas; NBR 7190-1:2022 para existência de ligações rosqueadas, sem transcrever dispositivos não auditados. cartão pré-existente CARD-0500 cobre cavilha. Fonte técnica complementar: materiais sobre ligações de madeira de cursos de engenharia. sem anexos originais dessa questão. cartão de lacuna novo, não promover como revisão canônica SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1524",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "01 — resposta mínima necessária",
+          "texto": "água de constituição: quimicamente integrante da madeira, não removida por secagem convencional. água de impregnação/ligada: associada às paredes celulares e fibrilas, responsável pelo inchamento/retração. água livre: nos lúmens/cavidades celulares, retirada inicialmente na secagem. PSF = paredes saturadas com água ligada e vazios sem água livre. abaixo do PSF a retração se torna relevante; acima, remover água livre causa pouca retração."
+        },
+        {
+          "ord": 2,
+          "titulo": "02 — origem e terminologia fiel",
+          "texto": "texto original do material de origem usa três 'estados ou condições': água de constituição, de impregnação e água livre; identifica impregnação nas paredes celulósicas, livre nos vazios capilares e ponto de saturação. Terminologia técnica moderna distingue água quimicamente constituinte do próprio polímero e água ligada adsorvida (bound water). PSF, usualmente 'ponto de saturação das fibras', não deve ser confundido com umidade de equilíbrio ao ar."
+        },
+        {
+          "ord": 3,
+          "titulo": "03 — estrutura microscópica",
+          "texto": "paredes de células de madeira são higroscópicas; o lúmen é a cavidade central. a água livre ocupa principalmente lúmens e outras cavidades; a água ligada está associada à parede celular. a água de constituição não é contada como água livremente removível na medição gravimétrica convencional de umidade. células não são 'canudos impermeáveis': a parede participa ativamente da sorção e retração."
+        },
+        {
+          "ord": 4,
+          "titulo": "04 — processo de secagem",
+          "texto": "madeira muito úmida: paredes celulares saturadas e lúmens contêm água livre. na secagem idealizada, a água livre é removida até o PSF. abaixo do PSF, perde-se água ligada das paredes; reduz-se seu volume, causando retração e, eventualmente, empenamento/rachaduras. na reumidificação abaixo do PSF, absorção de água ligada provoca inchamento. umidade interna real não é uniforme e a sequência pode diferir por camada."
+        },
+        {
+          "ord": 5,
+          "titulo": "05 — quadro comparativo",
+          "texto": "CONSTITUIÇÃO → ligação química nos constituintes → não é eliminada na secagem sem degradar material. IMPREGNAÇÃO/LIGADA → parede celular → inchamento/retração e mudanças físico-mecânicas. LIVRE → lúmens/cavidades → muda principalmente massa e circulação de água; pouca retração direta. NO PSF → parede saturada, sem água livre. ABAIXO PSF → variação dimensional importante."
+        },
+        {
+          "ord": 6,
+          "titulo": "06 — regra de cálculo de umidade",
+          "texto": "U(%)=100·(m_úmida−m_0)/m_0; massa anidra m_0 é referência após secagem padronizada em estufa até massa aproximadamente constante. Exemplo: massa úmida 1,18 kg, massa seca 1,00 kg → U=18%. Não confundir porcentagem de massa total com porcentagem relativa à massa seca."
+        },
+        {
+          "ord": 7,
+          "titulo": "07 — transferência e estado de uso",
+          "texto": "peça com U≈45% está em geral acima do PSF típico; retirar água livre até ~30% provoca pequena alteração dimensional média. continuar de 30% até 12% envolve retirada de água ligada, com retração significativa, dependente da direção da grã e da espécie. os valores ~25–30% são ordem de grandeza; não são limiares exatos para todas madeiras."
+        },
+        {
+          "ord": 8,
+          "titulo": "08 — ressalvas técnicas e normativas",
+          "texto": "o texto histórico menciona secagem em estufa de 100–150 °C; como regra de determinação de teor de umidade, não generalizar essa faixa: método normalizado costuma trabalhar perto de 103±2 °C, evitando alterar constituintes. o PSF varia segundo espécie, temperatura e sorção, em geral perto de 25–30%. água livre pode afetar outras propriedades, como condutividade térmica e permeabilidade, embora não governe a retração como a ligada."
+        },
+        {
+          "ord": 9,
+          "titulo": "09 — pegadinhas",
+          "texto": "(a) água de constituição não é a mesma coisa que água ligada removível; (b) acima PSF não ocorre RETRAÇÃO por simples perda de água livre em idealização; (c) 'saturação das fibras' não significa lúmens cheios: significa PAREDES SATURADAS e LÚMENS SEM ÁGUA LIVRE; (d) madeira seca ao ar ainda tem água ligada; (e) nunca confundir 12% umidade de referência com o PSF ~25–30%."
+        },
+        {
+          "ord": 10,
+          "titulo": "10 — macetes para a Cesgranrio",
+          "texto": "CONSTITUIÇÃO = CONSTITUI a madeira. IMPREGNAÇÃO = INCHA/RETRAI a parede. LIVRE = nos espaços LIVRES. PSF = PAREDES SATURADAS, FUROS VAZIOS. 'LIGADA MEXE NAS MEDIDAS'."
+        },
+        {
+          "ord": 11,
+          "titulo": "11 — fontes, conexões e rastreabilidade",
+          "texto": "Macete: CONSTITUIÇÃO = CONSTITUI a madeira. IMPREGNAÇÃO = INCHA/RETRAI a parede. LIVRE = nos espaços LIVRES. PSF = PAREDES SATURADAS, FUROS VAZIOS. 'LIGADA MEXE NAS MEDIDAS'.\nReferência técnica: USDA Wood Handbook, secagem e água na madeira | origem editorial PETRO16-C013 | estudo Parte 16"
+        }
+      ]
+    },
+    {
+      "id": "CARD-1525",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Compare pilar curto e pilar esbelto pelo modo predominante de falha sob compressão. O que muda se o comprimento efetivo dobra?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima",
+          "texto": "Pilar curto: compressão/esmagamento ou resistência da seção antes da flambagem ideal. Pilar esbelto: instabilidade lateral e efeitos de segunda ordem podem controlar."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico",
+          "texto": "Mecânica da estabilidade e ABNT NBR 6118:2023, seção 15.8.2 para condições de desprezo dos efeitos locais de segunda ordem; verificar emenda normativa vigente."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo físico",
+          "texto": "Sob força normal de compressão, a capacidade do material e a estabilidade da peça concorrem. Peça pouco esbelta tende a desenvolver tensões de compressão resistentes até falhar na seção; peça esbelta pode apresentar grandes deslocamentos laterais e momento adicional NΔ antes dessa capacidade ideal."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "λ = ℓe/i, i=√(I/A); ℓe [m] ou [cm], i [mesma unidade], λ adimensional. Modelo de Euler: Pcr=π²EI/ℓe², com E [N/m²], I [m⁴], ℓe [m], Pcr [N]."
+        },
+        {
+          "ord": 6,
+          "titulo": "Exemplo resolvido",
+          "texto": "Para a mesma seção e os mesmos vínculos, passar de ℓe=3 m para ℓe=6 m reduz Pcr para 1/4. Logo aumentar o comprimento destravado aumenta muito a suscetibilidade à instabilidade."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação prática",
+          "texto": "Verifique os dois eixos, travamentos, condições de apoio e excentricidades. No projeto de concreto armado, avalie efeitos de 2ª ordem conforme a NBR 6118; Pcr de Euler, isolada, não é a resistência de cálculo."
+        },
+        {
+          "ord": 8,
+          "titulo": "Comparações importantes",
+          "texto": "Pilar curto/esbelto = comportamento à compressão e instabilidade. Pilar-parede = proporção dos lados da seção. Consolo curto = outro elemento, com mecanismo resistente próprio. Não confundir as classificações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A fórmula de Euler supõe barra ideal, reta e elástica, com vínculos bem definidos. Pilares reais apresentam imperfeições, não linearidade e comportamento material que exigem cálculo normativo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas de concurso",
+          "texto": "“Pilar curto” NÃO significa simplesmente altura pequena. O limiar de dispensa de efeitos locais de 2ª ordem (λ<λ1) depende de condições geométricas e do carregamento; não usar λ1 como constante única. O uso de Pcr ideal não substitui a verificação de resistência da seção."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete para retenção",
+          "texto": "CURTO COMPRIME; LONGO ENCURVA. Para o mesmo EI, DOBROU o ℓe → Pcr virou 1/4."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1526",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "A partir da pergunta da V004, distinguir os denominadores dos índices de umidade, interpretar lâmina/intensidade/tempo de retorno, separar infiltração de percolação e ler corretamente Tc, Tp e Qp em um hidrograma."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima e verso literal",
+          "texto": "Umidade específica q = massa de vapor / massa total de ar úmido; razão de mistura r = massa de vapor / massa de ar seco; UR = 100 e/e_s(T). Intensidade i = P/Δt. Tc é tempo de contribuição da bacia, Tp é tempo até o pico e Qp é a vazão máxima."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentos, fontes e edições",
+          "texto": "Fonte principal: PETRO15-C001 V004, PETRO15-Q002 e Q003, incluindo as tabelas e o gráfico original do estudo. Conceitos gerais de Hidrologia; não declarar um item ABNT inexistente. Definições e fórmulas históricas preservadas literalmente no anexo."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo físico e relações conceituais",
+          "texto": "q e r diferem por denominador: o ar úmido inclui o próprio vapor, o ar seco não. A chuva precipitada sofre interceptação, infiltração e outras abstrações antes de gerar escoamento direto. Em bacias mais impermeabilizadas há resposta tipicamente mais rápida e pico maior para evento comparável, ressalvadas características hidráulicas locais. A área sob Q(t) dá o volume escoado, e não Qp."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, grandezas e unidades",
+          "texto": "q=m_v/(m_s+m_v); r=m_v/m_s; q=r/(1+r); r=q/(1−q). ρ_v=m_v/V [g/m³]. UR=100e/e_s [%]. i=P/Δt [mm/h]. TR=1/p [anos] sob estacionariedade com probabilidade anual p. V=∫Qdt [m³], Qp [m³/s], q_esp=Q/A [L/(s·km²) ou compatível]."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações técnicas e critérios",
+          "texto": "Umidade relativa (pressões de vapor) ≠ absoluta (massa por volume) ≠ específica (massa por ar úmido) ≠ razão de mistura (massa por ar seco). Infiltração = passagem pela interface solo; percolação = fluxo dentro dos poros. Tempo de concentração ≠ tempo de pico: o primeiro decorre do caminho hidrológico até o exutório, o segundo da posição temporal do máximo do evento modelado."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido e transferência",
+          "texto": "Ex.: 10 g de vapor em 990 g de ar seco: q=10/1000=0,010=10 g/kg de ar úmido; r=10/990≈0,010101=10,10 g/kg de ar seco. Chuva P=60 mm em 2 h: intensidade média i=30 mm/h. Para um hidrograma triangular de base 4 h e pico 3 m³/s, V=0,5×(4×3600)×3=21.600 m³."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada e cartões relacionados",
+          "texto": "Questões diretamente relacionadas PETRO15-Q002 (usos de água) e PETRO15-Q003 (umidade específica × razão de mistura). O CARD-1407 trata de evaporação e umidade relativa (cobertura PARCIAL), mas não recupera diretamente q, r nem leitura de Tc/Tp/Qp. Distinguir os respectivos processos e não fundir perguntas diferentes.. Usos consuntivos Q002 são tema vizinho, NÃO assimilado como equivalência a índices de umidade."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses, restrições e exceções",
+          "texto": "TR=1/p depende de interpretação probabilística anual e hipótese de estacionariedade; não garante repetição periódica. O efeito da urbanização não determina automaticamente a precipitação total nem independe de condições antecedentes. O exemplo de hidrograma triangular é esquemático, não curva medida. q,r devem entrar como frações nas fórmulas de conversão."
+        },
+        {
+          "ord": 10,
+          "titulo": "Erros, pegadinhas e diagnóstico",
+          "texto": "Pegadinhas: trocar denominadores; converter g/kg como se fosse fração 10 em q=r/(1+r); confundir chuva total com excedente; afirmar TR anos entre eventos; interpretar área de Q(t) como pico; esquecer unidades de hora para segundo no volume. O arquivo V004 contém os fatos de origem; não atribuir erro pessoal além dos relatos registrados."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, mídias, histórico e integridade",
+          "texto": "Macete original preservado: ESPECÍFICA / TODO AR ÚMIDO; MISTURA / AR SECO; ABSOLUTA / VOLUME; RELATIVA / SATURAÇÃO. Tc=caminho, Tp=tempo do topo, Qp=altura do topo. Mídia: PETRO15_C001_HIDROGRAMA_ORIGINAL_CHAT.png no pacote da proposta V004; não alegar pixels incorporados a este Google Doc. No estudo, reconstruir o hidrograma por Q(t): pico Qp na ordenada e Tp no eixo de tempo; Tc descreve contribuição da bacia. Manter a imagem original disponível na fonte histórica, sem alegar incorporação dos seus pixels."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1527",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Resolver de forma encadeada as quatro verificações da mesma viga pré-fabricada: junta de mastique, área de apoio mínima, comprimento do cabo de içamento e volume líquido de concreto. Não desmembrar em cartões redundantes."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima e verso literal",
+          "texto": "Da situação histórica estudada: J_max=7 cm; V_mastique,máx=5.600 cm³ nos dois apoios; A_apoio,mín=1.320 cm² por pilar; comprimento total de cabos=10 m; volume líquido=5,984 m³. Os resultados dependem das cotas da questão que exigem conferência gráfica."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentos, fontes e edições",
+          "texto": "Origem: Petrobras/CESGRANRIO 2010, questões 50, 51, 53 e 54 no croqui V1. Fonte: arquivo PETRO15-C002 V002 e seus links originais do TecConcursos. As medidas J+y=40 cm, 770=x+7+J, z=x/2−22, altura 300 cm e recortes 40×20×40 cm foram transcritas de materiais externos; as duas figuras originais não foram recuperadas em bytes. Não promover como medida certificada dos desenhos sem confrontá-los."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo físico e relações conceituais",
+          "texto": "Há oposição geométrica entre largura da junta J e comprimento de apoio y: quando y diminui, J cresce. O maior volume de mastique acompanha J_max; a menor área de contato acompanha y_min. O sistema de içamento simétrico forma dois triângulos retângulos, e a medição do cabo exige somar as duas hipotenusas. O volume líquido desconta os dois recortes."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, grandezas e unidades",
+          "texto": "y_max=40−3=37 cm; y_min=37−4=33 cm; J_max=40−33=7 cm. V_mastique=2J×10×40 [cm³]. A_contato=y_min×40 [cm², por pilar]. x_min=770−7−J_max=756 cm; L_min=2x=1512 cm=15,120 m. z=x/2−22=356 cm. D=P1P2=L−2z=800 cm; cabos=2√[(D/2)²+(300 cm)²]. V_líquido=L×1,0×0,4−2×0,4×0,2×0,4 [m³]."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações técnicas e critérios",
+          "texto": "Grandeza por pilar versus total dos dois pilares: área pedida por apoio não recebe fator 2, volume de duas juntas recebe. ±2 cm ao redor da referência significa amplitude total 4 cm entre mínimo/máximo. Comprimento longitudinal x é meia-viga, L=2x é a peça toda; z é distância ao ponto de pega e NÃO hipotenusa."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido e transferência",
+          "texto": "Numerando: 2×7×10×40=5600 cm³; 33×40=1320 cm²; D=15,12−2×3,56=8,00 m; um cabo √(4²+3²)=5 m, total=10 m; volume bruto 15,12×1×0,4=6,048 m³ menos 0,064 m³ de recortes, resultando 5,984 m³. Checagem dimensional em cada etapa."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada e cartões relacionados",
+          "texto": "Vínculo central PETRO15-C002 ↔ questões PETRO15-Q014 e questões da viga V1 do mesmo enunciado. Juntas, área por apoio, Pitágoras e volume líquido são quatro cálculos ENCADEADOS do mesmo croqui; evitar fragmentar indevidamente o problema. Vincular a conceitos pré-fabricados apenas quando a pergunta de origem coincidir materialmente. para a mesma sequência de resolução sem aprovação."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses, restrições e exceções",
+          "texto": "Resultados condicionados à geometria específica, simetria, profundidade preenchida de 10 cm, dois apoios e recortes representados. A verificação quantitativa da viga não equivale à verificação estrutural de resistência no içamento ou à conformidade normativa de juntas."
+        },
+        {
+          "ord": 10,
+          "titulo": "Erros, pegadinhas e diagnóstico",
+          "texto": "Resultados condicionados à geometria específica, simetria, profundidade preenchida de 10 cm, dois apoios e recortes representados. A verificação quantitativa da viga não equivale à verificação estrutural de resistência no içamento ou à conformidade normativa de juntas."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, mídias, histórico e integridade",
+          "texto": "Macete existente: JUNTA ABRE → APOIO ENCOLHE → VIGA ENCURTA → TRIÂNGULO 3–4–5 → BRUTO MENOS DOIS DENTES. Croquis originais permanecem apenas por URL; desenhos auxiliares da conversa preservados no pacote V002. Reconstituir a cadeia numérica usando os dados originais: Jmáx=7 cm; área mínima 1.320 cm²; cabo simétrico 3–4–5; volume líquido com dois recortes."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1528",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explicar qual armadura recebe tração na protensão, como a força se transfere ao concreto, o que diferencia pré/pós-tração e os critérios históricos de trecho reto, regularização das tensões e ângulo de difusão."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima e verso literal",
+          "texto": "A força do equipamento TRAciona a armadura ATIVA; a transferência introduz esforços prévios de compressão no concreto. Pela NBR 6118:2014 estudada: segmento reto de extremidade ≥100 cm, exceto monocordoalha engraxada ≥50 cm; na pós-tração, difusão no interior do ângulo β com tgβ=2/3."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentos, fontes e edições",
+          "texto": "Fonte-base: PETRO15-C003 V002, NBR 6118:2014 itens 3.1.4–3.1.9, 9.6.2.1–9.6.2.2, 18.6.1.5–18.6.1.6; questões PETRO15-Q019, Q020, Q021. Números normativos são próprios da EDIÇÃO HISTÓRICA explicitamente estudada; não afirmar vigência idêntica em 2026 sem cotejo oficial."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo físico e relações conceituais",
+          "texto": "Na pré-tração, estira-se o aço antes da concretagem e transfere-se carga principalmente por aderência após liberação. Na pós-tração, o concreto endurece antes de tracionar/ancorar cabos; a aderência longitudinal pode ser obtida por injeção de bainhas, enquanto monocordoalhas sem aderência se apoiam principalmente nas ancoragens. A transferência local de carga na ancoragem provoca concentração de tensões e uma zona de regularização."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, grandezas e unidades",
+          "texto": "Exigências históricas: l_reto≥1,00 m, salvo monocordoalha engraxada l_reto≥0,50 m. tgβ=2/3 implica β≈arctan(2/3)≈33,7° na geometria definida pela norma, NÃO 2/3 graus. Δσ pela protensão depende da força, excentricidade e seção; não reduzir a compressão global a distribuição uniforme sem examinar esforços."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações técnicas e critérios",
+          "texto": "Armadura ativa ≠ passiva; ancoragem passiva (extremidade não tensionada pelo macaco) ≠ armadura passiva. Trecho reto junto ao dispositivo ≠ distância de regularização ≠ comprimento de prolongamento além da ancoragem. Cabo curvo no vão pode coexistir com trecho terminal reto."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido e transferência",
+          "texto": "Exemplo de identificação: procedimento pós-tracionado com macaco puxando cordoalhas e placas recebendo reação → aço em tração, concreto recebe compressão local e efeitos de flexão. Para cabo convencional no critério 2014, 80 cm de trecho reto não satisfaz 100 cm; para monocordoalha engraxada, 80 cm satisfaz o mínimo de 50 cm, sem dispensar outros detalhes."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada e cartões relacionados",
+          "texto": "PETRO15-Q019 (difusão 2/3, Difícil na questão), Q020 (trecho reto 100/50), Q021 (tração na ativa), Q005 (módulo referencial do aço ativo). Antes de criar ID definitivo, comparar diretamente com cartões já existentes sobre armadura ativa, protensão aderente, cobrimento e ancoragens; preservar distinção entre edição histórica e novos complementos da Petrobras 17/21."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses, restrições e exceções",
+          "texto": "Os valores 100/50 e tgβ=2/3 são capturados da NBR 6118:2014, não afirmação universal de qualquer edição. Mesmo com esforços iniciais favoráveis, as regiões podem sofrer tração de flexão, ancoragem e fissuração. Monocordoalha engraxada é exceção qualificada."
+        },
+        {
+          "ord": 10,
+          "titulo": "Erros, pegadinhas e diagnóstico",
+          "texto": "Pegadinhas: 'macaco comprime o aço' (não); 'ancoragem passiva é armação passiva' (não); confundir 50 cm com 100 cm, interior com exterior, tgβ com β e distância de difusão com trecho terminal."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, mídias, histórico e integridade",
+          "texto": "Macete mantido: ATIVA TRAÇÃO → CONCRETO COMPRESSÃO → RETO 100/ENGRAXADA 50 → PÓS DENTRO 2/3. Imagens originais IMG01/02/03 da Q020 e SVG auxiliar permanecem no pacote anterior; conteúdo visual não foi redesenhado nem homologado por esta atualização. A figura de ancoragem passiva não significa armadura passiva: o cabo é ativo, embora uma de suas extremidades possa ser ancorada passivamente."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1529",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Definir pilar misto aço-concreto, identificar revestido/parcialmente revestido/preenchido, distinguir esbeltez reduzida λ₀,m de comprimento efetivo Le e aplicar os limites do Anexo P histórico."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima e verso literal",
+          "texto": "Pilar misto associa perfil de aço e concreto na resistência à compressão/flexocompressão. Método simplificado da NBR 8800:2008, Anexo P: seção constante e duplamente simétrica; concreto normal; 0,2<δ<0,9; λ₀,m≤2; proporção geométrica retangular 0,2≤h/b≤5 no escopo da fonte."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentos, fontes e edições",
+          "texto": "Fonte literal da proposta PETRO16-C001 de 17/11/2026; NBR 8800:2008 Anexo P, itens P.1–P.4, especialmente P.1.3 e P.3/P.4. Aplicar à edição 2008 cobrada; não extrapolar sem cotejo à edição normativa atual. Não atribuir item não examinado além dos já anotados na fonte."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo físico e relações conceituais",
+          "texto": "Perfil e concreto interagem transferindo esforços na interface e nas ligações. Concreto aumenta resistência/rigidez, e o aço fornece capacidade e ductilidade; em pilares esbeltos a flambagem reduz a resistência da barra abaixo da resistência plástica bruta da seção. Revestido = concreto ao redor do perfil; preenchido = concreto dentro do tubo de aço."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, grandezas e unidades",
+          "texto": "Le=KL [m]; Ne=π²(EI)e/Le² [N ou kN]; λ₀,m=√(Npl,R/Ne) [adimensional]; NRd=χNpl,Rd [N]. Npl,Rd=Aa fyd+αAc fcd+As fsd, com fatores e componentes da edição 2008; (EI)e=EaIa+0,6Ec,red Ic+EsIs. Duplicar Le reduz Ne a 1/4 mantendo rigidez."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações técnicas e critérios",
+          "texto": "Tipos: totalmente revestido (perfil englobado e armaduras adicionais), parcialmente revestido (concreto entre mesas com aço exposto), tubular retangular ou circular preenchido (núcleo interno). Índice geométrico λ=Le/i não é λ₀,m; Ne, força crítica elástica, não é NRd, resistência de cálculo. Limites δ e λ₀,m do método simplificado não são definições universais de todos os pilares mistos."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido e transferência",
+          "texto": "Ex.: Npl,R=2.000 kN, Ne=1.000 kN → λ₀,m=√2=1,414≤2; se Le dobra, Ne=250 kN e λ₀,m=√8=2,828>2, falhando no critério do método simplificado mesmo com os mesmos materiais e seção."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada e cartões relacionados",
+          "texto": "Origem: questões da Petrobras 16 sobre seção constante, simetria e esbeltez. Busca antes de integrar: CARD-0333 (Euler, se pertinente), CARD-0527/0579 (esbeltez e raio de giração, cobertura indireta), CARD-1525 (curtos versus esbeltos, distinção). Não fundir pilar misto com pilar-parede, elementos lineares ou pilar curto."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses, restrições e exceções",
+          "texto": "Seções parcialmente/totais exigem armaduras e cobrimentos adequados, conexão e interação; no texto de 2008, verificar taxa longitudinal e execução, inclusive atuação isolada do aço na montagem. Em projeto atual, validar edição ABNT vigente, materiais, incêndio e instabilidade local sem inventar generalizações."
+        },
+        {
+          "ord": 10,
+          "titulo": "Erros, pegadinhas e diagnóstico",
+          "texto": "Pegadinhas: 'simetria simples basta' não; 'pode variar seção ao longo do eixo' não no método simplificado; 'λ₀,m≤2 implica comprimento 2 m' não; 'dobro de Le duplica Ne' não, quadruplica a redução."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, mídias, histórico e integridade",
+          "texto": "Macete original: DOIS E CONSTANTE (dupla simetria, seção constante, λ₀,m≤2); 0,2–0,9 aço; 0,2–5 forma; Le sobe → Ne cai ao quadrado. No exemplo λ₀,m=√(Npl,R/Ne), distinguir índice ADIMENSIONAL de comprimento efetivo Le e conferir sempre ambos os eixos de instabilidade."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1530",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique as três faixas de espaçamento entre eixos de nervuras e como muda a verificação da mesa. Em qual faixa a mesa deve ser dimensionada como laje maciça sobre grelha de vigas? Qual a exceção de cisalhamento até 90 cm?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima e verso original",
+          "texto": "Segundo a regra histórica cobrada (NBR 6118:2003 com referência à edição 2007 no enunciado): e≤65 cm pode dispensar verificação da mesa à flexão; 65<e≤110 cm verifica flexão da mesa e, em regra, cisalhamento como viga; até 90 cm e largura média da nervura >12 cm, admite-se cisalhamento como laje; e>110 cm exige mesa como laje maciça apoiada em grelha de vigas. 120 cm é o único caso do enunciado nesta última faixa."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento, edição e fontes",
+          "texto": "PETRO21-Q002, NBR 6118 histórica item 13.2.4.2, cuja cópia consultada tinha cabeçalho 2003 e foi tratada na questão como 2007. Limites históricos 65/90/110 cm; parâmetros de espessura da mesa apresentados em edições 2014/2023 devem ser identificados separadamente. A redação da emenda 2026 não foi homologada aqui."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e explicação técnica",
+          "texto": "Laje nervurada concentra parte significativa da resistência à flexão nas nervuras, enquanto a mesa distribui compressões, ações e esforços transversais. Com espaçamento pequeno, o trabalho conjunto permite simplificações; quando os eixos se afastam, cresce o comportamento da mesa entre nervuras e sua verificação deixa de ser dispensável. Acima de 110 cm, modela-se a mesa como uma laje maciça apoiada sobre grelha resistente de nervuras."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "e = distância centro a centro de nervuras [cm]; e≤65; 65<e≤110; e>110. Exceção de cisalhamento para 65<e≤90 e largura média b_w,méd>12 cm. Lembre que o espaçamento livre entre faces NÃO é automaticamente igual a e: para geometria uniforme, e = vão livre + largura de nervura."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação de critérios",
+          "texto": "e=65 cm pertence à primeira faixa; e=90 cm pode enquadrar-se na exceção, se também atendido b_w,méd>12 cm; e=110 cm permanece na segunda faixa; e=120 cm entra na terceira. A exceção diz respeito à modelagem/verificação de cisalhamento, não elimina a exigência geral de verificação da mesa à flexão na faixa intermediária."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e exemplo resolvido",
+          "texto": "Projetos I e=90 cm, II e=100 cm, III e=120 cm: somente III (120>110) demanda dimensionamento da mesa como laje maciça apoiada em grelha pela regra histórica. Ex.: para e=90, b_w,méd=13 cm, verifica-se a mesa à flexão e pode-se usar cisalhamento como laje; se b_w,méd=12 cm, a condição estrita >12 cm não se cumpre."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada, vínculos e duplicidade",
+          "texto": "Cobertura DIRETA não encontrada no snapshot F17/V025 pesquisado por 'nervurada', '65', '90' e '110' na origem. Relacionados temáticos CARD-0334/CARD-0337 (lajes e verificação distinta) e PETRO17-E003 (detalhamento/estribos), de cobertura INDIRETA. CARD-0334 aborda continuidade de apoios e CARD-0337 a relação dos vãos de lajes. São complementares/indiretos: não cobrem os limites históricos e=65/90/110 cm. Diferenciar geometria de apoio, direção da laje e mesa/nervuras."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses, exceções e limites",
+          "texto": "Válido para critérios e redação históricos indicados na questão, não para um procedimento universal ou edição 2026 sem cotejo. Mínimos da espessura da mesa, armaduras, cisalhamento e abertura entre nervuras podem exigir verificações adicionais. As referências de 2014/2023 para mesa de 4/5 cm e tubos são assunto distinto e não devem ser misturadas ao gabarito histórico."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas da banca e lacuna",
+          "texto": "Pegadinhas: usar 90 ou 100 cm como >110; inverter 'entre eixos' e vão livre; esquecer b_w,méd>12 cm; transportar limite da edição 2014/2023 para prova de 2007; confundir flexão da mesa com cisalhamento da nervura."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, mídia, histórico e integridade",
+          "texto": "Macete histórico: 65 — 110 — MACIÇA; 90 com largura >12 = exceção de CISALHAMENTO. Imagem de seção e grelha técnica é recomendada mas não foi criada neste documento; preservar fontes, relato e questão PETRO21-Q002. Para e=90 cm, a exceção de cisalhamento depende também de largura média da nervura >12 cm; para e=120 cm, mesa como laje maciça sobre a grelha. A imagem técnica indicada na fonte não é substituída por um novo desenho."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1531",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Responder à questão histórica do cobrimento da armadura passiva que envolve bainha/cabos e contrastá-la explicitamente com a redação das versões 2014/2023 da NBR 6118."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima e verso original",
+          "texto": "Gabarito histórico E: na NBR 6118:2003/edição 2007, cobrimento nominal indicado para concreto protendido é superior ao de concreto armado nas lajes, vigas e pilares, na comparação da Tabela 7.2 e nota histórica. Na edição 2014/2023, a nota trata do COBRIMENTO DA BAINHA/FIOS/CABOS/CORDOALHAS; a armadura PASSIVA do protendido respeita o cobrimento do concreto armado. Não converter a redação antiga em regra atual universal."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento, edição e fontes",
+          "texto": "PETRO21-Q004; NBR 6118:2003 com edição 2007, Tabela 7.2 nota 1; contraste anotado na NBR 6118:2023, Tabela 7.2 nota a. Conferência direta da Emenda 1/2026 ainda pendente e deve anteceder aplicação atual. Origem usa enunciado de prova de ano não identificado."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e explicação técnica",
+          "texto": "O aço ativo permanece altamente tensionado, e sua proteção contra agentes agressivos integra a durabilidade do sistema de protensão. O detalhe que muda a resposta é o OBJETO do cobrimento: 'armadura passiva envolvente' na redação histórica versus 'bainha/fios/cabos/cordoalhas' e armadura passiva de concreto armado nas notas posteriores."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "NBR histórica, Δc=10 mm na Tabela 7.2: CP todos elementos CAA I–IV=30/35/45/55 mm; CA lajes=20/25/35/45 mm; CA vigas/pilares=25/30/40/50 mm. Tabela 2023: CP laje 25/30/40/50 e CP viga/pilar 30/35/45/55 mm, com ressalva expressa sobre armadura passiva. Valores em milímetros; não são fórmula absoluta para qualquer exposição."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação de critérios",
+          "texto": "Comparação corretamente rotulada: coluna '2003/2007' usa CP sem separação de elemento na mesma linha, superior aos cobrimentos mínimos de CA; coluna '2014/2023' distingue CP lajes e CP vigas/pilares e reserva a nota da armadura passiva aos valores de CA. 'Bainha' não é a mesma coisa que a barra de armadura passiva."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e exemplo resolvido",
+          "texto": "Ex.: CAA II na Tabela histórica: CP=35 mm, CA laje=25 mm, CA viga/pilar=30 mm; então a alternativa 'superior apenas em vigas' é falsa. Já em projeto com redação 2023, não se pode concluir que a armadura passiva de uma laje protendida deve necessariamente seguir a linha CP 30 mm da bainha."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada, vínculos e duplicidade",
+          "texto": "CARD-1033 (c_nom=c_min+Δc), INDIRETO; CARD-1034 (CAA I–IV), INDIRETO; PETRO17-E002 (tabela de 2023 e nota moderna), PARCIAL/DIRETO ao quadro moderno; PETRO14-C013 (CAA e cobrimento), PARCIAL. Busca no F17/V025 não identificou frente DIRETA sobre essa mudança histórica. Antes de ID novo, conferir V160 e versões posteriores; absorver informação de cobertura direta nos próprios cartões se a formulação existente já atender à pergunta."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses, exceções e limites",
+          "texto": "Não confundir comparação de prova de 2003/2007 com dimensionamento normativo atual. CAA, elemento, tipo de armadura, controle e tolerância de execução condicionam os números. A tabela não dispensa requisitos de durabilidade, qualidade do concreto e detalhamento."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas da banca e lacuna",
+          "texto": "Pegadinhas: trocar os nomes da armadura passiva/ativa; comparar números sem edição; afirmar 'mesmo cobrimento' pela 2023 para responder questão de 2007; afirmar 'superior em tudo' como verdade da 2023 sem distinguir a bainha."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, mídia, histórico e integridade",
+          "texto": "Macete: COBRIMENTO PERGUNTA 'DE QUEM?' — 2007 texto da questão versus 2023 bainha/cabo e armadura passiva CA. Preservar imagem, edição, gabarito e relato. A comparação deve declarar expressamente a edição: gabarito histórico para a ARMADURA PASSIVA envolvente; na edição 2023 distinguir bainha/cordoalhas e armadura passiva. Conferir Emenda 1/2026 antes de projeto."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1532",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual limite de pressão interna se aplica às canalizações embutidas em elementos de concreto na NBR 6118:2023 estudada? Quais cuidados com temperatura do fluido e drenagem em pilares?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima e verso original",
+          "texto": "Segundo registro da NBR 6118:2023, item 13.2.6: a pressão interna não deve superar 0,3 MPa; diferenças de temperatura de fluido superiores a 15 °C em relação ao concreto exigem cuidados/verificação específica quando não houver isolamento adequado; canalização embutida em pilar sem abertura de drenagem não é admitida no escopo indicado. Retomar redação literal da norma antes de obra."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento, edição e fontes",
+          "texto": "Fonte PETRO21-Q007; ABNT NBR 6118:2023, item 13.2.6, redação anotada no registro original. A Emenda 1/2026 deve ser cotejada antes de aplicação atual. O número 0,3 MPa é limite de PRESSÃO, não diâmetro, força ou resistência do concreto."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e explicação técnica",
+          "texto": "Pressão interna em uma tubulação cria solicitações na parede do tubo e riscos associados a vazamento, fissuração e interação com o cobrimento; temperatura diferente pode produzir dilatação diferencial e tensões térmicas. Em pilares, acúmulo de líquido de vazamentos sem drenagem tem risco específico, justificando exigência de detalhe de escoamento."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "p=F/A (pressão [Pa=N/m²]); 0,3 MPa=300 kPa=300.000 Pa≈3 bar. Ex.: pressão p=0,25 MPa é inferior ao limite isolado de 0,3 MPa, mas isso não prova atendimento aos demais critérios. ΔT=|T_fluido−T_concreto| [°C]."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação de critérios",
+          "texto": "Canalização embutida ≠ furo de passagem previsto e detalhado; pressão hidráulica da tubulação ≠ tensão de compressão fck do concreto. Regra de p≤0,3 MPa não dispensa demais verificações geométricas e de durabilidade. A condição de drenagem em pilar não pode ser interpretada como autorização geral de qualquer tubo."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e exemplo resolvido",
+          "texto": "Ex.: um tubo de 0,35 MPa não satisfaz p≤0,3 MPa; reduzir pressão de operação a 0,28 MPa só resolve esse critério. Se água estiver a 40°C e concreto a 20°C, ΔT=20°C supera 15°C, exigindo análise da condição térmica indicada, sobretudo sem isolamento."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada, vínculos e duplicidade",
+          "texto": "Busca direcionada no F17/V025/V159 por 'canalizações', '0,3 MPa', 'pressão interna' não encontrou frente DIRETA no registro original; CARD-0458 (outro tema de instalações), cobertura INDIRETA e NÃO EQUIVALENTE. Não confundir com CARD-0458, referente a instalações elétricas e uso de canalização metálica como eletrodo. PRESSÃO INTERNA em tubulações embutidas no concreto é tema distinto da NBR 6118."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses, exceções e limites",
+          "texto": "A nota se refere à edição 2023 consultada; possíveis restrições de localização, estabilidade, cobrimentos e execução não estão completas neste resumo. Para projeto, conferir integralmente o item normativo oficial e suas alterações antes de prescrever solução."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas da banca e lacuna",
+          "texto": "Pegadinhas: converter 0,3 MPa em 0,3 kPa ou 0,3 Pa; interpretar temperatura como limite absoluto de 15°C; pensar que 'sem drenagem em pilar' é regra irrelevante; transportar limitações de eletrodutos sem equivalência; considerar isoladamente a pressão como aprovação completa."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, mídia, histórico e integridade",
+          "texto": "Macete: '3 décimos de MPa; 15 de diferença; pilar exige saída'. A frase é apenas gatilho de memória, sujeito ao item normativo. Sem imagem original confirmada; registrar questão e vínculo. Para transferir o conceito: p=F/A; 0,3 MPa≈3 bar. Sem informar A, não se determina F. Exigir drenagem no pilar no âmbito do item normativo, sem concluir autorização irrestrita por p≤0,3 MPa."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1533",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Determine o vão efetivo de uma viga com vão livre l0, largura dos apoios t1 e t2 e altura h. Explique por que o acréscimo em cada apoio não é sempre metade de sua largura."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima e verso original",
+          "texto": "Conforme NBR 6118:2023, item 14.6.2.4, na condição estudada: l_ef=l0+a1+a2; a1=min(t1/2,0,3h); a2=min(t2/2,0,3h). Para l0=500 cm, t1=t2=40 cm e h=50 cm, a1=a2=min(20,15)=15 cm, logo l_ef=530 cm, alternativa C."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento, edição e fontes",
+          "texto": "Fonte PETRO21-Q009 e NBR 6118:2023 item 14.6.2.4, conforme registro original. Cotejar edição oficial com Emenda 1/2026 antes de uso atual. l0 significa distância livre entre faces dos apoios, não necessariamente distância entre eixos."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e explicação técnica",
+          "texto": "O vão efetivo incorpora contribuição limitada das zonas de apoio ao comprimento de cálculo da viga. Para cada extremidade, adota-se o MENOR valor entre metade da largura local do apoio e 30% da altura da viga. Esse ajuste evita usar indiscriminadamente a distância entre eixos quando o apoio é largo em relação à altura."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "l_ef = l0 + Σ min(t_i/2,0,3h), para duas extremidades. l0, t_i, h, a_i em unidade de comprimento idêntica (cm, m ou mm); o fator 0,3 é adimensional. Se t1=t2=t, l_ef=l0+2min(t/2,0,3h)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação de critérios",
+          "texto": "Vão livre: entre faces internas dos apoios; vão entre eixos: centro a centro; vão efetivo: valor de cálculo conforme critério normativo. Se t/2<0,3h, usa-se t/2; se t/2>0,3h, limita-se a 0,3h. Igualdade pode ser representada por qualquer dos dois, pois resulta no mesmo a_i."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e exemplo resolvido",
+          "texto": "l0=500, t1=t2=40, h=50 cm: 0,3h=15 cm, t_i/2=20 cm, portanto a1=a2=15 e l_ef=530 cm. Contraexemplo: se h=100 cm (0,3h=30), e t=40, usar metade do apoio, a_i=20, e l_ef=540 cm; a altura muda o critério."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada, vínculos e duplicidade",
+          "texto": "PETRO21-Q009 teve ausência de frente DIRETA no snapshot V159 de origem. Fazer busca dirigida por 'vão efetivo', 'l_ef', '0,3h' e 'metade do apoio' na versão operacional V160+ antes de criação de novo ID. Cartões de viga ou apoios apenas por tema são cobertura INDIRETA, sem prova de equivalência."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses, exceções e limites",
+          "texto": "Aplica-se ao caso e à norma histórica indicados; considerar outras disposições aplicáveis a vigas em situações especiais e condição de apoio. Não substitui verificação de flexão, cisalhamento, deslocamento e ancoragem. h é altura da viga conforme definição da norma, não largura do apoio."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas da banca e lacuna",
+          "texto": "Aplica-se ao caso e à norma histórica indicados; considerar outras disposições aplicáveis a vigas em situações especiais e condição de apoio. Não substitui verificação de flexão, cisalhamento, deslocamento e ancoragem. h é altura da viga conforme definição da norma, não largura do apoio."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, mídia, histórico e integridade",
+          "texto": "Macete: 'EM CADA APOIO: metade ou 30% da altura — fica o MENOR'. Guardar figura e dados originais da questão quando disponíveis; nenhum diagrama novo foi criado aqui. Em cada extremidade, comparar t/2 com 0,3h e somar apenas o menor; variar t e h para entender quando muda o critério governante."
+        }
+      ]
+    }
+  ]
+}
