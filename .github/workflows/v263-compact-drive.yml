@@ -15,6 +15,7 @@ jobs:
       - name: Validar integridade do portal e regressões V262
         run: |
           node tests/v263_static_integrity.cjs
+          node tests/v277_header_bundle.cjs
           node tests/v262_layout_sync.test.cjs
           node tests/v121_integridade_portal.cjs
           node tests/v124_integridade_portal.cjs
