@@ -1,0 +1,176 @@
+/* Banco Mestre V294 — Tipografia de leitura em alto contraste.
+   Somente flashcards da grade e leitor ampliado. Sem alterar IDs,
+   respostas, 11 módulos, revisão SRS, grifos, imagens ou PDF.
+   Ajuste solicitado em 19/11/2026: preto + fontes sensivelmente maiores. */
+:root{
+  --bm294-ink:#101820;
+  --bm294-heading:#0f1720;
+  --bm294-secondary:#344553;
+  --bm294-blue:#176fa8;
+  --bm294-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+/* Não transformar o cartão em uma mancha cinza: branco de fundo, borda reta. */
+#cartoes #cardRows article.card{
+ background:#fff!important;
+ border:1px solid #b7c8d4!important;
+ border-radius:0!important;
+ color:var(--bm294-ink)!important;
+ box-shadow:none!important;
+}
+#cartoes #cardRows article.card:hover{
+ background:#fcfeff!important;border-color:#7baecf!important;
+}
+/* Enunciado: destaque claro e tamanho de leitura confortável. */
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows article.card .v036-card-title,
+#cartoes #cardRows article.card .bm195-heading-text h3{
+ color:var(--bm294-heading)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:15.5px!important;
+ font-weight:700!important;
+ line-height:1.56!important;
+ letter-spacing:0!important;
+ overflow-wrap:anywhere!important;
+ margin:5px 0 9px!important;
+}
+/* Texto secundário: não tão claro quanto antes. */
+#cartoes #cardRows article.card :is(p,li,dd,dt,blockquote,td,th),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm195-list,
+ .bm197-paragraph,.bm198-paragraph,.bm198-module-body,.bm198-list){
+ color:var(--bm294-ink)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:14.5px!important;
+ line-height:1.65!important;
+}
+#cartoes #cardRows article.card :is(small,.muted,.v036-card-path,.bm195-status){
+ color:var(--bm294-secondary)!important;
+ font-size:12.5px!important;
+ line-height:1.48!important;
+}
+/* Metadados e chips com leitura clara e azul só como ênfase. */
+#cartoes #cardRows article.card :is(.tag,.chip,.pill):not(.danger):not(.late){
+ color:#22567a!important;
+ background:#f2f7fb!important;
+ border-color:#c3d7e4!important;
+ border-radius:0!important;
+ font-size:12px!important;
+ line-height:1.4!important;
+}
+#cartoes #cardRows article.card :is(button,.bm-v050-peek-button){
+ font-family:var(--bm294-font)!important;
+ font-size:12.5px!important;
+ font-weight:650!important;
+ color:#176fa8!important;
+ border-radius:0!important;
+}
+/* Cartão expandido, incluindo pergunta e resposta original. */
+#bmCardPeekV050 .bm163-panel{
+ font-family:var(--bm294-font)!important;
+ font-size:15px!important;
+ color:var(--bm294-ink)!important;
+ background:#fff!important;
+}
+#bmCardPeekV050 .bm-v050-peek-front,
+#bmCardPeekV050 .bm163-question .bm-v050-peek-front{
+ color:var(--bm294-heading)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:19px!important;
+ font-weight:700!important;
+ line-height:1.55!important;
+ letter-spacing:0!important;
+ overflow-wrap:anywhere!important;
+}
+#bmCardPeekV050 .bm163-piece-text,
+#bmCardPeekV050 .bm163-group-body,
+#bmCardPeekV050 .bm197-paragraph,
+#bmCardPeekV050 .bm198-paragraph,
+#bmCardPeekV050 .bm198-module-body,
+#bmCardPeekV050 .bm195-body,
+#bmCardPeekV050 .bm195-layer-body,
+#bmCardPeekV050 .bm195-paragraph,
+#bmCardPeekV050 .bm198-list,
+#bmCardPeekV050 .bm163-rich-list,
+#bmCardPeekV050 .bm165-related-front,
+#bmCardPeekV050 .bm163-answer :is(p,li,dd,dt,blockquote){
+ color:var(--bm294-ink)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:15px!important;
+ font-weight:400!important;
+ line-height:1.7!important;
+ overflow-wrap:anywhere!important;
+}
+/* Forçar a escala nos parágrafos internos reais dos 11 módulos. */
+#bmCardPeekV050 .bm198-module-body :is(.bm198-paragraph,.bm198-list,.bm198-label,
+ .bm198-subheading,li,p),
+#bmCardPeekV050 .bm163-piece .bm163-piece-text,
+#bmCardPeekV050 .bm197-evolutive .bm197-paragraph{
+ color:var(--bm294-ink)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:15px!important;
+ line-height:1.7!important;
+}
+#bmCardPeekV050 .bm198-module .bm198-module-title,
+#bmCardPeekV050 .bm163-piece .bm163-piece-title,
+#bmCardPeekV050 .bm197-evolutive .bm197-title,
+#bmCardPeekV050 .bm198-overview h4,
+#bmCardPeekV050 .bm198-module-body .bm198-subheading{
+ color:#205f8b!important;
+ font-family:var(--bm294-font)!important;
+ font-size:14.5px!important;
+ font-weight:700!important;
+ line-height:1.45!important;
+}
+#bmCardPeekV050 .bm198-module-head,
+#bmCardPeekV050 .bm198-overview-top,
+#bmCardPeekV050 .bm163-deep-group>summary{
+ background:#f0f6fa!important;
+ border-color:#c6d9e5!important;
+}
+#bmCardPeekV050 .bm198-number,
+#bmCardPeekV050 .bm163-group-count{
+ font-size:12px!important;
+ font-weight:700!important;
+ color:#1d567b!important;
+}
+/* Tabelas de fontes/fórmulas e 11 módulos não podem permanecer com letra minúscula. */
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table,.bm197-table,.bm195-table) :is(th,td){
+ font-family:var(--bm294-font)!important;
+ font-size:14px!important;
+ line-height:1.55!important;
+ color:var(--bm294-ink)!important;
+ padding:9px 10px!important;
+}
+#bmCardPeekV050 :is(.bm198-overview-top p,.bm163-reader-status,
+ .bm-v050-peek-meta,.bm-v050-provenance){
+ color:var(--bm294-secondary)!important;
+ font-size:12.5px!important;
+ line-height:1.55!important;
+}
+/* O cabeçalho do leitor também deve ter tamanho consistente. */
+#bmCardPeekV050 .bm163-header-title,
+#bmCardPeekV050 #bmCardPeekTitleV050{
+ font-family:var(--bm294-font)!important;
+ font-size:16px!important;
+ font-weight:700!important;
+ line-height:1.4!important;
+ color:#162a39!important;
+}
+/* Preservar tipografia matemática/código, sem afetar diagramas. */
+#bmCardPeekV050 :is(code,pre,kbd,samp,.katex,.katex *,mjx-container,mjx-container *){
+ font-family:revert!important;
+}
+@media(max-width:680px){
+ #cartoes #cardRows article.card>h3,
+ #cartoes #cardRows article.card .v036-card-title{
+  font-size:15px!important;
+ }
+ #cartoes #cardRows article.card :is(p,li,td,th){font-size:14px!important}
+ #bmCardPeekV050 .bm-v050-peek-front{font-size:17.5px!important}
+ #bmCardPeekV050 .bm198-module-body :is(.bm198-paragraph,.bm198-list,li,p),
+ #bmCardPeekV050 .bm163-piece-text,
+ #bmCardPeekV050 .bm197-paragraph{
+  font-size:14.5px!important;
+ }
+}

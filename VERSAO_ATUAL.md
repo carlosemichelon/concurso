@@ -1,3 +1,11 @@
+# V294 — Fonte maior e quase preta nos cartões (19/11/2026)
+
+- Pedido: letra maior e mais escura na grade de Flashcards e na exibição integral do cartão.
+- Grade: enunciado ~15,5 px, textos auxiliares do cartão 14,5 px; #101820 como texto principal; etiquetas e metadados separados em tons mais legíveis.
+- Leitor ampliado: pergunta 19 px; conteúdo dos 11 módulos 15 px, títulos 14,5 px, tabelas 14 px, metadados 12,5 px. Fundo branco e bordas quadradas, azul apenas para elementos de navegação e títulos.
+- Somente nova folha de estilos; nenhum script foi alterado. IDs, respostas originais, 11 módulos, SRS, Drive, PDFs, imagens, grifos, históricos e sincronização preservados.
+- V293 mantida em `v293.html` para reversão; testes estáticos, sem validação visual em navegador real.
+
 # V293 — PDFs compactos, cartões mais claros e filtros de Imagens organizados (19/11/2026)
 
 - Removido da interface o botão duplicado **Verificar 78 PDFs**. Sua rotina interna e verificação automática permanecem. Barra PDF com menos espaços verticais.
