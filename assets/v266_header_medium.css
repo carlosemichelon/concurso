@@ -1,0 +1,97 @@
+/* Banco Mestre V266 — dimensões intermediárias e contraste de prioridades.
+   Layout somente. PDF permanece pequeno; controles/diagnósticos permanecem visíveis. */
+body>header .head{
+ max-width:1490px!important;
+ grid-template-columns:minmax(245px,300px) minmax(0,1fr)!important;
+ grid-template-rows:minmax(58px,auto) minmax(47px,auto)!important;
+ grid-template-areas:"brand stats" "nav nav"!important;
+ column-gap:14px!important;row-gap:7px!important;
+ min-height:132px!important;padding:9px 16px 10px!important;
+ align-items:center!important;
+}
+body>header .head .brand{
+ font-size:23px!important;line-height:1.18!important;letter-spacing:-.25px!important;
+}
+body>header .head .brand>.version{
+ display:block!important;font-size:11px!important;line-height:1.28!important;
+ margin-top:2px!important;
+}
+body>header .head>div:first-child>.version{
+ font-size:11px!important;line-height:1.25!important;margin-top:1px!important;
+}
+body>header .head>.bm-v046-header-stats{
+ grid-template-columns:minmax(101px,112px) repeat(4,minmax(77px,1fr)) minmax(108px,1.05fr) minmax(112px,1.15fr)!important;
+ gap:5px!important;min-height:43px!important;
+}
+body>header .head>.bm-v046-header-stats>.stat{
+ height:43px!important;min-height:43px!important;max-height:43px!important;
+ grid-template-rows:17px 14px!important;gap:1px 4px!important;
+ padding:3px 6px!important;
+}
+body>header .head>.bm-v046-header-stats>.stat:has(#pdfStat){
+ max-width:112px!important;
+}
+body>header .head>.bm-v046-header-stats>.stat>b{
+ font-size:14px!important;line-height:17px!important;
+}
+body>header .head>.bm-v046-header-stats>.stat>span{
+ font-size:9.5px!important;line-height:13px!important;
+}
+body>header .head>.bm-v046-header-stats>.stat>.bm241-verification{
+ font-size:9px!important;line-height:13px!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action,
+body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+ height:43px!important;min-height:43px!important;max-height:43px!important;
+ font-size:11px!important;padding:5px 6px!important;
+}
+body>header .head>nav[aria-label="Seções"]{
+ min-height:47px!important;padding:3px 0 1px!important;gap:6px!important;
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page]{
+ height:43px!important;min-height:43px!important;
+ padding:8px 11px!important;font-size:13.5px!important;
+ border-radius:8px!important;
+}
+body>header .head>nav[aria-label="Seções"]>button[data-bm096-icon]::before{
+ flex:0 0 17px!important;width:17px!important;height:17px!important;
+}
+#bm263-sync-panel{top:141px!important}
+@media(max-width:1170px){
+ body>header .head{
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto minmax(47px,auto)!important;
+  grid-template-areas:"brand" "stats" "nav"!important;
+  min-height:0!important;gap:6px!important;padding:9px 12px!important;
+ }
+ body>header .head>.bm-v046-header-stats{
+  grid-template-columns:minmax(100px,112px) repeat(4,minmax(75px,1fr)) minmax(105px,1fr) minmax(110px,1.1fr)!important;
+ }
+ #bm263-sync-panel{top:168px!important}
+}
+@media(max-width:900px){
+ body>header .head>.bm-v046-header-stats{
+  grid-template-columns:minmax(97px,112px) minmax(110px,1fr) minmax(120px,1.12fr)!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat:not(:has(#pdfStat)){display:none!important}
+ body>header .head>.bm-v046-header-stats>.stat:has(#pdfStat){display:grid!important}
+}
+@media(max-width:560px){
+ body>header .head{padding:8px!important;gap:5px!important}
+ body>header .head .brand{font-size:21px!important}
+ body>header .head .brand>.version{font-size:10px!important}
+ body>header .head>.bm-v046-header-stats{
+  grid-template-columns:minmax(94px,105px) minmax(90px,1fr) minmax(91px,1.1fr)!important;gap:4px!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat,
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action,
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+  height:43px!important;min-height:43px!important;max-height:43px!important;
+ }
+ body>header .head>nav[aria-label="Seções"]{min-height:45px!important}
+ body>header .head>nav[aria-label="Seções"]>button[data-page]{
+  height:42px!important;min-height:42px!important;
+  font-size:12px!important;padding:7px 9px!important;
+ }
+ #bm263-sync-panel{top:161px!important}
+}
