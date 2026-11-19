@@ -1,3 +1,14 @@
+# Banco Mestre V272 — correção do carregamento dos cartões públicos (19/11/2026)
+
+- **Falha relatada:** `Falha ao carregar cartões: Incrementos V269 inválidos`.
+- **Causa comprovada:** `index.html` / `v271.html` procuravam o arquivo `assets/estudos_incrementos_v267.json`, mas exigiam incorretamente o valor `V269-PETRO17-PETRO20` no campo `version`. O JSON efetivamente publicado tem `version=V267-PETRO17-PETRO20` e 19 adendos.
+- **Solução publicada:** `v272.html` e `index.html` validam o valor real V267, com contagem de 19 adendos e validações anteriores de IDs; os rótulos do carregador foram ajustados de V269 para V267. O leitor de 11 módulos já tinha a validação V267 correta.
+- **Auditoria direcionada:** arquivos de 7 lotes públicos totalizam 1.518 IDs únicos (1.501 ativos); todos os 19 incrementos possuem IDs únicos e apontam para cartões existentes/ativos. Conjunto de 22 cartões Ijuí separado e contador de publicação 1.540 preservados.
+- **Proteção:** nenhum registro V194/V267, ID, 11 módulos, frente, verso, SRS, PDF, grifo, imagem, Drive ou base privada foi alterado. V271 fica disponível para rollback.
+- **Status de validação:** análise de conteúdo publicado e testes locais de contrato aprovados; teste de navegação real do titular pendente.
+
+---
+
 # Banco Mestre V271 — Títulos legíveis dos PDFs encontrados no Drive (19/11/2026)
 
 - **Página de publicação:** `gh-pages/v271.html` e `index.html`; manifesto em `assets/version.json`. `v270.html` e módulos V269 continuam preservados para rollback.
