@@ -1,0 +1,116 @@
+/* V295 — PDFs no mesmo sistema visual das demais bibliotecas.
+   Somente apresentação: a coleção, os PDFs e o Drive não são modificados. */
+#pdfs>.panel{
+ background:#fff!important;border:1px solid #bdcfdc!important;
+ border-radius:0!important;padding:13px 15px!important
+}
+#pdfs>.panel>h2{
+ margin:0 0 7px!important;font:700 16px/1.35 "Segoe UI",Arial,sans-serif!important;
+ color:#203440!important
+}
+#pdfs #bm210PdfToolbar{
+ display:flex!important;flex-direction:column!important;gap:7px!important;
+ padding:10px!important;background:#fff!important;border:1px solid #d5e2e9!important;
+ border-radius:0!important;margin:7px 0 10px!important
+}
+#pdfs #bm210PdfToolbar .bm210Actions{
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+ gap:6px!important;border-bottom:1px solid #e1e9ef!important;
+ padding-bottom:8px!important;margin:0!important
+}
+#pdfs #bm210PdfToolbar .bm210Actions>button,
+#pdfs #bm210PdfToolbar .bm210Actions>details>summary{
+ min-height:32px!important;padding:7px 10px!important;
+ border:1px solid #bed0dc!important;border-radius:0!important;
+ font:600 12px/1.35 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters{
+ display:flex!important;flex-direction:column!important;gap:8px!important;
+ width:100%!important;min-width:0!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls{
+ display:grid!important;grid-template-columns:minmax(200px,1fr) minmax(160px,205px) auto minmax(100px,auto)!important;
+ align-items:center!important;gap:8px!important;order:1!important;
+ margin:0!important;padding:0!important;width:100%!important;min-width:0!important;
+ background:transparent!important;border:0!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>#pdfAreaNavV036{
+ display:flex!important;flex-wrap:wrap!important;gap:5px!important;
+ padding:6px 0 0!important;margin:0!important;order:2!important;
+ background:#fff!important;border:0!important;border-top:1px solid #e4ecf1!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>#pdfAreaNavV036 button{
+ padding:6px 9px!important;min-height:30px!important;
+ font:600 11.75px/1.35 "Segoe UI",Arial,sans-serif!important;
+ color:#176fa8!important;background:#fff!important;
+ border:1px solid #c7dbe7!important;border-radius:0!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls :is(input[type="search"],select){
+ width:100%!important;min-width:0!important;max-width:none!important;
+ min-height:35px!important;font:400 12.5px/1.45 "Segoe UI",Arial,sans-serif!important;
+ color:#1b2a35!important;background:#fff!important;
+ border:1px solid #afc6d5!important;border-radius:0!important;padding:7px 9px!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls label.checkbox{
+ display:flex!important;align-items:center!important;gap:5px!important;
+ white-space:nowrap!important;color:#344e5d!important;
+ font:500 11.75px/1.4 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls #pdfCount{
+ margin:0!important;color:#465c6b!important;white-space:normal!important;
+ font:400 11.25px/1.4 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs :is(#bm269PdfLocked,.bm210StatusBody){
+ color:#273d4a!important;background:#f7fafc!important;
+ border-color:#d7e3eb!important;border-radius:0!important;
+ font:400 12px/1.5 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #pdfRows :is(.v036-pdf-area,.v036-card-group,.v036-pdf-summary,
+ .v036-area-section,.v036-pdf-card,article.card){
+ background:#fff!important;border:1px solid #cfdee7!important;
+ border-radius:0!important;box-shadow:none!important;color:#172631!important
+}
+#pdfs #pdfRows :is(.v036-area-head,.v036-card-group-summary){
+ color:#18354a!important;background:#f2f7fa!important;
+ font:700 13px/1.45 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #pdfRows :is(.v036-card-title,.v036-pdf-title,h3,h4){
+ color:#19394f!important;font:650 13.5px/1.45 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #pdfRows :is(.v036-area-desc,.v036-count,small,p){
+ color:#364e5c!important;font:400 12px/1.52 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #pdfRows :is(button,a.action){
+ border-radius:0!important;min-height:31px!important;
+ font:600 11.75px/1.35 "Segoe UI",Arial,sans-serif!important
+}
+/* As ações de exclusão já existentes nos PDFs preservam seu vermelho. */
+#pdfs #pdfRows :is(button.danger,a.danger,button[title*="Excluir"]){
+ color:#aa3030!important;background:#fff!important
+}
+@media(max-width:940px){
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls{
+  grid-template-columns:minmax(160px,1fr) minmax(145px,200px)!important
+ }
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls label.checkbox,
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls #pdfCount{grid-column:auto!important}
+}
+@media(max-width:560px){
+ #pdfs>.panel{padding:11px!important}
+ #pdfs #bm210PdfToolbar{padding:8px!important}
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls{grid-template-columns:1fr!important}
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls #pdfCount{grid-column:1!important}
+}
+/* Arquivos de imagem: ação de lixeira distinta, não simula exclusão local. */
+#imagens #bm084-grid .bm295-trash-button{
+ color:#9a2d30!important;background:#fff!important;
+ border:1px solid #dbb4b4!important;border-radius:0!important;
+ padding:7px 9px!important;font:600 12px/1.35 "Segoe UI",Arial,sans-serif!important
+}
+#imagens #bm084-grid .bm295-trash-button:hover{background:#fff4f4!important}
+#imagens #bm084-grid .bm295-trash-button:disabled{opacity:.5!important;cursor:wait!important}
+#imagens #bm084-grid .bm295-trash-status{
+ color:#385567!important;font:500 11.5px/1.5 "Segoe UI",Arial,sans-serif!important;
+ overflow-wrap:anywhere!important;margin-top:6px!important
+}
+#imagens #bm084-grid .bm295-trash-status[data-error="true"]{color:#a43232!important}

@@ -1,3 +1,11 @@
+# V295 — PDFs padronizados, diagnóstico de SHA privado e lixeira de imagens (19/11/2026)
+
+- PDFs: barra de ferramentas com linha de ações, busca e filtros prioritários, categorias secundárias e listagem em cartões com bordas retas, texto mais escuro e elementos responsivos.
+- Comparador Drive × GitHub: ao receber SHA divergente, agora calcula SHA-256 sobre **bytes exatos** do arquivo (ArrayBuffer) e mostra ponteiro, versão, ID, SHA esperado e calculado. O erro permanece **bloqueante**: não tenta corrigir ponteiro, importar dados ou modificar SRS. Correção da origem só após auditoria efetiva dos arquivos do Drive.
+- Imagens autenticadas: botão **Mover para lixeira** por imagem, sem DELETE permanente. Dupla confirmação quando vinculada a cartões. Solicitação específica do escopo OAuth de gerenciamento somente ao clicar; verificação de integridade do original, permissões `canTrash`, pasta autorizada e estado atualizado; só então `files.update` com `trashed:true`. O catálogo é atualizado após confirmação do Drive; os vínculos dos cartões não são apagados. Possíveis bloqueios de permissão OAuth devem ser resolvidos no Google.
+- Somente código e estilos foram publicados, **nenhum arquivo foi movido para a lixeira** durante o deploy. Base, PDFs, imagens, grifos, IDs, SRS, 11 módulos e vínculos mantidos. V294 preservada.
+- Compilação de JavaScript e verificações estáticas concluídas; ainda não houve teste interativo autenticado no navegador.
+
 # V294 — Fonte maior e quase preta nos cartões (19/11/2026)
 
 - Pedido: letra maior e mais escura na grade de Flashcards e na exibição integral do cartão.
