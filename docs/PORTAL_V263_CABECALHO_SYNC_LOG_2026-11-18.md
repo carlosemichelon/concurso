@@ -37,4 +37,8 @@ Nenhuma alteração a cartões, IDs, versões históricas, cronogramas ou evento
 **Limitação ainda real:** aprovação em teste automatizado não substitui OAuth real no navegador do usuário. Não declarar que o Drive privado foi sincronizado até que o painel mostre por módulo evidência positiva na sessão autenticada.
 
 ## Escopo da publicação
-PR #41: https://github.com/carlosemichelon/concurso/pull/41. Durante preparo, integração/publicação ainda não certificadas. Após merge, verificar em separado GitHub, Pages, auditoria do site público, CSS/JS e Drive autenticado.
+PR #41: https://github.com/carlosemichelon/concurso/pull/41. **Integração confirmada:** PR #41 incorporada à `gh-pages` no commit `b2804bcc2958ea861729ca46e03cda0e748f35ef`.
+
+**Evidências verificadas:** GitHub Actions `pages build and deployment`, execução 44434247686, concluída com sucesso; `Banco Mestre - verificar publicação pública`, execução 44434248578, concluída com sucesso. O teste Chromium V263 na PR (execução 44433875261) passou com 3 medições de 71 px no desktop, 72 px no celular, zero erros JS, OAuth somente simulado, sem acesso à conta privada. Caso dados vazios: 3 conferidos, 3 pendentes e zero falhas; caso com HTTP 403 e conflito simulados: 2 falhas identificadas, sem sobrescrever originais.
+
+**Pendente:** teste do fluxo OAuth real e do arquivo particular no navegador do usuário. Nem o teste automatizado nem a consulta de metadados via conector provam sincronização dos dados privados da conta de navegação.
