@@ -1,0 +1,196 @@
+/* Banco Mestre V288 — superfícies brancas consistentes e contraste legível.
+ * Conserva a coluna inteira, fonte Segoe UI, azul e todos os dados.
+ * Não toca PDFs renderizados, imagens, fórmulas, grifos nem estados de alerta. */
+:root{
+ --bm288-page:#edf0f1;
+ --bm288-paper:#fff;
+ --bm288-soft:#f8fafc;
+ --bm288-line:#dae5eb;
+ --bm288-line-strong:#c5d8e5;
+ --bm288-blue:#1687d8;
+ --bm288-title:#244153;
+ --bm288-ink:#2b3f4d;
+ --bm288-secondary:#536979;
+ --bm288-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+html,body{background:#edf0f1!important;color:#2b3f4d!important}
+/* Painéis de primeira ordem, sem criar colunas ou alterar dimensões. */
+body>main>section>.panel,body>main>#tema>.panel,
+body>main>#calendario .c141-wrap,
+body>main>#lacunas .bm242-shell{
+ color:var(--bm288-ink)!important;font-family:var(--bm288-font)!important
+}
+body>main>section>.panel,body>main>#tema>.panel{
+ background:var(--bm288-paper)!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;box-shadow:0 1px 2px #1e3a4a0c!important
+}
+body>main>section>.panel>h2,
+body>main #tema .topicLead h2,
+#lacunas .bm242-shell>h2,
+#calendario .c141-title h2{
+ color:var(--bm288-title)!important;font-family:var(--bm288-font)!important
+}
+/* Campos e filtros com contraste constante, mantendo sua lógica e posição. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario)
+ :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),select,textarea){
+ background:#fff!important;border:1px solid var(--bm288-line-strong)!important;
+ color:var(--bm288-ink)!important;border-radius:5px!important;
+ font-family:var(--bm288-font)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario)
+ :is(input,select,textarea)::placeholder{color:#6d8393!important;opacity:1}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario)
+ :is(input[type="checkbox"],input[type="radio"],input[type="range"]){
+ accent-color:var(--bm288-blue)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario)
+ :is(input,select,textarea,button,summary):focus-visible{
+ outline:2px solid #6eb6e4!important;outline-offset:2px!important
+}
+/* Subáreas neutras: não alterar contêineres de avisos de erro/sucesso. */
+#cartoes .controls.bm280-main-controls,
+#pdfs .controls.bm280-main-controls,
+#imagens .controls.bm280-main-controls,
+#assuntos .controls.bm280-main-controls{
+ background:transparent!important;border:0!important;box-shadow:none!important
+}
+#cartoes details.bm280-advanced,
+#pdfs details.bm280-advanced,
+#imagens details.bm280-advanced,
+#assuntos details.bm280-advanced{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+#cartoes details.bm280-advanced>.bm280-advanced-body,
+#pdfs details.bm280-advanced>.bm280-advanced-body,
+#imagens details.bm280-advanced>.bm280-advanced-body,
+#assuntos details.bm280-advanced>.bm280-advanced-body{
+ background:#fafcfd!important;border-top-color:#e4edf2!important
+}
+#cartoes #bm152Filters,#imagens .bm155ImageFilters,
+#imagens .bm153Toolbar,#imagens .bm153AreaNav,
+#pdfs #pdfAreaNavV036{
+ background:#fafcfd!important;border:1px solid var(--bm288-line)!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+/* Flashcards — cartões claramente destacados do cinza de fundo. */
+#cartoes #cardRows article.card,
+#cartoes #cardRows .v036-card-group,
+#cartoes #cardRows .bm195-evo{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;box-shadow:0 1px 2px #1b344610!important;
+ color:var(--bm288-ink)!important
+}
+#cartoes #cardRows article.card:hover{
+ border-color:#afcee2!important;box-shadow:0 2px 7px #1c3c5814!important
+}
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows .bm195-heading-text h3{
+ color:var(--bm288-title)!important;font-weight:650!important;line-height:1.5!important
+}
+#cartoes #cardRows article.card :is(p,li,dd,td,th),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm195-list,
+ .bm197-paragraph,.bm198-module-body,.bm198-paragraph){
+ color:var(--bm288-ink)!important
+}
+#cartoes #cardRows article.card :is(small,.muted,.v036-card-path),
+#cartoes #cardCount{color:var(--bm288-secondary)!important}
+#cartoes #cardRows .answer>.richSection,
+#cartoes #cardRows :is(.bm195-layer,.bm198-module,.bm198-overview,.bm197-evolutive){
+ background:#fff!important;border:1px solid #e2ebf0!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head,.bm198-module-head,.bm198-overview-top){
+ background:#f6f9fc!important;border-color:#e3ebf1!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm197-title,.bm198-module-title,.richSection h4){
+ color:#286f9d!important
+}
+#cartoes #cardRows :is(.tag,.chip,.pill):not(.danger){
+ background:#f5f9fc!important;border-color:#d6e5ef!important;color:#3c7398!important
+}
+/* Conteúdo do popup do cartão: superfície clara e leitura escura. */
+#bmCardPeekV050 .bm163-panel{background:#fff!important;color:var(--bm288-ink)!important}
+#bmCardPeekV050 .bm163-answer,
+#bmCardPeekV050 :is(.bm163-piece,.bm163-deep-group,.bm197-evolutive,.bm198-module,.bm198-overview){
+ background:#fff!important;color:var(--bm288-ink)!important;border-color:#e2eaf0!important
+}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph,
+ .bm198-module-body,.bm195-body,.bm195-layer-body,.bm165-related-front,td,th){
+ color:var(--bm288-ink)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title){
+ color:#286f9d!important
+}
+#bmCardPeekV050 :is(.bm163-header,.bm163-footer,.bm198-module-head,.bm198-overview-top){
+ background:#f7fafc!important;border-color:#e0e9ef!important
+}
+/* PDFs: branco para os painéis, cinza neutro para informações não críticas. */
+#pdfs #pdfRows :is(article,.card,.bm209-item),
+#pdfs :is(.bm153Directory,.bm153Group){
+ background:#fff!important;color:var(--bm288-ink)!important;
+ border-color:var(--bm288-line)!important;border-radius:5px!important;box-shadow:none!important
+}
+#pdfs #bm269PdfLocked{
+ background:#f8fafc!important;color:#425a69!important;
+ border:1px solid var(--bm288-line)!important;border-radius:5px!important
+}
+/* Biblioteca de imagens: agrupamentos e cartões com a mesma superfície. */
+#imagens #imageRows :is(article.card,.bm153Group,.bm153AreaBlock,.bm153Directory),
+#imagens .bm153GroupBody{
+ background:#fff!important;color:var(--bm288-ink)!important;
+ border:1px solid var(--bm288-line)!important;border-radius:5px!important;
+ box-shadow:none!important
+}
+#imagens #imageRows :is(h3,h4),#pdfs #pdfRows :is(h3,h4){color:#2b678d!important}
+/* Lacunas: painel e formulários iguais às outras bibliotecas.
+   Não alterar o conteúdo das lacunas ou o indicador de verificação do Drive. */
+#lacunas .bm242-shell{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;padding:17px!important
+}
+#lacunas .bm242-item,
+#lacunas .bm242-form,
+#lacunas .bm242-gallery,
+#lacunas .bm242-status{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;color:var(--bm288-ink)!important;box-shadow:none!important
+}
+#lacunas .bm242-item p,
+#lacunas .bm242-form label{color:var(--bm288-ink)!important}
+#lacunas .bm242-muted{color:var(--bm288-secondary)!important}
+#lacunas button:not(.danger){
+ border-color:#c6ddeb!important;color:#236f9c!important;background:#f8fbfe!important;
+ border-radius:5px!important;font-family:var(--bm288-font)!important
+}
+#lacunas .bm242-form button:not(.danger){
+ color:#fff!important;background:#1687d8!important;border-color:#1687d8!important
+}
+/* Planejamento SRS: métricas e tabela; preservar alertas, linhas e atrasos. */
+#calendario .c141-stats .c141-stat,
+#calendario .c141-settings,
+#calendario .c141-board,
+#calendario .c141-import{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;color:var(--bm288-ink)!important;box-shadow:none!important
+}
+#calendario .c141-note{
+ background:#f3f8fc!important;border-color:#d6e6f0!important;
+ color:#425c6d!important
+}
+#calendario .c141-boardhead{
+ background:#f7fafc!important;border-bottom:1px solid #dfe9ef!important
+}
+#calendario .c141-board :is(th,td){color:#30495b}
+#calendario .c141-board thead th{background:#f3f8fc!important;color:#345f7b!important}
+#calendario :is(.c141-title h2,.c141-boardhead h3){color:#244a64!important}
+#calendario .c141-primary{background:#1687d8!important;border-color:#1687d8!important;color:#fff!important}
+#calendario .c141-stat :is(strong,span){color:#31546a!important}
+/* Nunca impor cores sobre imagens, canvases, grifos, fórmulas ou estados semânticos. */
+@media(max-width:700px){
+ #lacunas .bm242-shell{padding:12px!important}
+ #cartoes #cardRows article.card{padding:11px!important}
+ #calendario .c141-stats{gap:7px!important}
+}

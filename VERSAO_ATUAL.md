@@ -1,3 +1,10 @@
+# V288 — Cartões brancos e superfícies padronizadas (19/11/2026)
+
+- Fundo da página cinza (`#edf0f1`), cartões brancos e bordas cinza-azuladas com sombra discreta; texto dos cartões `#2b3f4d` para maior legibilidade.
+- Ajustes restritos a superfícies e filtros: Assuntos, PDFs, Imagens, Flashcards, Lacunas, Planejamento SRS, leitores e Controle isolado. Sem segunda coluna.
+- Preservados os estados de erro, prazos, planejamentos e grifos, além das imagens, canvas e fórmulas técnicas. Nenhuma alteração nos dados, IDs, 11 módulos, SRS, Drive ou sincronização.
+- V287 disponível para reversão. Verificações estáticas executadas; homologação visual real pendente.
+
 # V287 — Azul em todo o portal e textos de cartões mais escuros (19/11/2026)
 
 - Mesmo padrão visual (Segoe UI e azul #1687d8) em Assuntos, PDFs, Flashcards, Imagens, filtros, controles e janelas. O Controle de Estudos recebe ajustes finais na camada isolada Shadow DOM.
