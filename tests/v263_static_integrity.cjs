@@ -4,7 +4,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
 const read=p=>fs.readFileSync(p,'utf8');
 const index=read('index.html'),page=read('v263.html'),manifest=JSON.parse(read('assets/version.json'));
 // O escopo V263 é histórico; a entrada pública deve seguir a versão atual.
-assert.match(manifest.version,/^V\\d{3}$/);
+assert.match(manifest.version,/^V\d{3}$/);
 assert.ok(Number(manifest.version.slice(1))>=263);
 assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
 assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
