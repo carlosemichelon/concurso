@@ -52,7 +52,7 @@
     for(const item of rows){const inc=extMap.get(item.id);if(!inc)continue;
       if(!Array.isArray(item.layers)||item.layers.length!==11)throw Error('11 módulos incompletos: '+item.id);
       for(const a of inc.layer_addenda||[]){const dest=item.layers.find(l=>l.ord===a.ord);if(!dest)throw Error('Módulo não encontrado: '+item.id);
-        const marker='\\n\\nADENDO V267 — '+inc.origin+'\\n';
+        const marker='\n\nADENDO V267 — '+inc.origin+'\n';
         if(!String(dest.texto).includes('ADENDO V267 — '+inc.origin))dest.texto+=marker+a.texto;
       }
     }
