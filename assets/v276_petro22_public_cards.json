@@ -1,0 +1,32 @@
+{
+  "format": "BancoMestrePublicPetro22DeltaV276",
+  "source_private_version": "V165",
+  "base_public_version": "V275",
+  "date": "2026-11-19",
+  "count_new": 1,
+  "count_existing": 1,
+  "new_cards": [
+    {
+      "id": "CARD-1534",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Estruturas de concreto armado",
+      "sub": "Emendas por traspasse — proximidade, proporções e mínimos",
+      "front": "Na NBR 6118, diferencie: (a) comprimento de UMA emenda por traspasse, (b) distância entre DUAS emendas consideradas na mesma seção e (c) proporção máxima das barras tracionadas emendadas. Existe comprimento mínimo ou máximo universal de traspasse? Descreva a fórmula do comprimento para barras tracionadas isoladas e resolva a questão: duas emendas de 80 cm, em sequência, serão tratadas como na mesma seção se a distância x entre seus trechos for menor que quanto? O que muda na escolha do diâmetro de barras de bitolas diferentes entre NBR 6118:2014 e :2023?",
+      "back": "Duas barras sobrepostas formam UMA emenda de comprimento ℓ0; duas emendas distintas são consideradas na mesma seção quando seus trechos se sobrepõem ou quando a distância x entre extremidades mais próximas é menor que 0,20 do comprimento de referência: se ℓ01=ℓ02=80 cm, x<16 cm (alternativa D). Para barras tracionadas isoladas com distância livre entre 0 e 4φ, a expressão é ℓ0t=α0t·ℓb,nec ≥ ℓ0t,mín, em que ℓ0t,mín=max(0,3·α0t·ℓb; 15φ; 200 mm). Há comprimento mínimo calculado, não máximo universal de comprimento. Os 80 cm são DADO da questão, não o mínimo geral; os 16 cm não são o comprimento da emenda. Para duas barras de bitolas diferentes, 2014 adotava a de MAIOR diâmetro e 2023 a de MENOR diâmetro para a regra do cálculo do traspasse.",
+      "expl": "Uma emenda resulta da sobreposição de duas barras; duas emendas distintas podem ser agrupadas como na mesma seção se seus trechos se sobrepõem ou se x<0,20 do comprimento de referência. Para duas emendas de 80 cm: x<16 cm. A Tabela 9.3 limita proporção de barras emendadas; o comprimento individual tracionado depende de ℓ0t=α0tℓb,nec e do mínimo normativo. Edição 2014 e 2023 divergem na escolha do diâmetro entre duas barras diferentes.",
+      "mnemonic": "Duas barras: uma emenda; duas emendas: medir x; 20% agrupa; tabela conta barras.",
+      "reference": "PETRO22-Q003 — ABNT NBR 6118, itens 9.5.2.1 e 9.5.2.2.1",
+      "active": true,
+      "search_keywords": "emenda traspasse transpasse barras concreto 20% 16 cm minimo maximo 2014 2023"
+    }
+  ],
+  "updated_explanations": [
+    {
+      "id": "CARD-1413",
+      "expl_append": "Reforço PETRO22-Q002: coeficientes convencionais de dilatação térmica do concreto e aço da armadura passiva ≈10⁻⁵/°C (NBR 6118:2014, itens 8.2.3 e 8.3.4). Com ΔT uniforme, barra livre: ΔL=αLΔT e σT≈0; barra totalmente impedida: σT=−EαΔT. A aderência impõe compatibilidade de deformações totais, não identidade física absoluta dos coeficientes. Conferir edição vigente para projeto."
+    }
+  ],
+  "srs_public": false,
+  "private_reports_public": false
+}
