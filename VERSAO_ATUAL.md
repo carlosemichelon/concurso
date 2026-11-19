@@ -1,3 +1,12 @@
+# V297 — Auditoria de contraste e leitura mobile (19/11/2026)
+
+- **Imagens:** não forçar letras escuras em botões de fundo azul; botões primários mantêm texto branco.
+- **Cartões:** estilo neutro aplica-se ao identificador, não às pílulas funcionais; botões com estados primário/perigo preservados.
+- **Mobile:** título do cartão 16 px, conteúdo 15 px, frente do leitor 18,5 px e 11 módulos 15 px.
+- **PDFs:** instrução obsoleta para usar botão removido foi corrigida; 78 PDFs e o bloqueio de integridade permanecem.
+- **SHA:** melhoria somente de quebra de linha dos diagnósticos; nenhum cálculo ou ponteiro alterado.
+- **Reversibilidade:** `v296.html` e CSS V296 continuam intactos; V297 usa uma única folha final de CSS que substitui a V296. Testes autenticados e visuais no navegador ainda pendentes.
+
 # V296 — Sistema visual unificado em todo o Banco Mestre (19/11/2026)
 
 - **Título dos cartões preto forte**: #101820, 16 px, peso 700, fundo branco, borda quadrada.

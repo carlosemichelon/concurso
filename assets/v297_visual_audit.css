@@ -1,0 +1,411 @@
+/* Banco Mestre V297 — Auditoria de contraste e legibilidade (19/11/2026)
+ * Uma camada de apresentação, após as anteriores, com alvos reais do portal.
+ * NÃO modifica estado SRS, cartões, 11 módulos, arquivos, PDF canvas,
+ * imagens, grifos, respostas, categorias de acerto/erro ou sincronização.
+ * Base: fonte Segoe UI; títulos e conteúdo quase pretos; azul para ações;
+ * superfícies brancas; contornos retos e discretos; responsividade.
+ */
+:root{
+ --bm-ui-font:"Segoe UI",Arial,system-ui,sans-serif;
+ --bm-ui-bg:#edf0f2;
+ --bm-ui-paper:#fff;
+ --bm-ui-soft:#f7fafc;
+ --bm-ui-ink:#111a22;
+ --bm-ui-title:#15222d;
+ --bm-ui-secondary:#334a5a;
+ --bm-ui-muted:#465d6c;
+ --bm-ui-blue:#147fbf;
+ --bm-ui-blue-dark:#0d649b;
+ --bm-ui-blue-soft:#ecf5fb;
+ --bm-ui-border:#bfcfd9;
+ --bm-ui-border-light:#d7e2e9;
+ --bm-ui-radius:0px;
+ --bm-ui-fs:14px;
+}
+html,body{background:var(--bm-ui-bg)!important;color:var(--bm-ui-ink)!important}
+body{font:400 14px/1.55 var(--bm-ui-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,p,span,small,strong,button,a,label,legend,
+ summary,input,textarea,select,option,li,td,th,blockquote){
+ font-family:var(--bm-ui-font)!important
+}
+body :is(code,pre,kbd,samp,.katex,.katex *,mjx-container,mjx-container *,math,math *){
+ font-family:revert!important
+}
+/* Navegação e cabeçalho: mesmo sistema tipográfico, sem trocar a estrutura. */
+body>header{background:#343e46!important;color:#f5f8fa!important}
+body>header .head .brand{
+ color:#fff!important;font:700 16px/1.3 var(--bm-ui-font)!important
+}
+body>header .head .brand>.version,body>header .head>.version{
+ color:#d0dbe2!important;font:400 11.5px/1.45 var(--bm-ui-font)!important
+}
+body>header nav button[data-page]{
+ font:600 12px/1.4 var(--bm-ui-font)!important;color:#e0eaf0!important
+}
+body>header nav button[data-page].active{
+ color:#fff!important;border-bottom-color:#299ee8!important
+}
+/* Coluna inteira e superfície única nos painéis principais. */
+body>main{
+ width:calc(100% - 30px)!important;max-width:1190px!important;
+ margin-inline:auto!important
+}
+body>main>section.active:not(#tema){min-width:0!important}
+body>main>section>.panel,
+body>main #tema>.panel,
+#lacunas .bm242-shell,
+#calendario .c141-wrap{
+ background:#fff!important;border:1px solid var(--bm-ui-border)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+body>main>section>.panel{
+ padding:15px!important
+}
+body>main>section>.panel>h2,
+body>main #tema .topicLead h2,
+#lacunas .bm242-shell>h2,
+#calendario .c141-title h2{
+ color:var(--bm-ui-title)!important;
+ font:700 16px/1.35 var(--bm-ui-font)!important;
+ margin:0 0 8px!important;letter-spacing:0!important
+}
+body>main>section>.panel>p.intro{
+ color:var(--bm-ui-secondary)!important;
+ font:400 13px/1.55 var(--bm-ui-font)!important;
+ margin:0 0 12px!important
+}
+body>main :is(.sectionTitle,.topicLead h3,
+ .v036-topic-cluster-summary,.v036-area-head,.v036-card-group-summary){
+ color:var(--bm-ui-title)!important;font:700 14px/1.45 var(--bm-ui-font)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema,#calendario,#lacunas,#formulas)
+ :is(p,li,blockquote,dd,dt){
+ color:var(--bm-ui-ink)!important;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema,#calendario,#lacunas,#formulas)
+ :is(.muted,.intro,.bm242-muted,.v036-count,.v036-topic-metrics,
+ .bm153Status,.originalHelp){
+ color:var(--bm-ui-secondary)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema,#calendario,#lacunas,#formulas)
+ :is(a:not(.action),.v036-topic-link){
+ color:var(--bm-ui-blue-dark)!important
+}
+/* Filtros: tamanho consistente, letras sem miniatura e contornos retos. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#calendario,#lacunas,#formulas)
+ :is(input:not([type="checkbox"]):not([type="radio"]),textarea,select){
+ color:var(--bm-ui-ink)!important;background:#fff!important;
+ border:1px solid var(--bm-ui-border)!important;border-radius:0!important;
+ font:400 12.5px/1.45 var(--bm-ui-font)!important;min-height:35px!important
+}
+body>main :is(input,textarea)::placeholder{
+ color:#4a6070!important;opacity:1!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#calendario,#lacunas,#formulas)
+ :is(button,a.action,summary){
+ font-family:var(--bm-ui-font)!important;font-size:12.5px!important;
+ line-height:1.4!important;border-radius:0!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger){
+ color:#fff!important;background:var(--bm-ui-blue)!important;
+ border-color:var(--bm-ui-blue)!important
+}
+body>main :is(button.primary,a.primary):hover{
+ background:var(--bm-ui-blue-dark)!important;border-color:var(--bm-ui-blue-dark)!important
+}
+body :is(input[type="checkbox"],input[type="radio"],input[type="range"]){
+ accent-color:var(--bm-ui-blue)!important
+}
+body :is(button,select,input,textarea,summary,a):focus-visible{
+ outline:2px solid #2e9ed8!important;outline-offset:2px!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens)
+ details.bm280-advanced{
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens)
+ details.bm280-advanced>summary{
+ background:#fff!important;color:var(--bm-ui-blue-dark)!important;
+ font:600 12.5px/1.4 var(--bm-ui-font)!important;border-radius:0!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens)
+ .bm280-advanced-body{
+ color:var(--bm-ui-ink)!important;background:#f8fafb!important;border-radius:0!important
+}
+/* Assuntos: títulos neutros, navegação azul e itens alinhados. */
+#assuntos :is(.bm246-formula-shortcut,.topicCard,
+ .v036-topic-tile,.v036-topic-cluster-summary){
+ border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;background:#fff!important;box-shadow:none!important
+}
+#assuntos #areaRows .topicCard,
+#assuntos #topicRows :is(.v036-topic-tile,.v036-topic-cluster-summary){
+ padding:10px 12px!important
+}
+#assuntos #areaRows .topicCard :is(strong,.v036-topic-name),
+#assuntos #topicRows :is(.v036-topic-name,.v036-topic-link){
+ color:#165f94!important;font:650 13.5px/1.5 var(--bm-ui-font)!important
+}
+#assuntos :is(.v036-topic-metrics,.v036-topic-examples,.topicCard small){
+ color:var(--bm-ui-secondary)!important;font-size:12px!important;line-height:1.45!important
+}
+#assuntos .bm246-formula-shortcut :is(strong,h3){
+ color:var(--bm-ui-title)!important;font-size:14px!important
+}
+#assuntos :is(.topicCard,.v036-topic-tile):hover{
+ border-color:#91b7d0!important;background:#fbfdfe!important
+}
+/* PDF: barra em duas zonas, itens sobre superfície branca, tipografia uniforme. */
+#pdfs #bm210PdfToolbar{
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#pdfs #bm210PdfToolbar :is(button,input,select,summary){
+ border-radius:0!important;font-size:12.5px!important;
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls :is(input[type="search"],select){
+ color:var(--bm-ui-ink)!important;background:#fff!important;
+ border-color:var(--bm-ui-border)!important;min-height:35px!important
+}
+#pdfs #pdfRows :is(.v036-pdf-area,.v036-card-group,.v036-pdf-card,
+ .v036-pdf-summary,article.card){
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#pdfs #pdfRows :is(.v036-area-head,.v036-card-group-summary){
+ color:var(--bm-ui-title)!important;background:#f1f6fa!important;
+ font:700 14px/1.5 var(--bm-ui-font)!important
+}
+#pdfs #pdfRows :is(.v036-card-title,.v036-pdf-title,h3,h4){
+ color:var(--bm-ui-title)!important;font:700 13.5px/1.45 var(--bm-ui-font)!important
+}
+#pdfs #pdfRows :is(.v036-area-desc,.v036-count,p,small){
+ color:var(--bm-ui-secondary)!important;font-size:12px!important;line-height:1.5!important
+}
+#pdfs #pdfRows :is(button,a.action){
+ border-radius:0!important;font-size:12px!important
+}
+/* Flashcards: TÍTULO / PERGUNTA PRETA, sempre, inclusive cartões dinâmicos. */
+#cartoes #cardRows>article.card,
+#cartoes #cardRows article.card{
+ background:#fff!important;border:1px solid var(--bm-ui-border)!important;
+ border-radius:0!important;box-shadow:none!important;color:var(--bm-ui-ink)!important
+}
+#cartoes #cardRows>article.card:hover{background:#fbfdff!important;border-color:#92bdd5!important}
+#cartoes #cardRows>article.card>h3,
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows article.card .v036-card-title,
+#cartoes #cardRows article.card .bm195-heading-text h3{
+ color:#101820!important;
+ font:700 16px/1.55 var(--bm-ui-font)!important;
+ letter-spacing:0!important;text-decoration:none!important;
+ overflow-wrap:anywhere!important
+}
+#cartoes #cardRows article.card :is(p,li,dd,td,th,blockquote),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,
+ .bm195-paragraph,.bm195-list,.bm197-paragraph,.bm198-paragraph,
+ .bm198-module-body){
+ color:var(--bm-ui-ink)!important;font:400 14.5px/1.62 var(--bm-ui-font)!important
+}
+#cartoes #cardRows article.card :is(.muted,small,.v036-card-path,.bm195-status){
+ color:var(--bm-ui-secondary)!important;
+ font-size:12px!important;line-height:1.45!important
+}
+#cartoes #cardRows article.card .tag{
+ color:#235b80!important;background:#f1f7fb!important;
+ border:1px solid #c7dbe7!important;border-radius:0!important;
+ font:600 11.5px/1.4 var(--bm-ui-font)!important
+}
+#cartoes #cardRows article.card :is(button:not(.primary):not(.danger):not([data-srs]),.bm-v050-peek-button){
+ color:var(--bm-ui-blue-dark)!important;background:#f2f8fc!important;
+ border:1px solid #c4dce9!important;border-radius:0!important;
+ font:650 12.5px/1.4 var(--bm-ui-font)!important
+}
+#cartoes #cardRows :is(.bm195-evo,.bm195-layer,.bm198-module,
+ .bm198-overview,.bm197-evolutive,.richSection,.answer>.richSection){
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head,
+ .bm198-module-head,.bm198-overview-top){
+ background:#f0f6fa!important;border-color:#d6e3ec!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,
+ .bm197-title,.richSection h4){
+ color:#205b83!important;font:700 14px/1.48 var(--bm-ui-font)!important
+}
+/* Leitor: texto escuro maior, azul apenas títulos/ações. Preserva 11 módulos. */
+#bmCardPeekV050 .bm163-panel{
+ background:#fff!important;color:var(--bm-ui-ink)!important;
+ font:400 15px/1.65 var(--bm-ui-font)!important;border-radius:0!important
+}
+#bmCardPeekV050 .bm-v050-peek-front,
+#bmCardPeekV050 .bm163-question .bm-v050-peek-front{
+ color:#101820!important;font:700 19px/1.55 var(--bm-ui-font)!important;
+ text-decoration:none!important;overflow-wrap:anywhere!important
+}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm163-group-body,
+ .bm197-paragraph,.bm198-paragraph,.bm198-module-body,.bm195-body,
+ .bm195-layer-body,.bm195-paragraph,.bm198-list,.bm163-rich-list,
+ .bm165-related-front,.bm163-law-text),
+#bmCardPeekV050 .bm198-module-body :is(p,li,.bm198-paragraph),
+#bmCardPeekV050 .bm163-answer :is(p,li,dd,td,th){
+ color:#111a22!important;font:400 15px/1.68 var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,
+ .bm198-module-title,.bm198-overview-top h4,.bm198-subheading){
+ color:#215c85!important;font:700 14.5px/1.45 var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(.bm163-header,.bm163-footer,
+ .bm198-module-head,.bm198-overview-top,.bm195-layer-head){
+ background:#f0f6fa!important;border-color:#d1e0e9!important
+}
+#bmCardPeekV050 :is(.bm163-piece,.bm163-deep-group,
+ .bm198-module,.bm198-overview,.bm197-evolutive){
+ border:1px solid var(--bm-ui-border-light)!important;
+ background:#fff!important;border-radius:0!important;box-shadow:none!important
+}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status,
+ .bm-v050-provenance,.bm165-related-title){
+ color:var(--bm-ui-secondary)!important;
+ font:500 12px/1.5 var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table,
+ .bm197-table,.bm195-table) :is(td,th){
+ color:#111a22!important;font:400 14px/1.6 var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(button,summary,input,textarea,select){
+ font-family:var(--bm-ui-font)!important;border-radius:0!important
+}
+/* Imagens: catálogo, hierarquia, ações e original Drive. */
+#imagens #bm209SyncBar.bm210ImageToolbar{
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#imagens #bm209SyncBar .bm155Field>span{
+ color:var(--bm-ui-secondary)!important;font:600 12px/1.4 var(--bm-ui-font)!important
+}
+#imagens #bm209SyncBar :is(input,select,summary){
+ color:var(--bm-ui-ink)!important;border-color:var(--bm-ui-border)!important;
+ border-radius:0!important;font-size:12.5px!important
+}
+/* Estados ativos/primários devem preservar contraste em vez de texto escuro forçado. */
+#imagens #bm209SyncBar button{
+ border-color:var(--bm-ui-border)!important;border-radius:0!important;
+ font-size:12.5px!important
+}
+#imagens #bm209SyncBar button.primary{
+ color:#fff!important;background:var(--bm-ui-blue)!important;
+ border-color:var(--bm-ui-blue)!important
+}
+#imagens #bm209SyncBar .bm210StatusBody{
+ color:var(--bm-ui-secondary)!important;font-size:12.5px!important
+}
+#imagens #bm084-grid>article{
+ background:#fff!important;border:1px solid var(--bm-ui-border)!important;
+ border-radius:0!important;box-shadow:none!important;
+ padding:11px!important;color:var(--bm-ui-ink)!important
+}
+#imagens #bm084-grid>article>h4{
+ color:var(--bm-ui-title)!important;
+ font:700 14px/1.45 var(--bm-ui-font)!important
+}
+#imagens #bm084-grid>article>div:not(.bm295-trash-status){
+ color:var(--bm-ui-secondary);font-size:12px!important
+}
+#imagens #bm084-grid>article img{
+ border-radius:0!important;background:#f7f9fb!important
+}
+#imagens #bm084-grid>article a[href*="drive.google.com/file/d/"]{
+ display:inline-flex!important;align-items:center!important;
+ color:var(--bm-ui-blue-dark)!important;background:#fff!important;
+ border:1px solid #afd0e4!important;border-radius:0!important;
+ padding:6px 9px!important;text-decoration:none!important;
+ font:650 12.5px/1.4 var(--bm-ui-font)!important
+}
+#imagens #bm084-grid>article a[href*="drive.google.com/file/d/"]:hover{
+ background:#edf6fc!important;text-decoration:underline!important
+}
+#imagens #bm084-grid>article button{
+ border-radius:0!important;font-size:12.5px!important
+}
+#imagens #imageRows :is(article.card,.bm153AreaBlock,
+ .bm153Group,.bm153Directory,.bm153GroupBody){
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+/* Lacunas e planejamento SRS: painel administrativo usa os mesmos papéis. */
+#lacunas .bm242-shell,#calendario .c141-wrap{padding:16px!important}
+#lacunas :is(.bm242-item,.bm242-form,.bm242-gallery,.bm242-status),
+#calendario :is(.c141-stat,.c141-settings,.c141-board,.c141-import){
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#lacunas :is(.bm242-item p,.bm242-form label,.bm242-status),
+#calendario :is(.c141-title p,.c141-stat span,.c141-board td,
+ .c141-import p,.c141-note){
+ color:var(--bm-ui-ink)!important;
+ font:400 13px/1.6 var(--bm-ui-font)!important
+}
+#calendario .c141-stat strong{
+ color:var(--bm-ui-title)!important;font:700 22px/1.25 var(--bm-ui-font)!important
+}
+#calendario .c141-boardhead h3{
+ color:var(--bm-ui-title)!important;font:700 14px/1.45 var(--bm-ui-font)!important
+}
+#calendario .c141-board thead th{
+ background:#f0f6fa!important;color:#254c62!important
+}
+#calendario .c141-primary{
+ background:var(--bm-ui-blue)!important;color:#fff!important;
+ border-color:var(--bm-ui-blue)!important
+}
+/* Popups, diagnóstico e janelas: não tocar em canvas ou paleta de marcação. */
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel){
+ font:400 13.5px/1.55 var(--bm-ui-font)!important;color:var(--bm-ui-ink)!important
+}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(h2,h3,.dhead strong){
+ color:var(--bm-ui-title)!important;font-weight:700!important
+}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(button,select,input,textarea,summary){
+ font-family:var(--bm-ui-font)!important;border-radius:0!important
+}
+#bm290-diff{
+ font-family:var(--bm-ui-font)!important;color:var(--bm-ui-ink)!important
+}
+#bm290-diff :is(p,li,details,summary,pre){
+ font-size:12.5px!important;line-height:1.55!important;
+}
+#bm290-diff details{background:#f7fafc!important;border:1px solid var(--bm-ui-border-light)!important;padding:9px!important}
+/* Controle e painéis encapsulados recebem regras específicas de Shadow DOM. */
+#bm240-native-host{
+ background:#fff!important;border:1px solid var(--bm-ui-border)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+/* Responsividade sem forçar quebra do leitor ou apagar menus. */
+@media(max-width:900px){
+ body>main{width:calc(100% - 22px)!important}
+ #cartoes #cardRows>article.card>h3{font-size:16px!important}
+}
+@media(max-width:600px){
+ body>main{width:calc(100% - 16px)!important}
+ body>main>section>.panel{padding:11px!important}
+ body>main>section>.panel>h2{font-size:15.5px!important}
+ #cartoes #cardRows>article.card>h3{font-size:16px!important}
+ #cartoes #cardRows article.card :is(p,li){font-size:15px!important}
+ #bmCardPeekV050 .bm-v050-peek-front{font-size:18.5px!important}
+ #bmCardPeekV050 .bm198-module-body :is(p,li,.bm198-paragraph),
+ #bmCardPeekV050 .bm163-piece-text{font-size:15px!important}
+ #imagens #bm084-grid>article{padding:9px!important}
+}
+
+/* Diagnósticos com SHA/IDs longos não quebram o layout mobile. */
+#bm290-result,#bm290-diff,#pdfs #bm210PdfToolbar .bm210StatusBody{
+ overflow-wrap:anywhere!important;word-break:normal!important;max-width:100%!important
+}
+#bm290-diff pre{white-space:pre-wrap!important;overflow-wrap:anywhere!important}
