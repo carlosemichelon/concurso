@@ -1,3 +1,11 @@
+# V290 — Verificar diferenças Drive × GitHub sem sincronizar (19/11/2026)
+
+- Na aba Flashcards, o botão anterior de sincronização privada é substituído por **Verificar diferenças Drive × GitHub**.
+- O botão realiza somente GET de arquivos do Drive autenticado, lê o catálogo público, valida SHA-256 e apresenta os IDs novos ou divergentes; **não integra, grava, altera SRS nem publica nada**.
+- Compara frente/verso, explicações, vínculos, os 11 módulos e as lacunas privadas identificadas por ID; preserva propostas não aprovadas fora do catálogo canônico.
+- A ação de integração ao GitHub continua exclusiva do pedido no ChatGPT; a versão V289 permanece como rollback.
+- Checagem estática; teste real no navegador com OAuth ainda pendente.
+
 # V289 — Correção dos painéis de PDFs, Assuntos, Lacunas, SRS e Imagens (19/11/2026)
 
 - Motivo: os seletores genéricos da V288 cobriam os cartões, mas não todos os componentes próprios das demais telas. A V289 usa os seletores efetivos inspecionados nos scripts/folhas originais.
