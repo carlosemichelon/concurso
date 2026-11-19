@@ -298,6 +298,11 @@ async function bm274Record(id){
  return (await bm274RecordsPromise).get(id)||null;
 }
 async function bm197Record(id){
+ if(id==='CARD-0578'||id==='CARD-0924'){
+  const related=await window.BM276LayerData?.get?.(id);
+  if(related)return related;
+  throw Error('V277: módulos relacionados não carregados para '+id);
+ }
  const revised=await bm274Record(id);
  if(revised)return revised;
  const batch=bm197Shard(id);
