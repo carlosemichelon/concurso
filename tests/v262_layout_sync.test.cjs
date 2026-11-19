@@ -13,9 +13,13 @@ assert.ok(Number(manifest.version.slice(1))>=262);
 assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
 assert.ok(current.includes('data-bm-portal-version="'+manifest.version+'"'));
 assert.equal(manifest.release_v262.previous_version,'V261');
-assert.equal(manifest.counts.cards,1518);
-assert.equal(manifest.counts.card_operational_ijui,22);
-assert.equal(manifest.counts.card_entries_combined,1540);
+// V262 preservada; os números no manifesto são os da publicação corrente.
+const canonical=manifest.counts.cards,operational=manifest.counts.card_operational_ijui;
+assert.ok(Number.isSafeInteger(canonical)&&canonical>=1518,'Total canônico abaixo da base histórica');
+assert.equal(operational,22,'Propostas Ijuí não conciliadas');
+assert.equal(manifest.counts.cards_public_current,canonical);
+assert.equal(manifest.counts.catalog_canonical_cards,canonical);
+assert.equal(manifest.counts.card_entries_combined,canonical+operational);
 assert.equal(manifest.counts.pdfs,78);
 assert.equal(manifest.counts.images_public_v198,179);
 assert.equal(html,versioned,'Página histórica V262 precisa permanecer intacta');
@@ -49,4 +53,4 @@ assert.ok(!global.includes('?.sync(writeToken()).then('),'Chamada concorrente ou
 const truth=read('assets/v262_sync_truth.js');
 assert.ok(truth.includes("'Sem autorização'"),'Falha de permissão não deve ser tratada como perda de dados');
 assert.ok(truth.includes("'Conferidos: '"),'Resumo precisa separar confirmados de pendências');
-console.log('V262: 5 slots estáveis; 3 módulos CSS/JS; 1518+22; 78 PDFs; 179 catálogo; nenhum dado canônico modificado.');
+console.log('V262: 5 slots estáveis; 3 módulos CSS/JS; contagens correntes verificadas; 78 PDFs; 179 catálogo; nenhum dado canônico modificado.');

@@ -15,6 +15,7 @@ jobs:
       - name: Validar integridade do portal e regressões V262
         run: |
           node tests/v263_static_integrity.cjs
+          node tests/v277_header_bundle.cjs
           node tests/v262_layout_sync.test.cjs
           node tests/v121_integridade_portal.cjs
           node tests/v124_integridade_portal.cjs
@@ -42,5 +43,6 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/bm-v263.log 2>&1 &
           sleep 2
           node tests/v263_browser.cjs
+          node tests/v277_header_browser.cjs
       - name: Proteger a versão anterior V262
         run: node tests/v262_browser.cjs
