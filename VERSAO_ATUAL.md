@@ -1,3 +1,13 @@
+# Portal V275 — Biblioteca única sem separação por concurso (19/11/2026)
+
+A pedido do estudante, as 22 fichas originadas do estudo de Ijuí passam a ser apresentadas na **mesma biblioteca** dos 1.532 cartões canônicos, classificadas por disciplina **Legislação** e pelo assunto real da lei, sem subgrupo exclusivo «Ijuí — legislação FUNDATEC», sem contagem destacada «+22 Ijuí» no cabeçalho e sem isolamento no início da listagem. Total da biblioteca de estudo: **1.554 fichas únicas**.
+
+**Integridade/PMS-1:** Os 22 registros da fonte `assets/ijui_flashcards_operacionais_v027.json` possuem IDs estáveis `PROP-IJUI-...` e `canonical=false`. Os antigos IDs candidatos CARD-1430..1451 estão ocupados; não foi autorizada uma migração canônica nem criação de IDs, e esses itens continuam em validação editorial. A ficha aberta conserva a identificação da origem e não cria revisão SRS. Todos os 1.532 cartões canônicos, 11 módulos, adendos V267/V274, PDFs, imagens, SRS, Drive privado e o histórico de versões permanecem intactos.
+
+**Implementação:** `index.html` e `v275.html` (entrada e rollback); `assets/version.json` (metadados de contagem); teste `tests/v275_catalogo_unico_ijui.test.cjs`. É uma unificação visual/de navegação com disciplina e assuntos comuns, não um ato de integração de propostas à base privada.
+
+---
+
 # Banco Mestre V274 — Sincronização técnica Drive V164 → GitHub (19/11/2026)
 
 - **Fonte confirmada:** snapshot privado V164, hash SHA-256 `fed9209436b2cc89e2d067bc53b55253b5153a2bc2fc8ee392e0b025cdeb44b8`, 1.532 cartões, 36 questões, 13 imagens, 1.518 registros SRS. Fonte original e histórico no Drive preservados, sem escrita no snapshot.
