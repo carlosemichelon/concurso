@@ -1,3 +1,13 @@
+# V289 — Correção dos painéis de PDFs, Assuntos, Lacunas, SRS e Imagens (19/11/2026)
+
+- Motivo: os seletores genéricos da V288 cobriam os cartões, mas não todos os componentes próprios das demais telas. A V289 usa os seletores efetivos inspecionados nos scripts/folhas originais.
+- **PDFs:** barra `bm210PdfToolbar`, botões, filtros e área de resultados em branco com texto legível e bordas discretas.
+- **Assuntos:** atalho de Fórmulas `bm246-formula-shortcut`, áreas, agrupamentos `v036-topic-*` e filtros padronizados.
+- **Lacunas:** a estrutura `bm242-shell`, sem `.panel`, recebe painel branco, campos, fichas e botões coerentes.
+- **SRS:** a estrutura autônoma `c141-*` recebe superfícies, métricas e tabela com a mesma linguagem visual, preservando sinais de atraso e planejamento.
+- **Imagens:** barra `bm209SyncBar.bm210ImageToolbar`, seletores `bm155Field` e catálogo recebem espaços, cores e tipografia no padrão.
+- Estilos adicionados após V288, sem mudar scripts, dados, SRS, grifos, PDF canvas ou pranchas. V288 preservada para retorno; visual real ainda pendente.
+
 # V288 — Cartões brancos e superfícies padronizadas (19/11/2026)
 
 - Fundo da página cinza (`#edf0f1`), cartões brancos e bordas cinza-azuladas com sombra discreta; texto dos cartões `#2b3f4d` para maior legibilidade.

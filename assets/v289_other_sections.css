@@ -1,0 +1,327 @@
+/* Banco Mestre V289 — correção dos componentes REAIS das 5 telas fotografadas.
+   Alvos verificados nos módulos CSS/JS: bm210PdfToolbar, bm209SyncBar, bm246-formula-shortcut,
+   bm242-shell, c141-*, v036-topic-*, bm155*. V288 continua como base.
+   Alterações somente visuais, sem esconder textos, filtros, status ou links.
+   Não aplicar sobre PDF canvas, imagens, grifos, matemática ou indicadores de risco. */
+:root{
+ --bm289-bg:#edf0f1;
+ --bm289-surface:#fff;
+ --bm289-neutral:#f7fafc;
+ --bm289-ink:#2b3f4d;
+ --bm289-secondary:#536c7b;
+ --bm289-title:#2d526d;
+ --bm289-blue:#1687d8;
+ --bm289-line:#d6e2e9;
+ --bm289-strong-line:#bdd2df;
+ --bm289-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+html,body{background:var(--bm289-bg)!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas)
+ :is(h2,h3,h4,p,label,input,select,textarea,button,summary,small,span,li,th,td){
+ font-family:var(--bm289-font)!important
+}
+/* 1. PDFs: barra real (não a antiga .controls), título, resultados e resumo. */
+#pdfs>.panel{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:0 1px 2px #203d500a!important
+}
+#pdfs #bm210PdfToolbar{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important;
+ padding:9px 10px!important;gap:7px 9px!important;margin:9px 0 12px!important;
+ color:var(--bm289-ink)!important
+}
+#pdfs #bm210PdfToolbar .bm210Actions{
+ border-bottom:1px solid #e4ecf1!important;padding:0 0 7px!important;
+ gap:6px 7px!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters{
+ gap:7px!important;padding:2px 0 0!important
+}
+#pdfs #bm210PdfToolbar :is(button,select,input),
+#pdfs #bm210PdfToolbar .bm210StatusDetails>summary{
+ font-family:var(--bm289-font)!important;font-size:12px!important;
+ line-height:1.4!important;min-height:34px!important;
+ color:#2f566f!important;background:#fff!important;border-color:var(--bm289-strong-line)!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+#pdfs #bm210PdfToolbar :is(button,summary):hover{background:#edf6fc!important}
+#pdfs #bm210PdfToolbar :is(button.primary,button[aria-pressed="true"]):not(.danger):not(.pdfDanger),
+#pdfs #bm210PdfToolbar #bm239-drive-action{
+ color:#fff!important;background:var(--bm289-blue)!important;border-color:var(--bm289-blue)!important
+}
+#pdfs #bm210PdfToolbar #bmVade041.bm118-ready{
+ border-right:1px solid var(--bm289-line)!important
+}
+#pdfs #bm210PdfToolbar #bmVade041.bm118-ready>h3{
+ color:var(--bm289-title)!important;font-size:12px!important
+}
+#pdfs #bm210PdfToolbar .bm210StatusBody{
+ color:var(--bm289-ink)!important;background:#fff!important;
+ border-color:var(--bm289-line)!important
+}
+#pdfs #pdfAreaNavV036{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:5px!important;padding:5px!important
+}
+#pdfs #pdfRows :is(.v036-pdf-area,.v036-card-group,article.card,.v036-pdf-summary){
+ background:#fff!important;border-color:var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important
+}
+#pdfs #pdfRows :is(.v036-area-head,.v036-card-group-summary){
+ background:#f7fafc!important;color:var(--bm289-title)!important
+}
+#pdfs #pdfRows :is(.v036-area-desc,.v036-count,p,small){
+ color:var(--bm289-secondary)!important
+}
+#pdfs #bm269PdfLocked{
+ background:#f8fafc!important;border:1px solid var(--bm289-line)!important;
+ border-radius:5px!important;color:#3d5666!important;font-size:12px!important;
+ line-height:1.55!important;padding:9px 11px!important
+}
+/* 2. Assuntos: área de fórmulas, cartões de área, agrupamentos e campos. */
+#assuntos>.panel{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important
+}
+#assuntos .bm246-formula-shortcut{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important;
+ padding:11px 13px!important;margin:0 0 13px!important
+}
+#assuntos .bm246-formula-shortcut :is(strong,h3){
+ color:var(--bm289-title)!important;font-size:14px!important
+}
+#assuntos .bm246-formula-shortcut :is(small,span){
+ color:var(--bm289-secondary)!important;line-height:1.5!important
+}
+#assuntos .bm246-formula-shortcut button{
+ color:#fff!important;background:var(--bm289-blue)!important;
+ border:1px solid var(--bm289-blue)!important;border-radius:5px!important;
+ font-size:12px!important;min-height:34px!important;padding:7px 10px!important
+}
+#assuntos #areaRows .topicCard{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:5px!important;box-shadow:none!important;
+ color:var(--bm289-ink)!important
+}
+#assuntos #areaRows .topicCard :is(strong,.v036-topic-name){
+ color:#276e9e!important;font-size:12.5px!important
+}
+#assuntos #areaRows .topicCard :is(small,.v036-topic-metrics){
+ color:var(--bm289-secondary)!important
+}
+#assuntos #topicRows :is(.v036-topic-tile,.v036-topic-cluster-summary,.topicCard){
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:5px!important;box-shadow:none!important;
+ color:var(--bm289-ink)!important
+}
+#assuntos #topicRows :is(.v036-topic-name,.v036-topic-link){
+ color:#246f9f!important
+}
+#assuntos #topicRows :is(.v036-topic-metrics,.v036-topic-examples){
+ color:var(--bm289-secondary)!important
+}
+#assuntos #topicRows .v036-topic-cluster-summary:hover,
+#assuntos #areaRows .topicCard:hover{
+ border-color:#9fc4df!important;background:#f9fcfe!important
+}
+#assuntos .controls input[type="search"]{
+ background:#fff!important;border-color:var(--bm289-strong-line)!important
+}
+#formulas .bm246-formulas-panel{font-family:var(--bm289-font)!important;color:var(--bm289-ink)!important}
+#formulas :is(.bm246-formula-toolbar,.bm246-formula-filters){
+ background:#fff!important;color:var(--bm289-ink)!important
+}
+/* 3. Lacunas: não usa .panel tradicional; estilizar a shell e os itens corretos. */
+#lacunas{color:var(--bm289-ink)!important}
+#lacunas .bm242-shell{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;max-width:none!important;
+ margin:0!important;padding:16px 17px 19px!important;
+ font-family:var(--bm289-font)!important;color:var(--bm289-ink)!important
+}
+#lacunas .bm242-shell h2{
+ font-size:17px!important;line-height:1.35!important;
+ color:var(--bm289-title)!important;margin:0 0 10px!important
+}
+#lacunas :is(.bm242-status,.bm242-form,.bm242-item,.bm242-gallery,.bm243-smoke){
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important;
+ color:var(--bm289-ink)!important
+}
+#lacunas .bm242-status{
+ background:#f7fafc!important;padding:9px 11px!important
+}
+#lacunas .bm242-muted{color:var(--bm289-secondary)!important}
+#lacunas .bm242-filters,#lacunas .bm242-fields{
+ gap:9px 11px!important;margin:12px 0!important
+}
+#lacunas :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+ background:#fff!important;border:1px solid var(--bm289-strong-line)!important;
+ border-radius:5px!important;color:var(--bm289-ink)!important;
+ font:12.5px/1.45 var(--bm289-font)!important;padding:9px 10px!important
+}
+#lacunas label{font:600 12px/1.4 var(--bm289-font)!important;color:#3f5b6e!important}
+#lacunas .bm242-item{padding:13px 15px!important}
+#lacunas .bm242-item :is(p,li){color:var(--bm289-ink)!important;line-height:1.65!important}
+#lacunas .bm242-item strong{color:var(--bm289-title)!important}
+#lacunas button:not(.danger){
+ border:1px solid #c0d7e6!important;border-radius:5px!important;
+ color:#226e9e!important;background:#f8fbfe!important;
+ font:600 12px/1.35 var(--bm289-font)!important;padding:8px 11px!important
+}
+#lacunas .bm242-form button:not(.danger){
+ color:#fff!important;background:var(--bm289-blue)!important;border-color:var(--bm289-blue)!important
+}
+#lacunas .bm242-item details>summary{color:#26739d!important}
+/* 4. SRS: seção autônoma #calendario, não contém .panel raiz. */
+#calendario .c141-wrap{
+ max-width:none!important;margin:0!important;padding:16px 17px!important;
+ border:1px solid var(--bm289-line)!important;border-radius:6px!important;
+ background:#fff!important;font-family:var(--bm289-font)!important;
+ color:var(--bm289-ink)!important
+}
+#calendario .c141-title{
+ gap:10px!important;margin-bottom:14px!important;align-items:center!important
+}
+#calendario .c141-title h2{
+ color:var(--bm289-title)!important;
+ font-size:21px!important;line-height:1.3!important;margin:3px 0 6px!important
+}
+#calendario .c141-title p{
+ color:var(--bm289-secondary)!important;font-size:12.5px!important;
+ line-height:1.55!important;max-width:790px!important
+}
+#calendario .c141-kicker{color:#3279a3!important;font-size:10.5px!important}
+#calendario .c141-limit{
+ background:#eaf6fd!important;border:1px solid #bcddec!important;
+ color:#216f9d!important;font-size:12px!important;border-radius:5px!important;
+ padding:9px 11px!important
+}
+#calendario .c141-stats{gap:8px!important;margin:0 0 10px!important}
+#calendario .c141-stat{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;padding:12px 13px!important;
+ box-shadow:0 1px 2px #203d5009!important
+}
+#calendario .c141-stat strong{color:#226c98!important;font-size:22px!important}
+#calendario .c141-stat span{
+ color:var(--bm289-secondary)!important;font-size:11.5px!important
+}
+#calendario .c141-settings,#calendario .c141-board,#calendario .c141-import{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important
+}
+#calendario .c141-settings{gap:9px!important;padding:10px 12px!important}
+#calendario .c141-settings :is(label,select,button){
+ font-family:var(--bm289-font)!important;font-size:12px!important
+}
+#calendario .c141-settings :is(input[type="checkbox"],input[type="radio"]){
+ accent-color:var(--bm289-blue)!important
+}
+#calendario .c141-note{
+ background:#f4f9fc!important;border-left:3px solid #54a0d2!important;
+ color:#36596e!important;line-height:1.6!important
+}
+#calendario .c141-boardhead{
+ background:#f7fafc!important;border-bottom:1px solid var(--bm289-line)!important;
+ padding:10px 12px!important
+}
+#calendario .c141-boardhead h3{
+ color:var(--bm289-title)!important;font-size:13.5px!important
+}
+#calendario .c141-board table{font:12px/1.5 var(--bm289-font)!important}
+#calendario .c141-board thead th{
+ background:#f2f7fb!important;color:#355c76!important;
+ border-bottom:1px solid var(--bm289-line)!important
+}
+#calendario .c141-board :is(td,th){padding:9px 10px!important}
+#calendario .c141-primary{
+ background:var(--bm289-blue)!important;border-color:var(--bm289-blue)!important;color:#fff!important
+}
+#calendario .c141-import{margin-top:14px!important;padding:13px!important}
+#calendario .c141-import :is(h3,p){color:var(--bm289-ink)!important}
+/* Não sobrescrever .c141-tag.late (atrasos), .c141-planned e .c141-today. */
+/* 5. Biblioteca de imagens: toolbar REAL #bm209SyncBar e filtros bm155. */
+#imagens>.panel{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;border-radius:6px!important;
+ box-shadow:0 1px 2px #203d500a!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important;color:var(--bm289-ink)!important;
+ padding:9px 10px!important;gap:8px 9px!important;margin:9px 0 12px!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar .bm155ImageFilters{
+ gap:8px!important;align-items:end!important;min-width:0!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar .bm155Field{
+ gap:4px!important;min-width:135px!important;flex:1 1 160px!important;
+ max-width:300px!important;color:#355b74!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar .bm155Field>span{
+ font:600 11.5px/1.35 var(--bm289-font)!important;
+ white-space:normal!important;color:#3f6279!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar :is(button,select,input),
+#imagens #bm209SyncBar.bm210ImageToolbar .bm210StatusDetails>summary{
+ font-family:var(--bm289-font)!important;font-size:12px!important;
+ min-height:34px!important;line-height:1.4!important;
+ background:#fff!important;border:1px solid var(--bm289-strong-line)!important;
+ border-radius:5px!important;color:#2e5b77!important;box-shadow:none!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar :is(button,summary):hover{
+ background:#edf6fc!important;color:#146d9e!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar .bm210StatusBody{
+ background:#fff!important;border-color:var(--bm289-line)!important;
+ color:var(--bm289-ink)!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar :is(.bm155Foot,.bm153Toolbar,.bm153AreaNav){
+ border-color:#e2ebf0!important;color:var(--bm289-secondary)!important
+}
+#imagens #imageRows :is(article.card,.bm153AreaBlock,.bm153Group,.bm153Directory,.bm153GroupBody){
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;color:var(--bm289-ink)!important;
+ box-shadow:none!important
+}
+#imagens #imageRows :is(h3,h4,.bm153AreaHeader,.bm153Heading){
+ color:var(--bm289-title)!important
+}
+#imagens #imageRows :is(p,small,.bm153Status){color:var(--bm289-secondary)!important}
+/* Continuidade do padrão V288 para a grade de flashcards, sem alterar contraste novo. */
+#cartoes #cardRows article.card{
+ background:#fff!important;border-color:var(--bm289-line)!important;
+ color:var(--bm289-ink)!important
+}
+/* Campos e páginas complexas mantêm uma coluna no celular. */
+@media(max-width:800px){
+ #calendario .c141-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #imagens #bm209SyncBar.bm210ImageToolbar .bm155Field{
+  max-width:none!important;flex:1 1 175px!important
+ }
+ #pdfs #bm210PdfToolbar,#imagens #bm209SyncBar.bm210ImageToolbar{
+  padding:8px!important
+ }
+}
+@media(max-width:520px){
+ #lacunas .bm242-shell,#calendario .c141-wrap{padding:12px!important}
+ #calendario .c141-title h2{font-size:18px!important}
+ #calendario .c141-stats{gap:6px!important}
+ #calendario .c141-stat{padding:10px!important}
+ #imagens #bm209SyncBar.bm210ImageToolbar .bm155Field{
+  min-width:0!important;max-width:none!important;flex:1 1 100%!important
+ }
+ #imagens #bm209SyncBar.bm210ImageToolbar :is(input[type="search"],select){
+  min-width:0!important;max-width:100%!important
+ }
+ #pdfs #bm210PdfToolbar .bm210Filters{
+  min-width:0!important;flex-wrap:wrap!important
+ }
+ #pdfs #bm210PdfToolbar :is(input[type="search"],select){
+  min-width:0!important;max-width:100%!important
+ }
+ #lacunas .bm242-filters,#lacunas .bm242-fields{grid-template-columns:1fr!important}
+ #lacunas .bm242-filters label:first-child{grid-column:auto!important}
+}
