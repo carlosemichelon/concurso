@@ -3494,12 +3494,18 @@
     "audit_report": "docs/PORTAL_V262_LAYOUT_DADOS_JS_AUDITORIA_2026-11-18.md"
   },
   "release_v263": {
-    "status": "development_branch_pending_live_oauth",
+    "status": "merged_gh_pages_public_build_and_public_access_verified; real_private_oauth_unverified",
     "previous_version": "V262",
     "goal": "67px compact header and reliable authenticated Drive outcomes",
     "files": ["assets/v263_compact_header.css","assets/v263_media_core.js","assets/v263_drive_pdf_sync.js","assets/v263_drive_gallery_feed.js","assets/v263_grifos_drive.js","assets/v263_global_drive.js","assets/v263_sync_truth.js","assets/v263_sync_diagnostics.js"],
     "rollback": "v262.html",
     "live_oauth": "unverified",
+    "merge_commit": "b2804bcc2958ea861729ca46e03cda0e748f35ef",
+    "public_pages_build": "success on merge b2804bcc",
+    "public_access_audit": "success on merge b2804bcc",
+    "browser_test": "V263_BROWSER_PASS: desktop 71px over 3 samples, mobile 72px, 0 JS errors, OAuth mock isolated",
+    "sync_scenarios": "mock: 3 pending and 0 errors with empty data; real simulated HTTP 403 + conflict remain 2 errors",
+    "audit_report": "docs/PORTAL_V263_CABECALHO_SYNC_LOG_2026-11-18.md",
     "preserve": ["card_ids","card_originals","card_versions","srs","pdf_originals","images","highlights","private_drive_sources"]
   }
 
