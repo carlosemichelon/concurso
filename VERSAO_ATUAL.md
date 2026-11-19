@@ -1,3 +1,15 @@
+# V277 — Conciliação do estudo Petrobras 22: cartões relacionados (19/11/2026)
+
+**Contexto de concorrência:** PR #47 já havia publicado V276 com CARD-1534 (novo), CARD-1413 (reforço térmico) e um mecanismo próprio de 11 módulos. O PR #48 concorrente também tentava integrar CARD-1534, sendo conflitante. A V277 NÃO replica o cartão ou modifica os recursos da V276: contém somente o delta didático ainda ausente, CARD-0578 e CARD-0924.
+
+**Fonte privada:** reconciliadas duas variantes distintas V165, ambas válidas em aspectos diferentes. A versão apontada como atual continha 1.533 cartões, 39 questões e 1.518 SRS, além do reforço CARD-1413; a segunda variante continha complementos V165 integrais para CARD-0578 e CARD-0924. O snapshot privado V166 foi obtido preservando os 39 registros de questões, o CARD-1413, CARD-1534 e todos os outros 1.531 cartões, acrescentando apenas os aprofundamentos dos 2 cartões relacionados nos seus 11 módulos, sem alterar frente, verso, originais nem SRS. Fonte V166 no Drive ID `10NuQ8PPXffkSmE-IlKhHpEJ1pJyWgFFg` (ID administrativo privado: não adicionar esse ID aos arquivos da interface pública). O manifesto privado de fonte passou a V002, mantendo V001 para auditoria.
+
+**Projeção pública:** `assets/v277_petro22_relacionados_cards.json` contém explicações incrementais de CARD-0578 e CARD-0924, sem substituir as explicações anteriores; `assets/v277_petro22_relacionados_layers.json` apresenta 11 módulos técnicos por ID, omitindo as informações administrativas privadas da versão completa. O leitor evolutivo compartilha o roteamento por ID `assets/v276_layers_bridge.js`; o leitor direto foi adaptado somente nesses dois IDs. O catálogo permanece único, com 1.533 cartões canônicos + 22 propostas editoriais pré-existentes = 1.555 fichas. Nenhum cartão novo foi criado na V277 e nenhum evento SRS foi lançado.
+
+**Salvaguardas:** O portal GitHub Pages e os dados do Google Drive continuam separados por privacidade. Arquivos originais V194/V267/V274/V275/V276 e variantes V165 foram conservados. Teste estático `tests/v277_petro22_relacionados.test.cjs` inclui contagens, módulos, ausência de duplicações, preservação dos conteúdos V276 e ausência de relatos/dados privados. Leitura no navegador real, comportamento de cache/CDN e OAuth não foram homologados por esse teste.
+
+---
+
 # Portal V275 — Biblioteca única sem separação por concurso (19/11/2026)
 
 A pedido do estudante, as 22 fichas originadas do estudo de Ijuí passam a ser apresentadas na **mesma biblioteca** dos 1.532 cartões canônicos, classificadas por disciplina **Legislação** e pelo assunto real da lei, sem subgrupo exclusivo «Ijuí — legislação FUNDATEC», sem contagem destacada «+22 Ijuí» no cabeçalho e sem isolamento no início da listagem. Total da biblioteca de estudo: **1.554 fichas únicas**.
