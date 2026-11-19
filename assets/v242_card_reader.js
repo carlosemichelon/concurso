@@ -297,7 +297,33 @@ async function bm274Record(id){
  }
  return (await bm274RecordsPromise).get(id)||null;
 }
+/* V276 — Sobrescrita DIDÁTICA por ID: nunca muda SRS nem dados privados.
+   Aplica o incremento mais recente apenas aos 3 cartões PETRO22 auditados. */
+const bm276IDs=new Set(['CARD-0578','CARD-0924','CARD-1534']);
+let bm276RecordsPromise=null;
+async function bm276Record(id){
+ if(!bm276IDs.has(id))return null;
+ if(!bm276RecordsPromise){
+  bm276RecordsPromise=fetch('assets/layers_public_v276_sync.json?v=276-1',{cache:'no-store'})
+   .then(r=>{if(!r.ok)throw Error('V276: arquivo de módulos indisponível (HTTP '+r.status+')');return r.json()})
+   .then(data=>{
+    if(data.format!=='BancoMestrePublic11ModulesV276'||data.source_snapshot!=='V165'||!Array.isArray(data.records)||data.records.length!==3)throw Error('V276: formato incompatível');
+    const m=new Map();
+    for(const row of data.records){
+     if(!bm276IDs.has(row.id)||m.has(row.id)||!Array.isArray(row.layers)||row.layers.length!==11||
+       row.layers.some((l,i)=>l.ord!==i+1||!String(l.titulo||'').trim()||!String(l.texto||'').trim()))throw Error('V276: 11 módulos inválidos '+row.id);
+     m.set(row.id,row);
+    }
+    if(m.size!==3)throw Error('V276: IDs ausentes');
+    return m;
+   });
+  bm276RecordsPromise.catch(()=>{bm276RecordsPromise=null});
+ }
+ return (await bm276RecordsPromise).get(id)||null;
+}
 async function bm197Record(id){
+ const latest=await bm276Record(id);
+ if(latest)return latest;
  const revised=await bm274Record(id);
  if(revised)return revised;
  const batch=bm197Shard(id);
