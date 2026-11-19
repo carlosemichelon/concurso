@@ -91,9 +91,10 @@ function prettyPdfTitle(p){
   .replace(/\s+arquivo\s+fornecido(?=\s|$)/gi,'')
   .trim();
  const acronyms=new Set(['ABNT','NBR','NR','DNIT','CONAMA','EIA','RIMA','ETA','ETE','CREA','CONFEA','PCMSO','LGPD','SRS','PDF','PRF','TRT','BIM','CAD','BDI','SPT','RQD','GRO']);
- const spelling={resumao:'Resumão',raciocinio:'Raciocínio',mecanica:'Mecânica',fundacoes:'Fundações',instalacoes:'Instalações',legislacao:'Legislação',portugues:'Português',tecnologico:'Tecnológico',edificacoes:'Edificações',protecao:'Proteção',avaliacao:'Avaliação',resolucoes:'Resoluções',construcao:'Construção',paginas:'páginas',pagina:'página',eletricas:'Elétricas',hidraulica:'Hidráulica',informacao:'Informação',questoes:'Questões',orcamento:'Orçamento',publicas:'Públicas',praticas:'Práticas',situacoes:'Situações',previsao:'Previsão',trafego:'Tráfego'};
+ const spelling={resumao:'Resumão',raciocinio:'Raciocínio',mecanica:'Mecânica',fundacoes:'Fundações',instalacoes:'Instalações',legislacao:'Legislação',portugues:'Português',tecnologico:'Tecnológico',edificacoes:'Edificações',protecao:'Proteção',avaliacao:'Avaliação',resolucoes:'Resoluções',construcao:'Construção',paginas:'páginas',pagina:'página',eletricas:'Elétricas',hidraulica:'Hidráulica',informacao:'Informação',questoes:'Questões',orcamento:'Orçamento',publicas:'Públicas',praticas:'Práticas',situacoes:'Situações',previsao:'Previsão',trafego:'Tráfego',informatica:'Informática',seguranca:'Segurança',comentarios:'Comentários',organizacao:'Organização',organica:'Orgânica',fisica:'Física',autocad:'AutoCAD',sintaxe:'Sintaxe',tecnica:'Técnica',tecnicas:'Técnicas',educacao:'Educação',administracao:'Administração',licencas:'Licenças',especificacoes:'Especificações',utilizacao:'Utilização',producao:'Produção'};
  const joiners=new Set(['de','da','do','das','dos','e','em','para','com','por','ao','a','o','na','no']);
  name=name.split(' ').map((token,i)=>{
+  if(/^\d+ed$/i.test(token))return token.toLowerCase();
   const word=token.match(/[A-Za-zÀ-ÿ]+/);
   if(!word)return token;
   const key=word[0].normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
