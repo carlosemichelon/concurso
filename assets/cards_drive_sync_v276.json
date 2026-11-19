@@ -1,0 +1,34 @@
+{
+  "format": "BancoMestrePublicDriveSyncV276",
+  "schema": 1,
+  "source_snapshot": "V165",
+  "source_snapshot_sha256": "b7ec56ac96da10aaf9608337a404c37af21f6f6871a821c53b5fd14886d531f1",
+  "date": "2026-11-19",
+  "base_public_count_before": 1532,
+  "new_cards": [
+    {
+      "id": "CARD-1534",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Concreto armado",
+      "sub": "Emendas por traspasse — mínimo, agrupamento e proporção",
+      "front": "Na NBR 6118, diferencie: (a) comprimento de UMA emenda por traspasse, (b) distância entre DUAS emendas consideradas na mesma seção e (c) proporção máxima das barras tracionadas emendadas. Existe comprimento mínimo ou máximo universal de traspasse? Descreva a fórmula do comprimento para barras tracionadas isoladas e resolva a questão: duas emendas de 80 cm, em sequência, serão tratadas como na mesma seção se a distância x entre seus trechos for menor que quanto? O que muda na escolha do diâmetro de barras de bitolas diferentes entre NBR 6118:2014 e :2023?",
+      "back": "Duas barras sobrepostas formam UMA emenda de comprimento ℓ0; duas emendas distintas são consideradas na mesma seção quando seus trechos se sobrepõem ou quando a distância x entre extremidades mais próximas é menor que 0,20 do comprimento de referência: se ℓ01=ℓ02=80 cm, x<16 cm (alternativa D). Para barras tracionadas isoladas com distância livre entre 0 e 4φ, a expressão é ℓ0t=α0t·ℓb,nec ≥ ℓ0t,mín, em que ℓ0t,mín=max(0,3·α0t·ℓb; 15φ; 200 mm). Há comprimento mínimo calculado, não máximo universal de comprimento. Os 80 cm são DADO da questão, não o mínimo geral; os 16 cm não são o comprimento da emenda. Para duas barras de bitolas diferentes, 2014 adotava a de MAIOR diâmetro e 2023 a de MENOR diâmetro para a regra do cálculo do traspasse.",
+      "expl": "A força migra da barra que termina para o concreto por aderência e deste para a barra que continua. É necessário distinguir: (1) comprimento de sobreposição das DUAS barras de uma emenda, calculado com base na ancoragem e em um mínimo normativo; (2) distância x entre DUAS emendas distintas, que as agrupa na mesma seção quando há sobreposição dos trechos ou x<0,20ℓ0,ref; (3) porcentagem de barras da armadura principal tracionada emendadas nessa seção, limitada pela Tabela 9.3 conforme aderência, número de camadas e carregamento. Exemplo: ℓ0=80 cm nas duas emendas ⇒ x<16 cm. Fórmula de tração com distância livre entre barras de 0 a 4φ: ℓ0t=max(α0t ℓb,nec; 0,3α0tℓb; 15φ; 200 mm), onde α0t corresponde à Tabela 9.4. Os 80 cm não são mínimo universal nem máximo; 16 cm é apenas limiar de proximidade entre duas emendas. Duas barras de bitolas diferentes: edição 2014 orienta o diâmetro maior; edição 2023, o menor, e mais de duas requerem considerar o esforço em cada barra. A Emenda 1/2026 deve ser conferida quando aplicável. Distinguir ancoragem básica (CARD-0578) e taxa total longitudinal fora de emendas (CARD-0924).",
+      "mnemonic": "Duas barras = 1 emenda; duas emendas => medir x. 20% agrupa emendas, tabela conta barras; para ℓ0t vale o maior comprimento exigido.",
+      "reference": "ABNT NBR 6118:2014 itens 9.5.2.1/9.5.2.2.1, Figura 9.3 e Tabelas 9.3/9.4; ABNT NBR 6118:2023 itens 9.5.2.1/9.5.2.2.1, Figura 9.4; ABNT NBR 6118:2023/Em1:2026 (cotejo do texto consolidado em aberto). Origem PETRO22-Q003 / PETRO22-C001.",
+      "active": true
+    }
+  ],
+  "updated_explanations": [
+    {
+      "id": "CARD-0578",
+      "expl": "Equilibra a força da barra com tensões de aderência ao longo do seu perímetro: πφℓb fbd ≈ (πφ²/4)fyd, sob hipótese simplificada de aderência média.\nAplicação: Com φ=16 mm, fyd=435 MPa e fbd=2,9 MPa: ℓb=(16/4)(435/2,9)=600 mm.\nPegadinha: O comprimento de ancoragem necessário não é sempre igual ao básico; há cobrimento, ganchos, confinamento, área efetiva, concreto e condições de aderência.\n\nEVOLUÇÃO V165 — PETRO22-Q003: ℓb é ancoragem básica e fornece o fundamento físico do traspasse, mas não é automaticamente ℓ0t; aplicar α0t e mínimo normativo, distingui-los da distância x de 20% entre emendas (CARD-1534). Estrutura original e SRS preservados."
+    },
+    {
+      "id": "CARD-0924",
+      "expl": "A restrição não equivale ao limite de todos os elementos; pilares e zonas de transpasse têm regras próprias.\nAplicação: Para Ac=200×500=100.000 mm², 4%·Ac=4.000 mm²=40 cm².\nPegadinha: Não generalizar 4% a todo pilar ou a regiões de emenda; conferir redação após a Emenda 1/2026.\n\nEVOLUÇÃO V165 — PETRO22-Q003: A taxa longitudinal global de 4% da área de concreto (trecho fora das emendas) não é a proporção de BARRAS emendadas na mesma seção da Tabela 9.3 nem o critério geométrico de 20% de ℓ0; ver CARD-1534. Estrutura original e SRS preservados."
+    }
+  ],
+  "privacy": "Somente conteúdo técnico didático; relatos, questões completas, notas SRS, eventos e histórico administrativo permanecem no Drive privado."
+}
