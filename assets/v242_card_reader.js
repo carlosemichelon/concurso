@@ -272,7 +272,34 @@ function bm197Shard(id){
  if(!/^CARD-\d{4}$/.test(id))return -1;
  const n=Number(id.slice(5));return n>=1&&n<=1519?Math.floor((n-1)/250):-1;
 }
+/* V274 — Módulos didáticos publicados por ID a partir do snapshot privado V164.
+ * O JSON público contém somente texto técnico, sem histórico pessoal ou SRS.
+ * Arquivos V194/V199 permanecem intactos como histórico e fallback. */
+const bm274Audited=new Set(["CARD-0118","CARD-0175","CARD-0333","CARD-0468","CARD-0480","CARD-0543","CARD-0547","CARD-0548","CARD-0549","CARD-0551","CARD-0552","CARD-0553","CARD-0579","CARD-0621","CARD-0623","CARD-0624","CARD-0625","CARD-0626","CARD-0629","CARD-0631","CARD-0632","CARD-0642","CARD-1033","CARD-1034","CARD-1386","CARD-1520","CARD-1521","CARD-1522","CARD-1523","CARD-1524","CARD-1525","CARD-1526","CARD-1527","CARD-1528","CARD-1529","CARD-1530","CARD-1531","CARD-1532","CARD-1533"]);
+let bm274RecordsPromise=null;
+async function bm274Record(id){
+ if(!bm274Audited.has(id))return null;
+ if(!bm274RecordsPromise){
+  bm274RecordsPromise=fetch('assets/layers_public_v274_sync.json?v=274-1',{cache:'no-store'})
+   .then(r=>{if(!r.ok)throw Error('V274: módulos ausentes (HTTP '+r.status+')');return r.json()})
+   .then(data=>{
+    if(data.format!=='BancoMestrePublic11ModulesV274'||data.source_version!=='V164'||!Array.isArray(data.records)||data.records.length!==39)throw Error('V274: módulos incompatíveis');
+    const m=new Map();
+    for(const row of data.records){
+     if(m.has(row.id)||!bm274Audited.has(row.id)||!Array.isArray(row.layers)||row.layers.length!==11||
+         row.layers.some((l,i)=>l.ord!==i+1||!String(l.titulo||'').trim()||!String(l.texto||'').trim()))throw Error('V274: integridade dos 11 módulos inválida');
+     m.set(row.id,row);
+    }
+    if(m.size!==39)throw Error('V274: faltam módulos aprovados');
+    return m;
+   });
+  bm274RecordsPromise.catch(()=>{bm274RecordsPromise=null});
+ }
+ return (await bm274RecordsPromise).get(id)||null;
+}
 async function bm197Record(id){
+ const revised=await bm274Record(id);
+ if(revised)return revised;
  const batch=bm197Shard(id);
  if(batch<0)return null;
  if(!bm197Cache.has(batch)){
