@@ -11,9 +11,14 @@ assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
 assert.equal(manifest.current_versions.portal.home,manifest.home);
 assert.ok(Number(manifest.previous_version.slice(1))<Number(manifest.version.slice(1)));
 assert.ok(page.includes('data-bm-portal-version="V263"'),'V263 histórica preservada');
-assert.equal(manifest.counts.cards,1518);
-assert.equal(manifest.counts.card_operational_ijui,22);
-assert.equal(manifest.counts.card_entries_combined,1540);
+// A V263 histórica mantém seus próprios números; o manifesto corrente é evolutivo.
+const canonical=manifest.counts.cards,editorial=manifest.counts.card_operational_ijui;
+assert.ok(Number.isSafeInteger(canonical)&&canonical>=1518,'Contagem canônica inválida');
+assert.equal(editorial,22,'Propostas editoriais Ijuí alteradas sem revisão');
+assert.equal(manifest.counts.cards_public_current,canonical,'Divergência entre contagens canônicas');
+assert.equal(manifest.counts.catalog_canonical_cards,canonical,'Catálogo canônico divergente');
+assert.equal(manifest.counts.catalog_editorial_pending,editorial,'Propostas confundidas com SRS');
+assert.equal(manifest.counts.card_entries_combined,canonical+editorial,'Total da grade inconsistente');
 assert.equal(manifest.counts.pdfs,78);
 assert.equal(manifest.counts.images_public_v198,179);
 assert.ok(page.includes('data-bm-portal-version="V263"'));
@@ -48,4 +53,4 @@ assert.ok(!global.includes("foundPdf===78"),'Catálogo de 78 não deve impedir P
 assert.ok(global.includes('window.BM208AtlasUnified?.refresh?.()'),'Ponte do Atlas perdida');
 assert.ok(global.includes('writeToken'), 'Autorização de gravação não conferida');
 assert.ok(!/localStorage.setItem\([^)]*token/i.test(global),'Não persistir OAuth');
-console.log('V263_STATIC_PASS: portal compacto, 7 módulos JS, rollback V262, 1518+22 cartões, 78 PDFs, sem SRS alterado.');
+console.log('V263_STATIC_PASS: portal compacto, 7 módulos JS, rollback V262, contagens canônicas verificadas dinamicamente, 78 PDFs, sem SRS alterado.');
