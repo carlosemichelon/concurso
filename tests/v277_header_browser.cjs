@@ -29,7 +29,7 @@ const {chromium}=require('playwright');
     };
    });
    assert.equal(state.version,'V277');
-   assert.equal(state.cssLinks,14);
+   assert.ok(state.cssLinks>=14,'Folhas dinâmicas não devem remover CSS básico');
    assert.ok(state.compiled,'Bundle CSS não entrou na CSSOM');
    assert.ok(requests.some(x=>x.status===200),'Arquivo CSS não retornou HTTP 200');
    assert.ok(state.headerVisible&&state.navVisible&&state.actionsPresent,'Layout não montou');
