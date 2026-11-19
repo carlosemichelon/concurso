@@ -1,0 +1,50 @@
+/* V293 — PDF compacto, cartões claros e filtros de Imagens ordenados.
+   Estilo estritamente visual: não altera grifos, SVG técnicos, dados ou SRS. */
+:root{--bm293-ink:#18252f;--bm293-muted:#455b6a;--bm293-blue:#1687d8;--bm293-line:#bed0dc;--bm293-font:"Segoe UI",Arial,system-ui,sans-serif}
+/* Verificação legada de 78 PDFs continua disponível internamente. */
+#pdfs #bm151-pdf-check>button,
+#pdfs #bm210PdfActions>button[title*="Verificar PDFs"],
+#pdfs #bm210PdfToolbar button[title*="Verificar PDFs"]{display:none!important}
+#pdfs #bm210PdfToolbar{background:#fff!important;border:1px solid #d5e1e9!important;border-radius:0!important;box-shadow:none!important;padding:8px 10px!important;gap:5px!important;margin:7px 0 9px!important}
+#pdfs #bm210PdfToolbar .bm210Actions{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:5px!important;padding:0 0 6px!important;margin:0!important;border-bottom:1px solid #e4edf2!important}
+#pdfs #bm210PdfToolbar .bm210Filters{display:flex!important;flex-wrap:wrap!important;gap:6px!important;align-items:center!important;padding:2px 0 0!important}
+#pdfs #bm210PdfToolbar :is(button,select,input,summary){min-height:32px!important;font:600 11.75px/1.35 var(--bm293-font)!important;padding:5px 9px!important;border-radius:0!important}
+#pdfs #bm210PdfToolbar .bm210StatusBody{background:#fff!important;color:var(--bm293-ink)!important;font:400 12px/1.5 var(--bm293-font)!important}
+/* Cartões: branco, enunciado quase preto, bordas retas, azul nas ações. */
+#cartoes #cardRows article.card{background:#fff!important;border:1px solid var(--bm293-line)!important;border-radius:0!important;box-shadow:none!important;padding:11px 12px!important;gap:7px!important;color:var(--bm293-ink)!important}
+#cartoes #cardRows article.card:hover{background:#fbfdff!important;border-color:#8db6d1!important;box-shadow:0 1px 3px #102d4212!important}
+#cartoes #cardRows article.card>h3,#cartoes #cardRows article.card .bm195-heading-text h3{color:#18252f!important;font:650 14px/1.52 var(--bm293-font)!important;margin:4px 0 6px!important;overflow-wrap:anywhere!important}
+#cartoes #cardRows article.card :is(p,li,dd,td,th,blockquote),#cartoes #cardRows .answer,#cartoes #cardRows .answer>.richSection p,#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm195-list,.bm197-paragraph,.bm198-paragraph,.bm198-module-body){color:var(--bm293-ink)!important;font-size:13px!important;line-height:1.6!important}
+#cartoes #cardRows article.card :is(small,.muted,.v036-card-path,.bm195-status){color:var(--bm293-muted)!important;font-size:11.5px!important}
+#cartoes #cardRows article.card :is(.tag,.chip,.pill):not(.danger):not(.late){background:#f3f8fc!important;color:#2b658c!important;border:1px solid #cfe1ec!important;border-radius:0!important;font:600 11px/1.35 var(--bm293-font)!important;padding:3px 5px!important}
+#cartoes #cardRows article.card :is(button,.bm-v050-peek-button){background:#f1f8fd!important;color:#1478ad!important;border:1px solid #bfd8e8!important;border-radius:0!important;font:600 12px/1.35 var(--bm293-font)!important}
+#cartoes #cardRows :is(.bm195-evo,.bm195-layer,.bm198-module,.bm198-overview,.bm197-evolutive,.richSection,.answer>.richSection){background:#fff!important;border:1px solid #d5e3ec!important;border-radius:0!important;box-shadow:none!important}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head,.bm198-module-head,.bm198-overview-top){background:#f1f7fb!important;border-color:#d8e4eb!important}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,.bm197-title,.richSection h4){color:#245f86!important;font:700 13px/1.42 var(--bm293-font)!important}
+/* Popup: menos espaços, todos os 11 módulos mantidos. */
+#bmCardPeekV050 .bm163-panel{background:#fff!important;color:var(--bm293-ink)!important}
+#bmCardPeekV050 .bm163-header{padding:9px 12px!important;background:#f4f9fc!important}
+#bmCardPeekV050 .bm-v050-peek-front{color:#172631!important;font:650 16px/1.5 var(--bm293-font)!important}
+#bmCardPeekV050 :is(.bm163-piece,.bm163-deep-group,.bm197-evolutive,.bm198-module,.bm198-overview,.bm195-evo,.bm195-layer){background:#fff!important;border:1px solid #d0dfe8!important;border-radius:0!important;box-shadow:none!important;margin:8px 0!important}
+#bmCardPeekV050 :is(.bm163-piece,.bm163-group-body){padding:9px 11px!important}
+#bmCardPeekV050 :is(.bm163-header,.bm163-footer,.bm198-module-head,.bm198-overview-top,.bm195-layer-head){background:#f2f7fb!important;border-color:#d8e4eb!important}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title,.bm198-overview-top h4){color:#245f85!important;font:700 13px/1.4 var(--bm293-font)!important}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph,.bm198-module-body,.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm198-list,.bm163-rich-list,li,td,th){color:#202b33!important;font:400 13px/1.6 var(--bm293-font)!important}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status){color:var(--bm293-muted)!important;font-size:11.5px!important}
+/* Imagens: busca, quatro filtros hierárquicos, tipo e ações separados. */
+#imagens #bm209SyncBar.bm210ImageToolbar{display:flex!important;flex-direction:column!important;align-items:stretch!important;background:#fff!important;border:1px solid #d5e2eb!important;border-radius:0!important;padding:10px!important;gap:8px!important;margin:8px 0 10px!important;box-shadow:none!important}
+#imagens #bm293ImageSearchRow{display:flex!important;width:100%!important;gap:8px!important}
+#imagens #bm293ImageSearchRow #imageSearch{width:100%!important;min-width:0!important;max-width:none!important;flex:1!important;min-height:35px!important;border-radius:0!important;font:400 12.5px/1.45 var(--bm293-font)!important;color:var(--bm293-ink)!important}
+#imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;width:100%!important;min-width:0!important;margin:0!important;padding:0!important;background:transparent!important;border:0!important}
+#imagens #bm209SyncBar .bm155Field{display:flex!important;flex-direction:column!important;gap:4px!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important}
+#imagens #bm209SyncBar .bm155Field>span{display:block!important;color:#344f60!important;font:600 11.5px/1.35 var(--bm293-font)!important}
+#imagens #bm209SyncBar .bm155Field select{width:100%!important;min-width:0!important;max-width:none!important;min-height:34px!important;height:34px!important;color:#1f313e!important;background:#fff!important;border:1px solid var(--bm293-line)!important;border-radius:0!important;font:400 12px/1.4 var(--bm293-font)!important;padding:5px 7px!important}
+#imagens #bm209SyncBar .bm155Foot:empty{display:none!important}
+#imagens #bm293ImageActions{display:flex!important;align-items:end!important;flex-wrap:wrap!important;width:100%!important;gap:6px!important;padding-top:7px!important;border-top:1px solid #e1ebf0!important}
+#imagens #bm293ImageActions>label{display:flex!important;flex-direction:column!important;gap:4px!important;min-width:130px!important;flex:0 1 205px!important;color:#344f60!important;font:600 11.5px/1.35 var(--bm293-font)!important}
+#imagens #bm293ImageActions :is(button,select,input,summary){min-height:33px!important;max-width:100%!important;color:#225e88!important;background:#fff!important;border:1px solid var(--bm293-line)!important;border-radius:0!important;font:600 11.75px/1.35 var(--bm293-font)!important;padding:5px 9px!important}
+#imagens #bm293ImageActions>span{font:400 11px/1.35 var(--bm293-font)!important;color:#4b6170!important}
+#imagens #bm209SyncBar #bm210ImageInfo{align-self:flex-start!important;max-width:100%!important;border:1px solid #d6e4ed!important;border-radius:0!important;background:#fff!important;margin:0!important}
+#imagens #bm209SyncBar #bm210ImageInfo>summary{color:#2273a6!important;padding:6px 9px!important;font:600 11.75px/1.35 var(--bm293-font)!important}
+@media(max-width:960px){#imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:580px){#imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{grid-template-columns:1fr!important}#imagens #bm293ImageActions>label{flex:1 1 100%!important}#cartoes #cardRows article.card{padding:10px!important}}

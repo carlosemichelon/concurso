@@ -1,3 +1,12 @@
+# V293 — PDFs compactos, cartões mais claros e filtros de Imagens organizados (19/11/2026)
+
+- Removido da interface o botão duplicado **Verificar 78 PDFs**. Sua rotina interna e verificação automática permanecem. Barra PDF com menos espaços verticais.
+- Cartões com fundo branco, perguntas em #18252f, informações secundárias escuras e detalhes/ações azuis. Contornos quadrados preservados.
+- Popup de cartões com espaçamento menor, mantendo integralmente as **11 seções** e todas as respostas/explicações.
+- Imagens: pesquisa acima dos filtros de disciplina, assunto geral, assunto específico e subassunto; tipo e ações em seguida. Nós e listeners existentes reutilizados; opções adicionais preservadas.
+- Responsivo em desktop e celular. Sem alterar o SRS, Drive, IDs, grifos, figuras ou PDFs. Página anterior V292 mantida para rollback.
+- Checagem de sintaxe e integridade dos scripts realizada; teste visual autenticado ainda pendente.
+
 # V292 — Uma lógica tipográfica e de cores em todo o Banco Mestre (19/11/2026)
 
 - Correção baseada na comparação visual feita pelo usuário com a interface Tec Concursos: o cabeçalho e o body precisam seguir papéis coerentes, não apenas compartilhar uma fonte.
