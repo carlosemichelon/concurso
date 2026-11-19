@@ -1,0 +1,105 @@
+/* V296 — Redação: mesma identidade tipográfica, superfícies e cores do portal.
+   Mantém temas, exercícios, correções, estados e salvamento intactos. */
+:root{
+ --bg:#edf0f2!important;
+ --surface:#fff!important;
+ --card:#fff!important;
+ --border:#bfced8!important;
+ --text:#111a22!important;
+ --muted:#405766!important;
+ --ouro:#147fbf!important;
+ --azul:#147fbf!important;
+ --display:"Segoe UI",Arial,system-ui,sans-serif!important;
+ --serif:"Segoe UI",Arial,system-ui,sans-serif!important;
+ --bm296-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+html,body{background:#edf0f2!important;color:#111a22!important}
+body{font:400 14px/1.58 var(--bm296-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,p,span,strong,label,summary,button,a,
+ select,input,textarea,td,th,li,blockquote){
+ font-family:var(--bm296-font)!important
+}
+body :is(pre,code,kbd,samp){font-family:"IBM Plex Mono",monospace!important}
+.hdr{
+ background:#343e46!important;color:#fff!important;border-bottom:2px solid #147fbf!important;
+ padding:11px 17px!important
+}
+.hdr-title{
+ color:#fff!important;font:700 16px/1.4 var(--bm296-font)!important
+}
+.hdr-back{
+ color:#e5eef4!important;border:1px solid #7b919f!important;
+ border-radius:0!important;font:600 12px/1.4 var(--bm296-font)!important;
+ padding:7px 10px!important
+}
+.hdr-back:hover{color:#fff!important;background:#405663!important}
+.hdr-badge{
+ background:#eaf4fb!important;color:#205b81!important;border:1px solid #9bc3dd!important;
+ border-radius:0!important;font:600 11px/1.4 var(--bm296-font)!important;letter-spacing:0!important
+}
+.tabs{background:#fff!important;border-bottom:1px solid #c8d7e1!important}
+.tabs .tab{
+ color:#334b5a!important;background:#fff!important;
+ font:600 12.5px/1.4 var(--bm296-font)!important
+}
+.tabs .tab.ativo{color:#1473ac!important;border-color:#147fbf!important;background:#edf6fc!important}
+.aba{color:#111a22!important;font:400 14px/1.6 var(--bm296-font)!important}
+.aba .card,
+.aba :is(.tema-card,.fttd-box,.ia-output,.bm145-save,.bm145-step){
+ background:#fff!important;border:1px solid #c5d4dd!important;
+ border-radius:0!important;box-shadow:none!important
+}
+.aba :is(.card-titulo,.tema-titulo){
+ color:#15232e!important;font:700 16px/1.5 var(--bm296-font)!important
+}
+.aba .section-label{
+ color:#205f89!important;font:700 14px/1.45 var(--bm296-font)!important
+}
+.aba :is(p,li,.cir-texto,.tema-meta,.rx-item,label){
+ color:#182632!important;font-size:14px!important;line-height:1.6!important
+}
+.aba :is(.tema-meta,.nivel-badge,.cir-legenda){
+ color:#435b6b!important;font-size:12px!important
+}
+.aba :is(input:not([type="checkbox"]):not([type="radio"]),textarea,select){
+ color:#111a22!important;background:#fff!important;
+ border:1px solid #b8cbd8!important;border-radius:0!important;
+ font:400 13.5px/1.55 var(--bm296-font)!important
+}
+.aba :is(input,textarea)::placeholder{color:#4f6372!important;opacity:1!important}
+.aba :is(button,.btn,.chip){
+ font-family:var(--bm296-font)!important;border-radius:0!important
+}
+.aba .btn{
+ font-size:12.5px!important;font-weight:650!important
+}
+.aba :is(.btn-ouro,.btn-azul,.chip.sel,.chip.sel-azul){
+ background:#147fbf!important;border-color:#147fbf!important;color:#fff!important
+}
+.aba .btn-ouro:hover,.aba .btn-azul:hover{
+ background:#0b6298!important;border-color:#0b6298!important
+}
+.aba .btn-ghost{background:#fff!important;color:#1b618a!important;border:1px solid #bbd3e1!important}
+.aba .chip:not(.sel):not(.sel-azul){color:#205b80!important;background:#f6fafc!important;border-color:#c9dbe7!important}
+.aba :is(.bm138-guidance,.bm145-save,.bm145-step,.bm132-notice){
+ border-radius:0!important
+}
+.bm132-notice{
+ background:#f8fafc!important;border:1px solid #cadbe5!important;
+ border-radius:0!important;color:#253c4b!important;
+ font:400 13px/1.55 var(--bm296-font)!important
+}
+.bm132-notice :is(p,strong,button,a){font-family:var(--bm296-font)!important}
+.bm132-notice strong{color:#172d3d!important}
+.bm132-notice a{color:#126b9e!important}
+body :is(button,input,select,textarea,summary,a):focus-visible{
+ outline:2px solid #229bda!important;outline-offset:2px!important
+}
+@media(max-width:650px){
+ .hdr{padding:10px!important;gap:8px!important}
+ .hdr-title{font-size:15px!important}
+ .hdr-badge{font-size:10px!important}
+ .aba{font-size:13.5px!important}
+ .aba :is(.card-titulo,.tema-titulo){font-size:15px!important}
+ .aba :is(p,li,.cir-texto,.tema-meta){font-size:13.5px!important}
+}

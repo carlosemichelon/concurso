@@ -1,3 +1,13 @@
+# V296 — Sistema visual unificado em todo o Banco Mestre (19/11/2026)
+
+- **Título dos cartões preto forte**: #101820, 16 px, peso 700, fundo branco, borda quadrada.
+- **Conteúdo dos 11 módulos**: #111a22, 15 px. Títulos auxiliares e botões azuis escuros, secundários cinza legível.
+- **Escala do portal**: mesmo padrão de Segoe UI, superfícies brancas e azul funcional em Assuntos, PDFs, Imagens, Lacunas, SRS, Controle, popups e Redação. Não alterar informação técnica ou semântica de estados.
+- **Excluir imagens**: clicar em **Abrir no Drive** e usar **Mover para a lixeira** no Google Drive. Não há mais solicitação de permissão de gerenciamento/exclusão dentro do portal; a conta é a mesma usada para ler os originais.
+- A antiga comparação SHA-256 permanece bloqueante quando as assinaturas divergirem; verificação de integridade não foi bypassada.
+- Versões anteriores arquivadas. Nenhuma modificação de cartão/ID/SRS/Drive/arquivo foi realizada durante o deploy.
+- Auditoria de classes, scripts, links e CSS, sem homologação em navegador real autenticado.
+
 # V295 — PDFs padronizados, diagnóstico de SHA privado e lixeira de imagens (19/11/2026)
 
 - PDFs: barra de ferramentas com linha de ações, busca e filtros prioritários, categorias secundárias e listagem em cartões com bordas retas, texto mais escuro e elementos responsivos.
