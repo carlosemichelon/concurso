@@ -9,6 +9,8 @@ assert.ok(Number(manifest.version.slice(1))>=263);
 assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
 assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
 assert.equal(manifest.current_versions.portal.home,manifest.home);
+assert.equal(manifest.current_versions.portal.version,manifest.version);
+assert.equal(manifest.current_versions.portal.previous,manifest.previous_version);
 assert.ok(Number(manifest.previous_version.slice(1))<Number(manifest.version.slice(1)));
 assert.ok(page.includes('data-bm-portal-version="V263"'),'V263 histórica preservada');
 // A V263 histórica mantém seus próprios números; o manifesto corrente é evolutivo.
