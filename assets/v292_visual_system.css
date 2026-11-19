@@ -1,0 +1,254 @@
+/* V292 — Sistema visual tipográfico do Banco Mestre.
+   Inspiração: hierarquia editorial da captura Tec Concursos; identidade própria.
+   Fonte única, cinco papéis de cor, escala estável e controles coerentes.
+   Nenhuma alteração em conteúdos, dados, IDs, SVG técnico, grifos ou estados SRS. */
+:root{
+ --bm292-font:"Segoe UI",Arial,system-ui,sans-serif;
+ --bm292-page:#edf0f1;
+ --bm292-paper:#fff;
+ --bm292-card:#f5f7f8;
+ --bm292-ink:#1c2730;
+ --bm292-heading:#203440;
+ --bm292-muted:#445967;
+ --bm292-meta:#566b79;
+ --bm292-link:#147cb9;
+ --bm292-action:#1687d8;
+ --bm292-nav:#343d44;
+ --bm292-border:#b9c9d3;
+ --bm292-soft-border:#dbe5eb;
+ --bm292-tint:#eff6fa;
+ --bm292-fs-body:13.5px;
+ --bm292-fs-heading:16px;
+ --bm292-fs-subhead:14px;
+ --bm292-fs-caption:11.5px;
+ --bm292-line-body:1.55
+}
+html,body{background:var(--bm292-page)!important;color:var(--bm292-ink)!important}
+body{font:400 var(--bm292-fs-body)/var(--bm292-line-body) var(--bm292-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,button,input,select,textarea,summary,label,legend,
+ p,span,small,strong,li,td,th,article,section,.card,.panel){
+ font-family:var(--bm292-font)!important
+}
+/* Não padronizar fontes de código, fórmulas e bibliotecas de matemática. */
+body :is(code,pre,kbd,samp,mjx-container,mjx-container *,math,math *,.katex,.katex *){
+ font-family:revert!important
+}
+/* Cabeçalho: família única e hierarquia própria (não repetir tamanho do body). */
+body>header{background:var(--bm292-nav)!important;color:#f5f7f9!important}
+body>header .head .brand{
+ font:700 16px/1.25 var(--bm292-font)!important;
+ letter-spacing:0!important;color:#f7fafc!important
+}
+body>header .head .brand>.version{
+ font:400 11px/1.35 var(--bm292-font)!important;
+ color:#c5d2dc!important;letter-spacing:0!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page]{
+ font:600 11.5px/1.35 var(--bm292-font)!important;
+ color:#d6e1e9!important;letter-spacing:.015em!important;
+ border-bottom:2px solid transparent!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page].active{
+ color:#fff!important;border-bottom-color:#299fe9!important
+}
+body>header .head>.bm-v046-header-stats :is(button,span,small){
+ font-family:var(--bm292-font)!important;font-size:11px!important
+}
+body>header .head #bm239-drive-action,
+body>header .head #bm239-sync-details{
+ font-size:11.5px!important;font-weight:600!important
+}
+/* Seção editorial: título escuro; azul fica nos links e nas ações. */
+body>main>section>.panel>h2,body>main #tema .topicLead h2,
+#lacunas .bm242-shell>h2,#calendario .c141-title h2{
+ color:var(--bm292-heading)!important;
+ font:700 var(--bm292-fs-heading)/1.35 var(--bm292-font)!important;
+ letter-spacing:0!important;margin-bottom:7px!important
+}
+body>main>section>.panel>p.intro,
+body>main #tema .intro,
+body>main #assuntos .panel>p.intro{
+ color:var(--bm292-muted)!important;
+ font:400 12.5px/1.55 var(--bm292-font)!important;
+ margin-bottom:11px!important
+}
+body>main :is(.sectionTitle,.topicLead h3,.v036-topic-cluster-summary,
+ .v036-area-head,.v036-card-group-summary){
+ font-family:var(--bm292-font)!important;font-size:var(--bm292-fs-subhead)!important;
+ font-weight:650!important;line-height:1.42!important;
+ color:var(--bm292-heading)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(.muted,.originalHelp,.bm242-muted,.c141-muted,.v036-count,
+ .bm153Status,.v036-topic-metrics){
+ color:var(--bm292-muted)!important;
+ font-size:var(--bm292-fs-caption)!important;line-height:1.5!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(a:not(.action),.v036-topic-link){
+ color:var(--bm292-link)!important;text-decoration-color:#72b2dd!important
+}
+/* Controles: mesma fonte, mesmo peso, cor de texto estável. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas)
+ :is(label,.bm152Field,.bm155Field>span,.bm281-toolbar-field){
+ color:#354c5b!important;
+ font:600 12px/1.45 var(--bm292-font)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas)
+ :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+ font:400 12.5px/1.45 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important;background:#fff!important;
+ border:1px solid var(--bm292-border)!important;border-radius:0!important
+}
+body>main :is(input,textarea)::placeholder{color:#586b78!important;opacity:1!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas)
+ :is(button,a.action,summary){
+ font-family:var(--bm292-font)!important;font-size:12px!important;
+ line-height:1.4!important;font-weight:600!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger){
+ background:var(--bm292-action)!important;color:#fff!important;
+ border-color:var(--bm292-action)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) details.bm280-advanced>summary{
+ color:var(--bm292-link)!important;background:#fff!important;
+ font-size:12px!important;font-weight:600!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) .bm280-advanced-body{
+ color:var(--bm292-ink)!important;background:#f8fafb!important
+}
+body>main :is(.bm279-recent-note,#cardCount,#pdfCount,#imageCount,#topicCount){
+ font:400 11.5px/1.5 var(--bm292-font)!important;color:var(--bm292-muted)!important
+}
+/* Card editorial: enunciado é texto principal, não um link azul. */
+#cartoes #cardRows article.card{
+ background:var(--bm292-card)!important;
+ border:1px solid var(--bm292-border)!important;border-radius:0!important;
+ color:var(--bm292-ink)!important
+}
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows article.card .bm195-heading-text h3{
+ font:650 14px/1.55 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important;letter-spacing:0!important;
+ margin:5px 0 8px!important
+}
+#cartoes #cardRows article.card :is(p,li,dd,td,th,blockquote),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm197-paragraph,
+ .bm198-paragraph,.bm198-module-body){
+ font:400 13px/1.6 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important
+}
+#cartoes #cardRows article.card :is(.muted,small,.v036-card-path,.bm195-status){
+ font:400 11.5px/1.45 var(--bm292-font)!important;color:var(--bm292-muted)!important
+}
+#cartoes #cardRows article.card :is(.tag,.chip,.pill):not(.danger):not(.late){
+ color:#315a74!important;background:#f0f5f8!important;
+ border-color:#c8d6e0!important;border-radius:0!important;
+ font:600 11px/1.35 var(--bm292-font)!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,
+ .bm197-title,.richSection h4){
+ color:var(--bm292-heading)!important;
+ font:650 13px/1.45 var(--bm292-font)!important
+}
+#cartoes #cardRows :is(button,.bm-v050-peek-button){
+ font:600 12px/1.4 var(--bm292-font)!important;border-radius:0!important
+}
+#cartoes #cardRows .bm-v050-peek-button{color:var(--bm292-link)!important}
+/* Modal de leitura: perguntas maiores, conteúdo legível, auxiliares menores. */
+#bmCardPeekV050 .bm163-panel{
+ font:400 13.5px/1.6 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important
+}
+#bmCardPeekV050 .bm-v050-peek-front{
+ font:650 17px/1.52 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph,
+ .bm198-module-body,.bm195-body,.bm195-layer-body,.bm195-paragraph,
+ .bm165-related-front,.bm163-rich-list,li){
+ font:400 13.5px/1.64 var(--bm292-font)!important;color:var(--bm292-ink)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title,
+ .bm198-overview-top h4){
+ font:700 13.5px/1.4 var(--bm292-font)!important;color:var(--bm292-heading)!important
+}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status,.bm165-related-title){
+ font:500 11.5px/1.45 var(--bm292-font)!important;color:var(--bm292-muted)!important
+}
+#bmCardPeekV050 :is(button,input,select,textarea,summary){
+ font-family:var(--bm292-font)!important;border-radius:0!important
+}
+/* Outras bibliotecas recebem os mesmos papéis de texto e cor. */
+#assuntos :is(.bm246-formula-shortcut strong,.topicCard strong,
+ .v036-topic-name,.v036-topic-tile strong){
+ font:650 13px/1.45 var(--bm292-font)!important;color:#226da0!important
+}
+#assuntos :is(.bm246-formula-shortcut span,.bm246-formula-shortcut small,
+ .v036-topic-examples,.v036-topic-metrics){
+ font:400 11.5px/1.5 var(--bm292-font)!important;color:var(--bm292-muted)!important
+}
+#pdfs #bm210PdfToolbar,#imagens #bm209SyncBar.bm210ImageToolbar{
+ font:400 12.5px/1.5 var(--bm292-font)!important;color:var(--bm292-ink)!important
+}
+#pdfs #bm210PdfToolbar :is(button,select,input,summary),
+#imagens #bm209SyncBar.bm210ImageToolbar :is(button,select,input,summary){
+ font:500 12px/1.45 var(--bm292-font)!important
+}
+#pdfs #bm210PdfToolbar :is(.bm210StatusBody,.bm210Filters),
+#imagens #bm209SyncBar .bm210StatusBody{color:var(--bm292-ink)!important}
+#pdfs #pdfRows :is(h3,h4),#imagens #imageRows :is(h3,h4){
+ color:var(--bm292-heading)!important;
+ font:650 13.5px/1.45 var(--bm292-font)!important
+}
+#pdfs #pdfRows :is(p,small),#imagens #imageRows :is(p,small){
+ color:var(--bm292-muted)!important;font-size:12px!important
+}
+#lacunas .bm242-shell h2,#calendario .c141-title h2{
+ color:var(--bm292-heading)!important;font-weight:700!important
+}
+#lacunas :is(.bm242-item p,.bm242-form label,.bm242-status),
+#calendario :is(.c141-title p,.c141-note,.c141-status,
+ .c141-stat span,.c141-board td){
+ color:var(--bm292-ink)!important;
+ font-family:var(--bm292-font)!important;font-size:12.5px!important;line-height:1.55!important
+}
+#calendario .c141-title h2{font-size:20px!important}
+#calendario .c141-stat strong{
+ font:700 22px/1.25 var(--bm292-font)!important;color:#285b7b!important
+}
+#calendario .c141-boardhead h3{
+ font:650 14px/1.4 var(--bm292-font)!important;color:var(--bm292-heading)!important
+}
+#calendario .c141-limit{font:700 12px/1.4 var(--bm292-font)!important}
+#calendario .c141-tag{font:600 11px/1.4 var(--bm292-font)!important}
+/* Popups fora do leitor: mesmo peso de fonte e papel de texto. */
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel){
+ font:400 13px/1.55 var(--bm292-font)!important;color:var(--bm292-ink)!important
+}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(.dhead strong,h2,h3){
+ font-family:var(--bm292-font)!important;color:var(--bm292-heading)!important;font-weight:700!important
+}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(button,select,input,label,textarea,summary){
+ font-family:var(--bm292-font)!important;font-size:12px!important
+}
+/* Links e estados ativos, não pintar informações técnicas de azul. */
+body :is(input[type="checkbox"],input[type="radio"],input[type="range"]){
+ accent-color:var(--bm292-action)!important
+}
+body :is(button,select,input,textarea,summary):focus-visible{
+ outline:2px solid #65b3e2!important;outline-offset:2px!important
+}
+@media(max-width:700px){
+ body{font-size:13px!important}
+ body>header .head .brand{font-size:15px!important}
+ body>header .head>nav[aria-label="Seções"]>button[data-page]{font-size:11px!important}
+ body>main>section>.panel>h2{font-size:15.5px!important}
+ #cartoes #cardRows article.card>h3{font-size:13.75px!important}
+ #cartoes #cardRows article.card :is(p,li){font-size:13px!important}
+ #bmCardPeekV050 .bm-v050-peek-front{font-size:16px!important}
+}

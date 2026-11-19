@@ -1,3 +1,12 @@
+# V292 — Uma lógica tipográfica e de cores em todo o Banco Mestre (19/11/2026)
+
+- Correção baseada na comparação visual feita pelo usuário com a interface Tec Concursos: o cabeçalho e o body precisam seguir papéis coerentes, não apenas compartilhar uma fonte.
+- Escala tipográfica centralizada: cabeçalho 16 px, navegação 11,5 px, título de seção 16 px, subtítulos 14 px, conteúdo 13–13,5 px, metadata 11,5–12 px. Fonte Segoe UI em todas as áreas, inclusive Controle Shadow DOM e popups.
+- Texto principal #1c2730 e títulos neutros #203440. Azul #1687d8 fica reservado principalmente a navegação, links e ações; secundários em #445967.
+- Layout de coluna única, fundo cinza, cartões de alto contraste e bordas quadradas mantidos. Estados de alerta/erro/acerto, PDFs, gráficos e grifos preservados.
+- Rótulos de versão que estavam desatualizados na interface foram corrigidos sem modificar fatos didáticos ou registros privados.
+- Sem alterações em lógica de questões, filtros, IDs, SRS, Drive, sincronização e comparador. V291 disponível para reversão. Inspeção gráfica real ainda pendente.
+
 # V291 — Contraste alto e bordas retas (19/11/2026)
 
 - Texto principal #1c2730, perguntas #14212b e texto secundário #354653, com alta legibilidade.
