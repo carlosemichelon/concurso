@@ -17,7 +17,7 @@ function state(message,type='idle'){
  if(el){el.textContent=message;el.dataset.state=type;el.title=message}
  const b=$('bm239-drive-action');
  if(b){b.dataset.connected=String(Boolean(active()||media()?.token?.()));b.disabled=busy||!ready;
-  b.textContent=busy?'Sincronizando Drive…':active()?'Sincronizar Drive':'Conectar e sincronizar Drive';
+  b.textContent=busy?'Verificando…':active()?'Sincronizar Drive':'Conectar Drive';
   b.setAttribute('aria-busy',String(busy));
  }
 }
@@ -203,7 +203,7 @@ async function runSyncAll(){
  }finally{
   busy=false;
   const b=$('bm239-drive-action');
-  if(b){b.disabled=!ready;b.textContent=active()?'Sincronizar Drive':'Conectar e sincronizar Drive';b.setAttribute('aria-busy','false')}
+  if(b){b.disabled=!ready;b.textContent=active()?'Sincronizar Drive':'Conectar Drive';b.setAttribute('aria-busy','false')}
  }
 }
 
