@@ -18,6 +18,8 @@ const {chromium}=require('playwright');
    await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
    await page.locator('header .brand').waitFor();
    await page.screenshot({path:path.join('test-artifacts/v298',width+'-inicio.png')});
+   await page.locator('header nav button[data-page="cartoes"]').click();
+   await page.waitForFunction(()=>document.querySelector('#cartoes')?.classList.contains('active'));
    const metrics=await page.evaluate(()=>{
     const cardRows=document.getElementById('cardRows');
     const article=document.createElement('article');
@@ -55,7 +57,6 @@ const {chromium}=require('playwright');
    assert.ok(metrics.navMinHeight>=40,'Área de toque pequena');
    assert.ok(metrics.cardWidth>0&&metrics.cardWidth<=width,'Cartão excedeu a tela');
    assert.deepEqual(cssErrors,[],'Arquivos CSS V298 com erro HTTP');
-   await page.locator('header nav button[data-page="cartoes"]').click();
    await page.waitForTimeout(200);
    await page.screenshot({path:path.join('test-artifacts/v298',width+'-cartoes.png')});
    results.push({width,...metrics});
