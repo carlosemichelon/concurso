@@ -2,9 +2,9 @@
 (function(){
 'use strict';
 if(window.BM276LayerData)return;
-const known=new Set(["CARD-0118","CARD-0175","CARD-0333","CARD-0468","CARD-0480","CARD-0543","CARD-0547","CARD-0548","CARD-0549","CARD-0551","CARD-0552","CARD-0553","CARD-0579","CARD-0621","CARD-0623","CARD-0624","CARD-0625","CARD-0626","CARD-0629","CARD-0631","CARD-0632","CARD-0642","CARD-1033","CARD-1034","CARD-1386","CARD-1520","CARD-1521","CARD-1522","CARD-1523","CARD-1524","CARD-1525","CARD-1526","CARD-1527","CARD-1528","CARD-1529","CARD-1530","CARD-1531","CARD-1532","CARD-1533","CARD-1413","CARD-1534"]);
+const known=new Set(["CARD-0118","CARD-0175","CARD-0333","CARD-0468","CARD-0480","CARD-0543","CARD-0547","CARD-0548","CARD-0549","CARD-0551","CARD-0552","CARD-0553","CARD-0579","CARD-0621","CARD-0623","CARD-0624","CARD-0625","CARD-0626","CARD-0629","CARD-0631","CARD-0632","CARD-0642","CARD-1033","CARD-1034","CARD-1386","CARD-1520","CARD-1521","CARD-1522","CARD-1523","CARD-1524","CARD-1525","CARD-1526","CARD-1527","CARD-1528","CARD-1529","CARD-1530","CARD-1531","CARD-1532","CARD-1533","CARD-1413","CARD-1534","CARD-0578","CARD-0924"]);
 const cache=new Map();
-const source=id=>(id==='CARD-1413'||id==='CARD-1534')?'assets/v276_petro22_public_layers.json?v=276-1':'assets/layers_public_v274_sync.json?v=274-1';
+const source=id=>(id==='CARD-0578'||id==='CARD-0924')?'assets/v277_petro22_relacionados_layers.json?v=277-1':(id==='CARD-1413'||id==='CARD-1534')?'assets/v276_petro22_public_layers.json?v=276-1':'assets/layers_public_v274_sync.json?v=274-1';
 async function get(id){
  if(!known.has(id))return null;
  const path=source(id);
