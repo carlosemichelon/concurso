@@ -1,3 +1,10 @@
+# V291 — Contraste alto e bordas retas (19/11/2026)
+
+- Texto principal #1c2730, perguntas #14212b e texto secundário #354653, com alta legibilidade.
+- Cartões cinza-claro (#f5f7f8); módulos internos brancos; bordas retas sem cantos arredondados em painéis, formulários e popups.
+- Preservados o comparador Drive × GitHub da V290, SRS, autenticação, conteúdos e 11 módulos. Sem alterar os grifos, imagens técnicas, PDFs ou estados semânticos.
+- Publicação validada estaticamente; inspeção visual real do navegador pendente.
+
 # V290 — Verificar diferenças Drive × GitHub sem sincronizar (19/11/2026)
 
 - Na aba Flashcards, o botão anterior de sincronização privada é substituído por **Verificar diferenças Drive × GitHub**.

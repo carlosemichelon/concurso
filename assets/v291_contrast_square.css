@@ -1,0 +1,121 @@
+/* V291: alto contraste de leitura e contornos retos, sem mudar o conteúdo.
+ * Preservar grifos, ícones técnicos, PDFs, alertas e estados semânticos. */
+:root{
+ --bm-contrast-text:#1c2730;
+ --bm-contrast-title:#14212b;
+ --bm-contrast-secondary:#354653;
+ --bm-card-bg:#f5f7f8;
+ --bm-card-border:#abbecb;
+ --bm-border:#bccbd5;
+}
+html,body{color:#1c2730!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(p,li,dd,dt,blockquote,td,th){color:#1c2730!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(.intro,.muted,.originalHelp,.bm242-muted,.c141-muted,.bm153Status){
+ color:#354653!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+ color:#1c2730!important;background:#fff!important;
+ border-color:#abbecb!important;border-radius:0!important
+}
+body>main :is(input,textarea)::placeholder{color:#4a5c67!important;opacity:1!important}
+body>main>section>.panel,
+body>main #tema>.panel,#lacunas .bm242-shell,#calendario .c141-wrap{
+ border:1px solid #abbecb!important;border-radius:0!important;box-shadow:none!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) :is(details.bm280-advanced,
+ details.bm280-advanced>summary,.bm280-advanced-body){border-radius:0!important}
+/* Flashcards: superfície cinza-claro e texto bem escuro. */
+#cartoes #cardRows article.card,
+#cartoes #cardRows .v036-card-group{
+ background:#f5f7f8!important;border:1px solid #abbecb!important;
+ border-radius:0!important;box-shadow:none!important;color:#1c2730!important
+}
+#cartoes #cardRows article.card:hover{
+ background:#eff4f7!important;border-color:#78a7c3!important
+}
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows article.card .bm195-heading-text h3{
+ color:#14212b!important;font-size:14px!important;line-height:1.55!important;
+ font-weight:650!important
+}
+#cartoes #cardRows article.card :is(p,li,dd,td,th,blockquote),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm195-list,
+ .bm197-paragraph,.bm198-paragraph,.bm198-module-body){
+ color:#1c2730!important;font-size:13px!important;line-height:1.6!important
+}
+#cartoes #cardRows article.card :is(.muted,small,.v036-card-path),
+#cartoes #cardCount{color:#354653!important}
+#cartoes #cardRows :is(.bm195-evo,.bm195-layer,.bm198-module,.bm198-overview,
+ .bm197-evolutive,.richSection,.answer>.richSection){
+ background:#fff!important;border:1px solid #cbd7df!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head,.bm198-module-head,
+ .bm198-overview-top){
+ background:#edf2f6!important;border-color:#cbd7df!important;border-radius:0!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,.bm197-title,.richSection h4){
+ color:#215e87!important;font-weight:700!important
+}
+#cartoes #cardRows :is(.tag,.chip,.pill):not(.danger):not(.late){
+ background:#edf3f7!important;border-color:#c4d3dc!important;
+ color:#254960!important;border-radius:0!important
+}
+#cartoes #cardRows :is(button,.bm-v050-peek-button){border-radius:0!important}
+/* Popup: leitura do enunciado e dos 11 módulos. */
+#bmCardPeekV050 .bm163-panel{
+ background:#fff!important;border:1px solid #a8bbc8!important;border-radius:0!important
+}
+#bmCardPeekV050 :is(.bm-v050-peek-front,.bm163-question,.bm165-related-front){
+ color:#14212b!important
+}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph,
+ .bm198-module-body,.bm195-body,.bm195-layer-body,.bm195-paragraph,
+ .bm198-list,.bm163-rich-list,li,td,th){
+ color:#1c2730!important;line-height:1.65!important
+}
+#bmCardPeekV050 :is(.bm163-piece,.bm163-deep-group,.bm197-evolutive,
+ .bm198-overview,.bm198-module,.bm195-evo,.bm195-layer){
+ background:#f8fafb!important;border:1px solid #bfccd6!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#bmCardPeekV050 :is(.bm163-header,.bm163-footer,.bm198-module-head,
+ .bm198-overview-top,.bm195-layer-head){
+ background:#edf3f7!important;border-color:#c7d6df!important;border-radius:0!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title){
+ color:#215f86!important
+}
+#bmCardPeekV050 :is(button,input,select,textarea,summary){border-radius:0!important}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status){
+ color:#354653!important
+}
+/* As demais seções também recebem contornos retos. */
+#assuntos :is(.bm246-formula-shortcut,.topicCard,.v036-topic-tile,.v036-topic-cluster-summary),
+#pdfs :is(#bm210PdfToolbar,#pdfAreaNavV036,.v036-pdf-area,.v036-card-group,.v036-pdf-summary),
+#imagens :is(#bm209SyncBar,.bm153AreaBlock,.bm153Group,.bm153Directory,
+ .bm153GroupBody,article.card),
+#lacunas :is(.bm242-shell,.bm242-item,.bm242-form,.bm242-gallery,.bm242-status,.bm243-smoke),
+#calendario :is(.c141-wrap,.c141-stat,.c141-settings,.c141-board,
+ .c141-import,.c141-limit,.c141-boardhead){
+ border-radius:0!important;border-color:#abbecb!important;box-shadow:none!important
+}
+#lacunas :is(.bm242-item,.bm242-form,.bm242-gallery){background:#f8fafb!important}
+#lacunas .bm242-item :is(p,li,strong),#lacunas .bm242-status,
+#calendario :is(.c141-title p,.c141-status,.c141-stat span,.c141-import p){
+ color:#1c2730!important
+}
+#calendario .c141-stat strong{color:#215476!important}
+:is(#pdfs #bm210PdfToolbar,#imagens #bm209SyncBar,
+ #lacunas,#calendario) :is(button,select,input,textarea){border-radius:0!important}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(button,select,input,textarea,.dhead,.toolbar){border-radius:0!important}
+@media(max-width:700px){
+ #cartoes #cardRows article.card>h3{font-size:13.5px!important}
+ #cartoes #cardRows article.card :is(p,li,td){font-size:12.8px!important}
+}
