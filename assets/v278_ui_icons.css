@@ -1,0 +1,25 @@
+/* V278 — ícones de interface leves. Pranchas e diagramas técnicos fora do escopo. */
+:where(button,a.action,summary,nav,[role="button"],[role="tab"],.topicCard,.bm198-overview-icon){font-variant-emoji:text}
+:where(button,a.action,summary,[role="button"],[role="tab"]) svg:not([data-technical]),
+#assuntos #areaRows .topicCard svg,
+#cartoes .bm163-ic svg,#bmCardPeekV050 .bm163-ic svg{
+ width:15px!important;height:15px!important;max-width:15px!important;max-height:15px!important;
+ flex:none;stroke-width:1.35!important;stroke-linecap:round;stroke-linejoin:round;filter:none!important;opacity:.86
+}
+#cartoes .bm198-icon,#bmCardPeekV050 .bm198-icon,#cardRows .bm198-icon{stroke-width:1.35!important;filter:none!important}
+:where(button,a.action,summary,[role="tab"],[role="button"]) :is(.icon,.bm163-ic,.bm198-icon){
+ font-size:14px!important;font-weight:400!important;line-height:1
+}
+#assuntos #areaRows .topicCard .icon{max-width:15px!important;max-height:15px!important;font-size:14px!important;font-weight:400!important}
+#cartoes .bm198-overview-icon,#bmCardPeekV050 .bm198-overview-icon,#cardRows .bm198-overview-icon{
+ width:29px!important;height:29px!important;border:1px solid #d9e5e1!important;
+ background:transparent!important;box-shadow:none!important;color:#32666a!important
+}
+#cartoes .bm198-overview-icon svg,#bmCardPeekV050 .bm198-overview-icon svg,#cardRows .bm198-overview-icon svg{
+ width:16px!important;height:16px!important;stroke-width:1.35!important
+}
+/* Reutilizado dentro do Controle de Estudos isolado no Shadow DOM. */
+:where(button,a,summary,[role="tab"],[role="button"])>svg:not([data-technical]){
+ stroke-width:1.35!important;stroke-linecap:round;stroke-linejoin:round
+}
+@media(prefers-reduced-motion:reduce){:where(button,a.action,summary) svg{transition:none!important}}

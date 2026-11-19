@@ -1,3 +1,11 @@
+# V278 — Ícones de interface simplificados (19/11/2026)
+
+- Ícones SVG da interface com traços de 1,35 e dimensões contidas (15–16 px); caixas decorativas menos chamativas.
+- Solicitação de glifos monocromáticos nos símbolos de texto, quando suportada pelo navegador.
+- Mesmo CSS aplicado à interface encapsulada do Controle; sem biblioteca, fonte, imagens ou mudanças de scripts de dados.
+- Figuras técnicas, 11 módulos, IDs, cartões, SRS, PDFs, grifos e dados do Drive preservados.
+- Página `v278.html`, versão anterior `v277.html` preservada. Validado estaticamente; inspeção real de navegador pendente.
+
 # V277 — Conciliação do estudo Petrobras 22: cartões relacionados (19/11/2026)
 
 **Contexto de concorrência:** PR #47 já havia publicado V276 com CARD-1534 (novo), CARD-1413 (reforço térmico) e um mecanismo próprio de 11 módulos. O PR #48 concorrente também tentava integrar CARD-1534, sendo conflitante. A V277 NÃO replica o cartão ou modifica os recursos da V276: contém somente o delta didático ainda ausente, CARD-0578 e CARD-0924.
