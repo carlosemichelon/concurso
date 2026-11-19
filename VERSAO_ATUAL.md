@@ -1,3 +1,16 @@
+# Banco Mestre V274 — Sincronização técnica Drive V164 → GitHub (19/11/2026)
+
+- **Fonte confirmada:** snapshot privado V164, hash SHA-256 `fed9209436b2cc89e2d067bc53b55253b5153a2bc2fc8ee392e0b025cdeb44b8`, 1.532 cartões, 36 questões, 13 imagens, 1.518 registros SRS. Fonte original e histórico no Drive preservados, sem escrita no snapshot.
+- **Publicação incremental:** `assets/cards_drive_sync_v274.json` com CARD-1520..CARD-1533 (14 novos IDs, já integrados no privado) e explicações técnicas de 9 IDs existentes: CARD-0022, 0097, 0269, 0432, 0500, 0603, 0917, 1049, 1413. Arquivos V194 inalterados.
+- **11 módulos:** `assets/layers_public_v274_sync.json` traz 11 módulos para 39 cartões: 25 cartões já evoluídos na linhagem privada V162 mais 14 novos da V164. O leitor consulta o incremento para esses IDs e mantém V194/V199 para os demais. Foram tratadas 4 passagens com indicadores de relato/pessoal, mantendo os originais intactos no Drive; a cópia pública não é arquivo privado integral.
+- **Contagens:** 1.518 IDs históricos V194 + 14 novos V274 = 1.532 cartões publicados (1.515 ativos, 17 inativos); mais 22 registros de Ijuí = 1.554 entradas exibidas. Os 19 adendos V267 modificam IDs existentes e não acrescentam cartões. ID CARD-1499 permanece reservado.
+- **Privacidade:** não publicar os 36 registros de questões do privado, SRS, relatos literais, avaliações, metadados administrativos, documentos privados ou imagens privadas. Somente campos técnicos visíveis no portal são sincronizados. Não pressupor atualização automática: esta é publicação pontual.
+- **Arquitetura preservada:** GitHub Pages continua hospedando site e dados técnicos públicos; Drive continua canônico e privado; nenhum Google Apps Script/migração.
+- **Reversibilidade:** `v273.html` e todos os JSONs V194/V267 permanecem disponíveis; módulos V274 são overlay versionado. Teste de integridade `tests/v274_drive_sync.test.cjs`; validação OAuth e navegador real continua pendente.
+- **Metodologia PMS-1:** 33 decisões, frequência do índice, aprovações, originais, 11 módulos, eventos/calendário SRS e trilha de autoria não alterados.
+
+---
+
 # Banco Mestre V273 — Taxonomia das versões e contagens sem confundir origens (19/11/2026)
 
 - **Publicação proposta:** `index.html`, `v273.html`, `assets/version.json`; V272 permanece intacta para reversão. Não há alteração em flashcards, PDFs ou SRS.
