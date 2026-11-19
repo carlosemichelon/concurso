@@ -1,0 +1,40 @@
+/* V286: Fonte do cabeçalho em todo body, cartões e popups; azul nas seleções.
+ * Não alterar fórmulas, esquemas técnicos, grifos, SRS ou documentos. */
+:root{--bm-ui-font:"Segoe UI",Arial,system-ui,sans-serif;--accent:#1687d8;--bg:#edf0f1;--ink:#344b5a}
+html,body,body>header,body>main,body>footer{font-family:var(--bm-ui-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,p,span,small,strong,b,em,label,legend,summary,button,a,input,select,textarea,option,li,blockquote,table,th,td),
+body :is(.panel,.card,.topicCard,.richSection,.answer,.bm195-evo,.bm198-overview,.bm198-module,.studyGrid,.topicLead){
+ font-family:var(--bm-ui-font)!important
+}
+body :is(pre,code,kbd,samp,.katex,.katex *,mjx-container,mjx-container *,math,math *){font-family:revert!important}
+body :is(input[type="checkbox"],input[type="radio"]){accent-color:#1687d8!important}
+body :is(input,select,button,[role="tab"],summary):focus-visible{outline:2px solid #78bee8!important;outline-offset:2px!important}
+body :is([role="tab"][aria-selected="true"],[role="option"][aria-selected="true"]):not(.danger){
+ color:#176eaa!important;background:#eaf5fc!important;border-color:#1687d8!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger){
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger):hover{
+ background:#126ca6!important;border-color:#126ca6!important
+}
+body>main :is(.card h3,.card h4,.richSection h4,.bm198-module h4,.bm195-layer h4,.studyGrid h3,.studyGrid h4){color:#2b729e!important}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head){background:#f4f9fd!important;border-color:#deebf2!important}
+#cartoes #cardRows :is(.bm195-heading-icon,.bm195-layer-ico){color:#2679ab!important;background:#e6f3fb!important}
+#cartoes #cardRows article.card>.bm-v050-peek-button{color:#187cb6!important;background:#f1f8fd!important;border-color:#c4dceb!important}
+:is(#bmCardPeekV050,#pdfDialog,#imageDialog,.bm122-ink-dialog,dialog,.bm-v059-panel,#bm263-sync-panel){font-family:var(--bm-ui-font)!important}
+:is(#bmCardPeekV050,#pdfDialog,#imageDialog,.bm122-ink-dialog,dialog,.bm-v059-panel,#bm263-sync-panel)
+:is(h1,h2,h3,h4,h5,h6,p,span,small,strong,summary,button,a,label,input,select,textarea,table,th,td){
+ font-family:var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module h4,.bm198-overview-top h4){color:#2a77a9!important}
+#bmCardPeekV050 .bm-v050-peek-reveal[aria-expanded="true"]{background:#1687d8!important;border-color:#1687d8!important;color:#fff!important}
+/* Somente SVG de botão e seleção, nunca os SVG dos módulos técnicos. */
+body :is(button,summary,[role="tab"])>svg:not([data-technical]),
+#bmCardPeekV050 :is(button,summary) .bm163-ic svg{
+ width:15px!important;height:15px!important;stroke-width:1.5!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important
+}
+body :is(button,summary,[role="tab"]){font-variant-emoji:text}
+#bm240-native-host{font-family:var(--bm-ui-font)!important;background:#edf0f1!important;border-color:#dce8ee!important}
+#controle-estudos{font-family:var(--bm-ui-font)!important;color:#344b5a!important}

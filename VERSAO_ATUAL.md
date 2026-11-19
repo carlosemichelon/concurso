@@ -1,3 +1,11 @@
+# V286 — Fonte única e azul no site inteiro (19/11/2026)
+
+- Todo o body, cartões, popups e Controle de Estudos utilizam a mesma família de fontes do cabeçalho: Segoe UI, Arial e system-ui. Sem carregamento externo.
+- Abas selecionadas, botões primários, elementos de seleção, ícones, calendário e marcadores de estudo realizado em azul. Planejamentos em âmbar, perigos em vermelho, conteúdos matemáticos e diagramas técnicos preservados.
+- A interface do Controle está em Shadow DOM; novo estilo é anexado após os eventos de montagem V252/V253, sem monitor permanente.
+- Mantida integralmente a V285, inclusive seu complemento de sincronização, cartões e SRS; layout V284 de coluna única preservado.
+- Verificações estáticas concluídas; teste visual real e OAuth pendentes.
+
 # V285 — Sincronização privada de cartões e lacunas (19/11/2026)
 
 - Mantém integralmente o layout V284, todas as páginas e CSS; botão adicional na aba Flashcards.
