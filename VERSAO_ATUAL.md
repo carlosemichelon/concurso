@@ -1,3 +1,11 @@
+# V280 — Interface azul/grafite e filtros simplificados (19/11/2026)
+
+- Referência estética: imagem do Tec Concursos, com barra grafite, navegação pequena, links azuis, superfícies brancas e fundo cinza-claro, sem reproduzir marcas ou anúncios.
+- Busca e últimos cartões continuam visíveis. Filtros secundários recolhidos sob 'Mais filtros', mantendo os mesmos elementos, IDs, valores e eventos.
+- Nas páginas Assuntos, PDFs, Flashcards e Imagens, a informação auxiliar também permanece acessível sem poluir a vista inicial; no Controle, aplica-se apenas a paleta no Shadow DOM.
+- Todos os complementos originais, 11 módulos didáticos, SRS, cartões/IDs, PDF, imagens, grifos e Drive mantidos integralmente. V279 preservada como rollback.
+- Validação estática; navegação real e OAuth privado não homologados.
+
 # V279 — Últimos cartões e leitura sem repetição desnecessária (19/11/2026)
 
 - Aba Flashcards recebe seletor **Adicionados recentemente**: últimos 10/25/50/100 e lotes confirmados V274/V276 (15 cartões). Permite combinar com filtros de disciplina, assunto e busca.
