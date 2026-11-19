@@ -1,0 +1,154 @@
+/* V281 — Hierarquia editorial uniforme (referência cromática V280).
+ * Exclusivamente apresentação: não ocultar textos dos 11 módulos nem trocar DOM de conteúdos. */
+#cartoes .controls.bm280-main-controls{
+ display:grid!important;grid-template-columns:minmax(220px,1fr) minmax(175px,235px) minmax(140px,210px) auto!important;
+ gap:8px!important;align-items:end!important
+}
+#cartoes .controls.bm280-main-controls>#cardSearch{
+ grid-column:1!important;width:100%!important;min-width:0!important;margin:0!important
+}
+#cartoes .controls.bm280-main-controls>.bm281-toolbar-field{
+ display:flex!important;flex-direction:column!important;gap:3px!important;
+ flex:none!important;min-width:0!important;width:100%!important;max-width:none!important;
+ color:#566d7c!important;font:600 11px/1.35 "Segoe UI",Arial,sans-serif!important
+}
+#cartoes .controls.bm280-main-controls>.bm281-toolbar-field select{
+ width:100%!important;max-width:none!important;height:36px!important;min-height:36px!important;
+ font-size:12px!important;text-overflow:ellipsis!important;cursor:pointer!important
+}
+#cartoes .controls.bm280-main-controls #cardCount{
+ grid-column:4!important;align-self:center!important;max-width:155px!important;
+ white-space:normal!important;line-height:1.35!important
+}
+#cartoes .bm280-advanced .bm279-recent-note{width:100%!important;font-size:11px!important;color:#748595!important}
+#cartoes .bm281-toolbar-field:focus-within{color:#217bb9!important}
+@media(max-width:950px){
+ #cartoes .controls.bm280-main-controls{grid-template-columns:minmax(180px,1fr) repeat(2,minmax(150px,1fr))!important}
+ #cartoes .controls.bm280-main-controls #cardCount{grid-column:1/-1!important;max-width:none!important}
+}
+@media(max-width:680px){
+ #cartoes .controls.bm280-main-controls{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+ #cartoes .controls.bm280-main-controls>#cardSearch{grid-column:1/-1!important}
+ #cartoes .controls.bm280-main-controls>.bm281-toolbar-field{grid-column:auto!important;min-width:0!important}
+ #cartoes .controls.bm280-main-controls #cardCount{grid-column:1/-1!important}
+}
+@media(max-width:400px){
+ #cartoes .controls.bm280-main-controls{grid-template-columns:1fr!important}
+ #cartoes .controls.bm280-main-controls>.bm281-toolbar-field{grid-column:1!important}
+}
+/* Princípio comum: um título, uma breve descrição e um bloco de conteúdo. */
+main>section>.panel>h2,#tema h2{
+ font-size:18px!important;color:#365169!important;font-weight:650!important;
+ letter-spacing:-.15px!important;line-height:1.3!important;
+ border:0!important;padding:0 0 8px!important;margin:0 0 9px!important
+}
+main>section>.panel>p.intro,#tema .intro{
+ font-size:12px!important;color:#718392!important;line-height:1.6!important;
+ max-width:90ch!important;margin:0 0 13px!important
+}
+main>section>.panel>.controls+div:not(.grid):not(.bm280-advanced){margin-top:8px}
+main>section>.panel .group{font-size:12px!important;color:#587083!important;letter-spacing:.02em!important}
+main .topicCard{min-height:0!important;line-height:1.45!important}
+main .topicCard strong{display:block!important;font-size:13px!important;font-weight:650!important;line-height:1.45!important}
+main .topicCard small{font-size:11px!important;color:#81919e!important;line-height:1.4!important}
+#cartoes #cardRows article.card,#imagens #imageRows article.card{
+ display:flex;flex-direction:column;gap:6px;
+ border:1px solid #e0e5e8!important;border-radius:5px!important;
+ background:#fff!important;box-shadow:none!important;
+}
+#cartoes #cardRows article.card>h3,#imagens #imageRows article.card>h3{
+ font-size:13px!important;line-height:1.55!important;font-weight:650!important;
+ color:#344e62!important;margin:5px 0!important;overflow-wrap:anywhere!important
+}
+#cartoes #cardRows article.card>.tag,#imagens #imageRows article.card>.tag{
+ font-size:10px!important;line-height:1.3!important;font-weight:700!important;color:#2684bc!important
+}
+#cartoes #cardRows article.card>p,#imagens #imageRows article.card>p{
+ font-size:11.5px!important;line-height:1.5!important;color:#738693!important
+}
+#cartoes #cardRows article.card>.buttons{margin-top:auto!important;border-top:1px solid #edf1f4!important;padding-top:9px!important}
+#cartoes #cardRows article.card>details>summary{
+ font-size:11px!important;line-height:1.45!important;font-weight:600!important;color:#287bab!important;
+ border:1px solid #e4ebef!important;background:#f9fbfd!important;padding:8px 10px!important;border-radius:4px!important
+}
+#cartoes #cardRows article.card>details[open]>summary{background:#f1f7fc!important}
+/* Textos de resposta da grade: títulos e conteúdo em cartões editoriais leves. */
+#cartoes #cardRows .answer{color:#3f5362!important;font-size:12.5px!important;line-height:1.68!important}
+#cartoes #cardRows .answer>.richSection{
+ margin:8px 0!important;padding:10px 12px!important;background:#fff!important;
+ border:1px solid #e9edf0!important;border-radius:4px!important
+}
+#cartoes #cardRows .answer>.richSection h4{
+ font-size:12px!important;color:#356d91!important;line-height:1.4!important;
+ font-weight:700!important;margin:0 0 6px!important
+}
+#cartoes #cardRows .answer>.richSection p{
+ font-size:12.5px!important;line-height:1.65!important;color:#465b69!important;
+ white-space:pre-wrap!important;overflow-wrap:anywhere!important;margin:0!important
+}
+#cartoes #cardRows .answer .richSection ul{line-height:1.65!important;padding-left:20px!important}
+#cartoes #cardRows .answer :is(table,.bm195-table){border-collapse:collapse!important;width:100%!important;font-size:12px!important}
+#cartoes #cardRows .answer :is(table,.bm195-table) :is(th,td){border-bottom:1px solid #e6ecef!important;padding:7px 9px!important;vertical-align:top!important}
+/* Leitor único: mesmos padrões, independentemente da origem do cartão. */
+#bmCardPeekV050 .bm163-panel{background:#fff!important;color:#364b5b!important}
+#bmCardPeekV050 .bm163-header{background:#f7f9fb!important;border-bottom:1px solid #e2e8ec!important}
+#bmCardPeekV050 .bm163-kicker{font-size:10px!important;color:#728898!important;letter-spacing:.06em!important}
+#bmCardPeekV050 #bmCardPeekTitleV050{color:#324f64!important}
+#bmCardPeekV050 .bm163-question{background:#fff!important;border-bottom:1px solid #e9eef2!important}
+#bmCardPeekV050 .bm-v050-peek-front{font-size:20px!important;font-weight:650!important;line-height:1.5!important;color:#293f50!important}
+#bmCardPeekV050 .bm163-section-overline{font-size:10px!important;letter-spacing:.07em!important;color:#268ac6!important}
+#bmCardPeekV050 .bm163-piece{
+ margin:9px 0!important;padding:11px 13px!important;border:1px solid #e5eaed!important;
+ border-radius:4px!important;background:#fff!important;color:#405565!important
+}
+#bmCardPeekV050 .bm163-piece.bm163-essential{
+ border-left:3px solid #2d9bd5!important;background:#f8fbfd!important
+}
+#bmCardPeekV050 .bm163-piece-title{
+ font-size:12px!important;font-weight:700!important;color:#356e93!important;
+ line-height:1.4!important;margin:0 0 7px!important
+}
+#bmCardPeekV050 .bm163-piece-text{
+ font-size:13px!important;line-height:1.7!important;white-space:pre-wrap!important;
+ overflow-wrap:anywhere!important;color:#405462!important
+}
+#bmCardPeekV050 .bm163-deep-group,#bmCardPeekV050 .bm197-evolutive,
+#bmCardPeekV050 .bm198-overview,#bmCardPeekV050 .bm198-module{
+ margin:11px 0!important;border:1px solid #e2e8ec!important;border-radius:5px!important;
+ background:#fff!important;box-shadow:none!important;overflow:hidden!important
+}
+#bmCardPeekV050 .bm163-deep-group>summary{
+ color:#356b8d!important;background:#f5f8fb!important;font-size:12px!important;
+ line-height:1.5!important;font-weight:650!important;padding:10px 12px!important
+}
+#bmCardPeekV050 .bm163-group-body{padding:8px 12px!important}
+#bmCardPeekV050 .bm197-title,#bmCardPeekV050 .bm198-overview-top h4,
+#bmCardPeekV050 .bm198-module h4{
+ font-size:13px!important;font-weight:700!important;color:#325d7c!important;line-height:1.45!important
+}
+#bmCardPeekV050 .bm198-overview-top,#bmCardPeekV050 .bm198-module-head{
+ background:#f6f9fb!important;border-bottom:1px solid #e5ebee!important
+}
+#bmCardPeekV050 :is(.bm197-paragraph,.bm198-paragraph,.bm198-module-body){
+ font-size:12.5px!important;line-height:1.68!important;color:#405363!important;
+ overflow-wrap:anywhere!important
+}
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table) th{
+ background:#f0f6fa!important;font-size:11px!important;color:#3d6886!important
+}
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table) td{
+ font-size:12px!important;line-height:1.55!important;vertical-align:top!important
+}
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table) th,
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table) td{
+ padding:8px 10px!important;border-bottom:1px solid #e6edf1!important
+}
+/* PDF, Atlas e resumos herdam o mesmo ritmo tipográfico, sem interferir nas pranchas. */
+#pdfs #pdfRows :is(.card,.bm209-item),#imagens #imageRows :is(.card,.bm209-item){
+ color:#405464!important;line-height:1.55!important;border-radius:5px!important
+}
+#pdfs #pdfRows :is(h3,h4),#imagens #imageRows :is(h3,h4){
+ color:#3a5d75!important;font-weight:650!important;line-height:1.45!important
+}
+#assuntos #topicRows .topicCard,#assuntos #areaRows .topicCard{border-radius:5px!important}
+#cartoes #bm273Versoes p{font-size:12px!important;line-height:1.65!important}

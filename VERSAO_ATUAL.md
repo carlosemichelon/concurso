@@ -1,3 +1,11 @@
+# V281 — Ordenação explícita por ID e padronização do conteúdo (19/11/2026)
+
+- Dois seletores permanentes na barra dos Flashcards: **Ordenar por ID** (decrescente, crescente, original) e **Últimos cartões** (todos, 10, 25, 50, 100, lote de 15 novos V274/V276). Ordenação decrescente padrão. Inclusões históricas sem data por cartão usam ID como aproximação; não confundir cartão antigo enriquecido com recém-criado.
+- Seleção dos últimos N ocorre entre resultados de busca/filtros existentes, usando o ID numérico mais alto, e depois é exibida na ordem pedida. Provisórios PROP-IJUI continuam separados das inclusões canônicas, mas aparecem ao escolher Todos e ordem por ID. Seletor carregado ANTES do invólucro da grade V191, para evitar desenhar o catálogo completo e depois redesenhar.
+- Conteúdo com padrão editorial uniforme em páginas, painéis, leitores e módulos: títulos, subtítulos, respostas originais, seções, listas, tabelas e fontes. Nenhum texto eliminado ou condensado. Todo complemento permanece disponível; 11 módulos íntegros.
+- Não se editam cartões/IDs, SRS, avaliações, Drive, PDFs, grifos, Atlas, figuras técnicas, versões anteriores. V280 como retorno.
+- Validações automáticas estáticas e de ordenação; homologação visual em navegador autenticado pendente.
+
 # V280 — Interface azul/grafite e filtros simplificados (19/11/2026)
 
 - Referência estética: imagem do Tec Concursos, com barra grafite, navegação pequena, links azuis, superfícies brancas e fundo cinza-claro, sem reproduzir marcas ou anúncios.
