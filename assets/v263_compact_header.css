@@ -1,0 +1,140 @@
+/* Banco Mestre V263 — cabeçalho realmente compacto (sem deslocamentos no primeiro paint).
+   Tudo continua acessível no painel de detalhes; métricas não representam sincronização. */
+body>header{z-index:40!important}
+body>header .head{
+ max-width:1480px!important;
+ display:grid!important;
+ grid-template-columns:minmax(160px,235px) minmax(0,1fr)!important;
+ grid-template-rows:32px 27px!important;
+ grid-template-areas:"brand stats" "nav nav"!important;
+ gap:3px 9px!important;
+ align-items:center!important;
+ padding:4px 10px!important;
+ min-height:67px!important;
+}
+body>header .head>div:first-child{
+ grid-area:brand!important;min-width:0!important;
+ overflow:hidden!important;white-space:nowrap!important;
+}
+body>header .head>div:first-child>.version{display:none!important}
+body>header .head .brand{
+ font-size:16px!important;line-height:1.15!important;
+ overflow:hidden!important;text-overflow:ellipsis!important;
+ white-space:nowrap!important;
+}
+body>header .head .brand>.version{
+ display:inline!important;font-size:10px!important;
+ font-weight:500!important;white-space:nowrap!important;
+}
+body>header .head>.bm-v046-header-stats{
+ grid-area:stats!important;
+ display:grid!important;
+ grid-template-columns:repeat(5,minmax(53px,1fr)) minmax(128px,1.3fr) minmax(102px,1.15fr)!important;
+ gap:3px!important;
+ height:32px!important;min-height:32px!important;max-height:32px!important;
+ align-items:stretch!important;margin:0!important;padding:0!important;
+ overflow:visible!important;min-width:0!important;
+}
+body>header .head>.bm-v046-header-stats>.stat{
+ height:32px!important;min-height:32px!important;max-height:32px!important;
+ padding:2px 5px!important;border-radius:6px!important;
+ display:grid!important;
+ grid-template-columns:auto minmax(0,1fr)!important;
+ grid-template-rows:14px 12px!important;
+ grid-template-areas:"number caption" "number status"!important;
+ align-items:center!important;gap:0 4px!important;min-width:0!important;
+ overflow:hidden!important;
+}
+body>header .head>.bm-v046-header-stats>.stat>b{
+ grid-area:number!important;font-size:12px!important;
+ line-height:15px!important;font-weight:750!important;letter-spacing:-.2px!important;
+ max-width:49px!important;
+}
+body>header .head>.bm-v046-header-stats>.stat>span{
+ grid-area:caption!important;font-size:9px!important;
+ line-height:12px!important;color:var(--sub)!important;
+ white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+}
+body>header .head>.bm-v046-header-stats>.stat>.bm241-verification{
+ grid-area:status!important;font-size:8px!important;
+ line-height:11px!important;white-space:nowrap!important;overflow:hidden!important;
+ text-overflow:ellipsis!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action{
+ grid-column:auto!important;min-width:0!important;max-width:none!important;
+ width:100%!important;height:32px!important;min-height:32px!important;max-height:32px!important;
+ padding:2px 7px!important;font-size:10px!important;font-weight:700!important;
+ border-radius:6px!important;white-space:nowrap!important;overflow:hidden!important;
+ text-overflow:ellipsis!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+ grid-column:auto!important;display:flex!important;align-items:center!important;
+ min-width:0!important;max-width:none!important;width:100%!important;
+ height:32px!important;min-height:32px!important;max-height:32px!important;
+ padding:2px 5px!important;margin:0!important;
+ font-size:10px!important;line-height:1.25!important;font-weight:650!important;
+ border:1px solid var(--line)!important;border-radius:6px!important;
+ white-space:nowrap!important;overflow:hidden!important;
+ text-overflow:ellipsis!important;-webkit-line-clamp:unset!important;
+ cursor:pointer!important;
+}
+body>header .head>nav{
+ grid-area:nav!important;
+ display:flex!important;flex-wrap:nowrap!important;gap:4px!important;
+ align-items:center!important;justify-content:flex-start!important;
+ overflow-x:auto!important;white-space:nowrap!important;min-width:0!important;
+ max-height:27px!important;scrollbar-width:none!important;
+}
+body>header .head>nav::-webkit-scrollbar{display:none}
+body>header .head>nav button{
+ flex:0 0 auto!important;
+ height:26px!important;min-height:26px!important;
+ padding:3px 10px!important;
+ font-size:11px!important;line-height:18px!important;
+ border-radius:6px!important;
+}
+#bm263-sync-panel{
+ position:fixed!important;top:75px!important;right:12px!important;left:auto!important;
+ width:min(480px,calc(100vw - 24px))!important;max-height:min(65vh,620px)!important;
+ overflow-y:auto!important;z-index:1000!important;
+ border:1px solid #bdcecb!important;border-radius:10px!important;
+ background:var(--paper,#fff)!important;color:var(--ink,#17353b)!important;
+ box-shadow:0 12px 30px rgba(0,0,0,.2)!important;
+ padding:14px!important;font:12px/1.45 system-ui,sans-serif!important;
+}
+#bm263-sync-panel[hidden]{display:none!important}
+#bm263-sync-panel h3{font-size:14px!important;margin:0 0 8px!important}
+#bm263-sync-panel p{margin:6px 0!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important}
+#bm263-sync-panel .bm263-actions{display:flex!important;gap:6px!important;justify-content:flex-end!important}
+#bm263-sync-panel button{font-size:11px!important;padding:4px 9px!important}
+#bm263-sync-panel dl{margin:8px 0!important}
+#bm263-sync-panel dt{font-weight:750!important;margin-top:7px!important}
+#bm263-sync-panel dd{margin:0 0 4px!important;overflow-wrap:anywhere!important}
+@media(max-width:900px){
+ body>header .head{
+  grid-template-columns:minmax(100px,1fr) minmax(180px,1.35fr)!important;
+  grid-template-rows:33px 27px!important;
+  min-height:67px!important;
+ }
+ body>header .head .brand>.version{display:none!important}
+ body>header .head>.bm-v046-header-stats{
+  display:grid!important;
+  grid-template-columns:minmax(95px,1.2fr) minmax(85px,1fr)!important;
+  height:32px!important;min-height:32px!important;
+  overflow:hidden!important;
+ }
+ body>header .head>.bm-v046-header-stats>.stat{display:none!important}
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action,
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+  grid-column:auto!important;height:32px!important;min-height:32px!important;
+  max-height:32px!important;
+ }
+}
+@media(max-width:420px){
+ body>header .head{padding:4px 5px!important;gap:3px 4px!important;grid-template-columns:minmax(98px,1fr) minmax(175px,1.5fr)!important}
+ body>header .head .brand{font-size:14px!important}
+ body>header .head>.bm-v046-header-stats{grid-template-columns:minmax(90px,1.2fr) minmax(78px,1fr)!important;gap:3px!important}
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action{font-size:9px!important;padding:2px 3px!important}
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details{font-size:9px!important;padding:2px 3px!important}
+ #bm263-sync-panel{top:75px!important;right:5px!important;width:calc(100vw - 10px)!important}
+}
