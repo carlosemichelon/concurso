@@ -13,7 +13,7 @@ const {chromium}=require('playwright');
   await page.route('https://accounts.google.com/gsi/client',r=>r.fulfill({status:200,contentType:'application/javascript',
    body:'window.google={accounts:{oauth2:{initTokenClient:function(c){return {requestAccessToken:function(){c.callback({access_token:"MOCK_V263_BROWSER_ONLY",expires_in:3600,scope:"https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file"})}}}}}};'}));
   await page.route('https://www.googleapis.com/**',r=>r.fulfill({status:403,contentType:'application/json',body:'{"error":"forbidden in isolated test"}'}));
-  await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
+  await page.goto('http://127.0.0.1:8765/v263.html',{waitUntil:'domcontentloaded',timeout:60000});
   const sample=()=>page.evaluate(()=>{
    const h=document.querySelector('body>header'),nav=h.querySelector('nav');
    const stats=h.querySelector('.bm-v046-header-stats');
