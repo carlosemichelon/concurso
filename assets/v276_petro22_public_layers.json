@@ -1,0 +1,128 @@
+{
+  "format": "BancoMestrePublicPetro22LayersV276",
+  "schema": 1,
+  "source_public_delta": "V276",
+  "date": "2026-11-19",
+  "records": [
+    {
+      "id": "CARD-1413",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Pergunta evolutiva de recuperação ativa",
+          "texto": "Como calcular a dilatação térmica livre de um tabuleiro sob variação uniforme de temperatura? Responda com fundamento e a distinção que poderia causar erro; quando houver cálculo, demonstre unidades e hipótese sem olhar o verso.\n\nREFORÇO ADICIONAL V2 — PETRO22-Q002 | 19/11/2026\nPERGUNTA DE APROFUNDAMENTO SEM MUDAR A FRENTE ORIGINAL: para concreto e armadura submetidos à mesma ΔT, qual coeficiente convencional a NBR 6118:2014 utiliza para cada material? Compare dilatação livre com barra impedida e explique por que aderência não exige coeficientes reais exatamente iguais. Somente responder após tentar a fórmula de movimento livre."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima exigível",
+          "texto": "ΔL=αLΔT, com α em 1/°C, L em m e ΔT em °C.\n\nCOMPLEMENTO V159 (18/11/2026): ΔL=αT·L·ΔT (movimento livre). Junta de DILATAÇÃO admite movimentações relativas previstas por retração/temperatura; junta de CONCRETAGEM corresponde à interface de etapas de lançamento, em regra buscando continuidade e transferência de esforços conforme projeto.\n\nREFORÇO APROVADO — PETRO22-Q002 | 19/11/2026\nRESPOSTA COMPLEMENTAR APROVADA (PETRO22-Q002, 19/11/2026): para análise simplificada de estruturas de concreto armado, αc≈αs≈10⁻⁵/°C; isso não altera a expressão principal ΔL=αLΔT nem o verso literal original. Concreto e aço podem ter coeficientes reais diferentes conforme composição/temperatura."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento, edição, item e norma seca",
+          "texto": "Dilatação térmica linear livre de elemento homogêneo sob variação uniforme de temperatura e coeficiente de dilatação aproximadamente constante.\nFONTE PARA CONFERÊNCIA: Resistência dos materiais e ação de temperatura em pontes; exemplo original preservado.\nNORMA SECA: apenas paráfrase contextualizada; transcrição literal não substituída por texto inventado.\n\nCOMPLEMENTO V159 (18/11/2026): NBR 6118:2023 item 3.1.10 (junta de dilatação), 3.1.11 (junta parcial), 11.3.3.1 (deformações impostas); NBR 14931:2023 §10.7.1 para juntas de concretagem. Emenda 2026 não conferida item a item.\n\nREFORÇO APROVADO — PETRO22-Q002 | 19/11/2026\nFUNDAMENTO NORMATIVO COMPLEMENTAR: ABNT NBR 6118:2014, item 8.2.3 (concreto: coeficiente convencional 10⁻⁵/°C) e 8.3.4 (aço de armadura passiva: 10⁻⁵/°C, de −20 °C a 150 °C). A consulta PETRO22-Q002 utiliza a edição 2014; confrontar edição atual e emendas antes de usar em projeto profissional. Não converter a referência em transcrição literal de norma."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definições e mecanismo físico/conceitual",
+          "texto": "A distância média entre partículas aumenta com temperatura; o tabuleiro pretende alongar. Aparelhos de apoio e juntas podem admitir movimento, enquanto restrição gera tensões e esforços adicionais.\n\nCOMPLEMENTO V159 (18/11/2026): Resfriamento tende a encurtar o elemento; sem liberdade de deformação surgem tensões de restrição. Objetivos distintos: permitir MOVIMENTO (dilatação) vs garantir LIGAÇÃO entre concretagens.\n\nREFORÇO APROVADO — PETRO22-Q002 | 19/11/2026\nCOMPATIBILIDADE TERMOELÁSTICA: com aderência perfeita, as deformações totais aço–concreto na interface são compatíveis, mas propriedades e tensões não precisam ser iguais. Se αc≠αs, o impedimento relativo pode gerar tensões internas, ainda que o conjunto esteja livre de vínculos externos; para α semelhantes sob aquecimento uniforme, esses efeitos diferenciais tendem a ser pequenos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Equações, variáveis, unidades e hipóteses",
+          "texto": "ΔL=α·L·ΔT; α [1/K], L [m], ΔT [K ou °C] ⇒ ΔL [m]. Aço: α=12×10⁻⁶/K, L=30 m, ΔT=40 K: ΔL=0,0144 m = 14,4 mm.\n\nCOMPLEMENTO V159 (18/11/2026): αT [1/K], L [m], ΔT [K de diferença], ΔL [m]. Concreto ilustrativo αT=10^-5/K, L=20m, ΔT=-30K: ΔL=-6 mm livre. Movimento real depende dos apoios e pontos fixos.\n\nREFORÇO APROVADO — PETRO22-Q002 | 19/11/2026\nEQUAÇÕES DE TRANSFERÊNCIA: εT=αΔT; ΔLlivre=αLΔT; εtotal=σ/E+αΔT, portanto σ=E(εtotal−αΔT). Barra uniforme livre: σT=0 e εtotal=αΔT; barra elástica homogênea totalmente impedida axialmente: εtotal=0 e σT=−EαΔT. α [K⁻¹], ΔT [K de diferença], E e σ [MPa], ε [adimensional]. Adota-se tração positiva, aquecimento impedido produz compressão."
+        },
+        {
+          "ord": 6,
+          "titulo": "Resolução e evidência original",
+          "texto": "Pergunta literal: Como calcular a dilatação térmica livre de um tabuleiro sob variação uniforme de temperatura?\nVERSO ORIGINAL LITERAL:\nΔL=αLΔT, com α em 1/°C, L em m e ΔT em °C.\nEXPLICAÇÃO ORIGINAL LITERAL:\nA temperatura tende a alterar o comprimento do elemento. Apoios e juntas podem permitir deslocamento ou gerar esforços se restringirem a deformação.\nAplicação: Aço com α=12×10⁻⁶/°C, L=30 m e ΔT=40°C: ΔL=0,0144 m=14,4 mm.\nPegadinha: Dilatação livre não equivale necessariamente à abertura da junta: dependem ponto fixo, restrições, gradientes térmicos e configuração.\nMACETE ORIGINAL LITERAL: Coeficiente × comprimento × variação térmica.\n\nREFORÇO ADICIONAL V2 — PETRO22-Q002 | 19/11/2026\nTRANSFERÊNCIA COM RESOLUÇÃO (o quadro original acima permanece literal): na mesma barra ideal de 5 m aquecida 30°C, primeiro calcule a deformação livre εT=10⁻⁵×30=0,0003; então ΔL=5×0,0003=0,0015 m=1,5 mm. Se o alongamento axial for totalmente impedido, use εtotal=0 e σ=−EαΔT: com E=210.000 MPa resulta σ=−63 MPa (compressão). São modelos alternativos; não somar o alongamento livre e o impedido."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação de transferência independente",
+          "texto": "Para L=45 m, α=10×10⁻⁶/K e ΔT=30 K: ΔL=0,0135 m=13,5 mm. Movimento de extremidade depende do ponto fixo; se simétrico e centro fixo, ≈6,75 mm para cada lado.\n\nREFORÇO APROVADO — PETRO22-Q002 | 19/11/2026\nEXEMPLO COMPLEMENTAR: L=5,0 m, α=10⁻⁵/°C, ΔT=+30 °C → εT=0,0003=0,3‰; se livre, ΔL=1,5 mm e nenhuma tensão térmica adicional. Para barra ideal de aço com E=210.000 MPa e impedimento axial total: σT=−210.000×10⁻⁵×30=−63 MPa (compressão). Não confundir este exemplo axial com esforços reais de tabuleiro, que dependem dos apoios."
+        },
+        {
+          "ord": 8,
+          "titulo": "Quadro de distinções e cobertura cruzada",
+          "texto": "Deformação térmica livre εT=αΔT ≠ deslocamento individual de cada junta ≠ esforço térmico em sistema impedido. Gradiente térmico pode produzir curvatura, não apenas expansão axial.\nCOBERTURA CRUZADA: CARD-1412 — Apoios entre tabuleiro e pilares influenciam deslocamento por dilatação; CARD-1414 — Movimento térmico e socavamento são ações/mecanismos distintos\n\nCOMPLEMENTO V159 (18/11/2026): Junta de dilatação ≠ junta de concretagem ≠ ELS-F/W/DEF/D. A palavra “interrupção” não basta para escolher alternativa; observar finalidade. Fonte PETRO16-EST-CON-02, D correta.\n\nREFORÇO APROVADO — PETRO22-Q002 | 19/11/2026\nVÍNCULOS DE COBERTURA: PETRO22-Q002 — questão de coeficientes térmicos do concreto e aço; CARD-1413 — cobertura parcial anterior, enriquecida neste mesmo ID; PETRO14-C019 — efeitos térmicos em treliças, cobertura indireta. Distinguir propriedade α, deformação térmica livre, compatibilidade de aderência e tensões por restrição."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Variação uniforme, coeficiente aproximadamente constante e sem restrição axial; verificar deformações de retração/fluência e temperatura de montagem em projeto real.\n\nCOMPLEMENTO V159 (18/11/2026): Junta parcial e junta de concretagem têm detalhamentos especiais; não pressupor corte total ou que toda junta construtiva esteja destinada a permitir deslocamento. Vínculos CARD-0097 e CARD-0603.\n\nREFORÇO APROVADO — PETRO22-Q002 | 19/11/2026\nHIPÓTESES E LIMITAÇÕES: ΔT uniforme e propriedades constantes para o modelo axial simples; para pontes reais verificar ponto fixo, aparelhos de apoio, juntas, gradientes térmicos, retração, fluência e efeitos de construção. Coeficientes iguais na aproximação normativa NÃO eliminam tensões térmicas provenientes de restrições."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas de prova e risco de erro",
+          "texto": "Confundir 14,4 mm com abertura garantida de cada junta; usar °C absolutos no lugar de variação; esquecer conversão de m para mm.\n\nREFORÇO APROVADO — PETRO22-Q002 | 19/11/2026\nPEGADINHAS PETROBRAS/CESGRANRIO: (i) considerar 10⁻⁴/°C para concreto e 10⁻⁵/°C para aço é incorreto na simplificação adotada; (ii) aderência não exige α real idêntico; (iii) aquecer ≠ necessariamente gerar tensão; (iv) α [1/°C] ≠ ε [adimensional] ≠ σ [MPa]; (v) não confundir dilatação livre com abertura real de cada junta."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete específico e rastreabilidade",
+          "texto": "Macete: Dois materiais, um 10⁻⁵/°C convencional no modelo de concreto armado. Barra livre: εT=αΔT e sem tensão térmica adicional; barra totalmente impedida: σT=−EαΔT. Abertura de junta depende dos vínculos e do ponto fixo. O verso original do CARD-1413 permanece preservado."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1534",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "RECUPERAÇÃO ATIVA (FRENTE)",
+          "texto": "Na NBR 6118, diferencie: (a) comprimento de UMA emenda por traspasse, (b) distância entre DUAS emendas consideradas na mesma seção e (c) proporção máxima das barras tracionadas emendadas. Existe comprimento mínimo ou máximo universal de traspasse? Descreva a fórmula do comprimento para barras tracionadas isoladas e resolva a questão: duas emendas de 80 cm, em sequência, serão tratadas como na mesma seção se a distância x entre seus trechos for menor que quanto? O que muda na escolha do diâmetro de barras de bitolas diferentes entre NBR 6118:2014 e :2023?"
+        },
+        {
+          "ord": 2,
+          "titulo": "RESPOSTA MÍNIMA E ORIGINAL DO CARTÃO",
+          "texto": "Duas barras sobrepostas formam UMA emenda de comprimento ℓ0; duas emendas distintas são consideradas na mesma seção quando seus trechos se sobrepõem ou quando a distância x entre extremidades mais próximas é menor que 0,20 do comprimento de referência: se ℓ01=ℓ02=80 cm, x<16 cm (alternativa D). Para barras tracionadas isoladas com distância livre entre 0 e 4φ, a expressão é ℓ0t=α0t·ℓb,nec ≥ ℓ0t,mín, em que ℓ0t,mín=max(0,3·α0t·ℓb; 15φ; 200 mm). Há comprimento mínimo calculado, não máximo universal de comprimento. Os 80 cm são DADO da questão, não o mínimo geral; os 16 cm não são o comprimento da emenda. Para duas barras de bitolas diferentes, 2014 adotava a de MAIOR diâmetro e 2023 a de MENOR diâmetro para a regra do cálculo do traspasse."
+        },
+        {
+          "ord": 3,
+          "titulo": "FUNDAMENTO NORMATIVO, EDIÇÃO E FONTES",
+          "texto": "ABNT NBR 6118:2014, seção 9.5.2.1, Figura 9.3, Tabela 9.3 e seção 9.5.2.2.1 (edição histórica da questão).\nABNT NBR 6118:2023, seção 9.5.2.1, seção 9.5.2.2.1, Tabelas 9.3 e 9.4. A Emenda 1 publicada em 11/03/2026 integra a edição consolidada de 2026; qualquer aplicação profissional requer confronto com a edição oficial integral. O dispositivo 9.5.2 foi emendado; a mudança de critério de maior para menor diâmetro deve sempre ser identificada pela edição.\nPDF de consulta 2014: https://www.galaxcms.com.br/up_arquivos/1149/NBR61182014-20190807180913.pdf\nPDF de consulta 2023: https://ikigai.eco.br/download/nbr-6118.pdf\nComunicado ABNT/ABECE sobre 2026: https://site.abece.com.br/nbr-6118-tem-emenda-publicada-pela-abnt/\nQuestão original e registro integral do estudante: [fonte privada no Drive]"
+        },
+        {
+          "ord": 4,
+          "titulo": "MECANISMO FÍSICO E INTERPRETAÇÃO",
+          "texto": "Em uma emenda por traspasse, as duas barras não precisam transmitir a força por encosto na ponta: as tensões de aderência transferem os esforços da primeira barra ao concreto e, deste, à segunda. A região fica sujeita também a tensões transversais de fendilhamento. O comprimento ℓ0 precisa ser suficiente para essa transferência.\nSe muitas barras principais tracionadas tiverem emendas próximas, as demandas locais de aderência se concentram na mesma região. A regra de 20% faz uma classificação GEOMÉTRICA: duas emendas podem não se superpor longitudinalmente e mesmo assim ser computadas como na mesma seção. Isso não significa que 20% seja a sobreposição mínima entre as duas barras de UMA emenda.\nA norma combina critérios geométricos (distância x), quantitativos (percentuais de barras) e resistentes (comprimento de ancoragem/trapas­se), que não são intercambiáveis."
+        },
+        {
+          "ord": 5,
+          "titulo": "EQUAÇÕES, UNIDADES E VARIÁVEIS",
+          "texto": "Distância entre emendas, quando não superpostas: mesma seção se x<0,20·ℓ0,ref. Para a Figura 9.3 com ℓ01>ℓ02, a referência gráfica é o maior comprimento ℓ01. Igualdade x=0,20·ℓ0,ref NÃO satisfaz a condição 'inferior a', quando não há sobreposição.\nBarras tracionadas isoladas (distância livre entre barras emendadas 0 a 4φ): ℓ0t=α0t·ℓb,nec e ℓ0t≥ℓ0t,mín; ℓ0t,mín = max(0,3 α0t ℓb, 15φ, 200 mm).\nℓb: comprimento básico de ancoragem [mm]; ℓb,nec: comprimento necessário de ancoragem [mm]; ℓ0t: comprimento de traspasse tracionado [mm]; φ: diâmetro [mm]; α0t: fator sem dimensão dependente de porcentagem de barras emendadas.\nPara barras comprimidas isoladas, distinguir expressão específica ℓ0c=ℓb,nec ≥ ℓ0c,mín, sendo ℓ0c,mín=max(0,6 ℓb, 15φ, 200 mm), quando aplicável. NÃO confundir ℓ0c com ℓ0t.\nTabela 9.4 de α0t: até 20% -> 1,2; 25% -> 1,4; 33% -> 1,6; 50% -> 1,8; mais de 50% -> 2,0, conforme condições da norma. Percentual de barras não substitui Tabela 9.3."
+        },
+        {
+          "ord": 6,
+          "titulo": "QUADRO DE COMPARAÇÕES (3 CONCEITOS)",
+          "texto": "A) Comprimento da emenda ℓ0: medida da sobreposição de DUAS BARRAS que formam UMA emenda; é dimensionado por ancoragem/aderência e mínimos normativos.\nB) Distância x: afastamento longitudinal entre DUAS EMENDAS distintas; determina se devem ser contabilizadas como mesma seção; na questão são 16 cm de LIMIAR, não comprimento de traspasse.\nC) Proporção de barras: conta quantas barras principais tracionadas são emendadas em uma mesma seção, conforme Tabela 9.3:\nAlta aderência em UMA camada: 100% para estático e dinâmico.\nAlta aderência em MAIS DE UMA camada: 50% para estático e dinâmico.\nBarras lisas φ<16 mm: 50% estático, 25% dinâmico.\nBarras lisas φ≥16 mm: 25% estático, 25% dinâmico.\nEm armadura permanentemente comprimida ou de distribuição, a norma admite que todas as barras sejam emendadas na mesma seção, observadas as demais exigências.\nPercentuais superiores aos tabelados dependem de justificativa específica de integridade do concreto, transmissão das forças e resistência da emenda."
+        },
+        {
+          "ord": 7,
+          "titulo": "EXEMPLOS RESOLVIDOS E TRANSFERÊNCIA",
+          "texto": "Exemplo da questão PETRO22-Q003: ℓ01=ℓ02=80 cm e ausência de superposição entre as duas emendas; x<20%×80=16 cm. Se x=12 cm, agrupadas; se x=16 cm, não são agrupadas POR ESSE CRITÉRIO estrito de distância. O comprimento individual das emendas continua 80 cm. Não deduzir que os 80 cm atendem ao projeto: essa verificação não foi pedida.\nExemplo quantitativo: quatro barras principais tracionadas de alta aderência em duas camadas: limite da Tabela 9.3 é 50%=duas barras emendadas na mesma região em situação geral; três barras equivalem a 75%, excedendo a proporção tabelada sem justificativa excepcional.\nExemplo independente de ℓ0t: com φ=20 mm, ℓb=600 mm, ℓb,nec=500 mm e 50% de barras emendadas (α0t=1,8), ℓ0t=1,8×500=900 mm; ℓ0t,mín=max(0,3×1,8×600=324 mm; 15×20=300 mm; 200 mm)=324 mm. Exige-se 900 mm: adotar apenas os 324 mm seria ERRO. Exemplo ilustrativo, não dimensionamento completo.\nComparação para classe de bitolas: emendas entre barras de diâmetros diferentes têm regra de escolha de barra alterada por edição; não misturar esse critério com a comparação ℓ01>ℓ02 entre duas emendas DIFERENTES."
+        },
+        {
+          "ord": 8,
+          "titulo": "COBERTURA CRUZADA E VÍNCULOS",
+          "texto": "Cobertura direta nova: CARD-1534 (emendas por traspasse). Relações: CARD-0578 (ancoragem básica, parcial) e CARD-0924 (armadura longitudinal fora da região de emendas, indireta). Critérios diferentes: uma emenda, duas emendas, agrupamento por distância e proporção máxima por tabela."
+        },
+        {
+          "ord": 9,
+          "titulo": "HIPÓTESES, LIMITES E EXCEÇÕES",
+          "texto": "A expressão de traspasse tracionado apresentada supõe barras isoladas com distância livre entre barras emendadas entre 0 e 4φ. Outras condições (barras comprimidas, feixes, diferenças de bitola, concreto em diferentes condições, detalhamento especial, solicitações) exigem regras próprias da NBR 6118. Há limitações normativas ao diâmetro de barra admissível em emendas por traspasse; isto NÃO é um comprimento máximo universal. Não confundir limite máximo de bitola com limite máximo de centímetros de traspasse.\nO coeficiente α0t aumenta com a proporção de barras emendadas, mas não autoriza descumprir a Tabela 9.3 sem justificação.\nOs 80 cm de uma questão não são um valor prescritivo universal. A verificação de detalhamento deve contemplar cobrimento, espaçamentos e armadura transversal, conforme os itens aplicáveis."
+        },
+        {
+          "ord": 10,
+          "titulo": "PEGADINHAS CESGRANRIO E LACUNAS LITERAIS",
+          "texto": "Pegadinhas: 20% mede proximidade entre emendas, não proporção máxima de barras; 16 cm do exemplo não é a bitola Ø16 mm da tabela; o mínimo de traspasse usa o MAIOR entre três limites; a distância x da questão é estritamente menor que 16 cm; 2014 usava maior diâmetro e 2023 usa menor diâmetro quando duas barras de bitolas diferentes são emendadas; verificar emendas posteriores antes de aplicar a norma atual."
+        },
+        {
+          "ord": 11,
+          "titulo": "MACETE, MÍDIA, HISTÓRICO, SRS E CONTROLE DE INTEGRIDADE",
+          "texto": "Macete: Duas BARRAS formam UMA emenda; duas EMENDAS pedem x; 20% agrupa emendas; Tabela 9.3 conta BARRAS. ℓ0t deve satisfazer o valor calculado e o mínimo. Fontes: ABNT NBR 6118:2014/2023, itens 9.5.2.1 e 9.5.2.2.1; edição 2026 deve ser confrontada com texto oficial integral."
+        }
+      ]
+    }
+  ]
+}
