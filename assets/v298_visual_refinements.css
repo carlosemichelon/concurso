@@ -11,7 +11,8 @@ body>header nav button[data-page]:focus-visible,
 #cartoes #cardRows button:focus-visible,#imagens #bm084-grid a:focus-visible{
  outline:3px solid #59b8f1!important;outline-offset:2px!important
 }
-#cartoes #cardRows article.card>h3{
+/* Precedência ao estilo histórico body>main que tornava o título azul. */
+body>main #cartoes #cardRows article.card>h3{
  color:var(--bm298-ink)!important;font-size:16px!important;
  font-weight:700!important;line-height:1.5!important;overflow-wrap:anywhere!important
 }

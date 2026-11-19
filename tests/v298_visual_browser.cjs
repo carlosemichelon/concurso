@@ -46,6 +46,7 @@ const {chromium}=require('playwright');
      documentWidth:document.documentElement.scrollWidth,viewport:window.innerWidth
     };
    });
+   console.log('V298_METRICS '+JSON.stringify(metrics));
    assert.equal(metrics.version,'V298');
    assert.equal(metrics.cssLinks,16);
    assert.ok(metrics.bundled,'Bundle CSS não carregado');
