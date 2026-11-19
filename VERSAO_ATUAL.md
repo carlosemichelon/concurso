@@ -1,3 +1,12 @@
+# V285 — Sincronização privada de cartões e lacunas (19/11/2026)
+
+- Mantém integralmente o layout V284, todas as páginas e CSS; botão adicional na aba Flashcards.
+- Após autenticação Google pelo titular, verifica o ponteiro operacional mais recente e SHA-256 da base privada; os conteúdos privados são carregados somente nesta sessão.
+- Preserva os versos públicos e o SRS. Atualiza 11 módulos por ID nos cartões PETRO23 afetados e adiciona os IDs ainda ausentes apenas ao navegador autenticado.
+- Concilia o delta PETRO22 de três lacunas na base privada do Drive, com proteção contra conflito e verificação de retorno.
+- Os arquivos JSON privados, SRS e histórico nunca são publicados no GitHub. Sem autenticação, a base pública da V284 permanece intacta.
+- Teste real do OAuth depende de autenticação do proprietário; não afirmar que a mesclagem remota já ocorreu.
+
 # V284 — Cabeçalhos compactos e azul no corpo (19/11/2026)
 
 - Ajuste pontual no **body**: cabeçalhos H2 de páginas mais compactos, menor espaçamento entre título, descrição e controles; subtítulos com o mesmo azul da identidade adotada; cartões com títulos ligeiramente mais discretos.
