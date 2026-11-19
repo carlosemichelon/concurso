@@ -1,3 +1,16 @@
+# Banco Mestre V273 — Taxonomia das versões e contagens sem confundir origens (19/11/2026)
+
+- **Publicação proposta:** `index.html`, `v273.html`, `assets/version.json`; V272 permanece intacta para reversão. Não há alteração em flashcards, PDFs ou SRS.
+- **Motivo:** V272 indica interface; base pública V194, seus 19 adendos V267, registros Ijuí, snapshot canônico privado e índice privado seguem trilhas de versão distintas. O arquivo `estudos_incrementos_v267.json` contém versão interna V267, não V269; o bug da validação foi corrigido na V272.
+- **Contagem publicada:** 1.518 cartões da base V194 (1.501 ativos, 17 inativos) + 22 registros Ijuí = 1.540. Os 19 adendos V267 não são novos IDs, não elevam essa soma e não indicam calendário de revisão SRS.
+- **Interface:** novo aviso expansível na aba Flashcards e atualização de cabeçalho/rodapé. A seção explica as famílias «interface», «cartões públicos», «adendos», «Ijuí», «base privada», «índice», «lacunas» e «SRS» sem revelar IDs privados no HTML público.
+- **Atualização da Metodologia Mestre:** adendo operacional de 19/11/2026 no documento privado ID `1HXpal_7FFV4_yJsvfhEAEKpB36ym4LEzpb4t1PXHmcc`, consolidando as regras de nomenclatura. O índice operacional V166 deriva da base privada V162 (1.524 cartões), enquanto o snapshot privado V164 confirmado registra 1.532; a defasagem exige consultar incrementos, e a regra de 50 cartões para consolidação segue inalterada.
+- **Lacunas dos chats:** registro em Docs ou no snapshot privado não comprova sincronização com o cadastro operacional V242, que possui storage/OAuth próprios. Nunca anunciar integração ou SRS sem comprovante técnico.
+- **Integridade:** original V272 conservado; 33 decisões PMS-1, IDs, 11 módulos, histórico, fonte canônica, autoria, PDFs, lacunas e SRS não são alterados pela atualização editorial.
+- **Validação:** inspecionar HTML/manifesto, contrato de contagem e integridade do leitor após publicação; testes com navegador e OAuth do usuário permanecem pendentes.
+
+---
+
 # Banco Mestre V272 — correção do carregamento dos cartões públicos (19/11/2026)
 
 - **Falha relatada:** `Falha ao carregar cartões: Incrementos V269 inválidos`.
