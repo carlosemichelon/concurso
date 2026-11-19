@@ -3,9 +3,14 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const read=p=>fs.readFileSync(p,'utf8');
 const index=read('index.html'),page=read('v263.html'),manifest=JSON.parse(read('assets/version.json'));
-assert.equal(index,page,'A entrada deve coincidir com a página versionada');
-assert.equal(manifest.version,'V263');assert.equal(manifest.home,'v263.html');
-assert.equal(manifest.previous_version,'V262');
+// O escopo V263 é histórico; a entrada pública deve seguir a versão atual.
+assert.match(manifest.version,/^V\\d{3}$/);
+assert.ok(Number(manifest.version.slice(1))>=263);
+assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
+assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
+assert.equal(manifest.current_versions.portal.home,manifest.home);
+assert.ok(Number(manifest.previous_version.slice(1))<Number(manifest.version.slice(1)));
+assert.ok(page.includes('data-bm-portal-version="V263"'),'V263 histórica preservada');
 assert.equal(manifest.counts.cards,1518);
 assert.equal(manifest.counts.card_operational_ijui,22);
 assert.equal(manifest.counts.card_entries_combined,1540);
