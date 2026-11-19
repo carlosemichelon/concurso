@@ -13,3 +13,7 @@
 - Fonte anterior `v296.html`/CSS V296 preservada.
 - Não houve alteração nos JSON de cartões, IDs, 11 módulos, Drive, imagens, SRS, PDFs ou mecanismo de SHA.
 - Validação de código e manifesto: **estática**, sem confirmação da renderização mobile/desktop nem OAuth no navegador real.
+
+## Correção de metadados pós-CI
+- O teste V216 revelou que `current_versions.portal` preservava o ponteiro histórico V277, divergindo da entrada V297. Corrigidos `version`, `home`, `previous` e `previous_version` no manifesto; demais catálogos de conteúdo não foram tocados.
+- A falha do teste era de consistência de versão, **não demonstra falha OAuth**. Reexecução de CI é necessária para confirmar o conserto.
