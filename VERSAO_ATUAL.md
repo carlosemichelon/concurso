@@ -1,3 +1,11 @@
+# V282 — Layout do body com composição semelhante à captura Tec Concursos (19/11/2026)
+
+- Corpo do portal com faixa 'Meus Estudos', coluna principal ampla e faixa lateral estreita, no desktop. Painéis brancos de cantos discretos, espaçamento pequeno, fundo cinza-claro e links azuis.
+- Home: áreas de estudo apresentadas em linhas leves, como a lista de cadernos da referência; assuntos abaixo na mesma lógica. As bibliotecas PDFs/Flashcards/Imagens recebem a mesma composição. O leitor técnico de assuntos, modais de cartões e PDFs ampliados não são estreitados.
+- Lateral: atalhos operantes para as outras abas, orientações e avisos verificáveis. Nenhum caderno, resultado de estudo, progresso ou calendário foi inventado.
+- A atualização é visual e aditiva: mantém nós originais, campos, handlers, filtros por ID, cartões, 11 módulos didáticos completos, SRS, grifos, originais Drive e versões históricas.
+- V281 preservada para reversão; homologação real em desktop/celular e OAuth não executada.
+
 # V281 — Ordenação explícita por ID e padronização do conteúdo (19/11/2026)
 
 - Dois seletores permanentes na barra dos Flashcards: **Ordenar por ID** (decrescente, crescente, original) e **Últimos cartões** (todos, 10, 25, 50, 100, lote de 15 novos V274/V276). Ordenação decrescente padrão. Inclusões históricas sem data por cartão usam ID como aproximação; não confundir cartão antigo enriquecido com recém-criado.

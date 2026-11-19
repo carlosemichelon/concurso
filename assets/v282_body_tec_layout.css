@@ -1,0 +1,171 @@
+/* Banco Mestre V282 — composição de body inspirada na referência Tec Concursos.
+ * Coluna principal ~2/3, lateral ~1/3; cartões brancos e tipografia compacta.
+ * Sem marca, anúncios ou indicadores fictícios. Sem alteração de conteúdo ou SRS. */
+html{background:#edf0f1!important}
+body{background:#edf0f1!important;color:#465766!important;font:13px/1.55 "Segoe UI",Arial,system-ui,sans-serif!important}
+body>main{
+ width:min(1140px,calc(100% - 48px))!important;max-width:1140px!important;
+ padding:22px 0 55px!important;margin:0 auto!important
+}
+main>section.bm282-two-column.active{
+ display:grid!important;grid-template-columns:minmax(0,2fr) minmax(250px,1fr)!important;
+ gap:8px 10px!important;align-items:start!important;min-width:0!important;
+}
+main>section.bm282-two-column>.bm282-context{
+ grid-column:1/-1!important;font-size:12px!important;line-height:1.35!important;
+ color:#576978!important;margin:1px 0 13px!important;padding:0!important
+}
+main>section.bm282-two-column>.panel{
+ grid-column:1!important;min-width:0!important;width:100%!important;
+ border:0!important;border-radius:4px!important;background:#fff!important;
+ box-shadow:0 1px 1px #1c33420a!important;margin:0!important;padding:15px 16px 19px!important
+}
+main>section.bm282-two-column>.bm282-sidebar{
+ grid-column:2!important;min-width:0!important;width:100%!important;
+ display:flex!important;flex-direction:column!important;gap:15px!important
+}
+main .bm282-side-panel{
+ border:0!important;border-radius:4px!important;background:#fff!important;
+ box-shadow:0 1px 1px #1c33420a!important;margin:0!important;
+ padding:15px 16px!important;min-width:0!important
+}
+main .bm282-side-heading{
+ font:600 12px/1.4 "Segoe UI",Arial,sans-serif!important;color:#536779!important;
+ margin:0 0 11px!important;padding:0!important;letter-spacing:.01em!important
+}
+main .bm282-links{display:flex!important;flex-direction:column!important;margin:0!important;padding:0!important}
+main .bm282-quicklink{
+ display:flex!important;justify-content:space-between!important;align-items:center!important;
+ gap:10px!important;width:100%!important;margin:0!important;
+ padding:9px 0!important;min-height:38px!important;
+ border:0!important;border-bottom:1px solid #edf1f3!important;
+ border-radius:0!important;background:#fff!important;
+ color:#1786cb!important;box-shadow:none!important;
+ font:400 12px/1.45 "Segoe UI",Arial,sans-serif!important;text-align:left!important;
+ text-decoration:underline!important;text-underline-offset:2px!important;cursor:pointer!important
+}
+main .bm282-quicklink:last-child{border-bottom:0!important}
+main .bm282-quicklink:hover{color:#086fae!important;background:#f8fbfd!important}
+main .bm282-quicklink::after{
+ content:"›";flex:none;color:#899eae;font:500 19px/1 Arial,sans-serif
+}
+main .bm282-side-text{
+ font-size:12px!important;line-height:1.65!important;color:#70808c!important;
+ margin:2px 0 0!important;overflow-wrap:anywhere!important
+}
+main .bm282-side-foot{font-size:10.5px!important;color:#92a0aa!important;margin:10px 0 0!important}
+main>section.bm282-two-column>.panel>h2,
+main>section.bm282-two-column>.panel>.topicLead h2{
+ font-size:13px!important;line-height:1.4!important;font-weight:500!important;
+ color:#51667a!important;margin:0 0 11px!important;letter-spacing:0!important;
+ padding:0!important;border:0!important
+}
+main>section.bm282-two-column>.panel>p.intro{
+ font-size:11.5px!important;line-height:1.55!important;margin:0 0 13px!important;
+ color:#7e8b96!important;max-width:100%!important
+}
+main>section.bm282-two-column>.panel .controls{
+ border:0!important;background:transparent!important;box-shadow:none!important;
+ gap:7px!important;margin:9px 0!important;padding:0!important
+}
+main>section.bm282-two-column>.panel :is(button,select,input[type="search"]){
+ font-size:12px!important;border-radius:3px!important
+}
+main>section.bm282-two-column>.panel :is(.notice,.originalHelp,.intro){
+ border-radius:3px!important;line-height:1.6!important
+}
+/* Visão de assuntos: apresentação em lista semelhante a "Cadernos de Estudo". */
+#assuntos.bm282-two-column>.panel #areaRows.topicCards{
+ display:flex!important;flex-direction:column!important;gap:0!important;
+ border:0!important;margin:5px 0 15px!important;padding:0!important
+}
+#assuntos.bm282-two-column>.panel #areaRows .topicCard{
+ display:flex!important;flex-direction:row!important;align-items:center!important;
+ justify-content:space-between!important;gap:10px!important;
+ border:0!important;border-bottom:1px solid #f0f2f4!important;
+ border-radius:0!important;background:#fff!important;box-shadow:none!important;
+ min-height:48px!important;width:100%!important;padding:8px 2px!important;
+ color:#1786cf!important;text-align:left!important
+}
+#assuntos #areaRows .topicCard:last-child{border-bottom:0!important}
+#assuntos #areaRows .topicCard strong{
+ font-size:12px!important;font-weight:400!important;color:#1984d1!important;
+ text-decoration:underline!important;text-underline-offset:2px!important
+}
+#assuntos #areaRows .topicCard small{
+ font-size:10px!important;line-height:1.35!important;color:#8494a0!important;text-decoration:none!important
+}
+#assuntos #areaRows .topicCard::after{content:"›";font-size:18px;color:#9aacba;line-height:1}
+#assuntos.bm282-two-column>.panel>h2:nth-of-type(2){
+ margin:16px -16px 11px!important;padding:16px 16px 0!important;
+ border-top:14px solid #edf0f1!important
+}
+#assuntos #topicRows.topicCards{
+ display:grid!important;grid-template-columns:1fr!important;
+ gap:0!important;margin-top:12px!important
+}
+#assuntos #topicRows .topicCard{
+ display:block!important;width:100%!important;min-height:40px!important;
+ background:#fff!important;border:0!important;border-bottom:1px solid #e9eff2!important;
+ padding:10px 2px!important;border-radius:0!important;box-shadow:none!important;
+ color:#1984d1!important
+}
+#assuntos #topicRows .topicCard strong{font-size:12px!important;font-weight:500!important;color:#1984d1!important}
+#assuntos #topicRows .topicCard small{font-size:10.5px!important;color:#8698a5!important}
+/* Demais bibliotecas: listas e cartões em superfície contida, não grandes blocos decorativos. */
+#cartoes.bm282-two-column #cardRows.grid,#imagens.bm282-two-column #imageRows.grid{
+ display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr))!important;
+ gap:9px!important;margin-top:12px!important
+}
+#cartoes #cardRows article.card,#imagens #imageRows article.card{
+ border:1px solid #edf0f2!important;border-radius:4px!important;
+ box-shadow:none!important;padding:11px 12px!important
+}
+#cartoes #cardRows article.card h3,#imagens #imageRows article.card h3{
+ font-size:12.5px!important;font-weight:550!important;color:#425d70!important;line-height:1.5!important
+}
+#pdfs.bm282-two-column #pdfRows{min-width:0!important}
+#pdfs.bm282-two-column #pdfRows :is(article,.card,.bm209-item){
+ border-radius:4px!important;background:#fff!important;border-color:#e9eff1!important;
+ box-shadow:none!important
+}
+#cartoes.bm282-two-column .controls.bm280-main-controls{
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(170px,.85fr)!important;
+ align-items:end!important;gap:8px!important
+}
+#cartoes.bm282-two-column .controls.bm280-main-controls>#cardSearch{
+ grid-column:1/-1!important;min-width:0!important
+}
+#cartoes.bm282-two-column .controls.bm280-main-controls>.bm281-toolbar-field{
+ grid-column:auto!important;min-width:0!important;max-width:none!important
+}
+#cartoes.bm282-two-column .controls.bm280-main-controls>#cardCount{
+ grid-column:1/-1!important;max-width:none!important;justify-self:start!important
+}
+main>section.bm282-two-column>.panel details.bm280-advanced{
+ background:#fff!important;border-color:#e6ecf0!important;margin:8px 0 12px!important
+}
+main>section.bm282-two-column>.panel details.bm280-advanced>summary{
+ color:#287cb3!important;font-size:11px!important;font-weight:500!important;min-height:32px!important
+}
+/* Leitores técnicos abertos, modais PDF e imagens não herdam a coluna lateral. */
+#tema.active{display:block!important}
+body:has(dialog[open]){overflow:hidden}
+@media(max-width:900px){
+ body>main{width:calc(100% - 26px)!important}
+ main>section.bm282-two-column.active{grid-template-columns:1fr!important;gap:9px!important}
+ main>section.bm282-two-column>.bm282-context{grid-column:1!important;margin-bottom:6px!important}
+ main>section.bm282-two-column>.panel,main>section.bm282-two-column>.bm282-sidebar{grid-column:1!important}
+ main>section.bm282-two-column>.bm282-sidebar{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important
+ }
+}
+@media(max-width:560px){
+ body>main{width:calc(100% - 18px)!important;padding:14px 0 45px!important}
+ main>section.bm282-two-column>.panel{padding:12px!important}
+ main>section.bm282-two-column>.bm282-sidebar{grid-template-columns:1fr!important}
+ main>section.bm282-two-column>.panel>h2:nth-of-type(2){margin:14px -12px 11px!important;padding:14px 12px 0!important}
+ #cartoes.bm282-two-column .controls.bm280-main-controls{grid-template-columns:1fr!important}
+ #cartoes.bm282-two-column .controls.bm280-main-controls>.bm281-toolbar-field{grid-column:1!important}
+ #cartoes.bm282-two-column #cardRows.grid,#imagens.bm282-two-column #imageRows.grid{grid-template-columns:1fr!important}
+}
