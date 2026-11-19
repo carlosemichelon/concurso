@@ -1,3 +1,13 @@
+# Banco Mestre V271 — Títulos legíveis dos PDFs encontrados no Drive (19/11/2026)
+
+- **Página de publicação:** `gh-pages/v271.html` e `index.html`; manifesto em `assets/version.json`. `v270.html` e módulos V269 continuam preservados para rollback.
+- **Mudança:** arquivo `assets/v271_pdfs_progressive.js` melhora apenas títulos **visuais** da biblioteca para PDFs descobertos por OAuth: separa palavras, remove sufixos de digitalização identificáveis, respeita siglas e aplica acentuação comum quando segura. O nome original permanece visível e pesquisável, assim como o título padronizado. O leitor recebe o título visual sem alterar o ID.
+- **Preservação:** não renomeou, moveu, copiou nem alterou PDFs ou permissões no Google Drive; sem alteração de hash, vinculação de grifos, categorias do catálogo de 78, imagens, cartões, ID, versões, 11 módulos e SRS.
+- **Indicador:** o valor 1.540 refere-se a soma de **1.518 registros públicos + 22 de Ijuí**, e não ao total privado de cartões sincronizados nem ao SRS. O cabeçalho continua com a ocultação visual de indicadores aprovada na V270.
+- **Verificação:** JavaScript compilado sem erro e seis casos automáticos de nomes/imutabilidade passaram. Varredura OAuth e aparência no navegador autenticado ainda requerem validação real; nenhuma sincronização de conteúdo foi executada.
+
+---
+
 # Banco Mestre V258 — Fórmulas com contexto textual preservado (18/11/2026)
 
 - **Página ativa:** `v258.html`, por `gh-pages/index.html` e `assets/version.json`. Rollback: `v257.html`, preservada.
