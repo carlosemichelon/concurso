@@ -1,8 +1,16 @@
 /* Banco Mestre V298: contraste, legibilidade e navegação. Apenas CSS. */
 :root{--bm298-action:#147fbf;--bm298-ink:#101820}
-body>header nav button[data-page]{
- min-height:40px!important;min-width:40px!important;padding:8px 12px!important;
+/* Sobrescreve a altura fixa legada de 33/34px no contêiner e nos botões. */
+body>header .head>nav[aria-label="Seções"]{
+ height:40px!important;min-height:40px!important;max-height:none!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page]{
+ height:40px!important;min-height:40px!important;max-height:none!important;
+ min-width:40px!important;padding:8px 12px!important;
  white-space:nowrap!important;border-radius:0!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page].active{
+ color:#fff!important;background:#147fbf!important;border-color:#147fbf!important
 }
 body>header nav button[data-page].active{
  background:#147fbf!important;color:#fff!important;border-color:#147fbf!important
@@ -43,7 +51,7 @@ body>main #pdfs #pdfRows :is(.v036-pdf-title,.v036-card-title,h3){
 #cartoes #cardRows>*,#pdfs #pdfRows>*,#imagens #bm084-grid>*{min-width:0!important}
 @media(max-width:600px){
  body>main{max-width:100%!important}
- body>header nav button[data-page]{min-height:40px!important;padding:8px 10px!important;font-size:12px!important}
+ body>header .head>nav[aria-label="Seções"]>button[data-page]{height:40px!important;min-height:40px!important;max-height:none!important;padding:8px 10px!important;font-size:12px!important}
  #cartoes #cardRows.grid{grid-template-columns:minmax(0,1fr)!important}
  #cartoes #cardRows article.card>h3{font-size:16px!important}
  #cartoes #cardRows article.card :is(p,li):not(.muted):not(.small){font-size:15px!important}
