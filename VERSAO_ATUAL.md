@@ -1,3 +1,10 @@
+# V287 — Azul em todo o portal e textos de cartões mais escuros (19/11/2026)
+
+- Mesmo padrão visual (Segoe UI e azul #1687d8) em Assuntos, PDFs, Flashcards, Imagens, filtros, controles e janelas. O Controle de Estudos recebe ajustes finais na camada isolada Shadow DOM.
+- A cor do texto de perguntas, respostas, explicações e módulos foi escurecida levemente para #2b3f4d, preservando o fundo branco e os títulos azuis.
+- Mantidos os significados de alerta e planejamento, as cores de grifo, os documentos e as figuras técnicas; sem modificação de conteúdos, SRS, integração Drive ou contadores.
+- A V286 permanece acessível como reversão. Validações estáticas e leitura dos arquivos publicados; teste visual real ainda pendente.
+
 # V286 — Fonte única e azul no site inteiro (19/11/2026)
 
 - Todo o body, cartões, popups e Controle de Estudos utilizam a mesma família de fontes do cabeçalho: Segoe UI, Arial e system-ui. Sem carregamento externo.

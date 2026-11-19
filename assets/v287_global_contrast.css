@@ -1,0 +1,77 @@
+/* V287 — azul consistente no site inteiro; cartão com texto levemente mais escuro.
+   Camada apenas visual. Sem mexer em dados, conteúdo, SRS, grifos e gráficos. */
+:root{
+ --bm287-blue:#1687d8;--bm287-pale:#edf6fc;--bm287-ink:#2b3f4d;
+ --bm287-strong:#243745;--bm287-muted:#526979;
+ --bm287-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+html,body,body>header,body>main,body>footer{font-family:var(--bm287-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,p,span,strong,b,small,li,button,a,summary,label,input,select,textarea,th,td,.panel,.card,.answer,.bm195-evo,.bm198-module,.richSection){
+ font-family:var(--bm287-font)!important;
+}
+body :is(code,pre,kbd,samp,mjx-container,mjx-container *,math,math *,.katex,.katex *){font-family:revert!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) a:not(.action){color:#1680c4!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) :is(.panel>h2,.sectionTitle){color:#286c98!important}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger){
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger):hover{
+ background:#116fae!important;border-color:#116fae!important
+}
+body :is(input[type="checkbox"],input[type="radio"],input[type="range"]){accent-color:#1687d8!important}
+body :is(button,summary,input,select,textarea,[role="tab"]):focus-visible{
+ outline:2px solid #75b8e5!important;outline-offset:2px!important
+}
+body>main :is([role="tab"][aria-selected="true"],[role="option"][aria-selected="true"],button[aria-pressed="true"]):not(.danger):not(.pdfDanger){
+ background:#eaf5fc!important;color:#186ea5!important;border-color:#1687d8!important
+}
+body>header nav button[data-page].active{border-bottom-color:#1687d8!important;color:#fff!important}
+/* Leitura dos cartões: manter fundos e títulos de seção; escurecer o texto corrido. */
+#cartoes #cardRows article.card,
+#cartoes #cardRows .answer,
+#cartoes #cardRows .bm195-evo,
+#cartoes #cardRows :is(p,li,td,th,.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm198-module-body,.bm198-paragraph,.bm197-paragraph),
+#cartoes #cardRows .answer>.richSection p{
+ color:var(--bm287-ink)!important
+}
+#cartoes #cardRows article.card>h3,#cartoes #cardRows .bm195-heading-text h3{
+ color:var(--bm287-strong)!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,.bm197-layer-title,.richSection h4){
+ color:#28729f!important
+}
+#cartoes #cardRows :is(small,.muted,.bm195-status),#cartoes #cardCount{color:var(--bm287-muted)!important}
+/* Pop-up de cartões: mesmo contraste na frente, verso e 11 módulos. */
+#bmCardPeekV050 :is(.bm163-panel,.bm163-answer,.bm-v050-peek-front,
+ .bm163-piece-text,.bm197-paragraph,.bm198-paragraph,.bm198-module-body,
+ .bm198-list,.bm165-related-front,.bm195-body,.bm195-layer-body,.bm195-paragraph,
+ .bm163-rich-list,td,th){
+ color:var(--bm287-ink)!important
+}
+#bmCardPeekV050 .bm-v050-peek-front{color:var(--bm287-strong)!important}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title){color:#2a76a4!important}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph){line-height:1.65!important}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status){color:var(--bm287-muted)!important}
+/* Demais bibliotecas e janelas — apenas controles e tipografia, não telas de PDF. */
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog,
+ #bm263-sync-panel,#bmCardPeekV050 .bm163-panel,.bm122-ink-dialog){
+ --accent:#1687d8;--ink:#344b5a;--line:#dce5eb;
+ font-family:var(--bm287-font)!important;color:#344b5a!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog,
+ #bm263-sync-panel,#bmCardPeekV050 .bm163-panel,.bm122-ink-dialog)
+ :is(button,input,select,textarea,summary,p,span,small,label){
+ font-family:var(--bm287-font)!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog)
+ :is(button.primary,[role="tab"][aria-selected="true"]):not(.danger):not(.pdfDanger){
+ background:#1687d8!important;color:#fff!important;border-color:#1687d8!important
+}
+#controle-estudos,#bm240-native-host{font-family:var(--bm287-font)!important}
+body :is(button,summary,[role="tab"])>svg:not([data-technical]){
+ stroke-width:1.5!important;stroke-linecap:round!important;stroke-linejoin:round!important
+}
+@media(max-width:650px){
+ #cartoes #cardRows article.card{color:var(--bm287-ink)!important}
+ #bmCardPeekV050 .bm-v050-peek-front{color:var(--bm287-strong)!important}
+}
