@@ -1,0 +1,128 @@
+{
+  "format": "BancoMestrePublicPetro22RelatedLayersV277",
+  "source_private_version": "V166",
+  "date": "2026-11-19",
+  "records": [
+    {
+      "id": "CARD-0578",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Frente — recuperação ativa",
+          "texto": "ID: CARD-0578; assunto: Concreto armado; subassunto: Ancoragem.\nPERGUNTA E ORIGINAL: Como varia o comprimento básico de ancoragem reto ℓb com diâmetro e aderência?\nRecuperação ativa: responda de memória, depois demonstre fórmula, exemplo e armadilha.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nQUESTÃO DE TRANSFERÊNCIA: recupere ℓb e diferencie ℓb, ℓb,nec e ℓ0t; emenda por traspasse usa aderência, mas exige verificação própria de comprimento. Vincular CARD-1534 sem fundir as duas perguntas."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima F original",
+          "texto": "RESPOSTA MÍNIMA PARA ACERTAR — F ORIGINAL LITERAL:\nℓb=(φ/4)·(fyd/fbd) no modelo histórico; aumenta com φ e fyd e diminui quando fbd cresce.\nNenhum aprofundamento substitui a literalidade do verso original.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nPRESERVAR VERSO LITERAL ACIMA. Relação complementar: em barras tracionadas emendadas com afastamento livre de 0 a 4φ, ℓ0t é o maior entre α0tℓb,nec e o mínimo normativo; ℓb não é automaticamente o comprimento adotado de traspasse."
+        },
+        {
+          "ord": 3,
+          "titulo": "Verso original literal A–K",
+          "texto": "A — ORIGINAL V055 (literal): CARD-0578\nB — ORIGINAL V055 (literal): Engenharia Civil\nC — ORIGINAL V055 (literal): Concreto armado\nD — ORIGINAL V055 (literal): Ancoragem\nE — ORIGINAL V055 (literal): Como varia o comprimento básico de ancoragem reto ℓb com diâmetro e aderência?\nF — ORIGINAL V055 (literal): ℓb=(φ/4)·(fyd/fbd) no modelo histórico; aumenta com φ e fyd e diminui quando fbd cresce.\nG — ORIGINAL V055 (literal): Equilibra a força da barra com tensões de aderência ao longo do seu perímetro: πφℓb fbd ≈ (πφ²/4)fyd, sob hipótese simplificada de aderência média.\nAplicação: Com φ=16 mm, fyd=435 MPa e fbd=2,9 MPa: ℓb=(16/4)(435/2,9)=600 mm.\nPegadinha: O comprimento de ancoragem necessário não é sempre igual ao básico; há cobrimento, ganchos, confinamento, área efetiva, concreto e condições de aderência.\nH — ORIGINAL V055 (literal): φ sobe → ℓb sobe; aderência sobe → ℓb desce.\nI — ORIGINAL V055 (literal): CON-19-061\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nOs originais privados permanecem preservados. Evolução V165 aborda emendas por traspasse, não reescreve os dados históricos. CARD-1534 mantém frente/verso distintos; PETRO22-Q003 é a origem da ligação."
+        },
+        {
+          "ord": 4,
+          "titulo": "Fundamento normativo ou técnico e edição",
+          "texto": "ABNT NBR 6118:2023 — texto de referência histórica; conferir item correspondente no conjunto 2023 + Emenda 1/2026 antes da homologação. Ancoragem de barras por aderência: a expressão do comprimento básico relaciona solicitação do aço e resistência aderente do concreto. Coeficientes da aderência, ancoragem necessária e mínimos são condicionais.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nNBR 6118:2023, 9.4.2.4 trata de ℓb; 9.4.2.5 trata de ℓb,nec; 9.5.2.2.1 trata de traspasse tracionado em barras isoladas. O texto 2023 apresenta ℓb=(φfyd)/(4fbd) com piso de 25φ. Essa condição é específica e não transforma o piso de ℓ0t em 25φ. A edição 2026 deve ser cotejada no conjunto 2023+Em1."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "Equilíbrio: As·fyd=(πφℓb)·fbd, com As=πφ²/4, logo ℓb=(φ/4)(fyd/fbd). φ e ℓb em mm; fyd e fbd em N/mm²=MPa. O quociente de tensões é adimensional.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nRelação matemática: ℓb básico [mm] de ancoragem; ℓb,nec [mm] ajusta condições e armadura efetiva. Traspasse: ℓ0t=max(α0tℓb,nec, 0,3α0tℓb, 15φ, 200 mm), com 0≤afastamento livre entre barras da emenda≤4φ; α0t depende da proporção de barras emendadas (Tabela 9.4). Exemplo φ=20 mm, ℓb=700 mm, ℓb,nec=550 mm, α0t=1,4: principal 770 mm; mínimo=max(294,300,200)=300 mm; ℓ0t=770 mm."
+        },
+        {
+          "ord": 6,
+          "titulo": "Mecanismo físico e explicação didática",
+          "texto": "O aço transmite a força longitudinal ao concreto por tensão tangencial distribuída ao longo da interface. Diâmetro maior aumenta a força resistente exigida em proporção maior que o perímetro, por isso ℓb cresce com φ.\n\nEXPLICAÇÃO ORIGINAL G (literal e integral):\nEquilibra a força da barra com tensões de aderência ao longo do seu perímetro: πφℓb fbd ≈ (πφ²/4)fyd, sob hipótese simplificada de aderência média.\nAplicação: Com φ=16 mm, fyd=435 MPa e fbd=2,9 MPa: ℓb=(16/4)(435/2,9)=600 mm.\nPegadinha: O comprimento de ancoragem necessário não é sempre igual ao básico; há cobrimento, ganchos, confinamento, área efetiva, concreto e condições de aderência.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nFísico: a barra ancorada isoladamente dissipa esforço no concreto pela aderência ao longo de ℓb; em uma emenda, o esforço migra de uma barra para outra através do concreto. Por isso concentrar muitas emendas eleva tensões locais de aderência/fendilhamento e influencia α0t, estribos e detalhamento."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido e conferência",
+          "texto": "Para φ=16 mm, fyd=435 MPa, fbd=2,90 MPa: As≈201,06 mm²; força ≈87,46 kN; perímetro πφ≈50,27 mm; ℓb=16/4×435/2,9=600 mm. Conferir π×16×600×2,9≈87,46 kN.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nAplicação comparada: ℓb do original =600 mm para φ16, fyd435 e fbd2,9. Suponha para exercício separado ℓb=600 mm, ℓb,nec=500 mm e α0t=1,8: principal 900 mm; mínimo=max(324,240,200)=324 mm; adotar 900 mm de traspasse tracionado, se demais requisitos estiverem satisfeitos. Os 600 mm isolados não bastam para concluir o traspasse."
+        },
+        {
+          "ord": 8,
+          "titulo": "Transferência e aplicação prática",
+          "texto": "Ao detalhar armadura inferior de viga perto do apoio, escolher região e tipo de ancoragem, área necessária versus existente, cobrimento, gancho e confinamento. O número 600 mm é ℓb do exemplo, não necessariamente o detalhamento final.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nTransferência: verificar explicitamente se a distância livre entre barras da MESMA emenda não supera 4φ; para distância maior, a NBR 6118:2023, 9.5.2.2.2 requer acréscimo da distância livre ao comprimento calculado e justificação da armadura transversal. A distância x entre DUAS emendas é OUTRA medida, estudada no CARD-1534."
+        },
+        {
+          "ord": 9,
+          "titulo": "Diferenças, exceções e pegadinhas",
+          "texto": "Dobrar φ dobra ℓb somente mantendo fyd/fbd; não dobrar por causa de comprimento disponível. fbd não é fck; não substituir por fctd sem coeficientes. Aço comprimido, armadura efetiva, emenda e condições desfavoráveis exigem critérios próprios.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nExceções: barras comprimidas usam ℓ0c=ℓb,nec e mínimo=max(0,6ℓb,15φ,200 mm) nas condições do item 9.5.2.3; feixes, disposições transversais e diferenças de bitola têm regras próprias. ℓb não equivale à quantidade de barras emendadas na seção."
+        },
+        {
+          "ord": 10,
+          "titulo": "Macete específico e cobertura cruzada",
+          "texto": "MACETE H ORIGINAL: φ sobe → ℓb sobe; aderência sobe → ℓb desce.\nMACETE EVOLUTIVO: “Força ∝ φ², contato ∝ φ → comprimento ∝ φ; mais aderência, menos comprimento.”\nCOBERTURA CRUZADA: conferir se a resposta relembra definição, cálculo, aplicação e exceção sem alterar o gabarito mínimo.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nPegadinha Cesgranrio: ℓb,nec vs ℓb; 20% de ℓ0 para agrupamento de duas emendas não é 20% da força nem comprimento mínimo; não escolher o MENOR entre critérios de traspasse. MACETE: “ancorar barra = ℓb; emendar duas = ℓ0t, sempre conferir mínimo e α0t”."
+        },
+        {
+          "ord": 11,
+          "titulo": "Fontes, rastreabilidade e ressalvas",
+          "texto": "ID estável: CARD-0578; origem registrada: CON-19-061; estado: ATIVO; quadros históricos: 8; origem do adendo: V082_QUADROS.\nRESSALVA: COTEJO_NBR_6118_2026_PENDENTE; itens específicos de normas posteriores ainda sujeitos à homologação.\nFONTES: https://site.abece.com.br/nbr-6118-tem-emenda-publicada-pela-abnt/\nTexto técnico de origem preservado no Banco Mestre.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nEVOLUÇÃO V165, origem PETRO22-Q003 e PETRO22-C001, vínculo DIRETO apenas com novo cartão CARD-1534; cobertura do original CARD-0578 era PARCIAL para traspasse. As onze seções históricas foram preservadas antes deste complemento. Evidência documental no Drive; sem avaliação de revisão nesta consulta."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0924",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "PERGUNTA EVOLUTIVA DE RECUPERAÇÃO",
+          "texto": "Qual limite para A_s+A_s' de viga fora da zona de emendas e o que a Emenda 1/2026 esclareceu?\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nQUESTÃO EVOLUTIVA: diferencie o limite de 4% da área da seção de concreto para vigas fora da região de emendas e a porcentagem máxima de BARRAS principais tracionadas com traspasse na mesma seção. Por que ambas as taxas não são intercambiáveis? CARD-1534."
+        },
+        {
+          "ord": 2,
+          "titulo": "RESPOSTA MÍNIMA EXIGÍVEL",
+          "texto": "Para vigas, a soma das armaduras longitudinais de tração e compressão deve ser ≤4% A_c fora da zona de emendas, assegurada a ductilidade.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nPRESERVAR A RESPOSTA HISTÓRICA: As+As’≤4%Ac fora das emendas de vigas conforme o registro normativo. OUTRA verificação é a Tabela 9.3: proporção de barras emendadas na mesma seção, que pode ser 100%, 50% ou 25% conforme tipo de barra, camada e carregamento. Não substituir uma pela outra."
+        },
+        {
+          "ord": 3,
+          "titulo": "FUNDAMENTO / EDIÇÃO / ITEM",
+          "texto": "NBR 6118:2023, item 17.3.5.2.4; texto revisado pela Emenda 1/2026 do mesmo item, que reafirma A_s+A_s'≤0,04A_c e a ductilidade.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nREFERÊNCIA PARA REVISÃO: NBR 6118:2023, 17.3.5.2.4 (vigas, A_s+A_s’) e 9.5.2.1, Tabela 9.3 (emendas tracionadas principais). A Emenda 1/2026 incidiu sobre partes da edição 2023; conservar terminologia por edição e revisar texto consolidado antes do uso em projeto."
+        },
+        {
+          "ord": 4,
+          "titulo": "DEFINIÇÕES E MECANISMO FÍSICO",
+          "texto": "Muita armadura pode dificultar lançamento/adensamento e reduzir comportamento dúctil. O limite não diz que toda seção até 4% está automaticamente segura; ainda há mínimos, ancoragem, espaçamentos e ELS.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nMecanismos diferentes: A_s+A_s’/A_c controla taxa longitudinal global no trecho da viga fora de emendas, ligada a ductilidade e viabilidade do detalhamento. A Tabela 9.3 limita concentração de emendas por aderência e transmissão de esforço, aplicável à contagem das barras principais tracionadas na mesma seção. As grandezas possuem denominadores diferentes."
+        },
+        {
+          "ord": 5,
+          "titulo": "EQUAÇÕES, VARIÁVEIS E UNIDADES",
+          "texto": "A_s+A_s'≤0,04 A_c, com áreas na mesma unidade. A_c=b_w h para seção retangular total idealizada; resultados em mm² ou cm².\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nFÓRMULAS: ρ_total=(A_s+A_s’)/A_c e condição histórica para vigas fora de emendas ρ_total≤0,04. P_emendas=100·N_barras_emendadas_na_mesma_seção/N_barras_principais_tracionadas no contexto aplicável. 20% do comprimento de traspasse define proximidade geométrica de duas emendas e não aparece no numerador de ρ_total. Ver CARD-1534."
+        },
+        {
+          "ord": 6,
+          "titulo": "RESOLUÇÃO ORIGINAL / CÁLCULO VERIFICADO",
+          "texto": "Viga b=200 mm e h=500 mm: A_c=100.000 mm²; 0,04 A_c=4.000 mm²=40 cm². Se A_s=24 cm² e A_s'=18 cm², soma 42 > 40 cm²: não atende.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nEXEMPLO INDEPENDENTE: viga 200×500 mm => Ac=100.000 mm²; teto 4.000 mm² de armadura longitudinal no contexto histórico fora das emendas. Supondo As=2400 mm² e As’=1800 mm²: 4200>4000 mm² (não atende). Esse diagnóstico é independente de outra seção com quatro barras principais tracionadas de alta aderência em duas camadas: Tabela 9.3, limite 50% => até duas dessas quatro barras emendadas na mesma seção na situação geral."
+        },
+        {
+          "ord": 7,
+          "titulo": "TRANSFERÊNCIA PARA CASO NOVO",
+          "texto": "Para viga em T, conferir área A_c efetiva/definição da seção e condições do item aplicável; detalhamento e dutos podem impor limitações adicionais.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nTRANSFERÊNCIA: taxa global 3% de armadura fora da região de emendas não garante que três de quatro barras tracionadas possam ser emendadas na mesma seção quando o limite é 50%. São testes cumulativos, e ainda há ℓ0t, estribos, cobrimento, espaçamento e aderência."
+        },
+        {
+          "ord": 8,
+          "titulo": "QUADRO DE DISTINÇÕES E COBERTURA",
+          "texto": "Regime das vigas ≠ pilares; a NBR tem prescrições próprias para máximo longitudinal em pilares, incluindo zonas de emenda. Fora de emendas ≠ na região de emendas.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nQUADRO DE DISTINÇÕES: (A) fora das emendas de vigas: área de aço / área de concreto, limite histórico 4%; (B) emendas principais tracionadas: número de barras emendadas / número total de barras principais tracionadas; (C) duas emendas próximas: x<0,2ℓ0,ref, em comprimento. Vínculo ao CARD-1534: associação INDIRETA; o núcleo antigo de 4% é preservado."
+        },
+        {
+          "ord": 9,
+          "titulo": "EXCEÇÕES / CONDIÇÕES DE APLICAÇÃO",
+          "texto": "O limite de 4% não substitui análise de ductilidade, nem autoriza alterações da seção sem projeto. Conferir a redação consolidada 2026.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nCONDIÇÕES: tabela 9.3 distingue barras de alta aderência em uma camada (100%), em mais de uma camada (50%), barras lisas φ<16 mm (50% estático, 25% dinâmico) e φ≥16 mm (25% ambos). Proporções maiores exigem justificativa; armadura permanentemente comprimida ou de distribuição tem ressalva específica. Não generalizar para pilares."
+        },
+        {
+          "ord": 10,
+          "titulo": "PEGADINHAS DE CONCURSO E RISCO DE ERRO",
+          "texto": "Confundir A_c com b_w d, comparar mm² com cm² ou dizer 4% universal para todos os elementos.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nPEGADINHA: “4% da área de concreto” não significa “4% das barras podem ser emendadas”. Os 20% do espaçamento geométrico tampouco são um máximo de barras. Não misturar mm² com contagem de barras. MACETE: “4% pesa ÁREA; 50% conta BARRAS; 20% mede ESPAÇO”."
+        },
+        {
+          "ord": 11,
+          "titulo": "MACETE ESPECÍFICO",
+          "texto": "Viga: 4% do concreto, fora da emenda, mas tem que ser dúctil.\n\nEVOLUÇÃO DIDÁTICA APROVADA V165 — PETRO22-Q003\nVERSÃO V165: vínculo cruzado com CARD-1534 (emendas, classificação e contagem) e PETRO22-Q003. Cobertura original CARD-0924 era INDIRETA; preservar os onze módulos prévios, frente, verso, origem CON-18-068 . Não inferir domínio a partir do acerto da questão externa."
+        }
+      ]
+    }
+  ],
+  "policy": "Projeção didática por ID, 11 módulos cada; origem privada e histórico A-K integrais preservados no Google Drive."
+}
