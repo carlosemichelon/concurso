@@ -2,6 +2,8 @@
 /* Teste visual básico do CSS V277 em navegador isolado, sem acessar Drive privado. */
 const assert=require('node:assert/strict');
 const {chromium}=require('playwright');
+const fs=require('node:fs');
+const expectedVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).version;
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  try{
@@ -28,15 +30,15 @@ const {chromium}=require('playwright');
      bodyScrollWidth:document.documentElement.scrollWidth
     };
    });
-   assert.equal(state.version,'V277');
-   assert.ok(state.cssLinks>=14,'Folhas dinâmicas não devem remover CSS básico');
+   assert.equal(state.version,expectedVersion);
+   assert.equal(state.cssLinks,16,'A V298 deve carregar 16 folhas CSS');
    assert.ok(state.compiled,'Bundle CSS não entrou na CSSOM');
    assert.ok(requests.some(x=>x.status===200),'Arquivo CSS não retornou HTTP 200');
    assert.ok(state.headerVisible&&state.navVisible&&state.actionsPresent,'Layout não montou');
    assert.notEqual(state.driveDisplay,'none');
    assert.notEqual(state.detailsDisplay,'none');
    await page.close();
-   console.log('V277_HEADER_BROWSER_PASS '+size.width+'x'+size.height+': CSS pronto, cabeçalho presente');
+   console.log('V298_HEADER_BROWSER_PASS '+size.width+'x'+size.height+': CSS pronto, cabeçalho presente');
   }
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

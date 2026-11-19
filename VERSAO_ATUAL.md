@@ -1,3 +1,11 @@
+# V298 — CSS unificado em bundle e tipografia mobile (19/11/2026)
+
+- **29 → 16 folhas CSS externas**: 15 folhas consecutivas V278–V297 agrupadas fielmente em arquivo único, preservando ordem e arquivos de origem.
+- Aprimoramentos de tipografia, contraste dos botões, filtros de imagens e alvos de toque de 40px.
+- Testes em navegador Chromium planejados no CI em 1366px e 390px, sem autorização privada.
+- V297 intacta para reversão. Dados dos cartões, 11 módulos, SRS, PDFs, imagens, grifos, OAuth e SHA-256 inalterados.
+- A consolidação não remove declarações históricas, apenas diminui carregamentos; auditoria semântica adicional permanece possível.
+
 # V297 — Auditoria de contraste e leitura mobile (19/11/2026)
 
 - **Imagens:** não forçar letras escuras em botões de fundo azul; botões primários mantêm texto branco.

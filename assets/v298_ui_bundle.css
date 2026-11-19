@@ -1,0 +1,2420 @@
+/* Banco Mestre V298 — bundle fiel (V278..V297).
+ * Ordem, conteúdo e linhas originais preservados; folhas originais mantidas
+ * no repositório para rollback. NÃO reorganizar seletores manualmente.
+ */
+/* ===== INICIO assets/v278_ui_icons.css ===== */
+/* V278 — ícones de interface leves. Pranchas e diagramas técnicos fora do escopo. */
+:where(button,a.action,summary,nav,[role="button"],[role="tab"],.topicCard,.bm198-overview-icon){font-variant-emoji:text}
+:where(button,a.action,summary,[role="button"],[role="tab"]) svg:not([data-technical]),
+#assuntos #areaRows .topicCard svg,
+#cartoes .bm163-ic svg,#bmCardPeekV050 .bm163-ic svg{
+ width:15px!important;height:15px!important;max-width:15px!important;max-height:15px!important;
+ flex:none;stroke-width:1.35!important;stroke-linecap:round;stroke-linejoin:round;filter:none!important;opacity:.86
+}
+#cartoes .bm198-icon,#bmCardPeekV050 .bm198-icon,#cardRows .bm198-icon{stroke-width:1.35!important;filter:none!important}
+:where(button,a.action,summary,[role="tab"],[role="button"]) :is(.icon,.bm163-ic,.bm198-icon){
+ font-size:14px!important;font-weight:400!important;line-height:1
+}
+#assuntos #areaRows .topicCard .icon{max-width:15px!important;max-height:15px!important;font-size:14px!important;font-weight:400!important}
+#cartoes .bm198-overview-icon,#bmCardPeekV050 .bm198-overview-icon,#cardRows .bm198-overview-icon{
+ width:29px!important;height:29px!important;border:1px solid #d9e5e1!important;
+ background:transparent!important;box-shadow:none!important;color:#32666a!important
+}
+#cartoes .bm198-overview-icon svg,#bmCardPeekV050 .bm198-overview-icon svg,#cardRows .bm198-overview-icon svg{
+ width:16px!important;height:16px!important;stroke-width:1.35!important
+}
+/* Reutilizado dentro do Controle de Estudos isolado no Shadow DOM. */
+:where(button,a,summary,[role="tab"],[role="button"])>svg:not([data-technical]){
+ stroke-width:1.35!important;stroke-linecap:round;stroke-linejoin:round
+}
+@media(prefers-reduced-motion:reduce){:where(button,a.action,summary) svg{transition:none!important}}
+/* ===== FIM assets/v278_ui_icons.css ===== */
+
+/* ===== INICIO assets/v280_teclike_theme.css ===== */
+/* V280 — paleta e ritmo visual inspirados na captura Tec Concursos; identidade própria. */
+:root{--bg:#edf0f1;--paper:#fff;--ink:#344551;--sub:#6e7b87;--accent:#1687d8;--line:#dfe5e8;--soft:#f3f6f7}
+body{background:#edf0f1!important;color:#344551!important;font:13.5px/1.5 "Segoe UI",Arial,system-ui,sans-serif!important}
+body>header{background:#343d44!important;color:#f1f4f6!important;border:0!important;box-shadow:none!important}
+body>header .head{
+ max-width:1220px!important;grid-template-columns:minmax(180px,1fr) minmax(190px,310px)!important;
+ grid-template-rows:33px 34px!important;grid-template-areas:"brand stats" "nav nav"!important;
+ min-height:0!important;gap:0 12px!important;padding:3px 14px 0!important
+}
+body>header .head>div:first-child{white-space:nowrap!important;overflow:hidden!important}
+body>header .head .brand{color:#f2f6f9!important;font-size:18px!important;font-weight:700!important;line-height:1.25!important;white-space:nowrap!important}
+body>header .head .brand>.version{display:inline!important;margin-left:8px!important;font-size:10px!important;color:#a8b5bf!important;font-weight:400!important}
+body>header .head>div:first-child>.version{display:none!important}
+body>header .head>.bm-v046-header-stats{
+ display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:6px!important;
+ min-height:29px!important;max-height:29px!important;height:29px!important;margin:0!important;padding:0!important
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action,
+body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+ display:flex!important;flex:0 1 auto!important;align-items:center!important;justify-content:center!important;
+ min-height:27px!important;height:27px!important;max-height:27px!important;
+ width:auto!important;max-width:none!important;min-width:88px!important;
+ padding:4px 9px!important;border:1px solid #5e6e78!important;border-radius:4px!important;
+ background:transparent!important;box-shadow:none!important;color:#f1f6f9!important
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action{border-color:#4195c9!important}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action::after,
+body>header .head>.bm-v046-header-stats>#bm239-sync-details::after{
+ color:#ecf5fc!important;font:600 11px/1.25 "Segoe UI",Arial,sans-serif!important
+}
+body>header .head>nav[aria-label="Seções"]{
+ grid-area:nav!important;min-height:34px!important;height:34px!important;max-height:34px!important;
+ padding:0!important;gap:15px!important;border-top:1px solid #4d565f!important;overflow-x:auto!important;
+ align-items:center!important;justify-content:flex-start!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page]{
+ height:33px!important;min-height:33px!important;max-height:33px!important;padding:6px 3px!important;
+ font-size:11px!important;font-weight:600!important;letter-spacing:.02em!important;text-transform:uppercase!important;
+ border:0!important;border-radius:0!important;border-bottom:2px solid transparent!important;
+ background:transparent!important;color:#bac5cd!important;box-shadow:none!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page].active{
+ color:#fff!important;border-bottom-color:#2399e9!important;background:transparent!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page]:hover{color:#fff!important}
+#bm263-sync-panel{top:73px!important}
+main{max-width:1190px!important;padding:20px 15px 55px!important}
+main>section>.panel,#tema>.panel{
+ background:#fff!important;border:1px solid #e0e5e8!important;border-radius:5px!important;
+ box-shadow:none!important;padding:16px 18px!important;margin-bottom:12px!important
+}
+main>section>.panel>h2{font-size:17px!important;font-weight:600!important;color:#3c556b!important;margin:0 0 7px!important}
+main>section>.panel>p.intro{font-size:12px!important;color:#83909a!important;line-height:1.5!important;margin:0 0 9px!important}
+main a:not(.action){color:#1687d8}
+main .topicCard,main .card{background:#fff!important;border:1px solid #e3e7e9!important;border-radius:5px!important;box-shadow:none!important}
+main .topicCard:hover,main .card:hover{border-color:#aacbdf!important}
+main .topicCard strong,main .card h3{color:#38617a!important}
+main :is(input[type="search"],input[type="text"],select){
+ min-height:35px!important;padding:6px 9px!important;border:1px solid #ccd7dd!important;
+ border-radius:4px!important;background:#fff!important;color:#364955!important;
+ font-size:12px!important;box-shadow:none!important
+}
+main :is(input[type="search"],input[type="text"],select):focus-visible{
+ outline:2px solid #93c5e5!important;border-color:#238bce!important;outline-offset:0!important
+}
+main :is(button,a.action){border-radius:4px!important;box-shadow:none!important}
+main :is(button.primary,a.primary){background:#24bf78!important;border-color:#24bf78!important;color:#fff!important}
+#assuntos #areaRows .topicCard{padding:11px 13px!important}
+#cartoes #cardRows article.card,#imagens #imageRows article.card{padding:12px!important}
+main .controls.bm280-main-controls{
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;
+ gap:7px!important;margin:8px 0 9px!important;padding:0!important;
+ background:transparent!important;border:0!important;min-height:37px!important
+}
+main .controls.bm280-main-controls>input[type="search"]{flex:1 1 260px!important;min-width:165px!important;height:36px!important}
+main .controls.bm280-main-controls>.bm279-recent-label{flex:0 1 220px!important;min-width:155px!important;font-size:11px!important}
+main .controls.bm280-main-controls>.bm279-recent-label select{height:36px!important;min-height:36px!important}
+main .controls.bm280-main-controls>:is(#cardCount,#pdfCount,#imageCount,#topicCount){
+ margin-left:auto!important;font-size:11px!important;color:#788996!important
+}
+main details.bm280-advanced{
+ display:block!important;max-width:100%!important;margin:6px 0 12px!important;
+ border:1px solid #e1e8eb!important;border-radius:4px!important;
+ background:#f9fbfc!important;overflow:visible!important;padding:0!important
+}
+main details.bm280-advanced:not([open]){background:#fff!important}
+main details.bm280-advanced>summary{
+ display:flex!important;align-items:center!important;gap:8px!important;min-height:30px!important;
+ padding:6px 10px!important;font-size:11.5px!important;font-weight:600!important;
+ color:#317cae!important;background:transparent!important;cursor:pointer!important;list-style:none!important
+}
+main details.bm280-advanced>summary::-webkit-details-marker{display:none}
+main details.bm280-advanced>summary::before{content:"▸";font-size:11px;color:#7494ab}
+main details.bm280-advanced[open]>summary::before{transform:rotate(90deg)}
+main .bm280-active{font-size:10px;color:#167ac2;background:#e7f3fc;border-radius:8px;padding:1px 6px}
+main .bm280-advanced-body{
+ display:flex!important;align-items:flex-start!important;flex-wrap:wrap!important;gap:10px!important;
+ padding:10px 12px!important;border-top:1px solid #e6edef!important;min-width:0!important
+}
+main .bm280-advanced-body>select{flex:1 1 180px!important;max-width:245px!important}
+main .bm280-advanced-body>.checkbox{display:inline-flex!important;align-items:center!important;gap:5px!important}
+main .bm280-advanced-body>.intro,main .bm280-advanced-body>.notice,
+main .bm280-advanced-body>.originalHelp{width:100%!important;background:transparent!important;border:0!important;color:#7a8894!important;margin:4px 0!important;padding:2px 0!important}
+#cartoes .bm280-advanced-body #bm152Filters{
+ display:grid!important;grid-template-columns:repeat(2,minmax(160px,1fr))!important;
+ gap:8px!important;margin:0!important;padding:10px!important;width:100%!important;
+ border:1px solid #e3e9ed!important;border-radius:4px!important;background:#fff!important
+}
+#cartoes .bm280-advanced-body #bm152Filters .bm152Field select{
+ min-height:34px!important;border-radius:4px!important;padding:6px 8px!important;font-size:12px!important
+}
+#cartoes .bm280-advanced-body #bm152Filters .bm152FilterFooter{grid-column:1/-1!important;margin:0!important;padding:6px 0 0!important}
+#cartoes .bm280-advanced-body .bm279-recent-note{width:100%;font-size:11px;color:#768593}
+#pdfs .bm280-advanced-body #pdfAreaNavV036{
+ width:100%!important;display:flex!important;flex-wrap:wrap!important;gap:5px!important;margin:0!important
+}
+#cartoes #bm273Versoes{width:100%!important;border:0!important;background:transparent!important;margin:0!important;padding:0!important}
+#cartoes #bm273Versoes>summary{font-size:11px!important;color:#317cae!important}
+#cartoes #bm273Versoes p{font-size:11.5px!important;line-height:1.6!important}
+@media(max-width:800px){
+ body>header .head{grid-template-columns:minmax(130px,1fr) minmax(180px,260px)!important}
+ body>header .head .brand{font-size:16px!important}body>header .head .brand>.version{display:none!important}
+ main{padding:12px 10px 45px!important}main>section>.panel,#tema>.panel{padding:12px!important}
+}
+@media(max-width:520px){
+ body>header .head{grid-template-columns:minmax(98px,1fr) minmax(172px,1fr)!important;padding:4px 7px 0!important;gap:0 6px!important}
+ body>header .head .brand{font-size:15px!important}
+ body>header .head>.bm-v046-header-stats{gap:3px!important}
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action,
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details{
+  height:26px!important;min-height:26px!important;max-height:26px!important;min-width:77px!important;padding:3px 5px!important
+ }
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action::after,
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details::after{font-size:10px!important}
+ body>header .head>nav[aria-label="Seções"]{gap:11px!important}
+ body>header .head>nav[aria-label="Seções"]>button[data-page]{font-size:10px!important;padding:5px 2px!important}
+ main .controls.bm280-main-controls>.bm279-recent-label{flex:1 1 100%!important}
+ #cartoes .bm280-advanced-body #bm152Filters{grid-template-columns:1fr!important}
+}
+/* ===== FIM assets/v280_teclike_theme.css ===== */
+
+/* ===== INICIO assets/v281_content_hierarchy.css ===== */
+/* V281 — Hierarquia editorial uniforme (referência cromática V280).
+ * Exclusivamente apresentação: não ocultar textos dos 11 módulos nem trocar DOM de conteúdos. */
+#cartoes .controls.bm280-main-controls{
+ display:grid!important;grid-template-columns:minmax(220px,1fr) minmax(175px,235px) minmax(140px,210px) auto!important;
+ gap:8px!important;align-items:end!important
+}
+#cartoes .controls.bm280-main-controls>#cardSearch{
+ grid-column:1!important;width:100%!important;min-width:0!important;margin:0!important
+}
+#cartoes .controls.bm280-main-controls>.bm281-toolbar-field{
+ display:flex!important;flex-direction:column!important;gap:3px!important;
+ flex:none!important;min-width:0!important;width:100%!important;max-width:none!important;
+ color:#566d7c!important;font:600 11px/1.35 "Segoe UI",Arial,sans-serif!important
+}
+#cartoes .controls.bm280-main-controls>.bm281-toolbar-field select{
+ width:100%!important;max-width:none!important;height:36px!important;min-height:36px!important;
+ font-size:12px!important;text-overflow:ellipsis!important;cursor:pointer!important
+}
+#cartoes .controls.bm280-main-controls #cardCount{
+ grid-column:4!important;align-self:center!important;max-width:155px!important;
+ white-space:normal!important;line-height:1.35!important
+}
+#cartoes .bm280-advanced .bm279-recent-note{width:100%!important;font-size:11px!important;color:#748595!important}
+#cartoes .bm281-toolbar-field:focus-within{color:#217bb9!important}
+@media(max-width:950px){
+ #cartoes .controls.bm280-main-controls{grid-template-columns:minmax(180px,1fr) repeat(2,minmax(150px,1fr))!important}
+ #cartoes .controls.bm280-main-controls #cardCount{grid-column:1/-1!important;max-width:none!important}
+}
+@media(max-width:680px){
+ #cartoes .controls.bm280-main-controls{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+ #cartoes .controls.bm280-main-controls>#cardSearch{grid-column:1/-1!important}
+ #cartoes .controls.bm280-main-controls>.bm281-toolbar-field{grid-column:auto!important;min-width:0!important}
+ #cartoes .controls.bm280-main-controls #cardCount{grid-column:1/-1!important}
+}
+@media(max-width:400px){
+ #cartoes .controls.bm280-main-controls{grid-template-columns:1fr!important}
+ #cartoes .controls.bm280-main-controls>.bm281-toolbar-field{grid-column:1!important}
+}
+/* Princípio comum: um título, uma breve descrição e um bloco de conteúdo. */
+main>section>.panel>h2,#tema h2{
+ font-size:18px!important;color:#365169!important;font-weight:650!important;
+ letter-spacing:-.15px!important;line-height:1.3!important;
+ border:0!important;padding:0 0 8px!important;margin:0 0 9px!important
+}
+main>section>.panel>p.intro,#tema .intro{
+ font-size:12px!important;color:#718392!important;line-height:1.6!important;
+ max-width:90ch!important;margin:0 0 13px!important
+}
+main>section>.panel>.controls+div:not(.grid):not(.bm280-advanced){margin-top:8px}
+main>section>.panel .group{font-size:12px!important;color:#587083!important;letter-spacing:.02em!important}
+main .topicCard{min-height:0!important;line-height:1.45!important}
+main .topicCard strong{display:block!important;font-size:13px!important;font-weight:650!important;line-height:1.45!important}
+main .topicCard small{font-size:11px!important;color:#81919e!important;line-height:1.4!important}
+#cartoes #cardRows article.card,#imagens #imageRows article.card{
+ display:flex;flex-direction:column;gap:6px;
+ border:1px solid #e0e5e8!important;border-radius:5px!important;
+ background:#fff!important;box-shadow:none!important;
+}
+#cartoes #cardRows article.card>h3,#imagens #imageRows article.card>h3{
+ font-size:13px!important;line-height:1.55!important;font-weight:650!important;
+ color:#344e62!important;margin:5px 0!important;overflow-wrap:anywhere!important
+}
+#cartoes #cardRows article.card>.tag,#imagens #imageRows article.card>.tag{
+ font-size:10px!important;line-height:1.3!important;font-weight:700!important;color:#2684bc!important
+}
+#cartoes #cardRows article.card>p,#imagens #imageRows article.card>p{
+ font-size:11.5px!important;line-height:1.5!important;color:#738693!important
+}
+#cartoes #cardRows article.card>.buttons{margin-top:auto!important;border-top:1px solid #edf1f4!important;padding-top:9px!important}
+#cartoes #cardRows article.card>details>summary{
+ font-size:11px!important;line-height:1.45!important;font-weight:600!important;color:#287bab!important;
+ border:1px solid #e4ebef!important;background:#f9fbfd!important;padding:8px 10px!important;border-radius:4px!important
+}
+#cartoes #cardRows article.card>details[open]>summary{background:#f1f7fc!important}
+/* Textos de resposta da grade: títulos e conteúdo em cartões editoriais leves. */
+#cartoes #cardRows .answer{color:#3f5362!important;font-size:12.5px!important;line-height:1.68!important}
+#cartoes #cardRows .answer>.richSection{
+ margin:8px 0!important;padding:10px 12px!important;background:#fff!important;
+ border:1px solid #e9edf0!important;border-radius:4px!important
+}
+#cartoes #cardRows .answer>.richSection h4{
+ font-size:12px!important;color:#356d91!important;line-height:1.4!important;
+ font-weight:700!important;margin:0 0 6px!important
+}
+#cartoes #cardRows .answer>.richSection p{
+ font-size:12.5px!important;line-height:1.65!important;color:#465b69!important;
+ white-space:pre-wrap!important;overflow-wrap:anywhere!important;margin:0!important
+}
+#cartoes #cardRows .answer .richSection ul{line-height:1.65!important;padding-left:20px!important}
+#cartoes #cardRows .answer :is(table,.bm195-table){border-collapse:collapse!important;width:100%!important;font-size:12px!important}
+#cartoes #cardRows .answer :is(table,.bm195-table) :is(th,td){border-bottom:1px solid #e6ecef!important;padding:7px 9px!important;vertical-align:top!important}
+/* Leitor único: mesmos padrões, independentemente da origem do cartão. */
+#bmCardPeekV050 .bm163-panel{background:#fff!important;color:#364b5b!important}
+#bmCardPeekV050 .bm163-header{background:#f7f9fb!important;border-bottom:1px solid #e2e8ec!important}
+#bmCardPeekV050 .bm163-kicker{font-size:10px!important;color:#728898!important;letter-spacing:.06em!important}
+#bmCardPeekV050 #bmCardPeekTitleV050{color:#324f64!important}
+#bmCardPeekV050 .bm163-question{background:#fff!important;border-bottom:1px solid #e9eef2!important}
+#bmCardPeekV050 .bm-v050-peek-front{font-size:20px!important;font-weight:650!important;line-height:1.5!important;color:#293f50!important}
+#bmCardPeekV050 .bm163-section-overline{font-size:10px!important;letter-spacing:.07em!important;color:#268ac6!important}
+#bmCardPeekV050 .bm163-piece{
+ margin:9px 0!important;padding:11px 13px!important;border:1px solid #e5eaed!important;
+ border-radius:4px!important;background:#fff!important;color:#405565!important
+}
+#bmCardPeekV050 .bm163-piece.bm163-essential{
+ border-left:3px solid #2d9bd5!important;background:#f8fbfd!important
+}
+#bmCardPeekV050 .bm163-piece-title{
+ font-size:12px!important;font-weight:700!important;color:#356e93!important;
+ line-height:1.4!important;margin:0 0 7px!important
+}
+#bmCardPeekV050 .bm163-piece-text{
+ font-size:13px!important;line-height:1.7!important;white-space:pre-wrap!important;
+ overflow-wrap:anywhere!important;color:#405462!important
+}
+#bmCardPeekV050 .bm163-deep-group,#bmCardPeekV050 .bm197-evolutive,
+#bmCardPeekV050 .bm198-overview,#bmCardPeekV050 .bm198-module{
+ margin:11px 0!important;border:1px solid #e2e8ec!important;border-radius:5px!important;
+ background:#fff!important;box-shadow:none!important;overflow:hidden!important
+}
+#bmCardPeekV050 .bm163-deep-group>summary{
+ color:#356b8d!important;background:#f5f8fb!important;font-size:12px!important;
+ line-height:1.5!important;font-weight:650!important;padding:10px 12px!important
+}
+#bmCardPeekV050 .bm163-group-body{padding:8px 12px!important}
+#bmCardPeekV050 .bm197-title,#bmCardPeekV050 .bm198-overview-top h4,
+#bmCardPeekV050 .bm198-module h4{
+ font-size:13px!important;font-weight:700!important;color:#325d7c!important;line-height:1.45!important
+}
+#bmCardPeekV050 .bm198-overview-top,#bmCardPeekV050 .bm198-module-head{
+ background:#f6f9fb!important;border-bottom:1px solid #e5ebee!important
+}
+#bmCardPeekV050 :is(.bm197-paragraph,.bm198-paragraph,.bm198-module-body){
+ font-size:12.5px!important;line-height:1.68!important;color:#405363!important;
+ overflow-wrap:anywhere!important
+}
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table) th{
+ background:#f0f6fa!important;font-size:11px!important;color:#3d6886!important
+}
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table) td{
+ font-size:12px!important;line-height:1.55!important;vertical-align:top!important
+}
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table) th,
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table) td{
+ padding:8px 10px!important;border-bottom:1px solid #e6edf1!important
+}
+/* PDF, Atlas e resumos herdam o mesmo ritmo tipográfico, sem interferir nas pranchas. */
+#pdfs #pdfRows :is(.card,.bm209-item),#imagens #imageRows :is(.card,.bm209-item){
+ color:#405464!important;line-height:1.55!important;border-radius:5px!important
+}
+#pdfs #pdfRows :is(h3,h4),#imagens #imageRows :is(h3,h4){
+ color:#3a5d75!important;font-weight:650!important;line-height:1.45!important
+}
+#assuntos #topicRows .topicCard,#assuntos #areaRows .topicCard{border-radius:5px!important}
+#cartoes #bm273Versoes p{font-size:12px!important;line-height:1.65!important}
+/* ===== FIM assets/v281_content_hierarchy.css ===== */
+
+/* ===== INICIO assets/v283_blue_popup_theme.css ===== */
+/* Banco Mestre V283 — retorno ao layout integral V281, com a paleta azul/cinza da V282.
+ * Adaptação visual de janelas e popups; nenhum conteúdo, gráfico ou SRS é tocado. */
+:root{
+ --bg:#edf0f1;--paper:#fff;--ink:#344b5a;--sub:#6c7f8d;
+ --accent:#1687d8;--line:#dce5ea;--soft:#f2f6f9;
+ --bm-blue:#1687d8;--bm-blue-dark:#1269a4;--bm-gray-bg:#edf0f1;
+}
+html,body{background:#edf0f1!important}
+body{
+ color:#344b5a!important;font:13.5px/1.55 "Segoe UI",Arial,system-ui,sans-serif!important
+}
+/* Uma coluna: restaurar distribuição de V281, sem sidebar nem breadcrumbs da V282. */
+body>main{
+ display:block!important;width:auto!important;max-width:1190px!important;
+ margin:0 auto!important;padding:20px 15px 55px!important
+}
+body>main>section.active:not(#tema){display:block!important;min-width:0!important}
+body>main>section>.panel{
+ width:100%!important;max-width:none!important;margin:0 0 12px!important;
+ background:#fff!important;border:1px solid #e0e6ea!important;border-radius:5px!important;
+ box-shadow:none!important
+}
+body>main>section>.panel>h2{color:#395a70!important}
+body>main>section>.panel>p.intro{color:#778b99!important}
+/* Verde antes usado para ações primárias passa a azul, inclusive botões dinâmicos. */
+body>main :is(button.primary,a.primary,button[type="submit"].primary),
+#bmCardPeekV050 :is(button.primary,.bm-v050-peek-reveal[aria-expanded="true"]),
+#bm263-sync-panel button.primary{
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important;
+}
+body>main :is(button.primary,a.primary):hover,
+#bmCardPeekV050 :is(button.primary,.bm-v050-peek-reveal[aria-expanded="true"]):hover{
+ background:#126eac!important;border-color:#126eac!important
+}
+body>main :is(a:not(.action),button.link),#bmCardPeekV050 a{
+ color:#167fc2
+}
+body>main :is(input,select,textarea):focus-visible,
+#bmCardPeekV050 :is(input,select,button,summary):focus-visible,
+dialog :is(button,input,select,textarea):focus-visible{
+ outline:2px solid #65aee0!important;outline-offset:2px!important;border-color:#1687d8!important
+}
+/* Tipografia e superfícies comuns das janelas (não interferir em PDF canvas e pranchas). */
+:is(dialog,#bmCardPeekV050 .bm163-panel,.bm122-ink-dialog){
+ --bg:#edf0f1;--paper:#fff;--ink:#344b5a;--sub:#6b7f8f;
+ --accent:#1687d8;--line:#dce5ea;--soft:#f2f6f9;
+ font-family:"Segoe UI",Arial,system-ui,sans-serif!important;
+ color:#344b5a!important;background:#fff!important;
+ border-color:#dbe5ea!important
+}
+:is(dialog,#bmCardPeekV050 .bm163-panel,.bm122-ink-dialog) :is(button,input,select,textarea,summary){
+ font-family:inherit!important
+}
+dialog::backdrop{background:rgba(18,33,45,.65)!important}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(.dhead,.bm202-dialog-heading){
+ background:#f8fafc!important;border-bottom:1px solid #dce6ec!important;
+ color:#334e61!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(.dhead strong,.bm202-dialog-heading h2){
+ font:650 15px/1.4 "Segoe UI",Arial,sans-serif!important;color:#33566b!important
+}
+:is(#pdfDialog,#imageDialog) .dbody{
+ background:#edf0f1!important;color:#344b5a!important
+}
+:is(#pdfDialog,#imageDialog) .toolbar{
+ background:#fff!important;color:#405b6d!important;
+ border-color:#e1e8ed!important;gap:7px!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(button,a.action){
+ font-size:12px!important;line-height:1.35!important;font-weight:550!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) button:not(.swatch):not(.pdfDanger):not(.danger){
+ border-color:#c9dce8!important;color:#27688e!important;background:#f9fcff!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(button.primary,button[aria-pressed="true"]:not(.swatch)):not(.pdfDanger){
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) button:disabled{
+ opacity:.5!important;cursor:default!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(label,small,p){
+ font-family:"Segoe UI",Arial,sans-serif
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(input,select,textarea){
+ border-radius:5px!important;border-color:#cbdce7!important;background:#fff!important;
+ color:#344b5a!important;font-size:12.5px!important
+}
+/* O leitor de flashcards é popup separado dos elementos <dialog>. */
+#bmCardPeekV050 .bm163-panel.bm165-panel{
+ font-family:"Segoe UI",Arial,system-ui,sans-serif!important;color:#334b5b!important;
+ background:#fff!important;border:1px solid #dce6ec!important;box-shadow:0 20px 60px #102a3b38!important
+}
+#bmCardPeekV050 .bm163-header{
+ background:#f6f9fc!important;border-bottom:1px solid #dce6ec!important
+}
+#bmCardPeekV050 .bm163-header strong{color:#344f64!important;font-size:15px!important}
+#bmCardPeekV050 .bm165-header-nav>button,
+#bmCardPeekV050 .bm163-preview-controls>button,
+#bmCardPeekV050 .bm163-footer button{
+ color:#28719d!important;background:#f8fbfd!important;
+ border:1px solid #c6dae8!important;border-radius:5px!important;
+ font:600 12px/1.35 "Segoe UI",Arial,sans-serif!important;box-shadow:none!important
+}
+#bmCardPeekV050 .bm165-header-nav>button:hover,
+#bmCardPeekV050 .bm163-preview-controls>button:hover{
+ color:#126da5!important;border-color:#7bb6d8!important;background:#eff8fe!important
+}
+#bmCardPeekV050 .bm163-preview-controls>.bm-v050-peek-reveal[aria-expanded="true"]{
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important
+}
+#bmCardPeekV050 .bm165-related{
+ background:#f8fafc!important;border-color:#e3eaf0!important
+}
+#bmCardPeekV050 .bm165-related-title{color:#31566e!important}
+#bmCardPeekV050 .bm165-related-item.bm165-active{
+ color:#196c9d!important;background:#eaf5fc!important;
+ border-color:#9ccce9!important
+}
+#bmCardPeekV050 .bm165-related-search{
+ font:12px/1.4 "Segoe UI",Arial,sans-serif!important;
+ background:#fff!important;color:#344b5a!important;border-color:#cad9e4!important;
+ border-radius:5px!important
+}
+#bmCardPeekV050 .bm163-footer{
+ background:#f7fafc!important;border-top:1px solid #e0e8ed!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module h4){
+ color:#2b739d!important
+}
+#bmCardPeekV050 .bm163-deep-group>summary{
+ background:#f4f9fc!important;color:#2b6f99!important
+}
+#bmCardPeekV050 .bm198-module-head,#bmCardPeekV050 .bm198-overview-top{
+ background:#f4f8fc!important;border-color:#dce8ef!important
+}
+/* Caixa de diagnóstico e popups complementares também recebem a tipografia comum. */
+#bm263-sync-panel,.bm-v059-panel,.bm122-ink-dialog{
+ --accent:#1687d8;--line:#dce5ea;--ink:#344b5a;
+ font-family:"Segoe UI",Arial,system-ui,sans-serif!important;
+ color:#344b5a!important;background:#fff!important;border-color:#dce5ea!important;
+}
+#bm263-sync-panel :is(h2,h3,strong){color:#315a75!important}
+#bm263-sync-panel :is(button,a){font-family:inherit!important;color:#236e9c!important}
+#bm263-sync-panel button:focus-visible{outline:2px solid #1687d8!important}
+#cartoes .bm195-heading,#cartoes .bm195-layer-head{
+ background:#f5f9fc!important;border-color:#e2ebf1!important
+}
+#cartoes .bm195-heading-icon,#cartoes .bm195-layer-ico{
+ background:#e8f3fa!important;color:#236f9c!important
+}
+#cartoes #cardRows article.card>.bm-v050-peek-button{
+ color:#1679b4!important;background:#f2f9fd!important;border-color:#bedbeb!important
+}
+/* Tela cheia e mobilidade mantidas, com controles sem cortes. */
+@media(max-width:760px){
+ body>main{max-width:100%!important;padding:13px 10px 45px!important}
+ body>main>section>.panel{width:100%!important;padding:12px!important}
+ #bmCardPeekV050 .bm163-panel.bm165-panel{width:100vw!important;max-width:100vw!important}
+ #bmCardPeekV050 .bm163-header{gap:7px!important}
+ #bmCardPeekV050 .bm165-header-nav>button{font-size:11px!important}
+ :is(#pdfDialog,#imageDialog) .toolbar{gap:5px!important}
+ :is(#pdfDialog,#imageDialog) .toolbar button{font-size:11px!important}
+}
+@media(max-width:430px){
+ body>main{padding:10px 8px 45px!important}
+ #bmCardPeekV050 .bm163-header strong{font-size:13px!important}
+ #bmCardPeekV050 .bm165-header-nav>button{font-size:10.5px!important}
+ #bmCardPeekV050 .bm163-piece-text{font-size:12.5px!important;line-height:1.65!important}
+}
+/* ===== FIM assets/v283_blue_popup_theme.css ===== */
+
+/* ===== INICIO assets/v284_body_heading_blue.css ===== */
+/* Banco Mestre V284 — ajuste fino de cabeçalhos NO BODY e acentos azuis.
+   Não altera header superior, estrutura, cartões, imagens, PDFs, popups nem SRS. */
+body>main{
+ --bm284-blue:#1687d8;
+ --bm284-blue-dark:#286c98;
+ --bm284-blue-pale:#f2f8fc;
+ --bm284-line:#e0e8ee;
+}
+/* Cabeçalhos de seção: menos altura, título conciso e consistência cromática. */
+body>main>section>.panel>h2,
+body>main #tema .topicLead h2{
+ color:#236b99!important;
+ font-size:16px!important;
+ font-weight:650!important;
+ line-height:1.3!important;
+ letter-spacing:-.1px!important;
+ padding:0 0 5px!important;
+ margin:0 0 7px!important;
+ border:0!important;
+ background:transparent!important;
+}
+body>main #assuntos>.panel>h2:nth-of-type(2){
+ margin:13px 0 7px!important;
+ padding:10px 0 5px!important;
+ border-top:1px solid var(--bm284-line)!important;
+}
+/* Descrições abaixo do cabeçalho seguem próximas ao título. */
+body>main>section>.panel>p.intro,
+body>main #tema .panel>p.intro{
+ color:#728799!important;
+ font-size:11.8px!important;
+ line-height:1.48!important;
+ margin:0 0 10px!important;
+ padding:0!important;
+}
+/* Subtítulos de navegação e blocos didáticos, sem alterar o texto das respostas. */
+body>main #tema .sectionTitle,
+body>main #tema #topicOverview :is(h3,h4),
+body>main #tema #topicMacetes :is(h3,h4),
+body>main #tema #topicRelated :is(h3,h4){
+ color:#2d719d!important;
+ font-size:13px!important;
+ font-weight:650!important;
+ line-height:1.35!important;
+ margin:9px 0 6px!important;
+ padding:0!important;
+}
+body>main :is(#pdfs,#imagens) .panel>h2,
+body>main #cartoes .panel>h2{
+ color:#236b99!important;
+}
+/* Cabeçalho das fichas e resultados: tipografia leve e azul funcional. */
+body>main #cartoes #cardRows article.card>h3,
+body>main #imagens #imageRows article.card>h3,
+body>main #pdfs #pdfRows :is(h3,h4){
+ color:#315f80!important;
+ font-weight:600!important;
+ line-height:1.42!important;
+ margin:4px 0 6px!important;
+}
+body>main #cartoes #cardRows .answer>.richSection h4,
+body>main #cartoes #cardRows .bm195-heading-text h3{
+ color:#2975a4!important;
+ line-height:1.35!important;
+ margin:0 0 5px!important;
+}
+/* Os controles de filtro permanecem no mesmo lugar, com menos espaço vertical. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) .controls{
+ row-gap:5px!important;
+ margin-top:7px!important;
+ margin-bottom:8px!important;
+}
+body>main #cartoes #bm152Filters{
+ border-color:#dbe7ef!important;
+ background:#f8fbfe!important;
+}
+body>main #cartoes #bm152Filters .bm152Field{
+ color:#376e93!important;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) details.bm280-advanced{
+ margin:5px 0 9px!important;
+ border-color:#deebf2!important;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) details.bm280-advanced>summary{
+ min-height:29px!important;
+ padding:5px 9px!important;
+ color:#2477ae!important;
+ font-weight:600!important;
+}
+/* Acentos dos links e botões de navegação, sem recolorir estados ou desenhos técnicos. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) a:not(.action){
+ color:#157dbf;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) button.primary{
+ background:#1687d8!important;
+ border-color:#1687d8!important;
+ color:#fff!important;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) button.primary:hover{
+ background:#126fae!important;
+ border-color:#126fae!important;
+}
+/* Mobile: cabeçalhos igualmente compactos, com leitura confortável. */
+@media(max-width:650px){
+ body>main>section>.panel>h2,
+ body>main #tema .topicLead h2{
+  font-size:15px!important;
+  line-height:1.35!important;
+  margin-bottom:6px!important;
+ }
+ body>main #assuntos>.panel>h2:nth-of-type(2){
+  margin-top:12px!important;
+  padding-top:9px!important;
+ }
+ body>main>section>.panel>p.intro{font-size:11.5px!important;line-height:1.5!important}
+}
+/* ===== FIM assets/v284_body_heading_blue.css ===== */
+
+/* ===== INICIO assets/v286_font_blue.css ===== */
+/* V286: Fonte do cabeçalho em todo body, cartões e popups; azul nas seleções.
+ * Não alterar fórmulas, esquemas técnicos, grifos, SRS ou documentos. */
+:root{--bm-ui-font:"Segoe UI",Arial,system-ui,sans-serif;--accent:#1687d8;--bg:#edf0f1;--ink:#344b5a}
+html,body,body>header,body>main,body>footer{font-family:var(--bm-ui-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,p,span,small,strong,b,em,label,legend,summary,button,a,input,select,textarea,option,li,blockquote,table,th,td),
+body :is(.panel,.card,.topicCard,.richSection,.answer,.bm195-evo,.bm198-overview,.bm198-module,.studyGrid,.topicLead){
+ font-family:var(--bm-ui-font)!important
+}
+body :is(pre,code,kbd,samp,.katex,.katex *,mjx-container,mjx-container *,math,math *){font-family:revert!important}
+body :is(input[type="checkbox"],input[type="radio"]){accent-color:#1687d8!important}
+body :is(input,select,button,[role="tab"],summary):focus-visible{outline:2px solid #78bee8!important;outline-offset:2px!important}
+body :is([role="tab"][aria-selected="true"],[role="option"][aria-selected="true"]):not(.danger){
+ color:#176eaa!important;background:#eaf5fc!important;border-color:#1687d8!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger){
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger):hover{
+ background:#126ca6!important;border-color:#126ca6!important
+}
+body>main :is(.card h3,.card h4,.richSection h4,.bm198-module h4,.bm195-layer h4,.studyGrid h3,.studyGrid h4){color:#2b729e!important}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head){background:#f4f9fd!important;border-color:#deebf2!important}
+#cartoes #cardRows :is(.bm195-heading-icon,.bm195-layer-ico){color:#2679ab!important;background:#e6f3fb!important}
+#cartoes #cardRows article.card>.bm-v050-peek-button{color:#187cb6!important;background:#f1f8fd!important;border-color:#c4dceb!important}
+:is(#bmCardPeekV050,#pdfDialog,#imageDialog,.bm122-ink-dialog,dialog,.bm-v059-panel,#bm263-sync-panel){font-family:var(--bm-ui-font)!important}
+:is(#bmCardPeekV050,#pdfDialog,#imageDialog,.bm122-ink-dialog,dialog,.bm-v059-panel,#bm263-sync-panel)
+:is(h1,h2,h3,h4,h5,h6,p,span,small,strong,summary,button,a,label,input,select,textarea,table,th,td){
+ font-family:var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module h4,.bm198-overview-top h4){color:#2a77a9!important}
+#bmCardPeekV050 .bm-v050-peek-reveal[aria-expanded="true"]{background:#1687d8!important;border-color:#1687d8!important;color:#fff!important}
+/* Somente SVG de botão e seleção, nunca os SVG dos módulos técnicos. */
+body :is(button,summary,[role="tab"])>svg:not([data-technical]),
+#bmCardPeekV050 :is(button,summary) .bm163-ic svg{
+ width:15px!important;height:15px!important;stroke-width:1.5!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important
+}
+body :is(button,summary,[role="tab"]){font-variant-emoji:text}
+#bm240-native-host{font-family:var(--bm-ui-font)!important;background:#edf0f1!important;border-color:#dce8ee!important}
+#controle-estudos{font-family:var(--bm-ui-font)!important;color:#344b5a!important}
+/* ===== FIM assets/v286_font_blue.css ===== */
+
+/* ===== INICIO assets/v287_global_contrast.css ===== */
+/* V287 — azul consistente no site inteiro; cartão com texto levemente mais escuro.
+   Camada apenas visual. Sem mexer em dados, conteúdo, SRS, grifos e gráficos. */
+:root{
+ --bm287-blue:#1687d8;--bm287-pale:#edf6fc;--bm287-ink:#2b3f4d;
+ --bm287-strong:#243745;--bm287-muted:#526979;
+ --bm287-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+html,body,body>header,body>main,body>footer{font-family:var(--bm287-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,p,span,strong,b,small,li,button,a,summary,label,input,select,textarea,th,td,.panel,.card,.answer,.bm195-evo,.bm198-module,.richSection){
+ font-family:var(--bm287-font)!important;
+}
+body :is(code,pre,kbd,samp,mjx-container,mjx-container *,math,math *,.katex,.katex *){font-family:revert!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) a:not(.action){color:#1680c4!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) :is(.panel>h2,.sectionTitle){color:#286c98!important}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger){
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger):hover{
+ background:#116fae!important;border-color:#116fae!important
+}
+body :is(input[type="checkbox"],input[type="radio"],input[type="range"]){accent-color:#1687d8!important}
+body :is(button,summary,input,select,textarea,[role="tab"]):focus-visible{
+ outline:2px solid #75b8e5!important;outline-offset:2px!important
+}
+body>main :is([role="tab"][aria-selected="true"],[role="option"][aria-selected="true"],button[aria-pressed="true"]):not(.danger):not(.pdfDanger){
+ background:#eaf5fc!important;color:#186ea5!important;border-color:#1687d8!important
+}
+body>header nav button[data-page].active{border-bottom-color:#1687d8!important;color:#fff!important}
+/* Leitura dos cartões: manter fundos e títulos de seção; escurecer o texto corrido. */
+#cartoes #cardRows article.card,
+#cartoes #cardRows .answer,
+#cartoes #cardRows .bm195-evo,
+#cartoes #cardRows :is(p,li,td,th,.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm198-module-body,.bm198-paragraph,.bm197-paragraph),
+#cartoes #cardRows .answer>.richSection p{
+ color:var(--bm287-ink)!important
+}
+#cartoes #cardRows article.card>h3,#cartoes #cardRows .bm195-heading-text h3{
+ color:var(--bm287-strong)!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,.bm197-layer-title,.richSection h4){
+ color:#28729f!important
+}
+#cartoes #cardRows :is(small,.muted,.bm195-status),#cartoes #cardCount{color:var(--bm287-muted)!important}
+/* Pop-up de cartões: mesmo contraste na frente, verso e 11 módulos. */
+#bmCardPeekV050 :is(.bm163-panel,.bm163-answer,.bm-v050-peek-front,
+ .bm163-piece-text,.bm197-paragraph,.bm198-paragraph,.bm198-module-body,
+ .bm198-list,.bm165-related-front,.bm195-body,.bm195-layer-body,.bm195-paragraph,
+ .bm163-rich-list,td,th){
+ color:var(--bm287-ink)!important
+}
+#bmCardPeekV050 .bm-v050-peek-front{color:var(--bm287-strong)!important}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title){color:#2a76a4!important}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph){line-height:1.65!important}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status){color:var(--bm287-muted)!important}
+/* Demais bibliotecas e janelas — apenas controles e tipografia, não telas de PDF. */
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog,
+ #bm263-sync-panel,#bmCardPeekV050 .bm163-panel,.bm122-ink-dialog){
+ --accent:#1687d8;--ink:#344b5a;--line:#dce5eb;
+ font-family:var(--bm287-font)!important;color:#344b5a!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog,
+ #bm263-sync-panel,#bmCardPeekV050 .bm163-panel,.bm122-ink-dialog)
+ :is(button,input,select,textarea,summary,p,span,small,label){
+ font-family:var(--bm287-font)!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog)
+ :is(button.primary,[role="tab"][aria-selected="true"]):not(.danger):not(.pdfDanger){
+ background:#1687d8!important;color:#fff!important;border-color:#1687d8!important
+}
+#controle-estudos,#bm240-native-host{font-family:var(--bm287-font)!important}
+body :is(button,summary,[role="tab"])>svg:not([data-technical]){
+ stroke-width:1.5!important;stroke-linecap:round!important;stroke-linejoin:round!important
+}
+@media(max-width:650px){
+ #cartoes #cardRows article.card{color:var(--bm287-ink)!important}
+ #bmCardPeekV050 .bm-v050-peek-front{color:var(--bm287-strong)!important}
+}
+/* ===== FIM assets/v287_global_contrast.css ===== */
+
+/* ===== INICIO assets/v288_cards_surface.css ===== */
+/* Banco Mestre V288 — superfícies brancas consistentes e contraste legível.
+ * Conserva a coluna inteira, fonte Segoe UI, azul e todos os dados.
+ * Não toca PDFs renderizados, imagens, fórmulas, grifos nem estados de alerta. */
+:root{
+ --bm288-page:#edf0f1;
+ --bm288-paper:#fff;
+ --bm288-soft:#f8fafc;
+ --bm288-line:#dae5eb;
+ --bm288-line-strong:#c5d8e5;
+ --bm288-blue:#1687d8;
+ --bm288-title:#244153;
+ --bm288-ink:#2b3f4d;
+ --bm288-secondary:#536979;
+ --bm288-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+html,body{background:#edf0f1!important;color:#2b3f4d!important}
+/* Painéis de primeira ordem, sem criar colunas ou alterar dimensões. */
+body>main>section>.panel,body>main>#tema>.panel,
+body>main>#calendario .c141-wrap,
+body>main>#lacunas .bm242-shell{
+ color:var(--bm288-ink)!important;font-family:var(--bm288-font)!important
+}
+body>main>section>.panel,body>main>#tema>.panel{
+ background:var(--bm288-paper)!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;box-shadow:0 1px 2px #1e3a4a0c!important
+}
+body>main>section>.panel>h2,
+body>main #tema .topicLead h2,
+#lacunas .bm242-shell>h2,
+#calendario .c141-title h2{
+ color:var(--bm288-title)!important;font-family:var(--bm288-font)!important
+}
+/* Campos e filtros com contraste constante, mantendo sua lógica e posição. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario)
+ :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),select,textarea){
+ background:#fff!important;border:1px solid var(--bm288-line-strong)!important;
+ color:var(--bm288-ink)!important;border-radius:5px!important;
+ font-family:var(--bm288-font)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario)
+ :is(input,select,textarea)::placeholder{color:#6d8393!important;opacity:1}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario)
+ :is(input[type="checkbox"],input[type="radio"],input[type="range"]){
+ accent-color:var(--bm288-blue)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario)
+ :is(input,select,textarea,button,summary):focus-visible{
+ outline:2px solid #6eb6e4!important;outline-offset:2px!important
+}
+/* Subáreas neutras: não alterar contêineres de avisos de erro/sucesso. */
+#cartoes .controls.bm280-main-controls,
+#pdfs .controls.bm280-main-controls,
+#imagens .controls.bm280-main-controls,
+#assuntos .controls.bm280-main-controls{
+ background:transparent!important;border:0!important;box-shadow:none!important
+}
+#cartoes details.bm280-advanced,
+#pdfs details.bm280-advanced,
+#imagens details.bm280-advanced,
+#assuntos details.bm280-advanced{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+#cartoes details.bm280-advanced>.bm280-advanced-body,
+#pdfs details.bm280-advanced>.bm280-advanced-body,
+#imagens details.bm280-advanced>.bm280-advanced-body,
+#assuntos details.bm280-advanced>.bm280-advanced-body{
+ background:#fafcfd!important;border-top-color:#e4edf2!important
+}
+#cartoes #bm152Filters,#imagens .bm155ImageFilters,
+#imagens .bm153Toolbar,#imagens .bm153AreaNav,
+#pdfs #pdfAreaNavV036{
+ background:#fafcfd!important;border:1px solid var(--bm288-line)!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+/* Flashcards — cartões claramente destacados do cinza de fundo. */
+#cartoes #cardRows article.card,
+#cartoes #cardRows .v036-card-group,
+#cartoes #cardRows .bm195-evo{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;box-shadow:0 1px 2px #1b344610!important;
+ color:var(--bm288-ink)!important
+}
+#cartoes #cardRows article.card:hover{
+ border-color:#afcee2!important;box-shadow:0 2px 7px #1c3c5814!important
+}
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows .bm195-heading-text h3{
+ color:var(--bm288-title)!important;font-weight:650!important;line-height:1.5!important
+}
+#cartoes #cardRows article.card :is(p,li,dd,td,th),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm195-list,
+ .bm197-paragraph,.bm198-module-body,.bm198-paragraph){
+ color:var(--bm288-ink)!important
+}
+#cartoes #cardRows article.card :is(small,.muted,.v036-card-path),
+#cartoes #cardCount{color:var(--bm288-secondary)!important}
+#cartoes #cardRows .answer>.richSection,
+#cartoes #cardRows :is(.bm195-layer,.bm198-module,.bm198-overview,.bm197-evolutive){
+ background:#fff!important;border:1px solid #e2ebf0!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head,.bm198-module-head,.bm198-overview-top){
+ background:#f6f9fc!important;border-color:#e3ebf1!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm197-title,.bm198-module-title,.richSection h4){
+ color:#286f9d!important
+}
+#cartoes #cardRows :is(.tag,.chip,.pill):not(.danger){
+ background:#f5f9fc!important;border-color:#d6e5ef!important;color:#3c7398!important
+}
+/* Conteúdo do popup do cartão: superfície clara e leitura escura. */
+#bmCardPeekV050 .bm163-panel{background:#fff!important;color:var(--bm288-ink)!important}
+#bmCardPeekV050 .bm163-answer,
+#bmCardPeekV050 :is(.bm163-piece,.bm163-deep-group,.bm197-evolutive,.bm198-module,.bm198-overview){
+ background:#fff!important;color:var(--bm288-ink)!important;border-color:#e2eaf0!important
+}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph,
+ .bm198-module-body,.bm195-body,.bm195-layer-body,.bm165-related-front,td,th){
+ color:var(--bm288-ink)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title){
+ color:#286f9d!important
+}
+#bmCardPeekV050 :is(.bm163-header,.bm163-footer,.bm198-module-head,.bm198-overview-top){
+ background:#f7fafc!important;border-color:#e0e9ef!important
+}
+/* PDFs: branco para os painéis, cinza neutro para informações não críticas. */
+#pdfs #pdfRows :is(article,.card,.bm209-item),
+#pdfs :is(.bm153Directory,.bm153Group){
+ background:#fff!important;color:var(--bm288-ink)!important;
+ border-color:var(--bm288-line)!important;border-radius:5px!important;box-shadow:none!important
+}
+#pdfs #bm269PdfLocked{
+ background:#f8fafc!important;color:#425a69!important;
+ border:1px solid var(--bm288-line)!important;border-radius:5px!important
+}
+/* Biblioteca de imagens: agrupamentos e cartões com a mesma superfície. */
+#imagens #imageRows :is(article.card,.bm153Group,.bm153AreaBlock,.bm153Directory),
+#imagens .bm153GroupBody{
+ background:#fff!important;color:var(--bm288-ink)!important;
+ border:1px solid var(--bm288-line)!important;border-radius:5px!important;
+ box-shadow:none!important
+}
+#imagens #imageRows :is(h3,h4),#pdfs #pdfRows :is(h3,h4){color:#2b678d!important}
+/* Lacunas: painel e formulários iguais às outras bibliotecas.
+   Não alterar o conteúdo das lacunas ou o indicador de verificação do Drive. */
+#lacunas .bm242-shell{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;padding:17px!important
+}
+#lacunas .bm242-item,
+#lacunas .bm242-form,
+#lacunas .bm242-gallery,
+#lacunas .bm242-status{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;color:var(--bm288-ink)!important;box-shadow:none!important
+}
+#lacunas .bm242-item p,
+#lacunas .bm242-form label{color:var(--bm288-ink)!important}
+#lacunas .bm242-muted{color:var(--bm288-secondary)!important}
+#lacunas button:not(.danger){
+ border-color:#c6ddeb!important;color:#236f9c!important;background:#f8fbfe!important;
+ border-radius:5px!important;font-family:var(--bm288-font)!important
+}
+#lacunas .bm242-form button:not(.danger){
+ color:#fff!important;background:#1687d8!important;border-color:#1687d8!important
+}
+/* Planejamento SRS: métricas e tabela; preservar alertas, linhas e atrasos. */
+#calendario .c141-stats .c141-stat,
+#calendario .c141-settings,
+#calendario .c141-board,
+#calendario .c141-import{
+ background:#fff!important;border:1px solid var(--bm288-line)!important;
+ border-radius:6px!important;color:var(--bm288-ink)!important;box-shadow:none!important
+}
+#calendario .c141-note{
+ background:#f3f8fc!important;border-color:#d6e6f0!important;
+ color:#425c6d!important
+}
+#calendario .c141-boardhead{
+ background:#f7fafc!important;border-bottom:1px solid #dfe9ef!important
+}
+#calendario .c141-board :is(th,td){color:#30495b}
+#calendario .c141-board thead th{background:#f3f8fc!important;color:#345f7b!important}
+#calendario :is(.c141-title h2,.c141-boardhead h3){color:#244a64!important}
+#calendario .c141-primary{background:#1687d8!important;border-color:#1687d8!important;color:#fff!important}
+#calendario .c141-stat :is(strong,span){color:#31546a!important}
+/* Nunca impor cores sobre imagens, canvases, grifos, fórmulas ou estados semânticos. */
+@media(max-width:700px){
+ #lacunas .bm242-shell{padding:12px!important}
+ #cartoes #cardRows article.card{padding:11px!important}
+ #calendario .c141-stats{gap:7px!important}
+}
+/* ===== FIM assets/v288_cards_surface.css ===== */
+
+/* ===== INICIO assets/v289_other_sections.css ===== */
+/* Banco Mestre V289 — correção dos componentes REAIS das 5 telas fotografadas.
+   Alvos verificados nos módulos CSS/JS: bm210PdfToolbar, bm209SyncBar, bm246-formula-shortcut,
+   bm242-shell, c141-*, v036-topic-*, bm155*. V288 continua como base.
+   Alterações somente visuais, sem esconder textos, filtros, status ou links.
+   Não aplicar sobre PDF canvas, imagens, grifos, matemática ou indicadores de risco. */
+:root{
+ --bm289-bg:#edf0f1;
+ --bm289-surface:#fff;
+ --bm289-neutral:#f7fafc;
+ --bm289-ink:#2b3f4d;
+ --bm289-secondary:#536c7b;
+ --bm289-title:#2d526d;
+ --bm289-blue:#1687d8;
+ --bm289-line:#d6e2e9;
+ --bm289-strong-line:#bdd2df;
+ --bm289-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+html,body{background:var(--bm289-bg)!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas)
+ :is(h2,h3,h4,p,label,input,select,textarea,button,summary,small,span,li,th,td){
+ font-family:var(--bm289-font)!important
+}
+/* 1. PDFs: barra real (não a antiga .controls), título, resultados e resumo. */
+#pdfs>.panel{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:0 1px 2px #203d500a!important
+}
+#pdfs #bm210PdfToolbar{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important;
+ padding:9px 10px!important;gap:7px 9px!important;margin:9px 0 12px!important;
+ color:var(--bm289-ink)!important
+}
+#pdfs #bm210PdfToolbar .bm210Actions{
+ border-bottom:1px solid #e4ecf1!important;padding:0 0 7px!important;
+ gap:6px 7px!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters{
+ gap:7px!important;padding:2px 0 0!important
+}
+#pdfs #bm210PdfToolbar :is(button,select,input),
+#pdfs #bm210PdfToolbar .bm210StatusDetails>summary{
+ font-family:var(--bm289-font)!important;font-size:12px!important;
+ line-height:1.4!important;min-height:34px!important;
+ color:#2f566f!important;background:#fff!important;border-color:var(--bm289-strong-line)!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+#pdfs #bm210PdfToolbar :is(button,summary):hover{background:#edf6fc!important}
+#pdfs #bm210PdfToolbar :is(button.primary,button[aria-pressed="true"]):not(.danger):not(.pdfDanger),
+#pdfs #bm210PdfToolbar #bm239-drive-action{
+ color:#fff!important;background:var(--bm289-blue)!important;border-color:var(--bm289-blue)!important
+}
+#pdfs #bm210PdfToolbar #bmVade041.bm118-ready{
+ border-right:1px solid var(--bm289-line)!important
+}
+#pdfs #bm210PdfToolbar #bmVade041.bm118-ready>h3{
+ color:var(--bm289-title)!important;font-size:12px!important
+}
+#pdfs #bm210PdfToolbar .bm210StatusBody{
+ color:var(--bm289-ink)!important;background:#fff!important;
+ border-color:var(--bm289-line)!important
+}
+#pdfs #pdfAreaNavV036{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:5px!important;padding:5px!important
+}
+#pdfs #pdfRows :is(.v036-pdf-area,.v036-card-group,article.card,.v036-pdf-summary){
+ background:#fff!important;border-color:var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important
+}
+#pdfs #pdfRows :is(.v036-area-head,.v036-card-group-summary){
+ background:#f7fafc!important;color:var(--bm289-title)!important
+}
+#pdfs #pdfRows :is(.v036-area-desc,.v036-count,p,small){
+ color:var(--bm289-secondary)!important
+}
+#pdfs #bm269PdfLocked{
+ background:#f8fafc!important;border:1px solid var(--bm289-line)!important;
+ border-radius:5px!important;color:#3d5666!important;font-size:12px!important;
+ line-height:1.55!important;padding:9px 11px!important
+}
+/* 2. Assuntos: área de fórmulas, cartões de área, agrupamentos e campos. */
+#assuntos>.panel{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important
+}
+#assuntos .bm246-formula-shortcut{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important;
+ padding:11px 13px!important;margin:0 0 13px!important
+}
+#assuntos .bm246-formula-shortcut :is(strong,h3){
+ color:var(--bm289-title)!important;font-size:14px!important
+}
+#assuntos .bm246-formula-shortcut :is(small,span){
+ color:var(--bm289-secondary)!important;line-height:1.5!important
+}
+#assuntos .bm246-formula-shortcut button{
+ color:#fff!important;background:var(--bm289-blue)!important;
+ border:1px solid var(--bm289-blue)!important;border-radius:5px!important;
+ font-size:12px!important;min-height:34px!important;padding:7px 10px!important
+}
+#assuntos #areaRows .topicCard{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:5px!important;box-shadow:none!important;
+ color:var(--bm289-ink)!important
+}
+#assuntos #areaRows .topicCard :is(strong,.v036-topic-name){
+ color:#276e9e!important;font-size:12.5px!important
+}
+#assuntos #areaRows .topicCard :is(small,.v036-topic-metrics){
+ color:var(--bm289-secondary)!important
+}
+#assuntos #topicRows :is(.v036-topic-tile,.v036-topic-cluster-summary,.topicCard){
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:5px!important;box-shadow:none!important;
+ color:var(--bm289-ink)!important
+}
+#assuntos #topicRows :is(.v036-topic-name,.v036-topic-link){
+ color:#246f9f!important
+}
+#assuntos #topicRows :is(.v036-topic-metrics,.v036-topic-examples){
+ color:var(--bm289-secondary)!important
+}
+#assuntos #topicRows .v036-topic-cluster-summary:hover,
+#assuntos #areaRows .topicCard:hover{
+ border-color:#9fc4df!important;background:#f9fcfe!important
+}
+#assuntos .controls input[type="search"]{
+ background:#fff!important;border-color:var(--bm289-strong-line)!important
+}
+#formulas .bm246-formulas-panel{font-family:var(--bm289-font)!important;color:var(--bm289-ink)!important}
+#formulas :is(.bm246-formula-toolbar,.bm246-formula-filters){
+ background:#fff!important;color:var(--bm289-ink)!important
+}
+/* 3. Lacunas: não usa .panel tradicional; estilizar a shell e os itens corretos. */
+#lacunas{color:var(--bm289-ink)!important}
+#lacunas .bm242-shell{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;max-width:none!important;
+ margin:0!important;padding:16px 17px 19px!important;
+ font-family:var(--bm289-font)!important;color:var(--bm289-ink)!important
+}
+#lacunas .bm242-shell h2{
+ font-size:17px!important;line-height:1.35!important;
+ color:var(--bm289-title)!important;margin:0 0 10px!important
+}
+#lacunas :is(.bm242-status,.bm242-form,.bm242-item,.bm242-gallery,.bm243-smoke){
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important;
+ color:var(--bm289-ink)!important
+}
+#lacunas .bm242-status{
+ background:#f7fafc!important;padding:9px 11px!important
+}
+#lacunas .bm242-muted{color:var(--bm289-secondary)!important}
+#lacunas .bm242-filters,#lacunas .bm242-fields{
+ gap:9px 11px!important;margin:12px 0!important
+}
+#lacunas :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+ background:#fff!important;border:1px solid var(--bm289-strong-line)!important;
+ border-radius:5px!important;color:var(--bm289-ink)!important;
+ font:12.5px/1.45 var(--bm289-font)!important;padding:9px 10px!important
+}
+#lacunas label{font:600 12px/1.4 var(--bm289-font)!important;color:#3f5b6e!important}
+#lacunas .bm242-item{padding:13px 15px!important}
+#lacunas .bm242-item :is(p,li){color:var(--bm289-ink)!important;line-height:1.65!important}
+#lacunas .bm242-item strong{color:var(--bm289-title)!important}
+#lacunas button:not(.danger){
+ border:1px solid #c0d7e6!important;border-radius:5px!important;
+ color:#226e9e!important;background:#f8fbfe!important;
+ font:600 12px/1.35 var(--bm289-font)!important;padding:8px 11px!important
+}
+#lacunas .bm242-form button:not(.danger){
+ color:#fff!important;background:var(--bm289-blue)!important;border-color:var(--bm289-blue)!important
+}
+#lacunas .bm242-item details>summary{color:#26739d!important}
+/* 4. SRS: seção autônoma #calendario, não contém .panel raiz. */
+#calendario .c141-wrap{
+ max-width:none!important;margin:0!important;padding:16px 17px!important;
+ border:1px solid var(--bm289-line)!important;border-radius:6px!important;
+ background:#fff!important;font-family:var(--bm289-font)!important;
+ color:var(--bm289-ink)!important
+}
+#calendario .c141-title{
+ gap:10px!important;margin-bottom:14px!important;align-items:center!important
+}
+#calendario .c141-title h2{
+ color:var(--bm289-title)!important;
+ font-size:21px!important;line-height:1.3!important;margin:3px 0 6px!important
+}
+#calendario .c141-title p{
+ color:var(--bm289-secondary)!important;font-size:12.5px!important;
+ line-height:1.55!important;max-width:790px!important
+}
+#calendario .c141-kicker{color:#3279a3!important;font-size:10.5px!important}
+#calendario .c141-limit{
+ background:#eaf6fd!important;border:1px solid #bcddec!important;
+ color:#216f9d!important;font-size:12px!important;border-radius:5px!important;
+ padding:9px 11px!important
+}
+#calendario .c141-stats{gap:8px!important;margin:0 0 10px!important}
+#calendario .c141-stat{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;padding:12px 13px!important;
+ box-shadow:0 1px 2px #203d5009!important
+}
+#calendario .c141-stat strong{color:#226c98!important;font-size:22px!important}
+#calendario .c141-stat span{
+ color:var(--bm289-secondary)!important;font-size:11.5px!important
+}
+#calendario .c141-settings,#calendario .c141-board,#calendario .c141-import{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important
+}
+#calendario .c141-settings{gap:9px!important;padding:10px 12px!important}
+#calendario .c141-settings :is(label,select,button){
+ font-family:var(--bm289-font)!important;font-size:12px!important
+}
+#calendario .c141-settings :is(input[type="checkbox"],input[type="radio"]){
+ accent-color:var(--bm289-blue)!important
+}
+#calendario .c141-note{
+ background:#f4f9fc!important;border-left:3px solid #54a0d2!important;
+ color:#36596e!important;line-height:1.6!important
+}
+#calendario .c141-boardhead{
+ background:#f7fafc!important;border-bottom:1px solid var(--bm289-line)!important;
+ padding:10px 12px!important
+}
+#calendario .c141-boardhead h3{
+ color:var(--bm289-title)!important;font-size:13.5px!important
+}
+#calendario .c141-board table{font:12px/1.5 var(--bm289-font)!important}
+#calendario .c141-board thead th{
+ background:#f2f7fb!important;color:#355c76!important;
+ border-bottom:1px solid var(--bm289-line)!important
+}
+#calendario .c141-board :is(td,th){padding:9px 10px!important}
+#calendario .c141-primary{
+ background:var(--bm289-blue)!important;border-color:var(--bm289-blue)!important;color:#fff!important
+}
+#calendario .c141-import{margin-top:14px!important;padding:13px!important}
+#calendario .c141-import :is(h3,p){color:var(--bm289-ink)!important}
+/* Não sobrescrever .c141-tag.late (atrasos), .c141-planned e .c141-today. */
+/* 5. Biblioteca de imagens: toolbar REAL #bm209SyncBar e filtros bm155. */
+#imagens>.panel{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;border-radius:6px!important;
+ box-shadow:0 1px 2px #203d500a!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar{
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;box-shadow:none!important;color:var(--bm289-ink)!important;
+ padding:9px 10px!important;gap:8px 9px!important;margin:9px 0 12px!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar .bm155ImageFilters{
+ gap:8px!important;align-items:end!important;min-width:0!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar .bm155Field{
+ gap:4px!important;min-width:135px!important;flex:1 1 160px!important;
+ max-width:300px!important;color:#355b74!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar .bm155Field>span{
+ font:600 11.5px/1.35 var(--bm289-font)!important;
+ white-space:normal!important;color:#3f6279!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar :is(button,select,input),
+#imagens #bm209SyncBar.bm210ImageToolbar .bm210StatusDetails>summary{
+ font-family:var(--bm289-font)!important;font-size:12px!important;
+ min-height:34px!important;line-height:1.4!important;
+ background:#fff!important;border:1px solid var(--bm289-strong-line)!important;
+ border-radius:5px!important;color:#2e5b77!important;box-shadow:none!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar :is(button,summary):hover{
+ background:#edf6fc!important;color:#146d9e!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar .bm210StatusBody{
+ background:#fff!important;border-color:var(--bm289-line)!important;
+ color:var(--bm289-ink)!important
+}
+#imagens #bm209SyncBar.bm210ImageToolbar :is(.bm155Foot,.bm153Toolbar,.bm153AreaNav){
+ border-color:#e2ebf0!important;color:var(--bm289-secondary)!important
+}
+#imagens #imageRows :is(article.card,.bm153AreaBlock,.bm153Group,.bm153Directory,.bm153GroupBody){
+ background:#fff!important;border:1px solid var(--bm289-line)!important;
+ border-radius:6px!important;color:var(--bm289-ink)!important;
+ box-shadow:none!important
+}
+#imagens #imageRows :is(h3,h4,.bm153AreaHeader,.bm153Heading){
+ color:var(--bm289-title)!important
+}
+#imagens #imageRows :is(p,small,.bm153Status){color:var(--bm289-secondary)!important}
+/* Continuidade do padrão V288 para a grade de flashcards, sem alterar contraste novo. */
+#cartoes #cardRows article.card{
+ background:#fff!important;border-color:var(--bm289-line)!important;
+ color:var(--bm289-ink)!important
+}
+/* Campos e páginas complexas mantêm uma coluna no celular. */
+@media(max-width:800px){
+ #calendario .c141-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #imagens #bm209SyncBar.bm210ImageToolbar .bm155Field{
+  max-width:none!important;flex:1 1 175px!important
+ }
+ #pdfs #bm210PdfToolbar,#imagens #bm209SyncBar.bm210ImageToolbar{
+  padding:8px!important
+ }
+}
+@media(max-width:520px){
+ #lacunas .bm242-shell,#calendario .c141-wrap{padding:12px!important}
+ #calendario .c141-title h2{font-size:18px!important}
+ #calendario .c141-stats{gap:6px!important}
+ #calendario .c141-stat{padding:10px!important}
+ #imagens #bm209SyncBar.bm210ImageToolbar .bm155Field{
+  min-width:0!important;max-width:none!important;flex:1 1 100%!important
+ }
+ #imagens #bm209SyncBar.bm210ImageToolbar :is(input[type="search"],select){
+  min-width:0!important;max-width:100%!important
+ }
+ #pdfs #bm210PdfToolbar .bm210Filters{
+  min-width:0!important;flex-wrap:wrap!important
+ }
+ #pdfs #bm210PdfToolbar :is(input[type="search"],select){
+  min-width:0!important;max-width:100%!important
+ }
+ #lacunas .bm242-filters,#lacunas .bm242-fields{grid-template-columns:1fr!important}
+ #lacunas .bm242-filters label:first-child{grid-column:auto!important}
+}
+/* ===== FIM assets/v289_other_sections.css ===== */
+
+/* ===== INICIO assets/v291_contrast_square.css ===== */
+/* V291: alto contraste de leitura e contornos retos, sem mudar o conteúdo.
+ * Preservar grifos, ícones técnicos, PDFs, alertas e estados semânticos. */
+:root{
+ --bm-contrast-text:#1c2730;
+ --bm-contrast-title:#14212b;
+ --bm-contrast-secondary:#354653;
+ --bm-card-bg:#f5f7f8;
+ --bm-card-border:#abbecb;
+ --bm-border:#bccbd5;
+}
+html,body{color:#1c2730!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(p,li,dd,dt,blockquote,td,th){color:#1c2730!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(.intro,.muted,.originalHelp,.bm242-muted,.c141-muted,.bm153Status){
+ color:#354653!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+ color:#1c2730!important;background:#fff!important;
+ border-color:#abbecb!important;border-radius:0!important
+}
+body>main :is(input,textarea)::placeholder{color:#4a5c67!important;opacity:1!important}
+body>main>section>.panel,
+body>main #tema>.panel,#lacunas .bm242-shell,#calendario .c141-wrap{
+ border:1px solid #abbecb!important;border-radius:0!important;box-shadow:none!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) :is(details.bm280-advanced,
+ details.bm280-advanced>summary,.bm280-advanced-body){border-radius:0!important}
+/* Flashcards: superfície cinza-claro e texto bem escuro. */
+#cartoes #cardRows article.card,
+#cartoes #cardRows .v036-card-group{
+ background:#f5f7f8!important;border:1px solid #abbecb!important;
+ border-radius:0!important;box-shadow:none!important;color:#1c2730!important
+}
+#cartoes #cardRows article.card:hover{
+ background:#eff4f7!important;border-color:#78a7c3!important
+}
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows article.card .bm195-heading-text h3{
+ color:#14212b!important;font-size:14px!important;line-height:1.55!important;
+ font-weight:650!important
+}
+#cartoes #cardRows article.card :is(p,li,dd,td,th,blockquote),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm195-list,
+ .bm197-paragraph,.bm198-paragraph,.bm198-module-body){
+ color:#1c2730!important;font-size:13px!important;line-height:1.6!important
+}
+#cartoes #cardRows article.card :is(.muted,small,.v036-card-path),
+#cartoes #cardCount{color:#354653!important}
+#cartoes #cardRows :is(.bm195-evo,.bm195-layer,.bm198-module,.bm198-overview,
+ .bm197-evolutive,.richSection,.answer>.richSection){
+ background:#fff!important;border:1px solid #cbd7df!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head,.bm198-module-head,
+ .bm198-overview-top){
+ background:#edf2f6!important;border-color:#cbd7df!important;border-radius:0!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,.bm197-title,.richSection h4){
+ color:#215e87!important;font-weight:700!important
+}
+#cartoes #cardRows :is(.tag,.chip,.pill):not(.danger):not(.late){
+ background:#edf3f7!important;border-color:#c4d3dc!important;
+ color:#254960!important;border-radius:0!important
+}
+#cartoes #cardRows :is(button,.bm-v050-peek-button){border-radius:0!important}
+/* Popup: leitura do enunciado e dos 11 módulos. */
+#bmCardPeekV050 .bm163-panel{
+ background:#fff!important;border:1px solid #a8bbc8!important;border-radius:0!important
+}
+#bmCardPeekV050 :is(.bm-v050-peek-front,.bm163-question,.bm165-related-front){
+ color:#14212b!important
+}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph,
+ .bm198-module-body,.bm195-body,.bm195-layer-body,.bm195-paragraph,
+ .bm198-list,.bm163-rich-list,li,td,th){
+ color:#1c2730!important;line-height:1.65!important
+}
+#bmCardPeekV050 :is(.bm163-piece,.bm163-deep-group,.bm197-evolutive,
+ .bm198-overview,.bm198-module,.bm195-evo,.bm195-layer){
+ background:#f8fafb!important;border:1px solid #bfccd6!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#bmCardPeekV050 :is(.bm163-header,.bm163-footer,.bm198-module-head,
+ .bm198-overview-top,.bm195-layer-head){
+ background:#edf3f7!important;border-color:#c7d6df!important;border-radius:0!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title){
+ color:#215f86!important
+}
+#bmCardPeekV050 :is(button,input,select,textarea,summary){border-radius:0!important}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status){
+ color:#354653!important
+}
+/* As demais seções também recebem contornos retos. */
+#assuntos :is(.bm246-formula-shortcut,.topicCard,.v036-topic-tile,.v036-topic-cluster-summary),
+#pdfs :is(#bm210PdfToolbar,#pdfAreaNavV036,.v036-pdf-area,.v036-card-group,.v036-pdf-summary),
+#imagens :is(#bm209SyncBar,.bm153AreaBlock,.bm153Group,.bm153Directory,
+ .bm153GroupBody,article.card),
+#lacunas :is(.bm242-shell,.bm242-item,.bm242-form,.bm242-gallery,.bm242-status,.bm243-smoke),
+#calendario :is(.c141-wrap,.c141-stat,.c141-settings,.c141-board,
+ .c141-import,.c141-limit,.c141-boardhead){
+ border-radius:0!important;border-color:#abbecb!important;box-shadow:none!important
+}
+#lacunas :is(.bm242-item,.bm242-form,.bm242-gallery){background:#f8fafb!important}
+#lacunas .bm242-item :is(p,li,strong),#lacunas .bm242-status,
+#calendario :is(.c141-title p,.c141-status,.c141-stat span,.c141-import p){
+ color:#1c2730!important
+}
+#calendario .c141-stat strong{color:#215476!important}
+:is(#pdfs #bm210PdfToolbar,#imagens #bm209SyncBar,
+ #lacunas,#calendario) :is(button,select,input,textarea){border-radius:0!important}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(button,select,input,textarea,.dhead,.toolbar){border-radius:0!important}
+@media(max-width:700px){
+ #cartoes #cardRows article.card>h3{font-size:13.5px!important}
+ #cartoes #cardRows article.card :is(p,li,td){font-size:12.8px!important}
+}
+/* ===== FIM assets/v291_contrast_square.css ===== */
+
+/* ===== INICIO assets/v292_visual_system.css ===== */
+/* V292 — Sistema visual tipográfico do Banco Mestre.
+   Inspiração: hierarquia editorial da captura Tec Concursos; identidade própria.
+   Fonte única, cinco papéis de cor, escala estável e controles coerentes.
+   Nenhuma alteração em conteúdos, dados, IDs, SVG técnico, grifos ou estados SRS. */
+:root{
+ --bm292-font:"Segoe UI",Arial,system-ui,sans-serif;
+ --bm292-page:#edf0f1;
+ --bm292-paper:#fff;
+ --bm292-card:#f5f7f8;
+ --bm292-ink:#1c2730;
+ --bm292-heading:#203440;
+ --bm292-muted:#445967;
+ --bm292-meta:#566b79;
+ --bm292-link:#147cb9;
+ --bm292-action:#1687d8;
+ --bm292-nav:#343d44;
+ --bm292-border:#b9c9d3;
+ --bm292-soft-border:#dbe5eb;
+ --bm292-tint:#eff6fa;
+ --bm292-fs-body:13.5px;
+ --bm292-fs-heading:16px;
+ --bm292-fs-subhead:14px;
+ --bm292-fs-caption:11.5px;
+ --bm292-line-body:1.55
+}
+html,body{background:var(--bm292-page)!important;color:var(--bm292-ink)!important}
+body{font:400 var(--bm292-fs-body)/var(--bm292-line-body) var(--bm292-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,button,input,select,textarea,summary,label,legend,
+ p,span,small,strong,li,td,th,article,section,.card,.panel){
+ font-family:var(--bm292-font)!important
+}
+/* Não padronizar fontes de código, fórmulas e bibliotecas de matemática. */
+body :is(code,pre,kbd,samp,mjx-container,mjx-container *,math,math *,.katex,.katex *){
+ font-family:revert!important
+}
+/* Cabeçalho: família única e hierarquia própria (não repetir tamanho do body). */
+body>header{background:var(--bm292-nav)!important;color:#f5f7f9!important}
+body>header .head .brand{
+ font:700 16px/1.25 var(--bm292-font)!important;
+ letter-spacing:0!important;color:#f7fafc!important
+}
+body>header .head .brand>.version{
+ font:400 11px/1.35 var(--bm292-font)!important;
+ color:#c5d2dc!important;letter-spacing:0!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page]{
+ font:600 11.5px/1.35 var(--bm292-font)!important;
+ color:#d6e1e9!important;letter-spacing:.015em!important;
+ border-bottom:2px solid transparent!important
+}
+body>header .head>nav[aria-label="Seções"]>button[data-page].active{
+ color:#fff!important;border-bottom-color:#299fe9!important
+}
+body>header .head>.bm-v046-header-stats :is(button,span,small){
+ font-family:var(--bm292-font)!important;font-size:11px!important
+}
+body>header .head #bm239-drive-action,
+body>header .head #bm239-sync-details{
+ font-size:11.5px!important;font-weight:600!important
+}
+/* Seção editorial: título escuro; azul fica nos links e nas ações. */
+body>main>section>.panel>h2,body>main #tema .topicLead h2,
+#lacunas .bm242-shell>h2,#calendario .c141-title h2{
+ color:var(--bm292-heading)!important;
+ font:700 var(--bm292-fs-heading)/1.35 var(--bm292-font)!important;
+ letter-spacing:0!important;margin-bottom:7px!important
+}
+body>main>section>.panel>p.intro,
+body>main #tema .intro,
+body>main #assuntos .panel>p.intro{
+ color:var(--bm292-muted)!important;
+ font:400 12.5px/1.55 var(--bm292-font)!important;
+ margin-bottom:11px!important
+}
+body>main :is(.sectionTitle,.topicLead h3,.v036-topic-cluster-summary,
+ .v036-area-head,.v036-card-group-summary){
+ font-family:var(--bm292-font)!important;font-size:var(--bm292-fs-subhead)!important;
+ font-weight:650!important;line-height:1.42!important;
+ color:var(--bm292-heading)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(.muted,.originalHelp,.bm242-muted,.c141-muted,.v036-count,
+ .bm153Status,.v036-topic-metrics){
+ color:var(--bm292-muted)!important;
+ font-size:var(--bm292-fs-caption)!important;line-height:1.5!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas,#tema)
+ :is(a:not(.action),.v036-topic-link){
+ color:var(--bm292-link)!important;text-decoration-color:#72b2dd!important
+}
+/* Controles: mesma fonte, mesmo peso, cor de texto estável. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas)
+ :is(label,.bm152Field,.bm155Field>span,.bm281-toolbar-field){
+ color:#354c5b!important;
+ font:600 12px/1.45 var(--bm292-font)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas)
+ :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+ font:400 12.5px/1.45 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important;background:#fff!important;
+ border:1px solid var(--bm292-border)!important;border-radius:0!important
+}
+body>main :is(input,textarea)::placeholder{color:#586b78!important;opacity:1!important}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#lacunas,#calendario,#formulas)
+ :is(button,a.action,summary){
+ font-family:var(--bm292-font)!important;font-size:12px!important;
+ line-height:1.4!important;font-weight:600!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger){
+ background:var(--bm292-action)!important;color:#fff!important;
+ border-color:var(--bm292-action)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) details.bm280-advanced>summary{
+ color:var(--bm292-link)!important;background:#fff!important;
+ font-size:12px!important;font-weight:600!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) .bm280-advanced-body{
+ color:var(--bm292-ink)!important;background:#f8fafb!important
+}
+body>main :is(.bm279-recent-note,#cardCount,#pdfCount,#imageCount,#topicCount){
+ font:400 11.5px/1.5 var(--bm292-font)!important;color:var(--bm292-muted)!important
+}
+/* Card editorial: enunciado é texto principal, não um link azul. */
+#cartoes #cardRows article.card{
+ background:var(--bm292-card)!important;
+ border:1px solid var(--bm292-border)!important;border-radius:0!important;
+ color:var(--bm292-ink)!important
+}
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows article.card .bm195-heading-text h3{
+ font:650 14px/1.55 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important;letter-spacing:0!important;
+ margin:5px 0 8px!important
+}
+#cartoes #cardRows article.card :is(p,li,dd,td,th,blockquote),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm197-paragraph,
+ .bm198-paragraph,.bm198-module-body){
+ font:400 13px/1.6 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important
+}
+#cartoes #cardRows article.card :is(.muted,small,.v036-card-path,.bm195-status){
+ font:400 11.5px/1.45 var(--bm292-font)!important;color:var(--bm292-muted)!important
+}
+#cartoes #cardRows article.card :is(.tag,.chip,.pill):not(.danger):not(.late){
+ color:#315a74!important;background:#f0f5f8!important;
+ border-color:#c8d6e0!important;border-radius:0!important;
+ font:600 11px/1.35 var(--bm292-font)!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,
+ .bm197-title,.richSection h4){
+ color:var(--bm292-heading)!important;
+ font:650 13px/1.45 var(--bm292-font)!important
+}
+#cartoes #cardRows :is(button,.bm-v050-peek-button){
+ font:600 12px/1.4 var(--bm292-font)!important;border-radius:0!important
+}
+#cartoes #cardRows .bm-v050-peek-button{color:var(--bm292-link)!important}
+/* Modal de leitura: perguntas maiores, conteúdo legível, auxiliares menores. */
+#bmCardPeekV050 .bm163-panel{
+ font:400 13.5px/1.6 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important
+}
+#bmCardPeekV050 .bm-v050-peek-front{
+ font:650 17px/1.52 var(--bm292-font)!important;
+ color:var(--bm292-ink)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph,
+ .bm198-module-body,.bm195-body,.bm195-layer-body,.bm195-paragraph,
+ .bm165-related-front,.bm163-rich-list,li){
+ font:400 13.5px/1.64 var(--bm292-font)!important;color:var(--bm292-ink)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title,
+ .bm198-overview-top h4){
+ font:700 13.5px/1.4 var(--bm292-font)!important;color:var(--bm292-heading)!important
+}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status,.bm165-related-title){
+ font:500 11.5px/1.45 var(--bm292-font)!important;color:var(--bm292-muted)!important
+}
+#bmCardPeekV050 :is(button,input,select,textarea,summary){
+ font-family:var(--bm292-font)!important;border-radius:0!important
+}
+/* Outras bibliotecas recebem os mesmos papéis de texto e cor. */
+#assuntos :is(.bm246-formula-shortcut strong,.topicCard strong,
+ .v036-topic-name,.v036-topic-tile strong){
+ font:650 13px/1.45 var(--bm292-font)!important;color:#226da0!important
+}
+#assuntos :is(.bm246-formula-shortcut span,.bm246-formula-shortcut small,
+ .v036-topic-examples,.v036-topic-metrics){
+ font:400 11.5px/1.5 var(--bm292-font)!important;color:var(--bm292-muted)!important
+}
+#pdfs #bm210PdfToolbar,#imagens #bm209SyncBar.bm210ImageToolbar{
+ font:400 12.5px/1.5 var(--bm292-font)!important;color:var(--bm292-ink)!important
+}
+#pdfs #bm210PdfToolbar :is(button,select,input,summary),
+#imagens #bm209SyncBar.bm210ImageToolbar :is(button,select,input,summary){
+ font:500 12px/1.45 var(--bm292-font)!important
+}
+#pdfs #bm210PdfToolbar :is(.bm210StatusBody,.bm210Filters),
+#imagens #bm209SyncBar .bm210StatusBody{color:var(--bm292-ink)!important}
+#pdfs #pdfRows :is(h3,h4),#imagens #imageRows :is(h3,h4){
+ color:var(--bm292-heading)!important;
+ font:650 13.5px/1.45 var(--bm292-font)!important
+}
+#pdfs #pdfRows :is(p,small),#imagens #imageRows :is(p,small){
+ color:var(--bm292-muted)!important;font-size:12px!important
+}
+#lacunas .bm242-shell h2,#calendario .c141-title h2{
+ color:var(--bm292-heading)!important;font-weight:700!important
+}
+#lacunas :is(.bm242-item p,.bm242-form label,.bm242-status),
+#calendario :is(.c141-title p,.c141-note,.c141-status,
+ .c141-stat span,.c141-board td){
+ color:var(--bm292-ink)!important;
+ font-family:var(--bm292-font)!important;font-size:12.5px!important;line-height:1.55!important
+}
+#calendario .c141-title h2{font-size:20px!important}
+#calendario .c141-stat strong{
+ font:700 22px/1.25 var(--bm292-font)!important;color:#285b7b!important
+}
+#calendario .c141-boardhead h3{
+ font:650 14px/1.4 var(--bm292-font)!important;color:var(--bm292-heading)!important
+}
+#calendario .c141-limit{font:700 12px/1.4 var(--bm292-font)!important}
+#calendario .c141-tag{font:600 11px/1.4 var(--bm292-font)!important}
+/* Popups fora do leitor: mesmo peso de fonte e papel de texto. */
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel){
+ font:400 13px/1.55 var(--bm292-font)!important;color:var(--bm292-ink)!important
+}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(.dhead strong,h2,h3){
+ font-family:var(--bm292-font)!important;color:var(--bm292-heading)!important;font-weight:700!important
+}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(button,select,input,label,textarea,summary){
+ font-family:var(--bm292-font)!important;font-size:12px!important
+}
+/* Links e estados ativos, não pintar informações técnicas de azul. */
+body :is(input[type="checkbox"],input[type="radio"],input[type="range"]){
+ accent-color:var(--bm292-action)!important
+}
+body :is(button,select,input,textarea,summary):focus-visible{
+ outline:2px solid #65b3e2!important;outline-offset:2px!important
+}
+@media(max-width:700px){
+ body{font-size:13px!important}
+ body>header .head .brand{font-size:15px!important}
+ body>header .head>nav[aria-label="Seções"]>button[data-page]{font-size:11px!important}
+ body>main>section>.panel>h2{font-size:15.5px!important}
+ #cartoes #cardRows article.card>h3{font-size:13.75px!important}
+ #cartoes #cardRows article.card :is(p,li){font-size:13px!important}
+ #bmCardPeekV050 .bm-v050-peek-front{font-size:16px!important}
+}
+/* ===== FIM assets/v292_visual_system.css ===== */
+
+/* ===== INICIO assets/v293_compact_cards_images.css ===== */
+/* V293 — PDF compacto, cartões claros e filtros de Imagens ordenados.
+   Estilo estritamente visual: não altera grifos, SVG técnicos, dados ou SRS. */
+:root{--bm293-ink:#18252f;--bm293-muted:#455b6a;--bm293-blue:#1687d8;--bm293-line:#bed0dc;--bm293-font:"Segoe UI",Arial,system-ui,sans-serif}
+/* Verificação legada de 78 PDFs continua disponível internamente. */
+#pdfs #bm151-pdf-check>button,
+#pdfs #bm210PdfActions>button[title*="Verificar PDFs"],
+#pdfs #bm210PdfToolbar button[title*="Verificar PDFs"]{display:none!important}
+#pdfs #bm210PdfToolbar{background:#fff!important;border:1px solid #d5e1e9!important;border-radius:0!important;box-shadow:none!important;padding:8px 10px!important;gap:5px!important;margin:7px 0 9px!important}
+#pdfs #bm210PdfToolbar .bm210Actions{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:5px!important;padding:0 0 6px!important;margin:0!important;border-bottom:1px solid #e4edf2!important}
+#pdfs #bm210PdfToolbar .bm210Filters{display:flex!important;flex-wrap:wrap!important;gap:6px!important;align-items:center!important;padding:2px 0 0!important}
+#pdfs #bm210PdfToolbar :is(button,select,input,summary){min-height:32px!important;font:600 11.75px/1.35 var(--bm293-font)!important;padding:5px 9px!important;border-radius:0!important}
+#pdfs #bm210PdfToolbar .bm210StatusBody{background:#fff!important;color:var(--bm293-ink)!important;font:400 12px/1.5 var(--bm293-font)!important}
+/* Cartões: branco, enunciado quase preto, bordas retas, azul nas ações. */
+#cartoes #cardRows article.card{background:#fff!important;border:1px solid var(--bm293-line)!important;border-radius:0!important;box-shadow:none!important;padding:11px 12px!important;gap:7px!important;color:var(--bm293-ink)!important}
+#cartoes #cardRows article.card:hover{background:#fbfdff!important;border-color:#8db6d1!important;box-shadow:0 1px 3px #102d4212!important}
+#cartoes #cardRows article.card>h3,#cartoes #cardRows article.card .bm195-heading-text h3{color:#18252f!important;font:650 14px/1.52 var(--bm293-font)!important;margin:4px 0 6px!important;overflow-wrap:anywhere!important}
+#cartoes #cardRows article.card :is(p,li,dd,td,th,blockquote),#cartoes #cardRows .answer,#cartoes #cardRows .answer>.richSection p,#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm195-list,.bm197-paragraph,.bm198-paragraph,.bm198-module-body){color:var(--bm293-ink)!important;font-size:13px!important;line-height:1.6!important}
+#cartoes #cardRows article.card :is(small,.muted,.v036-card-path,.bm195-status){color:var(--bm293-muted)!important;font-size:11.5px!important}
+#cartoes #cardRows article.card :is(.tag,.chip,.pill):not(.danger):not(.late){background:#f3f8fc!important;color:#2b658c!important;border:1px solid #cfe1ec!important;border-radius:0!important;font:600 11px/1.35 var(--bm293-font)!important;padding:3px 5px!important}
+#cartoes #cardRows article.card :is(button,.bm-v050-peek-button){background:#f1f8fd!important;color:#1478ad!important;border:1px solid #bfd8e8!important;border-radius:0!important;font:600 12px/1.35 var(--bm293-font)!important}
+#cartoes #cardRows :is(.bm195-evo,.bm195-layer,.bm198-module,.bm198-overview,.bm197-evolutive,.richSection,.answer>.richSection){background:#fff!important;border:1px solid #d5e3ec!important;border-radius:0!important;box-shadow:none!important}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head,.bm198-module-head,.bm198-overview-top){background:#f1f7fb!important;border-color:#d8e4eb!important}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,.bm197-title,.richSection h4){color:#245f86!important;font:700 13px/1.42 var(--bm293-font)!important}
+/* Popup: menos espaços, todos os 11 módulos mantidos. */
+#bmCardPeekV050 .bm163-panel{background:#fff!important;color:var(--bm293-ink)!important}
+#bmCardPeekV050 .bm163-header{padding:9px 12px!important;background:#f4f9fc!important}
+#bmCardPeekV050 .bm-v050-peek-front{color:#172631!important;font:650 16px/1.5 var(--bm293-font)!important}
+#bmCardPeekV050 :is(.bm163-piece,.bm163-deep-group,.bm197-evolutive,.bm198-module,.bm198-overview,.bm195-evo,.bm195-layer){background:#fff!important;border:1px solid #d0dfe8!important;border-radius:0!important;box-shadow:none!important;margin:8px 0!important}
+#bmCardPeekV050 :is(.bm163-piece,.bm163-group-body){padding:9px 11px!important}
+#bmCardPeekV050 :is(.bm163-header,.bm163-footer,.bm198-module-head,.bm198-overview-top,.bm195-layer-head){background:#f2f7fb!important;border-color:#d8e4eb!important}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module-title,.bm198-overview-top h4){color:#245f85!important;font:700 13px/1.4 var(--bm293-font)!important}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm197-paragraph,.bm198-paragraph,.bm198-module-body,.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm198-list,.bm163-rich-list,li,td,th){color:#202b33!important;font:400 13px/1.6 var(--bm293-font)!important}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status){color:var(--bm293-muted)!important;font-size:11.5px!important}
+/* Imagens: busca, quatro filtros hierárquicos, tipo e ações separados. */
+#imagens #bm209SyncBar.bm210ImageToolbar{display:flex!important;flex-direction:column!important;align-items:stretch!important;background:#fff!important;border:1px solid #d5e2eb!important;border-radius:0!important;padding:10px!important;gap:8px!important;margin:8px 0 10px!important;box-shadow:none!important}
+#imagens #bm293ImageSearchRow{display:flex!important;width:100%!important;gap:8px!important}
+#imagens #bm293ImageSearchRow #imageSearch{width:100%!important;min-width:0!important;max-width:none!important;flex:1!important;min-height:35px!important;border-radius:0!important;font:400 12.5px/1.45 var(--bm293-font)!important;color:var(--bm293-ink)!important}
+#imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;width:100%!important;min-width:0!important;margin:0!important;padding:0!important;background:transparent!important;border:0!important}
+#imagens #bm209SyncBar .bm155Field{display:flex!important;flex-direction:column!important;gap:4px!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important}
+#imagens #bm209SyncBar .bm155Field>span{display:block!important;color:#344f60!important;font:600 11.5px/1.35 var(--bm293-font)!important}
+#imagens #bm209SyncBar .bm155Field select{width:100%!important;min-width:0!important;max-width:none!important;min-height:34px!important;height:34px!important;color:#1f313e!important;background:#fff!important;border:1px solid var(--bm293-line)!important;border-radius:0!important;font:400 12px/1.4 var(--bm293-font)!important;padding:5px 7px!important}
+#imagens #bm209SyncBar .bm155Foot:empty{display:none!important}
+#imagens #bm293ImageActions{display:flex!important;align-items:end!important;flex-wrap:wrap!important;width:100%!important;gap:6px!important;padding-top:7px!important;border-top:1px solid #e1ebf0!important}
+#imagens #bm293ImageActions>label{display:flex!important;flex-direction:column!important;gap:4px!important;min-width:130px!important;flex:0 1 205px!important;color:#344f60!important;font:600 11.5px/1.35 var(--bm293-font)!important}
+#imagens #bm293ImageActions :is(button,select,input,summary){min-height:33px!important;max-width:100%!important;color:#225e88!important;background:#fff!important;border:1px solid var(--bm293-line)!important;border-radius:0!important;font:600 11.75px/1.35 var(--bm293-font)!important;padding:5px 9px!important}
+#imagens #bm293ImageActions>span{font:400 11px/1.35 var(--bm293-font)!important;color:#4b6170!important}
+#imagens #bm209SyncBar #bm210ImageInfo{align-self:flex-start!important;max-width:100%!important;border:1px solid #d6e4ed!important;border-radius:0!important;background:#fff!important;margin:0!important}
+#imagens #bm209SyncBar #bm210ImageInfo>summary{color:#2273a6!important;padding:6px 9px!important;font:600 11.75px/1.35 var(--bm293-font)!important}
+@media(max-width:960px){#imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:580px){#imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{grid-template-columns:1fr!important}#imagens #bm293ImageActions>label{flex:1 1 100%!important}#cartoes #cardRows article.card{padding:10px!important}}
+/* ===== FIM assets/v293_compact_cards_images.css ===== */
+
+/* ===== INICIO assets/v294_reader_ink_font.css ===== */
+/* Banco Mestre V294 — Tipografia de leitura em alto contraste.
+   Somente flashcards da grade e leitor ampliado. Sem alterar IDs,
+   respostas, 11 módulos, revisão SRS, grifos, imagens ou PDF.
+   Ajuste solicitado em 19/11/2026: preto + fontes sensivelmente maiores. */
+:root{
+  --bm294-ink:#101820;
+  --bm294-heading:#0f1720;
+  --bm294-secondary:#344553;
+  --bm294-blue:#176fa8;
+  --bm294-font:"Segoe UI",Arial,system-ui,sans-serif;
+}
+/* Não transformar o cartão em uma mancha cinza: branco de fundo, borda reta. */
+#cartoes #cardRows article.card{
+ background:#fff!important;
+ border:1px solid #b7c8d4!important;
+ border-radius:0!important;
+ color:var(--bm294-ink)!important;
+ box-shadow:none!important;
+}
+#cartoes #cardRows article.card:hover{
+ background:#fcfeff!important;border-color:#7baecf!important;
+}
+/* Enunciado: destaque claro e tamanho de leitura confortável. */
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows article.card .v036-card-title,
+#cartoes #cardRows article.card .bm195-heading-text h3{
+ color:var(--bm294-heading)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:15.5px!important;
+ font-weight:700!important;
+ line-height:1.56!important;
+ letter-spacing:0!important;
+ overflow-wrap:anywhere!important;
+ margin:5px 0 9px!important;
+}
+/* Texto secundário: não tão claro quanto antes. */
+#cartoes #cardRows article.card :is(p,li,dd,dt,blockquote,td,th),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,.bm195-paragraph,.bm195-list,
+ .bm197-paragraph,.bm198-paragraph,.bm198-module-body,.bm198-list){
+ color:var(--bm294-ink)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:14.5px!important;
+ line-height:1.65!important;
+}
+#cartoes #cardRows article.card :is(small,.muted,.v036-card-path,.bm195-status){
+ color:var(--bm294-secondary)!important;
+ font-size:12.5px!important;
+ line-height:1.48!important;
+}
+/* Metadados e chips com leitura clara e azul só como ênfase. */
+#cartoes #cardRows article.card :is(.tag,.chip,.pill):not(.danger):not(.late){
+ color:#22567a!important;
+ background:#f2f7fb!important;
+ border-color:#c3d7e4!important;
+ border-radius:0!important;
+ font-size:12px!important;
+ line-height:1.4!important;
+}
+#cartoes #cardRows article.card :is(button,.bm-v050-peek-button){
+ font-family:var(--bm294-font)!important;
+ font-size:12.5px!important;
+ font-weight:650!important;
+ color:#176fa8!important;
+ border-radius:0!important;
+}
+/* Cartão expandido, incluindo pergunta e resposta original. */
+#bmCardPeekV050 .bm163-panel{
+ font-family:var(--bm294-font)!important;
+ font-size:15px!important;
+ color:var(--bm294-ink)!important;
+ background:#fff!important;
+}
+#bmCardPeekV050 .bm-v050-peek-front,
+#bmCardPeekV050 .bm163-question .bm-v050-peek-front{
+ color:var(--bm294-heading)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:19px!important;
+ font-weight:700!important;
+ line-height:1.55!important;
+ letter-spacing:0!important;
+ overflow-wrap:anywhere!important;
+}
+#bmCardPeekV050 .bm163-piece-text,
+#bmCardPeekV050 .bm163-group-body,
+#bmCardPeekV050 .bm197-paragraph,
+#bmCardPeekV050 .bm198-paragraph,
+#bmCardPeekV050 .bm198-module-body,
+#bmCardPeekV050 .bm195-body,
+#bmCardPeekV050 .bm195-layer-body,
+#bmCardPeekV050 .bm195-paragraph,
+#bmCardPeekV050 .bm198-list,
+#bmCardPeekV050 .bm163-rich-list,
+#bmCardPeekV050 .bm165-related-front,
+#bmCardPeekV050 .bm163-answer :is(p,li,dd,dt,blockquote){
+ color:var(--bm294-ink)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:15px!important;
+ font-weight:400!important;
+ line-height:1.7!important;
+ overflow-wrap:anywhere!important;
+}
+/* Forçar a escala nos parágrafos internos reais dos 11 módulos. */
+#bmCardPeekV050 .bm198-module-body :is(.bm198-paragraph,.bm198-list,.bm198-label,
+ .bm198-subheading,li,p),
+#bmCardPeekV050 .bm163-piece .bm163-piece-text,
+#bmCardPeekV050 .bm197-evolutive .bm197-paragraph{
+ color:var(--bm294-ink)!important;
+ font-family:var(--bm294-font)!important;
+ font-size:15px!important;
+ line-height:1.7!important;
+}
+#bmCardPeekV050 .bm198-module .bm198-module-title,
+#bmCardPeekV050 .bm163-piece .bm163-piece-title,
+#bmCardPeekV050 .bm197-evolutive .bm197-title,
+#bmCardPeekV050 .bm198-overview h4,
+#bmCardPeekV050 .bm198-module-body .bm198-subheading{
+ color:#205f8b!important;
+ font-family:var(--bm294-font)!important;
+ font-size:14.5px!important;
+ font-weight:700!important;
+ line-height:1.45!important;
+}
+#bmCardPeekV050 .bm198-module-head,
+#bmCardPeekV050 .bm198-overview-top,
+#bmCardPeekV050 .bm163-deep-group>summary{
+ background:#f0f6fa!important;
+ border-color:#c6d9e5!important;
+}
+#bmCardPeekV050 .bm198-number,
+#bmCardPeekV050 .bm163-group-count{
+ font-size:12px!important;
+ font-weight:700!important;
+ color:#1d567b!important;
+}
+/* Tabelas de fontes/fórmulas e 11 módulos não podem permanecer com letra minúscula. */
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table,.bm197-table,.bm195-table) :is(th,td){
+ font-family:var(--bm294-font)!important;
+ font-size:14px!important;
+ line-height:1.55!important;
+ color:var(--bm294-ink)!important;
+ padding:9px 10px!important;
+}
+#bmCardPeekV050 :is(.bm198-overview-top p,.bm163-reader-status,
+ .bm-v050-peek-meta,.bm-v050-provenance){
+ color:var(--bm294-secondary)!important;
+ font-size:12.5px!important;
+ line-height:1.55!important;
+}
+/* O cabeçalho do leitor também deve ter tamanho consistente. */
+#bmCardPeekV050 .bm163-header-title,
+#bmCardPeekV050 #bmCardPeekTitleV050{
+ font-family:var(--bm294-font)!important;
+ font-size:16px!important;
+ font-weight:700!important;
+ line-height:1.4!important;
+ color:#162a39!important;
+}
+/* Preservar tipografia matemática/código, sem afetar diagramas. */
+#bmCardPeekV050 :is(code,pre,kbd,samp,.katex,.katex *,mjx-container,mjx-container *){
+ font-family:revert!important;
+}
+@media(max-width:680px){
+ #cartoes #cardRows article.card>h3,
+ #cartoes #cardRows article.card .v036-card-title{
+  font-size:15px!important;
+ }
+ #cartoes #cardRows article.card :is(p,li,td,th){font-size:14px!important}
+ #bmCardPeekV050 .bm-v050-peek-front{font-size:17.5px!important}
+ #bmCardPeekV050 .bm198-module-body :is(.bm198-paragraph,.bm198-list,li,p),
+ #bmCardPeekV050 .bm163-piece-text,
+ #bmCardPeekV050 .bm197-paragraph{
+  font-size:14.5px!important;
+ }
+}
+/* ===== FIM assets/v294_reader_ink_font.css ===== */
+
+/* ===== INICIO assets/v295_pdf_and_image_trash.css ===== */
+/* V295 — PDFs no mesmo sistema visual das demais bibliotecas.
+   Somente apresentação: a coleção, os PDFs e o Drive não são modificados. */
+#pdfs>.panel{
+ background:#fff!important;border:1px solid #bdcfdc!important;
+ border-radius:0!important;padding:13px 15px!important
+}
+#pdfs>.panel>h2{
+ margin:0 0 7px!important;font:700 16px/1.35 "Segoe UI",Arial,sans-serif!important;
+ color:#203440!important
+}
+#pdfs #bm210PdfToolbar{
+ display:flex!important;flex-direction:column!important;gap:7px!important;
+ padding:10px!important;background:#fff!important;border:1px solid #d5e2e9!important;
+ border-radius:0!important;margin:7px 0 10px!important
+}
+#pdfs #bm210PdfToolbar .bm210Actions{
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+ gap:6px!important;border-bottom:1px solid #e1e9ef!important;
+ padding-bottom:8px!important;margin:0!important
+}
+#pdfs #bm210PdfToolbar .bm210Actions>button,
+#pdfs #bm210PdfToolbar .bm210Actions>details>summary{
+ min-height:32px!important;padding:7px 10px!important;
+ border:1px solid #bed0dc!important;border-radius:0!important;
+ font:600 12px/1.35 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters{
+ display:flex!important;flex-direction:column!important;gap:8px!important;
+ width:100%!important;min-width:0!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls{
+ display:grid!important;grid-template-columns:minmax(200px,1fr) minmax(160px,205px) auto minmax(100px,auto)!important;
+ align-items:center!important;gap:8px!important;order:1!important;
+ margin:0!important;padding:0!important;width:100%!important;min-width:0!important;
+ background:transparent!important;border:0!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>#pdfAreaNavV036{
+ display:flex!important;flex-wrap:wrap!important;gap:5px!important;
+ padding:6px 0 0!important;margin:0!important;order:2!important;
+ background:#fff!important;border:0!important;border-top:1px solid #e4ecf1!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>#pdfAreaNavV036 button{
+ padding:6px 9px!important;min-height:30px!important;
+ font:600 11.75px/1.35 "Segoe UI",Arial,sans-serif!important;
+ color:#176fa8!important;background:#fff!important;
+ border:1px solid #c7dbe7!important;border-radius:0!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls :is(input[type="search"],select){
+ width:100%!important;min-width:0!important;max-width:none!important;
+ min-height:35px!important;font:400 12.5px/1.45 "Segoe UI",Arial,sans-serif!important;
+ color:#1b2a35!important;background:#fff!important;
+ border:1px solid #afc6d5!important;border-radius:0!important;padding:7px 9px!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls label.checkbox{
+ display:flex!important;align-items:center!important;gap:5px!important;
+ white-space:nowrap!important;color:#344e5d!important;
+ font:500 11.75px/1.4 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls #pdfCount{
+ margin:0!important;color:#465c6b!important;white-space:normal!important;
+ font:400 11.25px/1.4 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs :is(#bm269PdfLocked,.bm210StatusBody){
+ color:#273d4a!important;background:#f7fafc!important;
+ border-color:#d7e3eb!important;border-radius:0!important;
+ font:400 12px/1.5 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #pdfRows :is(.v036-pdf-area,.v036-card-group,.v036-pdf-summary,
+ .v036-area-section,.v036-pdf-card,article.card){
+ background:#fff!important;border:1px solid #cfdee7!important;
+ border-radius:0!important;box-shadow:none!important;color:#172631!important
+}
+#pdfs #pdfRows :is(.v036-area-head,.v036-card-group-summary){
+ color:#18354a!important;background:#f2f7fa!important;
+ font:700 13px/1.45 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #pdfRows :is(.v036-card-title,.v036-pdf-title,h3,h4){
+ color:#19394f!important;font:650 13.5px/1.45 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #pdfRows :is(.v036-area-desc,.v036-count,small,p){
+ color:#364e5c!important;font:400 12px/1.52 "Segoe UI",Arial,sans-serif!important
+}
+#pdfs #pdfRows :is(button,a.action){
+ border-radius:0!important;min-height:31px!important;
+ font:600 11.75px/1.35 "Segoe UI",Arial,sans-serif!important
+}
+/* As ações de exclusão já existentes nos PDFs preservam seu vermelho. */
+#pdfs #pdfRows :is(button.danger,a.danger,button[title*="Excluir"]){
+ color:#aa3030!important;background:#fff!important
+}
+@media(max-width:940px){
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls{
+  grid-template-columns:minmax(160px,1fr) minmax(145px,200px)!important
+ }
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls label.checkbox,
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls #pdfCount{grid-column:auto!important}
+}
+@media(max-width:560px){
+ #pdfs>.panel{padding:11px!important}
+ #pdfs #bm210PdfToolbar{padding:8px!important}
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls{grid-template-columns:1fr!important}
+ #pdfs #bm210PdfToolbar .bm210Filters>.controls #pdfCount{grid-column:1!important}
+}
+/* Arquivos de imagem: ação de lixeira distinta, não simula exclusão local. */
+#imagens #bm084-grid .bm295-trash-button{
+ color:#9a2d30!important;background:#fff!important;
+ border:1px solid #dbb4b4!important;border-radius:0!important;
+ padding:7px 9px!important;font:600 12px/1.35 "Segoe UI",Arial,sans-serif!important
+}
+#imagens #bm084-grid .bm295-trash-button:hover{background:#fff4f4!important}
+#imagens #bm084-grid .bm295-trash-button:disabled{opacity:.5!important;cursor:wait!important}
+#imagens #bm084-grid .bm295-trash-status{
+ color:#385567!important;font:500 11.5px/1.5 "Segoe UI",Arial,sans-serif!important;
+ overflow-wrap:anywhere!important;margin-top:6px!important
+}
+#imagens #bm084-grid .bm295-trash-status[data-error="true"]{color:#a43232!important}
+/* ===== FIM assets/v295_pdf_and_image_trash.css ===== */
+
+/* ===== INICIO assets/v297_visual_audit.css ===== */
+/* Banco Mestre V297 — Auditoria de contraste e legibilidade (19/11/2026)
+ * Uma camada de apresentação, após as anteriores, com alvos reais do portal.
+ * NÃO modifica estado SRS, cartões, 11 módulos, arquivos, PDF canvas,
+ * imagens, grifos, respostas, categorias de acerto/erro ou sincronização.
+ * Base: fonte Segoe UI; títulos e conteúdo quase pretos; azul para ações;
+ * superfícies brancas; contornos retos e discretos; responsividade.
+ */
+:root{
+ --bm-ui-font:"Segoe UI",Arial,system-ui,sans-serif;
+ --bm-ui-bg:#edf0f2;
+ --bm-ui-paper:#fff;
+ --bm-ui-soft:#f7fafc;
+ --bm-ui-ink:#111a22;
+ --bm-ui-title:#15222d;
+ --bm-ui-secondary:#334a5a;
+ --bm-ui-muted:#465d6c;
+ --bm-ui-blue:#147fbf;
+ --bm-ui-blue-dark:#0d649b;
+ --bm-ui-blue-soft:#ecf5fb;
+ --bm-ui-border:#bfcfd9;
+ --bm-ui-border-light:#d7e2e9;
+ --bm-ui-radius:0px;
+ --bm-ui-fs:14px;
+}
+html,body{background:var(--bm-ui-bg)!important;color:var(--bm-ui-ink)!important}
+body{font:400 14px/1.55 var(--bm-ui-font)!important}
+body :is(h1,h2,h3,h4,h5,h6,p,span,small,strong,button,a,label,legend,
+ summary,input,textarea,select,option,li,td,th,blockquote){
+ font-family:var(--bm-ui-font)!important
+}
+body :is(code,pre,kbd,samp,.katex,.katex *,mjx-container,mjx-container *,math,math *){
+ font-family:revert!important
+}
+/* Navegação e cabeçalho: mesmo sistema tipográfico, sem trocar a estrutura. */
+body>header{background:#343e46!important;color:#f5f8fa!important}
+body>header .head .brand{
+ color:#fff!important;font:700 16px/1.3 var(--bm-ui-font)!important
+}
+body>header .head .brand>.version,body>header .head>.version{
+ color:#d0dbe2!important;font:400 11.5px/1.45 var(--bm-ui-font)!important
+}
+body>header nav button[data-page]{
+ font:600 12px/1.4 var(--bm-ui-font)!important;color:#e0eaf0!important
+}
+body>header nav button[data-page].active{
+ color:#fff!important;border-bottom-color:#299ee8!important
+}
+/* Coluna inteira e superfície única nos painéis principais. */
+body>main{
+ width:calc(100% - 30px)!important;max-width:1190px!important;
+ margin-inline:auto!important
+}
+body>main>section.active:not(#tema){min-width:0!important}
+body>main>section>.panel,
+body>main #tema>.panel,
+#lacunas .bm242-shell,
+#calendario .c141-wrap{
+ background:#fff!important;border:1px solid var(--bm-ui-border)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+body>main>section>.panel{
+ padding:15px!important
+}
+body>main>section>.panel>h2,
+body>main #tema .topicLead h2,
+#lacunas .bm242-shell>h2,
+#calendario .c141-title h2{
+ color:var(--bm-ui-title)!important;
+ font:700 16px/1.35 var(--bm-ui-font)!important;
+ margin:0 0 8px!important;letter-spacing:0!important
+}
+body>main>section>.panel>p.intro{
+ color:var(--bm-ui-secondary)!important;
+ font:400 13px/1.55 var(--bm-ui-font)!important;
+ margin:0 0 12px!important
+}
+body>main :is(.sectionTitle,.topicLead h3,
+ .v036-topic-cluster-summary,.v036-area-head,.v036-card-group-summary){
+ color:var(--bm-ui-title)!important;font:700 14px/1.45 var(--bm-ui-font)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema,#calendario,#lacunas,#formulas)
+ :is(p,li,blockquote,dd,dt){
+ color:var(--bm-ui-ink)!important;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema,#calendario,#lacunas,#formulas)
+ :is(.muted,.intro,.bm242-muted,.v036-count,.v036-topic-metrics,
+ .bm153Status,.originalHelp){
+ color:var(--bm-ui-secondary)!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema,#calendario,#lacunas,#formulas)
+ :is(a:not(.action),.v036-topic-link){
+ color:var(--bm-ui-blue-dark)!important
+}
+/* Filtros: tamanho consistente, letras sem miniatura e contornos retos. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#calendario,#lacunas,#formulas)
+ :is(input:not([type="checkbox"]):not([type="radio"]),textarea,select){
+ color:var(--bm-ui-ink)!important;background:#fff!important;
+ border:1px solid var(--bm-ui-border)!important;border-radius:0!important;
+ font:400 12.5px/1.45 var(--bm-ui-font)!important;min-height:35px!important
+}
+body>main :is(input,textarea)::placeholder{
+ color:#4a6070!important;opacity:1!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#calendario,#lacunas,#formulas)
+ :is(button,a.action,summary){
+ font-family:var(--bm-ui-font)!important;font-size:12.5px!important;
+ line-height:1.4!important;border-radius:0!important
+}
+body>main :is(button.primary,a.primary):not(.danger):not(.pdfDanger){
+ color:#fff!important;background:var(--bm-ui-blue)!important;
+ border-color:var(--bm-ui-blue)!important
+}
+body>main :is(button.primary,a.primary):hover{
+ background:var(--bm-ui-blue-dark)!important;border-color:var(--bm-ui-blue-dark)!important
+}
+body :is(input[type="checkbox"],input[type="radio"],input[type="range"]){
+ accent-color:var(--bm-ui-blue)!important
+}
+body :is(button,select,input,textarea,summary,a):focus-visible{
+ outline:2px solid #2e9ed8!important;outline-offset:2px!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens)
+ details.bm280-advanced{
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens)
+ details.bm280-advanced>summary{
+ background:#fff!important;color:var(--bm-ui-blue-dark)!important;
+ font:600 12.5px/1.4 var(--bm-ui-font)!important;border-radius:0!important
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens)
+ .bm280-advanced-body{
+ color:var(--bm-ui-ink)!important;background:#f8fafb!important;border-radius:0!important
+}
+/* Assuntos: títulos neutros, navegação azul e itens alinhados. */
+#assuntos :is(.bm246-formula-shortcut,.topicCard,
+ .v036-topic-tile,.v036-topic-cluster-summary){
+ border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;background:#fff!important;box-shadow:none!important
+}
+#assuntos #areaRows .topicCard,
+#assuntos #topicRows :is(.v036-topic-tile,.v036-topic-cluster-summary){
+ padding:10px 12px!important
+}
+#assuntos #areaRows .topicCard :is(strong,.v036-topic-name),
+#assuntos #topicRows :is(.v036-topic-name,.v036-topic-link){
+ color:#165f94!important;font:650 13.5px/1.5 var(--bm-ui-font)!important
+}
+#assuntos :is(.v036-topic-metrics,.v036-topic-examples,.topicCard small){
+ color:var(--bm-ui-secondary)!important;font-size:12px!important;line-height:1.45!important
+}
+#assuntos .bm246-formula-shortcut :is(strong,h3){
+ color:var(--bm-ui-title)!important;font-size:14px!important
+}
+#assuntos :is(.topicCard,.v036-topic-tile):hover{
+ border-color:#91b7d0!important;background:#fbfdfe!important
+}
+/* PDF: barra em duas zonas, itens sobre superfície branca, tipografia uniforme. */
+#pdfs #bm210PdfToolbar{
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#pdfs #bm210PdfToolbar :is(button,input,select,summary){
+ border-radius:0!important;font-size:12.5px!important;
+}
+#pdfs #bm210PdfToolbar .bm210Filters>.controls :is(input[type="search"],select){
+ color:var(--bm-ui-ink)!important;background:#fff!important;
+ border-color:var(--bm-ui-border)!important;min-height:35px!important
+}
+#pdfs #pdfRows :is(.v036-pdf-area,.v036-card-group,.v036-pdf-card,
+ .v036-pdf-summary,article.card){
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#pdfs #pdfRows :is(.v036-area-head,.v036-card-group-summary){
+ color:var(--bm-ui-title)!important;background:#f1f6fa!important;
+ font:700 14px/1.5 var(--bm-ui-font)!important
+}
+#pdfs #pdfRows :is(.v036-card-title,.v036-pdf-title,h3,h4){
+ color:var(--bm-ui-title)!important;font:700 13.5px/1.45 var(--bm-ui-font)!important
+}
+#pdfs #pdfRows :is(.v036-area-desc,.v036-count,p,small){
+ color:var(--bm-ui-secondary)!important;font-size:12px!important;line-height:1.5!important
+}
+#pdfs #pdfRows :is(button,a.action){
+ border-radius:0!important;font-size:12px!important
+}
+/* Flashcards: TÍTULO / PERGUNTA PRETA, sempre, inclusive cartões dinâmicos. */
+#cartoes #cardRows>article.card,
+#cartoes #cardRows article.card{
+ background:#fff!important;border:1px solid var(--bm-ui-border)!important;
+ border-radius:0!important;box-shadow:none!important;color:var(--bm-ui-ink)!important
+}
+#cartoes #cardRows>article.card:hover{background:#fbfdff!important;border-color:#92bdd5!important}
+#cartoes #cardRows>article.card>h3,
+#cartoes #cardRows article.card>h3,
+#cartoes #cardRows article.card .v036-card-title,
+#cartoes #cardRows article.card .bm195-heading-text h3{
+ color:#101820!important;
+ font:700 16px/1.55 var(--bm-ui-font)!important;
+ letter-spacing:0!important;text-decoration:none!important;
+ overflow-wrap:anywhere!important
+}
+#cartoes #cardRows article.card :is(p,li,dd,td,th,blockquote),
+#cartoes #cardRows .answer,
+#cartoes #cardRows .answer>.richSection p,
+#cartoes #cardRows :is(.bm195-body,.bm195-layer-body,
+ .bm195-paragraph,.bm195-list,.bm197-paragraph,.bm198-paragraph,
+ .bm198-module-body){
+ color:var(--bm-ui-ink)!important;font:400 14.5px/1.62 var(--bm-ui-font)!important
+}
+#cartoes #cardRows article.card :is(.muted,small,.v036-card-path,.bm195-status){
+ color:var(--bm-ui-secondary)!important;
+ font-size:12px!important;line-height:1.45!important
+}
+#cartoes #cardRows article.card .tag{
+ color:#235b80!important;background:#f1f7fb!important;
+ border:1px solid #c7dbe7!important;border-radius:0!important;
+ font:600 11.5px/1.4 var(--bm-ui-font)!important
+}
+#cartoes #cardRows article.card :is(button:not(.primary):not(.danger):not([data-srs]),.bm-v050-peek-button){
+ color:var(--bm-ui-blue-dark)!important;background:#f2f8fc!important;
+ border:1px solid #c4dce9!important;border-radius:0!important;
+ font:650 12.5px/1.4 var(--bm-ui-font)!important
+}
+#cartoes #cardRows :is(.bm195-evo,.bm195-layer,.bm198-module,
+ .bm198-overview,.bm197-evolutive,.richSection,.answer>.richSection){
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#cartoes #cardRows :is(.bm195-heading,.bm195-layer-head,
+ .bm198-module-head,.bm198-overview-top){
+ background:#f0f6fa!important;border-color:#d6e3ec!important
+}
+#cartoes #cardRows :is(.bm195-layer-title,.bm198-module-title,
+ .bm197-title,.richSection h4){
+ color:#205b83!important;font:700 14px/1.48 var(--bm-ui-font)!important
+}
+/* Leitor: texto escuro maior, azul apenas títulos/ações. Preserva 11 módulos. */
+#bmCardPeekV050 .bm163-panel{
+ background:#fff!important;color:var(--bm-ui-ink)!important;
+ font:400 15px/1.65 var(--bm-ui-font)!important;border-radius:0!important
+}
+#bmCardPeekV050 .bm-v050-peek-front,
+#bmCardPeekV050 .bm163-question .bm-v050-peek-front{
+ color:#101820!important;font:700 19px/1.55 var(--bm-ui-font)!important;
+ text-decoration:none!important;overflow-wrap:anywhere!important
+}
+#bmCardPeekV050 :is(.bm163-piece-text,.bm163-group-body,
+ .bm197-paragraph,.bm198-paragraph,.bm198-module-body,.bm195-body,
+ .bm195-layer-body,.bm195-paragraph,.bm198-list,.bm163-rich-list,
+ .bm165-related-front,.bm163-law-text),
+#bmCardPeekV050 .bm198-module-body :is(p,li,.bm198-paragraph),
+#bmCardPeekV050 .bm163-answer :is(p,li,dd,td,th){
+ color:#111a22!important;font:400 15px/1.68 var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,
+ .bm198-module-title,.bm198-overview-top h4,.bm198-subheading){
+ color:#215c85!important;font:700 14.5px/1.45 var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(.bm163-header,.bm163-footer,
+ .bm198-module-head,.bm198-overview-top,.bm195-layer-head){
+ background:#f0f6fa!important;border-color:#d1e0e9!important
+}
+#bmCardPeekV050 :is(.bm163-piece,.bm163-deep-group,
+ .bm198-module,.bm198-overview,.bm197-evolutive){
+ border:1px solid var(--bm-ui-border-light)!important;
+ background:#fff!important;border-radius:0!important;box-shadow:none!important
+}
+#bmCardPeekV050 :is(.bm-v050-peek-meta,.bm163-reader-status,
+ .bm-v050-provenance,.bm165-related-title){
+ color:var(--bm-ui-secondary)!important;
+ font:500 12px/1.5 var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(.bm198-native-table,.bm198-overview-table,
+ .bm197-table,.bm195-table) :is(td,th){
+ color:#111a22!important;font:400 14px/1.6 var(--bm-ui-font)!important
+}
+#bmCardPeekV050 :is(button,summary,input,textarea,select){
+ font-family:var(--bm-ui-font)!important;border-radius:0!important
+}
+/* Imagens: catálogo, hierarquia, ações e original Drive. */
+#imagens #bm209SyncBar.bm210ImageToolbar{
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#imagens #bm209SyncBar .bm155Field>span{
+ color:var(--bm-ui-secondary)!important;font:600 12px/1.4 var(--bm-ui-font)!important
+}
+#imagens #bm209SyncBar :is(input,select,summary){
+ color:var(--bm-ui-ink)!important;border-color:var(--bm-ui-border)!important;
+ border-radius:0!important;font-size:12.5px!important
+}
+/* Estados ativos/primários devem preservar contraste em vez de texto escuro forçado. */
+#imagens #bm209SyncBar button{
+ border-color:var(--bm-ui-border)!important;border-radius:0!important;
+ font-size:12.5px!important
+}
+#imagens #bm209SyncBar button.primary{
+ color:#fff!important;background:var(--bm-ui-blue)!important;
+ border-color:var(--bm-ui-blue)!important
+}
+#imagens #bm209SyncBar .bm210StatusBody{
+ color:var(--bm-ui-secondary)!important;font-size:12.5px!important
+}
+#imagens #bm084-grid>article{
+ background:#fff!important;border:1px solid var(--bm-ui-border)!important;
+ border-radius:0!important;box-shadow:none!important;
+ padding:11px!important;color:var(--bm-ui-ink)!important
+}
+#imagens #bm084-grid>article>h4{
+ color:var(--bm-ui-title)!important;
+ font:700 14px/1.45 var(--bm-ui-font)!important
+}
+#imagens #bm084-grid>article>div:not(.bm295-trash-status){
+ color:var(--bm-ui-secondary);font-size:12px!important
+}
+#imagens #bm084-grid>article img{
+ border-radius:0!important;background:#f7f9fb!important
+}
+#imagens #bm084-grid>article a[href*="drive.google.com/file/d/"]{
+ display:inline-flex!important;align-items:center!important;
+ color:var(--bm-ui-blue-dark)!important;background:#fff!important;
+ border:1px solid #afd0e4!important;border-radius:0!important;
+ padding:6px 9px!important;text-decoration:none!important;
+ font:650 12.5px/1.4 var(--bm-ui-font)!important
+}
+#imagens #bm084-grid>article a[href*="drive.google.com/file/d/"]:hover{
+ background:#edf6fc!important;text-decoration:underline!important
+}
+#imagens #bm084-grid>article button{
+ border-radius:0!important;font-size:12.5px!important
+}
+#imagens #imageRows :is(article.card,.bm153AreaBlock,
+ .bm153Group,.bm153Directory,.bm153GroupBody){
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+/* Lacunas e planejamento SRS: painel administrativo usa os mesmos papéis. */
+#lacunas .bm242-shell,#calendario .c141-wrap{padding:16px!important}
+#lacunas :is(.bm242-item,.bm242-form,.bm242-gallery,.bm242-status),
+#calendario :is(.c141-stat,.c141-settings,.c141-board,.c141-import){
+ background:#fff!important;border:1px solid var(--bm-ui-border-light)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+#lacunas :is(.bm242-item p,.bm242-form label,.bm242-status),
+#calendario :is(.c141-title p,.c141-stat span,.c141-board td,
+ .c141-import p,.c141-note){
+ color:var(--bm-ui-ink)!important;
+ font:400 13px/1.6 var(--bm-ui-font)!important
+}
+#calendario .c141-stat strong{
+ color:var(--bm-ui-title)!important;font:700 22px/1.25 var(--bm-ui-font)!important
+}
+#calendario .c141-boardhead h3{
+ color:var(--bm-ui-title)!important;font:700 14px/1.45 var(--bm-ui-font)!important
+}
+#calendario .c141-board thead th{
+ background:#f0f6fa!important;color:#254c62!important
+}
+#calendario .c141-primary{
+ background:var(--bm-ui-blue)!important;color:#fff!important;
+ border-color:var(--bm-ui-blue)!important
+}
+/* Popups, diagnóstico e janelas: não tocar em canvas ou paleta de marcação. */
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel){
+ font:400 13.5px/1.55 var(--bm-ui-font)!important;color:var(--bm-ui-ink)!important
+}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(h2,h3,.dhead strong){
+ color:var(--bm-ui-title)!important;font-weight:700!important
+}
+:is(dialog,#pdfDialog,#imageDialog,.bm122-ink-dialog,#bm263-sync-panel)
+ :is(button,select,input,textarea,summary){
+ font-family:var(--bm-ui-font)!important;border-radius:0!important
+}
+#bm290-diff{
+ font-family:var(--bm-ui-font)!important;color:var(--bm-ui-ink)!important
+}
+#bm290-diff :is(p,li,details,summary,pre){
+ font-size:12.5px!important;line-height:1.55!important;
+}
+#bm290-diff details{background:#f7fafc!important;border:1px solid var(--bm-ui-border-light)!important;padding:9px!important}
+/* Controle e painéis encapsulados recebem regras específicas de Shadow DOM. */
+#bm240-native-host{
+ background:#fff!important;border:1px solid var(--bm-ui-border)!important;
+ border-radius:0!important;box-shadow:none!important
+}
+/* Responsividade sem forçar quebra do leitor ou apagar menus. */
+@media(max-width:900px){
+ body>main{width:calc(100% - 22px)!important}
+ #cartoes #cardRows>article.card>h3{font-size:16px!important}
+}
+@media(max-width:600px){
+ body>main{width:calc(100% - 16px)!important}
+ body>main>section>.panel{padding:11px!important}
+ body>main>section>.panel>h2{font-size:15.5px!important}
+ #cartoes #cardRows>article.card>h3{font-size:16px!important}
+ #cartoes #cardRows article.card :is(p,li){font-size:15px!important}
+ #bmCardPeekV050 .bm-v050-peek-front{font-size:18.5px!important}
+ #bmCardPeekV050 .bm198-module-body :is(p,li,.bm198-paragraph),
+ #bmCardPeekV050 .bm163-piece-text{font-size:15px!important}
+ #imagens #bm084-grid>article{padding:9px!important}
+}
+
+/* Diagnósticos com SHA/IDs longos não quebram o layout mobile. */
+#bm290-result,#bm290-diff,#pdfs #bm210PdfToolbar .bm210StatusBody{
+ overflow-wrap:anywhere!important;word-break:normal!important;max-width:100%!important
+}
+#bm290-diff pre{white-space:pre-wrap!important;overflow-wrap:anywhere!important}
+/* ===== FIM assets/v297_visual_audit.css ===== */

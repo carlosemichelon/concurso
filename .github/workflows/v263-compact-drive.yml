@@ -44,5 +44,13 @@ jobs:
           sleep 2
           node tests/v263_browser.cjs
           node tests/v277_header_browser.cjs
+          node tests/v298_visual_browser.cjs
       - name: Proteger a versão anterior V262
         run: node tests/v262_browser.cjs
+      - name: Guardar capturas V298 (somente dados públicos)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-visual-v298
+          path: test-artifacts/v298/
+          if-no-files-found: ignore

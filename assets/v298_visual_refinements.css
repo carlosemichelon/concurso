@@ -1,0 +1,56 @@
+/* Banco Mestre V298: contraste, legibilidade e navegação. Apenas CSS. */
+:root{--bm298-action:#147fbf;--bm298-ink:#101820}
+body>header nav button[data-page]{
+ min-height:40px!important;min-width:40px!important;padding:8px 12px!important;
+ white-space:nowrap!important;border-radius:0!important
+}
+body>header nav button[data-page].active{
+ background:#147fbf!important;color:#fff!important;border-color:#147fbf!important
+}
+body>header nav button[data-page]:focus-visible,
+#cartoes #cardRows button:focus-visible,#imagens #bm084-grid a:focus-visible{
+ outline:3px solid #59b8f1!important;outline-offset:2px!important
+}
+#cartoes #cardRows article.card>h3{
+ color:var(--bm298-ink)!important;font-size:16px!important;
+ font-weight:700!important;line-height:1.5!important;overflow-wrap:anywhere!important
+}
+#cartoes #cardRows article.card :is(p,li):not(.muted):not(.small){
+ font-size:15px!important;line-height:1.6!important;overflow-wrap:anywhere!important
+}
+#cartoes #cardRows article.card .tag{
+ color:#204962!important;background:#eef5fa!important;border:1px solid #c4d8e4!important
+}
+#bmCardPeekV050 .bm-v050-peek-front{
+ color:var(--bm298-ink)!important;font-size:19px!important;line-height:1.55!important
+}
+#imagens #bm209SyncBar button.primary,#imagens #bm293ImageActions button.primary{
+ background:var(--bm298-action)!important;border-color:var(--bm298-action)!important;color:#fff!important
+}
+#imagens #bm084-grid>article>h4{
+ color:#15222d!important;font-size:14px!important;font-weight:700!important;line-height:1.5!important
+}
+#pdfs #pdfRows :is(.v036-pdf-title,.v036-card-title,h3){
+ color:#15222d!important;font-size:14px!important;line-height:1.5!important;overflow-wrap:anywhere!important
+}
+#cartoes #cardRows,#pdfs #pdfRows,#imagens #bm084-grid{max-width:100%!important;min-width:0!important}
+#cartoes #cardRows>*,#pdfs #pdfRows>*,#imagens #bm084-grid>*{min-width:0!important}
+@media(max-width:600px){
+ body>main{max-width:100%!important}
+ body>header nav button[data-page]{min-height:40px!important;padding:8px 10px!important;font-size:12px!important}
+ #cartoes #cardRows.grid{grid-template-columns:minmax(0,1fr)!important}
+ #cartoes #cardRows article.card>h3{font-size:16px!important}
+ #cartoes #cardRows article.card :is(p,li):not(.muted):not(.small){font-size:15px!important}
+ #bmCardPeekV050 .bm-v050-peek-front{font-size:18.5px!important}
+ #bmCardPeekV050 .bm198-module-body :is(p,li,.bm198-paragraph),
+ #bmCardPeekV050 .bm163-piece-text{font-size:15px!important}
+ #imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important
+ }
+ #imagens #bm084-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+}
+@media(max-width:360px){
+ #imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{grid-template-columns:1fr!important}
+ #imagens #bm084-grid{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(prefers-reduced-motion:reduce){body>header nav button[data-page]{transition:none!important}}
