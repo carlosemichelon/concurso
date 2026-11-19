@@ -16,6 +16,11 @@ body>main #cartoes #cardRows article.card>h3{
  color:var(--bm298-ink)!important;font-size:16px!important;
  font-weight:700!important;line-height:1.5!important;overflow-wrap:anywhere!important
 }
+/* Cartões evolutivos também recebem títulos pretos, não azuis. */
+body>main #cartoes #cardRows article.card .bm195-heading-text h3{
+ color:#101820!important;font-size:16px!important;
+ font-weight:700!important;line-height:1.5!important
+}
 #cartoes #cardRows article.card :is(p,li):not(.muted):not(.small){
  font-size:15px!important;line-height:1.6!important;overflow-wrap:anywhere!important
 }
@@ -31,7 +36,7 @@ body>main #cartoes #cardRows article.card>h3{
 #imagens #bm084-grid>article>h4{
  color:#15222d!important;font-size:14px!important;font-weight:700!important;line-height:1.5!important
 }
-#pdfs #pdfRows :is(.v036-pdf-title,.v036-card-title,h3){
+body>main #pdfs #pdfRows :is(.v036-pdf-title,.v036-card-title,h3){
  color:#15222d!important;font-size:14px!important;line-height:1.5!important;overflow-wrap:anywhere!important
 }
 #cartoes #cardRows,#pdfs #pdfRows,#imagens #bm084-grid{max-width:100%!important;min-width:0!important}
