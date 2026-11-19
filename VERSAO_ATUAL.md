@@ -1,3 +1,19 @@
+# V276 — Petrobras 22: novo cartão de traspasse e dois cartões relacionados atualizados (19/11/2026)
+
+Origem de estudo: PETRO22-Q003; fonte canônica privada V165 confirmada no Google Drive, formada por atualização incremental protegida da V164. A solicitação do estudante foi criar os cartões e atualizar os relacionados, preservando as frentes, versos, históricos, IDs e SRS.
+
+- **Novo CARD-1534:** emendas por traspasse (distância x<20% do comprimento do trecho, mínimo ℓ0t, Tabelas 9.3/9.4, distinção entre 2014 e 2023, edição consolidada 2026 ainda sujeita a cotejo pontual). Preserva o material operacional PETRO22-C001 como fonte privada, sem expor os relatos literais.
+- **CARD-0578:** mantém frente/verso de ancoragem básica e incorpora explicação do vínculo entre ℓb, ℓb,nec e ℓ0t em seus 11 módulos; cobertura anteriormente parcial para o tema.
+- **CARD-0924:** mantém frente/verso da taxa de armadura global fora das emendas e diferencia em seus 11 módulos a proporção de barras emendadas e o critério geométrico de 20%; cobertura anteriormente indireta.
+- **SRS:** zero evento de revisão criado, valores anteriores preservados no Drive; nenhuma avaliação inferida do acerto de PETRO22-Q003.
+- **Segurança da publicação:** arquivos públicos `assets/cards_drive_sync_v276.json` e `assets/layers_public_v276_sync.json` têm apenas campos didáticos saneados; 1 cartão novo, 2 explicações atualizadas e 3 registros completos de 11 módulos. Questão original, relatos de dificuldade, índices e versão completa permanecem privados.
+- **Contagens do portal:** 1.518 cartões V194 + 14 de V274 + 1 de V276 = **1.533 IDs canônicos**; com as 22 propostas editoriais na mesma biblioteca (sem separação Ijuí), **1.555 fichas únicas**. 1.516 cartões ativos; 17 inativos.
+- **Arquitetura preservada:** GitHub Pages + Drive canônico; sobreposições de módulos versionadas e reversíveis, V275/V274 e demais arquivos anteriores preservados.
+- **Fonte normativa cotejada:** NBR 6118:2023, itens 9.5.2.1 e 9.5.2.2.1, figura 9.4 e tabelas 9.3/9.4; diferença 2014/2023 de bitolas identificada, e aplicação profissional do conjunto 2023+Em1:2026 não deve extrapolar o que foi conferido. Nenhuma cópia integral de NBR ou das imagens pessoais publicada.
+- **Testes:** `tests/v276_petro22_sync.test.cjs` acrescentado. Verificações estruturais e releitura da branch devem preceder merge; homologação em navegador real/OAuth continua não demonstrada.
+
+---
+
 # Portal V275 — Biblioteca única sem separação por concurso (19/11/2026)
 
 A pedido do estudante, as 22 fichas originadas do estudo de Ijuí passam a ser apresentadas na **mesma biblioteca** dos 1.532 cartões canônicos, classificadas por disciplina **Legislação** e pelo assunto real da lei, sem subgrupo exclusivo «Ijuí — legislação FUNDATEC», sem contagem destacada «+22 Ijuí» no cabeçalho e sem isolamento no início da listagem. Total da biblioteca de estudo: **1.554 fichas únicas**.
