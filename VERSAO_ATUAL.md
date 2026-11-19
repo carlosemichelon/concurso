@@ -1,3 +1,10 @@
+# V279 — Últimos cartões e leitura sem repetição desnecessária (19/11/2026)
+
+- Aba Flashcards recebe seletor **Adicionados recentemente**: últimos 10/25/50/100 e lotes confirmados V274/V276 (15 cartões). Permite combinar com filtros de disciplina, assunto e busca.
+- Ordem confirmada por lançamento V276 e V274; para cartões mais antigos sem data de inclusão publicada, ordenação por ID decrescente é apenas **aproximação**. Cartões atualizados (CARD-0578, CARD-0924, CARD-1413) não são falsamente tratados como novos; fichas PROP-IJUI não entram nos recentes canônicos.
+- Leitor único: quando possível, a grade e o leitor compartilham o carregador de módulos; grupos complementares anteriores ficam fechados por padrão para cartões que já apresentam 11 módulos, mas continuam presentes e podem ser expandidos.
+- Nenhuma mudança de conteúdo, SRS, histórico, PDFs, grifos, Drive ou IDs. V278 preservada. Teste estático feito; validação de navegador real/OAuth pendente.
+
 # V278 — Ícones de interface simplificados (19/11/2026)
 
 - Ícones SVG da interface com traços de 1,35 e dimensões contidas (15–16 px); caixas decorativas menos chamativas.
