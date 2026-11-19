@@ -1,0 +1,331 @@
+{
+  "version": "V267-PETRO17-PETRO20",
+  "base": "cartoes_publicos_V194",
+  "policy": "Incrementos tecnicos aditivos, sem dados pessoais, sem eventos SRS e sem novos IDs",
+  "date": "2026-11-18",
+  "cards": [
+    {
+      "id": "CARD-0631",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Domínio 2 (concreto até C50): εs=10‰ e 0<x/d<0,2593, com x/d=εc/(εc+10‰). Igualdade 0,2593 é a fronteira 2/3, não uma razão constante de todo o domínio.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "No domínio 2, εs=10‰; x/d=εc/(εc+10‰). Para εc de 0 a 3,5‰, a razão vai da fronteira x/d=0 à fronteira 2/3 em 0,2593."
+        },
+        {
+          "ord": 9,
+          "texto": "Não usar 0,2593 para todo o domínio 2; ele só identifica o encontro com o domínio 3."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0625, CARD-0629, CARD-0637, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO20-C001. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0632",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Domínio 3 (concreto até C50 e CA-50 com fyk=500 MPa, γs=1,15, Es=210 GPa): εc=εcu=3,5‰; εyd≈2,07‰ e x/d=3,5/(3,5+εs). Fronteiras 2/3 e 3/4: x/d≈0,2593 e 0,6283. O limite usual de ductilidade de projeto em vigas/lajes, x/d≤0,45, é critério distinto da fronteira entre domínios. Exemplo: d=40 cm, x=16 cm→x/d=0,40 e εs=5,25‰.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "Para 0<x<d: x/d=εc/(εc+εs). Domínio 3 até C50: εc=3,5‰, εs varia de 10‰ a εyd≈2,07‰ (CA-50: εyd=(500/1,15)/210000≈2,0704‰). Então 0,2593≤x/d≤0,6283 nas fronteiras; x/d≤0,45 é verificação distinta de ductilidade de projeto, com condições normativas próprias."
+        },
+        {
+          "ord": 7,
+          "texto": "d=40 cm, x=16 cm → β=x/d=0,40; εs=3,5(40−16)/16=5,25‰. Domínio 3 e CA-50 escoado; β satisfaz 0,45 nas hipóteses de projeto citadas."
+        },
+        {
+          "ord": 9,
+          "texto": "εc2=2‰ não é εcu=3,5‰. A referência de 10‰ não é εyd; β≈0,628 é fronteira 3/4, não limite normativo de ductilidade."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0625, CARD-0626, CARD-0628, CARD-0631, CARD-0633, CARD-0637, CARD-0638, CARD-0641, CARD-0642, CARD-0643, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO20-C001. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0637",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Fronteira 2/3: εc=3,5‰ e εs=10‰ → x/d=3,5/13,5≈0,2593. A fórmula resulta de triângulos semelhantes, não de uma constante em todo o domínio 2.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "εc/x=εs/(d−x) → x/d=εc/(εc+εs). Na fronteira 2/3, 3,5/(3,5+10)=0,259259...; o número não representa todos os pontos do domínio 2."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0642, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO20-C001. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0638",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Fronteira 3/4 para concreto até C50 e CA-50 nas hipóteses: εcu=3,5‰; εyd≈2,07‰; x/d≈0,6283. Não confundir com o limite usual de ductilidade de projeto de x/d≤0,45 em vigas/lajes.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "β34=εcu/(εcu+εyd)=3,5/(3,5+2,0704)≈0,6283. É fronteira entre domínios, distinta de β≤0,45 como critério de ductilidade de projeto sob as hipóteses normativas pertinentes."
+        },
+        {
+          "ord": 9,
+          "texto": "β34≈0,628 não autoriza usar essa razão como limite de projeto de viga/laje; verificar ductilidade separadamente."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0628, CARD-0632, CARD-0633, CARD-0641, CARD-0643, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO20-C001. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0641",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Compatibilidade por seções planas: εc/x=εs/(d−x) ⇒ x/d=εc/(εc+εs). Para obter x, multiplique a razão adimensional pela altura útil d. Usar εc e εs nas mesmas unidades.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "εc(d−x)=εs·x ⇒ d·εc=x(εc+εs) ⇒ x/d=εc/(εc+εs); x=d·εc/(εc+εs). Usar ambas deformações em ‰ ou ambas em decimal; x e d na mesma unidade."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0622, CARD-0623, CARD-0631, CARD-0632, CARD-0637, CARD-0638, CARD-0642. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO20-C001. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0643",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — O escoamento do aço é desejável, mas domínio 3 não equivale automaticamente a ductilidade adequada: para concretos até C50 em vigas/lajes, o limite usual de projeto x/d≤0,45 é distinto da fronteira domínio 3/4 (≈0,628 no modelo CA-50). Conferir edição e exceções aplicáveis.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "Distinguir dois critérios: β34≈0,6283 delimita a passagem de domínio 3 para 4 (parâmetros especificados); β=x/d≤0,45 é limitação usual de ductilidade em vigas/lajes com fck≤50 MPa no contexto da NBR 6118:2023 (cotejar edição aplicável)."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0606, CARD-0632, CARD-0638, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO20-C001. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0645",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Para ler o gráfico, identificar h, d, x, εs, εyd, εc2, εcu e 10‰; marcar x/d=0 na fronteira 1/2, ≈0,259 na 2/3 e ≈0,628 na 3/4 (até C50, CA-50 do exemplo). Distinguir o limite de ductilidade x/d≤0,45; εc2=2‰ não é εcu=3,5‰.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "No gráfico de deformações, marcar β=0 (1/2), β≈0,2593 (2/3) e β≈0,6283 (3/4, CA-50, concreto até C50); ao lado, β≤0,45 é uma restrição de projeto, não um domínio."
+        },
+        {
+          "ord": 9,
+          "texto": "εc2=2‰ pertence ao diagrama constitutivo do concreto; εcu=3,5‰ indica deformação última de compressão até C50. Não confundir gráfico constitutivo com gráfico de domínios."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0625, CARD-0626, CARD-0628, CARD-0629, CARD-0631, CARD-0632, CARD-0637, CARD-0638, CARD-0641, CARD-0643. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO20-C001. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1378",
+      "origin": "PETRO17-E002",
+      "expl_append": "ADENDO TÉCNICO V267 — Reforço de transferência: para cnom=35 mm, dmax≤1,2·35=42 mm; igualdade é admitida no critério isolado. Não aprovar agregado somente por esse limite: conferir espaçamentos, lançamento e cobrimento nominal versus mínimo. Referência histórica NBR 6118:2023, item 7.4.7.6; conferir edição aplicável.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 agregado cobrimento nominal 1,2 42 mm ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "Exemplo de transferência: c_nom=35 mm ⇒ d_máx≤42 mm. O coeficiente 1,2 é adimensional e a igualdade satisfaz essa verificação isolada."
+        },
+        {
+          "ord": 7,
+          "texto": "Teste entre alternativas com c_nom=35 mm: 42 mm atende à igualdade; 43 mm já excede. Isso não dispensa limites de espaçamento e adensamento."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-1033, CARD-0921. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO17-E002. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1379",
+      "origin": "PETRO17-E003",
+      "expl_append": "ADENDO TÉCNICO V267 — Reforço de transferência: pilar com seção 20×40 cm → bmin=200 mm → φlong≤200/8=25 mm, com mínimo 10 mm, antes de verificar taxa de aço, número de barras e estribos. Comparar: em lajes a referência h/8 refere-se à espessura da laje, não ao bmin de pilar.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 pilar laje barras longitudinais h/8 b/8 ",
+      "layer_addenda": [
+        {
+          "ord": 5,
+          "texto": "Pilar 20×40 cm: b_min=200 mm; 10 mm≤φ_long≤200/8=25 mm, sem dispensar demais limites normativos. Laje: quando aplicável, φ_max=h/8; não trocar h da laje por b_min do pilar."
+        },
+        {
+          "ord": 9,
+          "texto": "O divisor 8 aparece em regras distintas: pilar usa a menor dimensão transversal; laje usa a espessura h, nas condições do respectivo item."
+        },
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-1038, CARD-0334, CARD-0337. Recuperação técnica independente; IDs e respostas literais preservados."
+        },
+        {
+          "ord": 11,
+          "texto": "ADENDO DE ORIGEM: PETRO17-E003. Incremento editorial aditivo; a edição normativa oficial pertinente continua prevalecendo. Originais e versões anteriores preservados; não constitui evento SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0445",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": []
+    },
+    {
+      "id": "CARD-0606",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0622",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0623",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0625",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0626",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0628",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0629",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0633",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    },
+    {
+      "id": "CARD-0642",
+      "origin": "PETRO20-C001",
+      "expl_append": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645.",
+      "search_keywords": "x/d domínio deformação concreto armado PETRO20-C001 ",
+      "layer_addenda": [
+        {
+          "ord": 10,
+          "texto": "VÍNCULOS TEMÁTICOS V267: CARD-0631, CARD-0632, CARD-0641, CARD-0645. Recuperação técnica independente; IDs e respostas literais preservados."
+        }
+      ]
+    }
+  ]
+}
