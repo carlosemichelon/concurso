@@ -1,0 +1,84 @@
+/* Banco Mestre V270 — somente Sincronizar e Diagnóstico no cabeçalho.
+   Ajuste estritamente visual. Indicadores mantidos no DOM para as integrações;
+   botões, callbacks, estados de verificação e SRS não são alterados. */
+body>header .head>.bm-v046-header-stats {
+  display:flex!important;
+  grid-template-columns:none!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  flex-wrap:nowrap!important;
+  height:auto!important;
+  min-height:43px!important;
+  max-height:none!important;
+  width:100%!important;
+  overflow:visible!important;
+}
+body>header .head>.bm-v046-header-stats>.stat,
+body>header .head>.bm-v046-header-stats>.stat:has(#pdfStat) {
+  display:none!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action,
+body>header .head>.bm-v046-header-stats>#bm239-sync-details {
+  flex:0 1 150px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  grid-column:auto!important;
+  width:150px!important;
+  max-width:160px!important;
+  min-width:100px!important;
+  height:43px!important;
+  min-height:43px!important;
+  max-height:43px!important;
+  padding:7px 12px!important;
+  margin:0!important;
+  font-size:0!important;
+  text-align:center!important;
+  line-height:1.2!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+  cursor:pointer!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action::after,
+body>header .head>.bm-v046-header-stats>#bm239-sync-details::after {
+  font:700 13px/1.2 system-ui,Arial,sans-serif!important;
+  white-space:nowrap!important;
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action::after {
+  content:"Sincronizar";
+}
+body>header .head>.bm-v046-header-stats>#bm239-drive-action[aria-busy="true"]::after {
+  content:"Sincronizando…";
+}
+body>header .head>.bm-v046-header-stats>#bm239-sync-details::after {
+  content:"Diagnóstico";
+}
+body>header .head>.bm-v046-header-stats>#bm239-sync-details:focus-visible {
+  outline:3px solid #16616a!important;
+  outline-offset:2px!important;
+}
+@media (max-width:1170px){
+ body>header .head>.bm-v046-header-stats {
+   justify-content:flex-end!important;
+   grid-template-columns:none!important;
+ }
+}
+@media (max-width:560px){
+ body>header .head>.bm-v046-header-stats {
+   gap:6px!important;
+ }
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action,
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details {
+   flex:1 1 0!important;
+   width:auto!important;
+   min-width:85px!important;
+   max-width:160px!important;
+   padding:6px!important;
+ }
+ body>header .head>.bm-v046-header-stats>#bm239-drive-action::after,
+ body>header .head>.bm-v046-header-stats>#bm239-sync-details::after {
+   font-size:12px!important;
+ }
+}
