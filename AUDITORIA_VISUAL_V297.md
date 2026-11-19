@@ -17,3 +17,8 @@
 ## Correção de metadados pós-CI
 - O teste V216 revelou que `current_versions.portal` preservava o ponteiro histórico V277, divergindo da entrada V297. Corrigidos `version`, `home`, `previous` e `previous_version` no manifesto; demais catálogos de conteúdo não foram tocados.
 - A falha do teste era de consistência de versão, **não demonstra falha OAuth**. Reexecução de CI é necessária para confirmar o conserto.
+
+## Teste V277 × portal corrente V297
+- O teste `tests/v277_header_bundle.cjs` fixava 14 CSS e 135 JS tanto em `v277.html` quanto no `index.html`, mesmo após mudanças de versão. Isso causou falso negativo no workflow V263.
+- Arquivo histórico V277 permanece validado com contagens rígidas originais (14/135). No portal atual, a validação usa o manifesto e **orçamento explícito V297 de 29 CSS e 149 JS**, conferindo duplicações, existência de cada recurso, ordem da última camada e identidade entre `index.html` e `v297.html`.
+- **Dívida técnica registrada:** os 29 CSS carregados incluem camadas históricas; não removê-las sem teste visual/funcional autenticado e comparação da cascata. O teste não declara que a consolidação física já foi feita.
