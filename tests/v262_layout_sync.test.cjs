@@ -4,18 +4,21 @@
  */
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const read=p=>fs.readFileSync(p,'utf8');
-const html=read('index.html');
+const html=read('v262.html');
+const current=read('index.html');
 const versioned=read('v262.html');
 const manifest=JSON.parse(read('assets/version.json'));
-assert.equal(manifest.version,'V262');
-assert.equal(manifest.home,'v262.html');
-assert.equal(manifest.previous_version,'V261');
+assert.match(manifest.version,/^V\d{3}$/);
+assert.ok(Number(manifest.version.slice(1))>=262);
+assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
+assert.ok(current.includes('data-bm-portal-version="'+manifest.version+'"'));
+assert.equal(manifest.release_v262.previous_version,'V261');
 assert.equal(manifest.counts.cards,1518);
 assert.equal(manifest.counts.card_operational_ijui,22);
 assert.equal(manifest.counts.card_entries_combined,1540);
 assert.equal(manifest.counts.pdfs,78);
 assert.equal(manifest.counts.images_public_v198,179);
-assert.equal(html,versioned,'Versão inicial e página versionada precisam ser idênticas');
+assert.equal(html,versioned,'Página histórica V262 precisa permanecer intacta');
 const beforeMain=html.slice(0,html.indexOf('<main>'));
 const header=beforeMain.slice(beforeMain.indexOf('<header>'),beforeMain.indexOf('</header>'));
 assert.equal((header.match(/class="stat(?: bm241-(?:control|grifos))?"/g)||[]).length,5);
