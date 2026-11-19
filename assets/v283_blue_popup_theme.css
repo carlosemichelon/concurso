@@ -1,0 +1,170 @@
+/* Banco Mestre V283 — retorno ao layout integral V281, com a paleta azul/cinza da V282.
+ * Adaptação visual de janelas e popups; nenhum conteúdo, gráfico ou SRS é tocado. */
+:root{
+ --bg:#edf0f1;--paper:#fff;--ink:#344b5a;--sub:#6c7f8d;
+ --accent:#1687d8;--line:#dce5ea;--soft:#f2f6f9;
+ --bm-blue:#1687d8;--bm-blue-dark:#1269a4;--bm-gray-bg:#edf0f1;
+}
+html,body{background:#edf0f1!important}
+body{
+ color:#344b5a!important;font:13.5px/1.55 "Segoe UI",Arial,system-ui,sans-serif!important
+}
+/* Uma coluna: restaurar distribuição de V281, sem sidebar nem breadcrumbs da V282. */
+body>main{
+ display:block!important;width:auto!important;max-width:1190px!important;
+ margin:0 auto!important;padding:20px 15px 55px!important
+}
+body>main>section.active:not(#tema){display:block!important;min-width:0!important}
+body>main>section>.panel{
+ width:100%!important;max-width:none!important;margin:0 0 12px!important;
+ background:#fff!important;border:1px solid #e0e6ea!important;border-radius:5px!important;
+ box-shadow:none!important
+}
+body>main>section>.panel>h2{color:#395a70!important}
+body>main>section>.panel>p.intro{color:#778b99!important}
+/* Verde antes usado para ações primárias passa a azul, inclusive botões dinâmicos. */
+body>main :is(button.primary,a.primary,button[type="submit"].primary),
+#bmCardPeekV050 :is(button.primary,.bm-v050-peek-reveal[aria-expanded="true"]),
+#bm263-sync-panel button.primary{
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important;
+}
+body>main :is(button.primary,a.primary):hover,
+#bmCardPeekV050 :is(button.primary,.bm-v050-peek-reveal[aria-expanded="true"]):hover{
+ background:#126eac!important;border-color:#126eac!important
+}
+body>main :is(a:not(.action),button.link),#bmCardPeekV050 a{
+ color:#167fc2
+}
+body>main :is(input,select,textarea):focus-visible,
+#bmCardPeekV050 :is(input,select,button,summary):focus-visible,
+dialog :is(button,input,select,textarea):focus-visible{
+ outline:2px solid #65aee0!important;outline-offset:2px!important;border-color:#1687d8!important
+}
+/* Tipografia e superfícies comuns das janelas (não interferir em PDF canvas e pranchas). */
+:is(dialog,#bmCardPeekV050 .bm163-panel,.bm122-ink-dialog){
+ --bg:#edf0f1;--paper:#fff;--ink:#344b5a;--sub:#6b7f8f;
+ --accent:#1687d8;--line:#dce5ea;--soft:#f2f6f9;
+ font-family:"Segoe UI",Arial,system-ui,sans-serif!important;
+ color:#344b5a!important;background:#fff!important;
+ border-color:#dbe5ea!important
+}
+:is(dialog,#bmCardPeekV050 .bm163-panel,.bm122-ink-dialog) :is(button,input,select,textarea,summary){
+ font-family:inherit!important
+}
+dialog::backdrop{background:rgba(18,33,45,.65)!important}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(.dhead,.bm202-dialog-heading){
+ background:#f8fafc!important;border-bottom:1px solid #dce6ec!important;
+ color:#334e61!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(.dhead strong,.bm202-dialog-heading h2){
+ font:650 15px/1.4 "Segoe UI",Arial,sans-serif!important;color:#33566b!important
+}
+:is(#pdfDialog,#imageDialog) .dbody{
+ background:#edf0f1!important;color:#344b5a!important
+}
+:is(#pdfDialog,#imageDialog) .toolbar{
+ background:#fff!important;color:#405b6d!important;
+ border-color:#e1e8ed!important;gap:7px!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(button,a.action){
+ font-size:12px!important;line-height:1.35!important;font-weight:550!important;
+ border-radius:5px!important;box-shadow:none!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) button:not(.swatch):not(.pdfDanger):not(.danger){
+ border-color:#c9dce8!important;color:#27688e!important;background:#f9fcff!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(button.primary,button[aria-pressed="true"]:not(.swatch)):not(.pdfDanger){
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) button:disabled{
+ opacity:.5!important;cursor:default!important
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(label,small,p){
+ font-family:"Segoe UI",Arial,sans-serif
+}
+:is(#pdfDialog,#imageDialog,dialog.bm202-image-dialog,dialog.bm202-atlas-dialog) :is(input,select,textarea){
+ border-radius:5px!important;border-color:#cbdce7!important;background:#fff!important;
+ color:#344b5a!important;font-size:12.5px!important
+}
+/* O leitor de flashcards é popup separado dos elementos <dialog>. */
+#bmCardPeekV050 .bm163-panel.bm165-panel{
+ font-family:"Segoe UI",Arial,system-ui,sans-serif!important;color:#334b5b!important;
+ background:#fff!important;border:1px solid #dce6ec!important;box-shadow:0 20px 60px #102a3b38!important
+}
+#bmCardPeekV050 .bm163-header{
+ background:#f6f9fc!important;border-bottom:1px solid #dce6ec!important
+}
+#bmCardPeekV050 .bm163-header strong{color:#344f64!important;font-size:15px!important}
+#bmCardPeekV050 .bm165-header-nav>button,
+#bmCardPeekV050 .bm163-preview-controls>button,
+#bmCardPeekV050 .bm163-footer button{
+ color:#28719d!important;background:#f8fbfd!important;
+ border:1px solid #c6dae8!important;border-radius:5px!important;
+ font:600 12px/1.35 "Segoe UI",Arial,sans-serif!important;box-shadow:none!important
+}
+#bmCardPeekV050 .bm165-header-nav>button:hover,
+#bmCardPeekV050 .bm163-preview-controls>button:hover{
+ color:#126da5!important;border-color:#7bb6d8!important;background:#eff8fe!important
+}
+#bmCardPeekV050 .bm163-preview-controls>.bm-v050-peek-reveal[aria-expanded="true"]{
+ background:#1687d8!important;border-color:#1687d8!important;color:#fff!important
+}
+#bmCardPeekV050 .bm165-related{
+ background:#f8fafc!important;border-color:#e3eaf0!important
+}
+#bmCardPeekV050 .bm165-related-title{color:#31566e!important}
+#bmCardPeekV050 .bm165-related-item.bm165-active{
+ color:#196c9d!important;background:#eaf5fc!important;
+ border-color:#9ccce9!important
+}
+#bmCardPeekV050 .bm165-related-search{
+ font:12px/1.4 "Segoe UI",Arial,sans-serif!important;
+ background:#fff!important;color:#344b5a!important;border-color:#cad9e4!important;
+ border-radius:5px!important
+}
+#bmCardPeekV050 .bm163-footer{
+ background:#f7fafc!important;border-top:1px solid #e0e8ed!important
+}
+#bmCardPeekV050 :is(.bm163-piece-title,.bm197-title,.bm198-module h4){
+ color:#2b739d!important
+}
+#bmCardPeekV050 .bm163-deep-group>summary{
+ background:#f4f9fc!important;color:#2b6f99!important
+}
+#bmCardPeekV050 .bm198-module-head,#bmCardPeekV050 .bm198-overview-top{
+ background:#f4f8fc!important;border-color:#dce8ef!important
+}
+/* Caixa de diagnóstico e popups complementares também recebem a tipografia comum. */
+#bm263-sync-panel,.bm-v059-panel,.bm122-ink-dialog{
+ --accent:#1687d8;--line:#dce5ea;--ink:#344b5a;
+ font-family:"Segoe UI",Arial,system-ui,sans-serif!important;
+ color:#344b5a!important;background:#fff!important;border-color:#dce5ea!important;
+}
+#bm263-sync-panel :is(h2,h3,strong){color:#315a75!important}
+#bm263-sync-panel :is(button,a){font-family:inherit!important;color:#236e9c!important}
+#bm263-sync-panel button:focus-visible{outline:2px solid #1687d8!important}
+#cartoes .bm195-heading,#cartoes .bm195-layer-head{
+ background:#f5f9fc!important;border-color:#e2ebf1!important
+}
+#cartoes .bm195-heading-icon,#cartoes .bm195-layer-ico{
+ background:#e8f3fa!important;color:#236f9c!important
+}
+#cartoes #cardRows article.card>.bm-v050-peek-button{
+ color:#1679b4!important;background:#f2f9fd!important;border-color:#bedbeb!important
+}
+/* Tela cheia e mobilidade mantidas, com controles sem cortes. */
+@media(max-width:760px){
+ body>main{max-width:100%!important;padding:13px 10px 45px!important}
+ body>main>section>.panel{width:100%!important;padding:12px!important}
+ #bmCardPeekV050 .bm163-panel.bm165-panel{width:100vw!important;max-width:100vw!important}
+ #bmCardPeekV050 .bm163-header{gap:7px!important}
+ #bmCardPeekV050 .bm165-header-nav>button{font-size:11px!important}
+ :is(#pdfDialog,#imageDialog) .toolbar{gap:5px!important}
+ :is(#pdfDialog,#imageDialog) .toolbar button{font-size:11px!important}
+}
+@media(max-width:430px){
+ body>main{padding:10px 8px 45px!important}
+ #bmCardPeekV050 .bm163-header strong{font-size:13px!important}
+ #bmCardPeekV050 .bm165-header-nav>button{font-size:10.5px!important}
+ #bmCardPeekV050 .bm163-piece-text{font-size:12.5px!important;line-height:1.65!important}
+}

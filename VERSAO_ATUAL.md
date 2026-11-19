@@ -1,3 +1,12 @@
+# V283 — Retorno à V281, com fundo cinza, azul e popups uniformes (19/11/2026)
+
+- **Solicitação:** o layout de duas colunas V282 não agradou. Retornar à coluna inteira V281 e manter seus filtros, conteúdo, tipografia e espaçamento.
+- **Implementação:** arquivo `v283.html` derivado de `v281.html` diretamente, sem CSS/script da V282; fundo cinza-claro e cor de destaque azul em lugar do verde.
+- **Janelas popup:** estilos uniformes para leitor de flashcards, PDFs, imagens, diálogos de edição, diagnóstico e modais do Controle de Estudos (Shadow DOM). As cores técnicas desenhadas nas páginas/pranchas e paletas de grifo não foram adulteradas.
+- **Responsividade:** permanece a versão de uma coluna V281 em desktop/celular; ajustes tipográficos para janelas pequenas sem alterar ações.
+- **Integridade:** IDs, 11 módulos, frente/verso, complementos, SRS, Drive, PDF, Atlas, grifos, cronômetro, conteúdos e versões V281/V282 intocados.
+- Validação de código e referências; **teste visual em navegador real e OAuth autenticado pendentes**.
+
 # V282 — Layout do body com composição semelhante à captura Tec Concursos (19/11/2026)
 
 - Corpo do portal com faixa 'Meus Estudos', coluna principal ampla e faixa lateral estreita, no desktop. Painéis brancos de cantos discretos, espaçamento pequeno, fundo cinza-claro e links azuis.
