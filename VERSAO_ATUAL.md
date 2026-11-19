@@ -1,3 +1,11 @@
+# V284 — Cabeçalhos compactos e azul no corpo (19/11/2026)
+
+- Ajuste pontual no **body**: cabeçalhos H2 de páginas mais compactos, menor espaçamento entre título, descrição e controles; subtítulos com o mesmo azul da identidade adotada; cartões com títulos ligeiramente mais discretos.
+- Mantida a coluna inteira e o fundo cinza da V283, botões principais azuis, tipografia e layout mobile.
+- Sem ajustes no cabeçalho superior, no posicionamento dos filtros, no funcionamento de popups, nas figuras técnicas ou no conteúdo original.
+- Cartões, 11 módulos completos, referências, PDFs, grifos, SRS e Drive preservados.
+- Testes estáticos e conferência de arquivos publicados; renderização real pendente.
+
 # V283 — Retorno à V281, com fundo cinza, azul e popups uniformes (19/11/2026)
 
 - **Solicitação:** o layout de duas colunas V282 não agradou. Retornar à coluna inteira V281 e manter seus filtros, conteúdo, tipografia e espaçamento.

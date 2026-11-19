@@ -1,0 +1,116 @@
+/* Banco Mestre V284 — ajuste fino de cabeçalhos NO BODY e acentos azuis.
+   Não altera header superior, estrutura, cartões, imagens, PDFs, popups nem SRS. */
+body>main{
+ --bm284-blue:#1687d8;
+ --bm284-blue-dark:#286c98;
+ --bm284-blue-pale:#f2f8fc;
+ --bm284-line:#e0e8ee;
+}
+/* Cabeçalhos de seção: menos altura, título conciso e consistência cromática. */
+body>main>section>.panel>h2,
+body>main #tema .topicLead h2{
+ color:#236b99!important;
+ font-size:16px!important;
+ font-weight:650!important;
+ line-height:1.3!important;
+ letter-spacing:-.1px!important;
+ padding:0 0 5px!important;
+ margin:0 0 7px!important;
+ border:0!important;
+ background:transparent!important;
+}
+body>main #assuntos>.panel>h2:nth-of-type(2){
+ margin:13px 0 7px!important;
+ padding:10px 0 5px!important;
+ border-top:1px solid var(--bm284-line)!important;
+}
+/* Descrições abaixo do cabeçalho seguem próximas ao título. */
+body>main>section>.panel>p.intro,
+body>main #tema .panel>p.intro{
+ color:#728799!important;
+ font-size:11.8px!important;
+ line-height:1.48!important;
+ margin:0 0 10px!important;
+ padding:0!important;
+}
+/* Subtítulos de navegação e blocos didáticos, sem alterar o texto das respostas. */
+body>main #tema .sectionTitle,
+body>main #tema #topicOverview :is(h3,h4),
+body>main #tema #topicMacetes :is(h3,h4),
+body>main #tema #topicRelated :is(h3,h4){
+ color:#2d719d!important;
+ font-size:13px!important;
+ font-weight:650!important;
+ line-height:1.35!important;
+ margin:9px 0 6px!important;
+ padding:0!important;
+}
+body>main :is(#pdfs,#imagens) .panel>h2,
+body>main #cartoes .panel>h2{
+ color:#236b99!important;
+}
+/* Cabeçalho das fichas e resultados: tipografia leve e azul funcional. */
+body>main #cartoes #cardRows article.card>h3,
+body>main #imagens #imageRows article.card>h3,
+body>main #pdfs #pdfRows :is(h3,h4){
+ color:#315f80!important;
+ font-weight:600!important;
+ line-height:1.42!important;
+ margin:4px 0 6px!important;
+}
+body>main #cartoes #cardRows .answer>.richSection h4,
+body>main #cartoes #cardRows .bm195-heading-text h3{
+ color:#2975a4!important;
+ line-height:1.35!important;
+ margin:0 0 5px!important;
+}
+/* Os controles de filtro permanecem no mesmo lugar, com menos espaço vertical. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) .controls{
+ row-gap:5px!important;
+ margin-top:7px!important;
+ margin-bottom:8px!important;
+}
+body>main #cartoes #bm152Filters{
+ border-color:#dbe7ef!important;
+ background:#f8fbfe!important;
+}
+body>main #cartoes #bm152Filters .bm152Field{
+ color:#376e93!important;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) details.bm280-advanced{
+ margin:5px 0 9px!important;
+ border-color:#deebf2!important;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens) details.bm280-advanced>summary{
+ min-height:29px!important;
+ padding:5px 9px!important;
+ color:#2477ae!important;
+ font-weight:600!important;
+}
+/* Acentos dos links e botões de navegação, sem recolorir estados ou desenhos técnicos. */
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) a:not(.action){
+ color:#157dbf;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) button.primary{
+ background:#1687d8!important;
+ border-color:#1687d8!important;
+ color:#fff!important;
+}
+body>main :is(#assuntos,#pdfs,#cartoes,#imagens,#tema) button.primary:hover{
+ background:#126fae!important;
+ border-color:#126fae!important;
+}
+/* Mobile: cabeçalhos igualmente compactos, com leitura confortável. */
+@media(max-width:650px){
+ body>main>section>.panel>h2,
+ body>main #tema .topicLead h2{
+  font-size:15px!important;
+  line-height:1.35!important;
+  margin-bottom:6px!important;
+ }
+ body>main #assuntos>.panel>h2:nth-of-type(2){
+  margin-top:12px!important;
+  padding-top:9px!important;
+ }
+ body>main>section>.panel>p.intro{font-size:11.5px!important;line-height:1.5!important}
+}
