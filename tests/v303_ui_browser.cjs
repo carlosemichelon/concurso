@@ -71,7 +71,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      await page.waitForFunction(()=>document.querySelectorAll('#cardRows article.card').length>0,{timeout:18000});
      assert.ok(await page.locator('#bm305-count-detail').count(),'Detalhamento de contagem dos cartões ausente');
      const cardIds=await page.locator('#cardRows article.card .tag').allTextContents();
-     const numeric=cardIds.filter(id=>/^CARD-\\d+$/.test(id)).map(id=>Number(id.slice(5)));
+     const numeric=cardIds.filter(id=>/^CARD-\d+$/.test(id)).map(id=>Number(id.slice(5)));
      assert.ok(numeric.length>1&&numeric.every((id,i)=>i===0||numeric[i-1]>=id),'Ordenação decrescente por ID foi substituída por grupos de assuntos');
      const open=page.locator('#cardRows .bm-v050-peek-button').first();
      if(await open.count()){
