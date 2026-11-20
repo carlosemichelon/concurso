@@ -1,3 +1,12 @@
+# V324 — Painel lateral único para pesquisa e leitura de cartões (20/11/2026)
+
+- **Nova navegação:** a lateral esquerda alterna entre a lista de pesquisa e a leitura completa do cartão selecionado. Os dois blocos deixam de aparecer empilhados.
+- **Voltar à busca:** o botão “← Pesquisa” restaura busca digitada, filtros, resultados e posição de rolagem.
+- **Selecionar outro cartão:** vínculos da prévia abrem o próximo cartão na mesma área, sem criar um segundo painel e sem substituir o leitor principal. A seta ↗ mantém sua função de abrir no painel principal.
+- **Escopo:** apenas apresentação e navegação; respostas, IDs, 11 módulos, vínculos, SRS, Drive, PDFs, imagens, grifos e versões anteriores preservados.
+- **Testes:** parser JavaScript e referências da página verificados estaticamente. Uso no navegador autenticado do estudante e validação responsiva final ainda pendentes.
+- **Publicação:** branch `gh-pages`; página `v324.html`; entrada `index.html`; manifesto `assets/version.json`. Retorno: `v323.html`.
+
 # V323 — Correção do cartão relacionado invisível na lateral (20/11/2026)
 
 - **Falha identificada:** a regra global `section{display:none}` ocultava a prévia lateral, os vínculos e os módulos apresentados como `<section>`, dando aparência de travamento após o clique.
