@@ -85,6 +85,16 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
       assert.equal(await page.locator('#bmCardPeekV050 .bm165-toggle-sidebar').getAttribute('aria-expanded'),'false');
       await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
      }
+     // CARD-0001 possui relação explícita com CARD-0008 no módulo 8.
+     // Deve existir link verificável na frente e navegação para o ID correto.
+     const search=page.locator('#cardSearch');
+     await search.fill('CARD-0001');
+     const linked=page.locator('#cardRows .bm305-relation-link').filter({hasText:'CARD-0008'}).first();
+     await linked.waitFor({state:'visible',timeout:16000});
+     await linked.click();
+     assert.match(await page.locator('#bmCardPeekTitleV050').textContent(),/CARD-0008/,'Link da frente não abriu o cartão relacionado');
+     await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
+     await search.fill('');
     }
     if(tab==='imagens'){
      assert.equal(await page.locator('#bm155AssuntoGeralImagem').isVisible(),false);
