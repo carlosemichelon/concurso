@@ -48,11 +48,27 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
       detailsClosed:details?!details.open:true,hidden:advanced?rect(advanced).height===0:true,
       panelDisplay:getComputedStyle(panel).display};
     },{tab,toolbar,mainId,advancedId});
-    assert.equal(metrics.version,'V306');assert.ok(metrics.mainVisible,'Busca oculta: '+tab);
+    assert.equal(metrics.version,'V307');assert.ok(metrics.mainVisible,'Busca oculta: '+tab);
     assert.equal(metrics.primaryCount,2,'Deve haver busca e um seletor principal em '+tab);
     assert.ok(metrics.barX>=metrics.panelX-2&&metrics.barX+metrics.barW<=metrics.panelX+metrics.panelW+2,'Barra fora do painel: '+tab+' '+JSON.stringify(metrics));
     assert.equal(metrics.pageWidth,metrics.viewport,'Rolagem horizontal: '+tab);
     assert.ok(metrics.detailsClosed&&metrics.hidden,'Filtros secundários aparecem com detalhe fechado: '+tab);
+    if(tab==='assuntos'){
+     await page.waitForFunction(()=>{
+      const buttons=document.querySelectorAll('#areaRows .topicCard');
+      return buttons.length>=5&&[...buttons].every(b=>!b.hasAttribute('data-bm096-icon'));
+     },{timeout:15000});
+     const area=await page.evaluate(()=>{
+      const cards=[...document.querySelectorAll('#areaRows .topicCard')];
+      return cards.slice(0,5).map(c=>({
+       icon:getComputedStyle(c,'::before').display,
+       name:c.querySelector('strong')?.textContent.trim(),
+       font:getComputedStyle(c.querySelector('strong')).fontSize
+      }));
+     });
+     assert.ok(area.every(x=>x.icon==='none'&&x.name),'Disciplina ainda com ícone decorativo: '+JSON.stringify(area));
+     console.log('V307_AREAS_CLEAN '+width+' '+JSON.stringify(area));
+    }
     if(tab==='pdfs'){
      assert.equal(metrics.panelDisplay,'flex','PDFs ainda dispostos em colunas conflitantes');
      const h2=page.locator('#bm303-pdf-toolbar>h2');
@@ -81,7 +97,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      },{timeout:15000});
      assert.ok(await page.locator('#bm305-count-detail').count(),'Detalhamento de contagem dos cartões ausente');
      const cardIds=await page.locator('#cardRows article.card .tag').allTextContents();
-     console.log('V306_ID_ORDER '+width+' '+cardIds.slice(0,14).join(' → '));
+     console.log('V307_ID_ORDER '+width+' '+cardIds.slice(0,14).join(' → '));
      const numeric=cardIds.filter(id=>/^CARD-\d+$/.test(id)).map(id=>Number(id.slice(5)));
      assert.ok(numeric.length>1&&numeric.every((id,i)=>i===0||numeric[i-1]>=id),'Ordenação decrescente por ID foi substituída por grupos de assuntos');
      const open=page.locator('#cardRows .bm-v050-peek-button').first();
@@ -119,6 +135,28 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      console.log('V306_IMAGE_IN_READER '+width);
      await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
      await search.fill('');
+     await search.fill('CARD-1533');
+     const mainCard=page.locator('#cardRows article.bm307-card[data-bm305-id="CARD-1533"]');
+     await mainCard.waitFor({state:'visible',timeout:16000});
+     const cLayout=await mainCard.evaluate(a=>{
+      const get=s=>a.querySelector(':scope > '+s),r=s=>get(s)?.getBoundingClientRect();
+      const title=r('h3'),peek=r('.bm-v050-peek-button'),id=r('.tag'),ribbon=r('.bm163-card-ribbon');
+      const fold=get('details.bm307-source');
+      const caption=a.querySelector('.bm307-legacy-caption');
+      return {titleTop:title?.top,titleBottom:title?.bottom,peekBottom:peek?.bottom,
+       idTop:id?.top,captionDisplay:caption?getComputedStyle(caption).display:'not-found',
+       refFound:!!fold?.querySelector('.bm163-card-ref'),refOpen:fold?.open,
+       srcLabel:fold?.querySelector('summary')?.textContent,
+       ribbonCount:ribbon?.width,containerWidth:a.getBoundingClientRect().width};
+     });
+     assert.ok(cLayout.titleTop>=cLayout.peekBottom-2,'Botão Abrir leitura ainda sobrepõe a pergunta: '+JSON.stringify(cLayout));
+     assert.ok(cLayout.idTop<cLayout.titleTop,'ID não foi para cima da pergunta');
+     assert.ok(cLayout.refFound&&cLayout.refOpen===false,'Referência integral desapareceu ou abriu sozinha');
+     assert.equal(cLayout.captionDisplay,'none','Classificação redundante ainda polui a frente');
+     await mainCard.locator('details.bm307-source > summary').click();
+     assert.ok(await mainCard.locator('details.bm307-source .bm163-card-ref').isVisible(),'Referência não pode ser consultada');
+     console.log('V307_CARD_LAYOUT '+width+' '+JSON.stringify(cLayout));
+     await search.fill('');
     }
     if(tab==='imagens'){
      assert.equal(await page.locator('#bm155AssuntoGeralImagem').isVisible(),false);
@@ -128,7 +166,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      assert.ok(await page.locator('#bm305-image-pending').count(),'Atalho de imagens sem classificação não aparece');
     }
     await page.screenshot({path:'test-artifacts/v303/after-'+tab+'-'+width+'.png'});
-    console.log('V306_TAB_PASS '+width+' '+tab+' '+JSON.stringify(metrics));
+    console.log('V307_TAB_PASS '+width+' '+tab+' '+JSON.stringify(metrics));
    }
    // Tema da oficina original deve combinar com a interface do portal sem regravar textos.
    console.log('V306_REDACAO_BEGIN '+width);
@@ -162,7 +200,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
    assert.ok(footer,'Lacunas ainda depois do rodapé');
    await page.screenshot({path:'test-artifacts/v303/after-lacunas-'+width+'.png'});
    assert.ok(!errors.length,'Erro JavaScript: '+errors.slice(0,5));
-   console.log('V306_BROWSER_PASS '+width+'px: barras, recolhíveis, editor e navegação; OAuth real não testado');
+   console.log('V307_BROWSER_PASS '+width+'px: barras, recolhíveis, editor e navegação; OAuth real não testado');
    await page.close();
   }
  }finally{await browser.close()}
