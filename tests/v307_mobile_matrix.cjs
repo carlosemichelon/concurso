@@ -24,7 +24,7 @@ fs.mkdirSync(output,{recursive:true});
    }));
    const errors=[];page.on('pageerror',e=>errors.push(String(e)));
    await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
-   await page.waitForFunction(()=>document.documentElement.dataset.bmPortalVersion==='V309'&&window.BM303UnifiedFilters?.ready&&window.BM309MobileTabs?.ready,{timeout:20000});
+   await page.waitForFunction(()=>document.documentElement.dataset.bmPortalVersion==='V310'&&window.BM303UnifiedFilters?.ready&&window.BM309MobileTabs?.ready,{timeout:20000});
    if(width<=620){
     const initial=await page.evaluate(()=>({
      hidden:document.querySelector('header nav[aria-label="Seções"]')?.hidden,
