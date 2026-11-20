@@ -1,0 +1,39 @@
+name: V302 UI audit - source archive
+on:
+  workflow_dispatch:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/workflows/v302-ui-sources.yml'
+jobs:
+  source-snapshot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Arquivar código publicado para testes visuais isolados
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import tarfile
+          from pathlib import Path
+          targets=[Path('index.html'),Path('v299.html'),Path('v300.html'),Path('v301.html'),Path('assets/version.json'),Path('package.json')]
+          for prefix in ('assets','tests','.github/workflows'):
+              root=Path(prefix)
+              if not root.exists(): continue
+              targets.extend(p for p in root.rglob('*') if p.is_file() and p.suffix.lower() in ('.js','.cjs','.css','.json','.yml','.yaml'))
+          targets.extend(Path('assets').glob('*.html'))
+          seen=set()
+          with tarfile.open('/tmp/bm-ui-v302-sources.tar.gz','w:gz') as tar:
+              for p in targets:
+                  if not p.is_file() or str(p) in seen: continue
+                  seen.add(str(p)); tar.add(p,arcname=str(p),recursive=False)
+          print('Arquivos:',len(seen),'bytes:',Path('/tmp/bm-ui-v302-sources.tar.gz').stat().st_size)
+          PY
+          cp /tmp/bm-ui-v302-sources.tar.gz ./bm-ui-v302-sources.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bm-ui-v302-sources
+          path: bm-ui-v302-sources.tar.gz
+          retention-days: 2
