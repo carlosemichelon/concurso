@@ -1,0 +1,40 @@
+/* Portal V304 — barra PDF sem status duplicado e áreas com recolhimento nativo. */
+/* Mantém os elementos e leitores na árvore; só elimina mensagens antigas da interface. */
+#pdfs #bm210PdfStatus,
+#pdfs #bm151-pdf-check,
+#pdfs #bm259-pdf-hint{display:none!important}
+#pdfs #pdfRows details.v036-pdf-area{
+ display:block!important;width:100%!important;min-width:0!important;
+ padding:0 0 5px!important;margin:0 0 11px!important;
+ border:1px solid #c8d9e4!important;border-radius:0!important;
+ background:#fff!important;overflow:clip!important
+}
+#pdfs #pdfRows details.v036-pdf-area>summary.v036-area-head{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ gap:10px!important;min-height:46px!important;padding:10px 13px!important;
+ border:0!important;background:#f3f8fc!important;color:#152b3a!important;
+ list-style:none!important;cursor:pointer!important;font-weight:700!important
+}
+#pdfs #pdfRows details.v036-pdf-area>summary.v036-area-head::-webkit-details-marker{display:none!important}
+#pdfs #pdfRows details.v036-pdf-area>summary.v036-area-head::before{
+ content:"▾";display:inline-block;flex:none;font-size:16px;font-weight:800;
+ color:#215e82;transform:rotate(0);transition:transform .13s ease
+}
+#pdfs #pdfRows details.v036-pdf-area:not([open])>summary.v036-area-head::before{
+ transform:rotate(-90deg)
+}
+#pdfs #pdfRows details.v036-pdf-area>summary.v036-area-head h3{
+ margin:0!important;flex:1!important;font-size:15px!important;color:#152b3a!important
+}
+#pdfs #pdfRows details.v036-pdf-area>summary.v036-area-head .v036-count{
+ font-size:12px!important;white-space:nowrap!important;color:#416074!important
+}
+#pdfs #pdfRows details.v036-pdf-area>summary.v036-area-head:focus-visible{
+ outline:3px solid #4799cf!important;outline-offset:-3px!important
+}
+#pdfs #pdfRows details.v036-pdf-area>.v036-area-desc{margin:9px 13px!important}
+#pdfs #pdfRows details.v036-pdf-area>.v036-pdf-group{margin:5px 12px 10px!important}
+@media(max-width:650px){
+ #pdfs #pdfRows details.v036-pdf-area>summary.v036-area-head{padding:10px!important}
+ #pdfs #pdfRows details.v036-pdf-area>.v036-pdf-group{margin:5px 7px 9px!important}
+}
