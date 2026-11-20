@@ -58,8 +58,10 @@
   else if(scope==='fav')source=all.filter(x=>favorites.has(x.id));
   else source=all;
   const q=norm(search?.value||'').trim();
-  if(q)source=source.filter(x=>norm([x.id,x.front,x.subject,x.sub,x.discipline].join(' ')).includes(q));
-  const preferred=x=>x.id===active?-100:mentioned.has(x.id)?-30:sameSubject(x)?-20:sameDiscipline(x)?-10:0;
+  if(q){const pool=scope==='fav'?source:all;
+   source=pool.filter(x=>norm([x.id,x.front,x.subject,x.sub,x.discipline].join(' ')).includes(q));
+  }
+  const preferred=x=>norm(x.id)===q?-150:x.id===active?-100:mentioned.has(x.id)?-30:sameSubject(x)?-20:sameDiscipline(x)?-10:0;
   source.sort((a,b)=>preferred(a)-preferred(b)||a.id.localeCompare(b.id,'pt-BR',{numeric:true}));
   return source;
  }
@@ -164,6 +166,9 @@
   aside=overlay.querySelector('.bm165-related');
   panel=overlay.querySelector('.bm165-panel');
   if(!aside||!panel)return false;
+  const toggle=overlay.querySelector('.bm165-toggle-sidebar');
+  if(toggle){const text=[...toggle.childNodes].find(n=>n.nodeType===3);if(text)text.textContent=' Pesquisa / prévia';
+   toggle.title='Mostrar pesquisa e prévia de cartões';}
   aside.setAttribute('aria-label','Pesquisar e pré-visualizar cartões relacionados');
   const head=make('div','bm317-side-header');
   head.append(make('h3','bm317-side-title','Pesquisar cartões'));
@@ -174,7 +179,7 @@
   tools.append(back,original);
   originalName=make('p','bm317-origin');
   const field=make('label','bm317-search-label');field.append(make('span','', 'Pesquisar por ID, assunto ou pergunta'));
-  search=make('input','bm317-search');search.type='search';search.placeholder='Ex.: CARD-0082, flexão, NBR';
+  search=make('input','bm317-search');search.type='search';search.placeholder='Buscar em todos os cartões · ID ou conceito';
   search.autocomplete='off';search.setAttribute('aria-label','Buscar cartão na lateral');
   search.addEventListener('input',()=>{limit=35;renderList()});
   search.addEventListener('keydown',e=>{
