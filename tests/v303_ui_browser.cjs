@@ -136,13 +136,13 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
    const redTheme=page.locator('#bm302-redacao-original');
    await redTheme.waitFor({state:'visible',timeout:12000});
    await page.waitForFunction(()=>{
-    const frame=document.getElementById('bm302-redacao-original');
-    return !!frame?.contentDocument?.getElementById('bm306-redacao-theme');
+    const frame=document.getElementById('bm302-redacao-original'),doc=frame?.contentDocument;
+    return !!doc?.getElementById('bm306-redacao-theme')?.sheet&&!!doc.querySelector('.tabs .tab')&&!!doc.querySelector('.card');
    },{timeout:18000});
    const theme=await redTheme.evaluate(frame=>{
-    const doc=frame.contentDocument,root=getComputedStyle(doc.documentElement);
+    const doc=frame.contentDocument,root=frame.contentWindow.getComputedStyle(doc.documentElement);
     return {bg:root.getPropertyValue('--bg').trim(),azure:root.getPropertyValue('--ouro').trim(),
-     cardRadius:getComputedStyle(doc.querySelector('.card')).borderRadius,
+     cardRadius:frame.contentWindow.getComputedStyle(doc.querySelector('.card')).borderRadius,
      tabs:doc.querySelectorAll('.tabs .tab').length,
      source:frame.getAttribute('src'),
      cssReady:[...doc.styleSheets].some(s=>(s.href||'').includes('v306_redacao_theme.css'))};
