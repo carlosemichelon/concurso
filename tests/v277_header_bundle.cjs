@@ -37,7 +37,9 @@ for(const f of historicalFiles)assert.ok(!live.includes('href="assets/'+f),'Cabe
 
 /* Revisar estes valores sempre que a versão visual mudar. Não mascarar camadas. */
 const approved={
-  V303:{css:18,js:151,last:'assets/v303_unified_ui.css?v=303-1'}
+  V303:{css:18,js:151,last:'assets/v303_unified_ui.css?v=303-1'},
+  V304:{css:19,js:152,last:'assets/v304_pdf_ui.css?v=304-1'},
+  V305:{css:20,js:153,last:'assets/v305_cards_clarity.css?v=305-1'}
 };
 const budget=approved[manifest.version];
 assert.ok(budget,'Versão '+manifest.version+' ainda não auditada neste teste');
@@ -53,7 +55,7 @@ for(const [type,links] of [['CSS',css],['JS',js]]){
     assert.ok(fs.existsSync(path),'Recurso local '+type+' ausente: '+path);
   }
 }
-console.log('V277_ARCHIVE_PASS + V303_CURRENT_PASS: 18 CSS, 151 JS, ordem e arquivos válidos.');
+console.log('V277_ARCHIVE_PASS + '+manifest.version+'_CURRENT_PASS: '+css.length+' CSS, '+js.length+' JS; ordem e arquivos válidos.');
 
 /* Bundle fiel: reproduzir literalmente a cascata, sem alterar seletor nem ordem. */
 const bundledSources=["assets/v278_ui_icons.css","assets/v280_teclike_theme.css","assets/v281_content_hierarchy.css","assets/v283_blue_popup_theme.css","assets/v284_body_heading_blue.css","assets/v286_font_blue.css","assets/v287_global_contrast.css","assets/v288_cards_surface.css","assets/v289_other_sections.css","assets/v291_contrast_square.css","assets/v292_visual_system.css","assets/v293_compact_cards_images.css","assets/v294_reader_ink_font.css","assets/v295_pdf_and_image_trash.css","assets/v297_visual_audit.css"];
@@ -63,7 +65,9 @@ const expectedUi=prefix+bundledSources.map(path=>
 ).join('\n');
 assert.equal(read('assets/v298_ui_bundle.css'),expectedUi,'CSS consolidados diferem das fontes originais');
 for(const name of bundledSources)assert.ok(!live.includes('href="'+name),'CSS importado duplicadamente: '+name);
-assert.equal(css[css.length-4],'assets/v298_ui_bundle.css?v=298-1');
+const legacyBundle='assets/v298_ui_bundle.css?v=298-1';
+assert.ok(css.includes(legacyBundle),'Bundle V298 ausente');
+assert.ok(css.indexOf(legacyBundle)<css.indexOf(budget.last),'Bundle V298 carregado depois do último CSS aprovado');
 assert.equal(styles(read('v298.html')).length,16,'V298 histórica modificada');
 assert.equal(styles(read('v297.html')).length,29,'Rollback V297 alterado');
 console.log('V298_BUNDLE_PASS: 15 folhas reproduzidas, 29 → 16 CSS, rollback intacto.');
