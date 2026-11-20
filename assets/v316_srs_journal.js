@@ -10,7 +10,7 @@ const RATINGS=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32});
 let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='';
 const $=id=>document.getElementById(id);
 const token=()=>window.BM239DriveGlobal?.writeToken?.()||'';
-const localDate=(d=new Date())=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);
+const localDate=(d=new Date())=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day};
 const addDays=(date,n)=>{const x=new Date(date+'T12:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)};
 const validId=id=>/^CARD-\d{4,}$/.test(id||'');
 const validRating=v=>Object.prototype.hasOwnProperty.call(RATINGS,v);
@@ -124,7 +124,7 @@ async function record(id,rating){
   const res=await progress(fetch(UPLOAD,{method:'POST',headers:{
    Authorization:'Bearer '+auth,'Content-Type':'multipart/related; boundary='+boundary
   },body,cache:'no-store'}),'salvamento da avaliação SRS');
-  if(!res.ok)throw Error('Drive HTTP '+res.status+' ao registrar avaliação');
+  if(!res.ok){if([400,401,403,404,413].includes(res.status)){submitted=false;throw Error('Permissão ou requisição rejeitada pelo Drive (HTTP '+res.status+')')}throw Error('Drive HTTP '+res.status+' ao registrar avaliação');}
   submitted=true;
   const created=await res.json();
   if(!/^[\w-]{15,}$/.test(created.id||''))throw Error('Drive não retornou um ID de arquivo válido');
@@ -137,8 +137,8 @@ async function record(id,rating){
   return {...confirmed,fileId:created.id};
  }catch(e){
   // Se a rede caiu após enviar, não gerar outra avaliação que duplicaria a tentativa.
-  uncertain=true;lastError=e.message;
-  throw Error('Registro não confirmado: '+e.message+'. Não clique novamente; confira o arquivo no Drive.');
+  uncertain=submitted||!/Drive HTTP (400|401|403|404|413)|Permissão ou requisição rejeitada/.test(e.message);lastError=e.message;
+  throw Error('Registro não confirmado: '+e.message+(uncertain?'. Não clique novamente; confira o arquivo no Drive.':'. Reautorize o Drive e tente novamente.'));
  }finally{working=false;updateStatus()}
 }
 function build(){
