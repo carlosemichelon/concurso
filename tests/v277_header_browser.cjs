@@ -15,6 +15,7 @@ const expectedVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).
    page.on('response',r=>{if(r.url().includes('v277_header_compiled.css'))requests.push({status:r.status(),url:r.url()})});
    await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
    await page.locator('header .brand').waitFor();
+   await page.waitForFunction(()=>window.BM309MobileTabs?.ready,{timeout:15000});
    const state=await page.evaluate(()=>{
     const head=document.querySelector('body>header'),nav=head?.querySelector('nav');
     const drive=document.getElementById('bm239-drive-action'),details=document.getElementById('bm239-sync-details');
@@ -25,6 +26,8 @@ const expectedVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).
      cssLinks:document.querySelectorAll('link[rel="stylesheet"]').length,
      headerVisible:!!head&&head.getBoundingClientRect().height>0,
      navVisible:!!nav&&nav.getBoundingClientRect().height>0,
+     menuVisible:!!document.getElementById('bm309-mobile-tabs-toggle')&&getComputedStyle(document.getElementById('bm309-mobile-tabs-toggle')).display!=='none',
+     navCollapsed:!!nav?.hidden,
      actionsPresent:!!drive&&!!details,
      driveDisplay:computed(drive)?.display,detailsDisplay:computed(details)?.display,
      bodyScrollWidth:document.documentElement.scrollWidth
@@ -36,7 +39,7 @@ const expectedVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).
    assert.equal(state.cssLinks,expectedCss,'Orçamento CSS divergente da versão '+expectedVersion);
    assert.ok(state.compiled,'Bundle CSS não entrou na CSSOM');
    assert.ok(requests.some(x=>x.status===200),'Arquivo CSS não retornou HTTP 200');
-   assert.ok(state.headerVisible&&state.navVisible&&state.actionsPresent,'Layout não montou');
+   assert.ok(state.headerVisible&&state.actionsPresent&&(size.width<=620?(state.menuVisible&&state.navCollapsed):state.navVisible),'Layout de cabeçalho/menu não montou: '+JSON.stringify(state));
    assert.notEqual(state.driveDisplay,'none');
    assert.notEqual(state.detailsDisplay,'none');
    await page.close();
