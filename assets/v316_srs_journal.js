@@ -8,6 +8,7 @@ const UPLOAD='https://www.googleapis.com/upload/drive/v3/files?uploadType=multip
 const PREFIX='BM_SRS_EVENT_V001_';
 const RATINGS=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32});
 let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='';
+const uncertainIds=new Set();
 const $=id=>document.getElementById(id);
 const token=()=>window.BM239DriveGlobal?.writeToken?.()||'';
 const localDate=(d=new Date())=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day};
@@ -137,7 +138,7 @@ async function record(id,rating){
   return {...confirmed,fileId:created.id};
  }catch(e){
   // Se a rede caiu após enviar, não gerar outra avaliação que duplicaria a tentativa.
-  uncertain=submitted||!/Drive HTTP (400|401|403|404|413)|Permissão ou requisição rejeitada/.test(e.message);lastError=e.message;
+  uncertain=submitted||!/Drive HTTP (400|401|403|404|413)|Permissão ou requisição rejeitada/.test(e.message);if(uncertain)uncertainIds.add(id);lastError=e.message;
   throw Error('Registro não confirmado: '+e.message+(uncertain?'. Não clique novamente; confira o arquivo no Drive.':'. Reautorize o Drive e tente novamente.'));
  }finally{working=false;updateStatus()}
 }
@@ -175,7 +176,7 @@ function build(){
   const id=window.BancoMestreVisualizarCardV050?.currentId;
   const isVisible=!overlay.hidden&&!answer.hidden&&validId(id);
   if(currentKey!==id){
-   currentKey=id;uncertain=false;
+   currentKey=id;uncertain=uncertainIds.has(id);
    controls.querySelectorAll('button').forEach(b=>b.disabled=false);
   }
   box.hidden=!isVisible;updateStatus();
