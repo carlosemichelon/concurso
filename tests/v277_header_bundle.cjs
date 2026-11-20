@@ -41,7 +41,8 @@ const approved={
   V304:{css:19,js:152,last:'assets/v304_pdf_ui.css?v=304-1'},
   V305:{css:20,js:153,last:'assets/v305_cards_clarity.css?v=305-1'},
   V306:{css:21,js:155,last:'assets/v306_card_media.css?v=306-1'},
-  V307:{css:22,js:156,last:'assets/v307_card_layout.css?v=307-1'}
+  V307:{css:22,js:156,last:'assets/v307_card_layout.css?v=307-1'},
+  V308:{css:23,js:156,last:'assets/v308_mobile_header.css?v=308-1'}
 };
 const budget=approved[manifest.version];
 assert.ok(budget,'Versão '+manifest.version+' ainda não auditada neste teste');
