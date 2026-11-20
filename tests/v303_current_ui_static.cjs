@@ -27,7 +27,7 @@ for(const t of [
  'assets/v304_private_compare_only.js?v=304-1',
  'assets/v304_pdf_ui.js?v=304-1',
  'assets/v305_card_reader.js?v=305-1',
- 'assets/v305_cards_clarity.js?v=305-1',
+ 'assets/v305_cards_clarity.js?v=305-2',
  'assets/v300_lacunas_ui.js?v=300-1',
  'assets/v303_unified_filters.js?v=303-1',
  'assets/v303_compact_bibliotecas.js?v=303-1',
