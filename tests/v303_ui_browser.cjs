@@ -48,7 +48,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
       detailsClosed:details?!details.open:true,hidden:advanced?rect(advanced).height===0:true,
       panelDisplay:getComputedStyle(panel).display};
     },{tab,toolbar,mainId,advancedId});
-    assert.equal(metrics.version,'V307');assert.ok(metrics.mainVisible,'Busca oculta: '+tab);
+    assert.equal(metrics.version,'V308');assert.ok(metrics.mainVisible,'Busca oculta: '+tab);
     assert.equal(metrics.primaryCount,2,'Deve haver busca e um seletor principal em '+tab);
     assert.ok(metrics.barX>=metrics.panelX-2&&metrics.barX+metrics.barW<=metrics.panelX+metrics.panelW+2,'Barra fora do painel: '+tab+' '+JSON.stringify(metrics));
     assert.equal(metrics.pageWidth,metrics.viewport,'Rolagem horizontal: '+tab);
