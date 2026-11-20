@@ -31,14 +31,16 @@ const expectedVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).
     };
    });
    assert.equal(state.version,expectedVersion);
-   assert.equal(state.cssLinks,18,'A V303 deve carregar 18 folhas CSS');
+   const expectedCss={V303:18,V304:19,V305:20}[expectedVersion];
+   assert.ok(expectedCss,'Versão não auditada: '+expectedVersion);
+   assert.equal(state.cssLinks,expectedCss,'Orçamento CSS divergente da versão '+expectedVersion);
    assert.ok(state.compiled,'Bundle CSS não entrou na CSSOM');
    assert.ok(requests.some(x=>x.status===200),'Arquivo CSS não retornou HTTP 200');
    assert.ok(state.headerVisible&&state.navVisible&&state.actionsPresent,'Layout não montou');
    assert.notEqual(state.driveDisplay,'none');
    assert.notEqual(state.detailsDisplay,'none');
    await page.close();
-   console.log('V303_HEADER_BROWSER_PASS '+size.width+'x'+size.height+': CSS pronto, cabeçalho presente');
+   console.log(expectedVersion+'_HEADER_BROWSER_PASS '+size.width+'x'+size.height+': CSS pronto, cabeçalho presente');
   }
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});
