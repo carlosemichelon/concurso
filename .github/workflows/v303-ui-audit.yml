@@ -15,6 +15,15 @@ jobs:
         run: |
           npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.55.1
           npx playwright install --with-deps chromium
+      - name: Conferir integridade antes de abrir o navegador
+        run: |
+          node tests/v263_static_integrity.cjs
+          node tests/v277_header_bundle.cjs
+          node tests/v300_ui_static.cjs
+          node tests/v303_current_ui_static.cjs
+          node --check assets/v303_unified_filters.js
+          node --check assets/v303_compact_bibliotecas.js
+          node --check assets/v303_toolbar_reorder.js
       - name: Capturar apresentação em desktop e celular
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/bm303.log 2>&1 &

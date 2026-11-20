@@ -8,7 +8,7 @@ body>main #pdfs>.panel{
  box-sizing:border-box!important
 }
 body>main #pdfs>.panel>*{min-width:0!important;max-width:100%!important}
-body>main #pdfs>.panel>h2{order:-10!important;width:100%!important;font:700 18px/1.35 "Segoe UI",Arial,sans-serif!important;
+body>main #pdfs>.panel>h2{width:100%!important;font:700 18px/1.35 "Segoe UI",Arial,sans-serif!important;
  color:#142536!important;margin:0!important}
 body>main #pdfs>.panel>p.intro{width:100%!important;margin:0!important}
 #assuntos .bm303-toolbar,#pdfs .bm303-toolbar,#cartoes .bm303-toolbar,
@@ -99,6 +99,7 @@ body>main #pdfs>.panel>p.intro{width:100%!important;margin:0!important}
 }
 /* PDF: a barra ocupa toda a largura e a lista volta ao fluxo vertical. */
 #pdfs #bm303-pdf-toolbar{order:-9!important;margin:4px 0 7px!important}
+#pdfs #bm303-pdf-toolbar>h2{order:-100!important;display:block!important;width:100%!important;margin:0 0 4px!important;padding:0!important;color:#152b39!important;font:750 19px/1.35 "Segoe UI",Arial,sans-serif!important}
 #pdfs #bm303-pdf-toolbar .bm303-more-body #bm210PdfToolbar{
  width:100%!important;max-width:100%!important;min-height:0!important;
  margin:0!important;padding:6px!important;border:1px solid #e0e9f0!important;

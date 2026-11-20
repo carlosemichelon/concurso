@@ -76,6 +76,8 @@ function mountPdf(){
  const oldbar=$('bm210PdfToolbar');
  if(!search||!select||!oldbar)return false;
  const t=toolbar(root,'bm303-pdf-toolbar','Pesquisar e consultar arquivos PDF'),x=parts(t.id);
+ // H2 acompanha a barra: o compositor legado reordena filhos do painel com CSS.
+ const title=own(root,':scope>h2');if(title)t.prepend(title);
  put(x.main,field(search,'Pesquisar PDF','bm303-search'));
  put(x.main,field(select,'Grupo','bm303-group'));
  put(x.main,$('pdfCount'));

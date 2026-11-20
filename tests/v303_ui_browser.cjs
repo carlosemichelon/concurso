@@ -49,6 +49,14 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
     assert.ok(metrics.detailsClosed&&metrics.hidden,'Filtros secundários aparecem com detalhe fechado: '+tab);
     if(tab==='pdfs'){
      assert.equal(metrics.panelDisplay,'flex','PDFs ainda dispostos em colunas conflitantes');
+     const h2=page.locator('#bm303-pdf-toolbar>h2');
+     assert.equal(await h2.count(),1,'Título PDFs duplicado ou fora da barra');
+     const positions=await page.evaluate(()=>{
+      const h=document.querySelector('#bm303-pdf-toolbar>h2').getBoundingClientRect(),
+       f=document.querySelector('#bm303-pdf-toolbar .bm303-primary').getBoundingClientRect();
+      return {hTop:h.top,hBottom:h.bottom,searchTop:f.top};
+     });
+     assert.ok(positions.hBottom<=positions.searchTop+2,'Título PDFs ainda abaixo da pesquisa: '+JSON.stringify(positions));
      assert.ok(await page.locator('#bm303-pdf-toolbar .bm303-actions #driveConnectV038').count());
      const next=page.locator('#bm303-pdf-toolbar .bm303-more > summary');
      await next.click();assert.ok(await page.locator('#pdfHidden').isVisible());
