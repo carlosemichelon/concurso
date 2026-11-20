@@ -1,3 +1,9 @@
+
+
+## Atualização 20/11/2026 — V325
+
+Fonte publicada: gh-pages, arquivo v325.html e index.html; manifesto assets/version.json. Base V173 privada verificada por SHA-256; transportados somente 3 cartões aprovados CARD-1535 a CARD-1537, 35 explicações, 40 vínculos e 681 registros de 11 módulos (678 diferentes + 3 novos), com 28 incompletos preservados para auditoria. Dados SRS, lacunas, mídias privadas e propostas não aprovadas permaneceram fora do GitHub. V324 foi preservada para rollback. Histórico anterior deste documento permanece abaixo.
+
 # V324 — Painel lateral único para pesquisa e leitura de cartões (20/11/2026)
 
 - **Nova navegação:** a lateral esquerda alterna entre a lista de pesquisa e a leitura completa do cartão selecionado. Os dois blocos deixam de aparecer empilhados.
