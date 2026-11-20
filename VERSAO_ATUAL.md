@@ -1,3 +1,15 @@
+# V310 — Taxonomia visual auditada de imagens do Atlas (20/11/2026)
+
+- **Escopo auditado:** 237 arquivos do catálogo público V211; antes havia 93 classificados e 144 sem tema. O novo índice `assets/v310_image_taxonomy.json` registra 144 itens (104 arquivos vinculados a 66 conteúdos visuais distintos inspecionados em originais/prévias, 40 com nome e pasta descritivos). Total **237/237 com classificação temática no catálogo V211**. Não confundir esse total com as **307 imagens relatadas em sessão privada do Google Drive**, que podem ter outro recorte ou novos originais.
+- **Evidência rastreável:** cada linha nova preserva o ID original do Drive já publicado, nome/pasta de origem, grupo, tema, subtema, título, base de evidência, confiança e situação. Uma classificação por nome permanece sinalizada como `tema_indicado_pelo_nome_aguarda_inspecao`; não equivale à verificação visual nem à validação técnica da norma.
+- **Categorias:** Engenharia Civil — Estruturas, Hidráulica e Saneamento, Geotecnia, Materiais e Segurança do Trabalho. Foram identificados, entre outros, Mohr, treliças, torção, flechas, esgoto sanitário/NBR 8160, ventilação, solos, Los Angeles/agregados e NR-7/NR-17.
+- **Preservação:** as 93 classificações anteriores do V211/V180 não foram alteradas. O motor `assets/v218_image_metadata.js` carrega o novo índice apenas para arquivos anteriormente sem assunto, conserva classificação de maior prioridade e mantém os vínculos documentados com flashcards. **Não foram criados cartões ou associações a cartões por similaridade temática.** SRS, 11 módulos, PDFs, grifos, autorizações e originais Drive intactos.
+- **Busca e UI:** biblioteca de imagens usa o mesmo motor de metadados do Drive; novo catálogo é lido a cada sessão e passa a classificar originais cujo Drive ID esteja no V211. A nova classificação funciona no celular e computador, sem sincronização privada de escrita, mas é necessário autenticar para listar os originais Drive no portal.
+- **Reversão:** `v309.html` e todo o material histórico preservados. Página atual `v310.html`; CSS e menu V309 mantidos.
+- **Validação:** `tests/v310_image_taxonomy.cjs` checa em execução cobertura, preservação de vínculos e de temas anteriores, 66 conteúdos/104 arquivos visuais e 40 por nome; CI de layout e não-regressão ainda exigido para homologação. A sincronização real dos demais originais privados do Drive não foi acionada nesta alteração.
+
+---
+
 # V309 — Abas recolhíveis no celular e conferência do Calendário (20/11/2026)
 
 - **Cabeçalho móvel:** menu **Abas** fechado por padrão até 620 px, com seção atual identificada; toque abre todas as abas existentes, escolha de aba fecha novamente. Acessibilidade: `aria-expanded`, `aria-controls`, Escape recolhe; desktop permanece inalterado. Todos os botões e seus eventos originais permanecem no DOM.
