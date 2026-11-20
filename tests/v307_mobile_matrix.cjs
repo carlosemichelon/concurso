@@ -97,7 +97,10 @@ fs.mkdirSync(output,{recursive:true});
    };
    const results=[];
    results.push(await check('assuntos'));
-   await page.waitForFunction(()=>document.querySelectorAll('#areaRows .topicCard').length>=5);
+   await page.waitForFunction(()=>{
+    const cards=[...document.querySelectorAll('#areaRows .topicCard')].slice(0,5);
+    return cards.length===5&&cards.every(c=>getComputedStyle(c,'::before').display==='none'&&!c.hasAttribute('data-bm096-icon'));
+   },null,{timeout:15000});
    const areas=await page.evaluate(()=>{
     const list=[...document.querySelectorAll('#areaRows .topicCard')].slice(0,5);
     const b=list.map(x=>x.getBoundingClientRect());
