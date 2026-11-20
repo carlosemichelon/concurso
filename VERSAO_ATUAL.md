@@ -1,3 +1,18 @@
+# V305 — Cartões relacionados, contagem de IDs, assuntos e imagens (20/11/2026)
+
+- **Frente dos cartões:** exibir subassunto quando cadastrado e cartões relacionados na parte inferior **antes do verso**, com links diretos. Até quatro vínculos inicialmente e expansão discreta para os demais; somente vínculos reais presentes em campos de IDs ou módulo 8 de cobertura cruzada, nunca somente por grupo/assunto. A fonte privada nunca é publicada pelo script.
+- **Leitor:** a lateral **Outros cartões** abre recolhida por padrão a cada cartão; mantém comando explícito de reabrir, anteriores/próximos, resposta oculta e 11 módulos completos.
+- **Ordenação:** compositor antigo agrupava cartões por assunto após a ordenação e fazia a grade começar por IDs como 1529/1524. Com filtro geral e ordenação por ID ativa, os nós originais são apresentados globalmente por ID, preservando listeners e sem reescrever os cartões. Novos primeiro = maior ID público disponível.
+- **Contagem:** o catálogo público V304/V305 agrega 1.533 cartões canônicos (1.516 ativos, 17 inativos), mais 22 fichas operacionais de Ijuí; total carregado 1.555 e ativos/operacionais 1.538. “Todos” e filtros dependem também de ocultações locais, seleção, ordenação e paginação. A aba agora distingue quantos são de fato exibidos versus total selecionado.
+- **Fontes diferentes:** a fonte privada V173 no Drive tem 1.536 cartões canônicos (1519 ativos), inclui **CARD-1535, CARD-1536 e CARD-1537** que ainda não constam do catálogo público e reserva o **CARD-1499**; isso não é falha de contagem nem autorização para publicar materiais privados. Não houve alteração do Drive ou dos cartões.
+- **Assuntos:** ocultados os ícones grandes decorativos nos cartões das disciplinas; nomes e números continuam visíveis.
+- **Imagens:** atalho “Imagens sem classificação” aplica a seleção existente do assunto geral pendente sobre registros efetivamente lidos do Drive. A contagem de 214 é observação do navegador do estudante, não total revalidado nesta publicação. Não inferir vínculos imagem–cartão sem evidência, nem gravar classificação automaticamente.
+- **Imagem do enunciado:** a Metodologia Mestre v014 já a reconhece como “imagem da questão” e “imagem do cartão” simultaneamente quando necessária. Guardar original, referência, ID, função, hash quando disponível e verificar vínculo, evitando duplicatas; não exigir nova regra para isso.
+- **Proteção:** V304 preservada para reversão, assim como IDs, respostas literais, 11 módulos, SRS, PDF, grifos, OAuth e originais do Drive.
+- **Testes:** avaliação estática + integração pública automatizada; inspeção visual e OAuth reais no dispositivo do estudante ainda devem ser conferidos antes de homologação total.
+
+---
+
 # V304 — Flashcards, PDFs e sincronização Drive a cada 3 horas (19/11/2026)
 
 - **SHA-256 confirmado no Drive:** ponteiro operacional privado **V010** criado com SHA-256 calculado dos bytes reais da base privada V173; leitura de retorno confirmou ID da fonte, 1.536 cartões, 1.520 registros SRS e assinatura. O V009 original foi preservado; a verificação autenticada no navegador ainda precisa ser exercitada.
