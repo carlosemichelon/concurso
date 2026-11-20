@@ -33,7 +33,8 @@ function rows(){
  const result=[];
  for(const [id,list] of grouped){
   list.sort((a,b)=>a.at_utc.localeCompare(b.at_utc)||a.event_id.localeCompare(b.event_id));
-  const formalEasy=new Set(list.filter(x=>x.rating==='Fácil').map(x=>x.event_id)).size;
+  const baseline=Math.max(0,...list.map(x=>Number(x.baseline_easy?.count)||0));
+  const formalEasy=baseline+new Set(list.filter(x=>x.rating==='Fácil').map(x=>x.event_id)).size;
   const latest=list[list.length-1],consolidated=latest.rating==='Fácil'&&formalEasy>=2;
   const intervalDays=consolidated?64:RATINGS[latest.rating];
   result.push({id,due:addDays(latest.date_local,intervalDays),rating:latest.rating,
@@ -108,8 +109,18 @@ async function record(id,rating){
   event_id:crypto.randomUUID(),id,rating,at_utc:now.toISOString(),date_local:date,
   timezone:'America/Sao_Paulo',kind:'revisao_formal',
   validation:'Avaliação explícita selecionada após revelar o verso; sem comprovação automática da resposta'};
- const previous=events.filter(x=>x.id===id&&x.rating==='Fácil');
- const easyCount=new Set(previous.map(x=>x.event_id)).size+(rating==='Fácil'?1:0);
+ const previous=events.filter(x=>x.id===id);
+ const baselineFromJournal=Math.max(0,...previous.map(x=>Number(x.baseline_easy?.count)||0));
+ const sourceRecord=window.BM141Calendar?.records?.().find(x=>x.id===id);
+ const provenPrior=sourceRecord?.source==='Drive privado — regra V311'&&
+  sourceRecord?.rating==='Fácil'&&sourceRecord?.easyFormalCount>=1&&
+  sourceRecord?.lastReview&&sourceRecord.lastReview<date;
+ const baseline=Math.max(baselineFromJournal,provenPrior?1:0);
+ if(baseline)event.baseline_easy={count:baseline,
+  proof:provenPrior?'Avaliação Fácil do snapshot privado com data anterior':'Prova de revisão anterior preservada em evento já confirmado',
+  date:provenPrior?sourceRecord.lastReview:(previous[0]?.baseline_easy?.date||null)};
+ const easyCount=baseline+new Set(previous.filter(x=>x.rating==='Fácil').map(x=>x.event_id)).size+
+  (rating==='Fácil'?1:0);
  event.interval_days=(rating==='Fácil'&&easyCount>=2)?64:RATINGS[rating];
  event.due=addDays(date,event.interval_days);
  const filename=PREFIX+id+'_'+event.event_id+'.json';
