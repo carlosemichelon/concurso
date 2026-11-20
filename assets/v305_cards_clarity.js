@@ -109,8 +109,34 @@ function decorateCard(article){
  }
  if(io)io.observe(article);else void decorateRecord(article,id);
 }
+
+function keepIdOrder(){
+ const root=$('cardRows'),sorting=window.BM281CardSort;
+ if(!root||!sorting||!['asc','desc'].includes(sorting.order))return;
+ // O compositor legado agrupa por assunto depois de ordenar, quebrando a ordem global.
+ const children=root.querySelectorAll(':scope > details.bm128CardsGroup,:scope > details.v036-card-group');
+ if(!children.length)return;
+ const selection=window.BM152FlashFilters?.selection||{};
+ if(Object.values(selection).some(x=>x&&x!=='all'))return;
+ if(($('cardSearch')?.value||'').trim()||$('cardTopicFilter')?.value!=='all')return;
+ if(($('bm128CardGeneral')?.value||'all')!=='all')return;
+ if(typeof focusGroup!=='undefined'&&focusGroup)return;
+ const items=[...root.querySelectorAll('article.card')];
+ const numeric=a=>{const m=/^CARD-(\d+)$/.exec(a.querySelector(':scope > .tag')?.textContent?.trim()||'');return m?Number(m[1]):null};
+ const sign=sorting.order==='asc'?1:-1;
+ items.sort((a,b)=>{
+  const x=numeric(a),y=numeric(b);
+  if(x===null)return y===null?0:1;
+  if(y===null)return -1;
+  return sign*(x-y);
+ });
+ // Move os nós originais, sem recriar cartão nem perder listeners/estados.
+ root.replaceChildren(...items);root.classList.add('bm191-all-grid');
+}
+
 function decorateCards(){
  const root=$('cardRows');if(!root)return;
+ keepIdOrder();
  for(const node of root.querySelectorAll('article.card'))decorateCard(node);
  refreshCounts();
 }
@@ -128,7 +154,10 @@ function refreshCounts(){
   const hidden=new Set(JSON.parse(localStorage.getItem('BM026_EXCLUDE_CARD')||'[]'));
   locallyHidden=all.filter(c=>hidden.has(c.id)).length;
  }catch(_){}
- result.textContent='Base carregada: '+canonical.length.toLocaleString('pt-BR')+' canônicos + '+provisional.length.toLocaleString('pt-BR')+' operacionais · '+inactive+' inativos'+(locallyHidden?' · '+locallyHidden+' ocultos no navegador':'')+' · seleção acima varia com os filtros';
+ const rendered=$('cardRows')?.querySelectorAll('article.card').length||0;
+ const match=String(count.textContent||'').match(/^(\d[\d.]*)\s+cart/);
+ const selected=match?Number(match[1].replace(/\./g,'')):null;
+ result.textContent=(selected!==null?'Exibidos '+rendered.toLocaleString('pt-BR')+' de '+selected.toLocaleString('pt-BR')+' na lista · ':'')+'Base: '+canonical.length.toLocaleString('pt-BR')+' canônicos + '+provisional.length.toLocaleString('pt-BR')+' operacionais · '+inactive+' inativos'+(locallyHidden?' · '+locallyHidden+' ocultos no navegador':'')+' · filtros podem reduzir a seleção';
 }
 function reader(){
  const root=$('bmCardPeekV050'),title=$('bmCardPeekTitleV050');
