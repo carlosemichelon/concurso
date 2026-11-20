@@ -179,6 +179,7 @@ function makeLogPanel(){
   setTimeout(()=>URL.revokeObjectURL(url),1500);
  });
  button('bm290-log-clear','Limpar logs',()=>{
+  if(busy)return;
   logRuns=[];logCurrent=null;logSelected=null;syncLogChooser();
  });
  details.append(bar);
