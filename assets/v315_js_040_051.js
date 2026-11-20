@@ -840,24 +840,25 @@ async function init(){
   },error_callback:e=>{lastSyncError=String(e?.message||e?.type||e?.error||'janela de acesso bloqueada');msg('Falha ao autorizar o Drive: '+lastSyncError+'. Se aparecer origin_mismatch, cadastre https://carlosemichelon.github.io no Google Cloud.',true);}});
   $('bm084-connect').disabled=false;
   document.addEventListener('bm-media-drive-authorized',()=>{
-   if(validToken()&&!checking&&(!lastGoodAt||!photos.length)){$('bm084-refresh').disabled=false;const button=$('bm084-connect');if(button)button.textContent='Drive conectado';void refreshList(false)}
+   if(validToken()&&!checking){$('bm084-refresh').disabled=false;const button=$('bm084-connect');if(button)button.textContent='Drive conectado';void refreshList(false)}
   });
   if(validToken())void refreshList(false);
   else msg('Conecte o Drive uma vez ao abrir o site para consultar imagens e PDFs sem autorizar cada arquivo.');
-  // V326: sem buscar novamente o Atlas por foco, retorno à aba ou intervalo.
-  // Expiração remove apenas prévias privadas em memória, sem consultar o Drive.
-  const expirePrivatePreviews=()=>{
-   if(validToken()||!(access||photos.length||blobs.size))return;
+  const resume=()=>{if(!document.hidden&&validToken()&&Date.now()-lastAttemptAt>12000)void refreshList(false)};
+  document.addEventListener('visibilitychange',resume);
+  window.addEventListener('focus',resume);
+  window.addEventListener('online',resume);
+  setInterval(()=>{
+   if(validToken()){if(!document.hidden)void refreshList(false);return;}
+   if(access||photos.length||blobs.size){
    access='';expires=0;
    for(const data of blobs.values())URL.revokeObjectURL(data.url);
-   blobs.clear();photos=[];alreadyPublic=0;lastGoodAt=0;
+   blobs.clear();photos=[];alreadyPublic=0;
    if($('bm084-refresh'))$('bm084-refresh').disabled=true;
    render();
    msg('Sessão expirada. Pré-visualizações privadas foram retiradas desta página; reconecte para consultar o Drive.',true);
-  };
-  window.addEventListener('focus',expirePrivatePreviews);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)expirePrivatePreviews()});
-  setInterval(expirePrivatePreviews,INTERVAL);
+  }
+  },INTERVAL);
  }catch(e){msg('Sincronização indisponível: '+e.message,true);}
 }
 async function authorized(url){
