@@ -3,6 +3,44 @@
 'use strict';
 if(window.BM240NativeStudy)return;
 let installing=null;
+function installMobileRegisterCollapse(root){
+ const form=root.getElementById('sessionForm');
+ const panel=form?.closest('.panel');
+ const heading=panel?.querySelector('h2');
+ if(!form||!heading||root.getElementById('bm311-manual-toggle'))return;
+ const style=document.createElement('style');
+ style.textContent=`
+ @media(max-width:760px){
+  #registro #bm311-manual-toggle{display:block;width:100%;min-height:42px;margin:9px 0 2px;
+   text-align:left;border:1px solid #b8d4d1;border-radius:9px;padding:10px 12px;
+   font-weight:750;color:#185d63;background:#f1f8f7;touch-action:manipulation}
+  #registro .bm311-manual-closed #sessionForm{display:none!important}
+ }
+ @media(min-width:761px){#registro #bm311-manual-toggle{display:none!important}}
+ `;
+ root.append(style);
+ const toggle=document.createElement('button');
+ toggle.type='button';
+ toggle.id='bm311-manual-toggle';
+ toggle.setAttribute('aria-controls','sessionForm');
+ heading.after(toggle);
+ let expanded=false;
+ const media=window.matchMedia('(max-width:760px)');
+ const sync=()=>{
+  const closed=media.matches&&!expanded;
+  panel.classList.toggle('bm311-manual-closed',closed);
+  toggle.textContent=closed?'▾ Mostrar registro manual':'▴ Recolher registro manual';
+  toggle.setAttribute('aria-expanded',String(!closed));
+ };
+ toggle.addEventListener('click',()=>{expanded=!expanded;sync()});
+ // Editar uma sessão histórica abre o formulário antes de navegar até ele.
+ root.addEventListener('click',event=>{
+  if(event.target.closest('[data-edit-session]')){expanded=true;sync()}
+ },true);
+ if(media.addEventListener)media.addEventListener('change',sync);
+ else media.addListener(sync);
+ sync();
+}
 const mount=async()=>{
  const nav=document.querySelector('header nav[aria-label="Seções"]')||document.querySelector('header nav');
  const main=document.querySelector('main');
@@ -66,6 +104,7 @@ const mount=async()=>{
    document.head.append(script);
   });
   window.BM240ControlInit(root);
+  installMobileRegisterCollapse(root);
   window.BancoMestreIconsV096?.refresh?.();
   document.dispatchEvent(new CustomEvent('bm240-study-mounted'));
  }catch(e){
