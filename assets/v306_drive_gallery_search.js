@@ -316,7 +316,11 @@ function render(){
  const selectedStatus=$('bm218-status-filter')?.value||'all';
  const onlyFavorites=$('imageFavoriteV055')?.value==='favorites';
  const items=photos.filter(f=>{
-  const m=info(f);
+  const m=info(f),alias=aliases.get(f.id);
+  const hay=normalize([f.id,f.name,f.drivePath,idOf(f),alias?.imageId,alias?.title,...(alias?.cardIds||[]),...(alias?.questionRefs||[]),m.displayTitle,m.area,m.subject,m.subsubject,m.detail,m.description,m.note,...m.cards].join(' '));
+  // Um ID editorial completo tem precedência sobre filtros auxiliares recolhidos.
+  // Continua exigindo o arquivo original na lista autenticada do Drive.
+  if(mainQuery&&alias&&normalize(alias.imageId)===mainQuery)return !q||hay.includes(q);
   if(onlyFavorites)return false;
   if(selectedArea!=='all'&&m.area!==selectedArea)return false;
   if(selectedSubject!=='all'&&m.subject!==selectedSubject)return false;
@@ -324,8 +328,6 @@ function render(){
   if(selectedStatus==='pending'&&m.classified)return false;
   if(!legacyFilterMatch(m))return false;
   if(window.BM197MediaLinks?.matchesDrive?.(f)===false)return false;
-  const alias=aliases.get(f.id);
-  const hay=normalize([f.id,f.name,f.drivePath,idOf(f),alias?.imageId,alias?.title,...(alias?.cardIds||[]),...(alias?.questionRefs||[]),m.displayTitle,m.area,m.subject,m.subsubject,m.detail,m.description,m.note,...m.cards].join(' '));
   return hay.includes(q)&&hay.includes(mainQuery);
  });
  for(const file of items.slice(0,visible)){
