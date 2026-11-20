@@ -1,3 +1,15 @@
+## Atualização 20/11/2026 — V330
+
+Acesso: https://carlosemichelon.github.io/concurso/ (index.html) · snapshot: v330.html · rollback: v329.html.
+
+**CARD-1534**: resposta-modelo integrada em um único quadro, composta por **três parágrafos completos**, derivados dos critérios de recuperação, resposta, mecanismo, fórmulas e comparação (01, 02, 04, 05 e 06). Esta sequência foi escolhida por resultar em uma resposta didática lógica, não por impor cinco módulos fixos a outros cartões. Os parágrafos foram organizados com indicadores 01–03, espaçamento próprio, títulos de apoio, destaques seletivos e quebra de texto legível.
+
+**Quadro 06**: tabela nativa com dados técnicos (elemento, significado e grandeza/referência), **sem coluna de decisão**, complementada por informações numéricas das Tabelas 9.3/9.4. Equações apresentadas em MathML, preservando grandezas e unidades.
+
+**Resposta evolutiva integral**: inicia recolhida por padrão; ao expandir, disponibiliza os 11 módulos históricos completos e, em detalhe aninhado, o verso literal original. Não foram alterados os registros canônicos, fontes, imagens, links, aprovações, SRS nem dados privados. V329 (mineralogia e todos os módulos completos) preservada.
+
+Nova versão visual independente: `assets/v330_card1534_didactic.js` e `assets/v330_card1534_didactic.css`. Testes estáticos de sintaxe e referências: verificados; teste funcional real no navegador autenticado do usuário ainda pendente.
+
 ## Atualização 20/11/2026 — V328
 
 Acesso: https://carlosemichelon.github.io/concurso/ (index.html) · snapshot: v328.html · retorno: v327.html.
