@@ -96,6 +96,7 @@ function updateStatus(){
  lastError?'Não foi possível consultar o histórico: '+lastError:
  loaded?'Avaliações privadas disponíveis: '+events.length+' eventos / '+rows().length+' cartões.':
  'Drive autorizado. Consulte o histórico antes de registrar.';
+ const connect=$('bm316-srs-connect');if(connect)connect.hidden=Boolean(token());
  const btns=buttonPanel?.querySelectorAll('button[data-grade]')||[];
  btns.forEach(b=>b.disabled=working||uncertain||!token());
 }
@@ -179,9 +180,16 @@ function build(){
   });
   controls.append(b);
  }
+ const connect=document.createElement('button');connect.id='bm316-srs-connect';connect.type='button';
+ connect.textContent='Autorizar gravação no Drive';connect.style.cssText='font-size:12px;padding:7px 10px;margin-top:9px';
+ connect.addEventListener('click',()=>{
+  const main=$('bm239-drive-action');
+  if(!main){const el=$('bm316-srs-state');if(el)el.textContent='Conector do Drive indisponível nesta página.';return}
+  main.click();
+ });
  const state=document.createElement('p');state.id='bm316-srs-state';state.setAttribute('role','status');
  state.style.cssText='font-size:12px;line-height:1.5;margin:8px 0 0;color:#3b6268';
- box.append(title,intro,controls,state);answer.after(box);
+ box.append(title,intro,controls,connect,state);answer.after(box);
  buttonPanel=box;
  function update(){
   const id=window.BancoMestreVisualizarCardV050?.currentId;
