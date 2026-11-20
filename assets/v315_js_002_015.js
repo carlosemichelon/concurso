@@ -3103,7 +3103,7 @@ async function metadata(fileId,force=false){
  if(!ID.test(String(fileId||'')))throw Error('ID de arquivo inválido');
  const auth=token();if(!auth)throw Error('Conecte o Google Drive');
  const cached=checked.get(fileId);
- if(!force&&cached&&cached.expires>Date.now())return cached.value;
+ if(!force&&cached)return cached.value; // V326: cache por sessão, consulta nova só no botão manual
  if(pending.has(fileId))return pending.get(fileId);
  const job=(async()=>{
   const fields='id,mimeType,name,size,version,modifiedTime,md5Checksum,trashed';
