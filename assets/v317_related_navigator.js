@@ -12,7 +12,7 @@
   const e=document.createElement(t);if(cls)e.className=cls;
   if(txt!==undefined)e.textContent=String(txt);return e;
  };
- let overlay=null,aside=null,panel=null,title=null,answer=null,toolbar=null,search=null,list=null,preview=null,count=null,more=null,back=null,original=null,originalName=null;
+ let overlay=null,aside=null,panel=null,title=null,answer=null,toolbar=null,search=null,list=null,preview=null,count=null,more=null,back=null,original=null,originalName=null,headerReturn=null;
  let active='',rootId='',stack=[],selection='',scope='near',limit=35,lastIndexCount=0,refCache=new Map(),cardsIndex=new Map(),favorites=new Set(),observer=null,refreshPending=false;
  const api=()=>window.BancoMestreVisualizarCardV050;
  const card=id=>cardsIndex.get(id)||null;
@@ -68,6 +68,8 @@
  function updateButtons(){
   if(back)back.disabled=!stack.length;
   if(original){original.disabled=!rootId||active===rootId;original.title=rootId?'Voltar ao cartão '+rootId:'Nenhum cartão original nesta janela';}
+  if(headerReturn){headerReturn.hidden=!rootId||active===rootId;headerReturn.disabled=!rootId||active===rootId;
+   headerReturn.title=rootId?'Voltar ao cartão original '+rootId:'Nenhum cartão original';}
   if(originalName)originalName.textContent=rootId?'Origem: '+rootId+(active!==rootId?' · Atual: '+active:''):'Selecione um cartão';
  }
  function showPreview(id){
@@ -166,6 +168,14 @@
   aside=overlay.querySelector('.bm165-related');
   panel=overlay.querySelector('.bm165-panel');
   if(!aside||!panel)return false;
+  const headNav=overlay.querySelector('.bm165-header-nav');
+  if(headNav&&!headNav.querySelector('.bm317-header-return')){
+   headerReturn=make('button','bm317-header-return','↶ Original');headerReturn.type='button';
+   headerReturn.setAttribute('aria-label','Voltar diretamente ao cartão original');
+   headerReturn.addEventListener('click',toOriginal);
+   const closer=headNav.querySelector('.bm-v050-peek-close');
+   headNav.insertBefore(headerReturn,closer||headNav.firstChild);
+  }
   const toggle=overlay.querySelector('.bm165-toggle-sidebar');
   if(toggle){const text=[...toggle.childNodes].find(n=>n.nodeType===3);if(text)text.textContent=' Pesquisa / prévia';
    toggle.title='Mostrar pesquisa e prévia de cartões';}
