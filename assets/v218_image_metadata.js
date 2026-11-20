@@ -1,12 +1,14 @@
-/* Banco Mestre V218 — titulos legiveis e classificacao documental de imagens.
- * Le apenas indices TEXTUAIS ja publicados; os bytes originais sempre vem do Drive.
- * Sem inferir temas de hashes, pastas ou imagens nao auditadas; sem escrita no Drive. */
+/* Banco Mestre V310 (motor V218): classificação temática aditiva.
+ * Lê V211+V180 históricos e V310 (66 conteúdos inspecionados visualmente,
+ * mais 40 classificações por nome descritivo). Imagens originais só no Drive.
+ * Sem novas associações a cartão, sem perda de dados locais, sem gravação no Drive. */
 (function(){
 'use strict';
 if(window.BM218ImageMetadata)return;
 const CATALOGS=[
  {url:'assets/v211_published_images.json?v=211',schema:'BancoMestrePublishedImagesV211',key:'V211'},
- {url:'assets/v180_native_image_additions.json?v=180',schema:'BancoMestreNativeImageAdditionsV180',key:'V180'}
+ {url:'assets/v180_native_image_additions.json?v=180',schema:'BancoMestreNativeImageAdditionsV180',key:'V180'},
+ {url:'assets/v310_image_taxonomy.json?v=310-1',schema:'BancoMestreImageTaxonomyV310',key:'V310'}
 ];
 const GROUPS=Object.freeze({
  eng_seguranca:'Engenharia Civil · Segurança do Trabalho',
@@ -77,6 +79,25 @@ function fromV180(rec,previous){
   origin:'V180 + V211'
  };
 }
+function fromV310(rec,previous){
+ const prior=previous||{};
+ // Nunca rebaixar classificação existente, nem mudar vínculos já documentados.
+ if(str(prior.subject))return prior;
+ if(!str(rec.topic)||!GROUPS[str(rec.group)])return prior;
+ const label=str(rec.title);
+ return {
+  ...prior,
+  title:label&&!opaque(label)?label:prior.title||'',
+  area:GROUPS[str(rec.group)],
+  subject:str(rec.topic),
+  subsubject:str(rec.subtopic),
+  group:str(rec.group),
+  cards:prior.cards||[],
+  status:str(rec.sourceStatus),
+  basis:str(rec.classificationBasis),
+  origin:'V310 — '+(str(rec.classificationBasis).startsWith('inspecao_visual')?'inspeção visual':'nome e pasta')
+ };
+}
 async function load(){
  if(promise)return promise;
  promise=(async()=>{
@@ -86,6 +107,8 @@ async function load(){
    if(!r.ok)throw Error(c.key+' HTTP '+r.status);
    const data=await r.json();
    if(!Array.isArray(data.records)||data.records.length<70)throw Error(c.key+' sem registros suficientes');
+   if(c.key==='V310'&&(data.schema!=='BancoMestreImageTaxonomyV310'||data.records.length!==144))
+    throw Error('V310: esquema ou contagem de auditoria divergente');
    return data.records;
   }));
   for(let k=0;k<out.length;k++){
@@ -95,7 +118,9 @@ async function load(){
     const id=str(rec.driveFileId);
     if(!ID.test(id))continue;
     if(k===0)next.set(id,fromV211(rec));
-    else next.set(id,fromV180(rec,next.get(id)));
+    else if(k===1)next.set(id,fromV180(rec,next.get(id)));
+    else if(next.has(id))next.set(id,fromV310(rec,next.get(id)));
+    // IDs não presentes no catálogo histórico precisam de auditoria antes da inserção.
    }
   }
   if(!next.size)throw Error('Indices de titulos nao puderam ser lidos');
