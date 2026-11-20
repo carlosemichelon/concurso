@@ -57,6 +57,17 @@
   const lastDate=date(rec.grade)||date(rec.last_date)||date(rec.last_review_at)||date(rec.review_date);
   const attempts=Math.max(0,Number(rec.attempts||rec.tentativas||0)||0);
   const originalDue=date(rec.next_review||rec.proxima_revisao);
+  const references=Array.isArray(rec.reference_events)?rec.reference_events:
+   Array.isArray(rec.references)?rec.references:[];
+  const auto=byReferences(references,lastRating);
+  // Um marco de referência documentado posterior à última revisão real
+  // produz classificação automática separada, nunca duas avaliações Fácil formais.
+  if(auto.count>=5&&(!lastDate||auto.at>=lastDate)){
+   return {id,due:auto.due,rating:auto.rating,intervalDays:auto.intervalDays,
+    easyFormalCount:formalEasyHistory(rec,lastRating),consolidated:false,
+    source:'Drive privado — recorrência SRS documentada',originalDue,
+    lastReview:lastDate,attempts,referenceCount:auto.count,kind:auto.kind};
+  }
   if(!lastRating||!lastDate||attempts===0){
    if(!originalDue)return null;
    return {id,due:originalDue,rating:'',intervalDays:null,easyFormalCount:0,
@@ -95,9 +106,9 @@
   const total=events.size;
   const sorted=[...events.values()].sort();
   if(total>=10)return {count:total,rating:'Fácil',intervalDays:32,
-   due:addDays(sorted[9],32),consolidated:false,kind:'classificacao_por_recorrencia'};
+   due:addDays(sorted[9],32),at:sorted[9],consolidated:false,kind:'classificacao_por_recorrencia'};
   if(total>=5)return {count:total,rating:'Bom',intervalDays:16,
-   due:addDays(sorted[4],16),consolidated:false,kind:'classificacao_por_recorrencia'};
+   due:addDays(sorted[4],16),at:sorted[4],consolidated:false,kind:'classificacao_por_recorrencia'};
   return {count:total,rating:rating(currentRating),intervalDays:null,due:null,
    consolidated:false,kind:'sem_limiar'};
  }
