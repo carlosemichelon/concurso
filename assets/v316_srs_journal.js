@@ -7,7 +7,7 @@ const API='https://www.googleapis.com/drive/v3/files';
 const UPLOAD='https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name';
 const PREFIX='BM_SRS_EVENT_V001_';
 const RATINGS=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32});
-let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='';
+let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='',selecting=false,ratedInView=false;
 const uncertainIds=new Set();
 const $=id=>document.getElementById(id);
 const token=()=>window.BM239DriveGlobal?.writeToken?.()||'';
@@ -98,7 +98,7 @@ function updateStatus(){
  'Drive autorizado. Consulte o histórico antes de registrar.';
  const connect=$('bm316-srs-connect');if(connect)connect.hidden=Boolean(token());
  const btns=buttonPanel?.querySelectorAll('button[data-grade]')||[];
- btns.forEach(b=>b.disabled=working||uncertain||!token());
+ btns.forEach(b=>b.disabled=working||selecting||ratedInView||uncertain||!token());
 }
 async function record(id,rating){
  if(working||uncertain)throw Error('Há outra operação em andamento ou pendente de conferência.');
@@ -168,15 +168,17 @@ function build(){
   const b=document.createElement('button');b.type='button';b.dataset.grade=rating;
   b.textContent=rating;b.style.cssText='font-size:12px;padding:8px 12px';
   b.addEventListener('click',async()=>{
-   if(working)return;
+   if(working||selecting||ratedInView)return;
+   selecting=true;
    const id=window.BancoMestreVisualizarCardV050?.currentId;
-   if(!validId(id)){updateStatus();return;}
+   if(!validId(id)){selecting=false;updateStatus();return;}
    const state=$('bm316-srs-state');state.textContent='Registrando…';
    try{
     const result=await record(id,rating);
+    ratedInView=true;
     state.textContent=rating+' registrado no Drive e conferido. Próxima revisão: '+result.due+' ('+result.interval_days+' dias).';
-    controls.querySelectorAll('button').forEach(b=>b.disabled=true);
    }catch(e){state.textContent=e.message}
+   finally{selecting=false;updateStatus()}
   });
   controls.append(b);
  }
@@ -195,9 +197,9 @@ function build(){
   const id=window.BancoMestreVisualizarCardV050?.currentId;
   const isVisible=!overlay.hidden&&!answer.hidden&&validId(id);
   if(currentKey!==id){
-   currentKey=id;uncertain=uncertainIds.has(id);
-   controls.querySelectorAll('button').forEach(b=>b.disabled=false);
+   currentKey=id;uncertain=uncertainIds.has(id);ratedInView=false;
   }
+  if(answer.hidden)ratedInView=false;
   box.hidden=!isVisible;updateStatus();
  }
  const obs=new MutationObserver(update);
