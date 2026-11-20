@@ -66,21 +66,30 @@ fs.mkdirSync(output,{recursive:true});
    await page.locator('#cardSearch').fill('CARD-1533');
    const card=page.locator('#cardRows article.bm307-card[data-bm305-id="CARD-1533"]');
    await card.waitFor({state:'visible',timeout:20000});
+   if(width===667){
+    const state=await card.evaluate(a=>({
+     children:[...a.children].map(x=>({tag:x.tagName,cls:String(x.className).slice(0,100),label:x.textContent?.trim()?.slice(0,95)})),
+     headCount:a.querySelectorAll('h3').length,
+     article:a.outerHTML.slice(0,1300)
+    }));
+    console.log('V307_LANDSCAPE_DOM '+JSON.stringify(state));
+   }
    const metrics=await card.evaluate(a=>{
     const get=s=>a.querySelector(':scope > '+s);
     const rect=s=>get(s)?.getBoundingClientRect();
     const b=a.getBoundingClientRect(), title=rect('h3'),read=rect('.bm-v050-peek-button'),badge=rect('.tag');
     const buttons=[...a.querySelectorAll(':scope > .buttons button')].map(x=>({title:x.textContent,rect:x.getBoundingClientRect()}));
     const fold=get('details.bm307-source');
-    const style=getComputedStyle(get('h3'));
+    const heading=get('h3')||a.querySelector('h3');
+    const style=heading?getComputedStyle(heading):null;
     return {box:{x:b.x,right:b.right,width:b.width},
-     title:{top:title?.top,bottom:title?.bottom,font:parseFloat(style.fontSize),right:title?.right},
+     title:{top:title?.top,bottom:title?.bottom,font:style?parseFloat(style.fontSize):null,right:title?.right},
      read:{top:read?.top,bottom:read?.bottom,left:read?.left,right:read?.right},
      idTop:badge?.top,refFound:!!fold?.querySelector('.bm163-card-ref'),refOpen:!!fold?.open,
      footer:buttons.map(x=>({text:x.title,left:x.rect.left,right:x.rect.right,width:x.rect.width,top:x.rect.top}))};
    });
    assert.ok(metrics.box.x>=-1&&metrics.box.right<=width+1,'Cartão excedeu largura '+width+': '+JSON.stringify(metrics));
-   assert.ok(metrics.title.font>=14,'Fonte do enunciado pequena no celular '+width);
+   assert.ok(metrics.title.font>=14,'Título ausente ou fonte do enunciado pequena no celular '+width+': '+JSON.stringify(metrics));
    assert.ok(metrics.title.top>=metrics.read.bottom-2,'Botão Abrir leitura sobreposto à pergunta '+width+': '+JSON.stringify(metrics));
    assert.ok(metrics.read.right<=metrics.box.right+1&&metrics.read.left>=metrics.box.x-1,'Botão fora do cartão '+width);
    assert.ok(metrics.idTop<metrics.title.top&&metrics.refFound&&!metrics.refOpen,'Hierarquia do cartão incompleta '+width);
