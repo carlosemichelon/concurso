@@ -1,3 +1,15 @@
+# V306 — Imagens no próprio flashcard, busca editorial e Redação (20/11/2026)
+
+- **Busca de imagem por ID:** a consulta `IMG-C12-030` agora reconhece o identificador editorial publicado em V211/V198/V180. O original no Drive se chama `IMG-P12-011_NR17_Medidas_de_Prevencao_Pausas_Alternancia.png` e tem Drive ID `1gdepf2G5xQfT82pjAA1Rszl9nLdXyuZS`; vínculos comprovados com `CARD-1509` e `CARD-1518`. A busca aceita ID editorial, arquivo original, nome, questão e IDs vinculados, sem inferir temas.
+- **No cartão:** o portal monta imagens com vínculos explícitos de cartão usando os catálogos V198/V211. Figuras/enunciados aparecem junto da frente; materiais de explicação ficam recolhidos para evitar revelar a resposta antes de tentar. O leitor detalhado mostra as imagens na mesma janela, e a aba de Imagens continua para pesquisa e classificação. Quando autorizado, a imagem é buscada do Drive como URL de blob na sessão; sem OAuth, o cartão oferece link do original, sem publicar cópia no GitHub.
+- **Vínculos em edição:** mudanças manuais no editor de mídia (armazenadas localmente) podem substituir o conjunto de IDs vinculados sem alterar arquivos canônicos nem SRS. Não criar relações por mera proximidade de assunto. Classificações históricas explicitamente didáticas continuam identificadas como tal.
+- **Redação:** a oficina original `redacao_temas_treino_v296.html` permanece intacta (10 abas, exercícios, rascunhos, históricos). O iframe no portal recebe tema azul, branco e cinza, componentes retangulares e tipografia semelhante às outras abas, via `assets/v306_redacao_theme.css`. O script pai só injeta a folha depois do carregamento.
+- **Exclusão:** o login OAuth de imagens e PDFs é `drive.readonly`. O botão do portal apenas oculta registros da visualização, sem excluir arquivos. O link direto `Abrir no Drive` pode permitir mover o original para a lixeira se a conta Google tiver permissão de exclusão sobre aquele arquivo; apenas possuir link de leitura não autoriza. Acesso a pasta não é requisito universal quando já há permissão direta no arquivo.
+- **Proteção:** V305 histórica preservada; nenhuma alteração em originais, IDs de cartões, 11 módulos, SRS, históricos de grifos, PDFs ou permissões Drive.
+- **Limite da auditoria:** o teste automatizado usa Chromium sem autorização OAuth real do usuário. A integridade dos vínculos e a montagem visual podem ser validadas, mas a exibição de bytes privados durante sessão real deve ser conferida separadamente.
+
+---
+
 # V305 — Cartões relacionados, contagem de IDs, assuntos e imagens (20/11/2026)
 
 - **Frente dos cartões:** exibir subassunto quando cadastrado e cartões relacionados na parte inferior **antes do verso**, com links diretos. Até quatro vínculos inicialmente e expansão discreta para os demais; somente vínculos reais presentes em campos de IDs ou módulo 8 de cobertura cruzada, nunca somente por grupo/assunto. A fonte privada nunca é publicada pelo script.
