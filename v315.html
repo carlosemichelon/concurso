@@ -543,6 +543,9 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
  function stagedReveal(){
   if(finished||afterLoad)return;afterLoad=true;
   let lastChange=performance.now(),start=lastChange;
+  // Aguarda a fonte usada pelo layout para evitar deslocamentos tardios.
+  let fontsReady=!document.fonts?.ready;
+  if(!fontsReady)Promise.resolve(document.fonts.ready).then(()=>{fontsReady=true},()=>{fontsReady=true});
   observer=new MutationObserver(changes=>{
    if(changes.some(c=>c.type==='childList'))lastChange=performance.now();
   });
@@ -551,7 +554,7 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
    if(finished)return;
    const ready=!!document.querySelector('#calendario .c314-tabs')&&!!document.querySelector('header nav')&&!!document.querySelector('main');
    const elapsed=performance.now()-start,quiet=performance.now()-lastChange;
-   if((ready&&quiet>=450&&elapsed>=650)||elapsed>=3800){
+   if((ready&&fontsReady&&quiet>=650&&elapsed>=850)||elapsed>=6500){
     if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>requestAnimationFrame(finish));
     else finish();
    }else setTimeout(check,130);
