@@ -1,3 +1,15 @@
+# V309 — Abas recolhíveis no celular e conferência do Calendário (20/11/2026)
+
+- **Cabeçalho móvel:** menu **Abas** fechado por padrão até 620 px, com seção atual identificada; toque abre todas as abas existentes, escolha de aba fecha novamente. Acessibilidade: `aria-expanded`, `aria-controls`, Escape recolhe; desktop permanece inalterado. Todos os botões e seus eventos originais permanecem no DOM.
+- **Calendário/Controle de Estudos:** cada navegador mantém registros em `localStorage["BM245_CONTROLE_ESTUDOS"]`. O computador e o celular não compartilham esse armazenamento. Um arquivo privado separado no Drive, chamado `BancoMestre_Controle_Estudos_V245.json`, é utilizado pela rotina `BM240ControlDrive.sync` quando há OAuth com escopo de escrita `drive.file`; PDFs/imagens de leitura não confirmam essa permissão.
+- **Correção de usabilidade:** a tela Calendário passa a mostrar contagem de registros locais e botão **Autorizar Drive e sincronizar** / **Conferir e sincronizar**. Esse botão usa a rotina V245 de comparação criptográfica, backups e bloqueio de conflitos, sem sobrescrita forçada e sem alterar SRS. Distingue enviado, importado, idêntico, conflito, pendência ou falha.
+- **Por que os aparelhos diferiam:** o agendamento automático é de 3 horas, mas o token OAuth tem validade temporária, tipicamente inferior a 3 horas; não existe renovação silenciosa com refresh token persistido. Logo, a periodicidade NÃO garante a transferência se o Drive estiver desconectado, o navegador fechado, sem permissão de escrita, ou houver conflito. Verificar **no computador primeiro** o retorno `Controle: mestre privado criado e verificado` ou `alterações enviadas e verificadas`; **no celular depois**, conferir `registros remotos importados`. Não igualar "Drive conectado" a dados confirmados.
+- **Localização no Drive conectado:** uma busca pelo nome exato do mestre e pelo marcador de app `bm_controle_estudos_v245` não retornou arquivo nesta conexão. Isso **não comprova ausência** no escopo `drive.file` do OAuth próprio do portal, pois as conexões têm permissões e visibilidade diferentes; não apagar nem criar arquivo em nome do usuário sem confirmação.
+- **Preservação:** V308 mantida em `v308.html` como reversão, 11 módulos, cartões, SRS, PDFs, imagens, grifos e dados do Controle inalterados. Nenhum registro remoto foi gravado nesta publicação; somente interface e diagnóstico.
+- **Teste:** matriz responsiva e testes de integridade adicionados. Verificação autenticada com contas reais do computador e celular requer ação do titular e não é possível simular em CI.
+
+---
+
 # V308 — Cabeçalho para celular (20/11/2026)
 
 - **Correção isolada:** alterados somente os estilos móveis do cabeçalho (até 620 px). O conteúdo dos cartões, PDFs, imagens, páginas, 11 módulos, SRS e autorização Drive permanece inalterado.
