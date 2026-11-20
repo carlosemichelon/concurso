@@ -81,8 +81,10 @@ function insertLinks(host,record,ids){
   });
   footer.append(more);
  }
+ const details=host.querySelector(':scope > details');
  const buttons=host.querySelector(':scope > .buttons');
- if(buttons)buttons.before(footer);else host.append(footer);
+ // A faixa permanece na frente, antes de revelar o verso e os 11 módulos.
+ if(details)details.before(footer);else if(buttons)buttons.before(footer);else host.append(footer);
 }
 async function decorateRecord(host,id){
  const rec=lookup().get(id);if(!rec||!host?.isConnected)return;
