@@ -60,9 +60,20 @@ document.addEventListener('bm-media-drive-authorized',()=>{if(loaded)void refres
 async function load(){
  const [meta,f17]=await Promise.all([json('assets/meta_public_v194.json'),json('assets/f17_historico_auditado_v029.json')]);
  if(f17.format!=='BancoMestreF17AuditoriaV029'||Object.keys(f17.historico_por_id||{}).length!==21)throw Error('Histórico F17 incompatível');
- const [files,ijui]=await Promise.all([Promise.all(meta.card_files.map(f=>json('assets/'+f))),json('assets/ijui_flashcards_operacionais_v027.json')]);
- if(ijui.cards?.length!==22)throw Error('Cartões de Ijuí inconsistentes.');
- cards=[...files.flat().filter(c=>c&&c.active!==false&&c.id),...ijui.cards];map=new Map(cards.map(c=>[c.id,c]));
+ const [files,ijui,synced,petro22]=await Promise.all([
+  Promise.all(meta.card_files.map(f=>json('assets/'+f))),
+  json('assets/ijui_flashcards_operacionais_v027.json'),
+  json('assets/cards_drive_sync_v274.json'),
+  json('assets/v276_petro22_public_cards.json')]);
+ if(ijui.cards?.length!==22||synced.format!=='BancoMestrePublicDriveSyncV274'||
+  synced.base_count!==1518||synced.new_cards?.length!==14||
+  petro22.format!=='BancoMestrePublicPetro22DeltaV276'||
+  petro22.new_cards?.length!==1)throw Error('Catálogo público de cartões V311 inconsistente');
+ const published=[...files.flat(),...synced.new_cards,...petro22.new_cards,...ijui.cards];
+ if(published.length!==1555||new Set(published.map(x=>x.id)).size!==1555)
+  throw Error('Catálogo V311 não possui os 1.555 IDs publicados');
+ cards=published.filter(c=>c&&c.active!==false&&c.id);
+ map=new Map(cards.map(c=>[c.id,c]));
  history=Object.entries(f17.historico_por_id).map(([id,e])=>({id,due:due(e.proxima_revisao_existente_v015),rating:e.avaliacao||'',source:'F17/V015'})).filter(x=>x.due&&map.has(x.id));
  loaded=true;
 }
