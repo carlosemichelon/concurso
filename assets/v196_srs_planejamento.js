@@ -80,7 +80,7 @@ async function load(){
 function records(){
  const all=new Map(history.map(x=>[x.id,x]));
  for(const x of privateRecords)if(map.has(x.id))all.set(x.id,x);
- for(const x of imported)if(map.has(x.id))all.set(x.id,{id:x.id,due:x.due,rating:x.rating,source:'Importação SRS local'});
+ for(const x of imported)if(map.has(x.id))all.set(x.id,{id:x.id,due:x.due,rating:x.rating,consolidated:x.consolidated===true,easyFormalCount:Number(x.easyFormalCount)||0,intervalDays:Number(x.intervalDays)||null,source:'Importação SRS local'});
  return [...all.values()].filter(x=>due(x.due));
 }
 function calculate(){
@@ -204,17 +204,17 @@ function parseJSON(obj){
  else if(Array.isArray(obj.cards))arr=obj.cards;
  else if(Array.isArray(obj.registros))arr=obj.registros;
  else if(Array.isArray(obj.revisoes))arr=obj.revisoes;
- else if(Array.isArray(obj.srs))arr=obj.srs.map(x=>{const v=window.BMSRSV311?.fromSrs?.(x);return v||{id:x.id,due:x.next_review,rating:''}});
+ else if(Array.isArray(obj.srs))arr=obj.srs.map(x=>{const v=window.BMSRSV311?.fromSrs?.(x);return v?{...v,__verifiedSrs:true}:{id:x.id,due:x.next_review,rating:''}});
  else{const map=obj.por_id||obj.historico_por_id||obj.srs||obj;arr=Object.entries(map).map(([key,val])=>Object.assign({},val&&typeof val==='object'?val:{},{id:(val&&val.id)||key}))}
  const pick=(x,names)=>Object.entries(x||{}).find(([k])=>names.includes(norm(k)))?.[1];
- return arr.map(x=>({id:pick(x,['id','cardid','cartaoid','idcartao']),due:pick(x,['proximarevisao','dataproximarevisao','proximarevisaoexistentev015','nextreview','duedate','due']),rating:pick(x,['avaliacao','classificacao','rating','dificuldade'])}));
+ return arr.map(x=>({id:pick(x,['id','cardid','cartaoid','idcartao']),due:pick(x,['proximarevisao','dataproximarevisao','proximarevisaoexistentev015','nextreview','duedate','due']),rating:pick(x,['avaliacao','classificacao','rating','dificuldade']),verifiedSrs:x.__verifiedSrs===true,consolidated:x.__verifiedSrs===true&&x.consolidated===true&&Number(x.easyFormalCount)>=2,intervalDays:x.__verifiedSrs===true?Number(x.intervalDays)||null:null,easyFormalCount:x.__verifiedSrs===true?Number(x.easyFormalCount)||0:0}));
 }
 async function upload(file){
  if(!file||file.size>15*1024*1024)throw Error('Arquivo ausente ou maior que 15MB');
  const content=await file.text();
  const rows=content.trim().startsWith('{')||content.trim().startsWith('[')?parseJSON(JSON.parse(content)):parseCSV(content);
  const valid=new Map();let ignored=0;
- for(const row of rows){const id=String(row.id||'').trim(),date=due(row.due);if(!map.has(id)||!date){ignored++;continue}valid.set(id,{id,due:date,rating:String(row.rating||'').trim()})}
+ for(const row of rows){const id=String(row.id||'').trim(),date=due(row.due);if(!map.has(id)||!date){ignored++;continue}valid.set(id,{id,due:date,rating:String(row.rating||'').trim(),consolidated:row.verifiedSrs===true&&row.consolidated===true,easyFormalCount:row.verifiedSrs===true?row.easyFormalCount:0,intervalDays:row.verifiedSrs===true?row.intervalDays:null})}
  if(!valid.size)throw Error('Nenhuma linha com ID ativo e data válida. Formato: CARD-0001;18/11/2026;Errei');
  const update=new Map(imported.map(x=>[x.id,x]));for(const [id,val]of valid)update.set(id,val);
  imported=[...update.values()];localStorage.setItem(importKey,JSON.stringify(imported));
