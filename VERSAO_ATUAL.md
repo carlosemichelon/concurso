@@ -1,3 +1,11 @@
+# V299 — Drive automaticamente sincronizado durante sessão autorizada (19/11/2026)
+
+- Sincronização periódica a cada 5 minutos na aba aberta e visível, após autorização expressa OAuth de leitura e escrita pelo usuário; ativação automática em visitas futuras após nova autorização.
+- Indicador compacto “Automático ligado”, “aguardando autorização” ou “reconectar Drive”; não exibe estado verificado se sessão vencer.
+- Não há sincronização em segundo plano com o site fechado: GitHub Pages não possui servidor privado para manter/renovar credenciais. Não guardar access token, refresh token ou credenciais em localStorage, cookies, GitHub ou arquivos públicos.
+- Utiliza a API existente BM239DriveGlobal.sync para PDFs, imagens, Controle, lacunas e grifos, preservando bloqueios de conflito, política de comparação SHA-256 e autorização exigida. Não modifica Banco Mestre canônico, cartões, 11 módulos, SRS, PDFs originais nem dados anteriores.
+- V298 íntegra em v298.html; verificações estáticas após publicação; fluxo OAuth real exige homologação no navegador autenticado.
+
 # V298 — CSS unificado em bundle e tipografia mobile (19/11/2026)
 
 - **29 → 16 folhas CSS externas**: 15 folhas consecutivas V278–V297 agrupadas fielmente em arquivo único, preservando ordem e arquivos de origem.
