@@ -116,11 +116,8 @@ function keepIdOrder(){
  // O compositor legado agrupa por assunto depois de ordenar, quebrando a ordem global.
  const children=root.querySelectorAll(':scope > details.bm128CardsGroup,:scope > details.v036-card-group');
  if(!children.length)return;
- const selection=window.BM152FlashFilters?.selection||{};
- if(Object.values(selection).some(x=>x&&x!=='all'))return;
- if(($('cardSearch')?.value||'').trim()||$('cardTopicFilter')?.value!=='all')return;
- if(($('bm128CardGeneral')?.value||'all')!=='all')return;
- if(typeof focusGroup!=='undefined'&&focusGroup)return;
+ // A ordenação por ID explícita deve prevalecer sobre agrupamento legados,
+ // inclusive em buscas, disciplinas e seleções de últimos cartões.
  const items=[...root.querySelectorAll('article.card')];
  const numeric=a=>{const m=/^CARD-(\d+)$/.exec(a.querySelector(':scope > .tag')?.textContent?.trim()||'');return m?Number(m[1]):null};
  const sign=sorting.order==='asc'?1:-1;
