@@ -991,7 +991,8 @@ async function init(){
  try{
   document.addEventListener('bm-media-drive-authorized',()=>{if(authRead()&&!scanning&&Date.now()-scanAt>10000)void scan()});
   await prepareOauth();
-  // V326: checkpoints consultados na autorização inicial, por ação manual ou antes de um novo registro.
+  window.setInterval(()=>{if(authRead()&&!scanning&&Date.now()-scanAt>120000)void scan()},120000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&authRead()&&!scanning&&Date.now()-scanAt>120000)void scan()});
   if(!authRead())report('Conector preparado. Autorize a leitura para conferir checkpoints no Drive. O site não lê mensagens privadas do ChatGPT.');
  }catch(e){report('Registro de checkpoints indisponível: '+e.message,true)}
 }
