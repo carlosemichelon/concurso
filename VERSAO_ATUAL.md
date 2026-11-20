@@ -1,3 +1,11 @@
+# V323 — Correção do cartão relacionado invisível na lateral (20/11/2026)
+
+- **Falha identificada:** a regra global `section{display:none}` ocultava a prévia lateral, os vínculos e os módulos apresentados como `<section>`, dando aparência de travamento após o clique.
+- **Correção:** quatro contêineres exclusivos da lateral passaram a `<div>`; CSS específico garante `display:block` e preserva a navegação consecutiva da V322, sem reconstruir a lista.
+- **Preservação:** cartões, textos originais, relações, 11 módulos, SRS, Drive, grifos, imagens e PDFs intactos; V322 preservada para rollback.
+- **Verificação:** análise de código e sintaxe JavaScript; teste final no navegador autenticado do estudante ainda pendente.
+- **Publicação:** `gh-pages` / `v323.html` / `assets/version.json`.
+
 # V322 — Correção da seleção consecutiva de cartões relacionados (20/11/2026)
 
 - **Defeito reportado:** após abrir a primeira prévia lateral, outro clique em cartão relacionado não atualizava corretamente a seleção.
