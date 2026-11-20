@@ -1,3 +1,11 @@
+# V321 — Navegação de cartões, classificação de imagens e anotação (20/11/2026)
+
+- Publicação: `gh-pages`, `index.html` e `v321.html`; fonte operacional `assets/version.json`.
+- **Cartões relacionados:** clicar no vínculo exibe pergunta, verso, referências e 11 módulos sob demanda na lateral; a seta ↗ promove o cartão selecionado à janela principal. O cartão de origem permanece até essa ação; retorno reversível preservado.
+- **Atlas:** 71 imagens da pasta de sincronização do Drive classificadas em `assets/v321_drive_image_topics.json`: 7 por inspeção visual direta e 64 por nome descritivo. A edição descartada foi marcada como material não utilizável. O integrador `assets/v321_image_topic_completion.js` associa por nome exato, sem expor novos IDs privados, sem alterar originais e sem inventar vínculos com flashcards. Os 237 arquivos do catálogo V211 já classificados pela V310 permanecem intactos.
+- **Anotar flashcard:** a ferramenta de anotação passa a iniciar sempre em **Ler / selecionar** texto, mantendo caneta, marca-texto e borracha disponíveis; armazenamento local e registros anteriores não mudam.
+- Preservados cartões, IDs, 11 módulos, SRS, Drive, PDFs, imagens e arquivos das versões anteriores, inclusive V320. Sintaxe dos scripts conferida. Teste real no navegador do usuário ainda não realizado; classificações feitas por nome não significam validação técnica do conteúdo.
+
 # V310 — Taxonomia visual auditada de imagens do Atlas (20/11/2026)
 
 - **Escopo auditado:** 237 arquivos do catálogo público V211; antes havia 93 classificados e 144 sem tema. O novo índice `assets/v310_image_taxonomy.json` registra 144 itens (104 arquivos vinculados a 66 conteúdos visuais distintos inspecionados em originais/prévias, 40 com nome e pasta descritivos). Total **237/237 com classificação temática no catálogo V211**. Não confundir esse total com as **307 imagens relatadas em sessão privada do Google Drive**, que podem ter outro recorte ou novos originais.
