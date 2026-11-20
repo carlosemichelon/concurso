@@ -1,0 +1,42 @@
+/* Banco Mestre V324 — uma só área lateral, busca OU cartão selecionado. */
+#bmCardPeekV050 .bm165-related.bm324-search-view > .bm317-preview{display:none!important}
+#bmCardPeekV050 .bm165-related.bm324-card-view > .bm317-list,
+#bmCardPeekV050 .bm165-related.bm324-card-view > .bm317-more{display:none!important}
+#bmCardPeekV050 .bm165-related.bm324-card-view .bm317-search-label,
+#bmCardPeekV050 .bm165-related.bm324-card-view .bm317-filters,
+#bmCardPeekV050 .bm165-related.bm324-card-view .bm317-count,
+#bmCardPeekV050 .bm165-related.bm324-card-view .bm317-origin,
+#bmCardPeekV050 .bm165-related.bm324-card-view .bm317-side-nav{display:none!important}
+#bmCardPeekV050 .bm165-related.bm324-search-view > .bm317-list{
+ display:flex!important;flex:1 1 auto!important;min-height:0!important;
+ max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;
+ flex-direction:column!important
+}
+#bmCardPeekV050 .bm165-related.bm324-card-view > .bm317-preview{
+ display:block!important;flex:1 1 auto!important;min-height:0!important;
+ max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;
+ border-top:0!important;padding:12px!important
+}
+#bmCardPeekV050 .bm165-related.bm324-card-view .bm317-top{
+ padding-bottom:6px!important
+}
+#bmCardPeekV050 .bm165-related.bm324-card-view .bm317-side-header{margin-bottom:0!important}
+#bmCardPeekV050 .bm165-related.bm324-card-view .bm317-preview-label{display:none!important}
+#bmCardPeekV050 button.bm324-back-search{
+ display:inline-flex;align-items:center;justify-content:center;min-height:32px;
+ padding:5px 9px;font:700 11px/1.4 system-ui,Arial,sans-serif;
+ border:1px solid #b5d3ce;background:#ecf7f3;color:#225e60;
+ border-radius:7px;cursor:pointer;white-space:nowrap
+}
+#bmCardPeekV050 button.bm324-back-search[hidden]{display:none!important}
+#bmCardPeekV050 button.bm324-back-search:focus-visible{outline:2px solid #277f79;outline-offset:2px}
+@media(max-width:760px){
+ #bmCardPeekV050 .bm165-related.bm324-search-view > .bm317-list{
+  display:flex!important;flex-direction:column!important;
+  overflow-y:auto!important;overflow-x:hidden!important;min-height:0!important
+ }
+ #bmCardPeekV050 .bm165-related.bm324-search-view .bm319-result-item{
+  min-width:0!important;width:100%!important;max-width:none!important
+ }
+ #bmCardPeekV050 .bm165-related.bm324-card-view > .bm317-preview{padding:10px!important}
+}
