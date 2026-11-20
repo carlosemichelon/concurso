@@ -1,3 +1,11 @@
+# V322 — Correção da seleção consecutiva de cartões relacionados (20/11/2026)
+
+- **Defeito reportado:** após abrir a primeira prévia lateral, outro clique em cartão relacionado não atualizava corretamente a seleção.
+- **Correção:** seleção lateral mantém a lista e os elementos clicáveis estáveis; atualiza somente `aria-current` e a prévia, conservando a posição de rolagem. Links documentados do cartão visualizado na prévia também abrem a próxima prévia, sem substituir a janela principal.
+- **Promoção:** apenas a ação ↗ abre o cartão selecionado na janela principal. Dados, IDs, históricos, 11 módulos, filtros, imagens, Drive e SRS preservados.
+- **Teste de regressão em lógica de interface:** sequência CARD-0002 → CARD-0003 sobre os mesmos botões passou; seleção ativa acompanhou o segundo clique, sem reconstruir a lista nem perder a rolagem. Teste visual com o navegador real do usuário permanece pendente.
+- **Publicação:** `gh-pages/v322.html`, `gh-pages/index.html`, `assets/v322_related_navigator.js`, `assets/v322_related_preview.css` e `assets/version.json`. V321 preservada.
+
 # V321 — Navegação de cartões, classificação de imagens e anotação (20/11/2026)
 
 - Publicação: `gh-pages`, `index.html` e `v321.html`; fonte operacional `assets/version.json`.
