@@ -1,0 +1,50 @@
+/* V309 — navegação recolhível para telas de celular. Todos os destinos são preservados.
+ * O botão "Abas" abre a grade existente; na seleção o menu recolhe sem bloquear a rota.
+ */
+#bm309-mobile-tabs-toggle{display:none!important}
+@media(max-width:620px){
+ body>header .head{
+  grid-template-rows:auto 38px auto!important;
+  grid-template-areas:"brand stats" "menu menu" "nav nav"!important;
+  row-gap:5px!important
+ }
+ body>header .head>#bm309-mobile-tabs-toggle{
+  grid-area:menu!important;
+  display:flex!important;align-items:center!important;gap:8px!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  height:38px!important;min-height:38px!important;
+  padding:6px 10px!important;margin:0!important;
+  color:#ecf4fb!important;background:#43525e!important;
+  border:1px solid #617584!important;border-radius:5px!important;
+  font:600 12px/1.3 "Segoe UI",Arial,sans-serif!important;
+  text-transform:none!important;letter-spacing:0!important;
+  box-shadow:none!important;white-space:nowrap!important
+ }
+ body>header .head>#bm309-mobile-tabs-toggle[hidden]{display:none!important}
+ #bm309-mobile-tabs-toggle .bm309-menu-symbol{
+  font-size:17px!important;line-height:1!important;width:17px!important;
+  text-align:center!important;flex:none!important
+ }
+ #bm309-mobile-tabs-toggle .bm309-menu-label{
+  font:750 12px/1.2 "Segoe UI",Arial,sans-serif!important;flex:none!important
+ }
+ #bm309-mobile-tabs-toggle .bm309-menu-current{
+  font:500 11.5px/1.2 "Segoe UI",Arial,sans-serif!important;
+  color:#cbdce8!important;overflow:hidden!important;
+  text-overflow:ellipsis!important;white-space:nowrap!important;
+  min-width:0!important;margin-left:auto!important
+ }
+ #bm309-mobile-tabs-toggle .bm309-menu-chevron{
+  flex:none!important;margin-left:2px!important;font-size:15px!important
+ }
+ body>header .head>nav[aria-label="Seções"][hidden]{
+  display:none!important;height:0!important;min-height:0!important;
+  margin:0!important;padding:0!important;border:0!important
+ }
+ body>header .head>nav[aria-label="Seções"]:not([hidden]){
+  display:grid!important;margin-top:1px!important
+ }
+ #bm309-mobile-tabs-toggle:focus-visible{
+  outline:2px solid #95dcff!important;outline-offset:2px!important
+ }
+}
