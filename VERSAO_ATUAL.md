@@ -1,3 +1,13 @@
+## Atualização 20/11/2026 — V326
+
+Acesso: https://carlosemichelon.github.io/concurso/ (index.html) · snapshot: v326.html · retorno: v325.html.
+
+**Sincronização por necessidade**: a conexão inicial do Google Drive carrega PDFs, Atlas, checkpoints, Controle/Lacunas e grifos autorizados. Depois da conferência, o portal não realiza novas varreduras periódicas de pastas por tempo, foco ou troca de seção. O botão "Sincronizar Drive" e os botões específicos continuam permitindo atualização manual. Grifos, Controle de Estudos e Lacunas continuam sincronizando após alterações locais (com proteção contra conflitos e verificações). O SRS formal permanece separado e não foi alterado.
+
+As sete partes de JavaScript modificadas foram publicadas sob nomes exclusivos `assets/v326_js_*.js`; os sete scripts antigos foram restaurados exatamente aos hashes da V325. Os registros de cartões, 11 módulos, SRS, PDFs, imagens e documentos privados não foram escritos na atualização. Sintaxe JavaScript e referências HTML verificadas; teste de autorização OAuth e tráfego real no navegador do proprietário ainda pendente.
+
+---
+
 
 
 ## Atualização 20/11/2026 — V325
