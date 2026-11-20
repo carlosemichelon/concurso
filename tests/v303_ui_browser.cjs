@@ -15,6 +15,12 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
  try{
   for(const width of [1366,390]){
    const page=await browser.newPage({viewport:{width,height:width>600?900:844}});
+   page.setDefaultTimeout(16000);
+   // Oficina V296 contém grande acervo e scripts legados; este teste isola SOMENTE a integração do tema.
+   await page.route('**/redacao_temas_treino_v296.html?versao=V296',async route=>{
+    const tabs=Array.from({length:10},(_,i)=>'<div class="tab">Aba '+i+'</div>').join('');
+    await route.fulfill({status:200,contentType:'text/html',body:'<!doctype html><html><head><style>:root{--ouro:#096c6c;--bg:#f5f8f7}.card{border-radius:12px}</style></head><body><div class="tabs">'+tabs+'</div><section class="aba ativo"><div class="card">Redação de teste</div></section></body></html>'});
+   });
    await page.addInitScript(x=>{try{localStorage.setItem('BM_LACUNAS_V242',JSON.stringify(x))}catch(_){}} ,fixture);
    await page.route('https://accounts.google.com/**',r=>r.abort());
    await page.route('https://www.googleapis.com/**',r=>r.abort());
@@ -96,16 +102,19 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
      await search.fill('');
      // V306: um original de enunciado/figura deve surgir no próprio cartão.
+     console.log('V306_IMAGE_START '+width);
      await search.fill('CARD-1509');
      await page.waitForFunction(()=>window.BM306CardMedia?.ready,{timeout:18000});
      const media=page.locator('#cardRows article.card[data-bm305-id="CARD-1509"] .bm306-image-item[data-image-id="IMG-C12-030"]');
      await media.waitFor({state:'visible',timeout:18000});
+     console.log('V306_IMAGE_LINKED '+width);
      const fileLink=media.locator('a[href*="1gdepf2G5xQfT82pjAA1Rszl9nLdXyuZS"]');
      assert.equal(await fileLink.count(),1,'Imagem do cartão não aponta para o original correto do Drive');
      const fold=page.locator('#cardRows article.card .bm306-explanations').first();
      if(await fold.count())assert.equal(await fold.getAttribute('open'),null,'Imagem explicativa abriu sem tentativa');
      const imageReader=page.locator('#cardRows .bm-v050-peek-button').first();
      await imageReader.click();
+     console.log('V306_IMAGE_MODAL_OPEN '+width);
      assert.ok(await page.locator('#bmCardPeekV050 .bm306-image-item[data-image-id="IMG-C12-030"]').count(),'Leitor do cartão não incorporou imagem original');
      await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
      await search.fill('');
@@ -121,6 +130,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
     console.log('V306_TAB_PASS '+width+' '+tab+' '+JSON.stringify(metrics));
    }
    // Tema da oficina original deve combinar com a interface do portal sem regravar textos.
+   console.log('V306_REDACAO_BEGIN '+width);
    await page.locator('header nav button[data-page="redacao"]').evaluate(x=>x.click());
    const redTheme=page.locator('#bm302-redacao-original');
    await redTheme.waitFor({state:'visible',timeout:12000});
