@@ -1,3 +1,11 @@
+# V302 — Preservar sincronização ao alternar abas internas (19/11/2026)
+
+- A navegação entre **Assuntos, PDFs, Flashcards, Imagens, Controle de Estudos, Lacunas, SRS e Redação** mantém o mesmo documento principal e sua sessão OAuth em memória; não exige nova autenticação por troca de seção.
+- A oficina Redação V296 agora é aberta em um iframe dentro da seção do portal, sem substituir seu HTML histórico. O link de retorno dentro da oficina volta para Assuntos sem recarregar o portal principal.
+- O gerenciador central mantém o **intervalo de 1 hora** da V301; navegar não reinicia o cronômetro ou dispara uma sincronização forçada. Indicador de conexão fica no cabeçalho em todas as abas.
+- Expiração/revogação do OAuth, fechamento da aba e recarga completa continuam exigindo nova autorização pelo Google. Não armazenar tokens em disco nem contornar bloqueios.
+- Nenhuma modificação nos cartões, SRS, 11 módulos, PDFs originais, grifos e arquivos privados. V301 e Redação original preservadas. Testes estáticos realizados; teste em navegador autenticado ainda pendente.
+
 # V301 — Sincronização do Google Drive a cada 1 hora (19/11/2026)
 
 - Alterado intervalo de conferência automática principal de 5 minutos para **60 minutos** com aba visível e sessão OAuth autorizada.
