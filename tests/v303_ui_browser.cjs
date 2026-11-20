@@ -42,7 +42,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
       detailsClosed:details?!details.open:true,hidden:advanced?rect(advanced).height===0:true,
       panelDisplay:getComputedStyle(panel).display};
     },{tab,toolbar,mainId,advancedId});
-    assert.equal(metrics.version,'V305');assert.ok(metrics.mainVisible,'Busca oculta: '+tab);
+    assert.equal(metrics.version,'V306');assert.ok(metrics.mainVisible,'Busca oculta: '+tab);
     assert.equal(metrics.primaryCount,2,'Deve haver busca e um seletor principal em '+tab);
     assert.ok(metrics.barX>=metrics.panelX-2&&metrics.barX+metrics.barW<=metrics.panelX+metrics.panelW+2,'Barra fora do painel: '+tab+' '+JSON.stringify(metrics));
     assert.equal(metrics.pageWidth,metrics.viewport,'Rolagem horizontal: '+tab);
@@ -75,7 +75,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      },{timeout:15000});
      assert.ok(await page.locator('#bm305-count-detail').count(),'Detalhamento de contagem dos cartões ausente');
      const cardIds=await page.locator('#cardRows article.card .tag').allTextContents();
-     console.log('V305_ID_ORDER '+width+' '+cardIds.slice(0,14).join(' → '));
+     console.log('V306_ID_ORDER '+width+' '+cardIds.slice(0,14).join(' → '));
      const numeric=cardIds.filter(id=>/^CARD-\d+$/.test(id)).map(id=>Number(id.slice(5)));
      assert.ok(numeric.length>1&&numeric.every((id,i)=>i===0||numeric[i-1]>=id),'Ordenação decrescente por ID foi substituída por grupos de assuntos');
      const open=page.locator('#cardRows .bm-v050-peek-button').first();
@@ -95,6 +95,20 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      assert.match(await page.locator('#bmCardPeekTitleV050').textContent(),/CARD-0008/,'Link da frente não abriu o cartão relacionado');
      await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
      await search.fill('');
+     // V306: um original de enunciado/figura deve surgir no próprio cartão.
+     await search.fill('CARD-1509');
+     await page.waitForFunction(()=>window.BM306CardMedia?.ready,{timeout:18000});
+     const media=page.locator('#cardRows article.card .bm306-image-item[data-image-id="IMG-C12-030"]');
+     await media.waitFor({state:'visible',timeout:18000});
+     const fileLink=media.locator('a[href*="1gdepf2G5xQfT82pjAA1Rszl9nLdXyuZS"]');
+     assert.equal(await fileLink.count(),1,'Imagem do cartão não aponta para o original correto do Drive');
+     const fold=page.locator('#cardRows article.card .bm306-explanations').first();
+     if(await fold.count())assert.equal(await fold.getAttribute('open'),null,'Imagem explicativa abriu sem tentativa');
+     const imageReader=page.locator('#cardRows .bm-v050-peek-button').first();
+     await imageReader.click();
+     assert.ok(await page.locator('#bmCardPeekV050 .bm306-image-item[data-image-id="IMG-C12-030"]').count(),'Leitor do cartão não incorporou imagem original');
+     await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
+     await search.fill('');
     }
     if(tab==='imagens'){
      assert.equal(await page.locator('#bm155AssuntoGeralImagem').isVisible(),false);
@@ -104,9 +118,28 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      assert.ok(await page.locator('#bm305-image-pending').count(),'Atalho de imagens sem classificação não aparece');
     }
     await page.screenshot({path:'test-artifacts/v303/after-'+tab+'-'+width+'.png'});
-    console.log('V305_TAB_PASS '+width+' '+tab+' '+JSON.stringify(metrics));
+    console.log('V306_TAB_PASS '+width+' '+tab+' '+JSON.stringify(metrics));
    }
-   await page.locator('header nav button[data-page="lacunas"]').evaluate(x=>x.click());
+   // Tema da oficina original deve combinar com a interface do portal sem regravar textos.
+   await page.locator('header nav button[data-page="redacao"]').evaluate(x=>x.click());
+   const redTheme=page.locator('#bm302-redacao-original');
+   await redTheme.waitFor({state:'visible',timeout:12000});
+   await page.waitForFunction(()=>{
+    const frame=document.getElementById('bm302-redacao-original');
+    return !!frame?.contentDocument?.getElementById('bm306-redacao-theme');
+   },{timeout:18000});
+   const theme=await redTheme.evaluate(frame=>{
+    const doc=frame.contentDocument,root=getComputedStyle(doc.documentElement);
+    return {bg:root.getPropertyValue('--bg').trim(),azure:root.getPropertyValue('--ouro').trim(),
+     cardRadius:getComputedStyle(doc.querySelector('.card')).borderRadius,
+     tabs:doc.querySelectorAll('.tabs .tab').length,
+     source:frame.getAttribute('src'),
+     cssReady:[...doc.styleSheets].some(s=>(s.href||'').includes('v306_redacao_theme.css'))};
+   });
+   assert.equal(theme.azure,'#176a9f','Redação continua com paleta diferente do portal');
+   assert.ok(theme.cssReady&&theme.tabs>=8,'A oficina perdeu abas ou o estilo não carregou');
+   console.log('V306_REDACAO_THEME '+width+' '+JSON.stringify(theme));
+      await page.locator('header nav button[data-page="lacunas"]').evaluate(x=>x.click());
    await page.locator('#bm299-lac-filter-more').waitFor({state:'visible'});
    assert.equal(await page.locator('#bm242-general').isVisible(),false,'Filtro avançado Lacunas não fechado');
    await page.locator('#bm299-lac-filter-more summary').click();
@@ -118,7 +151,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
    assert.ok(footer,'Lacunas ainda depois do rodapé');
    await page.screenshot({path:'test-artifacts/v303/after-lacunas-'+width+'.png'});
    assert.ok(!errors.length,'Erro JavaScript: '+errors.slice(0,5));
-   console.log('V305_BROWSER_PASS '+width+'px: barras, recolhíveis, editor e navegação; OAuth real não testado');
+   console.log('V306_BROWSER_PASS '+width+'px: barras, recolhíveis, editor e navegação; OAuth real não testado');
    await page.close();
   }
  }finally{await browser.close()}
