@@ -39,7 +39,8 @@ for(const f of historicalFiles)assert.ok(!live.includes('href="assets/'+f),'Cabe
 const approved={
   V303:{css:18,js:151,last:'assets/v303_unified_ui.css?v=303-1'},
   V304:{css:19,js:152,last:'assets/v304_pdf_ui.css?v=304-1'},
-  V305:{css:20,js:153,last:'assets/v305_cards_clarity.css?v=305-1'}
+  V305:{css:20,js:153,last:'assets/v305_cards_clarity.css?v=305-1'},
+  V306:{css:21,js:155,last:'assets/v306_card_media.css?v=306-1'}
 };
 const budget=approved[manifest.version];
 assert.ok(budget,'Versão '+manifest.version+' ainda não auditada neste teste');
