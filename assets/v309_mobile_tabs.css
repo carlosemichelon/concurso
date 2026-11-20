@@ -1,3 +1,10 @@
+/* Proteção: área de disciplinas pode ser movida pelo compositor V245.
+ * Ocultar pseudo-ícone também fora de #assuntos, sem depender de limpeza JS. */
+#areaRows .topicCard::before,
+#areaRows .topicCard[data-bm096-icon]::before {
+ content:none!important;display:none!important;width:0!important;height:0!important;
+ mask:none!important;-webkit-mask:none!important
+}
 /* V309 — navegação recolhível para telas de celular. Todos os destinos são preservados.
  * O botão "Abas" abre a grade existente; na seleção o menu recolhe sem bloquear a rota.
  */
