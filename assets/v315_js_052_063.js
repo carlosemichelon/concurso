@@ -616,7 +616,7 @@ const API='https://www.googleapis.com/drive/v3/files',
       AUTO_KEY='BM103_GRIFOS_AUTO_SYNC',
       INTERVAL=120000;
 let token='',expiry=0,client=null,pendingConsent=null,busy=false,
-    lastRun=0,scheduled=null,auto=false;
+    lastRun=0,scheduled=null,auto=false,pendingEdit=false;
 try{auto=localStorage.getItem(AUTO_KEY)!=='0'}catch(_){auto=true}
 function deviceId(){
  let id;try{id=localStorage.getItem(DEVICE_KEY)}catch(_){}
@@ -639,7 +639,7 @@ const backup=el('button','Baixar backup local');backup.id='bm103SyncBackup';back
 controls.append(connect,sync,backup);
 const label=el('label');label.className='bm103-sync-auto';
 const check=el('input');check.id='bm103SyncAuto';check.type='checkbox';check.checked=auto;
-const info=el('span','Sincronizar automaticamente após editar e a cada 2 minutos (site aberto e Google conectado)');
+const info=el('span','Sincronizar após editar; sem consultas periódicas ao Drive');
 label.append(check,info);
 const status=el('p','Preparando a conexão Google…');status.id='bm103SyncStatus';
 status.setAttribute('role','status');status.setAttribute('aria-live','polite');
@@ -834,7 +834,7 @@ let bm263InFlight=null;
    core.apply(localStorage,additions);
    window.dispatchEvent(new CustomEvent('bm-pdf-storage-changed',{detail:{action:'master-import'}}));
   }
-  lastRun=Date.now();
+  lastRun=Date.now();pendingEdit=false;
   const issues=confirmed.conflicts.length;
   say('Cores/grifos confirmados no Drive: '+Object.keys(confirmed.records).length+
     ' registro(s) de páginas/metadados; '+additions.additions+
@@ -868,27 +868,21 @@ sync.addEventListener('click',()=>runSync(true));
 backup.addEventListener('click',backupLocal);
 check.addEventListener('change',()=>{
  auto=check.checked;try{localStorage.setItem(AUTO_KEY,auto?'1':'0')}catch(_){}
- say(auto?'Sincronização periódica habilitada enquanto a sessão Google estiver válida.':'Sincronização automática pausada; botão manual disponível.');
+ say(auto?'Salvamento após edições habilitado, sem buscas periódicas.':'Sincronização automática pausada; botão manual disponível.');
  if(auto&&authorized())void runSync();
 });
 // When the reader closes, upload changes made during this study session.
 const reader=document.getElementById('pdfDialog');
 if(reader)reader.addEventListener('close',()=>{
- if(auto&&authorized()&&!busy)
+ if(pendingEdit&&auto&&authorized()&&!busy)
   setTimeout(()=>{if(document.visibilityState==='visible')void runSync()},800);
 });
 window.addEventListener('bm-pdf-storage-changed',()=>{
+ pendingEdit=true;
  if(!auto||!authorized()||busy||scheduled)return;
  scheduled=setTimeout(()=>{scheduled=null;if(document.visibilityState==='visible')void runSync()},20000);
 });
-document.addEventListener('visibilitychange',()=>{
- if(document.visibilityState==='visible'&&auto&&authorized()&&!busy&&Date.now()-lastRun>INTERVAL)
-  void runSync();
-});
-setInterval(()=>{
- if(auto&&authorized()&&document.visibilityState==='visible'&&!busy&&Date.now()-lastRun>INTERVAL)
-  void runSync();
-},INTERVAL);
+// V326: grifos só sincronizam por edição local, fechamento com pendência ou ação explícita.
 window.BancoMestreGrifosDriveSyncV104=Object.freeze({
  get connected(){return authorized()},get deviceId(){return device},
  get lastSync(){return lastRun},sync:()=>runSync(true),get lastStatus(){return status.textContent}
