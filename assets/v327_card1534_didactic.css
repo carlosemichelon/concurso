@@ -1,0 +1,41 @@
+/* V327 — CARD-1534, vista didática principal integrada; CSS limitado ao cartão. */
+.bm327-learning{--bm327-border:#d4e1df;color:#17353b;background:#fff;border:1px solid var(--bm327-border);border-radius:12px;overflow:hidden;line-height:1.58;font-size:15px}
+.bm327-learning .bm327-lesson-head{padding:22px 24px 16px;border-bottom:1px solid var(--bm327-border);background:#fcfdfd}
+.bm327-learning .bm327-eyebrow{display:block;font-size:11px;font-weight:800;letter-spacing:.075em;color:#24646b}
+.bm327-learning h3{font-size:clamp(19px,2vw,24px);line-height:1.27;margin:6px 0 12px;color:#133e47}
+.bm327-learning .bm327-lesson-head p{margin:0;font-size:14px;line-height:1.65}
+.bm327-learning .bm327-body{padding:8px 24px 22px}
+.bm327-learning h4{font-size:17px;line-height:1.4;margin:26px 0 8px;border-bottom:1px solid #e5edeb;padding-bottom:7px;color:#164b52}
+.bm327-learning p{font-size:14.5px;line-height:1.68;margin:9px 0 12px;white-space:normal!important}
+.bm327-learning mark{color:inherit;padding:1px 3px;border-radius:3px;box-decoration-break:clone}
+.bm327-learning .bm327-key{background:#fef0ad}
+.bm327-learning .bm327-condition{background:#cde7fc}
+.bm327-learning .bm327-value{background:#d3f2da}
+.bm327-learning .bm327-equation{margin:14px 0;padding:14px 14px;background:#f9fbfa;border:1px solid #dce8e5;border-radius:9px;overflow-x:auto;text-align:center}
+.bm327-learning .bm327-equation math{font-size:clamp(17px,2vw,23px);min-width:max-content;margin:auto}
+.bm327-learning .bm327-table-wrap{width:100%;overflow-x:auto;margin:12px 0 8px;border:1px solid #d4e1df;border-radius:9px}
+.bm327-learning table.bm327-table{border-collapse:collapse;width:100%;background:white;min-width:520px;font-size:13.5px}
+.bm327-learning .bm327-table th,.bm327-learning .bm327-table td{border-bottom:1px solid #dde8e6;border-right:1px solid #e3ecea;padding:11px 12px;text-align:left;vertical-align:top;line-height:1.45}
+.bm327-learning .bm327-table thead th{background:#e9f0ef;color:#15444b;font-weight:800;white-space:normal}
+.bm327-learning .bm327-table tbody th{background:#f7faf9;min-width:135px;font-weight:750}
+.bm327-learning .bm327-table tbody tr:last-child>*{border-bottom:0}
+.bm327-learning .bm327-table tr>*:last-child{border-right:0}
+.bm327-learning .bm327-table-compact td,.bm327-learning .bm327-table-compact th{text-align:center}
+.bm327-learning .bm327-table-compact tbody th{text-align:left}
+.bm327-learning .bm327-caption{font-size:12px;color:#516b70;margin:5px 0 17px}
+.bm327-learning .bm327-recall{border-left:4px solid #377e80;padding:12px 15px;margin:22px 0 13px;background:#f5faf9}
+.bm327-learning .bm327-recall strong,.bm327-learning .bm327-mini strong{font-size:14px}
+.bm327-learning .bm327-recall p,.bm327-learning .bm327-mini p{margin:5px 0 0}
+.bm327-learning .bm327-mini{padding:12px 15px;border-top:1px solid #dce7e5}
+.bm327-learning .bm327-sources{color:#47676c}
+.bm327-learning details.bm327-original,.bm327-learning details.bm327-history{margin:8px 24px 18px;padding:11px 13px;border:1px solid #d7e5e1;border-radius:9px;background:#fff;font-size:13px}
+.bm327-learning details.bm327-history{margin-top:12px}
+.bm327-learning details.bm327-original>summary,.bm327-learning details.bm327-history>summary{font-size:14px;font-weight:750;color:#245e64;cursor:pointer}
+.bm327-learning .bm327-original>.bm165-essential,.bm327-learning .bm327-original>.bm163-essential{display:block!important;margin:14px 0 0!important;padding:10px;border:1px solid #e0e8e7}
+.bm327-learning .bm327-original .richSection{display:block!important}
+.bm327-learning .bm327-original p{white-space:pre-wrap!important}
+.bm327-learning .bm327-history-content{margin:12px 0 0}
+.bm327-learning .bm327-history-content .bm198-module{display:block!important}
+#bmCardPeekV050 .bm327-lesson-pane>.bm197-title{display:none!important}
+#bmCardPeekV050 .bm327-learning{max-width:100%}
+@media(max-width:650px){.bm327-learning .bm327-lesson-head{padding:16px}.bm327-learning .bm327-body{padding:5px 16px 16px}.bm327-learning .bm327-equation{padding:10px 4px}.bm327-learning details.bm327-original,.bm327-learning details.bm327-history{margin:10px 14px}.bm327-learning .bm327-table{font-size:12px}}
