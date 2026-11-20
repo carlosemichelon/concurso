@@ -110,6 +110,16 @@ fs.mkdirSync(output,{recursive:true});
      cut:list.some(x=>x.getBoundingClientRect().right>innerWidth+1||x.getBoundingClientRect().left<0)};
    });
    assert.equal(areas.n,5);
+   if(areas.decorative){
+    const debug=await page.evaluate(()=>{
+     const nodes=[...document.querySelectorAll('#areaRows .topicCard')].slice(0,5);
+     return {
+      areas:nodes.map(n=>({html:n.outerHTML.slice(0,410),display:getComputedStyle(n,'::before').display,content:getComputedStyle(n,'::before').content,matched:n.matches('#areaRows .topicCard'),parent:n.parentElement?.id,withinAssuntos:!!n.closest('#assuntos'),mask:n.style.getPropertyValue('--bm096-mask')})),
+      cssLoaded:[...document.styleSheets].filter(s=>(s.href||'').includes('v309_mobile_tabs.css')).map(s=>({href:s.href,disabled:s.disabled,rules:(()=>{try{return s.cssRules.length}catch(e){return String(e)}})()}))
+     };
+    });
+    console.log('V309_AREA_DIAG '+width+' '+JSON.stringify(debug));
+   }
    assert.equal(areas.decorative,false,'Ícones grandes reapareceram');
    assert.equal(areas.cut,false,'Disciplinas cortadas');
    if(width<=620&&width>340)assert.equal(areas.cols,2,'Áreas não ficaram em duas colunas');
