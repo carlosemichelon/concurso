@@ -62,7 +62,7 @@
   const auto=byReferences(references,lastRating);
   // Um marco de referência documentado posterior à última revisão real
   // produz classificação automática separada, nunca duas avaliações Fácil formais.
-  if(auto.count>=5&&(!lastDate||auto.at>=lastDate)){
+  if(auto.count>=5&&(!lastDate||auto.at>lastDate)){
    return {id,due:auto.due,rating:auto.rating,intervalDays:auto.intervalDays,
     easyFormalCount:formalEasyHistory(rec,lastRating),consolidated:false,
     source:'Drive privado — recorrência SRS documentada',originalDue,
