@@ -37,7 +37,7 @@ for(const f of historicalFiles)assert.ok(!live.includes('href="assets/'+f),'Cabe
 
 /* Revisar estes valores sempre que a versão visual mudar. Não mascarar camadas. */
 const approved={
-  V298:{css:16,js:149,last:'assets/v298_visual_refinements.css?v=298-1'}
+  V300:{css:17,js:152,last:'assets/v300_ui_simplified.css?v=300-1'}
 };
 const budget=approved[manifest.version];
 assert.ok(budget,'Versão '+manifest.version+' ainda não auditada neste teste');
@@ -53,7 +53,7 @@ for(const [type,links] of [['CSS',css],['JS',js]]){
     assert.ok(fs.existsSync(path),'Recurso local '+type+' ausente: '+path);
   }
 }
-console.log('V277_ARCHIVE_PASS + V298_CURRENT_PASS: 16 CSS, 149 JS, ordem e arquivos válidos.');
+console.log('V277_ARCHIVE_PASS + V300_CURRENT_PASS: 17 CSS, 152 JS, ordem e arquivos válidos.');
 
 /* Bundle fiel: reproduzir literalmente a cascata, sem alterar seletor nem ordem. */
 const bundledSources=["assets/v278_ui_icons.css","assets/v280_teclike_theme.css","assets/v281_content_hierarchy.css","assets/v283_blue_popup_theme.css","assets/v284_body_heading_blue.css","assets/v286_font_blue.css","assets/v287_global_contrast.css","assets/v288_cards_surface.css","assets/v289_other_sections.css","assets/v291_contrast_square.css","assets/v292_visual_system.css","assets/v293_compact_cards_images.css","assets/v294_reader_ink_font.css","assets/v295_pdf_and_image_trash.css","assets/v297_visual_audit.css"];
@@ -63,6 +63,7 @@ const expectedUi=prefix+bundledSources.map(path=>
 ).join('\n');
 assert.equal(read('assets/v298_ui_bundle.css'),expectedUi,'CSS consolidados diferem das fontes originais');
 for(const name of bundledSources)assert.ok(!live.includes('href="'+name),'CSS importado duplicadamente: '+name);
-assert.equal(css[css.length-2],'assets/v298_ui_bundle.css?v=298-1');
+assert.equal(css[css.length-3],'assets/v298_ui_bundle.css?v=298-1');
+assert.equal(styles(read('v298.html')).length,16,'V298 histórica modificada');
 assert.equal(styles(read('v297.html')).length,29,'Rollback V297 alterado');
 console.log('V298_BUNDLE_PASS: 15 folhas reproduzidas, 29 → 16 CSS, rollback intacto.');

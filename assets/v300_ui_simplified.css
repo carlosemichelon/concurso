@@ -1,0 +1,206 @@
+/* Banco Mestre V300 — clareza da interface sem alterar armazenamento ou didática. */
+:root{--bm299-ink:#14232e;--bm299-border:#ccdce5;--bm299-blue:#147fbf}
+.bm299-quick{
+ display:flex!important;flex-wrap:wrap!important;gap:9px!important;
+ align-items:center!important;margin:10px 0 8px!important;
+ padding:0!important;min-width:0!important;max-width:100%!important
+}
+.bm299-quick>input[type="search"],.bm299-quick>label:has(select),
+.bm299-quick>select{flex:1 1 210px!important;min-width:0!important;max-width:100%!important}
+.bm299-quick>label:has(select){display:flex!important;flex-direction:column!important;gap:3px!important}
+.bm299-quick :is(input,select){min-height:39px!important;font-size:13.5px!important;
+ border:1px solid #b7cdd9!important;color:#14232e!important;background:#fff!important;
+ border-radius:0!important}
+.bm299-quick :is(.small,#pdfCount,#cardCount,#topicCount){flex:0 1 auto!important;
+ font-size:12px!important;color:#3d5363!important}
+.bm299-more,#lacunas .bm299-lac-more{
+ margin:7px 0 12px!important;border:1px solid var(--bm299-border)!important;
+ border-radius:0!important;background:#fff!important;padding:0!important;
+ max-width:100%!important
+}
+.bm299-more>summary,#lacunas .bm299-lac-more>summary{
+ display:list-item!important;padding:9px 12px!important;cursor:pointer!important;
+ font:650 12.5px/1.45 "Segoe UI",Arial,sans-serif!important;
+ color:#165c88!important;background:#f7fafc!important
+}
+.bm299-more-body,#lacunas .bm299-lac-more-body{
+ padding:12px!important;display:flex!important;flex-direction:column!important;
+ gap:9px!important;min-width:0!important
+}
+.bm299-more-body :is(input,select){max-width:100%!important}
+#assuntos>.panel>.controls[hidden],#pdfs>.panel>.controls[hidden],
+#imagens .bm280-advanced[hidden],#cartoes .bm280-advanced[hidden],
+#pdfs .bm280-advanced[hidden],#assuntos .bm280-advanced[hidden]{display:none!important}
+#cartoes #bm299-card-quick{margin:12px 0!important}
+#cartoes #bm299-card-quick .bm152Field{
+ display:flex!important;flex-direction:column!important;gap:3px!important;
+ font:650 12px/1.4 "Segoe UI",Arial,sans-serif!important
+}
+#cartoes #bm299-card-more #bm152Filters{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ width:100%!important;margin:0!important;border:0!important;
+ padding:0!important;box-shadow:none!important;background:#fff!important
+}
+#cartoes #bm299-card-more .bm210Quick{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+#cartoes #bm299-card-more .bm152Field{min-width:0!important}
+#pdfs #bm299-pdf-quick{margin:9px 0 8px!important}
+#pdfs #bm210PdfToolbar{
+ margin:7px 0!important;padding:8px!important;display:flex!important;
+ flex-wrap:wrap!important;gap:7px!important;min-height:0!important
+}
+#pdfs #bm210PdfActions{
+ display:flex!important;flex-wrap:wrap!important;gap:7px!important;
+ padding:0!important;border:0!important;min-height:0!important
+}
+#pdfs #bm210PdfActions :is(button,a){min-height:35px!important}
+#pdfs #bm210PdfToolbar .bm210Filters:empty{display:none!important}
+#pdfs #bm299-pdf-more .bm299-more-body :is(.bm210StatusDetails,#pdfAreaNavV036,.bm280-advanced-body){
+ max-width:100%!important;min-width:0!important
+}
+#pdfs #bm299-pdf-more #pdfAreaNavV036{
+ display:flex!important;flex-wrap:wrap!important;gap:6px!important;
+ background:transparent!important;border:0!important;padding:4px 0!important
+}
+#pdfs #bm299-pdf-more .bm210StatusDetails>summary{
+ font-weight:600!important;color:#165c88!important
+}
+/* Restauração da hierarquia do catálogo da V297 (não dos dados nem dos PDFs). */
+body>main #pdfs #pdfRows :is(.v036-pdf-title,.v036-card-title,h3){
+ color:#15222d!important;font:700 13.5px/1.45 "Segoe UI",Arial,sans-serif!important;
+ overflow-wrap:anywhere!important
+}
+body>main #pdfs #pdfRows :is(.v036-area-head,.v036-card-group-summary){
+ color:#15222d!important;background:#f1f6fa!important;
+ font:700 14px/1.5 "Segoe UI",Arial,sans-serif!important
+}
+body>main #pdfs #pdfRows :is(.v036-area-desc,.v036-count,small,p){
+ color:#334a5a!important;font-size:12px!important;line-height:1.5!important
+}
+#imagens #bm209SyncBar #bm155ImageFilters.bm155ImageFilters{
+ display:flex!important;flex-wrap:wrap!important;align-items:end!important;
+ gap:8px!important;width:100%!important;margin:0!important;
+ padding:0!important;background:transparent!important;border:0!important
+}
+#imagens #bm209SyncBar #bm155ImageFilters>.bm155Field{flex:1 1 215px!important;min-width:0!important}
+#imagens #bm209SyncBar #bm155ImageFilters>.bm299-image-extra{
+ display:none!important
+}
+#imagens #bm209SyncBar #bm155ImageFilters.bm299-image-expanded>.bm299-image-extra{
+ display:flex!important
+}
+#imagens #bm209SyncBar #bm299-image-toggle{
+ flex:0 0 auto!important;align-self:end!important;min-height:35px!important;
+ padding:7px 11px!important;background:#f5f9fc!important;border:1px solid #bbd4e4!important;
+ color:#155a89!important;font-weight:650!important
+}
+#imagens #bm293ImageActions{display:flex!important;flex-wrap:wrap!important;gap:7px!important}
+#imagens #bm299-image-options{margin:2px 0 0!important}
+#imagens #bm299-image-options .bm210StatusDetails{
+ max-width:100%!important;min-width:0!important
+}
+#imagens #bm299-image-options>summary{
+ border:0!important
+}
+/* Lacunas: conteúdo de estudo visível e legível, detalhes preservados sob demanda. */
+#lacunas .bm242-shell{background:#fff!important;max-width:1100px!important;
+ padding:20px!important;border:1px solid #c3d4df!important;border-radius:0!important}
+#lacunas .bm242-shell>h2{font:700 21px/1.3 "Segoe UI",Arial,sans-serif!important;
+ color:#101820!important;margin:0 0 5px!important}
+#lacunas .bm242-shell>.bm242-muted{font-size:13px!important;color:#435967!important;
+ margin:7px 0!important}
+#lacunas .bm242-status{border-radius:0!important;background:#f6f9fb!important;
+ font-size:12px!important;color:#344d5c!important;line-height:1.5!important}
+#lacunas .bm242-filters{display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ gap:8px!important;margin:14px 0!important}
+#lacunas .bm299-lac-filter-main{display:grid!important;
+ grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) auto!important;
+ align-items:end!important;gap:9px!important}
+#lacunas .bm299-lac-filter-main>label{min-width:0!important;grid-column:auto!important;
+ font-size:12px!important;color:#2f4655!important}
+#lacunas .bm299-lac-filter-main input,#lacunas .bm299-lac-filter-main select{
+ min-height:39px!important;font-size:13px!important;color:#14232e!important;
+ border-radius:0!important;background:#fff!important
+}
+#lacunas .bm299-lac-reset{min-height:39px!important;white-space:nowrap!important;
+ background:#f4f8fb!important;color:#185f8d!important;border-radius:0!important}
+#lacunas .bm299-lac-more-body{display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+#lacunas .bm299-lac-stats{display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important;
+ margin:10px 0 18px!important}
+#lacunas .bm299-lac-stat{border:1px solid #d4e1e9!important;background:#f7fafc!important;
+ padding:10px 13px!important;display:flex!important;flex-direction:column!important;gap:3px!important}
+#lacunas .bm299-lac-stat strong{font:750 23px/1.15 "Segoe UI",Arial,sans-serif!important;color:#142c3b!important}
+#lacunas .bm299-lac-stat span{font-size:12px!important;color:#41576a!important}
+#lacunas .bm299-lac-group{font:700 14px/1.4 "Segoe UI",Arial,sans-serif!important;
+ color:#173a50!important;border-bottom:2px solid #c9dce8!important;
+ margin:22px 0 8px!important;padding:0 0 7px!important;display:flex!important;
+ gap:12px!important;justify-content:space-between!important;overflow-wrap:anywhere!important}
+#lacunas .bm299-lac-group>span{white-space:nowrap!important;font-size:12px!important;color:#496174!important}
+#lacunas .bm242-item{background:#fff!important;border:1px solid #cbdbe5!important;
+ border-radius:0!important;padding:12px 15px!important;margin:9px 0!important;
+ box-shadow:none!important;overflow-wrap:anywhere!important}
+#lacunas .bm256-lac-header{padding:0!important;align-items:start!important}
+#lacunas .bm256-lac-header h3,#lacunas .bm256-lac-header strong{
+ color:#101820!important;font:700 16px/1.45 "Segoe UI",Arial,sans-serif!important;
+ margin:0!important;overflow-wrap:anywhere!important}
+#lacunas .bm256-lac-id{font-size:11px!important}
+#lacunas .bm256-lac-path{margin:7px 0!important;color:#41596b!important;font-size:12px!important}
+#lacunas .bm299-lac-badges{display:flex!important;gap:7px!important;flex-wrap:wrap!important;margin:9px 0 3px!important}
+#lacunas .bm299-lac-badges>span{font:650 11.5px/1.4 "Segoe UI",Arial,sans-serif!important;
+ padding:3px 8px!important;border:1px solid #c5dce9!important;color:#26566f!important;background:#f2f7fa!important}
+#lacunas .bm299-lac-badges .bm299-lac-priority{color:#963d2b!important;
+ border-color:#e6c0b5!important;background:#fff7f4!important}
+#lacunas .bm299-lac-preview{display:-webkit-box!important;-webkit-box-orient:vertical!important;
+ -webkit-line-clamp:2!important;overflow:hidden!important;margin:8px 0!important;
+ color:#263f4e!important;font-size:13px!important;line-height:1.6!important;white-space:normal!important}
+#lacunas .bm299-lac-main-actions{margin:10px 0 4px!important;gap:7px!important}
+#lacunas .bm299-lac-main-actions button[data-open]{color:#fff!important;background:#166e9c!important;
+ border-color:#166e9c!important;min-height:36px!important}
+#lacunas .bm299-lac-entry-details{margin-top:8px!important;border-top:1px solid #dbe6ed!important;
+ padding:8px 0 0!important;background:#fff!important}
+#lacunas .bm299-lac-entry-details>summary{color:#135e8d!important;
+ font:650 12.5px/1.5 "Segoe UI",Arial,sans-serif!important;cursor:pointer!important}
+#lacunas .bm299-lac-entry-details>.bm299-lac-more-body{
+ display:block!important;padding:9px 0!important
+}
+#lacunas .bm299-lac-entry-details section.bm256-lac-block{
+ display:block!important;margin:8px 0!important;padding:11px 13px!important;border-radius:0!important;
+ background:#f8fafc!important;border:1px solid #dbe6ec!important
+}
+#lacunas .bm299-lac-entry-details .bm256-lac-meta{
+ margin:6px 0 12px!important;border-radius:0!important;
+ grid-template-columns:repeat(4,minmax(0,1fr))!important
+}
+#lacunas .bm299-lac-secondary-actions{display:flex!important;flex-wrap:wrap!important;gap:7px!important;
+ margin:0 0 10px!important}
+#lacunas .bm299-lac-secondary-actions>button{min-height:35px!important}
+#lacunas .bm299-lac-form-basics{display:grid!important;gap:8px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#lacunas .bm299-lac-form-basics>label:first-child,
+#lacunas .bm299-lac-form-basics>label:nth-child(2){grid-column:1/-1!important}
+#lacunas #bm299-lac-form-more>.bm299-lac-more-body{display:block!important;padding:10px!important}
+#lacunas #bm299-lac-backups{margin-top:15px!important}
+#lacunas #bm299-lac-backups .bm242-actions{margin:0!important}
+#lacunas .bm242-form{border-radius:0!important;margin:17px 0 8px!important}
+#lacunas .bm242-form>summary{font-size:14px!important;color:#185e87!important}
+@media(max-width:900px){
+ #lacunas .bm299-lac-filter-main{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #lacunas .bm299-lac-filter-main>label:first-child{grid-column:1/-1!important}
+ #lacunas .bm299-lac-more-body{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:600px){
+ #lacunas .bm242-shell{padding:12px!important}
+ #lacunas .bm299-lac-filter-main{grid-template-columns:minmax(0,1fr)!important}
+ #lacunas .bm299-lac-filter-main>label:first-child{grid-column:auto!important}
+ #lacunas .bm299-lac-more-body{grid-template-columns:minmax(0,1fr)!important}
+ #lacunas .bm299-lac-stats{gap:5px!important}
+ #lacunas .bm299-lac-stat{padding:8px!important}
+ #lacunas .bm299-lac-stat strong{font-size:19px!important}
+ #lacunas .bm299-lac-stat span{font-size:11px!important}
+ #lacunas .bm242-item{padding:11px!important}
+ #lacunas .bm299-lac-entry-details .bm256-lac-meta{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #lacunas .bm299-lac-form-basics{grid-template-columns:minmax(0,1fr)!important}
+ #lacunas .bm299-lac-form-basics>label:first-child,
+ #lacunas .bm299-lac-form-basics>label:nth-child(2){grid-column:auto!important}
+ #cartoes #bm299-card-more #bm152Filters{grid-template-columns:minmax(0,1fr)!important}
+}

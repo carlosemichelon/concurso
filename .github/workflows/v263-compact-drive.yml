@@ -16,6 +16,9 @@ jobs:
         run: |
           node tests/v263_static_integrity.cjs
           node tests/v277_header_bundle.cjs
+          node --check assets/v300_simple_filters.js
+          node --check assets/v300_lacunas_ui.js
+          node tests/v300_ui_static.cjs
           node tests/v262_layout_sync.test.cjs
           node tests/v121_integridade_portal.cjs
           node tests/v124_integridade_portal.cjs
@@ -45,6 +48,7 @@ jobs:
           node tests/v263_browser.cjs
           node tests/v277_header_browser.cjs
           node tests/v298_visual_browser.cjs
+          node tests/v300_ui_browser.cjs
       - name: Proteger a versão anterior V262
         run: node tests/v262_browser.cjs
       - name: Guardar capturas V298 (somente dados públicos)

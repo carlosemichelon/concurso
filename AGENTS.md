@@ -200,3 +200,11 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - O renderizador não deve converter palavras de hipóteses, unidades, exemplos ou explicações em identificadores matemáticos sem espaços. Separar texto comum de símbolos/equações no DOM e preservar integralmente o texto vindo do Drive.
 - A implementação específica é `assets/v258_math_refinement.js` + CSS, carregados após o MathML V256 na página `v258.html`; não alterar conteúdos canônicos, cartões, lacunas ou SRS por motivo de apresentação.
 - Auditoria e evidência de testes: `docs/V258_FORMATACAO_MISTA_FORMULAS_2026-11-18.md`. Retorno reversível: `v257.html`. Não considerar simulação de DOM como prova de OAuth ou teste visual real.
+
+
+## V300 — restauração localizada de PDF e apresentação simplificada de Lacunas (19/11/2026)
+- PDF: restaurar somente o visual de conteúdo da V297 (tipografia e hierarquia), sem regressão de PDF, Drive, grifos, sincronização V299 e leitor.
+- Lacunas: manter integralmente relato literal do estudante, diagnóstico/autoria separados, questão, fonte, evidências, etapa, histórico e cartão relacionado. Mostrar primeiro dúvida, disciplina/assunto, prioridade e estágio; colocar administração e detalhes secundários atrás de painéis recolhidos.
+- Corrigir o uso de `section` interno em `.bm256-lac-block`, que não deve ser ocultado pelo CSS global `section{display:none}`.
+- Search + 1 filtro principal visíveis em cada aba; filtros avançados e ações secundárias acessíveis sem duplicar ID ou apagar valores.
+- Preservar a versão V299, em particular `assets/v299_drive_continuous.js`, e seus limites de OAuth. Homologar desktop/mobile com lacunas sintéticas, sem acessar conteúdo privado.

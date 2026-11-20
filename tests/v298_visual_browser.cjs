@@ -15,7 +15,7 @@ const {chromium}=require('playwright');
    page.on('response',r=>{if(r.url().includes('v298_')&&r.status()!==200)cssErrors.push(r.url()+':'+r.status());});
    await page.route('https://accounts.google.com/**',r=>r.abort());
    await page.route('https://www.googleapis.com/**',r=>r.abort());
-   await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
+   await page.goto('http://127.0.0.1:8765/v298.html',{waitUntil:'domcontentloaded',timeout:60000});
    await page.locator('header .brand').waitFor();
    await page.screenshot({path:path.join('test-artifacts/v298',width+'-inicio.png')});
    await page.locator('header nav button[data-page="cartoes"]').click();

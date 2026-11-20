@@ -1,3 +1,12 @@
+# V300 — PDFs anteriores, Lacunas reorganizadas e filtros essenciais (19/11/2026)
+
+- **PDFs:** retorno à aparência de títulos, agrupamentos e textos da V297, sem substituir PDFs, leitores ou grifos.
+- **Lacunas:** agrupamento por disciplina/assunto e situação, prioridade e cartões no primeiro plano; todos os conteúdos, relatórios, origens e históricos acessíveis em detalhes. Correção de `section` didática ocultada pela regra de navegação global.
+- **Filtros:** pesquisa e disciplina/grupo/situação em destaque; opções secundárias e ações administrativas recolhidas em Assuntos, PDFs, Flashcards, Imagens e Lacunas, mantendo IDs/eventos originais.
+- **Drive:** preservado o módulo de sincronização contínua autorizado da V299, sem modificar tokens, intervalos ou ações.
+- **Manifesto:** versão/home/portal rearmonizados, pois o manifesto V299 declarava V299 porém apontava para V298.
+- **Segurança:** não altera dados locais/privados, SRS, cartões, módulos didáticos ou originais. V299 preservada para reversão.
+
 # V299 — Drive automaticamente sincronizado durante sessão autorizada (19/11/2026)
 
 - Sincronização periódica a cada 5 minutos na aba aberta e visível, após autorização expressa OAuth de leitura e escrita pelo usuário; ativação automática em visitas futuras após nova autorização.

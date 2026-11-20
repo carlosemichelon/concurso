@@ -62,3 +62,9 @@ Data: 09/11/2026. Aplicação: todos os cartões existentes e novos, de qualquer
 Em toda nova conversa relacionada a Banco Mestre, estudos, flashcards, elaboração/auditoria, TRT, Petrobras, concursos, Lei Seca, Atlas, PDF, Drive ou site, **abrir e carregar a Metodologia Mestre vigente ANTES da primeira ação substantiva**, consultando a íntegra atualizada, especialmente adendos e fontes vinculadas. Documento central: `00_METODOLOGIA_MESTRE_VIGENTE_v014`, Google Drive ID `1HXpal_7FFV4_yJsvfhEAEKpB36ym4LEzpb4t1PXHmcc` (verificar atualização ou sucessor oficial). Conferir também `AGENTS.md`, `METODOLOGIA_V037_FLASHCARDS_PDF.md`, contratos/versão ativa quando relacionados à tarefa. Não usar apenas resumo de memória como substituto.
 
 Se não houver acesso às fontes em um novo chat, comunicar explicitamente quais documentos não puderam ser carregados e preservar as regras já conhecidas, sem declarar conformidade ou salvamento inexistente. Não pedir ao estudante que repita esta orientação. Incluir a exigência nos próximos checkpoints e auditorias. Carregamento da metodologia, criação de arquivos, publicação do site e verificação visual são etapas distintas.
+
+
+## UI do portal — adendo V300 (19/11/2026)
+- A apresentação da aba PDFs segue novamente a hierarquia de leitura V297, sem trocar arquivos, leitor, sincronizador nem marcações.
+- Lacunas exibem conceito/erro e contexto primeiro, com situação, prioridade e vínculo ao cartão. Questão, respostas, relato literal integral, diagnóstico, fontes, pesquisa, evidências de domínio e histórico nunca são excluídos: apenas recolhidos para consulta.
+- Apenas pesquisa e seleção essencial ficam abertas nas bibliotecas; configurações e categorias refinadas ficam em controles recolhidos com mesmos IDs e eventos.
