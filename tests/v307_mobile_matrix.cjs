@@ -35,7 +35,12 @@ fs.mkdirSync(output,{recursive:true});
     },tab);
     assert.equal(r.viewport,width,'Viewport incorreto');
     assert.ok(r.scroll<=width+1,'Rolagem horizontal em '+tab+' '+width+': '+JSON.stringify(r));
-    assert.ok(r.panelLeft>=-1&&r.panelRight<=width+1,'Painel fora da tela em '+tab+' '+width+': '+JSON.stringify(r));
+    if(r.panelLeft!==undefined&&r.panelRight!==undefined){
+     assert.ok(r.panelLeft>=-1&&r.panelRight<=width+1,'Painel fora da tela em '+tab+' '+width+': '+JSON.stringify(r));
+    }else{
+     // Lacunas e Redação têm layout próprio sem :scope>.panel: não exigir elemento inexistente.
+     assert.ok(await page.locator('#'+tab).count(),'Aba '+tab+' não montada');
+    }
     return r;
    };
    const results=[];
