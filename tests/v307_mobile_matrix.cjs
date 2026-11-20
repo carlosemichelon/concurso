@@ -119,6 +119,14 @@ fs.mkdirSync(output,{recursive:true});
      };
     });
     console.log('V309_AREA_DIAG '+width+' '+JSON.stringify(debug));
+    // A UI dos ícones é modificada por observadores assíncronos. A fotografia
+    // imediatamente anterior pode estar desatualizada; conferir o estado estabilizado.
+    await page.waitForFunction(()=>{
+     const cards=[...document.querySelectorAll('#areaRows .topicCard')].slice(0,5);
+     return cards.length===5&&cards.every(c=>getComputedStyle(c,'::before').display==='none');
+    },null,{timeout:10000});
+    areas.decorative=await page.evaluate(()=>[...document.querySelectorAll('#areaRows .topicCard')].slice(0,5)
+     .some(c=>getComputedStyle(c,'::before').display!=='none'));
    }
    assert.equal(areas.decorative,false,'Ícones grandes reapareceram');
    assert.equal(areas.cut,false,'Disciplinas cortadas');
