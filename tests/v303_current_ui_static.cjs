@@ -29,7 +29,7 @@ for(const t of [
  'assets/v304_pdf_ui.js?v=304-1',
  'assets/v305_card_reader.js?v=305-1',
  'assets/v305_cards_clarity.js?v=305-2',
- 'assets/v306_drive_gallery_search.js?v=306-1',
+ 'assets/v306_drive_gallery_search.js?v=306-2',
  'assets/v306_card_media.js?v=306-1',
  'assets/v306_redacao_theme.js?v=306-1',
  'assets/v300_lacunas_ui.js?v=300-1',
