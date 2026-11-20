@@ -791,7 +791,7 @@ window.BM228DriveImageEditor=Object.freeze({decorate,meta,open,exportJson,import
    window.addEventListener('pageshow',refresh);
    // Observa mudanças que o renderizador legado faz nos contadores;
    // o intervalo apenas acompanha o resultado do sincronizador Drive V207.
-   setInterval(refresh,3000);
+   // V326: atualização dos contadores já é acionada pelos eventos e MutationObservers.
  }
  window.BM208AtlasUnified=Object.freeze({refresh,get snapshot(){return snapshot()}});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
