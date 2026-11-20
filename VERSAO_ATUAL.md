@@ -1,3 +1,13 @@
+# V304 — Flashcards, PDFs e sincronização Drive a cada 3 horas (19/11/2026)
+
+- **Prioridade Flashcards:** a fonte privada V173 foi conferida (1.536 cartões / 1.520 SRS). O ponteiro V009 do Drive omite SHA-256; o comparador V304 permite inspeção **somente leitura não certificada**, sem confundir falta de metadado com falha no cartão. Quando há SHA no ponteiro, comparação criptográfica continua obrigatória e divergência bloqueia.
+- **PDFs:** o painel duplicado “Estado e opções” e o aviso histórico sobre 78 PDFs deixam de poluir a interface; contagem real da biblioteca continua disponível. Cada área, como “Engenharia Civil”, passa a abrir/recolher pelo próprio cabeçalho, com a contagem preservada. Os arquivos e editores continuam intactos.
+- **Drive:** ciclo automático passa a **3 horas** enquanto a autorização OAuth continua válida e a página está aberta. Sincronização manual e reconexão permanecem disponíveis; as abas não reiniciam o relógio.
+- **Rastreabilidade:** V303 anterior preservada em `v303.html`; novos módulos isolados V304 e os existentes não alterados. Nenhum cartão, SRS, conteúdo pedagógico, PDF, imagem ou grifo original foi modificado.
+- **Validação:** verificações estáticas de código e presença de recursos concluídas. Teste autenticado no navegador do estudante permanece pendente.
+
+---
+
 # V303 — Reconstrução da aba PDFs e filtros das bibliotecas (19/11/2026)
 
 - **Problema reproduzido visualmente:** a aba PDFs dividia a barra e os botões em colunas desconexas, gerando um espaço vazio alto. Em Flashcards, filtros de ordenação continuavam expostos; em Imagens, filtros duplicados; painéis recolhidos podiam mostrar controles mesmo fechados porque regras `display:flex!important` prevaleciam.
