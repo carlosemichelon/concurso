@@ -98,7 +98,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      // V306: um original de enunciado/figura deve surgir no próprio cartão.
      await search.fill('CARD-1509');
      await page.waitForFunction(()=>window.BM306CardMedia?.ready,{timeout:18000});
-     const media=page.locator('#cardRows article.card .bm306-image-item[data-image-id="IMG-C12-030"]');
+     const media=page.locator('#cardRows article.card[data-bm305-id="CARD-1509"] .bm306-image-item[data-image-id="IMG-C12-030"]');
      await media.waitFor({state:'visible',timeout:18000});
      const fileLink=media.locator('a[href*="1gdepf2G5xQfT82pjAA1Rszl9nLdXyuZS"]');
      assert.equal(await fileLink.count(),1,'Imagem do cartão não aponta para o original correto do Drive');
