@@ -1,3 +1,15 @@
+# V307 — Frente de flashcards e áreas de estudo (20/11/2026)
+
+- **Áreas de estudo:** removido o pseudo-ícone decorativo dos cinco botões principais. Preservados títulos, quantidades, função de clique, disciplina e consulta de assuntos. Botões compactos e com tipografia consistente.
+- **Frente dos cartões:** ampliada a largura-alvo da grade para 350 px; faixa superior mostra disciplina/origem à esquerda e **Abrir leitura** à direita, sem se sobrepor ao enunciado. ID visível acima da pergunta. Pergunta em tipografia de 16 px (15 px no celular) com entrelinha estável.
+- **Metadados:** disciplina, assunto e subassunto repetidos foram reduzidos visualmente; a referência exata original, quando cadastrada, continua integral em **Fonte, referência e edição**, um painel recolhido por padrão. O texto original não foi alterado, e o leitor completo com 11 módulos continua acessível.
+- **Mídia e relações:** mantidas figuras de enunciado/questão no cartão e no leitor, explicações visuais recolhidas e links auditáveis de cartões relacionados; nenhuma associação presumida adicionada.
+- **Ações:** Grifar/escrever e Excluir da visualização alinhados no rodapé, com tamanho/cores moderados. Excluir da visualização não apaga dados ou arquivos originais.
+- **Persistência e segurança:** fontes privadas, IDs, SRS, PDFs, grifos, sincronização Drive de 3 horas, histórico, V306 e anteriores preservados. Mudança apenas de interface e localização visual das referências.
+- **Validação:** testes de DOM, visual mobile/desktop, versão atual e rollback; não é uma auditoria de conteúdo de todos os cartões. Teste real da sessão Google Drive e auditoria dos registros de imagens sem classificação continuam tarefas separadas.
+
+---
+
 # V306 — Imagens no próprio flashcard, busca editorial e Redação (20/11/2026)
 
 - **Busca de imagem por ID:** a consulta `IMG-C12-030` agora reconhece o identificador editorial publicado em V211/V198/V180. O original no Drive se chama `IMG-P12-011_NR17_Medidas_de_Prevencao_Pausas_Alternancia.png` e tem Drive ID `1gdepf2G5xQfT82pjAA1Rszl9nLdXyuZS`; vínculos comprovados com `CARD-1509` e `CARD-1518`. A busca aceita ID editorial, arquivo original, nome, questão e IDs vinculados, sem inferir temas.
