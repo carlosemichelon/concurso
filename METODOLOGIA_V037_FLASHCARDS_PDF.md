@@ -74,3 +74,10 @@ Se não houver acesso às fontes em um novo chat, comunicar explicitamente quais
 - Aba PDFs em fluxo vertical: título, pesquisa, grupo, total, ferramentas autorizadas, resultados. Categorias adicionais, catálogos, diagnósticos e backups ficam num único painel recolhido real e acessível.
 - Assuntos, Flashcards, Imagens e Lacunas seguem busca + classificação primária. Filtros específicos, ordenação, opções de importação e históricos permanecem acessíveis somente após expandir os detalhes.
 - Grifos são registrados primeiro no armazenamento local, depois sincronizados em um arquivo mestre privado JSON no Drive quando a transferência é confirmada; não escrever no PDF original nem confundir a cópia de PDF anotado com upload automático.
+
+## V324 — Painel único de pesquisa e leitura na lateral (20/11/2026)
+- Dentro de `#bmCardPeekV050 .bm165-related`, exibir a lista OU a prévia, nunca ambas simultaneamente; classes de estado `.bm324-search-view`/`.bm324-card-view`.
+- Em `.bm324-card-view`, "← Pesquisa" retorna aos resultados sem apagar o texto buscado, filtros, quantidade expandida ou posição de rolagem.
+- Cartões relacionados abrem uma nova prévia na MESMA lateral, sem substituir o leitor principal; somente o botão ↗ promove para a janela principal. Preservar 11 módulos sob demanda e isolamento de SRS.
+- Implementação aditiva: `assets/v324_related_navigator.js`, `assets/v324_single_sidebar.css`, `v324.html`. `v323.html` é rollback; não duplicar caixas de leitura nem reestruturar dados de cartões.
+- Sintaxe e referências de interface foram verificadas; não alegar homologação de navegador real sem teste.
