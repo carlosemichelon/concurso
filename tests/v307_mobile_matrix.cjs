@@ -106,12 +106,18 @@ fs.mkdirSync(output,{recursive:true});
    await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
    results.push(await check('lacunas'));
    results.push(await check('redacao'));
-   await page.waitForFunction(()=>document.getElementById('bm302-redacao-original')?.contentDocument?.getElementById('bm306-redacao-theme'),{timeout:16000});
-   const style=await page.evaluate(()=>{
-    const f=document.getElementById('bm302-redacao-original'),d=f.contentDocument;
-    return {color:f.contentWindow.getComputedStyle(d.documentElement).getPropertyValue('--ouro').trim(),
-      iframeWidth:f.getBoundingClientRect().width,viewport:innerWidth};
-   });
+   // A página interna troca de Document durante a navegação: aguardar o estilo COMPUTADO
+   // e retornar o resultado no mesmo callback evita race com contentDocument nulo.
+   const handle=await page.waitForFunction(()=>{
+    const f=document.getElementById('bm302-redacao-original'),d=f?.contentDocument;
+    if(!d?.documentElement||!d.getElementById('bm306-redacao-theme')?.sheet)return false;
+    try{
+     const color=f.contentWindow.getComputedStyle(d.documentElement).getPropertyValue('--ouro').trim();
+     const iframeWidth=f.getBoundingClientRect().width;
+     return color==='#176a9f'?{color,iframeWidth,viewport:innerWidth}:false;
+    }catch(_){return false}
+   },null,{timeout:20000});
+   const style=await handle.jsonValue();
    assert.equal(style.color,'#176a9f','Paleta da Redação não aplicada');
    assert.ok(style.iframeWidth<=width+1,'Redação excede viewport');
    assert.deepEqual(errors,[],'Erros JS no navegador '+width);
