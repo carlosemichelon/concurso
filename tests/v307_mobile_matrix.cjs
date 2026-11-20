@@ -24,7 +24,15 @@ fs.mkdirSync(output,{recursive:true});
    }));
    const errors=[];page.on('pageerror',e=>errors.push(String(e)));
    await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
-   await page.waitForFunction(()=>document.documentElement.dataset.bmPortalVersion==='V308'&&window.BM303UnifiedFilters?.ready,{timeout:20000});
+   await page.waitForFunction(()=>document.documentElement.dataset.bmPortalVersion==='V309'&&window.BM303UnifiedFilters?.ready&&window.BM309MobileTabs?.ready,{timeout:20000});
+   if(width<=620){
+    const initial=await page.evaluate(()=>({
+     hidden:document.querySelector('header nav[aria-label="Seções"]')?.hidden,
+     expanded:document.getElementById('bm309-mobile-tabs-toggle')?.getAttribute('aria-expanded')
+    }));
+    assert.ok(initial.hidden&&initial.expanded==='false','Abas não começam recolhidas: '+JSON.stringify(initial));
+    await page.locator('#bm309-mobile-tabs-toggle').click();
+   }
    // Cabeçalho real no celular: conferir todos os botões e as duas ações do Drive.
    const header=await page.evaluate(()=>{
     const nav=document.querySelector('body>header .head>nav[aria-label="Seções"]');
@@ -53,8 +61,22 @@ fs.mkdirSync(output,{recursive:true});
       assert.ok(x.right<=y.left+1||y.right<=x.left+1||x.bottom<=y.top+1||y.bottom<=x.top+1,'Botões sobrepostos: '+header.buttons[i].page+' / '+header.buttons[j].page);
      }
    }
-   console.log('V308_HEADER_MOBILE '+width+' '+JSON.stringify(header));
+   console.log('V309_HEADER_MOBILE '+width+' '+JSON.stringify(header));
    await page.screenshot({path:output+'/header-'+width+'.png'});
+   if(width<=620){
+    await page.locator('header nav button[data-page="cartoes"]').click();
+    const state=await page.evaluate(()=>({
+     hidden:document.querySelector('header nav[aria-label="Seções"]')?.hidden,
+     expanded:document.getElementById('bm309-mobile-tabs-toggle')?.getAttribute('aria-expanded'),
+     label:document.getElementById('bm309-mobile-tabs-toggle')?.textContent
+    }));
+    assert.ok(state.hidden&&state.expanded==='false'&&state.label.includes('Flashcards'),
+     'Menu não recolheu depois de escolher Flashcards: '+JSON.stringify(state));
+    await page.locator('#bm309-mobile-tabs-toggle').click();
+    assert.equal(await page.locator('#bm309-mobile-tabs-toggle').getAttribute('aria-expanded'),'true');
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('#bm309-mobile-tabs-toggle').getAttribute('aria-expanded'),'false');
+   }
    const check=async tab=>{
     await page.locator('header nav button[data-page="'+tab+'"]').evaluate(n=>n.click());
     const r=await page.evaluate(tab=>{
@@ -150,7 +172,15 @@ fs.mkdirSync(output,{recursive:true});
    const style=await handle.jsonValue();
    assert.equal(style.color,'#176a9f','Paleta da Redação não aplicada');
    assert.ok(style.iframeWidth<=width+1,'Redação excede viewport');
-   assert.deepEqual(errors,[],'Erros JS no navegador '+width);
+   await page.waitForFunction(()=>window.BM309CalendarSync?.ready,{timeout:20000});
+   const calendar=await page.evaluate(()=>{
+    const root=document.getElementById('bm240-native-host')?.shadowRoot;
+    return {button:root?.getElementById('bm309-calendar-sync-action')?.textContent,
+     status:root?.querySelector('#bm309-calendar-sync .bm309-status')?.textContent};
+   });
+   assert.ok(calendar.button&&calendar.status,'Sincronização de Calendário não montada');
+   console.log('V309_CALENDAR_SYNC_UI '+width+' '+JSON.stringify(calendar));
+      assert.deepEqual(errors,[],'Erros JS no navegador '+width);
    console.log('V307_MOBILE_MATRIX_PASS '+width+' '+JSON.stringify({areas,card:metrics,modal,redacao:style,tabs:results,jsErrors:errors.length}));
    await page.screenshot({path:output+'/redacao-'+width+'.png'});
    await context.close();
