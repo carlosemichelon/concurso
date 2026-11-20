@@ -7,13 +7,14 @@
 'use strict';
 if(window.BM299DriveContinuous)return;
 const CYCLE=5*60*1000,RETRY=2*60*1000;
-let lastAttempt=0,running=false,lastState='',indicator=null;
+let lastAttempt=0,running=false,everAuthorized=false,indicator=null;
 const globalDrive=()=>window.BM239DriveGlobal;
 const openTab=()=>document.visibilityState==='visible'&&navigator.onLine!==false;
 const authorized=()=>Boolean(globalDrive()?.writeAuthorized&&globalDrive()?.connected);
 const status=()=>{
  const d=globalDrive(),isAuthorized=authorized();
- return !d?.connectionStatus?.ready?'aguardando':'ligado'===lastState&&!isAuthorized?'reconectar':isAuthorized?'ligado':'conectar';
+ if(isAuthorized)everAuthorized=true;
+ return !d?.connectionStatus?.ready?'aguardando':isAuthorized?'ligado':everAuthorized?'reconectar':'conectar';
 };
 function ensureIndicator(){
  if(indicator?.isConnected)return indicator;
@@ -32,7 +33,7 @@ function ensureIndicator(){
 }
 function refresh(){
  const indicator=ensureIndicator();if(!indicator)return;
- const current=status();lastState=current;
+ const current=status();
  if(current==='ligado'){
   indicator.textContent='Automático ligado';
   indicator.title='Com o Drive autorizado, verificação a cada 5 minutos nesta aba aberta. Acesso Google não é permanente.';
