@@ -1,3 +1,11 @@
+## Atualização 20/11/2026 — V333
+
+Acesso: https://carlosemichelon.github.io/concurso/?v=333 · snapshot: v333.html · anterior: v332.html.
+
+**CARD-1534 — Experimento de formatação aprovado para teste visual:** resposta em fundo branco com três parágrafos naturais de texto contínuo, sem indicadores numerados 01–03, caixas ou linhas divisórias dentro da resposta discursiva. O conteúdo permanece exatamente igual à V332. Preservados destaques semânticos, fórmulas MathML com títulos, quadros HTML informativos e os recolhíveis históricos, incluindo "Resposta evolutiva integral".
+
+Assets versionados `assets/v333_card1534_reading.js` e `assets/v333_card1534_reading.css`; demais cartões, bases e SRS intocados. Checagens estáticas realizadas; aspecto no navegador ainda não verificado.
+
 ## Atualização 20/11/2026 — V332
 
 Acesso: https://carlosemichelon.github.io/concurso/?v=332 (index.html) · snapshot: v332.html · versão anterior para retorno: v331.html.
