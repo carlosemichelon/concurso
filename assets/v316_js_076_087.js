@@ -1463,7 +1463,13 @@ function records(){
  for(const x of privateRecords)if(map.has(x.id))all.set(x.id,x);
  for(const x of imported)if(map.has(x.id))all.set(x.id,{id:x.id,due:x.due,rating:x.rating,consolidated:x.consolidated===true,easyFormalCount:Number(x.easyFormalCount)||0,intervalDays:Number(x.intervalDays)||null,source:'Importação SRS local'});
  // Eventos formais confirmados no Drive têm prioridade sobre fonte antiga e importações.
- for(const x of window.BM316SrsJournal?.records?.()||[])if(map.has(x.id)&&due(x.due))all.set(x.id,x);
+ for(const x of window.BM316SrsJournal?.records?.()||[]){
+  if(!map.has(x.id)||!due(x.due))continue;
+  const prior=all.get(x.id);
+  // Uma revisão posterior no snapshot canônico prevalece sobre evento antigo do portal.
+  if(prior?.lastReview&&x.lastReview&&x.lastReview<prior.lastReview)continue;
+  all.set(x.id,x);
+ }
  return [...all.values()].filter(x=>due(x.due));
 }
 function calculate(){
