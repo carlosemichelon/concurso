@@ -1,0 +1,76 @@
+
+/* assets/v256_readability.css */
+/* V256 — formatação de fórmulas e fichas de lacunas. Escopo de apresentação. */
+.bm249-equation,.bm198-equation{font:500 1rem/1.6 system-ui,-apple-system,'Segoe UI',sans-serif!important;text-align:center;padding:15px 12px!important;max-width:100%;overflow-x:auto;word-break:normal!important}
+.bm256-math-visual{display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:3px 0;color:inherit}
+.bm256-math-visual math{font-size:1.16em;white-space:nowrap;margin:0 auto}
+.bm256-math-source{position:absolute!important;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#lacunas #bm242-list{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+#lacunas #bm242-list .bm242-item{margin:0;padding:0;overflow:hidden;min-width:0;border:1px solid #cbdcde;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(20,45,55,.05)}
+#lacunas .bm256-lac-header{padding:17px 20px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px 18px;flex-wrap:wrap}
+#lacunas .bm256-lac-header h3{margin:0;font:750 1.08rem/1.45 system-ui,-apple-system,'Segoe UI',sans-serif;color:#163b43;flex:1 1 420px}
+#lacunas .bm256-lac-header strong{font:inherit}
+#lacunas .bm256-lac-id{max-width:100%;padding:3px 0}
+#lacunas .bm256-lac-id code{display:block;margin:0;font-size:.75rem;color:#4d6870;overflow-wrap:anywhere}
+#lacunas .bm256-lac-path{margin:3px 20px 13px!important;font-size:.87rem;color:#53696f;line-height:1.55;overflow-wrap:anywhere}
+#lacunas .bm256-lac-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0 20px 17px;border:1px solid #dce6e8;background:#f8fafb;border-radius:8px}
+#lacunas .bm256-lac-meta>div{padding:10px 12px;min-width:0}
+#lacunas .bm256-lac-meta>div+div{border-left:1px solid #dce6e8}
+#lacunas .bm256-lac-meta dt{font-size:.73rem;color:#587178;font-weight:750;margin:0 0 3px}
+#lacunas .bm256-lac-meta dd{font-size:.9rem;font-weight:650;margin:0;color:#233f48;overflow-wrap:anywhere}
+#lacunas .bm256-lac-block{padding:12px 16px;margin:0 20px 11px;border-radius:8px;border:1px solid #e0e8e9}
+#lacunas .bm256-lac-block h4{font-size:.86rem;font-weight:800;color:#264d55;margin:0 0 6px}
+#lacunas .bm256-lac-block p{font-size:.96rem;line-height:1.67;color:#223d45;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+#lacunas .bm256-lac-block p>b:first-child{display:none}
+#lacunas .bm256-lac-student{border-left:4px solid #527984;background:#f6f9fa}
+#lacunas .bm256-lac-analysis{border-left:4px solid #507564;background:#f8faf9}
+#lacunas .bm256-lac-confidence{font-size:.78rem!important;font-weight:650!important;color:#526e75!important;margin:0 0 8px!important}
+#lacunas .bm256-lac-research{background:#fafbfb}
+#lacunas .bm256-lac-origin{border:0;padding:0;margin:8px 20px 14px}
+#lacunas .bm256-lac-origin h4{font-size:.77rem}
+#lacunas .bm256-lac-origin p{font-size:.88rem}
+#lacunas .bm256-lac-actions{margin:8px 20px 16px;display:flex;gap:8px;flex-wrap:wrap}
+#lacunas .bm256-lac-actions button{line-height:1.35;text-align:left;min-height:40px}
+#lacunas .bm256-lac-actions button[data-open]{background:#1b6068;color:#fff;border-color:#1b6068}
+#lacunas .bm256-lac-actions .bm256-lac-stage{background:#fff;border-style:dashed}
+#lacunas .bm256-lac-history{margin:0;background:#fafbfb;border-top:1px solid #dfe8e9;padding:12px 20px 16px}
+#lacunas .bm256-lac-history summary{font-size:.89rem;font-weight:700;color:#395d64;cursor:pointer}
+#lacunas .bm256-lac-history>p{font-size:.88rem;line-height:1.6;overflow-wrap:anywhere}
+#lacunas .bm256-lac-history .bm256-lac-event{border-left:2px solid #cadbdd;padding-left:12px;margin:8px 0 8px 3px}
+@media(max-width:720px){
+ #lacunas .bm256-lac-header{padding:14px 13px 6px}
+ #lacunas .bm256-lac-path{margin:4px 13px 12px!important}
+ #lacunas .bm256-lac-meta{margin:0 13px 13px;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #lacunas .bm256-lac-meta>div:nth-child(3){border-left:0;border-top:1px solid #dce6e8}
+ #lacunas .bm256-lac-meta>div:nth-child(4){border-top:1px solid #dce6e8}
+ #lacunas .bm256-lac-block{margin:0 13px 10px;padding:10px 12px}
+ #lacunas .bm256-lac-origin{margin:8px 13px 13px}
+ #lacunas .bm256-lac-actions{margin:10px 13px 13px}
+ #lacunas .bm256-lac-actions button{flex:1 1 180px}
+ #lacunas .bm256-lac-history{padding:11px 13px 13px}
+ .bm249-equation,.bm198-equation{font-size:.97rem!important;padding:12px 6px!important}
+}
+@media(max-width:390px){
+ #lacunas .bm256-lac-meta{grid-template-columns:1fr}
+ #lacunas .bm256-lac-meta>div+div{border-left:0;border-top:1px solid #dce6e8}
+ #lacunas .bm256-lac-actions button{flex-basis:100%}
+}
+@media(prefers-reduced-motion:reduce){#lacunas *{scroll-behavior:auto!important}}
+
+
+/* assets/v258_math_refinement.css */
+/* V258 — Texto explicativo permanece texto; apenas fórmulas recebem MathML. */
+.bm249-equation:has(.bm258-composed-math),
+.bm198-equation:has(.bm258-composed-math){text-align:left!important;font-family:system-ui,-apple-system,'Segoe UI',sans-serif!important;white-space:normal!important;overflow-wrap:normal!important}
+.bm258-composed-math{max-width:100%;min-width:0;display:flex;flex-direction:column;gap:9px;align-items:stretch}
+.bm258-context,.bm258-prose{margin:0!important;font:500 .94rem/1.65 system-ui,-apple-system,'Segoe UI',sans-serif!important;white-space:pre-wrap!important;text-align:left;color:inherit;overflow-wrap:anywhere}
+.bm258-context{font-weight:680!important;color:#234c57}
+.bm258-equation{max-width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;padding:4px 6px;text-align:center}
+.bm258-equation math{display:block;margin:0 auto;font-size:1.16rem;white-space:nowrap}
+.bm258-original-source{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:700px){
+ .bm258-composed-math{gap:7px}
+ .bm258-context,.bm258-prose{font-size:.9rem!important;line-height:1.65!important}
+ .bm258-equation{padding:5px 1px}
+ .bm258-equation math{font-size:1.08rem}
+}
