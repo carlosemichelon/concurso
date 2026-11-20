@@ -1,3 +1,15 @@
+## Atualização 20/11/2026 — V332
+
+Acesso: https://carlosemichelon.github.io/concurso/?v=332 (index.html) · snapshot: v332.html · versão anterior para retorno: v331.html.
+
+O CARD-1534 mantém os três parágrafos integrados, os realces semânticos e as fórmulas MathML. Cada fórmula ganhou seu rótulo técnico. Os dados da Tabela 9.3 (tipo/disposição e percentuais estático/dinâmico) e da Tabela 9.4 (percentual e α0t) aparecem em duas tabelas HTML reais. O Quadro 06 reúne exclusivamente informação, não decisões.
+
+Os recolhíveis foram organizados para reduzir repetições: (1) macetes, pegadinhas e lacunas; (2) fundamentos e fontes; (3) **Resposta evolutiva integral**, fechada inicialmente, contendo verso literal original, seção histórica de conhecimento mínimo/resposta-modelo, os 11 módulos completos e registros de tentativas/correções. Os textos são movidos no DOM, nunca excluídos. Leituras e movimentações não alteram o SRS.
+
+Cabeçalho, título e rodapé passaram à versão V332. Corrigida a estatística estática antiga 1.555 para 1.558 fichas: 1.536 IDs canônicos (1.519 ativos; 17 inativos) + 22 propostas editoriais. Valores apoiados nos contadores existentes no manifesto, sem confundir fichas com eventos SRS.
+
+Os arquivos V331, JS/CSS V330, dados de cartões e pontes V327/V329 permanecem preservados. Scripts V332: `assets/v332_card1534_didactic.js`, `assets/v332_card1534_didactic.css`. Verificações estruturais e de sintaxe foram realizadas, mas a apresentação em navegador real ainda precisa de confirmação do usuário.
+
 ## Atualização 20/11/2026 — V330
 
 Acesso: https://carlosemichelon.github.io/concurso/ (index.html) · snapshot: v330.html · rollback: v329.html.
