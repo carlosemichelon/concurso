@@ -24,7 +24,37 @@ fs.mkdirSync(output,{recursive:true});
    }));
    const errors=[];page.on('pageerror',e=>errors.push(String(e)));
    await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
-   await page.waitForFunction(()=>document.documentElement.dataset.bmPortalVersion==='V307'&&window.BM303UnifiedFilters?.ready,{timeout:20000});
+   await page.waitForFunction(()=>document.documentElement.dataset.bmPortalVersion==='V308'&&window.BM303UnifiedFilters?.ready,{timeout:20000});
+   // Cabeçalho real no celular: conferir todos os botões e as duas ações do Drive.
+   const header=await page.evaluate(()=>{
+    const nav=document.querySelector('body>header .head>nav[aria-label="Seções"]');
+    const head=document.querySelector('body>header'),buttons=[...nav.querySelectorAll(':scope > button[data-page]')];
+    const bounds=e=>{const r=e.getBoundingClientRect();return {left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width,height:r.height}};
+    const sync=document.getElementById('bm239-drive-action'),diag=document.getElementById('bm239-sync-details');
+    const navStyle=getComputedStyle(nav);
+    return {head:bounds(head),nav:bounds(nav),navDisplay:navStyle.display,
+     navClientWidth:nav.clientWidth,navScrollWidth:nav.scrollWidth,buttons:buttons.map(b=>({
+       page:b.dataset.page,text:b.textContent.trim(),rect:bounds(b),
+       icon:getComputedStyle(b,'::before').display,visible:getComputedStyle(b).visibility
+     })),sync:bounds(sync),diag:bounds(diag),count:buttons.length};
+   });
+   if(width<=620){
+    assert.equal(header.navDisplay,'grid','Navegação continua como faixa de rolagem no celular');
+    assert.ok(header.count>=6,'Destinos complementares de navegação desapareceram');
+    assert.ok(header.head.height<=250,'Cabeçalho muito alto para celular: '+JSON.stringify(header));
+    assert.ok(header.navScrollWidth<=header.navClientWidth+1,'Navegação continua com rolagem horizontal');
+    assert.ok(header.buttons.every(b=>b.rect.left>=-1&&b.rect.right<=width+1&&b.rect.height>=38&&b.visible==='visible'),'Botões de navegação cortados ou pequenos: '+JSON.stringify(header));
+    assert.ok(header.buttons.every(b=>b.icon==='none'),'Ícones decorativos ainda invadem a navegação');
+    assert.ok(header.sync.width>=55&&header.diag.width>=55&&header.sync.height>=38&&header.diag.height>=38,'Ações Drive ilegíveis');
+    assert.ok(Math.abs(header.sync.width-header.diag.width)<=1,'Sincronizar/Diagnóstico com larguras diferentes');
+    for(let i=0;i<header.buttons.length;i++)
+     for(let j=i+1;j<header.buttons.length;j++){
+      const x=header.buttons[i].rect,y=header.buttons[j].rect;
+      assert.ok(x.right<=y.left+1||y.right<=x.left+1||x.bottom<=y.top+1||y.bottom<=x.top+1,'Botões sobrepostos: '+header.buttons[i].page+' / '+header.buttons[j].page);
+     }
+   }
+   console.log('V308_HEADER_MOBILE '+width+' '+JSON.stringify(header));
+   await page.screenshot({path:output+'/header-'+width+'.png'});
    const check=async tab=>{
     await page.locator('header nav button[data-page="'+tab+'"]').evaluate(n=>n.click());
     const r=await page.evaluate(tab=>{
