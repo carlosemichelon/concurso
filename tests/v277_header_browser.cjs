@@ -31,7 +31,7 @@ const expectedVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).
     };
    });
    assert.equal(state.version,expectedVersion);
-   const expectedCss={V303:18,V304:19,V305:20,V306:21,V307:22}[expectedVersion];
+   const expectedCss={V303:18,V304:19,V305:20,V306:21,V307:22,V308:23}[expectedVersion];
    assert.ok(expectedCss,'Versão não auditada: '+expectedVersion);
    assert.equal(state.cssLinks,expectedCss,'Orçamento CSS divergente da versão '+expectedVersion);
    assert.ok(state.compiled,'Bundle CSS não entrou na CSSOM');
