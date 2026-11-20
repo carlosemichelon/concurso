@@ -1,5 +1,6 @@
 # V304 — Flashcards, PDFs e sincronização Drive a cada 3 horas (19/11/2026)
 
+- **SHA-256 confirmado no Drive:** ponteiro operacional privado **V010** criado com SHA-256 calculado dos bytes reais da base privada V173; leitura de retorno confirmou ID da fonte, 1.536 cartões, 1.520 registros SRS e assinatura. O V009 original foi preservado; a verificação autenticada no navegador ainda precisa ser exercitada.
 - **Prioridade Flashcards:** a fonte privada V173 foi conferida (1.536 cartões / 1.520 SRS). O ponteiro V009 do Drive omite SHA-256; o comparador V304 permite inspeção **somente leitura não certificada**, sem confundir falta de metadado com falha no cartão. Quando há SHA no ponteiro, comparação criptográfica continua obrigatória e divergência bloqueia.
 - **PDFs:** o painel duplicado “Estado e opções” e o aviso histórico sobre 78 PDFs deixam de poluir a interface; contagem real da biblioteca continua disponível. Cada área, como “Engenharia Civil”, passa a abrir/recolher pelo próprio cabeçalho, com a contagem preservada. Os arquivos e editores continuam intactos.
 - **Drive:** ciclo automático passa a **3 horas** enquanto a autorização OAuth continua válida e a página está aberta. Sincronização manual e reconexão permanecem disponíveis; as abas não reiniciam o relógio.
