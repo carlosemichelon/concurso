@@ -7,7 +7,7 @@ const API='https://www.googleapis.com/drive/v3/files';
 const UPLOAD='https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name';
 const PREFIX='BM_SRS_EVENT_V001_';
 const RATINGS=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32});
-let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='',selecting=false,ratedInView=false;
+let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='',selecting=false,ratedInView=false,ratedMessage='';
 const uncertainIds=new Set();
 const $=id=>document.getElementById(id);
 const token=()=>window.BM239DriveGlobal?.writeToken?.()||'';
@@ -91,6 +91,7 @@ async function refresh(){
 function updateStatus(){
  const el=$('bm316-srs-state');if(!el)return;
  el.textContent=uncertain?'Gravação não confirmada: confira o Drive antes de repetir.':
+ ratedInView&&ratedMessage?ratedMessage:
  working?'Salvando e conferindo avaliação no Google Drive…':
  !token()?'Conecte o Drive com gravação para classificar.':
  lastError?'Não foi possível consultar o histórico: '+lastError:
@@ -176,7 +177,8 @@ function build(){
    try{
     const result=await record(id,rating);
     ratedInView=true;
-    state.textContent=rating+' registrado no Drive e conferido. Próxima revisão: '+result.due+' ('+result.interval_days+' dias).';
+    ratedMessage=rating+' registrado no Drive e conferido. Próxima revisão: '+result.due+' ('+result.interval_days+' dias).';
+    state.textContent=ratedMessage;
    }catch(e){state.textContent=e.message}
    finally{selecting=false;updateStatus()}
   });
@@ -197,9 +199,9 @@ function build(){
   const id=window.BancoMestreVisualizarCardV050?.currentId;
   const isVisible=!overlay.hidden&&!answer.hidden&&validId(id);
   if(currentKey!==id){
-   currentKey=id;uncertain=uncertainIds.has(id);ratedInView=false;
+   currentKey=id;uncertain=uncertainIds.has(id);ratedInView=false;ratedMessage='';
   }
-  if(answer.hidden)ratedInView=false;
+  if(answer.hidden){ratedInView=false;ratedMessage='';}
   box.hidden=!isVisible;updateStatus();
  }
  const obs=new MutationObserver(update);
