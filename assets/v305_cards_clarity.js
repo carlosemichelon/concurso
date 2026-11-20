@@ -190,8 +190,8 @@ function mountImageQueue(){
  const actions=top.querySelector('.bm303-actions')||top;
  const button=document.createElement('button');
  button.type='button';button.id='bm305-image-pending';button.className='bm305-pending-button';
- button.textContent='Imagens sem classificação';
- button.title='Mostra registros cujo assunto não foi cadastrado. Reutiliza os filtros existentes; não atribui cartões automaticamente.';
+ button.textContent='Ver imagens sem assunto';
+ button.title='Filtra somente imagens sem assunto geral cadastrado; outras classificações incompletas continuam nos filtros existentes. Não atribui cartões automaticamente.';
  button.onclick=()=>{
   const general=$('bm155AssuntoGeralImagem'),disc=$('bm155DisciplinaImagem');
   const reset=$('bm155Reset');
@@ -212,7 +212,7 @@ function mountImageQueue(){
  if(status&&typeof MutationObserver==='function'){
   const refresh=()=>{
    const m=String(status.textContent||'').match(/(\d+)\s+sem classificação completa/i);
-   if(m)button.textContent=m[1]+' imagens sem classificação';
+   if(m)button.title='Há '+m[1]+' imagens com algum campo incompleto no acervo. Este atalho filtra apenas as que não têm assunto geral cadastrado.';
   };
   new MutationObserver(refresh).observe(status,{childList:true,subtree:true,characterData:true});refresh();
  }
