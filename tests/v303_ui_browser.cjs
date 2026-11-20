@@ -69,8 +69,13 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      await d.click();assert.ok(await page.locator('#bm281IdOrder').isVisible());
      await d.click();assert.equal(await page.locator('#bm281IdOrder').isVisible(),false);
      await page.waitForFunction(()=>document.querySelectorAll('#cardRows article.card').length>0,{timeout:18000});
+     await page.waitForFunction(()=>{
+      const rows=document.getElementById('cardRows');
+      return rows?.querySelector(':scope > article.card') && !rows?.querySelector(':scope > details.bm128CardsGroup,:scope > details.v036-card-group');
+     },{timeout:15000});
      assert.ok(await page.locator('#bm305-count-detail').count(),'Detalhamento de contagem dos cartões ausente');
      const cardIds=await page.locator('#cardRows article.card .tag').allTextContents();
+     console.log('V305_ID_ORDER '+width+' '+cardIds.slice(0,14).join(' → '));
      const numeric=cardIds.filter(id=>/^CARD-\d+$/.test(id)).map(id=>Number(id.slice(5)));
      assert.ok(numeric.length>1&&numeric.every((id,i)=>i===0||numeric[i-1]>=id),'Ordenação decrescente por ID foi substituída por grupos de assuntos');
      const open=page.locator('#cardRows .bm-v050-peek-button').first();
