@@ -1,0 +1,29 @@
+name: V303 — Auditoria visual de abas e filtros
+on:
+  push:
+    branches: [feature/v303-ui-rebuild]
+  workflow_dispatch:
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Preparar Chromium
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.55.1
+          npx playwright install --with-deps chromium
+      - name: Capturar apresentação em desktop e celular
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/bm303.log 2>&1 &
+          sleep 2
+          node tests/v303_visual_probe.cjs
+      - name: Capturas e diagnóstico estrutural
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v303-ui-audit
+          path: test-artifacts/v303/
+          if-no-files-found: ignore
