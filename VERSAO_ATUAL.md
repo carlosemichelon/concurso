@@ -1,3 +1,14 @@
+# V308 — Cabeçalho para celular (20/11/2026)
+
+- **Correção isolada:** alterados somente os estilos móveis do cabeçalho (até 620 px). O conteúdo dos cartões, PDFs, imagens, páginas, 11 módulos, SRS e autorização Drive permanece inalterado.
+- **Navegação:** botões em grade de quatro colunas de largura igual, sem ícones grandes, com rótulos legíveis, estado ativo azul e área de toque de pelo menos 39 px. Redação usa rótulo visual curto, mantendo o nome acessível original.
+- **Drive:** botões **Sincronizar** e **Diagnóstico** nivelados, com área de toque de 38 px e sem texto cortado. A sincronização permanece em 3 horas.
+- **Celular horizontal:** cabeçalho deixa de ser fixo em paisagem baixa para não ocupar demasiada área de leitura.
+- **Validação:** matriz de seis larguras (320, 360, 390, 412, 480, 667 px) verifica corte, sobreposição, rolagem interna, botões e regressões de cartões. Conexão OAuth real não faz parte do teste.
+- **Reversão:** `v307.html` e os estilos anteriores foram preservados. A V308 usa `assets/v308_mobile_header.css` isolado.
+
+---
+
 # V307 — Frente de flashcards e áreas de estudo (20/11/2026)
 
 - **Áreas de estudo:** removido o pseudo-ícone decorativo dos cinco botões principais. Preservados títulos, quantidades, função de clique, disciplina e consulta de assuntos. Botões compactos e com tipografia consistente.
