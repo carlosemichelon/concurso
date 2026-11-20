@@ -4,12 +4,12 @@
 <meta http-equiv="Cache-Control" content="no-store"><meta http-equiv="Pragma" content="no-cache">
 <style>body{font:16px/1.6 system-ui,Arial,sans-serif;background:#f3f7f6;color:#183438;margin:0;padding:8vh 5vw;max-width:700px}a{color:#006e68;font-weight:700}</style>
 </head><body><h1>Banco Mestre</h1><p id="st">Verificando a edição mais recente do portal...</p>
-<p><a id="entrar" href="./v314.html?versao=V314">Abrir Banco Mestre V314</a></p>
+<p><a id="entrar" href="./v316.html?versao=V316">Abrir Banco Mestre V316</a></p>
 <small>O endereço verifica o manifesto da versão ativa e preserva o cartão solicitado.</small>
 <script>
 (function(){
  'use strict';
- const fallback={version:'V314',home:'v314.html'};
+ const fallback={version:'V316',home:'v316.html'};
  const cardParam=()=>{
   const x=new URLSearchParams(location.search).get('cartao');
   return x&&/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Z0-9_-]+|TRT\d{2}-C\d{3})$/i.test(x)?x:'';
@@ -34,10 +34,10 @@
    throw Error('Manifesto de versão inconsistente');
   go(manifest);
  }).catch(e=>{
-  document.getElementById('st').textContent='Não foi possível consultar o manifesto ('+e.message+'). A versão V314 permanece disponível diretamente.';
-  const dest=new URL('./v314.html?versao=V314&nova=V314-fallback',location.href);
+  document.getElementById('st').textContent='Não foi possível consultar o manifesto ('+e.message+'). A versão V316 permanece disponível diretamente.';
+  const dest=new URL('./v316.html?versao=V316&nova=V316-fallback',location.href);
   const id=cardParam();if(id)dest.searchParams.set('cartao',id);dest.hash=location.hash;
-  const link=document.getElementById('entrar');link.href=dest.href;link.textContent='Abrir Banco Mestre V314';
+  const link=document.getElementById('entrar');link.href=dest.href;link.textContent='Abrir Banco Mestre V316';
  });
 })();
 </script>
