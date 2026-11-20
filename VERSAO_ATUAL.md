@@ -1,3 +1,13 @@
+## Atualização 20/11/2026 — V328
+
+Acesso: https://carlosemichelon.github.io/concurso/ (index.html) · snapshot: v328.html · retorno: v327.html.
+
+**CARD-1534 — Emendas por traspasse:** o leitor passa a apresentar uma única resposta-modelo integrada, com as informações essenciais dos critérios históricos 01 (pergunta), 02 (resposta), 04 (mecanismo), 05 (cálculo) e 06 (comparações). Fórmulas foram renderizadas por MathML nativo, com tabelas comparativas reais (três conceitos; limites da Tabela 9.3; coeficientes da Tabela 9.4), grifos seletivos, exemplo 80 cm/16 cm, exemplo de cálculo e alertas normativos. A vista literal antiga e os 11 módulos históricos continuam íntegros e disponíveis em controles recolhidos; o conteúdo canônico não foi reescrito.
+
+**Cartões relacionados:** abertura na lateral sempre inicia com o verso recolhido. A pergunta é exibida primeiro e o estudante decide quando revelar; o cartão principal não é substituído por navegar na lateral.
+
+As três novas mídias locais de UI são `assets/v327_card1534_didactic.js`, `assets/v327_card1534_didactic.css` e `assets/v327_related_navigator.js`; o prefixo v327 identifica o desenvolvimento do arquivo, não a versão de publicação V328. A ponte `v327_deferred_10_bridge.js`, os dez cartões integrados na V327, os arquivos históricos e o SRS foram preservados. Teste de sintaxe e verificação estática efetuados; teste autenticado em navegador permanece pendente.
+
 ## Atualização 20/11/2026 — V326
 
 Acesso: https://carlosemichelon.github.io/concurso/ (index.html) · snapshot: v326.html · retorno: v325.html.
