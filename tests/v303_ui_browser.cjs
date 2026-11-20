@@ -50,20 +50,20 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
     if(tab==='pdfs'){
      assert.equal(metrics.panelDisplay,'flex','PDFs ainda dispostos em colunas conflitantes');
      assert.ok(await page.locator('#bm303-pdf-toolbar .bm303-actions #driveConnectV038').count());
-     const next=page.locator('#bm303-pdf-toolbar .bm303-more summary');
+     const next=page.locator('#bm303-pdf-toolbar .bm303-more > summary');
      await next.click();assert.ok(await page.locator('#pdfHidden').isVisible());
      assert.ok(await page.locator('#bm210PdfToolbar').isVisible(),'Ferramentas PDFs perdidas');
      await next.click();assert.equal(await page.locator('#pdfHidden').isVisible(),false);
     }
     if(tab==='cartoes'){
-     const d=page.locator('#bm303-card-toolbar .bm303-more summary');
+     const d=page.locator('#bm303-card-toolbar .bm303-more > summary');
      assert.equal(await page.locator('#bm281IdOrder').isVisible(),false);
      await d.click();assert.ok(await page.locator('#bm281IdOrder').isVisible());
      await d.click();assert.equal(await page.locator('#bm281IdOrder').isVisible(),false);
     }
     if(tab==='imagens'){
      assert.equal(await page.locator('#bm155AssuntoGeralImagem').isVisible(),false);
-     const d=page.locator('#bm303-image-toolbar .bm303-more summary');
+     const d=page.locator('#bm303-image-toolbar .bm303-more > summary');
      await d.click();assert.ok(await page.locator('#bm155AssuntoGeralImagem').isVisible());
      await d.click();assert.equal(await page.locator('#bm155AssuntoGeralImagem').isVisible(),false);
     }

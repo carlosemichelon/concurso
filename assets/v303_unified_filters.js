@@ -41,8 +41,7 @@ function activeCounter(details){
   let n=0;
   for(const el of details.querySelectorAll('input,select')){
    if(el.disabled||el.type==='hidden'||el.type==='file')continue;
-   if(el.type==='checkbox'||el.type==='radio')n+=Number(el.checked);
-   else if(el.tagName==='SELECT'&&el.value&&el.value!=='all')n++;
+   if(el.tagName==='SELECT'&&el.selectedIndex>0&&el.value&&el.value!=='all')n++;
   }
   label.textContent=prefix+(n?' · '+n+' ativo'+(n>1?'s':''):'');
  };
@@ -88,6 +87,8 @@ function mountPdf(){
  put(x.body,$('pdfAreaNavV036'));
  put(x.body,wrap('pdfHidden'));
  put(x.body,oldbar);
+ put(x.body,$('driveDirectV038'));
+ put(x.body,$('bm-pdf-sync'));
  const controls=own(root,':scope>.controls');
  if(controls&&controls.childElementCount)put(x.body,controls);
  else if(controls)controls.hidden=true;
@@ -115,6 +116,9 @@ function mountCards(){
  else if(original)original.hidden=true;
  const old280=own(root,':scope>.bm280-advanced');if(old280)put(x.body,old280);
  put(x.body,$('bm273Versoes'));
+ put(x.body,$('bm186CheckpointPanel'));
+ const comparator=$('bm290-button')?.closest('.notice');if(comparator)put(x.body,comparator);
+ const intro=own(root,':scope>p.intro');if(intro)put(x.body,intro);
  // Outros filtros de legado permanecem acessíveis no mesmo painel.
  for(const id of ['bm109FiltersCards','bm279CardFilters'])put(x.body,$(id));
  x.more.querySelector('summary').textContent='Assuntos, ordenação e opções';
