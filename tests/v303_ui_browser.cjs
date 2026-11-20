@@ -115,7 +115,8 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
      const imageReader=page.locator('#cardRows .bm-v050-peek-button').first();
      await imageReader.click();
      console.log('V306_IMAGE_MODAL_OPEN '+width);
-     assert.ok(await page.locator('#bmCardPeekV050 .bm306-image-item[data-image-id="IMG-C12-030"]').count(),'Leitor do cartão não incorporou imagem original');
+     await page.locator('#bmCardPeekV050 .bm306-image-item[data-image-id="IMG-C12-030"]').first().waitFor({state:'visible',timeout:16000});
+     console.log('V306_IMAGE_IN_READER '+width);
      await page.evaluate(()=>window.BancoMestreVisualizarCardV050?.close?.());
      await search.fill('');
     }
