@@ -38,9 +38,8 @@
   '<p class="bm330-note">Fonte de estudo: NBR 6118, seção 9.5.2, Figura 9.3, Tabelas 9.3 e 9.4. Questão PETRO22-Q003. Vínculos: CARD-0578 e CARD-0924. Aplicação profissional: conferir edição normativa consolidada.</p>'
  ];
  function formula(host,kind){
-  const math=el('math');math.setAttribute('xmlns','http://www.w3.org/1998/Math/MathML');
-  math.setAttribute('display','block');math.setAttribute('aria-label',kind==='dist'?'Distância inferior a dezesseis centímetros':kind==='main'?'Comprimento de traspasse calculado superior ao mínimo':'Mínimo é o maior entre três parcelas');
-  math.innerHTML=M[kind];host.append(math);
+  const caption=kind==='dist'?'Distância inferior a dezesseis centímetros':kind==='main'?'Comprimento de traspasse calculado superior ao mínimo':'Mínimo é o maior entre três parcelas';
+  host.innerHTML='<math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="'+caption+'">'+M[kind]+'</math>';
  }
  function build(){
   const root=el('article','bm330-learning');root.innerHTML=data.join('');
