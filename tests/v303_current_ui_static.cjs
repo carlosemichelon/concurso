@@ -1,18 +1,19 @@
 'use strict';
-/* V309: contrato atual, snapshots V303/V304/V305/V306/V307/V308 intactos.
+/* V310: contrato atual, snapshots V303/V304/V305/V306/V307/V308/V309 intactos.
  * Sem escrita nos cartões, mídias, SRS ou Drive. */
 const assert=require('node:assert/strict'),fs=require('node:fs');
 const read=p=>fs.readFileSync(p,'utf8');
 const m=JSON.parse(read('assets/version.json')),index=read('index.html');
 const scripts=s=>[...s.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(x=>x[1]);
 const css=s=>[...s.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/g)].map(x=>x[1]);
-assert.equal(m.version,'V309');assert.equal(m.home,'v309.html');
-assert.equal(m.previous_version,'V308');
-assert.equal(m.current_versions.portal.version,'V309');
-assert.equal(m.current_versions.portal.home,'v309.html');
-assert.equal(m.current_versions.portal.previous,'V308');
-assert.equal(index,read('v309.html'),'Home e arquivo corrente divergentes');
-assert.match(index,/data-bm-portal-version="V309"/);
+assert.equal(m.version,'V310');assert.equal(m.home,'v310.html');
+assert.equal(m.previous_version,'V309');
+assert.equal(m.current_versions.portal.version,'V310');
+assert.equal(m.current_versions.portal.home,'v310.html');
+assert.equal(m.current_versions.portal.previous,'V309');
+assert.equal(index,read('v310.html'),'Home e arquivo corrente divergentes');
+assert.match(index,/data-bm-portal-version="V310"/);
+assert.match(read('v309.html'),/data-bm-portal-version="V309"/);
 assert.match(read('v308.html'),/data-bm-portal-version="V308"/);
 assert.match(read('v307.html'),/data-bm-portal-version="V307"/);
 assert.match(read('v306.html'),/data-bm-portal-version="V306"/);
@@ -25,6 +26,7 @@ assert.equal(m.counts.card_operational_ijui,22);
 const j=scripts(index),c=css(index);
 assert.equal(c.length,24);assert.equal(j.length,158);
 assert.equal(c.at(-1),'assets/v309_mobile_tabs.css?v=309-2');
+assert.ok(j.includes('assets/v218_image_metadata.js?v=310-1'),'Metadados V310 não carregados');
 for(const t of [
  'assets/v304_drive_continuous.js?v=304-1',
  'assets/v304_global_drive.js?v=304-1',
@@ -83,4 +85,14 @@ assert.match(read('assets/v308_mobile_header.css'),/grid-template-columns:repeat
 assert.match(read('assets/v309_mobile_tabs.js'),/aria-expanded/);
 assert.match(read('assets/v309_mobile_tabs.css'),/nav\[aria-label="Seções"\]\[hidden\]/);
 assert.match(read('assets/v309_calendar_sync_ui.js'),/BM240ControlDrive/);
-console.log('V309_CURRENT_STATIC_PASS: 24 CSS, 158 scripts, menu recolhido e sincronização segura do Calendário');
+const taxonomy=JSON.parse(read('assets/v310_image_taxonomy.json'));
+const historical=indexImages.records;
+assert.equal(taxonomy.schema,'BancoMestreImageTaxonomyV310');
+assert.equal(taxonomy.records.length,144);
+assert.equal(new Set(taxonomy.records.map(r=>r.driveFileId)).size,144);
+assert.equal(historical.filter(r=>r.topic).length,93);
+assert.equal(historical.filter(r=>!r.topic).length,144);
+assert.ok(taxonomy.records.every(r=>historical.some(p=>p.driveFileId===r.driveFileId&&!p.topic)),'Taxonomia contém imagem fora da fila pendente');
+assert.ok(taxonomy.records.every(r=>r.topic&&r.subtopic&&r.group&&r.cardIds===undefined&&r.originalCardIds.length===0));
+assert.match(read('assets/v218_image_metadata.js'),/fromV310/);
+console.log('V310_CURRENT_STATIC_PASS: 144 novas classificações, V309 preservada e módulos intactos');
