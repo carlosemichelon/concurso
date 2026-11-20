@@ -73,7 +73,7 @@ const fixture={
    assert.ok(lac.groups>=2);
    assert.equal(lac.filtersMain,3);
    assert.ok(lac.advancedClosed&&lac.detailClosed&&lac.detailPresent&&lac.preserved&&lac.initialStage);
-   await page.locator('#bm242-list>article .bm299-lac-entry-details').first().locator('summary').click();
+   await page.locator('#bm242-list>article .bm299-lac-entry-details').first().locator(':scope > summary').click();
    const block=page.locator('#bm242-list>article .bm299-lac-entry-details section.bm256-lac-block').first();
    if(await block.count()){
     assert.equal(await block.evaluate(x=>getComputedStyle(x).display),'block','Bloco didático ficou oculto pelo CSS global');
