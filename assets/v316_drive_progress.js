@@ -10,7 +10,8 @@ function draw(){
  if(n>0){
   clearTimeout(hold);
   bar.hidden=false;
-  label.textContent='Google Drive · '+n+' '+(n===1?'operação em andamento':'operações em andamento');
+  const kind=String(live.values().next().value||'arquivo').slice(0,62);
+  label.textContent='Drive · carregando '+kind+' · '+n+' '+(n===1?'operação':'operações');
   fill.classList.add('bm316-moving');
  }else{
   label.textContent='Google Drive · consultas concluídas';
