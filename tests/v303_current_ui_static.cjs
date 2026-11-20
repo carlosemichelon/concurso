@@ -24,7 +24,7 @@ assert.equal(m.counts.cards,1533);assert.equal(m.counts.pdfs,78);
 assert.equal(m.counts.card_operational_ijui,22);
 const j=scripts(index),c=css(index);
 assert.equal(c.length,24);assert.equal(j.length,158);
-assert.equal(c.at(-1),'assets/v309_mobile_tabs.css?v=309-1');
+assert.equal(c.at(-1),'assets/v309_mobile_tabs.css?v=309-2');
 for(const t of [
  'assets/v304_drive_continuous.js?v=304-1',
  'assets/v304_global_drive.js?v=304-1',
