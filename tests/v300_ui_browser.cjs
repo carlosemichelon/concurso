@@ -29,8 +29,12 @@ const fixture={
    await page.route('https://accounts.google.com/**',r=>r.abort());
    await page.route('https://www.googleapis.com/**',r=>r.abort());
    await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
-   await page.waitForSelector('#bm299-card-quick',{timeout:12000});
-   await page.waitForSelector('#bm299-pdf-quick',{timeout:12000});
+   await page.waitForSelector('#bm299-card-quick',{state:'attached',timeout:12000});
+   await page.waitForSelector('#bm299-pdf-quick',{state:'attached',timeout:12000});
+   await page.locator('header nav button[data-page="cartoes"]').click();
+   await page.locator('#bm299-card-quick').waitFor({state:'visible',timeout:12000});
+   await page.locator('header nav button[data-page="pdfs"]').click();
+   await page.locator('#bm299-pdf-quick').waitFor({state:'visible',timeout:12000});
    const integrity=await page.evaluate(()=>{
     const scripts=[...document.querySelectorAll('script[src]')].map(x=>x.src);
     const pdf=document.getElementById('pdfSearch');
