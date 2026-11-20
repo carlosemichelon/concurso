@@ -1,3 +1,10 @@
+# V301 — Sincronização do Google Drive a cada 1 hora (19/11/2026)
+
+- Alterado intervalo de conferência automática principal de 5 minutos para **60 minutos** com aba visível e sessão OAuth autorizada.
+- Alterada rotina periódica de Controle de Estudos/Lacunas de 2 minutos para **60 minutos**, evitando frequência superior à escolhida.
+- Autorização inicial e botão de sincronização manual permanecem imediatos; verificações sem gravação, bloqueio de conflitos e preservação de tokens em memória mantidos.
+- Sem alterações em conteúdo dos cartões, 11 módulos, SRS, grifos, PDFs originais ou imagens. V300 preservada em `v300.html`. Homologação OAuth real pendente.
+
 # V300 — PDFs anteriores, Lacunas reorganizadas e filtros essenciais (19/11/2026)
 
 - **PDFs:** retorno à aparência de títulos, agrupamentos e textos da V297, sem substituir PDFs, leitores ou grifos.
