@@ -224,52 +224,37 @@ function init(){
  document.addEventListener('bm-media-drive-authorized',()=>{
   if(!busy&&!active())state('Drive autorizado para arquivos de leitura. Use o botão único para sincronizar também dados privados.');
  });
- // V326: a conferência inicial já é executada ao autorizar o Drive.
- // Depois dela, Controle e Lacunas só gravam após mudança local confirmada,
- // preservando a verificação de conflitos e os backups existentes.
- const pendingKinds=new Set();
- let pendingTimer=null;
- async function flushPending(){
-  pendingTimer=null;
-  if(!pendingKinds.size||!writeToken())return;
-  if(busy||foregroundPromise||backgroundBusy){
-   pendingTimer=setTimeout(()=>{void flushPending()},2500);return;
-  }
-  backgroundBusy=true;
-  const keys=new Set(pendingKinds);pendingKinds.clear();
-  const tokenNow=writeToken();
-  try{
-   if(keys.has('control')){
-    const ctl=window.BM240ControlDrive;
-    const result=ctl?.sync?await ctl.sync(tokenNow):null;
-    if(['uploaded','downloaded','unchanged'].includes(result?.state)){
-     const backups=window.BM240StudyBackups;
-     if(backups?.afterSync){
-      const b=await backups.afterSync(tokenNow);
-      if(b&&!['verified','unchanged','empty'].includes(b.state))
-       state(b.message||'Backup: verificação necessária','partial');
-     }
-    }else state(result?.message||'Controle: alteração local ainda pendente','partial');
-   }
-   if(keys.has('lacunas')){
-    const lacunas=window.BM242LacunasDrive;
-    const result=lacunas?.sync?await lacunas.sync(tokenNow):null;
-    if(!result||['conflict','error','partial'].includes(result.state))
-     state(result?.message||'Lacunas: alteração local ainda pendente','partial');
-   }
-  }catch(e){state('Salvamento após edição: '+String(e?.message||e),'partial')}
-  finally{
-   backgroundBusy=false;
-   if(pendingKinds.size&&!pendingTimer)pendingTimer=setTimeout(()=>{void flushPending()},4000);
-  }
- }
- function changed(kind){
-  pendingKinds.add(kind);
-  if(pendingTimer)clearTimeout(pendingTimer);
-  pendingTimer=setTimeout(()=>{void flushPending()},5000);
- }
- window.addEventListener('bm240-study-changed',()=>changed('control'));
- document.addEventListener('bm242-lacunas-change',()=>changed('lacunas'));
+ // Módulos próprios já atualizam PDF/imagens automaticamente quando conectados.
+ // Controle local é enviado periodicamente com verificação de conflitos, sem alterar o SRS.
+ setInterval(()=>{
+  if(busy||backgroundBusy||foregroundPromise||!writeToken()||document.visibilityState!=='visible'||Date.now()-lastRun<10800000)return;
+  backgroundBusy=true;lastRun=Date.now();
+  void (async()=>{
+   try{
+    const tokenNow=writeToken();
+    const controlApi=window.BM240ControlDrive;
+    if(controlApi?.sync){
+     const r=await controlApi.sync(tokenNow);
+     if(r&&['uploaded','downloaded','unchanged'].includes(r.state)){
+      try{
+       const backupApi=window.BM240StudyBackups;
+       if(backupApi?.afterSync){
+        const b=await backupApi.afterSync(tokenNow);
+        if(b&&!['verified','unchanged','empty'].includes(b.state))state(b.message||'Backup: revisão necessária','partial');
+       }else if(r.state!=='empty')state('Backup do Controle indisponível; nenhuma cópia foi presumida','partial');
+      }catch(e){state('Backup do Controle: '+e.message,'partial')}
+     }else if(r?.state==='conflict'||r?.state==='error'||r?.state==='merge_ready')
+      state(r.message||'Controle: conferência pendente','partial');
+    }else state('Controle: módulo de sincronização indisponível','partial');
+    const lacunasApi=window.BM242LacunasDrive;
+    if(lacunasApi?.sync){
+     const r=await lacunasApi.sync(tokenNow);
+     if(r?.state==='conflict'||r?.state==='error')state(r.message||'Lacunas: conferência pendente','partial');
+    }
+   }catch(e){state('Sincronização periódica: '+e.message,'partial')}
+   finally{backgroundBusy=false}
+  })();
+ },10800000);
  void prepare();
 }
 window.BM239DriveGlobal=Object.freeze({
@@ -404,7 +389,7 @@ function init(){
  document.addEventListener('bm-media-drive-authorized',refresh);
  window.addEventListener('focus',refresh);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
- // V326: status atualizado por eventos, não a cada 2,5 segundos.
+ setInterval(()=>{if(!document.hidden)refresh()},2500);
 }
 window.BM241SyncTruth=Object.freeze({refresh,get snapshot(){
  return Object.fromEntries([...nodes].map(([k,v])=>[k,{state:v.node.dataset.syncStatus,text:v.status.textContent}]));
