@@ -54,6 +54,7 @@ jobs:
           node tests/v298_visual_browser.cjs
           node tests/v300_ui_browser.cjs
           node tests/v303_ui_browser.cjs
+          node tests/v307_mobile_matrix.cjs
       - name: Proteger a versão anterior V262
         run: node tests/v262_browser.cjs
       - name: Guardar capturas V298 (somente dados públicos)
@@ -61,5 +62,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: auditoria-visual-v298
-          path: test-artifacts/v298/
+          path: |
+            test-artifacts/v298/
+            test-artifacts/v307-mobile/
           if-no-files-found: ignore
