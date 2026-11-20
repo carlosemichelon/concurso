@@ -113,22 +113,26 @@ function decorateCard(article){
 function keepIdOrder(){
  const root=$('cardRows'),sorting=window.BM281CardSort;
  if(!root||!sorting||!['asc','desc'].includes(sorting.order))return;
- // O compositor legado agrupa por assunto depois de ordenar, quebrando a ordem global.
- const children=root.querySelectorAll(':scope > details.bm128CardsGroup,:scope > details.v036-card-group');
- if(!children.length)return;
- // A ordenação por ID explícita deve prevalecer sobre agrupamento legados,
- // inclusive em buscas, disciplinas e seleções de últimos cartões.
  const items=[...root.querySelectorAll('article.card')];
- const numeric=a=>{const m=/^CARD-(\d+)$/.exec(a.querySelector(':scope > .tag')?.textContent?.trim()||'');return m?Number(m[1]):null};
+ if(items.length<2)return;
+ // Ordenar TODOS os cartões renderizados, mesmo quando o compositor legado já
+ // achatou os grupos em ordem temática: isso causava 1529 → 1524 → 1523.
+ const numeric=a=>{
+  const m=/^CARD-(\d+)$/.exec(a.querySelector(':scope > .tag')?.textContent?.trim()||'');
+  return m?Number(m[1]):null;
+ };
  const sign=sorting.order==='asc'?1:-1;
- items.sort((a,b)=>{
+ const ordered=items.slice().sort((a,b)=>{
   const x=numeric(a),y=numeric(b);
   if(x===null)return y===null?0:1;
   if(y===null)return -1;
   return sign*(x-y);
  });
- // Move os nós originais, sem recriar cartão nem perder listeners/estados.
- root.replaceChildren(...items);root.classList.add('bm191-all-grid');
+ // A igualdade é obrigatória: impede loop MutationObserver e movimentação inútil.
+ const flat=root.children.length===items.length&&items.every((node,i)=>root.children[i]===node);
+ if(flat&&items.every((node,i)=>node===ordered[i]))return;
+ root.replaceChildren(...ordered);
+ root.classList.add('bm191-all-grid');
 }
 
 function decorateCards(){
