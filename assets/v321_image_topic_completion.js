@@ -28,6 +28,9 @@ async function records(){
    throw Error('Catálogo de temas V321 incompatível');
   names=new Map(json.records.filter(x=>x.fileName&&x.topic&&groups[x.group]).map(x=>[key(x.fileName),x]));
   lastError='';
+  // Recalcula a lista exibida quando o índice assíncrono termina de carregar.
+  document.getElementById('bm084-search')?.dispatchEvent(new Event('input',{bubbles:true}));
+  window.dispatchEvent(new CustomEvent('bm321-atlas-topics-ready',{detail:{classified:names.size}}));
   return names;
  })().catch(e=>{loading=null;lastError=String(e?.message||e);return names});
  return loading;
