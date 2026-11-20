@@ -1,18 +1,19 @@
 'use strict';
-/* V306: contrato atual com snapshots históricos V303/V304/V305 intactos.
+/* V307: contrato atual, snapshots V303/V304/V305/V306 intactos.
  * Sem escrita nos cartões, mídias, SRS ou Drive. */
 const assert=require('node:assert/strict'),fs=require('node:fs');
 const read=p=>fs.readFileSync(p,'utf8');
 const m=JSON.parse(read('assets/version.json')),index=read('index.html');
 const scripts=s=>[...s.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(x=>x[1]);
 const css=s=>[...s.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/g)].map(x=>x[1]);
-assert.equal(m.version,'V306');assert.equal(m.home,'v306.html');
-assert.equal(m.previous_version,'V305');
-assert.equal(m.current_versions.portal.version,'V306');
-assert.equal(m.current_versions.portal.home,'v306.html');
-assert.equal(m.current_versions.portal.previous,'V305');
-assert.equal(index,read('v306.html'),'Home e arquivo corrente divergentes');
-assert.match(index,/data-bm-portal-version="V306"/);
+assert.equal(m.version,'V307');assert.equal(m.home,'v307.html');
+assert.equal(m.previous_version,'V306');
+assert.equal(m.current_versions.portal.version,'V307');
+assert.equal(m.current_versions.portal.home,'v307.html');
+assert.equal(m.current_versions.portal.previous,'V306');
+assert.equal(index,read('v307.html'),'Home e arquivo corrente divergentes');
+assert.match(index,/data-bm-portal-version="V307"/);
+assert.match(read('v306.html'),/data-bm-portal-version="V306"/);
 assert.match(read('v305.html'),/data-bm-portal-version="V305"/);
 assert.match(read('v304.html'),/data-bm-portal-version="V304"/);
 assert.match(read('v303.html'),/data-bm-portal-version="V303"/);
@@ -20,8 +21,8 @@ assert.match(read('v302.html'),/data-bm-portal-version="V302"/);
 assert.equal(m.counts.cards,1533);assert.equal(m.counts.pdfs,78);
 assert.equal(m.counts.card_operational_ijui,22);
 const j=scripts(index),c=css(index);
-assert.equal(c.length,21);assert.equal(j.length,155);
-assert.equal(c.at(-1),'assets/v306_card_media.css?v=306-1');
+assert.equal(c.length,22);assert.equal(j.length,156);
+assert.equal(c.at(-1),'assets/v307_card_layout.css?v=307-1');
 for(const t of [
  'assets/v304_drive_continuous.js?v=304-1',
  'assets/v304_global_drive.js?v=304-1',
@@ -32,6 +33,7 @@ for(const t of [
  'assets/v306_drive_gallery_search.js?v=306-2',
  'assets/v306_card_media.js?v=306-1',
  'assets/v306_redacao_theme.js?v=306-1',
+ 'assets/v307_card_layout.js?v=307-1',
  'assets/v300_lacunas_ui.js?v=300-1',
  'assets/v303_unified_filters.js?v=303-1',
  'assets/v303_compact_bibliotecas.js?v=303-1',
@@ -67,4 +69,10 @@ assert.match(read('assets/v306_drive_gallery_search.js'),/getImageUrlForCard/);
 assert.match(read('assets/v306_card_media.js'),/bm306-explanations/);
 assert.match(read('assets/v306_redacao_theme.js'),/bm306-redacao-theme/);
 assert.ok(read('assets/v306_redacao_theme.css').includes('--ouro:#176a9f'));
-console.log('V306_CURRENT_STATIC_PASS: 21 CSS, 155 scripts, vínculos comprovados e Redação compatível');
+const layout=read('assets/v307_card_layout.js'),theme=read('assets/v307_card_layout.css');
+assert.match(layout,/article\.classList\.add\('bm307-card'\)/);
+assert.match(layout,/ref\)/);
+assert.match(layout,/removeAttribute\('data-bm096-icon'\)/);
+assert.match(theme,/\.bm-v050-peek-button/);
+assert.match(theme,/min\(100%,350px\)/);
+console.log('V307_CURRENT_STATIC_PASS: 22 CSS, 156 scripts, cards sem sobreposição e rollback V306 preservado');
