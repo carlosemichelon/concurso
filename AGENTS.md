@@ -216,3 +216,10 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Em PDFs preservar ID/eventos dos botões existentes (OAuth, sincronização, acesso a Vade Mecum, lixeira/ocultos), arquivo original, marcações e histórico; nunca confundir arquivo mestre JSON de grifos com alteração do PDF. Texto de confirmação Drive só quando confirmado.
 - Lacunas não devem ser inseridas depois do footer. Relato literal, fontes e SRS intocados. Testes de geometria no Chromium desktop/mobile, expansão real de painéis, manutenção do leitor e retorno a abas.
 - V303 herda e preserva a V302 de sincronização contínua (a cada 1 hora, ao trocar abas, apenas com sessão Google autorizada) sem alterar credenciais.
+
+## V324 — Painel único de pesquisa e leitura na lateral (20/11/2026)
+- Dentro de `#bmCardPeekV050 .bm165-related`, exibir a lista OU a prévia, nunca ambas simultaneamente; classes de estado `.bm324-search-view`/`.bm324-card-view`.
+- Em `.bm324-card-view`, "← Pesquisa" retorna aos resultados sem apagar o texto buscado, filtros, quantidade expandida ou posição de rolagem.
+- Cartões relacionados abrem uma nova prévia na MESMA lateral, sem substituir o leitor principal; somente o botão ↗ promove para a janela principal. Preservar 11 módulos sob demanda e isolamento de SRS.
+- Implementação aditiva: `assets/v324_related_navigator.js`, `assets/v324_single_sidebar.css`, `v324.html`. `v323.html` é rollback; não duplicar caixas de leitura nem reestruturar dados de cartões.
+- Sintaxe e referências de interface foram verificadas; não alegar homologação de navegador real sem teste.
