@@ -1,0 +1,241 @@
+/* V303 — reconstrução da navegação das bibliotecas; uma barra sem duplicações.
+ * Todos os campos originais continuam no DOM, acionáveis após expandir opções. */
+:root{--bm303-ink:#142a39;--bm303-line:#cbdce7;--bm303-blue:#126ea4}
+body>main #pdfs>.panel{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:9px!important;min-height:0!important;padding:15px!important;
+ background:#fff!important;border:1px solid var(--bm303-line)!important;
+ box-sizing:border-box!important
+}
+body>main #pdfs>.panel>*{min-width:0!important;max-width:100%!important}
+body>main #pdfs>.panel>h2{width:100%!important;font:700 18px/1.35 "Segoe UI",Arial,sans-serif!important;
+ color:#142536!important;margin:0!important}
+body>main #pdfs>.panel>p.intro{width:100%!important;margin:0!important}
+#assuntos .bm303-toolbar,#pdfs .bm303-toolbar,#cartoes .bm303-toolbar,
+#imagens .bm303-toolbar{
+ display:flex!important;flex-direction:column!important;width:100%!important;
+ max-width:100%!important;min-width:0!important;box-sizing:border-box!important;
+ gap:8px!important;margin:10px 0 12px!important;padding:12px!important;
+ border:1px solid var(--bm303-line)!important;border-radius:0!important;
+ background:#fff!important;box-shadow:none!important;float:none!important;
+ align-self:stretch!important
+}
+#assuntos .bm303-toolbar *,#pdfs .bm303-toolbar *,#cartoes .bm303-toolbar *,
+#imagens .bm303-toolbar *{box-sizing:border-box!important}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary{
+ width:100%!important;display:grid!important;align-items:end!important;min-width:0!important;
+ grid-template-columns:minmax(230px,1fr) minmax(180px,240px) auto!important;
+ gap:9px!important;flex:none!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary>.bm303-field{
+ min-width:0!important;max-width:none!important;width:100%!important;
+ display:flex!important;flex-direction:column!important;gap:5px!important;
+ font:650 12px/1.35 "Segoe UI",Arial,sans-serif!important;
+ color:#314858!important;margin:0!important;padding:0!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-field .bm303-label,
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-field>span:not(.small){
+ display:block!important;font:650 12px/1.35 "Segoe UI",Arial,sans-serif!important;color:#314858!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary :is(input[type="search"],select){
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ flex:none!important;height:40px!important;min-height:40px!important;
+ padding:8px 10px!important;background:#fff!important;color:#142a39!important;
+ border:1px solid #a8c5d7!important;border-radius:0!important;
+ font:500 13.5px/1.4 "Segoe UI",Arial,sans-serif!important;
+ box-shadow:none!important;overflow:hidden!important;text-overflow:ellipsis!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary :is(#topicCount,#pdfCount,#cardCount,#imageCount){
+ width:auto!important;min-width:0!important;max-width:220px!important;
+ justify-self:end!important;align-self:end!important;margin:0 0 7px!important;
+ white-space:normal!important;text-align:right!important;
+ color:#41596a!important;font:500 12px/1.45 "Segoe UI",Arial,sans-serif!important;
+ overflow-wrap:anywhere!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-actions{
+ width:100%!important;display:flex!important;flex-wrap:wrap!important;gap:7px!important;
+ align-items:center!important;min-height:0!important;margin:0!important;padding:0!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-actions:empty{display:none!important}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-actions button{
+ min-height:36px!important;height:auto!important;padding:7px 12px!important;
+ font:650 12px/1.4 "Segoe UI",Arial,sans-serif!important;
+ border:1px solid #bcd3e3!important;border-radius:0!important;
+ color:#155b87!important;background:#f5fafc!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-more{
+ width:100%!important;min-width:0!important;margin:0!important;border:1px solid #d8e4ec!important;
+ background:#f8fbfd!important;border-radius:0!important;display:block!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-more>summary{
+ display:list-item!important;cursor:pointer!important;padding:10px 12px!important;
+ color:#126698!important;font:650 12.5px/1.45 "Segoe UI",Arial,sans-serif!important;
+ border:0!important;margin:0!important;background:transparent!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-more-body{
+ display:flex!important;flex-direction:column!important;gap:10px!important;
+ background:#fff!important;border-top:1px solid #d9e6ef!important;
+ min-width:0!important;width:100%!important;margin:0!important;padding:12px!important
+}
+/* Correção crítica: regras legadas display:flex!important anulavam o fechamento nativo. */
+:is(#assuntos,#pdfs,#cartoes,#imagens) details.bm303-more:not([open])>.bm303-more-body,
+:is(#assuntos,#pdfs,#cartoes,#imagens) details.bm299-more:not([open])>.bm299-more-body,
+#lacunas details.bm299-lac-more:not([open])>.bm299-lac-more-body,
+#lacunas details.bm299-lac-entry-details:not([open])>.bm299-lac-more-body,
+#lacunas details#bm299-lac-form-more:not([open])>.bm299-lac-more-body,
+#lacunas details#bm299-lac-backups:not([open])>.bm299-lac-more-body{
+ display:none!important;visibility:hidden!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-more[open]>.bm303-more-body{
+ display:flex!important;visibility:visible!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-more-body :is(input,select){
+ max-width:100%!important
+}
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-more-body button:focus-visible,
+:is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary :is(input,select):focus-visible,
+#lacunas .bm303-lacunas-filter :is(input,select,summary,button):focus-visible{
+ outline:3px solid #55a8d5!important;outline-offset:2px!important
+}
+/* PDF: a barra ocupa toda a largura e a lista volta ao fluxo vertical. */
+#pdfs #bm303-pdf-toolbar{order:0!important;margin:4px 0 7px!important}
+#pdfs #bm303-pdf-toolbar .bm303-more-body #bm210PdfToolbar{
+ width:100%!important;max-width:100%!important;min-height:0!important;
+ margin:0!important;padding:6px!important;border:1px solid #e0e9f0!important;
+ background:#fff!important;display:flex!important;flex-direction:column!important;
+ gap:8px!important;box-shadow:none!important
+}
+#pdfs #bm303-pdf-toolbar .bm303-more-body #bm210PdfActions,
+#pdfs #bm303-pdf-toolbar .bm303-more-body #bm210PdfFilters{
+ width:100%!important;display:flex!important;flex-wrap:wrap!important;flex-direction:row!important;
+ gap:7px!important;min-width:0!important;margin:0!important;padding:3px!important;
+ border:0!important;min-height:0!important
+}
+#pdfs #bm303-pdf-toolbar .bm303-more-body :is(#bm210PdfToolbar .controls,.bm210Filters>.controls){
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+ grid-template-columns:none!important;width:100%!important;gap:7px!important;
+ min-width:0!important;border:0!important;padding:0!important;margin:0!important
+}
+#pdfs #bm303-pdf-toolbar .bm303-more-body .controls:empty{display:none!important}
+#pdfs #bm303-pdf-toolbar #pdfAreaNavV036{
+ width:100%!important;display:flex!important;flex-wrap:wrap!important;gap:6px!important;
+ border:0!important;background:#fff!important;padding:3px 0!important;margin:0!important
+}
+#pdfs #bm303-pdf-toolbar #pdfAreaNavV036 button{min-height:34px!important;max-width:100%!important;
+ font:650 12px/1.4 "Segoe UI",Arial,sans-serif!important;white-space:normal!important}
+#pdfs #bm303-pdf-toolbar .bm210StatusDetails{width:100%!important;max-width:100%!important}
+#pdfs #bm303-pdf-toolbar .bm210StatusDetails>.bm210StatusBody{
+ max-width:100%!important;width:100%!important;min-width:0!important
+}
+#pdfs #bm303-pdf-toolbar #bmVade041{width:100%!important;min-width:0!important}
+#pdfs #bm269PdfLocked{width:100%!important;margin:4px 0!important;padding:9px 11px!important;
+ border:1px solid #d7e4ec!important;line-height:1.45!important;
+ font:500 12px/1.5 "Segoe UI",Arial,sans-serif!important;color:#365567!important}
+#pdfs #pdfRows{width:100%!important;min-width:0!important;max-width:100%!important;
+ display:block!important;clear:both!important;margin:4px 0!important}
+#pdfs #pdfRows :is(.v036-pdf-area,.v036-card-group,.v036-area-section){
+ width:100%!important;max-width:100%!important;min-width:0!important
+}
+#pdfs #pdfRows :is(.v036-pdf-title,.v036-card-title,h3){color:#15222d!important;
+ font:700 15px/1.5 "Segoe UI",Arial,sans-serif!important}
+#pdfs #pdfRows :is(.v036-area-desc,.v036-pdf-summary,.v036-count,p,small){
+ font-size:13px!important;line-height:1.5!important;color:#354c5c!important
+}
+#pdfs #bm259-pdf-hint{min-width:0!important;width:100%!important}
+#pdfs #bm303-pdf-toolbar .bm303-actions #driveConnectV038{
+ color:#155d88!important;background:#eef7fc!important;min-width:125px!important;
+ font-weight:700!important
+}
+/* Flashcards: assunto, ordenação, ocultos e histórico apenas no mesmo painel. */
+#cartoes #bm303-card-toolbar #bm152Filters{
+ width:100%!important;max-width:100%!important;margin:0!important;border:0!important;
+ border-radius:0!important;background:#fff!important;box-shadow:none!important;
+ padding:5px!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:8px!important
+}
+#cartoes #bm303-card-toolbar #bm152Filters .bm152Field{min-width:0!important}
+#cartoes #bm303-card-toolbar #bm152Filters select{min-width:0!important;max-width:100%!important;width:100%!important}
+#cartoes #bm303-card-toolbar .bm281-toolbar-field{
+ width:100%!important;min-width:0!important;max-width:none!important;
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:5px!important;padding:0!important
+}
+#cartoes #bm303-card-toolbar .bm210Quick{width:100%!important;min-width:0!important;
+ display:flex!important;flex-wrap:wrap!important;gap:7px 12px!important}
+#cartoes #bm303-card-toolbar .bm152FilterFooter{grid-column:1/-1!important}
+#cartoes #bm303-card-toolbar .bm303-more-body :is(.controls,.bm280-main-controls){
+ display:flex!important;flex-wrap:wrap!important;gap:8px!important;align-items:center!important;
+ width:100%!important;min-width:0!important;padding:5px!important;grid-template-columns:none!important
+}
+/* Imagens: busca/discipina no topo; hierarquia e tarefas técnicas recolhidas. */
+#imagens #bm303-image-toolbar #bm209SyncBar.bm210ImageToolbar{
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ margin:0!important;padding:8px!important;background:#fff!important;
+ border:1px solid #dde7ee!important;border-radius:0!important;
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important
+}
+#imagens #bm303-image-toolbar #bm155ImageFilters.bm155ImageFilters{
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:8px!important;margin:0!important;padding:0!important
+}
+#imagens #bm303-image-toolbar #bm155ImageFilters>.bm155Field{
+ display:flex!important;flex-direction:column!important;min-width:0!important;width:100%!important;
+ margin:0!important;padding:0!important;max-width:none!important
+}
+#imagens #bm303-image-toolbar #bm155ImageFilters :is(input,select){width:100%!important;min-width:0!important}
+#imagens #bm303-image-toolbar .bm293ImageActions,
+#imagens #bm303-image-toolbar #bm293ImageActions{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+#imagens #bm303-image-toolbar .bm280-main-controls{width:100%!important;display:flex!important;gap:8px!important}
+#imagens #bm303-image-toolbar .bm303-more-body #bm210ImageInfo{max-width:100%!important;width:100%!important}
+/* Lacunas: mesmo padrão de altura/cores e opções adicionais realmente ocultas. */
+#lacunas .bm242-filters.bm303-lacunas-filter{
+ display:flex!important;flex-direction:column!important;gap:8px!important;margin:10px 0 15px!important
+}
+#lacunas .bm303-lacunas-filter #bm299-lac-filter-main{
+ width:100%!important;gap:9px!important;padding:10px!important;
+ background:#f8fbfd!important;border:1px solid var(--bm303-line)!important;
+ grid-template-columns:minmax(220px,2fr) minmax(150px,1fr) minmax(150px,1fr) auto!important;
+ margin:0!important
+}
+#lacunas .bm303-lacunas-filter #bm299-lac-filter-more{
+ width:100%!important;margin:0!important
+}
+#lacunas .bm303-lacunas-filter :is(input[type="search"],select){min-height:40px!important;
+ height:40px!important;border-radius:0!important;color:#142a39!important}
+#lacunas .bm299-lac-more[open]>.bm299-lac-more-body{visibility:visible!important}
+@media(max-width:920px){
+ :is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary{
+  grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)!important
+ }
+ :is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary :is(#topicCount,#pdfCount,#cardCount,#imageCount){
+  grid-column:1/-1!important;justify-self:start!important;text-align:left!important;margin:0!important
+ }
+ #lacunas .bm303-lacunas-filter #bm299-lac-filter-main{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important
+ }
+ #lacunas .bm303-lacunas-filter #bm299-lac-filter-main>label:first-child{grid-column:1/-1!important}
+}
+@media(max-width:600px){
+ body>main #pdfs>.panel{padding:12px!important;gap:8px!important}
+ :is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-toolbar{
+  padding:10px!important;gap:7px!important;margin:7px 0 10px!important
+ }
+ :is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary{
+  grid-template-columns:minmax(0,1fr)!important;gap:9px!important
+ }
+ :is(#assuntos,#pdfs,#cartoes,#imagens) .bm303-primary :is(#topicCount,#pdfCount,#cardCount,#imageCount){
+  grid-column:1!important;justify-self:start!important;margin:0!important
+ }
+ #cartoes #bm303-card-toolbar #bm152Filters,
+ #imagens #bm303-image-toolbar #bm155ImageFilters.bm155ImageFilters{
+  grid-template-columns:minmax(0,1fr)!important
+ }
+ #pdfs #bm303-pdf-toolbar #pdfAreaNavV036{gap:5px!important}
+ #lacunas .bm303-lacunas-filter #bm299-lac-filter-main{
+  grid-template-columns:minmax(0,1fr)!important;padding:9px!important
+ }
+ #lacunas .bm303-lacunas-filter #bm299-lac-filter-main>label:first-child{
+  grid-column:1!important
+ }
+}

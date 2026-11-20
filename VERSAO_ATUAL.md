@@ -1,3 +1,13 @@
+# V303 — Reconstrução da aba PDFs e filtros das bibliotecas (19/11/2026)
+
+- **Problema reproduzido visualmente:** a aba PDFs dividia a barra e os botões em colunas desconexas, gerando um espaço vazio alto. Em Flashcards, filtros de ordenação continuavam expostos; em Imagens, filtros duplicados; painéis recolhidos podiam mostrar controles mesmo fechados porque regras `display:flex!important` prevaleciam.
+- **PDFs:** layout de fluxo vertical em largura total, uma barra de busca/grupo/contagem, botões OAuth/sincronização originais e um único painel de áreas/PDFs locais/ferramentas. Os 78 PDFs e marcações não são alterados.
+- **Assuntos, Flashcards, Imagens e Lacunas:** somente filtros centrais abertos; hierarquias, ordenação, classificação, catálogo e histórico continuam acessíveis em detalhes. Corrige semântica de `details:not([open])`.
+- **Scripts em conflito:** retirado o reorganizador V280 e o V300 da inicialização da V303; V113 e V293 têm variantes de compatibilidade V303 que evitam mover de novo filtros após a criação da barra única. Originais históricos preservados no repositório.
+- **Manifesto:** sincroniza `version`, `home`, `current_versions.portal` e histórico V302. O sincronizador Drive V302 (intervalo de 1 h e sessão ao trocar abas) fica intacto.
+- **Segurança:** não muda conteúdo das fichas, arquivos do Drive, SRS, 11 módulos ou banco privado. PDF original não recebe grifos embutidos automaticamente; grifos privados só são confirmados no Drive após sincronização.
+- **Auditoria visual:** capturas reais de V302 em desktop/mobile guardadas antes do ajuste; V303 será homologada no Chromium com dados de teste e sem autenticação privada.
+
 # V302 — Preservar sincronização ao alternar abas internas (19/11/2026)
 
 - A navegação entre **Assuntos, PDFs, Flashcards, Imagens, Controle de Estudos, Lacunas, SRS e Redação** mantém o mesmo documento principal e sua sessão OAuth em memória; não exige nova autenticação por troca de seção.

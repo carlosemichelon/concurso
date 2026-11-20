@@ -68,3 +68,9 @@ Se não houver acesso às fontes em um novo chat, comunicar explicitamente quais
 - A apresentação da aba PDFs segue novamente a hierarquia de leitura V297, sem trocar arquivos, leitor, sincronizador nem marcações.
 - Lacunas exibem conceito/erro e contexto primeiro, com situação, prioridade e vínculo ao cartão. Questão, respostas, relato literal integral, diagnóstico, fontes, pesquisa, evidências de domínio e histórico nunca são excluídos: apenas recolhidos para consulta.
 - Apenas pesquisa e seleção essencial ficam abertas nas bibliotecas; configurações e categorias refinadas ficam em controles recolhidos com mesmos IDs e eventos.
+
+
+## V303 — Hierarquia de filtros e grifos em PDF (19/11/2026)
+- Aba PDFs em fluxo vertical: título, pesquisa, grupo, total, ferramentas autorizadas, resultados. Categorias adicionais, catálogos, diagnósticos e backups ficam num único painel recolhido real e acessível.
+- Assuntos, Flashcards, Imagens e Lacunas seguem busca + classificação primária. Filtros específicos, ordenação, opções de importação e históricos permanecem acessíveis somente após expandir os detalhes.
+- Grifos são registrados primeiro no armazenamento local, depois sincronizados em um arquivo mestre privado JSON no Drive quando a transferência é confirmada; não escrever no PDF original nem confundir a cópia de PDF anotado com upload automático.

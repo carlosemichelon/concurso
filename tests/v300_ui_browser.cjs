@@ -28,7 +28,7 @@ const fixture={
    await page.addInitScript(obj=>{try{localStorage.setItem('BM_LACUNAS_V242',JSON.stringify(obj));}catch(_){}},fixture);
    await page.route('https://accounts.google.com/**',r=>r.abort());
    await page.route('https://www.googleapis.com/**',r=>r.abort());
-   await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
+   await page.goto('http://127.0.0.1:8765/v300.html',{waitUntil:'domcontentloaded',timeout:60000});
    await page.waitForSelector('#bm299-card-quick',{state:'attached',timeout:12000});
    await page.waitForSelector('#bm299-pdf-quick',{state:'attached',timeout:12000});
    await page.locator('header nav button[data-page="cartoes"]').click();

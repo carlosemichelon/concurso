@@ -208,3 +208,11 @@ Este arquivo contém uma **regra operacional**, não substitui conferir os arqui
 - Corrigir o uso de `section` interno em `.bm256-lac-block`, que não deve ser ocultado pelo CSS global `section{display:none}`.
 - Search + 1 filtro principal visíveis em cada aba; filtros avançados e ações secundárias acessíveis sem duplicar ID ou apagar valores.
 - Preservar a versão V299, em particular `assets/v299_drive_continuous.js`, e seus limites de OAuth. Homologar desktop/mobile com lacunas sintéticas, sem acessar conteúdo privado.
+
+
+## V303 — Correção permanente de abas e filtros (19/11/2026)
+- Exigir uma barra principal por biblioteca; título, pesquisa, grupo/área ou disciplina, contagem e ações primárias em ordem única. Ferramentas secundárias (inclusive ordenação) em UM recolhível; nenhum campo deve aparecer enquanto `details:not([open])`.
+- Não misturar múltiplos reorganizadores V113/V210/V280/V293/V300: V303 remove V280 e V300 da página, mantém V210, usa clones V113/V293 que não desfazem os filtros montados por V303. Preservar arquivos antigos para rollback.
+- Em PDFs preservar ID/eventos dos botões existentes (OAuth, sincronização, acesso a Vade Mecum, lixeira/ocultos), arquivo original, marcações e histórico; nunca confundir arquivo mestre JSON de grifos com alteração do PDF. Texto de confirmação Drive só quando confirmado.
+- Lacunas não devem ser inseridas depois do footer. Relato literal, fontes e SRS intocados. Testes de geometria no Chromium desktop/mobile, expansão real de painéis, manutenção do leitor e retorno a abas.
+- V303 herda e preserva a V302 de sincronização contínua (a cada 1 hora, ao trocar abas, apenas com sessão Google autorizada) sem alterar credenciais.

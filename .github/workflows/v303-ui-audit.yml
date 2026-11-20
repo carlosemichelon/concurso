@@ -20,6 +20,7 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/bm303.log 2>&1 &
           sleep 2
           node tests/v303_visual_probe.cjs
+          node tests/v303_ui_browser.cjs
       - name: Capturas e diagnóstico estrutural
         if: always()
         uses: actions/upload-artifact@v4
