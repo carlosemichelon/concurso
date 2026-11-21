@@ -1,0 +1,566 @@
+{
+  "format": "BancoMestreV333CompliantEditorialV336",
+  "schema": 1,
+  "source": "Metodologia Mestre v014, adendos V333 e 11 critérios; estudos Petrobras 25",
+  "base": "V335",
+  "created": "2026-11-21",
+  "public_only": true,
+  "privacy": "Sem manuscritos ou URLs privados; imagens preservadas e associadas no Drive",
+  "requires_no_srs_update": true,
+  "items": {
+    "CARD-1539": {
+      "title": "Seção E322: distinguir a área real das figuras auxiliares",
+      "coverage": "direta",
+      "paragraphs": [
+        "Antes de calcular, identifique a **linha do terreno natural** e a **plataforma projetada**. Onde o terreno está acima do projeto, a região entre ambas é **corte**; onde está abaixo, é **aterro**. A figura auxiliar maior serve à conta, mas **não equivale automaticamente à área a executar**. O ponto P1 separa os serviços na seção.",
+        "Na idealização geométrica usada na questão, a inclinação é dada como razão vertical/horizontal. Assim, **y₂ = 6 m**, **y₁ = 9 m**, totalizando **15 m** de altura, e a razão do talude de aterro fornece **x = 4 m**. O triângulo auxiliar de corte tem base de 29 m e área de 217,5 m²; é preciso **subtrair** o trapézio (48 m²), o retângulo (36 m²) e o triângulo (27 m²) que não integram a escavação. Resulta **106,5 m² de corte**.",
+        "No aterro, o triângulo auxiliar de base 6 m e altura 4 m tem 12 m², mas inclui um triângulo de terreno já existente de 4 m². A diferença é **8 m² de aterro**. Ao passar para o volume entre estacas, as áreas de corte e de aterro são cubadas separadamente. A resolução numérica pressupõe o **perfil retilíneo idealizado**; não transforma irregularidades sem cotas do croqui em área exata."
+      ],
+      "formulas": [
+        "inclination_cut",
+        "inclination_fill",
+        "area_e322_cut",
+        "area_e322_fill",
+        "avg_areas"
+      ],
+      "table": {
+        "headers": [
+          "Região",
+          "Figura auxiliar",
+          "Área (m²)",
+          "Operação"
+        ],
+        "rows": [
+          [
+            "Corte",
+            "Triângulo maior",
+            "217,5",
+            "Somar"
+          ],
+          [
+            "Corte",
+            "Trapézio, retângulo e triângulo",
+            "48 + 36 + 27",
+            "Subtrair"
+          ],
+          [
+            "Corte real",
+            "Diferença",
+            "106,5",
+            "Resultado"
+          ],
+          [
+            "Aterro real",
+            "Triângulo 12 − triângulo 4",
+            "8,0",
+            "Resultado"
+          ]
+        ]
+      },
+      "note": "Origem: croqui e manuscrito originais da E322, preservados no Drive privado. Vínculos: CARD-1434 e CARD-1385.",
+      "questionContext": ""
+    },
+    "CARD-1540": {
+      "title": "Reaterro: volume escavado menos elementos permanentes",
+      "coverage": "direta",
+      "paragraphs": [
+        "O **reaterro geométrico** corresponde somente ao vazio que resta na cava após a execução do concreto magro, do bloco de fundação e do pescoço de pilar. A folga de 0,50 m é aplicada **dos dois lados** do bloco de 1,00 m, produzindo escavação de **2,00 m × 2,00 m**. A profundidade total de 0,70 + 1,20 + 0,10 m resulta em **2,00 m** e volume inicial de **8,000 m³**.",
+        "O concreto magro de 0,10 m ocupa o fundo inteiro de 2 m × 2 m e desloca **0,400 m³**. O bloco desloca **1,200 m³** e o pescoço, de 0,20 m × 0,20 m × 0,70 m, desloca **0,028 m³**. Retirando essas três parcelas **uma só vez**, o volume a reaterrar é **6,372 m³**.",
+        "Uma segunda conferência considera o prisma **acima** do magro: 2 × 2 × 1,90 = 7,60 m³. Descontam-se somente bloco e pescoço, chegando novamente a 6,372 m³. O resultado é geométrico: não aplicar fator de empolamento ou compactação quando a questão não apresenta tal conversão."
+      ],
+      "formulas": [
+        "excavation",
+        "reearth",
+        "reearth_check"
+      ],
+      "table": {
+        "headers": [
+          "Ocupação dentro da cava",
+          "Volume (m³)",
+          "Tratamento"
+        ],
+        "rows": [
+          [
+            "Escavação total",
+            "8,000",
+            "Base de cálculo"
+          ],
+          [
+            "Concreto magro",
+            "0,400",
+            "Descontar uma vez"
+          ],
+          [
+            "Bloco",
+            "1,200",
+            "Descontar"
+          ],
+          [
+            "Pescoço",
+            "0,028",
+            "Descontar"
+          ],
+          [
+            "Vazio para reaterro",
+            "6,372",
+            "Resultado"
+          ]
+        ]
+      },
+      "note": "Origem: questão de fundação e manuscrito original do estudante, vinculados em ficha privada. Vínculo indireto: CARD-1385.",
+      "questionContext": ""
+    },
+    "CARD-1541": {
+      "title": "Seção de passagem: corte, aterro e compensação",
+      "coverage": "direta",
+      "paragraphs": [
+        "Quando uma seção de estrada apresenta **somente corte** e a seção seguinte **somente aterro**, pode existir uma **seção de passagem** entre elas. Sob a hipótese didática de **variação linear da área transversal assinada**, a área passa de +50 m² a zero e depois a −85 m². A passagem reparte os 5 m em **1,852 m de corte** e **3,148 m de aterro**; os 5 m não são atribuídos integralmente aos dois serviços.",
+        "A cubação por áreas médias deve então ocorrer **em cada subtrecho**: o corte varia de 50 a zero e produz aproximadamente **46,30 m³**; o aterro varia de zero a 85 e demanda aproximadamente **133,80 m³**. Como 30% do corte não é compensável, somente **70% dos 46,30 m³**, ou **32,41 m³**, ficam disponíveis. Admitindo estados volumétricos diretamente comparáveis, a diferença é aproximadamente **101,39 m³**, e não 75 m³.",
+        "A plataforma da questão Transpetro/2011 informa **gabarito D = 75 m³**. A operação 50 × 5 × 30% reproduz esse valor, mas pressupõe um prisma de corte com área de 50 m² constante por todo o intervalo e **não demonstra o déficit de aterro do modelo com passagem**. O professor considerou a questão anulável; isso é **opinião técnica, não anulação oficial confirmada**. A interpolação linear das áreas é hipótese simplificadora: terreno real e conversão de volumes natural/compactado podem exigir informações adicionais."
+      ],
+      "formulas": [
+        "passage_dc",
+        "passage_da",
+        "passage_cut",
+        "passage_fill",
+        "passage_usable",
+        "passage_shortfall"
+      ],
+      "table": {
+        "headers": [
+          "Grandeza",
+          "Resultado",
+          "Interpretação"
+        ],
+        "rows": [
+          [
+            "Distância com corte",
+            "1,852 m",
+            "Da primeira seção à passagem"
+          ],
+          [
+            "Distância com aterro",
+            "3,148 m",
+            "Da passagem à segunda seção"
+          ],
+          [
+            "Corte geométrico",
+            "46,30 m³",
+            "Antes do descarte"
+          ],
+          [
+            "Corte aproveitável",
+            "32,41 m³",
+            "70% de 46,30"
+          ],
+          [
+            "Aterro necessário",
+            "133,80 m³",
+            "Volume geométrico do subtrecho"
+          ],
+          [
+            "Déficit, sob hipóteses",
+            "101,39 m³",
+            "Não coincide com D = 75"
+          ]
+        ]
+      },
+      "note": "Fonte: enunciado Transpetro/CESGRANRIO 2011 e resolução do professor transcrita pelo estudante. CARD-1432 e CARD-1434 tratam os mecanismos gerais.",
+      "questionContext": ""
+    },
+    "CARD-0230": {
+      "title": "NBR 5681: aterro para edificações e controle de execução",
+      "coverage": "parcial",
+      "paragraphs": [
+        "A função do conjunto de requisitos registrado para a **NBR 5681:2015** é orientar a execução e o **controle tecnológico dos aterros para edificações**. O aterro não pode ser avaliado apenas pelo volume movimentado: a aptidão do material, a preparação da superfície, a compactação por camadas e a verificação de umidade e grau de compactação influenciam o desempenho.",
+        "No estudo, os cartões específicos tratam de três parâmetros que precisam ser mantidos distintos: **espessura da camada compactada** (CARD-0404), **tolerância de umidade** (CARD-0521) e **grau de compactação** (CARD-0857); a adequação do solo é tratada em CARD-0858. Não se deve transformar a fração de **30% de corte não compensável** da questão Transpetro em um requisito da norma de execução de aterros.",
+        "Em uma obra rodoviária, o balanço de corte e aterro quantifica material disponível e necessário; em um aterro de edificação, o controle verifica **como o material é executado e se atende às especificações**. São perguntas diferentes, mas relacionadas pela necessidade de material adequado."
+      ],
+      "formulas": [],
+      "table": {
+        "headers": [
+          "Aspecto de controle",
+          "Cartão relacionado",
+          "Pergunta de verificação"
+        ],
+        "rows": [
+          [
+            "Camada compactada",
+            "CARD-0404",
+            "Qual espessura final permitida?"
+          ],
+          [
+            "Umidade de compactação",
+            "CARD-0521",
+            "Quão próxima da ótima?"
+          ],
+          [
+            "Grau de compactação",
+            "CARD-0857",
+            "Qual percentual mínimo de referência?"
+          ],
+          [
+            "Seleção do solo",
+            "CARD-0858",
+            "O material é adequado?"
+          ]
+        ]
+      },
+      "note": "Valores normativos usados no estudo precisam ser cotejados com edição aplicável e especificação do projeto; não presumir que a mesma norma rege toda terraplenagem rodoviária.",
+      "questionContext": ""
+    },
+    "CARD-0404": {
+      "title": "Espessura de camada: compactada não é solta",
+      "coverage": "parcial",
+      "paragraphs": [
+        "O registro do banco para a **NBR 5681:2015** aponta **0,30 m como espessura máxima da camada já compactada** em aterro de edificação, ressalvadas restrições mais rigorosas da obra. A espessura compactada é medida **depois** da operação de adensamento mecânico; não é a altura de solo inicialmente espalhado.",
+        "Na prática, a camada solta pode ter altura diferente porque o material muda de volume ao compactar. Por isso, a espessura de lançamento não deve ser tomada como 30 cm automaticamente, nem a fração de material aproveitável em corte deve ser usada para convertê-la.",
+        "Essa distinção vincula o tema à seleção do material (CARD-0858), à umidade (CARD-0521) e ao grau de compactação (CARD-0857); são verificações separadas, embora realizadas no mesmo processo."
+      ],
+      "formulas": [],
+      "table": null,
+      "note": "Valor conforme registro do cartão histórico e contexto da NBR 5681:2015; verificar projeto e edição da norma.",
+      "questionContext": ""
+    },
+    "CARD-0521": {
+      "title": "Umidade de compactação: pontos percentuais",
+      "coverage": "parcial",
+      "paragraphs": [
+        "O cartão histórico registra para aterros de edificação uma tolerância de **±3 pontos percentuais em relação à umidade ótima**, salvo faixa mais rigorosa definida em projeto. **Ponto percentual** significa diferença direta entre porcentagens: se a umidade ótima for 12%, a faixa indicada será de 9% a 15%, não uma variação relativa de apenas 3% do valor 12%.",
+        "A umidade influencia a resposta do material à energia de compactação. O controle de umidade **não substitui** a verificação da massa específica seca ou do grau de compactação, mesmo quando a amostra está dentro da faixa permitida.",
+        "Na compensação corte–aterro, a informação de que 30% do corte não é aproveitável é critério de aptidão/quantidade disponível, não tolerância de umidade. Não relacionar percentuais sem observar o denominador e a grandeza física."
+      ],
+      "formulas": [],
+      "table": {
+        "headers": [
+          "Dados de exemplo",
+          "Valor",
+          "Unidade"
+        ],
+        "rows": [
+          [
+            "Umidade ótima",
+            "12",
+            "%"
+          ],
+          [
+            "Limite inferior",
+            "9",
+            "%"
+          ],
+          [
+            "Limite superior",
+            "15",
+            "%"
+          ],
+          [
+            "Amplitude de tolerância",
+            "±3",
+            "pontos percentuais"
+          ]
+        ]
+      },
+      "note": "Exemplo aritmético para compreender pontos percentuais; valores normativos de referência conforme registro histórico da NBR 5681:2015.",
+      "questionContext": ""
+    },
+    "CARD-0857": {
+      "title": "Grau de compactação: comparação de massas específicas secas",
+      "coverage": "parcial",
+      "paragraphs": [
+        "O grau de compactação compara a **massa específica seca obtida em campo** à **massa específica seca máxima do ensaio de referência**, expressando o quociente como porcentagem. O valor mínimo registrado no banco para os aterros de edificações estudados é **95%**, ou valor maior exigido nas especificações particulares.",
+        "Esse controle não pode ser confundido com a tolerância de umidade. Um material pode estar na faixa de umidade indicada e ainda não atingir a densificação requerida; da mesma forma, a espessura final da camada deve ser verificada separadamente.",
+        "Se um corte contém material inadequado, a parcela descartada não passa a ser compensável só porque o aterro exigirá grau de compactação elevado. **Aptidão do solo** e **grau de compactação executado** são verificações complementares, não a mesma conta."
+      ],
+      "formulas": [
+        "gc"
+      ],
+      "table": {
+        "headers": [
+          "Parâmetro",
+          "Valor/critério",
+          "Interpretação"
+        ],
+        "rows": [
+          [
+            "GC",
+            "≥ 95%",
+            "Mínimo do exemplo normativo do banco"
+          ],
+          [
+            "Umidade",
+            "Ver CARD-0521",
+            "Controle independente"
+          ],
+          [
+            "Espessura compactada",
+            "Ver CARD-0404",
+            "Controle independente"
+          ]
+        ]
+      },
+      "note": "Valor conforme cartão histórico NBR 5681:2015; condições mais restritivas podem prevalecer.",
+      "questionContext": ""
+    },
+    "CARD-0858": {
+      "title": "Material de aterro: aptidão geotécnica antes do aproveitamento",
+      "coverage": "parcial",
+      "paragraphs": [
+        "Em aterros de edificação, o material deve ser **adequado ao fim pretendido**, e o cartão histórico destaca a inadequação de **turfas, argilas orgânicas e solos com matéria orgânica indesejável**. Não se pode aprovar um material exclusivamente por existir grande quantidade disponível no corte.",
+        "Essa condição explica o conceito de **corte não compensável**: uma parcela pode ter volume geometricamente mensurável e, ainda assim, não reunir as condições de aproveitamento no aterro. Para obter a oferta útil, primeiro se cubica o corte; depois se considera a fração realmente apta, sempre na base volumétrica compatível.",
+        "Solos com comportamento potencialmente expansivo ou colapsível merecem **investigação específica**, mas não devem ser tratados como uma proibição absoluta por simples rótulo. A decisão decorre do projeto, das características do terreno e dos requisitos de desempenho."
+      ],
+      "formulas": [],
+      "table": null,
+      "note": "Relação específica: CARD-1432 explica empréstimo/bota-fora; CARD-0230 organiza o controle de execução.",
+      "questionContext": ""
+    },
+    "CARD-0479": {
+      "title": "Empolamento: a convenção do fator determina a operação",
+      "coverage": "direta",
+      "paragraphs": [
+        "O **empolamento** altera o volume aparente do solo ao passar do estado natural para o solto, porque a estrutura de vazios se modifica. A questão histórica do cartão informa um fator **k = V_solto/V_natural = 1,25**; portanto, 55 m³ naturais tornam-se **68,75 m³ soltos**, equivalentes a aumento de 25% em relação ao natural.",
+        "Em outra questão da conversa, o enunciado definiu explicitamente o fator inverso **φ = V_natural/V_solto = 0,85**. Quarenta viagens de 9 m³ correspondem a 360 m³ soltos; multiplicar por 0,85 fornece **306 m³ naturais**. Se a área escavada é de 200 m², a profundidade média é **1,53 m**.",
+        "O percentual de aumento com base no volume natural é **(360 − 306)/306 ≈ 17,65%**, não 15%. A fração de solo **não compensável** de uma questão de balanço de massas é um conceito diferente: informa aptidão do material, não a expansão volumétrica da escavação."
+      ],
+      "formulas": [
+        "swelling_k",
+        "swelling_phi",
+        "swelling_depth",
+        "swelling_pct"
+      ],
+      "table": {
+        "headers": [
+          "Definição explícita do fator",
+          "Operação correta",
+          "Exemplo"
+        ],
+        "rows": [
+          [
+            "k = Vsolto/Vnatural",
+            "Multiplicar Vnatural por k",
+            "55 × 1,25 = 68,75 m³"
+          ],
+          [
+            "φ = Vnatural/Vsolto",
+            "Multiplicar Vsolto por φ",
+            "360 × 0,85 = 306 m³"
+          ],
+          [
+            "E = (Vsolto − Vnatural)/Vnatural",
+            "Aumento sobre o natural",
+            "17,65% no segundo exemplo"
+          ]
+        ]
+      },
+      "note": "O manuscrito original do segundo exemplo permanece na ficha privada; não mostrar uma solução manuscrita na frente de recuperação ativa.",
+      "questionContext": ""
+    },
+    "CARD-1212": {
+      "title": "Redução volumétrica: fator e percentual usam bases diferentes",
+      "coverage": "parcial",
+      "paragraphs": [
+        "A **redução volumétrica** entre o solo no corte e o aterro compactado decorre de diferenças no índice de vazios e no estado de compactação. No exemplo histórico, 55 m³ naturais resultam em 45,65 m³ compactados; a relação de volumes é **45,65/55 = 0,83**, equivalente a **contração de 17% em relação ao natural**.",
+        "Em outro exercício, o fator de redução fornecido foi **f_r = V_natural/V_compactado = 1,20**. Nesse caso, para produzir 150 m³ no aterro são necessários **180 m³ naturais**. A perda de volume relativamente ao natural é (180 − 150)/180 = **16,67%**; a diferença de 30 m³ em relação aos 150 m³ compactados equivale a 20% **sobre outra base**.",
+        "Na compensação, não confunda o percentual de **material impróprio** com qualquer dessas conversões. Sem fator de estado e sem dados de massa específica, o cálculo de corte aproveitável e aterro geométrico deve explicitar que compara **volumes na mesma base**."
+      ],
+      "formulas": [
+        "shrinkage_ratio",
+        "shrinkage_factor"
+      ],
+      "table": {
+        "headers": [
+          "Exemplo",
+          "Base da porcentagem",
+          "Resultado"
+        ],
+        "rows": [
+          [
+            "55 → 45,65 m³",
+            "Volume natural de 55 m³",
+            "17% de redução"
+          ],
+          [
+            "180 → 150 m³",
+            "Volume natural de 180 m³",
+            "16,67% de redução"
+          ],
+          [
+            "150 → 180 m³",
+            "Volume compactado de 150 m³",
+            "20% a mais de natural"
+          ]
+        ]
+      },
+      "note": "Não transportar automaticamente o fator da Caixa/2012 para a questão Transpetro/2011.",
+      "questionContext": ""
+    },
+    "CARD-1385": {
+      "title": "Escavação com profundidade linear: seção trapezoidal",
+      "coverage": "parcial",
+      "paragraphs": [
+        "Se uma vala apresenta **largura constante b**, comprimento L e profundidade que varia **linearmente** de h₁ a h₂, a seção longitudinal é um trapézio. Seu volume é a largura multiplicada pelo comprimento e pela **média das profundidades extremas**. Não usar essa média se a geometria variar de modo não linear sem subdivisão adequada.",
+        "Por exemplo, com b = 4 m, L = 20 m e profundidades de 0,5 e 1,5 m, a profundidade média é 1,0 m e o volume é **80 m³**. Essa é uma volumetria de prisma de largura constante, distinta do volume por média das **áreas de seções transversais da estrada** (CARD-1434), embora ambos usem médias sob hipóteses de linearidade.",
+        "Na questão Liquigás/2013 discutida no estudo, o mesmo mecanismo foi usado para obter x = 20 m em um trecho de profundidade 0,4 → 0,2 m e y = 15 m em outro trecho. A área em planta é obtida das dimensões horizontais, **não pela soma dos volumes**."
+      ],
+      "formulas": [
+        "linear_excavation",
+        "linear_excavation_example"
+      ],
+      "table": {
+        "headers": [
+          "Método",
+          "Média usada",
+          "Pressuposto"
+        ],
+        "rows": [
+          [
+            "Vala de largura constante",
+            "Profundidades h₁ e h₂",
+            "Variação linear em L"
+          ],
+          [
+            "Cubação por estacas (CARD-1434)",
+            "Áreas A₁ e A₂",
+            "Aproximação para subtrecho"
+          ]
+        ]
+      },
+      "note": "Fontes: cartão histórico e questão Liquigás/2013, cuja prova e resolução estão na ficha privada de estudo.",
+      "questionContext": ""
+    },
+    "CARD-1432": {
+      "title": "Compensação, empréstimo e bota-fora: balanço do material apto",
+      "coverage": "direta",
+      "paragraphs": [
+        "**Empréstimo** é material externo necessário quando o aterro exige mais volume do que o solo de corte aproveitável consegue suprir, após considerar a compatibilidade dos estados volumétricos. **Bota-fora** é destino de material excedente ou inadequado; não basta haver um grande corte para concluir que todo ele pode ser compensado em aterro.",
+        "Na questão Transpetro/2011, sob a hipótese de **seção de passagem obtida por interpolação linear**, o corte geométrico é de aproximadamente 46,30 m³. Como 30% desse corte não é compensável, apenas **70% = 32,41 m³** compõem a oferta utilizável. A demanda geométrica de aterro é de aproximadamente 133,80 m³ e o déficit estimado, **em estados comparáveis**, é **101,39 m³**.",
+        "Esse raciocínio diferencia **material rejeitado**, **material disponível** e **déficit de aterro**. O gabarito da plataforma foi D = 75 m³, mas esse número não decorre da cubação com passagem. A operação 50 × 5 × 30% é inadequada como regra geral. Quando os volumes estiverem em estados natural e compactado distintos, deverá ser fornecido ou determinado um fator apropriado."
+      ],
+      "formulas": [
+        "passage_usable",
+        "passage_shortfall"
+      ],
+      "table": {
+        "headers": [
+          "Grandeza",
+          "Volume (m³)",
+          "Sentido físico"
+        ],
+        "rows": [
+          [
+            "Corte estimado",
+            "46,30",
+            "Volume escavado"
+          ],
+          [
+            "Rejeito de 30%",
+            "13,89",
+            "Não aproveitável"
+          ],
+          [
+            "Corte aproveitável",
+            "32,41",
+            "Oferta útil"
+          ],
+          [
+            "Aterro estimado",
+            "133,80",
+            "Demanda"
+          ],
+          [
+            "Déficit do modelo",
+            "101,39",
+            "Material a suprir"
+          ]
+        ]
+      },
+      "note": "Relação direta: CARD-1541 para a passagem; CARD-1434 para cubação. Cálculo condiciona-se à interpolação linear da área e estados volumétricos comparáveis.",
+      "questionContext": ""
+    },
+    "CARD-1434": {
+      "title": "Método das áreas médias e seção de passagem",
+      "coverage": "direta",
+      "paragraphs": [
+        "O método aproximado de cubação entre seções transversais estima o volume pela **média das duas áreas** multiplicada pela distância L, com áreas de **mesma natureza** (corte com corte, aterro com aterro). O cartão histórico usa áreas de corte de 8 e 12 m² separadas por 20 m e resulta em **200 m³**.",
+        "Quando há transição de uma seção exclusiva de corte para outra exclusiva de aterro, uma hipótese didática útil é admitir que a **área assinada varia linearmente** e se anula em seção intermediária. Nesse caso, a distância precisa ser repartida na passagem antes de aplicar a média das áreas. Para Ac = 50 m², Aa = 85 m² e L = 5 m, obtêm-se **d_c = 1,852 m** e **d_a = 3,148 m**; a cubação aproximada fornece **46,30 m³ de corte** e **133,80 m³ de aterro**.",
+        "O método de áreas médias é uma **aproximação**. A interpolação linear das áreas não é uma propriedade universal de todo perfil de terreno; quando a geometria é irregular ou a seção muda de natureza, dados intermediários podem ser necessários. O aproveitamento de 70% do corte é feito **após cubar** os subtrechos, conforme o CARD-1432, e não substitui o cálculo das áreas."
+      ],
+      "formulas": [
+        "avg_areas",
+        "passage_dc",
+        "passage_da",
+        "passage_cut",
+        "passage_fill"
+      ],
+      "table": {
+        "headers": [
+          "Exemplo",
+          "Áreas consideradas",
+          "Distância",
+          "Volume"
+        ],
+        "rows": [
+          [
+            "Histórico",
+            "8 e 12 m² de corte",
+            "20 m",
+            "200 m³"
+          ],
+          [
+            "Transição — corte",
+            "50 e 0 m²",
+            "1,852 m",
+            "46,30 m³"
+          ],
+          [
+            "Transição — aterro",
+            "0 e 85 m²",
+            "3,148 m",
+            "133,80 m³"
+          ]
+        ]
+      },
+      "note": "CARD-1541 discute a questão Transpetro e a inconsistência do gabarito D=75m³.",
+      "questionContext": ""
+    },
+    "CARD-1435": {
+      "title": "Conservação da massa seca entre estados do solo",
+      "coverage": "parcial",
+      "paragraphs": [
+        "A mesma massa de partículas sólidas pode ocupar volumes diferentes nos estados **natural, solto e compactado**, porque os vazios entre partículas mudam. Na ausência de perda de sólidos, a **massa seca se conserva**, embora o volume aparente não permaneça igual. É incorreto equiparar diretamente 100 m³ de corte a 100 m³ soltos ou compactados.",
+        "A relação física compara **massa específica seca vezes volume** em cada estado. Para transformar o volume natural em solto, use a razão adequada de massas específicas secas ou um fator volumétrico validado e explicitamente definido no enunciado; não aplique fatores genéricos.",
+        "Os 30% de corte **não compensável** da questão Transpetro referem-se à aptidão do material, e não à variação de massa específica. São etapas diferentes: primeiro avaliar oferta útil; depois, quando necessário e se houver dados, converter para estados volumétricos compatíveis."
+      ],
+      "formulas": [
+        "dry_mass"
+      ],
+      "table": {
+        "headers": [
+          "Estado",
+          "Grandeza de volume",
+          "O que muda"
+        ],
+        "rows": [
+          [
+            "Natural",
+            "Vₙ",
+            "Estrutura de vazios in situ"
+          ],
+          [
+            "Solto",
+            "Vₛ",
+            "Vazios após escavação"
+          ],
+          [
+            "Compactado",
+            "V꜀",
+            "Vazios após adensamento"
+          ]
+        ]
+      },
+      "note": "CARD-0479 trata empolamento e sua convenção; CARD-1212 trata contração e fatores inversos.",
+      "questionContext": ""
+    }
+  },
+  "notes": "Estrutura com parágrafos, fórmulas MathML geradas por código reutilizável, tabelas reais, recolhíveis e cobertura específica; preserva todos os IDs e históricos. Nenhuma política geral de imagens."
+}
