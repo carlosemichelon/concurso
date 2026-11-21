@@ -10,7 +10,7 @@
  const target=new Set(['CARD-1539','CARD-1540','CARD-1541','CARD-0230','CARD-0404',
  'CARD-0521','CARD-0857','CARD-0858','CARD-0479','CARD-1212','CARD-1385',
  'CARD-1432','CARD-1434','CARD-1435']);
- const dataUrl='assets/petro25_editorial_v336.json?v=336-1';
+ const dataUrl='assets/petro25_editorial_v336.json?v=336-2';
  let promise=null, editorial=null;
  function el(tag,cl,txt){
   const e=document.createElement(tag);
@@ -163,6 +163,13 @@
     el('small','','Verso original, versões anteriores, 11 módulos e histórico'));
   evolution.append(summary);
   const inside=el('div','bm332-evolution-inside');
+  const oldQuestion=editorial?.items?.[id]?.front_history_v335;
+  if(oldQuestion){
+   const frontHistory=el('details','bm332-inner-accordion');
+   frontHistory.append(el('summary','','Frente anterior · V335 preservada'));
+   frontHistory.append(el('p','bm336-oldfront',oldQuestion));
+   inside.append(frontHistory);
+  }
   const modal=host.closest('#bmCardPeekV050');
   const pane=host.closest('.bm197-evolutive');
   if(modal&&pane&&window.BancoMestreVisualizarCardV050?.currentId===id){
