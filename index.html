@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V336"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V336 — Portal de estudos</title>
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V337"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V337 — Portal de estudos</title>
 
 
 <style>
@@ -373,10 +373,10 @@ if(base.length!==1537||new Set(base.map(c=>c.id)).size!==1537)
  throw Error('V334: catálogo deve ter 1.537 cartões únicos');
 const extraRes=await fetch('assets/petro25_conversation_delta_v335.json?v=335-1',{cache:'no-store'});
 if(!extraRes.ok)throw Error('V335: conteúdo de Petrobras 25 indisponível');
-const extra=await extraRes.json();
-if(extra.format!=='BancoMestrePetro25ConversationDeltaV335'||
-   extra.new_cards?.length!==3||extra.related_updates?.length!==11||
-   extra.new_layers?.length!==3)throw Error('V335: estrutura inválida');
+const extra335=await extraRes.json();
+if(extra335.format!=='BancoMestrePetro25ConversationDeltaV335'||
+   extra335.new_cards?.length!==3||extra335.related_updates?.length!==11||
+   extra335.new_layers?.length!==3)throw Error('V335: estrutura inválida');
 const exNewIds=new Set(['CARD-1539','CARD-1540','CARD-1541']);
 const exRelIds=new Set(['CARD-0230','CARD-0404','CARD-0521','CARD-0857','CARD-0858','CARD-0479','CARD-1212','CARD-1385','CARD-1432','CARD-1434','CARD-1435']);
 const links335={
@@ -384,7 +384,7 @@ const links335={
  'CARD-1432':['CARD-1434','CARD-1539','CARD-1540','CARD-1541'],
  'CARD-1434':['CARD-1432','CARD-1539','CARD-1541'],
  'CARD-1435':['CARD-0479']};
-for(const change of extra.related_updates){
+for(const change of extra335.related_updates){
  if(!exRelIds.delete(change.id)||!currentMap.has(change.id)||!change.expl_append?.trim())
   throw Error('V335: relacionado inválido '+change.id);
  const c=currentMap.get(change.id);
@@ -395,8 +395,8 @@ for(const change of extra.related_updates){
 }
 if(exRelIds.size)throw Error('V335: cartões relacionados faltantes');
 for(const id of ['CARD-1539','CARD-1540','CARD-1541']){
- const c=extra.new_cards.find(c=>c.id===id);
- const item=extra.new_layers.find(x=>x.id===id);
+ const c=extra335.new_cards.find(c=>c.id===id);
+ const item=extra335.new_layers.find(x=>x.id===id);
  if(!c||!c.active||!c.front||!c.back||!c.expl||!item||item.layers.length!==11||currentMap.has(id))
   throw Error('V335: novo cartão inconsistente '+id);
  base.push(c);currentMap.set(id,c);exNewIds.delete(id);
@@ -425,6 +425,54 @@ for(const [id,profile] of Object.entries(editorialV336.items)){
 
 
 
+// V337 · Petrobras 26: 13 cartões existentes + 6 novos, sem tocar na base privada/SRS.
+const r337=await fetch('assets/petro26_delta_v337.json?v=337-1',{cache:'no-store'});
+if(!r337.ok)throw Error('V337: conteúdo dos cartões não carregado');
+const data337=await r337.json();
+if(data337.format!=='BancoMestrePetro26UpdateV337'||data337.counts?.new_cards!==6||
+ data337.counts?.updated!==13||Object.keys(data337.profiles||{}).length!==19)
+ throw Error('V337: contagem de cartões inválida');
+const original337={},changed337=new Set();
+for(const p of data337.updates){
+ const c=currentMap.get(p.id);
+ if(!c||!c.active||changed337.has(p.id)||!p.front?.trim()||!p.back?.trim()||
+  p.paragraphs?.length!==3||data337.profiles[p.id]?.layers?.length!==11)
+  throw Error('V337: evolução inválida '+p.id);
+ original337[p.id]={front:c.front,back:c.back,expl:c.expl,
+  mnemonic:c.mnemonic,reference:c.reference,related_card_ids:[...(c.related_card_ids||[])],
+  related_question_ids:[...(c.related_question_ids||[])]};
+ c.front=p.front;c.back=p.back;c.expl=p.paragraphs.join(String.fromCharCode(10,10));c.mnemonic=p.mnemonic;
+ c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...p.related_card_ids])];
+ c.related_question_ids=[...new Set([...(c.related_question_ids||[]),...p.related_question_ids])];
+ c.search_keywords=[c.search_keywords||'',p.front,data337.profiles[p.id].compare].join(' ');
+ c.last_relationship_at=p.relationship_event_date;
+ c.last_editorial_modified_at=p.editorial_last_modified;
+ c.legacy_snapshot_v336=original337[p.id];changed337.add(p.id);
+}
+if(changed337.size!==13)throw Error('V337: atualizações ausentes');
+const expectedNew337=['CARD-1542','CARD-1543','CARD-1544','CARD-1545','CARD-1546','CARD-1547'];
+for(let i=0;i<expectedNew337.length;i++){
+ const c=data337.new_cards[i];
+ if(!c||c.id!==expectedNew337[i]||currentMap.has(c.id)||c.active!==true||
+  !c.front?.trim()||!c.back?.trim()||!c.expl?.trim()||
+  data337.profiles[c.id]?.layers?.length!==11)throw Error('V337: cartão novo inválido '+(c?.id||i));
+ base.push(c);currentMap.set(c.id,c);
+}
+for(const [id,p] of Object.entries(data337.profiles)){
+ const c=currentMap.get(id);
+ if(!c||p.layers.length!==11)throw Error('V337: ficha sem 11 módulos '+id);
+ for(const target of p.related_card_ids||[]){
+  const linked=currentMap.get(target);
+  if(!linked||!data337.profiles[target]?.related_card_ids?.includes(id))
+   throw Error('V337: vínculo não recíproco '+id+' / '+target);
+  linked.related_card_ids=[...new Set([...(linked.related_card_ids||[]),id])];
+ }
+}
+if(base.length!==1546||new Set(base.map(c=>c.id)).size!==1546)
+ throw Error('V337: esperados 1.546 cartões únicos');
+window.BM337Originals=Object.freeze(original337);
+window.BM337CatalogStatus=Object.freeze({version:'V337',cards:base.length,
+ updated:13,created:6,srs_changed:false,originals_preserved:true});
 const ijui=ij.cards.map(c=>({...c,provisional:true,group:'LEGISLACAO',discipline:'Legislação',subject:c.subject||'Legislação municipal'}));cards=[...base,...ijui];loadedCards=true;const counter=document.querySelector('.stats .stat:nth-child(2) b');if(counter)counter.textContent=(base.length+ijui.length).toLocaleString('pt-BR');window.BM184Header?.updateCards(base.length,ijui.length,cards);for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){loadedCards=false;bm123CardsPromise=null;const out=document.getElementById('cardRows');if(out)out.textContent='Falha ao carregar cartões: '+e.message;throw e}})();
 return bm123CardsPromise;
 }
@@ -606,4 +654,4 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
 </script><script defer src="assets/v315_js_136_147.js?v=315-1"></script><script defer src="assets/v326_js_148_159.js?v=326-1"></script>
-<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v316_srs_journal.js?v=316-3"></script><script defer src="assets/v331_related_navigator.js?v=331-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script></body></html>
+<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v316_srs_journal.js?v=316-3"></script><script defer src="assets/v331_related_navigator.js?v=331-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script></body></html>
