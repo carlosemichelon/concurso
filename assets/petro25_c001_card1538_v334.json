@@ -1,0 +1,150 @@
+{
+  "format": "BancoMestrePetro25IncrementV334",
+  "schema": 1,
+  "source": "PETRO25-C001",
+  "based_on_portal": "V333",
+  "source_card_max": "CARD-1537",
+  "date": "2026-11-20",
+  "source_drive_url": "https://docs.google.com/document/d/1eUji1TdHRLHuz1QkEICm0YQ3x2HYJlNIqNXRTvZA4nA/edit?usp=drivesdk",
+  "privacy": "Dados públicos didáticos. Sem SRS privado, respostas individuais, lacunas pessoais ou tokens.",
+  "new_cards": [
+    {
+      "id": "CARD-1538",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Geotecnia / Fundações superficiais",
+      "sub": "Solos expansivos, colapsíveis, areias fofas e aterros",
+      "front": "Em que diferem solos expansivos e colapsíveis no umedecimento e por que areias fofas ou aterros não proíbem, por si sós, fundações superficiais?",
+      "back": "Solos expansivos podem aumentar de volume ao umedecer, produzindo levantamento. Solos colapsíveis, frequentemente porosos e não saturados, podem perder estabilidade estrutural com o encharcamento e sofrer redução de volume sob tensão, causando recalque. Areias fofas e aterros não implicam proibição absoluta de fundações superficiais: exigem investigação, verificações de capacidade de suporte e recalques e, quando necessário, melhorias do terreno.",
+      "expl": "O comportamento do solo ao receber água depende de mineralogia, estrutura, tensões e umidade. Em solos expansivos, argilominerais suscetíveis podem provocar aumento de volume, levantamento e danos diferenciais; nem toda argila é expansiva. Pressão/potencial de expansão e controle de umidade importam no projeto.\n\nEm solos colapsíveis, a estrutura metastável, muitas vezes porosa e não saturada, pode ser sustentada parcialmente por sucção matricial e ligações intergranulares. O molhamento pode reduzir essa sustentação e permitir rearranjo de partículas, causando recalques sob tensão. Porosidade elevada indica potencial, não prova colapso; ensaios edométricos com inundação e análise geotécnica avaliam o risco.\n\nAreias fofas e aterros não são vedados categoricamente para sapatas ou radiers. O projetista verifica resistência e deformações, recalques totais e diferenciais, heterogeneidade, saturação e necessidade de tratamento. A pressão média q=N/A e a comparação com a tensão admissível não bastam isoladamente: os estados limites de serviço também importam. Regra de prova: expansivo pode levantar; colapsível pode afundar; terreno fofo ou aterro exige estudo, não veto automático.",
+      "mnemonic": "EXPANSIVO EXPANDE; COLAPSÍVEL CEDE; FOFO EXIGE ESTUDO. 'Potencialmente' não significa 'inevitavelmente'.",
+      "reference": "PETRO25-C001; ABNT NBR 6122:2022, 7.5.2 e 7.5.3; histórico NBR 6122:1996; https://www.scielo.br/j/rmat/a/6hxN3WsMY8KxFM7MyVJ7YDx/",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1155",
+        "CARD-0529",
+        "CARD-0697",
+        "CARD-1065"
+      ],
+      "related_question_ids": [
+        "PETRO25-C001"
+      ],
+      "search_keywords": "solo expansivo expansível expansibilidade argila esmectita colapsível colapsibilidade encharcamento molhamento sucção solo metastável areia fofa aterro sapata radier pressão admissível recalque"
+    }
+  ],
+  "related_updates": [
+    {
+      "id": "CARD-1155",
+      "coverage": "parcial",
+      "expl_append": "Complemento PETRO25-C001: Vertissolos constituem exemplo pedológico de solos com argilas expansivas. A alternância de umedecimento e secagem pode gerar expansão, retração e fendas. Porém, nem todo solo argiloso é Vertissolo ou expansivo; avaliar mineralogia, umidade, confinamento e pressão/potencial de expansão antes de inferir o comportamento de uma fundação rasa. Relacionado: CARD-1538.",
+      "layers_add": {
+        "4": "Aplicação em fundações: ABNT NBR 6122:2022, 7.5.2, exige considerar no projeto os efeitos de expansão; não confundir classificação pedológica com diagnóstico automático de fundação.",
+        "6": "O mecanismo depende de argilominerais suscetíveis à expansão e das variações de água; secagem pode originar fissuras por retração, e molhamento pode gerar levantamento sob certas condições.",
+        "8": "Em sapata sobre solo expansivo, investigar pressão de expansão, movimentos sazonais, condições hidráulicas e rigidez estrutural; soluções exigem avaliação específica.",
+        "9": "Nem toda argila é expansiva. Vertissolo é classe pedológica com critérios morfológicos; não classificá-lo apenas pelo ensaio de fundação.",
+        "10": "Vínculo recíproco parcial: CARD-1538 (comparação expansivo × colapsível × fundação); PETRO25-C001. Macete: Vertissolo abre fendas ao secar e pode inchar ao molhar.",
+        "11": "Complemento aprovado 20/11/2026; preservar integralmente original histórico H20-C058, resposta, origem, eventos e SRS. Fonte: NBR 6122:2022, 7.5.2."
+      }
+    },
+    {
+      "id": "CARD-0529",
+      "coverage": "indireta",
+      "expl_append": "Complemento PETRO25-C001: no solo colapsível, a sucção matricial pode contribuir para sustentar uma estrutura porosa não saturada. Ao ocorrer o encharcamento, a diminuição de s=u_a−u_w pode enfraquecer esse arranjo e, sob tensão adequada, induzir reorganização de partículas e recalque. Sucção não significa necessariamente colapsibilidade e sua redução não produz sempre deformação descendente: um solo expansivo pode aumentar de volume. Relacionado: CARD-1538.",
+      "layers_add": {
+        "4": "Referência científica de molhamento e colapso: estudo com ensaio edométrico e alteração de volume, https://www.scielo.br/j/rmat/a/6hxN3WsMY8KxFM7MyVJ7YDx/.",
+        "5": "Relembrar s=u_a−u_w em kPa. Variação de sucção é parte do mecanismo hidro-mecânico, não fórmula universal para prever o recalque de colapso.",
+        "6": "Solos de estrutura metaestável podem manter vazios com ajuda de sucção ou cimentação. Umedecer altera o equilíbrio, permitindo rearranjo e densificação sob tensão.",
+        "7": "Caso qualitativo: amostra porosa inicialmente não saturada sob carga constante; ao inundar, pode surgir deformação volumétrica negativa. Avaliar com ensaio edométrico, não supor magnitude sem dados.",
+        "8": "Transferência: vazamento junto a sapata ou elevação do nível freático pode ativar colapso em solo suscetível; avaliar condições de saturação, tensão e drenagem.",
+        "9": "Sucção elevada não comprova colapsibilidade; estrutura e tensões controlam o efeito. Redução de sucção pode coexistir com expansão em outro solo.",
+        "10": "Vínculo recíproco indireto: CARD-1538; PETRO25-C001. Macete: a sucção pode sustentar, mas a água pode desfazer essa sustentação.",
+        "11": "Complemento aprovado 20/11/2026; preservar original H22-C064, equações anteriores, todos os módulos e SRS."
+      }
+    },
+    {
+      "id": "CARD-0697",
+      "coverage": "indireta",
+      "expl_append": "Complemento PETRO25-C001: a infiltração e a redução da sucção não têm uma resposta geotécnica única. Num talude não saturado, podem reduzir resistência ao cisalhamento; sob fundação sobre solo colapsível, o mesmo molhamento pode favorecer recalque por perda de estrutura sob tensão; em argila expansiva, pode provocar levantamento. O resultado depende de composição, estrutura, confinamento e tensões. Relacionado: CARD-1538.",
+      "layers_add": {
+        "4": "Comparação técnica com NBR 6122:2022, seções 7.5.2 e 7.5.3, nas situações de fundações apoiadas em solos especiais.",
+        "6": "Um único evento hidráulico (infiltração) pode reduzir sucção, aumentar poropressão, mobilizar colapso de estrutura porosa ou expansão de minerais argilosos; os efeitos não são sinônimos.",
+        "8": "Transferência para talude vs sapata: talude → resistência e estabilidade; sapata em solo colapsível → deformação de molhamento; sapata em solo expansivo → levantamento.",
+        "9": "Infiltração não implica automaticamente deslizamento, colapso ou expansão: reconhecer o solo e as tensões antes de afirmar o mecanismo.",
+        "10": "Vínculo recíproco indireto: CARD-1538; PETRO25-C001. Macete: mesma chuva, três respostas possíveis.",
+        "11": "Complemento aprovado 20/11/2026; preservar original CON-11-009, 11 módulos e SRS."
+      }
+    },
+    {
+      "id": "CARD-1065",
+      "coverage": "indireta",
+      "expl_append": "Complemento PETRO25-C001: areia fofa ou aterro não proíbe fundação rasa por definição. A decisão técnica exige resistência do terreno, deformabilidade, recalques totais e diferenciais, homogeneidade, umidade, compactação e compatibilidade com a superestrutura; podem ser necessários substituição ou melhoria do material. Mesmo se q=N/A≤σ_adm, permanecem as verificações de deslocamentos e desempenho em serviço. Relacionado: CARD-1538.",
+      "layers_add": {
+        "4": "Fundamento: ABNT NBR 6122 (verificações de capacidade de suporte e estados limites de serviço), sem instituir proibição absoluta para areia fofa/aterro.",
+        "5": "q=N/A em kPa (N em kN, A em m²), para pressão média inicial sob carga centrada; verificar q≤σ_adm conforme modelo adotado, além de recalques.",
+        "6": "Maior deformabilidade ou heterogeneidade pode produzir recalque diferencial mesmo antes de ruptura; aterros exigem histórico/controle de compactação e condições de umidade.",
+        "7": "Exemplo ilustrativo: N=600 kN, A=3 m² → q=200 kPa; se σ_adm=150 kPa, a condição simplificada não atende. Alterar A não elimina obrigação de verificar recalques.",
+        "8": "Em sapata sobre areia fofa ou aterro: investigar perfil, resistência, deformabilidade, variabilidade e água; ponderar melhoria/substituição ou outra solução de fundação.",
+        "9": "Não existe valor universal de recalque admissível; nem q≤σ_adm é prova suficiente de desempenho. 'Não podem' é o absolutismo falso da questão.",
+        "10": "Vínculo recíproco indireto: CARD-1538; PETRO25-C001. Macete: solo ruim → estudo e projeto, não veto automático.",
+        "11": "Complemento aprovado 20/11/2026; preservar original H26-C046, resposta, 11 módulos e SRS."
+      }
+    }
+  ],
+  "new_layers": [
+    {
+      "ord": 1,
+      "titulo": "Recuperação ativa — frente",
+      "texto": "Pergunta CARD-1538: Em que diferem solos expansivos e colapsíveis no umedecimento e por que areias fofas ou aterros não proíbem, por si sós, fundações superficiais? Na revisão, responder antes de revelar."
+    },
+    {
+      "ord": 2,
+      "titulo": "Resposta necessária",
+      "texto": "Expansivo: pode aumentar volume ao molhar. Colapsível: pode reduzir volume por colapso estrutural no molhamento sob tensão. Areia fofa/aterro: não proibição absoluta; investigar capacidade de suporte, recalques e condições do solo."
+    },
+    {
+      "ord": 3,
+      "titulo": "Origem e verso do cartão",
+      "texto": "NOVO ID CARD-1538 — criado por autorização do estudante. Verso literal inicial: solos expansivos podem aumentar de volume e levantar apoios; colapsíveis podem perder sustentação e recalcar ao encharcar; areias fofas e aterros não impedem por definição fundações superficiais se projeto e verificações forem adequados. Histórico anterior do novo ID: inexistente."
+    },
+    {
+      "ord": 4,
+      "titulo": "Fundamento geotécnico e normativo",
+      "texto": "ABNT NBR 6122:2022, 7.5.2 solos expansivos, 7.5.3 solos colapsíveis. A questão reproduz ideias clássicas presentes na NBR 6122:1996; distinguir as edições ao citar texto e item. Literatura: ensaio edométrico de solo colapsível do semiárido, DOI consultável no artigo SciELO."
+    },
+    {
+      "ord": 5,
+      "titulo": "Fórmulas, grandezas e hipóteses",
+      "texto": "Em solo não saturado, s=u_a−u_w [kPa], com pressões do ar e da água. Para fundação sob N centrada: q=N/A [kPa], N[kN], A[m²]. A expressão simplificada q≤σ_adm não elimina verificação de recalques. Não existe fórmula universal para colapso/expansão sem parâmetros específicos."
+    },
+    {
+      "ord": 6,
+      "titulo": "Mecanismos físicos comparados",
+      "texto": "Expansivo: interação água–argilominerais com tendência ao inchamento; efeito pode ser limitado por tensões de confinamento. Colapsível: rede metaestável de grãos e vazios, sustentada parcialmente por sucção/cimentação; molhamento pode reduzir sustentação e provocar rearranjo sob tensão. Areias fofas/aterros: avaliar compactação, compressibilidade e heterogeneidade."
+    },
+    {
+      "ord": 7,
+      "titulo": "Aplicação e exemplo orientado",
+      "texto": "Vazamento sob fundação com solo poroso não saturado: investigar colapso e recalques, não supor expansão. Fundação em argila expansiva sujeita a estação chuvosa: avaliar elevação/movimento. Sapata em areia fofa: ensaiar resistência e calcular recalques; pode ser viabilizada com medidas geotécnicas adequadas."
+    },
+    {
+      "ord": 8,
+      "titulo": "Cobertura cruzada e vínculos",
+      "texto": "Questão PETRO25-C001. CARD-1155: parcial (expansividade e Vertissolos); CARD-0529: indireta (sucção); CARD-0697: indireta (infiltração e perda de resistência); CARD-1065: indireta (recalques admissíveis). Vínculos recíprocos com CARD-1538."
+    },
+    {
+      "ord": 9,
+      "titulo": "Condições e exceções relevantes",
+      "texto": "Nem toda argila é expansiva. Nem todo solo poroso ou não saturado sofre colapso; 'potencial' exige comprovação. Pressão de expansão e deformação por colapso dependem das tensões e condições de umidade. Areia fofa e aterro não são proibição absoluta nem aprovação automática de fundações rasas."
+    },
+    {
+      "ord": 10,
+      "titulo": "Pegadinhas e erros comuns",
+      "texto": "Afirmativas da questão: I verdadeira, II verdadeira, III falsa; resposta C. 'Não podem' é absoluto inadequado. 'Potencialmente colapsíveis' não indica inevitabilidade. Não confundir colapso por molhamento com recalque por aumento de carga, nem limitação por capacidade de suporte com proibição normativa."
+    },
+    {
+      "ord": 11,
+      "titulo": "Macete, fontes e histórico",
+      "texto": "Expansivo EXPANDE, Colapsível CEDE, Fofo exige ESTUDO. Origem: questão fornecida em PETRO25-C001; banca/ano/URL TEC não verificados. Registro editorial Drive com autorização expressa; histórico de SRS privado preservado. Não publicar SRS por gatilho 'importante' na base pública; classificação deve ser aplicada somente à fonte privada autenticada."
+    }
+  ]
+}
