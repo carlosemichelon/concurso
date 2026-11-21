@@ -403,6 +403,26 @@ for(const id of ['CARD-1539','CARD-1540','CARD-1541']){
 }
 if(exNewIds.size||base.length!==1540||new Set(base.map(c=>c.id)).size!==1540)
  throw Error('V335: catálogo precisa ter 1.540 cartões únicos');
+const editorialV336Res=await fetch('assets/petro25_editorial_v336.json?v=336-2',{cache:'no-store'});
+if(!editorialV336Res.ok)throw Error('V336: evolução dos cartões relacionada indisponível');
+const editorialV336=await editorialV336Res.json();
+if(editorialV336.format!=='BancoMestreV333CompliantEditorialV336'||
+   Object.keys(editorialV336.items||{}).length!==14)
+ throw Error('V336: corpus metodológico de 14 cartões inválido');
+for(const [id,profile] of Object.entries(editorialV336.items)){
+ const c=currentMap.get(id);
+ if(!c||!Array.isArray(profile.related_card_ids)||profile.paragraphs.length<2)
+  throw Error('V336: registro ou vínculos incorretos '+id);
+ for(const related of profile.related_card_ids){
+  if(!currentMap.has(related)||!editorialV336.items[related]?.related_card_ids?.includes(id))
+   throw Error('V336: vínculo não recíproco '+id+' ↔ '+related);
+ }
+ c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...profile.related_card_ids])];
+ if(profile.front_override){if(!profile.front_history_v335||!profile.front_override.trim())throw Error('V336: frente sem histórico');c.front=profile.front_override;}
+ c.last_relationship_at=profile.relationship_event_date;
+ c.last_editorial_modified_at=profile.editorial_last_modified;
+}
+
 
 
 const ijui=ij.cards.map(c=>({...c,provisional:true,group:'LEGISLACAO',discipline:'Legislação',subject:c.subject||'Legislação municipal'}));cards=[...base,...ijui];loadedCards=true;const counter=document.querySelector('.stats .stat:nth-child(2) b');if(counter)counter.textContent=(base.length+ijui.length).toLocaleString('pt-BR');window.BM184Header?.updateCards(base.length,ijui.length,cards);for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){loadedCards=false;bm123CardsPromise=null;const out=document.getElementById('cardRows');if(out)out.textContent='Falha ao carregar cartões: '+e.message;throw e}})();
