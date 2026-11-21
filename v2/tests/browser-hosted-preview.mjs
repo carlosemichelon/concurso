@@ -1,0 +1,118 @@
+/* Banco Mestre V2 — smoke do endereço HTTPS da prévia publicada.
+ * Não faz OAuth real, não acessa dados privados, não modifica a V1.
+ */
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {chromium} from 'playwright';
+
+const base='https://carlosemichelon.github.io/concurso/';
+const preview=base+'v2-preview/';
+const browser=await chromium.launch({headless:true});
+let page;
+try{
+  page=await browser.newPage({viewport:{width:1280,height:900}});
+  // A prévia pública deve carregar sem exigir login; não dialogar com contas privadas.
+  await page.route('https://accounts.google.com/**',route=>route.abort());
+  const errors=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  const pageResponse=await page.goto(preview,{waitUntil:'domcontentloaded',timeout:45000});
+  assert.equal(pageResponse?.status(),200,'prévia deve responder HTTP 200');
+  await page.locator('#overviewStats .stat').first().waitFor({timeout:45000});
+  const stats=await page.locator('#overviewStats .stat').allTextContents();
+  assert.equal(stats.length,3,'painel de visão geral precisa de 3 estatísticas');
+  assert.match(stats.join(' '),/1[.,]518/,'catálogo público de 1518 cartões');
+  assert.match(stats.join(' '),/179/,'catálogo de 179 imagens');
+  assert.match(stats.join(' '),/78/,'biblioteca de 78 PDFs');
+  assert.match(await page.title(),/V2.*homologação isolada/);
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'),
+    'noindex,nofollow,noarchive');
+  assert.ok(await page.locator('a[href="../index.html"]').count()>0,
+    'retorno ao portal V1 deve permanecer evidente');
+  await page.locator('[data-view="cards"]').click();
+  await page.locator('#cardsList .item').first().waitFor({timeout:20000});
+  await page.locator('[data-view="images"]').click();
+  await page.locator('#imagesList .item').first().waitFor({timeout:20000});
+  assert.equal(await page.locator('#v2PrivateImages').count(),0,
+    'não deve existir segunda galeria de imagens');
+  assert.equal(await page.locator('#imagesList .item').count(),40,
+    'lista única deve iniciar com 40 imagens');
+  await page.locator('#moreImages').click();
+  assert.equal(await page.locator('#imagesList .item').count(),80,
+    'único botão Mostrar mais deve carregar as próximas 40');
+  await page.locator('[data-view="pdfs"]').click();
+  await page.locator('#pdfsList .item').first().waitFor({timeout:20000});
+  await page.locator('[data-view="sync"]').click();
+  try{
+    await page.locator('#v2OAuthReadiness').waitFor({timeout:15000});
+  // Auditar vínculos públicos na própria URL HTTPS publicada, sem OAuth.
+  await page.locator('#v2ImageAssociationAudit').waitFor({timeout:12000});
+  assert.equal(await page.locator('#v2ImageAuditStart').isEnabled(),true);
+  await page.locator('#v2ImageAuditStart').click();
+  await page.waitForFunction(()=>document.querySelector('#v2ImageAuditStatus')?.textContent.includes('Auditoria concluída'),
+    null,{timeout:30000});
+  const statsImage=await page.locator('#v2ImageAuditStats').textContent();
+  assert.match(statsImage,/100/,'cem referências a CARD válidos precisam ser encontradas');
+  assert.match(statsImage,/Referências históricas externas/,'não converter PETRO14-C017 em CARD');
+  assert.equal(await page.locator('#v2ImageAuditDetails').isDisabled(),true,
+    'sem OAuth, impedir exportar inventário detalhado com IDs privados');
+
+  await page.locator('#v2ReviewWorkbench').waitFor({timeout:15000});
+  assert.equal(await page.locator('#v2ReviewRecord').isEnabled(),true,
+    'auditoria pública permite decisões sem login privado');
+  await page.locator('#v2ReviewAction').selectOption('manter_conteudo');
+  await page.locator('#v2ReviewEvidence').selectOption('sem_correspondencia_confirmada');
+  await page.locator('#v2ReviewReason').fill(
+    'Imagem de conteúdo sem correspondência documental comprovada com cartão do banco público.'
+  );
+  await page.locator('#v2ReviewConfirm').check();
+  await page.locator('#v2ReviewRecord').click();
+  assert.match(await page.locator('#v2ReviewNotice').textContent(),/Decisão registrada/);
+  assert.equal(await page.locator('#v2ReviewHistory .v2-review-event').count(),1);
+  const [reviewDownload]=await Promise.all([
+    page.waitForEvent('download'),page.locator('#v2ReviewExport').click()
+  ]);
+  const reviewCheckpoint=JSON.parse(await readFile(await reviewDownload.path(),'utf8'));
+  assert.match(reviewCheckpoint.integrity.digest,/^[a-f0-9]{64}$/);
+  assert.equal(reviewCheckpoint.events[0].action,'manter_conteudo');
+  assert.equal(reviewCheckpoint.events.length,1);
+  assert.equal(await page.evaluate(()=>localStorage.length),0,
+    'checkpoint público é baixado, jamais guardado no armazenamento local');
+
+
+  }catch(error){
+    console.error('HOSTED PREVIEW DRIVE DIAGNOSTIC',await page.evaluate(()=>({
+      driveNote:document.querySelector('#v2DriveNote')?.textContent,
+      driveState:document.querySelector('#v2DriveState')?.textContent,
+      hasToolbar:!!document.querySelector('#v2DriveToolbar'),
+      hasAudit:!!document.querySelector('#v2AuditPanel'),
+      hasPdfProbe:!!document.querySelector('#v2PdfIdProbe'),
+      scripts:[...document.querySelectorAll('script[src]')].map(x=>x.src),
+      snapshotNotice:document.querySelector('#notice')?.textContent
+    })),{pageErrors:errors});
+    throw error;
+  }
+  assert.equal(await page.locator('#v2OAuthTestPdf').isDisabled(),true,
+    'acesso real a PDF não pode estar habilitado sem autorização Google');
+  const manifestResponse=await page.request.get(preview+'preview-manifest.json');
+  assert.equal(manifestResponse.status(),200);
+  const manifest=await manifestResponse.json();
+  assert.equal(manifest.publishScope,'v2-preview/ only');
+  assert.equal(manifest.containsPrivateFiles,false);
+  assert.match(manifest.sourceCommit,/^[a-f0-9]{40}$/,'manifesto deve guardar um SHA de origem verificável');
+  assert.equal(manifest.atlasMode,'single_viewer_editorial_plus_live_drive');
+  assert.match(manifest.associationReview,/documental\/didactic\/history/);
+  assert.match(manifest.associationDecisionFlow,/SHA-256 verified checkpoint/);
+  const original=await page.request.get(base+'index.html');
+  assert.equal(original.status(),200,'entrada original V1 deve continuar publicada');
+  assert.equal(await page.evaluate(()=>localStorage.length),0,
+    'prévia pública não deve criar registros pessoais ou tokens');
+  assert.deepEqual(errors,[],'site não deve provocar exceções JavaScript não tratadas');
+  console.log('V2 HTTPS preview smoke OK:',{
+    preview,sections:['cards','images','pdfs','sync'],
+    stats:'1518 cartões / 179 imagens / 78 PDFs',
+    privateLogin:false,unchangedV1Entry:true,manifestVerified:true
+  });
+}finally{
+  await page?.close();
+  await browser.close();
+}
