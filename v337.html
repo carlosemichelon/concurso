@@ -441,7 +441,7 @@ for(const p of data337.updates){
  original337[p.id]={front:c.front,back:c.back,expl:c.expl,
   mnemonic:c.mnemonic,reference:c.reference,related_card_ids:[...(c.related_card_ids||[])],
   related_question_ids:[...(c.related_question_ids||[])]};
- c.front=p.front;c.back=p.back;c.expl=p.paragraphs.join('\\n\\n');c.mnemonic=p.mnemonic;
+ c.front=p.front;c.back=p.back;c.expl=p.paragraphs.join(String.fromCharCode(10,10));c.mnemonic=p.mnemonic;
  c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...p.related_card_ids])];
  c.related_question_ids=[...new Set([...(c.related_question_ids||[]),...p.related_question_ids])];
  c.search_keywords=[c.search_keywords||'',p.front,data337.profiles[p.id].compare].join(' ');
