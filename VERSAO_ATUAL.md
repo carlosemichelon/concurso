@@ -1,3 +1,13 @@
+## Atualização 21/11/2026 — V337 · Petrobras 26
+
+Acesso principal: https://carlosemichelon.github.io/concurso/ · snapshot preservado: `v337.html` · retorno: `v336.html`.
+
+**Atualização efetiva do catálogo público:** 13 cartões existentes evoluídos nos mesmos IDs (CARD-0082, 0190, 0424, 0587, 0052, 0168, 0381, 1122, 1140, 1141, 1142, 1143 e 1364) e 6 novos IDs consecutivos (CARD-1542 a CARD-1547). Catálogo: **1.546 únicos, 1.529 ativos**, além de 22 operacionais de Ijuí. Cada um dos 19 perfis recebeu frente, resposta-modelo contínua e 11 módulos didáticos; histórico literal e 11 módulos anteriores permanecem acessíveis no recolhível. Vínculos recíprocos para os cartões envolvidos, questões vinculadas a PETRO26, origem e fonte registrados em `assets/petro26_delta_v337.json`. Renderização no leitor pelo módulo `assets/v337_editorial_renderer.js`.
+
+**Assuntos:** dimensões funcionais de NBR 15575 (sala 2,40 m, sofá 0,50 m, mesa 0,75 m) versus NBR 9050; plantas de fôrmas versus memória de cálculo; IA/TO/TP e ressalva sobre pavimentos desiguais; chapas drywall ST/RU/RF; CP III e CP II-E, CP II-F da NBR 16697:2018 (11–25%, corrigindo quadro anterior); frasco/aparelho Le Chatelier, expansão e autoclave; CaO/MgO, DEF/etringita, RAA, diagnóstico DRX/MEV-EDS. O CARD-0064 foi preservado sem fusão devido à duplicidade parcial já conhecida.
+
+**Segurança e rastreabilidade:** V336 intacta, alterações em overlay separado. A V337 também elimina uma redeclaração `const extra` que impedia sintaxe do código herdado, sem afetar os dados V335. Não houve importação de dados privados, criação de avaliação de revisão, alteração de SRS, imagens, PDFs ou grifos. Publicação de arquivos estáticos não constitui prova de que a sincronização privada do navegador tenha ocorrido. Teste sintático dos scripts inline realizado; integração privada e homologação com OAuth dependem de verificação específica.
+
 ## Atualização 20/11/2026 — V333
 
 Acesso: https://carlosemichelon.github.io/concurso/?v=333 · snapshot: v333.html · anterior: v332.html.
