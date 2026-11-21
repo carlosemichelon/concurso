@@ -1,0 +1,371 @@
+{
+  "format": "BancoMestrePetro25ConversationDeltaV335",
+  "schema": 1,
+  "source": "PETROBRAS 25 — estudos do usuário 20-21/11/2026",
+  "based_on_portal": "V334",
+  "date": "2026-11-21",
+  "privacy": "Conteúdo técnico público, sem manuscritos/imagens/links privados; acervo associado apenas no Drive autorizado",
+  "source_card_max": "CARD-1538",
+  "new_cards": [
+    {
+      "id": "CARD-1539",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Terraplenagem",
+      "sub": "Seção E322 — decomposição geométrica de áreas",
+      "front": "Em seção transversal de terraplenagem, como distinguir as áreas reais de corte/aterro das figuras auxiliares, e como calcular Ac e Aa na seção E322 com 4+4+6+15 m até P1, 2+x até P2, inclinações 3/2 e 2/3?",
+      "back": "Com y2=6 m, y1=9 m e x=4 m, Ac=(29×15)/2−[(15+9)×4/2+4×9+6×9/2]=106,5 m²; Aa=(6×4)/2−(2×4)/2=8 m².",
+      "expl": "A área real de corte é somente a superfície entre o terreno natural acima e a plataforma projetada abaixo. O triângulo auxiliar do corte possui base horizontal 29 m e altura 15 m, portanto 217,5 m², mas inclui partes que não serão escavadas: trapézio de 48 m², retângulo de 36 m² e triângulo de 27 m². A diferença é 106,5 m². No aterro, o triângulo maior de 12 m² inclui outro triângulo que é terreno já existente, com 4 m²; a área real de aterro é 8 m². As cotas pressupõem geometria retilínea idealizada: não inferir áreas exatas de perfis naturais ondulados sem pontos cotados adicionais. P1 é a transição corte/aterro na seção.",
+      "mnemonic": "Desenhe a região REAL entre terreno e projeto; figura maior MENOS partes excluídas.",
+      "reference": "PETRO25-E322 | Origem: questões e manuscritos Petrobras 25; apoio editorial privado; cálculos condicionados à geometria indicada",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1434",
+        "CARD-1385",
+        "CARD-1432"
+      ],
+      "related_question_ids": [
+        "PETRO25-E322"
+      ],
+      "search_keywords": "terraplenagem corte aterro compensação áreas médias seção de passagem cubação empréstimo reaterro geometria"
+    },
+    {
+      "id": "CARD-1540",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Terraplenagem",
+      "sub": "Reaterro geométrico de fundação",
+      "front": "Uma cava para bloco 1×1×1,2 m tem folga de 0,50 m em cada lado, pescoço 0,20×0,20×0,70 m e concreto magro de 0,10 m em todo o fundo. Sem empolamento, qual o volume geométrico de reaterro?",
+      "back": "Vesc=2×2×(0,7+1,2+0,1)=8,000 m³. Vmagro=0,400; Vbloco=1,200; Vpescoço=0,028 m³. Vreaterro=8−0,4−1,2−0,028=6,372 m³.",
+      "expl": "Reaterro é apenas o espaço vazio na escavação após os elementos permanentes. A folga lateral de 0,50 m soma-se dos DOIS lados, produzindo base 2×2 m. A camada de concreto magro ocupa toda a base de 2×2 m. Um segundo método equivalente considera somente o prisma acima dela: 2×2×(1,2+0,7)=7,6 m³; desse prisma subtrai-se 1,2+0,028=1,228 m³, obtendo 6,372 m³. Não subtrair a camada magra duas vezes e não aplicar empolamento/compactação quando a questão pede apenas volume geométrico.",
+      "mnemonic": "Escavou − construiu = reaterro; desconte cada parcela uma única vez.",
+      "reference": "PETRO25-TEC2692936 | Origem: questões e manuscritos Petrobras 25; apoio editorial privado; cálculos condicionados à geometria indicada",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1385",
+        "CARD-1432"
+      ],
+      "related_question_ids": [
+        "PETRO25-TEC2692936"
+      ],
+      "search_keywords": "terraplenagem corte aterro compensação áreas médias seção de passagem cubação empréstimo reaterro geometria"
+    },
+    {
+      "id": "CARD-1541",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Terraplenagem",
+      "sub": "Transição corte–aterro e seção de passagem",
+      "front": "Duas seções consecutivas têm Ac=50 m² de corte e Aa=85 m² de aterro, separadas por L=5 m; 30% do corte não é compensável. Sob hipótese de interpolação linear das áreas assinadas, onde fica a seção de passagem, quais os volumes e por que o gabarito 75 m³ é controverso?",
+      "back": "dc=5×50/(50+85)=1,852 m; da=5×85/(50+85)=3,148 m. Vc=(50+0)×dc/2≈46,30 m³; Va=(0+85)×da/2≈133,80 m³. Corte aproveitável≈0,70×46,30=32,41 m³; déficit≈101,39 m³, para estados volumétricos comparáveis. A plataforma indicou D=75 m³, sem demonstração técnica consistente com esse modelo.",
+      "expl": "Ao passar de corte a aterro, a hipótese de variação linear da área assinada permite localizar o ponto onde a área se anula por interpolação: dc=L Ac/(Ac+Aa), da=L Aa/(Ac+Aa), com dc+da=L. Os volumes são então calculados pela média das áreas de CADA subtrecho, não pela distância total para os dois serviços. Apenas depois descontam-se os 30% não compensáveis do volume escavado. A conta 50×5×0,30=75 m³ replica o gabarito informado, mas trata o corte como prisma de seção constante e representa material rejeitado do prisma suposto, não déficit demonstrado. A anulação foi uma opinião do professor fornecida pelo estudante, não uma decisão oficial verificada. Sem linearidade, sem seção de passagem real e sem fator de conversão volumétrica, o déficit não é determinável com a mesma precisão.",
+      "mnemonic": "Corte → seção zero → aterro; cubar cada lado, depois calcular aproveitamento.",
+      "reference": "PETRO25-TRANSPETRO-2011-Q45 | Origem: questões e manuscritos Petrobras 25; apoio editorial privado; cálculos condicionados à geometria indicada",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1432",
+        "CARD-1434",
+        "CARD-1212"
+      ],
+      "related_question_ids": [
+        "PETRO25-TRANSPETRO-2011-Q45"
+      ],
+      "search_keywords": "terraplenagem corte aterro compensação áreas médias seção de passagem cubação empréstimo reaterro geometria"
+    }
+  ],
+  "related_updates": [
+    {
+      "id": "CARD-0230",
+      "expl_append": "NBR 5681:2015 — aterros em edificações: material selecionado, preparo e controle de execução; vincula CARD-0404, CARD-0521, CARD-0857 e CARD-0858. Separar controle de compactação do balanço corte/aterro.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: NBR 5681:2015 — aterros em edificações: material selecionado, preparo e controle de execução; vincula CARD-0404, CARD-0521, CARD-0857 e CARD-0858. Separar controle de compactação do balanço corte/aterro.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: NBR 5681:2015 — aterros em edificações: material selecionado, preparo e controle de execução; vincula CARD-0404, CARD-0521, CARD-0857 e CARD-0858. Separar controle de compactação do balanço corte/aterro.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. NBR 5681:2015 — aterros em edificações: material selecionado, preparo e controle de execução; vincula CARD-0404, CARD-0521, CARD-0857 e CARD-0858. Separar controle de compactação do balanço corte/aterro.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-0404",
+      "expl_append": "NBR 5681:2015: limite de espessura máxima 0,30m refere-se à camada APÓS compactação, não à altura de lançamento do solo solto. Verificar valor no enunciado conforme edição.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: NBR 5681:2015: limite de espessura máxima 0,30m refere-se à camada APÓS compactação, não à altura de lançamento do solo solto. Verificar valor no enunciado conforme edição.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: NBR 5681:2015: limite de espessura máxima 0,30m refere-se à camada APÓS compactação, não à altura de lançamento do solo solto. Verificar valor no enunciado conforme edição.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. NBR 5681:2015: limite de espessura máxima 0,30m refere-se à camada APÓS compactação, não à altura de lançamento do solo solto. Verificar valor no enunciado conforme edição.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-0521",
+      "expl_append": "NBR 5681:2015: tolerância em relação à umidade ótima indicada ±3 pontos percentuais, salvo exigência mais restritiva. Não confundir umidade com grau de compactação nem com fator de empolamento.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: NBR 5681:2015: tolerância em relação à umidade ótima indicada ±3 pontos percentuais, salvo exigência mais restritiva. Não confundir umidade com grau de compactação nem com fator de empolamento.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: NBR 5681:2015: tolerância em relação à umidade ótima indicada ±3 pontos percentuais, salvo exigência mais restritiva. Não confundir umidade com grau de compactação nem com fator de empolamento.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. NBR 5681:2015: tolerância em relação à umidade ótima indicada ±3 pontos percentuais, salvo exigência mais restritiva. Não confundir umidade com grau de compactação nem com fator de empolamento.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-0857",
+      "expl_append": "NBR 5681:2015: GC mínimo indicado 95% da massa específica seca de referência, salvo exigência superior. Critério independente da espessura máxima da camada 30cm.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: NBR 5681:2015: GC mínimo indicado 95% da massa específica seca de referência, salvo exigência superior. Critério independente da espessura máxima da camada 30cm.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: NBR 5681:2015: GC mínimo indicado 95% da massa específica seca de referência, salvo exigência superior. Critério independente da espessura máxima da camada 30cm.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. NBR 5681:2015: GC mínimo indicado 95% da massa específica seca de referência, salvo exigência superior. Critério independente da espessura máxima da camada 30cm.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-0858",
+      "expl_append": "Em aterros de edificações, selecionar material apto; turfas e argilas orgânicas são inadequadas e solos expansivos requerem cautela. Material rejeitado não pode ser presumido compensável.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: Em aterros de edificações, selecionar material apto; turfas e argilas orgânicas são inadequadas e solos expansivos requerem cautela. Material rejeitado não pode ser presumido compensável.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: Em aterros de edificações, selecionar material apto; turfas e argilas orgânicas são inadequadas e solos expansivos requerem cautela. Material rejeitado não pode ser presumido compensável.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. Em aterros de edificações, selecionar material apto; turfas e argilas orgânicas são inadequadas e solos expansivos requerem cautela. Material rejeitado não pode ser presumido compensável.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-0479",
+      "expl_append": "Reforço Petrobras 25: fator de empolamento definido φ=Vn/Vs=0,85 é o inverso do fator histórico k=Vs/Vn=1,25. Para 40×9=360m³ soltos, Vn=306m³; corte 200m² ⇒ h=1,53m; empolamento percentual E=(1/0,85−1)×100≈17,65%, NÃO 15%. Enunciado sempre define a convenção.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: Reforço Petrobras 25: fator de empolamento definido φ=Vn/Vs=0,85 é o inverso do fator histórico k=Vs/Vn=1,25. Para 40×9=360m³ soltos, Vn=306m³; corte 200m² ⇒ h=1,53m; empolamento percentual E=(1/0,85−1)×100≈17,65%, NÃO 15%. Enunciado sempre define a convenção.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: Reforço Petrobras 25: fator de empolamento definido φ=Vn/Vs=0,85 é o inverso do fator histórico k=Vs/Vn=1,25. Para 40×9=360m³ soltos, Vn=306m³; corte 200m² ⇒ h=1,53m; empolamento percentual E=(1/0,85−1)×100≈17,65%, NÃO 15%. Enunciado sempre define a convenção.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. Reforço Petrobras 25: fator de empolamento definido φ=Vn/Vs=0,85 é o inverso do fator histórico k=Vs/Vn=1,25. Para 40×9=360m³ soltos, Vn=306m³; corte 200m² ⇒ h=1,53m; empolamento percentual E=(1/0,85−1)×100≈17,65%, NÃO 15%. Enunciado sempre define a convenção.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-1212",
+      "expl_append": "Reforço Petrobras 25: contração percentual baseada no natural não é igual ao acréscimo de volume natural baseado no compactado. Exemplo fr=Vnatural/Vaterro=1,20 implica 150m³ de aterro para 180m³ naturais, com redução de 16,67% relativa ao natural. Não confundir 30% não compensável de um corte com compactação.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: Reforço Petrobras 25: contração percentual baseada no natural não é igual ao acréscimo de volume natural baseado no compactado. Exemplo fr=Vnatural/Vaterro=1,20 implica 150m³ de aterro para 180m³ naturais, com redução de 16,67% relativa ao natural. Não confundir 30% não compensável de um corte com compactação.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: Reforço Petrobras 25: contração percentual baseada no natural não é igual ao acréscimo de volume natural baseado no compactado. Exemplo fr=Vnatural/Vaterro=1,20 implica 150m³ de aterro para 180m³ naturais, com redução de 16,67% relativa ao natural. Não confundir 30% não compensável de um corte com compactação.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. Reforço Petrobras 25: contração percentual baseada no natural não é igual ao acréscimo de volume natural baseado no compactado. Exemplo fr=Vnatural/Vaterro=1,20 implica 150m³ de aterro para 180m³ naturais, com redução de 16,67% relativa ao natural. Não confundir 30% não compensável de um corte com compactação.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-1385",
+      "expl_append": "Liquigás 2013 TEC 2403837: largura 40m, V_T1=30×40×0,2=240m³; T4 varia h 0,4→0,2, logo V_T4=40×x×0,3=12x ⇒ x=20m. V_T5=120m³=40×y×0,2 ⇒ y=15m. Área em planta 40×(30+10+10+20+15)=3400m². Relacionado ao CARD-1539 apenas por diferença entre área e volume.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: Liquigás 2013 TEC 2403837: largura 40m, V_T1=30×40×0,2=240m³; T4 varia h 0,4→0,2, logo V_T4=40×x×0,3=12x ⇒ x=20m. V_T5=120m³=40×y×0,2 ⇒ y=15m. Área em planta 40×(30+10+10+20+15)=3400m². Relacionado ao CARD-1539 apenas por diferença entre área e volume.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: Liquigás 2013 TEC 2403837: largura 40m, V_T1=30×40×0,2=240m³; T4 varia h 0,4→0,2, logo V_T4=40×x×0,3=12x ⇒ x=20m. V_T5=120m³=40×y×0,2 ⇒ y=15m. Área em planta 40×(30+10+10+20+15)=3400m². Relacionado ao CARD-1539 apenas por diferença entre área e volume.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. Liquigás 2013 TEC 2403837: largura 40m, V_T1=30×40×0,2=240m³; T4 varia h 0,4→0,2, logo V_T4=40×x×0,3=12x ⇒ x=20m. V_T5=120m³=40×y×0,2 ⇒ y=15m. Área em planta 40×(30+10+10+20+15)=3400m². Relacionado ao CARD-1539 apenas por diferença entre área e volume.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-1432",
+      "expl_append": "Complemento Transpetro Q45: corte não compensável reduz o volume aproveitável, NÃO altera a área transversal nem é fator de empolamento. Sob seção de passagem interpolada, Vc≈46,30m³ e Va≈133,80m³; 70% aproveitável≈32,41m³, déficit≈101,39m³ em estados comparáveis. A banca informa D=75m³, mas sua justificativa numérica é contestável. Reforço reaterro CARD-1540: material que volta à cava não é igual a bota-fora.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: Complemento Transpetro Q45: corte não compensável reduz o volume aproveitável, NÃO altera a área transversal nem é fator de empolamento. Sob seção de passagem interpolada, Vc≈46,30m³ e Va≈133,80m³; 70% aproveitável≈32,41m³, déficit≈101,39m³ em estados comparáveis. A banca informa D=75m³, mas sua justificativa numérica é contestável. Reforço reaterro CARD-1540: material que volta à cava não é igual a bota-fora.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: Complemento Transpetro Q45: corte não compensável reduz o volume aproveitável, NÃO altera a área transversal nem é fator de empolamento. Sob seção de passagem interpolada, Vc≈46,30m³ e Va≈133,80m³; 70% aproveitável≈32,41m³, déficit≈101,39m³ em estados comparáveis. A banca informa D=75m³, mas sua justificativa numérica é contestável. Reforço reaterro CARD-1540: material que volta à cava não é igual a bota-fora.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. Complemento Transpetro Q45: corte não compensável reduz o volume aproveitável, NÃO altera a área transversal nem é fator de empolamento. Sob seção de passagem interpolada, Vc≈46,30m³ e Va≈133,80m³; 70% aproveitável≈32,41m³, déficit≈101,39m³ em estados comparáveis. A banca informa D=75m³, mas sua justificativa numérica é contestável. Reforço reaterro CARD-1540: material que volta à cava não é igual a bota-fora.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-1434",
+      "expl_append": "Complemento seções mistas: quando há passagem corte→aterro e se supõe variação linear das áreas assinadas, localizar dc=LAc/(Ac+Aa), da=LAa/(Ac+Aa), e aplicar a média das áreas SEPARADAMENTE para cada subtrecho. Transpetro: dc≈1,852m, da≈3,148m, Vc≈46,30m³, Va≈133,80m³, não 125/212,5 pelo método global anterior. E322 CARD-1539 aprofunda decomposição geométrica de áreas, enquanto 1434 cubica os volumes.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: Complemento seções mistas: quando há passagem corte→aterro e se supõe variação linear das áreas assinadas, localizar dc=LAc/(Ac+Aa), da=LAa/(Ac+Aa), e aplicar a média das áreas SEPARADAMENTE para cada subtrecho. Transpetro: dc≈1,852m, da≈3,148m, Vc≈46,30m³, Va≈133,80m³, não 125/212,5 pelo método global anterior. E322 CARD-1539 aprofunda decomposição geométrica de áreas, enquanto 1434 cubica os volumes.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: Complemento seções mistas: quando há passagem corte→aterro e se supõe variação linear das áreas assinadas, localizar dc=LAc/(Ac+Aa), da=LAa/(Ac+Aa), e aplicar a média das áreas SEPARADAMENTE para cada subtrecho. Transpetro: dc≈1,852m, da≈3,148m, Vc≈46,30m³, Va≈133,80m³, não 125/212,5 pelo método global anterior. E322 CARD-1539 aprofunda decomposição geométrica de áreas, enquanto 1434 cubica os volumes.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. Complemento seções mistas: quando há passagem corte→aterro e se supõe variação linear das áreas assinadas, localizar dc=LAc/(Ac+Aa), da=LAa/(Ac+Aa), e aplicar a média das áreas SEPARADAMENTE para cada subtrecho. Transpetro: dc≈1,852m, da≈3,148m, Vc≈46,30m³, Va≈133,80m³, não 125/212,5 pelo método global anterior. E322 CARD-1539 aprofunda decomposição geométrica de áreas, enquanto 1434 cubica os volumes.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    },
+    {
+      "id": "CARD-1435",
+      "expl_append": "Conservação da massa seca em estados natural, solto e compactado: ρd,nVn=ρd,sVs=ρd,cVc. Empolamento percentual e fator não compensável são conceitos diferentes; sem dados de densidades/fatores, não converter estados na questão Transpetro.",
+      "layers_add": {
+        "3": "COMPLEMENTO PETRO25: Conservação da massa seca em estados natural, solto e compactado: ρd,nVn=ρd,sVs=ρd,cVc. Empolamento percentual e fator não compensável são conceitos diferentes; sem dados de densidades/fatores, não converter estados na questão Transpetro.",
+        "7": "APLICAÇÃO/TRANSFERÊNCIA: Conservação da massa seca em estados natural, solto e compactado: ρd,nVn=ρd,sVs=ρd,cVc. Empolamento percentual e fator não compensável são conceitos diferentes; sem dados de densidades/fatores, não converter estados na questão Transpetro.",
+        "10": "PEGADINHA: não extrapolar hipóteses, sinais ou bases dos percentuais. Conservação da massa seca em estados natural, solto e compactado: ρd,nVn=ρd,sVs=ρd,cVc. Empolamento percentual e fator não compensável são conceitos diferentes; sem dados de densidades/fatores, não converter estados na questão Transpetro.",
+        "11": "Vínculos contextuais PETRO25; preservar fonte original, 11 módulos e SRS. Atualização incremental V335."
+      }
+    }
+  ],
+  "new_layers": [
+    {
+      "id": "CARD-1539",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Localize as linhas natural e projetada e classifique as regiões antes de qualquer fórmula. Determine y2,y1,x e Ac/Aa sem observar o desenho resolvido."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima",
+          "texto": "y2=6m, y1=9m, x=4m; Ac=106,5m²; Aa=8m²; fórmula da diferença entre figura auxiliar e áreas excluídas."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento geométrico",
+          "texto": "Variação retilínea idealizada de terreno, triângulos/trapézios/retângulos e inclinação vertical/horizontal. Não tratar ondulações reais como reta sem hipótese."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A região de corte fica entre terreno natural superior e plataforma inferior. A de aterro fica entre plataforma superior e terreno inferior. P1 delimita a passagem."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "tanα=3/2 ⇒ y2=4×3/2=6m, y1=6×3/2=9m; H=15m. tanβ=2/3 ⇒ 4/(2+x)=2/3 ⇒ x=4m. Áreas em m²."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Corte: triângulo maior 217,5; trapézio excluído 48; retângulo excluído 36; triângulo excluído 27; Ac=106,5m². Aterro: grande 12−menor 4=8m²."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Se E323 possuir 1,5× a área de aterro de E322, tem 12m²; com estacas a 20m, volume estimado (8+12)20/2=200m³."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1434 calcula volumes por áreas médias; CARD-1385 usa profundidade variável; CARD-1432 diferencia corte, aterro e bota-fora. Este cartão ensina geometria da seção."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Perfil natural irregular requer cotas e levantamento, não apenas a linha idealizada. A área geométrica da figura auxiliar não é necessariamente material movimentado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não contar 15×4m como aterro nem somar áreas excluídas; distinguir m² de m³ e razão vertical/horizontal de sua inversa."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "Terreno × projeto define região; maior MENOS o que não entra. Croqui e manuscrito E322 de origem do estudante preservados no Drive privado; sem efeito SRS."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1540",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Calcule reaterro do bloco com folga lateral, pescoço e magro de fundo total, explicando por que não se desconta duas vezes o magro."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima",
+          "texto": "Vreaterro=8−0,4−1,2−0,028=6,372m³. Escavação 2×2×2m; a camada magra tem 0,4m³."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento",
+          "texto": "Volumes de prismas retangulares por base×altura; espaço vazio como diferença de conjuntos geométricos. Não requer norma específica."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo físico",
+          "texto": "A cava recebe concreto magro, bloco e pescoço; o reaterro ocupa apenas vazios remanescentes, não os volumes desses elementos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas",
+          "texto": "Vesc=2×2×2=8m³; Vmagro=2×2×0,1=0,4m³; Vbloco=1×1×1,2=1,2m³; Vpescoço=0,2×0,2×0,7=0,028m³."
+        },
+        {
+          "ord": 6,
+          "titulo": "Conferência em dois métodos",
+          "texto": "Integral: 8−0,4−1,2−0,028=6,372m³. Acima do magro: 7,6−1,2−0,028=6,372m³."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Para nova folga, alterar as duas dimensões da cava; para novo magro, verificar se ocupa toda a base ou apenas uma projeção."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1385 é volumetria com profundidade linear; CARD-1432 compara reaterro, bota-fora e empréstimo sem confundir finalidades."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições",
+          "texto": "Cava prismática conforme croqui; magro no fundo todo; sem empolamento nem compactação, como expressamente enunciado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Somar folga uma vez só; omitir pescoço; descontar magro duas vezes; tratar volume solto como geométrico; inverter unidades."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e história",
+          "texto": "ESCAVOU − CONSTRUIU = REATERRO; foto manuscrita original de TEC #2692936 preservada no registro privado, não exposta na frente."
+        }
+      ]
+    },
+    {
+      "id": "CARD-1541",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Questão Transpetro Q45: Ac=50m², Aa=85m², L=5m e 30% não compensável. Encontre passagem sob linearidade e discuta gabarito 75m³."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima",
+          "texto": "dc≈1,852m, da≈3,148m, Vc≈46,30m³, Va≈133,80m³, aproveitável≈32,41m³ e déficit≈101,39m³; gabarito informado D=75m³ é incongruente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento",
+          "texto": "Interpolação linear de áreas assinadas entre seções e cubação aproximada por média das áreas; razão análoga a semelhança de triângulos."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O corte diminui até área nula na seção intermediária; o aterro cresce a partir dela. Duas subdistâncias repartem o intervalo total."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculos e unidades",
+          "texto": "dc=5×50/135≈1,852m; da=5×85/135≈3,148m; Vc=50×dc/2≈46,30m³; Va=85×da/2≈133,80m³."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Corte geométrico 46,30m³; 30% rejeitado 13,89m³; 70% aproveitável 32,41m³; aterro 133,80m³; déficit 101,39m³, se volumes comparáveis."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Para outros Ac,Aa,L sob linearidade: dc=LAc/(Ac+Aa), da=LAa/(Ac+Aa); cubar segmentos separados; depois aplicar aproveitamento."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1434: área média em cada trecho; CARD-1432: material compensável e empréstimo; CARD-1212: fatores de estado não disponíveis nesta questão."
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "Variação linear de áreas é premissa simplificadora, não derivada necessariamente da geometria real; compactado×natural requer homogeneização não fornecida."
+        },
+        {
+          "ord": 10,
+          "titulo": "Erro e banca",
+          "texto": "Cálculo 50×5×0,30=75m³ reproduz alternativa D, mas pressupõe prisma constante e não é déficit pela seção de passagem. 'Deveria anular' é avaliação do professor, não fato oficial."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e origem",
+          "texto": "CORTE 50 → ZERO → ATERRO 85; volumes de cada metade e 70% depois. Resolução do professor fornecida pelo aluno em 21/11/2026; SRS não alterado."
+        }
+      ]
+    }
+  ],
+  "status": "public_candidate_no_private_canonical_or_srs_sync"
+}
