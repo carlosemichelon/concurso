@@ -1,0 +1,1867 @@
+{
+  "format": "BancoMestrePetro26StudySyncV338",
+  "schema": 1,
+  "date": "2026-11-21",
+  "source": "Petrobras 26 — consolidação incremental de amostragem, ensaios e reciclagem",
+  "authorization": "devo ter cartões completos para amostragem de agregados; atualize e sincronize o conteúdo",
+  "base": "V337",
+  "public_only": true,
+  "private_canonical_sync": "pendente de integração segura: XLSX canônico histórico não é a versão atual do catálogo público",
+  "srs_changed": false,
+  "versions_retained": true,
+  "counts": {
+    "new_cards": 11,
+    "updated": 7,
+    "total": 18
+  },
+  "new_cards": [
+    {
+      "id": "CARD-1548",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Agregados — Amostragem",
+      "sub": "Amostra parcial, amostra de campo, coleta representativa",
+      "front": "Como obter uma amostra de campo representativa de agregados em pilhas, caminhões, correias e silos segundo a NBR 16915?",
+      "back": "Reunir amostras parciais de locais/instantes distintos, evitando segregação e contaminação. Em pilhas/caminhões, coleta em ao menos três posições conforme o material; em correias, paralisá-las e coletar toda a seção delimitada.",
+      "expl": "A **amostragem de agregados** procura representar o lote real, e não apenas sua superfície. Uma amostra parcial é uma porção coletada de uma só vez em determinado ponto; várias parciais formam a **amostra de campo**, da qual se obtém posteriormente a amostra de ensaio. A representatividade depende de escolher locais e momentos adequados e de evitar que a segregação concentre grãos finos ou grossos.\n\nNa **pilha de agregado graúdo**, quando não houver coleta mecânica em pilha auxiliar, utilizar pelo menos três amostras parciais tomadas em regiões de topo, meio e base, abrangendo superfície e interior. Para areia em pilha, retirar a camada externa segregada (cerca de 0,30 m ou mais) e colher abaixo dela. Em caminhão com agregado graúdo, coletar em pelo menos três pontos, removendo ao menos 0,30 m da camada superficial. Em fluxo de descarga, tomar três ou mais porções representativas de diferentes descargas, após a saída inicial de ao menos 1 m³ e evitando início e fim do fluxo.\n\nEm correia transportadora, **paralisar a correia**, escolher pontos aleatórios, delimitar a seção com separadores e recolher todo o agregado entre eles, inclusive os finos aderidos. O objetivo não é completar três coletas de qualquer maneira: é reduzir o viés. A coleta, a identificação, a preservação e o transporte devem permitir que o laboratório receba a mesma composição que existia no lote.",
+      "mnemonic": "PARCIAL → CAMPO → ENSAIO; topo, meio, base; correia PARADA.",
+      "reference": "ABNT NBR 16915:2021, itens 3, 5.3–5.6",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1549",
+        "CARD-1550"
+      ],
+      "related_question_ids": [
+        "PETRO26-AMOSTRAGEM-001"
+      ],
+      "search_keywords": "Amostra parcial, amostra de campo, coleta representativa NBR 16915 — amostragem representativa e pontos de coleta Reunir amostras parciais de locais/instantes distintos, evitando segregação e contaminação. Em pilhas/caminhões, coleta em ao menos três posições conforme o material; em correias, paralisá-las e coletar toda a seção delimitada. Amostra somente do topo; amostra de correia em movimento; desprezar finos caídos; coletar apenas no início/fim da descarga; tratar amostra de ensaio como sinônimo da amostra de campo."
+    },
+    {
+      "id": "CARD-1549",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Agregados — Amostragem",
+      "sub": "Redução da amostra de campo sem perder representatividade",
+      "front": "Como reduzir uma amostra de campo de agregado sem alterar sua granulometria: separador mecânico ou quarteamento?",
+      "back": "Reduzir mantendo todas as frações representadas. O separador mecânico reparte o fluxo em calhas alternadas; o quarteamento mistura, divide em quatro porções e combina dois quartos opostos, repetindo quando necessário.",
+      "expl": "Reduzir a amostra não significa descartar material aleatoriamente. Depois da coleta em campo, a quantidade pode exceder a necessária para o laboratório; é preciso obter uma porção menor **com composição representativa**. A NBR 16915:2021 inclui, em seu Anexo A, a redução por **separador mecânico** e por **quarteamento**.\n\nO **separador** distribui o agregado em calhas alternadas que descarregam para dois recipientes, proporcionando divisões equivalentes quando corretamente utilizado. A aparelhagem indicada possui pelo menos **8 calhas para agregado graúdo** e **12 para miúdo**, com aberturas compatíveis com o tamanho nominal. No **quarteamento**, homogeneiza-se o material em superfície limpa, distribui-se de maneira uniforme, divide-se em quatro setores e retêm-se dois quadrantes diagonalmente opostos, repetindo até atingir a massa necessária.\n\nAmbos os procedimentos podem falhar quando a amostra sofre segregação, perde finos ou está em condição de umidade inadequada. Conforme o Anexo A, pode ser necessário regular a umidade para evitar perdas e aglomeração. O resultado confiável é aquele cuja fração reduzida preserva o conjunto original, e não simplesmente aquele cuja massa final se tornou pequena.",
+      "mnemonic": "QUARTEAR = 4 partes → 2 OPOSTAS; separador = CALHAS alternadas.",
+      "reference": "ABNT NBR 16915:2021, Anexo A",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1548",
+        "CARD-1550"
+      ],
+      "related_question_ids": [
+        "PETRO26-AMOSTRAGEM-002"
+      ],
+      "search_keywords": "Redução da amostra de campo sem perder representatividade NBR 16915 — redução de amostras: separador e quarteamento Reduzir mantendo todas as frações representadas. O separador mecânico reparte o fluxo em calhas alternadas; o quarteamento mistura, divide em quatro porções e combina dois quartos opostos, repetindo quando necessário. Separar apenas material superficial; descartar finos; usar duas partes contíguas; reduzir uma areia molhada e aglomerada sem correção; achar que no mínimo 8/12 calhas significa massa."
+    },
+    {
+      "id": "CARD-1550",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Agregados — Amostragem",
+      "sub": "3 parciais e massas de 40, 75 e 150 kg",
+      "front": "Na NBR 16915:2021, como varia a massa mínima de amostra de campo para ensaios físicos/químicos conforme o tamanho nominal do agregado?",
+      "back": "Mínimo de 3 amostras parciais: até 19 mm → 40 kg no total; >19 até 37,5 mm → 75 kg; >37,5 até 75 mm → 150 kg. São valores da Tabela 1 para agregados de 2 a 3 g/cm³, não universais para qualquer estudo.",
+      "expl": "A NBR 16915:2021 trata separadamente do **lote** que será representado e da **massa de amostra de campo** necessária. Em regra, um lote de mesma origem não supera **300 m³** de agregados ou, em processo contínuo, o material de **12 horas** de produção; existem condições particulares de pequenas obras e acordos de grandes obras que devem ser observadas.\n\nPara **ensaios físicos ou químicos**, a Tabela 1 indica pelo menos **três amostras parciais**. A quantidade mínima total da amostra de campo é **40 kg** para tamanho nominal até 19 mm, **75 kg** para acima de 19 até 37,5 mm e **150 kg** para acima de 37,5 até 75 mm. Os equivalentes volumétricos são, respectivamente, **25, 50 e 100 dm³**, nas hipóteses indicadas na norma para agregados de massa específica entre 2 e 3 g/cm³.\n\nPara **estudos de dosagem de concreto e comprovação de resistência**, a Tabela 2 apresenta outra escala, maior, e separa agregado miúdo e graúdo: miúdo 200 kg quando se usa um único tipo, ou 150 kg por tipo quando são dois ou mais; graúdo 300 kg quando é apenas uma graduação, ou 200 kg por graduação quando são duas ou mais. Portanto, antes de decorar a massa, deve-se identificar a **finalidade da amostragem**.",
+      "mnemonic": "T1: 19→40; 37,5→75; 75→150. Três PARCIAIS, não três ensaios.",
+      "reference": "ABNT NBR 16915:2021, itens 4.2 e 5.7, Tabelas 1 e 2",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1548",
+        "CARD-1549",
+        "CARD-1553",
+        "CARD-1558",
+        "CARD-0949",
+        "CARD-0694"
+      ],
+      "related_question_ids": [
+        "PETRO26-AMOSTRAGEM-003"
+      ],
+      "search_keywords": "3 parciais e massas de 40, 75 e 150 kg NBR 16915 — lotes e massas mínimas de amostragem Mínimo de 3 amostras parciais: até 19 mm → 40 kg no total; >19 até 37,5 mm → 75 kg; >37,5 até 75 mm → 150 kg. São valores da Tabela 1 para agregados de 2 a 3 g/cm³, não universais para qualquer estudo. Aplicar 40 kg a brita 50 mm; aplicar 40 kg à dosagem; confundir 300 m³ do lote com 300 kg da amostra; esquecer que são valores MÍNIMOS."
+    },
+    {
+      "id": "CARD-1551",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Agregados reciclados",
+      "sub": "Transformação x reaplicação sem transformação",
+      "front": "Em resíduos da construção civil, como diferenciar reciclagem, reutilização e beneficiamento, e qual palavra define o gabarito da NBR 15116:2004?",
+      "back": "Reciclagem = reaproveitamento após transformação; reutilização = reaplicação sem transformação; beneficiamento = operações de processamento para tornar resíduo apto ao uso.",
+      "expl": "**Reciclagem** é o reaproveitamento de um resíduo depois de sua **transformação**. **Reutilização** é a reaplicação sem transformá-lo. É a presença ou ausência de transformação que resolve a questão da NBR 15116:2004; o gabarito é **reciclagem**, não reutilização.\n\nO **beneficiamento** denomina as operações que adequam o resíduo para determinado uso, como triagem, britagem, separação de impurezas e classificação granulométrica. Por exemplo, um bloco de concreto reaplicado intacto pode caracterizar reutilização; fragmentos de concreto demolido que passam por britagem e são utilizados como agregado constituem material reciclado obtido mediante beneficiamento.\n\nAtenção de prova: a palavra **beneficiamento** pode surgir como alternativa plausível por descrever o processo industrial. Porém, quando a banca pergunta pelo **reaproveitamento após transformação**, a definição solicitada é reciclagem. A NBR 15116:2021 substituiu a edição de 2004 e ampliou aplicações; não misturar redações e restrições de edições diferentes.",
+      "mnemonic": "REUTILIZAR = usar DE NOVO sem mudar; RECICLAR = usar após TRANSFORMAR.",
+      "reference": "ABNT NBR 15116:2004, 3.2–3.5",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1552",
+        "CARD-0755"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-RECICLAGEM"
+      ],
+      "search_keywords": "Transformação x reaplicação sem transformação NBR 15116:2004 — reciclagem, reutilização e beneficiamento Reciclagem = reaproveitamento após transformação; reutilização = reaplicação sem transformação; beneficiamento = operações de processamento para tornar resíduo apto ao uso. O estudante marcou A por não ler ‘após transformação’; destaque semântico transforma a questão. Reciclagem não é sinônimo puro de britagem, que é operação de beneficiamento."
+    },
+    {
+      "id": "CARD-1552",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Agregados reciclados",
+      "sub": "ARC, ARM, concreto não estrutural e limitações atuais",
+      "front": "Que mudanças de aplicação ocorreram entre as NBR 15116:2004 e 15116:2021 para agregados reciclados no concreto?",
+      "back": "A edição de 2004 restringia o concreto com agregado reciclado a aplicações sem função estrutural; a de 2021 admite, sob requisitos específicos, substituição parcial por agregado reciclado de concreto em certas condições estruturais.",
+      "expl": "A **NBR 15116:2004** disciplinava agregados reciclados para pavimentação e preparo de concretos **sem função estrutural**. Na tipologia histórica, **ARC** era o agregado reciclado de resíduo de concreto com fração graúda formada por pelo menos **90% em massa** de fragmentos à base de cimento Portland e rochas; **ARM** era resíduo misto que não atingia esse percentual.\n\nA revisão **NBR 15116:2021** ampliou o escopo para argamassas e concretos e passou a admitir agregado reciclado de concreto em **algumas aplicações estruturais**, sob condições particulares de classe, qualidade e controle, incluindo percentuais limitados de substituição. A literatura que examina a norma informa limite de referência de **20%** de substituição e classes de agressividade ambiental I e II nas hipóteses da edição; não extrapolar o percentual para todo tipo de resíduo ou classe de concreto.\n\nQualquer aplicação depende da composição e caracterização do agregado reciclado — granulometria, absorção, contaminantes, impurezas e desempenho do concreto — e da compatibilidade com o projeto. **Reciclagem não transforma automaticamente todo entulho em agregado admissível para concreto estrutural**. A redação de 2004 é válida como contexto da questão histórica, não como descrição completa do escopo de 2021.",
+      "mnemonic": "2004 = sem função estrutural; 2021 = estrutural SÓ COM CONDIÇÕES.",
+      "reference": "ABNT NBR 15116:2004 e NBR 15116:2021",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1551",
+        "CARD-0755"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-RECICLAGEM"
+      ],
+      "search_keywords": "ARC, ARM, concreto não estrutural e limitações atuais NBR 15116 — aplicações dos agregados reciclados nas edições de 2004 e 2021 A edição de 2004 restringia o concreto com agregado reciclado a aplicações sem função estrutural; a de 2021 admite, sob requisitos específicos, substituição parcial por agregado reciclado de concreto em certas condições estruturais. Afirmar que a norma vigente proíbe qualquer concreto estrutural reciclado; ou, no extremo oposto, autorizar 100% de substituição em qualquer ambiente."
+    },
+    {
+      "id": "CARD-1553",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Agregados — Ensaios",
+      "sub": "Solto/compactado, 3 determinações, métodos A/B/C",
+      "front": "Como determinar massa unitária de agregado solto ou compactado segundo a NM45/16972, qual o mínimo de determinações e como distingui-la da massa específica?",
+      "back": "Massa unitária = massa seca de agregado/volume calibrado do recipiente, incluindo vazios entre grãos. Resultado = média de ≥3 determinações, com desvios individuais ≤1% da média. Métodos A/B compactados e C solto.",
+      "expl": "A **massa unitária** é a massa do agregado seco que preenche determinado volume de recipiente, incluindo os espaços entre os grãos. Calcula-se pela massa do recipiente cheio menos a tara, dividida pelo volume calibrado. A NBR NM 45:2006 exige como resultado a **média dos valores individuais de pelo menos três determinações**, e cada valor individual deve ficar a no máximo **1% da média**.\n\nOs métodos A e B avaliam condições compactadas. No **método A**, para DMC até 37,5 mm, aplica-se haste em **3 camadas, 25 golpes em cada**. No **método B**, para DMC acima de 37,5 e abaixo de 75 mm, usa-se acomodação do recipiente por golpes, **50 por camada**. No **método C**, obtém-se a condição **solta**, lançando o material sem adensar de altura controlada. A norma 16972:2021 substituiu a NM45:2006, preservando a distinção entre métodos.\n\nComo o volume do recipiente contém vazios entre os grãos, a massa unitária costuma ser inferior à massa específica das partículas. Em uma base seca compatível, o percentual de vazios intergranulares pode ser obtido de **100 × (1 − massa unitária/massa específica dos grãos)**. Um agregado com massa unitária de 1.490 kg/m³ e massa específica de partículas de 2.650 kg/m³ tem aproximadamente 43,8% de vazios, sem que isso represente o índice geotécnico e = Vv/Vs.",
+      "mnemonic": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO.",
+      "reference": "ABNT NBR NM 45:2006, itens 8–12",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1550",
+        "CARD-0949",
+        "CARD-0694",
+        "CARD-1558"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-MASSA-UNITARIA"
+      ],
+      "search_keywords": "Solto/compactado, 3 determinações, métodos A/B/C NBR NM45/16972 — massa unitária, métodos e índice de vazios Massa unitária = massa seca de agregado/volume calibrado do recipiente, incluindo vazios entre grãos. Resultado = média de ≥3 determinações, com desvios individuais ≤1% da média. Métodos A/B compactados e C solto. Marcar apenas a primeira determinação; somar resultados em lugar de tirar média; interpretar massa unitária como densidade sólida; confundir com índice de vazios geotécnico."
+    },
+    {
+      "id": "CARD-1554",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Agregados — Ensaios",
+      "sub": "7 kg/m² para abertura menor que 4,75 mm",
+      "front": "No peneiramento granulométrico, qual é a massa retida máxima por área para abertura <4,75 mm e por que a sobrecarga distorce o ensaio?",
+      "back": "Para malhas <4,75 mm, massa retida ≤7 kg/m² de superfície efetiva; mmax=7S. Para aberturas ≥4,75 mm, aplica-se a relação 2,5 a S (kg, mm, m²) da norma.",
+      "expl": "Na **NBR NM 248:2003**, substituída pela **NBR 17054:2022**, a quantidade retida sobre peneiras de abertura **menor que 4,75 mm** não deve ultrapassar **7 kg por metro quadrado de superfície efetiva de peneiramento**. O limite não corresponde a 7 kg absolutos por peneira. Se a tela efetiva apresentar 0,025 m², a quantidade máxima retida nessa condição será 0,175 kg, ou 175 g.\n\nO limite existe porque o excesso de grãos forma várias camadas e impede que parte deles entre em contato com a tela. A peneira passa a reter material que deveria atravessá-la, modificando artificialmente a curva granulométrica, o módulo de finura e a dimensão máxima característica. A sobrecarga também pode deformar a tela.\n\nPara peneiras de abertura **igual ou superior a 4,75 mm**, a norma adota outro critério proporcional à abertura nominal e à área efetiva: **mmax = 2,5 × a × S** (m em kg, a em mm e S em m², segundo a convenção do método). Exatamente 4,75 mm pertence à regra das malhas maiores ou iguais, e não à de 7 kg/m².",
+      "mnemonic": "PENEIRA FINA (<4,75): 7 por área. Em 4,75 muda de fórmula.",
+      "reference": "ABNT NBR NM 248:2003 5.2.4",
+      "active": true,
+      "related_card_ids": [
+        "CARD-0751"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-PENEIRAMENTO"
+      ],
+      "search_keywords": "7 kg/m² para abertura menor que 4,75 mm NBR NM248/17054 — sobrecarga de peneiras finas Para malhas <4,75 mm, massa retida ≤7 kg/m² de superfície efetiva; mmax=7S. Para aberturas ≥4,75 mm, aplica-se a relação 2,5 a S (kg, mm, m²) da norma. Usuário marcou 5 kg/m²; confundir com o 5% de retenção acumulada de DMC e aplicar 7 kg/m² à malha exatamente 4,75 mm."
+    },
+    {
+      "id": "CARD-1555",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Cimento Portland — Ensaios",
+      "sub": "Sonda de Tetmajer 6 ±1 mm da placa-base",
+      "front": "No ensaio de consistência normal de pasta de cimento, em que distância da base deve parar a sonda de Tetmajer e por que isso difere dos ensaios de pega e expansibilidade?",
+      "back": "Com Vicat e sonda de Tetmajer, a consistência normal é a condição na qual a ponta para a 6 ±1 mm da placa-base, 30 s após liberação. Não confundir com Vicat/agulha para pega ou Le Chatelier/5 mm para expansão.",
+      "expl": "A **consistência normal** é determinada pela quantidade de água necessária para que a **sonda de Tetmajer**, instalada no aparelho de Vicat, estacione a **6 ± 1 mm da placa-base**, isto é, entre 5 e 7 mm, após 30 segundos da liberação. O enunciado histórico usou NBR NM 43:2002; a referência brasileira substitutiva é a **NBR 16606:2018**.\n\nEsse valor representa o **espaço que falta para a ponta chegar à base**, não uma profundidade de penetração a partir da superfície. Se a ponta para a 4 mm da base, penetrou demais: a pasta tende a estar mais fluida que o alvo e outra mistura com água ajustada deve ser preparada. Se para a 8 mm, penetrou pouco: tende a estar mais rígida.\n\nO aparelho de **Vicat com agulha** também serve à determinação dos tempos de pega pela NBR 16607, mas o requisito de início de pega da Tabela 4 da NBR 16697 é **≥60 minutos**; já a expansibilidade a quente pelo **aparelho de Le Chatelier** tem limite **≤5 mm**. Tempo, espaço remanescente da sonda e abertura de ponteiros são grandezas distintas.",
+      "mnemonic": "VICAT SONDA = 6 ±1 mm; PEGA = 60 minutos; LE CHATELIER = expansão 5 mm.",
+      "reference": "NM43:2002, NBR16606:2018 7.4.3, NBR16607:2018, NBR16697:2018",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1557",
+        "CARD-0186",
+        "CARD-1546",
+        "CARD-0567"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-VICAT"
+      ],
+      "search_keywords": "Sonda de Tetmajer 6 ±1 mm da placa-base NBR 16606 — consistência normal: Vicat e Tetmajer Com Vicat e sonda de Tetmajer, a consistência normal é a condição na qual a ponta para a 6 ±1 mm da placa-base, 30 s após liberação. Não confundir com Vicat/agulha para pega ou Le Chatelier/5 mm para expansão. O estudante confundiu limite de 5mm da expansão com parâmetro de 6±1mm de consistência; 5mm também é borda inferior da FAIXA Vicat, mas isso não vincula os ensaios."
+    },
+    {
+      "id": "CARD-1556",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Cimento Portland — Armazenamento",
+      "sub": "15 sacos/15 dias, 10 sacos/mais tempo e 90 dias",
+      "front": "Segundo a NBR 12655:2006, quantos sacos de cimento podem ser empilhados para armazenamento curto e prolongado e como isso difere do prazo de 90 dias?",
+      "back": "Para período INFERIOR a 15 dias: máximo 15 sacos por pilha; armazenamento mais longo: máximo 10. Os 90 dias referem-se ao prazo de validade/reensaio do cimento, não à altura da pilha.",
+      "expl": "O cimento ensacado deve ser guardado em local fechado, seco e protegido da umidade, sobre estrados e em pilhas organizadas. A **NBR 12655:2006** fixa a altura máxima de **15 sacos** para armazenamento **inferior a 15 dias** e **10 sacos** para períodos mais longos. A questão histórica descreveu ‘até 15 dias’, mas a expressão normativa é ‘inferior a 15 dias’; essa fronteira textual merece atenção.\n\nPilha mais alta por período longo aumenta a sobrecarga sobre os sacos inferiores e dificulta conservação e movimentação. O limite especifica **quantidade vertical por pilha**, não a quantidade total que a obra pode guardar nem a idade do produto. Separar tipos e lotes, evitar contato com piso úmido e inspecionar embalagens faz parte do controle.\n\nOs **90 dias** correspondem ao prazo de validade usual do cimento na NBR 16697:2018, condicionado a armazenamento adequado. Após o prazo, deve-se providenciar **reensaio** para comprovar conformidade; não é correto dizer que todo cimento deve ser descartado automaticamente no dia 91. Não confundir 15 dias para altura de pilha com 90 dias para condição de validade.",
+      "mnemonic": "MENOS DE 15 DIAS → 15 SACOS; MAIS TEMPO → 10 SACOS; 90 DIAS → REENSAIO.",
+      "reference": "NBR 12655:2006 5.3.1",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1557",
+        "CARD-0567",
+        "CARD-0186"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-EMPILHAMENTO"
+      ],
+      "search_keywords": "15 sacos/15 dias, 10 sacos/mais tempo e 90 dias NBR 12655 — pilhas de sacos e validade de cimento Para período INFERIOR a 15 dias: máximo 15 sacos por pilha; armazenamento mais longo: máximo 10. Os 90 dias referem-se ao prazo de validade/reensaio do cimento, não à altura da pilha. Alternativa 10 sacos incorreta para período inferior a 15 dias; confundir limite de pilha com validade ou com massa unitária do cimento."
+    },
+    {
+      "id": "CARD-1557",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Cimento Portland — Ensaios",
+      "sub": "60 min, 5 mm; CP V 6/14/24/34",
+      "front": "Quais limites de início de pega e expansibilidade a quente se repetem na Tabela 4 da NBR 16697:2018 e quais são os requisitos principais do CP V-ARI?",
+      "back": "Em todos os tipos listados, início de pega ≥60 min e expansibilidade a quente ≤5 mm. CP V-ARI: resíduo na peneira 75 µm ≤6%; resistências ≥14 MPa/1d, ≥24 MPa/3d e ≥34 MPa/7d.",
+      "expl": "A **Tabela 4 da NBR 16697:2018** apresenta requisitos físicos/mecânicos dos cimentos Portland. Nos tipos mostrados no quadro — incluindo CP I, CP II, CP III, CP IV, CP V-ARI e CPB — o tempo mínimo de **início de pega é 60 minutos**, enquanto a **expansibilidade a quente não pode ultrapassar 5 mm**. São limites de conformidade, não resultados exatos de cada ensaio.\n\nO CP V-ARI recebe o nome pela **alta resistência inicial**; isso não significa que tenha autorização para início de pega abaixo de 1 hora. A mesma tabela exige resíduo na peneira 75 µm **≤6,0%**, resistência aos **1, 3 e 7 dias** de pelo menos **14, 24 e 34 MPa**, respectivamente. Não usar esses valores como fck de um concreto de obra.\n\nO **tempo de pega** é medido com aparelho de Vicat equipado com agulha, enquanto a **expansibilidade a quente** é medida por Le Chatelier. A sonda de Tetmajer no Vicat executa outro ensaio: consistência normal, com distância de **6 ±1 mm** da placa-base. A questão antiga NBR 5733:1991 também tinha início de pega mínimo de 60 min no CP V-ARI.",
+      "mnemonic": "CP V-ARI: 6 / 60 / 5 / 14-24-34.",
+      "reference": "ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1555",
+        "CARD-1556",
+        "CARD-0567",
+        "CARD-0186",
+        "CARD-1546"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-CPV-ARI"
+      ],
+      "search_keywords": "60 min, 5 mm; CP V 6/14/24/34 NBR 16697 — limites gerais: pega, expansibilidade e CP V-ARI Em todos os tipos listados, início de pega ≥60 min e expansibilidade a quente ≤5 mm. CP V-ARI: resíduo na peneira 75 µm ≤6%; resistências ≥14 MPa/1d, ≥24 MPa/3d e ≥34 MPa/7d. Sinais invertidos ≥60 versus ≤5; CP V-ARI ‘pega mais rápido que o mínimo’; confundir consistência, pega e expansibilidade."
+    },
+    {
+      "id": "CARD-1558",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Agregados — Classificação",
+      "sub": "Barita, hematita, magnetita, limonita x vermiculita e argila expandida",
+      "front": "O que são barita e hematita, por que são agregados pesados e por que vermiculita e argila expandida não são sinônimos?",
+      "back": "Barita é BaSO₄ (sulfato de bário), hematita é Fe₂O₃ (óxido de ferro). São minerais densos para concretos especiais; magnetita e limonita também podem ser pesadas. Vermiculita e argila expandida são materiais LEVES distintos.",
+      "expl": "**Barita** é sulfato de bário (**BaSO₄**) e tem massa específica mineral típica de cerca de **4,5 g/cm³**; **hematita** é óxido de ferro(III) (**Fe₂O₃**), cerca de **5,2 g/cm³**. São fontes de agregados pesados usados quando o concreto precisa de maior densidade, como em contrapesos e blindagens radiológicas, conforme projeto. A NBR 9935:2011 também exemplifica **magnetita (Fe₃O₄)** e **limonita** entre materiais densos.\n\n**Argila expandida** é produto cerâmico poroso obtido por aquecimento de argila, frequentemente em grânulos arredondados; **vermiculita expandida** provém de mineral lamelar que se exfolia ao aquecer. Ambas são leves, mas **não são o mesmo material**. A alternativa ‘vermiculita e limonita’ mistura um leve e um pesado; está errada por causa da vermiculita, não da limonita.\n\nMassa específica de um mineral puro não é a massa unitária do agregado solto nem a densidade final do concreto. Concreto mais denso não significa concreto de maior resistência à compressão. Além disso, agregados naturais de barita/hematita podem ter fases silicosas acessórias potencialmente reativas: não presumir imunidade à reação álcali-agregado.",
+      "mnemonic": "Ba–Fe = PESADOS; barita = BÁRIO, hematita = FERRO; vermiculita e argila expandida = LEVES diferentes.",
+      "reference": "ABNT NBR 9935:2011",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1550",
+        "CARD-1553"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-AGREGADOS-PESADOS"
+      ],
+      "search_keywords": "Barita, hematita, magnetita, limonita x vermiculita e argila expandida NBR 9935 — minerais pesados e agregados leves Barita é BaSO₄ (sulfato de bário), hematita é Fe₂O₃ (óxido de ferro). São minerais densos para concretos especiais; magnetita e limonita também podem ser pesadas. Vermiculita e argila expandida são materiais LEVES distintos. Comentário de colega chamou ‘argila expandida (vermiculita)’ — falso; ‘peso’ é apenas associação de classificação, não resistência mecânica."
+    }
+  ],
+  "updates": [
+    {
+      "id": "CARD-0186",
+      "front": "Como distinguir início e fim de pega do endurecimento do cimento, e qual mínimo de início de pega aparece na NBR 16697:2018?",
+      "back": "Pega é perda progressiva de plasticidade; endurecimento é ganho de resistência pela hidratação. A Tabela 4 exige início de pega ≥60 min; mede-se com Vicat e agulha, não com sonda Tetmajer.",
+      "paragraphs": [
+        "O início de pega é marco convencional da perda de plasticidade, o fim de pega marca avanço do enrijecimento e o endurecimento é o desenvolvimento posterior de resistência. A NBR16697:2018 exige início de pega ≥60 minutos nos cimentos da tabela, não que a mistura necessariamente comece a pegar exatamente aos 60 minutos. A NBR16607 determina tempos com Vicat/agulhas; o ensaio de consistência da NBR16606 emprega sonda Tetmajer a 6±1mm da base, e Le Chatelier trata de expansibilidade a quente ≤5mm.",
+        "Aplicação de recuperação: O CP V-ARI recebe o nome pela **alta resistência inicial**; isso não significa que tenha autorização para início de pega abaixo de 1 hora. A mesma tabela exige resíduo na peneira 75 µm **≤6,0%**, resistência aos **1, 3 e 7 dias** de pelo menos **14, 24 e 34 MPa**, respectivamente. Não usar esses valores como fck de um concreto de obra.",
+        "Distinção de prova: O **tempo de pega** é medido com aparelho de Vicat equipado com agulha, enquanto a **expansibilidade a quente** é medida por Le Chatelier. A sonda de Tetmajer no Vicat executa outro ensaio: consistência normal, com distância de **6 ±1 mm** da placa-base. A questão antiga NBR 5733:1991 também tinha início de pega mínimo de 60 min no CP V-ARI."
+      ],
+      "mnemonic": "CP V-ARI: 6 / 60 / 5 / 14-24-34.",
+      "related_card_ids": [
+        "CARD-1557",
+        "CARD-1555",
+        "CARD-1556",
+        "CARD-0567",
+        "CARD-0186",
+        "CARD-1546"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-CPV-ARI"
+      ],
+      "editorial_last_modified": "2026-11-21",
+      "relationship_event_date": "2026-11-21"
+    },
+    {
+      "id": "CARD-0567",
+      "front": "No CP V-ARI da NBR 16697, quais são os mínimos de resistência aos 1/3/7 dias e quais os limites de pega e expansibilidade?",
+      "back": "Resistências ≥14/24/34 MPa aos 1/3/7 dias, respectivamente; início de pega ≥60 min, expansibilidade a quente ≤5 mm e resíduo peneira 75µm ≤6%.",
+      "paragraphs": [
+        "O CP V-ARI deve atender aos mínimos de resistência de 14 MPa aos 1 dia, 24 MPa aos 3 dias e 34 MPa aos 7 dias, mas resistência inicial elevada não significa início de pega inferior ao limite normativo. A Tabela 4 NBR16697:2018 também impõe ≥60min para início de pega, ≤5mm para expansibilidade a quente e ≤6% de resíduo na peneira 75µm. Esses requisitos são do CIMENTO em ensaio padronizado, e não fck do concreto lançado.",
+        "Aplicação de recuperação: O CP V-ARI recebe o nome pela **alta resistência inicial**; isso não significa que tenha autorização para início de pega abaixo de 1 hora. A mesma tabela exige resíduo na peneira 75 µm **≤6,0%**, resistência aos **1, 3 e 7 dias** de pelo menos **14, 24 e 34 MPa**, respectivamente. Não usar esses valores como fck de um concreto de obra.",
+        "Distinção de prova: O **tempo de pega** é medido com aparelho de Vicat equipado com agulha, enquanto a **expansibilidade a quente** é medida por Le Chatelier. A sonda de Tetmajer no Vicat executa outro ensaio: consistência normal, com distância de **6 ±1 mm** da placa-base. A questão antiga NBR 5733:1991 também tinha início de pega mínimo de 60 min no CP V-ARI."
+      ],
+      "mnemonic": "CP V-ARI: 6 / 60 / 5 / 14-24-34.",
+      "related_card_ids": [
+        "CARD-1557",
+        "CARD-1555",
+        "CARD-1556",
+        "CARD-0567",
+        "CARD-0186",
+        "CARD-1546"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-CPV-ARI"
+      ],
+      "editorial_last_modified": "2026-11-21",
+      "relationship_event_date": "2026-11-21"
+    },
+    {
+      "id": "CARD-1546",
+      "front": "Qual a diferença entre frasco/aparelho Le Chatelier e Vicat com sonda ou agulha, quanto a propriedade, unidade e valor importante?",
+      "back": "Frasco Le Chatelier: massa específica (g/cm³); aparelho Le Chatelier: expansibilidade a quente ≤5 mm; Vicat/Tetmajer: consistência 6±1 mm da base; Vicat/agulha: tempo de pega, início ≥60 min na NBR16697.",
+      "paragraphs": [
+        "O frasco de Le Chatelier mede massa específica do cimento por deslocamento de líquido (NBR16605), enquanto o aparelho de Le Chatelier com hastes mede expansibilidade a quente em milímetros (NBR11582), com limite ≤5 mm na NBR16697:2018. Já Vicat tem acessórios: sonda de Tetmajer para consistência normal, que deve estacionar a 6±1mm da base (NBR16606), e agulha para medir tempos de pega (NBR16607), cujo início tem mínimo de 60min na especificação. Um número parecido em milímetros não transforma os dois ensaios em equivalentes.",
+        "Aplicação de recuperação: Esse valor representa o **espaço que falta para a ponta chegar à base**, não uma profundidade de penetração a partir da superfície. Se a ponta para a 4 mm da base, penetrou demais: a pasta tende a estar mais fluida que o alvo e outra mistura com água ajustada deve ser preparada. Se para a 8 mm, penetrou pouco: tende a estar mais rígida.",
+        "Distinção de prova: O aparelho de **Vicat com agulha** também serve à determinação dos tempos de pega pela NBR 16607, mas o requisito de início de pega da Tabela 4 da NBR 16697 é **≥60 minutos**; já a expansibilidade a quente pelo **aparelho de Le Chatelier** tem limite **≤5 mm**. Tempo, espaço remanescente da sonda e abertura de ponteiros são grandezas distintas."
+      ],
+      "mnemonic": "VICAT SONDA = 6 ±1 mm; PEGA = 60 minutos; LE CHATELIER = expansão 5 mm.",
+      "related_card_ids": [
+        "CARD-1555",
+        "CARD-1557",
+        "CARD-0186",
+        "CARD-1546",
+        "CARD-0567"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-VICAT"
+      ],
+      "editorial_last_modified": "2026-11-21",
+      "relationship_event_date": "2026-11-21"
+    },
+    {
+      "id": "CARD-0949",
+      "front": "Qual a diferença entre massa unitária de agregado em recipiente e massa específica dos grãos, e como isso afeta o percentual de vazios?",
+      "back": "Massa unitária = massa dos grãos / volume do recipiente (inclui vazios entre grãos); massa específica dos grãos usa seu volume próprio. Com bases secas compatíveis, Ev=100(1−ρunit/ρgrãos).",
+      "paragraphs": [
+        "Uma razão ρ=m/V depende da escolha de V. Na massa unitária NBR16972, V é o recipiente cheio, incluindo vazios entre grãos, e o resultado é média de no mínimo três determinações; na massa específica dos grãos, o volume é próprio das partículas conforme definição de ensaio. Em bases secas compatíveis, para ρunit=1490kg/m³ e ρgrãos=2650kg/m³, o percentual de vazios intergranulares é 43,8%. Compactação tende a elevar massa unitária e reduzir esse percentual; isso não altera a densidade mineral.",
+        "Aplicação de recuperação: Os métodos A e B avaliam condições compactadas. No **método A**, para DMC até 37,5 mm, aplica-se haste em **3 camadas, 25 golpes em cada**. No **método B**, para DMC acima de 37,5 e abaixo de 75 mm, usa-se acomodação do recipiente por golpes, **50 por camada**. No **método C**, obtém-se a condição **solta**, lançando o material sem adensar de altura controlada. A norma 16972:2021 substituiu a NM45:2006, preservando a distinção entre métodos.",
+        "Distinção de prova: Como o volume do recipiente contém vazios entre os grãos, a massa unitária costuma ser inferior à massa específica das partículas. Em uma base seca compatível, o percentual de vazios intergranulares pode ser obtido de **100 × (1 − massa unitária/massa específica dos grãos)**. Um agregado com massa unitária de 1.490 kg/m³ e massa específica de partículas de 2.650 kg/m³ tem aproximadamente 43,8% de vazios, sem que isso represente o índice geotécnico e = Vv/Vs."
+      ],
+      "mnemonic": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO.",
+      "related_card_ids": [
+        "CARD-1553",
+        "CARD-1550",
+        "CARD-0949",
+        "CARD-0694"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-MASSA-UNITARIA"
+      ],
+      "editorial_last_modified": "2026-11-21",
+      "relationship_event_date": "2026-11-21"
+    },
+    {
+      "id": "CARD-0694",
+      "front": "Como distinguir índice de vazios geotécnico e do agregado, e por que são diferentes denominadores?",
+      "back": "Geotecnia: e=Vv/Vs, razão entre vazios e volume de sólidos; percentual de vazios de agregado E=100×Vv/Vt (volume total). Relação E=100e/(1+e).",
+      "paragraphs": [
+        "Em Mecânica dos Solos, o índice de vazios e=Vv/Vs compara volume vazio com volume de sólidos. Na massa unitária de agregados, o percentual de vazios intergranulares é E=100Vv/Vt, onde Vt=Vs+Vv. Segue E=100e/(1+e); se e=0,8, E≈44,4% e não 80%. Sob compactação sem alteração relevante do volume sólido, e e E diminuem; não confundir com percentual de absorção de água nos poros dos próprios grãos.",
+        "Aplicação de recuperação: Os métodos A e B avaliam condições compactadas. No **método A**, para DMC até 37,5 mm, aplica-se haste em **3 camadas, 25 golpes em cada**. No **método B**, para DMC acima de 37,5 e abaixo de 75 mm, usa-se acomodação do recipiente por golpes, **50 por camada**. No **método C**, obtém-se a condição **solta**, lançando o material sem adensar de altura controlada. A norma 16972:2021 substituiu a NM45:2006, preservando a distinção entre métodos.",
+        "Distinção de prova: Como o volume do recipiente contém vazios entre os grãos, a massa unitária costuma ser inferior à massa específica das partículas. Em uma base seca compatível, o percentual de vazios intergranulares pode ser obtido de **100 × (1 − massa unitária/massa específica dos grãos)**. Um agregado com massa unitária de 1.490 kg/m³ e massa específica de partículas de 2.650 kg/m³ tem aproximadamente 43,8% de vazios, sem que isso represente o índice geotécnico e = Vv/Vs."
+      ],
+      "mnemonic": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO.",
+      "related_card_ids": [
+        "CARD-1553",
+        "CARD-1550",
+        "CARD-0949",
+        "CARD-0694"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-MASSA-UNITARIA"
+      ],
+      "editorial_last_modified": "2026-11-21",
+      "relationship_event_date": "2026-11-21"
+    },
+    {
+      "id": "CARD-0751",
+      "front": "Na granulometria de agregados, como se relacionam séries de peneiras, DMC e controle de sobrecarga da tela?",
+      "back": "Séries normal/intermediária definem as aberturas e permitem cálculo de DMC; para malhas <4,75mm a massa retida não deve exceder 7kg/m² da área efetiva; na malha exatamente 4,75mm muda a fórmula.",
+      "paragraphs": [
+        "As séries normal e intermediária da NBR17054:2022 fornecem as aberturas do ensaio de agregado e não devem ser confundidas com classificação granulométrica de solos. Para as peneiras de abertura inferior a 4,75mm, a sobrecarga máxima é de 7kg/m² de área efetiva de tela, para evitar que grãos fiquem sem contato com a malha. Com 4,75mm ou mais, aplica-se mmax=2,5aS na convenção do método. A DMC, por sua vez, usa retenção acumulada próxima ao critério de 5%, outra grandeza e unidade.",
+        "Aplicação de recuperação: O limite existe porque o excesso de grãos forma várias camadas e impede que parte deles entre em contato com a tela. A peneira passa a reter material que deveria atravessá-la, modificando artificialmente a curva granulométrica, o módulo de finura e a dimensão máxima característica. A sobrecarga também pode deformar a tela.",
+        "Distinção de prova: Para peneiras de abertura **igual ou superior a 4,75 mm**, a norma adota outro critério proporcional à abertura nominal e à área efetiva: **mmax = 2,5 × a × S** (m em kg, a em mm e S em m², segundo a convenção do método). Exatamente 4,75 mm pertence à regra das malhas maiores ou iguais, e não à de 7 kg/m²."
+      ],
+      "mnemonic": "PENEIRA FINA (<4,75): 7 por área. Em 4,75 muda de fórmula.",
+      "related_card_ids": [
+        "CARD-1554",
+        "CARD-0751"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-PENEIRAMENTO"
+      ],
+      "editorial_last_modified": "2026-11-21",
+      "relationship_event_date": "2026-11-21"
+    },
+    {
+      "id": "CARD-0755",
+      "front": "Por que escória e agregado reciclado não podem ser aceitos para concreto apenas pelo tamanho dos grãos e como a NBR 15116:2021 amplia aplicações?",
+      "back": "Granulometria não comprova aptidão: é preciso composição, impurezas, absorção, desempenho e norma aplicável. NBR15116:2021 admite agregado reciclado qualificado em certas aplicações estruturais, sem autorização geral para qualquer resíduo.",
+      "paragraphs": [
+        "Uma escória siderúrgica ou brita reciclada pode ter granulometria semelhante à brita natural sem apresentar a mesma absorção, estabilidade volumétrica, reatividade ou composição. NBR7211:2022 não torna automaticamente admissível qualquer subproduto industrial apenas por tamanho. A NBR15116:2004 limitava concretos com agregado reciclado a usos sem função estrutural na norma então citada; NBR15116:2021 ampliou aplicações para agregado reciclado de concreto qualificado em determinadas condições estruturais. É indispensável verificar composição, classe e requisitos específicos.",
+        "Aplicação de recuperação: A revisão **NBR 15116:2021** ampliou o escopo para argamassas e concretos e passou a admitir agregado reciclado de concreto em **algumas aplicações estruturais**, sob condições particulares de classe, qualidade e controle, incluindo percentuais limitados de substituição. A literatura que examina a norma informa limite de referência de **20%** de substituição e classes de agressividade ambiental I e II nas hipóteses da edição; não extrapolar o percentual para todo tipo de resíduo ou classe de concreto.",
+        "Distinção de prova: Qualquer aplicação depende da composição e caracterização do agregado reciclado — granulometria, absorção, contaminantes, impurezas e desempenho do concreto — e da compatibilidade com o projeto. **Reciclagem não transforma automaticamente todo entulho em agregado admissível para concreto estrutural**. A redação de 2004 é válida como contexto da questão histórica, não como descrição completa do escopo de 2021."
+      ],
+      "mnemonic": "2004 = sem função estrutural; 2021 = estrutural SÓ COM CONDIÇÕES.",
+      "related_card_ids": [
+        "CARD-1552",
+        "CARD-1551",
+        "CARD-0755"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-RECICLAGEM"
+      ],
+      "editorial_last_modified": "2026-11-21",
+      "relationship_event_date": "2026-11-21"
+    }
+  ],
+  "profiles": {
+    "CARD-1548": {
+      "title": "NBR 16915 — amostragem representativa e pontos de coleta",
+      "front": "Como obter uma amostra de campo representativa de agregados em pilhas, caminhões, correias e silos segundo a NBR 16915?",
+      "back": "Reunir amostras parciais de locais/instantes distintos, evitando segregação e contaminação. Em pilhas/caminhões, coleta em ao menos três posições conforme o material; em correias, paralisá-las e coletar toda a seção delimitada.",
+      "paragraphs": [
+        "A **amostragem de agregados** procura representar o lote real, e não apenas sua superfície. Uma amostra parcial é uma porção coletada de uma só vez em determinado ponto; várias parciais formam a **amostra de campo**, da qual se obtém posteriormente a amostra de ensaio. A representatividade depende de escolher locais e momentos adequados e de evitar que a segregação concentre grãos finos ou grossos.",
+        "Na **pilha de agregado graúdo**, quando não houver coleta mecânica em pilha auxiliar, utilizar pelo menos três amostras parciais tomadas em regiões de topo, meio e base, abrangendo superfície e interior. Para areia em pilha, retirar a camada externa segregada (cerca de 0,30 m ou mais) e colher abaixo dela. Em caminhão com agregado graúdo, coletar em pelo menos três pontos, removendo ao menos 0,30 m da camada superficial. Em fluxo de descarga, tomar três ou mais porções representativas de diferentes descargas, após a saída inicial de ao menos 1 m³ e evitando início e fim do fluxo.",
+        "Em correia transportadora, **paralisar a correia**, escolher pontos aleatórios, delimitar a seção com separadores e recolher todo o agregado entre eles, inclusive os finos aderidos. O objetivo não é completar três coletas de qualquer maneira: é reduzir o viés. A coleta, a identificação, a preservação e o transporte devem permitir que o laboratório receba a mesma composição que existia no lote."
+      ],
+      "source": "ABNT NBR 16915:2021, itens 3, 5.3–5.6; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf",
+      "mnemonic": "PARCIAL → CAMPO → ENSAIO; topo, meio, base; correia PARADA.",
+      "trap": "Amostra somente do topo; amostra de correia em movimento; desprezar finos caídos; coletar apenas no início/fim da descarga; tratar amostra de ensaio como sinônimo da amostra de campo.",
+      "compare": "Amostra parcial = uma retirada; amostra de campo = composição de parciais; amostra de ensaio = porção reduzida posteriormente para laboratório. Não confundir 3 parciais com 3 determinações do ensaio de massa unitária.",
+      "related_card_ids": [
+        "CARD-1549",
+        "CARD-1550"
+      ],
+      "related_question_ids": [
+        "PETRO26-AMOSTRAGEM-001"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como obter uma amostra de campo representativa de agregados em pilhas, caminhões, correias e silos segundo a NBR 16915?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Reunir amostras parciais de locais/instantes distintos, evitando segregação e contaminação. Em pilhas/caminhões, coleta em ao menos três posições conforme o material; em correias, paralisá-las e coletar toda a seção delimitada."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 16915:2021, itens 3, 5.3–5.6; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "O agregado se segrega por tamanho, massa, vibração e queda: bordas/topos de pilhas podem ter proporções de finos e graúdos diferentes do interior. Coleta superficial isolada tende a enviesar a granulometria."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "Representatividade não se calcula apenas pelo número de porções; a distribuição espacial/temporal e a preservação das frações são igualmente necessárias."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Amostra parcial = uma retirada; amostra de campo = composição de parciais; amostra de ensaio = porção reduzida posteriormente para laboratório. Não confundir 3 parciais com 3 determinações do ensaio de massa unitária."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Caminhão de brita: coletar ao menos em 3 pontos, afastando 0,30 m de material superficial; correia: interromper o movimento e recuperar a seção completa entre separadores, sem perder os finos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1549, CARD-1550. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "NBR 16915:2021 itens 3, 5.3–5.6; procedimentos variam com local e tipo. Coletas mecânicas representativas podem substituir detalhes do acesso manual conforme hipóteses do item."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Amostra somente do topo; amostra de correia em movimento; desprezar finos caídos; coletar apenas no início/fim da descarga; tratar amostra de ensaio como sinônimo da amostra de campo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "PARCIAL → CAMPO → ENSAIO; topo, meio, base; correia PARADA. Fonte: ABNT NBR 16915:2021, itens 3, 5.3–5.6; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1549": {
+      "title": "NBR 16915 — redução de amostras: separador e quarteamento",
+      "front": "Como reduzir uma amostra de campo de agregado sem alterar sua granulometria: separador mecânico ou quarteamento?",
+      "back": "Reduzir mantendo todas as frações representadas. O separador mecânico reparte o fluxo em calhas alternadas; o quarteamento mistura, divide em quatro porções e combina dois quartos opostos, repetindo quando necessário.",
+      "paragraphs": [
+        "Reduzir a amostra não significa descartar material aleatoriamente. Depois da coleta em campo, a quantidade pode exceder a necessária para o laboratório; é preciso obter uma porção menor **com composição representativa**. A NBR 16915:2021 inclui, em seu Anexo A, a redução por **separador mecânico** e por **quarteamento**.",
+        "O **separador** distribui o agregado em calhas alternadas que descarregam para dois recipientes, proporcionando divisões equivalentes quando corretamente utilizado. A aparelhagem indicada possui pelo menos **8 calhas para agregado graúdo** e **12 para miúdo**, com aberturas compatíveis com o tamanho nominal. No **quarteamento**, homogeneiza-se o material em superfície limpa, distribui-se de maneira uniforme, divide-se em quatro setores e retêm-se dois quadrantes diagonalmente opostos, repetindo até atingir a massa necessária.",
+        "Ambos os procedimentos podem falhar quando a amostra sofre segregação, perde finos ou está em condição de umidade inadequada. Conforme o Anexo A, pode ser necessário regular a umidade para evitar perdas e aglomeração. O resultado confiável é aquele cuja fração reduzida preserva o conjunto original, e não simplesmente aquele cuja massa final se tornou pequena."
+      ],
+      "source": "ABNT NBR 16915:2021, Anexo A; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf",
+      "mnemonic": "QUARTEAR = 4 partes → 2 OPOSTAS; separador = CALHAS alternadas.",
+      "trap": "Separar apenas material superficial; descartar finos; usar duas partes contíguas; reduzir uma areia molhada e aglomerada sem correção; achar que no mínimo 8/12 calhas significa massa.",
+      "compare": "Separador = divisão mecânica por calhas; quarteamento = 4 partes e seleção de 2 opostas. Não selecionar 2 quadrantes vizinhos e não equiparar reduzir à mera retirada de uma pá.",
+      "related_card_ids": [
+        "CARD-1548",
+        "CARD-1550"
+      ],
+      "related_question_ids": [
+        "PETRO26-AMOSTRAGEM-002"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como reduzir uma amostra de campo de agregado sem alterar sua granulometria: separador mecânico ou quarteamento?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Reduzir mantendo todas as frações representadas. O separador mecânico reparte o fluxo em calhas alternadas; o quarteamento mistura, divide em quatro porções e combina dois quartos opostos, repetindo quando necessário."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 16915:2021, Anexo A; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "O separador alterna as trajetórias dos grãos; o quarteamento usa simetria espacial para reduzir viés. A mistura prévia e a conservação das partículas finas controlam a representatividade."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "Em cada quarteamento ideal retem-se aproximadamente 1/2 da massa; após n reduções, m_n ≈ m_0 / 2^n, desde que a distribuição inicial seja adequada."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Separador = divisão mecânica por calhas; quarteamento = 4 partes e seleção de 2 opostas. Não selecionar 2 quadrantes vizinhos e não equiparar reduzir à mera retirada de uma pá."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Amostra de 80 kg, após três quarteamentos sucessivos ideais, pode resultar em cerca de 10 kg, se essa massa atender à norma do ensaio posterior."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1548, CARD-1550. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "NBR 16915:2021 Anexo A. A massa final necessária depende de ensaio, graduação e protocolo; quarteamento requer limpeza, mistura adequada e controle de umidade."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Separar apenas material superficial; descartar finos; usar duas partes contíguas; reduzir uma areia molhada e aglomerada sem correção; achar que no mínimo 8/12 calhas significa massa."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "QUARTEAR = 4 partes → 2 OPOSTAS; separador = CALHAS alternadas. Fonte: ABNT NBR 16915:2021, Anexo A; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1550": {
+      "title": "NBR 16915 — lotes e massas mínimas de amostragem",
+      "front": "Na NBR 16915:2021, como varia a massa mínima de amostra de campo para ensaios físicos/químicos conforme o tamanho nominal do agregado?",
+      "back": "Mínimo de 3 amostras parciais: até 19 mm → 40 kg no total; >19 até 37,5 mm → 75 kg; >37,5 até 75 mm → 150 kg. São valores da Tabela 1 para agregados de 2 a 3 g/cm³, não universais para qualquer estudo.",
+      "paragraphs": [
+        "A NBR 16915:2021 trata separadamente do **lote** que será representado e da **massa de amostra de campo** necessária. Em regra, um lote de mesma origem não supera **300 m³** de agregados ou, em processo contínuo, o material de **12 horas** de produção; existem condições particulares de pequenas obras e acordos de grandes obras que devem ser observadas.",
+        "Para **ensaios físicos ou químicos**, a Tabela 1 indica pelo menos **três amostras parciais**. A quantidade mínima total da amostra de campo é **40 kg** para tamanho nominal até 19 mm, **75 kg** para acima de 19 até 37,5 mm e **150 kg** para acima de 37,5 até 75 mm. Os equivalentes volumétricos são, respectivamente, **25, 50 e 100 dm³**, nas hipóteses indicadas na norma para agregados de massa específica entre 2 e 3 g/cm³.",
+        "Para **estudos de dosagem de concreto e comprovação de resistência**, a Tabela 2 apresenta outra escala, maior, e separa agregado miúdo e graúdo: miúdo 200 kg quando se usa um único tipo, ou 150 kg por tipo quando são dois ou mais; graúdo 300 kg quando é apenas uma graduação, ou 200 kg por graduação quando são duas ou mais. Portanto, antes de decorar a massa, deve-se identificar a **finalidade da amostragem**."
+      ],
+      "source": "ABNT NBR 16915:2021, itens 4.2 e 5.7, Tabelas 1 e 2; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf",
+      "mnemonic": "T1: 19→40; 37,5→75; 75→150. Três PARCIAIS, não três ensaios.",
+      "trap": "Aplicar 40 kg a brita 50 mm; aplicar 40 kg à dosagem; confundir 300 m³ do lote com 300 kg da amostra; esquecer que são valores MÍNIMOS.",
+      "compare": "Mínimo de parciais (3) ≠ número de determinações laboratoriais (como 3 no ensaio de massa unitária). Tabela 1 ensaios físicos/químicos ≠ Tabela 2 dosagem de concreto.",
+      "related_card_ids": [
+        "CARD-1548",
+        "CARD-1549",
+        "CARD-1553",
+        "CARD-1558",
+        "CARD-0949",
+        "CARD-0694"
+      ],
+      "related_question_ids": [
+        "PETRO26-AMOSTRAGEM-003"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Na NBR 16915:2021, como varia a massa mínima de amostra de campo para ensaios físicos/químicos conforme o tamanho nominal do agregado?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Mínimo de 3 amostras parciais: até 19 mm → 40 kg no total; >19 até 37,5 mm → 75 kg; >37,5 até 75 mm → 150 kg. São valores da Tabela 1 para agregados de 2 a 3 g/cm³, não universais para qualquer estudo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 16915:2021, itens 4.2 e 5.7, Tabelas 1 e 2; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Agregados maiores e estudos de dosagem exigem amostras mais volumosas para abranger quantidade suficiente de grãos e variação do lote."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "T1 por intervalo nominal: (≤19 mm,40 kg); (19–37,5 mm,75 kg); (37,5–75 mm,150 kg). T2 estudos concreto: miúdo 200/150 por tipo; graúdo 300/200 por graduação."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Mínimo de parciais (3) ≠ número de determinações laboratoriais (como 3 no ensaio de massa unitária). Tabela 1 ensaios físicos/químicos ≠ Tabela 2 dosagem de concreto."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Brita nominal 25 mm, ensaio físico: ao menos 3 parciais e amostra de campo ≥75 kg. Se o estudo for de concreto com 2 graduações de graúdo, avaliar Tabela 2 e ≥200 kg por graduação."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1548, CARD-1549, CARD-1553. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Tabelas 1 e 2 da NBR16915:2021, item 5.7. Massa/volume T1 indicada para agregados com ρ de 2 a 3 g/cm³; não aplicar sem verificação a barita/hematita de densidade superior. Lotes de pequenas obras podem ter limites menores."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Aplicar 40 kg a brita 50 mm; aplicar 40 kg à dosagem; confundir 300 m³ do lote com 300 kg da amostra; esquecer que são valores MÍNIMOS."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "T1: 19→40; 37,5→75; 75→150. Três PARCIAIS, não três ensaios. Fonte: ABNT NBR 16915:2021, itens 4.2 e 5.7, Tabelas 1 e 2; https://sistema.ceteclins.com.br/Uploads/PDF/019ADCEB-3315-45E3-832E-1D8AD5707BFF_27052021092034.pdf. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1551": {
+      "title": "NBR 15116:2004 — reciclagem, reutilização e beneficiamento",
+      "front": "Em resíduos da construção civil, como diferenciar reciclagem, reutilização e beneficiamento, e qual palavra define o gabarito da NBR 15116:2004?",
+      "back": "Reciclagem = reaproveitamento após transformação; reutilização = reaplicação sem transformação; beneficiamento = operações de processamento para tornar resíduo apto ao uso.",
+      "paragraphs": [
+        "**Reciclagem** é o reaproveitamento de um resíduo depois de sua **transformação**. **Reutilização** é a reaplicação sem transformá-lo. É a presença ou ausência de transformação que resolve a questão da NBR 15116:2004; o gabarito é **reciclagem**, não reutilização.",
+        "O **beneficiamento** denomina as operações que adequam o resíduo para determinado uso, como triagem, britagem, separação de impurezas e classificação granulométrica. Por exemplo, um bloco de concreto reaplicado intacto pode caracterizar reutilização; fragmentos de concreto demolido que passam por britagem e são utilizados como agregado constituem material reciclado obtido mediante beneficiamento.",
+        "Atenção de prova: a palavra **beneficiamento** pode surgir como alternativa plausível por descrever o processo industrial. Porém, quando a banca pergunta pelo **reaproveitamento após transformação**, a definição solicitada é reciclagem. A NBR 15116:2021 substituiu a edição de 2004 e ampliou aplicações; não misturar redações e restrições de edições diferentes."
+      ],
+      "source": "ABNT NBR 15116:2004, 3.2–3.5; https://pdfcoffee.com/nbr-15116-2004-agregados-reciclados-de-residos-solidos-da-construao-civil-pdf-free.html ; questão https://www.qconcursos.com/questoes-de-concursos/questoes/6443594e-48",
+      "mnemonic": "REUTILIZAR = usar DE NOVO sem mudar; RECICLAR = usar após TRANSFORMAR.",
+      "trap": "O estudante marcou A por não ler ‘após transformação’; destaque semântico transforma a questão. Reciclagem não é sinônimo puro de britagem, que é operação de beneficiamento.",
+      "compare": "Reutilização = mesma peça sem transformações relevantes; reciclagem = processamento e novo aproveitamento; beneficiamento = etapas tecnológicas da transformação.",
+      "related_card_ids": [
+        "CARD-1552",
+        "CARD-0755"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-RECICLAGEM"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Em resíduos da construção civil, como diferenciar reciclagem, reutilização e beneficiamento, e qual palavra define o gabarito da NBR 15116:2004?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Reciclagem = reaproveitamento após transformação; reutilização = reaplicação sem transformação; beneficiamento = operações de processamento para tornar resíduo apto ao uso."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 15116:2004, 3.2–3.5; https://pdfcoffee.com/nbr-15116-2004-agregados-reciclados-de-residos-solidos-da-construao-civil-pdf-free.html ; questão https://www.qconcursos.com/questoes-de-concursos/questoes/6443594e-48"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "O material demolido é selecionado e processado para reduzir tamanho/impurezas e obter propriedade granulométrica adequada. A reciclagem descreve destino e transformação; o beneficiamento descreve operações."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "Sem fórmula: critério lexical e técnico é transformação SIM→reciclagem; transformação NÃO→reutilização."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Reutilização = mesma peça sem transformações relevantes; reciclagem = processamento e novo aproveitamento; beneficiamento = etapas tecnológicas da transformação."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Reusar porta retirada intacta é reutilização; britar concreto demolido e empregar os grãos em pavimentação é reciclagem, mediante beneficiamento."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1552, CARD-0755. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Questão histórica cita NBR15116:2004, itens 3.4–3.5; versão vigente de referência NBR15116:2021 tem escopo distinto. O conceito de reutilização não pressupõe que material nunca seja limpo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "O estudante marcou A por não ler ‘após transformação’; destaque semântico transforma a questão. Reciclagem não é sinônimo puro de britagem, que é operação de beneficiamento."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "REUTILIZAR = usar DE NOVO sem mudar; RECICLAR = usar após TRANSFORMAR. Fonte: ABNT NBR 15116:2004, 3.2–3.5; https://pdfcoffee.com/nbr-15116-2004-agregados-reciclados-de-residos-solidos-da-construao-civil-pdf-free.html ; questão https://www.qconcursos.com/questoes-de-concursos/questoes/6443594e-48. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1552": {
+      "title": "NBR 15116 — aplicações dos agregados reciclados nas edições de 2004 e 2021",
+      "front": "Que mudanças de aplicação ocorreram entre as NBR 15116:2004 e 15116:2021 para agregados reciclados no concreto?",
+      "back": "A edição de 2004 restringia o concreto com agregado reciclado a aplicações sem função estrutural; a de 2021 admite, sob requisitos específicos, substituição parcial por agregado reciclado de concreto em certas condições estruturais.",
+      "paragraphs": [
+        "A **NBR 15116:2004** disciplinava agregados reciclados para pavimentação e preparo de concretos **sem função estrutural**. Na tipologia histórica, **ARC** era o agregado reciclado de resíduo de concreto com fração graúda formada por pelo menos **90% em massa** de fragmentos à base de cimento Portland e rochas; **ARM** era resíduo misto que não atingia esse percentual.",
+        "A revisão **NBR 15116:2021** ampliou o escopo para argamassas e concretos e passou a admitir agregado reciclado de concreto em **algumas aplicações estruturais**, sob condições particulares de classe, qualidade e controle, incluindo percentuais limitados de substituição. A literatura que examina a norma informa limite de referência de **20%** de substituição e classes de agressividade ambiental I e II nas hipóteses da edição; não extrapolar o percentual para todo tipo de resíduo ou classe de concreto.",
+        "Qualquer aplicação depende da composição e caracterização do agregado reciclado — granulometria, absorção, contaminantes, impurezas e desempenho do concreto — e da compatibilidade com o projeto. **Reciclagem não transforma automaticamente todo entulho em agregado admissível para concreto estrutural**. A redação de 2004 é válida como contexto da questão histórica, não como descrição completa do escopo de 2021."
+      ],
+      "source": "ABNT NBR 15116:2004 e NBR 15116:2021; https://new.scielo.br/j/ac/a/QNNFCRvKbhfCRwx5sgNwxvM/?ilang=pt_BR&lang=pt ; https://buscadorsinapi.com.br/normas/nbr-15116-agregados-reciclados-para-uso-em-argamassas-e-concretos-de-cimento-portland-requ",
+      "mnemonic": "2004 = sem função estrutural; 2021 = estrutural SÓ COM CONDIÇÕES.",
+      "trap": "Afirmar que a norma vigente proíbe qualquer concreto estrutural reciclado; ou, no extremo oposto, autorizar 100% de substituição em qualquer ambiente.",
+      "compare": "2004: aplicações não estruturais na especificação citada. 2021: novas condições para concreto estrutural com agregado reciclado de concreto qualificado, além de aplicações não estruturais.",
+      "related_card_ids": [
+        "CARD-1551",
+        "CARD-0755"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-RECICLAGEM"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Que mudanças de aplicação ocorreram entre as NBR 15116:2004 e 15116:2021 para agregados reciclados no concreto?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "A edição de 2004 restringia o concreto com agregado reciclado a aplicações sem função estrutural; a de 2021 admite, sob requisitos específicos, substituição parcial por agregado reciclado de concreto em certas condições estruturais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 15116:2004 e NBR 15116:2021; https://new.scielo.br/j/ac/a/QNNFCRvKbhfCRwx5sgNwxvM/?ilang=pt_BR&lang=pt ; https://buscadorsinapi.com.br/normas/nbr-15116-agregados-reciclados-para-uso-em-argamassas-e-concretos-de-cimento-portland-requ"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Partículas recicladas podem conter pasta antiga aderida, maior porosidade, maior absorção e heterogeneidade; isso afeta relação água efetiva, trabalhabilidade, porosidade e durabilidade."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "NBR15116:2004 ARC fração graúda: ≥90% massa de fragmentos à base de cimento e rochas. Critérios da edição 2021 dependem de tipo de concreto e aplicação; não tratar 20% como autorização geral."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "2004: aplicações não estruturais na especificação citada. 2021: novas condições para concreto estrutural com agregado reciclado de concreto qualificado, além de aplicações não estruturais."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Contrapiso ou calçada não estrutural com agregado beneficiado de classe A pode enquadrar-se nas aplicações históricas. Em viga estrutural, conferir rigorosamente qualificação do agregado e todos os limites da edição aplicável."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1551, CARD-0755. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Não inferir equivalência entre ARC de 2004 e nomenclaturas atuais ARCO/ARCI; consultar requisitos vigentes do projeto e legislação CONAMA para classificação do resíduo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Afirmar que a norma vigente proíbe qualquer concreto estrutural reciclado; ou, no extremo oposto, autorizar 100% de substituição em qualquer ambiente."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "2004 = sem função estrutural; 2021 = estrutural SÓ COM CONDIÇÕES. Fonte: ABNT NBR 15116:2004 e NBR 15116:2021; https://new.scielo.br/j/ac/a/QNNFCRvKbhfCRwx5sgNwxvM/?ilang=pt_BR&lang=pt ; https://buscadorsinapi.com.br/normas/nbr-15116-agregados-reciclados-para-uso-em-argamassas-e-concretos-de-cimento-portland-requ. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1553": {
+      "title": "NBR NM45/16972 — massa unitária, métodos e índice de vazios",
+      "front": "Como determinar massa unitária de agregado solto ou compactado segundo a NM45/16972, qual o mínimo de determinações e como distingui-la da massa específica?",
+      "back": "Massa unitária = massa seca de agregado/volume calibrado do recipiente, incluindo vazios entre grãos. Resultado = média de ≥3 determinações, com desvios individuais ≤1% da média. Métodos A/B compactados e C solto.",
+      "paragraphs": [
+        "A **massa unitária** é a massa do agregado seco que preenche determinado volume de recipiente, incluindo os espaços entre os grãos. Calcula-se pela massa do recipiente cheio menos a tara, dividida pelo volume calibrado. A NBR NM 45:2006 exige como resultado a **média dos valores individuais de pelo menos três determinações**, e cada valor individual deve ficar a no máximo **1% da média**.",
+        "Os métodos A e B avaliam condições compactadas. No **método A**, para DMC até 37,5 mm, aplica-se haste em **3 camadas, 25 golpes em cada**. No **método B**, para DMC acima de 37,5 e abaixo de 75 mm, usa-se acomodação do recipiente por golpes, **50 por camada**. No **método C**, obtém-se a condição **solta**, lançando o material sem adensar de altura controlada. A norma 16972:2021 substituiu a NM45:2006, preservando a distinção entre métodos.",
+        "Como o volume do recipiente contém vazios entre os grãos, a massa unitária costuma ser inferior à massa específica das partículas. Em uma base seca compatível, o percentual de vazios intergranulares pode ser obtido de **100 × (1 − massa unitária/massa específica dos grãos)**. Um agregado com massa unitária de 1.490 kg/m³ e massa específica de partículas de 2.650 kg/m³ tem aproximadamente 43,8% de vazios, sem que isso represente o índice geotécnico e = Vv/Vs."
+      ],
+      "source": "ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf",
+      "mnemonic": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO.",
+      "trap": "Marcar apenas a primeira determinação; somar resultados em lugar de tirar média; interpretar massa unitária como densidade sólida; confundir com índice de vazios geotécnico.",
+      "compare": "A/B = compactados, C = solto; 3 determinações = repetições independentes, não 3 camadas; massa unitária inclui vazios intergranulares, massa específica dos grãos não.",
+      "related_card_ids": [
+        "CARD-1550",
+        "CARD-0949",
+        "CARD-0694",
+        "CARD-1558"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-MASSA-UNITARIA"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como determinar massa unitária de agregado solto ou compactado segundo a NM45/16972, qual o mínimo de determinações e como distingui-la da massa específica?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Massa unitária = massa seca de agregado/volume calibrado do recipiente, incluindo vazios entre grãos. Resultado = média de ≥3 determinações, com desvios individuais ≤1% da média. Métodos A/B compactados e C solto."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Compactar reorganiza grãos, reduz vazios interpartículas e aumenta a massa por volume do recipiente; massa específica mineral permanece aproximadamente constante."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "ρ_unit=(M_rec+agr−M_rec)/Vrec; ρmédia=(Σρ_i)/n, n≥3; max_i |ρ_i−ρmédia|/ρmédia ≤1%; E_v[%]=100(1−ρ_unit/ρ_grãos) com bases compatíveis."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "A/B = compactados, C = solto; 3 determinações = repetições independentes, não 3 camadas; massa unitária inclui vazios intergranulares, massa específica dos grãos não."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "3 determinações 1480,1490,1500 kg/m³: média 1490; desvio máximo 10/1490=0,67%, dentro do limite de 1%. Usar em dosagem volumétrica e empacotamento granular."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1550, CARD-0949, CARD-0694. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Os resultados dependem de graduação, forma, umidade, massa seca e volume calibrado. Não extrapolar o método ao Proctor para solos nem afirmar que 3 determinações são 3 golpes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Marcar apenas a primeira determinação; somar resultados em lugar de tirar média; interpretar massa unitária como densidade sólida; confundir com índice de vazios geotécnico."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO. Fonte: ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1554": {
+      "title": "NBR NM248/17054 — sobrecarga de peneiras finas",
+      "front": "No peneiramento granulométrico, qual é a massa retida máxima por área para abertura <4,75 mm e por que a sobrecarga distorce o ensaio?",
+      "back": "Para malhas <4,75 mm, massa retida ≤7 kg/m² de superfície efetiva; mmax=7S. Para aberturas ≥4,75 mm, aplica-se a relação 2,5 a S (kg, mm, m²) da norma.",
+      "paragraphs": [
+        "Na **NBR NM 248:2003**, substituída pela **NBR 17054:2022**, a quantidade retida sobre peneiras de abertura **menor que 4,75 mm** não deve ultrapassar **7 kg por metro quadrado de superfície efetiva de peneiramento**. O limite não corresponde a 7 kg absolutos por peneira. Se a tela efetiva apresentar 0,025 m², a quantidade máxima retida nessa condição será 0,175 kg, ou 175 g.",
+        "O limite existe porque o excesso de grãos forma várias camadas e impede que parte deles entre em contato com a tela. A peneira passa a reter material que deveria atravessá-la, modificando artificialmente a curva granulométrica, o módulo de finura e a dimensão máxima característica. A sobrecarga também pode deformar a tela.",
+        "Para peneiras de abertura **igual ou superior a 4,75 mm**, a norma adota outro critério proporcional à abertura nominal e à área efetiva: **mmax = 2,5 × a × S** (m em kg, a em mm e S em m², segundo a convenção do método). Exatamente 4,75 mm pertence à regra das malhas maiores ou iguais, e não à de 7 kg/m²."
+      ],
+      "source": "ABNT NBR NM 248:2003 5.2.4; NBR 17054:2022 6.1.4; https://studylib.net/doc/28364523/680770013-nbr-17054-gran-2022",
+      "mnemonic": "PENEIRA FINA (<4,75): 7 por área. Em 4,75 muda de fórmula.",
+      "trap": "Usuário marcou 5 kg/m²; confundir com o 5% de retenção acumulada de DMC e aplicar 7 kg/m² à malha exatamente 4,75 mm.",
+      "compare": "7 kg/m² é limite por ÁREA EFETIVA; retenção acumulada 5% é outro indicador da análise granulométrica. Fronteira 4,75 mm não inclusiva no primeiro critério.",
+      "related_card_ids": [
+        "CARD-0751"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-PENEIRAMENTO"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "No peneiramento granulométrico, qual é a massa retida máxima por área para abertura <4,75 mm e por que a sobrecarga distorce o ensaio?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Para malhas <4,75 mm, massa retida ≤7 kg/m² de superfície efetiva; mmax=7S. Para aberturas ≥4,75 mm, aplica-se a relação 2,5 a S (kg, mm, m²) da norma."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR NM 248:2003 5.2.4; NBR 17054:2022 6.1.4; https://studylib.net/doc/28364523/680770013-nbr-17054-gran-2022"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Excesso de partículas empilhadas impede tentativa de passagem por todos os grãos; é erro físico de peneiramento, independente da porcentagem retida acumulada usada em DMC."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "a<4,75mm → mmax=7S kg; a≥4,75mm → mmax=2,5aS kg (a em mm, S em m²); S=0,025m² → 0,175kg=175g."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "7 kg/m² é limite por ÁREA EFETIVA; retenção acumulada 5% é outro indicador da análise granulométrica. Fronteira 4,75 mm não inclusiva no primeiro critério."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Peneira 2,36 mm, S=0,04 m²: máximo retido 0,28 kg; se restarem 0,35 kg, o procedimento necessita redistribuir/adequar a carga."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-0751, CARD-0370. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "NM248:2003 item 5.2.4, NBR17054:2022 6.1.4. Área efetiva da tela não equivale necessariamente à área calculada pelo diâmetro externo do aro."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Usuário marcou 5 kg/m²; confundir com o 5% de retenção acumulada de DMC e aplicar 7 kg/m² à malha exatamente 4,75 mm."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "PENEIRA FINA (<4,75): 7 por área. Em 4,75 muda de fórmula. Fonte: ABNT NBR NM 248:2003 5.2.4; NBR 17054:2022 6.1.4; https://studylib.net/doc/28364523/680770013-nbr-17054-gran-2022. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1555": {
+      "title": "NBR 16606 — consistência normal: Vicat e Tetmajer",
+      "front": "No ensaio de consistência normal de pasta de cimento, em que distância da base deve parar a sonda de Tetmajer e por que isso difere dos ensaios de pega e expansibilidade?",
+      "back": "Com Vicat e sonda de Tetmajer, a consistência normal é a condição na qual a ponta para a 6 ±1 mm da placa-base, 30 s após liberação. Não confundir com Vicat/agulha para pega ou Le Chatelier/5 mm para expansão.",
+      "paragraphs": [
+        "A **consistência normal** é determinada pela quantidade de água necessária para que a **sonda de Tetmajer**, instalada no aparelho de Vicat, estacione a **6 ± 1 mm da placa-base**, isto é, entre 5 e 7 mm, após 30 segundos da liberação. O enunciado histórico usou NBR NM 43:2002; a referência brasileira substitutiva é a **NBR 16606:2018**.",
+        "Esse valor representa o **espaço que falta para a ponta chegar à base**, não uma profundidade de penetração a partir da superfície. Se a ponta para a 4 mm da base, penetrou demais: a pasta tende a estar mais fluida que o alvo e outra mistura com água ajustada deve ser preparada. Se para a 8 mm, penetrou pouco: tende a estar mais rígida.",
+        "O aparelho de **Vicat com agulha** também serve à determinação dos tempos de pega pela NBR 16607, mas o requisito de início de pega da Tabela 4 da NBR 16697 é **≥60 minutos**; já a expansibilidade a quente pelo **aparelho de Le Chatelier** tem limite **≤5 mm**. Tempo, espaço remanescente da sonda e abertura de ponteiros são grandezas distintas."
+      ],
+      "source": "NM43:2002, NBR16606:2018 7.4.3, NBR16607:2018, NBR16697:2018; https://amn.org.br/Content/Arquivos/normasEprojetos/NM%2043_2002.pdf",
+      "mnemonic": "VICAT SONDA = 6 ±1 mm; PEGA = 60 minutos; LE CHATELIER = expansão 5 mm.",
+      "trap": "O estudante confundiu limite de 5mm da expansão com parâmetro de 6±1mm de consistência; 5mm também é borda inferior da FAIXA Vicat, mas isso não vincula os ensaios.",
+      "compare": "Vicat + sonda Tetmajer → consistência em mm; Vicat + agulha → tempos de pega em min; Le Chatelier (aparelho) → expansibilidade a quente em mm; frasco Le Chatelier → massa específica.",
+      "related_card_ids": [
+        "CARD-1557",
+        "CARD-0186",
+        "CARD-1546",
+        "CARD-0567"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-VICAT"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "No ensaio de consistência normal de pasta de cimento, em que distância da base deve parar a sonda de Tetmajer e por que isso difere dos ensaios de pega e expansibilidade?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Com Vicat e sonda de Tetmajer, a consistência normal é a condição na qual a ponta para a 6 ±1 mm da placa-base, 30 s após liberação. Não confundir com Vicat/agulha para pega ou Le Chatelier/5 mm para expansão."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "NM43:2002, NBR16606:2018 7.4.3, NBR16607:2018, NBR16697:2018; https://amn.org.br/Content/Arquivos/normasEprojetos/NM%2043_2002.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Teor de água altera mobilidade da pasta; sonda penetra mais profundamente em mistura relativamente mais fluida, reduzindo a distância remanescente à base."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "d=6±1mm ⇒ 5≤d≤7mm; A(%)=100 m_água/m_cimento. Leitura da sonda após 30 s."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Vicat + sonda Tetmajer → consistência em mm; Vicat + agulha → tempos de pega em min; Le Chatelier (aparelho) → expansibilidade a quente em mm; frasco Le Chatelier → massa específica."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Sonda estaciona 4 mm da base: não atende consistência normal; 6 mm atende; 8 mm não atende. Ajustar água em nova mistura."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1557, CARD-0186, CARD-1546. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Cimento em condições padronizadas; NM43:2002 no edital histórico; NBR16606:2018 como substitutiva. Não dizer que 6 mm é valor MÁXIMO — trata-se de valor central com tolerância."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "O estudante confundiu limite de 5mm da expansão com parâmetro de 6±1mm de consistência; 5mm também é borda inferior da FAIXA Vicat, mas isso não vincula os ensaios."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "VICAT SONDA = 6 ±1 mm; PEGA = 60 minutos; LE CHATELIER = expansão 5 mm. Fonte: NM43:2002, NBR16606:2018 7.4.3, NBR16607:2018, NBR16697:2018; https://amn.org.br/Content/Arquivos/normasEprojetos/NM%2043_2002.pdf. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1556": {
+      "title": "NBR 12655 — pilhas de sacos e validade de cimento",
+      "front": "Segundo a NBR 12655:2006, quantos sacos de cimento podem ser empilhados para armazenamento curto e prolongado e como isso difere do prazo de 90 dias?",
+      "back": "Para período INFERIOR a 15 dias: máximo 15 sacos por pilha; armazenamento mais longo: máximo 10. Os 90 dias referem-se ao prazo de validade/reensaio do cimento, não à altura da pilha.",
+      "paragraphs": [
+        "O cimento ensacado deve ser guardado em local fechado, seco e protegido da umidade, sobre estrados e em pilhas organizadas. A **NBR 12655:2006** fixa a altura máxima de **15 sacos** para armazenamento **inferior a 15 dias** e **10 sacos** para períodos mais longos. A questão histórica descreveu ‘até 15 dias’, mas a expressão normativa é ‘inferior a 15 dias’; essa fronteira textual merece atenção.",
+        "Pilha mais alta por período longo aumenta a sobrecarga sobre os sacos inferiores e dificulta conservação e movimentação. O limite especifica **quantidade vertical por pilha**, não a quantidade total que a obra pode guardar nem a idade do produto. Separar tipos e lotes, evitar contato com piso úmido e inspecionar embalagens faz parte do controle.",
+        "Os **90 dias** correspondem ao prazo de validade usual do cimento na NBR 16697:2018, condicionado a armazenamento adequado. Após o prazo, deve-se providenciar **reensaio** para comprovar conformidade; não é correto dizer que todo cimento deve ser descartado automaticamente no dia 91. Não confundir 15 dias para altura de pilha com 90 dias para condição de validade."
+      ],
+      "source": "NBR 12655:2006 5.3.1; NBR 16697:2018; origem Petrobras 26 gabarito 15 sacos.",
+      "mnemonic": "MENOS DE 15 DIAS → 15 SACOS; MAIS TEMPO → 10 SACOS; 90 DIAS → REENSAIO.",
+      "trap": "Alternativa 10 sacos incorreta para período inferior a 15 dias; confundir limite de pilha com validade ou com massa unitária do cimento.",
+      "compare": "15/10 = número máximo de sacos empilhados; 90 = dias de validade. “Inferior a 15” é mais restritivo que “até 15”, frase usada pela banca.",
+      "related_card_ids": [
+        "CARD-1557",
+        "CARD-0567",
+        "CARD-0186"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-EMPILHAMENTO"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo a NBR 12655:2006, quantos sacos de cimento podem ser empilhados para armazenamento curto e prolongado e como isso difere do prazo de 90 dias?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Para período INFERIOR a 15 dias: máximo 15 sacos por pilha; armazenamento mais longo: máximo 10. Os 90 dias referem-se ao prazo de validade/reensaio do cimento, não à altura da pilha."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "NBR 12655:2006 5.3.1; NBR 16697:2018; origem Petrobras 26 gabarito 15 sacos."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Umidade causa hidratação prematura e grumos; carga sobre sacos inferiores intensifica compactação e problemas de conservação."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "t<15 dias → H≤15 sacos; t mais prolongado → H≤10 sacos; validade cimento ≈90 dias nas condições normativas, com reensaio posterior."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "15/10 = número máximo de sacos empilhados; 90 = dias de validade. “Inferior a 15” é mais restritivo que “até 15”, frase usada pela banca."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Planejar depósito para 25 dias: no máximo 10 sacos por pilha; cimento fabricado há 95 dias exige avaliação/reensaio antes de aceitar."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1557, CARD-0567. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "NBR12655:2006 item 5.3.1 (edição da prova) e NBR16697:2018 para validade. Interpretação exata da fronteira t=15 dias deve respeitar o texto normativo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Alternativa 10 sacos incorreta para período inferior a 15 dias; confundir limite de pilha com validade ou com massa unitária do cimento."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "MENOS DE 15 DIAS → 15 SACOS; MAIS TEMPO → 10 SACOS; 90 DIAS → REENSAIO. Fonte: NBR 12655:2006 5.3.1; NBR 16697:2018; origem Petrobras 26 gabarito 15 sacos.. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1557": {
+      "title": "NBR 16697 — limites gerais: pega, expansibilidade e CP V-ARI",
+      "front": "Quais limites de início de pega e expansibilidade a quente se repetem na Tabela 4 da NBR 16697:2018 e quais são os requisitos principais do CP V-ARI?",
+      "back": "Em todos os tipos listados, início de pega ≥60 min e expansibilidade a quente ≤5 mm. CP V-ARI: resíduo na peneira 75 µm ≤6%; resistências ≥14 MPa/1d, ≥24 MPa/3d e ≥34 MPa/7d.",
+      "paragraphs": [
+        "A **Tabela 4 da NBR 16697:2018** apresenta requisitos físicos/mecânicos dos cimentos Portland. Nos tipos mostrados no quadro — incluindo CP I, CP II, CP III, CP IV, CP V-ARI e CPB — o tempo mínimo de **início de pega é 60 minutos**, enquanto a **expansibilidade a quente não pode ultrapassar 5 mm**. São limites de conformidade, não resultados exatos de cada ensaio.",
+        "O CP V-ARI recebe o nome pela **alta resistência inicial**; isso não significa que tenha autorização para início de pega abaixo de 1 hora. A mesma tabela exige resíduo na peneira 75 µm **≤6,0%**, resistência aos **1, 3 e 7 dias** de pelo menos **14, 24 e 34 MPa**, respectivamente. Não usar esses valores como fck de um concreto de obra.",
+        "O **tempo de pega** é medido com aparelho de Vicat equipado com agulha, enquanto a **expansibilidade a quente** é medida por Le Chatelier. A sonda de Tetmajer no Vicat executa outro ensaio: consistência normal, com distância de **6 ±1 mm** da placa-base. A questão antiga NBR 5733:1991 também tinha início de pega mínimo de 60 min no CP V-ARI."
+      ],
+      "source": "ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582.",
+      "mnemonic": "CP V-ARI: 6 / 60 / 5 / 14-24-34.",
+      "trap": "Sinais invertidos ≥60 versus ≤5; CP V-ARI ‘pega mais rápido que o mínimo’; confundir consistência, pega e expansibilidade.",
+      "compare": "Vicat/agulha = tempo de pega; Vicat/Tetmajer = consistência 6±1mm; Le Chatelier = expansibilidade 5mm.",
+      "related_card_ids": [
+        "CARD-1555",
+        "CARD-1556",
+        "CARD-0567",
+        "CARD-0186",
+        "CARD-1546"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-CPV-ARI"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais limites de início de pega e expansibilidade a quente se repetem na Tabela 4 da NBR 16697:2018 e quais são os requisitos principais do CP V-ARI?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Em todos os tipos listados, início de pega ≥60 min e expansibilidade a quente ≤5 mm. CP V-ARI: resíduo na peneira 75 µm ≤6%; resistências ≥14 MPa/1d, ≥24 MPa/3d e ≥34 MPa/7d."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "ARI tem hidratação/resistência precoce favorecida por composição e finura; pega é perda de plasticidade e expansão representa variação volumétrica por componentes expansivos, parâmetros distintos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "CP V-ARI: finura ≤6% (75μm); resistência 1d/3d/7d ≥14/24/34 MPa; início pega ≥60 min; expansão quente ≤5mm."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Vicat/agulha = tempo de pega; Vicat/Tetmajer = consistência 6±1mm; Le Chatelier = expansibilidade 5mm."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Um CP V-ARI com 24 MPa aos 3 dias atende ao requisito isolado dessa idade; se iniciar a pega aos 45 min, viola o mínimo de 60 min apesar da resistência."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1555, CARD-1556, CARD-0567, CARD-0186, CARD-1546. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Referência tabela 4 NBR16697:2018 e edição histórica 5733:1991; limites não dispensam demais controles do cimento e métodos de ensaio respectivos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Sinais invertidos ≥60 versus ≤5; CP V-ARI ‘pega mais rápido que o mínimo’; confundir consistência, pega e expansibilidade."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "CP V-ARI: 6 / 60 / 5 / 14-24-34. Fonte: ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582.. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-1558": {
+      "title": "NBR 9935 — minerais pesados e agregados leves",
+      "front": "O que são barita e hematita, por que são agregados pesados e por que vermiculita e argila expandida não são sinônimos?",
+      "back": "Barita é BaSO₄ (sulfato de bário), hematita é Fe₂O₃ (óxido de ferro). São minerais densos para concretos especiais; magnetita e limonita também podem ser pesadas. Vermiculita e argila expandida são materiais LEVES distintos.",
+      "paragraphs": [
+        "**Barita** é sulfato de bário (**BaSO₄**) e tem massa específica mineral típica de cerca de **4,5 g/cm³**; **hematita** é óxido de ferro(III) (**Fe₂O₃**), cerca de **5,2 g/cm³**. São fontes de agregados pesados usados quando o concreto precisa de maior densidade, como em contrapesos e blindagens radiológicas, conforme projeto. A NBR 9935:2011 também exemplifica **magnetita (Fe₃O₄)** e **limonita** entre materiais densos.",
+        "**Argila expandida** é produto cerâmico poroso obtido por aquecimento de argila, frequentemente em grânulos arredondados; **vermiculita expandida** provém de mineral lamelar que se exfolia ao aquecer. Ambas são leves, mas **não são o mesmo material**. A alternativa ‘vermiculita e limonita’ mistura um leve e um pesado; está errada por causa da vermiculita, não da limonita.",
+        "Massa específica de um mineral puro não é a massa unitária do agregado solto nem a densidade final do concreto. Concreto mais denso não significa concreto de maior resistência à compressão. Além disso, agregados naturais de barita/hematita podem ter fases silicosas acessórias potencialmente reativas: não presumir imunidade à reação álcali-agregado."
+      ],
+      "source": "ABNT NBR 9935:2011; https://www.mindat.org/min-549.html ; https://dnr.mo.gov/document-search/barite-pub2904/pub2904",
+      "mnemonic": "Ba–Fe = PESADOS; barita = BÁRIO, hematita = FERRO; vermiculita e argila expandida = LEVES diferentes.",
+      "trap": "Comentário de colega chamou ‘argila expandida (vermiculita)’ — falso; ‘peso’ é apenas associação de classificação, não resistência mecânica.",
+      "compare": "Barita BaSO4 ≠ hematita Fe2O3 ≠ magnetita Fe3O4; vermiculita filossilicato expandido ≠ argila expandida cerâmica porosa. Limonita é rica em compostos hidratados de ferro e pesada.",
+      "related_card_ids": [
+        "CARD-1550",
+        "CARD-1553"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-AGREGADOS-PESADOS"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que são barita e hematita, por que são agregados pesados e por que vermiculita e argila expandida não são sinônimos?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Barita é BaSO₄ (sulfato de bário), hematita é Fe₂O₃ (óxido de ferro). São minerais densos para concretos especiais; magnetita e limonita também podem ser pesadas. Vermiculita e argila expandida são materiais LEVES distintos."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 9935:2011; https://www.mindat.org/min-549.html ; https://dnr.mo.gov/document-search/barite-pub2904/pub2904"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Ba e Fe promovem fases minerais de maior densidade; expansão térmica cria poros nos agregados leves. Porosidade/densidade governam massa por volume, não fck isoladamente."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "ρ=m/V; barita mineral ≈4,5 g/cm³; hematita mineral ≈5,2 g/cm³, valores típicos dos minerais PUROS."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Barita BaSO4 ≠ hematita Fe2O3 ≠ magnetita Fe3O4; vermiculita filossilicato expandido ≠ argila expandida cerâmica porosa. Limonita é rica em compostos hidratados de ferro e pesada."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Concreto de blindagem ou contrapeso: considerar barita/hematita, dosagem e proteção adequada; material de isolamento: argila expandida/vermiculita quando especificado."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1550, CARD-1553. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "NBR 9935:2011 terminologia; composição exata de escórias e rochas é variável. Massa específica de mineral não identifica automaticamente massa unitária do conjunto."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Comentário de colega chamou ‘argila expandida (vermiculita)’ — falso; ‘peso’ é apenas associação de classificação, não resistência mecânica."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "Ba–Fe = PESADOS; barita = BÁRIO, hematita = FERRO; vermiculita e argila expandida = LEVES diferentes. Fonte: ABNT NBR 9935:2011; https://www.mindat.org/min-549.html ; https://dnr.mo.gov/document-search/barite-pub2904/pub2904. Histórico prévio preservado; PETRO26."
+        }
+      ]
+    },
+    "CARD-0186": {
+      "title": "Pega, fim de pega e endurecimento; distinção Vicat",
+      "front": "Como distinguir início e fim de pega do endurecimento do cimento, e qual mínimo de início de pega aparece na NBR 16697:2018?",
+      "back": "Pega é perda progressiva de plasticidade; endurecimento é ganho de resistência pela hidratação. A Tabela 4 exige início de pega ≥60 min; mede-se com Vicat e agulha, não com sonda Tetmajer.",
+      "paragraphs": [
+        "O início de pega é marco convencional da perda de plasticidade, o fim de pega marca avanço do enrijecimento e o endurecimento é o desenvolvimento posterior de resistência. A NBR16697:2018 exige início de pega ≥60 minutos nos cimentos da tabela, não que a mistura necessariamente comece a pegar exatamente aos 60 minutos. A NBR16607 determina tempos com Vicat/agulhas; o ensaio de consistência da NBR16606 emprega sonda Tetmajer a 6±1mm da base, e Le Chatelier trata de expansibilidade a quente ≤5mm.",
+        "Aplicação de recuperação: O CP V-ARI recebe o nome pela **alta resistência inicial**; isso não significa que tenha autorização para início de pega abaixo de 1 hora. A mesma tabela exige resíduo na peneira 75 µm **≤6,0%**, resistência aos **1, 3 e 7 dias** de pelo menos **14, 24 e 34 MPa**, respectivamente. Não usar esses valores como fck de um concreto de obra.",
+        "Distinção de prova: O **tempo de pega** é medido com aparelho de Vicat equipado com agulha, enquanto a **expansibilidade a quente** é medida por Le Chatelier. A sonda de Tetmajer no Vicat executa outro ensaio: consistência normal, com distância de **6 ±1 mm** da placa-base. A questão antiga NBR 5733:1991 também tinha início de pega mínimo de 60 min no CP V-ARI."
+      ],
+      "source": "ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582.",
+      "mnemonic": "CP V-ARI: 6 / 60 / 5 / 14-24-34.",
+      "trap": "Sinais invertidos ≥60 versus ≤5; CP V-ARI ‘pega mais rápido que o mínimo’; confundir consistência, pega e expansibilidade.",
+      "compare": "Vicat/agulha = tempo de pega; Vicat/Tetmajer = consistência 6±1mm; Le Chatelier = expansibilidade 5mm.",
+      "related_card_ids": [
+        "CARD-1557",
+        "CARD-1555",
+        "CARD-1556",
+        "CARD-0567",
+        "CARD-0186",
+        "CARD-1546"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-CPV-ARI"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como distinguir início e fim de pega do endurecimento do cimento, e qual mínimo de início de pega aparece na NBR 16697:2018?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Pega é perda progressiva de plasticidade; endurecimento é ganho de resistência pela hidratação. A Tabela 4 exige início de pega ≥60 min; mede-se com Vicat e agulha, não com sonda Tetmajer."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "O início de pega é marco convencional da perda de plasticidade, o fim de pega marca avanço do enrijecimento e o endurecimento é o desenvolvimento posterior de resistência. A NBR16697:2018 exige início de pega ≥60 minutos nos cimentos da tabela, não que a mistura necessariamente comece a pegar exatamente aos 60 minutos. A NBR16607 determina tempos com Vicat/agulhas; o ensaio de consistência da NBR16606 emprega sonda Tetmajer a 6±1mm da base, e Le Chatelier trata de expansibilidade a quente ≤5mm."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "CP V-ARI: finura ≤6% (75μm); resistência 1d/3d/7d ≥14/24/34 MPa; início pega ≥60 min; expansão quente ≤5mm."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Vicat/agulha = tempo de pega; Vicat/Tetmajer = consistência 6±1mm; Le Chatelier = expansibilidade 5mm."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Um CP V-ARI com 24 MPa aos 3 dias atende ao requisito isolado dessa idade; se iniciar a pega aos 45 min, viola o mínimo de 60 min apesar da resistência."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1557, CARD-1555, CARD-1556, CARD-0567, CARD-0186, CARD-1546. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Referência tabela 4 NBR16697:2018 e edição histórica 5733:1991; limites não dispensam demais controles do cimento e métodos de ensaio respectivos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Sinais invertidos ≥60 versus ≤5; CP V-ARI ‘pega mais rápido que o mínimo’; confundir consistência, pega e expansibilidade."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "CP V-ARI: 6 / 60 / 5 / 14-24-34. Fonte: ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582.. Histórico prévio preservado; PETRO26."
+        }
+      ],
+      "previous_front": "Qual a diferença entre início/fim de pega e endurecimento na pasta de cimento Portland, e o que cada fenômeno indica?",
+      "previous_back": "Pega é a transição com perda de plasticidade; endurecimento é o desenvolvimento progressivo da resistência mecânica."
+    },
+    "CARD-0567": {
+      "title": "CP V-ARI: resistência 1, 3, 7 dias e requisitos físicos",
+      "front": "No CP V-ARI da NBR 16697, quais são os mínimos de resistência aos 1/3/7 dias e quais os limites de pega e expansibilidade?",
+      "back": "Resistências ≥14/24/34 MPa aos 1/3/7 dias, respectivamente; início de pega ≥60 min, expansibilidade a quente ≤5 mm e resíduo peneira 75µm ≤6%.",
+      "paragraphs": [
+        "O CP V-ARI deve atender aos mínimos de resistência de 14 MPa aos 1 dia, 24 MPa aos 3 dias e 34 MPa aos 7 dias, mas resistência inicial elevada não significa início de pega inferior ao limite normativo. A Tabela 4 NBR16697:2018 também impõe ≥60min para início de pega, ≤5mm para expansibilidade a quente e ≤6% de resíduo na peneira 75µm. Esses requisitos são do CIMENTO em ensaio padronizado, e não fck do concreto lançado.",
+        "Aplicação de recuperação: O CP V-ARI recebe o nome pela **alta resistência inicial**; isso não significa que tenha autorização para início de pega abaixo de 1 hora. A mesma tabela exige resíduo na peneira 75 µm **≤6,0%**, resistência aos **1, 3 e 7 dias** de pelo menos **14, 24 e 34 MPa**, respectivamente. Não usar esses valores como fck de um concreto de obra.",
+        "Distinção de prova: O **tempo de pega** é medido com aparelho de Vicat equipado com agulha, enquanto a **expansibilidade a quente** é medida por Le Chatelier. A sonda de Tetmajer no Vicat executa outro ensaio: consistência normal, com distância de **6 ±1 mm** da placa-base. A questão antiga NBR 5733:1991 também tinha início de pega mínimo de 60 min no CP V-ARI."
+      ],
+      "source": "ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582.",
+      "mnemonic": "CP V-ARI: 6 / 60 / 5 / 14-24-34.",
+      "trap": "Sinais invertidos ≥60 versus ≤5; CP V-ARI ‘pega mais rápido que o mínimo’; confundir consistência, pega e expansibilidade.",
+      "compare": "Vicat/agulha = tempo de pega; Vicat/Tetmajer = consistência 6±1mm; Le Chatelier = expansibilidade 5mm.",
+      "related_card_ids": [
+        "CARD-1557",
+        "CARD-1555",
+        "CARD-1556",
+        "CARD-0567",
+        "CARD-0186",
+        "CARD-1546"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-CPV-ARI"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "No CP V-ARI da NBR 16697, quais são os mínimos de resistência aos 1/3/7 dias e quais os limites de pega e expansibilidade?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Resistências ≥14/24/34 MPa aos 1/3/7 dias, respectivamente; início de pega ≥60 min, expansibilidade a quente ≤5 mm e resíduo peneira 75µm ≤6%."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "O CP V-ARI deve atender aos mínimos de resistência de 14 MPa aos 1 dia, 24 MPa aos 3 dias e 34 MPa aos 7 dias, mas resistência inicial elevada não significa início de pega inferior ao limite normativo. A Tabela 4 NBR16697:2018 também impõe ≥60min para início de pega, ≤5mm para expansibilidade a quente e ≤6% de resíduo na peneira 75µm. Esses requisitos são do CIMENTO em ensaio padronizado, e não fck do concreto lançado."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "CP V-ARI: finura ≤6% (75μm); resistência 1d/3d/7d ≥14/24/34 MPa; início pega ≥60 min; expansão quente ≤5mm."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Vicat/agulha = tempo de pega; Vicat/Tetmajer = consistência 6±1mm; Le Chatelier = expansibilidade 5mm."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Um CP V-ARI com 24 MPa aos 3 dias atende ao requisito isolado dessa idade; se iniciar a pega aos 45 min, viola o mínimo de 60 min apesar da resistência."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1557, CARD-1555, CARD-1556, CARD-0567, CARD-0186, CARD-1546. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Referência tabela 4 NBR16697:2018 e edição histórica 5733:1991; limites não dispensam demais controles do cimento e métodos de ensaio respectivos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Sinais invertidos ≥60 versus ≤5; CP V-ARI ‘pega mais rápido que o mínimo’; confundir consistência, pega e expansibilidade."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "CP V-ARI: 6 / 60 / 5 / 14-24-34. Fonte: ABNT NBR 16697:2018, Tabela 4 fornecida pelo estudante; NBR5733:1991; NBR16606/16607/11582.. Histórico prévio preservado; PETRO26."
+        }
+      ],
+      "previous_front": "Pela NBR 16697:2018, qual resistência mínima à compressão de CP V-ARI aos 1 dia e como distinguir mínimo normativo de resultado de ensaio?",
+      "previous_back": "Mínimo de 14 MPa aos 1 dia no ensaio de referência do cimento CP V-ARI."
+    },
+    "CARD-1546": {
+      "title": "Le Chatelier comparado com Vicat: ensaios diferentes",
+      "front": "Qual a diferença entre frasco/aparelho Le Chatelier e Vicat com sonda ou agulha, quanto a propriedade, unidade e valor importante?",
+      "back": "Frasco Le Chatelier: massa específica (g/cm³); aparelho Le Chatelier: expansibilidade a quente ≤5 mm; Vicat/Tetmajer: consistência 6±1 mm da base; Vicat/agulha: tempo de pega, início ≥60 min na NBR16697.",
+      "paragraphs": [
+        "O frasco de Le Chatelier mede massa específica do cimento por deslocamento de líquido (NBR16605), enquanto o aparelho de Le Chatelier com hastes mede expansibilidade a quente em milímetros (NBR11582), com limite ≤5 mm na NBR16697:2018. Já Vicat tem acessórios: sonda de Tetmajer para consistência normal, que deve estacionar a 6±1mm da base (NBR16606), e agulha para medir tempos de pega (NBR16607), cujo início tem mínimo de 60min na especificação. Um número parecido em milímetros não transforma os dois ensaios em equivalentes.",
+        "Aplicação de recuperação: Esse valor representa o **espaço que falta para a ponta chegar à base**, não uma profundidade de penetração a partir da superfície. Se a ponta para a 4 mm da base, penetrou demais: a pasta tende a estar mais fluida que o alvo e outra mistura com água ajustada deve ser preparada. Se para a 8 mm, penetrou pouco: tende a estar mais rígida.",
+        "Distinção de prova: O aparelho de **Vicat com agulha** também serve à determinação dos tempos de pega pela NBR 16607, mas o requisito de início de pega da Tabela 4 da NBR 16697 é **≥60 minutos**; já a expansibilidade a quente pelo **aparelho de Le Chatelier** tem limite **≤5 mm**. Tempo, espaço remanescente da sonda e abertura de ponteiros são grandezas distintas."
+      ],
+      "source": "NM43:2002, NBR16606:2018 7.4.3, NBR16607:2018, NBR16697:2018; https://amn.org.br/Content/Arquivos/normasEprojetos/NM%2043_2002.pdf",
+      "mnemonic": "VICAT SONDA = 6 ±1 mm; PEGA = 60 minutos; LE CHATELIER = expansão 5 mm.",
+      "trap": "O estudante confundiu limite de 5mm da expansão com parâmetro de 6±1mm de consistência; 5mm também é borda inferior da FAIXA Vicat, mas isso não vincula os ensaios.",
+      "compare": "Vicat + sonda Tetmajer → consistência em mm; Vicat + agulha → tempos de pega em min; Le Chatelier (aparelho) → expansibilidade a quente em mm; frasco Le Chatelier → massa específica.",
+      "related_card_ids": [
+        "CARD-1555",
+        "CARD-1557",
+        "CARD-0186",
+        "CARD-1546",
+        "CARD-0567"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-VICAT"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual a diferença entre frasco/aparelho Le Chatelier e Vicat com sonda ou agulha, quanto a propriedade, unidade e valor importante?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Frasco Le Chatelier: massa específica (g/cm³); aparelho Le Chatelier: expansibilidade a quente ≤5 mm; Vicat/Tetmajer: consistência 6±1 mm da base; Vicat/agulha: tempo de pega, início ≥60 min na NBR16697."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "NM43:2002, NBR16606:2018 7.4.3, NBR16607:2018, NBR16697:2018; https://amn.org.br/Content/Arquivos/normasEprojetos/NM%2043_2002.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "O frasco de Le Chatelier mede massa específica do cimento por deslocamento de líquido (NBR16605), enquanto o aparelho de Le Chatelier com hastes mede expansibilidade a quente em milímetros (NBR11582), com limite ≤5 mm na NBR16697:2018. Já Vicat tem acessórios: sonda de Tetmajer para consistência normal, que deve estacionar a 6±1mm da base (NBR16606), e agulha para medir tempos de pega (NBR16607), cujo início tem mínimo de 60min na especificação. Um número parecido em milímetros não transforma os dois ensaios em equivalentes."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "d=6±1mm ⇒ 5≤d≤7mm; A(%)=100 m_água/m_cimento. Leitura da sonda após 30 s."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "Vicat + sonda Tetmajer → consistência em mm; Vicat + agulha → tempos de pega em min; Le Chatelier (aparelho) → expansibilidade a quente em mm; frasco Le Chatelier → massa específica."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Sonda estaciona 4 mm da base: não atende consistência normal; 6 mm atende; 8 mm não atende. Ajustar água em nova mistura."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1555, CARD-1557, CARD-0186, CARD-1546. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Cimento em condições padronizadas; NM43:2002 no edital histórico; NBR16606:2018 como substitutiva. Não dizer que 6 mm é valor MÁXIMO — trata-se de valor central com tolerância."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "O estudante confundiu limite de 5mm da expansão com parâmetro de 6±1mm de consistência; 5mm também é borda inferior da FAIXA Vicat, mas isso não vincula os ensaios."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "VICAT SONDA = 6 ±1 mm; PEGA = 60 minutos; LE CHATELIER = expansão 5 mm. Fonte: NM43:2002, NBR16606:2018 7.4.3, NBR16607:2018, NBR16697:2018; https://amn.org.br/Content/Arquivos/normasEprojetos/NM%2043_2002.pdf. Histórico prévio preservado; PETRO26."
+        }
+      ],
+      "previous_front": "Como diferenciar frasco e aparelho de Le Chatelier quanto ao objetivo, medição, unidade e norma?",
+      "previous_back": "Frasco mede massa específica (NBR 16605) por deslocamento de líquido em g/cm³; aparelho com agulhas mede expansibilidade (NBR 11582) pelo afastamento das extremidades em mm."
+    },
+    "CARD-0949": {
+      "title": "Massa aparente e massa unitária: volume de vazios importa",
+      "front": "Qual a diferença entre massa unitária de agregado em recipiente e massa específica dos grãos, e como isso afeta o percentual de vazios?",
+      "back": "Massa unitária = massa dos grãos / volume do recipiente (inclui vazios entre grãos); massa específica dos grãos usa seu volume próprio. Com bases secas compatíveis, Ev=100(1−ρunit/ρgrãos).",
+      "paragraphs": [
+        "Uma razão ρ=m/V depende da escolha de V. Na massa unitária NBR16972, V é o recipiente cheio, incluindo vazios entre grãos, e o resultado é média de no mínimo três determinações; na massa específica dos grãos, o volume é próprio das partículas conforme definição de ensaio. Em bases secas compatíveis, para ρunit=1490kg/m³ e ρgrãos=2650kg/m³, o percentual de vazios intergranulares é 43,8%. Compactação tende a elevar massa unitária e reduzir esse percentual; isso não altera a densidade mineral.",
+        "Aplicação de recuperação: Os métodos A e B avaliam condições compactadas. No **método A**, para DMC até 37,5 mm, aplica-se haste em **3 camadas, 25 golpes em cada**. No **método B**, para DMC acima de 37,5 e abaixo de 75 mm, usa-se acomodação do recipiente por golpes, **50 por camada**. No **método C**, obtém-se a condição **solta**, lançando o material sem adensar de altura controlada. A norma 16972:2021 substituiu a NM45:2006, preservando a distinção entre métodos.",
+        "Distinção de prova: Como o volume do recipiente contém vazios entre os grãos, a massa unitária costuma ser inferior à massa específica das partículas. Em uma base seca compatível, o percentual de vazios intergranulares pode ser obtido de **100 × (1 − massa unitária/massa específica dos grãos)**. Um agregado com massa unitária de 1.490 kg/m³ e massa específica de partículas de 2.650 kg/m³ tem aproximadamente 43,8% de vazios, sem que isso represente o índice geotécnico e = Vv/Vs."
+      ],
+      "source": "ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf",
+      "mnemonic": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO.",
+      "trap": "Marcar apenas a primeira determinação; somar resultados em lugar de tirar média; interpretar massa unitária como densidade sólida; confundir com índice de vazios geotécnico.",
+      "compare": "A/B = compactados, C = solto; 3 determinações = repetições independentes, não 3 camadas; massa unitária inclui vazios intergranulares, massa específica dos grãos não.",
+      "related_card_ids": [
+        "CARD-1553",
+        "CARD-1550",
+        "CARD-0949",
+        "CARD-0694"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-MASSA-UNITARIA"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual a diferença entre massa unitária de agregado em recipiente e massa específica dos grãos, e como isso afeta o percentual de vazios?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Massa unitária = massa dos grãos / volume do recipiente (inclui vazios entre grãos); massa específica dos grãos usa seu volume próprio. Com bases secas compatíveis, Ev=100(1−ρunit/ρgrãos)."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Uma razão ρ=m/V depende da escolha de V. Na massa unitária NBR16972, V é o recipiente cheio, incluindo vazios entre grãos, e o resultado é média de no mínimo três determinações; na massa específica dos grãos, o volume é próprio das partículas conforme definição de ensaio. Em bases secas compatíveis, para ρunit=1490kg/m³ e ρgrãos=2650kg/m³, o percentual de vazios intergranulares é 43,8%. Compactação tende a elevar massa unitária e reduzir esse percentual; isso não altera a densidade mineral."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "ρ_unit=(M_rec+agr−M_rec)/Vrec; ρmédia=(Σρ_i)/n, n≥3; max_i |ρ_i−ρmédia|/ρmédia ≤1%; E_v[%]=100(1−ρ_unit/ρ_grãos) com bases compatíveis."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "A/B = compactados, C = solto; 3 determinações = repetições independentes, não 3 camadas; massa unitária inclui vazios intergranulares, massa específica dos grãos não."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "3 determinações 1480,1490,1500 kg/m³: média 1490; desvio máximo 10/1490=0,67%, dentro do limite de 1%. Usar em dosagem volumétrica e empacotamento granular."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1553, CARD-1550, CARD-0949, CARD-0694. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Os resultados dependem de graduação, forma, umidade, massa seca e volume calibrado. Não extrapolar o método ao Proctor para solos nem afirmar que 3 determinações são 3 golpes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Marcar apenas a primeira determinação; somar resultados em lugar de tirar média; interpretar massa unitária como densidade sólida; confundir com índice de vazios geotécnico."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO. Fonte: ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf. Histórico prévio preservado; PETRO26."
+        }
+      ],
+      "previous_front": "Qual a expressão e a unidade da densidade de massa aparente ρ?",
+      "previous_back": "ρ=m/Vaparente, em kg/m³."
+    },
+    "CARD-0694": {
+      "title": "Índice de vazios geotécnico vs percentual de vazios de agregados",
+      "front": "Como distinguir índice de vazios geotécnico e do agregado, e por que são diferentes denominadores?",
+      "back": "Geotecnia: e=Vv/Vs, razão entre vazios e volume de sólidos; percentual de vazios de agregado E=100×Vv/Vt (volume total). Relação E=100e/(1+e).",
+      "paragraphs": [
+        "Em Mecânica dos Solos, o índice de vazios e=Vv/Vs compara volume vazio com volume de sólidos. Na massa unitária de agregados, o percentual de vazios intergranulares é E=100Vv/Vt, onde Vt=Vs+Vv. Segue E=100e/(1+e); se e=0,8, E≈44,4% e não 80%. Sob compactação sem alteração relevante do volume sólido, e e E diminuem; não confundir com percentual de absorção de água nos poros dos próprios grãos.",
+        "Aplicação de recuperação: Os métodos A e B avaliam condições compactadas. No **método A**, para DMC até 37,5 mm, aplica-se haste em **3 camadas, 25 golpes em cada**. No **método B**, para DMC acima de 37,5 e abaixo de 75 mm, usa-se acomodação do recipiente por golpes, **50 por camada**. No **método C**, obtém-se a condição **solta**, lançando o material sem adensar de altura controlada. A norma 16972:2021 substituiu a NM45:2006, preservando a distinção entre métodos.",
+        "Distinção de prova: Como o volume do recipiente contém vazios entre os grãos, a massa unitária costuma ser inferior à massa específica das partículas. Em uma base seca compatível, o percentual de vazios intergranulares pode ser obtido de **100 × (1 − massa unitária/massa específica dos grãos)**. Um agregado com massa unitária de 1.490 kg/m³ e massa específica de partículas de 2.650 kg/m³ tem aproximadamente 43,8% de vazios, sem que isso represente o índice geotécnico e = Vv/Vs."
+      ],
+      "source": "ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf",
+      "mnemonic": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO.",
+      "trap": "Marcar apenas a primeira determinação; somar resultados em lugar de tirar média; interpretar massa unitária como densidade sólida; confundir com índice de vazios geotécnico.",
+      "compare": "A/B = compactados, C = solto; 3 determinações = repetições independentes, não 3 camadas; massa unitária inclui vazios intergranulares, massa específica dos grãos não.",
+      "related_card_ids": [
+        "CARD-1553",
+        "CARD-1550",
+        "CARD-0949",
+        "CARD-0694"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-MASSA-UNITARIA"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como distinguir índice de vazios geotécnico e do agregado, e por que são diferentes denominadores?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Geotecnia: e=Vv/Vs, razão entre vazios e volume de sólidos; percentual de vazios de agregado E=100×Vv/Vt (volume total). Relação E=100e/(1+e)."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Em Mecânica dos Solos, o índice de vazios e=Vv/Vs compara volume vazio com volume de sólidos. Na massa unitária de agregados, o percentual de vazios intergranulares é E=100Vv/Vt, onde Vt=Vs+Vv. Segue E=100e/(1+e); se e=0,8, E≈44,4% e não 80%. Sob compactação sem alteração relevante do volume sólido, e e E diminuem; não confundir com percentual de absorção de água nos poros dos próprios grãos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "ρ_unit=(M_rec+agr−M_rec)/Vrec; ρmédia=(Σρ_i)/n, n≥3; max_i |ρ_i−ρmédia|/ρmédia ≤1%; E_v[%]=100(1−ρ_unit/ρ_grãos) com bases compatíveis."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "A/B = compactados, C = solto; 3 determinações = repetições independentes, não 3 camadas; massa unitária inclui vazios intergranulares, massa específica dos grãos não."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "3 determinações 1480,1490,1500 kg/m³: média 1490; desvio máximo 10/1490=0,67%, dentro do limite de 1%. Usar em dosagem volumétrica e empacotamento granular."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1553, CARD-1550, CARD-0949, CARD-0694. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Os resultados dependem de graduação, forma, umidade, massa seca e volume calibrado. Não extrapolar o método ao Proctor para solos nem afirmar que 3 determinações são 3 golpes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Marcar apenas a primeira determinação; somar resultados em lugar de tirar média; interpretar massa unitária como densidade sólida; confundir com índice de vazios geotécnico."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "3 DETERMINAÇÕES para a média; A HASTE; B BATIDA; C SOLTO. Fonte: ABNT NBR NM 45:2006, itens 8–12; NBR 16972:2021; referência histórica https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR%20nm%2045%20-%202006.pdf. Histórico prévio preservado; PETRO26."
+        }
+      ],
+      "previous_front": "Como definir índice de vazios e o que acontece com ele durante compressão de solo saturado?",
+      "previous_back": "e=Vv/Vs; na compressão com volume dos sólidos aproximadamente constante, e diminui."
+    },
+    "CARD-0751": {
+      "title": "Séries de peneiras e limite de sobrecarga",
+      "front": "Na granulometria de agregados, como se relacionam séries de peneiras, DMC e controle de sobrecarga da tela?",
+      "back": "Séries normal/intermediária definem as aberturas e permitem cálculo de DMC; para malhas <4,75mm a massa retida não deve exceder 7kg/m² da área efetiva; na malha exatamente 4,75mm muda a fórmula.",
+      "paragraphs": [
+        "As séries normal e intermediária da NBR17054:2022 fornecem as aberturas do ensaio de agregado e não devem ser confundidas com classificação granulométrica de solos. Para as peneiras de abertura inferior a 4,75mm, a sobrecarga máxima é de 7kg/m² de área efetiva de tela, para evitar que grãos fiquem sem contato com a malha. Com 4,75mm ou mais, aplica-se mmax=2,5aS na convenção do método. A DMC, por sua vez, usa retenção acumulada próxima ao critério de 5%, outra grandeza e unidade.",
+        "Aplicação de recuperação: O limite existe porque o excesso de grãos forma várias camadas e impede que parte deles entre em contato com a tela. A peneira passa a reter material que deveria atravessá-la, modificando artificialmente a curva granulométrica, o módulo de finura e a dimensão máxima característica. A sobrecarga também pode deformar a tela.",
+        "Distinção de prova: Para peneiras de abertura **igual ou superior a 4,75 mm**, a norma adota outro critério proporcional à abertura nominal e à área efetiva: **mmax = 2,5 × a × S** (m em kg, a em mm e S em m², segundo a convenção do método). Exatamente 4,75 mm pertence à regra das malhas maiores ou iguais, e não à de 7 kg/m²."
+      ],
+      "source": "ABNT NBR NM 248:2003 5.2.4; NBR 17054:2022 6.1.4; https://studylib.net/doc/28364523/680770013-nbr-17054-gran-2022",
+      "mnemonic": "PENEIRA FINA (<4,75): 7 por área. Em 4,75 muda de fórmula.",
+      "trap": "Usuário marcou 5 kg/m²; confundir com o 5% de retenção acumulada de DMC e aplicar 7 kg/m² à malha exatamente 4,75 mm.",
+      "compare": "7 kg/m² é limite por ÁREA EFETIVA; retenção acumulada 5% é outro indicador da análise granulométrica. Fronteira 4,75 mm não inclusiva no primeiro critério.",
+      "related_card_ids": [
+        "CARD-1554",
+        "CARD-0751"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-PENEIRAMENTO"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Na granulometria de agregados, como se relacionam séries de peneiras, DMC e controle de sobrecarga da tela?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Séries normal/intermediária definem as aberturas e permitem cálculo de DMC; para malhas <4,75mm a massa retida não deve exceder 7kg/m² da área efetiva; na malha exatamente 4,75mm muda a fórmula."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR NM 248:2003 5.2.4; NBR 17054:2022 6.1.4; https://studylib.net/doc/28364523/680770013-nbr-17054-gran-2022"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "As séries normal e intermediária da NBR17054:2022 fornecem as aberturas do ensaio de agregado e não devem ser confundidas com classificação granulométrica de solos. Para as peneiras de abertura inferior a 4,75mm, a sobrecarga máxima é de 7kg/m² de área efetiva de tela, para evitar que grãos fiquem sem contato com a malha. Com 4,75mm ou mais, aplica-se mmax=2,5aS na convenção do método. A DMC, por sua vez, usa retenção acumulada próxima ao critério de 5%, outra grandeza e unidade."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "a<4,75mm → mmax=7S kg; a≥4,75mm → mmax=2,5aS kg (a em mm, S em m²); S=0,025m² → 0,175kg=175g."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "7 kg/m² é limite por ÁREA EFETIVA; retenção acumulada 5% é outro indicador da análise granulométrica. Fronteira 4,75 mm não inclusiva no primeiro critério."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Peneira 2,36 mm, S=0,04 m²: máximo retido 0,28 kg; se restarem 0,35 kg, o procedimento necessita redistribuir/adequar a carga."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1554, CARD-0751. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "NM248:2003 item 5.2.4, NBR17054:2022 6.1.4. Área efetiva da tela não equivale necessariamente à área calculada pelo diâmetro externo do aro."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Usuário marcou 5 kg/m²; confundir com o 5% de retenção acumulada de DMC e aplicar 7 kg/m² à malha exatamente 4,75 mm."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "PENEIRA FINA (<4,75): 7 por área. Em 4,75 muda de fórmula. Fonte: ABNT NBR NM 248:2003 5.2.4; NBR 17054:2022 6.1.4; https://studylib.net/doc/28364523/680770013-nbr-17054-gran-2022. Histórico prévio preservado; PETRO26."
+        }
+      ],
+      "previous_front": "Qual é a função das séries normal e intermediária de peneiras na NBR 17054:2022 e por que não devem ser confundidas com as frações de solo?",
+      "previous_back": "São conjuntos padronizados de aberturas para ensaio granulométrico de agregados; a classificação de solos adota critérios e métodos próprios."
+    },
+    "CARD-0755": {
+      "title": "Escórias e agregados reciclados: origem, tamanho e requisitos",
+      "front": "Por que escória e agregado reciclado não podem ser aceitos para concreto apenas pelo tamanho dos grãos e como a NBR 15116:2021 amplia aplicações?",
+      "back": "Granulometria não comprova aptidão: é preciso composição, impurezas, absorção, desempenho e norma aplicável. NBR15116:2021 admite agregado reciclado qualificado em certas aplicações estruturais, sem autorização geral para qualquer resíduo.",
+      "paragraphs": [
+        "Uma escória siderúrgica ou brita reciclada pode ter granulometria semelhante à brita natural sem apresentar a mesma absorção, estabilidade volumétrica, reatividade ou composição. NBR7211:2022 não torna automaticamente admissível qualquer subproduto industrial apenas por tamanho. A NBR15116:2004 limitava concretos com agregado reciclado a usos sem função estrutural na norma então citada; NBR15116:2021 ampliou aplicações para agregado reciclado de concreto qualificado em determinadas condições estruturais. É indispensável verificar composição, classe e requisitos específicos.",
+        "Aplicação de recuperação: A revisão **NBR 15116:2021** ampliou o escopo para argamassas e concretos e passou a admitir agregado reciclado de concreto em **algumas aplicações estruturais**, sob condições particulares de classe, qualidade e controle, incluindo percentuais limitados de substituição. A literatura que examina a norma informa limite de referência de **20%** de substituição e classes de agressividade ambiental I e II nas hipóteses da edição; não extrapolar o percentual para todo tipo de resíduo ou classe de concreto.",
+        "Distinção de prova: Qualquer aplicação depende da composição e caracterização do agregado reciclado — granulometria, absorção, contaminantes, impurezas e desempenho do concreto — e da compatibilidade com o projeto. **Reciclagem não transforma automaticamente todo entulho em agregado admissível para concreto estrutural**. A redação de 2004 é válida como contexto da questão histórica, não como descrição completa do escopo de 2021."
+      ],
+      "source": "ABNT NBR 15116:2004 e NBR 15116:2021; https://new.scielo.br/j/ac/a/QNNFCRvKbhfCRwx5sgNwxvM/?ilang=pt_BR&lang=pt ; https://buscadorsinapi.com.br/normas/nbr-15116-agregados-reciclados-para-uso-em-argamassas-e-concretos-de-cimento-portland-requ",
+      "mnemonic": "2004 = sem função estrutural; 2021 = estrutural SÓ COM CONDIÇÕES.",
+      "trap": "Afirmar que a norma vigente proíbe qualquer concreto estrutural reciclado; ou, no extremo oposto, autorizar 100% de substituição em qualquer ambiente.",
+      "compare": "2004: aplicações não estruturais na especificação citada. 2021: novas condições para concreto estrutural com agregado reciclado de concreto qualificado, além de aplicações não estruturais.",
+      "related_card_ids": [
+        "CARD-1552",
+        "CARD-1551",
+        "CARD-0755"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q-RECICLAGEM"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Por que escória e agregado reciclado não podem ser aceitos para concreto apenas pelo tamanho dos grãos e como a NBR 15116:2021 amplia aplicações?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta suficiente",
+          "texto": "Granulometria não comprova aptidão: é preciso composição, impurezas, absorção, desempenho e norma aplicável. NBR15116:2021 admite agregado reciclado qualificado em certas aplicações estruturais, sem autorização geral para qualquer resíduo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento técnico/normativo",
+          "texto": "ABNT NBR 15116:2004 e NBR 15116:2021; https://new.scielo.br/j/ac/a/QNNFCRvKbhfCRwx5sgNwxvM/?ilang=pt_BR&lang=pt ; https://buscadorsinapi.com.br/normas/nbr-15116-agregados-reciclados-para-uso-em-argamassas-e-concretos-de-cimento-portland-requ"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo causal",
+          "texto": "Uma escória siderúrgica ou brita reciclada pode ter granulometria semelhante à brita natural sem apresentar a mesma absorção, estabilidade volumétrica, reatividade ou composição. NBR7211:2022 não torna automaticamente admissível qualquer subproduto industrial apenas por tamanho. A NBR15116:2004 limitava concretos com agregado reciclado a usos sem função estrutural na norma então citada; NBR15116:2021 ampliou aplicações para agregado reciclado de concreto qualificado em determinadas condições estruturais. É indispensável verificar composição, classe e requisitos específicos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Cálculo e grandezas",
+          "texto": "NBR15116:2004 ARC fração graúda: ≥90% massa de fragmentos à base de cimento e rochas. Critérios da edição 2021 dependem de tipo de concreto e aplicação; não tratar 20% como autorização geral."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparações",
+          "texto": "2004: aplicações não estruturais na especificação citada. 2021: novas condições para concreto estrutural com agregado reciclado de concreto qualificado, além de aplicações não estruturais."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência/aplicação",
+          "texto": "Contrapiso ou calçada não estrutural com agregado beneficiado de classe A pode enquadrar-se nas aplicações históricas. Em viga estrutural, conferir rigorosamente qualificação do agregado e todos os limites da edição aplicável."
+        },
+        {
+          "ord": 8,
+          "titulo": "Relações e cobertura",
+          "texto": "Conexão por conhecimento: CARD-1552, CARD-1551, CARD-0755. A nova relação não é revisão SRS."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e ressalvas",
+          "texto": "Não inferir equivalência entre ARC de 2004 e nomenclaturas atuais ARCO/ARCI; consultar requisitos vigentes do projeto e legislação CONAMA para classificação do resíduo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e erros reais",
+          "texto": "Afirmar que a norma vigente proíbe qualquer concreto estrutural reciclado; ou, no extremo oposto, autorizar 100% de substituição em qualquer ambiente."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete, fontes e histórico",
+          "texto": "2004 = sem função estrutural; 2021 = estrutural SÓ COM CONDIÇÕES. Fonte: ABNT NBR 15116:2004 e NBR 15116:2021; https://new.scielo.br/j/ac/a/QNNFCRvKbhfCRwx5sgNwxvM/?ilang=pt_BR&lang=pt ; https://buscadorsinapi.com.br/normas/nbr-15116-agregados-reciclados-para-uso-em-argamassas-e-concretos-de-cimento-portland-requ. Histórico prévio preservado; PETRO26."
+        }
+      ],
+      "previous_front": "Uma escória industrial apresenta tamanho semelhante ao de brita. Isso basta para aceitá-la como agregado graúdo conforme a NBR 7211:2022?",
+      "previous_back": "Não. A distribuição granulométrica isolada não comprova aptidão; a NBR 7211:2022 exclui do seu escopo geral os agregados de subprodutos industriais. São necessárias especificações aplicáveis e verificação de desempenho."
+    }
+  },
+  "notes": "NBR16915 amostragem completa em 3 cartões, NBR15116 2 cartões; outras lacunas de PETRO26 integradas. Norma seca prioridade baixa; centralidade explicação e recuperação. SRS privado preservado."
+}
