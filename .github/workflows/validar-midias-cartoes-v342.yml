@@ -1,0 +1,19 @@
+name: Integridade de imagens nos cartões V342
+on:
+  push:
+    branches: [gh-pages]
+  pull_request:
+    branches: [gh-pages]
+  workflow_dispatch:
+jobs:
+  audit-card-media:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Conferir origem, IDs, SVGs, privacidade, fase e portal
+        run: node tests/v342_media_integrity.test.cjs
