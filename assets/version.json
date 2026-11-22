@@ -5307,5 +5307,32 @@
     "known_media_derived_on_audited": 21,
     "known_original_image_links_on_audited": 3,
     "audit_narrative": "121 IDs até V339, mais 3 IDs inéditos no escopo (CARD-0752/0753/1559), total 124; mídia original nos 3 IDs atuais, sem inferir situação histórica dos demais"
+  },
+  "quality_gate": {
+    "version": "V340",
+    "schema": "BancoMestreStudyQualityGate1",
+    "source": "assets/petro26_granulometry_delta_v340.json",
+    "audit": "assets/auditoria_petro20_v340.json",
+    "require_cards": [
+      "CARD-1559",
+      "CARD-0751",
+      "CARD-0752",
+      "CARD-0753"
+    ],
+    "require_original_media_ids": [
+      "IMG-PETRO26-NM248-TAB1-01"
+    ],
+    "require_derived_media_ids": [
+      "IMG-PETRO26-ESCALA-A4-01"
+    ],
+    "require_all_cards_have_11_criteria": true,
+    "require_semantic_highlights": true,
+    "require_media_asset_exists": true,
+    "require_media_attached_to_question": true,
+    "require_versions_and_SRS_preserved": true,
+    "require_browser_visual_test": "report pending; do not claim visually validated",
+    "test_script": "tools/check_metodologia_v340.js",
+    "status": "aprovado apenas em nível estrutural/estático; revisão visual/browser ainda não testada",
+    "applies_to": "incremento atual; próximas versões devem atualizar quality_gate.version e source, sob falha da checagem"
   }
 }
