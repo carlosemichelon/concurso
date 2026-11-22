@@ -1,0 +1,27 @@
+name: Verificar metodologia dos cartoes
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - "assets/**"
+      - "tools/check_metodologia_v340.js"
+      - "index.html"
+      - "v*.html"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cartoes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ler repositorio
+        uses: actions/checkout@v4
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validar cartoes e imagens da versao vigente
+        run: node tools/check_metodologia_v340.js
