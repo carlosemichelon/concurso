@@ -1,3 +1,16 @@
+## Fechamento Petrobras 26 — V341 (21/11/2026)
+
+**Portal público:** https://carlosemichelon.github.io/concurso/v341.html (snapshot V340 preservado). **Checkpoint privado salvo:** https://drive.google.com/file/d/14TeHrfybGUg9CJVOALefMN9MpPWZtpxu/view?usp=drivesdk.
+
+**Conteúdo da conversa:** os incrementos V337, V338 e V340 somam 18 novos cartões (CARD-1542 a CARD-1559) e 23 operações de evolução em 22 IDs distintos. A V339 introduziu anotações visuais, 9 SVGs derivados, tabelas e fórmulas nos 18 perfis correspondentes; V340 vinculou o original do quadro de peneiras aos CARD-0751/0752/0753 e um desenho A4 àqueles três e ao CARD-1559. V341 não modifica o conteúdo: restabelece e associa 3 imagens ORIGINAIS identificadas no histórico, com 10 vínculos no verso dos cartões pertinentes, sem divulgar bytes privados:
+
+- Tabela 4 NBR 16697: https://drive.google.com/file/d/1ysw1Atx5uSnxBfS9SsnC7GMd4JD7ded4/view?usp=drivesdk, relacionada aos cartões 1557/0567/0186/1546/1555.
+- Quadro histórico da composição CP II/III/IV: https://drive.google.com/file/d/1Vg6ql38pQcwhTTsaQT0kpNYAS-MRr7J_/view?usp=drivesdk, relacionado aos cartões 1122/0052/0168. ATENÇÃO: imagem contém CP II-F 6–10% (histórico), enquanto NBR 16697:2018 estabelece 11–25%.
+- Tabela NBR 15575 de mobiliário: https://drive.google.com/file/d/1PIoi2glAHHC-OlBAY6Du_HLQ_E-GWVkm/view?usp=drivesdk, relacionada aos cartões 1542/0190.
+- Tabela de peneiras NBR NM248 previamente salva na V340: https://drive.google.com/file/d/1FQBIKei7Se63h8ps2kS0qvr037sfMhru/view?usp=drivesdk, relacionada aos cartões 0751/0752/0753.
+
+**Estado de sincronização:** site e registro editorial no Drive sincronizados; quatro originais preservados no Atlas e com vínculo de cartão documentado. Verificação estática passou, sem teste em navegador autenticado. A base privada canônica identificada é a V175, com 1.536 cartões e 1.519 ativos em 20/11/2026; NÃO foi conciliada com os incrementos públicos V337–V341. O SRS permanece intocado. O checkpoint torna essa pendência explícita, evitando perda ou falsa alegação de sincronização privada completa. Petrobras 26 encerrado pedagogicamente e pronto para continuidade em Petrobras 27.
+
 ## Atualização 21/11/2026 — V340 · Escala granulométrica e auditoria metodológica Petrobras 20–26
 
 **Site principal:** https://carlosemichelon.github.io/concurso/v340.html | Versão anterior `v339.html` preservada.
