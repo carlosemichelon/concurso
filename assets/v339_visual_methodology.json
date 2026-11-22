@@ -25,7 +25,9 @@
     "bold": "apenas erro real comprovado; texto do estudante preservado",
     "images": "esquemas autorais exibidos apenas no verso; originais privados não publicados",
     "srs_modified": false,
-    "format": "resposta discursiva V333 e história recolhida"
+    "format": "resposta discursiva V333 e história recolhida",
+    "formulas": "MathML nativo em cartões onde há relações quantitativas; o LaTeX não aparece cru no leitor",
+    "tables": "Tabelas HTML verdadeiras nos cartões de regras comparativas; preservar cabeçalhos, dados, unidades e fontes."
   },
   "cards": {
     "CARD-1548": {
@@ -145,7 +147,33 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "table": {
+        "title": "Amostras mínimas — ensaios físicos/químicos",
+        "headers": [
+          "Tamanho nominal",
+          "Amostra de campo",
+          "Parciais mínimas"
+        ],
+        "rows": [
+          [
+            "Até 19 mm",
+            "40 kg",
+            "3"
+          ],
+          [
+            ">19 a 37,5 mm",
+            "75 kg",
+            "3"
+          ],
+          [
+            ">37,5 a 75 mm",
+            "150 kg",
+            "3"
+          ]
+        ],
+        "note": "NBR 16915:2021, Tabela 1. Condição específica de massa específica 2–3 g/cm³; dosagem usa tabela diferente."
+      }
     },
     "CARD-1551": {
       "marks": [
@@ -185,7 +213,33 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "table": {
+        "title": "Conceitos que a banca distingue",
+        "headers": [
+          "Conceito",
+          "Transformação?",
+          "O que acontece"
+        ],
+        "rows": [
+          [
+            "Reutilização",
+            "Não",
+            "Nova utilização da peça sem transformação"
+          ],
+          [
+            "Reciclagem",
+            "Sim",
+            "Reaproveitamento após transformação"
+          ],
+          [
+            "Beneficiamento",
+            "Etapas do processo",
+            "Triagem, britagem e classificação"
+          ]
+        ],
+        "note": "Síntese didática, não transcrição literal da NBR 15116."
+      }
     },
     "CARD-1552": {
       "marks": [
@@ -261,7 +315,43 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "table": {
+        "title": "Procedimentos do ensaio de massa unitária",
+        "headers": [
+          "Método",
+          "Condição",
+          "Operação"
+        ],
+        "rows": [
+          [
+            "A",
+            "Compactado, DMC ≤37,5 mm",
+            "3 camadas; 25 golpes de haste por camada"
+          ],
+          [
+            "B",
+            "Compactado, DMC >37,5 e <75 mm",
+            "3 camadas; 50 golpes no recipiente por camada"
+          ],
+          [
+            "C",
+            "Solto",
+            "Lançamento sem adensamento"
+          ]
+        ],
+        "note": "NM 45:2006, edição da questão; NBR 16972:2021 como revisão substitutiva."
+      },
+      "formulas": [
+        {
+          "caption": "Massa unitária",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>ρ</mi><mi>unit</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>m</mi><mi>agregado</mi></msub></mrow><mrow><msub><mi>V</mi><mi>recipiente</mi></msub></mrow></mfrac></math>"
+        },
+        {
+          "caption": "Vazios intergranulares",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>E</mi><mi>v</mi></msub><mo>=</mo><mn>100</mn><mo>(</mo><mn>1</mn><mo>−</mo><mfrac><mrow><msub><mi>ρ</mi><mi>unit</mi></msub></mrow><mrow><msub><mi>ρ</mi><mi>grãos</mi></msub></mrow></mfrac><mo>)</mo></math>"
+        }
+      ]
     },
     "CARD-1554": {
       "marks": [
@@ -301,7 +391,13 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "formulas": [
+        {
+          "caption": "Malha menor que 4,75 mm",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>m</mi><mi>máx</mi></msub><mo>=</mo><mn>7</mn><mo>⋅</mo><mi>S</mi></math>"
+        }
+      ]
     },
     "CARD-1555": {
       "marks": [
@@ -341,7 +437,13 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "formulas": [
+        {
+          "caption": "Distância entre sonda e placa-base",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mn>5</mn><mo>≤</mo><mi>d</mi><mo>≤</mo><mn>7</mn><mtext> mm</mtext></math>"
+        }
+      ]
     },
     "CARD-1556": {
       "marks": [
@@ -419,7 +521,38 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "table": {
+        "title": "Requisitos do CP V-ARI — NBR 16697:2018",
+        "headers": [
+          "Grandeza",
+          "Limite",
+          "Unidade/idade"
+        ],
+        "rows": [
+          [
+            "Início de pega",
+            "≥60",
+            "min"
+          ],
+          [
+            "Expansibilidade a quente",
+            "≤5",
+            "mm"
+          ],
+          [
+            "Finura, resíduo 75 μm",
+            "≤6",
+            "%"
+          ],
+          [
+            "Resistência",
+            "≥14 / ≥24 / ≥34",
+            "MPa aos 1 / 3 / 7 dias"
+          ]
+        ],
+        "note": "Tabela 4 da NBR 16697:2018; não confundir tempos de pega com resistência inicial."
+      }
     },
     "CARD-1558": {
       "marks": [
@@ -462,7 +595,43 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "table": {
+        "title": "Minerais e agregados leves",
+        "headers": [
+          "Material",
+          "Constituição",
+          "Classificação"
+        ],
+        "rows": [
+          [
+            "Barita",
+            "BaSO₄ (sulfato de bário)",
+            "Pesado"
+          ],
+          [
+            "Hematita",
+            "Fe₂O₃ (óxido de ferro)",
+            "Pesado"
+          ],
+          [
+            "Magnetita",
+            "Fe₃O₄",
+            "Pesado"
+          ],
+          [
+            "Argila expandida",
+            "Cerâmica porosa expandida",
+            "Leve"
+          ],
+          [
+            "Vermiculita",
+            "Filossilicato expandido",
+            "Leve"
+          ]
+        ],
+        "note": "Classificação conceitual; não equivale a massa unitária ou resistência do concreto."
+      }
     },
     "CARD-0186": {
       "marks": [
@@ -614,7 +783,13 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "formulas": [
+        {
+          "caption": "Diferença de volumes",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>E</mi><mi>v</mi></msub><mo>=</mo><mn>100</mn><mo>(</mo><mn>1</mn><mo>−</mo><mfrac><mrow><msub><mi>ρ</mi><mi>unit</mi></msub></mrow><mrow><msub><mi>ρ</mi><mi>grãos</mi></msub></mrow></mfrac><mo>)</mo></math>"
+        }
+      ]
     },
     "CARD-0694": {
       "marks": [
@@ -652,7 +827,17 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "formulas": [
+        {
+          "caption": "Índice geotécnico",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mi>e</mi><mo>=</mo><mfrac><mrow><msub><mi>V</mi><mi>v</mi></msub></mrow><mrow><msub><mi>V</mi><mi>s</mi></msub></mrow></mfrac></math>"
+        },
+        {
+          "caption": "Percentual de vazios",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>E</mi><mi>v</mi></msub><mo>=</mo><mn>100</mn><mo>⋅</mo><mfrac><mrow><mi>e</mi></mrow><mrow><mn>1</mn><mo>+</mo><mi>e</mi></mrow></mfrac></math>"
+        }
+      ]
     },
     "CARD-0751": {
       "marks": [
@@ -690,7 +875,13 @@
         "show_in_review_front": false
       },
       "original_image_audit": "Consultado catálogo de imagens F17 (7 entradas Materiais/Concreto/Agregados), mas sem ID/URL de mídia original validada para este conceito no cartão. Não promover automaticamente original privado.",
-      "status": "ESQUEMA_DIDATICO_VINCULADO"
+      "status": "ESQUEMA_DIDATICO_VINCULADO",
+      "formulas": [
+        {
+          "caption": "Peneiras finas",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>m</mi><mi>máx</mi></msub><mo>=</mo><mn>7</mn><mo>⋅</mo><mi>S</mi></math>"
+        }
+      ]
     },
     "CARD-0755": {
       "marks": [
