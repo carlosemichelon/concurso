@@ -1,3 +1,19 @@
+## Atualização 21/11/2026 — V340 · Escala granulométrica e auditoria metodológica Petrobras 20–26
+
+**Site principal:** https://carlosemichelon.github.io/concurso/v340.html | Versão anterior `v339.html` preservada.
+
+**1 novo cartão:** CARD-1559 — frações granulométricas NBR 6502:2022 (pedregulho fino 2–6, médio 6–20, grosso 20–60, pedra-de-mão 60–200, matacão 200–1.000 mm). Erro real do estudante: alternativa E pedra-de-mão; correta D pedregulho grosso para 20–60 mm. **3 evoluções no mesmo ID:** CARD-0751, CARD-0752 e CARD-0753 — séries de peneiras NBR NM248:2003/NBR17054:2022, normal 10 e intermediária 6, conjunto completo, aplicação na DMC/MF. Total público 1.558 cartões únicos, 1.541 ativos; SRS sem modificação.
+
+**Imagem original do estudante:** PETRO26_NM248_TABELA1_ORIGINAL_USUARIO_20261122.png, salva no Atlas privado do Drive, ID `1FQBIKei7Se63h8ps2kS0qvr037sfMhru`; hash SHA-256 `6d742f1adfa0dce2fd0428f2503f00845f5c58fbb8b2e25b376c0acebfc7baa4`. Associada aos IDs CARD-0751/0752/0753 e questão `PETRO26-GRAN-02`. O arquivo original **não foi publicado em bytes** no site, para não expor mídia privada; link ao arquivo restrito no verso.
+
+**Desenho autoral associado:** guia A4 vertical P&B, `assets/card_visuals_v340/escala_granulometrica_A4.svg`, SHA-256 `372b20f2345c3e0d54bec64a52137cbf203d60f92491ed553e7aba0af19d13df`. Arquivos SVG e PNG também salvos no Atlas privado; vinculado diretamente aos quatro cartões, exibido no verso junto à explicação, com fonte e legenda. Não é cópia da imagem original. Estilos `assets/v340_granulometry.css` e leitor `assets/v340_granulometry_renderer.js`; duas fórmulas MathML.
+
+**Auditoria histórica pelo método v014:** `assets/auditoria_petro20_v340.json` e relatório de leitura `AUDITORIA_PETRO20_A_V340.md`. Universo de 124 IDs tocados desde Petrobras 20 (V267 a V340); V339/V340 demonstram grifos e desenhos associados em 21 IDs, 103 aguardam cotejo de mídia por questão/camadas, o que não significa ausência de toda mídia. Imagem original rastreada a três IDs no incremento atual. Não declarar auditoria global concluída. Testes reais de navegador, sincronização SRS privado e conciliação da planilha canônica privada continuam pendentes.
+
+**Controle permanente:** adendo vinculante inserido na Metodologia Mestre v014 no Google Drive. `quality_gate` no manifesto atual e verificador `tools/check_metodologia_v340.js` com workflow `.github/workflows/verificar-metodologia-cartoes.yml`: valida estruturalmente cartões do release, 11 critérios, semântica declarada, arquivo SVG existente, original/questão/IDs/hash e snapshot. Os arquivos da automação foram publicados; **execução de GitHub Actions e proteção de branch não foram comprovadas**, portanto isto não é garantia absoluta contra publicações não conformes. Não substituir inspeção visual no navegador.
+
+**Validação executada com leituras pós-gravação:** `index.html` = `v340.html`; manifesto V340 com 1.558/1.541; 1 novo + 3 evoluídos, quatro perfis com 11 critérios, três vínculos ao original privado, quatro vínculos ao SVG, ligações recíprocas, 35 scripts inline com sintaxe válida. Nenhum evento SRS criado por erro/acerto de prova.
+
 ## Atualização 21/11/2026 — V339 · Grifos semânticos, imagens e rigor visual dos cartões
 
 Portal atual: https://carlosemichelon.github.io/concurso/v339.html · versão anterior preservada: `v338.html`.
