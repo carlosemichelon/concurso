@@ -1,3 +1,19 @@
+## Atualização 21/11/2026 — V339 · Grifos semânticos, imagens e rigor visual dos cartões
+
+Portal atual: https://carlosemichelon.github.io/concurso/v339.html · versão anterior preservada: `v338.html`.
+
+**Motivo:** auditoria solicitada pelo estudante identificou que os 18 perfis didáticos Petrobras 26/V338 exibiam apenas destaques em negrito e não traziam imagens diretamente incorporadas ao verso. Isso não satisfazia integralmente a Metodologia Mestre vigente. A prioridade máxima é que cada cartão siga o método completo, não apenas que exista no banco.
+
+**Correção implementada na V339:** 18/18 cartões do último incremento agora têm marcações estruturadas em `assets/v339_visual_methodology.json`; 73 anotações textuais coloridas nos quatro sentidos originais (conceito amarelo, sujeito/componente verde, condição/número azul, exceção rosa), com negrito aplicado apenas a quatro expressões de erro real nos IDs 1551, 1554, 1555 e 1556. As cores não são gravações em PDFs; são uma apresentação derivada sem modificar a redação histórica.
+
+**Imagens realmente anexadas ao verso:** nove diagramas técnicos vetoriais em `assets/card_visuals_v339/` vinculados semanticamente aos 18 cartões por ID e mostrados no próprio cartão **após a revelação**, próximos da explicação causal. Esquemas de coleta representativa, quarteamento, sobrecarga de peneiras, vazios entre grãos, Vicat, reciclagem, empilhamento, ensaios do cimento e minerais pesados/leves. Cada figura tem legenda, descrição acessível, identificador, fonte derivada e link direto à imagem SVG. Figuras autorais derivadas NÃO substituem ou falsificam fotos/recortes originais do estudante. As sete imagens do assunto “Materiais / Concreto e agregados” localizadas no catálogo F17 foram somente inventariadas; suas URLs/IDs de original não foram identificados e validados individualmente, portanto não foram publicadas como original de cartão.
+
+**Outros elementos úteis:** cinco tabelas HTML reais (quantidades de amostragem, reciclagem, métodos de massa unitária, CP V-ARI e classificação de agregados) e seis conjuntos de equações MathML para assuntos com cálculos e unidades. A resposta discursiva em fundo branco V333 e o histórico recolhido de 11 módulos foram preservados.
+
+**Arquivos:** `assets/v339_semantic_visual_renderer.js`, `assets/v339_semantic_visual.css`, `assets/v339_visual_methodology.json` e nove `.svg`. Sem novos IDs: permanecem 1.557 únicos, 1.540 ativos e 22 registros operacionais Ijuí. `index.html` e `v339.html` idênticos. Conferência ESTÁTICA: 18 perfis, 73 marcações, 9 SVG encontrados, 5 tabelas, 6 cartões com fórmulas, 34 scripts inline parseáveis, integridade dos vínculos e manifesto V339. Navegador real/autenticado, impressão/visibilidade e SRS privado continuam NÃO testados. Não foram alterados SRS, dados privados, originais de imagens, Atlas nem conteúdo técnico de V338.
+
+**Limite declarado:** a V339 corrige especificamente a apresentação dos 18 cartões V338. Não é correto extrapolar que todos os outros 1.539 cartões públicos tenham passado por auditoria visual ou que as fotos históricas tenham sido associadas. Ampliações futuras devem aplicar os critérios como preflight pontual, sem reprocessar a base integral durante o estudo.
+
 ## Atualização 21/11/2026 — V338 · Consolidação das questões e amostragem de agregados
 
 Entrada publicada: https://carlosemichelon.github.io/concurso/ · snapshot imutável: https://carlosemichelon.github.io/concurso/v338.html · versão anterior preservada: `v337.html`.
