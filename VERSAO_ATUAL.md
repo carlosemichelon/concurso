@@ -1,3 +1,17 @@
+## Atualização 21/11/2026 — V338 · Consolidação das questões e amostragem de agregados
+
+Entrada publicada: https://carlosemichelon.github.io/concurso/ · snapshot imutável: https://carlosemichelon.github.io/concurso/v338.html · versão anterior preservada: `v337.html`.
+
+**Publicação efetiva:** 11 cartões novos CARD-1548 a CARD-1558 e 7 cartões existentes evoluídos sem trocar IDs (CARD-0186, 0567, 1546, 0949, 0694, 0751, 0755). Total **1.557 cartões únicos**, dos quais **1.540 ativos**, além de 22 cartões operacionais de Ijuí (1.579 entradas combinadas). Arquivo versionado `assets/petro26_study_sync_v338.json`, leitor `assets/v338_editorial_renderer.js`. Padrão V333 de resposta-modelo discursiva, 11 critérios internos de aprendizagem, versões anteriores preservadas em histórico recolhível e vínculos bidirecionais. V337 e anteriores intactos.
+
+**Três cartões completos de amostragem (NBR 16915:2021):** CARD-1548 coleta representativa em pilhas, caminhões e correias; CARD-1549 redução de amostra de campo por separador e quarteamento; CARD-1550 lotes, três parciais, massas mínimas de 40/75/150 kg (Tabela 1) e valores distintos para dosagem (Tabela 2). Antes, não havia cartão direto de amostragem de agregados na base pública nem na fotografia XLSX V016; o CARD-0425 usa a palavra 'amostragem' para NBR 15575 e foi corretamente preservado sem vínculo indevido.
+
+**Reciclagem e beneficiamento:** CARD-1551 diferencia reciclagem após transformação, reutilização sem transformação e beneficiamento como processamento, com registro de erro real por leitura de enunciado. CARD-1552 separa as limitações da NBR 15116:2004 das hipóteses estruturais condicionadas da NBR 15116:2021; não generaliza autorização para concreto estrutural.
+
+**Outros conhecimentos agora integrados:** CARD-1553 massa unitária NM45/16972 e três determinações; CARD-1554 limite 7 kg/m² abaixo de 4,75 mm NM248/17054; CARD-1555 consistência Vicat 6 ±1 mm; CARD-1556 sacos de cimento 15/10 por duração e prazo 90 dias; CARD-1557 pega ≥60 min, expansão ≤5 mm, CP V-ARI 14/24/34 MPa; CARD-1558 barita/hematita/magnetita/limonita versus agregados leves. Evoluções substantivas nos sete IDs citados. Norma Seca de Engenharia tem prioridade BAIXA; referência normativa preservada e respostas priorizam mecanismos, cálculo e recuperação.
+
+**Segurança e limites de sincronização:** Publicação da camada pública do GitHub concluída, entrada `index.html` atualizada. O **XLSX canônico privado** `1SA-PKBrlaovuNLFMPBx7BByH3BH0Tcsr` foi verificado, mas é fotografia V016 antiga com 1.497 registros e não contém atualizações posteriores do portal. Portanto NÃO foi sobrescrito por risco de perda das versões privadas mais novas. O Drive recebe registro editorial dos incrementos e este manifesto público rastreia o conteúdo; **sincronização da base privada e SRS/OAuth ainda pendentes**. Não houve inferência de avaliação SRS por gabarito de prova, nem alterações em PDFs/imagens privados. Validação estática de HTML/JS; navegador autenticado e OAuth ainda não testados.
+
 ## Atualização 21/11/2026 — V337 · Petrobras 26
 
 Acesso principal: https://carlosemichelon.github.io/concurso/ · snapshot preservado: `v337.html` · retorno: `v336.html`.
