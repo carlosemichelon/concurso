@@ -31,11 +31,11 @@ function rootFor(host,id){
  return [...items].reverse().find(x=>[x.dataset.bm337Id,x.dataset.bm338Id,x.dataset.bm340Id].includes(id))||null;
 }
 function append(host,id){
- if(!dataset||!host.isConnected)return;
+ if(!dataset||!host.isConnected)return false;
  const pane=host.closest(".bm197-evolutive");
- if(host.closest("#bmCardPeekV050")&&window.BancoMestreVisualizarCardV050?.currentId!==id)return;
- const root=rootFor(host,id);if(!root||root.dataset.bm341Media==="yes")return;
- const imageIds=dataset.card_to_original[id];if(!imageIds)return;
+ if(host.closest("#bmCardPeekV050")&&window.BancoMestreVisualizarCardV050?.currentId!==id)return false;
+ const root=rootFor(host,id);if(!root)return false;if(root.dataset.bm341Media==="yes")return true;
+ const imageIds=dataset.card_to_original[id];if(!imageIds)return false;
  const section=el("section","bm340-original-image bm341-original-image");
  section.dataset.bm341For=id;
  section.append(el("h4","","Imagens originais vinculadas ao cartão"));
@@ -49,13 +49,24 @@ function append(host,id){
   const risk=el("p","bm339-caption bm341-media-caveat",media.warning+" Imagem privada; acesso condicionado às permissões do Drive.");
   item.append(a,note,risk);section.append(item);
  }
- root.append(section);root.dataset.bm341Media="yes";
+ root.append(section);root.dataset.bm341Media="yes";return true;
+}
+function watch(host,id){
+ const pane=host.closest(".bm197-evolutive"),scope=pane?.parentElement||host;
+ if(append(host,id))return;
+ const observer=new MutationObserver(()=>{
+  if(!host.isConnected||host.closest("#bmCardPeekV050")&&window.BancoMestreVisualizarCardV050?.currentId!==id){
+   observer.disconnect();return;
+  }
+  if(append(host,id))observer.disconnect();
+ });
+ observer.observe(scope,{childList:true,subtree:true});
 }
 function render(host,record,id){
  const output=prev.render(host,record,id);
  if(!allow.has(id))return output;
- if(dataset&&output?.loading!==true){append(host,id);return output;}
- load().then(()=>append(host,id)).catch(e=>console.warn("V341: imagens",e));
+ if(dataset&&output?.loading!==true){watch(host,id);return output;}
+ load().then(()=>watch(host,id)).catch(e=>console.warn("V341: imagens",e));
  return output;
 }
 window.BM198Format=Object.freeze({...prev,render,version:"V341-PETRO26-FECHAMENTO"});
