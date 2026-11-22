@@ -109,6 +109,19 @@ function mainFor(id,p){
   }
   t.append(body);tb.append(t);root.append(tb);
  }
+ if(id==="CARD-0751"||id==="CARD-0752"){
+  const area=el("section","bm339-technical bm340-technical");
+  area.append(el("h4","",id==="CARD-0751"?"Controle da sobrecarga da peneira":"Módulo de finura do agregado"));
+  const eq=el("div","bm339-math"),math=el("div","bm340-mathml");
+  const raw=(id==="CARD-0751")
+   ?'<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi>m</mi><mi>máx</mi></msub><mo>=</mo><mn>7</mn><mo>·</mo><mi>S</mi><mspace width="0.5em"/><mtext>kg, se abertura &lt; 4,75 mm</mtext></math>'
+   :'<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>MF</mi><mo>=</mo><mfrac><mrow><mo>∑</mo><mi>R</mi><msub><mi></mi><mi>acum,normal</mi></msub></mrow><mn>100</mn></mfrac></math>';
+  math.innerHTML=raw;eq.append(math);area.append(eq);
+  area.append(el("p","bm339-table-note",id==="CARD-0751"
+   ?"m em quilogramas; S = área efetiva da tela em m². Apenas para aberturas inferiores a 4,75 mm."
+   :"R representa os percentuais retidos acumulados nas peneiras da série normal; MF é adimensional."));
+  root.append(area);
+ }
  root.append(el("p","bm330-note","Fonte: "+p.source+" · Questões: "+p.related_question_ids.join(", ")));
  const legend=el("details","bm339-legend");
  legend.append(el("summary","","Legenda: cores dos grifos"));
