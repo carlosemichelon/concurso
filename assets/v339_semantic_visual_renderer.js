@@ -79,6 +79,46 @@ function addVisual(root,c){
  if(paras.length>=2)paras[1].after(figure);
  else (root.querySelector('.bm330-essay')||root).append(figure);
 }
+function addTechnical(root,c){
+ const hasMath=Array.isArray(c.formulas)&&c.formulas.length>0;
+ const hasTable=!!c.table;
+ if(!hasMath&&!hasTable)return;
+ const group=el('section','bm339-technical');
+ group.setAttribute('aria-label','Relações quantitativas e quadros técnicos do cartão');
+ if(hasMath){
+  const section=el('div','bm339-math-section');
+  section.append(el('h4','','Fórmulas e grandezas'));
+  for(const item of c.formulas){
+   const block=el('div','bm339-math-item');
+   block.append(el('span','bm339-math-title',item.caption));
+   // Fragmento MathML versionado e auditado, nunca texto livre da questão.
+   const display=el('div','bm339-math');
+   display.innerHTML=item.mathml;block.append(display);
+   section.append(block);
+  }
+  group.append(section);
+ }
+ if(hasTable){
+  const t=c.table;
+  const section=el('div','bm339-table-section');
+  section.append(el('h4','',t.title));
+  const wrap=el('div','bm339-table-scroll'),table=el('table','bm339-table'),thead=el('thead'),tr=el('tr');
+  for(const h of t.headers){const th=el('th','',h);th.scope='col';tr.append(th)}
+  thead.append(tr);table.append(thead);
+  const tb=el('tbody');
+  for(const row of t.rows){
+   const rr=el('tr');
+   row.forEach((val,i)=>{const cell=el(i===0?'th':'td','',val);if(i===0)cell.scope='row';rr.append(cell)});
+   tb.append(rr);
+  }
+  table.append(tb);wrap.append(table);section.append(wrap);
+  if(t.note)section.append(el('p','bm339-table-note',t.note));
+  group.append(section);
+ }
+ const legend=root.querySelector('.bm339-legend');
+ if(legend)legend.before(group);
+ else (root.querySelector('.bm330-essay')||root).after(group);
+}
 function addLegend(root,c){
  if(!c.marks.length)return;
  const details=el('details','bm339-legend');
@@ -126,7 +166,7 @@ function render(host,record,id){
  for(const p of root.querySelectorAll('.bm330-essay > p.bm330-para'))
   selected+=applyMarks(p,c.marks);
  if(!selected)throw Error('V339: nenhum grifo aplicado em '+id);
- addVisual(root,c);addLegend(root,c);
+ addVisual(root,c);addLegend(root,c);addTechnical(root,c);
  // Acessibilidade e rastreabilidade: o vínculo de imagem pertence ao cartão.
  root.dataset.bm339MediaId=c.visual.id;
  return {...result,presentation:'V339/V333',semantic_marks:selected,visual_assets:1,srsChanged:false};
