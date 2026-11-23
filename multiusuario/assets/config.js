@@ -5,5 +5,5 @@ export default {
   "project": "banco-mestre-multiusuario-v001",
   "folderName": "Banco Mestre - Dados privados",
   "mode": "private-per-account",
-  "legacyMigration": "disabled"
+  "legacyMigration": "explicit-owner-verified-catalog-only"
 };
