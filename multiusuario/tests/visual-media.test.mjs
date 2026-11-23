@@ -28,4 +28,12 @@ assert.equal(cardMedia({...db,media:[{...back,visual:{...back.visual,technicalSt
 assert.equal(cardMedia({...db,media:[{...base,visual:{...base.visual,technicalStatus:'PENDENTE'}}]},card.id,'front').length,0);
 assert.equal(cardMedia(empty(),card.id,'back').length,0);
 assert.equal(db.events.length,0);assert.deepEqual(schedule(card,[]),schedule(card,db.events,db.questions));
-console.log('PASS proveniência, vínculos, pendências, frente/verso, integridade e estados.');
+const ordinary={...back,id:'IMG-5',fileId:'f5',visual:{...back.visual,sha256:null,verifiedAt:null,savedAt:verifiedAt}};
+const ordinary2={...ordinary,id:'IMG-6',fileId:'f6'};
+assert.equal(visualRecord(ordinary,db).id,'IMG-5');
+assert.equal(validateVisuals({...db,media:[...db.media,ordinary,ordinary2]}).media.length,4);
+assert.equal(mediaState(ordinary),'VINCULADA · GRAVAÇÃO CONFIRMADA');
+assert.equal(mediaState(ordinary,true),'EXIBIÇÃO TESTADA NESTA SESSÃO');
+assert.throws(()=>visualRecord({...ordinary,visual:{...ordinary.visual,savedAt:null}},db));
+assert.equal(db.events.length,0);
+console.log('PASS proveniência, vínculos, pendências, frente/verso e fluxo simplificado sem hash.');
