@@ -41,3 +41,6 @@ Na aba Backup e Google Drive, selecionar até cinco imagens históricas por oper
 
 ## V011.1 — aplicação da desburocratização do estudo
 O SHA-256 deixa de ser obrigatório no cadastro comum e na exibição de imagens/SVGs. O retorno normal da gravação confirma o arquivo; o registro mantém ID, fonte, autoria, vínculos, pendências e original. Hashes históricos não são apagados. SHA-256 continua restrito à manutenção extraordinária (migração/transferência, restauração compatível e incidente real). Não calcular hashes por questão ou cartão. Proteções de identidade, propriedade e concorrência continuam internas. Revoga a exigência operacional de hash obrigatório no fluxo comum descrita na V005.
+
+## V012 — navegação, filtros e agenda
+Comparação inicial com portal original V345: Assuntos em níveis disciplina/assunto/subassunto; consulta e prática filtradas; filtros de situação, busca ampliada e disciplina na lateral; agenda distingue vencidos, futuros e sem data, sem ordenar null nem converter ausência em atraso. Modo extra é escolha explícita e não ocorre automaticamente após a fila de hoje. Sem hash por cartão, sem SRS na consulta. Paridade parcial: planejamento/ciclo de estudo, busca de PDFs e imagens, conversão de grifos antigos, conciliação público/privado, aspecto visual e homologação ainda pendentes.

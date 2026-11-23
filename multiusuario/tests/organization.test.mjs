@@ -1,0 +1,16 @@
+import {strict as assert} from 'node:assert';
+import {taxonomy,matchesTaxonomy,topicTree,agendaRows,reviewQueue,cardStatus,librarySearch} from '../assets/organization.js';
+import {empty} from '../assets/model.js';
+const today='2026-11-23',createdAt='2026-11-01T12:00:00Z';
+const make=(id,topic,extra={})=>({id,topic,question:'Pergunta',answer:'Resposta',state:'active',createdAt,approvedAt:createdAt,history:[],...extra});
+const a=make('CARD-0001','Engenharia / Estruturas / Flexão'),b=make('CARD-0002','Engenharia / Estruturas / Cisalhamento',{legacy:{record:{discipline:'Engenharia',subject:'Estruturas',sub:'Cisalhamento'},srs:null}}),c=make('CARD-0003','Direito / Constituição',{createdAt:'2026-11-20T12:00:00Z',approvedAt:'2026-11-20T12:00:00Z'}),d=make('CARD-0004','Engenharia / Solos',{state:'archived'}),e=make('CARD-0005','Engenharia / Solos',{state:'draft'});
+const db=empty();db.cards=[a,b,c,d,e];
+assert.deepEqual(taxonomy(a),{discipline:'Engenharia',subject:'Estruturas',subtopic:'Flexão'});
+assert.equal(taxonomy(b).subtopic,'Cisalhamento');assert.equal(matchesTaxonomy(a,{discipline:'Engenharia',subject:'Estruturas'}),true);assert.equal(matchesTaxonomy(a,{subtopic:'Cisalhamento'}),false);
+assert.equal(topicTree(db.cards).length,2);assert.equal(topicTree(db.cards,'flexao')[0].subjects[0].subtopics[0].active,1);
+assert.deepEqual(agendaRows(db,today).map(x=>x.group),['due','future','unscheduled']);
+assert.deepEqual(reviewQueue(db,today).map(x=>x.id),[a.id]);assert.equal(reviewQueue(db,today,{reviewed:[a.id]}).length,0);
+assert.deepEqual(reviewQueue(db,today,{mode:'unscheduled'}).map(x=>x.id),[b.id]);assert.equal(reviewQueue(db,today,{mode:'extra',filter:{discipline:'Engenharia'}}).length,2);
+assert.equal(cardStatus(d,db,today),'archived');assert.equal(cardStatus(e,db,today),'draft');assert.equal(cardStatus(b,db,today),'unscheduled');
+assert.equal(librarySearch([{title:'Concreto armado',topic:'Estruturas',cardIds:[a.id]}],'concreto CARD-0001').length,1);assert.equal(db.events.length,0);
+console.log('PASS organização, filtros e agenda sem alterações do SRS');
