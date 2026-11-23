@@ -11,3 +11,6 @@ Fase 1: cartões, SRS, recorrência, questões, lacunas, referências PDF/imagen
 
 ## V002 — arquivos privados
 Upload de PDFs e imagens até 20 MB, pasta separada por tipo e proprietário, validação de metadados, leitura autenticada e vínculo aos cartões. SVG é baixado, não inserido como HTML; referências externas não são carregadas automaticamente. A sessão revoga URLs de prévia ao navegar/sair. O catálogo e os originais permanecem separados; se a confirmação do catálogo falhar, o original não é destruído. Ainda falta teste OAuth real e o grifador completo.
+
+## V003 — editores privados
+Editor de imagens V053 original portado com o mesmo HTML e controles, removendo acesso ao localStorage antigo. Grifos por arquivo imutável e conta autenticada, no snapshot privado; o original não muda. Editor PDF em iframe sandbox com PDF.js, comunicação limitada ao arquivo da sessão, traços, retângulos, borracha, zoom, páginas, desfazer/refazer. Não equivale ao editor PDF avançado V343 (seleção textual, exportação anotada e biblioteca de grifos ainda pendentes). PDF.js utiliza versão do portal original com isEvalSupported=false e isolamento de origem; teste real e revisão de dependência pendentes. SVG é decodificado como imagem, não injetado como HTML. Sintaxe validada; interação visual/OAuth ainda não homologada.
