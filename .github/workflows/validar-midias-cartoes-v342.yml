@@ -16,4 +16,6 @@ jobs:
         with:
           node-version: '22'
       - name: Conferir origem, IDs, SVGs, privacidade, fase e portal
-        run: node tests/v342_media_integrity.test.cjs
+        run: |
+          node tests/v342_media_integrity.test.cjs
+          node tests/v343_petro27.test.cjs
