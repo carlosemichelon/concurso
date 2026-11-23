@@ -1,0 +1,2 @@
+# V010 — validação
+29 verificações do importador com dados sintéticos, 44 verificações de regressão SRS/isolamento, total 73. Fonte real V176 conferida em leitura privada: SHA coincide com ponteiro, 1541 cartões, 1524 ativos com 11 módulos verificáveis, 17 inativos, 61 questões, 30 mídias, 1522 SRS, 29 ativos com vencimento, IDs válidos e únicos. Não executada importação real na conta, cópia de anexos, homologação OAuth/browser nem regressão integral V009 nesta etapa. Nenhum byte privado foi colocado neste repositório.
