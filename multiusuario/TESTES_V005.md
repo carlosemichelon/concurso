@@ -1,0 +1,2 @@
+# V005 — validação de integridade visual
+27 verificações novas, 64 de regressão; total 91. Abrange origem, vínculos, frente/verso, pendência, reuso por hash, estados e ausência de evento SRS. A conferência SHA-256 real é executada pelo navegador no upload e na leitura; ainda não foi testada com Google real. Exibição só é declarada na sessão após carregamento do elemento de imagem. Não há sincronização automática universal de anexos do chat. Testes de browser e OAuth pendentes.
