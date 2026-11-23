@@ -1,0 +1,2 @@
+# Validação V003
+14 verificações de integridade de marcações, 11 verificações de isolamento anteriores e 15 verificações de concorrência com Drive simulado, todas executadas. Editor de imagem reaproveitado sem armazenamento legado; bridge PDF confere janela, origem opaca, sessão e nonce. Sintaxe dos componentes validada. Não executado em browser real; não comprova renderização PDF, gestos, OAuth nem paridade V343.
