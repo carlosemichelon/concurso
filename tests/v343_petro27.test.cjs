@@ -27,7 +27,7 @@ for(const [id,record]of [...Object.entries(packet.existing),...Object.entries(pa
  record.layers.forEach((m,i)=>{assert.equal(m.ord,i+1);assert(m.titulo.length>2&&m.texto.length>25,'Módulo incompleto: '+id+'/'+(i+1));});
  assert(record.source_url.startsWith('https://docs.google.com/document/d/'),'Fonte rastreavel: '+id);
 }
-assert.equal(packet.media.length,4);
+assert.equal(packet.media.length,5);
 const urls=new Set();
 for(const m of packet.media){
  assert(!urls.has(m.src),'SVG duplicado: '+m.src);urls.add(m.src);
