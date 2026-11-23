@@ -14,6 +14,24 @@ window.BM276LayerData=Object.freeze({...old,has:id=>all.has(id)||old.has?.(id)==
  return {...prior,id,layers:ls,prior_layers:oldLayers||[],petro28:p,updated:'2026-11-23'};
 }});
 const el=(tag,cls,txt)=>{let e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=String(txt);return e;};
+function mediaFor(box,p){
+ for(const m of data.media||[]){
+  if(!m.card_ids.includes(p.id))continue;
+  const fig=el('figure','bm343-figure');fig.dataset.mediaId=m.media_id;
+  if(m.kind==='DERIVADA_AUTORAL'){
+   const img=el('img');img.src=m.src;img.alt=m.caption;img.loading='lazy';img.style.maxWidth='100%';fig.append(img);
+   const status=el('small','','Carregando SVG…');const check=()=>{status.textContent=img.complete?(img.naturalWidth?'SVG carregado no leitor':'Falha de carregamento do SVG'):'Carregando SVG…';};
+   img.addEventListener('load',check);img.addEventListener('error',check);fig.append(el('figcaption','',m.caption),status);check();
+  }else{
+   const a=el('a','','Abrir original no Drive — '+m.caption);a.href=m.url;a.target='_blank';a.rel='noopener noreferrer';fig.append(a);
+   const d=el('details');d.append(el('summary','','Prévia autenticada do original'));
+   d.addEventListener('toggle',()=>{if(!d.open||d.querySelector('iframe'))return;let f=el('iframe');f.src=m.url.replace(/\/view$/,'/preview');f.title=m.caption;f.referrerPolicy='no-referrer';f.loading='lazy';f.style.cssText='width:100%;height:420px;border:0';d.append(f,el('small','','Se a prévia não abrir, acesse o link com sua conta autorizada.'));});fig.append(d);
+   fig.append(el('small','','Link privado; exibição depende de acesso ao Drive.'));
+  }
+  box.append(fig);
+ }
+}
+
 function supplement(p,full){
  const box=el('section','bm330-learning bm344-supplement');box.dataset.bm344Id=p.id;
  box.append(el('div','bm330-caption','PETROBRAS 28 · '+p.id),el('h3','',p.title));
@@ -22,7 +40,7 @@ function supplement(p,full){
  if(p.related_card_ids.length){let row=el('div','bm343-proposal-controls');for(const target of p.related_card_ids){let b=el('button','',target);b.type='button';b.addEventListener('click',()=>window.BM317RelatedNavigator?.openReferenced?.(target));row.append(b)}box.append(row)}
  let details=el('details','bm330-evolution');details.append(el('summary','','11 módulos didáticos · Petrobras 28'));
  for(const m of p.layers){const sec=el('section','bm343-module');sec.append(el('h4','',m.ord+'. '+m.titulo),el('p','',m.texto));details.append(sec)}
- box.append(details);return box;
+ mediaFor(box,p);box.append(details);return box;
 }
 const observers=new WeakMap();
 function render(host,record,id){
