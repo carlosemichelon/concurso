@@ -81,9 +81,9 @@ for(const dir of fs.readdirSync(path.join(root,'assets')).filter(x=>/^card_visua
   check(registryPublic.has(p),'Novo SVG não associado a cartão (registrar antes de publicar): '+p);
  }
 }
-const html=read('index.html'),snap=read('v342.html'),ver=json('assets/version.json');
-check(html===snap,'index.html diverge do snapshot v342.html');
-check(ver.version==='V342','Versão/manifesto não corresponde a V342');
+const ver=json('assets/version.json'),html=read('index.html'),snap=read(ver.version==='V343'?'v343.html':'v342.html');
+check(html===snap,'index.html diverge do snapshot de versão ativa');
+check(['V342','V343'].includes(ver.version),'Versão/manifesto fora de V342/V343');
 check(html.includes('assets/v342_media_integrity.js'),'Leitor não carrega auditoria de mídia V342');
 check(html.includes('assets/v342_media_integrity.css'),'Leitor sem estilo de auditoria V342');
 check(html.lastIndexOf('v342_media_integrity.js')>html.lastIndexOf('v341_petro26_original_media.js'),
