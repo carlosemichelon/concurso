@@ -149,6 +149,23 @@ function foldFor(id,p,record){
   for(const mod of older){const row=el('section','bm343-module');row.append(el('h4','',mod.ord+'. '+mod.titulo),el('p','',mod.texto));historic.append(row);}
   body.append(historic);
  }
+ const links=el('details','bm343-evolution');
+ links.append(el('summary','','Cartões relacionados (vínculos editoriais)'));
+ const relList=el('div','bm343-proposal-controls');
+ for(const target of p.related_card_ids||[]){
+  const b=el('button','',target);b.type='button';b.dataset.referenceCardId=target;
+  b.addEventListener('click',event=>{
+   event.preventDefault();
+   if(window.BM317RelatedNavigator?.openReferenced){
+    window.BM317RelatedNavigator.openReferenced(target);
+   }else{
+    const message=el('small','bm343-warning','Navegador de relacionados indisponível nesta sessão.');
+    relList.append(message);b.disabled=true;
+   }
+  });
+  relList.append(b);
+ }
+ links.append(relList);body.append(links);
  const footer=el('p','bm343-source','Original do cartão, respostas anteriores e SRS não foram substituídos por esta camada.');
  body.append(footer);box.append(body);return box;
 }
