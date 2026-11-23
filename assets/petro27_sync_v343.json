@@ -2,12 +2,13 @@
   "format": "BancoMestrePetro27SyncV343",
   "created": "2026-11-23",
   "method": "Metodologia Mestre v014 + V342",
-  "public_scope": "Camada didatica dos sete IDs existentes e caderno de 11 propostas nao ativadas; original e SRS preservados",
+  "public_scope": "V343: sete evolucoes de IDs existentes e onze propostas; cinco SVGs didaticos associados ao verso. Original e SRS preservados",
   "counts": {
     "existing": 7,
     "proposals": 11,
     "modules_existing": 77,
-    "modules_proposals": 121
+    "modules_proposals": 121,
+    "media_public_svg": 5
   },
   "existing": {
     "CARD-0199": {
@@ -304,7 +305,7 @@
         {
           "ord": 11,
           "titulo": "MACETES, EXCEÇÕES, RECUPERAÇÃO",
-          "texto": "MACETE 1: “P TRABALHA, Q MAGNETIZA, S SOBRECARREGA A REDE.”\nMACETE 2: “CAPACITOR COMPENSA Q, NÃO O TRABALHO P.”\nMACETE 3: “MENOS Q DA REDE → MENOR S → MENOR CORRENTE, A MONTANTE.”\nMACETE 4: “CORRENTE CAI DEPOIS DA COMPENSAÇÃO SOMENTE ONDE A TOPOLOGIA PERMITE.”\nTESTE A: P=24 kW; FP vai de 0,80 a 0,96. O que acontece com S e qual o Q compensado?\nTESTE B: por que não se pode aproveitar a corrente menor no ramal de motor quando o banco está somente na entrada geral?\nTESTE C: por que um banco fixo pode produzir FP capacitivo em horários de menor carga? \nTESTE D: diferencie o fator de potência do fator de carga e do rendimento de motor.\nSEM GABARITO DURANTE RECUPERAÇÃO ATIVA; manter apenas frente, depois liberar verso conforme modalidade de revisão.\n\nHISTÓRICO E VÍNCULOS\nCARD-0731 existente no F17: Frente original “Na situação descrita para Circuitos elétricos — potência, qual é a expressão ou o valor obtido?”; verso original “Em cc ou carga de fator de potência unitário: P=UI”; complemento histórico “em CA monofásica, potência ativa P=UI cosφ.” Este conteúdo NÃO é substituído; esta ficha é uma evolução técnica com resolução da lacuna sobre banco de capacitores.\nVínculos de aplicação: instalação elétrica motobombas e potência de motores; princípio de continuidade e perda I²R; CARD-0272/0434 (circuitos distintos/condutores funcionais, apenas contraste de croqui); CARD-0454 (leitura dos trechos, somente conexão de raciocínio de topologia, sem duplicar). Nenhum outro cartão de banco de capacitores foi identificado na busca direcionada F17 e adendos examinados; nova frente autônoma deve ser PROPOSTA antes de incluir no banco canônico.\nNão há informação do estudante sobre alternativa marcada na questão de fator de potência. Não registrar erro efetivo, nota SRS, nem marcar concluído operacionalmente.\n\nMÍDIA ASSOCIADA, FONTE E LEGENDA\nPrancha SVG autoral vetorial A4 P&B: https://drive.google.com/file/d/1v3SkEWIDfdaE_-_4z2h2fdczjj1Uh57C/view\nLegenda: triângulo P-Q-S antes/depois de correção de FP em elevatória e topologia de banco global no quadro, com correntes a montante/jusante. Unidade/valores: P=30 kW constante; Q1=22,5 kvar; Q2=8,75 kvar; FP 0,8→0,96. Origem: diagrama n"
+          "texto": "MACETE 1: “P TRABALHA, Q MAGNETIZA, S SOBRECARREGA A REDE.”\nMACETE 2: “CAPACITOR COMPENSA Q, NÃO O TRABALHO P.”\nMACETE 3: “MENOS Q DA REDE → MENOR S → MENOR CORRENTE, A MONTANTE.”\nMACETE 4: “CORRENTE CAI DEPOIS DA COMPENSAÇÃO SOMENTE ONDE A TOPOLOGIA PERMITE.”\nTESTE A: P=24 kW; FP vai de 0,80 a 0,96. O que acontece com S e qual o Q compensado?\nTESTE B: por que não se pode aproveitar a corrente menor no ramal de motor quando o banco está somente na entrada geral?\nTESTE C: por que um banco fixo pode produzir FP capacitivo em horários de menor carga? \nTESTE D: diferencie o fator de potência do fator de carga e do rendimento de motor.\nSEM GABARITO DURANTE RECUPERAÇÃO ATIVA; manter apenas frente, depois liberar verso conforme modalidade de revisão."
         }
       ],
       "paragraphs": [
@@ -1418,6 +1419,17 @@
       "role": "VERSO_APOS_TENTATIVA",
       "source": "SVG autoral preexistente no Drive",
       "drive_id": "1gwWZPTjgGNl9ct2yW_JB7qdWguhIc3PG"
+    },
+    {
+      "media_id": "PETRO27-SVG-FP-PQS",
+      "src": "assets/petro27_v343_figures/fator_potencia_compensacao.svg",
+      "card_ids": [
+        "CARD-0731"
+      ],
+      "proposal_ids": [],
+      "role": "VERSO_APOS_TENTATIVA",
+      "source": "Diagrama técnico P-Q-S e localização do banco capacitivo; SVG autoral preservado no Drive",
+      "drive_id": "1v3SkEWIDfdaE_-_4z2h2fdczjj1Uh57C"
     }
   ],
   "private_originals_pending": [
