@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Banco Mestre — Petrobras 27 | Propostas de estudo V343</title>
+<link rel="stylesheet" href="assets/v343_petro27.css?v=343-1">
+</head>
+<body class="bm343-proposal-page">
+<main class="bm343-proposal-shell">
+<div class="bm343-proposal-top">
+ <div><div class="bm343-caption">BANCO MESTRE · PETROBRAS 27</div><h1>Propostas didáticas</h1></div>
+ <a href="index.html">Voltar ao Banco Mestre</a>
+</div>
+<p class="bm343-proposal-warning">Onze fichas provisórias, com 11 módulos cada. São material de estudo, ainda não transformado em cartões definitivos. Não registram SRS e não substituem perguntas ou históricos do Banco Mestre.</p>
+<label for="cardSelect">Escolha o assunto a estudar</label>
+<select id="cardSelect" class="bm343-proposal-select" aria-label="Selecionar ficha de estudo"></select>
+<div class="bm343-proposal-controls">
+<button id="prev" type="button">Anterior</button>
+<button id="next" type="button">Próximo</button>
+<button id="reveal" class="bm343-reveal" type="button" aria-controls="answer">Revelar resposta</button>
+</div>
+<section class="bm343-proposal-front" aria-live="polite">
+<div id="provisionalId" class="bm343-caption"></div>
+<h2 id="topic">Carregando fichas…</h2>
+<p id="prompt">A pergunta aparecerá aqui.</p>
+</section>
+<section id="answer" class="bm343-proposal-back" hidden aria-live="polite"></section>
+<p id="status" class="bm343-proposal-warning" role="status"></p>
+</main>
+<script>
+(function(){
+'use strict';
+const q=id=>document.getElementById(id);
+let cards=[],packet=null,index=0;
+const state={id:null,show:false};
+function elt(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=String(text);return x;}
+function addImg(host,card){
+ for(const m of packet.media.filter(x=>x.proposal_ids.includes(card.id))){
+  const fig=elt('figure','bm343-figure'),a=elt('a');a.href=m.src;a.target='_blank';a.rel='noopener noreferrer';
+  const img=elt('img');img.src=m.src;img.alt='Esquema técnico para '+card.title;img.loading='lazy';
+  a.append(img);fig.append(a,elt('figcaption','',m.source));
+  const flag=elt('small','bm343-media-status','Carregando esquema…');
+  function check(){
+   const status=img.complete?(img.naturalWidth>0?'CARREGADA':'FALHA'):'CARREGANDO';
+   flag.dataset.status=status;
+   flag.textContent=status==='CARREGADA'?'Imagem efetivamente carregada':
+       status==='FALHA'?'Erro ao carregar; use o link do SVG':'Carregando esquema…';
+  }
+  img.addEventListener('load',check);img.addEventListener('error',check);
+  fig.append(flag);host.append(fig);check();
+ }
+}
+function open(){
+ const card=cards[index];
+ if(!card)return;
+ state.id=card.id;state.show=false;
+ q('cardSelect').value=card.id;
+ q('provisionalId').textContent=card.id+' • Proposta não ativada';
+ q('topic').textContent=card.title;
+ q('prompt').textContent=card.front;
+ q('answer').hidden=true;q('answer').replaceChildren();
+ q('reveal').textContent='Revelar resposta';
+ q('status').textContent='Pense na resposta antes de abrir o verso. Nenhuma classificação SRS é registrada.';
+}
+function show(){
+ const card=cards[index];
+ if(!card)return;
+ const root=q('answer');root.replaceChildren();
+ const article=elt('article','bm343-reading');
+ article.append(elt('div','bm343-caption','VERSO · RESPOSTA-MODELO'),
+   elt('h3','',card.title),elt('p','',card.back));
+ const source=elt('p','bm343-source');source.textContent='Fonte didática: ';
+ const link=elt('a','','Ficha editorial no Google Drive');
+ link.href=card.source_url;link.rel='noopener noreferrer';link.target='_blank';source.append(link);
+ article.append(source);addImg(article,card);
+ const fold=elt('details','bm343-evolution');
+ fold.append(elt('summary','','Abrir os 11 módulos didáticos'));
+ for(const m of card.layers){
+  const section=elt('section','bm343-module');
+  section.append(elt('h4','',m.ord+'. '+m.titulo),elt('p','',m.texto));fold.append(section);
+ }
+ article.append(fold);root.append(article);root.hidden=false;
+ state.show=true;q('reveal').textContent='Ocultar resposta';
+ q('status').textContent='Resposta revelada. O histórico e o SRS não foram alterados.';
+}
+q('prev').addEventListener('click',()=>{if(cards.length){index=(index+cards.length-1)%cards.length;open();}});
+q('next').addEventListener('click',()=>{if(cards.length){index=(index+1)%cards.length;open();}});
+q('reveal').addEventListener('click',()=>{if(!state.show)show();else{q('answer').hidden=true;state.show=false;q('reveal').textContent='Revelar resposta';}});
+q('cardSelect').addEventListener('change',e=>{const pos=cards.findIndex(x=>x.id===e.target.value);if(pos>=0){index=pos;open();}});
+fetch('assets/petro27_sync_v343.json?v=343-1',{cache:'no-store'}).then(r=>{
+ if(!r.ok)throw Error('Conteúdo indisponível');return r.json();
+}).then(p=>{
+ if(p.format!=='BancoMestrePetro27SyncV343')throw Error('Formato incorreto');
+ packet=p;cards=Object.values(p.proposals);
+ if(cards.length!==11||cards.some(c=>c.layers?.length!==11))throw Error('Propostas incompletas');
+ for(const c of cards){const option=elt('option','',c.id+' — '+c.title);option.value=c.id;q('cardSelect').append(option);}
+ open();
+}).catch(e=>{q('topic').textContent='Não foi possível abrir as propostas';q('status').textContent=String(e.message);});
+})();
+</script>
+</body>
+</html>
