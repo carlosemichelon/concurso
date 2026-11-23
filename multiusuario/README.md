@@ -26,3 +26,6 @@ Cartão correspondente e relacionados explicitamente selecionados entram na fila
 
 ## V007 — escala final sem Errei
 Decisão expressa de 23/11/2026: somente Difícil 8, Bom 16, Fácil 24, Conhecimento preservado 32 e Conhecimento adquirido 64. Erros reais continuam registrados como lacunas. Eventos anteriores, incluindo Errei e política experimental V006, mantêm prazo e rótulo históricos. Novos eventos usam SRS-2026-11-23-v2. Questões de ambas as políticas continuam elegíveis. Não há migração retroativa de dados. Acesso simultâneo real e publicação de produção ainda pendentes.
+
+## V008 — fórmulas e quadros técnicos nativos
+Blocos técnicos reutilizáveis e versionados por cartão: expressão MathML nativa construída por árvore restrita (frac/sub/sup/subsup/sqrt/root/abs), símbolos e unidades, desenvolvimento recolhível, tabela com cabeçalhos/células reais, exemplo de aplicação com pista e resolução recolhidas. Editor com prévia matemática, importação tabular por TSV e edição/arquivamento com histórico. Busca inclui elementos atuais e históricos; conteúdo só após revelar resposta. Sem injeção HTML, execução de expressões ou serviços remotos. Preserva literalidade, IDs, grifos, mídias e SRS. Ainda requer verificação visual real em desktop/celular e conferência técnica humana de cada equação. Não é paridade integral V343/V344.
