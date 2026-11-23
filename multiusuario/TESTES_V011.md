@@ -1,0 +1,2 @@
+# V011 — validação
+38 verificações de lógica da transferência, propriedade/metadados, hash, vínculos e marcações compatíveis; 88 de regressão importação, SRS, isolamento e concorrência simulada. Total 126. Nenhum original foi copiado nesta sessão. A autorização OAuth, SHA-256 real do upload/readback e o funcionamento em navegador exigem homologação. A fonte V176 possui 30 registros de imagens com IDs e hashes informados, um SVG adicional sem hash específico, e não tem coleção PDF de topo. Não declarar cópias realizadas nem todos os grifos convertidos.
