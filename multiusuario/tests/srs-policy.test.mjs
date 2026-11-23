@@ -11,4 +11,17 @@ for(const [rating,days] of [['Difícil',8],['Bom',16],['Fácil',24],['Conhecimen
 const old={...event('OLD','Fácil','2026-11-23T14:00:00Z'),policy:undefined};assert.equal(schedule(c,[old],[]).days,32);
 const e1=event('E1','Fácil','2026-11-25T12:00:00Z'),e2=event('E2','Fácil','2026-12-20T12:00:00Z'),e3=event('E3','Conhecimento adquirido','2027-01-20T12:00:00Z');assert.equal(schedule(c,[e1,e2],[]).days,24);assert.equal(formalEasyCount(c,[e1,e2]),2);assert.equal(validate({...db,events:[e1,e2,e3]}).events.length,3);assert.equal(schedule(c,[e1,e2,e3],[]).days,64);assert.throws(()=>validate({...db,events:[e1,e3]}));assert.throws(()=>validate({...db,questions:[{...q,related:[other.id]}]}));
 const refs=Array.from({length:10},(_,i)=>({...q,id:'Q'+i,countReference:true,at:new Date(Date.UTC(2026,10,24+i,12)).toISOString()}));assert.equal(schedule(c,[],refs.slice(0,5)).days,16);assert.equal(schedule(c,[],refs).days,24);assert.equal(schedule(c,[],[...refs.slice(0,9),{...refs[9],difficulty:'difficult'}]).days,8);assert.equal(schedule(c,[],[...refs,{...q,id:'Q11',at:'2026-12-05T12:00:00Z'}]).days,16);
-console.log('PASS agenda por questão, escala versionada, provas formais e regressão histórica');
+assert.equal(Object.keys(RATINGS).length,5);
+assert.equal(Object.hasOwn(RATINGS,'Errei'),false);
+assert.equal(Math.min(...Object.values(RATINGS)),8);
+const historicalError={...event('HERR','Errei','2026-11-23T15:00:00Z'),policy:undefined};
+assert.equal(validate({...db,events:[historicalError]}).events.length,1);
+assert.equal(schedule(c,[historicalError],[]).days,4);
+const previousError=event('PERR','Errei','2026-11-23T15:00:00Z','SRS-2026-11-23');
+assert.equal(validate({...db,events:[previousError]}).events.length,1);
+assert.equal(schedule(c,[previousError],[]).days,4);
+assert.throws(()=>validate({...db,events:[event('NEWERR','Errei','2026-11-24T12:00:00Z')]}));
+const previousQuestion={...q,schedulePolicy:'SRS-2026-11-23'};
+assert.equal(schedule(c,[],[previousQuestion]).days,16);
+assert.equal(validate({...db,questions:[previousQuestion]}).questions.length,1);
+console.log('PASS agenda e escala definitiva sem Errei, com histórico preservado');
