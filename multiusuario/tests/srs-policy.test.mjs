@@ -1,0 +1,14 @@
+import {strict as assert} from 'node:assert';
+import {empty,validate,schedule,SRS_POLICY,formalEasyCount,RATINGS} from '../assets/model.js';
+const c={id:'CARD-0001',question:'Teste',answer:'Resposta',topic:'T',state:'active',createdAt:'2026-11-23T12:00:00Z',approvedAt:'2026-11-23T12:00:00Z',history:[]};
+const r={...c,id:'CARD-0002'},other={...c,id:'CARD-0003'},db=empty();db.cards.push(c,r,other);
+const q={id:'Q1',question:'Teste',source:'Prova',corresponding:[c.id],related:[c.id,r.id],schedulePolicy:SRS_POLICY,difficulty:'normal',at:'2026-11-24T12:00:00Z'};db.questions.push(q);
+assert.equal(validate(db),db);assert.equal(schedule(c,[],[q]).due,'2026-12-10');assert.equal(schedule(r,[],[q]).days,16);assert.equal(schedule(other,[],[q]).due,'2026-12-09');assert.equal(db.events.length,0);
+const hard={...q,difficulty:'difficult'};assert.equal(schedule(c,[],[hard]).due,'2026-12-02');assert.equal(schedule(r,[],[hard]).days,8);
+const approved={...c,approvedAt:'2026-11-25T12:00:00Z'};assert.equal(schedule(approved,[],[hard]).due,'2026-12-03');
+const event=(id,rating,at,policy=SRS_POLICY)=>({id,cardId:c.id,rating,at,source:'revisão formal',policy});
+for(const [rating,days] of [['Difícil',8],['Bom',16],['Fácil',24],['Conhecimento preservado',32]])assert.equal(schedule(c,[event('E',rating,'2026-11-25T12:00:00Z')],[hard]).days,days);
+const old={...event('OLD','Fácil','2026-11-23T14:00:00Z'),policy:undefined};assert.equal(schedule(c,[old],[]).days,32);
+const e1=event('E1','Fácil','2026-11-25T12:00:00Z'),e2=event('E2','Fácil','2026-12-20T12:00:00Z'),e3=event('E3','Conhecimento adquirido','2027-01-20T12:00:00Z');assert.equal(schedule(c,[e1,e2],[]).days,24);assert.equal(formalEasyCount(c,[e1,e2]),2);assert.equal(validate({...db,events:[e1,e2,e3]}).events.length,3);assert.equal(schedule(c,[e1,e2,e3],[]).days,64);assert.throws(()=>validate({...db,events:[e1,e3]}));assert.throws(()=>validate({...db,questions:[{...q,related:[other.id]}]}));
+const refs=Array.from({length:10},(_,i)=>({...q,id:'Q'+i,countReference:true,at:new Date(Date.UTC(2026,10,24+i,12)).toISOString()}));assert.equal(schedule(c,[],refs.slice(0,5)).days,16);assert.equal(schedule(c,[],refs).days,24);assert.equal(schedule(c,[],[...refs.slice(0,9),{...refs[9],difficulty:'difficult'}]).days,8);assert.equal(schedule(c,[],[...refs,{...q,id:'Q11',at:'2026-12-05T12:00:00Z'}]).days,16);
+console.log('PASS agenda por questão, escala versionada, provas formais e regressão histórica');

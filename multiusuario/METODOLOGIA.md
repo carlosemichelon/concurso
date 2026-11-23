@@ -16,3 +16,6 @@ Preservar regras pedagógicas sem simplificação ou adaptação por iniciativa 
 
 ## Implementação V003
 SRS formal local e recorrência derivada dos eventos de questão explicitamente validados, pesquisa ampliada em cartões e histórico, confirmação de cobertura, aprovação, histórico e relações. Integração Drive/OAuth, grifador avançado, editor SVG, automações de chat e demais funcionalidades da V343 ainda pendentes. Não confundir adoção normativa integral com paridade técnica.
+
+## Adendo 23/11/2026 — agendamento por questão e nova escala
+Cartão direto e todos os relacionados pertinentes: agenda padrão 16 dias; questão difícil, 8 dias. Classificação formal: Difícil 8, Bom 16, Fácil 24, Conhecimento preservado 32, Conhecimento adquirido 64 (seleção explícita com prova anterior de duas avaliações Fácil, até esclarecimento da progressão). Errei 4 provisório, confirmação pendente. Recorrência 5/10 = 16/24, questão difícil prevalece. Agendamento distinto de avaliação; política prospectiva SRS-2026-11-23, não sobrescrever histórico. Adendo integral gravado na metodologia original e na cópia Nina.
