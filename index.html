@@ -304,6 +304,17 @@ header .stats .bm241-verification{font-size:10px}
 #bmCardPeekV050 #bm195Discursive button:not(.bm-discursive-close-corner) > :is(svg,.bm163-ic,.bm-v050-icon)[aria-hidden="true"]{
  display:none!important;
 }
+
+/* VS6 — ajuste discreto da janela de estudo, mantendo margens e layout móvel. */
+@media(min-width:761px){
+ #bmCardPeekV050.bm-v050-peek{padding:10px!important;box-sizing:border-box}
+ #bmCardPeekV050 .bm163-panel.bm165-panel{
+  width:min(1280px,calc(100vw - 20px))!important;
+  height:min(96dvh,1020px,calc(100dvh - 20px))!important;
+  max-width:100%!important;max-height:calc(100dvh - 20px)!important;
+  box-sizing:border-box;
+ }
+}
 </style>
 </head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
 <header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS6 · Cartões VC15</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
