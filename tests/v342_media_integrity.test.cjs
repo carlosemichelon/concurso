@@ -63,6 +63,40 @@ for(const [src,expected] of srcMap){
 // Integridade dos incrementos atuais, preservando integralmente o contrato V342.
 const activeGate=json('assets/closure_gate_current.json'), extra=json(activeGate.visual_manifest);
 for(const x of extra.media){check(x.role==='VERSO_APOS_TENTATIVA','Fase atual inválida: '+x.id);check(!registryPublic.has(x.src),'SVG atual duplicado: '+x.src);check(fs.existsSync(path.join(root,x.src)),'SVG atual ausente: '+x.src);check(x.card_ids.length>0&&x.card_ids.every(validId),'Associação atual inválida: '+x.id);registryPublic.set(x.src,{src:x.src,card_ids:x.card_ids,kind:'SVG_DIDATICO_PUBLICO',role:'VERSO_APOS_RESPOSTA'});for(const id of x.card_ids)relate(srcMap,x.src,id);}
+// V349: confronto independente entre inventário versionado e vínculos efetivos dos leitores.
+// Não autoriza mídia privada, não resolve órfãos automaticamente e não substitui inspeção visual.
+const restored=json('assets/visual_integrity_v349_evidence.json'), actualV349=new Map();
+check(restored.schema==='BancoMestreMediaV349Evidence1','Contrato V349 incorreto');
+const v349Sources=['assets/restauracao_didatica_v349.json','assets/restauracao_legados_v349.json'];
+check(JSON.stringify(restored.sources)===JSON.stringify(v349Sources),'Fontes V349 divergentes');
+for(const source of v349Sources){
+ const packet=json(source);
+ for(const [card,p] of Object.entries(packet.cards||{})){
+  for(const m of p.learning_model?.media?.items||[]){
+   if(!/^assets\/card_visuals_v349\/[A-Za-z0-9_-]+\.svg$/.test(m.src||''))continue;
+   check(validId(card)&&!m.private_original&&m.role==='VERSO_APOS_TENTATIVA'&&!!m.id&&!!m.caption&&!!m.evidence,'Vínculo V349 inválido: '+card+'/'+m.src);
+   if(!actualV349.has(m.src))actualV349.set(m.src,new Set());
+   actualV349.get(m.src).add(JSON.stringify([source,card,m.id]));
+  }
+ }
+}
+const seenV349=new Set();
+for(const m of restored.media){
+ check(!seenV349.has(m.src)&&!registryPublic.has(m.src),'SVG V349 duplicado: '+m.src);
+ seenV349.add(m.src);
+ check(/^assets\/card_visuals_v349\/[A-Za-z0-9_-]+\.svg$/.test(m.src)&&m.role==='VERSO_APOS_TENTATIVA','Caminho/fase V349 inválido: '+m.src);
+ const expected=actualV349.get(m.src), observed=new Set(m.links.map(l=>JSON.stringify([l.source,l.card_id,l.media_id])));
+ check(!!expected&&observed.size===m.links.length&&expected.size===observed.size&&[...observed].every(x=>expected?.has(x)),'Evidências V349 divergentes: '+m.src);
+ const ids=[...new Set(m.links.map(l=>l.card_id))].sort();
+ check(ids.length>0&&ids.every(validId)&&JSON.stringify(ids)===JSON.stringify(m.card_ids),'IDs V349 divergentes: '+m.src);
+ const exists=fs.existsSync(path.join(root,m.src));
+ check(exists,'SVG V349 ausente: '+m.src);
+ if(exists){const body=read(m.src);check(/<svg[\s>]/i.test(body)&&body.length>100,'SVG V349 vazio/inválido: '+m.src);}
+ registryPublic.set(m.src,{src:m.src,card_ids:m.card_ids,kind:'SVG_DIDATICO_PUBLICO',role:'VERSO_APOS_RESPOSTA'});
+ for(const id of ids)relate(srcMap,m.src,id);
+}
+for(const src of actualV349.keys())check(seenV349.has(src),'Vínculo V349 não inventariado: '+src);
+// O teste global abaixo continuará rejeitando cada SVG sem vínculo explícito, inclusive os não resolvidos.
 for(const src of registryPublic.keys())check(srcMap.has(src),'SVG órfão: '+src);
 for(const [mediaId,cards] of privateMap){
  const m=registryPrivate.get(mediaId);
