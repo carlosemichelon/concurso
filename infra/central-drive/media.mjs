@@ -6,7 +6,7 @@ export const PDF_LIMIT=120000000;
 export class MediaNotFound extends Error {}
 const deny=()=>{throw new MediaNotFound('Arquivo não disponível no perfil')};
 export function mediaCatalog(runtime){
- return {images:runtime.imageCatalog().map(x=>({id:x.imageId,title:x.metadata.displayTitle,mimeType:x.mimeType,cardIds:x.cardIds,subtype:x.subtype,caption:typeof x.provenance.caption==='string'?x.provenance.caption:'',phase:x.subtype==='enunciado'&&x.provenance.display==='frente'?'frente':'verso'})),pdf:runtime.pdfCatalog().map(x=>({id:x.id,title:x.title}))};
+ return {images:runtime.imageCatalog().map(x=>({id:x.imageId,title:x.metadata.displayTitle,mimeType:x.mimeType,cardIds:x.cardIds,subtype:x.subtype,caption:typeof x.provenance.caption==='string'?x.provenance.caption:'',phase:x.subtype==='enunciado'&&x.provenance.display==='frente'?'frente':'verso'})),pdf:runtime.pdfCatalog().map(x=>({id:x.id,title:x.title,section:x.section,category:x.category}))};
 }
 export async function readProfileMedia({provider,profile,uploadedImages,media}){
  if(!media||!valid(media.id)||!['image','pdf'].includes(media.kind))return deny();

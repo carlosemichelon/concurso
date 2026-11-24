@@ -14,5 +14,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --check infra/central-drive/login.js
-      - run: node --test tests/central-drive-auth.test.mjs tests/central-drive-runtime.test.mjs tests/central-drive-media.test.mjs tests/central-drive-review.test.mjs tests/central-drive-discursive.test.mjs tests/central-drive-upload.test.mjs tests/central-drive-marks.test.mjs tests/central-drive-interface.test.mjs
+      - run: |
+          node --check infra/central-drive/login.js
+          node --check infra/central-drive/original-session.js
+          node --check infra/central-drive/original-core.js
+          for f in tests/central-drive-*.test.mjs; do node --check "$f"; done
+      - run: node --test tests/central-drive-auth.test.mjs tests/central-drive-runtime.test.mjs tests/central-drive-media.test.mjs tests/central-drive-review.test.mjs tests/central-drive-discursive.test.mjs tests/central-drive-upload.test.mjs tests/central-drive-marks.test.mjs tests/central-drive-interface.test.mjs tests/central-drive-original.test.mjs
