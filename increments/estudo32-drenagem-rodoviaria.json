@@ -409,7 +409,7 @@
       "title": "Hidrologia: umidade, chuva e resposta da bacia",
       "front": "Diferencie umidade específica, razão de mistura, umidade relativa e absoluta; explique chuva, infiltração, percolação, Tc, Tp e Qp, e calcule intensidade e volume de um hidrograma triangular.",
       "back": "Umidade específica q é a massa de vapor dividida pela massa de ar úmido; razão de mistura r divide pela massa de ar seco. Umidade relativa é a razão percentual entre a pressão parcial de vapor e a pressão de saturação na temperatura considerada; umidade absoluta é massa de vapor por volume. A precipitação que chega ao solo pode infiltrar-se, enquanto percolação é movimento da água no meio poroso. O tempo de concentração Tc caracteriza o tempo de percurso hidráulico até o exutório desde o ponto hidraulicamente mais distante; Tp é o intervalo até o máximo do hidrograma, a partir da origem temporal especificada, e Qp é a vazão nesse máximo. Sob eventos comparáveis, a urbanização tende a antecipar e elevar o pico.",
-      "source": "PETRO15-C001 V005/V004, Q002/Q003; NOAA/NWS, glossários de specific humidity (https://forecast.weather.gov/glossary.php?word=specific+humidity) e mixing ratio (https://forecast.weather.gov/glossary.php?word=mixing+ratio); USDA NRCS National Engineering Handbook, Part 630, cap. 15. ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf",
+      "source": "PETRO15-C001 V005/V004, Q002/Q003; NOAA/NWS, glossários de specific humidity (https://forecast.weather.gov/glossary.php?word=specific+humidity) e mixing ratio (https://forecast.weather.gov/glossary.php?word=mixing+ratio); USDA NRCS National Engineering Handbook, Part 630, cap. 15. ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf ; DNIT IPR-715, Manual de Hidrologia Básica para Estruturas de Drenagem, seção 6.5.2–6.5.3: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/715_manual_de_hidrologia_basica.pdf",
       "mnemonic": "q = vapor/ar úmido; r = vapor/ar seco. Pico é altura; volume é área.",
       "modules": [
         {
@@ -425,42 +425,42 @@
         {
           "ord": 3,
           "titulo": "Fundamento e fontes",
-          "texto": "PETRO15-C001 V005/V004, Q002/Q003; NOAA/NWS, glossários de specific humidity (https://forecast.weather.gov/glossary.php?word=specific+humidity) e mixing ratio (https://forecast.weather.gov/glossary.php?word=mixing+ratio); USDA NRCS National Engineering Handbook, Part 630, cap. 15. ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf"
+          "texto": "PETRO15-C001 V005/V004, Q002/Q003; NOAA/NWS, glossários de specific humidity (https://forecast.weather.gov/glossary.php?word=specific+humidity) e mixing ratio (https://forecast.weather.gov/glossary.php?word=mixing+ratio); USDA NRCS National Engineering Handbook, Part 630, cap. 15. ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf\n\nDNIT IPR-715, Manual de Hidrologia Básica para Estruturas de Drenagem, seção 6.5.2–6.5.3: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/715_manual_de_hidrologia_basica.pdf"
         },
         {
           "ord": 4,
           "titulo": "Definição e mecanismo",
-          "texto": "A massa de ar úmido inclui vapor, de modo que q é menor que r para vapor positivo. Interceptação, armazenamento e infiltração reduzem a parcela da chuva que gera escoamento direto. A impermeabilização e a drenagem rápida geralmente alteram a forma do hidrograma, mas não determinam sozinhas sua resposta."
+          "texto": "A massa de ar úmido inclui vapor, de modo que q é menor que r para vapor positivo. Interceptação, armazenamento e infiltração reduzem a parcela da chuva que gera escoamento direto. A impermeabilização e a drenagem rápida geralmente alteram a forma do hidrograma, mas não determinam sozinhas sua resposta.\n\nNo hidrograma unitário, uma lâmina unitária de chuva efetiva, distribuída uniformemente na bacia durante duração especificada, gera um hidrograma de escoamento direto. Assumindo linearidade e invariância temporal, multiplicar ordenadas pelas lâminas efetivas de cada intervalo e somar respostas defasadas."
         },
         {
           "ord": 5,
           "titulo": "Fórmulas e unidades",
-          "texto": "q=mv/(ms+mv); r=mv/ms; q=r/(1+r); r=q/(1−q), usando frações. UR=100e/es; i=P/Δt. Volume escoado V=∫Q(t)dt; se o hidrograma é triangular e a base é a duração total, V=Qp·tb/2. Para período de retorno de máximos anuais, TR=1/p sob hipóteses usuais de estacionariedade.\n\nMétodo racional: Qp=CiA/3,6 para i em mm/h e A em km²; divisor 360 para hectares e 3.600.000 para m²."
+          "texto": "q=mv/(ms+mv); r=mv/ms; q=r/(1+r); r=q/(1−q), usando frações. UR=100e/es; i=P/Δt. Volume escoado V=∫Q(t)dt; se o hidrograma é triangular e a base é a duração total, V=Qp·tb/2. Para período de retorno de máximos anuais, TR=1/p sob hipóteses usuais de estacionariedade.\n\nMétodo racional: Qp=CiA/3,6 para i em mm/h e A em km²; divisor 360 para hectares e 3.600.000 para m².\n\nV=∫Qdireto dt; se triangular, V=Qp·Tb/2, Tb em s para Qp em m³/s. DNIT IPR-715, §6.5.2, aproximação triangular SCS: Tp=Du/2+0,6Tc; Tb=8Tp/3 (mesmas unidades); Qp unitária=A/(0,03Tb), A em km², Tb em minutos, Qp em m³/s por mm de chuva efetiva. Dedução: 1 mm sobre 1 km²=1.000 m³; Qp=2V/(60Tb)."
         },
         {
           "ord": 6,
           "titulo": "Quadro técnico",
-          "texto": "Aspecto | Critério\nq / r | kg/kg de ar úmido / seco\nUR / absoluta | % / massa por volume\nChuva / intensidade | mm / mm/h\nTc / Tp | Tempo de concentração / tempo até pico\nQp / V | m³/s / m³"
+          "texto": "Aspecto | Critério\nq / r | kg/kg de ar úmido / seco\nUR / absoluta | % / massa por volume\nChuva / intensidade | mm / mm/h\nTc / Tp | Tempo de concentração / tempo até pico\nQp / V | m³/s / m³\n\nHietograma: intensidade ou altura de chuva por intervalo; hidrograma: vazão versus tempo. Chuva total não é chuva efetiva; hidrograma de escoamento direto não inclui vazão de base. Tc e Tp não são automaticamente iguais."
         },
         {
           "ord": 7,
           "titulo": "Transferência e resolução",
-          "texto": "Com 10 g de vapor e 990 g de ar seco, q=10 g/kg e r≈10,10 g/kg. Chuva de 60 mm em 2 h → i=30 mm/h. Hidrograma triangular com base de 4 h e pico de 3 m³/s → V=0,5×14.400×3=21.600 m³.\n\nPara uma bacia de 50 ha, i=90 mm/h e C=0,32, Qp=4 m³/s. O método racional fornece pico, enquanto o hidrograma é necessário para estimar volume escoado e armazenamento."
+          "texto": "Com 10 g de vapor e 990 g de ar seco, q=10 g/kg e r≈10,10 g/kg. Chuva de 60 mm em 2 h → i=30 mm/h. Hidrograma triangular com base de 4 h e pico de 3 m³/s → V=0,5×14.400×3=21.600 m³.\n\nPara uma bacia de 50 ha, i=90 mm/h e C=0,32, Qp=4 m³/s. O método racional fornece pico, enquanto o hidrograma é necessário para estimar volume escoado e armazenamento.\n\nHidrograma unitário triangular de uma bacia de 6 km² com Tb=120 min: Qp=6/(0,03×120)=1,667 m³/s por mm. Para chuva efetiva isolada de 10 mm e mesma duração unitária, Qp≈16,67 m³/s; volume=60.000 m³. Para várias chuvas, somar hidrogramas deslocados, não os picos isolados sem respeitar defasagem."
         },
         {
           "ord": 8,
           "titulo": "Cobertura cruzada",
-          "texto": "CARD-1408, CARD-1309, CARD-1470"
+          "texto": "CARD-1408, CARD-1309, CARD-1470, CARD-0697"
         },
         {
           "ord": 9,
           "titulo": "Hipóteses e exceções",
-          "texto": "O efeito da urbanização depende de drenagem, condições antecedentes, armazenamento e evento. Tc não é automaticamente Tp. TR não é periodicidade garantida. A integral do hidrograma fornece volume da componente que foi representada; separar vazão de base se o objetivo for escoamento direto.\n\nPara pequenas bacias no domínio do método racional, utilizar intensidade IDF correspondente ao Tc e ao período de retorno selecionado; não presumir intensidade uniforme em grandes bacias."
+          "texto": "O efeito da urbanização depende de drenagem, condições antecedentes, armazenamento e evento. Tc não é automaticamente Tp. TR não é periodicidade garantida. A integral do hidrograma fornece volume da componente que foi representada; separar vazão de base se o objetivo for escoamento direto.\n\nPara pequenas bacias no domínio do método racional, utilizar intensidade IDF correspondente ao Tc e ao período de retorno selecionado; não presumir intensidade uniforme em grandes bacias.\n\nAs relações de tempo são específicas da aproximação SCS exposta pelo IPR-715, não universais. A hipótese linear do hidrograma unitário tem limitações em cheias de magnitudes diferentes e transbordamento."
         },
         {
           "ord": 10,
           "titulo": "Pegadinhas",
-          "texto": "Não trocar os denominadores de q e r; não usar 10 g/kg como fração 10. Não confundir chuva total com excedente, Qp com área sob a curva ou horas com segundos ao calcular volume."
+          "texto": "Não trocar os denominadores de q e r; não usar 10 g/kg como fração 10. Não confundir chuva total com excedente, Qp com área sob a curva ou horas com segundos ao calcular volume.\n\nA área sob o hidrograma fornece volume; usar tempo em segundos ou fator de conversão. Não confundir 1 mm efetivo com 1 mm de chuva total. Não aplicar Qp do método unitário como vazão de qualquer evento."
         },
         {
           "ord": 11,
@@ -543,6 +543,16 @@
             "role": "VERSO_APOS_TENTATIVA",
             "evidence": "Esquema vetorial autoral a partir dos registros históricos; não substitui figura normativa.",
             "src": "assets/card_visuals_v349/hidrograma_v194.svg"
+          },
+          {
+            "id": "ESTUDO37-SVG-HIDROGRAMA",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Hietograma e hidrograma direto com vazão de base, pico e área de escoamento direto.",
+            "alt": "Barras de chuva e curva de vazão acima da linha de base, pico posterior à chuva.",
+            "src": "assets/card_visuals_estudo37/hidrograma.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "DNIT IPR-715, Manual de Hidrologia Básica para Estruturas de Drenagem, seção 6.5.2–6.5.3: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/715_manual_de_hidrologia_basica.pdf",
+            "evidence": "Candidato; exibição não testada."
           }
         ],
         "history_collapsed": true,
@@ -551,7 +561,8 @@
       "related_card_ids": [
         "CARD-1408",
         "CARD-1309",
-        "CARD-1470"
+        "CARD-1470",
+        "CARD-0697"
       ]
     }
   ]
