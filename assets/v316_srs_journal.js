@@ -10,7 +10,7 @@ const RATINGS=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32});
 let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='',selecting=false,ratedInView=false,ratedMessage='';
 const uncertainIds=new Set();
 const $=id=>document.getElementById(id);
-const accountMode=Boolean(window.BMAccountRuntime);
+const account=window.BMAccountRuntime||null,accountMode=Boolean(account);
 const token=()=>accountMode?'':window.BM239DriveGlobal?.writeToken?.()||'';
 const localDate=(d=new Date())=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day};
 const addDays=(date,n)=>{const x=new Date(date+'T12:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)};
@@ -25,6 +25,7 @@ function checkEvent(e){
  String(e.source||'')==='Banco Mestre — revisão formal no site';
 }
 function rows(){
+ if(accountMode)return account.srs().records;
  const grouped=new Map();
  for(const e of events){
   if(!checkEvent(e))continue;
@@ -51,7 +52,7 @@ async function getFile(id,auth){
  return resp.json();
 }
 async function load(){
- if(accountMode)throw Error('Histórico individual disponível na agenda; diário legado desativado neste perfil.');
+ if(accountMode){loaded=true;const r=account.srs();return {events:null,cards:r.records.length}}
  const auth=token();if(!auth)throw Error('Conecte o Drive com permissão de gravação no cabeçalho.');
  const received=[];let page='',pages=0;
  do{
@@ -92,7 +93,7 @@ async function refresh(){
 }
 function updateStatus(){
  const el=$('bm316-srs-state');if(!el)return;
- el.textContent=accountMode?'Gravação SRS individual em preparação; vencimentos preservados na agenda.':uncertain?'Gravação não confirmada: confira o Drive antes de repetir.':
+ el.textContent=accountMode?(ratedInView&&ratedMessage?ratedMessage:working?'Salvando avaliação no Drive individual…':lastError||(!account.reviewReady?'Gravação individual indisponível. Reabra o perfil.':'Avalie após recuperar a resposta.')):uncertain?'Gravação não confirmada: confira o Drive antes de repetir.':
  ratedInView&&ratedMessage?ratedMessage:
  working?'Salvando e conferindo avaliação no Google Drive…':
  !token()?'Conecte o Drive com gravação para classificar.':
@@ -101,10 +102,10 @@ function updateStatus(){
  'Drive autorizado. Consulte o histórico antes de registrar.';
  const connect=$('bm316-srs-connect');if(connect)connect.hidden=accountMode||Boolean(token());
  const btns=buttonPanel?.querySelectorAll('button[data-grade]')||[];
- btns.forEach(b=>b.disabled=working||selecting||ratedInView||uncertain||!token());
+ btns.forEach(b=>b.disabled=working||selecting||ratedInView||uncertain||(accountMode?(!account.reviewReady||(b.dataset.grade==='Conhecimento adquirido'&&!account.canAcquire(currentKey))):!token()));
 }
 async function record(id,rating){
- if(accountMode)throw Error('Gravação individual ainda não habilitada; nenhum evento criado.');
+ if(accountMode){const overlay=$('bmCardPeekV050'),answer=overlay?.querySelector('.bm-v050-peek-answer');if(working||!overlay||overlay.hidden||!answer||answer.hidden||window.BancoMestreVisualizarCardV050?.currentId!==id)throw Error('Revele o verso do cartão ativo antes de avaliar.');working=true;lastError='';updateStatus();try{const result=await account.recordReview(id,rating);document.dispatchEvent(new CustomEvent('bm316-srs-journal-updated',{detail:{id,rating,due:result.due}}));return result}catch(e){lastError=e.message;throw e}finally{working=false;updateStatus()}}
  if(working||uncertain)throw Error('Há outra operação em andamento ou pendente de conferência.');
  if(!validId(id)||!validRating(rating))throw Error('ID ou avaliação inválidos');
  const auth=token();if(!auth)throw Error('Autorize a gravação do Drive no cabeçalho antes de avaliar');
@@ -168,7 +169,7 @@ function build(){
  const intro=document.createElement('p');intro.textContent='Classifique depois de responder e revelar o verso. A gravação cria um evento privado no seu Drive.';
  intro.style.cssText='font-size:12px;margin:4px 0 9px;color:#526b73';
  const controls=document.createElement('div');controls.style.cssText='display:flex;gap:7px;flex-wrap:wrap';
- for(const rating of ['Errei','Difícil','Bom','Fácil']){
+ for(const rating of (accountMode?Object.keys(account.ratings):['Errei','Difícil','Bom','Fácil'])){
   const b=document.createElement('button');b.type='button';b.dataset.grade=rating;
   b.textContent=rating;b.style.cssText='font-size:12px;padding:8px 12px';
   b.addEventListener('click',async()=>{

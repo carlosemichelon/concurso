@@ -1,3 +1,4 @@
+import {ACCOUNT_RATINGS,checkedReviewEvent,newReviewEvent,mergeReviewRows,formalEasyEvidence} from './multiaccount-review-events-v001.mjs';
 /* Adapter for the existing SRS calendar. One authenticated page per account.
  * Do not mount the legacy portal until the authenticated runtime is available.
  * Read-only SRS phase: preserve recorded dates; never invent historical grades.
@@ -26,11 +27,13 @@ export function profileSrs(profile,cards=profileCatalog(profile)){
   rows.push({id:r.id,due:when,rating:grade,lastReview,attempts:Number.isInteger(r.attempts)&&r.attempts>=0?r.attempts:null,intervalDays:Number.isInteger(r.intervalDays)&&r.intervalDays>=0?r.intervalDays:null,easyFormalCount:Number.isInteger(r.easyFormalCount)&&r.easyFormalCount>=0?r.easyFormalCount:0,consolidated:r.consolidated===true,kind:grade?'revisao':'agendamento',source:'Perfil privado — vencimento preservado',original:clone(r)})
  }return {rows,undated,unmatched}
 }
-export function createAccountRuntime({session,storage,idb}){
+export function createAccountRuntime({session,storage,idb,reviewEvents=null,uuid=()=>crypto.randomUUID(),clock=()=>new Date()}){
  if(session.phase!=='ready'||!session.identity||!session.current)throw Error('Perfil autenticado indisponível');
  const info={...session.identity,email_verified:true},profile=session.current;
  if(profile.subject!==info.sub)throw Error('Perfil e sessão divergentes');
- const cards=profileCatalog(profile),srs=profileSrs(profile,cards),context=createAccountContext(info,storage,idb);let active=true;
+ const cards=profileCatalog(profile),srs=profileSrs(profile,cards),context=createAccountContext(info,storage,idb);let active=true,busy=false,uncertain=false;const events=reviewEvents===null?[]:reviewEvents.map(e=>checkedReviewEvent(e,info.sub));if(new Set(events.map(e=>e.event_id)).size!==events.length)throw Error('Eventos duplicados');const allowed=new Set(cards.filter(c=>c.active).map(c=>c.id));
  const check=()=>{if(!active||session.phase!=='ready'||session.identity?.sub!==info.sub)throw Error('Sessão de perfil encerrada; recarregue o portal')};
- return Object.freeze({subject:info.sub,mode:'account',get local(){check();return context.local},openDatabase:(name,version)=>{check();return context.openDatabase(name,version)},catalog:()=>{check();return clone(cards)},srs:()=>{check();return {records:clone(srs.rows),undated:srs.undated.length,unmatched:srs.unmatched.length,version:'perfil individual',updated:'',driveFileId:profile.profileId}},close:()=>{active=false;context.close()}});
+ return Object.freeze({subject:info.sub,mode:'account',ratings:ACCOUNT_RATINGS,get reviewReady(){return active&&session.phase==='ready'&&reviewEvents!==null&&typeof session.appendReview==='function'&&!uncertain},canAcquire:id=>{check();return formalEasyEvidence(id,profile.privateData.srs,events,clock().toISOString())>=2},async recordReview(id,rating){check();if(reviewEvents===null||typeof session.appendReview!=='function'||busy||uncertain)throw Error('Gravação individual indisponível ou pendente de confirmação.');if(!allowed.has(id))throw Error('Cartão não ativo no perfil.');const event=newReviewEvent({owner:info.sub,id,rating,history:profile.privateData.srs,events,now:clock(),uuid:uuid()});busy=true;try{const saved=await session.appendReview(event);check();const valid=checkedReviewEvent(saved,info.sub);if(valid.event_id!==event.event_id||valid.id!==id||valid.rating!==rating||valid.due!==event.due)throw Error('Confirmação divergente');events.push(valid);return saved}catch(e){uncertain=true;throw Error('Gravação não confirmada. Reabra a sessão para consultar o diário antes de repetir: '+e.message)}finally{busy=false}},get local(){check();return context.local},openDatabase:(name,version)=>{check();return context.openDatabase(name,version)},catalog:()=>{check();return clone(cards)},srs:()=>{check();return {records:mergeReviewRows(srs.rows,events.filter(e=>allowed.has(e.id)),info.sub),undated:srs.undated.length,unmatched:srs.unmatched.length,version:'perfil individual',updated:'',driveFileId:profile.profileId}},close:()=>{active=false;context.close()}});
 }
+
+export async function prepareAccountRuntime(options){const events=await options.session.readReviewEvents();return createAccountRuntime({...options,reviewEvents:events})}

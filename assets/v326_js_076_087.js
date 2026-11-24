@@ -1397,7 +1397,7 @@ const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth
 const shift=(base,n)=>{const d=new Date(base+'T12:00:00');d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const due=v=>{const t=String(v||'').trim();let d=null;if(/^\d{4}-\d{2}-\d{2}/.test(t))d=t.slice(0,10);else{const m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m)d=m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0')}if(!d||! /^\d{4}-\d{2}-\d{2}$/.test(d))return null;const test=new Date(d+'T12:00:00');return !isNaN(test)&&shift(d,0)===d?d:null};
-const rank=v=>({errei:0,dificil:1,bom:2,facil:3})[norm(v)]??4;
+const rank=v=>({errei:0,dificil:1,bom:2,facil:3,conhecimentopreservado:4,conhecimentoadquirido:5})[norm(v)]??6;
 const dayText=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
 const weekday=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short'});
 const timeLabel=n=>(Number.isInteger(n)?String(n):String(n).replace('.',','))+' min';
@@ -1463,7 +1463,7 @@ async function load(){
  loaded=true;
 }
 function records(){
- if(account)account.srs(); // recusa leitura de sessão encerrada
+ if(account)privateRecords=account.srs().records; // atualiza eventos individuais confirmados
  const all=new Map((privateInfo?[]:history).map(x=>[x.id,x]));
  for(const x of privateRecords)if(map.has(x.id))all.set(x.id,x);
  for(const x of imported)if(map.has(x.id))all.set(x.id,{id:x.id,due:x.due,rating:x.rating,consolidated:x.consolidated===true,easyFormalCount:Number(x.easyFormalCount)||0,intervalDays:Number(x.intervalDays)||null,source:'Importação SRS local'});
@@ -1500,7 +1500,7 @@ function calculate(){
  $('c141-overdue').textContent=all.filter(x=>x.due<start).length;
  $('c141-unplanned').textContent=Math.max(0,cards.length-all.length).toLocaleString('pt-BR');
  $('c141-today').textContent=all.filter(x=>x.due===start).length;
- $('c141-status').textContent=all.length+' datas SRS conhecidas ('+(privateInfo?'privado '+privateInfo.version:'somente F17 histórico')+'), '+imported.length+' importações locais. Ordenação: Errei → Difícil → Bom → Fácil; Consolidado só com 2 avaliações Fácil comprovadas. Nenhuma revisão é lançada automaticamente.';
+ $('c141-status').textContent=all.length+' datas SRS conhecidas ('+(privateInfo?'privado '+privateInfo.version:'somente F17 histórico')+'), '+imported.length+' importações locais. '+(account?'Escala vigente: Difícil → Bom → Fácil → Conhecimento preservado → Conhecimento adquirido.':'Ordenação: Errei → Difícil → Bom → Fácil; Consolidado só com 2 avaliações Fácil comprovadas.')+' Nenhuma revisão é lançada automaticamente.';
  try{storage.setItem(prefKey,JSON.stringify({minutes:minute,addNew}))}catch{}
  render();
  renderQueue();
