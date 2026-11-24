@@ -1,3 +1,7 @@
+## V360 — Acesso direto aos cartões Petrobras 29 (24/11/2026)
+
+Portal público: https://carlosemichelon.github.io/concurso/v360.html. Os 31 cartões remapeados na V359 (CARD-1603 a CARD-1633) possuem acesso direto, independente de OAuth. O arquivo histórico do Drive permanece disponível separadamente, sem ser confundido com a biblioteca pública. Conteúdo, módulos, vínculos, IDs e SRS não alterados. Conciliação do manifesto privado permanece pendente; sem teste em navegador autenticado. V359 preservada.
+
 ## Fechamento Petrobras 26 — V341 (21/11/2026)
 
 **Portal público:** https://carlosemichelon.github.io/concurso/v341.html (snapshot V340 preservado). **Checkpoint privado salvo:** https://drive.google.com/file/d/14TeHrfybGUg9CJVOALefMN9MpPWZtpxu/view?usp=drivesdk.
