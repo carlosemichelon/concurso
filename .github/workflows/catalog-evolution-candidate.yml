@@ -1,4 +1,4 @@
-name: Materializar incremento editorial candidato
+name: Materializar incremento editorial candidato — VM8
 on:
   push:
     branches: ['estudo/**']
@@ -7,6 +7,7 @@ on:
       - 'tools/catalog_apply_pending.cjs'
       - 'tools/catalog_evolution_batch.cjs'
       - '.github/workflows/catalog-evolution-candidate.yml'
+  workflow_dispatch:
 permissions:
   contents: write
 concurrency:
@@ -18,27 +19,44 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Registrar base anterior ao incremento
-        run: echo "CATALOG_BASE=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
-      - run: node tools/catalog_apply_pending.cjs
-      - run: node tools/catalog_snapshot.cjs --check
-      - name: Selecionar IDs alterados para o leitor
-        id: reader
-        run: node tests/catalog_reader_gate.cjs "$CATALOG_BASE" --plan >> "$GITHUB_OUTPUT"
-      - if: steps.reader.outputs.count != '0'
-        run: npm install --no-save playwright
-      - if: steps.reader.outputs.count != '0'
-        run: npx playwright install --with-deps chromium
-      - if: steps.reader.outputs.count != '0'
-        run: node tests/catalog_reader_gate.cjs "$CATALOG_BASE"
-      - name: Commit da versão candidata validada
+      - name: Materializar e salvar incremento
+        run: node tools/catalog_apply_pending.cjs
+      - name: Persistir versão candidata recuperável
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- assets/version.json assets/catalog_snapshot_*.json index.html "$(node -p "require('./assets/version.json').home")"
-          git diff --cached --quiet && exit 0
-          git commit -m 'Materializar catálogo de evoluções editoriais validado'
-          git push origin HEAD:${GITHUB_REF_NAME}
+          if ! git diff --cached --quiet; then
+            git commit -m 'Persistir incremento editorial candidato (VM8)'
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
+      - name: Calcular saldo distinto desde a base publicada
+        id: reader
+        run: |
+          git fetch origin gh-pages
+          BASE=$(git merge-base HEAD FETCH_HEAD)
+          echo "base=$BASE" >> "$GITHUB_OUTPUT"
+          PLAN=$(node tests/catalog_reader_gate.cjs "$BASE" --checkpoint-plan)
+          printf '%s\n' "$PLAN"
+          printf '%s\n' "$PLAN" >> "$GITHUB_OUTPUT"
+          COUNT=$(printf '%s\n' "$PLAN" | sed -n 's/^count=//p')
+          FORCE=$(node -p "require('./assets/catalog_evolution_request.json').checkpoint_force===true")
+          if [ "$COUNT" -ge 50 ] || [ "$FORCE" = true ] || [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            echo "validate=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "validate=false" >> "$GITHUB_OUTPUT"
+            echo "Saldo $COUNT/50; salvo, sem validação de navegador intermediária."
+          fi
+      - if: steps.reader.outputs.validate == 'true'
+        run: node tools/catalog_snapshot.cjs --check
+      - if: steps.reader.outputs.validate == 'true'
+        run: npm install --no-save playwright
+      - if: steps.reader.outputs.validate == 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.reader.outputs.validate == 'true'
+        run: node tests/catalog_reader_gate.cjs "${{ steps.reader.outputs.base }}"

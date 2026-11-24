@@ -5,15 +5,16 @@ const git=(...args)=>cp.execFileSync('git',args,{encoding:'utf8',maxBuffer:64*10
 const m=JSON.parse(fs.readFileSync('assets/version.json','utf8')),snapshot=JSON.parse(fs.readFileSync(m.catalog.path,'utf8'));
 const active=c=>c.active!==false&&!c.provisional;
 const signature=c=>JSON.stringify([c.front,c.back,c.expl,c.reference,c.mnemonic,c.consolidation?.profile]);
-function changedIds(base){
+function changedIds(base,substantive=false){
  if(!base||/^0+$/.test(base))throw Error('Informar base válida para validação incremental');
  const old=JSON.parse(git('show',base+':assets/version.json'));
  if(old.catalog.git_blob===m.catalog.git_blob)return [];
  const p=JSON.parse(git('show',base+':'+old.catalog.path)),before=new Map(p.base.map(c=>[c.id,c]));
- return snapshot.base.filter(c=>active(c)&&(!before.has(c.id)||signature(before.get(c.id))!==signature(c))).map(c=>c.id);
+ const sig=substantive?c=>JSON.stringify([c.front,c.back,c.expl,c.reference,c.mnemonic,(c.consolidation?.profile?.modules||[]).filter(m=>m.ord!==8),c.consolidation?.profile?.editorial]):signature;
+ return snapshot.base.filter(c=>active(c)&&(!before.has(c.id)||sig(before.get(c.id))!==sig(c))).map(c=>c.id);
 }
-const ids=process.argv.includes('--smoke')?['CARD-1448','CARD-0701']:changedIds(process.argv[2]);
-if(process.argv.includes('--plan')){console.log('count='+ids.length);console.log('ids='+ids.join(','));process.exit(0);}
+const ids=process.argv.includes('--smoke')?['CARD-1448','CARD-0701']:changedIds(process.argv[2],process.argv.includes('--checkpoint-plan'));
+if(process.argv.includes('--plan')||process.argv.includes('--checkpoint-plan')){console.log('count='+ids.length);console.log('ids='+ids.join(','));process.exit(0);}
 if(!ids.length){console.log(JSON.stringify({ok:true,checked:0,reason:'Sem alteração de conteúdo'}));process.exit(0);}
 const {chromium}=require('playwright'),http=require('node:http');
 const root=process.cwd(),types={'.html':'text/html','.js':'application/javascript','.json':'application/json','.svg':'image/svg+xml','.css':'text/css'};

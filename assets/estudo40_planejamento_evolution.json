@@ -1,0 +1,246 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1323",
+      "expected_hash": "308b7469d79cfd40138f16979a05cea1080d9d29a6a3e38270bf710ce8582efb",
+      "title": "PERT/CPM — caminho crítico, datas e folgas",
+      "front": "Como determinar caminho crítico, datas cedo/tarde, folga total e livre e duração esperada PERT? Resolva A(3)→B(4)→C(2) e D(5)→C(2).",
+      "back": "O caminho crítico é a sequência de atividades dependentes que controla o término do projeto. Na rede simples, sem restrições adicionais, o caminho de maior duração tem folga total nula. A→B→C dura 9 dias, enquanto D→C dura 7; A, B e C são críticas, e D tem 2 dias de folga total e livre neste exemplo. Um atraso não recuperado de atividade crítica tende a atrasar o término. PERT incorpora incerteza nas durações; CPM usa as durações adotadas na programação.",
+      "source": "GAO, Schedule Assessment Guide (GAO-16-89G), boas práticas 2, 6, 7, 8: https://www.gao.gov/products/gao-16-89g ; relações clássicas de redes CPM e aproximação PERT de três estimativas.",
+      "mnemonic": "Frente máximo; trás mínimo; crítico controla o fim.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como determinar caminho crítico, datas cedo/tarde, folga total e livre e duração esperada PERT? Resolva A(3)→B(4)→C(2) e D(5)→C(2)."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O caminho crítico é a sequência de atividades dependentes que controla o término do projeto. Na rede simples, sem restrições adicionais, o caminho de maior duração tem folga total nula. A→B→C dura 9 dias, enquanto D→C dura 7; A, B e C são críticas, e D tem 2 dias de folga total e livre neste exemplo. Um atraso não recuperado de atividade crítica tende a atrasar o término. PERT incorpora incerteza nas durações; CPM usa as durações adotadas na programação."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "GAO, Schedule Assessment Guide (GAO-16-89G), boas práticas 2, 6, 7, 8: https://www.gao.gov/products/gao-16-89g ; relações clássicas de redes CPM e aproximação PERT de três estimativas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Passagem para frente: início cedo de atividade = maior término cedo de suas predecessoras; término cedo = início cedo + duração. Passagem para trás: término tarde = menor início tarde de sucessoras; início tarde = término tarde − duração. Fixar término de referência no término cedo do projeto na rede simples. Caminho crítico pode mudar após reprogramação."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "IC=max(TC predecessoras); TC=IC+d; TT=min(IT sucessoras); IT=TT−d; FT=IT−IC=TT−TC; FL=min(IC sucessoras)−TC. Datas e folgas em dias, rede término–início sem defasagem. PERT clássico: te=(a+4m+b)/6; σ=(b−a)/6; variância=σ². a otimista, m mais provável, b pessimista. Ex.: 2, 5, 8 dias → te=5 dias, σ=1 dia."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "CPM identifica caminho crítico a partir de durações adotadas; PERT usa estimativas probabilísticas clássicas. Folga total: atraso sem alterar término de referência; folga livre: atraso sem alterar início cedo das sucessoras. Gantt mostra barras no tempo; rede explicita lógica."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Rede do exercício: A IC0/TC3/IT0/TT3; B 3/7/3/7; D 0/5/2/7; C 7/9/7/9. FT de D=2; atraso de D em 3 dias desloca término para 10 dias, se demais condições constantes. Em PERT, somar variâncias ao longo de caminho fixo apenas sob hipótese de independência; não confundir com desvio-padrão somado."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0915, CARD-1388"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Fórmulas acima valem para rede simples término–início, sem defasagem ou restrições; calendários, recursos e datas impostas alteram interpretação. Folgas podem ser negativas e vários caminhos podem ser críticos. Aproximação PERT não garante distribuição real ou prazo exato."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não escolher caminho com mais atividades ou maior custo; na passagem para frente usar máximo, para trás mínimo. Folga total não é necessariamente livre. Não transformar te em prazo garantido."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Frente máximo; trás mínimo; crítico controla o fim.; original e histórico preservados."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O caminho crítico é a sequência de atividades dependentes que controla o término do projeto. Na rede simples, sem restrições adicionais, o caminho de maior duração tem folga total nula. A→B→C dura 9 dias, enquanto D→C dura 7; A, B e C são críticas, e D tem 2 dias de folga total e livre neste exemplo. Um atraso não recuperado de atividade crítica tende a atrasar o término. PERT incorpora incerteza nas durações; CPM usa as durações adotadas na programação."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "caminho de maior duração",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO40-SVG-CPM",
+            "src": "assets/card_visuals_estudo40/caminho-critico.svg",
+            "caption": "Rede CPM: caminho crítico A–B–C (9 dias) e folga de D (2 dias).",
+            "alt": "Rede de precedências com A e B em sequência, D em paralelo, ambos convergindo para C; caminho A-B-C destacado.",
+            "source": "GAO, Schedule Assessment Guide (GAO-16-89G), boas práticas 2, 6, 7, 8: https://www.gao.gov/products/gao-16-89g ; relações clássicas de redes CPM e aproximação PERT de três estimativas.",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato, validação visual no checkpoint."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "table": {
+          "headers": [
+            "Atividade",
+            "IC",
+            "TC",
+            "IT",
+            "TT",
+            "FT",
+            "FL"
+          ],
+          "rows": [
+            [
+              "A",
+              "0",
+              "3",
+              "0",
+              "3",
+              "0",
+              "0"
+            ],
+            [
+              "B",
+              "3",
+              "7",
+              "3",
+              "7",
+              "0",
+              "0"
+            ],
+            [
+              "D",
+              "0",
+              "5",
+              "2",
+              "7",
+              "2",
+              "2"
+            ],
+            [
+              "C",
+              "7",
+              "9",
+              "7",
+              "9",
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Duração esperada PERT",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>t</mi><mi>e</mi></msub><mo>=</mo><mfrac><mrow><mi>a</mi><mo>+</mo><mn>4</mn><mi>m</mi><mo>+</mo><mi>b</mi></mrow><mn>6</mn></mfrac></math>",
+            "units": "dias, ou mesma unidade de a, m e b"
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-0915",
+        "CARD-1388"
+      ]
+    },
+    {
+      "id": "CARD-0915",
+      "expected_hash": "c8addba3d0605c3945108d2fbda7096cd9443a722759f0a3d3b77ff52952aa8d",
+      "title": "Compatibilização, precedências e cronograma de obra",
+      "front": "Por que compatibilizar projetos antes da execução e como transformar a solução de interferências em um cronograma executável?",
+      "back": "A compatibilização identifica e resolve interferências geométricas e funcionais entre disciplinas antes de comprometer prazo e custo no canteiro. A programação deve decompor o escopo em atividades, estabelecer precedências executáveis, estimar durações e recursos, construir cronograma físico-financeiro e acompanhar o realizado. Um cronograma apertado não autoriza improvisar alterações técnicas nem suprimir compatibilização.",
+      "source": "Lei 14.133/2021, arts. 6º, 18 e 115, conforme objeto e regime: https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm ; GAO, Schedule Assessment Guide: https://www.gao.gov/products/gao-16-89g",
+      "mnemonic": "Compatibiliza antes; programa a sequência; mede o executado.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Por que compatibilizar projetos antes da execução e como transformar a solução de interferências em um cronograma executável?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A compatibilização identifica e resolve interferências geométricas e funcionais entre disciplinas antes de comprometer prazo e custo no canteiro. A programação deve decompor o escopo em atividades, estabelecer precedências executáveis, estimar durações e recursos, construir cronograma físico-financeiro e acompanhar o realizado. Um cronograma apertado não autoriza improvisar alterações técnicas nem suprimir compatibilização."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Lei 14.133/2021, arts. 6º, 18 e 115, conforme objeto e regime: https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm ; GAO, Schedule Assessment Guide: https://www.gao.gov/products/gao-16-89g"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A EAP decompõe escopo em entregas e pacotes; a rede traduz dependências entre atividades; cronograma distribui trabalhos no tempo; orçamento e pesos de medição ligam execução física ao desembolso. Interferências não resolvidas bloqueiam serviços ou geram retrabalho e podem consumir folgas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Em estimativa simples, duração d=Q/P, com Q quantidade de serviço e P produtividade da equipe por dia; 120 m² a 30 m²/dia →4 dias produtivos. Avanço físico ponderado=Σ(wi·fi), pesos normalizados e fi fração concluída; valores em fração ou %."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "EAP: o que entregar; rede: precedências; Gantt: quando executar; cronograma físico-financeiro: previsão física e desembolso ao longo do tempo; Curva S: evolução acumulada. Compatibilização não é apenas sobreposição gráfica."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Viga intercepta duto: registrar conflito, obter solução compatibilizada e aprovada, atualizar desenhos e quantitativos, avaliar impacto nas precedências e no prazo, comunicar equipe. Se serviço não crítico tem folga, atraso pode ser absorvido; não presumir ausência de impacto sem verificar rede."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1323, CARD-1388, CARD-1437"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Respeitar atribuições, projeto aprovado, regime de execução, condições contratuais e autorização de alterações. Produtividade teórica não substitui calendário, disponibilidade e restrições de execução. Medição deve refletir critérios contratuais e serviço executado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Gantt sem dependências pode ocultar caminho crítico; cronograma financeiro não prova avanço físico. Não cortar uma atividade tecnicamente necessária só para manter prazo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Compatibiliza antes; programa a sequência; mede o executado.; original e histórico preservados."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A compatibilização identifica e resolve interferências geométricas e funcionais entre disciplinas antes de comprometer prazo e custo no canteiro. A programação deve decompor o escopo em atividades, estabelecer precedências executáveis, estimar durações e recursos, construir cronograma físico-financeiro e acompanhar o realizado. Um cronograma apertado não autoriza improvisar alterações técnicas nem suprimir compatibilização."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "identifica e resolve interferências",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1323",
+        "CARD-1388",
+        "CARD-1437"
+      ]
+    }
+  ]
+}
