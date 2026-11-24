@@ -1840,12 +1840,16 @@ if(location.hash==='#calendario')void open();
   const s=editor.querySelector('[data-bm195-status]');if(!s)return;
   s.textContent=String(text||'');s.dataset.error=isError?'yes':'no';
  }
+ let historyRequest=0;
  async function history(){
   if(!editor||editor.hidden||!ID_RE.test(cardId))return;
-  const out=editor.querySelector('[data-bm195-history]');if(!out)return;
+  const out=editor.querySelector('[data-bm195-history]');if(!out||out.hidden)return;
+  const requestedId=cardId,request=++historyRequest;
+  const isCurrent=()=>request===historyRequest&&requestedId===cardId&&!editor.hidden&&!out.hidden&&!modal.hidden;
   out.replaceChildren(el('p','','Carregando tentativas…'));
   try{
-   const rows=(await all()).filter(r=>r.card_id===cardId);
+   const rows=(await all()).filter(r=>r.card_id===requestedId);
+   if(!isCurrent())return;
    out.replaceChildren();
    out.append(el('p','','Tentativas registradas neste cartão: '+rows.length));
    for(const r of rows.slice(0,30)){
@@ -1861,7 +1865,7 @@ if(location.hash==='#calendario')void open();
     out.append(details);
    }
    if(rows.length>30)out.append(el('small','','Exibindo as 30 tentativas mais recentes; a exportação inclui todas.'));
-  }catch(error){out.replaceChildren(el('p','','Não foi possível ler o histórico: '+error.message));}
+  }catch(error){if(isCurrent())out.replaceChildren(el('p','','Não foi possível ler o histórico: '+error.message));}
  }
  async function exportJson(){
   try{
@@ -1886,7 +1890,14 @@ if(location.hash==='#calendario')void open();
   }
   if(next===cardId)return;
   cardId=next;rating='';selectedRate('');
-  if(editor)editor.hidden=true;
+  ++historyRequest;
+  if(editor){
+   editor.hidden=true;
+   const out=editor.querySelector('[data-bm195-history]');
+   out.hidden=false;out.replaceChildren();
+   const toggle=editor.querySelector('[data-bm195-history-toggle]');
+   toggle.textContent='Ocultar histórico deste cartão';toggle.setAttribute('aria-expanded','true');
+  }
   if(controlButton){controlButton.textContent='Responder discursivamente';controlButton.setAttribute('aria-expanded','false');}
   if(area){
    let saved='';try{saved=localStorage.getItem(draftKey())||''}catch{}
@@ -2055,9 +2066,9 @@ if(location.hash==='#calendario')void open();
    '<button type="button" data-bm195-sync>Sincronizar pendentes</button></div>',
    '<small>A conexão pode solicitar permissão ampla de arquivos do Drive para gravar na pasta existente; nunca armazena o token de acesso.</small></details>',
    '<div class="bm195-actions"><button type="button" data-bm195-export>Exportar todas as tentativas (.json)</button>',
-   '<button type="button" data-bm195-history-toggle>Mostrar histórico deste cartão</button></div>',
+   '<button type="button" data-bm195-history-toggle aria-expanded="true" aria-controls="bm195History">Ocultar histórico deste cartão</button></div>',
    '<p data-bm195-status role="status" aria-live="polite">Preparando armazenamento local…</p>',
-   '<div data-bm195-history hidden></div>',
+   '<div id="bm195History" data-bm195-history></div>',
    '<small>Para agendar a revisão oficial, use a classificação SRS abaixo do verso revelado. Salvar a tentativa escrita não cria outro evento SRS.</small>'
   ].join('');
   controls.insertAdjacentElement('afterend',editor);
@@ -2077,8 +2088,10 @@ if(location.hash==='#calendario')void open();
   editor.querySelector('[data-bm195-export]').addEventListener('click',exportJson);
   editor.querySelector('[data-bm195-history-toggle]').addEventListener('click',()=>{
    const target=editor.querySelector('[data-bm195-history]');target.hidden=!target.hidden;
-   editor.querySelector('[data-bm195-history-toggle]').textContent=target.hidden?'Mostrar histórico deste cartão':'Ocultar histórico deste cartão';
-   if(!target.hidden)void history();
+   const toggle=editor.querySelector('[data-bm195-history-toggle]');
+   toggle.textContent=target.hidden?'Mostrar histórico deste cartão':'Ocultar histórico deste cartão';
+   toggle.setAttribute('aria-expanded',String(!target.hidden));
+   if(!target.hidden)void history();else ++historyRequest;
   });
   observedTitle=modal.querySelector('#bmCardPeekTitleV050');
   const obs=new MutationObserver(setCard);

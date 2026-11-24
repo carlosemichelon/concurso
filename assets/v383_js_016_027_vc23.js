@@ -990,6 +990,8 @@ headerLeft.append(kicker,title);
 const close=btn('Fechar','x','bm-v050-peek-close bm163-close');
 close.setAttribute('aria-label','Fechar visualização do flashcard');close.title='Fechar (Esc)';
 const previous=btn('Anterior','layers','bm165-prev'),next=btn('Próximo','layers','bm165-next');
+previous.title='Cartão anterior (←)';next.title='Próximo cartão (→)';
+previous.setAttribute('aria-keyshortcuts','ArrowLeft');next.setAttribute('aria-keyshortcuts','ArrowRight');
 const sidebarToggle=btn('Outros cartões','layers','bm165-toggle-sidebar');
 sidebarToggle.setAttribute('aria-expanded','false');sidebarToggle.title='Mostrar ou ocultar lista de cartões relacionados';
 const navHeader=create('div','bm165-header-nav');navHeader.append(sidebarToggle,previous,next,close);
@@ -1608,8 +1610,16 @@ close.addEventListener('click',hide);backdrop.addEventListener('click',hide);
 document.addEventListener('keydown',e=>{
  if(overlay.hidden)return;
  if(e.key==='Escape'){e.preventDefault();hide();return}
- if((e.altKey||e.ctrlKey)&&e.key==='ArrowRight'){e.preventDefault();moveCard(1);return}
- if((e.altKey||e.ctrlKey)&&e.key==='ArrowLeft'){e.preventDefault();moveCard(-1);return}
+ if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+  // Setas simples na leitura; preservar edição de texto e controles interativos.
+  const target=e.target;
+  if(e.defaultPrevented||e.isComposing||e.repeat||e.shiftKey||e.metaKey||
+     !overlay.contains(target)||target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"]),[role="textbox"],[role="combobox"],[role="slider"],[role="tablist"],[role="grid"],[role="listbox"],[role="tree"],[role="radiogroup"]')||
+     target.isContentEditable||!window.getSelection()?.isCollapsed||overlay.dataset.bm382Queue==='true')return;
+  const direction=e.key==='ArrowRight'?1:-1,button=direction===1?next:previous;
+  if(!button.disabled){e.preventDefault();moveCard(direction);}
+  return;
+ }
  if(e.key!=='Tab')return;
  const focusable=Array.from(panel.querySelectorAll('a[href],button,summary,textarea,input,select,[tabindex="0"]')).filter(el=>visibleElement(el)&&el.getClientRects().length>0);
  if(!focusable.length)return;
