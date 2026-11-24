@@ -13,7 +13,7 @@ test('mestre original: isolamento, edição, exclusões e conflito de versão',a
  const service=createMarksService(),op=(subject,operation)=>service({provider,profile:profile(subject),operation});
  const a=await op('A',{kind:'read'});assert.equal(a.version,null);
  const b=await op('B',{kind:'read'});assert.equal(b.version,null);assert.equal(writes,0);
- const foreign=snapshot({'BM030_STROKES_PDF:OTHER:'+hash+':P1':JSON.stringify([mark])});
+ const foreign=snapshot({['BM030_STROKES_PDF:OTHER:'+hash+':P1']:JSON.stringify([mark])});
  await assert.rejects(op('A',{kind:'sync',input:{expected:null,snapshot:foreign}}),MarksRejected);
  const snap=snapshot({[key]:JSON.stringify([mark])});const saved=await op('A',{kind:'sync',input:{expected:a.version,snapshot:snap}});
  assert.equal(JSON.parse(saved.master.records[key])[0].color,mark.color);assert.equal((await op('B',{kind:'read'})).master.records[key],undefined);

@@ -22,8 +22,8 @@ export function createCentralHandler({auth,loadProfile,origin}){
  return async(req,res)=>{
   try{
    const path=req.url,method=req.method,token=sessionToken(req.headers.cookie);
-   if(method==='GET'&&(path==='/'||path==='/login.js')){
-    const isHtml=path==='/';const bytes=await readFile(isHtml?htmlPath:new URL('./login.js',import.meta.url));res.writeHead(200,{...headers,'Content-Type':isHtml?'text/html; charset=utf-8':'text/javascript; charset=utf-8'});res.end(bytes);return;
+   if(method==='GET'&&(path==='/'||path==='/login.js'||path==='/original-portal.css')){
+    const isHtml=path==='/',isCss=path==='/original-portal.css';const bytes=await readFile(isHtml?htmlPath:new URL(isCss?'./original-portal.css':'./login.js',import.meta.url));res.writeHead(200,{...headers,'Content-Type':isHtml?'text/html; charset=utf-8':isCss?'text/css; charset=utf-8':'text/javascript; charset=utf-8'});res.end(bytes);return;
    }
    if(method==='POST'&&req.headers.origin!==origin)return send(res,403,{error:'Origem não autorizada'});
    if(method==='POST'&&path==='/api/login'){
