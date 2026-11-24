@@ -22,7 +22,7 @@ function catalog(profile){return profilePdfs(profile.privateData.pdf||[],[])}
 // Only marks from the exact catalog document and edition can be imported.
 // Unknown historical keys are never discarded or rewritten by a new import.
 export function validateSnapshotScope(snapshot,docs,core){
- const records=core.validate(snapshot),prefixes=docs.filter(d=>hash(d.hash)).map(d=>d.id+':'+d.hash);
+ const records=core.validate(snapshot),prefixes=docs.filter(d=>hash(d.hash)).flatMap(d=>[d.id+':'+d.hash.toLowerCase(),d.id+':'+d.hash.toLowerCase().slice(0,24)]);
  const page=k=>prefixes.some(p=>k.startsWith('BM030_STROKES_PDF:'+p+':P')&&/^\d+$/.test(k.slice(('BM030_STROKES_PDF:'+p+':P').length)));
  const joins=k=>prefixes.some(p=>k==='BM102_PDF_HIGHLIGHT_JOINS:'+p);
  const meta=k=>prefixes.some(p=>k.startsWith('TXT:'+p+':'));
