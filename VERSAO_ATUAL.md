@@ -1,3 +1,7 @@
+## V399 / VS10 / VC31 / VM7 — prevenção de verso vazio (24/11/2026)
+
+V398 corrigiu a tabela opcional no leitor compartilhado, adicionou fallback textual e passou no Chromium em 68 cartões (67 evoluções da VC31 e CARD-0701). V399 alinha o título HTML à VS10, sem alterar catálogo, SVGs, IDs ou SRS. O portão incremental VM7 seleciona IDs novos/alterados, valida o leitor real, exige fórmulas/tabelas/mídias públicas previstas e impede aprovação por fallback. Teste de fumaça CARD-1448/CARD-0701 aprovado na branch candidata; execução automática incorporada à materialização de futuros incrementos, antes do commit. Entrega pública da V399 deve ser confirmada pelo workflow de publicação; V398 permanece preservada.
+
 ## V369 — Coerência dos manifestos e testes (24/11/2026)
 
 Atualiza aliases do portal, estabelece contrato de recursos CSS/JS e verifica identidade do catálogo. Testes históricos V310/V348 continuam conferindo os próprios snapshots; o contrato vigente valida os recursos atuais. O teste de mídia passa a ler associações explícitas V349 (46 SVGs, 92 referências de mídia nas duas fontes, incluindo uma de frente), preservando a detecção de órfãos. Nenhum cartão, arquivo de imagem, autorização pedagógica ou SRS foi alterado. V368 confirmou publicação pública e teste principal em navegador no CI; a liberação editorial falhou e permanece sem alteração. Testes V369 e Drive autenticado pendentes.

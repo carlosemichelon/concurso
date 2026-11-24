@@ -15,14 +15,25 @@ concurrency:
 jobs:
   materializar:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Registrar base anterior ao incremento
+        run: echo "CATALOG_BASE=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - run: node tools/catalog_apply_pending.cjs
       - run: node tools/catalog_snapshot.cjs --check
+      - name: Selecionar IDs alterados para o leitor
+        id: reader
+        run: node tests/catalog_reader_gate.cjs "$CATALOG_BASE" --plan >> "$GITHUB_OUTPUT"
+      - if: steps.reader.outputs.count != '0'
+        run: npm install --no-save playwright
+      - if: steps.reader.outputs.count != '0'
+        run: npx playwright install --with-deps chromium
+      - if: steps.reader.outputs.count != '0'
+        run: node tests/catalog_reader_gate.cjs "$CATALOG_BASE"
       - name: Commit da versão candidata validada
         run: |
           git config user.name 'github-actions[bot]'

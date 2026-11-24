@@ -1,5 +1,9 @@
 # Instruções de edição para agentes — Banco Mestre
 
+## Regra vigente VM7 — portão de exibição antes de promover (24/11/2026)
+
+Antes de promover qualquer catálogo novo, executar `node tests/catalog_reader_gate.cjs <SHA-da-base-anterior>` na versão candidata materializada, com Playwright/Chromium. O teste seleciona IDs novos/alterados por comparação de snapshots, abre o leitor real, verifica verso visível, módulos, mídia pública decodificada, fórmulas e tabelas previstas. Elementos opcionais não podem interromper o verso; fallback não é aprovação. Reaproveitar uma evidência válida para o mesmo catálogo e leitor. Em workflows que materializam e gravam o snapshot com GITHUB_TOKEN, executar o teste antes do commit/push candidato, pois esse push não dispara necessariamente outros workflows. O workflow `catalog-reader-gate.yml` cobre branches de publicação/correção, PR e confirmação na branch oficial; `catalog-evolution-candidate.yml` inclui a trava antes de materializar o commit. Não promover com falha ou teste pendente. A condição é operacional; não presumir proteção administrativa de branch. Verificar título HTML, manifesto e entrega Pages separadamente. Sem alteração de SRS ou auditoria global.
+
 ## Arquitetura atual (V364)
 O encerramento é conferência dos recibos do delta privado, não reconstrução global. Usar o protocolo de retomada documentado em `docs/ARQUITETURA_OPERACIONAL.md` e a ferramenta local `tools/study_batch.cjs` quando aplicável; nunca commitar os dados privados.
 Antes de editar, aplicar o contrato de [arquitetura operacional](docs/ARQUITETURA_OPERACIONAL.md). Use `node tools/catalog_snapshot.cjs --check` na versão vigente. Alterações visuais reutilizam o catálogo imutável; alterações de conteúdo geram um snapshot novo e atualizam o contrato, sem reauditoria histórica de IDs. Não misturar o estado privado do Drive com a publicação pública.
