@@ -129,13 +129,90 @@ header .stats .bm241-verification{font-size:10px}
  #bmCardPeekV050 .bm165-layout>#bm195Discursive:not([hidden]){
   grid-column:-2/-1;grid-row:1;align-self:stretch;min-width:0;min-height:0;width:100%;max-width:none!important;
   margin:0!important;border:0!important;border-left:2px solid #c5d4d8!important;border-radius:0!important;
-  padding:20px!important;box-sizing:border-box;overflow-y:auto!important;overflow-x:hidden!important;
+  padding:16px clamp(12px,1.4vw,22px)!important;box-sizing:border-box;overflow-y:auto!important;overflow-x:hidden!important;
   overscroll-behavior:contain;scrollbar-gutter:stable;
  }
  #bmCardPeekV050 .bm165-layout>#bm195Discursive textarea[data-bm195-answer]{
-  min-height:clamp(240px,42dvh,540px)!important;resize:vertical;
+  height:clamp(150px,27dvh,320px);min-height:120px!important;resize:vertical;
  }
 }
+
+/* VS6 — acabamento visual do painel de resposta; sem alterar o comportamento. */
+#bmCardPeekV050 #bm195Discursive{
+ background:#f7fafb!important;color:#203b49!important;
+ font:400 14px/1.5 system-ui,Arial,sans-serif!important;
+}
+#bmCardPeekV050 #bm195Discursive h3{
+ font-size:17px!important;font-weight:750!important;line-height:1.35!important;
+ margin:0 0 6px!important;color:#21485c!important;overflow-wrap:anywhere;
+}
+#bmCardPeekV050 #bm195Discursive p{
+ font-size:13px!important;line-height:1.5!important;margin:0 0 10px!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-label{
+ font-size:13px!important;line-height:1.4!important;font-weight:650!important;
+ margin:10px 0 5px!important;color:#294c5e!important;
+}
+#bmCardPeekV050 #bm195Discursive textarea,
+#bmCardPeekV050 #bm195Discursive input{
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ box-sizing:border-box!important;margin:5px 0 0!important;
+ padding:10px 12px!important;border:1px solid #b9cdd8!important;
+ border-radius:8px!important;background:#fff!important;color:#203b49!important;
+ font:400 14px/1.55 system-ui,Arial,sans-serif!important;
+ box-shadow:0 1px 2px rgba(30,65,85,.04);
+}
+#bmCardPeekV050 #bm195Discursive textarea::placeholder,
+#bmCardPeekV050 #bm195Discursive input::placeholder{color:#647988!important;opacity:1}
+#bmCardPeekV050 #bm195Discursive textarea:focus,
+#bmCardPeekV050 #bm195Discursive input:focus{
+ border-color:#287cae!important;outline:2px solid #b5d9ef!important;outline-offset:1px!important;
+}
+#bmCardPeekV050 #bm195Discursive textarea[data-bm195-note]{
+ height:58px;min-height:48px!important;resize:vertical;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-rates{
+ display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));
+ gap:7px!important;margin:7px 0 12px!important;
+}
+#bmCardPeekV050 #bm195Discursive button{
+ min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+ min-height:36px!important;padding:8px 10px!important;border:1px solid #bed2de!important;
+ border-radius:7px!important;background:#fff!important;color:#285b76!important;
+ font:650 12px/1.35 system-ui,Arial,sans-serif!important;
+ white-space:normal!important;overflow-wrap:anywhere;text-align:center!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-rates button{
+ grid-column:span 2;min-height:37px!important;margin:0!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-rates button:nth-child(n+4){grid-column:span 3}
+#bmCardPeekV050 #bm195Discursive button:hover{background:#eaf4fa!important;border-color:#91bad2!important}
+#bmCardPeekV050 #bm195Discursive button:focus-visible{outline:2px solid #2782b4!important;outline-offset:2px}
+#bmCardPeekV050 #bm195Discursive .bm195-rates button[aria-pressed="true"]{
+ background:#e0eff9!important;color:#174c70!important;border-color:#2b80b5!important;
+ outline:2px solid #2b80b5!important;outline-offset:-2px;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions{
+ display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));
+ gap:7px!important;margin:10px 0 0!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-primary{
+ background:#176fa8!important;border-color:#176fa8!important;color:#fff!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-primary:hover{background:#125b8a!important}
+#bmCardPeekV050 #bm195Discursive .bm195-drive{
+ border:1px solid #d4e2e9!important;border-radius:8px!important;
+ margin:12px 0 0!important;padding:10px 12px!important;background:#fff!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-drive summary{
+ font-size:12px!important;color:#365d73!important;overflow-wrap:anywhere;
+}
+#bmCardPeekV050 #bm195Discursive [data-bm195-status]{
+ margin:12px 0 4px!important;padding:9px 0 0!important;font-size:12px!important;
+ color:#526b7b!important;font-weight:500!important;
+}
+#bmCardPeekV050 #bm195Discursive [data-bm195-status][data-error="yes"]{color:#a42323!important}
+#bmCardPeekV050 #bm195Discursive small{font-size:12px!important;line-height:1.45!important;color:#526b7b!important}
 </style>
 </head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
 <header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS6 · Cartões VC15</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
