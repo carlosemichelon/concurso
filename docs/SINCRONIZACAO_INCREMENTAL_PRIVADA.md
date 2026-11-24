@@ -6,4 +6,11 @@ Fluxo: salvar e verificar novo leitor no Drive; atualizar apenas a entrada corre
 
 Validação pré-implantação: `node --test tests/private_study_manifest.test.cjs`; executar o portão didático vigente se aplicável, verificar paridade com outras entradas HTML realmente usadas pelo portal, testar abertura do arquivo real com login Google, troca de sessão, logout e ausência de manifesto. Não fundir com gh-pages até essas verificações. A arquitetura atual é por conta OAuth do Drive, não por usuário do site; isolamento de múltiplos usuários sob uma única conta Drive depende de implementação separada.
 
-Após implantação verificada, atualizações de estudos compatíveis com o esquema não precisam de novo commit HTML. A integração ao catálogo único e ao calendário oficial permanece uma etapa separada.
+Após implantação verificada, atualizações de estudos compatíveis com o esquema não precisam de novo commit HTML. A integração ao catálogo único e ao calendário foi implementada na candidata; a implantação depende da homologação autenticada.
+
+## Checkpoint incremental — 2026-11-24 (base V352)
+
+- Produção V352 incorporada sem substituir o catálogo, vínculos recíprocos, scripts de mídia ou prévia multiusuário. Merge `d9b9aba430dd475b1fef18b5c2c7872cb631986f`.
+- Agenda privada carregada automaticamente na autorização Drive, por sessão, com verificação da fonte e da identidade do cartão. Fechar o leitor não remove a agenda; logout/troca de conta e pagehide limpam os dados. Atualizar Drive recarrega o manifesto e revoga autorizações removidas. Sessões com conflito de validação ficam isoladas. Nenhum evento privado é publicado no GitHub.
+- Commit funcional `a3f56858cede7ef426c1a35801cda5775f61d89e`. 12/12 verificações de conciliação e 11/11 de manifesto executadas com harness JavaScript; sintaxe do bridge e calendário validada. Cache dos três scripts alterados invalidado na entrada candidata. Não equivale a teste em navegador nem execução oficial do Node.
+- Pendências: conciliar identidades conflitantes por fonte e conceito, sem criar novos IDs por presunção; conferir os eventos autorizados no calendário com OAuth real, testar fechamento do leitor, troca de sessão, desconexão e ausência do manifesto. Verificar política SRS vigente e gate didático quando houver alteração de cartões. Só depois promover a candidata para produção, com verificação de novos commits concorrentes.
