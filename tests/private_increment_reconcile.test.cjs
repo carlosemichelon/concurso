@@ -1,0 +1,46 @@
+'use strict';
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const {reconcile,mergePlanning}=require('../assets/private_increment_reconcile_v1.js');
+const catalog=[{id:'CARD-0001',front:'Questão A',active:true},{id:'CARD-0002',front:'Questão B',active:true},{id:'CARD-0003',front:'Questão C',active:false}];
+const entry={session:29,version:193};
+const payload=()=>({items:[{key:'BM-PRIVADO:CARD-0001',type:'Cartão revisado',front:'Questão A',missing:[]},{key:'BM-PRIVADO:CARD-0002',type:'Cartão revisado',front:'Outro conceito',missing:['img']},{key:'PETRO29-PROP',type:'Proposta — estudo provisório',front:'Nova'}],agenda:[{key:'BM-PRIVADO:CARD-0001',historical_id:'CARD-0001',front:'Questão A',sources:[{origin:'SRS_HISTORICO:CARD-0001',date:'2026-10-25'},{origin:'AGENDA-PETRO29-Q001-20261123',date:'2026-12-09'}]},{key:'BM-PRIVADO:CARD-0002',historical_id:'CARD-0002',front:'Outro conceito',sources:[{origin:'AGENDA-PETRO29-Q001-20261123',date:'2026-12-01'}]}]});
+const approval={id:'CARD-0001',origin:'AGENDA-PETRO29-Q001-20261123',due:'2026-12-09'};
+test('exact identity and conflicts classified without changing input',()=>{const p=payload(),before=JSON.stringify(p);const r=reconcile(p,entry,catalog);assert.equal(r.counts.exact,1);assert.equal(r.counts.conflicts,1);assert.equal(r.counts.proposals,1);assert.equal(r.counts.missingMedia,1);assert.equal(JSON.stringify(p),before)});
+test('historical projection excluded; conflict blocks schedule',()=>{const r=reconcile(payload(),entry,catalog);assert.equal(r.candidates.length,1);assert.equal(r.candidates[0].intervalDays,16);assert.equal(r.blocked.length,1);assert.equal(r.approved.length,0)});
+test('explicit approval enables planning only, not a review rating',()=>{const r=reconcile(payload(),{...entry,approvedAgenda:[approval]},catalog);assert.equal(r.approved.length,1);assert.equal(r.approved[0].rating,'');assert.equal(r.approved[0].kind,'agendamento_por_questao')});
+test('unknown approval blocked',()=>assert.throws(()=>reconcile(payload(),{...entry,approvedAgenda:[{...approval,id:'CARD-9999'}]},catalog)));
+test('inactive cards cannot be integrated',()=>{const p=payload();p.items[0].key='BM-PRIVADO:CARD-0003';p.items[0].front='Questão C';assert.equal(reconcile(p,entry,catalog).items[0].status,'INATIVO_OU_PROVISORIO')});
+test('invalid interval rejected',()=>{const p=payload();p.agenda[0].sources[1].date='2026-12-03';assert.equal(reconcile(p,entry,catalog).candidates.length,0)});
+test('duplicate canonical id rejected',()=>assert.throws(()=>reconcile(payload(),entry,[...catalog,catalog[0]])));
+test('new approved date fills an undated card',()=>{const a=reconcile(payload(),{...entry,approvedAgenda:[approval]},catalog).approved;assert.equal(mergePlanning([],a)[0].due,'2026-12-09')});
+test('existing earlier deadlines and formal records preserved',()=>{const a=reconcile(payload(),{...entry,approvedAgenda:[approval]},catalog).approved;for(const p of [{id:'CARD-0001',due:'2026-11-25'},{id:'CARD-0001',due:'2026-12-30',lastReview:'2026-11-24'}])assert.deepEqual(mergePlanning([p],a),[p])});
+test('duplicate candidate event does not duplicate planning',()=>{const p=payload();p.agenda[0].sources.push(p.agenda[0].sources[1]);assert.equal(reconcile(p,entry,catalog).candidates.length,1)});
+
+test('private agenda is session-scoped, deduplicated, and revoked when account changes',async()=>{
+ const fs=require('node:fs'),vm=require('node:vm');
+ const source=fs.readFileSync(require.resolve('../assets/private_increment_reconcile_v1.js'),'utf8');
+ let auth='account-a';
+ const win={BancoMestreMediaSyncV182:{token:()=>auth},addEventListener(){},setInterval(){}};
+ const ctx={window:win,Date,Map,Set,globalThis:win};vm.runInNewContext(source,ctx);
+ const api=win.BMPrivateIncrementV1;
+ const p=payload(),second=payload();
+ second.agenda[0].sources[1].origin='AGENDA-PETRO30-Q001-20261123';
+ const e1={...entry,approvedAgenda:[approval]},e2={...entry,session:30,approvedAgenda:[{...approval,origin:'AGENDA-PETRO30-Q001-20261123'}]};
+ api.stage(p,e1,catalog,auth);api.stage(second,e2,catalog,auth);
+ assert.equal(api.approvedAgenda().length,2);
+ await api.stageBatch([e1],catalog,auth,async()=>p);
+ assert.equal(api.approvedAgenda().length,1);
+ auth='account-b';assert.equal(api.approvedAgenda().length,0);
+});
+test('batch isolates an invalid approval and stops a cancelled load',async()=>{
+ const fs=require('node:fs'),vm=require('node:vm');
+ const source=fs.readFileSync(require.resolve('../assets/private_increment_reconcile_v1.js'),'utf8');
+ const auth='account-a',win={BancoMestreMediaSyncV182:{token:()=>auth},addEventListener(){},setInterval(){}};
+ vm.runInNewContext(source,{window:win,Date,Map,Set,globalThis:win});
+ const api=win.BMPrivateIncrementV1,p=payload(),good={...entry,approvedAgenda:[approval]},bad={...entry,session:30,approvedAgenda:[approval]};
+ const result=await api.stageBatch([good,bad],catalog,auth,async()=>p);
+ assert.equal(result.loaded,1);assert.equal(result.failed.length,1);assert.equal(result.events,1);
+ const cancelled=await api.stageBatch([],catalog,auth,async()=>p,()=>false);
+ assert.equal(cancelled,null);assert.equal(api.approvedAgenda().length,1);
+});

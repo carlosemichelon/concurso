@@ -90,7 +90,7 @@ html[data-bm269-pdf-auth="authorized"] #bm269PdfLocked{display:none!important}
  <p class="notice">Material orientativo derivado dos registros existentes; verifique a versão e a fonte normativa antes de tratar conteúdo técnico como vigente.</p>
  <button id="topicGoCards" class="primary">Praticar flashcards deste assunto</button>
  </div></section>
-<section id="cartoes"><div class="panel"><h2>Flashcards</h2><div id="bmPetro29PrivateReader" class="notice" style="margin:12px 0"><strong>Petrobras 29 — acervo privado</strong><p class="small">Consulte as fichas revisadas, propostas, imagens e agenda preservadas no Drive. Leitura individual; não mescla IDs nem altera o SRS oficial.</p><button type="button" id="bmPetro29Open" class="primary">Abrir estudo do Drive</button> <button type="button" id="bmPetro29Close" hidden>Fechar estudo</button><p id="bmPetro29Status" class="small" role="status" aria-live="polite">Acesso depende da autorização da sua conta Google Drive.</p><iframe id="bmPetro29Frame" title="Leitor privado Petrobras 29" sandbox="allow-scripts" referrerpolicy="no-referrer" hidden style="width:100%;height:min(82vh,950px);min-height:420px;border:1px solid #bdcfcd;border-radius:8px;background:white"></iframe></div><p class="intro">Biblioteca única de estudo, organizada por disciplina e assunto. Leia a pergunta e use 👁 Ver cartão para consultar a resposta, a explicação e o macete sem iniciar uma revisão. A consulta não altera o SRS.</p>
+<section id="cartoes"><div class="panel"><h2>Flashcards</h2><div id="bmPetro29PrivateReader" class="notice" style="margin:12px 0"><strong>Estudos Petrobras — acervo privado</strong><p class="small">Consulte as fichas revisadas, propostas, imagens e agenda preservadas no Drive. Leitura individual; não mescla IDs nem altera o SRS oficial.</p><select id="bmPrivateStudySelect" aria-label="Selecionar estudo privado" hidden></select> <button type="button" id="bmPetro29Open" class="primary">Abrir estudo do Drive</button> <button type="button" id="bmPetro29Close" hidden>Fechar estudo</button><p id="bmPetro29Status" class="small" role="status" aria-live="polite">Acesso depende da autorização da sua conta Google Drive.</p><iframe id="bmPetro29Frame" title="Leitor privado Petrobras" sandbox="allow-scripts" referrerpolicy="no-referrer" hidden style="width:100%;height:min(82vh,950px);min-height:420px;border:1px solid #bdcfcd;border-radius:8px;background:white"></iframe></div><p class="intro">Biblioteca única de estudo, organizada por disciplina e assunto. Leia a pergunta e use 👁 Ver cartão para consultar a resposta, a explicação e o macete sem iniciar uma revisão. A consulta não altera o SRS.</p>
 <details id="bm273Versoes" class="notice" style="margin:10px 0 18px"><summary style="cursor:pointer;font-weight:700">Entenda o catálogo único e as versões</summary>
 <div style="margin-top:9px"><p><strong>A versão do portal</strong> identifica a interface do site, não a versão do Banco Mestre privado.</p>
 <p><strong>Biblioteca de estudo unificada</strong>: <strong>1.558 fichas identificadas no catálogo</strong>, com classificação por disciplina e assunto, sem uma biblioteca separada por concurso. São 1.536 cartões canônicos (1.519 ativos e 17 inativos) e 22 propostas de legislação em validação editorial, preservadas com IDs próprios PROP-IJUI para evitar colisão com CARD-1430 a CARD-1451. Essas propostas não entram na base canônica nem no SRS até regularização autorizada. As 9 explicações V274, os 11 módulos de 39 IDs e os 19 adendos V267 permanecem preservados.</p>
@@ -634,6 +634,7 @@ const ijui=ij.cards.map(c=>({...c,provisional:true,group:'LEGISLACAO',discipline
 return bm123CardsPromise;
 }
 
+window.BMUnifiedCatalogV1=Object.freeze({async snapshot(){await loadCards();return cards.slice()}});
 function infoBlock(parent,title,text){
  if(text===undefined||text===null||text==='')return;
  const section=el('div',null,'richSection');
@@ -790,7 +791,7 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
 <script defer src="assets/v349_js_016_027.js?v=349-207"></script>
 
 
-<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/v326_js_040_051.js?v=326-1"></script><script defer src="assets/v326_js_052_063.js?v=326-1"></script><script defer src="assets/v315_js_064_075.js?v=315-1"></script><script defer src="assets/v349_js_076_087.js?v=349-207"></script><script defer src="assets/v326_js_088_099.js?v=326-1"></script><script defer src="assets/v315_js_100_111.js?v=315-1"></script><script defer src="assets/v315_js_112_123.js?v=315-1"></script><script defer src="assets/v326_js_124_135.js?v=326-1"></script><script id="bm259-pdf-visibility-label">
+<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/v326_js_040_051.js?v=326-1"></script><script defer src="assets/v326_js_052_063.js?v=326-1"></script><script defer src="assets/v315_js_064_075.js?v=315-1"></script><script defer src="assets/v349_js_076_087.js?v=352-sync1"></script><script defer src="assets/v326_js_088_099.js?v=326-1"></script><script defer src="assets/v315_js_100_111.js?v=315-1"></script><script defer src="assets/v315_js_112_123.js?v=315-1"></script><script defer src="assets/v326_js_124_135.js?v=326-1"></script><script id="bm259-pdf-visibility-label">
 (function(){
  function mount(){
   const panel=document.querySelector('#pdfs .panel'),rows=document.getElementById('pdfRows');
@@ -811,51 +812,139 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
 </script><script defer src="assets/v315_js_136_147.js?v=315-1"></script><script defer src="assets/v326_js_148_159.js?v=326-1"></script>
-<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v316_srs_journal.js?v=316-3"></script><script defer src="assets/v349_related_navigator.js?v=349-207"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/v343_petro27_renderer.js?v=343-1"></script><script defer src="assets/v345_petro28_renderer.js?v=345-1"></script><script defer src="assets/v346_petro24_renderer.js?v=346-1"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/v348_visual_renderer.js?v=348-1"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/v349_shared_reader.js?v=349-207"></script><script defer src="assets/v352_private_media.js?v=352-1"></script><script defer src="assets/v353_didactic_supplements.js?v=353-1"></script><script id="bmPetro29Bridge">
+<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v316_srs_journal.js?v=352-sync1"></script><script defer src="assets/v349_related_navigator.js?v=349-207"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/v343_petro27_renderer.js?v=343-1"></script><script defer src="assets/v345_petro28_renderer.js?v=345-1"></script><script defer src="assets/v346_petro24_renderer.js?v=346-1"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/v348_visual_renderer.js?v=348-1"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/v349_shared_reader.js?v=349-207"></script><script src="assets/private_increment_reconcile_v1.js?v=352-sync1"></script><script defer src="assets/v352_private_media.js?v=352-1"></script><script defer src="assets/v353_didactic_supplements.js?v=353-1"></script><script id="bmPetro29Bridge">
 (function(){
 'use strict';
 const el=id=>document.getElementById(id);
-const open=el('bmPetro29Open'),close=el('bmPetro29Close'),frame=el('bmPetro29Frame'),status=el('bmPetro29Status');
-if(!open||!close||!frame||!status)return;
-const filename='PETRO29_V193_LEITOR_PRIVADO.html';
+const open=el('bmPetro29Open'),close=el('bmPetro29Close'),frame=el('bmPetro29Frame'),status=el('bmPetro29Status'),select=el('bmPrivateStudySelect');
+if(!open||!close||!frame||!status||!select)return;
+const manifestName='BANCO_MESTRE_MANIFESTO_LEITORES_PRIVADOS_V1';
 const root='https://www.googleapis.com/drive/v3/files';
-let run=0,controller=null;
+const maxBytes=10000000;
+let run=0,controller=null,openedToken='',agendaAuth='',agendaController=null,agendaRun=0,agendaTask=null;
 const token=()=>window.BancoMestreMediaSyncV182?.token?.()||window.BM239DriveGlobal?.writeToken?.()||'';
-function reset(){run++;controller?.abort();controller=null;frame.removeAttribute('srcdoc');frame.hidden=true;close.hidden=true;open.disabled=false;status.textContent='Leitor fechado; dados privados não armazenados neste portal.'}
+const positive=n=>Number.isSafeInteger(n)&&n>0;
+const nonnegative=n=>Number.isSafeInteger(n)&&n>=0;
+function validateManifest(m){
+ if(!m||m.schema!==1||!Array.isArray(m.studies)||!m.studies.length||m.studies.length>100)throw Error('Manifesto inválido.');
+ const keys=new Set(),files=new Set();
+ for(const e of m.studies){
+  if(!e||!positive(e.session)||!positive(e.version)||e.key!=='petrobras-'+e.session||keys.has(e.key)||!(/^[A-Za-z0-9_-]{10,150}$/).test(e.fileId)||files.has(e.fileId)||e.filename!=='PETRO'+e.session+'_V'+e.version+'_LEITOR_PRIVADO.html'||!positive(e.size)||e.size>maxBytes)throw Error('Entrada inválida ou duplicada no manifesto.');
+  const c=e.counts;
+  if(!c||!['items','reviewed','proposals','media','agenda'].every(k=>nonnegative(c[k]))||!positive(c.items)||c.items!==c.reviewed+c.proposals||c.items>10000||c.media>10000||c.agenda>100000)throw Error('Contagens inválidas no manifesto.');
+  keys.add(e.key);files.add(e.fileId);
+ }
+ if(!keys.has(m.active))throw Error('Estudo ativo ausente do manifesto.');
+ return m;
+}
+function validatePayload(p,c){
+ if(!p||!Array.isArray(p.items)||!Array.isArray(p.agenda)||!p.media||typeof p.media!=='object'||Array.isArray(p.media))throw Error('Estrutura ausente.');
+ const items=p.items,reviewed=items.filter(x=>x?.type==='Cartão revisado').length,proposals=items.filter(x=>x?.type==='Proposta — estudo provisório').length;
+ if(items.length!==c.items||reviewed!==c.reviewed||proposals!==c.proposals||new Set(items.map(x=>x?.key)).size!==c.items||items.some(x=>!x||typeof x.key!=='string'||!x.key.trim()||!Array.isArray(x.layers)||x.layers.length!==11)||Object.keys(p.media).length!==c.media||p.agenda.length!==c.agenda)throw Error('Contagens ou estrutura não correspondem ao manifesto.');
+ return {reviewed,proposals,media:Object.keys(p.media).length,agenda:p.agenda.length};
+}
+function clearFrame(){frame.removeAttribute('srcdoc');frame.hidden=true;openedToken='';el('bmPrivateReconcileReport')?.remove()}
+function reset(){run++;controller?.abort();controller=null;clearFrame();close.hidden=true;open.disabled=false;select.hidden=true;select.replaceChildren();status.textContent='Leitor fechado. A agenda autorizada permanece em memória apenas durante a conexão Drive.'}
 close.addEventListener('click',reset);
-open.addEventListener('click',async()=>{
- const auth=token();
- if(!auth){status.textContent='Conecte o Google Drive no cabeçalho e depois clique novamente em Abrir estudo do Drive.';return}
- const id=++run;controller?.abort();controller=new AbortController();const signal=controller.signal;
- open.disabled=true;close.hidden=false;frame.hidden=true;frame.removeAttribute('srcdoc');
- status.textContent='Localizando o arquivo privado no Google Drive…';
- try{
-  const params=new URLSearchParams({q:"name = '"+filename+"' and trashed = false",fields:'nextPageToken,files(id,name,mimeType,size)',pageSize:'100'});
-  const options={headers:{Authorization:'Bearer '+auth},cache:'no-store',signal};
-  const list=await fetch(root+'?'+params.toString(),options);
-  if(!list.ok)throw Error('Consulta Drive: HTTP '+list.status);
-  const data=await list.json();
-  if(data.nextPageToken||data.files?.length!==1)throw Error('Arquivo não localizado de forma inequívoca na conta autorizada.');
-  const file=data.files[0];
-  if(file.name!==filename||file.mimeType!=='text/html'||Number(file.size)>10000000)throw Error('Formato ou tamanho inesperado.');
-  const source=await fetch(root+'/'+encodeURIComponent(file.id)+'?alt=media',options);
-  if(!source.ok)throw Error('Leitura Drive: HTTP '+source.status);
-  const raw=await source.text();
-  if(raw.length>10000000||!raw.includes('<title>Petrobras 29 | Leitor privado</title>'))throw Error('Leitor inválido.');
+function driveClient(auth,signal){
+ const options={headers:{Authorization:'Bearer '+auth},cache:'no-store',signal};
+ const get=async(url)=>{const response=await fetch(url,options);if(!response.ok)throw Error('Consulta Drive: HTTP '+response.status);return response};
+ return get;
+}
+async function fetchManifest(get){
+  const params=new URLSearchParams({q:"name = '"+manifestName+"' and mimeType = 'application/vnd.google-apps.document' and 'me' in owners and trashed = false",fields:'nextPageToken,files(id,name,mimeType)',pageSize:'100'});
+  const listing=await (await get(root+'?'+params)).json();
+  if(listing.nextPageToken||listing.files?.length!==1)throw Error('Manifesto privado ausente ou duplicado na conta autorizada.');
+  const manifestFile=listing.files[0];
+  const manifestRaw=await (await get(root+'/'+encodeURIComponent(manifestFile.id)+'/export?mimeType=text%2Fplain')).text();
+  if(manifestRaw.length>100000)throw Error('Manifesto acima do limite.');
+  const manifest=validateManifest(JSON.parse(manifestRaw.replace(/^\uFEFF/,'').trim()));
+ return manifest;
+}
+async function fetchStudy(get,entry){
+  const meta=await (await get(root+'/'+encodeURIComponent(entry.fileId)+'?fields=id,name,mimeType,size,trashed,ownedByMe')).json();
+  if(meta.id!==entry.fileId||meta.name!==entry.filename||meta.mimeType!=='text/html'||meta.trashed!==false||meta.ownedByMe!==true||Number(meta.size)!==entry.size)throw Error('Arquivo divergente do manifesto ou da conta autorizada.');
+  const source=await get(root+'/'+encodeURIComponent(entry.fileId)+'?alt=media');
+  const bytes=await source.arrayBuffer();
+  if(bytes.byteLength!==entry.size||bytes.byteLength>maxBytes)throw Error('Tamanho do arquivo divergente.');
+  const raw=new TextDecoder('utf-8',{fatal:true}).decode(bytes);
   const doc=new DOMParser().parseFromString(raw,'text/html');
-  const payload=JSON.parse(doc.querySelector('script#payload[type="application/json"]')?.textContent||'null');
-  if(!payload||!Array.isArray(payload.items)||!Array.isArray(payload.agenda)||typeof payload.media!=='object')throw Error('Estrutura ausente.');
-  const items=payload.items,reviewed=items.filter(x=>x.type==='Cartão revisado').length,proposals=items.filter(x=>x.type==='Proposta — estudo provisório').length;
-  if(items.length!==96||reviewed!==75||proposals!==21||new Set(items.map(x=>x.key)).size!==96||items.some(x=>x.layers?.length!==11)||Object.keys(payload.media).length!==25||payload.agenda.length!==102)throw Error('Contagens não correspondem ao checkpoint V193.');
+  if(doc.title!=='Petrobras '+entry.session+' | Leitor privado')throw Error('Título do leitor inválido.');
   if(doc.querySelectorAll('script').length!==2||doc.querySelector('script[src],iframe,object,embed,form,base,meta[http-equiv="refresh"]'))throw Error('Estrutura ativa inesperada.');
-  if(id!==run)return;
+  const payload=JSON.parse(doc.querySelector('script#payload[type="application/json"]')?.textContent||'null');
+  const counts=validatePayload(payload,entry.counts);
+ return {doc,payload,counts};
+}
+let agendaStatus={state:'disconnected',events:0};
+function agendaReport(next){agendaStatus=next;document.dispatchEvent(new CustomEvent('bm-private-agenda-status'))}
+window.BMPrivateAgendaStatusV1=()=>({...agendaStatus});
+function hydrateAgenda(force=false){
+ const auth=token();
+ if(!auth){
+  if(agendaAuth){agendaRun++;agendaController?.abort();agendaController=null;agendaAuth='';agendaTask=null;window.BMPrivateIncrementV1?.clear();agendaReport({state:'disconnected',events:0})}
+  return Promise.resolve();
+ }
+ if(auth===agendaAuth&&!force)return agendaTask||Promise.resolve();
+ if(auth!==agendaAuth)window.BMPrivateIncrementV1?.clear();
+ agendaAuth=auth;const id=++agendaRun;agendaController?.abort();agendaController=new AbortController();
+ const current=()=>id===agendaRun&&auth===token();
+ const get=driveClient(auth,agendaController.signal);
+ agendaReport({state:'loading',events:window.BMPrivateIncrementV1.approvedAgenda().length});
+ agendaTask=(async()=>{
+  try{
+   const manifest=await fetchManifest(get);
+   const catalog=await window.BMUnifiedCatalogV1.snapshot();
+   if(!current())return;
+   const result=await window.BMPrivateIncrementV1.stageBatch(manifest.studies,catalog,auth,async entry=>(await fetchStudy(get,entry)).payload,current);
+   if(current()&&result)agendaReport({state:result.failed.length?'partial':'ready',events:result.events,sessions:result.loaded,failed:result.failed.length});
+  }catch(e){if(current()){window.BMPrivateIncrementV1?.clear();agendaReport({state:'error',events:0})}}
+ })();
+ return agendaTask;
+}
+window.BMRefreshPrivateAgendaV1=()=>hydrateAgenda(true);
+document.addEventListener('bm-media-drive-authorized',()=>{void hydrateAgenda()});
+async function load(preferred){
+ const auth=token();
+ if(!auth){reset();status.textContent='Conecte o Google Drive no cabeçalho e depois clique novamente em Abrir estudo do Drive.';return}
+ const id=++run;controller?.abort();controller=new AbortController();const signal=controller.signal;
+ open.disabled=true;close.hidden=false;select.disabled=true;clearFrame();
+ status.textContent='Localizando o manifesto privado no Google Drive…';
+ const get=driveClient(auth,signal);
+ try{
+  const manifest=await fetchManifest(get);
+  const entry=manifest.studies.find(x=>x.key===preferred)||manifest.studies.find(x=>x.key===manifest.active);
+  if(id!==run||auth!==token())return;
+  select.replaceChildren(...manifest.studies.map(x=>{const o=document.createElement('option');o.value=x.key;o.textContent='Petrobras '+x.session+' — V'+x.version;return o}));
+  select.value=entry.key;select.hidden=manifest.studies.length<2;
+  status.textContent='Conferindo o estudo selecionado no Drive…';
+  const {doc,payload,counts}=await fetchStudy(get,entry);
+  const catalog=await window.BMUnifiedCatalogV1.snapshot();
+  if(id!==run||auth!==token())return;
+  const plan=window.BMPrivateIncrementV1.stage(payload,entry,catalog,auth);
+  if(id!==run||auth!==token())return;
   const policy=doc.createElement('meta');policy.httpEquiv='Content-Security-Policy';policy.content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'";
   doc.head.prepend(policy);
-  frame.srcdoc='<!doctype html>'+doc.documentElement.outerHTML;frame.hidden=false;
-  status.textContent='Drive conferido nesta sessão: '+reviewed+' cartões revisados, '+proposals+' propostas, '+Object.keys(payload.media).length+' mídias e '+payload.agenda.length+' registros de agenda. Consulta somente leitura; SRS oficial intacto.';
- }catch(e){if(id===run)status.textContent='Não foi possível abrir o leitor: '+e.message+' Verifique a conexão e as permissões do Drive.'}
- finally{if(id===run)open.disabled=false}
-});
-window.addEventListener('pagehide',reset);
+  frame.title='Leitor privado Petrobras '+entry.session;
+  frame.srcdoc='<!doctype html>'+doc.documentElement.outerHTML;frame.hidden=false;openedToken=auth;
+  status.textContent='Petrobras '+entry.session+' V'+entry.version+': '+counts.reviewed+' cartões revisados, '+counts.proposals+' propostas, '+counts.media+' mídias e '+counts.agenda+' registros de agenda. Consulta somente leitura; SRS oficial intacto.';
+  const report=document.createElement('details');
+  const heading=document.createElement('summary');heading.textContent='Conciliação incremental: '+plan.counts.exact+' correspondências exatas, '+plan.counts.conflicts+' conflitos/ausências, '+plan.counts.proposals+' propostas';
+  report.append(heading);
+  const msg=document.createElement('p');msg.textContent=plan.counts.missingMedia+' fichas com mídia pendente; '+plan.counts.agendaCandidates+' eventos candidatos de agendamento por questão; '+plan.counts.agendaApproved+' autorizados no manifesto; '+plan.counts.agendaBlocked+' impedimentos. Correspondência não equivale à aprovação editorial.';
+  report.append(msg);
+  const list=document.createElement('ul');
+  for(const x of plan.items.filter(x=>x.status!=='CORRESPONDENCIA_EXATA'||x.missing)){
+   const li=document.createElement('li');li.textContent=x.key+' — '+x.status+(x.missing?' · mídias pendentes: '+x.missing:'');list.append(li)
+  }
+  for(const x of plan.blocked){const li=document.createElement('li');li.textContent=(x.id||x.key||'Agenda')+' — '+x.reason;list.append(li)}
+  report.append(list);report.id='bmPrivateReconcileReport';status.after(report);
+ }catch(e){if(id===run){clearFrame();status.textContent='Não foi possível abrir o leitor: '+e.message+' Verifique o manifesto e a conexão Drive.'}}
+ finally{if(id===run){open.disabled=false;select.disabled=false}}
+}
+open.addEventListener('click',()=>load(select.value||null));
+select.addEventListener('change',()=>load(select.value));
+window.addEventListener('pagehide',()=>{agendaRun++;agendaController?.abort();window.BMPrivateIncrementV1?.clear();reset()});
+window.setInterval(()=>{if(openedToken&&openedToken!==token())reset();void hydrateAgenda()},1000);
+void hydrateAgenda();
 })();
 </script></body></html>
