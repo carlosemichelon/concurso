@@ -1,7 +1,7 @@
 'use strict';
 (async()=>{
  const by=id=>document.getElementById(id),resp=await fetch('/api/runtime',{credentials:'same-origin',cache:'no-store'});if(!resp.ok){location.replace('/');return}
- const data=await resp.json();let active=true,checking=false;const memory=new Map(),urls=new Set();
+ const data=await resp.json();let active=true,checking=false,reviewBusy=false,reviewPending=null;const memory=new Map(),urls=new Set();
  const check=()=>{if(!active)throw Error('Sessão encerrada')};
  const lock=()=>{if(!active)return;active=false;memory.clear();for(const u of urls)URL.revokeObjectURL(u);urls.clear();document.body.replaceChildren();location.replace('/')};
  const verify=async()=>{check();const r=await fetch('/api/session',{credentials:'same-origin',cache:'no-store'});const s=await r.json();if(!r.ok||s.context!==data.context){lock();throw Error('Sessão alterada')}check()};
@@ -19,13 +19,15 @@
  }
  function renderCardExtras(c,ans){
   check();const record=data.srs.records.find(x=>x.id===c.id);ans.append(element('p',record?'Próxima revisão: '+record.due:'Sem vencimento cadastrado.'));
-  for(const id of c.relatedCardIds||[]){const other=data.cards.find(x=>x.id===id);if(!other)continue;const b=element('button',id+' — '+other.front);b.type='button';b.onclick=()=>{check();by('cardSearch').value=id;by('cardSearch').dispatchEvent(new Event('input'));};ans.append(b)}
+  for(const id of c.relatedCardIds||[]){const other=data.cards.find(x=>x.id===id);if(!other)continue;const b=element('button',id+' — '+other.front);b.type='button';b.onclick=()=>{check();window.BancoMestreVisualizarCardV050?.showId(id,b)};ans.append(b)}
   for(const media of data.media.images.filter(m=>m.cardIds.includes(c.id))){const b=element('button','Ver imagem: '+media.title);b.type='button';b.onclick=()=>openImage(media.id,media.title).catch(e=>alert(e.message));ans.append(b)}
  }
- const runtime=Object.freeze({mode:'central',local,catalog:()=>copy(data.cards),pdfCatalog:()=>copy(data.media.pdf.map(p=>({...p,section:p.section||'Drive individual',category:p.category||'PDF'}))),imageCatalog:()=>copy(data.media.images),srs:()=>copy(data.srs),downloadPdf,openImage,renderCardExtras});
+ async function api(path,payload){await verify();const r=await fetch(path,{credentials:'same-origin',cache:'no-store',headers:{'X-BM-Context':data.context,...(payload?{'Content-Type':'application/json'}:{})},...(payload?{method:'POST',body:JSON.stringify(payload)}:{})});const result=await r.json();await verify();if(!r.ok)throw Error(result.error||'Operação indisponível');return result}
+ async function recordReview(id,rating){check();if(reviewBusy||!data.cards.some(c=>c.id===id&&c.active)||!Object.hasOwn(data.ratings,rating))throw Error('Avaliação inválida');if(reviewPending&&(reviewPending.id!==id||reviewPending.rating!==rating))throw Error('Conclua a mesma avaliação pendente antes de iniciar outra');reviewBusy=true;try{if(!reviewPending)reviewPending={id,rating,intent:null};if(!reviewPending.intent){const p=await api('/api/review/prepare',{cardId:id,rating});reviewPending.intent=p.intent}const saved=await api('/api/review/commit',{intent:reviewPending.intent});if(saved.id!==id||saved.rating!==rating||!saved.eventId)throw Error('Recibo divergente');data.srs.records=[...data.srs.records.filter(x=>x.id!==id),saved];reviewPending=null;return {...saved,interval_days:saved.intervalDays}}finally{reviewBusy=false}}
+ const runtime=Object.freeze({ratings:copy(data.ratings),get reviewBusy(){return reviewBusy},get reviewReady(){return active&&!reviewBusy},canAcquire:id=>active&&(data.acquirable||[]).includes(id),recordReview,loadLayers:id=>api('/api/layers/'+encodeURIComponent(id)),mode:'central',local,catalog:()=>copy(data.cards),pdfCatalog:()=>copy(data.media.pdf.map(p=>({...p,section:p.section||'Drive individual',category:p.category||'PDF'}))),imageCatalog:()=>copy(data.media.images),srs:()=>copy(data.srs),downloadPdf,openImage,renderCardExtras});
  Object.defineProperty(window,'BMAccountRuntime',{value:runtime,writable:false,configurable:false});
  // Use the original page DOM and core. No browser OAuth or persistent legacy storage.
- const script=document.createElement('script');script.src='/original-core.js';await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)});
+ for(const path of ['/original-core.js','/original-reader.js','/original-review.js']){const script=document.createElement('script');script.src=path;await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)})}
  await verify();
  const stats=document.querySelectorAll('.stats .stat b'),counts=[data.counts.pdf,data.counts.cards,data.counts.images,data.counts.study,data.counts.annotations];stats.forEach((e,i)=>e.textContent=String(counts[i]??'—'));
  document.querySelectorAll('.bm241-verification').forEach(e=>e.textContent='Perfil individual');
@@ -36,7 +38,7 @@
  by('imageDialog').querySelector('.editor-tools').hidden=true;
  for(const id of ['v034SelectOriginal','originalDriveLink','hideOpened','zoomOutImage','zoomWidthImage','zoomFitImage','zoomActualImage','zoomInImage']){const x=by(id);if(x)x.hidden=true}
  by('pdfChooseLocal').disabled=false;
- const note=element('p','Ambiente original em homologação. Para revisões formais, envios e sincronização, use a interface de validação já integrada.');
+ const note=element('p','Ambiente original em homologação. O leitor original e a avaliação formal estão integrados; para envios e sincronização, use a interface de validação.');
  note.className='notice';const a=element('a','Abrir funções homologadas');a.href='/';note.append(' ',a);document.querySelector('main').prepend(note);
  document.body.hidden=false;
  window.addEventListener('pagehide',()=>{active=false;memory.clear();for(const u of urls)URL.revokeObjectURL(u);urls.clear();document.body.replaceChildren()});

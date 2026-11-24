@@ -1,6 +1,7 @@
 import {createServer} from 'node:http';
 import {createHash} from 'node:crypto';
 import {MediaNotFound} from './media.mjs';
+import {LayerNotFound} from './layers.mjs';
 import {originalPage,originalStyle} from './original-page.mjs';
 import {MarksRejected,MarksUncertain,validMarksInput} from './marks.mjs';
 import {UploadRejected,UploadUncertain,validUploadInput,validUploadIntent} from './uploads.mjs';
@@ -24,7 +25,7 @@ export function createCentralHandler({auth,loadProfile,origin}){
   try{
    const path=req.url,method=req.method,token=sessionToken(req.headers.cookie);
    if(method==='GET'&&path==='/portal'){if(!auth.read(token)){res.writeHead(303,{...headers,Location:'/'});res.end();return}const {html}=await originalPage();if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});res.writeHead(200,{...headers,'Content-Type':'text/html; charset=utf-8'});res.end(html);return}
-   if(method==='GET'&&['/original-session.js','/original-core.js'].includes(path)){if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});const bytes=await readFile(new URL('.'+path,import.meta.url));res.writeHead(200,{...headers,'Content-Type':'text/javascript; charset=utf-8'});res.end(bytes);return}
+   if(method==='GET'&&['/original-session.js','/original-core.js','/original-reader.js','/original-review.js'].includes(path)){if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});const bytes=await readFile(new URL('.'+path,import.meta.url));res.writeHead(200,{...headers,'Content-Type':'text/javascript; charset=utf-8'});res.end(bytes);return}
    const style=method==='GET'&&path.match(/^\/portal-style\/([A-Za-z0-9_.-]+\.css)$/);if(style){if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});const css=await originalStyle(style[1]);if(!css)return send(res,404,{error:'Estilo não autorizado'});res.writeHead(200,{...headers,'Content-Type':'text/css; charset=utf-8'});res.end(css);return}
    if(method==='GET'&&(path==='/'||path==='/login.js'||path==='/original-portal.css')){
     const isHtml=path==='/',isCss=path==='/original-portal.css';const bytes=await readFile(isHtml?htmlPath:new URL(isCss?'./original-portal.css':'./login.js',import.meta.url));res.writeHead(200,{...headers,'Content-Type':isHtml?'text/html; charset=utf-8':isCss?'text/css; charset=utf-8':'text/javascript; charset=utf-8'});res.end(bytes);return;
@@ -78,6 +79,7 @@ export function createCentralHandler({auth,loadProfile,origin}){
      const result=await loadProfile(s.user,{...options,guard:()=>!!auth.read(token)});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result);
     }catch(e){if(e instanceof MarksRejected)return send(res,409,{error:e.message});if(e instanceof MarksUncertain)return send(res,503,{error:e.message});throw e}finally{documentBusy--}
    }
+   const layerMatch=method==='GET'&&path.match(/^\/api\/layers\/([A-Za-z0-9_-]{1,160})$/);if(layerMatch){const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});if(req.headers['x-bm-context']!==context(token))return send(res,403,{error:'Contexto de sessão divergente'});try{const result=await loadProfile(s.user,{layerId:layerMatch[1]});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result)}catch(e){if(e instanceof LayerNotFound)return send(res,404,{error:e.message});throw e}}
    const match=method==='GET'&&path.match(/^\/api\/media\/(image|pdf)\/([A-Za-z0-9_-]{1,160})$/);
    if(match){
     const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
