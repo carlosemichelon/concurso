@@ -26,7 +26,14 @@ async function verify(){
  assert.equal(online.version,version,'CDN ainda não publica a versão esperada');
  assert.equal(online.home,file,'página inicial informada pelo manifesto é inconsistente');
  assert.ok(index.includes('data-bm-portal-version="'+version+'"')||index.includes("var fallback='"+version+"'"),'entrada do index não corresponde à versão');
- assert.equal(page.includes('Banco Mestre '+version),true,'HTML da versão não corresponde ao manifesto');
+ const site=manifest.component_versions?.site;
+ if(site?.version&&site?.technical_version===version){
+  assert.equal(site.home,file,'Componente site aponta para outra página');
+  assert.ok(page.includes('data-bm-portal-version="'+version+'"'),'Identidade técnica do HTML não corresponde ao manifesto');
+  assert.ok(page.includes('<title>Banco Mestre '+site.version+' ' )||page.includes('<title>Banco Mestre '+site.version+'</title>'),'Título do HTML não corresponde à versão pública do site');
+ }else{
+  assert.equal(page.includes('Banco Mestre '+version),true,'HTML da versão não corresponde ao manifesto');
+ }
  if(version==='V241'||version==='V242'){
   assert.ok(page.includes("tag('v241_timer_header.js"),'cronômetro V241 não publicado');
   assert.ok(page.includes("tag('v241_sync_truth.js"),'indicadores V241 não publicados');
