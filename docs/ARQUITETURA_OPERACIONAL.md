@@ -20,3 +20,6 @@ A pesquisa lateral reutiliza índices normalizados e ordena por ranking calculad
 
 ## V368 — complementos incrementais
 Quatro renderizadores de complementos substituídos por um módulo compartilhado. Novos pacotes devem atualizar o índice de IDs do renderizador, sem criar outro observador global. Pacotes originais imutáveis, carregamento sob demanda; mídia privada conserva validação de acesso e hash e usa marcador exclusivo. Sem mudanças na base privada.
+
+## V369 — contrato técnico de publicação
+Atualizar os aliases current_versions.portal em todo lançamento, junto de version/home/previous_version. O contrato portal_assets verifica contagens CSS/JS, ordem final e existência de recursos. Testes históricos usam seus snapshots; testes da produção usam o manifesto. A aprovação didática é independente e não deve ser alterada para tornar verificações técnicas verdes.

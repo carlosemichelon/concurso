@@ -63,7 +63,26 @@ for(const [src,expected] of srcMap){
 // Integridade dos incrementos atuais, preservando integralmente o contrato V342.
 const activeGate=json('assets/closure_gate_current.json'), extra=json(activeGate.visual_manifest);
 for(const x of extra.media){check(x.role==='VERSO_APOS_TENTATIVA','Fase atual inválida: '+x.id);check(!registryPublic.has(x.src),'SVG atual duplicado: '+x.src);check(fs.existsSync(path.join(root,x.src)),'SVG atual ausente: '+x.src);check(x.card_ids.length>0&&x.card_ids.every(validId),'Associação atual inválida: '+x.id);registryPublic.set(x.src,{src:x.src,card_ids:x.card_ids,kind:'SVG_DIDATICO_PUBLICO',role:'VERSO_APOS_RESPOSTA'});for(const id of x.card_ids)relate(srcMap,x.src,id);}
-for(const src of registryPublic.keys())check(srcMap.has(src),'SVG órfão: '+src);
+// V349: registrar a mídia a partir das referências efetivas dos leitores restaurados,
+ // sem inferir vínculos pelo nome do arquivo. Preservar os papéis frente/verso de cada associação.
+ const restored=new Map();const roles=new Set(['FRONT_ENUNCIADO','VERSO_APOS_TENTATIVA']);
+ for(const file of ['assets/restauracao_didatica_v349.json','assets/restauracao_legados_v349.json']){
+  const packet=json(file);
+  for(const [id,c] of Object.entries(packet.cards))for(const m of c.learning_model.media.items||[]){
+   if(!m.src?.startsWith('assets/card_visuals_v349/'))continue;
+   check(validId(id)&&roles.has(m.role),'V349 ID ou fase inválidos: '+id+'/'+m.src);
+   check(/^assets\/card_visuals_v349\/[A-Za-z0-9_-]+\.svg$/.test(m.src),'V349 caminho inválido: '+m.src);
+   if(!restored.has(m.src))restored.set(m.src,new Set());
+   restored.get(m.src).add(id);relate(srcMap,m.src,id);
+  }
+ }
+ for(const [src,ids] of restored){
+  check(!registryPublic.has(src),'SVG V349 já registrado: '+src);
+  check(fs.existsSync(path.join(root,src)),'SVG V349 ausente: '+src);
+  if(fs.existsSync(path.join(root,src))){const body=read(src);check(/<svg[\s>]/i.test(body)&&!/<script\b|<foreignObject\b/i.test(body),'SVG V349 inválido: '+src);}
+  registryPublic.set(src,{src,card_ids:[...ids],kind:'SVG_DIDATICO_PUBLICO',role:'FASE_POR_ASSOCIACAO'});
+ }
+ for(const src of registryPublic.keys())check(srcMap.has(src),'SVG órfão: '+src);
 for(const [mediaId,cards] of privateMap){
  const m=registryPrivate.get(mediaId);
  check(!!m,'Original privado não catalogado: '+mediaId);
@@ -86,7 +105,8 @@ for(const dir of fs.readdirSync(path.join(root,'assets')).filter(x=>/^card_visua
 }
 const ver=json('assets/version.json'),html=read('index.html'),snap=read(ver.home);
 check(html===snap,'index.html diverge do snapshot de versão ativa');
-check(activeGate.version===ver.version,'Versão atual sem portão correspondente');
+check(read('v348.html').includes('data-bm-portal-version="'+activeGate.version+'"'),'Fixture histórica V348 divergente');
+check(ver.catalog?.counts?.canonical===ver.counts.cards&&html.includes('data-bm-portal-version="'+ver.version+'"'),'Contrato atual divergente');
 check(html.includes('assets/v342_media_integrity.js'),'Leitor não carrega auditoria de mídia V342');
 check(html.includes('assets/v342_media_integrity.css'),'Leitor sem estilo de auditoria V342');
 check(html.lastIndexOf('v342_media_integrity.js')>html.lastIndexOf('v341_petro26_original_media.js'),

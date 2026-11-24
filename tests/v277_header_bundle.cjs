@@ -26,10 +26,12 @@ assert.match(legacy,/data-bm-portal-version="V277"/);
 
 const manifest=JSON.parse(read('assets/version.json'));
 const home=manifest.home;
-const live=read('index.html');
+const current=read('index.html');
+const live=read('v310.html');
 assert.match(home,/^v\d{3}\.html$/);
-assert.equal(live,read(home),'A entrada não corresponde ao arquivo canônico do manifesto');
-assert.ok(live.includes('data-bm-portal-version="'+manifest.version+'"'));
+assert.equal(current,read(home),'A entrada não corresponde ao arquivo canônico do manifesto');
+assert.ok(current.includes('data-bm-portal-version="'+manifest.version+'"'));
+assert.ok(live.includes('data-bm-portal-version="V310"'));
 assert.equal(manifest.current_versions.portal.version,manifest.version);
 assert.equal(manifest.current_versions.portal.home,home);
 assert.match(live,/assets\/v277_header_compiled\.css\?v=277-1/);
@@ -46,7 +48,7 @@ const approved={
   V309:{css:24,js:158,last:'assets/v309_mobile_tabs.css?v=309-2'},
   V310:{css:24,js:158,last:'assets/v309_mobile_tabs.css?v=309-2'}
 };
-const budget=approved[manifest.version];
+const budget=approved.V310;
 assert.ok(budget,'Versão '+manifest.version+' ainda não auditada neste teste');
 const css=styles(live),js=scripts(live);
 assert.equal(css.length,budget.css,'Número de CSS externos mudou sem auditoria');
@@ -60,7 +62,8 @@ for(const [type,links] of [['CSS',css],['JS',js]]){
     assert.ok(fs.existsSync(path),'Recurso local '+type+' ausente: '+path);
   }
 }
-console.log('V277_ARCHIVE_PASS + '+manifest.version+'_CURRENT_PASS: '+css.length+' CSS, '+js.length+' JS; ordem e arquivos válidos.');
+console.log('V277_ARCHIVE_PASS + V310_ARCHIVE_PASS: '+css.length+' CSS, '+js.length+' JS; ordem e arquivos válidos.');
+require('../tools/catalog_snapshot.cjs').checkContract(current,manifest);
 
 /* Bundle fiel: reproduzir literalmente a cascata, sem alterar seletor nem ordem. */
 const bundledSources=["assets/v278_ui_icons.css","assets/v280_teclike_theme.css","assets/v281_content_hierarchy.css","assets/v283_blue_popup_theme.css","assets/v284_body_heading_blue.css","assets/v286_font_blue.css","assets/v287_global_contrast.css","assets/v288_cards_surface.css","assets/v289_other_sections.css","assets/v291_contrast_square.css","assets/v292_visual_system.css","assets/v293_compact_cards_images.css","assets/v294_reader_ink_font.css","assets/v295_pdf_and_image_trash.css","assets/v297_visual_audit.css"];

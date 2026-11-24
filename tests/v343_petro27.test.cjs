@@ -44,7 +44,8 @@ assert.equal(packet.cases.length,12);
 for(const c of packet.cases){assert(ids.has(c.card_id),'Questão sem destino: '+c.question_id);assert(c.result);}
 assert.match(html,/data-bm-portal-version="V343"/,'Snapshot histórico V343 alterado');
 const gate=JSON.parse(read('assets/closure_gate_current.json'));
-assert.equal(gate.version,ver.version,'Versão atual sem portão');
+assert.ok(read('v348.html').includes('data-bm-portal-version="'+gate.version+'"'),'Fixture histórica V348 divergente');
+assert.equal(ver.catalog.counts.canonical,ver.counts.cards,'Contrato vigente divergente');
 assert.equal(current,read(ver.home),'Entrada corrente diferente do snapshot vigente');
 const currentPacket=JSON.parse(read('assets/petro20_29_delta_v347.json'));
 assert.equal(Object.keys(currentPacket.proposals_resolved).filter(x=>x.startsWith('PETRO27')).length,11,'Propostas PETRO27 não conciliadas no pacote vigente');

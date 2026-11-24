@@ -42,6 +42,20 @@ function checkContract(html,m){
  assert.equal(m.counts.cards,m.catalog.counts.canonical);assert.equal(m.counts.active,m.catalog.counts.active);
  assert.equal(m.counts.card_operational_ijui,m.catalog.counts.ijui);
  assert.ok(html.includes('data-bm-portal-version="'+m.version+'"'));
+ assert.equal(m.current_versions.portal.version,m.version,'Versão secundária desatualizada');
+ assert.equal(m.current_versions.portal.home,m.home,'Home secundária desatualizada');
+ assert.equal(m.current_versions.portal.previous,m.previous_version,'Rollback secundário desatualizado');
+ assert.equal(m.counts.cards_public_current,m.catalog.counts.canonical);
+ assert.equal(m.counts.catalog_canonical_cards,m.catalog.counts.canonical);
+ assert.equal(m.counts.card_entries_combined,m.catalog.counts.canonical+m.catalog.counts.ijui);
+ const css=[...html.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/g)].map(x=>x[1]);
+ const js=[...html.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(x=>x[1]);
+ assert.equal(css.length,m.portal_assets.css_count,'Total CSS divergente');assert.equal(js.length,m.portal_assets.js_count,'Total JS divergente');
+ assert.equal(css.at(-1),m.portal_assets.last_css,'Última camada CSS divergente');
+ for(const files of [css,js]){
+  const paths=files.map(x=>x.split('?')[0]);assert.equal(new Set(paths).size,paths.length,'Asset duplicado');
+  for(const p of paths){assert.match(p,/^assets\/[A-Za-z0-9_./-]+$/);assert.ok(!p.split('/').includes('..')&&fs.existsSync(path.join(root,p)),'Asset inválido/ausente: '+p);}
+ }
 }
 async function check(){
  const m=json('assets/version.json'),html=read(m.home);assert.equal(read('index.html'),html);

@@ -1,3 +1,7 @@
+## V369 — Coerência dos manifestos e testes (24/11/2026)
+
+Atualiza aliases do portal, estabelece contrato de recursos CSS/JS e verifica identidade do catálogo. Testes históricos V310/V348 continuam conferindo os próprios snapshots; o contrato vigente valida os recursos atuais. O teste de mídia passa a ler associações explícitas V349 (46 SVGs, 92 referências de mídia nas duas fontes, incluindo uma de frente), preservando a detecção de órfãos. Nenhum cartão, arquivo de imagem, autorização pedagógica ou SRS foi alterado. V368 confirmou publicação pública e teste principal em navegador no CI; a liberação editorial falhou e permanece sem alteração. Testes V369 e Drive autenticado pendentes.
+
 ## V368 — Complementos sob demanda e separação de imagens (24/11/2026)
 
 Substitui quatro scripts de complementos por um renderizador orientado a IDs, com uma observação limitada ao leitor. Os quatro pacotes públicos originais permanecem intactos; carregamento somente para cartão pertinente e construção do conteúdo quando o estudante expande o complemento. V366 compartilha a mesma promessa entre complementos e mídia privada. Marcador de mídia separado, evitando colisão com o bloco didático. Autorização, verificação SHA-256 e revogação de URLs privadas preservadas. Sem alteração de catálogo, módulos ou SRS. Teste real de navegador/OAuth pendente. V367 preservada.
