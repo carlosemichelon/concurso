@@ -316,6 +316,8 @@ headStyle.textContent=[
  '#cartoes .bm161-law-button[aria-expanded="true"]{background:#e3f1ed;border-color:#6aaba1}',
  '#cartoes .bm161-law-panel{border:1px solid #c4d9d4;border-radius:10px;padding:14px;background:#fcfefd;margin:10px 0 14px;min-width:0}',
  '#cartoes .bm161-law-panel[hidden]{display:none!important}',
+ '#cartoes #cardRows article.card.bm307-card > .bm161-law-panel{order:11!important;width:100%;max-width:100%;min-width:0;margin:0!important;overflow-wrap:anywhere;word-break:normal}',
+ '#cartoes .bm161-law-panel p,#cartoes .bm161-law-panel a{overflow-wrap:anywhere;max-width:100%}',
  '#cartoes .bm161-law-heading{font-size:13px;font-weight:800;color:#1c4f53;margin:0 0 5px}',
  '#cartoes .bm161-law-meta{font-size:12px;color:#556e71;margin:0 0 10px}',
  '#cartoes .bm161-law-content{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;line-height:1.65;margin:0 0 9px;color:#18363b}',
@@ -358,8 +360,8 @@ function build(article,c){
  panel.setAttribute('role','region');panel.setAttribute('aria-label','Texto da lei seca de '+id);
  button.setAttribute('aria-controls',panel.id);
  controls.prepend(button);
- const answer=article.querySelector(':scope > details');
- if(answer)answer.before(panel);else controls.before(panel);
+ // O painel acompanha os controles; não ocupa a posição anterior ao enunciado.
+ controls.after(panel);
  function paint(){
   const open=!!states.get(id);
   const rec=record(c);
