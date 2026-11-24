@@ -5695,10 +5695,10 @@
     "browser_test": "pending"
   },
   "catalog": {
-    "path": "assets/catalog_snapshot_vc10.json",
+    "path": "assets/catalog_snapshot_vc11.json",
     "format": "BancoMestreCatalogSnapshotV362",
     "source_head": "e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7",
-    "git_blob": "f19250debbbb552aa2cf0159b54c3ece6d0fdb81",
+    "git_blob": "9bc752dbea0333ac41496ed01acc055470b63563",
     "counts": {
       "canonical": 1559,
       "active": 1559,
@@ -5711,7 +5711,7 @@
     "consolidation_status": "PUBLICACAO_EXPRESSAMENTE_SOLICITADA_SEM_HOMOLOGACAO_EDITORIAL_INTEGRAL",
     "study_increment": "assets/petro30_public_v374.json",
     "study_increment_blob": "f0add58021227f0482f39040160c60e6b8ba9869",
-    "display_version": "VC10",
+    "display_version": "VC11",
     "unified": true,
     "active_only": true,
     "recovery_packet": "assets/petro10_19_recovery_vc4.json",
@@ -5727,7 +5727,9 @@
     "recovery_packet_6": "assets/petro10_19_recovery_vc9.json",
     "recovery_packet_6_blob": "afad15c369e819fea63cded58ad1ee27ead758d5",
     "recovery_packet_7": "assets/petro10_19_recovery_vc10.json",
-    "recovery_packet_7_blob": "54326bffb4454f3df53b3190452c3787fb18c367"
+    "recovery_packet_7_blob": "54326bffb4454f3df53b3190452c3787fb18c367",
+    "recovery_packet_8": "assets/petro10_19_recovery_vc11.json",
+    "recovery_packet_8_blob": "e09fde8e69a2edc89a6a62cb8303588211e0e181"
   },
   "release_v363": {
     "scope": "Contrato independente do catálogo, metadados com cache compartilhado, busca vazia sem normalização; automação de montagem e testes da versão corrente",
@@ -5862,9 +5864,9 @@
       "home": "v382.html"
     },
     "cards": {
-      "version": "VC10",
+      "version": "VC11",
       "technical_source": "V382",
-      "path": "assets/catalog_snapshot_vc10.json",
+      "path": "assets/catalog_snapshot_vc11.json",
       "counts": {
         "canonical": 1559,
         "active": 1559,
@@ -6071,5 +6073,18 @@
     "srs_modified": false,
     "private_content_exported": false,
     "rollback": "VC9"
+  },
+  "release_vc11": {
+    "scope": "Quatro evoluções NR-17: mobiliário, AET e mapa normativo",
+    "updated_ids": [
+      "CARD-1513",
+      "CARD-1514",
+      "CARD-1517",
+      "CARD-1519"
+    ],
+    "private_sync": "not_verified",
+    "srs_modified": false,
+    "private_content_exported": false,
+    "rollback": "VC10"
   }
 }
