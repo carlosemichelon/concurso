@@ -1,0 +1,1643 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0135",
+      "expected_hash": "3fae90ccb6e8e9d08bef148dd68e0800d7e98c5fdadc32247558cd2d73c8a1c0",
+      "title": "Resistência térmica da camada plana: fórmula e unidades",
+      "front": "Como calcular a resistência térmica R de uma camada plana homogênea?",
+      "back": "R=e/λ, em m²·K/W, com e em metros e λ em W/(m·K).\n\nEspessura e condutividade governam a resistência: R=e/λ. Para e=0,20 m e λ=0,50 W/(m·K), R=0,40 m²·K/W; a área de 15 m² é distratora para essa grandeza.",
+      "source": "CON-02-027\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual.",
+      "mnemonic": "E de espessura em cima; parede grossa resiste, material condutor facilita. λ conduz, R resiste, U transmite. R tem m² na unidade, não a área na fórmula.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular a resistência térmica R de uma camada plana homogênea?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "R=e/λ, em m²·K/W, com e em metros e λ em W/(m·K).\n\nEspessura e condutividade governam a resistência: R=e/λ. Para e=0,20 m e λ=0,50 W/(m·K), R=0,40 m²·K/W; a área de 15 m² é distratora para essa grandeza."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-02-027\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A lei de Fourier para camada plana em regime estacionário dá q=λΔT/e, de modo que R=ΔT/q. Parede mais grossa aumenta o caminho de condução; material mais condutor facilita a passagem."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "R=e/λ; Rg=e/(λA); U=1/RT. Análise dimensional: m/[W/(m·K)]=m²·K/W. A unidade de Rg é K/W."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "R por área não depende da área da face; Rg diminui quando A aumenta. U é inverso da resistência total, incluindo superfícies quando aplicável."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Peça de 3 × 5 m, e=0,20 m, λ=0,50: R=0,40 m²·K/W (gabarito B). Rg=0,20/(0,50×15)=0,0267 K/W. Para e=0,30 e λ=0,60: R=0,50 m²·K/W."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0941, CARD-1421, CARD-0940, CARD-0945"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Camada plana homogênea, fluxo normal e estacionário; propriedades constantes. Pontes térmicas, caminhos paralelos e superfícies exigem tratamento próprio."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não multiplicar por 15 m² no cálculo da resistência por área; usar metros, não centímetros. W/K é condutância, W/(m²·K) é transmitância, m²/s é difusividade."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "E de espessura em cima; parede grossa resiste, material condutor facilita. λ conduz, R resiste, U transmite. R tem m² na unidade, não a área na fórmula."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "R=e/λ, em m²·K/W, com e em metros e λ em W/(m·K).",
+          "Espessura e condutividade governam a resistência: R=e/λ. Para e=0,20 m e λ=0,50 W/(m·K), R=0,40 m²·K/W; a área de 15 m² é distratora para essa grandeza."
+        ],
+        "highlights": [
+          {
+            "text": "R=e/λ",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-TERMICA",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_termica.svg",
+            "caption": "Espessura, condutividade, resistência por área e propagação do calor.",
+            "alt": "Espessura, condutividade, resistência por área e propagação do calor.",
+            "source": "Esquema didático autoral; não é imagem original da questão.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Resistência térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mfrac><mi>e</mi><mi>λ</mi></mfrac></math>",
+            "units": "R em m²·K/W; e em m; λ em W/(m·K)"
+          },
+          {
+            "title": "Resistência global da camada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>R</mi><mi>g</mi></msub><mo>=</mo><mfrac><mi>e</mi><mrow><mi>λ</mi><mi>A</mi></mrow></mfrac></math>",
+            "units": "Rg em K/W; A em m²"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0941",
+        "CARD-1421",
+        "CARD-0940",
+        "CARD-0945"
+      ]
+    },
+    {
+      "id": "CARD-0941",
+      "expected_hash": "92b044b495ddbbf96603fc5c204659177bfbd085339d660b6dc49149eeea1e7b",
+      "title": "Resistência térmica por área versus resistência global",
+      "front": "Qual é a resistência térmica por área de uma camada plana de espessura e e condutividade λ?",
+      "back": "R=e/λ (m²·K/W), no modelo homogêneo e estacionário.\n\nA resistência por área é R=e/λ; a resistência global da camada é Rg=e/(λA), em K/W. No exemplo de e=0,20 m, λ=0,50 e A=15 m², R=0,40 m²·K/W e Rg≈0,0267 K/W.",
+      "source": "CON-02-004\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual.",
+      "mnemonic": "E de espessura em cima; parede grossa resiste, material condutor facilita. λ conduz, R resiste, U transmite. R tem m² na unidade, não a área na fórmula.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual é a resistência térmica por área de uma camada plana de espessura e e condutividade λ?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "R=e/λ (m²·K/W), no modelo homogêneo e estacionário.\n\nA resistência por área é R=e/λ; a resistência global da camada é Rg=e/(λA), em K/W. No exemplo de e=0,20 m, λ=0,50 e A=15 m², R=0,40 m²·K/W e Rg≈0,0267 K/W."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-02-004\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A lei de Fourier para camada plana em regime estacionário dá q=λΔT/e, de modo que R=ΔT/q. Parede mais grossa aumenta o caminho de condução; material mais condutor facilita a passagem."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "R=e/λ; Rg=e/(λA); U=1/RT. Análise dimensional: m/[W/(m·K)]=m²·K/W. A unidade de Rg é K/W."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "R por área não depende da área da face; Rg diminui quando A aumenta. U é inverso da resistência total, incluindo superfícies quando aplicável."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Uma camada de 30 cm, λ=0,60 e área 20 m² tem R=0,50 m²·K/W e Rg=0,025 K/W; duplicar e dobra R."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0135, CARD-1421, CARD-0940, CARD-0945"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Camada plana homogênea, fluxo normal e estacionário; propriedades constantes. Pontes térmicas, caminhos paralelos e superfícies exigem tratamento próprio."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não multiplicar por 15 m² no cálculo da resistência por área; usar metros, não centímetros. W/K é condutância, W/(m²·K) é transmitância, m²/s é difusividade."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "E de espessura em cima; parede grossa resiste, material condutor facilita. λ conduz, R resiste, U transmite. R tem m² na unidade, não a área na fórmula."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "R=e/λ (m²·K/W), no modelo homogêneo e estacionário.",
+          "A resistência por área é R=e/λ; a resistência global da camada é Rg=e/(λA), em K/W. No exemplo de e=0,20 m, λ=0,50 e A=15 m², R=0,40 m²·K/W e Rg≈0,0267 K/W."
+        ],
+        "highlights": [
+          {
+            "text": "resistência global",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-TERMICA",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_termica.svg",
+            "caption": "Espessura, condutividade, resistência por área e propagação do calor.",
+            "alt": "Espessura, condutividade, resistência por área e propagação do calor.",
+            "source": "Esquema didático autoral; não é imagem original da questão.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Resistência térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mfrac><mi>e</mi><mi>λ</mi></mfrac></math>",
+            "units": "R em m²·K/W; e em m; λ em W/(m·K)"
+          },
+          {
+            "title": "Resistência global da camada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>R</mi><mi>g</mi></msub><mo>=</mo><mfrac><mi>e</mi><mrow><mi>λ</mi><mi>A</mi></mrow></mfrac></math>",
+            "units": "Rg em K/W; A em m²"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0135",
+        "CARD-1421",
+        "CARD-0940",
+        "CARD-0945"
+      ]
+    },
+    {
+      "id": "CARD-1421",
+      "expected_hash": "173cfc59ce5db67436cfcf0c5ef79e33ea384f6d6691ac2613a9760d8b2cbbd5",
+      "title": "Desempenho térmico estacionário: λ, R e U",
+      "front": "Explique condutividade, resistência de camada e transmitância; calcule a resistência total de camadas em série e indique o efeito da espessura e da condutividade.",
+      "back": "λ mede facilidade de conduzir calor; R=e/λ para camada homogênea plana; Rtotal soma resistências em série e superficiais aplicáveis; U=1/Rtotal. Quanto maior Rtotal, menor U e menor fluxo sob mesma diferença de temperatura.\n\nPara uma camada isolada de 0,20 m e λ=0,50, R=0,40 m²·K/W independentemente das dimensões de face; Rg=R/A se a questão pedir resistência global. Não confundir resistência com armazenamento ou atraso térmico.",
+      "source": "NBR 15220, conceitos de desempenho térmico; registros P06-NBR15220-01/05/06.\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual.",
+      "mnemonic": "E de espessura em cima; parede grossa resiste, material condutor facilita. λ conduz, R resiste, U transmite. R tem m² na unidade, não a área na fórmula.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique condutividade, resistência de camada e transmitância; calcule a resistência total de camadas em série e indique o efeito da espessura e da condutividade."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "λ mede facilidade de conduzir calor; R=e/λ para camada homogênea plana; Rtotal soma resistências em série e superficiais aplicáveis; U=1/Rtotal. Quanto maior Rtotal, menor U e menor fluxo sob mesma diferença de temperatura.\n\nPara uma camada isolada de 0,20 m e λ=0,50, R=0,40 m²·K/W independentemente das dimensões de face; Rg=R/A se a questão pedir resistência global. Não confundir resistência com armazenamento ou atraso térmico."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "NBR 15220, conceitos de desempenho térmico; registros P06-NBR15220-01/05/06.\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Em condução unidimensional estacionária, cada camada cria queda de temperatura proporcional à resistência. Espessura maior ou λ menor eleva R. Superfícies interna/externa acrescentam resistências de troca térmica.\n\nA lei de Fourier para camada plana em regime estacionário dá q=λΔT/e, de modo que R=ΔT/q. Parede mais grossa aumenta o caminho de condução; material mais condutor facilita a passagem."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "λ [W/(m·K)], e [m], R [m²·K/W], U [W/(m²·K)]. Rtotal=Rsi+Σ(ei/λi)+Rse; q''=U·ΔT [W/m²].\n\nR=e/λ; Rg=e/(λA); U=1/RT. Análise dimensional: m/[W/(m·K)]=m²·K/W. A unidade de Rg é K/W."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Grandeza | Significado | Aumenta com\nλ | Condução do material | Facilidade de conduzir\nR | Isolamento por camada | Espessura maior ou λ menor\nU | Transmissão por conjunto | Rtotal menor\n\nR por área não depende da área da face; Rg diminui quando A aumenta. U é inverso da resistência total, incluindo superfícies quando aplicável."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Camada de 0,10 m, λ=0,50: R=0,20 m²K/W. Outra de 0,05 m, λ=0,04: R=1,25. Com Rsi+Rse=0,17 (dado hipotético), Rtotal=1,62, U≈0,617 W/m²K. ΔT=10 K → q''≈6,17 W/m².\n\nPeça de 3 × 5 m, e=0,20 m, λ=0,50: R=0,40 m²·K/W (gabarito B). Rg=0,20/(0,50×15)=0,0267 K/W. Para e=0,30 e λ=0,60: R=0,50 m²·K/W."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1426, CARD-0260, CARD-0135, CARD-0941, CARD-0940, CARD-0945"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Cálculo simples vale para camadas homogêneas em série e hipóteses estacionárias. Pontes térmicas, câmaras de ar e caminhos paralelos exigem tratamento apropriado; usar resistências superficiais da situação normativa.\n\nCamada plana homogênea, fluxo normal e estacionário; propriedades constantes. Pontes térmicas, caminhos paralelos e superfícies exigem tratamento próprio."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "λ alto não significa bom isolamento; U alto significa maior transmissão. Não inverter R=e/λ nem usar espessura em cm sem conversão.\n\nNão multiplicar por 15 m² no cálculo da resistência por área; usar metros, não centímetros. W/K é condutância, W/(m²·K) é transmitância, m²/s é difusividade."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "λ conduz, R resiste, U é o inverso da resistência total. | Histórico: conservar versões e eventos de CARD-1421, CARD-1424, CARD-1425.\n\nE de espessura em cima; parede grossa resiste, material condutor facilita. λ conduz, R resiste, U transmite. R tem m² na unidade, não a área na fórmula."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "λ mede facilidade de conduzir calor; R=e/λ para camada homogênea plana; Rtotal soma resistências em série e superficiais aplicáveis; U=1/Rtotal. Quanto maior Rtotal, menor U e menor fluxo sob mesma diferença de temperatura.",
+          "Para uma camada isolada de 0,20 m e λ=0,50, R=0,40 m²·K/W independentemente das dimensões de face; Rg=R/A se a questão pedir resistência global. Não confundir resistência com armazenamento ou atraso térmico."
+        ],
+        "highlights": [
+          {
+            "text": "R=e/λ",
+            "kind": "core",
+            "start": 37,
+            "end": 42,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "Rtotal soma resistências em série",
+            "kind": "condition",
+            "start": 72,
+            "end": 105,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "U=1/Rtotal",
+            "kind": "condition",
+            "start": 133,
+            "end": 143,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "Quanto maior Rtotal, menor U",
+            "kind": "condition",
+            "start": 145,
+            "end": 173,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "R=0,40 m²·K/W",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Significado",
+            "Aumenta com"
+          ],
+          "rows": [
+            [
+              "λ",
+              "Condução do material",
+              "Facilidade de conduzir"
+            ],
+            [
+              "R",
+              "Isolamento por camada",
+              "Espessura maior ou λ menor"
+            ],
+            [
+              "U",
+              "Transmissão por conjunto",
+              "Rtotal menor"
+            ]
+          ]
+        },
+        "formula_explanation": "λ [W/(m·K)], e [m], R [m²·K/W], U [W/(m²·K)]. Rtotal=Rsi+Σ(ei/λi)+Rse; q''=U·ΔT [W/m²].",
+        "media": [
+          {
+            "id": "PETRO31-TERMICA",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_termica.svg",
+            "caption": "Espessura, condutividade, resistência por área e propagação do calor.",
+            "alt": "Espessura, condutividade, resistência por área e propagação do calor.",
+            "source": "Esquema didático autoral; não é imagem original da questão.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Resistência e transmitância",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>R = </mtext><mfrac><mtext>e</mtext><mtext>λ</mtext></mfrac><mtext> ; U = </mtext><mfrac><mtext>1</mtext><mtext>Rₜₒₜₐₗ</mtext></mfrac></math>",
+            "units": "e em m, λ em W/(m·K), R em m²·K/W, U em W/(m²·K)."
+          },
+          {
+            "title": "Resistência térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mfrac><mi>e</mi><mi>λ</mi></mfrac></math>",
+            "units": "R em m²·K/W; e em m; λ em W/(m·K)"
+          },
+          {
+            "title": "Resistência global da camada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>R</mi><mi>g</mi></msub><mo>=</mo><mfrac><mi>e</mi><mrow><mi>λ</mi><mi>A</mi></mrow></mfrac></math>",
+            "units": "Rg em K/W; A em m²"
+          },
+          {
+            "title": "Transmitância",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>U</mi><mo>=</mo><mfrac><mn>1</mn><msub><mi>R</mi><mi>T</mi></msub></mfrac></math>",
+            "units": "U em W/(m²·K); RT em m²·K/W"
+          }
+        ],
+        "related_card_ids": [
+          "CARD-1426"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "related_card_ids": [
+        "CARD-1426",
+        "CARD-0260",
+        "CARD-0135",
+        "CARD-0941",
+        "CARD-0940",
+        "CARD-0945"
+      ]
+    },
+    {
+      "id": "CARD-0940",
+      "expected_hash": "2091b14a2a3051e14e72c31e51c0a8d45179af20a08b7f9ea3fa01879f632642",
+      "title": "Condutividade térmica: porosidade, densidade e argamassas",
+      "front": "O que indica a condutividade térmica λ de um material?",
+      "back": "A facilidade de conduzir calor, em W/(m·K); λ menor aumenta R para mesma espessura.\n\nNa Tabela B.3 da NBR 15220-2:2005, λ cresce de argamassa celular (0,40) para gesso (0,70) e comum (1,15 W/(m·K)). Poros com ar podem reduzir a condução; menor densidade aparente frequentemente se associa a menor λ em materiais comparáveis, não como lei universal.",
+      "source": "CON-02-003\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual.",
+      "mnemonic": "Mais ar, menos condução, maior resistência. λ conduz; R resiste.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que indica a condutividade térmica λ de um material?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A facilidade de conduzir calor, em W/(m·K); λ menor aumenta R para mesma espessura.\n\nNa Tabela B.3 da NBR 15220-2:2005, λ cresce de argamassa celular (0,40) para gesso (0,70) e comum (1,15 W/(m·K)). Poros com ar podem reduzir a condução; menor densidade aparente frequentemente se associa a menor λ em materiais comparáveis, não como lei universal."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-02-003\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Ar aprisionado em pequenos poros conduz pouco calor e interrompe caminhos sólidos. Composição, umidade, temperatura e estrutura dos poros também governam λ."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "ρ=m/V [kg/m³], λ [W/(m·K)], R=e/λ [m²·K/W]. Celular: 600–1.000 kg/m³ e 0,40; gesso: 1.200 e 0,70; comum: 1.800–2.100 e 1,15."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Para a mesma espessura, menor λ significa maior R. Densidade não é massa isolada, e condutividade não é capacidade térmica."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Com e=0,02 m: R celular=0,05; gesso≈0,0286; comum≈0,0174 m²·K/W. A ordem crescente de λ é celular, gesso, comum (D)."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0135, CARD-0941, CARD-1421, CARD-0945"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Valores indicativos da edição da questão; não extrapolar a relação λ×ρ para quaisquer materiais. Umidade, composição e temperatura podem mudar o resultado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Densidade em kg/m³, não kg/m². Alumínio pode ser menos denso que aço e mais condutor; λ não é inversamente proporcional à massa."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Mais ar, menos condução, maior resistência. λ conduz; R resiste."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A facilidade de conduzir calor, em W/(m·K); λ menor aumenta R para mesma espessura.",
+          "Na Tabela B.3 da NBR 15220-2:2005, λ cresce de argamassa celular (0,40) para gesso (0,70) e comum (1,15 W/(m·K)). Poros com ar podem reduzir a condução; menor densidade aparente frequentemente se associa a menor λ em materiais comparáveis, não como lei universal."
+        ],
+        "highlights": [
+          {
+            "text": "menor λ",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-POROS",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_poros.svg",
+            "caption": "Argamassas: porosidade e condutividade — valores térmicos da Tabela B.3.",
+            "alt": "Argamassas: porosidade e condutividade — valores térmicos da Tabela B.3.",
+            "source": "Esquema didático autoral; não é imagem original da questão.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Resistência térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mfrac><mi>e</mi><mi>λ</mi></mfrac></math>",
+            "units": "R em m²·K/W; e em m; λ em W/(m·K)"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Argamassa",
+            "ρ (kg/m³)",
+            "λ (W/(m·K))"
+          ],
+          "rows": [
+            [
+              "Celular",
+              "600–1.000",
+              "0,40"
+            ],
+            [
+              "Gesso",
+              "1.200",
+              "0,70"
+            ],
+            [
+              "Comum",
+              "1.800–2.100",
+              "1,15"
+            ]
+          ]
+        },
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0135",
+        "CARD-0941",
+        "CARD-1421",
+        "CARD-0945"
+      ]
+    },
+    {
+      "id": "CARD-0945",
+      "expected_hash": "87ec6e3481151028ee6fcf104a83ded3ec9f1fb8b38c467cd842eda91f57f529",
+      "title": "Resistência total e transmitância: grandezas inversas",
+      "front": "Qual a diferença entre resistência térmica R_T e transmitância U?",
+      "back": "U=1/R_T, em W/(m²·K), no modelo plano estacionário.\n\nU é o inverso de RT, não de λ. Mantendo a diferença de temperatura, elevar RT reduz U e a densidade de fluxo q. R=e/λ é a resistência de uma camada; a resistência total inclui as superficiais aplicáveis.",
+      "source": "CON-02-008\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual.",
+      "mnemonic": "λ conduz, R resiste, U transmite; R alto, U baixo.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual a diferença entre resistência térmica R_T e transmitância U?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "U=1/R_T, em W/(m²·K), no modelo plano estacionário.\n\nU é o inverso de RT, não de λ. Mantendo a diferença de temperatura, elevar RT reduz U e a densidade de fluxo q. R=e/λ é a resistência de uma camada; a resistência total inclui as superficiais aplicáveis."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-02-008\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A transferência estacionária é limitada pelas resistências em série. U mede a passagem de calor por área e por diferença de temperatura."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "RT=Rsi+Σ(ei/λi)+Rse; U=1/RT; q=UΔT; Φ=qA. R em m²·K/W, U em W/(m²·K), q em W/m², Φ em W."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "R e U são inversos; λ caracteriza o material; capacidade térmica caracteriza armazenamento, não transmissão estacionária."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "RT=2,0 m²·K/W → U=0,50; ΔT=10 K → q=5 W/m². Dobrar RT reduz U pela metade."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0135, CARD-0941, CARD-1421, CARD-0940, CARD-1426"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Modelo plano estacionário, resistências de superfície conforme situação, pontes térmicas e vias paralelas tratadas à parte."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir U com transmitância solar τ, nem confundir R por área com Rg em K/W. Área entra em Φ=qA, não em R=e/λ."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "λ conduz, R resiste, U transmite; R alto, U baixo."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "U=1/R_T, em W/(m²·K), no modelo plano estacionário.",
+          "U é o inverso de RT, não de λ. Mantendo a diferença de temperatura, elevar RT reduz U e a densidade de fluxo q. R=e/λ é a resistência de uma camada; a resistência total inclui as superficiais aplicáveis."
+        ],
+        "highlights": [
+          {
+            "text": "U é o inverso de RT",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-TERMICA",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_termica.svg",
+            "caption": "Espessura, condutividade, resistência por área e propagação do calor.",
+            "alt": "Espessura, condutividade, resistência por área e propagação do calor.",
+            "source": "Esquema didático autoral; não é imagem original da questão.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Resistência térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mfrac><mi>e</mi><mi>λ</mi></mfrac></math>",
+            "units": "R em m²·K/W; e em m; λ em W/(m·K)"
+          },
+          {
+            "title": "Transmitância",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>U</mi><mo>=</mo><mfrac><mn>1</mn><msub><mi>R</mi><mi>T</mi></msub></mfrac></math>",
+            "units": "U em W/(m²·K); RT em m²·K/W"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0135",
+        "CARD-0941",
+        "CARD-1421",
+        "CARD-0940",
+        "CARD-1426"
+      ]
+    },
+    {
+      "id": "CARD-0951",
+      "expected_hash": "a4e716728ca60a7aa6fc3619271ddaa9a3c2adebb8355107c85620b9c5dc94ac",
+      "title": "Atraso térmico: defasagem, relógio e unidades",
+      "front": "O que é atraso térmico de um fechamento submetido a variações periódicas de temperatura?",
+      "back": "É a defasagem temporal entre a variação térmica em um lado e a manifestação no outro; expressa em horas.\n\nAtraso térmico φ é a defasagem temporal de uma variação térmica periódica, em horas (h). Se o pico externo ocorre às 12h e o interno às 18h, o atraso ilustrativo é 6 h. Não significa ausência de transferência antes do pico.",
+      "source": "CON-02-014\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual.",
+      "mnemonic": "Atraso é coisa de relógio. W transfere, J armazena; α propaga, φ atrasa.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que é atraso térmico de um fechamento submetido a variações periódicas de temperatura?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "É a defasagem temporal entre a variação térmica em um lado e a manifestação no outro; expressa em horas.\n\nAtraso térmico φ é a defasagem temporal de uma variação térmica periódica, em horas (h). Se o pico externo ocorre às 12h e o interno às 18h, o atraso ilustrativo é 6 h. Não significa ausência de transferência antes do pico."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-02-014\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Condução e armazenamento térmico produzem atenuação e defasagem das oscilações; espessura, difusividade, composição e periodicidade influenciam."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "φ é diferença temporal, em h. α=λ/(ρc), em m²/s; R=e/λ, em m²·K/W; fluxo em W; densidade de fluxo em W/m²."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Atraso (h) não é difusividade (m²/s), resistência (m²·K/W) nem fluxo (W)."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Pico 14h e resposta interna 19h → atraso de 5h. No exemplo 12h/18h, 6h. Alternativa correta: h."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1426, CARD-0950, CARD-1421, CARD-0119, CARD-0541, CARD-0946, CARD-0948"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Regime periódico e condições de contorno definidos; não existe fórmula universal φ=R ou φ=CT; considerar a edição normativa pedida."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Atraso não significa que o calor só começa a passar depois do tempo indicado; m²/s não é aceleração."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Atraso é coisa de relógio. W transfere, J armazena; α propaga, φ atrasa."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "É a defasagem temporal entre a variação térmica em um lado e a manifestação no outro; expressa em horas.",
+          "Atraso térmico φ é a defasagem temporal de uma variação térmica periódica, em horas (h). Se o pico externo ocorre às 12h e o interno às 18h, o atraso ilustrativo é 6 h. Não significa ausência de transferência antes do pico."
+        ],
+        "highlights": [
+          {
+            "text": "horas (h)",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-ATRASO",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_atraso.svg",
+            "caption": "Defasagem temporal e unidades: fluxo, resistência, difusividade e atraso.",
+            "alt": "Defasagem temporal e unidades: fluxo, resistência, difusividade e atraso.",
+            "source": "Esquema didático autoral; não é imagem original da questão.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Difusividade térmica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>α</mi><mo>=</mo><mfrac><mi>λ</mi><mrow><mi>ρ</mi><mi>c</mi></mrow></mfrac></math>",
+            "units": "α em m²/s; ρ em kg/m³; c em J/(kg·K)"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Símbolo",
+            "Unidade"
+          ],
+          "rows": [
+            [
+              "Fluxo de calor (taxa)",
+              "Q ou Φ",
+              "W"
+            ],
+            [
+              "Densidade de fluxo",
+              "q",
+              "W/m²"
+            ],
+            [
+              "Condutividade",
+              "λ",
+              "W/(m·K)"
+            ],
+            [
+              "Resistência térmica e superficial",
+              "R, Rsi, Rse, RT",
+              "m²·K/W"
+            ],
+            [
+              "Transmitância",
+              "U",
+              "W/(m²·K)"
+            ],
+            [
+              "Capacidade térmica",
+              "C",
+              "J/K"
+            ],
+            [
+              "Calor específico",
+              "c",
+              "J/(kg·K)"
+            ],
+            [
+              "Capacidade por área",
+              "CT",
+              "J/(m²·K)"
+            ],
+            [
+              "Densidade aparente",
+              "ρ",
+              "kg/m³"
+            ],
+            [
+              "Difusividade",
+              "α",
+              "m²/s"
+            ],
+            [
+              "Atraso",
+              "φ",
+              "h"
+            ]
+          ]
+        },
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1426",
+        "CARD-0950",
+        "CARD-1421",
+        "CARD-0119",
+        "CARD-0541",
+        "CARD-0946",
+        "CARD-0948"
+      ]
+    },
+    {
+      "id": "CARD-1426",
+      "expected_hash": "7d34a1edd6ec79d1de4078c8c9ef89a4ff256c905e3d88e0d18cb0bcc97d99b3",
+      "title": "Grandezas térmicas: armazenamento, difusividade e atraso",
+      "front": "Defina densidade, calor específico, capacidade térmica por área, difusividade e atraso. Calcule CT e a para uma camada e explique por que capacidade e transmitância não são a mesma propriedade.",
+      "back": "ρ é massa por volume aparente; c é energia por massa e kelvin; CT=Σρce é capacidade térmica por área; a=λ/(ρc) indica difusão térmica; atraso térmico é defasagem temporal entre oscilações térmicas exterior/interior.\n\nOrganize as unidades: W caracteriza transferência por tempo; J caracteriza energia e armazenamento; ρ em kg/m³; α em m²/s; φ em h. Atraso é defasagem temporal, não resistência nem aceleração.",
+      "source": "NBR 15220, conceitos; registros P06-NBR15220-03/04/07/08/09.\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual.",
+      "mnemonic": "W transfere, J armazena, α propaga, φ atrasa. Conduzir dividido por armazenar.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Defina densidade, calor específico, capacidade térmica por área, difusividade e atraso. Calcule CT e a para uma camada e explique por que capacidade e transmitância não são a mesma propriedade."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "ρ é massa por volume aparente; c é energia por massa e kelvin; CT=Σρce é capacidade térmica por área; a=λ/(ρc) indica difusão térmica; atraso térmico é defasagem temporal entre oscilações térmicas exterior/interior.\n\nOrganize as unidades: W caracteriza transferência por tempo; J caracteriza energia e armazenamento; ρ em kg/m³; α em m²/s; φ em h. Atraso é defasagem temporal, não resistência nem aceleração."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "NBR 15220, conceitos; registros P06-NBR15220-03/04/07/08/09.\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Materiais com maior capacidade volumétrica ρc armazenam mais energia para mesma variação de temperatura. A difusividade combina condução e armazenamento: quanto maior a, mais rapidamente se propagam variações em um modelo homogêneo. Atraso depende da composição, espessura, condições e periodicidade.\n\nO armazenamento volumétrico ρc retarda mudanças de temperatura; λ facilita condução. A razão λ/(ρc) governa a difusão térmica; a defasagem depende também da espessura e do regime periódico."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "ρ [kg/m³], c [J/(kg·K)], CT [J/(m²·K)], a [m²/s], atraso [h]. CT=Σρi ci ei; a=λ/(ρc). Dividir CT em J por 1000 para kJ/(m²·K).\n\nC=mc [J/K]; CT=ρce [J/(m²·K)] para camada homogênea; α=λ/(ρc) [m²/s]; φ [h]. W=J/s, logo α tem unidade m²/s."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Grandeza | Controla | Unidade\nρ | Massa por volume | kg/m³\nc | Energia por massa/K | J/(kg·K)\nCT | Armazenamento por área/K | kJ/(m²·K), após conversão\n a | Propagação térmica | m²/s\nAtraso | Defasagem temporal | h\n\nFluxo W; densidade de fluxo W/m²; λ W/(m·K); R, Rsi, Rse, RT m²·K/W; U W/(m²·K); C J/K; c J/(kg·K); CT J/(m²·K); ρ kg/m³; α m²/s; φ h."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Camada de e=0,15 m, ρ=2000 kg/m³, c=900 J/(kgK), λ=1,0: CT=270000 J/(m²K)=270 kJ/(m²K); a≈5,56×10⁻⁷ m²/s. Camada espessa armazena mais, mas atraso não é igual a CT; avaliar sistema completo.\n\ne=0,15 m, ρ=2000, c=900, λ=1 → CT=270 kJ/(m²·K), α≈5,56×10⁻⁷ m²/s. Picos 12h/18h → φ=6h."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1421, CARD-0260, CARD-0951, CARD-0950, CARD-0946, CARD-0948, CARD-0119, CARD-0541"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "CT pela soma é o modelo de camadas homogêneas; aplicar a metodologia normativa específica quando houver restrições de camadas. Atraso não se calcula universalmente apenas a partir da CT.\n\nPara camadas múltiplas, seguir o método aplicável e considerar condições de contorno. CT e R não são equivalentes; não calcular atraso diretamente de R."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir densidade com peso específico; c com capacidade por área; a com λ; atraso com resistência estacionária. Uma parede pesada não necessariamente tem baixa U.\n\nDifusividade não é velocidade (m/s) nem aceleração (m/s²). Na tabela de 2005 Q denota fluxo em W; em outros textos Φ é fluxo e Q pode ser energia em J."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "ρc armazena por volume; ρce por área; λ/(ρc) difunde; atraso é tempo. | Histórico: conservar versões e eventos de CARD-1426, CARD-1422, CARD-1423, CARD-1427, CARD-1428.\n\nW transfere, J armazena, α propaga, φ atrasa. Conduzir dividido por armazenar."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "ρ é massa por volume aparente; c é energia por massa e kelvin; CT=Σρce é capacidade térmica por área; a=λ/(ρc) indica difusão térmica; atraso térmico é defasagem temporal entre oscilações térmicas exterior/interior.",
+          "Organize as unidades: W caracteriza transferência por tempo; J caracteriza energia e armazenamento; ρ em kg/m³; α em m²/s; φ em h. Atraso é defasagem temporal, não resistência nem aceleração."
+        ],
+        "highlights": [
+          {
+            "text": "CT=Σρce",
+            "kind": "core",
+            "start": 63,
+            "end": 70,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "a=λ/(ρc)",
+            "kind": "condition",
+            "start": 102,
+            "end": 110,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "defasagem temporal",
+            "kind": "condition",
+            "start": 152,
+            "end": 170,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "α em m²/s",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Símbolo",
+            "Unidade"
+          ],
+          "rows": [
+            [
+              "Fluxo de calor (taxa)",
+              "Q ou Φ",
+              "W"
+            ],
+            [
+              "Densidade de fluxo",
+              "q",
+              "W/m²"
+            ],
+            [
+              "Condutividade",
+              "λ",
+              "W/(m·K)"
+            ],
+            [
+              "Resistência térmica e superficial",
+              "R, Rsi, Rse, RT",
+              "m²·K/W"
+            ],
+            [
+              "Transmitância",
+              "U",
+              "W/(m²·K)"
+            ],
+            [
+              "Capacidade térmica",
+              "C",
+              "J/K"
+            ],
+            [
+              "Calor específico",
+              "c",
+              "J/(kg·K)"
+            ],
+            [
+              "Capacidade por área",
+              "CT",
+              "J/(m²·K)"
+            ],
+            [
+              "Densidade aparente",
+              "ρ",
+              "kg/m³"
+            ],
+            [
+              "Difusividade",
+              "α",
+              "m²/s"
+            ],
+            [
+              "Atraso",
+              "φ",
+              "h"
+            ]
+          ]
+        },
+        "formula_explanation": "ρ [kg/m³], c [J/(kg·K)], CT [J/(m²·K)], a [m²/s], atraso [h]. CT=Σρi ci ei; a=λ/(ρc). Dividir CT em J por 1000 para kJ/(m²·K).",
+        "media": [
+          {
+            "id": "PETRO31-ATRASO",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_atraso.svg",
+            "caption": "Defasagem temporal e unidades: fluxo, resistência, difusividade e atraso.",
+            "alt": "Defasagem temporal e unidades: fluxo, resistência, difusividade e atraso.",
+            "source": "Esquema didático autoral; não é imagem original da questão.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Capacidade térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>CT = Σ ρᵢ cᵢ eᵢ</mtext></math>",
+            "units": "J/(m²·K)."
+          },
+          {
+            "title": "Difusividade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>a = </mtext><mfrac><mtext>λ</mtext><mtext>ρ c</mtext></mfrac></math>",
+            "units": "m²/s."
+          },
+          {
+            "title": "Difusividade térmica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>α</mi><mo>=</mo><mfrac><mi>λ</mi><mrow><mi>ρ</mi><mi>c</mi></mrow></mfrac></math>",
+            "units": "α em m²/s; ρ em kg/m³; c em J/(kg·K)"
+          },
+          {
+            "title": "Capacidade térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>C</mi><mi>T</mi></msub><mo>=</mo><mi>ρ</mi><mi>c</mi><mi>e</mi></math>",
+            "units": "CT em J/(m²·K), ou kJ/(m²·K) após conversão"
+          }
+        ],
+        "related_card_ids": [
+          "CARD-1421"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "related_card_ids": [
+        "CARD-1421",
+        "CARD-0260",
+        "CARD-0951",
+        "CARD-0950",
+        "CARD-0946",
+        "CARD-0948",
+        "CARD-0119",
+        "CARD-0541"
+      ]
+    },
+    {
+      "id": "CARD-0950",
+      "expected_hash": "c94e19a5d17b0e2bfa4abae0b76de3e3f95abdff3bc17735e96ca95147881bac",
+      "title": "Difusividade térmica: significado e análise dimensional",
+      "front": "Qual é a fórmula de difusividade térmica e seu significado físico?",
+      "back": "α=λ/(ρc), em m²/s: rapidez característica de propagação de variações de temperatura.\n\nDifusividade α=λ/(ρc) caracteriza a rapidez de propagação de variações de temperatura, não uma velocidade de onda nem uma aceleração. Sua unidade é m²/s, pois W=J/s.",
+      "source": "CON-02-013\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual.",
+      "mnemonic": "Conduzir dividido por armazenar; na difusividade o metro está ao quadrado.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual é a fórmula de difusividade térmica e seu significado físico?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "α=λ/(ρc), em m²/s: rapidez característica de propagação de variações de temperatura.\n\nDifusividade α=λ/(ρc) caracteriza a rapidez de propagação de variações de temperatura, não uma velocidade de onda nem uma aceleração. Sua unidade é m²/s, pois W=J/s."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-02-013\n\nABNT NBR 15220-1:2005 (Tabela 1) e NBR 15220-2:2005 (resistência de camada homogênea e Tabela B.3, versão corrigida 2008), edições exigidas nas questões. Reprodução técnica da tabela de materiais: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/habitacao/arquivos/eedus-dee-02.pdf . Distinguir a edição histórica da aplicação atual."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A difusão térmica é governada pela condução em relação ao armazenamento volumétrico. Em igual intervalo de aquecimento, maior α favorece penetração térmica maior, sem velocidade de frente única."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "λ [W/(m·K)] dividido por ρ [kg/m³] × c [J/(kg·K)] resulta W·m²/J=m²/s. α=λ/(ρc)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Velocidade m/s; aceleração m/s²; difusividade m²/s; atraso térmico h. α não é φ."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "λ=1, ρ=2000, c=1000 → α=5×10⁻⁷ m²/s. Duplicar λ mantendo ρc duplica α; duplicar ρc mantendo λ reduz α à metade."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0951, CARD-1426, CARD-0940, CARD-1421"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Modelo de difusão com propriedades apropriadas; não deduzir atraso apenas de α sem espessura, período e contorno."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir difusividade com aceleração da onda ou coeficiente de dilatação. O comprimento, não o tempo, fica ao quadrado."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Conduzir dividido por armazenar; na difusividade o metro está ao quadrado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "α=λ/(ρc), em m²/s: rapidez característica de propagação de variações de temperatura.",
+          "Difusividade α=λ/(ρc) caracteriza a rapidez de propagação de variações de temperatura, não uma velocidade de onda nem uma aceleração. Sua unidade é m²/s, pois W=J/s."
+        ],
+        "highlights": [
+          {
+            "text": "m²/s",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-ATRASO",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_atraso.svg",
+            "caption": "Defasagem temporal e unidades: fluxo, resistência, difusividade e atraso.",
+            "alt": "Defasagem temporal e unidades: fluxo, resistência, difusividade e atraso.",
+            "source": "Esquema didático autoral; não é imagem original da questão.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Difusividade térmica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>α</mi><mo>=</mo><mfrac><mi>λ</mi><mrow><mi>ρ</mi><mi>c</mi></mrow></mfrac></math>",
+            "units": "α em m²/s; ρ em kg/m³; c em J/(kg·K)"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0951",
+        "CARD-1426",
+        "CARD-0940",
+        "CARD-1421"
+      ]
+    },
+    {
+      "id": "CARD-0121",
+      "expected_hash": "a5459cfdd59a7e8d6a9ed5d50d2e8f5387fcdaf0834f6056d3ffcd3b9815afba",
+      "title": "Perdas de carga: singularidades, comprimentos equivalentes e traçado",
+      "front": "Como calcular perdas de carga distribuídas e localizadas pelo método de Darcy-Weisbach e dos comprimentos equivalentes? Diferencie comprimento equivalente e virtual e explique a dependência da vazão em orifício calibrado.",
+      "back": "A perda distribuída decorre de atrito ao longo da tubulação e a localizada de perturbações em singularidades. Para um trecho uniforme, h_d=f(L/D)v²/(2g), h_l=K v²/(2g), L_eq=KD/f e L_v=L_real+ΣL_eq. A perda total é J L_v com J=fv²/(2gD). Não somar K e L_eq para a mesma peça. Em orifício calibrado, Q depende de área, coeficiente de descarga e diferença de carga, Q=C_d A√(2gΔh), sob hipóteses pertinentes.\n\nPara acessórios de mesmo diâmetro e condições comparáveis, a perda tende a aumentar de luva para curva de 90°, joelho de 90° e tê com saída lateral. Em ramal sequencial, distinguir quantidade de conexões de seu comprimento equivalente.",
+      "source": "Equação de energia com perdas, Darcy-Weisbach; modelo de orifício com coeficiente de descarga; tabela DN40 PVC da questão. Referência técnica: https://suporte.unmep.com.br/docs/documentacao-tecnica/agua-fria-e-agua-quente/perda-de-carga.\n\nPETRO31-Q01 (mesma questão PETRO30-Q10), tabela de comprimentos equivalentes fornecida no enunciado; NBR 5626:2020 como contexto de projeto. Q03: quantificação geométrica do ramal, não expressão normativa.",
+      "mnemonic": "Reta, suave, brusca, choque. Dividiu, tê; dobrou, joelho; terminou, não tem tê.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular perdas de carga distribuídas e localizadas pelo método de Darcy-Weisbach e dos comprimentos equivalentes? Diferencie comprimento equivalente e virtual e explique a dependência da vazão em orifício calibrado."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A perda distribuída decorre de atrito ao longo da tubulação e a localizada de perturbações em singularidades. Para um trecho uniforme, h_d=f(L/D)v²/(2g), h_l=K v²/(2g), L_eq=KD/f e L_v=L_real+ΣL_eq. A perda total é J L_v com J=fv²/(2gD). Não somar K e L_eq para a mesma peça. Em orifício calibrado, Q depende de área, coeficiente de descarga e diferença de carga, Q=C_d A√(2gΔh), sob hipóteses pertinentes.\n\nPara acessórios de mesmo diâmetro e condições comparáveis, a perda tende a aumentar de luva para curva de 90°, joelho de 90° e tê com saída lateral. Em ramal sequencial, distinguir quantidade de conexões de seu comprimento equivalente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Equação de energia com perdas, Darcy-Weisbach; modelo de orifício com coeficiente de descarga; tabela DN40 PVC da questão. Referência técnica: https://suporte.unmep.com.br/docs/documentacao-tecnica/agua-fria-e-agua-quente/perda-de-carga.\n\nPETRO31-Q01 (mesma questão PETRO30-Q10), tabela de comprimentos equivalentes fornecida no enunciado; NBR 5626:2020 como contexto de projeto. Q03: quantificação geométrica do ramal, não expressão normativa."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Atrito de parede dissipa energia; mudanças de seção ou direção geram separação e turbulência, produzindo perdas localizadas. Igualar h_d(L_eq)=h_l e cancelar v²/(2g) resulta em L_eq=KD/f. A vazão por orifício varia com raiz da diferença de carga quando Cd e A são constantes.\n\nCurvas suaves desviam o fluxo com menor separação que mudanças bruscas; a derivação lateral do tê pode produzir perda maior. O traçado em planta não mostra sozinho as mudanças verticais."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "f é fator de Darcy (adimensional, não Fanning), K adimensional, L e D interno em m, v m/s, g m/s², h em m de líquido, J m/m. Re=vD/ν; f=64/Re para regime laminar plenamente desenvolvido em tubo circular. Em turbulento f depende de Re e rugosidade relativa. v=4Q/(πD²).\n\nPara a tabela e a geometria especificadas na questão Q01, ordem II<III<IV<I (luva, curva 90°, joelho 90°, tê lateral). Em ramal sequencial com n saídas ascendentes, c cantos horizontais e saída horizontal em cada aparelho: T=n−1, J=n+c+1."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Distribuída usa comprimento real; localizada usa K ou comprimento equivalente. Comprimento virtual inclui tubulação reta e acessórios; comprimento equivalente não é a perda em mca. Registro globo DN40=35,8 m e gaveta aberto=0,7 m conforme tabela da questão, não valores universais.\n\nTê divide e mantém continuidade; joelho muda direção; no término não há continuidade. A quantidade de peças é diferente do comprimento equivalente de cada uma."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "DN40: 3 joelhos 45°×1,0+2 curvas 90°×1,2+1 gaveta aberto×0,7=6,1 m (B). L_v=30+6,1=36,1 m (D se pedido comprimento virtual). Se J=0,05 m/m, h_t=1,805 m. No orifício, quadruplicar Δh dobra Q se Cd e A constantes.\n\nQ03: 6 aparelhos, 2 cantos, ramal a 20 cm; 5 tês e 9 joelhos (6 saídas, 2 cantos, 1 subida terminal). Alturas 30/45/60 cm implicam subidas 10/25/40 cm. Não contar antes do registro."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1100, CARD-1127, CARD-1320, CARD-1384"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicar J L_v com mesmo diâmetro interno, vazão, fator e referência de velocidade; se mudam, calcular por trecho. Não confundir DN de seleção tabelar com D interno na fórmula. Hazen-Williams é relação empírica alternativa para condições de aplicação adequadas à água; não misturar fator de Darcy com coeficiente C de Hazen-Williams. Em sucção, perdas reduzem NPSH disponível.\n\nOrdem de perdas depende de diâmetro, geometria e tabela; fórmulas de quantitativo só para a configuração descrita, sem outras derivações."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Questão pede só singularidades: 6,1 m; 36,1 m inclui trecho real. Não confundir curva 90° com joelho 90°, nem somar coeficiente K e equivalente para a mesma peça. Orifício não fornece vazão constante sob toda pressão.\n\nNão usar tê no último aparelho nem omitir o joelho da subida. Não confundir curva e joelho, ou quantidade com perda localizada."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Real + equivalente = virtual; J vezes virtual = perda total; orifício: vazão varia com raiz da carga.\n\nReta, suave, brusca, choque. Dividiu, tê; dobrou, joelho; terminou, não tem tê."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A perda distribuída decorre de atrito ao longo da tubulação e a localizada de perturbações em singularidades. Para um trecho uniforme, h_d=f(L/D)v²/(2g), h_l=K v²/(2g), L_eq=KD/f e L_v=L_real+ΣL_eq. A perda total é J L_v com J=fv²/(2gD). Não somar K e L_eq para a mesma peça. Em orifício calibrado, Q depende de área, coeficiente de descarga e diferença de carga, Q=C_d A√(2gΔh), sob hipóteses pertinentes.",
+          "Para acessórios de mesmo diâmetro e condições comparáveis, a perda tende a aumentar de luva para curva de 90°, joelho de 90° e tê com saída lateral. Em ramal sequencial, distinguir quantidade de conexões de seu comprimento equivalente."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "perda distribuída",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "localizada",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "trecho uniforme",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "Não somar K e L_eq para a mesma peça",
+            "color": "#FECDD3"
+          },
+          {
+            "text": "tê com saída lateral",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Expressão/resultado"
+          ],
+          "rows": [
+            [
+              "Distribuída",
+              "f(L/D)v²/(2g)"
+            ],
+            [
+              "Localizada",
+              "Kv²/(2g)"
+            ],
+            [
+              "Equivalente",
+              "KD/f"
+            ],
+            [
+              "Virtual",
+              "L+ΣLeq"
+            ],
+            [
+              "Q06: singularidades",
+              "6,1 m"
+            ],
+            [
+              "Q06: virtual",
+              "36,1 m"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Darcy-Weisbach",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>h</mi><mi>d</mi></msub><mo>=</mo><mi>f</mi><mfrac><mi>L</mi><mi>D</mi></mfrac><mfrac><msup><mi>v</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>g</mi></mrow></mfrac></math>",
+            "units": "h_d, L e D em m; v em m/s"
+          },
+          {
+            "title": "Localizada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>h</mi><mi>l</mi></msub><mo>=</mo><mi>K</mi><mfrac><msup><mi>v</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>g</mi></mrow></mfrac></math>",
+            "units": "h_l em m; K adimensional"
+          },
+          {
+            "title": "Comprimento equivalente",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>L</mi><mi>eq</mi></msub><mo>=</mo><mfrac><mrow><mi>K</mi><mi>D</mi></mrow><mi>f</mi></mfrac></math>",
+            "units": "L_eq e D em m"
+          },
+          {
+            "title": "Vazão no orifício",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Q</mi><mo>=</mo><msub><mi>C</mi><mi>d</mi></msub><mi>A</mi><msqrt><mrow><mn>2</mn><mi>g</mi><mi>Δh</mi></mrow></msqrt></math>",
+            "units": "Q em m³/s; A em m²; Δh em m"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-CONEXOES",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_conexoes.svg",
+            "caption": "Conexões e contagem: ramal sequencial de seis aparelhos, dois cantos e último joelho.",
+            "alt": "Conexões e contagem: ramal sequencial de seis aparelhos, dois cantos e último joelho.",
+            "source": "Esquema didático autoral; não é figura original do enunciado.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1100",
+        "CARD-1127",
+        "CARD-1320",
+        "CARD-1384"
+      ]
+    },
+    {
+      "id": "CARD-1100",
+      "expected_hash": "b36c81b95f3008652c983562eb5f5715bdd65e071a2b3af906171d31c79e465f",
+      "title": "Registros, válvulas e tubulações de água fria",
+      "front": "Como distinguir registros de gaveta, pressão e globo e válvulas de retenção, pé com crivo, redutora, segurança e termostática? Explique suas funções, posições, escorva e expansão térmica.",
+      "back": "Pressão estática: sem escoamento; dinâmica: com escoamento e perdas. A retenção permite fluxo no sentido projetado e bloqueia refluxo automaticamente. A válvula de pé com crivo é uma retenção especial instalada na extremidade inferior submersa da sucção, principalmente quando a bomba está acima da água: retém a coluna após parada e o crivo barra detritos maiores. Mantém a escorva, não realiza a escorva inicial. No recalque, pode haver retenção convencional para evitar fluxo reverso. Redutora regula a pressão dinâmica de jusante e impede transmissão da pressão estática de montante sem escoamento; segurança à pressão limita sobrepressão, segurança à temperatura limita temperatura, termostática controla passagem em função da temperatura. Registro de gaveta isola ramal, coluna ou barrilete; opera normalmente totalmente aberto ou fechado. Registro de pressão permite abrir, fechar e regular a vazão no ponto de utilização, como chuveiro; não é válvula redutora de pressão. Registro de globo também permite regulagem e geralmente apresenta perda localizada maior que gaveta totalmente aberta. Não usar retenção no ramal de água fria que alimenta aquecedor de acumulação por gravidade se não protegido da expansão térmica.\n\nA ventilação da coluna de água fria auxilia a admissão e expulsão de ar, limitando depressões; conexão a jusante do registro de fechamento, com extremidade protegida acima do nível máximo do reservatório quando essa solução for empregada. Extravasão elimina excesso; aviso alerta; limpeza esvazia. Distribuição: barrilete → coluna → ramal → sub-ramal.",
+      "source": "ABNT NBR 5626:2020, 3.76–3.79, 6.9.5, 6.9.14 e 6.13.3.1(d); UFRPE, Adutora por recalque (válvula de pé e sucção); Ideal Metais, registro de gaveta ou de pressão (https://www.idealmetais.com.br/post/registro-de-gaveta-ou-registro-de-pressao-qual-a-diferenca).\n\nABNT NBR 5626:2020, definições e itens 6.5.8–6.5.9, 6.15.2 e Figura 5; questões de reconhecimento de tubulações. Distinguir ventilação de água fria da ventilação de esgoto.",
+      "mnemonic": "BCRS: barrilete, coluna, ramal, sub-ramal. Alimenta enche; extravasa excesso; limpa esvazia; ventila ar; aviso alerta.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como distinguir registros de gaveta, pressão e globo e válvulas de retenção, pé com crivo, redutora, segurança e termostática? Explique suas funções, posições, escorva e expansão térmica."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Pressão estática: sem escoamento; dinâmica: com escoamento e perdas. A retenção permite fluxo no sentido projetado e bloqueia refluxo automaticamente. A válvula de pé com crivo é uma retenção especial instalada na extremidade inferior submersa da sucção, principalmente quando a bomba está acima da água: retém a coluna após parada e o crivo barra detritos maiores. Mantém a escorva, não realiza a escorva inicial. No recalque, pode haver retenção convencional para evitar fluxo reverso. Redutora regula a pressão dinâmica de jusante e impede transmissão da pressão estática de montante sem escoamento; segurança à pressão limita sobrepressão, segurança à temperatura limita temperatura, termostática controla passagem em função da temperatura. Registro de gaveta isola ramal, coluna ou barrilete; opera normalmente totalmente aberto ou fechado. Registro de pressão permite abrir, fechar e regular a vazão no ponto de utilização, como chuveiro; não é válvula redutora de pressão. Registro de globo também permite regulagem e geralmente apresenta perda localizada maior que gaveta totalmente aberta. Não usar retenção no ramal de água fria que alimenta aquecedor de acumulação por gravidade se não protegido da expansão térmica.\n\nA ventilação da coluna de água fria auxilia a admissão e expulsão de ar, limitando depressões; conexão a jusante do registro de fechamento, com extremidade protegida acima do nível máximo do reservatório quando essa solução for empregada. Extravasão elimina excesso; aviso alerta; limpeza esvazia. Distribuição: barrilete → coluna → ramal → sub-ramal."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 5626:2020, 3.76–3.79, 6.9.5, 6.9.14 e 6.13.3.1(d); UFRPE, Adutora por recalque (válvula de pé e sucção); Ideal Metais, registro de gaveta ou de pressão (https://www.idealmetais.com.br/post/registro-de-gaveta-ou-registro-de-pressao-qual-a-diferenca).\n\nABNT NBR 5626:2020, definições e itens 6.5.8–6.5.9, 6.15.2 e Figura 5; questões de reconhecimento de tubulações. Distinguir ventilação de água fria da ventilação de esgoto."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Quando a diferença de pressão favorece o escoamento, o obturador da retenção abre. Com tendência de fluxo inverso, fecha contra o assento. A válvula de pé mantém o líquido na sucção após desligamento, desde que estanque. Crivo obstruído aumenta perda na sucção. Com Q=0, perda por atrito desaparece; simples estrangulamento fixo não sustenta redução estática na mesma cota, enquanto redutora fecha/regula pelo ajuste. Em aquecedor, retenção sem proteção pode confinar a expansão térmica. Na gaveta, a cunha sobe e libera a seção de passagem; no registro de pressão convencional, o obturador varia a seção útil do assento, regulando a vazão.\n\nSe o registro superior fecha e a água da coluna desce por gravidade, o ar precisa ocupar o volume deixado pelo líquido. Sem admissão de ar pode haver depressão; pressão atmosférica não é o motor da gravidade. Ventilador limita a depressão; ventosa é dispositivo alternativo conforme projeto."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "Na sucção de um reservatório aberto, NPSHa=p_atm/(ρg)+(z_superfície−z_bomba)−h_suc−p_v/(ρg), com termos em m de líquido e hipóteses de superfície com velocidade desprezível. Perdas localizadas h_l=K v²/(2g); a obstrução aumenta h_suc e reduz NPSHa. Selecionar bomba considerando NPSHr e margem apropriada. Pressão estática máxima nos pontos de utilização segundo NBR 5626:2020 400 kPa (cerca de 40 mca).\n\nPressão manométrica p_man=p_abs−p_atm; pode ser negativa. BCRS: barrilete alimenta colunas; colunas alimentam ramais; ramais alimentam sub-ramais; sub-ramais chegam aos pontos de uso."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Válvula de pé: sucção submersa, retenção e crivo; retenção de recalque: impedir retorno na descarga; torneira de boia: controlar nível; gaveta: seccionamento; globo: regulagem de vazão; redutora: pressão de jusante; segurança: limite de pressão/temperatura; termostática: resposta térmica. Sucção afogada não equivale a sucção por elevação. Registro de pressão: controle de vazão no ponto de uso; registro de gaveta: seccionamento do trecho.\n\nRamal predial e alimentador levam água da fonte; sucção antes da bomba, recalque após a bomba; extravasão escoa excesso, aviso alerta, limpeza permite esvaziamento, ventilação movimenta ar. Tubulação de retorno conduz água quente de volta quando prevista."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se a bomba acima da cisterna desliga e a válvula de pé veda bem, a linha permanece cheia. Se o crivo suja e a perda aumenta 1 m, NPSHa diminui 1 m, mantidas demais condições. Se montante tem 60 mca e a redutora é ajustada a 30 mca, a pressão de jusante é regulada, não confundida com o limite de uma válvula de segurança. Para manutenção do banheiro, fechar o RG que isola o ramal; para ajustar a água do chuveiro, operar o RP. Em questão com dois registros de utilização, selecionar pressão para ambos.\n\nRegistro fechado e torneira abaixo aberta: ventilador admite ar, como retirar o dedo de um canudo cheio de água. Falha da boia: extravasão escoa excesso e aviso indica problema em local perceptível."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0121, CARD-1082, CARD-1098, CARD-1099, CARD-1384"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Válvula de pé deve ficar submersa e afastada de sedimentos conforme instalação/fabricante; não é obrigatória em todo sistema de bombeamento. Escorva inicial pode ser manual ou por outro dispositivo. Nem toda bomba necessita escorva externa. Considerar temperatura, material, perdas, estanqueidade e pressão de serviço; proteção contra sobrepressão a jusante em estações redutoras conforme 6.9.14. Retenção simples não substitui toda proteção sanitária contra refluxo. Respeitar fabricante e pressão de serviço; gaveta parcialmente aberta pode vibrar e desgastar o obturador.\n\nAbastecimento indireto não exige sempre bombeamento. Ventilação não substitui toda proteção contra refluxo. Extravasão, aviso e limpeza não se ligam diretamente ao esgoto/pluvial; aviso pode ser por outro meio admitido. Condições e edição conforme norma."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir registro de gaveta com registro de pressão: um isola a rede e outro regula vazão no uso. Registro de pressão não reduz pressão estática como uma redutora. Retenção não é passagem única como denominação técnica; válvula de pé fica na sucção e não no recalque. Escorva não é cavitação; pressão dinâmica não é golpe de aríete.\n\nRetrossifonagem é fenômeno de refluxo associado a depressão, não denominação de tubo. Não confundir tubo ventilador com extravasor ou aviso."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Gaveta geral; pressão no ponto de uso; pé embaixo da sucção; crivo peneira; retenção retém retorno; redutora regula pressão; segurança protege; globo regula vazão.\n\nBCRS: barrilete, coluna, ramal, sub-ramal. Alimenta enche; extravasa excesso; limpa esvazia; ventila ar; aviso alerta."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Pressão estática: sem escoamento; dinâmica: com escoamento e perdas. A retenção permite fluxo no sentido projetado e bloqueia refluxo automaticamente. A válvula de pé com crivo é uma retenção especial instalada na extremidade inferior submersa da sucção, principalmente quando a bomba está acima da água: retém a coluna após parada e o crivo barra detritos maiores. Mantém a escorva, não realiza a escorva inicial. No recalque, pode haver retenção convencional para evitar fluxo reverso. Redutora regula a pressão dinâmica de jusante e impede transmissão da pressão estática de montante sem escoamento; segurança à pressão limita sobrepressão, segurança à temperatura limita temperatura, termostática controla passagem em função da temperatura. Registro de gaveta isola ramal, coluna ou barrilete; opera normalmente totalmente aberto ou fechado. Registro de pressão permite abrir, fechar e regular a vazão no ponto de utilização, como chuveiro; não é válvula redutora de pressão. Registro de globo também permite regulagem e geralmente apresenta perda localizada maior que gaveta totalmente aberta. Não usar retenção no ramal de água fria que alimenta aquecedor de acumulação por gravidade se não protegido da expansão térmica.",
+          "A ventilação da coluna de água fria auxilia a admissão e expulsão de ar, limitando depressões; conexão a jusante do registro de fechamento, com extremidade protegida acima do nível máximo do reservatório quando essa solução for empregada. Extravasão elimina excesso; aviso alerta; limpeza esvazia. Distribuição: barrilete → coluna → ramal → sub-ramal."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "retenção",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "agent",
+            "text": "Registro de gaveta",
+            "color": "#BBF7D0"
+          },
+          {
+            "kind": "core",
+            "text": "Registro de pressão",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "totalmente aberto ou fechado",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "se não protegido da expansão térmica",
+            "color": "#FECDD3"
+          },
+          {
+            "text": "a jusante do registro",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Componente",
+            "Função e posição"
+          ],
+          "rows": [
+            [
+              "Gaveta",
+              "Isolamento de ramal/coluna"
+            ],
+            [
+              "Pressão",
+              "Regulagem no ponto de utilização"
+            ],
+            [
+              "Globo",
+              "Regulagem de vazão"
+            ],
+            [
+              "Retenção",
+              "Bloqueio de refluxo"
+            ],
+            [
+              "Pé com crivo",
+              "Extremidade submersa da sucção"
+            ],
+            [
+              "Redutora",
+              "Pressão a jusante"
+            ],
+            [
+              "Segurança",
+              "Limite de pressão/temperatura"
+            ],
+            [
+              "Termostática",
+              "Controle pela temperatura"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Perda localizada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>h</mi><mi>l</mi></msub><mo>=</mo><mi>K</mi><mfrac><msup><mi>v</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>g</mi></mrow></mfrac></math>",
+            "units": "hₗ em m; K adimensional; v em m/s; g em m/s²"
+          },
+          {
+            "title": "NPSH disponível — reservatório aberto",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>NPSH</mi><mi>a</mi></msub><mo>=</mo><mfrac><msub><mi>p</mi><mi>atm</mi></msub><mrow><mi>ρ</mi><mi>g</mi></mrow></mfrac><mo>+</mo><mo>(</mo><msub><mi>z</mi><mi>s</mi></msub><mo>−</mo><msub><mi>z</mi><mi>b</mi></msub><mo>)</mo><mo>−</mo><msub><mi>h</mi><mi>suc</mi></msub><mo>−</mo><mfrac><msub><mi>p</mi><mi>v</mi></msub><mrow><mi>ρ</mi><mi>g</mi></mrow></mfrac></math>",
+            "units": "Termos em metros de líquido; pressões absolutas em Pa; ρ em kg/m³; g em m/s²"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO30-Q07-SVG01",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Retenção: fluxo direto e refluxo bloqueado",
+            "alt": "Retenção: fluxo direto e refluxo bloqueado",
+            "src": "assets/card_visuals_petro30_vc29/retencao.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "Esquema técnico autoral; não é original do enunciado.",
+            "evidence": "SVG nativo; exibição individual não testada."
+          },
+          {
+            "id": "PETRO30-Q08-SVG01",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Localização da válvula de pé com crivo e retenção no recalque",
+            "alt": "Localização da válvula de pé com crivo e retenção no recalque",
+            "src": "assets/card_visuals_petro30_vc29/pe-com-crivo.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "Esquema técnico autoral; não é original do enunciado.",
+            "evidence": "SVG nativo; exibição individual não testada."
+          },
+          {
+            "id": "PETRO30-Q09-SVG01",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Registro de gaveta versus registro de pressão",
+            "alt": "Registro de gaveta versus registro de pressão",
+            "src": "assets/card_visuals_petro30_vc29/gaveta-pressao.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "Esquema técnico autoral; não é original do enunciado.",
+            "evidence": "SVG nativo; exibição individual não testada."
+          },
+          {
+            "id": "PETRO31-VENTILACAO",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_ventilacao.svg",
+            "caption": "Tubo ventilador de água fria a jusante do registro: entrada de ar e descida por gravidade.",
+            "alt": "Tubo ventilador de água fria a jusante do registro: entrada de ar e descida por gravidade.",
+            "source": "Esquema didático autoral; não é figura original do enunciado.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0121",
+        "CARD-1082",
+        "CARD-1098",
+        "CARD-1099",
+        "CARD-1384"
+      ]
+    },
+    {
+      "id": "CARD-0270",
+      "expected_hash": "c4589ba78f18cd08514b2c24d8aa8ee08870a7d7a8dc70bfc989be0f6ac68438",
+      "title": "Iluminância: definição, unidade e seleção histórica por pesos",
+      "front": "O que é iluminância e qual sua unidade no SI?",
+      "back": "É o fluxo luminoso incidente por unidade de área: lux (lx = lm/m²).\n\nNa NBR 5413:1992, cancelada em 2013, o valor de iluminância era selecionado entre três níveis pela soma dos pesos de idade, velocidade/precisão e refletância do fundo. Para +1+0−1=0, entre 500/750/1.000 lux escolhe-se 750 lux. Esse método não deve ser aplicado como regra vigente.",
+      "source": "H21-C045\n\nNBR 5413:1992, item 5.2.2 e Tabelas 1 e 2 (edição histórica cobrada). NBR ISO/CIE 8995-1:2013, itens 4.3.1–4.3.2 e tabela de ambientes de trabalho, edição brasileira de referência; vigência atual não confirmada diretamente no catálogo ABNT. NR-17 remete à NHO 11 para avaliação de iluminamento.",
+      "mnemonic": "IVR: idade, velocidade, refletância. Começa no meio; dois pontos fazem mudar. Regra de pesos é histórica.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que é iluminância e qual sua unidade no SI?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "É o fluxo luminoso incidente por unidade de área: lux (lx = lm/m²).\n\nNa NBR 5413:1992, cancelada em 2013, o valor de iluminância era selecionado entre três níveis pela soma dos pesos de idade, velocidade/precisão e refletância do fundo. Para +1+0−1=0, entre 500/750/1.000 lux escolhe-se 750 lux. Esse método não deve ser aplicado como regra vigente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H21-C045\n\nNBR 5413:1992, item 5.2.2 e Tabelas 1 e 2 (edição histórica cobrada). NBR ISO/CIE 8995-1:2013, itens 4.3.1–4.3.2 e tabela de ambientes de trabalho, edição brasileira de referência; vigência atual não confirmada diretamente no catálogo ABNT. NR-17 remete à NHO 11 para avaliação de iluminamento."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Pessoas mais idosas, tarefas críticas e superfícies com menor refletância podem demandar mais luz. O método histórico converte esses fatores em pesos, não em lux."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "E=Φ/A [lx=lm/m²] para fluxo luminoso incidente uniforme. Na edição 1992: S=I+V+R; −3/−2 → menor, −1/0/+1 → intermediário, +2/+3 → maior."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Pesos −1/0/+1: idade <40/40–55/>55 anos; velocidade e precisão sem importância/importante/crítica; refletância >70%/30–70%/<30%. Na edição 2013, iluminância mantida por tarefa, UGR limite e Ra mínimo; sem soma algébrica de pesos."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Escritório, 500/750/1000 lx: soma +1+0−1=0 → 750; +1+1+0=+2 → 1000. Em leitura/escrita/digitação da edição 2013, referência de 500 lx, UGR 19, Ra 80; desenho técnico 750 lx, UGR 16, Ra 80."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1562, CARD-1565, CARD-0433, CARD-0682"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Não generalizar a NBR 5413 cancelada; conferir edição solicitada. A edição 2013 admite ajustes de iluminância conforme condições da tarefa e capacidade visual. Não confundir edição internacional com adoção brasileira."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não escolher o maior valor por padrão, nem interpolar 625 ou 875. Lux mede luz incidente, lúmen fluxo luminoso, cd/m² luminância."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "IVR: idade, velocidade, refletância. Começa no meio; dois pontos fazem mudar. Regra de pesos é histórica."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "É o fluxo luminoso incidente por unidade de área: lux (lx = lm/m²).",
+          "Na NBR 5413:1992, cancelada em 2013, o valor de iluminância era selecionado entre três níveis pela soma dos pesos de idade, velocidade/precisão e refletância do fundo. Para +1+0−1=0, entre 500/750/1.000 lux escolhe-se 750 lux. Esse método não deve ser aplicado como regra vigente."
+        ],
+        "highlights": [
+          {
+            "text": "cancelada em 2013",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-ILUMINANCIA",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_iluminancia.svg",
+            "caption": "Escala histórica da soma dos pesos da NBR 5413:1992, cancelada.",
+            "alt": "Escala histórica da soma dos pesos da NBR 5413:1992, cancelada.",
+            "source": "Esquema didático autoral; não é figura original do enunciado.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Soma histórica",
+            "Escolha no exemplo (lx)"
+          ],
+          "rows": [
+            [
+              "−3 ou −2",
+              "500"
+            ],
+            [
+              "−1, 0 ou +1",
+              "750"
+            ],
+            [
+              "+2 ou +3",
+              "1.000"
+            ]
+          ]
+        },
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1562",
+        "CARD-1565",
+        "CARD-0433",
+        "CARD-0682"
+      ]
+    }
+  ]
+}
