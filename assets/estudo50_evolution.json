@@ -1,0 +1,201 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1384",
+      "expected_hash": "e9f00541d810dbd04726f76bd978398654936c1cb9e65b6c290080a8e17b20c0",
+      "title": "Cavitação de vapor e NPSH — condição, mecanismo e prevenção",
+      "front": "Quando ocorre cavitação de vapor em uma bomba? Explique formação e colapso das cavidades, calcule o NPSH disponível em reservatório aberto e diferencie pressão absoluta de manométrica.",
+      "back": "A cavitação de vapor ocorre quando a pressão absoluta local se aproxima ou fica abaixo da pressão de vapor do líquido, favorecendo a formação de cavidades de vapor. Em regiões de pressão maior, elas podem colapsar, causando ruído, vibração, erosão e perda de desempenho.\n\nPara reservatório aberto e velocidade desprezível na superfície, NPSHd=patm/(ρg)+Hs−hL,s−pv/(ρg), em metros de líquido. Hs é a cota da superfície menos a cota de referência da bomba, hL,s são perdas da sucção e pv é a pressão de vapor. O NPSH disponível deve superar o requerido com margem adequada ao equipamento e à operação.",
+      "source": "KSB, Centrifugal Pump Lexicon, NPSH: https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/npsh-1116954 ; características de sucção: https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/suction-characteristics-1117252 ; equação de Bernoulli com perdas.",
+      "mnemonic": "Pressão cai: vapor nasce; pressão sobe: cavidade colapsa.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quando ocorre cavitação de vapor em uma bomba? Explique formação e colapso das cavidades, calcule o NPSH disponível em reservatório aberto e diferencie pressão absoluta de manométrica."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A cavitação de vapor ocorre quando a pressão absoluta local se aproxima ou fica abaixo da pressão de vapor do líquido, favorecendo a formação de cavidades de vapor. Em regiões de pressão maior, elas podem colapsar, causando ruído, vibração, erosão e perda de desempenho.\n\nPara reservatório aberto e velocidade desprezível na superfície, NPSHd=patm/(ρg)+Hs−hL,s−pv/(ρg), em metros de líquido. Hs é a cota da superfície menos a cota de referência da bomba, hL,s são perdas da sucção e pv é a pressão de vapor. O NPSH disponível deve superar o requerido com margem adequada ao equipamento e à operação."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "KSB, Centrifugal Pump Lexicon, NPSH: https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/npsh-1116954 ; características de sucção: https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/suction-characteristics-1117252 ; equação de Bernoulli com perdas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A baixa pressão próxima ao rotor permite vaporização local mesmo sem elevar a temperatura até 100 °C. O colapso em região de maior pressão pode produzir microjatos e pulsos de pressão. Perdas e altura de aspiração reduzem a energia disponível na sucção."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e critérios",
+          "texto": "NPSHd=patm/(ρg)+Hs−hL,s−pv/(ρg). Exemplo: cargas atmosférica 10,3 m e de vapor 0,24 m, Hs=−2 m, perdas 1,1 m; NPSHd=6,96 m. Se NPSHr=4 m, diferença 2,96 m; a margem necessária deve ser avaliada."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Pressão absoluta = atmosférica + manométrica. Pressão manométrica negativa não significa automaticamente cavitação. Cavitação de vapor ≠ entrada de ar; golpe de aríete é transiente de pressão por mudança de velocidade."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Para reduzir risco, avaliar diminuir perdas de sucção, elevar nível de líquido em relação à bomba, diminuir temperatura quando viável e selecionar bomba/ponto de operação adequados."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1082, CARD-1100, CARD-0121"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "NPSHr depende da vazão, rotação e critério de ensaio; NPSH3 se refere a queda de altura de 3%, não ausência absoluta de cavitação. Em tanque pressurizado, substituir patm pela pressão absoluta na superfície."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar pressão manométrica para comparar com pressão de vapor. Escorva, retenção e crivo não garantem NPSH suficiente."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Pressão cai: vapor nasce; pressão sobe: cavidade colapsa. Original e referência histórica preservados."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A cavitação de vapor ocorre quando a pressão absoluta local se aproxima ou fica abaixo da pressão de vapor do líquido, favorecendo a formação de cavidades de vapor. Em regiões de pressão maior, elas podem colapsar, causando ruído, vibração, erosão e perda de desempenho.",
+          "Para reservatório aberto e velocidade desprezível na superfície, NPSHd=patm/(ρg)+Hs−hL,s−pv/(ρg), em metros de líquido. Hs é a cota da superfície menos a cota de referência da bomba, hL,s são perdas da sucção e pv é a pressão de vapor. O NPSH disponível deve superar o requerido com margem adequada ao equipamento e à operação."
+        ],
+        "highlights": [
+          {
+            "text": "pressão absoluta local",
+            "kind": "core",
+            "color": "#FDE68A"
+          },
+          {
+            "text": "pressão de vapor",
+            "kind": "condition",
+            "color": "#BAE6FD"
+          },
+          {
+            "text": "margem adequada",
+            "kind": "condition",
+            "color": "#BAE6FD"
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO50-CAVITACAO",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/estudo50_cavitacao.svg",
+            "caption": "Sucção, região de baixa pressão e cavitação — esquema conceitual.",
+            "source": "Derivada autoral, fundamentada no KSB Centrifugal Pump Lexicon."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1082",
+        "CARD-1100",
+        "CARD-0121"
+      ]
+    },
+    {
+      "id": "CARD-0212",
+      "expected_hash": "49f76514151b5f919bbe083fda60ddbc2524d218523c75237bcac4241476aa50",
+      "title": "Águas pluviais prediais: vazão de projeto e área de contribuição",
+      "front": "Calcule a vazão pluvial para I=120 mm/h e A=180 m² em L/min e L/s. Explique a origem do divisor 60, a área de contribuição e o que falta para dimensionar uma calha.",
+      "back": "Pela NBR 10844:1989, na edição estudada, Q=I·A/60, com I em mm/h, A em m² e Q em L/min. Para I=120 mm/h e A=180 m², Q=360 L/min=6 L/s.\n\nA área de contribuição deve considerar a geometria do telhado e, quando aplicável, as superfícies expostas à chuva conforme a norma. A vazão obtida é demanda de projeto; a capacidade da calha e dos condutores deve ser verificada separadamente.",
+      "source": "ABNT NBR 10844:1989, itens 5.1, 5.2 e 5.3.1, edição estudada; referência técnica: https://suporte.unmep.com.br/docs/documentacao-tecnica/aguas-pluviais/areas-e-vazao-de-projeto ; dimensionamento de calhas: https://suporte.unmep.com.br/docs/documentacao-tecnica/aguas-pluviais/calhas",
+      "mnemonic": "Milímetros vezes metros quadrados = litros; converta o tempo.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Calcule a vazão pluvial para I=120 mm/h e A=180 m² em L/min e L/s. Explique a origem do divisor 60, a área de contribuição e o que falta para dimensionar uma calha."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Pela NBR 10844:1989, na edição estudada, Q=I·A/60, com I em mm/h, A em m² e Q em L/min. Para I=120 mm/h e A=180 m², Q=360 L/min=6 L/s.\n\nA área de contribuição deve considerar a geometria do telhado e, quando aplicável, as superfícies expostas à chuva conforme a norma. A vazão obtida é demanda de projeto; a capacidade da calha e dos condutores deve ser verificada separadamente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 10844:1989, itens 5.1, 5.2 e 5.3.1, edição estudada; referência técnica: https://suporte.unmep.com.br/docs/documentacao-tecnica/aguas-pluviais/areas-e-vazao-de-projeto ; dimensionamento de calhas: https://suporte.unmep.com.br/docs/documentacao-tecnica/aguas-pluviais/calhas"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Uma lâmina de 1 mm sobre 1 m² representa 0,001 m³, ou 1 L. Multiplicar intensidade pela área fornece L/h; dividir por 60 fornece L/min."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e critérios",
+          "texto": "Q(L/min)=I·A/60; Q(L/s)=I·A/3600; Q(m³/s)=I·A/3.600.000. Se área dobrar e intensidade se mantiver, vazão dobra."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Vazão de projeto é a contribuição da chuva; capacidade hidráulica da calha depende de seção, declividade, rugosidade e condições de escoamento. Não confundir método de telhados com método racional de bacias urbanas."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Calha recebe 90 m² a 120 mm/h: 180 L/min ou 3 L/s. Duas áreas iguais descarregando no mesmo trecho totalizam 360 L/min. Conferir as contribuições de cada trecho."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Cobertura direta H20-C025; sem vínculo novo comprovadamente necessário."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Intensidade de projeto depende dos critérios de duração, período de retorno e localidade. Área de contribuição não é necessariamente a área em planta; usar a geometria prevista. Conferir edição exigida na prova."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não dividir por 3600 se o resultado pedido for L/min. Não confundir intensidade em mm/h com altura total de chuva em mm."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Milímetros vezes metros quadrados = litros; converta o tempo. Original e referência histórica preservados."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Pela NBR 10844:1989, na edição estudada, Q=I·A/60, com I em mm/h, A em m² e Q em L/min. Para I=120 mm/h e A=180 m², Q=360 L/min=6 L/s.",
+          "A área de contribuição deve considerar a geometria do telhado e, quando aplicável, as superfícies expostas à chuva conforme a norma. A vazão obtida é demanda de projeto; a capacidade da calha e dos condutores deve ser verificada separadamente."
+        ],
+        "highlights": [
+          {
+            "text": "Q=I·A/60",
+            "kind": "core",
+            "color": "#FDE68A"
+          },
+          {
+            "text": "360 L/min=6 L/s",
+            "kind": "condition",
+            "color": "#BAE6FD"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": []
+    }
+  ]
+}
