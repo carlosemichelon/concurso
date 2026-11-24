@@ -4,6 +4,7 @@ import {CATALOGS} from '../../assets/multiaccount-catalog-v001.mjs';
 import {createServerCatalogLoader} from './catalog.mjs';
 import {projectRuntime} from './runtime.mjs';
 import {readProfileLayers} from './layers.mjs';
+import {createImageAnnotationService} from './image-annotations.mjs';
 import {readProfileMedia} from './media.mjs';
 import {createReviewJournal} from './reviews.mjs';
 import {createDiscursiveJournal} from './discursive.mjs';
@@ -21,8 +22,8 @@ export function ownerToken({clientId,clientSecret,refreshToken,fetcher=fetch}){
  };
 }
 export function createOwnerLoader({getToken,fetcher=fetch,loadCatalog=createServerCatalogLoader()}){
- const reviewJournal=createReviewJournal(),discursiveJournal=createDiscursiveJournal(),uploadJournal=createUploadJournal(),marksService=createMarksService(),pdfCopyService=createPdfCopyService();
- return async (user,{runtime=false,layerId=null,media=null,review=null,attempt=null,upload=null,marks=null,pdfCopy=null,guard=()=>true}={})=>{
+ const reviewJournal=createReviewJournal(),discursiveJournal=createDiscursiveJournal(),uploadJournal=createUploadJournal(),marksService=createMarksService(),pdfCopyService=createPdfCopyService(),imageAnnotations=createImageAnnotationService();
+ return async (user,{runtime=false,layerId=null,imageAnnotation=null,media=null,review=null,attempt=null,upload=null,marks=null,pdfCopy=null,guard=()=>true}={})=>{
   const {token,expiresAt}=await getToken();
   // Identity is derived ONLY from the authenticated server account, never request input.
   const info={sub:user.subject,email:user.username+'@central.invalid',email_verified:true};
@@ -35,6 +36,7 @@ export function createOwnerLoader({getToken,fetcher=fetch,loadCatalog=createServ
   const scoped={...provider,findRoot:async subject=>{if(subject!==user.subject)throw Error('Conta divergente');return root}};
   boot=createBootstrap({catalogs:CATALOGS,provider:scoped});
    const profile=await boot.open(info);
+   if(imageAnnotation)return await imageAnnotations({provider,profile,operation:imageAnnotation,guard});
    if(layerId)return await readProfileLayers(profile,layerId);
    if(marks)return await marksService({provider,profile,operation:marks,guard});
    if(pdfCopy)return await pdfCopyService({provider,profile,operation:pdfCopy,guard});
