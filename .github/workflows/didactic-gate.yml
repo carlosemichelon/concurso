@@ -2,7 +2,7 @@ name: Banco Mestre - qualidade didática
 on:
   push:
     branches: [gh-pages]
-    paths: ['tools/check_didactic_gate.cjs', 'tests/didactic_gate.test.cjs', 'assets/**', 'index.html', 'v*.html', '.github/workflows/didactic-gate.yml']
+    paths: ['tools/check_didactic_gate.cjs', 'tools/summarize_didactic_audit.cjs', 'tests/didactic_gate.test.cjs', 'assets/**', 'index.html', 'v*.html', '.github/workflows/didactic-gate.yml']
   pull_request:
     branches: [gh-pages]
   workflow_dispatch:
@@ -33,4 +33,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node tools/check_didactic_gate.cjs --release
+      - name: Portão editorial (relatório compacto, falha preservada)
+        run: |
+          rc=0
+          node tools/check_didactic_gate.cjs --release > didactic-release.json || rc=$?
+          summary_rc=0
+          node tools/summarize_didactic_audit.cjs didactic-release.json || summary_rc=$?
+          if [ "$rc" -ne 0 ]; then exit "$rc"; fi
+          exit "$summary_rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: liberacao-editorial-relatorio-integral
+          path: didactic-release.json
+          if-no-files-found: error
