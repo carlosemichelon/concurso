@@ -1,0 +1,17 @@
+name: Comparador VS13 — validação direcionada
+on:
+  push:
+    branches: [correcao/comparador-vs13]
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check assets/v402_js_136_147_compare.js
+      - run: node tools/catalog_snapshot.cjs --check
+      - run: node tests/v402_compare.cjs
