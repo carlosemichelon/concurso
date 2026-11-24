@@ -1,0 +1,18 @@
+name: Drive central — teste de login
+on:
+  push:
+    branches: ['feature/portal-atual-dois-usuarios']
+    paths: ['infra/central-drive/**', 'tests/central-drive-auth.test.mjs', '.github/workflows/central-drive-auth.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check infra/central-drive/login.js
+      - run: node --test tests/central-drive-auth.test.mjs
