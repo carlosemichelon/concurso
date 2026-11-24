@@ -1,0 +1,1027 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0779",
+      "title": "MeDiNa — mecanismo e calibração",
+      "front": "Por que o MeDiNa é mecanístico-empírico e como diferencia a análise estrutural do método de CBR?",
+      "back": "O MeDiNa combina a análise de tensões e deformações na estrutura multicamadas sob carregamento com modelos de previsão de dano calibrados experimentalmente. Utiliza propriedades dos materiais, geometria, tráfego e condições de projeto para estimar desempenho, especialmente fadiga e deformação permanente, e avaliar soluções de espessura e materiais.",
+      "source": "DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0",
+      "mnemonic": "Mecânica calcula; experiência calibra.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Por que o MeDiNa é mecanístico-empírico e como diferencia a análise estrutural do método de CBR?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O MeDiNa combina a análise de tensões e deformações na estrutura multicamadas sob carregamento com modelos de previsão de dano calibrados experimentalmente. Utiliza propriedades dos materiais, geometria, tráfego e condições de projeto para estimar desempenho, especialmente fadiga e deformação permanente, e avaliar soluções de espessura e materiais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A análise elástica de múltiplas camadas (AEMC) determina respostas mecânicas a partir de cargas e propriedades; modelos de desempenho convertem respostas e repetições de carga em estimativas de deterioração."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "A regra de Miner, D=Σ(nᵢ/Nfᵢ), ilustra acúmulo de dano por classes de solicitação; D é adimensional. É uma referência conceitual, não substitui as rotinas calibradas do MeDiNa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Método empírico tradicional: relações experimentais de CBR e tráfego para espessuras; mecanístico-empírico: respostas mecânicas e previsão calibrada de dano."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Duas bases com CBR semelhante podem ter resiliência e deformação permanente diferentes e produzir desempenhos previstos distintos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0780, CARD-0781, CARD-0786, CARD-1472, CARD-1461"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Modelos têm domínio de calibração e dependem de qualidade dos dados e hipóteses; o programa não dispensa avaliação de drenagem, execução e adequação do projeto."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "MeDiNa não é análise exclusivamente elástica nem simples tabela CBR."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Mecânica calcula; experiência calibra.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O MeDiNa combina a análise de tensões e deformações na estrutura multicamadas sob carregamento com modelos de previsão de dano calibrados experimentalmente. Utiliza propriedades dos materiais, geometria, tráfego e condições de projeto para estimar desempenho, especialmente fadiga e deformação permanente, e avaliar soluções de espessura e materiais."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "modelos de previsão de dano calibrados experimentalmente",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC30-SVG-MR-DP",
+            "src": "assets/card_visuals_vc30/resiliencia-dp.svg",
+            "caption": "Ciclos de deformação recuperável sobre parcela residual acumulada.",
+            "alt": "Ciclos de deformação recuperável sobre parcela residual acumulada.",
+            "source": "DNIT 134/2018-ME, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-134-2018-2013-me-solos-2013-determinacao-do-modulo-de-resiliencia ; DNIT 179/2018-IE, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/instrucao-de-ensaio-ie/dnit-179-2018-2013-ie-determinacao-da-deformacao-permanente",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0780",
+        "CARD-0781",
+        "CARD-0786",
+        "CARD-1472",
+        "CARD-1461"
+      ],
+      "expected_hash": "bfc425a4e42317a2b536bf6d36f8f1089aa58b0841bccbf6d507083b0371eaf6"
+    },
+    {
+      "id": "CARD-0780",
+      "title": "Número N",
+      "front": "O que é N e como converter tráfego heterogêneo em solicitações equivalentes?",
+      "back": "N é a soma acumulada das aplicações equivalentes do eixo-padrão ao longo do período de projeto, segundo o critério de equivalência adotado. Depende do número de veículos, configurações e cargas dos eixos, fatores de equivalência, crescimento do tráfego e distribuição por sentido e faixa.",
+      "source": "DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0 ; DNIT, IPR-719, Manual de Pavimentação, seção de tráfego.",
+      "mnemonic": "N = número equivalente, não número de veículos.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que é N e como converter tráfego heterogêneo em solicitações equivalentes?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "N é a soma acumulada das aplicações equivalentes do eixo-padrão ao longo do período de projeto, segundo o critério de equivalência adotado. Depende do número de veículos, configurações e cargas dos eixos, fatores de equivalência, crescimento do tráfego e distribuição por sentido e faixa."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0 ; DNIT, IPR-719, Manual de Pavimentação, seção de tráfego."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Eixos de cargas diferentes não produzem o mesmo dano. Ponderar cada classe permite representar o tráfego por um eixo de referência; o eixo simples de rodas duplas de 8,2 tf é a referência usual."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "N=Σ nᵢ·FEᵢ, com nᵢ aplicações de uma classe e FEᵢ adimensional. Em tráfego constante, N=365·VMD·FV·Fd·Ff·P, se FV for fator de veículo e P anos, com fatores coerentes."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "VMD mede veículos por dia; N mede solicitações equivalentes acumuladas; fator de eixo e fator de carga participam da conversão."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "100 veículos/dia, FV=2, todos na faixa de projeto, 10 anos sem crescimento: N=730.000. Com crescimento, somar volumes anuais."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0779, CARD-0786, CARD-1472, CARD-0476"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "O fator de equivalência depende do método e da configuração do eixo; evitar aplicar uma potência universal sem verificar o critério."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "N não é quantidade de caminhões nem o tráfego de um único dia."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "N = número equivalente, não número de veículos.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "N é a soma acumulada das aplicações equivalentes do eixo-padrão ao longo do período de projeto, segundo o critério de equivalência adotado. Depende do número de veículos, configurações e cargas dos eixos, fatores de equivalência, crescimento do tráfego e distribuição por sentido e faixa."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "aplicações equivalentes do eixo-padrão",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0779",
+        "CARD-0786",
+        "CARD-1472",
+        "CARD-0476"
+      ],
+      "expected_hash": "d0f4d21510f9844a79d4be8d8af80975fd3e4a5390bb3c48a6c2eabd38495df7"
+    },
+    {
+      "id": "CARD-0781",
+      "title": "Módulo de resiliência",
+      "front": "O que o módulo de resiliência mede no ensaio triaxial repetido de solos e como interpretá-lo?",
+      "back": "O módulo de resiliência (MR) é a razão entre a tensão desviadora aplicada e a deformação axial recuperável no ciclo de carregamento. Representa a rigidez sob solicitações repetidas, e pode variar com estado de tensões, material e umidade. Não mede diretamente a resistência à penetração nem a deformação permanente.",
+      "source": "DNIT 134/2018-ME, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-134-2018-2013-me-solos-2013-determinacao-do-modulo-de-resiliencia ; DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0",
+      "mnemonic": "Resiliência é recuperação.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que o módulo de resiliência mede no ensaio triaxial repetido de solos e como interpretá-lo?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O módulo de resiliência (MR) é a razão entre a tensão desviadora aplicada e a deformação axial recuperável no ciclo de carregamento. Representa a rigidez sob solicitações repetidas, e pode variar com estado de tensões, material e umidade. Não mede diretamente a resistência à penetração nem a deformação permanente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 134/2018-ME, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-134-2018-2013-me-solos-2013-determinacao-do-modulo-de-resiliencia ; DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A carga cíclica produz parcela recuperável durante descarga e parcela residual. A pressão confinante e a tensão desviadora influem no rearranjo e na resposta dos solos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "MR=σd/εr; σd=σ1−σ3 no estado triaxial. Se σd=0,12 MPa e εr=0,0006, MR=200 MPa. Deformação adimensional."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "MR: rigidez recuperável; ISC: suporte relativo à penetração; DP: deformação residual acumulada; E estático não equivale automaticamente a MR."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se εr dobra com mesma σd, MR cai à metade. Material rígido pode ainda acumular deformação residual."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0779, CARD-0786, CARD-0787, CARD-1448"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicar procedimento e modelo constitutivo da classe de material; não usar fórmula triaxial de solos indiscriminadamente para misturas asfálticas."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "MR alto não garante pequena trilha de roda."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Resiliência é recuperação.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O módulo de resiliência (MR) é a razão entre a tensão desviadora aplicada e a deformação axial recuperável no ciclo de carregamento. Representa a rigidez sob solicitações repetidas, e pode variar com estado de tensões, material e umidade. Não mede diretamente a resistência à penetração nem a deformação permanente."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "deformação axial recuperável",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC30-SVG-MR-DP",
+            "src": "assets/card_visuals_vc30/resiliencia-dp.svg",
+            "caption": "Ciclos de deformação recuperável sobre parcela residual acumulada.",
+            "alt": "Ciclos de deformação recuperável sobre parcela residual acumulada.",
+            "source": "DNIT 134/2018-ME, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-134-2018-2013-me-solos-2013-determinacao-do-modulo-de-resiliencia ; DNIT 179/2018-IE, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/instrucao-de-ensaio-ie/dnit-179-2018-2013-ie-determinacao-da-deformacao-permanente",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Módulo de resiliência",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>M</mi><mi>R</mi></msub><mo>=</mo><mfrac><msub><mi>σ</mi><mi>d</mi></msub><msub><mi>ε</mi><mi>r</mi></msub></mfrac></math>",
+            "units": "MR em MPa; σd em MPa; εr adimensional."
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-0779",
+        "CARD-0786",
+        "CARD-0787",
+        "CARD-1448"
+      ],
+      "expected_hash": "9c5614f567b5b1ed478927166016676fbec77eba47d2286b456351e8b6d0c2a9"
+    },
+    {
+      "id": "CARD-0786",
+      "title": "Deformação permanente",
+      "front": "Diferencie deformação permanente da resiliente e explique o afundamento de trilha de roda.",
+      "back": "A deformação permanente é a parcela residual que permanece após o descarregamento e pode acumular-se com o tráfego. A parcela resiliente é recuperada no ciclo. A trilha de roda pode resultar de deformações acumuladas em uma ou várias camadas, inclusive da mistura asfáltica, base, sub-base e subleito.",
+      "source": "DNIT 179/2018-IE, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/instrucao-de-ensaio-ie/dnit-179-2018-2013-ie-determinacao-da-deformacao-permanente ; DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0",
+      "mnemonic": "Recuperável volta; permanente fica.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie deformação permanente da resiliente e explique o afundamento de trilha de roda."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A deformação permanente é a parcela residual que permanece após o descarregamento e pode acumular-se com o tráfego. A parcela resiliente é recuperada no ciclo. A trilha de roda pode resultar de deformações acumuladas em uma ou várias camadas, inclusive da mistura asfáltica, base, sub-base e subleito."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 179/2018-IE, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/instrucao-de-ensaio-ie/dnit-179-2018-2013-ie-determinacao-da-deformacao-permanente ; DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Rearranjos de partículas, cisalhamento, densificação e mecanismos dependentes de temperatura podem acumular deformação residual. A taxa de acumulação não precisa ser constante."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "εtotal=εr+εp no modelo de separação de parcelas. Aproximação unidimensional: contribuição vertical Δh≈εp·h; 1% em 200 mm ≈2 mm, sem substituir a análise do perfil."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "MR descreve rigidez cíclica recuperável; DP descreve evolução residual; fadiga descreve dano e fissuração por repetição."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Dois materiais com MR=200 MPa podem ter DP distintas; comparar curvas de acumulação no ensaio e nas condições representativas."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0779, CARD-0780, CARD-0781, CARD-0787, CARD-1472"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "O ensaio de solos não substitui ensaio específico de mistura asfáltica; geometria, temperatura e estado de tensões afetam a previsão."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não atribuir todo afundamento ao revestimento nem assumir que MR elevado impede DP."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Recuperável volta; permanente fica.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A deformação permanente é a parcela residual que permanece após o descarregamento e pode acumular-se com o tráfego. A parcela resiliente é recuperada no ciclo. A trilha de roda pode resultar de deformações acumuladas em uma ou várias camadas, inclusive da mistura asfáltica, base, sub-base e subleito."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "parcela residual",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC30-SVG-MR-DP",
+            "src": "assets/card_visuals_vc30/resiliencia-dp.svg",
+            "caption": "Ciclos de deformação recuperável sobre parcela residual acumulada.",
+            "alt": "Ciclos de deformação recuperável sobre parcela residual acumulada.",
+            "source": "DNIT 134/2018-ME, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-134-2018-2013-me-solos-2013-determinacao-do-modulo-de-resiliencia ; DNIT 179/2018-IE, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/instrucao-de-ensaio-ie/dnit-179-2018-2013-ie-determinacao-da-deformacao-permanente",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0779",
+        "CARD-0780",
+        "CARD-0781",
+        "CARD-0787",
+        "CARD-1472"
+      ],
+      "expected_hash": "c99770602840fc41d20362eedb0c7a54866e011b64ea95bd0f5c659bb6baa1ab"
+    },
+    {
+      "id": "CARD-1472",
+      "title": "Fadiga asfáltica",
+      "front": "Como a fadiga se manifesta no revestimento e como distingui-la de outros defeitos?",
+      "back": "A fadiga resulta do acúmulo de dano por repetição de tensões e deformações. Pode gerar fissuras que se interligam formando malha semelhante ao couro de jacaré, frequentemente nas trilhas de roda. Não é possível atribuir a causa de toda trinca apenas à aparência; analisar tráfego, estrutura, drenagem e características da mistura.",
+      "source": "DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0 ; DNIT, catálogo de normas de avaliação de pavimentos: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/normas-dner-e-dnit",
+      "mnemonic": "Fadiga trinca; deformação permanente afunda.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como a fadiga se manifesta no revestimento e como distingui-la de outros defeitos?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A fadiga resulta do acúmulo de dano por repetição de tensões e deformações. Pode gerar fissuras que se interligam formando malha semelhante ao couro de jacaré, frequentemente nas trilhas de roda. Não é possível atribuir a causa de toda trinca apenas à aparência; analisar tráfego, estrutura, drenagem e características da mistura."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0 ; DNIT, catálogo de normas de avaliação de pavimentos: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/normas-dner-e-dnit"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Ciclos de solicitação podem iniciar e propagar microfissuras; suporte deficiente aumenta respostas estruturais, e envelhecimento altera a suscetibilidade da mistura."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "D=Σ nᵢ/Nfᵢ é ilustração de dano cumulativo, com nᵢ ciclos aplicados e Nfᵢ ciclos até falha na condição i. Não representa diretamente área trincada sem calibração."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Fadiga: fissuração por ciclos; DP: afundamento residual; retração térmica: trincas ligadas a variações de temperatura/restrição; reflexão: propagação de descontinuidades inferiores."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Trincas interligadas nas trilhas de roda com tráfego pesado sugerem fadiga; investigar deflexões, espessuras e condição das camadas antes de definir intervenção."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0779, CARD-0780, CARD-0786, CARD-1466"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Fissuração pode iniciar em diferentes regiões do revestimento; padrão superficial não comprova sozinho a origem."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Panela não é sinônimo de fadiga, embora possa evoluir de áreas fissuradas."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Fadiga trinca; deformação permanente afunda.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A fadiga resulta do acúmulo de dano por repetição de tensões e deformações. Pode gerar fissuras que se interligam formando malha semelhante ao couro de jacaré, frequentemente nas trilhas de roda. Não é possível atribuir a causa de toda trinca apenas à aparência; analisar tráfego, estrutura, drenagem e características da mistura."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "acúmulo de dano por repetição",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0779",
+        "CARD-0780",
+        "CARD-0786",
+        "CARD-1466"
+      ],
+      "expected_hash": "8df3a54804dd24e4c4725db5943a3f439172d70f57fdcc7ac925df1d61f55cfb"
+    },
+    {
+      "id": "CARD-1473",
+      "title": "Marshall — estabilidade e fluência",
+      "front": "Como obter estabilidade e fluência Marshall na curva carga–deformação e como corrigir a estabilidade?",
+      "back": "A estabilidade Marshall é a carga máxima de compressão radial suportada pelo corpo de prova, expressa em N ou kgf, com correção pela espessura quando prevista. A fluência, em mm, é a deformação associada ao pico, obtida pelo procedimento geométrico da curva. Quando o pico não é bem definido, aplica-se o procedimento de translação da tangente indicado na norma.",
+      "source": "DNIT 447/2024-ME, errata 1, itens 3, 5–7, pp. 2–4: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-447-2024-2013-me-2013-misturas-asfalticas-2013-ensaio-de-estabilidade-e-fluencia-marshall-2013-metodo-de-ensaio-com-incorporacao-da-errata-1",
+      "mnemonic": "Estabilidade: força; fluência: deslocamento.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como obter estabilidade e fluência Marshall na curva carga–deformação e como corrigir a estabilidade?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A estabilidade Marshall é a carga máxima de compressão radial suportada pelo corpo de prova, expressa em N ou kgf, com correção pela espessura quando prevista. A fluência, em mm, é a deformação associada ao pico, obtida pelo procedimento geométrico da curva. Quando o pico não é bem definido, aplica-se o procedimento de translação da tangente indicado na norma."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 447/2024-ME, errata 1, itens 3, 5–7, pp. 2–4: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-447-2024-2013-me-2013-misturas-asfalticas-2013-ensaio-de-estabilidade-e-fluencia-marshall-2013-metodo-de-ensaio-com-incorporacao-da-errata-1"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A prensa deforma a amostra compactada; a carga aumenta até o pico e depois decresce. A referência de fluência usa a tangente à parte aproximadamente linear, não necessariamente a leitura bruta de deslocamento."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "E'=f·E. Ex.: E=900 kgf e fator ilustrativo f=1,05 → E'=945 kgf. Fluência: diferença de abscissas conforme procedimento da norma, em mm."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Estabilidade é força; fluência é deslocamento; MR é módulo; Vv é percentual volumétrico."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se pico=10 kN e fluência=3 mm, relatar grandezas distintas. Se o pico for mal definido, consultar a regra de deslocamento da tangente em 1,5 mm."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1474, CARD-1476, CARD-1478, CARD-1466"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "DNIT 447 aplica-se às misturas no escopo de tamanho máximo de agregado 25,4 mm; verificar preparo, temperatura e espessura. Não usar o fator ilustrativo como tabelado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Fluência Marshall não equivale à deformação permanente ao longo da vida de serviço."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Estabilidade: força; fluência: deslocamento.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A estabilidade Marshall é a carga máxima de compressão radial suportada pelo corpo de prova, expressa em N ou kgf, com correção pela espessura quando prevista. A fluência, em mm, é a deformação associada ao pico, obtida pelo procedimento geométrico da curva. Quando o pico não é bem definido, aplica-se o procedimento de translação da tangente indicado na norma."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "carga máxima de compressão radial",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1474",
+        "CARD-1476",
+        "CARD-1478",
+        "CARD-1466"
+      ],
+      "expected_hash": "45b6d387f25d45ee14ae03460dd561508ad37a4a00475a71f30dfb88fde835"
+    },
+    {
+      "id": "CARD-1474",
+      "title": "Marshall — condições de ensaio",
+      "front": "Quais velocidade, temperatura, condicionamento e espessura devem ser observados no ensaio Marshall da DNIT 447/2024-ME?",
+      "back": "A prensa opera a 50 ± 5 mm/min. O condicionamento é a 60 ± 1 °C, por 30–40 min em banho-maria ou 120–130 min em estufa. Para corpos de prova moldados em laboratório, a espessura deve ser 63,5 ± 2,5 mm; fora desse intervalo, descartar. O ensaio deve terminar em até 24 h da compactação.",
+      "source": "DNIT 447/2024-ME, errata 1, itens 3, 5–7, pp. 2–4: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-447-2024-2013-me-2013-misturas-asfalticas-2013-ensaio-de-estabilidade-e-fluencia-marshall-2013-metodo-de-ensaio-com-incorporacao-da-errata-1",
+      "mnemonic": "Marshall: 50 de velocidade, 60 de temperatura, 63,5 de altura.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais velocidade, temperatura, condicionamento e espessura devem ser observados no ensaio Marshall da DNIT 447/2024-ME?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A prensa opera a 50 ± 5 mm/min. O condicionamento é a 60 ± 1 °C, por 30–40 min em banho-maria ou 120–130 min em estufa. Para corpos de prova moldados em laboratório, a espessura deve ser 63,5 ± 2,5 mm; fora desse intervalo, descartar. O ensaio deve terminar em até 24 h da compactação."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 447/2024-ME, errata 1, itens 3, 5–7, pp. 2–4: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-447-2024-2013-me-2013-misturas-asfalticas-2013-ensaio-de-estabilidade-e-fluencia-marshall-2013-metodo-de-ensaio-com-incorporacao-da-errata-1"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Temperatura e velocidade modificam a resposta viscoelástica do ligante; padronização e rapidez após condicionamento tornam resultados comparáveis."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Velocidade admissível: 45–55 mm/min; temperatura 59–61 °C; espessura de laboratório 61–66 mm. Limite entre retirada do banho e fim: 30 s."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Velocidade em mm/min não é fluência em mm; temperatura do condicionamento não é temperatura de usinagem."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Prensa a 56 mm/min ou amostra de laboratório de 67 mm não atende ao respectivo critério. Banho de 35 min a 60 °C atende a esses parâmetros."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1473, CARD-1466"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Método A usa anel dinamométrico e relógios; B usa célula de carga e LVDT. Testemunhos in situ têm regra própria de correção da estabilidade, com cautela para grandes correções."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não aplicar descarte de espessura de laboratório indiscriminadamente aos testemunhos de pista."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Marshall: 50 de velocidade, 60 de temperatura, 63,5 de altura.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A prensa opera a 50 ± 5 mm/min. O condicionamento é a 60 ± 1 °C, por 30–40 min em banho-maria ou 120–130 min em estufa. Para corpos de prova moldados em laboratório, a espessura deve ser 63,5 ± 2,5 mm; fora desse intervalo, descartar. O ensaio deve terminar em até 24 h da compactação."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "50 ± 5 mm/min",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "table": {
+          "headers": [
+            "Parâmetro",
+            "Valor"
+          ],
+          "rows": [
+            [
+              "Prensa",
+              "50 ± 5 mm/min"
+            ],
+            [
+              "Temperatura",
+              "60 ± 1 °C"
+            ],
+            [
+              "Banho",
+              "30–40 min"
+            ],
+            [
+              "Estufa",
+              "120–130 min"
+            ],
+            [
+              "Espessura moldado",
+              "63,5 ± 2,5 mm"
+            ]
+          ]
+        }
+      },
+      "related_card_ids": [
+        "CARD-1473",
+        "CARD-1466"
+      ],
+      "expected_hash": "47cdc418479232c5c92b89e65b43fe8a858c87ee4ba415818f66e98be92d3e81"
+    },
+    {
+      "id": "CARD-1475",
+      "title": "Rice — determinação de Gmm",
+      "front": "Como o método Rice determina Gmm e por que a amostra deve estar não compactada?",
+      "back": "O Rice determina experimentalmente a densidade relativa máxima medida (Gmm) de mistura asfáltica não compactada. Utiliza água e remoção do ar sob vácuo para medir o volume efetivo da mistura sem os vazios de ar entre partículas, com correções e controles do procedimento. Não é simples média calculada das densidades dos constituintes.",
+      "source": "DNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me",
+      "mnemonic": "Rice retira ar e mede a máxima.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como o método Rice determina Gmm e por que a amostra deve estar não compactada?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O Rice determina experimentalmente a densidade relativa máxima medida (Gmm) de mistura asfáltica não compactada. Utiliza água e remoção do ar sob vácuo para medir o volume efetivo da mistura sem os vazios de ar entre partículas, com correções e controles do procedimento. Não é simples média calculada das densidades dos constituintes."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A mistura solta é desagregada conforme o método, colocada no recipiente e submetida à remoção de ar. A pesagem e o deslocamento de água permitem obter a densidade máxima medida."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Em princípio Gmm=m mistura/(ρágua·V sem ar), adimensional. A expressão operacional depende da aparelhagem, pesagens e ajustes normativos."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Gmm: mistura solta, sem volume de ar; Gmb: corpo compactado, incluindo vazios de ar. Gmm não é densidade do agregado isolado."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Gmm=2,50 e Gmb=2,40 fornecem Vv=4%; o valor Rice é referência do cálculo volumétrico, não grau de compactação."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1476, CARD-1477, CARD-1478, CARD-1466"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Bolhas residuais, absorção e temperatura influem; seguir procedimento e ajustes previstos, sem adotar tempos ou pressões genéricos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Apesar do nome histórico máxima teórica, no Rice Gmm é medida."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Rice retira ar e mede a máxima.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O Rice determina experimentalmente a densidade relativa máxima medida (Gmm) de mistura asfáltica não compactada. Utiliza água e remoção do ar sob vácuo para medir o volume efetivo da mistura sem os vazios de ar entre partículas, com correções e controles do procedimento. Não é simples média calculada das densidades dos constituintes."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "mistura asfáltica não compactada",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC30-SVG-VOLUMETRIA",
+            "src": "assets/card_visuals_vc30/volumetria.svg",
+            "caption": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+            "alt": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+            "source": "DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1476",
+        "CARD-1477",
+        "CARD-1478",
+        "CARD-1466"
+      ],
+      "expected_hash": "45321bdee103e0ec3fc62ff6ceec8fddecef36e375a7cc4e428e9291f4b2766f"
+    },
+    {
+      "id": "CARD-1476",
+      "title": "Gmm, Gmb e vazios",
+      "front": "Diferencie Gmm e Gmb e derive o cálculo de Vv da mistura compactada.",
+      "back": "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm).",
+      "source": "DNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me ; DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro ; DNIT 428-ME, referida na DNIT 447/2024-ME.",
+      "mnemonic": "Vazios: divide pela máxima.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie Gmm e Gmb e derive o cálculo de Vv da mistura compactada."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm)."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me ; DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro ; DNIT 428-ME, referida na DNIT 447/2024-ME."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Para a mesma massa, o volume sem ar é proporcional a 1/Gmm, e o volume total a 1/Gmb. A razão entre volumes é Gmb/Gmm; sua diferença para um representa fração de ar."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Vv=100(Gmm−Gmb)/Gmm. Ex.: Gmm=2,50; Gmb=2,40; Vv=4%. Densidades relativas são adimensionais."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Gmm fornece referência sem vazios; Gmb é aparente; GC usa Gmb de campo dividido por Gmb de dosagem, não Gmm."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se Gmb aumenta de 2,40 para 2,45 com Gmm constante em 2,50, Vv cai de 4% para 2%; avaliar a faixa de projeto."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1475, CARD-1477, CARD-1478, CARD-1466, CARD-1473"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Gmb e Gmm precisam representar mistura compatível. Resultado negativo sugere inconsistência de medição ou dados e requer investigação."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não inverter denominador nem confundir Vv com 100−GC."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Vazios: divide pela máxima.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm)."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "volume percentual de vazios",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC30-SVG-VOLUMETRIA",
+            "src": "assets/card_visuals_vc30/volumetria.svg",
+            "caption": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+            "alt": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+            "source": "DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Vv",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Vv</mi><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><msub><mi>G</mi><mi>mm</mi></msub><mo>−</mo><msub><mi>G</mi><mi>mb</mi></msub></mrow><mrow><msub><mi>G</mi><mi>mm</mi></msub></mrow></mfrac></math>",
+            "units": "Vv em %; densidades relativas adimensionais."
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-1475",
+        "CARD-1477",
+        "CARD-1478",
+        "CARD-1466",
+        "CARD-1473"
+      ],
+      "expected_hash": "55df8276fa8ce995d07ac55f1cd7eef74fef516307e2725b4540019b4a6de796"
+    },
+    {
+      "id": "CARD-1478",
+      "title": "VAM, Vv e RBV",
+      "front": "O que representam VAM, Vv e RBV e como calculá-los e interpretá-los em uma dosagem?",
+      "back": "VAM é o volume de vazios do esqueleto de agregado mineral em relação ao volume total da mistura compactada. Inclui ar e ligante efetivo, excluindo ligante absorvido no agregado. Vv corresponde ao ar; RBV indica a porcentagem do VAM preenchida pelo ligante efetivo.",
+      "source": "DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro",
+      "mnemonic": "VAM = ar + ligante efetivo; RBV é a parte preenchida.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que representam VAM, Vv e RBV e como calculá-los e interpretá-los em uma dosagem?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "VAM é o volume de vazios do esqueleto de agregado mineral em relação ao volume total da mistura compactada. Inclui ar e ligante efetivo, excluindo ligante absorvido no agregado. Vv corresponde ao ar; RBV indica a porcentagem do VAM preenchida pelo ligante efetivo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O esqueleto mineral delimita o espaço intergranular. O ligante efetivo ocupa parte desse espaço, e o ar ocupa o restante. O balanço volumétrico permite analisar a combinação entre graduação e ligante."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "VAM=100−Gmb·Ps/Gsb (Ps em %, Gsb densidade relativa aparente combinada dos agregados); Vv=100(1−Gmb/Gmm); RBV=100(VAM−Vv)/VAM."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Vv e VAM são percentuais do volume total; RBV é percentual de VAM; teor de CAP usualmente é percentual em massa."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "VAM=16%, Vv=4% → ligante efetivo=12% do volume total; RBV=75%. Se Vv cai para 2% com VAM constante, RBV=87,5%."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1473, CARD-1475, CARD-1476, CARD-1477, CARD-1466"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Faixas aceitáveis dependem da especificação e mistura; não tomar os valores do exemplo como limites normativos. VAM deve ser positivo para RBV definida."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "RBV 75% não significa CAP de 75% em massa; VAM não é apenas ar."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "VAM = ar + ligante efetivo; RBV é a parte preenchida.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "VAM é o volume de vazios do esqueleto de agregado mineral em relação ao volume total da mistura compactada. Inclui ar e ligante efetivo, excluindo ligante absorvido no agregado. Vv corresponde ao ar; RBV indica a porcentagem do VAM preenchida pelo ligante efetivo."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "ar e ligante efetivo",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC30-SVG-VOLUMETRIA",
+            "src": "assets/card_visuals_vc30/volumetria.svg",
+            "caption": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+            "alt": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+            "source": "DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Base de cálculo"
+          ],
+          "rows": [
+            [
+              "Vv",
+              "Volume total"
+            ],
+            [
+              "VAM",
+              "Volume total"
+            ],
+            [
+              "RBV",
+              "VAM"
+            ],
+            [
+              "Teor de CAP",
+              "Massa (convenção especificada)"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "RBV",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>RBV</mi><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mi>VAM</mi><mo>−</mo><mi>Vv</mi></mrow><mrow><mi>VAM</mi></mrow></mfrac></math>",
+            "units": "RBV em %; VAM e Vv em %."
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-1473",
+        "CARD-1475",
+        "CARD-1476",
+        "CARD-1477",
+        "CARD-1466"
+      ],
+      "expected_hash": "89e1ce904157e4d69696f408d1cd12feff6ee42fe67b5a9bbe2c154c7a58842b"
+    }
+  ]
+}

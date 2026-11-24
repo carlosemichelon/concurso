@@ -1,0 +1,26 @@
+name: Integrar estudos 29–38
+on:
+  push:
+    branches: [publicacao/estudos-29-38-vc31]
+    paths:
+      - 'tools/estudos_29_38_release.cjs'
+      - 'tools/catalog_evolution_release.cjs'
+      - '.github/workflows/estudos-29-38.yml'
+permissions:
+  contents: write
+jobs:
+  integrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/estudos_29_38_release.cjs
+      - name: Registrar catálogo validado na branch candidata
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/catalog_snapshot_vc31.json assets/version.json index.html v397.html
+          git commit -m 'VC31: catálogo validado dos estudos 29–38'
+          git push origin HEAD:publicacao/estudos-29-38-vc31
