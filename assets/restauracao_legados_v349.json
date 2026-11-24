@@ -3993,6 +3993,782 @@
       "related_card_ids": [
         "CARD-1576"
       ]
+    },
+    "CARD-0199": {
+      "id": "CARD-0199",
+      "title": "Comando do mesmo grupo luminoso em vários locais",
+      "front": "Dois interruptores paralelos (three-way) permitem comandar um grupo de lâmpadas de dois locais?",
+      "subject": "Instalações elétricas — comandos",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Sim. Dois interruptores paralelos (three-way) permitem ligar ou desligar um mesmo grupo de lâmpadas a partir de dois locais, como as duas extremidades de uma escada. Os interruptores selecionam caminhos alternativos para a fase; as luminárias do grupo são normalmente ligadas em paralelo, com a mesma tensão de alimentação.",
+          "Para um comando convencional, um local requer um interruptor simples; dois locais requerem dois paralelos, com dois viajantes entre eles. Se houver três ou mais locais, mantêm-se os paralelos nas extremidades e instalam-se interruptores intermediários (four-way) entre os viajantes. Para n locais, com n ≥ 2, são necessários n − 2 intermediários.",
+          "Na questão em que se amplia o comando de um para dois locais, retira-se o interruptor simples e acrescentam-se dois paralelos. Número de locais de comando não é número de grupos luminosos. Três lâmpadas acionadas juntas constituem um grupo; três grupos independentes exigem comandos próprios."
+        ],
+        "marks": [
+          {
+            "text": "interruptores paralelos (three-way)",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "interruptores intermediários (four-way)",
+            "kind": "agent",
+            "bold": false
+          },
+          {
+            "text": "Número de locais de comando não é número de grupos luminosos",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Número de intermediários",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>N</mi><mi>i</mi></msub><mo>=</mo><mi>n</mi><mo>−</mo><mn>2</mn><mtext> (n ≥ 2)</mtext></math>",
+              "units": "n = locais de comando do mesmo grupo."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Quantidade de dispositivos por grupo",
+              "headers": [
+                "Locais de comando",
+                "Simples",
+                "Paralelos",
+                "Intermediários"
+              ],
+              "rows": [
+                [
+                  "1",
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  "2",
+                  "0",
+                  "2",
+                  "0"
+                ],
+                [
+                  "3",
+                  "0",
+                  "2",
+                  "1"
+                ],
+                [
+                  "4",
+                  "0",
+                  "2",
+                  "2"
+                ],
+                [
+                  "n ≥ 2",
+                  "0",
+                  "2",
+                  "n − 2"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO27-SVG-COMANDOS-V348",
+              "caption": "Comandos de iluminação por um, dois e três locais",
+              "alt": "Comandos de iluminação por um, dois e três locais",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/comandos_1_2_3_locais.svg"
+            }
+          ]
+        },
+        "mnemonic": "Paralelos nas pontas; intermediários no meio.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Um grupo de quatro luminárias deve ser comandado de cinco locais. Quantos paralelos e intermediários são necessários?",
+        "sources": [],
+        "source_note": "Registro Petrobras 27, COMANDOS-01 e COMANDOS-04; circuitos convencionais de comando de iluminação. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0388",
+        "CARD-0454",
+        "CARD-0721",
+        "CARD-0722",
+        "CARD-0723"
+      ]
+    },
+    "CARD-0388": {
+      "id": "CARD-0388",
+      "title": "Viajantes, comuns e comutação intermediária",
+      "front": "No comando paralelo convencional (three-way) de dois locais, quantos viajantes ligam os interruptores?",
+      "subject": "Instalações elétricas — comandos",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "No arranjo convencional entre dois interruptores paralelos, há dois condutores viajantes que formam caminhos alternativos. Cada paralelo possui três terminais: um comum, que se conecta alternativamente a um dos dois viajantes, e dois terminais de comutação. No arranjo fase–neutro usual, a fase chega ao comum de uma extremidade e o retorno sai do comum da outra.",
+          "Quando se acrescenta um terceiro local, o intermediário é inserido entre os dois viajantes. O four-way tem quatro terminais: dois de entrada e dois de saída. Uma posição estabelece as conexões V1–V1 e V2–V2; a outra estabelece V1–V2 e V2–V1. Acionar qualquer dispositivo altera a continuidade do caminho e, portanto, o estado da carga.",
+          "Dois viajantes não significam dois condutores totais no eletroduto. Outros fios podem atravessar o mesmo trecho, dependendo da posição da alimentação, das caixas e da carga. O comum também não é um terceiro viajante; é um terminal funcional distinto."
+        ],
+        "marks": [
+          {
+            "text": "dois condutores viajantes",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "quatro terminais",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Dois viajantes não significam dois condutores totais no eletroduto",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Dispositivo e papel",
+              "headers": [
+                "Dispositivo",
+                "Terminais",
+                "Função"
+              ],
+              "rows": [
+                [
+                  "Simples",
+                  "2",
+                  "Abre/fecha um caminho"
+                ],
+                [
+                  "Paralelo",
+                  "3",
+                  "Comum seleciona um dos dois viajantes"
+                ],
+                [
+                  "Intermediário",
+                  "4",
+                  "Liga o par diretamente ou cruzado"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO27-SVG-COMANDOS-V348",
+              "caption": "Comandos de iluminação por um, dois e três locais",
+              "alt": "Comandos de iluminação por um, dois e três locais",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/comandos_1_2_3_locais.svg"
+            }
+          ]
+        },
+        "mnemonic": "Three-way: 3 bornes, 2 viajantes; four-way: 4 bornes, cruza o par.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Descreva os dois estados do four-way e explique por que não é instalado no lugar do paralelo da extremidade.",
+        "sources": [],
+        "source_note": "PETRO27-COMANDOS-04; esquema de comutação convencional e registro de estudo. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0199",
+        "CARD-0454"
+      ]
+    },
+    "CARD-0454": {
+      "id": "CARD-0454",
+      "title": "Contagem física de condutores: circuito e trecho de eletroduto",
+      "front": "Como determinar a variação de condutores entre dois trechos de eletroduto de um croqui?",
+      "subject": "Instalações elétricas — croquis",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Para contar condutores em um croqui, identifique as caixas e derivações, separe os circuitos e trace a passagem física de cada fio. A contagem por trecho depende de quais condutores atravessam o segmento, não de quantas lâmpadas existem nem de quantos terminais tem o interruptor. Fase F, neutro N, retorno R, viajantes V1/V2 e proteção PE têm funções distintas.",
+          "No esquema de três luminárias acionadas juntas por dois paralelos, o retorno comum pode percorrer sucessivamente as caixas das luminárias (2 → L1 → L2 → L3), sem que isso constitua associação elétrica em série. Na questão 54, com dois circuitos independentes, no trecho inicial aparecem F1 e N1; no trecho seguinte atravessam F1, N1, F2, V1 e V2. O total passa de 2 para 5, logo a variação é de +3. A fase do segundo circuito não pode ser omitida.",
+          "O PE, quando presente no trecho e abrangido pela contagem, deve ser incluído, mas não pode substituir o neutro, o retorno ou os viajantes. Não transportar a contagem do croqui específico para qualquer instalação. A legenda, o circuito e o percurso determinam a resposta; os desenhos abaixo são esquemas didáticos, não instruções executivas."
+        ],
+        "marks": [
+          {
+            "text": "contagem por trecho",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "Não transportar a contagem do croqui específico para qualquer instalação",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Variação da contagem",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mi>Δn</mi><mo>=</mo><msub><mi>n</mi><mtext>depois</mtext></msub><mo>−</mo><msub><mi>n</mi><mtext>antes</mtext></msub><mo>=</mo><mn>5</mn><mo>−</mo><mn>2</mn><mo>=</mo><mn>3</mn></math>",
+              "units": "Número de condutores, adimensional; exemplo da questão 54."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Leitura por função",
+              "headers": [
+                "Símbolo",
+                "Função no croqui"
+              ],
+              "rows": [
+                [
+                  "F",
+                  "Alimentação ativa"
+                ],
+                [
+                  "N",
+                  "Neutro funcional"
+                ],
+                [
+                  "R",
+                  "Fase comutada para a carga"
+                ],
+                [
+                  "V1 / V2",
+                  "Caminhos alternativos entre paralelos"
+                ],
+                [
+                  "PE",
+                  "Proteção; nunca substitui condutor funcional"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO27-SVG-FIACAO-V348",
+              "caption": "Identificação dos condutores por trecho",
+              "alt": "Identificação dos condutores por trecho",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/contagem_fiacao.svg"
+            },
+            {
+              "id": "PETRO27-SVG-TRES-LAMPADAS-V348",
+              "caption": "Retorno comum das três luminárias",
+              "alt": "Retorno comum das três luminárias",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/retorno_tres_luminarias.svg"
+            },
+            {
+              "id": "PETRO27-SVG-CINCO-FIOS-V348",
+              "caption": "Dois circuitos: cinco condutores no trecho analisado",
+              "alt": "Dois circuitos: cinco condutores no trecho analisado",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/contagem_cinco_fios.svg"
+            }
+          ]
+        },
+        "mnemonic": "Antes de somar, trace cada fio; depois menos antes.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          },
+          {
+            "type": "media",
+            "index": 1
+          },
+          {
+            "type": "media",
+            "index": 2
+          }
+        ],
+        "transfer_question": "Em um trecho passam F1, N1 e PE; depois são acrescentados F2 e dois viajantes. Qual a variação? Por que não é lícito usar o PE como viajante?",
+        "sources": [],
+        "source_note": "Registro PETRO27-ELETRONUCLEAR-Q39/Q54, Cesgranrio 2022; simbologia histórica NBR 5444:1989 citada no estudo. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0199",
+        "CARD-0388",
+        "CARD-0505",
+        "CARD-0272",
+        "CARD-0434",
+        "CARD-0300"
+      ]
+    },
+    "CARD-1304": {
+      "id": "CARD-1304",
+      "title": "Escolha do ensaio pelo objeto e mecanismo de deterioração",
+      "front": "Três ensaios foram solicitados: Los Angeles, adesividade agregado–ligante e sanidade com sais. Que propriedade distinta cada um avalia?",
+      "subject": "Ensaios de agregados",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "O Los Angeles mede a resistência do agregado ao desgaste e à fragmentação: partículas são submetidas a atrito e choques em tambor rotativo com carga abrasiva. A perda de massa segundo o método indica a suscetibilidade ao mecanismo; quanto menor a perda, maior a resistência nesse ensaio.",
+          "A adesividade examina a interface agregado–ligante asfáltico, inclusive o efeito da água na permanência da película. A sanidade avalia a estabilidade do agregado em ciclos de sais padronizados, nos quais a cristalização pode provocar desagregação. Absorção, granulometria e petrografia também examinam características do agregado, mas são grandezas diferentes.",
+          "O desgaste Amsler é empregado na avaliação abrasiva superficial de placas ou corpos de prova, enquanto Marshall e tração indireta examinam corpos de prova de misturas compactadas (ou outros materiais íntegros, conforme o método). Não trocar o ensaio de partículas soltas pelo ensaio de placa ou mistura compactada. Em uma lista, basta um ensaio incompatível com o objeto solicitado para invalidar a alternativa."
+        ],
+        "marks": [
+          {
+            "text": "Los Angeles",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "Não trocar o ensaio de partículas soltas pelo ensaio de placa ou mistura compactada",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Objeto, ação e propriedade",
+              "headers": [
+                "Ensaio",
+                "Objeto",
+                "Propriedade ou resposta"
+              ],
+              "rows": [
+                [
+                  "Los Angeles",
+                  "Agregado graúdo solto",
+                  "Desgaste e fragmentação"
+                ],
+                [
+                  "Sanidade",
+                  "Agregado",
+                  "Alteração por ciclos de sais"
+                ],
+                [
+                  "Adesividade",
+                  "Agregado com ligante",
+                  "Aderência da película"
+                ],
+                [
+                  "Amsler",
+                  "Placa ou corpo de prova",
+                  "Desgaste superficial"
+                ],
+                [
+                  "Marshall",
+                  "Mistura asfáltica compactada",
+                  "Estabilidade e fluência"
+                ],
+                [
+                  "Petrografia",
+                  "Rocha/agregado",
+                  "Minerais, textura e constituição"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO27-SVG-ENSAIOS-V348",
+              "caption": "Ensaios de agregados, placas e misturas",
+              "alt": "Ensaios de agregados, placas e misturas",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/ensaios_objeto.svg"
+            }
+          ]
+        },
+        "mnemonic": "Brita no tambor: LA; placa: Amsler; CAP: adesividade; sais: sanidade.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Qual ensaio você escolheria para avaliar a perda de película de ligante em presença de água? E para a desagregação por cristalização de sais?",
+        "sources": [],
+        "source_note": "Registro PETRO27-ENS-20261121-01; métodos conforme objeto e procedimento citado na questão, sem extrapolar limites normativos. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-1141",
+        "CARD-1319",
+        "CARD-0751",
+        "CARD-1359"
+      ]
+    },
+    "CARD-1319": {
+      "id": "CARD-1319",
+      "title": "Inchamento de areia: películas capilares e umidade crítica",
+      "front": "Por que o volume aparente de areia pode aumentar quando recebe certa umidade e qual a diferença entre inchamento e granulometria?",
+      "subject": "Agregados em concretos",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "O inchamento da areia é o aumento do volume aparente de uma mesma massa de material seco quando há umidade. Películas de água e forças capilares alteram o arranjo dos grãos, aumentando os vazios. Os grãos não aumentam de tamanho; o efeito não cresce indefinidamente com a água. Granulometria, por sua vez, descreve a distribuição dos tamanhos de partículas.",
+          "O coeficiente Ch relaciona o volume aparente úmido ao seco para a mesma massa seca. Se 100 L passam a 134 L, Ch = 1,34: são 34% de aumento de volume, não 1,34% de umidade. Na convenção registrada da NBR 6467:2006, a relação por massas unitárias inclui a correção (100+h)/100, com h em porcentagem da massa seca.",
+          "Na construção gráfica da umidade crítica, projeta-se a interseção U das retas auxiliares sobre o eixo das umidades. Na figura estudada, obtém-se aproximadamente 3,7%, enquanto a região próxima de 7% corresponde ao máximo observado, não à umidade crítica. Máximo de inchamento não é sinônimo de umidade crítica. Na dosagem volumétrica, corrigir o volume para representar a massa seca desejada."
+        ],
+        "marks": [
+          {
+            "text": "inchamento da areia",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "3,7%",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Máximo de inchamento não é sinônimo de umidade crítica",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Coeficiente de inchamento",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>C</mi><mi>h</mi></msub><mo>=</mo><mfrac><msub><mi>V</mi><mi>h</mi></msub><msub><mi>V</mi><mi>s</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>γ</mi><mi>s</mi></msub><msub><mi>γ</mi><mi>h</mi></msub></mfrac><mo>·</mo><mfrac><mrow><mn>100</mn><mo>+</mo><mi>h</mi></mrow><mn>100</mn></mfrac></math>",
+              "units": "Volumes de mesma massa seca; massas unitárias nas mesmas unidades; h em %. Ch adimensional."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Grandezas que não devem ser confundidas",
+              "headers": [
+                "Conceito",
+                "O que varia ou é medido"
+              ],
+              "rows": [
+                [
+                  "Inchamento",
+                  "Volume aparente com umidade"
+                ],
+                [
+                  "Granulometria",
+                  "Distribuição de tamanhos"
+                ],
+                [
+                  "Umidade crítica",
+                  "Abscissa da construção gráfica"
+                ],
+                [
+                  "Empolamento de solo",
+                  "Volume natural versus escavado solto"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO27-IMG-INCHAMENTO",
+              "caption": "Gráfico de inchamento e construção da umidade crítica",
+              "alt": "Gráfico de inchamento e construção da umidade crítica",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "U de umidade crítica: projete U; não leia o pico.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Se 200 L de areia seca passam a 260 L com a umidade, calcule Ch e explique por que ele não indica o teor de água.",
+        "sources": [],
+        "source_note": "NBR 6467:2006, convenção e gráfico registrados em PETRO27-Q-INCHAMENTO-001; edição conforme o estudo. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-1304",
+        "CARD-0751"
+      ]
+    },
+    "CARD-1320": {
+      "id": "CARD-1320",
+      "title": "Classe de pressão, espessura e diâmetro hidráulico",
+      "front": "Com diâmetro externo fixo De, o que acontece com Di e com velocidade média quando a espessura e aumenta e Q é mantida?",
+      "subject": "Diâmetros de tubo",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Para tubos da mesma família com diâmetro externo fixo, o diâmetro interno é De menos duas espessuras de parede. A classe de pressão maior, mantidos material e série dimensional, normalmente exige parede mais espessa, reduzindo Di. A área hidráulica é πDi²/4, portanto, para vazão Q constante, a velocidade média aumenta quando Di diminui.",
+          "Exemplo: De = 110 mm e espessuras de 5 e 10 mm produzem Di = 100 e 90 mm. A razão de velocidades é (100/90)² ≈ 1,235, aumento de 23,5%. Em séries externas de tubos PE100, SDR = De/e; SDR menor significa parede relativamente mais espessa. PN designa a classe de pressão, enquanto Schedule designa espessura tabelada para NPS em tubos de aço. Não se devem interpretar PN ou Schedule como vazão.",
+          "Na questão estudada, as grandezas geometricamente alteradas são espessura e diâmetro interno. A mesma bitola não garante De constante em todas as normas: certas séries de tubos de concreto referenciam o diâmetro interno. Também não se deve concluir que tolerância e acabamento necessariamente mudam com a classe, nem que a vazão real se mantém automaticamente. Temperatura, transientes, juntas e especificação da série condicionam a seleção."
+        ],
+        "marks": [
+          {
+            "text": "diâmetro externo fixo",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "velocidade média aumenta",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "A mesma bitola não garante De constante em todas as normas",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Geometria e continuidade",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>D</mi><mi>i</mi></msub><mo>=</mo><msub><mi>D</mi><mi>e</mi></msub><mo>−</mo><mn>2</mn><mi>e</mi><mo>;</mo><mi>v</mi><mo>=</mo><mfrac><mrow><mn>4</mn><mi>Q</mi></mrow><mrow><mi>π</mi><msubsup><mi>D</mi><mi>i</mi><mn>2</mn></msubsup></mrow></mfrac></math>",
+              "units": "Q em m³/s, diâmetros em m para cálculo de v em m/s."
+            },
+            {
+              "title": "Relação dimensional padrão",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mi>SDR</mi><mo>=</mo><mfrac><msub><mi>D</mi><mi>e</mi></msub><mi>e</mi></mfrac></math>",
+              "units": "Adimensional, dimensões em mesma unidade."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Designações dimensionais e de pressão",
+              "headers": [
+                "Designação",
+                "Significado"
+              ],
+              "rows": [
+                [
+                  "DN / NPS",
+                  "Tamanho nominal definido pela série"
+                ],
+                [
+                  "De / Di",
+                  "Diâmetros externo / interno"
+                ],
+                [
+                  "PN",
+                  "Designação de classe de pressão"
+                ],
+                [
+                  "SDR",
+                  "Relação De/e"
+                ],
+                [
+                  "Schedule",
+                  "Espessura tabelada para determinado NPS"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO27-SVG-CLASSES-PRESSAO-V348",
+              "caption": "Corte transversal de tubos de mesma série externa",
+              "alt": "Corte transversal de tubos de mesma série externa",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/classes_pressao_tubos.svg"
+            }
+          ]
+        },
+        "mnemonic": "Pressão maior, parede maior; por fora igual, por dentro menor — se De fixo.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "De = 160 mm; e₁ = 9,5 mm, e₂ = 14,6 mm. Calcule Di e diga qual velocidade é maior para Q constante.",
+        "sources": [],
+        "source_note": "Registro PETRO27-TUBOS-01; geometria e continuidade, comparação PN/SDR/Schedule conforme a série dimensional. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": []
     }
   }
 }
