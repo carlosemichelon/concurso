@@ -799,6 +799,7 @@ function ui(){
  const search=el('input','');search.id='bm084-search';search.type='search';search.placeholder='Filtrar imagens do Drive';search.setAttribute('aria-label','Buscar imagens autenticadas no Atlas');search.style.cssText='padding:7px 9px;border:1px solid #bacdc7;border-radius:6px;max-width:210px';
  if(account){connect.hidden=true;folder.hidden=true;recovered.hidden=true;refresh.disabled=false;help.textContent='Originais e SVGs do perfil individual. Nenhum original é publicado no GitHub.';}
  controls.append(connect,refresh,folder,recovered,search);
+ if(account){const add=el('button','','Adicionar imagem / SVG');add.type='button';add.disabled=!account.imageUploadReady;add.onclick=()=>openProfileUpload(add);controls.append(add)}
  const status=el('p','','Aguardando conexão. As imagens públicas continuam disponíveis.');
  const syncTime=el('small','','Nenhuma consulta autorizada nesta sessão.');syncTime.id='bm207-sync-time';syncTime.style.cssText='display:block;font-size:11px;color:#516a68;margin:4px 0 9px';status.id='bm084-status';status.setAttribute('role','status');status.style.cssText='font-size:12px;margin:9px 0';
  const grid=el('div','');grid.id='bm084-grid';grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:10px';
@@ -823,12 +824,26 @@ function ui(){
  for(const id of ['imageFilter','imageAreaV044','bm155DisciplinaImagem','bm155AssuntoGeralImagem','bm155AssuntoEspecificoImagem','bm155SubassuntoImagem'])
   $(id)?.addEventListener('change',()=>{visible=24;render()});
 }
+function openProfileUpload(button){
+ if(!account?.imageUploadReady)return;
+ const d=el('dialog','bm202-image-dialog bm228-dialog'),form=el('form','bm228-form');
+ const heading=el('h2','','Adicionar original ao Atlas individual');form.append(heading);
+ const f=document.createElement('input');f.type='file';f.accept='image/png,image/jpeg,image/webp,image/gif,image/svg+xml';f.required=true;form.append(f);
+ const fields={};function field(name,label,required=false){const wrapper=el('label','bm228-field');wrapper.append(el('span','',label));const input=document.createElement('input');input.required=required;input.name=name;wrapper.append(input);form.append(wrapper);fields[name]=input;return input}
+ field('title','Título',true);field('area','Disciplina',true);field('subject','Assunto',true);field('subsubject','Subassunto');field('source','Fonte / referência verificável',true);field('page','Página');field('edition','Edição normativa');field('caption','Legenda e finalidade didática',true);
+ field('questionRefs','IDs das questões (se conhecidos)');field('cardIds','IDs de cartões existentes (se conhecidos)');
+ const label=el('label','bm228-field','Origem'),origin=document.createElement('select');for(const [v,t] of [['ORIGINAL_USUARIO','Original enviado pelo usuário'],['DERIVADA_AUTORAL','SVG / explicação autoral'],['REFERENCIA_EXTERNA','Referência externa']])origin.add(new Option(t,v));label.append(origin);form.append(label);
+ const subtype=document.createElement('select');for(const [v,t] of [['explicacao','Explicação ou resolução'],['figura','Figura da questão'],['enunciado','Enunciado original']])subtype.add(new Option(t,v));const role=el('label','bm228-field','Função no cartão');role.append(subtype);form.append(role);
+ const info=el('p','','O arquivo original será preservado. A avaliação técnica permanece pendente e a exibição no verso é o padrão. Sem vínculo confirmado, a imagem fica pendente de associação.');
+ const status=el('p','','');status.setAttribute('role','status');const save=el('button','','Salvar original no meu Drive');save.type='submit';const cancel=el('button','','Cancelar');cancel.type='button';cancel.onclick=()=>d.close();form.append(info,status,save,cancel);d.append(form);document.body.append(d);d.addEventListener('close',()=>d.remove(),{once:true});d.showModal();
+ form.onsubmit=async e=>{e.preventDefault();if(save.disabled)return;const input=Object.fromEntries(Object.entries(fields).map(([k,v])=>[k,v.value]));const split=x=>x.split(/[\s,;]+/).filter(Boolean);input.cardIds=split(input.cardIds);input.questionRefs=split(input.questionRefs);input.origin=origin.value;input.subtype=subtype.value;save.disabled=true;cancel.disabled=true;status.textContent='Enviando original e registro de identificação…';try{const result=await account.uploadImage(f.files[0],input);d.close();await loadAliases();window.dispatchEvent(new Event('bm-profile-image-catalog-changed'));await refreshList(true);msg('Original registrado: '+result.imageId+'. Vínculo '+result.linkStatus.toLowerCase()+'.');}catch(err){status.textContent=err.message;save.disabled=!account.imageUploadReady;cancel.disabled=false;button.disabled=!account.imageUploadReady}};
+}
 function loadGIS(){return new Promise((resolve,reject)=>{
  if(window.google?.accounts?.oauth2){resolve();return;}
  const js=document.createElement('script');js.src='https://accounts.google.com/gsi/client';js.async=true;js.onload=resolve;js.onerror=()=>reject(Error('Google Identity Services indisponível'));document.head.append(js);
 });}
 let profileDirty=false,profileTimer=null;
-async function syncProfileImages(manual=false){if(!account)return;if(document.querySelector('dialog[open]')){if(manual)msg('Feche o editor antes de sincronizar.');return}if(account.imageState.busy)return;try{const result=await account.imageState.sync();profileDirty=result.pending;window.dispatchEvent(new Event('bm-profile-image-synced'));if(manual)await refreshList(true);msg('Ajustes de imagens sincronizados no Drive individual.'+(profileDirty?' Há alterações locais pendentes.':''));}catch(e){profileDirty=true;msg('Sincronização não confirmada: '+e.message,true)}}
+async function syncProfileImages(manual=false){if(!account)return;if(document.querySelector('dialog[open]')){if(manual)msg('Feche o editor antes de sincronizar.');return}if(account.imageState.busy)return;try{const result=await account.imageState.sync();profileDirty=result.pending;window.dispatchEvent(new Event('bm-profile-image-synced'));if(manual){await account.refreshImageCatalog();await loadAliases();window.dispatchEvent(new Event('bm-profile-image-catalog-changed'));await refreshList(true)}msg('Ajustes de imagens sincronizados no Drive individual.'+(profileDirty?' Há alterações locais pendentes.':''));}catch(e){profileDirty=true;msg('Sincronização não confirmada: '+e.message,true)}}
 async function init(){
  ui();if(!$('bm084-sync'))return;
  if(account){await loadAliases();await refreshList(true);window.addEventListener('bm-profile-image-edited',()=>{profileDirty=true;clearTimeout(profileTimer);profileTimer=setTimeout(()=>{if(profileDirty)void syncProfileImages()},1200)});document.addEventListener('close',()=>{if(profileDirty){clearTimeout(profileTimer);profileTimer=setTimeout(()=>void syncProfileImages(),200)}},true);return}

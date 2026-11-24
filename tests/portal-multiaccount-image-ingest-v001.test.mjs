@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {prepareImageUpload,registeredImage,checkedImageRecord} from '../assets/multiaccount-image-ingest-v001.mjs';
+import {profileImageAccess} from '../assets/multiaccount-images-v001.mjs';
+import {createImageValidator} from '../assets/multiaccount-image-state-v001.mjs';
+const uuid='12345678-1234-4123-8123-123456789abc',file={name:'Original.svg',type:'image/svg+xml',size:500},input={title:'Ancoragem',area:'Engenharia Civil',subject:'Estruturas',source:'Questão informada pelo titular',caption:'Comprimento de ancoragem',cardIds:['CARD-0001'],questionRefs:['PETRO-01'],origin:'DERIVADA_AUTORAL'};
+const make=(data=input,f=file)=>prepareImageUpload({owner:'A',file:f,input:data,cardIds:['CARD-0001'],uuid,now:new Date('2026-11-23T12:00:00Z')});
+const p=make();assert.equal(p.blob,file);assert.equal(p.record.imageId,'IMG-'+uuid.toUpperCase());assert.equal(p.record.technicalStatus,'PENDENTE');assert.equal(p.record.display,'verso');assert.equal(p.record.linkStatus,'VINCULADO');assert.deepEqual(p.record.cardIds,['CARD-0001']);
+assert.throws(()=>make({...input,cardIds:['CARD-9999']}));assert.throws(()=>make({...input,source:''}));assert.throws(()=>make(input,{...file,type:'text/html'}));assert.throws(()=>make(input,{...file,size:15000001}));assert.equal(make({...input,cardIds:[]}).record.linkStatus,'PENDENTE');assert.throws(()=>checkedImageRecord(p.record,'B'));
+const f={id:'source-original-001',name:file.name,mimeType:file.type,size:String(file.size),description:JSON.stringify(p.record),appProperties:{bmUpload:uuid}};
+const row=registeredImage(f,'A');assert.equal(row.file_id,f.id);assert.throws(()=>registeredImage({...f,size:'100'},'A'));assert.throws(()=>registeredImage(f,'B'));
+const access=profileImageAccess({session:{readImage:async()=>file},profile:{privateData:{images:[]}},cardIds:['CARD-0001']});
+const validate=createImageValidator(()=>access.catalog(),['CARD-0001']),key='BM030_STROKES_DRIVE-IMG-'+f.id;
+assert.throws(()=>validate(key,'[]'));access.add([row]);assert.equal(access.catalog().length,1);assert.equal(access.links('CARD-0001')[0].imageId,p.record.imageId);assert.equal(validate(key,'[]'),'[]');access.add([row]);assert.equal(access.catalog().length,1);assert.equal((await access.read(f.id)).type,'image/svg+xml');
+assert.throws(()=>access.add([{...row,file_id:'other-original'}]));assert.equal(access.catalog().length,1);
+console.log('PASS inclusão de original, metadados, vínculos, atualização de catálogo e validação dinâmica');

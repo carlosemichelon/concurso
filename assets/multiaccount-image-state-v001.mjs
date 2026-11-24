@@ -17,8 +17,9 @@ export function checkedImageState(payload,owner){
  return clone(payload)
 }
 export function createImageValidator(images,cardIds){
- const ids=new Set(images.map(x=>x.id)),cards=new Set(cardIds),fields={title:160,area:120,subject:180,subsubject:180,detail:180,description:4000,note:2500};
+ const cards=new Set(cardIds),fields={title:160,area:120,subject:180,subsubject:180,detail:180,description:4000,note:2500};
  return (key,value)=>{
+  const ids=new Set((typeof images==='function'?images():images).map(x=>x.id));
   if(!basicKey(key)||typeof value!=='string'||value.length>4000000)throw Error('Ajuste de imagem inválido');
   const data=JSON.parse(value);
   if(key===IMAGE_LINK_KEY){

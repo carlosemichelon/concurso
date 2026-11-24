@@ -498,6 +498,7 @@ function init(){
 init();
 initReverse();
 window.BM197MediaLinks=Object.freeze({matches,matchesDrive,decorate,decorateDrive,openEditor:openEditorDialog,mountEditorForm,mountImagePreview,exportJson,filterActive:()=>filter!=='todas',get catalogReady(){return canonicalReady;},get catalogSize(){return canonicalRecords.size;},get:(imageId)=>dataOf(imageId,typeof imgs!=='undefined'?imgs.find(x=>x.no===imageId):null)});
+if(account)window.addEventListener('bm-profile-image-catalog-changed',()=>{void loadCanonical();window.dispatchEvent(new Event('bm197-links-changed'))});
 if(account)window.addEventListener('bm-profile-image-synced',()=>{saved=Object.create(null);load();window.dispatchEvent(new Event('bm197-links-changed'));rerender()});
 void loadCanonical();
 })();
