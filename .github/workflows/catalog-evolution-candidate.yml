@@ -1,0 +1,33 @@
+name: Materializar incremento editorial candidato
+on:
+  push:
+    branches: ['estudo/**']
+    paths:
+      - 'assets/catalog_evolution_request.json'
+      - 'tools/catalog_apply_pending.cjs'
+      - 'tools/catalog_evolution_batch.cjs'
+      - '.github/workflows/catalog-evolution-candidate.yml'
+permissions:
+  contents: write
+concurrency:
+  group: evolution-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  materializar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/catalog_apply_pending.cjs
+      - run: node tools/catalog_snapshot.cjs --check
+      - name: Commit da versão candidata validada
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- assets/version.json assets/catalog_snapshot_*.json index.html "$(node -p "require('./assets/version.json').home")"
+          git diff --cached --quiet && exit 0
+          git commit -m 'Materializar catálogo de evoluções editoriais validado'
+          git push origin HEAD:${GITHUB_REF_NAME}
