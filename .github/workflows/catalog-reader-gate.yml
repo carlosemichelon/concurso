@@ -35,8 +35,14 @@ jobs:
               git fetch origin gh-pages
               BASE=$(git merge-base HEAD FETCH_HEAD)
             fi
-            echo "args=$BASE" >> "$GITHUB_OUTPUT"
-            node tests/catalog_reader_gate.cjs "$BASE" --plan >> "$GITHUB_OUTPUT"
+            PLAN=$(node tests/catalog_reader_gate.cjs "$BASE" --plan)
+            if grep -qx "count=0" <<< "$PLAN" && ! git diff --quiet "$BASE" HEAD -- tests/catalog_reader_gate.cjs .github/workflows/catalog-reader-gate.yml; then
+              echo "args=--smoke" >> "$GITHUB_OUTPUT"
+              node tests/catalog_reader_gate.cjs --smoke --plan >> "$GITHUB_OUTPUT"
+            else
+              echo "args=$BASE" >> "$GITHUB_OUTPUT"
+              printf "%s\n" "$PLAN" >> "$GITHUB_OUTPUT"
+            fi
           fi
       - if: steps.plan.outputs.count != '0'
         run: npm install --no-save playwright
