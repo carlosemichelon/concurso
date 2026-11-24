@@ -8,7 +8,7 @@ test('portal privado deriva do index V348, preserva estrutura e elimina scripts 
  const {html,styles}=await originalPage();const source=await readFile(new URL('../index.html',import.meta.url),'utf8');
  for(const id of ['assuntos','pdfs','cartoes','imagens','cardRows','pdfDialog','imageDialog','imageStage','topicRows']){assert.ok(source.includes('id="'+id+'"'));assert.ok(html.includes('id="'+id+'"'))}
  assert.ok(html.includes('<body hidden>'));assert.deepEqual([...html.matchAll(/<script[^>]*src="([^"]+)"/g)].map(m=>m[1]),['/original-session.js']);
- assert.equal(styles.size,20);assert.ok(await originalStyle('v315_styles_core.css'));assert.equal(await originalStyle('drive_auth_v038.json'),null);
+ assert.equal(styles.size,21);assert.ok(await originalStyle('v315_styles_core.css'));assert.equal(await originalStyle('drive_auth_v038.json'),null);
  const core=await readFile(new URL('../infra/central-drive/original-core.js',import.meta.url),'utf8');
  assert.ok(core.includes('Perfil autenticado obrigatório'));assert.ok(!core.includes("fetch('assets/"));assert.ok(!core.includes('localStorage'));assert.ok(!core.includes('BMOriginalCatalog.reconcile'));
 });

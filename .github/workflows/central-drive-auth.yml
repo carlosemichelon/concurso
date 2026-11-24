@@ -29,5 +29,7 @@ jobs:
           node --check infra/central-drive/original-study-native.js
           node --check infra/central-drive/original-gaps.js
           node --check infra/central-drive/original-gaps-ui.js
+          node --check infra/central-drive/original-discursive.js
+          node --check infra/central-drive/original-evolutive-format.js
           for f in tests/central-drive-*.test.mjs; do node --check "$f"; done
       - run: node --test tests/central-drive-*.test.mjs
