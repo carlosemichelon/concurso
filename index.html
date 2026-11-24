@@ -213,6 +213,48 @@ header .stats .bm241-verification{font-size:10px}
 }
 #bmCardPeekV050 #bm195Discursive [data-bm195-status][data-error="yes"]{color:#a42323!important}
 #bmCardPeekV050 #bm195Discursive small{font-size:12px!important;line-height:1.45!important;color:#526b7b!important}
+
+/* VS6 — fechamento independente e acessível no canto superior de cada painel. */
+#bmCardPeekV050 .bm163-header{
+ position:relative!important;padding-right:62px!important;min-height:54px;box-sizing:border-box;
+}
+#bmCardPeekV050 .bm165-header-nav{position:static!important;min-width:0}
+#bmCardPeekV050 .bm163-header .bm163-close,
+#bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ width:36px!important;min-width:36px!important;max-width:36px!important;
+ height:36px!important;min-height:36px!important;padding:0!important;margin:0!important;
+ border:1px solid #c5d4df!important;border-radius:8px!important;
+ background:#fff!important;color:#405a6d!important;box-shadow:none!important;
+ font:600 25px/1 system-ui,Arial,sans-serif!important;cursor:pointer;
+}
+#bmCardPeekV050 .bm163-header .bm163-close{
+ position:absolute!important;top:9px!important;right:12px!important;z-index:5;
+}
+#bmCardPeekV050 .bm163-header .bm163-close:hover,
+#bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner:hover{
+ background:#fce8e8!important;border-color:#e2a8a8!important;color:#9c3333!important;
+}
+#bmCardPeekV050 .bm163-header .bm163-close:focus-visible,
+#bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner:focus-visible{
+ outline:2px solid #287cae!important;outline-offset:2px!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm-discursive-heading{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ position:sticky;top:0;z-index:3;background:#f7fafb;
+ padding:8px 0 10px;margin:-8px 0 8px;border-bottom:1px solid #dce6ec;
+}
+#bmCardPeekV050 #bm195Discursive .bm-discursive-heading h3{flex:1;min-width:0;margin:0!important}
+#bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner{flex:none}
+#bmCardPeekV050:has(#bm195Discursive:not([hidden])) .bm195-open{display:none!important}
+@media(max-width:760px){
+ #bmCardPeekV050 .bm165-header-nav{grid-template-columns:1.45fr 1fr 1fr!important}
+ #bmCardPeekV050 .bm163-header .bm163-close,
+ #bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner{
+  width:40px!important;min-width:40px!important;max-width:40px!important;
+  height:40px!important;min-height:40px!important;
+ }
+}
 </style>
 </head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
 <header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS6 · Cartões VC15</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
@@ -1042,6 +1084,25 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
   const layout=modal?.querySelector('.bm165-layout'), controls=modal?.querySelector('.bm163-preview-controls');
   const toggle=controls?.querySelector('.bm195-open'), title=modal?.querySelector('#bmCardPeekTitleV050');
   if(!editor||!layout||!controls||!toggle||!title)return false;
+  // Reutiliza os manipuladores originais de fechamento, sem tocar nos dados.
+  const cardClose=modal.querySelector('.bm163-header .bm163-close');
+  if(cardClose){
+   cardClose.textContent='×';
+   cardClose.title='Fechar cartão (Esc)';
+   cardClose.setAttribute('aria-label','Fechar cartão');
+  }
+  const heading=editor.querySelector('h3');
+  if(heading&&!editor.querySelector('.bm-discursive-close-corner')){
+   const bar=document.createElement('div');bar.className='bm-discursive-heading';
+   const close=document.createElement('button');close.type='button';
+   close.className='bm-discursive-close-corner';close.textContent='×';
+   close.title='Fechar resposta discursiva';close.setAttribute('aria-label','Fechar resposta discursiva');
+   heading.before(bar);bar.append(heading,close);
+   close.addEventListener('click',()=>{
+    if(!editor.hidden)toggle.click();
+    toggle.focus({preventScroll:true});
+   });
+  }
   let lastId='',scheduled=false;
   function place(){
    const active=editor.contains(document.activeElement)?document.activeElement:null;
