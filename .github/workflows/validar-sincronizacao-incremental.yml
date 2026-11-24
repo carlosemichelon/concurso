@@ -1,0 +1,35 @@
+name: Validar sincronização incremental
+on:
+  push:
+    branches:
+      - 'sync-incremental-*'
+    paths:
+      - 'index.html'
+      - 'assets/private_increment_reconcile_v1.js'
+      - 'assets/v316_srs_journal.js'
+      - 'assets/v349_js_076_087.js'
+      - 'tests/private_*.test.cjs'
+      - 'tests/srs_policy_20261123.test.cjs'
+      - '.github/workflows/validar-sincronizacao-incremental.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'assets/private_increment_reconcile_v1.js'
+      - 'assets/v316_srs_journal.js'
+      - 'assets/v349_js_076_087.js'
+      - 'tests/private_*.test.cjs'
+      - 'tests/srs_policy_20261123.test.cjs'
+      - '.github/workflows/validar-sincronizacao-incremental.yml'
+permissions:
+  contents: read
+jobs:
+  incremental:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testes incrementais
+        run: node --test tests/private_study_manifest.test.cjs tests/private_increment_reconcile.test.cjs tests/srs_policy_20261123.test.cjs

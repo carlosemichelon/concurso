@@ -6,7 +6,9 @@ if(window.BM316SrsJournal)return;
 const API='https://www.googleapis.com/drive/v3/files';
 const UPLOAD='https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name';
 const PREFIX='BM_SRS_EVENT_V001_';
-const RATINGS=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32});
+const POLICY='SRS-2026-11-23';
+const RATINGS=Object.freeze({'Difícil':8,Bom:16,'Fácil':24,'Conhecimento preservado':32,'Conhecimento adquirido':64});
+const LEGACY=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32});
 let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='',selecting=false,ratedInView=false,ratedMessage='';
 const uncertainIds=new Set();
 const $=id=>document.getElementById(id);
@@ -17,7 +19,7 @@ const validId=id=>/^CARD-\d{4,}$/.test(id||'');
 const validRating=v=>Object.prototype.hasOwnProperty.call(RATINGS,v);
 const progress=(promise,label)=>window.BM316DriveProgress?.track?.(promise,label)||promise;
 function checkEvent(e){
- return e&&e.schema==='bm-srs-formal-event/1'&&validId(e.id)&&validRating(e.rating)&&
+ return e&&e.schema==='bm-srs-formal-event/1'&&validId(e.id)&&(e.srs_policy===POLICY?validRating(e.rating):Object.prototype.hasOwnProperty.call(LEGACY,e.rating))&&
  /^[a-f0-9-]{32,40}$/i.test(String(e.event_id||''))&&
  /^\d{4}-\d{2}-\d{2}$/.test(e.date_local||'')&&
  /^\d{4}-\d{2}-\d{2}T/.test(e.at_utc||'')&&
@@ -35,9 +37,11 @@ function rows(){
   list.sort((a,b)=>a.at_utc.localeCompare(b.at_utc)||a.event_id.localeCompare(b.event_id));
   const baseline=Math.max(0,...list.map(x=>Number(x.baseline_easy?.count)||0));
   const formalEasy=baseline+new Set(list.filter(x=>x.rating==='Fácil').map(x=>x.event_id)).size;
-  const latest=list[list.length-1],consolidated=latest.rating==='Fácil'&&formalEasy>=2;
-  const intervalDays=consolidated?64:RATINGS[latest.rating];
-  result.push({id,due:addDays(latest.date_local,intervalDays),rating:latest.rating,
+  const latest=list[list.length-1],modern=latest.srs_policy===POLICY;
+  const consolidated=modern?latest.rating==='Conhecimento adquirido':latest.rating==='Fácil'&&Number(latest.interval_days)===64;
+  const intervalDays=Number.isInteger(latest.interval_days)&&latest.interval_days>0?latest.interval_days:(modern?RATINGS[latest.rating]:LEGACY[latest.rating]);
+  const due=/^\d{4}-\d{2}-\d{2}$/.test(latest.due||'')?latest.due:addDays(latest.date_local,intervalDays);
+  result.push({id,due,rating:latest.rating,
    consolidated,intervalDays,easyFormalCount:formalEasy,attempts:list.length,
    kind:'revisao',source:'Drive privado — avaliação formal no site',lastReview:latest.date_local,
    eventId:latest.event_id,atUtc:latest.at_utc});
@@ -109,7 +113,7 @@ async function record(id,rating){
  const now=new Date(),date=localDate(now);
  const event={schema:'bm-srs-formal-event/1',source:'Banco Mestre — revisão formal no site',
   event_id:crypto.randomUUID(),id,rating,at_utc:now.toISOString(),date_local:date,
-  timezone:'America/Sao_Paulo',kind:'revisao_formal',
+  timezone:'America/Sao_Paulo',kind:'revisao_formal',srs_policy:POLICY,
   validation:'Avaliação explícita selecionada após revelar o verso; sem comprovação automática da resposta'};
  const previous=events.filter(x=>x.id===id);
  const baselineFromJournal=Math.max(0,...previous.map(x=>Number(x.baseline_easy?.count)||0));
@@ -123,7 +127,8 @@ async function record(id,rating){
   date:provenPrior?sourceRecord.lastReview:(previous[0]?.baseline_easy?.date||null)};
  const easyCount=baseline+new Set(previous.filter(x=>x.rating==='Fácil').map(x=>x.event_id)).size+
   (rating==='Fácil'?1:0);
- event.interval_days=(rating==='Fácil'&&easyCount>=2)?64:RATINGS[rating];
+ if(rating==='Conhecimento adquirido'&&easyCount<2)throw Error('Conhecimento adquirido exige duas avaliações formais Fácil comprovadas anteriormente.');
+ event.interval_days=RATINGS[rating];
  event.due=addDays(date,event.interval_days);
  const filename=PREFIX+id+'_'+event.event_id+'.json';
  const boundary='bm316_'+event.event_id.replaceAll('-','');
@@ -144,7 +149,7 @@ async function record(id,rating){
   if(!/^[\w-]{15,}$/.test(created.id||''))throw Error('Drive não retornou um ID de arquivo válido');
   const confirmed=await progress(getFile(created.id,auth),'conferência da gravação SRS');
   if(!checkEvent(confirmed)||confirmed.event_id!==event.event_id||
-   confirmed.id!==id||confirmed.rating!==rating||confirmed.due!==event.due)
+   confirmed.id!==id||confirmed.rating!==rating||confirmed.due!==event.due||confirmed.srs_policy!==POLICY||confirmed.interval_days!==event.interval_days)
    throw Error('Conteúdo gravado no Drive não corresponde à classificação enviada');
   events.push(confirmed);loaded=true;lastError='';
   document.dispatchEvent(new CustomEvent('bm316-srs-journal-updated',{detail:{id,rating,due:event.due}}));
@@ -165,7 +170,7 @@ function build(){
  const intro=document.createElement('p');intro.textContent='Classifique depois de responder e revelar o verso. A gravação cria um evento privado no seu Drive.';
  intro.style.cssText='font-size:12px;margin:4px 0 9px;color:#526b73';
  const controls=document.createElement('div');controls.style.cssText='display:flex;gap:7px;flex-wrap:wrap';
- for(const rating of ['Errei','Difícil','Bom','Fácil']){
+ for(const rating of Object.keys(RATINGS)){
   const b=document.createElement('button');b.type='button';b.dataset.grade=rating;
   b.textContent=rating;b.style.cssText='font-size:12px;padding:8px 12px';
   b.addEventListener('click',async()=>{
@@ -218,6 +223,6 @@ function init(){
  ob.observe(document.body,{childList:true,subtree:true});
 }
 window.BM316SrsJournal=Object.freeze({refresh,records:rows,record,
- get loaded(){return loaded},get lastError(){return lastError},get count(){return events.length}});
+ policy:POLICY,intervals:RATINGS,get loaded(){return loaded},get lastError(){return lastError},get count(){return events.length}});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
