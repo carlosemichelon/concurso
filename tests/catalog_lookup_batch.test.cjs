@@ -1,0 +1,14 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict');
+const {applyEvolutionBatch,digest}=require('../tools/catalog_evolution_batch.cjs');
+const {project}=require('../tools/catalog_lookup.cjs');
+const media={id:'IMG-A',role:'VERSO',src:'assets/a.svg'};
+const a={id:'CARD-0001',active:true,front:'Antiga',back:'Original',reference:'Fonte anterior',related_card_ids:['CARD-0002'],consolidation:{original:{back:'Original'},profile:{editorial:{media:[media]}}}};
+const b={id:'CARD-0002',active:true,front:'Outra',related_card_ids:[]};
+const counts={canonical:2,active:2,ijui:0};
+const s={format:'test',source_head:'test',base:[a,b],ijui:[],counts,meta:{},globals:{},guideData:{},generalGuide:{},auditF17:{},answersF17:{}};
+const r={id:a.id,title:'Tema',front:'Nova pergunta',back:'Nova resposta',source:'Fonte técnica',mnemonic:'Macete',expected_hash:digest(a),modules:Array.from({length:11},(_,i)=>({ord:i+1,titulo:'Critério '+i,texto:i===0?'Nova pergunta':i===1?'Nova resposta':'Conteúdo '+i})),editorial:{answer_paragraphs:['Nova resposta'],highlights:[{kind:'core',text:'Nova',color:'#FDE68A'}],media:[media]},related_card_ids:[b.id]};
+const packet={format:'BancoMestreEvolution1',private_content_exported:false,revisions:[r]};
+test('lookup não reduz cartão integral',()=>{const p=project(s,{format:'test',source_head:'test',counts});assert.deepEqual(p.cards[a.id].card,a);assert.equal(p.cards[a.id].hash,digest(a));});
+test('preserva original, versão, mídia, ID, vínculos e não modifica entrada',()=>{const p=applyEvolutionBatch(s,packet);assert.equal(p.base[0].back,r.back);assert.equal(p.base[0].reference,a.reference);assert.deepEqual(p.base[0].consolidation.previous_version,a);assert.deepEqual(p.base[0].consolidation.original,a.consolidation.original);assert.deepEqual(p.base[0].consolidation.profile.editorial.media,[media]);assert.deepEqual(p.base[1].related_card_ids,[a.id]);assert.equal(s.base[0].back,'Original');});
+test('rejeita conflito, mídia perdida, 10 módulos, ID novo e campo privado',()=>{for(const change of [x=>x.expected_hash='stale',x=>x.editorial.media=[],x=>x.modules.pop(),x=>x.id='CARD-9999',x=>x.srs={}]){const p=structuredClone(packet);change(p.revisions[0]);assert.throws(()=>applyEvolutionBatch(s,p));}});
