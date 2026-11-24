@@ -53,6 +53,13 @@ function unifyCatalog(p){
  p.counts={canonical:p.base.length,active:p.base.filter(c=>c.active!==false).length,ijui:0};
  return p;
 }
+function pruneInactive(p){
+ const retired=p.base.filter(c=>c.active===false).map(c=>c.id);
+ p.retired_ids=[...new Set([...(p.retired_ids||[]),...retired])].sort();
+ p.base=p.base.filter(c=>c.active!==false);
+ p.counts={canonical:p.base.length,active:p.base.length,ijui:p.ijui.length};
+ return p;
+}
 async function build(html,c){
  const meta=json('assets/meta_public_v194.json'),globals={},warnings=[];
  const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
@@ -60,7 +67,7 @@ async function build(html,c){
  const r=await execute(async url=>({ok:true,json:async()=>localAsset(url)}),async()=>meta,globals,{warn:(...args)=>warnings.push(args.map(String).join(' '))});
  assert.deepEqual(warnings,[],'Fontes opcionais não podem desaparecer silenciosamente');
  const p={format:c.format,source_head:c.source_head,counts:{canonical:r.base.length,active:r.base.filter(x=>x.active!==false).length,ijui:r.ijui.length},...r,globals,meta};
- if(c.consolidation_packet){const raw=fs.readFileSync(path.join(root,c.consolidation_packet));assert.equal(blobHash(raw),c.consolidation_packet_blob);const result=require('./consolidacao_conceitual.cjs').applyConsolidation(p,JSON.parse(raw));result.consolidation.packet_signature=c.consolidation_packet_blob;result.consolidation.publication_status=c.consolidation_status;if(c.study_increment){const inc=fs.readFileSync(path.join(root,c.study_increment));assert.equal(blobHash(inc),c.study_increment_blob);applyPetro30(result,JSON.parse(inc));}if(c.unified)unifyCatalog(result);validate(result,c);return result;}
+ if(c.consolidation_packet){const raw=fs.readFileSync(path.join(root,c.consolidation_packet));assert.equal(blobHash(raw),c.consolidation_packet_blob);const result=require('./consolidacao_conceitual.cjs').applyConsolidation(p,JSON.parse(raw));result.consolidation.packet_signature=c.consolidation_packet_blob;result.consolidation.publication_status=c.consolidation_status;if(c.study_increment){const inc=fs.readFileSync(path.join(root,c.study_increment));assert.equal(blobHash(inc),c.study_increment_blob);applyPetro30(result,JSON.parse(inc));}if(c.unified)unifyCatalog(result);if(c.active_only)pruneInactive(result);validate(result,c);return result;}
  validate(p,c);return p;
 }
 function checkContract(html,m){
@@ -121,7 +128,7 @@ function publicPreflight(packet,snapshot,contract){
    onlyKeys(c,CARD_KEYS,'Cartão');assert.ok(cardId(c.id),'ID inválido');assert.ok(!touched.has(c.id),'ID repetido: '+c.id);
    for(const k of ['discipline','subject','sub','front','back','expl','reference'])assert.ok(nonempty(c[k]),c.id+' campo vazio: '+k);
    assert.equal(c.active,true,c.id+' não ativo; inativos não podem ser reativados');
-   if(kind==='new'){assert.match(c.id,/^CARD-\d{4,}$/,'Novos IDs devem seguir o registro canônico');assert.ok(!all.has(c.id),'Colisão: '+c.id);newIds.add(c.id);}
+   if(kind==='new'){assert.match(c.id,/^CARD-\d{4,}$/,'Novos IDs devem seguir o registro canônico');assert.ok(!all.has(c.id)&&!(snapshot.retired_ids||[]).includes(c.id),'Colisão ou ID retirado: '+c.id);newIds.add(c.id);}
    else{const old=canonical.get(c.id);assert.ok(old&&old.active!==false,'Origem ausente ou inativa: '+c.id);
     assert.equal(expected[c.id],digest(old),'Origem alterada: '+c.id);
     // O verso original permanece na fonte privada; publicação não o substitui.
