@@ -4,6 +4,8 @@ on:
     branches: [gh-pages]
     paths:
       - 'tools/catalog_snapshot.cjs'
+      - 'tools/incremental_resume.cjs'
+      - 'tools/incremental_drive_readback.cjs'
       - 'tests/incremental_preflight.test.cjs'
       - '.github/workflows/validar-preflight-incremental.yml'
       - 'assets/version.json'
