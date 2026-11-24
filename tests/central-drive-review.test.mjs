@@ -1,0 +1,37 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {createReviewJournal,ReviewRejected,ReviewUncertain} from '../infra/central-drive/reviews.mjs';
+import {createDriveProvider} from '../assets/multiaccount-drive-v001.mjs';
+const profile=subject=>({subject,publicCards:[],privateData:{cards:[{id:'CARD-1',front:'Q',back:'A',active:true},{id:'CARD-OFF',front:'Q',back:'A',active:false}],srs:[{id:'CARD-1',due:'2026-10-01',rating:'Errei'}]}});
+test('explicit review, current intervals, stable retry, separate accounts and preserved historical row',async()=>{
+ const saved=new Map(),reserves=[];let failure=true;const journal=createReviewJournal({clock:()=>new Date('2026-11-24T01:00:00Z')});
+ const provider={readReviewEvents:async s=>[...saved.values()].filter(e=>e.owner===s),reserveReviewFile:async s=>{const id='file'+randomUUID();reserves.push(id);return id},appendReservedReview:async(s,e,id)=>{assert.equal(s,e.owner);saved.set(id,e);if(failure){failure=false;throw Error('network')}return {...e,fileId:id}}};
+ const a=profile('A'),b=profile('B');
+ const op=(p,kind,input,guard)=>journal({provider,profile:p,operation:{kind,input},guard});
+ await assert.rejects(op(a,'prepare',{cardId:'CARD-1',rating:'Errei'}),ReviewRejected);
+ await assert.rejects(op(a,'prepare',{cardId:'CARD-OFF',rating:'Bom'}),ReviewRejected);
+ await assert.rejects(op(a,'prepare',{cardId:'CARD-1',rating:'Conhecimento adquirido'}),ReviewRejected);
+ const [ar,br]=await Promise.all([op(a,'prepare',{cardId:'CARD-1',rating:'Difícil'}),op(b,'prepare',{cardId:'CARD-1',rating:'Fácil'})]);
+ assert.equal(ar.due,'2026-12-01');assert.equal(br.due,'2026-12-17');assert.notEqual(ar.intent,br.intent);
+ assert.equal(saved.size,0);assert.equal((await op(a,'prepare',{cardId:'CARD-1',rating:'Difícil'})).intent,ar.intent);
+ await assert.rejects(op(a,'commit',{intent:br.intent}),ReviewRejected);
+ await assert.rejects(op(a,'commit',{intent:ar.intent}),ReviewUncertain);
+ await assert.rejects(op(a,'prepare',{cardId:'CARD-1',rating:'Bom'}),ReviewRejected);
+ assert.equal((await op(a,'commit',{intent:ar.intent})).rating,'Difícil');
+ await op(a,'commit',{intent:ar.intent});await op(b,'commit',{intent:br.intent});
+ assert.equal(saved.size,2);assert.equal(reserves.length,2);assert.equal(a.privateData.srs[0].rating,'Errei');assert.equal(a.privateData.srs[0].due,'2026-10-01');
+ await assert.rejects(op(a,'prepare',{cardId:'CARD-1',rating:'Bom'},()=>false),ReviewRejected);
+});
+test('Drive reserve and 409 reconcile same ID; conflicting payload rejected',async()=>{
+ const project='bm-portal-multi-v1',subject='A',root='rootA',reserved='reservedA';
+ const event={schema:'BM-PORTAL-SRS-EVENT/1',owner:subject,policy:'SRS-2026-11-23-v2',id:'CARD-1',event_id:randomUUID(),rating:'Bom',at_utc:'2026-11-24T01:00:00.000Z',date_local:'2026-11-23',interval_days:16,due:'2026-12-09',kind:'revisao_formal'};
+ const rootMeta={id:root,mimeType:'application/vnd.google-apps.folder',ownedByMe:true,shared:false,trashed:false,appProperties:{bmProject:project,bmOwner:subject,bmKind:'root'}};
+ const meta={id:reserved,mimeType:'application/json',ownedByMe:true,shared:false,trashed:false,parents:[root],appProperties:{bmProject:project,bmOwner:subject,bmKind:'srs-event',bmEvent:event.event_id},size:String(Buffer.byteLength(JSON.stringify(event)))};
+ let posted=0,conflict=false;
+ const fetcher=async(url,opt)=>{const u=new URL(url);let x,status=200;if(u.pathname.endsWith('generateIds'))x={ids:[reserved]};else if(u.searchParams.has('q'))x={files:[rootMeta]};else if(opt.method==='POST'){assert.ok(opt.body.includes('"id":"reservedA"'));posted++;if(posted>1)status=409;x=meta}else if(u.searchParams.get('alt')==='media')x=conflict?{...event,id:'CARD-2'}:event;else x=meta;return new Response(JSON.stringify(x),{status})};
+ const provider=createDriveProvider({fetcher,token:'test',info:{sub:subject,email:'a@example.test',email_verified:true},expiresAt:Date.now()+100000,loadCatalog:async()=>({cards:[]})});
+ await provider.findRoot(subject);assert.equal(await provider.reserveReviewFile(subject),reserved);
+ assert.equal((await provider.appendReservedReview(subject,event,reserved)).fileId,reserved);assert.equal((await provider.appendReservedReview(subject,event,reserved)).fileId,reserved);
+ conflict=true;await assert.rejects(provider.appendReservedReview(subject,event,reserved),/divergente/);
+});

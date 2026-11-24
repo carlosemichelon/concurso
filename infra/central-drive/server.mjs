@@ -1,6 +1,7 @@
 import {createServer} from 'node:http';
 import {createHash} from 'node:crypto';
 import {MediaNotFound} from './media.mjs';
+import {ReviewRejected,ReviewUncertain,validReviewInput,validCommitInput} from './reviews.mjs';
 import {IMAGE_MIMES,IMAGE_LIMIT} from '../../assets/multiaccount-images-v001.mjs';
 import {PDF_LIMIT} from './media.mjs';
 import {readFile} from 'node:fs/promises';
@@ -31,6 +32,13 @@ export function createCentralHandler({auth,loadProfile,origin}){
     catch{auth.revoke(s.token);return send(res,503,{error:'Perfil ainda não preparado ou indisponível'},{'Set-Cookie':sessionCookie('',0)})}
    }
    if(method==='POST'&&path==='/api/logout'){auth.revoke(token);return send(res,200,{ok:true},{'Set-Cookie':sessionCookie('',0)})}
+   if(method==='POST'&&(path==='/api/review/prepare'||path==='/api/review/commit')){
+    const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==context(token))return send(res,403,{error:'Contexto de sessão divergente'});
+    let input;try{input=await body(req)}catch{return send(res,400,{error:'Solicitação inválida'})}
+    const kind=path.endsWith('/prepare')?'prepare':'commit';if(!(kind==='prepare'?validReviewInput(input):validCommitInput(input)))return send(res,400,{error:'Avaliação inválida'});
+    try{const result=await loadProfile(s.user,{review:{kind,input},guard:()=>!!auth.read(token)});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result)}catch(e){if(e instanceof ReviewRejected)return send(res,409,{error:e.message});if(e instanceof ReviewUncertain)return send(res,503,{error:e.message});throw e}
+   }
    const match=method==='GET'&&path.match(/^\/api\/media\/(image|pdf)\/([A-Za-z0-9_-]{1,160})$/);
    if(match){
     const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
