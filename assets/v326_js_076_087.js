@@ -1742,6 +1742,7 @@ if(location.hash==='#calendario')void open();
 (function(){
  'use strict';
  if(window.BM195Discursivas)return;
+ const account=window.BMAccountRuntime||null,storage=account?account.local:localStorage;
  const ID_RE=/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Za-z0-9_-]+)$/;
  const FILE_ID=/^[A-Za-z0-9_-]{10,}$/;
  const DB_NAME='BancoMestreDiscursivasV195';
@@ -1767,6 +1768,7 @@ if(location.hash==='#calendario')void open();
   return dbP;
  }
  async function all(){
+  if(account)return account.discursive();
   const d=await openDb();
   return new Promise((resolve,reject)=>{
    const t=d.transaction('attempts','readonly'),r=t.objectStore('attempts').getAll();
@@ -1790,7 +1792,7 @@ if(location.hash==='#calendario')void open();
   const id=match?match[1]:v;
   return FILE_ID.test(id)?id:'';
  }
- function configuredFolder(){try{return folderOf(localStorage.getItem(FOLDER_KEY)||'')}catch{return ''}}
+ function configuredFolder(){if(account)return '';try{return folderOf(storage.getItem(FOLDER_KEY)||'')}catch{return ''}}
  function draftKey(){return DRAFT_PREFIX+cardId;}
  function getCard(){
   try{return typeof cards!=='undefined'&&Array.isArray(cards)?cards.find(c=>c.id===cardId):null;}catch{return null}
@@ -1810,7 +1812,7 @@ if(location.hash==='#calendario')void open();
   const out=editor.querySelector('[data-bm195-history]');if(!out)return;
   out.replaceChildren(el('p','','Carregando tentativas…'));
   try{
-   const rows=(await all()).filter(r=>r.card_id===cardId);
+   const selected=cardId,rows=(await all()).filter(r=>r.card_id===selected);if(selected!==cardId||editor.hidden)return;
    out.replaceChildren();
    out.append(el('p','','Tentativas registradas neste cartão: '+rows.length));
    for(const r of rows.slice(0,30)){
@@ -1818,7 +1820,7 @@ if(location.hash==='#calendario')void open();
     const date=new Date(r.created_at).toLocaleString('pt-BR');
     const tag=r.sync_status==='synced'?' · Drive confirmado':' · pendente de Drive';
     details.append(el('summary','',date+' · '+r.rating+tag));
-    details.append(el('pre','',r.answer||'(Sem resposta escrita: Errei)'));
+    details.append(el('pre','',r.answer||'(Sem resposta escrita)'));
     if(r.note)details.append(el('p','','Observações: '+r.note));
     if(r.drive_file_id&&FILE_ID.test(r.drive_file_id)){
      const link=el('a','','Abrir registro no Drive');link.href='https://drive.google.com/file/d/'+encodeURIComponent(r.drive_file_id)+'/view';link.target='_blank';link.rel='noopener noreferrer';details.append(link);
@@ -1852,20 +1854,22 @@ if(location.hash==='#calendario')void open();
   if(editor)editor.hidden=true;
   if(controlButton)controlButton.textContent='Responder discursivamente';
   if(area){
-   let saved='';try{saved=localStorage.getItem(draftKey())||''}catch{}
+   let saved='';try{saved=storage.getItem(draftKey())||''}catch{}
    area.value=saved;
   }
  }
  function saveFolder(){
+  if(account)return;
   const input=editor.querySelector('[data-bm195-folder]');
   const id=folderOf(input.value);
   if(!id){say('Cole um link de pasta do Google Drive ou um ID válido.',true);return}
-  try{localStorage.setItem(FOLDER_KEY,id);input.value=id;say('Pasta configurada neste navegador. O ID não será publicado no GitHub.');}
+  try{storage.setItem(FOLDER_KEY,id);input.value=id;say('Pasta configurada neste navegador. O ID não será publicado no GitHub.');}
   catch(e){say('Não foi possível salvar a configuração local: '+e.message,true)}
  }
  async function save(){
   if(writing||!ID_RE.test(cardId))return;
   const text=area.value;
+  if(account){const id=cardId,grade=rating,note=String(editor.querySelector('[data-bm195-note]').value||'');if(!Object.hasOwn(account.ratings,grade)){say('Escolha uma classificação antes de salvar.',true);return}if(!text.trim()&&grade!=='Difícil'){say('Escreva a resposta ou marque Difícil.',true);return}if(!account.discursiveReady){say('Gravação individual indisponível; reabra o perfil.',true);return}writing=true;const b=editor.querySelector('[data-bm195-save]');b.disabled=true;try{await account.recordDiscursive(id,text,grade,note);const key=DRAFT_PREFIX+id;if(storage.getItem(key)===text)storage.removeItem(key);if(cardId===id&&area.value===text){area.value='';editor.querySelector('[data-bm195-note]').value='';selectedRate('')}say('Resposta literal gravada no seu Drive. A agenda SRS não foi alterada.');await history()}catch(e){say(e.message,true)}finally{writing=false;b.disabled=!account.discursiveReady}return}
   if(!rating){say('Escolha Errei, Difícil, Bom ou Fácil antes de salvar.',true);return}
   if(!text.trim()&&rating!=='Errei'){say('Escreva a resposta ou marque Errei para registrar que não soube responder.',true);return}
   const c=getCard();if(!c){say('ID não encontrado na base carregada. Nenhum registro foi criado.',true);return}
@@ -1883,7 +1887,7 @@ if(location.hash==='#calendario')void open();
     sync_status:'pending',drive_file_id:null
    };
    await put(row);
-   try{localStorage.removeItem(draftKey())}catch{}
+   try{storage.removeItem(draftKey())}catch{}
    say('Tentativa salva integralmente neste navegador. '+(connected?'Enviando cópia para o Drive…':'Conecte o Google Drive para confirmar a cópia na pasta.'));
    await history();
    if(connected&&configuredFolder())void syncPending();
@@ -1891,6 +1895,7 @@ if(location.hash==='#calendario')void open();
   finally{writing=false;button.disabled=false}
  }
  async function readyGoogle(){
+  if(account)return;
   const cfg=await fetch('assets/drive_auth_v038.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Configuração OAuth indisponível');return r.json()});
   if(!/^[A-Za-z0-9_-]+\.apps\.googleusercontent\.com$/.test(cfg.client_id||''))throw Error('Client ID OAuth inválido');
   if(!window.google?.accounts?.oauth2?.initTokenClient){
@@ -1912,6 +1917,7 @@ if(location.hash==='#calendario')void open();
   say('Pronto para registrar respostas. A primeira conexão ao Drive exige autorização Google.');
  }
  function connect(){
+  if(account)return;
   if(!client){say('A autorização Google ainda não está pronta.',true);return}
   if(oauthPending)return;
   if(connected&&token&&expires>Date.now()){void syncPending();return}
@@ -1976,6 +1982,7 @@ if(location.hash==='#calendario')void open();
   lastUploaded=check.id;
  }
  async function syncPending(){
+  if(account){say('O perfil grava diretamente no Drive individual.');return}
   if(syncing)return;
   const folder=configuredFolder();
   if(!folder){say('Configure a pasta RESPOSTAS_DISCURSIVAS antes de sincronizar.',true);return}
@@ -2028,6 +2035,7 @@ if(location.hash==='#calendario')void open();
    '<div data-bm195-history hidden></div>',
    '<small>Auditoria posterior pelo ChatGPT, mediante leitura dos arquivos no Drive. A nota não recalcula o SRS canônico automaticamente.</small>'
   ].join('');
+  if(account){const rates=editor.querySelector('.bm195-rates');rates.replaceChildren();for(const grade of Object.keys(account.ratings)){const button=el('button','',grade);button.type='button';button.dataset.bm195Rate=grade;button.setAttribute('aria-pressed','false');rates.append(button)}editor.querySelector('.bm195-drive').hidden=true;editor.querySelector('[data-bm195-save]').disabled=!account.discursiveReady;editor.querySelector('[data-bm195-status]').textContent='Perfil individual conectado.';}
   controls.insertAdjacentElement('afterend',editor);
   area=editor.querySelector('[data-bm195-answer]');
   controlButton.addEventListener('click',()=>{
@@ -2036,7 +2044,7 @@ if(location.hash==='#calendario')void open();
    controlButton.textContent=editor.hidden?'Responder discursivamente':'Fechar resposta discursiva';
    if(!editor.hidden){editor.querySelector('[data-bm195-card]').textContent=cardId;updateFolder();area.focus();void history();}
   });
-  area.addEventListener('input',()=>{try{localStorage.setItem(draftKey(),area.value)}catch{}});
+  area.addEventListener('input',()=>{try{storage.setItem(draftKey(),area.value)}catch{}});
   editor.querySelectorAll('[data-bm195-rate]').forEach(b=>b.addEventListener('click',()=>selectedRate(b.dataset.bm195Rate)));
   editor.querySelector('[data-bm195-save]').addEventListener('click',save);
   editor.querySelector('[data-bm195-reveal]').addEventListener('click',()=>modal.querySelector('.bm-v050-peek-reveal')?.click());
@@ -2053,8 +2061,8 @@ if(location.hash==='#calendario')void open();
   const obs=new MutationObserver(setCard);
   if(observedTitle)obs.observe(observedTitle,{childList:true,characterData:true,subtree:true});
   obs.observe(modal,{attributes:true,attributeFilter:['hidden']});
-  void openDb().then(()=>say('Armazenamento de respostas pronto. Conecte o Drive para criar cópias na pasta.')).catch(e=>say('Não foi possível habilitar o armazenamento: '+e.message,true));
-  void readyGoogle().catch(e=>say('A conexão ao Drive está indisponível: '+e.message+'. Exportação local ainda disponível.',true));
+  if(account){say(account.discursiveReady?'Respostas prontas para gravação no seu Drive.':'Gravação individual indisponível.',!account.discursiveReady)}else{void openDb().then(()=>say('Armazenamento de respostas pronto. Conecte o Drive para criar cópias na pasta.')).catch(e=>say('Não foi possível habilitar o armazenamento: '+e.message,true));
+  void readyGoogle().catch(e=>say('A conexão ao Drive está indisponível: '+e.message+'. Exportação local ainda disponível.',true));}
   setCard();
   return true;
  }

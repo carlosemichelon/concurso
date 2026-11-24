@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {createAccountRuntime} from '../assets/multiaccount-srs-v001.mjs';
+import {checkedDiscursive,newDiscursive,mergeDiscursive} from '../assets/multiaccount-discursive-v001.mjs';
+const card={id:'CARD-0001',front:'Pergunta',back:'Resposta',active:true},now=new Date('2026-11-23T15:00:00Z');let seq=0;
+const uuid=()=>('00000000-0000-4000-8000-'+String(++seq).padStart(12,'0'));
+const memory=new Map(),storage={get length(){return memory.size},key:i=>[...memory.keys()][i],getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,v),removeItem:k=>memory.delete(k)},idb={open:(k,v)=>({k,v})};
+const histories={A:[],B:[]};
+const session=subject=>({phase:'ready',identity:{sub:subject,email:subject+'@example.test'},current:{subject,profileId:'p'+subject,publicCards:[card],privateData:{cards:[],srs:[],questions:[]}},async appendDiscursive(row){assert.equal(row.owner,subject);histories[subject].push(row);return {...row,fileId:'file'+seq}}});
+const sa=session('A'),sb=session('B');const make=(session,events)=>createAccountRuntime({session,storage,idb,uuid,clock:()=>now,discursiveEvents:events});
+const a=make(sa,[]),b=make(sb,[]);assert.equal(a.discursiveReady,true);
+const text='  Resposta literal\ncom espaços  ';const first=await a.recordDiscursive(card.id,text,'Bom','nota');assert.equal(first.answer,text);assert.equal(a.discursive()[0].answer,text);assert.equal(a.discursive()[0].note,'nota');assert.equal(a.discursive()[0].drive_file_id,first.fileId);assert.equal(b.discursive().length,0);assert.equal(a.srs().records.length,0);assert.equal(b.srs().records.length,0);
+await assert.rejects(()=>a.recordDiscursive(card.id,'','Bom'));await assert.rejects(()=>a.recordDiscursive(card.id,'texto','Errei'));await assert.rejects(()=>a.recordDiscursive('CARD-9999','texto','Bom'));
+const second=await b.recordDiscursive(card.id,'','Difícil');assert.equal(second.answer,'');assert.equal(a.discursive().length,1);assert.equal(b.discursive().length,1);
+assert.throws(()=>checkedDiscursive(first,'B'));assert.throws(()=>mergeDiscursive([], [first,first],'A'));
+a.local.setItem('BM195_DISCURSIVA_RASCUNHO:CARD-0001','draft A');b.local.setItem('BM195_DISCURSIVA_RASCUNHO:CARD-0001','draft B');assert.equal(a.local.getItem('BM195_DISCURSIVA_RASCUNHO:CARD-0001'),'draft A');assert.equal(b.local.getItem('BM195_DISCURSIVA_RASCUNHO:CARD-0001'),'draft B');
+const reopened=make(sa,histories.A);assert.equal(reopened.discursive()[0].answer,text);
+sa.appendDiscursive=async()=>{throw Error('network')};await assert.rejects(()=>reopened.recordDiscursive(card.id,'novo','Bom'));assert.equal(reopened.discursiveReady,false);await assert.rejects(()=>reopened.recordDiscursive(card.id,'novo','Bom'));assert.equal(histories.A.length,1);b.close();assert.throws(()=>b.discursive());
+console.log('PASS discursivas literais, perfil separado, SRS não duplicado, erro de rede e rascunhos');
