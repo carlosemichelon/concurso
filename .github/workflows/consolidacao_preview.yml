@@ -1,0 +1,59 @@
+name: Consolidação conceitual - teste de integração
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'candidatos/consolidacao_conceitual_25_v1.json'
+      - 'tools/consolidacao_conceitual.cjs'
+      - 'tools/build_consolidacao_preview.cjs'
+      - 'tests/consolidacao*'
+      - 'assets/v367_shared_reader.js'
+      - '.github/workflows/consolidacao_preview.yml'
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regression tests on candidate
+        run: node --test tests/consolidacao_conceitual.test.cjs
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: preview
+          persist-credentials: false
+      - name: Apply tested integration only to disposable base checkout
+        run: |
+          for file in assets/v367_shared_reader.js assets/v349_js_016_027.js assets/v367_related_navigator.js assets/petro29_remap_renderer_v1.js; do
+            cp "$file" "preview/$file"
+          done
+          mkdir -p preview/candidatos
+          cp candidatos/consolidacao_conceitual_25_v1.json preview/candidatos/
+          node tools/build_consolidacao_preview.cjs preview
+      - name: Install browser
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Open integrated reader on desktop and mobile
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory preview > preview-server.log 2>&1 &
+          trap 'kill $!' EXIT
+          for i in {1..20}; do curl -fsS http://127.0.0.1:8765/index.html >/dev/null && break; sleep 1; done
+          node tests/consolidacao_browser.cjs preview
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: consolidacao-preview-visual
+          path: |
+            preview-*.png
+            preview-server.log
+          if-no-files-found: ignore
