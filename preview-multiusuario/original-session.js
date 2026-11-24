@@ -24,7 +24,7 @@
   if(!data.media.images.some(m=>m.id===id))throw Error('Imagem fora do perfil');
   const blob=await read('image',id),u=url(blob);
   try{if(!imageEdits.get(id)?.dirty){const remote=await api('/api/image-annotations/'+encodeURIComponent(id));const raw=JSON.stringify(remote.strokes);imageEdits.set(id,{version:remote.version,confirmed:raw,dirty:false});memory.set(imageKey(id),raw)}
-   const im=new Image();await new Promise((ok,fail)=>{im.onload=ok;im.onerror=()=>fail(Error('Imagem inválida'));im.src=u});check();currentImage=id;await window.BancoMestreEditorV030.open({image:im,imageId:id,title,quality:'original consultado',warning:'Marcações fictícias, separadas da imagem. Sincronização simulada; recarregar apaga os dados.',sourceUrl:'',onExclude:null});updateImageSync()
+   const im=new Image();await new Promise((ok,fail)=>{im.onload=ok;im.onerror=()=>fail(Error('Imagem inválida'));im.src=u});check();currentImage=id;await window.BancoMestreEditorV030.open({image:im,imageId:id,title,quality:'original consultado',warning:'Marcações fictícias; sincronização simulada.',sourceUrl:'',onExclude:null});updateImageSync()
   }finally{release(u)}
  }
  function renderCardExtras(c,ans){
@@ -44,37 +44,43 @@
  async function openPdf(doc){if(pdfBusy||by('pdfDialog').open)return;if(!doc.hash||!/^[a-f0-9]{64}$/.test(doc.hash))throw Error('PDF sem hash integral cadastrado. Consulte o original pelo download na interface de homologação.');if(pdfDirty&&pdfDocument?.id!==doc.id)throw Error('Sincronize as marcações do PDF anterior antes de abrir outro.');pdfBusy=true;
   try{const blob=await read('pdf',doc.id);const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer())),n=>n.toString(16).padStart(2,'0')).join('');if(digest!==doc.hash)throw Error('Original divergente da edição cadastrada');
    if(!pdfDirty){const remote=await api('/api/marks');hydratePdf(remote.master,doc);pdfVersion=remote.version;pdfDocument=doc}
-   await window.BancoMestrePDFV038.openFromDrive(doc,blob);check();pdfNotice('PDF fictício aberto. Grifos somente em memória; sincronização simulada.');
+   await window.BancoMestrePDFV038.openFromDrive(doc,blob);check();pdfNotice('PDF aberto. Grifos permanecem em memória até sincronizar.');
   }finally{pdfBusy=false}}
  async function syncPdf(){if(pdfBusy||!pdfDocument||!pdfDirty)return;pdfBusy=true;const controls=by('pdfLocalTools'),wrap=by('pdfLocalMode');controls.inert=wrap.inert=true;try{const core=window.BancoMestreGrifosSyncCoreV103,snapshot=core.capture(local,'CENTRAL-PORTAL-V348');snapshot.records=filteredMarks(snapshot.records,pdfDocument);const saved=await api('/api/marks/sync',{expected:pdfVersion,snapshot});pdfVersion=saved.version;
    if(Object.keys(snapshot.records).some(k=>local.getItem(k)!==snapshot.records[k]&&k!==core.META&&k!==core.DELETIONS)){pdfNotice('Alterações posteriores pendentes; sincronize novamente.');return}
    const confirmed=filteredMarks(saved.master.records,pdfDocument);if(Object.keys(snapshot.records).some(k=>snapshot.records[k]!==confirmed[k])){pdfNotice('O mestre contém diferenças ou conflitos. Exporte o backup antes de conciliar; edição local preservada.');return}
-   pdfDirty=false;pdfNotice('Grifos simulados nesta aba. Original fictício preservado.');
+   pdfDirty=false;pdfNotice('Grifos simulados nesta aba.');
   }catch(e){pdfNotice(e.message+' — edição local preservada.')}finally{controls.inert=wrap.inert=false;pdfBusy=false}}
  async function copyPdf(){if(pdfBusy||!pdfDocument||!window.BancoMestrePDFV042.editing)return;pdfBusy=true;try{const result=await window.BancoMestrePDFV042.buildAnnotated();if(result.pagesMarked<1)throw Error('Nenhuma página marcada');await verify();const response=await fetch('/api/pdf/copy',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/pdf','X-BM-Context':data.context,'X-BM-Document':pdfDocument.id,'X-BM-Pages':String(result.pagesMarked)},body:result.blob});const receipt=await response.json();await verify();if(!response.ok)throw Error(receipt.error||'Cópia não confirmada');pdfNotice('Cópia fictícia confirmada: '+receipt.name+'. Original preservado.')}catch(e){pdfNotice(e.message)}finally{pdfBusy=false}}
  function exportMarks(){if(!pdfDocument)return;try{const snapshot=window.BancoMestreGrifosSyncCoreV103.capture(local,'CENTRAL-PORTAL-V348');snapshot.records=filteredMarks(snapshot.records,pdfDocument);const u=url(new Blob([JSON.stringify(snapshot,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='grifos-'+pdfDocument.id+'.json';a.click();setTimeout(()=>release(u),1000)}catch(e){pdfNotice(e.message)}}
- const runtime=Object.freeze({openPdf,ratings:copy(data.ratings),get reviewBusy(){return reviewBusy},get reviewReady(){return active&&!reviewBusy},canAcquire:id=>active&&(data.acquirable||[]).includes(id),recordReview,loadLayers:id=>api('/api/layers/'+encodeURIComponent(id)),mode:'central',local,writeImageSetting,catalog:()=>copy(data.cards),pdfCatalog:()=>copy(data.media.pdf.map(p=>({...p,section:p.section||'Biblioteca de exemplo',category:p.category||'PDF'}))),imageCatalog:()=>copy(data.media.images),srs:()=>copy(data.srs),downloadPdf,openImage,renderCardExtras});
+ const studyKey='BM245_CONTROLE_ESTUDOS';let studyBase=null,studyBusy=false;
+ async function studyInit(){const remote=await api('/api/study');studyBase=remote;local.setItem(studyKey,JSON.stringify(remote.data))}
+ const studyDirty=()=>!!studyBase&&local.getItem(studyKey)!==JSON.stringify(studyBase.data);
+ async function syncStudy(){if(!studyBase||studyBusy)return;studyBusy=true;const report=message=>window.dispatchEvent(new CustomEvent('bm-profile-study-sync-result',{detail:{message}}));try{const raw=local.getItem(studyKey),result=await api('/api/study/sync',{expected:studyBase.version,base:studyBase.data,data:JSON.parse(raw)});studyBase={version:result.version,data:result.data};if(raw===local.getItem(studyKey)){local.setItem(studyKey,JSON.stringify(result.data));window.BM240ControlApp?.reloadProfileStudy();report('Controle fictício sincronizado nesta aba, sem gravação real.')}else report('Alterações posteriores continuam pendentes.')}catch(e){report(e.message+' — backup local preservado.')}finally{studyBusy=false}}
+ window.BM240ControlDrive=Object.freeze({sync:syncStudy});
+ const runtime=Object.freeze({studyHtml:async()=>{const r=await api('/original-study.html');return r.html},studyScript:'./original-study-app.js',openPdf,ratings:copy(data.ratings),get reviewBusy(){return reviewBusy},get reviewReady(){return active&&!reviewBusy},canAcquire:id=>active&&(data.acquirable||[]).includes(id),recordReview,loadLayers:id=>api('/api/layers/'+encodeURIComponent(id)),mode:'central',local,writeImageSetting,catalog:()=>copy(data.cards),pdfCatalog:()=>copy(data.media.pdf.map(p=>({...p,section:p.section||'Biblioteca de exemplo',category:p.category||'PDF'}))),imageCatalog:()=>copy(data.media.images),srs:()=>copy(data.srs),downloadPdf,openImage,renderCardExtras});
  Object.defineProperty(window,'BMAccountRuntime',{value:runtime,writable:false,configurable:false});
  // Use the original page DOM and core. No browser OAuth or persistent legacy storage.
  for(const path of ['./original-core.js','./original-reader.js','./original-review.js','./original-image-editor.js','./original-pdf-sync-core.js','./original-pdf-editor.js','./original-pdf-grifador.js']){const script=document.createElement('script');script.src=path;await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)})}
  await verify();
+ try{await studyInit();for(const path of ['./original-calendar.js','./original-study-native.js']){const script=document.createElement('script');script.src=path;await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)})}}catch(e){const p=element('p','Controle de estudos indisponível: '+e.message);document.querySelector('main').prepend(p)}
  const stats=document.querySelectorAll('.stats .stat b'),counts=[data.counts.pdf,data.counts.cards,data.counts.images,data.counts.study,data.counts.annotations];stats.forEach((e,i)=>e.textContent=String(counts[i]??'—'));
  document.querySelectorAll('.bm241-verification').forEach(e=>e.textContent='Dados fictícios');
- const exit=by('bm239-drive-action');exit.disabled=false;exit.textContent='Trocar perfil';exit.setAttribute('aria-label','Trocar perfil de demonstração');exit.onclick=async()=>{if(imageBusy||pdfBusy)return;if((pdfDirty||[...imageEdits.values()].some(x=>x.dirty))&&!confirm('Há marcações não sincronizadas. Sair e descartar essas alterações?'))return;try{await fetch('/api/logout',{method:'POST',credentials:'same-origin',headers:{'X-BM-Context':data.context}})}finally{lock()}};
+ const exit=by('bm239-drive-action');exit.disabled=false;exit.textContent='Trocar perfil';exit.setAttribute('aria-label','Trocar perfil de demonstração');exit.onclick=async()=>{if(imageBusy||pdfBusy||studyBusy)return;if((pdfDirty||studyDirty()||[...imageEdits.values()].some(x=>x.dirty))&&!confirm('Há marcações não sincronizadas. Sair e descartar essas alterações?'))return;try{await fetch('/api/logout',{method:'POST',credentials:'same-origin',headers:{'X-BM-Context':data.context}})}finally{lock()}};
  by('bm239-sync-details').textContent='Perfil fictício: '+data.username+' · sem acesso ao Drive';
  const syncButton=element('button','Sincronizar marcações');syncButton.id='bmCentralImageSync';syncButton.type='button';syncButton.disabled=true;syncButton.onclick=()=>void syncImage();by('imageDialog').querySelector('.editor-tools').append(syncButton);
  by('imgClose').onclick=()=>{if(imageBusy)return;if(imageEdits.get(currentImage)?.dirty&&!confirm('Marcações não sincronizadas. Fechar mantendo a edição nesta sessão?'))return;by('imageDialog').close()};
  by('imageDialog').addEventListener('cancel',e=>{if(imageBusy||imageEdits.get(currentImage)?.dirty)e.preventDefault()});
  by('imageDialog').addEventListener('close',()=>{currentImage=null;by('base').width=by('grifo').width=1;by('base').height=by('grifo').height=1;updateImageSync()});
  by('originalDriveLink').hidden=true;by('hideOpened').hidden=true;
- window.addEventListener('beforeunload',e=>{if(pdfDirty||[...imageEdits.values()].some(x=>x.dirty)){e.preventDefault();e.returnValue=''}});
+ window.addEventListener('beforeunload',e=>{if(pdfDirty||studyDirty()||[...imageEdits.values()].some(x=>x.dirty)){e.preventDefault();e.returnValue=''}});
 
  const pdfTools=by('pdfLocalTools'),group=document.createElement('div');group.className='pdfGroup';
  for(const [label,fn] of [['Sincronizar grifos',syncPdf],['Simular cópia no Drive',copyPdf],['Exportar backup de grifos',exportMarks]]){const button=element('button',label);button.type='button';button.onclick=()=>void fn();group.append(button)}pdfTools.append(group);
  by('pdfClose').onclick=()=>{if(pdfBusy)return;if(pdfDirty&&!confirm('Grifos pendentes. Fechar mantendo as marcações nesta sessão?'))return;by('pdfDialog').close()};
  by('pdfDialog').addEventListener('cancel',e=>{if(pdfBusy||pdfDirty)e.preventDefault()});
 
- const note=element('p','PRÉVIA 023E · Dados fictícios. Leitor, avaliações, editor de imagens e editor PDF; gravações simuladas apenas nesta aba.');
+ const note=element('p','PRÉVIA 023F · Dados fictícios. Controle de estudos e planejamento SRS integrados. Gravações simuladas apenas nesta aba.');
  note.className='notice';const a=element('a','Trocar perfil de exemplo');a.href='./index.html';note.append(' ',a);document.querySelector('main').prepend(note);
  document.body.hidden=false;
  window.addEventListener('pagehide',()=>{active=false;memory.clear();for(const u of urls)URL.revokeObjectURL(u);urls.clear();document.body.replaceChildren()});

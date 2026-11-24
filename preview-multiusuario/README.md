@@ -1,1 +1,1 @@
-Prévia V348 / 023E. Fonte a501fd966932a2739243e456b9073dc0b8df8e10. Editor PDF e grifador originais adaptados. Bibliotecas locais verificadas; dados e gravações fictícios em memória. Exportação de cópia local; gravação Drive simulada. Nenhum dado real.
+Prévia V348 / 023F. Fonte 734061433f95c7ffe3e717e9104e91bc944f3275. Controle V245 e calendário V313 reaproveitados; dados fictícios em memória, sem Drive real. Nenhum arquivo fora da pasta de prévia alterado.
