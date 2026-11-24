@@ -47,6 +47,12 @@ function applyPetro30(p,delta){
   for(const id of r.links){const t=map.get(id);if(!t||t.active!==true)throw Error('PETRO30 relação inválida '+id);t.related_card_ids=[...new Set([...(t.related_card_ids||[]),r.id])];}
  }return p;
 }
+function unifyCatalog(p){
+ p.base.push(...p.ijui.map(c=>({...c,active:c.active!==false})));
+ p.ijui=[];
+ p.counts={canonical:p.base.length,active:p.base.filter(c=>c.active!==false).length,ijui:0};
+ return p;
+}
 async function build(html,c){
  const meta=json('assets/meta_public_v194.json'),globals={},warnings=[];
  const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
@@ -54,7 +60,7 @@ async function build(html,c){
  const r=await execute(async url=>({ok:true,json:async()=>localAsset(url)}),async()=>meta,globals,{warn:(...args)=>warnings.push(args.map(String).join(' '))});
  assert.deepEqual(warnings,[],'Fontes opcionais não podem desaparecer silenciosamente');
  const p={format:c.format,source_head:c.source_head,counts:{canonical:r.base.length,active:r.base.filter(x=>x.active!==false).length,ijui:r.ijui.length},...r,globals,meta};
- if(c.consolidation_packet){const raw=fs.readFileSync(path.join(root,c.consolidation_packet));assert.equal(blobHash(raw),c.consolidation_packet_blob);const result=require('./consolidacao_conceitual.cjs').applyConsolidation(p,JSON.parse(raw));result.consolidation.packet_signature=c.consolidation_packet_blob;result.consolidation.publication_status=c.consolidation_status;if(c.study_increment){const inc=fs.readFileSync(path.join(root,c.study_increment));assert.equal(blobHash(inc),c.study_increment_blob);applyPetro30(result,JSON.parse(inc));}validate(result,c);return result;}
+ if(c.consolidation_packet){const raw=fs.readFileSync(path.join(root,c.consolidation_packet));assert.equal(blobHash(raw),c.consolidation_packet_blob);const result=require('./consolidacao_conceitual.cjs').applyConsolidation(p,JSON.parse(raw));result.consolidation.packet_signature=c.consolidation_packet_blob;result.consolidation.publication_status=c.consolidation_status;if(c.study_increment){const inc=fs.readFileSync(path.join(root,c.study_increment));assert.equal(blobHash(inc),c.study_increment_blob);applyPetro30(result,JSON.parse(inc));}if(c.unified)unifyCatalog(result);validate(result,c);return result;}
  validate(p,c);return p;
 }
 function checkContract(html,m){
@@ -97,7 +103,7 @@ function onlyKeys(o,keys,label){
  for(const k of Object.keys(o))assert.ok(keys.has(k),label+' contém campo não permitido: '+k);
 }
 function nonempty(v){return typeof v==='string'&&v.trim().length>0}
-function cardId(v){return typeof v==='string'&&/^CARD-\d{4,}$/.test(v)}
+function cardId(v){return typeof v==='string'&&/^(?:CARD-\d{4,}|PROP-IJUI-\d{3})$/.test(v)}
 function digest(v){return crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex')}
 function publicPreflight(packet,snapshot,contract){
  onlyKeys(packet,new Set(['format','catalog_git_blob','portal_version','manifest_git_blob','new_cards','updated_cards','profiles','relations','expected_card_hashes','private_content_exported']), 'Pacote');
@@ -115,7 +121,7 @@ function publicPreflight(packet,snapshot,contract){
    onlyKeys(c,CARD_KEYS,'Cartão');assert.ok(cardId(c.id),'ID inválido');assert.ok(!touched.has(c.id),'ID repetido: '+c.id);
    for(const k of ['discipline','subject','sub','front','back','expl','reference'])assert.ok(nonempty(c[k]),c.id+' campo vazio: '+k);
    assert.equal(c.active,true,c.id+' não ativo; inativos não podem ser reativados');
-   if(kind==='new'){assert.ok(!all.has(c.id),'Colisão: '+c.id);newIds.add(c.id);}
+   if(kind==='new'){assert.match(c.id,/^CARD-\d{4,}$/,'Novos IDs devem seguir o registro canônico');assert.ok(!all.has(c.id),'Colisão: '+c.id);newIds.add(c.id);}
    else{const old=canonical.get(c.id);assert.ok(old&&old.active!==false,'Origem ausente ou inativa: '+c.id);
     assert.equal(expected[c.id],digest(old),'Origem alterada: '+c.id);
     // O verso original permanece na fonte privada; publicação não o substitui.
