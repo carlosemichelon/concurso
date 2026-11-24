@@ -1,3 +1,9 @@
+## V362 — Carregamento rápido da biblioteca (24/11/2026)
+
+A rotina de montagem da V361 foi executada sobre os 32 arquivos públicos de conteúdo e o manifesto de metadados, gerando `assets/catalog_snapshot_v362.json` com 1.632 cartões canônicos (1.615 ativos), 22 fichas de Ijuí, guias e estados de compatibilidade. O fluxo normal faz uma única requisição versionada com cache; a rotina `loadCardsLegacy` permanece como contingência. Nenhum conteúdo, ID, módulo, vínculo, grifo ou SRS foi modificado. O teste isolado do carregador confirmou 1.654 registros, uma requisição, compartilhamento da promessa e fallback em falha. Teste no navegador real pendente. V361 preservada.
+
+**Regra para futuras publicações de cartões:** aplicar os incrementos na rotina de montagem, gerar novo snapshot a partir dela antes de publicar, atualizar URL/versão/contagens do carregador e testar. Não modificar o snapshot de uma versão existente nem acumular requisições sequenciais no fluxo normal. A manutenção do catálogo não exige auditoria histórica de identidade. Para mudanças somente visuais, reutilizar o snapshot existente.
+
 ## V361 — Biblioteca unificada sem bloco destacado Petrobras 29 (24/11/2026)
 
 Removido o painel de acesso especial da interface e seus scripts exclusivos, conforme solicitação do estudante. Os 31 cartões CARD-1603 a CARD-1633 permanecem no catálogo normal, com módulos e vínculos intactos. Nenhum arquivo privado, dado didático ou SRS foi alterado. V360 preservada.

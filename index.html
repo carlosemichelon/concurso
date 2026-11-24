@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V361"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V361 — Portal de estudos</title>
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V362"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V362 — Portal de estudos</title>
 
 
 <style>
@@ -66,7 +66,7 @@ html[data-bm269-pdf-auth="authorized"] #bm269PdfLocked{display:none!important}
 
 <link rel="stylesheet" href="assets/v336_editorial.css?v=336-1">
 <link rel="stylesheet" href="assets/v339_semantic_visual.css?v=339-1"><link rel="stylesheet" href="assets/v340_granulometry.css?v=340-1"><link rel="stylesheet" href="assets/v342_media_integrity.css?v=342-1"></head><body>
-<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Portal V361 · Banco Mestre · leitura contínua</span></div><div class="version">Assuntos, PDFs, cartões e Atlas para revisão técnica</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
+<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Portal V362 · Banco Mestre · leitura contínua</span></div><div class="version">Assuntos, PDFs, cartões e Atlas para revisão técnica</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
 <div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
 <div class="stat" title="1.562 fichas únicas no catálogo de estudo: 1.540 cartões canônicos (1.523 ativos e 17 inativos) e 22 propostas editoriais com IDs próprios; não são eventos SRS"><b>1.559</b><span>Fichas na biblioteca de estudo</span><small class="bm241-verification">IDs únicos; SRS privado e preservado</small></div>
 <div class="stat"><b>—</b><span>Originais Drive / Atlas</span><small class="bm241-verification">Não verificado</small></div>
@@ -267,7 +267,43 @@ $('topicSearch').oninput=topicRender;$('topicArea').onchange=topicRender;
 
 async function loadMeta(){if(meta)return meta;const r=await fetch('assets/meta_public_v194.json?v=194',{cache:'no-store'});if(!r.ok)throw Error('Metadados indisponíveis');meta=await r.json();return meta}
 let bm123CardsPromise=null;
+/* V362: catálogo público consolidado antes da publicação. Nenhum dado privado/SRS. */
+const BM362_CATALOG_URL='assets/catalog_snapshot_v362.json';
 function loadCards(){
+ if(bm123CardsPromise)return bm123CardsPromise;
+ const out=document.getElementById('cardRows');
+ if(out&&!cards.length)out.textContent='Carregando biblioteca de cartões…';
+ bm123CardsPromise=(async()=>{
+  let p;
+  try{
+   const r=await fetch(BM362_CATALOG_URL,{cache:'force-cache'});
+   if(!r.ok)throw Error('Catálogo consolidado indisponível');
+   p=await r.json();
+   if(p.format!=='BancoMestreCatalogSnapshotV362'||p.source_head!=='e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7'||
+      p.base?.length!==1632||p.ijui?.length!==22||p.base.filter(c=>c.active!==false).length!==1615||
+      new Set([...p.base,...p.ijui].map(c=>c.id)).size!==1654||!p.meta||!p.globals||
+      !p.guideData||!p.generalGuide||!p.auditF17||!p.answersF17)throw Error('Catálogo consolidado inválido');
+  }catch(e){
+   console.warn('V362: usando carregamento de contingência',e);
+   bm123CardsPromise=null;return loadCardsLegacy();
+  }
+  try{
+   if(!meta)meta=p.meta;
+   guideData=p.guideData;generalGuide=p.generalGuide;auditF17=p.auditF17;answersF17=p.answersF17;
+   for(const [key,value] of Object.entries(p.globals))window[key]=key==='BM347CatalogStatus'?value:Object.freeze(value);
+   window.BM344CatalogStatus=window.BM345CatalogStatus;
+   const base=p.base,ijui=p.ijui;
+   cards=[...base,...ijui];loadedCards=true;
+   const counter=document.querySelector('.stats .stat:nth-child(2) b');
+   if(counter)counter.textContent=(base.length+ijui.length).toLocaleString('pt-BR');
+   window.BM184Header?.updateCards(base.length,ijui.length,cards);
+   for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));
+   cardRender();
+  }catch(e){loadedCards=false;bm123CardsPromise=null;const out=document.getElementById('cardRows');if(out)out.textContent='Falha ao carregar cartões: '+e.message;throw e;}
+ })();
+ return bm123CardsPromise;
+}
+function loadCardsLegacy(){
  if(bm123CardsPromise)return bm123CardsPromise;
  const out=document.getElementById('cardRows');
  if(out&&!cards.length)out.textContent='Carregando cartões públicos V194 + sincronização V274 + adendos V267…';
