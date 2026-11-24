@@ -1,0 +1,560 @@
+{
+  "format": "BancoMestrePublicRecoveryVC16",
+  "source_catalog_blob": "0471aa8ced2bfbe161c3c43291192a26b044a130",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1129",
+      "title": "Froude, profundidade crítica e propagação de ondas",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular o número de Froude em canal livre, classificar o regime e prever a propagação de uma perturbação superficial? Diferencie profundidade hidráulica e raio hidráulico."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-01-015; USBR Water Measurement Manual, cap. 2, seções 11–12: https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_12.html e https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_11.html"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Na aproximação de ondas longas e distribuição hidrostática, c=√(gA/T). Em relação ao canal, as velocidades características são v+c e v−c. O sinal de v−c determina se uma onda pode alcançar montante. Para uma vazão fixa, no modelo usual de energia específica com coeficiente cinético unitário, a condição crítica corresponde ao mínimo da energia específica."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Fr=v/√(gD), D=A/T, v=Q/A. Para canal retangular D=y; com y=1 m, v=1 m/s, Fr≈0,319. Com v=4 m/s na mesma profundidade, Fr≈1,277. g em m/s², D em m; Fr adimensional."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Subcrítico: Fr<1, influência de jusante pode alcançar montante. Crítico: Fr=1, v=c. Supercrítico: Fr>1, perturbações pequenas seguem para jusante. Reynolds distingue regimes laminar/turbulento; vorticidade descreve rotação local."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Em uma calha retangular de 2 m de largura, y=0,5 m e Q=3 m³/s: A=1 m², D=0,5 m, v=3 m/s, Fr≈1,35; regime supercrítico. Uma transição brusca para subcrítico pode produzir ressalto hidráulico, com dissipação de energia."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1130"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicar a canais livres na aproximação usual; A é área molhada, T largura da superfície livre, P perímetro molhado. A/P é raio hidráulico usado, por exemplo, em Manning. Não pressupor que declividade do fundo sozinha determina o regime."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar A/T por A/P, nem Fr por Reynolds. Regime crítico não significa escoamento turbulento. A condição de energia mínima é para vazão e geometria de seção fixas no modelo usual."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Froude: 1 é a fronteira; v vence a onda no torrencial."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P.",
+          "Na aproximação de ondas longas e distribuição hidrostática, c=√(gA/T). Em relação ao canal, as velocidades características são v+c e v−c. O sinal de v−c determina se uma onda pode alcançar montante. Para uma vazão fixa, no modelo usual de energia específica com coeficiente cinético unitário, a condição crítica corresponde ao mínimo da energia específica.",
+          "Aplicar a canais livres na aproximação usual; A é área molhada, T largura da superfície livre, P perímetro molhado. A/P é raio hidráulico usado, por exemplo, em Manning. Não pressupor que declividade do fundo sozinha determina o regime."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Fr<1",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "Fr=1",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "Fr>1",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "A/T",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Fr",
+            "Regime",
+            "Perturbação para montante"
+          ],
+          "rows": [
+            [
+              "<1",
+              "Fluvial",
+              "Possível"
+            ],
+            [
+              "=1",
+              "Crítico",
+              "v−c=0"
+            ],
+            [
+              ">1",
+              "Torrencial",
+              "Não no modelo de ondas pequenas"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Número de Froude",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Fr</mi><mo>=</mo><mfrac><mi>v</mi><msqrt><mi>g</mi><mi>D</mi></msqrt></mfrac></math>",
+            "units": "adimensional; v em m/s"
+          },
+          {
+            "title": "Profundidade hidráulica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>D</mi><mo>=</mo><mfrac><mi>A</mi><mi>T</mi></mfrac></math>",
+            "units": "m; A em m², T em m"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Como calcular o número de Froude em canal livre, classificar o regime e prever a propagação de uma perturbação superficial? Diferencie profundidade hidráulica e raio hidráulico.",
+      "back": "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P.",
+      "source": "CON-01-015; USBR Water Measurement Manual, cap. 2, seções 11–12: https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_12.html e https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_11.html",
+      "mnemonic": "Froude: 1 é a fronteira; v vence a onda no torrencial.",
+      "related_card_ids": [
+        "CARD-1130"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1130",
+      "title": "Vorticidade: rotação local e vórtices",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como distinguir escoamentos rotacional e irrotacional por derivadas de velocidade? Compare a rotação de corpo rígido com o vórtice potencial e explique por que trajetórias curvas não bastam."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Escoamento rotacional tem vorticidade local não nula; irrotacional tem vorticidade nula. A vorticidade é o rotacional do campo de velocidades, ω=∇×v, e a velocidade angular local do elemento fluido é ω/2. A rotação de corpo rígido apresenta vorticidade não nula; um vórtice potencial pode ter linhas de corrente circulares e vorticidade nula fora do núcleo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-01-016; Oregon State University, Intermediate Fluid Mechanics, Potential Flows: https://open.oregonstate.education/intermediate-fluid-mechanics/chapter/potential-flows/"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Um pequeno elemento de fluido pode transladar, deformar e girar. A curvatura de sua trajetória não mede diretamente a rotação local: é necessário comparar as derivadas espaciais das componentes do campo de velocidades."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Em 2D, ωz=∂v/∂x−∂u/∂y. Corpo rígido: u=−Ωy, v=Ωx, então ωz=2Ω. Para campo azimutal axisimétrico, ωz=(1/r)d(rvθ)/dr; se vθ=C/r, rvθ=C e ωz=0 para r>0. Vorticidade em s⁻¹."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Rotacional: ω≠0, exemplo corpo rígido. Irrotacional: ω=0, exemplo vórtice potencial fora da singularidade. Uniforme: campo constante, ω=0. Regime permanente é uma classificação temporal, independente da rotação local."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se u=3y e v=0, ωz=−3 s⁻¹. O fluxo possui rotação local apesar de linhas de corrente retilíneas. Se u=2x e v=−2y, ωz=0, embora exista deformação."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1129"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar um campo diferenciável no ponto analisado. No núcleo singular do vórtice ideal, a expressão C/r não é válida. Vorticidade nula não exclui deformação nem garante ausência de circulação em domínio multiplamente conexo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir rotação do elemento com movimento em círculo ao redor de um eixo. Não inferir irrotacionalidade de escoamento permanente ou laminar."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Rotação local = rotacional de v; olhar derivadas, não o desenho da trajetória."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Escoamento rotacional tem vorticidade local não nula; irrotacional tem vorticidade nula. A vorticidade é o rotacional do campo de velocidades, ω=∇×v, e a velocidade angular local do elemento fluido é ω/2. A rotação de corpo rígido apresenta vorticidade não nula; um vórtice potencial pode ter linhas de corrente circulares e vorticidade nula fora do núcleo.",
+          "Um pequeno elemento de fluido pode transladar, deformar e girar. A curvatura de sua trajetória não mede diretamente a rotação local: é necessário comparar as derivadas espaciais das componentes do campo de velocidades.",
+          "Usar um campo diferenciável no ponto analisado. No núcleo singular do vórtice ideal, a expressão C/r não é válida. Vorticidade nula não exclui deformação nem garante ausência de circulação em domínio multiplamente conexo."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "vorticidade local não nula",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "vorticidade nula",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "ω/2",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "fora do núcleo",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Campo",
+            "Vorticidade"
+          ],
+          "rows": [
+            [
+              "Corpo rígido vθ=Ωr",
+              "2Ω"
+            ],
+            [
+              "Vórtice potencial vθ=C/r",
+              "0, fora do núcleo"
+            ],
+            [
+              "Cisalhamento u=3y",
+              "−3 s⁻¹"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Vorticidade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>ω</mi><mo>=</mo><mo>∇</mo><mo>×</mo><mi>v</mi></math>",
+            "units": "s⁻¹"
+          },
+          {
+            "title": "Componente plana",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>ω</mi><mi>z</mi></msub><mo>=</mo><mfrac><mrow><mo>∂</mo><mi>v</mi></mrow><mrow><mo>∂</mo><mi>x</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mo>∂</mo><mi>u</mi></mrow><mrow><mo>∂</mo><mi>y</mi></mrow></mfrac></math>",
+            "units": "s⁻¹"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Como distinguir escoamentos rotacional e irrotacional por derivadas de velocidade? Compare a rotação de corpo rígido com o vórtice potencial e explique por que trajetórias curvas não bastam.",
+      "back": "Escoamento rotacional tem vorticidade local não nula; irrotacional tem vorticidade nula. A vorticidade é o rotacional do campo de velocidades, ω=∇×v, e a velocidade angular local do elemento fluido é ω/2. A rotação de corpo rígido apresenta vorticidade não nula; um vórtice potencial pode ter linhas de corrente circulares e vorticidade nula fora do núcleo.",
+      "source": "CON-01-016; Oregon State University, Intermediate Fluid Mechanics, Potential Flows: https://open.oregonstate.education/intermediate-fluid-mechanics/chapter/potential-flows/",
+      "mnemonic": "Rotação local = rotacional de v; olhar derivadas, não o desenho da trajetória.",
+      "related_card_ids": [
+        "CARD-1129"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1313",
+      "title": "Lei de Darcy: vazão, gradiente e velocidade intersticial",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Enuncie a lei de Darcy para percolação saturada, calcule gradiente, vazão e velocidades de descarga e intersticial; explique as áreas usadas e as hipóteses."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Para fluxo unidimensional saturado em regime darciano, Q=kiA, i=Δh/L e vD=Q/A=ki. A velocidade média intersticial é aproximadamente vD/ne, com porosidade efetiva ne. A é a área total da seção, incluindo sólidos e vazios; a área efetiva disponível ao fluxo é representada por neA. A carga hidráulica total combina cota e carga de pressão, desprezando a parcela cinética usualmente pequena no solo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H02-A27; CON-12-012 e CON-12-013; USGS Circular 1224: https://pubs.usgs.gov/circ/2002/circ1224/html/understanding.html"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A diferença de carga hidráulica impulsiona o fluxo de maior para menor carga; a condutividade k depende do meio e do fluido. O sinal vetorial é negativo em relação ao gradiente de carga. A velocidade intersticial média supera a de descarga porque o fluxo se concentra no espaço poroso efetivamente conectado."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "i=Δh/L (adimensional); Q=kiA (m³/s); vD=ki (m/s); vi=vD/ne (m/s). Exemplo: k=10⁻⁴ m/s, i=0,5, A=2 m², ne=0,25: Q=10⁻⁴ m³/s, vD=5×10⁻⁵ m/s e vi=2×10⁻⁴ m/s."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Vazão Q: volume por tempo. vD: descarga por área total. vi: velocidade linear média nos poros conectados. k: condutividade hidráulica, não porosidade. i: diferença de carga por distância, não necessariamente inclinação do terreno."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Com k=10⁻⁵ m/s, i=0,5 e A=2 m², Q=10⁻⁵ m³/s (CARD-0342). Para Δh=1,2 m e L=6 m, i=0,20 e vD=2×10⁻⁶ m/s se k=10⁻⁵ m/s (CARD-1111)."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0342, CARD-1111"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Forma escalar pressupõe fluxo unidimensional e k representativa na direção de escoamento. A relação linear pode falhar em velocidades elevadas; solos anisotrópicos requerem condutividade direcional ou tensorial. Porosidade efetiva não é necessariamente a porosidade total."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não multiplicar por porosidade para achar vi: dividir. Não usar área dos poros em Q=kiA e dividir novamente. Não confundir carga total com pressão isolada, nem condutividade k (m/s) com permeabilidade intrínseca (m²)."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Darcy usa área total; nos poros, divide pela fração efetiva."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Para fluxo unidimensional saturado em regime darciano, Q=kiA, i=Δh/L e vD=Q/A=ki. A velocidade média intersticial é aproximadamente vD/ne, com porosidade efetiva ne. A é a área total da seção, incluindo sólidos e vazios; a área efetiva disponível ao fluxo é representada por neA. A carga hidráulica total combina cota e carga de pressão, desprezando a parcela cinética usualmente pequena no solo.",
+          "A diferença de carga hidráulica impulsiona o fluxo de maior para menor carga; a condutividade k depende do meio e do fluido. O sinal vetorial é negativo em relação ao gradiente de carga. A velocidade intersticial média supera a de descarga porque o fluxo se concentra no espaço poroso efetivamente conectado.",
+          "Forma escalar pressupõe fluxo unidimensional e k representativa na direção de escoamento. A relação linear pode falhar em velocidades elevadas; solos anisotrópicos requerem condutividade direcional ou tensorial. Porosidade efetiva não é necessariamente a porosidade total."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Q=kiA",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "vD=Q/A=ki",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "vD/ne",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "área total da seção",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Expressão",
+            "Unidade"
+          ],
+          "rows": [
+            [
+              "Gradiente",
+              "Δh/L",
+              "—"
+            ],
+            [
+              "Vazão",
+              "kiA",
+              "m³/s"
+            ],
+            [
+              "Descarga",
+              "ki",
+              "m/s"
+            ],
+            [
+              "Intersticial",
+              "ki/ne",
+              "m/s"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Vazão",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Q</mi><mo>=</mo><mi>k</mi><mi>i</mi><mi>A</mi></math>",
+            "units": "m³/s"
+          },
+          {
+            "title": "Velocidade intersticial",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>v</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><mi>k</mi><mi>i</mi></mrow><msub><mi>n</mi><mi>e</mi></msub></mfrac></math>",
+            "units": "m/s"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Enuncie a lei de Darcy para percolação saturada, calcule gradiente, vazão e velocidades de descarga e intersticial; explique as áreas usadas e as hipóteses.",
+      "back": "Para fluxo unidimensional saturado em regime darciano, Q=kiA, i=Δh/L e vD=Q/A=ki. A velocidade média intersticial é aproximadamente vD/ne, com porosidade efetiva ne. A é a área total da seção, incluindo sólidos e vazios; a área efetiva disponível ao fluxo é representada por neA. A carga hidráulica total combina cota e carga de pressão, desprezando a parcela cinética usualmente pequena no solo.",
+      "source": "H02-A27; CON-12-012 e CON-12-013; USGS Circular 1224: https://pubs.usgs.gov/circ/2002/circ1224/html/understanding.html",
+      "mnemonic": "Darcy usa área total; nos poros, divide pela fração efetiva.",
+      "related_card_ids": [
+        "CARD-0342",
+        "CARD-1111"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1082",
+      "title": "Carneiro hidráulico: energia, ciclo e rendimento",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "De onde vem a energia do carneiro hidráulico? Explique o ciclo das válvulas, a função da câmara de ar e por que apenas uma parcela da vazão é recalcada."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O carneiro hidráulico usa a energia da queda da própria água para elevar parte dela a uma cota maior, sem motor externo. O fechamento rápido da válvula de descarte gera um transiente de pressão (golpe de aríete), que abre a válvula de recalque e envia água à câmara de ar e à linha de saída. A câmara de ar amortece pulsações e mantém o recalque entre ciclos. Uma parcela da vazão é descartada para possibilitar o funcionamento."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H27-C042; NC State Extension, Hydraulic Ram Pumps: https://content.ces.ncsu.edu/hydraulic-ram-pumps ; FAO, Water lifting devices: https://www.fao.org/4/ah810e/ah810e12.htm"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Com a válvula de descarte aberta, o escoamento acelera no tubo de alimentação. A válvula fecha, produzindo aumento transitório de pressão; a válvula de recalque abre e parte da água entra na câmara. A pressão cai, a válvula de recalque fecha para evitar retorno e a de descarte reabre. O ciclo reinicia."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Balanço médio Qentrada=Qrecalque+Qdescarte. Para alturas H de alimentação e h de recalque medidas em relação ao carneiro, η=Qrecalque·h/(Qentrada·H). Exemplo idealizado: Qentrada=60 L/min, H=2 m, h=12 m, η=0,60: Qrecalque=6 L/min, descarte≈54 L/min."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Carneiro: converte queda de água em recalque parcial mediante transientes. Bomba motorizada: recebe energia mecânica externa. Cavitação: formação de vapor por baixa pressão absoluta (CARD-1384), não é o mecanismo de bombeamento do carneiro."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Para abastecimento rural com fonte contínua em cota superior ao equipamento, avaliar queda disponível, vazão de alimentação, altura de recalque e destino do descarte. Para mesma energia útil disponível, elevar mais alto reduz a vazão recalcada."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1384"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Necessita fonte contínua, desnível útil e instalação apropriada; as perdas e a eficiência dependem das válvulas, tubulações e condições reais. A expressão de rendimento usa as mesmas referências de altura e vazões médias; não substitui dimensionamento do fabricante."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Sem motor não significa sem energia. O golpe de aríete é aproveitado de modo cíclico e controlado, não um recurso para improvisar sobrepressões em instalações comuns. Não confundir a válvula de descarte com a de retenção do recalque."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Queda de muita água eleva uma parte; descarte fecha, recalque abre."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O carneiro hidráulico usa a energia da queda da própria água para elevar parte dela a uma cota maior, sem motor externo. O fechamento rápido da válvula de descarte gera um transiente de pressão (golpe de aríete), que abre a válvula de recalque e envia água à câmara de ar e à linha de saída. A câmara de ar amortece pulsações e mantém o recalque entre ciclos. Uma parcela da vazão é descartada para possibilitar o funcionamento.",
+          "Com a válvula de descarte aberta, o escoamento acelera no tubo de alimentação. A válvula fecha, produzindo aumento transitório de pressão; a válvula de recalque abre e parte da água entra na câmara. A pressão cai, a válvula de recalque fecha para evitar retorno e a de descarte reabre. O ciclo reinicia.",
+          "Necessita fonte contínua, desnível útil e instalação apropriada; as perdas e a eficiência dependem das válvulas, tubulações e condições reais. A expressão de rendimento usa as mesmas referências de altura e vazões médias; não substitui dimensionamento do fabricante."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "energia da queda da própria água",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "golpe de aríete",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "câmara de ar",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "parcela da vazão é descartada",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Componente",
+            "Função"
+          ],
+          "rows": [
+            [
+              "Tubo de alimentação",
+              "Conduzir e acelerar água"
+            ],
+            [
+              "Válvula de descarte",
+              "Gerar o ciclo de fechamento"
+            ],
+            [
+              "Válvula de recalque",
+              "Impedir retorno"
+            ],
+            [
+              "Câmara de ar",
+              "Amortecer e sustentar vazão"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Rendimento hidráulico",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>η</mi><mo>=</mo><mfrac><mrow><msub><mi>Q</mi><mi>r</mi></msub><mi>h</mi></mrow><mrow><msub><mi>Q</mi><mi>e</mi></msub><mi>H</mi></mrow></mfrac></math>",
+            "units": "adimensional; vazões na mesma unidade e alturas em m"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "De onde vem a energia do carneiro hidráulico? Explique o ciclo das válvulas, a função da câmara de ar e por que apenas uma parcela da vazão é recalcada.",
+      "back": "O carneiro hidráulico usa a energia da queda da própria água para elevar parte dela a uma cota maior, sem motor externo. O fechamento rápido da válvula de descarte gera um transiente de pressão (golpe de aríete), que abre a válvula de recalque e envia água à câmara de ar e à linha de saída. A câmara de ar amortece pulsações e mantém o recalque entre ciclos. Uma parcela da vazão é descartada para possibilitar o funcionamento.",
+      "source": "H27-C042; NC State Extension, Hydraulic Ram Pumps: https://content.ces.ncsu.edu/hydraulic-ram-pumps ; FAO, Water lifting devices: https://www.fao.org/4/ah810e/ah810e12.htm",
+      "mnemonic": "Queda de muita água eleva uma parte; descarte fecha, recalque abre.",
+      "related_card_ids": [
+        "CARD-1384"
+      ],
+      "related_question_ids": []
+    }
+  ]
+}
