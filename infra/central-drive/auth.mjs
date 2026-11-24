@@ -2,6 +2,7 @@ import {randomBytes,scrypt,timingSafeEqual} from 'node:crypto';
 import {promisify} from 'node:util';
 const derive=promisify(scrypt), id=/^[A-Za-z0-9_-]{1,160}$/;
 const cookie='__Host-bm_session';
+const validId=x=>typeof x==='string'&&id.test(x);
 const opts={N:32768,r:8,p:1,maxmem:64*1024*1024};
 export async function passwordHash(password,salt=randomBytes(16).toString('hex')){
  if(typeof password!=='string'||password.length<12||password.length>256||!/^[a-f0-9]{32}$/.test(salt))throw Error('Senha deve ter 12 a 256 caracteres.');
@@ -11,7 +12,7 @@ export function parseUsers(raw){
  const rows=JSON.parse(raw);if(!Array.isArray(rows)||rows.length<1||rows.length>50)throw Error('Configuração de usuários inválida.');
  const users=new Map(),subjects=new Set(),roots=new Set();
  for(const u of rows){
-  if(!u||!id.test(u.username)||!id.test(u.subject)||!id.test(u.rootId)||!/^[a-f0-9]{32}:[a-f0-9]{64}$/.test(u.passwordHash)||subjects.has(u.subject)||roots.has(u.rootId)||users.has(u.username))throw Error('Usuário, credencial ou destino duplicado/inválido.');
+  if(!u||!validId(u.username)||!validId(u.subject)||!validId(u.rootId)||typeof u.passwordHash!=='string'||!/^[a-f0-9]{32}:[a-f0-9]{64}$/.test(u.passwordHash)||subjects.has(u.subject)||roots.has(u.rootId)||users.has(u.username))throw Error('Usuário, credencial ou destino duplicado/inválido.');
   users.set(u.username,Object.freeze({...u}));subjects.add(u.subject);roots.add(u.rootId);
  }return users;
 }

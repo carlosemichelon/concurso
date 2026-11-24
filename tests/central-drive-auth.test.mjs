@@ -8,6 +8,8 @@ const pw='example test password only';
 test('isolamento de duas sessões, logout, origem, injeção e acesso anônimo',async()=>{
  const hash=await passwordHash(pw);const rows=[{username:'a',subject:'a1',rootId:'rootA',passwordHash:hash},{username:'b',subject:'b1',rootId:'rootB',passwordHash:hash}];
  assert.throws(()=>parseUsers(JSON.stringify([rows[0],{...rows[1],rootId:'rootA'}])));
+ assert.throws(()=>parseUsers(JSON.stringify([{...rows[0],rootId:undefined}])));
+ assert.throws(()=>parseUsers(JSON.stringify([{...rows[0],subject:42}])));
  const auth=createAuth({users:parseUsers(JSON.stringify(rows))});
  const origin='https://study.example';const seen=[];
  const srv=createServer(createCentralHandler({auth,origin,loadProfile:async u=>{seen.push(u.rootId);return {counts:{cards:u.rootId==='rootA'?7:2}}}}));
