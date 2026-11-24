@@ -1,0 +1,35 @@
+name: Multiusuário — Chrome nativo sem instalação
+on:
+  push:
+    branches: ['feature/portal-atual-dois-usuarios']
+    paths: ['tests/central-drive-chrome-smoke.mjs','.github/workflows/central-drive-chrome-smoke.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chrome:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 2caff9429573a6c94352e69fd84818c7b4fcda9e
+          path: public-preview
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Executar navegador pré-instalado
+        run: |
+          export CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          "$CHROME_BIN" --version
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory public-preview >/tmp/bm-native-chrome.log 2>&1 &
+          node --check tests/central-drive-chrome-smoke.mjs
+          node tests/central-drive-chrome-smoke.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: central-chrome-024C
+          path: test-artifacts/central-chrome/
+          if-no-files-found: warn
