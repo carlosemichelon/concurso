@@ -1314,6 +1314,7 @@ if(typeof cards!=='undefined'&&Array.isArray(cards)&&cards.length&&typeof cardRe
   return response.json();
  }
  async function latestPrivate(){
+  if(root.BMAccountRuntime)return root.BMAccountRuntime.srs();
   const auth=token();
   if(!auth)throw Error('Conecte o Google Drive no cabeçalho para carregar a fila privada');
   // A busca não persiste nem expõe o token. Se a listagem não estiver autorizada,
@@ -1388,6 +1389,8 @@ const footer=main.querySelector('footer');if(footer)footer.before(root);else mai
 const navBtn=document.createElement('button');navBtn.type='button';navBtn.textContent='Planejamento de revisões SRS';navBtn.dataset.page='calendario';
 const cardBtn=nav.querySelector('[data-page="cartoes"]');if(cardBtn)cardBtn.after(navBtn);else nav.append(navBtn);
 const $=id=>document.getElementById(id);
+const account=window.BMAccountRuntime||null;
+const storage=account?account.local:localStorage;
 const importKey='BM141_CALENDAR_IMPORT_V1',prefKey='BM141_CALENDAR_PREF_V1';
 let cards=[],map=new Map(),history=[],imported=[],privateRecords=[],privateInfo=null,schedule=[],page=0,loaded=false,loading=false,driveBusy=false,queueShown=50;
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
@@ -1399,12 +1402,12 @@ const dayText=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digi
 const weekday=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short'});
 const timeLabel=n=>(Number.isInteger(n)?String(n):String(n).replace('.',','))+' min';
 const create=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==null)node.textContent=text;if(cls)node.className=cls;return node};
-try{imported=JSON.parse(localStorage.getItem(importKey)||'[]').filter(x=>x&&x.id&&due(x.due))}catch{}
-try{const p=JSON.parse(localStorage.getItem(prefKey)||'{}');if([1.5,2,3,4].includes(Number(p.minutes)))$('c141-min').value=String(p.minutes);$('c141-new').checked=p.addNew===true}catch{}
+try{imported=JSON.parse(storage.getItem(importKey)||'[]').filter(x=>x&&x.id&&due(x.due))}catch{}
+try{const p=JSON.parse(storage.getItem(prefKey)||'{}');if([1.5,2,3,4].includes(Number(p.minutes)))$('c141-min').value=String(p.minutes);$('c141-new').checked=p.addNew===true}catch{}
 async function json(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw Error('Fonte indisponível: '+path);return r.json()}
 const source=document.createElement('div');source.className='c141-private-source';source.style.cssText='margin:10px 0;padding:11px;border:1px solid #cad9dd;border-radius:8px';
 const driveAction=document.createElement('button');driveAction.type='button';driveAction.className='c141-primary';driveAction.textContent='Atualizar fila pelo SRS privado do Drive';
-const driveNote=document.createElement('span');driveNote.style.cssText='display:block;font-size:12px;margin-top:7px';driveNote.textContent='Fila parcial: apenas histórico F17. Conecte o Google Drive e carregue os dados privados; nenhuma nota será inventada.';
+const driveNote=document.createElement('span');driveNote.style.cssText='display:block;font-size:12px;margin-top:7px';driveNote.textContent=account?'Carregando o histórico do perfil autenticado.':'Fila parcial: apenas histórico F17. Conecte o Google Drive e carregue os dados privados; nenhuma nota será inventada.';
 source.append(driveAction,driveNote);root.querySelector('.c141-import').before(source);
 async function refreshPrivate(){
  if(driveBusy||!loaded)return false;
@@ -1413,7 +1416,7 @@ async function refreshPrivate(){
  try{
   const remote=await window.BMSRSV311.latestPrivate();
   const next=remote.records.filter(x=>map.has(x.id)&&due(x.due));
-  if(next.length<20)throw Error('Poucos IDs reconhecidos; a fila anterior foi preservada.');
+  if(!account&&next.length<20)throw Error('Poucos IDs reconhecidos; a fila anterior foi preservada.');
   privateRecords=next;privateInfo={version:remote.version,updated:remote.updated,count:next.length,sourceId:remote.driveFileId};
   driveNote.textContent='SRS privado '+remote.version+' ('+(remote.updated||'data não informada')+'): '+next.length+' vencimentos derivados, incluindo os agendamentos iniciais. Histórico anterior preservado. Não é leitura de avaliações posteriores à data do arquivo.';
   calculate();return true;
@@ -1432,12 +1435,14 @@ driveAction.onclick=async()=>{
   if(loaded)calculate();
  };
 document.addEventListener('bm-media-drive-authorized',()=>{
+ if(account)return;
  if(loaded)void refreshPrivate();
  void window.BM316SrsJournal?.refresh?.().catch(()=>{});
 });
 document.addEventListener('bm316-srs-journal-updated',()=>{if(loaded)calculate()});
 
 async function load(){
+ if(account){const published=account.catalog();cards=published.filter(c=>c.active!==false&&c.id);map=new Map(cards.map(c=>[c.id,c]));const remote=account.srs();history=[];privateRecords=remote.records.filter(x=>map.has(x.id)&&due(x.due));privateInfo={version:remote.version,count:privateRecords.length,sourceId:remote.driveFileId};driveNote.textContent='Perfil individual carregado · '+privateRecords.length+' vencimentos preservados; '+remote.undated+' sem data válida, '+remote.unmatched+' sem cartão correspondente.';loaded=true;return}
  const [meta,f17]=await Promise.all([json('assets/meta_public_v194.json'),json('assets/f17_historico_auditado_v029.json')]);
  if(f17.format!=='BancoMestreF17AuditoriaV029'||Object.keys(f17.historico_por_id||{}).length!==21)throw Error('Histórico F17 incompatível');
  const [files,ijui,synced,petro22]=await Promise.all([
@@ -1458,11 +1463,12 @@ async function load(){
  loaded=true;
 }
 function records(){
+ if(account)account.srs(); // recusa leitura de sessão encerrada
  const all=new Map((privateInfo?[]:history).map(x=>[x.id,x]));
  for(const x of privateRecords)if(map.has(x.id))all.set(x.id,x);
  for(const x of imported)if(map.has(x.id))all.set(x.id,{id:x.id,due:x.due,rating:x.rating,consolidated:x.consolidated===true,easyFormalCount:Number(x.easyFormalCount)||0,intervalDays:Number(x.intervalDays)||null,source:'Importação SRS local'});
  // Eventos formais confirmados no Drive têm prioridade sobre fonte antiga e importações.
- for(const x of window.BM316SrsJournal?.records?.()||[]){
+ for(const x of (account?[]:window.BM316SrsJournal?.records?.()||[])){
   if(!map.has(x.id)||!due(x.due))continue;
   const prior=all.get(x.id);
   // Uma revisão posterior no snapshot canônico prevalece sobre evento antigo do portal.
@@ -1495,7 +1501,7 @@ function calculate(){
  $('c141-unplanned').textContent=Math.max(0,cards.length-all.length).toLocaleString('pt-BR');
  $('c141-today').textContent=all.filter(x=>x.due===start).length;
  $('c141-status').textContent=all.length+' datas SRS conhecidas ('+(privateInfo?'privado '+privateInfo.version:'somente F17 histórico')+'), '+imported.length+' importações locais. Ordenação: Errei → Difícil → Bom → Fácil; Consolidado só com 2 avaliações Fácil comprovadas. Nenhuma revisão é lançada automaticamente.';
- try{localStorage.setItem(prefKey,JSON.stringify({minutes:minute,addNew}))}catch{}
+ try{storage.setItem(prefKey,JSON.stringify({minutes:minute,addNew}))}catch{}
  render();
  renderQueue();
 }
@@ -1696,7 +1702,7 @@ async function upload(file){
  for(const row of rows){const id=String(row.id||'').trim(),date=due(row.due);if(!map.has(id)||!date){ignored++;continue}valid.set(id,{id,due:date,rating:String(row.rating||'').trim(),consolidated:row.verifiedSrs===true&&row.consolidated===true,easyFormalCount:row.verifiedSrs===true?row.easyFormalCount:0,intervalDays:row.verifiedSrs===true?row.intervalDays:null})}
  if(!valid.size)throw Error('Nenhuma linha com ID ativo e data válida. Formato: CARD-0001;18/11/2026;Errei');
  const update=new Map(imported.map(x=>[x.id,x]));for(const [id,val]of valid)update.set(id,val);
- imported=[...update.values()];localStorage.setItem(importKey,JSON.stringify(imported));
+ imported=[...update.values()];storage.setItem(importKey,JSON.stringify(imported));
  $('c141-result').className='c141-result';$('c141-result').textContent=valid.size+' cartões importados; '+ignored+' linhas ignoradas. Somente o planejamento local foi atualizado.';calculate();
 }
 function exportCSV(){
@@ -1710,8 +1716,8 @@ async function open(){
  if(typeof window.section==='function')window.section('calendario');
  if(loaded){calculate();return}
  if(loading)return;loading=true;$('c141-status').textContent='Carregando os cartões e histórico auditado...';
- try{await load();calculate();if(window.BancoMestreMediaSyncV182?.token?.())void refreshPrivate();
-   if(window.BM239DriveGlobal?.writeToken?.())void window.BM316SrsJournal?.refresh?.().catch(()=>{})}catch(e){$('c141-status').textContent='Erro: '+e.message}finally{loading=false}
+ try{await load();calculate();if(!account&&window.BancoMestreMediaSyncV182?.token?.())void refreshPrivate();
+   if(!account&&window.BM239DriveGlobal?.writeToken?.())void window.BM316SrsJournal?.refresh?.().catch(()=>{})}catch(e){$('c141-status').textContent='Erro: '+e.message}finally{loading=false}
 }
 navBtn.onclick=open;
 $('c141-min').onchange=()=>loaded&&calculate();
@@ -1722,7 +1728,7 @@ $('c141-reset').onclick=()=>{page=0;render()};
 $('c141-export').onclick=()=>loaded?exportCSV():open();
 $('c141-pick').onclick=()=>loaded?$('c141-file').click():open();
 $('c141-file').onchange=async function(){const file=this.files?.[0];this.value='';if(!file)return;try{await upload(file)}catch(e){$('c141-result').className='c141-result error';$('c141-result').textContent=e.message}};
-$('c141-clear').onclick=()=>{if(!imported.length)return;if(!confirm('Limpar apenas as datas importadas para este calendário? O SRS original não será alterado.'))return;imported=[];localStorage.removeItem(importKey);$('c141-result').textContent='Importação local limpa, histórico F17 mantido.';if(loaded)calculate()};
+$('c141-clear').onclick=()=>{if(!imported.length)return;if(!confirm('Limpar apenas as datas importadas para este calendário? O SRS original não será alterado.'))return;imported=[];storage.removeItem(importKey);$('c141-result').textContent='Importação local limpa, histórico F17 mantido.';if(loaded)calculate()};
 window.BM141Calendar={open,refreshPrivate,plan:()=>schedule.slice(),rows:queueData,records:()=>records().map(x=>({...x})),counts:()=>({active:cards.length,verified:records().length,overdue:records().filter(x=>x.due<today()).length,today:records().filter(x=>x.due===today()).length,undated:cards.length-records().length,imported:imported.length,private:privateRecords.length,privateInfo})};
 if(location.hash==='#calendario')void open();
 })();

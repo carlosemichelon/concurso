@@ -10,7 +10,8 @@ const RATINGS=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32});
 let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='',selecting=false,ratedInView=false,ratedMessage='';
 const uncertainIds=new Set();
 const $=id=>document.getElementById(id);
-const token=()=>window.BM239DriveGlobal?.writeToken?.()||'';
+const accountMode=Boolean(window.BMAccountRuntime);
+const token=()=>accountMode?'':window.BM239DriveGlobal?.writeToken?.()||'';
 const localDate=(d=new Date())=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day};
 const addDays=(date,n)=>{const x=new Date(date+'T12:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)};
 const validId=id=>/^CARD-\d{4,}$/.test(id||'');
@@ -50,6 +51,7 @@ async function getFile(id,auth){
  return resp.json();
 }
 async function load(){
+ if(accountMode)throw Error('Histórico individual disponível na agenda; diário legado desativado neste perfil.');
  const auth=token();if(!auth)throw Error('Conecte o Drive com permissão de gravação no cabeçalho.');
  const received=[];let page='',pages=0;
  do{
@@ -90,18 +92,19 @@ async function refresh(){
 }
 function updateStatus(){
  const el=$('bm316-srs-state');if(!el)return;
- el.textContent=uncertain?'Gravação não confirmada: confira o Drive antes de repetir.':
+ el.textContent=accountMode?'Gravação SRS individual em preparação; vencimentos preservados na agenda.':uncertain?'Gravação não confirmada: confira o Drive antes de repetir.':
  ratedInView&&ratedMessage?ratedMessage:
  working?'Salvando e conferindo avaliação no Google Drive…':
  !token()?'Conecte o Drive com gravação para classificar.':
  lastError?'Não foi possível consultar o histórico: '+lastError:
  loaded?'Avaliações privadas disponíveis: '+events.length+' eventos / '+rows().length+' cartões.':
  'Drive autorizado. Consulte o histórico antes de registrar.';
- const connect=$('bm316-srs-connect');if(connect)connect.hidden=Boolean(token());
+ const connect=$('bm316-srs-connect');if(connect)connect.hidden=accountMode||Boolean(token());
  const btns=buttonPanel?.querySelectorAll('button[data-grade]')||[];
  btns.forEach(b=>b.disabled=working||selecting||ratedInView||uncertain||!token());
 }
 async function record(id,rating){
+ if(accountMode)throw Error('Gravação individual ainda não habilitada; nenhum evento criado.');
  if(working||uncertain)throw Error('Há outra operação em andamento ou pendente de conferência.');
  if(!validId(id)||!validRating(rating))throw Error('ID ou avaliação inválidos');
  const auth=token();if(!auth)throw Error('Autorize a gravação do Drive no cabeçalho antes de avaliar');

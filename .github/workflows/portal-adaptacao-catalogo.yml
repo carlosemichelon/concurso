@@ -20,3 +20,5 @@ jobs:
       - run: node tests/portal-multiaccount-bootstrap-v001.test.mjs
       - run: node tests/portal-multiaccount-drive-v001.test.mjs
       - run: node tests/portal-original-catalog-v348.test.mjs
+      - run: node tests/portal-multiaccount-srs-v001.test.mjs
+      - run: node --check assets/v326_js_076_087.js && node --check assets/v316_srs_journal.js
