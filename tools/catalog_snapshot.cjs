@@ -127,6 +127,30 @@ function publicPreflight(packet,snapshot,contract){
  // texto livre, grifos, mídia, versões privadas, SRS nem publicação.
  return {status:'PREFLIGHT_ESTRUTURAL',catalog_git_blob:contract.git_blob,portal_version:contract.portal_version,manifest_git_blob:contract.manifest_git_blob,packet_sha256:digest(packet),new_cards:newIds.size,updated_cards:touched.size-newIds.size,private_sync:'not_verified',editorial_gate:'required',publication:'not_performed'};
 }
+
+// Aplicação em memória no catálogo existente, sem criar arquivos ou publicar.
+// O resultado é material para a montagem já existente; perfis e originais devem
+// ser incorporados ao renderizador histórico antes de gerar o snapshot oficial.
+function stagePublicIncrement(packet,snapshot,contract){
+ const proof=publicPreflight(packet,snapshot,contract);
+ const copy=v=>JSON.parse(JSON.stringify(v));
+ const rows=new Map(snapshot.base.map(c=>[c.id,copy(c)])),ijui=copy(snapshot.ijui);
+ const originals={},profiles=copy(packet.profiles);
+ for(const c of packet.updated_cards){
+  const old=rows.get(c.id);originals[c.id]=copy(old);
+  // Evolução não apaga campos já existentes.
+  rows.set(c.id,{...old,...copy(c),related_card_ids:[...new Set([...(old.related_card_ids||[]),...c.related_card_ids])]});
+ }
+ for(const c of packet.new_cards)rows.set(c.id,copy(c));
+ for(const [id,links] of Object.entries(packet.relations)){
+  const c=rows.get(id)||ijui.find(x=>x.id===id);
+  if(links.length)c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...links])];
+  if(profiles[id])profiles[id].related_card_ids=[...(c.related_card_ids||[])];
+ }
+ const base=[...rows.values()];
+ return {base,ijui,profiles,originals,counts:{canonical:base.length,active:base.filter(c=>c.active!==false).length,ijui:ijui.length},preflight:proof};
+}
+
 function preflightFile(file){
  const m=json('assets/version.json'),raw=fs.readFileSync(path.join(root,m.catalog.path));
  assert.equal(blobHash(raw),m.catalog.git_blob,'Snapshot alterado');
@@ -165,4 +189,4 @@ async function main(){
  fs.writeFileSync(path.join(root,c.path),raw,{flag:'wx'});console.log(JSON.stringify({...c,git_blob:blobHash(raw)},null,2));
 }
 if(require.main===module)main().catch(e=>{console.error(e);process.exitCode=1});
-module.exports={check,build,validate,sourceOf,blobHash,checkContract,publicPreflight};
+module.exports={check,build,validate,sourceOf,blobHash,checkContract,publicPreflight,stagePublicIncrement};
