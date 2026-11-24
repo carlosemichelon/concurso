@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: '22'
       - run: node --check infra/central-drive/login.js
-      - run: node --test tests/central-drive-auth.test.mjs tests/central-drive-runtime.test.mjs tests/central-drive-media.test.mjs tests/central-drive-review.test.mjs tests/central-drive-discursive.test.mjs tests/central-drive-upload.test.mjs
+      - run: node --test tests/central-drive-auth.test.mjs tests/central-drive-runtime.test.mjs tests/central-drive-media.test.mjs tests/central-drive-review.test.mjs tests/central-drive-discursive.test.mjs tests/central-drive-upload.test.mjs tests/central-drive-marks.test.mjs

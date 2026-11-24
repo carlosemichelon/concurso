@@ -1,6 +1,7 @@
 import {createServer} from 'node:http';
 import {createHash} from 'node:crypto';
 import {MediaNotFound} from './media.mjs';
+import {MarksRejected,MarksUncertain,validMarksInput} from './marks.mjs';
 import {UploadRejected,UploadUncertain,validUploadInput,validUploadIntent} from './uploads.mjs';
 import {DiscursiveRejected,DiscursiveUncertain,validDiscursiveInput,validDiscursiveCommit} from './discursive.mjs';
 import {ReviewRejected,ReviewUncertain,validReviewInput,validCommitInput} from './reviews.mjs';
@@ -17,7 +18,7 @@ function send(res,status,value,extra={}){res.writeHead(status,{...headers,'Conte
 async function body(req,limit=4096){if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw Error('Formato');let size=0,parts=[];for await(const chunk of req){size+=chunk.length;if(size>limit)throw Error('Limite');parts.push(chunk)}return JSON.parse(Buffer.concat(parts).toString('utf8'))}
 export function createCentralHandler({auth,loadProfile,origin}){
  if(!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(origin))throw Error('Origem HTTPS obrigatória');
- let mediaBusy=0,uploadBusy=0;
+ let mediaBusy=0,uploadBusy=0,documentBusy=0;
  return async(req,res)=>{
   try{
    const path=req.url,method=req.method,token=sessionToken(req.headers.cookie);
@@ -59,6 +60,19 @@ export function createCentralHandler({auth,loadProfile,origin}){
      if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});
      const result=await loadProfile(s.user,{upload,guard:()=>!!auth.read(token)});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result);
     }catch(e){if(e instanceof UploadRejected)return send(res,409,{error:e.message});if(e instanceof UploadUncertain)return send(res,503,{error:e.message});throw e}finally{uploadBusy--}
+   }
+   if((method==='GET'&&path==='/api/marks')||(method==='POST'&&(path==='/api/marks/sync'||path==='/api/pdf/copy'))){
+    const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==context(token))return send(res,403,{error:'Contexto de sessão divergente'});
+    if(documentBusy>=2)return send(res,429,{error:'Operações de documentos ocupadas'});documentBusy++;
+    try{
+     let options;
+     if(path==='/api/marks')options={marks:{kind:'read'}};
+     else if(path==='/api/marks/sync'){let input;try{input=await body(req,24000000)}catch{return send(res,400,{error:'Backup inválido'})}if(!validMarksInput(input))return send(res,400,{error:'Backup inválido'});options={marks:{kind:'sync',input}}}
+     else{const docId=req.headers['x-bm-document'],pagesMarked=Number(req.headers['x-bm-pages']);if(req.headers['content-type']!=='application/pdf'||typeof docId!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(docId)||!Number.isSafeInteger(pagesMarked)||pagesMarked<1)return send(res,400,{error:'Cópia inválida'});const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>180000000)return send(res,413,{error:'Cópia acima de 180 MB'});chunks.push(chunk)}options={pdfCopy:{docId,pagesMarked,bytes:Buffer.concat(chunks)}}}
+     if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});
+     const result=await loadProfile(s.user,{...options,guard:()=>!!auth.read(token)});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result);
+    }catch(e){if(e instanceof MarksRejected)return send(res,409,{error:e.message});if(e instanceof MarksUncertain)return send(res,503,{error:e.message});throw e}finally{documentBusy--}
    }
    const match=method==='GET'&&path.match(/^\/api\/media\/(image|pdf)\/([A-Za-z0-9_-]{1,160})$/);
    if(match){
