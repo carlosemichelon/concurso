@@ -1,0 +1,30 @@
+{
+  "format": "BancoMestreClosureGate1",
+  "version": "V348",
+  "public_counts": {
+    "cards": 1601,
+    "active": 1584
+  },
+  "packets": [
+    {
+      "path": "assets/petro20_29_delta_v347.json",
+      "profiles": "profiles",
+      "new_count": 15
+    }
+  ],
+  "visual_manifest": "assets/visual_integrity_v348.json",
+  "expected_svg": 10,
+  "expected_visual_links": 16,
+  "public_scope": "Verificações automáticas de estrutura, referências, conteúdo público e navegador de teste. Privacidade, OAuth, qualidade pedagógica e agenda exigem evidências separadas.",
+  "states": [
+    "VERIFICADO",
+    "PENDENTE",
+    "BLOQUEADO",
+    "NAO_APLICAVEL"
+  ],
+  "regression": [
+    "node --test tests/closure_gate.test.cjs",
+    "node tests/closure_browser.cjs"
+  ],
+  "closure_status": "PARCIAL: registros privados e OAuth exigem verificação separada"
+}

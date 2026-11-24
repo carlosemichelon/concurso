@@ -1,0 +1,20 @@
+name: Portão de encerramento do Banco Mestre
+on:
+  push:
+    branches: [gh-pages]
+    paths: ['index.html', 'v*.html', 'assets/**', 'tests/**', '.github/workflows/closure-gate.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  estrutura-e-navegador:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/closure_gate.test.cjs
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/closure_browser.cjs

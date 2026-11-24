@@ -1,0 +1,46 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Banco Mestre · Multiusuário</title><link rel="stylesheet" href="../assets/v315_styles_core.css"><link rel="stylesheet" href="../assets/v315_styles_polish.css"><link rel="stylesheet" href="assets/multi.css"><script src="https://accounts.google.com/gsi/client" async defer></script><script defer src="assets/image-editor.js"></script><script type="module" src="assets/app.js"></script></head><body><div class="rn"><a class="bm-skip" href="#main">Ir ao conteúdo</a><header class="bm-shell-head"><div class="bm-brand-row"><div class="bm-brand"><strong>Banco Mestre</strong><small>Portal multiusuário · V018 experimental</small></div><div class="bm-account-row"><span id="account"></span><button id="login" class="primary">Entrar com Google</button><button id="logout" hidden>Sair</button><span id="timer" aria-label="Tempo líquido">00:00:00</span><button id="timerBtn" disabled>Iniciar estudo</button></div></div><small id="cloudStatus" role="status" aria-live="polite"></small><nav id="nav" hidden aria-label="Seções"><div class="bm-nav-groups" role="group" aria-label="Área do portal"><button type="button" data-group="study">Estudar</button><button type="button" data-group="organize">Organizar</button></div><div class="bm-nav-routes" role="group" aria-label="Seções da área"><button type="button" data-view="home">Assuntos</button><button type="button" data-view="pdf">PDFs</button><button type="button" data-view="cards">Flashcards</button><button type="button" data-view="media">Imagens</button><button type="button" data-view="review">Revisão</button><button type="button" data-view="questions">Questões e lacunas</button><button type="button" data-view="control">Metas e controle</button><button type="button" data-view="methodology">Metodologia</button><button type="button" data-view="sync">Backup e Drive</button></div></nav></header><main id="main" tabindex="-1"><p id="status" role="status" aria-live="polite"></p><div id="view"></div></main><footer>Banco Mestre · ambiente experimental separado do portal de produção · acervo individual autenticado.</footer></div><dialog id="imageDialog" aria-label="Editor de imagens em tela cheia">
+<div class="dhead"><strong id="imgTitle"></strong><button id="imgClose">Fechar</button></div>
+<div class="dbody">
+<div class="editor-tools" aria-label="Ferramentas do editor">
+ <div class="toolgroup" role="group" aria-label="Tipo de ferramenta">
+  <button data-ink-tool="pen" aria-pressed="false" title="Caneta livre">✎ Caneta</button>
+  <button data-ink-tool="highlighter" aria-pressed="false" title="Marca-texto semitransparente">▤ Grifar</button>
+  <button data-ink-tool="eraser" aria-pressed="false" title="Apaga o traço tocado">⌫ Borracha</button>
+  <button data-ink-tool="select" aria-pressed="false" title="Selecione por toque ou retângulo; arraste para mover">▢ Selecionar</button>
+  <button data-ink-tool="pan" aria-pressed="true" title="Deslocar a imagem ampliada">✥ Mover tela</button>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Cores da caneta">
+  <button class="swatch" data-ink-color="#ffd400" style="--swatch:#ffd400" aria-label="Amarelo" aria-pressed="true"></button>
+  <button class="swatch" data-ink-color="#ff514b" style="--swatch:#ff514b" aria-label="Vermelho" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#32b66f" style="--swatch:#32b66f" aria-label="Verde" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#3d88ea" style="--swatch:#3d88ea" aria-label="Azul" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#202b36" style="--swatch:#202b36" aria-label="Preto" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#9b61c7" style="--swatch:#9b61c7" aria-label="Roxo" aria-pressed="false"></button>
+  <label>Cor <input id="inkColor" type="color" value="#ffd400" aria-label="Escolher outra cor"></label>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Espessura da ferramenta">
+  <label>Espessura <input id="inkWidth" type="range" min="1" max="40" value="16" aria-label="Espessura"><span id="widthValue">16 px</span></label>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Histórico e seleção">
+  <button id="undo" title="Ctrl+Z" disabled>↶ Desfazer</button>
+  <button id="redo" title="Ctrl+Y" disabled>↷ Refazer</button>
+  <button id="deleteSelected" class="editor-danger" disabled>Apagar seleção</button>
+  <span id="selectedCount" class="small muted"></span>
+ </div>
+ <div class="toolgroup">
+  <button id="hideOpened" hidden disabled>Ocultar</button>
+ </div>
+</div>
+<div class="editor-meta">
+ <span id="imagePixels">Dimensão da imagem</span>
+ <button id="zoomOutImage" title="Reduzir zoom">−</button>
+ <button id="zoomWidthImage" title="Leitura ampliada na largura disponível">Largura</button><button id="zoomFitImage" title="Mostrar a página inteira">Ajustar</button>
+ <button id="zoomActualImage" title="Exibir a 100%">100%</button>
+ <button id="zoomInImage" title="Ampliar">+</button>
+ <strong id="zoomPct">100%</strong>
+ <a id="originalDriveLink" class="action" target="_blank" rel="noopener noreferrer" hidden>Abrir original no Drive</a>
+ <span id="imgMessage">Marcações privadas</span>
+ <span id="imageWarning" class="small muted"></span>
+</div>
+<div class="stage" id="imageStage"><div class="canvases"><canvas id="base" aria-hidden="true"></canvas><canvas id="grifo" tabindex="0" aria-label="Área para desenhar, apagar ou selecionar"></canvas></div></div>
+</div></dialog><dialog id="privatePdfDialog" aria-label="Editor PDF privado"><div class="dhead"><strong id="privatePdfTitle"></strong><button id="privatePdfClose">Fechar</button></div><iframe id="privatePdfFrame" title="Editor PDF isolado" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe></dialog><noscript>Ative JavaScript.</noscript></body></html>

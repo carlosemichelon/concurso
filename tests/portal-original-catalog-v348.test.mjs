@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import vm from 'node:vm';
+import {CATALOGS,createCatalogLoader} from '../assets/multiaccount-catalog-v001.mjs';
+const root=resolve(fileURLToPath(new URL('../',import.meta.url))),paths=[];
+const fetcher=async path=>{paths.push(path);const clean=path.split('?')[0];assert.match(clean,/^assets\/[a-zA-Z0-9_.-]+\.json$/);const content=await readFile(resolve(root,clean),'utf8');return {ok:true,json:async()=>JSON.parse(content)}};
+const ctx=vm.createContext({fetch:fetcher});vm.runInContext(await readFile(resolve(root,'assets/bm-original-catalog-v348.js'),'utf8'),ctx);
+const loader=ctx.BMOriginalCatalog,profile= createCatalogLoader(loader,fetcher);
+const a=await profile(CATALOGS['civil-public-v348']);assert.equal(a.cards.length,1601);assert.equal(new Set(a.cards.map(c=>c.id)).size,1601);assert.equal(a.cards.filter(c=>c.active!==false).length,1584);
+assert.ok(a.cards.some(c=>c.id==='CARD-1534'));assert.ok(a.cards.some(c=>c.id==='CARD-1559'));assert.ok(!paths.some(p=>/f17|guias_ijui|guia_geral|ijui_flashcards/i.test(p)));
+const b=await profile(CATALOGS['private-only']);assert.equal(b.cards.length,0);assert.ok(!Object.hasOwn(b,'srs'));
+await assert.rejects(()=>profile({id:'civil-public-v348'}));await assert.rejects(()=>profile({id:'https://evil.invalid'}));
+const html=await readFile(resolve(root,'index.html'),'utf8');assert.ok(html.indexOf('src="assets/bm-original-catalog-v348.js')<html.indexOf('async function loadMeta()'));assert.ok(html.includes('const base=await window.BMOriginalCatalog.reconcile(all,fetch,window);'));assert.ok(html.includes('cards=[...base,...ijui]'));
+const m=await (await fetcher('assets/meta_public_v194.json')).json(),all=await Promise.all(m.card_files.map(f=>fetcher('assets/'+f).then(r=>r.json())));const diagnostics={};const original=await loader.reconcile(all,fetcher,diagnostics);assert.equal(original.length,a.cards.length);assert.equal(JSON.stringify(original),JSON.stringify(a.cards));assert.equal(diagnostics.BM347CatalogStatus.total,1601);
+console.log('PASS catálogo V348 real, 1601 IDs, 1584 ativos, mesmo reconciliador, sem histórico pessoal no bootstrap');

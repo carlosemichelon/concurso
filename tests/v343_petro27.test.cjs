@@ -8,7 +8,7 @@ const root=path.resolve(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const packet=JSON.parse(read('assets/petro27_sync_v343.json'));
 const ver=JSON.parse(read('assets/version.json'));
-const html=read('index.html'),snapshot=read('v343.html');
+const html=read('v343.html'),current=read('index.html');
 assert.equal(packet.format,'BancoMestrePetro27SyncV343');
 assert.equal(packet.counts.existing,7);
 assert.equal(packet.counts.proposals,11);
@@ -42,8 +42,12 @@ for(const m of packet.media){
 }
 assert.equal(packet.cases.length,12);
 for(const c of packet.cases){assert(ids.has(c.card_id),'Questão sem destino: '+c.question_id);assert(c.result);}
-assert.equal(ver.version,'V343');
-assert.equal(html,snapshot,'index.html diferente do snapshot v343.html');
+assert.match(html,/data-bm-portal-version="V343"/,'Snapshot histórico V343 alterado');
+const gate=JSON.parse(read('assets/closure_gate_current.json'));
+assert.equal(gate.version,ver.version,'Versão atual sem portão');
+assert.equal(current,read(ver.home),'Entrada corrente diferente do snapshot vigente');
+const currentPacket=JSON.parse(read('assets/petro20_29_delta_v347.json'));
+assert.equal(Object.keys(currentPacket.proposals_resolved).filter(x=>x.startsWith('PETRO27')).length,11,'Propostas PETRO27 não conciliadas no pacote vigente');
 assert(html.includes('assets/v342_media_integrity.js'),'Auditoria anterior apagada');
 assert(html.includes('assets/v343_petro27_renderer.js'),'Camada PETRO27 sem carregamento');
 assert(html.includes('assets/v343_petro27.css'),'Estilos ausentes');

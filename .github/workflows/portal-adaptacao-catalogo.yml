@@ -1,0 +1,22 @@
+name: Adaptação direta - catálogo original
+on:
+  workflow_dispatch:
+  push:
+    branches: ['feature/portal-atual-dois-usuarios']
+permissions:
+  contents: read
+jobs:
+  catalog:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/portal-multiaccount-storage-v001.test.mjs
+      - run: node tests/portal-multiaccount-bootstrap-v001.test.mjs
+      - run: node tests/portal-multiaccount-drive-v001.test.mjs
+      - run: node tests/portal-original-catalog-v348.test.mjs
