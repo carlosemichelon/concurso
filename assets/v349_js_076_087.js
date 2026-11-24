@@ -1437,6 +1437,7 @@ document.addEventListener('bm-media-drive-authorized',()=>{
  void window.BM316SrsJournal?.refresh?.().catch(()=>{});
 });
 document.addEventListener('bm316-srs-journal-updated',()=>{if(loaded)calculate()});
+document.addEventListener('bm-private-increment-changed',()=>{if(loaded)calculate()});
 
 async function load(){
  const [published,f17]=await Promise.all([
@@ -1451,6 +1452,10 @@ async function load(){
 function records(){
  const all=new Map((privateInfo?[]:history).map(x=>[x.id,x]));
  for(const x of privateRecords)if(map.has(x.id))all.set(x.id,x);
+ // Only previously authorized and identity-checked question events; no formal grade.
+ const approved=(window.BMPrivateIncrementV1?.approvedAgenda()||[]).filter(x=>map.has(x.id));
+ if(approved.length){const merged=window.BMPrivateIncrementV1.mergePlanning([...all.values()],approved);for(const x of merged)all.set(x.id,x);}
+
  for(const x of imported)if(map.has(x.id))all.set(x.id,{id:x.id,due:x.due,rating:x.rating,consolidated:x.consolidated===true,easyFormalCount:Number(x.easyFormalCount)||0,intervalDays:Number(x.intervalDays)||null,source:'Importação SRS local'});
  // Eventos formais confirmados no Drive têm prioridade sobre fonte antiga e importações.
  for(const x of window.BM316SrsJournal?.records?.()||[]){
