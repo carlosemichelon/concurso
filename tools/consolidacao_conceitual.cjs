@@ -3,7 +3,7 @@
 const fs=require('node:fs'),crypto=require('node:crypto');
 function applyConsolidation(catalog,delta){
  const copy=JSON.parse(JSON.stringify(catalog)),cards=copy.base,old=new Map(cards.map(c=>[c.id,c])),revisions=delta.revisions,all=revisions.flatMap(r=>[r.id,...r.satellites]);if(cards.length!==new Set(cards.map(c=>c.id)).size||revisions.length!==25||all.length!==81||new Set(all).size!==81)throw Error('Identidades divergentes');
- const packetRevision=JSON.stringify(delta);
+ const packetRevision=crypto.createHash('sha256').update(JSON.stringify(delta)).digest('hex');
  if(copy.consolidation){if(copy.consolidation.packet_signature===packetRevision)return copy;throw Error('Catálogo já consolidado com lote distinto');}
  if(all.some(id=>!old.has(id)||old.get(id).active===false))throw Error('ID ausente/inativo: revalidar fonte antes da consolidação');
  const alias=new Map(revisions.flatMap(r=>r.satellites.map(s=>[s,r.id]))),canonical=id=>alias.get(id)||id,unique=xs=>[...new Set(xs)],rewrite=(links,self)=>unique((links||[]).map(canonical)).filter(x=>x!==self);
