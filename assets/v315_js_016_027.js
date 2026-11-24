@@ -709,6 +709,7 @@
   if(ids.length)void view(ids[0]);
  }
  async function catalog(){
+  if(window.BMAccountRuntime)return new Map(window.BMAccountRuntime.catalog().map(c=>[c.id,c]));
   if(cache)return cache;
   if(!promise)promise=(async()=>{
    const meta=await fetch('assets/meta_v021.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Metadados do Banco Mestre indisponíveis');return r.json()});
@@ -748,7 +749,7 @@
    line(answer,'Macete',card.mnemonic);
    const full=document.createElement('a');full.className='bm-v047-full';
    const url=new URL('v040.html',location.href);url.searchParams.set('cartao',id);url.hash='cartoes';
-   full.href=url.href;full.target='_blank';full.rel='noopener noreferrer';full.textContent='Abrir cartão completo';
+   full.href=window.BMAccountRuntime?'#cartoes':url.href;full.target=window.BMAccountRuntime?'_self':'_blank';full.rel='noopener noreferrer';full.textContent='Abrir cartão completo';if(window.BMAccountRuntime)full.onclick=async e=>{e.preventDefault();if(pdf.open)pdf.close();await loadCards();await window.BancoMestreVisualizarCardV050?.showId(id)};
    reveal.onclick=()=>{
     answer.hidden=!answer.hidden;
     reveal.setAttribute('aria-expanded',String(!answer.hidden));

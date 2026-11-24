@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {createLoginGate} from '../assets/multiaccount-login-gate-v001.mjs';
+const views=[];let close=0,subject='A',failure=false,late=null;
+const session={phase:'locked',identity:null,current:null,logout(){this.phase='locked';this.identity=null;this.current=null},async login(){this.phase='ready';this.identity={sub:subject,email:subject+'@test.invalid'};this.current={subject,catalog:'private-only'}}};
+const runtime=owner=>({subject:owner,catalog:()=>[{id:owner}],pdfCatalog:()=>[],imageCatalog:()=>[],srs:()=>({records:[]}),discursive:()=>[],close(){close++}});
+const gate=createLoginGate({session,render:v=>views.push(v),prepare:async s=>{if(failure)throw Error('Perfil incompleto');if(late)return late;return runtime(s.identity.sub)}});
+await gate.login();assert.equal(gate.phase,'verified');assert.equal(views.at(-1).email,'A@test.invalid');assert.equal(views.at(-1).counts.cards,1);assert.equal(Object.hasOwn(views.at(-1),'runtime'),false);
+gate.lock();assert.equal(gate.phase,'locked');assert.equal(session.identity,null);assert.equal(close,1);assert.equal(Object.hasOwn(views.at(-1),'email'),false);
+subject='B';await gate.login();assert.equal(views.at(-1).email,'B@test.invalid');session.phase='locked';gate.check();assert.equal(gate.phase,'locked');assert.equal(close,2);
+failure=true;await gate.login();assert.equal(gate.phase,'blocked');assert.equal(session.identity,null);assert.equal(Object.hasOwn(views.at(-1),'counts'),false);failure=false;
+let resolve;late=new Promise(r=>resolve=r);const pending=gate.login();await Promise.resolve();gate.lock();resolve(runtime('B'));await pending;assert.equal(gate.phase,'locked');assert.equal(close,3);
+late=null;await gate.login();assert.equal(gate.phase,'verified');gate.lock();assert.equal(close,4);
+console.log('PASS login preflight, troca de conta, bloqueio, falha e cancelamento tardio');

@@ -35,3 +35,5 @@ jobs:
       - run: node tests/portal-multiaccount-image-ingest-v001.test.mjs
       - run: node tests/portal-multiaccount-study-v001.test.mjs
       - run: node --check assets/v245_controle_app.js && node --check assets/v315_js_112_123.js && node --check assets/v326_js_124_135.js && node --check assets/v184_study_store.js
+      - run: node tests/portal-multiaccount-login-gate-v001.test.mjs
+      - run: node --check assets/v315_js_016_027.js && node --check assets/multiaccount-login-entry-v001.mjs

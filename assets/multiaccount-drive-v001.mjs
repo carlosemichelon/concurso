@@ -94,32 +94,33 @@ export function createDriveProvider({fetcher=fetch,token,info,expiresAt,loadCata
  });
 }
 export function createPortalSession({clientId,gis,fetcher=fetch,catalogs,loadCatalog}){
- let generation=0,provider=null,boot=null,phase='locked',identity=null;
- const logout=()=>{generation++;boot?.lock();provider?.close();boot=null;provider=null;identity=null;phase='locked'};
+ let generation=0,provider=null,boot=null,phase='locked',identity=null,expiresAt=0;
+ const logout=()=>{generation++;boot?.lock();provider?.close();boot=null;provider=null;identity=null;expiresAt=0;phase='locked'};
  const ensure=n=>{if(generation!==n)throw Error('Sessão alterada durante autenticação')};
- return Object.freeze({get phase(){return phase},get current(){return phase==='ready'?boot?.current||null:null},get identity(){return phase==='ready'&&identity?{...identity}:null},logout,
- async readUploadedImages(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readUploadedImages(identity.sub);ensure(n);return result},
- async uploadImage(prepared){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.uploadImage(identity.sub,prepared);ensure(n);return result},
- async readImage(id,mimeType){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readImage(identity.sub,id,mimeType);ensure(n);return result},
- async readPdf(id){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readPdf(identity.sub,id);ensure(n);return result},
- async saveAnnotatedPdf(prepared){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveAnnotatedPdf(identity.sub,prepared);ensure(n);return result},
- async readStudyControl(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readStudyControl(identity.sub);ensure(n);return result},
- async saveStudyControl(expected,payload){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveStudyControl(identity.sub,expected,payload);ensure(n);return result},
- async readImageState(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readImageState(identity.sub);ensure(n);return result},
- async saveImageState(expected,payload){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveImageState(identity.sub,expected,payload);ensure(n);return result},
- async readMarksMaster(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readMarksMaster(identity.sub);ensure(n);return result},
- async saveMarksMaster(expected,payload){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveMarksMaster(identity.sub,expected,payload);ensure(n);return result},
- async readReviewEvents(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readReviewEvents(identity.sub);ensure(n);return result},
- async appendReview(event){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.appendReview(identity.sub,event);ensure(n);return result},
- async readDiscursive(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readDiscursive(identity.sub);ensure(n);return result},
- async appendDiscursive(row){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.appendDiscursive(identity.sub,row);ensure(n);return result},
+ const currentPhase=()=>{if(phase==='ready'&&Date.now()>=expiresAt)logout();return phase};
+ return Object.freeze({get phase(){return currentPhase()},get current(){return currentPhase()==='ready'?boot?.current||null:null},get identity(){return currentPhase()==='ready'&&identity?{...identity}:null},logout,
+ async readUploadedImages(){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readUploadedImages(identity.sub);ensure(n);return result},
+ async uploadImage(prepared){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.uploadImage(identity.sub,prepared);ensure(n);return result},
+ async readImage(id,mimeType){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readImage(identity.sub,id,mimeType);ensure(n);return result},
+ async readPdf(id){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readPdf(identity.sub,id);ensure(n);return result},
+ async saveAnnotatedPdf(prepared){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveAnnotatedPdf(identity.sub,prepared);ensure(n);return result},
+ async readStudyControl(){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readStudyControl(identity.sub);ensure(n);return result},
+ async saveStudyControl(expected,payload){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveStudyControl(identity.sub,expected,payload);ensure(n);return result},
+ async readImageState(){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readImageState(identity.sub);ensure(n);return result},
+ async saveImageState(expected,payload){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveImageState(identity.sub,expected,payload);ensure(n);return result},
+ async readMarksMaster(){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readMarksMaster(identity.sub);ensure(n);return result},
+ async saveMarksMaster(expected,payload){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveMarksMaster(identity.sub,expected,payload);ensure(n);return result},
+ async readReviewEvents(){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readReviewEvents(identity.sub);ensure(n);return result},
+ async appendReview(event){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.appendReview(identity.sub,event);ensure(n);return result},
+ async readDiscursive(){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readDiscursive(identity.sub);ensure(n);return result},
+ async appendDiscursive(row){if(currentPhase()!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.appendDiscursive(identity.sub,row);ensure(n);return result},
  async login(){logout();const n=generation;phase='loading';let reply=null;
   try{if(!gis?.initTokenClient)throw Error('Google Identity indisponível');
    reply=await new Promise((resolve,reject)=>{const c=gis.initTokenClient({client_id:clientId,scope:PORTAL_SCOPE,include_granted_scopes:false,callback:r=>r.error?reject(Error(r.error_description||r.error)):resolve(r),error_callback:r=>reject(Error(r.message||r.type||'Autorização cancelada'))});c.requestAccessToken({prompt:'select_account'})});ensure(n);
    if(!reply.access_token||!Number.isFinite(Number(reply.expires_in))||Number(reply.expires_in)<=30)throw Error('Autorização Google inválida');
    const response=await fetcher(USERINFO,{headers:{Authorization:'Bearer '+reply.access_token},cache:'no-store',redirect:'error'});ensure(n);if(!response.ok)throw Error('Identidade Google não confirmada');
    const info=await response.json();ensure(n);verifiedSubject(info);
-   provider=createDriveProvider({fetcher,token:reply.access_token,info,expiresAt:Date.now()+(Number(reply.expires_in)-30)*1000,loadCatalog});boot=createBootstrap({catalogs,provider});
+   expiresAt=Date.now()+(Number(reply.expires_in)-30)*1000;provider=createDriveProvider({fetcher,token:reply.access_token,info,expiresAt,loadCatalog});boot=createBootstrap({catalogs,provider});
    const result=await boot.open(info);ensure(n);identity={sub:info.sub,email:info.email};phase='ready';return result;
   }catch(e){if(generation===n){boot?.lock();provider?.close();boot=null;provider=null;identity=null;phase='blocked'}throw e}finally{if(reply)reply.access_token=''}
  }});
