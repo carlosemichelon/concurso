@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V383"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS6 — Portal de estudos</title><style id="bm-startup-gate">
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V384"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS6 — Portal de estudos</title><style id="bm-startup-gate">
 #bmStartupGate{display:none}
 html[data-bm-startup="pending"] body > :not(#bmStartupGate){opacity:0!important;pointer-events:none!important}
 html[data-bm-startup="pending"] #bmStartupGate{display:flex!important;position:fixed;inset:0;z-index:2147483647;align-items:center;justify-content:center;padding:24px;background:#f3f6f8;color:#253743;font:15px/1.5 system-ui,sans-serif}
@@ -122,8 +122,10 @@ header .stats .bm241-verification{font-size:10px}
   grid-template-columns:minmax(235px,300px) minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;
  }
  #bmCardPeekV050 .bm165-layout:has(>#bm195Discursive:not([hidden]))>.bm163-scroll{
-  grid-column:auto!important;grid-row:1!important;min-width:0;min-height:0;overflow-y:auto!important;overflow-x:hidden!important;
+  grid-column:1!important;grid-row:1!important;min-width:0;min-height:0;overflow-y:auto!important;overflow-x:hidden!important;
  }
+ #bmCardPeekV050 .bm165-panel:not(.bm165-sidebar-hidden) .bm165-layout:has(>#bm195Discursive:not([hidden]))>.bm165-related{grid-column:1!important;grid-row:1!important}
+ #bmCardPeekV050 .bm165-panel:not(.bm165-sidebar-hidden) .bm165-layout:has(>#bm195Discursive:not([hidden]))>.bm163-scroll{grid-column:2!important}
  #bmCardPeekV050 .bm165-layout>#bm195Discursive:not([hidden]){
   grid-column:-2/-1;grid-row:1;align-self:stretch;min-width:0;min-height:0;width:100%;max-width:none!important;
   margin:0!important;border:0!important;border-left:2px solid #c5d4d8!important;border-radius:0!important;
@@ -961,14 +963,35 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
  function mount(){
   const modal=document.getElementById('bmCardPeekV050'), editor=modal?.querySelector('#bm195Discursive');
   const layout=modal?.querySelector('.bm165-layout'), controls=modal?.querySelector('.bm163-preview-controls');
-  if(!editor||!layout||!controls)return false;
+  const toggle=controls?.querySelector('.bm195-open'), title=modal?.querySelector('#bmCardPeekTitleV050');
+  if(!editor||!layout||!controls||!toggle||!title)return false;
+  let lastId='',scheduled=false;
   function place(){
    const active=editor.contains(document.activeElement)?document.activeElement:null;
    if(wide.matches){if(editor.parentElement!==layout)layout.append(editor);}
    else if(editor.previousElementSibling!==controls){controls.insertAdjacentElement('afterend',editor);}
    if(active&&document.activeElement!==active)active.focus({preventScroll:true});
   }
-  place();wide.addEventListener('change',place);return true;
+  function sync(){
+   scheduled=false;place();
+   if(modal.hidden){lastId='';return;}
+   const id=window.BancoMestreVisualizarCardV050?.currentId||'';
+   if(!/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Za-z0-9_-]+)$/.test(id))return;
+   if(!wide.matches){lastId='';return;}
+   if(id===lastId)return;
+   lastId=id;
+   if(editor.hidden){
+    const active=document.activeElement;
+    toggle.click();
+    if(active?.isConnected&&document.activeElement!==active)active.focus({preventScroll:true});
+   }
+  }
+  function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(sync);}}
+  const observer=new MutationObserver(schedule);
+  observer.observe(title,{childList:true,characterData:true,subtree:true});
+  observer.observe(modal,{attributes:true,attributeFilter:['hidden']});
+  wide.addEventListener('change',schedule);
+  place();schedule();return true;
  }
  function start(){
   if(mount())return;
