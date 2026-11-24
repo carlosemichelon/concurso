@@ -1,3 +1,21 @@
+# Banco Mestre — documentação técnica
+
+**Portal:** https://carlosemichelon.github.io/concurso/  
+**Produção:** branch `gh-pages`; versão corrente definida no [manifesto](assets/version.json).  
+**Marco auditado em 24/11/2026:** V371, publicação e portão técnico aprovados; liberação editorial integral e OAuth privado ainda pendentes.
+
+## Documentação consolidada
+
+[**Documentação mestre do site e histórico de eficiência**](docs/DOCUMENTACAO_MESTRA_SITE_E_EFICIENCIA.md)
+
+Arquitetura, responsabilidades GitHub/Drive, catálogo, otimizações, indicadores, evidências, testes, rollback, administração incremental e protocolo de medição. Manter esse registro atualizado sem criar uma nova versão do portal apenas por documentação.
+
+## README histórico (V214 e anteriores)
+
+O conteúdo abaixo foi preservado como registro das versões anteriores; suas contagens e políticas de sincronização não representam necessariamente a produção atual.
+
+---
+
 # Banco Mestre — Portal V214 (17/11/2026)
 
 **Portal:** https://carlosemichelon.github.io/concurso/  
