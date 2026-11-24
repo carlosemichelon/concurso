@@ -35,7 +35,7 @@ const norm=s=>String(s||'').replace(/\s+/g,' ').trim();
    const o=await article.evaluate(a=>({id:a.dataset.bm349Card,fallback:a.dataset.renderFallback,text:a.textContent,modules:a.querySelectorAll('.historic-module').length,imgs:[...a.querySelectorAll('figure[data-media-id]')].filter(x=>x.querySelector('img')).map(x=>({id:x.dataset.mediaId,src:x.querySelector('img').getAttribute('src')})),math:a.querySelectorAll('.formula math').length,tables:a.querySelectorAll('table').length}));
    assert.equal(o.id,id);assert.ok(!o.fallback,id+' fallback não é aprovação');
    assert.ok(norm(o.text).includes(norm(profile.back)),id+' verso não corresponde ao catálogo');assert.equal(o.modules,11,id+' módulos');
-   const e=profile.editorial||{};assert.ok(o.math>=(e.formulas||[]).length,id+' fórmulas ausentes');
+   const e=profile.editorial||{};if(Array.isArray(e.answer_paragraphs)&&e.answer_paragraphs.join('\n\n')===profile.back){const blocks=await article.locator('p[data-bm-answer-paragraph]').allTextContents();assert.deepEqual(blocks,e.answer_paragraphs,id+' parágrafos editoriais colados ou alterados');}assert.ok(o.math>=(e.formulas||[]).length,id+' fórmulas ausentes');
    if(e.table)assert.ok(o.tables>=1,id+' tabela ausente');
    for(const img of (e.media||[]).filter(x=>x.role==='VERSO_APOS_TENTATIVA'&&(x.src||x.inline_svg))){
     const got=o.imgs.find(x=>x.id===img.id);assert.ok(got,id+' mídia ausente '+img.id);
