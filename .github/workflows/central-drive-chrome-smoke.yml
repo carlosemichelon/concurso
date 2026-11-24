@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
-          ref: 2caff9429573a6c94352e69fd84818c7b4fcda9e
+          ref: 777e6c7ba14d013a8085eb251fdd45edab7d430e
           path: public-preview
       - uses: actions/setup-node@v4
         with:
@@ -30,6 +30,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: central-chrome-024D
+          name: central-chrome-025B
           path: test-artifacts/central-chrome/
           if-no-files-found: warn

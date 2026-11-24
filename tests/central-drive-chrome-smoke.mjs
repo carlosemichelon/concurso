@@ -111,6 +111,37 @@ try{
    assert.deepEqual(q.errors,[]);
   }finally{q.close()}
  });
+ async function visualStudy(p,width){
+  await tab(p,'controle-estudos');await wait(()=>p.evaluate('window.BM252StudyFlow?.ready&&window.BM253CalendarCompact?.ready&&window.BM320Organizar?.ready'),'Camadas originais');
+  const root='document.getElementById("bm240-native-host").shadowRoot';
+  const inspect=expr=>p.evaluate('(()=>{const r='+root+';return '+expr+'})()');
+  const press=async(sel)=>{assert.equal(await inspect('!!r.querySelector('+JSON.stringify(sel)+')'),true,sel);await p.evaluate('('+root+').querySelector('+JSON.stringify(sel)+').click();true')};
+  const shown=sel=>inspect('(()=>{const e=r.querySelector('+JSON.stringify(sel)+');return !!e&&e.getClientRects().length>0&&getComputedStyle(e).display!=="none"})()');
+  assert.equal(await inspect('r.querySelectorAll("#bm252-main-nav button").length'),3);
+  await press('#bm252-main-nav [data-group="ver"]');await wait(()=>shown('#calGrid'),'Calendário visível');
+  const calendar=await inspect('(()=>{const e=r.querySelector("#calGrid .bm240-days")||r.getElementById("calGrid");return {columns:getComputedStyle(e).gridTemplateColumns.split(" ").length,width:e.clientWidth,scroll:e.scrollWidth}})()');
+  assert.equal(calendar.columns,7,JSON.stringify(calendar));assert.ok(calendar.scroll<=calendar.width+2,JSON.stringify(calendar));
+  const bounds=await inspect('(()=>{const h=r.host,m=r.querySelector("main");return {w:h.clientWidth,scroll:h.scrollWidth,main:m.clientWidth,mainScroll:m.scrollWidth}})()');assert.ok(bounds.scroll<=bounds.w+2,JSON.stringify(bounds));assert.ok(bounds.mainScroll<=bounds.main+2,JSON.stringify(bounds));
+  const shot=async name=>{const image=await p.cmd('Page.captureScreenshot',{format:'png'});await writeFile(join(output,name+'-'+width+'.png'),Buffer.from(image.data,'base64'))};
+  await shot('controle-calendario');await press('#bm252-main-nav [data-group="organizar"]');await wait(()=>shown('#bm320-organizar-nav'),'Organizar');
+  assert.equal(await inspect('r.querySelectorAll("#bm320-organizar-nav button").length'),2);
+  await press('#bm320-organizar-nav [data-view="metas"]');await wait(()=>shown('#planejamento')&&shown('#revisoes'),'Metas e revisões');await shot('controle-metas');
+  await press('#bm320-organizar-nav [data-view="execucao"]');await wait(()=>shown('#registro .timer'),'Cronômetro');assert.equal(await shown('#backup'),true);await shot('controle-registro');
+  await press('#bm252-main-nav [data-group="relatorios"]');await wait(()=>shown('#painel'),'Resumo');await shot('controle-resumo');
+  assert.ok(await p.evaluate('document.documentElement.scrollWidth<=innerWidth+2'),'Rolagem horizontal da página');
+ }
+ await run('visual-study-desktop',p=>visualStudy(p,1366));
+ await run('visual-study-mobile',p=>visualStudy(p,390),'A',390);
+ await run('visual-other-tabs-mobile',async p=>{
+  const toggle='bm309-mobile-tabs-toggle';
+  assert.ok(await p.evaluate('!document.getElementById("'+toggle+'").hidden'),'Menu compacto');
+  for(const id of ['assuntos','cartoes','imagens','pdfs','lacunas','calendario']){
+   await p.evaluate('(()=>{const b=document.getElementById("'+toggle+'");if(b.getAttribute("aria-expanded")!=="true")b.click();return true})()');
+   await tab(p,id);
+   assert.ok(await p.evaluate('document.documentElement.scrollWidth<=innerWidth+2'),'Overflow '+id);
+   const r=await p.cmd('Page.captureScreenshot',{format:'png'});await writeFile(join(output,'mobile-'+id+'.png'),Buffer.from(r.data,'base64'));
+  }
+ },'B',390);
  await writeFile(join(output,'results.json'),JSON.stringify(results,null,2));
  assert.ok(results.every(r=>r.ok),results.filter(r=>!r.ok).map(r=>r.name+': '+r.error).join('\n'));
 }finally{child.kill();await delay(350);await rm(dir,{recursive:true,force:true}).catch(()=>{});if(!results.length)console.error(stderr)}
