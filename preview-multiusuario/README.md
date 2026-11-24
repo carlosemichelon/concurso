@@ -1,0 +1,2 @@
+# Prévia estática V348 / 023C
+Fonte: commit a41bb24b3f31d8031587df333669e65f30659800 na branch feature/portal-atual-dois-usuarios. Prévia pública, sem servidor, sem login verdadeiro, sem Drive, sem persistência. HTML/CSS original e módulos adaptados; API exclusivamente fictícia em memória. Nenhuma credencial ou arquivo privado. Não modifica index.html, assets/version.json, v348.html nem dados do portal publicado. Endereço separado para avaliação visual.

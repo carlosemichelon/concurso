@@ -1,0 +1,43 @@
+'use strict';
+// Fixtures created solely for this public preview. No network, browser storage,
+// real identifiers, OAuth, or private files.
+window.BMPreviewApi=(()=>{
+ const profile=new URLSearchParams(location.search).get('perfil')==='B'?'B':'A';
+ const ratings={'Difícil':8,'Bom':16,'Fácil':24,'Conhecimento preservado':32,'Conhecimento adquirido':64};
+ const make=(id,group,discipline,subject,front,back,expl,mnemonic,relatedCardIds=[])=>({id,group,discipline,subject,sub:'Exemplo',front,back,expl,mnemonic,relatedCardIds,active:true,reference:'Exemplo fictício para a prévia'});
+ const A=[
+ make('CARD-9001','ENG_ESTRUTURAS','Engenharia Civil','Resistência dos materiais','Qual é a diferença entre tensão normal e tensão de cisalhamento?','Tensão normal atua perpendicularmente à seção; tensão de cisalhamento atua tangencialmente.','Para uma seção sujeita a força normal centrada, σ = N/A. Para cisalhamento médio, τ = V/A. A distribuição real depende da geometria e do carregamento.','Normal: perpendicular. Cisalhamento: tangencial.',['CARD-9002']),
+ make('CARD-9002','ENG_ESTRUTURAS','Engenharia Civil','Resistência dos materiais','O que representa a área de uma seção transversal?','A área resistente da seção considerada.','Em unidades coerentes, a divisão de força por área fornece tensão média.','Força dividida pela área.',['CARD-9001']),
+ make('CARD-9003','ENG_HIDRAULICA','Engenharia Civil','Hidráulica','O que é vazão volumétrica?','Volume de fluido que passa por uma seção por unidade de tempo.','Q = V/Δt; também Q = A·v para velocidade média normal à seção.','Volume por tempo.')
+ ];
+ const B=[
+ make('CARD-9001','MATEMATICA','Matemática','Porcentagem','Quanto é 20% de 150?','30.','20% equivale a 0,20. Multiplique 150 por 0,20.','20% é um quinto.',['CARD-9004']),
+ make('CARD-9004','MATEMATICA','Matemática','Porcentagem','Quanto é 25% de 80?','20.','25% é a quarta parte de um valor.','Divida por quatro.',['CARD-9001']),
+ make('CARD-9005','PORTUGUES','Português','Classes de palavras','Qual é a função básica de um substantivo?','Nomear seres, objetos, lugares, sentimentos ou conceitos.','O substantivo pode ser concreto ou abstrato.','Substantivo nomeia.')
+ ];
+ const cards=profile==='A'?A:B;
+ const records=profile==='A'?[{id:'CARD-9001',due:'2026-12-01',rating:'Difícil',lastReview:'2026-11-23'}]:[{id:'CARD-9001',due:'2026-12-09',rating:'Bom',lastReview:'2026-11-23'},{id:'CARD-9004',due:'2026-12-17',rating:'Fácil',lastReview:'2026-11-23'}];
+ const image={id:'DEMO-IMG-'+profile,title:profile==='A'?'Esquema de tensões (exemplo)':'Representação de frações (exemplo)',caption:'Figura fictícia para testar o Atlas.',cardIds:['CARD-9001'],phase:'verso',category:'Demonstração',mimeType:'image/svg+xml'};
+ const doc={id:'DEMO-PDF-'+profile,title:'Material de exemplo — perfil '+profile,section:'Demonstração',category:'PDF'};
+ const data={username:'Perfil '+profile,context:'DEMO-'+profile,ratings,acquirable:[],cards,media:{pdf:[doc],images:[image]},srs:{records},counts:{pdf:1,cards:3,images:1,study:records.length,annotations:0}};
+ const json=(x,status=200)=>new Response(JSON.stringify(x),{status,headers:{'Content-Type':'application/json'}});
+ let pending=null,seq=0;
+ const date=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ function pdf(){const stream='BT /F1 17 Tf 45 750 Td (Banco Mestre - PDF ficticio - Perfil '+profile+') Tj ET\n';const objects=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>','<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>','<< /Length '+stream.length+' >>\nstream\n'+stream+'endstream'];let out='%PDF-1.4\n',offs=[0];objects.forEach((o,i)=>{offs.push(out.length);out+=(i+1)+' 0 obj\n'+o+'\nendobj\n'});const start=out.length;out+='xref\n0 6\n0000000000 65535 f \n'+offs.slice(1).map(n=>String(n).padStart(10,'0')+' 00000 n \n').join('')+'trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+start+'\n%%EOF\n';return new Response(out,{headers:{'Content-Type':'application/pdf'}})}
+ function svg(){const content=profile==='A'?'<rect x="180" y="100" width="160" height="150" fill="#e7eff4" stroke="#315b78" stroke-width="4"/><path d="M70 175H160 M340 175H430 M260 65V100 M260 250V285" stroke="#17616a" stroke-width="6"/><text x="65" y="158" font-size="22">N</text><text x="265" y="55" font-size="22">V</text>':'<rect x="100" y="110" width="300" height="130" fill="#e7eff4" stroke="#315b78" stroke-width="4"/><rect x="100" y="110" width="75" height="130" fill="#33a99b"/><path d="M175 110V240 M250 110V240 M325 110V240" stroke="#315b78" stroke-width="2"/><text x="115" y="185" font-size="20" fill="white">25%</text>';return new Response('<svg xmlns="http://www.w3.org/2000/svg" width="500" height="330" viewBox="0 0 500 330"><rect width="500" height="330" fill="white"/><text x="250" y="32" text-anchor="middle" font-size="20" fill="#26374b">Exemplo de estudo — perfil '+profile+'</text>'+content+'</svg>',{headers:{'Content-Type':'image/svg+xml'}})}
+ return Object.freeze({profile,async fetch(path,opt={}){
+  if(path==='/api/runtime')return json(data);
+  if(path==='/api/session')return json({username:data.username,context:data.context});
+  if(path==='/api/logout')return json({ok:true});
+  if(path==='/api/media/pdf/'+doc.id)return pdf();
+  if(path==='/api/media/image/'+image.id)return svg();
+  if(path.startsWith('/api/layers/')){
+   const c=cards.find(x=>x.id===path.slice(12));if(!c)return json({error:'Cartão fora do perfil'},404);
+   const texts=[c.back,c.expl,c.reference,c.expl,'Use unidades coerentes quando aplicável.','Exemplo didático: '+c.front,'Verifique a resposta exata antes de classificar.','A associação editorial não comprova domínio.',c.mnemonic,'Relações de exemplo: '+(c.relatedCardIds.join(', ')||'sem relações'),'Conteúdo fictício, exclusivamente para testar a interface.'];
+   return json({id:c.id,layers:['Resposta mínima','Resposta-modelo','Fundamento','Aprofundamento','Fórmulas e parâmetros','Aplicação','Pegadinhas','Cobertura','Macete','Interconexões','Rastreabilidade'].map((titulo,i)=>({ord:i+1,titulo,texto:texts[i]}))});
+  }
+  if(path==='/api/review/prepare'){const p=JSON.parse(opt.body);if(!cards.some(c=>c.id===p.cardId)||!Object.hasOwn(ratings,p.rating)||p.rating==='Conhecimento adquirido')return json({error:'Avaliação indisponível'},409);if(pending&&pending.id===p.cardId&&pending.rating===p.rating)return json(pending);const d=new Date();d.setUTCDate(d.getUTCDate()+ratings[p.rating]);pending={intent:'DEMO-INTENT-'+(++seq),id:p.cardId,rating:p.rating,due:d.toISOString().slice(0,10),lastReview:date(),intervalDays:ratings[p.rating],eventId:'DEMO-EVENT-'+seq};return json(pending)}
+  if(path==='/api/review/commit'){const p=JSON.parse(opt.body);if(!pending||p.intent!==pending.intent)return json({error:'Reserva fictícia inválida'},409);const saved={...pending};pending=null;data.srs.records=[...data.srs.records.filter(x=>x.id!==saved.id),saved];return json(saved)}
+  return json({error:'Função ainda não habilitada nesta demonstração'},404);
+ }});
+})();

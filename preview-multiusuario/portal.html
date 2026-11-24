@@ -1,0 +1,184 @@
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V348"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src blob: data:; connect-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'"><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V348 — Portal de estudos</title>
+
+
+<style>
+:root{--bg:#f5f7f7;--paper:#fff;--ink:#17353b;--sub:#597078;--accent:#16616a;--line:#d7e2e1;--soft:#ebf3f2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,Arial,sans-serif}header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.head{max-width:1180px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{font-size:21px;font-weight:850}.version{font-size:12px;color:var(--sub)}
+button,a.action{font:inherit;cursor:pointer;border:1px solid #bbcfcc;border-radius:9px;padding:9px 13px;color:var(--ink);background:white;text-decoration:none;display:inline-block}button.primary,a.primary,nav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}button:disabled{opacity:.5;cursor:default}
+nav{display:flex;gap:6px;flex-wrap:wrap}main{max-width:1180px;margin:0 auto;padding:25px 18px 70px}
+h1{font-size:clamp(24px,3vw,34px);letter-spacing:-.6px;margin:4px 0}h2{font-size:22px;margin:0 0 5px}h3{font-size:15px;line-height:1.35;margin:7px 0}.muted{color:var(--sub)}.small{font-size:12px}.hero{margin-bottom:20px}.hero p{margin:5px 0;color:var(--sub)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.stat{border:1px solid var(--line);border-radius:11px;background:white;padding:12px}.stat b{display:block;font-size:24px}.stat span{font-size:12px;color:var(--sub)}
+section{display:none}section.active{display:block}.panel{border:1px solid var(--line);border-radius:13px;background:#fff;padding:18px;margin-bottom:12px}.intro{font-size:13px;color:var(--sub);margin:3px 0 15px}.notice{font-size:13px;border-left:3px solid #afcac5;background:#edf5f3;padding:10px 12px;margin:12px 0;border-radius:0 7px 7px 0}
+.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}input[type=search],select{font:inherit;border:1px solid #bdcfcd;border-radius:8px;padding:10px;color:var(--ink);background:white}input[type=search]{flex:1;min-width:215px}select{max-width:310px}.checkbox{font-size:12px;color:var(--sub);display:flex;gap:6px;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:11px}.card{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fff;min-width:0}.card p{font-size:12px;color:var(--sub);margin:6px 0}.card .buttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.card .buttons button,.card .buttons a{font-size:13px}.group{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#497076;margin:24px 0 10px}.tag{font-size:11px;color:var(--accent);font-weight:800}.danger{border-color:#dfc9c1;color:#9b4b40}.thumb{width:100%;height:150px;object-fit:contain;background:var(--soft);border-radius:8px;display:block;margin:8px 0}
+details{font-size:13px;border-top:1px solid var(--line);padding-top:8px}summary{color:var(--accent);cursor:pointer;font-weight:750}details p{white-space:pre-wrap}
+dialog{border:1px solid var(--line);border-radius:13px;padding:0;width:min(1080px,96vw);max-height:96vh;box-shadow:0 15px 75px #0b283d66}dialog::backdrop{background:#152f3799}.dhead{background:#fff;padding:13px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.dhead strong{overflow-wrap:anywhere}.dbody{padding:14px;background:var(--bg)}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:11px}.pdfpreview{width:100%;height:min(78vh,850px);background:#fff;border:1px solid var(--line);border-radius:9px}
+.stage{max-height:70vh;overflow:auto;text-align:center;padding:12px;background:#dfebea;border-radius:9px}.canvases{display:inline-block;position:relative;max-width:100%;line-height:0;background:white}.canvases canvas{display:block;max-width:100%;height:auto}#grifo{position:absolute;inset:0;touch-action:none;cursor:crosshair}
+/* V028: áreas e leitores ocupam toda a janela, sem caixas modais pequenas */
+.topicCards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.topicCard{width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:white;padding:16px}
+.topicCard strong{display:block;font-size:15px}.topicCard small{display:block;color:var(--sub);margin-top:5px}
+.topicCard:hover{border-color:var(--accent)}
+.richSection{border-top:1px solid var(--line);padding:13px 0}
+.richSection h4{margin:0 0 6px;font-size:14px}
+.richSection p{font-size:13px;color:var(--ink);white-space:pre-wrap}
+.richSection ul{margin:6px 0 0;padding-left:20px;font-size:13px}
+.card:has(details[open]){grid-column:1/-1;border-color:#8cb4b1}
+dialog{position:fixed!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;inset:0!important;margin:0!important;border:0!important;border-radius:0!important}
+dialog .dhead{position:sticky;top:0;z-index:2}
+#pdfDialog .dbody{height:calc(100dvh - 65px);padding:8px 12px}
+#imageDialog .dbody{height:calc(100dvh - 62px);padding:9px 12px;display:flex;flex-direction:column}
+.pdfpreview{height:calc(100dvh - 123px)!important;min-height:0}
+#imageDialog .stage{height:auto;flex:1;max-height:none;overflow:auto;padding:15px}
+.canvases{max-width:none;line-height:0}.canvases canvas{max-width:none}
+body:has(dialog[open]){overflow:hidden}
+footer{font-size:12px;color:var(--sub);margin-top:30px}
+@media(max-width:650px){main{padding:14px 11px 45px}.head{padding:12px}.stat{padding:9px}.stat b{font-size:20px}.panel{padding:12px}.pdfpreview{height:65vh}}
+</style><link rel="stylesheet" href="../assets/v315_styles_core.css">
+
+
+
+<style id="bm217DriveMediaOnly">#imagens #imageRows>article:not(.bm209ImageFromDrive){display:none!important}</style><link rel="stylesheet" href="../assets/v242_lacunas.css"><style id="bm226BibliotecaGrifosOff">header nav [data-page="grifos"],section#grifos,a[href="#grifos"]{display:none!important}</style><link rel="stylesheet" href="../assets/v315_styles_reading.css"><style id="bm269-pdf-drive-gate">
+html:not([data-bm269-pdf-auth="authorized"]) #pdfs #pdfRows,
+html:not([data-bm269-pdf-auth="authorized"]) #pdfs #pdfAreaNavV036,
+html:not([data-bm269-pdf-auth="authorized"]) #pdfs .controls{display:none!important}
+html[data-bm269-pdf-auth="authorized"] #bm269PdfLocked{display:none!important}
+#bm269PdfLocked{margin:10px 0;padding:13px 15px;border:1px solid #cbdcd8;border-radius:10px;background:#f6faf8;color:#2b535b;font-size:13px;line-height:1.5}
+</style><style id="bm259-pdf-sync-visible">
+/* Rehabilita controles da biblioteca ocultados por CSS historico V210/V217.
+   Nao exibe dados privados sem OAuth; so torna visiveis os botoes e o estado. */
+#pdfs #bm-pdf-sync{display:flex!important;visibility:visible!important}
+#pdfs #bm-pdf-sync button{min-height:40px;max-width:100%;white-space:normal}
+#pdfs #bm-pdf-sync-status{flex-basis:100%;overflow-wrap:anywhere}
+#pdfs #pdfRows{display:block!important;visibility:visible!important;min-width:0}
+@media(max-width:620px){#pdfs #bm-pdf-sync{gap:6px;padding:8px;margin:7px 0}
+#pdfs #bm-pdf-sync button{flex:1 1 135px;font-size:11px}
+#pdfs #pdfRows>.v036-pdf-area{max-width:100%;overflow-wrap:anywhere}}
+</style><link rel="stylesheet" href="../assets/v315_styles_polish.css"><style id="bm271-pdf-nomes">#pdfs .v271-pdf-origin{display:block;color:var(--sub);font-size:12px;line-height:1.35;overflow-wrap:anywhere;margin:3px 0 8px;max-width:100%}#pdfs .v036-pdf-title{overflow-wrap:anywhere}</style><link rel="stylesheet" href="../assets/v315_srs_compact.css"><link rel="stylesheet" href="../assets/v316_lacunas_compact.css"><link rel="stylesheet" href="../assets/v319_related_sidebar.css"><link rel="stylesheet" href="../assets/v323_related_preview.css"><link rel="stylesheet" href="../assets/v324_single_sidebar.css"><link rel="stylesheet" href="../assets/v333_card1534_reading.css">
+
+<link rel="stylesheet" href="../assets/v336_editorial.css">
+<link rel="stylesheet" href="../assets/v339_semantic_visual.css"><link rel="stylesheet" href="../assets/v340_granulometry.css"><link rel="stylesheet" href="../assets/v342_media_integrity.css"></head><body hidden>
+<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Portal V348 · prévia multiusuário</span></div><div class="version">Assuntos, PDFs, cartões e Atlas para revisão técnica</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
+<div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
+<div class="stat" title="1.562 fichas únicas no catálogo de estudo: 1.540 cartões canônicos (1.523 ativos e 17 inativos) e 22 propostas editoriais com IDs próprios; não são eventos SRS"><b>1.559</b><span>Fichas na biblioteca de estudo</span><small class="bm241-verification">IDs únicos; SRS privado e preservado</small></div>
+<div class="stat"><b>—</b><span>Originais Drive / Atlas</span><small class="bm241-verification">Não verificado</small></div>
+<div class="stat bm241-control" data-bm241-extra="control"><b>0</b><span>sessões locais</span><small class="bm241-verification">Não verificado</small></div>
+<div class="stat bm241-grifos" data-bm241-extra="grifos"><b>—</b><span>grifos privados</span><small class="bm241-verification">Não verificado</small></div>
+<button id="bm239-drive-action" type="button" aria-label="Sincronizar com Google Drive, solicitando autorização quando necessário" disabled aria-busy="false">Trocar perfil</button>
+<span id="bm239-sync-details" aria-label="Diagnóstico da sincronização com o Google Drive" role="status" aria-live="polite">Carregando dados fictícios…</span>
+</div><nav aria-label="Seções"><button class="active" data-page="assuntos">Assuntos</button><button data-page="pdfs">PDFs</button><button data-page="cartoes">Flashcards</button><button data-page="imagens">Imagens</button></nav></div></header>
+<main>
+
+<section id="assuntos" class="active"><div class="panel"><h2>Comece por uma área</h2><p class="intro">Selecione uma área e explore os assuntos. Cada tema reúne conceitos, imagens e documentos relacionados quando disponíveis.</p><div id="areaRows" class="topicCards"></div><h2 style="margin-top:26px">Disciplinas, assuntos e subassuntos</h2><div class="controls"><input id="topicSearch" type="search" placeholder="Pesquisar assunto, conceito, norma ou dúvida"><select id="topicArea"><option value="all">Todas as áreas</option></select><span id="topicCount" class="small muted"></span></div><div id="topicRows" class="topicCards"></div></div></section>
+<section id="pdfs"><div class="panel"><h2>PDFs para estudo</h2><p class="intro">Biblioteca demonstrativa. Nenhum documento do seu Drive está disponível nesta prévia.</p><p id="bm269PdfLocked" role="status" aria-live="polite">Documentos de exemplo.</p>
+<div id="pdfAreaNavV036" role="group" aria-label="Filtrar PDFs por área"></div><div class="controls"><input id="pdfSearch" type="search" placeholder="Buscar norma, capítulo ou assunto"><select id="pdfFilter"><option value="all">Todos os grupos</option></select><label class="checkbox"><input id="pdfHidden" type="checkbox">Mostrar excluídos</label><span id="pdfCount" class="small muted"></span></div><div id="pdfRows"></div></div></section>
+<section id="tema"><div class="panel">
+ <div class="topicLead"><div><span class="tag">Biblioteca do Banco Mestre</span><h2 id="topicHeading">Assunto</h2><p id="topicGroupCaption" class="muted"></p></div><button id="topicBack">← Todos os assuntos</button></div>
+ <p class="intro">Consulte o conteúdo organizado por subassunto. Quando houver cartões vinculados, a pergunta original e o ID estarão identificados.</p>
+ <div id="topicOverview" hidden></div>
+ <h3 class="sectionTitle">Conceitos e explicações cadastradas</h3><div id="topicStudyBlocks" class="studyGrid"></div>
+ <div id="topicMacetes" hidden></div>
+ <div id="topicMedia"></div><div id="topicRelated" hidden></div>
+ <p class="notice">Material orientativo derivado dos registros existentes; verifique a versão e a fonte normativa antes de tratar conteúdo técnico como vigente.</p>
+ <button id="topicGoCards" class="primary">Praticar flashcards deste assunto</button>
+ </div></section>
+<section id="cartoes"><div class="panel"><h2>Flashcards</h2><p class="intro">Biblioteca única de estudo, organizada por disciplina e assunto. Leia a pergunta e use 👁 Ver cartão para consultar a resposta, a explicação e o macete sem iniciar uma revisão. A consulta não altera o SRS.</p>
+<details id="bm273Versoes" class="notice"><summary>Catálogo demonstrativo</summary><p>Cartões e históricos fictícios. Nenhum dado real ou alteração no Drive.</p></details><div class="controls"><input id="cardSearch" type="search" placeholder="Buscar por ID, tema ou pergunta"><select id="cardFilter"><option value="all">Todas as disciplinas</option></select><select id="cardTopicFilter" aria-label="Filtrar por assunto"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="cardHidden" type="checkbox">Mostrar ocultos</label><label class="checkbox"><input id="cardReviewedOnly" type="checkbox">Com revisão histórica (21)</label><label class="checkbox"><input id="cardRecoveredOnly" type="checkbox">Com resposta registrada (9)</label><span id="cardCount" class="small muted"></span></div><div id="cardRows" class="grid"></div><p><button id="moreCards">Mostrar mais</button></p><div id="coverageSummary"></div></div></section>
+<section id="imagens"><div class="panel"><h2>Imagens e pranchas</h2><p class="intro">Encontre cada prancha por tema, leia o resumo do conteúdo e amplie a imagem para estudar. Exclusões são reversíveis.</p><div class="notice">Os temas e títulos ajudam a localizar as imagens, mas não substituem sua conferência técnica. Arquivos originais e marcações permanecem preservados.</div><div class="controls"><input id="imageSearch" type="search" placeholder="Buscar IMG, assunto técnico ou descrição"><select id="imageFilter"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="imageHidden" type="checkbox">Mostrar ocultas</label><span id="imageCount" class="small muted"></span></div><div class="originalHelp">Imagens de exemplo, sem envio ou gravação externa.</div><div id="imageRows" class="grid"></div><p><button id="moreImages">Mostrar mais</button></p></div></section>
+<footer>Prévia pública de homologação — V348 / etapa 023C. Sem autenticação real, dados privados ou sincronização.</footer></main>
+<dialog id="pdfDialog" aria-label="Leitor e editor de PDFs">
+ <div class="dhead"><strong id="docTitle"></strong><button id="pdfClose">Fechar</button></div>
+ <div class="dbody">
+  <div class="toolbar">
+   <a id="pdfOriginal" class="action" target="_blank" rel="noopener noreferrer">Consultar no Drive</a>
+   <button id="pdfChooseLocal" class="primary" type="button" title="Abrir páginas para riscar e grifar neste site">✎ Editar PDF</button>
+   <input id="pdfFileInput" type="file" accept=".pdf,application/pdf" hidden aria-label="Selecionar PDF autorizado do computador">
+   <span class="pdfInfo">Grife diretamente sobre as páginas. O arquivo do Drive permanece intacto; você pode salvar uma cópia PDF com as marcações.</span>
+  </div>
+  <div id="pdfLocalTools" class="pdfMiniTools" hidden>
+   <div class="pdfGroup">
+    <button id="pdfPrev" disabled>← Página</button><strong id="pdfPager" class="small">Página 1</strong><button id="pdfNext" disabled>Próxima →</button>
+    <button id="pdfZoomOut" disabled>−</button><button id="pdfZoomIn" disabled>+ Zoom</button>
+   </div>
+   <div class="pdfGroup" aria-label="Ferramentas do PDF">
+    <button id="pdfDraw" type="button" disabled aria-pressed="false">✎ Caneta</button>
+    <button id="pdfMarker" type="button" disabled aria-pressed="true">▤ Grifar</button>
+    <button id="pdfEraser" type="button" disabled aria-pressed="false">⌫ Borracha</button>
+    <button id="pdfPan" type="button" disabled aria-pressed="false">✥ Mover</button>
+    <label title="Cor da caneta">Cor <input id="pdfInkColor" type="color" value="#17616a" aria-label="Escolher cor da caneta"></label>
+   </div>
+   <div class="pdfGroup">
+    <button id="pdfUndo" disabled>↶ Desfazer</button><button id="pdfRedo" disabled>↷ Refazer</button>
+    <button id="pdfClearPage" class="pdfDanger" disabled>Limpar página</button>
+   </div>
+   <div class="pdfGroup">
+    <button id="pdfExportPDF" disabled>Salvar PDF anotado</button>
+    <button id="pdfExportPNG" disabled>Salvar página PNG</button>
+    <button id="pdfChangeFile" disabled>Trocar PDF</button>
+   </div>
+   <span id="pdfFileName" class="pdfHint"></span>
+  </div>
+  <p id="pdfLocalStatus" class="pdfHint" aria-live="polite"></p>
+  <p id="pdfIntro">A prévia do Drive é apenas para leitura. Escolha Editar PDF para usar as ferramentas; o original permanece intacto.</p>
+  <iframe id="pdfFrame" class="pdfpreview" title="Prévia do PDF no Drive" referrerpolicy="no-referrer"></iframe>
+  <div id="pdfLocalMode" aria-label="PDF editável neste navegador">
+   <div id="pdfPageWrap"><canvas id="pdfLocalCanvas" aria-hidden="true"></canvas><canvas id="pdfInkCanvas" aria-label="Desenhe ou grife diretamente na página PDF"></canvas></div>
+  </div>
+ </div>
+</dialog>
+<dialog id="imageDialog" aria-label="Editor de imagens em tela cheia">
+<div class="dhead"><strong id="imgTitle"></strong><button id="imgClose">Fechar</button></div>
+<div class="dbody">
+<div class="editor-tools" aria-label="Ferramentas do editor">
+ <div class="toolgroup" role="group" aria-label="Tipo de ferramenta">
+  <button data-ink-tool="pen" aria-pressed="false" title="Caneta livre">✎ Caneta</button>
+  <button data-ink-tool="highlighter" aria-pressed="false" title="Marca-texto semitransparente">▤ Grifar</button>
+  <button data-ink-tool="eraser" aria-pressed="false" title="Apaga o traço tocado">⌫ Borracha</button>
+  <button data-ink-tool="select" aria-pressed="false" title="Selecione por toque ou retângulo; arraste para mover">▢ Selecionar</button>
+  <button data-ink-tool="pan" aria-pressed="true" title="Deslocar a imagem ampliada">✥ Mover tela</button>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Cores da caneta">
+  <button class="swatch" data-ink-color="#ffd400" style="--swatch:#ffd400" aria-label="Amarelo" aria-pressed="true"></button>
+  <button class="swatch" data-ink-color="#ff514b" style="--swatch:#ff514b" aria-label="Vermelho" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#32b66f" style="--swatch:#32b66f" aria-label="Verde" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#3d88ea" style="--swatch:#3d88ea" aria-label="Azul" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#202b36" style="--swatch:#202b36" aria-label="Preto" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#9b61c7" style="--swatch:#9b61c7" aria-label="Roxo" aria-pressed="false"></button>
+  <label>Cor <input id="inkColor" type="color" value="#ffd400" aria-label="Escolher outra cor"></label>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Espessura da ferramenta">
+  <label>Espessura <input id="inkWidth" type="range" min="1" max="40" value="16" aria-label="Espessura"><span id="widthValue">16 px</span></label>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Histórico e seleção">
+  <button id="undo" title="Ctrl+Z" disabled>↶ Desfazer</button>
+  <button id="redo" title="Ctrl+Y" disabled>↷ Refazer</button>
+  <button id="deleteSelected" class="editor-danger" disabled>Apagar seleção</button>
+  <span id="selectedCount" class="small muted"></span>
+ </div>
+ <div class="toolgroup">
+  <button id="hideOpened" class="danger" title="Oculta este registro, sem apagar arquivo">Excluir da visualização</button>
+ </div>
+</div>
+<div class="editor-meta">
+ <span id="imagePixels">Dimensão da imagem</span><button id="v034SelectOriginal" class="v034-local-btn" type="button" title="Escolher a imagem original para este ID e guardá-la apenas neste navegador">Usar original do computador</button>
+ <button id="zoomOutImage" title="Reduzir zoom">−</button>
+ <button id="zoomWidthImage" title="Leitura ampliada na largura disponível">Largura</button><button id="zoomFitImage" title="Mostrar a página inteira">Ajustar</button>
+ <button id="zoomActualImage" title="Exibir a 100%">100%</button>
+ <button id="zoomInImage" title="Ampliar">+</button>
+ <strong id="zoomPct">100%</strong>
+ <a id="originalDriveLink" class="action" target="_blank" rel="noopener noreferrer" hidden>Abrir original no Drive</a>
+ <span id="imgMessage">Anotações automáticas locais</span>
+ <span id="imageWarning" class="small muted"></span>
+</div>
+<div class="stage" id="imageStage"><div class="canvases"><canvas id="base" aria-hidden="true"></canvas><canvas id="grifo" tabindex="0" aria-label="Área para desenhar, apagar ou selecionar"></canvas></div></div>
+</div></dialog>
+<input id="v034OriginalPicker" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg" hidden aria-label="Selecionar imagem original para o registro"><!-- V165: abrir cartões somente no pop-up da biblioteca -->
+
+
+<!-- Leitor antigo duplicado do Vade removido em V129 -->
+
+
+
+
+<link rel="stylesheet" href="../assets/v343_petro27.css"><link rel="stylesheet" href="../assets/v348_visual.css"><script src="./demo-api.js"></script><script src="./original-session.js"></script></body></html>
