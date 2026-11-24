@@ -1,0 +1,569 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1309",
+      "expected_hash": "75f13e7cb6d89dbb537bb843c224173fd561a5d34e7033ba3aa9491063654c93",
+      "title": "Método racional — vazão e coeficiente ponderado",
+      "front": "Como calcular o coeficiente C ponderado de uma bacia heterogênea e a vazão de pico pelo método racional? Diferencie as constantes para km², ha e m².",
+      "back": "O coeficiente de escoamento ponderado é C=Σ(CᵢAᵢ)/ΣAᵢ. Para 30% de área com C=0,8, 60% com C=0,1 e 10% com C=0,2, resulta C=0,32. O método racional estima a vazão de pico Q=CiA com conversão de unidades, usando intensidade de chuva compatível com tempo de concentração e período de retorno do projeto.",
+      "source": "DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf",
+      "mnemonic": "C pesa pela área; 3,6 km², 360 ha, 3,6 milhões m².",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular o coeficiente C ponderado de uma bacia heterogênea e a vazão de pico pelo método racional? Diferencie as constantes para km², ha e m²."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O coeficiente de escoamento ponderado é C=Σ(CᵢAᵢ)/ΣAᵢ. Para 30% de área com C=0,8, 60% com C=0,1 e 10% com C=0,2, resulta C=0,32. O método racional estima a vazão de pico Q=CiA com conversão de unidades, usando intensidade de chuva compatível com tempo de concentração e período de retorno do projeto."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Cada superfície contribui de modo diferente ao escoamento; o peso de sua área controla o coeficiente composto. A hipótese de chuva uniforme e duração suficiente para a contribuição da bacia sustenta a estimativa do pico."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Q (m³/s)=CiA/3,6 se A em km²; /360 se A em ha; /3.600.000 se A em m²; i em mm/h. C é adimensional."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Método racional fornece pico, não hidrograma completo ou volume. Tc é tempo de percurso hidráulico; Tp é tempo até pico; período de retorno expressa probabilidade anual sob hipóteses usuais."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Com C=0,32, i=90 mm/h, A=0,5 km² (50 ha), Q=4 m³/s por ambas as convenções. Aferir capacidade da sarjeta, valeta e bueiro separadamente."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1526, CARD-1318, CARD-1470"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Verificar área contribuinte real, divisores de água, intensidade IDF local, duração e TR exigido; avaliar aplicabilidade do método a bacias pequenas e resposta heterogênea."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar média aritmética dos coeficientes se áreas diferem; não usar divisor 3,6 para hectares nem tratar pico como volume."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "C pesa pela área; 3,6 km², 360 ha, 3,6 milhões m².; original e versões preservados no motor."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O coeficiente de escoamento ponderado é C=Σ(CᵢAᵢ)/ΣAᵢ. Para 30% de área com C=0,8, 60% com C=0,1 e 10% com C=0,2, resulta C=0,32. O método racional estima a vazão de pico Q=CiA com conversão de unidades, usando intensidade de chuva compatível com tempo de concentração e período de retorno do projeto."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "C=Σ(CᵢAᵢ)/ΣAᵢ",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1526",
+        "CARD-1318",
+        "CARD-1470"
+      ]
+    },
+    {
+      "id": "CARD-1470",
+      "expected_hash": "78d9dcc488b39e49d30b334d070e49b811637c25ad4664ddbf4415136eb76bf0",
+      "title": "OAC e OAE — bueiros e transposição",
+      "front": "Diferencie OAC e OAE em rodovias e explique tipos de bueiros, função hidráulica e controles de entrada e saída.",
+      "back": "Obras de arte correntes (OAC) incluem bueiros usuais de transposição de água; obras de arte especiais (OAE) incluem pontes e viadutos. Bueiros podem ser tubulares ou celulares, de uma ou várias linhas/células. Bueiros de grota atravessam talvegues; bueiros de greide coletam águas do sistema de drenagem da plataforma. A solução depende de vazão, geometria, níveis de água e características estruturais.",
+      "source": "DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf ; DNIT 018/2023-ES (Errata 1), 021/2023-ES (Errata 1), 022/2023-ES, 023/2024-ES, 025/2025-ES, 026/2025-ES, catálogo oficial: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es",
+      "mnemonic": "Grota transpõe o vale; greide recolhe da via.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie OAC e OAE em rodovias e explique tipos de bueiros, função hidráulica e controles de entrada e saída."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Obras de arte correntes (OAC) incluem bueiros usuais de transposição de água; obras de arte especiais (OAE) incluem pontes e viadutos. Bueiros podem ser tubulares ou celulares, de uma ou várias linhas/células. Bueiros de grota atravessam talvegues; bueiros de greide coletam águas do sistema de drenagem da plataforma. A solução depende de vazão, geometria, níveis de água e características estruturais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf ; DNIT 018/2023-ES (Errata 1), 021/2023-ES (Errata 1), 022/2023-ES, 023/2024-ES, 025/2025-ES, 026/2025-ES, catálogo oficial: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A tubulação ou célula mantém continuidade da drenagem através do aterro. Entrada, corpo e saída conduzem a descarga; o regime pode ser livre ou pressurizado. Restrição na entrada ou perda de energia ao longo do conduto e na saída condicionam a capacidade."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Q=A·v, em m³/s; para escoamento livre uniforme, Q=(1/n)A Rh^(2/3)S^(1/2). Para bueiro completo, avaliar controle de entrada/saída, energia, remanso e perdas; Manning isolado não garante dimensionamento."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Bueiro tubular: seção circular; celular: seção em caixa. Bueiro de grota: vazão de talvegue; de greide: captação de drenagem superficial. Ponte e viaduto: soluções estruturais de transposição conforme classificação aplicável."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Um bueiro parcialmente obstruído eleva nível a montante e pode provocar erosão ou extravasamento. Verificar limpeza, cotas, carga hidráulica, fundação, proteção de saída, recobrimento e integridade."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1309, CARD-1318, CARD-1129, CARD-1526"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Não fixar diâmetro, número de linhas ou TR sem projeto; considerar sedimentos, detritos, passagem de fauna e exigências ambientais quando aplicáveis. Classificação OAC/OAE pode depender do cadastro e contrato."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Nem toda travessia é ponte; bueiro pode operar afogado; sua área total não é área molhada quando parcialmente cheio."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Grota transpõe o vale; greide recolhe da via.; original e versões preservados no motor."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Obras de arte correntes (OAC) incluem bueiros usuais de transposição de água; obras de arte especiais (OAE) incluem pontes e viadutos. Bueiros podem ser tubulares ou celulares, de uma ou várias linhas/células. Bueiros de grota atravessam talvegues; bueiros de greide coletam águas do sistema de drenagem da plataforma. A solução depende de vazão, geometria, níveis de água e características estruturais."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Bueiros de grota atravessam talvegues",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1309",
+        "CARD-1318",
+        "CARD-1129",
+        "CARD-1526"
+      ]
+    },
+    {
+      "id": "CARD-1318",
+      "expected_hash": "c05beb3459e702862612bd98d421f90bc44307849a8d04ea99bf76f5cf69a1ed",
+      "title": "Raio hidráulico e Manning em sarjetas e valetas",
+      "front": "Calcule área molhada, perímetro molhado e raio hidráulico em canais retangular, semicircular e trapezoidal; aplique Manning e compare vazão de projeto e capacidade.",
+      "back": "Raio hidráulico Rh=Am/Pm, sendo Am a área molhada e Pm o contorno sólido molhado, excluindo a superfície livre. Retângulo: Am=bh e Pm=b+2h. Semicírculo até a borda: Am=πr²/2, Pm=πr, Rh=r/2=D/4. Trapézio simétrico, z horizontal/vertical: Am=h(b+zh), Pm=b+2h√(1+z²). Manning estima velocidade e capacidade em escoamento uniforme.",
+      "source": "DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf",
+      "mnemonic": "Manning: área vezes raio elevado a dois terços; Froude usa largura superficial.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Calcule área molhada, perímetro molhado e raio hidráulico em canais retangular, semicircular e trapezoidal; aplique Manning e compare vazão de projeto e capacidade."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Raio hidráulico Rh=Am/Pm, sendo Am a área molhada e Pm o contorno sólido molhado, excluindo a superfície livre. Retângulo: Am=bh e Pm=b+2h. Semicírculo até a borda: Am=πr²/2, Pm=πr, Rh=r/2=D/4. Trapézio simétrico, z horizontal/vertical: Am=h(b+zh), Pm=b+2h√(1+z²). Manning estima velocidade e capacidade em escoamento uniforme."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Rh relaciona seção de escoamento e contato com paredes. Maior rugosidade diminui velocidade para geometria e declividade fixas; aumentar declividade aumenta capacidade, mas pode elevar risco de erosão."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "v=(1/n)Rh^(2/3)S^(1/2); Q=Am·v. SI: Am m², Rh m, S m/m, v m/s, Q m³/s. Profundidade hidráulica D_h=Am/T para Froude."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Rh=Am/Pm não é raio geométrico nem profundidade hidráulica. Círculo cheio e semicírculo até a borda têm Rh=D/4, mas áreas diferentes. Q afluente pelo racional não é a capacidade de Manning."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Retângulo b=0,4 m, h=0,2 m: Am=0,08 m², Pm=0,8 m, Rh=0,1 m. Com n=0,015 e S=0,01: v≈1,44 m/s e Q≈0,115 m³/s. Semicírculo D=0,6 m: Rh=0,15 m."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1129, CARD-1309, CARD-1470, CARD-1320"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Manning uniforme não resolve por si só ressalto, remanso, entrada de bueiro ou mudanças de seção; verificar bordo livre, velocidade admissível para revestimento e deságue. Para enchimento parcial circular, recalcular área e arco molhado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não incluir superfície livre no perímetro; não usar S=1 para 1%; não comparar Q em L/s com m³/s sem converter."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Manning: área vezes raio elevado a dois terços; Froude usa largura superficial.; original e versões preservados no motor."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Raio hidráulico Rh=Am/Pm, sendo Am a área molhada e Pm o contorno sólido molhado, excluindo a superfície livre. Retângulo: Am=bh e Pm=b+2h. Semicírculo até a borda: Am=πr²/2, Pm=πr, Rh=r/2=D/4. Trapézio simétrico, z horizontal/vertical: Am=h(b+zh), Pm=b+2h√(1+z²). Manning estima velocidade e capacidade em escoamento uniforme."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "excluindo a superfície livre",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1129",
+        "CARD-1309",
+        "CARD-1470",
+        "CARD-1320"
+      ]
+    },
+    {
+      "id": "CARD-1129",
+      "expected_hash": "47191b0c448bcd7282f5e5c2632d83e39a28abcccb37810ab5b7ff3e1d8e598d",
+      "title": "Froude, profundidade crítica e propagação de ondas",
+      "front": "Como calcular o número de Froude em canal livre, classificar o regime e prever a propagação de uma perturbação superficial? Diferencie profundidade hidráulica e raio hidráulico.",
+      "back": "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P.",
+      "source": "CON-01-015; USBR Water Measurement Manual, cap. 2, seções 11–12: https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_12.html e https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_11.html ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf",
+      "mnemonic": "Froude: 1 é a fronteira; v vence a onda no torrencial.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular o número de Froude em canal livre, classificar o regime e prever a propagação de uma perturbação superficial? Diferencie profundidade hidráulica e raio hidráulico."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-01-015; USBR Water Measurement Manual, cap. 2, seções 11–12: https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_12.html e https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_11.html ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Na aproximação de ondas longas e distribuição hidrostática, c=√(gA/T). Em relação ao canal, as velocidades características são v+c e v−c. O sinal de v−c determina se uma onda pode alcançar montante. Para uma vazão fixa, no modelo usual de energia específica com coeficiente cinético unitário, a condição crítica corresponde ao mínimo da energia específica.\n\nEm descidas d'água de forte declividade, o escoamento pode tornar-se supercrítico; a bacia dissipadora permite transição controlada quando há profundidade conjugada suficiente."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Fr=v/√(gD), D=A/T, v=Q/A. Para canal retangular D=y; com y=1 m, v=1 m/s, Fr≈0,319. Com v=4 m/s na mesma profundidade, Fr≈1,277. g em m/s², D em m; Fr adimensional.\n\nRessalto retangular horizontal ideal: y₂/y₁=(√(1+8Fr₁²)−1)/2; perda de energia específica ΔE=(y₂−y₁)³/(4y₁y₂). Comprimentos em m, Fr adimensional; conservação de quantidade de movimento no modelo ideal."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Subcrítico: Fr<1, influência de jusante pode alcançar montante. Crítico: Fr=1, v=c. Supercrítico: Fr>1, perturbações pequenas seguem para jusante. Reynolds distingue regimes laminar/turbulento; vorticidade descreve rotação local."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Em uma calha retangular de 2 m de largura, y=0,5 m e Q=3 m³/s: A=1 m², D=0,5 m, v=3 m/s, Fr≈1,35; regime supercrítico. Uma transição brusca para subcrítico pode produzir ressalto hidráulico, com dissipação de energia.\n\nPara y₁=0,20 m e Fr₁=3, y₂≈0,754 m e ΔE≈0,281 m. Dissipador deve ser dimensionado conforme vazão, geometria e nível de jusante, não apenas pela ocorrência de Fr>1."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1130, CARD-1318, CARD-1470"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicar a canais livres na aproximação usual; A é área molhada, T largura da superfície livre, P perímetro molhado. A/P é raio hidráulico usado, por exemplo, em Manning. Não pressupor que declividade do fundo sozinha determina o regime.\n\nAs relações de profundidades conjugadas pressupõem canal retangular, pressão hidrostática fora do ressalto e fundo aproximadamente horizontal; não generalizar para qualquer seção."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar A/T por A/P, nem Fr por Reynolds. Regime crítico não significa escoamento turbulento. A condição de energia mínima é para vazão e geometria de seção fixas no modelo usual."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Froude: 1 é a fronteira; v vence a onda no torrencial."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Fr<1",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "Fr=1",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "Fr>1",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "A/T",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Fr",
+            "Regime",
+            "Perturbação para montante"
+          ],
+          "rows": [
+            [
+              "<1",
+              "Fluvial",
+              "Possível"
+            ],
+            [
+              "=1",
+              "Crítico",
+              "v−c=0"
+            ],
+            [
+              ">1",
+              "Torrencial",
+              "Não no modelo de ondas pequenas"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Número de Froude",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Fr</mi><mo>=</mo><mfrac><mi>v</mi><msqrt><mi>g</mi><mi>D</mi></msqrt></mfrac></math>",
+            "units": "adimensional; v em m/s"
+          },
+          {
+            "title": "Profundidade hidráulica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>D</mi><mo>=</mo><mfrac><mi>A</mi><mi>T</mi></mfrac></math>",
+            "units": "m; A em m², T em m"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1130",
+        "CARD-1318",
+        "CARD-1470"
+      ]
+    },
+    {
+      "id": "CARD-1526",
+      "expected_hash": "8e717603315024051457b79b28de5fbf27910ba8008d3f8ef1337137a59c92a6",
+      "title": "Hidrologia: umidade, chuva e resposta da bacia",
+      "front": "Diferencie umidade específica, razão de mistura, umidade relativa e absoluta; explique chuva, infiltração, percolação, Tc, Tp e Qp, e calcule intensidade e volume de um hidrograma triangular.",
+      "back": "Umidade específica q é a massa de vapor dividida pela massa de ar úmido; razão de mistura r divide pela massa de ar seco. Umidade relativa é a razão percentual entre a pressão parcial de vapor e a pressão de saturação na temperatura considerada; umidade absoluta é massa de vapor por volume. A precipitação que chega ao solo pode infiltrar-se, enquanto percolação é movimento da água no meio poroso. O tempo de concentração Tc caracteriza o tempo de percurso hidráulico até o exutório desde o ponto hidraulicamente mais distante; Tp é o intervalo até o máximo do hidrograma, a partir da origem temporal especificada, e Qp é a vazão nesse máximo. Sob eventos comparáveis, a urbanização tende a antecipar e elevar o pico.",
+      "source": "PETRO15-C001 V005/V004, Q002/Q003; NOAA/NWS, glossários de specific humidity (https://forecast.weather.gov/glossary.php?word=specific+humidity) e mixing ratio (https://forecast.weather.gov/glossary.php?word=mixing+ratio); USDA NRCS National Engineering Handbook, Part 630, cap. 15. ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf ; DNIT IPR-715, Manual de Hidrologia Básica para Estruturas de Drenagem, seção 6.5.2–6.5.3: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/715_manual_de_hidrologia_basica.pdf",
+      "mnemonic": "q = vapor/ar úmido; r = vapor/ar seco. Pico é altura; volume é área.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie umidade específica, razão de mistura, umidade relativa e absoluta; explique chuva, infiltração, percolação, Tc, Tp e Qp, e calcule intensidade e volume de um hidrograma triangular."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Umidade específica q é a massa de vapor dividida pela massa de ar úmido; razão de mistura r divide pela massa de ar seco. Umidade relativa é a razão percentual entre a pressão parcial de vapor e a pressão de saturação na temperatura considerada; umidade absoluta é massa de vapor por volume. A precipitação que chega ao solo pode infiltrar-se, enquanto percolação é movimento da água no meio poroso. O tempo de concentração Tc caracteriza o tempo de percurso hidráulico até o exutório desde o ponto hidraulicamente mais distante; Tp é o intervalo até o máximo do hidrograma, a partir da origem temporal especificada, e Qp é a vazão nesse máximo. Sob eventos comparáveis, a urbanização tende a antecipar e elevar o pico."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "PETRO15-C001 V005/V004, Q002/Q003; NOAA/NWS, glossários de specific humidity (https://forecast.weather.gov/glossary.php?word=specific+humidity) e mixing ratio (https://forecast.weather.gov/glossary.php?word=mixing+ratio); USDA NRCS National Engineering Handbook, Part 630, cap. 15. ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf\n\nDNIT IPR-715, Manual de Hidrologia Básica para Estruturas de Drenagem, seção 6.5.2–6.5.3: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/715_manual_de_hidrologia_basica.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "A massa de ar úmido inclui vapor, de modo que q é menor que r para vapor positivo. Interceptação, armazenamento e infiltração reduzem a parcela da chuva que gera escoamento direto. A impermeabilização e a drenagem rápida geralmente alteram a forma do hidrograma, mas não determinam sozinhas sua resposta.\n\nNo hidrograma unitário, uma lâmina unitária de chuva efetiva, distribuída uniformemente na bacia durante duração especificada, gera um hidrograma de escoamento direto. Assumindo linearidade e invariância temporal, multiplicar ordenadas pelas lâminas efetivas de cada intervalo e somar respostas defasadas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "q=mv/(ms+mv); r=mv/ms; q=r/(1+r); r=q/(1−q), usando frações. UR=100e/es; i=P/Δt. Volume escoado V=∫Q(t)dt; se o hidrograma é triangular e a base é a duração total, V=Qp·tb/2. Para período de retorno de máximos anuais, TR=1/p sob hipóteses usuais de estacionariedade.\n\nMétodo racional: Qp=CiA/3,6 para i em mm/h e A em km²; divisor 360 para hectares e 3.600.000 para m².\n\nV=∫Qdireto dt; se triangular, V=Qp·Tb/2, Tb em s para Qp em m³/s. DNIT IPR-715, §6.5.2, aproximação triangular SCS: Tp=Du/2+0,6Tc; Tb=8Tp/3 (mesmas unidades); Qp unitária=A/(0,03Tb), A em km², Tb em minutos, Qp em m³/s por mm de chuva efetiva. Dedução: 1 mm sobre 1 km²=1.000 m³; Qp=2V/(60Tb)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\nq / r | kg/kg de ar úmido / seco\nUR / absoluta | % / massa por volume\nChuva / intensidade | mm / mm/h\nTc / Tp | Tempo de concentração / tempo até pico\nQp / V | m³/s / m³\n\nHietograma: intensidade ou altura de chuva por intervalo; hidrograma: vazão versus tempo. Chuva total não é chuva efetiva; hidrograma de escoamento direto não inclui vazão de base. Tc e Tp não são automaticamente iguais."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Com 10 g de vapor e 990 g de ar seco, q=10 g/kg e r≈10,10 g/kg. Chuva de 60 mm em 2 h → i=30 mm/h. Hidrograma triangular com base de 4 h e pico de 3 m³/s → V=0,5×14.400×3=21.600 m³.\n\nPara uma bacia de 50 ha, i=90 mm/h e C=0,32, Qp=4 m³/s. O método racional fornece pico, enquanto o hidrograma é necessário para estimar volume escoado e armazenamento.\n\nHidrograma unitário triangular de uma bacia de 6 km² com Tb=120 min: Qp=6/(0,03×120)=1,667 m³/s por mm. Para chuva efetiva isolada de 10 mm e mesma duração unitária, Qp≈16,67 m³/s; volume=60.000 m³. Para várias chuvas, somar hidrogramas deslocados, não os picos isolados sem respeitar defasagem."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1408, CARD-1309, CARD-1470, CARD-0697"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "O efeito da urbanização depende de drenagem, condições antecedentes, armazenamento e evento. Tc não é automaticamente Tp. TR não é periodicidade garantida. A integral do hidrograma fornece volume da componente que foi representada; separar vazão de base se o objetivo for escoamento direto.\n\nPara pequenas bacias no domínio do método racional, utilizar intensidade IDF correspondente ao Tc e ao período de retorno selecionado; não presumir intensidade uniforme em grandes bacias.\n\nAs relações de tempo são específicas da aproximação SCS exposta pelo IPR-715, não universais. A hipótese linear do hidrograma unitário tem limitações em cheias de magnitudes diferentes e transbordamento."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar os denominadores de q e r; não usar 10 g/kg como fração 10. Não confundir chuva total com excedente, Qp com área sob a curva ou horas com segundos ao calcular volume.\n\nA área sob o hidrograma fornece volume; usar tempo em segundos ou fator de conversão. Não confundir 1 mm efetivo com 1 mm de chuva total. Não aplicar Qp do método unitário como vazão de qualquer evento."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "q = vapor/ar úmido; r = vapor/ar seco. Pico é altura; volume é área."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Umidade específica q é a massa de vapor dividida pela massa de ar úmido; razão de mistura r divide pela massa de ar seco. Umidade relativa é a razão percentual entre a pressão parcial de vapor e a pressão de saturação na temperatura considerada; umidade absoluta é massa de vapor por volume. A precipitação que chega ao solo pode infiltrar-se, enquanto percolação é movimento da água no meio poroso. O tempo de concentração Tc caracteriza o tempo de percurso hidráulico até o exutório desde o ponto hidraulicamente mais distante; Tp é o intervalo até o máximo do hidrograma, a partir da origem temporal especificada, e Qp é a vazão nesse máximo. Sob eventos comparáveis, a urbanização tende a antecipar e elevar o pico."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "massa de ar úmido",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "massa de ar seco",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "vazão nesse máximo",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "q / r",
+              "kg/kg de ar úmido / seco"
+            ],
+            [
+              "UR / absoluta",
+              "% / massa por volume"
+            ],
+            [
+              "Chuva / intensidade",
+              "mm / mm/h"
+            ],
+            [
+              "Tc / Tp",
+              "Tempo de concentração / tempo até pico"
+            ],
+            [
+              "Qp / V",
+              "m³/s / m³"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Umidade específica e razão de mistura",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>q</mi><mo>=</mo><mfrac><msub><mi>m</mi><mi>v</mi></msub><mrow><msub><mi>m</mi><mi>s</mi></msub><mo>+</mo><msub><mi>m</mi><mi>v</mi></msub></mrow></mfrac><mo>,</mo><mi>r</mi><mo>=</mo><mfrac><msub><mi>m</mi><mi>v</mi></msub><msub><mi>m</mi><mi>s</mi></msub></mfrac></math>",
+            "units": "kg/kg; conversão para g/kg por ×1000"
+          },
+          {
+            "title": "Umidade relativa e intensidade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>UR</mi><mo>=</mo><mn>100</mn><mfrac><mi>e</mi><msub><mi>e</mi><mi>s</mi></msub></mfrac><mo>,</mo><mi>i</mi><mo>=</mo><mfrac><mi>P</mi><mrow><mi>Δ</mi><mi>t</mi></mrow></mfrac></math>",
+            "units": "% e mm/h"
+          },
+          {
+            "title": "Volume do hidrograma triangular",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>V</mi><mo>=</mo><mfrac><mrow><msub><mi>Q</mi><mi>p</mi></msub><msub><mi>t</mi><mi>b</mi></msub></mrow><mn>2</mn></mfrac></math>",
+            "units": "m³, com Qp em m³/s e tb em s"
+          }
+        ],
+        "media": [
+          {
+            "id": "BM-SVG-HIDROGRAMA-V194",
+            "caption": "Hidrograma triangular ilustrativo, pico e volume",
+            "alt": "Hidrograma triangular ilustrativo, pico e volume",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "Esquema vetorial autoral a partir dos registros históricos; não substitui figura normativa.",
+            "src": "assets/card_visuals_v349/hidrograma_v194.svg"
+          },
+          {
+            "id": "ESTUDO37-SVG-HIDROGRAMA",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Hietograma e hidrograma direto com vazão de base, pico e área de escoamento direto.",
+            "alt": "Barras de chuva e curva de vazão acima da linha de base, pico posterior à chuva.",
+            "src": "assets/card_visuals_estudo37/hidrograma.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "DNIT IPR-715, Manual de Hidrologia Básica para Estruturas de Drenagem, seção 6.5.2–6.5.3: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/715_manual_de_hidrologia_basica.pdf",
+            "evidence": "Candidato; exibição não testada."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1408",
+        "CARD-1309",
+        "CARD-1470",
+        "CARD-0697"
+      ]
+    }
+  ]
+}
