@@ -1,0 +1,910 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1366",
+      "expected_hash": "2951f0a6018150c954e8cf53892ca9abc4e226885f3c390c0260119ba3ba0279",
+      "title": "Anatomia de taludes — crista, platô, berma, saia e pé",
+      "front": "Identifique crista, platô, berma, saia e pé em cortes e aterros; diferencie drenagem e estabilidade e calcule a geometria idealizada.",
+      "back": "A berma é um patamar intermediário que subdivide a face do talude de corte ou aterro. Reduz o comprimento contínuo do escoamento superficial, permite instalar canaletas e facilita inspeção e manutenção. Uma berma estabilizadora dimensionada pode modificar a geometria e as forças resistentes, inclusive por sobrecarga junto ao pé de um aterro; a segurança depende de análise geotécnica. A canaleta coleta água, o enrocamento pode proteger contra erosão ou integrar solução estabilizadora, e o bueiro conduz água através do aterro.\n\nCrista é a borda superior da face inclinada; no aterro, encontra a plataforma, e no corte, o terreno natural. Platô é uma superfície plana ou aproximadamente horizontal (não necessariamente o topo; pode designar patamar); nesta figura, a região superior é a plataforma. Saia é a face lateral inclinada do aterro; no corte, denomina-se rampa de corte. Pé é a borda inferior: junto ao terreno natural no aterro, junto à plataforma no corte.",
+      "source": "DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf ; UFSM, Projeto Geométrico de Rodovias, seções transversais: https://www.ufsm.br/app/uploads/sites/266/2024/07/Livro-completo-PROJETO-GEOMETRICO-DE-RODOVIAS-e-book-corrigido.pdf ; DER-PR, MESR Tomo I Terraplenagem: https://www.der.pr.gov.br/sites/der/arquivos_restritos/files/documento/2023-10/MESR_TOMO_I_TERRAPLENAGEM.pdf",
+      "mnemonic": "Berma dá pausa à água e acesso ao talude; segurança exige cálculo. Crista cabeça, platô superfície plana, saia lateral, berma degrau, pé base.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Identifique crista, platô, berma, saia e pé em cortes e aterros; diferencie drenagem e estabilidade e calcule a geometria idealizada."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A berma é um patamar intermediário que subdivide a face do talude de corte ou aterro. Reduz o comprimento contínuo do escoamento superficial, permite instalar canaletas e facilita inspeção e manutenção. Uma berma estabilizadora dimensionada pode modificar a geometria e as forças resistentes, inclusive por sobrecarga junto ao pé de um aterro; a segurança depende de análise geotécnica. A canaleta coleta água, o enrocamento pode proteger contra erosão ou integrar solução estabilizadora, e o bueiro conduz água através do aterro.\n\nCrista é a borda superior da face inclinada; no aterro, encontra a plataforma, e no corte, o terreno natural. Platô é uma superfície plana ou aproximadamente horizontal (não necessariamente o topo; pode designar patamar); nesta figura, a região superior é a plataforma. Saia é a face lateral inclinada do aterro; no corte, denomina-se rampa de corte. Pé é a borda inferior: junto ao terreno natural no aterro, junto à plataforma no corte."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf ; UFSM, Projeto Geométrico de Rodovias, seções transversais: https://www.ufsm.br/app/uploads/sites/266/2024/07/Livro-completo-PROJETO-GEOMETRICO-DE-RODOVIAS-e-book-corrigido.pdf ; DER-PR, MESR Tomo I Terraplenagem: https://www.der.pr.gov.br/sites/der/arquivos_restritos/files/documento/2023-10/MESR_TOMO_I_TERRAPLENAGEM.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A subdivisão limita o percurso de água na face; canaletas com descarga protegida evitam concentração erosiva. O patamar também altera geometria e distribuição de peso. Drenagem reduz pressões de água quando adequadamente projetada, mas não se deve presumir redução automática de poropressão pela existência da berma."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Se o talude é 2V:1H, H=V/2, declividade vertical/horizontal=200% e ângulo com horizontal≈63,43°. Se seção idealizada simétrica tem B=28 m entre pés geométricos, topo b=10 m, altura h=15 m dos dois lados e uma berma horizontal de largura w em cada face: B=b+2(h/2+w); w=(28−10−15)/2=1,5 m. Trecho superior de 7 m projeta 3,5 m; inferior de 8 m projeta 4 m, somente sob mesma altura total."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Berma: patamar; canaleta: captação/condução superficial; dreno profundo: interceptação de água subterrânea; enrocamento: proteção/estabilização conforme projeto; bueiro: transposição hidráulica. Crista = limite superior; pé = limite inferior; platô = superfície plana; saia = face inclinada do aterro. A crista do corte e o pé do aterro são limites de terraplenagem referenciados por offsets."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Na figura de estudo há plataforma de 10 m, altura indicada de 15 m, patamar a 7 m abaixo do topo, largura indicada de 28 m, indicação 2V:1H, enrocamento e dois bueiros de 300 mm. Terreno inclinado e cotas possivelmente referidas à proteção do pé não confirmam simetria nem largura exata da berma; 1,5 m é resultado condicional, não medida certa da figura. Não inferir a capacidade de bueiros sem regime, declividade e condições de entrada/saída. Na figura, plataforma indicada de 10 m; as duas cristas são os encontros com as faces inclinadas superiores, as bermas são os patamares intermediários, as saias são as faces inclinadas e os pés encontram o terreno junto à proteção."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1076, CARD-1470, CARD-1318, CARD-1129, CARD-1434, CARD-1435, CARD-0349, CARD-0859"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Largura, intervalo vertical, inclinação e drenagem dependem do projeto, materiais, erosão e estabilidade. Diferenciar berma intermediária de uma berma de equilíbrio junto ao pé. Altura de 15 m e patamar a 7 m pertencem ao exemplo e não são regras universais."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não inverter 2V:1H para 1V:2H. Não confundir patamar com dreno nem considerar a presença de berma garantia de segurança. Bueiros 2×300 mm são dois condutos, não um conduto de 600 mm; área geométrica combinada é 2π(0,3²)/4≈0,1414 m². Saia não é pé; crista não é todo o platô. Platô pode designar superfície em outras alturas. Não confundir offset com o limite geométrico."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Berma dá pausa à água e acesso ao talude; segurança exige cálculo. Crista cabeça, platô superfície plana, saia lateral, berma degrau, pé base.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A berma é um patamar intermediário que subdivide a face do talude de corte ou aterro. Reduz o comprimento contínuo do escoamento superficial, permite instalar canaletas e facilita inspeção e manutenção. Uma berma estabilizadora dimensionada pode modificar a geometria e as forças resistentes, inclusive por sobrecarga junto ao pé de um aterro; a segurança depende de análise geotécnica. A canaleta coleta água, o enrocamento pode proteger contra erosão ou integrar solução estabilizadora, e o bueiro conduz água através do aterro.",
+          "Crista é a borda superior da face inclinada; no aterro, encontra a plataforma, e no corte, o terreno natural. Platô é uma superfície plana ou aproximadamente horizontal (não necessariamente o topo; pode designar patamar); nesta figura, a região superior é a plataforma. Saia é a face lateral inclinada do aterro; no corte, denomina-se rampa de corte. Pé é a borda inferior: junto ao terreno natural no aterro, junto à plataforma no corte."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "patamar intermediário",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "Saia é a face lateral inclinada do aterro",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO34-SVG-BERMAS",
+            "src": "assets/card_visuals_estudo34/bermas.svg",
+            "caption": "Talude idealizado com bermas e drenagem, geometria condicional 2V:1H.",
+            "alt": "Talude idealizado com bermas e drenagem, geometria condicional 2V:1H.",
+            "source": "DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "table": {
+          "headers": [
+            "Elemento",
+            "Função"
+          ],
+          "rows": [
+            [
+              "Berma",
+              "Patamar intermediário e acesso"
+            ],
+            [
+              "Canaleta",
+              "Captação e condução superficial"
+            ],
+            [
+              "Dreno profundo",
+              "Interceptação de água subterrânea"
+            ],
+            [
+              "Enrocamento",
+              "Proteção/estabilização conforme projeto"
+            ],
+            [
+              "Bueiro",
+              "Transposição hidráulica"
+            ],
+            [
+              "Crista",
+              "Limite superior"
+            ],
+            [
+              "Platô",
+              "Superfície plana"
+            ],
+            [
+              "Saia",
+              "Face inclinada do aterro"
+            ],
+            [
+              "Pé",
+              "Limite inferior"
+            ]
+          ]
+        }
+      },
+      "related_card_ids": [
+        "CARD-1076",
+        "CARD-1470",
+        "CARD-1318",
+        "CARD-1129",
+        "CARD-1434",
+        "CARD-1435",
+        "CARD-0349",
+        "CARD-0859"
+      ]
+    },
+    {
+      "id": "CARD-0929",
+      "expected_hash": "4dde5c4446c9ded768a12612e69467132a793110b55e70e19874f2981f783aa6",
+      "title": "Curva circular simples — elementos",
+      "front": "Como determinar tangente, desenvolvimento, corda, externa e flecha de curva circular simples?",
+      "back": "Na curva circular simples, PC é início, PT é fim e PI é interseção das tangentes. Para raio R e deflexão total Δ, tangente T=R·tan(Δ/2). O desenvolvimento é o comprimento do arco, D=πRΔ/180, com Δ em graus. Corda longa CL=2R·sen(Δ/2), externa E=R[sec(Δ/2)−1] e flecha M=R[1−cos(Δ/2)].",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Tangente usa meio ângulo; arco usa inteiro.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como determinar tangente, desenvolvimento, corda, externa e flecha de curva circular simples?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na curva circular simples, PC é início, PT é fim e PI é interseção das tangentes. Para raio R e deflexão total Δ, tangente T=R·tan(Δ/2). O desenvolvimento é o comprimento do arco, D=πRΔ/180, com Δ em graus. Corda longa CL=2R·sen(Δ/2), externa E=R[sec(Δ/2)−1] e flecha M=R[1−cos(Δ/2)]."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Raios nos pontos de tangência são perpendiculares às tangentes; o centro e PI estão sobre a bissetriz. Triângulos retângulos e ângulos centrais fornecem os elementos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "R=100 m, Δ=60°: T≈57,74 m; D≈104,72 m; CL=100 m; E≈15,47 m; M≈13,40 m. Para Δ em radianos, D=RΔ."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Tangente T é retilínea; D é arco; CL liga PC a PT; E é distância PI–meio da curva pela bissetriz; M é distância corda–arco no meio."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se PC estiver na estaca 1000 m, PT estará em 1104,72 m ao longo do eixo, desconsiderando ajustes de estaqueamento; não somar 2T para comprimento do arco."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0933, CARD-0466, CARD-1160, CARD-1455, CARD-1161"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Fórmulas de círculo simples; espirais alteram posição e tangentes. Converter unidades angulares corretamente."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar Δ completo em tan, nem calcular PT pela distância retilínea entre tangentes."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Tangente usa meio ângulo; arco usa inteiro.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Na curva circular simples, PC é início, PT é fim e PI é interseção das tangentes. Para raio R e deflexão total Δ, tangente T=R·tan(Δ/2). O desenvolvimento é o comprimento do arco, D=πRΔ/180, com Δ em graus. Corda longa CL=2R·sen(Δ/2), externa E=R[sec(Δ/2)−1] e flecha M=R[1−cos(Δ/2)]."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "tangente T=R·tan(Δ/2)",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO34-SVG-CIRCULAR",
+            "src": "assets/card_visuals_estudo34/curva-circular.svg",
+            "caption": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "alt": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0933",
+        "CARD-0466",
+        "CARD-1160",
+        "CARD-1455",
+        "CARD-1161"
+      ]
+    },
+    {
+      "id": "CARD-0933",
+      "expected_hash": "72e729713035ac7860f8f378ec8f05f5d777db6427e4234ead6faa14da0e7212",
+      "title": "Deflexão e ângulo central",
+      "front": "Qual relação entre mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento?",
+      "back": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada.",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Mudou 60°, abriu 120°.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual relação entre mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Os raios são perpendiculares às tangentes; ao rotacionar ambas as direções em 90°, preserva-se o módulo de mudança angular."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "D=πRΔ/180; se Δ=40° e R=100 m, D≈69,81 m. Ângulo interno no PI=140°."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Δ total não é grau de curvatura, raio nem ângulo interno no PI. Com espirais, a deflexão total inclui ambas as transições e o arco central."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se o desenho indica ângulo interno no PI de 120°, a deflexão da curva simples é 60°, não 120°."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0929, CARD-0466"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Normalizar azimutes e observar sentido do traçado; evitar diferenças brutas que ultrapassem 180° sem analisar a curva."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir abertura interna no PI com deflexão de mudança de direção."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Mudou 60°, abriu 120°.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "ângulo interno entre as semirretas",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO34-SVG-CIRCULAR",
+            "src": "assets/card_visuals_estudo34/curva-circular.svg",
+            "caption": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "alt": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0929",
+        "CARD-0466"
+      ]
+    },
+    {
+      "id": "CARD-0466",
+      "expected_hash": "b06b7ac8dfe5a14b229a3e9258d9cf0a12222395bbc4ff6b4d6246774e6deb7f",
+      "title": "Clotóide e repartição angular",
+      "front": "Por que usar espirais de transição e como verificar se há arco circular positivo entre elas?",
+      "back": "A clotóide conecta tangente e círculo com curvatura progressiva, reduzindo a mudança abrupta de aceleração lateral e permitindo transição de superelevação. Para duas espirais, o ângulo central circular é Δc=Δ−θe1−θe2. Se Δc≤0, a composição prevista não possui arco circular de extensão positiva; revisar raio, comprimentos e critérios de traçado.",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Deflexão total paga as duas espirais e sobra para o círculo.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Por que usar espirais de transição e como verificar se há arco circular positivo entre elas?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A clotóide conecta tangente e círculo com curvatura progressiva, reduzindo a mudança abrupta de aceleração lateral e permitindo transição de superelevação. Para duas espirais, o ângulo central circular é Δc=Δ−θe1−θe2. Se Δc≤0, a composição prevista não possui arco circular de extensão positiva; revisar raio, comprimentos e critérios de traçado."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Na clotóide, curvatura cresce linearmente com o comprimento percorrido; no início vale zero e no fim 1/R. A área sob a curva de curvatura é a mudança de direção."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "A²=R·Ls; θe=Ls/(2R) em radianos, para transição reta–círculo. Dc=R·Δc em radianos. Ex.: R=300 m, duas Ls=60 m →θe=0,1 rad cada≈5,73°; Δ=20° → Δc≈8,54°."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Curva simples: curvatura salta de zero para 1/R; com clotóide, cresce progressivamente. Δc=0 é caso limite, não círculo positivo."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Registro histórico: I medido=20° e I calculado=24° não comporta arco positivo sob o critério da apostila. Reavaliar parâmetros sem universalizar a fórmula histórica."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0933, CARD-0929, CARD-0392, CARD-1160, CARD-1455, CARD-1460"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Não aumentar R automaticamente; comprimento das transições, visibilidade, faixa de domínio, velocidade e superelevação condicionam a solução. A expressão histórica do cartão CARD-0392 só vale para sua fonte/convenção."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar θe em graus junto de Δ em radianos. Não confundir deflexão total com ângulo central do trecho circular."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Deflexão total paga as duas espirais e sobra para o círculo.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A clotóide conecta tangente e círculo com curvatura progressiva, reduzindo a mudança abrupta de aceleração lateral e permitindo transição de superelevação. Para duas espirais, o ângulo central circular é Δc=Δ−θe1−θe2. Se Δc≤0, a composição prevista não possui arco circular de extensão positiva; revisar raio, comprimentos e critérios de traçado."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "curvatura progressiva",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO34-SVG-CIRCULAR",
+            "src": "assets/card_visuals_estudo34/curva-circular.svg",
+            "caption": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "alt": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0933",
+        "CARD-0929",
+        "CARD-0392",
+        "CARD-1160",
+        "CARD-1455",
+        "CARD-1460"
+      ]
+    },
+    {
+      "id": "CARD-1160",
+      "expected_hash": "3d03e122fd41c53bac000d8285b02e0fbd2b52bef4d8f8f0b138c78140d83090",
+      "title": "Superelevação — equilíbrio lateral",
+      "front": "Qual função da superelevação e como ela se relaciona ao raio, velocidade e atrito lateral?",
+      "back": "A superelevação e é a inclinação transversal da pista em curva, usualmente elevando a borda externa em relação à interna. A componente do peso na pista inclinada contribui para o equilíbrio lateral do veículo, juntamente com o atrito pneu–pavimento. A inclinação não elimina necessariamente a necessidade de atrito e precisa respeitar critérios de projeto.",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Superelevação inclina; superlargura alarga.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual função da superelevação e como ela se relaciona ao raio, velocidade e atrito lateral?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A superelevação e é a inclinação transversal da pista em curva, usualmente elevando a borda externa em relação à interna. A componente do peso na pista inclinada contribui para o equilíbrio lateral do veículo, juntamente com o atrito pneu–pavimento. A inclinação não elimina necessariamente a necessidade de atrito e precisa respeitar critérios de projeto."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Em curva, a aceleração centrípeta é v²/R. A força normal inclinada contribui para a resultante voltada ao centro; o atrito complementa ou se opõe conforme a velocidade e inclinação."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Modelo usual simplificado e+f=V²/(127R), V em km/h, R em m; e e f adimensionais. Com e=0,06 e largura transversal de 3,5 m, diferença de cotas=0,21 m, se referida à projeção horizontal."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Superelevação: equilíbrio em curva; abaulamento: drenagem transversal; superlargura: espaço adicional em curva; greide: inclinação longitudinal."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "V=80 km/h, R=400 m: e+f≈0,126; se e=6%, f≈0,066 no modelo simplificado."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1455, CARD-1460, CARD-0466, CARD-0929, CARD-1161"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Verificar máximos admissíveis de e e f, transição, velocidade, categoria da rodovia e drenagem; não impor limites universais."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "e+f não é apenas e; não usar 6 em lugar de 0,06 na fórmula."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Superelevação inclina; superlargura alarga.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A superelevação e é a inclinação transversal da pista em curva, usualmente elevando a borda externa em relação à interna. A componente do peso na pista inclinada contribui para o equilíbrio lateral do veículo, juntamente com o atrito pneu–pavimento. A inclinação não elimina necessariamente a necessidade de atrito e precisa respeitar critérios de projeto."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "inclinação transversal da pista em curva",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Equilíbrio lateral aproximado",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>e</mi><mo>+</mo><mi>f</mi><mo>=</mo><mfrac><msup><mi>V</mi><mn>2</mn></msup><mrow><mn>127</mn><mi>R</mi></mrow></mfrac></math>",
+            "units": "V em km/h, R em m, e e f adimensionais."
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-1455",
+        "CARD-1460",
+        "CARD-0466",
+        "CARD-0929",
+        "CARD-1161"
+      ]
+    },
+    {
+      "id": "CARD-1455",
+      "expected_hash": "ae7a96ae00cadd3c33f500c35c5717393abf70611fd7b8ae1f1a226639e749a1",
+      "title": "Equilíbrio e raio mínimo",
+      "front": "Calcule e+f e raio mínimo no modelo simplificado de equilíbrio lateral; interprete os limites.",
+      "back": "No modelo simplificado, e+f=V²/(127R). Para V=80 km/h e R=400 m, e+f≈0,126 (12,6% como razão equivalente). Se e=0,06, f≈0,066. Para determinar raio mínimo usando valores admissíveis, Rmín=V²/[127(emáx+fadm)]. A soma não é superelevação isolada.",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Velocidade ao quadrado; raio no denominador.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Calcule e+f e raio mínimo no modelo simplificado de equilíbrio lateral; interprete os limites."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "No modelo simplificado, e+f=V²/(127R). Para V=80 km/h e R=400 m, e+f≈0,126 (12,6% como razão equivalente). Se e=0,06, f≈0,066. Para determinar raio mínimo usando valores admissíveis, Rmín=V²/[127(emáx+fadm)]. A soma não é superelevação isolada."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A aceleração centrípeta cresce com o quadrado da velocidade e diminui com o raio; inclinação transversal e atrito lateral contribuem para a resultante centrípeta."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "V em km/h, R em m, e e f adimensionais; 127≈3,6²g. Ex.: e=0,08, f=0,12, V=80 →Rmín≈252 m, parâmetros apenas ilustrativos."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Superelevação é geometria; atrito lateral é solicitação/limite de aderência transversal; superlargura atende espaço de trajetória."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Dobrar V quadruplica e+f exigido para raio fixo; duplicar R reduz a demanda à metade."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1160, CARD-0466, CARD-0929, CARD-1458, CARD-1460"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Equação aproximada para projeto geométrico; usar limites da classe e velocidade aplicáveis, e verificar critérios adicionais."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não interpretar 12,6% como exigência automática de e; f não é coeficiente longitudinal de frenagem."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Velocidade ao quadrado; raio no denominador.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "No modelo simplificado, e+f=V²/(127R). Para V=80 km/h e R=400 m, e+f≈0,126 (12,6% como razão equivalente). Se e=0,06, f≈0,066. Para determinar raio mínimo usando valores admissíveis, Rmín=V²/[127(emáx+fadm)]. A soma não é superelevação isolada."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "e+f=V²/(127R)",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Equilíbrio lateral aproximado",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>e</mi><mo>+</mo><mi>f</mi><mo>=</mo><mfrac><msup><mi>V</mi><mn>2</mn></msup><mrow><mn>127</mn><mi>R</mi></mrow></mfrac></math>",
+            "units": "V em km/h, R em m, e e f adimensionais."
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-1160",
+        "CARD-0466",
+        "CARD-0929",
+        "CARD-1458",
+        "CARD-1460"
+      ]
+    },
+    {
+      "id": "CARD-1161",
+      "expected_hash": "a8bfb9633f8860cdca4418acad204931a5c5e56e65febff20e9df2aca4b62cbb",
+      "title": "Visibilidade de parada e ultrapassagem",
+      "front": "Diferencie distância de visibilidade de parada e de ultrapassagem e indique como verificar a disponível.",
+      "back": "A distância de visibilidade de parada (DVP) é a necessária para perceber um obstáculo e imobilizar o veículo com segurança, incluindo reação e frenagem. A de ultrapassagem considera a manobra e o tráfego oposto, quando aplicável. A visibilidade disponível depende do alinhamento horizontal e vertical e de obstruções, devendo atender aos critérios exigidos para a situação.",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Parada: ver, reagir e frear.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie distância de visibilidade de parada e de ultrapassagem e indique como verificar a disponível."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A distância de visibilidade de parada (DVP) é a necessária para perceber um obstáculo e imobilizar o veículo com segurança, incluindo reação e frenagem. A de ultrapassagem considera a manobra e o tráfego oposto, quando aplicável. A visibilidade disponível depende do alinhamento horizontal e vertical e de obstruções, devendo atender aos critérios exigidos para a situação."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Em curva horizontal, obstáculos internos podem bloquear a linha visual; em curva vertical convexa, a crista pode ocultar objeto; em côncava, a visibilidade noturna por faróis pode controlar."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Modelo usual DVP=0,278Vt+V²/[254(fL±i)] em m, V km/h, t s, fL atrito longitudinal, i rampa decimal; subida +, descida − quando i é magnitude. Adotar valores do critério aplicável."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "DVP protege a parada; distância de ultrapassagem atende outra manobra; visibilidade disponível não é a necessária calculada."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Uma curva com talude interno pode exigir afastamento/banqueta de visibilidade; verificar conjuntamente planta e perfil."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1458, CARD-0929, CARD-1160"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Parâmetros de olho, objeto, tempo de reação e frenagem dependem do manual/contrato e velocidade; não generalizar valores."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não aplicar atrito lateral da superelevação na fórmula de frenagem sem critério; não verificar apenas arco em planta."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Parada: ver, reagir e frear.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A distância de visibilidade de parada (DVP) é a necessária para perceber um obstáculo e imobilizar o veículo com segurança, incluindo reação e frenagem. A de ultrapassagem considera a manobra e o tráfego oposto, quando aplicável. A visibilidade disponível depende do alinhamento horizontal e vertical e de obstruções, devendo atender aos critérios exigidos para a situação."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "incluindo reação e frenagem",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1458",
+        "CARD-0929",
+        "CARD-1160"
+      ]
+    },
+    {
+      "id": "CARD-1458",
+      "expected_hash": "c5d9772ebbb8e6473974eb11736a66471a1bdd9ed51b20e4b71880902f15fa6d",
+      "title": "DVP — reação, frenagem e rampa",
+      "front": "Como calcular distância de percepção e reação e de frenagem, incluindo o efeito da rampa?",
+      "back": "DVP=d reação+d frenagem. Durante o tempo de percepção e reação, o veículo percorre distância aproximadamente proporcional à velocidade. Durante a frenagem, a distância depende do quadrado da velocidade e da desaceleração disponível. Em descida, a gravidade reduz a desaceleração efetiva e aumenta a distância de frenagem, mantidas as demais condições.",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Reação é V; freada é V².",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular distância de percepção e reação e de frenagem, incluindo o efeito da rampa?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "DVP=d reação+d frenagem. Durante o tempo de percepção e reação, o veículo percorre distância aproximadamente proporcional à velocidade. Durante a frenagem, a distância depende do quadrado da velocidade e da desaceleração disponível. Em descida, a gravidade reduz a desaceleração efetiva e aumenta a distância de frenagem, mantidas as demais condições."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A reação precede o acionamento dos freios; a frenagem reduz energia cinética. No modelo simplificado, a componente gravitacional longitudinal soma ou subtrai a desaceleração resistente."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "DVP=0,278Vt+V²/[254(fL±i)]; V km/h, t s, i decimal. Exemplo ilustrativo V=80, t=2,5, fL=0,35, i=0: reação≈55,6 m, frenagem≈72,0 m, total≈127,6 m. Em descida de 5%, frenagem≈84,0 m, total≈139,6 m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Tempo de reação altera primeiro termo; atrito e rampa alteram frenagem. Atrito longitudinal não equivale automaticamente ao lateral."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Comparar o total à distância visível em curva horizontal/vertical; usar parâmetros normativos do projeto em vez dos exemplos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1161, CARD-1455"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Modelo com velocidade inicial constante durante reação e desaceleração aproximada constante; exige denominador positivo. Não tomar t e fL ilustrativos como universais."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não somar 5 ao coeficiente para rampa de 5%; usar 0,05. Descida aumenta distância."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Reação é V; freada é V².; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "DVP=d reação+d frenagem. Durante o tempo de percepção e reação, o veículo percorre distância aproximadamente proporcional à velocidade. Durante a frenagem, a distância depende do quadrado da velocidade e da desaceleração disponível. Em descida, a gravidade reduz a desaceleração efetiva e aumenta a distância de frenagem, mantidas as demais condições."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "DVP=d reação+d frenagem",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1161",
+        "CARD-1455"
+      ]
+    },
+    {
+      "id": "CARD-1460",
+      "expected_hash": "1c7ced41f35c09121e3996d52f297dde1b7c36682166a6e910de4a9a1ed5e89f",
+      "title": "Abaulamento, superelevação e superlargura",
+      "front": "Diferencie abaulamento, superelevação e superlargura e explique a drenagem nas transições.",
+      "back": "Abaulamento é a conformação transversal da pista para favorecer escoamento da chuva, frequentemente com duas vertentes em tangente. Superelevação é a inclinação transversal em curva que contribui para o equilíbrio lateral. Superlargura é acréscimo de largura útil em curva para acomodar trajetórias dos veículos e folgas operacionais. Nenhum desses elementos substitui os demais.",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Abaula para drenar; eleva para equilibrar; alarga para caber.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie abaulamento, superelevação e superlargura e explique a drenagem nas transições."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Abaulamento é a conformação transversal da pista para favorecer escoamento da chuva, frequentemente com duas vertentes em tangente. Superelevação é a inclinação transversal em curva que contribui para o equilíbrio lateral. Superlargura é acréscimo de largura útil em curva para acomodar trajetórias dos veículos e folgas operacionais. Nenhum desses elementos substitui os demais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A água escoa segundo a declividade resultante; a transição de seção pode criar áreas de inclinação transversal reduzida. O entre-eixos produz diferença entre trajetórias das rodas dianteiras e traseiras em curva."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Declividade transversal i=Δz/b; em percentagem, 100Δz/b. Ex.: 2% em faixa de 3,5 m →0,07 m de desnível. Superlargura em m; superelevação em razão ou %."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Abaulamento e superelevação alteram cotas transversais; superlargura altera dimensões em planta; declividade longitudinal é greide."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Em transição de abaulamento para superelevação, localizar pontos de baixa declividade resultante e prever coleta/descarga compatível, sem depender só de uma inclinação."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1160, CARD-1455, CARD-0466, CARD-1470"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Valores e transição dependem de critérios de projeto, tipo de superfície, raios e veículos de projeto. Nem toda tangente possui duas águas."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Superlargura não é porcentagem de inclinação; superelevação não é alargamento."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Abaula para drenar; eleva para equilibrar; alarga para caber.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Abaulamento é a conformação transversal da pista para favorecer escoamento da chuva, frequentemente com duas vertentes em tangente. Superelevação é a inclinação transversal em curva que contribui para o equilíbrio lateral. Superlargura é acréscimo de largura útil em curva para acomodar trajetórias dos veículos e folgas operacionais. Nenhum desses elementos substitui os demais."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Superlargura é acréscimo de largura útil",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1160",
+        "CARD-1455",
+        "CARD-0466",
+        "CARD-1470"
+      ]
+    }
+  ]
+}

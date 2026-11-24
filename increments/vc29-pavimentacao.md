@@ -1,0 +1,1 @@
+Lote candidato VC29 sobre catálogo VC28 df410f234c44c8030b2c402b8795de963663242d. 10 IDs ativos consultados; 110 critérios; 2 SVGs compartilhados. Aplicação, inventário privado/global de mídia, publicação oficial, exibição e sincronização Drive ainda não verificados. Não alterar SRS ou interface.

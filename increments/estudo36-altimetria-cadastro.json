@@ -1,0 +1,444 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0091",
+      "expected_hash": "74f240f2dc813f6cadb34ef28f46b822a16fb85d0bad2f173fd4c19599eaee8d",
+      "title": "Levantamento cadastral e área por coordenadas",
+      "front": "O que o levantamento cadastral territorial identifica e como calcular a área plana de uma parcela pelas coordenadas dos vértices?",
+      "back": "O levantamento cadastral territorial identifica vértices, limites e características pertinentes das parcelas e imóveis, vinculados a um referencial declarado. Para um polígono simples em coordenadas planas, a área pode ser determinada pelo método de Gauss, percorrendo os vértices na ordem do contorno. Limites jurídicos e ocupação física não são necessariamente coincidentes.",
+      "source": "ABNT NBR 14166:2022 (escopo da edição; sem transcrição de itens); estudo de implantação/densificação: https://periodicos.utfpr.edu.br/rbgeo/article/view/15647 ; https://ojs.sites.ufsc.br/index.php/fig/article/view/8756 ; Topografia, material didático ProEdu/RNP, cálculo de área por Gauss: https://proedu.rnp.br/bitstream/handle/123456789/1475/Topografia_WEB_R.pdf?isAllowed=y&sequence=1",
+      "mnemonic": "Cruza, soma, subtrai, divide por dois.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que o levantamento cadastral territorial identifica e como calcular a área plana de uma parcela pelas coordenadas dos vértices?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O levantamento cadastral territorial identifica vértices, limites e características pertinentes das parcelas e imóveis, vinculados a um referencial declarado. Para um polígono simples em coordenadas planas, a área pode ser determinada pelo método de Gauss, percorrendo os vértices na ordem do contorno. Limites jurídicos e ocupação física não são necessariamente coincidentes."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 14166:2022 (escopo da edição; sem transcrição de itens); estudo de implantação/densificação: https://periodicos.utfpr.edu.br/rbgeo/article/view/15647 ; https://ojs.sites.ufsc.br/index.php/fig/article/view/8756 ; Topografia, material didático ProEdu/RNP, cálculo de área por Gauss: https://proedu.rnp.br/bitstream/handle/123456789/1475/Topografia_WEB_R.pdf?isAllowed=y&sequence=1"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O cadastro descreve o objeto territorial, enquanto pontos de apoio dão consistência espacial às observações. A soma algébrica dos produtos cruzados corresponde ao dobro da área orientada do polígono."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "A=½|Σ(Ei·Ni+1−Ei+1·Ni)|, repetindo o primeiro vértice ao final. Coordenadas em m → área em m²; 1 ha=10.000 m²."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Planimetria: posição horizontal; altimetria: cotas/altitudes; planialtimetria: ambas. Cadastro territorial delimita parcelas; apoio não é cadastro."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Vértices ordenados (0,0),(20,0),(20,10),(0,10): soma direta 400, inversa 0; A=200 m². Sentido inverso muda sinal, não área."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0178, CARD-0860, CARD-1561, CARD-0378, CARD-0863"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar coordenadas planas compatíveis e contorno sem cruzamentos; não aplicar fórmula diretamente a graus de latitude/longitude. Distinguir área de quadrícula e área de terreno quando relevante."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não esquecer fechamento do polígono, módulo e divisor 2; coordenadas e área calculada não substituem documentação dos limites."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Cruza, soma, subtrai, divide por dois.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O levantamento cadastral territorial identifica vértices, limites e características pertinentes das parcelas e imóveis, vinculados a um referencial declarado. Para um polígono simples em coordenadas planas, a área pode ser determinada pelo método de Gauss, percorrendo os vértices na ordem do contorno. Limites jurídicos e ocupação física não são necessariamente coincidentes."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "método de Gauss",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0178",
+        "CARD-0860",
+        "CARD-1561",
+        "CARD-0378",
+        "CARD-0863"
+      ]
+    },
+    {
+      "id": "CARD-0178",
+      "expected_hash": "1bbb377f5228b5ec14844e46459fe31be85a1e62508ecc0370278fa016551d06",
+      "title": "Apoio topográfico e levantamentos",
+      "front": "Diferencie rede de apoio planialtimétrico, levantamento planimétrico, altimétrico e cadastral territorial.",
+      "back": "Uma rede de apoio fornece pontos com posições horizontais e/ou verticais conhecidas para referenciar medições. Levantamento planimétrico determina posições horizontais; altimétrico determina cotas ou altitudes; planialtimétrico combina ambos. O levantamento cadastral territorial identifica parcelas e seus limites, podendo empregar a rede de apoio, mas não se confunde com ela.",
+      "source": "ABNT NBR 14166:2022 (escopo da edição; sem transcrição de itens); estudo de implantação/densificação: https://periodicos.utfpr.edu.br/rbgeo/article/view/15647 ; https://ojs.sites.ufsc.br/index.php/fig/article/view/8756 ; IBGE, Rede Altimétrica e conversão de altitudes: https://www.ibge.gov.br/geociencias/todos-os-produtos-geociencias/16283-rede-altimetrica.html ; https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/servicos-para-posicionamento-geodesico/31283-hgeohnor2020-modeloconversaoaltitudesgeometricasgnss-datumverticalsgb.html",
+      "mnemonic": "Apoio referencia; cadastro delimita.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie rede de apoio planialtimétrico, levantamento planimétrico, altimétrico e cadastral territorial."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Uma rede de apoio fornece pontos com posições horizontais e/ou verticais conhecidas para referenciar medições. Levantamento planimétrico determina posições horizontais; altimétrico determina cotas ou altitudes; planialtimétrico combina ambos. O levantamento cadastral territorial identifica parcelas e seus limites, podendo empregar a rede de apoio, mas não se confunde com ela."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 14166:2022 (escopo da edição; sem transcrição de itens); estudo de implantação/densificação: https://periodicos.utfpr.edu.br/rbgeo/article/view/15647 ; https://ojs.sites.ufsc.br/index.php/fig/article/view/8756 ; IBGE, Rede Altimétrica e conversão de altitudes: https://www.ibge.gov.br/geociencias/todos-os-produtos-geociencias/16283-rede-altimetrica.html ; https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/servicos-para-posicionamento-geodesico/31283-hgeohnor2020-modeloconversaoaltitudesgeometricasgnss-datumverticalsgb.html"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O apoio materializa um referencial estável, permitindo amarrar observações e confrontar levantamentos de épocas diferentes. Referências de nível dão suporte ao posicionamento vertical."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "ΔE=E₂−E₁; ΔN=N₂−N₁; Δh=h₂−h₁ no mesmo referencial vertical; distâncias e desníveis em m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Rede: infraestrutura; planimetria: horizontal; altimetria: vertical; cadastro: objeto territorial e limites."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Dez marcos com coordenadas não delimitam automaticamente os lotes; uma planta planimétrica sem cotas não fornece, por si, declividades do terreno."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0091, CARD-0860, CARD-0863, CARD-1561"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Declarar origem, datum, projeção e referencial vertical conforme finalidade. Não confundir altitude GNSS com altitude física."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Ponto de apoio não prova limite legal; planialtimetria não é apenas planta com coordenadas E/N."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Apoio referencia; cadastro delimita.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Uma rede de apoio fornece pontos com posições horizontais e/ou verticais conhecidas para referenciar medições. Levantamento planimétrico determina posições horizontais; altimétrico determina cotas ou altitudes; planialtimétrico combina ambos. O levantamento cadastral territorial identifica parcelas e seus limites, podendo empregar a rede de apoio, mas não se confunde com ela."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "planialtimétrico combina ambos",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0091",
+        "CARD-0860",
+        "CARD-0863",
+        "CARD-1561"
+      ]
+    },
+    {
+      "id": "CARD-1213",
+      "expected_hash": "fc2d5270d73134c389b5168af9abe09b3ad79c71493d1c06579a1235f2df7693",
+      "title": "Cota vermelha e desnível em terraplenagem",
+      "front": "Como calcular e interpretar a cota vermelha, relacionando-a às cotas obtidas por nivelamento?",
+      "back": "Cota vermelha é a diferença entre a cota de projeto e a cota do terreno natural, conforme a convenção de sinais. Se CV=Zprojeto−Zterreno, valor positivo indica aterro, negativo indica corte e zero indica coincidência naquele ponto. As duas cotas devem estar no mesmo referencial vertical.",
+      "source": "UFSC, Apostila de Topografia II, ECV 5137, nivelamento geométrico: https://petecv.ufsc.br/wp-content/uploads/2020/08/TOPOGRAFIA_II_APOSTILA.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia.",
+      "mnemonic": "Projeto menos terreno: mais aterro, menos corte.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular e interpretar a cota vermelha, relacionando-a às cotas obtidas por nivelamento?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Cota vermelha é a diferença entre a cota de projeto e a cota do terreno natural, conforme a convenção de sinais. Se CV=Zprojeto−Zterreno, valor positivo indica aterro, negativo indica corte e zero indica coincidência naquele ponto. As duas cotas devem estar no mesmo referencial vertical."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "UFSC, Apostila de Topografia II, ECV 5137, nivelamento geométrico: https://petecv.ufsc.br/wp-content/uploads/2020/08/TOPOGRAFIA_II_APOSTILA.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Nivelamento fornece cotas de terreno por diferenças de altura; greide fornece cotas de projeto. A diferença vertical define altura local, não área nem volume."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "CV=Zp−Zt; AI=Zré+Lré; Zt=AI−Lvante. Ex.: Zré=100 m, Lré=2,5 m, Lvante=1,5 m → Zt=101 m; Zp=102,5 m → CV=+1,5 m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Cota: posição vertical em referência definida; desnível: diferença entre pontos; cota vermelha: diferença projeto–terreno; cubação: volume por geometria."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Terreno 102 m, greide 103,5 m: aterro 1,5 m. Greide 100,5 m: corte 1,5 m na convenção adotada."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0349, CARD-1434, CARD-0496"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Outras convenções podem inverter sinais; verificar referência vertical e se a cota de projeto corresponde à plataforma ou outra superfície prevista."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não multiplicar uma única cota vermelha pela área total sem hipótese geométrica; não confundir altura do instrumento com altura acima do chão do tripé."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Projeto menos terreno: mais aterro, menos corte.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Cota vermelha é a diferença entre a cota de projeto e a cota do terreno natural, conforme a convenção de sinais. Se CV=Zprojeto−Zterreno, valor positivo indica aterro, negativo indica corte e zero indica coincidência naquele ponto. As duas cotas devem estar no mesmo referencial vertical."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "valor positivo indica aterro",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0349",
+        "CARD-1434",
+        "CARD-0496"
+      ]
+    },
+    {
+      "id": "CARD-0860",
+      "expected_hash": "e9292d6fc1ad6ee5d25180448631ef6f14d9d909aa2604578c15560791273fb5",
+      "title": "Rede de Referência Cadastral Municipal",
+      "front": "Qual a finalidade da RRCM, como ela apoia levantamentos e qual edição da NBR 14166 trata de sua implantação?",
+      "back": "A Rede de Referência Cadastral Municipal fornece apoio espacial comum e consistente a levantamentos, obras e cadastros municipais. A NBR 14166:2022 trata da rede, sua implantação e densificação; a edição de 1998 permanece referência histórica de questões antigas, não devendo ser confundida com a edição de 2022.",
+      "source": "ABNT NBR 14166:2022 (escopo da edição; sem transcrição de itens); estudo de implantação/densificação: https://periodicos.utfpr.edu.br/rbgeo/article/view/15647 ; https://ojs.sites.ufsc.br/index.php/fig/article/view/8756 ; IBGE, Projeto Mudança do Referencial Geodésico e ProGriD: https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/sirgas/16691-projeto-mudanca-do-referencial-geodesico-pmrg.html ; https://www.ibge.gov.br/geociencias/todos-os-produtos-geociencias/16312-progrid.html",
+      "mnemonic": "Rede é a referência comum; cadastro é o objeto.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual a finalidade da RRCM, como ela apoia levantamentos e qual edição da NBR 14166 trata de sua implantação?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A Rede de Referência Cadastral Municipal fornece apoio espacial comum e consistente a levantamentos, obras e cadastros municipais. A NBR 14166:2022 trata da rede, sua implantação e densificação; a edição de 1998 permanece referência histórica de questões antigas, não devendo ser confundida com a edição de 2022."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 14166:2022 (escopo da edição; sem transcrição de itens); estudo de implantação/densificação: https://periodicos.utfpr.edu.br/rbgeo/article/view/15647 ; https://ojs.sites.ufsc.br/index.php/fig/article/view/8756 ; IBGE, Projeto Mudança do Referencial Geodésico e ProGriD: https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/sirgas/16691-projeto-mudanca-do-referencial-geodesico-pmrg.html ; https://www.ibge.gov.br/geociencias/todos-os-produtos-geociencias/16312-progrid.html"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Marcos de referência permitem relacionar diferentes bases cartográficas e repetir medições com controle geométrico; densificação amplia a disponibilidade de apoio."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Coordenadas de pontos e diferenças devem usar referencial, projeção e unidades coerentes; tolerâncias dependem do método e classe de levantamento. Nenhum valor normativo novo é afirmado sem texto integral."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "RRCM: rede de apoio; cadastro: identificação de parcelas; RAAP: referências de nível de alta precisão do SGB; SIRGAS2000: referencial geodésico."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Projetos de drenagem e cadastro viário apoiados em marcos comuns podem ser sobrepostos após verificação de referenciais e precisão."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0091, CARD-0178, CARD-0863"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Para requisitos específicos e tabelas, consultar edição aplicável da ABNT; não transportar números da edição de 1998 automaticamente para 2022."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Rede não delimita propriedade nem converte automaticamente coordenadas incompatíveis."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Rede é a referência comum; cadastro é o objeto.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A Rede de Referência Cadastral Municipal fornece apoio espacial comum e consistente a levantamentos, obras e cadastros municipais. A NBR 14166:2022 trata da rede, sua implantação e densificação; a edição de 1998 permanece referência histórica de questões antigas, não devendo ser confundida com a edição de 2022."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "NBR 14166:2022",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0091",
+        "CARD-0178",
+        "CARD-0863"
+      ]
+    },
+    {
+      "id": "CARD-0863",
+      "expected_hash": "0216e34a6f30749f2c6add6a77bcbe5e421ddcaf97447a175d400b108958042d",
+      "title": "SIRGAS2000, datum e altitudes",
+      "front": "Qual referencial geodésico oficial brasileiro desde 25/02/2015 e como distinguir datum, projeção e referência de altitude?",
+      "back": "Desde 25 de fevereiro de 2015, o SIRGAS2000 é o único referencial geodésico oficialmente adotado no Brasil. Sua realização é referida à época 2000,4. SAD69 e Córrego Alegre são referenciais históricos. Datum geodésico não é projeção cartográfica; a altitude geométrica obtida por GNSS não equivale automaticamente à altitude normal divulgada pelo IBGE.",
+      "source": "IBGE, Projeto Mudança do Referencial Geodésico e ProGriD: https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/sirgas/16691-projeto-mudanca-do-referencial-geodesico-pmrg.html ; https://www.ibge.gov.br/geociencias/todos-os-produtos-geociencias/16312-progrid.html ; IBGE, Rede Altimétrica e conversão de altitudes: https://www.ibge.gov.br/geociencias/todos-os-produtos-geociencias/16283-rede-altimetrica.html ; https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/servicos-para-posicionamento-geodesico/31283-hgeohnor2020-modeloconversaoaltitudesgeometricasgnss-datumverticalsgb.html",
+      "mnemonic": "SIRGAS referencia; UTM projeta; RN apoia altura.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual referencial geodésico oficial brasileiro desde 25/02/2015 e como distinguir datum, projeção e referência de altitude?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Desde 25 de fevereiro de 2015, o SIRGAS2000 é o único referencial geodésico oficialmente adotado no Brasil. Sua realização é referida à época 2000,4. SAD69 e Córrego Alegre são referenciais históricos. Datum geodésico não é projeção cartográfica; a altitude geométrica obtida por GNSS não equivale automaticamente à altitude normal divulgada pelo IBGE."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "IBGE, Projeto Mudança do Referencial Geodésico e ProGriD: https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/sirgas/16691-projeto-mudanca-do-referencial-geodesico-pmrg.html ; https://www.ibge.gov.br/geociencias/todos-os-produtos-geociencias/16312-progrid.html ; IBGE, Rede Altimétrica e conversão de altitudes: https://www.ibge.gov.br/geociencias/todos-os-produtos-geociencias/16283-rede-altimetrica.html ; https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/servicos-para-posicionamento-geodesico/31283-hgeohnor2020-modeloconversaoaltitudesgeometricasgnss-datumverticalsgb.html"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O referencial estabelece a base das coordenadas; uma projeção transforma posição geodésica para plano. Altitude geométrica refere-se ao elipsoide, enquanto altitude física relaciona-se ao campo de gravidade e datum vertical."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "O modelo hgeoHNOR2020 fornece fatores para converter altitudes geométricas SIRGAS2000 em altitudes normais compatíveis com REALT2018. Aplicar a convenção de sinal do serviço IBGE; não substituir por correção geoidal genérica."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "SIRGAS2000: referência; UTM: projeção; latitude/longitude: coordenadas angulares; E/N: coordenadas planas; RN: referência vertical materializada."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Ao unir planta antiga em SAD69 e GNSS atual, transformar coordenadas pelo método adequado (por exemplo ProGriD no domínio aplicável) e conferir precisão; para obra, verificar altitude e datum vertical."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0178, CARD-0860, CARD-0091"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A adoção inicial ocorreu em 2005 com período de transição de dez anos. A transformação depende dos referenciais e da origem das coordenadas; declarar fuso e hemisfério quando UTM."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não apenas renomear SAD69 como SIRGAS2000, não chamar UTM de datum e não tratar altitude GNSS como altitude de nível sem conversão."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "SIRGAS referencia; UTM projeta; RN apoia altura.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Desde 25 de fevereiro de 2015, o SIRGAS2000 é o único referencial geodésico oficialmente adotado no Brasil. Sua realização é referida à época 2000,4. SAD69 e Córrego Alegre são referenciais históricos. Datum geodésico não é projeção cartográfica; a altitude geométrica obtida por GNSS não equivale automaticamente à altitude normal divulgada pelo IBGE."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "25 de fevereiro de 2015",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0178",
+        "CARD-0860",
+        "CARD-0091"
+      ]
+    }
+  ]
+}

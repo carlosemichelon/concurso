@@ -1,0 +1,525 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0182",
+      "expected_hash": "cf67789e0824da74c5316afc24f6533a89969f7806dd30854d86c03d432f71cf",
+      "title": "Rumos, azimutes e projeções",
+      "front": "Como converter rumo quadrantal em azimute e calcular projeções coordenadas de uma distância horizontal?",
+      "back": "O azimute topográfico é contado no sentido horário a partir do norte, de 0° a 360° (360° equivale a 0°). O rumo é medido a partir de N ou S em direção a E ou W, entre 0° e 90°. Para azimute Az, ΔE=d·sen Az e ΔN=d·cos Az. Com rumo θ, aplicar sinais pelo quadrante.",
+      "source": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.",
+      "mnemonic": "Norte é zero; seno vai para leste.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como converter rumo quadrantal em azimute e calcular projeções coordenadas de uma distância horizontal?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O azimute topográfico é contado no sentido horário a partir do norte, de 0° a 360° (360° equivale a 0°). O rumo é medido a partir de N ou S em direção a E ou W, entre 0° e 90°. Para azimute Az, ΔE=d·sen Az e ΔN=d·cos Az. Com rumo θ, aplicar sinais pelo quadrante."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A projeção leste é o cateto oposto ao ângulo contado a partir do meridiano; a norte é o adjacente. Azimute incorpora sinais nas funções trigonométricas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "NE: Az=θ; SE: 180°−θ; SW: 180°+θ; NW: 360°−θ. ΔE=±d sen θ; ΔN=±d cos θ. d em m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Rumo: quadrante obrigatório; azimute: ângulo de volta inteira. Contra-azimute=(Az+180°) mod 360°."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "S30°E, d=20 m: Az=150°; ΔE=+10 m, ΔN≈−17,32 m. Inverter direção dá N30°W."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0378, CARD-1362"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar distância horizontal e mesmo referencial de norte (verdadeiro, magnético ou de quadrícula). E/O e N/S devem ser coerentes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar seno e cosseno nem calcular ângulo entre direções de chegada sem inverter a direção pertinente."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Norte é zero; seno vai para leste.; original preservado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O azimute topográfico é contado no sentido horário a partir do norte, de 0° a 360° (360° equivale a 0°). O rumo é medido a partir de N ou S em direção a E ou W, entre 0° e 90°. Para azimute Az, ΔE=d·sen Az e ΔN=d·cos Az. Com rumo θ, aplicar sinais pelo quadrante."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "ΔE=d·sen Az",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0378",
+        "CARD-1362"
+      ]
+    },
+    {
+      "id": "CARD-1362",
+      "expected_hash": "da019714fc72524bb24e08183613fee9b57c533d30e7e36cec3e37dabdb09bb5",
+      "title": "Ângulo entre rumos e reversão",
+      "front": "Qual o ângulo menor entre S45°W e S45°E, partindo do mesmo vértice? E se uma direção for de chegada?",
+      "back": "Partindo do mesmo vértice, S45°W corresponde a azimute 225° e S45°E a 135°: o ângulo menor é 90°. Se uma direção descreve um segmento que chega ao vértice, inverta-a antes de comparar as duas semirretas que partem dele.",
+      "source": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.",
+      "mnemonic": "Mesmo vértice, duas setas saindo.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual o ângulo menor entre S45°W e S45°E, partindo do mesmo vértice? E se uma direção for de chegada?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Partindo do mesmo vértice, S45°W corresponde a azimute 225° e S45°E a 135°: o ângulo menor é 90°. Se uma direção descreve um segmento que chega ao vértice, inverta-a antes de comparar as duas semirretas que partem dele."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O ângulo interno é formado por raios com origem comum; direção de percurso e raio saindo do vértice podem ser opostos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "δ=|Az1−Az2|; ângulo menor=min(δ,360°−δ); Az inverso=(Az+180°) mod 360°."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Ângulo menor não é necessariamente ângulo interno reflexo nem deflexão orientada. Rumo exige quadrante."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "S30°E→Az150° e N20°E→Az20°: ângulo menor=130°. Se o primeiro for de chegada, seu inverso é 330°, resultando 50°."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0182, CARD-0378"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Para poligonal côncava ou ângulo à direita/esquerda, usar sentido de percurso e convenção específica, não apenas ângulo menor."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não somar rumos automaticamente; verificar o quadrante e a orientação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Mesmo vértice, duas setas saindo.; original preservado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Partindo do mesmo vértice, S45°W corresponde a azimute 225° e S45°E a 135°: o ângulo menor é 90°. Se uma direção descreve um segmento que chega ao vértice, inverta-a antes de comparar as duas semirretas que partem dele."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "o ângulo menor é 90°",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0182",
+        "CARD-0378"
+      ]
+    },
+    {
+      "id": "CARD-0378",
+      "expected_hash": "603791885cf49ac634f5ebe856a7da53ca274c5ee97dc5d16e7d7615e666b004",
+      "title": "Poligonal — projeções e fechamento",
+      "front": "Calcule 40 sen45° + 50 sen60° − 20 sen30° e explique como usar projeções no fechamento de uma poligonal.",
+      "back": "A projeção algébrica vale aproximadamente 61,59 m. Em poligonal fechada, as somas teóricas das projeções ΔE e ΔN são zero. As discrepâncias medidas são componentes do erro linear de fechamento; sua magnitude é a raiz da soma de seus quadrados.",
+      "source": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.",
+      "mnemonic": "Soma com sinal; fecha por Pitágoras.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Calcule 40 sen45° + 50 sen60° − 20 sen30° e explique como usar projeções no fechamento de uma poligonal."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A projeção algébrica vale aproximadamente 61,59 m. Em poligonal fechada, as somas teóricas das projeções ΔE e ΔN são zero. As discrepâncias medidas são componentes do erro linear de fechamento; sua magnitude é a raiz da soma de seus quadrados."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Coordenadas sucessivas resultam de somas vetoriais de projeções; voltar ao ponto inicial implica deslocamento líquido nulo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "eE=ΣΔE; eN=ΣΔN; eL=√(eE²+eN²). Precisão relativa 1:(Ltotal/eL), se eL>0. Para polígono simples com n vértices, soma interna teórica=(n−2)180°."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Fechamento angular compara ângulos; linear compara coordenadas. Poligonal apoiada em extremos distintos deve comparar ao deslocamento conhecido, não a zero."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "40×0,7071+50×0,8660−20×0,5≈61,59 m. Se eE=0,03 m, eN=0,04 m e L=500 m, eL=0,05 m, precisão 1:10.000."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0182, CARD-1362"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Verificar tolerância e método de ajuste aplicáveis; não compensar erro grosseiro como se fosse aleatório. Bowditch distribui correções proporcionalmente aos comprimentos quando adequado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não somar módulos das projeções nem chamar 61,59 m de erro de fechamento sem contexto da poligonal."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Soma com sinal; fecha por Pitágoras.; original preservado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A projeção algébrica vale aproximadamente 61,59 m. Em poligonal fechada, as somas teóricas das projeções ΔE e ΔN são zero. As discrepâncias medidas são componentes do erro linear de fechamento; sua magnitude é a raiz da soma de seus quadrados."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "61,59 m",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0182",
+        "CARD-1362"
+      ]
+    },
+    {
+      "id": "CARD-0496",
+      "expected_hash": "4915f37f645a96a420c620584beea4648871766ddbe8b2d0eb081ba96f9b003a",
+      "title": "Curvas de nível e leitura do relevo",
+      "front": "O que une pontos de uma curva de nível? Como identificar declividade, vale e espigão?",
+      "back": "Curva de nível une pontos de mesma cota altimétrica. A equidistância é a diferença vertical entre curvas sucessivas. Curvas próximas indicam maior declividade para a mesma equidistância e escala. Ao cruzar um vale, o V das curvas geralmente aponta para montante; em espigão aponta para cotas menores.",
+      "source": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.",
+      "mnemonic": "Curvas juntas: íngreme; V do vale sobe.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que une pontos de uma curva de nível? Como identificar declividade, vale e espigão?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Curva de nível une pontos de mesma cota altimétrica. A equidistância é a diferença vertical entre curvas sucessivas. Curvas próximas indicam maior declividade para a mesma equidistância e escala. Ao cruzar um vale, o V das curvas geralmente aponta para montante; em espigão aponta para cotas menores."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Curvas representam interseções da superfície topográfica com planos de cota constante; a forma expressa a geometria do relevo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "i=Δz/d horizontal; i%=100Δz/d. Escala 1:M implica d real=d mapa×M, com unidades compatíveis."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Equidistância vertical não é distância horizontal; curva mestra é destacada para leitura; cota pontual identifica um ponto."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Curvas 100 e 102 m separadas por 20 m reais: declividade média 10% no segmento perpendicular. Em 1:1000, 2 cm representam 20 m."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0859, CARD-0349"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "V de vale/espigão deve ser interpretado com cotas e sentido do escoamento. Em terreno regular as curvas não se cruzam; feições verticais ou representação especial exigem cautela."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não concluir declividade só pela diferença de cotas sem distância. Não confundir vale e espigão pela forma isolada."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Curvas juntas: íngreme; V do vale sobe.; original preservado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Curva de nível une pontos de mesma cota altimétrica. A equidistância é a diferença vertical entre curvas sucessivas. Curvas próximas indicam maior declividade para a mesma equidistância e escala. Ao cruzar um vale, o V das curvas geralmente aponta para montante; em espigão aponta para cotas menores."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "mesma cota altimétrica",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0859",
+        "CARD-0349"
+      ]
+    },
+    {
+      "id": "CARD-0859",
+      "expected_hash": "cc047df9a19a6db01c657497ee63092ee7f237e2c3b843b42845bb3dbce13a0c",
+      "title": "Direção de máxima declividade",
+      "front": "Como localizar a maior declividade a partir de curvas de nível e calcular sua magnitude?",
+      "back": "Em uma superfície regular, a direção de maior subida local é perpendicular às curvas de nível, orientada para cotas crescentes. A maior descida é o sentido oposto, para cotas menores. A declividade média entre curvas pode ser calculada dividindo a diferença de cotas pela distância horizontal na direção analisada.",
+      "source": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.",
+      "mnemonic": "Água tende a cruzar curvas de nível descendo.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como localizar a maior declividade a partir de curvas de nível e calcular sua magnitude?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Em uma superfície regular, a direção de maior subida local é perpendicular às curvas de nível, orientada para cotas crescentes. A maior descida é o sentido oposto, para cotas menores. A declividade média entre curvas pode ser calculada dividindo a diferença de cotas pela distância horizontal na direção analisada."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O gradiente é normal à isolinha de altitude; deslocar-se tangencialmente à curva não altera a cota em primeira ordem."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "i%=100Δz/d; ângulo α=arctan(|Δz|/d). Para 2 m em 10 m: 20% e α≈11,31°."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Direção máxima de descida ≠ direção de uma estrada em encosta; curva de nível tem inclinação longitudinal nula idealizada."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Curvas paralelas leste-oeste com cotas maiores ao norte: subida máxima para norte; descida para sul."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0496, CARD-0349, CARD-1366"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Perpendicularidade local; em pontos planos, selas e divisores a direção pode variar ou não ser única. Escoamento real depende também de obstáculos e microrelevo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar distância inclinada no denominador da declividade convencional nem confundir 20% com 20°."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Água tende a cruzar curvas de nível descendo.; original preservado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Em uma superfície regular, a direção de maior subida local é perpendicular às curvas de nível, orientada para cotas crescentes. A maior descida é o sentido oposto, para cotas menores. A declividade média entre curvas pode ser calculada dividindo a diferença de cotas pela distância horizontal na direção analisada."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "perpendicular às curvas de nível",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0496",
+        "CARD-0349",
+        "CARD-1366"
+      ]
+    },
+    {
+      "id": "CARD-0349",
+      "expected_hash": "db2e6c351a00d63cfc0314497d689d529f8ba87a694e5093867c777301c42e97",
+      "title": "Locação de taludes — offset e limites",
+      "front": "Diferencie crista de corte, pé de aterro, plataforma e estaca de offset na locação rodoviária.",
+      "back": "O limite geométrico de terraplenagem é a interseção entre o talude projetado e o terreno natural: crista do corte ou pé do aterro. A estaca de offset é uma referência de locação que pode ser implantada afastada desse limite, para preservar a referência durante a execução. O IPR-742 exemplifica afastamento de 2 m, sujeito ao procedimento e correções de campo.",
+      "source": "DNIT IPR-742, Manual de Implantação Básica de Rodovia, edição corrigida: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+      "mnemonic": "Corte encontra terreno na crista; aterro encontra terreno no pé.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie crista de corte, pé de aterro, plataforma e estaca de offset na locação rodoviária."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O limite geométrico de terraplenagem é a interseção entre o talude projetado e o terreno natural: crista do corte ou pé do aterro. A estaca de offset é uma referência de locação que pode ser implantada afastada desse limite, para preservar a referência durante a execução. O IPR-742 exemplifica afastamento de 2 m, sujeito ao procedimento e correções de campo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT IPR-742, Manual de Implantação Básica de Rodovia, edição corrigida: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O gabarito transversal intercepta o terreno natural; uma referência externa permite recuperar esse ponto se a marca original for destruída."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Distância ao eixo do offset = distância ao eixo do limite + afastamento para fora, em seção simples. Ex.: pé a 14 m do eixo, offset 2 m externo →16 m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Aterro: crista junto à plataforma, pé junto ao terreno natural; corte: pé junto à plataforma, crista junto ao terreno natural."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Em seção mista, locar crista do corte de um lado e pé de aterro do outro, registrando os offsets conforme nota de serviço."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1366, CARD-0496, CARD-0859, CARD-1434"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Afastamento exemplificado não é obrigação universal para todos os projetos. Conferir cotas, posição real e procedimento de locação."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir o ponto geométrico com a estaca afastada; não chamar o pé do aterro de crista."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Corte encontra terreno na crista; aterro encontra terreno no pé.; original preservado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O limite geométrico de terraplenagem é a interseção entre o talude projetado e o terreno natural: crista do corte ou pé do aterro. A estaca de offset é uma referência de locação que pode ser implantada afastada desse limite, para preservar a referência durante a execução. O IPR-742 exemplifica afastamento de 2 m, sujeito ao procedimento e correções de campo."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "estaca de offset é uma referência de locação",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1366",
+        "CARD-0496",
+        "CARD-0859",
+        "CARD-1434"
+      ]
+    }
+  ]
+}

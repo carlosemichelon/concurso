@@ -1,0 +1,44 @@
+name: Índice leve do catálogo
+on:
+  push:
+    branches: [gh-pages, manutencao/indice-incremental-vm3]
+    paths:
+      - 'assets/version.json'
+      - 'assets/catalog_snapshot_*.json'
+      - 'tools/catalog_lookup.cjs'
+      - 'tools/catalog_evolution_batch.cjs'
+      - 'tests/catalog_lookup_batch.test.cjs'
+      - '.github/workflows/catalog-lookup.yml'
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'tools/catalog_lookup.cjs'
+      - 'tools/catalog_evolution_batch.cjs'
+      - 'tests/catalog_lookup_batch.test.cjs'
+      - '.github/workflows/catalog-lookup.yml'
+permissions:
+  contents: read
+concurrency:
+  group: catalog-lookup-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/catalog_lookup_batch.test.cjs
+      - run: node tools/catalog_lookup.cjs
+      - name: Salvar projeção derivada na própria branch
+        if: github.event_name == 'push'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- assets/catalog_lookup
+          git diff --cached --quiet && exit 0
+          git commit -m 'chore: atualizar índice derivado do catálogo'
+          git push origin HEAD:${GITHUB_REF_NAME}
