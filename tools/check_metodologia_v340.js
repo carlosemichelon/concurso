@@ -9,7 +9,11 @@ const json=(p)=>JSON.parse(read(p));
 const manifest=json("assets/version.json"),gate=manifest.quality_gate;
 const prefix="[Banco Mestre — qualidade]";
 assert(gate?.schema==="BancoMestreStudyQualityGate1",prefix+" quality_gate inválido");
-assert(gate.version===manifest.version,prefix+" versão atual não possui gate correspondente");
+const active=json("assets/closure_gate_current.json");
+assert(active.version===manifest.version,prefix+" versão atual não possui portão correspondente");
+const legacyHome="v"+gate.version.replace(/\D/g,"")+".html";
+assert(fs.existsSync(legacyHome),prefix+" snapshot histórico de qualidade ausente");
+assert(read(legacyHome).includes('data-bm-portal-version="'+gate.version+'"'),prefix+" snapshot histórico incompatível");
 assert(gate.source&&gate.require_cards?.length,prefix+" origem/IDs indisponíveis");
 const delta=json(gate.source),profiles=delta.profiles||{};
 const affected=[...(delta.new_cards||[]),...(delta.updates||[])];
@@ -48,11 +52,14 @@ assert(linked.length>0,prefix+" imagem do enunciado não vinculada a nenhum cart
 assert(q.original_image.question_id===q.question_id,prefix+" origem de imagem inválida");
 assert(fs.existsSync("v"+manifest.version.replace(/\D/g,"")+".html"),prefix+" snapshot ausente");
 assert(read("index.html")===read(manifest.home),prefix+" index e snapshot divergentes");
-assert(read(manifest.home).includes(gate.source),prefix+" HTML não carrega o pacote atual");
-assert(read(manifest.home).includes("v340_granulometry_renderer.js"),prefix+" leitor visual não está no HTML");
+assert(read(legacyHome).includes(gate.source),prefix+" HTML não carrega o pacote atual");
+assert(read(legacyHome).includes("v340_granulometry_renderer.js"),prefix+" leitor visual não está no HTML");
 assert(read("assets/v339_semantic_visual.css").includes("#FDE68A")&&read("assets/v339_semantic_visual.css").includes("#BAE6FD"),prefix+" esquema de cores não carregado");
 assert(fs.existsSync(gate.audit),prefix+" auditoria de ID não encontrada");
 const a=json(gate.audit);
 assert(a.records?.length>=100&&a.summary?.distinct_ids===a.records.length,prefix+" auditoria histórica inválida");
 console.log(prefix+" OK: "+gate.require_cards.length+" cartões, 11 critérios, "+visualIds.size+" desenhos, "+originalIds.size+" original(is), vínculos e histórico.");
 console.log(prefix+" Escopo estrutural. Navegador autenticado, imagens privadas inline e SRS não testados.");
+
+// A validação histórica continua obrigatória; a versão ativa usa seu contrato próprio.
+require("node:child_process").execFileSync(process.execPath,["--test","tests/closure_gate.test.cjs"],{stdio:"inherit"});
