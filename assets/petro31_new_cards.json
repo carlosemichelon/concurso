@@ -1,0 +1,326 @@
+{
+  "format": "BancoMestreNewCards1",
+  "private_content_exported": false,
+  "new_cards": [
+    {
+      "id": "CARD-8906",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Instalações prediais de água fria",
+      "sub": "Quantitativo de tês e joelhos",
+      "front": "Em um ramal sequencial de água fria, seis aparelhos têm sub-ramais ascendentes e saídas horizontais. Há dois cantos horizontais no percurso, a partir do registro. Como contar os tês e joelhos mínimos? Generalize para n aparelhos e c cantos nessa configuração.",
+      "back": "São 5 tês e 9 joelhos de 90°. Cinco derivações alimentam aparelhos intermediários e mantêm a continuidade; no último aparelho, a subida termina o ramal e usa um joelho, não um tê.\n\nOs nove joelhos são seis nas saídas junto aos aparelhos, dois nas mudanças de direção do ramal e um na subida final. Para esse traçado, T=n−1 e J=n+c+1.",
+      "reference": "PETRO31-Q03 — enunciado e croqui da questão (originais privados); figura indicada https://cdn.tecconcursos.com.br/figuras/f41793e5-93a3-4a1d-ad84-fb9ed6aea99e . Quantificação geométrica do traçado, não regra geral da NBR.",
+      "mnemonic": "Dividiu, tê; dobrou, joelho; terminou, não tem tê.",
+      "title": "Quantitativo mínimo de conexões em ramal sequencial",
+      "active": true,
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Em um ramal sequencial de água fria, seis aparelhos têm sub-ramais ascendentes e saídas horizontais. Há dois cantos horizontais no percurso, a partir do registro. Como contar os tês e joelhos mínimos? Generalize para n aparelhos e c cantos nessa configuração."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "São 5 tês e 9 joelhos de 90°. Cinco derivações alimentam aparelhos intermediários e mantêm a continuidade; no último aparelho, a subida termina o ramal e usa um joelho, não um tê.\n\nOs nove joelhos são seis nas saídas junto aos aparelhos, dois nas mudanças de direção do ramal e um na subida final. Para esse traçado, T=n−1 e J=n+c+1."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "PETRO31-Q03 — enunciado e croqui da questão (originais privados); figura indicada https://cdn.tecconcursos.com.br/figuras/f41793e5-93a3-4a1d-ad84-fb9ed6aea99e . Quantificação geométrica do traçado, não regra geral da NBR."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O tê possui três bocas e permite que o ramal continue enquanto alimenta uma derivação. O joelho muda a direção sem derivar. No último aparelho, a linha não continua: a subida usa joelho. É necessário contar mudanças em planta e em elevação."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "T=n−1 e J=n+c+1, somente para esta configuração. Para n=6, c=2: T=5 e J=9. As elevações em relação ao ramal de 0,20 m são 0,10 m (vasos a 0,30), 0,25 m (duchas a 0,45) e 0,40 m (lavatórios a 0,60)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Tê intermediário: continuidade e derivação. Joelho terminal: mudança de direção. Diferenciar número de peças, comprimento real de tubo e comprimento equivalente de perdas."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Quatro aparelhos com um canto, sob as mesmas hipóteses: 3 tês e 6 joelhos. Se a saída dos aparelhos mudar de orientação ou houver outra derivação, redesenhar e contar novamente."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0121 — perdas localizadas e comprimentos equivalentes; CARD-1100 — registros e distribuição de água fria."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Ramal único sequencial, saídas ascendentes a partir dele e conexões terminais horizontais, sem ramificações adicionais. Contar somente após o registro. Não aplicar T e J universalmente."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Seis aparelhos não implicam seis tês. Contar seis joelhos terminais, dois cantos e uma subida final. As diferentes alturas alteram comprimentos, não a quantidade nessa geometria."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Dividiu, tê; dobrou, joelho; terminou, não tem tê. Distinga contagem física e perda equivalente."
+        }
+      ],
+      "related_card_ids": [
+        "CARD-0121",
+        "CARD-1100"
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_NOVO",
+        "answer_paragraphs": [
+          "São 5 tês e 9 joelhos de 90°. Cinco derivações alimentam aparelhos intermediários e mantêm a continuidade; no último aparelho, a subida termina o ramal e usa um joelho, não um tê.",
+          "Os nove joelhos são seis nas saídas junto aos aparelhos, dois nas mudanças de direção do ramal e um na subida final. Para esse traçado, T=n−1 e J=n+c+1."
+        ],
+        "highlights": [
+          {
+            "text": "5 tês e 9 joelhos",
+            "kind": "core",
+            "color": "#FDE68A"
+          },
+          {
+            "text": "no último aparelho",
+            "kind": "condition",
+            "color": "#BAE6FD"
+          },
+          {
+            "text": "não um tê",
+            "kind": "exception",
+            "color": "#FECDD3"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-CONEXOES",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_conexoes.svg",
+            "caption": "Conexões e contagem: ramal sequencial de seis aparelhos, dois cantos e último joelho.",
+            "alt": "Conexões e contagem: ramal sequencial de seis aparelhos, dois cantos e último joelho.",
+            "source": "Esquema didático autoral; não é figura original do enunciado.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Conexão",
+            "Quantidade"
+          ],
+          "rows": [
+            [
+              "Tês intermediários",
+              "5"
+            ],
+            [
+              "Joelhos nas saídas",
+              "6"
+            ],
+            [
+              "Joelhos nos cantos",
+              "2"
+            ],
+            [
+              "Joelho na subida final",
+              "1"
+            ],
+            [
+              "Total de joelhos",
+              "9"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Tês no traçado",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>T</mi><mo>=</mo><mi>n</mi><mo>−</mo><mn>1</mn></math>",
+            "units": "T em peças; n aparelhos"
+          },
+          {
+            "title": "Joelhos no traçado",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>J</mi><mo>=</mo><mi>n</mi><mo>+</mo><mi>c</mi><mo>+</mo><mn>1</mn></math>",
+            "units": "J em peças; c cantos horizontais"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
+    },
+    {
+      "id": "CARD-8907",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Conforto ambiental e acústica",
+      "sub": "Absorção e isolamento acústico",
+      "front": "Diferencie absorção e isolamento acústico quanto à finalidade, mecanismo, materiais e grandezas/unidades. A 500 Hz, ordene por absorção mármore, tapete de 5 mm e cortina grossa drapeada, conforme a NBR 12179:1992.",
+      "back": "A absorção acústica reduz reflexões e reverberação, dissipando energia sonora; materiais porosos e fibrosos podem favorecer essa função. Seu coeficiente α é adimensional. Isolamento acústico reduz a transmissão sonora entre ambientes; massa, vedação, desacoplamento e composição do sistema importam. O índice de redução sonora R, entre outras grandezas de isolamento, é expresso em dB.\n\nA 500 Hz, a ordem crescente de α na tabela da edição cobrada é mármore (0,01), tapete de 5 mm (0,15) e cortina grossa drapeada (0,40). O tapete com base de feltro de 5 mm (0,57) supera a cortina nessa condição: não generalizar a ordem a toda montagem ou frequência.",
+      "reference": "ABNT NBR 12179:1992, Tabela 2, pp. 5–7, edição cobrada. Reprodução consultada: https://sigarq.uffs.edu.br/arquivos/2023227045a8cb24540322151c88e47c6/NBR_12179.pdf . Status oficial atual da ABNT não confirmado diretamente.",
+      "mnemonic": "Absorção controla o eco; isolamento controla a passagem do som. Pesado barra, poroso absorve — tendência, não lei universal.",
+      "title": "Absorção × isolamento acústico e materiais",
+      "active": true,
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie absorção e isolamento acústico quanto à finalidade, mecanismo, materiais e grandezas/unidades. A 500 Hz, ordene por absorção mármore, tapete de 5 mm e cortina grossa drapeada, conforme a NBR 12179:1992."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A absorção acústica reduz reflexões e reverberação, dissipando energia sonora; materiais porosos e fibrosos podem favorecer essa função. Seu coeficiente α é adimensional. Isolamento acústico reduz a transmissão sonora entre ambientes; massa, vedação, desacoplamento e composição do sistema importam. O índice de redução sonora R, entre outras grandezas de isolamento, é expresso em dB.\n\nA 500 Hz, a ordem crescente de α na tabela da edição cobrada é mármore (0,01), tapete de 5 mm (0,15) e cortina grossa drapeada (0,40). O tapete com base de feltro de 5 mm (0,57) supera a cortina nessa condição: não generalizar a ordem a toda montagem ou frequência."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 12179:1992, Tabela 2, pp. 5–7, edição cobrada. Reprodução consultada: https://sigarq.uffs.edu.br/arquivos/2023227045a8cb24540322151c88e47c6/NBR_12179.pdf . Status oficial atual da ABNT não confirmado diretamente."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Superfícies rígidas tendem a refletir energia sonora. Poros e fibras dissipam parte dessa energia por perdas viscosas e térmicas; espessura, dobras, cavidade de ar e montagem alteram o desempenho. Isolamento reduz a transmissão pelo sistema e também depende de frestas e caminhos laterais."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "α é adimensional. Área equivalente de absorção Aeq=ΣSiαi, em m², para superfícies de área Si em m²; não confundir com o índice de redução sonora R em dB ou resistência térmica R. Os coeficientes dependem da frequência."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Absorção: conforto dentro do recinto, menos reflexão/reverberação; isolamento: menos transmissão entre recintos. A 500 Hz, α: mármore 0,01; reboco liso 0,02; concreto 0,03; taco colado 0,06; tapete 5 mm 0,15; poltrona estofada 0,28; cortina grossa drapeada 0,40; tapete 5 mm sobre feltro 5 mm 0,57; janela aberta 1,00."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Dez m² de tapete 5 mm proporcionam Aeq=1,5 m²; com base de feltro, Aeq=5,7 m² nas condições tabeladas. Para reduzir reverberação em sala com paredes lisas, selecionar materiais com boa absorção; para impedir som de chegar a outro ambiente, avaliar isolamento do sistema."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Núcleo integrado de tratamento acústico, coeficientes de absorção e distinção de isolamento. Nenhum cartão acústico direto foi localizado no índice público consultado; não forçar vínculo a tema distinto."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Valores da edição de prova a 500 Hz, sujeitos a espessura, instalação, frequência e condições de ensaio. Não extrapolar para todo tapete, cortina ou parede. Confirmar edição aplicável em projeto."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Janela aberta α=1,00 no modelo não isola o recinto; parede pesada pode isolar e refletir; base de feltro pode alterar a ordem. Não confundir α adimensional com redução sonora em dB."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Absorção controla o eco; isolamento controla a passagem. Mármore reflete, tapete fino amortece, cortina grossa drapeada absorve mais nesse caso."
+        }
+      ],
+      "related_card_ids": [],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_NOVO",
+        "answer_paragraphs": [
+          "A absorção acústica reduz reflexões e reverberação, dissipando energia sonora; materiais porosos e fibrosos podem favorecer essa função. Seu coeficiente α é adimensional. Isolamento acústico reduz a transmissão sonora entre ambientes; massa, vedação, desacoplamento e composição do sistema importam. O índice de redução sonora R, entre outras grandezas de isolamento, é expresso em dB.",
+          "A 500 Hz, a ordem crescente de α na tabela da edição cobrada é mármore (0,01), tapete de 5 mm (0,15) e cortina grossa drapeada (0,40). O tapete com base de feltro de 5 mm (0,57) supera a cortina nessa condição: não generalizar a ordem a toda montagem ou frequência."
+        ],
+        "highlights": [
+          {
+            "text": "reduz reflexões e reverberação",
+            "kind": "core",
+            "color": "#FDE68A"
+          },
+          {
+            "text": "reduz a transmissão sonora entre ambientes",
+            "kind": "core",
+            "color": "#FDE68A"
+          },
+          {
+            "text": "adimensional",
+            "kind": "condition",
+            "color": "#BAE6FD"
+          },
+          {
+            "text": "dB",
+            "kind": "condition",
+            "color": "#BAE6FD"
+          },
+          {
+            "text": "não generalizar",
+            "kind": "exception",
+            "color": "#FECDD3"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-ACUSTICA",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_acustica.svg",
+            "caption": "Absorção e isolamento: mecanismo e coeficientes a 500 Hz.",
+            "alt": "Diagrama de reflexão, transmissão e comparação de coeficientes acústicos.",
+            "source": "Esquema didático autoral baseado na tabela da edição cobrada; não é original da norma.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Material (500 Hz)",
+            "α"
+          ],
+          "rows": [
+            [
+              "Mármore",
+              "0,01"
+            ],
+            [
+              "Reboco liso",
+              "0,02"
+            ],
+            [
+              "Concreto",
+              "0,03"
+            ],
+            [
+              "Taco colado",
+              "0,06"
+            ],
+            [
+              "Tapete 5 mm",
+              "0,15"
+            ],
+            [
+              "Poltrona estofada",
+              "0,28"
+            ],
+            [
+              "Cortina grossa drapeada",
+              "0,40"
+            ],
+            [
+              "Tapete 5 mm + feltro 5 mm",
+              "0,57"
+            ],
+            [
+              "Janela aberta",
+              "1,00"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Área de absorção equivalente",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>A</mi><mi>eq</mi></msub><mo>=</mo><mo>∑</mo><msub><mi>S</mi><mi>i</mi></msub><msub><mi>α</mi><mi>i</mi></msub></math>",
+            "units": "Aeq e Si em m²; αi adimensional"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
+    }
+  ]
+}
