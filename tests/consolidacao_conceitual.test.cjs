@@ -10,7 +10,7 @@ test('remissões não apagam registros nem transferem avaliações',()=>{assert.
 test('aplicação idempotente e nenhuma alteração não relacionada de frente/verso',()=>{assert.deepEqual(applyConsolidation(out,packet),out);for(const c of catalog.base){if(!out.consolidation.historical_ids.includes(c.id)){const after=current.get(c.id);for(const k of ['front','back','expl','active'])assert.equal(after[k],c[k])}}});
 test('toda relação ativa aponta para o núcleo, sem autorreferência',()=>{for(const c of out.base.filter(c=>c.active!==false))for(const id of c.related_card_ids||[]){assert.notEqual(id,c.id);assert.equal(aliases[id],undefined)}});
 test('perfil completo: 11 módulos distintos, grifos localizados, tabela real',()=>{for(const r of packet.revisions){assert.equal(r.modules.length,11);assert.equal(new Set(r.modules.map(m=>m.texto)).size,11);assert.ok(r.modules.every((m,i)=>m.ord===i+1&&m.texto.trim()));assert.ok(r.editorial.highlights.length);for(const h of r.editorial.highlights)assert.equal(r.back.slice(h.start,h.end),h.text);assert.ok(r.editorial.table.rows.every(row=>row.length===r.editorial.table.headers.length));}});
-test('leitor autônomo: contagens, respostas recolhidas, nenhum canal de SRS',()=>{const h=read('candidatos/leitor_consolidado_25.html');for(const [regex,n] of [[/<article class="card"/g,25],[/<table>/g,25],[/<math /g,17],[/<svg /g,5],[/<details class="reveal">/g,25]])assert.equal((h.match(regex)||[]).length,n);assert.doesNotMatch(h,/(localStorage|sessionStorage|fetch\(|XMLHttpRequest|indexedDB)/);for(const id of Object.keys(aliases))assert.ok(h.includes(id));});
+test('leitor autônomo: contagens, respostas recolhidas, nenhum canal de SRS',()=>{const h=read('candidatos/leitor_consolidado_25.html');for(const [regex,n] of [[/<article class="card"/g,25],[/<table>/g,25],[/<math /g,17],[/<figure data-media-id=/g,26],[/<img loading="lazy"/g,17],[/data-private-original="true"/g,9],[/<details class="reveal">/g,25]])assert.equal((h.match(regex)||[]).length,n);assert.doesNotMatch(h,/(localStorage|sessionStorage|fetch\(|XMLHttpRequest|indexedDB)/);for(const id of Object.keys(aliases))assert.ok(h.includes(id));for(const r of packet.revisions)for(const m of r.editorial.media)assert.ok(h.includes('data-media-id="'+m.id+'"'),m.id);});
 
 test('v015 — união de mídias por origem, inclusive satélites e originais privados',()=>{
  const readJson=p=>JSON.parse(read(p));
@@ -41,7 +41,7 @@ test('v015 — união de mídias por origem, inclusive satélites e originais pr
   assert.equal(new Set(media.map(m=>m.id)).size,media.length,'Duplicata '+c.id);
   for(const m of media){
    assert.ok(!m.private_original||(!m.src&&!m.inline_svg),'Original privado exposto: '+m.id);
-   if(m.src){assert.match(m.src,/^assets\\//);assert.ok(fs.existsSync(path.join(root,m.src)),'Arquivo ausente: '+m.id)}
+   if(m.src){assert.ok(m.src.startsWith('assets/'));assert.ok(fs.existsSync(path.join(root,m.src)),'Arquivo ausente: '+m.id)}
   }
  }
 });
