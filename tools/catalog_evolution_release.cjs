@@ -14,7 +14,7 @@ function apply(p,contract){
  for(const file of contract.packets){const raw=read(file.path);assert.equal(blob(raw),file.blob,file.path);const j=JSON.parse(raw);assert.equal(j.format,'BancoMestreEvolution1');assert.equal(j.private_content_exported,false);for(const r of j.revisions){
   assert.ok(!seen.has(r.id),'ID duplicado '+r.id);seen.add(r.id);
   const c=map.get(r.id),h=historical.get(r.id);assert.ok(c&&h&&c.active!==false&&!c.provisional,'ID inválido '+r.id);
-  assert.equal(digest(h),r.expected_hash,'hash de origem '+r.id);
+  const corrected=contract.verified_hash_corrections?.[r.id];if(corrected)assert.equal(r.expected_hash,corrected.transcribed,'transcrição original '+r.id);assert.equal(digest(h),corrected?.verified||r.expected_hash,'hash de origem '+r.id);
   assert.deepEqual(withoutRelations(c),withoutRelations(h),'conflito de conteúdo '+r.id);
   for(const k of ['title','front','back','source','mnemonic'])assert.ok(nonempty(r[k]),r.id+' '+k);
   assert.equal(r.modules.length,11,r.id);r.modules.forEach((m,i)=>assert.ok(m.ord===i+1&&nonempty(m.titulo)&&nonempty(m.texto),r.id+' módulo '+(i+1)));
