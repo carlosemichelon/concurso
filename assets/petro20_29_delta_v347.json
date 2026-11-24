@@ -1,0 +1,2451 @@
+{
+  "format": "BancoMestreRetroV347",
+  "counts": {
+    "new": 15,
+    "total": 1601,
+    "active": 1584
+  },
+  "new_cards": [
+    {
+      "id": "CARD-1588",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Famílias dos processos de fabricação",
+      "front": "Quais são as diferenças físicas entre usinagem, conformação, fundição, soldagem e tratamento térmico/termoquímico? Explique uma sequência plausível para fabricar uma engrenagem ou eixo.",
+      "back": "Usinagem REMOVE material; conformação DEFORMA plasticamente; fundição SOLIDIFICA metal em molde; soldagem UNE materiais; tratamentos térmicos/termoquímicos MODIFICAM a microestrutura e/ou a composição superficial para ajustar propriedades.",
+      "expl": "Laminação, forjamento, extrusão, trefilação e dobramento alteram a forma por deformação plástica. Estampagem também inclui operações de corte/cisalhamento de chapas; nem tudo é somente deformação sem separação.\n\nMetal é vazado, injetado ou conduzido ao molde no estado líquido, depois solidifica. Podem existir rebarbas, contração, porosidade e necessidade de usinagem posterior.\n\nUne materiais por coalescência com ou sem fusão; processos como SAW/MIG/MAG/TIG envolvem arco elétrico. Soldagem não é sinônimo de fusão para todos os processos (soldagem por fricção, por exemplo).\n\nTêmpera, revenido, recozimento e normalização controlam microestrutura e propriedades por ciclos térmicos, não sendo normalmente operações de moldagem final.\n\nCementação aumenta teor de carbono da camada externa; nitretação introduz nitrogênio. Buscam superfície resistente ao desgaste sem tornar automaticamente todo o núcleo igualmente duro.\n\nExemplo de engrenagem: peça bruta forjada/fundida → usinagem de forma e dentes → cementação → têmpera/revenido → retificação final. A sequência exata depende das tolerâncias, distorções térmicas, aço e projeto.\n\nComplexidade geométrica, volume de produção, material, tolerâncias, acabamento, propriedade final e custo governam a escolha; fundição e conformação podem produzir formas próximas da final, mas nem sempre com precisão suficiente.\n\nUma prensa pode ser máquina operatriz em sentido amplo, mas a operação típica de prensa de conformação não é fresamento. Um permutador de calor não realiza usinagem. MACETE: TIRA (usinagem), MOLDA (conformação), DERRETE (fundição), JUNTA (soldagem), TRANSFORMA PROPRIEDADES (tratamento).",
+      "mnemonic": "Uma peça precisa ser cilíndrica, receber tratamento superficial e ter precisão fina. Qual operação produz a forma por retirada de material, qual modifica a camada externa e qual faz o acabamento final? Responda pela função e pelo nome.",
+      "reference": "PETRO27-FAB-001",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1589",
+        "CARD-1590",
+        "CARD-1591",
+        "CARD-1593"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1589",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Usinagem por arestas definidas e abrasão",
+      "front": "Diferencie usinagem por aresta de corte definida e por abrasivos de geometria não definida. Em torneamento, fresamento, furação, plaina limadora e retificação, o que se move e que ferramenta retira material?",
+      "back": "Torno: peça gira; fresadora: fresa de múltiplas arestas gira; furadeira: broca gira e avança; plaina limadora: ferramenta realiza vaivém; retificadora: rebolo de grãos abrasivos gira, removendo microcavacos. As quatro primeiras usam arestas de geometria definida; a retificação usa grãos de geometria não definida.",
+      "expl": "Torno, fresa, broca e plaina usam arestas cortantes fabricadas com geometria de corte reconhecível. Na fresadora e furadeira a ferramenta gira; no torno convencional a peça gira.\n\nRebolo de retificação possui inúmeros grãos abrasivos de formatos irregulares. Cada grão pode produzir microcavacos; busca-se tolerância fina, controle de forma e acabamento superficial.\n\nPlaina limadora: a ferramenta vai e volta e a peça recebe avanço; plaina de mesa: usualmente a peça/mesa faz o vaivém principal. Ambas removem cavacos; 'limadora' não é lixadeira.\n\nFresadora é indicada para planos, rasgos, bolsões e perfis; torno é típico para peças de revolução como eixos e buchas. Centros CNC multifuncionais podem combinar movimentos e operações, sem invalidar a descrição tradicional.\n\nFuração inicia ou amplia um furo com broca; mandrilamento ajusta furos e geometria interna, podendo aumentar precisão. A ferramenta e os movimentos variam conforme máquina.\n\nVelocidade de corte (m/min), avanço (mm/volta; mm/dente ou mm/min, conforme processo) e profundidade de corte (mm) afetam remoção, calor, acabamento e desgaste. Não misturar unidades de processos diferentes.\n\nRetífica é frequentemente escolhida para superfícies endurecidas e requisitos dimensionais rigorosos. Não afirmar que toda retífica sempre produz melhor rugosidade que qualquer outra operação: depende do equipamento e da especificação.\n\nPrensa pode estampar ou dobrar, mas não é a tríade de usinagem da questão. Rebolo ≠ fresa. Retificação É usinagem. MACETE: PEÇA GIRA no torno; FRESA GIRA na fresadora; PLAINA VAI E VOLTA; RETÍFICA ABRASIVO.",
+      "mnemonic": "Para eixo cilíndrico com rasgo de chaveta e superfície final de alta precisão, explique uma sequência de torneamento, fresamento e retificação e por que cada máquina é escolhida.",
+      "reference": "PETRO27-FAB-002",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1588",
+        "CARD-1596",
+        "CARD-1590"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-USI"
+      ]
+    },
+    {
+      "id": "CARD-1590",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Conformação mecânica: laminação, forjamento, extrusão, trefilação e estampagem",
+      "front": "Diferencie os movimentos e mecanismos de laminação, forjamento, extrusão, trefilação, dobramento e estampagem. Qual a diferença fundamental para a usinagem por cavacos?",
+      "back": "Laminação: passa entre cilindros; forjamento: esforços compressivos; extrusão: material EMPURRADO por matriz; trefilação: material PUXADO por matriz; dobramento: mudança de direção; estampagem: trabalho de chapas por punções/matrizes, incluindo formar e eventualmente separar. Usinagem remove material; conformação altera a forma pela deformação plástica.",
+      "expl": "Deformação predominantemente compressiva por martelo ou prensa, a quente ou a frio. Obtém formas e pode orientar o fluxo de material; qualidade depende de projeto e processamento.\n\nUm tarugo é pressionado contra matriz, atravessando abertura com seção desejada, usualmente produzindo perfis longos e constantes; no processo direto, o material flui no sentido de movimento do êmbolo.\n\nBarra, fio ou tubo é puxado através de uma fieira, reduzindo seção e em geral aumentando comprimento. Distinguir de extrusão: trefilação PUXA; extrusão EMPURRA.\n\nDobramento promove curvatura; estampagem abrange operações de corte, dobra, repuxo e outras operações com chapas, ferramentas e prensas. Puncionamento separa material por cisalhamento, não por cavaco de torno.\n\nA quente permite maiores deformações com menor tensão de escoamento e pode favorecer recristalização; a frio produz encruamento e exige maiores esforços, mas pode favorecer precisão e acabamento. Há exceções conforme material e temperatura.\n\nDeformação plástica a frio aumenta densidade de discordâncias e em geral a resistência/dureza, reduzindo ductilidade. Não confundir 'encruamento' com carbonetação ou têmpera martensítica.\n\nChapa de aço: laminação; eixo forjado: forjamento; perfil de alumínio longo: extrusão; arame: trefilação; componente estampado de chapa: prensa e matriz.\n\nLaminação não é fresamento; extrusão e trefilação não são sinônimos. Uma prensa é máquina industrial, mas não demonstra que a operação seja usinagem convencional. MACETE: ROLOS laminam; MARTELO/PRENSA forjam; EMPURRA extrusão; PUXA trefilação.",
+      "mnemonic": "Uma empresa fabrica arame fino a partir de fio mais grosso e perfis de alumínio de seção constante. Quais processos são mais adequados e por que?",
+      "reference": "PETRO27-FAB-003",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1588",
+        "CARD-1589"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1591",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Fundamentos de soldagem: arco elétrico, eletrodos e ZTA",
+      "front": "Em uma junta soldada por fusão, o que são metal-base, poça de fusão, metal de solda e ZTA? Diferencie eletrodo consumível e não consumível e classifique a proteção por gás, fluxo granular e revestimento.",
+      "back": "Metal-base é o original; poça de fusão é o metal líquido; metal de solda é a região solidificada; ZTA é metal-base AQUECIDO E ALTERADO SEM FUNDIR. Consumíveis (SAW/MIG/MAG/SMAW) podem fornecer metal à junta; TIG usa tungstênio não consumível e eventual vareta separada. SAW: fluxo externo; MIG/MAG/TIG: gás; SMAW: revestimento.",
+      "expl": "Metal-base é a peça original. Poça de fusão é a região temporariamente líquida da junta, cujo resfriamento forma o metal de solda.\n\nRegião que solidificou após a fusão, podendo conter metal-base e/ou metal de adição. Não é idêntico à zona termicamente afetada.\n\nPorção não fundida do metal-base adjacente à união, cuja microestrutura/propriedades se alteraram pelo ciclo térmico. Pode endurecer, amolecer ou ficar suscetível a trincas, conforme aço e parâmetros.\n\nArame SAW/MIG/MAG, arame tubular e vareta do eletrodo revestido fundem-se e contribuem para o metal depositado. O eletrodo também permite estabelecer/transferir corrente, conforme processo.\n\nTIG usa eletrodo de tungstênio resistente à fusão nas condições usuais e pode receber metal de adição por vareta/arame separado. Não confundir proteção gasosa com material de adição.\n\nMIG/MAG usam gás fornecido externamente; TIG normalmente gás inerte externo; SAW usa fluxo granular externo sobre o arco; SMAW usa revestimento da vareta que origina gás e escória; FCAW tem fluxo dentro do arame e pode ter gás adicional.\n\nEspessura, material, posição, produtividade, equipamentos, qualificação de procedimento e risco de defeitos interferem na escolha. Soldagem a arco submerso é favorável a cordões longos em posições compatíveis com retenção do fluxo.\n\nZTA não fundiu. MIG/MAG e SAW podem ter arame contínuo, mas PROTEÇÃO DIFERENTE. SAW 'submerso' quer dizer coberto de GRÃOS, não imerso em água. MACETE: SAW = grãos; MIG/MAG = gás; TIG = tungstênio; SMAW = revestimento.",
+      "mnemonic": "Uma junta mostra metal-base não fundido, metal de solda solidificado e faixa aquecida sem fusão. Identifique a ZTA e explique como seu comportamento pode diferir do metal-base original.",
+      "reference": "PETRO27-FAB-004",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1588",
+        "CARD-1597",
+        "CARD-1592",
+        "CARD-1598"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-SAW",
+        "PETRO27-AL2024"
+      ]
+    },
+    {
+      "id": "CARD-1592",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Defeitos de soldagem e ensaios não destrutivos",
+      "front": "Diferencie porosidade, trinca, falta de fusão, falta de penetração, inclusão de escória e mordedura em uma junta soldada. Quais métodos de inspeção são adequados para defeitos superficiais e internos?",
+      "back": "Porosidade = vazios por gases; trinca = descontinuidade por ruptura; falta de fusão = ausência de coalescência entre superfícies; falta de penetração = raiz sem extensão de fusão exigida; inclusão de escória = material não metálico aprisionado; mordedura = sulco junto à borda. VT é visual; LP encontra descontinuidades abertas à superfície; PM encontra descontinuidades superficiais/próximas da superfície em materiais ferromagnéticos; UT/RT ajudam a detectar defeitos internos conforme orientação e técnica.",
+      "expl": "Aberturas por fratura na solda ou ZTA, a quente, a frio ou por solicitação em serviço. São muito relevantes para integridade; podem iniciar por hidrogênio difusível, tensões e microestrutura suscetível em certos aços.\n\nNão ocorreu união metalúrgica adequada entre metal de solda e metal-base ou entre passes. Não confundir com 'falta de penetração', que especifica a profundidade/raiz da junta.\n\nA fusão não alcança a raiz ou a profundidade exigida para a junta. Pode ocorrer por preparo inadequado, parâmetros, acesso ou técnica, e não é sinônimo de porosidade.\n\nEscória ou outro material não metálico permanece preso entre passes ou dentro da união, podendo criar descontinuidades; limpeza entre passes e execução adequada reduzem risco.\n\nMordedura é sulco junto à borda/pega do cordão, possivelmente concentrando tensões. Excesso de reforço, sobreposição e outras imperfeições de forma têm critérios específicos.\n\nVT observa superfície e geometria, com iluminação, instrumentos e acesso. LP detecta descontinuidades que se abrem à superfície em materiais compatíveis; não revela poros internos completamente fechados.\n\nPM funciona em materiais ferromagnéticos para descontinuidades superficiais/próximas; UT usa ondas ultrassônicas e pode detectar descontinuidades internas conforme geometria/orientação; RT registra atenuação da radiação e pode evidenciar porosidade e inclusões, mas tem limitações por orientação.\n\nZTA não fundiu, mas pode trincar. Falta de fusão ≠ falta de penetração. LP não detecta todos os defeitos internos; PM não serve indiscriminadamente a alumínio não ferromagnético. MACETE: GÁS = poro; SEPAROU = trinca; NÃO UNIU = fusão; NÃO CHEGOU À RAIZ = penetração; RETEVE MATERIAL = escória.",
+      "mnemonic": "Uma solda apresenta poros internos e outra tem trinca aberta à superfície em aço ferromagnético. Quais ensaios poderiam ser selecionados? Justifique limitações sem prometer sensibilidade universal.",
+      "reference": "PETRO27-FAB-005",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1591"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1593",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Tratamentos térmicos dos aços: recozimento, normalização, têmpera e revenido",
+      "front": "Como diferenciar recozimento, normalização, têmpera e revenido de um aço? Qual sequência é usual para endurecer e reduzir a fragilidade, e por que o mesmo ciclo não fornece sempre a mesma dureza?",
+      "back": "Recozimento: amolecer/recuperar ductilidade/aliviar tensões conforme ciclo; normalização: aquecer a faixa apropriada e resfriar tipicamente ao ar para homogeneizar/refinar; têmpera: aquecimento adequado e resfriamento suficientemente rápido para formar estrutura endurecida (em aços temperáveis, martensita); revenido: reaquecimento controlado pós-têmpera para reduzir tensões/fragilidade e ajustar dureza e tenacidade.",
+      "expl": "Austenitização quando aplicável e resfriamento ao ar, produzindo microestrutura mais uniforme e frequentemente mais fina do que em recozimento lento, a depender do aço e das dimensões.\n\nApós preparação/austenitização apropriada, resfriamento com severidade suficiente transforma a austenita em martensita em aços aptos. Água, óleo, polímero, ar ou outros meios podem ser empregados, conforme temperabilidade e risco de trinca.\n\nMicroestrutura endurecida por transformação sem difusão a partir da austenita, em aços apropriados. Elevada dureza pode vir acompanhada de tensões internas e menor tenacidade no estado não revenido.\n\nReaquecimento controlado de aço temperado a temperatura abaixo da faixa crítica definida para aços usuais, visando reduzir tensões e fragilidade e ajustar o compromisso entre dureza, resistência e tenacidade. Em geral ocorre redução de parte da dureza, mas há fenômenos especiais de endurecimento secundário.\n\nTêmpera busca formar estrutura resistente/endurecida; revenido ajusta comportamento e reduz fragilidade. Não substituir 'têmpera + revenido' por 'dois tratamentos para aumentar dureza indiscriminadamente'.\n\nTemperatura e tempo inadequados, composição, geometria e resfriamento não uniforme podem produzir deformações, trincas e microestruturas diferentes em superfície e centro. Necessário selecionar ciclo por aço, seção e propriedade requerida.\n\nPode haver usinagem inicial, tratamento térmico e retificação final, pois o tratamento pode distorcer dimensões. Em materiais de difícil usinagem após endurecimento, planejar sobremetal de acabamento.\n\nTemperabilidade não é dureza medida: é capacidade de endurecer em profundidade sob resfriamento apropriado. Não afirmar que todo aço forma martensita sob qualquer resfriamento. MACETE: RECOZE amacia; NORMALIZA uniformiza; TEMPERA endurece; REVENIDO tira fragilidade.",
+      "mnemonic": "Uma peça temperada ficou muito dura e frágil. Que tratamento vem depois e por quê? O que mudaria se o aço não tivesse composição adequada para formar martensita?",
+      "reference": "PETRO27-FAB-006",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1588",
+        "CARD-1594",
+        "CARD-1595"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-CEMENT"
+      ]
+    },
+    {
+      "id": "CARD-1594",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Endurecimento superficial: cementação, nitretação, camada dura e núcleo tenaz",
+      "front": "Por que engrenagens e eixos de aço de baixo carbono podem ser cementados, temperados e revenidos? Diferencie cementação, nitretação, têmpera e revenido e as propriedades desejadas na seção transversal.",
+      "back": "A cementação difunde CARBONO na superfície de aço de baixo carbono; têmpera posterior permite superfície rica em carbono muito DURA; revenido reduz fragilidade/tensões. O núcleo, com menor teor de C, mantém tenacidade relativa. Nitretação difunde N e pode endurecer a superfície por nitretos sem exigir têmpera posterior. Gabarito da questão: dureza superficial + tenacidade no núcleo + resistência à ruptura (C).",
+      "expl": "Tratamento termoquímico de enriquecimento superficial em carbono por difusão, em temperatura elevada e atmosfera/meio adequado. O carbono não penetra instantaneamente com concentração uniforme por toda a seção.\n\nApós etapas térmicas adequadas, a camada rica em C pode formar martensita mais dura mediante resfriamento apropriado; o núcleo de menor carbono tem comportamento distinto. Não dizer que cementação isolada garante dureza final desejada sem ciclo térmico.\n\nAjusta resistência/tenacidade e reduz parte da fragilidade e tensões da condição temperada, buscando dureza superficial útil para o serviço. A resposta depende de temperatura, tempo, material e classe de aço.\n\nIntroduz nitrogênio na superfície e pode formar nitretos endurecedores; costuma ocorrer em temperaturas relativamente inferiores às de cementação e frequentemente dispensa têmpera posterior. Aços e parâmetros adequados condicionam resultado e profundidade.\n\nVariante termoquímica que introduz carbono e nitrogênio na camada externa, com características intermediárias e ciclo definido. Não confundir carbonitretação com simplesmente temperar um aço comum.\n\nDureza: oposição à penetração/deformação plástica localizada; tenacidade: energia absorvida até ruptura. A superfície busca resistir ao desgaste/contato; o núcleo deve evitar falha frágil. Isso não significa que o centro seja sempre 'mole' ou que toda a superfície tenha dureza uniforme.\n\nSolicitações repetidas podem iniciar trincas; a superfície dura e tensões residuais apropriadas ajudam em determinadas condições, mas o projeto também depende de geometria, defeitos, tensões e tratamento. 'Resistência à ruptura' é o rótulo genérico da alternativa C, não garantia universal após qualquer cementação.\n\nA (ductilidade superfície/dureza núcleo): invertida. B (encruamento superficial/fluência): troca tratamento e fenômeno de serviço. C: DUREZA superficial + TENACIDADE núcleo + resistência à ruptura (gabarito). D: invertida. E: confunde RESILIÊNCIA do núcleo e resistência ao escoamento com requisitos centrais. MACETE: CASCA DURA, MIOLO TENAZ; C COLOCA CARBONO NA CASCA.",
+      "mnemonic": "Uma engrenagem sofrerá desgaste e cargas cíclicas. Explique por que endurecer TODA a seção de maneira muito intensa pode aumentar risco de fratura e indique a função de cada etapa: cementação, têmpera e revenido.",
+      "reference": "PETRO27-FAB-007",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1593",
+        "CARD-1595"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-CEMENT"
+      ]
+    },
+    {
+      "id": "CARD-1595",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Propriedades mecânicas: dureza, ductilidade, tenacidade, resiliência, fadiga e fluência",
+      "front": "Diferencie dureza, resistência ao escoamento, resistência à ruptura, ductilidade, fragilidade, tenacidade, resiliência, fadiga e fluência. Como essas propriedades se relacionam à curva tensão–deformação e a uma engrenagem com casca dura e núcleo tenaz?",
+      "back": "Dureza = resistência à deformação plástica localizada; escoamento = início da plasticidade relevante; resistência última = máximo valor de tensão de engenharia no ensaio de tração; ductilidade = deformação plástica antes de romper; tenacidade = energia por volume absorvida ATÉ a ruptura; resiliência = energia por volume no regime ELÁSTICO; fadiga = dano por ciclos; fluência = deformação com o tempo sob tensão sustentada.",
+      "expl": "Tensão que caracteriza início da deformação plástica significativa (muitas vezes determinada por offset 0,2%). Não é a máxima tensão da curva de engenharia.\n\nNa curva tensão de engenharia, limite de resistência à tração é o máximo da curva, não necessariamente a tensão de engenharia no instante final da ruptura. Termos 'resistência à ruptura' variam na literatura; especificar qual grandeza o enunciado usa.\n\nEnergia por unidade de volume absorvida até fratura num ensaio mecânico, relacionada à área total sob curva tensão–deformação apropriada. Depende de resistência e deformabilidade; materiais muito duros podem ser frágeis e pouco tenazes.\n\nEnergia de deformação ELÁSTICA por unidade de volume armazenada até o limite de escoamento. Em modelo linear elástico simples, módulo de resiliência U_r ≈ σ_y²/(2E), com E e σ_y em Pa e U_r em J/m³.\n\nResiliência corresponde à área apenas até o regime elástico; tenacidade corresponde à área até a ruptura. Uma mola pode armazenar energia elástica, enquanto o núcleo tenaz de uma engrenagem resiste à fratura envolvendo dissipação de energia.\n\nDano cumulativo e crescimento de trincas sob variações/repetições de tensão; pode ocorrer abaixo de limite de resistência estática. Importam amplitude Δσ, tensão média, detalhe geométrico e número N de ciclos. Curva S–N caracteriza certos ensaios.\n\nDeformação dependente do tempo sob tensão sustentada, normalmente especialmente importante em altas temperaturas para metais. Não é sinônimo de fadiga; a deformação pode prosseguir sem oscilações cíclicas de carregamento.\n\nDureza ≠ tenacidade; tenacidade ≠ resiliência; fadiga ≠ fluência. Em aço cementado o núcleo é mais TENAZ, não a alternativa que exibe apenas resiliência. MACETE: DUREZA resiste à marca; DUCTILIDADE estica; TENACIDADE aguenta até quebrar; RESILIÊNCIA devolve elasticamente; FADIGA repete; FLUÊNCIA demora.",
+      "mnemonic": "Em uma curva tensão–deformação, explique o significado da área até o escoamento e até a ruptura. Uma peça submetida a cargas cíclicas em temperatura ambiente exige atenção a fadiga ou fluência? Por quê?",
+      "reference": "PETRO27-FAB-008",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1593",
+        "CARD-1594",
+        "CARD-0643",
+        "CARD-0674",
+        "CARD-0518",
+        "CARD-1598"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-CEMENT"
+      ]
+    },
+    {
+      "id": "CARD-1596",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "PETROBRAS 27 — MÁQUINAS DE USINAGEM",
+      "front": "Quais são as três máquinas operatrizes de usinagem da questão que reúne fresadora, plaina limadora, retificadora, prensa e “permutadora”? Descreva o movimento principal e a ferramenta de cada uma, explicando por que prensa e permutadora não compõem a alternativa correta. Diferencie plaina limadora da plaina de mesa.",
+      "back": "Fresadora = ferramenta rotativa de múltiplos gumes (fresa), com avanço relativo da peça/ferramenta. Plaina limadora = ferramenta de um gume com movimento retilíneo alternativo (vai e vem), enquanto a peça recebe avanço. Retificadora = rebolo giratório abrasivo, normalmente aplicado à precisão dimensional e acabamento. As três operam por remoção de material e constituem a alternativa D. Prensa, no uso típico da questão, aplica força para conformação/estampagem, e permutador de calor é equipamento de troca térmica, não de usinagem.",
+      "expl": "No aplainamento por plaina limadora, uma ferramenta de corte de um gume desloca-se em linha reta, em movimento alternativo. Em configuração convencional, há curso de corte e curso de retorno; a peça recebe avanço transversal intermitente. Produz planos e rasgos. A palavra “limadora” não indica lixa nem lixamento; é máquina-ferramenta que remove cavacos por corte.\n\nPlaina limadora: a ferramenta executa o vaivém principal, enquanto a peça presa à mesa recebe avanço. Plaina de mesa (plainadora): tipicamente a mesa/peça executa o movimento alternativo principal, enquanto a ferramenta realiza avanço. Ambas podem aplainar por retirada de cavacos, mas trocam quem faz o movimento principal de corte. Verificar a descrição da máquina concreta e suas variantes.\n\nNa retificação, um rebolo composto de grãos abrasivos gira e retira uma camada pequena de material. Pode produzir precisão dimensional, controle de forma e acabamento superficial de alta qualidade. Retificação plana e cilíndrica são exemplos. A ferramenta é o REBOLO, não a fresa nem a broca. Diferente de polimento não abrasivo, a retificação é um processo de usinagem por abrasão com remoção de microcavacos.\n\nTorno: peça gira e uma ferramenta avança; operação de torneamento, frequentemente em superfícies de revolução.\nFuradeira: broca gira e avança axialmente; produz furos. A peça pode permanecer fixa.\nMandriladora: operação de mandrilamento para usinar e/ou ajustar furos existentes, geralmente com ferramenta rotativa.\nCentro de usinagem CNC: máquina que pode combinar fresamento, furação e mandrilamento, sob controle numérico.\nSerra mecânica: dentes de serra removem material em corte; é processo de usinagem por serramento.\nMáquina de eletroerosão: remove material por descargas elétricas; é processo de usinagem não convencional, sem formação típica de cavaco mecânico.\nPrensa de estampagem/conformação: deforma ou separa chapa pela ação de matrizes e força; NÃO se classifica no grupo de usinagem por corte de cavacos da questão. Existem prensas de corte, o que não autoriza classificar toda prensa como fresadora/plaina/retificadora.\n\nFresamento e aplainamento: ferramentas de arestas definidas, removendo cavacos com geometrias dependentes do material e das condições de corte. Retificação: múltiplos grãos abrasivos agem como pequenas arestas de corte, removendo microcavacos. Velocidade de corte, avanço, profundidade de corte, fixação e fluido de corte podem influenciar precisão, acabamento, aquecimento e desgaste da ferramenta.\n\nFresadora: produzir rasgos de chaveta e planos em componentes mecânicos. Plaina limadora: fazer planos e ranhuras, especialmente em operações tradicionais de oficina. Retificadora: acabamento de eixos, superfícies planas e peças que exigem tolerâncias estreitas. Torno: diâmetros e superfícies cilíndricas. Furadeira: furos. Prensa: estampagem e dobra de chapas. Permutador de calor: transferência de energia térmica entre correntes; não usina superfícies por remoção de material.\n\nUsinagem = retirar material com ferramenta/energia para produzir forma; fresamento, aplainamento, retificação e torneamento são exemplos.\nConformação = alterar a geometria por deformação plástica sem exigir remoção por cavacos; dobra e repuxo são exemplos. Estampagem pode incluir separação/corte de chapas, mas não equivale automaticamente à usinagem por cavacos.\nTransferência de calor = troca de energia térmica, não fabricação por retirada de material; um permutador/trocador de calor se enquadra aqui.\nLer o comando “para processos de usinagem”, e não apenas a expressão ampla “máquinas operatrizes”.\n\nA: prensa e “permutadora” tornam a tríade incorreta, embora tenha fresadora.\nB: retificadora é válida, mas prensa e permutadora não pertencem ao grupo solicitado.\nC: plaina limadora e retificadora são válidas, mas a prensa elimina a alternativa.\nD: fresadora + plaina limadora + retificadora = três máquinas de usinagem (gabarito).\nE: fresadora e plaina limadora são válidas; a “permutadora” elimina a alternativa (ERRO REAL: foi marcada E).\nNão trocar plaina limadora por lixadeira; não confundir rebolo com fresa; não classificar prensa por sua capacidade de aplicar força como prova de usinagem.",
+      "mnemonic": "“FRESA GIRA; PLAINA VAI E VOLTA; RETÍFICA REBOLO.”\n“Usinagem tira material; prensa molda; permutador troca calor.”\nPergunta 1: qual máquina costuma girar o componente e manter a ferramenta em avanço? (torno).\nPergunta 2: qual é a diferença entre o movimento principal da plaina limadora e da plaina de mesa?\nPergunta 3: uma peça precisa de acabamento dimensional fino por abrasão — qual máquina e ferramenta?\nPergunta 4: em qual das três máquinas o corte principal é feito por arestas abrasivas de geometria não definida?\nPergunta 5: por que uma prensa pode ser máquina industrial/operatriz, sem ser a resposta à questão de usinagem?",
+      "reference": "PETRO27-USI-001",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1589"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-USI"
+      ]
+    },
+    {
+      "id": "CARD-1597",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "PETROBRAS 27 — SOLDAGEM A ARCO SUBMERSO (SAW)",
+      "front": "Na soldagem a arco submerso (SAW), como são normalmente realizados a alimentação do eletrodo e a proteção do arco? Diferencie os processos SAW, MIG/MAG (GMAW), TIG (GTAW), eletrodo revestido (SMAW) e arame tubular (FCAW). Explique a função de fluxo granular, fluxo fundido e escória.",
+      "back": "SAW: eletrodo consumível de arame com alimentação contínua, normalmente mecanizada/automática; proteção por FLUXO GRANULAR que encobre o arco, produz gases protetores e escória. Na questão, C = automática e com o fluxo. A alternativa B (automática e com gás) foi marcada incorretamente, por confusão com MIG/MAG (que usa gás de proteção externo).",
+      "expl": "Tipicamente, SAW usa bobina de arame alimentado continuamente, com deslocamento por equipamento mecanizado/automático. Existem variantes semiautomáticas e até operações manuais específicas, portanto “sempre automática” seria generalização incorreta. Na questão, a combinação caracterizadora usual é automática + fluxo; o comando não pergunta se existiriam exceções.\n\nA cobertura granular encobre o arco, reduz a exposição do metal fundido ao ar; durante a fusão produz gases protetores e escória. Não requer fornecimento externo de gás de proteção como regra do processo SAW. Em MIG/MAG o gás externo é elemento central da proteção. Fluxo externo SAW ≠ revestimento aderido a eletrodo SMAW ≠ fluxo contido no interior do arame tubular FCAW.\n\nConsumível fornece metal à união, como arames SAW e MIG/MAG e varetas do eletrodo revestido. TIG geralmente usa eletrodo de tungstênio não consumível, com metal de adição separado, quando necessário. Não confundir fluxo com consumível eletrodo: ambos podem ser consumidos/modificados no processo, mas têm funções diferentes.\n\nProcesso\nOperação/alimentação\nProteção\nEletrodo\nSAW\nArame contínuo; normalmente automática\nFluxo granular externo\nConsumível\nMIG/MAG\nArame contínuo; semi/automática\nGás externo\nConsumível\nTIG\nManual ou mecanizada\nGás inerte\nTungstênio não consumível\nSMAW\nManual, tipicamente\nRevestimento → gás + escória\nVareta consumível\nFCAW\nArame tubular contínuo\nFluxo interno ± gás externo\nConsumível\n\nSAW é empregado em soldas longas de chapas espessas, tanques, vasos de pressão, estruturas e juntas de tubos, geralmente em posições plana e horizontal apropriadas. Possibilita alta taxa de deposição e boa repetibilidade, conforme parâmetros e preparação. Há restrições práticas relacionadas à posição de soldagem, à necessidade de manter a cobertura granular e à remoção/manuseio do fluxo e da escória.\n\nCorrente, tensão de arco, velocidade de deslocamento, diâmetro do arame, extensão do eletrodo, tipo/profundidade de fluxo e preparação de junta influenciam geometria, penetração e propriedades do cordão. Variantes podem usar um ou vários arames e fontes em corrente contínua ou alternada, conforme projeto e procedimento. Não atribuir ao processo um único valor normativo universal de corrente, velocidade ou posição.\n\nA — “automática e revestimento”: alimentação possível, proteção errada; lembra eletrodo revestido.\nB — “automática e gás”: ERRO DOCUMENTADO; alimentação típica correta, mas proteção errada (MIG/MAG).\nC — “automática e fluxo”: CORRETA para SAW.\nD — “manual e revestimento”: descreve eletrodo revestido convencional, não SAW típico.\nE — “manual e fluxo”: existem variantes menos comuns, mas não é a caracterização usual pedida.\nAlerta: “fluxo” NÃO é gás externo; uma parte do fluxo gera gases e escória como mecanismo de proteção, mas é depositado inicialmente em grãos sólidos.\n\n“SAW = Submerso sob grãos, não sob gás.”\n“MIG/MAG tem gás; SAW tem fluxo em grãos; TIG tem tungstênio; SMAW tem revestimento; FCAW tem fluxo dentro do arame.”\n“Arame contínuo não resolve sozinho: descubra o elemento de proteção.”",
+      "mnemonic": "Pergunta A: dois processos utilizam arame metálico contínuo. Em um, o arco fica coberto por grãos; em outro, por gás externo. Identifique ambos.\nPergunta B: o fluxo granular no SAW é o próprio arame? Qual é o papel da escória?\nPergunta C: por que “SAW sempre automática” é uma afirmação absoluta arriscada?\nPergunta D: qual processo usa eletrodo de tungstênio não consumível?\nPergunta E: compare fluxo GRANULAR EXTERNO do SAW com fluxo INTERNO do FCAW.",
+      "reference": "PETRO27-SAW-001",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1591"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-SAW"
+      ]
+    },
+    {
+      "id": "CARD-1598",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Materiais e processos de fabricação",
+      "sub": "Liga de alumínio 2024-O: cobre, resistência, corrosão e soldagem",
+      "front": "A liga de alumínio 2024-O (Al–Cu–Mg) é adequada quando se exige simultaneamente resistência, excelente soldabilidade por fusão e elevada resistência à corrosão? Explique os mecanismos e o significado de O.",
+      "back": "A liga 2024 tem potencial de resistência mecânica pela presença de Cu/Mg e tratamentos de precipitação, mas a presença elevada de Cu compromete sua resistência relativa à corrosão e sua soldabilidade convencional. 2024-O significa recozida, mais dúctil e menos resistente que condições endurecidas.",
+      "expl": "O sufixo O significa recozido. É um estado relativamente macio e conformável; não equivale à condição de máxima resistência, como estados apropriados de tratamento térmico.\n\nSolubilização, resfriamento e envelhecimento adequados favorecem precipitados endurecedores ricos em Cu/Mg e elevam a resistência, em comparação com a condição recozida.\n\nO Cu contribui para resistência potencial; não afirmar que aumentar Cu sempre melhora toda propriedade de qualquer liga ou que 2024-O já está no máximo endurecimento.\n\nHeterogeneidades microestruturais associadas às fases ricas em Cu podem favorecer corrosão localizada. A 2024 é menos resistente à corrosão que famílias concebidas para alta resistência a esse ataque.\n\nSoldagem convencional por fusão pode causar trincas a quente e alterações indesejáveis na zona afetada pelo calor. 'Pode unir por método especial' não significa boa soldabilidade geral.\n\nSoldagem por fricção e outras técnicas especiais podem ser consideradas em projetos adequados. A seleção exige compatibilidade com liga, condição de fornecimento e desempenho final.\n\nRevestimentos e chapas tipo Alclad podem reduzir exposição e corrosão, mas não eliminam automaticamente problemas metalúrgicos de soldagem por fusão.\n\nAfirmar que Cu melhora simultaneamente resistência, corrosão e soldabilidade é incorreto no contexto da 2024. Analisar sempre três propriedades separadamente e a condição O/T3/T4.",
+      "mnemonic": "Macete: Cu dá potencial de FORÇA, mas complica SOLDA e CORROSÃO; O=RECOZIDO. Aplicar a uma peça que exige unir por solda e resistir à atmosfera agressiva.",
+      "reference": "PETRO27-AL2024-01",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1591",
+        "CARD-1595"
+      ],
+      "related_question_ids": [
+        "PETRO27-AL2024"
+      ]
+    },
+    {
+      "id": "CARD-1599",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Instalações elétricas",
+      "sub": "Alternador trifásico — ligação estrela e triângulo",
+      "front": "Em alternador trifásico equilibrado, como se ligam os enrolamentos em estrela e em triângulo? Diferencie tensão e corrente de linha e de fase; toda estrela exige neutro externo?",
+      "back": "Estrela (Y): um terminal de cada enrolamento converge em ponto comum; Ulinha=√3·Ufase e Ilinha=Ifase. Triângulo (Δ): enrolamentos formam laço; Ulinha=Ufase e Ilinha=√3·Ifase. Estrela pode funcionar sem neutro externo.",
+      "expl": "PETRO29-Q001: resumo recuperado do estudo, gabarito D (I e III); enunciado integral não recuperado. Expansão técnica autoral: relações fasoriais em regime trifásico equilibrado.\n\nEm estrela, a tensão entre duas linhas é diferença fasorial de tensões de fase separadas por 120°. Em triângulo, cada enrolamento fica entre duas linhas e a corrente de linha resulta da diferença fasorial de duas correntes de fase.\n\nY: UL=√3 UF, IL=IF. Δ: UL=UF, IL=√3 IF. U em V, I em A; pressupõe equilíbrio e regime senoidal.\n\nY: ponto comum, neutro opcional; Δ: malha fechada de três enrolamentos. Não confundir ligação do alternador com partida estrela-triângulo de motor.\n\nSe UF=127 V e IF=10 A, em Y UL≈220 V e IL=10 A. Em Δ com as mesmas grandezas de fase UL=127 V e IL≈17,32 A. Comparação algébrica, não instrução de religação de máquina.\n\nIdentificar se o enunciado dá tensão entre linhas ou nos enrolamentos; conferir placa e conexão antes de qualquer aplicação real.\n\nRelações √3 para sistema equilibrado. Em desequilíbrio com neutro flutuante, as tensões de fase podem variar; não extrapolar o exemplo idealizado.\n\nNeutro acessível não é requisito universal para a existência de estrela; confundir tensão de linha com fase muda o cálculo.",
+      "mnemonic": "Y multiplica tensão por √3; Δ multiplica corrente por √3. Explique por que o neutro não é obrigatório.",
+      "reference": "PETRO29-Q001 / expansão didática documentada",
+      "active": true,
+      "related_card_ids": [
+        "CARD-1093",
+        "CARD-1095",
+        "CARD-0046",
+        "CARD-0731"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q001"
+      ]
+    },
+    {
+      "id": "CARD-1600",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Instalações elétricas",
+      "sub": "Fator de carga — média versus pico",
+      "front": "Como calcular e interpretar o fator de carga de unidade consumidora? Diferencie fator de carga, fator de demanda e fator de potência.",
+      "back": "FC=Dmédia/Dmáx=E/(Dmáx·t); entre 0 e 1 se Dmáx>0. Quanto maior, mais uniforme o aproveitamento da demanda; não significa menor consumo absoluto.",
+      "expl": "PETRO29-Q002 / PROCEL: Eficiência energética em refrigeração comercial e industrial. https://www.gov.br/mme/pt-br/assuntos/ee/publicacoes-e-estudos/copy_of_EEemrefrigeracaocomercialeindustrialProcel.pdf\n\nEnergia é a integral da demanda ao longo do período. Dividir energia pelo tempo fornece demanda média. O denominador representa consumo se a demanda máxima permanecesse durante todo o período.\n\nFC=E[kWh]/(Dmáx[kW]·t[h]); Dmédia=E/t [kW]. Adimensional ou %.\n\nFator de carga = média/pico. Fator de demanda = pico/potência instalada. Fator de potência = P/S.\n\nPara IV: 45.000/60.000=0,75. I=52,94%; II=29,41%; III=20%; V=50%. IV é maior.\n\nCompare curvas de carga do mesmo período e demanda máxima definida no faturamento; identificar unidade mais uniforme.\n\nNão confundir demanda medida com contratada; usar o período e as definições da questão. Dmáx=0 torna a razão indefinida.\n\nMaior fator de carga não implica menor kWh nem maior rendimento; 730 h já está incorporado nos denominadores do exercício.",
+      "mnemonic": "Carga: média/pico; potência: P/S; demanda: pico/instalada. Recalcule sem consultar o verso.",
+      "reference": "PETRO29-Q002 / expansão didática documentada",
+      "active": true,
+      "related_card_ids": [
+        "CARD-0731"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q002"
+      ]
+    },
+    {
+      "id": "CARD-1601",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Instalações elétricas",
+      "sub": "Queda de tensão — método watt-metro",
+      "front": "Como calcular queda de tensão pelo método watt-metro com cargas distribuídas? Qual distância usar e como separar o orçamento de projeto de 2% do limite de circuito terminal?",
+      "back": "Somar ΣPi·di, com di a distância de cada carga ao quadro. Comparar à tabela para seção/tensão/queda adotada. Para circuito monofásico resistivo FP=1, ΔV≈2ρΣPi di/(S·V). A NBR 5410:2004 limita circuito terminal a 4%, não 2%.",
+      "expl": "PETRO29-Q003 — NBR 5410:2004 6.2.7.1–6.2.7.2, fonte de consulta https://www.ipaam.am.gov.br/wp-content/uploads/2021/01/NBR-05410-05-Instala%C3%A7%C3%B5es-El%C3%A9tricas-de-baixa-Tens%C3%A3o.pdf ; exemplo de orçamento 2% https://www.drb-assessoria.com.br/av1/3-Projeto%20de%20Instalacoes%20Eletricas.pdf\n\nCada trecho conduz as correntes das cargas a jusante; somar perdas em trechos equivale à soma potência×distância acumulada no modelo simplificado.\n\nΣPi di em W·m; ρ em Ω·mm²/m; S em mm²; V e ΔV em V. e=ΔV/V. O fator 2 ida e volta já está embutido na tabela de dois condutores.\n\nOrçamento 2% é escolha de projeto. Terminal ≤4%; limites globais 5/7% dependem da origem conforme 6.2.7.1.\n\nQuadro 110 V, 2,5 mm²: distâncias 3;5;6,5;8;10;15;20 m. ΣPd=15.370+15L. Com 2%, limite 17.542 → L≤144,8 W → maior opção 100 W (B). Com 4%, limite 35.092 → L≤1.314,8 W; gabarito depende de hipótese não enunciada.\n\nSomar potência individual vezes distância desde o quadro; se houver tabela, respeitar tensão, seção, material e percentual.\n\nAproximação monofásica resistiva, tensão quase constante e FP unitário; para outros sistemas, usar cálculo apropriado. Gabarito B divulgado, sem afirmar que 2% seja regra geral.\n\nNão multiplicar duas vezes o comprimento de ida e volta; não usar somente distâncias entre cargas. Não declarar E incorreta pelo teto de 4% isolado.",
+      "mnemonic": "Watt-metro: carga×distância desde o quadro. Compare 2% e 4% antes de julgar a alternativa.",
+      "reference": "PETRO29-Q003 / expansão didática documentada",
+      "active": true,
+      "related_card_ids": [
+        "CARD-0203",
+        "CARD-0213"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q003"
+      ]
+    },
+    {
+      "id": "CARD-1602",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Instalações elétricas",
+      "sub": "Motores — seccionamento, comando e proteção",
+      "front": "Diferencie seccionamento, comando e proteção de motor. Quais condutores podem ser seccionados? Por que o comando deve manobrar mesmo com rotor bloqueado?",
+      "back": "Seccionamento isola a alimentação; comando manobra; proteção atua em anormalidade. PE/PEN nunca seccionados; neutro conforme esquema. Comando deve ser capaz de manobrar eletricamente mesmo com rotor bloqueado. Créder cita chave ≥115% In e exceções específicas; não generalizar como regra universal da NBR 5410.",
+      "expl": "PETRO29-Q004 — Hélio Créder, Instalações Elétricas, 16ª ed., 6.1.10 https://studylib.net/doc/28299826/helio-creder ; NBR 5410:2004 5.6.2.2, 5.6.3.1, 5.6.6.1.2 https://eletroenergia.com.br/wp-content/uploads/2020/04/nbr_5410.pdf\n\nRotor bloqueado pode elevar a corrente e o aquecimento. O dispositivo de comando deve ser capaz de manobrar a carga nessas condições, enquanto proteção e seccionamento possuem funções diferentes.\n\nSegundo Créder, chave separadora para motor fixo em geral ≥1,15 In; interruptor de uso geral para motor ≤1,5 kW e tensão <300 V, capacidade ≥2 In, nas condições do autor. Correntes em A.\n\nSeccionamento = isolamento; comando = manobra; proteção = resposta a defeito/sobrecorrente. TN-S: dispensa de seccionar neutro não é proibição universal.\n\nMotor com In=10 A: referência do autor 1,15×10=11,5 A; selecionar dispositivo considerando categoria e características reais.\n\nNa prova, verificar a exceção de conjunto de motores da mesma máquina e a capacidade de manobra com rotor travado.\n\nNão atribuir todos os números de livro diretamente a dispositivo normativo; não seccionamento do PE/PEN é princípio de proteção.\n\nComando de rotor bloqueado não significa obrigar o motor a partir. Nunca colocar comando unipolar apenas no neutro.",
+      "mnemonic": "Corta alimentação, não proteção. Compare isolar, comandar e proteger.",
+      "reference": "PETRO29-Q004 / expansão didática documentada",
+      "active": true,
+      "related_card_ids": [
+        "CARD-0720",
+        "CARD-0732",
+        "CARD-0727",
+        "CARD-1088"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q004"
+      ]
+    }
+  ],
+  "profiles": {
+    "CARD-1588": {
+      "id": "CARD-1588",
+      "title": "Famílias dos processos de fabricação",
+      "front": "Quais são as diferenças físicas entre usinagem, conformação, fundição, soldagem e tratamento térmico/termoquímico? Explique uma sequência plausível para fabricar uma engrenagem ou eixo.",
+      "back": "Usinagem REMOVE material; conformação DEFORMA plasticamente; fundição SOLIDIFICA metal em molde; soldagem UNE materiais; tratamentos térmicos/termoquímicos MODIFICAM a microestrutura e/ou a composição superficial para ajustar propriedades.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Classificação essencial",
+          "texto": "Identifique primeiro o objetivo da operação: produzir forma removendo cavacos, deformar sem cavacos, fundir e solidificar, unir peças ou modificar propriedades. Uma única peça pode atravessar várias famílias."
+        },
+        {
+          "ord": 2,
+          "titulo": "Usinagem",
+          "texto": "Torneamento, fresamento, aplainamento, furação e retificação retiram material da peça, muitas vezes gerando cavacos. Retificação remove microcavacos por grãos abrasivos."
+        },
+        {
+          "ord": 3,
+          "titulo": "Conformação",
+          "texto": "Laminação, forjamento, extrusão, trefilação e dobramento alteram a forma por deformação plástica. Estampagem também inclui operações de corte/cisalhamento de chapas; nem tudo é somente deformação sem separação."
+        },
+        {
+          "ord": 4,
+          "titulo": "Fundição",
+          "texto": "Metal é vazado, injetado ou conduzido ao molde no estado líquido, depois solidifica. Podem existir rebarbas, contração, porosidade e necessidade de usinagem posterior."
+        },
+        {
+          "ord": 5,
+          "titulo": "Soldagem",
+          "texto": "Une materiais por coalescência com ou sem fusão; processos como SAW/MIG/MAG/TIG envolvem arco elétrico. Soldagem não é sinônimo de fusão para todos os processos (soldagem por fricção, por exemplo)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Tratamentos térmicos",
+          "texto": "Têmpera, revenido, recozimento e normalização controlam microestrutura e propriedades por ciclos térmicos, não sendo normalmente operações de moldagem final."
+        },
+        {
+          "ord": 7,
+          "titulo": "Tratamentos termoquímicos",
+          "texto": "Cementação aumenta teor de carbono da camada externa; nitretação introduz nitrogênio. Buscam superfície resistente ao desgaste sem tornar automaticamente todo o núcleo igualmente duro."
+        },
+        {
+          "ord": 8,
+          "titulo": "Sequência de fabricação",
+          "texto": "Exemplo de engrenagem: peça bruta forjada/fundida → usinagem de forma e dentes → cementação → têmpera/revenido → retificação final. A sequência exata depende das tolerâncias, distorções térmicas, aço e projeto."
+        },
+        {
+          "ord": 9,
+          "titulo": "Critérios de seleção",
+          "texto": "Complexidade geométrica, volume de produção, material, tolerâncias, acabamento, propriedade final e custo governam a escolha; fundição e conformação podem produzir formas próximas da final, mas nem sempre com precisão suficiente."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e macete",
+          "texto": "Uma prensa pode ser máquina operatriz em sentido amplo, mas a operação típica de prensa de conformação não é fresamento. Um permutador de calor não realiza usinagem. MACETE: TIRA (usinagem), MOLDA (conformação), DERRETE (fundição), JUNTA (soldagem), TRANSFORMA PROPRIEDADES (tratamento)."
+        },
+        {
+          "ord": 11,
+          "titulo": "Transferência ativa",
+          "texto": "Uma peça precisa ser cilíndrica, receber tratamento superficial e ter precisão fina. Qual operação produz a forma por retirada de material, qual modifica a camada externa e qual faz o acabamento final? Responda pela função e pelo nome."
+        }
+      ],
+      "paragraphs": [
+        "Usinagem REMOVE material; conformação DEFORMA plasticamente; fundição SOLIDIFICA metal em molde; soldagem UNE materiais; tratamentos térmicos/termoquímicos MODIFICAM a microestrutura e/ou a composição superficial para ajustar propriedades.",
+        "Torneamento, fresamento, aplainamento, furação e retificação retiram material da peça, muitas vezes gerando cavacos. Retificação remove microcavacos por grãos abrasivos.",
+        "Une materiais por coalescência com ou sem fusão; processos como SAW/MIG/MAG/TIG envolvem arco elétrico. Soldagem não é sinônimo de fusão para todos os processos (soldagem por fricção, por exemplo)."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1589",
+        "CARD-1590",
+        "CARD-1591",
+        "CARD-1593"
+      ],
+      "related_question_ids": []
+    },
+    "CARD-1589": {
+      "id": "CARD-1589",
+      "title": "Usinagem por arestas definidas e abrasão",
+      "front": "Diferencie usinagem por aresta de corte definida e por abrasivos de geometria não definida. Em torneamento, fresamento, furação, plaina limadora e retificação, o que se move e que ferramenta retira material?",
+      "back": "Torno: peça gira; fresadora: fresa de múltiplas arestas gira; furadeira: broca gira e avança; plaina limadora: ferramenta realiza vaivém; retificadora: rebolo de grãos abrasivos gira, removendo microcavacos. As quatro primeiras usam arestas de geometria definida; a retificação usa grãos de geometria não definida.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Definição de usinagem",
+          "texto": "Processo de fabricação em que a peça tem material retirado para obter forma, dimensões, tolerâncias ou rugosidade. Convencionalmente produz cavacos, mas existem usinagens não convencionais por outros mecanismos (ex.: eletroerosão)."
+        },
+        {
+          "ord": 2,
+          "titulo": "Cavaco e mecanismo",
+          "texto": "No corte de ferramenta com aresta definida, o material sofre cisalhamento localizado e uma parcela se destaca como cavaco. A morfologia depende de material, avanço, velocidade, profundidade e geometria da ferramenta."
+        },
+        {
+          "ord": 3,
+          "titulo": "Arestas de geometria definida",
+          "texto": "Torno, fresa, broca e plaina usam arestas cortantes fabricadas com geometria de corte reconhecível. Na fresadora e furadeira a ferramenta gira; no torno convencional a peça gira."
+        },
+        {
+          "ord": 4,
+          "titulo": "Arestas de geometria não definida",
+          "texto": "Rebolo de retificação possui inúmeros grãos abrasivos de formatos irregulares. Cada grão pode produzir microcavacos; busca-se tolerância fina, controle de forma e acabamento superficial."
+        },
+        {
+          "ord": 5,
+          "titulo": "Plaina limadora e plaina de mesa",
+          "texto": "Plaina limadora: a ferramenta vai e volta e a peça recebe avanço; plaina de mesa: usualmente a peça/mesa faz o vaivém principal. Ambas removem cavacos; 'limadora' não é lixadeira."
+        },
+        {
+          "ord": 6,
+          "titulo": "Fresadora versus torno",
+          "texto": "Fresadora é indicada para planos, rasgos, bolsões e perfis; torno é típico para peças de revolução como eixos e buchas. Centros CNC multifuncionais podem combinar movimentos e operações, sem invalidar a descrição tradicional."
+        },
+        {
+          "ord": 7,
+          "titulo": "Furadeira versus mandriladora",
+          "texto": "Furação inicia ou amplia um furo com broca; mandrilamento ajusta furos e geometria interna, podendo aumentar precisão. A ferramenta e os movimentos variam conforme máquina."
+        },
+        {
+          "ord": 8,
+          "titulo": "Parâmetros de corte",
+          "texto": "Velocidade de corte (m/min), avanço (mm/volta; mm/dente ou mm/min, conforme processo) e profundidade de corte (mm) afetam remoção, calor, acabamento e desgaste. Não misturar unidades de processos diferentes."
+        },
+        {
+          "ord": 9,
+          "titulo": "Acabamento e tolerâncias",
+          "texto": "Retífica é frequentemente escolhida para superfícies endurecidas e requisitos dimensionais rigorosos. Não afirmar que toda retífica sempre produz melhor rugosidade que qualquer outra operação: depende do equipamento e da especificação."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e macete",
+          "texto": "Prensa pode estampar ou dobrar, mas não é a tríade de usinagem da questão. Rebolo ≠ fresa. Retificação É usinagem. MACETE: PEÇA GIRA no torno; FRESA GIRA na fresadora; PLAINA VAI E VOLTA; RETÍFICA ABRASIVO."
+        },
+        {
+          "ord": 11,
+          "titulo": "Transferência ativa",
+          "texto": "Para eixo cilíndrico com rasgo de chaveta e superfície final de alta precisão, explique uma sequência de torneamento, fresamento e retificação e por que cada máquina é escolhida."
+        }
+      ],
+      "paragraphs": [
+        "Torno: peça gira; fresadora: fresa de múltiplas arestas gira; furadeira: broca gira e avança; plaina limadora: ferramenta realiza vaivém; retificadora: rebolo de grãos abrasivos gira, removendo microcavacos. As quatro primeiras usam arestas de geometria definida; a retificação usa grãos de geometria não definida.",
+        "No corte de ferramenta com aresta definida, o material sofre cisalhamento localizado e uma parcela se destaca como cavaco. A morfologia depende de material, avanço, velocidade, profundidade e geometria da ferramenta.",
+        "Plaina limadora: a ferramenta vai e volta e a peça recebe avanço; plaina de mesa: usualmente a peça/mesa faz o vaivém principal. Ambas removem cavacos; 'limadora' não é lixadeira."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1588",
+        "CARD-1596",
+        "CARD-1590"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-USI"
+      ]
+    },
+    "CARD-1590": {
+      "id": "CARD-1590",
+      "title": "Conformação mecânica: laminação, forjamento, extrusão, trefilação e estampagem",
+      "front": "Diferencie os movimentos e mecanismos de laminação, forjamento, extrusão, trefilação, dobramento e estampagem. Qual a diferença fundamental para a usinagem por cavacos?",
+      "back": "Laminação: passa entre cilindros; forjamento: esforços compressivos; extrusão: material EMPURRADO por matriz; trefilação: material PUXADO por matriz; dobramento: mudança de direção; estampagem: trabalho de chapas por punções/matrizes, incluindo formar e eventualmente separar. Usinagem remove material; conformação altera a forma pela deformação plástica.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Definição e plasticidade",
+          "texto": "A conformação produz alteração permanente de geometria quando tensões ultrapassam condições de escoamento plástico; a peça geralmente preserva seu material, salvo rebarbas/perdas ou operações de separação combinadas."
+        },
+        {
+          "ord": 2,
+          "titulo": "Laminação",
+          "texto": "Material atravessa cilindros contrarrotativos, que exercem compressão, reduzindo espessura ou alterando seção. Aplicada a chapas, barras e perfis; pode ocorrer a quente ou a frio."
+        },
+        {
+          "ord": 3,
+          "titulo": "Forjamento",
+          "texto": "Deformação predominantemente compressiva por martelo ou prensa, a quente ou a frio. Obtém formas e pode orientar o fluxo de material; qualidade depende de projeto e processamento."
+        },
+        {
+          "ord": 4,
+          "titulo": "Extrusão",
+          "texto": "Um tarugo é pressionado contra matriz, atravessando abertura com seção desejada, usualmente produzindo perfis longos e constantes; no processo direto, o material flui no sentido de movimento do êmbolo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Trefilação",
+          "texto": "Barra, fio ou tubo é puxado através de uma fieira, reduzindo seção e em geral aumentando comprimento. Distinguir de extrusão: trefilação PUXA; extrusão EMPURRA."
+        },
+        {
+          "ord": 6,
+          "titulo": "Dobramento e estampagem",
+          "texto": "Dobramento promove curvatura; estampagem abrange operações de corte, dobra, repuxo e outras operações com chapas, ferramentas e prensas. Puncionamento separa material por cisalhamento, não por cavaco de torno."
+        },
+        {
+          "ord": 7,
+          "titulo": "Quente versus frio",
+          "texto": "A quente permite maiores deformações com menor tensão de escoamento e pode favorecer recristalização; a frio produz encruamento e exige maiores esforços, mas pode favorecer precisão e acabamento. Há exceções conforme material e temperatura."
+        },
+        {
+          "ord": 8,
+          "titulo": "Encruamento",
+          "texto": "Deformação plástica a frio aumenta densidade de discordâncias e em geral a resistência/dureza, reduzindo ductilidade. Não confundir 'encruamento' com carbonetação ou têmpera martensítica."
+        },
+        {
+          "ord": 9,
+          "titulo": "Exemplos práticos",
+          "texto": "Chapa de aço: laminação; eixo forjado: forjamento; perfil de alumínio longo: extrusão; arame: trefilação; componente estampado de chapa: prensa e matriz."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e macete",
+          "texto": "Laminação não é fresamento; extrusão e trefilação não são sinônimos. Uma prensa é máquina industrial, mas não demonstra que a operação seja usinagem convencional. MACETE: ROLOS laminam; MARTELO/PRENSA forjam; EMPURRA extrusão; PUXA trefilação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Transferência ativa",
+          "texto": "Uma empresa fabrica arame fino a partir de fio mais grosso e perfis de alumínio de seção constante. Quais processos são mais adequados e por que?"
+        }
+      ],
+      "paragraphs": [
+        "Laminação: passa entre cilindros; forjamento: esforços compressivos; extrusão: material EMPURRADO por matriz; trefilação: material PUXADO por matriz; dobramento: mudança de direção; estampagem: trabalho de chapas por punções/matrizes, incluindo formar e eventualmente separar. Usinagem remove material; conformação altera a forma pela deformação plástica.",
+        "Material atravessa cilindros contrarrotativos, que exercem compressão, reduzindo espessura ou alterando seção. Aplicada a chapas, barras e perfis; pode ocorrer a quente ou a frio.",
+        "Barra, fio ou tubo é puxado através de uma fieira, reduzindo seção e em geral aumentando comprimento. Distinguir de extrusão: trefilação PUXA; extrusão EMPURRA."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1588",
+        "CARD-1589"
+      ],
+      "related_question_ids": []
+    },
+    "CARD-1591": {
+      "id": "CARD-1591",
+      "title": "Fundamentos de soldagem: arco elétrico, eletrodos e ZTA",
+      "front": "Em uma junta soldada por fusão, o que são metal-base, poça de fusão, metal de solda e ZTA? Diferencie eletrodo consumível e não consumível e classifique a proteção por gás, fluxo granular e revestimento.",
+      "back": "Metal-base é o original; poça de fusão é o metal líquido; metal de solda é a região solidificada; ZTA é metal-base AQUECIDO E ALTERADO SEM FUNDIR. Consumíveis (SAW/MIG/MAG/SMAW) podem fornecer metal à junta; TIG usa tungstênio não consumível e eventual vareta separada. SAW: fluxo externo; MIG/MAG/TIG: gás; SMAW: revestimento.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "O que é soldagem",
+          "texto": "Processo de união por coalescência mediante calor, pressão ou combinação, com ou sem metal de adição. Nem toda soldagem exige fusão; processos de estado sólido são exemplos."
+        },
+        {
+          "ord": 2,
+          "titulo": "Arco elétrico",
+          "texto": "Descarga elétrica mantida entre eletrodo e peça ou entre eletrodos fornece calor suficiente para fundir materiais nos processos por fusão a arco. Corrente, tensão e velocidade influenciam aporte térmico."
+        },
+        {
+          "ord": 3,
+          "titulo": "Metal-base e poça de fusão",
+          "texto": "Metal-base é a peça original. Poça de fusão é a região temporariamente líquida da junta, cujo resfriamento forma o metal de solda."
+        },
+        {
+          "ord": 4,
+          "titulo": "Metal de solda",
+          "texto": "Região que solidificou após a fusão, podendo conter metal-base e/ou metal de adição. Não é idêntico à zona termicamente afetada."
+        },
+        {
+          "ord": 5,
+          "titulo": "ZTA — zona termicamente afetada",
+          "texto": "Porção não fundida do metal-base adjacente à união, cuja microestrutura/propriedades se alteraram pelo ciclo térmico. Pode endurecer, amolecer ou ficar suscetível a trincas, conforme aço e parâmetros."
+        },
+        {
+          "ord": 6,
+          "titulo": "Eletrodos consumíveis",
+          "texto": "Arame SAW/MIG/MAG, arame tubular e vareta do eletrodo revestido fundem-se e contribuem para o metal depositado. O eletrodo também permite estabelecer/transferir corrente, conforme processo."
+        },
+        {
+          "ord": 7,
+          "titulo": "Eletrodo não consumível",
+          "texto": "TIG usa eletrodo de tungstênio resistente à fusão nas condições usuais e pode receber metal de adição por vareta/arame separado. Não confundir proteção gasosa com material de adição."
+        },
+        {
+          "ord": 8,
+          "titulo": "Formas de proteção",
+          "texto": "MIG/MAG usam gás fornecido externamente; TIG normalmente gás inerte externo; SAW usa fluxo granular externo sobre o arco; SMAW usa revestimento da vareta que origina gás e escória; FCAW tem fluxo dentro do arame e pode ter gás adicional."
+        },
+        {
+          "ord": 9,
+          "titulo": "Fatores de escolha",
+          "texto": "Espessura, material, posição, produtividade, equipamentos, qualificação de procedimento e risco de defeitos interferem na escolha. Soldagem a arco submerso é favorável a cordões longos em posições compatíveis com retenção do fluxo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e macete",
+          "texto": "ZTA não fundiu. MIG/MAG e SAW podem ter arame contínuo, mas PROTEÇÃO DIFERENTE. SAW 'submerso' quer dizer coberto de GRÃOS, não imerso em água. MACETE: SAW = grãos; MIG/MAG = gás; TIG = tungstênio; SMAW = revestimento."
+        },
+        {
+          "ord": 11,
+          "titulo": "Transferência ativa",
+          "texto": "Uma junta mostra metal-base não fundido, metal de solda solidificado e faixa aquecida sem fusão. Identifique a ZTA e explique como seu comportamento pode diferir do metal-base original."
+        }
+      ],
+      "paragraphs": [
+        "Metal-base é o original; poça de fusão é o metal líquido; metal de solda é a região solidificada; ZTA é metal-base AQUECIDO E ALTERADO SEM FUNDIR. Consumíveis (SAW/MIG/MAG/SMAW) podem fornecer metal à junta; TIG usa tungstênio não consumível e eventual vareta separada. SAW: fluxo externo; MIG/MAG/TIG: gás; SMAW: revestimento.",
+        "Descarga elétrica mantida entre eletrodo e peça ou entre eletrodos fornece calor suficiente para fundir materiais nos processos por fusão a arco. Corrente, tensão e velocidade influenciam aporte térmico.",
+        "Porção não fundida do metal-base adjacente à união, cuja microestrutura/propriedades se alteraram pelo ciclo térmico. Pode endurecer, amolecer ou ficar suscetível a trincas, conforme aço e parâmetros."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1588",
+        "CARD-1597",
+        "CARD-1592",
+        "CARD-1598"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-SAW",
+        "PETRO27-AL2024"
+      ]
+    },
+    "CARD-1592": {
+      "id": "CARD-1592",
+      "title": "Defeitos de soldagem e ensaios não destrutivos",
+      "front": "Diferencie porosidade, trinca, falta de fusão, falta de penetração, inclusão de escória e mordedura em uma junta soldada. Quais métodos de inspeção são adequados para defeitos superficiais e internos?",
+      "back": "Porosidade = vazios por gases; trinca = descontinuidade por ruptura; falta de fusão = ausência de coalescência entre superfícies; falta de penetração = raiz sem extensão de fusão exigida; inclusão de escória = material não metálico aprisionado; mordedura = sulco junto à borda. VT é visual; LP encontra descontinuidades abertas à superfície; PM encontra descontinuidades superficiais/próximas da superfície em materiais ferromagnéticos; UT/RT ajudam a detectar defeitos internos conforme orientação e técnica.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Continuidade e integridade",
+          "texto": "Uma solda pode parecer adequada externamente e possuir descontinuidades internas. Nem toda descontinuidade é automaticamente defeito reprovável: critérios de aceitação vêm do projeto, código e serviço aplicável."
+        },
+        {
+          "ord": 2,
+          "titulo": "Porosidade",
+          "texto": "Cavidade formada por gás retido durante solidificação; pode estar isolada, agrupada ou distribuída. Contaminação, proteção inadequada e umidade podem contribuir; avaliar localização, tamanho e frequência."
+        },
+        {
+          "ord": 3,
+          "titulo": "Trincas",
+          "texto": "Aberturas por fratura na solda ou ZTA, a quente, a frio ou por solicitação em serviço. São muito relevantes para integridade; podem iniciar por hidrogênio difusível, tensões e microestrutura suscetível em certos aços."
+        },
+        {
+          "ord": 4,
+          "titulo": "Falta de fusão",
+          "texto": "Não ocorreu união metalúrgica adequada entre metal de solda e metal-base ou entre passes. Não confundir com 'falta de penetração', que especifica a profundidade/raiz da junta."
+        },
+        {
+          "ord": 5,
+          "titulo": "Falta de penetração",
+          "texto": "A fusão não alcança a raiz ou a profundidade exigida para a junta. Pode ocorrer por preparo inadequado, parâmetros, acesso ou técnica, e não é sinônimo de porosidade."
+        },
+        {
+          "ord": 6,
+          "titulo": "Inclusão de escória",
+          "texto": "Escória ou outro material não metálico permanece preso entre passes ou dentro da união, podendo criar descontinuidades; limpeza entre passes e execução adequada reduzem risco."
+        },
+        {
+          "ord": 7,
+          "titulo": "Mordedura e perfil",
+          "texto": "Mordedura é sulco junto à borda/pega do cordão, possivelmente concentrando tensões. Excesso de reforço, sobreposição e outras imperfeições de forma têm critérios específicos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Inspeção visual e líquidos penetrantes",
+          "texto": "VT observa superfície e geometria, com iluminação, instrumentos e acesso. LP detecta descontinuidades que se abrem à superfície em materiais compatíveis; não revela poros internos completamente fechados."
+        },
+        {
+          "ord": 9,
+          "titulo": "Partículas magnéticas, ultrassom e radiografia",
+          "texto": "PM funciona em materiais ferromagnéticos para descontinuidades superficiais/próximas; UT usa ondas ultrassônicas e pode detectar descontinuidades internas conforme geometria/orientação; RT registra atenuação da radiação e pode evidenciar porosidade e inclusões, mas tem limitações por orientação."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e macete",
+          "texto": "ZTA não fundiu, mas pode trincar. Falta de fusão ≠ falta de penetração. LP não detecta todos os defeitos internos; PM não serve indiscriminadamente a alumínio não ferromagnético. MACETE: GÁS = poro; SEPAROU = trinca; NÃO UNIU = fusão; NÃO CHEGOU À RAIZ = penetração; RETEVE MATERIAL = escória."
+        },
+        {
+          "ord": 11,
+          "titulo": "Transferência ativa",
+          "texto": "Uma solda apresenta poros internos e outra tem trinca aberta à superfície em aço ferromagnético. Quais ensaios poderiam ser selecionados? Justifique limitações sem prometer sensibilidade universal."
+        }
+      ],
+      "paragraphs": [
+        "Porosidade = vazios por gases; trinca = descontinuidade por ruptura; falta de fusão = ausência de coalescência entre superfícies; falta de penetração = raiz sem extensão de fusão exigida; inclusão de escória = material não metálico aprisionado; mordedura = sulco junto à borda. VT é visual; LP encontra descontinuidades abertas à superfície; PM encontra descontinuidades superficiais/próximas da superfície em materiais ferromagnéticos; UT/RT ajudam a detectar defeitos internos conforme orientação e técnica.",
+        "Cavidade formada por gás retido durante solidificação; pode estar isolada, agrupada ou distribuída. Contaminação, proteção inadequada e umidade podem contribuir; avaliar localização, tamanho e frequência.",
+        "A fusão não alcança a raiz ou a profundidade exigida para a junta. Pode ocorrer por preparo inadequado, parâmetros, acesso ou técnica, e não é sinônimo de porosidade."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1591"
+      ],
+      "related_question_ids": []
+    },
+    "CARD-1593": {
+      "id": "CARD-1593",
+      "title": "Tratamentos térmicos dos aços: recozimento, normalização, têmpera e revenido",
+      "front": "Como diferenciar recozimento, normalização, têmpera e revenido de um aço? Qual sequência é usual para endurecer e reduzir a fragilidade, e por que o mesmo ciclo não fornece sempre a mesma dureza?",
+      "back": "Recozimento: amolecer/recuperar ductilidade/aliviar tensões conforme ciclo; normalização: aquecer a faixa apropriada e resfriar tipicamente ao ar para homogeneizar/refinar; têmpera: aquecimento adequado e resfriamento suficientemente rápido para formar estrutura endurecida (em aços temperáveis, martensita); revenido: reaquecimento controlado pós-têmpera para reduzir tensões/fragilidade e ajustar dureza e tenacidade.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "O que modifica o tratamento",
+          "texto": "Controla a microestrutura do aço por temperatura, permanência e taxa de resfriamento; composição (carbono e elementos de liga), espessura, austenitização e resfriamento determinam transformação final."
+        },
+        {
+          "ord": 2,
+          "titulo": "Recozimento",
+          "texto": "Família de ciclos térmicos que podem amolecer, aumentar ductilidade, aliviar tensões e favorecer microestrutura mais próxima de equilíbrio. O resultado depende do tipo de recozimento: completo, subcrítico, esferoidização etc."
+        },
+        {
+          "ord": 3,
+          "titulo": "Normalização",
+          "texto": "Austenitização quando aplicável e resfriamento ao ar, produzindo microestrutura mais uniforme e frequentemente mais fina do que em recozimento lento, a depender do aço e das dimensões."
+        },
+        {
+          "ord": 4,
+          "titulo": "Têmpera",
+          "texto": "Após preparação/austenitização apropriada, resfriamento com severidade suficiente transforma a austenita em martensita em aços aptos. Água, óleo, polímero, ar ou outros meios podem ser empregados, conforme temperabilidade e risco de trinca."
+        },
+        {
+          "ord": 5,
+          "titulo": "Martensita",
+          "texto": "Microestrutura endurecida por transformação sem difusão a partir da austenita, em aços apropriados. Elevada dureza pode vir acompanhada de tensões internas e menor tenacidade no estado não revenido."
+        },
+        {
+          "ord": 6,
+          "titulo": "Revenido",
+          "texto": "Reaquecimento controlado de aço temperado a temperatura abaixo da faixa crítica definida para aços usuais, visando reduzir tensões e fragilidade e ajustar o compromisso entre dureza, resistência e tenacidade. Em geral ocorre redução de parte da dureza, mas há fenômenos especiais de endurecimento secundário."
+        },
+        {
+          "ord": 7,
+          "titulo": "Têmpera versus revenido",
+          "texto": "Têmpera busca formar estrutura resistente/endurecida; revenido ajusta comportamento e reduz fragilidade. Não substituir 'têmpera + revenido' por 'dois tratamentos para aumentar dureza indiscriminadamente'."
+        },
+        {
+          "ord": 8,
+          "titulo": "Parâmetros e riscos",
+          "texto": "Temperatura e tempo inadequados, composição, geometria e resfriamento não uniforme podem produzir deformações, trincas e microestruturas diferentes em superfície e centro. Necessário selecionar ciclo por aço, seção e propriedade requerida."
+        },
+        {
+          "ord": 9,
+          "titulo": "Temporização de fabricação",
+          "texto": "Pode haver usinagem inicial, tratamento térmico e retificação final, pois o tratamento pode distorcer dimensões. Em materiais de difícil usinagem após endurecimento, planejar sobremetal de acabamento."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e macete",
+          "texto": "Temperabilidade não é dureza medida: é capacidade de endurecer em profundidade sob resfriamento apropriado. Não afirmar que todo aço forma martensita sob qualquer resfriamento. MACETE: RECOZE amacia; NORMALIZA uniformiza; TEMPERA endurece; REVENIDO tira fragilidade."
+        },
+        {
+          "ord": 11,
+          "titulo": "Transferência ativa",
+          "texto": "Uma peça temperada ficou muito dura e frágil. Que tratamento vem depois e por quê? O que mudaria se o aço não tivesse composição adequada para formar martensita?"
+        }
+      ],
+      "paragraphs": [
+        "Recozimento: amolecer/recuperar ductilidade/aliviar tensões conforme ciclo; normalização: aquecer a faixa apropriada e resfriar tipicamente ao ar para homogeneizar/refinar; têmpera: aquecimento adequado e resfriamento suficientemente rápido para formar estrutura endurecida (em aços temperáveis, martensita); revenido: reaquecimento controlado pós-têmpera para reduzir tensões/fragilidade e ajustar dureza e tenacidade.",
+        "Família de ciclos térmicos que podem amolecer, aumentar ductilidade, aliviar tensões e favorecer microestrutura mais próxima de equilíbrio. O resultado depende do tipo de recozimento: completo, subcrítico, esferoidização etc.",
+        "Microestrutura endurecida por transformação sem difusão a partir da austenita, em aços apropriados. Elevada dureza pode vir acompanhada de tensões internas e menor tenacidade no estado não revenido."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1588",
+        "CARD-1594",
+        "CARD-1595"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-CEMENT"
+      ]
+    },
+    "CARD-1594": {
+      "id": "CARD-1594",
+      "title": "Endurecimento superficial: cementação, nitretação, camada dura e núcleo tenaz",
+      "front": "Por que engrenagens e eixos de aço de baixo carbono podem ser cementados, temperados e revenidos? Diferencie cementação, nitretação, têmpera e revenido e as propriedades desejadas na seção transversal.",
+      "back": "A cementação difunde CARBONO na superfície de aço de baixo carbono; têmpera posterior permite superfície rica em carbono muito DURA; revenido reduz fragilidade/tensões. O núcleo, com menor teor de C, mantém tenacidade relativa. Nitretação difunde N e pode endurecer a superfície por nitretos sem exigir têmpera posterior. Gabarito da questão: dureza superficial + tenacidade no núcleo + resistência à ruptura (C).",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Aplicação mecânica",
+          "texto": "Engrenagens e eixos sofrem contato, atrito, flexão/torção e, frequentemente, fadiga. Quer-se resistência ao desgaste na superfície e resistência à fratura/tolerância a esforços no núcleo."
+        },
+        {
+          "ord": 2,
+          "titulo": "Por que aço de baixo carbono",
+          "texto": "Um aço de baixo C oferece núcleo com potencial de maior ductilidade/tenacidade relativa; adiciona-se C seletivamente à camada externa, em vez de impor carbono alto em toda a espessura."
+        },
+        {
+          "ord": 3,
+          "titulo": "Cementação/carbonetação",
+          "texto": "Tratamento termoquímico de enriquecimento superficial em carbono por difusão, em temperatura elevada e atmosfera/meio adequado. O carbono não penetra instantaneamente com concentração uniforme por toda a seção."
+        },
+        {
+          "ord": 4,
+          "titulo": "Têmpera após cementação",
+          "texto": "Após etapas térmicas adequadas, a camada rica em C pode formar martensita mais dura mediante resfriamento apropriado; o núcleo de menor carbono tem comportamento distinto. Não dizer que cementação isolada garante dureza final desejada sem ciclo térmico."
+        },
+        {
+          "ord": 5,
+          "titulo": "Revenido após têmpera",
+          "texto": "Ajusta resistência/tenacidade e reduz parte da fragilidade e tensões da condição temperada, buscando dureza superficial útil para o serviço. A resposta depende de temperatura, tempo, material e classe de aço."
+        },
+        {
+          "ord": 6,
+          "titulo": "Nitretação",
+          "texto": "Introduz nitrogênio na superfície e pode formar nitretos endurecedores; costuma ocorrer em temperaturas relativamente inferiores às de cementação e frequentemente dispensa têmpera posterior. Aços e parâmetros adequados condicionam resultado e profundidade."
+        },
+        {
+          "ord": 7,
+          "titulo": "Carbonitretação",
+          "texto": "Variante termoquímica que introduz carbono e nitrogênio na camada externa, com características intermediárias e ciclo definido. Não confundir carbonitretação com simplesmente temperar um aço comum."
+        },
+        {
+          "ord": 8,
+          "titulo": "Dureza versus tenacidade",
+          "texto": "Dureza: oposição à penetração/deformação plástica localizada; tenacidade: energia absorvida até ruptura. A superfície busca resistir ao desgaste/contato; o núcleo deve evitar falha frágil. Isso não significa que o centro seja sempre 'mole' ou que toda a superfície tenha dureza uniforme."
+        },
+        {
+          "ord": 9,
+          "titulo": "Fadiga e resistência à ruptura",
+          "texto": "Solicitações repetidas podem iniciar trincas; a superfície dura e tensões residuais apropriadas ajudam em determinadas condições, mas o projeto também depende de geometria, defeitos, tensões e tratamento. 'Resistência à ruptura' é o rótulo genérico da alternativa C, não garantia universal após qualquer cementação."
+        },
+        {
+          "ord": 10,
+          "titulo": "Análise de alternativas e macete",
+          "texto": "A (ductilidade superfície/dureza núcleo): invertida. B (encruamento superficial/fluência): troca tratamento e fenômeno de serviço. C: DUREZA superficial + TENACIDADE núcleo + resistência à ruptura (gabarito). D: invertida. E: confunde RESILIÊNCIA do núcleo e resistência ao escoamento com requisitos centrais. MACETE: CASCA DURA, MIOLO TENAZ; C COLOCA CARBONO NA CASCA."
+        },
+        {
+          "ord": 11,
+          "titulo": "Transferência ativa",
+          "texto": "Uma engrenagem sofrerá desgaste e cargas cíclicas. Explique por que endurecer TODA a seção de maneira muito intensa pode aumentar risco de fratura e indique a função de cada etapa: cementação, têmpera e revenido."
+        }
+      ],
+      "paragraphs": [
+        "A cementação difunde CARBONO na superfície de aço de baixo carbono; têmpera posterior permite superfície rica em carbono muito DURA; revenido reduz fragilidade/tensões. O núcleo, com menor teor de C, mantém tenacidade relativa. Nitretação difunde N e pode endurecer a superfície por nitretos sem exigir têmpera posterior. Gabarito da questão: dureza superficial + tenacidade no núcleo + resistência à ruptura (C).",
+        "Um aço de baixo C oferece núcleo com potencial de maior ductilidade/tenacidade relativa; adiciona-se C seletivamente à camada externa, em vez de impor carbono alto em toda a espessura.",
+        "Ajusta resistência/tenacidade e reduz parte da fragilidade e tensões da condição temperada, buscando dureza superficial útil para o serviço. A resposta depende de temperatura, tempo, material e classe de aço."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1593",
+        "CARD-1595"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-CEMENT"
+      ]
+    },
+    "CARD-1595": {
+      "id": "CARD-1595",
+      "title": "Propriedades mecânicas: dureza, ductilidade, tenacidade, resiliência, fadiga e fluência",
+      "front": "Diferencie dureza, resistência ao escoamento, resistência à ruptura, ductilidade, fragilidade, tenacidade, resiliência, fadiga e fluência. Como essas propriedades se relacionam à curva tensão–deformação e a uma engrenagem com casca dura e núcleo tenaz?",
+      "back": "Dureza = resistência à deformação plástica localizada; escoamento = início da plasticidade relevante; resistência última = máximo valor de tensão de engenharia no ensaio de tração; ductilidade = deformação plástica antes de romper; tenacidade = energia por volume absorvida ATÉ a ruptura; resiliência = energia por volume no regime ELÁSTICO; fadiga = dano por ciclos; fluência = deformação com o tempo sob tensão sustentada.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Dureza",
+          "texto": "Propriedade ligada a resistência à penetração, risco e desgaste em condições específicas. Ensaios Brinell, Rockwell e Vickers medem dureza por métodos de indentação; dureza não é sinônimo de resistência garantida à fadiga ou tenacidade."
+        },
+        {
+          "ord": 2,
+          "titulo": "Ductilidade e fragilidade",
+          "texto": "Ductilidade: capacidade de deformação plástica antes da fratura, medida por alongamento e estricção em tração. Fragilidade: ruptura com pequena deformação plástica; depende de estado de tensões, defeitos, temperatura e velocidade de carregamento."
+        },
+        {
+          "ord": 3,
+          "titulo": "Resistência ao escoamento",
+          "texto": "Tensão que caracteriza início da deformação plástica significativa (muitas vezes determinada por offset 0,2%). Não é a máxima tensão da curva de engenharia."
+        },
+        {
+          "ord": 4,
+          "titulo": "Resistência à tração/ruptura",
+          "texto": "Na curva tensão de engenharia, limite de resistência à tração é o máximo da curva, não necessariamente a tensão de engenharia no instante final da ruptura. Termos 'resistência à ruptura' variam na literatura; especificar qual grandeza o enunciado usa."
+        },
+        {
+          "ord": 5,
+          "titulo": "Tenacidade",
+          "texto": "Energia por unidade de volume absorvida até fratura num ensaio mecânico, relacionada à área total sob curva tensão–deformação apropriada. Depende de resistência e deformabilidade; materiais muito duros podem ser frágeis e pouco tenazes."
+        },
+        {
+          "ord": 6,
+          "titulo": "Resiliência",
+          "texto": "Energia de deformação ELÁSTICA por unidade de volume armazenada até o limite de escoamento. Em modelo linear elástico simples, módulo de resiliência U_r ≈ σ_y²/(2E), com E e σ_y em Pa e U_r em J/m³."
+        },
+        {
+          "ord": 7,
+          "titulo": "Tenacidade versus resiliência",
+          "texto": "Resiliência corresponde à área apenas até o regime elástico; tenacidade corresponde à área até a ruptura. Uma mola pode armazenar energia elástica, enquanto o núcleo tenaz de uma engrenagem resiste à fratura envolvendo dissipação de energia."
+        },
+        {
+          "ord": 8,
+          "titulo": "Fadiga",
+          "texto": "Dano cumulativo e crescimento de trincas sob variações/repetições de tensão; pode ocorrer abaixo de limite de resistência estática. Importam amplitude Δσ, tensão média, detalhe geométrico e número N de ciclos. Curva S–N caracteriza certos ensaios."
+        },
+        {
+          "ord": 9,
+          "titulo": "Fluência",
+          "texto": "Deformação dependente do tempo sob tensão sustentada, normalmente especialmente importante em altas temperaturas para metais. Não é sinônimo de fadiga; a deformação pode prosseguir sem oscilações cíclicas de carregamento."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e macete",
+          "texto": "Dureza ≠ tenacidade; tenacidade ≠ resiliência; fadiga ≠ fluência. Em aço cementado o núcleo é mais TENAZ, não a alternativa que exibe apenas resiliência. MACETE: DUREZA resiste à marca; DUCTILIDADE estica; TENACIDADE aguenta até quebrar; RESILIÊNCIA devolve elasticamente; FADIGA repete; FLUÊNCIA demora."
+        },
+        {
+          "ord": 11,
+          "titulo": "Transferência ativa",
+          "texto": "Em uma curva tensão–deformação, explique o significado da área até o escoamento e até a ruptura. Uma peça submetida a cargas cíclicas em temperatura ambiente exige atenção a fadiga ou fluência? Por quê?"
+        }
+      ],
+      "paragraphs": [
+        "Dureza = resistência à deformação plástica localizada; escoamento = início da plasticidade relevante; resistência última = máximo valor de tensão de engenharia no ensaio de tração; ductilidade = deformação plástica antes de romper; tenacidade = energia por volume absorvida ATÉ a ruptura; resiliência = energia por volume no regime ELÁSTICO; fadiga = dano por ciclos; fluência = deformação com o tempo sob tensão sustentada.",
+        "Ductilidade: capacidade de deformação plástica antes da fratura, medida por alongamento e estricção em tração. Fragilidade: ruptura com pequena deformação plástica; depende de estado de tensões, defeitos, temperatura e velocidade de carregamento.",
+        "Energia por unidade de volume absorvida até fratura num ensaio mecânico, relacionada à área total sob curva tensão–deformação apropriada. Depende de resistência e deformabilidade; materiais muito duros podem ser frágeis e pouco tenazes."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1593",
+        "CARD-1594",
+        "CARD-0643",
+        "CARD-0674",
+        "CARD-0518",
+        "CARD-1598"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-CEMENT"
+      ]
+    },
+    "CARD-1596": {
+      "id": "CARD-1596",
+      "title": "PETROBRAS 27 — MÁQUINAS DE USINAGEM",
+      "front": "Quais são as três máquinas operatrizes de usinagem da questão que reúne fresadora, plaina limadora, retificadora, prensa e “permutadora”? Descreva o movimento principal e a ferramenta de cada uma, explicando por que prensa e permutadora não compõem a alternativa correta. Diferencie plaina limadora da plaina de mesa.",
+      "back": "Fresadora = ferramenta rotativa de múltiplos gumes (fresa), com avanço relativo da peça/ferramenta. Plaina limadora = ferramenta de um gume com movimento retilíneo alternativo (vai e vem), enquanto a peça recebe avanço. Retificadora = rebolo giratório abrasivo, normalmente aplicado à precisão dimensional e acabamento. As três operam por remoção de material e constituem a alternativa D. Prensa, no uso típico da questão, aplica força para conformação/estampagem, e permutador de calor é equipamento de troca térmica, não de usinagem.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "CONCEITO DE USINAGEM",
+          "texto": "Usinagem é o conjunto de processos de fabricação em que uma ferramenta remove material de uma peça para obter geometria, dimensões e acabamento. A remoção frequentemente gera cavacos. Na retificação, os grãos abrasivos removem microcavacos. Nem toda máquina industrial ou toda máquina denominada operatriz é, especificamente, máquina de usinagem; a palavra “operatriz” pode ser usada em sentido amplo, incluindo máquinas de conformação."
+        },
+        {
+          "ord": 2,
+          "titulo": "FRESADORA — MECANISMO E MOVIMENTOS",
+          "texto": "No fresamento, a fresa, dotada de vários gumes, gira como movimento de corte. Existe movimento relativo de avanço entre peça e ferramenta; a mesa frequentemente movimenta a peça, mas em centros CNC a configuração varia. Permite superfícies planas, rasgos, perfis e engrenagens. Não confundir: na fresadora, não se caracteriza por “a peça girar e a ferramenta avançar” como no torneamento típico."
+        },
+        {
+          "ord": 3,
+          "titulo": "PLAINA LIMADORA — MECANISMO E MOVIMENTOS",
+          "texto": "No aplainamento por plaina limadora, uma ferramenta de corte de um gume desloca-se em linha reta, em movimento alternativo. Em configuração convencional, há curso de corte e curso de retorno; a peça recebe avanço transversal intermitente. Produz planos e rasgos. A palavra “limadora” não indica lixa nem lixamento; é máquina-ferramenta que remove cavacos por corte."
+        },
+        {
+          "ord": 4,
+          "titulo": "PLAINA LIMADORA VERSUS PLAINA DE MESA",
+          "texto": "Plaina limadora: a ferramenta executa o vaivém principal, enquanto a peça presa à mesa recebe avanço. Plaina de mesa (plainadora): tipicamente a mesa/peça executa o movimento alternativo principal, enquanto a ferramenta realiza avanço. Ambas podem aplainar por retirada de cavacos, mas trocam quem faz o movimento principal de corte. Verificar a descrição da máquina concreta e suas variantes."
+        },
+        {
+          "ord": 5,
+          "titulo": "RETIFICADORA — MECANISMO E MOVIMENTOS",
+          "texto": "Na retificação, um rebolo composto de grãos abrasivos gira e retira uma camada pequena de material. Pode produzir precisão dimensional, controle de forma e acabamento superficial de alta qualidade. Retificação plana e cilíndrica são exemplos. A ferramenta é o REBOLO, não a fresa nem a broca. Diferente de polimento não abrasivo, a retificação é um processo de usinagem por abrasão com remoção de microcavacos."
+        },
+        {
+          "ord": 6,
+          "titulo": "MÁQUINAS RELACIONADAS — COMPARAÇÃO",
+          "texto": "Torno: peça gira e uma ferramenta avança; operação de torneamento, frequentemente em superfícies de revolução.\nFuradeira: broca gira e avança axialmente; produz furos. A peça pode permanecer fixa.\nMandriladora: operação de mandrilamento para usinar e/ou ajustar furos existentes, geralmente com ferramenta rotativa.\nCentro de usinagem CNC: máquina que pode combinar fresamento, furação e mandrilamento, sob controle numérico.\nSerra mecânica: dentes de serra removem material em corte; é processo de usinagem por serramento.\nMáquina de eletroerosão: remove material por descargas elétricas; é processo de usinagem não convencional, sem formação típica de cavaco mecânico.\nPrensa de estampagem/conformação: deforma ou separa chapa pela ação de matrizes e força; NÃO se classifica no grupo de usinagem por corte de cavacos da questão. Existem prensas de corte, o que não autoriza classificar toda prensa como fresadora/plaina/retificadora."
+        },
+        {
+          "ord": 7,
+          "titulo": "AÇÃO DA FERRAMENTA E TIPOS DE CAVACO",
+          "texto": "Fresamento e aplainamento: ferramentas de arestas definidas, removendo cavacos com geometrias dependentes do material e das condições de corte. Retificação: múltiplos grãos abrasivos agem como pequenas arestas de corte, removendo microcavacos. Velocidade de corte, avanço, profundidade de corte, fixação e fluido de corte podem influenciar precisão, acabamento, aquecimento e desgaste da ferramenta."
+        },
+        {
+          "ord": 8,
+          "titulo": "APLICAÇÕES PRÁTICAS",
+          "texto": "Fresadora: produzir rasgos de chaveta e planos em componentes mecânicos. Plaina limadora: fazer planos e ranhuras, especialmente em operações tradicionais de oficina. Retificadora: acabamento de eixos, superfícies planas e peças que exigem tolerâncias estreitas. Torno: diâmetros e superfícies cilíndricas. Furadeira: furos. Prensa: estampagem e dobra de chapas. Permutador de calor: transferência de energia térmica entre correntes; não usina superfícies por remoção de material."
+        },
+        {
+          "ord": 9,
+          "titulo": "DIFERENÇA ENTRE USINAGEM, CONFORMAÇÃO E TROCA TÉRMICA",
+          "texto": "Usinagem = retirar material com ferramenta/energia para produzir forma; fresamento, aplainamento, retificação e torneamento são exemplos.\nConformação = alterar a geometria por deformação plástica sem exigir remoção por cavacos; dobra e repuxo são exemplos. Estampagem pode incluir separação/corte de chapas, mas não equivale automaticamente à usinagem por cavacos.\nTransferência de calor = troca de energia térmica, não fabricação por retirada de material; um permutador/trocador de calor se enquadra aqui.\nLer o comando “para processos de usinagem”, e não apenas a expressão ampla “máquinas operatrizes”."
+        },
+        {
+          "ord": 10,
+          "titulo": "PEGADINHAS DA QUESTÃO",
+          "texto": "A: prensa e “permutadora” tornam a tríade incorreta, embora tenha fresadora.\nB: retificadora é válida, mas prensa e permutadora não pertencem ao grupo solicitado.\nC: plaina limadora e retificadora são válidas, mas a prensa elimina a alternativa.\nD: fresadora + plaina limadora + retificadora = três máquinas de usinagem (gabarito).\nE: fresadora e plaina limadora são válidas; a “permutadora” elimina a alternativa (ERRO REAL: foi marcada E).\nNão trocar plaina limadora por lixadeira; não confundir rebolo com fresa; não classificar prensa por sua capacidade de aplicar força como prova de usinagem."
+        },
+        {
+          "ord": 11,
+          "titulo": "MACETES E TRANSFERÊNCIA",
+          "texto": "“FRESA GIRA; PLAINA VAI E VOLTA; RETÍFICA REBOLO.”\n“Usinagem tira material; prensa molda; permutador troca calor.”\nPergunta 1: qual máquina costuma girar o componente e manter a ferramenta em avanço? (torno).\nPergunta 2: qual é a diferença entre o movimento principal da plaina limadora e da plaina de mesa?\nPergunta 3: uma peça precisa de acabamento dimensional fino por abrasão — qual máquina e ferramenta?\nPergunta 4: em qual das três máquinas o corte principal é feito por arestas abrasivas de geometria não definida?\nPergunta 5: por que uma prensa pode ser máquina industrial/operatriz, sem ser a resposta à questão de usinagem?"
+        }
+      ],
+      "paragraphs": [
+        "Fresadora = ferramenta rotativa de múltiplos gumes (fresa), com avanço relativo da peça/ferramenta. Plaina limadora = ferramenta de um gume com movimento retilíneo alternativo (vai e vem), enquanto a peça recebe avanço. Retificadora = rebolo giratório abrasivo, normalmente aplicado à precisão dimensional e acabamento. As três operam por remoção de material e constituem a alternativa D. Prensa, no uso típico da questão, aplica força para conformação/estampagem, e permutador de calor é equipamento de troca térmica, não de usinagem.",
+        "No fresamento, a fresa, dotada de vários gumes, gira como movimento de corte. Existe movimento relativo de avanço entre peça e ferramenta; a mesa frequentemente movimenta a peça, mas em centros CNC a configuração varia. Permite superfícies planas, rasgos, perfis e engrenagens. Não confundir: na fresadora, não se caracteriza por “a peça girar e a ferramenta avançar” como no torneamento típico.",
+        "Na retificação, um rebolo composto de grãos abrasivos gira e retira uma camada pequena de material. Pode produzir precisão dimensional, controle de forma e acabamento superficial de alta qualidade. Retificação plana e cilíndrica são exemplos. A ferramenta é o REBOLO, não a fresa nem a broca. Diferente de polimento não abrasivo, a retificação é um processo de usinagem por abrasão com remoção de microcavacos."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1589"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-USI"
+      ]
+    },
+    "CARD-1597": {
+      "id": "CARD-1597",
+      "title": "PETROBRAS 27 — SOLDAGEM A ARCO SUBMERSO (SAW)",
+      "front": "Na soldagem a arco submerso (SAW), como são normalmente realizados a alimentação do eletrodo e a proteção do arco? Diferencie os processos SAW, MIG/MAG (GMAW), TIG (GTAW), eletrodo revestido (SMAW) e arame tubular (FCAW). Explique a função de fluxo granular, fluxo fundido e escória.",
+      "back": "SAW: eletrodo consumível de arame com alimentação contínua, normalmente mecanizada/automática; proteção por FLUXO GRANULAR que encobre o arco, produz gases protetores e escória. Na questão, C = automática e com o fluxo. A alternativa B (automática e com gás) foi marcada incorretamente, por confusão com MIG/MAG (que usa gás de proteção externo).",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "CONCEITO E FUNDAMENTO",
+          "texto": "SAW significa Submerged Arc Welding, soldagem a arco submerso. Há arco elétrico entre eletrodo continuamente alimentado e peça. O calor funde eletrodo e parte do metal-base. O arco fica sob cobertura de fluxo mineral granular fusível, que isola a região quente da atmosfera, gera gases e escória durante a fusão e pode influenciar características químicas do metal depositado. “Submerso” significa coberto pelo fluxo — não dentro de água."
+        },
+        {
+          "ord": 2,
+          "titulo": "ELEMENTOS DA FIGURA ORIGINAL",
+          "texto": "FLUXO GRANULAR: partículas do fluxo fornecidas por alimentador, cobrindo o arco antes e durante a soldagem.\nELETRODO CONSUMÍVEL: arame metálico alimentado continuamente, fundindo-se e incorporando metal de adição.\nMETAL BASE: peças que serão unidas.\nPOÇA DE FUSÃO: região líquida local formada pelo calor do arco.\nFLUXO EM FUSÃO: porção do fluxo na região do arco que participa da proteção e formação de escória.\nESCÓRIA: camada protetora, derivada do fluxo fundido, que solidifica sobre o cordão e é removida depois.\nSOLDA: metal de solda solidificado que forma a união."
+        },
+        {
+          "ord": 3,
+          "titulo": "ALIMENTAÇÃO E GRAU DE MECANIZAÇÃO",
+          "texto": "Tipicamente, SAW usa bobina de arame alimentado continuamente, com deslocamento por equipamento mecanizado/automático. Existem variantes semiautomáticas e até operações manuais específicas, portanto “sempre automática” seria generalização incorreta. Na questão, a combinação caracterizadora usual é automática + fluxo; o comando não pergunta se existiriam exceções."
+        },
+        {
+          "ord": 4,
+          "titulo": "MECANISMO DA PROTEÇÃO",
+          "texto": "A cobertura granular encobre o arco, reduz a exposição do metal fundido ao ar; durante a fusão produz gases protetores e escória. Não requer fornecimento externo de gás de proteção como regra do processo SAW. Em MIG/MAG o gás externo é elemento central da proteção. Fluxo externo SAW ≠ revestimento aderido a eletrodo SMAW ≠ fluxo contido no interior do arame tubular FCAW."
+        },
+        {
+          "ord": 5,
+          "titulo": "DIFERENÇA ENTRE ELETRODO CONSUMÍVEL E NÃO CONSUMÍVEL",
+          "texto": "Consumível fornece metal à união, como arames SAW e MIG/MAG e varetas do eletrodo revestido. TIG geralmente usa eletrodo de tungstênio não consumível, com metal de adição separado, quando necessário. Não confundir fluxo com consumível eletrodo: ambos podem ser consumidos/modificados no processo, mas têm funções diferentes."
+        },
+        {
+          "ord": 6,
+          "titulo": "TABELA COMPARATIVA DOS CINCO PROCESSOS",
+          "texto": "Processo\nOperação/alimentação\nProteção\nEletrodo\nSAW\nArame contínuo; normalmente automática\nFluxo granular externo\nConsumível\nMIG/MAG\nArame contínuo; semi/automática\nGás externo\nConsumível\nTIG\nManual ou mecanizada\nGás inerte\nTungstênio não consumível\nSMAW\nManual, tipicamente\nRevestimento → gás + escória\nVareta consumível\nFCAW\nArame tubular contínuo\nFluxo interno ± gás externo\nConsumível"
+        },
+        {
+          "ord": 7,
+          "titulo": "APLICAÇÕES E VANTAGENS",
+          "texto": "SAW é empregado em soldas longas de chapas espessas, tanques, vasos de pressão, estruturas e juntas de tubos, geralmente em posições plana e horizontal apropriadas. Possibilita alta taxa de deposição e boa repetibilidade, conforme parâmetros e preparação. Há restrições práticas relacionadas à posição de soldagem, à necessidade de manter a cobertura granular e à remoção/manuseio do fluxo e da escória."
+        },
+        {
+          "ord": 8,
+          "titulo": "PARÂMETROS TÉCNICOS E VARIANTES",
+          "texto": "Corrente, tensão de arco, velocidade de deslocamento, diâmetro do arame, extensão do eletrodo, tipo/profundidade de fluxo e preparação de junta influenciam geometria, penetração e propriedades do cordão. Variantes podem usar um ou vários arames e fontes em corrente contínua ou alternada, conforme projeto e procedimento. Não atribuir ao processo um único valor normativo universal de corrente, velocidade ou posição."
+        },
+        {
+          "ord": 9,
+          "titulo": "PEGADINHAS DA CESGRANRIO",
+          "texto": "A — “automática e revestimento”: alimentação possível, proteção errada; lembra eletrodo revestido.\nB — “automática e gás”: ERRO DOCUMENTADO; alimentação típica correta, mas proteção errada (MIG/MAG).\nC — “automática e fluxo”: CORRETA para SAW.\nD — “manual e revestimento”: descreve eletrodo revestido convencional, não SAW típico.\nE — “manual e fluxo”: existem variantes menos comuns, mas não é a caracterização usual pedida.\nAlerta: “fluxo” NÃO é gás externo; uma parte do fluxo gera gases e escória como mecanismo de proteção, mas é depositado inicialmente em grãos sólidos."
+        },
+        {
+          "ord": 10,
+          "titulo": "MACETES E DISTINÇÕES",
+          "texto": "“SAW = Submerso sob grãos, não sob gás.”\n“MIG/MAG tem gás; SAW tem fluxo em grãos; TIG tem tungstênio; SMAW tem revestimento; FCAW tem fluxo dentro do arame.”\n“Arame contínuo não resolve sozinho: descubra o elemento de proteção.”"
+        },
+        {
+          "ord": 11,
+          "titulo": "RECUPERAÇÃO ATIVA E TRANSFERÊNCIA",
+          "texto": "Pergunta A: dois processos utilizam arame metálico contínuo. Em um, o arco fica coberto por grãos; em outro, por gás externo. Identifique ambos.\nPergunta B: o fluxo granular no SAW é o próprio arame? Qual é o papel da escória?\nPergunta C: por que “SAW sempre automática” é uma afirmação absoluta arriscada?\nPergunta D: qual processo usa eletrodo de tungstênio não consumível?\nPergunta E: compare fluxo GRANULAR EXTERNO do SAW com fluxo INTERNO do FCAW."
+        }
+      ],
+      "paragraphs": [
+        "SAW: eletrodo consumível de arame com alimentação contínua, normalmente mecanizada/automática; proteção por FLUXO GRANULAR que encobre o arco, produz gases protetores e escória. Na questão, C = automática e com o fluxo. A alternativa B (automática e com gás) foi marcada incorretamente, por confusão com MIG/MAG (que usa gás de proteção externo).",
+        "FLUXO GRANULAR: partículas do fluxo fornecidas por alimentador, cobrindo o arco antes e durante a soldagem.\nELETRODO CONSUMÍVEL: arame metálico alimentado continuamente, fundindo-se e incorporando metal de adição.\nMETAL BASE: peças que serão unidas.\nPOÇA DE FUSÃO: região líquida local formada pelo calor do arco.\nFLUXO EM FUSÃO: porção do fluxo na região do arco que participa da proteção e formação de escória.\nESCÓRIA: camada protetora, derivada do fluxo fundido, que solidifica sobre o cordão e é removida depois.\nSOLDA: metal de solda solidificado que forma a união.",
+        "Consumível fornece metal à união, como arames SAW e MIG/MAG e varetas do eletrodo revestido. TIG geralmente usa eletrodo de tungstênio não consumível, com metal de adição separado, quando necessário. Não confundir fluxo com consumível eletrodo: ambos podem ser consumidos/modificados no processo, mas têm funções diferentes."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27",
+      "related_card_ids": [
+        "CARD-1591"
+      ],
+      "related_question_ids": [
+        "PETRO27-MEC-SAW"
+      ]
+    },
+    "CARD-1598": {
+      "id": "CARD-1598",
+      "title": "Liga de alumínio 2024-O: cobre, resistência, corrosão e soldagem",
+      "front": "A liga de alumínio 2024-O (Al–Cu–Mg) é adequada quando se exige simultaneamente resistência, excelente soldabilidade por fusão e elevada resistência à corrosão? Explique os mecanismos e o significado de O.",
+      "back": "A liga 2024 tem potencial de resistência mecânica pela presença de Cu/Mg e tratamentos de precipitação, mas a presença elevada de Cu compromete sua resistência relativa à corrosão e sua soldabilidade convencional. 2024-O significa recozida, mais dúctil e menos resistente que condições endurecidas.",
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Família",
+          "texto": "A liga 2024 pertence à série 2xxx, de ligas de alumínio contendo cobre e magnésio. A designação 2024 não é a mesma coisa que a condição metalúrgica do produto."
+        },
+        {
+          "ord": 2,
+          "titulo": "Composição",
+          "texto": "O enunciado usa aproximadamente 4,5% de Cu e 1,5% de Mg; conferir faixas de composição na norma/especificação do produto. O Cu é importante para potencial de endurecimento."
+        },
+        {
+          "ord": 3,
+          "titulo": "Condição O",
+          "texto": "O sufixo O significa recozido. É um estado relativamente macio e conformável; não equivale à condição de máxima resistência, como estados apropriados de tratamento térmico."
+        },
+        {
+          "ord": 4,
+          "titulo": "Precipitação",
+          "texto": "Solubilização, resfriamento e envelhecimento adequados favorecem precipitados endurecedores ricos em Cu/Mg e elevam a resistência, em comparação com a condição recozida."
+        },
+        {
+          "ord": 5,
+          "titulo": "Resistência",
+          "texto": "O Cu contribui para resistência potencial; não afirmar que aumentar Cu sempre melhora toda propriedade de qualquer liga ou que 2024-O já está no máximo endurecimento."
+        },
+        {
+          "ord": 6,
+          "titulo": "Corrosão",
+          "texto": "Heterogeneidades microestruturais associadas às fases ricas em Cu podem favorecer corrosão localizada. A 2024 é menos resistente à corrosão que famílias concebidas para alta resistência a esse ataque."
+        },
+        {
+          "ord": 7,
+          "titulo": "Soldabilidade",
+          "texto": "Soldagem convencional por fusão pode causar trincas a quente e alterações indesejáveis na zona afetada pelo calor. 'Pode unir por método especial' não significa boa soldabilidade geral."
+        },
+        {
+          "ord": 8,
+          "titulo": "Alternativas de união",
+          "texto": "Soldagem por fricção e outras técnicas especiais podem ser consideradas em projetos adequados. A seleção exige compatibilidade com liga, condição de fornecimento e desempenho final."
+        },
+        {
+          "ord": 9,
+          "titulo": "Proteções",
+          "texto": "Revestimentos e chapas tipo Alclad podem reduzir exposição e corrosão, mas não eliminam automaticamente problemas metalúrgicos de soldagem por fusão."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Afirmar que Cu melhora simultaneamente resistência, corrosão e soldabilidade é incorreto no contexto da 2024. Analisar sempre três propriedades separadamente e a condição O/T3/T4."
+        },
+        {
+          "ord": 11,
+          "titulo": "Recuperação",
+          "texto": "Macete: Cu dá potencial de FORÇA, mas complica SOLDA e CORROSÃO; O=RECOZIDO. Aplicar a uma peça que exige unir por solda e resistir à atmosfera agressiva."
+        }
+      ],
+      "related_card_ids": [
+        "CARD-1591",
+        "CARD-1595"
+      ],
+      "related_question_ids": [
+        "PETRO27-AL2024"
+      ],
+      "paragraphs": [
+        "A liga 2024 pertence à série 2xxx, de ligas de alumínio contendo cobre e magnésio. A designação 2024 não é a mesma coisa que a condição metalúrgica do produto.",
+        "Heterogeneidades microestruturais associadas às fases ricas em Cu podem favorecer corrosão localizada. A 2024 é menos resistente à corrosão que famílias concebidas para alta resistência a esse ataque.",
+        "Soldagem convencional por fusão pode causar trincas a quente e alterações indesejáveis na zona afetada pelo calor. 'Pode unir por método especial' não significa boa soldabilidade geral."
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO27"
+    },
+    "CARD-1599": {
+      "title": "Alternador trifásico — ligação estrela e triângulo",
+      "front": "Em alternador trifásico equilibrado, como se ligam os enrolamentos em estrela e em triângulo? Diferencie tensão e corrente de linha e de fase; toda estrela exige neutro externo?",
+      "back": "Estrela (Y): um terminal de cada enrolamento converge em ponto comum; Ulinha=√3·Ufase e Ilinha=Ifase. Triângulo (Δ): enrolamentos formam laço; Ulinha=Ufase e Ilinha=√3·Ifase. Estrela pode funcionar sem neutro externo.",
+      "source": "PETRO29-Q001: resumo recuperado do estudo, gabarito D (I e III); enunciado integral não recuperado. Expansão técnica autoral: relações fasoriais em regime trifásico equilibrado.",
+      "mnemonic": "Y multiplica tensão por √3; Δ multiplica corrente por √3. Explique por que o neutro não é obrigatório.",
+      "related_card_ids": [
+        "CARD-1093",
+        "CARD-1095",
+        "CARD-0046",
+        "CARD-0731"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Em alternador trifásico equilibrado, como se ligam os enrolamentos em estrela e em triângulo? Diferencie tensão e corrente de linha e de fase; toda estrela exige neutro externo?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima",
+          "texto": "Estrela (Y): um terminal de cada enrolamento converge em ponto comum; Ulinha=√3·Ufase e Ilinha=Ifase. Triângulo (Δ): enrolamentos formam laço; Ulinha=Ufase e Ilinha=√3·Ifase. Estrela pode funcionar sem neutro externo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fonte",
+          "texto": "PETRO29-Q001: resumo recuperado do estudo, gabarito D (I e III); enunciado integral não recuperado. Expansão técnica autoral: relações fasoriais em regime trifásico equilibrado."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo didático",
+          "texto": "Em estrela, a tensão entre duas linhas é diferença fasorial de tensões de fase separadas por 120°. Em triângulo, cada enrolamento fica entre duas linhas e a corrente de linha resulta da diferença fasorial de duas correntes de fase."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, grandezas e unidades",
+          "texto": "Y: UL=√3 UF, IL=IF. Δ: UL=UF, IL=√3 IF. U em V, I em A; pressupõe equilíbrio e regime senoidal."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação técnica",
+          "texto": "Y: ponto comum, neutro opcional; Δ: malha fechada de três enrolamentos. Não confundir ligação do alternador com partida estrela-triângulo de motor."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido",
+          "texto": "Se UF=127 V e IF=10 A, em Y UL≈220 V e IL=10 A. Em Δ com as mesmas grandezas de fase UL=127 V e IL≈17,32 A. Comparação algébrica, não instrução de religação de máquina."
+        },
+        {
+          "ord": 8,
+          "titulo": "Aplicação e transferência",
+          "texto": "Identificar se o enunciado dá tensão entre linhas ou nos enrolamentos; conferir placa e conexão antes de qualquer aplicação real."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições, limites e exceções",
+          "texto": "Relações √3 para sistema equilibrado. Em desequilíbrio com neutro flutuante, as tensões de fase podem variar; não extrapolar o exemplo idealizado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e lacunas",
+          "texto": "Neutro acessível não é requisito universal para a existência de estrela; confundir tensão de linha com fase muda o cálculo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e recuperação adicional",
+          "texto": "Y multiplica tensão por √3; Δ multiplica corrente por √3. Explique por que o neutro não é obrigatório."
+        }
+      ],
+      "id": "CARD-1599",
+      "related_question_ids": [
+        "PETRO29-Q001"
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO29"
+    },
+    "CARD-1600": {
+      "title": "Fator de carga — média versus pico",
+      "front": "Como calcular e interpretar o fator de carga de unidade consumidora? Diferencie fator de carga, fator de demanda e fator de potência.",
+      "back": "FC=Dmédia/Dmáx=E/(Dmáx·t); entre 0 e 1 se Dmáx>0. Quanto maior, mais uniforme o aproveitamento da demanda; não significa menor consumo absoluto.",
+      "source": "PETRO29-Q002 / PROCEL: Eficiência energética em refrigeração comercial e industrial. https://www.gov.br/mme/pt-br/assuntos/ee/publicacoes-e-estudos/copy_of_EEemrefrigeracaocomercialeindustrialProcel.pdf",
+      "mnemonic": "Carga: média/pico; potência: P/S; demanda: pico/instalada. Recalcule sem consultar o verso.",
+      "related_card_ids": [
+        "CARD-0731"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular e interpretar o fator de carga de unidade consumidora? Diferencie fator de carga, fator de demanda e fator de potência."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima",
+          "texto": "FC=Dmédia/Dmáx=E/(Dmáx·t); entre 0 e 1 se Dmáx>0. Quanto maior, mais uniforme o aproveitamento da demanda; não significa menor consumo absoluto."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fonte",
+          "texto": "PETRO29-Q002 / PROCEL: Eficiência energética em refrigeração comercial e industrial. https://www.gov.br/mme/pt-br/assuntos/ee/publicacoes-e-estudos/copy_of_EEemrefrigeracaocomercialeindustrialProcel.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo didático",
+          "texto": "Energia é a integral da demanda ao longo do período. Dividir energia pelo tempo fornece demanda média. O denominador representa consumo se a demanda máxima permanecesse durante todo o período."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, grandezas e unidades",
+          "texto": "FC=E[kWh]/(Dmáx[kW]·t[h]); Dmédia=E/t [kW]. Adimensional ou %."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação técnica",
+          "texto": "Fator de carga = média/pico. Fator de demanda = pico/potência instalada. Fator de potência = P/S."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido",
+          "texto": "Para IV: 45.000/60.000=0,75. I=52,94%; II=29,41%; III=20%; V=50%. IV é maior."
+        },
+        {
+          "ord": 8,
+          "titulo": "Aplicação e transferência",
+          "texto": "Compare curvas de carga do mesmo período e demanda máxima definida no faturamento; identificar unidade mais uniforme."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições, limites e exceções",
+          "texto": "Não confundir demanda medida com contratada; usar o período e as definições da questão. Dmáx=0 torna a razão indefinida."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e lacunas",
+          "texto": "Maior fator de carga não implica menor kWh nem maior rendimento; 730 h já está incorporado nos denominadores do exercício."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e recuperação adicional",
+          "texto": "Carga: média/pico; potência: P/S; demanda: pico/instalada. Recalcule sem consultar o verso."
+        }
+      ],
+      "id": "CARD-1600",
+      "related_question_ids": [
+        "PETRO29-Q002"
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO29"
+    },
+    "CARD-1601": {
+      "title": "Queda de tensão — método watt-metro",
+      "front": "Como calcular queda de tensão pelo método watt-metro com cargas distribuídas? Qual distância usar e como separar o orçamento de projeto de 2% do limite de circuito terminal?",
+      "back": "Somar ΣPi·di, com di a distância de cada carga ao quadro. Comparar à tabela para seção/tensão/queda adotada. Para circuito monofásico resistivo FP=1, ΔV≈2ρΣPi di/(S·V). A NBR 5410:2004 limita circuito terminal a 4%, não 2%.",
+      "source": "PETRO29-Q003 — NBR 5410:2004 6.2.7.1–6.2.7.2, fonte de consulta https://www.ipaam.am.gov.br/wp-content/uploads/2021/01/NBR-05410-05-Instala%C3%A7%C3%B5es-El%C3%A9tricas-de-baixa-Tens%C3%A3o.pdf ; exemplo de orçamento 2% https://www.drb-assessoria.com.br/av1/3-Projeto%20de%20Instalacoes%20Eletricas.pdf",
+      "mnemonic": "Watt-metro: carga×distância desde o quadro. Compare 2% e 4% antes de julgar a alternativa.",
+      "related_card_ids": [
+        "CARD-0203",
+        "CARD-0213"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular queda de tensão pelo método watt-metro com cargas distribuídas? Qual distância usar e como separar o orçamento de projeto de 2% do limite de circuito terminal?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima",
+          "texto": "Somar ΣPi·di, com di a distância de cada carga ao quadro. Comparar à tabela para seção/tensão/queda adotada. Para circuito monofásico resistivo FP=1, ΔV≈2ρΣPi di/(S·V). A NBR 5410:2004 limita circuito terminal a 4%, não 2%."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fonte",
+          "texto": "PETRO29-Q003 — NBR 5410:2004 6.2.7.1–6.2.7.2, fonte de consulta https://www.ipaam.am.gov.br/wp-content/uploads/2021/01/NBR-05410-05-Instala%C3%A7%C3%B5es-El%C3%A9tricas-de-baixa-Tens%C3%A3o.pdf ; exemplo de orçamento 2% https://www.drb-assessoria.com.br/av1/3-Projeto%20de%20Instalacoes%20Eletricas.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo didático",
+          "texto": "Cada trecho conduz as correntes das cargas a jusante; somar perdas em trechos equivale à soma potência×distância acumulada no modelo simplificado."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, grandezas e unidades",
+          "texto": "ΣPi di em W·m; ρ em Ω·mm²/m; S em mm²; V e ΔV em V. e=ΔV/V. O fator 2 ida e volta já está embutido na tabela de dois condutores."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação técnica",
+          "texto": "Orçamento 2% é escolha de projeto. Terminal ≤4%; limites globais 5/7% dependem da origem conforme 6.2.7.1."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido",
+          "texto": "Quadro 110 V, 2,5 mm²: distâncias 3;5;6,5;8;10;15;20 m. ΣPd=15.370+15L. Com 2%, limite 17.542 → L≤144,8 W → maior opção 100 W (B). Com 4%, limite 35.092 → L≤1.314,8 W; gabarito depende de hipótese não enunciada."
+        },
+        {
+          "ord": 8,
+          "titulo": "Aplicação e transferência",
+          "texto": "Somar potência individual vezes distância desde o quadro; se houver tabela, respeitar tensão, seção, material e percentual."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições, limites e exceções",
+          "texto": "Aproximação monofásica resistiva, tensão quase constante e FP unitário; para outros sistemas, usar cálculo apropriado. Gabarito B divulgado, sem afirmar que 2% seja regra geral."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e lacunas",
+          "texto": "Não multiplicar duas vezes o comprimento de ida e volta; não usar somente distâncias entre cargas. Não declarar E incorreta pelo teto de 4% isolado."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e recuperação adicional",
+          "texto": "Watt-metro: carga×distância desde o quadro. Compare 2% e 4% antes de julgar a alternativa."
+        }
+      ],
+      "id": "CARD-1601",
+      "related_question_ids": [
+        "PETRO29-Q003"
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO29"
+    },
+    "CARD-1602": {
+      "title": "Motores — seccionamento, comando e proteção",
+      "front": "Diferencie seccionamento, comando e proteção de motor. Quais condutores podem ser seccionados? Por que o comando deve manobrar mesmo com rotor bloqueado?",
+      "back": "Seccionamento isola a alimentação; comando manobra; proteção atua em anormalidade. PE/PEN nunca seccionados; neutro conforme esquema. Comando deve ser capaz de manobrar eletricamente mesmo com rotor bloqueado. Créder cita chave ≥115% In e exceções específicas; não generalizar como regra universal da NBR 5410.",
+      "source": "PETRO29-Q004 — Hélio Créder, Instalações Elétricas, 16ª ed., 6.1.10 https://studylib.net/doc/28299826/helio-creder ; NBR 5410:2004 5.6.2.2, 5.6.3.1, 5.6.6.1.2 https://eletroenergia.com.br/wp-content/uploads/2020/04/nbr_5410.pdf",
+      "mnemonic": "Corta alimentação, não proteção. Compare isolar, comandar e proteger.",
+      "related_card_ids": [
+        "CARD-0720",
+        "CARD-0732",
+        "CARD-0727",
+        "CARD-1088"
+      ],
+      "layers": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie seccionamento, comando e proteção de motor. Quais condutores podem ser seccionados? Por que o comando deve manobrar mesmo com rotor bloqueado?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta mínima",
+          "texto": "Seccionamento isola a alimentação; comando manobra; proteção atua em anormalidade. PE/PEN nunca seccionados; neutro conforme esquema. Comando deve ser capaz de manobrar eletricamente mesmo com rotor bloqueado. Créder cita chave ≥115% In e exceções específicas; não generalizar como regra universal da NBR 5410."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fonte",
+          "texto": "PETRO29-Q004 — Hélio Créder, Instalações Elétricas, 16ª ed., 6.1.10 https://studylib.net/doc/28299826/helio-creder ; NBR 5410:2004 5.6.2.2, 5.6.3.1, 5.6.6.1.2 https://eletroenergia.com.br/wp-content/uploads/2020/04/nbr_5410.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo didático",
+          "texto": "Rotor bloqueado pode elevar a corrente e o aquecimento. O dispositivo de comando deve ser capaz de manobrar a carga nessas condições, enquanto proteção e seccionamento possuem funções diferentes."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, grandezas e unidades",
+          "texto": "Segundo Créder, chave separadora para motor fixo em geral ≥1,15 In; interruptor de uso geral para motor ≤1,5 kW e tensão <300 V, capacidade ≥2 In, nas condições do autor. Correntes em A."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação técnica",
+          "texto": "Seccionamento = isolamento; comando = manobra; proteção = resposta a defeito/sobrecorrente. TN-S: dispensa de seccionar neutro não é proibição universal."
+        },
+        {
+          "ord": 7,
+          "titulo": "Exemplo resolvido",
+          "texto": "Motor com In=10 A: referência do autor 1,15×10=11,5 A; selecionar dispositivo considerando categoria e características reais."
+        },
+        {
+          "ord": 8,
+          "titulo": "Aplicação e transferência",
+          "texto": "Na prova, verificar a exceção de conjunto de motores da mesma máquina e a capacidade de manobra com rotor travado."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições, limites e exceções",
+          "texto": "Não atribuir todos os números de livro diretamente a dispositivo normativo; não seccionamento do PE/PEN é princípio de proteção."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas e lacunas",
+          "texto": "Comando de rotor bloqueado não significa obrigar o motor a partir. Nunca colocar comando unipolar apenas no neutro."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e recuperação adicional",
+          "texto": "Corta alimentação, não proteção. Compare isolar, comandar e proteger."
+        }
+      ],
+      "id": "CARD-1602",
+      "related_question_ids": [
+        "PETRO29-Q004"
+      ],
+      "status": "CANONICO_ATIVO",
+      "source_name": "PETRO29"
+    }
+  },
+  "proposals_resolved": {
+    "PETRO27-FAB-001": "CARD-1588",
+    "PETRO27-FAB-002": "CARD-1589",
+    "PETRO27-FAB-003": "CARD-1590",
+    "PETRO27-FAB-004": "CARD-1591",
+    "PETRO27-FAB-005": "CARD-1592",
+    "PETRO27-FAB-006": "CARD-1593",
+    "PETRO27-FAB-007": "CARD-1594",
+    "PETRO27-FAB-008": "CARD-1595",
+    "PETRO27-USI-001": "CARD-1596",
+    "PETRO27-SAW-001": "CARD-1597",
+    "PETRO27-AL2024-01": "CARD-1598"
+  },
+  "notes": {
+    "CARD-0631": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Domínio 2 (concreto até C50): εs=10‰ e 0<x/d<0,2593, com x/d=εc/(εc+10‰). Igualdade 0,2593 é a fronteira 2/3, não uma razão constante de todo o domínio."
+      }
+    ],
+    "CARD-0632": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Domínio 3 (concreto até C50 e CA-50 com fyk=500 MPa, γs=1,15, Es=210 GPa): εc=εcu=3,5‰; εyd≈2,07‰ e x/d=3,5/(3,5+εs). Fronteiras 2/3 e 3/4: x/d≈0,2593 e 0,6283. O limite usual de ductilidade de projeto em vigas/lajes, x/d≤0,45, é critério distinto da fronteira entre domínios. Exemplo: d=40 cm, x=16 cm→x/d=0,40 e εs=5,25‰."
+      }
+    ],
+    "CARD-0637": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Fronteira 2/3: εc=3,5‰ e εs=10‰ → x/d=3,5/13,5≈0,2593. A fórmula resulta de triângulos semelhantes, não de uma constante em todo o domínio 2."
+      }
+    ],
+    "CARD-0638": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Fronteira 3/4 para concreto até C50 e CA-50 nas hipóteses: εcu=3,5‰; εyd≈2,07‰; x/d≈0,6283. Não confundir com o limite usual de ductilidade de projeto de x/d≤0,45 em vigas/lajes."
+      }
+    ],
+    "CARD-0641": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Compatibilidade por seções planas: εc/x=εs/(d−x) ⇒ x/d=εc/(εc+εs). Para obter x, multiplique a razão adimensional pela altura útil d. Usar εc e εs nas mesmas unidades."
+      }
+    ],
+    "CARD-0643": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — O escoamento do aço é desejável, mas domínio 3 não equivale automaticamente a ductilidade adequada: para concretos até C50 em vigas/lajes, o limite usual de projeto x/d≤0,45 é distinto da fronteira domínio 3/4 (≈0,628 no modelo CA-50). Conferir edição e exceções aplicáveis."
+      }
+    ],
+    "CARD-0645": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Para ler o gráfico, identificar h, d, x, εs, εyd, εc2, εcu e 10‰; marcar x/d=0 na fronteira 1/2, ≈0,259 na 2/3 e ≈0,628 na 3/4 (até C50, CA-50 do exemplo). Distinguir o limite de ductilidade x/d≤0,45; εc2=2‰ não é εcu=3,5‰."
+      }
+    ],
+    "CARD-0445": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0606": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0622": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0623": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0625": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0626": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0628": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0629": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0633": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-0642": [
+      {
+        "part": "PETRO20",
+        "note": "ADENDO TÉCNICO V267 — Vínculo didático: revisão de domínios de deformação, compatibilidade εc/x=εs/(d−x), fronteiras x/d≈0,259 e ≈0,628 (modelo até C50/CA-50), com distinção de ductilidade x/d≤0,45. Ver cartões centrais CARD-0631, CARD-0632, CARD-0641 e CARD-0645."
+      }
+    ],
+    "CARD-1155": [
+      {
+        "part": "PETRO25",
+        "note": "Complemento PETRO25-C001: Vertissolos constituem exemplo pedológico de solos com argilas expansivas. A alternância de umedecimento e secagem pode gerar expansão, retração e fendas. Porém, nem todo solo argiloso é Vertissolo ou expansivo; avaliar mineralogia, umidade, confinamento e pressão/potencial de expansão antes de inferir o comportamento de uma fundação rasa. Relacionado: CARD-1538."
+      }
+    ],
+    "CARD-0529": [
+      {
+        "part": "PETRO25",
+        "note": "Complemento PETRO25-C001: no solo colapsível, a sucção matricial pode contribuir para sustentar uma estrutura porosa não saturada. Ao ocorrer o encharcamento, a diminuição de s=u_a−u_w pode enfraquecer esse arranjo e, sob tensão adequada, induzir reorganização de partículas e recalque. Sucção não significa necessariamente colapsibilidade e sua redução não produz sempre deformação descendente: um solo expansivo pode aumentar de volume. Relacionado: CARD-1538."
+      }
+    ],
+    "CARD-0697": [
+      {
+        "part": "PETRO25",
+        "note": "Complemento PETRO25-C001: a infiltração e a redução da sucção não têm uma resposta geotécnica única. Num talude não saturado, podem reduzir resistência ao cisalhamento; sob fundação sobre solo colapsível, o mesmo molhamento pode favorecer recalque por perda de estrutura sob tensão; em argila expansiva, pode provocar levantamento. O resultado depende de composição, estrutura, confinamento e tensões. Relacionado: CARD-1538."
+      }
+    ],
+    "CARD-1065": [
+      {
+        "part": "PETRO25",
+        "note": "Complemento PETRO25-C001: areia fofa ou aterro não proíbe fundação rasa por definição. A decisão técnica exige resistência do terreno, deformabilidade, recalques totais e diferenciais, homogeneidade, umidade, compactação e compatibilidade com a superestrutura; podem ser necessários substituição ou melhoria do material. Mesmo se q=N/A≤σ_adm, permanecem as verificações de deslocamentos e desempenho em serviço. Relacionado: CARD-1538."
+      }
+    ],
+    "CARD-0230": [
+      {
+        "part": "PETRO25",
+        "note": "NBR 5681:2015 — aterros em edificações: material selecionado, preparo e controle de execução; vincula CARD-0404, CARD-0521, CARD-0857 e CARD-0858. Separar controle de compactação do balanço corte/aterro."
+      }
+    ],
+    "CARD-0404": [
+      {
+        "part": "PETRO25",
+        "note": "NBR 5681:2015: limite de espessura máxima 0,30m refere-se à camada APÓS compactação, não à altura de lançamento do solo solto. Verificar valor no enunciado conforme edição."
+      }
+    ],
+    "CARD-0521": [
+      {
+        "part": "PETRO25",
+        "note": "NBR 5681:2015: tolerância em relação à umidade ótima indicada ±3 pontos percentuais, salvo exigência mais restritiva. Não confundir umidade com grau de compactação nem com fator de empolamento."
+      }
+    ],
+    "CARD-0857": [
+      {
+        "part": "PETRO25",
+        "note": "NBR 5681:2015: GC mínimo indicado 95% da massa específica seca de referência, salvo exigência superior. Critério independente da espessura máxima da camada 30cm."
+      }
+    ],
+    "CARD-0858": [
+      {
+        "part": "PETRO25",
+        "note": "Em aterros de edificações, selecionar material apto; turfas e argilas orgânicas são inadequadas e solos expansivos requerem cautela. Material rejeitado não pode ser presumido compensável."
+      }
+    ],
+    "CARD-0479": [
+      {
+        "part": "PETRO25",
+        "note": "Reforço Petrobras 25: fator de empolamento definido φ=Vn/Vs=0,85 é o inverso do fator histórico k=Vs/Vn=1,25. Para 40×9=360m³ soltos, Vn=306m³; corte 200m² ⇒ h=1,53m; empolamento percentual E=(1/0,85−1)×100≈17,65%, NÃO 15%. Enunciado sempre define a convenção."
+      }
+    ],
+    "CARD-1212": [
+      {
+        "part": "PETRO25",
+        "note": "Reforço Petrobras 25: contração percentual baseada no natural não é igual ao acréscimo de volume natural baseado no compactado. Exemplo fr=Vnatural/Vaterro=1,20 implica 150m³ de aterro para 180m³ naturais, com redução de 16,67% relativa ao natural. Não confundir 30% não compensável de um corte com compactação."
+      }
+    ],
+    "CARD-1385": [
+      {
+        "part": "PETRO25",
+        "note": "Liquigás 2013 TEC 2403837: largura 40m, V_T1=30×40×0,2=240m³; T4 varia h 0,4→0,2, logo V_T4=40×x×0,3=12x ⇒ x=20m. V_T5=120m³=40×y×0,2 ⇒ y=15m. Área em planta 40×(30+10+10+20+15)=3400m². Relacionado ao CARD-1539 apenas por diferença entre área e volume."
+      }
+    ],
+    "CARD-1432": [
+      {
+        "part": "PETRO25",
+        "note": "Complemento Transpetro Q45: corte não compensável reduz o volume aproveitável, NÃO altera a área transversal nem é fator de empolamento. Sob seção de passagem interpolada, Vc≈46,30m³ e Va≈133,80m³; 70% aproveitável≈32,41m³, déficit≈101,39m³ em estados comparáveis. A banca informa D=75m³, mas sua justificativa numérica é contestável. Reforço reaterro CARD-1540: material que volta à cava não é igual a bota-fora."
+      }
+    ],
+    "CARD-1434": [
+      {
+        "part": "PETRO25",
+        "note": "Complemento seções mistas: quando há passagem corte→aterro e se supõe variação linear das áreas assinadas, localizar dc=LAc/(Ac+Aa), da=LAa/(Ac+Aa), e aplicar a média das áreas SEPARADAMENTE para cada subtrecho. Transpetro: dc≈1,852m, da≈3,148m, Vc≈46,30m³, Va≈133,80m³, não 125/212,5 pelo método global anterior. E322 CARD-1539 aprofunda decomposição geométrica de áreas, enquanto 1434 cubica os volumes."
+      }
+    ],
+    "CARD-1435": [
+      {
+        "part": "PETRO25",
+        "note": "Conservação da massa seca em estados natural, solto e compactado: ρd,nVn=ρd,sVs=ρd,cVc. Empolamento percentual e fator não compensável são conceitos diferentes; sem dados de densidades/fatores, não converter estados na questão Transpetro."
+      }
+    ],
+    "CARD-0199": [
+      {
+        "part": "PETRO27",
+        "note": "1 local: 1 simples. 2 locais: 2 paralelos (three-way). 3 locais: 2 paralelos + 1 intermediário (four-way). 4 locais: 2 paralelos + 2 intermediários. Geral n≥2: 2 paralelos + (n−2) intermediários. Questão: retira 1 simples e acrescenta 2 paralelos (A)."
+      }
+    ],
+    "CARD-0388": [
+      {
+        "part": "PETRO27",
+        "note": "Paralelo three-way: 3 bornes (comum + duas saídas comutadas). Intermediário four-way: 4 bornes (dois de entrada + dois de saída); alterna os viajantes entre ligação DIRETA (1→1, 2→2) e CRUZADA (1→2, 2→1). Three-way nas extremidades e four-way no meio."
+      }
+    ],
+    "CARD-0454": [
+      {
+        "part": "PETRO27",
+        "note": "Marcar quais condutores atravessam FISICAMENTE cada trecho, separando fase F, neutro N, proteção PE, retorno R e viajantes V1/V2; calcular Δn = n_depois − n_antes. Dois viajantes são somente os condutores funcionais de comutação, não o total de fios de qualquer eletroduto."
+      }
+    ],
+    "CARD-0731": [
+      {
+        "part": "PETRO27",
+        "note": "A correta é B: os capacitores fornecem localmente parte da potência reativa capacitiva necessária à compensação da demanda indutiva dos motores; o reativo líquido pedido da rede diminui, elevando FP e diminuindo S e a corrente da fonte nos trechos a montante do banco, para a mesma P e tensão. P ativa do motor e consumo kWh NÃO caem na mesma proporção. Banco fixo pode sobrecompensar em carga baixa. Banco global reduz correntes principalmente a montante do ponto de conexão, não automaticamente nos ramais internos até os motores."
+      }
+    ],
+    "CARD-1320": [
+      {
+        "part": "PETRO27",
+        "note": "Maior classe de pressão, na mesma série e material, exige maior espessura de parede e reduz o diâmetro interno, sem alterar De. Na Cesgranrio, variam I (espessura) e II (diâmetro interno): alternativa A."
+      }
+    ],
+    "CARD-1304": [
+      {
+        "part": "PETRO27",
+        "note": "Agregado solto: absorção, sanidade e abrasão Los Angeles; agregado com ligante: adesividade; placa de rocha: desgaste Amsler; mistura compactada: Marshall ou tração indireta, conforme método; petrografia pode estudar o agregado."
+      }
+    ],
+    "CARD-1319": [
+      {
+        "part": "PETRO27",
+        "note": "Inchamento é aumento de volume aparente da areia por películas de água. A umidade crítica da questão é lida projetando o ponto U (interseção de retas auxiliares) no eixo da umidade: cerca de 3,7%. Não confundir com cerca de 7% na região do máximo."
+      }
+    ],
+    "CARD-1386": [
+      {
+        "part": "PETRO21",
+        "note": "Linear: L/bmáx≥3; pilar-parede: B/b>5; viga-parede biapoiada l/h<2 e contínua l/h<3. Igualdade 5, 2 e 3 não basta nos dois últimos critérios."
+      }
+    ],
+    "CARD-1034": [
+      {
+        "part": "PETRO21",
+        "note": "Tabela 6.1 histórica: rural e submersa, CAA I, risco insignificante. II urbana, pequeno; III marinha/industrial, grande; IV respingos/industrial agressiva, elevado."
+      }
+    ],
+    "CARD-1033": [
+      {
+        "part": "PETRO21",
+        "note": "Reconstrução de Tabela 7.2: laje CA, Δc=10 mm, 20/25/35/45 mm (CAA I–IV). Base 20; +5, +10, +10."
+      }
+    ],
+    "CARD-1053": [
+      {
+        "part": "PETRO23",
+        "note": "Para meio elástico isotrópico, G=E/[2(1+ν)]. Se G=0,4E, 0,4=1/[2(1+ν)], logo 1+ν=1,25 e ν=0,25. Não substituir automaticamente por ν=0,20 usual do concreto."
+      }
+    ],
+    "CARD-0578": [
+      {
+        "part": "PETRO23",
+        "note": "Ancoragem por aderência: distinguir barra nervurada tracionada sem gancho de barra com gancho e de emenda por traspasse. A questão recuperada refere-se a Ø20 mm; dados completos do enunciado não recuperados."
+      }
+    ],
+    "CARD-1093": [
+      {
+        "part": "PETRO29",
+        "note": "Estrela (Y): um terminal de cada enrolamento converge em ponto comum; Ulinha=√3·Ufase e Ilinha=Ifase. Triângulo (Δ): enrolamentos formam laço; Ulinha=Ufase e Ilinha=√3·Ifase. Estrela pode funcionar sem neutro externo."
+      }
+    ],
+    "CARD-0203": [
+      {
+        "part": "PETRO29",
+        "note": "Somar ΣPi·di, com di a distância de cada carga ao quadro. Comparar à tabela para seção/tensão/queda adotada. Para circuito monofásico resistivo FP=1, ΔV≈2ρΣPi di/(S·V). A NBR 5410:2004 limita circuito terminal a 4%, não 2%."
+      }
+    ],
+    "CARD-0213": [
+      {
+        "part": "PETRO29",
+        "note": "Somar ΣPi·di, com di a distância de cada carga ao quadro. Comparar à tabela para seção/tensão/queda adotada. Para circuito monofásico resistivo FP=1, ΔV≈2ρΣPi di/(S·V). A NBR 5410:2004 limita circuito terminal a 4%, não 2%."
+      }
+    ],
+    "CARD-0720": [
+      {
+        "part": "PETRO29",
+        "note": "Seccionamento isola a alimentação; comando manobra; proteção atua em anormalidade. PE/PEN nunca seccionados; neutro conforme esquema. Comando deve ser capaz de manobrar eletricamente mesmo com rotor bloqueado. Créder cita chave ≥115% In e exceções específicas; não generalizar como regra universal da NBR 5410."
+      }
+    ],
+    "CARD-0732": [
+      {
+        "part": "PETRO29",
+        "note": "Seccionamento isola a alimentação; comando manobra; proteção atua em anormalidade. PE/PEN nunca seccionados; neutro conforme esquema. Comando deve ser capaz de manobrar eletricamente mesmo com rotor bloqueado. Créder cita chave ≥115% In e exceções específicas; não generalizar como regra universal da NBR 5410."
+      }
+    ]
+  },
+  "relations": {
+    "CARD-0631": [
+      "CARD-0606",
+      "CARD-0622",
+      "CARD-0623",
+      "CARD-0625",
+      "CARD-0626",
+      "CARD-0628",
+      "CARD-0629",
+      "CARD-0632",
+      "CARD-0633",
+      "CARD-0637",
+      "CARD-0641",
+      "CARD-0642",
+      "CARD-0645"
+    ],
+    "CARD-0625": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0641",
+      "CARD-0645"
+    ],
+    "CARD-0629": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0641",
+      "CARD-0645"
+    ],
+    "CARD-0637": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0641",
+      "CARD-0642",
+      "CARD-0645"
+    ],
+    "CARD-0641": [
+      "CARD-0606",
+      "CARD-0622",
+      "CARD-0623",
+      "CARD-0625",
+      "CARD-0626",
+      "CARD-0628",
+      "CARD-0629",
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0633",
+      "CARD-0637",
+      "CARD-0638",
+      "CARD-0642",
+      "CARD-0645"
+    ],
+    "CARD-0645": [
+      "CARD-0606",
+      "CARD-0622",
+      "CARD-0623",
+      "CARD-0625",
+      "CARD-0626",
+      "CARD-0628",
+      "CARD-0629",
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0633",
+      "CARD-0637",
+      "CARD-0638",
+      "CARD-0641",
+      "CARD-0642",
+      "CARD-0643"
+    ],
+    "CARD-0632": [
+      "CARD-0606",
+      "CARD-0622",
+      "CARD-0623",
+      "CARD-0625",
+      "CARD-0626",
+      "CARD-0628",
+      "CARD-0629",
+      "CARD-0631",
+      "CARD-0633",
+      "CARD-0637",
+      "CARD-0638",
+      "CARD-0641",
+      "CARD-0642",
+      "CARD-0643",
+      "CARD-0645"
+    ],
+    "CARD-0626": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0641",
+      "CARD-0645"
+    ],
+    "CARD-0628": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0638",
+      "CARD-0641",
+      "CARD-0645"
+    ],
+    "CARD-0633": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0638",
+      "CARD-0641",
+      "CARD-0645"
+    ],
+    "CARD-0638": [
+      "CARD-0628",
+      "CARD-0632",
+      "CARD-0633",
+      "CARD-0641",
+      "CARD-0643",
+      "CARD-0645"
+    ],
+    "CARD-0642": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0637",
+      "CARD-0641",
+      "CARD-0645"
+    ],
+    "CARD-0643": [
+      "CARD-0606",
+      "CARD-0632",
+      "CARD-0638",
+      "CARD-0645",
+      "CARD-1595"
+    ],
+    "CARD-0622": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0641",
+      "CARD-0645"
+    ],
+    "CARD-0623": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0641",
+      "CARD-0645"
+    ],
+    "CARD-0606": [
+      "CARD-0631",
+      "CARD-0632",
+      "CARD-0641",
+      "CARD-0643",
+      "CARD-0645"
+    ],
+    "CARD-1538": [
+      "CARD-0529",
+      "CARD-0697",
+      "CARD-1065",
+      "CARD-1155"
+    ],
+    "CARD-1155": [
+      "CARD-1538"
+    ],
+    "CARD-0529": [
+      "CARD-1538"
+    ],
+    "CARD-0697": [
+      "CARD-1538"
+    ],
+    "CARD-1065": [
+      "CARD-1538"
+    ],
+    "CARD-1539": [
+      "CARD-1385",
+      "CARD-1432",
+      "CARD-1434"
+    ],
+    "CARD-1434": [
+      "CARD-1385",
+      "CARD-1432",
+      "CARD-1539",
+      "CARD-1541"
+    ],
+    "CARD-1385": [
+      "CARD-1434",
+      "CARD-1539",
+      "CARD-1540"
+    ],
+    "CARD-1432": [
+      "CARD-0858",
+      "CARD-1212",
+      "CARD-1434",
+      "CARD-1539",
+      "CARD-1540",
+      "CARD-1541"
+    ],
+    "CARD-1540": [
+      "CARD-1385",
+      "CARD-1432"
+    ],
+    "CARD-1541": [
+      "CARD-1212",
+      "CARD-1432",
+      "CARD-1434"
+    ],
+    "CARD-1212": [
+      "CARD-0479",
+      "CARD-1432",
+      "CARD-1435",
+      "CARD-1541"
+    ],
+    "CARD-0230": [
+      "CARD-0404",
+      "CARD-0521",
+      "CARD-0857",
+      "CARD-0858"
+    ],
+    "CARD-0404": [
+      "CARD-0230",
+      "CARD-0521",
+      "CARD-0857"
+    ],
+    "CARD-0521": [
+      "CARD-0230",
+      "CARD-0404",
+      "CARD-0857"
+    ],
+    "CARD-0857": [
+      "CARD-0230",
+      "CARD-0404",
+      "CARD-0521"
+    ],
+    "CARD-0858": [
+      "CARD-0230",
+      "CARD-1432"
+    ],
+    "CARD-0479": [
+      "CARD-1212",
+      "CARD-1435"
+    ],
+    "CARD-1435": [
+      "CARD-0479",
+      "CARD-1212"
+    ],
+    "CARD-1542": [
+      "CARD-0190"
+    ],
+    "CARD-0190": [
+      "CARD-1542"
+    ],
+    "CARD-1544": [
+      "CARD-0424",
+      "CARD-0587"
+    ],
+    "CARD-0587": [
+      "CARD-0424",
+      "CARD-1544"
+    ],
+    "CARD-0424": [
+      "CARD-0587",
+      "CARD-1544"
+    ],
+    "CARD-1545": [
+      "CARD-0082"
+    ],
+    "CARD-0082": [
+      "CARD-1545"
+    ],
+    "CARD-1546": [
+      "CARD-0186",
+      "CARD-0567",
+      "CARD-1547",
+      "CARD-1555",
+      "CARD-1557"
+    ],
+    "CARD-1547": [
+      "CARD-0381",
+      "CARD-1140",
+      "CARD-1142",
+      "CARD-1364",
+      "CARD-1546"
+    ],
+    "CARD-0381": [
+      "CARD-1142",
+      "CARD-1364",
+      "CARD-1547"
+    ],
+    "CARD-1140": [
+      "CARD-1142",
+      "CARD-1143",
+      "CARD-1364",
+      "CARD-1547"
+    ],
+    "CARD-1142": [
+      "CARD-0381",
+      "CARD-1140",
+      "CARD-1141",
+      "CARD-1143",
+      "CARD-1364",
+      "CARD-1547"
+    ],
+    "CARD-1364": [
+      "CARD-0381",
+      "CARD-1140",
+      "CARD-1141",
+      "CARD-1142",
+      "CARD-1143",
+      "CARD-1547"
+    ],
+    "CARD-1122": [
+      "CARD-0052",
+      "CARD-0168"
+    ],
+    "CARD-0052": [
+      "CARD-1122"
+    ],
+    "CARD-0168": [
+      "CARD-1122"
+    ],
+    "CARD-1143": [
+      "CARD-1140",
+      "CARD-1141",
+      "CARD-1142",
+      "CARD-1364"
+    ],
+    "CARD-1141": [
+      "CARD-1142",
+      "CARD-1143",
+      "CARD-1364"
+    ],
+    "CARD-1548": [
+      "CARD-1549",
+      "CARD-1550"
+    ],
+    "CARD-1549": [
+      "CARD-1548",
+      "CARD-1550"
+    ],
+    "CARD-1550": [
+      "CARD-0694",
+      "CARD-0949",
+      "CARD-1548",
+      "CARD-1549",
+      "CARD-1553",
+      "CARD-1558"
+    ],
+    "CARD-1553": [
+      "CARD-0694",
+      "CARD-0949",
+      "CARD-1550",
+      "CARD-1558"
+    ],
+    "CARD-1558": [
+      "CARD-1550",
+      "CARD-1553"
+    ],
+    "CARD-0949": [
+      "CARD-0694",
+      "CARD-1550",
+      "CARD-1553"
+    ],
+    "CARD-0694": [
+      "CARD-0949",
+      "CARD-1550",
+      "CARD-1553"
+    ],
+    "CARD-1551": [
+      "CARD-0755",
+      "CARD-1552"
+    ],
+    "CARD-1552": [
+      "CARD-0755",
+      "CARD-1551"
+    ],
+    "CARD-0755": [
+      "CARD-1551",
+      "CARD-1552"
+    ],
+    "CARD-1554": [
+      "CARD-0751"
+    ],
+    "CARD-0751": [
+      "CARD-0752",
+      "CARD-0753",
+      "CARD-1304",
+      "CARD-1319",
+      "CARD-1554",
+      "CARD-1559"
+    ],
+    "CARD-1555": [
+      "CARD-0186",
+      "CARD-0567",
+      "CARD-1546",
+      "CARD-1557"
+    ],
+    "CARD-1557": [
+      "CARD-0186",
+      "CARD-0567",
+      "CARD-1546",
+      "CARD-1555",
+      "CARD-1556"
+    ],
+    "CARD-0186": [
+      "CARD-0567",
+      "CARD-1546",
+      "CARD-1555",
+      "CARD-1556",
+      "CARD-1557"
+    ],
+    "CARD-0567": [
+      "CARD-0186",
+      "CARD-1546",
+      "CARD-1555",
+      "CARD-1556",
+      "CARD-1557"
+    ],
+    "CARD-1556": [
+      "CARD-0186",
+      "CARD-0567",
+      "CARD-1557"
+    ],
+    "CARD-1559": [
+      "CARD-0751"
+    ],
+    "CARD-0752": [
+      "CARD-0751",
+      "CARD-0753"
+    ],
+    "CARD-0753": [
+      "CARD-0751",
+      "CARD-0752"
+    ],
+    "CARD-0199": [
+      "CARD-0388",
+      "CARD-0454",
+      "CARD-0721",
+      "CARD-0722",
+      "CARD-0723"
+    ],
+    "CARD-0388": [
+      "CARD-0199",
+      "CARD-0454"
+    ],
+    "CARD-0454": [
+      "CARD-0199",
+      "CARD-0272",
+      "CARD-0300",
+      "CARD-0388",
+      "CARD-0434",
+      "CARD-0505"
+    ],
+    "CARD-0721": [
+      "CARD-0199"
+    ],
+    "CARD-0722": [
+      "CARD-0199"
+    ],
+    "CARD-0723": [
+      "CARD-0199"
+    ],
+    "CARD-0505": [
+      "CARD-0454"
+    ],
+    "CARD-0272": [
+      "CARD-0454"
+    ],
+    "CARD-0434": [
+      "CARD-0454"
+    ],
+    "CARD-0300": [
+      "CARD-0454"
+    ],
+    "CARD-1304": [
+      "CARD-0751",
+      "CARD-1319",
+      "CARD-1359"
+    ],
+    "CARD-1319": [
+      "CARD-0751",
+      "CARD-1304"
+    ],
+    "CARD-1359": [
+      "CARD-1304"
+    ],
+    "CARD-1588": [
+      "CARD-1589",
+      "CARD-1590",
+      "CARD-1591",
+      "CARD-1593"
+    ],
+    "CARD-1589": [
+      "CARD-1588",
+      "CARD-1590",
+      "CARD-1596"
+    ],
+    "CARD-1590": [
+      "CARD-1588",
+      "CARD-1589"
+    ],
+    "CARD-1591": [
+      "CARD-1588",
+      "CARD-1592",
+      "CARD-1597",
+      "CARD-1598"
+    ],
+    "CARD-1593": [
+      "CARD-1588",
+      "CARD-1594",
+      "CARD-1595"
+    ],
+    "CARD-1596": [
+      "CARD-1589"
+    ],
+    "CARD-1597": [
+      "CARD-1591"
+    ],
+    "CARD-1592": [
+      "CARD-1591"
+    ],
+    "CARD-1598": [
+      "CARD-1591",
+      "CARD-1595"
+    ],
+    "CARD-1594": [
+      "CARD-1593",
+      "CARD-1595"
+    ],
+    "CARD-1595": [
+      "CARD-0518",
+      "CARD-0643",
+      "CARD-0674",
+      "CARD-1593",
+      "CARD-1594",
+      "CARD-1598"
+    ],
+    "CARD-0674": [
+      "CARD-1595"
+    ],
+    "CARD-0518": [
+      "CARD-1595"
+    ],
+    "CARD-1386": [
+      "CARD-0543"
+    ],
+    "CARD-0543": [
+      "CARD-1386"
+    ],
+    "CARD-1034": [
+      "CARD-1033"
+    ],
+    "CARD-1033": [
+      "CARD-1034"
+    ],
+    "CARD-1053": [
+      "CARD-0401"
+    ],
+    "CARD-0401": [
+      "CARD-1053"
+    ],
+    "CARD-0578": [
+      "CARD-1534"
+    ],
+    "CARD-1534": [
+      "CARD-0578"
+    ],
+    "CARD-1599": [
+      "CARD-0046",
+      "CARD-0731",
+      "CARD-1093",
+      "CARD-1095"
+    ],
+    "CARD-1093": [
+      "CARD-1599"
+    ],
+    "CARD-1095": [
+      "CARD-1599"
+    ],
+    "CARD-0046": [
+      "CARD-1599"
+    ],
+    "CARD-0731": [
+      "CARD-1599",
+      "CARD-1600"
+    ],
+    "CARD-1600": [
+      "CARD-0731"
+    ],
+    "CARD-1601": [
+      "CARD-0203",
+      "CARD-0213"
+    ],
+    "CARD-0203": [
+      "CARD-1601"
+    ],
+    "CARD-0213": [
+      "CARD-1601"
+    ],
+    "CARD-1602": [
+      "CARD-0720",
+      "CARD-0727",
+      "CARD-0732",
+      "CARD-1088"
+    ],
+    "CARD-0720": [
+      "CARD-1602"
+    ],
+    "CARD-0732": [
+      "CARD-1602"
+    ],
+    "CARD-0727": [
+      "CARD-1602"
+    ],
+    "CARD-1088": [
+      "CARD-1602"
+    ]
+  },
+  "media_public_history": [
+    {
+      "id": "PETRO27-SVG-COMANDOS",
+      "src": "assets/petro27_v343_figures/comandos_1_2_3_locais.svg",
+      "card_ids": [
+        "CARD-0199",
+        "CARD-0388"
+      ],
+      "status": "HISTORICA_PB; NÃO HOMOLOGADA"
+    },
+    {
+      "id": "PETRO27-SVG-FIACAO",
+      "src": "assets/petro27_v343_figures/contagem_fiacao.svg",
+      "card_ids": [
+        "CARD-0454"
+      ],
+      "status": "HISTORICA_PB; NÃO HOMOLOGADA"
+    },
+    {
+      "id": "PETRO27-SVG-CEMENTACAO",
+      "src": "assets/petro27_v343_figures/cementacao_nucleo.svg",
+      "card_ids": [
+        "CARD-1594"
+      ],
+      "status": "HISTORICA_PB; NÃO HOMOLOGADA"
+    },
+    {
+      "id": "PETRO27-SVG-USINAGEM",
+      "src": "assets/petro27_v343_figures/maquinas_operatrizes.svg",
+      "card_ids": [
+        "CARD-1596",
+        "CARD-1589"
+      ],
+      "status": "HISTORICA_PB; NÃO HOMOLOGADA"
+    },
+    {
+      "id": "PETRO27-SVG-FP-PQS",
+      "src": "assets/petro27_v343_figures/fator_potencia_compensacao.svg",
+      "card_ids": [
+        "CARD-0731"
+      ],
+      "status": "HISTORICA_PB; NÃO HOMOLOGADA"
+    },
+    {
+      "id": "PETRO27-SVG-TRES-LAMPADAS",
+      "src": "assets/petro27_v343_figures/retorno_tres_luminarias.svg",
+      "card_ids": [
+        "CARD-0454"
+      ],
+      "status": "HISTORICA_PB; NÃO HOMOLOGADA"
+    },
+    {
+      "id": "PETRO27-SVG-CINCO-FIOS",
+      "src": "assets/petro27_v343_figures/contagem_cinco_fios.svg",
+      "card_ids": [
+        "CARD-0454"
+      ],
+      "status": "HISTORICA_PB; NÃO HOMOLOGADA"
+    },
+    {
+      "id": "PETRO27-SVG-CLASSES-PRESSAO",
+      "src": "assets/petro27_v343_figures/classes_pressao_tubos.svg",
+      "card_ids": [
+        "CARD-1320"
+      ],
+      "status": "HISTORICA_PB; NÃO HOMOLOGADA"
+    }
+  ],
+  "private_content_exported": false
+}
