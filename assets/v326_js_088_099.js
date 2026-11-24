@@ -136,7 +136,7 @@ function load(){
 }
 load();
 function persist(next){
- try{if(account&&Object.entries(next).some(([id,value])=>!validItem(id,value)))throw Error('Vínculo fora do perfil individual');localStorage.setItem(STORAGE,JSON.stringify(next));saved=next;window.dispatchEvent(new Event('bm197-links-changed'));return true;}
+ try{if(account&&Object.entries(next).some(([id,value])=>!validItem(id,value)))throw Error('Vínculo fora do perfil individual');if(account){account.writeImageSetting(STORAGE,JSON.stringify(next));window.dispatchEvent(new Event('bm-profile-image-edited'))}else localStorage.setItem(STORAGE,JSON.stringify(next));saved=next;window.dispatchEvent(new Event('bm197-links-changed'));return true;}
  catch(err){say('Falha ao gravar classificação: '+err.message,true);return false;}
 }
 function sourceIds(x){
@@ -498,6 +498,7 @@ function init(){
 init();
 initReverse();
 window.BM197MediaLinks=Object.freeze({matches,matchesDrive,decorate,decorateDrive,openEditor:openEditorDialog,mountEditorForm,mountImagePreview,exportJson,filterActive:()=>filter!=='todas',get catalogReady(){return canonicalReady;},get catalogSize(){return canonicalRecords.size;},get:(imageId)=>dataOf(imageId,typeof imgs!=='undefined'?imgs.find(x=>x.no===imageId):null)});
+if(account)window.addEventListener('bm-profile-image-synced',()=>{saved=Object.create(null);load();window.dispatchEvent(new Event('bm197-links-changed'));rerender()});
 void loadCanonical();
 })();
 
@@ -554,9 +555,9 @@ function update(fileId){
 function persist(fileId,entry){
  if(!valid(fileId,entry))throw Error('Campos de imagem inválidos.');
  if(Object.keys(saved).length>1500&&!saved[fileId])throw Error('Limite de registros excedido.');
- const next={...saved,[fileId]:entry};localStorage.setItem(KEY,JSON.stringify(next));saved=next;update(fileId);
+ const next={...saved,[fileId]:entry};if(account){account.writeImageSetting(KEY,JSON.stringify(next));window.dispatchEvent(new Event('bm-profile-image-edited'))}else localStorage.setItem(KEY,JSON.stringify(next));saved=next;update(fileId);
 }
-function restore(fileId){const next={...saved};delete next[fileId];localStorage.setItem(KEY,JSON.stringify(next));saved=next;update(fileId);}
+function restore(fileId){const next={...saved};delete next[fileId];if(account){account.writeImageSetting(KEY,JSON.stringify(next));window.dispatchEvent(new Event('bm-profile-image-edited'))}else localStorage.setItem(KEY,JSON.stringify(next));saved=next;update(fileId);}
 function close(){if(!current)return;const d=current;current=null;if(d.open&&d.close)d.close();d.remove();}
 function input(form,k,label,value,multi=false){
  const box=el('label','bm228-field'),t=el('span','',label),v=el(multi?'textarea':'input');
@@ -583,7 +584,7 @@ async function importJson(file){
  }
  if(Object.keys(next).length>1500)throw Error('Limite de imagens locais excedido.');
  if([...seen].some(id=>saved[id])&&!confirm('Substituir os registros locais de imagem coincidentes?'))return false;
- localStorage.setItem(KEY,JSON.stringify(next));saved=next;update('');return true;
+ if(account){account.writeImageSetting(KEY,JSON.stringify(next));window.dispatchEvent(new Event('bm-profile-image-edited'))}else localStorage.setItem(KEY,JSON.stringify(next));saved=next;update('');return true;
 }
 function open(file,card,trigger){
  if(!VALID.test(file.id))return;
@@ -715,6 +716,7 @@ css.textContent=[
 '@media(max-width:700px){.bm228-layout{grid-template-columns:1fr}.bm228-visual{position:static;padding:10px}.bm228-visual img{max-height:230px}.bm228-tax{grid-template-columns:1fr}}'
 ].join('\n');
 document.head.append(css);
+if(account)window.addEventListener('bm-profile-image-synced',()=>{saved=Object.create(null);load();update('')});
 window.BM228DriveImageEditor=Object.freeze({decorate,meta,open,exportJson,importJson,get editedCount(){return Object.keys(saved).length}});
 })();
 

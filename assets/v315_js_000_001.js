@@ -77,7 +77,7 @@ function load(){
    Array.isArray(m.points)&&m.points.length>0&&m.points.length<20000)).slice(0,MAX_STROKES);
  }catch(e){note('Falha ao ler grifos locais; recuperando marcações antigas.');return fromLegacy()}
 }
-function save(){try{localStorage.setItem(key(),JSON.stringify(strokes));note(`${strokes.length} marcações salvas neste navegador; original preservado.`)}
+function save(){try{if(account){account.writeImageSetting(key(),JSON.stringify(strokes));root.dispatchEvent(new Event('bm-profile-image-edited'))}else localStorage.setItem(key(),JSON.stringify(strokes));note(`${strokes.length} marcações salvas neste navegador; original preservado.`)}
  catch(e){note('Aviso: não foi possível salvar neste navegador: '+e.message)}}
 function checkpoint(){undo.push(JSON.stringify(strokes));if(undo.length>MAX_UNDO)undo.shift();redo.length=0}
 function applyHistory(direction){

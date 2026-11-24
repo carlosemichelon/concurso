@@ -814,7 +814,7 @@ function ui(){
   if(window.BancoMestreDriveV042?.ready){window.BancoMestreDriveV042.authorize();return;}
   msg('Conexão Google ainda não está pronta. Tente novamente.',true);
  }; // V215: uma autorização compartilhada pelo leitor Drive; sem popup próprio por imagem.
- refresh.onclick=()=>{void refreshList(true);};
+ refresh.onclick=()=>{if(account)void syncProfileImages(true);else void refreshList(true);};
  search.oninput=()=>{visible=24;render();};
  more.onclick=()=>{visible+=24;render();};
  $('imageSearch')?.addEventListener('input',()=>{visible=24;render()});
@@ -827,9 +827,11 @@ function loadGIS(){return new Promise((resolve,reject)=>{
  if(window.google?.accounts?.oauth2){resolve();return;}
  const js=document.createElement('script');js.src='https://accounts.google.com/gsi/client';js.async=true;js.onload=resolve;js.onerror=()=>reject(Error('Google Identity Services indisponível'));document.head.append(js);
 });}
+let profileDirty=false,profileTimer=null;
+async function syncProfileImages(manual=false){if(!account)return;if(document.querySelector('dialog[open]')){if(manual)msg('Feche o editor antes de sincronizar.');return}if(account.imageState.busy)return;try{const result=await account.imageState.sync();profileDirty=result.pending;window.dispatchEvent(new Event('bm-profile-image-synced'));if(manual)await refreshList(true);msg('Ajustes de imagens sincronizados no Drive individual.'+(profileDirty?' Há alterações locais pendentes.':''));}catch(e){profileDirty=true;msg('Sincronização não confirmada: '+e.message,true)}}
 async function init(){
  ui();if(!$('bm084-sync'))return;
- if(account){await loadAliases();await refreshList(true);return}
+ if(account){await loadAliases();await refreshList(true);window.addEventListener('bm-profile-image-edited',()=>{profileDirty=true;clearTimeout(profileTimer);profileTimer=setTimeout(()=>{if(profileDirty)void syncProfileImages()},1200)});document.addEventListener('close',()=>{if(profileDirty){clearTimeout(profileTimer);profileTimer=setTimeout(()=>void syncProfileImages(),200)}},true);return}
  try{
   await assertPaths();
   await window.BM218ImageMetadata?.load?.(); // Metadados textuais, sem arquivos de imagem do GitHub.
