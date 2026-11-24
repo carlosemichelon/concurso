@@ -1,5 +1,8 @@
 # Instruções de edição para agentes — Banco Mestre
 
+## Arquitetura atual (V363)
+Antes de editar, aplicar o contrato de [arquitetura operacional](docs/ARQUITETURA_OPERACIONAL.md). Use `node tools/catalog_snapshot.cjs --check` na versão vigente. Alterações visuais reutilizam o catálogo imutável; alterações de conteúdo geram um snapshot novo e atualizam o contrato, sem reauditoria histórica de IDs. Não misturar o estado privado do Drive com a publicação pública.
+
 ## REGRA OBRIGATÓRIA — LEITURA DA METODOLOGIA NO INÍCIO DE CADA NOVA CONVERSA (17/11/2026)
 
 **Prioridade máxima no projeto:** antes de estudar, corrigir questões, criar/auditar cartões, trabalhar em TRT/Petrobras/lei seca/concursos ou alterar Banco Mestre, Atlas, Drive ou site, consultar a **versão vigente e integral** da Metodologia Mestre e das regras técnicas aplicáveis. Não confiar apenas em lembranças, resumos ou instruções de uma conversa anterior.

@@ -45,6 +45,12 @@ async function verify(){
    assert.ok(raw.length>100,'arquivo V242 publicado vazio: '+asset);
   }
  }
+ if(manifest.catalog){
+  assert.deepEqual(online.catalog,manifest.catalog,'Contrato de catálogo divergente');
+  const raw=await text(base+manifest.catalog.path+suffix);
+  const snapshot=JSON.parse(raw);const helper=require('../tools/catalog_snapshot.cjs');
+  helper.validate(snapshot,manifest.catalog);assert.equal(helper.blobHash(Buffer.from(raw,'utf8')),manifest.catalog.git_blob,'Bytes publicados do catálogo divergentes');
+ }
  return {version,html:file,cardCount:online.counts?.cards,
   pdfCount:online.counts?.pdfs,mediaCatalog:online.counts?.images_public_catalog};
 }

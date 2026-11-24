@@ -1,3 +1,7 @@
+## V363 — Contrato de catálogo e manutenção reproduzível (24/11/2026)
+
+A versão visual reutiliza o catálogo V362 sem alteração dos dados. Metadados com cache e promessa compartilhada; busca vazia não normaliza todos os textos. Gerador e verificador determinísticos em `tools/catalog_snapshot.cjs`; testes históricos separados dos testes da versão vigente e verificação dos bytes publicados. Regras em `docs/ARQUITETURA_OPERACIONAL.md`. Drive privado e SRS intocados; testes CI e navegador real ainda não confirmados.
+
 ## V362 — Carregamento rápido da biblioteca (24/11/2026)
 
 A rotina de montagem da V361 foi executada sobre os 32 arquivos públicos de conteúdo e o manifesto de metadados, gerando `assets/catalog_snapshot_v362.json` com 1.632 cartões canônicos (1.615 ativos), 22 fichas de Ijuí, guias e estados de compatibilidade. O fluxo normal faz uma única requisição versionada com cache; a rotina `loadCardsLegacy` permanece como contingência. Nenhum conteúdo, ID, módulo, vínculo, grifo ou SRS foi modificado. O teste isolado do carregador confirmou 1.654 registros, uma requisição, compartilhamento da promessa e fallback em falha. Teste no navegador real pendente. V361 preservada.
