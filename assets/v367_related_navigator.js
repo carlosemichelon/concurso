@@ -126,7 +126,7 @@
    };
    fold.addEventListener('toggle',revealOriginal);if(reveal)revealOriginal();
   }
-  if(window.BM349?.has(id)){const q=preview.querySelector('.bm317-preview-question');const f=make('div','bm349-front-media');q?.after(f);void window.BM349.load().then(()=>{if(selection!==id||!f.isConnected)return;q.textContent=window.BM349.get(id).front;void window.BM349.renderFront(f,id);}).catch(console.warn);const read=make('div','bm349-side-answer');fold.replaceChildren(summ,read);const load=()=>{if(fold.open&&selection===id&&!read.querySelector('[data-bm349-card]'))void window.BM349.renderAnswer(read,id);};fold.addEventListener('toggle',load);if(reveal)queueMicrotask(load);}
+  if(window.BM349?.has(id)){const q=preview.querySelector('.bm317-preview-question');const f=make('div','bm349-front-media');q?.after(f);void window.BM349.load(id).then(()=>{if(selection!==id||!f.isConnected)return;q.textContent=window.BM349.get(id).front;void window.BM349.renderFront(f,id);}).catch(console.warn);const read=make('div','bm349-side-answer');fold.replaceChildren(summ,read);const load=()=>{if(fold.open&&selection===id&&!read.querySelector('[data-bm349-card]'))void window.BM349.renderAnswer(read,id);};fold.addEventListener('toggle',load);if(reveal)queueMicrotask(load);}
   preview.append(fold);
   // V322: também permite seguir os vínculos documentados a partir da própria prévia.
   // Esses cliques nunca promovem o cartão para a janela principal.
