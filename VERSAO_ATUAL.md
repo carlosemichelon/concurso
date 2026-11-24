@@ -1,3 +1,7 @@
+## V400 / VS11 — Cartões relacionados compactos (24/11/2026)
+
+Na grade, todos os vínculos ficam recolhidos inicialmente em uma única linha com contagem. O botão expande ou recolhe a lista completa, preservando os IDs e a navegação lateral. O leitor mantém a apresentação anterior. VC31, VI9, VM7 e SRS inalterados. V399 preservada. Teste visual no navegador e confirmação de publicação pendentes.
+
 ## V399 / VS10 / VC31 / VM7 — prevenção de verso vazio (24/11/2026)
 
 V398 corrigiu a tabela opcional no leitor compartilhado, adicionou fallback textual e passou no Chromium em 68 cartões (67 evoluções da VC31 e CARD-0701). V399 alinha o título HTML à VS10, sem alterar catálogo, SVGs, IDs ou SRS. O portão incremental VM7 seleciona IDs novos/alterados, valida o leitor real, exige fórmulas/tabelas/mídias públicas previstas e impede aprovação por fallback. Teste de fumaça CARD-1448/CARD-0701 aprovado na branch candidata; execução automática incorporada à materialização de futuros incrementos, antes do commit. Entrega pública da V399 deve ser confirmada pelo workflow de publicação; V398 permanece preservada.
