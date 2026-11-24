@@ -18,3 +18,7 @@ Após implantação verificada, atualizações de estudos compatíveis com o esq
 ### Complemento de retomada — V353
 
 A produção recebeu complementos didáticos V353 após o checkpoint V352. A candidata incorpora essa atualização (commit de produção `ebb6c172ce826b98e6cb7f9638eaf3af23a8464a`) preservando todos os sete arquivos da integração e os testes já verificados; nenhuma nova aprovação privada foi inferida. Conferir apenas incrementos concorrentes posteriores e executar homologação OAuth antes de publicação.
+
+## Conciliação sobre V357 — candidata V358
+
+A candidata incorpora os quatro commits de produção V354–V357, preserva seus complementos, scripts e relações, e mantém o snapshot V357 intacto. Manifesto e snapshot V358 coerentes exclusivamente na branch de homologação. A produção permanece intocada. O portão de qualidade e de mídias continua obrigatório; não publicar sem aprovação e teste de OAuth. Nenhum cartão, evento SRS ou dado privado alterado.
