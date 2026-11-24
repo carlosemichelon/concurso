@@ -27,9 +27,47 @@ function historic(text){const root=el('div',undefined,'historic-content');const 
 
 async function ensureHistory(id){if(history[id]?.card&&history[id]?.profile)return;if(!legacyIds.has(id))throw Error('Histórico público ausente para '+id);const c=(typeof cards!=='undefined'&&Array.isArray(cards)?cards:[]).find(x=>x.id===id);if(!c)throw Error('Cartão original indisponível no catálogo: '+id);let p=null;try{p=await previousLayers?.get?.(id)}catch(e){console.warn('Ponte de histórico indisponível',id,e)}if(!p||p.layers?.length!==11)p=await window.BM194VersosPublicos?.load?.(id);if(!p||p.layers?.length!==11)throw Error('Onze módulos históricos indisponíveis: '+id);history[id]={card:c,profile:{...p,source:c.reference}};}
 function build(id){const r=records[id],m=r.learning_model,h=history[id];const a=el('article',undefined,'bm349-reading');a.dataset.bm349Card=id;a.append(el('h3',r.title));if(m.literal_text){const b=el('section',undefined,'literal');b.append(el('div','Texto legal literal','formula-label'));for(const p of m.literal_text.split('\n'))b.append(marked(p,m.literal_marks));a.append(b)}for(const b of m.sequence){const k=b.index;if(b.type==='paragraph')a.append(marked(m.paragraphs[k],m.marks));else if(b.type==='formula')a.append(formula(m.formula.items[k]));else if(b.type==='table')a.append(table(m.table.items[k]));else if(b.type==='media')a.append(figure(m.media.items[k]));}a.append(details('Macete',m.mnemonic),details('Recuperação adicional — sem gabarito',m.transfer_question));const source=el('div');source.append(el('p',m.source_note));for(const s of m.sources||[]){if(!safeLink(s.url))continue;const link=el('a',s.label||s.url);link.href=s.url;link.target='_blank';link.rel='noopener noreferrer';const p=el('p');p.append(link);source.append(p)}source.append(el('p',h.profile.source||h.card.reference));a.append(details('Fundamento e fontes',source));const hist=el('div');hist.append(el('h4','Frente e verso anteriores'),historic(h.card.front),historic(h.card.back),el('h4','Explicação anterior'),historic(h.card.expl),el('h4','Onze módulos históricos'));for(const l of h.profile.layers){const section=el('section',undefined,'historic-module');section.dataset.ord=l.ord;section.append(el('h4',l.titulo),historic(l.texto));hist.append(section)}a.append(details('Resposta evolutiva integral',hist,'evolution'));const rel=el('div');for(const next of r.related_card_ids){const b=el('button',next+' · consultar na lateral','bm349-related');b.type='button';b.dataset.cardId=next;b.onclick=()=>window.BM317RelatedNavigator?.openReferenced?.(next);rel.append(b)}if(rel.children.length)a.append(details('Cartões relacionados',rel));return a;}
-const stamp=new WeakMap();async function renderAnswer(host,id){const token={};stamp.set(host,token);host.replaceChildren(el('p','Carregando resposta-modelo…'));try{await load();await ensureHistory(id);if(host.isConnected&&stamp.get(host)===token&&!host.closest('[hidden]')&&(!host.matches('.bm-v050-peek-answer')||window.BancoMestreVisualizarCardV050?.currentId===id))host.replaceChildren(build(id));}catch(e){if(host.isConnected&&stamp.get(host)===token)host.replaceChildren(el('p','Falha ao carregar: '+e.message));}}
-async function renderFront(host,id){const token={};stamp.set(host,token);host.replaceChildren();try{await load();if(!host.isConnected||stamp.get(host)!==token)return;const r=records[id];for(const m of r.learning_model.media.items||[])if(m.role==='FRONT_ENUNCIADO')host.append(figure(m))}catch(e){if(host.isConnected&&stamp.get(host)===token)host.append(el('p','Dados gráficos indisponíveis: '+e.message))}}
-const prev=window.BM198Format;if(prev?.render){window.BM198Format=Object.freeze({...prev,render(host,rec,id,...rest){if(!ids.has(id))return prev.render(host,rec,id,...rest);void renderAnswer(host,id);return {modules:11,srsChanged:false,version:'V349-CANDIDATO'};}})}
-window.BM349=Object.freeze({has:id=>ids.has(id),get:id=>records?.[id],load,renderAnswer,renderFront});
+
+// Consolidated profiles are compiled into the existing immutable catalog.
+// No observer, extra request, SRS write or second catalog in the browser.
+let consolidatedIndex=null,consolidatedSource=null;
+function consolidated(id){
+ const list=typeof cards!=='undefined'&&Array.isArray(cards)?cards:null;
+ if(!list)return null;
+ if(list!==consolidatedSource){consolidatedSource=list;consolidatedIndex=new Map(list.filter(c=>c.consolidation?.profile).map(c=>[c.id,c]));}
+ return consolidatedIndex.get(id)||null;
+}
+function consolidatedProfile(id){return consolidated(id)?.consolidation?.profile||null;}
+function buildConsolidated(id){
+ const c=consolidated(id),r=c.consolidation.profile,m=r.editorial;
+ const a=el('article',undefined,'bm349-reading');a.dataset.bm349Card=id;a.dataset.bmConsolidated=id;
+ a.append(el('h3',r.title),marked(r.back,m.highlights),el('p',r.modules[3].texto));
+ for(const x of m.media||[]){
+  if(x.role!=='VERSO_APOS_TENTATIVA')continue;
+  // Inline SVG is used as an inert image, never inserted as executable DOM.
+  const src=x.inline_svg?'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(x.inline_svg):x.src;
+  if(src)a.append(figure({id:x.id,role:x.role,caption:x.caption||x.id,src}));
+ }
+ a.append(table({...m.table,title:'Quadro comparativo'}));
+ for(const f of m.formulas||[])a.append(formula(f));
+ a.append(details('Critérios e unidades',r.modules[4].texto),el('h2','Aplicação e transferência'),el('p',r.modules[6].texto));
+ a.append(details('Condições e exceções',r.modules[8].texto),details('Pegadinhas',r.modules[9].texto),details('Macete',r.mnemonic));
+ a.append(details('Fundamento e fontes',r.source));
+ const hist=el('div');
+ for(const layer of r.modules){const block=el('section',undefined,'historic-module');block.dataset.ord=layer.ord;block.append(el('h4',layer.ord+' · '+layer.titulo),historic(layer.texto));hist.append(block);}
+ const original=c.consolidation.original;
+ if(original){hist.append(el('h4','Versão anterior do núcleo'),historic(original.front),historic(original.back),historic(original.expl));}
+ hist.append(el('p','IDs históricos preservados: '+c.consolidation.historical_ids.join(', ')));
+ a.append(details('Resposta evolutiva integral — 11 módulos e histórico',hist,'evolution'));
+ const related=el('div');
+ for(const next of c.related_card_ids||[]){const b=el('button',next+' · consultar na lateral','bm349-related');b.type='button';b.dataset.cardId=next;b.onclick=()=>window.BM317RelatedNavigator?.openReferenced?.(next);related.append(b);}
+ if(related.children.length)a.append(details('Cartões relacionados',related));
+ return a;
+}
+
+const stamp=new WeakMap();async function renderAnswer(host,id){const token={};stamp.set(host,token);if(consolidated(id)){if(host.isConnected&&!host.closest('[hidden]')){try{host.replaceChildren(buildConsolidated(id));}catch(e){host.replaceChildren(el('p','Falha ao carregar conteúdo consolidado: '+e.message));}}return;}host.replaceChildren(el('p','Carregando resposta-modelo…'));try{await load();await ensureHistory(id);if(host.isConnected&&stamp.get(host)===token&&!host.closest('[hidden]')&&(!host.matches('.bm-v050-peek-answer')||window.BancoMestreVisualizarCardV050?.currentId===id))host.replaceChildren(build(id));}catch(e){if(host.isConnected&&stamp.get(host)===token)host.replaceChildren(el('p','Falha ao carregar: '+e.message));}}
+async function renderFront(host,id){const token={};stamp.set(host,token);host.replaceChildren();if(consolidated(id))return;try{await load();if(!host.isConnected||stamp.get(host)!==token)return;const r=records[id];for(const m of r.learning_model.media.items||[])if(m.role==='FRONT_ENUNCIADO')host.append(figure(m))}catch(e){if(host.isConnected&&stamp.get(host)===token)host.append(el('p','Dados gráficos indisponíveis: '+e.message))}}
+const prev=window.BM198Format;if(prev?.render){window.BM198Format=Object.freeze({...prev,render(host,rec,id,...rest){if(!ids.has(id)&&!consolidated(id))return prev.render(host,rec,id,...rest);void renderAnswer(host,id);return {modules:11,srsChanged:false,version:'V349-CANDIDATO'};}})}
+window.BM349=Object.freeze({has:id=>!!consolidated(id)||ids.has(id),get:id=>consolidatedProfile(id)||records?.[id],load:id=>consolidated(id)?Promise.resolve(consolidatedProfile(id)):load(),renderAnswer,renderFront});
 // Pacotes de restauração carregados somente quando um cartão correspondente é aberto.
 })();
