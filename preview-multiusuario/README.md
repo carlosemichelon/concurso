@@ -1,1 +1,1 @@
-Prévia V348 / 023F. Fonte 734061433f95c7ffe3e717e9104e91bc944f3275. Controle V245 e calendário V313 reaproveitados; dados fictícios em memória, sem Drive real. Nenhum arquivo fora da pasta de prévia alterado.
+Prévia V348 / 023G. Fonte b4c939b5196c618f2b82c28d89209ab4e79e2b97. Lacunas V242/V300, controle V245 e calendário V313 reaproveitados; dados fictícios em memória, sem Drive real. Nenhum arquivo fora da pasta de prévia alterado.
