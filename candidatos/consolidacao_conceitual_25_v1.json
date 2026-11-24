@@ -12,10 +12,13 @@
     "formulas": 17,
     "related_links": 127,
     "new_svg": 3,
-    "media_reused": 2
+    "media_reused": 14,
+    "media_public": 17,
+    "media_private": 9,
+    "media_associations": 26
   },
   "scope": "Petrobras 06, 07, 11, 12, 24, 26, 27, 29; P08 excluída da intervenção",
-  "policy": "Preservar versões, registros e SRS; os satélites são remissões propostas, não exclusões. Não houve alteração do portal. Fontes históricas devem ser cotejadas antes do uso profissional. Portão didático e leitura visual pendentes. Grifos semânticos e tabelas estruturados na candidata. SVGs públicos reaproveitados quando localizados; originais e demais mídias a reconciliar no leitor. Não interpretar isto como homologação.",
+  "policy": "Preservar versões, registros e SRS; os satélites são remissões propostas, não exclusões. Não houve alteração do portal. Fontes históricas devem ser cotejadas antes do uso profissional. Portão didático e leitura visual pendentes. Grifos semânticos e tabelas estruturados na candidata. SVGs públicos reaproveitados quando localizados; originais e demais mídias a reconciliar no leitor. Não interpretar isto como homologação. Reconciliação de mídia V342/V349/V366: preservar IDs históricos, distinguir original privado de SVG, deduplicar por ID. Os bytes privados não foram exportados; a exibição autenticada deve ser validada.",
   "revisions": [
     {
       "id": "CARD-1607",
@@ -1303,7 +1306,43 @@
           ]
         },
         "formula_explanation": "Massa de campo (kg): tamanho nominal ≤19 mm: 40; >19 até 37,5 mm: 75; >37,5 até 75 mm: 150. São massas totais, não de cada parcial. A massa da amostra de ensaio depende do ensaio.",
-        "media": [],
+        "media": [
+          {
+            "id": "PETRO26-SVG-AMOSTRAGEM-V193",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Coleta em pilha e quarteamento por quadrantes opostos",
+            "src": "assets/card_visuals_v349/amostragem_v193.svg",
+            "private_original": false,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1548",
+              "CARD-1549",
+              "CARD-1550"
+            ]
+          },
+          {
+            "id": "BM339-VIS-AMOSTRAGEM",
+            "src": "assets/card_visuals_v339/amostragem.svg",
+            "caption": "Diagrama didático histórico — BM339-VIS-AMOSTRAGEM",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "V342",
+            "original_card_ids": [
+              "CARD-1548",
+              "CARD-1550"
+            ]
+          },
+          {
+            "id": "BM339-VIS-QUARTEAMENTO",
+            "src": "assets/card_visuals_v339/quarteamento.svg",
+            "caption": "Diagrama didático histórico — BM339-VIS-QUARTEAMENTO",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "V342",
+            "original_card_ids": [
+              "CARD-1549"
+            ]
+          }
+        ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
         "formulas": [],
@@ -1472,7 +1511,19 @@
           ]
         },
         "formula_explanation": "Não existe uma porcentagem única de substituição aplicável a todas as classes de agregado e usos. Conferir a edição, a classe do agregado e os limites específicos antes de dimensionar; não extrapolar os requisitos históricos.",
-        "media": [],
+        "media": [
+          {
+            "id": "BM339-VIS-RECICLAGEM",
+            "src": "assets/card_visuals_v339/reciclagem.svg",
+            "caption": "Diagrama didático histórico — BM339-VIS-RECICLAGEM",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "V342",
+            "original_card_ids": [
+              "CARD-1551",
+              "CARD-1552"
+            ]
+          }
+        ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
         "formulas": [],
@@ -1654,7 +1705,12 @@
             "src": "assets/card_visuals_v348/maquinas_operatrizes.svg",
             "role": "VERSO_APOS_TENTATIVA",
             "blob": "828248b2fa41b1551274bc45fd77e52f69d22e18",
-            "validation": "Existência do SVG conferida; visual e vínculo no leitor ainda não homologados."
+            "validation": "Existência do SVG conferida; visual e vínculo no leitor ainda não homologados.",
+            "original_card_ids": [
+              "CARD-1589",
+              "CARD-1596"
+            ],
+            "caption": "Revisão cromática semântica de SVG V343, geometria preservada com correção pontual de fiação."
           }
         ],
         "history_collapsed": true,
@@ -1823,7 +1879,32 @@
           ]
         },
         "formula_explanation": "Em soldagem por arco, aporte térmico aproximado H=ηUI/v em J/mm se U em V, I em A e v em mm/s. η é eficiência do processo. O aporte influencia resfriamento e largura da ZTA; não confundir ZTA com metal fundido.",
-        "media": [],
+        "media": [
+          {
+            "id": "CAND-V014-CARD-1591-VIS01",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "A região azul corresponde ao metal fundido e solidificado; a faixa alaranjada é metal-base termicamente alterado sem fusão.",
+            "src": "assets/card_visuals_v349/CARD-1591_esquema.svg",
+            "private_original": false,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1591"
+            ]
+          },
+          {
+            "id": "CAND-V014-CARD-1597-VIS01",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "O fluxo cobre o arco; parte dele funde e forma escória. Representação autoral, sem escala.",
+            "src": "assets/card_visuals_v349/CARD-1597_esquema.svg",
+            "private_original": false,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1597"
+            ]
+          }
+        ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
         "formulas": [
@@ -2007,7 +2088,23 @@
             "src": "assets/card_visuals_v348/cementacao_nucleo.svg",
             "role": "VERSO_APOS_TENTATIVA",
             "blob": "cba7b6dc2b318ee12983bd2bcde4ffb1d9e6873e",
-            "validation": "Existência do SVG conferida; visual e vínculo no leitor ainda não homologados."
+            "validation": "Existência do SVG conferida; visual e vínculo no leitor ainda não homologados.",
+            "original_card_ids": [
+              "CARD-1594"
+            ],
+            "caption": "Revisão cromática semântica de SVG V343, geometria preservada com correção pontual de fiação."
+          },
+          {
+            "id": "CAND-V014-CARD-1593-VIS01",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Recozimento, normalização e têmpera diferem pelo ciclo e resfriamento. Revenido é reaquecimento controlado posterior à têmpera.",
+            "src": "assets/card_visuals_v349/CARD-1593_esquema.svg",
+            "private_original": false,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1593"
+            ]
           }
         ],
         "history_collapsed": true,
@@ -2195,7 +2292,20 @@
           ]
         },
         "formula_explanation": "Chave separadora histórica: I≥1,15 In. Interruptor de uso geral na hipótese descrita: I≥2 In. Ex.: In=10 A → 11,5 A ou 20 A, conforme função e condições. Escolher calibre comercial adequado e verificar categoria de utilização.",
-        "media": [],
+        "media": [
+          {
+            "id": "PETRO29-MOT-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Seccionamento, comando e proteção",
+            "src": "assets/card_visuals_v349/PETRO29-Q004_SECCIONAMENTO_MOTOR.svg",
+            "private_original": false,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1602"
+            ]
+          }
+        ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
         "formulas": [
@@ -2395,7 +2505,31 @@
           ]
         },
         "formula_explanation": "D=max(D1,D2); limiar s=5D. D1=0,30 m e D2=0,40 m → 5D=2,00 m. Se s=1,80 m, intervalo≥12 h. No critério literal <5D, s=2,00 m não aciona essa condição isoladamente.",
-        "media": [],
+        "media": [
+          {
+            "id": "CAND-V014-CARD-1572-VIS01",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Esquema autoral: s=1,20 m, Dmáx=0,30 m e 5D=1,50 m. Como s<5D, aguardar pelo menos 12 h na regra estudada.",
+            "src": "assets/card_visuals_v349/CARD-1572_esquema.svg",
+            "private_original": false,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1572"
+            ]
+          },
+          {
+            "id": "PETRO24-MEDIA-12",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Tabela 4 fornecida na conversa, com os parâmetros da estaca-raiz em edição posterior.",
+            "private_original": true,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1580"
+            ]
+          }
+        ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
         "formulas": [
@@ -2573,7 +2707,52 @@
           ]
         },
         "formula_explanation": "α=arctan(D/h), Dmin=h·tan αmín. h=|z2−z1|. D e h em m. Para h=1 m, D=1 m → α=45°; Dmin≈1,73 m no solo pouco resistente.",
-        "media": [],
+        "media": [
+          {
+            "id": "PETRO24-MEDIA-06",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Croqui original: sapatas assentadas em profundidades diferentes.",
+            "private_original": true,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1574"
+            ]
+          },
+          {
+            "id": "PETRO24-MEDIA-07",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Recorte normativo: definição de fundação rasa e profundidade mínima.",
+            "private_original": true,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1575"
+            ]
+          },
+          {
+            "id": "PETRO24-MEDIA-08",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Figura de estudo da sapata junto à divisa.",
+            "private_original": true,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1575"
+            ]
+          },
+          {
+            "id": "PETRO24-MEDIA-09",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Figura de revisão da sapata junto à divisa.",
+            "private_original": true,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1575"
+            ]
+          }
+        ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
         "formulas": [
@@ -2765,7 +2944,54 @@
           ]
         },
         "formula_explanation": "ρ=m/(Vf−Vi), g/cm³ se massa em g e volumes em cm³; expansão Δl=lf−li, mm; consistência é ajustada pela água até atingir a penetração especificada; pega é tempo em min.",
-        "media": [],
+        "media": [
+          {
+            "id": "BM339-VIS-ENSAIOS",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Distinção dos ensaios físicos de cimento",
+            "src": "assets/card_visuals_v339/ensaios.svg",
+            "private_original": false,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1546"
+            ]
+          },
+          {
+            "id": "PETRO26-SVG-VICAT-V192",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Vicat com sonda de Tetmajer: espaço remanescente à placa-base",
+            "src": "assets/card_visuals_v349/vicat_v192.svg",
+            "private_original": false,
+            "origin": "V349",
+            "validation": "Associação recuperada do índice histórico.",
+            "original_card_ids": [
+              "CARD-1555"
+            ]
+          },
+          {
+            "id": "BM339-VIS-VICAT",
+            "src": "assets/card_visuals_v339/vicat.svg",
+            "caption": "Diagrama didático histórico — BM339-VIS-VICAT",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "V342",
+            "original_card_ids": [
+              "CARD-1555"
+            ]
+          },
+          {
+            "id": "IMG-PETRO26-NBR16697-TABELA4",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Recorte original de estudo — IMG-PETRO26-NBR16697-TABELA4",
+            "private_original": true,
+            "origin": "V341",
+            "validation": "Vínculo privado, acesso autenticado necessário.",
+            "original_card_ids": [
+              "CARD-1546",
+              "CARD-1555"
+            ]
+          }
+        ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
         "formulas": [
@@ -3444,7 +3670,44 @@
           ]
         },
         "formula_explanation": "Não existe relação universal PFF→proteção suficiente. Avaliar concentração, contaminante, O₂, fator de proteção, vedação e condições. O limite >18% O₂ ao nível do mar aparece no item D.5(a) para purificador de fuga; não é autorização geral de entrada.",
-        "media": [],
+        "media": [
+          {
+            "id": "IMG-P11-002",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Tabela D.1–D.5 de EPR — limiar de 12,5% é referência histórica, não critério atual universal de IPVS",
+            "private_original": true,
+            "origin": "V366",
+            "validation": "Vínculo privado, acesso autenticado necessário.",
+            "original_card_ids": [
+              "CARD-1503",
+              "CARD-1398"
+            ]
+          },
+          {
+            "id": "IMG-P11-003",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "PFF1/PFF2/PFF3: referência histórica de memorização; seleção depende de contaminante, concentração e condições de uso",
+            "private_original": true,
+            "origin": "V366",
+            "validation": "Vínculo privado, acesso autenticado necessário.",
+            "original_card_ids": [
+              "CARD-1503",
+              "CARD-1398"
+            ]
+          },
+          {
+            "id": "IMG-P11-004",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Linha de ar comprimido / IPVS: figura histórica; não usar 12,5% como definição universal de IPVS",
+            "private_original": true,
+            "origin": "V366",
+            "validation": "Vínculo privado, acesso autenticado necessário.",
+            "original_card_ids": [
+              "CARD-1503",
+              "CARD-1382"
+            ]
+          }
+        ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
         "formulas": [],
