@@ -24,5 +24,8 @@ jobs:
           node --check infra/central-drive/original-pdf-editor.js
           node --check infra/central-drive/original-pdf-grifador.js
           node --check infra/central-drive/original-pdf-sync-core.js
+          node --check infra/central-drive/original-calendar.js
+          node --check infra/central-drive/original-study-app.js
+          node --check infra/central-drive/original-study-native.js
           for f in tests/central-drive-*.test.mjs; do node --check "$f"; done
       - run: node --test tests/central-drive-*.test.mjs
