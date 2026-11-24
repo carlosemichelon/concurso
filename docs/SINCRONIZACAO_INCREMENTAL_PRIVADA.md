@@ -18,3 +18,6 @@ Após implantação verificada, atualizações de estudos compatíveis com o esq
 
 ## Candidato sobre V352 — 24/11/2026
 Recomposto a partir da publicação V352, preservando seus vínculos e mídias e a base de produção. Homologação OAuth real e validação editorial ainda pendentes. Não publicar antes do teste de regressão e da conferência do manifesto privado.
+
+## Candidato V354 sobre V353 — 24/11/2026
+A V353 acrescenta 16 complementos contextuais em dez cartões; preservados seus arquivos e snapshot. A candidata V354 tem index e snapshot idênticos, com metadados de versão coerentes. Portão editorial, registro de mídia, orçamento CSS legado e homologação OAuth permanecem bloqueantes; não publicar. O catálogo de mídias não deve ser preenchido por coincidência de nome ou ID. O portão didático não deve receber aprovações automáticas sem evidência.
