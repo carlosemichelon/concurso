@@ -1,0 +1,589 @@
+{
+  "format": "BancoMestrePublicRecoveryVC21",
+  "source_catalog_blob": "73a80aa59c9e078b859977a3b06da782fcb646ae",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0316",
+      "title": "Terzaghi 1D — hipóteses, coeficiente de adensamento e tempo",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais hipóteses sustentam a teoria de adensamento unidimensional de Terzaghi? Como calcular o tempo para determinado grau de adensamento e qual é o efeito da drenagem dupla?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O modelo clássico considera uma camada saturada, deformação e fluxo verticais unidimensionais, escoamento segundo Darcy, água e grãos praticamente incompressíveis e parâmetros idealizados constantes no intervalo considerado. Após uma sobrecarga rápida, a dissipação do excesso de poropressão transfere gradualmente a carga ao esqueleto sólido. O tempo para um grau médio de adensamento U é t=Tv·Hd²/cv, em que Hd é o maior caminho de drenagem e cv é o coeficiente de adensamento. Com uma face drenante Hd=H; com duas faces drenantes Hd=H/2. Mantidos U, cv e H, a drenagem dupla exige um quarto do tempo da simples."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-12-010; teoria clássica de Terzaghi; FHWA, Soils and Foundations Reference Manual, NHI-06-088, vol. I, cap. 7 (2006), https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; PennDOT, Geotechnical Engineering Manual, cap. 7, https://www.pa.gov/content/dam/copapwp-pagov/en/penndot/documents/public/pubsforms/publications/pub%20293.pdf."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A água inicialmente pressurizada percorre os vazios até as fronteiras drenantes. A dissipação é governada pela condutividade hidráulica k e pela compressibilidade volumétrica unidimensional mv. Um caminho de drenagem mais curto acelera a transferência de tensão efetiva sem necessariamente mudar o recalque primário final."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "cv=k/(mv·γw), em m²/s se k em m/s, mv em m²/kN e γw em kN/m³. Tv=cv·t/Hd², adimensional. Para excesso inicial uniforme, U=50% → Tv≈0,197; U=90% → Tv≈0,848. Exemplo: H=4 m, cv=2 m²/ano, U=90%: drenagem simples t=0,848×16/2=6,784 anos; dupla t=0,848×4/2=1,696 anos."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Uma face drenante: Hd=H. Duas faces drenantes: Hd=H/2. k (m/s) mede condutividade hidráulica; cv (m²/s) governa a taxa de adensamento no modelo; mv mede compressibilidade. U é fração média do adensamento primário, não grau de saturação."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se a distância máxima de drenagem for reduzida à metade sem mudar cv e o grau U desejado, o tempo cai 75%. Para camada de 6 m com dupla drenagem, usar Hd=3 m, não 6 m; com cv=3 m²/ano e U=90%, t≈2,544 anos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0700, CARD-0354, CARD-0465, CARD-0759, CARD-1313, CARD-1376, CARD-0472"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Os valores de Tv citados correspondem à solução clássica com excesso inicial uniforme. Carregamentos graduais, drenagem radial, parâmetros variáveis e solos estratificados exigem modelos apropriados. O caminho Hd depende da condição de contorno efetiva, não da mera presença de água; baixa permeabilidade isoladamente não determina a magnitude do recalque."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir H com Hd, nem U com Sr. Não supor que drenagem dupla reduz o recalque final a um quarto. Compatibilizar unidades de cv e tempo; distinguir m²/ano de m²/s."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Tempo ∝ caminho²: metade do caminho, um quarto do tempo."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O modelo clássico considera uma camada saturada, deformação e fluxo verticais unidimensionais, escoamento segundo Darcy, água e grãos praticamente incompressíveis e parâmetros idealizados constantes no intervalo considerado. Após uma sobrecarga rápida, a dissipação do excesso de poropressão transfere gradualmente a carga ao esqueleto sólido. O tempo para um grau médio de adensamento U é t=Tv·Hd²/cv, em que Hd é o maior caminho de drenagem e cv é o coeficiente de adensamento. Com uma face drenante Hd=H; com duas faces drenantes Hd=H/2. Mantidos U, cv e H, a drenagem dupla exige um quarto do tempo da simples.",
+          "A água inicialmente pressurizada percorre os vazios até as fronteiras drenantes. A dissipação é governada pela condutividade hidráulica k e pela compressibilidade volumétrica unidimensional mv. Um caminho de drenagem mais curto acelera a transferência de tensão efetiva sem necessariamente mudar o recalque primário final.",
+          "Os valores de Tv citados correspondem à solução clássica com excesso inicial uniforme. Carregamentos graduais, drenagem radial, parâmetros variáveis e solos estratificados exigem modelos apropriados. O caminho Hd depende da condição de contorno efetiva, não da mera presença de água; baixa permeabilidade isoladamente não determina a magnitude do recalque."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "maior caminho de drenagem",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "Hd=H/2",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "um quarto do tempo",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "sem necessariamente mudar o recalque primário final",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Condição",
+            "Hd",
+            "Tempo relativo"
+          ],
+          "rows": [
+            [
+              "Drenagem simples",
+              "H",
+              "1"
+            ],
+            [
+              "Drenagem dupla",
+              "H/2",
+              "1/4"
+            ],
+            [
+              "U=50%",
+              "—",
+              "Tv=0,197"
+            ],
+            [
+              "U=90%",
+              "—",
+              "Tv=0,848"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Tempo de adensamento",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>t</mi><mo>=</mo><mfrac><mrow><msub><mi>T</mi><mi>v</mi></msub><msubsup><mi>H</mi><mi>d</mi><mn>2</mn></msubsup></mrow><msub><mi>c</mi><mi>v</mi></msub></mfrac></math>",
+            "units": "s ou anos, conforme cv"
+          },
+          {
+            "title": "Coeficiente de adensamento",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>c</mi><mi>v</mi></msub><mo>=</mo><mfrac><mi>k</mi><mrow><msub><mi>m</mi><mi>v</mi></msub><msub><mi>γ</mi><mi>w</mi></msub></mrow></mfrac></math>",
+            "units": "m²/s"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Quais hipóteses sustentam a teoria de adensamento unidimensional de Terzaghi? Como calcular o tempo para determinado grau de adensamento e qual é o efeito da drenagem dupla?",
+      "back": "O modelo clássico considera uma camada saturada, deformação e fluxo verticais unidimensionais, escoamento segundo Darcy, água e grãos praticamente incompressíveis e parâmetros idealizados constantes no intervalo considerado. Após uma sobrecarga rápida, a dissipação do excesso de poropressão transfere gradualmente a carga ao esqueleto sólido. O tempo para um grau médio de adensamento U é t=Tv·Hd²/cv, em que Hd é o maior caminho de drenagem e cv é o coeficiente de adensamento. Com uma face drenante Hd=H; com duas faces drenantes Hd=H/2. Mantidos U, cv e H, a drenagem dupla exige um quarto do tempo da simples.",
+      "source": "CON-12-010; teoria clássica de Terzaghi; FHWA, Soils and Foundations Reference Manual, NHI-06-088, vol. I, cap. 7 (2006), https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; PennDOT, Geotechnical Engineering Manual, cap. 7, https://www.pa.gov/content/dam/copapwp-pagov/en/penndot/documents/public/pubsforms/publications/pub%20293.pdf.",
+      "mnemonic": "Tempo ∝ caminho²: metade do caminho, um quarto do tempo.",
+      "related_card_ids": [
+        "CARD-0700",
+        "CARD-0354",
+        "CARD-0465",
+        "CARD-0759",
+        "CARD-1313",
+        "CARD-1376",
+        "CARD-0472"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1376",
+      "title": "Recalque primário — redução de vazios e curva edométrica",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como deduzir o recalque unidimensional a partir da redução do índice de vazios? Como usar Cc, Cr e a tensão de pré-adensamento na curva e–log σ′?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Em compressão unidimensional, com área constante e volume de sólidos praticamente invariável, a redução de altura é S=H0(e0−ef)/(1+e0). Para 4 m de camada, e0=1,0 e ef=0,8, o recalque é 0,40 m. Quando se conhece a curva edométrica e–log σ′v, calcula-se a redução de vazios com o índice de recompressão Cr até a tensão efetiva de pré-adensamento σ′p e o índice de compressão virgem Cc acima dela. Se o carregamento cruza σ′p, somam-se as duas parcelas de redução de vazios com o mesmo denominador inicial 1+e0."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CAND-P06-002 (referência histórica preservada no cartão); FHWA, Soils and Foundations Reference Manual, NHI-06-088, vol. I, cap. 7 (2006), https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; PennDOT, Geotechnical Engineering Manual, cap. 7, https://www.pa.gov/content/dam/copapwp-pagov/en/penndot/documents/public/pubsforms/publications/pub%20293.pdf."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Como e=Vv/Vs, o volume total é Vs(1+e). Para área fixa, H=Hs(1+e), com Hs altura equivalente de sólidos. Subtraindo as alturas inicial e final, S=Hs(e0−ef), e substituindo Hs=H0/(1+e0) obtém-se a expressão. A curva edométrica fornece e em função da tensão vertical efetiva; a inclinação é maior na compressão virgem que na recompressão típica."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Para σ′f=σ′0+Δσ′: solo normalmente adensado, S=H0·Cc/(1+e0)·log10(σ′f/σ′0). Sobreadensado com σ′f≤σ′p: substituir Cc por Cr. Se σ′0<σ′p<σ′f: S=H0/(1+e0)·[Cr·log10(σ′p/σ′0)+Cc·log10(σ′f/σ′p)]. S em m; e, Cc, Cr e razões de tensão adimensionais."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Δe conhecido: relação geométrica direta. Curva e–log σ′: calcular Δe com os índices correspondentes à trajetória. mv aproximadamente constante: S≈H0·mv·Δσ′. Estas são formas de estimar a parcela primária sob hipóteses compatíveis, não parcelas independentes a somar."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Exemplo com cruzamento: H0=5 m, e0=1,0, σ′0=100 kPa, σ′p=200 kPa, σ′f=400 kPa, Cr=0,05 e Cc=0,30. S=5/2×[(0,05+0,30)×log10(2)]≈0,263 m. Usar apenas Cc para todo o intervalo daria resultado maior e ignoraria a recompressão."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0412, CARD-0241, CARD-0316, CARD-1312, CARD-0472, CARD-0700, CARD-0308"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicável a compressão unidimensional e trajetória de carregamento efetivo compatível com a curva. Estratos espessos ou tensão variável podem exigir subdivisão; recalque imediato e compressão secundária são avaliados separadamente quando pertinentes. O índice de vazios pode exceder 1; não substituí-lo pela porosidade."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar Hf no numerador com e0 no denominador. Não usar σ total na curva de tensão efetiva. Não misturar log natural e log decimal sem converter o índice. Δe positivo para compressão é e0−ef, não o inverso."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Altura sólida constante: divide por 1+e0; antes de σ′p, Cr; depois, Cc."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Em compressão unidimensional, com área constante e volume de sólidos praticamente invariável, a redução de altura é S=H0(e0−ef)/(1+e0). Para 4 m de camada, e0=1,0 e ef=0,8, o recalque é 0,40 m. Quando se conhece a curva edométrica e–log σ′v, calcula-se a redução de vazios com o índice de recompressão Cr até a tensão efetiva de pré-adensamento σ′p e o índice de compressão virgem Cc acima dela. Se o carregamento cruza σ′p, somam-se as duas parcelas de redução de vazios com o mesmo denominador inicial 1+e0.",
+          "Como e=Vv/Vs, o volume total é Vs(1+e). Para área fixa, H=Hs(1+e), com Hs altura equivalente de sólidos. Subtraindo as alturas inicial e final, S=Hs(e0−ef), e substituindo Hs=H0/(1+e0) obtém-se a expressão. A curva edométrica fornece e em função da tensão vertical efetiva; a inclinação é maior na compressão virgem que na recompressão típica.",
+          "Aplicável a compressão unidimensional e trajetória de carregamento efetivo compatível com a curva. Estratos espessos ou tensão variável podem exigir subdivisão; recalque imediato e compressão secundária são avaliados separadamente quando pertinentes. O índice de vazios pode exceder 1; não substituí-lo pela porosidade."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "S=H0(e0−ef)/(1+e0)",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "0,40 m",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "tensão efetiva de pré-adensamento",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "não parcelas independentes a somar",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Trajetória",
+            "Índice"
+          ],
+          "rows": [
+            [
+              "Normalmente adensado",
+              "Cc"
+            ],
+            [
+              "Sobreadensado, sem cruzar σ′p",
+              "Cr"
+            ],
+            [
+              "Cruzamento de σ′p",
+              "Cr + Cc, em trechos distintos"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Recalque por variação de vazios",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>S</mi><mo>=</mo><mfrac><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>(</mo><msub><mi>e</mi><mn>0</mn></msub><mo>−</mo><msub><mi>e</mi><mi>f</mi></msub><mo>)</mo></mrow><mrow><mn>1</mn><mo>+</mo><msub><mi>e</mi><mn>0</mn></msub></mrow></mfrac></math>",
+            "units": "m"
+          },
+          {
+            "title": "Solo normalmente adensado",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>S</mi><mo>=</mo><mfrac><mrow><msub><mi>H</mi><mn>0</mn></msub><msub><mi>C</mi><mi>c</mi></msub></mrow><mrow><mn>1</mn><mo>+</mo><msub><mi>e</mi><mn>0</mn></msub></mrow></mfrac><msub><mi>log</mi><mn>10</mn></msub><mfenced><mfrac><msubsup><mi>σ</mi><mi>f</mi><mo>′</mo></msubsup><msubsup><mi>σ</mi><mn>0</mn><mo>′</mo></msubsup></mfrac></mfenced></math>",
+            "units": "m"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Como deduzir o recalque unidimensional a partir da redução do índice de vazios? Como usar Cc, Cr e a tensão de pré-adensamento na curva e–log σ′?",
+      "back": "Em compressão unidimensional, com área constante e volume de sólidos praticamente invariável, a redução de altura é S=H0(e0−ef)/(1+e0). Para 4 m de camada, e0=1,0 e ef=0,8, o recalque é 0,40 m. Quando se conhece a curva edométrica e–log σ′v, calcula-se a redução de vazios com o índice de recompressão Cr até a tensão efetiva de pré-adensamento σ′p e o índice de compressão virgem Cc acima dela. Se o carregamento cruza σ′p, somam-se as duas parcelas de redução de vazios com o mesmo denominador inicial 1+e0.",
+      "source": "CAND-P06-002 (referência histórica preservada no cartão); FHWA, Soils and Foundations Reference Manual, NHI-06-088, vol. I, cap. 7 (2006), https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; PennDOT, Geotechnical Engineering Manual, cap. 7, https://www.pa.gov/content/dam/copapwp-pagov/en/penndot/documents/public/pubsforms/publications/pub%20293.pdf.",
+      "mnemonic": "Altura sólida constante: divide por 1+e0; antes de σ′p, Cr; depois, Cc.",
+      "related_card_ids": [
+        "CARD-0412",
+        "CARD-0241",
+        "CARD-0316",
+        "CARD-1312",
+        "CARD-0472",
+        "CARD-0700",
+        "CARD-0308"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1312",
+      "title": "Índices físicos — diagrama trifásico e relações massa-volume",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Defina umidade w, índice de vazios e, porosidade n, saturação Sr e densidade relativa dos sólidos Gs. Como relacioná-los e obter pesos específicos seco e saturado?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Um solo possui sólidos, água e ar. O teor de umidade w relaciona massa de água à massa seca; e relaciona volume de vazios ao de sólidos; n relaciona vazios ao volume total; Sr relaciona volume de água ao de vazios; Gs relaciona massa específica dos sólidos à da água. Assim, n=e/(1+e), e=n/(1−n) e Sr·e=w·Gs, usando frações decimais. A saturação total significa vazios preenchidos por água, não ausência de sólidos. O índice de vazios pode superar 1; a porosidade é inferior a 1 para solo com sólidos."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H02-A26; relações de fases em Mecânica dos Solos; FHWA, Soils and Foundations Reference Manual, NHI-06-088, cap. 2–3, https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Os vazios incluem água e ar: Vv=Vw+Va; V=Vs+Vv. Despreza-se a massa de ar. Com Vs como unidade, Vv=e, V=1+e, Vw=Sr·e e massa dos sólidos=Gs·ρw, logo w=Sr·e/Gs. A relação explica por que porosidade e índice de vazios não têm o mesmo denominador."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "w=Mw/Ms; e=Vv/Vs; n=Vv/V; Sr=Vw/Vv; Gs=ρs/ρw. γd=Gs·γw/(1+e); γ=γd(1+w); γsat=γw(Gs+e)/(1+e); γ′=γsat−γw em submersão hidrostática. Pesos específicos em kN/m³. Para converter fração em %, multiplicar por 100."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "e: vazios/sólidos. n: vazios/total. Sr: água/vazios. w: massa de água/massa seca. Gs: massa específica dos sólidos/da água. γd inclui vazios no volume total; γs corresponde ao volume dos sólidos."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Com e=0,60, Gs=2,70 e w=0,15: n=0,60/1,60=37,5%; Sr=0,15×2,70/0,60=67,5%. Com γw=10 kN/m³: γd=16,875 kN/m³; γ=19,406 kN/m³; γsat=20,625 kN/m³. Se e>1, n>50%, mas continua abaixo de 100%."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0694, CARD-1376, CARD-0700, CARD-1313"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar mesma referência de água em Gs e γw, massas e volumes coerentes. γsat pressupõe Sr=1; γ′ em condição submersa é peso específico efetivo para incrementos hidrostáticos, não a tensão efetiva em qualquer situação de fluxo. Valores de Sr acima de 100% indicam dados ou hipótese incompatíveis."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não inserir 15 no lugar de 0,15; não confundir índice de vazios 0,60 com porosidade 60%; não usar massa úmida no denominador de w; não confundir γd com γs."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "e divide pelos sólidos; n pelo total; Sr pelos vazios; w pela massa seca."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Um solo possui sólidos, água e ar. O teor de umidade w relaciona massa de água à massa seca; e relaciona volume de vazios ao de sólidos; n relaciona vazios ao volume total; Sr relaciona volume de água ao de vazios; Gs relaciona massa específica dos sólidos à da água. Assim, n=e/(1+e), e=n/(1−n) e Sr·e=w·Gs, usando frações decimais. A saturação total significa vazios preenchidos por água, não ausência de sólidos. O índice de vazios pode superar 1; a porosidade é inferior a 1 para solo com sólidos.",
+          "Os vazios incluem água e ar: Vv=Vw+Va; V=Vs+Vv. Despreza-se a massa de ar. Com Vs como unidade, Vv=e, V=1+e, Vw=Sr·e e massa dos sólidos=Gs·ρw, logo w=Sr·e/Gs. A relação explica por que porosidade e índice de vazios não têm o mesmo denominador.",
+          "Usar mesma referência de água em Gs e γw, massas e volumes coerentes. γsat pressupõe Sr=1; γ′ em condição submersa é peso específico efetivo para incrementos hidrostáticos, não a tensão efetiva em qualquer situação de fluxo. Valores de Sr acima de 100% indicam dados ou hipótese incompatíveis."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Sr·e=w·Gs",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "n=e/(1+e)",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "frações decimais",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "não ausência de sólidos",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Índice",
+            "Numerador",
+            "Denominador"
+          ],
+          "rows": [
+            [
+              "w",
+              "Massa da água",
+              "Massa seca"
+            ],
+            [
+              "e",
+              "Volume dos vazios",
+              "Volume dos sólidos"
+            ],
+            [
+              "n",
+              "Volume dos vazios",
+              "Volume total"
+            ],
+            [
+              "Sr",
+              "Volume da água",
+              "Volume dos vazios"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Relação de fases",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>S</mi><mi>r</mi></msub><mi>e</mi><mo>=</mo><mi>w</mi><msub><mi>G</mi><mi>s</mi></msub></math>",
+            "units": "adimensional"
+          },
+          {
+            "title": "Porosidade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>n</mi><mo>=</mo><mfrac><mi>e</mi><mrow><mn>1</mn><mo>+</mo><mi>e</mi></mrow></mfrac></math>",
+            "units": "adimensional"
+          },
+          {
+            "title": "Peso específico seco",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>γ</mi><mi>d</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>G</mi><mi>s</mi></msub><msub><mi>γ</mi><mi>w</mi></msub></mrow><mrow><mn>1</mn><mo>+</mo><mi>e</mi></mrow></mfrac></math>",
+            "units": "kN/m³"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Defina umidade w, índice de vazios e, porosidade n, saturação Sr e densidade relativa dos sólidos Gs. Como relacioná-los e obter pesos específicos seco e saturado?",
+      "back": "Um solo possui sólidos, água e ar. O teor de umidade w relaciona massa de água à massa seca; e relaciona volume de vazios ao de sólidos; n relaciona vazios ao volume total; Sr relaciona volume de água ao de vazios; Gs relaciona massa específica dos sólidos à da água. Assim, n=e/(1+e), e=n/(1−n) e Sr·e=w·Gs, usando frações decimais. A saturação total significa vazios preenchidos por água, não ausência de sólidos. O índice de vazios pode superar 1; a porosidade é inferior a 1 para solo com sólidos.",
+      "source": "H02-A26; relações de fases em Mecânica dos Solos; FHWA, Soils and Foundations Reference Manual, NHI-06-088, cap. 2–3, https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf.",
+      "mnemonic": "e divide pelos sólidos; n pelo total; Sr pelos vazios; w pela massa seca.",
+      "related_card_ids": [
+        "CARD-0694",
+        "CARD-1376",
+        "CARD-0700",
+        "CARD-1313"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-0472",
+      "title": "Recalques imediato, primário e secundário — mecanismo e tempo",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Distinga recalque imediato, adensamento primário e compressão secundária. Qual o mecanismo da fluência e como estimar sua contribuição após o fim do primário?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O recalque imediato é a deformação que ocorre essencialmente durante a aplicação da carga, associada à resposta do esqueleto. O adensamento primário em solo saturado é a deformação associada à dissipação do excesso de poropressão e ao crescimento da tensão efetiva. A compressão secundária é a deformação dependente do tempo do esqueleto sob tensão efetiva aproximadamente constante, convencionalmente avaliada após o fim do primário. Pode ser relevante em argilas muito compressíveis, solos orgânicos e turfas. As parcelas são distinguidas pelo mecanismo, embora processos possam se sobrepor."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-11-005; FHWA NHI-06-088, cap. 7; USACE, EM 1110-1-1905, Geotechnical Design of Shallow Foundations on Soils (2025), seção sobre secondary compression; FHWA, Soils and Foundations Reference Manual, NHI-06-088, vol. I, cap. 7 (2006), https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; PennDOT, Geotechnical Engineering Manual, cap. 7, https://www.pa.gov/content/dam/copapwp-pagov/en/penndot/documents/public/pubsforms/publications/pub%20293.pdf."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "No primário, a água sai dos poros enquanto a carga passa ao esqueleto. No secundário, rearranjos e comportamento viscoso das partículas e ligações podem continuar mesmo sem excesso importante de poropressão. A curva edométrica deformação versus log tempo permite estimar a inclinação secundária; isso não equivale a aumentar a tensão aplicada."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Stotal≈Si+Sp+Ss quando o modelo separa as parcelas. Com Cα=−Δe/Δlog10(t), definido positivo em compressão, Ss=Hp·Cα/(1+ep)·log10(t2/t1), usando Hp e ep ao fim do primário, t1 como referência compatível com a curva e t2 posterior. Se o índice fornecido for em deformação vertical, usar a fórmula correspondente, sem dividir novamente por 1+ep."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Imediato: deformação com o carregamento; primário: dissipação de excesso de u; secundário: fluência do esqueleto com tensão efetiva aproximadamente constante. cv controla taxa do primário; Cα caracteriza a inclinação secundária na representação adotada."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se Hp=3 m, ep=0,8, Cα=0,018 e t2/t1=10, Ss=3×0,018/1,8×1=0,030 m. Para uma fundação que já atingiu a maior parte do recalque primário, esse valor ainda pode afetar o desempenho a longo prazo."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0700, CARD-0412, CARD-0316, CARD-1376, CARD-0759, CARD-0308"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Os tempos devem ter mesma unidade e origem coerente com o ensaio e modelo. O início da parcela secundária é uma convenção de cálculo; a fluência pode coexistir com o primário. Não pressupor que todo solo orgânico tenha o mesmo Cα, nem que a secundária seja sempre desprezível."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Erro histórico registrado: o cartão original confundia o mecanismo do primário com o secundário. Não dizer que a compressão secundária exige dissipação de excesso de poropressão; não confundir cv com Cα ou tempo em escala logarítmica com tempo linear."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Imediato deforma; primário drena; secundário flui no esqueleto."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O recalque imediato é a deformação que ocorre essencialmente durante a aplicação da carga, associada à resposta do esqueleto. O adensamento primário em solo saturado é a deformação associada à dissipação do excesso de poropressão e ao crescimento da tensão efetiva. A compressão secundária é a deformação dependente do tempo do esqueleto sob tensão efetiva aproximadamente constante, convencionalmente avaliada após o fim do primário. Pode ser relevante em argilas muito compressíveis, solos orgânicos e turfas. As parcelas são distinguidas pelo mecanismo, embora processos possam se sobrepor.",
+          "No primário, a água sai dos poros enquanto a carga passa ao esqueleto. No secundário, rearranjos e comportamento viscoso das partículas e ligações podem continuar mesmo sem excesso importante de poropressão. A curva edométrica deformação versus log tempo permite estimar a inclinação secundária; isso não equivale a aumentar a tensão aplicada.",
+          "Os tempos devem ter mesma unidade e origem coerente com o ensaio e modelo. O início da parcela secundária é uma convenção de cálculo; a fluência pode coexistir com o primário. Não pressupor que todo solo orgânico tenha o mesmo Cα, nem que a secundária seja sempre desprezível."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "dissipação do excesso de poropressão",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "deformação dependente do tempo do esqueleto",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "tensão efetiva aproximadamente constante",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "processos possam se sobrepor",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Parcela",
+            "Mecanismo",
+            "Variável de referência"
+          ],
+          "rows": [
+            [
+              "Imediata",
+              "Resposta durante carga",
+              "Rigidez"
+            ],
+            [
+              "Primária",
+              "Drenagem e aumento de σ′",
+              "cv, compressibilidade"
+            ],
+            [
+              "Secundária",
+              "Fluência",
+              "Cα"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Compressão secundária",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>S</mi><mi>s</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>H</mi><mi>p</mi></msub><msub><mi>C</mi><mi>α</mi></msub></mrow><mrow><mn>1</mn><mo>+</mo><msub><mi>e</mi><mi>p</mi></msub></mrow></mfrac><msub><mi>log</mi><mn>10</mn></msub><mfenced><mfrac><msub><mi>t</mi><mn>2</mn></msub><msub><mi>t</mi><mn>1</mn></msub></mfrac></mfenced></math>",
+            "units": "m, Cα em variação do índice de vazios"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Distinga recalque imediato, adensamento primário e compressão secundária. Qual o mecanismo da fluência e como estimar sua contribuição após o fim do primário?",
+      "back": "O recalque imediato é a deformação que ocorre essencialmente durante a aplicação da carga, associada à resposta do esqueleto. O adensamento primário em solo saturado é a deformação associada à dissipação do excesso de poropressão e ao crescimento da tensão efetiva. A compressão secundária é a deformação dependente do tempo do esqueleto sob tensão efetiva aproximadamente constante, convencionalmente avaliada após o fim do primário. Pode ser relevante em argilas muito compressíveis, solos orgânicos e turfas. As parcelas são distinguidas pelo mecanismo, embora processos possam se sobrepor.",
+      "source": "CON-11-005; FHWA NHI-06-088, cap. 7; USACE, EM 1110-1-1905, Geotechnical Design of Shallow Foundations on Soils (2025), seção sobre secondary compression; FHWA, Soils and Foundations Reference Manual, NHI-06-088, vol. I, cap. 7 (2006), https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; PennDOT, Geotechnical Engineering Manual, cap. 7, https://www.pa.gov/content/dam/copapwp-pagov/en/penndot/documents/public/pubsforms/publications/pub%20293.pdf.",
+      "mnemonic": "Imediato deforma; primário drena; secundário flui no esqueleto.",
+      "related_card_ids": [
+        "CARD-0700",
+        "CARD-0412",
+        "CARD-0316",
+        "CARD-1376",
+        "CARD-0759",
+        "CARD-0308"
+      ],
+      "related_question_ids": []
+    }
+  ]
+}
