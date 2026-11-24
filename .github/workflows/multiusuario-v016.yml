@@ -1,0 +1,29 @@
+name: Banco Mestre multiusuario - testes isolados
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/multiusuario-v001
+    paths:
+      - 'multiusuario/**'
+      - '.github/workflows/multiusuario-v016.yml'
+permissions:
+  contents: read
+jobs:
+  unit-and-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    defaults:
+      run:
+        working-directory: multiusuario
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testes unitarios
+        run: npm test
+      - name: Instalar Playwright para homologacao simulada
+        run: npm install --no-save --package-lock=false playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
