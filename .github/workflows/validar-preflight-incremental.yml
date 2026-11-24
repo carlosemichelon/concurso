@@ -1,0 +1,26 @@
+name: Preflight incremental
+on:
+  pull_request:
+    branches: [gh-pages]
+    paths:
+      - 'tools/catalog_snapshot.cjs'
+      - 'tools/incremental_resume.cjs'
+      - 'tools/incremental_drive_readback.cjs'
+      - 'tests/incremental_preflight.test.cjs'
+      - '.github/workflows/validar-preflight-incremental.yml'
+      - 'assets/version.json'
+      - 'assets/catalog_snapshot_*.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/catalog_snapshot.cjs --preflight-self-test
+      - run: node --test tests/incremental_preflight.test.cjs
