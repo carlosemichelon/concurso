@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 1000 1414">
+ <title>Classes de pressão em tubulações — seção transversal e efeitos hidráulicos</title>
+ <desc>Prancha técnica colorida: tubos PE100 hipotéticos mesmo diâmetro externo de 110 mm, com PN10 SDR17 e PN16 SDR11, parede mais espessa e diâmetro interno menor. Fórmulas e alerta de tolerâncias.</desc>
+ <defs>
+   <pattern id="hachura" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0 L0 12" stroke="#22384D" stroke-width="1" fill="none" /></pattern>
+   <marker id="seta" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#22384D" /></marker>
+   <style>
+   text {font-family: Arial, Helvetica, sans-serif;fill:#22384D}
+   .title {font-size:30px;font-weight:bold} .subtitle{font-size:17px} .section{font-size:20px;font-weight:bold}
+   .small{font-size:14px} .med{font-size:16px} .bold{font-weight:700} .num{font-size:22px;font-weight:700}
+   .line{stroke:#22384D;stroke-width:2;fill:none} .thin{stroke:#22384D;stroke-width:1.2;fill:none}
+   .dim{stroke:#22384D;stroke-width:1.3;fill:none;marker-start:url(#seta);marker-end:url(#seta)}
+   </style>
+ </defs>
+ <rect x="0" y="0" width="1000" height="1414" fill="#F8FAFC" />
+ <rect x="28" y="26" width="944" height="1362" fill="none" stroke="#22384D" stroke-width="2" />
+ <text x="50" y="72" class="title" fill="#245FAD">TUBULAÇÕES — CLASSES DE PRESSÃO</text>
+ <text x="50" y="99" class="subtitle">Mesma bitola e mesmo material, em série dimensionada pelo diâmetro externo</text>
+ <path d="M50 118H950" class="line" />
+ <rect x="50" y="136" width="900" height="82" fill="none" stroke="#22384D" stroke-width="1.7" />
+ <text x="500" y="172" class="num" text-anchor="middle" style="fill:#087F83" fill="#087F83">Dᵢ = Dₑ − 2e</text>
+ <text x="500" y="199" class="small" text-anchor="middle" style="fill:#087F83" fill="#087F83">Dᵢ: diâmetro interno     Dₑ: diâmetro externo     e: espessura de parede</text>
+ <text x="50" y="254" class="section" fill="#245FAD">1 — MESMO Dₑ = 110 mm  |  DUAS ESPESSURAS</text>
+ <path d="M500 284V792" class="thin" stroke-dasharray="5 7" />
+ <text x="265" y="290" class="med bold" text-anchor="middle" fill="#245FAD" style="fill:#245FAD">MENOR CLASSE DE PRESSÃO</text>
+ <text x="735" y="290" class="med bold" text-anchor="middle" fill="#C45E15" style="fill:#C45E15">MAIOR CLASSE DE PRESSÃO</text>
+ <text x="265" y="317" class="small" text-anchor="middle" style="fill:#245FAD" fill="#245FAD">PE100 · PN 10 · SDR 17</text>
+ <text x="735" y="317" class="small" text-anchor="middle" style="fill:#C45E15" fill="#C45E15">PE100 · PN 16 · SDR 11</text>
+ 
+ <circle cx="265" cy="510" r="151" fill="#DDEBFB" stroke="#245FAD" stroke-width="2.6" style="fill:#DDEBFB;stroke:#245FAD" />
+ <circle cx="265" cy="510" r="132.9" fill="#D8F1EA" stroke="#087F83" stroke-width="2.5" style="stroke:#087F83;fill:#D8F1EA" />
+ <path d="M114 510H416" stroke="#22384D" stroke-width="1" stroke-dasharray="8 7" />
+ <circle cx="265" cy="510" r="3" fill="#22384D" />
+ <path d="M114 510V695 M416 510V695" class="thin" />
+ <path d="M120 676H410" class="dim" />
+ <rect x="217" y="662" width="96" height="24" fill="white" />
+ <text x="265" y="679" class="small bold" text-anchor="middle" fill="#245FAD">Dₑ = 110</text>
+ <path d="M132.1 489V463 M397.9 489V463" class="thin" />
+ <path d="M139 468H391" class="dim" />
+ <rect x="219" y="457" width="92" height="22" fill="white" />
+ <text x="265" y="473" class="small bold" text-anchor="middle" fill="#087F83" style="fill:#087F83">Dᵢ = 96,8</text>
+ <path d="M283 360L305 343L387 343" class="thin" />
+ <text x="309" y="337" class="small bold" fill="#245FAD">e = 6,6 mm</text>
+ <text x="265" y="729" class="num" text-anchor="middle">Parede mais fina</text>
+ <text x="265" y="754" class="small" text-anchor="middle">Diâmetro livre maior</text>
+ 
+ <circle cx="735" cy="510" r="151" fill="#FBE7CF" stroke="#C45E15" stroke-width="2.6" style="fill:#FBE7CF;stroke:#C45E15" />
+ <circle cx="735" cy="510" r="123.55" fill="#D8F1EA" stroke="#087F83" stroke-width="2.5" style="stroke:#087F83;fill:#D8F1EA" />
+ <path d="M584 510H886" stroke="#22384D" stroke-width="1" stroke-dasharray="8 7" />
+ <circle cx="735" cy="510" r="3" fill="#22384D" />
+ <path d="M584 510V695 M886 510V695" class="thin" />
+ <path d="M590 676H880" class="dim" />
+ <rect x="686" y="662" width="98" height="24" fill="white" />
+ <text x="735" y="679" class="small bold" text-anchor="middle" fill="#245FAD">Dₑ = 110</text>
+ <path d="M611.45 489V463 M858.55 489V463" class="thin" />
+ <path d="M618 468H852" class="dim" />
+ <rect x="693" y="457" width="84" height="22" fill="white" />
+ <text x="735" y="473" class="small bold" text-anchor="middle" fill="#087F83" style="fill:#087F83">Dᵢ = 90,0</text>
+ <path d="M760 362L794 343L858 343" class="thin" />
+ <text x="800" y="337" class="small bold" fill="#245FAD">e = 10,0 mm</text>
+ <text x="735" y="729" class="num" text-anchor="middle">Parede mais grossa</text>
+ <text x="735" y="754" class="small" text-anchor="middle">Diâmetro livre menor</text>
+ <path d="M50 799H950" class="line" />
+ <text x="50" y="830" class="section" fill="#245FAD">2 — CONSEQUÊNCIAS DA ALTERAÇÃO DA CLASSE</text>
+ <rect x="50" y="845" width="900" height="179" fill="none" stroke="#22384D" stroke-width="1.4" />
+ <path d="M50 886H950 M50 932H950 M50 978H950 M460 845V1024 M690 845V1024" class="thin" />
+ <text x="64" y="873" class="small bold" fill="#245FAD">PROPRIEDADE</text><text x="575" y="873" class="small bold" text-anchor="middle" fill="#245FAD" style="fill:#245FAD">PN 10</text><text x="820" y="873" class="small bold" text-anchor="middle" fill="#C45E15" style="fill:#C45E15">PN 16</text>
+ <text x="64" y="918" class="med">Diâmetro externo Dₑ (mm)</text><text x="575" y="918" class="med" text-anchor="middle">110</text><text x="820" y="918" class="med" text-anchor="middle">110</text>
+ <text x="64" y="964" class="med">Espessura e (mm)</text><text x="575" y="964" class="med" text-anchor="middle">6,6</text><text x="820" y="964" class="med" text-anchor="middle">10,0</text>
+ <text x="64" y="1010" class="med">Diâmetro interno nominal Dᵢ (mm)</text><text x="575" y="1010" class="med" text-anchor="middle">96,8</text><text x="820" y="1010" class="med" text-anchor="middle">90,0</text>
+ <text x="54" y="1050" class="small">Exemplo de PE100; valores usuais de série, conferir fabricante e norma de projeto.</text>
+ <text x="50" y="1087" class="section" fill="#245FAD">3 — CONCEITOS RELACIONADOS</text>
+ <path d="M50 1100H950" class="thin" />
+ <text x="54" y="1129" class="med bold" fill="#245FAD">Geometria</text><text x="225" y="1129" class="med" style="fill:#087F83" fill="#087F83">Dᵢ = Dₑ − 2e</text>
+ <text x="54" y="1166" class="med bold" fill="#245FAD">SDR (PE)</text><text x="225" y="1166" class="med">SDR = Dₑ/e  →  SDR menor = parede mais grossa</text>
+ <text x="54" y="1203" class="med bold" fill="#245FAD">Hidráulica</text><text x="225" y="1203" class="med">A = π Dᵢ² / 4;  v = Q/A  →  menor Dᵢ, maior v (Q fixo)</text>
+ <text x="54" y="1240" class="med bold" fill="#245FAD">Pressão</text><text x="225" y="1240" class="med">e maior aumenta a capacidade de pressão, com demais fatores fixos</text>
+ <rect x="50" y="1263" width="900" height="82" fill="none" stroke="#22384D" stroke-width="1.4" />
+ <text x="63" y="1286" class="small bold" fill="#245FAD">ATENÇÃO À PEGADINHA DA PROVA</text>
+ <text x="63" y="1309" class="small">Tolerâncias e acabamento dependem da especificação; não são os dois elementos geométricos</text>
+ <text x="63" y="1331" class="small">que mudam necessariamente nesta família. Outras séries podem fixar Dᵢ, não Dₑ.</text>
+ <text x="50" y="1371" class="small">PETROBRAS 27 | Esquema vetorial autoral · seção representativa, não substitui catálogo do fabricante</text>
+</svg>
