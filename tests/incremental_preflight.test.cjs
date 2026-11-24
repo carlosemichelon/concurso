@@ -123,3 +123,23 @@ test('Drive: recibo real exige documento correto e conteúdo correspondente',asy
  d.receipts.drive={...receipt(d,'drive'),reference:'wrong-doc'};
  assert.equal((await resumePlan(d,verify)).states.drive,'CONFLICT');
 });
+
+const {stagePublicIncrement}=require('../tools/catalog_snapshot.cjs');
+test('integra novo cartão na coleção existente sem alterar os demais registros',()=>{
+ const p=packet(),before=digest(snapshot),a=stagePublicIncrement(p,snapshot,contract);
+ assert.equal(a.counts.canonical,snapshot.base.length+1);
+ assert.equal(a.base.filter(c=>c.id===id).length,1);
+ assert.ok(a.base.find(c=>c.id===existing.id).related_card_ids.includes(id));
+ assert.deepEqual(a.base.filter(c=>c.id!==id&&c.id!==existing.id),snapshot.base.filter(c=>c.id!==existing.id));
+ assert.equal(digest(snapshot),before);
+});
+test('evolução conserva ID, original, campos e vínculos históricos',()=>{
+ const other=snapshot.base.find(c=>c.active!==false&&c.id!==existing.id&&/^CARD-\d{4,}$/.test(c.id));
+ const s=JSON.parse(JSON.stringify(snapshot));const old=s.base.find(c=>c.id===existing.id);old.related_card_ids=[other.id];
+ const c={...mk(existing.id),front:'Nova frente fictícia'};
+ const p={...packet(),new_cards:[],updated_cards:[c],profiles:{[c.id]:profile(c)},relations:{[c.id]:[]},expected_card_hashes:{[c.id]:digest(old)}};
+ const a=stagePublicIncrement(p,s,contract),after=a.base.find(x=>x.id===existing.id);
+ assert.equal(a.counts.canonical,s.base.length);assert.equal(after.front,c.front);
+ assert.deepEqual(a.originals[c.id],old);assert.ok(after.related_card_ids.includes(other.id));
+ assert.ok(a.profiles[c.id].related_card_ids.includes(other.id));assert.equal(old.front,existing.front);
+});
