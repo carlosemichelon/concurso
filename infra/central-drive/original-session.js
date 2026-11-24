@@ -68,7 +68,8 @@
  try{const raw=local.getItem(gapsKey),saved=await api('/api/gaps/sync',{expected:gapsBase.version,data:JSON.parse(raw)});gapsBase=saved;if(raw===local.getItem(gapsKey)){if(JSON.stringify(saved.data)!==raw)window.BM242Lacunas.applyRemote(saved.data);report('Lacunas sincronizadas e conferidas; histórico preservado.')}else report('Alterações posteriores continuam pendentes.')}
  catch(e){report(e.message+' — mantenha ou exporte a edição local.')}finally{gapsBusy=false;if(button)button.disabled=false}}
  let discursiveBusy=false,discursivePending=null;
- async function pendingDiscursive(){discursivePending=await api('/api/discursive/pending');return copy(discursivePending)}
+ let pendingRead=null;
+ async function pendingDiscursive(){if(!pendingRead)pendingRead=api('/api/discursive/pending').then(p=>{discursivePending=p;return copy(p)}).finally(()=>{pendingRead=null});return pendingRead}
  async function recordDiscursive(input){if(discursiveBusy)throw Error('Tentativa em andamento');discursiveBusy=true;try{
   const pending=discursivePending||await pendingDiscursive();
   if(pending){const r=pending.attempt;if(r.cardId!==input.cardId||r.answer!==input.answer||r.note!==input.note||r.rating!==input.rating)throw Error('Conclua a tentativa pendente no cartão '+r.cardId)}
@@ -105,4 +106,4 @@
  window.addEventListener('pagehide',()=>{active=false;memory.clear();for(const u of urls)URL.revokeObjectURL(u);urls.clear();document.body.replaceChildren()});
  window.addEventListener('pageshow',e=>{if(e.persisted)location.replace('/')});
  setInterval(async()=>{if(!active||checking)return;checking=true;try{await verify()}catch{lock()}finally{checking=false}},5000);
-})().catch(()=>{document.body.replaceChildren();location.replace('/')});
+})().catch(error=>{console.error('Falha na inicialização do portal:',error?.message||error);document.body.replaceChildren();const box=document.createElement('main'),title=document.createElement('h2'),msg=document.createElement('p'),back=document.createElement('a');title.textContent='Não foi possível abrir o portal';msg.textContent='A inicialização foi interrompida. Nenhuma alteração foi confirmada nesta tela. Volte à entrada e tente novamente.';back.href='/';back.textContent='Voltar à entrada';box.append(title,msg,back);document.body.append(box);document.body.hidden=false});

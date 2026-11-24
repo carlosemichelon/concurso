@@ -7,7 +7,7 @@ const API='https://www.googleapis.com/drive/v3/files';
 const UPLOAD='https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name';
 const PREFIX='BM_SRS_EVENT_V001_';
 const RATINGS=Object.freeze({'Difícil':8,Bom:16,'Fácil':24,'Conhecimento preservado':32,'Conhecimento adquirido':64});
-let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',lastError='',selecting=false,ratedInView=false,ratedMessage='';
+let events=[],loaded=false,refreshing=null,working=false,uncertain=false,buttonPanel=null,currentKey='',currentView=-1,lastError='',selecting=false,ratedInView=false,ratedMessage='';
 const uncertainIds=new Set();
 const $=id=>document.getElementById(id);
 const account=window.BMAccountRuntime;if(account?.mode!=='central')throw Error('Perfil autenticado obrigatório');const accountMode=true;
@@ -109,10 +109,10 @@ function build(){
  function update(){
   const id=window.BancoMestreVisualizarCardV050?.currentId;
   const isVisible=!overlay.hidden&&!answer.hidden&&validId(id);
-  if(currentKey!==id){
-   currentKey=id;uncertain=uncertainIds.has(id);ratedInView=false;ratedMessage='';
+  const view=window.BancoMestreVisualizarCardV050?.viewSequence;
+  if(currentKey!==id||currentView!==view){
+   currentKey=id;currentView=view;uncertain=uncertainIds.has(id);ratedInView=false;ratedMessage='';
   }
-  if(answer.hidden){ratedInView=false;ratedMessage='';}
   box.hidden=!isVisible;updateStatus();
  }
  const obs=new MutationObserver(update);

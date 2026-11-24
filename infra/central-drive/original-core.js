@@ -14,7 +14,7 @@ function card(title,tag,subtitle){const c=el('article',null,'card');c.append(el(
 function section(name){
  const previous=document.querySelector('main section.active')?.id||'assuntos';
  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
- document.querySelectorAll('main section').forEach(s=>s.classList.toggle('active',s.id===name));
+ document.querySelectorAll('main > section').forEach(s=>s.classList.toggle('active',s.id===name));
  if(!window.BM054HistoryRestoring){
   if(name==='tema'&&window.BM054PendingTopic){
    const t=window.BM054PendingTopic;

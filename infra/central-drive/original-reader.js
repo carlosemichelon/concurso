@@ -91,7 +91,7 @@ const footerClose=btn('Voltar aos cartões','x','bm165-footer-close');
 footer.append(note,footerClose);
 scroll.append(questionBlock,controls,lawPanel,answer,status);
 panel.append(header,layout,footer);overlay.append(backdrop,panel);document.body.append(overlay);
-let focusedBefore=null,currentId='',previousOverflow='',asideQuery='',asideAll=false;const trtUrls=[];function freeTrtUrls(){while(trtUrls.length)URL.revokeObjectURL(trtUrls.pop())}
+let viewSequence=0,focusedBefore=null,currentId='',previousOverflow='',asideQuery='',asideAll=false;const trtUrls=[];function freeTrtUrls(){while(trtUrls.length)URL.revokeObjectURL(trtUrls.pop())}
 function allCards(){return account.catalog().filter(c=>c.active)}
 function norm(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
 function sameArea(a,b){if(a.provisional||b.provisional)return !!(a.provisional&&b.provisional);
@@ -376,7 +376,7 @@ function show(id,origin){
   overlay.hidden=false;document.body.classList.add('bm-v050-peek-open');
   panel.focus({preventScroll:true});
  }
- freeTrtUrls();currentId=id;title.textContent='Cartão '+id;
+ viewSequence++;freeTrtUrls();currentId=id;title.textContent='Cartão '+id;
  front.textContent=c.front||'Pergunta não cadastrada';account.renderCardFront(c,front);
  meta.textContent=[c.discipline,c.subject,c.sub].filter(Boolean).join(' › ');
  provenance.textContent=/^TRT0[12]-C\d{3}$/.test(id)?'TRT · registro operacional · não modifica SRS':c.provisional?'Cópia operacional de Ijuí · sem promoção canônica':'Cartão da base original · ID preservado';
@@ -455,7 +455,7 @@ observer.observe(root,{childList:true,subtree:true});decorate();
 window.BancoMestreVisualizarCardV050={
  get ready(){return !!document.getElementById('bmCardPeekV050')},
  get visible(){return !overlay.hidden},
- get currentId(){return currentId},
+ get currentId(){return currentId},get viewSequence(){return viewSequence},
  get relatedCount(){return related().length},
  next(){moveCard(1)},previous(){moveCard(-1)},
  showId(id,from){const article=[...root.querySelectorAll('article.card')].find(a=>idOf(a)===id);
