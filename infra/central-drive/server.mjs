@@ -1,6 +1,6 @@
 import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
-import {fileURLToPath,pathToFileURL} from 'node:url';
+import {pathToFileURL} from 'node:url';
 import {createAuth,parseUsers,sessionToken,sessionCookie} from './auth.mjs';
 import {createOwnerLoader,ownerToken} from './owner-drive.mjs';
 const htmlPath=new URL('./login.html',import.meta.url);
@@ -25,9 +25,10 @@ export function createCentralHandler({auth,loadProfile,origin}){
     catch{auth.revoke(s.token);return send(res,503,{error:'Perfil ainda não preparado ou indisponível'},{'Set-Cookie':sessionCookie('',0)})}
    }
    if(method==='POST'&&path==='/api/logout'){auth.revoke(token);return send(res,200,{ok:true},{'Set-Cookie':sessionCookie('',0)})}
-   if(method==='GET'&&path==='/api/profile'){
+   if(method==='GET'&&path==='/api/session'){const s=auth.read(token);return s?send(res,200,{username:s.user.username}):send(res,401,{error:'Sessão encerrada'});}
+   if(method==='GET'&&(path==='/api/profile'||path==='/api/runtime')){
     const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
-    const summary=await loadProfile(s.user);if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});
+    const summary=await loadProfile(s.user,{runtime:path==='/api/runtime'});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});
     return send(res,200,{username:s.user.username,...summary});
    }
    return send(res,404,{error:'Rota não disponível'});
