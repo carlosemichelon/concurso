@@ -1,0 +1,7 @@
+# Portão de qualidade didática — V014
+
+**Estado atual: REPROVADO PEDAGOGICAMENTE.** 43 novos cartões das V345–V347 em reauditoria. Não inativar, apagar nem modificar SRS por este estado.
+
+Antes de publicar qualquer incremento didático: atualizar o inventário por ID (inclusive cartões evoluídos), executar `node --test tests/didactic_gate.test.cjs` e `node tools/check_didactic_gate.cjs --release` sobre a árvore candidata. Código de saída diferente de zero impede a autorização editorial. Não criar aprovação para satisfazer o teste. Revisar a resposta-modelo no próprio leitor, desktop e celular, comparando com amostra aprovada pelo estudante; verificar grifos, tabelas, fórmulas, mídia, modos de estudo/revisão e preservação. Registrar evidências por cartão e hash dos dados; não aprovar por lote sem inspeção individual. Registros históricos em reauditoria não equivalem à exclusão dos cartões. Não confundir teste estrutural com aceitação do estudante.
+
+O workflow executa diagnóstico e liberação editorial, separadamente. GitHub Pages publicado por push não é bloqueado por um job sem configuração adicional de proteção de ramo/deploy. O assistente deve executar a barreira ANTES de mover gh-pages; a automação detecta falhas após push e não constitui proteção de ramo. Não alterar permissões ou configuração de Pages sem decisão específica. Não publicar dados privados, erros pessoais ou fontes de SRS no relatório público.

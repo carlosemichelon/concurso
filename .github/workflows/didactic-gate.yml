@@ -1,0 +1,32 @@
+name: Banco Mestre - qualidade didática
+on:
+  push:
+    branches: [gh-pages]
+    paths: ['tools/check_didactic_gate.cjs', 'tests/didactic_gate.test.cjs', 'assets/**', 'index.html', 'v*.html', '.github/workflows/didactic-gate.yml']
+  pull_request:
+    branches: [gh-pages]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/didactic_gate.test.cjs
+      - run: node tools/check_didactic_gate.cjs > didactic-audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-didatica-por-id
+          path: didactic-audit.json
+  liberacao-editorial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check_didactic_gate.cjs --release
