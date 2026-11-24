@@ -8,10 +8,15 @@ const clone=v=>JSON.parse(JSON.stringify(v));
 const sha=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
 const nonempty=v=>typeof v==='string'&&v.trim().length>0;
 const STAGES=['drive','github','pages','authenticated'];
+function batchHash(delta){return hash({batch_id:delta.batch_id,content:delta.content,publication:delta.publication,requires_authenticated:delta.requires_authenticated===true})}
+function verifyFrozen(delta){
+ assert.ok(delta&&delta.format==='BancoMestrePrivateBatch1'&&delta.state==='FROZEN','Lote deve estar congelado');
+ assert.ok(nonempty(delta.batch_id)&&sha(delta.content_sha256)&&delta.content!==undefined,'Identidade/hash privado obrigatório');
+ assert.equal(delta.content_sha256,batchHash(delta),'Conteúdo congelado alterado');
+}
 // Somente a projeção explicitamente autorizada, nunca campos do lote privado.
 function prepare(delta,snapshot,contract){
- assert.ok(delta&&delta.format==='BancoMestrePrivateBatch1','Formato privado estruturado obrigatório');
- assert.ok(nonempty(delta.batch_id)&&delta.state==='FROZEN','Lote deve estar congelado');
+ verifyFrozen(delta);
  assert.ok(delta.publication&&delta.publication.approval==='APPROVED','Projeção sem autorização');
  const p=clone(delta.publication.packet);
  const proof=publicPreflight(p,snapshot,contract);
@@ -23,8 +28,7 @@ function prepare(delta,snapshot,contract){
 // Os callbacks de verificação devem apenas ler o destino e comparar a evidência.
 // Ausência/erro é indeterminado, nunca autorização para repetir uma escrita.
 async function resumePlan(delta,verify){
- assert.ok(delta&&delta.format==='BancoMestrePrivateBatch1'&&delta.state==='FROZEN');
- assert.ok(nonempty(delta.batch_id)&&sha(delta.content_sha256),'Identidade/hash privado obrigatório');
+ verifyFrozen(delta);
  assert.ok(typeof verify==='function','Verificador externo obrigatório');
  const receipts=delta.receipts||{},states={},requireAuth=delta.requires_authenticated===true;
  let upstream=true;
@@ -45,4 +49,4 @@ async function resumePlan(delta,verify){
  }
  return {states,next:STAGES.find(k=>states[k]==='READY')||null,complete:STAGES.every(k=>['VERIFIED','NOT_APPLICABLE'].includes(states[k]))};
 }
-module.exports={prepare,resumePlan,hash};
+module.exports={prepare,resumePlan,hash,batchHash};
