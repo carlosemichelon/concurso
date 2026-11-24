@@ -46,7 +46,7 @@ function buildConsolidated(id){
   if(x.role!=='VERSO_APOS_TENTATIVA')continue;
   // Inline SVG is used as an inert image, never inserted as executable DOM.
   const src=x.inline_svg?'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(x.inline_svg):x.src;
-  if(src)a.append(figure({id:x.id,role:x.role,caption:x.caption||x.id,src}));
+  if(src||x.private_original)a.append(figure({...x,id:x.id,role:x.role,caption:x.caption||x.id,src}));
  }
  a.append(table({...m.table,title:'Quadro comparativo'}));
  for(const f of m.formulas||[])a.append(formula(f));
@@ -66,7 +66,7 @@ function buildConsolidated(id){
 }
 
 const stamp=new WeakMap();async function renderAnswer(host,id){const token={};stamp.set(host,token);if(consolidated(id)){if(host.isConnected&&!host.closest('[hidden]')){try{host.replaceChildren(buildConsolidated(id));}catch(e){host.replaceChildren(el('p','Falha ao carregar conteúdo consolidado: '+e.message));}}return;}host.replaceChildren(el('p','Carregando resposta-modelo…'));try{await load();await ensureHistory(id);if(host.isConnected&&stamp.get(host)===token&&!host.closest('[hidden]')&&(!host.matches('.bm-v050-peek-answer')||window.BancoMestreVisualizarCardV050?.currentId===id))host.replaceChildren(build(id));}catch(e){if(host.isConnected&&stamp.get(host)===token)host.replaceChildren(el('p','Falha ao carregar: '+e.message));}}
-async function renderFront(host,id){const token={};stamp.set(host,token);host.replaceChildren();if(consolidated(id))return;try{await load();if(!host.isConnected||stamp.get(host)!==token)return;const r=records[id];for(const m of r.learning_model.media.items||[])if(m.role==='FRONT_ENUNCIADO')host.append(figure(m))}catch(e){if(host.isConnected&&stamp.get(host)===token)host.append(el('p','Dados gráficos indisponíveis: '+e.message))}}
+async function renderFront(host,id){const token={};stamp.set(host,token);host.replaceChildren();if(consolidated(id)){for(const m of consolidatedProfile(id).editorial.media||[])if(m.role==='FRONT_ENUNCIADO'){const src=m.inline_svg?'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(m.inline_svg):m.src;if(src||m.private_original)host.append(figure({...m,src}));}return;}try{await load();if(!host.isConnected||stamp.get(host)!==token)return;const r=records[id];for(const m of r.learning_model.media.items||[])if(m.role==='FRONT_ENUNCIADO')host.append(figure(m))}catch(e){if(host.isConnected&&stamp.get(host)===token)host.append(el('p','Dados gráficos indisponíveis: '+e.message))}}
 const prev=window.BM198Format;if(prev?.render){window.BM198Format=Object.freeze({...prev,render(host,rec,id,...rest){if(!ids.has(id)&&!consolidated(id))return prev.render(host,rec,id,...rest);void renderAnswer(host,id);return {modules:11,srsChanged:false,version:'V349-CANDIDATO'};}})}
 window.BM349=Object.freeze({has:id=>!!consolidated(id)||ids.has(id),get:id=>consolidatedProfile(id)||records?.[id],load:id=>consolidated(id)?Promise.resolve(consolidatedProfile(id)):load(),renderAnswer,renderFront});
 // Pacotes de restauração carregados somente quando um cartão correspondente é aberto.
