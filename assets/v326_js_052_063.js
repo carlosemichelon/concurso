@@ -604,7 +604,7 @@ window.BancoMestreGrifosMasterV104=Object.freeze({
 (function(){
 'use strict';
 if(window.BancoMestreGrifosDriveSyncV104)return;
-if(window.BMAccountRuntime){const core=window.BancoMestreGrifosSyncCoreV103;window.BMAccountRuntime.hydrateMarks(core);window.BancoMestreGrifosDriveSyncV104=Object.freeze({get connected(){return false},sync:async()=>{throw Error('Sincronização individual de grifos ainda não habilitada; marcações locais preservadas.')}});return}
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 const core=window.BancoMestreGrifosSyncCoreV103,
       masterCore=window.BancoMestreGrifosMasterV104,
       library=document.getElementById('grifos')||document.getElementById('pdfs');
@@ -628,7 +628,8 @@ function deviceId(){
  }
  return id;
 }
-const device=deviceId(),el=(tag,text)=>{const e=document.createElement(tag);if(text)e.textContent=text;return e};
+const device=deviceId();let accountSync=null;
+const el=(tag,text)=>{const e=document.createElement(tag);if(text)e.textContent=text;return e};
 const section=el('section');section.id='bm103DriveSync';section.className='bm103-drive-sync';
 section.setAttribute('aria-label','Compartilhar grifos entre celular e computador');
 const title=el('h3','Arquivo mestre único — grifos');
@@ -651,15 +652,16 @@ section.append(title,explain,controls,label,status,note);
 function say(text,error=false){
  status.textContent=text;status.classList.toggle('bm103-sync-error',error);
 }
-function authorized(){return !!(window.BM239DriveGlobal?.writeToken?.()||(token&&Date.now()<expiry-60000?token:''))}
+function authorized(){if(account)return !!accountSync?.loaded;return !!(window.BM239DriveGlobal?.writeToken?.()||(token&&Date.now()<expiry-60000?token:''))}
 function ui(){
- connect.disabled=!client||busy;
+ connect.hidden=Boolean(account);connect.disabled=!client||busy;
  sync.disabled=!authorized()||busy;
  backup.disabled=busy;
  check.disabled=busy;
  connect.textContent=authorized()?'Reconectar conta Google':'Conectar Google Drive';
 }
 async function bootGoogle(){
+ if(account){try{accountSync=account.marksSync(core,masterCore,device);say('Carregando grifos do perfil individual…');const r=await accountSync.hydrate();say('Grifos individuais carregados. '+r.additions+' acréscimos locais.');window.dispatchEvent(new CustomEvent('bm-pdf-storage-changed',{detail:{action:'profile-hydrate'}}));pendingEdit=false}catch(e){say('Não foi possível carregar grifos individuais: '+e.message,true)}ui();return}
  try{
   const conf=await fetch('assets/drive_auth_v038.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('Configuração OAuth não encontrada')));
   if(!/^[A-Za-z0-9_.-]+\.apps\.googleusercontent\.com$/.test(conf.client_id||''))throw Error('Client ID Google incompleto');
@@ -785,6 +787,7 @@ let bm263InFlight=null;
  }
  async function syncOnceInner(manual=false){
  if(busy||!authorized())return;
+ if(account){if(window.BancoMestrePDFV042?.editing){if(manual)say('Feche o PDF antes de sincronizar; grifos locais preservados.');return}busy=true;ui();try{say('Mesclando grifos do perfil individual…');const r=await accountSync.sync();lastRun=Date.now();pendingEdit=false;window.dispatchEvent(new CustomEvent('bm-pdf-storage-changed',{detail:{action:'profile-sync'}}));pendingEdit=false;say('Grifos individuais sincronizados: '+r.records+' registros; '+r.additions+' acréscimos; '+r.conflicts+' divergências preservadas.');}catch(e){say('Sincronização não confirmada: '+e.message+'. Grifos locais preservados.',true)}finally{busy=false;ui()}return}
  if(window.BancoMestrePDFV042?.editing){
   if(manual)say('Feche o PDF antes de sincronizar. Os grifos permanecem salvos localmente.');
   return;
@@ -878,7 +881,8 @@ if(reader)reader.addEventListener('close',()=>{
  if(pendingEdit&&auto&&authorized()&&!busy)
   setTimeout(()=>{if(document.visibilityState==='visible')void runSync()},800);
 });
-window.addEventListener('bm-pdf-storage-changed',()=>{
+window.addEventListener('bm-pdf-storage-changed',event=>{
+ if(account&&['profile-hydrate','profile-sync'].includes(event.detail?.action))return;
  pendingEdit=true;
  if(!auto||!authorized()||busy||scheduled)return;
  scheduled=setTimeout(()=>{scheduled=null;if(document.visibilityState==='visible')void runSync()},20000);

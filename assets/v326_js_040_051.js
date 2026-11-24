@@ -5,6 +5,7 @@
 /* Banco Mestre V206 — diagnóstico read-only; nenhum dado alterado. */
 (function BancoMestreV067Diagnostico(){
  'use strict';
+const localStorage=window.BMAccountRuntime?.local||window.localStorage;
  const $=id=>document.getElementById(id);
  const lib=$('grifos'),host=lib?.querySelector('.bm062-panel');
  if(!host||$('bm067Audit'))return;
