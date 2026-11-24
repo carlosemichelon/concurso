@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {createAccountContext,privateDriveFile,assertSameAccount,verifiedSubject} from '../assets/multiaccount-storage-v001.mjs';
+const store=new Map([['BM245_CONTROLE_ESTUDOS','original preservado']]);const storage={get length(){return store.size},key:i=>[...store.keys()][i]??null,getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,v),removeItem:k=>store.delete(k)};
+const idb={open:(n,v)=>({n,v}),deleteDatabase:n=>n};
+const info=sub=>({sub,email:sub+'@example.test',email_verified:true});
+const a=createAccountContext(info('accountA'),storage,idb),b=createAccountContext(info('accountB'),storage,idb);
+assert.equal(a.local.getItem('BM245_CONTROLE_ESTUDOS'),null);assert.equal(b.local.getItem('BM245_CONTROLE_ESTUDOS'),null);
+a.local.setItem('BM245_CONTROLE_ESTUDOS','A');b.local.setItem('BM245_CONTROLE_ESTUDOS','B');assert.equal(a.local.getItem('BM245_CONTROLE_ESTUDOS'),'A');assert.equal(b.local.getItem('BM245_CONTROLE_ESTUDOS'),'B');assert.equal(store.get('BM245_CONTROLE_ESTUDOS'),'original preservado');
+assert.deepEqual(a.local.keys(),['BM245_CONTROLE_ESTUDOS']);assert.notEqual(a.openDatabase('BancoMestrePDFLocalV035',1).n,b.openDatabase('BancoMestrePDFLocalV035',1).n);
+assert.notEqual(a.deleteDatabase('BancoMestrePDFLocalV035'),b.deleteDatabase('BancoMestrePDFLocalV035'));
+a.local.clear();assert.equal(a.local.getItem('BM245_CONTROLE_ESTUDOS'),null);assert.equal(b.local.getItem('BM245_CONTROLE_ESTUDOS'),'B');assert.equal(store.get('BM245_CONTROLE_ESTUDOS'),'original preservado');
+assert.throws(()=>verifiedSubject({...info('A'),email_verified:false}));assert.throws(()=>verifiedSubject(info('A:B')));assert.throws(()=>a.local.setItem('',1));assert.throws(()=>assertSameAccount(info('accountB'),a));assert.equal(assertSameAccount(info('accountA'),a),'accountA');
+const f={id:'fileA',ownedByMe:true,shared:false,parents:['rootA'],appProperties:{bmProject:'bm-portal-multi-v1',bmOwner:'accountA',bmKind:'pdf'}};
+assert.equal(privateDriveFile(f,a.subject,'pdf',{parent:'rootA'}),f);assert.throws(()=>privateDriveFile(f,b.subject,'pdf'));assert.throws(()=>privateDriveFile({...f,shared:true},a.subject,'pdf'));assert.throws(()=>privateDriveFile(f,a.subject,'pdf',{parent:'rootB'}));assert.throws(()=>privateDriveFile({...f,appProperties:{}},a.subject,'pdf'));
+a.close();assert.throws(()=>a.local.getItem('BM245_CONTROLE_ESTUDOS'));assert.throws(()=>a.openDatabase('PDF',1));assert.equal(b.local.getItem('BM245_CONTROLE_ESTUDOS'),'B');
+console.log('PASS 24 verificações de namespace, preservação do legado e titularidade');
