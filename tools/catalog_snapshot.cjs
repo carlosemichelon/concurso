@@ -79,10 +79,12 @@ function nonempty(v){return typeof v==='string'&&v.trim().length>0}
 function cardId(v){return typeof v==='string'&&/^CARD-\d{4,}$/.test(v)}
 function digest(v){return crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex')}
 function publicPreflight(packet,snapshot,contract){
- onlyKeys(packet,new Set(['format','catalog_git_blob','new_cards','updated_cards','profiles','relations','expected_card_hashes','private_content_exported']), 'Pacote');
+ onlyKeys(packet,new Set(['format','catalog_git_blob','portal_version','manifest_git_blob','new_cards','updated_cards','profiles','relations','expected_card_hashes','private_content_exported']), 'Pacote');
  assert.equal(packet.format,'BancoMestrePublicIncrement1');
  assert.equal(packet.private_content_exported,false,'Somente projeção pública autorizada');
  assert.equal(packet.catalog_git_blob,contract.git_blob,'Catálogo mudou: reconciliar antes de reaplicar');
+ assert.equal(packet.portal_version,contract.portal_version,'Versão do portal mudou');
+ assert.equal(packet.manifest_git_blob,contract.manifest_git_blob,'Manifesto mudou: reconciliar antes de reaplicar');
  assert.ok(Array.isArray(packet.new_cards)&&Array.isArray(packet.updated_cards),'Listas de cartões obrigatórias');
  const canonical=new Map(snapshot.base.map(c=>[c.id,c])), all=new Map([...snapshot.base,...snapshot.ijui].map(c=>[c.id,c]));
  const touched=new Map(), newIds=new Set(), expected=packet.expected_card_hashes;
@@ -123,20 +125,20 @@ function publicPreflight(packet,snapshot,contract){
  }
  // Este é um portão estrutural, não atesta rigor técnico, autorização, privacidade de
  // texto livre, grifos, mídia, versões privadas, SRS nem publicação.
- return {status:'PREFLIGHT_ESTRUTURAL',catalog_git_blob:contract.git_blob,packet_sha256:digest(packet),new_cards:newIds.size,updated_cards:touched.size-newIds.size,private_sync:'not_verified',editorial_gate:'required',publication:'not_performed'};
+ return {status:'PREFLIGHT_ESTRUTURAL',catalog_git_blob:contract.git_blob,portal_version:contract.portal_version,manifest_git_blob:contract.manifest_git_blob,packet_sha256:digest(packet),new_cards:newIds.size,updated_cards:touched.size-newIds.size,private_sync:'not_verified',editorial_gate:'required',publication:'not_performed'};
 }
 function preflightFile(file){
  const m=json('assets/version.json'),raw=fs.readFileSync(path.join(root,m.catalog.path));
  assert.equal(blobHash(raw),m.catalog.git_blob,'Snapshot alterado');
  const snapshot=JSON.parse(raw);validate(snapshot,m.catalog);
- return publicPreflight(JSON.parse(fs.readFileSync(file,'utf8')),snapshot,m.catalog);
+ return publicPreflight(JSON.parse(fs.readFileSync(file,'utf8')),snapshot,{...m.catalog,portal_version:m.version,manifest_git_blob:blobHash(fs.readFileSync(path.join(root,'assets/version.json')))});
 }
 function preflightSelfTest(){
  const mk=(id,related=[])=>({id,discipline:'Engenharia',subject:'Tema',sub:'Núcleo',front:'Pergunta',back:'Resposta',expl:'Explicação',reference:'Fonte',active:true,related_card_ids:related});
  const a=mk('CARD-0001'),b=mk('CARD-0002',['CARD-0001']);
- const snapshot={base:[a],ijui:[]},contract={git_blob:'a'.repeat(40)};
+ const snapshot={base:[a],ijui:[]},contract={git_blob:'a'.repeat(40),portal_version:'VTEST',manifest_git_blob:'c'.repeat(40)};
  const profile={id:b.id,front:b.front,back:b.back,status:'CANONICO_ATIVO',related_card_ids:[a.id],layers:Array.from({length:11},(_,i)=>({ord:i+1,titulo:'Tema '+i,texto:'Explicação '+i}))};
- const packet={format:'BancoMestrePublicIncrement1',catalog_git_blob:contract.git_blob,new_cards:[b],updated_cards:[],profiles:{[b.id]:profile},relations:{[b.id]:[a.id],[a.id]:[b.id]},expected_card_hashes:{},private_content_exported:false};
+ const packet={format:'BancoMestrePublicIncrement1',catalog_git_blob:contract.git_blob,portal_version:contract.portal_version,manifest_git_blob:contract.manifest_git_blob,new_cards:[b],updated_cards:[],profiles:{[b.id]:profile},relations:{[b.id]:[a.id],[a.id]:[b.id]},expected_card_hashes:{},private_content_exported:false};
  assert.equal(publicPreflight(packet,snapshot,contract).new_cards,1);
  const mutate=(fn)=>{const x=JSON.parse(JSON.stringify(packet));fn(x);assert.throws(()=>publicPreflight(x,snapshot,contract))};
  mutate(x=>x.catalog_git_blob='b'.repeat(40));mutate(x=>x.new_cards[0].id=a.id);
@@ -144,7 +146,11 @@ function preflightSelfTest(){
  mutate(x=>x.relations[a.id]=[]);mutate(x=>x.new_cards[0].srs={});mutate(x=>x.private_content_exported=true);
  mutate(x=>x.new_cards[0].active=false);mutate(x=>x.profiles[b.id].layers[1].texto=x.profiles[b.id].layers[0].texto);
  mutate(x=>{x.new_cards=[];x.updated_cards=[b];x.expected_card_hashes[b.id]='bad'});
- console.log(JSON.stringify({ok:true,tests:11,scope:'synthetic_structural_only'}));
+ mutate(x=>x.portal_version='VOTHER');mutate(x=>x.manifest_git_blob='d'.repeat(40));
+ const updated=mk(a.id),up={...packet,new_cards:[],updated_cards:[updated],profiles:{[a.id]:{...profile,id:a.id,related_card_ids:[]}},relations:{[a.id]:[]},expected_card_hashes:{[a.id]:digest(a)}};
+ assert.equal(publicPreflight(up,snapshot,contract).updated_cards,1);
+ assert.throws(()=>publicPreflight({...up,expected_card_hashes:{[a.id]:'stale'}},snapshot,contract));
+ console.log(JSON.stringify({ok:true,tests:15,scope:'synthetic_structural_only'}));
 }
 
 async function main(){
