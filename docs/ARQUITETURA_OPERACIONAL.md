@@ -17,3 +17,6 @@ O checkpoint aberto deve ser salvo no Drive durante o estudo, quando possível; 
 
 ## V367 — leitura sob demanda
 A pesquisa lateral reutiliza índices normalizados e ordena por ranking calculado uma vez; o verso lateral só é montado ao revelar. Pacotes V349 são carregados quando necessários. Manter a grade principal e o leitor histórico compatíveis até teste integral de uma alternativa. Não confundir otimização visual com alteração do conteúdo ou sincronização privada.
+
+## V368 — complementos incrementais
+Quatro renderizadores de complementos substituídos por um módulo compartilhado. Novos pacotes devem atualizar o índice de IDs do renderizador, sem criar outro observador global. Pacotes originais imutáveis, carregamento sob demanda; mídia privada conserva validação de acesso e hash e usa marcador exclusivo. Sem mudanças na base privada.

@@ -1,3 +1,7 @@
+## V368 — Complementos sob demanda e separação de imagens (24/11/2026)
+
+Substitui quatro scripts de complementos por um renderizador orientado a IDs, com uma observação limitada ao leitor. Os quatro pacotes públicos originais permanecem intactos; carregamento somente para cartão pertinente e construção do conteúdo quando o estudante expande o complemento. V366 compartilha a mesma promessa entre complementos e mídia privada. Marcador de mídia separado, evitando colisão com o bloco didático. Autorização, verificação SHA-256 e revogação de URLs privadas preservadas. Sem alteração de catálogo, módulos ou SRS. Teste real de navegador/OAuth pendente. V367 preservada.
+
 ## V367 — Pesquisa lateral e leitura sob demanda (24/11/2026)
 
 Preserva integralmente a V366, inclusive complementos PETRO15–16 e catálogo V362. Otimiza a pesquisa lateral com normalização em cache, ranking calculado uma vez por registro, comparador reutilizado e agrupamento de digitação por quadro. O índice detecta substituição da base com igual contagem; vínculos são recalculados na consulta para evitar cache obsoleto. Verso original lateral é montado ao revelar e pacotes restaurados V349 são carregados no primeiro cartão aplicável, não na entrada. A grade principal mantém a montagem atual para preservar compatibilidade com leitores históricos. Dados/SRS não alterados. Teste integral de navegador pendente.
