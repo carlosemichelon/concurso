@@ -1,0 +1,435 @@
+{
+  "format": "BancoMestrePublicRecoveryVC25",
+  "source_catalog_blob": "3c5ca691f91cfce33392e7ad33b14f3f42ce761d",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1313",
+      "title": "Lei de Darcy — condutividade e permeâmetros",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique Darcy, calcule gradiente, vazão e velocidades, e compare os ensaios de permeabilidade à carga constante e à carga variável."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Para fluxo unidimensional saturado em regime darciano, Q=kiA, i=Δh/L e vD=Q/A=ki. A velocidade média intersticial é aproximadamente vD/ne, com porosidade efetiva ne. A é a área total da seção, incluindo sólidos e vazios; a área efetiva disponível ao fluxo é representada por neA. A carga hidráulica total combina cota e carga de pressão, desprezando a parcela cinética usualmente pequena no solo.\n\nA condutividade hidráulica k é determinada em laboratório pela passagem de água por um corpo de prova saturado. Na carga constante, usual para solos granulares, mantém-se a diferença de carga Δh e mede-se o volume V coletado em um tempo t: k=VL/(AΔh·t). Na carga variável, usual para solos argilosos, mede-se a queda da carga de h1 para h2 no tubo de área a: k=(aL/At)·ln(h1/h2). L é o comprimento do corpo de prova e A sua área transversal total. As referências brasileiras citadas pelo DNIT 381/2022-PRO são NBR 13292:2021 e NBR 14545:2021, respectivamente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H02-A27; CON-12-012 e CON-12-013; USGS Circular 1224: https://pubs.usgs.gov/circ/2002/circ1224/html/understanding.html\n\nDNIT 381/2022-PRO (referências aos ensaios ABNT NBR 13292:2021 e 14545:2021): https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit_381_2022_pro.pdf ; FHWA NHI-05-037, cap. 5: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/05d.cfm"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A diferença de carga hidráulica impulsiona o fluxo de maior para menor carga; a condutividade k depende do meio e do fluido. O sinal vetorial é negativo em relação ao gradiente de carga. A velocidade intersticial média supera a de descarga porque o fluxo se concentra no espaço poroso efetivamente conectado.\n\nCarga constante: reservatório com nível fixo, saída a nível de referência e coleta volumétrica. Carga variável: a água que sai da coluna de área a atravessa a amostra; a diferença de carga diminui com o tempo. Integrando a·dh/dt=−kAh/L obtém-se o logaritmo natural. A condutividade varia com conectividade e tamanho dos poros, índice de vazios, estrutura, saturação e viscosidade do fluido."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "i=Δh/L (adimensional); Q=kiA (m³/s); vD=ki (m/s); vi=vD/ne (m/s). Exemplo: k=10⁻⁴ m/s, i=0,5, A=2 m², ne=0,25: Q=10⁻⁴ m³/s, vD=5×10⁻⁵ m/s e vi=2×10⁻⁴ m/s.\n\nCarga constante: V=0,0006 m³, L=0,20 m, A=0,005 m², Δh=0,30 m e t=60 s → k=1,33×10⁻³ m/s. Carga variável: a=0,0001 m², A=0,005 m², L=0,10 m, t=600 s, h1=0,80 m e h2=0,40 m → k=2,31×10⁻⁶ m/s. Converter todas as unidades antes do cálculo. Se usar log decimal, ln(x)=2,302585·log10(x)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Vazão Q: volume por tempo. vD: descarga por área total. vi: velocidade linear média nos poros conectados. k: condutividade hidráulica, não porosidade. i: diferença de carga por distância, não necessariamente inclinação do terreno.\n\nCarga constante: Δh fixa, V medido; solos mais permeáveis. Carga variável: Δh decrescente, níveis inicial/final medidos; solos menos permeáveis. Ambos medem k (m/s), não a permeabilidade intrínseca κ (m²)."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Com k=10⁻⁵ m/s, i=0,5 e A=2 m², Q=10⁻⁵ m³/s (CARD-0342). Para Δh=1,2 m e L=6 m, i=0,20 e vD=2×10⁻⁶ m/s se k=10⁻⁵ m/s (CARD-1111).\n\nSe o nível do tubo cai de 80 para 40 cm, a razão h1/h2=2 independentemente de usar metros ou centímetros no logaritmo; demais grandezas precisam ser coerentes. Dobrar a área do tubo mantendo o mesmo tempo e a mesma queda implica dobrar o k calculado. Em drenagem de aterros, comparar amostras representativas e condutividade na direção do fluxo."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0342, CARD-1111\n\nCARD-1443, CARD-0700"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Forma escalar pressupõe fluxo unidimensional e k representativa na direção de escoamento. A relação linear pode falhar em velocidades elevadas; solos anisotrópicos requerem condutividade direcional ou tensorial. Porosidade efetiva não é necessariamente a porosidade total.\n\nFórmulas pressupõem saturação, regime laminar, geometria estável, condutividade aproximadamente constante e carga de saída de referência fixa no arranjo variável. Temperatura, vazamentos, ar aprisionado e variação de volume podem distorcer resultados. Verificar procedimento e correção de temperatura da edição normativa aplicável. Não presumir que todo solo granular ou argiloso satisfaz automaticamente os requisitos de cada método."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não multiplicar por porosidade para achar vi: dividir. Não usar área dos poros em Q=kiA e dividir novamente. Não confundir carga total com pressão isolada, nem condutividade k (m/s) com permeabilidade intrínseca (m²).\n\nV é volume coletado, não velocidade; a é área do tubo, A é área da amostra. O log é natural, não decimal sem o fator 2,303. Não trocar carga constante por vazão constante no ensaio variável."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Darcy usa área total; nos poros, divide pela fração efetiva.\n\nConstante: mede volume; variável: mede queda e usa ln."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Para fluxo unidimensional saturado em regime darciano, Q=kiA, i=Δh/L e vD=Q/A=ki. A velocidade média intersticial é aproximadamente vD/ne, com porosidade efetiva ne. A é a área total da seção, incluindo sólidos e vazios; a área efetiva disponível ao fluxo é representada por neA. A carga hidráulica total combina cota e carga de pressão, desprezando a parcela cinética usualmente pequena no solo.",
+          "A diferença de carga hidráulica impulsiona o fluxo de maior para menor carga; a condutividade k depende do meio e do fluido. O sinal vetorial é negativo em relação ao gradiente de carga. A velocidade intersticial média supera a de descarga porque o fluxo se concentra no espaço poroso efetivamente conectado.",
+          "Forma escalar pressupõe fluxo unidimensional e k representativa na direção de escoamento. A relação linear pode falhar em velocidades elevadas; solos anisotrópicos requerem condutividade direcional ou tensorial. Porosidade efetiva não é necessariamente a porosidade total.",
+          "A condutividade hidráulica k é determinada em laboratório pela passagem de água por um corpo de prova saturado. Na carga constante, usual para solos granulares, mantém-se a diferença de carga Δh e mede-se o volume V coletado em um tempo t: k=VL/(AΔh·t). Na carga variável, usual para solos argilosos, mede-se a queda da carga de h1 para h2 no tubo de área a: k=(aL/At)·ln(h1/h2). L é o comprimento do corpo de prova e A sua área transversal total. As referências brasileiras citadas pelo DNIT 381/2022-PRO são NBR 13292:2021 e NBR 14545:2021, respectivamente.",
+          "Carga constante: reservatório com nível fixo, saída a nível de referência e coleta volumétrica. Carga variável: a água que sai da coluna de área a atravessa a amostra; a diferença de carga diminui com o tempo. Integrando a·dh/dt=−kAh/L obtém-se o logaritmo natural. A condutividade varia com conectividade e tamanho dos poros, índice de vazios, estrutura, saturação e viscosidade do fluido.",
+          "Fórmulas pressupõem saturação, regime laminar, geometria estável, condutividade aproximadamente constante e carga de saída de referência fixa no arranjo variável. Temperatura, vazamentos, ar aprisionado e variação de volume podem distorcer resultados. Verificar procedimento e correção de temperatura da edição normativa aplicável. Não presumir que todo solo granular ou argiloso satisfaz automaticamente os requisitos de cada método."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Q=kiA",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "vD=Q/A=ki",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "vD/ne",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "área total da seção",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "k=VL/(AΔh·t)",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "k=(aL/At)·ln(h1/h2)",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "agent",
+            "text": "solos granulares",
+            "color": "#BBF7D0"
+          },
+          {
+            "kind": "agent",
+            "text": "solos argilosos",
+            "color": "#BBF7D0"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza / método",
+            "Expressão / medição",
+            "Unidade"
+          ],
+          "rows": [
+            [
+              "Gradiente",
+              "Δh/L",
+              "—"
+            ],
+            [
+              "Vazão",
+              "kiA",
+              "m³/s"
+            ],
+            [
+              "Descarga / intersticial",
+              "ki / ki/ne",
+              "m/s"
+            ],
+            [
+              "Carga constante",
+              "VL/(AΔh·t)",
+              "m/s"
+            ],
+            [
+              "Carga variável",
+              "(aL/At)·ln(h1/h2)",
+              "m/s"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Vazão",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Q</mi><mo>=</mo><mi>k</mi><mi>i</mi><mi>A</mi></math>",
+            "units": "m³/s"
+          },
+          {
+            "title": "Velocidade intersticial",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>v</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><mi>k</mi><mi>i</mi></mrow><msub><mi>n</mi><mi>e</mi></msub></mfrac></math>",
+            "units": "m/s"
+          },
+          {
+            "title": "Carga constante",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>k</mi><mo>=</mo><mfrac><mrow><mi>V</mi><mi>L</mi></mrow><mrow><mi>A</mi><mi>Δh</mi><mi>t</mi></mrow></mfrac></math>",
+            "units": "k em m/s; V em m³; A em m²; L e Δh em m; t em s"
+          },
+          {
+            "title": "Carga variável",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>k</mi><mo>=</mo><mfrac><mrow><mi>a</mi><mi>L</mi></mrow><mrow><mi>A</mi><mi>t</mi></mrow></mfrac><mi>ln</mi><mo>(</mo><mfrac><msub><mi>h</mi><mn>1</mn></msub><msub><mi>h</mi><mn>2</mn></msub></mfrac><mo>)</mo></math>",
+            "units": "k em m/s; a e A em m²; h1 e h2 na mesma unidade"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC25-SVG-PERMEAMETROS",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Permeâmetros de carga constante e variável: geometria, leituras e fórmulas.",
+            "alt": "Permeâmetros de carga constante e variável: geometria, leituras e fórmulas.",
+            "src": "assets/card_visuals_vc25/permeametros.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "DNIT 381/2022-PRO (referências aos ensaios ABNT NBR 13292:2021 e 14545:2021): https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit_381_2022_pro.pdf ; FHWA NHI-05-037, cap. 5: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/05d.cfm",
+            "evidence": "SVG autoral integrado; exibição no leitor ainda não testada."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Explique Darcy, calcule gradiente, vazão e velocidades, e compare os ensaios de permeabilidade à carga constante e à carga variável.",
+      "back": "Para fluxo unidimensional saturado em regime darciano, Q=kiA, i=Δh/L e vD=Q/A=ki. A velocidade média intersticial é aproximadamente vD/ne, com porosidade efetiva ne. A é a área total da seção, incluindo sólidos e vazios; a área efetiva disponível ao fluxo é representada por neA. A carga hidráulica total combina cota e carga de pressão, desprezando a parcela cinética usualmente pequena no solo.\n\nA condutividade hidráulica k é determinada em laboratório pela passagem de água por um corpo de prova saturado. Na carga constante, usual para solos granulares, mantém-se a diferença de carga Δh e mede-se o volume V coletado em um tempo t: k=VL/(AΔh·t). Na carga variável, usual para solos argilosos, mede-se a queda da carga de h1 para h2 no tubo de área a: k=(aL/At)·ln(h1/h2). L é o comprimento do corpo de prova e A sua área transversal total. As referências brasileiras citadas pelo DNIT 381/2022-PRO são NBR 13292:2021 e NBR 14545:2021, respectivamente.",
+      "source": "H02-A27; CON-12-012 e CON-12-013; USGS Circular 1224: https://pubs.usgs.gov/circ/2002/circ1224/html/understanding.html; DNIT 381/2022-PRO (referências aos ensaios ABNT NBR 13292:2021 e 14545:2021): https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit_381_2022_pro.pdf ; FHWA NHI-05-037, cap. 5: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/05d.cfm",
+      "mnemonic": "Darcy usa área total; nos poros, divide pela fração efetiva. Constante: mede volume; variável: mede queda e usa ln.",
+      "related_card_ids": [
+        "CARD-0342",
+        "CARD-1111",
+        "CARD-0700",
+        "CARD-0316",
+        "CARD-1312",
+        "CARD-1443"
+      ],
+      "related_question_ids": [],
+      "history_ref": {
+        "snapshot": "0471aa8ced2bfbe161c3c43291192a26b044a130",
+        "ids": [
+          "CARD-1313"
+        ]
+      }
+    },
+    {
+      "id": "CARD-0700",
+      "title": "Tensão efetiva — percolação ascendente e gradiente crítico",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique tensão efetiva em hidrostática, adensamento e percolação ascendente. Deduza o gradiente crítico e diferencie liquefação hidráulica, piping e subpressão."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Em solo saturado, σ′=σ−u: a tensão efetiva governa a interação do esqueleto sólido. Em hidrostática, u=γw·z abaixo do nível d’água. Em camada saturada homogênea, o incremento efetivo é γ′·z, com γ′=γsat−γw. Em sobrecarga rápida unidimensional ideal, o acréscimo inicial aparece como excesso de poropressão; ao drenar, esse excesso diminui e a tensão efetiva aumenta, produzindo adensamento.\n\nNo fluxo vertical ascendente uniforme em solo saturado sem sobrecarga efetiva superficial, a força de percolação por unidade de volume é iγw, dirigida para cima. A tensão efetiva a uma profundidade z abaixo da superfície drenante é σ′v=(γ′−iγw)z. O gradiente crítico ic=γ′/γw=(Gs−1)/(1+e) anula a tensão efetiva nesse modelo. Para fluxo descendente, σ′v=(γ′+iγw)z. A condição de areia movediça ou ebulição hidráulica não é sinônimo de erosão interna (piping), que envolve transporte de partículas, nem de liquefação cíclica por carregamento."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C042; CON-11-003/004/007/008; FHWA NHI-06-088: https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; referência histórica Petrobras 24: NBR 6484:2020 (CARD-1585).\n\nFundamento: equilíbrio de forças e princípio de Terzaghi; referência técnica USACE EM 1110-2-1901, Seepage Analysis and Control for Dams; relação com CARD-1313."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Com σ constante, elevar u reduz σ′ e a parcela friccional de resistência, mantidos parâmetros. Ao drenar excesso de u, a carga é transferida ao esqueleto e os vazios diminuem.\n\nA pressão da água aumenta no fluxo ascendente em comparação com a hidrostática, reduzindo a força normal entre grãos; no descendente ocorre o inverso. Em areia sem coesão, o gradiente crítico pode produzir instabilidade do esqueleto. Subpressão atua como pressão de água na base de uma estrutura e requer análise própria do equilíbrio. Erosão interna pode ocorrer antes da condição de tensão efetiva nula, dependendo da geometria, granulometria, filtros e gradientes locais."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "γsat=20 kN/m³, γw≈10 kN/m³, saturado desde superfície, z=5 m: σv=100, u=50, σ′v=50 kPa. Carga uniforme de 30 kPa idealmente não drenada: σv=130, u≈80, σ′v≈50; após dissipação, u=50, σ′v=80 kPa.\n\nExemplo: γsat=20 kN/m³, γw=10 kN/m³ → γ′=10 kN/m³ e ic=1. Com i ascendente=0,6 e z=2 m, σ′v=(10−6)×2=8 kPa; hidrostática=20 kPa; fluxo descendente de mesma intensidade=32 kPa. FS ideal contra ebulição=ic/i=1/0,6=1,67. Com Gs=2,65 e e=0,65, ic=1,0."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Total: peso e ações. Poropressão: pressão da água. Efetiva: tensão do esqueleto. Excesso: diferença em relação ao regime de referência, positiva ou negativa.\n\nHidrostática: γ′z; ascendente: (γ′−iγw)z; descendente: (γ′+iγw)z. Ebulição: perda de tensão efetiva; piping: erosão interna progressiva; subpressão: força de levantamento na estrutura."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Em talude, u crescente pode reduzir resistência. Em sondagem, nível interno abaixo do freático pode induzir fluxo para dentro, carreamento de finos e perturbação (CARD-1585). Em sapatas vizinhas, considerar sobreposição de acréscimos de tensão (CARD-1571).\n\nEm escavação abaixo do nível freático, reduzir gradiente de saída com rebaixamento controlado, alívio de pressão ou aumento do percurso de fluxo; filtros adequados limitam migração de partículas. Usar o gradiente local de saída, não apenas o gradiente médio de toda a obra."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0124, CARD-0695, CARD-0696, CARD-0354, CARD-0472, CARD-1571, CARD-1585, CARD-0699, CARD-1313\n\nCARD-1313, CARD-1443"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Compressão positiva; referências de pressão consistentes. γ′z pressupõe hidrostática; incluir camadas superiores e cargas. Em percolação, obter u pela carga hidráulica. Solo não saturado exige formulação com sucção. Δu≈Δσ é idealização 1D.\n\nDedução de ic considera solo homogêneo, saturado, fluxo vertical uniforme, sem sobrecarga efetiva na superfície e peso submerso representativo. Em taludes, barragens e escavações reais, analisar gradientes locais, estratificação, coesão, cargas e estabilidade global. FS=ic/i é um indicador idealizado, não um limite normativo universal."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não descontar u novamente se usou γ′ para calcular incremento efetivo hidrostático. Não confundir nível freático com distribuição hidrostática sob qualquer fluxo.\n\nNão somar iγw no fluxo ascendente; não descontar a poropressão duas vezes. ic≈1 é aproximação para muitos solos, não uma constante universal. Piping pode ocorrer sem atingir ic; não confundir com liquefação cíclica."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Total menos água = esqueleto; drena excesso, aumenta efetiva.\n\nÁgua sobe, efetiva desce; água desce, efetiva sobe. Crítico: peso submerso dividido pelo peso da água."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Em solo saturado, σ′=σ−u: a tensão efetiva governa a interação do esqueleto sólido. Em hidrostática, u=γw·z abaixo do nível d’água. Em camada saturada homogênea, o incremento efetivo é γ′·z, com γ′=γsat−γw. Em sobrecarga rápida unidimensional ideal, o acréscimo inicial aparece como excesso de poropressão; ao drenar, esse excesso diminui e a tensão efetiva aumenta, produzindo adensamento.",
+          "Com σ constante, elevar u reduz σ′ e a parcela friccional de resistência, mantidos parâmetros. Ao drenar excesso de u, a carga é transferida ao esqueleto e os vazios diminuem.",
+          "Compressão positiva; referências de pressão consistentes. γ′z pressupõe hidrostática; incluir camadas superiores e cargas. Em percolação, obter u pela carga hidráulica. Solo não saturado exige formulação com sucção. Δu≈Δσ é idealização 1D.",
+          "No fluxo vertical ascendente uniforme em solo saturado sem sobrecarga efetiva superficial, a força de percolação por unidade de volume é iγw, dirigida para cima. A tensão efetiva a uma profundidade z abaixo da superfície drenante é σ′v=(γ′−iγw)z. O gradiente crítico ic=γ′/γw=(Gs−1)/(1+e) anula a tensão efetiva nesse modelo. Para fluxo descendente, σ′v=(γ′+iγw)z. A condição de areia movediça ou ebulição hidráulica não é sinônimo de erosão interna (piping), que envolve transporte de partículas, nem de liquefação cíclica por carregamento.",
+          "A pressão da água aumenta no fluxo ascendente em comparação com a hidrostática, reduzindo a força normal entre grãos; no descendente ocorre o inverso. Em areia sem coesão, o gradiente crítico pode produzir instabilidade do esqueleto. Subpressão atua como pressão de água na base de uma estrutura e requer análise própria do equilíbrio. Erosão interna pode ocorrer antes da condição de tensão efetiva nula, dependendo da geometria, granulometria, filtros e gradientes locais.",
+          "Dedução de ic considera solo homogêneo, saturado, fluxo vertical uniforme, sem sobrecarga efetiva na superfície e peso submerso representativo. Em taludes, barragens e escavações reais, analisar gradientes locais, estratificação, coesão, cargas e estabilidade global. FS=ic/i é um indicador idealizado, não um limite normativo universal."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "σ′=σ−u",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "u=γw·z",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "γ′=γsat−γw",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "σ′v=(γ′−iγw)z",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "ic=γ′/γw=(Gs−1)/(1+e)",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "exception",
+            "text": "não é sinônimo de erosão interna (piping)",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Regime",
+            "Tensão efetiva a 2 m",
+            "Exemplo"
+          ],
+          "rows": [
+            [
+              "Hidrostático",
+              "γ′z",
+              "20 kPa"
+            ],
+            [
+              "Ascendente i=0,6",
+              "(γ′−iγw)z",
+              "8 kPa"
+            ],
+            [
+              "Descendente i=0,6",
+              "(γ′+iγw)z",
+              "32 kPa"
+            ],
+            [
+              "Ascendente i=ic",
+              "0",
+              "0 kPa"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Terzaghi",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msup><mi>σ</mi><mo>′</mo></msup><mo>=</mo><mi>σ</mi><mo>−</mo><mi>u</mi></math>",
+            "units": "kPa"
+          },
+          {
+            "title": "Peso submerso",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msup><mi>γ</mi><mo>′</mo></msup><mo>=</mo><msub><mi>γ</mi><mi>sat</mi></msub><mo>−</mo><msub><mi>γ</mi><mi>w</mi></msub></math>",
+            "units": "kN/m³"
+          },
+          {
+            "title": "Fluxo ascendente",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msubsup><mi>σ</mi><mi>v</mi><mo>′</mo></msubsup><mo>=</mo><mo>(</mo><msup><mi>γ</mi><mo>′</mo></msup><mo>−</mo><mi>i</mi><msub><mi>γ</mi><mi>w</mi></msub><mo>)</mo><mi>z</mi></math>",
+            "units": "σ′ em kPa; γ em kN/m³; z em m"
+          },
+          {
+            "title": "Gradiente crítico",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>i</mi><mi>c</mi></msub><mo>=</mo><mfrac><msup><mi>γ</mi><mo>′</mo></msup><msub><mi>γ</mi><mi>w</mi></msub></mfrac><mo>=</mo><mfrac><mrow><msub><mi>G</mi><mi>s</mi></msub><mo>−</mo><mn>1</mn></mrow><mrow><mn>1</mn><mo>+</mo><mi>e</mi></mrow></mfrac></math>",
+            "units": "adimensional"
+          }
+        ],
+        "media": [
+          {
+            "id": "CAND-V014-CARD-1585-VIS01",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Comparação qualitativa: manter o nível de água interno conforme o procedimento da NBR 6484, evitando fluxo prejudicial ao fundo.",
+            "alt": "SPT abaixo do nível freático — A diferença de carga hidráulica pode alterar as condições do fundo do furo.",
+            "evidence": "SVG renderizado e inspecionado na amostra local; Drive tamanho e acesso restrito conferidos; não homologado no portal.",
+            "public_src": "assets/card_visuals_v349/CARD-1585_esquema.svg",
+            "src": "assets/card_visuals_v349/CARD-1585_esquema.svg"
+          },
+          {
+            "id": "PETRO24-MEDIA-03",
+            "caption": "Bulbos de tensões: figuras de referência do estudo",
+            "alt": "Bulbos de tensões: figuras de referência do estudo",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+            "private_original": true
+          },
+          {
+            "id": "PETRO24-MEDIA-04",
+            "caption": "Sobreposição de bulbos de tensões",
+            "alt": "Sobreposição de bulbos de tensões",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+            "private_original": true
+          },
+          {
+            "id": "VC25-SVG-GRADIENTE",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Fluxo vertical ascendente e descendente: forças de percolação, peso submerso e gradiente crítico.",
+            "alt": "Fluxo vertical ascendente e descendente: forças de percolação, peso submerso e gradiente crítico.",
+            "src": "assets/card_visuals_vc25/gradiente_critico.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "Princípio de Terzaghi e equilíbrio de forças; CARD-0700.",
+            "evidence": "SVG autoral integrado; exibição no leitor ainda não testada."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Explique tensão efetiva em hidrostática, adensamento e percolação ascendente. Deduza o gradiente crítico e diferencie liquefação hidráulica, piping e subpressão.",
+      "back": "Em solo saturado, σ′=σ−u: a tensão efetiva governa a interação do esqueleto sólido. Em hidrostática, u=γw·z abaixo do nível d’água. Em camada saturada homogênea, o incremento efetivo é γ′·z, com γ′=γsat−γw. Em sobrecarga rápida unidimensional ideal, o acréscimo inicial aparece como excesso de poropressão; ao drenar, esse excesso diminui e a tensão efetiva aumenta, produzindo adensamento.\n\nNo fluxo vertical ascendente uniforme em solo saturado sem sobrecarga efetiva superficial, a força de percolação por unidade de volume é iγw, dirigida para cima. A tensão efetiva a uma profundidade z abaixo da superfície drenante é σ′v=(γ′−iγw)z. O gradiente crítico ic=γ′/γw=(Gs−1)/(1+e) anula a tensão efetiva nesse modelo. Para fluxo descendente, σ′v=(γ′+iγw)z. A condição de areia movediça ou ebulição hidráulica não é sinônimo de erosão interna (piping), que envolve transporte de partículas, nem de liquefação cíclica por carregamento.",
+      "source": "H20-C042; CON-11-003/004/007/008; FHWA NHI-06-088: https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; referência histórica Petrobras 24: NBR 6484:2020 (CARD-1585).; Fundamento: equilíbrio de forças e princípio de Terzaghi; referência técnica USACE EM 1110-2-1901, Seepage Analysis and Control for Dams; relação com CARD-1313.",
+      "mnemonic": "Total menos água = esqueleto; drena excesso, aumenta efetiva. Água sobe, efetiva desce; água desce, efetiva sobe. Crítico: peso submerso dividido pelo peso da água.",
+      "related_card_ids": [
+        "CARD-1571",
+        "CARD-1585",
+        "CARD-0124",
+        "CARD-0695",
+        "CARD-0696",
+        "CARD-0354",
+        "CARD-0472",
+        "CARD-0699",
+        "CARD-1313",
+        "CARD-0034",
+        "CARD-0412",
+        "CARD-0308",
+        "CARD-0316",
+        "CARD-1376",
+        "CARD-1312",
+        "CARD-1443"
+      ],
+      "related_question_ids": [],
+      "history_ref": {
+        "snapshot": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+        "ids": [
+          "CARD-0700"
+        ]
+      }
+    }
+  ]
+}
