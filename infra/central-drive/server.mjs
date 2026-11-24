@@ -1,14 +1,20 @@
 import {createServer} from 'node:http';
+import {createHash} from 'node:crypto';
+import {MediaNotFound} from './media.mjs';
+import {IMAGE_MIMES,IMAGE_LIMIT} from '../../assets/multiaccount-images-v001.mjs';
+import {PDF_LIMIT} from './media.mjs';
 import {readFile} from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 import {createAuth,parseUsers,sessionToken,sessionCookie} from './auth.mjs';
 import {createOwnerLoader,ownerToken} from './owner-drive.mjs';
 const htmlPath=new URL('./login.html',import.meta.url);
-const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'"};
+const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; img-src blob:; form-action 'self'; frame-ancestors 'none'; base-uri 'none'"};
+const context=token=>createHash('sha256').update('bm-context-v1:'+token).digest('hex');
 function send(res,status,value,extra={}){res.writeHead(status,{...headers,'Content-Type':'application/json; charset=utf-8',...extra});res.end(JSON.stringify(value))}
 async function body(req){if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw Error('Formato');let size=0,parts=[];for await(const chunk of req){size+=chunk.length;if(size>4096)throw Error('Limite');parts.push(chunk)}return JSON.parse(Buffer.concat(parts).toString('utf8'))}
 export function createCentralHandler({auth,loadProfile,origin}){
  if(!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(origin))throw Error('Origem HTTPS obrigatória');
+ let mediaBusy=0;
  return async(req,res)=>{
   try{
    const path=req.url,method=req.method,token=sessionToken(req.headers.cookie);
@@ -25,11 +31,26 @@ export function createCentralHandler({auth,loadProfile,origin}){
     catch{auth.revoke(s.token);return send(res,503,{error:'Perfil ainda não preparado ou indisponível'},{'Set-Cookie':sessionCookie('',0)})}
    }
    if(method==='POST'&&path==='/api/logout'){auth.revoke(token);return send(res,200,{ok:true},{'Set-Cookie':sessionCookie('',0)})}
-   if(method==='GET'&&path==='/api/session'){const s=auth.read(token);return s?send(res,200,{username:s.user.username}):send(res,401,{error:'Sessão encerrada'});}
+   const match=method==='GET'&&path.match(/^\/api\/media\/(image|pdf)\/([A-Za-z0-9_-]{1,160})$/);
+   if(match){
+    const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==context(token))return send(res,403,{error:'Contexto de sessão divergente'});
+    if(mediaBusy>=3)return send(res,429,{error:'Leituras ocupadas'});mediaBusy++;
+    try{
+     const {blob,filename}=await loadProfile(s.user,{media:{kind:match[1],id:match[2]}});
+     const allowed=match[1]==='pdf'?blob?.type==='application/pdf'&&blob.size<=PDF_LIMIT:IMAGE_MIMES.includes(blob?.type)&&blob.size<=IMAGE_LIMIT;
+     if(!allowed||!blob.size)throw Error('Arquivo inválido');const bytes=Buffer.from(await blob.arrayBuffer());
+     if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});
+     const name=String(filename||'arquivo').replace(/[\\/\x00-\x1f\x7f]/g,'_').slice(0,180);let encoded;try{encoded=encodeURIComponent(name).replace(/['()*]/g,c=>'%'+c.charCodeAt(0).toString(16))}catch{encoded='arquivo'}
+     res.writeHead(200,{...headers,'Content-Security-Policy':"sandbox; default-src 'none'; frame-ancestors 'none'",'Content-Type':blob.type,'Content-Disposition':"attachment; filename=arquivo; filename*=UTF-8''"+encoded,'Content-Length':bytes.length});
+     res.end(bytes);return;
+    }catch(e){if(e instanceof MediaNotFound)return send(res,404,{error:'Arquivo não disponível no perfil'});throw e}finally{mediaBusy--}
+   }
+   if(method==='GET'&&path==='/api/session'){const s=auth.read(token);return s?send(res,200,{username:s.user.username,context:context(token)}):send(res,401,{error:'Sessão encerrada'});}
    if(method==='GET'&&(path==='/api/profile'||path==='/api/runtime')){
     const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
     const summary=await loadProfile(s.user,{runtime:path==='/api/runtime'});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});
-    return send(res,200,{username:s.user.username,...summary});
+    return send(res,200,{username:s.user.username,...summary,context:context(token)});
    }
    return send(res,404,{error:'Rota não disponível'});
   }catch{if(!res.headersSent)send(res,503,{error:'Serviço indisponível'});else res.end()}
