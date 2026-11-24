@@ -503,6 +503,7 @@ const mount=async()=>{
    script.onload=resolve;script.onerror=()=>reject(Error('Módulo de estudos não carregou'));
    document.head.append(script);
   });
+  if(window.BMAccountRuntime)await window.BM240ControlDrive.hydrate();
   window.BM240ControlInit(root);
   installMobileRegisterCollapse(root);
   window.BancoMestreIconsV096?.refresh?.();
@@ -605,6 +606,13 @@ global.BM240Reconcile=Object.freeze({reconcile,validate});
 (function(){
 'use strict';
 if(window.BM240ControlDrive)return;
+if(window.BMAccountRuntime){
+ const adapter=window.BMAccountRuntime.studySync(window.BM240Reconcile);let pending=null,lastResult=null,dirty=false;
+ const sync=async()=>{try{const result=await adapter.sync();lastResult=result;dirty=result.pending;window.BM240ControlApp?.reloadProfileStudy?.();window.dispatchEvent(new CustomEvent('bm-profile-study-sync-result',{detail:result}));return result}catch(e){dirty=true;lastResult={state:'error',message:'Controle individual: '+e.message+' Dados locais preservados.'};window.dispatchEvent(new CustomEvent('bm-profile-study-sync-result',{detail:lastResult}));return lastResult}};
+ window.BM240ControlDrive=Object.freeze({hydrate:()=>adapter.hydrate(),sync,get lastResult(){return lastResult}});
+ window.addEventListener('bm240-study-changed',()=>{dirty=true;clearTimeout(pending);pending=setTimeout(()=>{if(dirty&&!adapter.busy)void sync()},1500)});
+ return
+}
 const KEY='BM245_CONTROLE_ESTUDOS',BASE='BM245_CONTROLE_DRIVE_BASE_SHA256',
  CLOCK='BM245_CONTROLE_TIMER',SNAPSHOT='BM245_CONTROLE_VERIFIED_BASE_DOC',KIND='bm_controle_estudos_v245',
  API='https://www.googleapis.com/drive/v3/files', UPLOAD='https://www.googleapis.com/upload/drive/v3/files',
@@ -821,7 +829,7 @@ window.BM240ControlDrive=Object.freeze({sync,inspectConflict,mergeSafe,verifyTim
 /* V240 — backups privados 30 diários + 12 mensais, somente após sync verificado. */
 (function(){
 'use strict';
-if(window.BM240StudyBackups)return;
+if(window.BM240StudyBackups||window.BMAccountRuntime)return;
 const API='https://www.googleapis.com/drive/v3/files',
 UP='https://www.googleapis.com/upload/drive/v3/files',
 KEY='BM245_CONTROLE_ESTUDOS',
@@ -1032,6 +1040,7 @@ void loadRecord('PETRO14-C014').catch(e=>console.warn('V242: o cartão será car
 (function(){
 'use strict';
 if(window.BM242Lacunas)return;
+const localStorage=window.BMAccountRuntime?.local||window.localStorage;
 const KEY='BM_LACUNAS_V242',types=['Conceitual','Memorização','Aplicação','Interpretação','Desatenção','Pesquisa'],
  coverage=['Não auditada','Direta','Indireta','Parcial','Ausente'],
  stages=['Identificada','Explicada','Em reforço','Dominada'];
@@ -1344,7 +1353,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    Protege contra sobrescrita concorrente. Nao modifica cartoes ou SRS. */
 (function(){
 'use strict';
-if(window.BM242LacunasDrive)return;
+if(window.BM242LacunasDrive||window.BMAccountRuntime)return;
 const KEY='BM_LACUNAS_V242',BASE='BM242_LACUNAS_REMOTE_SHA256',
  KIND='bm_lacunas_v242',PRIVATE_PARENT='1cDkoy-QgXYdzhOzi8SMSr7g4eB4oskBD',
  API='https://www.googleapis.com/drive/v3/files',
@@ -1525,7 +1534,7 @@ window.BM242LacunasDrive=Object.freeze({sync,get lastResult(){return lastResult}
 /* Banco Mestre V243 — rotacao verificada de backups diarios e mensais no Drive. */
 (function(){
 'use strict';
-if(window.BM243LacunasRetention)return;
+if(window.BM243LacunasRetention||window.BMAccountRuntime)return;
 const previous=window.BM242LacunasDrive;
 if(!previous?.sync){console.error('V243 backups: sincronizador de lacunas não está carregado');return}
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files',

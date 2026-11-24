@@ -1,6 +1,7 @@
 window.BM240ControlInit=(function(){
 return function(root){
 'use strict';
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 const KEY='BM245_CONTROLE_ESTUDOS', TIMER='BM245_CONTROLE_TIMER';
 const types=['Teoria','Questões','Revisão','Lei seca','Flashcards','Simulado','Outros'];
 const DEVICE_KEY='BM245_CONTROLE_DEVICE';
@@ -8,6 +9,7 @@ let device=localStorage.getItem(DEVICE_KEY);
 if(!device){device=crypto.randomUUID();localStorage.setItem(DEVICE_KEY,device)}
 function mirrorTimer(){
  const active=clock&&(clock.running||Number(clock.elapsed)>0);
+ if(account){return true} // Cronômetro permanece no aparelho; transferência segura será homologada separadamente.
  data.activeTimer=active?{...clock,ownerId:device,updatedAt:new Date().toISOString()}:null;
  return store();
 }
@@ -604,8 +606,10 @@ document.addEventListener('bm240-control-verified',()=>{
  window.addEventListener('pagehide',storeClock);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(resize).observe(root.querySelector('main'))}
 }
 init();
+if(account){for(const id of ['timerRelease','timerReclaim','timerClaim','bm240-list-backups','bm240-inspect-conflict','bm240-merge-safe']){const el=$(id);if(el){el.disabled=true;el.hidden=true}}const syncButton=document.createElement('button');syncButton.type='button';syncButton.textContent='Sincronizar meu controle';syncButton.id='bm-profile-study-sync';syncButton.onclick=()=>void window.BM240ControlDrive.sync();$('backupSummary').before(syncButton);const status=$('backupStatus');status.textContent='Controle individual. Cronômetro local; transferência e restauração remota serão habilitadas após homologação.';window.addEventListener('bm-profile-study-sync-result',e=>{status.textContent=e.detail.message});}
 window.BM240ControlApp=Object.freeze({
  reload(){load();refresh();showTimer()},
+ reloadProfileStudy(){if(!account)return;const savedClock=clock;load();clock=savedClock;refresh();showTimer()},
  createSubject(name){
   const n=String(name||'').trim();
   if(n.length<2||n.length>80)throw Error('O nome deve conter entre 2 e 80 caracteres');

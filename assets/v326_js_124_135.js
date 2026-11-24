@@ -288,6 +288,7 @@ else init();
    Nunca qualifica SRS, cartões, nem grifos divergentes como sincronizados. */
 (function(){
 'use strict';
+const localStorage=window.BMAccountRuntime?.local||window.localStorage;
 if(window.BM241SyncTruth)return;
 const $=id=>document.getElementById(id);
 const TYPES=[
@@ -759,6 +760,7 @@ else init();
    Não cria timer, não duplica IDs, não altera sessões, Drive, cartões ou SRS. */
 (function(){
  'use strict';
+const localStorage=window.BMAccountRuntime?.local||window.localStorage;
  if(window.BM242TimerDock)return;
  let dock=null,observer=null;
  function layout(){
@@ -1237,6 +1239,7 @@ else install();
    Fonte: armazenamento local do Controle V245. Sem gravacoes, sem eventos SRS. */
 (function(){
 'use strict';
+const localStorage=window.BMAccountRuntime?.local||window.localStorage;
 if(window.BM252StudyFlow)return;
 const KEY='BM245_CONTROLE_ESTUDOS';
 const GROUPS=[

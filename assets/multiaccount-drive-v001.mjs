@@ -1,3 +1,4 @@
+import {checkedStudyEnvelope,STUDY_KIND} from './multiaccount-study-v001.mjs';
 import {checkedImageRecord,registeredImage} from './multiaccount-image-ingest-v001.mjs';
 import {checkedImageState,IMAGE_STATE_KIND} from './multiaccount-image-state-v001.mjs';
 import {IMAGE_MIMES,IMAGE_LIMIT} from './multiaccount-images-v001.mjs';
@@ -62,6 +63,13 @@ export function createDriveProvider({fetcher=fetch,token,info,expiresAt,loadCata
    if(!matchingPdfCopy(f,doc)||(existing&&f.id!==existing.id)||Number(f.size)!==blob.size)throw Error('Confirmação da cópia divergente');
    return {id:f.id,name:f.name||name,updated:!!existing}
   },
+  async readStudyControl(subject){check(subject);if(!rootId)throw Error('Raiz não carregada');const files=await list(subject,STUDY_KIND,rootId);if(files.length>1)throw Error('Mais de um controle individual; conciliação necessária');if(!files.length)return null;const f=files[0];if(!/^\d+$/.test(String(f.version)))throw Error('Versão indisponível');return {id:f.id,version:String(f.version),payload:checkedStudyEnvelope(await jsonFile(f,subject),subject)}},
+  async saveStudyControl(subject,expected,payload){check(subject);if(!rootId)throw Error('Raiz não carregada');const value=checkedStudyEnvelope(payload,subject),files=await list(subject,STUDY_KIND,rootId);
+   if(!expected){if(files.length)throw Error('Controle criado por outro aparelho; sincronize novamente');return appendEvent(subject,STUDY_KIND,'BM_PORTAL_STUDY_',value,'study-control-v1')}
+   if(files.length!==1||files[0].id!==expected.id||String(files[0].version)!==String(expected.version))throw Error('Controle alterado em outro aparelho; sincronize novamente');
+   const url='https://www.googleapis.com/upload/drive/v3/files/'+encodeURIComponent(expected.id)+'?uploadType=media&fields='+encodeURIComponent(META);
+   const r=await fetcher(url,{method:'PATCH',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json; charset=UTF-8'},body:JSON.stringify(value),cache:'no-store',redirect:'error'});check(subject);if(!r.ok)throw Error('Gravação do controle não confirmada (HTTP '+r.status+')');const f=privateDriveFile(await r.json(),subject,STUDY_KIND,{parent:rootId,project:PORTAL_PROJECT});if(f.id!==expected.id||!/^\d+$/.test(String(f.version)))throw Error('Confirmação divergente');return {id:f.id,version:String(f.version)}
+  },
   async readImageState(subject){check(subject);if(!rootId)throw Error('Raiz não carregada');const files=await list(subject,IMAGE_STATE_KIND,rootId);if(files.length>1)throw Error('Mais de um estado de imagens; conciliação necessária');if(!files.length)return null;const f=files[0];if(!/^\d+$/.test(String(f.version)))throw Error('Versão indisponível');return {id:f.id,version:String(f.version),payload:checkedImageState(await jsonFile(f,subject),subject)}},
   async saveImageState(subject,expected,payload){check(subject);if(!rootId)throw Error('Raiz não carregada');const value=checkedImageState(payload,subject),files=await list(subject,IMAGE_STATE_KIND,rootId);
    if(!expected){if(files.length)throw Error('Estado criado por outro dispositivo; sincronize novamente');return appendEvent(subject,IMAGE_STATE_KIND,'BM_PORTAL_IMAGE_STATE_',value,'image-state-v1')}
@@ -95,6 +103,8 @@ export function createPortalSession({clientId,gis,fetcher=fetch,catalogs,loadCat
  async readImage(id,mimeType){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readImage(identity.sub,id,mimeType);ensure(n);return result},
  async readPdf(id){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readPdf(identity.sub,id);ensure(n);return result},
  async saveAnnotatedPdf(prepared){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveAnnotatedPdf(identity.sub,prepared);ensure(n);return result},
+ async readStudyControl(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readStudyControl(identity.sub);ensure(n);return result},
+ async saveStudyControl(expected,payload){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveStudyControl(identity.sub,expected,payload);ensure(n);return result},
  async readImageState(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readImageState(identity.sub);ensure(n);return result},
  async saveImageState(expected,payload){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveImageState(identity.sub,expected,payload);ensure(n);return result},
  async readMarksMaster(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readMarksMaster(identity.sub);ensure(n);return result},

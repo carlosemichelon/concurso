@@ -4,6 +4,7 @@
 (function(){
 'use strict';
 if(window.BM184StudyStore)return;
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 const SK='BM184_STUDY_SESSIONS_V1',RK='BM184_PRACTICE_EVENTS_V1';
 const LIMIT=6000,SCHEMA='BancoMestreDiarioV184';
 const RATINGS={Errei:4,'Difícil':8,Bom:16,'Fácil':28};
@@ -102,6 +103,7 @@ function nextReviews(){
  return [...map.values()].map(x=>({...x}));
 }
 function saveReview(input){
+ if(account)throw Error('Use a avaliação formal individual do leitor; não gerar segunda revisão local.');
  const cardId=plain(input.cardId,80),rating=String(input.rating||'');
  if(!/^(CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Za-z0-9_-]+)$/.test(cardId))
   throw Error('ID de cartão incompatível com a base.');
