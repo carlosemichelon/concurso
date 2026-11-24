@@ -49,6 +49,68 @@ try{
  await run('image-open',async p=>{await tab(p,'imagens');await wait(()=>p.evaluate('!!document.querySelector("#imageRows button.primary")'),'Imagem');await click(p,'#imageRows button.primary');await wait(()=>p.evaluate('document.getElementById("imageDialog").open&&document.getElementById("base").width>1'),'Editor de imagens')});
  await run('pdf-open',async p=>{await tab(p,'pdfs');await click(p,'#pdfRows button.primary');await wait(()=>p.evaluate('window.BancoMestrePDFV042?.editing&&window.BancoMestrePDFV042.totalPages===1'),'Editor de PDF',25000)});
  await run('profile-B-mobile',async p=>{const card=await p.evaluate('window.BMAccountRuntime.catalog().find(c=>c.id==="CARD-9001").front');assert.match(card,/20% de 150/);assert.equal(await p.evaluate('window.BMAccountRuntime.srs().records.length'),2);assert.equal(await p.evaluate('localStorage.length'),0);await tab(p,'cartoes');await click(p,'#cardRows .bm-v050-peek-button')},'B',390);
+ async function clickText(p,label){const result=await p.evaluate('(()=>{const b=[...document.querySelectorAll("button")].find(x=>x.textContent.trim()==='+JSON.stringify(label)+'&&x.getClientRects().length);if(!b)return false;b.click();return true})()');assert.ok(result,'Botão '+label)}
+ async function snapshot(p,path){return p.evaluate('window.BMPreviewApi.fetch('+JSON.stringify(path)+').then(r=>r.json())')}
+ await run('image-edit-sync-reopen',async p=>{
+  await p.cmd('Page.bringToFront');await tab(p,'imagens');await click(p,'#imageRows button.primary');
+  await wait(()=>p.evaluate('document.getElementById("imageDialog").open&&document.getElementById("grifo").width>1'),'Editor');
+  await click(p,'#imageDialog [data-ink-tool="pen"]');
+  const box=await p.evaluate('(()=>{const r=document.getElementById("grifo").getBoundingClientRect();return {x:r.left,y:r.top,w:r.width,h:r.height}})()');
+  assert.ok(box.w>20&&box.h>20);const x=Math.round(box.x+box.w*.25),y=Math.round(box.y+box.h*.25);
+  await p.cmd('Input.dispatchMouseEvent',{type:'mousePressed',x,y,button:'left',buttons:1,clickCount:1});
+  for(let i=1;i<=8;i++)await p.cmd('Input.dispatchMouseEvent',{type:'mouseMoved',x:x+i*5,y:y+i*3,button:'left',buttons:1});
+  await p.cmd('Input.dispatchMouseEvent',{type:'mouseReleased',x:x+40,y:y+24,button:'left',buttons:0,clickCount:1});
+  await wait(()=>p.evaluate('!document.getElementById("bmCentralImageSync").disabled'),'Traço pronto');
+  await click(p,'#bmCentralImageSync');
+  await wait(()=>p.evaluate('document.getElementById("imgMessage").textContent.includes("Simulação confirmada")'),'Confirmação imagem');
+  const id=await p.evaluate('window.BMAccountRuntime.imageCatalog()[0].id'),path='/api/image-annotations/'+id,saved=await snapshot(p,path);
+  assert.equal(saved.strokes.length,1);assert.equal(saved.strokes[0].type,'pen');
+  await click(p,'#imgClose');await wait(()=>p.evaluate('!document.getElementById("imageDialog").open'),'Fechamento');
+  await click(p,'#imageRows button.primary');await wait(()=>p.evaluate('document.getElementById("imageDialog").open'),'Reabrir');
+  assert.deepEqual(await p.evaluate('JSON.parse(window.BMAccountRuntime.local.getItem('+JSON.stringify('BM030_STROKES_'+id)+'))'),saved.strokes);
+  await click(p,'#imgClose');
+ });
+ await run('pdf-grifos-sync-copy-reopen',async p=>{
+  await tab(p,'pdfs');await click(p,'#pdfRows button.primary');
+  await wait(()=>p.evaluate('window.BancoMestrePDFV042?.editing&&window.BancoMestrePDFV042.totalPages===1'),'PDF',25000);
+  const mark=await wait(()=>p.evaluate('(()=>{const a=window.BancoMestrePDFV042;a.selectTextMode();return a.addTextHighlight({documentId:a.currentId,sourceHash:a.sourceHash,page:a.currentPage,text:"Banco Mestre",rects:[[.08,.08,.35,.13]],color:"#ffd400",classification_status:"confirmada"})})()'),'Grifo textual');
+  assert.equal(mark.text,'Banco Mestre');assert.ok(await p.evaluate('window.BancoMestrePDFV042.updateTextHighlight('+JSON.stringify(mark.id)+',{note:"Observação fictícia"})'));
+  await clickText(p,'Sincronizar grifos');await wait(()=>p.evaluate('document.getElementById("pdfLocalStatus").textContent.includes("Grifos simulados")'),'Recibo grifos');
+  const master=await snapshot(p,'/api/marks');assert.ok(JSON.stringify(master.master.records).includes('Observação fictícia'));
+  const built=await p.evaluate('window.BancoMestrePDFV042.buildAnnotated().then(async x=>({pages:x.pagesMarked,type:x.blob.type,header:new TextDecoder().decode(await x.blob.slice(0,5).arrayBuffer())}))');
+  assert.equal(built.pages,1);assert.equal(built.type,'application/pdf');assert.equal(built.header,'%PDF-');
+  await clickText(p,'Simular cópia no Drive');await wait(()=>p.evaluate('document.getElementById("pdfLocalStatus").textContent.includes("Cópia fictícia confirmada")'),'Recibo cópia');
+  await click(p,'#pdfClose');await wait(()=>p.evaluate('!document.getElementById("pdfDialog").open'),'Fechamento PDF');
+  await click(p,'#pdfRows button.primary');await wait(()=>p.evaluate('window.BancoMestrePDFV042?.editing&&window.BancoMestrePDFV042.currentMarks.some(x=>x.note==="Observação fictícia")'),'Reabrir grifo');
+ });
+ await run('gaps-create-sync',async p=>{
+  await tab(p,'lacunas');
+  const before=(await snapshot(p,'/api/gaps')).data.records.length;
+  await p.evaluate('(()=>{document.getElementById("bm242-new").open=true;const f=document.getElementById("bm242-form");f.elements.descricao.value="Lacuna fictícia de homologação";f.elements.cardIds.value="CARD-9001";f.elements.relatoEstudante.value="Relato literal de teste";f.requestSubmit();return true})()');
+  await wait(()=>p.evaluate('window.BM242Lacunas.data.records.length==='+String(before+1)),'Registro lacuna');
+  await click(p,'#bm242-sync');await wait(()=>p.evaluate('document.getElementById("bm242-state").textContent.includes("fictícias sincronizadas")'),'Recibo lacunas');
+  const after=await snapshot(p,'/api/gaps');assert.equal(after.data.records.length,before+1);assert.ok(after.data.records.some(r=>r.relatoEstudante==='Relato literal de teste'&&r.cardIds.includes('CARD-9001')));
+ });
+ await run('study-save',async p=>{
+  await tab(p,'controle-estudos');await wait(()=>p.evaluate('!!window.BM240ControlApp'),'Controle');
+  const id=await p.evaluate('window.BM240ControlApp.createSubject("Disciplina fictícia 024D")');assert.ok(id);
+  await p.evaluate('(()=>{const r=document.getElementById("bm240-native-host").shadowRoot;r.querySelector("[data-tab=backup]").click();r.getElementById("bm-profile-study-sync").click();return true})()');
+  await wait(()=>p.evaluate('document.getElementById("bm240-native-host").shadowRoot.getElementById("backupStatus").textContent.includes("fictício sincronizado")'),'Recibo controle');
+  assert.ok((await snapshot(p,'/api/study')).data.subjects.some(x=>x.id===id&&x.name==='Disciplina fictícia 024D'));
+ });
+ await run('simultaneous-profiles',async p=>{
+  const q=await page('B');try{
+   const before=await q.evaluate('JSON.stringify(window.BMAccountRuntime.srs())');
+   assert.notEqual(await p.evaluate('window.BMAccountRuntime.catalog().find(c=>c.id==="CARD-9001").front'),await q.evaluate('window.BMAccountRuntime.catalog().find(c=>c.id==="CARD-9001").front'));
+   await tab(p,'cartoes');await click(p,'#cardRows .bm-v050-peek-button');await click(p,'.bm-v050-peek-reveal');await click(p,'#bm316-srs-panel [data-grade="Bom"]');
+   await wait(()=>p.evaluate('document.getElementById("bm316-srs-state").textContent.includes("16 dias")'),'Revisão perfil A');
+   assert.equal(await q.evaluate('JSON.stringify(window.BMAccountRuntime.srs())'),before);
+   assert.equal(await p.evaluate('window.BMAccountRuntime.loadLayers("CARD-9004").then(()=>false,()=>true)'),true);
+   assert.equal(await q.evaluate('window.BMAccountRuntime.loadLayers("CARD-9002").then(()=>false,()=>true)'),true);
+   assert.equal(await p.evaluate('localStorage.length'),0);assert.equal(await q.evaluate('localStorage.length'),0);
+   assert.deepEqual(q.errors,[]);
+  }finally{q.close()}
+ });
  await writeFile(join(output,'results.json'),JSON.stringify(results,null,2));
  assert.ok(results.every(r=>r.ok),results.filter(r=>!r.ok).map(r=>r.name+': '+r.error).join('\n'));
 }finally{child.kill();await delay(350);await rm(dir,{recursive:true,force:true}).catch(()=>{});if(!results.length)console.error(stderr)}
