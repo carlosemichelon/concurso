@@ -1,0 +1,412 @@
+{
+  "format": "BancoMestrePetro29EsgotoConsolidacaoCandidataV1",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_public": "assets/petro29_remap_v1.json",
+  "policy": "Proposta de evolução com IDs preservados; remissões não são exclusão ou alteração de SRS. Integrar catálogo, grifos, mídia e renderização somente após portão didático e conferência.",
+  "counts": {
+    "source": 27,
+    "primary": 6,
+    "satellites": 21,
+    "new_ids": 0
+  },
+  "revisions": [
+    {
+      "id": "CARD-1607",
+      "title": "Inspeção e manutenção: CP, CI, PV e dispositivos de inspeção",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa (frente)",
+          "texto": "Diferencie CP, CI e PV por finalidade, dimensões e localização. Quando é obrigatório instalar CI/PV em tubulação enterrada, quais são as distâncias de acesso e quais as restrições de instalação?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Dispositivo de inspeção é a categoria que proporciona acesso para limpeza, inspeção e desobstrução. CP reúne tubulações; CI permite manutenção e mudanças de traçado; PV permite acesso interno em maior profundidade. Em tubulação enterrada, desvio, alteração de declividade e junção exigem CI ou PV. A CP não é substituto automático."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentação normativa",
+          "texto": "NBR 8160:1999, itens 3.7–3.8, 3.16, 4.2.5.5, 4.2.6, 4.2.6.2, 5.1.5.2–3. Conferir edição exigida na prova. A redação de 5.1.5.3(f) foi verificada na página 19."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A manutenção deve ser possível sem quebrar pisos ou paredes. Aberturas acessíveis possibilitam introduzir ferramentas de limpeza; CI/PV têm fundo de escoamento rápido para evitar depósitos e tampa vedada removível. PV dispõe de degraus de acesso."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, critérios e unidades",
+          "texto": "Distâncias: 25 m entre inspeções; 15 m da conexão do coletor predial com o público ao ponto de inspeção mais próximo; 10 m entre os pontos de contribuição especificados (bacia, CG, CS) e inspeção. Em prédio com mais de 2 pavimentos, CI a pelo menos 2 m do TQ que a alimenta. Todas são medidas em metros; os três primeiros são máximos, o último é mínimo."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "QUADRO DE DIMENSÕES (cm)\nCP: diâmetro/círculo inscrito ≥15; altura ≥10; saída mínima DN 50; tampa cega no primário.\nCI: profundidade ≤100; lado interno/diâmetro ≥60.\nPV: profundidade >100; lado interno/diâmetro ≥110; acesso com degraus.\nPV de duas partes: texto de 1999 prevê profundidade total ≤180, balão com altura ≥150 e chaminé com diâmetro interno ≥60. A desigualdade é incomum; não inverter em prova literal nem extrapolar a solução de projeto."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Exemplo 1: profundidade de 1,00 m → CI admitida pelo critério de profundidade; 1,20 m → PV. Exemplo 2: 26 m entre acessos → inadequado; 25 m atende ao máximo. Exemplo 3: CP com diâmetro interno de 12 cm → insuficiente. Exemplo 4: CI a 1,50 m do TQ em prédio de 4 pavimentos → inadequada. Reconhecer CPs/CI/PV pela legenda do projeto; Anexo A é informativo."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Consolidar os sete IDs deste núcleo, mantendo referências anteriores e vínculos externos, especialmente CARD-0397, 0220, 0409, 0526, 0747, 0236, 0514, 0737, 0738, 0743, 0744. Cruzar com CARD-1610 (CG), 1618 (recalque), 1620 (rede)."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "CI/PV não podem ficar em ambiente de unidade autônoma quando recebem efluentes de outras unidades. CG, CI e PV: impermeabilização, ventilação, material resistente ao esgoto, inspeção e tampa hermética. CI pode receber efluente fecal. Junção aparente: conexão a 45° e inspeção adjacente; enterrada: CI/PV. Acesso junto a curva de TQ quando inacessível por outro ponto."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir 60 cm da CI com chaminé do PV ou diâmetro da CGD. Não confundir profundidade máxima da CI com dimensão horizontal mínima. CP tem 15 cm de corpo, não 15 m. Não trocar distância mínima de 2 m por máxima."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e integridade",
+          "texto": "Macete DDJ (desvio, declividade, junção). 25–15–10 são máximos, 2 é mínimo. CP 15–10–50; CI 100/60; PV >100/110."
+        }
+      ],
+      "satellites": [
+        "CARD-1608",
+        "CARD-1609",
+        "CARD-1622",
+        "CARD-1624",
+        "CARD-1625",
+        "CARD-1627"
+      ]
+    },
+    {
+      "id": "CARD-1610",
+      "title": "Caixas de gordura: seleção, separação física e dimensionamento CGP/CGS/CGD/CGE",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa (frente)",
+          "texto": "Explique como a caixa de gordura funciona e escolha o tipo para cada número de cozinhas. Compare diâmetros, septos, retenção e saída; dimensione uma CGE a partir do número de pessoas atendidas."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A CG retém gordura antes do lançamento do efluente na rede. Uma cozinha: P ou S; duas: S ou D; de três a doze: D; acima de doze e cozinhas institucionais: E. Use o quadro completo abaixo, não uma definição isolada para cada caixa."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentação normativa",
+          "texto": "NBR 8160:1999, 4.2.4.4, 4.2.6, 4.2.6.1, 5.1.5.1.1–3 (pp. 18–19)."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A gordura tende a flutuar por menor densidade. Duas câmaras, receptora e vertedoura, são separadas por septo fixo submerso; o líquido segue sob o septo, deixando gordura acumulada para remoção. O septo não é um filtro; limpeza periódica é indispensável."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, critérios e unidades",
+          "texto": "CGE: V = 2N + 20, em litros, com N igual à população servida no turno de maior movimento. Para N=80, V=180 L = 0,18 m³; N=100 → 220 L. O volume calculado é o da câmara de retenção, não necessariamente o volume geométrico total."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "QUADRO COMPARATIVO — mínimos; diâmetro interno e septo em cm, retenção em L, saída em DN.\nCGP (cilíndrica): 30 | 20 | 18 | 75.\nCGS (cilíndrica): 40 | 20 | 31 | 75.\nCGD (cilíndrica): 60 | 35 | 120 | 100.\nCGE (retangular): septo 40 | V=2N+20 | saída ≥DN100; altura molhada 60; distância septo–saída ≥20."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Cinco cozinhas residenciais → CGD. Doze → CGD; treze → CGE. Restaurante com apenas uma cozinha → CGE pela natureza institucional. Uma CGS de 40 cm com retenção de 18 L não satisfaz a retenção mínima de 31 L. Na prova, verifique simultaneamente o tipo e todas as dimensões."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Vínculo com CARD-1202, CARD-1607 (requisitos de inspeção) e CARD-1620 (trajeto de coleta)."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Em edifícios com pias ou máquinas de lavar louça em andares sobrepostos, usar TQ exclusivo para CG coletiva; não usar CG individual nos andares. Acesso e ventilação adequados; material resistente e fechamento vedado. A adoção é recomendada onde houver gordura; observar exigência da autoridade competente."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar 18 L por 31 L, nem DN 75 por DN 100. N não é quantidade de cozinhas nem população total diária quando há turnos. A CG não substitui tratamento sanitário completo. Não confundir altura molhada com parte submersa do septo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e integridade",
+          "texto": "Macete: diâmetros 30–40–60, septos 20–20–35–40, retenções 18–31–120, saídas 75–75–100–100. Para E: 2N+20. Reutilizar referência visual existente; não inventar símbolo normativo."
+        }
+      ],
+      "satellites": [
+        "CARD-1611",
+        "CARD-1612",
+        "CARD-1613",
+        "CARD-1614"
+      ]
+    },
+    {
+      "id": "CARD-1615",
+      "title": "Desconectores, sifões, fecho hídrico e caixas sifonadas",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa (frente)",
+          "texto": "Explique a função do desconector, como medir o fecho hídrico e como escolher caixa sifonada comum ou especial, incluindo os limites em UHC e as restrições de contribuição."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O desconector mantém barreira líquida contra gases do esgoto. Sifão é o dispositivo; fecho hídrico é a água retida, cuja altura efetiva é normalmente ≥50 mm. CS possui desconector e recebe efluentes secundários permitidos; CS especial tem fecho ≥200 mm."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentação normativa",
+          "texto": "NBR 8160:1999, seção 3 (definições), 4.2.2.1–7, 5.1.1.1–3 e 5.1.2."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "O selo de água separa o ambiente dos gases do trecho primário. Pode ser perdido por evaporação, sucção ou sobrepressão; ventilação limita diferenças de pressão. A medida vertical vai do nível de saída até o ponto inferior da separação interna, e não do topo ao fundo da caixa."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, critérios e unidades",
+          "texto": "UHC = unidade de Hunter de contribuição, valor numérico associado à descarga habitual do aparelho. Somar contribuições admissíveis, escolher o corpo da CS pela faixa, e dimensionar o ramal de saída separadamente. Não usar UHC como L/s."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "QUADRO: CS comum DN100 até 6 UHC; DN125 até 10; DN150 até 15. CS especial: fecho 20 cm; corpo circular ou círculo inscrito ≥30 cm; saída DN75; tampa hermética removível. Todo desconector: fecho ≥5 cm e saída não menor que o RD conectado."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Exemplo: 8 UHC → CS DN125, não DN100; 10 UHC ainda admite DN125; 11 UHC exige DN150 dentre os modelos tabelados. Fecho de 35 mm <50 mm → insuficiente. Para mictório, não adicionar descarga de lavatório à mesma CS. Bacia sanitária usual tem desconector próprio."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Relacionar CARD-0733, 0389, 0506, 0734, 0742, 0745, 0485, 0368, 0741, 0231, 0201, 0735, 0739, 0740. Cruzar com CARD-1620 (UHC/ramais) e CARD-1633 (ventilação)."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "CS comum pode receber lavatórios, bidês, banheiras e chuveiros da mesma unidade; coleta de lavagem de piso exige grelha. CS de mictório: tampa cega e sem outros aparelhos. Para máquinas/tanques em pavimentos sobrepostos, TQ exclusivo com CS especial na extremidade é solução prevista. Não lançar bacia em CS comum."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "DN da caixa não é DN da saída. Fecho hídrico não é altura total da caixa. Sifão não é ventilador: um impede passagem de gases, o outro protege as condições de pressão. Esgoto primário/ secundário não se distingue pela posição vertical ou pelo diâmetro."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e integridade",
+          "texto": "Macete: 5 comum, 20 especial; 100/125/150 correspondem a 6/10/15 UHC. Sifão = peça, fecho = água, ventilação = proteção da pressão."
+        }
+      ],
+      "satellites": [
+        "CARD-1616",
+        "CARD-1617",
+        "CARD-1626",
+        "CARD-1628",
+        "CARD-1629"
+      ]
+    },
+    {
+      "id": "CARD-1618",
+      "title": "Caixa coletora e instalação de recalque: níveis, bombas e dimensionamento",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa (frente)",
+          "texto": "Quando é preciso recalcar esgoto? Compare caixas com e sem efluentes de bacias sanitárias e calcule volume útil, tempo de detenção e capacidade recomendada da bomba."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Caixa coletora recebe por gravidade o esgoto que precisa ser elevado. Com bacia: profundidade mínima 0,90 m; sem bacia: 0,60 m. Volume útil Vu = Qt/4; detenção d = Vt/q; recomendações de t≥10 min e Q≥2 vezes a vazão afluente, e detenção máxima de 30 min."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentação normativa",
+          "texto": "NBR 8160:1999, 4.2.7 e 5.1.6.1–12; página 20 conferida visualmente."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Se o ponto de contribuição está abaixo do nível do logradouro, a bomba permite vencer o desnível e devolver o esgoto à rede por gravidade, com proteção antirrefluxo. Volume muito pequeno causa partidas frequentes; excessivo prolonga a permanência e favorece septicidade."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, critérios e unidades",
+          "texto": "Vu (m³) é o volume entre níveis de liga/desliga; Q (m³/min) é a capacidade da bomba; t (min) é o intervalo entre partidas. Vt (m³) inclui volume útil e deslocamentos internos conforme item 5.1.6.10; q (m³/min) é a vazão média afluente para calcular d. Não confundir vazão da bomba com vazão média. Verificar também vazão máxima provável e altura manométrica."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "COM BACIA: 90 cm, medidos a partir da geratriz inferior do afluente mais baixo; pelo menos dois grupos motobomba alternados; passagem de esfera 60 mm; recalque ≥DN75; fundo inclinado e ventilação preferencialmente independente.\nSEM BACIA: 60 cm; esfera 18 mm; recalque ≥DN40.\nAmbos: acesso, estanqueidade, ventilação, tampa vedada e proteção contra refluxo; funcionamento automático alternado com alarme de falha."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Exemplo: Q=0,12 m³/min, t=10 min → Vu=0,30 m³. Se Vt=0,36 m³ e q=0,04 m³/min, d=9 min; atende 30 min. Se vazão afluente de referência =0,05 m³/min, Q=0,12 ≥0,10 m³/min. Se Vt=1,40 m³ e q=0,04, d=35 min → inadequado. Não confundir litros/min com m³/min."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Cruzar CARD-1607 (CI/PV), CARD-1620 (trajeto de esgoto) e"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Em efluentes exclusivamente de lavagem de pisos ou automóveis, a norma admite dispensar CI e encaminhar via CS de diâmetro mínimo 0,40 m diretamente à coletora. Sucção independente por bomba, DN uniforme e não inferior ao recalque. Recalque deve ultrapassar nível do logradouro e impedir refluxo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir caixa coletora com coletor predial (tubulação) ou CI. Não usar t≥10 min como tempo de detenção; são variáveis distintas. Não trocar o limite de 30 min de detenção por mínimo. O texto impõe a detenção máxima e recomenda os critérios de t e Q."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e integridade",
+          "texto": "Macete 90/75/60 (com bacia); 60/40/18 (sem bacia), respectivamente profundidade em cm, DN e esfera em mm. Partida 10, detenção 30, bomba 2, volume divide por 4."
+        }
+      ],
+      "satellites": [
+        "CARD-1619"
+      ]
+    },
+    {
+      "id": "CARD-1620",
+      "title": "Trajeto do esgoto predial: aparelhos, RD, RE, TQ, coletores, UHC e destino",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa (frente)",
+          "texto": "Descreva o caminho dos efluentes do aparelho ao destino final, distinguindo RD, RE, TQ, subcoletor, coletor predial e público. Explique UHC, a contribuição da bacia e a distinção entre transporte e tratamento."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "RD recebe diretamente um aparelho; RE recebe efluentes dos RD, diretamente ou por desconector, e pertence ao primário. TQ é o trecho vertical que recebe e conduz descargas; subcoletor recebe um ou mais TQ ou RE; coletor predial leva o esgoto da última inserção ao coletor público ou tratamento particular. UHC representa a contribuição habitual de descarga dos aparelhos."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentação normativa",
+          "texto": "NBR 8160:1999, seção 3 (definições), 4.1.3.1–5, 4.2.1–5, 5.1.2–4, Tabela 3 e nota."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Aparelho sanitário é a interface de uso higiênico da água/recebimento de despejos; bacia recebe dejetos humanos e possui desconector próprio nas configurações usuais. Desconector protege contra gases; tubulação conduz, inspeção dá acesso, dispositivo de tratamento reduz sólidos e poluentes. Rede pluvial é separada."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, critérios e unidades",
+          "texto": "UHC é fator de contribuição, não vazão instantânea. Bacia sanitária: 6 UHC, RD normalmente DN100; nota da Tabela 3 prevê condição excepcional de DN75 mediante justificativa hidráulica e compatibilidade da bacia. Declividade recomendada: DN≤75 → 2%; DN≥100 → 1%; subcoletores e coletor predial: máxima 5%, coletor predial mínimo DN100."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "QUADRO FUNCIONAL\nAparelho = origem; RD = ligação direta; RE = reunião de RD no primário; TQ = condução vertical; subcoletor = reunião de TQ/RE; coletor predial = trecho final privado; coletor público = rede externa que recebe coletores prediais. Destino sem rede pública = sistema particular de tratamento adequado. Tratamento não é sinônimo de coleta."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Exemplo: lavatório → RD → CS/desconector → RE → TQ → subcoletor → coletor predial → rede pública. Bacia → RD próprio → rede primária. Para 12 m de tubo DN75 a 2%, desnível = 0,02×12=0,24 m. Em coletor residencial, banheiro com bacia de 6 UHC e demais aparelhos de menor contribuição → considerar o aparelho de maior descarga conforme 5.1.4.2, não somar todos nesse trecho."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Relacionar CARD-0734, 0739, 0746, 0733, 0742, 1202 e vínculos originais. Cruzar CARD-1615 (desconectores), 1607 (inspeção), 1610 (gordura), 1618 (recalque), 1633 (ventilação)."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Sem rede pública, tratamento particular deve atender à normalização pertinente; tanque séptico isolado não garante lançamento seguro. É vedada ligação de outro ramal por inspeção de joelho/curva de RD da bacia. Mudança horizontal ≤45°, mudança horizontal/vertical ≤90°. Nos coletores residenciais, aplicar exceção de UHC por banheiro; nos demais casos, somar aparelhos contribuintes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "RD pode estar em trecho primário ou secundário conforme posição em relação ao desconector; não é todo RD que está protegido por uma CS. RE é primário. Coletor predial não é caixa coletora. CG é retenção localizada, CI/CP não são tratamento. Diferenciar os valores recomendados de declividade dos limites obrigatórios aplicáveis."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e integridade",
+          "texto": "Macete: aparelho → descarga → esgoto → queda → subcoletor → coletor predial → rede/tratamento. Primário = contato com gases do sistema; secundário = separado pelo desconector."
+        }
+      ],
+      "satellites": [
+        "CARD-1621",
+        "CARD-1623",
+        "CARD-1630",
+        "CARD-1631",
+        "CARD-1632"
+      ]
+    },
+    {
+      "id": "CARD-1633",
+      "title": "Ventilação do esgoto: extremidades, cobertura, aberturas e proteção do fecho",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa (frente)",
+          "texto": "Quais critérios determinam a altura e afastamento do terminal de ventilação? Diferencie cobertura sem uso, terraço utilizado e proximidade de aberturas; explique por que a ventilação protege o fecho hídrico."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Cobertura exclusiva: terminal ≥0,30 m acima dela. Laje com outros usos: ≥2,00 m. Janela/porta/vão de ventilação: distância ≥4,00 m, exceto terminal ≥1,00 m acima da respectiva verga. Os critérios de altura sobre cobertura e de aberturas são independentes."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentação normativa",
+          "texto": "NBR 8160:1999, 4.3.1–6, Figura 3, 4.3.9 e 4.3.13–14; 4.2.2.7."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A ventilação permite circulação de ar, limita depressões e sobrepressões que ameaçam o fecho e favorece dispersão de gases. Ventilação primária pode ser suficiente desde que verificada; se não, adequar geometria ou prever ventilação secundária."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, critérios e unidades",
+          "texto": "Alturas e distâncias são medidas em m. Aclive mínimo de tubulação de ventilação: 1% para retorno de líquido por gravidade. A ligação superior de coluna a tubo ventilador primário deve ficar pelo menos 0,15 m acima do nível de transbordamento do aparelho mais elevado servido, situação diferente da altura terminal externa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "QUADRO: cobertura exclusiva 30 cm | terraço utilizado 200 cm | afastamento de abertura 400 cm | exceção acima da verga 100 cm. A proteção contra choques e terminal que impeça entrada direta de chuva também são exigidos."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Q009: laje sem outros usos, terminal 0,40 m → atende altura. Q013: playground, terminal 1,80 m → não; 2,00 e 2,20 m → atendem altura. Abertura a 3 m com terminal 1,10 m acima da verga → atende a exceção de abertura, ainda devendo respeitar altura de cobertura. Se apenas 0,80 m acima da verga → não atende."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Vínculos CARD-1104, 0981, 1105, 1108; PETRO29-Q008/Q009/Q013, PETRO14-Q025. Cruzar CARD-1615 para manutenção do fecho."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Terminal tipo chaminé/tê ou equivalente evita chuva direta, mas não dispensa cotas. Ventiladores e colunas preferencialmente verticais; desvios com curvas até 90° e aclive mínimo de 1%. Verificar suficiência de ventilação primária conforme metodologia da norma."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não memorizar 'laje=30 cm' sem examinar o uso. Não confundir 2 m de terminal em terraço com afastamento CI–TQ. A exceção de 1 m sobre a verga não substitui os 2 m quando a cobertura é ocupada."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e integridade",
+          "texto": "Macete 30–200–400–100 cm: cobertura, ocupação, abertura, exceção. 15 cm é outra ligação, não terminal externo. Reutilizar referência visual original da Figura 3 e materiais existentes."
+        }
+      ],
+      "satellites": []
+    }
+  ]
+}

@@ -1542,7 +1542,7 @@ function show(id,origin){
  freeTrtUrls();currentId=id;title.textContent='Cartão '+id;
  front.textContent=c.front||'Pergunta não cadastrada';
  const restored=window.BM349?.has(id);const oldFront=questionBlock.querySelector('.bm349-front-media');if(oldFront)oldFront.remove();answer.classList.toggle('bm349-restored-answer',!!restored);
- if(restored){const f=create('div','bm349-front-media');front.after(f);void window.BM349.load().then(()=>{if(currentId!==id||overlay.hidden)return;front.textContent=window.BM349.get(id).front;void window.BM349.renderFront(f,id);}).catch(e=>{if(currentId===id)f.textContent='Pergunta restaurada indisponível: '+e.message});}
+ if(restored){const f=create('div','bm349-front-media');front.after(f);void window.BM349.load(id).then(()=>{if(currentId!==id||overlay.hidden)return;front.textContent=window.BM349.get(id).front;void window.BM349.renderFront(f,id);}).catch(e=>{if(currentId===id)f.textContent='Pergunta restaurada indisponível: '+e.message});}
  meta.textContent=(window.BM349?.has(id)?[c.discipline,c.subject]:[c.discipline,c.subject,c.sub]).filter(Boolean).join(' › ');
  provenance.textContent=/^TRT0[12]-C\d{3}$/.test(id)?'TRT · registro operacional · não modifica SRS':c.provisional?'Cópia operacional de Ijuí · sem promoção canônica':'Cartão da base original · ID preservado';
  if(window.BM163LeiSeca?.getRecord(id)?.notice)provenance.textContent+=' · referência normativa divergente';
