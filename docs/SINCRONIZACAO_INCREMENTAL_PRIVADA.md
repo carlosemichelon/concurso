@@ -6,4 +6,12 @@ Fluxo: salvar e verificar novo leitor no Drive; atualizar apenas a entrada corre
 
 Validação pré-implantação: `node --test tests/private_study_manifest.test.cjs`; executar o portão didático vigente se aplicável, verificar paridade com outras entradas HTML realmente usadas pelo portal, testar abertura do arquivo real com login Google, troca de sessão, logout e ausência de manifesto. Não fundir com gh-pages até essas verificações. A arquitetura atual é por conta OAuth do Drive, não por usuário do site; isolamento de múltiplos usuários sob uma única conta Drive depende de implementação separada.
 
-Após implantação verificada, atualizações de estudos compatíveis com o esquema não precisam de novo commit HTML. A integração ao catálogo único e ao calendário oficial permanece uma etapa separada.
+Após implantação verificada, atualizações de estudos compatíveis com o esquema não precisam de novo commit HTML. O candidato integra a leitura do catálogo único e a projeção de agendamentos autorizados no calendário, sem criar avaliações formais. A integração efetiva no portal publicado ainda depende da homologação.
+
+
+## Checkpoint técnico — 24/11/2026
+- Candidato recomposto sobre o commit V351 e830eeba044ddab17d5f93c3d39d19a22ed93c61; preservados os vínculos V350 e o módulo de mídias V351. Ramificação anterior preservada como referência.
+- Política prospectiva SRS-2026-11-23: Difícil 8, Bom 16, Fácil 24, Conhecimento preservado 32, Conhecimento adquirido 64. Não há promoção automática; aquisição formal explícita exige prova de duas avaliações Fácil. Eventos e datas legados permanecem legíveis.
+- O manifesto privado pode conter approvedAgenda por sessão: somente eventos com identidade exata, origem verificável e intervalo de 8/16 dias. Conflitos, propostas, avaliações e dados pessoais não são publicados neste repositório.
+- Regressões executadas sobre os arquivos desta ramificação em ambiente JavaScript isolado: 11 manifesto, 10 conciliação, 10 política SRS; 31/31 aprovadas. Para repetir em Node: `node --test tests/private_study_manifest.test.cjs tests/private_increment_reconcile.test.cjs tests/srs_policy_20261123.test.cjs`. Isso não substitui homologação real OAuth, renderização e sincronização no navegador.
+- Próximo passo: comparar apenas divergências de identidade com versões e conceitos, sem renumerar por coincidência; manter propostas pendentes e mídia não homologada. Antes de publicar, reconciliar novamente com a ponta de gh-pages, verificar as entradas HTML efetivamente utilizadas, testar login, abertura do manifesto real, calendário, logout e ausência de duplicatas. Não promover sem evidências. O checkpoint privado e as aprovações permanecem no Drive.
