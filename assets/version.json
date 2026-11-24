@@ -5900,9 +5900,9 @@
       }
     },
     "method": {
-      "version": "VM2",
-      "previous": "VM1",
-      "scope": "Interface única de estudo; revisão por fila; SRS inalterado"
+      "version": "VM3",
+      "previous": "VM2",
+      "scope": "Uniformidade editorial V333 no renderizador compartilhado; regressão automática restrita a mudanças de interface, sem etapas manuais no estudo"
     },
     "review": {
       "version": "VR3",
@@ -6325,5 +6325,14 @@
     "srs_rules_changed": false,
     "authenticated_browser_test": "pending",
     "rollback": "V387"
+  },
+  "editorial_regression": {
+    "scope": "VS: teste de navegador integrado ao portão existente, com detecção de alterações de interface; VC sem teste ampliado quando só conteúdo muda",
+    "reference": "CARD-1534/V333",
+    "fixture": "CARD-0701",
+    "workflow": ".github/workflows/closure-gate.yml",
+    "test": "tests/closure_browser.cjs",
+    "status": "configured_not_verified",
+    "manual_steps": 0
   }
 }

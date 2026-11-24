@@ -3,6 +3,9 @@ on:
   push:
     branches: [gh-pages]
     paths: ['index.html', 'v*.html', 'assets/**', 'tests/**', '.github/workflows/closure-gate.yml']
+  pull_request:
+    branches: [gh-pages]
+    paths: ['index.html', 'assets/**', 'tests/**', 'tools/editorial_interface_changed.cjs', '.github/workflows/closure-gate.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -11,10 +14,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - run: node --test tests/closure_gate.test.cjs tests/study_batch.test.cjs tests/v370_private_preview.test.cjs tests/v371_drive_changes.test.cjs
-      - run: npm install --no-save playwright
-      - run: npx playwright install --with-deps chromium
-      - run: node tests/closure_browser.cjs
+      - name: Detectar alteração efetiva da interface
+        id: interface
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: node tools/editorial_interface_changed.cjs "$BASE" >> "$GITHUB_OUTPUT"
+      - if: steps.interface.outputs.interface_changed == 'true'
+        run: npm install --no-save playwright
+      - if: steps.interface.outputs.interface_changed == 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.interface.outputs.interface_changed == 'true'
+        run: node tests/closure_browser.cjs
