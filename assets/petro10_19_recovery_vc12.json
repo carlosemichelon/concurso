@@ -1,0 +1,688 @@
+{
+  "format": "BancoMestrePublicRecoveryVC12",
+  "source_catalog_blob": "9bc752dbea0333ac41496ed01acc055470b63563",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1490",
+      "title": "Compressão de barras de aço: flambagem global",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais modos de flambagem global podem controlar uma barra de aço comprimida? Explique a influência dos vínculos, da seção e da esbeltez e calcule o efeito de dobrar o comprimento efetivo no modo de flexão elástica."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A compressão pode produzir flambagem por flexão (encurvamento lateral do eixo da barra), por torção (rotação da seção em torno do eixo longitudinal) ou por flexo-torção (acoplamento dos dois movimentos). Para uma coluna ideal no modo de flexão, a força crítica de Euler diminui com o quadrado do comprimento efetivo. Deve-se comparar os modos aplicáveis: o menor momento de inércia não determina necessariamente a instabilidade crítica, pois a rigidez torsional, o empenamento e os vínculos também influenciam a resposta."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Item 5.3, barras comprimidas; mecânica clássica de Euler."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "A força axial produz momento adicional quando surge deslocamento lateral. A rigidez à flexão resiste à curvatura; a rigidez à torção e ao empenamento resiste à rotação. Seções abertas com simetria limitada podem apresentar acoplamento flexo-torsional."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Para flexão elástica ideal, Ne=π²EI/(KL)²; i=√(I/A), λ=KL/i. E em MPa, I em mm⁴, KL em mm e Ne em N. Se KL duplica, Ne cai para um quarto. Comparar direções com os comprimentos efetivos próprios."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\nFlexão | Eixo longitudinal encurva\nTorção | Seção gira\nFlexo-torção | Encurvamento e rotação acoplados\nLocal | Chapas da seção ondulam; outro mecanismo"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Para uma coluna ideal com E=200.000 MPa, I=2.000.000 mm⁴ e KL=3.000 mm, Ne≈439 kN. Com KL=6.000 mm, Ne≈110 kN. Isso é carga crítica elástica ideal, não força resistente de cálculo."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1491: Elementos; CARD-1492: Flexão; CARD-1493: 2ª ordem; CARD-1529: Pilares mistos: tipos, limites e flambagem"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "Euler pressupõe barra ideal inicialmente reta, material elástico e vínculos idealizados; resistência de projeto considera imperfeições, plastificação e instabilidade local. Não adotar K universal. Os modos pertinentes dependem da geometria e dos apoios."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir flambagem global por torção em compressão com FLT de uma viga fletida. Menor I só governa a comparação entre modos de flexão se as demais condições forem equivalentes."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Flexão curva; torção gira; flexo-torção curva e gira. Dobrou KL, Euler divide por quatro."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A compressão pode produzir flambagem por flexão (encurvamento lateral do eixo da barra), por torção (rotação da seção em torno do eixo longitudinal) ou por flexo-torção (acoplamento dos dois movimentos). Para uma coluna ideal no modo de flexão, a força crítica de Euler diminui com o quadrado do comprimento efetivo. Deve-se comparar os modos aplicáveis: o menor momento de inércia não determina necessariamente a instabilidade crítica, pois a rigidez torsional, o empenamento e os vínculos também influenciam a resposta.",
+          "A força axial produz momento adicional quando surge deslocamento lateral. A rigidez à flexão resiste à curvatura; a rigidez à torção e ao empenamento resiste à rotação. Seções abertas com simetria limitada podem apresentar acoplamento flexo-torsional.",
+          "Euler pressupõe barra ideal inicialmente reta, material elástico e vínculos idealizados; resistência de projeto considera imperfeições, plastificação e instabilidade local. Não adotar K universal. Os modos pertinentes dependem da geometria e dos apoios."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "flambagem por flexão",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "por torção",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "por flexo-torção",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "quadrado do comprimento efetivo",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "Flexão",
+              "Eixo longitudinal encurva"
+            ],
+            [
+              "Torção",
+              "Seção gira"
+            ],
+            [
+              "Flexo-torção",
+              "Encurvamento e rotação acoplados"
+            ],
+            [
+              "Local",
+              "Chapas da seção ondulam; outro mecanismo"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Força crítica de Euler",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>N</mi><mi>e</mi></msub><mo>=</mo><mfrac><mrow><msup><mi>π</mi><mn>2</mn></msup><mi>E</mi><mi>I</mi></mrow><msup><mrow><mo>(</mo><mi>K</mi><mi>L</mi><mo>)</mo></mrow><mn>2</mn></msup></mfrac></math>",
+            "units": "N, com MPa e mm"
+          },
+          {
+            "title": "Esbeltez geométrica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>λ</mi><mo>=</mo><mfrac><mrow><mi>K</mi><mi>L</mi></mrow><mi>i</mi></mfrac><mo>,</mo><mi>i</mi><mo>=</mo><msqrt><mfrac><mi>I</mi><mi>A</mi></mfrac></msqrt></math>",
+            "units": "λ adimensional; i em mm"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Quais modos de flambagem global podem controlar uma barra de aço comprimida? Explique a influência dos vínculos, da seção e da esbeltez e calcule o efeito de dobrar o comprimento efetivo no modo de flexão elástica.",
+      "back": "A compressão pode produzir flambagem por flexão (encurvamento lateral do eixo da barra), por torção (rotação da seção em torno do eixo longitudinal) ou por flexo-torção (acoplamento dos dois movimentos). Para uma coluna ideal no modo de flexão, a força crítica de Euler diminui com o quadrado do comprimento efetivo. Deve-se comparar os modos aplicáveis: o menor momento de inércia não determina necessariamente a instabilidade crítica, pois a rigidez torsional, o empenamento e os vínculos também influenciam a resposta.",
+      "source": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Item 5.3, barras comprimidas; mecânica clássica de Euler.",
+      "mnemonic": "Flexão curva; torção gira; flexo-torção curva e gira. Dobrou KL, Euler divide por quatro.",
+      "related_card_ids": [
+        "CARD-1491",
+        "CARD-1492",
+        "CARD-1493",
+        "CARD-1529"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1491",
+      "title": "Chapas comprimidas: elementos AA e AL",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como identificar elementos AA e AL em uma seção de aço e por que suas condições de borda influenciam a flambagem local? Compare alma e mesa de um perfil I."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "AA designa uma chapa com as duas bordas longitudinais apoiadas; AL, uma chapa com uma borda longitudinal apoiada e outra livre. Em um perfil I convencional, a alma entre as mesas é AA e cada balanço da mesa comprimida é AL. A esbeltez local é representada por uma relação largura/espessura (b/t), definida para cada elemento conforme a norma. A borda livre torna a chapa mais vulnerável à instabilidade local, mas os limites normativos dependem da seção, da distribuição de tensões e das condições de apoio."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Classificação de elementos para flambagem local de barras comprimidas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "O apoio longitudinal restringe deslocamento fora do plano. Em uma chapa em balanço, a borda livre pode ondular com menor restrição; reduzir espessura diminui a rigidez à flexão da chapa e aumenta b/t. Uma barra pode apresentar instabilidade local sem que seu eixo global flambe."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "λlocal=b/t, adimensional; use a largura plana definida para a chapa, não necessariamente a largura externa total do perfil. Exemplo geométrico: b=100 mm e t=8 mm → b/t=12,5; t=4 mm → 25."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\nAA | Apoiada + apoiada; alma do I\nAL | Apoiada + livre; balanço da mesa\nb/t | Esbeltez local da chapa\nKL/i | Esbeltez global da barra"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Ao verificar uma coluna I, classifique a alma e os balanços de mesa separadamente e aplique os limites adequados a cada elemento. Não trate toda a mesa como chapa apoiada em ambas as bordas."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1490: Flambagem; CARD-1492: Flexão"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "A classificação se refere às bordas longitudinais. Apoiada não equivale necessariamente a engastada. O valor limite de b/t não é único; consultar as tabelas e hipóteses da edição de projeto."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "AA/AL não designam classe de aço nem tipo de ligação. Não usar a mesma largura b para todo elemento, nem confundir b/t com KL/i."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "A de apoiada; L de livre. Alma entre mesas = AA; aba em balanço = AL."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "AA designa uma chapa com as duas bordas longitudinais apoiadas; AL, uma chapa com uma borda longitudinal apoiada e outra livre. Em um perfil I convencional, a alma entre as mesas é AA e cada balanço da mesa comprimida é AL. A esbeltez local é representada por uma relação largura/espessura (b/t), definida para cada elemento conforme a norma. A borda livre torna a chapa mais vulnerável à instabilidade local, mas os limites normativos dependem da seção, da distribuição de tensões e das condições de apoio.",
+          "O apoio longitudinal restringe deslocamento fora do plano. Em uma chapa em balanço, a borda livre pode ondular com menor restrição; reduzir espessura diminui a rigidez à flexão da chapa e aumenta b/t. Uma barra pode apresentar instabilidade local sem que seu eixo global flambe.",
+          "A classificação se refere às bordas longitudinais. Apoiada não equivale necessariamente a engastada. O valor limite de b/t não é único; consultar as tabelas e hipóteses da edição de projeto."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "duas bordas longitudinais apoiadas",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "uma borda longitudinal apoiada e outra livre",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "largura/espessura (b/t)",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "AA",
+              "Apoiada + apoiada; alma do I"
+            ],
+            [
+              "AL",
+              "Apoiada + livre; balanço da mesa"
+            ],
+            [
+              "b/t",
+              "Esbeltez local da chapa"
+            ],
+            [
+              "KL/i",
+              "Esbeltez global da barra"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Esbeltez local",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>λ</mi><mi>local</mi></msub><mo>=</mo><mfrac><mi>b</mi><mi>t</mi></mfrac></math>",
+            "units": "b e t na mesma unidade; adimensional"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Como identificar elementos AA e AL em uma seção de aço e por que suas condições de borda influenciam a flambagem local? Compare alma e mesa de um perfil I.",
+      "back": "AA designa uma chapa com as duas bordas longitudinais apoiadas; AL, uma chapa com uma borda longitudinal apoiada e outra livre. Em um perfil I convencional, a alma entre as mesas é AA e cada balanço da mesa comprimida é AL. A esbeltez local é representada por uma relação largura/espessura (b/t), definida para cada elemento conforme a norma. A borda livre torna a chapa mais vulnerável à instabilidade local, mas os limites normativos dependem da seção, da distribuição de tensões e das condições de apoio.",
+      "source": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Classificação de elementos para flambagem local de barras comprimidas.",
+      "mnemonic": "A de apoiada; L de livre. Alma entre mesas = AA; aba em balanço = AL.",
+      "related_card_ids": [
+        "CARD-1490",
+        "CARD-1492"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1492",
+      "title": "Vigas de aço: FLT, FLM e FLA",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie FLT, FLM e FLA em vigas de aço. Qual é o efeito da contenção lateral e como se determina o mecanismo que limita o momento resistente?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "FLT é a flambagem lateral com torção: a viga desloca-se lateralmente e sua seção gira. FLM é a flambagem local da mesa comprimida, e FLA é a flambagem local da alma. Nos dois últimos casos, as chapas sofrem deslocamentos fora de seu plano. A contenção lateral e torsional adequada reduz a suscetibilidade à FLT, mas não elimina automaticamente a FLM ou a FLA. O momento fletor resistente de cálculo deve respeitar o menor valor entre os estados-limite aplicáveis à seção e ao eixo de flexão, incluindo os demais limites prescritos."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Item 5.4 e anexos relativos a barras fletidas."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "A compressão na mesa pode levar a deslocamento lateral associado à torção da seção inteira; o trecho não contido é importante para FLT. Mesas e almas finas podem ondular localmente devido às tensões de compressão. Travar uma viga globalmente não torna suas chapas espessas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Para seção I em flexão no eixo forte, parâmetros usuais de identificação incluem Lb/ry para FLT, b/tf para FLM e h/tw para FLA, com as definições normativas de largura e altura. Todos são adimensionais; as expressões de resistência variam conforme seção e edição."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\nFLT | Global; comprimento sem contenção\nFLM | Local; esbeltez da mesa comprimida\nFLA | Local; esbeltez da alma\nMomento resistente | Menor resistência aplicável, respeitados demais limites"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se as resistências calculadas para FLT, FLM e FLA forem 180, 160 e 210 kN·m, respectivamente, o menor valor é 160 kN·m, limitado pela FLM, sujeito aos demais requisitos de cálculo. Se o travamento elevar apenas a resistência à FLT, a FLM ainda governa."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1490: Flambagem; CARD-1491: Elementos; CARD-1493: 2ª ordem"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "Nem todos os modos são aplicáveis a toda seção ou eixo de flexão. Cisalhamento, interação de esforços, ligações e outros requisitos continuam sendo verificados quando pertinentes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "FLT não é flambagem local da mesa; FLA é da alma, não da aba. Aumentar travamento não resolve automaticamente a esbeltez local."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "T torce a viga; M ondula mesa; A ondula alma. Menor resistência governa."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "FLT é a flambagem lateral com torção: a viga desloca-se lateralmente e sua seção gira. FLM é a flambagem local da mesa comprimida, e FLA é a flambagem local da alma. Nos dois últimos casos, as chapas sofrem deslocamentos fora de seu plano. A contenção lateral e torsional adequada reduz a suscetibilidade à FLT, mas não elimina automaticamente a FLM ou a FLA. O momento fletor resistente de cálculo deve respeitar o menor valor entre os estados-limite aplicáveis à seção e ao eixo de flexão, incluindo os demais limites prescritos.",
+          "A compressão na mesa pode levar a deslocamento lateral associado à torção da seção inteira; o trecho não contido é importante para FLT. Mesas e almas finas podem ondular localmente devido às tensões de compressão. Travar uma viga globalmente não torna suas chapas espessas.",
+          "Nem todos os modos são aplicáveis a toda seção ou eixo de flexão. Cisalhamento, interação de esforços, ligações e outros requisitos continuam sendo verificados quando pertinentes."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "flambagem lateral com torção",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "flambagem local da mesa comprimida",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "flambagem local da alma",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "menor valor",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "FLT",
+              "Global; comprimento sem contenção"
+            ],
+            [
+              "FLM",
+              "Local; esbeltez da mesa comprimida"
+            ],
+            [
+              "FLA",
+              "Local; esbeltez da alma"
+            ],
+            [
+              "Momento resistente",
+              "Menor resistência aplicável, respeitados demais limites"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Comparação de resistências aplicáveis",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>M</mi><mi>Rd</mi></msub><mo>≤</mo><mi>min</mi><mo>(</mo><msub><mi>M</mi><mi>FLT</mi></msub><mo>,</mo><msub><mi>M</mi><mi>FLM</mi></msub><mo>,</mo><msub><mi>M</mi><mi>FLA</mi></msub><mo>)</mo></math>",
+            "units": "kN·m; apenas modos aplicáveis"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Diferencie FLT, FLM e FLA em vigas de aço. Qual é o efeito da contenção lateral e como se determina o mecanismo que limita o momento resistente?",
+      "back": "FLT é a flambagem lateral com torção: a viga desloca-se lateralmente e sua seção gira. FLM é a flambagem local da mesa comprimida, e FLA é a flambagem local da alma. Nos dois últimos casos, as chapas sofrem deslocamentos fora de seu plano. A contenção lateral e torsional adequada reduz a suscetibilidade à FLT, mas não elimina automaticamente a FLM ou a FLA. O momento fletor resistente de cálculo deve respeitar o menor valor entre os estados-limite aplicáveis à seção e ao eixo de flexão, incluindo os demais limites prescritos.",
+      "source": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Item 5.4 e anexos relativos a barras fletidas.",
+      "mnemonic": "T torce a viga; M ondula mesa; A ondula alma. Menor resistência governa.",
+      "related_card_ids": [
+        "CARD-1490",
+        "CARD-1491",
+        "CARD-1493"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1493",
+      "title": "Segunda ordem: efeitos P–Δ e P–δ",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie os efeitos geométricos P–Δ e P–δ em pórticos e pilares, explicando a origem do momento adicional e calculando um exemplo com força axial e deslocamento conhecido."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "P–Δ representa o efeito global da força axial atuando sobre o deslocamento relativo dos nós ou pavimentos; P–δ representa o efeito local da força axial atuando sobre a curvatura da barra em relação à linha que une seus extremos deslocados. Ambos surgem do equilíbrio na geometria deformada. Para ilustrar o mecanismo, uma força compressiva P com excentricidade transversal e produz momento adicional P·e. A análise de segunda ordem deve considerar os efeitos pertinentes, sem confundir deslocamento global com deformação local."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Análise estrutural e efeitos de segunda ordem; equilíbrio geométrico. NBR 6118: abordagem de efeitos globais e locais em estruturas de concreto, com critérios próprios."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "Imagine um pórtico deslocando lateralmente: a carga vertical passa a ter braço em relação à posição inicial. Dentro de uma coluna, a curvatura local cria braço adicional em relação à corda entre seus extremos. A compressão tende a ampliar os momentos e deslocamentos; a análise deve considerar essa interação."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Momento adicional ilustrativo M2=P·e. Se P=400 kN, Δ=20 mm=0,020 m e δ=5 mm=0,005 m, os produtos isolados são 8 e 2 kN·m. Não somá-los indiscriminadamente como substituição de uma análise completa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\nP–Δ | Global; deslocamentos relativos dos nós\nP–δ | Local; curvatura entre os nós\n1ª ordem | Equilíbrio na geometria inicial\n2ª ordem | Equilíbrio na geometria deformada"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Um pórtico contraventado pode ter deslocamento global reduzido, mas seus pilares ainda podem apresentar curvatura local. Um pórtico deslocável demanda atenção aos efeitos globais e também aos locais quando pertinentes."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1490: Flambagem; CARD-1492: Flexão; CARD-0581: Coeficiente γz; CARD-1314: Segundo grau de deformação; CARD-1525: Pilar curto × esbelto — modo de ruptura"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "O produto P·e demonstra o mecanismo, não constitui sozinho método de dimensionamento. Imperfeições iniciais e não linearidade do material são fenômenos distintos, embora possam interagir com a não linearidade geométrica."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Δ maiúsculo = deslocamento global; δ minúsculo = curvatura local. Contraventamento não dispensa todas as verificações locais. Superposição de primeira ordem não é automaticamente válida em segunda ordem."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Δ grande = deslocamento do conjunto; δ pequena = deformação da barra. P vezes braço gera momento."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "P–Δ representa o efeito global da força axial atuando sobre o deslocamento relativo dos nós ou pavimentos; P–δ representa o efeito local da força axial atuando sobre a curvatura da barra em relação à linha que une seus extremos deslocados. Ambos surgem do equilíbrio na geometria deformada. Para ilustrar o mecanismo, uma força compressiva P com excentricidade transversal e produz momento adicional P·e. A análise de segunda ordem deve considerar os efeitos pertinentes, sem confundir deslocamento global com deformação local.",
+          "Imagine um pórtico deslocando lateralmente: a carga vertical passa a ter braço em relação à posição inicial. Dentro de uma coluna, a curvatura local cria braço adicional em relação à corda entre seus extremos. A compressão tende a ampliar os momentos e deslocamentos; a análise deve considerar essa interação.",
+          "O produto P·e demonstra o mecanismo, não constitui sozinho método de dimensionamento. Imperfeições iniciais e não linearidade do material são fenômenos distintos, embora possam interagir com a não linearidade geométrica."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "efeito global",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "efeito local",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "geometria deformada",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "P–Δ",
+              "Global; deslocamentos relativos dos nós"
+            ],
+            [
+              "P–δ",
+              "Local; curvatura entre os nós"
+            ],
+            [
+              "1ª ordem",
+              "Equilíbrio na geometria inicial"
+            ],
+            [
+              "2ª ordem",
+              "Equilíbrio na geometria deformada"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Momento adicional ilustrativo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>M</mi><mi>ad</mi></msub><mo>=</mo><mi>P</mi><mi>e</mi></math>",
+            "units": "kN·m para P em kN e e em m"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Diferencie os efeitos geométricos P–Δ e P–δ em pórticos e pilares, explicando a origem do momento adicional e calculando um exemplo com força axial e deslocamento conhecido.",
+      "back": "P–Δ representa o efeito global da força axial atuando sobre o deslocamento relativo dos nós ou pavimentos; P–δ representa o efeito local da força axial atuando sobre a curvatura da barra em relação à linha que une seus extremos deslocados. Ambos surgem do equilíbrio na geometria deformada. Para ilustrar o mecanismo, uma força compressiva P com excentricidade transversal e produz momento adicional P·e. A análise de segunda ordem deve considerar os efeitos pertinentes, sem confundir deslocamento global com deformação local.",
+      "source": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Análise estrutural e efeitos de segunda ordem; equilíbrio geométrico. NBR 6118: abordagem de efeitos globais e locais em estruturas de concreto, com critérios próprios.",
+      "mnemonic": "Δ grande = deslocamento do conjunto; δ pequena = deformação da barra. P vezes braço gera momento.",
+      "related_card_ids": [
+        "CARD-1490",
+        "CARD-1492",
+        "CARD-0581",
+        "CARD-1314",
+        "CARD-1525"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1494",
+      "title": "Solda de filete: garganta e área efetiva",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Em uma solda de filete de pernas iguais a e face plana ideal a 45°, deduza a garganta geométrica, calcule-a para a=6 mm e explique como ela se relaciona à área efetiva de resistência."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A garganta geométrica de uma solda de filete ideal de pernas iguais a é a menor distância entre a raiz e a face plana: aw=a·sen45°=a/√2≈0,707a. Para a=6 mm, aw≈4,24 mm. A área efetiva de uma solda de garganta uniforme é o produto da garganta efetiva pelo comprimento efetivo. A garganta geométrica não se confunde com a dimensão da perna nem com a área triangular da seção aparente; o dimensionamento real depende dos requisitos normativos de geometria, execução e resistência."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Ligações soldadas; conceito de garganta efetiva e comprimento efetivo. Geometria do triângulo retângulo isósceles."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "As pernas iguais e perpendiculares formam um triângulo retângulo isósceles. A altura sobre a hipotenusa é perpendicular à face ideal e parte da raiz. Essa altura é a dimensão transversal representativa da área resistente efetiva ao longo da solda."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Hipotenusa=a√2; área do triângulo=a²/2=hipotenusa·aw/2, logo aw=a/√2. Se aw=4,24 mm e comprimento efetivo=100 mm, área efetiva≈424 mm². Isso não determina sozinho a força resistente."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\na | Perna do filete\naw | Garganta ideal ≈0,707a\nLe | Comprimento efetivo\nAw | Área efetiva = garganta efetiva × Le"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Uma questão informa filete de 8 mm de perna: a garganta ideal é 5,66 mm, e não 8 mm. Com comprimento efetivo de 150 mm e garganta efetiva igual à ideal, a área é aproximadamente 849 mm²."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0669: Parafusos + soldas; CARD-1491: Elementos"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "O fator 0,707 pressupõe pernas iguais e ângulo reto, com face plana ideal. Filetes desiguais, penetração e geometrias especiais exigem avaliação própria; não creditar reforço ou penetração sem previsão normativa. Verificar comprimento efetivo e critérios de resistência."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir dimensão da perna, garganta e área. O produto das duas pernas dividido por dois fornece área triangular da seção aparente, não a área resistente ao longo do cordão."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Perna vezes 0,707 = garganta ideal; garganta vezes comprimento efetivo = área."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A garganta geométrica de uma solda de filete ideal de pernas iguais a é a menor distância entre a raiz e a face plana: aw=a·sen45°=a/√2≈0,707a. Para a=6 mm, aw≈4,24 mm. A área efetiva de uma solda de garganta uniforme é o produto da garganta efetiva pelo comprimento efetivo. A garganta geométrica não se confunde com a dimensão da perna nem com a área triangular da seção aparente; o dimensionamento real depende dos requisitos normativos de geometria, execução e resistência.",
+          "As pernas iguais e perpendiculares formam um triângulo retângulo isósceles. A altura sobre a hipotenusa é perpendicular à face ideal e parte da raiz. Essa altura é a dimensão transversal representativa da área resistente efetiva ao longo da solda.",
+          "O fator 0,707 pressupõe pernas iguais e ângulo reto, com face plana ideal. Filetes desiguais, penetração e geometrias especiais exigem avaliação própria; não creditar reforço ou penetração sem previsão normativa. Verificar comprimento efetivo e critérios de resistência."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "menor distância entre a raiz e a face plana",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "0,707a",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "4,24 mm",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "pernas iguais",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "a",
+              "Perna do filete"
+            ],
+            [
+              "aw",
+              "Garganta ideal ≈0,707a"
+            ],
+            [
+              "Le",
+              "Comprimento efetivo"
+            ],
+            [
+              "Aw",
+              "Área efetiva = garganta efetiva × Le"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Garganta geométrica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>a</mi><mi>w</mi></msub><mo>=</mo><mi>a</mi><mi>sen</mi><mn>45</mn><mo>°</mo><mo>=</mo><mfrac><mi>a</mi><msqrt><mn>2</mn></msqrt></mfrac><mo>≈</mo><mn>0,707</mn><mi>a</mi></math>",
+            "units": "mm"
+          },
+          {
+            "title": "Área efetiva",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>A</mi><mi>w</mi></msub><mo>=</mo><msub><mi>a</mi><mi>ef</mi></msub><msub><mi>L</mi><mi>e</mi></msub></math>",
+            "units": "mm²; garganta e comprimento efetivos em mm"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Em uma solda de filete de pernas iguais a e face plana ideal a 45°, deduza a garganta geométrica, calcule-a para a=6 mm e explique como ela se relaciona à área efetiva de resistência.",
+      "back": "A garganta geométrica de uma solda de filete ideal de pernas iguais a é a menor distância entre a raiz e a face plana: aw=a·sen45°=a/√2≈0,707a. Para a=6 mm, aw≈4,24 mm. A área efetiva de uma solda de garganta uniforme é o produto da garganta efetiva pelo comprimento efetivo. A garganta geométrica não se confunde com a dimensão da perna nem com a área triangular da seção aparente; o dimensionamento real depende dos requisitos normativos de geometria, execução e resistência.",
+      "source": "ABNT NBR 8800:2024, edição consultada para classificação conceitual; conferir versão corrigida/emendas no projeto. Ligações soldadas; conceito de garganta efetiva e comprimento efetivo. Geometria do triângulo retângulo isósceles.",
+      "mnemonic": "Perna vezes 0,707 = garganta ideal; garganta vezes comprimento efetivo = área.",
+      "related_card_ids": [
+        "CARD-0669",
+        "CARD-1491"
+      ],
+      "related_question_ids": []
+    }
+  ]
+}
