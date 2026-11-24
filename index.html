@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V349"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V349 — Portal de estudos</title>
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V350"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V350 — Portal de estudos</title>
 
 
 <style>
@@ -66,7 +66,7 @@ html[data-bm269-pdf-auth="authorized"] #bm269PdfLocked{display:none!important}
 
 <link rel="stylesheet" href="assets/v336_editorial.css?v=336-1">
 <link rel="stylesheet" href="assets/v339_semantic_visual.css?v=339-1"><link rel="stylesheet" href="assets/v340_granulometry.css?v=340-1"><link rel="stylesheet" href="assets/v342_media_integrity.css?v=342-1"></head><body>
-<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Portal V349 · Banco Mestre · leitura contínua</span></div><div class="version">Assuntos, PDFs, cartões e Atlas para revisão técnica</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
+<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Portal V350 · Banco Mestre · leitura contínua</span></div><div class="version">Assuntos, PDFs, cartões e Atlas para revisão técnica</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
 <div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
 <div class="stat" title="1.562 fichas únicas no catálogo de estudo: 1.540 cartões canônicos (1.523 ativos e 17 inativos) e 22 propostas editoriais com IDs próprios; não são eventos SRS"><b>1.559</b><span>Fichas na biblioteca de estudo</span><small class="bm241-verification">IDs únicos; SRS privado e preservado</small></div>
 <div class="stat"><b>—</b><span>Originais Drive / Atlas</span><small class="bm241-verification">Não verificado</small></div>
@@ -626,6 +626,8 @@ window.BM347CatalogStatus={version:'V347',total:base.length,active:1584,new:15,p
 /* V348 — reparos recíprocos e camada visual sem dados privados. */
 const vis348=await fetch('assets/visual_integrity_v348.json?v=348-1').then(r=>{if(!r.ok)throw Error('V348 indisponível');return r.json()});
 for(const x of vis348.reciprocal_repairs){const c=currentMap.get(x.from);if(!c||!currentMap.has(x.to))throw Error('V348 vínculo inválido');c.related_card_ids=[...new Set([...(c.related_card_ids||[]),x.to])];}
+/* V350: vínculos didáticos recíprocos PETRO10–11, sem mutações privadas. */
+try{const rr350=await fetch('assets/petro10_11_relacoes_v350.json?v=350-1').then(r=>{if(!r.ok)throw Error('V350 indisponível');return r.json()});for(const x of rr350.relations){const c=currentMap.get(x.from);if(c&&currentMap.has(x.to))c.related_card_ids=[...new Set([...(c.related_card_ids||[]),x.to])];}}catch(e){console.warn('V350 vínculos indisponíveis; catálogo preservado',e);}
 const ijui=ij.cards.map(c=>({...c,provisional:true,group:'LEGISLACAO',discipline:'Legislação',subject:c.subject||'Legislação municipal'}));cards=[...base,...ijui];loadedCards=true;const counter=document.querySelector('.stats .stat:nth-child(2) b');if(counter)counter.textContent=(base.length+ijui.length).toLocaleString('pt-BR');window.BM184Header?.updateCards(base.length,ijui.length,cards);for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){loadedCards=false;bm123CardsPromise=null;const out=document.getElementById('cardRows');if(out)out.textContent='Falha ao carregar cartões: '+e.message;throw e}})();
 return bm123CardsPromise;
 }
