@@ -7,6 +7,18 @@
 
 Este documento é o registro técnico consolidado e cumulativo do site. Atualizar este mesmo arquivo após melhorias relevantes, sem criar relatório por sessão de estudo, sem substituir a Metodologia Mestre privada e sem publicar dados pessoais. Os documentos antigos e commits continuam como evidência histórica.
 
+## Hierarquia vinculante de prioridades (24/11/2026)
+
+| Prioridade | Critério |
+|---|---|
+| **MÁXIMA** | Aprendizagem e preservação integral da metodologia didática |
+| **MÁXIMA** | Qualidade e integração dos 11 módulos pertinentes, integridade dos conhecimentos, IDs, vínculos e histórico SRS |
+| ALTA | Estabilidade, confiabilidade e segurança do site; sincronização correta; prevenção de erros, recuperação segura e simplificação administrativa |
+| MÉDIA | Otimização de desempenho |
+| SECUNDÁRIA | Novas funcionalidades e estética |
+
+Adaptar a tecnologia à metodologia, nunca o contrário. Não reduzir profundidade didática, fragmentar cartões ou afrouxar critérios de aprovação por conveniência de implementação, desempenho ou publicação. Não modificar componentes estáveis sem necessidade comprovada. Preservar rollback, validar regressões e não declarar sincronização integral sem evidência. A metodologia vigente no Drive permanece a autoridade pedagógica; esta seção espelha apenas a hierarquia aprovada, sem reproduzir dados privados.
+
 ## 1. Arquitetura e responsabilidades
 
 | Camada | Fonte / implementação | Responsabilidade |
