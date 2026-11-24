@@ -6,6 +6,7 @@ import {projectRuntime} from './runtime.mjs';
 import {readProfileMedia} from './media.mjs';
 import {createReviewJournal} from './reviews.mjs';
 import {createDiscursiveJournal} from './discursive.mjs';
+import {createUploadJournal} from './uploads.mjs';
 // The OAuth token is exclusively server-side. bmOwner is an application account
 // subject, not the Google account owner. The provider additionally checks physical
 // Drive ownership, no sharing, project tag, kind and exact parent.
@@ -18,8 +19,8 @@ export function ownerToken({clientId,clientSecret,refreshToken,fetcher=fetch}){
  };
 }
 export function createOwnerLoader({getToken,fetcher=fetch,loadCatalog=createServerCatalogLoader()}){
- const reviewJournal=createReviewJournal(),discursiveJournal=createDiscursiveJournal();
- return async (user,{runtime=false,media=null,review=null,attempt=null,guard=()=>true}={})=>{
+ const reviewJournal=createReviewJournal(),discursiveJournal=createDiscursiveJournal(),uploadJournal=createUploadJournal();
+ return async (user,{runtime=false,media=null,review=null,attempt=null,upload=null,guard=()=>true}={})=>{
   const {token,expiresAt}=await getToken();
   // Identity is derived ONLY from the authenticated server account, never request input.
   const info={sub:user.subject,email:user.username+'@central.invalid',email_verified:true};
@@ -32,6 +33,7 @@ export function createOwnerLoader({getToken,fetcher=fetch,loadCatalog=createServ
   const scoped={...provider,findRoot:async subject=>{if(subject!==user.subject)throw Error('Conta divergente');return root}};
   boot=createBootstrap({catalogs:CATALOGS,provider:scoped});
    const profile=await boot.open(info);
+   if(upload)return await uploadJournal({provider,profile,operation:upload,guard});
    if(attempt)return await discursiveJournal({provider,profile,operation:attempt,guard});
    if(review)return await reviewJournal({provider,profile,operation:review,guard});
    if(media){const uploadedImages=media.kind==='image'?await provider.readUploadedImages(user.subject):[];return await readProfileMedia({provider,profile,uploadedImages,media})}

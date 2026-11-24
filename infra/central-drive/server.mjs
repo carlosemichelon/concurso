@@ -1,6 +1,7 @@
 import {createServer} from 'node:http';
 import {createHash} from 'node:crypto';
 import {MediaNotFound} from './media.mjs';
+import {UploadRejected,UploadUncertain,validUploadInput,validUploadIntent} from './uploads.mjs';
 import {DiscursiveRejected,DiscursiveUncertain,validDiscursiveInput,validDiscursiveCommit} from './discursive.mjs';
 import {ReviewRejected,ReviewUncertain,validReviewInput,validCommitInput} from './reviews.mjs';
 import {IMAGE_MIMES,IMAGE_LIMIT} from '../../assets/multiaccount-images-v001.mjs';
@@ -16,7 +17,7 @@ function send(res,status,value,extra={}){res.writeHead(status,{...headers,'Conte
 async function body(req,limit=4096){if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw Error('Formato');let size=0,parts=[];for await(const chunk of req){size+=chunk.length;if(size>limit)throw Error('Limite');parts.push(chunk)}return JSON.parse(Buffer.concat(parts).toString('utf8'))}
 export function createCentralHandler({auth,loadProfile,origin}){
  if(!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(origin))throw Error('Origem HTTPS obrigatória');
- let mediaBusy=0;
+ let mediaBusy=0,uploadBusy=0;
  return async(req,res)=>{
   try{
    const path=req.url,method=req.method,token=sessionToken(req.headers.cookie);
@@ -46,6 +47,18 @@ export function createCentralHandler({auth,loadProfile,origin}){
     const kind=path.split('/').pop();let input=null;
     if(kind!=='pending'){try{input=await body(req,512000)}catch{return send(res,400,{error:'Solicitação inválida'})}if(!(kind==='prepare'?validDiscursiveInput(input):validDiscursiveCommit(input)))return send(res,400,{error:'Tentativa inválida'})}
     try{const result=await loadProfile(s.user,{attempt:{kind,input},guard:()=>!!auth.read(token)});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result)}catch(e){if(e instanceof DiscursiveRejected)return send(res,409,{error:e.message});if(e instanceof DiscursiveUncertain)return send(res,503,{error:e.message});throw e}
+   }
+   if((method==='POST'&&(path==='/api/upload/prepare'||path==='/api/upload/commit'))||(method==='GET'&&path==='/api/upload/pending')){
+    const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==context(token))return send(res,403,{error:'Contexto de sessão divergente'});
+    if(uploadBusy>=2)return send(res,429,{error:'Envios ocupados'});uploadBusy++;
+    try{
+     const kind=path.split('/').pop();let upload={kind};
+     if(kind==='prepare'){try{upload.input=await body(req,64000)}catch{return send(res,400,{error:'Metadados inválidos'})}if(!validUploadInput(upload.input))return send(res,400,{error:'Metadados inválidos'})}
+     if(kind==='commit'){const intent=req.headers['x-bm-intent'];if(!validUploadIntent(intent)||req.headers['content-type']!=='application/octet-stream')return send(res,400,{error:'Envio inválido'});const chunks=[];let length=0;for await(const chunk of req){length+=chunk.length;if(length>IMAGE_LIMIT)return send(res,413,{error:'Imagem acima de 15 MB'});chunks.push(chunk)}upload={kind,intent,bytes:Buffer.concat(chunks)}}
+     if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});
+     const result=await loadProfile(s.user,{upload,guard:()=>!!auth.read(token)});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result);
+    }catch(e){if(e instanceof UploadRejected)return send(res,409,{error:e.message});if(e instanceof UploadUncertain)return send(res,503,{error:e.message});throw e}finally{uploadBusy--}
    }
    const match=method==='GET'&&path.match(/^\/api\/media\/(image|pdf)\/([A-Za-z0-9_-]{1,160})$/);
    if(match){

@@ -1,0 +1,35 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createHash,randomUUID} from 'node:crypto';
+import {createUploadJournal,UploadRejected,UploadUncertain,validImageBytes} from '../infra/central-drive/uploads.mjs';
+import {createDriveProvider} from '../assets/multiaccount-drive-v001.mjs';
+import {prepareImageUpload} from '../assets/multiaccount-image-ingest-v001.mjs';
+const bytes=Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"><path fill="#167aaf" d="M1 1L4 4"/></svg>');
+const input={name:'figura.svg',mimeType:'image/svg+xml',size:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),origin:'DERIVADA_AUTORAL',subtype:'explicacao',cardIds:['CARD-1'],questionRefs:['PETRO-1'],title:'Figura',area:'Engenharia',subject:'Estruturas',subsubject:'',source:'Autoral',page:'',edition:'',caption:'Traço colorido',description:'',note:''};
+const profile=subject=>({subject,publicCards:[],privateData:{cards:[{id:'CARD-1',front:'Q',back:'A',active:true}]}});
+test('original binário, SVG colorido, metadados, vínculo, isolamento e retry',async()=>{
+ const saved=new Map();let lost=true;const provider={reserveReviewFile:async()=>randomUUID(),uploadImage:async(s,p,id)=>{assert.equal(p.record.owner,s);assert.deepEqual(Buffer.from(await p.blob.arrayBuffer()),bytes);saved.set(id,p.record);if(lost){lost=false;throw Error('network')}return {...p.record,file_id:id}}};
+ const journal=createUploadJournal();const a=profile('A'),b=profile('B');
+ const op=(profile,operation)=>journal({provider,profile,operation});
+ await assert.rejects(op(a,{kind:'prepare',input:{...input,cardIds:['CARD-B']}}),UploadRejected);
+ await assert.rejects(op(a,{kind:'prepare',input:{...input,owner:'B'}}),UploadRejected);
+ const [ar,br]=await Promise.all([op(a,{kind:'prepare',input}),op(b,{kind:'prepare',input})]);assert.notEqual(ar.intent,br.intent);assert.equal(saved.size,0);
+ assert.equal((await op(a,{kind:'pending'})).intent,ar.intent);
+ await assert.rejects(op(a,{kind:'commit',intent:br.intent,bytes}),UploadRejected);
+ await assert.rejects(op(a,{kind:'commit',intent:ar.intent,bytes:Buffer.from('other')}),UploadRejected);
+ await assert.rejects(op(a,{kind:'commit',intent:ar.intent,bytes}),UploadUncertain);
+ const r=await op(a,{kind:'commit',intent:ar.intent,bytes});assert.equal(r.phase,'verso');assert.equal(r.technicalStatus,'PENDENTE');assert.deepEqual(r.cardIds,['CARD-1']);assert.deepEqual(r.questionRefs,['PETRO-1']);assert.ok(!Object.hasOwn(r,'file_id'));
+ assert.deepEqual(await op(a,{kind:'commit',intent:ar.intent,bytes}),r);await op(b,{kind:'commit',intent:br.intent,bytes});assert.equal(saved.size,2);
+ assert.equal(validImageBytes(Buffer.from('<!DOCTYPE svg><svg/>'),'image/svg+xml'),false);assert.equal(validImageBytes(Buffer.from('<html/>'),'image/svg+xml'),false);
+});
+test('Drive reuses original reserved ID and rejects changed bytes',async()=>{
+ const subject='A',root='rootA',reserved='imgA',project='bm-portal-multi-v1';
+ const prepared=prepareImageUpload({owner:subject,file:{name:input.name,size:input.size,type:input.mimeType},input,cardIds:['CARD-1'],uuid:randomUUID()});prepared.blob=new Blob([bytes],{type:input.mimeType});
+ const rootMeta={id:root,mimeType:'application/vnd.google-apps.folder',ownedByMe:true,shared:false,trashed:false,appProperties:{bmProject:project,bmOwner:subject,bmKind:'root'}};
+ const meta={id:reserved,name:input.name,mimeType:input.mimeType,ownedByMe:true,shared:false,trashed:false,parents:[root],description:JSON.stringify(prepared.record),appProperties:{bmProject:project,bmOwner:subject,bmKind:'image-source',bmUpload:prepared.record.uploadId},size:String(bytes.length)};
+ let uploaded=false,changed=false,puts=0;
+ const fetcher=async(url,opt)=>{const u=new URL(url);if(u.searchParams.has('q'))return Response.json({files:u.searchParams.get('q').includes("value='root'")?[rootMeta]:uploaded?[meta]:[]});if(opt.method==='POST'){assert.equal(JSON.parse(opt.body).id,reserved);return new Response('',{headers:{Location:'https://www.googleapis.com/upload/drive/v3/files?upload_id=test'}})}if(opt.method==='PUT'){puts++;assert.deepEqual(Buffer.from(await opt.body.arrayBuffer()),bytes);uploaded=true;return Response.json(meta)}if(u.searchParams.get('alt')==='media')return new Response(changed?Buffer.alloc(bytes.length):bytes);return Response.json(meta)};
+ const provider=createDriveProvider({fetcher,token:'test',info:{sub:subject,email:'a@example.test',email_verified:true},expiresAt:Date.now()+100000,loadCatalog:async()=>({cards:[]})});await provider.findRoot(subject);
+ assert.equal((await provider.uploadImage(subject,prepared,reserved)).file_id,reserved);assert.equal((await provider.uploadImage(subject,prepared,reserved)).file_id,reserved);assert.equal(puts,1);
+ changed=true;await assert.rejects(provider.uploadImage(subject,prepared,reserved),/Original divergente/);
+});
