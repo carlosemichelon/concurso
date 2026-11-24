@@ -1,0 +1,561 @@
+{
+  "format": "BancoMestrePublicRecoveryVC18",
+  "source_catalog_blob": "31430e319fb774264b20f7c2a67831a8d78550de",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0701",
+      "title": "Curva Proctor: umidade ótima, massa específica seca e saturação",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique a curva Proctor, o significado do pico, os ramos seco e úmido e a linha de saturação. Como converter massa específica úmida em seca e usar o resultado no campo?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O Proctor estabelece a relação entre umidade w e massa específica aparente seca ρd para um solo e uma energia de compactação definidos. O pico fornece ρd,máx e wótima. No ramo seco, a água facilita o rearranjo de partículas; no ramo úmido, acrescentar água tende a reduzir a densidade seca alcançável sob a mesma energia. A linha de saturação (zero vazios de ar) é um limite teórico, não a curva real de compactação."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H21-C007/008/009/010; ABNT NBR 7182 (procedimento de ensaio; conferir edição); FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A compactação mecânica reduz predominantemente vazios de ar; a água inicialmente ajuda o rearranjo. Depois do ótimo, a água ocupa mais volume poroso e dificulta a redução de vazios de ar sob energia fixa. A saturação completa é o limite teórico para dado w e massa específica dos sólidos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "ρd=ρ/(1+w), com w em fração. Exemplo: ρ=2,016 Mg/m³, w=0,12: ρd=1,80 Mg/m³. Para Gs=2,70 e ρw=1,0 Mg/m³, ρd,sat=Gsρw/(1+wGs)=2,039 Mg/m³ a 12%."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Ramo seco: w<wót, ρd tende a aumentar com w. Pico: máxima ρd para a energia. Ramo úmido: w>wót, ρd tende a cair. Linha de saturação: limite teórico superior, não valor a atingir."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se wót=12% e ρd,máx=1,90 Mg/m³, campo com w=8% pode necessitar umedecimento; w=17% pode exigir aeração. Em ambos, conferir GC e tolerância do projeto antes de aceitar."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0702, CARD-1069, CARD-1070, CARD-0707, CARD-0708, CARD-0230, CARD-1447"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Curva típica, não universal para todos os solos; manter material, preparação e energia comparáveis. Não confundir massa específica ρ (Mg/m³) com peso específico γ (kN/m³); relações análogas com unidades coerentes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Umidade ótima não é umidade natural nem saturação. A densidade seca não é a densidade úmida. Aumentar água indefinidamente não melhora compactação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Pico = ótimo e máximo; seco sobe, úmido desce; saturação é teto teórico."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O Proctor estabelece a relação entre umidade w e massa específica aparente seca ρd para um solo e uma energia de compactação definidos. O pico fornece ρd,máx e wótima. No ramo seco, a água facilita o rearranjo de partículas; no ramo úmido, acrescentar água tende a reduzir a densidade seca alcançável sob a mesma energia. A linha de saturação (zero vazios de ar) é um limite teórico, não a curva real de compactação.",
+          "A compactação mecânica reduz predominantemente vazios de ar; a água inicialmente ajuda o rearranjo. Depois do ótimo, a água ocupa mais volume poroso e dificulta a redução de vazios de ar sob energia fixa. A saturação completa é o limite teórico para dado w e massa específica dos sólidos.",
+          "Curva típica, não universal para todos os solos; manter material, preparação e energia comparáveis. Não confundir massa específica ρ (Mg/m³) com peso específico γ (kN/m³); relações análogas com unidades coerentes."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "energia de compactação definidos",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "ρd,máx e wótima",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "limite teórico",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Região",
+            "Leitura"
+          ],
+          "rows": [
+            [
+              "Ramo seco",
+              "Água auxilia rearranjo"
+            ],
+            [
+              "Pico",
+              "wótima e ρd,máx"
+            ],
+            [
+              "Ramo úmido",
+              "ρd tende a cair"
+            ],
+            [
+              "Saturação",
+              "Limite teórico"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Massa específica seca",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>ρ</mi><mi>d</mi></msub><mo>=</mo><mfrac><mi>ρ</mi><mrow><mn>1</mn><mo>+</mo><mi>w</mi></mrow></mfrac></math>",
+            "units": "Mg/m³; w em fração"
+          },
+          {
+            "title": "Linha de saturação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>ρ</mi><mtext>d,sat</mtext></msub><mo>=</mo><mfrac><mrow><msub><mi>G</mi><mi>s</mi></msub><msub><mi>ρ</mi><mi>w</mi></msub></mrow><mrow><mn>1</mn><mo>+</mo><mi>w</mi><msub><mi>G</mi><mi>s</mi></msub></mrow></mfrac></math>",
+            "units": "Mg/m³"
+          }
+        ],
+        "media": [
+          {
+            "id": "IMG-053",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Solos — curvas de compactação e umidade ótima",
+            "origin": "Catálogo editorial V198",
+            "validation": "Associação didática existente preservada; exibição não confirmada.",
+            "original_card_ids": [
+              "CARD-0701"
+            ]
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Explique a curva Proctor, o significado do pico, os ramos seco e úmido e a linha de saturação. Como converter massa específica úmida em seca e usar o resultado no campo?",
+      "back": "O Proctor estabelece a relação entre umidade w e massa específica aparente seca ρd para um solo e uma energia de compactação definidos. O pico fornece ρd,máx e wótima. No ramo seco, a água facilita o rearranjo de partículas; no ramo úmido, acrescentar água tende a reduzir a densidade seca alcançável sob a mesma energia. A linha de saturação (zero vazios de ar) é um limite teórico, não a curva real de compactação.",
+      "source": "H21-C007/008/009/010; ABNT NBR 7182 (procedimento de ensaio; conferir edição); FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm",
+      "mnemonic": "Pico = ótimo e máximo; seco sobe, úmido desce; saturação é teto teórico.",
+      "related_card_ids": [
+        "CARD-0702",
+        "CARD-1069",
+        "CARD-1070",
+        "CARD-0707",
+        "CARD-0708",
+        "CARD-0230",
+        "CARD-1447"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-0707",
+      "title": "Energia Proctor e interpretação das curvas",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Defina energia específica de compactação, indique as variáveis de ensaio e explique a mudança da curva Proctor ao aumentar energia mantendo o mesmo solo."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Energia de compactação é o trabalho aplicado por unidade de volume. No ensaio com soquete em queda, depende de massa, altura de queda, golpes por camada, número de camadas e volume do molde. Para o mesmo solo e preparação, elevar a energia geralmente eleva ρd,máx e reduz wótima; não se trata de uma lei linear universal."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H21-C015/016; ABNT NBR 7182 (energias conforme edição do procedimento); FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Mais trabalho mecânico favorece rearranjo e redução de vazios de ar. Diferentes materiais ou preparação podem alterar a forma e o pico; por isso não se deve atribuir toda diferença entre curvas apenas à energia."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "E=mgh·Ng·Nc/V (J/m³). Exemplo ilustrativo: m=2,5 kg, h=0,305 m, Ng=25, Nc=3, V=0,000944 m³, g=9,81: E≈594 kJ/m³. Os valores são um exemplo de procedimento, não tabela normativa brasileira."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Mesma amostra, energia maior: em geral pico sobe e desloca à esquerda. Solos diferentes, mesma energia: diferenças de material. Compactação: trabalho mecânico, expulsão de ar; adensamento: deformação associada à dissipação de excesso de poropressão."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Curva A: wót=14%, γd,máx=17 kN/m³; B: 12%, 18 kN/m³. Se mesmo solo e preparação, B é compatível com maior energia. Se solos distintos, não é possível atribuir a mudança apenas à energia."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0701, CARD-0708, CARD-0702, CARD-0824, CARD-0825"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Registrar energia de laboratório, método e material. Quebra de partículas, solos especiais e condições de preparação podem alterar a tendência. Distinguir volume do molde de volume solto lançado em campo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não comparar GC de duas energias como se tivessem mesmo denominador. Não presumir curva superior sempre de maior energia. Não usar kg como força sem multiplicar por g."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Mais energia: pico geralmente sobe e vai à esquerda; compare igual com igual."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Energia de compactação é o trabalho aplicado por unidade de volume. No ensaio com soquete em queda, depende de massa, altura de queda, golpes por camada, número de camadas e volume do molde. Para o mesmo solo e preparação, elevar a energia geralmente eleva ρd,máx e reduz wótima; não se trata de uma lei linear universal.",
+          "Mais trabalho mecânico favorece rearranjo e redução de vazios de ar. Diferentes materiais ou preparação podem alterar a forma e o pico; por isso não se deve atribuir toda diferença entre curvas apenas à energia.",
+          "Registrar energia de laboratório, método e material. Quebra de partículas, solos especiais e condições de preparação podem alterar a tendência. Distinguir volume do molde de volume solto lançado em campo."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "trabalho aplicado por unidade de volume",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "eleva ρd,máx e reduz wótima",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Variável",
+            "Efeito sobre E, demais fixas"
+          ],
+          "rows": [
+            [
+              "Massa/altura",
+              "Aumentam E"
+            ],
+            [
+              "Golpes/camadas",
+              "Aumentam E"
+            ],
+            [
+              "Volume",
+              "Maior V reduz E"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Energia específica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>E</mi><mo>=</mo><mfrac><mrow><mi>m</mi><mi>g</mi><mi>h</mi><msub><mi>N</mi><mi>g</mi></msub><msub><mi>N</mi><mi>c</mi></msub></mrow><mi>V</mi></mfrac></math>",
+            "units": "J/m³"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Defina energia específica de compactação, indique as variáveis de ensaio e explique a mudança da curva Proctor ao aumentar energia mantendo o mesmo solo.",
+      "back": "Energia de compactação é o trabalho aplicado por unidade de volume. No ensaio com soquete em queda, depende de massa, altura de queda, golpes por camada, número de camadas e volume do molde. Para o mesmo solo e preparação, elevar a energia geralmente eleva ρd,máx e reduz wótima; não se trata de uma lei linear universal.",
+      "source": "H21-C015/016; ABNT NBR 7182 (energias conforme edição do procedimento); FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm",
+      "mnemonic": "Mais energia: pico geralmente sobe e vai à esquerda; compare igual com igual.",
+      "related_card_ids": [
+        "CARD-0701",
+        "CARD-0708",
+        "CARD-0702",
+        "CARD-0824",
+        "CARD-0825"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-0230",
+      "title": "Aterros de edificações: execução e controle tecnológico",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Remover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "GC=100ρd,campo/ρd,máx. Se wót=12%, faixa de ±3 p.p. é 9–15%; se ρd,máx=1,80 Mg/m³ e GC≥95%, ρd,campo≥1,71 Mg/m³. Aterro de 1,20 m exige pelo menos quatro camadas compactadas de 0,30 m, se especificação permitir."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Edificação (NBR 5681:2015): 30 cm máximos; GC≥95%; ±3 p.p. ou exigências mais restritivas. Rodovia (DNIT 108): GC≥100% conforme energia e material de referência; não transferir automaticamente critérios de espessura e umidade entre escopos."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Camada de 0,35 m compactada com GC=97% e umidade adequada não atende ao limite de 0,30 m. Corrigir antes de lançar a seguinte. Se solo for turfa, argila orgânica ou apresentar matéria orgânica micácea/diatomácea, não utilizar segundo item 4.2; evitar solos expansivos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0404, CARD-0521, CARD-0857, CARD-0858, CARD-0701, CARD-1442, CARD-1447, CARD-0824, CARD-0825"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Conferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir espessura solta com compactada, pontos percentuais com variação relativa ou GC com umidade. GC isolado não garante aceitação, nem substitui controle de materiais."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais.",
+          "Remover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas.",
+          "Conferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "até 0,30 m",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "±3 pontos percentuais",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "95% ou superior",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "antes da camada seguinte",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Critério NBR 5681:2015",
+            "Controle"
+          ],
+          "rows": [
+            [
+              "Camada compactada",
+              "≤0,30 m"
+            ],
+            [
+              "Umidade",
+              "wót ±3 p.p. ou menor"
+            ],
+            [
+              "GC",
+              "≥95% ou maior"
+            ],
+            [
+              "Falha",
+              "Corrigir e recompatar antes de cobrir"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Grau de compactação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mfrac><msub><mi>ρ</mi><mtext>d,campo</mtext></msub><msub><mi>ρ</mi><mtext>d,máx</mtext></msub></mfrac></math>",
+            "units": "%"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário.",
+      "back": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais.",
+      "source": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es",
+      "mnemonic": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir.",
+      "related_card_ids": [
+        "CARD-0404",
+        "CARD-0521",
+        "CARD-0857",
+        "CARD-0858",
+        "CARD-0701",
+        "CARD-1442",
+        "CARD-1447",
+        "CARD-0824",
+        "CARD-0825"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1447",
+      "title": "Frasco de areia e grau de compactação em campo",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique a sequência de determinação da massa específica seca in situ por frasco de areia, incluindo correção do funil, umidade e cálculo do GC. Quais erros invalidam a comparação?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O frasco de areia mede indiretamente o volume do furo escavado pela massa de areia calibrada que o preenche. Corrige-se a massa de areia pelo volume ocupado no funil/base conforme calibração. Com a massa de solo úmido retirado e sua umidade, calcula-se ρd,campo, comparando-a com ρd,máx do Proctor representativo para obter GC. O método não mede diretamente ISC/CBR."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Referência original CARD-1447: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me ; FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm; preservar fonte histórica privada vinculada ao cartão."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A areia de calibração ocupa o volume desconhecido; sua massa específica aparente conhecida permite inferir V. A massa seca do solo é a massa úmida dividida por 1+w. Comparar com laboratório só faz sentido para material e energia de referência compatíveis."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "V=(mareia,total−mfunil)/ρareia; ρ=msolo,úmido/V; ρd=ρ/(1+w); GC=100ρd/ρd,máx. Exemplo: areia líquida 2,40 kg, ρareia=1,50 kg/L: V=1,60 L. Solo úmido 3,2256 kg, w=12%: ρ=2,016 kg/L, ρd=1,80 kg/L. Proctor 1,90 kg/L: GC≈94,7%."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Frasco: volume in situ. Proctor: referência de densidade seca máxima e ótimo. Umidade: converte massa úmida em seca. ISC/CBR: capacidade de suporte relativa, outro ensaio."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "No exemplo GC≈94,7% não atende critério de 95%, mesmo se umidade estiver dentro da faixa. Se massa seca de campo=1,82 g/cm³ e máximo=1,90, GC≈95,8% (CARD-1442)."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1442, CARD-0701, CARD-0230, CARD-0857"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Areia seca e calibrada, furo estável, sem perdas do solo e com amostra representativa para umidade; verificar aplicabilidade do método ao material e granulometria conforme procedimento. Corrigir volume de funil/base segundo calibração específica."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar toda areia descarregada como areia do furo. Não dividir massa úmida pelo Proctor seco sem corrigir w. Não confundir 1 g/cm³ com 1 kg/m³: equivale a 1000 kg/m³."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Areia dá volume; solo dá massa; umidade dá seco; Proctor dá referência."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O frasco de areia mede indiretamente o volume do furo escavado pela massa de areia calibrada que o preenche. Corrige-se a massa de areia pelo volume ocupado no funil/base conforme calibração. Com a massa de solo úmido retirado e sua umidade, calcula-se ρd,campo, comparando-a com ρd,máx do Proctor representativo para obter GC. O método não mede diretamente ISC/CBR.",
+          "A areia de calibração ocupa o volume desconhecido; sua massa específica aparente conhecida permite inferir V. A massa seca do solo é a massa úmida dividida por 1+w. Comparar com laboratório só faz sentido para material e energia de referência compatíveis.",
+          "Areia seca e calibrada, furo estável, sem perdas do solo e com amostra representativa para umidade; verificar aplicabilidade do método ao material e granulometria conforme procedimento. Corrigir volume de funil/base segundo calibração específica."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "volume do furo escavado",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "Corrige-se a massa de areia",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "não mede diretamente ISC/CBR",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Etapa",
+            "Resultado"
+          ],
+          "rows": [
+            [
+              "Areia corrigida/ρareia",
+              "Volume do furo"
+            ],
+            [
+              "Massa úmida/V",
+              "ρ úmida"
+            ],
+            [
+              "ρ/(1+w)",
+              "ρ seca"
+            ],
+            [
+              "100ρd/ρd,máx",
+              "GC"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Volume do furo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>V</mi><mo>=</mo><mfrac><msub><mi>m</mi><mtext>areia líquida</mtext></msub><msub><mi>ρ</mi><mtext>areia</mtext></msub></mfrac></math>",
+            "units": "L com kg e kg/L"
+          },
+          {
+            "title": "Grau de compactação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mfrac><msub><mi>ρ</mi><mtext>d,campo</mtext></msub><msub><mi>ρ</mi><mtext>d,máx</mtext></msub></mfrac></math>",
+            "units": "%"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Explique a sequência de determinação da massa específica seca in situ por frasco de areia, incluindo correção do funil, umidade e cálculo do GC. Quais erros invalidam a comparação?",
+      "back": "O frasco de areia mede indiretamente o volume do furo escavado pela massa de areia calibrada que o preenche. Corrige-se a massa de areia pelo volume ocupado no funil/base conforme calibração. Com a massa de solo úmido retirado e sua umidade, calcula-se ρd,campo, comparando-a com ρd,máx do Proctor representativo para obter GC. O método não mede diretamente ISC/CBR.",
+      "source": "Referência original CARD-1447: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me ; FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm; preservar fonte histórica privada vinculada ao cartão.",
+      "mnemonic": "Areia dá volume; solo dá massa; umidade dá seco; Proctor dá referência.",
+      "related_card_ids": [
+        "CARD-1442",
+        "CARD-0701",
+        "CARD-0230",
+        "CARD-0857"
+      ],
+      "related_question_ids": []
+    }
+  ]
+}
