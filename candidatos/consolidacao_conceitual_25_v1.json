@@ -8,7 +8,9 @@
     "primary": 25,
     "satellites": 56,
     "new_ids": 0,
-    "modules": 275
+    "modules": 275,
+    "formulas": 17,
+    "related_links": 100
   },
   "scope": "Petrobras 06, 07, 11, 12, 24, 26, 27, 29; P08 excluída da intervenção",
   "policy": "Preservar versões, registros e SRS; os satélites são remissões propostas, não exclusões. Não houve alteração do portal. Fontes históricas devem ser cotejadas antes do uso profissional. Portão didático e leitura visual pendentes. Grifos semânticos e tabelas estruturados na candidata. SVGs públicos reaproveitados quando localizados; originais e demais mídias a reconciliar no leitor. Não interpretar isto como homologação.",
@@ -137,7 +139,65 @@
         "formula_explanation": "Distâncias: 25 m entre inspeções; 15 m da conexão do coletor predial com o público ao ponto de inspeção mais próximo; 10 m entre os pontos de contribuição especificados (bacia, CG, CS) e inspeção. Em prédio com mais de 2 pavimentos, CI a pelo menos 2 m do TQ que a alimenta. Todas são medidas em metros; os três primeiros são máximos, o último é mínimo.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-0220",
+          "CARD-0236",
+          "CARD-0397",
+          "CARD-0409",
+          "CARD-0514",
+          "CARD-0526",
+          "CARD-0737",
+          "CARD-0738",
+          "CARD-0743",
+          "CARD-0744",
+          "CARD-0747",
+          "CARD-1101",
+          "CARD-1202",
+          "CARD-1610",
+          "CARD-1618",
+          "CARD-1620"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "related_card_ids": [
+        "CARD-0220",
+        "CARD-0236",
+        "CARD-0397",
+        "CARD-0409",
+        "CARD-0514",
+        "CARD-0526",
+        "CARD-0737",
+        "CARD-0738",
+        "CARD-0743",
+        "CARD-0744",
+        "CARD-0747",
+        "CARD-1101",
+        "CARD-1202",
+        "CARD-1610",
+        "CARD-1618",
+        "CARD-1620"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q005",
+        "PETRO29-Q006"
+      ],
+      "front": "Diferencie CP, CI e PV por finalidade, dimensões e localização. Quando é obrigatório instalar CI/PV em tubulação enterrada, quais são as distâncias de acesso e quais as restrições de instalação?",
+      "back": "Dispositivo de inspeção é a categoria que proporciona acesso para limpeza, inspeção e desobstrução. CP reúne tubulações; CI permite manutenção e mudanças de traçado; PV permite acesso interno em maior profundidade. Em tubulação enterrada, desvio, alteração de declividade e junção exigem CI ou PV. A CP não é substituto automático.",
+      "source": "NBR 8160:1999, itens 3.7–3.8, 3.16, 4.2.5.5, 4.2.6, 4.2.6.2, 5.1.5.2–3. Conferir edição exigida na prova. A redação de 5.1.5.3(f) foi verificada na página 19.",
+      "mnemonic": "Macete DDJ (desvio, declividade, junção). 25–15–10 são máximos, 2 é mínimo. CP 15–10–50; CI 100/60; PV >100/110.",
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1607",
+          "CARD-1608",
+          "CARD-1609",
+          "CARD-1622",
+          "CARD-1624",
+          "CARD-1625",
+          "CARD-1627"
+        ]
       }
     },
     {
@@ -291,7 +351,43 @@
         "formula_explanation": "CGE: V = 2N + 20, em litros, com N igual à população servida no turno de maior movimento. Para N=80, V=180 L = 0,18 m³; N=100 → 220 L. O volume calculado é o da câmara de retenção, não necessariamente o volume geométrico total.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Volume de retenção da CGE",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>V = 2N + 20</mtext></math>",
+            "units": "V em litros; N = pessoas servidas no turno de maior afluxo."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-1202",
+          "CARD-1607",
+          "CARD-1620"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "related_card_ids": [
+        "CARD-1202",
+        "CARD-1607",
+        "CARD-1620"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q005",
+        "PETRO29-Q006"
+      ],
+      "front": "Explique como a caixa de gordura funciona e escolha o tipo para cada número de cozinhas. Compare diâmetros, septos, retenção e saída; dimensione uma CGE a partir do número de pessoas atendidas.",
+      "back": "A CG retém gordura antes do lançamento do efluente na rede. Uma cozinha: P ou S; duas: S ou D; de três a doze: D; acima de doze e cozinhas institucionais: E. Use o quadro completo abaixo, não uma definição isolada para cada caixa.",
+      "source": "NBR 8160:1999, 4.2.4.4, 4.2.6, 4.2.6.1, 5.1.5.1.1–3 (pp. 18–19).",
+      "mnemonic": "Macete: diâmetros 30–40–60, septos 20–20–35–40, retenções 18–31–120, saídas 75–75–100–100. Para E: 2N+20. Reutilizar referência visual existente; não inventar símbolo normativo.",
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1610",
+          "CARD-1611",
+          "CARD-1612",
+          "CARD-1613",
+          "CARD-1614"
+        ]
       }
     },
     {
@@ -436,7 +532,64 @@
         "formula_explanation": "UHC = unidade de Hunter de contribuição, valor numérico associado à descarga habitual do aparelho. Somar contribuições admissíveis, escolher o corpo da CS pela faixa, e dimensionar o ramal de saída separadamente. Não usar UHC como L/s.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-0201",
+          "CARD-0231",
+          "CARD-0368",
+          "CARD-0389",
+          "CARD-0485",
+          "CARD-0506",
+          "CARD-0733",
+          "CARD-0734",
+          "CARD-0735",
+          "CARD-0739",
+          "CARD-0740",
+          "CARD-0741",
+          "CARD-0742",
+          "CARD-0745",
+          "CARD-1620",
+          "CARD-1633"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "related_card_ids": [
+        "CARD-0201",
+        "CARD-0231",
+        "CARD-0368",
+        "CARD-0389",
+        "CARD-0485",
+        "CARD-0506",
+        "CARD-0733",
+        "CARD-0734",
+        "CARD-0735",
+        "CARD-0739",
+        "CARD-0740",
+        "CARD-0741",
+        "CARD-0742",
+        "CARD-0745",
+        "CARD-1620",
+        "CARD-1633"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q005",
+        "PETRO29-Q006"
+      ],
+      "front": "Explique a função do desconector, como medir o fecho hídrico e como escolher caixa sifonada comum ou especial, incluindo os limites em UHC e as restrições de contribuição.",
+      "back": "O desconector mantém barreira líquida contra gases do esgoto. Sifão é o dispositivo; fecho hídrico é a água retida, cuja altura efetiva é normalmente ≥50 mm. CS possui desconector e recebe efluentes secundários permitidos; CS especial tem fecho ≥200 mm.",
+      "source": "NBR 8160:1999, seção 3 (definições), 4.2.2.1–7, 5.1.1.1–3 e 5.1.2.",
+      "mnemonic": "Macete: 5 comum, 20 especial; 100/125/150 correspondem a 6/10/15 UHC. Sifão = peça, fecho = água, ventilação = proteção da pressão.",
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1615",
+          "CARD-1616",
+          "CARD-1617",
+          "CARD-1626",
+          "CARD-1628",
+          "CARD-1629"
+        ]
       }
     },
     {
@@ -577,7 +730,47 @@
         "formula_explanation": "Vu (m³) é o volume entre níveis de liga/desliga; Q (m³/min) é a capacidade da bomba; t (min) é o intervalo entre partidas. Vt (m³) inclui volume útil e deslocamentos internos conforme item 5.1.6.10; q (m³/min) é a vazão média afluente para calcular d. Não confundir vazão da bomba com vazão média. Verificar também vazão máxima provável e altura manométrica.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Volume útil",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>Vᵤ = </mtext><mfrac><mtext>Q t</mtext><mtext>4</mtext></mfrac></math>",
+            "units": "Q em m³/min, t em min, Vᵤ em m³."
+          },
+          {
+            "title": "Tempo de detenção",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>d = </mtext><mfrac><mtext>Vₜ</mtext><mtext>q</mtext></mfrac></math>",
+            "units": "Vₜ em m³, q em m³/min; d em min."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-0220",
+          "CARD-0397",
+          "CARD-1607",
+          "CARD-1620"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "related_card_ids": [
+        "CARD-0220",
+        "CARD-0397",
+        "CARD-1607",
+        "CARD-1620"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q005",
+        "PETRO29-Q006"
+      ],
+      "front": "Quando é preciso recalcar esgoto? Compare caixas com e sem efluentes de bacias sanitárias e calcule volume útil, tempo de detenção e capacidade recomendada da bomba.",
+      "back": "Caixa coletora recebe por gravidade o esgoto que precisa ser elevado. Com bacia: profundidade mínima 0,90 m; sem bacia: 0,60 m. Volume útil Vu = Qt/4; detenção d = Vt/q; recomendações de t≥10 min e Q≥2 vezes a vazão afluente, e detenção máxima de 30 min.",
+      "source": "NBR 8160:1999, 4.2.7 e 5.1.6.1–12; página 20 conferida visualmente.",
+      "mnemonic": "Macete 90/75/60 (com bacia); 60/40/18 (sem bacia), respectivamente profundidade em cm, DN e esfera em mm. Partida 10, detenção 30, bomba 2, volume divide por 4.",
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1618",
+          "CARD-1619"
+        ]
       }
     },
     {
@@ -725,7 +918,68 @@
         "formula_explanation": "UHC é fator de contribuição, não vazão instantânea. Bacia sanitária: 6 UHC, RD normalmente DN100; nota da Tabela 3 prevê condição excepcional de DN75 mediante justificativa hidráulica e compatibilidade da bacia. Declividade recomendada: DN≤75 → 2%; DN≥100 → 1%; subcoletores e coletor predial: máxima 5%, coletor predial mínimo DN100.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Declividade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>i = </mtext><mfrac><mtext>Δh</mtext><mtext>L</mtext></mfrac></math>",
+            "units": "Multiplicar por 100 para porcentagem; Δh e L na mesma unidade."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-0125",
+          "CARD-0526",
+          "CARD-0733",
+          "CARD-0734",
+          "CARD-0739",
+          "CARD-0742",
+          "CARD-0743",
+          "CARD-0744",
+          "CARD-0746",
+          "CARD-1103",
+          "CARD-1202",
+          "CARD-1607",
+          "CARD-1615",
+          "CARD-1618",
+          "CARD-1610"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "related_card_ids": [
+        "CARD-0125",
+        "CARD-0526",
+        "CARD-0733",
+        "CARD-0734",
+        "CARD-0739",
+        "CARD-0742",
+        "CARD-0743",
+        "CARD-0744",
+        "CARD-0746",
+        "CARD-1103",
+        "CARD-1202",
+        "CARD-1607",
+        "CARD-1615",
+        "CARD-1618",
+        "CARD-1610"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q005",
+        "PETRO29-Q006"
+      ],
+      "front": "Descreva o caminho dos efluentes do aparelho ao destino final, distinguindo RD, RE, TQ, subcoletor, coletor predial e público. Explique UHC, a contribuição da bacia e a distinção entre transporte e tratamento.",
+      "back": "RD recebe diretamente um aparelho; RE recebe efluentes dos RD, diretamente ou por desconector, e pertence ao primário. TQ é o trecho vertical que recebe e conduz descargas; subcoletor recebe um ou mais TQ ou RE; coletor predial leva o esgoto da última inserção ao coletor público ou tratamento particular. UHC representa a contribuição habitual de descarga dos aparelhos.",
+      "source": "NBR 8160:1999, seção 3 (definições), 4.1.3.1–5, 4.2.1–5, 5.1.2–4, Tabela 3 e nota.",
+      "mnemonic": "Macete: aparelho → descarga → esgoto → queda → subcoletor → coletor predial → rede/tratamento. Primário = contato com gases do sistema; secundário = separado pelo desconector.",
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1620",
+          "CARD-1621",
+          "CARD-1623",
+          "CARD-1630",
+          "CARD-1631",
+          "CARD-1632"
+        ]
       }
     },
     {
@@ -852,7 +1106,36 @@
         "formula_explanation": "Alturas e distâncias são medidas em m. Aclive mínimo de tubulação de ventilação: 1% para retorno de líquido por gravidade. A ligação superior de coluna a tubo ventilador primário deve ficar pelo menos 0,15 m acima do nível de transbordamento do aparelho mais elevado servido, situação diferente da altura terminal externa.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-0981",
+          "CARD-1104",
+          "CARD-1105",
+          "CARD-1108",
+          "CARD-1615"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "related_card_ids": [
+        "CARD-0981",
+        "CARD-1104",
+        "CARD-1105",
+        "CARD-1108",
+        "CARD-1615"
+      ],
+      "related_question_ids": [
+        "PETRO29-Q013"
+      ],
+      "front": "Quais critérios determinam a altura e afastamento do terminal de ventilação? Diferencie cobertura sem uso, terraço utilizado e proximidade de aberturas; explique por que a ventilação protege o fecho hídrico.",
+      "back": "Cobertura exclusiva: terminal ≥0,30 m acima dela. Laje com outros usos: ≥2,00 m. Janela/porta/vão de ventilação: distância ≥4,00 m, exceto terminal ≥1,00 m acima da respectiva verga. Os critérios de altura sobre cobertura e de aberturas são independentes.",
+      "source": "NBR 8160:1999, 4.3.1–6, Figura 3, 4.3.9 e 4.3.13–14; 4.2.2.7.",
+      "mnemonic": "Macete 30–200–400–100 cm: cobertura, ocupação, abertura, exceção. 15 cm é outra ligação, não terminal externo. Reutilizar referência visual original da Figura 3 e materiais existentes.",
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1633"
+        ]
       }
     },
     {
@@ -920,10 +1203,10 @@
         }
       ],
       "related_card_ids": [
-        "CARD-1553",
-        "CARD-1558",
+        "CARD-0694",
         "CARD-0949",
-        "CARD-0694"
+        "CARD-1553",
+        "CARD-1558"
       ],
       "related_question_ids": [
         "PETRO26-AMOSTRAGEM-001",
@@ -994,7 +1277,23 @@
         "formula_explanation": "Massa de campo (kg): tamanho nominal ≤19 mm: 40; >19 até 37,5 mm: 75; >37,5 até 75 mm: 150. São massas totais, não de cada parcial. A massa da amostra de ensaio depende do ensaio.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-0694",
+          "CARD-0949",
+          "CARD-1553",
+          "CARD-1558"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1548",
+          "CARD-1549",
+          "CARD-1550"
+        ]
       }
     },
     {
@@ -1144,7 +1443,19 @@
         "formula_explanation": "Não existe uma porcentagem única de substituição aplicável a todas as classes de agregado e usos. Conferir a edição, a classe do agregado e os limites específicos antes de dimensionar; não extrapolar os requisitos históricos.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-0755"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1551",
+          "CARD-1552"
+        ]
       }
     },
     {
@@ -1314,7 +1625,26 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Velocidade de corte",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>v꜀ = </mtext><mfrac><mtext>π D n</mtext><mtext>1000</mtext></mfrac></math>",
+            "units": "D em mm, n em rpm, v꜀ em m/min."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-1588",
+          "CARD-1590"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1589",
+          "CARD-1596"
+        ]
       }
     },
     {
@@ -1459,7 +1789,27 @@
         "formula_explanation": "Em soldagem por arco, aporte térmico aproximado H=ηUI/v em J/mm se U em V, I em A e v em mm/s. η é eficiência do processo. O aporte influencia resfriamento e largura da ZTA; não confundir ZTA com metal fundido.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Aporte térmico aproximado",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>H = </mtext><mfrac><mtext>η U I</mtext><mtext>v</mtext></mfrac></math>",
+            "units": "H em J/mm, U em V, I em A, v em mm/s."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-1588",
+          "CARD-1592",
+          "CARD-1598"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1591",
+          "CARD-1597"
+        ]
       }
     },
     {
@@ -1622,7 +1972,26 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Ordem de grandeza da difusão",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>x ∝ </mtext><msqrt><mtext>D t</mtext></msqrt></math>",
+            "units": "D em m²/s, t em s, x em m; modelo simplificado."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-1588",
+          "CARD-1595"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1593",
+          "CARD-1594"
+        ]
       }
     },
     {
@@ -1693,8 +2062,8 @@
       ],
       "related_card_ids": [
         "CARD-0720",
-        "CARD-0732",
         "CARD-0727",
+        "CARD-0732",
         "CARD-1088"
       ],
       "related_question_ids": [
@@ -1788,7 +2157,36 @@
         "formula_explanation": "Chave separadora histórica: I≥1,15 In. Interruptor de uso geral na hipótese descrita: I≥2 In. Ex.: In=10 A → 11,5 A ou 20 A, conforme função e condições. Escolher calibre comercial adequado e verificar categoria de utilização.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Capacidade da chave, critério histórico",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>I ≥ 1,15 Iₙ</mtext></math>",
+            "units": "I em A; não confundir com proteção."
+          },
+          {
+            "title": "Interruptor de uso geral na hipótese histórica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>I ≥ 2 Iₙ</mtext></math>",
+            "units": "P ≤ 1,5 kW e U < 300 V."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-0720",
+          "CARD-0727",
+          "CARD-0732",
+          "CARD-1088"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1602",
+          "CARD-1603",
+          "CARD-1604",
+          "CARD-1605",
+          "CARD-1606"
+        ]
       }
     },
     {
@@ -1855,11 +2253,11 @@
         }
       ],
       "related_card_ids": [
-        "CARD-0482",
         "CARD-0299",
+        "CARD-0482",
+        "CARD-1573",
         "CARD-1581",
-        "CARD-1583",
-        "CARD-1573"
+        "CARD-1583"
       ],
       "related_question_ids": [
         "PETRO24-QREC-C012",
@@ -1958,7 +2356,29 @@
         "formula_explanation": "D=max(D1,D2); limiar s=5D. D1=0,30 m e D2=0,40 m → 5D=2,00 m. Se s=1,80 m, intervalo≥12 h. No critério literal <5D, s=2,00 m não aciona essa condição isoladamente.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Espaçamento limiar",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>s = 5 max(D₁, D₂)</mtext></math>",
+            "units": "Distâncias em m; s real inferior ao limiar aciona intervalo de 12 h na edição citada."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-0299",
+          "CARD-0482",
+          "CARD-1573",
+          "CARD-1581",
+          "CARD-1583"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1580",
+          "CARD-1572"
+        ]
       }
     },
     {
@@ -2025,14 +2445,14 @@
         }
       ],
       "related_card_ids": [
+        "CARD-0163",
         "CARD-0449",
         "CARD-0683",
         "CARD-0690",
         "CARD-1065",
         "CARD-1571",
         "CARD-1576",
-        "CARD-1582",
-        "CARD-0163"
+        "CARD-1582"
       ],
       "related_question_ids": [
         "PETRO24-QREC-C006",
@@ -2112,7 +2532,32 @@
         "formula_explanation": "α=arctan(D/h), Dmin=h·tan αmín. h=|z2−z1|. D e h em m. Para h=1 m, D=1 m → α=45°; Dmin≈1,73 m no solo pouco resistente.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Ângulo e afastamento",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>α = arctan</mtext><mfenced><mfrac><mtext>D</mtext><mtext>h</mtext></mfrac></mfenced><mtext> ; Dₘᵢₙ = h tan αₘᵢₙ</mtext></math>",
+            "units": "D e h em m; α em graus."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-0163",
+          "CARD-0449",
+          "CARD-0683",
+          "CARD-0690",
+          "CARD-1065",
+          "CARD-1571",
+          "CARD-1576",
+          "CARD-1582"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1574",
+          "CARD-1575"
+        ]
       }
     },
     {
@@ -2179,12 +2624,12 @@
         }
       ],
       "related_card_ids": [
-        "CARD-1547",
-        "CARD-1557",
         "CARD-0186",
         "CARD-0567",
+        "CARD-1140",
         "CARD-1141",
-        "CARD-1140"
+        "CARD-1547",
+        "CARD-1557"
       ],
       "related_question_ids": [
         "PETRO26-Q06",
@@ -2277,7 +2722,30 @@
         "formula_explanation": "ρ=m/(Vf−Vi), g/cm³ se massa em g e volumes em cm³; expansão Δl=lf−li, mm; consistência é ajustada pela água até atingir a penetração especificada; pega é tempo em min.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Massa específica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>ρ = </mtext><mfrac><mtext>m</mtext><mtext>Vf − Vi</mtext></mfrac></math>",
+            "units": "m em g, volumes em cm³, ρ em g/cm³."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-0186",
+          "CARD-0567",
+          "CARD-1140",
+          "CARD-1141",
+          "CARD-1547",
+          "CARD-1557"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1546",
+          "CARD-1555"
+        ]
       }
     },
     {
@@ -2430,7 +2898,20 @@
         "formula_explanation": "Não há fórmula matemática. Há critério temporal: relatório da AET, quando realizada, mantido disponível por 20 anos. Resultados pertinentes da AEP integram inventário de riscos; recomendações alimentam plano de ação.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-1517"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1327",
+          "CARD-1328",
+          "CARD-1329"
+        ]
       }
     },
     {
@@ -2578,7 +3059,18 @@
         "formula_explanation": "Critérios quantitativos: 90% refere-se à população de trabalhadores, não produtividade; L≥2,70 m refere-se ao comprimento do checkout, incluindo igualdade.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1418",
+          "CARD-1383",
+          "CARD-1419"
+        ]
       }
     },
     {
@@ -2647,9 +3139,8 @@
         }
       ],
       "related_card_ids": [
-        "CARD-1503",
-        "CARD-1398",
-        "CARD-1397"
+        "CARD-1397",
+        "CARD-1503"
       ],
       "related_question_ids": [],
       "source": "NR-6, 6.5.1–6.5.2 e disposições sobre informação/treinamento, texto oficial do MTE.",
@@ -2731,7 +3222,22 @@
         "formula_explanation": "Não há cálculo universal de eficácia. Seleção é multicritério; não basta CA ou preço. Registro individual pode ser dispensado quando inviável para descartáveis/creme, com reposição, quantidade e identificação adequadas.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-1397",
+          "CARD-1503"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1502",
+          "CARD-1393",
+          "CARD-1395",
+          "CARD-1396"
+        ]
       }
     },
     {
@@ -2799,8 +3305,8 @@
         }
       ],
       "related_card_ids": [
-        "CARD-1502",
-        "CARD-1397"
+        "CARD-1397",
+        "CARD-1502"
       ],
       "related_question_ids": [],
       "source": "NR-6, Anexo I, D.1–D.5; NR-33, 33.5.17.2, versões oficiais referenciadas.",
@@ -2880,7 +3386,21 @@
         "formula_explanation": "Não existe relação universal PFF→proteção suficiente. Avaliar concentração, contaminante, O₂, fator de proteção, vedação e condições. O limite >18% O₂ ao nível do mar aparece no item D.5(a) para purificador de fuga; não é autorização geral de entrada.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-1397",
+          "CARD-1502"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1503",
+          "CARD-1382",
+          "CARD-1398"
+        ]
       }
     },
     {
@@ -3015,7 +3535,17 @@
         "formula_explanation": "Não há fórmula ou dimensão universal. O enquadramento depende da função protetiva, previsão na norma, aprovação e compatibilidade; não do número de peças isolado.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1390",
+          "CARD-1391"
+        ]
       }
     },
     {
@@ -3141,7 +3671,17 @@
         "formula_explanation": "Não existe periodicidade universal para toda documentação; consultar tipo de documento, edição normativa, legislação local e evento que dispara atualização.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1400",
+          "CARD-1402"
+        ]
       }
     },
     {
@@ -3291,7 +3831,28 @@
         "formula_explanation": "ET=E+T em mm por período, para a mesma área e intervalo; UR=100·e/es em %. Uma representação simplificada do potencial evaporativo depende de es(Tsuperfície)−e(ar), ajustado à atividade da água e às condições aerodinâmicas.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Evapotranspiração",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>ET = E + T</mtext></math>",
+            "units": "mm por período, mesma área e intervalo."
+          }
+        ],
+        "related_card_ids": [
+          "CARD-1526"
+        ],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1408",
+          "CARD-1405",
+          "CARD-1406",
+          "CARD-1407",
+          "CARD-1409"
+        ]
       }
     },
     {
@@ -3414,7 +3975,23 @@
         "formula_explanation": "450/300=1,5: o peso total nominal do veículo-padrão é 50% maior. Não concluir que todos os esforços de cálculo crescem 50%, pois os modelos e posicionamentos podem diferir.",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Razão de pesos nominais",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><mtext>450</mtext><mtext>300</mtext></mfrac><mtext> = 1,5</mtext></math>",
+            "units": "Razão adimensional; não implica esforços 50% maiores."
+          }
+        ],
+        "related_card_ids": [],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1411",
+          "CARD-1410"
+        ]
       }
     },
     {
@@ -3550,7 +4127,24 @@
         "formula_explanation": "λ [W/(m·K)], e [m], R [m²·K/W], U [W/(m²·K)]. Rtotal=Rsi+Σ(ei/λi)+Rse; q''=U·ΔT [W/m²].",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Resistência e transmitância",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>R = </mtext><mfrac><mtext>e</mtext><mtext>λ</mtext></mfrac><mtext> ; U = </mtext><mfrac><mtext>1</mtext><mtext>Rₜₒₜₐₗ</mtext></mfrac></math>",
+            "units": "e em m, λ em W/(m·K), R em m²·K/W, U em W/(m²·K)."
+          }
+        ],
+        "related_card_ids": [],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1421",
+          "CARD-1424",
+          "CARD-1425"
+        ]
       }
     },
     {
@@ -3691,8 +4285,39 @@
         "formula_explanation": "ρ [kg/m³], c [J/(kg·K)], CT [J/(m²·K)], a [m²/s], atraso [h]. CT=Σρi ci ei; a=λ/(ρc). Dividir CT em J por 1000 para kJ/(m²·K).",
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Capacidade térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>CT = Σ ρᵢ cᵢ eᵢ</mtext></math>",
+            "units": "J/(m²·K)."
+          },
+          {
+            "title": "Difusividade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtext>a = </mtext><mfrac><mtext>λ</mtext><mtext>ρ c</mtext></mfrac></math>",
+            "units": "m²/s."
+          }
+        ],
+        "related_card_ids": [],
+        "formula_status": "ESTRUTURADA"
+      },
+      "history_ref": {
+        "snapshot": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+        "ids": [
+          "CARD-1426",
+          "CARD-1422",
+          "CARD-1423",
+          "CARD-1427",
+          "CARD-1428"
+        ]
       }
     }
-  ]
+  ],
+  "compatibility": {
+    "checked_portal": "V371",
+    "catalog_blob": "1ccd31fd35f25ecb9f4262161f88da345a3ee270",
+    "matched_source_ids": 81,
+    "production_changed": false,
+    "private_srs_changed": false
+  }
 }
