@@ -5695,10 +5695,10 @@
     "browser_test": "pending"
   },
   "catalog": {
-    "path": "assets/catalog_snapshot_vc8.json",
+    "path": "assets/catalog_snapshot_vc9.json",
     "format": "BancoMestreCatalogSnapshotV362",
     "source_head": "e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7",
-    "git_blob": "6ad321f74a808a5d3c11b978b64ccd9e3b7447f4",
+    "git_blob": "26627d488729a6ae9691fcc213ad09b5a6177525",
     "counts": {
       "canonical": 1559,
       "active": 1559,
@@ -5711,7 +5711,7 @@
     "consolidation_status": "PUBLICACAO_EXPRESSAMENTE_SOLICITADA_SEM_HOMOLOGACAO_EDITORIAL_INTEGRAL",
     "study_increment": "assets/petro30_public_v374.json",
     "study_increment_blob": "f0add58021227f0482f39040160c60e6b8ba9869",
-    "display_version": "VC8",
+    "display_version": "VC9",
     "unified": true,
     "active_only": true,
     "recovery_packet": "assets/petro10_19_recovery_vc4.json",
@@ -5723,7 +5723,9 @@
     "recovery_packet_4": "assets/petro10_19_recovery_vc7.json",
     "recovery_packet_4_blob": "32f17ba8f3248f811bbd5a696fef22d2e9053a20",
     "recovery_packet_5": "assets/petro10_19_recovery_vc8.json",
-    "recovery_packet_5_blob": "2b96369c589821646a0249d09d56c073c03c6096"
+    "recovery_packet_5_blob": "2b96369c589821646a0249d09d56c073c03c6096",
+    "recovery_packet_6": "assets/petro10_19_recovery_vc9.json",
+    "recovery_packet_6_blob": "afad15c369e819fea63cded58ad1ee27ead758d5"
   },
   "release_v363": {
     "scope": "Contrato independente do catálogo, metadados com cache compartilhado, busca vazia sem normalização; automação de montagem e testes da versão corrente",
@@ -5858,9 +5860,9 @@
       "home": "v382.html"
     },
     "cards": {
-      "version": "VC8",
+      "version": "VC9",
       "technical_source": "V382",
-      "path": "assets/catalog_snapshot_vc8.json",
+      "path": "assets/catalog_snapshot_vc9.json",
       "counts": {
         "canonical": 1559,
         "active": 1559,
@@ -6040,5 +6042,19 @@
     "srs_modified": false,
     "private_content_exported": false,
     "rollback": "VC7"
+  },
+  "release_vc9": {
+    "scope": "Cinco evoluções NR-5, NR-6 e NR-17; preserva redação literal do CARD-1498 e IDs existentes",
+    "updated_ids": [
+      "CARD-1397",
+      "CARD-1498",
+      "CARD-1416",
+      "CARD-1509",
+      "CARD-1511"
+    ],
+    "private_sync": "not_verified",
+    "srs_modified": false,
+    "private_content_exported": false,
+    "rollback": "VC8"
   }
 }
