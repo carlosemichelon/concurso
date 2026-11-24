@@ -1,3 +1,7 @@
+## V361 — Biblioteca unificada sem bloco destacado Petrobras 29 (24/11/2026)
+
+Removido o painel de acesso especial da interface e seus scripts exclusivos, conforme solicitação do estudante. Os 31 cartões CARD-1603 a CARD-1633 permanecem no catálogo normal, com módulos e vínculos intactos. Nenhum arquivo privado, dado didático ou SRS foi alterado. V360 preservada.
+
 ## V360 — Acesso direto aos cartões Petrobras 29 (24/11/2026)
 
 Portal público: https://carlosemichelon.github.io/concurso/v360.html. Os 31 cartões remapeados na V359 (CARD-1603 a CARD-1633) possuem acesso direto, independente de OAuth. O arquivo histórico do Drive permanece disponível separadamente, sem ser confundido com a biblioteca pública. Conteúdo, módulos, vínculos, IDs e SRS não alterados. Conciliação do manifesto privado permanece pendente; sem teste em navegador autenticado. V359 preservada.
