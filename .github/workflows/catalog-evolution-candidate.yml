@@ -34,13 +34,15 @@ jobs:
         run: npx playwright install --with-deps chromium
       - if: steps.reader.outputs.count != '0'
         run: node tests/catalog_reader_gate.cjs "$CATALOG_BASE"
+      - name: Atualizar e conferir índice derivado do mesmo snapshot
+        run: node tools/catalog_lookup.cjs
       - name: Commit da versão candidata validada
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           PACKET=$(node -p "require('./assets/catalog_evolution_request.json').packet")
           HOME_FILE=$(node -p "require('./assets/version.json').home")
-          git add -- assets/version.json assets/catalog_snapshot_*.json "$PACKET" index.html "$HOME_FILE"
+          git add -- assets/version.json assets/catalog_snapshot_*.json assets/catalog_lookup "$PACKET" index.html "$HOME_FILE"
           git diff --cached --quiet && exit 0
           git commit -m 'Materializar catálogo de evoluções editoriais validado'
           git push origin HEAD:${GITHUB_REF_NAME}
