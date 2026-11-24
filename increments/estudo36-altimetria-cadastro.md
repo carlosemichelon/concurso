@@ -1,0 +1,1 @@
+Estudo 36: VM6 consultada; cinco evoluções e 55 critérios. Proposta de nivelamento sem ID e sem autorização, com SVG autoral associado. Origem índice VC28; oficial VC29. Verificar hashes atuais e inventário de mídia antes de aplicar, sem tratar índice histórico como vigente. SRS e interface inalterados; aplicação e publicação pendentes.
