@@ -1,0 +1,472 @@
+{
+  "format": "BancoMestreRecoveryVC27",
+  "source_catalog_blob": "ec44f4282cdbb00d4d8ef425fe9ef14f9287a2b6",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1076",
+      "title": "Estabilidade de taludes — métodos de equilíbrio limite",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique o fator de segurança de um talude, compare Fellenius, Bishop simplificado, Janbu e Spencer e relacione superfície de ruptura e poropressões."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Nos métodos de equilíbrio limite, o fator de segurança (FS) expressa a relação entre resistência ao cisalhamento disponível e resistência mobilizada para equilibrar a massa. Investigar superfícies potenciais de ruptura e procurar o menor FS entre mecanismos plausíveis. A ruptura pode ser rotacional (aproximadamente circular), translacional ou composta. Em tensões efetivas, τf=c′+(σn−u)tan φ′; aumentar u reduz a resistência por atrito, mantidas as demais grandezas.\n\nFellenius despreza as forças entre fatias e satisfaz o equilíbrio global de momentos em superfície circular, com cálculo direto. Bishop simplificado admite forças normais horizontais entre fatias, despreza o cisalhamento entre elas e satisfaz equilíbrio vertical por fatia e de momentos globais, mas não o equilíbrio horizontal global; o FS é iterativo. Janbu simplificado usa equilíbrio de forças e admite superfícies não circulares, sem satisfazer simultaneamente momentos. Spencer satisfaz equilíbrio de forças e momentos, admitindo inclinação comum das resultantes entre fatias."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "USACE EM 1110-2-1902, Slope Stability (2003), capítulos 2–3 e apêndice C: https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-2-1902.pdf; CON-11-015."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Dividir a massa em fatias verticais. O peso W atua verticalmente; a base inclinada de ângulo α possui comprimento l e largura horizontal b=l cos α. A componente W sen α contribui ao momento motor; a normal efetiva e a coesão sustentam resistência. A água reduz a força normal efetiva. Bishop obtém a normal pelo equilíbrio vertical e pelo próprio FS."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Sem cargas externas adicionais, em superfície circular e por unidade de largura, forma clássica de Fellenius: FS=Σ[c′l+(W cos α−ul)tan φ′]/Σ(W sen α). Bishop simplificado: FS=Σ[(c′b+(W−ub)tan φ′)/mα]/Σ(W sen α), mα=cos α+sen α tan φ′/FS. Iterar até convergência. W em kN/m, b e l em m, c′ e u em kPa; FS adimensional. A expressão clássica de Fellenius pode gerar normais negativas com u elevada; USACE discute alternativa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Fellenius: circular, despreza interação, momentos, direto. Bishop: circular, equilíbrio vertical e momentos, iterativo. Janbu simplificado: forças, superfícies gerais, correção conforme formulação. Spencer: forças e momentos, superfícies gerais."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Exemplo local: c′=10 kPa, φ′=30°, σn=100 kPa, u=40 kPa: τf≈44,6 kPa; para τmob=30 kPa, FS≈1,49. Com u=60 kPa e demais condições constantes, τf≈33,1 kPa e FS≈1,10. Exemplo global ilustrativo: 180 kN resistentes/120 kN mobilizados=1,50. Não confundir os exemplos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1310, CARD-0697, CARD-0699, CARD-0700, CARD-1357, CARD-0034."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "FS=1 é limite de equilíbrio no modelo. Não existe FS mínimo universal; considerar norma, consequência, incerteza e situação de projeto. Análise não drenada em tensões totais usa parâmetros coerentes (su quando cabível), sem descontar u novamente. Não forçar ruptura circular em camada fraca planar."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Buscar o menor FS plausível, não o maior. Bishop simplificado não satisfaz todo equilíbrio de forças. Fellenius não é sempre conservador. FS não é probabilidade de ruptura."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Fellenius: fatias sem interação; Bishop: iteração; Spencer: forças e momentos."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Nos métodos de equilíbrio limite, o fator de segurança (FS) expressa a relação entre resistência ao cisalhamento disponível e resistência mobilizada para equilibrar a massa. Investigar superfícies potenciais de ruptura e procurar o menor FS entre mecanismos plausíveis. A ruptura pode ser rotacional (aproximadamente circular), translacional ou composta. Em tensões efetivas, τf=c′+(σn−u)tan φ′; aumentar u reduz a resistência por atrito, mantidas as demais grandezas.",
+          "Fellenius despreza as forças entre fatias e satisfaz o equilíbrio global de momentos em superfície circular, com cálculo direto. Bishop simplificado admite forças normais horizontais entre fatias, despreza o cisalhamento entre elas e satisfaz equilíbrio vertical por fatia e de momentos globais, mas não o equilíbrio horizontal global; o FS é iterativo. Janbu simplificado usa equilíbrio de forças e admite superfícies não circulares, sem satisfazer simultaneamente momentos. Spencer satisfaz equilíbrio de forças e momentos, admitindo inclinação comum das resultantes entre fatias."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "menor FS",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "agent",
+            "text": "Fellenius",
+            "color": "#BBF7D0"
+          },
+          {
+            "kind": "agent",
+            "text": "Bishop simplificado",
+            "color": "#BBF7D0"
+          },
+          {
+            "kind": "condition",
+            "text": "iterativo",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Método",
+            "Equilíbrio",
+            "Superfície"
+          ],
+          "rows": [
+            [
+              "Fellenius",
+              "Momentos globais",
+              "Circular"
+            ],
+            [
+              "Bishop simplificado",
+              "Vertical por fatia + momentos",
+              "Circular"
+            ],
+            [
+              "Janbu simplificado",
+              "Forças",
+              "Geral"
+            ],
+            [
+              "Spencer",
+              "Forças e momentos",
+              "Geral"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Resistência efetiva",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>τ</mi><mi>f</mi></msub><mo>=</mo><mi>c′</mi><mo>+</mo><mo>(</mo><msub><mi>σ</mi><mi>n</mi></msub><mo>−</mo><mi>u</mi><mo>)</mo><mi>tan</mi><mi>φ′</mi></math>",
+            "units": "kPa"
+          },
+          {
+            "title": "Fellenius — forma clássica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>FS</mi><mo>=</mo><mfrac><mrow><mo>∑</mo><mo>[</mo><mi>c′</mi><mi>l</mi><mo>+</mo><mo>(</mo><mi>W</mi><mi>cos</mi><mi>α</mi><mo>−</mo><mi>u</mi><mi>l</mi><mo>)</mo><mi>tan</mi><mi>φ′</mi><mo>]</mo></mrow><mrow><mo>∑</mo><mi>W</mi><mi>sen</mi><mi>α</mi></mrow></mfrac></math>",
+            "units": "FS adimensional; W em kN/m; c′ e u em kPa; l em m"
+          },
+          {
+            "title": "Bishop simplificado",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>FS</mi><mo>=</mo><mfrac><mrow><mo>∑</mo><mfrac><mrow><mi>c′</mi><mi>b</mi><mo>+</mo><mo>(</mo><mi>W</mi><mo>−</mo><mi>u</mi><mi>b</mi><mo>)</mo><mi>tan</mi><mi>φ′</mi></mrow><msub><mi>m</mi><mi>α</mi></msub></mfrac></mrow><mrow><mo>∑</mo><mi>W</mi><mi>sen</mi><mi>α</mi></mrow></mfrac></math>",
+            "units": "FS adimensional; b em m; W em kN/m"
+          },
+          {
+            "title": "Fator de Bishop",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>m</mi><mi>α</mi></msub><mo>=</mo><mi>cos</mi><mi>α</mi><mo>+</mo><mfrac><mrow><mi>sen</mi><mi>α</mi><mi>tan</mi><mi>φ′</mi></mrow><mi>FS</mi></mfrac></math>",
+            "units": "adimensional"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC27-SVG-TALUDES",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Método das fatias e rebaixamento rápido: forças e poropressões.",
+            "alt": "Massa de solo dividida em fatias e barragem antes e depois da queda do nível.",
+            "src": "assets/card_visuals_vc27/taludes.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "USACE EM 1110-2-1902, Slope Stability (2003), capítulos 2–3 e apêndice C: https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-2-1902.pdf",
+            "evidence": "Exibição individual não testada."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Explique o fator de segurança de um talude, compare Fellenius, Bishop simplificado, Janbu e Spencer e relacione superfície de ruptura e poropressões.",
+      "back": "Nos métodos de equilíbrio limite, o fator de segurança (FS) expressa a relação entre resistência ao cisalhamento disponível e resistência mobilizada para equilibrar a massa. Investigar superfícies potenciais de ruptura e procurar o menor FS entre mecanismos plausíveis. A ruptura pode ser rotacional (aproximadamente circular), translacional ou composta. Em tensões efetivas, τf=c′+(σn−u)tan φ′; aumentar u reduz a resistência por atrito, mantidas as demais grandezas.\n\nFellenius despreza as forças entre fatias e satisfaz o equilíbrio global de momentos em superfície circular, com cálculo direto. Bishop simplificado admite forças normais horizontais entre fatias, despreza o cisalhamento entre elas e satisfaz equilíbrio vertical por fatia e de momentos globais, mas não o equilíbrio horizontal global; o FS é iterativo. Janbu simplificado usa equilíbrio de forças e admite superfícies não circulares, sem satisfazer simultaneamente momentos. Spencer satisfaz equilíbrio de forças e momentos, admitindo inclinação comum das resultantes entre fatias.",
+      "source": "USACE EM 1110-2-1902, Slope Stability (2003), capítulos 2–3 e apêndice C: https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-2-1902.pdf; CON-11-015.",
+      "mnemonic": "Fellenius: fatias sem interação; Bishop: iteração; Spencer: forças e momentos.",
+      "related_card_ids": [
+        "CARD-1310",
+        "CARD-0697",
+        "CARD-0699",
+        "CARD-0700",
+        "CARD-1357",
+        "CARD-0034"
+      ],
+      "related_question_ids": [],
+      "history_ref": {
+        "snapshot": "ec44f4282cdbb00d4d8ef425fe9ef14f9287a2b6",
+        "ids": [
+          "CARD-1076"
+        ]
+      }
+    },
+    {
+      "id": "CARD-1310",
+      "title": "Rebaixamento rápido e estabilidade de montante",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Por que o rebaixamento rápido do reservatório compromete o talude de montante? Compare rebaixamento rápido e lento e a influência da poropressão."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "No rebaixamento rápido, o nível do reservatório diminui antes que o maciço, especialmente se pouco permeável, consiga reajustar as poropressões internas. Retira-se parte da pressão hidrostática externa que sustentava o talude de montante, enquanto a poropressão interna pode permanecer elevada. Esse estado transitório pode reduzir a resistência ao cisalhamento e induzir fluxo para fora do maciço.\n\nNo rebaixamento lento, há mais tempo para dissipação e reajuste do campo de poropressões. A velocidade crítica depende da permeabilidade, compressibilidade, geometria, histórico de saturação e resistência. Nem toda redução de nível provoca ruptura."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "USACE EM 1110-2-1902, Slope Stability (2003), capítulos 2–3 e apêndice C: https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-2-1902.pdf; H02-A20."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O reservatório aplica pressão distribuída à face de montante; após queda rápida, a pressão externa cai antes do reajuste das pressões internas. A trajetória de tensões depende de ambas. O fluxo transiente requer campo de poropressões representativo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "u=γw h (kPa) somente para distribuição hidrostática; σ′n=σn−u e τf=c′+σ′n tan φ′ (kPa). Em exemplo isolado com σn constante, elevar u em 20 kPa reduz τf em 20 tan 30°≈11,5 kPa; no rebaixamento real σn também pode variar."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Lento: mais tempo de dissipação. Rápido: possível retenção de u e perda de suporte externo. Montante e jusante têm condições de contorno distintas."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Em barragens, analisar final de construção, percolação permanente e rebaixamento rápido conforme situações de projeto. Monitorar níveis e piezômetros; usar análise transitória ou procedimento específico."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1076, CARD-0700, CARD-1313, CARD-0697, CARD-1317."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Não presumir distribuição hidrostática no maciço durante transiente. Escolher parâmetros drenados ou não drenados coerentes. Drenos dependem de dimensionamento e manutenção."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não concluir que toda redução do nível melhora a estabilidade; nem que toda barragem rompe. O problema é a retirada do suporte antes do reajuste interno."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Água sai fora; pressão fica dentro."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "No rebaixamento rápido, o nível do reservatório diminui antes que o maciço, especialmente se pouco permeável, consiga reajustar as poropressões internas. Retira-se parte da pressão hidrostática externa que sustentava o talude de montante, enquanto a poropressão interna pode permanecer elevada. Esse estado transitório pode reduzir a resistência ao cisalhamento e induzir fluxo para fora do maciço.",
+          "No rebaixamento lento, há mais tempo para dissipação e reajuste do campo de poropressões. A velocidade crítica depende da permeabilidade, compressibilidade, geometria, histórico de saturação e resistência. Nem toda redução de nível provoca ruptura."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "rebaixamento rápido",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "pouco permeável",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "agent",
+            "text": "pressão hidrostática externa",
+            "color": "#BBF7D0"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Condição",
+            "Pressão externa",
+            "Poropressão interna"
+          ],
+          "rows": [
+            [
+              "Antes",
+              "Nível alto",
+              "Campo inicial"
+            ],
+            [
+              "Rápido",
+              "Cai rapidamente",
+              "Pode permanecer elevada"
+            ],
+            [
+              "Lento",
+              "Cai progressivamente",
+              "Mais tempo para dissipar"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Resistência efetiva",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>τ</mi><mi>f</mi></msub><mo>=</mo><mi>c′</mi><mo>+</mo><mo>(</mo><msub><mi>σ</mi><mi>n</mi></msub><mo>−</mo><mi>u</mi><mo>)</mo><mi>tan</mi><mi>φ′</mi></math>",
+            "units": "kPa"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC27-SVG-TALUDES",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Método das fatias e rebaixamento rápido: forças e poropressões.",
+            "alt": "Massa de solo dividida em fatias e barragem antes e depois da queda do nível.",
+            "src": "assets/card_visuals_vc27/taludes.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "USACE EM 1110-2-1902, Slope Stability (2003), capítulos 2–3 e apêndice C: https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-2-1902.pdf",
+            "evidence": "Exibição individual não testada."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Por que o rebaixamento rápido do reservatório compromete o talude de montante? Compare rebaixamento rápido e lento e a influência da poropressão.",
+      "back": "No rebaixamento rápido, o nível do reservatório diminui antes que o maciço, especialmente se pouco permeável, consiga reajustar as poropressões internas. Retira-se parte da pressão hidrostática externa que sustentava o talude de montante, enquanto a poropressão interna pode permanecer elevada. Esse estado transitório pode reduzir a resistência ao cisalhamento e induzir fluxo para fora do maciço.\n\nNo rebaixamento lento, há mais tempo para dissipação e reajuste do campo de poropressões. A velocidade crítica depende da permeabilidade, compressibilidade, geometria, histórico de saturação e resistência. Nem toda redução de nível provoca ruptura.",
+      "source": "USACE EM 1110-2-1902, Slope Stability (2003), capítulos 2–3 e apêndice C: https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-2-1902.pdf; H02-A20.",
+      "mnemonic": "Água sai fora; pressão fica dentro.",
+      "related_card_ids": [
+        "CARD-1076",
+        "CARD-0700",
+        "CARD-1313",
+        "CARD-0697",
+        "CARD-1317"
+      ],
+      "related_question_ids": [],
+      "history_ref": {
+        "snapshot": "ec44f4282cdbb00d4d8ef425fe9ef14f9287a2b6",
+        "ids": [
+          "CARD-1310"
+        ]
+      }
+    },
+    {
+      "id": "CARD-0697",
+      "title": "Infiltração, sucção e estabilidade",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Por que infiltração e chuva podem reduzir resistência de talude não saturado? Diferencie perda de sucção, poropressão, colapso e expansão."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Em solo não saturado, a sucção matricial (ua−uw), diferença entre pressão do ar e da água nos poros, pode contribuir para a resistência ao cisalhamento. A infiltração reduz a sucção e essa contribuição resistente. Com acúmulo de água, podem surgir poropressões positivas e redução da tensão efetiva no solo saturado. A chuva também pode aumentar peso, alterar fluxos e favorecer erosão.\n\nA resposta volumétrica não é única: sob fundação em solo colapsível, o molhamento sob tensão pode provocar recalque por perda de estrutura; em solo expansivo, pode produzir levantamento. Dependem de composição, estrutura, confinamento, tensões e drenagem."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-11-009; PETRO25-C001; Fredlund, Morgenstern e Widger (1978), The shear strength of unsaturated soils, Canadian Geotechnical Journal 15(3), 313–321, DOI 10.1139/t78-029; USACE EM 1110-2-1902, Slope Stability (2003), capítulos 2–3 e apêndice C: https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-2-1902.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A água infiltrada reduz a diferença ua−uw; a perda de resistência por sucção pode anteceder poropressões positivas. Chuvas podem formar lençol suspenso e fluxos preferenciais."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Modelo clássico: τf=c′+(σn−ua)tan φ′+(ua−uw)tan φb. Pressões e resistência em kPa, ângulos em graus. φb expressa incremento de resistência com sucção no intervalo; não é constante universal. Em saturação, usar τf=c′+(σn−uw)tan φ′."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Perda de sucção: menor contribuição resistente mesmo sem u positiva. Saturação com u positiva: menor tensão efetiva. Colapso: redução de volume sob carga por molhamento. Expansão: aumento de volume em condição favorável."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se φb=15° for admitido constante num intervalo, queda da sucção de 50 para 10 kPa reduz a contribuição em 40 tan 15°≈10,7 kPa, mantidas as outras parcelas. Em corte, combinar drenagem, infiltração e análise global."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1076, CARD-1310, CARD-0700, CARD-0699, CARD-1313, CARD-1538."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A resistência pode variar não linearmente com sucção e trajetória de umedecimento. Não extrapolar φb nem tratar sucção como coesão efetiva permanente. Intensidade, duração, umidade antecedente e permeabilidade importam."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Chuva não atua apenas por aumento do peso; perda de sucção não implica colapso de todo solo; nem todo aumento de umidade produz u positiva."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Solo seco com sucção: chuva pode tirar a cola capilar."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Em solo não saturado, a sucção matricial (ua−uw), diferença entre pressão do ar e da água nos poros, pode contribuir para a resistência ao cisalhamento. A infiltração reduz a sucção e essa contribuição resistente. Com acúmulo de água, podem surgir poropressões positivas e redução da tensão efetiva no solo saturado. A chuva também pode aumentar peso, alterar fluxos e favorecer erosão.",
+          "A resposta volumétrica não é única: sob fundação em solo colapsível, o molhamento sob tensão pode provocar recalque por perda de estrutura; em solo expansivo, pode produzir levantamento. Dependem de composição, estrutura, confinamento, tensões e drenagem."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "sucção matricial",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "poropressões positivas",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "não é única",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Fenômeno",
+            "Efeito possível"
+          ],
+          "rows": [
+            [
+              "Perda de sucção",
+              "Menor resistência"
+            ],
+            [
+              "Poropressão positiva",
+              "Menor tensão efetiva"
+            ],
+            [
+              "Colapso",
+              "Redução de volume"
+            ],
+            [
+              "Expansão",
+              "Aumento de volume"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Resistência não saturada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>τ</mi><mi>f</mi></msub><mo>=</mo><mi>c′</mi><mo>+</mo><mo>(</mo><msub><mi>σ</mi><mi>n</mi></msub><mo>−</mo><msub><mi>u</mi><mi>a</mi></msub><mo>)</mo><mi>tan</mi><mi>φ′</mi><mo>+</mo><mo>(</mo><msub><mi>u</mi><mi>a</mi></msub><mo>−</mo><msub><mi>u</mi><mi>w</mi></msub><mo>)</mo><mi>tan</mi><msub><mi>φ</mi><mi>b</mi></msub></math>",
+            "units": "kPa; ângulos em graus"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Por que infiltração e chuva podem reduzir resistência de talude não saturado? Diferencie perda de sucção, poropressão, colapso e expansão.",
+      "back": "Em solo não saturado, a sucção matricial (ua−uw), diferença entre pressão do ar e da água nos poros, pode contribuir para a resistência ao cisalhamento. A infiltração reduz a sucção e essa contribuição resistente. Com acúmulo de água, podem surgir poropressões positivas e redução da tensão efetiva no solo saturado. A chuva também pode aumentar peso, alterar fluxos e favorecer erosão.\n\nA resposta volumétrica não é única: sob fundação em solo colapsível, o molhamento sob tensão pode provocar recalque por perda de estrutura; em solo expansivo, pode produzir levantamento. Dependem de composição, estrutura, confinamento, tensões e drenagem.",
+      "source": "CON-11-009; PETRO25-C001; Fredlund, Morgenstern e Widger (1978), The shear strength of unsaturated soils, Canadian Geotechnical Journal 15(3), 313–321, DOI 10.1139/t78-029; USACE EM 1110-2-1902, Slope Stability (2003), capítulos 2–3 e apêndice C: https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-2-1902.pdf",
+      "mnemonic": "Solo seco com sucção: chuva pode tirar a cola capilar.",
+      "related_card_ids": [
+        "CARD-1076",
+        "CARD-1310",
+        "CARD-0700",
+        "CARD-0699",
+        "CARD-1313",
+        "CARD-1538"
+      ],
+      "related_question_ids": [
+        "PETRO25-C001"
+      ],
+      "history_ref": {
+        "snapshot": "ec44f4282cdbb00d4d8ef425fe9ef14f9287a2b6",
+        "ids": [
+          "CARD-0697"
+        ]
+      }
+    }
+  ]
+}
