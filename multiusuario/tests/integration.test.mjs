@@ -1,0 +1,8 @@
+import {strict as assert} from 'node:assert';
+import {replaceDatabase,assertCurrentCard,assertCurrentRevision,assertBackupOwner} from '../assets/integration.js';
+const original={schema:'test',cards:[{id:'c',question:'Q'}],events:[],planning:{subjects:['a']},legacyImport:{owner:'a'}};
+const restored={schema:'test',cards:[],events:[]};
+const target=JSON.parse(JSON.stringify(original));assert.equal(replaceDatabase(target,restored),target);assert.deepEqual(target,restored);assert.equal('planning' in target,false);assert.equal('legacyImport' in target,false);target.cards.push({id:'other'});assert.equal(restored.cards.length,0);
+assert.equal(assertCurrentCard(original,original.cards[0]),original.cards[0]);assert.throws(()=>assertCurrentCard(original,{id:'c',question:'Old'}));assert.throws(()=>assertCurrentCard(original,{id:'none'}));assert.equal(assertCurrentRevision(3,3),undefined);assert.throws(()=>assertCurrentRevision(3,4));
+assert.equal(assertBackupOwner({owner:'a',project:'test',data:original},'a','test'),original);assert.throws(()=>assertBackupOwner({owner:'b',project:'test',data:original},'a','test'));assert.throws(()=>assertBackupOwner({owner:'a',project:'other',data:original},'a','test'));assert.throws(()=>assertBackupOwner({owner:'a',project:'test',data:{legacyImport:{owner:'b'}}},'a','test'));
+console.log('PASS integração: substituição integral, edição obsoleta, revisão e titularidade');

@@ -53,3 +53,6 @@ Filtros e paginação de PDF/Atlas por ID, assunto, fonte, vínculo e estado, oc
 
 ## V015 — interface visual e responsividade
 Referência: index.html V346, estilos V333, V319 e V324 do portal original. Cabeçalho compacto com identidade da conta, estado da sincronização e cronômetro, grupos Estudar/Organizar e navegação contextual, foco acessível, cartões em grade e leitura contínua sobre branco, detalhes recolhíveis, lateral única com identificação e consulta, alternância explícita da lateral após revelar o verso (fechada por padrão em tela estreita), botões SRS com cinco classificações. Estilos responsivos próprios; não importa scripts legados nem dados pessoais. Equivalência visual aproximada por inspeção de código, sem comparação de capturas em navegador real. Não altera SRS, dados ou produção.
+
+## V016 — correções de integração
+Restauração substitui todos os campos, sem resíduos de planejamento ou proveniência; confirma dono da origem legada no backup e snapshots. Importação inicial não sobrescreve planejamento já iniciado; datas legadas inválidas não são normalizadas silenciosamente. Evolução bloqueia cartão alterado após abertura, uploads não vinculam ao catálogo se a revisão mudou, falha de login limpa o estado. Estado de imagem não declara exibição antes do onload. Nenhum hash no estudo normal. Testes de navegador e OAuth real pendentes.
