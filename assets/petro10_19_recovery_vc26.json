@@ -1,0 +1,360 @@
+{
+  "format": "BancoMestreRecoveryVC26",
+  "source_catalog_blob": "524c03cffa8ef364d7adf768a8d717e349788a69",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1356",
+      "title": "Empuxos de terra — Rankine, Coulomb e repouso",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique como o movimento de um muro mobiliza os estados ativo, passivo e em repouso. Calcule os coeficientes de Rankine, compare com Coulomb e explique a influência de φ′, c′ e OCR."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O estado ativo é mobilizado quando o muro se afasta do maciço, permitindo expansão lateral e redução de σ′h até o limite de ruptura. O passivo ocorre quando o muro avança contra o solo, comprimindo-o até a ruptura; geralmente exige deslocamento maior. Sem deformação lateral, o estado é de repouso. Para solo granular normalmente consolidado, nas hipóteses usuais, Ka<K₀<Kp. O coeficiente é a razão σ′h/σ′v nos estados sem coesão do modelo.\n\nNa forma clássica de Rankine, com muro vertical liso, terreno horizontal e solo homogêneo sem coesão, Ka=tan²(45°−φ′/2)=(1−sen φ′)/(1+sen φ′); Kp=tan²(45°+φ′/2)=1/Ka. A estimativa de Jaky para repouso em solo normalmente consolidado é K₀≈1−sen φ′. Coulomb usa equilíbrio de uma cunha de ruptura e permite considerar o atrito solo–muro δ, inclinação do paramento e do aterro. Com geometria simples e δ=0, os coeficientes coincidem com Rankine. O empuxo de Coulomb pode ser inclinado em relação à normal ao muro."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "FHWA NHI-06-089, Soils and Foundations Reference Manual II, cap. 10 (2006); FHWA, Rockery Design and Construction Guidelines, cap. 4: https://www.fhwa.dot.gov/clas/ctip/rockery_design_construction_guidelines/ch_4_recommended.aspx; referências originais PROP-F15-025 e PROP-H03-006. Princípio de tensões efetivas e resistência de Mohr–Coulomb."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A expansão lateral diminui a tensão principal menor até a ruptura ativa; a compressão lateral eleva a tensão horizontal até a ruptura passiva. No repouso a deformação lateral é nula. Para Coulomb, a cunha é estudada pelo equilíbrio do peso, reação na superfície de ruptura e reação no contato com a parede. O atrito δ inclina a resultante; não confundir δ com φ′."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Ka=(1−sen φ′)/(1+sen φ′); Kp=1/Ka; K₀≈1−sen φ′ para NC. Todos adimensionais. Para Rankine c′–φ′: σ′ha=Kaσ′v−2c′√Ka e σ′hp=Kpσ′v+2c′√Kp; tensões em kPa, c′ em kPa. Para aterro horizontal e muro vertical com atrito δ, a forma ativa de Coulomb é Ka=cos²φ′/[cosδ(1+√(sen(φ′+δ)senφ′/cosδ))²]; trata-se da magnitude da resultante no modelo, não automaticamente da componente horizontal."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Ativo: afasta, menor pressão; repouso: deformação lateral nula, pressão intermediária usual em NC; passivo: avança, maior pressão. Rankine: estados de tensão no maciço e parede lisa na formulação simples; Coulomb: equilíbrio de cunha e geometria/atrito de interface."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Com φ′=30°, senφ′=0,5: Ka=1/3, K₀≈0,5 e Kp=3. Para σ′v=90 kPa, as tensões horizontais efetivas são 30, 45 e 270 kPa no modelo sem coesão. Em um subsolo rigidamente travado, não presumir que o aterro mobiliza Ka; verificar condição de deformação."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1357, CARD-0700, CARD-0699 e CARD-0412: estabilidade, água, resistência e história de tensões."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "K₀ de Jaky é estimativa para solo normalmente consolidado; em solo sobreadensado pode crescer e superar 1; estimativa usual K₀,OC≈K₀,NC·OCR^senφ′ sob hipóteses adequadas. A pressão ativa efetiva negativa prevista com coesão não representa tração sustentável no solo; considerar abertura de fissura e água. O método de cunha plana de Coulomb pode superestimar resistência passiva para δ elevado; usar modelo apropriado. As condições de campo e drenagem governam a escolha."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir deslocamento do muro com direção da força do solo sobre ele; ativo e passivo são estados limites, não cargas determinadas apenas pelo tipo de muro. Kp=1/Ka somente nas hipóteses simples de Rankine. Aumentar φ′ reduz Ka e aumenta Kp. Não usar a expressão de Jaky indistintamente em solo sobreadensado."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Afasta = ativo; avança = passivo; parado = repouso. Mais atrito interno: menor ativo e maior passivo."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O estado ativo é mobilizado quando o muro se afasta do maciço, permitindo expansão lateral e redução de σ′h até o limite de ruptura. O passivo ocorre quando o muro avança contra o solo, comprimindo-o até a ruptura; geralmente exige deslocamento maior. Sem deformação lateral, o estado é de repouso. Para solo granular normalmente consolidado, nas hipóteses usuais, Ka<K₀<Kp. O coeficiente é a razão σ′h/σ′v nos estados sem coesão do modelo.",
+          "Na forma clássica de Rankine, com muro vertical liso, terreno horizontal e solo homogêneo sem coesão, Ka=tan²(45°−φ′/2)=(1−sen φ′)/(1+sen φ′); Kp=tan²(45°+φ′/2)=1/Ka. A estimativa de Jaky para repouso em solo normalmente consolidado é K₀≈1−sen φ′. Coulomb usa equilíbrio de uma cunha de ruptura e permite considerar o atrito solo–muro δ, inclinação do paramento e do aterro. Com geometria simples e δ=0, os coeficientes coincidem com Rankine. O empuxo de Coulomb pode ser inclinado em relação à normal ao muro."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "estado ativo",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "passivo",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "muro vertical liso",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "agent",
+            "text": "Coulomb",
+            "color": "#BBF7D0"
+          },
+          {
+            "kind": "condition",
+            "text": "normalmente consolidado",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Estado",
+            "Movimento do muro",
+            "K (φ′=30°, NC)"
+          ],
+          "rows": [
+            [
+              "Ativo",
+              "Afasta do solo",
+              "0,333"
+            ],
+            [
+              "Repouso",
+              "Sem deformação lateral",
+              "0,5"
+            ],
+            [
+              "Passivo",
+              "Avança contra o solo",
+              "3"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Rankine ativo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>K</mi><mi>a</mi></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><mi>sen</mi><mi>φ′</mi></mrow><mrow><mn>1</mn><mo>+</mo><mi>sen</mi><mi>φ′</mi></mrow></mfrac></math>",
+            "units": "adimensional"
+          },
+          {
+            "title": "Rankine passivo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>K</mi><mi>p</mi></msub><mo>=</mo><mfrac><mn>1</mn><msub><mi>K</mi><mi>a</mi></msub></mfrac></math>",
+            "units": "adimensional"
+          },
+          {
+            "title": "Jaky — NC",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>K</mi><mi>0</mi></msub><mo>≈</mo><mn>1</mn><mo>−</mo><mi>sen</mi><mi>φ′</mi></math>",
+            "units": "adimensional"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC26-SVG-EMPUXOS",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Movimentos do muro, estados limites e superposição das pressões de solo, sobrecarga e água.",
+            "alt": "Três movimentos do muro e diagramas de pressão triangular do solo, retangular de sobrecarga e triangular de água.",
+            "src": "assets/card_visuals_vc26/empuxos.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "FHWA NHI-06-089, Soils and Foundations Reference Manual II, cap. 10 (2006); FHWA, Rockery Design and Construction Guidelines, cap. 4: https://www.fhwa.dot.gov/clas/ctip/rockery_design_construction_guidelines/ch_4_recommended.aspx",
+            "evidence": "SVG autoral; exibição no leitor não testada."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Explique como o movimento de um muro mobiliza os estados ativo, passivo e em repouso. Calcule os coeficientes de Rankine, compare com Coulomb e explique a influência de φ′, c′ e OCR.",
+      "back": "O estado ativo é mobilizado quando o muro se afasta do maciço, permitindo expansão lateral e redução de σ′h até o limite de ruptura. O passivo ocorre quando o muro avança contra o solo, comprimindo-o até a ruptura; geralmente exige deslocamento maior. Sem deformação lateral, o estado é de repouso. Para solo granular normalmente consolidado, nas hipóteses usuais, Ka<K₀<Kp. O coeficiente é a razão σ′h/σ′v nos estados sem coesão do modelo.\n\nNa forma clássica de Rankine, com muro vertical liso, terreno horizontal e solo homogêneo sem coesão, Ka=tan²(45°−φ′/2)=(1−sen φ′)/(1+sen φ′); Kp=tan²(45°+φ′/2)=1/Ka. A estimativa de Jaky para repouso em solo normalmente consolidado é K₀≈1−sen φ′. Coulomb usa equilíbrio de uma cunha de ruptura e permite considerar o atrito solo–muro δ, inclinação do paramento e do aterro. Com geometria simples e δ=0, os coeficientes coincidem com Rankine. O empuxo de Coulomb pode ser inclinado em relação à normal ao muro.",
+      "source": "FHWA NHI-06-089, Soils and Foundations Reference Manual II, cap. 10 (2006); FHWA, Rockery Design and Construction Guidelines, cap. 4: https://www.fhwa.dot.gov/clas/ctip/rockery_design_construction_guidelines/ch_4_recommended.aspx",
+      "mnemonic": "Afasta = ativo; avança = passivo; parado = repouso. Mais atrito interno: menor ativo e maior passivo.",
+      "related_card_ids": [
+        "CARD-1357",
+        "CARD-0700",
+        "CARD-0699",
+        "CARD-0412"
+      ],
+      "related_question_ids": [],
+      "history_ref": {
+        "snapshot": "524c03cffa8ef364d7adf768a8d717e349788a69",
+        "ids": [
+          "CARD-1356"
+        ]
+      }
+    },
+    {
+      "id": "CARD-1357",
+      "title": "Muros de arrimo — diagramas, água, sobrecarga e estabilidade",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como montar os diagramas de pressão de solo, sobrecarga uniforme e água em um muro e calcular seus empuxos, braços e verificações de estabilidade?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Para muro vertical liso com aterro homogêneo horizontal, solo sem coesão e coeficiente lateral K adequado ao movimento, a tensão horizontal total é σh=Kσ′v+u. Acima do nível freático, usar peso específico apropriado do solo e u=0 na hipótese de pressão atmosférica nos poros; abaixo do nível freático hidrostático, usar γ′=γsat−γw na tensão efetiva e somar u=γw·hw separadamente. Uma sobrecarga uniforme extensa q aumenta σ′v em q e a pressão lateral em Kq.\n\nEm condição seca e homogênea, o diagrama de peso próprio é triangular: Eγ=KγH²/2 e atua a H/3 acima da base; a sobrecarga uniforme é retangular: Eq=KqH e atua a H/2. A água hidrostática forma triângulo de altura Hw: Ew=γwHw²/2, a Hw/3 da base da parcela inundada. Somam-se forças e momentos; com camadas ou nível freático intermediário, integrar por trechos. Verificar deslizamento, tombamento, capacidade de suporte, excentricidade, recalques, estabilidade global, drenagem e resistência estrutural, conforme o método aplicável."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "FHWA NHI-06-089, Soils and Foundations Reference Manual II, cap. 10 (2006); FHWA, Rockery Design and Construction Guidelines, cap. 4: https://www.fhwa.dot.gov/clas/ctip/rockery_design_construction_guidelines/ch_4_recommended.aspx; referências originais PROP-F15-026 e PROP-H03-007; equilíbrio estático e princípio de Terzaghi."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A pressão efetiva do solo decorre do esqueleto granular, a pressão de água atua isotropicamente, e a sobrecarga uniforme extensa cria parcela lateral constante. A área de cada diagrama é a força por metro e o centroide define seu braço. O momento total em relação ao pé é a soma algébrica de forças vezes braços; considerar eventual subpressão na base."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Eγ=KγH²/2; Eq=KqH; Ew=γwHw²/2 (kN/m); zγ=H/3, zq=H/2, zw=Hw/3 (m acima da base). σh=Kσ′v+u (kPa); γ′=γsat−γw (kN/m³). FS tomb=ΣMres/ΣMtomb; FS desl=ΣR/ΣS no método clássico de fatores globais, sem misturar com coeficientes parciais."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Peso próprio homogêneo: triângulo; sobrecarga uniforme extensa: retângulo; água hidrostática: triângulo independente abaixo do nível freático; solo estratificado: diagrama por trechos, com eventuais saltos de K. Sobrecarga localizada não equivale a Kq constante em toda profundidade."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Exemplo seco: H=6 m, γ=18 kN/m³, Ka=1/3, q=12 kPa. Eγ=108 kN/m (braço 2 m); Eq=24 kN/m (braço 3 m); E=132 kN/m, M=288 kN·m/m e braço equivalente 2,18 m. Se todo o aterro estiver saturado com γsat=20, γw=10 e sem água à frente, γ′=10: Eγ′=60, Eq=24 e Ew=180 kN/m; E=264 kN/m e M=552 kN·m/m. Exemplo de FS tombamento: 600/300=2,0 apenas para a verificação simplificada."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1356, CARD-0700, CARD-1317, CARD-1076, CARD-1064 e CARD-0683."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A água em ambos os lados deve ser tratada por pressão líquida com níveis e braços corretos. Fluxo não hidrostático exige distribuição de poropressão obtida do problema hidráulico. Não contar resistência passiva que possa desaparecer por escavação ou erosão; verificar deslocamento para mobilizá-la. Drenagem deve ser dimensionada e mantida; não zerar u por simples presença de dreno. Fatores mínimos dependem de norma, método, situação e combinações de ações."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não multiplicar pressão de água por Ka; não usar γsat como γ′ e somar u novamente. Não colocar a força de sobrecarga em H/3; é H/2 na distribuição uniforme. Não concluir estabilidade apenas por FS de tombamento."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Solo: triângulo e terço; sobrecarga: retângulo e meio; água: soma à parte. Muro seguro exige mais do que tombamento."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Para muro vertical liso com aterro homogêneo horizontal, solo sem coesão e coeficiente lateral K adequado ao movimento, a tensão horizontal total é σh=Kσ′v+u. Acima do nível freático, usar peso específico apropriado do solo e u=0 na hipótese de pressão atmosférica nos poros; abaixo do nível freático hidrostático, usar γ′=γsat−γw na tensão efetiva e somar u=γw·hw separadamente. Uma sobrecarga uniforme extensa q aumenta σ′v em q e a pressão lateral em Kq.",
+          "Em condição seca e homogênea, o diagrama de peso próprio é triangular: Eγ=KγH²/2 e atua a H/3 acima da base; a sobrecarga uniforme é retangular: Eq=KqH e atua a H/2. A água hidrostática forma triângulo de altura Hw: Ew=γwHw²/2, a Hw/3 da base da parcela inundada. Somam-se forças e momentos; com camadas ou nível freático intermediário, integrar por trechos. Verificar deslizamento, tombamento, capacidade de suporte, excentricidade, recalques, estabilidade global, drenagem e resistência estrutural, conforme o método aplicável."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "σh=Kσ′v+u",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "γ′=γsat−γw",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "triangular",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "retangular",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "H/3",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "H/2",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "agent",
+            "text": "água hidrostática",
+            "color": "#BBF7D0"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Parcela",
+            "Força por metro",
+            "Braço da base"
+          ],
+          "rows": [
+            [
+              "Solo homogêneo seco",
+              "KγH²/2",
+              "H/3"
+            ],
+            [
+              "Sobrecarga uniforme",
+              "KqH",
+              "H/2"
+            ],
+            [
+              "Água hidrostática",
+              "γwHw²/2",
+              "Hw/3"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Tensão horizontal total",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>σ</mi><mi>h</mi></msub><mo>=</mo><mi>K</mi><msub><mi>σ′</mi><mi>v</mi></msub><mo>+</mo><mi>u</mi></math>",
+            "units": "kPa"
+          },
+          {
+            "title": "Empuxo do solo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>E</mi><mi>γ</mi></msub><mo>=</mo><mfrac><mrow><mi>K</mi><mi>γ</mi><msup><mi>H</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac></math>",
+            "units": "kN/m"
+          },
+          {
+            "title": "Sobrecarga",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>E</mi><mi>q</mi></msub><mo>=</mo><mi>K</mi><mi>q</mi><mi>H</mi></math>",
+            "units": "kN/m"
+          },
+          {
+            "title": "Água",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>E</mi><mi>w</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>γ</mi><mi>w</mi></msub><msup><msub><mi>H</mi><mi>w</mi></msub><mn>2</mn></msup></mrow><mn>2</mn></mfrac></math>",
+            "units": "kN/m"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC26-SVG-EMPUXOS",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Movimentos do muro, estados limites e superposição das pressões de solo, sobrecarga e água.",
+            "alt": "Três movimentos do muro e diagramas de pressão triangular do solo, retangular de sobrecarga e triangular de água.",
+            "src": "assets/card_visuals_vc26/empuxos.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "FHWA NHI-06-089, Soils and Foundations Reference Manual II, cap. 10 (2006); FHWA, Rockery Design and Construction Guidelines, cap. 4: https://www.fhwa.dot.gov/clas/ctip/rockery_design_construction_guidelines/ch_4_recommended.aspx",
+            "evidence": "SVG autoral; exibição no leitor não testada."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Como montar os diagramas de pressão de solo, sobrecarga uniforme e água em um muro e calcular seus empuxos, braços e verificações de estabilidade?",
+      "back": "Para muro vertical liso com aterro homogêneo horizontal, solo sem coesão e coeficiente lateral K adequado ao movimento, a tensão horizontal total é σh=Kσ′v+u. Acima do nível freático, usar peso específico apropriado do solo e u=0 na hipótese de pressão atmosférica nos poros; abaixo do nível freático hidrostático, usar γ′=γsat−γw na tensão efetiva e somar u=γw·hw separadamente. Uma sobrecarga uniforme extensa q aumenta σ′v em q e a pressão lateral em Kq.\n\nEm condição seca e homogênea, o diagrama de peso próprio é triangular: Eγ=KγH²/2 e atua a H/3 acima da base; a sobrecarga uniforme é retangular: Eq=KqH e atua a H/2. A água hidrostática forma triângulo de altura Hw: Ew=γwHw²/2, a Hw/3 da base da parcela inundada. Somam-se forças e momentos; com camadas ou nível freático intermediário, integrar por trechos. Verificar deslizamento, tombamento, capacidade de suporte, excentricidade, recalques, estabilidade global, drenagem e resistência estrutural, conforme o método aplicável.",
+      "source": "FHWA NHI-06-089, Soils and Foundations Reference Manual II, cap. 10 (2006); FHWA, Rockery Design and Construction Guidelines, cap. 4: https://www.fhwa.dot.gov/clas/ctip/rockery_design_construction_guidelines/ch_4_recommended.aspx",
+      "mnemonic": "Solo: triângulo e terço; sobrecarga: retângulo e meio; água: soma à parte. Muro seguro exige mais do que tombamento.",
+      "related_card_ids": [
+        "CARD-1356",
+        "CARD-0700",
+        "CARD-1317",
+        "CARD-1076",
+        "CARD-1064",
+        "CARD-0683"
+      ],
+      "related_question_ids": [],
+      "history_ref": {
+        "snapshot": "524c03cffa8ef364d7adf768a8d717e349788a69",
+        "ids": [
+          "CARD-1357"
+        ]
+      }
+    }
+  ]
+}
