@@ -1,0 +1,459 @@
+{
+  "format": "BancoMestrePublicRecoveryVC20",
+  "source_catalog_blob": "f20fd360ccee5cf76cfe1e8d41a589d4c582219b",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0683",
+      "title": "Sapata centrada — área preliminar, pressão de contato e excentricidade",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como pré-dimensionar a área de uma sapata centrada pelo método da pressão admissível? O que muda com peso próprio, momentos e recalques?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Para uma sapata centrada sob carga vertical, em modelo de pressão uniforme, a pressão média é a força vertical total dividida pela área. A área preliminar deve ser pelo menos Ntotal/qadm, em unidades compatíveis. Considerar o peso próprio da sapata: a NBR 6122:2022, item 5.6, prevê seu valor ou a estimativa mínima de 5% da carga vertical permanente. Para 600 kN de carga permanente e 200 kPa de pressão admissível, a estimativa de 30 kN dá área de 3,15 m² e lado quadrado de cerca de 1,78 m. O resultado é preliminar, não a dimensão estrutural definitiva."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C040; Petrobras 24 (referências de questão já registradas); ABNT NBR 6122:2022, seções 5.6, 6.2 e 7; FHWA, Geotechnical Engineering Circular No. 6 — Shallow Foundations, https://highways.dot.gov/sites/fhwa.dot.gov/files/FHWA-SA-02-054.pdf."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A sapata espalha a força do pilar em uma área maior, reduzindo a pressão média. Momento produz excentricidade da resultante e distribuição não uniforme: em base retangular com flexão uniaxial e contato integral, as pressões extremas resultam da soma ou diferença de N/A e M/W. Se a pressão mínima calculada ficar negativa, o modelo de contato integral deixa de representar o solo, que normalmente não resiste à tração."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "qmed=N/A (kPa=kN/m²); A≥Ntotal/qadm (m²); e=M/N (m); para retângulo B×L e momento variando a pressão ao longo de B, W=L·B²/6, qmax,min=N/(BL)·(1±6e/B). Contato integral no modelo linear para |e|≤B/6. Exemplo sem peso próprio: 600/200=3 m² e lado 1,73 m; com estimativa de 30 kN: 630/200=3,15 m² e lado 1,775 m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Carga centrada: pressão uniforme no modelo simplificado. Carga excêntrica: pressão desigual e possível perda de contato. Método admissível: ações compatíveis e pressão admissível; método de coeficientes parciais: ações e resistências de cálculo. Não misturar os dois."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se uma sapata quadrada de 2×2 m recebe Ntotal=600 kN e M=100 kN·m, e=0,167 m < B/6=0,333 m. qmed=150 kPa; qmax=225 kPa, qmin=75 kPa. Uma pressão admissível de 200 kPa não é satisfeita pela comparação simplificada de qmax, apesar da média inferior a 200 kPa; verificar o critério aplicável à combinação e o modelo geotécnico."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1571, CARD-1574, CARD-1576, CARD-1579, CARD-1582, CARD-1064, CARD-0308, CARD-0690, CARD-1040"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A pressão admissível não é uma constante universal do tipo de solo. O método e a definição bruta/líquida devem ser coerentes com as cargas. O cálculo linear exige contato integral, base idealizada rígida e flexão uniaxial; o dimensionamento final verifica resistência geotécnica, recalques, flexão, cisalhamento, punção e detalhamento. O percentual de 5% refere-se à carga vertical permanente, não a toda carga variável."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir área com altura; não comparar exclusivamente a pressão média quando há momento; não usar kN/m² como MPa. Não acrescentar 5% outra vez quando o peso próprio já está contabilizado."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Área distribui; momento desequilibra; recalque e resistência confirmam."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Para uma sapata centrada sob carga vertical, em modelo de pressão uniforme, a pressão média é a força vertical total dividida pela área. A área preliminar deve ser pelo menos Ntotal/qadm, em unidades compatíveis. Considerar o peso próprio da sapata: a NBR 6122:2022, item 5.6, prevê seu valor ou a estimativa mínima de 5% da carga vertical permanente. Para 600 kN de carga permanente e 200 kPa de pressão admissível, a estimativa de 30 kN dá área de 3,15 m² e lado quadrado de cerca de 1,78 m. O resultado é preliminar, não a dimensão estrutural definitiva.",
+          "A sapata espalha a força do pilar em uma área maior, reduzindo a pressão média. Momento produz excentricidade da resultante e distribuição não uniforme: em base retangular com flexão uniaxial e contato integral, as pressões extremas resultam da soma ou diferença de N/A e M/W. Se a pressão mínima calculada ficar negativa, o modelo de contato integral deixa de representar o solo, que normalmente não resiste à tração.",
+          "A pressão admissível não é uma constante universal do tipo de solo. O método e a definição bruta/líquida devem ser coerentes com as cargas. O cálculo linear exige contato integral, base idealizada rígida e flexão uniaxial; o dimensionamento final verifica resistência geotécnica, recalques, flexão, cisalhamento, punção e detalhamento. O percentual de 5% refere-se à carga vertical permanente, não a toda carga variável."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "pressão média",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "agent",
+            "text": "sapata",
+            "color": "#BBF7D0"
+          },
+          {
+            "kind": "condition",
+            "text": "5% da carga vertical permanente",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "não a dimensão estrutural definitiva",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Situação",
+            "Verificação preliminar"
+          ],
+          "rows": [
+            [
+              "Centrada",
+              "N/A"
+            ],
+            [
+              "Excêntrica",
+              "N/A ± M/W"
+            ],
+            [
+              "Contato integral linear",
+              "|e| ≤ B/6"
+            ],
+            [
+              "Projeto final",
+              "ELU e ELS"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Área preliminar",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>A</mi><mo>≥</mo><mfrac><msub><mi>N</mi><mi>total</mi></msub><msub><mi>q</mi><mi>adm</mi></msub></mfrac></math>",
+            "units": "m²; kN/kPa"
+          },
+          {
+            "title": "Pressões extremas",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>q</mi><mrow><mi>max</mi><mo>,</mo><mi>min</mi></mrow></msub><mo>=</mo><mfrac><mi>N</mi><mi>A</mi></mfrac><mo>±</mo><mfrac><mi>M</mi><mi>W</mi></mfrac></math>",
+            "units": "kPa; contato integral, flexão uniaxial"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Como pré-dimensionar a área de uma sapata centrada pelo método da pressão admissível? O que muda com peso próprio, momentos e recalques?",
+      "back": "Para uma sapata centrada sob carga vertical, em modelo de pressão uniforme, a pressão média é a força vertical total dividida pela área. A área preliminar deve ser pelo menos Ntotal/qadm, em unidades compatíveis. Considerar o peso próprio da sapata: a NBR 6122:2022, item 5.6, prevê seu valor ou a estimativa mínima de 5% da carga vertical permanente. Para 600 kN de carga permanente e 200 kPa de pressão admissível, a estimativa de 30 kN dá área de 3,15 m² e lado quadrado de cerca de 1,78 m. O resultado é preliminar, não a dimensão estrutural definitiva.",
+      "source": "H20-C040; Petrobras 24 (referências de questão já registradas); ABNT NBR 6122:2022, seções 5.6, 6.2 e 7; FHWA, Geotechnical Engineering Circular No. 6 — Shallow Foundations, https://highways.dot.gov/sites/fhwa.dot.gov/files/FHWA-SA-02-054.pdf.",
+      "mnemonic": "Área distribui; momento desequilibra; recalque e resistência confirmam.",
+      "related_card_ids": [
+        "CARD-1571",
+        "CARD-1574",
+        "CARD-1576",
+        "CARD-1579",
+        "CARD-1582",
+        "CARD-1064",
+        "CARD-0308",
+        "CARD-0690",
+        "CARD-1040"
+      ],
+      "related_question_ids": [
+        "PETRO24-QREC-C003",
+        "PETRO24-QREC-C006",
+        "PETRO24-QREC-C008",
+        "PETRO24-QREC-C011",
+        "PETRO24-QREC-C014",
+        "PETRO24-QREC-RIGIDEZ"
+      ]
+    },
+    {
+      "id": "CARD-1064",
+      "title": "Fundações — ELU geotécnico, estrutural e ELS",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie ELU geotécnico, ELU estrutural e ELS de uma fundação superficial. Como capacidade de suporte, ruptura de Vesić e recalques influenciam a decisão?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O ELU verifica a segurança contra perda de resistência ou estabilidade: no terreno, ruptura por capacidade de suporte, deslizamento ou outras instabilidades pertinentes; no elemento de fundação, mecanismos estruturais como flexão, cisalhamento ou punção. O ELS verifica se os deslocamentos, rotações, levantamentos e vibrações são compatíveis com o desempenho da obra. Uma sapata pode estar segura contra ruptura e ainda produzir recalques diferenciais prejudiciais. A pressão admissível precisa ser compatível com segurança e serviço, no método em que é empregada."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H26-C045; Petrobras 24; ABNT NBR 6122:2022, seções 5.6, 6.2 e 7; FHWA, Geotechnical Engineering Circular No. 6 — Shallow Foundations, https://highways.dot.gov/sites/fhwa.dot.gov/files/FHWA-SA-02-054.pdf. Vesić (1975), Bearing Capacity of Shallow Foundations; cartão CARD-1579."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Ruptura geral: superfícies de cisalhamento desenvolvidas, levantamento lateral e pico de resistência típico. Ruptura localizada: mobilização parcial e transição menos nítida. Puncionamento geotécnico: afundamento predominantemente vertical com pouca manifestação lateral. Esses modos não se confundem com a punção estrutural do concreto. O recalque também pode ocorrer sem uma superfície de ruptura, pela compressibilidade e adensamento das camadas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "No método de estados limites com coeficientes parciais, comparar o efeito de cálculo Ed com a resistência de cálculo Rd: Ed≤Rd (mesma grandeza e unidades). No ELS, Ek≤C, em que Ek é efeito característico e C é limite de serviço correspondente. Exemplo ilustrativo: força de cálculo 800 kN, resistência 1000 kN → ELU atendido nesse modo; recalque previsto 35 mm versus limite específico 20 mm → ELS não atendido."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "ELU geotécnico: resistência/estabilidade do maciço. ELU estrutural: resistência da sapata de concreto. ELS: funcionamento e integridade em uso. Ruptura por puncionamento do solo: mecanismo geotécnico; punção de laje/sapata: mecanismo de cisalhamento no concreto."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se a prova disser que uma fundação dimensionada abaixo da resistência última está automaticamente apta a entrar em serviço, rejeitar a conclusão. Verificar separadamente os deslocamentos, seu efeito diferencial, as combinações de ações e os limites definidos para a obra."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1579, CARD-1583, CARD-1587, CARD-0308, CARD-0683, CARD-1040, CARD-0699, CARD-1065"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Os modos de Vesić dependem de densidade, compressibilidade, embutimento relativo e condições do solo; não impor uma fronteira numérica universal. Usar as combinações e critérios adequados ao método de verificação. Em carga de serviço, deformação elevada não demonstra por si só ruptura iminente."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir pressão última com admissível; não tratar todo recalque como ELU; não confundir punção do solo com punção do concreto; não presumir que a verificação de uma modalidade de ELU comprova todas as demais."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "ELU: não romper. ELS: funcionar. Solo e concreto: resistências diferentes."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O ELU verifica a segurança contra perda de resistência ou estabilidade: no terreno, ruptura por capacidade de suporte, deslizamento ou outras instabilidades pertinentes; no elemento de fundação, mecanismos estruturais como flexão, cisalhamento ou punção. O ELS verifica se os deslocamentos, rotações, levantamentos e vibrações são compatíveis com o desempenho da obra. Uma sapata pode estar segura contra ruptura e ainda produzir recalques diferenciais prejudiciais. A pressão admissível precisa ser compatível com segurança e serviço, no método em que é empregada.",
+          "Ruptura geral: superfícies de cisalhamento desenvolvidas, levantamento lateral e pico de resistência típico. Ruptura localizada: mobilização parcial e transição menos nítida. Puncionamento geotécnico: afundamento predominantemente vertical com pouca manifestação lateral. Esses modos não se confundem com a punção estrutural do concreto. O recalque também pode ocorrer sem uma superfície de ruptura, pela compressibilidade e adensamento das camadas.",
+          "Os modos de Vesić dependem de densidade, compressibilidade, embutimento relativo e condições do solo; não impor uma fronteira numérica universal. Usar as combinações e critérios adequados ao método de verificação. Em carga de serviço, deformação elevada não demonstra por si só ruptura iminente."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "ELU",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "ELS",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "agent",
+            "text": "elemento de fundação",
+            "color": "#BBF7D0"
+          },
+          {
+            "kind": "exception",
+            "text": "ainda produzir recalques diferenciais prejudiciais",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Verificação",
+            "O que governa"
+          ],
+          "rows": [
+            [
+              "ELU geotécnico",
+              "Capacidade de suporte, estabilidade"
+            ],
+            [
+              "ELU estrutural",
+              "Flexão, cisalhamento, punção"
+            ],
+            [
+              "ELS",
+              "Deslocamentos, rotações, vibrações"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "ELU",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>E</mi><mi>d</mi></msub><mo>≤</mo><msub><mi>R</mi><mi>d</mi></msub></math>",
+            "units": "efeito e resistência de cálculo"
+          },
+          {
+            "title": "ELS",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>E</mi><mi>k</mi></msub><mo>≤</mo><mi>C</mi></math>",
+            "units": "efeito característico e limite de serviço"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Diferencie ELU geotécnico, ELU estrutural e ELS de uma fundação superficial. Como capacidade de suporte, ruptura de Vesić e recalques influenciam a decisão?",
+      "back": "O ELU verifica a segurança contra perda de resistência ou estabilidade: no terreno, ruptura por capacidade de suporte, deslizamento ou outras instabilidades pertinentes; no elemento de fundação, mecanismos estruturais como flexão, cisalhamento ou punção. O ELS verifica se os deslocamentos, rotações, levantamentos e vibrações são compatíveis com o desempenho da obra. Uma sapata pode estar segura contra ruptura e ainda produzir recalques diferenciais prejudiciais. A pressão admissível precisa ser compatível com segurança e serviço, no método em que é empregada.",
+      "source": "H26-C045; Petrobras 24; ABNT NBR 6122:2022, seções 5.6, 6.2 e 7; FHWA, Geotechnical Engineering Circular No. 6 — Shallow Foundations, https://highways.dot.gov/sites/fhwa.dot.gov/files/FHWA-SA-02-054.pdf. Vesić (1975), Bearing Capacity of Shallow Foundations; cartão CARD-1579.",
+      "mnemonic": "ELU: não romper. ELS: funcionar. Solo e concreto: resistências diferentes.",
+      "related_card_ids": [
+        "CARD-1579",
+        "CARD-1583",
+        "CARD-1587",
+        "CARD-0308",
+        "CARD-0683",
+        "CARD-1040",
+        "CARD-0699",
+        "CARD-1065"
+      ],
+      "related_question_ids": [
+        "PETRO24-QREC-C011",
+        "PETRO24-QREC-C015",
+        "PETRO24-QREC-CRAVACAO"
+      ]
+    },
+    {
+      "id": "CARD-0308",
+      "title": "NBR 6122 — limites de recalques e desempenho em serviço",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais critérios da NBR 6122:2022 orientam a escolha dos limites de deslocamento das fundações? Diferencie recalque absoluto, diferencial, inclinação e efeitos em serviço."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A NBR 6122:2022 orienta que os limites de deslocamento e deformação considerem a confiabilidade da estimativa do limite, a velocidade dos movimentos, as características e materiais da estrutura, o tipo de fundação, o solo, a finalidade da obra e as consequências sobre construções e redes vizinhas. Devem ser avaliados recalques e levantamentos excessivos e vibrações inaceitáveis. Não existe um único recalque admissível em milímetros para qualquer edificação. O efeito de serviço estimado deve ficar dentro do limite pertinente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-12-008; ABNT NBR 6122:2022, 6.2.2.1 e 6.2.2.2; consulta de apoio https://www.scribd.com/document/1035368694/601787438-ABNT-NBR-6122-2022-Projeto-e-Execucao-de-Fundacoes ; Petrobras 24: CARD-1578."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O recalque absoluto desloca um ponto; o diferencial modifica a posição relativa entre apoios, podendo impor esforços secundários, fissuras, desaprumo e perda de funcionalidade. A rotação rígida global e a distorção relativa não são necessariamente iguais. Uma camada compressível pode gerar adensamento lento, enquanto deformações imediatas surgem com aplicação da carga; o tempo de evolução afeta a avaliação de risco e serviço."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "δs=|sB−sA|; θ≈(sB−sA)/L em pequenos ângulos; β≈θ−ω quando ω é a rotação global de referência na convenção da figura CARD-1578. Exemplo: sA=10 mm, sB=25 mm, L=5 m → δs=15 mm, |θ|≈0,003 rad. Sem ω não se determina necessariamente β. ELS: Ek≤C."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Recalque uniforme: pouca diferença entre apoios, mas pode afetar redes e cotas. Diferencial: potencial de distorção e esforços adicionais. Levantamento: deslocamento ascendente, por exemplo por expansão. Vibração: problema dinâmico de serviço, ainda que não haja grande recalque."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Compare 20 mm em ambos os apoios com 5 mm e 25 mm em apoios a 4 m: no primeiro, δs=0; no segundo, δs=20 mm e inclinação de 0,005 rad. Não concluir automaticamente que a primeira situação é aceitável ou a segunda é inaceitável: verificar o limite específico, a rotação de referência e os elementos afetados."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0097, CARD-1537, CARD-1570, CARD-1578, CARD-1064, CARD-1065, CARD-0460, CARD-0683, CARD-0412, CARD-0700"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Limites de serviço dependem da sensibilidade e rigidez estrutural, uso, vizinhança, solo e evolução temporal; valores usuais de literatura não substituem a justificativa do projeto. As relações angulares são aproximações para pequenos ângulos e convenções definidas."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não responder 25 mm como limite universal; não trocar δs por β nem usar milímetros diretamente com distância em metros. Pressão admissível atendida não elimina a verificação de deformação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Confiança + velocidade + estrutura + fundação + solo + uso + vizinhança: o limite depende do conjunto."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A NBR 6122:2022 orienta que os limites de deslocamento e deformação considerem a confiabilidade da estimativa do limite, a velocidade dos movimentos, as características e materiais da estrutura, o tipo de fundação, o solo, a finalidade da obra e as consequências sobre construções e redes vizinhas. Devem ser avaliados recalques e levantamentos excessivos e vibrações inaceitáveis. Não existe um único recalque admissível em milímetros para qualquer edificação. O efeito de serviço estimado deve ficar dentro do limite pertinente.",
+          "O recalque absoluto desloca um ponto; o diferencial modifica a posição relativa entre apoios, podendo impor esforços secundários, fissuras, desaprumo e perda de funcionalidade. A rotação rígida global e a distorção relativa não são necessariamente iguais. Uma camada compressível pode gerar adensamento lento, enquanto deformações imediatas surgem com aplicação da carga; o tempo de evolução afeta a avaliação de risco e serviço.",
+          "Limites de serviço dependem da sensibilidade e rigidez estrutural, uso, vizinhança, solo e evolução temporal; valores usuais de literatura não substituem a justificativa do projeto. As relações angulares são aproximações para pequenos ângulos e convenções definidas."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "limites de deslocamento e deformação",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "agent",
+            "text": "estrutura",
+            "color": "#BBF7D0"
+          },
+          {
+            "kind": "condition",
+            "text": "velocidade dos movimentos",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "Não existe um único recalque admissível",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Interpretação"
+          ],
+          "rows": [
+            [
+              "s",
+              "Recalque absoluto (mm)"
+            ],
+            [
+              "δs",
+              "Diferença de recalques (mm)"
+            ],
+            [
+              "θ",
+              "Inclinação do segmento (rad)"
+            ],
+            [
+              "β",
+              "Distorção relativa (rad), referência definida"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Recalque diferencial",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>δ</mi><mi>s</mi><mo>=</mo><mo>|</mo><msub><mi>s</mi><mi>B</mi></msub><mo>−</mo><msub><mi>s</mi><mi>A</mi></msub><mo>|</mo></math>",
+            "units": "mm"
+          },
+          {
+            "title": "Inclinação aproximada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>θ</mi><mo>≈</mo><mfrac><mrow><msub><mi>s</mi><mi>B</mi></msub><mo>−</mo><msub><mi>s</mi><mi>A</mi></msub></mrow><mi>L</mi></mfrac></math>",
+            "units": "rad; unidades coerentes"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Quais critérios da NBR 6122:2022 orientam a escolha dos limites de deslocamento das fundações? Diferencie recalque absoluto, diferencial, inclinação e efeitos em serviço.",
+      "back": "A NBR 6122:2022 orienta que os limites de deslocamento e deformação considerem a confiabilidade da estimativa do limite, a velocidade dos movimentos, as características e materiais da estrutura, o tipo de fundação, o solo, a finalidade da obra e as consequências sobre construções e redes vizinhas. Devem ser avaliados recalques e levantamentos excessivos e vibrações inaceitáveis. Não existe um único recalque admissível em milímetros para qualquer edificação. O efeito de serviço estimado deve ficar dentro do limite pertinente.",
+      "source": "CON-12-008; ABNT NBR 6122:2022, 6.2.2.1 e 6.2.2.2; consulta de apoio https://www.scribd.com/document/1035368694/601787438-ABNT-NBR-6122-2022-Projeto-e-Execucao-de-Fundacoes ; Petrobras 24: CARD-1578.",
+      "mnemonic": "Confiança + velocidade + estrutura + fundação + solo + uso + vizinhança: o limite depende do conjunto.",
+      "related_card_ids": [
+        "CARD-0097",
+        "CARD-1537",
+        "CARD-1570",
+        "CARD-1578",
+        "CARD-1064",
+        "CARD-1065",
+        "CARD-0460",
+        "CARD-0683",
+        "CARD-0412",
+        "CARD-0700"
+      ],
+      "related_question_ids": [
+        "PETRO23-Q008",
+        "PETRO24-QREC-C002",
+        "PETRO24-QREC-C010"
+      ]
+    }
+  ]
+}
