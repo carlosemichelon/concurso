@@ -1,0 +1,46 @@
+name: Portão incremental do leitor VM7
+on:
+  push:
+    branches: [gh-pages, 'publicacao/**', 'correcao/**']
+    paths: ['assets/**', 'index.html', 'v*.html', 'tests/catalog_reader_gate.cjs', '.github/workflows/catalog-reader-gate.yml']
+  pull_request:
+    branches: [gh-pages]
+    paths: ['assets/**', 'index.html', 'v*.html', 'tests/catalog_reader_gate.cjs', '.github/workflows/catalog-reader-gate.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  leitor-incremental:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Selecionar somente IDs alterados
+        id: plan
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          REF_NAME: ${{ github.ref_name }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            echo "args=--smoke" >> "$GITHUB_OUTPUT"
+            node tests/catalog_reader_gate.cjs --smoke --plan >> "$GITHUB_OUTPUT"
+          else
+            if [ "$EVENT" != "pull_request" ] && [ "$REF_NAME" != "gh-pages" ]; then
+              git fetch origin gh-pages
+              BASE=$(git merge-base HEAD FETCH_HEAD)
+            fi
+            echo "args=$BASE" >> "$GITHUB_OUTPUT"
+            node tests/catalog_reader_gate.cjs "$BASE" --plan >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.plan.outputs.count != '0'
+        run: npm install --no-save playwright
+      - if: steps.plan.outputs.count != '0'
+        run: npx playwright install --with-deps chromium
+      - if: steps.plan.outputs.count != '0'
+        run: node tests/catalog_reader_gate.cjs ${{ steps.plan.outputs.args }}
