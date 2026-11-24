@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V385"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS6 — Portal de estudos</title><style id="bm-startup-gate">
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V386"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS7 — Portal de estudos</title><style id="bm-startup-gate">
 #bmStartupGate{display:none}
 html[data-bm-startup="pending"] body > :not(#bmStartupGate){opacity:0!important;pointer-events:none!important}
 html[data-bm-startup="pending"] #bmStartupGate{display:flex!important;position:fixed;inset:0;z-index:2147483647;align-items:center;justify-content:center;padding:24px;background:#f3f6f8;color:#253743;font:15px/1.5 system-ui,sans-serif}
@@ -137,7 +137,7 @@ header .stats .bm241-verification{font-size:10px}
  }
 }
 
-/* VS6 — acabamento visual do painel de resposta; sem alterar o comportamento. */
+/* VS7 — acabamento visual do painel de resposta; sem alterar o comportamento. */
 #bmCardPeekV050 #bm195Discursive{
  background:#f7fafb!important;color:#203b49!important;
  font:400 14px/1.5 system-ui,Arial,sans-serif!important;
@@ -214,7 +214,7 @@ header .stats .bm241-verification{font-size:10px}
 #bmCardPeekV050 #bm195Discursive [data-bm195-status][data-error="yes"]{color:#a42323!important}
 #bmCardPeekV050 #bm195Discursive small{font-size:12px!important;line-height:1.45!important;color:#526b7b!important}
 
-/* VS6 — fechamento independente e acessível no canto superior de cada painel. */
+/* VS7 — fechamento independente e acessível no canto superior de cada painel. */
 #bmCardPeekV050 .bm163-header{
  position:relative!important;padding-right:62px!important;min-height:54px;box-sizing:border-box;
 }
@@ -256,7 +256,7 @@ header .stats .bm241-verification{font-size:10px}
  }
 }
 
-/* VS6 — leitura limpa do verso: títulos textuais, sem ornamentos redundantes. */
+/* VS7 — leitura limpa do verso: títulos textuais, sem ornamentos redundantes. */
 #bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-heading-icon,.bm195-layer-ico,.bm198-overview-icon,.bm198-section-icon),
 #bmCardPeekV050 .bm-v050-peek-answer .bm198-topic>.bm198-icon,
 #bmCardPeekV050 .bm-v050-peek-answer .bm195-archive-title>.bm195-icon{
@@ -305,7 +305,7 @@ header .stats .bm241-verification{font-size:10px}
  display:none!important;
 }
 
-/* VS6 — ajuste discreto da janela de estudo, mantendo margens e layout móvel. */
+/* VS7 — ajuste discreto da janela de estudo, mantendo margens e layout móvel. */
 @media(min-width:761px){
  #bmCardPeekV050.bm-v050-peek{padding:10px!important;box-sizing:border-box}
  #bmCardPeekV050 .bm163-panel.bm165-panel{
@@ -316,7 +316,7 @@ header .stats .bm241-verification{font-size:10px}
  }
 }
 
-/* VS6 — padronização dos módulos do leitor compartilhado, sem alterar conteúdo ou expansão. */
+/* VS7 — padronização dos módulos do leitor compartilhado, sem alterar conteúdo ou expansão. */
 #bmCardPeekV050 .bm349-reading{
  font-family:system-ui,Arial,sans-serif!important;font-size:15px!important;
  line-height:1.7!important;color:#203745!important;
@@ -350,6 +350,23 @@ header .stats .bm241-verification{font-size:10px}
  border:1px solid #d4e1e9!important;border-top:0!important;
  border-radius:0 0 7px 7px!important;background:#fff!important;
 }
+/* VS7 — leitura contínua V333; fórmulas e tabelas no fluxo do leitor único. */
+#bmCardPeekV050 .bm349-reading{background:#fff!important}
+#bmCardPeekV050 .bm349-reading>p{background:#fff!important;border:0!important;padding:0!important;margin:0 0 1.1em!important;font-size:15px!important;line-height:1.78!important;white-space:normal!important}
+#bmCardPeekV050 .bm349-reading>h2:has(+p){background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;margin:16px 0 5px!important;color:#23485a!important}
+#bmCardPeekV050 .bm349-reading>h2+p{background:#fff!important;border:0!important;border-radius:0!important;padding:0!important;margin:0 0 1.1em!important}
+#bmCardPeekV050 .bm349-reading section{display:block}
+#bmCardPeekV050 .bm349-reading .formula{background:#fff!important;border:0!important;border-radius:0!important;padding:8px 0!important;margin:8px 0 16px!important;overflow:visible}
+#bmCardPeekV050 .bm349-reading .formula-label{display:block;font-size:13px!important;line-height:1.5!important;color:#475569!important;margin:0 0 6px!important}
+#bmCardPeekV050 .bm349-reading .formula-equation{display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:3px 0}
+#bmCardPeekV050 .bm349-reading .formula math{display:block!important;font-size:clamp(18px,2vw,22px)!important;margin:4px 0!important;min-width:max-content}
+#bmCardPeekV050 .bm349-reading .formula-units{display:block!important;margin:7px 0 0!important;color:#475569!important;font:400 13px/1.5 system-ui,Arial,sans-serif!important}
+#bmCardPeekV050 .bm349-reading mark.core{background:#FDE68A!important}
+#bmCardPeekV050 .bm349-reading mark.agent{background:#BBF7D0!important}
+#bmCardPeekV050 .bm349-reading mark.condition{background:#BAE6FD!important}
+#bmCardPeekV050 .bm349-reading mark.exception{background:#FECDD3!important}
+@media(max-width:650px){#bmCardPeekV050 .bm349-reading>p{font-size:14px!important;line-height:1.72!important}}
+
 /* Separação clara entre classificar a tentativa e gravar/conferir. */
 #bmCardPeekV050 #bm195Discursive .bm195-rates{margin-bottom:0!important}
 #bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-save]){
@@ -358,7 +375,7 @@ header .stats .bm241-verification{font-size:10px}
 }
 </style>
 </head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
-<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS6 · Cartões VC21</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
+<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS7 · Cartões VC21</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
 <div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
 <div class="stat" id="bm382CatalogStat" title="Contagem do catálogo oficial; aguarda carregamento"><b>—</b><span>Cartões ativos</span><small class="bm241-verification">Carregando catálogo</small></div>
 <div class="stat"><b>—</b><span>Originais Drive / Atlas</span><small class="bm241-verification">Não verificado</small></div>
@@ -385,7 +402,7 @@ header .stats .bm241-verification{font-size:10px}
 <section id="cartoes"><div class="panel"><h2>Flashcards</h2><p class="intro">Biblioteca única de estudo. Inicie pela fila SRS ou escolha um cartão por assunto. Responda antes de revelar o verso; somente a avaliação explícita altera a agenda.</p>
 <div id="bm382StudyStart" class="bm382-study"><strong>Estudar cartões</strong><p id="bm382QueueStatus" role="status" aria-live="polite">Escolha livremente ou conecte o Drive para consultar a agenda e as dificuldades registradas.</p><button type="button" class="primary" id="bm383FreeStudy">Estudar</button> <button type="button" id="bm382StartDue">Revisões pendentes</button> <button type="button" id="bm383StartPriority" title="Cartões classificados Difícil ou Errei histórico">Prioritários</button> <button type="button" id="bm382OpenAgenda">Ver agenda SRS</button></div><details id="bm273Versoes" class="notice"><summary>Catálogo e fontes</summary><p id="bm382CatalogInfo">Aguardando catálogo oficial.</p><p>Os dados pessoais, as avaliações e os originais privados permanecem no Drive. A consulta não registra revisão.</p></details><div class="controls"><input id="cardSearch" type="search" placeholder="Buscar por ID, tema ou pergunta"><select id="cardFilter"><option value="all">Todas as disciplinas</option></select><select id="cardTopicFilter" aria-label="Filtrar por assunto"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="cardHidden" type="checkbox">Mostrar ocultos</label><label class="checkbox"><input id="cardReviewedOnly" type="checkbox">Com revisão histórica (21)</label><label class="checkbox"><input id="cardRecoveredOnly" type="checkbox">Com resposta registrada (9)</label><span id="cardCount" class="small muted"></span></div><div id="cardRows" class="grid"></div><p><button id="moreCards">Mostrar mais</button></p><div id="coverageSummary"></div></div></section>
 <section id="imagens"><div class="panel"><h2>Imagens e pranchas</h2><p class="intro">Encontre cada prancha por tema, leia o resumo do conteúdo e amplie a imagem para estudar. Exclusões são reversíveis.</p><div class="notice">Os temas e títulos ajudam a localizar as imagens, mas não substituem sua conferência técnica. Arquivos originais e marcações permanecem preservados.</div><div class="controls"><input id="imageSearch" type="search" placeholder="Buscar IMG, assunto técnico ou descrição"><select id="imageFilter"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="imageHidden" type="checkbox">Mostrar ocultas</label><span id="imageCount" class="small muted"></span></div><div class="originalHelp">Se a imagem completa não estiver disponível, vincule seu original ao registro. Ele será guardado somente neste navegador.</div><div id="imageRows" class="grid"></div><p><button id="moreImages">Mostrar mais</button></p></div></section>
-<footer>Banco Mestre · Site VS6 · Catálogo VC15</footer></main>
+<footer>Banco Mestre · Site VS7 · Catálogo VC21</footer></main>
 <dialog id="pdfDialog" aria-label="Leitor e editor de PDFs">
  <div class="dhead"><strong id="docTitle"></strong><button id="pdfClose">Fechar</button></div>
  <div class="dbody">
@@ -1176,7 +1193,7 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
 </script><script defer src="assets/v315_js_136_147.js?v=315-1"></script><script defer src="assets/v326_js_148_159_countsfix3.js?v=3"></script>
-<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v382_srs_journal.js?v=382-1"></script><script defer src="assets/v373_related_navigator.js?v=373-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/v343_petro27_renderer.js?v=343-1"></script><script defer src="assets/v345_petro28_renderer.js?v=345-1"></script><script defer src="assets/v346_petro24_renderer.js?v=346-1"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/v348_visual_renderer.js?v=348-1"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/v373_shared_reader.js?v=373-1"></script><script defer src="assets/v368_supplements.js?v=368-1"></script><script defer src="assets/v368_private_media.js?v=368-1"></script><script defer src="assets/v373_petro29_remap_renderer.js?v=373-1"></script><script defer src="assets/v383_study_queue.js?v=383-1"></script><script id="bm-discursive-split-controller">
+<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v382_srs_journal.js?v=382-1"></script><script defer src="assets/v373_related_navigator.js?v=373-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/v343_petro27_renderer.js?v=343-1"></script><script defer src="assets/v345_petro28_renderer.js?v=345-1"></script><script defer src="assets/v346_petro24_renderer.js?v=346-1"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/v348_visual_renderer.js?v=348-1"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/v386_shared_reader.js?v=386-1"></script><script defer src="assets/v368_supplements.js?v=368-1"></script><script defer src="assets/v368_private_media.js?v=368-1"></script><script defer src="assets/v373_petro29_remap_renderer.js?v=373-1"></script><script defer src="assets/v383_study_queue.js?v=383-1"></script><script id="bm-discursive-split-controller">
 (function(){
  'use strict';
  const wide=matchMedia('(min-width:900px)');
