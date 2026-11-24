@@ -132,7 +132,7 @@ sidebarToggle.addEventListener('click',()=>{
  sidebarToggle.title=hidden?'Mostrar outros cartões':'Ocultar outros cartões';
 });
 function visibleElement(el){return el&&!(el.closest('[hidden]'))&&!el.disabled}
-function hide(){if(account.reviewBusy)return;
+function hide(){if(account.reviewBusy||account.discursiveBusy)return;
  if(overlay.hidden)return;
  freeTrtUrls();overlay.hidden=true;document.body.classList.remove('bm-v050-peek-open');
  document.body.style.overflow=previousOverflow;
@@ -223,7 +223,7 @@ function appendAnswer(c){
   piece('Fundamento detalhado registrado na correção',g?.dispositivo),
   piece('Origem da questão',c.origin_question_id),
   piece('PDF original e páginas',g?.fonte),
-  piece('Situação editorial',c.provisional?'Cópia operacional de Ijuí, ainda não promovida à base canônica.':/^TRT0[12]-C\d{3}$/.test(c.id)?'Cartão TRT operacional preservado separadamente, sem promoção para a base canônica.':'Cartão fictício para teste da interface.')
+  piece('Situação editorial',c.provisional?'Cópia operacional de Ijuí, ainda não promovida à base canônica.':/^TRT0[12]-C\d{3}$/.test(c.id)?'Cartão TRT operacional preservado separadamente, sem promoção para a base canônica.':'Cartão original da base canônica.')
  ]);
  if(refs)answer.append(refs);
  const rel=group('Relações e histórico de estudo','layers',[
@@ -325,6 +325,8 @@ function bm197ShowEvolution(c){
     });
     state.replaceChildren(create('p','bm197-pending','O quadro informativo não carregou; exibindo os 11 textos originais.'),fragment);
    }
+   for(const old of record.history||[]){const detail=create('details','bm197-layer');detail.append(create('summary','','Histórico integral — '+old.version));for(const layer of old.layers){detail.append(create('h4','bm197-layer-title',layer.titulo));bm197RenderText(detail,layer.texto)}state.append(detail)}
+   for(const extra of record.supplements||[]){const detail=create('details','bm197-layer');detail.append(create('summary','','Complemento '+extra.version));bm197RenderText(detail,extra.text);state.append(detail)}
    if(record.v199_status)heading.textContent='📖 Resposta evolutiva integral · 11 seções · '+c.id+' · reauditoria V199';
    else heading.textContent='📖 Resposta evolutiva integral · 11 seções · '+c.id;
    if(record.v199_warning)state.prepend(create('p','bm197-pending',record.v199_warning));
@@ -362,7 +364,7 @@ function renderLaw(rec,c){
 }
 function isLegal(c){return !!c&&(c.provisional||String(c.group||'')==='LEGISLACAO'||/legisla|direito|jur[ií]dic|constitucional/i.test(String(c.discipline||'')))}
 function show(id,origin){
- const c=getCard(id);if(!c||account.reviewBusy)return false;
+ const c=getCard(id);if(!c||account.reviewBusy||account.discursiveBusy)return false;
  // Inicia cada cartão sem a lateral; o usuário pode reabri-la no botão original.
  panel.classList.add('bm165-sidebar-hidden');
  sidebarToggle.setAttribute('aria-expanded','false');
@@ -375,7 +377,7 @@ function show(id,origin){
   panel.focus({preventScroll:true});
  }
  freeTrtUrls();currentId=id;title.textContent='Cartão '+id;
- front.textContent=c.front||'Pergunta não cadastrada';
+ front.textContent=c.front||'Pergunta não cadastrada';account.renderCardFront(c,front);
  meta.textContent=[c.discipline,c.subject,c.sub].filter(Boolean).join(' › ');
  provenance.textContent=/^TRT0[12]-C\d{3}$/.test(id)?'TRT · registro operacional · não modifica SRS':c.provisional?'Cópia operacional de Ijuí · sem promoção canônica':'Cartão fictício · ID de demonstração';
  if(window.BM163LeiSeca?.getRecord(id)?.notice)provenance.textContent+=' · referência normativa divergente';

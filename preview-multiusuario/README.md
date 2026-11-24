@@ -1,1 +1,1 @@
-Prévia V348 / 023G. Fonte b4c939b5196c618f2b82c28d89209ab4e79e2b97. Lacunas V242/V300, controle V245 e calendário V313 reaproveitados; dados fictícios em memória, sem Drive real. Nenhum arquivo fora da pasta de prévia alterado.
+Prévia V348 / 023H. Fonte 337f186254b91423f63add20a2433e529332a32c. Respostas discursivas V206 e renderizador V198 reaproveitados, fontes recentes de módulos no servidor privado. Dados fictícios em memória. Nenhum arquivo fora da prévia alterado.
