@@ -1,3 +1,7 @@
+# Drive central — homologação 025A
+
+**Instruções vigentes de implantação:** [DEPLOY.md](DEPLOY.md). A prévia pública passou em 11 cenários Chrome (API fictícia), não em Drive real. A fase 016 abaixo é histórico de arquitetura, não o estado atual.
+
 # Drive central — etapa 016 (homologação)
 Mudança de requisito 23/11/2026: login próprio (usuário/senha), um Drive do administrador e pastas distintas por estudante. O proprietário do Drive autoriza o serviço uma vez; o segundo estudante não recebe token, não precisa de conta Google nem acesso direto à pasta. A versão OAuth individual da etapa 015 permanece preservada.
  
