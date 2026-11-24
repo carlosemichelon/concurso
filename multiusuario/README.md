@@ -56,3 +56,6 @@ Referência: index.html V346, estilos V333, V319 e V324 do portal original. Cabe
 
 ## V016 — correções de integração
 Restauração substitui todos os campos, sem resíduos de planejamento ou proveniência; confirma dono da origem legada no backup e snapshots. Importação inicial não sobrescreve planejamento já iniciado; datas legadas inválidas não são normalizadas silenciosamente. Evolução bloqueia cartão alterado após abertura, uploads não vinculam ao catálogo se a revisão mudou, falha de login limpa o estado. Estado de imagem não declara exibição antes do onload. Nenhum hash no estudo normal. Testes de navegador e OAuth real pendentes.
+
+## V017 — homologação automatizada
+Execução V016 em GitHub Actions (45295781577): todos os 15 conjuntos npm test passaram. A instalação do Chromium falhou antes da execução do teste, porque ubuntu-latest passou a Ubuntu 26.04, incompatível com Playwright 1.56.1. Fixado ubuntu-24.04, bloqueio de rede externa no smoke e tratamento explícito de preflight simulado. Teste usa somente dados sintéticos, não OAuth/Drive reais. Aguardando resultado da nova execução; não declarar homologação antes do log.

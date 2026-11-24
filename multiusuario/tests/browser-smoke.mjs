@@ -6,7 +6,7 @@ import { resolve,extname,sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=resolve(fileURLToPath(new URL('../../',import.meta.url)));
 const types={'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'};
-const server=createServer(async(req,res)=>{try{const path=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));if(!path.startsWith(root+sep))throw Error('path');const data=await readFile(path);res.writeHead(200,{'Content-Type':types[extname(path)]||'application/octet-stream'});res.end(data)}catch{res.writeHead(404);res.end('Not found')}});
+const server=createServer(async(req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),path=resolve(root,'.'+pathname);if(!path.startsWith(resolve(root,'multiusuario')+sep)&&![resolve(root,'assets/v315_styles_core.css'),resolve(root,'assets/v315_styles_polish.css')].includes(path))throw Error('path');const data=await readFile(path);res.writeHead(200,{'Content-Type':types[extname(path)]||'application/octet-stream'});res.end(data)}catch{res.writeHead(404);res.end('Not found')}});
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
 const origin='http://127.0.0.1:'+server.address().port,project='banco-mestre-multiusuario-v001';
 const browser=await chromium.launch({headless:true});
@@ -19,9 +19,10 @@ const make=async(owner,width=1280)=>{
  const snap={id:'snap'+owner+'0',mimeType:'application/json',ownedByMe:true,shared:false,parents:[folder.id],appProperties:{bmProject:project,bmOwner:owner,bmKind:'snapshot',bmPrev:'root'},payload:{project,owner,previous:'root',data:database(owner)}};
  const files=new Map([[folder.id,folder],[snap.id,snap]]);
  let serial=0;
+ await context.route('**/*',route=>{const u=new URL(route.request().url());return u.origin===origin?route.continue():route.abort('blockedbyclient')});
  const headers={'access-control-allow-origin':'*','access-control-allow-headers':'*','access-control-allow-methods':'GET,POST,OPTIONS'};
  await context.route('https://accounts.google.com/gsi/client',route=>route.fulfill({contentType:'application/javascript',body:'window.google={accounts:{oauth2:{initTokenClient:(o)=>({requestAccessToken:()=>o.callback({access_token:"token-'+owner+'",expires_in:3600})})}}}'}));
- await context.route('https://openidconnect.googleapis.com/**',route=>route.fulfill({headers,json:{sub:owner,email:owner+'@example.test',email_verified:true}}));
+ await context.route('https://openidconnect.googleapis.com/**',route=>route.request().method()==='OPTIONS'?route.fulfill({status:204,headers}):route.fulfill({headers,json:{sub:owner,email:owner+'@example.test',email_verified:true}}));
  await context.route('https://www.googleapis.com/**',async route=>{
   const req=route.request(),url=new URL(req.url()),reply=(json,status=200)=>route.fulfill({status,headers,json});
   if(req.method()==='OPTIONS')return route.fulfill({status:204,headers});
@@ -32,7 +33,7 @@ const make=async(owner,width=1280)=>{
  });
  // No unmocked network, no real account or Drive.
  await page.goto(origin+'/multiusuario/index.html');
- await page.locator('#login').click();await page.waitForFunction(()=>document.querySelector('#account').textContent.includes('@example.test'));
+ await page.waitForFunction(()=>!!window.google?.accounts?.oauth2);await page.locator('#login').click();await page.locator('#nav').waitFor({state:'visible'});await page.waitForFunction(()=>document.querySelector('#account').textContent.includes('@example.test'));
  return {context,page,errors,files};
 };
 try{
@@ -60,4 +61,4 @@ try{
  assert.equal(await a.page.getByText('Resposta exclusiva A',{exact:true}).count(),0);
  assert.deepEqual(a.errors,[]);assert.deepEqual(b.errors,[]);
  await a.context.close();await b.context.close();console.log('PASS browser smoke: two synthetic accounts, mobile sidebar, reveal, SRS, save, logout');
-}finally{await browser.close();server.close()}
+}catch(error){for(const context of browser.contexts())for(const page of context.pages()){console.error('Diagnóstico de interface (dados fictícios):',await page.locator('body').innerText().catch(()=>''));}throw error}finally{await browser.close();server.close()}
