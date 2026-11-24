@@ -5695,10 +5695,10 @@
     "browser_test": "pending"
   },
   "catalog": {
-    "path": "assets/catalog_snapshot_vc18.json",
+    "path": "assets/catalog_snapshot_vc19.json",
     "format": "BancoMestreCatalogSnapshotV362",
     "source_head": "e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7",
-    "git_blob": "739b909da390e5aa0b9c9c199b6080d96b0e12e6",
+    "git_blob": "f20fd360ccee5cf76cfe1e8d41a589d4c582219b",
     "counts": {
       "canonical": 1559,
       "active": 1559,
@@ -5711,7 +5711,7 @@
     "consolidation_status": "PUBLICACAO_EXPRESSAMENTE_SOLICITADA_SEM_HOMOLOGACAO_EDITORIAL_INTEGRAL",
     "study_increment": "assets/petro30_public_v374.json",
     "study_increment_blob": "f0add58021227f0482f39040160c60e6b8ba9869",
-    "display_version": "VC18",
+    "display_version": "VC19",
     "unified": true,
     "active_only": true,
     "recovery_packet": "assets/petro10_19_recovery_vc4.json",
@@ -5743,7 +5743,9 @@
     "recovery_packet_14": "assets/petro10_19_recovery_vc17.json",
     "recovery_packet_14_blob": "f94656c12dd7bdadf003c178d7643b580aa24e75",
     "recovery_packet_15": "assets/petro10_19_recovery_vc18.json",
-    "recovery_packet_15_blob": "b22a583eed80fa0a160fb53bda7d4e2ba45c157e"
+    "recovery_packet_15_blob": "b22a583eed80fa0a160fb53bda7d4e2ba45c157e",
+    "recovery_packet_16": "assets/petro10_19_recovery_vc19.json",
+    "recovery_packet_16_blob": "76ef46c1bcb05328391679f1cc09f41cacf6d616"
   },
   "release_v363": {
     "scope": "Contrato independente do catálogo, metadados com cache compartilhado, busca vazia sem normalização; automação de montagem e testes da versão corrente",
@@ -5878,9 +5880,9 @@
       "home": "v383.html"
     },
     "cards": {
-      "version": "VC18",
+      "version": "VC19",
       "technical_source": "V383",
-      "path": "assets/catalog_snapshot_vc18.json",
+      "path": "assets/catalog_snapshot_vc19.json",
       "counts": {
         "canonical": 1559,
         "active": 1559,
@@ -6202,5 +6204,17 @@
     "srs_modified": false,
     "private_content_exported": false,
     "rollback": "VC17"
+  },
+  "release_vc19": {
+    "scope": "Três evoluções de investigação geotécnica: execução SPT, interpretação N e RQD; sem novos IDs ou exclusões",
+    "updated_ids": [
+      "CARD-0709",
+      "CARD-0690",
+      "CARD-1377"
+    ],
+    "private_sync": "not_verified",
+    "srs_modified": false,
+    "private_content_exported": false,
+    "rollback": "VC18"
   }
 }
