@@ -34,6 +34,7 @@ async function build(html,c){
  const r=await execute(async url=>({ok:true,json:async()=>localAsset(url)}),async()=>meta,globals,{warn:(...args)=>warnings.push(args.map(String).join(' '))});
  assert.deepEqual(warnings,[],'Fontes opcionais não podem desaparecer silenciosamente');
  const p={format:c.format,source_head:c.source_head,counts:{canonical:r.base.length,active:r.base.filter(x=>x.active!==false).length,ijui:r.ijui.length},...r,globals,meta};
+ if(c.consolidation_packet){const raw=fs.readFileSync(path.join(root,c.consolidation_packet));assert.equal(blobHash(raw),c.consolidation_packet_blob);const result=require('./consolidacao_conceitual.cjs').applyConsolidation(p,JSON.parse(raw));result.consolidation.packet_signature=c.consolidation_packet_blob;result.consolidation.publication_status=c.consolidation_status;validate(result,c);return result;}
  validate(p,c);return p;
 }
 function checkContract(html,m){
