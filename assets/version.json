@@ -5695,10 +5695,10 @@
     "browser_test": "pending"
   },
   "catalog": {
-    "path": "assets/catalog_snapshot_vc16.json",
+    "path": "assets/catalog_snapshot_vc17.json",
     "format": "BancoMestreCatalogSnapshotV362",
     "source_head": "e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7",
-    "git_blob": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+    "git_blob": "31430e319fb774264b20f7c2a67831a8d78550de",
     "counts": {
       "canonical": 1559,
       "active": 1559,
@@ -5711,7 +5711,7 @@
     "consolidation_status": "PUBLICACAO_EXPRESSAMENTE_SOLICITADA_SEM_HOMOLOGACAO_EDITORIAL_INTEGRAL",
     "study_increment": "assets/petro30_public_v374.json",
     "study_increment_blob": "f0add58021227f0482f39040160c60e6b8ba9869",
-    "display_version": "VC16",
+    "display_version": "VC17",
     "unified": true,
     "active_only": true,
     "recovery_packet": "assets/petro10_19_recovery_vc4.json",
@@ -5739,7 +5739,9 @@
     "recovery_packet_12": "assets/petro10_19_recovery_vc15.json",
     "recovery_packet_12_blob": "763bfaf5ec9dd11aa67c97a9eae4e48a626bbff1",
     "recovery_packet_13": "assets/petro10_19_recovery_vc16.json",
-    "recovery_packet_13_blob": "d92604753f547d6001a2c45f420441f2df9c6028"
+    "recovery_packet_13_blob": "d92604753f547d6001a2c45f420441f2df9c6028",
+    "recovery_packet_14": "assets/petro10_19_recovery_vc17.json",
+    "recovery_packet_14_blob": "f94656c12dd7bdadf003c178d7643b580aa24e75"
   },
   "release_v363": {
     "scope": "Contrato independente do catálogo, metadados com cache compartilhado, busca vazia sem normalização; automação de montagem e testes da versão corrente",
@@ -5874,9 +5876,9 @@
       "home": "v383.html"
     },
     "cards": {
-      "version": "VC16",
+      "version": "VC17",
       "technical_source": "V383",
-      "path": "assets/catalog_snapshot_vc16.json",
+      "path": "assets/catalog_snapshot_vc17.json",
       "counts": {
         "canonical": 1559,
         "active": 1559,
@@ -6172,5 +6174,18 @@
     "srs_modified": false,
     "private_content_exported": false,
     "rollback": "VC15"
+  },
+  "release_vc17": {
+    "scope": "Quatro evoluções de geotecnia: triaxiais, tensão efetiva, Mohr–Coulomb e OCR; sem novos IDs ou exclusões",
+    "updated_ids": [
+      "CARD-0034",
+      "CARD-0700",
+      "CARD-0699",
+      "CARD-0412"
+    ],
+    "private_sync": "not_verified",
+    "srs_modified": false,
+    "private_content_exported": false,
+    "rollback": "VC16"
   }
 }

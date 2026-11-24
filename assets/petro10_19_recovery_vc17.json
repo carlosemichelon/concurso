@@ -1,0 +1,565 @@
+{
+  "format": "BancoMestrePublicRecoveryVC17",
+  "source_catalog_blob": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0034",
+      "title": "Triaxiais UU, CU e CD",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "σ1′=σ1−u; σ3′=σ3−u; q=σ1−σ3. Se σ1=300, σ3=100, u=60 kPa: efetivas 240 e 40 kPa; q=200 kPa; centro efetivo 140 e raio 100 kPa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "UU: total; CU: total e efetiva com u; CD: efetiva e variação volumétrica. CD tende a demorar mais em argilas."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Carregamento rápido de argila: avaliar resistência não drenada em trajetória representativa (UU ou CU conforme investigação). Longo prazo: análise efetiva com poropressões adequadas. CU com u permite obter parâmetros efetivos sem esperar drenagem na ruptura."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0028, CARD-0040, CARD-0698, CARD-0700, CARD-0699"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "UU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não inverter fases; CU sem u não reconstrói trajetória efetiva. q não é raio: R=q/2."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "UU fecha–fecha; CU abre–fecha; CD abre–abre."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.",
+          "O confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica.",
+          "UU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "não há consolidação prévia nem drenagem",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "medir u",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "drenagem nas duas fases",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Ensaio",
+            "Consolidação drenada",
+            "Ruptura drenada",
+            "Parâmetros"
+          ],
+          "rows": [
+            [
+              "UU",
+              "Não",
+              "Não",
+              "Totais"
+            ],
+            [
+              "CU",
+              "Sim",
+              "Não",
+              "Totais; efetivos com u"
+            ],
+            [
+              "CD",
+              "Sim",
+              "Sim",
+              "Efetivos"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Desviadora",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>q</mi><mo>=</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>σ</mi><mn>3</mn></msub></math>",
+            "units": "kPa"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?",
+      "back": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.",
+      "source": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/",
+      "mnemonic": "UU fecha–fecha; CU abre–fecha; CD abre–abre.",
+      "related_card_ids": [
+        "CARD-0028",
+        "CARD-0040",
+        "CARD-0698",
+        "CARD-0700",
+        "CARD-0699"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-0700",
+      "title": "Tensão efetiva e poropressão",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique Terzaghi, calcule tensões abaixo do nível d’água e descreva sobrecarga rápida e drenagem posterior em argila saturada."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Em solo saturado, σ′=σ−u: a tensão efetiva governa a interação do esqueleto sólido. Em hidrostática, u=γw·z abaixo do nível d’água. Em camada saturada homogênea, o incremento efetivo é γ′·z, com γ′=γsat−γw. Em sobrecarga rápida unidimensional ideal, o acréscimo inicial aparece como excesso de poropressão; ao drenar, esse excesso diminui e a tensão efetiva aumenta, produzindo adensamento."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C042; CON-11-003/004/007/008; FHWA NHI-06-088: https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; referência histórica Petrobras 24: NBR 6484:2020 (CARD-1585)."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Com σ constante, elevar u reduz σ′ e a parcela friccional de resistência, mantidos parâmetros. Ao drenar excesso de u, a carga é transferida ao esqueleto e os vazios diminuem."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "γsat=20 kN/m³, γw≈10 kN/m³, saturado desde superfície, z=5 m: σv=100, u=50, σ′v=50 kPa. Carga uniforme de 30 kPa idealmente não drenada: σv=130, u≈80, σ′v≈50; após dissipação, u=50, σ′v=80 kPa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Total: peso e ações. Poropressão: pressão da água. Efetiva: tensão do esqueleto. Excesso: diferença em relação ao regime de referência, positiva ou negativa."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Em talude, u crescente pode reduzir resistência. Em sondagem, nível interno abaixo do freático pode induzir fluxo para dentro, carreamento de finos e perturbação (CARD-1585). Em sapatas vizinhas, considerar sobreposição de acréscimos de tensão (CARD-1571)."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0124, CARD-0695, CARD-0696, CARD-0354, CARD-0472, CARD-1571, CARD-1585, CARD-0699, CARD-1313"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Compressão positiva; referências de pressão consistentes. γ′z pressupõe hidrostática; incluir camadas superiores e cargas. Em percolação, obter u pela carga hidráulica. Solo não saturado exige formulação com sucção. Δu≈Δσ é idealização 1D."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não descontar u novamente se usou γ′ para calcular incremento efetivo hidrostático. Não confundir nível freático com distribuição hidrostática sob qualquer fluxo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Total menos água = esqueleto; drena excesso, aumenta efetiva."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Em solo saturado, σ′=σ−u: a tensão efetiva governa a interação do esqueleto sólido. Em hidrostática, u=γw·z abaixo do nível d’água. Em camada saturada homogênea, o incremento efetivo é γ′·z, com γ′=γsat−γw. Em sobrecarga rápida unidimensional ideal, o acréscimo inicial aparece como excesso de poropressão; ao drenar, esse excesso diminui e a tensão efetiva aumenta, produzindo adensamento.",
+          "Com σ constante, elevar u reduz σ′ e a parcela friccional de resistência, mantidos parâmetros. Ao drenar excesso de u, a carga é transferida ao esqueleto e os vazios diminuem.",
+          "Compressão positiva; referências de pressão consistentes. γ′z pressupõe hidrostática; incluir camadas superiores e cargas. Em percolação, obter u pela carga hidráulica. Solo não saturado exige formulação com sucção. Δu≈Δσ é idealização 1D."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "σ′=σ−u",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "u=γw·z",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "γ′=γsat−γw",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Exemplo a 5 m"
+          ],
+          "rows": [
+            [
+              "Total",
+              "100 kPa"
+            ],
+            [
+              "Poropressão",
+              "50 kPa"
+            ],
+            [
+              "Efetiva",
+              "50 kPa"
+            ],
+            [
+              "Peso submerso",
+              "10 kN/m³"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Terzaghi",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msup><mi>σ</mi><mo>′</mo></msup><mo>=</mo><mi>σ</mi><mo>−</mo><mi>u</mi></math>",
+            "units": "kPa"
+          },
+          {
+            "title": "Peso submerso",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msup><mi>γ</mi><mo>′</mo></msup><mo>=</mo><msub><mi>γ</mi><mi>sat</mi></msub><mo>−</mo><msub><mi>γ</mi><mi>w</mi></msub></math>",
+            "units": "kN/m³"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Explique Terzaghi, calcule tensões abaixo do nível d’água e descreva sobrecarga rápida e drenagem posterior em argila saturada.",
+      "back": "Em solo saturado, σ′=σ−u: a tensão efetiva governa a interação do esqueleto sólido. Em hidrostática, u=γw·z abaixo do nível d’água. Em camada saturada homogênea, o incremento efetivo é γ′·z, com γ′=γsat−γw. Em sobrecarga rápida unidimensional ideal, o acréscimo inicial aparece como excesso de poropressão; ao drenar, esse excesso diminui e a tensão efetiva aumenta, produzindo adensamento.",
+      "source": "H20-C042; CON-11-003/004/007/008; FHWA NHI-06-088: https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf; referência histórica Petrobras 24: NBR 6484:2020 (CARD-1585).",
+      "mnemonic": "Total menos água = esqueleto; drena excesso, aumenta efetiva.",
+      "related_card_ids": [
+        "CARD-0124",
+        "CARD-0695",
+        "CARD-0696",
+        "CARD-0354",
+        "CARD-0472",
+        "CARD-1571",
+        "CARD-1585",
+        "CARD-0699",
+        "CARD-1313"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-0699",
+      "title": "Mohr–Coulomb: estado de tensão e ruptura",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Enuncie Mohr–Coulomb em tensões efetivas, explique c′, φ′ e u e relacione envoltória, círculo de Mohr e ruptura."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C041; CON-11-010/011; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "C=(σ1′+σ3′)/2; R=(σ1′−σ3′)/2. O atrito depende da tensão efetiva normal ao plano. Na compressão triaxial convencional, a tangência implica R=C senφ′+c′ cosφ′."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "c′=20 kPa, σ′n=100 kPa, φ′=30°: τf≈77,7 kPa. Se u sobe 30 kPa a σn constante, σ′n=70 e τf≈60,4 kPa. Para principais efetivas 300 e 100 kPa: C=200, R=100 kPa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Círculo: estado; envoltória: limite. c′: intercepto em kPa; φ′: atrito. su: resistência não drenada em análise total, não sinônimo de c′."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Para c′=0, φ′=30°, tangência exige R=C/2. Principais efetivas 300 e 100 kPa dão C=200 e R=100: tangência. Se u aumentar a totais fixas, o modelo prevê ultrapassar a envoltória, exigindo redistribuição ou ruptura."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0297, CARD-0343, CARD-0452, CARD-0695, CARD-0698, CARD-0700, CARD-0758, CARD-0034"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Modelo linear, compressão positiva e parâmetros representativos. u isotrópica é descontada de tensões normais, não cisalhantes. Não extrapolar para tração sem critério. Pico e residual podem diferir; envoltória não é lei de deformação nem pós-pico."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar σ total com c′ e φ′. Não confundir C, R, q=2R e média tridimensional p′. Maior cisalhamento não significa automaticamente ruptura."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Mohr mostra o estado; Coulomb põe o limite. Água desloca, não muda o raio se totais fixas."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura.",
+          "C=(σ1′+σ3′)/2; R=(σ1′−σ3′)/2. O atrito depende da tensão efetiva normal ao plano. Na compressão triaxial convencional, a tangência implica R=C senφ′+c′ cosφ′.",
+          "Modelo linear, compressão positiva e parâmetros representativos. u isotrópica é descontada de tensões normais, não cisalhantes. Não extrapolar para tração sem critério. Pico e residual podem diferir; envoltória não é lei de deformação nem pós-pico."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "τf=c′+σ′n·tanφ′",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "tangente à envoltória",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "para a esquerda sem alterar seu raio",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Elemento",
+            "Significado"
+          ],
+          "rows": [
+            [
+              "c′",
+              "Intercepto"
+            ],
+            [
+              "tanφ′",
+              "Inclinação"
+            ],
+            [
+              "C",
+              "Média das principais extremas"
+            ],
+            [
+              "R",
+              "Metade da diferença"
+            ],
+            [
+              "u crescente",
+              "Círculo à esquerda, totais fixas"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Resistência",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>τ</mi><mi>f</mi></msub><mo>=</mo><msup><mi>c</mi><mo>′</mo></msup><mo>+</mo><msup><msub><mi>σ</mi><mi>n</mi></msub><mo>′</mo></msup><mi>tan</mi><msup><mi>φ</mi><mo>′</mo></msup></math>",
+            "units": "kPa"
+          },
+          {
+            "title": "Tangência",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mi>C</mi><mi>sin</mi><msup><mi>φ</mi><mo>′</mo></msup><mo>+</mo><msup><mi>c</mi><mo>′</mo></msup><mi>cos</mi><msup><mi>φ</mi><mo>′</mo></msup></math>",
+            "units": "kPa"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Enuncie Mohr–Coulomb em tensões efetivas, explique c′, φ′ e u e relacione envoltória, círculo de Mohr e ruptura.",
+      "back": "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura.",
+      "source": "H20-C041; CON-11-010/011; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf",
+      "mnemonic": "Mohr mostra o estado; Coulomb põe o limite. Água desloca, não muda o raio se totais fixas.",
+      "related_card_ids": [
+        "CARD-0297",
+        "CARD-0343",
+        "CARD-0452",
+        "CARD-0695",
+        "CARD-0698",
+        "CARD-0700",
+        "CARD-0758",
+        "CARD-0034"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-0412",
+      "title": "OCR e recalque de adensamento",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Defina OCR e pré-adensamento, interprete a curva e×logσ′ e explique quando calcular recalque em recompressão ou compressão virgem."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "OCR=σ′p/σ′v0, sendo σ′p a tensão vertical efetiva de pré-adensamento estimada e σ′v0 a atual. OCR≈1 caracteriza solo normalmente adensado; OCR>1, sobreadensado. Na curva e×logσ′, a recompressão até σ′p tem inclinação geralmente menor que a compressão virgem. Se nova carga ultrapassar σ′p, calcular recalque em dois trechos com índices Cr e Cc correspondentes."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H22-C061/062/065; CON-11-004/005; FHWA NHI-06-088: https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Histórico de carregamento altera estrutura porosa; recarregar dentro do histórico geralmente produz menor compressibilidade. Pré-adensamento pode ser estimado no edômetro, por exemplo pelo método de Casagrande; estrutura, envelhecimento ou cimentação também influem."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "OCR=300/150=2. H0=4 m, e0=0,8, Cr=0,05, Cc=0,30, σ′v0=150, σ′p=300, σ′final=450 kPa: Sc=H0/(1+e0)·[Cr log10(300/150)+Cc log10(450/300)]≈0,151 m. Se final abaixo de σ′p, usar apenas Cr no intervalo."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Normalmente adensado: atual≈pré-adensamento, novo carregamento entra na virgem. Sobreadensado: atual menor, recompressão antes da virgem. Primário: dissipação de excesso de u; secundário: deformação lenta do esqueleto, podendo coexistir."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "σ′v0=150 e σ′p=300 kPa; acréscimo 100 kPa leva a 250 (recompressão); acréscimo 200 leva a 350 (dois trechos). Velocidade depende de cv e caminho de drenagem, não diretamente de OCR."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0241, CARD-0354, CARD-0472, CARD-0759, CARD-0700"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Modelo 1D, parâmetros representativos, log decimal coerente com índices e tensão final efetiva após dissipação. Dividir perfil heterogêneo em subcamadas. OCR aparente abaixo de 1 exige investigar condições transitórias ou interpretação."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Usar efetivas, não totais. Não usar Cc em todo intervalo quando há recompressão. Não confundir Cc (magnitude) com cv (velocidade). OCR não mede diretamente resistência."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "OCR=passado/presente; cruzou pré-adensamento, muda inclinação."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "OCR=σ′p/σ′v0, sendo σ′p a tensão vertical efetiva de pré-adensamento estimada e σ′v0 a atual. OCR≈1 caracteriza solo normalmente adensado; OCR>1, sobreadensado. Na curva e×logσ′, a recompressão até σ′p tem inclinação geralmente menor que a compressão virgem. Se nova carga ultrapassar σ′p, calcular recalque em dois trechos com índices Cr e Cc correspondentes.",
+          "Histórico de carregamento altera estrutura porosa; recarregar dentro do histórico geralmente produz menor compressibilidade. Pré-adensamento pode ser estimado no edômetro, por exemplo pelo método de Casagrande; estrutura, envelhecimento ou cimentação também influem.",
+          "Modelo 1D, parâmetros representativos, log decimal coerente com índices e tensão final efetiva após dissipação. Dividir perfil heterogêneo em subcamadas. OCR aparente abaixo de 1 exige investigar condições transitórias ou interpretação."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "OCR=σ′p/σ′v0",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "OCR≈1",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "OCR>1",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "dois trechos",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Estado final",
+            "Modelo"
+          ],
+          "rows": [
+            [
+              "σ′final≤σ′p",
+              "Cr"
+            ],
+            [
+              "σ′v0<σ′p<σ′final",
+              "Cr até σ′p + Cc acima"
+            ],
+            [
+              "σ′v0≈σ′p",
+              "Cc para novo carregamento"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "OCR",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>OCR</mi><mo>=</mo><mfrac><msup><msub><mi>σ</mi><mi>p</mi></msub><mo>′</mo></msup><msup><msub><mi>σ</mi><mi>v0</mi></msub><mo>′</mo></msup></mfrac></math>",
+            "units": "adimensional"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Defina OCR e pré-adensamento, interprete a curva e×logσ′ e explique quando calcular recalque em recompressão ou compressão virgem.",
+      "back": "OCR=σ′p/σ′v0, sendo σ′p a tensão vertical efetiva de pré-adensamento estimada e σ′v0 a atual. OCR≈1 caracteriza solo normalmente adensado; OCR>1, sobreadensado. Na curva e×logσ′, a recompressão até σ′p tem inclinação geralmente menor que a compressão virgem. Se nova carga ultrapassar σ′p, calcular recalque em dois trechos com índices Cr e Cc correspondentes.",
+      "source": "H22-C061/062/065; CON-11-004/005; FHWA NHI-06-088: https://vulcanhammer.net/wp-content/uploads/2017/01/fhwa-nhi-06-088.pdf",
+      "mnemonic": "OCR=passado/presente; cruzou pré-adensamento, muda inclinação.",
+      "related_card_ids": [
+        "CARD-0241",
+        "CARD-0354",
+        "CARD-0472",
+        "CARD-0759",
+        "CARD-0700"
+      ],
+      "related_question_ids": []
+    }
+  ]
+}
