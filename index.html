@@ -255,6 +255,55 @@ header .stats .bm241-verification{font-size:10px}
   height:40px!important;min-height:40px!important;
  }
 }
+
+/* VS6 — leitura limpa do verso: títulos textuais, sem ornamentos redundantes. */
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-heading-icon,.bm195-layer-ico,.bm198-overview-icon,.bm198-section-icon),
+#bmCardPeekV050 .bm-v050-peek-answer .bm198-topic>.bm198-icon,
+#bmCardPeekV050 .bm-v050-peek-answer .bm195-archive-title>.bm195-icon{
+ display:none!important;
+}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-heading,.bm195-layer-head,.bm198-module-head,.bm198-overview-top){
+ align-items:center!important;gap:6px!important;padding:10px 12px!important;
+ background:#f0f5f9!important;border-color:#d8e4ec!important;
+}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-layer-title,.bm198-module-title,.bm197-layer-title,.bm163-piece-title){
+ font-size:15px!important;line-height:1.45!important;font-weight:700!important;
+ color:#23465c!important;overflow-wrap:anywhere;
+}
+#bmCardPeekV050 .bm-v050-peek-answer .bm195-layer-body{padding-left:0!important}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-layer,.bm198-module,.bm197-evolutive){
+ min-width:0!important;overflow-wrap:anywhere;
+}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm198-module-body,.bm195-layer-body){
+ line-height:1.65!important;
+}
+#bmCardPeekV050 .bm-v050-peek-answer .bm198-topic{vertical-align:middle;text-align:left}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-layer-body,.bm198-module-body) :is(p,li){
+ line-height:1.65!important;
+}
+/* Painel de escrita: ações de estudo em primeiro plano; manutenção em segundo plano. */
+#bmCardPeekV050 #bm195Discursive .bm195-label:has(+.bm195-rates){
+ margin:14px 0 6px!important;padding-top:12px;border-top:1px solid #dbe6ed;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-save]){
+ margin-top:12px!important;gap:8px!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-save])>button{
+ min-height:42px!important;font-size:13px!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-export]){
+ border-top:1px solid #dbe6ed;padding-top:10px;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-export])>button{
+ border-color:#d4e1e8!important;background:transparent!important;
+ color:#526b7b!important;font-weight:500!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-drive .bm195-actions>button{
+ font-size:12px!important;font-weight:500!important;
+}
+#bmCardPeekV050 #bm195Discursive button:not(.bm-discursive-close-corner) > :is(svg,.bm163-ic,.bm-v050-icon)[aria-hidden="true"]{
+ display:none!important;
+}
 </style>
 </head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
 <header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS6 · Cartões VC15</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
