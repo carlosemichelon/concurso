@@ -5692,6 +5692,1745 @@
         "CARD-0633",
         "CARD-0642"
       ]
+    },
+    "CARD-1033": {
+      "id": "CARD-1033",
+      "title": "Cobrimento nominal: tolerância, geometria e tabela",
+      "front": "Como se obtém o cobrimento nominal cnom a partir do cobrimento mínimo?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "O cobrimento nominal é a distância de referência para o detalhamento, igual ao cobrimento mínimo acrescido da tolerância de execução Δc. Mede-se até a superfície externa da armadura mais próxima da face do concreto, normalmente o estribo quando presente. Não se mede até o eixo da barra longitudinal.",
+          "Para cmin = 25 mm e Δc = 10 mm, cnom = 35 mm. A tabela estudada já fornece valores nominais considerando Δc = 10 mm; não some novamente essa tolerância. Em laje de CA, memorize 20, 25, 35, 45 mm conforme CAA I, II, III e IV; cada coluna de viga/pilar CA é 5 mm maior que a da laje CA. Para a bainha/armadura ativa de CP, a laje coincide com viga/pilar CA e viga/pilar CP acrescenta mais 5 mm.",
+          "A armadura passiva no concreto protendido segue o cobrimento de CA na redação 2014/2023. Não confundir a nota histórica de 2003/2007 sobre armadura passiva envolvente com a moderna. Observar ainda o critério específico de pelo menos 45 mm para trecho de pilar em contato com solo junto à fundação, as condições de eventual redução e a verificação de durabilidade."
+        ],
+        "marks": [
+          {
+            "text": "cobrimento nominal",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "20, 25, 35, 45 mm",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não confundir a nota histórica de 2003/2007",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Cobrimento nominal",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>c</mi><mi>nom</mi></msub><mo>=</mo><msub><mi>c</mi><mi>min</mi></msub><mo>+</mo><mi>Δc</mi></math>",
+              "units": "Todos em mm."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Cobrimentos nominais da Tabela 7.2 — edição 2023, Δc = 10 mm",
+              "headers": [
+                "Elemento",
+                "I (mm)",
+                "II (mm)",
+                "III (mm)",
+                "IV (mm)"
+              ],
+              "rows": [
+                [
+                  "CA — laje",
+                  "20",
+                  "25",
+                  "35",
+                  "45"
+                ],
+                [
+                  "CA — viga/pilar",
+                  "25",
+                  "30",
+                  "40",
+                  "50"
+                ],
+                [
+                  "CP — laje (bainha/armadura ativa)",
+                  "25",
+                  "30",
+                  "40",
+                  "50"
+                ],
+                [
+                  "CP — viga/pilar (bainha/armadura ativa)",
+                  "30",
+                  "35",
+                  "45",
+                  "55"
+                ],
+                [
+                  "CA — contato com solo",
+                  "30",
+                  "30",
+                  "40",
+                  "50"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "Nenhuma figura indispensável ao núcleo desta recuperação; conceito explicitado por comparação e aplicação.",
+          "items": []
+        },
+        "mnemonic": "Laje CA: 20, +5, +10, +10. Viga CA +5; CP laje = viga CA; CP viga +5.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          }
+        ],
+        "transfer_question": "Reconstrua os quatro cobrimentos de uma viga CA e compare com uma laje CP. Por que não somar novamente Δc?",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Item 7.4.7 e Tabela 7.2. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-1034",
+        "CARD-1531",
+        "CARD-1528"
+      ]
+    },
+    "CARD-1034": {
+      "id": "CARD-1034",
+      "title": "CAA: ambiente, intensidade e risco",
+      "front": "Quais são os quatro níveis da classe de agressividade ambiental CAA?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "A classe de agressividade ambiental (CAA) caracteriza a exposição relevante à durabilidade da estrutura. A classificação geral distingue I fraca, II moderada, III forte e IV muito forte. Não é uma medição direta da resistência à compressão do concreto: influencia a especificação dos materiais, cobrimento e outras medidas de proteção.",
+          "Na Tabela 6.1 estudada da NBR 6118:2007, ambientes rurais e submersos pertencem à classe I, com risco insignificante nos dois casos. Foi justamente a condição submersa que precisou de reforço na questão. Marinha e industrial usual entram em III; respingos de maré e industrial quimicamente agressiva, em IV. A alternância de molhagem/secagem e a exposição aos agentes agressivos importam, além da presença de água.",
+          "Não generalize que qualquer ambiente submerso é benigno: a classificação simplificada da tabela não dispensa caracterizar água, solo, agentes químicos e condições particulares. A categoria escolhida orienta o cobrimento nominal, mas não substitui as demais verificações."
+        ],
+        "marks": [
+          {
+            "text": "classe de agressividade ambiental (CAA)",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "insignificante nos dois casos",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não generalize que qualquer ambiente submerso é benigno",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Classes de agressividade — classificação geral histórica da Tabela 6.1",
+              "headers": [
+                "CAA",
+                "Agressividade",
+                "Ambientes típicos",
+                "Risco de deterioração"
+              ],
+              "rows": [
+                [
+                  "I",
+                  "Fraca",
+                  "Rural; submersa",
+                  "Insignificante"
+                ],
+                [
+                  "II",
+                  "Moderada",
+                  "Urbana",
+                  "Pequeno"
+                ],
+                [
+                  "III",
+                  "Forte",
+                  "Marinha; industrial",
+                  "Grande"
+                ],
+                [
+                  "IV",
+                  "Muito forte",
+                  "Industrial agressiva; respingos de maré",
+                  "Elevado"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "Nenhuma figura indispensável ao núcleo desta recuperação; conceito explicitado por comparação e aplicação.",
+          "items": []
+        },
+        "mnemonic": "I rural/submersa; II urbana; III marinha/industrial; IV respingos/agressiva.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          }
+        ],
+        "transfer_question": "Classifique rural, submersa, urbana e respingos de maré e explique por que não basta saber se há água.",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Tabela 6.1 histórica, questão Q001. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-1033",
+        "CARD-1531"
+      ]
+    },
+    "CARD-0543": {
+      "id": "CARD-0543",
+      "title": "Viga e viga-parede: largura mínima e exceção",
+      "front": "Segundo a NBR 6118:2023, quais são as larguras mínimas usuais de vigas e vigas-parede, e em que condição podem chegar a 10 cm?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "O item 13.2.2 da NBR 6118:2023 estudada estabelece largura mínima usual de 12 cm para vigas e 15 cm para vigas-parede. São dimensões geométricas da seção, não a altura do elemento. Uma seção estreita pode não permitir colocar barras e estribos com os cobrimentos e espaçamentos previstos.",
+          "A redução excepcional até 10 cm exige garantir alojamento das armaduras, espaçamentos e cobrimentos e condições adequadas de lançamento e adensamento do concreto. A verificação deve considerar a montagem efetiva da armadura e a execução. O dimensionamento estrutural continua obrigatório.",
+          "A classificação de viga-parede depende da relação vão/altura e não dessa largura mínima. Não trate 10 cm como largura usual nem confunda o critério de viga alta com o de pilar-parede. Uma largura admissível em geometria não prova adequação ao esforço."
+        ],
+        "marks": [
+          {
+            "text": "12 cm para vigas e 15 cm para vigas-parede",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "10 cm",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não trate 10 cm como largura usual",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Largura mínima",
+              "headers": [
+                "Tipo",
+                "Usual",
+                "Exceção condicionada"
+              ],
+              "rows": [
+                [
+                  "Viga",
+                  "12 cm",
+                  "10 cm"
+                ],
+                [
+                  "Viga-parede",
+                  "15 cm",
+                  "10 cm"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "IMG-P21-001",
+              "caption": "Classificação geométrica de elementos, imagem original do estudante",
+              "alt": "Classificação geométrica de elementos, imagem original do estudante",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "12 viga, 15 viga-parede; 10 só com execução e armadura garantidas.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Uma viga-parede com 12 cm atende automaticamente ao mínimo usual? O que precisaria demonstrar?",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Item 13.2.2. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-1386",
+        "CARD-0610"
+      ]
+    },
+    "CARD-0547": {
+      "id": "CARD-0547",
+      "title": "Laje maciça de cobertura: mínimo geométrico",
+      "front": "Laje maciça de cobertura sem balanço: h mínimo geométrico (2023)?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Para uma laje maciça de cobertura sem balanço, o mínimo geométrico de espessura no item 13.2.4.1 da edição 2023 é 7 cm. A espessura h corresponde à altura total da seção de concreto, e não à altura útil d medida até a armadura.",
+          "A escolha da espessura de projeto também depende de vão, ações, apoios, flexão, fissuração, deformações e detalhamento. A cobertura não pode receber automaticamente o mínimo do piso ou vice-versa. Se houver balanço, o caso pertence a uma categoria distinta, com mínimo de 10 cm e coeficiente adicional correspondente.",
+          "Reconstrua a sequência em grupos: cobertura 7, piso 8, balanço 10. Garagem 10/12 conforme peso total dos veículos. 7 cm é mínimo geométrico, não espessura obrigatória para toda cobertura."
+        ],
+        "marks": [
+          {
+            "text": "laje maciça de cobertura sem balanço",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "7 cm",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "7 cm é mínimo geométrico, não espessura obrigatória",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Espessuras geométricas mínimas de lajes maciças — NBR 6118:2023",
+              "headers": [
+                "Situação",
+                "h mínima (cm)",
+                "Condição"
+              ],
+              "rows": [
+                [
+                  "Cobertura",
+                  "7",
+                  "Sem balanço"
+                ],
+                [
+                  "Piso",
+                  "8",
+                  "Sem balanço"
+                ],
+                [
+                  "Balanço",
+                  "10",
+                  "Majoração adicional γn"
+                ],
+                [
+                  "Veículos",
+                  "10",
+                  "Peso total ≤ 30 kN"
+                ],
+                [
+                  "Veículos",
+                  "12",
+                  "Peso total > 30 kN"
+                ],
+                [
+                  "Cogumelo",
+                  "14",
+                  "Fora do capitel"
+                ],
+                [
+                  "Protendida apoiada em vigas",
+                  "15",
+                  "Também limites de vão"
+                ],
+                [
+                  "Lisa",
+                  "16",
+                  "Apoio direto sem capitel"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "IMG-P21-002",
+              "caption": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "alt": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "Teto 7, piso 8, balanço 10.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Uma marquise de cobertura tem balanço. Pode adotar 7 cm só por ser cobertura?",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Item 13.2.4.1. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0548",
+        "CARD-0549",
+        "CARD-0551"
+      ]
+    },
+    "CARD-0548": {
+      "id": "CARD-0548",
+      "title": "Laje maciça de piso: mínimo e condições de uso",
+      "front": "Laje maciça de piso sem balanço: h mínimo geométrico (2023)?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Na edição 2023 estudada, a laje maciça de piso sem balanço possui espessura geométrica mínima de 8 cm. O valor se refere à seção de concreto, não ao revestimento ou contrapiso, nem à altura útil d.",
+          "Distinguir piso convencional, laje em balanço e piso com circulação de veículos. Uma garagem com peso total de veículo até 30 kN tem mínimo de 10 cm; acima de 30 kN, 12 cm. Os critérios de cargas e geometria são cumulativos com o dimensionamento à flexão, cisalhamento e serviço.",
+          "A sequência 7–8–10 corresponde a cobertura sem balanço, piso sem balanço e balanço. O mínimo de 8 cm não dispensa a verificação de flecha e fissuração. Um vão longo pode exigir seção consideravelmente maior."
+        ],
+        "marks": [
+          {
+            "text": "laje maciça de piso sem balanço",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "8 cm",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "O mínimo de 8 cm não dispensa a verificação de flecha e fissuração.",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Espessuras geométricas mínimas de lajes maciças — NBR 6118:2023",
+              "headers": [
+                "Situação",
+                "h mínima (cm)",
+                "Condição"
+              ],
+              "rows": [
+                [
+                  "Cobertura",
+                  "7",
+                  "Sem balanço"
+                ],
+                [
+                  "Piso",
+                  "8",
+                  "Sem balanço"
+                ],
+                [
+                  "Balanço",
+                  "10",
+                  "Majoração adicional γn"
+                ],
+                [
+                  "Veículos",
+                  "10",
+                  "Peso total ≤ 30 kN"
+                ],
+                [
+                  "Veículos",
+                  "12",
+                  "Peso total > 30 kN"
+                ],
+                [
+                  "Cogumelo",
+                  "14",
+                  "Fora do capitel"
+                ],
+                [
+                  "Protendida apoiada em vigas",
+                  "15",
+                  "Também limites de vão"
+                ],
+                [
+                  "Lisa",
+                  "16",
+                  "Apoio direto sem capitel"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "IMG-P21-002",
+              "caption": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "alt": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "Piso 8: um acima do teto 7.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Compare os mínimos de piso convencional e garagem para veículos de 30 kN.",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Item 13.2.4.1. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0547",
+        "CARD-0549",
+        "CARD-0551"
+      ]
+    },
+    "CARD-0549": {
+      "id": "CARD-0549",
+      "title": "Laje em balanço: h mínimo e γn",
+      "front": "Laje maciça em balanço com h=10 cm: qual γn adicional (2023)?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Na laje maciça em balanço, a espessura mínima geométrica é 10 cm. Para h = 10 cm, a Tabela 13.2 da edição 2023 estabelece γn = 1,45, coeficiente adicional que multiplica os esforços solicitantes finais de cálculo. Ele não multiplica a altura da laje nem substitui a majoração das ações.",
+          "Para o intervalo tabelado de 10 a 18 cm, o coeficiente segue γn = 1,95 − 0,05h, com h em centímetros; para h ≥ 19 cm, γn = 1,00. Se o momento solicitante de cálculo de uma faixa for 20 kN·m/m e h = 10 cm, resulta 29 kN·m/m após o fator adicional. O balanço concentra momento negativo junto ao engaste, exigindo detalhamento da armadura superior e sua ancoragem.",
+          "Não prolongue a expressão para h > 19 cm para produzir γn menor que 1. A coincidência dos 10 cm com a garagem leve não significa que esta receba a mesma majoração. Conferir flecha, fissuração e demais verificações."
+        ],
+        "marks": [
+          {
+            "text": "laje maciça em balanço",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "29 kN·m/m",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não prolongue a expressão para h > 19 cm",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Fator adicional e esforço",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>γ</mi><mi>n</mi></msub><mo>=</mo><mn>1,95</mn><mo>−</mo><mn>0,05</mn><mi>h</mi><mo>;</mo><msub><mi>S</mi><mtext>d,maj</mtext></msub><mo>=</mo><msub><mi>γ</mi><mi>n</mi></msub><msub><mi>S</mi><mi>d</mi></msub></math>",
+              "units": "h em cm, no intervalo tabelado 10–18; para h≥19 cm, γn=1."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Majoração adicional",
+              "headers": [
+                "h (cm)",
+                "γn"
+              ],
+              "rows": [
+                [
+                  "10",
+                  "1,45"
+                ],
+                [
+                  "11",
+                  "1,40"
+                ],
+                [
+                  "12",
+                  "1,35"
+                ],
+                [
+                  "13",
+                  "1,30"
+                ],
+                [
+                  "14",
+                  "1,25"
+                ],
+                [
+                  "15",
+                  "1,20"
+                ],
+                [
+                  "16",
+                  "1,15"
+                ],
+                [
+                  "17",
+                  "1,10"
+                ],
+                [
+                  "18",
+                  "1,05"
+                ],
+                [
+                  "≥19",
+                  "1,00"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "IMG-P21-002",
+              "caption": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "alt": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "Balanço 10 pede 1,45 nos esforços, não na espessura.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Para h=12 cm e Msd=30 kN·m/m, determine γn e o esforço final.",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Item 13.2.4.1, Tabela 13.2. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0547",
+        "CARD-0548",
+        "CARD-0551"
+      ]
+    },
+    "CARD-0551": {
+      "id": "CARD-0551",
+      "title": "Garagens: peso total do veículo e espessura",
+      "front": "Qual a espessura mínima de laje maciça que suporta veículos com peso total até 30 kN, inclusive, e acima de 30 kN (NBR 6118:2023)?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Para lajes maciças destinadas a veículos, a edição 2023 estudada distingue o peso total do veículo pelo limiar de 30 kN. Até 30 kN, inclusive, h deve ser pelo menos 10 cm; acima de 30 kN, pelo menos 12 cm. A condição é sobre força (peso total), não sobre uma carga distribuída em kN/m² nem a carga de uma única roda.",
+          "Um veículo de exatamente 30 kN pertence à primeira faixa. Em questão de prova, 15 cm foi uma alternativa incorreta para a garagem leve: esse número corresponde ao mínimo da laje protendida apoiada em vigas, com outros critérios associados. Assim, 30 kN → 10 cm; acima de 30 kN → 12 cm.",
+          "A espessura mínima não prova segurança: cargas concentradas, disposição de rodas, punção, flexão, fissuração, deformações e outros requisitos precisam ser verificados no dimensionamento. Não usar 15 cm como mínimo normativo geral de garagem."
+        ],
+        "marks": [
+          {
+            "text": "peso total do veículo",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "30 kN → 10 cm; acima de 30 kN → 12 cm",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não usar 15 cm como mínimo normativo geral de garagem",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Espessuras geométricas mínimas de lajes maciças — NBR 6118:2023",
+              "headers": [
+                "Situação",
+                "h mínima (cm)",
+                "Condição"
+              ],
+              "rows": [
+                [
+                  "Cobertura",
+                  "7",
+                  "Sem balanço"
+                ],
+                [
+                  "Piso",
+                  "8",
+                  "Sem balanço"
+                ],
+                [
+                  "Balanço",
+                  "10",
+                  "Majoração adicional γn"
+                ],
+                [
+                  "Veículos",
+                  "10",
+                  "Peso total ≤ 30 kN"
+                ],
+                [
+                  "Veículos",
+                  "12",
+                  "Peso total > 30 kN"
+                ],
+                [
+                  "Cogumelo",
+                  "14",
+                  "Fora do capitel"
+                ],
+                [
+                  "Protendida apoiada em vigas",
+                  "15",
+                  "Também limites de vão"
+                ],
+                [
+                  "Lisa",
+                  "16",
+                  "Apoio direto sem capitel"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "IMG-P21-002",
+              "caption": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "alt": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "Casa 7–8–10; garagem 10–12; especiais 14–15–16.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Qual mínimo para veículos de 30,0 e 30,1 kN, e a que situação pertence 15 cm?",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Item 13.2.4.1, alíneas d/e; PETRO21-Q008. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0547",
+        "CARD-0548",
+        "CARD-0549",
+        "CARD-0552",
+        "CARD-0553"
+      ]
+    },
+    "CARD-0552": {
+      "id": "CARD-0552",
+      "title": "Laje-cogumelo e laje lisa: diferença no apoio",
+      "front": "Qual a espessura mínima de laje-cogumelo e laje lisa no critério geral?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Lajes apoiadas diretamente em pilares são classificadas conforme a presença de capitel: a laje-cogumelo possui capitéis, e a laje lisa não. Na edição 2023 estudada, o mínimo geométrico é 14 cm para laje-cogumelo fora do capitel e 16 cm para laje lisa.",
+          "O capitel amplia a região de transferência de esforços entre laje e pilar, modificando a geometria da região de apoio. O valor de 14 cm fora do capitel não fixa a altura total da região engrossada; ela depende das verificações do projeto. A laje lisa, sem capitel, tem a referência de 16 cm.",
+          "Entre os números 14, 15 e 16, o intermediário 15 pertence à laje protendida apoiada em vigas, e não ao capitel. Não confundir espessura mínima com verificação de punção. A punção no entorno dos pilares é particularmente importante nesses sistemas."
+        ],
+        "marks": [
+          {
+            "text": "laje-cogumelo",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "14 cm fora do capitel",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não confundir espessura mínima com verificação de punção",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Lajes especiais",
+              "headers": [
+                "Tipo",
+                "Mínimo (cm)",
+                "Condição"
+              ],
+              "rows": [
+                [
+                  "Cogumelo",
+                  "14",
+                  "Fora do capitel"
+                ],
+                [
+                  "Protendida sobre vigas",
+                  "15",
+                  "Mais critérios de vão"
+                ],
+                [
+                  "Lisa",
+                  "16",
+                  "Sem capitel"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "IMG-P21-002",
+              "caption": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "alt": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "Cogumelo 14 (tem capitel); protendida sobre vigas 15; lisa 16.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Qual diferença de geometria entre laje lisa e cogumelo e onde se mede o mínimo de 14 cm?",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Item 13.2.4.1. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0553",
+        "CARD-0551"
+      ]
+    },
+    "CARD-0553": {
+      "id": "CARD-0553",
+      "title": "Laje lisa: mínimo sem capitel",
+      "front": "Laje lisa maciça: qual espessura mínima indicada em 2023?",
+      "subject": "Estruturas / Concreto armado",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "A laje lisa apoia-se diretamente sobre pilares, sem capitéis. No critério geométrico geral da NBR 6118:2023 estudada, sua espessura mínima é 16 cm. A laje-cogumelo, com capitel, possui mínimo de 14 cm fora do capitel.",
+          "A ausência de capitel torna a região de transferência laje–pilar particularmente relevante no estudo de punção. Essa verificação considera geometria, esforços, armaduras e resistências; 16 cm por si só não demonstra atendimento. Não confundir espessura da laje com altura útil empregada no cálculo.",
+          "O 15 cm da sequência de espessuras corresponde à laje com protensão apoiada em vigas, ainda sujeita aos critérios de vão. Não aplicar 14 cm a toda laje apoiada diretamente em pilares. O tipo de apoio é decisivo."
+        ],
+        "marks": [
+          {
+            "text": "laje lisa",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "16 cm",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não aplicar 14 cm a toda laje apoiada diretamente em pilares",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Espessuras geométricas mínimas de lajes maciças — NBR 6118:2023",
+              "headers": [
+                "Situação",
+                "h mínima (cm)",
+                "Condição"
+              ],
+              "rows": [
+                [
+                  "Cobertura",
+                  "7",
+                  "Sem balanço"
+                ],
+                [
+                  "Piso",
+                  "8",
+                  "Sem balanço"
+                ],
+                [
+                  "Balanço",
+                  "10",
+                  "Majoração adicional γn"
+                ],
+                [
+                  "Veículos",
+                  "10",
+                  "Peso total ≤ 30 kN"
+                ],
+                [
+                  "Veículos",
+                  "12",
+                  "Peso total > 30 kN"
+                ],
+                [
+                  "Cogumelo",
+                  "14",
+                  "Fora do capitel"
+                ],
+                [
+                  "Protendida apoiada em vigas",
+                  "15",
+                  "Também limites de vão"
+                ],
+                [
+                  "Lisa",
+                  "16",
+                  "Apoio direto sem capitel"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "IMG-P21-002",
+              "caption": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "alt": "Escada de espessuras mínimas de lajes, imagem original do estudante",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "Lisa sem capitel: 16; cogumelo com capitel: 14 fora dele.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Uma laje apoia-se diretamente no pilar sem capitel. Qual referência geométrica e que verificação não se pode dispensar?",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Item 13.2.4.1. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0552",
+        "CARD-0551"
+      ]
+    },
+    "CARD-1386": {
+      "id": "CARD-1386",
+      "title": "Elemento linear, pilar-parede e viga-parede",
+      "front": "Quando um elemento prismático é classificado como linear no critério geométrico histórico da NBR 6118?",
+      "subject": "Estruturas / Concreto",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "No critério geométrico registrado, o elemento linear tem comprimento longitudinal pelo menos três vezes a maior dimensão da seção transversal. Assim, se a seção tem 0,25 × 0,40 m, o comprimento mínimo para satisfazer essa relação é 1,20 m. A igualdade atende ao critério do elemento linear.",
+          "Para identificar pilar-parede, compare os lados da seção transversal: maior lado estritamente superior a cinco vezes o menor. Já a classificação de viga-parede no critério de viga alta estudado compara vão e altura: ℓ/h < 2 na biapoiada, ℓ/h < 3 na contínua. Cada razão compara dimensões diferentes; não usar a mesma desigualdade em todos os casos.",
+          "Elemento linear não significa material linear-elástico. A geometria orienta o modelo estrutural. A relação longitudinal/transversal tampouco substitui a análise das regiões de descontinuidade, dos esforços e das condições de apoio."
+        ],
+        "marks": [
+          {
+            "text": "elemento linear",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "Elemento linear não significa material linear-elástico",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Critério linear",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mi>L</mi><mo>≥</mo><mn>3</mn><msub><mi>b</mi><mtext>máx</mtext></msub></math>",
+              "units": "L e bmax na mesma unidade."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Critérios geométricos — recortes da edição 2023",
+              "headers": [
+                "Elemento",
+                "Relação",
+                "Medidas"
+              ],
+              "rows": [
+                [
+                  "Linear",
+                  "L ≥ 3 bmax",
+                  "L longitudinal; bmax maior dimensão transversal"
+                ],
+                [
+                  "Pilar-parede",
+                  "B > 5 b",
+                  "B e b: maior e menor lados da seção"
+                ],
+                [
+                  "Viga-parede biapoiada",
+                  "ℓ/h < 2",
+                  "Vão e altura"
+                ],
+                [
+                  "Viga-parede contínua",
+                  "ℓ/h < 3",
+                  "Vão e altura"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "IMG-P21-001",
+              "caption": "Classificação geométrica de elementos, imagem original do estudante",
+              "alt": "Classificação geométrica de elementos, imagem original do estudante",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+              "private_original": true
+            }
+          ]
+        },
+        "mnemonic": "3 comprimento; 5 seção do pilar-parede; 2/3 vão-altura da viga alta.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Classifique separadamente uma peça L=1,20 m com seção 0,25×0,40 m e uma seção de pilar 20×100 cm segundo os limites.",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. Itens 14.4.1, 14.4.2 e 22.4.1. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0543",
+        "CARD-0610"
+      ]
+    },
+    "CARD-1530": {
+      "id": "CARD-1530",
+      "title": "Laje nervurada: limites de espaçamento entre eixos",
+      "front": "Segundo o critério histórico da NBR 6118:2003/2007, quais verificações de mesa e cisalhamento se aplicam a lajes nervuradas com e≤65 cm, 65<e≤110 cm e e>110 cm? Qual a exceção até 90 cm?",
+      "subject": "Lajes nervuradas",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Na regra histórica da NBR 6118:2003/2007, é o espaçamento entre eixos das nervuras e que define a forma de verificação da mesa e do cisalhamento. A mesa é a parte superior contínua entre nervuras; a distância livre entre faces não é e. Para e ≤ 65 cm, pode-se dispensar a verificação da flexão da mesa e adotar o critério de laje no cisalhamento da região das nervuras.",
+          "Para 65 < e ≤ 110 cm, a flexão da mesa deve ser verificada e, em regra, as nervuras são verificadas ao cisalhamento como vigas. Há exceção: e ≤ 90 cm e largura média da nervura > 12 cm, em que se permite o critério de laje para cisalhamento. A exceção não elimina a verificação da flexão da mesa. Quando e > 110 cm, a mesa é dimensionada como laje maciça apoiada em grelha de vigas.",
+          "Na questão com e de 90, 100 e 120 cm, apenas 120 cm exige esse último modelo. Em e = 110 cm ainda vale a faixa intermediária. Não confunda os limites de espaçamento com a espessura mínima da mesa; o registro histórico cita mudanças de redação entre edições. Conferir a edição indicada na prova."
+        ],
+        "marks": [
+          {
+            "text": "espaçamento entre eixos das nervuras e",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "e ≤ 90 cm e largura média da nervura > 12 cm",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não confunda os limites de espaçamento com a espessura mínima da mesa",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Verificações segundo o espaçamento histórico",
+              "headers": [
+                "e entre eixos",
+                "Flexão da mesa",
+                "Cisalhamento das nervuras"
+              ],
+              "rows": [
+                [
+                  "≤65 cm",
+                  "Dispensa possível",
+                  "Critério de laje"
+                ],
+                [
+                  "65<e≤110 cm",
+                  "Verificar",
+                  "Critério de viga; exceção até 90 cm e b médio>12 cm"
+                ],
+                [
+                  ">110 cm",
+                  "Mesa maciça sobre grelha",
+                  "Dimensionar grelha e mesa conforme modelo"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO21-SVG-NERVURADA-V186",
+              "caption": "Corte autoral: mesa, nervuras, largura e espaçamento medido de eixo a eixo",
+              "alt": "Corte autoral: mesa, nervuras, largura e espaçamento medido de eixo a eixo",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v349/laje_nervurada_eixos.svg"
+            }
+          ]
+        },
+        "mnemonic": "65 dispensa possível; até 110 verifica; acima de 110, mesa maciça. 90 e >12: exceção de cisalhamento.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Compare e=65, 90, 110 e 111 cm; em e=90 cm com nervura média de 12 cm, a exceção se aplica?",
+        "sources": [],
+        "source_note": "PETRO21-Q002, NBR 6118:2003/2007, item 13.2.4.2 do registro histórico; cotejo integral da edição 2026 pendente. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0547",
+        "CARD-0548",
+        "CARD-0552",
+        "CARD-0553"
+      ]
+    },
+    "CARD-1531": {
+      "id": "CARD-1531",
+      "title": "Cobrimento do protendido: redação antiga e moderna",
+      "front": "Na NBR 6118:2003/2007, o cobrimento nominal da armadura passiva que envolve a bainha é superior ao de concreto armado em quais elementos? Qual distinção aparece nas edições 2014/2023?",
+      "subject": "Concreto protendido / Durabilidade",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Na NBR 6118:2003/2007 estudada, a nota histórica da Tabela 7.2 atribuía à armadura passiva envolvente de bainhas/fios/cabos/cordoalhas cobrimento superior ao do concreto armado em lajes, vigas e pilares. A linha histórica de concreto protendido era 30, 35, 45 e 55 mm nas CAA I–IV, acima dos valores de CA para lajes e vigas/pilares. A questão histórica tem resposta “superior em todos esses elementos”.",
+          "Na redação 2014/2023, o objeto da linha CP é diferente: cobrimento da bainha, fios, cabos ou cordoalhas. Para a armadura passiva do protendido aplicam-se os cobrimentos de CA. O aço de protensão merece atenção à durabilidade pela sensibilidade à corrosão sob tensão; isso não permite extrapolar uma redação antiga para todo elemento passivo na edição moderna.",
+          "Com Δc = 10 mm, na edição 2023 a sequência para CP laje é 25/30/40/50 mm e para CP viga/pilar 30/35/45/55 mm. A resposta depende da edição e do componente perguntado. Em CAA III, por exemplo, o cobrimento nominal da laje CA é 35 mm, da bainha em laje CP é 40 mm e da bainha em viga CP é 45 mm."
+        ],
+        "marks": [
+          {
+            "text": "armadura passiva envolvente de bainhas/fios/cabos/cordoalhas",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "A resposta depende da edição e do componente perguntado",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Comparação histórica (mm), Δc = 10 mm",
+              "headers": [
+                "Recorte 2003/2007",
+                "I",
+                "II",
+                "III",
+                "IV"
+              ],
+              "rows": [
+                [
+                  "CA laje",
+                  "20",
+                  "25",
+                  "35",
+                  "45"
+                ],
+                [
+                  "CA viga/pilar",
+                  "25",
+                  "30",
+                  "40",
+                  "50"
+                ],
+                [
+                  "CP — todos os elementos",
+                  "30",
+                  "35",
+                  "45",
+                  "55"
+                ]
+              ]
+            },
+            {
+              "title": "Cobrimentos nominais da Tabela 7.2 — edição 2023, Δc = 10 mm",
+              "headers": [
+                "Elemento",
+                "I (mm)",
+                "II (mm)",
+                "III (mm)",
+                "IV (mm)"
+              ],
+              "rows": [
+                [
+                  "CA — laje",
+                  "20",
+                  "25",
+                  "35",
+                  "45"
+                ],
+                [
+                  "CA — viga/pilar",
+                  "25",
+                  "30",
+                  "40",
+                  "50"
+                ],
+                [
+                  "CP — laje (bainha/armadura ativa)",
+                  "25",
+                  "30",
+                  "40",
+                  "50"
+                ],
+                [
+                  "CP — viga/pilar (bainha/armadura ativa)",
+                  "30",
+                  "35",
+                  "45",
+                  "55"
+                ],
+                [
+                  "CA — contato com solo",
+                  "30",
+                  "30",
+                  "40",
+                  "50"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "Nenhuma figura indispensável ao núcleo desta recuperação; conceito explicitado por comparação e aplicação.",
+          "items": []
+        },
+        "mnemonic": "Antiga: passiva envolvente superior. Moderna: passiva segue CA; linha CP é bainha/ativa.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "table",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          }
+        ],
+        "transfer_question": "Na edição 2023, compare a armadura passiva e a bainha de laje protendida em CAA IV; e se a questão for da redação 2007?",
+        "sources": [],
+        "source_note": "PETRO21-Q004/E002, Tabela 7.2 das edições históricas 2003/2007 e 2014/2023 registradas; Emenda 1:2026 não cotejada. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-1033",
+        "CARD-1034",
+        "CARD-1528"
+      ]
+    },
+    "CARD-0625": {
+      "id": "CARD-0625",
+      "title": "Deformação última do concreto comprimido",
+      "front": "Qual εcu para concreto até C50 no diagrama clássico e sua conversão em %?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Para concretos até C50, o modelo clássico adotado no registro usa εcu = 3,5‰ = 0,35% como deformação convencional última de compressão na flexão. É o valor extremo de referência na borda comprimida nos domínios 3 e 4, não uma deformação constante em toda a seção.",
+          "A deformação varia linearmente pela altura, sendo zero na linha neutra. Na fronteira 2/3, o concreto atinge 3,5‰ e o aço está em 10‰; daí x/d = 3,5/13,5 ≈ 0,2593. No estádio III, as tensões de compressão são descritas pelo diagrama não linear, que não é o gráfico linear de deformações.",
+          "Não confundir εcu com εc2 = 2‰, início do patamar idealizado do diagrama parábola-retângulo. Também não confundir 3,5‰ com 3,5%, que é dez vezes maior. Para concretos de classes superiores, os parâmetros podem variar."
+        ],
+        "marks": [
+          {
+            "text": "εcu = 3,5‰ = 0,35%",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "Não confundir εcu com εc2 = 2‰",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Conversão e fronteira",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mn>3,5</mn><mo>‰</mo><mo>=</mo><mn>0,35</mn><mo>%</mo><mo>;</mo><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><mn>3,5</mn><mrow><mn>3,5</mn><mo>+</mo><mn>10</mn></mrow></mfrac></math>",
+              "units": "Deformações na mesma unidade; concreto até C50."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "Comparação já explicitada na resposta discursiva; quadro adicional não necessário.",
+          "items": []
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO20-SVG-DOMINIOS-V348",
+              "caption": "Diagrama de deformações dos domínios 2 e 3",
+              "alt": "Diagrama de deformações dos domínios 2 e 3",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/dominios_2_3.svg"
+            }
+          ]
+        },
+        "mnemonic": "2‰ começa o patamar; 3,5‰ é o limite último; divida por 10 para %.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Para εc=3,5‰ e εs=10‰, calcule x/d e diga se todas as fibras comprimidas têm 3,5‰.",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. PETRO20-C001 e PETRO21-Q003, modelo até C50. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0626",
+        "CARD-0631",
+        "CARD-0632",
+        "CARD-0637"
+      ]
+    },
+    "CARD-0626": {
+      "id": "CARD-0626",
+      "title": "Início do patamar do diagrama de compressão",
+      "front": "Qual εc2 no diagrama clássico para concreto até C50?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Para concretos até C50, a deformação εc2 = 2,0‰ = 0,20% marca o início do patamar do diagrama idealizado parábola-retângulo de tensão–deformação em compressão. Não é o valor convencional último, que é εcu = 3,5‰ = 0,35% no modelo estudado.",
+          "Os estádios descrevem a evolução do comportamento de uma seção com aumento de momento: estádio I não fissurado; II fissurado, com concreto comprimido aproximadamente linear no modelo clássico; III compressão não linear e análise última. A presença de 2‰ na fibra extrema é compatível com o estádio III, mas não significa que o estádio II seja definido por 2‰ nem que todas as fibras comprimidas tenham o mesmo encurtamento.",
+          "Os domínios do ELU classificam combinações convencionais de deformações do concreto e do aço. Estádio II não é domínio 2, assim como o início do patamar não é ruptura. O gráfico de deformação pela altura é linear sob a hipótese de seções planas; o gráfico de tensões do concreto pode ser não linear."
+        ],
+        "marks": [
+          {
+            "text": "εc2 = 2,0‰ = 0,20%",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "Estádio II não é domínio 2",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Estádios e parâmetros distintos",
+              "headers": [
+                "Conceito",
+                "Significado"
+              ],
+              "rows": [
+                [
+                  "I",
+                  "Seção não fissurada"
+                ],
+                [
+                  "II",
+                  "Seção fissurada; compressão aproximadamente linear no modelo clássico"
+                ],
+                [
+                  "III",
+                  "Compressão não linear; análise última"
+                ],
+                [
+                  "εc2",
+                  "2‰: início do patamar idealizado"
+                ],
+                [
+                  "εcu",
+                  "3,5‰: deformação convencional última"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "Nenhuma figura indispensável ao núcleo desta recuperação; conceito explicitado por comparação e aplicação.",
+          "items": []
+        },
+        "mnemonic": "2‰ = 0,2% começo do patamar; 3,5‰ = 0,35% limite. Estádio não é domínio.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          }
+        ],
+        "transfer_question": "Diferencie εc2 de εcu e explique por que o estádio II não se define por uma deformação de 2‰.",
+        "sources": [],
+        "source_note": "Registro PETRO21-Q001–Q008 e E002, 19/11/2026; NBR 6118:2023 nos recortes especificados. A Emenda 1:2026 não foi cotejada integralmente; não usar os valores históricos como validação de projeto atual. PETRO21-Q003/E001; NBR 6118:2023 no modelo até C50. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0625",
+        "CARD-0632",
+        "CARD-0645"
+      ]
     }
   }
 }
