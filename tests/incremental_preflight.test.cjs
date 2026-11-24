@@ -46,3 +46,44 @@ test('evolução exige hash do cartão de origem',()=>{
  p.expected_card_hashes[c.id]='0'.repeat(64);
  assert.throws(()=>publicPreflight(p,snapshot,contract));
 });
+
+const {prepare,resumePlan,batchHash}=require('../tools/incremental_resume.cjs');
+function batch(auth=true){
+ const p=packet(),d={format:'BancoMestrePrivateBatch1',batch_id:'SYNTHETIC-TEST',state:'FROZEN',content:{srs:[{id:'synthetic-private-event'}]},publication:{approval:'APPROVED',approved_sha256:digest(p),packet:p},requires_authenticated:auth,receipts:{}};
+ d.content_sha256=batchHash(d);return d;
+}
+function receipt(d,stage){return {batch_id:d.batch_id,content_sha256:d.content_sha256,stage,reference:'synthetic:'+stage}}
+test('projeção autorizada exclui conteúdo privado',()=>{
+ const d=batch(),p=prepare(d,snapshot,contract);
+ assert.deepEqual(p.packet,d.publication.packet);assert.ok(!JSON.stringify(p.packet).includes('synthetic-private-event'));
+ d.publication.packet.new_cards[0].front='changed';
+ assert.throws(()=>prepare(d,snapshot,contract));
+ d.content_sha256=batchHash(d);
+ assert.throws(()=>prepare(d,snapshot,contract));
+});
+test('retomada confere destino antes de repetir escrita',async()=>{
+ const d=batch(),called=[];
+ const p=await resumePlan(d,async ({stage})=>{called.push(stage);return stage==='drive'?'MATCH':'ABSENT'});
+ assert.deepEqual(called,['drive','github']);assert.equal(p.next,'github');
+ assert.equal(p.states.drive,'VERIFIED');assert.equal(p.states.pages,'WAITING_UPSTREAM');assert.equal(p.complete,false);
+});
+test('recibo de outro lote bloqueia avanço',async()=>{
+ const d=batch();d.receipts.drive={...receipt(d,'drive'),batch_id:'wrong'};
+ const p=await resumePlan(d,async()=>{assert.fail('não deve consultar com recibo inválido')});
+ assert.equal(p.states.drive,'CONFLICT');assert.equal(p.next,null);
+});
+test('resposta incerta não autoriza nova escrita',async()=>{
+ const d=batch(),p=await resumePlan(d,async()=>{throw Error('offline')});
+ assert.equal(p.states.drive,'UNKNOWN');assert.equal(p.next,null);
+});
+test('recibo existente mas destino ausente é conflito',async()=>{
+ const d=batch();d.receipts.drive=receipt(d,'drive');
+ const p=await resumePlan(d,async()=> 'ABSENT');assert.equal(p.states.drive,'CONFLICT');assert.equal(p.next,null);
+});
+test('conclusão exige verificação de todas as etapas aplicáveis',async()=>{
+ const d=batch(),p=await resumePlan(d,async()=> 'MATCH');assert.equal(p.complete,true);
+ const other=batch(false),q=await resumePlan(other,async()=> 'MATCH');assert.equal(q.complete,true);assert.equal(q.states.authenticated,'NOT_APPLICABLE');
+});
+test('alteração após congelamento bloqueia retomada',async()=>{
+ const d=batch();d.content.srs.push({id:'another'});await assert.rejects(()=>resumePlan(d,async()=> 'MATCH'));
+});
