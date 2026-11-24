@@ -1,0 +1,34 @@
+name: Multiusuário — homologação real Chromium
+on:
+  push:
+    branches: ['feature/portal-atual-dois-usuarios']
+    paths: ['tests/central-drive-browser.cjs','.github/workflows/central-drive-browser.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e9dd0f3ed7682e7488f0a13790bf1f986bc5a59
+          path: public-preview
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.55.1
+          npx playwright install --with-deps chromium
+      - name: Testar a prévia publicada em Chromium
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory public-preview >/tmp/central-preview.log 2>&1 &
+          node tests/central-drive-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: central-browser-024
+          path: test-artifacts/central-browser/
+          if-no-files-found: warn
