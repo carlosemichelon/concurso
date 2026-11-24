@@ -374,6 +374,16 @@ header .stats .bm241-verification{font-size:10px}
  border-top:1px solid #cddde6!important;gap:10px!important;
 }
 </style>
+<style id="bm-related-chips-compact">
+/* Grade de cartões: vínculos compactos, sem alterar o leitor nem a navegação. */
+#cartoes #cardRows article.card > .bm305-relations{gap:3px!important;padding-top:5px!important}
+#cartoes #cardRows .bm305-relations-row{gap:3px!important}
+#cartoes #cardRows button.bm305-relation-link{min-height:20px!important;padding:2px 5px!important;font-size:10.5px!important;line-height:1.25!important}
+#cartoes #cardRows button.bm305-more-links{min-height:20px!important;padding:2px 5px!important;font-size:10.5px!important;line-height:1.25!important}
+@media(pointer:coarse){
+ #cartoes #cardRows button.bm305-relation-link,#cartoes #cardRows button.bm305-more-links{min-height:28px!important}
+}
+</style>
 </head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
 <header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS8 · Cartões VC27</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
 <div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
