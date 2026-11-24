@@ -1,0 +1,25 @@
+'use strict';
+// Test-only preview, on a disposable checkout. Never publishes or writes to Drive/SRS.
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+const {applyConsolidation}=require('./consolidacao_conceitual.cjs');
+const root=path.resolve(process.argv[2]||'.');
+const read=p=>fs.readFileSync(path.join(root,p),'utf8'),write=(p,v)=>fs.writeFileSync(path.join(root,p),v);
+const json=p=>JSON.parse(read(p)),hash=b=>crypto.createHash('sha1').update('blob '+b.length+'\0').update(b).digest('hex');
+const m=json('assets/version.json'),d=json('candidatos/consolidacao_conceitual_25_v1.json'),raw=Buffer.from(read(m.catalog.path));
+assert.equal(hash(raw),d.source_catalog_blob,'Catálogo vigente mudou: reconciliar antes de testar');
+const source=JSON.parse(raw),snapshot=applyConsolidation(source,d);
+assert.equal(snapshot.counts.active,1559);
+const nextPath='assets/catalog_snapshot_consolidacao_preview.json',bytes=Buffer.from(JSON.stringify(snapshot));
+fs.writeFileSync(path.join(root,nextPath),bytes,{flag:'wx'});
+m.catalog={...m.catalog,path:nextPath,git_blob:hash(bytes),counts:snapshot.counts,private_sync:'not_verified'};
+m.counts.active=snapshot.counts.active;
+m.counts.public_11_modules_structurally_complete_active=snapshot.counts.active;
+m.consolidation_preview=true;
+let html=read('index.html'),n=0;
+html=html.replace(/const BM_CATALOG=Object\.freeze\(([^\n]+)\);/,()=>{n++;return 'const BM_CATALOG=Object.freeze('+JSON.stringify(m.catalog)+');'});
+assert.equal(n,1);
+const fallback="bm123CardsPromise=null;return loadCardsLegacy();";
+assert.ok(html.includes(fallback));html=html.replace(fallback,"bm123CardsPromise=null;throw Error('Prévia de consolidação indisponível: '+e.message);");
+html=html.replace('bm366ApplyRelations(cards);','bm366ApplyRelations(cards);const remap=p.consolidation?.redirects||{};for(const c of cards){if(c.active!==false&&Array.isArray(c.related_card_ids))c.related_card_ids=[...new Set(c.related_card_ids.map(id=>remap[id]||id))].filter(id=>id!==c.id);}' );
+write('index.html',html);write(m.home,html);write('assets/version.json',JSON.stringify(m,null,2));
+console.log(JSON.stringify({preview:true,productionChanged:false,counts:snapshot.counts,profiles:d.revisions.length}));
