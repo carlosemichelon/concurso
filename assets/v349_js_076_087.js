@@ -1194,20 +1194,22 @@ if(typeof cards!=='undefined'&&Array.isArray(cards)&&cards.length&&typeof cardRe
 ;
 /* 85 assets/v311_srs_engine.js */
 /* Banco Mestre V311 — motor SRS público, dados SRS privados.
- * Intervalos: Errei 4, Difícil 8, Bom 16, Fácil 32; Consolidado 64 somente
- * depois de duas avaliações formais Fácil do mesmo cartão, comprovadas por eventos.
+ * Política SRS-2026-11-23: cinco níveis prospectivos; preservar eventos e vencimentos históricos.
+ * Conhecimento adquirido somente explícito, com duas avaliações formais Fácil comprovadas.
  * Não escreve no SRS canônico nem publica histórico pessoal no GitHub.
  */
 (function(root){
  'use strict';
  if(root.BMSRSV311)return;
- const INTERVALS=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32,Consolidado:64});
+ const POLICY='SRS-2026-11-23';
+ const INTERVALS=Object.freeze({'Difícil':8,Bom:16,'Fácil':24,'Conhecimento preservado':32,'Conhecimento adquirido':64});
+ const LEGACY=Object.freeze({Errei:4,'Difícil':8,Bom:16,'Fácil':32,Consolidado:64});
  const PRIVATE_FALLBACK_ID='1UmHRLkQ27RNxL9wwC7Sy0oOAEGUSN8-w';
  const API='https://www.googleapis.com/drive/v3/files/';
  const clean=v=>String(v==null?'':v).trim();
  const rating=v=>{
   const x=clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-  return ({errei:'Errei',dificil:'Difícil',bom:'Bom',facil:'Fácil'})[x]||'';
+  return ({errei:'Errei',dificil:'Difícil',bom:'Bom',facil:'Fácil','conhecimento preservado':'Conhecimento preservado','conhecimento adquirido':'Conhecimento adquirido',consolidado:'Consolidado'})[x]||'';
  };
  const date=v=>{
   const s=clean(v);
@@ -1255,9 +1257,10 @@ if(typeof cards!=='undefined'&&Array.isArray(cards)&&cards.length&&typeof cardRe
   const references=Array.isArray(rec.reference_events)?rec.reference_events:
    Array.isArray(rec.references)?rec.references:[];
   const auto=byReferences(references,lastRating);
+  const modern=rec.srs_policy===POLICY||rec.policy===POLICY;
   // Um marco de referência documentado posterior à última revisão real
   // produz classificação automática separada, nunca duas avaliações Fácil formais.
-  if(auto.count>=5&&(!lastDate||auto.at>lastDate)){
+  if(auto.count>=5&&auto.modern&&(!lastDate||auto.at>lastDate)&&(!originalDue||rec.reference_policy===POLICY)){
    return {id,due:auto.due,rating:auto.rating,intervalDays:auto.intervalDays,
     easyFormalCount:formalEasyHistory(rec,lastRating),consolidated:false,
     source:'Drive privado — recorrência SRS documentada',originalDue,
@@ -1269,9 +1272,12 @@ if(typeof cards!=='undefined'&&Array.isArray(cards)&&cards.length&&typeof cardRe
     consolidated:false,source:'Drive privado — agendamento sem avaliação',originalDue,kind:'agendamento'};
   }
   const easyFormalCount=formalEasyHistory(rec,lastRating);
-  const consolidated=lastRating==='Fácil'&&easyFormalCount>=2;
-  const intervalDays=consolidated?64:INTERVALS[lastRating];
-  return {id,due:addDays(lastDate,intervalDays),rating:lastRating,
+  const consolidated=lastRating==='Conhecimento adquirido'||lastRating==='Consolidado'||(!modern&&lastRating==='Fácil'&&Number(rec.interval_days)===64);
+  const recordedInterval=Number(rec.interval_days||rec.intervalDays);
+  const intervalDays=Number.isInteger(recordedInterval)&&recordedInterval>0?recordedInterval:((modern?INTERVALS:LEGACY)[lastRating]||INTERVALS[lastRating]||null);
+  const due=originalDue||(intervalDays?addDays(lastDate,intervalDays):null);
+  if(!due)return null;
+  return {id,due,rating:lastRating,
    intervalDays,easyFormalCount,consolidated,source:'Drive privado — regra V311',
    originalDue,lastReview:lastDate,attempts,kind:'revisao'};
  }
@@ -1296,14 +1302,15 @@ if(typeof cards!=='undefined'&&Array.isArray(cards)&&cards.length&&typeof cardRe
    const key=clean(e.eventId||e.event_id||e.sourceId||e.source_id);
    if(!key||events.has(key))continue;
    if(e.valid===false||e.passive===true||e.kind==='auditoria'||e.kind==='importacao')continue;
-   events.set(key,date(e.date||e.at||e.timestamp));
+   events.set(key,{at:date(e.date||e.at||e.timestamp),modern:e.srs_policy===POLICY||e.policy===POLICY,difficult:e.difficult===true||rating(e.rating||e.classification||e.classificacao)==='Difícil'});
   }
   const total=events.size;
-  const sorted=[...events.values()].sort();
-  if(total>=10)return {count:total,rating:'Fácil',intervalDays:32,
-   due:addDays(sorted[9],32),at:sorted[9],consolidated:false,kind:'classificacao_por_recorrencia'};
-  if(total>=5)return {count:total,rating:'Bom',intervalDays:16,
-   due:addDays(sorted[4],16),at:sorted[4],consolidated:false,kind:'classificacao_por_recorrencia'};
+  const sorted=[...events.values()].sort((a,b)=>a.at.localeCompare(b.at));
+  if(total>=5){const milestone=sorted[total>=10?9:4];
+   const intervalDays=milestone.difficult?8:total>=10?(milestone.modern?24:32):16;
+   return {count:total,rating:milestone.difficult?'Difícil':total>=10?'Fácil':'Bom',intervalDays,
+    due:addDays(milestone.at,intervalDays),at:milestone.at,modern:milestone.modern,consolidated:false,kind:'classificacao_por_recorrencia'};
+  }
   return {count:total,rating:rating(currentRating),intervalDays:null,due:null,
    consolidated:false,kind:'sem_limiar'};
  }
@@ -1347,7 +1354,7 @@ if(typeof cards!=='undefined'&&Array.isArray(cards)&&cards.length&&typeof cardRe
   }
   throw Error('Nenhuma fonte privada íntegra disponível. '+lastError);
  }
- root.BMSRSV311=Object.freeze({intervals:INTERVALS,date,addDays,rating,fromSrs,
+ root.BMSRSV311=Object.freeze({policy:POLICY,intervals:INTERVALS,date,addDays,rating,fromSrs,
   fromSnapshot,byReferences,latestPrivate,privateFallbackId:PRIVATE_FALLBACK_ID});
 })(window);
 
@@ -1380,10 +1387,10 @@ root.innerHTML=[
 '<p style="font-size:12px;color:#576b73;margin:9px 0 0">O calendário não registra revisões: somente respostas avaliadas e eventos SRS documentados podem alterar vencimentos. Sem data não significa atrasado. Dados privados permanecem no navegador.</p>',
 '</div>',
 '<div class="c141-settings"><label for="c141-min">Tempo por cartão</label><select id="c141-min"><option value="1.5">1,5 min — até 40/dia</option><option value="2" selected>2 min — até 30/dia</option><option value="3">3 min — até 20/dia</option><option value="4">4 min — até 15/dia</option></select><label class="c141-check"><input id="c141-new" type="checkbox">Preencher tempo livre com cartões novos, sem data SRS</label><button class="c141-primary" id="c141-export">Exportar CSV</button></div>',
-'<p class="c141-note">Escala atual: <strong>Errei 4d · Difícil 8d · Bom 16d · Fácil 32d · Consolidado 64d</strong>, este último somente após duas avaliações formais Fácil comprovadas. Fonte preferencial: SRS privado autorizado no Drive. Sem conexão, a fila é <strong>parcial</strong> (F17 histórico). Importações locais explícitas podem sobrescrever o planejamento, mas não o SRS canônico. Cartões sem data não são considerados atrasados.</p>',
+'<p class="c141-note">Escala atual: <strong>Difícil 8d · Bom 16d · Fácil 24d · Conhecimento preservado 32d · Conhecimento adquirido 64d</strong>. Aquisição explícita exige duas avaliações formais Fácil comprovadas. Eventos e vencimentos históricos são preservados. Fonte preferencial: SRS privado autorizado no Drive. Sem conexão, a fila é <strong>parcial</strong> (F17 histórico). Importações locais explícitas podem sobrescrever o planejamento, mas não o SRS canônico. Cartões sem data não são considerados atrasados.</p>',
 '<p id="c141-status" class="c141-status" role="status">Selecione Planejamento de revisões SRS para carregar os registros históricos disponíveis.</p>',
 '<div class="c141-board"><div class="c141-boardhead"><h3 id="c141-range">Próximos 14 dias</h3><div class="c141-actions"><button id="c141-prev">← Antes</button><button id="c141-reset">Hoje</button><button id="c141-next">Depois →</button></div></div><div class="c141-scroll"><table><thead><tr><th>Data</th><th>Vencem / atrasados</th><th>Previstos</th><th>Tempo</th><th>Disponível</th><th>Cartões</th></tr></thead><tbody id="c141-body"><tr><td colspan="6">Carregando...</td></tr></tbody></table></div></div>',
-'<div class="c141-import"><h3>Importar datas SRS para esta simulação local</h3><p>Importe CSV ou JSON com as colunas <code>id;proxima_revisao;avaliacao</code> (por exemplo <code>CARD-0001;18/11/2026;Errei</code>). Os dados ficam <strong>somente neste navegador</strong>. Não são enviados ao GitHub ou Drive e não substituem o histórico canônico de revisões do ChatGPT.</p><input id="c141-file" type="file" accept=".csv,.json" hidden><button id="c141-pick">Importar SRS (CSV/JSON)</button> <button id="c141-clear">Limpar importação local</button><p id="c141-result" class="c141-result" role="status"></p></div>',
+'<div class="c141-import"><h3>Importar datas SRS para esta simulação local</h3><p>Importe CSV ou JSON com as colunas <code>id;proxima_revisao;avaliacao</code> (por exemplo <code>CARD-0001;01/12/2026;Difícil</code>). Os dados ficam <strong>somente neste navegador</strong>. Não são enviados ao GitHub ou Drive e não substituem o histórico canônico de revisões do ChatGPT.</p><input id="c141-file" type="file" accept=".csv,.json" hidden><button id="c141-pick">Importar SRS (CSV/JSON)</button> <button id="c141-clear">Limpar importação local</button><p id="c141-result" class="c141-result" role="status"></p></div>',
 '</div>'].join('');
 const footer=main.querySelector('footer');if(footer)footer.before(root);else main.append(root);
 const navBtn=document.createElement('button');navBtn.type='button';navBtn.textContent='Planejamento de revisões SRS';navBtn.dataset.page='calendario';
@@ -1395,7 +1402,7 @@ const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth
 const shift=(base,n)=>{const d=new Date(base+'T12:00:00');d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const due=v=>{const t=String(v||'').trim();let d=null;if(/^\d{4}-\d{2}-\d{2}/.test(t))d=t.slice(0,10);else{const m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m)d=m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0')}if(!d||! /^\d{4}-\d{2}-\d{2}$/.test(d))return null;const test=new Date(d+'T12:00:00');return !isNaN(test)&&shift(d,0)===d?d:null};
-const rank=v=>({errei:0,dificil:1,bom:2,facil:3})[norm(v)]??4;
+const rank=v=>({errei:0,dificil:1,bom:2,facil:3,conhecimentopreservado:4,conhecimentoadquirido:5,consolidado:5})[norm(v)]??6;
 const dayText=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
 const weekday=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short'});
 const timeLabel=n=>(Number.isInteger(n)?String(n):String(n).replace('.',','))+' min';
@@ -1490,7 +1497,7 @@ function calculate(){
  $('c141-overdue').textContent=all.filter(x=>x.due<start).length;
  $('c141-unplanned').textContent=Math.max(0,cards.length-all.length).toLocaleString('pt-BR');
  $('c141-today').textContent=all.filter(x=>x.due===start).length;
- $('c141-status').textContent=all.length+' datas SRS conhecidas ('+(privateInfo?'privado '+privateInfo.version:'somente F17 histórico')+'), '+imported.length+' importações locais. Ordenação: Errei → Difícil → Bom → Fácil; Consolidado só com 2 avaliações Fácil comprovadas. Nenhuma revisão é lançada automaticamente.';
+ $('c141-status').textContent=all.length+' datas SRS conhecidas ('+(privateInfo?'privado '+privateInfo.version:'somente F17 histórico')+'), '+imported.length+' importações locais. Ordenação: Difícil → Bom → Fácil → Conhecimento preservado → Conhecimento adquirido. Errei histórico mantido; aquisição não é automática. Nenhuma revisão é lançada automaticamente.';
  try{localStorage.setItem(prefKey,JSON.stringify({minutes:minute,addNew}))}catch{}
  render();
  renderQueue();
@@ -1555,9 +1562,9 @@ function render(){
    for(const item of d.items){
     const card=map.get(item.id);if(!card)continue;
     const li=create('li'),info=create('div');
-    info.append(create('b',item.id+' · '+(item.consolidated?'Consolidado (2× Fácil)':item.kind==='novo'?'Novo':item.kind==='agendamento'?'Agendamento':(item.rating||'Revisão'))));
+    info.append(create('b',item.id+' · '+(item.consolidated?(item.rating==='Conhecimento adquirido'?'Conhecimento adquirido':'Consolidado (histórico)'):item.kind==='novo'?'Novo':item.kind==='agendamento'?'Agendamento':(item.rating||'Revisão'))));
     info.append(create('p',card.front||'Pergunta'));
-    info.append(create('small',(card.discipline||'')+' · '+(card.subject||'')+(item.due?' · Venc.: '+dayText(item.due):'')+(item.intervalDays?' · Intervalo '+item.intervalDays+'d':'')+(item.rating==='Fácil'&&!item.consolidated?' · Fácil, ainda não consolidado':'')+' · '+item.source));
+    info.append(create('small',(card.discipline||'')+' · '+(card.subject||'')+(item.due?' · Venc.: '+dayText(item.due):'')+(item.intervalDays?' · Intervalo '+item.intervalDays+'d':'')+' · '+item.source));
     const button=create('button','Ver cartão');button.type='button';button.onclick=()=>void openCard(item.id,button);
   li.append(info,button);ul.append(li);
    }
@@ -1606,7 +1613,7 @@ function renderQueue(){
  }
  $('c313-count').textContent=rows.length.toLocaleString('pt-BR')+
   ' cartões no filtro · '+Math.min(queueShown,rows.length)+' exibidos · '+cards.length.toLocaleString('pt-BR')+
-  ' ativos no catálogo. Intervalos: Errei 4 / Difícil 8 / Bom 16 / Fácil 32 / 2× Fácil formal 64 dias.';
+  ' ativos no catálogo. Intervalos vigentes: Difícil 8 / Bom 16 / Fácil 24 / Conhecimento preservado 32 / Conhecimento adquirido 64 dias.';
  const body=$('c313-body');if(!body)return;body.replaceChildren();
  if(!rows.length){
   const tr=create('tr'),td=create('td','Nenhum cartão nesta situação.','c141-muted');td.colSpan=7;tr.append(td);body.append(tr);
@@ -1619,7 +1626,7 @@ function renderQueue(){
   concept.append(create('strong',x.card.subject||x.card.discipline||'Assunto não informado'));
   concept.append(create('small',x.card.front||'Pergunta sem texto'));
   tr.append(concept);
-  const label=x.rec?.consolidated?'Consolidado — 2× Fácil':x.rec?.rating||(x.rec?.kind==='agendamento'?'Agendado sem revisão formal':'Não iniciado');
+  const label=x.rec?.consolidated?(x.rec?.rating==='Conhecimento adquirido'?'Conhecimento adquirido':'Consolidado (histórico)'):x.rec?.rating||(x.rec?.kind==='agendamento'?'Agendado sem revisão formal':'Não iniciado');
   tr.append(create('td',label));
   tr.append(create('td',x.rec?.due?dayText(x.rec.due):'—'));
   tr.append(create('td',x.status.text,x.status.key==='overdue'?'c141-tag late':''));
@@ -1636,7 +1643,7 @@ function exportQueue(){
  const rows=[['id','disciplina','assunto','pergunta','classificacao','proxima_revisao','situacao','dias_em_atraso','intervalo_dias','origem_srs','consolidado']];
  for(const x of filteredQueue()){
   rows.push([x.id,x.card.discipline,x.card.subject,x.card.front,
-   x.rec?.consolidated?'Consolidado':x.rec?.rating||'',x.rec?.due||'',x.status.text,
+   x.rec?.consolidated?(x.rec?.rating==='Conhecimento adquirido'?'Conhecimento adquirido':'Consolidado (histórico)'):x.rec?.rating||'',x.rec?.due||'',x.status.text,
    x.status.days>0?x.status.days:0,x.rec?.intervalDays||'',x.rec?.source||'',x.rec?.consolidated?'Sim':'Não']);
  }
  const safe=x=>{
@@ -1690,7 +1697,7 @@ async function upload(file){
  const rows=content.trim().startsWith('{')||content.trim().startsWith('[')?parseJSON(JSON.parse(content)):parseCSV(content);
  const valid=new Map();let ignored=0;
  for(const row of rows){const id=String(row.id||'').trim(),date=due(row.due);if(!map.has(id)||!date){ignored++;continue}valid.set(id,{id,due:date,rating:String(row.rating||'').trim(),consolidated:row.verifiedSrs===true&&row.consolidated===true,easyFormalCount:row.verifiedSrs===true?row.easyFormalCount:0,intervalDays:row.verifiedSrs===true?row.intervalDays:null})}
- if(!valid.size)throw Error('Nenhuma linha com ID ativo e data válida. Formato: CARD-0001;18/11/2026;Errei');
+ if(!valid.size)throw Error('Nenhuma linha com ID ativo e data válida. Formato: CARD-0001;01/12/2026;Difícil');
  const update=new Map(imported.map(x=>[x.id,x]));for(const [id,val]of valid)update.set(id,val);
  imported=[...update.values()];localStorage.setItem(importKey,JSON.stringify(imported));
  $('c141-result').className='c141-result';$('c141-result').textContent=valid.size+' cartões importados; '+ignored+' linhas ignoradas. Somente o planejamento local foi atualizado.';calculate();
@@ -1808,7 +1815,7 @@ if(location.hash==='#calendario')void open();
     const date=new Date(r.created_at).toLocaleString('pt-BR');
     const tag=r.sync_status==='synced'?' · Drive confirmado':' · pendente de Drive';
     details.append(el('summary','',date+' · '+r.rating+tag));
-    details.append(el('pre','',r.answer||'(Sem resposta escrita: Errei)'));
+    details.append(el('pre','',r.answer||'(Sem resposta escrita)'));
     if(r.note)details.append(el('p','','Observações: '+r.note));
     if(r.drive_file_id&&FILE_ID.test(r.drive_file_id)){
      const link=el('a','','Abrir registro no Drive');link.href='https://drive.google.com/file/d/'+encodeURIComponent(r.drive_file_id)+'/view';link.target='_blank';link.rel='noopener noreferrer';details.append(link);
@@ -1856,8 +1863,8 @@ if(location.hash==='#calendario')void open();
  async function save(){
   if(writing||!ID_RE.test(cardId))return;
   const text=area.value;
-  if(!rating){say('Escolha Errei, Difícil, Bom ou Fácil antes de salvar.',true);return}
-  if(!text.trim()&&rating!=='Errei'){say('Escreva a resposta ou marque Errei para registrar que não soube responder.',true);return}
+  if(!['Difícil','Bom','Fácil','Conhecimento preservado','Conhecimento adquirido'].includes(rating)){say('Escolha um dos cinco níveis vigentes antes de salvar.',true);return}
+  if(!text.trim()&&rating!=='Difícil'){say('Escreva a resposta ou marque Difícil para registrar que não soube responder.',true);return}
   const c=getCard();if(!c){say('ID não encontrado na base carregada. Nenhum registro foi criado.',true);return}
   writing=true;
   const button=editor.querySelector('[data-bm195-save]');button.disabled=true;
@@ -1866,7 +1873,7 @@ if(location.hash==='#calendario')void open();
    const row={
     format:FORMAT,id:rid,card_id:cardId,front:String(c.front||''),
     discipline:String(c.discipline||''),subject:String(c.subject||''),sub:String(c.sub||''),
-    answer:text,rating,note:String(editor.querySelector('[data-bm195-note]').value||''),
+    answer:text,rating,srs_policy:'SRS-2026-11-23',note:String(editor.querySelector('[data-bm195-note]').value||''),
     created_at:now.toISOString(),timezone_offset_min:now.getTimezoneOffset(),
     site_version:'V206',base_version:'V194',mode:'resposta_discursiva',
     audit_status:'pendente_de_confronto_com_base',srs_status:'nao_integrado_ao_srs_canonico',
@@ -1937,7 +1944,7 @@ if(location.hash==='#calendario')void open();
   if(!remote){
    const document={format:FORMAT,id:row.id,card_id:row.card_id,front:row.front,
     discipline:row.discipline,subject:row.subject,sub:row.sub,
-    answer:row.answer,rating:row.rating,note:row.note,
+    answer:row.answer,rating:row.rating,srs_policy:row.srs_policy,note:row.note,
     created_at:row.created_at,timezone_offset_min:row.timezone_offset_min,
     site_version:row.site_version,base_version:row.base_version,
     audit_status:row.audit_status,srs_status:row.srs_status};
@@ -1999,10 +2006,11 @@ if(location.hash==='#calendario')void open();
    '<label class="bm195-label">Observações (opcional)<textarea data-bm195-note rows="2" placeholder="Dificuldades, pegadinhas ou pontos para revisar."></textarea></label>',
    '<div class="bm195-label">Sua classificação</div>',
    '<div class="bm195-rates" role="group" aria-label="Autoavaliação">',
-   '<button type="button" data-bm195-rate="Errei" aria-pressed="false">Errei</button>',
    '<button type="button" data-bm195-rate="Difícil" aria-pressed="false">Difícil</button>',
    '<button type="button" data-bm195-rate="Bom" aria-pressed="false">Bom</button>',
-   '<button type="button" data-bm195-rate="Fácil" aria-pressed="false">Fácil</button></div>',
+   '<button type="button" data-bm195-rate="Fácil" aria-pressed="false">Fácil</button>',
+   '<button type="button" data-bm195-rate="Conhecimento preservado" aria-pressed="false">Conhecimento preservado</button>',
+   '<button type="button" data-bm195-rate="Conhecimento adquirido" aria-pressed="false">Conhecimento adquirido</button></div>',
    '<div class="bm195-actions"><button type="button" data-bm195-save class="bm195-primary">Registrar classificação e resposta</button>',
    '<button type="button" data-bm195-reveal>Conferir verso original</button></div>',
    '<details class="bm195-drive"><summary>Google Drive · configuração e sincronização</summary>',
