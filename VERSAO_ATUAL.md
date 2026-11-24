@@ -1,3 +1,7 @@
+## V367 — Pesquisa lateral e leitura sob demanda (24/11/2026)
+
+Preserva integralmente a V366, inclusive complementos PETRO15–16 e catálogo V362. Otimiza a pesquisa lateral com normalização em cache, ranking calculado uma vez por registro, comparador reutilizado e agrupamento de digitação por quadro. O índice detecta substituição da base com igual contagem; vínculos são recalculados na consulta para evitar cache obsoleto. Verso original lateral é montado ao revelar e pacotes restaurados V349 são carregados no primeiro cartão aplicável, não na entrada. A grade principal mantém a montagem atual para preservar compatibilidade com leitores históricos. Dados/SRS não alterados. Teste integral de navegador pendente.
+
 ## V364 — Retomada incremental e busca em cache (24/11/2026)
 
 Cache de texto de busca por cartão com invalidação por mudança de campos; catálogo V362 preservado. Ferramenta auxiliar local de lote privado e recibos idempotentes, com testes e documentação. Não constitui sincronização automática do Drive. V363 preservada.
