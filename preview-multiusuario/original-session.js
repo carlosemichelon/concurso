@@ -85,6 +85,7 @@
  await verify();
  try{await studyInit();for(const path of ['./original-calendar.js','./original-study-native.js']){const script=document.createElement('script');script.src=path;await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)})}}catch(e){const p=element('p','Controle de estudos indisponível: '+e.message);document.querySelector('main').prepend(p)}
  try{await gapsInit();for(const path of ['./original-gaps.js','./original-gaps-ui.js']){const script=document.createElement('script');script.src=path;await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)})}}catch(e){document.querySelector('main').prepend(element('p','Painel de lacunas indisponível: '+e.message))}
+ const visual=document.createElement('script');visual.src='./original-visual.js';await new Promise((ok,fail)=>{visual.onload=ok;visual.onerror=fail;document.head.append(visual)});
  const stats=document.querySelectorAll('.stats .stat b'),counts=[data.counts.pdf,data.counts.cards,data.counts.images,data.counts.study,data.counts.annotations];stats.forEach((e,i)=>e.textContent=String(counts[i]??'—'));
  document.querySelectorAll('.bm241-verification').forEach(e=>e.textContent='Dados fictícios');
  const exit=by('bm239-drive-action');exit.disabled=false;exit.textContent='Trocar perfil';exit.setAttribute('aria-label','Trocar perfil de demonstração');exit.onclick=async()=>{if(imageBusy||pdfBusy||studyBusy||gapsBusy||discursiveBusy)return;if((pdfDirty||studyDirty()||gapsDirty()||[...memory.keys()].some(k=>k.startsWith('BM195_DISCURSIVA_RASCUNHO:')&&String(memory.get(k)).trim())||[...imageEdits.values()].some(x=>x.dirty))&&!confirm('Há alterações não sincronizadas. Sair e descartar essas alterações?'))return;try{await fetch('/api/logout',{method:'POST',credentials:'same-origin',headers:{'X-BM-Context':data.context}})}finally{lock()}};
@@ -101,7 +102,7 @@
  by('pdfClose').onclick=()=>{if(pdfBusy)return;if(pdfDirty&&!confirm('Grifos pendentes. Fechar mantendo as marcações nesta sessão?'))return;by('pdfDialog').close()};
  by('pdfDialog').addEventListener('cancel',e=>{if(pdfBusy||pdfDirty)e.preventDefault()});
 
- const note=element('p','PRÉVIA 024B · Dados fictícios. Respostas discursivas, leitor evolutivo, controle, calendário e lacunas. Gravações simuladas nesta aba.');
+ const note=element('p','PRÉVIA 025B · Dados fictícios. Respostas discursivas, leitor evolutivo, controle, calendário e lacunas. Gravações simuladas nesta aba.');
  note.className='notice';const a=element('a','Trocar perfil de exemplo');a.href='./index.html';note.append(' ',a);document.querySelector('main').prepend(note);
  document.body.hidden=false;
  window.addEventListener('pagehide',()=>{active=false;memory.clear();for(const u of urls)URL.revokeObjectURL(u);urls.clear();document.body.replaceChildren()});
