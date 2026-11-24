@@ -59,3 +59,6 @@ Restauração substitui todos os campos, sem resíduos de planejamento ou proven
 
 ## V017 — homologação automatizada
 Execução V016 em GitHub Actions (45295781577): todos os 15 conjuntos npm test passaram. A instalação do Chromium falhou antes da execução do teste, porque ubuntu-latest passou a Ubuntu 26.04, incompatível com Playwright 1.56.1. Fixado ubuntu-24.04, bloqueio de rede externa no smoke e tratamento explícito de preflight simulado. Teste usa somente dados sintéticos, não OAuth/Drive reais. Aguardando resultado da nova execução; não declarar homologação antes do log.
+
+## V018 — primeiro Chromium aprovado e recuperação ativa
+V017: execução 45295972351 aprovou npm test e Chromium com duas contas fictícias, leitura, lateral móvel, SRS, gravação e logout. V018: tentativa digitada opcional, literal, mantida após revelação, gravada somente ao avaliar formalmente, consultável no histórico, descartada ao abandonar ou trocar cartão/conta. Ampliação do smoke para questões vinculadas, metas e isolamento. Não usa hash no estudo. Testes ampliados aguardam execução GitHub; autenticação Google real e PDFs/SVGs em navegador pendentes.

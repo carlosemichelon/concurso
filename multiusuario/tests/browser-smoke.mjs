@@ -52,13 +52,20 @@ try{
  await b.page.getByRole('button',{name:'Ocultar relacionados',exact:true}).waitFor();
  await a.page.locator('[data-view="review"]').click();
  await a.page.getByRole('button',{name:'Próximo cartão',exact:true}).click();
+ await a.page.locator('#recallAttempt').fill('Minha tentativa literal A');
  await a.page.getByRole('button',{name:'Revelar resposta',exact:true}).click();
+ await a.page.getByText('Minha tentativa literal A',{exact:true}).waitFor();
  assert.equal(await a.page.getByRole('button',{name:/^Errei/}).count(),0);
  await a.page.getByRole('button',{name:'Difícil · 8d',exact:true}).click();
  await a.page.waitForFunction(()=>document.querySelector('#cloudStatus').textContent==='Drive privado conectado');
- const last=[...a.files.values()].at(-1).payload;assert.equal(last.data.events.length,1);assert.equal(last.data.events[0].rating,'Difícil');assert.equal([...b.files.values()].at(-1).payload.data.events.length,0);
+ const last=[...a.files.values()].at(-1).payload;assert.equal(last.data.events.length,1);assert.equal(last.data.events[0].rating,'Difícil');assert.equal(last.data.events[0].attempt,'Minha tentativa literal A');assert.equal([...b.files.values()].at(-1).payload.data.events.length,0);
+ await b.page.locator('[data-view="questions"]').click();
+ await b.page.locator('#f-question').fill('Questão sintética B');await b.page.locator('#f-attempt').fill('Resposta da questão B');await b.page.locator('#f-correction').fill('Correção sintética');await b.page.locator('#f-source').fill('Fonte sintética');await b.page.locator('#f-corresponding').fill('CARD-0001');await b.page.locator('select[name="difficulty"]').selectOption('difficult');await b.page.getByRole('button',{name:'Salvar',exact:true}).click();await b.page.waitForFunction(()=>document.querySelector('#cloudStatus').textContent==='Drive privado conectado');
+ const bq=[...b.files.values()].at(-1).payload.data;assert.equal(bq.questions.length,1);assert.equal(bq.questions[0].difficulty,'difficult');assert.deepEqual(bq.questions[0].related,['CARD-0001']);assert.equal(bq.events.length,0);assert.equal([...a.files.values()].at(-1).payload.data.questions.length,0);
+ await b.page.locator('[data-group="organize"]').click();await b.page.getByRole('button',{name:'Cadastrar disciplinas do meu acervo'}).click();await b.page.waitForFunction(()=>document.querySelector('#cloudStatus').textContent==='Drive privado conectado');assert.equal([...b.files.values()].at(-1).payload.data.planning.subjects[0].name,'Engenharia');
+ await b.page.getByRole('button',{name:'Distribuir metas por prioridade'}).click();await b.page.waitForFunction(()=>document.querySelector('#cloudStatus').textContent==='Drive privado conectado');assert.equal([...b.files.values()].at(-1).payload.data.planning.subjects[0].weekly,15);
  await a.page.locator('#logout').click();await a.page.locator('#login').waitFor({state:'visible'});
  assert.equal(await a.page.getByText('Resposta exclusiva A',{exact:true}).count(),0);
  assert.deepEqual(a.errors,[]);assert.deepEqual(b.errors,[]);
- await a.context.close();await b.context.close();console.log('PASS browser smoke: two synthetic accounts, mobile sidebar, reveal, SRS, save, logout');
+ await a.context.close();await b.context.close();console.log('PASS browser smoke: two synthetic accounts, mobile sidebar, typed recall, SRS, question links, study goals, save, logout');
 }catch(error){for(const context of browser.contexts())for(const page of context.pages()){console.error('Diagnóstico de interface (dados fictícios):',await page.locator('body').innerText().catch(()=>''));}throw error}finally{await browser.close();server.close()}

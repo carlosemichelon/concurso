@@ -1,0 +1,3 @@
+import {strict as assert} from 'node:assert';
+import {attemptDraft,updateAttempt,attemptForEvent,checkedAttempt,MAX_ATTEMPT} from '../assets/active-recall.js';
+const d=attemptDraft('A');assert.deepEqual(attemptForEvent(d,'A'),{});assert.deepEqual(attemptForEvent(updateAttempt(d,'A','  literal\ntexto  '),'A'),{attempt:'  literal\ntexto  '});assert.deepEqual(attemptForEvent(updateAttempt(d,'A','  '),'A'),{});assert.throws(()=>updateAttempt(d,'B','outro'));assert.throws(()=>attemptForEvent(d,'B'));assert.throws(()=>checkedAttempt('x'.repeat(MAX_ATTEMPT+1)));assert.throws(()=>checkedAttempt(null));assert.equal(d.text,'');console.log('PASS recuperação ativa literal e isolada por cartão');
