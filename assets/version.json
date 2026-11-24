@@ -5695,10 +5695,10 @@
     "browser_test": "pending"
   },
   "catalog": {
-    "path": "assets/catalog_snapshot_vc12.json",
+    "path": "assets/catalog_snapshot_vc13.json",
     "format": "BancoMestreCatalogSnapshotV362",
     "source_head": "e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7",
-    "git_blob": "6fe10244dc3f9cfbd979b26204f76c620de1aac0",
+    "git_blob": "3073f0b515b85113ef3b769dded642d9423c7559",
     "counts": {
       "canonical": 1559,
       "active": 1559,
@@ -5711,7 +5711,7 @@
     "consolidation_status": "PUBLICACAO_EXPRESSAMENTE_SOLICITADA_SEM_HOMOLOGACAO_EDITORIAL_INTEGRAL",
     "study_increment": "assets/petro30_public_v374.json",
     "study_increment_blob": "f0add58021227f0482f39040160c60e6b8ba9869",
-    "display_version": "VC12",
+    "display_version": "VC13",
     "unified": true,
     "active_only": true,
     "recovery_packet": "assets/petro10_19_recovery_vc4.json",
@@ -5731,7 +5731,9 @@
     "recovery_packet_8": "assets/petro10_19_recovery_vc11.json",
     "recovery_packet_8_blob": "e09fde8e69a2edc89a6a62cb8303588211e0e181",
     "recovery_packet_9": "assets/petro10_19_recovery_vc12.json",
-    "recovery_packet_9_blob": "d1973a9b08bc262c76f77a8a1b10f1237ce0faff"
+    "recovery_packet_9_blob": "d1973a9b08bc262c76f77a8a1b10f1237ce0faff",
+    "recovery_packet_10": "assets/petro10_19_recovery_vc13.json",
+    "recovery_packet_10_blob": "6cd2c4e1d08f99a9d16628c1836dca1b929b89f9"
   },
   "release_v363": {
     "scope": "Contrato independente do catálogo, metadados com cache compartilhado, busca vazia sem normalização; automação de montagem e testes da versão corrente",
@@ -5866,9 +5868,9 @@
       "home": "v382.html"
     },
     "cards": {
-      "version": "VC12",
+      "version": "VC13",
       "technical_source": "V382",
-      "path": "assets/catalog_snapshot_vc12.json",
+      "path": "assets/catalog_snapshot_vc13.json",
       "counts": {
         "canonical": 1559,
         "active": 1559,
@@ -6102,5 +6104,19 @@
     "srs_modified": false,
     "private_content_exported": false,
     "rollback": "VC11"
+  },
+  "release_vc13": {
+    "scope": "Cinco evoluções: madeira, hidrologia, protensão e pilares mistos",
+    "updated_ids": [
+      "CARD-1522",
+      "CARD-1524",
+      "CARD-1526",
+      "CARD-1528",
+      "CARD-1529"
+    ],
+    "private_sync": "not_verified",
+    "srs_modified": false,
+    "private_content_exported": false,
+    "rollback": "VC12"
   }
 }
