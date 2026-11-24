@@ -109,7 +109,7 @@
    showPreview(id,{reveal});
   });
   header.append(fav);preview.append(header);
-  preview.append(make('p','bm317-preview-meta',[c.discipline,c.subject,c.sub].filter(Boolean).join(' › ')||'Assunto não informado'));
+  preview.append(make('p','bm317-preview-meta',(window.BM349?.has(id)?[c.discipline,c.subject]:[c.discipline,c.subject,c.sub]).filter(Boolean).join(' › ')||'Assunto não informado'));
   preview.append(make('p','bm317-preview-question',c.front||'Pergunta não cadastrada'));
   const fold=make('details','bm317-preview-answer');
   fold.open=reveal;
