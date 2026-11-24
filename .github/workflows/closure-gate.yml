@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/closure_gate.test.cjs
+      - run: node --test tests/closure_gate.test.cjs tests/study_batch.test.cjs
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
       - run: node tests/closure_browser.cjs

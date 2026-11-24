@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V363"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V363 — Portal de estudos</title>
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V364"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre V364 — Portal de estudos</title>
 
 
 <style>
@@ -66,7 +66,7 @@ html[data-bm269-pdf-auth="authorized"] #bm269PdfLocked{display:none!important}
 
 <link rel="stylesheet" href="assets/v336_editorial.css?v=336-1">
 <link rel="stylesheet" href="assets/v339_semantic_visual.css?v=339-1"><link rel="stylesheet" href="assets/v340_granulometry.css?v=340-1"><link rel="stylesheet" href="assets/v342_media_integrity.css?v=342-1"></head><body>
-<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Portal V363 · Banco Mestre · leitura contínua</span></div><div class="version">Assuntos, PDFs, cartões e Atlas para revisão técnica</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
+<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Portal V364 · Banco Mestre · leitura contínua</span></div><div class="version">Assuntos, PDFs, cartões e Atlas para revisão técnica</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
 <div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
 <div class="stat" title="1.562 fichas únicas no catálogo de estudo: 1.540 cartões canônicos (1.523 ativos e 17 inativos) e 22 propostas editoriais com IDs próprios; não são eventos SRS"><b>1.559</b><span>Fichas na biblioteca de estudo</span><small class="bm241-verification">IDs únicos; SRS privado e preservado</small></div>
 <div class="stat"><b>—</b><span>Originais Drive / Atlas</span><small class="bm241-verification">Não verificado</small></div>
@@ -715,9 +715,17 @@ function legalCoverage(){
    root.append(n);
  }
 }
+const BM_CARD_SEARCH_INDEX=new WeakMap();
+function bmCardSearchText(c){
+ const fields=[c.id,c.front,c.back,c.discipline,c.subject,c.sub,c.search_keywords,c.reference];
+ const previous=BM_CARD_SEARCH_INDEX.get(c);
+ if(previous&&fields.every((value,i)=>value===previous.fields[i]))return previous.text;
+ const text=fold(fields.filter(Boolean).join(' '));
+ BM_CARD_SEARCH_INDEX.set(c,{fields,text});return text;
+}
 function cardRender(){
  const h=hidden('CARD'),show=$('cardHidden').checked,q=fold($('cardSearch').value),f=$('cardFilter').value;
- let a=cards.filter(c=>(c.provisional||c.active!==false||document.getElementById("bm119ShowInactive")?.checked)&&(c.provisional||c.active!==false)&&(!$('cardRecoveredOnly').checked||!!answersF17?.por_id?.[c.id])&&(!$('cardReviewedOnly').checked||!!auditF17?.historico_por_id?.[c.id])&&(show||!h.has(c.id))&&(f==='all'||c.discipline===f)&&(window.BM152FlashFilters?.matches?.(c)!==false)&&($('cardTopicFilter').value==='all'||(c.subject||'Outros')===$('cardTopicFilter').value)&&(!focusGroup||c.group===focusGroup)&&(!q||fold([c.id,c.front,c.back,c.discipline,c.subject,c.sub,c.search_keywords,c.reference].filter(Boolean).join(' ')).includes(q)));
+ let a=cards.filter(c=>(c.provisional||c.active!==false||document.getElementById("bm119ShowInactive")?.checked)&&(c.provisional||c.active!==false)&&(!$('cardRecoveredOnly').checked||!!answersF17?.por_id?.[c.id])&&(!$('cardReviewedOnly').checked||!!auditF17?.historico_por_id?.[c.id])&&(show||!h.has(c.id))&&(f==='all'||c.discipline===f)&&(window.BM152FlashFilters?.matches?.(c)!==false)&&($('cardTopicFilter').value==='all'||(c.subject||'Outros')===$('cardTopicFilter').value)&&(!focusGroup||c.group===focusGroup)&&(!q||bmCardSearchText(c).includes(q)));
  if(window.BM281CardSort){a=window.BM281CardSort.filterAndSort(a);if(window.BM281CardSort.limited)cardLimit=Math.max(cardLimit,window.BM281CardSort.limit)}
  $('cardCount').textContent=a.length+' cartões · frente/verso com guia metodológico quando disponível';
  const out=$('cardRows');out.replaceChildren();if(!a.length)out.textContent='Nenhum cartão corresponde à busca ou aos filtros. Limpe os filtros para ver toda a base.';

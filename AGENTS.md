@@ -1,6 +1,7 @@
 # Instruções de edição para agentes — Banco Mestre
 
-## Arquitetura atual (V363)
+## Arquitetura atual (V364)
+O encerramento é conferência dos recibos do delta privado, não reconstrução global. Usar o protocolo de retomada documentado em `docs/ARQUITETURA_OPERACIONAL.md` e a ferramenta local `tools/study_batch.cjs` quando aplicável; nunca commitar os dados privados.
 Antes de editar, aplicar o contrato de [arquitetura operacional](docs/ARQUITETURA_OPERACIONAL.md). Use `node tools/catalog_snapshot.cjs --check` na versão vigente. Alterações visuais reutilizam o catálogo imutável; alterações de conteúdo geram um snapshot novo e atualizam o contrato, sem reauditoria histórica de IDs. Não misturar o estado privado do Drive com a publicação pública.
 
 ## REGRA OBRIGATÓRIA — LEITURA DA METODOLOGIA NO INÍCIO DE CADA NOVA CONVERSA (17/11/2026)

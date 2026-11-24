@@ -1,3 +1,7 @@
+## V364 — Retomada incremental e busca em cache (24/11/2026)
+
+Cache de texto de busca por cartão com invalidação por mudança de campos; catálogo V362 preservado. Ferramenta auxiliar local de lote privado e recibos idempotentes, com testes e documentação. Não constitui sincronização automática do Drive. V363 preservada.
+
 ## V363 — Contrato de catálogo e manutenção reproduzível (24/11/2026)
 
 A versão visual reutiliza o catálogo V362 sem alteração dos dados. Metadados com cache e promessa compartilhada; busca vazia não normaliza todos os textos. Gerador e verificador determinísticos em `tools/catalog_snapshot.cjs`; testes históricos separados dos testes da versão vigente e verificação dos bytes publicados. Regras em `docs/ARQUITETURA_OPERACIONAL.md`. Drive privado e SRS intocados; testes CI e navegador real ainda não confirmados.
