@@ -4769,6 +4769,929 @@
         "status": "CANDIDATO_RESTAURADO"
       },
       "related_card_ids": []
+    },
+    "CARD-0631": {
+      "id": "CARD-0631",
+      "title": "Domínio 2: aço no alongamento convencional",
+      "front": "O que caracteriza o domínio 2 em flexão de concreto armado?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "No domínio 2 da flexão, a armadura tracionada atinge o alongamento convencional de 10‰, enquanto a deformação da fibra extrema comprimida do concreto varia de zero até sua deformação última. A linha neutra está entre a borda comprimida e a armadura de tração. Para concreto até C50, o valor extremo de compressão adotado no modelo estudado é 3,5‰.",
+          "Como a distribuição de deformações é linear, os triângulos acima e abaixo da linha neutra são semelhantes. Com a deformação do aço fixada, aumentar o encurtamento do concreto desloca a linha neutra para dentro da seção. A fronteira 2/3 ocorre quando as duas deformações extremas chegam simultaneamente a 3,5‰ e 10‰. A faixa interna é 0 < x/d < 0,2593.",
+          "Para d = 40 cm e x = 8 cm, x/d = 0,20 e εc = 10 × 8/32 = 2,5‰. Trata-se do domínio 2, não da fronteira. 10‰ não é a deformação de início do escoamento do aço. Também não se deve impor 0,2593 a todas as seções no domínio 2."
+        ],
+        "marks": [
+          {
+            "text": "armadura tracionada atinge o alongamento convencional de 10‰",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "0 < x/d < 0,2593",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "10‰ não é a deformação de início do escoamento do aço",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Compatibilidade em módulos",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><msub><mi>ε</mi><mi>c</mi></msub><mi>x</mi></mfrac><mo>=</mo><mfrac><msub><mi>ε</mi><mi>s</mi></msub><mrow><mi>d</mi><mo>−</mo><mi>x</mi></mrow></mfrac><mo>⇒</mo><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><msub><mi>ε</mi><mi>c</mi></msub><mrow><msub><mi>ε</mi><mi>c</mi></msub><mo>+</mo><msub><mi>ε</mi><mi>s</mi></msub></mrow></mfrac></math>",
+              "units": "x e d na mesma unidade; deformações ambas em ‰ ou em decimal; 0 < x < d."
+            },
+            {
+              "title": "Fronteira 2/3",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><mn>3,5</mn><mrow><mn>3,5</mn><mo>+</mo><mn>10</mn></mrow></mfrac><mo>≈</mo><mn>0,2593</mn></math>",
+              "units": "Razão adimensional; concreto até C50."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Deslocamento da linha neutra no domínio 2",
+              "headers": [
+                "εc (‰)",
+                "εs (‰)",
+                "x/d"
+              ],
+              "rows": [
+                [
+                  "0",
+                  "10",
+                  "0 (fronteira 1/2)"
+                ],
+                [
+                  "2",
+                  "10",
+                  "0,1667"
+                ],
+                [
+                  "2,5",
+                  "10",
+                  "0,20"
+                ],
+                [
+                  "3,5",
+                  "10",
+                  "0,2593 (fronteira 2/3)"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO20-SVG-DOMINIOS-V348",
+              "caption": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "alt": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/dominios_2_3.svg"
+            }
+          ]
+        },
+        "mnemonic": "Dois: aço dez, concreto varia.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Com d = 50 cm, x = 10 cm e εs = 10‰, calcule εc e classifique o domínio.",
+        "sources": [
+          {
+            "label": "UNESP — Fundamentos do Concreto Armado (referência do registro PETRO20)",
+            "url": "https://wwwp.feb.unesp.br/pbastos/concreto1/Fundamentos%20CA.pdf"
+          }
+        ],
+        "source_note": "Registro PETRO20-C001, 18/11/2026; modelo de deformações da NBR 6118:2023 e Fundamentos do Concreto Armado, UNESP (2023), seção 3.7. As faixas numéricas são condicionadas à classe e ao aço indicados; a edição 2026 e exceções ainda exigem cotejo oficial. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0625",
+        "CARD-0629",
+        "CARD-0637",
+        "CARD-0641",
+        "CARD-0645",
+        "CARD-0632",
+        "CARD-0606",
+        "CARD-0622",
+        "CARD-0623",
+        "CARD-0626",
+        "CARD-0628",
+        "CARD-0633",
+        "CARD-0642"
+      ]
+    },
+    "CARD-0632": {
+      "id": "CARD-0632",
+      "title": "Domínio 3: concreto no limite e aço escoado",
+      "front": "Como estão concreto comprimido e aço tracionado no domínio 3?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "No domínio 3, a deformação do concreto é a última de compressão, e a armadura tracionada encontra-se escoada: sua deformação em módulo varia entre o limite convencional de 10‰ e εyd. Para concreto até C50, εcu = 3,5‰. A posição da linha neutra depende da deformação da armadura, não de um único valor fixo de x/d.",
+          "Adotando CA-50, fyk = 500 MPa, γs = 1,15 e Es = 210 GPa, obtém-se εyd ≈ 2,0704‰. Assim, as fronteiras 2/3 e 3/4 correspondem a x/d ≈ 0,2593 e 0,6283. Por exemplo, x = 16 cm e d = 40 cm fornecem x/d = 0,40 e εs = 5,25‰, acima de εyd. O aço está escoado e o concreto atingiu 3,5‰.",
+          "A faixa geométrica do domínio 3 não é um critério suficiente de ductilidade. O limite usual x/d ≤ 0,45 para vigas/lajes com fck ≤ 50 MPa na edição estudada é distinto da fronteira 3/4. Uma seção com x/d = 0,55 pode estar no domínio 3 e ainda ultrapassar esse limite de projeto. Não confunda εc2 = 2‰ com εcu = 3,5‰."
+        ],
+        "marks": [
+          {
+            "text": "deformação do concreto é a última de compressão",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "x/d ≤ 0,45",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "Não confunda εc2 = 2‰ com εcu = 3,5‰",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Alongamento da armadura",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>ε</mi><mi>s</mi></msub><mo>=</mo><msub><mi>ε</mi><mi>c</mi></msub><mfrac><mrow><mi>d</mi><mo>−</mo><mi>x</mi></mrow><mi>x</mi></mfrac></math>",
+              "units": "Deformações em módulo; 0 < x < d."
+            },
+            {
+              "title": "Deformação de escoamento de cálculo",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>ε</mi><mi>yd</mi></msub><mo>=</mo><mfrac><msub><mi>f</mi><mi>yk</mi></msub><mrow><msub><mi>γ</mi><mi>s</mi></msub><msub><mi>E</mi><mi>s</mi></msub></mrow></mfrac><mo>≈</mo><mn>2,0704</mn><mo>‰</mo></math>",
+              "units": "fyk = 500 MPa; γs = 1,15; Es = 210.000 MPa."
+            },
+            {
+              "title": "Fronteira 2/3",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><mn>3,5</mn><mrow><mn>3,5</mn><mo>+</mo><mn>10</mn></mrow></mfrac><mo>≈</mo><mn>0,2593</mn></math>",
+              "units": "Razão adimensional; concreto até C50."
+            },
+            {
+              "title": "Fronteira 3/4",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><mn>3,5</mn><mrow><mn>3,5</mn><mo>+</mo><mn>2,0704</mn></mrow></mfrac><mo>≈</mo><mn>0,6283</mn></math>",
+              "units": "Concreto até C50 e CA-50; εyd calculada sem arredondamento intermediário."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Posição relativa da linha neutra — hipóteses do cartão",
+              "headers": [
+                "x/d",
+                "εs com εc = 3,5‰",
+                "Classificação"
+              ],
+              "rows": [
+                [
+                  "0,2593",
+                  "10‰",
+                  "Fronteira 2/3"
+                ],
+                [
+                  "0,40",
+                  "5,25‰",
+                  "Domínio 3"
+                ],
+                [
+                  "0,45",
+                  "4,28‰",
+                  "Domínio 3; limite usual de projeto"
+                ],
+                [
+                  "0,55",
+                  "2,86‰",
+                  "Domínio 3; acima de 0,45"
+                ],
+                [
+                  "0,6283",
+                  "2,0704‰",
+                  "Fronteira 3/4"
+                ],
+                [
+                  "0,70",
+                  "1,50‰",
+                  "Domínio 4"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO20-SVG-DOMINIOS-V348",
+              "caption": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "alt": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/dominios_2_3.svg"
+            }
+          ]
+        },
+        "mnemonic": "0,259 começa o 3; 0,45 é projeto; 0,628 encerra o 3.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 1
+          },
+          {
+            "type": "formula",
+            "index": 2
+          },
+          {
+            "type": "formula",
+            "index": 3
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Para d = 40 cm e x = 22 cm, calcule εs e julgue separadamente domínio e critério usual de ductilidade.",
+        "sources": [
+          {
+            "label": "UNESP — Fundamentos do Concreto Armado (referência do registro PETRO20)",
+            "url": "https://wwwp.feb.unesp.br/pbastos/concreto1/Fundamentos%20CA.pdf"
+          }
+        ],
+        "source_note": "Registro PETRO20-C001, 18/11/2026; modelo de deformações da NBR 6118:2023 e Fundamentos do Concreto Armado, UNESP (2023), seção 3.7. As faixas numéricas são condicionadas à classe e ao aço indicados; a edição 2026 e exceções ainda exigem cotejo oficial. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0625",
+        "CARD-0626",
+        "CARD-0628",
+        "CARD-0631",
+        "CARD-0633",
+        "CARD-0637",
+        "CARD-0638",
+        "CARD-0641",
+        "CARD-0642",
+        "CARD-0643",
+        "CARD-0645",
+        "CARD-0606",
+        "CARD-0622",
+        "CARD-0623",
+        "CARD-0629"
+      ]
+    },
+    "CARD-0637": {
+      "id": "CARD-0637",
+      "title": "Fronteira 2/3: dois pivôs atingidos",
+      "front": "No modelo clássico, quanto vale x/d na transição 2/3 para εcu=3,5‰ e εs=10‰?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Na fronteira entre os domínios 2 e 3, as duas deformações de referência são atingidas simultaneamente: εc = 3,5‰ no concreto comprimido (até C50) e εs = 10‰ no aço tracionado. Como as seções permanecem planas, as deformações são proporcionais às distâncias à linha neutra.",
+          "Substituindo essas deformações na compatibilidade, a razão é x/d ≈ 0,2593. Para uma altura útil de 40 cm, a linha neutra fica a aproximadamente 10,37 cm da borda comprimida. A altura total h não entra no denominador; emprega-se d, medida até o centro da armadura de tração.",
+          "Antes dessa fronteira, no domínio 2, o aço permanece em 10‰ e o concreto ainda não atingiu 3,5‰; depois dela, no domínio 3, o concreto permanece em 3,5‰ enquanto εs diminui. 0,2593 é fronteira, não valor constante do domínio 2."
+        ],
+        "marks": [
+          {
+            "text": "as duas deformações de referência são atingidas simultaneamente",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "x/d ≈ 0,2593",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "0,2593 é fronteira, não valor constante do domínio 2",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Compatibilidade em módulos",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><msub><mi>ε</mi><mi>c</mi></msub><mi>x</mi></mfrac><mo>=</mo><mfrac><msub><mi>ε</mi><mi>s</mi></msub><mrow><mi>d</mi><mo>−</mo><mi>x</mi></mrow></mfrac><mo>⇒</mo><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><msub><mi>ε</mi><mi>c</mi></msub><mrow><msub><mi>ε</mi><mi>c</mi></msub><mo>+</mo><msub><mi>ε</mi><mi>s</mi></msub></mrow></mfrac></math>",
+              "units": "x e d na mesma unidade; deformações ambas em ‰ ou em decimal; 0 < x < d."
+            },
+            {
+              "title": "Fronteira 2/3",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><mn>3,5</mn><mrow><mn>3,5</mn><mo>+</mo><mn>10</mn></mrow></mfrac><mo>≈</mo><mn>0,2593</mn></math>",
+              "units": "Razão adimensional; concreto até C50."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "Comparação já explicitada na resposta discursiva; quadro adicional não necessário.",
+          "items": []
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO20-SVG-DOMINIOS-V348",
+              "caption": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "alt": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/dominios_2_3.svg"
+            }
+          ]
+        },
+        "mnemonic": "3,5 sobre 13,5: início do três.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Se d = 45 cm, qual a profundidade x na fronteira 2/3?",
+        "sources": [
+          {
+            "label": "UNESP — Fundamentos do Concreto Armado (referência do registro PETRO20)",
+            "url": "https://wwwp.feb.unesp.br/pbastos/concreto1/Fundamentos%20CA.pdf"
+          }
+        ],
+        "source_note": "Registro PETRO20-C001, 18/11/2026; modelo de deformações da NBR 6118:2023 e Fundamentos do Concreto Armado, UNESP (2023), seção 3.7. As faixas numéricas são condicionadas à classe e ao aço indicados; a edição 2026 e exceções ainda exigem cotejo oficial. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0631",
+        "CARD-0632",
+        "CARD-0641",
+        "CARD-0642",
+        "CARD-0645"
+      ]
+    },
+    "CARD-0638": {
+      "id": "CARD-0638",
+      "title": "Fronteira 3/4: escoamento incipiente",
+      "front": "Qual é x/d na transição 3/4 para εcu=3,5‰ e εyd=2,07‰?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "A fronteira 3/4 ocorre quando o concreto comprimido chega a εcu e o aço tracionado está exatamente na deformação de escoamento de cálculo εyd. Com os números arredondados da pergunta (3,5‰ e 2,07‰), x/d ≈ 0,6284; usando εyd = 2,070393…‰, o resultado arredonda para 0,6283. A diferença é apenas de arredondamento.",
+          "A deformação de escoamento decorre de fyd/Es. Para o CA-50 com γs = 1,15 e Es = 210 GPa, fyd ≈ 434,78 MPa. Uma linha neutra mais profunda diminui o braço geométrico d−x e, para a mesma deformação extrema do concreto, reduz a deformação do aço. Acima da fronteira, no domínio 4, o aço tracionado ainda não escoou.",
+          "O limite usual de ductilidade de 0,45 não é a fronteira 3/4. Esses valores dependem das hipóteses adotadas e a fronteira muda se εcu ou εyd mudar. Por isso, quando a questão fornecer outra classe de aço ou concreto, recalcule em vez de decorar 0,628."
+        ],
+        "marks": [
+          {
+            "text": "deformação de escoamento de cálculo εyd",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "O limite usual de ductilidade de 0,45 não é a fronteira 3/4",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Deformação de escoamento de cálculo",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>ε</mi><mi>yd</mi></msub><mo>=</mo><mfrac><msub><mi>f</mi><mi>yk</mi></msub><mrow><msub><mi>γ</mi><mi>s</mi></msub><msub><mi>E</mi><mi>s</mi></msub></mrow></mfrac><mo>≈</mo><mn>2,0704</mn><mo>‰</mo></math>",
+              "units": "fyk = 500 MPa; γs = 1,15; Es = 210.000 MPa."
+            },
+            {
+              "title": "Fronteira 3/4",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><mn>3,5</mn><mrow><mn>3,5</mn><mo>+</mo><mn>2,0704</mn></mrow></mfrac><mo>≈</mo><mn>0,6283</mn></math>",
+              "units": "Concreto até C50 e CA-50; εyd calculada sem arredondamento intermediário."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "Comparação já explicitada na resposta discursiva; quadro adicional não necessário.",
+          "items": []
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO20-SVG-DOMINIOS-V348",
+              "caption": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "alt": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/dominios_2_3.svg"
+            }
+          ]
+        },
+        "mnemonic": "No 3/4, concreto último e aço começando a escoar.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Se εyd fosse 2,5‰ e εcu = 3,5‰, qual seria a fronteira 3/4?",
+        "sources": [
+          {
+            "label": "UNESP — Fundamentos do Concreto Armado (referência do registro PETRO20)",
+            "url": "https://wwwp.feb.unesp.br/pbastos/concreto1/Fundamentos%20CA.pdf"
+          }
+        ],
+        "source_note": "Registro PETRO20-C001, 18/11/2026; modelo de deformações da NBR 6118:2023 e Fundamentos do Concreto Armado, UNESP (2023), seção 3.7. As faixas numéricas são condicionadas à classe e ao aço indicados; a edição 2026 e exceções ainda exigem cotejo oficial. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-1028",
+        "CARD-0632",
+        "CARD-0628",
+        "CARD-0633",
+        "CARD-0641",
+        "CARD-0643",
+        "CARD-0645"
+      ]
+    },
+    "CARD-0641": {
+      "id": "CARD-0641",
+      "title": "Compatibilidade de deformações por semelhança",
+      "front": "Como obter a compatibilidade das deformações εc, εs, x e d quando 0<x<d?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Sob a hipótese de seções planas permanecem planas, a deformação longitudinal varia linearmente na altura da seção. Quando 0 < x < d, a fibra comprimida extrema dista x da linha neutra e a camada de aço tracionada dista d−x. Trabalhando em módulo, as razões deformação/distância são iguais.",
+          "Isolando x, obtém-se x = d·εc/(εc+εs). A razão x/d é adimensional, e x possui a mesma unidade de d. Exemplo: d = 450 mm, εc = 3‰ e εs = 6‰, logo x = 150 mm. A verificação é 3/150 = 6/300 = 0,02‰/mm.",
+          "Use as duas deformações na mesma unidade. Se o gráfico estiver em ‰, não transforme somente uma delas em decimal. A expressão em módulos pressupõe compressão e tração em lados opostos da linha neutra; para seção inteiramente comprimida ou tracionada, aplique a relação linear com os sinais e posições corretos. Compatibilidade geométrica não é lei tensão–deformação."
+        ],
+        "marks": [
+          {
+            "text": "seções planas permanecem planas",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "as duas deformações na mesma unidade",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "A expressão em módulos pressupõe compressão e tração em lados opostos da linha neutra",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Compatibilidade em módulos",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mfrac><msub><mi>ε</mi><mi>c</mi></msub><mi>x</mi></mfrac><mo>=</mo><mfrac><msub><mi>ε</mi><mi>s</mi></msub><mrow><mi>d</mi><mo>−</mo><mi>x</mi></mrow></mfrac><mo>⇒</mo><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><msub><mi>ε</mi><mi>c</mi></msub><mrow><msub><mi>ε</mi><mi>c</mi></msub><mo>+</mo><msub><mi>ε</mi><mi>s</mi></msub></mrow></mfrac></math>",
+              "units": "x e d na mesma unidade; deformações ambas em ‰ ou em decimal; 0 < x < d."
+            },
+            {
+              "title": "Alongamento da armadura",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>ε</mi><mi>s</mi></msub><mo>=</mo><msub><mi>ε</mi><mi>c</mi></msub><mfrac><mrow><mi>d</mi><mo>−</mo><mi>x</mi></mrow><mi>x</mi></mfrac></math>",
+              "units": "Deformações em módulo; 0 < x < d."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "Comparação já explicitada na resposta discursiva; quadro adicional não necessário.",
+          "items": []
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO20-SVG-DOMINIOS-V348",
+              "caption": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "alt": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/dominios_2_3.svg"
+            }
+          ]
+        },
+        "mnemonic": "Deformação dividida pela distância à LN é constante.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Para d = 500 mm, εc = 2,5‰ e εs = 7,5‰, obtenha x e confira as duas razões.",
+        "sources": [
+          {
+            "label": "UNESP — Fundamentos do Concreto Armado (referência do registro PETRO20)",
+            "url": "https://wwwp.feb.unesp.br/pbastos/concreto1/Fundamentos%20CA.pdf"
+          }
+        ],
+        "source_note": "Registro PETRO20-C001, 18/11/2026; modelo de deformações da NBR 6118:2023 e Fundamentos do Concreto Armado, UNESP (2023), seção 3.7. As faixas numéricas são condicionadas à classe e ao aço indicados; a edição 2026 e exceções ainda exigem cotejo oficial. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0631",
+        "CARD-0632",
+        "CARD-0637",
+        "CARD-0638",
+        "CARD-0622",
+        "CARD-0623",
+        "CARD-0642",
+        "CARD-0645",
+        "CARD-0606",
+        "CARD-0625",
+        "CARD-0626",
+        "CARD-0628",
+        "CARD-0629",
+        "CARD-0633"
+      ]
+    },
+    "CARD-0643": {
+      "id": "CARD-0643",
+      "title": "Ductilidade e profundidade relativa da linha neutra",
+      "front": "Por que é desejável o escoamento do aço tracionado antes da ruptura por compressão?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "O escoamento prévio da armadura tracionada permite deformações plásticas e rotações antes do esmagamento do concreto, favorecendo ductilidade em flexão e aviso de colapso. Uma seção com muita armadura tracionada pode necessitar de uma linha neutra mais profunda para equilibrar as forças, reduzindo o alongamento do aço e a capacidade de rotação.",
+          "Mantendo εc = 3,5‰, uma seção com x/d = 0,40 fornece εs = 5,25‰, maior que εyd ≈ 2,07‰ do CA-50 estudado. Para x/d = 0,70, resulta εs = 1,50‰, abaixo do escoamento. O caso A tem maior potencial de deformação antes do colapso por flexão. A fronteira geométrica 3/4 é aproximadamente 0,6283, mas o limite usual de projeto é x/d ≤ 0,45 no recorte de vigas/lajes e fck ≤ 50 MPa da edição estudada.",
+          "O escoamento do aço não assegura ductilidade global por si só. Cisalhamento, ancoragem, confinamento, detalhamento e instabilidades podem provocar outros modos de falha. A posição da linha neutra é uma verificação importante, mas não substitui os demais estados-limites."
+        ],
+        "marks": [
+          {
+            "text": "escoamento prévio da armadura tracionada",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "x/d ≤ 0,45",
+            "kind": "condition",
+            "bold": false
+          },
+          {
+            "text": "O escoamento do aço não assegura ductilidade global por si só",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Alongamento da armadura",
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msub><mi>ε</mi><mi>s</mi></msub><mo>=</mo><msub><mi>ε</mi><mi>c</mi></msub><mfrac><mrow><mi>d</mi><mo>−</mo><mi>x</mi></mrow><mi>x</mi></mfrac></math>",
+              "units": "Deformações em módulo; 0 < x < d."
+            }
+          ]
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Três critérios diferentes",
+              "headers": [
+                "Critério",
+                "O que identifica"
+              ],
+              "rows": [
+                [
+                  "εs ≥ εyd",
+                  "Escoamento da armadura tracionada"
+                ],
+                [
+                  "x/d ≈ 0,6283",
+                  "Fronteira 3/4 nas hipóteses do exemplo"
+                ],
+                [
+                  "x/d ≤ 0,45",
+                  "Limite usual de ductilidade de projeto nas hipóteses indicadas"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO20-SVG-DOMINIOS-V348",
+              "caption": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "alt": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/dominios_2_3.svg"
+            }
+          ]
+        },
+        "mnemonic": "Aço cede e avisa; limite de domínio não é limite de projeto.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "formula",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Compare x/d = 0,42 e 0,60 para o CA-50 estudado: ambas estão no domínio 3? Ambas atendem ao critério usual de 0,45?",
+        "sources": [
+          {
+            "label": "UNESP — Fundamentos do Concreto Armado (referência do registro PETRO20)",
+            "url": "https://wwwp.feb.unesp.br/pbastos/concreto1/Fundamentos%20CA.pdf"
+          }
+        ],
+        "source_note": "Registro PETRO20-C001, 18/11/2026; modelo de deformações da NBR 6118:2023 e Fundamentos do Concreto Armado, UNESP (2023), seção 3.7. As faixas numéricas são condicionadas à classe e ao aço indicados; a edição 2026 e exceções ainda exigem cotejo oficial. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0632",
+        "CARD-0638",
+        "CARD-0606",
+        "CARD-0645",
+        "CARD-1595"
+      ]
+    },
+    "CARD-0645": {
+      "id": "CARD-0645",
+      "title": "Leitura do diagrama de domínios sem confundir grandezas",
+      "front": "Quais marcações devem ser identificadas antes de classificar uma seção no gráfico dos domínios?",
+      "subject": "Estruturas / Concreto armado — domínios de deformação",
+      "learning_model": {
+        "renderer": "BM349_SHARED_READER",
+        "paragraphs": [
+          "Antes de classificar uma seção, identifique a altura total h, a altura útil d, a posição da linha neutra x e as deformações extremas. Observe se cada fibra está alongada ou encurtada. No gráfico, domínios são estados de deformação compatíveis no ELU, não estádios de fissuração ou trechos de uma curva tensão–deformação.",
+          "No modelo até C50, a referência de alongamento do aço é 10‰; εcu = 3,5‰ é a deformação última do concreto comprimido, enquanto εc2 = 2‰ é a transição do diagrama constitutivo idealizado. Para o CA-50 do exemplo, εyd ≈ 2,07‰. A fronteira 1/2 tem x/d = 0, a 2/3 aproximadamente 0,2593 e a 3/4 aproximadamente 0,6283. O limite usual de ductilidade x/d ≤ 0,45 deve aparecer como uma marca separada.",
+          "Leia primeiro quais deformações estão fixas e quais variam, depois calcule x/d se necessário. O esquema abaixo é uma representação didática autoral, não a figura original do caderno. A imagem original de CON-08-040 permanece não localizada. Não memorize a orientação gráfica sem examinar a legenda da questão."
+        ],
+        "marks": [
+          {
+            "text": "domínios são estados de deformação compatíveis no ELU",
+            "kind": "core",
+            "bold": false
+          },
+          {
+            "text": "O esquema abaixo é uma representação didática autoral, não a figura original do caderno",
+            "kind": "exception",
+            "bold": false
+          }
+        ],
+        "formula": {
+          "applicability": "NAO_APLICAVEL",
+          "reason": "O núcleo desta recuperação é conceitual/normativo; não exige cálculo adicional.",
+          "items": []
+        },
+        "table": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "title": "Leitura das marcações",
+              "headers": [
+                "Marcação",
+                "Significado"
+              ],
+              "rows": [
+                [
+                  "h / d / x",
+                  "Altura total / útil / linha neutra"
+                ],
+                [
+                  "εc2 = 2‰",
+                  "Início do patamar no diagrama idealizado, até C50"
+                ],
+                [
+                  "εcu = 3,5‰",
+                  "Limite último de compressão até C50"
+                ],
+                [
+                  "εyd ≈ 2,07‰",
+                  "Escoamento de cálculo do CA-50 nas hipóteses adotadas"
+                ],
+                [
+                  "10‰",
+                  "Alongamento convencional máximo do aço no diagrama de domínios"
+                ],
+                [
+                  "0,45",
+                  "Critério usual de projeto, não fronteira"
+                ]
+              ]
+            }
+          ]
+        },
+        "media": {
+          "applicability": "APLICAVEL",
+          "items": [
+            {
+              "id": "PETRO20-SVG-DOMINIOS-V348",
+              "caption": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "alt": "Diagrama linear de deformações e exemplos de posição da linha neutra; esquema autoral, não figura original da questão.",
+              "role": "VERSO_APOS_TENTATIVA",
+              "evidence": "Vínculo público preexistente; testar renderização na versão candidata.",
+              "src": "assets/card_visuals_v348/dominios_2_3.svg"
+            }
+          ]
+        },
+        "mnemonic": "h, d, x; dez no aço, 3,5 no concreto, 2 no patamar, 2,07 no escoamento.",
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "sequence": [
+          {
+            "type": "paragraph",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 1
+          },
+          {
+            "type": "table",
+            "index": 0
+          },
+          {
+            "type": "paragraph",
+            "index": 2
+          },
+          {
+            "type": "media",
+            "index": 0
+          }
+        ],
+        "transfer_question": "Explique as diferenças entre εc2, εcu, εyd e 10‰; depois classifique x/d = 0,40 e εc = 3,5‰.",
+        "sources": [
+          {
+            "label": "UNESP — Fundamentos do Concreto Armado (referência do registro PETRO20)",
+            "url": "https://wwwp.feb.unesp.br/pbastos/concreto1/Fundamentos%20CA.pdf"
+          }
+        ],
+        "source_note": "Registro PETRO20-C001, 18/11/2026; modelo de deformações da NBR 6118:2023 e Fundamentos do Concreto Armado, UNESP (2023), seção 3.7. As faixas numéricas são condicionadas à classe e ao aço indicados; a edição 2026 e exceções ainda exigem cotejo oficial. Edição e recorte conforme o registro de estudo; não equivale à verificação de toda a norma.",
+        "status": "CANDIDATO_RESTAURADO"
+      },
+      "related_card_ids": [
+        "CARD-0631",
+        "CARD-0632",
+        "CARD-0637",
+        "CARD-0638",
+        "CARD-0643",
+        "CARD-0625",
+        "CARD-0626",
+        "CARD-0628",
+        "CARD-0629",
+        "CARD-0641",
+        "CARD-0606",
+        "CARD-0622",
+        "CARD-0623",
+        "CARD-0633",
+        "CARD-0642"
+      ]
     }
   }
 }
