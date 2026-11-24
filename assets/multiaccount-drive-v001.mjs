@@ -1,3 +1,4 @@
+import {checkedGapsEnvelope,GAPS_KIND,GAPS_BACKUP_KIND} from './multiaccount-gaps-v001.mjs';
 import {checkedStudyEnvelope,STUDY_KIND} from './multiaccount-study-v001.mjs';
 import {checkedImageRecord,registeredImage} from './multiaccount-image-ingest-v001.mjs';
 import {checkedImageState,IMAGE_STATE_KIND} from './multiaccount-image-state-v001.mjs';
@@ -66,6 +67,14 @@ export function createDriveProvider({fetcher=fetch,token,info,expiresAt,loadCata
    if(!sent.ok)throw Error('Cópia não confirmada (HTTP '+sent.status+')');const f=privateDriveFile(await sent.json(),subject,'pdf-annotated',{parent:rootId,project:PORTAL_PROJECT});
    if(!matchingPdfCopy(f,doc)||(existing&&f.id!==existing.id)||Number(f.size)!==blob.size)throw Error('Confirmação da cópia divergente');
    return {id:f.id,name:f.name||name,updated:!!existing}
+  },
+  async readGaps(subject){check(subject);if(!rootId)throw Error('Raiz não carregada');const files=await list(subject,GAPS_KIND,rootId);if(files.length>1)throw Error('Mais de um mestre de lacunas');if(!files.length)return null;const f=files[0];if(!/^\d+$/.test(String(f.version)))throw Error('Versão indisponível');return {id:f.id,version:String(f.version),payload:checkedGapsEnvelope(await jsonFile(f,subject),subject)}},
+  async archiveGaps(subject,digest,payload){check(subject);if(!rootId||!/^[a-f0-9]{64}$/.test(digest))throw Error('Backup inválido');const value=checkedGapsEnvelope(payload,subject),files=(await list(subject,GAPS_BACKUP_KIND,rootId)).filter(f=>f.appProperties?.bmEvent===digest);if(files.length>1)throw Error('Backups duplicados; auditoria necessária');if(!files.length){await appendEvent(subject,GAPS_BACKUP_KIND,'BM_PORTAL_GAPS_BACKUP_',value,digest)}const confirmed=(await list(subject,GAPS_BACKUP_KIND,rootId)).filter(f=>f.appProperties?.bmEvent===digest);if(confirmed.length!==1||JSON.stringify(checkedGapsEnvelope(await jsonFile(confirmed[0],subject),subject))!==JSON.stringify(value))throw Error('Backup não confirmado');return true},
+  async saveGaps(subject,expected,payload){check(subject);if(!rootId)throw Error('Raiz não carregada');const value=checkedGapsEnvelope(payload,subject),files=await list(subject,GAPS_KIND,rootId);
+   if(!expected){if(files.length)throw Error('Mestre criado por outro dispositivo');return appendEvent(subject,GAPS_KIND,'BM_PORTAL_GAPS_',value,'gaps-v1')}
+   if(files.length!==1||files[0].id!==expected.id||String(files[0].version)!==String(expected.version))throw Error('Mestre alterado em outro dispositivo');
+   const url='https://www.googleapis.com/upload/drive/v3/files/'+encodeURIComponent(expected.id)+'?uploadType=media&fields='+encodeURIComponent(META);
+   const r=await fetcher(url,{method:'PATCH',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json; charset=UTF-8'},body:JSON.stringify(value),cache:'no-store',redirect:'error'});check(subject);if(!r.ok)throw Error('Gravação de lacunas não confirmada');const f=privateDriveFile(await r.json(),subject,GAPS_KIND,{parent:rootId,project:PORTAL_PROJECT});if(f.id!==expected.id||!/^\d+$/.test(String(f.version)))throw Error('Recibo divergente');return {id:f.id,version:String(f.version)}
   },
   async readStudyControl(subject){check(subject);if(!rootId)throw Error('Raiz não carregada');const files=await list(subject,STUDY_KIND,rootId);if(files.length>1)throw Error('Mais de um controle individual; conciliação necessária');if(!files.length)return null;const f=files[0];if(!/^\d+$/.test(String(f.version)))throw Error('Versão indisponível');return {id:f.id,version:String(f.version),payload:checkedStudyEnvelope(await jsonFile(f,subject),subject)}},
   async saveStudyControl(subject,expected,payload){check(subject);if(!rootId)throw Error('Raiz não carregada');const value=checkedStudyEnvelope(payload,subject),files=await list(subject,STUDY_KIND,rootId);

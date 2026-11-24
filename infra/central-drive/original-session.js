@@ -57,29 +57,38 @@
  const studyDirty=()=>!!studyBase&&local.getItem(studyKey)!==JSON.stringify(studyBase.data);
  async function syncStudy(){if(!studyBase||studyBusy)return;studyBusy=true;const report=message=>window.dispatchEvent(new CustomEvent('bm-profile-study-sync-result',{detail:{message}}));try{const raw=local.getItem(studyKey),result=await api('/api/study/sync',{expected:studyBase.version,base:studyBase.data,data:JSON.parse(raw)});studyBase={version:result.version,data:result.data};if(raw===local.getItem(studyKey)){local.setItem(studyKey,JSON.stringify(result.data));window.BM240ControlApp?.reloadProfileStudy();report('Controle individual sincronizado e conferido.')}else report('Alterações posteriores continuam pendentes.')}catch(e){report(e.message+' — backup local preservado.')}finally{studyBusy=false}}
  window.BM240ControlDrive=Object.freeze({sync:syncStudy});
- const runtime=Object.freeze({studyHtml:async()=>{const r=await api('/original-study.html');return r.html},studyScript:'/original-study-app.js',openPdf,ratings:copy(data.ratings),get reviewBusy(){return reviewBusy},get reviewReady(){return active&&!reviewBusy},canAcquire:id=>active&&(data.acquirable||[]).includes(id),recordReview,loadLayers:id=>api('/api/layers/'+encodeURIComponent(id)),mode:'central',local,writeImageSetting,catalog:()=>copy(data.cards),pdfCatalog:()=>copy(data.media.pdf.map(p=>({...p,section:p.section||'Drive individual',category:p.category||'PDF'}))),imageCatalog:()=>copy(data.media.images),srs:()=>copy(data.srs),downloadPdf,openImage,renderCardExtras});
+
+ const gapsKey='BM_LACUNAS_V242';let gapsBase=null,gapsBusy=false;
+ async function gapsInit(){const remote=await api('/api/gaps');gapsBase=remote;local.setItem(gapsKey,JSON.stringify(remote.data))}
+ const gapsDirty=()=>!!gapsBase&&local.getItem(gapsKey)!==JSON.stringify(gapsBase.data);
+ async function syncGaps(){if(!gapsBase||gapsBusy)return;gapsBusy=true;const button=by('bm242-sync');if(button)button.disabled=true;
+ const report=message=>document.dispatchEvent(new CustomEvent('bm242-lacunas-drive-status',{detail:{message}}));
+ try{const raw=local.getItem(gapsKey),saved=await api('/api/gaps/sync',{expected:gapsBase.version,data:JSON.parse(raw)});gapsBase=saved;if(raw===local.getItem(gapsKey)){if(JSON.stringify(saved.data)!==raw)window.BM242Lacunas.applyRemote(saved.data);report('Lacunas sincronizadas e conferidas; histórico preservado.')}else report('Alterações posteriores continuam pendentes.')}
+ catch(e){report(e.message+' — mantenha ou exporte a edição local.')}finally{gapsBusy=false;if(button)button.disabled=false}}
+ const runtime=Object.freeze({syncGaps,studyHtml:async()=>{const r=await api('/original-study.html');return r.html},studyScript:'/original-study-app.js',openPdf,ratings:copy(data.ratings),get reviewBusy(){return reviewBusy},get reviewReady(){return active&&!reviewBusy},canAcquire:id=>active&&(data.acquirable||[]).includes(id),recordReview,loadLayers:id=>api('/api/layers/'+encodeURIComponent(id)),mode:'central',local,writeImageSetting,catalog:()=>copy(data.cards),pdfCatalog:()=>copy(data.media.pdf.map(p=>({...p,section:p.section||'Drive individual',category:p.category||'PDF'}))),imageCatalog:()=>copy(data.media.images),srs:()=>copy(data.srs),downloadPdf,openImage,renderCardExtras});
  Object.defineProperty(window,'BMAccountRuntime',{value:runtime,writable:false,configurable:false});
  // Use the original page DOM and core. No browser OAuth or persistent legacy storage.
  for(const path of ['/original-core.js','/original-reader.js','/original-review.js','/original-image-editor.js','/original-pdf-sync-core.js','/original-pdf-editor.js','/original-pdf-grifador.js']){const script=document.createElement('script');script.src=path;await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)})}
  await verify();
  try{await studyInit();for(const path of ['/original-calendar.js','/original-study-native.js']){const script=document.createElement('script');script.src=path;await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)})}}catch(e){const p=element('p','Controle de estudos indisponível: '+e.message);document.querySelector('main').prepend(p)}
+ try{await gapsInit();for(const path of ['/original-gaps.js','/original-gaps-ui.js']){const script=document.createElement('script');script.src=path;await new Promise((ok,fail)=>{script.onload=ok;script.onerror=fail;document.head.append(script)})}}catch(e){document.querySelector('main').prepend(element('p','Painel de lacunas indisponível: '+e.message))}
  const stats=document.querySelectorAll('.stats .stat b'),counts=[data.counts.pdf,data.counts.cards,data.counts.images,data.counts.study,data.counts.annotations];stats.forEach((e,i)=>e.textContent=String(counts[i]??'—'));
  document.querySelectorAll('.bm241-verification').forEach(e=>e.textContent='Perfil individual');
- const exit=by('bm239-drive-action');exit.disabled=false;exit.setAttribute('aria-label','Encerrar sessão');exit.onclick=async()=>{if(imageBusy||pdfBusy||studyBusy)return;if((pdfDirty||studyDirty()||[...imageEdits.values()].some(x=>x.dirty))&&!confirm('Há marcações não sincronizadas. Sair e descartar essas alterações?'))return;try{await fetch('/api/logout',{method:'POST',credentials:'same-origin',headers:{'X-BM-Context':data.context}})}finally{lock()}};
+ const exit=by('bm239-drive-action');exit.disabled=false;exit.setAttribute('aria-label','Encerrar sessão');exit.onclick=async()=>{if(imageBusy||pdfBusy||studyBusy||gapsBusy)return;if((pdfDirty||studyDirty()||gapsDirty()||[...imageEdits.values()].some(x=>x.dirty))&&!confirm('Há alterações não sincronizadas. Sair e descartar essas alterações?'))return;try{await fetch('/api/logout',{method:'POST',credentials:'same-origin',headers:{'X-BM-Context':data.context}})}finally{lock()}};
  by('bm239-sync-details').textContent='Perfil autenticado: '+data.username+' · homologação';
  const syncButton=element('button','Sincronizar marcações');syncButton.id='bmCentralImageSync';syncButton.type='button';syncButton.disabled=true;syncButton.onclick=()=>void syncImage();by('imageDialog').querySelector('.editor-tools').append(syncButton);
  by('imgClose').onclick=()=>{if(imageBusy)return;if(imageEdits.get(currentImage)?.dirty&&!confirm('Marcações não sincronizadas. Fechar mantendo a edição nesta sessão?'))return;by('imageDialog').close()};
  by('imageDialog').addEventListener('cancel',e=>{if(imageBusy||imageEdits.get(currentImage)?.dirty)e.preventDefault()});
  by('imageDialog').addEventListener('close',()=>{currentImage=null;by('base').width=by('grifo').width=1;by('base').height=by('grifo').height=1;updateImageSync()});
  by('originalDriveLink').hidden=true;by('hideOpened').hidden=true;
- window.addEventListener('beforeunload',e=>{if(pdfDirty||studyDirty()||[...imageEdits.values()].some(x=>x.dirty)){e.preventDefault();e.returnValue=''}});
+ window.addEventListener('beforeunload',e=>{if(pdfDirty||studyDirty()||gapsDirty()||[...imageEdits.values()].some(x=>x.dirty)){e.preventDefault();e.returnValue=''}});
 
  const pdfTools=by('pdfLocalTools'),group=document.createElement('div');group.className='pdfGroup';
  for(const [label,fn] of [['Sincronizar grifos',syncPdf],['Salvar cópia no Drive',copyPdf],['Exportar backup de grifos',exportMarks]]){const button=element('button',label);button.type='button';button.onclick=()=>void fn();group.append(button)}pdfTools.append(group);
  by('pdfClose').onclick=()=>{if(pdfBusy)return;if(pdfDirty&&!confirm('Grifos pendentes. Fechar mantendo as marcações nesta sessão?'))return;by('pdfDialog').close()};
  by('pdfDialog').addEventListener('cancel',e=>{if(pdfBusy||pdfDirty)e.preventDefault()});
 
- const note=element('p','Ambiente original em homologação. Leitor original, avaliação formal e editor de imagens integrados; Editor PDF e sincronização em homologação. Outras operações ainda em integração.');
+ const note=element('p','Ambiente original em homologação. Leitor original, avaliação formal e editor de imagens integrados; Editor PDF e sincronização em homologação. Controle, calendário e lacunas integrados; homologação em andamento.');
  note.className='notice';const a=element('a','Abrir funções homologadas');a.href='/';note.append(' ',a);document.querySelector('main').prepend(note);
  document.body.hidden=false;
  window.addEventListener('pagehide',()=>{active=false;memory.clear();for(const u of urls)URL.revokeObjectURL(u);urls.clear();document.body.replaceChildren()});
