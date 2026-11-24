@@ -10,6 +10,7 @@
  let cardId='',rating='',writing=false;
  const el=(type,cls,text)=>{const n=document.createElement(type);if(cls)n.className=cls;if(text!==undefined)n.textContent=String(text);return n};
  const draftKey=()=>DRAFT_PREFIX+cardId;
+ function preserveDraft(){if(!valid(cardId))return;const answer=area.value,note=String(editor.querySelector('[data-bm195-note]').value||'');if(answer||note||rating)localStorage.setItem(draftKey(),JSON.stringify({answer,note,rating}));else localStorage.removeItem(draftKey())}
  const all=async()=>account.attempts().map(r=>({id:r.id,card_id:r.cardId,front:r.front,answer:r.answer,note:r.note,rating:r.rating,created_at:r.createdAt,audit_status:r.auditStatus,srs_status:r.srsStatus,sync_status:'synced'})).sort((a,b)=>String(b.created_at).localeCompare(String(a.created_at)));
 
  let modal,controlButton,editor,area,observedTitle;
@@ -60,13 +61,14 @@
    if(editor)editor.hidden=true;return;
   }
   if(next===cardId)return;
+  if(area&&cardId)preserveDraft();
   cardId=next;rating='';selectedRate('');
   if(editor)editor.hidden=true;
   if(controlButton)controlButton.textContent='Responder discursivamente';
   if(area){
    editor.querySelector('[data-bm195-note]').value='';
-   let saved='';try{saved=localStorage.getItem(draftKey())||''}catch{}
-   area.value=saved;
+   let saved={};try{const raw=localStorage.getItem(draftKey());if(raw){try{saved=JSON.parse(raw)}catch{saved={answer:raw}}}}catch{}
+   area.value=typeof saved.answer==='string'?saved.answer:'';editor.querySelector('[data-bm195-note]').value=typeof saved.note==='string'?saved.note:'';if(Object.hasOwn(account.ratings,saved.rating))selectedRate(saved.rating);
   }
  }
  async function save(){
@@ -74,14 +76,16 @@
   const id=cardId,text=area.value,note=String(editor.querySelector('[data-bm195-note]').value||'');
   if(!Object.hasOwn(account.ratings,rating)){say('Selecione uma classificação.',true);return}
   if(!text.trim()&&rating!=='Difícil'){say('Escreva a resposta ou marque Difícil.',true);return}
-  writing=true;const button=editor.querySelector('[data-bm195-save]');button.disabled=true;
-  try{const saved=await account.recordDiscursive({cardId:id,answer:text,note,rating});if(saved.cardId!==id)throw Error('Recibo divergente');localStorage.removeItem(DRAFT_PREFIX+id);say('Tentativa integral confirmada. Esta autoavaliação não altera o SRS formal.');area.value='';editor.querySelector('[data-bm195-note]').value='';selectedRate('');await history()}
+  preserveDraft();writing=true;const button=editor.querySelector('[data-bm195-save]');const fields=[...editor.querySelectorAll('textarea,[data-bm195-rate]')];button.disabled=true;fields.forEach(e=>e.disabled=true);
+  try{const saved=await account.recordDiscursive({cardId:id,answer:text,note,rating});if(saved.cardId!==id)throw Error('Recibo divergente');localStorage.removeItem(DRAFT_PREFIX+id);say('Tentativa fictícia confirmada nesta aba. Esta autoavaliação não altera o SRS formal.');area.value='';editor.querySelector('[data-bm195-note]').value='';selectedRate('');await history()}
   catch(e){say(e.message+' — mantenha o texto e repita a mesma tentativa.',true)}
-  finally{writing=false;button.disabled=false}
+  finally{writing=false;button.disabled=false;fields.forEach(e=>e.disabled=false)}
  }
  async function restorePending(){
-  try{const p=await account.pendingDiscursive();if(!p||p.attempt.cardId!==cardId)return;
-   const r=p.attempt;area.value=r.answer;editor.querySelector('[data-bm195-note]').value=r.note||'';selectedRate(r.rating);say('Tentativa pendente recuperada. Registre novamente para confirmar a mesma reserva.');
+  const requested=cardId,view=window.BancoMestreVisualizarCardV050?.viewSequence,initial=JSON.stringify([area.value,editor.querySelector('[data-bm195-note]').value,rating]);
+  try{const p=await account.pendingDiscursive();if(!p||p.attempt.cardId!==requested||requested!==cardId||view!==window.BancoMestreVisualizarCardV050?.viewSequence||writing||editor.hidden)return;
+   if(initial!==JSON.stringify([area.value,editor.querySelector('[data-bm195-note]').value,rating])){say('Há uma tentativa pendente. Seu rascunho não foi substituído. Reabra o cartão para recuperar a reserva.',true);return}
+   const r=p.attempt;area.value=r.answer;editor.querySelector('[data-bm195-note]').value=r.note||'';selectedRate(r.rating);preserveDraft();say('Tentativa pendente recuperada. Registre novamente para confirmar a mesma reserva.');
   }catch(e){say(e.message,true)}
  }
 
@@ -117,8 +121,8 @@
    controlButton.textContent=editor.hidden?'Responder discursivamente':'Fechar resposta discursiva';
    if(!editor.hidden){editor.querySelector('[data-bm195-card]').textContent=cardId;area.focus();void history();void restorePending();}
   });
-  area.addEventListener('input',()=>{try{localStorage.setItem(draftKey(),area.value)}catch{}});
-  editor.querySelectorAll('[data-bm195-rate]').forEach(b=>b.addEventListener('click',()=>selectedRate(b.dataset.bm195Rate)));
+  area.addEventListener('input',preserveDraft);editor.querySelector('[data-bm195-note]').addEventListener('input',preserveDraft);
+  editor.querySelectorAll('[data-bm195-rate]').forEach(b=>b.addEventListener('click',()=>{selectedRate(b.dataset.bm195Rate);preserveDraft()}));
   editor.querySelector('[data-bm195-save]').addEventListener('click',save);
   editor.querySelector('[data-bm195-reveal]').addEventListener('click',()=>modal.querySelector('.bm-v050-peek-reveal')?.click());
 

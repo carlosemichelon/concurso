@@ -1,1 +1,1 @@
-Prévia V348 / 023H. Fonte 337f186254b91423f63add20a2433e529332a32c. Respostas discursivas V206 e renderizador V198 reaproveitados, fontes recentes de módulos no servidor privado. Dados fictícios em memória. Nenhum arquivo fora da prévia alterado.
+Prévia V348 / 024B. Fonte ca46ba0210a448699e0018565b7e9b6fceceb7b2. Correções de navegação, rascunho discursivo, recuperação pendente, dupla classificação na mesma abertura e diagnóstico de inicialização. Dados fictícios em memória; sem gravação real. Homologação Chromium ainda não concluída.

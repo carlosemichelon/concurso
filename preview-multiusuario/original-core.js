@@ -14,7 +14,7 @@ function card(title,tag,subtitle){const c=el('article',null,'card');c.append(el(
 function section(name){
  const previous=document.querySelector('main section.active')?.id||'assuntos';
  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
- document.querySelectorAll('main section').forEach(s=>s.classList.toggle('active',s.id===name));
+ document.querySelectorAll('main > section').forEach(s=>s.classList.toggle('active',s.id===name));
  if(!window.BM054HistoryRestoring){
   if(name==='tema'&&window.BM054PendingTopic){
    const t=window.BM054PendingTopic;
@@ -161,7 +161,7 @@ function cardRender(){
     infoBlock(ans,'Precisão do registro',evF17.precisao_temporal);
     infoBlock(ans,'Próxima revisão já registrada na V015',evF17.proxima_revisao_existente_v015||'Não registrada');
     
-    ans.append(link('Consultar auditoria F17 no Drive','#'));
+    ans.append(link('Consultar auditoria F17 no Drive','https://drive.google.com/file/d/1QaiI6lp-JRsW_7S8vWB9whTF3QB5kfOM/view'));
    }else infoBlock(ans,'Histórico formal','Consulte o diário individual; a consulta não altera o SRS.');
    const recovered=answersF17?.por_id?.[c.id];
    if(recovered){
