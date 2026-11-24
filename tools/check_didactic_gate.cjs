@@ -41,9 +41,19 @@ function inspect(r,c,p,model){
  for(const k of criteria){const e=r.evidence?.[k];ck(e&&['VERIFICADO','NAO_APLICAVEL'].includes(e.status)&&nonempty(e.ref)&&!(e.status==='NAO_APLICAVEL'&&!['formula','table','media'].includes(k)),'evidência editorial ausente: '+k);}
  return faults;
 }
+// O leitor V349 combina a fonte histórica e a resposta-modelo restaurada.
+// Validar o conteúdo efetivamente apresentado, sem duplicar ou aprovar automaticamente os cartões.
+function effectiveProfile(record,profile,restored){
+ if(!restored)return profile;
+ if(!profile||restored.id!==record.id||profile.id!==record.id)throw Error('Identidade divergente na restauração: '+record.id);
+ if(!restored.learning_model)throw Error('Restauração sem resposta-modelo: '+record.id);
+ return {...profile,learning_model:restored.learning_model,rendered_card:restored};
+}
 function audit(registry=J('assets/didactic_gate_current.json'),read=J){
+ const restored=registry.learning_model_source?read(registry.learning_model_source).cards:null;
+ if(registry.learning_model_source&&(!restored||typeof restored!=='object'||Array.isArray(restored)))throw Error('Fonte de restauração inválida');
  const results=[];const seen=new Set();
- for(const r of registry.records){const key=r.id+'|'+r.source;if(seen.has(key))throw Error('ID/fonte repetido '+key);seen.add(key);const d=read(r.source);const p=d[r.profile_key]?.[r.id];const c=d.new_cards?.find(x=>x.id===r.id)??d.updates?.find(x=>x.id===r.id)??d.existing_updates?.find(x=>x.id===r.id)??p;results.push({id:r.id,part:r.part,faults:inspect(r,c,p,registry.model)});}
+ for(const r of registry.records){const key=r.id+'|'+r.source;if(seen.has(key))throw Error('ID/fonte repetido '+key);seen.add(key);const d=read(r.source);const p=d[r.profile_key]?.[r.id];const c=d.new_cards?.find(x=>x.id===r.id)??d.updates?.find(x=>x.id===r.id)??d.existing_updates?.find(x=>x.id===r.id)??p;if(restored&&!Object.hasOwn(restored,r.id))throw Error('Cartão restaurado ausente: '+r.id);const effective=effectiveProfile(r,p,restored?.[r.id]);results.push({id:r.id,part:r.part,faults:inspect(r,c,effective,registry.model)});}
  return {total:results.length,approved:results.filter(x=>!x.faults.length).length,blocked:results.filter(x=>x.faults.length).length,results};
 }
 
@@ -80,4 +90,4 @@ function releaseAudit(registry=J('assets/didactic_gate_current.json')){
 }
 
 if(require.main===module){const a=releaseAudit();console.log(JSON.stringify(a,null,2));if(process.argv.includes('--release')&&a.blocked)process.exitCode=1;}
-module.exports={inspect,audit,hash,criteria,inventoryDiff,coverageErrors,releaseAudit};
+module.exports={inspect,audit,hash,criteria,inventoryDiff,coverageErrors,releaseAudit,effectiveProfile};
