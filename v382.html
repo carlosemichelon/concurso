@@ -1,4 +1,38 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V382"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS5 — Portal de estudos</title>
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V382"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS5 — Portal de estudos</title><style id="bm-startup-gate">
+#bmStartupGate{display:none}
+html[data-bm-startup="pending"] body > :not(#bmStartupGate){opacity:0!important;pointer-events:none!important}
+html[data-bm-startup="pending"] #bmStartupGate{display:flex!important;position:fixed;inset:0;z-index:2147483647;align-items:center;justify-content:center;padding:24px;background:#f3f6f8;color:#253743;font:15px/1.5 system-ui,sans-serif}
+#bmStartupGate>div{width:min(340px,100%);text-align:center}
+#bmStartupGate strong{font-size:23px}
+#bmStartupGate p{margin:9px 0}
+#bmStartupGate a,#bmStartupGate button{font:inherit;color:#14618d;margin:8px}
+#bmStartupGate [hidden]{display:none!important}
+</style><script id="bm-startup-controller">
+(function(){
+'use strict';
+const root=document.documentElement;
+root.setAttribute('data-bm-startup','pending');
+let done=false,watchdog;
+function release(){
+ if(done)return;done=true;clearTimeout(watchdog);
+ root.removeAttribute('data-bm-startup');
+ document.getElementById('bmStartupGate')?.remove();
+}
+function ready(){
+ try{window.BM206Header?.render()}catch(e){console.warn('Identificação do portal:',e)}
+ // Aguardar o trabalho síncrono de todos os listeners de DOMContentLoaded,
+ // e dois quadros de layout, sem esperar OAuth, catálogo, PDFs ou imagens.
+ setTimeout(()=>requestAnimationFrame(()=>requestAnimationFrame(release)),0);
+}
+document.addEventListener('DOMContentLoaded',ready,{once:true});
+watchdog=setTimeout(()=>{
+ if(done)return;
+ const hint=document.getElementById('bmStartupSlow');
+ if(hint)hint.hidden=false;
+},12000);
+window.BMStartupGate=Object.freeze({release,get ready(){return done}});
+})();
+</script>
 
 
 <style>
@@ -82,7 +116,7 @@ header .stats .bm241-verification{font-size:10px}
 #bm382QueuePanel button{margin:6px 7px 0 0}
 #bm382QueuePanel p{font-size:12px;margin:4px 0}
 #bmCardPeekV050[data-bm382-queue="true"] .bm165-prev,#bmCardPeekV050[data-bm382-queue="true"] .bm165-next{display:none!important}
-</style></head><body>
+</style></head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
 <header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS5 · Cartões VC9</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
 <div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
 <div class="stat" id="bm382CatalogStat" title="Contagem do catálogo oficial; aguarda carregamento"><b>—</b><span>Cartões ativos</span><small class="bm241-verification">Carregando catálogo</small></div>
