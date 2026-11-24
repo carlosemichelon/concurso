@@ -1,0 +1,97 @@
+{
+  "format": "BancoMestrePetro30PublicV374",
+  "cards": [
+    {
+      "id": "CARD-0409",
+      "q": "PETRO30-Q01",
+      "front": "Na NBR 8160:1999, quais os limites de distância dos dispositivos de inspeção, da ligação pública e dos aparelhos? Quando se exige 2 m e como ligar a caixa sifonada do térreo?",
+      "back": "Os máximos são 25 m entre dispositivos de inspeção, 15 m da ligação ao coletor público ao dispositivo mais próximo e 10 m da bacia sanitária, caixa de gordura ou caixa sifonada ao dispositivo de inspeção. Em edifício com mais de dois pavimentos, a caixa de inspeção deve ficar a pelo menos 2 m dos tubos de queda que contribuem para ela. As caixas sifonadas do térreo, quando sujeitas ao arranjo previsto na norma para edifícios com mais de dois pavimentos, devem descarregar diretamente em caixa de inspeção, sem ligação que favoreça refluxo.",
+      "mechanism": "A inspeção permite desobstrução e limpeza. Na base do tubo de queda podem ocorrer sobrepressões e refluxo; o arranjo da rede do térreo deve evitar que esses efeitos atinjam os desconectores.",
+      "example": "Entre duas caixas separadas por 27 m, é necessário rever o traçado; uma ligação pública a 18 m excede 15 m. Os limites referem-se aos trechos específicos da tubulação, não a afastamentos sanitários de fossas.",
+      "trap": "25, 15 e 10 são máximos; 2 é mínimo e depende de mais de dois pavimentos.",
+      "mnemonic": "25 dispositivos — 15 rede — 10 aparelhos; 2 mínimo junto ao TQ.",
+      "source": "ABNT NBR 8160:1999, disposições de inspeção e caixas sifonadas.",
+      "links": [
+        "CARD-0236",
+        "CARD-0526",
+        "CARD-0747",
+        "CARD-1607"
+      ],
+      "transfer": "Em um edifício de três pavimentos, determine se 1,5 m do TQ à caixa e 12 m da caixa sifonada à inspeção atendem aos respectivos limites.",
+      "compare": "O trecho entre dispositivos tem máximo de 25 m, enquanto o trecho final à rede pública tem máximo de 15 m e os aparelhos especificados, 10 m.",
+      "conditions": "O mínimo de 2 m aplica-se a edifícios com mais de dois pavimentos; verificar o arranjo específico da caixa sifonada do térreo."
+    },
+    {
+      "id": "CARD-0829",
+      "q": "PETRO30-Q02",
+      "front": "Quais são os afastamentos horizontais mínimos dos sistemas de tratamento de esgoto, como se mede e o que mudou entre NBR 7229:1993 e NBR 17076:2024?",
+      "back": "Na NBR 17076:2024, item 5.1.2, são 1,5 m de construções, divisas e ramal predial de água; 3 m de rede pública de água, plantas com raízes interferentes e sumidouros/valas de infiltração; 15 m de poços freáticos e corpos d’água. Na NBR 7229:1993, o grupo de 1,5 m também incluía sumidouros/valas. Medir horizontalmente entre as faces externas mais próximas, não entre centros. Observar ainda as regras específicas de implantação do sumidouro e condições locais.",
+      "mechanism": "Os afastamentos reduzem interferências com construções, raízes e tubulações e ajudam a proteger recursos hídricos. A distância livre real importa, não a posição do centroide.",
+      "example": "Se o tanque fica a 14 m livres do poço, falta 1 m para o mínimo geral de 15 m. Para sumidouro, conferir também o anexo K e seus critérios geométricos e de implantação.",
+      "trap": "Ramal predial = 1,5 m; rede pública = 3 m. Não confundir 25 m entre dispositivos de inspeção (NBR 8160) com afastamento de poço. Não tratar 3 m como regra suficiente para qualquer sumidouro.",
+      "mnemonic": "1, 2 e 10 vezes 1,5 m. Ramal → rede → água: 1,5 → 3 → 15.",
+      "source": "ABNT NBR 7229:1993, 5.1; ABNT NBR 17076:2024, 5.1.2 e anexo K.",
+      "links": [
+        "CARD-0173",
+        "CARD-0827",
+        "CARD-0828",
+        "CARD-1194"
+      ],
+      "transfer": "Compare ramal, rede pública e poço; explique por que medir de centro a centro pode ocultar insuficiência de afastamento.",
+      "compare": "Na norma de 1993, sumidouros/valas estavam no grupo de 1,5 m; a edição de 2024 traz 3 m no quadro geral.",
+      "conditions": "Verificar requisitos específicos do sumidouro, características do solo e exigências ambientais mais restritivas."
+    },
+    {
+      "id": "CARD-0743",
+      "q": "PETRO30-Q03",
+      "front": "Como distinguir esgoto primário e secundário pela comunicação com gases, pelo desconector e pela convenção gráfica de prova?",
+      "back": "Primário é o trecho ao qual gases da rede coletora ou do tratamento podem ter acesso; secundário é o trecho protegido desses gases por desconector. Na convenção gráfica cobrada, primário é linha contínua (plena) e secundário é linha tracejada (segmentada). O tipo de traço, não sua espessura ou cor, é a distinção pedida. A NBR 8160:1999 define os subsistemas nos itens 3.23 e 3.24; a convenção gráfica é didática/de projeto e deve ser conferida na legenda.",
+      "mechanism": "O fecho hídrico constitui barreira física aos gases. Antes da caixa sifonada ou sifão, o trecho protegido é secundário; após o desconector, o trecho comunicado à rede é primário.",
+      "example": "Ramal do chuveiro até caixa sifonada: secundário; ramal de esgoto após a caixa: primário. A bacia sanitária tem desconector incorporado.",
+      "trap": "Não confundir tipo de traço com espessura, nem definir primário exclusivamente como esgoto de bacia sanitária. A simbologia não substitui a definição funcional.",
+      "mnemonic": "P de primário e pleno; S de secundário e segmentado.",
+      "source": "ABNT NBR 8160:1999, 3.23–3.24; convenção didática de representação em projeto sanitário.",
+      "links": [
+        "CARD-0744",
+        "CARD-0742",
+        "CARD-1202",
+        "CARD-1620"
+      ],
+      "transfer": "Desenhe a sequência chuveiro → caixa sifonada → coletor; indique o trecho protegido e os dois tipos de traço.",
+      "compare": "A distinção funcional é a comunicação com gases; a distinção gráfica é a convenção de representação, e não uma propriedade hidráulica do tubo.",
+      "conditions": "Conferir a legenda do projeto: tipo de traço é a convenção da questão, não uma definição normativa universal."
+    },
+    {
+      "id": "CARD-1318",
+      "q": "PETRO30-Q04",
+      "front": "Como calcular área molhada, perímetro molhado e raio hidráulico de seções retangular, semicircular e trapezoidal? O que muda em relação ao raio geométrico?",
+      "back": "Raio hidráulico Rh = Am/Pm, sendo Am a área molhada e Pm o comprimento de contorno sólido molhado, excluída a superfície livre. Retângulo: Am = bh, Pm = b + 2h. Semicírculo cheio até a borda: Am = πr²/2, Pm = πr, logo Rh = r/2 = D/4. Trapézio simétrico, talude z horizontal por vertical: Am = h(b + zh), Pm = b + 2h√(1 + z²).",
+      "mechanism": "O quociente relaciona capacidade de escoamento e contato com as paredes; integra a equação de Manning. A superfície livre não exerce o mesmo atrito de contorno sólido.",
+      "example": "Canaleta semicircular D = 40 cm, r = 20 cm: Am = 200π cm²; Pm = 20π cm; Rh = 10 cm. Retângulo b = 2 m, h = 1 m: Rh = 2/4 = 0,50 m.",
+      "trap": "Raio geométrico de 20 cm não é Rh de 10 cm; não somar o diâmetro da superfície livre ao perímetro. Profundidade hidráulica Am/T usa a largura superficial T, não Pm.",
+      "mnemonic": "Área ÷ parede molhada, sem contar o céu. Semicírculo até a borda: D/4.",
+      "source": "Hidráulica de canais abertos; definição de raio hidráulico e equação de Manning.",
+      "links": [
+        "CARD-1320"
+      ],
+      "transfer": "Canal semicircular D = 60 cm: determine Rh. Em seção retangular b = 40 cm e h = 20 cm, calcule Rh.",
+      "compare": "Semicírculo até a borda e círculo totalmente cheio têm Rh=D/4, mas as áreas e perímetros molhados são diferentes.",
+      "conditions": "As fórmulas pressupõem as geometrias e níveis de água indicados; para enchimento parcial circular diferente de meio círculo, recalcular área e arco molhado."
+    },
+    {
+      "id": "CARD-1100",
+      "q": "PETRO30-Q05",
+      "front": "Qual a diferença entre pressão estática e dinâmica e como distinguir válvula redutora, de segurança à pressão e dispositivos de controle de temperatura na NBR 5626:2020?",
+      "back": "Pressão estática ocorre sem escoamento; dinâmica, com escoamento e perdas. A válvula redutora de pressão regula a pressão dinâmica de jusante e impede a transmissão da pressão estática de montante na ausência de escoamento. A válvula de segurança à pressão evita ultrapassar o limite de pressão; a de segurança à temperatura evita exceder a temperatura-limite; a termostática controla passagem em função da temperatura. Redutora regula; segurança protege.",
+      "mechanism": "Com Q = 0, a perda de carga por atrito desaparece. Um simples estrangulamento fixo não sustenta diferença de pressão estática na mesma cota; a redutora regula/fecha ao atingir a pressão ajustada, conforme seu funcionamento.",
+      "example": "Exemplo: montante a 60 mca, jusante ajustada a 30 mca. A pressão estática máxima nos pontos de utilização é 400 kPa (aprox. 40 mca). Estações redutoras devem prever proteção contra sobrepressão a jusante em caso de falha, conforme 6.9.14.",
+      "trap": "Não confundir válvula redutora com segurança à pressão, nem pressão dinâmica com golpe de aríete. O enunciado citava NBR 5627 por engano: a referência é NBR 5626:2020.",
+      "mnemonic": "Redutora regula, segurança protege; parou = estática, fluiu = dinâmica.",
+      "source": "ABNT NBR 5626:2020, 3.76–3.79, 6.9.5, 6.9.14.",
+      "links": [],
+      "transfer": "Qual dispositivo impede transmissão estática a jusante com Q = 0? Qual protege contra pressão acima do limite em caso de falha?",
+      "compare": "A redutora mantém a pressão de jusante regulada; a segurança limita sobrepressão, e a termostática responde à temperatura.",
+      "conditions": "Considerar cotas, perdas de carga, pressão de abastecimento e proteção contra falha da estação redutora; 400 kPa refere-se aos pontos de utilização."
+    }
+  ]
+}
