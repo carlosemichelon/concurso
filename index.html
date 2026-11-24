@@ -821,7 +821,7 @@ if(!open||!close||!frame||!status||!select)return;
 const manifestName='BANCO_MESTRE_MANIFESTO_LEITORES_PRIVADOS_V1';
 const root='https://www.googleapis.com/drive/v3/files';
 const maxBytes=10000000;
-let run=0,controller=null,openedToken='';
+let run=0,controller=null,openedToken='',agendaAuth='',agendaController=null,agendaRun=0,agendaTask=null;
 const token=()=>window.BancoMestreMediaSyncV182?.token?.()||window.BM239DriveGlobal?.writeToken?.()||'';
 const positive=n=>Number.isSafeInteger(n)&&n>0;
 const nonnegative=n=>Number.isSafeInteger(n)&&n>=0;
@@ -844,17 +844,14 @@ function validatePayload(p,c){
  return {reviewed,proposals,media:Object.keys(p.media).length,agenda:p.agenda.length};
 }
 function clearFrame(){frame.removeAttribute('srcdoc');frame.hidden=true;openedToken='';el('bmPrivateReconcileReport')?.remove()}
-function reset(){run++;controller?.abort();controller=null;clearFrame();window.BMPrivateIncrementV1?.clear();close.hidden=true;open.disabled=false;select.hidden=true;select.replaceChildren();status.textContent='Leitor fechado; dados privados não armazenados neste portal.'}
+function reset(){run++;controller?.abort();controller=null;clearFrame();close.hidden=true;open.disabled=false;select.hidden=true;select.replaceChildren();status.textContent='Leitor fechado. A agenda autorizada permanece em memória apenas durante a conexão Drive.'}
 close.addEventListener('click',reset);
-async function load(preferred){
- const auth=token();
- if(!auth){reset();status.textContent='Conecte o Google Drive no cabeçalho e depois clique novamente em Abrir estudo do Drive.';return}
- const id=++run;controller?.abort();controller=new AbortController();const signal=controller.signal;
- open.disabled=true;close.hidden=false;select.disabled=true;clearFrame();window.BMPrivateIncrementV1?.clear();
- status.textContent='Localizando o manifesto privado no Google Drive…';
+function driveClient(auth,signal){
  const options={headers:{Authorization:'Bearer '+auth},cache:'no-store',signal};
  const get=async(url)=>{const response=await fetch(url,options);if(!response.ok)throw Error('Consulta Drive: HTTP '+response.status);return response};
- try{
+ return get;
+}
+async function fetchManifest(get){
   const params=new URLSearchParams({q:"name = '"+manifestName+"' and mimeType = 'application/vnd.google-apps.document' and 'me' in owners and trashed = false",fields:'nextPageToken,files(id,name,mimeType)',pageSize:'100'});
   const listing=await (await get(root+'?'+params)).json();
   if(listing.nextPageToken||listing.files?.length!==1)throw Error('Manifesto privado ausente ou duplicado na conta autorizada.');
@@ -862,11 +859,9 @@ async function load(preferred){
   const manifestRaw=await (await get(root+'/'+encodeURIComponent(manifestFile.id)+'/export?mimeType=text%2Fplain')).text();
   if(manifestRaw.length>100000)throw Error('Manifesto acima do limite.');
   const manifest=validateManifest(JSON.parse(manifestRaw.replace(/^\uFEFF/,'').trim()));
-  const entry=manifest.studies.find(x=>x.key===preferred)||manifest.studies.find(x=>x.key===manifest.active);
-  if(id!==run||auth!==token())return;
-  select.replaceChildren(...manifest.studies.map(x=>{const o=document.createElement('option');o.value=x.key;o.textContent='Petrobras '+x.session+' — V'+x.version;return o}));
-  select.value=entry.key;select.hidden=manifest.studies.length<2;
-  status.textContent='Conferindo o estudo selecionado no Drive…';
+ return manifest;
+}
+async function fetchStudy(get,entry){
   const meta=await (await get(root+'/'+encodeURIComponent(entry.fileId)+'?fields=id,name,mimeType,size,trashed,ownedByMe')).json();
   if(meta.id!==entry.fileId||meta.name!==entry.filename||meta.mimeType!=='text/html'||meta.trashed!==false||meta.ownedByMe!==true||Number(meta.size)!==entry.size)throw Error('Arquivo divergente do manifesto ou da conta autorizada.');
   const source=await get(root+'/'+encodeURIComponent(entry.fileId)+'?alt=media');
@@ -878,6 +873,51 @@ async function load(preferred){
   if(doc.querySelectorAll('script').length!==2||doc.querySelector('script[src],iframe,object,embed,form,base,meta[http-equiv="refresh"]'))throw Error('Estrutura ativa inesperada.');
   const payload=JSON.parse(doc.querySelector('script#payload[type="application/json"]')?.textContent||'null');
   const counts=validatePayload(payload,entry.counts);
+ return {doc,payload,counts};
+}
+let agendaStatus={state:'disconnected',events:0};
+function agendaReport(next){agendaStatus=next;document.dispatchEvent(new CustomEvent('bm-private-agenda-status'))}
+window.BMPrivateAgendaStatusV1=()=>({...agendaStatus});
+function hydrateAgenda(force=false){
+ const auth=token();
+ if(!auth){
+  if(agendaAuth){agendaRun++;agendaController?.abort();agendaController=null;agendaAuth='';agendaTask=null;window.BMPrivateIncrementV1?.clear();agendaReport({state:'disconnected',events:0})}
+  return Promise.resolve();
+ }
+ if(auth===agendaAuth&&!force)return agendaTask||Promise.resolve();
+ if(auth!==agendaAuth)window.BMPrivateIncrementV1?.clear();
+ agendaAuth=auth;const id=++agendaRun;agendaController?.abort();agendaController=new AbortController();
+ const current=()=>id===agendaRun&&auth===token();
+ const get=driveClient(auth,agendaController.signal);
+ agendaReport({state:'loading',events:window.BMPrivateIncrementV1.approvedAgenda().length});
+ agendaTask=(async()=>{
+  try{
+   const manifest=await fetchManifest(get);
+   const catalog=await window.BMUnifiedCatalogV1.snapshot();
+   if(!current())return;
+   const result=await window.BMPrivateIncrementV1.stageBatch(manifest.studies,catalog,auth,async entry=>(await fetchStudy(get,entry)).payload,current);
+   if(current()&&result)agendaReport({state:result.failed.length?'partial':'ready',events:result.events,sessions:result.loaded,failed:result.failed.length});
+  }catch(e){if(current()){window.BMPrivateIncrementV1?.clear();agendaReport({state:'error',events:0})}}
+ })();
+ return agendaTask;
+}
+window.BMRefreshPrivateAgendaV1=()=>hydrateAgenda(true);
+document.addEventListener('bm-media-drive-authorized',()=>{void hydrateAgenda()});
+async function load(preferred){
+ const auth=token();
+ if(!auth){reset();status.textContent='Conecte o Google Drive no cabeçalho e depois clique novamente em Abrir estudo do Drive.';return}
+ const id=++run;controller?.abort();controller=new AbortController();const signal=controller.signal;
+ open.disabled=true;close.hidden=false;select.disabled=true;clearFrame();
+ status.textContent='Localizando o manifesto privado no Google Drive…';
+ const get=driveClient(auth,signal);
+ try{
+  const manifest=await fetchManifest(get);
+  const entry=manifest.studies.find(x=>x.key===preferred)||manifest.studies.find(x=>x.key===manifest.active);
+  if(id!==run||auth!==token())return;
+  select.replaceChildren(...manifest.studies.map(x=>{const o=document.createElement('option');o.value=x.key;o.textContent='Petrobras '+x.session+' — V'+x.version;return o}));
+  select.value=entry.key;select.hidden=manifest.studies.length<2;
+  status.textContent='Conferindo o estudo selecionado no Drive…';
+  const {doc,payload,counts}=await fetchStudy(get,entry);
   const catalog=await window.BMUnifiedCatalogV1.snapshot();
   if(id!==run||auth!==token())return;
   const plan=window.BMPrivateIncrementV1.stage(payload,entry,catalog,auth);
@@ -898,12 +938,13 @@ async function load(preferred){
   }
   for(const x of plan.blocked){const li=document.createElement('li');li.textContent=(x.id||x.key||'Agenda')+' — '+x.reason;list.append(li)}
   report.append(list);report.id='bmPrivateReconcileReport';status.after(report);
- }catch(e){if(id===run){clearFrame();window.BMPrivateIncrementV1?.clear();status.textContent='Não foi possível abrir o leitor: '+e.message+' Verifique o manifesto e a conexão Drive.'}}
+ }catch(e){if(id===run){clearFrame();status.textContent='Não foi possível abrir o leitor: '+e.message+' Verifique o manifesto e a conexão Drive.'}}
  finally{if(id===run){open.disabled=false;select.disabled=false}}
 }
 open.addEventListener('click',()=>load(select.value||null));
 select.addEventListener('change',()=>load(select.value));
-window.addEventListener('pagehide',reset);
-window.setInterval(()=>{if(openedToken&&openedToken!==token())reset()},1000);
+window.addEventListener('pagehide',()=>{agendaRun++;agendaController?.abort();window.BMPrivateIncrementV1?.clear();reset()});
+window.setInterval(()=>{if(openedToken&&openedToken!==token())reset();void hydrateAgenda()},1000);
+void hydrateAgenda();
 })();
 </script></body></html>

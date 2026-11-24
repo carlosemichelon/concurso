@@ -1431,7 +1431,7 @@ async function refreshPrivate(){
  }finally{driveBusy=false;driveAction.disabled=false}
 }
 driveAction.onclick=async()=>{
-  await refreshPrivate();
+  await Promise.all([refreshPrivate(),window.BMRefreshPrivateAgendaV1?.()]);
   try{await window.BM316SrsJournal?.refresh?.()}catch(e){
    const note=document.createElement('span');note.textContent=' Avaliações do portal: '+e.message;
    // Fonte do Drive principal continua preservada; não altera SRS nem agenda.
@@ -1445,6 +1445,15 @@ document.addEventListener('bm-media-drive-authorized',()=>{
 });
 document.addEventListener('bm316-srs-journal-updated',()=>{if(loaded)calculate()});
 document.addEventListener('bm-private-increment-changed',()=>{if(loaded)calculate()});
+const agendaNote=document.createElement('span');agendaNote.style.display='block';agendaNote.setAttribute('aria-live','polite');driveNote.after(agendaNote);
+function showPrivateAgendaStatus(){
+ const s=window.BMPrivateAgendaStatusV1?.();
+ if(!s||s.state==='disconnected'){agendaNote.textContent='Agenda de estudos: conecte o Drive.';return}
+ if(s.state==='loading'){agendaNote.textContent='Agenda de estudos: conferindo incrementos autorizados…';return}
+ if(s.state==='error'){agendaNote.textContent='Agenda de estudos não carregada; tente atualizar o Drive. Histórico oficial preservado.';return}
+ agendaNote.textContent='Agenda de estudos: '+s.events+' eventos autorizados, '+s.sessions+' sessões verificadas'+(s.failed?' · '+s.failed+' sessões bloqueadas':'')+'. Sem avaliações formais novas.';
+}
+document.addEventListener('bm-private-agenda-status',showPrivateAgendaStatus);showPrivateAgendaStatus();
 
 async function load(){
  const [published,f17]=await Promise.all([

@@ -16,3 +16,31 @@ test('duplicate canonical id rejected',()=>assert.throws(()=>reconcile(payload()
 test('new approved date fills an undated card',()=>{const a=reconcile(payload(),{...entry,approvedAgenda:[approval]},catalog).approved;assert.equal(mergePlanning([],a)[0].due,'2026-12-09')});
 test('existing earlier deadlines and formal records preserved',()=>{const a=reconcile(payload(),{...entry,approvedAgenda:[approval]},catalog).approved;for(const p of [{id:'CARD-0001',due:'2026-11-25'},{id:'CARD-0001',due:'2026-12-30',lastReview:'2026-11-24'}])assert.deepEqual(mergePlanning([p],a),[p])});
 test('duplicate candidate event does not duplicate planning',()=>{const p=payload();p.agenda[0].sources.push(p.agenda[0].sources[1]);assert.equal(reconcile(p,entry,catalog).candidates.length,1)});
+
+test('private agenda is session-scoped, deduplicated, and revoked when account changes',async()=>{
+ const fs=require('node:fs'),vm=require('node:vm');
+ const source=fs.readFileSync(require.resolve('../assets/private_increment_reconcile_v1.js'),'utf8');
+ let auth='account-a';
+ const win={BancoMestreMediaSyncV182:{token:()=>auth},addEventListener(){},setInterval(){}};
+ const ctx={window:win,Date,Map,Set,globalThis:win};vm.runInNewContext(source,ctx);
+ const api=win.BMPrivateIncrementV1;
+ const p=payload(),second=payload();
+ second.agenda[0].sources[1].origin='AGENDA-PETRO30-Q001-20261123';
+ const e1={...entry,approvedAgenda:[approval]},e2={...entry,session:30,approvedAgenda:[{...approval,origin:'AGENDA-PETRO30-Q001-20261123'}]};
+ api.stage(p,e1,catalog,auth);api.stage(second,e2,catalog,auth);
+ assert.equal(api.approvedAgenda().length,2);
+ await api.stageBatch([e1],catalog,auth,async()=>p);
+ assert.equal(api.approvedAgenda().length,1);
+ auth='account-b';assert.equal(api.approvedAgenda().length,0);
+});
+test('batch isolates an invalid approval and stops a cancelled load',async()=>{
+ const fs=require('node:fs'),vm=require('node:vm');
+ const source=fs.readFileSync(require.resolve('../assets/private_increment_reconcile_v1.js'),'utf8');
+ const auth='account-a',win={BancoMestreMediaSyncV182:{token:()=>auth},addEventListener(){},setInterval(){}};
+ vm.runInNewContext(source,{window:win,Date,Map,Set,globalThis:win});
+ const api=win.BMPrivateIncrementV1,p=payload(),good={...entry,approvedAgenda:[approval]},bad={...entry,session:30,approvedAgenda:[approval]};
+ const result=await api.stageBatch([good,bad],catalog,auth,async()=>p);
+ assert.equal(result.loaded,1);assert.equal(result.failed.length,1);assert.equal(result.events,1);
+ const cancelled=await api.stageBatch([],catalog,auth,async()=>p,()=>false);
+ assert.equal(cancelled,null);assert.equal(api.approvedAgenda().length,1);
+});

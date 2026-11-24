@@ -61,13 +61,34 @@
  const currentToken=()=>typeof window==='undefined'?'':(window.BancoMestreMediaSyncV182?.token?.()||window.BM239DriveGlobal?.writeToken?.()||'');
  function notify(){if(typeof document!=='undefined')document.dispatchEvent(new CustomEvent('bm-private-increment-changed'))}
  function clear(){if(state){state=null;notify()}}
+ function checked(auth){if(!auth||auth!==currentToken())throw Error('Conta Drive alterada durante a conciliação.')}
  function stage(payload,entry,catalog,auth){
-  if(!auth||auth!==currentToken())throw Error('Conta Drive alterada durante a conciliação.');
-  const plan=reconcile(payload,entry,catalog);
-  if(auth!==currentToken())throw Error('Conta Drive alterada.');
-  state={auth,plan,session:entry.session,version:entry.version};notify();return plan;
+  checked(auth);const plan=reconcile(payload,entry,catalog);checked(auth);
+  const plans=state?.auth===auth?new Map(state.plans):new Map();
+  plans.set(entry.session,{plan,version:entry.version});
+  state={auth,plans,last:entry.session};notify();return plan;
  }
- function get(){if(state&&state.auth!==currentToken())clear();return state?.plan||null}
+ // Load approved sessions one at a time; retain only validated plans, never raw private HTML.
+ async function stageBatch(entries,catalog,auth,loadOne,isCurrent=()=>true){
+  checked(auth);const plans=new Map(),failed=[];
+  for(const entry of entries){
+   checked(auth);if(!isCurrent())return null;
+   if(!Array.isArray(entry.approvedAgenda)||!entry.approvedAgenda.length)continue;
+   try{
+    const payload=await loadOne(entry);checked(auth);if(!isCurrent())return null;
+    const plan=reconcile(payload,entry,catalog);plans.set(entry.session,{plan,version:entry.version});
+   }catch(e){checked(auth);if(!isCurrent())return null;failed.push(entry.session)}
+  }
+  checked(auth);if(!isCurrent())return null;
+  state={auth,plans,last:[...plans.keys()].at(-1)};notify();
+  return {loaded:plans.size,failed,events:approvedAgenda().length};
+ }
+ function current(){if(state&&state.auth!==currentToken())clear();return state}
+ function get(){const s=current();return s?.plans.get(s.last)?.plan||null}
+ function approvedAgenda(){
+  const all=new Map();for(const x of current()?.plans.values()||[])for(const e of x.plan.approved)all.set(eventKey(e),e);
+  return [...all.values()];
+ }
  if(typeof window!=='undefined'){window.addEventListener('pagehide',clear);window.setInterval(()=>{if(state&&state.auth!==currentToken())clear()},1000)}
- return Object.freeze({reconcile,mergePlanning,stage,get,clear,approvedAgenda:()=>get()?.approved||[]});
+ return Object.freeze({reconcile,mergePlanning,stage,stageBatch,get,clear,approvedAgenda});
 });
