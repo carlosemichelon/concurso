@@ -1,0 +1,36 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {createDiscursiveJournal,DiscursiveRejected,DiscursiveUncertain,validDiscursiveInput,discursiveProjection} from '../infra/central-drive/discursive.mjs';
+import {createDriveProvider} from '../assets/multiaccount-drive-v001.mjs';
+import {newDiscursive} from '../assets/multiaccount-discursive-v001.mjs';
+const profile=subject=>({subject,publicCards:[],privateData:{cards:[{id:'CARD-1',front:'Pergunta '+subject,back:'Resposta',active:true},{id:'OFF',front:'Q',back:'A',active:false}],questions:[],srs:[{id:'CARD-1',due:'2026-12-01',rating:'Bom'}]}});
+test('literalidade, isolamento, lacunas, retry e SRS intocado',async()=>{
+ const files=new Map();let lost=true;const provider={readDiscursive:async s=>[...files.values()].filter(x=>x.owner===s),reserveReviewFile:async()=>randomUUID(),appendReservedDiscursive:async(s,row,id)=>{assert.equal(s,row.owner);files.set(id,row);if(lost){lost=false;throw Error('network')}return {...row,fileId:id}}};
+ const journal=createDiscursiveJournal({clock:()=>new Date('2026-11-24T01:00:00Z')});
+ const a=profile('A'),b=profile('B'),input={cardId:'CARD-1',answer:'  Minha resposta\ncom erro.  ',note:'  Lacuna: unidade. ',rating:'Bom'};
+ const op=(profile,kind,input=null,guard)=>journal({provider,profile,operation:{kind,input},guard});
+ assert.ok(!validDiscursiveInput({...input,owner:'B'}));assert.ok(!validDiscursiveInput({...input,answer:''}));assert.ok(validDiscursiveInput({...input,answer:'',rating:'Difícil'}));
+ await assert.rejects(op(a,'prepare',{...input,cardId:'OFF'}),DiscursiveRejected);
+ const [ar,br]=await Promise.all([op(a,'prepare',input),op(b,'prepare',{...input,answer:'Outra resposta'})]);
+ assert.equal(ar.attempt.front,'Pergunta A');assert.equal(br.attempt.front,'Pergunta B');assert.equal(ar.attempt.answer,input.answer);assert.equal(ar.attempt.note,input.note);assert.equal(files.size,0);
+ assert.equal((await op(a,'pending')).intent,ar.intent);
+ await assert.rejects(op(a,'commit',{intent:br.intent}),DiscursiveRejected);
+ await assert.rejects(op(a,'commit',{intent:ar.intent}),DiscursiveUncertain);
+ await assert.rejects(op(a,'prepare',{...input,note:'mudança'}),DiscursiveRejected);
+ assert.equal((await op(a,'prepare',input)).intent,ar.intent);
+ const saved=await op(a,'commit',{intent:ar.intent});assert.equal(saved.srsStatus,'nao_integrado_ao_srs_canonico');assert.equal(saved.auditStatus,'pendente_de_confronto_com_base');assert.equal(await op(a,'pending'),null);
+ assert.deepEqual(await op(a,'commit',{intent:ar.intent}),saved);await op(b,'commit',{intent:br.intent});
+ assert.equal(files.size,2);assert.deepEqual(a.privateData.srs,[{id:'CARD-1',due:'2026-12-01',rating:'Bom'}]);assert.equal(a.privateData.questions.length,0);
+ assert.ok(!Object.hasOwn(saved,'owner'));assert.ok(!Object.hasOwn(saved,'fileId'));await assert.rejects(op(a,'prepare',input,()=>false),DiscursiveRejected);
+});
+test('Drive preserva tentativa literal no ID reservado e rejeita conteúdo divergente',async()=>{
+ const subject='A',project='bm-portal-multi-v1',root='rootA',reserved='reservedA',row=newDiscursive({owner:subject,card:profile(subject).privateData.cards[0],answer:'texto literal',note:'lacuna',rating:'Bom',uuid:randomUUID()});
+ const rootMeta={id:root,mimeType:'application/vnd.google-apps.folder',ownedByMe:true,shared:false,trashed:false,appProperties:{bmProject:project,bmOwner:subject,bmKind:'root'}};
+ let posted=0,conflict=false;
+ const meta={id:reserved,mimeType:'application/json',ownedByMe:true,shared:false,trashed:false,parents:[root],appProperties:{bmProject:project,bmOwner:subject,bmKind:'discursive-event',bmEvent:row.id},size:String(Buffer.byteLength(JSON.stringify(row)))};
+ const fetcher=async(url,opt)=>{const u=new URL(url);let x,status=200;if(u.searchParams.has('q'))x={files:[rootMeta]};else if(opt.method==='POST'){assert.ok(opt.body.includes('"id":"reservedA"'));if(++posted>1)status=409;x=meta}else if(u.searchParams.get('alt')==='media')x=conflict?{...row,note:'LACUNA'}:row;else x=meta;return new Response(JSON.stringify(x),{status})};
+ const provider=createDriveProvider({fetcher,token:'test',info:{sub:subject,email:'a@example.test',email_verified:true},expiresAt:Date.now()+100000,loadCatalog:async()=>({cards:[]})});
+ await provider.findRoot(subject);assert.equal((await provider.appendReservedDiscursive(subject,row,reserved)).fileId,reserved);assert.equal((await provider.appendReservedDiscursive(subject,row,reserved)).fileId,reserved);
+ conflict=true;await assert.rejects(provider.appendReservedDiscursive(subject,row,reserved),/divergente/);
+});

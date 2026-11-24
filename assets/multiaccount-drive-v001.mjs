@@ -90,6 +90,7 @@ export function createDriveProvider({fetcher=fetch,token,info,expiresAt,loadCata
   async appendReservedReview(subject,event,reservedId){if(!idOk(reservedId))throw Error('Reserva inválida');return appendEvent(subject,'srs-event','BM_PORTAL_SRS_',checkedReviewEvent(event,subject),event.event_id,reservedId)},
   async appendReview(subject,event){return appendEvent(subject,'srs-event','BM_PORTAL_SRS_',checkedReviewEvent(event,subject),event.event_id)},
   async readDiscursive(subject){check(subject);if(!rootId)throw Error('Raiz não carregada');const entries=await list(subject,'discursive-event',rootId),events=[];for(const f of entries){const e=checkedDiscursive(await jsonFile(f,subject),subject);if(f.appProperties?.bmEvent!==e.id)throw Error('Identificador discursivo divergente');events.push({...e,fileId:f.id})}if(new Set(events.map(e=>e.id)).size!==events.length)throw Error('Tentativas duplicadas');return events},
+  async appendReservedDiscursive(subject,row,reservedId){if(!idOk(reservedId))throw Error('Reserva inválida');return appendEvent(subject,'discursive-event','BM_PORTAL_DISCURSIVE_',checkedDiscursive(row,subject),row.id,reservedId)},
   async appendDiscursive(subject,row){return appendEvent(subject,'discursive-event','BM_PORTAL_DISCURSIVE_',checkedDiscursive(row,subject),row.id)},
   async loadCatalog(descriptor){check(owner);const result=await loadCatalog(descriptor);check(owner);return result},
   close(){active=false;rootId=null;token=''}

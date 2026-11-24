@@ -1,6 +1,7 @@
 import {createServer} from 'node:http';
 import {createHash} from 'node:crypto';
 import {MediaNotFound} from './media.mjs';
+import {DiscursiveRejected,DiscursiveUncertain,validDiscursiveInput,validDiscursiveCommit} from './discursive.mjs';
 import {ReviewRejected,ReviewUncertain,validReviewInput,validCommitInput} from './reviews.mjs';
 import {IMAGE_MIMES,IMAGE_LIMIT} from '../../assets/multiaccount-images-v001.mjs';
 import {PDF_LIMIT} from './media.mjs';
@@ -12,7 +13,7 @@ const htmlPath=new URL('./login.html',import.meta.url);
 const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; img-src blob:; form-action 'self'; frame-ancestors 'none'; base-uri 'none'"};
 const context=token=>createHash('sha256').update('bm-context-v1:'+token).digest('hex');
 function send(res,status,value,extra={}){res.writeHead(status,{...headers,'Content-Type':'application/json; charset=utf-8',...extra});res.end(JSON.stringify(value))}
-async function body(req){if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw Error('Formato');let size=0,parts=[];for await(const chunk of req){size+=chunk.length;if(size>4096)throw Error('Limite');parts.push(chunk)}return JSON.parse(Buffer.concat(parts).toString('utf8'))}
+async function body(req,limit=4096){if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw Error('Formato');let size=0,parts=[];for await(const chunk of req){size+=chunk.length;if(size>limit)throw Error('Limite');parts.push(chunk)}return JSON.parse(Buffer.concat(parts).toString('utf8'))}
 export function createCentralHandler({auth,loadProfile,origin}){
  if(!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(origin))throw Error('Origem HTTPS obrigatória');
  let mediaBusy=0;
@@ -38,6 +39,13 @@ export function createCentralHandler({auth,loadProfile,origin}){
     let input;try{input=await body(req)}catch{return send(res,400,{error:'Solicitação inválida'})}
     const kind=path.endsWith('/prepare')?'prepare':'commit';if(!(kind==='prepare'?validReviewInput(input):validCommitInput(input)))return send(res,400,{error:'Avaliação inválida'});
     try{const result=await loadProfile(s.user,{review:{kind,input},guard:()=>!!auth.read(token)});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result)}catch(e){if(e instanceof ReviewRejected)return send(res,409,{error:e.message});if(e instanceof ReviewUncertain)return send(res,503,{error:e.message});throw e}
+   }
+   if((method==='POST'&&(path==='/api/discursive/prepare'||path==='/api/discursive/commit'))||(method==='GET'&&path==='/api/discursive/pending')){
+    const s=auth.read(token);if(!s)return send(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==context(token))return send(res,403,{error:'Contexto de sessão divergente'});
+    const kind=path.split('/').pop();let input=null;
+    if(kind!=='pending'){try{input=await body(req,512000)}catch{return send(res,400,{error:'Solicitação inválida'})}if(!(kind==='prepare'?validDiscursiveInput(input):validDiscursiveCommit(input)))return send(res,400,{error:'Tentativa inválida'})}
+    try{const result=await loadProfile(s.user,{attempt:{kind,input},guard:()=>!!auth.read(token)});if(!auth.read(token))return send(res,401,{error:'Sessão encerrada'});return send(res,200,result)}catch(e){if(e instanceof DiscursiveRejected)return send(res,409,{error:e.message});if(e instanceof DiscursiveUncertain)return send(res,503,{error:e.message});throw e}
    }
    const match=method==='GET'&&path.match(/^\/api\/media\/(image|pdf)\/([A-Za-z0-9_-]{1,160})$/);
    if(match){
