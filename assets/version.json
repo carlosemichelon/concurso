@@ -5695,10 +5695,10 @@
     "browser_test": "pending"
   },
   "catalog": {
-    "path": "assets/catalog_snapshot_vc5.json",
+    "path": "assets/catalog_snapshot_vc6.json",
     "format": "BancoMestreCatalogSnapshotV362",
     "source_head": "e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7",
-    "git_blob": "da7bf3bed1b07a53d52a4f01b1eba28d398ca6b9",
+    "git_blob": "a1c9a97b87c409d59d8e5fa625ef018c7a5b7f2a",
     "counts": {
       "canonical": 1559,
       "active": 1559,
@@ -5711,13 +5711,15 @@
     "consolidation_status": "PUBLICACAO_EXPRESSAMENTE_SOLICITADA_SEM_HOMOLOGACAO_EDITORIAL_INTEGRAL",
     "study_increment": "assets/petro30_public_v374.json",
     "study_increment_blob": "f0add58021227f0482f39040160c60e6b8ba9869",
-    "display_version": "VC5",
+    "display_version": "VC6",
     "unified": true,
     "active_only": true,
     "recovery_packet": "assets/petro10_19_recovery_vc4.json",
     "recovery_packet_blob": "a292f0217d5896e685c04e47165bc21a31ef497e",
     "recovery_packet_2": "assets/petro10_19_recovery_vc5.json",
-    "recovery_packet_2_blob": "dbdd92acbd7c8f3a41b1ae4f4f51ddcc966be71c"
+    "recovery_packet_2_blob": "dbdd92acbd7c8f3a41b1ae4f4f51ddcc966be71c",
+    "recovery_packet_3": "assets/petro10_19_recovery_vc6.json",
+    "recovery_packet_3_blob": "51bbb6a3166fbb9a4826e8fae5cfa035b192d401"
   },
   "release_v363": {
     "scope": "Contrato independente do catálogo, metadados com cache compartilhado, busca vazia sem normalização; automação de montagem e testes da versão corrente",
@@ -5852,9 +5854,9 @@
       "home": "v382.html"
     },
     "cards": {
-      "version": "VC5",
-      "technical_source": "V381",
-      "path": "assets/catalog_snapshot_vc5.json",
+      "version": "VC6",
+      "technical_source": "V382",
+      "path": "assets/catalog_snapshot_vc6.json",
       "counts": {
         "canonical": 1559,
         "active": 1559,
@@ -5998,5 +6000,16 @@
     "private_data_exported": false,
     "rollback": "V381",
     "authenticated_browser_test": "pending"
+  },
+  "release_vc6": {
+    "scope": "PETRO10: duas evoluções pontuais de EIA, sem remissões ou novos IDs; interface VS5 mantida",
+    "updated_ids": [
+      "CARD-1331",
+      "CARD-1332"
+    ],
+    "private_sync": "not_verified",
+    "srs_modified": false,
+    "private_content_exported": false,
+    "rollback": "VC5"
   }
 }
