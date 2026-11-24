@@ -5695,10 +5695,10 @@
     "browser_test": "pending"
   },
   "catalog": {
-    "path": "assets/catalog_snapshot_vc14.json",
+    "path": "assets/catalog_snapshot_vc15.json",
     "format": "BancoMestreCatalogSnapshotV362",
     "source_head": "e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7",
-    "git_blob": "5801a48000a58c24082756ed912f9caa515b9e76",
+    "git_blob": "0471aa8ced2bfbe161c3c43291192a26b044a130",
     "counts": {
       "canonical": 1559,
       "active": 1559,
@@ -5711,7 +5711,7 @@
     "consolidation_status": "PUBLICACAO_EXPRESSAMENTE_SOLICITADA_SEM_HOMOLOGACAO_EDITORIAL_INTEGRAL",
     "study_increment": "assets/petro30_public_v374.json",
     "study_increment_blob": "f0add58021227f0482f39040160c60e6b8ba9869",
-    "display_version": "VC14",
+    "display_version": "VC15",
     "unified": true,
     "active_only": true,
     "recovery_packet": "assets/petro10_19_recovery_vc4.json",
@@ -5735,7 +5735,9 @@
     "recovery_packet_10": "assets/petro10_19_recovery_vc13.json",
     "recovery_packet_10_blob": "6cd2c4e1d08f99a9d16628c1836dca1b929b89f9",
     "recovery_packet_11": "assets/petro10_19_recovery_vc14.json",
-    "recovery_packet_11_blob": "b90a2171336764f3855ef6a6bac988a5c7e32fad"
+    "recovery_packet_11_blob": "b90a2171336764f3855ef6a6bac988a5c7e32fad",
+    "recovery_packet_12": "assets/petro10_19_recovery_vc15.json",
+    "recovery_packet_12_blob": "763bfaf5ec9dd11aa67c97a9eae4e48a626bbff1"
   },
   "release_v363": {
     "scope": "Contrato independente do catálogo, metadados com cache compartilhado, busca vazia sem normalização; automação de montagem e testes da versão corrente",
@@ -5870,9 +5872,9 @@
       "home": "v383.html"
     },
     "cards": {
-      "version": "VC14",
+      "version": "VC15",
       "technical_source": "V383",
-      "path": "assets/catalog_snapshot_vc14.json",
+      "path": "assets/catalog_snapshot_vc15.json",
       "counts": {
         "canonical": 1559,
         "active": 1559,
@@ -6142,5 +6144,18 @@
     "srs_modified": false,
     "private_content_exported": false,
     "rollback": "VC13"
+  },
+  "release_vc15": {
+    "scope": "Quatro evoluções: CIPA/SESMT, NR-8, NR-17 e carpintaria",
+    "updated_ids": [
+      "CARD-1500",
+      "CARD-1508",
+      "CARD-1518",
+      "CARD-1521"
+    ],
+    "private_sync": "not_verified",
+    "srs_modified": false,
+    "private_content_exported": false,
+    "rollback": "VC14"
   }
 }
