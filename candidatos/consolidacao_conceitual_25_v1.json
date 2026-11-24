@@ -11,7 +11,7 @@
     "modules": 275
   },
   "scope": "Petrobras 06, 07, 11, 12, 24, 26, 27, 29; P08 excluída da intervenção",
-  "policy": "Preservar versões, registros e SRS; os satélites são remissões propostas, não exclusões. Não houve alteração do portal. Fontes históricas devem ser cotejadas antes do uso profissional. Portão didático e leitura visual pendentes.",
+  "policy": "Preservar versões, registros e SRS; os satélites são remissões propostas, não exclusões. Não houve alteração do portal. Fontes históricas devem ser cotejadas antes do uso profissional. Portão didático e leitura visual pendentes. Grifos semânticos e tabelas estruturados na candidata. SVGs públicos reaproveitados quando localizados; originais e demais mídias a reconciliar no leitor. Não interpretar isto como homologação.",
   "revisions": [
     {
       "id": "CARD-1607",
@@ -80,7 +80,65 @@
         "CARD-1624",
         "CARD-1625",
         "CARD-1627"
-      ]
+      ],
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Dispositivo de inspeção é a categoria que proporciona acesso para limpeza, inspeção e desobstrução. CP reúne tubulações; CI permite manutenção e mudanças de traçado; PV permite acesso interno em maior profundidade. Em tubulação enterrada, desvio, alteração de declividade e junção exigem CI ou PV. A CP não é substituto automático.",
+          "A manutenção deve ser possível sem quebrar pisos ou paredes. Aberturas acessíveis possibilitam introduzir ferramentas de limpeza; CI/PV têm fundo de escoamento rápido para evitar depósitos e tampa vedada removível. PV dispõe de degraus de acesso."
+        ],
+        "highlights": [
+          {
+            "text": "limpeza, inspeção e desobstrução",
+            "kind": "core",
+            "start": 66,
+            "end": 98,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "desvio, alteração de declividade e junção exigem CI ou PV",
+            "kind": "condition",
+            "start": 239,
+            "end": 296,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "A CP não é substituto automático",
+            "kind": "exception",
+            "start": 298,
+            "end": 330,
+            "color": "#F5C2D0"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Dispositivo",
+            "Dimensões e critérios"
+          ],
+          "rows": [
+            [
+              "CP",
+              "Ø/círculo ≥15 cm; altura ≥10 cm; saída ≥DN50"
+            ],
+            [
+              "CI",
+              "Profundidade ≤1 m; dimensão interna ≥60 cm"
+            ],
+            [
+              "PV",
+              "Profundidade >1 m; dimensão interna ≥1,10 m"
+            ],
+            [
+              "Acessos",
+              "25 m entre inspeções; 15 m à ligação pública; 10 m para contribuições especificadas"
+            ]
+          ]
+        },
+        "formula_explanation": "Distâncias: 25 m entre inspeções; 15 m da conexão do coletor predial com o público ao ponto de inspeção mais próximo; 10 m entre os pontos de contribuição especificados (bacia, CG, CS) e inspeção. Em prédio com mais de 2 pavimentos, CI a pelo menos 2 m do TQ que a alimenta. Todas são medidas em metros; os três primeiros são máximos, o último é mínimo.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1610",
@@ -147,7 +205,94 @@
         "CARD-1612",
         "CARD-1613",
         "CARD-1614"
-      ]
+      ],
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "A CG retém gordura antes do lançamento do efluente na rede. Uma cozinha: P ou S; duas: S ou D; de três a doze: D; acima de doze e cozinhas institucionais: E. Use o quadro completo abaixo, não uma definição isolada para cada caixa.",
+          "A gordura tende a flutuar por menor densidade. Duas câmaras, receptora e vertedoura, são separadas por septo fixo submerso; o líquido segue sob o septo, deixando gordura acumulada para remoção. O septo não é um filtro; limpeza periódica é indispensável."
+        ],
+        "highlights": [
+          {
+            "text": "retém gordura",
+            "kind": "core",
+            "start": 5,
+            "end": 18,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "Uma cozinha: P ou S",
+            "kind": "condition",
+            "start": 60,
+            "end": 79,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "duas: S ou D",
+            "kind": "condition",
+            "start": 81,
+            "end": 93,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "de três a doze: D",
+            "kind": "condition",
+            "start": 95,
+            "end": 112,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "acima de doze e cozinhas institucionais: E",
+            "kind": "condition",
+            "start": 114,
+            "end": 156,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Tipo",
+            "Ø interno",
+            "Septo",
+            "Retenção",
+            "Saída"
+          ],
+          "rows": [
+            [
+              "CGP",
+              "30 cm",
+              "20 cm",
+              "18 L",
+              "DN75"
+            ],
+            [
+              "CGS",
+              "40 cm",
+              "20 cm",
+              "31 L",
+              "DN75"
+            ],
+            [
+              "CGD",
+              "60 cm",
+              "35 cm",
+              "120 L",
+              "DN100"
+            ],
+            [
+              "CGE",
+              "Retangular",
+              "40 cm",
+              "2N+20 L",
+              "≥DN100"
+            ]
+          ]
+        },
+        "formula_explanation": "CGE: V = 2N + 20, em litros, com N igual à população servida no turno de maior movimento. Para N=80, V=180 L = 0,18 m³; N=100 → 220 L. O volume calculado é o da câmara de retenção, não necessariamente o volume geométrico total.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1615",
@@ -215,7 +360,84 @@
         "CARD-1626",
         "CARD-1628",
         "CARD-1629"
-      ]
+      ],
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "O desconector mantém barreira líquida contra gases do esgoto. Sifão é o dispositivo; fecho hídrico é a água retida, cuja altura efetiva é normalmente ≥50 mm. CS possui desconector e recebe efluentes secundários permitidos; CS especial tem fecho ≥200 mm.",
+          "O selo de água separa o ambiente dos gases do trecho primário. Pode ser perdido por evaporação, sucção ou sobrepressão; ventilação limita diferenças de pressão. A medida vertical vai do nível de saída até o ponto inferior da separação interna, e não do topo ao fundo da caixa."
+        ],
+        "highlights": [
+          {
+            "text": "barreira líquida contra gases",
+            "kind": "core",
+            "start": 21,
+            "end": 50,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "Sifão é o dispositivo",
+            "kind": "condition",
+            "start": 62,
+            "end": 83,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "fecho hídrico é a água retida",
+            "kind": "condition",
+            "start": 85,
+            "end": 114,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "≥50 mm",
+            "kind": "condition",
+            "start": 150,
+            "end": 156,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "≥200 mm",
+            "kind": "condition",
+            "start": 245,
+            "end": 252,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Tipo",
+            "Fecho",
+            "Corpo/capacidade"
+          ],
+          "rows": [
+            [
+              "CS comum DN100",
+              "≥5 cm",
+              "até 6 UHC"
+            ],
+            [
+              "CS comum DN125",
+              "≥5 cm",
+              "até 10 UHC"
+            ],
+            [
+              "CS comum DN150",
+              "≥5 cm",
+              "até 15 UHC"
+            ],
+            [
+              "CS especial",
+              "≥20 cm",
+              "Ø/círculo ≥30 cm; saída DN75"
+            ]
+          ]
+        },
+        "formula_explanation": "UHC = unidade de Hunter de contribuição, valor numérico associado à descarga habitual do aparelho. Somar contribuições admissíveis, escolher o corpo da CS pela faixa, e dimensionar o ramal de saída separadamente. Não usar UHC como L/s.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1618",
@@ -279,7 +501,84 @@
       ],
       "satellites": [
         "CARD-1619"
-      ]
+      ],
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Caixa coletora recebe por gravidade o esgoto que precisa ser elevado. Com bacia: profundidade mínima 0,90 m; sem bacia: 0,60 m. Volume útil Vu = Qt/4; detenção d = Vt/q; recomendações de t≥10 min e Q≥2 vezes a vazão afluente, e detenção máxima de 30 min.",
+          "Se o ponto de contribuição está abaixo do nível do logradouro, a bomba permite vencer o desnível e devolver o esgoto à rede por gravidade, com proteção antirrefluxo. Volume muito pequeno causa partidas frequentes; excessivo prolonga a permanência e favorece septicidade."
+        ],
+        "highlights": [
+          {
+            "text": "profundidade mínima 0,90 m",
+            "kind": "core",
+            "start": 81,
+            "end": 107,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "0,60 m",
+            "kind": "condition",
+            "start": 120,
+            "end": 126,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "Vu = Qt/4",
+            "kind": "condition",
+            "start": 140,
+            "end": 149,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "d = Vt/q",
+            "kind": "condition",
+            "start": 160,
+            "end": 168,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "t≥10 min",
+            "kind": "condition",
+            "start": 187,
+            "end": 195,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "detenção máxima de 30 min",
+            "kind": "condition",
+            "start": 228,
+            "end": 253,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Caixa",
+            "Profundidade mínima",
+            "Passagem de esfera",
+            "Recalque"
+          ],
+          "rows": [
+            [
+              "Com bacia",
+              "90 cm",
+              "60 mm",
+              "≥DN75"
+            ],
+            [
+              "Sem bacia",
+              "60 cm",
+              "18 mm",
+              "≥DN40"
+            ]
+          ]
+        },
+        "formula_explanation": "Vu (m³) é o volume entre níveis de liga/desliga; Q (m³/min) é a capacidade da bomba; t (min) é o intervalo entre partidas. Vt (m³) inclui volume útil e deslocamentos internos conforme item 5.1.6.10; q (m³/min) é a vazão média afluente para calcular d. Não confundir vazão da bomba com vazão média. Verificar também vazão máxima provável e altura manométrica.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1620",
@@ -347,7 +646,87 @@
         "CARD-1630",
         "CARD-1631",
         "CARD-1632"
-      ]
+      ],
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "RD recebe diretamente um aparelho; RE recebe efluentes dos RD, diretamente ou por desconector, e pertence ao primário. TQ é o trecho vertical que recebe e conduz descargas; subcoletor recebe um ou mais TQ ou RE; coletor predial leva o esgoto da última inserção ao coletor público ou tratamento particular. UHC representa a contribuição habitual de descarga dos aparelhos.",
+          "Aparelho sanitário é a interface de uso higiênico da água/recebimento de despejos; bacia recebe dejetos humanos e possui desconector próprio nas configurações usuais. Desconector protege contra gases; tubulação conduz, inspeção dá acesso, dispositivo de tratamento reduz sólidos e poluentes. Rede pluvial é separada."
+        ],
+        "highlights": [
+          {
+            "text": "RD recebe diretamente um aparelho",
+            "kind": "core",
+            "start": 0,
+            "end": 33,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "RE recebe efluentes dos RD",
+            "kind": "condition",
+            "start": 35,
+            "end": 61,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "pertence ao primário",
+            "kind": "condition",
+            "start": 97,
+            "end": 117,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "TQ é o trecho vertical",
+            "kind": "condition",
+            "start": 119,
+            "end": 141,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "UHC representa a contribuição habitual",
+            "kind": "condition",
+            "start": 306,
+            "end": 344,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Elemento",
+            "Função"
+          ],
+          "rows": [
+            [
+              "Aparelho",
+              "Origem"
+            ],
+            [
+              "RD",
+              "Recebe diretamente o aparelho"
+            ],
+            [
+              "RE",
+              "Recebe RD e integra o primário"
+            ],
+            [
+              "TQ",
+              "Condução vertical"
+            ],
+            [
+              "Subcoletor",
+              "Reúne TQ/RE"
+            ],
+            [
+              "Coletor predial",
+              "Trecho final até rede ou tratamento"
+            ]
+          ]
+        },
+        "formula_explanation": "UHC é fator de contribuição, não vazão instantânea. Bacia sanitária: 6 UHC, RD normalmente DN100; nota da Tabela 3 prevê condição excepcional de DN75 mediante justificativa hidráulica e compatibilidade da bacia. Declividade recomendada: DN≤75 → 2%; DN≥100 → 1%; subcoletores e coletor predial: máxima 5%, coletor predial mínimo DN100.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1633",
@@ -409,7 +788,72 @@
           "texto": "Macete 30–200–400–100 cm: cobertura, ocupação, abertura, exceção. 15 cm é outra ligação, não terminal externo. Reutilizar referência visual original da Figura 3 e materiais existentes."
         }
       ],
-      "satellites": []
+      "satellites": [],
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Cobertura exclusiva: terminal ≥0,30 m acima dela. Laje com outros usos: ≥2,00 m. Janela/porta/vão de ventilação: distância ≥4,00 m, exceto terminal ≥1,00 m acima da respectiva verga. Os critérios de altura sobre cobertura e de aberturas são independentes.",
+          "A ventilação permite circulação de ar, limita depressões e sobrepressões que ameaçam o fecho e favorece dispersão de gases. Ventilação primária pode ser suficiente desde que verificada; se não, adequar geometria ou prever ventilação secundária."
+        ],
+        "highlights": [
+          {
+            "text": "≥0,30 m",
+            "kind": "core",
+            "start": 30,
+            "end": 37,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "≥2,00 m",
+            "kind": "condition",
+            "start": 72,
+            "end": 79,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "≥4,00 m",
+            "kind": "condition",
+            "start": 123,
+            "end": 130,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "≥1,00 m acima da respectiva verga",
+            "kind": "condition",
+            "start": 148,
+            "end": 181,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Situação",
+            "Limite"
+          ],
+          "rows": [
+            [
+              "Cobertura exclusiva",
+              "≥30 cm"
+            ],
+            [
+              "Terraço utilizado",
+              "≥200 cm"
+            ],
+            [
+              "Afastamento de aberturas",
+              "≥400 cm"
+            ],
+            [
+              "Exceção da abertura",
+              "≥100 cm acima da verga"
+            ]
+          ]
+        },
+        "formula_explanation": "Alturas e distâncias são medidas em m. Aclive mínimo de tubulação de ventilação: 1% para retorno de líquido por gravidade. A ligação superior de coluna a tubo ventilador primário deve ficar pelo menos 0,15 m acima do nível de transbordamento do aparelho mais elevado servido, situação diferente da altura terminal externa.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1548",
@@ -489,7 +933,69 @@
       "source": "NBR 16915:2021, itens 3, 4.2, 5.3–5.7, Tabelas 1/2 e Anexo A.",
       "front": "Como obter uma amostra representativa em pilha, caminhão, correia ou silo? Indique as massas de campo, o procedimento de redução e o que causa viés.",
       "back": "Obter pelo menos três amostras parciais conforme o plano e método aplicável, compor amostra de campo e reduzir sem perder representatividade. Para agregados de massa específica de 2 a 3 g/cm³, usar os mínimos da Tabela 1 aplicáveis aos ensaios físicos e químicos.",
-      "mnemonic": "Coletar → compor → homogeneizar → reduzir → ensaiar. 19/37,5/75 mm correspondem a 40/75/150 kg."
+      "mnemonic": "Coletar → compor → homogeneizar → reduzir → ensaiar. 19/37,5/75 mm correspondem a 40/75/150 kg.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Obter pelo menos três amostras parciais conforme o plano e método aplicável, compor amostra de campo e reduzir sem perder representatividade. Para agregados de massa específica de 2 a 3 g/cm³, usar os mínimos da Tabela 1 aplicáveis aos ensaios físicos e químicos.",
+          "A distribuição granulométrica muda por segregação: grossos rolam e finos concentram-se em outras regiões. Por isso a coleta deve representar posições ou momentos distintos; a redução deve preservar as proporções, não selecionar visualmente grãos."
+        ],
+        "highlights": [
+          {
+            "text": "pelo menos três amostras parciais",
+            "kind": "core",
+            "start": 6,
+            "end": 39,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "reduzir sem perder representatividade",
+            "kind": "condition",
+            "start": 103,
+            "end": 140,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "2 a 3 g/cm³",
+            "kind": "condition",
+            "start": 180,
+            "end": 191,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Local",
+            "Procedimento"
+          ],
+          "rows": [
+            [
+              "Pilha/caminhão",
+              "Coletar em diferentes posições, evitando superfície segregada e contaminação; seguir o procedimento específico."
+            ],
+            [
+              "Correia",
+              "Parar e coletar toda a seção delimitada, com os finos."
+            ],
+            [
+              "Silo/fluxo",
+              "Interceptar a descarga de forma representativa em instantes distintos."
+            ],
+            [
+              "Separador mecânico",
+              "Alimentar uniformemente as calhas alternadas e conservar uma metade representativa."
+            ],
+            [
+              "Quarteamento",
+              "Homogeneizar, dividir em quatro, combinar dois quartos opostos e repetir."
+            ]
+          ]
+        },
+        "formula_explanation": "Massa de campo (kg): tamanho nominal ≤19 mm: 40; >19 até 37,5 mm: 75; >37,5 até 75 mm: 150. São massas totais, não de cada parcial. A massa da amostra de ensaio depende do ensaio.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1551",
@@ -563,7 +1069,83 @@
       "source": "NBR 15116:2004, 3.2–3.5; NBR 15116:2021, requisitos de aplicação.",
       "front": "Distinga reciclagem, reutilização e beneficiamento; compare o uso dos agregados reciclados de concreto nas edições 2004 e 2021 da NBR 15116.",
       "back": "Reciclagem reaproveita após transformação; reutilização reaplica sem transformação; beneficiamento é o processamento para tornar o resíduo apto ao uso. A edição de 2004 restringia o concreto com agregado reciclado a função não estrutural; a de 2021 admite substituição parcial por agregado reciclado de concreto em condições específicas.",
-      "mnemonic": "Reutilizar = usar de novo; reciclar = transformar e usar; beneficiar = preparar."
+      "mnemonic": "Reutilizar = usar de novo; reciclar = transformar e usar; beneficiar = preparar.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Reciclagem reaproveita após transformação; reutilização reaplica sem transformação; beneficiamento é o processamento para tornar o resíduo apto ao uso. A edição de 2004 restringia o concreto com agregado reciclado a função não estrutural; a de 2021 admite substituição parcial por agregado reciclado de concreto em condições específicas.",
+          "Britagem, classificação e separação alteram a forma e a composição do resíduo. Materiais cimentícios aderidos e cerâmica podem alterar absorção, densidade e comportamento, justificando controle de origem e classificação."
+        ],
+        "highlights": [
+          {
+            "text": "após transformação",
+            "kind": "core",
+            "start": 23,
+            "end": 41,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "sem transformação",
+            "kind": "exception",
+            "start": 65,
+            "end": 82,
+            "color": "#F5C2D0"
+          },
+          {
+            "text": "processamento",
+            "kind": "condition",
+            "start": 103,
+            "end": 116,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "função não estrutural",
+            "kind": "exception",
+            "start": 216,
+            "end": 237,
+            "color": "#F5C2D0"
+          },
+          {
+            "text": "em condições específicas",
+            "kind": "exception",
+            "start": 312,
+            "end": 336,
+            "color": "#F5C2D0"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Termo",
+            "Exemplo"
+          ],
+          "rows": [
+            [
+              "Reutilização",
+              "Reaproveitar componente intacto."
+            ],
+            [
+              "Beneficiamento",
+              "Britar e peneirar entulho para adequar a granulometria."
+            ],
+            [
+              "Reciclagem",
+              "Reaproveitar o material transformado como agregado."
+            ],
+            [
+              "ARC",
+              "Agregado reciclado de concreto."
+            ],
+            [
+              "ARM",
+              "Agregado reciclado misto; não equivale ao ARC para aplicação estrutural."
+            ]
+          ]
+        },
+        "formula_explanation": "Não existe uma porcentagem única de substituição aplicável a todas as classes de agregado e usos. Conferir a edição, a classe do agregado e os limites específicos antes de dimensionar; não extrapolar os requisitos históricos.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1589",
@@ -638,7 +1220,102 @@
       "source": "PETRO27-FAB-002 e PETRO27-USI-001; questão Petrobras de máquinas operatrizes.",
       "front": "Compare torno, fresadora, furadeira, plaina limadora, plaina de mesa e retificadora pelo movimento principal, ferramenta e tipo de remoção. Por que prensa e permutador não são máquinas de usinagem?",
       "back": "Usinagem remove material. Torno: peça gira; fresadora: fresa gira; furadeira: broca gira e avança; plaina limadora: ferramenta alterna; plaina de mesa: peça/mesa alterna; retificadora: rebolo abrasivo gira.",
-      "mnemonic": "Torno = peça; fresa = ferramenta; limadora = ferramenta vai e volta; retífica = rebolo."
+      "mnemonic": "Torno = peça; fresa = ferramenta; limadora = ferramenta vai e volta; retífica = rebolo.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Usinagem remove material. Torno: peça gira; fresadora: fresa gira; furadeira: broca gira e avança; plaina limadora: ferramenta alterna; plaina de mesa: peça/mesa alterna; retificadora: rebolo abrasivo gira.",
+          "Arestas definidas cortam cavacos com geometria de corte especificável; grãos abrasivos apresentam arestas de geometria não definida, removendo pequenas parcelas e permitindo acabamento e precisão."
+        ],
+        "highlights": [
+          {
+            "text": "Usinagem remove material",
+            "kind": "core",
+            "start": 0,
+            "end": 24,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "Torno: peça gira",
+            "kind": "condition",
+            "start": 26,
+            "end": 42,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "fresadora: fresa gira",
+            "kind": "condition",
+            "start": 44,
+            "end": 65,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "plaina limadora: ferramenta alterna",
+            "kind": "condition",
+            "start": 99,
+            "end": 134,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "plaina de mesa: peça/mesa alterna",
+            "kind": "condition",
+            "start": 136,
+            "end": 169,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Máquina",
+            "Movimento principal",
+            "Ferramenta"
+          ],
+          "rows": [
+            [
+              "Torno",
+              "Rotação da peça",
+              "Gume de corte"
+            ],
+            [
+              "Fresadora",
+              "Rotação da ferramenta",
+              "Fresa multigume"
+            ],
+            [
+              "Furadeira",
+              "Rotação da broca",
+              "Broca"
+            ],
+            [
+              "Plaina limadora",
+              "Vaivém da ferramenta",
+              "Gume único"
+            ],
+            [
+              "Plaina de mesa",
+              "Vaivém da mesa/peça",
+              "Ferramenta de corte"
+            ],
+            [
+              "Retificadora",
+              "Rotação do rebolo",
+              "Abrasivos"
+            ]
+          ]
+        },
+        "formula_explanation": "Velocidade de corte em processo rotativo: vc = π D n/1000 (m/min para D em mm e n em rpm). No torneamento D é o diâmetro da peça; no fresamento D é o da fresa. Não confundir com avanço.",
+        "media": [
+          {
+            "id": "PETRO27-SVG-USINAGEM-V348",
+            "src": "assets/card_visuals_v348/maquinas_operatrizes.svg",
+            "role": "VERSO_APOS_TENTATIVA",
+            "blob": "828248b2fa41b1551274bc45fd77e52f69d22e18",
+            "validation": "Existência do SVG conferida; visual e vínculo no leitor ainda não homologados."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1591",
@@ -715,7 +1392,75 @@
       "source": "PETRO27-FAB-004 e PETRO27-SAW-001; processos de soldagem por arco.",
       "front": "Diferencie metal-base, metal de solda, poça e ZTA. Compare SAW, SMAW, MIG/MAG, TIG e FCAW quanto a eletrodo, alimentação e proteção; explique fluxo e escória.",
       "back": "Metal-base é o original; poça é a região líquida; metal de solda é o material solidificado; ZTA é metal-base alterado pelo calor sem fusão. SAW usa arame consumível contínuo, normalmente mecanizado/automático, e fluxo granular que encobre o arco.",
-      "mnemonic": "SAW = arco escondido no fluxo; TIG = tungstênio; SMAW = revestido; MIG/MAG = gás; FCAW = tubular."
+      "mnemonic": "SAW = arco escondido no fluxo; TIG = tungstênio; SMAW = revestido; MIG/MAG = gás; FCAW = tubular.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Metal-base é o original; poça é a região líquida; metal de solda é o material solidificado; ZTA é metal-base alterado pelo calor sem fusão. SAW usa arame consumível contínuo, normalmente mecanizado/automático, e fluxo granular que encobre o arco.",
+          "O fluxo do SAW protege a poça do ambiente, parte se funde formando escória e pode contribuir para desoxidação e composição. O eletrodo consumível fornece metal; no TIG, o tungstênio não é consumido intencionalmente e a adição pode ser independente."
+        ],
+        "highlights": [
+          {
+            "text": "ZTA é metal-base alterado pelo calor sem fusão",
+            "kind": "core",
+            "start": 92,
+            "end": 138,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "arame consumível contínuo",
+            "kind": "condition",
+            "start": 148,
+            "end": 173,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "fluxo granular que encobre o arco",
+            "kind": "condition",
+            "start": 212,
+            "end": 245,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Processo",
+            "Eletrodo",
+            "Proteção"
+          ],
+          "rows": [
+            [
+              "SAW",
+              "Arame consumível contínuo",
+              "Fluxo granular/escória"
+            ],
+            [
+              "SMAW",
+              "Eletrodo revestido consumível",
+              "Revestimento, gases e escória"
+            ],
+            [
+              "MIG/MAG",
+              "Arame consumível contínuo",
+              "Gás externo inerte/ativo"
+            ],
+            [
+              "TIG",
+              "Tungstênio não consumível",
+              "Gás inerte; adição opcional"
+            ],
+            [
+              "FCAW",
+              "Arame tubular consumível",
+              "Fluxo interno; com ou sem gás externo, conforme tipo"
+            ]
+          ]
+        },
+        "formula_explanation": "Em soldagem por arco, aporte térmico aproximado H=ηUI/v em J/mm se U em V, I em A e v em mm/s. η é eficiência do processo. O aporte influencia resfriamento e largura da ZTA; não confundir ZTA com metal fundido.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1593",
@@ -790,7 +1535,95 @@
       "source": "PETRO27-FAB-006, PETRO27-FAB-007 e questão PETRO27-MEC-CEMENT.",
       "front": "Compare recozimento, normalização, têmpera, revenido, cementação e nitretação. Explique a sequência para obter superfície dura e núcleo tenaz em engrenagem de aço de baixo carbono.",
       "back": "Recozimento amolece/alivia conforme ciclo; normalização refina/homogeneíza com resfriamento ao ar; têmpera forma estrutura endurecida quando a liga é temperável; revenido ajusta dureza e reduz fragilidade. Cementação incorpora carbono na superfície; nitretação incorpora nitrogênio.",
-      "mnemonic": "Cementar C, nitretar N, temperar endurece, revenir ajusta."
+      "mnemonic": "Cementar C, nitretar N, temperar endurece, revenir ajusta.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Recozimento amolece/alivia conforme ciclo; normalização refina/homogeneíza com resfriamento ao ar; têmpera forma estrutura endurecida quando a liga é temperável; revenido ajusta dureza e reduz fragilidade. Cementação incorpora carbono na superfície; nitretação incorpora nitrogênio.",
+          "Cementação cria gradiente de carbono. Após têmpera, a superfície enriquecida pode formar martensita dura; o núcleo menos carbonado conserva tenacidade relativa. Revenido alivia tensões e ajusta propriedades. Nitretação endurece por nitretos e frequentemente dispensa têmpera posterior."
+        ],
+        "highlights": [
+          {
+            "text": "têmpera forma estrutura endurecida",
+            "kind": "core",
+            "start": 99,
+            "end": 133,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "revenido ajusta dureza e reduz fragilidade",
+            "kind": "condition",
+            "start": 162,
+            "end": 204,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "Cementação incorpora carbono",
+            "kind": "condition",
+            "start": 206,
+            "end": 234,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "nitretação incorpora nitrogênio",
+            "kind": "condition",
+            "start": 250,
+            "end": 281,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Processo",
+            "Finalidade típica",
+            "Característica"
+          ],
+          "rows": [
+            [
+              "Recozimento",
+              "Ductilidade/alívio",
+              "Resfriamento controlado"
+            ],
+            [
+              "Normalização",
+              "Refinar/homogeneizar",
+              "Resfriamento ao ar"
+            ],
+            [
+              "Têmpera",
+              "Endurecer",
+              "Resfriamento rápido adequado"
+            ],
+            [
+              "Revenido",
+              "Ajustar tenacidade e dureza",
+              "Reaquecer após têmpera"
+            ],
+            [
+              "Cementação",
+              "Enriquecer superfície em C",
+              "Difusão termoquímica"
+            ],
+            [
+              "Nitretação",
+              "Endurecer superfície por N",
+              "Formação de nitretos"
+            ]
+          ]
+        },
+        "formula_explanation": "Dureza e espessura da camada dependem do aço, temperatura, tempo e resfriamento. A difusão tem ordem de grandeza proporcional a √(Dt) em modelos simples; D depende fortemente da temperatura. Não atribuir dureza universal a um ciclo.",
+        "media": [
+          {
+            "id": "PETRO27-SVG-CEMENTACAO-V348",
+            "src": "assets/card_visuals_v348/cementacao_nucleo.svg",
+            "role": "VERSO_APOS_TENTATIVA",
+            "blob": "cba7b6dc2b318ee12983bd2bcde4ffb1d9e6873e",
+            "validation": "Existência do SVG conferida; visual e vínculo no leitor ainda não homologados."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1602",
@@ -870,7 +1703,93 @@
       "source": "Créder, Instalações Elétricas, 16ª ed., 6.1.10; NBR 5410:2004, 5.6.2.2, 5.6.3.1, 5.6.6.1.2.",
       "front": "Diferencie as três funções, a posição da chave separadora, exceção de chave comum, capacidade nominal e hipótese de interruptor de uso geral. Por que o comando precisa manobrar rotor bloqueado?",
       "back": "Seccionamento isola; comando liga/desliga sob condições previstas; proteção atua em anormalidades. Créder: chave individual a montante da proteção; chave comum quando motores movimentam partes da mesma máquina; motor fixo em geral ≥115% In. Interruptor comum na hipótese histórica: P≤1,5 kW, U<300 V, capacidade≥2 In.",
-      "mnemonic": "Isola–manobra–protege. Chave 1,15; interruptor excepcional 2, com 1,5 kW e menos de 300 V."
+      "mnemonic": "Isola–manobra–protege. Chave 1,15; interruptor excepcional 2, com 1,5 kW e menos de 300 V.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Seccionamento isola; comando liga/desliga sob condições previstas; proteção atua em anormalidades. Créder: chave individual a montante da proteção; chave comum quando motores movimentam partes da mesma máquina; motor fixo em geral ≥115% In. Interruptor comum na hipótese histórica: P≤1,5 kW, U<300 V, capacidade≥2 In.",
+          "Rotor bloqueado elimina a condição normal de rotação e pode produzir corrente elevada; a capacidade de manobra deve contemplar essa condição. Seccionador puro não equivale automaticamente a dispositivo apto a interromper corrente de carga ou de curto."
+        ],
+        "highlights": [
+          {
+            "text": "Seccionamento isola",
+            "kind": "core",
+            "start": 0,
+            "end": 19,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "comando liga/desliga",
+            "kind": "condition",
+            "start": 21,
+            "end": 41,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "proteção atua em anormalidades",
+            "kind": "condition",
+            "start": 67,
+            "end": 97,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "≥115% In",
+            "kind": "condition",
+            "start": 231,
+            "end": 239,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "P≤1,5 kW",
+            "kind": "condition",
+            "start": 282,
+            "end": 290,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "U<300 V",
+            "kind": "condition",
+            "start": 292,
+            "end": 299,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "capacidade≥2 In",
+            "kind": "condition",
+            "start": 301,
+            "end": 316,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Função",
+            "Finalidade",
+            "Exemplo"
+          ],
+          "rows": [
+            [
+              "Seccionamento",
+              "Isolamento para intervenção",
+              "Chave apropriada"
+            ],
+            [
+              "Comando",
+              "Manobra funcional",
+              "Contator/dispositivo de comando"
+            ],
+            [
+              "Proteção",
+              "Sobrecarga/curto, conforme função",
+              "Relé/disjuntor/fusível adequado"
+            ]
+          ]
+        },
+        "formula_explanation": "Chave separadora histórica: I≥1,15 In. Interruptor de uso geral na hipótese descrita: I≥2 In. Ex.: In=10 A → 11,5 A ou 20 A, conforme função e condições. Escolher calibre comercial adequado e verificar categoria de utilização.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1580",
@@ -949,7 +1868,98 @@
       "source": "NBR 6122:2010, Tabela 4 e Anexo L; NBR 6122:2019, Anexo K.7; PETRO24-C012.",
       "front": "Descreva a sequência executiva, materiais e armadura de estaca-raiz. Compare os parâmetros históricos da NBR 6122 e calcule o espaçamento que aciona o intervalo de 12 h.",
       "back": "Moldada in loco por perfuração rotativa/rotopercussiva, revestimento recuperável integral no trecho em solo, limpeza, armadura integral e injeção de argamassa de baixo para cima. Pela edição 2019, distância entre eixos <5D exige intervalo mínimo de 12 h, usando maior D.",
-      "mnemonic": "Raiz = perfuração + camisa em solo + armação integral + argamassa injetada; 5D/12 h na edição estudada."
+      "mnemonic": "Raiz = perfuração + camisa em solo + armação integral + argamassa injetada; 5D/12 h na edição estudada.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Moldada in loco por perfuração rotativa/rotopercussiva, revestimento recuperável integral no trecho em solo, limpeza, armadura integral e injeção de argamassa de baixo para cima. Pela edição 2019, distância entre eixos <5D exige intervalo mínimo de 12 h, usando maior D.",
+          "Revestimento estabiliza o furo em solo. Limpeza evita material solto; armadura integral e argamassa injetada constituem o fuste. A execução de estacas próximas pode interferir na argamassa recém-executada, justificando o intervalo."
+        ],
+        "highlights": [
+          {
+            "text": "Moldada in loco",
+            "kind": "core",
+            "start": 0,
+            "end": 15,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "revestimento recuperável integral no trecho em solo",
+            "kind": "condition",
+            "start": 56,
+            "end": 107,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "armadura integral",
+            "kind": "condition",
+            "start": 118,
+            "end": 135,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "argamassa de baixo para cima",
+            "kind": "condition",
+            "start": 149,
+            "end": 177,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "<5D",
+            "kind": "condition",
+            "start": 219,
+            "end": 222,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "12 h",
+            "kind": "condition",
+            "start": 249,
+            "end": 253,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "maior D",
+            "kind": "condition",
+            "start": 262,
+            "end": 269,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Edição 2010",
+            "Edição 2019 (registro)"
+          ],
+          "rows": [
+            [
+              "Armadura",
+              "Integral; 0,5% mínimo",
+              "Integral; 0,4% mínimo na tabela posterior estudada"
+            ],
+            [
+              "Referência",
+              "Tabela 4, Anexo L",
+              "Tabela 4, Anexo K"
+            ],
+            [
+              "Intervalo próximo",
+              "Não transpor automaticamente",
+              "K.7: 12 h quando s<5D"
+            ],
+            [
+              "Resistência 2010",
+              "γc=1,6; fck máximo de projeto 20 MPa, argamassa fck mínimo 20 MPa",
+              "Conferir tabela da edição"
+            ]
+          ]
+        },
+        "formula_explanation": "D=max(D1,D2); limiar s=5D. D1=0,30 m e D2=0,40 m → 5D=2,00 m. Se s=1,80 m, intervalo≥12 h. No critério literal <5D, s=2,00 m não aciona essa condição isoladamente.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1574",
@@ -1031,7 +2041,79 @@
       "source": "NBR 6122:2010, 7.7.2 e critérios de fundações próximas em cotas distintas; PETRO24-C006/C007.",
       "front": "Calcule o afastamento entre sapatas em diferentes profundidades, escolha a ordem executiva e indique a profundidade mínima junto à divisa e suas exceções na edição histórica.",
       "back": "Para fundações próximas em cotas diferentes, α é o ângulo entre a vertical e a reta de maior declive entre bordos. Em solo pouco resistente, α≥60°. Executa-se primeiro a mais profunda salvo cuidados especiais. Na divisa, profundidade usual mínima 1,50 m, ressalvadas as exceções normativas da edição estudada.",
-      "mnemonic": "Divisa 1,50; ângulo pela vertical; profunda primeiro; geometria continua obrigatória."
+      "mnemonic": "Divisa 1,50; ângulo pela vertical; profunda primeiro; geometria continua obrigatória.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Para fundações próximas em cotas diferentes, α é o ângulo entre a vertical e a reta de maior declive entre bordos. Em solo pouco resistente, α≥60°. Executa-se primeiro a mais profunda salvo cuidados especiais. Na divisa, profundidade usual mínima 1,50 m, ressalvadas as exceções normativas da edição estudada.",
+          "O bulbo de tensões e a estabilidade do terreno entre bases exigem afastamento adequado. Escavar uma fundação mais profunda depois pode descalçar a rasa; a ordem de obra reduz esse risco, mas não elimina a verificação geométrica."
+        ],
+        "highlights": [
+          {
+            "text": "ângulo entre a vertical",
+            "kind": "core",
+            "start": 51,
+            "end": 74,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "α≥60°",
+            "kind": "condition",
+            "start": 141,
+            "end": 146,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "primeiro a mais profunda",
+            "kind": "condition",
+            "start": 159,
+            "end": 183,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "salvo cuidados especiais",
+            "kind": "exception",
+            "start": 184,
+            "end": 208,
+            "color": "#F5C2D0"
+          },
+          {
+            "text": "1,50 m",
+            "kind": "condition",
+            "start": 247,
+            "end": 253,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Material",
+            "Ângulo mínimo na regra histórica"
+          ],
+          "rows": [
+            [
+              "Solo pouco resistente",
+              "60°"
+            ],
+            [
+              "Solo resistente",
+              "45°"
+            ],
+            [
+              "Rocha",
+              "30°"
+            ],
+            [
+              "Divisa",
+              "Profundidade usual≥1,50 m; exceções expressas da edição"
+            ]
+          ]
+        },
+        "formula_explanation": "α=arctan(D/h), Dmin=h·tan αmín. h=|z2−z1|. D e h em m. Para h=1 m, D=1 m → α=45°; Dmin≈1,73 m no solo pouco resistente.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1546",
@@ -1112,7 +2194,91 @@
       "source": "NBR 16605:2017, NBR 11582:2016, NBR 16606:2018, NBR 16607:2018, NBR 16697:2018; NM43:2002.",
       "front": "Associe cada instrumento à propriedade, unidade, procedimento e valor de referência; explique o que diferencia frasco/aparelho Le Chatelier e Vicat com sonda/agulha.",
       "back": "Frasco Le Chatelier: massa específica por deslocamento de líquido. Aparelho Le Chatelier com hastes: expansibilidade. Vicat com sonda Tetmajer: consistência normal (6±1 mm da base, 30 s após liberação na referência). Vicat com agulha: tempo de pega. Limites registrados: expansão a quente≤5 mm e início de pega≥60 min.",
-      "mnemonic": "Frasco pesa/volume; hastes abrem; sonda penetra; agulha cronometra."
+      "mnemonic": "Frasco pesa/volume; hastes abrem; sonda penetra; agulha cronometra.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Frasco Le Chatelier: massa específica por deslocamento de líquido. Aparelho Le Chatelier com hastes: expansibilidade. Vicat com sonda Tetmajer: consistência normal (6±1 mm da base, 30 s após liberação na referência). Vicat com agulha: tempo de pega. Limites registrados: expansão a quente≤5 mm e início de pega≥60 min.",
+          "O volume deslocado permite calcular densidade do sólido; as hastes amplificam abertura provocada por expansão da pasta; a sonda mede a penetração e permite ajustar a água da pasta; a agulha detecta endurecimento ao longo do tempo."
+        ],
+        "highlights": [
+          {
+            "text": "massa específica por deslocamento de líquido",
+            "kind": "core",
+            "start": 21,
+            "end": 65,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "expansibilidade",
+            "kind": "condition",
+            "start": 101,
+            "end": 116,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "6±1 mm da base",
+            "kind": "condition",
+            "start": 165,
+            "end": 179,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "30 s após liberação",
+            "kind": "condition",
+            "start": 181,
+            "end": 200,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "expansão a quente≤5 mm",
+            "kind": "condition",
+            "start": 271,
+            "end": 293,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "início de pega≥60 min",
+            "kind": "condition",
+            "start": 296,
+            "end": 317,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Instrumento",
+            "Propriedade",
+            "Referência de leitura"
+          ],
+          "rows": [
+            [
+              "Frasco Le Chatelier",
+              "Massa específica",
+              "g/cm³"
+            ],
+            [
+              "Aparelho Le Chatelier",
+              "Expansibilidade a quente",
+              "≤5 mm"
+            ],
+            [
+              "Vicat/Tetmajer",
+              "Consistência normal",
+              "5 a 7 mm da base"
+            ],
+            [
+              "Vicat/agulha",
+              "Início de pega",
+              "≥60 min (requisito de cimento)"
+            ]
+          ]
+        },
+        "formula_explanation": "ρ=m/(Vf−Vi), g/cm³ se massa em g e volumes em cm³; expansão Δl=lf−li, mm; consistência é ajustada pela água até atingir a penetração especificada; pega é tempo em min.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1327",
@@ -1185,7 +2351,87 @@
       "source": "NR-17, 17.3.1–17.3.8; texto oficial do MTE, versão referenciada nos registros.",
       "front": "Compare AEP e AET, enumere as quatro situações de obrigatoriedade, explique as dispensas de ME/EPP/MEI e a integração ao PGR e retenção documental.",
       "back": "AEP é avaliação ergonômica preliminar registrada que subsidia medidas preventivas. AET aprofunda quando necessário, quando medidas são insuficientes, quando sugerida pelo acompanhamento de saúde/PCMSO ou quando análise de acidente/doença indica causa relacionada ao trabalho.",
-      "mnemonic": "AEP = entrada; AET = aprofundamento. Gatilhos: aprofundar, inadequação, saúde, acidente/doença."
+      "mnemonic": "AEP = entrada; AET = aprofundamento. Gatilhos: aprofundar, inadequação, saúde, acidente/doença.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "AEP é avaliação ergonômica preliminar registrada que subsidia medidas preventivas. AET aprofunda quando necessário, quando medidas são insuficientes, quando sugerida pelo acompanhamento de saúde/PCMSO ou quando análise de acidente/doença indica causa relacionada ao trabalho.",
+          "AEP identifica e avalia situações que demandam adaptação. AET examina a atividade real e produz diagnóstico/recomendações; não é sinônimo de formulário inicial. Trabalhadores participam do processo de avaliação."
+        ],
+        "highlights": [
+          {
+            "text": "avaliação ergonômica preliminar registrada",
+            "kind": "core",
+            "start": 6,
+            "end": 48,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "AET aprofunda",
+            "kind": "condition",
+            "start": 83,
+            "end": 96,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "medidas são insuficientes",
+            "kind": "condition",
+            "start": 123,
+            "end": 148,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "acompanhamento de saúde/PCMSO",
+            "kind": "condition",
+            "start": 171,
+            "end": 200,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "causa relacionada ao trabalho",
+            "kind": "condition",
+            "start": 245,
+            "end": 274,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Situação",
+            "Exigência"
+          ],
+          "rows": [
+            [
+              "Necessidade de aprofundar",
+              "AET"
+            ],
+            [
+              "Insuficiência/inadequação das medidas",
+              "AET"
+            ],
+            [
+              "Sugestão do acompanhamento de saúde",
+              "AET"
+            ],
+            [
+              "Causa laboral apontada em análise",
+              "AET"
+            ],
+            [
+              "ME/EPP GR 1–2",
+              "Dispensa geral; fazer nas hipóteses c/d"
+            ],
+            [
+              "MEI",
+              "Dispensa de elaboração de AET, sem afastar demais requisitos"
+            ]
+          ]
+        },
+        "formula_explanation": "Não há fórmula matemática. Há critério temporal: relatório da AET, quando realizada, mantido disponível por 20 anos. Resultados pertinentes da AEP integram inventário de riscos; recomendações alimentam plano de ação.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1418",
@@ -1256,7 +2502,84 @@
       "source": "NR-17, Anexo I, 3.1(a–i), texto oficial do MTE.",
       "front": "Quais requisitos do mobiliário e organização física do checkout? Explique 90%, 2,70 m, postura, cadeira, apoio, comunicação e segurança.",
       "back": "O checkout deve atender às características antropométricas de 90% dos trabalhadores; assegurar alternância postural, cadeira ajustável com apoio lombar, apoio independente dos pés e comunicação com apoio/supervisão. Esteira eletromecânica obrigatória para checkout de comprimento igual ou superior a 2,70 m.",
-      "mnemonic": "90% pessoas, 2,70 m comprimento, alternar postura, apoiar pés, chamar apoio."
+      "mnemonic": "90% pessoas, 2,70 m comprimento, alternar postura, apoiar pés, chamar apoio.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "O checkout deve atender às características antropométricas de 90% dos trabalhadores; assegurar alternância postural, cadeira ajustável com apoio lombar, apoio independente dos pés e comunicação com apoio/supervisão. Esteira eletromecânica obrigatória para checkout de comprimento igual ou superior a 2,70 m.",
+          "Alcances adequados e movimentação de mercadorias reduzem flexão, torção e esforço repetitivo; alternância e apoios favorecem postura; comunicação permite auxílio sem abandonar a operação. Eliminar quinas e fixar componentes reduz acidentes."
+        ],
+        "highlights": [
+          {
+            "text": "90% dos trabalhadores",
+            "kind": "core",
+            "start": 62,
+            "end": 83,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "alternância postural",
+            "kind": "condition",
+            "start": 95,
+            "end": 115,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "comunicação com apoio/supervisão",
+            "kind": "condition",
+            "start": 182,
+            "end": 214,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "igual ou superior a 2,70 m",
+            "kind": "condition",
+            "start": 280,
+            "end": 306,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Elemento",
+            "Requisito"
+          ],
+          "rows": [
+            [
+              "Antropometria",
+              "90%, alcances e visão"
+            ],
+            [
+              "Postura",
+              "Alternância sentado/em pé, espaço para cadeira"
+            ],
+            [
+              "Cadeira",
+              "Ajustável, encosto lombar"
+            ],
+            [
+              "Pés",
+              "Apoio independente"
+            ],
+            [
+              "Esteira",
+              "L≥2,70 m"
+            ],
+            [
+              "Comunicação",
+              "Apoio e supervisão"
+            ],
+            [
+              "Segurança",
+              "Sem quinas/rebarbas e componentes seguros"
+            ]
+          ]
+        },
+        "formula_explanation": "Critérios quantitativos: 90% refere-se à população de trabalhadores, não produtividade; L≥2,70 m refere-se ao comprimento do checkout, incluindo igualdade.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1502",
@@ -1332,7 +2655,84 @@
       "source": "NR-6, 6.5.1–6.5.2 e disposições sobre informação/treinamento, texto oficial do MTE.",
       "front": "Enumere os sete critérios de seleção do EPI, responsabilidades da organização, exceção do registro individual e diferença entre informação e treinamento.",
       "back": "A organização seleciona EPI adequado ao risco, adquire aprovado, fornece gratuitamente, registra entrega, orienta/treina, exige uso, higieniza/manutenção quando aplicável e substitui quando necessário. Os sete critérios do item 6.5.2 são atividade, prevenção/perigos/riscos, Anexo I, eficácia, NRs/lei, adequação/conforto e compatibilidade.",
-      "mnemonic": "Atividade–prevenção–Anexo–eficácia–lei–conforto–compatibilidade; fornecer, registrar, orientar, exigir e substituir."
+      "mnemonic": "Atividade–prevenção–Anexo–eficácia–lei–conforto–compatibilidade; fornecer, registrar, orientar, exigir e substituir.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "A organização seleciona EPI adequado ao risco, adquire aprovado, fornece gratuitamente, registra entrega, orienta/treina, exige uso, higieniza/manutenção quando aplicável e substitui quando necessário. Os sete critérios do item 6.5.2 são atividade, prevenção/perigos/riscos, Anexo I, eficácia, NRs/lei, adequação/conforto e compatibilidade.",
+          "A seleção decorre da avaliação de riscos e da hierarquia de prevenção; combinar EPIs deve manter a eficácia de cada um. Informação sobre uso, limitações e conservação é distinta do treinamento necessário às características e aos riscos."
+        ],
+        "highlights": [
+          {
+            "text": "fornece gratuitamente",
+            "kind": "core",
+            "start": 65,
+            "end": 86,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "registra entrega",
+            "kind": "condition",
+            "start": 88,
+            "end": 104,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "orienta/treina",
+            "kind": "condition",
+            "start": 106,
+            "end": 120,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "atividade, prevenção/perigos/riscos, Anexo I, eficácia, NRs/lei, adequação/conforto e compatibilidade",
+            "kind": "condition",
+            "start": 238,
+            "end": 339,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Alínea",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "A",
+              "Atividade exercida"
+            ],
+            [
+              "B",
+              "Medidas de prevenção, perigos e riscos avaliados"
+            ],
+            [
+              "C",
+              "Disposições do Anexo I"
+            ],
+            [
+              "D",
+              "Eficácia necessária"
+            ],
+            [
+              "E",
+              "NRs e dispositivos legais"
+            ],
+            [
+              "F",
+              "Adequação ao empregado e conforto, avaliação do conjunto"
+            ],
+            [
+              "G",
+              "Compatibilidade no uso simultâneo"
+            ]
+          ]
+        },
+        "formula_explanation": "Não há cálculo universal de eficácia. Seleção é multicritério; não basta CA ou preço. Registro individual pode ser dispensado quando inviável para descartáveis/creme, com reposição, quantidade e identificação adequadas.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1503",
@@ -1406,7 +2806,82 @@
       "source": "NR-6, Anexo I, D.1–D.5; NR-33, 33.5.17.2, versões oficiais referenciadas.",
       "front": "Compare os tipos de respirador e critérios de seleção, incluindo PFF, linha de ar, máscaras autônomas e fuga. Quais equipamentos permitem acesso em atmosfera IPVS conforme a NR-33?",
       "back": "Purificador depende do ar ambiente e não fornece oxigênio. Linha de ar recebe ar de fonte externa; autônoma leva reserva própria; fuga é para escape. Em IPVS, NR-33 admite máscara autônoma de demanda com pressão positiva ou linha de ar comprimido com cilindro auxiliar de escape, nas configurações exigidas.",
-      "mnemonic": "Filtrar ≠ fornecer ar; IPVS = autônoma positiva ou linha positiva + fuga."
+      "mnemonic": "Filtrar ≠ fornecer ar; IPVS = autônoma positiva ou linha positiva + fuga.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Purificador depende do ar ambiente e não fornece oxigênio. Linha de ar recebe ar de fonte externa; autônoma leva reserva própria; fuga é para escape. Em IPVS, NR-33 admite máscara autônoma de demanda com pressão positiva ou linha de ar comprimido com cilindro auxiliar de escape, nas configurações exigidas.",
+          "Filtros removem contaminantes específicos, mas não corrigem falta de O₂. Pressão positiva reduz entrada de atmosfera contaminada; reserva auxiliar permite fuga se a alimentação por linha falhar. PFF é classe de filtro de partículas, não avaliação completa do risco."
+        ],
+        "highlights": [
+          {
+            "text": "não fornece oxigênio",
+            "kind": "core",
+            "start": 37,
+            "end": 57,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "fuga é para escape",
+            "kind": "condition",
+            "start": 130,
+            "end": 148,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "máscara autônoma de demanda com pressão positiva",
+            "kind": "condition",
+            "start": 172,
+            "end": 220,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "cilindro auxiliar de escape",
+            "kind": "condition",
+            "start": 251,
+            "end": 278,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Tipo",
+            "Fonte/proteção",
+            "Aplicação"
+          ],
+          "rows": [
+            [
+              "Purificador",
+              "Ar ambiente filtrado",
+              "Contaminantes compatíveis e condições permitidas; não IPVS"
+            ],
+            [
+              "Linha de ar",
+              "Fonte externa",
+              "IPVS apenas configuração exigida + cilindro de fuga"
+            ],
+            [
+              "Autônoma aberta",
+              "Reserva própria; exala ao ambiente",
+              "Configuração de pressão positiva para IPVS"
+            ],
+            [
+              "Autônoma fechada",
+              "Recircula gás, remove CO₂ e repõe O₂",
+              "Configuração adequada para IPVS"
+            ],
+            [
+              "Fuga",
+              "Purificador ou autônomo conforme caso",
+              "Escape, não entrada de rotina"
+            ]
+          ]
+        },
+        "formula_explanation": "Não existe relação universal PFF→proteção suficiente. Avaliar concentração, contaminante, O₂, fator de proteção, vedação e condições. O limite >18% O₂ ao nível do mar aparece no item D.5(a) para purificador de fuga; não é autorização geral de entrada.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1390",
@@ -1476,7 +2951,72 @@
       "source": "NR-6, 6.3.1 e definição de equipamento conjugado; Anexo I, texto oficial referenciado.",
       "front": "Defina EPI individual e equipamento conjugado, diferencie uso simultâneo e integração pelo fabricante, e reconheça exemplos e condições de enquadramento.",
       "back": "EPI é dispositivo ou produto de uso individual destinado à proteção contra riscos ocupacionais, conforme Anexo I. Equipamento conjugado é composição de dispositivos associados pelo fabricante para proteção contra um ou mais riscos.",
-      "mnemonic": "EPI = individual + proteção + Anexo I; conjugado = integração pelo fabricante."
+      "mnemonic": "EPI = individual + proteção + Anexo I; conjugado = integração pelo fabricante.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "EPI é dispositivo ou produto de uso individual destinado à proteção contra riscos ocupacionais, conforme Anexo I. Equipamento conjugado é composição de dispositivos associados pelo fabricante para proteção contra um ou mais riscos.",
+          "Um conjunto conjugado é avaliado como conjunto pelo fabricante; dois EPIs independentes utilizados simultaneamente precisam ser compatíveis, mas não se tornam automaticamente conjugados."
+        ],
+        "highlights": [
+          {
+            "text": "uso individual",
+            "kind": "core",
+            "start": 32,
+            "end": 46,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "proteção contra riscos ocupacionais",
+            "kind": "condition",
+            "start": 59,
+            "end": 94,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "conforme Anexo I",
+            "kind": "condition",
+            "start": 96,
+            "end": 112,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "associados pelo fabricante",
+            "kind": "condition",
+            "start": 165,
+            "end": 191,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Exemplo",
+            "Classificação"
+          ],
+          "rows": [
+            [
+              "Óculos de proteção para risco específico",
+              "EPI individual"
+            ],
+            [
+              "Uniforme comum sem função protetiva",
+              "Não é automaticamente EPI"
+            ],
+            [
+              "Capacete com protetor facial integrado pelo fabricante",
+              "Pode constituir conjugado, conforme aprovação"
+            ],
+            [
+              "Capacete e óculos comprados separadamente",
+              "Uso simultâneo; não automaticamente conjugado"
+            ]
+          ]
+        },
+        "formula_explanation": "Não há fórmula ou dimensão universal. O enquadramento depende da função protetiva, previsão na norma, aprovação e compatibilidade; não do número de peças isolado.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1400",
@@ -1546,7 +3086,63 @@
       "source": "NBR 14037:2011 (registro histórico de tabela documental); revisão 2024 referenciada; legislação municipal e estadual aplicável.",
       "front": "Diferencie a função do habite-se, atualização do manual, manutenção, inspeções e licenças específicas. A edição histórica da NBR 14037 previa renovação periódica automática do habite-se?",
       "back": "Na referência histórica, o habite-se não tinha prazo periódico genérico de renovação. Manual, registros de manutenção, inspeções e licenças específicas são obrigações distintas, sujeitas aos respectivos gatilhos e regras.",
-      "mnemonic": "Habite-se regulariza ocupação; manual orienta; manutenção registra; licença segue sua lei."
+      "mnemonic": "Habite-se regulariza ocupação; manual orienta; manutenção registra; licença segue sua lei.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Na referência histórica, o habite-se não tinha prazo periódico genérico de renovação. Manual, registros de manutenção, inspeções e licenças específicas são obrigações distintas, sujeitas aos respectivos gatilhos e regras.",
+          "Habite-se comprova regularidade administrativa da conclusão/ocupação segundo o regime local. Manual orienta uso e manutenção; registros comprovam execução e permitem continuidade de gestão; licenças especiais podem ter prazos próprios."
+        ],
+        "highlights": [
+          {
+            "text": "não tinha prazo periódico genérico de renovação",
+            "kind": "core",
+            "start": 37,
+            "end": 84,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "obrigações distintas",
+            "kind": "condition",
+            "start": 156,
+            "end": 176,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Documento",
+            "Função",
+            "Gatilho típico"
+          ],
+          "rows": [
+            [
+              "Habite-se",
+              "Regularidade da ocupação",
+              "Conclusão/regularização, conforme município"
+            ],
+            [
+              "Manual",
+              "Orientações de uso e manutenção",
+              "Atualizações pertinentes à edificação"
+            ],
+            [
+              "Registros de manutenção",
+              "Histórico e evidências",
+              "Realização de serviços e transferência da gestão"
+            ],
+            [
+              "Licenças específicas",
+              "Exigência administrativa própria",
+              "Prazos e condições legais aplicáveis"
+            ]
+          ]
+        },
+        "formula_explanation": "Não existe periodicidade universal para toda documentação; consultar tipo de documento, edição normativa, legislação local e evento que dispara atualização.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1408",
@@ -1621,7 +3217,82 @@
       "source": "Estudo Petrobras 07, CAND-P07-0026–0030; fundamentos de hidrologia.",
       "front": "Diferencie E, T e ET; explique temperatura, vento, umidade, salinidade e altitude pelo gradiente de vapor e balanço energético.",
       "back": "Evaporação é transferência de água de superfícies para a atmosfera; transpiração é liberação pelas plantas; ET=E+T. Mantidos os demais fatores, temperatura e vento tendem a aumentar E; maior umidade relativa e salinidade tendem a diminuir; altitude não tem efeito universal.",
-      "mnemonic": "Calor e vento favorecem; ar úmido e sal reduzem; altitude depende; ET soma E e T."
+      "mnemonic": "Calor e vento favorecem; ar úmido e sal reduzem; altitude depende; ET soma E e T.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Evaporação é transferência de água de superfícies para a atmosfera; transpiração é liberação pelas plantas; ET=E+T. Mantidos os demais fatores, temperatura e vento tendem a aumentar E; maior umidade relativa e salinidade tendem a diminuir; altitude não tem efeito universal.",
+          "Evaporação exige energia e gradiente de pressão de vapor. Aquecimento aumenta a pressão de saturação; vento remove ar úmido próximo à superfície; maior umidade reduz gradiente; sais reduzem atividade da água. Altitude altera pressão, radiação, temperatura e vento simultaneamente."
+        ],
+        "highlights": [
+          {
+            "text": "ET=E+T",
+            "kind": "core",
+            "start": 108,
+            "end": 114,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "temperatura e vento tendem a aumentar E",
+            "kind": "condition",
+            "start": 144,
+            "end": 183,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "umidade relativa e salinidade tendem a diminuir",
+            "kind": "condition",
+            "start": 191,
+            "end": 238,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "altitude não tem efeito universal",
+            "kind": "exception",
+            "start": 240,
+            "end": 273,
+            "color": "#F5C2D0"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Fator (demais iguais)",
+            "Tendência",
+            "Razão"
+          ],
+          "rows": [
+            [
+              "Temperatura↑",
+              "E↑",
+              "Maior pressão de saturação/energia disponível"
+            ],
+            [
+              "Vento↑",
+              "E geralmente↑",
+              "Renovação do ar junto à superfície"
+            ],
+            [
+              "UR↑",
+              "E↓",
+              "Menor gradiente de vapor"
+            ],
+            [
+              "Salinidade↑",
+              "E↓",
+              "Menor atividade da água"
+            ],
+            [
+              "Altitude↑",
+              "Indeterminada isoladamente",
+              "Fatores climáticos concorrentes"
+            ]
+          ]
+        },
+        "formula_explanation": "ET=E+T em mm por período, para a mesma área e intervalo; UR=100·e/es em %. Uma representação simplificada do potencial evaporativo depende de es(Tsuperfície)−e(ar), ajustado à atividade da água e às condições aerodinâmicas.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1411",
@@ -1691,7 +3362,60 @@
       "source": "NBR 7188:1984 e NBR 7188:2024, modelos de cargas móveis rodoviárias.",
       "front": "Compare Classe 30 da NBR 7188:1984 e veículo-padrão TB-450 da edição 2024. Diferencie peso total, força por roda/eixo e carga distribuída do modelo.",
       "back": "Classe 30 histórica identifica veículo-tipo de peso total 300 kN; TB-450 identifica veículo-padrão de 450 kN na edição posterior. São modelos normativos, não nomes intercambiáveis nem cargas por roda.",
-      "mnemonic": "Classe 30 → 300 kN; TB-450 → 450 kN; são pesos totais de modelos distintos."
+      "mnemonic": "Classe 30 → 300 kN; TB-450 → 450 kN; são pesos totais de modelos distintos.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Classe 30 histórica identifica veículo-tipo de peso total 300 kN; TB-450 identifica veículo-padrão de 450 kN na edição posterior. São modelos normativos, não nomes intercambiáveis nem cargas por roda.",
+          "A carga móvel é posicionada para maximizar efeitos estruturais, combinando veículo e cargas distribuídas previstas. A identificação da classe é apenas um componente do modelo; geometria e coeficientes dependem da edição."
+        ],
+        "highlights": [
+          {
+            "text": "300 kN",
+            "kind": "core",
+            "start": 58,
+            "end": 64,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "450 kN",
+            "kind": "condition",
+            "start": 102,
+            "end": 108,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "não nomes intercambiáveis nem cargas por roda",
+            "kind": "exception",
+            "start": 154,
+            "end": 199,
+            "color": "#F5C2D0"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Modelo",
+            "Edição",
+            "Peso total"
+          ],
+          "rows": [
+            [
+              "Classe 30",
+              "1984",
+              "300 kN"
+            ],
+            [
+              "TB-450",
+              "2024 (registro)",
+              "450 kN"
+            ]
+          ]
+        },
+        "formula_explanation": "450/300=1,5: o peso total nominal do veículo-padrão é 50% maior. Não concluir que todos os esforços de cálculo crescem 50%, pois os modelos e posicionamentos podem diferir.",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1421",
@@ -1762,7 +3486,72 @@
       "source": "NBR 15220, conceitos de desempenho térmico; registros P06-NBR15220-01/05/06.",
       "front": "Explique condutividade, resistência de camada e transmitância; calcule a resistência total de camadas em série e indique o efeito da espessura e da condutividade.",
       "back": "λ mede facilidade de conduzir calor; R=e/λ para camada homogênea plana; Rtotal soma resistências em série e superficiais aplicáveis; U=1/Rtotal. Quanto maior Rtotal, menor U e menor fluxo sob mesma diferença de temperatura.",
-      "mnemonic": "λ conduz, R resiste, U é o inverso da resistência total."
+      "mnemonic": "λ conduz, R resiste, U é o inverso da resistência total.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "λ mede facilidade de conduzir calor; R=e/λ para camada homogênea plana; Rtotal soma resistências em série e superficiais aplicáveis; U=1/Rtotal. Quanto maior Rtotal, menor U e menor fluxo sob mesma diferença de temperatura.",
+          "Em condução unidimensional estacionária, cada camada cria queda de temperatura proporcional à resistência. Espessura maior ou λ menor eleva R. Superfícies interna/externa acrescentam resistências de troca térmica."
+        ],
+        "highlights": [
+          {
+            "text": "R=e/λ",
+            "kind": "core",
+            "start": 37,
+            "end": 42,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "Rtotal soma resistências em série",
+            "kind": "condition",
+            "start": 72,
+            "end": 105,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "U=1/Rtotal",
+            "kind": "condition",
+            "start": 133,
+            "end": 143,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "Quanto maior Rtotal, menor U",
+            "kind": "condition",
+            "start": 145,
+            "end": 173,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Significado",
+            "Aumenta com"
+          ],
+          "rows": [
+            [
+              "λ",
+              "Condução do material",
+              "Facilidade de conduzir"
+            ],
+            [
+              "R",
+              "Isolamento por camada",
+              "Espessura maior ou λ menor"
+            ],
+            [
+              "U",
+              "Transmissão por conjunto",
+              "Rtotal menor"
+            ]
+          ]
+        },
+        "formula_explanation": "λ [W/(m·K)], e [m], R [m²·K/W], U [W/(m²·K)]. Rtotal=Rsi+Σ(ei/λi)+Rse; q''=U·ΔT [W/m²].",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     },
     {
       "id": "CARD-1426",
@@ -1835,7 +3624,75 @@
       "source": "NBR 15220, conceitos; registros P06-NBR15220-03/04/07/08/09.",
       "front": "Defina densidade, calor específico, capacidade térmica por área, difusividade e atraso. Calcule CT e a para uma camada e explique por que capacidade e transmitância não são a mesma propriedade.",
       "back": "ρ é massa por volume aparente; c é energia por massa e kelvin; CT=Σρce é capacidade térmica por área; a=λ/(ρc) indica difusão térmica; atraso térmico é defasagem temporal entre oscilações térmicas exterior/interior.",
-      "mnemonic": "ρc armazena por volume; ρce por área; λ/(ρc) difunde; atraso é tempo."
+      "mnemonic": "ρc armazena por volume; ρce por área; λ/(ρc) difunde; atraso é tempo.",
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "ρ é massa por volume aparente; c é energia por massa e kelvin; CT=Σρce é capacidade térmica por área; a=λ/(ρc) indica difusão térmica; atraso térmico é defasagem temporal entre oscilações térmicas exterior/interior.",
+          "Materiais com maior capacidade volumétrica ρc armazenam mais energia para mesma variação de temperatura. A difusividade combina condução e armazenamento: quanto maior a, mais rapidamente se propagam variações em um modelo homogêneo. Atraso depende da composição, espessura, condições e periodicidade."
+        ],
+        "highlights": [
+          {
+            "text": "CT=Σρce",
+            "kind": "core",
+            "start": 63,
+            "end": 70,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "a=λ/(ρc)",
+            "kind": "condition",
+            "start": 102,
+            "end": 110,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "defasagem temporal",
+            "kind": "condition",
+            "start": 152,
+            "end": 170,
+            "color": "#CDEAE1"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Controla",
+            "Unidade"
+          ],
+          "rows": [
+            [
+              "ρ",
+              "Massa por volume",
+              "kg/m³"
+            ],
+            [
+              "c",
+              "Energia por massa/K",
+              "J/(kg·K)"
+            ],
+            [
+              "CT",
+              "Armazenamento por área/K",
+              "kJ/(m²·K), após conversão"
+            ],
+            [
+              "a",
+              "Propagação térmica",
+              "m²/s"
+            ],
+            [
+              "Atraso",
+              "Defasagem temporal",
+              "h"
+            ]
+          ]
+        },
+        "formula_explanation": "ρ [kg/m³], c [J/(kg·K)], CT [J/(m²·K)], a [m²/s], atraso [h]. CT=Σρi ci ei; a=λ/(ρc). Dividir CT em J por 1000 para kJ/(m²·K).",
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
     }
   ]
 }
