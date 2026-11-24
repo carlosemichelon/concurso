@@ -1,0 +1,671 @@
+{
+  "format": "BancoMestrePublicRecoveryVC14",
+  "source_catalog_blob": "3073f0b515b85113ef3b769dded642d9423c7559",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1525",
+      "title": "Pilares curtos e esbeltos: mecanismos de falha",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie pilares curtos e esbeltos pelo mecanismo predominante, calcule a esbeltez nas duas direções e explique quando os efeitos locais de segunda ordem podem ser dispensados segundo o critério estudado."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Um pilar curto tende a atingir a resistência da seção antes de sofrer instabilidade global dominante. Em pilares esbeltos, deslocamentos laterais e momentos de segunda ordem ganham importância e podem limitar a resistência antes da capacidade da seção isolada. A esbeltez geométrica é a razão entre comprimento efetivo e raio de giração, calculada para cada direção. Na NBR 6118:2023 estudada, a dispensa de efeitos locais de segunda ordem depende de comparar a esbeltez com o limite λ₁, e não de classificar o pilar apenas pela altura."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "PETRO21-Q010; NBR 6118:2023, 15.8.2, conforme referência histórica do cartão; mecânica clássica de Euler."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "A força normal compressiva atua sobre a geometria deformada e gera momentos adicionais, aumentando a curvatura. Para concreto armado, fissuração, fluência, excentricidade e rigidez efetiva modificam essa resposta; Euler é um modelo ideal elástico, não resistência de cálculo de um pilar real."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "λ=le/i; i=√(I/A). Em seção retangular, para flexão com profundidade h, i=h/√12. Para le=300 cm e seção 20×40 cm: λ na direção de profundidade 20 cm≈52,0; na de 40 cm≈26,0. Na edição 2023, λ₁ está limitado entre 35 e 90; não adotar 35 ou 90 como classificação universal."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\nCurto | Resistência da seção tende a dominar\nEsbelto | Instabilidade e segunda ordem ganham importância\nλ | le/i, adimensional\nλ₁ | Limite de dispensa de efeitos locais, dependente da peça"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Para a mesma seção e condições de rigidez, dobrar le reduz a força de Euler para um quarto. Uma seção retangular pode ter comportamentos distintos nos dois planos de flexão; verifique ambos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1493: 2ª ordem; CARD-1490: Flambagem; CARD-0579: Esbeltez; CARD-0333: 16. FLAMBAGEM DE EULER"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "A comparação curto/esbelto é mecânica; o limite normativo de dispensa não é uma fronteira universal de ruptura. Pilar-parede é classificação geométrica diferente. Conferir a edição vigente antes do projeto."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Altura sozinha não define esbeltez. Não usar o maior i para verificar a direção mais desfavorável. Não igualar Euler à resistência de concreto armado."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Curto: seção; esbelto: deslocamento. λ = comprimento efetivo dividido pelo raio de giração."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Um pilar curto tende a atingir a resistência da seção antes de sofrer instabilidade global dominante. Em pilares esbeltos, deslocamentos laterais e momentos de segunda ordem ganham importância e podem limitar a resistência antes da capacidade da seção isolada. A esbeltez geométrica é a razão entre comprimento efetivo e raio de giração, calculada para cada direção. Na NBR 6118:2023 estudada, a dispensa de efeitos locais de segunda ordem depende de comparar a esbeltez com o limite λ₁, e não de classificar o pilar apenas pela altura.",
+          "A força normal compressiva atua sobre a geometria deformada e gera momentos adicionais, aumentando a curvatura. Para concreto armado, fissuração, fluência, excentricidade e rigidez efetiva modificam essa resposta; Euler é um modelo ideal elástico, não resistência de cálculo de um pilar real.",
+          "A comparação curto/esbelto é mecânica; o limite normativo de dispensa não é uma fronteira universal de ruptura. Pilar-parede é classificação geométrica diferente. Conferir a edição vigente antes do projeto."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "resistência da seção",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "momentos de segunda ordem",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "cada direção",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "Curto",
+              "Resistência da seção tende a dominar"
+            ],
+            [
+              "Esbelto",
+              "Instabilidade e segunda ordem ganham importância"
+            ],
+            [
+              "λ",
+              "le/i, adimensional"
+            ],
+            [
+              "λ₁",
+              "Limite de dispensa de efeitos locais, dependente da peça"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Esbeltez geométrica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>λ</mi><mo>=</mo><mfrac><msub><mi>l</mi><mi>e</mi></msub><mi>i</mi></mfrac><mo>,</mo><mi>i</mi><mo>=</mo><msqrt><mfrac><mi>I</mi><mi>A</mi></mfrac></msqrt></math>",
+            "units": "λ adimensional; le e i na mesma unidade"
+          },
+          {
+            "title": "Raio de giração de seção retangular",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>i</mi><mo>=</mo><mfrac><mi>h</mi><msqrt><mn>12</mn></msqrt></mfrac></math>",
+            "units": "h e i na mesma unidade"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Diferencie pilares curtos e esbeltos pelo mecanismo predominante, calcule a esbeltez nas duas direções e explique quando os efeitos locais de segunda ordem podem ser dispensados segundo o critério estudado.",
+      "back": "Um pilar curto tende a atingir a resistência da seção antes de sofrer instabilidade global dominante. Em pilares esbeltos, deslocamentos laterais e momentos de segunda ordem ganham importância e podem limitar a resistência antes da capacidade da seção isolada. A esbeltez geométrica é a razão entre comprimento efetivo e raio de giração, calculada para cada direção. Na NBR 6118:2023 estudada, a dispensa de efeitos locais de segunda ordem depende de comparar a esbeltez com o limite λ₁, e não de classificar o pilar apenas pela altura.",
+      "source": "PETRO21-Q010; NBR 6118:2023, 15.8.2, conforme referência histórica do cartão; mecânica clássica de Euler.",
+      "mnemonic": "Curto: seção; esbelto: deslocamento. λ = comprimento efetivo dividido pelo raio de giração.",
+      "related_card_ids": [
+        "CARD-1493",
+        "CARD-1490",
+        "CARD-0579",
+        "CARD-0333"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1530",
+      "title": "Lajes nervuradas: faixas de espaçamento e verificações",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Na edição histórica 2003/2007 da NBR 6118, compare as verificações de flexão da mesa e cisalhamento das nervuras nas faixas de espaçamento entre eixos até 65 cm, até 110 cm e acima de 110 cm. Explique a exceção de 90 cm e 12 cm."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "No critério histórico da NBR 6118:2003/2007, para e≤65 cm admite-se dispensar a verificação de flexão da mesa e verificar cisalhamento segundo critérios de laje. Para 65<e≤110 cm, verifica-se a flexão da mesa e, em regra, o cisalhamento das nervuras como vigas; excepcionalmente, para e≤90 cm e largura média da nervura superior a 12 cm, admite-se o critério de laje no cisalhamento. Para e>110 cm, a mesa deve ser dimensionada como laje maciça apoiada sobre grelha de vigas."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "PETRO21-Q002 V001_11M; NBR 6118:2003/2007, 13.2.4.2 (edição da prova). A edição 2023 possui redação distinta, inclusive menção a flecha da mesa e armadura mínima na primeira faixa: não transportar o gabarito antigo sem conferir a versão aplicável. Instituto de Engenharia, apresentação NBR 6118:2023 (https://www.institutodeengenharia.org.br/site/wp-content/uploads/2023/07/NBR-6118-IE-SP-2023.pdf)."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "A mesa distribui ações e trabalha entre nervuras, que resistem a esforços de flexão e cisalhamento. Aumentar o espaçamento aumenta a importância da verificação própria da mesa. A exceção intermediária modifica o critério de cisalhamento, não a exigência de verificar flexão da mesa."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "e é distância entre eixos, não vão livre. Os limites 65, 90, 110 e 12 estão em cm. Em e=90 cm, bw,méd=13 cm satisfaz a exceção; bw,méd=12 cm não satisfaz a desigualdade estrita."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\ne≤65 | Dispensa histórica da flexão da mesa; cisalhamento como laje\n65<e≤110 | Flexão da mesa; cisalhamento como viga em regra\ne≤90 e bw,méd>12 (faixa intermediária) | Exceção: cisalhamento como laje\ne>110 | Mesa como laje maciça sobre grelha"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Para e=90, 100 e 120 cm, somente o terceiro caso entra na faixa de dimensionamento da mesa como laje maciça sobre grelha. O caso de 90 cm pode usar a exceção de cisalhamento se a largura média também atender."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0334: Continuidade entre lajes; CARD-0337: 02. CLASSIFICAÇÃO DAS LAJES PELA RELAÇÃO DOS VÃOS"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "Aplicar as faixas à edição histórica identificada. Em 2023 a redação da primeira faixa deve ser lida separadamente; espessura, armaduras, flechas e demais requisitos não são dispensados genericamente. Cotejo da emenda de 2026 não realizado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "65 pertence à primeira faixa; 110 à intermediária; a exceção usa >12, não ≥12. Não confundir distância entre eixos e vão livre."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "65 simplifica; 90 com nervura >12 excepciona; acima de 110, mesa maciça."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "No critério histórico da NBR 6118:2003/2007, para e≤65 cm admite-se dispensar a verificação de flexão da mesa e verificar cisalhamento segundo critérios de laje. Para 65<e≤110 cm, verifica-se a flexão da mesa e, em regra, o cisalhamento das nervuras como vigas; excepcionalmente, para e≤90 cm e largura média da nervura superior a 12 cm, admite-se o critério de laje no cisalhamento. Para e>110 cm, a mesa deve ser dimensionada como laje maciça apoiada sobre grelha de vigas.",
+          "A mesa distribui ações e trabalha entre nervuras, que resistem a esforços de flexão e cisalhamento. Aumentar o espaçamento aumenta a importância da verificação própria da mesa. A exceção intermediária modifica o critério de cisalhamento, não a exigência de verificar flexão da mesa.",
+          "Aplicar as faixas à edição histórica identificada. Em 2023 a redação da primeira faixa deve ser lida separadamente; espessura, armaduras, flechas e demais requisitos não são dispensados genericamente. Cotejo da emenda de 2026 não realizado."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "cisalhamento segundo critérios de laje",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "e≤65 cm",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "65<e≤110 cm",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "largura média da nervura superior a 12 cm",
+            "color": "#FECDD3"
+          },
+          {
+            "kind": "condition",
+            "text": "e>110 cm",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "e≤65",
+              "Dispensa histórica da flexão da mesa; cisalhamento como laje"
+            ],
+            [
+              "65<e≤110",
+              "Flexão da mesa; cisalhamento como viga em regra"
+            ],
+            [
+              "e≤90 e bw,méd>12 (faixa intermediária)",
+              "Exceção: cisalhamento como laje"
+            ],
+            [
+              "e>110",
+              "Mesa como laje maciça sobre grelha"
+            ]
+          ]
+        },
+        "formulas": [],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Na edição histórica 2003/2007 da NBR 6118, compare as verificações de flexão da mesa e cisalhamento das nervuras nas faixas de espaçamento entre eixos até 65 cm, até 110 cm e acima de 110 cm. Explique a exceção de 90 cm e 12 cm.",
+      "back": "No critério histórico da NBR 6118:2003/2007, para e≤65 cm admite-se dispensar a verificação de flexão da mesa e verificar cisalhamento segundo critérios de laje. Para 65<e≤110 cm, verifica-se a flexão da mesa e, em regra, o cisalhamento das nervuras como vigas; excepcionalmente, para e≤90 cm e largura média da nervura superior a 12 cm, admite-se o critério de laje no cisalhamento. Para e>110 cm, a mesa deve ser dimensionada como laje maciça apoiada sobre grelha de vigas.",
+      "source": "PETRO21-Q002 V001_11M; NBR 6118:2003/2007, 13.2.4.2 (edição da prova). A edição 2023 possui redação distinta, inclusive menção a flecha da mesa e armadura mínima na primeira faixa: não transportar o gabarito antigo sem conferir a versão aplicável. Instituto de Engenharia, apresentação NBR 6118:2023 (https://www.institutodeengenharia.org.br/site/wp-content/uploads/2023/07/NBR-6118-IE-SP-2023.pdf).",
+      "mnemonic": "65 simplifica; 90 com nervura >12 excepciona; acima de 110, mesa maciça.",
+      "related_card_ids": [
+        "CARD-0334",
+        "CARD-0337"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1531",
+      "title": "Cobrimento nominal: concreto armado e protendido por edição",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Compare o objeto do cobrimento nominal do concreto protendido na NBR 6118:2003/2007 com as notas das tabelas de 2014/2023. Explique o gabarito histórico para lajes, vigas e pilares e dê um exemplo na CAA II."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na questão histórica baseada na NBR 6118:2003/2007, o cobrimento nominal da armadura passiva envolvente da bainha era superior ao do concreto armado em lajes, vigas e pilares. Nas edições 2014/2023, a nota da Tabela 7.2 especifica que os valores de concreto protendido se referem à bainha ou aos elementos ativos; a armadura passiva segue os cobrimentos do concreto armado. Assim, é indispensável identificar a edição, o elemento e qual armadura ou bainha está sendo protegida."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "PETRO21-Q004 V001_11M; NBR 6118:2003/2007 e 2014/2023, Tabela 7.2; consulta de referência para versão 2023 corrigida 2024. Cotejo da emenda 2026 pendente."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "A camada de concreto protege as armaduras e o sistema de protensão da exposição ambiental e contribui para durabilidade. O aço ativo sob elevada tensão merece proteção específica. Diferenciar a bainha que contém a armadura ativa da armadura passiva que pode circundá-la."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Na CAA II, para Δc=10 mm, o exemplo histórico compara CP=35 mm com CA laje=25 mm e CA viga/pilar=30 mm. Na edição 2023, CA laje=25 mm, CA viga/pilar=30 mm; bainha/elementos ativos CP laje=30 mm e CP viga/pilar=35 mm. A armadura passiva segue a linha de CA."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\n2003/2007 | Questão histórica: cobrimento da passiva envolvente\n2014/2023 | Linha de CP: bainha/elementos ativos\nPassiva em 2014/2023 | Critérios de CA\nCAA II, laje 2023 | Passiva 25 mm; bainha/ativa 30 mm (Δc=10 mm)"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Uma questão de 2007 que pergunta se a passiva envolvente tem cobrimento superior apenas em vigas deve ser respondida conforme a tabela histórica, não pela nota posterior. Em uma laje protendida de CAA II de 2023, não aplicar automaticamente 30 mm à armadura passiva."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1033: 35. COBRIMENTO NOMINAL; CARD-1034: 36. CLASSES DE AGRESSIVIDADE AMBIENTAL; CARD-1528: Armadura ativa, ancoragens e difusão na pós-tração"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "Valores dependem de CAA, elemento, tolerância e condições normativas. Não generalizar o exemplo para outras exposições ou para a versão 2026 sem cotejo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar armadura ativa por passiva. Não responder uma prova histórica com tabela posterior, nem transportar o gabarito histórico à edição atual."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Histórico: superior nos três. Edições 2014/2023: bainha/ativa ≠ passiva."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Na questão histórica baseada na NBR 6118:2003/2007, o cobrimento nominal da armadura passiva envolvente da bainha era superior ao do concreto armado em lajes, vigas e pilares. Nas edições 2014/2023, a nota da Tabela 7.2 especifica que os valores de concreto protendido se referem à bainha ou aos elementos ativos; a armadura passiva segue os cobrimentos do concreto armado. Assim, é indispensável identificar a edição, o elemento e qual armadura ou bainha está sendo protegida.",
+          "A camada de concreto protege as armaduras e o sistema de protensão da exposição ambiental e contribui para durabilidade. O aço ativo sob elevada tensão merece proteção específica. Diferenciar a bainha que contém a armadura ativa da armadura passiva que pode circundá-la.",
+          "Valores dependem de CAA, elemento, tolerância e condições normativas. Não generalizar o exemplo para outras exposições ou para a versão 2026 sem cotejo."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "armadura passiva",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "bainha ou aos elementos ativos",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "2014/2023",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "2003/2007",
+              "Questão histórica: cobrimento da passiva envolvente"
+            ],
+            [
+              "2014/2023",
+              "Linha de CP: bainha/elementos ativos"
+            ],
+            [
+              "Passiva em 2014/2023",
+              "Critérios de CA"
+            ],
+            [
+              "CAA II, laje 2023",
+              "Passiva 25 mm; bainha/ativa 30 mm (Δc=10 mm)"
+            ]
+          ]
+        },
+        "formulas": [],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Compare o objeto do cobrimento nominal do concreto protendido na NBR 6118:2003/2007 com as notas das tabelas de 2014/2023. Explique o gabarito histórico para lajes, vigas e pilares e dê um exemplo na CAA II.",
+      "back": "Na questão histórica baseada na NBR 6118:2003/2007, o cobrimento nominal da armadura passiva envolvente da bainha era superior ao do concreto armado em lajes, vigas e pilares. Nas edições 2014/2023, a nota da Tabela 7.2 especifica que os valores de concreto protendido se referem à bainha ou aos elementos ativos; a armadura passiva segue os cobrimentos do concreto armado. Assim, é indispensável identificar a edição, o elemento e qual armadura ou bainha está sendo protegida.",
+      "source": "PETRO21-Q004 V001_11M; NBR 6118:2003/2007 e 2014/2023, Tabela 7.2; consulta de referência para versão 2023 corrigida 2024. Cotejo da emenda 2026 pendente.",
+      "mnemonic": "Histórico: superior nos três. Edições 2014/2023: bainha/ativa ≠ passiva.",
+      "related_card_ids": [
+        "CARD-1033",
+        "CARD-1034",
+        "CARD-1528"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1532",
+      "title": "Canalizações embutidas: proibições e exceção térmica",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Na NBR 6118:2023, quais três situações impedem canalizações embutidas em elementos estruturais? Diferencie pressão interna, diferença de temperatura ambiente e drenagem em pilares."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O item 13.2.6 da NBR 6118:2023 impede canalizações embutidas destinadas a pressões internas superiores a 0,3 MPa; também impede as que conduzem fluido cuja temperatura difere da ambiente em mais de 15 °C, sem isolamento adequado, salvo verificação específica do efeito térmico. Em pilares de concreto, canalizações imersas no material ou em vazios internos não são admitidas sem aberturas para drenagem. Atender a esses três critérios não equivale à aprovação estrutural integral da instalação."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "PETRO21-Q007 V001_11M; NBR 6118:2023, 13.2.6. Texto de referência de 2023 consultado; não foi cotejada a emenda 2026."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "Diferença térmica pode causar dilatações diferenciais e tensões no elemento. Pressão elevada aumenta consequências de falhas da tubulação. Drenagem em pilares limita o acúmulo de líquido em espaços internos. O projeto deve considerar também interferência com seção, armaduras e cobrimento."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "0,3 MPa=300 kPa=3 bar; ΔT=|Tfluido−Tambiente|. Exemplo: fluido a 40 °C e ambiente a 20 °C → ΔT=20 °C. Sem isolamento adequado, exige-se verificação específica para admitir a situação térmica. Tubulação de 0,35 MPa excede o limite de pressão."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\nPressão interna >0,3 MPa | Proibida\nΔT>15 °C, isolamento inadequado | Proibida, salvo verificação térmica específica\nPilar sem drenagem | Proibida, inclusive em vazios internos\nΔT=15 °C ou p=0,3 MPa | Não excedem os limites, mas demais verificações continuam"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Uma tubulação de 0,28 MPa e fluido a 45 °C em ambiente a 25 °C não excede o limite de pressão, porém o critério térmico precisa ser atendido. Se estiver em pilar, a drenagem também é necessária."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1535: NBR 6118:13.2.5.1 — furo transversal à largura, região de tração, distâncias"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "A exceção de verificação específica é do requisito térmico; não é autorização geral para exceder o limite de pressão. A referência é a temperatura ambiente, não automaticamente a temperatura do concreto. Conferir a edição vigente no projeto."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não converter 0,3 MPa em 0,3 kPa. Não interpretar 15 °C como temperatura absoluta do fluido. Não confundir ausência de isolamento com proibição sem exceção."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "0,3 pressão; 15 diferença térmica com ressalva; pilar drena."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O item 13.2.6 da NBR 6118:2023 impede canalizações embutidas destinadas a pressões internas superiores a 0,3 MPa; também impede as que conduzem fluido cuja temperatura difere da ambiente em mais de 15 °C, sem isolamento adequado, salvo verificação específica do efeito térmico. Em pilares de concreto, canalizações imersas no material ou em vazios internos não são admitidas sem aberturas para drenagem. Atender a esses três critérios não equivale à aprovação estrutural integral da instalação.",
+          "Diferença térmica pode causar dilatações diferenciais e tensões no elemento. Pressão elevada aumenta consequências de falhas da tubulação. Drenagem em pilares limita o acúmulo de líquido em espaços internos. O projeto deve considerar também interferência com seção, armaduras e cobrimento.",
+          "A exceção de verificação específica é do requisito térmico; não é autorização geral para exceder o limite de pressão. A referência é a temperatura ambiente, não automaticamente a temperatura do concreto. Conferir a edição vigente no projeto."
+        ],
+        "highlights": [
+          {
+            "kind": "condition",
+            "text": "0,3 MPa",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "mais de 15 °C",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "salvo verificação específica do efeito térmico",
+            "color": "#FECDD3"
+          },
+          {
+            "kind": "core",
+            "text": "aberturas para drenagem",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "Pressão interna >0,3 MPa",
+              "Proibida"
+            ],
+            [
+              "ΔT>15 °C, isolamento inadequado",
+              "Proibida, salvo verificação térmica específica"
+            ],
+            [
+              "Pilar sem drenagem",
+              "Proibida, inclusive em vazios internos"
+            ],
+            [
+              "ΔT=15 °C ou p=0,3 MPa",
+              "Não excedem os limites, mas demais verificações continuam"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Diferença de temperatura",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Δ</mi><mi>T</mi><mo>=</mo><mo>|</mo><msub><mi>T</mi><mi>fluido</mi></msub><mo>−</mo><msub><mi>T</mi><mi>ambiente</mi></msub><mo>|</mo></math>",
+            "units": "°C de diferença"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Na NBR 6118:2023, quais três situações impedem canalizações embutidas em elementos estruturais? Diferencie pressão interna, diferença de temperatura ambiente e drenagem em pilares.",
+      "back": "O item 13.2.6 da NBR 6118:2023 impede canalizações embutidas destinadas a pressões internas superiores a 0,3 MPa; também impede as que conduzem fluido cuja temperatura difere da ambiente em mais de 15 °C, sem isolamento adequado, salvo verificação específica do efeito térmico. Em pilares de concreto, canalizações imersas no material ou em vazios internos não são admitidas sem aberturas para drenagem. Atender a esses três critérios não equivale à aprovação estrutural integral da instalação.",
+      "source": "PETRO21-Q007 V001_11M; NBR 6118:2023, 13.2.6. Texto de referência de 2023 consultado; não foi cotejada a emenda 2026.",
+      "mnemonic": "0,3 pressão; 15 diferença térmica com ressalva; pilar drena.",
+      "related_card_ids": [
+        "CARD-1535"
+      ],
+      "related_question_ids": []
+    },
+    {
+      "id": "CARD-1533",
+      "title": "Vão efetivo de vigas: cálculo em apoios iguais e diferentes",
+      "satellites": [],
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie vão livre, vão entre eixos e vão efetivo de uma viga. Use a regra de 0,3h e metade da largura de cada apoio para calcular o vão de uma viga com l0=500 cm, t1=t2=40 cm e h=50 cm."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Segundo o critério estudado da NBR 6118:2023, o vão efetivo de uma viga é a soma do vão livre com duas parcelas de extremidade. Cada parcela é o menor valor entre metade da largura do apoio correspondente e 0,3 vezes a altura da viga. Com vão livre de 500 cm, apoios de 40 cm e altura de 50 cm, metade do apoio é 20 cm e 0,3h é 15 cm. Logo, cada parcela é 15 cm e o vão efetivo é 530 cm. Não se deve usar automaticamente a distância entre eixos."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "PETRO21-Q009 V001_11M; ABNT NBR 6118:2023, 14.6.2.4. Referência 2023 consultada; emenda 2026 não cotejada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Definição e mecanismo",
+          "texto": "O cálculo incorpora uma contribuição limitada de cada região de apoio, representando a extensão efetiva utilizada no modelo. Apoios largos não aumentam indefinidamente a parcela, pois o valor é limitado por uma fração da altura da viga."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "lef=l0+a1+a2; ai=min(ti/2;0,3h). Exemplo assimétrico: l0=500, t1=20, t2=50, h=50 cm → a1=10 cm, a2=15 cm, lef=525 cm. Usar todas as medidas na mesma unidade."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro técnico",
+          "texto": "Aspecto | Critério\nVão livre | Distância entre faces internas\nVão entre eixos | Distância entre centros dos apoios\nVão efetivo | Vão livre + parcelas limitadas\nParcela de extremidade | Menor entre ti/2 e 0,3h"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se h=100 cm e t1=t2=40 cm, o limite 0,3h vale 30 cm e a metade de cada apoio vale 20 cm. Assim, o vão efetivo passa a 540 cm para o mesmo vão livre."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0334: Continuidade entre lajes"
+        },
+        {
+          "ord": 9,
+          "titulo": "Hipóteses e exceções",
+          "texto": "Usar a altura da viga, não a altura útil d nem a largura do apoio no termo 0,3h. Aplicar a regra às condições normativas pertinentes; não substitui verificações de resistência e serviço."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "O erro frequente é somar apenas as metades dos apoios, desprezando o menor valor em cada extremidade. No exemplo original, 540 cm e 500 cm não são o vão efetivo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Livre + menor em cada lado: meio apoio ou 30% da altura."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Segundo o critério estudado da NBR 6118:2023, o vão efetivo de uma viga é a soma do vão livre com duas parcelas de extremidade. Cada parcela é o menor valor entre metade da largura do apoio correspondente e 0,3 vezes a altura da viga. Com vão livre de 500 cm, apoios de 40 cm e altura de 50 cm, metade do apoio é 20 cm e 0,3h é 15 cm. Logo, cada parcela é 15 cm e o vão efetivo é 530 cm. Não se deve usar automaticamente a distância entre eixos.",
+          "O cálculo incorpora uma contribuição limitada de cada região de apoio, representando a extensão efetiva utilizada no modelo. Apoios largos não aumentam indefinidamente a parcela, pois o valor é limitado por uma fração da altura da viga.",
+          "Usar a altura da viga, não a altura útil d nem a largura do apoio no termo 0,3h. Aplicar a regra às condições normativas pertinentes; não substitui verificações de resistência e serviço."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "menor valor",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "0,3 vezes a altura da viga",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "530 cm",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Aspecto",
+            "Critério"
+          ],
+          "rows": [
+            [
+              "Vão livre",
+              "Distância entre faces internas"
+            ],
+            [
+              "Vão entre eixos",
+              "Distância entre centros dos apoios"
+            ],
+            [
+              "Vão efetivo",
+              "Vão livre + parcelas limitadas"
+            ],
+            [
+              "Parcela de extremidade",
+              "Menor entre ti/2 e 0,3h"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Vão efetivo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>l</mi><mi>ef</mi></msub><mo>=</mo><msub><mi>l</mi><mn>0</mn></msub><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mn>2</mn></msub></math>",
+            "units": "unidade de comprimento"
+          },
+          {
+            "title": "Parcela de apoio",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>a</mi><mi>i</mi></msub><mo>=</mo><mi>min</mi><mo>(</mo><mfrac><msub><mi>t</mi><mi>i</mi></msub><mn>2</mn></mfrac><mo>;</mo><mn>0,3</mn><mi>h</mi><mo>)</mo></math>",
+            "units": "t e h na mesma unidade"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "front": "Diferencie vão livre, vão entre eixos e vão efetivo de uma viga. Use a regra de 0,3h e metade da largura de cada apoio para calcular o vão de uma viga com l0=500 cm, t1=t2=40 cm e h=50 cm.",
+      "back": "Segundo o critério estudado da NBR 6118:2023, o vão efetivo de uma viga é a soma do vão livre com duas parcelas de extremidade. Cada parcela é o menor valor entre metade da largura do apoio correspondente e 0,3 vezes a altura da viga. Com vão livre de 500 cm, apoios de 40 cm e altura de 50 cm, metade do apoio é 20 cm e 0,3h é 15 cm. Logo, cada parcela é 15 cm e o vão efetivo é 530 cm. Não se deve usar automaticamente a distância entre eixos.",
+      "source": "PETRO21-Q009 V001_11M; ABNT NBR 6118:2023, 14.6.2.4. Referência 2023 consultada; emenda 2026 não cotejada.",
+      "mnemonic": "Livre + menor em cada lado: meio apoio ou 30% da altura.",
+      "related_card_ids": [
+        "CARD-0334"
+      ],
+      "related_question_ids": []
+    }
+  ]
+}
