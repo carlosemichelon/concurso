@@ -1,2 +1,1 @@
-# Prévia V348 / 023D
-Fonte: 3731ad0b6166ce3b0cb09406ca6bfd60f282d4e1. Reutiliza editor de imagens V053, leitor V305 e SRS V316 adaptados. Dados e gravações fictícios em memória, sem rede ou persistência. O portal principal continua inalterado.
+Prévia V348 / 023E. Fonte a501fd966932a2739243e456b9073dc0b8df8e10. Editor PDF e grifador originais adaptados. Bibliotecas locais verificadas; dados e gravações fictícios em memória. Exportação de cópia local; gravação Drive simulada. Nenhum dado real.
