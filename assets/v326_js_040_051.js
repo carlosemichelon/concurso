@@ -186,6 +186,8 @@
 (function(){
 'use strict';
 if(window.BancoMestrePDFSyncV130)return;
+const account=window.BMAccountRuntime||null;
+if(account){const refresh=async()=>{const records=account.pdfCatalog(),api=window.BancoMestrePDFGruposV036;await api.ready();api.registerExternal(records);docs.splice(0,docs.length,...records);document.documentElement.dataset.bm217PdfVerified='true';pdfRender();return {listed:records.length,found:records.length,source:'perfil individual'}};window.BancoMestrePDFSyncV130={refresh,get connected(){return true},roots:[],syncVersion:'perfil individual'};void refresh().catch(e=>console.warn('Catálogo PDF individual:',e.message));return}
 const ROOTS=[
  {id:'1yvwhb-W-vMUMu5DmikE3hR-i01cnrWdK',name:'DataBase_Concurso',group:''},
  {id:'1squNqRXuxfT1YRjT3i4nw8TRnFtLOcuE',name:'CONCURSOS – ENGENHARIA CIVIL',group:''},

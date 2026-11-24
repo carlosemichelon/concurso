@@ -1098,6 +1098,7 @@ window.BancoMestreReferenciasV124=Object.freeze({
 /* Banco Mestre V068 — grifador completo inspirado no fluxo funcional da Bússola Highlights. */
 (function BancoMestreGrifadorV068(){
 'use strict';
+const localStorage=window.BMAccountRuntime?.local||window.localStorage;
 const $=id=>document.getElementById(id);
 const dlg=$('pdfDialog'),wrap=$('pdfPageWrap'),pageCanvas=$('pdfLocalCanvas'),tools=$('pdfLocalTools'),marker=$('pdfMarker');
 const api=()=>window.BancoMestrePDFV042;
@@ -2236,6 +2237,7 @@ window.BancoMestreGrifosSyncCoreV103=api;
 /* V068 — painel de grifos avançado do documento no leitor PDF. */
 (function BancoMestreV064PainelGrifos(){
  'use strict';
+const localStorage=window.BMAccountRuntime?.local||window.localStorage;
  const $=id=>document.getElementById(id);
  const dialog=$('pdfDialog'),content=dialog?.querySelector('.bm-v046-pdf-content'),
   mode=$('pdfLocalMode'),tools=$('pdfLocalTools'),api=window.BancoMestrePDFV042;
@@ -2628,6 +2630,7 @@ window.BancoMestreGrifosSyncCoreV103=api;
 /* Banco Mestre V066 — backup local verificável e cópia consentida para Drive (sem sobrescrita). */
 (function BancoMestreV066DriveBackup(){
  'use strict';
+if(window.BMAccountRuntime)return; // envio legado não autorizado no modo conta
  const $=id=>document.getElementById(id);
  const library=$('grifos');
  if(!library||$('bm066DriveBackup'))return;

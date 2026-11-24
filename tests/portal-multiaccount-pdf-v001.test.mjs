@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {profilePdfs,profilePdfAccess,hydrateProfileMarks} from '../assets/multiaccount-pdf-v001.mjs';
+import {createAccountContext} from '../assets/multiaccount-storage-v001.mjs';
+const rec={id:'PDF-001',file_id:'sourceA',title:'Documento',group:'unknown',url:'https://evil.invalid'};
+const docs=profilePdfs([rec],['apoio_drive']);assert.equal(docs[0].id,rec.id);assert.equal(docs[0].group,'apoio_drive');assert.equal(docs[0].url,'https://drive.google.com/file/d/sourceA/view');assert.throws(()=>profilePdfs([rec,rec],[]));assert.throws(()=>profilePdfs([{...rec,id:'../x'}],[]));assert.throws(()=>profilePdfs([{...rec,file_id:''}],[]));
+const calls=[],session={async readPdf(id){calls.push(id);return {type:'application/pdf',size:100}}};const a=profilePdfAccess({session,profile:{privateData:{pdf:[rec]}},allowedGroups:['apoio_drive']});const b=profilePdfAccess({session,profile:{privateData:{pdf:[{...rec,file_id:'sourceB'}]}},allowedGroups:[]});
+assert.equal((await a.read(a.catalog()[0])).size,100);await assert.rejects(()=>a.read(b.catalog()[0]));assert.equal(calls.length,1);assert.equal(calls[0],'sourceA');assert.equal((await b.read(b.catalog()[0])).size,100);
+const data=new Map([['BM030_STROKES_PDF:old','legacy']]);const storage={get length(){return data.size},key:i=>[...data.keys()][i]??null,getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)},idb={open:(k,v)=>({k,v})};const ctx=s=>createAccountContext({sub:s,email:s+'@example.test',email_verified:true},storage,idb);
+const aa=ctx('A'),bb=ctx('B'),mark='BM030_STROKES_PDF:PDF-001:hash:P1';aa.local.setItem(mark,'A');bb.local.setItem(mark,'B');assert.equal(aa.local.length,1);assert.equal(aa.local.key(0),mark);assert.equal(aa.local.key(1),null);assert.equal(bb.local.getItem(mark),'B');assert.equal(data.get('BM030_STROKES_PDF:old'),'legacy');assert.notEqual(aa.openDatabase('BancoMestrePDFLocalV035',1).k,bb.openDatabase('BancoMestrePDFLocalV035',1).k);
+const core={SCHEMA:'mock',validate:b=>{assert.equal(b.schema,'mock')},plan:(local,b)=>({additions:1,conflicts:[],writes:b}),apply:(local,p)=>local.setItem('BM062_GRIFOS_META',p.writes[0].value)};
+assert.equal(hydrateProfileMarks(aa.local,[{schema:'mock',value:'A notes'}],core).additions,1);assert.equal(aa.local.getItem('BM062_GRIFOS_META'),'A notes');assert.equal(bb.local.getItem('BM062_GRIFOS_META'),null);assert.equal(hydrateProfileMarks(bb.local,[],core).additions,0);
+aa.close();assert.throws(()=>aa.local.length);assert.equal(bb.local.length,1);
+console.log('PASS PDF por perfil, catálogo, grifos locais e hidratação individual');

@@ -547,6 +547,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 'use strict';
 const $=id=>document.getElementById(id);
 const versionTag='V038';
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 const DB_NAME='BancoMestrePDFLocalV035',STORE='sources';
 let selected=null,pdf=null,sourceBytes=null,info=null,pageNo=1,zoom=1,task=Promise.resolve(),serial=0,painting=false,tool='marker',draft=null,undo=new Map(),redo=new Map(),loadingLib=null,loadingSaveLib=null,dbPromise=null,exportBusy=false,cachedSource=null;
 let pinchBlocked=false;
@@ -657,7 +658,7 @@ async function pdflib(){
 }
 function db(){
  if(!dbPromise)dbPromise=new Promise((yes,no)=>{
-  const req=indexedDB.open(DB_NAME,1);
+  const req=(account?account.openDatabase(DB_NAME,1):indexedDB.open(DB_NAME,1));
   req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'id'})};
   req.onsuccess=()=>yes(req.result);req.onerror=()=>no(req.error||Error('Armazenamento indisponível'));
  });
@@ -2405,7 +2406,9 @@ document.addEventListener('keydown',e=>{
 (function(){
 'use strict';
 const byId=id=>document.getElementById(id);
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 function driveValid(){
+ if(account)return true;
  const core=window.BancoMestreMediaSyncV182?.token?.();
  const fromPdf=window.BancoMestrePDFSyncV130?.connected;
  return Boolean(core||fromPdf);
@@ -2631,7 +2634,7 @@ window.BancoMestrePDFGruposV036={
  registerExternal(records){
   if(!data||!lookup||!groups)throw Error('Índice de PDFs não iniciado');
   for(const rec of records){
-   if(!rec||!/^DRIVE-PDF-[A-Za-z0-9_-]{15,}$/.test(rec.id))throw Error('ID de PDF externo inválido');
+   if(!rec||!(account?/^[A-Za-z0-9_-]{1,160}$/.test(rec.id):/^DRIVE-PDF-[A-Za-z0-9_-]{15,}$/.test(rec.id)))throw Error('ID de PDF externo inválido');
    const group=groups.get(rec.group);
    if(!group)throw Error('Grupo desconhecido: '+rec.group);
    if(!lookup.has(rec.id)){lookup.set(rec.id,group);data.assigned.push({id:rec.id,group:rec.group,confidence:'Metadados do Drive autenticado'});}
@@ -3252,6 +3255,7 @@ window.BancoMestreMediaSyncV182=Object.freeze({token,publishToken,metadata,same,
  */
 (function(){
 'use strict';
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 const API='https://www.googleapis.com/drive/v3/files/';
 const API_FALLBACK='https://content.googleapis.com/drive/v3/files/';
 const SCOPE='https://www.googleapis.com/auth/drive.readonly';
@@ -3304,6 +3308,7 @@ async function loadScript(url){
  });
 }
 async function prepare(){
+ if(account)return true;
  if(ready)return ready;
  ready=(async()=>{
   const r=await fetch('assets/drive_auth_v038.json',{cache:'no-store'});
@@ -3335,6 +3340,7 @@ async function prepare(){
 }
 function activeToken(){return window.BancoMestreMediaSyncV182?.token?.()||(token&&expires>Date.now()?token:'');}
 function authorize(){
+ if(account){notify('Perfil individual autenticado.');return}
  const shared=activeToken();
  if(shared){
   token=shared;expires=Date.now()+60000;rememberConsent();showConnect(false);
@@ -3469,6 +3475,7 @@ async function storedVerified(doc,expected){
 }
 async function openAndEdit(doc,options={}){
  if(!doc||busy)return false;
+ if(account){busy=true;try{const blob=await account.readPdf(doc);return await window.BancoMestrePDFV038.openFromDrive(doc,blob)}catch(e){notify('PDF individual indisponível: '+e.message);return false}finally{busy=false}}
  // Um arquivo com file_id precisa de conferência no Drive antes de reaproveitar o cache.
  const managed=!!doc.file_id;
  if(doc.id===VADE_ID)options={...options,forceDrive:true,expectedSha256:undefined};
@@ -3545,8 +3552,8 @@ async function openAndEdit(doc,options={}){
   return false;
  }finally{busy=false}
 }
-window.BancoMestreDriveV038={prepare,authorize,openAndEdit,get ready(){return !!client},get connected(){return !!activeToken()},get previouslyAuthorized(){return consentRemembered}};
-window.BancoMestreDriveV042={prepare,authorize,openAndEdit,get ready(){return !!client},get connected(){return !!activeToken()},get previouslyAuthorized(){return consentRemembered}};
+window.BancoMestreDriveV038={prepare,authorize,openAndEdit,get ready(){return !!account||!!client},get connected(){return !!account||!!activeToken()},get previouslyAuthorized(){return consentRemembered}};
+window.BancoMestreDriveV042={prepare,authorize,openAndEdit,get ready(){return !!account||!!client},get connected(){return !!account||!!activeToken()},get previouslyAuthorized(){return consentRemembered}};
 })();
 
 ;
@@ -3556,6 +3563,7 @@ window.BancoMestreDriveV042={prepare,authorize,openAndEdit,get ready(){return !!
    Usa o mesmo ID da V040 para preservar o armazenamento local anterior. */
 (function(){
 'use strict';
+if(window.BMAccountRuntime)return; // rota legada de fonte/cópia não autorizada no modo conta
 const id='VADE-SENADO-2026-GUIA';
 const markPrefix='BM030_STROKES_PDF:'+id+':';
 const doc={id,title:'Vade Mecum — Senado Federal, 3ª edição (grifos e negritos)',filename:'Vade_Mecum_Senado_3ed_2026_ATUAL_GRIFOS_NEGRITOS_SEM_COMENTARIOS.pdf',url:'https://drive.google.com/file/d/1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI/view',file_id:'1Bl5q1QE-HKk_G3JSfcP2qQWdnFhckzHI'};
@@ -3661,6 +3669,7 @@ window.BancoMestreVadeV181={pdf_id:id,source:'google-drive',source_file_id:doc.f
    somente depois de verificar ID e appProperties; tokens ficam apenas em memória. */
 (function(){
 'use strict';
+if(window.BMAccountRuntime)return; // rota legada de fonte/cópia não autorizada no modo conta
 const SCOPE='https://www.googleapis.com/auth/drive.file';
 const API='https://www.googleapis.com/drive/v3/files';
 const UPLOAD='https://www.googleapis.com/upload/drive/v3/files';

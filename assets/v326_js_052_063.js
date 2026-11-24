@@ -604,6 +604,7 @@ window.BancoMestreGrifosMasterV104=Object.freeze({
 (function(){
 'use strict';
 if(window.BancoMestreGrifosDriveSyncV104)return;
+if(window.BMAccountRuntime){const core=window.BancoMestreGrifosSyncCoreV103;window.BMAccountRuntime.hydrateMarks(core);window.BancoMestreGrifosDriveSyncV104=Object.freeze({get connected(){return false},sync:async()=>{throw Error('Sincronização individual de grifos ainda não habilitada; marcações locais preservadas.')}});return}
 const core=window.BancoMestreGrifosSyncCoreV103,
       masterCore=window.BancoMestreGrifosMasterV104,
       library=document.getElementById('grifos')||document.getElementById('pdfs');
