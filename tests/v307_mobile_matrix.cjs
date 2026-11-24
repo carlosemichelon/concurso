@@ -23,7 +23,7 @@ fs.mkdirSync(output,{recursive:true});
     body:'<!doctype html><html><head></head><body><div class="tabs">'+Array.from({length:10},(_,i)=>'<button class="tab">Aba '+i+'</button>').join('')+'</div><div class="card">Redação preservada por CSS externo</div></body></html>'
    }));
    const errors=[];page.on('pageerror',e=>errors.push(String(e)));
-   await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
+   await page.goto('http://127.0.0.1:8765/v310.html',{waitUntil:'domcontentloaded',timeout:60000});
    await page.waitForFunction(()=>document.documentElement.dataset.bmPortalVersion==='V310'&&window.BM303UnifiedFilters?.ready&&window.BM309MobileTabs?.ready,{timeout:20000});
    if(width<=620){
     const initial=await page.evaluate(()=>({

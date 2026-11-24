@@ -3,7 +3,8 @@
 const assert=require('node:assert/strict');
 const {chromium}=require('playwright');
 const fs=require('node:fs');
-const expectedVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).version;
+// Regressão histórica: o orçamento de CSS pertence à V310, não ao index vigente.
+const expectedVersion='V310';
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  try{
@@ -13,7 +14,7 @@ const expectedVersion=JSON.parse(fs.readFileSync('assets/version.json','utf8')).
    await page.route('https://www.googleapis.com/**',r=>r.abort());
    const requests=[];
    page.on('response',r=>{if(r.url().includes('v277_header_compiled.css'))requests.push({status:r.status(),url:r.url()})});
-   await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
+   await page.goto('http://127.0.0.1:8765/v310.html',{waitUntil:'domcontentloaded',timeout:60000});
    await page.locator('header .brand').waitFor();
    await page.waitForFunction(()=>window.BM309MobileTabs?.ready,{timeout:15000});
    const state=await page.evaluate(()=>{

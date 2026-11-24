@@ -63,7 +63,15 @@ function acknowledge(j,stage,receipt){
  if(stage==='browser')assert.ok(j.receipts.pages,'Pages ainda não confirmado');
  return verify({...j,receipts:{...j.receipts,[stage]:clone(receipt)}});
 }
-function status(j){verify(j);return {batch_id:j.delta.batch_id,sealed:j.sealed,digest:j.digest,operations:j.delta.operations.length,confirmed:j.delta.targets.filter(s=>!!j.receipts[s]),pending:j.delta.targets.filter(s=>!j.receipts[s])}}
+function status(j){
+ verify(j);
+ const confirmed=j.delta.targets.filter(s=>!!j.receipts[s]);
+ const pending=j.delta.targets.filter(s=>!j.receipts[s]);
+ // Apenas destinos ainda não confirmados e com pré-requisitos satisfeitos.
+ // O Drive é independente; lote privado não exige publicação nem navegador.
+ const ready=j.sealed?pending.filter(s=>s!=='pages'&&s!=='browser'||s==='pages'&&!!j.receipts.github||s==='browser'&&!!j.receipts.pages):[];
+ return {batch_id:j.delta.batch_id,sealed:j.sealed,digest:j.digest,operations:j.delta.operations.length,confirmed,pending,ready};
+}
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 function outsideRepo(p){
  const root=path.resolve(__dirname,'..'),dir=fs.realpathSync(path.dirname(path.resolve(p)));

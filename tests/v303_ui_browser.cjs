@@ -25,7 +25,7 @@ const fixture={schema:1,updatedAt:'2026-11-19T12:00:00.000Z',log:[],records:[{
    await page.route('https://accounts.google.com/**',r=>r.abort());
    await page.route('https://www.googleapis.com/**',r=>r.abort());
    const errors=[];page.on('pageerror',e=>errors.push(String(e)));
-   await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded',timeout:60000});
+   await page.goto('http://127.0.0.1:8765/v310.html',{waitUntil:'domcontentloaded',timeout:60000});
    await page.waitForFunction(()=>window.BM303UnifiedFilters?.ready,{timeout:14000});
    for(const [tab,toolbar,more,mainId,advancedId] of [
      ['assuntos','bm303-assuntos-toolbar',null,'topicSearch',null],
