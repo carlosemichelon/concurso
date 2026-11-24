@@ -723,6 +723,7 @@ window.BM218ImageMetadata=Object.freeze({
 (function(){
 'use strict';
 if(window.BancoMestreDriveImagesV182)return;
+const account=window.BMAccountRuntime||null;
 const FOLDER_ID='1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6';
 const ROOTS=[
  {id:FOLDER_ID,path:'Atlas de Imagens'},
@@ -754,6 +755,7 @@ const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
 const blobs=new Map(); // URLs somente em memória do navegador
 const aliases=new Map();let aliasPromise=null;
 function loadAliases(){
+ if(account){aliases.clear();for(const f of account.imageCatalog())aliases.set(f.id,{imageId:f.imageId,title:f.metadata.displayTitle,cardIds:f.cardIds,questionRefs:f.provenance.questionRefs});return Promise.resolve(aliases)}
  if(aliasPromise)return aliasPromise;
  aliasPromise=fetch('assets/v211_published_images.json?v=211',{cache:'default'})
  .then(r=>{if(!r.ok)throw Error('Índice de IDs de imagens indisponível');return r.json()})
@@ -768,10 +770,10 @@ const $=id=>document.getElementById(id);
 function msg(s,error){const el=$('bm084-status');if(el){el.textContent=s;el.style.color=error?'#953b32':'#315e57';}}
 function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x;}
 function currentToken(){return (access&&Date.now()<expires?access:'')||window.BancoMestreMediaSyncV182?.token?.()||'';}
-function validToken(){return Boolean(currentToken());}
+function validToken(){if(account){try{account.imageCatalog();return true}catch{return false}}return Boolean(currentToken());}
 function idOf(file){return 'DRIVE-IMG-'+file.id;}
 function fileLink(file){return 'https://drive.google.com/file/d/'+encodeURIComponent(file.id)+'/view';}
-function info(file){return window.BM228DriveImageEditor?.meta?.(file)||window.BM218ImageMetadata?.resolve?.(file)||{displayTitle:String(file.name||'Imagem').replace(/\.(png|jpe?g|webp|gif|svg)$/i,'').replace(/_/g,' '),fileName:file.name||'',area:'',subject:'',subsubject:'',group:'',cards:[],classified:false,status:'Assunto ainda não classificado',location:file.drivePath||''};}
+function info(file){if(account)return window.BM228DriveImageEditor?.meta?.(file)||account.imageInfo(file.id).metadata;return window.BM228DriveImageEditor?.meta?.(file)||window.BM218ImageMetadata?.resolve?.(file)||{displayTitle:String(file.name||'Imagem').replace(/\.(png|jpe?g|webp|gif|svg)$/i,'').replace(/_/g,' '),fileName:file.name||'',area:'',subject:'',subsubject:'',group:'',cards:[],classified:false,status:'Assunto ainda não classificado',location:file.drivePath||''};}
 function title(file){return info(file).displayTitle;}
 function moveToAtlas(box){
  const dir=$('bm153Directory');if(!dir)return false;
@@ -795,6 +797,7 @@ function ui(){
  const folder=el('a','','Pasta oficial');folder.href='https://drive.google.com/drive/folders/'+FOLDER_ID;folder.target='_blank';folder.rel='noopener noreferrer';
  const recovered=el('a','','Originais históricos');recovered.href='https://drive.google.com/drive/folders/'+ROOTS[1].id;recovered.target='_blank';recovered.rel='noopener noreferrer';
  const search=el('input','');search.id='bm084-search';search.type='search';search.placeholder='Filtrar imagens do Drive';search.setAttribute('aria-label','Buscar imagens autenticadas no Atlas');search.style.cssText='padding:7px 9px;border:1px solid #bacdc7;border-radius:6px;max-width:210px';
+ if(account){connect.hidden=true;folder.hidden=true;recovered.hidden=true;refresh.disabled=false;help.textContent='Originais e SVGs do perfil individual. Nenhum original é publicado no GitHub.';}
  controls.append(connect,refresh,folder,recovered,search);
  const status=el('p','','Aguardando conexão. As imagens públicas continuam disponíveis.');
  const syncTime=el('small','','Nenhuma consulta autorizada nesta sessão.');syncTime.id='bm207-sync-time';syncTime.style.cssText='display:block;font-size:11px;color:#516a68;margin:4px 0 9px';status.id='bm084-status';status.setAttribute('role','status');status.style.cssText='font-size:12px;margin:9px 0';
@@ -826,6 +829,7 @@ function loadGIS(){return new Promise((resolve,reject)=>{
 });}
 async function init(){
  ui();if(!$('bm084-sync'))return;
+ if(account){await loadAliases();await refreshList(true);return}
  try{
   await assertPaths();
   await window.BM218ImageMetadata?.load?.(); // Metadados textuais, sem arquivos de imagem do GitHub.
@@ -883,6 +887,7 @@ function historicalDriveIds(){
  return ids;
 }
 async function listImages(){
+ if(account)return {files:account.imageCatalog(),alreadyPublic:0,skippedSvg:0,skippedLarge:0,folders:0};
  if(!contractReady)await assertPaths();
  // V184: a pasta Atlas contém coleções P11–P14 em SUBPASTAS.
  // A antiga varredura consultava apenas arquivos diretamente na raiz.
@@ -965,8 +970,7 @@ async function getImageUrl(file){
  const prior=blobs.get(file.id);
  if(prior&&prior.modified===file.modifiedTime)return prior.url;
  if(!PREVIEW_MIME.has(file.mimeType))throw Error('Formato não suportado nesta imagem');
- const r=await authorized(API+'/'+encodeURIComponent(file.id)+'?alt=media');
- const blob=await r.blob();
+ const blob=account?await account.readImage(file.id):await (await authorized(API+'/'+encodeURIComponent(file.id)+'?alt=media')).blob();
  if(blob.size>MAX_BYTES)throw Error('Imagem maior que 15 MB');
  const contentType=String(blob.type||'').toLowerCase();
  const compatible=contentType===file.mimeType||!contentType||
@@ -1114,6 +1118,7 @@ async function getLinkedImageUrl(fileId){
  if(!validToken())throw Error('Conecte o Google Drive para carregar a imagem dentro do cartão.');
  let file=photos.find(x=>x.id===fileId);
  if(!file){
+  if(account){file=account.imageInfo(fileId);return getImageUrl(file)}
   await loadAliases();
   if(!aliases.has(fileId))throw Error('Imagem não consta do índice editorial do portal');
   const response=await authorized(API+'/'+encodeURIComponent(fileId)+'?fields=id,name,mimeType,size,modifiedTime,trashed');
@@ -1127,7 +1132,7 @@ window.BancoMestreDriveImagesV182=Object.freeze({
  refresh:()=>refreshList(true),get connected(){return validToken()},
  getImageUrlForCard:getLinkedImageUrl,getEditorialId:fileId=>aliases.get(fileId)?.imageId||'',
  syncVersion:'V306',get lastSuccess(){return lastGoodAt?new Date(lastGoodAt).toISOString():null},
- get lastError(){return lastSyncError},get roots(){return ROOTS.map(x=>x.path)},
+ get lastError(){return lastSyncError},get roots(){return account?[]:ROOTS.map(x=>x.path)},
  get lastCount(){return photos.length},get alreadyPublic(){return alreadyPublic},get atlasMode(){return 'drive_only'}
 });
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{void init()},{once:true});else void init();

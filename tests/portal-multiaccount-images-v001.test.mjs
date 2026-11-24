@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {profileImages,profileImageAccess} from '../assets/multiaccount-images-v001.mjs';
+import {createDriveProvider,PORTAL_PROJECT} from '../assets/multiaccount-drive-v001.mjs';
+const a={file_id:'source-image-AAA-0001',imageId:'IMG-023',name:'Esquema.svg',mimeType:'image/svg+xml',title:'Ancoragem',subject:'Estruturas',cardIds:['CARD-0001','CARD-9999'],origin:'DERIVADA_AUTORAL',questionRefs:['PETRO-01']};
+const b={...a,file_id:'source-image-BBB-0001',name:'Outro.svg',cardIds:['CARD-0001']};
+const records=profileImages([a],['CARD-0001']);
+assert.equal(records[0].imageId,'IMG-023');assert.equal(records[0].id,a.file_id);assert.deepEqual(records[0].cardIds,['CARD-0001']);assert.deepEqual(records[0].unresolvedCardIds,['CARD-9999']);assert.equal(records[0].provenance.origin,'DERIVADA_AUTORAL');assert.deepEqual(records[0].provenance.questionRefs,['PETRO-01']);assert.equal(records[0].metadata.classified,true);
+assert.throws(()=>profileImages([a,a],[]));assert.throws(()=>profileImages([a,{...b,imageId:a.imageId}],[]));assert.throws(()=>profileImages([{...a,mimeType:'text/html'}],[]));
+const calls=[],files=new Map();
+const file=(owner,kind,id,parent,mimeType,size)=>({id,ownedByMe:true,shared:false,trashed:false,parents:parent?[parent]:[],mimeType,size:String(size||0),appProperties:{bmProject:PORTAL_PROJECT,bmOwner:owner,bmKind:kind}});
+for(const [owner,img] of [['A',a],['B',b]]){files.set('root'+owner,file(owner,'root','root'+owner,null,'application/vnd.google-apps.folder'));files.set(img.file_id,file(owner,'image-source',img.file_id,'root'+owner,img.mimeType,100))}
+const resp=(d,status=200)=>({ok:status===200,status,json:async()=>d,blob:async()=>({size:100,type:'image/svg+xml'})});
+const fetcher=async(url,o)=>{const u=new URL(url),owner=o.headers.Authorization.slice('Bearer token-'.length),id=u.pathname.split('/').at(-1);calls.push({id,owner,media:u.searchParams.get('alt')==='media'});if(id==='files')return resp({files:[files.get('root'+owner)]});const f=files.get(id);return f?.appProperties.bmOwner===owner?resp(f):resp({},403)};
+const provider=owner=>createDriveProvider({fetcher,token:'token-'+owner,info:{sub:owner,email:owner+'@example.test',email_verified:true},expiresAt:Date.now()+100000,loadCatalog:async()=>({cards:[]})});
+const pa=provider('A'),pb=provider('B');await pa.findRoot('A');await pb.findRoot('B');
+const access=(owner,p,img)=>profileImageAccess({session:{readImage:(id,mime)=>p.readImage(owner,id,mime)},profile:{privateData:{images:[img]}},cardIds:['CARD-0001']});
+const aa=access('A',pa,a),bb=access('B',pb,b);assert.equal(aa.links('CARD-0001').length,1);assert.equal(aa.links('CARD-9999').length,0);assert.equal((await aa.read(a.file_id)).type,'image/svg+xml');assert.equal((await bb.read(b.file_id)).size,100);await assert.rejects(()=>aa.read(b.file_id));await assert.rejects(()=>pa.readImage('B',b.file_id,b.mimeType));await assert.rejects(()=>pa.readImage('A',b.file_id,b.mimeType));assert.equal(calls.filter(c=>c.media&&c.owner==='A'&&c.id===b.file_id).length,0);
+files.get(a.file_id).shared=true;await assert.rejects(()=>aa.read(a.file_id));files.get(a.file_id).shared=false;
+assert.throws(()=>aa.get(b.file_id));const copy=aa.catalog();copy[0].cardIds=[];assert.equal(aa.links('CARD-0001').length,1);pa.close();await assert.rejects(()=>aa.read(a.file_id));
+console.log('PASS Atlas individual: SVG, titularidade, vínculos, IDs e rejeição de acesso cruzado');

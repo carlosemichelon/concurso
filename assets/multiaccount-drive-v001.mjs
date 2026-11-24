@@ -1,3 +1,4 @@
+import {IMAGE_MIMES,IMAGE_LIMIT} from './multiaccount-images-v001.mjs';
 import {checkedPdfCopy,matchingPdfCopy,uploadDestination} from './multiaccount-pdf-copy-v001.mjs';
 import {checkedMarksEnvelope,MARKS_KIND} from './multiaccount-marks-v001.mjs';
 import {checkedDiscursive} from './multiaccount-discursive-v001.mjs';
@@ -30,6 +31,7 @@ export function createDriveProvider({fetcher=fetch,token,info,expiresAt,loadCata
   async findRoot(subject){const f=onlyOne(await list(subject,'root'),'pasta raiz');if(f.mimeType!=='application/vnd.google-apps.folder')throw Error('Raiz inválida');rootId=f.id;return f},
   async findProfile(root,subject){check(subject);if(root!==rootId)throw Error('Raiz diferente da sessão');const f=onlyOne(await list(subject,'profile',root),'manifesto de perfil');return {file:f,payload:await jsonFile(f,subject)}},
   async readCollection(id,subject,kind){check(subject);if(!rootId||!PROFILE_KINDS.includes(kind))throw Error('Coleção inválida');const file=await metadata(id,subject,kind,rootId);return {file,payload:await jsonFile(file,subject)}},
+  async readImage(subject,id,mimeType){check(subject);if(!rootId)throw Error('Raiz não carregada');const f=await metadata(id,subject,'image-source',rootId);if(!IMAGE_MIMES.includes(f.mimeType)||f.mimeType!==mimeType||!Number.isSafeInteger(Number(f.size))||Number(f.size)<1||Number(f.size)>IMAGE_LIMIT)throw Error('Imagem individual inválida');const r=await req(DRIVE_API+'/'+encodeURIComponent(id)+'?alt=media',subject);const blob=await r.blob();check(subject);const type=String(blob.type||'').toLowerCase();if(blob.size!==Number(f.size)||!(type===mimeType||type==='application/octet-stream'||!type||mimeType==='image/svg+xml'&&['text/plain','text/xml','application/xml'].includes(type)))throw Error('Imagem recebida incompleta ou incompatível');return blob},
   async readPdf(subject,id){check(subject);if(!rootId)throw Error('Raiz não carregada');const f=await metadata(id,subject,'pdf-source',rootId);if(f.mimeType!=='application/pdf'||!Number.isSafeInteger(Number(f.size))||Number(f.size)<=0||Number(f.size)>120000000)throw Error('PDF inválido ou acima de 120 MB');const r=await req(DRIVE_API+'/'+encodeURIComponent(id)+'?alt=media',subject);const blob=await r.blob();check(subject);if(blob.size!==Number(f.size)||blob.type!=='application/pdf')throw Error('PDF recebido incompleto ou inválido');return blob},
   async saveAnnotatedPdf(subject,prepared){check(subject);if(!rootId)throw Error('Raiz não carregada');const {doc,blob,name}=checkedPdfCopy(prepared);
    const source=await metadata(doc.file_id,subject,'pdf-source',rootId);if(source.mimeType!=='application/pdf')throw Error('Origem PDF inválida');
@@ -67,6 +69,7 @@ export function createPortalSession({clientId,gis,fetcher=fetch,catalogs,loadCat
  const logout=()=>{generation++;boot?.lock();provider?.close();boot=null;provider=null;identity=null;phase='locked'};
  const ensure=n=>{if(generation!==n)throw Error('Sessão alterada durante autenticação')};
  return Object.freeze({get phase(){return phase},get current(){return phase==='ready'?boot?.current||null:null},get identity(){return phase==='ready'&&identity?{...identity}:null},logout,
+ async readImage(id,mimeType){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readImage(identity.sub,id,mimeType);ensure(n);return result},
  async readPdf(id){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readPdf(identity.sub,id);ensure(n);return result},
  async saveAnnotatedPdf(prepared){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveAnnotatedPdf(identity.sub,prepared);ensure(n);return result},
  async readMarksMaster(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readMarksMaster(identity.sub);ensure(n);return result},

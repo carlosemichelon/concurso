@@ -107,6 +107,7 @@
 (function(){
 'use strict';
 if(window.BM197MediaLinks)return;
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 const STORAGE='BM197_IMAGENS_TIPO_VINCULOS_V1';
 const CANONICAL_SOURCE='assets/v198_editorial_images_catalog.json?v=198';
 let canonicalRecords=new Map(),canonicalReady=false;
@@ -120,6 +121,7 @@ let message=null;
 function say(s,error=false){if(message){message.textContent=s;message.style.color=error?'#9a382f':'#456b65';}}
 function make(tag,txt,cls){const n=document.createElement(tag);if(txt!==undefined&&txt!==null)n.textContent=txt;if(cls)n.className=cls;return n;}
 function validItem(id,x){
+ if(account){try{const files=account.imageCatalog(),cards=new Set(account.catalog().map(c=>c.id));if(!files.some(f=>'DRIVE-IMG-'+f.id===id)||!Array.isArray(x?.cardIds)||x.cardIds.some(c=>!cards.has(c)))return false}catch{return false}}
  if(!VALID_IMAGE.test(id)||id.length>100||!x||!['conteudo','cartao'].includes(x.type))return false;
  if(!Array.isArray(x.cardIds)||x.cardIds.length>40||x.cardIds.some(v=>typeof v!=='string'||!VALID_REF.test(v)))return false;
  if(!['','enunciado','figura','explicacao'].includes(x.subtype||''))return false;
@@ -134,7 +136,7 @@ function load(){
 }
 load();
 function persist(next){
- try{localStorage.setItem(STORAGE,JSON.stringify(next));saved=next;window.dispatchEvent(new Event('bm197-links-changed'));return true;}
+ try{if(account&&Object.entries(next).some(([id,value])=>!validItem(id,value)))throw Error('Vínculo fora do perfil individual');localStorage.setItem(STORAGE,JSON.stringify(next));saved=next;window.dispatchEvent(new Event('bm197-links-changed'));return true;}
  catch(err){say('Falha ao gravar classificação: '+err.message,true);return false;}
 }
 function sourceIds(x){
@@ -360,6 +362,7 @@ async function importJson(file){
 /* Navegação reversa: cartão -> imagens explicitamente relacionadas. */
 let sourcePromise=null;
 function sourceRecords(){
+ if(account)return Promise.resolve(account.imageCatalog().map(f=>({no:'DRIVE-IMG-'+f.id,title:f.metadata.displayTitle,cards:f.cardIds})));
  if(!sourcePromise)sourcePromise=fetch('assets/v180_native_image_additions.json?v=180',{cache:'default'})
   .then(r=>{if(!r.ok)throw Error('Catálogo recuperado indisponível');return r.json();})
   .then(d=>d.schema==='BancoMestreNativeImageAdditionsV180'&&Array.isArray(d.records)?d.records:[])
@@ -436,7 +439,7 @@ function initReverse(){
 }
 
 async function loadCanonical(){
- try{
+ try{if(account){canonicalRecords=new Map(account.imageCatalog().map(f=>['DRIVE-IMG-'+f.id,{type:f.type,subtype:f.subtype,cardIds:f.cardIds,basis:'associacao_documental_existente'}]));canonicalReady=true;say('Catálogo editorial individual carregado.');rerender();return}
   const response=await fetch(CANONICAL_SOURCE,{cache:'no-store'});
   if(!response.ok)throw Error('Catálogo editorial V198 não disponível (HTTP '+response.status+')');
   const data=await response.json();
@@ -505,12 +508,13 @@ void loadCanonical();
 (function(){
 'use strict';
 if(window.BM228DriveImageEditor)return;
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 const KEY='BM228_DRIVE_IMAGE_INFO_V1',FORMAT='BancoMestreDriveImageInfoV1';
 const FIELDS={title:160,area:120,subject:180,subsubject:180,detail:180,description:4000,note:2500};
 const VALID=/^[A-Za-z0-9_-]{15,}$/,$=id=>document.getElementById(id);
 const el=(tag,cls,text)=>{const v=document.createElement(tag);if(cls)v.className=cls;if(text!=null)v.textContent=text;return v;};
 let saved=Object.create(null),current=null;
-function valid(id,entry){return VALID.test(id)&&entry&&typeof entry==='object'&&!Array.isArray(entry)&&Object.entries(FIELDS).every(([k,n])=>entry[k]===undefined||(typeof entry[k]==='string'&&entry[k].length<=n));}
+function valid(id,entry){if(account){try{account.imageInfo(id)}catch{return false}}return VALID.test(id)&&entry&&typeof entry==='object'&&!Array.isArray(entry)&&Object.entries(FIELDS).every(([k,n])=>entry[k]===undefined||(typeof entry[k]==='string'&&entry[k].length<=n));}
 function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(x&&typeof x==='object'&&!Array.isArray(x))for(const [id,v] of Object.entries(x))if(valid(id,v))saved[id]=v;}catch(err){console.warn('Metadados locais de imagens:',err);}}
 load();
 const legacyByDrive=new Map();
@@ -524,7 +528,7 @@ function previousEdit(fileId){
  return {title:legacyTitles[id]||'',area:fields.area||'',subject:fields.subject||'',
   description:fields.description||'',note:fields.note||''};
 }
-void fetch('assets/v211_published_images.json?v=211',{cache:'no-store'}).then(r=>{
+if(account){for(const f of account.imageCatalog())legacyByDrive.set(f.id,f.imageId)}else void fetch('assets/v211_published_images.json?v=211',{cache:'no-store'}).then(r=>{
  if(!r.ok)throw Error('Índice legado indisponível');
  return r.json();
 }).then(catalog=>{
@@ -532,7 +536,7 @@ void fetch('assets/v211_published_images.json?v=211',{cache:'no-store'}).then(r=
   if(typeof row.driveFileId==='string'&&typeof row.imageId==='string')legacyByDrive.set(row.driveFileId,row.imageId);
  $('bm084-search')?.dispatchEvent(new Event('input'));
 }).catch(e=>console.warn('Migração visual de edições anteriores:',e.message));
-function base(file){return window.BM218ImageMetadata?.resolve?.(file)||{displayTitle:file.name||'Imagem sem título descritivo',fileName:file.name||'',area:'',subject:'',subsubject:'',classified:false,cards:[]};}
+function base(file){if(account)return account.imageInfo(file.id).metadata;return window.BM218ImageMetadata?.resolve?.(file)||{displayTitle:file.name||'Imagem sem título descritivo',fileName:file.name||'',area:'',subject:'',subsubject:'',classified:false,cards:[]};}
 function meta(file){
  const x=base(file),e=saved[file.id]||{},previous=previousEdit(file.id);
  const get=(k,original)=>Object.prototype.hasOwnProperty.call(e,k)?e[k]:(previous[k]||original||'');

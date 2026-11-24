@@ -405,12 +405,13 @@ function cardRender(){
 
 $('cardSearch').oninput=()=>{focusGroup='';cardLimit=24;cardRender()};$('cardFilter').onchange=()=>{focusGroup='';cardRender()};$('cardHidden').onchange=cardRender;$('cardReviewedOnly').onchange=()=>{cardLimit=24;cardRender()};$('cardRecoveredOnly').onchange=()=>{cardLimit=24;cardRender()};$('moreCards').onclick=()=>{cardLimit+=24;cardRender()};
 async function loadImages(){if(loadedImages)return;loadedImages=true;try{
+ if(window.BMAccountRuntime){imgs=[];origMap={};await window.BancoMestreDriveImagesV182?.refresh?.();return}
  imgs=(await loadMeta()).images;
  try{const r=await fetch('assets/originais_candidatos_v028.json',{cache:'no-store'});if(r.ok){const x=await r.json();if(x.matched_count===76)origMap=x.images||{}}}catch(e){console.warn('Originais não disponíveis; usando prévias:',e)}
  for(const g of [...new Set(imgs.map(x=>x.category))].sort())$('imageFilter').add(new Option(g,g));
  await window.BM180ImageBridge?.add(imgs);window.BM184Header?.updateImages(imgs);await imgRender()
  }catch(e){$('imageRows').textContent=e.message}}
-async function thumb(x){if(x.shard===undefined||!meta.image_files[x.shard])return null;if(!shards[x.shard])shards[x.shard]=fetch('assets/'+meta.image_files[x.shard]).then(r=>{if(!r.ok)throw Error('Prévia ausente');return r.json()});try{return (await shards[x.shard])[x.no]||null}catch{return null}}
+async function thumb(x){if(window.BMAccountRuntime)return null;if(x.shard===undefined||!meta.image_files[x.shard])return null;if(!shards[x.shard])shards[x.shard]=fetch('assets/'+meta.image_files[x.shard]).then(r=>{if(!r.ok)throw Error('Prévia ausente');return r.json()});try{return (await shards[x.shard])[x.no]||null}catch{return null}}
 async function imgRender(){const h=new Map((await api.all()).map(x=>[x.id,x.status])),show=$('imageHidden').checked,q=fold($('imageSearch').value),f=$('imageFilter').value;const a=imgs.filter(x=>(show||h.get(x.no)!=='hidden')&&(f==='all'||x.category===f)&&fold(x.no+' '+x.title+' '+x.category).includes(q));$('imageCount').textContent=a.length+' imagens';const out=$('imageRows');out.replaceChildren();for(const x of a.slice(0,imgLimit)){const off=h.get(x.no)==='hidden',c=card(x.title,x.no,x.category+(off?' · oculta':''));const preview=el('img',null,'thumb');preview.loading='lazy';preview.alt='Abrir '+x.no+' em tela cheia';preview.title='Clique para abrir em tela cheia, ampliar e grifar';preview.tabIndex=0;preview.setAttribute('role','button');preview.style.cursor='zoom-in';preview.onclick=()=>imgOpen(x);preview.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();imgOpen(x)}};c.c.insertBefore(preview,c.c.querySelector('h3'));{
  const source=origMap[x.no]?.verified===true?origMap[x.no]:null;
  const fallback=()=>thumb(x).then(src=>{if(!preview.isConnected)return;if(src)preview.src=src;else preview.replaceWith(el('p','Prévia não publicada.','muted'))});
@@ -420,6 +421,7 @@ async function imgRender(){const h=new Map((await api.all()).map(x=>[x.id,x.stat
 $('imageSearch').oninput=()=>{imgLimit=24;imgRender()};$('imageFilter').onchange=imgRender;$('imageHidden').onchange=imgRender;$('moreImages').onclick=()=>{imgLimit+=24;imgRender()};
 function picture(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Imagem não carregada'));im.src=src})}
 async function imgOpen(x){
+ if(window.BMAccountRuntime)throw Error('Use o Atlas individual para abrir a imagem');
  try{
   let image=null,src=origMap[x.no]?.verified===true?origMap[x.no]:null,quality='prévia compactada do catálogo';
   if(src){try{image=await picture(src.preview_url);quality='arquivo maior do Drive (correspondência por nome, não validada tecnicamente)'}catch(e){console.warn('Original não abriu; usando prévia',e)}}
