@@ -1,3 +1,4 @@
+import {checkedPdfCopy,matchingPdfCopy,uploadDestination} from './multiaccount-pdf-copy-v001.mjs';
 import {checkedMarksEnvelope,MARKS_KIND} from './multiaccount-marks-v001.mjs';
 import {checkedDiscursive} from './multiaccount-discursive-v001.mjs';
 import {checkedReviewEvent} from './multiaccount-review-events-v001.mjs';
@@ -30,6 +31,21 @@ export function createDriveProvider({fetcher=fetch,token,info,expiresAt,loadCata
   async findProfile(root,subject){check(subject);if(root!==rootId)throw Error('Raiz diferente da sessão');const f=onlyOne(await list(subject,'profile',root),'manifesto de perfil');return {file:f,payload:await jsonFile(f,subject)}},
   async readCollection(id,subject,kind){check(subject);if(!rootId||!PROFILE_KINDS.includes(kind))throw Error('Coleção inválida');const file=await metadata(id,subject,kind,rootId);return {file,payload:await jsonFile(file,subject)}},
   async readPdf(subject,id){check(subject);if(!rootId)throw Error('Raiz não carregada');const f=await metadata(id,subject,'pdf-source',rootId);if(f.mimeType!=='application/pdf'||!Number.isSafeInteger(Number(f.size))||Number(f.size)<=0||Number(f.size)>120000000)throw Error('PDF inválido ou acima de 120 MB');const r=await req(DRIVE_API+'/'+encodeURIComponent(id)+'?alt=media',subject);const blob=await r.blob();check(subject);if(blob.size!==Number(f.size)||blob.type!=='application/pdf')throw Error('PDF recebido incompleto ou inválido');return blob},
+  async saveAnnotatedPdf(subject,prepared){check(subject);if(!rootId)throw Error('Raiz não carregada');const {doc,blob,name}=checkedPdfCopy(prepared);
+   const source=await metadata(doc.file_id,subject,'pdf-source',rootId);if(source.mimeType!=='application/pdf')throw Error('Origem PDF inválida');
+   const copies=(await list(subject,'pdf-annotated',rootId)).filter(f=>matchingPdfCopy(f,doc));
+   if(copies.length>1)throw Error('Cópias duplicadas desta edição; conciliação necessária.');
+   const existing=copies[0];if(existing){const current=await metadata(existing.id,subject,'pdf-annotated',rootId);if(!matchingPdfCopy(current,doc)||!existing.version||String(current.version)!==String(existing.version))throw Error('Cópia modificada; tente novamente.')}
+   const props={bmProject:PORTAL_PROJECT,bmOwner:subject,bmKind:'pdf-annotated',bmSourceId:doc.id,bmSourceFile:doc.file_id,bmSourceHash:doc.hash};
+   const init='https://www.googleapis.com/upload/drive/v3/files'+(existing?'/'+encodeURIComponent(existing.id):'')+'?uploadType=resumable&fields='+encodeURIComponent(META);
+   const meta=existing?{}:{name,mimeType:'application/pdf',parents:[rootId],appProperties:props,description:'Cópia anotada individual; original preservado'};
+   check(subject);const started=await fetcher(init,{method:existing?'PATCH':'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json; charset=UTF-8','X-Upload-Content-Type':'application/pdf','X-Upload-Content-Length':String(blob.size)},body:JSON.stringify(meta),cache:'no-store',redirect:'error'});check(subject);
+   if(!started.ok)throw Error('Não foi possível iniciar a cópia (HTTP '+started.status+')');const loc=started.headers.get('Location');if(!loc)throw Error('Sessão de upload ausente');const dest=uploadDestination(loc);
+   const sent=await fetcher(dest,{method:'PUT',headers:{Authorization:'Bearer '+token,'Content-Type':'application/pdf'},body:blob,cache:'no-store',redirect:'error'});check(subject);
+   if(!sent.ok)throw Error('Cópia não confirmada (HTTP '+sent.status+')');const f=privateDriveFile(await sent.json(),subject,'pdf-annotated',{parent:rootId,project:PORTAL_PROJECT});
+   if(!matchingPdfCopy(f,doc)||(existing&&f.id!==existing.id)||Number(f.size)!==blob.size)throw Error('Confirmação da cópia divergente');
+   return {id:f.id,name:f.name||name,updated:!!existing}
+  },
   async readMarksMaster(subject){check(subject);if(!rootId)throw Error('Raiz não carregada');const files=await list(subject,MARKS_KIND,rootId);if(files.length>1)throw Error('Mais de um mestre individual; conciliação necessária');if(!files.length)return null;const f=files[0];if(!/^\d+$/.test(String(f.version)))throw Error('Versão do mestre indisponível');return {id:f.id,version:String(f.version),payload:checkedMarksEnvelope(await jsonFile(f,subject),subject)}},
   async saveMarksMaster(subject,expected,payload){check(subject);if(!rootId)throw Error('Raiz não carregada');const value=checkedMarksEnvelope(payload,subject);const files=await list(subject,MARKS_KIND,rootId);
    if(!expected){if(files.length)throw Error('Mestre criado por outro dispositivo; sincronize novamente');return appendEvent(subject,MARKS_KIND,'BM_PORTAL_MARKS_',value,'master-v104')}
@@ -52,6 +68,7 @@ export function createPortalSession({clientId,gis,fetcher=fetch,catalogs,loadCat
  const ensure=n=>{if(generation!==n)throw Error('Sessão alterada durante autenticação')};
  return Object.freeze({get phase(){return phase},get current(){return phase==='ready'?boot?.current||null:null},get identity(){return phase==='ready'&&identity?{...identity}:null},logout,
  async readPdf(id){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readPdf(identity.sub,id);ensure(n);return result},
+ async saveAnnotatedPdf(prepared){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveAnnotatedPdf(identity.sub,prepared);ensure(n);return result},
  async readMarksMaster(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readMarksMaster(identity.sub);ensure(n);return result},
  async saveMarksMaster(expected,payload){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.saveMarksMaster(identity.sub,expected,payload);ensure(n);return result},
  async readReviewEvents(){if(phase!=='ready')throw Error('Sessão indisponível');const n=generation,result=await provider.readReviewEvents(identity.sub);ensure(n);return result},

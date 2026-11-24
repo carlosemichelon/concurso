@@ -1300,7 +1300,7 @@ pdfOpen=function(doc){
  if($('pdfDialog').open){
   $('docTitle').textContent=doc.title;
   $('pdfOriginal').href=doc.url||'';
-  if(doc.file_id)$('pdfFrame').src='https://drive.google.com/file/d/'+encodeURIComponent(doc.file_id)+'/preview';
+  if(doc.file_id)$('pdfFrame').src=account?'about:blank':'https://drive.google.com/file/d/'+encodeURIComponent(doc.file_id)+'/preview';
  }else priorPdfOpen(doc);
  $('pdfChooseLocal').textContent='✎ Editar PDF';
  status('Para grifar e editar nesta página, clique em “Editar PDF”. Documentos privados do Drive precisam de seleção local inicial.');
@@ -3669,7 +3669,7 @@ window.BancoMestreVadeV181={pdf_id:id,source:'google-drive',source_file_id:doc.f
    somente depois de verificar ID e appProperties; tokens ficam apenas em memória. */
 (function(){
 'use strict';
-if(window.BMAccountRuntime)return; // rota legada de fonte/cópia não autorizada no modo conta
+const account=window.BMAccountRuntime||null,localStorage=account?account.local:window.localStorage;
 const SCOPE='https://www.googleapis.com/auth/drive.file';
 const API='https://www.googleapis.com/drive/v3/files';
 const UPLOAD='https://www.googleapis.com/upload/drive/v3/files';
@@ -3695,6 +3695,7 @@ const WRITE_CONSENT_KEY='BM_DRIVE_WRITE_CONSENT_V048';
 try{everAuthorized=localStorage.getItem(WRITE_CONSENT_KEY)==='1'}catch(_){};
 const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{10,}$/.test(id);
 async function prepare(){
+ if(account){button.disabled=!account.pdfCopyReady;say(account.pdfCopyReady?'Pronto para salvar cópia no seu Drive individual.':'Gravação individual indisponível.');return account.pdfCopyReady}
  if(preparing)return preparing;
  preparing=(async()=>{
   const cfg=await fetch('assets/drive_auth_v038.json',{cache:'no-store'}).then(r=>{
@@ -3841,6 +3842,7 @@ async function save(){
  if(!editor?.editing){say('Abra uma lei no editor antes de salvar a cópia no Drive.');return}
  busy=true;button.disabled=true;link.hidden=true;
  try{
+  if(account){say('Preparando todas as páginas marcadas do PDF...');const prepared=await editor.buildAnnotated();const result=await account.savePdfCopy(prepared);link.href='https://drive.google.com/file/d/'+encodeURIComponent(result.id)+'/view';link.hidden=false;say((result.updated?'Cópia atualizada':'Nova cópia criada')+' no seu Drive: '+result.name+' · '+prepared.pagesMarked+' página(s) marcada(s). PDF original preservado.');return}
   const token=await requestToken();
   say('Preparando todas as páginas marcadas do PDF...');
   const prepared=await editor.buildAnnotated();
@@ -3864,12 +3866,12 @@ async function save(){
       ' · '+prepared.pagesMarked+' página(s) marcada(s). PDF original preservado.');
  }catch(e){say('Não foi possível confirmar o salvamento no Drive: '+e.message+
    ' O PDF original e as marcações locais permanecem intactos.');}
- finally{busy=false;button.disabled=false}
+ finally{busy=false;button.disabled=account?!account.pdfCopyReady:false}
 }
 button.addEventListener('click',save);
 prepare();
 window.BancoMestreDriveSaveV042={
- get ready(){return !!client},
+ get ready(){return account?account.pdfCopyReady:!!client},
  get busy(){return busy}
 };
 })();

@@ -1,3 +1,4 @@
+import {checkedPdfCopy} from './multiaccount-pdf-copy-v001.mjs';
 /* Adaptador do catálogo privado para o leitor original. IDs de anotação preservados. */
 const valid=x=>typeof x==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(x);
 const copyPdf=x=>JSON.parse(JSON.stringify(x));
@@ -10,7 +11,8 @@ export function profilePdfs(records,allowedGroups){
 }
 export function profilePdfAccess({session,profile,allowedGroups}){
  const docs=profilePdfs(profile.privateData.pdf||[],allowedGroups);const map=new Map(docs.map(d=>[d.id,d]));
- return Object.freeze({catalog:()=>copyPdf(docs),async read(doc){const match=map.get(doc?.id);if(!match||match.file_id!==doc.file_id)throw Error('PDF fora do catálogo individual');const blob=await session.readPdf(match.file_id);if(blob.type!=='application/pdf'||blob.size<=0||blob.size>120000000)throw Error('PDF recebido inválido');return blob}})
+ let copyBusy=false,copyUncertain=false;
+ return Object.freeze({catalog:()=>copyPdf(docs),get copyReady(){return typeof session.saveAnnotatedPdf==='function'&&!copyUncertain},async saveCopy(prepared){if(copyBusy||copyUncertain||typeof session.saveAnnotatedPdf!=='function')throw Error('Gravação de cópia indisponível; reabra o perfil.');const p=checkedPdfCopy(prepared),source=map.get(p.doc.id);if(!source||source.file_id!==p.doc.file_id)throw Error('Origem fora do catálogo individual');copyBusy=true;try{const saved=await session.saveAnnotatedPdf(p);if(!valid(saved?.id)||saved.id===source.file_id)throw Error('Destino de cópia inválido');return saved}catch(e){copyUncertain=true;throw Error('Cópia não confirmada; reabra o perfil antes de repetir. '+e.message)}finally{copyBusy=false}},async read(doc){const match=map.get(doc?.id);if(!match||match.file_id!==doc.file_id)throw Error('PDF fora do catálogo individual');const blob=await session.readPdf(match.file_id);if(blob.type!=='application/pdf'||blob.size<=0||blob.size>120000000)throw Error('PDF recebido inválido');return blob}})
 }
 export function hydrateProfileMarks(storage,records,core){
  const raw=records.filter(x=>x?.schema===core.SCHEMA);

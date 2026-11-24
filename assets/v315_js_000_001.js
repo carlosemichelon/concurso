@@ -4,6 +4,7 @@
 /* 0 assets/visibilidade-v026.js */
 (function(root){
 'use strict';
+const account=root.BMAccountRuntime||null,localStorage=account?account.local:root.localStorage;
 // Compatível com as exclusões de imagens das versões anteriores.
 // Não oferece upload, importação, substituição ou publicação de arquivos.
 const DB='BancoMestreImagensV023',STORE='items',VALID=/^IMG-\d{3}$/;
@@ -11,7 +12,7 @@ let dbPromise=null;
 function db(){
  if(dbPromise)return dbPromise;
  dbPromise=new Promise((ok,fail)=>{
-  const r=indexedDB.open(DB,1);
+  const r=account?account.openDatabase(DB,1):indexedDB.open(DB,1);
   r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'})};
   r.onsuccess=()=>ok(r.result);r.onerror=()=>fail(r.error||Error('Armazenamento indisponível'));
  });
@@ -46,6 +47,7 @@ root.BancoMestreImagens={all,setStatus};
 /* V030 — editor de imagens de estudo; nenhuma alteração nos originais. */
 (function(root){
 'use strict';
+const account=root.BMAccountRuntime||null,localStorage=account?account.local:root.localStorage;
 const $=id=>document.getElementById(id);
 const dialog=$('imageDialog'),stage=$('imageStage'),base=$('base'),canvas=$('grifo');
 const ctx=canvas.getContext('2d'),baseCtx=base.getContext('2d');
