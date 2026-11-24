@@ -112,7 +112,30 @@ header .stats .bm241-verification{font-size:10px}
 #bm382QueuePanel button{margin:6px 7px 0 0}
 #bm382QueuePanel p{font-size:12px;margin:4px 0}
 #bmCardPeekV050[data-bm382-queue="true"] .bm165-prev,#bmCardPeekV050[data-bm382-queue="true"] .bm165-next{display:none!important}
-</style></head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
+</style><style id="bm-discursive-split">
+/* Desktop: two equal, independently scrolling study panes; mobile keeps original flow. */
+@media(min-width:900px){
+ #bmCardPeekV050 .bm165-panel.bm165-sidebar-hidden .bm165-layout:has(>#bm195Discursive:not([hidden])){
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;
+ }
+ #bmCardPeekV050 .bm165-panel:not(.bm165-sidebar-hidden) .bm165-layout:has(>#bm195Discursive:not([hidden])){
+  grid-template-columns:minmax(235px,300px) minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;
+ }
+ #bmCardPeekV050 .bm165-layout:has(>#bm195Discursive:not([hidden]))>.bm163-scroll{
+  grid-column:auto!important;grid-row:1!important;min-width:0;min-height:0;overflow-y:auto!important;overflow-x:hidden!important;
+ }
+ #bmCardPeekV050 .bm165-layout>#bm195Discursive:not([hidden]){
+  grid-column:-2/-1;grid-row:1;align-self:stretch;min-width:0;min-height:0;width:100%;max-width:none!important;
+  margin:0!important;border:0!important;border-left:2px solid #c5d4d8!important;border-radius:0!important;
+  padding:20px!important;box-sizing:border-box;overflow-y:auto!important;overflow-x:hidden!important;
+  overscroll-behavior:contain;scrollbar-gutter:stable;
+ }
+ #bmCardPeekV050 .bm165-layout>#bm195Discursive textarea[data-bm195-answer]{
+  min-height:clamp(240px,42dvh,540px)!important;resize:vertical;
+ }
+}
+</style>
+</head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
 <header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS6 · Cartões VC15</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
 <div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
 <div class="stat" id="bm382CatalogStat" title="Contagem do catálogo oficial; aguarda carregamento"><b>—</b><span>Cartões ativos</span><small class="bm241-verification">Carregando catálogo</small></div>
@@ -931,4 +954,28 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
 </script><script defer src="assets/v315_js_136_147.js?v=315-1"></script><script defer src="assets/v326_js_148_159_countsfix3.js?v=3"></script>
-<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v382_srs_journal.js?v=382-1"></script><script defer src="assets/v373_related_navigator.js?v=373-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/v343_petro27_renderer.js?v=343-1"></script><script defer src="assets/v345_petro28_renderer.js?v=345-1"></script><script defer src="assets/v346_petro24_renderer.js?v=346-1"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/v348_visual_renderer.js?v=348-1"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/v373_shared_reader.js?v=373-1"></script><script defer src="assets/v368_supplements.js?v=368-1"></script><script defer src="assets/v368_private_media.js?v=368-1"></script><script defer src="assets/v373_petro29_remap_renderer.js?v=373-1"></script><script defer src="assets/v383_study_queue.js?v=383-1"></script></body></html>
+<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v382_srs_journal.js?v=382-1"></script><script defer src="assets/v373_related_navigator.js?v=373-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/v343_petro27_renderer.js?v=343-1"></script><script defer src="assets/v345_petro28_renderer.js?v=345-1"></script><script defer src="assets/v346_petro24_renderer.js?v=346-1"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/v348_visual_renderer.js?v=348-1"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/v373_shared_reader.js?v=373-1"></script><script defer src="assets/v368_supplements.js?v=368-1"></script><script defer src="assets/v368_private_media.js?v=368-1"></script><script defer src="assets/v373_petro29_remap_renderer.js?v=373-1"></script><script defer src="assets/v383_study_queue.js?v=383-1"></script><script id="bm-discursive-split-controller">
+(function(){
+ 'use strict';
+ const wide=matchMedia('(min-width:900px)');
+ function mount(){
+  const modal=document.getElementById('bmCardPeekV050'), editor=modal?.querySelector('#bm195Discursive');
+  const layout=modal?.querySelector('.bm165-layout'), controls=modal?.querySelector('.bm163-preview-controls');
+  if(!editor||!layout||!controls)return false;
+  function place(){
+   const active=editor.contains(document.activeElement)?document.activeElement:null;
+   if(wide.matches){if(editor.parentElement!==layout)layout.append(editor);}
+   else if(editor.previousElementSibling!==controls){controls.insertAdjacentElement('afterend',editor);}
+   if(active&&document.activeElement!==active)active.focus({preventScroll:true});
+  }
+  place();wide.addEventListener('change',place);return true;
+ }
+ function start(){
+  if(mount())return;
+  const observer=new MutationObserver(()=>{if(mount())observer.disconnect()});
+  observer.observe(document.body,{childList:true,subtree:true});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();
+</script>
+</body></html>
