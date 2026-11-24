@@ -87,3 +87,39 @@ test('conclusão exige verificação de todas as etapas aplicáveis',async()=>{
 test('alteração após congelamento bloqueia retomada',async()=>{
  const d=batch();d.content.srs.push({id:'another'});await assert.rejects(()=>resumePlan(d,async()=> 'MATCH'));
 });
+
+const {START,END,inspectDriveDocument,readGoogleDoc,driveVerifier}=require('../tools/incremental_drive_readback.cjs');
+function fakeDoc(d,docId='synthetic-doc'){
+ const s=START+'\n'+JSON.stringify(d)+'\n'+END;
+ return {documentId:docId,revisionId:'synthetic-revision',body:{content:[{paragraph:{elements:[{textRun:{content:s.slice(0,50)}},{textRun:{content:s.slice(50)}}]}}]}};
+}
+test('Drive: confirma conteúdo congelado mesmo com texto repartido em runs',()=>{
+ const d=batch();assert.equal(inspectDriveDocument(fakeDoc(d),d.batch_id,d.content_sha256),'MATCH');
+ d.content.srs.push({id:'alterado'});assert.equal(inspectDriveDocument(fakeDoc(d),d.batch_id,d.content_sha256),'CONFLICT');
+});
+test('Drive: documento narrativo ou sem revisão não confirma nem autoriza regravação',()=>{
+ const d=batch(),doc=fakeDoc(d);doc.body.content[0].paragraph.elements=[{textRun:{content:'checkpoint narrativo'}}];
+ assert.equal(inspectDriveDocument(doc,d.batch_id,d.content_sha256),'UNKNOWN');
+ assert.equal(inspectDriveDocument({...fakeDoc(d),revisionId:null},d.batch_id,d.content_sha256),'UNKNOWN');
+});
+test('Drive: marcador duplicado, truncado e outro lote bloqueiam',()=>{
+ const d=batch(),doc=fakeDoc(d);doc.body.content[0].paragraph.elements.push({textRun:{content:START}});
+ assert.equal(inspectDriveDocument(doc,d.batch_id,d.content_sha256),'CONFLICT');
+ assert.equal(inspectDriveDocument(fakeDoc(d),'other',d.content_sha256),'CONFLICT');
+});
+test('Drive: leitura OAuth restrita ao endpoint oficial e somente GET',async()=>{
+ const d=batch(),doc=fakeDoc(d);
+ const response=await readGoogleDoc({documentId:doc.documentId,accessToken:'synthetic-token',fetchImpl:async(url,options)=>{
+ assert.equal(url,'https://docs.googleapis.com/v1/documents/synthetic-doc?includeTabsContent=true');
+ assert.equal(options.method,undefined);assert.equal(options.headers.Authorization,'Bearer synthetic-token');assert.equal(options.redirect,'error');
+ return {ok:true,json:async()=>doc};
+ }});
+ assert.equal(response.documentId,doc.documentId);
+});
+test('Drive: recibo real exige documento correto e conteúdo correspondente',async()=>{
+ const d=batch(),doc=fakeDoc(d),verify=driveVerifier({documentId:doc.documentId,readDocument:async()=>doc});
+ const p=await resumePlan(d,verify);
+ assert.equal(p.states.drive,'VERIFIED');assert.equal(p.states.github,'UNKNOWN');assert.equal(p.next,null);
+ d.receipts.drive={...receipt(d,'drive'),reference:'wrong-doc'};
+ assert.equal((await resumePlan(d,verify)).states.drive,'CONFLICT');
+});
