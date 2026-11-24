@@ -22,3 +22,7 @@ A produção recebeu complementos didáticos V353 após o checkpoint V352. A can
 ## Conciliação sobre V357 — candidata V358
 
 A candidata incorpora os quatro commits de produção V354–V357, preserva seus complementos, scripts e relações, e mantém o snapshot V357 intacto. Manifesto e snapshot V358 coerentes exclusivamente na branch de homologação. A produção permanece intocada. O portão de qualidade e de mídias continua obrigatório; não publicar sem aprovação e teste de OAuth. Nenhum cartão, evento SRS ou dado privado alterado.
+
+## Produção concorrente V358
+
+A V358 oficial foi publicada por outra atualização durante a homologação. Preservada integralmente a versão oficial e seus complementos. Candidatas usam identificação com sufixo `-sync`, sem consumir números oficiais; a próxima numeração oficial só pode ser reservada na promoção, após conferir a produção vigente. Não manter versões concorrentes de conteúdo. Portões de liberação permanecem ativos.
