@@ -13,9 +13,9 @@ const host=page.locator('#bmCardPeekV050 .bm-v050-peek-answer');await host.waitF
 const reveal=page.locator('#bmCardPeekV050 button').filter({hasText:'Revelar resposta'}).first();await reveal.click();
 const article=host.locator('[data-bm-consolidated="'+r.id+'"]');await article.waitFor({state:'visible'});
 assert.equal(await article.locator('mark').count(),r.editorial.highlights.length,r.id);
-assert.equal(await article.locator('table').count(),1,r.id);
-assert.equal(await article.locator('math').count(),r.editorial.formulas.length,r.id);
-assert.equal(await article.locator('figure').count(),r.editorial.media.length,r.id);
+assert.equal(await article.locator(':scope > section > .table-wrap > table').count(),1,r.id);
+assert.equal(await article.locator(':scope > .formula math').count(),r.editorial.formulas.length,r.id);
+assert.equal(await article.locator(':scope > figure').count(),r.editorial.media.length,r.id);
 assert.equal(await article.locator('.historic-module').count(),11,r.id);
 assert.equal(await article.locator('details.evolution').getAttribute('open'),null,r.id);
 if(['CARD-1610','CARD-1426','CARD-1503'].includes(r.id)){await page.screenshot({path:'preview-'+viewport.width+'-'+r.id+'.png',fullPage:false});}
