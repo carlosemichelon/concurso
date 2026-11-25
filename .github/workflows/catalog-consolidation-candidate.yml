@@ -1,0 +1,40 @@
+name: Materializar consolidação candidata
+on:
+  push:
+    branches: ['consolidacao-*-candidata']
+    paths: ['assets/catalog_consolidation_request.json', 'tools/catalog_consolidation_batch.cjs', '.github/workflows/catalog-consolidation-candidate.yml']
+permissions:
+  contents: write
+concurrency:
+  group: consolidation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  materializar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Registrar base e materializar
+        run: |
+          echo "CATALOG_BASE=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          node tools/catalog_consolidation_batch.cjs assets/catalog_consolidation_request.json
+          node tools/catalog_snapshot.cjs --check
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/catalog_reader_gate.cjs "$CATALOG_BASE"
+      - run: node tools/catalog_lookup.cjs
+      - name: Gravar somente candidato validado
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          HOME_FILE=$(node -p "require('./assets/version.json').home")
+          SNAP=$(node -p "require('./assets/version.json').catalog.path")
+          git add -A -- assets/version.json "$SNAP" assets/catalog_lookup index.html "$HOME_FILE"
+          git diff --cached --quiet && exit 0
+          git commit -m 'Materializar consolidação candidata validada'
+          git push origin HEAD:$GITHUB_REF_NAME
