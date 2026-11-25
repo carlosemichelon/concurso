@@ -1,3 +1,7 @@
+## V429 / VS38 — Barra lateral do editor PDF (25/11/2026)
+
+Candidata: elimina conflito entre pseudo-elemento mascarado e SVG oculto; amplia ícones para 22 px, padroniza botões, indica ferramenta ativa e preserva layout lateral. Não altera scripts, funções, catálogo VC46, SRS VR3, dados privados ou imagens. V428 intacta. Validação visual do leitor e implantação pública ainda não confirmadas.
+
 ## V400 / VS11 — Cartões relacionados compactos (24/11/2026)
 
 Na grade, todos os vínculos ficam recolhidos inicialmente em uma única linha com contagem. O botão expande ou recolhe a lista completa, preservando os IDs e a navegação lateral. O leitor mantém a apresentação anterior. VC31, VI9, VM7 e SRS inalterados. V399 preservada. Teste visual no navegador e confirmação de publicação pendentes.
