@@ -1051,7 +1051,11 @@ const make=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.classNa
 const MATH='http://www.w3.org/1998/Math/MathML';
 function mn(tag,txt){const e=document.createElementNS(MATH,tag);if(txt!==undefined)e.textContent=txt;return e;}
 function inlineMath(s){return window.BM417Math.inline(s);}
-function mathPart(s){return window.BM417Math.part(s);}
+function mathPart(s){
+ const raw=String(s).trim(),match=raw.match(/^∫\s*(.+?)\s*\/\s*\[([^\[\]]+)\]\s*(d[xyls])$/u);
+ if(match){const r=mn('mrow'),frac=mn('mfrac');frac.append(inlineMath(match[1]),inlineMath(match[2]));r.append(mn('mo','∫'),frac,mn('mi',match[3]));return r}
+ return window.BM417Math.part(s);
+}
 function equationNode(text){
  const line=make('div','bm416-equation-item');line.setAttribute('aria-label','Fórmula: '+text);
  // Matrizes de fonte textual recebem linhas e colunas reais, mantendo os coeficientes originais.
@@ -1114,30 +1118,37 @@ function makeBody(body){
     if(parts.length&&parts.every(isEquation)){const context=inlineContent(make('p','bm249-line bm249-paragraph'),prefix);const block=make('div','bm249-line bm249-equation');block.setAttribute('aria-label',sourceLine);for(const expr of parts)block.append(equationNode(expr));host.append(context,block);continue;}
    }
   }
+  const named=sourceLine.match(/^(Deslocamento básico:\s*)(Δ⁰\s*=\s*∫.+?\s+dx)(,.*)$/u);
+  if(named){host.append(make('p','bm249-line bm249-paragraph',named[1]),equationNode(named[2]),make('p','bm249-line bm249-paragraph',named[3].replace(/^,\s*/,'')));continue;}
   const line=inlineContent(make(kind==='subhead'?'h4':'p','bm249-line bm249-'+kind),sourceLine);host.append(line);
  }
  return host;
 }
-let formulaDialog=null,formulaReturn=null;
+let formulaDialog=null,formulaReturn=null,formulaNumber=null;
+const FORMULA_FIGURES=Object.freeze({3:'assets/formulas/v430-secao-retangular.svg',20:'assets/formulas/v430-compatibilidade.svg'});
+function navigateFormula(delta){const order=orderedSections(sections),pos=order.findIndex(x=>x.number===formulaNumber);if(pos>=0&&order[pos+delta])openFormula(order[pos+delta].number)}
 function closeFormula(){if(formulaDialog?.open)formulaDialog.close()}
 function openFormula(number,trigger){
- if(!loaded||!token()||loadedAuth!==token())return;
+ if(!loaded||!token()||loadedAuth!==token()){closeFormula();status('Conecte novamente o Drive para abrir a fórmula.','pending');return;}
  const item=sections.find(x=>x.number===Number(number));if(!item)return;
  if(!formulaDialog){
   const d=make('dialog','bm427-formula-dialog');d.id='bm427FormulaDialog';d.setAttribute('aria-labelledby','bm427FormulaTitle');
   const head=make('div','bm427-formula-head'),titles=make('div','bm427-formula-titles'),caption=make('small','bm427-formula-caption'),title=make('h2','bm427-formula-title');title.id='bm427FormulaTitle';titles.append(caption,title);
   const close=make('button','bm427-formula-close','Fechar ×');close.type='button';close.onclick=closeFormula;head.append(titles,close);
   const content=make('div','bm427-formula-scroll');content.tabIndex=0;
-  const foot=make('div','bm427-formula-foot'),prev=make('button','','‹ Anterior'),next=make('button','','Próxima ›'),source=make('a','action','Documento original');source.href=DOC_URL;source.target='_blank';source.rel='noopener noreferrer';prev.type=next.type='button';foot.append(prev,source,next);d.append(head,content,foot);
-  d.addEventListener('close',()=>{content.replaceChildren();title.textContent='';caption.textContent='';const back=formulaReturn;formulaReturn=null;if(back?.isConnected)back.focus({preventScroll:true})});
+  const foot=make('div','bm427-formula-foot'),prev=make('button','','‹ Anterior'),next=make('button','','Próxima ›'),source=make('a','action','Documento original');source.href=DOC_URL;source.target='_blank';source.rel='noopener noreferrer';prev.type=next.type='button';prev.id='bm430FormulaPrev';next.id='bm430FormulaNext';prev.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();navigateFormula(-1)});next.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();navigateFormula(1)});foot.append(prev,source,next);d.append(head,content,foot);
+  d.addEventListener('close',()=>{if(d.open)return;formulaNumber=null;content.replaceChildren();title.textContent='';caption.textContent='';const back=formulaReturn;formulaReturn=null;if(back?.isConnected)back.focus({preventScroll:true})});
   $('formulas').append(d);formulaDialog=d;
  }
  const d=formulaDialog,order=orderedSections(sections),pos=order.findIndex(x=>x.number===item.number),display=displayNumbers();
  if(!d.open)formulaReturn=trigger||document.activeElement;
  d.querySelector('.bm427-formula-caption').textContent=item.category+(item.number?' · Seção original '+item.number:'');
  d.querySelector('.bm427-formula-title').textContent=item.number?display.get(item.number)+'. '+item.title:item.title;
- const content=d.querySelector('.bm427-formula-scroll');content.replaceChildren(makeBody(item.body||'(Seção sem conteúdo no arquivo original)'));content.scrollTop=0;
- const [prev,next]=d.querySelectorAll('.bm427-formula-foot button');prev.disabled=pos<=0;next.disabled=pos>=order.length-1;prev.onclick=()=>{if(pos>0)openFormula(order[pos-1].number)};next.onclick=()=>{if(pos<order.length-1)openFormula(order[pos+1].number)};
+ const content=d.querySelector('.bm427-formula-scroll');let body;
+ try{body=makeBody(item.body||'(Seção sem conteúdo no arquivo original)')}catch(e){console.warn('Fórmula: texto original preservado',e);body=make('pre','bm249-body bm430-formula-fallback',item.body||'Seção sem conteúdo');}
+ const src=FORMULA_FIGURES[item.number];if(src){const fig=make('figure','bm430-formula-figure');const img=make('img');img.src=src;img.alt=item.number===20?'Balanço apoiado e compatibilidade em B':'Seção retangular, eixos centroidais e fibras extremas';img.loading='lazy';img.decoding='async';img.width=640;img.height=200;img.onerror=()=>fig.remove();fig.append(img,make('figcaption','','Esquema didático complementar'));body.prepend(fig);}
+ formulaNumber=item.number;d.dataset.formulaSection=String(item.number);content.replaceChildren(body);content.scrollTop=0;
+ $('bm430FormulaPrev').disabled=pos<=0;$('bm430FormulaNext').disabled=pos>=order.length-1;
  if(!d.open)d.showModal();content.focus({preventScroll:true});
 }
 
