@@ -1,6 +1,6 @@
 ## V432 / VS41 — Busca temática de mídias (25/11/2026)
 
-Recupera vínculos por IDs, classificação e termos técnicos, distingue sugestões, aguarda índices existentes e permite resultado parcial independente por biblioteca. Exibe totais consultados e causas de falha. Reutiliza fontes autorizadas, sem novo carregamento inicial nem alteração de cartões, originais ou SRS.
+Atalhos ←/→ no leitor de fórmulas e renderização de expressões em linhas mistas com notas explicativas. Recupera vínculos por IDs, classificação e termos técnicos, distingue sugestões, aguarda índices existentes e permite resultado parcial independente por biblioteca. Exibe totais consultados e causas de falha. Reutiliza fontes autorizadas, sem novo carregamento inicial nem alteração de cartões, originais ou SRS.
 
 ## V431 / VS40 — Leitor de fórmulas: rolagem única e navegação (25/11/2026)
 
