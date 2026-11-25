@@ -14,7 +14,7 @@
   checking=(async()=>{
    try{const r=await request('/api/vs41/session');if(!r.ok)throw Error('Sessão encerrada');
     const p=await r.json();if(!/^[a-f0-9]{32}$/.test(p.context)||context&&context!==p.context)throw Error('Sessão alterada');
-    context=p.context;return context;
+    const first=!context;context=p.context;if(first)document.dispatchEvent(new CustomEvent('bm-vs41-session-ready'));return context;
    }catch(e){if(context)invalidate();throw e}
   })();
   try{return await checking}finally{checking=null}
@@ -25,6 +25,20 @@
   window.addEventListener('pagehide',()=>{if(context)document.documentElement.style.visibility='hidden'});
   window.addEventListener('pageshow',e=>{if(e.persisted&&context)void check().then(()=>{if(!locked)document.documentElement.style.visibility=''}).catch(()=>{})});
  }
+ async function reviewRequest(input){
+  const expected=await check();start();
+  const r=await fetch('/api/vs41/reviews',{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});
+  if(r.status===401){invalidate();throw Error('Sessão encerrada')}
+  if(r.status===409){await check();throw Error('Conflito na avaliação')}
+  if(!r.ok){const e=Error('Avaliação privada não confirmada (HTTP '+r.status+')');e.definite=r.status===400;throw e}
+  const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
+  return p;
+ }
+ Object.defineProperty(window,'BMVS41PrivateReviews',{value:Object.freeze({
+  available:()=>!!context&&!locked,
+  async read(){const p=await reviewRequest();if(!Array.isArray(p.events))throw Error('Histórico inválido');return p.events},
+  async record(input){return (await reviewRequest(input)).event}
+ })});
  Object.defineProperty(window,'BMVS41PrivateCards',{value:Object.freeze({async read(){
   const expected=await check();start();
   const r=await request('/api/vs41/private-cards',{'X-BM-Context':expected});

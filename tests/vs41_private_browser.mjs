@@ -1,8 +1,9 @@
+import {privateJournal} from '../infra/vs41-private/journal.mjs';
 import {privatePage} from '../infra/vs41-private/page.mjs';
 import fs from 'node:fs';import path from 'node:path';import http from 'node:http';import assert from 'node:assert/strict';import {chromium} from 'playwright';
 import {createApi} from '../infra/vs41-private/api.mjs';import {parseUsers,passwordHash} from '../infra/vs41-private/auth.mjs';
-import {fixture,profiles} from './vs41_private_fixture.mjs';
-const root=process.cwd(),html=fs.readFileSync('index.html','utf8'),f=fixture();
+import {reviewFixture,profiles} from './vs41_private_fixture.mjs';
+const root=process.cwd(),html=fs.readFileSync('index.html','utf8'),f=reviewFixture();
 const manifest=JSON.parse(fs.readFileSync('assets/version.json','utf8'));
 const passwords={A:'fixture-A-only-123',B:'fixture-B-only-123'};
 const users=parseUsers(JSON.stringify(await Promise.all(['A','B'].map(async label=>({username:label,...profiles[label],passwordHash:await passwordHash(passwords[label])})))));
@@ -12,6 +13,7 @@ const server=http.createServer(async(req,res)=>{
  const u=new URL(req.url,'http://localhost');
  if(await api(req,res))return;
  if(u.pathname==='/index.html'){res.setHeader('Content-Type','text/html');res.setHeader('Cache-Control','no-store');return res.end(privatePage(html))}
+ if(u.pathname==='/assets/v382_srs_journal_vc23.js'){res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(privateJournal(fs.readFileSync('assets/v382_srs_journal_vc23.js','utf8')))}
  // Only serve the original portal's static assets and the one private client script.
  if(!u.pathname.startsWith('/assets/')&&u.pathname!=='/infra/vs41-private/client.js'){res.writeHead(404);return res.end()}
  const file=path.resolve(root,'.'+u.pathname);
@@ -57,6 +59,16 @@ try{
  const results=await Promise.all([login(a,'A'),login(b,'B')]);assert.deepEqual(results.map(x=>x.status()),[200,200]);
  for(const context of [a,b]){const cookie=(await context.cookies()).find(x=>x.name==='__Host-bm_session');assert.ok(cookie&&cookie.httpOnly&&cookie.secure&&cookie.sameSite==='Strict')}
  const [oldA,oldB]=await Promise.all([open(a,'A',true),open(b,'B',true)]);
+ const reviewButtons=[oldA.locator('#bm316-srs-panel button[data-grade="Bom"]'),oldB.locator('#bm316-srs-panel button[data-grade="Fácil"]')];
+ await Promise.all(reviewButtons.map(b=>b.click()));
+ await Promise.all([oldA,oldB].map(p=>p.waitForFunction(()=>document.querySelector('#bm316-srs-state')?.textContent.includes('registrado no Drive e conferido'))));
+ assert.equal(f.writes.length,2);
+ assert.deepEqual(f.writes.map(x=>[x.parent,x.payload.rating]).sort(),[['rootA','Bom'],['rootB','Fácil']]);
+ for(const [p,rating] of [[oldA,'Bom'],[oldB,'Fácil']]){
+  await p.evaluate(()=>window.BM316SrsJournal.refresh());
+  const rows=await p.evaluate(()=>window.BM316SrsJournal.records());assert.equal(rows.length,1);assert.equal(rows[0].rating,rating);assert.equal(rows[0].id,'CARD-9901');
+ }
+ console.log('Botões originais: avaliações gravadas e relidas exclusivamente na raiz de cada usuário.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});
