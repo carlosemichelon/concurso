@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/vs41_private_catalog.test.mjs tests/vs41_private_api.test.mjs
+      - run: node --test tests/vs41_private_catalog.test.mjs tests/vs41_private_api.test.mjs tests/vs41_private_oauth.test.mjs
       - run: node tools/catalog_snapshot.cjs --check
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
