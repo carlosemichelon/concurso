@@ -100,7 +100,9 @@ try{
   await p.locator('#pdfDialog[open]').waitFor({state:'visible'});assert.equal(await p.locator('#docTitle').innerText(),'Material privado '+label);
   const src=await p.locator('#pdfFrame').getAttribute('src');assert.match(src,/^blob:/);
   assert.ok((await p.evaluate(async src=>await (await fetch(src)).text(),src)).includes('perfil '+label));
-  await p.locator('#pdfClose').click();
+  await p.locator('#bmV056ClosePDF').click();
+  await p.locator('#pdfDialog').waitFor({state:'hidden'});
+  assert.equal(await p.evaluate(async u=>{try{await fetch(u);return true}catch{return false}},src),false,'URL privada revogada ao fechar');
   assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
   await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
  }
