@@ -1,3 +1,4 @@
+import {privateGaps} from '../infra/vs41-private/gaps-ui.mjs';
 import {privatePdfEditor} from '../infra/vs41-private/pdf-editor.mjs';
 import {privatePdfLibrary,privatePdfSync} from '../infra/vs41-private/pdf-library.mjs';
 import {privateMediaRenderer} from '../infra/vs41-private/media-renderer.mjs';
@@ -22,6 +23,7 @@ const server=http.createServer(async(req,res)=>{
  if(u.pathname==='/assets/v414_js_076_087_header.js'||u.pathname==='/assets/v383_study_queue.js'){const file=u.pathname.slice(1),adapt=file.includes('header')?privateCalendar:privateStudyQueue;res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(adapt(fs.readFileSync(file,'utf8')))}
  if(u.pathname==='/assets/v417_shared_reader.js'){res.setHeader('Content-Type','application/javascript');return res.end(privateMediaRenderer(fs.readFileSync('assets/v417_shared_reader.js','utf8')))}
  if(u.pathname==='/assets/v432_js_002_015_topic_media.js'||u.pathname==='/assets/v432_js_040_051_atlas.js'){const file=u.pathname.slice(1),adapt=file.includes('topic_media')?s=>privatePdfLibrary(privatePdfEditor(s)):privatePdfSync;res.setHeader('Content-Type','application/javascript');return res.end(adapt(fs.readFileSync(file,'utf8')))}
+ if(u.pathname==='/assets/v430_js_112_123_control.js'){res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(privateGaps(fs.readFileSync(u.pathname.slice(1),'utf8')))}
  // Only serve the original portal's static assets and the one private client script.
  if(!u.pathname.startsWith('/assets/')&&u.pathname!=='/infra/vs41-private/client.js'){res.writeHead(404);return res.end()}
  const file=path.resolve(root,'.'+u.pathname);
@@ -141,6 +143,32 @@ try{
   await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
  }
  console.log('Editor PDF.js original: PDF válido, marcação e gravação autenticada.');
+ for(const [p,label] of [[oldA,'A'],[oldB,'B']]){
+  await p.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
+  await p.evaluate(()=>{localStorage.setItem('BM_LACUNAS_V242',JSON.stringify({schema:1,records:[{id:'LAC-LEGACY',descricao:'Administrador privado'}],log:[]}));window.BM242Lacunas.openForm()});
+  await p.waitForFunction(()=>window.BM242Lacunas?.data?.records?.length===0&&document.querySelector('#lacunas.active')&&!document.querySelector('#bm242-form button[type=submit]').disabled);
+  const form=p.locator('#bm242-form');
+  await form.locator('[name=descricao]').fill('Lacuna privada '+label);
+  await form.locator('[name=relatoEstudante]').fill('Relato literal '+label);
+  await form.locator('[name=cardIds]').fill('CARD-9901');
+  await form.locator('[name=disciplina]').fill('Teste');
+  await form.locator('button[type=submit]').click();
+  await p.waitForFunction(label=>document.querySelector('#bm242-form-msg')?.textContent.includes('gravada e conferida')&&window.BM242Lacunas.data.records[0]?.descricao==='Lacuna privada '+label,label);
+  assert.equal(await p.evaluate(()=>window.BM242Lacunas.data.records[0].relatoEstudante),'Relato literal '+label);
+  assert.ok((await p.locator('#bm242-list').innerText()).includes('Lacuna privada '+label));
+  await p.evaluate(()=>document.querySelector('#bm242-list [data-stage]').click());
+  await p.waitForFunction(()=>window.BM242Lacunas.data.records[0].etapa==='Explicada');
+  await p.evaluate(()=>window.BM242LacunasDrive.sync());
+  assert.equal(await p.evaluate(()=>window.BM242Lacunas.data.records.length),1);
+  assert.equal(await p.evaluate(()=>window.BM242Lacunas.data.records[0].etapa),'Explicada');
+  assert.equal(await p.evaluate(()=>JSON.parse(localStorage.getItem('BM_LACUNAS_V242')).records[0].id),'LAC-LEGACY');
+  assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
+  await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
+ }
+ const gapWrites=f.writes.filter(x=>x.payload.schema==='BM-GAP-EVENT/1');assert.equal(gapWrites.length,4);
+ assert.deepEqual(gapWrites.map(x=>[x.parent,x.payload.record.relatoEstudante]).sort(),[['rootA','Relato literal A'],['rootA','Relato literal A'],['rootB','Relato literal B'],['rootB','Relato literal B']]);
+ assert.equal(f.writes.filter(x=>x.payload.schema==='bm-srs-formal-event/1').length,2);
+ console.log('Lacunas: formulário original, etapa, releitura privada e armazenamento legado intacto.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});
