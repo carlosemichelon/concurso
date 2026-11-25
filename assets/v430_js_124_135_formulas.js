@@ -1052,7 +1052,7 @@ const MATH='http://www.w3.org/1998/Math/MathML';
 function mn(tag,txt){const e=document.createElementNS(MATH,tag);if(txt!==undefined)e.textContent=txt;return e;}
 function inlineMath(s){return window.BM417Math.inline(s);}
 function mathPart(s){
- const raw=String(s).trim(),match=raw.match(/^∫\s*(.+?)\s*\/\s*\[([^\[\]]+)\]\s*(d[xyls])$/u);
+ const raw=String(s).trim().replace(/\.$/u,''),match=raw.match(/^∫\s*(.+?)\s*\/\s*\[([^\[\]]+)\]\s*(d[xyls])$/u);
  if(match){const r=mn('mrow'),frac=mn('mfrac');frac.append(inlineMath(match[1]),inlineMath(match[2]));r.append(mn('mo','∫'),frac,mn('mi',match[3]));return r}
  return window.BM417Math.part(s);
 }

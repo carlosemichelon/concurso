@@ -17,10 +17,10 @@ sections=[{number:3,title:'RESISTÊNCIA DOS MATERIAIS',category:category(3,''),b
 document.getElementById('entry').onclick=()=>openFormula(20,document.getElementById('entry'));
 `});
  await page.locator('#entry').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'20');
- assert.ok(await page.locator('.bm427-formula-scroll mfrac').count()>=1);
+ assert.ok(await page.locator('.bm427-formula-scroll mfrac').count()>=2);
  assert.equal(await page.locator('.bm430-formula-figure img').getAttribute('src'),'assets/formulas/v430-compatibilidade.svg');
  await page.locator('#bm430FormulaNext').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'4');
- assert.equal(await page.locator('.bm430-formula-figure').count(),0);assert.ok((await page.locator('.bm427-formula-title').textContent()).includes('MATRICIAL'));
+ assert.equal(await page.locator('.bm430-formula-figure').count(),0);assert.equal(await page.locator('.bm427-formula-scroll mtable').count(),1);assert.ok((await page.locator('.bm427-formula-title').textContent()).includes('MATRICIAL'));
  await page.locator('#bm430FormulaNext').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'21');
  assert.equal(await page.locator('#bm430FormulaNext').isDisabled(),true);
  await page.locator('#bm430FormulaPrev').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'4');
