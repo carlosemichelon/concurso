@@ -8,7 +8,7 @@ const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p
 const request=json('assets/catalog_evolution_request.json'),m=json('assets/version.json');
 assert.match(request.packet,/^assets\/[a-zA-Z0-9_.-]+\.json$/);
 assert.match(request.target_version,/^VC[0-9]+$/);
-if([...(m.catalog.evolution_batches||[]),...(m.catalog.post_evolution_batches||[]),...(m.catalog.new_card_batches||[]),...(m.catalog.final_evolution_batches||[]),...(m.catalog.incremental_batches||[])].some(b=>b.path===request.packet)){console.log('Lote já integrado');process.exit(0)}
+if([...(m.catalog.evolution_batches||[]),...(m.catalog.post_evolution_batches||[]),...(m.catalog.new_card_batches||[]),...(m.catalog.final_evolution_batches||[]),...(m.catalog.incremental_batches||[]),...(m.catalog.post_consolidation_incremental_batches||[])].some(b=>b.path===request.packet)){console.log('Lote já integrado');process.exit(0)}
 assert.equal(blobHash(read('assets/version.json')),request.source_manifest_blob,'Manifesto alterado');
 assert.equal(m.catalog.git_blob,request.source_catalog_blob,'Catálogo alterado');
 assert.equal(Number(request.target_version.slice(2)),Number(m.catalog.display_version.slice(2))+1,'Versão inválida');
@@ -21,7 +21,8 @@ const result=adding?require('./catalog_new_cards.cjs').applyNewCards(old,packet)
 const raw=Buffer.from(JSON.stringify(result),'utf8');
 const nextPath='assets/catalog_snapshot_'+request.target_version.toLowerCase()+'.json';
 assert.ok(!fs.existsSync(path.join(root,nextPath)),'Destino já existe');
-const c={...m.catalog,path:nextPath,git_blob:blobHash(raw),display_version:request.target_version,counts:result.counts,incremental_batches:[...(m.catalog.incremental_batches||[]),{path:request.packet,git_blob:blobHash(packetRaw),kind:adding?'new':'evolution'}],private_sync:'not_verified'};
+const batchKey=(m.catalog.consolidation_vc42||(m.catalog.consolidation_batches||[]).length||(m.catalog.post_consolidation_incremental_batches||[]).length)?'post_consolidation_incremental_batches':'incremental_batches';
+const c={...m.catalog,path:nextPath,git_blob:blobHash(raw),display_version:request.target_version,counts:result.counts,[batchKey]:[...(m.catalog[batchKey]||[]),{path:request.packet,git_blob:blobHash(packetRaw),kind:adding?'new':'evolution'}],private_sync:'not_verified'};
 validate(result,c);
 const html=read(m.home).toString('utf8');assert.equal(read('index.html').toString('utf8'),html);
 const re=/const BM_CATALOG=Object\.freeze\(([^\n]+)\);/;
