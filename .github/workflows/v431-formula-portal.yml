@@ -1,0 +1,19 @@
+name: VS40 - leitor de formulas no portal integral
+on:
+  push:
+    branches: ['correcao/vs40-formulas']
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check assets/v431_js_124_135_formulas.js
+      - run: node tools/catalog_snapshot.cjs --check
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/v431_formula_portal.cjs

@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V430"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS39 — Portal de estudos</title><style id="bm-startup-gate">
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V431"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS40 — Portal de estudos</title><style id="bm-startup-gate">
 #bmStartupGate{display:none}
 html[data-bm-startup="pending"] body > :not(#bmStartupGate){opacity:0!important;pointer-events:none!important}
 html[data-bm-startup="pending"] #bmStartupGate{display:flex!important;position:fixed;inset:0;z-index:2147483647;align-items:center;justify-content:center;padding:24px;background:#f3f6f8;color:#253743;font:15px/1.5 system-ui,sans-serif}
@@ -1261,7 +1261,7 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
 <script defer src="assets/v383_js_016_027_vc23.js?v=383-2"></script>
 
 
-<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/v430_js_040_051_atlas.js?v=430-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/v326_js_052_063_catalogfix1.js?v=1"></script><script defer src="assets/v382_js_064_075_countsfix3_vc23.js?v=3"></script><script defer src="assets/v414_js_076_087_header.js?v=414-1"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=426-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=3"></script><script defer src="assets/v430_js_112_123_control.js?v=430-1"></script><script defer src="assets/v417_math_engine.js?v=417-1"></script><script defer src="assets/v430_js_124_135_formulas.js?v=430-1"></script><script id="bm259-pdf-visibility-label">
+<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/v430_js_040_051_atlas.js?v=430-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/v326_js_052_063_catalogfix1.js?v=1"></script><script defer src="assets/v382_js_064_075_countsfix3_vc23.js?v=3"></script><script defer src="assets/v414_js_076_087_header.js?v=414-1"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=426-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=3"></script><script defer src="assets/v430_js_112_123_control.js?v=430-1"></script><script defer src="assets/v417_math_engine.js?v=417-1"></script><script defer src="assets/v431_js_124_135_formulas.js?v=431-1"></script><script id="bm259-pdf-visibility-label">
 (function(){
  function mount(){
   const panel=document.querySelector('#pdfs .panel'),rows=document.getElementById('pdfRows');
@@ -1469,7 +1469,16 @@ dialog.bm426-info-editor .bm228-actions{gap:6px!important}
 #pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 :is(.bm100-row,.bm100-zoom)>button[data-bm427-pdf-icon],
 #pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm427-pdf-icon]{font-size:10px!important;min-height:44px!important;padding:4px 2px!important}
 }
-</style><style id="bm430-compact-ui">#formulas #bm427FormulaDialog .bm430-formula-figure{margin:0 0 10px!important;border:1px solid #d7e3e9;border-radius:6px;padding:6px;background:white;max-width:640px}#formulas #bm427FormulaDialog .bm430-formula-figure img{display:block;width:100%;height:auto;max-height:200px;object-fit:contain}#formulas #bm427FormulaDialog .bm430-formula-figure figcaption{font-size:10px;color:#526c7a}#formulas #bm427FormulaDialog .bm430-formula-fallback{white-space:pre-wrap;overflow-wrap:anywhere}/* VS39: compactação, mantendo os mesmos comandos e sem novos temporizadores. */
+</style><style id="bm430-compact-ui">
+/* VS40: somente o corpo do diálogo tem rolagem. */
+#formulas #bm427FormulaDialog .bm427-formula-scroll{flex:0 1 auto!important;min-height:0!important;overflow:auto!important;overscroll-behavior:contain;scrollbar-gutter:stable}
+#formulas #bm427FormulaDialog .bm427-formula-scroll :is(.bm249-body,.bm249-line,.bm249-equation,.bm416-equation-item,.bm416-table-wrap,math){overflow:visible!important;max-height:none!important;height:auto!important;scrollbar-width:auto!important}
+#formulas #bm427FormulaDialog .bm249-equation{display:block!important;min-width:0!important;max-width:none!important}
+#formulas #bm427FormulaDialog .bm416-equation-item{min-width:0!important;width:max-content;max-width:none!important;text-align:left}
+#formulas #bm427FormulaDialog .bm416-equation-item math{margin:0!important}
+#formulas #bm427FormulaDialog .bm431-formula-notice{flex:none;margin:0;padding:7px 12px;background:#fff4e0;color:#78471c;font-size:12px}
+#formulas #bm427FormulaDialog .bm431-formula-notice[hidden]{display:none!important}
+#formulas #bm427FormulaDialog .bm430-formula-figure{margin:0 0 10px!important;border:1px solid #d7e3e9;border-radius:6px;padding:6px;background:white;max-width:640px}#formulas #bm427FormulaDialog .bm430-formula-figure img{display:block;width:100%;height:auto;max-height:200px;object-fit:contain}#formulas #bm427FormulaDialog .bm430-formula-figure figcaption{font-size:10px;color:#526c7a}#formulas #bm427FormulaDialog .bm430-formula-fallback{white-space:pre-wrap;overflow-wrap:anywhere}/* VS39: compactação, mantendo os mesmos comandos e sem novos temporizadores. */
 #tema.active #topicMedia.bm171-media-open{display:block!important;visibility:visible!important;opacity:1!important}
 #tema.active #topicMedia.bm171-media-open :is(.bm430-topic-grid,.bm169-pdf-links){visibility:visible!important;opacity:1!important}
 #tema #topicMedia .bm430-topic-grid{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:8px}

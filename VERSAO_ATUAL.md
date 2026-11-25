@@ -1,3 +1,7 @@
+## V431 / VS40 — Leitor de fórmulas: rolagem única e navegação (25/11/2026)
+
+A rolagem fica no corpo do diálogo; blocos internos sem áreas de rolagem. Navegação por identificador da seção no próprio diálogo, com erro visível e sem consulta adicional ao Drive. Validação no portal integral com dados fictícios. V430 preservada; demais componentes inalterados.
+
 ## V430 / VS39 — Consulta de mídias e interface compacta (25/11/2026)
 
 Removido o botão Usar original do computador da barra do editor, sem apagar originais associados. Confirmação das exclusões locais no próprio comando e proteção de cliques destrutivos; mover arquivos no Drive conserva confirmação própria. Navegação de fórmulas e SVGs sob demanda.
