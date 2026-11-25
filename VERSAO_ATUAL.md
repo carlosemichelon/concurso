@@ -1,3 +1,7 @@
+## V430 / VS39 — Consulta de mídias e interface compacta (25/11/2026)
+
+Consulta por assunto usa bibliotecas autenticadas existentes. Barra representa trabalho real e sai ao concluir. Imagem centralizada, fórmulas compactas, PDF lateral reorganizado, lacunas renderizadas após confirmação do Drive quando a aba está aberta. VC46, VR3, VI9 e VM16 intactos. V429 preservada; validação e publicação separadas.
+
 ## V429 / VS38 — Barra lateral do editor PDF (25/11/2026)
 
 Candidata: elimina conflito entre pseudo-elemento mascarado e SVG oculto; amplia ícones para 22 px, padroniza botões, indica ferramenta ativa e preserva layout lateral. Não altera scripts, funções, catálogo VC46, SRS VR3, dados privados ou imagens. V428 intacta. Validação visual do leitor e implantação pública ainda não confirmadas.

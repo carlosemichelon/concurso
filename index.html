@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V429"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS38 — Portal de estudos</title><style id="bm-startup-gate">
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V430"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS39 — Portal de estudos</title><style id="bm-startup-gate">
 #bmStartupGate{display:none}
 html[data-bm-startup="pending"] body > :not(#bmStartupGate){opacity:0!important;pointer-events:none!important}
 html[data-bm-startup="pending"] #bmStartupGate{display:flex!important;position:fixed;inset:0;z-index:2147483647;align-items:center;justify-content:center;padding:24px;background:#f3f6f8;color:#253743;font:15px/1.5 system-ui,sans-serif}
@@ -578,7 +578,7 @@ header .stats .bm241-verification{font-size:10px}
 </div>
 <div class="stage" id="imageStage"><div class="canvases"><canvas id="base" aria-hidden="true"></canvas><canvas id="grifo" tabindex="0" aria-label="Área para desenhar, apagar ou selecionar"></canvas></div></div>
 </div></dialog>
-<input id="v034OriginalPicker" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg" hidden aria-label="Selecionar imagem original para o registro"><script src="assets/v316_drive_progress.js?v=316-2"></script><script src="assets/v426_js_000_001_editor.js?v=426-1"></script><script>
+<input id="v034OriginalPicker" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg" hidden aria-label="Selecionar imagem original para o registro"><script src="assets/v316_drive_progress.js?v=316-2"></script><script src="assets/v430_js_000_001_editor.js?v=430-1"></script><script>
 'use strict';
 const $=id=>document.getElementById(id),fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const api=window.BancoMestreImagens;let docs=[],meta=null,cards=[],imgs=[],cardLimit=24,imgLimit=24,loadedCards=false,loadedImages=false;
@@ -1254,14 +1254,14 @@ async function imgOpen(x){
  }catch(e){alert('Falha ao abrir imagem: '+e.message)}
 }
 window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados nos módulos finais.
-</script><script defer src="assets/v428_js_002_015_topic_media.js?v=428-1"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
+</script><script defer src="assets/v430_js_002_015_topic_media.js?v=430-1"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
 
 
 <!-- Leitor antigo duplicado do Vade removido em V129 -->
 <script defer src="assets/v383_js_016_027_vc23.js?v=383-2"></script>
 
 
-<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/v424_js_040_051_atlas.js?v=424-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/v326_js_052_063_catalogfix1.js?v=1"></script><script defer src="assets/v382_js_064_075_countsfix3_vc23.js?v=3"></script><script defer src="assets/v414_js_076_087_header.js?v=414-1"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=426-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=3"></script><script defer src="assets/v415_js_112_123_control.js?v=415-1"></script><script defer src="assets/v417_math_engine.js?v=417-1"></script><script defer src="assets/v427_js_124_135_formulas.js?v=427-1"></script><script id="bm259-pdf-visibility-label">
+<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/v430_js_040_051_atlas.js?v=430-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/v326_js_052_063_catalogfix1.js?v=1"></script><script defer src="assets/v382_js_064_075_countsfix3_vc23.js?v=3"></script><script defer src="assets/v414_js_076_087_header.js?v=414-1"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=426-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=3"></script><script defer src="assets/v430_js_112_123_control.js?v=430-1"></script><script defer src="assets/v417_math_engine.js?v=417-1"></script><script defer src="assets/v430_js_124_135_formulas.js?v=430-1"></script><script id="bm259-pdf-visibility-label">
 (function(){
  function mount(){
   const panel=document.querySelector('#pdfs .panel'),rows=document.getElementById('pdfRows');
@@ -1469,4 +1469,37 @@ dialog.bm426-info-editor .bm228-actions{gap:6px!important}
 #pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 :is(.bm100-row,.bm100-zoom)>button[data-bm427-pdf-icon],
 #pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm427-pdf-icon]{font-size:10px!important;min-height:44px!important;padding:4px 2px!important}
 }
-</style></body></html>
+</style><style id="bm430-compact-ui">/* VS39: compactação, mantendo os mesmos comandos e sem novos temporizadores. */
+#tema.active #topicMedia.bm171-media-open{display:block!important;visibility:visible!important;opacity:1!important}
+#tema.active #topicMedia.bm171-media-open :is(.bm430-topic-grid,.bm169-pdf-links){visibility:visible!important;opacity:1!important}
+#tema #topicMedia .bm430-topic-grid{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:8px}
+#tema #topicMedia .bm430-media-link{height:auto;min-height:32px;white-space:normal;text-align:left;width:100%}
+#tema #topicMedia>.contextNote:empty{display:none}
+#imageDialog.bm422-editor[open] #imageStage{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;padding:8px!important}
+#imageDialog.bm422-editor[open] #imageStage .canvases{flex:none!important;margin:auto!important;max-width:none!important;max-height:none!important}
+#formulas #bm427FormulaDialog[open]{position:fixed!important;inset:0!important;margin:auto!important;width:min(740px,94vw)!important;height:auto!important;max-height:82dvh!important;max-width:94vw!important}
+#formulas #bm427FormulaDialog .bm427-formula-scroll{flex:0 1 auto!important;min-height:0!important}
+#formulas #bm427FormulaDialog .bm427-formula-head,#formulas #bm427FormulaDialog .bm427-formula-foot{padding:8px 12px!important}
+#formulas #bm427FormulaDialog .bm249-body{padding:10px 14px!important;max-width:none!important}
+#formulas #bm427FormulaDialog .bm249-blockgap{height:3px!important;min-height:0!important;margin:0!important}
+#formulas #bm427FormulaDialog .bm249-equation{padding:6px 10px!important;margin:4px 0!important;min-height:0!important}
+#formulas #bm427FormulaDialog .bm249-line{margin-block:5px!important}
+#formulas .bm246-formula-breadcrumb{margin-bottom:3px!important;padding:0!important}
+#formulas .bm246-formulas-panel>h2{margin:5px 0!important}
+#formulas .bm246-formulas-panel>.intro{display:none!important}
+#formulas .bm246-formula-toolbar{gap:5px!important;margin:6px 0!important;padding:0!important}
+#formulas .bm246-formula-status[data-state=ok]{padding:2px 0!important;margin:3px 0!important;border:0!important;background:transparent!important;font-size:11px!important}
+#formulas #bm246Connect[hidden]{display:none!important}
+#pdfDialog[open].bm422-editor.bm-v056-annotation-open .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){width:clamp(174px,19vw,230px)!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfLocalTools:not([hidden]){padding:4px!important;gap:4px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043{padding:2px!important;gap:5px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-section{padding:5px!important;gap:4px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-heading{margin:0 0 3px!important;font-size:10px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 :is(.bm100-row,.bm100-zoom)>button[data-bm427-pdf-icon],#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm427-pdf-icon]{min-height:38px!important;height:auto!important;gap:2px!important;padding:3px 2px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar{padding:5px!important;gap:4px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-row{gap:3px!important}
+#lacunas.bm430-gap-wait :is(.bm242-filters,#bm242-list,#bm242-count,#bm299-lac-stats){display:none!important}
+#lacunas #bm242-state[hidden]{display:none!important}
+@media(max-width:650px){#formulas #bm427FormulaDialog[open]{width:94vw!important;max-height:88dvh!important}#pdfDialog[open].bm422-editor.bm-v056-annotation-open .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){width:166px!important;max-width:52vw!important}}
+</style>
+</body></html>
