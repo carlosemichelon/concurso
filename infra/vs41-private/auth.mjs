@@ -29,7 +29,7 @@ export function createAuth({users,now=Date.now,ttl=8*3600000,maxAttempts=8}){
   try{const actual=await derive(password,salt,32,opts);ok=timingSafeEqual(actual,Buffer.from(hash,'hex'))}finally{inFlight--}
   if(!user||!ok)return null;
   if(sessions.size>=1000)return null;
-  revoke(oldToken);const token=randomBytes(32).toString('hex');const expires=now()+ttl;sessions.set(token,{user,expires});return {token,user,expires};
+  revoke(oldToken);const token=randomBytes(32).toString('hex');const expires=now()+ttl;const context=randomBytes(16).toString('hex');sessions.set(token,{user,expires,context});return {token,user,expires,context};
  }
  return {login,read,revoke};
 }

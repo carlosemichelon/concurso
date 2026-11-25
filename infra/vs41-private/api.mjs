@@ -26,9 +26,13 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
     if(req.headers.origin!==origin)return json(res,403,{error:'Origem não autorizada'});
     auth.revoke(token);return json(res,200,{ok:true},{'Set-Cookie':sessionCookie('',0),'Clear-Site-Data':'"cache", "storage"'});
    }
+   if(req.method==='GET'&&u.pathname==='/api/vs41/session'){
+    const s=auth.read(token);return s?json(res,200,{context:s.context}):json(res,401,{error:'Sessão encerrada'});
+   }
    if(req.method==='GET'&&u.pathname==='/api/vs41/private-cards'){
-    if(!auth.read(token))return json(res,401,{error:'Sessão encerrada'});
-    try{return json(res,200,await read(req))}catch{return json(res,503,{error:'Catálogo privado indisponível'})}
+    const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
+    try{const data=await read(req);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{...data,context:s.context})}catch{return json(res,503,{error:'Catálogo privado indisponível'})}
    }
    return json(res,404,{error:'Rota indisponível'});
   }catch{return json(res,500,{error:'Operação indisponível'})}

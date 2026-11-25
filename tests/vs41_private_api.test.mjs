@@ -14,11 +14,12 @@ test('login autenticado, dois perfis, recusa de origem, sem IDs do cliente, logo
   assert.equal((await login('A',passA,{Origin:'https://foreign.example'})).status,403);
   const [a,b]=await Promise.all([login('A',passA),login('B',passB)]);assert.equal(a.status,200);assert.equal(b.status,200);
   const cookies=[a,b].map(r=>{const c=r.headers.get('set-cookie');assert.match(c,/HttpOnly; Secure; SameSite=Strict/);return c.split(';')[0]});
-  const views=await Promise.all(cookies.map(Cookie=>req('private-cards',{headers:{Cookie}})));assert.deepEqual(await Promise.all(views.map(async r=>(await r.json()).records[0].back)),['Resposta privada A','Resposta privada B']);
+  const contexts=await Promise.all(cookies.map(async Cookie=>(await (await req('session',{headers:{Cookie}})).json()).context));assert.notEqual(contexts[0],contexts[1]);assert.match(contexts[0],/^[a-f0-9]{32}$/);assert.equal((await req('private-cards',{headers:{Cookie:cookies[0]}})).status,409);assert.equal((await req('private-cards',{headers:{Cookie:cookies[0],'X-BM-Context':contexts[1]}})).status,409);
+  const views=await Promise.all(cookies.map((Cookie,i)=>req('private-cards',{headers:{Cookie,'X-BM-Context':contexts[i]}})));assert.deepEqual(await Promise.all(views.map(async r=>(await r.json()).records[0].back)),['Resposta privada A','Resposta privada B']);
   assert.equal((await req('private-cards?subject=B',{headers:{Cookie:cookies[0]}})).status,403);
   assert.equal((await req('private-cards',{headers:{Cookie:cookies[0],Origin:'https://foreign.example'}})).status,403);
   assert.equal((await req('logout',{method:'POST',headers:{Cookie:cookies[0],Origin:origin}})).status,200);
   assert.equal((await req('private-cards',{headers:{Cookie:cookies[0]}})).status,401);
-  assert.equal((await req('private-cards',{headers:{Cookie:cookies[1]}})).status,200);
+  assert.equal((await req('private-cards',{headers:{Cookie:cookies[1],'X-BM-Context':contexts[1]}})).status,200);
  }finally{await new Promise(r=>server.close(r))}
 });

@@ -24,10 +24,10 @@ api=createApi({...f,users,origin:url});
 const browser=await chromium.launch({headless:true});
 const login=(context,label)=>context.request.post(url+'/api/vs41/login',{headers:{Origin:url},data:{username:label,password:passwords[label]}});
 const logout=context=>context.request.post(url+'/api/vs41/logout',{headers:{Origin:url}});
-async function open(context,label){
- const p=await context.newPage();let publicReads=0,privateReads=0;
+async function open(context,label,keep=false){
+ const p=await context.newPage();let publicReads=0,privateReads=0,sessionReads=0;
  await p.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin!==url)return r.abort();if(u.pathname.includes(manifest.catalog.path)||/\/assets\/catalog_snapshot_|\/assets\/cards_drive_sync_/.test(u.pathname)){publicReads++;return r.abort()}return r.continue()});
- p.on('request',r=>{if(r.url().endsWith('/api/vs41/private-cards'))privateReads++});
+ p.on('request',r=>{if(r.url().endsWith('/api/vs41/private-cards'))privateReads++;if(r.url().endsWith('/api/vs41/session'))sessionReads++});
  try{
   await p.goto(url+'/index.html',{waitUntil:'domcontentloaded',timeout:60000});
   await p.waitForFunction(()=>typeof loadCards==='function'&&window.BancoMestreVisualizarCardV050);
@@ -47,17 +47,23 @@ async function open(context,label){
    assert.equal(await p.evaluate(()=>cards[0].consolidation.profile.modules.length),11);
    assert.ok(!(await article.innerText()).includes('Módulo experimental 3 do perfil '+(label==='A'?'B':'A')));
   }
-  assert.equal(publicReads,0);assert.ok(privateReads>0);console.log('Perfil '+label+': fonte privada e sem fallback público');
- }finally{await p.close()}
+  assert.equal(publicReads,0);assert.ok(sessionReads>0);assert.equal(privateReads>0,label!=='X');console.log('Perfil '+label+': fonte privada e sem fallback público');
+  if(keep)return p;
+ }finally{if(!keep)await p.close()}
 }
 try{
  const a=await browser.newContext(),b=await browser.newContext();
  await open(a,'X');
  const results=await Promise.all([login(a,'A'),login(b,'B')]);assert.deepEqual(results.map(x=>x.status()),[200,200]);
  for(const context of [a,b]){const cookie=(await context.cookies()).find(x=>x.name==='__Host-bm_session');assert.ok(cookie&&cookie.httpOnly&&cookie.secure&&cookie.sameSite==='Strict')}
- await Promise.all([open(a,'A'),open(b,'B')]);
- assert.equal((await logout(a)).status(),200);
- await open(a,'X');await open(b,'B');
+ const [oldA,oldB]=await Promise.all([open(a,'A',true),open(b,'B',true)]);
+ const before=f.requests.length;
+ await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
+ const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});
+ assert.equal((await logout(a)).status(),200);await oldA.evaluate(()=>window.dispatchEvent(new Event('focus'))).catch(()=>{});await reloaded;await oldA.waitForLoadState('domcontentloaded');
+ assert.ok(!(await oldA.locator('body').innerText()).includes('Resposta privada A'));assert.equal(await oldA.evaluate(()=>loadCards().then(()=>true,()=>false)),false);
+ assert.ok((await oldB.locator('#bmCardPeekV050 .bm-v050-peek-answer').innerText()).includes('Resposta privada B'));
+ await oldA.close();await oldB.close();await open(a,'X');await open(b,'B');
  assert.equal((await login(a,'B')).status(),200);await open(a,'B');
  assert.equal((await logout(a)).status(),200);assert.equal((await logout(b)).status(),200);
  await Promise.all([a.close(),b.close()]);
