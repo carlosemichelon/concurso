@@ -1,0 +1,39 @@
+name: Validar consolidação VC42
+on:
+  pull_request:
+    branches: [gh-pages]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  vc42:
+    if: github.head_ref == 'consolidacao-vc41-candidata-20261124'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Montar catálogo candidato e conferir a reconstrução
+        run: |
+          node tools/catalog_consolidation_vc42.cjs
+          node tools/catalog_snapshot.cjs --check
+          node tools/catalog_lookup.cjs
+          node tools/catalog_lookup.cjs --check
+      - name: Testar exibição no leitor vigente
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+          node tests/vc42_consolidation_browser.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vc42-validado
+          path: |
+            assets/catalog_snapshot_vc42.json
+            assets/version.json
+            assets/catalog_lookup/
+            index.html
+            v404.html
+            tools/catalog_snapshot.cjs
+          if-no-files-found: error
