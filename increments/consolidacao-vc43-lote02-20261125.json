@@ -1,0 +1,2090 @@
+{
+  "format": "BancoMestreConsolidationCandidate1",
+  "date": "2026-11-25",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_catalog": "assets/catalog_snapshot_vc42.json",
+  "source_catalog_blob": "e7cc9714a00c1b91d67a2f50e2f580399b4d7fca",
+  "counts": {
+    "source_active": 1526,
+    "groups": 8,
+    "absorbed": 9,
+    "cumulative_groups": 16,
+    "cumulative_absorbed": 17,
+    "projected_active": 1509
+  },
+  "redirects": {
+    "CARD-0797": "CARD-1372",
+    "CARD-1389": "CARD-1123",
+    "CARD-1477": "CARD-1476",
+    "CARD-1109": "CARD-0497",
+    "CARD-0114": "CARD-0184",
+    "CARD-0889": "CARD-0184",
+    "CARD-0213": "CARD-0203",
+    "CARD-0933": "CARD-0244",
+    "CARD-0876": "CARD-0616"
+  },
+  "revisions": [
+    {
+      "id": "CARD-1372",
+      "title": "Reações horizontais sob cargas verticais",
+      "front": "Em pórticos e arcos submetidos somente a cargas verticais, quando as reações horizontais são nulas e quando podem ser não nulas?",
+      "back": "ΣFx=0 impõe soma algébrica nula das reações horizontais. Uma única reação horizontal deve ser zero se não há ação horizontal externa. Duas ou mais podem ser não nulas e equilibrar-se, como em um arco ou pórtico de três rótulas.",
+      "satellites": [
+        "CARD-0797"
+      ],
+      "source": "V006 / PROP-V006-N004\n\nV006 / PROP-V006-N004 | CON-10-037\n\nCON-13-013",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-1372",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Isostaticidade e forças horizontais em quadros",
+          "sub": "Forças horizontais em estruturas",
+          "front": "Cargas exclusivamente verticais implicam reações horizontais individuais nulas?",
+          "back": "Não. ΣFx=0 exige apenas que a soma algébrica das reações horizontais seja zero. Com uma única reação horizontal e nenhuma força horizontal externa, ela será nula; com duas ou mais, podem existir reações opostas não nulas.",
+          "expl": "Fundamento e fontes\nV006 / PROP-V006-N004 | CON-10-037\n\nMecanismo e compreensão\nDois ou mais apoios com restrição horizontal podem desenvolver esforços que se equilibram internamente.\n\nAplicação e cálculo\nHA=+20 kN e HB=−20 kN satisfazem ΣFx=0 sem força horizontal externa.\n\nComparação\nUma reação horizontal única: zero; duas reações: apenas soma algébrica obrigatoriamente zero.\n\nTransferência\nDesenhe o diagrama de corpo livre de um arco e indique as reações horizontais possíveis.\n\nCondições e exceções\nA existência de empuxos depende de geometria, rigidez e vínculos.\n\nPegadinhas\nCarga vertical não significa que toda reação horizontal individual seja nula.\n\nMacete\nSoma zero não é parcela zero.",
+          "mnemonic": "Soma zero não é parcela zero.",
+          "reference": "V006 / PROP-V006-N004",
+          "active": true,
+          "related_card_ids": [],
+          "related_question_ids": [],
+          "search_keywords": [
+            "CARD-0989",
+            "Reações horizontais em pórticos e arcos"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-1372",
+            "historical_ids": [
+              "CARD-1372",
+              "CARD-0989"
+            ],
+            "source_catalog_blob": "31a0e2eccb13b7e30d1ab9f696ab32ad151de4cb",
+            "original": {
+              "front": "Se todas as cargas externas são verticais, cada reação horizontal de um pórtico ou arco é necessariamente zero?",
+              "back": "Não. O equilíbrio exige apenas ΣFx=0; reações horizontais podem ser não nulas e equilibrar-se entre si.",
+              "expl": "Em sistemas com restrições horizontais em mais de um ponto, geometrias de pórtico ou arco podem mobilizar empuxos horizontais sob ações verticais.\nAplicação: Por exemplo, HA=+20 kN e HB=−20 kN satisfazem ΣFx=0 sem exigir HA=HB=0.\nPegadinha: Somente em certas configurações de vínculos se pode concluir que a reação horizontal particular é zero.",
+              "mnemonic": "Soma horizontal zero ≠ cada parcela zero.",
+              "reference": "V006 / PROP-V006-N004"
+            },
+            "profile": {
+              "id": "CARD-1372",
+              "title": "Reações horizontais em pórticos e arcos",
+              "front": "Cargas exclusivamente verticais implicam reações horizontais individuais nulas?",
+              "back": "Não. ΣFx=0 exige apenas que a soma algébrica das reações horizontais seja zero. Com uma única reação horizontal e nenhuma força horizontal externa, ela será nula; com duas ou mais, podem existir reações opostas não nulas.",
+              "satellites": [
+                "CARD-0989"
+              ],
+              "source": "V006 / PROP-V006-N004 | CON-10-037",
+              "related_card_ids": [],
+              "related_question_ids": [],
+              "history_ref": {
+                "snapshot": "31a0e2eccb13b7e30d1ab9f696ab32ad151de4cb",
+                "ids": [
+                  "CARD-1372",
+                  "CARD-0989"
+                ]
+              },
+              "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
+              "mnemonic": "Soma zero não é parcela zero.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Cargas exclusivamente verticais implicam reações horizontais individuais nulas?"
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "Não. ΣFx=0 exige apenas que a soma algébrica das reações horizontais seja zero. Com uma única reação horizontal e nenhuma força horizontal externa, ela será nula; com duas ou mais, podem existir reações opostas não nulas."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "V006 / PROP-V006-N004 | CON-10-037"
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo e compreensão",
+                  "texto": "Dois ou mais apoios com restrição horizontal podem desenvolver esforços que se equilibram internamente."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Aplicação e cálculo",
+                  "texto": "HA=+20 kN e HB=−20 kN satisfazem ΣFx=0 sem força horizontal externa."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Uma reação horizontal única: zero; duas reações: apenas soma algébrica obrigatoriamente zero."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Transferência",
+                  "texto": "Desenhe o diagrama de corpo livre de um arco e indique as reações horizontais possíveis."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "Origens preservadas: CARD-1372, CARD-0989. Núcleo integrado; não há vínculo direto adicional confirmado no catálogo consultado."
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "A existência de empuxos depende de geometria, rigidez e vínculos."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Carga vertical não significa que toda reação horizontal individual seja nula."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete",
+                  "texto": "Soma zero não é parcela zero."
+                }
+              ],
+              "editorial": {
+                "answer_paragraphs": [
+                  "Não. ΣFx=0 exige apenas que a soma algébrica das reações horizontais seja zero. Com uma única reação horizontal e nenhuma força horizontal externa, ela será nula; com duas ou mais, podem existir reações opostas não nulas."
+                ],
+                "highlights": [
+                  {
+                    "text": "Não",
+                    "kind": "core",
+                    "color": "#FDE68A",
+                    "bold": false
+                  }
+                ],
+                "media": [],
+                "atlas_refs": [],
+                "history_collapsed": true,
+                "reveal_after_attempt": true,
+                "source_status": "CANDIDATO_A_CONFERENCIA",
+                "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO_VC42"
+              }
+            },
+            "source_packet": "increments/consolidacao-vc41-candidata-20261124.json"
+          }
+        },
+        {
+          "id": "CARD-0797",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Pórticos planos",
+          "sub": "Alturas e reações horizontais",
+          "front": "Cargas exclusivamente verticais implicam reações horizontais nulas em cada apoio de pórtico?",
+          "back": "Não; podem existir reações horizontais iguais e opostas.",
+          "expl": "O equilíbrio global requer A_x+D_x=0 na ausência de ações horizontais. Em arco ou pórtico de três rótulas, a geometria e a condição de momento nulo na articulação interna podem exigir empuxo horizontal não nulo em ambos os apoios.\nAplicação: Exemplo ilustrativo: se o equilíbrio da metade esquerda requer A_x=+10 kN, a metade direita terá D_x=−10 kN, ainda que as cargas aplicadas sejam apenas verticais.\nPegadinha: Não confundir resultante horizontal externa zero com cada reação horizontal nula; verificar se os apoios permitem ou impedem movimento horizontal.",
+          "mnemonic": "Duas horizontais opostas podem nascer de carga vertical.",
+          "reference": "CON-13-013",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-1372": "0e22be35f25dca1ba729d7efcd51d86f3b2a5b4744b184a7538ed74cbc68d6fd",
+        "CARD-0797": "d5cfaa063bc9a686f85b2e44358913f576b2ad3b7e85bab33ce72697ad8df75f"
+      },
+      "mnemonic": "Soma zero não é parcela zero.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Em pórticos e arcos submetidos somente a cargas verticais, quando as reações horizontais são nulas e quando podem ser não nulas?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "ΣFx=0 impõe soma algébrica nula das reações horizontais. Uma única reação horizontal deve ser zero se não há ação horizontal externa. Duas ou mais podem ser não nulas e equilibrar-se, como em um arco ou pórtico de três rótulas."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "V006 / PROP-V006-N004\n\nV006 / PROP-V006-N004 | CON-10-037\n\nCON-13-013"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Os vínculos impedem movimentos e a geometria transmite esforços. Em estrutura de três rótulas, o momento nulo na articulação interna permite determinar o empuxo por equilíbrio de uma das partes."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "HA=+20 kN e HB=−20 kN satisfazem ΣFx=0. Se a metade esquerda exige Ax=+10 kN, a direita deve fornecer Dx=−10 kN."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Uma reação independente: zero sob cargas só verticais; duas: a soma é necessariamente zero, não cada parcela."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Isole o arco inteiro e depois uma metade; use ΣFx=0 e momento nulo na rótula interna para encontrar as reações."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-1372, CARD-0989, CARD-0797. Sem vínculo adicional confirmado neste lote."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A existência e magnitude do empuxo dependem da geometria, dos vínculos e da rigidez. Para estruturas hiperestáticas, pode ser necessária compatibilidade."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Resultante horizontal nula não significa todas as reações horizontais nulas."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Soma zero não é parcela zero."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "ΣFx=0 impõe soma algébrica nula das reações horizontais. Uma única reação horizontal deve ser zero se não há ação horizontal externa. Duas ou mais podem ser não nulas e equilibrar-se, como em um arco ou pórtico de três rótulas."
+        ],
+        "highlights": [
+          {
+            "text": "ΣFx=0 impõe soma algébrica nula das reações horizontais",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO_VC42"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-1123",
+      "title": "Classes de consistência do concreto",
+      "front": "Classifique abatimentos de 35, 50, 75, 100, 160 e 220 mm. Quais os limites das classes S e a diferença em relação às classes C?",
+      "back": "O abatimento de 75 mm pertence à classe S50. Pela NBR 8953:2015, as classes de consistência são definidas por intervalos de abatimento A, em milímetros.\n\nS10: 10 ≤ A < 50 mm; S50: 50 ≤ A < 100 mm; S100: 100 ≤ A < 160 mm; S160: 160 ≤ A < 220 mm; S220: A ≥ 220 mm.\n\nAssim, 35 mm é S10; 50 e 75 mm são S50; 100 mm é S100; 160 mm é S160; 220 mm é S220. Classe S descreve consistência; classe C descreve resistência característica à compressão.",
+      "satellites": [
+        "CARD-1389"
+      ],
+      "source": "CON-08-002\n\nABNT NBR 8953:2015, tabela 2 (classes de consistência): https://www.phd.eng.br/wp-content/uploads/2024/11/17.02.07Uberlandia.pdf ; ABNT NBR 16889:2020, ensaio de abatimento, em substituição à NM 67; https://www.portaldoconcreto.com.br/concreto-convencional\n\nCAND-P06-018 | https://drive.google.com/file/d/1Lu4RJUvRLyOxU_jQLgh5O8N17HwoWp5D/view",
+      "related_card_ids": [
+        "CARD-1124",
+        "CARD-1125"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-1123",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Materiais / Concreto e controle de qualidade",
+          "sub": "S50: classe de consistência",
+          "front": "Classifique abatimentos de 35, 50, 75, 100, 160 e 220 mm. Quais os limites das classes S e a diferença em relação às classes C?",
+          "back": "O abatimento de 75 mm pertence à classe S50. Pela NBR 8953:2015, as classes de consistência são definidas por intervalos de abatimento A, em milímetros.\n\nS10: 10 ≤ A < 50 mm; S50: 50 ≤ A < 100 mm; S100: 100 ≤ A < 160 mm; S160: 160 ≤ A < 220 mm; S220: A ≥ 220 mm.\n\nAssim, 35 mm é S10; 50 e 75 mm são S50; 100 mm é S100; 160 mm é S160; 220 mm é S220. Classe S descreve consistência; classe C descreve resistência característica à compressão.",
+          "expl": "Fundamento e fontes\nABNT NBR 8953:2015, tabela 2 (classes de consistência): https://www.phd.eng.br/wp-content/uploads/2024/11/17.02.07Uberlandia.pdf ; ABNT NBR 16889:2020, ensaio de abatimento, em substituição à NM 67; https://www.portaldoconcreto.com.br/concreto-convencional\n\nMecanismo\nA mistura fresca perde altura ao retirar o confinamento. A classificação organiza faixas dessa deformação; o número da classe representa seu limite inferior, não o valor obrigatório exato.\n\nFórmulas e critérios\nA=H_molde−H_concreto após retirada, na medição padronizada. Unidade mm; converter cm multiplicando por 10. 7,5 cm=75 mm.\n\nComparação\nS50 é classe de abatimento; C50 corresponde a fck de 50 MPa. Abatimento e resistência são propriedades distintas.\n\nAplicação e transferência\nOs valores 35, 65, 80 e 110 mm correspondem respectivamente a S10, S50, S50 e S100. Verificar faixa contratada e tolerâncias aplicáveis antes de aceitar o concreto.\n\nCondições e exceções\nClassificação citada é a edição 2015; classes especiais podem ser acordadas conforme a norma. Para concreto autoadensável, avaliar espalhamento por método próprio.\n\nPegadinhas\nNão incluir 100 mm em S50; não confundir mm com cm, nem número S com MPa.\n\nMacete e histórico\nS50 começa em 50 e termina antes de 100; fronteira pertence à classe superior. Original e referências preservados.",
+          "mnemonic": "S50 começa em 50 e termina antes de 100; fronteira pertence à classe superior.",
+          "reference": "CON-08-002",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1124",
+            "CARD-1125"
+          ],
+          "search_keywords": [
+            "Classes de consistência do concreto — NBR 8953:2015"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-1123",
+            "historical_ids": [
+              "CARD-1123"
+            ],
+            "original": {
+              "front": "No recebimento do concreto fresco, o abatimento medido foi 75 mm. A que classe de consistência S ele corresponde pela NBR 8953:2015?",
+              "back": "Classe S50, que abrange 50 ≤ A < 100 mm na classificação citada.",
+              "expl": "A classe S é definida por faixa de abatimento do tronco de cone; número da classe não é um valor exato a ser obtido. Medir A em mm e localizar a faixa.\nAplicação: 75 mm pertence à classe S50; um valor de 100 mm entra na classe seguinte, S100.\nPegadinha: Não confundir classe de consistência S50 com classe de resistência de concreto C50.",
+              "reference": "CON-08-002",
+              "mnemonic": "S50 = de 50 a antes de 100 mm."
+            },
+            "previous_version": {
+              "id": "CARD-1123",
+              "group": "ENG_GERAL",
+              "discipline": "Engenharia Civil",
+              "subject": "Materiais / Concreto e controle de qualidade",
+              "sub": "S50: classe de consistência",
+              "front": "No recebimento do concreto fresco, o abatimento medido foi 75 mm. A que classe de consistência S ele corresponde pela NBR 8953:2015?",
+              "back": "Classe S50, que abrange 50 ≤ A < 100 mm na classificação citada.",
+              "expl": "A classe S é definida por faixa de abatimento do tronco de cone; número da classe não é um valor exato a ser obtido. Medir A em mm e localizar a faixa.\nAplicação: 75 mm pertence à classe S50; um valor de 100 mm entra na classe seguinte, S100.\nPegadinha: Não confundir classe de consistência S50 com classe de resistência de concreto C50.",
+              "mnemonic": "S50 = de 50 a antes de 100 mm.",
+              "reference": "CON-08-002",
+              "active": true,
+              "related_card_ids": [
+                "CARD-1124"
+              ]
+            },
+            "profile": {
+              "id": "CARD-1123",
+              "title": "Classes de consistência do concreto — NBR 8953:2015",
+              "front": "Classifique abatimentos de 35, 50, 75, 100, 160 e 220 mm. Quais os limites das classes S e a diferença em relação às classes C?",
+              "back": "O abatimento de 75 mm pertence à classe S50. Pela NBR 8953:2015, as classes de consistência são definidas por intervalos de abatimento A, em milímetros.\n\nS10: 10 ≤ A < 50 mm; S50: 50 ≤ A < 100 mm; S100: 100 ≤ A < 160 mm; S160: 160 ≤ A < 220 mm; S220: A ≥ 220 mm.\n\nAssim, 35 mm é S10; 50 e 75 mm são S50; 100 mm é S100; 160 mm é S160; 220 mm é S220. Classe S descreve consistência; classe C descreve resistência característica à compressão.",
+              "source": "ABNT NBR 8953:2015, tabela 2 (classes de consistência): https://www.phd.eng.br/wp-content/uploads/2024/11/17.02.07Uberlandia.pdf ; ABNT NBR 16889:2020, ensaio de abatimento, em substituição à NM 67; https://www.portaldoconcreto.com.br/concreto-convencional",
+              "mnemonic": "S50 começa em 50 e termina antes de 100; fronteira pertence à classe superior.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Classifique abatimentos de 35, 50, 75, 100, 160 e 220 mm. Quais os limites das classes S e a diferença em relação às classes C?"
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "O abatimento de 75 mm pertence à classe S50. Pela NBR 8953:2015, as classes de consistência são definidas por intervalos de abatimento A, em milímetros.\n\nS10: 10 ≤ A < 50 mm; S50: 50 ≤ A < 100 mm; S100: 100 ≤ A < 160 mm; S160: 160 ≤ A < 220 mm; S220: A ≥ 220 mm.\n\nAssim, 35 mm é S10; 50 e 75 mm são S50; 100 mm é S100; 160 mm é S160; 220 mm é S220. Classe S descreve consistência; classe C descreve resistência característica à compressão."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "ABNT NBR 8953:2015, tabela 2 (classes de consistência): https://www.phd.eng.br/wp-content/uploads/2024/11/17.02.07Uberlandia.pdf ; ABNT NBR 16889:2020, ensaio de abatimento, em substituição à NM 67; https://www.portaldoconcreto.com.br/concreto-convencional"
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "A mistura fresca perde altura ao retirar o confinamento. A classificação organiza faixas dessa deformação; o número da classe representa seu limite inferior, não o valor obrigatório exato."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas e critérios",
+                  "texto": "A=H_molde−H_concreto após retirada, na medição padronizada. Unidade mm; converter cm multiplicando por 10. 7,5 cm=75 mm."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "S50 é classe de abatimento; C50 corresponde a fck de 50 MPa. Abatimento e resistência são propriedades distintas."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Aplicação e transferência",
+                  "texto": "Os valores 35, 65, 80 e 110 mm correspondem respectivamente a S10, S50, S50 e S100. Verificar faixa contratada e tolerâncias aplicáveis antes de aceitar o concreto."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-1124, CARD-1125"
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Classificação citada é a edição 2015; classes especiais podem ser acordadas conforme a norma. Para concreto autoadensável, avaliar espalhamento por método próprio."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não incluir 100 mm em S50; não confundir mm com cm, nem número S com MPa."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e histórico",
+                  "texto": "S50 começa em 50 e termina antes de 100; fronteira pertence à classe superior. Original e referências preservados."
+                }
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "O abatimento de 75 mm pertence à classe S50. Pela NBR 8953:2015, as classes de consistência são definidas por intervalos de abatimento A, em milímetros.",
+                  "S10: 10 ≤ A < 50 mm; S50: 50 ≤ A < 100 mm; S100: 100 ≤ A < 160 mm; S160: 160 ≤ A < 220 mm; S220: A ≥ 220 mm.",
+                  "Assim, 35 mm é S10; 50 e 75 mm são S50; 100 mm é S100; 160 mm é S160; 220 mm é S220. Classe S descreve consistência; classe C descreve resistência característica à compressão."
+                ],
+                "highlights": [
+                  {
+                    "text": "classe S50",
+                    "kind": "core",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "text": "A ≥ 220 mm",
+                    "kind": "condition",
+                    "color": "#BAE6FD"
+                  }
+                ],
+                "media": [
+                  {
+                    "id": "ESTUDO49-SLUMP",
+                    "role": "VERSO_APOS_TENTATIVA",
+                    "src": "assets/estudo49_slump.svg",
+                    "caption": "Cone de Abrams e abatimento em milímetros, esquema funcional.",
+                    "source": "Derivada autoral; ABNT NBR 16889:2020."
+                  }
+                ],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              },
+              "related_card_ids": [
+                "CARD-1124",
+                "CARD-1125"
+              ]
+            }
+          }
+        },
+        {
+          "id": "CARD-1389",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Estruturas / Concreto",
+          "sub": "Concreto",
+          "front": "Quais faixas de abatimento identificam as classes S10, S50, S100, S160 e S220 na NBR 8953:2015?",
+          "back": "S10: 10≤A<50; S50: 50≤A<100; S100: 100≤A<160; S160: 160≤A<220; S220: A≥220 mm.",
+          "expl": "As faixas caracterizam consistência pelo abatimento do tronco de cone, não resistência do concreto. O limite inferior pertence à classe, e o superior não, nos intervalos apresentados.\nAplicação: Abatimento de 100 mm enquadra S100; 160 mm é S160; 220 mm é S220. Para A=49 mm, S10 no sistema registrado.\nPegadinha: Referência explícita à edição 2015; concreto autoadensável segue critérios de ensaio/classificação próprios; confirmar edição exigida no edital.",
+          "mnemonic": "Inícios das faixas: 10, 50, 100, 160, 220.",
+          "reference": "CAND-P06-018 | https://drive.google.com/file/d/1Lu4RJUvRLyOxU_jQLgh5O8N17HwoWp5D/view",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-1123": "4773efdc1121b97433af59135290816908f5ebdc888ff486fb2d10fcc94750ca",
+        "CARD-1389": "40df94ca70b60028b3f718927ca7cda83f1f99661450e54d0a38e12c72463243"
+      },
+      "mnemonic": "S50 começa em 50 e termina antes de 100; fronteira pertence à classe superior. Original e referências preservados.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Classifique abatimentos de 35, 50, 75, 100, 160 e 220 mm. Quais os limites das classes S e a diferença em relação às classes C?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O abatimento de 75 mm pertence à classe S50. Pela NBR 8953:2015, as classes de consistência são definidas por intervalos de abatimento A, em milímetros.\n\nS10: 10 ≤ A < 50 mm; S50: 50 ≤ A < 100 mm; S100: 100 ≤ A < 160 mm; S160: 160 ≤ A < 220 mm; S220: A ≥ 220 mm.\n\nAssim, 35 mm é S10; 50 e 75 mm são S50; 100 mm é S100; 160 mm é S160; 220 mm é S220. Classe S descreve consistência; classe C descreve resistência característica à compressão."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-08-002\n\nABNT NBR 8953:2015, tabela 2 (classes de consistência): https://www.phd.eng.br/wp-content/uploads/2024/11/17.02.07Uberlandia.pdf ; ABNT NBR 16889:2020, ensaio de abatimento, em substituição à NM 67; https://www.portaldoconcreto.com.br/concreto-convencional\n\nCAND-P06-018 | https://drive.google.com/file/d/1Lu4RJUvRLyOxU_jQLgh5O8N17HwoWp5D/view"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A mistura fresca perde altura ao retirar o confinamento. A classificação organiza faixas dessa deformação; o número da classe representa seu limite inferior, não o valor obrigatório exato."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "A=H_molde−H_concreto após retirada, na medição padronizada. Unidade mm; 7,5 cm=75 mm. Para A=49 mm: S10; para 100, 160 e 220 mm: S100, S160 e S220, respectivamente."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "S50 é classe de abatimento; C50 corresponde a fck de 50 MPa. Abatimento e resistência são propriedades distintas."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Os valores 35, 65, 80 e 110 mm correspondem respectivamente a S10, S50, S50 e S100. Verificar faixa contratada e tolerâncias aplicáveis antes de aceitar o concreto."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-1123, CARD-1389. Relacionados: CARD-1124, CARD-1125"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Classificação da NBR 8953:2015, tabela 2. Confirmar edição exigida no edital. Classes especiais podem ser acordadas conforme a norma. Concreto autoadensável segue método e critérios próprios de espalhamento."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não incluir 100 mm em S50; não confundir mm com cm, nem número S com MPa."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "S50 começa em 50 e termina antes de 100; fronteira pertence à classe superior. Original e referências preservados."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O abatimento de 75 mm pertence à classe S50. Pela NBR 8953:2015, as classes de consistência são definidas por intervalos de abatimento A, em milímetros.",
+          "S10: 10 ≤ A < 50 mm; S50: 50 ≤ A < 100 mm; S100: 100 ≤ A < 160 mm; S160: 160 ≤ A < 220 mm; S220: A ≥ 220 mm.",
+          "Assim, 35 mm é S10; 50 e 75 mm são S50; 100 mm é S100; 160 mm é S160; 220 mm é S220. Classe S descreve consistência; classe C descreve resistência característica à compressão."
+        ],
+        "highlights": [
+          {
+            "text": "O abatimento de 75 mm pertence à classe S50",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO49-SLUMP",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/estudo49_slump.svg",
+            "caption": "Cone de Abrams e abatimento em milímetros, esquema funcional.",
+            "source": "Derivada autoral; ABNT NBR 16889:2020."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-1476",
+      "title": "Gmm, Gmb e volume de vazios",
+      "front": "Diferencie Gmm e Gmb e derive o cálculo de Vv da mistura compactada.",
+      "back": "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm).",
+      "satellites": [
+        "CARD-1477"
+      ],
+      "source": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me | https://drive.google.com/file/d/1tVqHMlVneMDwTjS9a6dg3y3TqWy4MpBH/view\n\nDNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me ; DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro ; DNIT 428-ME, referida na DNIT 447/2024-ME.",
+      "related_card_ids": [
+        "CARD-1475",
+        "CARD-1478",
+        "CARD-1466",
+        "CARD-1473"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-1476",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Ensaios de pavimentos",
+          "sub": "Densidade",
+          "front": "Diferencie Gmm e Gmb e derive o cálculo de Vv da mistura compactada.",
+          "back": "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm).",
+          "expl": "Fundamento e fontes\nDNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me ; DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro ; DNIT 428-ME, referida na DNIT 447/2024-ME.\n\nMecanismo\nPara a mesma massa, o volume sem ar é proporcional a 1/Gmm, e o volume total a 1/Gmb. A razão entre volumes é Gmb/Gmm; sua diferença para um representa fração de ar.\n\nFórmulas e unidades\nVv=100(Gmm−Gmb)/Gmm. Ex.: Gmm=2,50; Gmb=2,40; Vv=4%. Densidades relativas são adimensionais.\n\nComparação\nGmm fornece referência sem vazios; Gmb é aparente; GC usa Gmb de campo dividido por Gmb de dosagem, não Gmm.\n\nAplicação e transferência\nSe Gmb aumenta de 2,40 para 2,45 com Gmm constante em 2,50, Vv cai de 4% para 2%; avaliar a faixa de projeto.\n\nCondições e exceções\nGmb e Gmm precisam representar mistura compatível. Resultado negativo sugere inconsistência de medição ou dados e requer investigação.\n\nPegadinhas\nNão inverter denominador nem confundir Vv com 100−GC.\n\nMacete e histórico\nVazios: divide pela máxima.; preservar original e versões por ID.",
+          "mnemonic": "Vazios: divide pela máxima.",
+          "reference": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me | https://drive.google.com/file/d/1tVqHMlVneMDwTjS9a6dg3y3TqWy4MpBH/view",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1475",
+            "CARD-1477",
+            "CARD-1478",
+            "CARD-1466",
+            "CARD-1473"
+          ],
+          "search_keywords": [
+            "Gmm, Gmb e vazios"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-1476",
+            "historical_ids": [
+              "CARD-1476"
+            ],
+            "source_catalog_blob": "fcc47722446725c3fa4f35420beae2741b94216b",
+            "original": {
+              "front": "O que diferencia Gmm de Gmb nas misturas asfálticas e como se relacionam aos vazios?",
+              "back": "Gmm: densidade relativa máxima medida pelo Rice na mistura não compactada; Gmb: densidade relativa aparente do corpo compactado. VV≈100(1−Gmb/Gmm).",
+              "expl": "Origem preservada: PROP-P08-0060 / Estudo Petrobras 08. Conceito técnico habilitado para revisão; não constitui certificação normativa integral. Fonte e edição histórica na planilha de auditoria.",
+              "reference": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me | https://drive.google.com/file/d/1tVqHMlVneMDwTjS9a6dg3y3TqWy4MpBH/view",
+              "mnemonic": "mm máximo; mb compactado."
+            },
+            "previous_version": {
+              "front": "O que diferencia Gmm de Gmb nas misturas asfálticas e como se relacionam aos vazios?",
+              "back": "Gmm: densidade relativa máxima medida pelo Rice na mistura não compactada; Gmb: densidade relativa aparente do corpo compactado. VV≈100(1−Gmb/Gmm).",
+              "expl": "Origem preservada: PROP-P08-0060 / Estudo Petrobras 08. Conceito técnico habilitado para revisão; não constitui certificação normativa integral. Fonte e edição histórica na planilha de auditoria.",
+              "mnemonic": "mm máximo; mb compactado.",
+              "consolidation": null
+            },
+            "profile": {
+              "id": "CARD-1476",
+              "title": "Gmm, Gmb e vazios",
+              "front": "Diferencie Gmm e Gmb e derive o cálculo de Vv da mistura compactada.",
+              "back": "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm).",
+              "source": "DNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me ; DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro ; DNIT 428-ME, referida na DNIT 447/2024-ME.",
+              "mnemonic": "Vazios: divide pela máxima.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Diferencie Gmm e Gmb e derive o cálculo de Vv da mistura compactada."
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm)."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "DNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me ; DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro ; DNIT 428-ME, referida na DNIT 447/2024-ME."
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "Para a mesma massa, o volume sem ar é proporcional a 1/Gmm, e o volume total a 1/Gmb. A razão entre volumes é Gmb/Gmm; sua diferença para um representa fração de ar."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas e unidades",
+                  "texto": "Vv=100(Gmm−Gmb)/Gmm. Ex.: Gmm=2,50; Gmb=2,40; Vv=4%. Densidades relativas são adimensionais."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Gmm fornece referência sem vazios; Gmb é aparente; GC usa Gmb de campo dividido por Gmb de dosagem, não Gmm."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Aplicação e transferência",
+                  "texto": "Se Gmb aumenta de 2,40 para 2,45 com Gmm constante em 2,50, Vv cai de 4% para 2%; avaliar a faixa de projeto."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-1475, CARD-1477, CARD-1478, CARD-1466, CARD-1473"
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Gmb e Gmm precisam representar mistura compatível. Resultado negativo sugere inconsistência de medição ou dados e requer investigação."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não inverter denominador nem confundir Vv com 100−GC."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e histórico",
+                  "texto": "Vazios: divide pela máxima.; preservar original e versões por ID."
+                }
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm)."
+                ],
+                "highlights": [
+                  {
+                    "kind": "core",
+                    "text": "volume percentual de vazios",
+                    "color": "#FDE68A"
+                  }
+                ],
+                "media": [
+                  {
+                    "id": "VC30-SVG-VOLUMETRIA",
+                    "src": "assets/card_visuals_vc30/volumetria.svg",
+                    "caption": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+                    "alt": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+                    "source": "DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro",
+                    "role": "VERSO_APOS_TENTATIVA",
+                    "origin": "DERIVADA_AUTORAL",
+                    "evidence": "Candidato; exibição não testada"
+                  }
+                ],
+                "history_collapsed": true,
+                "reveal_after_attempt": true,
+                "formulas": [
+                  {
+                    "title": "Vv",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Vv</mi><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><msub><mi>G</mi><mi>mm</mi></msub><mo>−</mo><msub><mi>G</mi><mi>mb</mi></msub></mrow><mrow><msub><mi>G</mi><mi>mm</mi></msub></mrow></mfrac></math>",
+                    "units": "Vv em %; densidades relativas adimensionais."
+                  }
+                ]
+              },
+              "related_card_ids": [
+                "CARD-1475",
+                "CARD-1477",
+                "CARD-1478",
+                "CARD-1466",
+                "CARD-1473"
+              ],
+              "satellites": [],
+              "related_question_ids": [],
+              "history_ref": {
+                "snapshot": "fcc47722446725c3fa4f35420beae2741b94216b",
+                "ids": [
+                  "CARD-1476"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "CARD-1477",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Ensaios de pavimentos",
+          "sub": "Vazios",
+          "front": "Como calcular o volume percentual de vazios Vv de mistura asfáltica quando Gmm e Gmb são conhecidos?",
+          "back": "Vv (%) = 100 × (Gmm − Gmb) / Gmm.",
+          "expl": "A diferença entre densidade máxima medida e aparente representa o ar remanescente na mistura compactada em termos relativos; por exemplo, Gmm=2,50 e Gmb=2,40 resultam em Vv=4%.\nAplicação: Exemplo: (2,50−2,40)/2,50×100=4%.\nPegadinha: Não inverter o denominador para Gmb; valores compatíveis e mesma convenção dimensional são necessários.",
+          "mnemonic": "Confirmar a grandeza, a amostra, o método e a norma antes de decorar o número.",
+          "reference": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me | https://drive.google.com/file/d/1tVqHMlVneMDwTjS9a6dg3y3TqWy4MpBH/view",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1475",
+            "CARD-1476",
+            "CARD-1478"
+          ]
+        }
+      ],
+      "source_hashes": {
+        "CARD-1476": "4d8686347f19ddaf7b0427f1c6da04ab390f6bc79d371d2ac6427bbc7e2e70fe",
+        "CARD-1477": "0cd6a7eff3812f0ce408fc89a3297056ded41d075c6a9d40e56b35691fa243ba"
+      },
+      "mnemonic": "Vazios: divide pela máxima.; preservar original e versões por ID.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie Gmm e Gmb e derive o cálculo de Vv da mistura compactada."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm)."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me | https://drive.google.com/file/d/1tVqHMlVneMDwTjS9a6dg3y3TqWy4MpBH/view\n\nDNIT 427/2020-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-427-2020-me ; DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro ; DNIT 428-ME, referida na DNIT 447/2024-ME."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Para a mesma massa, o volume sem ar é proporcional a 1/Gmm, e o volume total a 1/Gmb. A razão entre volumes é Gmb/Gmm; sua diferença para um representa fração de ar."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Vv=100(Gmm−Gmb)/Gmm. Ex.: Gmm=2,50; Gmb=2,40; Vv=4%. Densidades relativas são adimensionais."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Gmm fornece referência sem vazios; Gmb é aparente; GC usa Gmb de campo dividido por Gmb de dosagem, não Gmm."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Se Gmb aumenta de 2,40 para 2,45 com Gmm constante em 2,50, Vv cai de 4% para 2%; avaliar a faixa de projeto."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-1476, CARD-1477. Relacionados: CARD-1475, CARD-1478, CARD-1466, CARD-1473"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Gmb e Gmm precisam representar mistura compatível. Resultado negativo sugere inconsistência de medição ou dados e requer investigação."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não inverter denominador nem confundir Vv com 100−GC."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Vazios: divide pela máxima.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar. Gmb representa a densidade relativa aparente do corpo compactado, cujo volume total inclui os vazios. Com grandezas compatíveis, o volume percentual de vazios é Vv=100(1−Gmb/Gmm)."
+        ],
+        "highlights": [
+          {
+            "text": "Gmm representa a densidade relativa máxima medida da mistura não compactada, excluído o volume de vazios de ar",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [
+          {
+            "id": "VC30-SVG-VOLUMETRIA",
+            "src": "assets/card_visuals_vc30/volumetria.svg",
+            "caption": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+            "alt": "Balanço volumétrico ilustrativo: agregado 84%, ligante efetivo 12%, ar 4%; VAM 16%, RBV 75%.",
+            "source": "DNIT 449/2024-PRO, errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit-449-2024-2013-pro",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Vv",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Vv</mi><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><msub><mi>G</mi><mi>mm</mi></msub><mo>−</mo><msub><mi>G</mi><mi>mb</mi></msub></mrow><mrow><msub><mi>G</mi><mi>mm</mi></msub></mrow></mfrac></math>",
+            "units": "Vv em %; densidades relativas adimensionais."
+          }
+        ],
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0497",
+      "title": "Viga biengastada sob carga uniforme",
+      "front": "Para uma viga biengastada de vão L e EI constante sob carga uniforme q, determine as reações verticais e os momentos internos nos apoios e no meio do vão.",
+      "back": "RA=RB=qL/2; MA=MB=−qL²/12; M_meio=+qL²/24, com flexão sagente positiva.",
+      "satellites": [
+        "CARD-1109"
+      ],
+      "source": "CON-19-067\n\nCON-18-046",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0497",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Vigas hiperestáticas",
+          "sub": "Bi-engastada, UDL",
+          "front": "Em viga bi-engastada de vão L, EI constante e q uniforme, quais reações e momentos internos?",
+          "back": "R_A=R_B=qL/2; M_A=M_B=−qL²/12; M_meio=+qL²/24.",
+          "expl": "As restrições de rotação nas duas extremidades geram momentos negativos de engaste. Pelo modelo elástico simétrico, as reações verticais dividem a resultante igualmente. O momento central positivo é menor que na biapoiada equivalente.\nAplicação: Para q=12 kN/m e L=6 m: R_A=R_B=36 kN; M_A=M_B=−36 kN·m; M_meio=+18 kN·m.\nPegadinha: Não confundir com viga biapoiada, cujo M_meio seria qL²/8=54 kN·m e momentos de apoio seriam zero.",
+          "mnemonic": "Bi-engastada q: −1/12 apoios; +1/24 meio.",
+          "reference": "CON-19-067",
+          "active": true
+        },
+        {
+          "id": "CARD-1109",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Lajes e esforços",
+          "sub": "Engaste total",
+          "front": "Quais são os momentos de extremidade e de meio-vão de uma viga bi-engastada com q uniforme?",
+          "back": "M_apoios=−qL²/12; M_meio=+qL²/24, para EI constante e engastes ideais.",
+          "expl": "Sob carga uniforme, o impedimento de rotações provoca momentos negativos nos apoios e reduz o positivo no meio em relação à viga biapoiada.\nAplicação: q=12 kN/m, L=6 m: M_apoios=−36 kN·m; M_meio=+18 kN·m.\nPegadinha: Não aplicar a viga articulada/biapoiada nem a caso de engaste parcial, deslocamento de apoio ou EI variável sem reanálise.",
+          "mnemonic": "Bi-engaste + q: negativo /12; positivo /24.",
+          "reference": "CON-18-046",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0497": "22239bc0a4ba215bbc89baf34aa2ef57ad12cf5ea7a98d3719b83c824a4091e2",
+        "CARD-1109": "9e6affc7b113d763a4202d3527fbd0f7b9f68cde456ce29f4c662f350137918a"
+      },
+      "mnemonic": "Biengaste q: −1/12 nos apoios; +1/24 no meio.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Para uma viga biengastada de vão L e EI constante sob carga uniforme q, determine as reações verticais e os momentos internos nos apoios e no meio do vão."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "RA=RB=qL/2; MA=MB=−qL²/12; M_meio=+qL²/24, com flexão sagente positiva."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-19-067\n\nCON-18-046"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Engastes impedem as rotações de extremidade, gerando momentos negativos. A simetria da carga e dos vínculos divide a reação vertical igualmente; o momento interno positivo no meio diminui."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Para q=12 kN/m e L=6 m: RA=RB=36 kN; MA=MB=−36 kN·m; M_meio=+18 kN·m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Na viga biapoiada sob a mesma carga, MA=MB=0 e M_meio=qL²/8=54 kN·m; o biengaste reduz o máximo positivo."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Use M(x)=−qL²/12+(qL/2)x−qx²/2; em x=L/2 obtém-se +qL²/24. As reações externas de momento obedecem à convenção própria do equilíbrio."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0497, CARD-1109. Sem vínculo adicional confirmado neste lote."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Modelo linear elástico, EI constante, engastes ideais, sem deslocamentos impostos, q uniforme em todo L."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar estes coeficientes para apoio articulado, engaste parcial, recalque ou EI variável sem reanálise."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Biengaste q: −1/12 nos apoios; +1/24 no meio."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "RA=RB=qL/2; MA=MB=−qL²/12; M_meio=+qL²/24, com flexão sagente positiva."
+        ],
+        "highlights": [
+          {
+            "text": "RA=RB=qL/2",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0184",
+      "title": "Viga engastada-apoiada sob carga uniforme",
+      "front": "Determine as reações e o momento fletor interno no engaste A de uma viga engastada em A e apoiada em B, com carga uniforme q em todo o vão L.",
+      "back": "RA=5qL/8; RB=3qL/8; MA=−qL²/8 (momento interno, convenção sagente positiva). A reação redundante RB vem da compatibilidade de flecha nula no apoio B.",
+      "satellites": [
+        "CARD-0114",
+        "CARD-0889"
+      ],
+      "source": "CON-19-065\n\nCON-19-065 | CON-10-008 | CON-10-014\n\nCON-10-009\n\nCON-19-070",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0184",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Vigas hiperestáticas",
+          "sub": "Engastada apoiada, UDL",
+          "front": "Determine reações e momento no engaste da viga engastada em A e apoiada em B, com carga uniforme q em todo L.",
+          "back": "Para EI constante e apoios sem deslocamento imposto: RA=5qL/8, RB=3qL/8; momento interno em A=−qL²/8. Obter RB por compatibilidade de deslocamento nulo em B e completar equilíbrio. Distinguir o sinal do momento interno da reação externa.",
+          "expl": "Fundamento e fontes\nCON-19-065 | CON-10-008 | CON-10-014\n\nMecanismo e compreensão\nA estrutura é hiperestática de grau um; a compatibilidade de flecha nula em B fornece a reação redundante.\n\nAplicação e cálculo\nq=8 kN/m, L=4 m: RA=20 kN, RB=12 kN, momento interno MA=−16 kN·m.\n\nComparação\nBiapoiada sob q: qL/2 em cada apoio; engastada-apoiada: 5/8 e 3/8.\n\nTransferência\nRetire o apoio B, superponha q e RB e imponha deslocamento nulo em B.\n\nCondições e exceções\nEI constante, comportamento linear, carga uniforme integral, sem recalques.\n\nPegadinhas\nMomento interno negativo no engaste não é a mesma convenção da reação externa.\n\nMacete\n5/8, 3/8, −1/8.",
+          "mnemonic": "5/8, 3/8, −1/8.",
+          "reference": "CON-19-065",
+          "active": true,
+          "related_card_ids": [],
+          "related_question_ids": [],
+          "search_keywords": [
+            "CARD-0113",
+            "CARD-0800",
+            "Viga engastada-apoiada sob q uniforme"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0184",
+            "historical_ids": [
+              "CARD-0184",
+              "CARD-0113",
+              "CARD-0800"
+            ],
+            "source_catalog_blob": "31a0e2eccb13b7e30d1ab9f696ab32ad151de4cb",
+            "original": {
+              "front": "Para viga engastada em A e apoiada em B, de vão L e q uniforme, quais R_A, R_B e M_A?",
+              "back": "R_A=5qL/8; R_B=3qL/8; momento interno no engaste M_A=−qL²/8.",
+              "expl": "A viga é hiperestática de grau 1: equilíbrio fornece duas relações para as três incógnitas verticais e o momento. A terceira vem da compatibilidade de deslocamento vertical em B igual a zero. A hipótese é viga prismática, EI constante, regime linear, sem recalque, carga integral e ligações ideais.\nAplicação: Com q=8 kN/m e L=4 m: qL=32 kN; R_A=20 kN; R_B=12 kN; M_A interno=−16 kN·m.\nPegadinha: Não aplicar R_A=R_B=qL/2 de viga biapoiada; sinal negativo é momento interno de engastamento, enquanto o momento de reação externo pode ter sentido oposto.",
+              "mnemonic": "Apoiada + engastada: 5/8, 3/8, −1/8.",
+              "reference": "CON-19-065"
+            },
+            "profile": {
+              "id": "CARD-0184",
+              "title": "Viga engastada-apoiada sob q uniforme",
+              "front": "Determine reações e momento no engaste da viga engastada em A e apoiada em B, com carga uniforme q em todo L.",
+              "back": "Para EI constante e apoios sem deslocamento imposto: RA=5qL/8, RB=3qL/8; momento interno em A=−qL²/8. Obter RB por compatibilidade de deslocamento nulo em B e completar equilíbrio. Distinguir o sinal do momento interno da reação externa.",
+              "satellites": [
+                "CARD-0113",
+                "CARD-0800"
+              ],
+              "source": "CON-19-065 | CON-10-008 | CON-10-014",
+              "related_card_ids": [],
+              "related_question_ids": [],
+              "history_ref": {
+                "snapshot": "31a0e2eccb13b7e30d1ab9f696ab32ad151de4cb",
+                "ids": [
+                  "CARD-0184",
+                  "CARD-0113",
+                  "CARD-0800"
+                ]
+              },
+              "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
+              "mnemonic": "5/8, 3/8, −1/8.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Determine reações e momento no engaste da viga engastada em A e apoiada em B, com carga uniforme q em todo L."
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "Para EI constante e apoios sem deslocamento imposto: RA=5qL/8, RB=3qL/8; momento interno em A=−qL²/8. Obter RB por compatibilidade de deslocamento nulo em B e completar equilíbrio. Distinguir o sinal do momento interno da reação externa."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "CON-19-065 | CON-10-008 | CON-10-014"
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo e compreensão",
+                  "texto": "A estrutura é hiperestática de grau um; a compatibilidade de flecha nula em B fornece a reação redundante."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Aplicação e cálculo",
+                  "texto": "q=8 kN/m, L=4 m: RA=20 kN, RB=12 kN, momento interno MA=−16 kN·m."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Biapoiada sob q: qL/2 em cada apoio; engastada-apoiada: 5/8 e 3/8."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Transferência",
+                  "texto": "Retire o apoio B, superponha q e RB e imponha deslocamento nulo em B."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "Origens preservadas: CARD-0184, CARD-0113, CARD-0800. Núcleo integrado; não há vínculo direto adicional confirmado no catálogo consultado."
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "EI constante, comportamento linear, carga uniforme integral, sem recalques."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Momento interno negativo no engaste não é a mesma convenção da reação externa."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete",
+                  "texto": "5/8, 3/8, −1/8."
+                }
+              ],
+              "editorial": {
+                "answer_paragraphs": [
+                  "Para EI constante e apoios sem deslocamento imposto: RA=5qL/8, RB=3qL/8; momento interno em A=−qL²/8. Obter RB por compatibilidade de deslocamento nulo em B e completar equilíbrio. Distinguir o sinal do momento interno da reação externa."
+                ],
+                "highlights": [
+                  {
+                    "text": "Para EI constante e apoios sem deslocamento imposto: RA=5qL/8, RB=3qL/8",
+                    "kind": "core",
+                    "color": "#FDE68A",
+                    "bold": false
+                  }
+                ],
+                "media": [],
+                "atlas_refs": [
+                  {
+                    "imageId": "IMG-017",
+                    "source_card_ids": [
+                      "CARD-0800"
+                    ],
+                    "role": "REFERENCIA_ATLAS",
+                    "title": "Vigas hiperestáticas — condições de apoio e deformações"
+                  }
+                ],
+                "history_collapsed": true,
+                "reveal_after_attempt": true,
+                "source_status": "CANDIDATO_A_CONFERENCIA",
+                "formulas": [
+                  {
+                    "title": "Reação A",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>R</mi><mi>A</mi></msub><mo>=</mo><mfrac><mrow><mn>5</mn><mi>q</mi><mi>L</mi></mrow><mn>8</mn></mfrac></mrow></math>",
+                    "units": "q em kN/m; L em m; RA em kN."
+                  },
+                  {
+                    "title": "Reação B",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>R</mi><mi>B</mi></msub><mo>=</mo><mfrac><mrow><mn>3</mn><mi>q</mi><mi>L</mi></mrow><mn>8</mn></mfrac></mrow></math>",
+                    "units": "RB em kN."
+                  },
+                  {
+                    "title": "Momento interno",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>M</mi><mi>A</mi></msub><mo>=</mo><mrow><mo>−</mo><mfrac><mrow><mi>q</mi><msup><mi>L</mi><mn>2</mn></msup></mrow><mn>8</mn></mfrac></mrow></mrow></math>",
+                    "units": "MA em kN·m."
+                  }
+                ],
+                "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO_VC42"
+              }
+            },
+            "source_packet": "increments/consolidacao-vc41-candidata-20261124.json"
+          }
+        },
+        {
+          "id": "CARD-0114",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Análise estrutural / estruturas hiperestáticas",
+          "sub": "Momento engaste",
+          "front": "Qual o momento interno no engaste A da viga engastada-apoiada com q uniforme?",
+          "back": "M_A=−qL²/8, com momento sagente positivo.",
+          "expl": "Após R_A=5qL/8 e R_B=3qL/8, o equilíbrio dos momentos fornece reação de engaste de módulo qL²/8. O diagrama interno no apoio é negativo (momento de topo), na convenção de flexão positiva sagente.\nAplicação: Para q=8 kN/m e L=4 m: M_A=−8×16/8=−16 kN·m. O momento de reação externa pode ter sinal diferente do momento interno, conforme convenção.\nPegadinha: Não confundir sinal do momento fletor interno com o sinal do binário de reação externo; não trocar −1/8 pelo −1/12 da viga bi-engastada.",
+          "mnemonic": "Engaste + apoio: momento negativo 1/8.",
+          "reference": "CON-10-009",
+          "active": true
+        },
+        {
+          "id": "CARD-0889",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Vigas hiperestáticas",
+          "sub": "Exemplo L6 w12",
+          "front": "Quais reações e momento interno no engaste da viga engastada-apoiada de 6 m sob w=12 kN/m?",
+          "back": "R_A=45 kN; R_B=27 kN; M_A=−54 kN·m.",
+          "expl": "Na viga A engastada e B apoiada, com EI constante e sem recalque, a compatibilidade de deslocamento nulo em B determina R_B=3wL/8. Equilíbrio fornece R_A=wL−R_B=5wL/8 e momento interno em A negativo −wL²/8.\nAplicação: wL=72 kN; R_B=3×12×6/8=27 kN; R_A=45 kN; M_A=−12×36/8=−54 kN·m.\nPegadinha: Não repartir wL igualmente entre os dois apoios. O sinal do momento de reação externo no engaste pode ser oposto ao momento fletor interno.",
+          "mnemonic": "Engastada-apoiada UDL: 5/8, 3/8, −1/8.",
+          "reference": "CON-19-070",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0184": "78b7c14e3a3a703de71e097986844dd4c34011b09ebd3b22c959ecda0296e7e6",
+        "CARD-0114": "aa78859d3bf9349048555271bdfe6f4781d01ff7ca7d8bfd13de350178e6db56",
+        "CARD-0889": "005fdd88b5e053386cb89ae7875ddeb8cfa48fe86c4d03fa82a43095cab08cdc"
+      },
+      "mnemonic": "5/8, 3/8, −1/8.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Determine as reações e o momento fletor interno no engaste A de uma viga engastada em A e apoiada em B, com carga uniforme q em todo o vão L."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "RA=5qL/8; RB=3qL/8; MA=−qL²/8 (momento interno, convenção sagente positiva). A reação redundante RB vem da compatibilidade de flecha nula no apoio B."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-19-065\n\nCON-19-065 | CON-10-008 | CON-10-014\n\nCON-10-009\n\nCON-19-070"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A viga é hiperestática de grau um. Retire o apoio B: a flecha para baixo devida a q é qL⁴/(8EI), e a força RB produz flecha oposta RB L³/(3EI). Igualando-as, RB=3qL/8."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "q=8 kN/m, L=4 m: RA=20 kN, RB=12 kN, MA=−16 kN·m. q=12 kN/m, L=6 m: RA=45 kN, RB=27 kN, MA=−54 kN·m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Biapoiada: qL/2 em cada apoio e momento de apoio zero. Biengastada: momento interno −qL²/12 nos apoios. Engastada-apoiada: reações 5/8 e 3/8."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Calcule RA=qL−RB e faça equilíbrio de momentos em A para obter o binário externo; o sinal do momento fletor interno deve seguir a convenção sagente positiva."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0184, CARD-0113, CARD-0800, CARD-0114, CARD-0889. Sem vínculo adicional confirmado neste lote."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "EI constante, comportamento linear, carga uniforme em todo o vão, apoios ideais e sem recalque."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não repartir igualmente a carga nem confundir binário externo de reação com sinal de momento interno."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "5/8, 3/8, −1/8."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "RA=5qL/8; RB=3qL/8; MA=−qL²/8 (momento interno, convenção sagente positiva). A reação redundante RB vem da compatibilidade de flecha nula no apoio B."
+        ],
+        "highlights": [
+          {
+            "text": "RA=5qL/8",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [
+          {
+            "imageId": "IMG-017",
+            "source_card_ids": [
+              "CARD-0800"
+            ],
+            "role": "REFERENCIA_ATLAS",
+            "title": "Vigas hiperestáticas — condições de apoio e deformações"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Reação A",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>R</mi><mi>A</mi></msub><mo>=</mo><mfrac><mrow><mn>5</mn><mi>q</mi><mi>L</mi></mrow><mn>8</mn></mfrac></mrow></math>",
+            "units": "q em kN/m; L em m; RA em kN."
+          },
+          {
+            "title": "Reação B",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>R</mi><mi>B</mi></msub><mo>=</mo><mfrac><mrow><mn>3</mn><mi>q</mi><mi>L</mi></mrow><mn>8</mn></mfrac></mrow></math>",
+            "units": "RB em kN."
+          },
+          {
+            "title": "Momento interno",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>M</mi><mi>A</mi></msub><mo>=</mo><mrow><mo>−</mo><mfrac><mrow><mi>q</mi><msup><mi>L</mi><mn>2</mn></msup></mrow><mn>8</mn></mfrac></mrow></mrow></math>",
+            "units": "MA em kN·m."
+          }
+        ],
+        "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO_VC42"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0203",
+      "title": "Queda de tensão global e terminal",
+      "front": "Segundo a NBR 5410:2004, diferencie a queda de tensão global da queda no circuito terminal. Como estimá-la para cargas monofásicas resistivas distribuídas?",
+      "back": "O limite do circuito terminal é 4%. O limite global é 5% ou 7% conforme a origem da alimentação definida na norma. A queda terminal integra a queda global: ambos os critérios devem ser satisfeitos.",
+      "satellites": [
+        "CARD-0213"
+      ],
+      "source": "CON-06-027\n\nCON-06-028",
+      "related_card_ids": [
+        "CARD-1601"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0203",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Instalações elétricas / NBR 5410",
+          "sub": "Queda de tensão nos circuitos terminais",
+          "front": "Qual queda máxima de tensão na extensão de um circuito terminal segundo a NBR 5410:2004?",
+          "back": "4%, calculados para o respectivo circuito terminal.",
+          "expl": "A NBR 5410 distingue a queda admissível no circuito terminal dos limites globais para a instalação, que dependem do ponto de origem; ambos os critérios precisam ser atendidos.\nAplicação: Se o circuito terminal parte de quadro com tensão de 220 V, 4% equivale a 8,8 V de queda máxima nesse trecho, sem dispensar a checagem global.\nPegadinha: Não afirmar que 4% sempre é o limite total a partir da entrada de energia.\n\nSomar ΣPi·di, com di a distância de cada carga ao quadro. Comparar à tabela para seção/tensão/queda adotada. Para circuito monofásico resistivo FP=1, ΔV≈2ρΣPi di/(S·V). A NBR 5410:2004 limita circuito terminal a 4%, não 2%.",
+          "mnemonic": "Terminal quatro; total depende da fonte.",
+          "reference": "CON-06-027",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1601"
+          ]
+        },
+        {
+          "id": "CARD-0213",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Instalações elétricas / NBR 5410",
+          "sub": "Queda de tensão total — depende da origem",
+          "front": "Na NBR 5410, como distinguir o limite global de queda de tensão do limite terminal?",
+          "back": "Global: tipicamente 5% ou 7% conforme origem da alimentação; terminal: 4%.",
+          "expl": "Os valores globais são referenciados à origem definida pela norma: transformador ou gerador em hipóteses específicas (7%) e ponto de entrega em demais situações de fornecimento secundário (5%).\nAplicação: Exemplo: em um circuito de 220 V, o terminal admite 8,8 V (4%); o restante disponível no orçamento global dependerá da origem e de quedas anteriores.\nPegadinha: Não somar automaticamente 5% ou 7% com 4%; a queda terminal está contida no percurso total e os limites não são independentes.\n\nSomar ΣPi·di, com di a distância de cada carga ao quadro. Comparar à tabela para seção/tensão/queda adotada. Para circuito monofásico resistivo FP=1, ΔV≈2ρΣPi di/(S·V). A NBR 5410:2004 limita circuito terminal a 4%, não 2%.",
+          "mnemonic": "5/7 global; 4 terminal.",
+          "reference": "CON-06-028",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1601"
+          ]
+        }
+      ],
+      "source_hashes": {
+        "CARD-0203": "b12850d68d36dfd117ea744ea8022ebc79c6a77f26cc6ac4ae3ad9b70e27dbef",
+        "CARD-0213": "0f49fe56c3f041ea7cc42c471b055ba7d08ba5fa0ef968e0bc81c827b5cd90ec"
+      },
+      "mnemonic": "5/7 global; 4 terminal.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo a NBR 5410:2004, diferencie a queda de tensão global da queda no circuito terminal. Como estimá-la para cargas monofásicas resistivas distribuídas?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O limite do circuito terminal é 4%. O limite global é 5% ou 7% conforme a origem da alimentação definida na norma. A queda terminal integra a queda global: ambos os critérios devem ser satisfeitos."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-06-027\n\nCON-06-028"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A resistência e, conforme o circuito, a reatância dos condutores produzem queda de tensão ao longo do percurso. Cada trecho acumula a corrente das cargas a jusante."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Para circuito monofásico resistivo, FP=1, seção constante S: ΔV≈2ρΣ(Pi di)/(S V), com ρ em Ω·mm²/m, S em mm², Pi em W, di em m e V em V. Em 220 V, 4% corresponde a 8,8 V."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "5% nas demais situações de fornecimento secundário, a partir do ponto de entrega; 7% nas hipóteses previstas de transformador ou gerador. 4% é específico do circuito terminal."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Some ΣPi di com as distâncias das cargas ao quadro; compare com a tabela aplicável de seção, tensão e queda. Considere quedas anteriores no orçamento global."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0203, CARD-0213. Relacionados: CARD-1601"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Critérios da edição 2004 da NBR 5410; conferir hipóteses específicas de origem e exceções normativas. Fórmula aproximada para circuito resistivo monofásico; outros fatores de potência e configurações requerem modelo próprio."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não somar 4% ao limite global de 5% ou 7%; não confundir limite de projeto escolhido de 2% com o máximo normativo terminal de 4%."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "5/7 global; 4 terminal."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "O limite do circuito terminal é 4%. O limite global é 5% ou 7% conforme a origem da alimentação definida na norma. A queda terminal integra a queda global: ambos os critérios devem ser satisfeitos."
+        ],
+        "highlights": [
+          {
+            "text": "O limite do circuito terminal é 4%",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0244",
+      "title": "Deflexão, ângulo central e ângulo interno no PI",
+      "front": "Como relacionar mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento da curva circular simples ou com espirais?",
+      "back": "Na curva circular simples, a deflexão total Δ (mudança de direção das tangentes orientadas) é igual ao ângulo central. O ângulo interno no PI entre PI–PC e PI–PT vale 180°−Δ. O desenvolvimento D=πRΔ/180, em metros para R em metros e Δ em graus. Com espirais, Δc=Δ−θe1−θe2, quando a configuração é compatível.",
+      "satellites": [
+        "CARD-0933"
+      ],
+      "source": "CON-17-001\n\nCON-17-001\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCON-17-007\n\nDNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .",
+      "related_card_ids": [
+        "CARD-1453",
+        "CARD-0810",
+        "CARD-0585",
+        "CARD-0929",
+        "CARD-0466"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0244",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Projeto geométrico",
+          "sub": "Deflexão",
+          "front": "Numa curva horizontal circular, Δ representa raio, comprimento de arco ou mudança de direção das tangentes?",
+          "back": "Δ é a deflexão total: ângulo de mudança de direção entre as duas tangentes, igual ao ângulo central da curva circular simples.",
+          "expl": "Fundamento e fontes\nCON-17-001\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nMecanismo\nA mudança de direção é dada pelas orientações das tangentes.\n\nFórmulas, variáveis e unidades\nΔc=Δ−θe1−θe2 para curva com espirais; em curva simples Δ é o ângulo central.\n\nComparação\nΔ real é imposto pelos alinhamentos, não pelo raio; G e I_calc não são Δ real.\n\nAplicação e transferência\nAlinhamentos com azimutes 20° e 55° dão mudança de direção 35°.\n\nCondições e exceções\nDefinir o sentido das tangentes antes de comparar ângulos.\n\nPegadinhas\nNão escolher a menor deflexão quando I_real<I_calc; no exemplo histórico, aumentar R.\n\nMacete e histórico\nΔ é ângulo; R é raio.",
+          "mnemonic": "Δ é ângulo; R é raio.",
+          "reference": "CON-17-001",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1453",
+            "CARD-0810",
+            "CARD-0585",
+            "CARD-0929"
+          ],
+          "search_keywords": [
+            "Deflexão"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0244",
+            "historical_ids": [
+              "CARD-0244"
+            ],
+            "original": {
+              "front": "Numa curva horizontal circular, Δ representa raio, comprimento de arco ou mudança de direção das tangentes?",
+              "back": "Δ é a deflexão total: ângulo de mudança de direção entre as duas tangentes, igual ao ângulo central da curva circular simples.",
+              "expl": "O PI é o encontro das tangentes; a curva une PC e PT. O raio R controla a curvatura, enquanto Δ determina a parcela de círculo percorrida.\nAplicação: Usar Δ e R para calcular arco, tangente e afastamento externo da curva.\nPegadinha: Não confundir Δ com ângulo interno suplementar do vértice nem com ângulo da deflexão de cada corda.",
+              "reference": "CON-17-001",
+              "mnemonic": "Δ é ângulo; R é raio."
+            },
+            "previous_version": {
+              "id": "CARD-0244",
+              "group": "ENG_GERAL",
+              "discipline": "Engenharia Civil",
+              "subject": "Projeto geométrico",
+              "sub": "Deflexão",
+              "front": "Numa curva horizontal circular, Δ representa raio, comprimento de arco ou mudança de direção das tangentes?",
+              "back": "Δ é a deflexão total: ângulo de mudança de direção entre as duas tangentes, igual ao ângulo central da curva circular simples.",
+              "expl": "O PI é o encontro das tangentes; a curva une PC e PT. O raio R controla a curvatura, enquanto Δ determina a parcela de círculo percorrida.\nAplicação: Usar Δ e R para calcular arco, tangente e afastamento externo da curva.\nPegadinha: Não confundir Δ com ângulo interno suplementar do vértice nem com ângulo da deflexão de cada corda.",
+              "mnemonic": "Δ é ângulo; R é raio.",
+              "reference": "CON-17-001",
+              "active": true
+            },
+            "profile": {
+              "id": "CARD-0244",
+              "title": "Deflexão",
+              "front": "Numa curva horizontal circular, Δ representa raio, comprimento de arco ou mudança de direção das tangentes?",
+              "back": "Δ é a deflexão total: ângulo de mudança de direção entre as duas tangentes, igual ao ângulo central da curva circular simples.",
+              "source": "CON-17-001\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .",
+              "mnemonic": "Δ é ângulo; R é raio.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Numa curva horizontal circular, Δ representa raio, comprimento de arco ou mudança de direção das tangentes?"
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "Δ é a deflexão total: ângulo de mudança de direção entre as duas tangentes, igual ao ângulo central da curva circular simples."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "CON-17-001\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf ."
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "A mudança de direção é dada pelas orientações das tangentes."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas, variáveis e unidades",
+                  "texto": "Δc=Δ−θe1−θe2 para curva com espirais; em curva simples Δ é o ângulo central."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Δ real é imposto pelos alinhamentos, não pelo raio; G e I_calc não são Δ real."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Aplicação e transferência",
+                  "texto": "Alinhamentos com azimutes 20° e 55° dão mudança de direção 35°."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-1453, CARD-0810, CARD-0585, CARD-0929"
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Definir o sentido das tangentes antes de comparar ângulos."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não escolher a menor deflexão quando I_real<I_calc; no exemplo histórico, aumentar R."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e histórico",
+                  "texto": "Δ é ângulo; R é raio."
+                }
+              ],
+              "related_card_ids": [
+                "CARD-1453",
+                "CARD-0810",
+                "CARD-0585",
+                "CARD-0929"
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "Δ é a deflexão total: ângulo de mudança de direção entre as duas tangentes, igual ao ângulo central da curva circular simples."
+                ],
+                "highlights": [
+                  {
+                    "text": "Δ é a deflexão total: ângulo de mudança de direção entre as duas tangentes, igual ao ângulo central da curva c",
+                    "kind": "core",
+                    "color": "#FDE68A"
+                  }
+                ],
+                "media": [],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              }
+            }
+          }
+        },
+        {
+          "id": "CARD-0933",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Curva circular simples",
+          "sub": "Ângulo central",
+          "front": "Qual relação entre mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento?",
+          "back": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada.",
+          "expl": "Fundamento e fontes\nDNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nMecanismo\nOs raios são perpendiculares às tangentes; ao rotacionar ambas as direções em 90°, preserva-se o módulo de mudança angular.\n\nFórmulas, variáveis e unidades\nD=πRΔ/180; se Δ=40° e R=100 m, D≈69,81 m. Ângulo interno no PI=140°.\n\nComparação\nΔ total não é grau de curvatura, raio nem ângulo interno no PI. Com espirais, a deflexão total inclui ambas as transições e o arco central.\n\nCom espirais, Δ real = θe1+Δc+θe2 quando configuração compatível; G é ângulo de corda/arco padrão, distinto de Δ e Δc.\n\nAplicação e transferência\nSe o desenho indica ângulo interno no PI de 120°, a deflexão da curva simples é 60°, não 120°.\n\nCondições e exceções\nNormalizar azimutes e observar sentido do traçado; evitar diferenças brutas que ultrapassem 180° sem analisar a curva.\n\nPegadinhas\nNão confundir abertura interna no PI com deflexão de mudança de direção.\n\nMacete e histórico\nMudou 60°, abriu 120°.; preservar original, fontes e versões.",
+          "mnemonic": "Mudou 60°, abriu 120°.",
+          "reference": "CON-17-007",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0929",
+            "CARD-0466",
+            "CARD-1453",
+            "CARD-0810"
+          ],
+          "search_keywords": [
+            "Deflexão e ângulo central"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0933",
+            "historical_ids": [
+              "CARD-0933"
+            ],
+            "source_catalog_blob": "fcc47722446725c3fa4f35420beae2741b94216b",
+            "original": {
+              "front": "Qual a relação entre o ângulo central Δ de uma curva circular simples e a deflexão total entre tangentes?",
+              "back": "O módulo do ângulo central da curva circular simples é igual ao módulo da deflexão total entre as tangentes.",
+              "expl": "Raios aos pontos de tangência são perpendiculares às tangentes. A geometria produz igualdade angular em módulo, mas o sentido direita/esquerda depende da orientação do traçado.\nAplicação: Para uma mudança de direção de 40°, o arco simples de concordância apresenta Δ=40° e desenvolvimento D=πR·40/180.\nPegadinha: Ângulo central não é raio nem grau de curvatura. Em trajetos com espirais, a repartição angular exige cálculo adicional.",
+              "reference": "CON-17-007",
+              "mnemonic": "Na circular simples, mudança de direção = ângulo do arco."
+            },
+            "previous_version": {
+              "id": "CARD-0933",
+              "group": "ENG_GERAL",
+              "discipline": "Engenharia Civil",
+              "subject": "Curva circular simples",
+              "sub": "Ângulo central",
+              "front": "Qual relação entre mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento?",
+              "back": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada.",
+              "expl": "Fundamento e fontes\nDNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nMecanismo\nOs raios são perpendiculares às tangentes; ao rotacionar ambas as direções em 90°, preserva-se o módulo de mudança angular.\n\nFórmulas e unidades\nD=πRΔ/180; se Δ=40° e R=100 m, D≈69,81 m. Ângulo interno no PI=140°.\n\nComparação\nΔ total não é grau de curvatura, raio nem ângulo interno no PI. Com espirais, a deflexão total inclui ambas as transições e o arco central.\n\nAplicação e transferência\nSe o desenho indica ângulo interno no PI de 120°, a deflexão da curva simples é 60°, não 120°.\n\nCondições e exceções\nNormalizar azimutes e observar sentido do traçado; evitar diferenças brutas que ultrapassem 180° sem analisar a curva.\n\nPegadinhas\nNão confundir abertura interna no PI com deflexão de mudança de direção.\n\nMacete e histórico\nMudou 60°, abriu 120°.; preservar original, fontes e versões.",
+              "mnemonic": "Mudou 60°, abriu 120°.",
+              "reference": "CON-17-007",
+              "active": true,
+              "related_card_ids": [
+                "CARD-0929",
+                "CARD-0466"
+              ],
+              "search_keywords": [
+                "Deflexão e ângulo central"
+              ],
+              "consolidation": {
+                "primary_id": "CARD-0933",
+                "historical_ids": [
+                  "CARD-0933"
+                ],
+                "source_catalog_blob": "fcc47722446725c3fa4f35420beae2741b94216b",
+                "original": {
+                  "front": "Qual a relação entre o ângulo central Δ de uma curva circular simples e a deflexão total entre tangentes?",
+                  "back": "O módulo do ângulo central da curva circular simples é igual ao módulo da deflexão total entre as tangentes.",
+                  "expl": "Raios aos pontos de tangência são perpendiculares às tangentes. A geometria produz igualdade angular em módulo, mas o sentido direita/esquerda depende da orientação do traçado.\nAplicação: Para uma mudança de direção de 40°, o arco simples de concordância apresenta Δ=40° e desenvolvimento D=πR·40/180.\nPegadinha: Ângulo central não é raio nem grau de curvatura. Em trajetos com espirais, a repartição angular exige cálculo adicional.",
+                  "reference": "CON-17-007",
+                  "mnemonic": "Na circular simples, mudança de direção = ângulo do arco."
+                },
+                "previous_version": {
+                  "front": "Qual a relação entre o ângulo central Δ de uma curva circular simples e a deflexão total entre tangentes?",
+                  "back": "O módulo do ângulo central da curva circular simples é igual ao módulo da deflexão total entre as tangentes.",
+                  "expl": "Raios aos pontos de tangência são perpendiculares às tangentes. A geometria produz igualdade angular em módulo, mas o sentido direita/esquerda depende da orientação do traçado.\nAplicação: Para uma mudança de direção de 40°, o arco simples de concordância apresenta Δ=40° e desenvolvimento D=πR·40/180.\nPegadinha: Ângulo central não é raio nem grau de curvatura. Em trajetos com espirais, a repartição angular exige cálculo adicional.",
+                  "mnemonic": "Na circular simples, mudança de direção = ângulo do arco.",
+                  "consolidation": null
+                },
+                "profile": {
+                  "id": "CARD-0933",
+                  "title": "Deflexão e ângulo central",
+                  "front": "Qual relação entre mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento?",
+                  "back": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada.",
+                  "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+                  "mnemonic": "Mudou 60°, abriu 120°.",
+                  "modules": [
+                    {
+                      "ord": 1,
+                      "titulo": "Recuperação ativa",
+                      "texto": "Qual relação entre mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento?"
+                    },
+                    {
+                      "ord": 2,
+                      "titulo": "Resposta-modelo",
+                      "texto": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada."
+                    },
+                    {
+                      "ord": 3,
+                      "titulo": "Fundamento e fontes",
+                      "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf"
+                    },
+                    {
+                      "ord": 4,
+                      "titulo": "Mecanismo",
+                      "texto": "Os raios são perpendiculares às tangentes; ao rotacionar ambas as direções em 90°, preserva-se o módulo de mudança angular."
+                    },
+                    {
+                      "ord": 5,
+                      "titulo": "Fórmulas e unidades",
+                      "texto": "D=πRΔ/180; se Δ=40° e R=100 m, D≈69,81 m. Ângulo interno no PI=140°."
+                    },
+                    {
+                      "ord": 6,
+                      "titulo": "Comparação",
+                      "texto": "Δ total não é grau de curvatura, raio nem ângulo interno no PI. Com espirais, a deflexão total inclui ambas as transições e o arco central."
+                    },
+                    {
+                      "ord": 7,
+                      "titulo": "Aplicação e transferência",
+                      "texto": "Se o desenho indica ângulo interno no PI de 120°, a deflexão da curva simples é 60°, não 120°."
+                    },
+                    {
+                      "ord": 8,
+                      "titulo": "Cobertura cruzada",
+                      "texto": "CARD-0929, CARD-0466"
+                    },
+                    {
+                      "ord": 9,
+                      "titulo": "Condições e exceções",
+                      "texto": "Normalizar azimutes e observar sentido do traçado; evitar diferenças brutas que ultrapassem 180° sem analisar a curva."
+                    },
+                    {
+                      "ord": 10,
+                      "titulo": "Pegadinhas",
+                      "texto": "Não confundir abertura interna no PI com deflexão de mudança de direção."
+                    },
+                    {
+                      "ord": 11,
+                      "titulo": "Macete e histórico",
+                      "texto": "Mudou 60°, abriu 120°.; preservar original, fontes e versões."
+                    }
+                  ],
+                  "editorial": {
+                    "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                    "answer_paragraphs": [
+                      "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada."
+                    ],
+                    "highlights": [
+                      {
+                        "kind": "core",
+                        "text": "ângulo interno entre as semirretas",
+                        "color": "#FDE68A"
+                      }
+                    ],
+                    "media": [
+                      {
+                        "id": "ESTUDO34-SVG-CIRCULAR",
+                        "src": "assets/card_visuals_estudo34/curva-circular.svg",
+                        "caption": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+                        "alt": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+                        "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+                        "role": "VERSO_APOS_TENTATIVA",
+                        "origin": "DERIVADA_AUTORAL",
+                        "evidence": "Candidato; exibição não testada"
+                      }
+                    ],
+                    "history_collapsed": true,
+                    "reveal_after_attempt": true
+                  },
+                  "related_card_ids": [
+                    "CARD-0929",
+                    "CARD-0466"
+                  ],
+                  "satellites": [],
+                  "related_question_ids": [],
+                  "history_ref": {
+                    "snapshot": "fcc47722446725c3fa4f35420beae2741b94216b",
+                    "ids": [
+                      "CARD-0933"
+                    ]
+                  }
+                }
+              }
+            },
+            "profile": {
+              "id": "CARD-0933",
+              "title": "Deflexão e ângulo central",
+              "front": "Qual relação entre mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento?",
+              "back": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada.",
+              "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .",
+              "mnemonic": "Mudou 60°, abriu 120°.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Qual relação entre mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento?"
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf ."
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "Os raios são perpendiculares às tangentes; ao rotacionar ambas as direções em 90°, preserva-se o módulo de mudança angular."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas, variáveis e unidades",
+                  "texto": "D=πRΔ/180; se Δ=40° e R=100 m, D≈69,81 m. Ângulo interno no PI=140°."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Δ total não é grau de curvatura, raio nem ângulo interno no PI. Com espirais, a deflexão total inclui ambas as transições e o arco central.\n\nCom espirais, Δ real = θe1+Δc+θe2 quando configuração compatível; G é ângulo de corda/arco padrão, distinto de Δ e Δc."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Aplicação e transferência",
+                  "texto": "Se o desenho indica ângulo interno no PI de 120°, a deflexão da curva simples é 60°, não 120°."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-0929, CARD-0466, CARD-1453, CARD-0810"
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Normalizar azimutes e observar sentido do traçado; evitar diferenças brutas que ultrapassem 180° sem analisar a curva."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não confundir abertura interna no PI com deflexão de mudança de direção."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e histórico",
+                  "texto": "Mudou 60°, abriu 120°.; preservar original, fontes e versões."
+                }
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas no sentido do traçado. O ângulo interno entre as semirretas PI–PC e PI–PT é suplementar: 180°−Δ. O sentido de deflexão direita/esquerda depende da orientação adotada."
+                ],
+                "highlights": [
+                  {
+                    "kind": "core",
+                    "text": "ângulo interno entre as semirretas",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "text": "O módulo do ângulo central Δ da curva circular simples é igual à mudança de direção entre tangentes orientadas",
+                    "kind": "core",
+                    "color": "#FDE68A"
+                  }
+                ],
+                "media": [
+                  {
+                    "id": "ESTUDO34-SVG-CIRCULAR",
+                    "src": "assets/card_visuals_estudo34/curva-circular.svg",
+                    "caption": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+                    "alt": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+                    "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+                    "role": "VERSO_APOS_TENTATIVA",
+                    "origin": "DERIVADA_AUTORAL",
+                    "evidence": "Candidato; exibição não testada"
+                  }
+                ],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              },
+              "related_card_ids": [
+                "CARD-0929",
+                "CARD-0466",
+                "CARD-1453",
+                "CARD-0810"
+              ],
+              "satellites": [],
+              "related_question_ids": [],
+              "history_ref": {
+                "snapshot": "fcc47722446725c3fa4f35420beae2741b94216b",
+                "ids": [
+                  "CARD-0933"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "source_hashes": {
+        "CARD-0244": "d7a6342f2ab44e52042768c08168da483894d1c1e5d859e7f4a205e300d3a861",
+        "CARD-0933": "f8e2955f0ce2ceec82a18ee7225a697233ecda517fa29e7f5bfb1f6936241bfb"
+      },
+      "mnemonic": "Mudou 60°, abriu 120°; Δ é ângulo, R é raio.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como relacionar mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento da curva circular simples ou com espirais?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na curva circular simples, a deflexão total Δ (mudança de direção das tangentes orientadas) é igual ao ângulo central. O ângulo interno no PI entre PI–PC e PI–PT vale 180°−Δ. O desenvolvimento D=πRΔ/180, em metros para R em metros e Δ em graus. Com espirais, Δc=Δ−θe1−θe2, quando a configuração é compatível."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-17-001\n\nCON-17-001\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCON-17-007\n\nDNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf ."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Os raios são perpendiculares às tangentes; girar as duas direções em 90° preserva o módulo da mudança angular."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Azimutes 20° e 55°: Δ=35°. Se Δ=40° e R=100 m, D≈69,81 m e ângulo interno no PI=140°."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Δ total é determinado pelos alinhamentos, não pelo raio; G (grau de curvatura) e Icalc não são a deflexão real. Com espirais, Δ inclui as duas transições e o arco central."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Ângulo interno no PI de 120° → Δ=60°. Identifique o sentido de deflexão direita/esquerda e use Δc para calcular o arco central quando houver espirais."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0244, CARD-0933. Relacionados: CARD-1453, CARD-0810, CARD-0585, CARD-0929, CARD-0466"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Normalizar azimutes, orientar tangentes no sentido do traçado e analisar configurações antes de usar diferenças brutas acima de 180°."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir ângulo interno com deflexão nem reduzir a deflexão real para satisfazer Ireal<Icalc; no exemplo histórico, aumentar R."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Mudou 60°, abriu 120°; Δ é ângulo, R é raio."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Na curva circular simples, a deflexão total Δ (mudança de direção das tangentes orientadas) é igual ao ângulo central. O ângulo interno no PI entre PI–PC e PI–PT vale 180°−Δ. O desenvolvimento D=πRΔ/180, em metros para R em metros e Δ em graus. Com espirais, Δc=Δ−θe1−θe2, quando a configuração é compatível."
+        ],
+        "highlights": [
+          {
+            "text": "Na curva circular simples, a deflexão total Δ (mudança de direção das tangentes orientadas) é igual ao ângulo central",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO34-SVG-CIRCULAR",
+            "src": "assets/card_visuals_estudo34/curva-circular.svg",
+            "caption": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "alt": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0616",
+      "title": "Método dos nós — sinais das forças de barras",
+      "front": "Ao isolar um nó de treliça, qual sentido inicial adotar para as forças desconhecidas e como interpretar seus sinais?",
+      "back": "Na convenção de tração positiva, desenhe as forças das barras desconhecidas saindo do nó. Resultado positivo confirma tração; negativo indica compressão e sentido real oposto.",
+      "satellites": [
+        "CARD-0876"
+      ],
+      "source": "H24-C012\n\nCON-13-031",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0616",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Estruturas — treliças",
+          "sub": "Convenção de sinais",
+          "front": "Ao isolar um nó de treliça, qual sentido inicial adotar para forças de barras desconhecidas?",
+          "back": "Desenhe-as saindo do nó (hipótese de tração); resultado negativo significa compressão.",
+          "expl": "Uma barra tracionada puxa o nó para fora ao longo de seu eixo. Supor tração para todas as desconhecidas uniformiza o sistema. Após resolver ΣFx=ΣFy=0, o sinal indica se o sentido físico coincide com o escolhido.\nAplicação: Se a equação fornece N_AB=−12 kN na hipótese de saída do nó, a barra AB trabalha com 12 kN de compressão no modelo.\nPegadinha: Uma força negativa não deve ser apagada nem tomada como erro matemático; ela corrige o sentido adotado.",
+          "mnemonic": "Sai = supõe tração; negativo = compressão.",
+          "reference": "H24-C012",
+          "active": true
+        },
+        {
+          "id": "CARD-0876",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Treliças planas",
+          "sub": "Tração: hipótese inicial",
+          "front": "Qual sentido inicial atribuir às forças de barras desconhecidas no método dos nós?",
+          "back": "Setas saindo do nó (tração positiva), por convenção de cálculo.",
+          "expl": "Uma barra axial tracionada puxa o nó ao longo de seu eixo, portanto representa-se inicialmente cada força desconhecida afastando-se da articulação. Se o resultado for negativo, a força real inverte.\nAplicação: Assuma N_AB=+12 kN saindo de A; se a solução der N_AB=−12 kN, AB está comprimida e empurra A.\nPegadinha: É uma convenção, não uma obrigatoriedade física; resultados corretos podem usar outra hipótese se os sinais forem coerentes.",
+          "mnemonic": "Saindo: tração; negativo: entra.",
+          "reference": "CON-13-031",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0616": "a683f05d3bbd483720591936be557aab224e5eccb23c03bba95e8529a1b104dd",
+        "CARD-0876": "f5dbf1f2a0378bbeded1b54a681400cc8bc699e2ca0935c642f2a8a8a6cef171"
+      },
+      "mnemonic": "Sai = supõe tração; negativo = compressão.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Ao isolar um nó de treliça, qual sentido inicial adotar para as forças desconhecidas e como interpretar seus sinais?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na convenção de tração positiva, desenhe as forças das barras desconhecidas saindo do nó. Resultado positivo confirma tração; negativo indica compressão e sentido real oposto."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H24-C012\n\nCON-13-031"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Uma barra axial tracionada puxa o nó ao longo do seu eixo; uma comprimida empurra o nó. A hipótese uniforme simplifica ΣFx=ΣFy=0."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Se N_AB=−12 kN com seta inicial saindo do nó A, a barra AB está comprimida com módulo 12 kN e empurra A."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Tração: seta afastando-se do nó. Compressão: seta dirigida ao nó. Força nula: barra sem esforço axial para aquele caso de carga."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Isole o nó, desenhe as forças desconhecidas saindo e decomponha as forças pelos eixos antes de resolver o equilíbrio."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0616, CARD-0876. Sem vínculo adicional confirmado neste lote."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A hipótese é uma convenção, não obrigação física; outra convenção coerente produz o mesmo resultado físico no modelo de treliça articulada ideal."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não apagar resultado negativo nem tratá-lo como erro de cálculo automaticamente; inverta o sentido físico."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Sai = supõe tração; negativo = compressão."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Na convenção de tração positiva, desenhe as forças das barras desconhecidas saindo do nó. Resultado positivo confirma tração; negativo indica compressão e sentido real oposto."
+        ],
+        "highlights": [
+          {
+            "text": "Na convenção de tração positiva, desenhe as forças das barras desconhecidas saindo do nó",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    }
+  ],
+  "private_srs_changed": false,
+  "private_content_exported": false,
+  "validation": {
+    "public_source_cards_verified": true,
+    "private_sync": "not_verified",
+    "browser": "pending",
+    "media_registry": "pending"
+  }
+}
