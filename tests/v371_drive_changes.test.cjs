@@ -1,6 +1,9 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
-const source=fs.readFileSync('assets/v371_js_040_051.js','utf8');
+const html=fs.readFileSync('index.html','utf8');
+const bundles=[...html.matchAll(/<script\b[^>]*src="(assets\/v\d+_js_040_051[^"?]*\.js)(?:\?[^\"]*)?"/g)].map(m=>m[1]);
+assert.equal(bundles.length,1,'Pacote vigente de listagem Drive');
+const source=fs.readFileSync(bundles[0],'utf8');
 const end=source.indexOf('/* V315 IIFE modules');assert.ok(end>0);
 const ctx={URLSearchParams,Date};vm.createContext(ctx);vm.runInContext(source.slice(0,end)+'\nthis.make=BM371FolderCache;',ctx);
 const F='application/vnd.google-apps.folder',P='application/pdf',file=(id,parents,mimeType=P)=>({id,name:id,parents,mimeType});
@@ -25,4 +28,4 @@ test('pasta alterada, remoção desconhecida e feed indisponível exigem varredu
 test('troca de sessão ou prazo máximo impede reaproveitamento',async()=>{const f=fixture();await f.run();f.token('B');assert.equal((await f.run()).loads.length,3);f.advance();assert.equal((await f.run()).loads.length,3)});
 test('drive compartilhado exige leitura completa sem confiar no log de usuário',async()=>{const f=fixture();f.shared();await f.run();assert.equal((await f.run()).loads.length,3);assert.equal(f.calls(),0)});
 test('paginação incompleta ou cursor repetido não confirma cache',async()=>{let calls=0;const c=ctx.make({roots:['root'],token:()=> 'A',request:async u=>u.includes('/files/')?{id:'root',mimeType:F}:u.includes('startPageToken')?{startPageToken:'s'}:{changes:[],nextPageToken:'s'}});const run=()=>c.run(async get=>({n:(await get('root')).length}),async()=>{calls++;return []});await run();await run();assert.equal(calls,2)});
-test('bundle vigente carrega o helper e integra as duas bibliotecas',()=>{new vm.Script(source);assert.match(source,/pdfIncremental.run\(crawlWith,children\)/);assert.match(source,/atlasIncremental.run\(listImagesWith,imageChildren\)/);const html=fs.readFileSync('index.html','utf8');assert.match(html,/v371_js_040_051\.js/);});
+test('bundle vigente carrega o helper e integra as duas bibliotecas',()=>{new vm.Script(source);assert.match(source,/pdfIncremental.run\(crawlWith,children\)/);assert.match(source,/atlasIncremental.run\(listImagesWith,imageChildren\)/);assert.match(source,/function BM371FolderCache\(/);});

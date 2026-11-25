@@ -30,4 +30,6 @@ jobs:
       - if: steps.interface.outputs.interface_changed == 'true'
         run: npx playwright install --with-deps chromium
       - if: steps.interface.outputs.interface_changed == 'true'
+        run: node tests/pdf_toolbar_current.cjs
+      - if: steps.interface.outputs.interface_changed == 'true'
         run: node tests/closure_browser.cjs
