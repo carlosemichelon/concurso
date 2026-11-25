@@ -15,3 +15,6 @@ jobs:
       - run: node --check assets/v432_js_002_015_topic_media.js && node --check assets/v432_js_040_051_atlas.js
       - run: node --test tests/v432_media_search.cjs tests/v371_drive_changes.test.cjs
       - run: node tools/catalog_snapshot.cjs --check
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/v432_media_browser.cjs
