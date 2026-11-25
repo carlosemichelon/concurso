@@ -54,9 +54,9 @@
   if(serial!==pdfSerial||context!==expected||locked||blob.type!=='application/pdf')throw Error('Sessão ou arquivo alterado');
   pdfUrl=URL.createObjectURL(blob);document.getElementById('docTitle').textContent=doc.title;
   document.getElementById('pdfOriginal').removeAttribute('href');document.getElementById('pdfOriginal').hidden=true;
-  document.getElementById('pdfChooseLocal').hidden=true;document.getElementById('pdfLocalTools').hidden=true;
+  document.getElementById('pdfChooseLocal').hidden=false;document.getElementById('pdfChooseLocal').onclick=()=>{if(serial!==pdfSerial||locked)return;void window.BMVS41PrivatePdfEditor.open(doc,blob).catch(e=>{status.textContent=e.message})};document.getElementById('pdfLocalTools').hidden=true;
   document.getElementById('pdfLocalMode').classList.remove('active');document.getElementById('pdfIntro').hidden=true;
-  frame.classList.remove('localHidden');frame.src=pdfUrl;status.textContent='Leitura privada confirmada. Edição e grifos ainda não homologados.';
+  frame.classList.remove('localHidden');frame.src=pdfUrl;status.textContent='Leitura privada confirmada. Abra Editar PDF para usar as ferramentas.';
   dialog.addEventListener('close',()=>{if(!dialog.open)releasePdf()},{once:true});if(!dialog.open)dialog.showModal();return true;
  },async list(){
   const expected=await check();start();const r=await request('/api/vs41/pdfs',{'X-BM-Context':expected});

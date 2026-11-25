@@ -25,6 +25,13 @@ export function reviewFixture(){
  return {...f,fetcher,writes};
 }
 
+function validPdf(label){
+ const stream=n=>'BT /F1 20 Tf 40 330 Td (perfil '+label+' pagina '+n+') Tj ET';
+ const objects=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 400 400] /Resources << /Font << /F1 5 0 R >> >> /Contents 6 0 R >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 400 400] /Resources << /Font << /F1 5 0 R >> >> /Contents 7 0 R >>','<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',...([1,2].map(n=>'<< /Length '+Buffer.byteLength(stream(n))+' >>\nstream\n'+stream(n)+'\nendstream'))];
+ let s='%PDF-1.4\n',offsets=[0];objects.forEach((x,i)=>{offsets.push(Buffer.byteLength(s));s+=(i+1)+' 0 obj\n'+x+'\nendobj\n'});const xref=Buffer.byteLength(s);
+ s+='xref\n0 '+offsets.length+'\n0000000000 65535 f \n'+offsets.slice(1).map(x=>String(x).padStart(10,'0')+' 00000 n \n').join('')+'trailer\n<< /Size '+offsets.length+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';return Buffer.from(s);
+}
+
 export function mediaFixture(base){
  const f=base||reviewFixture(),original=f.fetcher;
  const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jOioAAAAASUVORK5CYII=','base64');
@@ -32,7 +39,7 @@ export function mediaFixture(base){
   const root='root'+s,manifest='media'+s,records=[];
   f.files.get('profile'+s).payload.collections.media=manifest;
   f.files.get('cards'+s).payload.records[0].consolidation.profile.editorial.media.push({id:'IMG-TEST',role:'VERSO_APOS_TENTATIVA',caption:'Imagem privada '+s,private_original:true});
-  for(const [id,mimeType,bytes] of [['IMG-TEST','image/png',png],['PDF-TEST','application/pdf',Buffer.from('%PDF-1.4\n% perfil '+s+'\n%%EOF')]]){
+  for(const [id,mimeType,bytes] of [['IMG-TEST','image/png',png],['PDF-TEST','application/pdf',validPdf(s)]]){
    const fileId=id+'-'+s,sha256=createHash('sha256').update(bytes).digest('hex');
    records.push({id,fileId,mimeType,sha256,title:'Material privado '+s,section:'Estudo',category:'PDF',card_ids:['CARD-9901']});
    f.files.set(fileId,{meta:{id:fileId,mimeType,ownedByMe:true,shared:false,trashed:false,parents:[root],size:String(bytes.length),appProperties:{bmProject:project,bmOwner:s,bmKind:'media-file',bmMedia:id}},bytes});

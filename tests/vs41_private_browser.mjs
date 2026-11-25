@@ -1,3 +1,4 @@
+import {privatePdfEditor} from '../infra/vs41-private/pdf-editor.mjs';
 import {privatePdfLibrary,privatePdfSync} from '../infra/vs41-private/pdf-library.mjs';
 import {privateMediaRenderer} from '../infra/vs41-private/media-renderer.mjs';
 import {privateCalendar,privateStudyQueue} from '../infra/vs41-private/calendar.mjs';
@@ -15,11 +16,12 @@ let api;
 const server=http.createServer(async(req,res)=>{
  const u=new URL(req.url,'http://localhost');
  if(await api(req,res))return;
+ if(['/test-pdfjs/pdf.min.js','/test-pdfjs/pdf.worker.min.js'].includes(u.pathname)){res.setHeader('Content-Type','application/javascript');return fs.createReadStream(path.join(root,'node_modules/pdfjs-dist/build',u.pathname.split('/').pop())).pipe(res)}
  if(u.pathname==='/index.html'){res.setHeader('Content-Type','text/html');res.setHeader('Cache-Control','no-store');return res.end(privatePage(html))}
  if(u.pathname==='/assets/v382_srs_journal_vc23.js'){res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(privateJournal(fs.readFileSync('assets/v382_srs_journal_vc23.js','utf8')))}
  if(u.pathname==='/assets/v414_js_076_087_header.js'||u.pathname==='/assets/v383_study_queue.js'){const file=u.pathname.slice(1),adapt=file.includes('header')?privateCalendar:privateStudyQueue;res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(adapt(fs.readFileSync(file,'utf8')))}
  if(u.pathname==='/assets/v417_shared_reader.js'){res.setHeader('Content-Type','application/javascript');return res.end(privateMediaRenderer(fs.readFileSync('assets/v417_shared_reader.js','utf8')))}
- if(u.pathname==='/assets/v432_js_002_015_topic_media.js'||u.pathname==='/assets/v432_js_040_051_atlas.js'){const file=u.pathname.slice(1),adapt=file.includes('topic_media')?privatePdfLibrary:privatePdfSync;res.setHeader('Content-Type','application/javascript');return res.end(adapt(fs.readFileSync(file,'utf8')))}
+ if(u.pathname==='/assets/v432_js_002_015_topic_media.js'||u.pathname==='/assets/v432_js_040_051_atlas.js'){const file=u.pathname.slice(1),adapt=file.includes('topic_media')?s=>privatePdfLibrary(privatePdfEditor(s)):privatePdfSync;res.setHeader('Content-Type','application/javascript');return res.end(adapt(fs.readFileSync(file,'utf8')))}
  // Only serve the original portal's static assets and the one private client script.
  if(!u.pathname.startsWith('/assets/')&&u.pathname!=='/infra/vs41-private/client.js'){res.writeHead(404);return res.end()}
  const file=path.resolve(root,'.'+u.pathname);
@@ -34,7 +36,7 @@ const login=(context,label)=>context.request.post(url+'/api/vs41/login',{headers
 const logout=context=>context.request.post(url+'/api/vs41/logout',{headers:{Origin:url}});
 async function open(context,label,keep=false){
  const p=await context.newPage();let publicReads=0,privateReads=0,sessionReads=0;
- await p.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin!==url)return r.abort();if(u.pathname.includes(manifest.catalog.path)||/\/assets\/catalog_snapshot_|\/assets\/cards_drive_sync_/.test(u.pathname)){publicReads++;return r.abort()}return r.continue()});
+ await p.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin!==url){if(u.hostname==='cdnjs.cloudflare.com'&&/\/pdf\.js\/3\.11\.174\/pdf(?:\.worker)?\.min\.js$/.test(u.pathname))return r.fulfill({contentType:'application/javascript',body:fs.readFileSync(path.join(root,'node_modules/pdfjs-dist/build',u.pathname.split('/').pop()))});return r.abort();}if(u.pathname.includes(manifest.catalog.path)||/\/assets\/catalog_snapshot_|\/assets\/cards_drive_sync_/.test(u.pathname)){publicReads++;return r.abort()}return r.continue()});
  p.on('request',r=>{if(r.url().endsWith('/api/vs41/private-cards'))privateReads++;if(r.url().endsWith('/api/vs41/session'))sessionReads++});
  try{
   await p.goto(url+'/index.html',{waitUntil:'domcontentloaded',timeout:60000});
@@ -122,6 +124,23 @@ try{
  assert.deepEqual(annotationWrites.map(x=>[x.parent,x.payload.marks[0].text]).sort(),[['rootA','Grifo A'],['rootB','Grifo B']]);
  await assert.rejects(oldA.evaluate(async hash=>window.BMVS41PrivateAnnotations.save('PDF-TEST',1,{event_id:crypto.randomUUID(),hash,previous:null,marks:[]}),saved[1].hash));
  console.log('Grifos: API autenticada no navegador, dados por usuário e página, conflito bloqueado.');
+ for(const [p,label] of [[oldA,'A'],[oldB,'B']]){
+  await p.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
+  await p.evaluate(()=>section('pdfs'));
+  await p.locator('#pdfRows .v036-pdf-actions button').first().click();
+  await p.locator('#pdfDialog[open]').waitFor({state:'visible'});
+  await p.evaluate(async()=>{const script=document.createElement('script');script.src='/test-pdfjs/pdf.min.js';await new Promise((ok,no)=>{script.onload=ok;script.onerror=no;document.head.append(script)});window.pdfjsLib.GlobalWorkerOptions.workerSrc='/test-pdfjs/pdf.worker.min.js'});
+  await p.locator('#bmV056OpenPdfMenu').click();await p.locator('#pdfChooseLocal').click();
+  await p.waitForFunction(()=>window.BMVS41PrivatePdfEditor.confirmed&&window.BancoMestrePDFV042.totalPages===2);
+  assert.equal(await p.evaluate(()=>window.BancoMestrePDFV042.currentMarks[0].text),'Grifo '+label);
+  await p.evaluate(()=>{const x=window.BancoMestrePDFV042;const result=x.addTextHighlight({text:'Marca editor',rects:[[.2,.1,.4,.18]],documentId:x.currentId,sourceHash:x.sourceHash,page:x.currentPage,color:'#ffd400'});if(!result)throw Error('Ferramenta de grifo original não registrou')});
+  await p.waitForFunction(()=>window.BMVS41PrivatePdfEditor.confirmed&&!window.BMVS41PrivatePdfEditor.busy);
+  const rows=await p.evaluate(()=>window.BMVS41PrivateAnnotations.get('PDF-TEST',1));assert.equal(rows.marks.length,2);assert.equal(rows.marks[1].text,'Marca editor');
+  await p.locator('#bmV056ClosePDF').click();await p.locator('#pdfDialog').waitFor({state:'hidden'});
+  assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
+  await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
+ }
+ console.log('Editor PDF.js original: PDF válido, marcação e gravação autenticada.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});
