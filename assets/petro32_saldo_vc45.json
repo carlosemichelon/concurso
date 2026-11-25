@@ -1,0 +1,1066 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-0810",
+      "title": "Deflexão horizontal",
+      "front": "Dados os rumos de tangentes orientadas no sentido do percurso, como calcular a deflexão e o ângulo central de uma curva circular simples, em graus e radianos? Como distinguir o ângulo interno no PI?",
+      "back": "É o ângulo de mudança de direção entre tangentes sucessivas da poligonal.\n\nConverta os rumos em azimutes orientados no sentido do percurso. Calcule δ=|Az₂−Az₁| e, para uma concordância circular simples usual, Δ=min(δ,360°−δ). Esse é o ângulo central. O ângulo interno no PI, entre as semirretas que partem do vértice, é 180°−Δ. Para 42° NE e 87° NE, Δ=45°=π/4 rad e o ângulo interno vale 135°.",
+      "source": "H23-C012\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf",
+      "mnemonic": "Rumo vira azimute, azimute vira deflexão; π rad=180°.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Dados os rumos de tangentes orientadas no sentido do percurso, como calcular a deflexão e o ângulo central de uma curva circular simples, em graus e radianos? Como distinguir o ângulo interno no PI?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "É o ângulo de mudança de direção entre tangentes sucessivas da poligonal.\n\nConverta os rumos em azimutes orientados no sentido do percurso. Calcule δ=|Az₂−Az₁| e, para uma concordância circular simples usual, Δ=min(δ,360°−δ). Esse é o ângulo central. O ângulo interno no PI, entre as semirretas que partem do vértice, é 180°−Δ. Para 42° NE e 87° NE, Δ=45°=π/4 rad e o ângulo interno vale 135°."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C012\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A deflexão deriva da geometria dos alinhamentos.\n\nAo transladar os vetores de marcha para uma origem comum, mede-se a mudança de direção. Como os raios no PC e no PT são perpendiculares às respectivas tangentes, a deflexão coincide com o ângulo central da concordância simples."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "I é diferença angular orientada, normalizada; θ interno no PI=180°−I na curva simples.\n\nAzimutes por quadrante: NE=θ; SE=180°−θ; SW=180°+θ; NW=360°−θ. Δrad=Δgraus·π/180; D=RΔrad; T=R·tan(Δ/2)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "I real deriva dos azimutes das tangentes e permanece constante se ambos alinhamentos são preservados. I_calc é limiar do critério histórico, não ângulo substituto.\n\nA deflexão Δ não é o ângulo interno do PI nem o grau G de uma corda padrão. O critério Icalc de pequenas deflexões é uma verificação de compatibilidade, não a medida da mudança de direção."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Azimutes de 20° e 55° dão mudança de 35°.\n\nPara A(1000,4000), B(6000,6000) e C(12000,3000), a mudança de direção é arctan(2/5)+arctan(3/6)≈48,37° à direita; o ângulo interno é 131,63°. Para azimutes 350° e 10°, a menor deflexão é 20°. 30°=π/6; 45°=π/4; 60°=π/3; 90°=π/2."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0244, CARD-0585, CARD-0933\n\nRelacionados: CARD-0244, CARD-1362, CARD-0182, CARD-0929. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Não confundir alinhamento real e parâmetros de concordância.\n\nUse o mesmo referencial de norte e tangentes orientadas ao longo da marcha. Se o rumo estiver invertido, calcule o contra-azimute antes da comparação. Para deflexão orientada, normalize o sinal segundo a convenção adotada."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "I não é raio, grau padrão nem ângulo de uma espiral isolada.\n\nNão confunda π/6 com π/4 nem ângulo interno com deflexão. Raio e distância da estaca não são necessários para calcular Δ a partir das direções."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "I é virada; R é tamanho da curva.\n\nRumo vira azimute, azimute vira deflexão; π rad=180°."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "É o ângulo de mudança de direção entre tangentes sucessivas da poligonal.",
+          "Converta os rumos em azimutes orientados no sentido do percurso. Calcule δ=|Az₂−Az₁| e, para uma concordância circular simples usual, Δ=min(δ,360°−δ). Esse é o ângulo central. O ângulo interno no PI, entre as semirretas que partem do vértice, é 180°−Δ. Para 42° NE e 87° NE, Δ=45°=π/4 rad e o ângulo interno vale 135°."
+        ],
+        "highlights": [
+          {
+            "text": "É o ângulo de mudança de direção entre tangentes sucessivas da poligonal.",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO32-Q16-SVG",
+            "src": "assets/petro32/petro32-q16-deflexao.svg",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Vetores de percurso transladados à mesma origem, rumos 42° e 87° NE."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0244",
+        "CARD-0585",
+        "CARD-1362",
+        "CARD-0182",
+        "CARD-0929"
+      ],
+      "expected_hash": "19fc77bdfde98aae5f670e4447017ee4c05912dbf7e8fa7086d6ae2df07bcd3f"
+    },
+    {
+      "id": "CARD-0244",
+      "title": "Deflexão, ângulo central e ângulo interno no PI",
+      "front": "Como relacionar mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento da curva circular simples ou com espirais?",
+      "back": "Na curva circular simples, a deflexão total Δ (mudança de direção das tangentes orientadas) é igual ao ângulo central. O ângulo interno no PI entre PI–PC e PI–PT vale 180°−Δ. O desenvolvimento D=πRΔ/180, em metros para R em metros e Δ em graus. Com espirais, Δc=Δ−θe1−θe2, quando a configuração é compatível.",
+      "source": "CON-17-001\n\nCON-17-001\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCON-17-007\n\nDNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf",
+      "mnemonic": "Mudou 60°, abriu 120°; Δ é ângulo, R é raio.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como relacionar mudança de direção das tangentes, ângulo central, ângulo interno no PI e desenvolvimento da curva circular simples ou com espirais?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na curva circular simples, a deflexão total Δ (mudança de direção das tangentes orientadas) é igual ao ângulo central. O ângulo interno no PI entre PI–PC e PI–PT vale 180°−Δ. O desenvolvimento D=πRΔ/180, em metros para R em metros e Δ em graus. Com espirais, Δc=Δ−θe1−θe2, quando a configuração é compatível."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-17-001\n\nCON-17-001\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCON-17-007\n\nDNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Os raios são perpendiculares às tangentes; girar as duas direções em 90° preserva o módulo da mudança angular."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Azimutes 20° e 55°: Δ=35°. Se Δ=40° e R=100 m, D≈69,81 m e ângulo interno no PI=140°."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Δ total é determinado pelos alinhamentos, não pelo raio; G (grau de curvatura) e Icalc não são a deflexão real. Com espirais, Δ inclui as duas transições e o arco central."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Ângulo interno no PI de 120° → Δ=60°. Identifique o sentido de deflexão direita/esquerda e use Δc para calcular o arco central quando houver espirais.\n\nExemplo: tangentes de percurso 42° NE e 87° NE produzem Δ=45°=π/4 rad e ângulo interno 135°. Se R=10 m, D=10π/4≈7,85 m."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0244, CARD-0933. Relacionados: CARD-1453, CARD-0810, CARD-0585, CARD-0929, CARD-0466, CARD-0317, CARD-1159, CARD-0392.\n\nRelacionados: CARD-0810, CARD-1362, CARD-0182, CARD-0929. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Normalizar azimutes, orientar tangentes no sentido do traçado e analisar configurações antes de usar diferenças brutas acima de 180°."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir ângulo interno com deflexão nem reduzir a deflexão real para satisfazer Ireal<Icalc; no exemplo histórico, aumentar R."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Mudou 60°, abriu 120°; Δ é ângulo, R é raio."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO",
+        "answer_paragraphs": [
+          "Na curva circular simples, a deflexão total Δ (mudança de direção das tangentes orientadas) é igual ao ângulo central. O ângulo interno no PI entre PI–PC e PI–PT vale 180°−Δ. O desenvolvimento D=πRΔ/180, em metros para R em metros e Δ em graus. Com espirais, Δc=Δ−θe1−θe2, quando a configuração é compatível."
+        ],
+        "highlights": [
+          {
+            "text": "Na curva circular simples, a deflexão total Δ (mudança de direção das tangentes orientadas) é igual ao ângulo central",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO34-SVG-CIRCULAR",
+            "src": "assets/card_visuals_estudo34/curva-circular.svg",
+            "caption": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "alt": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          },
+          {
+            "id": "PETRO32-Q16-SVG",
+            "src": "assets/petro32/petro32-q16-deflexao.svg",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Vetores de percurso transladados à mesma origem, rumos 42° e 87° NE."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "related_card_ids": [
+        "CARD-1453",
+        "CARD-0810",
+        "CARD-0585",
+        "CARD-0929",
+        "CARD-0466",
+        "CARD-0317",
+        "CARD-1159",
+        "CARD-0392",
+        "CARD-1362",
+        "CARD-0182"
+      ],
+      "expected_hash": "17aa405c7e4a6032b67b2ba9685b744b5e986a86717e5021cea29fbe04dfb3b3"
+    },
+    {
+      "id": "CARD-1362",
+      "title": "Ângulo entre rumos e reversão",
+      "front": "Qual o ângulo menor entre S45°W e S45°E, partindo do mesmo vértice? E se uma direção for de chegada?",
+      "back": "Partindo do mesmo vértice, S45°W corresponde a azimute 225° e S45°E a 135°: o ângulo menor é 90°. Se uma direção descreve um segmento que chega ao vértice, inverta-a antes de comparar as duas semirretas que partem dele.",
+      "source": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf",
+      "mnemonic": "Mesmo vértice, duas setas saindo.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual o ângulo menor entre S45°W e S45°E, partindo do mesmo vértice? E se uma direção for de chegada?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Partindo do mesmo vértice, S45°W corresponde a azimute 225° e S45°E a 135°: o ângulo menor é 90°. Se uma direção descreve um segmento que chega ao vértice, inverta-a antes de comparar as duas semirretas que partem dele."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O ângulo interno é formado por raios com origem comum; direção de percurso e raio saindo do vértice podem ser opostos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "δ=|Az1−Az2|; ângulo menor=min(δ,360°−δ); Az inverso=(Az+180°) mod 360°."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Ângulo menor não é necessariamente ângulo interno reflexo nem deflexão orientada. Rumo exige quadrante.\n\nDuas semirretas que saem do PI definem o ângulo interno. Para a mudança de direção da marcha, mantenha os vetores entrada e saída no sentido do percurso; não inverta automaticamente a entrada. Rumos 42° NE e 87° NE dão deflexão 45° e ângulo interno 135°."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "S30°E→Az150° e N20°E→Az20°: ângulo menor=130°. Se o primeiro for de chegada, seu inverso é 330°, resultando 50°."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0182, CARD-0378\n\nRelacionados: CARD-0810, CARD-0244, CARD-0182. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Para poligonal côncava ou ângulo à direita/esquerda, usar sentido de percurso e convenção específica, não apenas ângulo menor."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não somar rumos automaticamente; verificar o quadrante e a orientação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Mesmo vértice, duas setas saindo.; original preservado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Partindo do mesmo vértice, S45°W corresponde a azimute 225° e S45°E a 135°: o ângulo menor é 90°. Se uma direção descreve um segmento que chega ao vértice, inverta-a antes de comparar as duas semirretas que partem dele."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "o ângulo menor é 90°",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0182",
+        "CARD-0378",
+        "CARD-0810",
+        "CARD-0244"
+      ],
+      "expected_hash": "aa84daccfd250152c5efee0ca8f4ec104056befbe8ed98796559e3983f4c01c1"
+    },
+    {
+      "id": "CARD-0182",
+      "title": "Rumos, azimutes e projeções",
+      "front": "Como converter rumo quadrantal em azimute e calcular projeções coordenadas de uma distância horizontal?",
+      "back": "O azimute topográfico é contado no sentido horário a partir do norte, de 0° a 360° (360° equivale a 0°). O rumo é medido a partir de N ou S em direção a E ou W, entre 0° e 90°. Para azimute Az, ΔE=d·sen Az e ΔN=d·cos Az. Com rumo θ, aplicar sinais pelo quadrante.",
+      "source": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf",
+      "mnemonic": "Norte é zero; seno vai para leste.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como converter rumo quadrantal em azimute e calcular projeções coordenadas de uma distância horizontal?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O azimute topográfico é contado no sentido horário a partir do norte, de 0° a 360° (360° equivale a 0°). O rumo é medido a partir de N ou S em direção a E ou W, entre 0° e 90°. Para azimute Az, ΔE=d·sen Az e ΔN=d·cos Az. Com rumo θ, aplicar sinais pelo quadrante."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Fundamentos de topografia plana; Iran Carlos Stalliviere Corrêa, Topografia Aplicada à Engenharia Civil, 13ª ed., UFRGS, 2012: https://www.academia.edu/31452208/UNIVERSIDADE_FEDERAL_DO_RIO_GRANDE_DO_SUL_INSTITUTO_DE_GEOCI%C3%8ANCIAS_Topografia_aplicada_%C3%A0_Engenharia_Civil_13a_Edi%C3%A7%C3%A3o_Revisada_e_Ampliada ; relações geométricas deduzidas.\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A projeção leste é o cateto oposto ao ângulo contado a partir do meridiano; a norte é o adjacente. Azimute incorpora sinais nas funções trigonométricas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "NE: Az=θ; SE: 180°−θ; SW: 180°+θ; NW: 360°−θ. ΔE=±d sen θ; ΔN=±d cos θ. d em m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Rumo: quadrante obrigatório; azimute: ângulo de volta inteira. Contra-azimute=(Az+180°) mod 360°."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "S30°E, d=20 m: Az=150°; ΔE=+10 m, ΔN≈−17,32 m. Inverter direção dá N30°W.\n\nPara rumos de percurso 42° NE e 87° NE, converta-os em azimutes 42° e 87°. A diferença é 45°, equivalente a π/4 rad. Se a diferença absoluta superar 180°, tome seu complemento a 360° para obter o menor ângulo."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0378, CARD-1362\n\nRelacionados: CARD-0810, CARD-1362, CARD-0244. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar distância horizontal e mesmo referencial de norte (verdadeiro, magnético ou de quadrícula). E/O e N/S devem ser coerentes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar seno e cosseno nem calcular ângulo entre direções de chegada sem inverter a direção pertinente."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Norte é zero; seno vai para leste.; original preservado."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O azimute topográfico é contado no sentido horário a partir do norte, de 0° a 360° (360° equivale a 0°). O rumo é medido a partir de N ou S em direção a E ou W, entre 0° e 90°. Para azimute Az, ΔE=d·sen Az e ΔN=d·cos Az. Com rumo θ, aplicar sinais pelo quadrante."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "ΔE=d·sen Az",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0378",
+        "CARD-1362",
+        "CARD-0810",
+        "CARD-0244"
+      ],
+      "expected_hash": "542f8a5920b7c01fd8848c8177897d6790f23d95a971624fe84ab143acd11d63"
+    },
+    {
+      "id": "CARD-0929",
+      "title": "Curva circular simples — elementos",
+      "front": "Como determinar tangente, desenvolvimento, corda, externa e flecha de curva circular simples?",
+      "back": "Na curva circular simples, PC é início, PT é fim e PI é interseção das tangentes. Para raio R e deflexão total Δ, tangente T=R·tan(Δ/2). O desenvolvimento é o comprimento do arco, D=πRΔ/180, com Δ em graus. Corda longa CL=2R·sen(Δ/2), externa E=R[sec(Δ/2)−1] e flecha M=R[1−cos(Δ/2)].",
+      "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf",
+      "mnemonic": "Tangente usa meio ângulo; arco usa inteiro.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como determinar tangente, desenvolvimento, corda, externa e flecha de curva circular simples?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na curva circular simples, PC é início, PT é fim e PI é interseção das tangentes. Para raio R e deflexão total Δ, tangente T=R·tan(Δ/2). O desenvolvimento é o comprimento do arco, D=πRΔ/180, com Δ em graus. Corda longa CL=2R·sen(Δ/2), externa E=R[sec(Δ/2)−1] e flecha M=R[1−cos(Δ/2)]."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf\n\nUFPR, Projeto Geométrico de Rodovias, 2013, seção 3.4; https://engucm.wordpress.com/wp-content/uploads/2015/09/apostila_projetogeometrico_2013.pdf .\n\nCESGRANRIO, Transpetro 2012, Técnico de Faixa de Dutos, Q28. https://arquivos.qconcursos.com/prova/arquivo_prova/28592/cesgranrio-2012-transpetro-tecnico-de-faixa-de-dutos-junior-prova.pdf"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Raios nos pontos de tangência são perpendiculares às tangentes; o centro e PI estão sobre a bissetriz. Triângulos retângulos e ângulos centrais fornecem os elementos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "R=100 m, Δ=60°: T≈57,74 m; D≈104,72 m; CL=100 m; E≈15,47 m; M≈13,40 m. Para Δ em radianos, D=RΔ."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Tangente T é retilínea; D é arco; CL liga PC a PT; E é distância PI–meio da curva pela bissetriz; M é distância corda–arco no meio.\n\nD e CL usam Δ total em curva circular simples; o grau G usa corda/arco padrão. Em curva com espirais, arco circular usa Δc, não Δ total."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se PC estiver na estaca 1000 m, PT estará em 1104,72 m ao longo do eixo, desconsiderando ajustes de estaqueamento; não somar 2T para comprimento do arco.\n\nCom rumos de percurso 42° NE e 87° NE, Δ=45°=π/4 rad. Para R=10 m, D≈7,85 m, enquanto T=10·tan(22,5°)≈4,14 m. O desenvolvimento é comprimento de arco, não comprimento da tangente."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0933, CARD-0466, CARD-1160, CARD-1455, CARD-1161, CARD-1453, CARD-0244\n\nRelacionados: CARD-0810, CARD-0244. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Fórmulas de círculo simples; espirais alteram posição e tangentes. Converter unidades angulares corretamente."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar Δ completo em tan, nem calcular PT pela distância retilínea entre tangentes."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Tangente usa meio ângulo; arco usa inteiro.; preservar original, fontes e versões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Na curva circular simples, PC é início, PT é fim e PI é interseção das tangentes. Para raio R e deflexão total Δ, tangente T=R·tan(Δ/2). O desenvolvimento é o comprimento do arco, D=πRΔ/180, com Δ em graus. Corda longa CL=2R·sen(Δ/2), externa E=R[sec(Δ/2)−1] e flecha M=R[1−cos(Δ/2)]."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "tangente T=R·tan(Δ/2)",
+            "color": "#FDE68A"
+          },
+          {
+            "text": "Na curva circular simples, PC é início, PT é fim e PI é interseção das tangentes.",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "ESTUDO34-SVG-CIRCULAR",
+            "src": "assets/card_visuals_estudo34/curva-circular.svg",
+            "caption": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "alt": "Elementos da curva circular simples: PC, PI, PT, raio, tangente e deflexão.",
+            "source": "DNER/DNIT IPR-706, Manual de Projeto Geométrico de Rodovias Rurais, 1999, seções de alinhamento horizontal, superelevação e visibilidade: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/706_manual_de_projeto_geometrico.pdf ; DNIT IPR-742, Manual de Implantação Básica de Rodovia, versão com Errata 1, corrigida em 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/742_manual_de_implantacao_basica_com_incorporacao_da_errata_1.pdf",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0244",
+        "CARD-0466",
+        "CARD-1160",
+        "CARD-1455",
+        "CARD-1161",
+        "CARD-1453",
+        "CARD-0810"
+      ],
+      "expected_hash": "20e5ee8d9863e5f8bb462a94ac39828c8b593318dd59cfeb7b7613c0e930064f"
+    },
+    {
+      "id": "CARD-1442",
+      "title": "Grau de compactação — cálculo, referência e aceitação",
+      "front": "Como calcular o GC a partir da densidade úmida de campo e do teor de umidade? O que significa GC acima de 100% e por que a aprovação exige outros controles?",
+      "back": "O grau de compactação compara a massa específica aparente seca medida em campo com o máximo seco do ensaio de referência, em porcentagem. Se o campo fornece massa específica úmida, primeiro dividir por 1+w, com w em fração decimal. Para ρd,campo=1,82 g/cm³ e ρd,máx=1,90 g/cm³, GC≈95,8%. O resultado atende um mínimo de 95%, mas não um mínimo de 100%; a aceitação ainda depende de material, energia de referência, umidade, espessura e critérios de amostragem.",
+      "source": "Origem histórica CARD-1442; DNIT 108/2009-ES, 5.3.4, 5.3.5 e 7.2.3; versão oficial com Errata 1 de 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es; ABNT NBR 5681:2015, 4.2, edição estudada; https://sistema.ceteclins.com.br/Uploads/PDF/0D4FD993-FCCA-4CAA-9F48-B369A553294D_16092020162156.pdf.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Primeiro seca, depois compara: campo seco / máximo seco × 100.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular o GC a partir da densidade úmida de campo e do teor de umidade? O que significa GC acima de 100% e por que a aprovação exige outros controles?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O grau de compactação compara a massa específica aparente seca medida em campo com o máximo seco do ensaio de referência, em porcentagem. Se o campo fornece massa específica úmida, primeiro dividir por 1+w, com w em fração decimal. Para ρd,campo=1,82 g/cm³ e ρd,máx=1,90 g/cm³, GC≈95,8%. O resultado atende um mínimo de 95%, mas não um mínimo de 100%; a aceitação ainda depende de material, energia de referência, umidade, espessura e critérios de amostragem."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Origem histórica CARD-1442; DNIT 108/2009-ES, 5.3.4, 5.3.5 e 7.2.3; versão oficial com Errata 1 de 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es; ABNT NBR 5681:2015, 4.2, edição estudada; https://sistema.ceteclins.com.br/Uploads/PDF/0D4FD993-FCCA-4CAA-9F48-B369A553294D_16092020162156.pdf.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A compactação reduz principalmente vazios de ar. O ensaio de campo avalia a massa de sólidos por volume total, enquanto o Proctor determina uma densidade máxima para uma energia e preparação específicas. Um GC superior a 100% é matematicamente possível e pode decorrer de energia efetiva maior ou diferenças do material/ensaio; verificar a representatividade, sem truncar automaticamente o resultado."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "ρd=ρ/(1+w); GC=100ρd,campo/ρd,máx. Exemplo: ρ=2,016 Mg/m³, w=12% → ρd=1,80 Mg/m³. Com máximo de 1,90, GC=94,74%. Para atingir 95% do máximo, exige-se ρd≥1,805 Mg/m³."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "GC compara densidades secas; Sr compara volumes de água e vazios; ISC/CBR compara resistência à penetração. Umidade ótima define o pico para energia especificada, não mede GC diretamente."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Uma camada com GC=97% mas w fora da tolerância do projeto não está automaticamente conforme. Confirmar material e Proctor correspondente, energia de referência, umidade e espessura; corrigir e reensaiar conforme especificação.\n\nBGS NBR 12264:1991: GC da camada acabada a cada 100 m ou 60 m em pavimentação urbana, diferentemente da amostragem laboratorial a cada 200 m.\n\nEm pavimentação de RCC segundo a NBR 15115:2004, se ρd,campo=1,88 e ρd,máx=1,96 g/cm³, GC≈95,9%, abaixo do mínimo individual de 100%. O recebimento do conjunto deve observar o critério individual ou estatístico do item 7.3.2."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Conhecimentos relacionados: CARD-0230, CARD-1447, CARD-0701, CARD-0707, CARD-0822, CARD-0825, CARD-1312, CARD-0521, CARD-1435, CARD-8911, CARD-8913, CARD-1462.\n\nRelacionados: CARD-1447, CARD-1446, CARD-0701. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar a mesma unidade de densidade nos dois termos. Não misturar peso específico com massa específica sem conversão; usar w decimal. GC isolado não comprova toda a conformidade, principalmente quando há critério estatístico de aceitação.\n\nPara a edição citada, o recebimento admite nenhum GC inferior a 100% ou média−K·S≥100%, com K da tabela 1 e S amostral. Não transfira a tolerância de outras normas para RCC."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não dividir densidade úmida pela máxima seca; não confundir 95% de GC com 95% de saturação. Não usar Proctor de outro solo ou energia. Não limitar o resultado a 100% por conveniência."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Primeiro seca, depois compara: campo seco / máximo seco × 100."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O grau de compactação compara a massa específica aparente seca medida em campo com o máximo seco do ensaio de referência, em porcentagem. Se o campo fornece massa específica úmida, primeiro dividir por 1+w, com w em fração decimal. Para ρd,campo=1,82 g/cm³ e ρd,máx=1,90 g/cm³, GC≈95,8%. O resultado atende um mínimo de 95%, mas não um mínimo de 100%; a aceitação ainda depende de material, energia de referência, umidade, espessura e critérios de amostragem."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "massa específica aparente seca",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "95,8%",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "mas não um mínimo de 100%",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Entrada",
+            "Ação"
+          ],
+          "rows": [
+            [
+              "ρ úmida e w",
+              "ρd=ρ/(1+w)"
+            ],
+            [
+              "ρd de campo e máxima",
+              "GC=100×razão"
+            ],
+            [
+              "GC e demais critérios",
+              "Verificar conformidade"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Massa específica seca",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>ρ</mi><mi>d</mi></msub><mo>=</mo><mfrac><mi>ρ</mi><mrow><mn>1</mn><mo>+</mo><mi>w</mi></mrow></mfrac></math>",
+            "units": "w em fração decimal"
+          },
+          {
+            "title": "Grau de compactação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><msub><mi>ρ</mi><mrow><mi>d</mi><mo>,</mo><mi>campo</mi></mrow></msub><msub><mi>ρ</mi><mrow><mi>d</mi><mo>,</mo><mi>máx</mi></mrow></msub></mfrac></math>",
+            "units": "%; massas específicas em unidades iguais"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC22-SVG-PROCTOR",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Curvas qualitativas do mesmo solo sob duas energias; a linha de saturação é um limite teórico.",
+            "alt": "Proctor: umidade, densidade seca e energia",
+            "src": "assets/card_visuals_vc22/curva_proctor.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "Mecânica dos Solos; CARD-0701 e CARD-0707",
+            "evidence": "SVG nativo de autoria didática; exibição em navegador não testada"
+          },
+          {
+            "id": "PETRO25-SVG-CONTROLE-V191",
+            "caption": "Controle de camada, umidade e grau de compactação",
+            "alt": "Controle de camada, umidade e grau de compactação",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "SVG autoral didático; não substitui originais.",
+            "src": "assets/card_visuals_v349/controle_aterro_v191.svg"
+          },
+          {
+            "id": "PETRO32-Q17-SVG",
+            "src": "assets/petro32/petro32-q17-rcc.svg",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Controle de compactação de RCC: umidade antes, massa específica seca depois."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0230",
+        "CARD-1447",
+        "CARD-0701",
+        "CARD-0707",
+        "CARD-0822",
+        "CARD-0825",
+        "CARD-1312",
+        "CARD-0521",
+        "CARD-1435",
+        "CARD-8911",
+        "CARD-8913",
+        "CARD-1462",
+        "CARD-1465",
+        "CARD-1446"
+      ],
+      "expected_hash": "0c26afaac639e57509252a92a646e17422ecf79be88759bc98faf01769cbcc1e"
+    },
+    {
+      "id": "CARD-1447",
+      "title": "Frasco de areia e grau de compactação em campo",
+      "front": "Explique a sequência de determinação da massa específica seca in situ por frasco de areia, incluindo correção do funil, umidade e cálculo do GC. Quais erros invalidam a comparação?",
+      "back": "O frasco de areia mede indiretamente o volume do furo escavado pela massa de areia calibrada que o preenche. Corrige-se a massa de areia pelo volume ocupado no funil/base conforme calibração. Com a massa de solo úmido retirado e sua umidade, calcula-se ρd,campo, comparando-a com ρd,máx do Proctor representativo para obter GC. O método não mede diretamente ISC/CBR.",
+      "source": "Referência original CARD-1447: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me ; FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm; preservar fonte histórica privada vinculada ao cartão.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Areia dá volume; solo dá massa; umidade dá seco; Proctor dá referência.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique a sequência de determinação da massa específica seca in situ por frasco de areia, incluindo correção do funil, umidade e cálculo do GC. Quais erros invalidam a comparação?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O frasco de areia mede indiretamente o volume do furo escavado pela massa de areia calibrada que o preenche. Corrige-se a massa de areia pelo volume ocupado no funil/base conforme calibração. Com a massa de solo úmido retirado e sua umidade, calcula-se ρd,campo, comparando-a com ρd,máx do Proctor representativo para obter GC. O método não mede diretamente ISC/CBR."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Referência original CARD-1447: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me ; FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm; preservar fonte histórica privada vinculada ao cartão.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A areia de calibração ocupa o volume desconhecido; sua massa específica aparente conhecida permite inferir V. A massa seca do solo é a massa úmida dividida por 1+w. Comparar com laboratório só faz sentido para material e energia de referência compatíveis."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "V=(mareia,total−mfunil)/ρareia; ρ=msolo,úmido/V; ρd=ρ/(1+w); GC=100ρd/ρd,máx. Exemplo: areia líquida 2,40 kg, ρareia=1,50 kg/L: V=1,60 L. Solo úmido 3,2256 kg, w=12%: ρ=2,016 kg/L, ρd=1,80 kg/L. Proctor 1,90 kg/L: GC≈94,7%."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Frasco: volume in situ. Proctor: referência de densidade seca máxima e ótimo. Umidade: converte massa úmida em seca. ISC/CBR: capacidade de suporte relativa, outro ensaio.\n\nNa NBR 15115:2004, determina-se o teor real de umidade imediatamente antes da compactação, por método expedito normalizado, a cada 700 m². Imediatamente depois, mede-se a massa específica aparente seca in situ pela NBR 7185, no máximo a cada 50 m ou 400 m², alternando borda direita, eixo e borda esquerda e realizando pelo menos três determinações. Não confunda o frasco de areia com Chapman."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "No exemplo GC≈94,7% não atende critério de 95%, mesmo se umidade estiver dentro da faixa. Se massa seca de campo=1,82 g/cm³ e máximo=1,90, GC≈95,8% (CARD-1442).\n\nAntes: verificar se a água de campo está dentro da faixa prescrita. Depois: calcular a densidade seca e o GC para avaliar o resultado."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1442, CARD-0701, CARD-0230, CARD-0857\n\nRelacionados: CARD-1442, CARD-0701, CARD-1446. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Areia seca e calibrada, furo estável, sem perdas do solo e com amostra representativa para umidade; verificar aplicabilidade do método ao material e granulometria conforme procedimento. Corrigir volume de funil/base segundo calibração específica."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar toda areia descarregada como areia do furo. Não dividir massa úmida pelo Proctor seco sem corrigir w. Não confundir 1 g/cm³ com 1 kg/m³: equivale a 1000 kg/m³."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Areia dá volume; solo dá massa; umidade dá seco; Proctor dá referência."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O frasco de areia mede indiretamente o volume do furo escavado pela massa de areia calibrada que o preenche. Corrige-se a massa de areia pelo volume ocupado no funil/base conforme calibração. Com a massa de solo úmido retirado e sua umidade, calcula-se ρd,campo, comparando-a com ρd,máx do Proctor representativo para obter GC. O método não mede diretamente ISC/CBR."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "volume do furo escavado",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "Corrige-se a massa de areia",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "não mede diretamente ISC/CBR",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Etapa",
+            "Resultado"
+          ],
+          "rows": [
+            [
+              "Areia corrigida/ρareia",
+              "Volume do furo"
+            ],
+            [
+              "Massa úmida/V",
+              "ρ úmida"
+            ],
+            [
+              "ρ/(1+w)",
+              "ρ seca"
+            ],
+            [
+              "100ρd/ρd,máx",
+              "GC"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Volume do furo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>V</mi><mo>=</mo><mfrac><msub><mi>m</mi><mtext>areia líquida</mtext></msub><msub><mi>ρ</mi><mtext>areia</mtext></msub></mfrac></math>",
+            "units": "L com kg e kg/L"
+          },
+          {
+            "title": "Grau de compactação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mfrac><msub><mi>ρ</mi><mtext>d,campo</mtext></msub><msub><mi>ρ</mi><mtext>d,máx</mtext></msub></mfrac></math>",
+            "units": "%"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO32-Q17-SVG",
+            "src": "assets/petro32/petro32-q17-rcc.svg",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Controle de compactação de RCC: umidade antes, massa específica seca depois."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1442",
+        "CARD-0701",
+        "CARD-0230",
+        "CARD-0857",
+        "CARD-0822",
+        "CARD-0521",
+        "CARD-1465",
+        "CARD-1462",
+        "CARD-1446"
+      ],
+      "expected_hash": "fd07b31187009d264464228e1ea7eb3dbd344d4be680a3e5048bd049d4aaf010"
+    },
+    {
+      "id": "CARD-0701",
+      "title": "Curva Proctor: umidade ótima, massa específica seca e saturação",
+      "front": "Explique a curva Proctor, o significado do pico, os ramos seco e úmido e a linha de saturação. Como converter massa específica úmida em seca e usar o resultado no campo?",
+      "back": "O Proctor estabelece a relação entre umidade w e massa específica aparente seca ρd para um solo e uma energia de compactação definidos. O pico fornece ρd,máx e wótima. No ramo seco, a água facilita o rearranjo de partículas; no ramo úmido, acrescentar água tende a reduzir a densidade seca alcançável sob a mesma energia. A linha de saturação (zero vazios de ar) é um limite teórico, não a curva real de compactação.",
+      "source": "H21-C007/008/009/010; ABNT NBR 7182 (procedimento de ensaio; conferir edição); FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Pico = ótimo e máximo; seco sobe, úmido desce; saturação é teto teórico.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Explique a curva Proctor, o significado do pico, os ramos seco e úmido e a linha de saturação. Como converter massa específica úmida em seca e usar o resultado no campo?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O Proctor estabelece a relação entre umidade w e massa específica aparente seca ρd para um solo e uma energia de compactação definidos. O pico fornece ρd,máx e wótima. No ramo seco, a água facilita o rearranjo de partículas; no ramo úmido, acrescentar água tende a reduzir a densidade seca alcançável sob a mesma energia. A linha de saturação (zero vazios de ar) é um limite teórico, não a curva real de compactação."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H21-C007/008/009/010; ABNT NBR 7182 (procedimento de ensaio; conferir edição); FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A compactação mecânica reduz predominantemente vazios de ar; a água inicialmente ajuda o rearranjo. Depois do ótimo, a água ocupa mais volume poroso e dificulta a redução de vazios de ar sob energia fixa. A saturação completa é o limite teórico para dado w e massa específica dos sólidos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "ρd=ρ/(1+w), com w em fração. Exemplo: ρ=2,016 Mg/m³, w=0,12: ρd=1,80 Mg/m³. Para Gs=2,70 e ρw=1,0 Mg/m³, ρd,sat=Gsρw/(1+wGs)=2,039 Mg/m³ a 12%."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Ramo seco: w<wót, ρd tende a aumentar com w. Pico: máxima ρd para a energia. Ramo úmido: w>wót, ρd tende a cair. Linha de saturação: limite teórico superior, não valor a atingir.\n\nBGS NBR 12264:1991: Proctor de amostra a cada 200 m e no mínimo a cada dois dias, distinto de umidade de pista a cada 100 m.\n\nA umidade ótima e a densidade seca máxima são referências laboratoriais; o teor real de água é medido na pista antes da rolagem e a densidade seca in situ depois. Na NBR 15115:2004, a energia mínima é normal para reforço do subleito e intermediária para base e sub-base de RCC."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se wót=12% e ρd,máx=1,90 Mg/m³, campo com w=8% pode necessitar umedecimento; w=17% pode exigir aeração. Em ambos, conferir GC e tolerância do projeto antes de aceitar.\n\nPara ótima de 12%, a faixa específica de RCC é 10,5–13,5% (±1,5 ponto percentual), diferentemente de aterros de edificações regidos pela NBR 5681:2015."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Conhecimentos relacionados: CARD-0702, CARD-1070, CARD-0707, CARD-0708, CARD-0230, CARD-1447, CARD-0822, CARD-1442, CARD-0521, CARD-1462.\n\nRelacionados: CARD-1442, CARD-1447, CARD-1446. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Curva típica, não universal para todos os solos; manter material, preparação e energia comparáveis. Não confundir massa específica ρ (Mg/m³) com peso específico γ (kN/m³); relações análogas com unidades coerentes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Umidade ótima não é umidade natural nem saturação. A densidade seca não é a densidade úmida. Aumentar água indefinidamente não melhora compactação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Pico = ótimo e máximo; seco sobe, úmido desce; saturação é teto teórico."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O Proctor estabelece a relação entre umidade w e massa específica aparente seca ρd para um solo e uma energia de compactação definidos. O pico fornece ρd,máx e wótima. No ramo seco, a água facilita o rearranjo de partículas; no ramo úmido, acrescentar água tende a reduzir a densidade seca alcançável sob a mesma energia. A linha de saturação (zero vazios de ar) é um limite teórico, não a curva real de compactação."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "energia de compactação definidos",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "ρd,máx e wótima",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "limite teórico",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Região",
+            "Leitura"
+          ],
+          "rows": [
+            [
+              "Ramo seco",
+              "Água auxilia rearranjo"
+            ],
+            [
+              "Pico",
+              "wótima e ρd,máx"
+            ],
+            [
+              "Ramo úmido",
+              "ρd tende a cair"
+            ],
+            [
+              "Saturação",
+              "Limite teórico"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Massa específica seca",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>ρ</mi><mi>d</mi></msub><mo>=</mo><mfrac><mi>ρ</mi><mrow><mn>1</mn><mo>+</mo><mi>w</mi></mrow></mfrac></math>",
+            "units": "Mg/m³; w em fração"
+          },
+          {
+            "title": "Linha de saturação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>ρ</mi><mtext>d,sat</mtext></msub><mo>=</mo><mfrac><mrow><msub><mi>G</mi><mi>s</mi></msub><msub><mi>ρ</mi><mi>w</mi></msub></mrow><mrow><mn>1</mn><mo>+</mo><mi>w</mi><msub><mi>G</mi><mi>s</mi></msub></mrow></mfrac></math>",
+            "units": "Mg/m³"
+          }
+        ],
+        "media": [
+          {
+            "id": "IMG-053",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Solos — curvas de compactação e umidade ótima",
+            "origin": "Catálogo editorial V198",
+            "validation": "Associação didática existente preservada; exibição não confirmada.",
+            "original_card_ids": [
+              "CARD-0701"
+            ]
+          },
+          {
+            "id": "VC22-SVG-PROCTOR",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Curvas qualitativas do mesmo solo sob duas energias; a linha de saturação é um limite teórico.",
+            "alt": "Proctor: umidade, densidade seca e energia",
+            "src": "assets/card_visuals_vc22/curva_proctor.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "Mecânica dos Solos; CARD-0701 e CARD-0707",
+            "evidence": "SVG nativo de autoria didática; exibição em navegador não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0702",
+        "CARD-1070",
+        "CARD-0707",
+        "CARD-0708",
+        "CARD-0230",
+        "CARD-1447",
+        "CARD-0822",
+        "CARD-1442",
+        "CARD-0521",
+        "CARD-1462",
+        "CARD-1446"
+      ],
+      "expected_hash": "0553b3ec8efc1dbbad21686109dd4b0f884e300bbb0fa8133ca70aee8b34cbc3"
+    },
+    {
+      "id": "CARD-1446",
+      "title": "Ensaios de solos",
+      "front": "Como verificar se a umidade de campo está dentro da faixa especificada para compactação? Compare aterros de edificações e pavimentação de RCC.",
+      "back": "A diferença deve ser calculada em pontos percentuais em relação à umidade ótima do ensaio de referência. Com ótima de 12% e umidade de campo de 15%, a diferença é +3 p.p. A NBR 5681:2015 admite ±3 p.p. ou intervalo menor especificado, enquanto a NBR 15115:2004 estabelece ±1,5 p.p. para camadas de pavimentação com RCC; nesse segundo caso, 15% está fora da faixa.",
+      "source": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me | https://drive.google.com/file/d/1tVqHMlVneMDwTjS9a6dg3y3TqWy4MpBH/view\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Laboratório define o alvo; campo mede a água antes e a densidade depois.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como verificar se a umidade de campo está dentro da faixa especificada para compactação? Compare aterros de edificações e pavimentação de RCC."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A diferença deve ser calculada em pontos percentuais em relação à umidade ótima do ensaio de referência. Com ótima de 12% e umidade de campo de 15%, a diferença é +3 p.p. A NBR 5681:2015 admite ±3 p.p. ou intervalo menor especificado, enquanto a NBR 15115:2004 estabelece ±1,5 p.p. para camadas de pavimentação com RCC; nesse segundo caso, 15% está fora da faixa."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentação e fontes",
+          "texto": "ABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada. ABNT NBR 5681:2015, item 4.2.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A água facilita o rearranjo dos grãos até a umidade ótima. Excesso de água dificulta a obtenção da densidade seca máxima na mesma energia."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Δw=wcampo−wótima, em pontos percentuais. A condição de faixa é |Δw|≤tolerância."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Aterros de edificações: ±3 p.p. ou menor. Pavimentação de RCC: ±1,5 p.p. São escopos diferentes."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Para ótima de 12%, a faixa de RCC é 10,5% a 13,5%. A de aterro de edificações, na tolerância máxima, é 9% a 15%."
+        },
+        {
+          "ord": 8,
+          "titulo": "Vínculos",
+          "texto": "Relacionar os controles de umidade, energia Proctor, massa específica seca e grau de compactação.\n\nRelacionados: CARD-0701, CARD-1442, CARD-1447, CARD-0521. Compare os mecanismos, condições e aplicações."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Confira a edição da norma, o material, a camada e a energia de referência. Uma umidade dentro da faixa não garante o GC nem a aceitação final."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confunda pontos percentuais com variação percentual relativa, nem umidade ótima de laboratório com umidade real na pista."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Laboratório define o alvo; campo mede a água antes e a densidade depois."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "A diferença deve ser calculada em pontos percentuais em relação à umidade ótima do ensaio de referência. Com ótima de 12% e umidade de campo de 15%, a diferença é +3 p.p. A NBR 5681:2015 admite ±3 p.p. ou intervalo menor especificado, enquanto a NBR 15115:2004 estabelece ±1,5 p.p. para camadas de pavimentação com RCC; nesse segundo caso, 15% está fora da faixa."
+        ],
+        "highlights": [
+          {
+            "text": "±1,5 p.p.",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO32-Q17-SVG",
+            "src": "assets/petro32/petro32-q17-rcc.svg",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Controle de compactação de RCC: umidade antes, massa específica seca depois."
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0701",
+        "CARD-1442",
+        "CARD-1447",
+        "CARD-0521"
+      ],
+      "expected_hash": "aa49ab510f267277676ede08fedac05a0434c148aa093ad9288908a4dcec837d"
+    }
+  ]
+}
