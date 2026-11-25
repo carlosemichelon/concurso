@@ -80,6 +80,16 @@
   get:(pdfId,page)=>annotationRequest(pdfId,page),
   save:(pdfId,page,input)=>annotationRequest(pdfId,page,input)
  })});
+ async function gapRequest(input){
+  const expected=await check();start();
+  const r=await fetch('/api/vs41/gaps',{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});
+  if(r.status===401){invalidate();throw Error('Sessão encerrada')}
+  if(r.status===409){await check();throw Error('Conflito de revisão das lacunas')}
+  if(!r.ok)throw Error('Lacunas privadas não confirmadas (HTTP '+r.status+')');
+  const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
+  return p;
+ }
+ Object.defineProperty(window,'BMVS41PrivateGaps',{value:Object.freeze({read:()=>gapRequest(),save:input=>gapRequest(input)})});
  Object.defineProperty(window,'BMVS41PrivateMedia',{value:Object.freeze({
   async read(card,id){
    const expected=await check();start();
