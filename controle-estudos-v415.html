@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Controle de Estudos V245 · Banco Mestre</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#17363d;background:#f6f9f9;font-size:14px}
+*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid #c4d7d8;background:#fff;color:#24505a;border-radius:9px;padding:9px 12px;font-weight:650}
+button:hover{background:#eff6f6}button:disabled{opacity:.5;cursor:default}.primary{background:#136e68;color:#fff;border-color:#136e68}.primary:hover{background:#0e5752}.danger{color:#a43f3f}
+header{background:#fff;border-bottom:1px solid #d7e5e4;padding:20px 20px 14px}header h1{font-size:25px;margin:0 0 3px}header p{margin:0 0 13px;color:#56717b}
+nav{display:flex;flex-wrap:wrap;gap:6px}nav button{font-size:12px;padding:8px 11px}nav button.active{background:#163e48;color:white;border-color:#163e48}
+main{padding:18px 19px 35px;max-width:1240px;margin:auto}section.pane{display:none}section.pane.active{display:block}
+h2{font-size:20px;margin:0 0 12px}h3{font-size:15px;margin:0 0 12px}p{line-height:1.55}.muted{color:#59737b;font-size:12px}.hint{font-size:12px;color:#4e6b71;margin:7px 0 0}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.twocol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.panel{background:white;border:1px solid #d9e5e5;padding:16px;border-radius:12px;margin:0 0 13px;min-width:0}.metric{background:#fff;border:1px solid #d9e5e5;border-radius:12px;padding:14px}.metric b{font-size:26px;display:block;margin:2px 0;font-variant-numeric:tabular-nums}.metric span{color:#607880;font-size:12px}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.fields.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700;color:#41616b}input,select,textarea{border:1px solid #bdcfd1;border-radius:8px;background:#fff;color:#183b44;padding:9px;width:100%;min-width:0}textarea{resize:vertical;min-height:64px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}.status{font-size:12px;min-height:18px;color:#446b6c}
+.timer{font-size:44px;font-weight:780;letter-spacing:.03em;font-variant-numeric:tabular-nums;text-align:center;padding:10px 0}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.item{border-bottom:1px solid #e5eeee;padding:11px 0}.item:last-child{border-bottom:0}.item-head{display:flex;justify-content:space-between;gap:10px}.small{font-size:12px}
+.progress{height:9px;background:#e7efef;border-radius:12px;overflow:hidden}.progress>i{display:block;height:100%;background:#318980;border-radius:12px}
+.bars{display:flex;align-items:flex-end;gap:5px;min-height:160px;padding-top:8px;border-bottom:1px solid #bdcece;overflow:auto}.barcol{flex:1;min-width:22px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:150px;gap:3px}.bar{border-radius:4px 4px 0 0;background:#398c83;width:78%;min-height:1px}.barcol small{font-size:9px;color:#587078}
+.inline-input{max-width:190px}.subtabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;border-bottom:1px solid #e2ecec;padding:8px 6px;vertical-align:top}th{color:#47656c}td button{font-size:11px;padding:6px}
+.scroll{overflow:auto}.tag{display:inline-block;border-radius:12px;background:#eaf3f2;padding:3px 8px;font-size:11px;margin:3px}
+.notice{background:#eef5f3;border-left:3px solid #3c8880;padding:10px 12px;font-size:12px;border-radius:4px}
+.empty{font-size:12px;color:#657b80;padding:12px 0}.type-row{display:flex;gap:9px;align-items:center;margin:9px 0;font-size:12px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.twocol{grid-template-columns:1fr}header{padding:12px}main{padding:12px 10px}.panel{padding:12px}}
+@media(max-width:470px){.fields,.fields.two{grid-template-columns:1fr}.timer{font-size:36px}.metric b{font-size:22px}nav button{flex:1}}
+
+:host{display:block;background:#f6f9f9;color:#17363d;font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.bm240-weeklabels,.bm240-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.bm240-weeklabels span{font-size:12px;font-weight:700;color:#5b747b;padding:7px}
+.bm240-day{min-height:94px;display:flex;flex-direction:column;text-align:left;gap:6px;justify-content:flex-start;white-space:normal;padding:9px;overflow-wrap:anywhere}
+.bm240-day.selected{border:2px solid #136e68;background:#eef8f6}
+.bm240-day span{font-weight:750}.bm240-day small{font-size:10px;font-weight:500}
+.bm240-cal-grid{margin-top:15px}.bm240-pad{min-height:65px;background:#f5f8f8;border-radius:8px}
+@media(max-width:680px){.bm240-days{grid-template-columns:repeat(2,minmax(0,1fr))}.bm240-weeklabels{display:none}.bm240-day{min-height:74px}.bm240-pad{display:none}}
+#bm414ChartFilters [hidden]{display:none!important}#bm414ChartFilters select,#bm414ChartFilters input{width:100%;box-sizing:border-box}#chartScope{margin:8px 0 0}.bars .barcol{background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;min-width:24px;flex:1 0 24px;cursor:pointer}.bars .barcol:focus-visible{outline:2px solid #1686bf;outline-offset:1px}.bars .barcol .bar{background:transparent;box-sizing:border-box;min-height:0}.bars .barcol small{white-space:nowrap}.bars .barcol .bar:empty{border-bottom:1px solid #bad0dc}#chartTimelineHint{min-height:18px}#chartClearBar[hidden]{display:none!important}#chartDistributionScope{margin:6px 0 8px}#chartClearBar{margin:0 0 8px}.bars .barcol[aria-pressed="true"]{outline:2px solid #1686bf;outline-offset:-2px}.bars .barcol[aria-pressed="true"] small{font-weight:750}
+</style></head>
+<body><header><h1>Controle de Estudos</h1><p>Horas líquidas, planejamento, questões, ciclos e revisões de conteúdo — independente do SRS dos flashcards.</p>
+<nav id="tabs" aria-label="Módulos do controle de estudos">
+<button type="button" data-tab="painel" class="active">Painel</button><button type="button" data-tab="relatorios">Relatórios e estatísticas</button><button type="button" data-tab="registro">Cronômetro e registro</button>
+<button type="button" data-tab="calendarioControle">Calendário</button><button type="button" data-tab="historico">Histórico</button><button type="button" data-tab="planejamento">Planejamento</button>
+<button type="button" data-tab="ciclo">Ciclo de estudos</button><button type="button" data-tab="revisoes">Revisões</button><button type="button" data-tab="backup">Backup</button>
+</nav></header><main>
+<section class="pane active" id="painel">
+
+<div class="grid" id="metrics"></div>
+<div class="panel" style="margin-top:13px;margin-bottom:9px"><h2>Gráficos de estudo</h2><div class="fields" id="bm414ChartFilters"><label>Disciplina<select id="chartSubject"><option value="all">Todas as disciplinas</option></select></label><label>Matéria / assunto<select id="chartTopic"><option value="all">Todos os assuntos</option></select></label><label>Período<select id="chartPeriod"><option value="7">Últimos 7 dias</option><option value="14" selected>Últimos 14 dias</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="month">Este mês</option><option value="all">Todo o histórico</option><option value="custom">Personalizado</option></select></label><label id="chartFromWrap" hidden>De<input id="chartFrom" type="date"></label><label id="chartToWrap" hidden>Até<input id="chartTo" type="date"></label></div><p class="hint" id="chartScope" role="status"></p></div>
+<div class="twocol" style="margin-top:9px"><div class="panel"><h2 id="chartTimelineTitle">Evolução do tempo estudado</h2><div class="bars" id="timeline"></div><p class="hint" id="chartTimelineHint">Horas líquidas. Passe o cursor ou selecione uma barra para consultar o período.</p></div>
+<div class="panel"><h2 id="chartDistributionTitle">Horas por disciplina</h2><p class="hint" id="chartDistributionScope" role="status"></p><button type="button" id="chartClearBar" hidden>Voltar ao período completo</button><div id="distribution"></div><h3 style="margin-top:18px">Tipos de estudo</h3><div id="types"></div></div></div>
+<div class="panel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Metas da semana</h2><button data-goto="planejamento">Ajustar metas</button></div><div id="goalSummary"></div></div>
+<div class="panel"><h2>Desempenho por disciplina</h2><div id="performance"></div></div></section>
+<section class="pane" id="relatorios">
+<div class="panel"><h2>Relatórios e estatísticas de estudos</h2>
+<p class="muted">Indicadores calculados exclusivamente das sessões efetivamente registradas. Planejamento e avaliações SRS não geram horas ou questões automaticamente.</p>
+<div class="fields"><label>Início do período<input id="reportStart" type="date"></label>
+<label>Fim do período<input id="reportEnd" type="date"></label><label>Disciplina<select id="reportSubject"></select></label></div>
+<div class="actions"><button id="reportClear" type="button">Todo o histórico</button><button id="reportCsv" type="button">Exportar sessões filtradas (CSV)</button><span id="reportStatus" class="status" role="status"></span></div></div>
+<div class="grid" id="reportMetrics"></div>
+<div class="twocol" style="margin-top:13px"><div class="panel"><h2>Horas por disciplina</h2><div id="reportBySubject"></div></div>
+<div class="panel"><h2>Questões e acertos por disciplina</h2><div id="reportQuestions"></div></div></div>
+<div class="twocol"><div class="panel"><h2>Evolução mensal</h2><div id="reportByMonth"></div></div>
+<div class="panel"><h2>Distribuição por tipo de atividade</h2><div id="reportByType"></div></div></div>
+</section>
+<section class="pane" id="registro"><div class="twocol">
+<div class="panel"><h2>Cronômetro de horas líquidas</h2><div class="fields two"><label>Disciplina<select id="timerSubject"></select></label><label>Tipo de estudo<select id="timerType"></select></label></div>
+<div class="fields"><label>Matéria / assunto geral<select id="timerGeneral"><option value="">Escolha a disciplina</option></select></label>
+<label>Assunto específico<input id="timerSpecific" list="bm243TimerSpecificOptions" maxlength="220" placeholder="Sugestões dos cartões"></label><datalist id="bm243TimerSpecificOptions"></datalist>
+<label>Subassunto<input id="timerSubtopic" list="bm243TimerSubtopicOptions" maxlength="220" placeholder="Opcional"></label><datalist id="bm243TimerSubtopicOptions"></datalist></div>
+<label style="margin-top:9px">Detalhamento livre<input id="timerTopic" maxlength="220" placeholder="Ex.: NBR 6118 / flexão simples"></label><label style="margin-top:9px">Alarme visual (minutos, 0 = desligado)<input id="timerAlarm" type="number" min="0" max="600" step="1" value="0"></label>
+<div id="timerDisplay" class="timer" role="timer">00:00:00</div><div class="actions" style="justify-content:center">
+<button class="primary" id="timerStart">Iniciar / continuar</button><button id="timerPause">Pausar</button><button id="timerRelease" type="button">Pausar e liberar transferência</button><button id="timerReclaim" type="button">Cancelar transferência</button><button id="timerSave">Encerrar e salvar</button><button class="danger" id="timerDiscard">Descartar</button><button id="timerClaim" type="button">Assumir sessão pausada de outro dispositivo</button></div>
+<p class="hint">As pausas não entram nas horas líquidas. O cronômetro é recuperado após recarregar. Para transferir a sessão, pause no primeiro aparelho, sincronize o Drive e só então assuma no segundo.</p><p class="status" id="timerStatus" role="status"></p></div>
+<div class="panel"><h2>Registrar sessão manualmente</h2><form id="sessionForm"><div class="fields"><label>Data<input type="date" id="sessionDate" required></label>
+<label>Hora de início<input type="time" id="sessionTime"></label><label>Duração líquida (min)<input type="number" id="sessionMinutes" step="0.01" min="0.01" required></label>
+<label>Disciplina<select id="sessionSubject" required></select></label><label>Tipo de estudo<select id="sessionType"></select></label><label>Assunto geral<input list="bm240GeneralOptions" id="sessionGeneral" maxlength="220" placeholder="Sugestões do Banco Mestre"><datalist id="bm240GeneralOptions"></datalist></label>
+<label>Assunto específico<input list="bm240SpecificOptions" id="sessionSpecific" maxlength="220" placeholder="Sugestões do assunto geral"><datalist id="bm240SpecificOptions"></datalist></label>
+<label>Subassunto<input id="sessionSubtopic" list="bm243SessionSubOptions" maxlength="220" placeholder="Sugestões dos cartões; permite texto livre"><datalist id="bm243SessionSubOptions"></datalist></label>
+<label>Conteúdo / tópico livre<input id="sessionTopic" placeholder="Descrição complementar"></label>
+<label>Questões resolvidas<input type="number" id="sessionQuestions" min="0" step="1" value="0"></label><label>Acertos<input type="number" id="sessionCorrect" min="0" step="1" value="0"></label>
+<label>Agenda manual (não SRS)<select id="sessionReview"><option value="0">Não agendar</option></select></label></div>
+<label style="margin-top:10px">Anotações<textarea id="sessionNotes" placeholder="Resumo, dificuldade, observações..."></textarea></label>
+<div class="actions"><button class="primary" type="submit" id="sessionSubmit">Salvar sessão</button><button type="button" id="sessionCancel">Limpar</button><span class="status" id="sessionStatus" role="status"></span></div></form></div>
+</div></section>
+<section class="pane" id="historico"><div class="panel"><h2>Histórico de sessões</h2>
+<div class="fields"><label>Disciplina<select id="historySubject"></select></label><label>Tipo<select id="historyType"></select></label><label>De<input type="date" id="historyFrom"></label><label>Até<input type="date" id="historyTo"></label>
+<label>Matéria / assunto geral<input type="search" list="bm243HistoryGeneralOptions" id="historyGeneral" placeholder="Filtrar matéria"><datalist id="bm243HistoryGeneralOptions"></datalist></label>
+<label>Assunto específico<input type="search" list="bm243HistorySpecificOptions" id="historySpecific" placeholder="Filtrar assunto"><datalist id="bm243HistorySpecificOptions"></datalist></label>
+<label>Subassunto<input type="search" list="bm243HistorySubOptions" id="historySubtopic" placeholder="Filtrar subassunto"><datalist id="bm243HistorySubOptions"></datalist></label></div>
+<div class="actions"><button id="historyClear">Limpar filtros</button><button id="historyCsv">Exportar CSV filtrado</button><span class="muted" id="historyCount"></span></div><div class="scroll"><table><thead><tr><th>Data / início</th><th>Disciplina / assunto</th><th>Tipo</th><th>Tempo</th><th>Questões</th><th>Ações</th></tr></thead><tbody id="historyRows"></tbody></table></div></div></section>
+<section class="pane" id="planejamento"><div class="panel"><h2>Disciplinas e prioridades</h2>
+<div class="notice"><b>Classificação verificada dos cartões públicos V194.</b> Cinco disciplinas principais conforme os filtros do Banco Mestre; matérias, assuntos específicos e subassuntos vêm dos 1.518 cartões. O cronômetro recebe as disciplinas prontas, sem alterar suas sessões, cartões ou SRS. Matérias personalizadas continuam permitidas.
+<div class="actions"><button type="button" id="bm240ImportDisciplines">Atualizar disciplinas disponíveis</button><span id="bm240TaxStatus" class="status" role="status"></span></div></div>
+<form id="subjectForm"><div class="fields"><label>Nova disciplina<input id="subjectName" required placeholder="Ex.: Engenharia Civil"></label>
+<label>Dificuldade (1–5)<input id="subjectDiff" type="number" min="1" max="5" value="3"></label><label>Peso na prova (1–5)<input id="subjectWeight" type="number" min="1" max="5" value="1"></label>
+<label>Questões previstas na prova<input id="subjectExam" type="number" min="0" value="0"></label><label>Meta semanal (horas)<input id="subjectWeekly" type="number" min="0" step=".25" value="3"></label><label>Meta diária (horas)<input id="subjectDaily" type="number" min="0" step=".25" value=".5"></label>
+<label>Cor da disciplina<input id="subjectColor" type="color" value="#277f79"></label></div><div class="actions"><button type="submit" class="primary">Adicionar disciplina</button><span class="status" id="subjectStatus"></span></div></form>
+<div class="scroll" style="margin-top:15px"><table><thead><tr><th>Disciplina</th><th>Dificuldade</th><th>Peso</th><th>Questões</th><th>Meta diária (h)</th><th>Meta semanal (h)</th><th>Meta mensal (h)</th><th>Ações</th></tr></thead><tbody id="subjectRows"></tbody></table></div></div>
+<div class="panel"><h2>Disponibilidade e metas</h2><div class="fields two"><label>Horas disponíveis por semana<input type="number" id="hoursWeek" min="0" step=".5" value="15"></label>
+<label>Horas disponíveis por mês<input type="number" id="hoursMonth" min="0" step=".5" value="60"></label></div>
+<div class="actions"><button id="allocate" class="primary">Distribuir metas por prioridade</button><button id="saveAvailability">Salvar disponibilidade</button></div>
+<p class="hint">A distribuição é uma sugestão local: dificuldade × peso × quantidade de questões. Você pode editar as metas individualmente.</p></div></section>
+<section class="pane" id="ciclo"><div class="panel"><h2>Ciclo de estudos por matérias</h2><p class="muted">Ordem flexível: não depende de horário fixo. A distribuição pondera dificuldade, peso e quantidade de questões do concurso.</p>
+<div class="row"><label class="inline-input">Duração por bloco (min)<input type="number" id="cycleMinutes" value="45" min="10" max="240" step="5"></label><label class="inline-input">Quantidade de blocos<input type="number" id="cycleBlocks" value="10" min="1" max="60"></label></div>
+<div class="actions"><button id="generateCycle" class="primary">Gerar ciclo sugerido</button><button id="resetCycle">Voltar ao início</button></div><div id="cycleCurrent" style="margin:15px 0"></div><div id="cycleList"></div>
+<p class="hint">Concluir um bloco avança apenas o ciclo. Para contar horas reais, registre a sessão pelo cronômetro ou manualmente.</p></div></section>
+<section class="pane" id="revisoes"><div class="panel"><h2>Agenda de revisões de conteúdo</h2><div class="notice">Agenda separada da revisão formal de cartões. Marcar uma revisão aqui <b>não altera</b> eventos, avaliações, IDs ou datas SRS.</div>
+<form id="reviewForm" style="margin-top:14px"><div class="fields"><label>Disciplina<select id="reviewSubject"></select></label><label>Conteúdo<input id="reviewTopic" required placeholder="Conteúdo a revisar"></label><label>Data prevista<input type="date" id="reviewDue" required></label></div><div class="actions"><button type="submit" class="primary">Agendar revisão</button></div></form>
+<div class="subtabs" style="margin-top:17px"><button data-review-filter="due" class="active">Pendentes e atrasadas</button><button data-review-filter="future">Futuras</button><button data-review-filter="done">Concluídas</button><button data-review-filter="all">Todas</button></div><div id="reviewRows"></div></div></section>
+<section class="pane" id="calendarioControle">
+<div class="panel"><h2>Calendário de estudos</h2><p class="muted">Planejamento e horas efetivamente registradas são distintos. Nenhuma tarefa concluída modifica o SRS.</p><div class="notice"><b>Revisões do Banco Mestre — somente leitura.</b> O Controle não cria avaliações SRS nem altera datas dos cartões. Consulte a agenda existente para vencimentos verificados.
+<div class="actions"><button type="button" id="bm240-open-srs">Abrir planejamento SRS existente</button><span id="bm240-srs-status" class="muted" role="status">Histórico conhecido não significa agenda canônica atualizada.</span></div></div>
+<div class="actions"><button type="button" data-cal-mode="day">Dia</button><button type="button" data-cal-mode="week">Semana</button><button type="button" data-cal-mode="month" class="active">Mês</button><button type="button" id="calPrev">Anterior</button><button type="button" id="calToday">Hoje</button><button type="button" id="calNext">Próximo</button><strong id="calTitle" role="status"></strong></div>
+<div id="calGrid" class="bm240-cal-grid" aria-label="Calendário interativo"></div>
+</div><div class="panel"><h3 id="calDayTitle">Atividades do dia</h3><div id="calDaySummary"></div>
+<form id="planForm"><h3>Planejar atividade</h3><div class="fields"><label>Data<input type="date" id="planDate" required></label>
+<label>Disciplina<select id="planSubject" required></select></label>
+<label>Assunto / atividade<input type="text" id="planTopic" maxlength="220" placeholder="Ex.: concreto armado" required></label>
+<label>Minutos previstos<input type="number" id="planMinutes" min="5" max="1440" value="60" required></label></div>
+<div class="actions"><button type="submit" class="primary">Adicionar ao planejamento</button><span class="status" id="planStatus"></span></div></form>
+<div id="calPlans" style="margin-top:16px"></div></div></section>
+<section class="pane" id="backup"><div class="panel"><p id="bm240-local-status" class="notice" role="status">Os dados deste Controle são salvos localmente. O Drive só estará confirmado após leitura de volta.</p><h3>Histórico auditável e recuperação</h3><div class="notice"><strong>Importação auditada</strong><p>Somente sessões do diário V184 gravadas neste navegador. Não transforma avaliações SRS nem mensagens de estudo em horas.</p><button id="bm240-import-legacy" type="button">Conferir e importar diário V184</button>
+<button id="bm240-import-active" type="button">Importar histórico local do Controle anterior (V244/V239), sem alterar originais</button><span id="bm240-import-preview" class="muted" role="status"></span>
+<p id="bm240-import-active-status" class="muted" role="status">A versão V245 preserva os registros anteriores: importe uma cópia auditada apenas se havia sessões no Controle antigo.</p></div><div id="bm240-audit" class="scroll" style="max-height:280px;overflow:auto"></div><h2>Integridade e cópias de segurança</h2><div class="notice">Este módulo salva imediatamente no <b>navegador</b>. O botão único <b>Conectar e sincronizar Drive</b> no cabeçalho do portal permite sincronizar o Controle entre dispositivos com verificação SHA-256 e bloqueio de conflitos. Sem conexão, os dados permanecem locais. Exporte um backup antes de limpar os dados do navegador.</div>
+<div class="actions"><button class="primary" id="exportJson">Exportar backup JSON</button><button id="exportAllCsv">Exportar sessões CSV</button></div>
+<label style="margin-top:16px">Importar backup JSON do próprio Controle de Estudos<input type="file" id="importJson" accept=".json,application/json"></label>
+<p class="hint">A importação JSON é aditiva, com verificação de IDs e bloqueio de conflitos. Não altera cartões, PDFs, imagens ou SRS.</p>
+<div class="panel" style="margin-top:14px"><h3>Recuperar cópia privada do Google Drive</h3>
+<p class="muted">É necessária autorização no botão de sincronização do cabeçalho. Uma restauração preserva uma cópia local anterior e NÃO substitui automaticamente o arquivo mestre no Drive.</p>
+<div class="actions"><button type="button" id="bm240-list-backups">Consultar backups verificados</button>
+<span id="bm240-backup-restore-status" role="status" class="status"></span></div>
+<div id="bm240-backup-restore-list" class="scroll"></div></div>
+<div class="panel" id="bm240-conflict-panel" style="margin-top:14px">
+<h3>Conciliação entre dispositivos</h3>
+<p class="muted">A conciliação só é liberada para alterações independentes sobre a mesma base confirmada no Drive. Se dois aparelhos modificarem o mesmo registro, nenhuma gravação ocorre.</p>
+<div class="actions"><button type="button" id="bm240-inspect-conflict">Auditar diferenças entre aparelhos</button>
+<button type="button" class="primary" id="bm240-merge-safe" disabled>Conciliar apenas mudanças independentes</button></div>
+<p id="bm240-conflict-status" class="muted" role="status">Nenhuma auditoria de divergências realizada.</p>
+<div id="bm240-conflict-items"></div>
+</div>
+<p id="backupSummary" class="muted"></p><p id="backupStatus" role="status" class="status"></p></div></section>
+</main>
+</body></html>
