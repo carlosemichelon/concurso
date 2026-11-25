@@ -2224,8 +2224,6 @@ async function openEditor(x,image,quality,sourceUrl,warning){
   warning:warning||viewerHint(x.no,sourceUrl,quality),
   onExclude:async id=>{await api.setStatus(id,'hidden');await imgRender()}
  });
- const btn=byId('v034SelectOriginal');
- if(btn){btn.hidden=false;btn.onclick=()=>pick(x)}
 }
 function pick(x){
  activeChoice=x;
@@ -2336,9 +2334,10 @@ function tagOf(button){
 }
 function isDestructive(button){
  if(!button||button.disabled||button.dataset.bmArchiveAction==='true')return false;
- if(['deleteSelected','hideOpened'].includes(button.id))return true;
- const t=button.textContent?.trim().toLowerCase()||'';
- if(t==='excluir'||t==='excluir da visualização'||t==='apagar seleção'||t==='remover')return true;
+ if(button.id==='deleteSelected'||button.id==='hideOpened')return false; // confirmação no próprio comando do editor
+ const t=(button.getAttribute('aria-label')||button.textContent||'').trim().toLowerCase();
+ const label=(button.textContent||'').trim().toLowerCase();
+ if(/^(?:excluir|apagar|remover|eliminar)(?:\s|$)/u.test(t)||/^(?:excluir|apagar|remover|eliminar)(?:\s|$)/u.test(label))return true;
  return false;
 }
 function message(button){
@@ -2354,16 +2353,7 @@ document.addEventListener('click',e=>{
  if(!isDestructive(button))return;
  if(!confirm(message(button))){e.preventDefault();e.stopImmediatePropagation();e.stopPropagation()}
 },true);
-document.addEventListener('keydown',e=>{
- const image=document.getElementById('imageDialog');
- if(e.key!=='Delete'||!image?.open)return;
- if(e.target instanceof HTMLInputElement||e.target instanceof HTMLTextAreaElement)return;
- const selected=document.getElementById('selectedCount');
- if(!selected||!selected.textContent?.trim())return;
- if(!confirm('Apagar as marcações selecionadas? Esta ação poderá ser desfeita no editor.')){
-  e.preventDefault();e.stopImmediatePropagation();e.stopPropagation();
- }
-},true);
+
 })();
 
 

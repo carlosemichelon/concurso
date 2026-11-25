@@ -34,7 +34,7 @@ window.BancoMestrePDFSyncV130={connected:true,topicRecords:()=>docs,refresh:asyn
  await page.locator('.bm169-pdf-links button').click();await page.locator('.bm430-media-link').click();
  assert.deepEqual(await page.evaluate(()=>opened),['p','i']);
  await page.evaluate(()=>{document.getElementById('formulas').classList.add('active');document.getElementById('bm427FormulaDialog').showModal()});
- const r=await page.locator('#bm427FormulaDialog').boundingBox();assert.ok(r.width<=Math.min(740,width*.94)+2);assert.ok(r.height<500,'diálogo curto deve adaptar a altura');
+ const r=await page.locator('#bm427FormulaDialog').boundingBox();assert.ok(r.width<=Math.min(740,width*.94)+2);assert.ok(r.height<500,'diálogo curto deve adaptar a altura: '+r.height);
  console.log(width+'px: progresso visível durante espera, imagem/PDF aparecem, abertura e fórmula compacta aprovadas.');
  await page.close();
 }

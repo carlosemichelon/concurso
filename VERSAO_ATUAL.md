@@ -1,5 +1,7 @@
 ## V430 / VS39 — Consulta de mídias e interface compacta (25/11/2026)
 
+Removido o botão Usar original do computador da barra do editor, sem apagar originais associados. Confirmação das exclusões locais no próprio comando e proteção de cliques destrutivos; mover arquivos no Drive conserva confirmação própria. Navegação de fórmulas e SVGs sob demanda.
+
 Consulta por assunto usa bibliotecas autenticadas existentes. Barra representa trabalho real e sai ao concluir. Imagem centralizada, fórmulas compactas, PDF lateral reorganizado, lacunas renderizadas após confirmação do Drive quando a aba está aberta. VC46, VR3, VI9 e VM16 intactos. V429 preservada; validação e publicação separadas.
 
 ## V429 / VS38 — Barra lateral do editor PDF (25/11/2026)

@@ -1796,7 +1796,7 @@ const imageTools=[
  ['#zoomWidthImage','maximize',null],['#zoomFitImage','maximize',null],
  ['#zoomActualImage','ruler',null],['#zoomInImage','zoom-in',null],
  ['#hideOpened','eye',null],['#imgClose','x','Fechar'],
- ['#v034SelectOriginal','folder',null],['#originalDriveLink','link',null]
+ ['#originalDriveLink','link',null]
 ];
 const navIcons={assuntos:'book-open',pdfs:'file-text',cartoes:'graduation',imagens:'images',grifos:'highlighter'};
 const topical=[

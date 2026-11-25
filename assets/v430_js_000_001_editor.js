@@ -153,7 +153,7 @@ function fitWidth(){resetPan();zoomTo(clamp((stage.clientWidth-24)/sourceW,.2,3)
 function erase(p){let i=findStroke(p);if(i<0)return;
  if(!working?.changed){checkpoint();working={type:'eraser',changed:true}}
  strokes.splice(i,1);selected.clear();draw();save();}
-function deleteSelected(){if(!selected.size)return;checkpoint();strokes=strokes.filter((m,i)=>!selected.has(i));selected.clear();draw();save();}
+function deleteSelected(){if(!selected.size)return;if(!confirm('Apagar as marcações selecionadas? Você poderá desfazer no histórico do editor.'))return;checkpoint();strokes=strokes.filter((m,i)=>!selected.has(i));selected.clear();draw();save();}
 function onDown(e){
  if(!imageId||e.button>1)return;
  if(e.pointerType==='touch'){
@@ -214,7 +214,7 @@ async function open({image,imageId:targetId,title,quality,sourceUrl,warning,onEx
  $('imageWarning').textContent=warning||'Originais preservados. Grifos salvos apenas neste navegador.';
  setColor('#ffd400');setTool('pan');draw();dialog.showModal();
  root.BM419ImageFlags?.openEditor(null);
- const remove=$('hideOpened');remove.textContent=driveFile?'Excluir imagem':'Ocultar localmente';remove.disabled=!driveFile&&!onExclude;remove.dataset.bmArchiveAction=String(Boolean(driveFile));remove.setAttribute('data-bm096-icon',driveFile?'trash':'eye');remove.title=driveFile?'Mover imagem para Excluídas no Drive':'Ocultar localmente';remove.onclick=driveFile?()=>root.BM421PdfArchive?.requestImage(driveFile,remove):async()=>{if(!imageId||!onExclude)return;try{await onExclude(imageId);dialog.close()}catch(e){note('Erro ao ocultar: '+e.message)}};
+ const remove=$('hideOpened');remove.textContent=driveFile?'Excluir imagem':'Ocultar localmente';remove.disabled=!driveFile&&!onExclude;remove.dataset.bmArchiveAction=String(Boolean(driveFile));remove.setAttribute('data-bm096-icon',driveFile?'trash':'eye');remove.title=driveFile?'Mover imagem para Excluídas no Drive':'Ocultar localmente';remove.onclick=driveFile?()=>root.BM421PdfArchive?.requestImage(driveFile,remove):async()=>{if(!imageId||!onExclude)return;if(!confirm('Ocultar esta imagem da visualização? O original e os grifos serão preservados.'))return;try{await onExclude(imageId);dialog.close()}catch(e){note('Erro ao ocultar: '+e.message)}};
  requestAnimationFrame(()=>requestAnimationFrame(()=>{if(!dialog.open||imageId!==targetId)return;fit();draw();canvas.focus({preventScroll:true})}));
 }
 function close(){resetPan();stagePointer=null;stage.classList.remove('bm426-dragging');root.BM419ImageFlags?.openEditor(null);imageId=null;working=null;onExclude=null;selected.clear();undo=[];redo=[];pinch=null;fingers.clear()}
@@ -226,7 +226,7 @@ $('zoomOutImage').onclick=()=>zoomTo(scale/1.3);$('zoomInImage').onclick=()=>zoo
 $('zoomFitImage').onclick=fit;$('zoomWidthImage').onclick=fitWidth;$('zoomActualImage').onclick=()=>{resetPan();zoomTo(1)};
 $('undo').onclick=()=>applyHistory('undo');$('redo').onclick=()=>applyHistory('redo');
 $('deleteSelected').onclick=deleteSelected;$('imgClose').onclick=()=>dialog.close();
-$('hideOpened').onclick=async()=>{if(!imageId||!onExclude)return;try{await onExclude(imageId);dialog.close()}catch(e){note('Erro ao ocultar: '+e.message)}};
+$('hideOpened').onclick=async()=>{if(!imageId||!onExclude)return;if(!confirm('Ocultar esta imagem da visualização? O original e os grifos serão preservados.'))return;try{await onExclude(imageId);dialog.close()}catch(e){note('Erro ao ocultar: '+e.message)}};
 dialog.addEventListener('close',close);
 canvas.addEventListener('pointerdown',onDown);canvas.addEventListener('pointermove',onMove);
 // Drag from the empty stage as well as the image. Never intercept pen/selection.
@@ -236,7 +236,7 @@ stage.addEventListener('pointermove',e=>{if(stagePointer===e.pointerId&&working?
 for(const type of ['pointerup','pointercancel','lostpointercapture'])stage.addEventListener(type,e=>{if(stagePointer===e.pointerId){stagePointer=null;working=null;stage.classList.remove('bm426-dragging')}});
 canvas.addEventListener('pointerup',onUp);canvas.addEventListener('pointercancel',e=>{fingers.delete(e.pointerId);onUp(e)});
 stage.addEventListener('wheel',e=>{if(!dialog.open||!e.ctrlKey)return;e.preventDefault();let r=stage.getBoundingClientRect();zoomTo(scale*(e.deltaY<0?1.17:1/1.17),[e.clientX-r.left,e.clientY-r.top])},{passive:false});
-document.addEventListener('keydown',e=>{if(!dialog.open||e.target instanceof HTMLInputElement)return;
+document.addEventListener('keydown',e=>{if(!dialog.open||e.target?.closest?.('input,textarea,select,[contenteditable=true]'))return;
  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();applyHistory(e.shiftKey?'redo':'undo')}
  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();applyHistory('redo')}
  if(e.key==='Delete'&&selected.size){e.preventDefault();deleteSelected()}
