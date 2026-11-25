@@ -1,0 +1,7 @@
+export const project='bm-portal-multi-v1';
+export const card=label=>({id:'CARD-9901',front:'Pergunta privada '+label,back:'Resposta privada '+label,expl:'Explicação privada '+label,active:true,discipline:'Teste',group:'OUTROS',subject:'Teste',sub:'Teste',related_card_ids:[]});
+export const profiles=Object.fromEntries(['A','B'].map(s=>[s,{subject:s,rootId:'root'+s,profileId:'profile'+s,sessionId:'s'+s}]));
+export function fixture(){const files=new Map(),requests=[];for(const s of ['A','B'])for(const kind of ['root','profile','cards']){
+ const id=kind+s;files.set(id,{meta:{id,mimeType:kind==='root'?'application/vnd.google-apps.folder':'application/json',ownedByMe:true,shared:false,trashed:false,parents:kind==='root'?[]:['root'+s],appProperties:{bmProject:project,bmOwner:s,bmKind:kind},size:'200',version:'1'},payload:kind==='profile'?{schema:'BM-PORTAL-PROFILE/1',project,owner:s,catalog:'private-only',collections:{cards:'cards'+s}}:{schema:'BM-PORTAL-COLLECTION/1',project,owner:s,kind:'cards',records:[card(s)]}})}
+ return {files,requests,getToken:async()=>({token:'fixture'}),fetcher:async(url,opts)=>{const u=new URL(url),id=u.pathname.split('/').pop(),f=files.get(id);requests.push({id,media:u.searchParams.has('alt')});if(opts.headers.Authorization!=='Bearer fixture'||opts.redirect!=='error')throw Error('Credencial de teste inválida');return f?Response.json(u.searchParams.has('alt')?f.payload:f.meta):new Response(null,{status:404})}};
+}

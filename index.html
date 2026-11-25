@@ -677,7 +677,9 @@ function loadCards(){
  if(out&&!cards.length)out.textContent='Carregando biblioteca de cartões…';
  bm123CardsPromise=(async()=>{
   let p;
+  const privateSource=window.BMVS41PrivateCards;
   try{
+   if(privateSource){p=await privateSource.read();}else{
    const controller=new AbortController();
    const timer=setTimeout(()=>controller.abort(),25000);
    try{
@@ -691,6 +693,7 @@ function loadCards(){
       p.base?.length!==n.canonical||p.ijui?.length!==n.ijui||p.base.filter(c=>c.active!==false).length!==n.active||
       new Set([...p.base,...p.ijui].map(c=>c.id)).size!==n.canonical+n.ijui||!p.meta||!p.globals||
       !p.guideData||!p.generalGuide||!p.auditF17||!p.answersF17)throw Error('Catálogo consolidado inválido');
+   }
   }catch(e){
    const message=e.name==='AbortError'?'Tempo limite de carregamento atingido':e.message;
    bm123CardsPromise=null;bmCatalogState('error',message);
@@ -703,7 +706,7 @@ function loadCards(){
    for(const [key,value] of Object.entries(p.globals))window[key]=key==='BM347CatalogStatus'?value:Object.freeze(value);
    window.BM344CatalogStatus=window.BM345CatalogStatus;
    const base=p.base,ijui=p.ijui;
-   cards=[...base,...ijui];loadedCards=true;bm366ApplyRelations(cards);const remap=p.consolidation?.redirects||{};for(const c of cards){if(c.active!==false&&Array.isArray(c.related_card_ids))c.related_card_ids=[...new Set(c.related_card_ids.map(id=>remap[id]||id))].filter(id=>id!==c.id);}
+   cards=[...base,...ijui];loadedCards=true;if(!privateSource)bm366ApplyRelations(cards);const remap=p.consolidation?.redirects||{};for(const c of cards){if(c.active!==false&&Array.isArray(c.related_card_ids))c.related_card_ids=[...new Set(c.related_card_ids.map(id=>remap[id]||id))].filter(id=>id!==c.id);}
    const filter=$('cardFilter');
    for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())if(![...filter.options].some(o=>o.value===g))filter.add(new Option(g,g));
    cardRender();
@@ -714,6 +717,7 @@ function loadCards(){
  return bm123CardsPromise;
 }
 function loadCardsLegacy(){
+ if(window.BMVS41PrivateCards)return Promise.reject(Error('Fonte legada bloqueada no ambiente privado'));
  if(bm123CardsPromise)return bm123CardsPromise;
  const out=document.getElementById('cardRows');
  if(out&&!cards.length)out.textContent='Carregando cartões públicos V194 + sincronização V274 + adendos V267…';

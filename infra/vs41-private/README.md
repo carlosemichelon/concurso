@@ -1,0 +1,4 @@
+# VS41 — integração privada incremental
+Base b64ab2c7728dbb845be63d0c9ec72110487c3be7. Somente leitura de cartões, com leitor, markup e CSS originais. Não publicar em gh-pages. A fonte privada é injetada pelo host autenticado de teste, não por URL. Sem fallback público ou relações públicas fixas no carregador privado.
+O módulo servidor recebe identidade e IDs somente da sessão autenticada (contrato Drive central); verifica raiz, manifesto, coleção, titularidade, compartilhamento, versão e revogação. Teste local usa duas sessões fictícias, mesmo ID com conteúdos diferentes, e Drive simulado, sem OAuth. Nenhuma escrita ou migração. 
+Não liberar acesso real enquanto SRS, lacunas, mídia, PDFs, armazenamento local e rotas legadas não forem auditados; não se trata de isolamento completo. Próxima etapa: ligar ao servidor central autenticado e provisionar raízes privadas de teste, com OAuth próprio do aplicativo.
