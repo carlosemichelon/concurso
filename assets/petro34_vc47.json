@@ -165,6 +165,11 @@
             "title": "NPSH disponível — reservatório aberto",
             "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>NPSH</mi><mi>a</mi></msub><mo>=</mo><mfrac><msub><mi>p</mi><mi>atm</mi></msub><mrow><mi>ρ</mi><mi>g</mi></mrow></mfrac><mo>+</mo><mo>(</mo><msub><mi>z</mi><mi>s</mi></msub><mo>−</mo><msub><mi>z</mi><mi>b</mi></msub><mo>)</mo><mo>−</mo><msub><mi>h</mi><mi>suc</mi></msub><mo>−</mo><mfrac><msub><mi>p</mi><mi>v</mi></msub><mrow><mi>ρ</mi><mi>g</mi></mrow></mfrac></math>",
             "units": "Termos em metros de líquido; pressões absolutas em Pa; ρ em kg/m³; g em m/s²"
+          },
+          {
+            "title": "Carga piezométrica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>LP</mi><mo>=</mo><mi>z</mi><mo>+</mo><mfrac><mrow><mi>p</mi></mrow><mrow><mi>γ</mi></mrow></mfrac></mrow></math>",
+            "units": "m"
           }
         ],
         "media": [
@@ -355,6 +360,11 @@
             "title": "Componente plana",
             "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>ω</mi><mi>z</mi></msub><mo>=</mo><mfrac><mrow><mo>∂</mo><mi>v</mi></mrow><mrow><mo>∂</mo><mi>x</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mo>∂</mo><mi>u</mi></mrow><mrow><mo>∂</mo><mi>y</mi></mrow></mfrac></math>",
             "units": "s⁻¹"
+          },
+          {
+            "title": "Critério aproximado de submergência",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>h</mi><mo>&lt;</mo><mn>3</mn><mi>D</mi></mrow></math>",
+            "units": "mesma unidade de comprimento"
           }
         ],
         "media": [
@@ -583,7 +593,34 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Velocidade média",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>v</mi><mo>=</mo><mfrac><mrow><mn>4</mn><mi>Q</mi></mrow><mrow><mi>π</mi><msup><msub><mi>D</mi><mi>i</mi></msub><mn>2</mn></msup></mrow></mfrac></mrow></math>",
+            "units": "m/s"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Mudança",
+            "Efeito nas hipóteses indicadas"
+          ],
+          "rows": [
+            [
+              "D × 2",
+              "Área × 4"
+            ],
+            [
+              "A × 2",
+              "D × √2"
+            ],
+            [
+              "Q × 2, A fixa",
+              "v × 2; h_L × 4 com K fixo"
+            ]
+          ]
+        }
       },
       "related_card_ids": [
         "CARD-1318",
@@ -677,7 +714,14 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Cota do greide",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>Z</mi><mi>2</mi></msub><mo>=</mo><msub><mi>Z</mi><mi>1</mi></msub><mo>+</mo><mfrac><mrow><mi>i</mi></mrow><mrow><mn>100</mn></mrow></mfrac><mi>D</mi></mrow></math>",
+            "units": "m; i em %"
+          }
+        ]
       },
       "related_card_ids": [
         "CARD-1459",
@@ -776,7 +820,14 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Posição da estaca",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>s</mi><mo>=</mo><mi>n</mi><mi>L</mi><mo>+</mo><mi>a</mi></mrow></math>",
+            "units": "m"
+          }
+        ]
       },
       "related_card_ids": [
         "CARD-1462",
@@ -1049,6 +1100,11 @@
             "title": "q=γA",
             "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>q</mi><mo>=</mo><mi>γ</mi><mi>A</mi></math>",
             "units": "kN/m; A em m²"
+          },
+          {
+            "title": "Carga da pavimentação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>g</mi><mi>pav</mi></msub><mo>=</mo><mi>γ</mi><mi>e</mi></mrow></math>",
+            "units": "kN/m²"
           }
         ],
         "media": [
@@ -1230,6 +1286,26 @@
             "title": "Vazão no orifício",
             "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Q</mi><mo>=</mo><msub><mi>C</mi><mi>d</mi></msub><mi>A</mi><msqrt><mrow><mn>2</mn><mi>g</mi><mi>Δh</mi></mrow></msqrt></math>",
             "units": "Q em m³/s; A em m²; Δh em m"
+          },
+          {
+            "title": "Continuidade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Q</mi><mo>=</mo><mi>A</mi><mi>v</mi></mrow></math>",
+            "units": "m³/s"
+          },
+          {
+            "title": "Darcy-Weisbach",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>h</mi><mi>f</mi></msub><mo>=</mo><mi>f</mi><mfrac><mrow><mi>L</mi></mrow><mrow><mi>D</mi></mrow></mfrac><mfrac><mrow><msup><mi>v</mi><mn>2</mn></msup></mrow><mrow><mn>2</mn><mi>g</mi></mrow></mfrac></mrow></math>",
+            "units": "m"
+          },
+          {
+            "title": "Perda distribuída em seção circular",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>h</mi><mi>f</mi></msub><mo>=</mo><mfrac><mrow><mn>8</mn><mi>f</mi><mi>L</mi><msup><mi>Q</mi><mn>2</mn></msup></mrow><mrow><mi>g</mi><msup><mi>π</mi><mn>2</mn></msup><msup><mi>D</mi><mn>5</mn></msup></mrow></mfrac></mrow></math>",
+            "units": "m"
+          },
+          {
+            "title": "Diâmetro equivalente",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>D</mi><mi>eq</mi></msub><mo>=</mo><msup><mi>n</mi><mfrac><mrow><mn>2</mn></mrow><mrow><mn>5</mn></mrow></mfrac></msup><mi>D</mi></mrow></math>",
+            "units": "m"
           }
         ],
         "media": [
@@ -1354,7 +1430,43 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Lei de Stevin",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Δp</mi><mo>=</mo><mi>ρ</mi><mi>g</mi><mi>Δh</mi></mrow></math>",
+            "units": "Pa"
+          },
+          {
+            "title": "Altura da coluna",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>h</mi><mo>=</mo><mfrac><mrow><mi>Δp</mi></mrow><mrow><mi>γ</mi></mrow></mfrac></mrow></math>",
+            "units": "m"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Líquido",
+            "Massa específica aproximada",
+            "Coluna para 1 kPa"
+          ],
+          "rows": [
+            [
+              "Óleo",
+              "800 kg/m³",
+              "12,7 cm"
+            ],
+            [
+              "Água",
+              "1000 kg/m³",
+              "10,2 cm"
+            ],
+            [
+              "Mercúrio",
+              "13600 kg/m³",
+              "0,75 cm"
+            ]
+          ]
+        }
       },
       "related_card_ids": [
         "CARD-1084",
@@ -1452,7 +1564,14 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Manômetro inclinado",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Δp</mi><mo>≈</mo><mi>γ</mi><mi>L</mi><mi>sen</mi><mi>θ</mi></mrow></math>",
+            "units": "Pa"
+          }
+        ]
       },
       "related_card_ids": [
         "CARD-1083",
@@ -1828,6 +1947,16 @@
             "title": "Carga variável",
             "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>k</mi><mo>=</mo><mfrac><mrow><mi>a</mi><mi>L</mi></mrow><mrow><mi>A</mi><mi>t</mi></mrow></mfrac><mi>ln</mi><mo>(</mo><mfrac><msub><mi>h</mi><mn>1</mn></msub><msub><mi>h</mi><mn>2</mn></msub></mfrac><mo>)</mo></math>",
             "units": "k em m/s; a e A em m²; h1 e h2 na mesma unidade"
+          },
+          {
+            "title": "Rede de fluxo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>q</mi><mo>=</mo><mi>k</mi><mi>H</mi><mfrac><mrow><msub><mi>N</mi><mi>f</mi></msub></mrow><mrow><msub><mi>N</mi><mi>d</mi></msub></mrow></mfrac></mrow></math>",
+            "units": "m³/(s·m)"
+          },
+          {
+            "title": "Queda equipotencial",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Δh</mi><mo>=</mo><mfrac><mrow><mi>H</mi></mrow><mrow><msub><mi>N</mi><mi>d</mi></msub></mrow></mfrac></mrow></math>",
+            "units": "m"
           }
         ],
         "media": [
@@ -2060,7 +2189,14 @@
         ],
         "media": [],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Raio hidráulico — AM/PM",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>R</mi><mi>h</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>A</mi><mi>m</mi></msub></mrow><mrow><msub><mi>P</mi><mi>m</mi></msub></mrow></mfrac></mrow></math>",
+            "units": "m"
+          }
+        ]
       },
       "related_card_ids": [
         "CARD-1320",
@@ -2161,7 +2297,19 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Lei de Darcy",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Q</mi><mo>=</mo><mi>k</mi><mi>i</mi><mi>A</mi></mrow></math>",
+            "units": "m³/s"
+          },
+          {
+            "title": "Velocidade intersticial",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>v</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>v</mi><mi>D</mi></msub></mrow><mrow><msub><mi>n</mi><mi>e</mi></msub></mrow></mfrac></mrow></math>",
+            "units": "m/s"
+          }
+        ]
       },
       "related_card_ids": [
         "CARD-1313",
@@ -2256,7 +2404,43 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Pressão hidrostática relativa",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>p</mi><mo>=</mo><mi>γ</mi><mi>h</mi></mrow></math>",
+            "units": "Pa"
+          },
+          {
+            "title": "Força de pressão uniforme",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>F</mi><mo>=</mo><mi>p</mi><mi>A</mi></mrow></math>",
+            "units": "N"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Área horizontal",
+            "Pressão à mesma profundidade",
+            "Força em uma face"
+          ],
+          "rows": [
+            [
+              "1 m²",
+              "2000 kgf/m²",
+              "2000 kgf"
+            ],
+            [
+              "5 m²",
+              "2000 kgf/m²",
+              "10000 kgf"
+            ],
+            [
+              "6 m²",
+              "2000 kgf/m²",
+              "12000 kgf"
+            ]
+          ]
+        }
       },
       "related_card_ids": [
         "CARD-1317",
@@ -2352,7 +2536,14 @@
           }
         ],
         "history_collapsed": true,
-        "reveal_after_attempt": true
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Altura da coluna",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>h</mi><mo>=</mo><mfrac><mrow><mi>Δp</mi></mrow><mrow><mi>ρ</mi><mi>g</mi></mrow></mfrac></mrow></math>",
+            "units": "m"
+          }
+        ]
       },
       "related_card_ids": [
         "CARD-1083",
