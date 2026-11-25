@@ -1,0 +1,152 @@
+{
+  "format": "BancoMestreNewCards1",
+  "private_content_exported": false,
+  "new_cards": [
+    {
+      "id": "CARD-8917",
+      "group": "ENG_GERAL",
+      "discipline": "Engenharia Civil",
+      "subject": "Termodinâmica",
+      "sub": "Primeira Lei da Termodinâmica — sistemas abertos",
+      "front": "Como aplicar a Primeira Lei da Termodinâmica a um bocal ou difusor em regime permanente? Explique a troca entre entalpia e energia cinética e calcule a entalpia de saída com unidades consistentes.",
+      "back": "Para um volume de controle com uma entrada e uma saída em regime permanente, q−w_s=(h₂−h₁)+(v₂²−v₁²)/2+g(z₂−z₁), sendo q o calor recebido e w_s o trabalho de eixo produzido, por unidade de massa.\n\nNo bocal adiabático, sem trabalho de eixo e com variação de altura desprezível, h₁+v₁²/2=h₂+v₂²/2. Se h estiver em kJ/kg e v em m/s, h₂=h₁+(v₁²−v₂²)/2000.\n\nO bocal acelera o fluido e reduz sua entalpia estática; o difusor desacelera e aumenta a entalpia estática, nas hipóteses indicadas. O Venturi ideal horizontal incompressível apresenta analogia pela troca entre pressão e energia cinética, mas a entalpia do vapor inclui energia interna.",
+      "reference": "Primeira Lei da Termodinâmica — balanço de energia em volume de controle em regime permanente; exercício de bocal adiabático (banca e ano não identificados).",
+      "mnemonic": "Bocal: ganha velocidade, gasta entalpia. Difusor: freia e recupera entalpia. H mais V²/2 entra e sai igual nas hipóteses do bocal; kJ/kg exige dividir a parcela cinética em J/kg por 1000.\n\nAssociação visual com Venturi: acelera na garganta. Bocal gasta entalpia; Venturi ideal gasta pressão estática. Difusor desacelera e recupera pressão ou eleva entalpia nas hipóteses respectivas.",
+      "title": "Primeira Lei da Termodinâmica — bocal e difusor",
+      "active": true,
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como aplicar a Primeira Lei da Termodinâmica a um bocal ou difusor em regime permanente? Explique a troca entre entalpia e energia cinética e calcule a entalpia de saída com unidades consistentes."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Para um volume de controle com uma entrada e uma saída em regime permanente, q−w_s=(h₂−h₁)+(v₂²−v₁²)/2+g(z₂−z₁), sendo q o calor recebido e w_s o trabalho de eixo produzido, por unidade de massa.\n\nNo bocal adiabático, sem trabalho de eixo e com variação de altura desprezível, h₁+v₁²/2=h₂+v₂²/2. Se h estiver em kJ/kg e v em m/s, h₂=h₁+(v₁²−v₂²)/2000.\n\nO bocal acelera o fluido e reduz sua entalpia estática; o difusor desacelera e aumenta a entalpia estática, nas hipóteses indicadas. O Venturi ideal horizontal incompressível apresenta analogia pela troca entre pressão e energia cinética, mas a entalpia do vapor inclui energia interna."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Primeira Lei da Termodinâmica — balanço de energia em volume de controle em regime permanente; exercício de bocal adiabático (banca e ano não identificados)."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Entalpia específica h=u+pv_espec incorpora energia interna e trabalho de escoamento por unidade de massa. O balanço de energia conserva a soma de entalpia, energia cinética e potencial, contabilizando calor e trabalho. Adiabático significa q=0, não temperatura constante nem ausência de irreversibilidade. O bocal não entrega trabalho de eixo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "h=u+p/ρ; q−w_s=Δh+Δ(v²/2)+gΔz. Em bocal adiabático sem trabalho e Δz desprezível, h₁+v₁²/2=h₂+v₂²/2. Para h em kJ/kg, h₂=h₁+(v₁²−v₂²)/2000. v²/2 em J/kg, 1 kJ=1000 J."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Bocal: velocidade aumenta, entalpia estática diminui. Difusor: velocidade diminui, entalpia estática aumenta. Turbina extrai trabalho de eixo; compressor recebe trabalho. Bernoulli trata energia mecânica de fluido nas hipóteses apropriadas, não substitui o balanço termodinâmico do vapor compressível.\n\nBocal e garganta do Venturi apresentam analogia de aceleração e conversão de energia. Bocal adiabático sem trabalho de eixo, Δz desprezível: h+v²/2 constante; Venturi ideal incompressível, horizontal, sem perdas: p/ρ+v²/2 constante. Bocal aumenta velocidade reduzindo entalpia estática; no Venturi subsônico usual, garganta aumenta velocidade e reduz pressão estática, difusor recupera parte da pressão real. Entalpia h=u+p/ρ inclui energia interna, não apenas pressão."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "h₂=3200+(40²−200²)/2000=3180,8 kJ/kg. Cinética inicial=0,8 kJ/kg; final=20 kJ/kg; total em ambos=3200,8 kJ/kg. Se um difusor adiabático desacelerar de 200 a 40 m/s, h aumenta 19,2 kJ/kg nas mesmas hipóteses."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0121 (equação de energia e perdas), CARD-1384 (NPSH e energia), CARD-1320 (velocidade e área). A carga cinética v²/(2g) é energia por peso em metros; v²/2 é energia por massa em J/kg."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Uma entrada e uma saída, regime permanente, desprezar variação de altura conforme contexto de bocal. Não supor escoamento incompressível, isentrópico ou ausência de mudança de temperatura. Geometria convergente ilustrativa, não universal para regimes compressíveis/supersônicos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não subtrair velocidades antes de elevar ao quadrado, nem esquecer fator 1/2 e conversão por 1000. Não dividir por g nesta equação. Não exigir P,T se entalpia inicial e velocidades são dadas. As alternativas diferentes de B não conservam a energia específica indicada.\n\nNão igualar entalpia a p/ρ; não aplicar Bernoulli incompressível indiscriminadamente a vapor. Adiabático não significa isentrópico. Geometria convergente acelera escoamento subsônico; para escoamento supersônico a relação área-velocidade pode inverter."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Bocal: ganha velocidade, gasta entalpia. Difusor: freia e recupera entalpia. H mais V²/2 entra e sai igual nas hipóteses do bocal; kJ/kg exige dividir a parcela cinética em J/kg por 1000.\n\nAssociação visual com Venturi: acelera na garganta. Bocal gasta entalpia; Venturi ideal gasta pressão estática. Difusor desacelera e recupera pressão ou eleva entalpia nas hipóteses respectivas."
+        }
+      ],
+      "related_card_ids": [
+        "CARD-0121",
+        "CARD-1384",
+        "CARD-1320"
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA",
+        "answer_paragraphs": [
+          "Para um volume de controle com uma entrada e uma saída em regime permanente, q−w_s=(h₂−h₁)+(v₂²−v₁²)/2+g(z₂−z₁), sendo q o calor recebido e w_s o trabalho de eixo produzido, por unidade de massa.",
+          "No bocal adiabático, sem trabalho de eixo e com variação de altura desprezível, h₁+v₁²/2=h₂+v₂²/2. Se h estiver em kJ/kg e v em m/s, h₂=h₁+(v₁²−v₂²)/2000.",
+          "O bocal acelera o fluido e reduz sua entalpia estática; o difusor desacelera e aumenta a entalpia estática, nas hipóteses indicadas. O Venturi ideal horizontal incompressível apresenta analogia pela troca entre pressão e energia cinética, mas a entalpia do vapor inclui energia interna."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "h₁+v₁²/2=h₂+v₂²/2",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "sem trabalho de eixo e com variação de altura desprezível",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "mas a entalpia do vapor inclui energia interna",
+            "color": "#FECDD3"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO34-Q11-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro34/q11.svg",
+            "caption": "Bocal adiabático e balanço de energia"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Balanço de energia de bocal",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>h</mi><mn>1</mn></msub><mo>+</mo><mfrac><msup><msub><mi>v</mi><mn>1</mn></msub><mn>2</mn></msup><mn>2</mn></mfrac><mo>=</mo><msub><mi>h</mi><mn>2</mn></msub><mo>+</mo><mfrac><msup><msub><mi>v</mi><mn>2</mn></msub><mn>2</mn></msup><mn>2</mn></mfrac></mrow></math>",
+            "units": "J/kg"
+          },
+          {
+            "title": "Entalpia específica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>h</mi><mo>=</mo><mi>u</mi><mo>+</mo><mfrac><mi>p</mi><mi>ρ</mi></mfrac></mrow></math>",
+            "units": "J/kg"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Energia (kJ/kg)",
+            "Entrada",
+            "Saída"
+          ],
+          "rows": [
+            [
+              "Entalpia",
+              "3200",
+              "3180,8"
+            ],
+            [
+              "Cinética",
+              "0,8",
+              "20"
+            ],
+            [
+              "Total",
+              "3200,8",
+              "3200,8"
+            ]
+          ]
+        },
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      }
+    }
+  ]
+}
