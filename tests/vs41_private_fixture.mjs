@@ -19,7 +19,7 @@ export function reviewFixture(){
   const u=new URL(url),method=opts.method||'GET';
   if(opts.headers.Authorization!=='Bearer fixture'||opts.redirect!=='error')throw Error('Credencial de teste inválida');
   if(method==='POST'){const parts=opts.body.split('\r\n'),m=JSON.parse(parts[3]),payload=JSON.parse(parts[7]),id='event'+(++serial);writes.push({id,parent:m.parents[0],payload});f.files.set(id,{meta:{...m,id,ownedByMe:true,shared:false,trashed:false,size:'1000',version:'1'},payload});return Response.json({id})}
-  if(u.pathname==='/drive/v3/files'){const q=u.searchParams.get('q'),parent=q.match(/^'([^']+)' in parents/)[1],event=q.match(/key='bmEvent' and value='([^']+)'/)?.[1];return Response.json({files:[...f.files.values()].filter(x=>x.meta.parents?.includes(parent)&&x.meta.appProperties?.bmKind==='srs-event'&&(!event||x.meta.appProperties.bmEvent===event)).map(x=>({id:x.meta.id}))})}
+  if(u.pathname==='/drive/v3/files'){const q=u.searchParams.get('q'),parent=q.match(/^'([^']+)' in parents/)[1],event=q.match(/key='bmEvent' and value='([^']+)'/)?.[1],kind=q.match(/key='bmKind' and value='([^']+)'/)?.[1],page=q.match(/key='bmPage' and value='([^']+)'/)?.[1];return Response.json({files:[...f.files.values()].filter(x=>x.meta.parents?.includes(parent)&&x.meta.appProperties?.bmKind===kind&&(!event||x.meta.appProperties.bmEvent===event)&&(!page||x.meta.appProperties.bmPage===page)).map(x=>({id:x.meta.id}))})}
   return f.fetcher(url,opts);
  };
  return {...f,fetcher,writes};

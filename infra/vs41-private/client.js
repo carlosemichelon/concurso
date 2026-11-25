@@ -6,7 +6,7 @@
   if(locked)return;locked=true;
   if(monitor!==null)clearInterval(monitor);
   // Hide the old DOM and discard its JS realm with a fresh navigation.
-  document.documentElement.style.visibility='hidden';location.reload();
+  releasePdf();document.documentElement.style.visibility='hidden';location.reload();
  }
  async function check(){
   if(locked)throw Error('Sessão encerrada');
@@ -42,6 +42,7 @@
  })});
  let pdfUrl='',pdfSerial=0;
  function releasePdf(){pdfSerial++;if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl='';}
+ document.addEventListener('click',e=>{if(e.target.closest?.('#pdfClose,#bmV056ClosePDF'))releasePdf()},true);
  window.addEventListener('pagehide',releasePdf);
  Object.defineProperty(window,'BMVS41PrivatePdfs',{value:Object.freeze({
  async preview(doc){
@@ -56,7 +57,7 @@
   document.getElementById('pdfChooseLocal').hidden=true;document.getElementById('pdfLocalTools').hidden=true;
   document.getElementById('pdfLocalMode').classList.remove('active');document.getElementById('pdfIntro').hidden=true;
   frame.classList.remove('localHidden');frame.src=pdfUrl;status.textContent='Leitura privada confirmada. Edição e grifos ainda não homologados.';
-  dialog.addEventListener('close',releasePdf,{once:true});if(!dialog.open)dialog.showModal();return true;
+  dialog.addEventListener('close',()=>{if(!dialog.open)releasePdf()},{once:true});if(!dialog.open)dialog.showModal();return true;
  },async list(){
   const expected=await check();start();const r=await request('/api/vs41/pdfs',{'X-BM-Context':expected});
   if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
@@ -64,6 +65,21 @@
   const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
   if(!Array.isArray(p.documents))throw Error('Biblioteca inválida');return p.documents;
  }})});
+ async function annotationRequest(pdfId,page,input){
+  if(!/^[A-Za-z0-9_-]{1,160}$/.test(pdfId)||!Number.isInteger(page)||page<1||page>100000)throw Error('Página ou PDF inválido');
+  const expected=await check();start();
+  const r=await fetch('/api/vs41/annotations/'+encodeURIComponent(pdfId)+'/'+page,{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});
+  if(r.status===401){invalidate();throw Error('Sessão encerrada')}
+  if(r.status===409){await check();throw Error('Conflito de revisão. Recarregue os grifos antes de editar.')}
+  if(!r.ok)throw Error('Grifos privados não confirmados (HTTP '+r.status+')');
+  const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
+  if(p.pdfId!==pdfId||p.page!==page||!/^[a-f0-9]{64}$/.test(p.hash)||!Array.isArray(p.marks))throw Error('Grifos inválidos');
+  return {pdfId:p.pdfId,page:p.page,hash:p.hash,revision:p.revision,marks:p.marks};
+ }
+ Object.defineProperty(window,'BMVS41PrivateAnnotations',{value:Object.freeze({
+  get:(pdfId,page)=>annotationRequest(pdfId,page),
+  save:(pdfId,page,input)=>annotationRequest(pdfId,page,input)
+ })});
  Object.defineProperty(window,'BMVS41PrivateMedia',{value:Object.freeze({
   async read(card,id){
    const expected=await check();start();

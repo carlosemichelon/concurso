@@ -102,11 +102,26 @@ try{
   assert.ok((await p.evaluate(async src=>await (await fetch(src)).text(),src)).includes('perfil '+label));
   await p.locator('#bmV056ClosePDF').click();
   await p.locator('#pdfDialog').waitFor({state:'hidden'});
-  assert.equal(await p.evaluate(async u=>{try{await fetch(u);return true}catch{return false}},src),false,'URL privada revogada ao fechar');
+  await p.waitForFunction(async u=>{try{await fetch(u);return false}catch{return true}},src,{timeout:5000});
   assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
   await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
  }
- console.log('Biblioteca original: agrupamento, filtro, abertura do PDF próprio; preview sem edição.');
+ console.log('Biblioteca original: agrupamento, filtro, abertura e revogação do PDF próprio.');
+ const saved=await Promise.all([[oldA,'A'],[oldB,'B']].map(async([p,label])=>p.evaluate(async label=>{
+  const api=window.BMVS41PrivateAnnotations,original=await api.get('PDF-TEST',1);
+  if(original.marks.length||original.revision!==null)throw Error('Página inicial contaminada');
+  const input={event_id:crypto.randomUUID(),hash:original.hash,previous:original.revision,marks:[{type:'text_highlight',text:'Grifo '+label,rects:[[.1,.2,.3,.4]]}]};
+  const saved=await api.save('PDF-TEST',1,input);
+  const again=await api.get('PDF-TEST',1);
+  if(saved.revision!==again.revision||again.marks[0].text!=='Grifo '+label)throw Error('Grifo divergente');
+  if((await api.get('PDF-TEST',2)).marks.length)throw Error('Outra página contaminada');
+  return {hash:again.hash,revision:again.revision,text:again.marks[0].text};
+ },label)));
+ assert.deepEqual(saved.map(x=>x.text),['Grifo A','Grifo B']);
+ const annotationWrites=f.writes.filter(x=>x.payload.schema==='BM-PDF-PAGE/1');
+ assert.deepEqual(annotationWrites.map(x=>[x.parent,x.payload.marks[0].text]).sort(),[['rootA','Grifo A'],['rootB','Grifo B']]);
+ await assert.rejects(oldA.evaluate(async hash=>window.BMVS41PrivateAnnotations.save('PDF-TEST',1,{event_id:crypto.randomUUID(),hash,previous:null,marks:[]}),saved[1].hash));
+ console.log('Grifos: API autenticada no navegador, dados por usuário e página, conflito bloqueado.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});
