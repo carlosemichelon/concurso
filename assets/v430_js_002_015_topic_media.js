@@ -109,6 +109,8 @@ function makeTopicNote(title,subtitle,text){
 /* V169: somente mídia do assunto, sob demanda e sem disparar novo pdfInit duplicado. */
 let bm169MediaSequence=0;
 let bm170TopicRequest=0;
+let bm430TopicSession='',bm430CurrentTopic=null;
+document.addEventListener('bm-media-drive-authorized',()=>{const token=window.BancoMestreMediaSyncV182?.token?.()||'';if(bm430CurrentTopic&&bm430TopicSession&&token!==bm430TopicSession)showTopicImages(bm430CurrentTopic)});
 // VS39: uma fonte autenticada para cada tipo de mídia.
 function bm430TopicScore(subject,fields){
  const clean=x=>plain(String(x||'')).replace(/[^a-z0-9]+/g,' ').trim();
@@ -122,9 +124,10 @@ function bm430TopicScore(subject,fields){
  if(words.length===1&&words[0].length>=4&&terms.some(x=>(' '+x+' ').includes(' '+words[0]+' ')))return 70;
  return 0;
 }
+function bm430Deadline(p,ms){let timer;return Promise.race([p,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Tempo limite da consulta')),ms)})]).finally(()=>clearTimeout(timer))}
 function showTopicImages(t){
  const root=byId('topicMedia');if(!root)return;
- const run=String(++bm169MediaSequence);root.dataset.bm169Run=run;
+ const run=String(++bm169MediaSequence);root.dataset.bm169Run=run;bm430CurrentTopic=t;bm430TopicSession='';
  root.replaceChildren();root.removeAttribute('aria-busy');
  document.getElementById('bm428TopicProgress')?.remove();
  root.classList.add('bm171-media-closed');root.classList.remove('bm171-media-open');
@@ -138,9 +141,9 @@ function showTopicImages(t){
   const label=document.createElement('p');label.className='bm418-media-label';label.setAttribute('role','status');label.textContent='Consultando acervo do Drive…';
   const bar=document.createElement('progress');bar.setAttribute('aria-label','Progresso da consulta');bar.className='bm418-media-progress';loading.append(label,bar);
   const result=document.createElement('div');root.replaceChildren(loading,result);
-  const session=window.BancoMestreMediaSyncV182?.token?.()||'';
+  const session=window.BancoMestreMediaSyncV182?.token?.()||'';bm430TopicSession=session;
   const valid=()=>same()&&(window.BancoMestreMediaSyncV182?.token?.()||'')===session&&images.connected&&pdfs.connected;
-  const read=async provider=>{let list=provider.topicRecords();if(list===null){await provider.refresh();list=provider.topicRecords()}if(list===null)throw Error('Consulta não confirmada nesta sessão');return list};
+  const read=async provider=>{let list=provider.topicRecords();if(list===null){await bm430Deadline(provider.refresh(),45000);list=provider.topicRecords()}if(list===null)throw Error('Consulta não confirmada nesta sessão');return list};
   try{
    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
    const settled=await Promise.allSettled([read(images),read(pdfs)]);
@@ -160,7 +163,7 @@ function showTopicImages(t){
     const card=document.createElement('article');card.className='topicVisualCard bm169-topic-card';
     const link=chip(x.title,()=>{if(valid())void x.open()});link.className='bm430-media-link';card.append(link);
     if(i<8){const img=document.createElement('img');img.alt=x.title;img.width=420;img.height=240;img.decoding='async';img.onclick=()=>link.click();const frame=document.createElement('div');frame.className='bm422-thumb';frame.append(img);card.prepend(frame);
-     jobs.push(async()=>{try{const src=await x.preview();if(!valid())return false;img.src=src;await img.decode();return valid()}catch(e){if(valid()){img.remove();frame.textContent='Prévia indisponível · abra pelo título'}return false}})}
+     jobs.push(async()=>{try{const src=await bm430Deadline(x.preview(),20000);if(!valid())return false;img.src=src;await bm430Deadline(img.decode(),15000);return valid()}catch(e){if(valid()){img.remove();frame.textContent='Prévia indisponível · abra pelo título'}return false}})}
     grid.append(card);
    }
    if(related.length){addTitle(result,'Imagens');result.append(grid)}
