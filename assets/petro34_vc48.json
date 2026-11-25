@@ -1,0 +1,512 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1127",
+      "title": "Número de Reynolds: viscosidade, regimes e proporcionalidades",
+      "front": "Como calcular e interpretar o número de Reynolds, distinguir viscosidade dinâmica e cinemática e relacionar o regime ao fator de atrito? Quais as proporcionalidades mantendo as demais variáveis constantes?",
+      "back": "Re=ρvD/μ=vD/ν, com ν=μ/ρ. O número adimensional compara efeitos de inércia e viscosidade. Com as demais variáveis fixas, aumenta com velocidade, diâmetro e massa específica e diminui com viscosidade dinâmica; na forma cinemática, diminui com ν. \n\nEm tubo circular, valores baixos favorecem regime laminar; Re<2300 é referência usual, 2300–4000 transição e Re>4000 turbulento. Os limites dependem da geometria e condições. \n\nNo regime laminar plenamente desenvolvido em tubo circular, f_Darcy=64/Re; no turbulento depende de Re e rugosidade relativa.",
+      "source": "CON-01-013\n\nEquações clássicas de Reynolds, continuidade e Darcy-Weisbach; regime plenamente desenvolvido em conduto circular.",
+      "mnemonic": "Re = velocidade × diâmetro / viscosidade cinemática. Viscosidade derruba Reynolds. V fixa: D em cima. Q fixa: D embaixo. Antes de afirmar proporcionalidade, identificar o que permanece constante.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular e interpretar o número de Reynolds, distinguir viscosidade dinâmica e cinemática e relacionar o regime ao fator de atrito? Quais as proporcionalidades mantendo as demais variáveis constantes?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Re=ρvD/μ=vD/ν, com ν=μ/ρ. O número adimensional compara efeitos de inércia e viscosidade. Com as demais variáveis fixas, aumenta com velocidade, diâmetro e massa específica e diminui com viscosidade dinâmica; na forma cinemática, diminui com ν. \n\nEm tubo circular, valores baixos favorecem regime laminar; Re<2300 é referência usual, 2300–4000 transição e Re>4000 turbulento. Os limites dependem da geometria e condições. \n\nNo regime laminar plenamente desenvolvido em tubo circular, f_Darcy=64/Re; no turbulento depende de Re e rugosidade relativa."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-01-013\n\nEquações clássicas de Reynolds, continuidade e Darcy-Weisbach; regime plenamente desenvolvido em conduto circular."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Re expressa a competição de efeitos inerciais, associados a ρv²/L, e viscosos, associados a μv/L². Sua razão de escalas é ρvL/μ. A viscosidade amortece perturbações; a inércia favorece sua persistência. Em tubo circular, o comprimento característico é D interno.\n\nNão há contradição: em Re=vD/ν, se v e ν são constantes, dobrar D dobra Re. Se Q e ν são constantes, dobrar D quadruplica A e reduz v a 1/4, de modo que Re₂/Re₁=(1/4)×2=1/2. A dependência da velocidade em relação ao diâmetro altera a proporcionalidade resultante."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Re=ρvD/μ=vD/ν; ν=μ/ρ; ρ kg/m³, μ Pa·s, ν m²/s, v m/s, D m; Re adimensional. Para tubo cheio e Q fixo, Re=4Q/(πνD). Darcy f=64/Re em regime laminar plenamente desenvolvido circular. Para outras seções, D_h=4Am/Pm quando apropriado.\n\nQ=Av; A=πD²/4; v=4Q/(πD²). Substituindo em Re=vD/ν: Re=4Q/(πνD). Memorizar as duas equações originais e deduzir a combinada pela velocidade."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Laminar: Re baixo; transição: faixa intermediária; turbulento: Re alto. Referências usuais em tubo circular 2300 e 4000; seguir convenção explicitada pela fonte da questão. Reynolds não é Froude (inércia/gravidade). Alternativas A/B erram viscosidade direta, C/D erram diâmetro e velocidade inversos com demais variáveis constantes, E correta."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Preservar original: v=0,1 m/s, D=0,01 m, ν=10⁻⁶ m²/s → Re=1000. Se viscosidade dobra a v,D fixos, Re cai à metade. Se v dobra, Re dobra. A Q fixo, duplicar D reduz v a 1/4 e Re à metade. Exemplo: v=0,5 m/s, D=0,02 m, ν=10⁻⁶ m²/s → Re=10000.\n\nExemplo comparativo: D₂=2D₁, mesmo fluido. Com v constante, Q₂=4Q₁ e Re₂=2Re₁. Com Q constante, v₂=v₁/4 e Re₂=Re₁/2. Em ambas as hipóteses, ν é constante."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0121 (perda de carga e atrito), CARD-1320 (continuidade e diâmetro), CARD-1129 (Froude), CARD-1318 (raio hidráulico)."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Proporcionalidades exigem demais variáveis constantes; se Q fixo, v muda com D. Limiares de regime não são universais. Para gases/vapores usar propriedades nas condições relevantes; compressibilidade pode exigir critérios adicionais. Em canal aberto, observar comprimento característico da definição, Rh ou 4Rh."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir μ e ν. Não afirmar que Re sempre cresce com D se Q fixo. Não confundir f de Darcy com Fanning, nem usar f constante em qualquer redimensionamento; Re não mede sozinho turbulência local."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Re = velocidade × diâmetro / viscosidade cinemática. Viscosidade derruba Reynolds. V fixa: D em cima. Q fixa: D embaixo. Antes de afirmar proporcionalidade, identificar o que permanece constante."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA",
+        "answer_paragraphs": [
+          "Re=ρvD/μ=vD/ν, com ν=μ/ρ. O número adimensional compara efeitos de inércia e viscosidade. Com as demais variáveis fixas, aumenta com velocidade, diâmetro e massa específica e diminui com viscosidade dinâmica; na forma cinemática, diminui com ν. ",
+          "Em tubo circular, valores baixos favorecem regime laminar; Re<2300 é referência usual, 2300–4000 transição e Re>4000 turbulento. Os limites dependem da geometria e condições. ",
+          "No regime laminar plenamente desenvolvido em tubo circular, f_Darcy=64/Re; no turbulento depende de Re e rugosidade relativa."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Re=ρvD/μ=vD/ν",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO34-Q10-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro34/q10.svg",
+            "caption": "Efeitos de inércia e viscosidade"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Número de Reynolds",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Re</mi><mo>=</mo><mfrac><mrow><mi>ρ</mi><mi>v</mi><mi>D</mi></mrow><mi>μ</mi></mfrac><mo>=</mo><mfrac><mrow><mi>v</mi><mi>D</mi></mrow><mi>ν</mi></mfrac></mrow></math>",
+            "units": "adimensional"
+          },
+          {
+            "title": "Reynolds com vazão constante",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Re</mi><mo>=</mo><mfrac><mrow><mn>4</mn><mi>Q</mi></mrow><mrow><mi>π</mi><mi>ν</mi><mi>D</mi></mrow></mfrac></mrow></math>",
+            "units": "adimensional"
+          },
+          {
+            "title": "Fator de atrito de Darcy laminar",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>f</mi><mo>=</mo><mfrac><mn>64</mn><mi>Re</mi></mfrac></mrow></math>",
+            "units": "adimensional"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "table": {
+          "headers": [
+            "Condição (mesmo fluido)",
+            "D dobra",
+            "v varia",
+            "Re varia"
+          ],
+          "rows": [
+            [
+              "Velocidade constante",
+              "2D",
+              "v",
+              "2Re"
+            ],
+            [
+              "Vazão constante",
+              "2D",
+              "v/4",
+              "Re/2"
+            ]
+          ]
+        }
+      },
+      "related_card_ids": [
+        "CARD-0121",
+        "CARD-1320",
+        "CARD-1129",
+        "CARD-1318"
+      ],
+      "expected_hash": "c44230f412a847409d8a86c66410392d7a1b4f631f2393eff4fc564df92ea3c6"
+    },
+    {
+      "id": "CARD-0121",
+      "title": "Perdas de carga, continuidade e associação de condutos",
+      "front": "Como calcular perdas distribuídas e localizadas, comprimentos equivalentes e vazão em orifícios? Como relacionar vazão, área e diâmetro às perdas e associar tubulações em série ou paralelo?",
+      "back": "A perda distribuída decorre de atrito ao longo da tubulação e a localizada de perturbações em singularidades. Para um trecho uniforme, h_d=f(L/D)v²/(2g), h_l=K v²/(2g), L_eq=KD/f e L_v=L_real+ΣL_eq. A perda total é J L_v com J=fv²/(2gD). Não somar K e L_eq para a mesma peça. Em orifício calibrado, Q depende de área, coeficiente de descarga e diferença de carga, Q=C_d A√(2gΔh), sob hipóteses pertinentes.\n\nPara acessórios de mesmo diâmetro e condições comparáveis, a perda tende a aumentar de luva para curva de 90°, joelho de 90° e tê com saída lateral. Em ramal sequencial, distinguir quantidade de conexões de seu comprimento equivalente.\n\nPara escoamento incompressível à seção plena, Q=Av. Com h_L=Kv²/(2g) e coeficiente global K constante, Q=A√(2gh_L/K). Mantendo K e h_L, a velocidade é constante: duplicar vazão exige duplicar área.\n\nPara Darcy-Weisbach em seção circular, h_f=8fLQ²/(gπ²D⁵). Em série sem derivações, a vazão é a mesma e as perdas se somam. Em paralelo, as perdas entre os mesmos nós são iguais e as vazões se somam. Substituir n ramais idênticos por um conduto de mesmo f e L exige D_eq=n^(2/5)D.\n\nNo regime laminar plenamente desenvolvido em tubo circular, f=64/Re. Substituindo em Darcy-Weisbach, h_f=128νLQ/(πgD⁴). A relação Q²/D⁵ requer fator de atrito constante.",
+      "source": "Equação de energia com perdas, Darcy-Weisbach; modelo de orifício com coeficiente de descarga; tabela DN40 PVC da questão. Referência técnica: https://suporte.unmep.com.br/docs/documentacao-tecnica/agua-fria-e-agua-quente/perda-de-carga.\n\nPETRO31-Q01 (mesma questão PETRO30-Q10), tabela de comprimentos equivalentes fornecida no enunciado; NBR 5626:2020 como contexto de projeto. Q03: quantificação geométrica do ramal, não expressão normativa.\n\nTigre, tubos e conexões soldáveis; https://www.tigre.com.br/produtos/obras-e-reformas/agua-fria/tubos-e-conexoes-soldaveis . CESGRANRIO, Eletronuclear 2010, questão 1955439 (gabarito de referência; figura original não conferida).\n\nEquações de continuidade e energia; Darcy-Weisbach. CESGRANRIO, INEA 2008, Engenharia Hidráulica, Q27, prova p.6, https://jcconcursos.com.br/media/uploads/provas/provas/2008/14142.pdf.\n\nEquações clássicas de Reynolds, continuidade e Darcy-Weisbach; regime plenamente desenvolvido em conduto circular.",
+      "mnemonic": "Real + equivalente = virtual; J vezes virtual = perda total; orifício: vazão varia com raiz da carga.\n\nReta, suave, brusca, choque. Dividiu, tê; dobrou, joelho; terminou, não tem tê.\n\nPerda fixa + K fixo = velocidade fixa. D⁵: quatro do quadrado da velocidade, um de L/D. Série soma perdas; paralelo soma vazões.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular perdas distribuídas e localizadas, comprimentos equivalentes e vazão em orifícios? Como relacionar vazão, área e diâmetro às perdas e associar tubulações em série ou paralelo?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A perda distribuída decorre de atrito ao longo da tubulação e a localizada de perturbações em singularidades. Para um trecho uniforme, h_d=f(L/D)v²/(2g), h_l=K v²/(2g), L_eq=KD/f e L_v=L_real+ΣL_eq. A perda total é J L_v com J=fv²/(2gD). Não somar K e L_eq para a mesma peça. Em orifício calibrado, Q depende de área, coeficiente de descarga e diferença de carga, Q=C_d A√(2gΔh), sob hipóteses pertinentes.\n\nPara acessórios de mesmo diâmetro e condições comparáveis, a perda tende a aumentar de luva para curva de 90°, joelho de 90° e tê com saída lateral. Em ramal sequencial, distinguir quantidade de conexões de seu comprimento equivalente.\n\nPara escoamento incompressível à seção plena, Q=Av. Com h_L=Kv²/(2g) e coeficiente global K constante, Q=A√(2gh_L/K). Mantendo K e h_L, a velocidade é constante: duplicar vazão exige duplicar área.\n\nPara Darcy-Weisbach em seção circular, h_f=8fLQ²/(gπ²D⁵). Em série sem derivações, a vazão é a mesma e as perdas se somam. Em paralelo, as perdas entre os mesmos nós são iguais e as vazões se somam. Substituir n ramais idênticos por um conduto de mesmo f e L exige D_eq=n^(2/5)D.\n\nNo regime laminar plenamente desenvolvido em tubo circular, f=64/Re. Substituindo em Darcy-Weisbach, h_f=128νLQ/(πgD⁴). A relação Q²/D⁵ requer fator de atrito constante."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "Equação de energia com perdas, Darcy-Weisbach; modelo de orifício com coeficiente de descarga; tabela DN40 PVC da questão. Referência técnica: https://suporte.unmep.com.br/docs/documentacao-tecnica/agua-fria-e-agua-quente/perda-de-carga.\n\nPETRO31-Q01 (mesma questão PETRO30-Q10), tabela de comprimentos equivalentes fornecida no enunciado; NBR 5626:2020 como contexto de projeto. Q03: quantificação geométrica do ramal, não expressão normativa.\n\nTigre, tubos e conexões soldáveis; https://www.tigre.com.br/produtos/obras-e-reformas/agua-fria/tubos-e-conexoes-soldaveis . CESGRANRIO, Eletronuclear 2010, questão 1955439 (gabarito de referência; figura original não conferida).\n\nEquações de continuidade e energia; Darcy-Weisbach. CESGRANRIO, INEA 2008, Engenharia Hidráulica, Q27, prova p.6, https://jcconcursos.com.br/media/uploads/provas/provas/2008/14142.pdf.\n\nEquações clássicas de Reynolds, continuidade e Darcy-Weisbach; regime plenamente desenvolvido em conduto circular."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Atrito de parede dissipa energia; mudanças de seção ou direção geram separação e turbulência, produzindo perdas localizadas. Igualar h_d(L_eq)=h_l e cancelar v²/(2g) resulta em L_eq=KD/f. A vazão por orifício varia com raiz da diferença de carga quando Cd e A são constantes.\n\nCurvas suaves desviam o fluxo com menor separação que mudanças bruscas; a derivação lateral do tê pode produzir perda maior. O traçado em planta não mostra sozinho as mudanças verticais.\n\nA continuidade conserva massa; para água incompressível, Q=Av. Em paralelo a diferença de carga atua sobre todos os caminhos; ramais idênticos repartem igualmente a vazão. Em série sem derivação, a mesma vazão percorre todos os trechos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "f é fator de Darcy (adimensional, não Fanning), K adimensional, L e D interno em m, v m/s, g m/s², h em m de líquido, J m/m. Re=vD/ν; f=64/Re para regime laminar plenamente desenvolvido em tubo circular. Em turbulento f depende de Re e rugosidade relativa. v=4Q/(πD²).\n\nPara a tabela e a geometria especificadas na questão Q01, ordem II<III<IV<I (luva, curva 90°, joelho 90°, tê lateral). Em ramal sequencial com n saídas ascendentes, c cantos horizontais e saída horizontal em cada aparelho: T=n−1, J=n+c+1.\n\nh_L=KQ²/(2gA²); h_f=f(L/D)v²/(2g)=8fLQ²/(gπ²D⁵). v=4Q/(πD²). Para dois tubos idênticos, D₂⁵=4D₁⁵ quando f,L iguais; em geral (D₂/D₁)⁵=4f₂/f₁ para L iguais. D_eq=n^(2/5)D."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Distribuída usa comprimento real; localizada usa K ou comprimento equivalente. Comprimento virtual inclui tubulação reta e acessórios; comprimento equivalente não é a perda em mca. Registro globo DN40=35,8 m e gaveta aberto=0,7 m conforme tabela da questão, não valores universais.\n\nTê divide e mantém continuidade; joelho muda direção; no término não há continuidade. A quantidade de peças é diferente do comprimento equivalente de cada uma.\n\nLuva: emenda alinhada; união: porca central desmontável; flange: aba de fixação; bucha de redução: muda bitola. Coeficiente K depende da geometria e condições do escoamento.\n\nK global e perda fixos: Q∝A. K e A fixos: h_L∝Q². Com K constante e seção circular, perda localizada ∝Q²/D⁴; distribuída com f,L constantes ∝Q²/D⁵. Série soma perdas, paralelo soma vazões."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "DN40: 3 joelhos 45°×1,0+2 curvas 90°×1,2+1 gaveta aberto×0,7=6,1 m (B). L_v=30+6,1=36,1 m (D se pedido comprimento virtual). Se J=0,05 m/m, h_t=1,805 m. No orifício, quadruplicar Δh dobra Q se Cd e A constantes.\n\nQ03: 6 aparelhos, 2 cantos, ramal a 20 cm; 5 tês e 9 joelhos (6 saídas, 2 cantos, 1 subida terminal). Alturas 30/45/60 cm implicam subidas 10/25/40 cm. Não contar antes do registro.\n\nAdufas à seção plena: Q₂=2Q₁, h_L e K fixos → A₂=2A₁; D₂=√2D₁ se circular. Com área fixa, a perda quadruplica. Para dois ramais iguais D₁ em paralelo, cada um leva Q/2. Igualando perdas com tubo único, D₂=⁵√4·D₁≈1,32D₁. Se D₁=100 mm, D₂≈132 mm. Quatro ramais idênticos: D_eq≈1,74D."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1100, CARD-1127, CARD-1320, CARD-1384, CARD-8906\n\nConhecimentos relacionados: CARD-1100, CARD-1127, CARD-1320, CARD-1384, CARD-8906, CARD-1313\n\nConhecimentos relacionados: CARD-1100, CARD-1127, CARD-1320, CARD-1384, CARD-8906, CARD-1313, CARD-1130"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicar J L_v com mesmo diâmetro interno, vazão, fator e referência de velocidade; se mudam, calcular por trecho. Não confundir DN de seleção tabelar com D interno na fórmula. Hazen-Williams é relação empírica alternativa para condições de aplicação adequadas à água; não misturar fator de Darcy com coeficiente C de Hazen-Williams. Em sucção, perdas reduzem NPSH disponível.\n\nOrdem de perdas depende de diâmetro, geometria e tabela; fórmulas de quantitativo só para a configuração descrita, sem outras derivações.\n\nO fator de atrito f varia com Reynolds e rugosidade relativa. A lei de quinta potência pressupõe f e L fixos; não é universal em regime laminar. Ramais de igual diâmetro com comprimentos ou rugosidades diferentes não dividem necessariamente Q igualmente. A relação de duplicação de área exige coeficiente global invariável.\n\nDarcy f=64/Re no regime laminar plenamente desenvolvido em tubo circular; substituindo em h_f, resulta h_f=128νLQ/(πgD⁴), com ν,L constantes. No turbulento, f depende de Re e rugosidade relativa; a lei Q²/D⁵ é condicional a f fixo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Questão pede só singularidades: 6,1 m; 36,1 m inclui trecho real. Não confundir curva 90° com joelho 90°, nem somar coeficiente K e equivalente para a mesma peça. Orifício não fornece vazão constante sob toda pressão.\n\nNão usar tê no último aparelho nem omitir o joelho da subida. Não confundir curva e joelho, ou quantidade com perda localizada.\n\nO diâmetro elevado à quinta potência surge de D⁴ na velocidade ao quadrado e D em L/D. Não confundir área dobrada com diâmetro dobrado; não somar perdas de ramais em paralelo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Real + equivalente = virtual; J vezes virtual = perda total; orifício: vazão varia com raiz da carga.\n\nReta, suave, brusca, choque. Dividiu, tê; dobrou, joelho; terminou, não tem tê.\n\nPerda fixa + K fixo = velocidade fixa. D⁵: quatro do quadrado da velocidade, um de L/D. Série soma perdas; paralelo soma vazões."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA",
+        "answer_paragraphs": [
+          "A perda distribuída decorre de atrito ao longo da tubulação e a localizada de perturbações em singularidades. Para um trecho uniforme, h_d=f(L/D)v²/(2g), h_l=K v²/(2g), L_eq=KD/f e L_v=L_real+ΣL_eq. A perda total é J L_v com J=fv²/(2gD). Não somar K e L_eq para a mesma peça. Em orifício calibrado, Q depende de área, coeficiente de descarga e diferença de carga, Q=C_d A√(2gΔh), sob hipóteses pertinentes.",
+          "Para acessórios de mesmo diâmetro e condições comparáveis, a perda tende a aumentar de luva para curva de 90°, joelho de 90° e tê com saída lateral. Em ramal sequencial, distinguir quantidade de conexões de seu comprimento equivalente.",
+          "Para escoamento incompressível à seção plena, Q=Av. Com h_L=Kv²/(2g) e coeficiente global K constante, Q=A√(2gh_L/K). Mantendo K e h_L, a velocidade é constante: duplicar vazão exige duplicar área.",
+          "Para Darcy-Weisbach em seção circular, h_f=8fLQ²/(gπ²D⁵). Em série sem derivações, a vazão é a mesma e as perdas se somam. Em paralelo, as perdas entre os mesmos nós são iguais e as vazões se somam. Substituir n ramais idênticos por um conduto de mesmo f e L exige D_eq=n^(2/5)D.",
+          "No regime laminar plenamente desenvolvido em tubo circular, f=64/Re. Substituindo em Darcy-Weisbach, h_f=128νLQ/(πgD⁴). A relação Q²/D⁵ requer fator de atrito constante."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "perda distribuída",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "localizada",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "trecho uniforme",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "Não somar K e L_eq para a mesma peça",
+            "color": "#FECDD3"
+          },
+          {
+            "text": "tê com saída lateral",
+            "kind": "core",
+            "color": "#FDE68A"
+          },
+          {
+            "text": "A perda distribuída decorre de atrito ao longo da tubulação e a localizada de perturbações em singularidades.",
+            "kind": "core",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "D⁵",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "f=64/Re",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Grandeza",
+            "Expressão/resultado"
+          ],
+          "rows": [
+            [
+              "Distribuída",
+              "f(L/D)v²/(2g)"
+            ],
+            [
+              "Localizada",
+              "Kv²/(2g)"
+            ],
+            [
+              "Equivalente",
+              "KD/f"
+            ],
+            [
+              "Virtual",
+              "L+ΣLeq"
+            ],
+            [
+              "Q06: singularidades",
+              "6,1 m"
+            ],
+            [
+              "Q06: virtual",
+              "36,1 m"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Darcy-Weisbach",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>h</mi><mi>d</mi></msub><mo>=</mo><mi>f</mi><mfrac><mi>L</mi><mi>D</mi></mfrac><mfrac><msup><mi>v</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>g</mi></mrow></mfrac></math>",
+            "units": "h_d, L e D em m; v em m/s"
+          },
+          {
+            "title": "Localizada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>h</mi><mi>l</mi></msub><mo>=</mo><mi>K</mi><mfrac><msup><mi>v</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>g</mi></mrow></mfrac></math>",
+            "units": "h_l em m; K adimensional"
+          },
+          {
+            "title": "Comprimento equivalente",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>L</mi><mi>eq</mi></msub><mo>=</mo><mfrac><mrow><mi>K</mi><mi>D</mi></mrow><mi>f</mi></mfrac></math>",
+            "units": "L_eq e D em m"
+          },
+          {
+            "title": "Vazão no orifício",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Q</mi><mo>=</mo><msub><mi>C</mi><mi>d</mi></msub><mi>A</mi><msqrt><mrow><mn>2</mn><mi>g</mi><mi>Δh</mi></mrow></msqrt></math>",
+            "units": "Q em m³/s; A em m²; Δh em m"
+          },
+          {
+            "title": "Continuidade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Q</mi><mo>=</mo><mi>A</mi><mi>v</mi></mrow></math>",
+            "units": "m³/s"
+          },
+          {
+            "title": "Darcy-Weisbach",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>h</mi><mi>f</mi></msub><mo>=</mo><mi>f</mi><mfrac><mrow><mi>L</mi></mrow><mrow><mi>D</mi></mrow></mfrac><mfrac><mrow><msup><mi>v</mi><mn>2</mn></msup></mrow><mrow><mn>2</mn><mi>g</mi></mrow></mfrac></mrow></math>",
+            "units": "m"
+          },
+          {
+            "title": "Perda distribuída em seção circular",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>h</mi><mi>f</mi></msub><mo>=</mo><mfrac><mrow><mn>8</mn><mi>f</mi><mi>L</mi><msup><mi>Q</mi><mn>2</mn></msup></mrow><mrow><mi>g</mi><msup><mi>π</mi><mn>2</mn></msup><msup><mi>D</mi><mn>5</mn></msup></mrow></mfrac></mrow></math>",
+            "units": "m"
+          },
+          {
+            "title": "Diâmetro equivalente",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>D</mi><mi>eq</mi></msub><mo>=</mo><msup><mi>n</mi><mfrac><mrow><mn>2</mn></mrow><mrow><mn>5</mn></mrow></mfrac></msup><mi>D</mi></mrow></math>",
+            "units": "m"
+          },
+          {
+            "title": "Fator de atrito de Darcy laminar",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>f</mi><mo>=</mo><mfrac><mn>64</mn><mi>Re</mi></mfrac></mrow></math>",
+            "units": "adimensional"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO31-CONEXOES",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro31_conexoes.svg",
+            "caption": "Conexões e contagem: ramal sequencial de seis aparelhos, dois cantos e último joelho.",
+            "alt": "Conexões e contagem: ramal sequencial de seis aparelhos, dois cantos e último joelho.",
+            "source": "Esquema didático autoral; não é figura original do enunciado.",
+            "origin": "DERIVADA_AUTORAL"
+          },
+          {
+            "id": "PETRO34-Q04-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro34/q04.svg",
+            "caption": "Vazão, área e perda de carga"
+          },
+          {
+            "id": "PETRO34-Q05-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro34/q05.svg",
+            "caption": "Condutos equivalentes"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1100",
+        "CARD-1127",
+        "CARD-1320",
+        "CARD-1384",
+        "CARD-8906",
+        "CARD-1313",
+        "CARD-1130"
+      ],
+      "expected_hash": "7b555649fd01b6c94ccb686af29811b1594eee52a72acb62a11a9b25cc9f2f5a"
+    },
+    {
+      "id": "CARD-1320",
+      "title": "Diâmetro, área e velocidade em condutos",
+      "front": "Com diâmetro externo fixo De, o que acontece com Di e com velocidade média quando a espessura e aumenta e Q é mantida?",
+      "back": "Di=De−2e; Di diminui e v=4Q/(πDi²) aumenta.\n\nPara seção circular A=πD_i²/4. Mantidos K global e perda de carga, duplicar a vazão exige duplicar a área, ou multiplicar o diâmetro por √2. Com Darcy-Weisbach, f e L constantes, a perda distribuída varia com Q²/D⁵.\n\nCom vazão e viscosidade constantes, Re=4Q/(πνD); aumentar o diâmetro reduz Reynolds, porque a velocidade diminui com o quadrado do diâmetro.",
+      "source": "H02-A13\n\nContinuidade e geometria circular; Darcy-Weisbach.\n\nEquações clássicas de Reynolds, continuidade e Darcy-Weisbach; regime plenamente desenvolvido em conduto circular.",
+      "mnemonic": "Mesma Q, menor Di → maior v ao quadrado inverso.\n\nDiâmetro ao quadrado dá área; diâmetro à quinta potência entra na perda distribuída com f e L fixos.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Com diâmetro externo fixo De, o que acontece com Di e com velocidade média quando a espessura e aumenta e Q é mantida?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Di=De−2e; Di diminui e v=4Q/(πDi²) aumenta.\n\nPara seção circular A=πD_i²/4. Mantidos K global e perda de carga, duplicar a vazão exige duplicar a área, ou multiplicar o diâmetro por √2. Com Darcy-Weisbach, f e L constantes, a perda distribuída varia com Q²/D⁵.\n\nCom vazão e viscosidade constantes, Re=4Q/(πνD); aumentar o diâmetro reduz Reynolds, porque a velocidade diminui com o quadrado do diâmetro."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H02-A13\n\nContinuidade e geometria circular; Darcy-Weisbach.\n\nEquações clássicas de Reynolds, continuidade e Darcy-Weisbach; regime plenamente desenvolvido em conduto circular."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A área da seção interna é A=πDi²/4. Para uma vazão constante, reduzir área eleva velocidade; o efeito na perda de carga pode ser expressivo.\nAplicação: Se De=110 mm, e sobe de 5 para 10 mm: Di passa de 100 para 90 mm; v2/v1=(100/90)²≈1,235.\nPegadinha: A velocidade cresce com redução do diâmetro apenas se a vazão for mantida; numa rede real a vazão pode variar pela curva do sistema.\n\nMaior classe de pressão, na mesma série e material, exige maior espessura de parede e reduz o diâmetro interno, sem alterar De. Na Cesgranrio, variam I (espessura) e II (diâmetro interno): alternativa A.\n\nA espessura reduz o diâmetro interno quando o externo permanece fixo. A velocidade média é a vazão dividida pela área de escoamento."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "D_i=D_e−2e; A=πD_i²/4; v=4Q/(πD_i²); h_f=8fLQ²/(gπ²D_i⁵)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Diâmetro é comprimento; área varia com seu quadrado. Com Q fixo, v∝1/D_i². Com K constante, h_L∝v².\n\nCom Q fixo em tubo circular, Re=vD/ν=4Q/(πνD); aumentar D reduz Re. A afirmação Re diretamente proporcional a D exige v constante."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "D=1 m passa a √2 m para duplicar a área. Dobrar D quadruplica a área. Se Q dobra com D fixo, v dobra. Para dois tubos iguais em paralelo com L e f fixos, D_eq=⁵√4 D≈1,32D.\n\nDobrar D em seção circular quadruplica A. Com Q constante, v passa a 1/4; com ν constante, Re passa à metade. Com v constante, Q quadruplica e Re dobra."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Conhecimentos relacionados: CARD-1318, CARD-0121\n\nConhecimentos relacionados: CARD-1318, CARD-0121, CARD-1127"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar diâmetro interno real e seção plena; a regra de perda de quinta potência exige f e L invariáveis."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não somar diâmetros para substituir ramais; não confundir diâmetro nominal com interno."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Mesma Q, menor Di → maior v ao quadrado inverso.\n\nDiâmetro ao quadrado dá área; diâmetro à quinta potência entra na perda distribuída com f e L fixos."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA",
+        "answer_paragraphs": [
+          "Di=De−2e; Di diminui e v=4Q/(πDi²) aumenta.",
+          "Para seção circular A=πD_i²/4. Mantidos K global e perda de carga, duplicar a vazão exige duplicar a área, ou multiplicar o diâmetro por √2. Com Darcy-Weisbach, f e L constantes, a perda distribuída varia com Q²/D⁵.",
+          "Com vazão e viscosidade constantes, Re=4Q/(πνD); aumentar o diâmetro reduz Reynolds, porque a velocidade diminui com o quadrado do diâmetro."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "πD_i²/4",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "Re=4Q/(πνD)",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO34-Q04-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro34/q04.svg",
+            "caption": "Vazão, área e perda de carga"
+          },
+          {
+            "id": "PETRO34-Q05-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro34/q05.svg",
+            "caption": "Condutos equivalentes"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Velocidade média",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>v</mi><mo>=</mo><mfrac><mrow><mn>4</mn><mi>Q</mi></mrow><mrow><mi>π</mi><msup><msub><mi>D</mi><mi>i</mi></msub><mn>2</mn></msup></mrow></mfrac></mrow></math>",
+            "units": "m/s"
+          },
+          {
+            "title": "Reynolds com vazão constante",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Re</mi><mo>=</mo><mfrac><mrow><mn>4</mn><mi>Q</mi></mrow><mrow><mi>π</mi><mi>ν</mi><mi>D</mi></mrow></mfrac></mrow></math>",
+            "units": "adimensional"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Mudança",
+            "Efeito nas hipóteses indicadas"
+          ],
+          "rows": [
+            [
+              "D × 2",
+              "Área × 4"
+            ],
+            [
+              "A × 2",
+              "D × √2"
+            ],
+            [
+              "Q × 2, A fixa",
+              "v × 2; h_L × 4 com K fixo"
+            ]
+          ]
+        }
+      },
+      "related_card_ids": [
+        "CARD-1318",
+        "CARD-0121",
+        "CARD-1127"
+      ],
+      "expected_hash": "441db6941584c9c1b3b1cf3e3e55d948ef0f320f4222253631963c4b092f88ff"
+    }
+  ]
+}
