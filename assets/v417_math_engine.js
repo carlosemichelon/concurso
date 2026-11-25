@@ -40,5 +40,6 @@
   if(rel>=0&&children[rel].textContent.trim()!=="="&&children.length===rel+2&&/^\d+(?:[.,]\d+)?$/.test(children[rel+1].textContent.trim()))color(children[rel+1],"condition");
   const norm=s=>String(s||"").replace(/[_{}\s]/g,"");const available=Array.from(math.querySelectorAll("msub,msubsup,msup,mi,mn"));for(const mark of marks||[]){if(!palette[mark.kind]||!mark.text)continue;const m=norm(mark.text);if(!m)continue;const hits=available.filter(n=>norm(n.textContent)===m);if(hits.length===1)color(hits[0],mark.kind)}
   return math}
- return {part,inline,decorate};
+ function screen(t){return String(t).replace(/fctk,(?:inf|sup)|fct,m|[\p{L}\p{N}]+/gu,w=>Object.hasOwn(aliases,w)?"x":w)}
+ return {part,inline,decorate,screen};
 })(document); window.BM417Math=Object.freeze(engine); })();

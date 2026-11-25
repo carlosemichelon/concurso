@@ -1020,7 +1020,7 @@ function splitExpressions(s){
  const out=[];let depth=0,last=0;for(let i=0;i<s.length;i++){const ch=s[i];if('([{'.includes(ch))depth++;else if(')]}'.includes(ch))depth=Math.max(0,depth-1);else if(ch===';'&&depth===0){out.push(s.slice(last,i).trim());last=i+1;}}out.push(s.slice(last).trim());return out.filter(Boolean);
 }
 function isEquation(s){
- const t=s.trim().replace(/^[•]\s*/,'');
+ const t=window.BM417Math.screen(s.trim().replace(/^[•]\s*/,''));
  if(!/[=≤≥≈∝]/u.test(t)||t.length>220||/https?:|:\s|\b(?:para|com|quando|onde|segundo|conforme|pois|logo|então|hipótese|depende|valor|unidade|considerar|não|verificar|por|medido|sendo|adimensional|constante)\b/iu.test(t))return false;
  const lhs=t.split(/[=≤≥≈∝]/u)[0].trim();
  if(lhs.length>55||/[.!?]/u.test(lhs)||/\s(?:[A-Za-zÀ-ÿ]{3,})\s/u.test(' '+lhs+' '))return false;
@@ -1075,6 +1075,14 @@ function makeBody(body){
   if(kind==='space'){if(!host.lastElementChild?.classList.contains('bm249-blockgap')){const space=make('div','bm249-blockgap');space.setAttribute('aria-hidden','true');host.append(space);}continue;}
   if(kind==='table'){let j=i+1;while(j<lines.length&&sectionLineKind(lines[j])==='table')j++;const table=tableNode(lines.slice(i,j));if(table){host.append(table);i=j-1;continue;}}
   if(kind==='equation'){const block=make('div','bm249-line bm249-equation');for(const expr of splitExpressions(sourceLine.trim().replace(/^•\s*/,'')))block.append(equationNode(expr));host.append(block);continue;}
+  // Separar somente um rótulo seguido por expressões matemáticas inequívocas.
+  if(kind==='paragraph'||kind==='step'){
+   const colon=sourceLine.indexOf(':');const eq=sourceLine.search(/[=≤≥≈∝]/u);
+   if(colon>0&&colon<=100&&eq>colon){
+    const prefix=sourceLine.slice(0,colon+1),tail=sourceLine.slice(colon+1).trim(),parts=splitExpressions(tail);
+    if(parts.length&&parts.every(isEquation)){const context=make('p','bm249-line bm249-paragraph',prefix);const block=make('div','bm249-line bm249-equation');block.setAttribute('aria-label',sourceLine);for(const expr of parts)block.append(equationNode(expr));host.append(context,block);continue;}
+   }
+  }
   const line=make(kind==='subhead'?'h4':'p','bm249-line bm249-'+kind,sourceLine);host.append(line);
  }
  return host;
