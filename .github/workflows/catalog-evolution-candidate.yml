@@ -23,12 +23,7 @@ jobs:
           node-version: '22'
       - name: Registrar base anterior ao incremento
         run: echo "CATALOG_BASE=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
-      - run: |
-          if [ -f assets/petro33_publish_request.json ]; then
-            node tools/catalog_petro33_release.cjs
-          else
-            node tools/catalog_apply_pending.cjs
-          fi
+      - run: node tools/catalog_apply_pending.cjs
       - run: node tools/catalog_snapshot.cjs --check
       - name: Selecionar IDs alterados para o leitor
         id: reader
@@ -48,7 +43,6 @@ jobs:
           PACKET=$(node -p "require('./assets/catalog_evolution_request.json').packet")
           HOME_FILE=$(node -p "require('./assets/version.json').home")
           git add -- assets/version.json assets/catalog_snapshot_*.json assets/catalog_lookup "$PACKET" index.html "$HOME_FILE"
-          if [ -d assets/petro33 ]; then git add -- assets/petro33 assets/petro33_new_cards.json assets/petro33_evolution.json; fi
           git diff --cached --quiet && exit 0
           git commit -m 'Materializar catálogo de evoluções editoriais validado'
           git push origin HEAD:${GITHUB_REF_NAME}
