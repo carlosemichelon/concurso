@@ -34,7 +34,7 @@ window.BancoMestrePDFSyncV130={connected:true,topicRecords:()=>docs,refresh:asyn
  await page.locator('.bm169-pdf-links button').click();await page.locator('.bm430-media-link').click();
  assert.deepEqual(await page.evaluate(()=>opened),['p','i']);
  await page.evaluate(()=>{document.getElementById('formulas').classList.add('active');document.getElementById('bm427FormulaDialog').showModal()});
- const r=await page.locator('#bm427FormulaDialog').boundingBox();assert.ok(r.width<=Math.min(740,width-24)+2,'largura real '+r.width+' em viewport '+width);assert.ok(r.height<500,'diálogo curto deve adaptar a altura: '+r.height);
+ const r=await page.locator('#bm427FormulaDialog').boundingBox();const computed=await page.locator('#bm427FormulaDialog').evaluate(e=>{const s=getComputedStyle(e);return {width:s.width,maxWidth:s.maxWidth,boxSizing:s.boxSizing,padding:s.padding,border:s.borderWidth,viewport:innerWidth}});console.log('Dimensões do diálogo:',JSON.stringify({r,computed}));assert.ok(r.width<=Math.min(740,width-24)+2,'largura real '+r.width+' em viewport '+width);assert.ok(r.height<500,'diálogo curto deve adaptar a altura: '+r.height);
  console.log(width+'px: progresso visível durante espera, imagem/PDF aparecem, abertura e fórmula compacta aprovadas.');
  await page.close();
 }

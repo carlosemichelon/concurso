@@ -1477,7 +1477,7 @@ dialog.bm426-info-editor .bm228-actions{gap:6px!important}
 #tema #topicMedia>.contextNote:empty{display:none}
 #imageDialog.bm422-editor[open] #imageStage{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;padding:8px!important}
 #imageDialog.bm422-editor[open] #imageStage .canvases{flex:none!important;margin:auto!important;max-width:none!important;max-height:none!important}
-#formulas #bm427FormulaDialog[open]{position:fixed!important;inset:0!important;margin:auto!important;width:min(740px,calc(100vw - 24px))!important;min-width:0!important;height:fit-content!important;min-height:0!important;max-height:82dvh!important;max-width:calc(100vw - 24px)!important}
+#formulas dialog#bm427FormulaDialog[open]{box-sizing:border-box!important;position:fixed!important;inset:0!important;margin:auto!important;padding:0!important;border:1px solid #bed4df!important;width:min(740px,calc(100vw - 24px))!important;min-width:0!important;height:fit-content!important;min-height:0!important;max-height:82dvh!important;max-width:calc(100vw - 24px)!important}
 #formulas #bm427FormulaDialog .bm427-formula-scroll{flex:0 1 auto!important;min-height:0!important}
 #formulas #bm427FormulaDialog .bm427-formula-head,#formulas #bm427FormulaDialog .bm427-formula-foot{padding:8px 12px!important}
 #formulas #bm427FormulaDialog .bm249-body{padding:10px 14px!important;max-width:none!important}
@@ -1500,6 +1500,6 @@ dialog.bm426-info-editor .bm228-actions{gap:6px!important}
 #pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-row{gap:3px!important}
 #lacunas.bm430-gap-wait :is(.bm242-filters,#bm242-list,#bm242-count,#bm299-lac-stats){display:none!important}
 #lacunas #bm242-state[hidden]{display:none!important}
-@media(max-width:650px){#formulas #bm427FormulaDialog[open]{width:calc(100vw - 24px)!important;min-width:0!important;max-width:calc(100vw - 24px)!important;max-height:88dvh!important}#pdfDialog[open].bm422-editor.bm-v056-annotation-open .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){width:166px!important;max-width:52vw!important}}
+@media(max-width:650px){#formulas dialog#bm427FormulaDialog[open]{width:calc(100% - 24px)!important;min-width:0!important;max-width:calc(100% - 24px)!important;max-height:88dvh!important}#pdfDialog[open].bm422-editor.bm-v056-annotation-open .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){width:166px!important;max-width:52vw!important}}
 </style>
 </body></html>
