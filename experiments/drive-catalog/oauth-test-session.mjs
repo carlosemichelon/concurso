@@ -1,0 +1,18 @@
+import {DriveCatalogReader,PROJECT} from './drive-catalog-reader.mjs';
+const ROOT='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files',USER='https://openidconnect.googleapis.com/v1/userinfo';
+const query=new URLSearchParams({q:"trashed = false and 'me' in owners and appProperties has { key='bmProject' and value='"+PROJECT+"' } and appProperties has { key='bmKind' and value='catalog' }",fields:'nextPageToken,files(id,ownedByMe,shared,appProperties)',pageSize:'100'});
+const props=owner=>({bmProject:PROJECT,bmOwner:owner,bmKind:'catalog'});
+export function sample(owner){return {project:PROJECT,owner,catalog:{format:'BancoMestreCatalogSnapshotV362',base:[{id:'TEST-001',front:'Cartão fictício 1 — qual o objetivo do teste?',back:'Verificar isolamento e leitura do Drive.',active:true,related_card_ids:[]},{id:'TEST-002',front:'Cartão fictício 2 — onde está o catálogo?',back:'No Drive autorizado, não no GitHub.',active:true,related_card_ids:[]}],ijui:[],counts:{canonical:2,active:2,ijui:0}}}}
+export class TestSession{
+ #session=null;#generation=0;#file=null;#reader;#fetch;#busy=false;
+ constructor(fetcher=globalThis.fetch){this.#fetch=fetcher;this.#reader=new DriveCatalogReader({fetcher})}
+ logout(){this.#generation++;this.#session=null;this.#file=null;this.#reader.disconnect();this.#busy=false}
+ get connected(){return !!this.#session}get owner(){return this.#session?.owner||null}
+ async #req(url,token,gen,opts={}){if(gen!==this.#generation)throw Error('Sessão alterada');const r=await this.#fetch(url,{...opts,cache:'no-store',headers:{...opts.headers,Authorization:'Bearer '+token}});if(gen!==this.#generation)throw Error('Sessão alterada');if(!r.ok)throw Error('Google HTTP '+r.status);const v=await r.json();if(gen!==this.#generation)throw Error('Sessão alterada');return v}
+ async login(token){this.logout();const gen=this.#generation;const u=await this.#req(USER,token,gen);if(typeof u.sub!=='string'||!u.sub)throw Error('Identidade Google não verificada');this.#session={owner:u.sub,token};return {owner:u.sub}}
+ async #find(s,g){const r=await this.#req(ROOT+'?'+query,s.token,g);if(r.nextPageToken||!Array.isArray(r.files)||r.files.length>1)throw Error('Arquivo experimental não identificado de forma única');const f=r.files[0];if(f&&(f.ownedByMe!==true||f.shared!==false||f.appProperties?.bmOwner!==s.owner||f.appProperties?.bmProject!==PROJECT||f.appProperties?.bmKind!=='catalog'))throw Error('Arquivo não pertence exclusivamente à conta');return f?.id||null}
+ async open({create=false}={}){if(!this.#session||this.#busy)throw Error('Conecte uma conta ou aguarde a consulta');const s=this.#session,g=this.#generation;this.#busy=true;try{let id=await this.#find(s,g);if(!id&&!create)return null;if(!id){const boundary='bm-experiment-boundary';const meta={name:'Banco Mestre — TESTE FICTÍCIO de catálogo',mimeType:'application/json',appProperties:props(s.owner)};const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n--'+boundary+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(sample(s.owner))+'\r\n--'+boundary+'--';const f=await this.#req(UPLOAD+'?uploadType=multipart&fields=id',s.token,g,{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});id=await this.#find(s,g);if(id!==f.id)throw Error('Criação não confirmada; não repita sem verificar o Drive')}
+ if(id!==this.#file){this.#reader.connect({owner:s.owner,token:s.token,fileId:id});this.#file=id}
+ const catalog=await this.#reader.read();if(g!==this.#generation)throw Error('Sessão alterada');return catalog
+ }finally{if(g===this.#generation)this.#busy=false}}
+}
