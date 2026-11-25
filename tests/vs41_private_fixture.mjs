@@ -34,7 +34,7 @@ export function mediaFixture(base){
   f.files.get('cards'+s).payload.records[0].consolidation.profile.editorial.media.push({id:'IMG-TEST',role:'VERSO_APOS_TENTATIVA',caption:'Imagem privada '+s,private_original:true});
   for(const [id,mimeType,bytes] of [['IMG-TEST','image/png',png],['PDF-TEST','application/pdf',Buffer.from('%PDF-1.4\n% perfil '+s+'\n%%EOF')]]){
    const fileId=id+'-'+s,sha256=createHash('sha256').update(bytes).digest('hex');
-   records.push({id,fileId,mimeType,sha256,card_ids:['CARD-9901']});
+   records.push({id,fileId,mimeType,sha256,title:'Material privado '+s,section:'Estudo',category:'PDF',card_ids:['CARD-9901']});
    f.files.set(fileId,{meta:{id:fileId,mimeType,ownedByMe:true,shared:false,trashed:false,parents:[root],size:String(bytes.length),appProperties:{bmProject:project,bmOwner:s,bmKind:'media-file',bmMedia:id}},bytes});
   }
   f.files.set(manifest,{meta:{id:manifest,mimeType:'application/json',ownedByMe:true,shared:false,trashed:false,parents:[root],size:'1000',version:'1',appProperties:{bmProject:project,bmOwner:s,bmKind:'media'}},payload:{schema:'BM-PORTAL-COLLECTION/1',project,owner:s,kind:'media',records}});

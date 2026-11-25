@@ -30,3 +30,21 @@ export function createMediaReader({resolveSession,getToken,fetcher=fetch}){
   await live();return {bytes,mimeType:link.mimeType,sha256:link.sha256};
  };
 }
+
+/** Return only presentation metadata. Never give browser a Drive locator. */
+export function createPdfLibrary({resolveSession,getToken,fetcher=fetch}){
+ const read=createReader({resolveSession,getToken,fetcher,includeMedia:true});
+ return async req=>{
+  const {records,media}=await read(req),active=new Set(records.filter(c=>c.active).map(c=>c.id)),seen=new Set(),out=[];
+  for(const m of media){
+   if(m?.mimeType!=='application/pdf')continue;
+   if(!idOk(m.id)||seen.has(m.id)||!idOk(m.fileId)||!/^[a-f0-9]{64}$/.test(m.sha256||'')||!Array.isArray(m.card_ids))fail();
+   seen.add(m.id);
+   const card_ids=[...new Set(m.card_ids.filter(id=>active.has(id)))];
+   if(!card_ids.length)continue;
+   const text=(v,fallback)=>typeof v==='string'&&v.trim()?v.trim().slice(0,300):fallback;
+   out.push({id:m.id,title:text(m.title,m.id),section:text(m.section,'Materiais de estudo'),category:text(m.category,'PDF'),card_ids});
+  }
+  return out.sort((a,b)=>a.title.localeCompare(b.title,'pt-BR'));
+ };
+}

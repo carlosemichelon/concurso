@@ -56,6 +56,7 @@ async function open(context,label,keep=false){
    await figure.locator('[data-private-state="CARREGADA"]').waitFor({state:'visible'});
    assert.ok(await figure.locator('img').evaluate(im=>im.naturalWidth>0));
    const pdf=await p.evaluate(async()=>await (await window.BMVS41PrivateMedia.read('CARD-9901','PDF-TEST')).text());assert.ok(pdf.includes('perfil '+label));
+   const library=await p.evaluate(()=>window.BMVS41PrivatePdfs.list());assert.deepEqual(library.map(x=>[x.id,x.title]),[['PDF-TEST','Material privado '+label]]);assert.ok(!Object.hasOwn(library[0],'fileId'));
   }
   assert.equal(publicReads,0);assert.ok(sessionReads>0);assert.equal(privateReads>0,label!=='X');console.log('Perfil '+label+': fonte privada e sem fallback público');
   if(keep)return p;

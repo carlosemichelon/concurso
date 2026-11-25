@@ -40,6 +40,13 @@
   async read(){const p=await reviewRequest();if(!Array.isArray(p.events))throw Error('Histórico inválido');return p.events},
   async record(input){return (await reviewRequest(input)).event}
  })});
+ Object.defineProperty(window,'BMVS41PrivatePdfs',{value:Object.freeze({async list(){
+  const expected=await check();start();const r=await request('/api/vs41/pdfs',{'X-BM-Context':expected});
+  if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
+  if(!r.ok)throw Error('Biblioteca privada indisponível');
+  const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
+  if(!Array.isArray(p.documents))throw Error('Biblioteca inválida');return p.documents;
+ }})});
  Object.defineProperty(window,'BMVS41PrivateMedia',{value:Object.freeze({
   async read(card,id){
    const expected=await check();start();
