@@ -1,35 +1,42 @@
-// Read-only. Session and folder mapping must be supplied by authenticated server, never request input.
+// Read-only. Session and folder mapping are supplied by the authenticated server.
 const API='https://www.googleapis.com/drive/v3/files',PROJECT='bm-portal-multi-v1';
 const FIELDS='id,mimeType,ownedByMe,shared,trashed,parents,appProperties,size,version';
 const idOk=v=>typeof v==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(v);
-const fail=()=>{throw Error('Catálogo privado indisponível ou não autorizado')};
+const fail=code=>{const e=Error('Catálogo privado indisponível ou não autorizado');e.code=code;throw e};
 function meta(f,id,subject,kind,parent){
- if(!f||f.id!==id||f.ownedByMe!==true||f.shared!==false||f.trashed!==false||f.appProperties?.bmProject!==PROJECT||f.appProperties?.bmOwner!==subject||f.appProperties?.bmKind!==kind)fail();
- if(parent&&(!Array.isArray(f.parents)||f.parents.length!==1||f.parents[0]!==parent))fail();
- if(kind==='root'?f.mimeType!=='application/vnd.google-apps.folder':f.mimeType!=='application/json')fail();
- if(kind!=='root'&&(!Number.isSafeInteger(Number(f.size))||Number(f.size)<1||Number(f.size)>32*1024*1024))fail();
+ const bad=field=>fail(kind+'-'+field);
+ if(!f||f.id!==id)bad('id');
+ if(f.ownedByMe!==true)bad('ownership');
+ if(f.shared!==false||f.trashed!==false)bad('visibility');
+ if(f.appProperties?.bmProject!==PROJECT||f.appProperties?.bmKind!==kind)bad('tags');
+ if(f.appProperties?.bmOwner!==subject)bad('owner');
+ if(parent&&(!Array.isArray(f.parents)||f.parents.length!==1||f.parents[0]!==parent))bad('parent');
+ // MIME parameters are not part of the media type. Accept only JSON and optional UTF-8 charset.
+ if(kind==='root'?f.mimeType!=='application/vnd.google-apps.folder':!/^application\/json(?:\s*;\s*charset\s*=\s*(?:utf-8|"utf-8"))?$/i.test(f.mimeType||''))bad('mime');
+ if(kind!=='root'&&(!Number.isSafeInteger(Number(f.size))||Number(f.size)<1||Number(f.size)>32*1024*1024))bad('size');
  return f;
 }
 export function verifyRecords(records){
- if(!Array.isArray(records)||records.length>20000)fail();const seen=new Set();
- for(const c of records){if(!c||!/^CARD-[0-9]{4,12}$/.test(c.id)||seen.has(c.id)||typeof c.front!=='string'||!c.front.trim()||typeof c.back!=='string'||!c.back.trim()||typeof c.expl!=='string'||typeof c.active!=='boolean'||typeof c.discipline!=='string'||typeof c.group!=='string'||typeof c.subject!=='string')fail();seen.add(c.id)}
- for(const c of records)if(c.related_card_ids!==undefined&&(!Array.isArray(c.related_card_ids)||c.related_card_ids.some(id=>!seen.has(id))))fail();
+ if(!Array.isArray(records)||records.length>20000)fail('records-list');const seen=new Set();
+ for(const c of records){if(!c||!/^CARD-[0-9]{4,12}$/.test(c.id)||seen.has(c.id)||typeof c.front!=='string'||!c.front.trim()||typeof c.back!=='string'||!c.back.trim()||typeof c.expl!=='string'||typeof c.active!=='boolean'||typeof c.discipline!=='string'||typeof c.group!=='string'||typeof c.subject!=='string')fail('records-schema');seen.add(c.id)}
+ for(const c of records)if(c.related_card_ids!==undefined&&(!Array.isArray(c.related_card_ids)||c.related_card_ids.some(id=>!seen.has(id))))fail('records-links');
  return structuredClone(records);
 }
 export function createReader({resolveSession,getToken,fetcher=fetch}){
  return async request=>{
-  const session=await resolveSession(request);if(!session||![session.subject,session.rootId,session.profileId,session.sessionId].every(idOk))fail();
-  const {subject,rootId,profileId}=session,{token}=await getToken();if(typeof token!=='string'||!token)fail();
-  const get=async(id,query)=>{if(!idOk(id))fail();const r=await fetcher(API+'/'+encodeURIComponent(id)+'?'+query,{headers:{Authorization:'Bearer '+token},cache:'no-store',redirect:'error'});if(!r.ok)fail();return r.json()};
-  const readMeta=(id,kind,parent)=>get(id,'fields='+encodeURIComponent(FIELDS)).then(f=>meta(f,id,subject,kind,parent));
-  const readJson=async(id,kind,parent)=>{const before=await readMeta(id,kind,parent),raw=await get(id,'alt=media'),after=await readMeta(id,kind,parent);if(!before.version||before.version!==after.version)fail();return raw};
+  const resolved=await resolveSession(request);if(!resolved||![resolved.subject,resolved.rootId,resolved.profileId,resolved.sessionId].every(idOk))fail('session');
+  const session={subject:resolved.subject,rootId:resolved.rootId,profileId:resolved.profileId,sessionId:resolved.sessionId};
+  const {subject,rootId,profileId}=session,{token}=await getToken();if(typeof token!=='string'||!token)fail('token');
+  const get=async(id,query,step)=>{if(!idOk(id))fail(step+'-id');let r;try{r=await fetcher(API+'/'+encodeURIComponent(id)+'?'+query,{headers:{Authorization:'Bearer '+token},cache:'no-store',redirect:'error'})}catch{fail(step+'-network')}if(!r.ok)fail(step+'-http-'+r.status);try{return await r.json()}catch{fail(step+'-json')}};
+  const readMeta=(id,kind,parent)=>get(id,'fields='+encodeURIComponent(FIELDS),kind+'-meta').then(f=>meta(f,id,subject,kind,parent));
+  const readJson=async(id,kind,parent)=>{const before=await readMeta(id,kind,parent),raw=await get(id,'alt=media',kind+'-media'),after=await readMeta(id,kind,parent);if(!before.version||before.version!==after.version)fail(kind+'-version');return raw};
   await readMeta(rootId,'root');
   const profile=await readJson(profileId,'profile',rootId);
-  if(profile.schema!=='BM-PORTAL-PROFILE/1'||profile.project!==PROJECT||profile.owner!==subject||profile.catalog!=='private-only'||!idOk(profile.collections?.cards))fail();
+  if(profile?.schema!=='BM-PORTAL-PROFILE/1'||profile.project!==PROJECT||profile.owner!==subject||profile.catalog!=='private-only'||!idOk(profile.collections?.cards))fail('profile-schema');
   const payload=await readJson(profile.collections.cards,'cards',rootId);
-  if(payload.schema!=='BM-PORTAL-COLLECTION/1'||payload.project!==PROJECT||payload.owner!==subject||payload.kind!=='cards')fail();
+  if(payload?.schema!=='BM-PORTAL-COLLECTION/1'||payload.project!==PROJECT||payload.owner!==subject||payload.kind!=='cards')fail('cards-schema');
   const records=verifyRecords(payload.records),current=await resolveSession(request);
-  if(!current||['subject','rootId','profileId','sessionId'].some(k=>current[k]!==session[k]))fail();
+  if(!current||['subject','rootId','profileId','sessionId'].some(k=>current[k]!==session[k]))fail('session-revoked');
   return {schema:'BM-VS41-PRIVATE-CARDS/1',records};
  };
 }

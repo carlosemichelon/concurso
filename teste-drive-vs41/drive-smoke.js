@@ -16,12 +16,12 @@ export async function runDriveSmoke({getToken,fetcher=fetch,runId=randomUUID().r
   const m={name,mimeType:kind==='root'?'application/vnd.google-apps.folder':'application/json',appProperties,...(parent?{parents:[parent]}:{})};
   let result;
   if(kind==='root')result=await request(API+'?fields=id',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(m)});
-  else{const boundary='bm_'+randomUUID().replaceAll('-','');const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(m)+'\r\n--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(payload)+'\r\n--'+boundary+'--\r\n';
+  else{const boundary='bm_'+randomUUID().replaceAll('-','');const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(m)+'\r\n--'+boundary+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(payload)+'\r\n--'+boundary+'--\r\n';
    result=await request(UPLOAD+'?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});}
   if(typeof result.id!=='string'||!/^[A-Za-z0-9_-]{1,160}$/.test(result.id)||created.some(x=>x.id===result.id))throw Error('Recibo inválido');
   created.push({id:result.id,subject,kind,parent});return result.id;
  }
- let failure=null,passed=false;
+ let failure=null,passed=false,stage='create';
  try{
   for(const label of ['A','B']){
    const subject='smoke-'+runId+'-'+label,rootId=await add(subject,'root',null),back='Resposta experimental '+label+' '+runId;
@@ -30,10 +30,11 @@ export async function runDriveSmoke({getToken,fetcher=fetch,runId=randomUUID().r
    const profileId=await add(subject,'profile',rootId,{schema:'BM-PORTAL-PROFILE/1',project:PROJECT,owner:subject,catalog:'private-only',collections:{cards}});
    sessions.push({subject,rootId,profileId,sessionId:'smoke-'+label});expected.set(subject,back);
   }
+  stage='read';
   const read=createReader({getToken,fetcher,resolveSession:async req=>req});
   const views=await Promise.all(sessions.map(read));
   if(views.some((v,i)=>v.records.length!==1||v.records[0].id!=='CARD-9901'||v.records[0].back!==expected.get(sessions[i].subject)))throw Error('Conteúdo divergente');
-  let denied=false;try{await read({...sessions[0],profileId:sessions[1].profileId})}catch{denied=true}
+  stage='isolation';let denied=false;try{await read({...sessions[0],profileId:sessions[1].profileId})}catch(e){if(!['profile-owner','profile-parent'].includes(e.code))throw e;denied=true}
   if(!denied)throw Error('Isolamento não confirmado');passed=true;
  }catch(e){failure=e}
  finally{
@@ -46,5 +47,5 @@ export async function runDriveSmoke({getToken,fetcher=fetch,runId=randomUUID().r
    }catch{cleanupErrors.push(f.id)}
   }
  }
- return {ok:passed&&!failure&&!cleanupErrors.length,profiles:passed?2:0,cardCounts:passed?[1,1]:[],crossAccessDenied:passed,temporaryCreated:created.length,temporaryTrashed:created.length-cleanupErrors.length,cleanupPending:cleanupErrors.length,...(failure?{error:'Teste Drive não concluído'}:{})};
+ return {ok:passed&&!failure&&!cleanupErrors.length,profiles:passed?2:0,cardCounts:passed?[1,1]:[],crossAccessDenied:passed,temporaryCreated:created.length,temporaryTrashed:created.length-cleanupErrors.length,cleanupPending:cleanupErrors.length,...(failure?{error:'Teste Drive não concluído',stage,reason:typeof failure.code==='string'&&/^[a-z0-9-]{1,80}$/.test(failure.code)?failure.code:'operation-failed'}:{})};
 }
