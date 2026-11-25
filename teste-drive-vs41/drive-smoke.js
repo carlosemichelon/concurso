@@ -1,6 +1,6 @@
 // One-command real Drive smoke test. Only newly created test files are ever changed.
 const randomUUID=()=>globalThis.crypto.randomUUID();
-import {createReader} from './catalog.js';
+import {createReader} from './catalog.js?v=3';
 const PROJECT='bm-portal-multi-v1',API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files';
 export async function runDriveSmoke({getToken,fetcher=fetch,runId=randomUUID().replaceAll('-','')}){
  if(!/^[a-zA-Z0-9_-]{8,80}$/.test(runId))throw Error('Identificador de teste inválido');

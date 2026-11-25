@@ -40,6 +40,12 @@ async function open(context,label){
    await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
    await p.waitForFunction(label=>document.querySelector('#bmCardPeekV050 .bm-v050-peek-answer')?.innerText.includes('Resposta privada '+label),label);
    assert.ok(!(await answer.innerText()).includes('Resposta privada '+(label==='A'?'B':'A')));
+   const article=answer.locator('.bm349-reading');await article.waitFor({state:'visible'});
+   assert.equal(await article.locator('.historic-module').count(),11,'11 módulos do perfil privado');
+   assert.equal(await article.getAttribute('data-render-fallback'),null,'sem fallback');
+   assert.deepEqual(await article.locator('p[data-bm-answer-paragraph]').allTextContents(),['Resposta privada '+label]);
+   assert.equal(await p.evaluate(()=>cards[0].consolidation.profile.modules.length),11);
+   assert.ok(!(await article.innerText()).includes('Módulo experimental 3 do perfil '+(label==='A'?'B':'A')));
   }
   assert.equal(publicReads,0);assert.ok(privateReads>0);console.log('Perfil '+label+': fonte privada e sem fallback público');
  }finally{await p.close()}

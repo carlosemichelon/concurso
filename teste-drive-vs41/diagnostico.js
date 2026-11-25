@@ -1,4 +1,4 @@
-import {runDriveSmoke} from './drive-smoke.js';
+import {runDriveSmoke} from './drive-smoke.js?v=3';
 const button=document.getElementById('run'),status=document.getElementById('status'),results=document.getElementById('results');
 const scope='https://www.googleapis.com/auth/drive.file';
 let client=null,busy=false;

@@ -7,7 +7,7 @@ try{
   const req=route.request(),url=new URL(req.url()),method=req.method(),headers={'access-control-allow-origin':'*','access-control-allow-methods':'GET,POST,PATCH,OPTIONS','access-control-allow-headers':'authorization,content-type'};
   const json=(obj,status=200)=>route.fulfill({status,headers,contentType:'application/json',body:JSON.stringify(obj)});
   if(url.href.startsWith(base)){
-   const rel=url.href.slice(base.length);if(!/^(?:teste-drive-vs41\/(?:index\.html|diagnostico\.js|catalog\.js|drive-smoke\.js)|assets\/drive_auth_v038\.json)$/.test(rel))return route.abort();
+   const rel=url.pathname.slice(new URL(base).pathname.length);if(!/^(?:teste-drive-vs41\/(?:index\.html|diagnostico\.js|catalog\.js|drive-smoke\.js)|assets\/drive_auth_v038\.json)$/.test(rel))return route.abort();
    return route.fulfill({contentType:rel.endsWith('.js')?'application/javascript':rel.endsWith('.json')?'application/json':'text/html',body:fs.readFileSync(rel,'utf8')});
   }
   if(url.href==='https://accounts.google.com/gsi/client')return route.fulfill({contentType:'application/javascript',body:`window.google={accounts:{oauth2:{hasGrantedAllScopes:(r,s)=>r.scope===s,initTokenClient:c=>({requestAccessToken(){if(c.scope!==${JSON.stringify(scope)}||c.include_granted_scopes!==false)throw Error('scope');c.callback(window.__testConsent?{access_token:'fixture',scope:c.scope}:{error:'access_denied'})}})}}};`});
