@@ -23,7 +23,7 @@ function applyEvolutionBatch(snapshot,packet){
   assert.ok(Array.isArray(e.highlights)&&e.highlights.length>0,'Grifos ausentes');
   assert.ok(Array.isArray(e.media),'Inventário de mídias obrigatório');
   for(const old of oldEditorial.media||[])assert.ok(e.media.some(m=>JSON.stringify(m)===JSON.stringify(old)),'Mídia anterior alterada: '+old.id);
-  for(const m of e.media)assert.ok(nonempty(m.id)&&nonempty(m.role)&&nonempty(m.src)&&!m.src.includes('..')&&m.src.startsWith('assets/'),'Mídia pública inválida');
+  for(const m of e.media){assert.ok(nonempty(m.id)&&nonempty(m.role),'Mídia sem identificação');if(!m.src){assert.ok((oldEditorial.media||[]).some(old=>JSON.stringify(old)===JSON.stringify(m)),'Somente referência histórica sem arquivo pode ser preservada');continue;}assert.ok(nonempty(m.src)&&!m.src.includes('..')&&m.src.startsWith('assets/'),'Mídia pública inválida');}
   assert.ok(Array.isArray(r.related_card_ids));const links=[...new Set([...(c.related_card_ids||[]),...r.related_card_ids])];
   for(const id of links)assert.ok(id!==c.id&&map.has(id)&&map.get(id).active!==false,'Vínculo inválido: '+id);
   const previous=copy(c),historical=prev?.historical_ids||[c.id];
