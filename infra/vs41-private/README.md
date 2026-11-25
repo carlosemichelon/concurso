@@ -28,3 +28,5 @@ Coleção opcional media no manifesto do perfil, com ID didático, card_ids, fil
 A API lista apenas os PDFs do manifesto do usuário vinculados a cartões ativos, sem expor IDs físicos do Drive. A abertura binária reutiliza a rota de mídia previamente validada. Ainda não substitui os módulos históricos da biblioteca, editor e grifos; nenhuma migração ou alteração da interface oficial. Testes cobrem títulos, vínculos e acesso cruzado.
 ## Base atualizada
 Versão de produção V432/VC49 (1.486 cartões ativos), incorporada sem alteração de arquivos oficiais. Branch experimental preserva os adaptadores e testes; não publicada.
+## Biblioteca PDF — visualização experimental
+A base VC49 permanece intacta. A biblioteca original recebe listagem autenticada, agrupada por seção; o host experimental substitui o scanner administrativo e desativa o fallback histórico. Prévia do PDF pelo diálogo original (blob temporário, revogado ao fechar), sem acesso direto ao Drive pelo estudante. Edição, grifos, arquivamento e documentos sem vínculo ainda não homologados. Testes de abertura verificam os bytes do PDF fictício, não a renderização de páginas reais.

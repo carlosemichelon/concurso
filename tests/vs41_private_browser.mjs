@@ -1,3 +1,4 @@
+import {privatePdfLibrary,privatePdfSync} from '../infra/vs41-private/pdf-library.mjs';
 import {privateMediaRenderer} from '../infra/vs41-private/media-renderer.mjs';
 import {privateCalendar,privateStudyQueue} from '../infra/vs41-private/calendar.mjs';
 import {privateJournal} from '../infra/vs41-private/journal.mjs';
@@ -18,6 +19,7 @@ const server=http.createServer(async(req,res)=>{
  if(u.pathname==='/assets/v382_srs_journal_vc23.js'){res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(privateJournal(fs.readFileSync('assets/v382_srs_journal_vc23.js','utf8')))}
  if(u.pathname==='/assets/v414_js_076_087_header.js'||u.pathname==='/assets/v383_study_queue.js'){const file=u.pathname.slice(1),adapt=file.includes('header')?privateCalendar:privateStudyQueue;res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(adapt(fs.readFileSync(file,'utf8')))}
  if(u.pathname==='/assets/v417_shared_reader.js'){res.setHeader('Content-Type','application/javascript');return res.end(privateMediaRenderer(fs.readFileSync('assets/v417_shared_reader.js','utf8')))}
+ if(u.pathname==='/assets/v432_js_002_015_topic_media.js'||u.pathname==='/assets/v432_js_040_051_atlas.js'){const file=u.pathname.slice(1),adapt=file.includes('topic_media')?privatePdfLibrary:privatePdfSync;res.setHeader('Content-Type','application/javascript');return res.end(adapt(fs.readFileSync(file,'utf8')))}
  // Only serve the original portal's static assets and the one private client script.
  if(!u.pathname.startsWith('/assets/')&&u.pathname!=='/infra/vs41-private/client.js'){res.writeHead(404);return res.end()}
  const file=path.resolve(root,'.'+u.pathname);
@@ -90,6 +92,19 @@ try{
   await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
  }
  console.log('Calendário e fila: catálogo, vencimentos e classificações individuais, sem histórico público.');
+ for(const [p,label] of [[oldA,'A'],[oldB,'B']]){
+  await p.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
+  await p.evaluate(()=>section('pdfs'));await p.locator('#pdfRows .v036-pdf-title').waitFor({state:'visible'});
+  assert.deepEqual(await p.locator('#pdfRows .v036-pdf-title').allTextContents(),['Material privado '+label]);
+  await p.locator('#pdfRows .v036-pdf-actions button').first().click();
+  await p.locator('#pdfDialog[open]').waitFor({state:'visible'});assert.equal(await p.locator('#docTitle').innerText(),'Material privado '+label);
+  const src=await p.locator('#pdfFrame').getAttribute('src');assert.match(src,/^blob:/);
+  assert.ok((await p.evaluate(async src=>await (await fetch(src)).text(),src)).includes('perfil '+label));
+  await p.locator('#pdfClose').click();
+  assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
+  await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
+ }
+ console.log('Biblioteca original: agrupamento, filtro, abertura do PDF próprio; preview sem edição.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});

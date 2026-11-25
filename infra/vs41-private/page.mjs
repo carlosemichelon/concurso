@@ -7,6 +7,10 @@ export function privatePage(source){
  replace("!p.guideData||!p.generalGuide||!p.auditF17||!p.answersF17)throw Error('Catálogo consolidado inválido');\n  }catch(e){","!p.guideData||!p.generalGuide||!p.auditF17||!p.answersF17)throw Error('Catálogo consolidado inválido');\n   }\n  }catch(e){");
  replace("const base=p.base,ijui=p.ijui;\n   cards=[...base,...ijui];loadedCards=true;bm366ApplyRelations(cards);","const base=p.base,ijui=p.ijui;\n   cards=[...base,...ijui];loadedCards=true;if(!privateSource)bm366ApplyRelations(cards);");
  replace("function loadCardsLegacy(){\n if(bm123CardsPromise)","function loadCardsLegacy(){\n return Promise.reject(Error('Fonte legada bloqueada no ambiente privado'));\n if(bm123CardsPromise)");
+ replace("if(name==='imagens')loadImages();","if(name==='pdfs')void window.BancoMestrePDFSyncV130?.refresh?.();\n if(name==='imagens')loadImages();");
+ const start=html.indexOf('async function pdfInit(){'),end=html.indexOf('function pdfRender(){',start);
+ if(start<0||end<0)throw Error('Contrato PDF divergente');
+ html=html.slice(0,start)+"async function pdfInit(){return true}\n"+html.slice(end);
  replace('<head>','<head><script src="/infra/vs41-private/client.js"></script>');
  return html;
 }

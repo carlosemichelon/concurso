@@ -40,7 +40,24 @@
   async read(){const p=await reviewRequest();if(!Array.isArray(p.events))throw Error('Histórico inválido');return p.events},
   async record(input){return (await reviewRequest(input)).event}
  })});
- Object.defineProperty(window,'BMVS41PrivatePdfs',{value:Object.freeze({async list(){
+ let pdfUrl='',pdfSerial=0;
+ function releasePdf(){pdfSerial++;if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl='';}
+ window.addEventListener('pagehide',releasePdf);
+ Object.defineProperty(window,'BMVS41PrivatePdfs',{value:Object.freeze({
+ async preview(doc){
+  if(!doc||!Array.isArray(doc.card_ids)||!doc.card_ids.length)throw Error('Vínculo PDF indisponível');
+  const dialog=document.getElementById('pdfDialog'),frame=document.getElementById('pdfFrame'),status=document.getElementById('pdfLocalStatus');
+  if(!dialog||!frame||!status)throw Error('Leitor indisponível');
+  releasePdf();const serial=pdfSerial;
+  const expected=await check();const blob=await window.BMVS41PrivateMedia.read(doc.card_ids[0],doc.id);
+  if(serial!==pdfSerial||context!==expected||locked||blob.type!=='application/pdf')throw Error('Sessão ou arquivo alterado');
+  pdfUrl=URL.createObjectURL(blob);document.getElementById('docTitle').textContent=doc.title;
+  document.getElementById('pdfOriginal').removeAttribute('href');document.getElementById('pdfOriginal').hidden=true;
+  document.getElementById('pdfChooseLocal').hidden=true;document.getElementById('pdfLocalTools').hidden=true;
+  document.getElementById('pdfLocalMode').classList.remove('active');document.getElementById('pdfIntro').hidden=true;
+  frame.classList.remove('localHidden');frame.src=pdfUrl;status.textContent='Leitura privada confirmada. Edição e grifos ainda não homologados.';
+  dialog.addEventListener('close',releasePdf,{once:true});if(!dialog.open)dialog.showModal();return true;
+ },async list(){
   const expected=await check();start();const r=await request('/api/vs41/pdfs',{'X-BM-Context':expected});
   if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
   if(!r.ok)throw Error('Biblioteca privada indisponível');
