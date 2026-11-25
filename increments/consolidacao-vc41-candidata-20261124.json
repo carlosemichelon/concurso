@@ -1,7 +1,7 @@
 {
   "format": "BancoMestreConsolidacaoCandidata1",
   "date": "2026-11-24",
-  "status": "AUTORIZADA_CANDIDATA_11_MODULOS_PREPARADOS_NAO_PUBLICADA",
+  "status": "CANDIDATA_CONFERIDA_E_AJUSTADA_NAO_PUBLICADA",
   "source_catalog_blob": "31a0e2eccb13b7e30d1ab9f696ab32ad151de4cb",
   "source_catalog": "VC41",
   "counts": {
@@ -12,9 +12,11 @@
     "active_projected": 1515,
     "new_ids": 0,
     "modules": 385,
-    "public_media_associations": 3,
+    "public_media_associations": 2,
     "public_atlas_associations": 5,
-    "private_reference_associations_observed": 1
+    "private_reference_associations_observed": 1,
+    "structured_tables": 14,
+    "native_formulas": 18
   },
   "method": "VM13 / v015",
   "policy": "Sem exclusão física, sem novo ID, sem SRS. Não promover sem reconciliação de mídias, histórico, deltas privados, 11 módulos e teste do lote. Fonte pública preservada por blob. Valores normativos mantidos no contexto das edições citadas.",
@@ -135,7 +137,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Quem volta da, vai à; quem volta de, vai a.",
       "modules": [
@@ -201,8 +203,9 @@
         ],
         "highlights": [
           {
-            "text": "Se o verbo exige a preposição a, o teste de retorno ajuda a descobrir se o lugar admite artigo: volto da → vou à",
+            "text": "Se o verbo exige a preposição a",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -210,7 +213,27 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Retorno",
+            "Ida com verbo que exige a"
+          ],
+          "rows": [
+            [
+              "da Bahia",
+              "à Bahia"
+            ],
+            [
+              "de Brasília",
+              "a Brasília"
+            ],
+            [
+              "da Roma antiga",
+              "à Roma antiga"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -266,7 +289,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Sifonado = selo; seco = sem selo próprio.",
       "modules": [
@@ -334,6 +357,7 @@
           {
             "text": "O ralo sifonado tem fecho hídrico incorporado, que impede a passagem de gases quando mantido",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -395,7 +419,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Price: prestação fixa; amortização cresce.",
       "modules": [
@@ -463,6 +487,7 @@
           {
             "text": "PMT=PV·i/[1−(1+i)^(−n)], i≠0",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -470,7 +495,14 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Prestação postecipada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>PMT</mi><mo>=</mo><mfrac><mrow><mi>PV</mi><mo>·</mo><mi>i</mi></mrow><mrow><mn>1</mn><mo>−</mo><msup><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow></mfrac></mrow></math>",
+            "units": "PMT e PV em moeda; i por período; n em períodos."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -526,7 +558,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "As built = como construído.",
       "modules": [
@@ -592,8 +624,9 @@
         ],
         "highlights": [
           {
-            "text": "Registra o que efetivamente foi executado: posições, geometria, dimensões e alterações relevantes, apoiando manutenção e intervenções",
+            "text": "Registra o que efetivamente foi executado: posições",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -655,7 +688,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Deslocamentos primeiro; esforços depois.",
       "modules": [
@@ -723,6 +756,7 @@
           {
             "text": "As incógnitas são translações e rotações nodais livres",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -784,7 +818,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "STJ 1094: superior, mesma área.",
       "modules": [
@@ -850,8 +884,9 @@
         ],
         "highlights": [
           {
-            "text": "A tese registrada exige diploma de nível superior na mesma área profissional da formação técnica exigida",
+            "text": "A tese registrada exige diploma de nível superior na mesma área profis",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -913,7 +948,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Chega G; emite E; sai tudo J.",
       "modules": [
@@ -981,6 +1016,7 @@
           {
             "text": "Irradiância é a potência radiante incidente por área",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -988,7 +1024,14 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Radiosidade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>J</mi><mo>=</mo><mrow><mi>E</mi><mo>+</mo><mi>ρ</mi><mi>G</mi></mrow></mrow></math>",
+            "units": "J, E, G em W/m²; ρ adimensional."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -1042,7 +1085,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Soma zero não é parcela zero.",
       "modules": [
@@ -1110,6 +1153,7 @@
           {
             "text": "Não",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -1393,7 +1437,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "λ conduz; R resiste; U transmite.",
       "modules": [
@@ -1461,6 +1505,7 @@
           {
             "text": "Para condução unidimensional estacionária, R=e/λ (m²·K/W) e Rg=e/(λA) (K/W)",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -1478,7 +1523,19 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Resistência térmica por área",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mfrac><mi>e</mi><mi>λ</mi></mfrac></math>",
+            "units": "R em m²·K/W; e em m; λ em W/(m·K)"
+          },
+          {
+            "title": "Resistência global da camada",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>R</mi><mi>g</mi></msub><mo>=</mo><mfrac><mi>e</mi><mrow><mi>λ</mi><mi>A</mi></mrow></mfrac></math>",
+            "units": "Rg em K/W; A em m²"
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 1,
@@ -1532,7 +1589,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Sofre a ação do nome: complemento; faz/possui: adjunto.",
       "modules": [
@@ -1600,6 +1657,7 @@
           {
             "text": "O termo preposicionado completa o substantivo abstrato destruição e representa o paciente da ação",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -1664,7 +1722,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "D: corrente; R: residual; P: pico.",
       "modules": [
@@ -1732,6 +1790,7 @@
           {
             "text": "Disjuntor: sobrecorrente, incluindo sobrecarga e curto-circuito conforme dispositivo",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -1739,7 +1798,27 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Dispositivo",
+            "Fenômeno"
+          ],
+          "rows": [
+            [
+              "Disjuntor",
+              "Sobrecorrente"
+            ],
+            [
+              "DR",
+              "Corrente diferencial-residual"
+            ],
+            [
+              "DPS",
+              "Surto de tensão"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -1795,7 +1874,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Mictório: tampa cega, caixa exclusiva.",
       "modules": [
@@ -1863,6 +1942,7 @@
           {
             "text": "A caixa deve ter tampa cega e não receber despejos de outros aparelhos",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -1926,7 +2006,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Retorno é fase comandada, nunca neutro.",
       "modules": [
@@ -1994,6 +2074,7 @@
           {
             "text": "Retorno é condutor de fase comandado pelo interruptor para a carga",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -2055,7 +2136,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Química costuma abranger mais que biológica.",
       "modules": [
@@ -2123,6 +2204,7 @@
           {
             "text": "DBO estima o oxigênio consumido na biodegradação em condições padronizadas",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -2188,7 +2270,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Consolo para baixo: tirante em cima.",
       "modules": [
@@ -2256,6 +2338,7 @@
           {
             "text": "Na região superior tracionada, com ancoragem adequada",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -2317,7 +2400,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Estilo estrutura; sumário captura; atualizar sincroniza.",
       "modules": [
@@ -2385,6 +2468,7 @@
           {
             "text": "Aplicar estilos de título (Título 1, Título 2 etc",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -2446,7 +2530,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "10157: perigosos; 13896: não perigosos.",
       "modules": [
@@ -2514,6 +2598,7 @@
           {
             "text": "NBR 10157: aterros de resíduos perigosos",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -2521,7 +2606,23 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Norma (edição histórica)",
+            "Escopo"
+          ],
+          "rows": [
+            [
+              "NBR 10157:1987",
+              "Resíduos perigosos"
+            ],
+            [
+              "NBR 13896:1997",
+              "Resíduos não perigosos"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -2578,7 +2679,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Fluxo W; densidade W por m².",
       "modules": [
@@ -2646,6 +2747,7 @@
           {
             "text": "Φ é a energia transferida por unidade de tempo (W)",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -2653,7 +2755,14 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Densidade de fluxo",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>q″</mi><mo>=</mo><mfrac><mi>Φ</mi><mi>A</mi></mfrac></mrow></math>",
+            "units": "Φ em W; A em m²; q″ em W/m²."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -2807,7 +2916,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "3: aço escoa; 4: concreto esmaga antes.",
       "modules": [
@@ -2875,6 +2984,7 @@
           {
             "text": "Domínio 1: seção tracionada, x<0",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -2891,7 +3001,39 @@
         ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Domínio",
+            "Estado do concreto e aço"
+          ],
+          "rows": [
+            [
+              "1",
+              "Tração integral"
+            ],
+            [
+              "2",
+              "Aço a 10‰; concreto abaixo de εcu"
+            ],
+            [
+              "3",
+              "Concreto a εcu; aço escoado"
+            ],
+            [
+              "4",
+              "Concreto a εcu; aço tracionado não escoado"
+            ],
+            [
+              "4a",
+              "d < x < h; aço em d comprimido"
+            ],
+            [
+              "5",
+              "Compressão integral"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -2995,7 +3137,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Triângulos: εc em cima; εc+εs embaixo.",
       "modules": [
@@ -3063,6 +3205,7 @@
           {
             "text": "1/2: x=0",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -3070,7 +3213,42 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Fronteira",
+            "Posição"
+          ],
+          "rows": [
+            [
+              "1/2",
+              "x = 0"
+            ],
+            [
+              "2/3",
+              "x/d ≈ 0,2593"
+            ],
+            [
+              "3/4",
+              "x/d ≈ 0,6284"
+            ],
+            [
+              "4/4a",
+              "x = d"
+            ],
+            [
+              "4a/5",
+              "x = h"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Compatibilidade na fronteira",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mfrac><mi>x</mi><mi>d</mi></mfrac><mo>=</mo><mfrac><msub><mi>ε</mi><mi>cu</mi></msub><mrow><msub><mi>ε</mi><mi>cu</mi></msub><mo>+</mo><msub><mi>ε</mi><mi>s</mi></msub></mrow></mfrac></mrow></math>",
+            "units": "x/d adimensional; deformações em unidades compatíveis."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -3194,7 +3372,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "BLOQUEADO_FIGURA_ORIGINAL_NAO_LOCALIZADA",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Positivo puxa; negativo comprime.",
       "modules": [
@@ -3262,6 +3440,7 @@
           {
             "text": "Resultados registrados (kN): F1=−1,000",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -3269,7 +3448,43 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Barra",
+            "Esforço (kN)"
+          ],
+          "rows": [
+            [
+              "F1",
+              "−1,000"
+            ],
+            [
+              "F2",
+              "−0,333"
+            ],
+            [
+              "F3",
+              "−12,619"
+            ],
+            [
+              "F4",
+              "+0,601"
+            ],
+            [
+              "F5",
+              "−0,601"
+            ],
+            [
+              "F6",
+              "+0,601"
+            ],
+            [
+              "F7",
+              "−7,333"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -3365,7 +3580,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "7–8; 10–12; 14–16.",
       "modules": [
@@ -3433,6 +3648,7 @@
           {
             "text": "Cobertura sem balanço: 7 cm",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -3440,7 +3656,39 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Tipo de laje",
+            "h mínimo (cm)"
+          ],
+          "rows": [
+            [
+              "Cobertura sem balanço",
+              "7"
+            ],
+            [
+              "Piso sem balanço",
+              "8"
+            ],
+            [
+              "Veículos ≤30 kN",
+              "10"
+            ],
+            [
+              "Veículos >30 kN",
+              "12"
+            ],
+            [
+              "Cogumelo fora do capitel",
+              "14"
+            ],
+            [
+              "Lisa",
+              "16"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -3538,7 +3786,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Geral, estrutura, piso, parede, cobertura, água.",
       "modules": [
@@ -3606,6 +3854,7 @@
           {
             "text": "1: requisitos gerais",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -3613,7 +3862,39 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Parte da NBR 15575",
+            "Sistema"
+          ],
+          "rows": [
+            [
+              "1",
+              "Requisitos gerais"
+            ],
+            [
+              "2",
+              "Estruturas"
+            ],
+            [
+              "3",
+              "Pisos"
+            ],
+            [
+              "4",
+              "Vedações verticais internas e externas"
+            ],
+            [
+              "5",
+              "Coberturas"
+            ],
+            [
+              "6",
+              "Hidrossanitário"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -3695,7 +3976,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "53–31–40; diâmetro externo.",
       "modules": [
@@ -3763,6 +4044,7 @@
           {
             "text": "NBR 5410:2004: 1 condutor 53%",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -3770,7 +4052,34 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Condutores",
+            "Ocupação máxima"
+          ],
+          "rows": [
+            [
+              "1",
+              "53%"
+            ],
+            [
+              "2",
+              "31%"
+            ],
+            [
+              "3 ou mais",
+              "40%"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Ocupação de eletroduto",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>T</mi><mo>=</mo><mrow><mn>100</mn><mo>·</mo><mfrac><mrow><mo>∑</mo><msub><mi>A</mi><mi>cabos</mi></msub></mrow><msub><mi>A</mi><mi>interna</mi></msub></mfrac></mrow></mrow></math>",
+            "units": "T em %; áreas em mm² ou mesma unidade de área."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -3852,7 +4161,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "BLOQUEADO_FIGURA_ORIGINAL_NAO_LOCALIZADA",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Areia → areia argilosa → argila arenosa → argila plástica.",
       "modules": [
@@ -3920,6 +4229,7 @@
           {
             "text": "1: areia",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -3927,7 +4237,31 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Curva na figura original",
+            "Solo"
+          ],
+          "rows": [
+            [
+              "1",
+              "Areia"
+            ],
+            [
+              "2",
+              "Areia argilosa"
+            ],
+            [
+              "3",
+              "Argila arenosa"
+            ],
+            [
+              "4",
+              "Argila plástica"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -3941,7 +4275,7 @@
       "id": "CARD-1557",
       "title": "CP V-ARI: requisitos",
       "front": "Quais os requisitos de resistência inicial, pega, expansibilidade e finura do CP V-ARI na tabela da NBR 16697:2018, e como verificar exemplos?",
-      "back": "Resistência mínima 14, 24 e 34 MPa aos 1, 3 e 7 dias; início de pega ≥60 min; expansibilidade a quente ≤5 mm; resíduo na peneira 75 µm ≤6%. 23 MPa aos 3 dias fica 1 MPa abaixo; 32 MPa aos 7 dias fica 2 MPa abaixo na comparação direta. Preservar a distinção entre critério individual e aceitação normativa.",
+      "back": "Nos tipos de cimento listados na Tabela 4 da NBR 16697:2018, início de pega ≥60 min e expansibilidade a quente ≤5 mm. Para CP V-ARI: resistências mínimas de 14, 24 e 34 MPa aos 1, 3 e 7 dias; resíduo na peneira de 75 µm ≤6%. 23 MPa aos 3 dias fica 1 MPa abaixo; 32 MPa aos 7 dias fica 2 MPa abaixo na comparação direta. A alta resistência inicial não permite início de pega inferior a 60 min. Preservar a distinção entre comparação individual e critérios normativos de aceitação.",
       "satellites": [
         "CARD-0567",
         "CARD-0568",
@@ -4019,7 +4353,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "6 / 60 / 5 / 14–24–34.",
       "modules": [
@@ -4031,7 +4365,7 @@
         {
           "ord": 2,
           "titulo": "Resposta-modelo",
-          "texto": "Resistência mínima 14, 24 e 34 MPa aos 1, 3 e 7 dias; início de pega ≥60 min; expansibilidade a quente ≤5 mm; resíduo na peneira 75 µm ≤6%. 23 MPa aos 3 dias fica 1 MPa abaixo; 32 MPa aos 7 dias fica 2 MPa abaixo na comparação direta. Preservar a distinção entre critério individual e aceitação normativa."
+          "texto": "Nos tipos de cimento listados na Tabela 4 da NBR 16697:2018, início de pega ≥60 min e expansibilidade a quente ≤5 mm. Para CP V-ARI: resistências mínimas de 14, 24 e 34 MPa aos 1, 3 e 7 dias; resíduo na peneira de 75 µm ≤6%. 23 MPa aos 3 dias fica 1 MPa abaixo; 32 MPa aos 7 dias fica 2 MPa abaixo na comparação direta. A alta resistência inicial não permite início de pega inferior a 60 min. Preservar a distinção entre comparação individual e critérios normativos de aceitação."
         },
         {
           "ord": 3,
@@ -4081,12 +4415,13 @@
       ],
       "editorial": {
         "answer_paragraphs": [
-          "Resistência mínima 14, 24 e 34 MPa aos 1, 3 e 7 dias; início de pega ≥60 min; expansibilidade a quente ≤5 mm; resíduo na peneira 75 µm ≤6%. 23 MPa aos 3 dias fica 1 MPa abaixo; 32 MPa aos 7 dias fica 2 MPa abaixo na comparação direta. Preservar a distinção entre critério individual e aceitação normativa."
+          "Nos tipos de cimento listados na Tabela 4 da NBR 16697:2018, início de pega ≥60 min e expansibilidade a quente ≤5 mm. Para CP V-ARI: resistências mínimas de 14, 24 e 34 MPa aos 1, 3 e 7 dias; resíduo na peneira de 75 µm ≤6%. 23 MPa aos 3 dias fica 1 MPa abaixo; 32 MPa aos 7 dias fica 2 MPa abaixo na comparação direta. A alta resistência inicial não permite início de pega inferior a 60 min. Preservar a distinção entre comparação individual e critérios normativos de aceitação."
         ],
         "highlights": [
           {
-            "text": "Resistência mínima 14, 24 e 34 MPa aos 1, 3 e 7 dias",
+            "text": "início de pega ≥60 min",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -4094,24 +4429,53 @@
           {
             "id": "BM339-VIS-ENSAIOS",
             "src": "assets/card_visuals_v339/ensaios.svg",
-            "role": "VERSO_APOS_RESPOSTA",
-            "caption": "SVG_DIDATICO_PUBLICO",
-            "source": "V339"
-          },
-          {
-            "id": "BM339-VIS-ENSAIOS",
-            "src": "assets/card_visuals_v339/ensaios.svg",
-            "role": "IMAGEM_DO_CARTAO_VERSO",
-            "caption": "Comparação técnica de instrumentos: Vicat com sonda e agulha e aparelho de Le Chatelier; grandezas e limites não intercambiáveis."
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Comparação técnica de instrumentos: Vicat com sonda e agulha e aparelho de Le Chatelier; grandezas e limites não intercambiáveis.",
+            "legacy_roles": [
+              "VERSO_APOS_RESPOSTA",
+              "IMAGEM_DO_CARTAO_VERSO"
+            ]
           }
         ],
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Propriedade",
+            "Limite registrado"
+          ],
+          "rows": [
+            [
+              "Resistência 1 dia",
+              "≥14 MPa"
+            ],
+            [
+              "Resistência 3 dias",
+              "≥24 MPa"
+            ],
+            [
+              "Resistência 7 dias",
+              "≥34 MPa"
+            ],
+            [
+              "Início de pega",
+              "≥60 min"
+            ],
+            [
+              "Expansibilidade a quente",
+              "≤5 mm"
+            ],
+            [
+              "Resíduo 75 µm",
+              "≤6%"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
-        "public_profile_and_registries": 2,
+        "public_profile_and_registries": 1,
         "atlas_associations": 0,
         "private_links_indicated_count": 1,
         "private_inventory_verified": false,
@@ -4190,7 +4554,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "I inicial; S secante.",
       "modules": [
@@ -4258,6 +4622,7 @@
           {
             "text": "Eci: módulo tangente inicial",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -4265,7 +4630,19 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Módulo tangente inicial",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>E</mi><mi>ci</mi></msub><mo>=</mo><mrow><msub><mi>α</mi><mi>E</mi></msub><mo>·</mo><mn>5600</mn><msqrt><msub><mi>f</mi><mi>ck</mi></msub></msqrt></mrow></mrow></math>",
+            "units": "Eci e fck em MPa; αE adimensional; faixa histórica 20–50 MPa."
+          },
+          {
+            "title": "Módulo secante",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>E</mi><mi>cs</mi></msub><mo>=</mo><mrow><msub><mi>α</mi><mi>i</mi></msub><msub><mi>E</mi><mi>ci</mi></msub></mrow></mrow></math>",
+            "units": "Ecs e Eci em MPa; αi adimensional."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -4440,7 +4817,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "342 sobre raiz; 290 sobre R.",
       "modules": [
@@ -4508,6 +4885,7 @@
           {
             "text": "Icalc=(342√R+290)/R, R em metros e resultado em graus na apostila citada",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -4524,7 +4902,14 @@
         ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Expressão histórica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>I</mi><mi>calc</mi></msub><mo>=</mo><mrow><mfrac><mn>342</mn><msqrt><mi>R</mi></msqrt></mfrac><mo>+</mo><mfrac><mn>290</mn><mi>R</mi></mfrac></mrow></mrow></math>",
+            "units": "R em m; Icalc em graus, conforme apostila histórica."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -4592,7 +4977,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "5/8, 3/8, −1/8.",
       "modules": [
@@ -4660,6 +5045,7 @@
           {
             "text": "Para EI constante e apoios sem deslocamento imposto: RA=5qL/8, RB=3qL/8",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -4676,7 +5062,24 @@
         ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Reação A",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>R</mi><mi>A</mi></msub><mo>=</mo><mfrac><mrow><mn>5</mn><mi>q</mi><mi>L</mi></mrow><mn>8</mn></mfrac></mrow></math>",
+            "units": "q em kN/m; L em m; RA em kN."
+          },
+          {
+            "title": "Reação B",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>R</mi><mi>B</mi></msub><mo>=</mo><mfrac><mrow><mn>3</mn><mi>q</mi><mi>L</mi></mrow><mn>8</mn></mfrac></mrow></math>",
+            "units": "RB em kN."
+          },
+          {
+            "title": "Momento interno",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>M</mi><mi>A</mi></msub><mo>=</mo><mrow><mo>−</mo><mfrac><mrow><mi>q</mi><msup><mi>L</mi><mn>2</mn></msup></mrow><mn>8</mn></mfrac></mrow></mrow></math>",
+            "units": "MA em kN·m."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -4735,7 +5138,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "q no balanço: quarta potência / 8EI.",
       "modules": [
@@ -4803,6 +5206,7 @@
           {
             "text": "|δ|=qL⁴/(8EI) para viga prismática elástica linear com EI constante",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -4810,7 +5214,14 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Flecha de balanço sob carga uniforme",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>δ</mi><mo>=</mo><mfrac><mrow><mi>q</mi><msup><mi>L</mi><mn>4</mn></msup></mrow><mrow><mn>8</mn><mi>E</mi><mi>I</mi></mrow></mfrac></mrow></math>",
+            "units": "q em kN/m; L em m; EI em kN·m²; δ em m."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -4852,7 +5263,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "P no balanço: cubo / 3EI.",
       "modules": [
@@ -4920,6 +5331,7 @@
           {
             "text": "δ=PL³/(3EI) em elasticidade linear com EI constante",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -4927,7 +5339,14 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Flecha de balanço sob força na ponta",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>δ</mi><mo>=</mo><mfrac><mrow><mi>P</mi><msup><mi>L</mi><mn>3</mn></msup></mrow><mrow><mn>3</mn><mi>E</mi><mi>I</mi></mrow></mfrac></mrow></math>",
+            "units": "P em kN; L em m; EI em kN·m²; δ em m."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -4998,7 +5417,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Média no centro, semidiferença no raio.",
       "modules": [
@@ -5066,6 +5485,7 @@
           {
             "text": "C=(σ1+σ3)/2",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -5090,7 +5510,19 @@
         ],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "formulas": [
+          {
+            "title": "Centro",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>C</mi><mo>=</mo><mfrac><mrow><msub><mi>σ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>σ</mi><mn>3</mn></msub></mrow><mn>2</mn></mfrac></mrow></math>",
+            "units": "Tensões e C em kPa."
+          },
+          {
+            "title": "Raio",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>R</mi><mo>=</mo><mfrac><mrow><msub><mi>σ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>σ</mi><mn>3</mn></msub></mrow><mn>2</mn></mfrac></mrow></math>",
+            "units": "Tensões e R em kPa."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -5158,7 +5590,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "BLOQUEADO_FIGURA_ORIGINAL_NAO_LOCALIZADA",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Equilíbrio em cada nó; positivo tração.",
       "modules": [
@@ -5226,6 +5658,7 @@
           {
             "text": "Resultados registrados: N_DE=−14,14 kN, N_CE=+20 kN",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -5233,7 +5666,27 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Nó",
+            "Barras (kN)"
+          ],
+          "rows": [
+            [
+              "E",
+              "DE −14,14; CE +20"
+            ],
+            [
+              "D",
+              "CD +14,14; BD −30"
+            ],
+            [
+              "C",
+              "BC −14,14; AC +40"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -5287,7 +5740,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Corpo 30, final 20; compactados.",
       "modules": [
@@ -5355,6 +5808,7 @@
           {
             "text": "Corpo: 0,30 m por camada compactada",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -5362,7 +5816,23 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "Camada compactada",
+            "Máximo"
+          ],
+          "rows": [
+            [
+              "Corpo do aterro",
+              "0,30 m"
+            ],
+            [
+              "Camadas finais",
+              "0,20 m"
+            ]
+          ]
+        }
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -5419,7 +5889,7 @@
           ]
         }
       ],
-      "editorial_status": "11_MODULOS_PREPARADOS; CONFERENCIA_TECNICA_E_PRIVADA_PENDENTE",
+      "editorial_status": "CONFERENCIA_PUBLICA_ESTRUTURAL_REALIZADA; VALIDACAO_PRIVADA_E_NAVEGADOR_PENDENTE",
       "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
       "mnemonic": "Pré sobre atual; >1 já suportou mais.",
       "modules": [
@@ -5487,6 +5957,7 @@
           {
             "text": "OCR=σ′p/σ′v0",
             "kind": "core",
+            "color": "#FDE68A",
             "bold": false
           }
         ],
@@ -5494,7 +5965,34 @@
         "atlas_refs": [],
         "history_collapsed": true,
         "reveal_after_attempt": true,
-        "source_status": "CANDIDATO_A_CONFERENCIA"
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "table": {
+          "headers": [
+            "OCR",
+            "Interpretação"
+          ],
+          "rows": [
+            [
+              "≈1",
+              "Normalmente adensado"
+            ],
+            [
+              ">1",
+              "Sobreadensado"
+            ],
+            [
+              "<1",
+              "Investigar condição transiente ou incerteza"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Razão de sobreadensamento",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>OCR</mi><mo>=</mo><mfrac><msub><mi>σ′</mi><mi>p</mi></msub><msub><mi>σ′</mi><mi>v0</mi></msub></mfrac></mrow></math>",
+            "units": "OCR adimensional; tensões efetivas na mesma unidade."
+          }
+        ]
       },
       "media_reconciliation": {
         "public_profile_and_registries": 0,
@@ -5519,6 +6017,14 @@
     "browser_verified": false,
     "publication": false,
     "all_modules_nonempty": true,
-    "all_source_material_present": true
+    "all_source_material_present": true,
+    "public_original_fields_exact": 102,
+    "valid_redirects": 67,
+    "invalid_public_links": 0,
+    "figure_dependent_pending": [
+      "CARD-1005",
+      "CARD-0703",
+      "CARD-0872"
+    ]
   }
 }
