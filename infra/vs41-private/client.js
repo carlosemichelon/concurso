@@ -40,6 +40,16 @@
   async read(){const p=await reviewRequest();if(!Array.isArray(p.events))throw Error('Histórico inválido');return p.events},
   async record(input){return (await reviewRequest(input)).event}
  })});
+ Object.defineProperty(window,'BMVS41PrivateMedia',{value:Object.freeze({
+  async read(card,id){
+   const expected=await check();start();
+   const r=await request('/api/vs41/media/'+encodeURIComponent(card)+'/'+encodeURIComponent(id),{'X-BM-Context':expected});
+   if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
+   if(!r.ok||r.headers.get('X-BM-Context')!==expected)throw Error('Mídia privada indisponível');
+   const blob=await r.blob();if(locked||context!==expected)throw Error('Sessão alterada');
+   return blob;
+  }
+ })});
  Object.defineProperty(window,'BMVS41PrivateCards',{value:Object.freeze({async read(){
   const expected=await check();start();
   const r=await request('/api/vs41/private-cards',{'X-BM-Context':expected});

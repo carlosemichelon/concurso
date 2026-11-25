@@ -22,7 +22,7 @@ export function verifyRecords(records){
  for(const c of records)if(c.related_card_ids!==undefined&&(!Array.isArray(c.related_card_ids)||c.related_card_ids.some(id=>!seen.has(id))))fail('records-links');
  return structuredClone(records);
 }
-export function createReader({resolveSession,getToken,fetcher=fetch}){
+export function createReader({resolveSession,getToken,fetcher=fetch,includeMedia=false}){
  return async request=>{
   const resolved=await resolveSession(request);if(!resolved||![resolved.subject,resolved.rootId,resolved.profileId,resolved.sessionId].every(idOk))fail('session');
   const session={subject:resolved.subject,rootId:resolved.rootId,profileId:resolved.profileId,sessionId:resolved.sessionId};
@@ -47,8 +47,15 @@ export function createReader({resolveSession,getToken,fetcher=fetch}){
   if(profile?.schema!=='BM-PORTAL-PROFILE/1'||profile.project!==PROJECT||profile.owner!==subject||profile.catalog!=='private-only'||!idOk(profile.collections?.cards))fail('profile-schema');
   const payload=await readJson(profile.collections.cards,'cards',rootId);
   if(payload?.schema!=='BM-PORTAL-COLLECTION/1'||payload.project!==PROJECT||payload.owner!==subject||payload.kind!=='cards')fail('cards-schema');
-  const records=verifyRecords(payload.records),current=await resolveSession(request);
+  const records=verifyRecords(payload.records);let media=[];
+  if(includeMedia&&profile.collections.media){
+   if(!idOk(profile.collections.media))fail('media-id');
+   const m=await readJson(profile.collections.media,'media',rootId);
+   if(m?.schema!=='BM-PORTAL-COLLECTION/1'||m.project!==PROJECT||m.owner!==subject||m.kind!=='media'||!Array.isArray(m.records)||m.records.length>20000)fail('media-schema');
+   media=m.records;
+  }
+  const current=await resolveSession(request);
   if(!current||['subject','rootId','profileId','sessionId'].some(k=>current[k]!==session[k]))fail('session-revoked');
-  return {schema:'BM-VS41-PRIVATE-CARDS/1',records};
+  return {schema:'BM-VS41-PRIVATE-CARDS/1',records,...(includeMedia?{media}:{})};
  };
 }

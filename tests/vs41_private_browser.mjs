@@ -1,10 +1,11 @@
+import {privateMediaRenderer} from '../infra/vs41-private/media-renderer.mjs';
 import {privateCalendar,privateStudyQueue} from '../infra/vs41-private/calendar.mjs';
 import {privateJournal} from '../infra/vs41-private/journal.mjs';
 import {privatePage} from '../infra/vs41-private/page.mjs';
 import fs from 'node:fs';import path from 'node:path';import http from 'node:http';import assert from 'node:assert/strict';import {chromium} from 'playwright';
 import {createApi} from '../infra/vs41-private/api.mjs';import {parseUsers,passwordHash} from '../infra/vs41-private/auth.mjs';
-import {reviewFixture,profiles} from './vs41_private_fixture.mjs';
-const root=process.cwd(),html=fs.readFileSync('index.html','utf8'),f=reviewFixture();
+import {mediaFixture,profiles} from './vs41_private_fixture.mjs';
+const root=process.cwd(),html=fs.readFileSync('index.html','utf8'),f=mediaFixture();
 const manifest=JSON.parse(fs.readFileSync('assets/version.json','utf8'));
 const passwords={A:'fixture-A-only-123',B:'fixture-B-only-123'};
 const users=parseUsers(JSON.stringify(await Promise.all(['A','B'].map(async label=>({username:label,...profiles[label],passwordHash:await passwordHash(passwords[label])})))));
@@ -16,6 +17,7 @@ const server=http.createServer(async(req,res)=>{
  if(u.pathname==='/index.html'){res.setHeader('Content-Type','text/html');res.setHeader('Cache-Control','no-store');return res.end(privatePage(html))}
  if(u.pathname==='/assets/v382_srs_journal_vc23.js'){res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(privateJournal(fs.readFileSync('assets/v382_srs_journal_vc23.js','utf8')))}
  if(u.pathname==='/assets/v414_js_076_087_header.js'||u.pathname==='/assets/v383_study_queue.js'){const file=u.pathname.slice(1),adapt=file.includes('header')?privateCalendar:privateStudyQueue;res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(adapt(fs.readFileSync(file,'utf8')))}
+ if(u.pathname==='/assets/v417_shared_reader.js'){res.setHeader('Content-Type','application/javascript');return res.end(privateMediaRenderer(fs.readFileSync('assets/v417_shared_reader.js','utf8')))}
  // Only serve the original portal's static assets and the one private client script.
  if(!u.pathname.startsWith('/assets/')&&u.pathname!=='/infra/vs41-private/client.js'){res.writeHead(404);return res.end()}
  const file=path.resolve(root,'.'+u.pathname);
@@ -50,6 +52,10 @@ async function open(context,label,keep=false){
    assert.deepEqual(await article.locator('p[data-bm-answer-paragraph]').allTextContents(),['Resposta privada '+label]);
    assert.equal(await p.evaluate(()=>cards[0].consolidation.profile.modules.length),11);
    assert.ok(!(await article.innerText()).includes('Módulo experimental 3 do perfil '+(label==='A'?'B':'A')));
+   const figure=article.locator('figure[data-media-id="IMG-TEST"]');await figure.locator('button').click();
+   await figure.locator('[data-private-state="CARREGADA"]').waitFor({state:'visible'});
+   assert.ok(await figure.locator('img').evaluate(im=>im.naturalWidth>0));
+   const pdf=await p.evaluate(async()=>await (await window.BMVS41PrivateMedia.read('CARD-9901','PDF-TEST')).text());assert.ok(pdf.includes('perfil '+label));
   }
   assert.equal(publicReads,0);assert.ok(sessionReads>0);assert.equal(privateReads>0,label!=='X');console.log('Perfil '+label+': fonte privada e sem fallback público');
   if(keep)return p;

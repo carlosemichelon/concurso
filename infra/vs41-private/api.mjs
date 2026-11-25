@@ -1,6 +1,7 @@
 import {createAuth,sessionToken,sessionCookie} from './auth.mjs';
 import {createReader} from './catalog.mjs';
 import {createReviewStore} from './srs.mjs';
+import {createMediaReader} from './media.mjs';
 const json=(res,status,data,headers={})=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Cross-Origin-Resource-Policy':'same-origin',...headers});res.end(JSON.stringify(data));return true};
 async function body(req){
  if(req.headers['content-type']?.split(';')[0]!=='application/json')throw Error('Formato inválido');
@@ -12,6 +13,7 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
  const resolveSession=async req=>{const token=sessionToken(req.headers.cookie),s=auth.read(token);return s?{subject:s.user.subject,rootId:s.user.rootId,profileId:s.user.profileId,sessionId:token}:null};
  const read=createReader({resolveSession,getToken,fetcher});
  const reviews=createReviewStore({resolveSession,getToken,fetcher,now});
+ const readMedia=createMediaReader({resolveSession,getToken,fetcher});
  return async(req,res)=>{
   const u=new URL(req.url,origin);if(!u.pathname.startsWith('/api/vs41/'))return false;
   if(u.origin!==origin||u.search||req.headers['sec-fetch-site']==='cross-site'||req.headers.origin&&req.headers.origin!==origin)return json(res,403,{error:'Origem não autorizada'});
@@ -44,6 +46,14 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
     try{const data=req.method==='GET'?{events:await reviews.read(req)}:{event:await reviews.record(req,input)};
      if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{...data,context:s.context})}
     catch(e){return json(res,['input','card','prerequisite'].includes(e.code)?400:e.code==='conflict'?409:503,{error:'Revisão privada não confirmada'})}
+   }
+   const mediaPath=u.pathname.match(/^\/api\/vs41\/media\/(CARD-\d{4,12})\/([A-Za-z0-9_-]{1,160})$/);
+   if(req.method==='GET'&&mediaPath){
+    const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
+    try{const m=await readMedia(req,mediaPath[1],mediaPath[2]);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});
+     res.writeHead(200,{'Content-Type':m.mimeType,'Content-Length':m.bytes.length,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Cross-Origin-Resource-Policy':'same-origin','Content-Disposition':m.mimeType==='application/pdf'?'attachment':'inline','X-BM-Context':s.context,'X-BM-SHA256':m.sha256});res.end(m.bytes);return true;
+    }catch{return json(res,404,{error:'Mídia privada indisponível'})}
    }
    return json(res,404,{error:'Rota indisponível'});
   }catch{return json(res,500,{error:'Operação indisponível'})}

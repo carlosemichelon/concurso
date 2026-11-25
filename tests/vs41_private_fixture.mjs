@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 export const project='bm-portal-multi-v1';
 export const card=label=>{
  const front='Pergunta privada '+label,back='Resposta privada '+label,expl='Explicação privada '+label;
@@ -22,4 +23,21 @@ export function reviewFixture(){
   return f.fetcher(url,opts);
  };
  return {...f,fetcher,writes};
+}
+
+export function mediaFixture(base){
+ const f=base||reviewFixture(),original=f.fetcher;
+ const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jOioAAAAASUVORK5CYII=','base64');
+ for(const s of ['A','B']){
+  const root='root'+s,manifest='media'+s,records=[];
+  f.files.get('profile'+s).payload.collections.media=manifest;
+  f.files.get('cards'+s).payload.records[0].consolidation.profile.editorial.media.push({id:'IMG-TEST',role:'VERSO_APOS_TENTATIVA',caption:'Imagem privada '+s,private_original:true});
+  for(const [id,mimeType,bytes] of [['IMG-TEST','image/png',png],['PDF-TEST','application/pdf',Buffer.from('%PDF-1.4\n% perfil '+s+'\n%%EOF')]]){
+   const fileId=id+'-'+s,sha256=createHash('sha256').update(bytes).digest('hex');
+   records.push({id,fileId,mimeType,sha256,card_ids:['CARD-9901']});
+   f.files.set(fileId,{meta:{id:fileId,mimeType,ownedByMe:true,shared:false,trashed:false,parents:[root],size:String(bytes.length),appProperties:{bmProject:project,bmOwner:s,bmKind:'media-file',bmMedia:id}},bytes});
+  }
+  f.files.set(manifest,{meta:{id:manifest,mimeType:'application/json',ownedByMe:true,shared:false,trashed:false,parents:[root],size:'1000',version:'1',appProperties:{bmProject:project,bmOwner:s,bmKind:'media'}},payload:{schema:'BM-PORTAL-COLLECTION/1',project,owner:s,kind:'media',records}});
+ }
+ return {...f,fetcher:async(url,opts)=>{const u=new URL(url),id=u.pathname.split('/').pop(),file=f.files.get(id);if(file?.bytes&&u.searchParams.has('alt')){f.requests.push({id,media:true});return new Response(file.bytes,{headers:{'Content-Type':file.meta.mimeType}})}return original(url,opts)}};
 }
