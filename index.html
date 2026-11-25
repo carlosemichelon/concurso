@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V404"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS14 — Portal de estudos</title><style id="bm-startup-gate">
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V404"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS15 — Portal de estudos</title><style id="bm-startup-gate">
 #bmStartupGate{display:none}
 html[data-bm-startup="pending"] body > :not(#bmStartupGate){opacity:0!important;pointer-events:none!important}
 html[data-bm-startup="pending"] #bmStartupGate{display:flex!important;position:fixed;inset:0;z-index:2147483647;align-items:center;justify-content:center;padding:24px;background:#f3f6f8;color:#253743;font:15px/1.5 system-ui,sans-serif}
@@ -1217,6 +1217,25 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
   const layout=modal?.querySelector('.bm165-layout'), controls=modal?.querySelector('.bm163-preview-controls');
   const toggle=controls?.querySelector('.bm195-open'), title=modal?.querySelector('#bmCardPeekTitleV050');
   if(!editor||!layout||!controls||!toggle||!title)return false;
+  // VS15 — atalhos locais do leitor: reutilizam os cliques, sem alterar SRS.
+  const responseButton=modal.querySelector('.bm-v050-peek-reveal');
+  const searchButton=modal.querySelector('.bm165-toggle-sidebar');
+  responseButton?.setAttribute('aria-keyshortcuts','Alt+R');
+  searchButton?.setAttribute('aria-keyshortcuts','Alt+P');
+  if(responseButton)responseButton.title='Revelar ou ocultar resposta (Alt+R)';
+  function onReaderShortcut(e){
+  if(modal.hidden||!modal.isConnected||e.defaultPrevented||e.isComposing||
+     !e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.getModifierState?.('AltGraph'))return;
+  const key=String(e.key||'').toLowerCase();
+  if(key!=='p'&&key!=='r')return;
+  if(document.querySelector('dialog[open]')||!modal.contains(e.target))return;
+  const button=modal.querySelector(key==='p'?'.bm165-toggle-sidebar':'.bm-v050-peek-reveal');
+  if(!button||button.disabled||button.closest('[hidden]')||!button.getClientRects().length)return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  if(!e.repeat)button.click();
+}
+  document.addEventListener('keydown',onReaderShortcut,true);
   // Reutiliza os manipuladores originais de fechamento, sem tocar nos dados.
   const cardClose=modal.querySelector('.bm163-header .bm163-close');
   if(cardClose){
