@@ -1061,6 +1061,1260 @@
         "CARD-0521"
       ],
       "expected_hash": "aa49ab510f267277676ede08fedac05a0434c148aa093ad9288908a4dcec837d"
+    },
+    {
+      "id": "CARD-0702",
+      "title": "Umidade ótima e curva de compactação Proctor",
+      "front": "O que é a umidade ótima no ensaio de compactação e como se comportam os ramos seco e úmido da curva?",
+      "back": "A umidade ótima wót é a umidade associada à máxima massa específica aparente seca ρd,máx (ou peso específico seco γd,máx) para a energia adotada. No ramo seco, aumentar w geralmente eleva ρd até o pico; após o ótimo, no ramo úmido, ρd geralmente diminui.",
+      "source": "H21-C008\n\nH21-C009\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Proctor: pico seco na umidade certa; depois do ótimo, mais água não ajuda.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que é a umidade ótima no ensaio de compactação e como se comportam os ramos seco e úmido da curva?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A umidade ótima wót é a umidade associada à máxima massa específica aparente seca ρd,máx (ou peso específico seco γd,máx) para a energia adotada. No ramo seco, aumentar w geralmente eleva ρd até o pico; após o ótimo, no ramo úmido, ρd geralmente diminui."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H21-C008\n\nH21-C009\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A água facilita rearranjo das partículas e expulsão de ar até certo ponto; em excesso, limita a densificação sob a mesma energia de compactação."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Se γd máximo é 18 kN/m³ em w=12%, wót=12% para aquela curva. γd é peso específico; ρd é massa específica, com unidades diferentes."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Ramo seco: w<wót. Pico: w≈wót e densidade seca máxima. Ramo úmido: w>wót; acrescentar água não melhora indefinidamente a compactação.\n\nUmidade ótima é determinada em laboratório para a energia especificada; teor de umidade na pista é medido antes da rolagem, para confronto com a referência."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Compare a umidade de campo e densidade seca com a referência do ensaio e os limites do projeto; decidir se é preciso umedecer, aerar ou ajustar compactação."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0702, CARD-1069. Relacionados: CARD-0701, CARD-0707, CARD-0822.\n\nRelacionados: CARD-1446, CARD-0701. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "O ótimo depende do solo, procedimento e energia aplicada; formato exato da curva pode variar. Não confundir umidade natural com ótima."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não concluir que mais água sempre aumenta densidade; não confundir densidade seca com úmida nem γd com ρd.\n\nNão confundir determinação da umidade ótima com determinação do teor real na pista."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Proctor: pico seco na umidade certa; depois do ótimo, mais água não ajuda."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "A umidade ótima wót é a umidade associada à máxima massa específica aparente seca ρd,máx (ou peso específico seco γd,máx) para a energia adotada. No ramo seco, aumentar w geralmente eleva ρd até o pico; após o ótimo, no ramo úmido, ρd geralmente diminui."
+        ],
+        "highlights": [
+          {
+            "text": "A umidade ótima wót é a umidade associada à máxima massa específica aparente seca ρd,máx (ou peso específico seco γd,máx) para a energia adotada",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO"
+      },
+      "related_card_ids": [
+        "CARD-0701",
+        "CARD-0707",
+        "CARD-0822",
+        "CARD-1446"
+      ],
+      "expected_hash": "9420982a62739712467e385f394a3528ce83e89114dbd2ba019f23b44cfc9c00"
+    },
+    {
+      "id": "CARD-0707",
+      "title": "Energia Proctor e interpretação das curvas",
+      "front": "Defina energia específica de compactação, indique as variáveis de ensaio e explique a mudança da curva Proctor ao aumentar energia mantendo o mesmo solo.",
+      "back": "Energia de compactação é o trabalho aplicado por unidade de volume. No ensaio com soquete em queda, depende de massa, altura de queda, golpes por camada, número de camadas e volume do molde. Para o mesmo solo e preparação, elevar a energia geralmente eleva ρd,máx e reduz wótima; não se trata de uma lei linear universal.",
+      "source": "H21-C015/016; ABNT NBR 7182 (energias conforme edição do procedimento); FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Mais energia: pico geralmente sobe e vai à esquerda; compare igual com igual.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Defina energia específica de compactação, indique as variáveis de ensaio e explique a mudança da curva Proctor ao aumentar energia mantendo o mesmo solo."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Energia de compactação é o trabalho aplicado por unidade de volume. No ensaio com soquete em queda, depende de massa, altura de queda, golpes por camada, número de camadas e volume do molde. Para o mesmo solo e preparação, elevar a energia geralmente eleva ρd,máx e reduz wótima; não se trata de uma lei linear universal."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H21-C015/016; ABNT NBR 7182 (energias conforme edição do procedimento); FHWA NHI-05-037, capítulo 8: https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/08.cfm\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Mais trabalho mecânico favorece rearranjo e redução de vazios de ar. Diferentes materiais ou preparação podem alterar a forma e o pico; por isso não se deve atribuir toda diferença entre curvas apenas à energia."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "E=mgh·Ng·Nc/V (J/m³). Exemplo ilustrativo: m=2,5 kg, h=0,305 m, Ng=25, Nc=3, V=0,000944 m³, g=9,81: E≈594 kJ/m³. Os valores são um exemplo de procedimento, não tabela normativa brasileira."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Mesma amostra, energia maior: em geral pico sobe e desloca à esquerda. Solos diferentes, mesma energia: diferenças de material. Compactação: trabalho mecânico, expulsão de ar; adensamento: deformação associada à dissipação de excesso de poropressão."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Curva A: wót=14%, γd,máx=17 kN/m³; B: 12%, 18 kN/m³. Se mesmo solo e preparação, B é compatível com maior energia. Se solos distintos, não é possível atribuir a mudança apenas à energia.\n\nNBR 15115:2004: energia mínima normal para reforço do subleito e intermediária para base e sub-base de agregados reciclados de RCC; não generalizar a outros materiais ou normas."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0701, CARD-0708, CARD-0702, CARD-0824, CARD-0825\n\nRelacionados: CARD-0701, CARD-1442, CARD-0822. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Registrar energia de laboratório, método e material. Quebra de partículas, solos especiais e condições de preparação podem alterar a tendência. Distinguir volume do molde de volume solto lançado em campo."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não comparar GC de duas energias como se tivessem mesmo denominador. Não presumir curva superior sempre de maior energia. Não usar kg como força sem multiplicar por g."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Mais energia: pico geralmente sobe e vai à esquerda; compare igual com igual."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Energia de compactação é o trabalho aplicado por unidade de volume. No ensaio com soquete em queda, depende de massa, altura de queda, golpes por camada, número de camadas e volume do molde. Para o mesmo solo e preparação, elevar a energia geralmente eleva ρd,máx e reduz wótima; não se trata de uma lei linear universal."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "trabalho aplicado por unidade de volume",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "eleva ρd,máx e reduz wótima",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Variável",
+            "Efeito sobre E, demais fixas"
+          ],
+          "rows": [
+            [
+              "Massa/altura",
+              "Aumentam E"
+            ],
+            [
+              "Golpes/camadas",
+              "Aumentam E"
+            ],
+            [
+              "Volume",
+              "Maior V reduz E"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Energia específica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>E</mi><mo>=</mo><mfrac><mrow><mi>m</mi><mi>g</mi><mi>h</mi><msub><mi>N</mi><mi>g</mi></msub><msub><mi>N</mi><mi>c</mi></msub></mrow><mi>V</mi></mfrac></math>",
+            "units": "J/m³"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC22-SVG-PROCTOR",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Curvas qualitativas do mesmo solo sob duas energias; a linha de saturação é um limite teórico.",
+            "alt": "Proctor: umidade, densidade seca e energia",
+            "src": "assets/card_visuals_vc22/curva_proctor.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "Mecânica dos Solos; CARD-0701 e CARD-0707",
+            "evidence": "SVG nativo de autoria didática; exibição em navegador não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0701",
+        "CARD-0708",
+        "CARD-0702",
+        "CARD-0822",
+        "CARD-0825",
+        "CARD-1442",
+        "CARD-0521"
+      ],
+      "expected_hash": "9d430bfe84e0211f9b280554124cf609cfbb0a11d31285e3035c0e62f98b6fb7"
+    },
+    {
+      "id": "CARD-0230",
+      "title": "Aterros de edificações: execução e controle tecnológico",
+      "front": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário.",
+      "back": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais.",
+      "source": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Remover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "GC=100ρd,campo/ρd,máx. Se wót=12%, faixa de ±3 p.p. é 9–15%; se ρd,máx=1,80 Mg/m³ e GC≥95%, ρd,campo≥1,71 Mg/m³. Aterro de 1,20 m exige pelo menos quatro camadas compactadas de 0,30 m, se especificação permitir."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Edificação (NBR 5681:2015): 30 cm máximos; GC≥95%; ±3 p.p. ou exigências mais restritivas. Rodovia (DNIT 108): GC≥100% conforme energia e material de referência; não transferir automaticamente critérios de espessura e umidade entre escopos.\n\nNBR 5681:2015 (aterro de edificações) admite wót ±3 pontos percentuais ou faixa menor e GC mínimo 95% ou superior conforme especificação; NBR 15115:2004 (camadas de RCC em pavimentação) especifica wót ±1,5 p.p. e GC mínimo 100%, com recebimento conforme 7.3.2."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Camada de 0,35 m compactada com GC=97% e umidade adequada não atende ao limite de 0,30 m. Corrigir antes de lançar a seguinte. Se solo for turfa, argila orgânica ou apresentar matéria orgânica micácea/diatomácea, não utilizar segundo item 4.2; evitar solos expansivos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0404, CARD-0521, CARD-0857, CARD-0858, CARD-0701, CARD-1442, CARD-1447, CARD-0824, CARD-0825\n\nRelacionados: CARD-0521, CARD-1442, CARD-0822. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Conferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir espessura solta com compactada, pontos percentuais com variação relativa ou GC com umidade. GC isolado não garante aceitação, nem substitui controle de materiais."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "até 0,30 m",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "±3 pontos percentuais",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "95% ou superior",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "antes da camada seguinte",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Critério NBR 5681:2015",
+            "Controle"
+          ],
+          "rows": [
+            [
+              "Camada compactada",
+              "≤0,30 m"
+            ],
+            [
+              "Umidade",
+              "wót ±3 p.p. ou menor"
+            ],
+            [
+              "GC",
+              "≥95% ou maior"
+            ],
+            [
+              "Falha",
+              "Corrigir e recompatar antes de cobrir"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Grau de compactação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mfrac><msub><mi>ρ</mi><mtext>d,campo</mtext></msub><msub><mi>ρ</mi><mtext>d,máx</mtext></msub></mfrac></math>",
+            "units": "%"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO25-SVG-CONTROLE-V191",
+            "caption": "Controle de camada, umidade e grau de compactação",
+            "alt": "Controle de camada, umidade e grau de compactação",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "SVG autoral didático; não substitui originais.",
+            "src": "assets/card_visuals_v349/controle_aterro_v191.svg"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0404",
+        "CARD-0521",
+        "CARD-0857",
+        "CARD-0858",
+        "CARD-0701",
+        "CARD-1442",
+        "CARD-1447",
+        "CARD-0822",
+        "CARD-0825"
+      ],
+      "expected_hash": "e1a21d3748c28470af4044fad38d8ab85c1ae82a8ecf04784ae9ef5bd69c7e4a"
+    },
+    {
+      "id": "CARD-0521",
+      "title": "Controle de umidade em aterro de edificação — faixa e correção",
+      "front": "Qual a tolerância de umidade na compactação de aterros de edificações, conforme NBR 5681:2015? Como corrigir solo seco ou úmido e relacionar umidade ao GC?",
+      "back": "Na NBR 5681:2015, item 4.2, a compactação deve ocorrer próximo à umidade ótima do ensaio de referência, admitindo variação máxima de ±3 pontos percentuais ou intervalo menor definido para a obra. Se wót=12%, a faixa ordinária é de 9% a 15%. Umidade abaixo do intervalo exige ajuste por umedecimento e homogeneização; acima, aeração ou outro tratamento previsto. O GC mínimo é 95% ou superior conforme projeto, e a camada compactada não pode ultrapassar 0,30 m.",
+      "source": "H23-C026; ABNT NBR 5681:2015, 4.2, edição estudada; https://sistema.ceteclins.com.br/Uploads/PDF/0D4FD993-FCCA-4CAA-9F48-B369A553294D_16092020162156.pdf.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Edificação: 30 cm, ±3 p.p., GC≥95%; projeto pode apertar.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual a tolerância de umidade na compactação de aterros de edificações, conforme NBR 5681:2015? Como corrigir solo seco ou úmido e relacionar umidade ao GC?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na NBR 5681:2015, item 4.2, a compactação deve ocorrer próximo à umidade ótima do ensaio de referência, admitindo variação máxima de ±3 pontos percentuais ou intervalo menor definido para a obra. Se wót=12%, a faixa ordinária é de 9% a 15%. Umidade abaixo do intervalo exige ajuste por umedecimento e homogeneização; acima, aeração ou outro tratamento previsto. O GC mínimo é 95% ou superior conforme projeto, e a camada compactada não pode ultrapassar 0,30 m."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C026; ABNT NBR 5681:2015, 4.2, edição estudada; https://sistema.ceteclins.com.br/Uploads/PDF/0D4FD993-FCCA-4CAA-9F48-B369A553294D_16092020162156.pdf.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "No ramo seco da curva Proctor a água inicialmente favorece a mobilidade e rearranjo dos grãos. No ramo úmido, o excesso de água dificulta reduzir vazios de ar com energia fixa. Controlar w aproxima a execução da região adequada da curva, mas não comprova que a energia aplicada densificou suficientemente o solo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Faixa ordinária: wót−3 p.p. ≤ w ≤ wót+3 p.p. Para wót=14%, 11% a 17%. Para massa seca de 1.000 kg e w atual de 9%, elevar idealmente a 12% exige 30 kg de água adicional, desprezando perdas: ΔMw=Ms(walvo−watual)."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Umidade baixa: umedecer e homogeneizar. Alta: aerar/secar conforme procedimento. GC insuficiente: identificar causa, corrigir e recompactar. Espessura excessiva: corrigir geometria da camada."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Com wót=12%, w=16% e GC=96%, a camada está fora da faixa ordinária de umidade mesmo que alcance GC mínimo. Corrigir conforme a especificação; se a obra exigir ±2 p.p., a faixa passa a 10–14%.\n\nPara ótima de 12%, faixa ordinária de 9–15% na NBR 5681:2015; para camada de RCC regida pela NBR 15115:2004, 10,5–13,5%. Cada norma tem escopo próprio."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0230, CARD-0404, CARD-0857, CARD-0701, CARD-0707, CARD-1442, CARD-0824, CARD-1447\n\nRelacionados: CARD-1446, CARD-0230. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Trata-se de aterro de edificação na edição estudada. O projeto pode exigir faixa menor e GC maior. Não transferir automaticamente critérios a aterros rodoviários. A quantidade de água calculada é teórica: considerar evaporação, distribuição e perdas na operação."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "±3% neste contexto significa três pontos percentuais de teor de umidade, e não 3% multiplicado pelo valor da umidade ótima. GC aprovado não dispensa controle de umidade e espessura."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Edificação: 30 cm, ±3 p.p., GC≥95%; projeto pode apertar."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Na NBR 5681:2015, item 4.2, a compactação deve ocorrer próximo à umidade ótima do ensaio de referência, admitindo variação máxima de ±3 pontos percentuais ou intervalo menor definido para a obra. Se wót=12%, a faixa ordinária é de 9% a 15%. Umidade abaixo do intervalo exige ajuste por umedecimento e homogeneização; acima, aeração ou outro tratamento previsto. O GC mínimo é 95% ou superior conforme projeto, e a camada compactada não pode ultrapassar 0,30 m."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "±3 pontos percentuais",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "9% a 15%",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "95%",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "exception",
+            "text": "intervalo menor definido para a obra",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "w em relação à faixa",
+            "Providência"
+          ],
+          "rows": [
+            [
+              "Abaixo",
+              "Umedecer e homogeneizar"
+            ],
+            [
+              "Acima",
+              "Aerar ou secar"
+            ],
+            [
+              "Dentro",
+              "Verificar GC e espessura"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Água a acrescentar",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Δ</mi><msub><mi>M</mi><mi>w</mi></msub><mo>=</mo><msub><mi>M</mi><mi>s</mi></msub><mo>(</mo><msub><mi>w</mi><mi>alvo</mi></msub><mo>−</mo><msub><mi>w</mi><mi>atual</mi></msub><mo>)</mo></math>",
+            "units": "kg, w em fração"
+          },
+          {
+            "title": "Grau de compactação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><msub><mi>ρ</mi><mrow><mi>d</mi><mo>,</mo><mi>campo</mi></mrow></msub><msub><mi>ρ</mi><mrow><mi>d</mi><mo>,</mo><mi>máx</mi></mrow></msub></mfrac></math>",
+            "units": "%; massas específicas em unidades iguais"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO25-SVG-CONTROLE-V191",
+            "caption": "Controle de camada, umidade e grau de compactação",
+            "alt": "Controle de camada, umidade e grau de compactação",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "SVG autoral didático; não substitui originais.",
+            "src": "assets/card_visuals_v349/controle_aterro_v191.svg"
+          },
+          {
+            "id": "VC22-SVG-PROCTOR",
+            "role": "VERSO_APOS_TENTATIVA",
+            "caption": "Curvas qualitativas do mesmo solo sob duas energias; a linha de saturação é um limite teórico.",
+            "alt": "Proctor: umidade, densidade seca e energia",
+            "src": "assets/card_visuals_vc22/curva_proctor.svg",
+            "origin": "DERIVADA_AUTORAL",
+            "source": "Mecânica dos Solos; CARD-0701 e CARD-0707",
+            "evidence": "SVG nativo de autoria didática; exibição em navegador não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0230",
+        "CARD-0404",
+        "CARD-0857",
+        "CARD-0701",
+        "CARD-0707",
+        "CARD-1442",
+        "CARD-0822",
+        "CARD-1447",
+        "CARD-1446"
+      ],
+      "expected_hash": "9dac02c648a4910ce5a59fe400d45158b7a1bdc7b0b4b318d011e48d9984914c"
+    },
+    {
+      "id": "CARD-0822",
+      "title": "Execução e controle tecnológico de aterros rodoviários",
+      "front": "Segundo DNIT 108/2009-ES, compare corpo do aterro rodoviário e camadas finais quanto a espessura compactada, método de referência, GC e umidade. Como corrigir uma camada não conforme?",
+      "back": "Na DNIT 108/2009-ES, o corpo do aterro tem espessura compactada máxima de 0,30 m; as camadas finais, 0,20 m. O critério ordinário do corpo é GC ≥ 100% com referência DNER-ME 129/94, Método A, e umidade ótima ±3 pontos percentuais. As camadas finais exigem GC ≥ 100% com referência ao Método B. A alínea b não repete a tolerância de umidade da alínea a; consultar as exigências do projeto. Camada que não atinge os requisitos deve ser corrigida e novamente compactada.",
+      "source": "H23-C029\n\nH23-C029 | H23-C030\n\nH23-C031\n\nH23-C031; DNIT 108/2009-ES, 5.3.4, 5.3.5 e 7.2.3; versão oficial com Errata 1 de 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Rodovia: corpo 30-A-100; final 20-B-100.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo DNIT 108/2009-ES, compare corpo do aterro rodoviário e camadas finais quanto a espessura compactada, método de referência, GC e umidade. Como corrigir uma camada não conforme?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na DNIT 108/2009-ES, o corpo do aterro tem espessura compactada máxima de 0,30 m; as camadas finais, 0,20 m. O critério ordinário do corpo é GC ≥ 100% com referência DNER-ME 129/94, Método A, e umidade ótima ±3 pontos percentuais. As camadas finais exigem GC ≥ 100% com referência ao Método B. A alínea b não repete a tolerância de umidade da alínea a; consultar as exigências do projeto. Camada que não atinge os requisitos deve ser corrigida e novamente compactada."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C029\n\nH23-C029 | H23-C030\n\nH23-C031\n\nH23-C031; DNIT 108/2009-ES, 5.3.4, 5.3.5 e 7.2.3; versão oficial com Errata 1 de 24/04/2025: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "O solo é espalhado, homogeneizado, umedecido ou aerado e compactado por camadas. A camada final recebe referência laboratorial diferente porque integra o suporte imediato do pavimento. O mesmo GC percentual pode corresponder a massas específicas secas diferentes conforme a energia de referência."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "GC=100ρd,campo/ρd,máx. Para ρd,campo=1,85 Mg/m³ e máximos A=1,80 e B=1,95 Mg/m³: GC=102,8% e 94,9%, respectivamente. Camada compactada de 36 cm no corpo ou de 25 cm nas finais excede o limite de espessura correspondente."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Corpo: ≤30 cm, Método A, GC≥100%, wót ±3 p.p. Final: ≤20 cm, Método B, GC≥100%. Edificação NBR 5681:2015: ≤30 cm e GC≥95% ou superior conforme projeto; não confundir escopos.\n\nDistinguir aterro rodoviário DNIT 108/2009-ES de pavimentação com agregado reciclado NBR 15115:2004: nesta última, energia mínima normal para reforço e intermediária para sub-base/base, umidade ótima ±1,5 p.p., GC mínimo especificado 100%."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Uma camada final com 25 cm compactados e GC=101% pelo método B continua não conforme quanto à espessura. Corrigir e recompactar antes de prosseguir. Comparar espessura após compactação, não a espessura solta."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0822, CARD-0823, CARD-0824. Relacionados: CARD-0707, CARD-0230, CARD-0825, CARD-0701, CARD-1442, CARD-1447, CARD-0521, CARD-0702.\n\nRelacionados: CARD-0707, CARD-1442, CARD-0230. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "O texto refere-se ao critério ordinário de solo e às especificações do projeto. A errata de 2025 trata da subseção 5.3.12 (material rochoso); não altera a comparação A/B de 5.3.5. Não aplicar automaticamente espessuras de aterro terroso a enrocamentos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar os métodos A e B nem confundir os 30 cm do corpo com os 20 cm das camadas finais. Não tomar GC de 95% de edificação como exigência rodoviária. Não adotar 100% sem referência laboratorial."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Rodovia: corpo 30-A-100; final 20-B-100."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO",
+        "answer_paragraphs": [
+          "Na DNIT 108/2009-ES, o corpo do aterro tem espessura compactada máxima de 0,30 m; as camadas finais, 0,20 m. O critério ordinário do corpo é GC ≥ 100% com referência DNER-ME 129/94, Método A, e umidade ótima ±3 pontos percentuais. As camadas finais exigem GC ≥ 100% com referência ao Método B. A alínea b não repete a tolerância de umidade da alínea a; consultar as exigências do projeto. Camada que não atinge os requisitos deve ser corrigida e novamente compactada."
+        ],
+        "highlights": [
+          {
+            "text": "Na DNIT 108/2009-ES, o corpo do aterro tem espessura compactada máxima de 0,30 m",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "table": {
+          "headers": [
+            "Camada",
+            "Espessura máx.",
+            "Método",
+            "GC"
+          ],
+          "rows": [
+            [
+              "Corpo",
+              "30 cm",
+              "A",
+              "≥100%"
+            ],
+            [
+              "Final",
+              "20 cm",
+              "B",
+              "≥100%"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Grau de compactação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><msub><mi>ρ</mi><mrow><mi>d</mi><mo>,</mo><mi>campo</mi></mrow></msub><msub><mi>ρ</mi><mrow><mi>d</mi><mo>,</mo><mi>máx</mi></mrow></msub></mfrac></math>",
+            "units": "%; massas específicas em unidades iguais"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "related_card_ids": [
+        "CARD-0707",
+        "CARD-0230",
+        "CARD-0825",
+        "CARD-0701",
+        "CARD-1442",
+        "CARD-1447",
+        "CARD-0521",
+        "CARD-0702"
+      ],
+      "expected_hash": "219b2ddce1a7c37586cba33e2093a0ad1f0b3a3ca9766b49485a2cdaba21ec5d"
+    },
+    {
+      "id": "CARD-1448",
+      "title": "ISC e expansão",
+      "front": "Como se calculam e interpretam o ISC e a expansão?",
+      "back": "O ISC é a razão percentual entre a pressão corrigida de penetração no solo e a pressão de referência à mesma penetração. A expansão mede a variação relativa da altura durante a embebição. Suporte e expansão são independentes.",
+      "source": "DNIT 172/2016-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-172-2016-me\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "ISC resiste; expansão cresce.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como se calculam e interpretam o ISC e a expansão?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O ISC é a razão percentual entre a pressão corrigida de penetração no solo e a pressão de referência à mesma penetração. A expansão mede a variação relativa da altura durante a embebição. Suporte e expansão são independentes."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 172/2016-ME: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-172-2016-me\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O pistão mobiliza resistência à penetração; a água altera sucção, estrutura e volume. Umidade, densidade e energia influem."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "ISC=100 p_corr/p_pad; expansão=100 Δh/h inicial; pressões e alturas em unidades coerentes."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "ISC mede suporte; GC mede densidade relativa à referência de compactação; MR mede rigidez recuperável.\n\nBGS NBR 12264:1991: ISC de amostra da pista a cada 200 m e pelo menos a cada dois dias, CP moldados em umidade ótima e energia de projeto; não confundir com GC de campo.\n\nISC e expansão são ensaios de caracterização/desempenho distintos da umidade real medida antes da compactação e da massa específica seca in situ medida depois. NBR 15115:2004 item 7.1 prevê controle laboratorial de ISC e expansão a cada 2.000 m², mínimo três determinações."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "14,062/70,31×100=20% de ISC. Δh=1,5 mm em 125 mm dá 1,2%: falha no limite de expansão da sub-base."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Conhecimentos relacionados: CARD-0137, CARD-0358, CARD-0476, CARD-1464, CARD-0781, CARD-1462.\n\nRelacionados: CARD-1449, CARD-1442, CARD-0358. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicar curva corrigida e procedimento de seleção do índice da norma; não confundir ISC com capacidade portante de fundações."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "ISC elevado não implica expansão baixa nem GC elevado."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "ISC resiste; expansão cresce."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O ISC é a razão percentual entre a pressão corrigida de penetração no solo e a pressão de referência à mesma penetração. A expansão mede a variação relativa da altura durante a embebição. Suporte e expansão são independentes."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "pressão corrigida de penetração",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC29-SVG-CAMADAS",
+            "src": "assets/card_visuals_vc29/camadas.svg",
+            "caption": "Corte do pavimento flexível com limites de ISC e expansão do método empírico.",
+            "alt": "Corte do pavimento flexível com limites de ISC e expansão do método empírico.",
+            "source": "DNIT IPR-719, 3ª ed., p. 142–148: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/publicacao-ipr-719-manual-de-pavimentacao",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição no portal não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "ISC",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>ISC</mi><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><msub><mi>p</mi><mi>corr</mi></msub><msub><mi>p</mi><mi>pad</mi></msub></mfrac></math>",
+            "units": "ISC em %; pressões na mesma unidade."
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-0137",
+        "CARD-0358",
+        "CARD-0476",
+        "CARD-1464",
+        "CARD-0781",
+        "CARD-1462",
+        "CARD-1449",
+        "CARD-1442"
+      ],
+      "expected_hash": "b0856c5457bb683e2305f87c23e70578b5d4c43729c96e24c42b8ff7183b1155"
+    },
+    {
+      "id": "CARD-1449",
+      "title": "Ensaios de solos",
+      "front": "Uma camada apresenta GC=98% e ISC=12%. Os dois resultados entram em contradição? Explique o que cada ensaio mede.",
+      "back": "Não necessariamente. GC é razão de massas específicas secas campo/laboratório; ISC é índice de suporte à penetração relativo a pressão-padrão.",
+      "source": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me | https://drive.google.com/file/d/1tVqHMlVneMDwTjS9a6dg3y3TqWy4MpBH/view\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "GC: densidade atingida. ISC: suporte à penetração.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Uma camada apresenta GC=98% e ISC=12%. Os dois resultados entram em contradição? Explique o que cada ensaio mede."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Não necessariamente. GC é razão de massas específicas secas campo/laboratório; ISC é índice de suporte à penetração relativo a pressão-padrão."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamentação e fontes",
+          "texto": "ABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada. A definição do ISC e os procedimentos de compactação devem seguir suas normas de ensaio aplicáveis.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O grau de compactação compara a densidade seca de campo com a densidade seca máxima de laboratório. O ISC depende da resistência à penetração de um corpo de prova em relação a um padrão, de modo que compactação e capacidade de suporte medem aspectos diferentes."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "GC=100·ρd,campo/ρd,máx,lab. ISC=100·pressão corrigida/pressão-padrão, para a penetração correspondente. Ambos são expressos em porcentagem, mas não são a mesma grandeza."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "GC avalia o resultado da compactação; ISC avalia suporte relativo à penetração. Na NBR 15115:2004, os dois integram controles distintos e não se substituem."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Uma camada com GC=98% e ISC=12% pode apresentar ambos os valores sem contradição física. O atendimento de cada requisito depende do material, da camada e da especificação de projeto."
+        },
+        {
+          "ord": 8,
+          "titulo": "Vínculos",
+          "texto": "Relacionar o ensaio de suporte e expansão ao controle de compactação, sem substituir um ensaio pelo outro.\n\nRelacionados: CARD-1448, CARD-1442, CARD-1447. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Compare cada índice com seu critério próprio. Na edição citada da NBR 15115, o GC mínimo especificado é 100%, com recebimento segundo o item 7.3.2. O ISC exigido depende da função da camada."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Um GC alto não comprova, isoladamente, um ISC adequado, nem um ISC elevado autoriza dispensar o controle de densidade seca."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "GC: densidade atingida. ISC: suporte à penetração."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Não necessariamente. GC é razão de massas específicas secas campo/laboratório; ISC é índice de suporte à penetração relativo a pressão-padrão."
+        ],
+        "highlights": [
+          {
+            "text": "GC",
+            "color": "#FDE68A"
+          },
+          {
+            "text": "ISC",
+            "color": "#BAE6FD"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1448",
+        "CARD-1442",
+        "CARD-1447"
+      ],
+      "expected_hash": "94388fec7bec636469d477311216a8b3e7b1a281ce3ac63325abff35f4fc5de9"
+    },
+    {
+      "id": "CARD-0358",
+      "title": "Sub-base",
+      "front": "Quais exigências e função da sub-base granular no método empírico DNER?",
+      "back": "A sub-base granular deve apresentar ISC ≥ 20%, IG = 0 e expansão ≤ 1%. Entre base e reforço ou subleito, contribui para distribuir solicitações e proteger as camadas inferiores.",
+      "source": "DNIT IPR-719, 3ª ed., p. 142–148: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/publicacao-ipr-719-manual-de-pavimentacao\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Sub-base: vinte, zero, um.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais exigências e função da sub-base granular no método empírico DNER?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A sub-base granular deve apresentar ISC ≥ 20%, IG = 0 e expansão ≤ 1%. Entre base e reforço ou subleito, contribui para distribuir solicitações e proteger as camadas inferiores."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT IPR-719, 3ª ed., p. 142–148: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/publicacao-ipr-719-manual-de-pavimentacao\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Reduz demanda no terreno, melhora transição mecânica e pode assumir funções adicionais previstas em projeto."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "ISC ≥20%, IG=0, expansão ≤1%. No dimensionamento empírico a proteção sobre a sub-base usa H20 mesmo com ISC superior a 20."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Base possui exigência usual de ISC ≥80% e expansão ≤0,5%; reforço depende do subleito.\n\nA sub-base granular pelo método empírico DNER possui requisitos próprios. Quando executada com RCC, verificar os critérios específicos de material, energia, umidade, frequência dos ensaios e recebimento da NBR 15115:2004, sem transferir automaticamente exigências do DNER."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "ISC 25%, IG 0, expansão 0,8% atende os três critérios; 35%, IG 0, expansão 1,4% falha."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1448, CARD-0137, CARD-0476, CARD-1463, CARD-1464\n\nRelacionados: CARD-1448, CARD-1442, CARD-1551. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Verificar granulometria, especificação e condicionamento; não transportar H20 ao MeDiNa."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "IG não é dispensado por CBR alto."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Sub-base: vinte, zero, um.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A sub-base granular deve apresentar ISC ≥ 20%, IG = 0 e expansão ≤ 1%. Entre base e reforço ou subleito, contribui para distribuir solicitações e proteger as camadas inferiores."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "IG = 0",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC29-SVG-CAMADAS",
+            "src": "assets/card_visuals_vc29/camadas.svg",
+            "caption": "Corte do pavimento flexível com limites de ISC e expansão do método empírico.",
+            "alt": "Corte do pavimento flexível com limites de ISC e expansão do método empírico.",
+            "source": "DNIT IPR-719, 3ª ed., p. 142–148: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/publicacao-ipr-719-manual-de-pavimentacao",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição no portal não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "table": {
+          "headers": [
+            "Camada",
+            "ISC",
+            "Expansão"
+          ],
+          "rows": [
+            [
+              "Base",
+              "≥80%*",
+              "≤0,5%"
+            ],
+            [
+              "Sub-base",
+              "≥20%; IG=0",
+              "≤1%"
+            ],
+            [
+              "Reforço",
+              "> subleito",
+              "≤1%"
+            ],
+            [
+              "Subleito",
+              "≥2%",
+              "≤2%"
+            ]
+          ]
+        }
+      },
+      "related_card_ids": [
+        "CARD-1448",
+        "CARD-0137",
+        "CARD-0476",
+        "CARD-1463",
+        "CARD-1464",
+        "CARD-1462",
+        "CARD-1442",
+        "CARD-1551"
+      ],
+      "expected_hash": "12723d3ae8c07db44e8e85bea1d3c25389c4d094820903d2f2e8c56d93dc6349"
+    },
+    {
+      "id": "CARD-1551",
+      "title": "Agregados reciclados: conceitos e aplicação por edição",
+      "front": "Distinga reciclagem, reutilização e beneficiamento; compare o uso dos agregados reciclados de concreto nas edições 2004 e 2021 da NBR 15116.",
+      "back": "Reciclagem reaproveita após transformação; reutilização reaplica sem transformação; beneficiamento é o processamento para tornar o resíduo apto ao uso. A edição de 2004 restringia o concreto com agregado reciclado a função não estrutural; a de 2021 admite substituição parcial por agregado reciclado de concreto em condições específicas.",
+      "source": "NBR 15116:2004, 3.2–3.5; NBR 15116:2021, requisitos de aplicação.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Reutilizar = usar de novo; reciclar = transformar e usar; beneficiar = preparar.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Distinga reciclagem, reutilização e beneficiamento; compare o uso dos agregados reciclados de concreto nas edições 2004 e 2021 da NBR 15116."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Reciclagem reaproveita após transformação; reutilização reaplica sem transformação; beneficiamento é o processamento para tornar o resíduo apto ao uso. A edição de 2004 restringia o concreto com agregado reciclado a função não estrutural; a de 2021 admite substituição parcial por agregado reciclado de concreto em condições específicas."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "NBR 15116:2004, 3.2–3.5; NBR 15116:2021, requisitos de aplicação.\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Britagem, classificação e separação alteram a forma e a composição do resíduo. Materiais cimentícios aderidos e cerâmica podem alterar absorção, densidade e comportamento, justificando controle de origem e classificação."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "Não existe uma porcentagem única de substituição aplicável a todas as classes de agregado e usos. Conferir a edição, a classe do agregado e os limites específicos antes de dimensionar; não extrapolar os requisitos históricos."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Termo | Exemplo\nReutilização | Reaproveitar componente intacto.\nBeneficiamento | Britar e peneirar entulho para adequar a granulometria.\nReciclagem | Reaproveitar o material transformado como agregado.\nARC | Agregado reciclado de concreto.\nARM | Agregado reciclado misto; não equivale ao ARC para aplicação estrutural.\n\nDistinguir NBR 15116:2021, sobre agregados reciclados para argamassas e concretos de cimento Portland, da NBR 15115:2004, sobre execução de camadas de pavimentação com RCC."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Enunciado diz que o resíduo foi submetido a transformação e reaproveitado: reciclagem, não reutilização. Se a banca citar 2004, não responder com a permissão estrutural condicionada de 2021."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Conteúdo integrado de CARD-1551, CARD-1552. Vínculos externos preservados: CARD-0755 Questões: PETRO26-Q-RECICLAGEM\n\nRelacionados: CARD-0755, CARD-0358, CARD-1442. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Requisitos específicos de composição, qualidade, substituição e aplicação devem ser conferidos na edição solicitada. Reaproveitamento não garante adequação estrutural."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Beneficiamento é uma etapa de processamento; reciclagem é o reaproveitamento após transformação. Não dizer que toda classe de agregado reciclado é estrutural na edição 2021."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Reutilizar = usar de novo; reciclar = transformar e usar; beneficiar = preparar. | Histórico: conservar versões e eventos de CARD-1551, CARD-1552."
+        }
+      ],
+      "editorial": {
+        "status": "CANDIDATO_A_CONFERENCIA_VISUAL",
+        "answer_paragraphs": [
+          "Reciclagem reaproveita após transformação; reutilização reaplica sem transformação; beneficiamento é o processamento para tornar o resíduo apto ao uso. A edição de 2004 restringia o concreto com agregado reciclado a função não estrutural; a de 2021 admite substituição parcial por agregado reciclado de concreto em condições específicas."
+        ],
+        "highlights": [
+          {
+            "text": "após transformação",
+            "kind": "core",
+            "start": 23,
+            "end": 41,
+            "color": "#F9E79F"
+          },
+          {
+            "text": "sem transformação",
+            "kind": "exception",
+            "start": 65,
+            "end": 82,
+            "color": "#F5C2D0"
+          },
+          {
+            "text": "processamento",
+            "kind": "condition",
+            "start": 103,
+            "end": 116,
+            "color": "#CDEAE1"
+          },
+          {
+            "text": "função não estrutural",
+            "kind": "exception",
+            "start": 216,
+            "end": 237,
+            "color": "#F5C2D0"
+          },
+          {
+            "text": "em condições específicas",
+            "kind": "exception",
+            "start": 312,
+            "end": 336,
+            "color": "#F5C2D0"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Termo",
+            "Exemplo"
+          ],
+          "rows": [
+            [
+              "Reutilização",
+              "Reaproveitar componente intacto."
+            ],
+            [
+              "Beneficiamento",
+              "Britar e peneirar entulho para adequar a granulometria."
+            ],
+            [
+              "Reciclagem",
+              "Reaproveitar o material transformado como agregado."
+            ],
+            [
+              "ARC",
+              "Agregado reciclado de concreto."
+            ],
+            [
+              "ARM",
+              "Agregado reciclado misto; não equivale ao ARC para aplicação estrutural."
+            ]
+          ]
+        },
+        "formula_explanation": "Não existe uma porcentagem única de substituição aplicável a todas as classes de agregado e usos. Conferir a edição, a classe do agregado e os limites específicos antes de dimensionar; não extrapolar os requisitos históricos.",
+        "media": [
+          {
+            "id": "BM339-VIS-RECICLAGEM",
+            "src": "assets/card_visuals_v339/reciclagem.svg",
+            "caption": "Diagrama didático histórico — BM339-VIS-RECICLAGEM",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "V342",
+            "original_card_ids": [
+              "CARD-1551",
+              "CARD-1552"
+            ]
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [],
+        "related_card_ids": [
+          "CARD-0755",
+          "CARD-1548"
+        ],
+        "formula_status": "CRITERIO_TEXTUAL_SEM_FORMULA_ADICIONAL"
+      },
+      "related_card_ids": [
+        "CARD-0755",
+        "CARD-1548",
+        "CARD-0358",
+        "CARD-1442"
+      ],
+      "expected_hash": "e3dd549d748324b0b068461d5ce860c084171498859d5b18a81b8179bb148b89"
+    },
+    {
+      "id": "CARD-1304",
+      "title": "Ensaios de agregados: Chapman, inchamento, Los Angeles, adesividade e sanidade",
+      "front": "Associe Chapman, inchamento, Los Angeles, adesividade e sanidade à propriedade medida. Diferencie os procedimentos do frasco de Chapman.",
+      "back": "Los Angeles: resistência a desgaste e fragmentação; adesividade: aderência agregado–ligante asfáltico; sanidade: estabilidade do agregado frente a ciclos de sais.\n\nFrasco de Chapman: umidade superficial da areia úmida (NBR 9775:2011) ou massa específica da areia seca (DNER-ME 194/98), conforme procedimento. Inchamento: variação do volume aparente com umidade; não é umidade superficial nem granulometria.",
+      "source": "H01-010;H01-012\n\nNBR 9775:2011 itens 3.1, 4.2, 6 e 7; DNER-ME 194/98 itens 5–7. https://sistema.ceteclins.com.br/Uploads/PDF/A68642B2-0E7A-4116-B8FF-50F42C87FF48_14052015083055.pdf ; https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dner-me194-98.pdf .\n\nNBR 6467:2006, itens 3, 7, 8 e Anexo A, pp.4–5; DNER-ME 192/97. https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR06467_2006_Agregados%20-%20Determina%C3%A7%C3%A3o%20do%20inchamento%20de%20agregado%20mi%C3%BAdo%20-%20M%C3%A9todo%20de%20ensaio.pdf .\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+      "mnemonic": "Chapman areia: úmida dá umidade, seca dá massa específica; Los Angeles desgaste, sanidade sais.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Associe Chapman, inchamento, Los Angeles, adesividade e sanidade à propriedade medida. Diferencie os procedimentos do frasco de Chapman."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Los Angeles: resistência a desgaste e fragmentação; adesividade: aderência agregado–ligante asfáltico; sanidade: estabilidade do agregado frente a ciclos de sais.\n\nFrasco de Chapman: umidade superficial da areia úmida (NBR 9775:2011) ou massa específica da areia seca (DNER-ME 194/98), conforme procedimento. Inchamento: variação do volume aparente com umidade; não é umidade superficial nem granulometria."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H01-010;H01-012\n\nNBR 9775:2011 itens 3.1, 4.2, 6 e 7; DNER-ME 194/98 itens 5–7. https://sistema.ceteclins.com.br/Uploads/PDF/A68642B2-0E7A-4116-B8FF-50F42C87FF48_14052015083055.pdf ; https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dner-me194-98.pdf .\n\nNBR 6467:2006, itens 3, 7, 8 e Anexo A, pp.4–5; DNER-ME 192/97. https://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17827/material/NBR06467_2006_Agregados%20-%20Determina%C3%A7%C3%A3o%20do%20inchamento%20de%20agregado%20mi%C3%BAdo%20-%20M%C3%A9todo%20de%20ensaio.pdf .\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "No Chapman, deslocamento de volume após introdução de 500 g de areia em 200 mL de água, remoção de ar e leitura no gargalo. Los Angeles combina abrasão e impacto; sanidade testa ciclos de sais."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "Chapman úmido: h%=100[500−(v−200)γ]/[(v−700)γ], v em mL e γ massa específica SSS em g/mL; h relativo à massa SSS. Chapman seco: γ=500/(L−200) g/cm³; L=390 →2,63 g/cm³."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Chapman: areia; picnômetro: massa específica dos sólidos; densímetro: sedimentação; Los Angeles: desgaste e fragmentação; paquímetro: índice de forma; frasco de areia: massa específica aparente in situ.\n\nGranulometria e lamelaridade caracterizam agregado; umidade em pista condiciona compactação; frasco de areia determina massa específica aparente in situ. Chapman é outro ensaio."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Corrigir água de amassamento e massa de areia conforme a base de dosagem; inchamento corrige dosagem em volume. Adesividade estuda agregado-ligante; sanidade, estabilidade diante de sais."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1141, CARD-0751, CARD-1319, CARD-1359, CARD-1553, CARD-1443\n\nRelacionados: CARD-0751, CARD-1447. Compare os critérios de cada ensaio."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "SSS = poros permeáveis saturados e superfície sem água livre. DNER usa amostra seca; não confundir γ seca e SSS. No método úmido, duas determinações com diferença máxima de 0,5 ponto percentual; leitura após repouso previsto no método."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "O mesmo frasco pode medir duas propriedades; não confundir com absorção, granulometria ou frasco de areia. Certificado de inchamento: curva, umidade crítica, coeficiente médio."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Chapman areia: úmida dá umidade, seca dá massa específica; Los Angeles desgaste, sanidade sais."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Los Angeles: resistência a desgaste e fragmentação; adesividade: aderência agregado–ligante asfáltico; sanidade: estabilidade do agregado frente a ciclos de sais.",
+          "Frasco de Chapman: umidade superficial da areia úmida (NBR 9775:2011) ou massa específica da areia seca (DNER-ME 194/98), conforme procedimento. Inchamento: variação do volume aparente com umidade; não é umidade superficial nem granulometria."
+        ],
+        "highlights": [
+          {
+            "text": "umidade superficial da areia úmida",
+            "kind": "core",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO32-CHAPMAN",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro32_chapman.svg",
+            "caption": "Ensaios de agregados: Chapman, inchamento, Los Angeles, adesividade e sanidade",
+            "alt": "Ensaios de agregados: Chapman, inchamento, Los Angeles, adesividade e sanidade",
+            "source": "Esquema didático autoral.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1141",
+        "CARD-0751",
+        "CARD-1319",
+        "CARD-1359",
+        "CARD-1553",
+        "CARD-1443",
+        "CARD-1447"
+      ],
+      "expected_hash": "c29d8c575a2e2d5ff980a5e5a43e4b2fdec0bd6efa8fc8007b86839307f613a6"
     }
   ]
 }
