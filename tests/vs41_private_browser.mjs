@@ -1,3 +1,4 @@
+import {privateCalendar,privateStudyQueue} from '../infra/vs41-private/calendar.mjs';
 import {privateJournal} from '../infra/vs41-private/journal.mjs';
 import {privatePage} from '../infra/vs41-private/page.mjs';
 import fs from 'node:fs';import path from 'node:path';import http from 'node:http';import assert from 'node:assert/strict';import {chromium} from 'playwright';
@@ -14,6 +15,7 @@ const server=http.createServer(async(req,res)=>{
  if(await api(req,res))return;
  if(u.pathname==='/index.html'){res.setHeader('Content-Type','text/html');res.setHeader('Cache-Control','no-store');return res.end(privatePage(html))}
  if(u.pathname==='/assets/v382_srs_journal_vc23.js'){res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(privateJournal(fs.readFileSync('assets/v382_srs_journal_vc23.js','utf8')))}
+ if(u.pathname==='/assets/v414_js_076_087_header.js'||u.pathname==='/assets/v383_study_queue.js'){const file=u.pathname.slice(1),adapt=file.includes('header')?privateCalendar:privateStudyQueue;res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(adapt(fs.readFileSync(file,'utf8')))}
  // Only serve the original portal's static assets and the one private client script.
  if(!u.pathname.startsWith('/assets/')&&u.pathname!=='/infra/vs41-private/client.js'){res.writeHead(404);return res.end()}
  const file=path.resolve(root,'.'+u.pathname);
@@ -69,6 +71,18 @@ try{
   const rows=await p.evaluate(()=>window.BM316SrsJournal.records());assert.equal(rows.length,1);assert.equal(rows[0].rating,rating);assert.equal(rows[0].id,'CARD-9901');
  }
  console.log('Botões originais: avaliações gravadas e relidas exclusivamente na raiz de cada usuário.');
+ for(const [p,rating,label] of [[oldA,'Bom','A'],[oldB,'Fácil','B']]){
+  await p.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
+  await p.evaluate(()=>window.BM141Calendar.open());
+  const result=await p.evaluate(()=>({counts:window.BM141Calendar.counts(),rows:window.BM141Calendar.rows().map(x=>({id:x.id,front:x.card.front,rating:x.rec?.rating,due:x.rec?.due}))}));
+  assert.equal(result.counts.active,1);assert.equal(result.counts.verified,1);assert.ok(result.counts.privateInfo);
+  assert.deepEqual(result.rows.map(x=>[x.id,x.front,x.rating]),[['CARD-9901','Pergunta privada '+label,rating]]);
+  assert.equal(result.rows[0].due,f.writes.find(x=>x.parent==='root'+label).payload.due);
+  const dueRows=await p.evaluate(()=>window.BM382Study.dueRows(window.BM141Calendar.rows(),'9999-12-31').map(x=>x.id));assert.deepEqual(dueRows,['CARD-9901']);
+  assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
+  await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
+ }
+ console.log('Calendário e fila: catálogo, vencimentos e classificações individuais, sem histórico público.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});

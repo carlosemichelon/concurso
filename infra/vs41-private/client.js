@@ -36,6 +36,7 @@
  }
  Object.defineProperty(window,'BMVS41PrivateReviews',{value:Object.freeze({
   available:()=>!!context&&!locked,
+  sessionKey:()=>!locked?context:'',
   async read(){const p=await reviewRequest();if(!Array.isArray(p.events))throw Error('Histórico inválido');return p.events},
   async record(input){return (await reviewRequest(input)).event}
  })});
