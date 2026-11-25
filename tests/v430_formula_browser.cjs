@@ -1,0 +1,31 @@
+'use strict';
+const fs=require('node:fs'),assert=require('node:assert/strict'),{chromium}=require('playwright');
+const source=fs.readFileSync('assets/v430_js_124_135_formulas.js','utf8');
+const start=source.indexOf("const DOC_ID='1eOla"),end=source.indexOf('function navActive()',start);
+assert.ok(start>=0&&end>start);
+const code=source.slice(start,end);
+const engine=fs.readFileSync('assets/v417_math_engine.js','utf8');
+(async()=>{const browser=await chromium.launch({headless:true});try{
+ const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.route('https://fixture.test/assets/formulas/**',r=>r.fulfill({contentType:'image/svg+xml',body:fs.readFileSync(new URL(r.request().url()).pathname.slice(1),'utf8')}));
+ await page.setContent('<base href="https://fixture.test/"><section id="formulas"><button id="entry">Abrir</button><p id="bm246FormulaStatus"></p></section>');
+ await page.addScriptTag({content:engine});
+ await page.addScriptTag({content:code+`
+window.BancoMestreMediaSyncV182={token:()=> 'test-token'};
+loaded=true;loadedAuth='test-token';
+sections=[{number:3,title:'RESISTÊNCIA DOS MATERIAIS',category:category(3,''),body:'I=bh³/12'},{number:20,title:'ANÁLISE HIPERESTÁTICA',category:category(20,''),body:'f = ∫m(x)²/[E(x)I(x)] dx.\\nDeslocamento básico: Δ⁰ = ∫M⁰(x)·m(x)/[E(x)I(x)] dx, quando predomina flexão.'},{number:4,title:'ANÁLISE MATRICIAL',category:category(4,''),body:'[k]e=(EA/L)·[[1,−1], [−1,1]]'},{number:21,title:'PTV',category:category(21,''),body:'δ = ∫M(x)·m(x)/[E(x)I(x)] dx'}];
+document.getElementById('entry').onclick=()=>openFormula(20,document.getElementById('entry'));
+`});
+ await page.locator('#entry').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'20');
+ assert.ok(await page.locator('.bm427-formula-scroll mfrac').count()>=1);
+ assert.equal(await page.locator('.bm430-formula-figure img').getAttribute('src'),'assets/formulas/v430-compatibilidade.svg');
+ await page.locator('#bm430FormulaNext').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'4');
+ assert.equal(await page.locator('.bm430-formula-figure').count(),0);assert.ok((await page.locator('.bm427-formula-title').textContent()).includes('MATRICIAL'));
+ await page.locator('#bm430FormulaNext').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'21');
+ assert.equal(await page.locator('#bm430FormulaNext').isDisabled(),true);
+ await page.locator('#bm430FormulaPrev').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'4');
+ await page.locator('#bm430FormulaPrev').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'20');
+ await page.locator('#bm430FormulaPrev').click();assert.equal(await page.locator('#bm427FormulaDialog').getAttribute('data-formula-section'),'3');
+ assert.equal(await page.locator('#bm430FormulaPrev').isDisabled(),true);
+ assert.deepEqual(errors,[]);console.log('Navegação real Próxima/Anterior, frações e seleção de SVG por seção: aprovadas.');
+ }finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});
