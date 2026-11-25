@@ -11,10 +11,11 @@
  const pairs={"(":")","[":"]","{":"}"};
  function matching(t,i){const stack=[];for(let j=i;j<t.length;j++){const c=t[j];if(pairs[c])stack.push(pairs[c]);else if(")]}".includes(c)){if(stack.pop()!==c)return -1;if(!stack.length)return j}}return -1}
  function top(t,chars){const hits=[];let dep=0;for(let i=0;i<t.length;i++){const c=t[i];if("([{".includes(c))dep++;else if(")]}".includes(c))dep--;else if(dep===0&&chars.includes(c))hits.push(i)}return hits}
- function scriptValue(t,i,kind){const map=kind==="sub"?subs:supers;let j=i,raw="";while(j<t.length&&map[t[j]])raw+=map[t[j++]];if(j>i)return [raw,j];if(t[i]==="{"){const end=matching(t,i);if(end>i)return [t.slice(i+1,end),end+1]}const m=t.slice(i).match(kind==="sub"?/^[\p{L}\p{N}]+(?:,[\p{L}\p{N}]+)*/u:/^[+\-−]?\d+|^[a-zA-Zα-ω]/u);return m?[m[0],i+m[0].length]:null}
- function attach(n,t,i){let low=null,high=null;while(i<t.length){const c=t[i],kind=c==="_"||subs[c]?"sub":c==="^"||supers[c]?"sup":null;if(!kind)break;const v=scriptValue(t,i+(c==="_"||c==="^"?1:0),kind);if(!v)break;if(kind==="sub")low=index(v[0]);else high=/^[−+\-]?\d+$/.test(v[0])?el("mn",v[0]):inline(v[0]);i=v[1]}if(low||high){const k=el(low&&high?"msubsup":low?"msub":"msup");k.append(n,...(low?[low]:[]),...(high?[high]:[]));n=k}return [n,i]}
+ function scriptValue(t,i,kind){const map=kind==="sub"?subs:supers;let j=i,raw="";while(j<t.length&&map[t[j]])raw+=map[t[j++]];if(j>i)return [raw,j];if(t[i]==="{"){const end=matching(t,i);if(end>i)return [t.slice(i+1,end),end+1]}const m=t.slice(i).match(kind==="sub"?/^[A-Za-zÀ-ÖØ-öø-ÿΑ-Ωα-ω0-9]+(?:[,_][A-Za-zÀ-ÖØ-öø-ÿΑ-Ωα-ω0-9]+)*/u:/^[+\-−]?\d+|^[a-zA-Zα-ω]/u);return m?[m[0],i+m[0].length]:null}
+ function attach(n,t,i){let low=null,high=null;while(i<t.length){const c=t[i],kind=c==="_"||subs[c]?"sub":c==="^"||supers[c]?"sup":null;if(!kind)break;const v=scriptValue(t,i+(c==="_"||c==="^"?1:0),kind);if(!v)break;if(kind==="sub")low=index(v[0].replace(/_/g," "));else high=/^[−+\-]?\d+$/.test(v[0])?el("mn",v[0]):inline(v[0]);i=v[1]}if(low||high){const k=el(low&&high?"msubsup":low?"msub":"msup");k.append(n,...(low?[low]:[]),...(high?[high]:[]));n=k}return [n,i]}
  function inline(t){let i=0,ns=[];while(i<t.length){const ch=t[i];if(/\s/u.test(ch)){i++;continue}let n,j=i+1;
   if(ch==="√"){const k=i+1;while(j<t.length&&/\s/u.test(t[j]))j++;if(pairs[t[j]]){const end=matching(t,j);if(end>j){n=el("msqrt");n.append(part(t.slice(j+1,end)));j=end+1}}if(!n){n=el("mo",ch);j=k}}
+  else if(ch==="Σ"||ch==="∑"||ch==="∫"){n=el("mo",ch)}
   else if(pairs[ch]){const end=matching(t,i);if(end>i){n=row(el("mo",ch),part(t.slice(i+1,end)),el("mo",t[end]));j=end+1}else n=el("mo",ch)}
   else {const num=t.slice(i).match(/^\d+(?:[.,]\d+)?/u);const word=t.slice(i).match(/^[\p{L}]+(?:\d+)?/u);if(num){n=el("mn",num[0]);j=i+num[0].length}else if(word&&!supers[ch]&&!subs[ch]){let w=word[0]; // A known comma-qualified identifier is indivisible.
     const extra=t.slice(i).match(/^fctk,(?:inf|sup)|^fct,m/u);if(extra)w=extra[0];
@@ -22,13 +23,13 @@
     const cut=[...w].findIndex(c=>supers[c]||subs[c]);if(cut>0)w=[...w].slice(0,cut).join("");
     j=i+w.length;
     if(aliases[w]||units.has(w)||t[j]==="_"||w.length===1)n=symbol(w);
-    else if(/^[A-Z]{2,4}$/.test(w)||/^[a-zα-ω][A-Z]{1,3}$/.test(w)||/^[A-Z][a-z]$/.test(w)){
+    else if(/^[A-Z]{2,4}$/.test(w)||/^[a-zα-ω][A-Z]{1,3}$/.test(w)||/^[A-Z][a-zα-ω]$/.test(w)||/^(?:bh|hb|bd|db|cs|sc|xy|yx|πd|πD|πr|πR|αL|αE|qL|PL|My|Mx|Nx|Eε)$/.test(w)){
       const a=[...w].map(c=>el("mi",c));let last=a.pop();const attached=attach(last,t,j);a.push(attached[0]);ns.push(...a);i=attached[1];continue;
-    }else n=el("mtext",w);
+    }else {if(supers[t[j]]||subs[t[j]]){while(supers[t[j]]||subs[t[j]])w+=t[j++];}n=el("mtext",w);}
    }else n=el("mo",ch)}
   const a=attach(n,t,j);ns.push(a[0]);i=a[1];
  }return row(...ns)}
- function part(raw){const t=raw.trim().replace(/[.]$/u,"");if(!t)return row();const add=top(t,"+−-±").filter(i=>i>0&&!"/^·×*eE".includes(t[i-1])&&!/[⁻⁺]/u.test(t[i]));if(add.length){let last=0;const a=[];for(const i of add){a.push(part(t.slice(last,i)),el("mo",t[i]));last=i+1}a.push(part(t.slice(last)));return row(...a)}
+ function part(raw){const t=raw.trim().replace(/[.]$/u,"");if(!t)return row();const add=top(t,"+−-±").filter(i=>i>0&&!"/^·×*".includes(t[i-1])&&!(/[eE]/.test(t[i-1])&&/\d/.test(t[i-2]||"")&&/\d/.test(t[i+1]||""))&&!/[⁻⁺]/u.test(t[i]));if(add.length){let last=0;const a=[];for(const i of add){a.push(part(t.slice(last,i)),el("mo",t[i]));last=i+1}a.push(part(t.slice(last)));return row(...a)}
   const sl=top(t,"/");if(sl.length===1){const i=sl[0],left=t.slice(0,i).trim(),right=t.slice(i+1).trim();const end=pairs[right[0]]?matching(right,0):-1;const tail=end>=0?right.slice(end+1):"";const bracketed=end>=0&&(tail===""||/^(?:[⁰¹²³⁴⁵⁶⁷⁸⁹]+|\^\{?\d+\}?)$/u.test(tail));const simple=/^(?:\d+(?:[.,]\d+)?|[\p{L}](?:_[\p{L}\p{N},]+|[₀-₉]+)?(?:[²³⁴⁵⁶⁷⁸⁹]+|\^\d+)?|[A-Za-z]+_[\p{L}\p{N},]+)$/u.test(right)||Object.hasOwn(aliases,right);
    if(left&&(bracketed||simple)&&!/[∫Σ∑]/u.test(left)&&!top(left,"=≤≥≈<>").length){const f=el("mfrac");f.append(inline(left),bracketed&&!tail?part(right.slice(1,-1)):inline(right));return f}}
   return inline(t)}

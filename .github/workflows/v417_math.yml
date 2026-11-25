@@ -1,0 +1,19 @@
+name: Fórmulas VS26 — verificação pontual
+on:
+  push:
+    branches: [correcao/formulas-vs26]
+permissions:
+  contents: read
+jobs:
+  mathml:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check assets/v417_math_engine.js && node --check assets/v417_js_124_135_formulas.js && node --check assets/v417_shared_reader.js
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/v417_math.cjs
