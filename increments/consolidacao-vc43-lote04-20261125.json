@@ -1,0 +1,1700 @@
+{
+  "format": "BancoMestreConsolidationCandidate1",
+  "date": "2026-11-25",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_catalog": "assets/catalog_snapshot_vc42.json",
+  "source_catalog_blob": "e7cc9714a00c1b91d67a2f50e2f580399b4d7fca",
+  "counts": {
+    "source_active": 1526,
+    "groups": 7,
+    "absorbed": 12,
+    "cumulative_groups": 31,
+    "cumulative_absorbed": 37,
+    "projected_active": 1489
+  },
+  "redirects": {
+    "CARD-0297": "CARD-0699",
+    "CARD-1074": "CARD-0699",
+    "CARD-1075": "CARD-0699",
+    "CARD-0583": "CARD-0196",
+    "CARD-1035": "CARD-0196",
+    "CARD-0925": "CARD-0196",
+    "CARD-0970": "CARD-0953",
+    "CARD-1429": "CARD-0953",
+    "CARD-0520": "CARD-0402",
+    "CARD-1118": "CARD-1117",
+    "CARD-1348": "CARD-1289",
+    "CARD-1122": "CARD-0052"
+  },
+  "revisions": [
+    {
+      "id": "CARD-0699",
+      "title": "Critério de Mohr–Coulomb em tensões efetivas",
+      "front": "Enuncie Mohr–Coulomb em tensões efetivas, explique c′, φ′ e u e relacione envoltória, círculo de Mohr e ruptura.",
+      "back": "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura.",
+      "satellites": [
+        "CARD-0297",
+        "CARD-1074",
+        "CARD-1075"
+      ],
+      "source": "H20-C041\n\nH20-C041; CON-11-010/011; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf\n\nCON-11-010\n\nCON-11-012\n\nCON-11-013",
+      "related_card_ids": [
+        "CARD-0343",
+        "CARD-0452",
+        "CARD-0695",
+        "CARD-0698",
+        "CARD-0700",
+        "CARD-0758",
+        "CARD-0034",
+        "CARD-1064",
+        "CARD-1356",
+        "CARD-1076",
+        "CARD-0697"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0699",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Geotecnia",
+          "sub": "Mohr-Coulomb",
+          "front": "Enuncie Mohr–Coulomb em tensões efetivas, explique c′, φ′ e u e relacione envoltória, círculo de Mohr e ruptura.",
+          "back": "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura.",
+          "expl": "Fundamento e fontes\nH20-C041; CON-11-010/011; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf\n\nMecanismo\nC=(σ1′+σ3′)/2; R=(σ1′−σ3′)/2. O atrito depende da tensão efetiva normal ao plano. Na compressão triaxial convencional, a tangência implica R=C senφ′+c′ cosφ′.\n\nFórmulas e unidades\nc′=20 kPa, σ′n=100 kPa, φ′=30°: τf≈77,7 kPa. Se u sobe 30 kPa a σn constante, σ′n=70 e τf≈60,4 kPa. Para principais efetivas 300 e 100 kPa: C=200, R=100 kPa.\n\nQuadro comparativo\nCírculo: estado; envoltória: limite. c′: intercepto em kPa; φ′: atrito. su: resistência não drenada em análise total, não sinônimo de c′.\n\nTransferência e resolução\nPara c′=0, φ′=30°, tangência exige R=C/2. Principais efetivas 300 e 100 kPa dão C=200 e R=100: tangência. Se u aumentar a totais fixas, o modelo prevê ultrapassar a envoltória, exigindo redistribuição ou ruptura.\n\nCondições e exceções\nModelo linear, compressão positiva e parâmetros representativos. u isotrópica é descontada de tensões normais, não cisalhantes. Não extrapolar para tração sem critério. Pico e residual podem diferir; envoltória não é lei de deformação nem pós-pico.\n\nPegadinhas\nNão usar σ total com c′ e φ′. Não confundir C, R, q=2R e média tridimensional p′. Maior cisalhamento não significa automaticamente ruptura.\n\nMacete e rastreabilidade\nMohr mostra o estado; Coulomb põe o limite. Água desloca, não muda o raio se totais fixas.",
+          "mnemonic": "Mohr mostra o estado; Coulomb põe o limite. Água desloca, não muda o raio se totais fixas.",
+          "reference": "H20-C041",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0297",
+            "CARD-0343",
+            "CARD-0452",
+            "CARD-0695",
+            "CARD-0698",
+            "CARD-0700",
+            "CARD-0758",
+            "CARD-0034",
+            "CARD-1064",
+            "CARD-1356",
+            "CARD-1076",
+            "CARD-0697"
+          ],
+          "related_question_ids": [],
+          "search_keywords": [
+            "Mohr–Coulomb: estado de tensão e ruptura"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0699",
+            "historical_ids": [
+              "CARD-0699"
+            ],
+            "source_catalog_blob": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+            "original": {
+              "front": "Qual é a envoltória de resistência de Mohr–Coulomb em tensões efetivas?",
+              "back": "τf=c′+σ′n·tanφ′.",
+              "expl": "A coesão efetiva c′ é o intercepto e tanφ′ é a inclinação da reta resistência × tensão normal efetiva. A envoltória descreve combinações-limite de tensão cisalhante; mudanças de poropressão alteram σ′ e, portanto, a parcela de atrito.\nAplicação: Exemplo: c′=10 kPa, σ′n=100 kPa e φ′=30°: τf≈10+57,7=67,7 kPa. Se σ′n dobra e os parâmetros permanecem, a parcela friccional também dobra.\nPegadinha: Mohr–Coulomb não é lei completa de deformação e não fixa sozinho pico, residual, dilatância ou resposta pós-ruptura.",
+              "reference": "H20-C041",
+              "mnemonic": "c′ soma; σ′tanφ′ cresce com contato."
+            },
+            "profile": {
+              "id": "CARD-0699",
+              "title": "Mohr–Coulomb: estado de tensão e ruptura",
+              "satellites": [],
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Enuncie Mohr–Coulomb em tensões efetivas, explique c′, φ′ e u e relacione envoltória, círculo de Mohr e ruptura."
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "H20-C041; CON-11-010/011; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf"
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "C=(σ1′+σ3′)/2; R=(σ1′−σ3′)/2. O atrito depende da tensão efetiva normal ao plano. Na compressão triaxial convencional, a tangência implica R=C senφ′+c′ cosφ′."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas e unidades",
+                  "texto": "c′=20 kPa, σ′n=100 kPa, φ′=30°: τf≈77,7 kPa. Se u sobe 30 kPa a σn constante, σ′n=70 e τf≈60,4 kPa. Para principais efetivas 300 e 100 kPa: C=200, R=100 kPa."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Quadro comparativo",
+                  "texto": "Círculo: estado; envoltória: limite. c′: intercepto em kPa; φ′: atrito. su: resistência não drenada em análise total, não sinônimo de c′."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Transferência e resolução",
+                  "texto": "Para c′=0, φ′=30°, tangência exige R=C/2. Principais efetivas 300 e 100 kPa dão C=200 e R=100: tangência. Se u aumentar a totais fixas, o modelo prevê ultrapassar a envoltória, exigindo redistribuição ou ruptura."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-0297, CARD-0343, CARD-0452, CARD-0695, CARD-0698, CARD-0700, CARD-0758, CARD-0034"
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Modelo linear, compressão positiva e parâmetros representativos. u isotrópica é descontada de tensões normais, não cisalhantes. Não extrapolar para tração sem critério. Pico e residual podem diferir; envoltória não é lei de deformação nem pós-pico."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não usar σ total com c′ e φ′. Não confundir C, R, q=2R e média tridimensional p′. Maior cisalhamento não significa automaticamente ruptura."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e rastreabilidade",
+                  "texto": "Mohr mostra o estado; Coulomb põe o limite. Água desloca, não muda o raio se totais fixas."
+                }
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura.",
+                  "C=(σ1′+σ3′)/2; R=(σ1′−σ3′)/2. O atrito depende da tensão efetiva normal ao plano. Na compressão triaxial convencional, a tangência implica R=C senφ′+c′ cosφ′.",
+                  "Modelo linear, compressão positiva e parâmetros representativos. u isotrópica é descontada de tensões normais, não cisalhantes. Não extrapolar para tração sem critério. Pico e residual podem diferir; envoltória não é lei de deformação nem pós-pico."
+                ],
+                "highlights": [
+                  {
+                    "kind": "core",
+                    "text": "τf=c′+σ′n·tanφ′",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "tangente à envoltória",
+                    "color": "#BAE6FD"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "para a esquerda sem alterar seu raio",
+                    "color": "#BAE6FD"
+                  }
+                ],
+                "table": {
+                  "headers": [
+                    "Elemento",
+                    "Significado"
+                  ],
+                  "rows": [
+                    [
+                      "c′",
+                      "Intercepto"
+                    ],
+                    [
+                      "tanφ′",
+                      "Inclinação"
+                    ],
+                    [
+                      "C",
+                      "Média das principais extremas"
+                    ],
+                    [
+                      "R",
+                      "Metade da diferença"
+                    ],
+                    [
+                      "u crescente",
+                      "Círculo à esquerda, totais fixas"
+                    ]
+                  ]
+                },
+                "formulas": [
+                  {
+                    "title": "Resistência",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>τ</mi><mi>f</mi></msub><mo>=</mo><msup><mi>c</mi><mo>′</mo></msup><mo>+</mo><msup><msub><mi>σ</mi><mi>n</mi></msub><mo>′</mo></msup><mi>tan</mi><msup><mi>φ</mi><mo>′</mo></msup></math>",
+                    "units": "kPa"
+                  },
+                  {
+                    "title": "Tangência",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mi>C</mi><mi>sin</mi><msup><mi>φ</mi><mo>′</mo></msup><mo>+</mo><msup><mi>c</mi><mo>′</mo></msup><mi>cos</mi><msup><mi>φ</mi><mo>′</mo></msup></math>",
+                    "units": "kPa"
+                  }
+                ],
+                "media": [],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              },
+              "front": "Enuncie Mohr–Coulomb em tensões efetivas, explique c′, φ′ e u e relacione envoltória, círculo de Mohr e ruptura.",
+              "back": "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura.",
+              "source": "H20-C041; CON-11-010/011; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf",
+              "mnemonic": "Mohr mostra o estado; Coulomb põe o limite. Água desloca, não muda o raio se totais fixas.",
+              "related_card_ids": [
+                "CARD-0297",
+                "CARD-0343",
+                "CARD-0452",
+                "CARD-0695",
+                "CARD-0698",
+                "CARD-0700",
+                "CARD-0758",
+                "CARD-0034",
+                "CARD-1064",
+                "CARD-1356",
+                "CARD-1076",
+                "CARD-0697"
+              ],
+              "related_question_ids": [],
+              "history_ref": {
+                "snapshot": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+                "ids": [
+                  "CARD-0699"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "CARD-0297",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Geotecnia / taludes",
+          "sub": "Mohr-Coulomb",
+          "front": "No critério Mohr–Coulomb em tensões efetivas, qual resistência τf para c′=20 kPa, σ′n=100 kPa e φ′=30°?",
+          "back": "τf=c′+σ′n·tanφ′≈20+57,7=77,7 kPa.",
+          "expl": "A envoltória linear soma o intercepto coesivo efetivo ao atrito mobilizado pela tensão normal efetiva; o plano considerado e parâmetros precisam ser coerentes.\nAplicação: Avaliar redução de resistência se a poropressão aumentar mantendo σ total e outros fatores constantes.\nPegadinha: Não trocar σ′n por σn em um modelo efetivo. c′ não é automaticamente igual a resistência não drenada su.",
+          "mnemonic": "Cisalhamento resistente = c′ + σ′ tanφ′.",
+          "reference": "CON-11-010",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0699"
+          ]
+        },
+        {
+          "id": "CARD-1074",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Geotecnia / taludes",
+          "sub": "Ruptura no Mohr",
+          "front": "O que representa a tangência entre o círculo de Mohr de tensões efetivas e a envoltória de Mohr–Coulomb?",
+          "back": "Representa a condição limite de ruptura por cisalhamento no modelo adotado, para os parâmetros efetivos considerados.",
+          "expl": "A envoltória simplificada é τ=c′+σ′tanφ′. Um círculo tangente indica que existe plano cuja combinação de tensão normal/cisalhante atinge a resistência limite.\nAplicação: Para c′=0, φ′=30° e σ′n=100 kPa, a resistência no plano é τf≈57,7 kPa, se as hipóteses do modelo se aplicarem.\nPegadinha: Tangência não significa que todos os planos cisalham no máximo. Tensões efetivas exigem considerar poropressões e trajetórias.",
+          "mnemonic": "Mohr encostou na reta resistente: estado limite.",
+          "reference": "CON-11-012",
+          "active": true
+        },
+        {
+          "id": "CARD-1075",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Geotecnia / taludes",
+          "sub": "Forma da envoltória",
+          "front": "Qual é a equação da envoltória linear de Mohr–Coulomb?",
+          "back": "τ_f=c′+σ′_n tanφ′, em tensões efetivas.",
+          "expl": "O modelo expressa a resistência ao cisalhamento como intercepto de coesão efetiva e parcela de atrito que cresce com a tensão normal efetiva.\nAplicação: Para c′=0, φ′=30° e σ′_n=100 kPa, τ_f≈57,7 kPa.\nPegadinha: Não confundir σ total com σ′ efetiva nem aplicar a reta fora das hipóteses do modelo.",
+          "mnemonic": "Coesão soma; normal vezes tanφ.",
+          "reference": "CON-11-013",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0699": "d4ac53cc483031b901cde71b3b311f1d99d1cbfb38587cc2fb3e204fb912eca4",
+        "CARD-0297": "d9624373a642d7fd712ccdfd9e765fba891db6c975a4d8d22bc010d7940bc7a9",
+        "CARD-1074": "de08d30db5e22a198490e96e03a454676306ec60ce14aeca44737af58173e7c5",
+        "CARD-1075": "bde37715e6830d414b86b73795ad1e4b3b7f021f0e5af128f0fabf8f013b4acb"
+      },
+      "mnemonic": "Mohr mostra o estado; Coulomb põe o limite. Água desloca, não muda o raio se totais fixas.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Enuncie Mohr–Coulomb em tensões efetivas, explique c′, φ′ e u e relacione envoltória, círculo de Mohr e ruptura."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C041\n\nH20-C041; CON-11-010/011; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf\n\nCON-11-010\n\nCON-11-012\n\nCON-11-013"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "C=(σ1′+σ3′)/2; R=(σ1′−σ3′)/2. O atrito depende da tensão efetiva normal ao plano. Na compressão triaxial convencional, a tangência implica R=C senφ′+c′ cosφ′."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "τf=c′+σ′n tanφ′, σ′n=σn−u. Para c′=20 kPa, σ′n=100 kPa, φ′=30°: τf≈77,7 kPa; se u sobe 30 kPa a σn constante, τf≈60,4 kPa. Com c′=0 e σ′n=100 kPa: τf≈57,7 kPa. Para σ1′=300 e σ3′=100 kPa: C=200 e R=100 kPa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Círculo: estado; envoltória: limite. c′: intercepto em kPa; φ′: atrito. su: resistência não drenada em análise total, não sinônimo de c′."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Para c′=0, φ′=30°, tangência exige R=C/2. Principais efetivas 300 e 100 kPa dão C=200 e R=100: tangência. Se u aumentar a totais fixas, o modelo prevê ultrapassar a envoltória, exigindo redistribuição ou ruptura."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0699, CARD-0297, CARD-1074, CARD-1075. Relacionados: CARD-0343, CARD-0452, CARD-0695, CARD-0698, CARD-0700, CARD-0758, CARD-0034, CARD-1064, CARD-1356, CARD-1076, CARD-0697"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Modelo linear, compressão positiva e parâmetros representativos. u isotrópica é descontada de tensões normais, não cisalhantes. Não extrapolar para tração sem critério. Pico e residual podem diferir; envoltória não é lei de deformação nem pós-pico."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar σ total com c′ e φ′ nem confundir C, R, q=2R e média tridimensional p′. Tangência significa que um plano atinge o limite, não que todos os planos atingem cisalhamento máximo. Maior cisalhamento não significa automaticamente ruptura."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Mohr mostra o estado; Coulomb põe o limite. Água desloca, não muda o raio se totais fixas."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u. c′ é o intercepto e tanφ′ a inclinação da envoltória. O círculo de Mohr representa tensões nos planos que passam pelo ponto; na ruptura ideal é tangente à envoltória. Aumentar u com tensões principais totais e parâmetros constantes desloca o círculo efetivo para a esquerda sem alterar seu raio, podendo levar à ruptura."
+        ],
+        "highlights": [
+          {
+            "text": "A resistência no modelo linear efetivo é τf=c′+σ′n·tanφ′, com σ′n=σn−u",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "table": {
+          "headers": [
+            "Elemento",
+            "Significado"
+          ],
+          "rows": [
+            [
+              "c′",
+              "Intercepto"
+            ],
+            [
+              "tanφ′",
+              "Inclinação"
+            ],
+            [
+              "C",
+              "Média das principais extremas"
+            ],
+            [
+              "R",
+              "Metade da diferença"
+            ],
+            [
+              "u crescente",
+              "Círculo à esquerda, totais fixas"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Resistência",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>τ</mi><mi>f</mi></msub><mo>=</mo><msup><mi>c</mi><mo>′</mo></msup><mo>+</mo><msup><msub><mi>σ</mi><mi>n</mi></msub><mo>′</mo></msup><mi>tan</mi><msup><mi>φ</mi><mo>′</mo></msup></math>",
+            "units": "kPa"
+          },
+          {
+            "title": "Tangência",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>R</mi><mo>=</mo><mi>C</mi><mi>sin</mi><msup><mi>φ</mi><mo>′</mo></msup><mo>+</mo><msup><mi>c</mi><mo>′</mo></msup><mi>cos</mi><msup><mi>φ</mi><mo>′</mo></msup></math>",
+            "units": "kPa"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0196",
+      "title": "Módulos de elasticidade Eci e Ecs do concreto",
+      "front": "Diferencie Eci e Ecs, indique as fórmulas estimativas registradas na NBR 6118:2023 para C20 a C50 e explique αE e αi.",
+      "back": "Eci é o módulo de deformação tangente inicial; Ecs é o secante. Para 20≤fck≤50 MPa, Eci=αE·5600√fck (MPa). Ecs=αi Eci, com αi=min(0,8+0,2 fck/80; 1). αE depende do agregado graúdo; αi ajusta a relação secante/inicial.",
+      "satellites": [
+        "CARD-0583",
+        "CARD-1035",
+        "CARD-0925"
+      ],
+      "source": "H24-C026\n\nH24-C026 | H24-C027 | H24-C028 | H24-C029\n\nH24-C030\n\nCON-07-058\n\nH24-C031",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0196",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Concreto armado — elasticidade",
+          "sub": "Eci",
+          "front": "Diferencie Eci e Ecs e apresente as estimativas clássicas registradas na NBR 6118:2023.",
+          "back": "Eci: módulo tangente inicial; Ecs: módulo secante. Para 20≤fck≤50 MPa, Eci=αE·5600√fck (MPa), nas hipóteses registradas. Ecs=αi·Eci, αi=min(0,8+0,2 fck/80;1). Não confundir a faixa e a influência do agregado.",
+          "expl": "Fundamento e fontes\nH24-C026 | H24-C027 | H24-C028 | H24-C029\n\nMecanismo e compreensão\nEci corresponde à inclinação inicial; Ecs à inclinação secante, pois o concreto tem curva tensão–deformação não linear.\n\nAplicação e cálculo\nfck=25 MPa, αE=1: Eci=28.000 MPa; αi=0,8625; Ecs=24.150 MPa na expressão citada.\n\nComparação\nEci=αE·5600√fck; Ecs=αi Eci; αi=min(0,8+0,2fck/80;1).\n\nTransferência\nPara fck diferente, calcule ambos e explique a influência de αE e αi.\n\nCondições e exceções\nExpressão histórica restrita à faixa 20–50 MPa e demais hipóteses de edição.\n\nPegadinhas\nNão usar módulos como sinônimos nem extrapolar automaticamente a expressão para concreto de alta resistência.\n\nMacete\nI inicial; S secante.",
+          "mnemonic": "I inicial; S secante.",
+          "reference": "H24-C026",
+          "active": true,
+          "related_card_ids": [],
+          "related_question_ids": [],
+          "search_keywords": [
+            "CARD-0385",
+            "CARD-0502",
+            "CARD-0582",
+            "Módulos Eci e Ecs"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0196",
+            "historical_ids": [
+              "CARD-0196",
+              "CARD-0385",
+              "CARD-0502",
+              "CARD-0582"
+            ],
+            "source_catalog_blob": "31a0e2eccb13b7e30d1ab9f696ab32ad151de4cb",
+            "original": {
+              "front": "O que representa Eci no concreto e como se distingue de Ecs?",
+              "back": "Eci é o módulo tangente inicial; Ecs é o módulo secante do diagrama tensão-deformação.",
+              "expl": "A curva tensão–deformação do concreto não é globalmente linear: a rigidez tangente na origem difere da inclinação de uma reta secante até um ponto especificado. Os métodos normativos podem estimar esses módulos a partir de fck e agregado.\nAplicação: Compare duas curvas com a mesma tensão final: a inclinação inicial define Eci, e a inclinação da corda entre origem e ponto de referência caracteriza Ecs.\nPegadinha: Eci e Ecs não são intercambiáveis: usos distintos constam do projeto, especialmente análise elástica e perdas de protensão.",
+              "mnemonic": "Eci = INICIAL; Ecs = SECANTE.",
+              "reference": "H24-C026"
+            },
+            "profile": {
+              "id": "CARD-0196",
+              "title": "Módulos Eci e Ecs",
+              "front": "Diferencie Eci e Ecs e apresente as estimativas clássicas registradas na NBR 6118:2023.",
+              "back": "Eci: módulo tangente inicial; Ecs: módulo secante. Para 20≤fck≤50 MPa, Eci=αE·5600√fck (MPa), nas hipóteses registradas. Ecs=αi·Eci, αi=min(0,8+0,2 fck/80;1). Não confundir a faixa e a influência do agregado.",
+              "satellites": [
+                "CARD-0385",
+                "CARD-0502",
+                "CARD-0582"
+              ],
+              "source": "H24-C026 | H24-C027 | H24-C028 | H24-C029",
+              "related_card_ids": [],
+              "related_question_ids": [],
+              "history_ref": {
+                "snapshot": "31a0e2eccb13b7e30d1ab9f696ab32ad151de4cb",
+                "ids": [
+                  "CARD-0196",
+                  "CARD-0385",
+                  "CARD-0502",
+                  "CARD-0582"
+                ]
+              },
+              "media_policy": "Preservar união integral de IDs e papéis; validar no acervo privado e público antes de retirar satélites.",
+              "mnemonic": "I inicial; S secante.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Diferencie Eci e Ecs e apresente as estimativas clássicas registradas na NBR 6118:2023."
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "Eci: módulo tangente inicial; Ecs: módulo secante. Para 20≤fck≤50 MPa, Eci=αE·5600√fck (MPa), nas hipóteses registradas. Ecs=αi·Eci, αi=min(0,8+0,2 fck/80;1). Não confundir a faixa e a influência do agregado."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "H24-C026 | H24-C027 | H24-C028 | H24-C029"
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo e compreensão",
+                  "texto": "Eci corresponde à inclinação inicial; Ecs à inclinação secante, pois o concreto tem curva tensão–deformação não linear."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Aplicação e cálculo",
+                  "texto": "fck=25 MPa, αE=1: Eci=28.000 MPa; αi=0,8625; Ecs=24.150 MPa na expressão citada."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Eci=αE·5600√fck; Ecs=αi Eci; αi=min(0,8+0,2fck/80;1)."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Transferência",
+                  "texto": "Para fck diferente, calcule ambos e explique a influência de αE e αi."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "Origens preservadas: CARD-0196, CARD-0385, CARD-0502, CARD-0582. Núcleo integrado; não há vínculo direto adicional confirmado no catálogo consultado."
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Expressão histórica restrita à faixa 20–50 MPa e demais hipóteses de edição."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não usar módulos como sinônimos nem extrapolar automaticamente a expressão para concreto de alta resistência."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete",
+                  "texto": "I inicial; S secante."
+                }
+              ],
+              "editorial": {
+                "answer_paragraphs": [
+                  "Eci: módulo tangente inicial; Ecs: módulo secante. Para 20≤fck≤50 MPa, Eci=αE·5600√fck (MPa), nas hipóteses registradas. Ecs=αi·Eci, αi=min(0,8+0,2 fck/80;1). Não confundir a faixa e a influência do agregado."
+                ],
+                "highlights": [
+                  {
+                    "text": "Eci: módulo tangente inicial",
+                    "kind": "core",
+                    "color": "#FDE68A",
+                    "bold": false
+                  }
+                ],
+                "media": [],
+                "atlas_refs": [],
+                "history_collapsed": true,
+                "reveal_after_attempt": true,
+                "source_status": "CANDIDATO_A_CONFERENCIA",
+                "formulas": [
+                  {
+                    "title": "Módulo tangente inicial",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>E</mi><mi>ci</mi></msub><mo>=</mo><mrow><msub><mi>α</mi><mi>E</mi></msub><mo>·</mo><mn>5600</mn><msqrt><msub><mi>f</mi><mi>ck</mi></msub></msqrt></mrow></mrow></math>",
+                    "units": "Eci e fck em MPa; αE adimensional; faixa histórica 20–50 MPa."
+                  },
+                  {
+                    "title": "Módulo secante",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>E</mi><mi>cs</mi></msub><mo>=</mo><mrow><msub><mi>α</mi><mi>i</mi></msub><msub><mi>E</mi><mi>ci</mi></msub></mrow></mrow></math>",
+                    "units": "Ecs e Eci em MPa; αi adimensional."
+                  }
+                ],
+                "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO_VC42"
+              }
+            },
+            "source_packet": "increments/consolidacao-vc41-candidata-20261124.json"
+          }
+        },
+        {
+          "id": "CARD-0583",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Concreto armado — elasticidade",
+          "sub": "Coeficiente αE",
+          "front": "O que é αE na estimativa do módulo Eci do concreto?",
+          "back": "Coeficiente de ajuste ligado ao tipo de agregado graúdo; exemplo histórico: αE=1,0 para granito/gnaisse.",
+          "expl": "Para mesma resistência à compressão, misturas com diferentes agregados podem apresentar rigidezes iniciais distintas. αE atua na fórmula de estimativa de Eci, conforme classificação e condições normativas.\nAplicação: No modelo Eci=αE·5.600√fck, para fck=25 MPa, αE=1,0 → 28 GPa; αE ilustrativo de 0,90 → 25,2 GPa.\nPegadinha: Não utilizar o coeficiente de um agregado para todos. αE não equivale a αi da relação entre Ecs e Eci; confirmar tabela da edição vigente.",
+          "mnemonic": "αE: E de AGREGADO na estimativa de Eci.",
+          "reference": "H24-C030",
+          "active": true
+        },
+        {
+          "id": "CARD-1035",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Estruturas / Concreto armado",
+          "sub": "52. CONCRETO — MÓDULO DE ELASTICIDADE",
+          "front": "De quais fatores depende a estimativa normativa de Eci do concreto?",
+          "back": "Principalmente da resistência característica fck e do tipo de agregado, conforme fórmula e faixa de aplicação.",
+          "expl": "Eci é módulo de deformação tangente inicial estimado; Ecs é módulo secante usado em diferentes avaliações. Valores dependem de formulações normativas.\nAplicação: Em modelo histórico com fck=25 MPa e αE=1: Eci≈28 GPa; não estender essa expressão a qualquer classe.\nPegadinha: Eci e Ecs não são sinônimos, nem equivalem a EI (rigidez à flexão da peça).",
+          "mnemonic": "Eci = inclinação inicial; Ecs = inclinação secante.",
+          "reference": "CON-07-058",
+          "active": true
+        },
+        {
+          "id": "CARD-0925",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Concreto armado — elasticidade",
+          "sub": "C25 exemplo",
+          "front": "Quanto valem Eci e Ecs no exemplo histórico de concreto C25 com αE=1?",
+          "back": "Eci=28 GPa; αi=0,8625; Ecs=24,15 GPa (fórmulas da edição estudada).",
+          "expl": "Para 20≤fck≤50 MPa no modelo histórico: Eci=αE·5600√fck (MPa), Ecs=αiEci, αi=0,8+0,2fck/80.\nAplicação: fck=25: Eci=5600·5=28.000 MPa; αi=0,8625; Ecs=24.150 MPa.\nPegadinha: Módulo do material (MPa) não é rigidez de viga EI. Não extrapolar a fórmula a todas as classes de concreto.",
+          "mnemonic": "C25: 28 inicial; 24,15 secante.",
+          "reference": "H24-C031",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0196": "46575a0dfcc5b375652b9bc7ad69371bb74b61ad033660a5d7e4fe19496dc9f3",
+        "CARD-0583": "1e1a8aa71132cb0f5b0d8ec90a90b6f11660463323b2cffafffc466e59e9fc59",
+        "CARD-1035": "7ef30118a7738995cddf13a076deb520dd3dea815e95e58ca846fc9a5497d755",
+        "CARD-0925": "f069f4b98e9afb4066cf15820079236bf7409b33d74dd0274049bfebfa245662"
+      },
+      "mnemonic": "I inicial; S secante; αE depende do agregado.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie Eci e Ecs, indique as fórmulas estimativas registradas na NBR 6118:2023 para C20 a C50 e explique αE e αi."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Eci é o módulo de deformação tangente inicial; Ecs é o secante. Para 20≤fck≤50 MPa, Eci=αE·5600√fck (MPa). Ecs=αi Eci, com αi=min(0,8+0,2 fck/80; 1). αE depende do agregado graúdo; αi ajusta a relação secante/inicial."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H24-C026\n\nH24-C026 | H24-C027 | H24-C028 | H24-C029\n\nH24-C030\n\nCON-07-058\n\nH24-C031"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "O concreto tem relação tensão–deformação não linear. O módulo inicial corresponde à inclinação inicial; o secante corresponde à inclinação entre pontos de referência. Agregados diferentes podem produzir rigidezes distintas com o mesmo fck."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "C25, αE=1,0: Eci=5600×5=28.000 MPa=28 GPa; αi=0,8625; Ecs=24.150 MPa=24,15 GPa. Com αE ilustrativo de 0,90, Eci=25,2 GPa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "αE altera Eci conforme o agregado (granito/gnaisse: 1,0 no registro estudado); αi relaciona Ecs a Eci. E é propriedade do material; EI é rigidez à flexão, incluindo a inércia da seção."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Calcule Eci e Ecs para outra classe dentro da faixa, mantendo fck em MPa e convertendo o resultado para GPa apenas ao final; compare agregados com o mesmo fck."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0196, CARD-0385, CARD-0502, CARD-0582, CARD-0583, CARD-1035, CARD-0925. Sem vínculo adicional confirmado neste lote."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Fórmulas e faixa de resistência da edição registrada; conferir tabela de αE e critérios da edição aplicável. Não extrapolar automaticamente para concretos de alta resistência."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar αE por αi, Eci por Ecs, MPa por GPa ou módulo E por rigidez EI."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "I inicial; S secante; αE depende do agregado."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Eci é o módulo de deformação tangente inicial; Ecs é o secante. Para 20≤fck≤50 MPa, Eci=αE·5600√fck (MPa). Ecs=αi Eci, com αi=min(0,8+0,2 fck/80; 1). αE depende do agregado graúdo; αi ajusta a relação secante/inicial."
+        ],
+        "highlights": [
+          {
+            "text": "Eci é o módulo de deformação tangente inicial",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0953",
+      "title": "Fator solar de vidros e aberturas",
+      "front": "Quais parcelas compõem o fator solar total de uma abertura envidraçada e como ele se distingue da transmitância solar direta, luminosa e térmica?",
+      "back": "O fator solar FS é a fração da energia solar incidente que chega ao interior: transmissão direta mais a parcela da energia absorvida pelo vidro transferida ao ambiente interno. FS=τs+parcela secundária interna, nas condições de referência.",
+      "satellites": [
+        "CARD-0970",
+        "CARD-1429"
+      ],
+      "source": "CON-02-016\n\nCON-02-034\n\nP06-NBR15220-10 | https://drive.google.com/file/d/1Lu4RJUvRLyOxU_jQLgh5O8N17HwoWp5D/view | DECK_ID libfile_b328f37ae7f881918414cfa4e7791a71 | ORIGINAL_CARD_ID 0c723166c44d5e049a97a2b057b81fda",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0953",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Desempenho térmico — ABNT NBR 15220-1",
+          "sub": "Fator solar de elemento transparente",
+          "front": "Quais parcelas compõem o fator solar de um vidro ou elemento transparente?",
+          "back": "Transmissão solar direta mais parcela da energia absorvida que é transferida ao ambiente interno, relativamente à energia incidente.",
+          "expl": "A radiação pode atravessar o vidro, ser refletida ou ser absorvida; a energia absorvida aquece o elemento, e uma fração dessa energia é transferida ao interior. O fator solar representa o ganho total, sob condições especificadas.\nAplicação: Para fator solar FS=0,55 e incidência de 1.000 W/m², o ganho correspondente é 550 W/m² nas condições da definição.\nPegadinha: FS não é necessariamente igual à transmitância óptica ou à passagem de luz visível; não incluir automaticamente toda energia absorvida no ganho interior.",
+          "mnemonic": "Vidro: direto + calor secundário para dentro.",
+          "reference": "CON-02-016",
+          "active": true
+        },
+        {
+          "id": "CARD-0970",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Desempenho térmico — síntese e fórmulas",
+          "sub": "Fator solar de vidro",
+          "front": "O que contabiliza o fator solar total de um vidro (ganho solar)?",
+          "back": "A energia solar transmitida diretamente e a parcela da absorvida pelo vidro que se transfere para o interior, relativa ao incidente.",
+          "expl": "Diferentemente da transmitância solar direta τs, o fator solar total considera o ganho secundário por aquecimento do vidro. O valor depende da configuração da esquadria e das condições de referência.\nAplicação: Com incidência de 900 W/m² e fator solar total de 0,40, o ganho estimado é 360 W/m² nas condições associadas ao coeficiente.\nPegadinha: FS não é o mesmo que transmissão luminosa visível; vidro escuro pode absorver mais sem necessariamente reduzir o ganho na mesma proporção.",
+          "mnemonic": "FS = passa direto + entra depois de absorvido.",
+          "reference": "CON-02-034",
+          "active": true
+        },
+        {
+          "id": "CARD-1429",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Desempenho térmico",
+          "sub": "NBR 15220",
+          "front": "O que representa o fator solar de uma abertura envidraçada?",
+          "back": "Fração da energia solar incidente que alcança o interior, direta e indiretamente.",
+          "expl": "Contabiliza a parcela transmitida e parte do calor absorvido no vidro que segue ao ambiente interno, sob método especificado.\nAplicação: Ao comparar vidros sob condições de ensaio equivalentes, menor fator solar indica menor ganho solar pela abertura.\nPegadinha: Não confundir fator solar com transmitância térmica U ou transmitância luminosa.",
+          "mnemonic": "FS = sol que entra como calor.",
+          "reference": "P06-NBR15220-10 | https://drive.google.com/file/d/1Lu4RJUvRLyOxU_jQLgh5O8N17HwoWp5D/view | DECK_ID libfile_b328f37ae7f881918414cfa4e7791a71 | ORIGINAL_CARD_ID 0c723166c44d5e049a97a2b057b81fda",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0953": "2418f2dedc3c48805810f379f4c64b1073372bd515f9065b4ab99e431cd4c8f9",
+        "CARD-0970": "767437f6b4f6860793e5c25859e5e9f4be08d3cbe3ddc81905fa7c1d6a3879cc",
+        "CARD-1429": "f391300b2f36e855949c3194b8604d005b4ce54352e53cf2d6b9d188d5a9f790"
+      },
+      "mnemonic": "FS = sol que passa direto + calor absorvido que entra.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais parcelas compõem o fator solar total de uma abertura envidraçada e como ele se distingue da transmitância solar direta, luminosa e térmica?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O fator solar FS é a fração da energia solar incidente que chega ao interior: transmissão direta mais a parcela da energia absorvida pelo vidro transferida ao ambiente interno. FS=τs+parcela secundária interna, nas condições de referência."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-02-016\n\nCON-02-034\n\nP06-NBR15220-10 | https://drive.google.com/file/d/1Lu4RJUvRLyOxU_jQLgh5O8N17HwoWp5D/view | DECK_ID libfile_b328f37ae7f881918414cfa4e7791a71 | ORIGINAL_CARD_ID 0c723166c44d5e049a97a2b057b81fda"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A radiação incidente se divide em transmissão, reflexão e absorção. A energia absorvida aquece o elemento; apenas parte desse calor se transfere ao interior."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Com FS=0,55 e irradiância de 1.000 W/m², ganho solar=550 W/m². Com FS=0,40 e 900 W/m², ganho=360 W/m²."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Transmitância solar direta τs inclui apenas radiação transmitida; FS inclui também ganho secundário. Transmitância luminosa refere-se à luz visível. U (W/m²·K) descreve transferência térmica por diferença de temperatura."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Compare dois vidros sob o mesmo método e condições: menor FS implica menor ganho solar por unidade de área para a mesma irradiância. Multiplique FS pela irradiância e área para estimar potência solar correspondente."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0953, CARD-0970, CARD-1429. Sem vínculo adicional confirmado neste lote."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "FS adimensional, dependente da configuração do vidro/esquadria e das condições de referência. Não confundir com fator solar de elemento opaco."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Vidro escuro pode absorver mais sem necessariamente reduzir proporcionalmente o ganho interno; não somar toda energia absorvida ao ganho nem confundir FS com U ou luz visível."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "FS = sol que passa direto + calor absorvido que entra."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "O fator solar FS é a fração da energia solar incidente que chega ao interior: transmissão direta mais a parcela da energia absorvida pelo vidro transferida ao ambiente interno. FS=τs+parcela secundária interna, nas condições de referência."
+        ],
+        "highlights": [
+          {
+            "text": "O fator solar FS é a fração da energia solar incidente que chega ao interior: transmissão direta mais a parcela da energia absorvida pelo vidro transferida ao ambiente interno",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0402",
+      "title": "Classificação de resíduos — NBR 10004:2004 × 2024",
+      "front": "Compare as classes de resíduos das edições 2004 e 2024 da NBR 10004. Como interpretar a antiga subdivisão II-A/II-B?",
+      "back": "Na edição 2004: Classe I — perigosos; Classe II — não perigosos, subdivididos em II-A (não inertes) e II-B (inertes). Na edição 2024, a classificação por periculosidade se organiza em Classe 1 — perigosos e Classe 2 — não perigosos, sem a antiga subdivisão II-A/II-B.",
+      "satellites": [
+        "CARD-0520"
+      ],
+      "source": "CON-11-024\n\nCON-11-025",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0402",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Resíduos sólidos",
+          "sub": "Classe 1 / Classe 2",
+          "front": "Quais classes de periculosidade a NBR 10004:2024 adota?",
+          "back": "Classe 1: resíduos perigosos; Classe 2: resíduos não perigosos.",
+          "expl": "A edição 2024 reorganiza a classificação em duas classes. A definição depende da identificação do resíduo e de avaliações de periculosidade, não apenas do local de geração.\nAplicação: Uma amostra de processo com características tóxicas demonstradas deve ser avaliada para Classe 1; um resíduo sem perigosidade demonstrada sob os critérios pode se enquadrar em Classe 2.\nPegadinha: Não usar II-A (não inerte) e II-B (inerte) como subclasses da edição 2024; eram subdivisões da versão anterior.",
+          "mnemonic": "2024: 1 perigoso; 2 não perigoso.",
+          "reference": "CON-11-024",
+          "active": true
+        },
+        {
+          "id": "CARD-0520",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Resíduos sólidos",
+          "sub": "II-A / II-B antigas",
+          "front": "II-A e II-B são subclasses da NBR 10004:2024?",
+          "back": "Não. Eram categorias históricas dos não perigosos na edição anterior.",
+          "expl": "Na edição 2004 apareciam Classe I (perigosos), Classe II-A (não inertes) e Classe II-B (inertes). A edição 2024 passa a organizar o resultado por periculosidade em classes 1 e 2.\nAplicação: Uma questão que peça classificação “na NBR 10004:2004” admite a terminologia antiga; se citar “2024”, use a estrutura nova.\nPegadinha: Não misturar denominações de edições distintas nem concluir que um resíduo Classe 2 seja sempre inerte.",
+          "mnemonic": "II-A/II-B = versão antiga; 2024 = 1/2.",
+          "reference": "CON-11-025",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0402": "37709cec30d08e49d0282976acba191c5f8cad5942846c9fc6aca94ce9c18317",
+        "CARD-0520": "0a1b06b02a3effe38ded97771eed33de52d550d6906a377e1610a65e671f8372"
+      },
+      "mnemonic": "2004: I, II-A, II-B; 2024: 1 perigoso, 2 não perigoso.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Compare as classes de resíduos das edições 2004 e 2024 da NBR 10004. Como interpretar a antiga subdivisão II-A/II-B?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na edição 2004: Classe I — perigosos; Classe II — não perigosos, subdivididos em II-A (não inertes) e II-B (inertes). Na edição 2024, a classificação por periculosidade se organiza em Classe 1 — perigosos e Classe 2 — não perigosos, sem a antiga subdivisão II-A/II-B."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-11-024\n\nCON-11-025"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A classificação depende da identificação do resíduo e dos critérios de periculosidade da edição aplicável; não decorre apenas do local de geração."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Se as características de toxicidade de um resíduo atenderem aos critérios de periculosidade, avaliar seu enquadramento como Classe 1 na edição 2024. Uma questão que cite 2004 exige a terminologia antiga."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "2004: I, II-A, II-B. 2024: 1, 2, por periculosidade. Classe 2 não significa automaticamente resíduo inerte."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Identifique primeiro a edição exigida na questão ou no procedimento e só depois aplique seus critérios de classificação ao resíduo e aos dados disponíveis."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0402, CARD-0520. Sem vínculo adicional confirmado neste lote."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Comparação histórica dos dois textos conforme registros originais; não constitui verificação independente de vigência, transição normativa ou enquadramento de amostra real."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não misturar a subdivisão antiga com a classificação de 2024 nem inferir ausência de periculosidade sem avaliação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "2004: I, II-A, II-B; 2024: 1 perigoso, 2 não perigoso."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Na edição 2004: Classe I — perigosos; Classe II — não perigosos, subdivididos em II-A (não inertes) e II-B (inertes). Na edição 2024, a classificação por periculosidade se organiza em Classe 1 — perigosos e Classe 2 — não perigosos, sem a antiga subdivisão II-A/II-B."
+        ],
+        "highlights": [
+          {
+            "text": "Na edição 2004: Classe I — perigosos",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-1117",
+      "title": "Cal hidratada e cimento na argamassa mista",
+      "front": "Por que a cal hidratada melhora a trabalhabilidade e retenção de água da argamassa? Compare cal aérea e cimento Portland quanto ao endurecimento e à resistência inicial.",
+      "back": "A cal hidratada pode melhorar plasticidade, coesão e retenção de água, facilitando espalhamento e contato com o substrato. A cal aérea endurece principalmente por carbonatação, enquanto o cimento Portland endurece por hidratação e costuma contribuir decisivamente para resistência inicial. Mais cal não garante maior resistência, aderência ou menor fissuração.",
+      "satellites": [
+        "CARD-1118"
+      ],
+      "source": "CON-16-058\n\nIPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt; questão original CON-16-058.\n\nCON-16-059\n\nIPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt; questão original CON-16-059.",
+      "related_card_ids": [
+        "CARD-1120"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-1117",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Materiais / argamassa",
+          "sub": "Cal / argamassa",
+          "front": "Por que a cal hidratada melhora a trabalhabilidade e retenção de água da argamassa, e por que isso não equivale a aumentar automaticamente sua resistência?",
+          "back": "A cal hidratada pode aumentar a plasticidade, coesão e retenção de água da argamassa, facilitando espalhamento e contato com a base. Suas partículas finas influenciam a reologia e a água disponível na pasta; um substrato muito absorvente pode retirar água antes da hidratação adequada do cimento, prejudicando a interface.\n\nO desempenho depende de traço, água, granulometria, substrato, cura e compatibilidade. Mais cal não significa necessariamente maior resistência à compressão ou aderência, nem menor fissuração. Cimento, cal, areia e água exercem funções complementares.",
+          "expl": "Fundamento e fontes\nIPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt; questão original CON-16-058.\n\nMecanismo\nA retenção reduz a perda rápida de água por sucção da base; melhor plasticidade favorece o preenchimento de irregularidades e o contato inicial. A aderência final depende também de preparo da base, porosidade e cura.\n\nFórmulas e unidades\nNão existe proporção universal de cal para qualquer argamassa. Em dosagem, distinguir traço volumétrico de mássico e controlar teor de água em vez de adicionar até parecer fluida.\n\nComparação\nPlasticidade: capacidade de deformar e espalhar mantendo coesão; retenção de água: capacidade de conservar água; resistência: desempenho endurecido; aderência: ligação com substrato.\n\nAplicação e transferência\nEm bloco muito absorvente ou clima quente, avaliar preparo da base, retenção, tempo de aplicação e cura; não corrigir continuamente a perda de consistência com água.\n\nCondições e exceções\nSubstrato, ligante e aditivos variam; uma argamassa industrializada deve respeitar fabricante e especificação. Não extrapolar resultados de um traço para todos os materiais.\n\nPegadinhas\nTrabalhabilidade não é sinônimo de excesso de água; cal não substitui indiscriminadamente cimento.\n\nMacete e histórico\nCal facilita aplicar e conserva água; resistência depende do sistema. Original CON-16-058 preservado.",
+          "mnemonic": "Cal facilita aplicar e conserva água; resistência depende do sistema. Original CON-16-058 preservado.",
+          "reference": "CON-16-058",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1118",
+            "CARD-1120"
+          ],
+          "search_keywords": [
+            "Cal hidratada, plasticidade e retenção de água"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-1117",
+            "historical_ids": [
+              "CARD-1117"
+            ],
+            "original": {
+              "front": "Na argamassa de assentamento ou revestimento, por que adicionar cal hidratada pode alterar a trabalhabilidade e retenção de água?",
+              "back": "A cal hidratada pode melhorar plasticidade e retenção de água da argamassa; o desempenho efetivo depende do traço e dos materiais.",
+              "expl": "Partículas finas e características reológicas da cal modificam a coesão e o comportamento de aplicação, influenciando a disponibilidade de água para o ligante e a aderência ao substrato.\nAplicação: Na execução, verificar dosagem e compatibilidade, sem substituir automaticamente todo o cimento por cal.\nPegadinha: Mais cal não garante, sozinho, maior resistência à compressão ou menor fissuração.",
+              "reference": "CON-16-058",
+              "mnemonic": "Cal pode dar plasticidade; desempenho pede traço."
+            },
+            "previous_version": {
+              "id": "CARD-1117",
+              "group": "ENG_GERAL",
+              "discipline": "Engenharia Civil",
+              "subject": "Materiais / argamassa",
+              "sub": "Cal / argamassa",
+              "front": "Na argamassa de assentamento ou revestimento, por que adicionar cal hidratada pode alterar a trabalhabilidade e retenção de água?",
+              "back": "A cal hidratada pode melhorar plasticidade e retenção de água da argamassa; o desempenho efetivo depende do traço e dos materiais.",
+              "expl": "Partículas finas e características reológicas da cal modificam a coesão e o comportamento de aplicação, influenciando a disponibilidade de água para o ligante e a aderência ao substrato.\nAplicação: Na execução, verificar dosagem e compatibilidade, sem substituir automaticamente todo o cimento por cal.\nPegadinha: Mais cal não garante, sozinho, maior resistência à compressão ou menor fissuração.",
+              "mnemonic": "Cal pode dar plasticidade; desempenho pede traço.",
+              "reference": "CON-16-058",
+              "active": true
+            },
+            "profile": {
+              "id": "CARD-1117",
+              "title": "Cal hidratada, plasticidade e retenção de água",
+              "front": "Por que a cal hidratada melhora a trabalhabilidade e retenção de água da argamassa, e por que isso não equivale a aumentar automaticamente sua resistência?",
+              "back": "A cal hidratada pode aumentar a plasticidade, coesão e retenção de água da argamassa, facilitando espalhamento e contato com a base. Suas partículas finas influenciam a reologia e a água disponível na pasta; um substrato muito absorvente pode retirar água antes da hidratação adequada do cimento, prejudicando a interface.\n\nO desempenho depende de traço, água, granulometria, substrato, cura e compatibilidade. Mais cal não significa necessariamente maior resistência à compressão ou aderência, nem menor fissuração. Cimento, cal, areia e água exercem funções complementares.",
+              "source": "IPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt",
+              "mnemonic": "Cal facilita aplicar e conserva água; resistência depende do sistema. Original CON-16-058 preservado.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Por que a cal hidratada melhora a trabalhabilidade e retenção de água da argamassa, e por que isso não equivale a aumentar automaticamente sua resistência?"
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "A cal hidratada pode aumentar a plasticidade, coesão e retenção de água da argamassa, facilitando espalhamento e contato com a base. Suas partículas finas influenciam a reologia e a água disponível na pasta; um substrato muito absorvente pode retirar água antes da hidratação adequada do cimento, prejudicando a interface.\n\nO desempenho depende de traço, água, granulometria, substrato, cura e compatibilidade. Mais cal não significa necessariamente maior resistência à compressão ou aderência, nem menor fissuração. Cimento, cal, areia e água exercem funções complementares."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "IPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt; questão original CON-16-058."
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "A retenção reduz a perda rápida de água por sucção da base; melhor plasticidade favorece o preenchimento de irregularidades e o contato inicial. A aderência final depende também de preparo da base, porosidade e cura."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas e unidades",
+                  "texto": "Não existe proporção universal de cal para qualquer argamassa. Em dosagem, distinguir traço volumétrico de mássico e controlar teor de água em vez de adicionar até parecer fluida."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Plasticidade: capacidade de deformar e espalhar mantendo coesão; retenção de água: capacidade de conservar água; resistência: desempenho endurecido; aderência: ligação com substrato."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Aplicação e transferência",
+                  "texto": "Em bloco muito absorvente ou clima quente, avaliar preparo da base, retenção, tempo de aplicação e cura; não corrigir continuamente a perda de consistência com água."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-1118: resistência inicial; CARD-1120: carbonatação da cal aérea."
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Substrato, ligante e aditivos variam; uma argamassa industrializada deve respeitar fabricante e especificação. Não extrapolar resultados de um traço para todos os materiais."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Trabalhabilidade não é sinônimo de excesso de água; cal não substitui indiscriminadamente cimento."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e histórico",
+                  "texto": "Cal facilita aplicar e conserva água; resistência depende do sistema. Original CON-16-058 preservado."
+                }
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "A cal hidratada pode aumentar a plasticidade, coesão e retenção de água da argamassa, facilitando espalhamento e contato com a base. Suas partículas finas influenciam a reologia e a água disponível na pasta; um substrato muito absorvente pode retirar água antes da hidratação adequada do cimento, prejudicando a interface.",
+                  "O desempenho depende de traço, água, granulometria, substrato, cura e compatibilidade. Mais cal não significa necessariamente maior resistência à compressão ou aderência, nem menor fissuração. Cimento, cal, areia e água exercem funções complementares."
+                ],
+                "highlights": [
+                  {
+                    "kind": "core",
+                    "text": "plasticidade, coesão e retenção de água",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "kind": "exception",
+                    "text": "Mais cal não significa necessariamente maior resistência",
+                    "color": "#FECDD3"
+                  }
+                ],
+                "table": {
+                  "headers": [
+                    "Componente",
+                    "Contribuição usual"
+                  ],
+                  "rows": [
+                    [
+                      "Cimento",
+                      "Hidratação e resistência"
+                    ],
+                    [
+                      "Cal",
+                      "Plasticidade e retenção"
+                    ],
+                    [
+                      "Areia",
+                      "Esqueleto granular"
+                    ],
+                    [
+                      "Água",
+                      "Trabalhabilidade e reações"
+                    ]
+                  ]
+                },
+                "media": [],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              },
+              "related_card_ids": [
+                "CARD-1118",
+                "CARD-1120"
+              ]
+            }
+          }
+        },
+        {
+          "id": "CARD-1118",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Materiais / argamassa",
+          "sub": "Resistência inicial",
+          "front": "A adição de cal hidratada aérea garante maior resistência inicial à argamassa? Diferencie o papel da cal e do cimento.",
+          "back": "Não. A cal aérea contribui usualmente para plasticidade e retenção de água e desenvolve rigidez principalmente por carbonatação. O cimento Portland endurece por hidratação e costuma contribuir decisivamente para a resistência inicial da argamassa mista.\n\nO resultado depende do tipo de ligante, traço, relação água/aglomerante, cura e idade do ensaio. Não se deve inferir resistência inicial apenas pela facilidade de aplicação ou pela presença de cal.",
+          "expl": "Fundamento e fontes\nIPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt; questão original CON-16-059.\n\nMecanismo\nA hidratação do cimento forma produtos ligantes mesmo sem contato direto com CO₂ atmosférico. A carbonatação da cal aérea depende de acesso ao CO₂ e condições de umidade; os mecanismos não são equivalentes.\n\nFórmulas e unidades\nResistência à compressão pode ser expressa por força de ruptura dividida pela área carregada (MPa quando N/mm²), comparada na mesma idade e condição de ensaio.\n\nComparação\nArgamassa fresca: consistência, coesão, retenção; endurecida: resistência, aderência, deformabilidade e durabilidade. Uma propriedade não substitui a outra.\n\nAplicação e transferência\nPara comparar dois traços de argamassa aos 7 dias, controlar materiais, proporções, cura e método de ensaio; não concluir superioridade apenas pelo teor de cal.\n\nCondições e exceções\nA comparação se refere à cal aérea, não a todos os ligantes hidráulicos. Efeitos da cal em argamassa mista variam conforme dosagem e microestrutura.\n\nPegadinhas\nNão confundir ganho de plasticidade com ganho imediato de resistência, nem dizer que cal não endurece.\n\nMacete e histórico\nCal favorece manuseio; cimento costuma dominar resistência inicial. Original CON-16-059 preservado.",
+          "mnemonic": "Cal favorece manuseio; cimento costuma dominar resistência inicial. Original CON-16-059 preservado.",
+          "reference": "CON-16-059",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1117",
+            "CARD-1120"
+          ],
+          "search_keywords": [
+            "Resistência inicial da argamassa com cal"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-1118",
+            "historical_ids": [
+              "CARD-1118"
+            ],
+            "original": {
+              "front": "A cal hidratada aérea garante maior resistência inicial à argamassa?",
+              "back": "Não. Sua contribuição usual é trabalhabilidade/plasticidade e retenção de água.",
+              "expl": "A cal aérea endurece principalmente por carbonatação; a resistência inicial de uma argamassa depende também de cimento, dosagem, cura e condições ambientais.\nAplicação: Argamassa mista cimento–cal pode ganhar trabalhabilidade sem que a cal isoladamente eleve sua resistência de um dia.\nPegadinha: Não confundir plasticidade com resistência inicial e não generalizar a toda formulação.",
+              "reference": "CON-16-059",
+              "mnemonic": "Cal melhora manuseio; cimento acelera resistência."
+            },
+            "previous_version": {
+              "id": "CARD-1118",
+              "group": "ENG_GERAL",
+              "discipline": "Engenharia Civil",
+              "subject": "Materiais / argamassa",
+              "sub": "Resistência inicial",
+              "front": "A cal hidratada aérea garante maior resistência inicial à argamassa?",
+              "back": "Não. Sua contribuição usual é trabalhabilidade/plasticidade e retenção de água.",
+              "expl": "A cal aérea endurece principalmente por carbonatação; a resistência inicial de uma argamassa depende também de cimento, dosagem, cura e condições ambientais.\nAplicação: Argamassa mista cimento–cal pode ganhar trabalhabilidade sem que a cal isoladamente eleve sua resistência de um dia.\nPegadinha: Não confundir plasticidade com resistência inicial e não generalizar a toda formulação.",
+              "mnemonic": "Cal melhora manuseio; cimento acelera resistência.",
+              "reference": "CON-16-059",
+              "active": true
+            },
+            "profile": {
+              "id": "CARD-1118",
+              "title": "Resistência inicial da argamassa com cal",
+              "front": "A adição de cal hidratada aérea garante maior resistência inicial à argamassa? Diferencie o papel da cal e do cimento.",
+              "back": "Não. A cal aérea contribui usualmente para plasticidade e retenção de água e desenvolve rigidez principalmente por carbonatação. O cimento Portland endurece por hidratação e costuma contribuir decisivamente para a resistência inicial da argamassa mista.\n\nO resultado depende do tipo de ligante, traço, relação água/aglomerante, cura e idade do ensaio. Não se deve inferir resistência inicial apenas pela facilidade de aplicação ou pela presença de cal.",
+              "source": "IPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt",
+              "mnemonic": "Cal favorece manuseio; cimento costuma dominar resistência inicial. Original CON-16-059 preservado.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "A adição de cal hidratada aérea garante maior resistência inicial à argamassa? Diferencie o papel da cal e do cimento."
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "Não. A cal aérea contribui usualmente para plasticidade e retenção de água e desenvolve rigidez principalmente por carbonatação. O cimento Portland endurece por hidratação e costuma contribuir decisivamente para a resistência inicial da argamassa mista.\n\nO resultado depende do tipo de ligante, traço, relação água/aglomerante, cura e idade do ensaio. Não se deve inferir resistência inicial apenas pela facilidade de aplicação ou pela presença de cal."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "IPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt; questão original CON-16-059."
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "A hidratação do cimento forma produtos ligantes mesmo sem contato direto com CO₂ atmosférico. A carbonatação da cal aérea depende de acesso ao CO₂ e condições de umidade; os mecanismos não são equivalentes."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas e unidades",
+                  "texto": "Resistência à compressão pode ser expressa por força de ruptura dividida pela área carregada (MPa quando N/mm²), comparada na mesma idade e condição de ensaio."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Argamassa fresca: consistência, coesão, retenção; endurecida: resistência, aderência, deformabilidade e durabilidade. Uma propriedade não substitui a outra."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Aplicação e transferência",
+                  "texto": "Para comparar dois traços de argamassa aos 7 dias, controlar materiais, proporções, cura e método de ensaio; não concluir superioridade apenas pelo teor de cal."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-1117: comportamento fresco; CARD-1120: reação de carbonatação."
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "A comparação se refere à cal aérea, não a todos os ligantes hidráulicos. Efeitos da cal em argamassa mista variam conforme dosagem e microestrutura."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não confundir ganho de plasticidade com ganho imediato de resistência, nem dizer que cal não endurece."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e histórico",
+                  "texto": "Cal favorece manuseio; cimento costuma dominar resistência inicial. Original CON-16-059 preservado."
+                }
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "Não. A cal aérea contribui usualmente para plasticidade e retenção de água e desenvolve rigidez principalmente por carbonatação. O cimento Portland endurece por hidratação e costuma contribuir decisivamente para a resistência inicial da argamassa mista.",
+                  "O resultado depende do tipo de ligante, traço, relação água/aglomerante, cura e idade do ensaio. Não se deve inferir resistência inicial apenas pela facilidade de aplicação ou pela presença de cal."
+                ],
+                "highlights": [
+                  {
+                    "kind": "core",
+                    "text": "principalmente por carbonatação",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "kind": "core",
+                    "text": "endurece por hidratação",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "idade do ensaio",
+                    "color": "#BAE6FD"
+                  }
+                ],
+                "table": {
+                  "headers": [
+                    "Ligante",
+                    "Mecanismo predominante"
+                  ],
+                  "rows": [
+                    [
+                      "Cal aérea",
+                      "Carbonatação"
+                    ],
+                    [
+                      "Cimento Portland",
+                      "Hidratação"
+                    ]
+                  ]
+                },
+                "media": [],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              },
+              "related_card_ids": [
+                "CARD-1117",
+                "CARD-1120"
+              ]
+            }
+          }
+        }
+      ],
+      "source_hashes": {
+        "CARD-1117": "1eaf7b909b84001603cd90486a88d8185ccbd909c7c72c3f19916653b58772eb",
+        "CARD-1118": "66d6a5d7a0259cedf0312f6957a320b44f4ac561cf89151144dd7efceb767890"
+      },
+      "mnemonic": "Cal facilita aplicar e conserva água; cimento costuma dominar resistência inicial; desempenho depende do sistema.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Por que a cal hidratada melhora a trabalhabilidade e retenção de água da argamassa? Compare cal aérea e cimento Portland quanto ao endurecimento e à resistência inicial."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A cal hidratada pode melhorar plasticidade, coesão e retenção de água, facilitando espalhamento e contato com o substrato. A cal aérea endurece principalmente por carbonatação, enquanto o cimento Portland endurece por hidratação e costuma contribuir decisivamente para resistência inicial. Mais cal não garante maior resistência, aderência ou menor fissuração."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-16-058\n\nIPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt; questão original CON-16-058.\n\nCON-16-059\n\nIPHAN, Manual de uso da cal: https://portal.iphan.gov.br/uploads/publicacao/Man_UsoDaCal_m.pdf ; artigo Matéria, Influência da adição de cal hidratada na aderência do chapisco e argamassa para revestimento (2021): https://www.scielo.br/j/rmat/a/q7Vjv7vrHx7Z8B35PBRSXhQ/?lang=pt; questão original CON-16-059."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Partículas finas alteram a reologia e favorecem retenção de água, reduzindo perda rápida por sucção da base. A hidratação do cimento forma produtos ligantes sem exigir CO₂ atmosférico; a carbonatação da cal aérea depende do acesso a CO₂ e das condições de umidade."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Resistência à compressão=fôrça de ruptura/área carregada (N/mm²=MPa); compare traços na mesma idade, cura e condição de ensaio. Distinguir dosagem mássica e volumétrica; não há proporção universal de cal."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "No estado fresco: plasticidade, consistência, coesão e retenção. No endurecido: resistência, aderência, deformabilidade e durabilidade. Cimento, cal, areia e água têm funções complementares."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Em substrato absorvente ou clima quente, avaliar preparo da base, retenção, tempo de aplicação e cura. Para comparar traços aos 7 dias, controlar materiais, água, granulometria, proporções e método de ensaio."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-1117, CARD-1118. Relacionados: CARD-1120"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Comparação refere-se à cal aérea, não a todos os ligantes hidráulicos. Aderência depende também de preparo da base, porosidade, cura e compatibilidade. Respeitar especificação e instruções de argamassas industrializadas."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir trabalhabilidade com excesso de água; não adicionar água continuamente para recuperar consistência nem substituir cimento indiscriminadamente. Cal endurece, mas plasticidade não prova resistência inicial."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Cal facilita aplicar e conserva água; cimento costuma dominar resistência inicial; desempenho depende do sistema."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "A cal hidratada pode melhorar plasticidade, coesão e retenção de água, facilitando espalhamento e contato com o substrato. A cal aérea endurece principalmente por carbonatação, enquanto o cimento Portland endurece por hidratação e costuma contribuir decisivamente para resistência inicial. Mais cal não garante maior resistência, aderência ou menor fissuração."
+        ],
+        "highlights": [
+          {
+            "text": "A cal hidratada pode melhorar plasticidade, coesão e retenção de água, facilitando espalhamento e contato com o substrato",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-1289",
+      "title": "Voz passiva analítica × predicado nominal",
+      "front": "Como diferenciar “foi preenchido” e “será preenchido” de “está cansado”? Explique a transformação para a voz ativa.",
+      "back": "“Foi/será preenchido” constitui voz passiva analítica (ser + particípio de verbo transitivo direto no contexto), com sujeito paciente e agente da passiva possível. “Está cansado” apresenta verbo de ligação + predicativo do sujeito, formando predicado nominal.",
+      "satellites": [
+        "CARD-1348"
+      ],
+      "source": "CAND-PT-0036;CAND-PT-0038;CAND-PT-0055\n\nCAND-PT-0055",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-1289",
+          "group": "PORTUGUES",
+          "discipline": "Português",
+          "subject": "Voz passiva e agente",
+          "sub": "Voz passiva e agente",
+          "front": "Como diferenciar “foi preenchido” (passiva) de “está cansado” (predicado nominal)?",
+          "back": "“Foi preenchido” é locução passiva ser + particípio; “está cansado” é ligação + predicativo.",
+          "expl": "Na voz passiva analítica, um paciente ocupa posição de sujeito e pode haver agente da passiva. No predicado nominal, a cópula atribui estado ao sujeito por um predicativo.\nAplicação: “O formulário foi preenchido pelo fiscal.” → “O fiscal preencheu o formulário.” “O fiscal está cansado.” → estado do fiscal, sem transformação passiva correspondente.\nPegadinha: A presença de particípio/adjetivo não basta: verificar transitividade do verbo e transformação para voz ativa. “Estar cansado” não implica agente da passiva.\nMapa completo da frase: “O formulário foi preenchido pelo fiscal.”: sujeito paciente = O formulário; predicado verbal = foi preenchido pelo fiscal; locução ser + particípio na voz passiva analítica, pretérito perfeito; pelo fiscal = agente da passiva; na ativa, fiscal é sujeito e formulário OD.",
+          "mnemonic": "Ser + particípio de ação = conferir passiva; estar + estado = nominal.",
+          "reference": "CAND-PT-0036;CAND-PT-0038;CAND-PT-0055",
+          "active": true
+        },
+        {
+          "id": "CARD-1348",
+          "group": "PORTUGUES",
+          "discipline": "Português",
+          "subject": "Voz verbal",
+          "sub": "Voz verbal",
+          "front": "“Ser preenchido” caracteriza voz passiva ou verbo de ligação?",
+          "back": "Voz passiva analítica, quando há verbo transitivo com particípio.",
+          "expl": "A construção ser + particípio expressa resultado de ação sofrida pelo sujeito paciente e pode admitir agente da passiva.\nAplicação: “O formulário será preenchido pelo aluno” → “O aluno preencherá o formulário”.\nPegadinha: Não confundir com “está cansado”, cuja estrutura pode ser verbo de ligação + predicativo.\nMapa completo da frase: “O formulário será preenchido.”: sujeito paciente o formulário; locução verbal passiva será preenchido (futuro do presente); predicado verbal; agente da passiva não expresso.",
+          "mnemonic": "Ser+particípio de ação = passiva.",
+          "reference": "CAND-PT-0055",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-1289": "f65ea71ab317b8daedc2d0ead61166a8207536ae1bb121a0b14de35c04871948",
+        "CARD-1348": "0818f319b8557dc41774e5ccbb63807301767a06c506ad25d6d5dd82d1286ae8"
+      },
+      "mnemonic": "Ser + particípio de ação: teste a passiva; estar + estado: teste o predicativo.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como diferenciar “foi preenchido” e “será preenchido” de “está cansado”? Explique a transformação para a voz ativa."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "“Foi/será preenchido” constitui voz passiva analítica (ser + particípio de verbo transitivo direto no contexto), com sujeito paciente e agente da passiva possível. “Está cansado” apresenta verbo de ligação + predicativo do sujeito, formando predicado nominal."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CAND-PT-0036;CAND-PT-0038;CAND-PT-0055\n\nCAND-PT-0055"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Na passiva, o objeto direto da ativa torna-se sujeito paciente; o sujeito agente pode aparecer como agente da passiva. Na ligação, a cópula atribui estado ou característica ao sujeito."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "O formulário foi preenchido pelo fiscal → O fiscal preencheu o formulário. O formulário será preenchido pelo aluno → O aluno preencherá o formulário. O fiscal está cansado → atribuição de estado, sem ativa equivalente."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Passiva: ação sofrida pelo sujeito, predicado verbal. Nominal: estado/característica, núcleo predicativo. Particípio ou adjetivo isolado não decide a classificação."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Mapa: em “O formulário foi preenchido pelo fiscal”, sujeito paciente O formulário, locução passiva no pretérito perfeito, predicado verbal, agente pelo fiscal. Em “O formulário será preenchido”, futuro do presente, sujeito paciente, agente não expresso."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-1289, CARD-1348. Sem vínculo adicional confirmado neste lote."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Verificar transitividade, sentido contextual e possibilidade de transformação preservando o significado; nem toda ocorrência de ser + particípio tem automaticamente leitura passiva."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não interpretar “está cansado” como voz passiva apenas porque cansado tem forma participial; não exigir agente explícito para reconhecer passiva."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Ser + particípio de ação: teste a passiva; estar + estado: teste o predicativo."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "“Foi/será preenchido” constitui voz passiva analítica (ser + particípio de verbo transitivo direto no contexto), com sujeito paciente e agente da passiva possível. “Está cansado” apresenta verbo de ligação + predicativo do sujeito, formando predicado nominal."
+        ],
+        "highlights": [
+          {
+            "text": "“Foi/será preenchido” constitui voz passiva analítica (ser + particípio de verbo transitivo direto no contexto), com sujeito paciente e agente da passiva possível",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    },
+    {
+      "id": "CARD-0052",
+      "title": "Adições e composição dos cimentos Portland",
+      "front": "Segundo a NBR 16697:2018, diferencie CP II-E, CP II-Z, CP II-F, CP III e CP IV pelas adições características e respectivas faixas registradas.",
+      "back": "CP II-E: escória 6–34%; CP II-Z: pozolana 6–14%; CP II-F: material carbonático 11–25%; CP III (alto-forno): escória 35–75%; CP IV (pozolânico): pozolana 15–50%. Faixas da edição 2018 conforme os registros originais.",
+      "satellites": [
+        "CARD-1122"
+      ],
+      "source": "H20-C004\n\nCON-16-057",
+      "related_card_ids": [
+        "CARD-0168"
+      ],
+      "related_question_ids": [
+        "PETRO26-Q05"
+      ],
+      "source_material": [
+        {
+          "id": "CARD-0052",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Materiais de construção",
+          "sub": "CP II-E",
+          "front": "Que adições distinguem CP II-E, CP II-Z e CP III, incluindo faixas segundo NBR 16697:2018?",
+          "back": "II-E: escória 6–34%; II-Z: pozolana 6–14%; III: alto-forno com escória 35–75%.",
+          "expl": "O **CP II-E** é cimento composto com **escória 6–34%**; o **CP II-Z** é composto com **pozolana 6–14%**. E indica escória; Z lembra pozolana.\n\nO **CP III** também usa escória, mas é **cimento de alto-forno**, com faixa maior: **35–75%**. Escória de atividade hidráulica latente não é o mesmo que material pozolânico.\n\nPara escolher cimento, verificar classe de resistência, durabilidade e edição da norma, não apenas o nome da adição.",
+          "mnemonic": "E escória, Z poZolana, III alto-forno.",
+          "reference": "H20-C004",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1122"
+          ],
+          "related_question_ids": [
+            "PETRO26-Q05"
+          ],
+          "search_keywords": " Que adições distinguem CP II-E, CP II-Z e CP III, incluindo faixas segundo NBR 16697:2018? E escória; Z pozolana; III alto-forno.",
+          "last_relationship_at": "2026-11-21",
+          "last_editorial_modified_at": "2026-11-21",
+          "legacy_snapshot_v336": {
+            "front": "No recebimento de cimento CP II-E, qual material suplementar é indicado pela letra E e como diferenciá-lo do CP II-Z?",
+            "back": "CP II-E é cimento Portland composto com escória granulada de alto-forno; CP II-Z é composto com material pozolânico.",
+            "expl": "As letras caracterizam a adição predominante que define cada subtipo de cimento composto. Não significam que o produto seja feito só dessa adição: há clínquer, sulfato de cálcio e composição definida pela especificação.\nAplicação: Conferir a designação completa na embalagem e a adequação ao concreto e ao ambiente; a escolha não decorre da sigla isolada.\nPegadinha: E = escória; Z = pozolana. A escória pode aparecer também em CP III, em faixa diferente; evitar usar percentuais de tabelas anteriores à NBR 16697:2018.",
+            "mnemonic": "E → Escória; Z → poZolana.",
+            "reference": "H20-C004",
+            "related_card_ids": [],
+            "related_question_ids": []
+          }
+        },
+        {
+          "id": "CARD-1122",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Materiais / cimento",
+          "sub": "Cimentos com escória",
+          "front": "Qual cimento é o Portland de alto-forno e quanto de escória apresentam CP II-E e CP III na NBR 16697:2018?",
+          "back": "CP III = alto-forno, 35–75% de escória; CP II-E = composto com escória, 6–34%.",
+          "expl": "O **CP III** é o cimento Portland **de alto-forno**, contendo **35% a 75%** de escória granulada na NBR 16697:2018. O **CP II-E** é composto com escória, com teor de **6% a 34%**.\n\nA escória granulada adequadamente processada apresenta atividade hidráulica latente; a presença de escória nos dois tipos não os torna iguais. **CP IV** é o cimento pozolânico (15–50% de pozolana).\n\nA imagem da questão traz CP II-F com 6–10%, valor de norma anterior; na **NBR 16697:2018**, CP II-F contém 11–25% de material carbonático. Conferir sempre a edição.",
+          "mnemonic": "III alto-forno, 35–75.",
+          "reference": "CON-16-057",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0052",
+            "CARD-0168"
+          ],
+          "related_question_ids": [
+            "PETRO26-Q05"
+          ],
+          "search_keywords": " Qual cimento é o Portland de alto-forno e quanto de escória apresentam CP II-E e CP III na NBR 16697:2018? II-E composto com escória; III alto-forno; IV pozolânico.",
+          "last_relationship_at": "2026-11-21",
+          "last_editorial_modified_at": "2026-11-21",
+          "legacy_snapshot_v336": {
+            "front": "Quais cimentos Portland se associam à escória de alto-forno nas siglas CP II-E e CP III, e qual a diferença classificatória principal?",
+            "back": "CP II-E é cimento composto com escória; CP III é cimento Portland de alto-forno, com faixa maior de adição de escória.",
+            "expl": "A identificação E no CP II-E e a categoria CP III relacionam-se ao uso de escória; a proporção permitida e os demais requisitos devem ser lidos na versão pertinente da NBR 16697.\nAplicação: Em concurso que pedir porcentagens, situar a edição da especificação e consultar a tabela correta, sem reaproveitar percentuais históricos.\nPegadinha: Não inferir que CP III significa “três adições” nem que ambos tenham o mesmo teor de escória.",
+            "mnemonic": "II-E = composto; III = alto-forno.",
+            "reference": "CON-16-057",
+            "related_card_ids": [],
+            "related_question_ids": []
+          }
+        }
+      ],
+      "source_hashes": {
+        "CARD-0052": "87ebb80056968c9765afea9fe0b4718ac30be9903252488a38c37be9d23c53a0",
+        "CARD-1122": "3c2f58b16445a93a38050b5a243f78a5a06dfba9e6610a58c808a0e216307a35"
+      },
+      "mnemonic": "E escória, Z poZolana, F fíler; III alto-forno, IV pozolânico.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo a NBR 16697:2018, diferencie CP II-E, CP II-Z, CP II-F, CP III e CP IV pelas adições características e respectivas faixas registradas."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "CP II-E: escória 6–34%; CP II-Z: pozolana 6–14%; CP II-F: material carbonático 11–25%; CP III (alto-forno): escória 35–75%; CP IV (pozolânico): pozolana 15–50%. Faixas da edição 2018 conforme os registros originais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C004\n\nCON-16-057"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Escória granulada adequadamente processada tem atividade hidráulica latente; material pozolânico reage em condições adequadas com produtos da hidratação. Material carbonático não equivale automaticamente a escória ou pozolana."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Uma questão que indique 35–75% de escória remete ao CP III; 6–34% de escória ao CP II-E. Uma indicação de 15–50% de pozolana remete ao CP IV."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "CP II-E e CP III têm escória, mas faixas distintas; CP II-Z e CP IV têm pozolana, mas faixas distintas; CP II-F tem material carbonático."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Ao escolher cimento, verificar classe de resistência, durabilidade, exposição e edição normativa, além do tipo e faixa de adição."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0052, CARD-1122. Relacionados: CARD-0168"
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Percentuais registrados para NBR 16697:2018, não para qualquer edição. Conferir a tabela completa da norma para composição e requisitos adicionais."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir CP III com CP IV. A faixa histórica de 6–10% de CP II-F em imagem de questão não corresponde à faixa 11–25% registrada para 2018."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "E escória, Z poZolana, F fíler; III alto-forno, IV pozolânico."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "CP II-E: escória 6–34%; CP II-Z: pozolana 6–14%; CP II-F: material carbonático 11–25%; CP III (alto-forno): escória 35–75%; CP IV (pozolânico): pozolana 15–50%. Faixas da edição 2018 conforme os registros originais."
+        ],
+        "highlights": [
+          {
+            "text": "CP II-E: escória 6–34%",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    }
+  ],
+  "private_srs_changed": false,
+  "private_content_exported": false,
+  "validation": {
+    "public_source_cards_verified": true,
+    "private_sync": "not_verified",
+    "browser": "pending",
+    "media_registry": "pending"
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "format": "BancoMestreConsolidationCandidate1",
+  "date": "2026-11-25",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_catalog": "assets/catalog_snapshot_vc42.json",
+  "source_catalog_blob": "e7cc9714a00c1b91d67a2f50e2f580399b4d7fca",
+  "counts": {
+    "source_active": 1526,
+    "groups": 1,
+    "absorbed": 1,
+    "cumulative_groups": 32,
+    "cumulative_absorbed": 38,
+    "projected_active": 1488
+  },
+  "redirects": {
+    "CARD-0251": "CARD-0080"
+  },
+  "revisions": [
+    {
+      "id": "CARD-0080",
+      "title": "Juros simples — juros e montante",
+      "front": "Como calcular os juros e o montante no regime de juros simples? Explique a relação entre principal, taxa, prazo e crescimento do capital.",
+      "back": "J=PV·i·n; FV=PV+J=PV(1+i·n). PV é o principal inicial, i a taxa por período em forma decimal, n o número de períodos compatíveis, J os juros e FV o montante.",
+      "satellites": [
+        "CARD-0251"
+      ],
+      "source": "CON-17-029 | CON-18-004",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0080",
+          "group": "MATEMATICA",
+          "discipline": "Matemática Financeira",
+          "subject": "Juros simples",
+          "sub": "Montante",
+          "front": "Qual a fórmula de montante para juros simples?",
+          "back": "FV=PV(1+i·n), com taxa e prazo em unidades compatíveis.",
+          "expl": "Os juros de cada período incidem sobre o mesmo principal inicial, gerando crescimento linear com o tempo.\nAplicação: PV=R$1.000, i=10% ao ano e n=2 anos: J=R$200 e FV=R$1.200.\nPegadinha: Não confundir juros simples com juros compostos; fora de um período, em geral os montantes diferem.",
+          "mnemonic": "Simples multiplica i×n; composto eleva (1+i)^n.",
+          "reference": "CON-17-029",
+          "active": true
+        },
+        {
+          "id": "CARD-0251",
+          "group": "MATEMATICA",
+          "discipline": "Matemática Financeira",
+          "subject": "Juros simples",
+          "sub": "Juros",
+          "front": "Como calcular juros simples J sobre principal PV, taxa i e tempo n?",
+          "back": "J=PV·i·n, com taxa e tempo em unidades compatíveis.",
+          "expl": "A cada período, o acréscimo depende apenas de PV inicial, não do saldo acrescido dos juros.\nAplicação: PV=R$2.000, taxa de 2% ao mês por 3 meses: J=2.000×0,02×3=R$120.\nPegadinha: Taxa de 2% ao mês com prazo em anos exige conversão do prazo; não incorporar J ao principal a cada período em juros simples.",
+          "mnemonic": "J simples = principal × taxa × tempo.",
+          "reference": "CON-18-004",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0080": "bbed1b387bc072fdc6e0d2f3a1de17e31b5ced13eebd4885be1ced3057650800",
+        "CARD-0251": "073511c18ea79a3fab0f15137505b1a31745ac55ea4607865ca9bb333edd5458"
+      },
+      "mnemonic": "Simples: juros sempre sobre o principal inicial; montante é principal mais juros.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular os juros e o montante no regime de juros simples? Explique a relação entre principal, taxa, prazo e crescimento do capital."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "J=PV·i·n; FV=PV+J=PV(1+i·n). PV é o principal inicial, i a taxa por período em forma decimal, n o número de períodos compatíveis, J os juros e FV o montante."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-17-029 | CON-18-004"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Os juros periódicos incidem sobre o mesmo capital inicial PV; a cada período acrescenta-se PV·i, de modo que o crescimento é linear."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "PV=R$ 1.000, i=10% ao ano, n=2 anos: J=R$ 200; FV=R$ 1.200. PV=R$ 2.000, i=2% ao mês, n=3 meses: J=R$ 120; FV=R$ 2.120."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Simples: FV=PV(1+i·n). Compostos: FV=PV(1+i)^n. A capitalização composta incorpora os juros ao saldo; em um período os resultados coincidem sob a mesma taxa."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Se a taxa simples for mensal e o prazo estiver em anos, converta o prazo para meses; para obter o principal, use PV=FV/(1+i·n), quando o denominador for não nulo."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0080 e CARD-0251. Relacionar ao cartão de juros compostos após a reconciliação dos IDs."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Taxa e prazo devem usar o mesmo período; por exemplo, 2%=0,02. Convenção para períodos fracionários deve seguir o enunciado ou contrato."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar a taxa percentual como inteiro, não confundir J com FV e não capitalizar os juros a cada período."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Simples: juros sempre sobre o principal inicial; montante é principal mais juros."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "J=PV·i·n; FV=PV+J=PV(1+i·n). PV é o principal inicial, i a taxa por período em forma decimal, n o número de períodos compatíveis, J os juros e FV o montante."
+        ],
+        "highlights": [
+          {
+            "text": "J=PV·i·n; FV=PV+J=PV(1+i·n).",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false
+      }
+    }
+  ],
+  "private_srs_changed": false,
+  "private_content_exported": false,
+  "validation": {
+    "public_source_cards_verified": true,
+    "private_sync": "not_verified",
+    "browser": "pending",
+    "media_registry": "pending"
+  }
+}
