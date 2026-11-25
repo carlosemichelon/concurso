@@ -1,3 +1,4 @@
+import {createPortalHost} from '../infra/vs41-private/host.mjs';
 import {privateGaps} from '../infra/vs41-private/gaps-ui.mjs';
 import {privatePdfEditor} from '../infra/vs41-private/pdf-editor.mjs';
 import {privatePdfLibrary,privatePdfSync} from '../infra/vs41-private/pdf-library.mjs';
@@ -12,27 +13,11 @@ const root=process.cwd(),html=fs.readFileSync('index.html','utf8'),f=mediaFixtur
 const manifest=JSON.parse(fs.readFileSync('assets/version.json','utf8'));
 const passwords={A:'fixture-A-only-123',B:'fixture-B-only-123'};
 const users=parseUsers(JSON.stringify(await Promise.all(['A','B'].map(async label=>({username:label,...profiles[label],passwordHash:await passwordHash(passwords[label])})))));
-const types={'.html':'text/html','.js':'application/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml'};
-let api;
-const server=http.createServer(async(req,res)=>{
- const u=new URL(req.url,'http://localhost');
- if(await api(req,res))return;
- if(['/test-pdfjs/pdf.min.js','/test-pdfjs/pdf.worker.min.js'].includes(u.pathname)){res.setHeader('Content-Type','application/javascript');return fs.createReadStream(path.join(root,'node_modules/pdfjs-dist/build',u.pathname.split('/').pop())).pipe(res)}
- if(u.pathname==='/index.html'){res.setHeader('Content-Type','text/html');res.setHeader('Cache-Control','no-store');return res.end(privatePage(html))}
- if(u.pathname==='/assets/v382_srs_journal_vc23.js'){res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(privateJournal(fs.readFileSync('assets/v382_srs_journal_vc23.js','utf8')))}
- if(u.pathname==='/assets/v414_js_076_087_header.js'||u.pathname==='/assets/v383_study_queue.js'){const file=u.pathname.slice(1),adapt=file.includes('header')?privateCalendar:privateStudyQueue;res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(adapt(fs.readFileSync(file,'utf8')))}
- if(u.pathname==='/assets/v417_shared_reader.js'){res.setHeader('Content-Type','application/javascript');return res.end(privateMediaRenderer(fs.readFileSync('assets/v417_shared_reader.js','utf8')))}
- if(u.pathname==='/assets/v432_js_002_015_topic_media.js'||u.pathname==='/assets/v432_js_040_051_atlas.js'){const file=u.pathname.slice(1),adapt=file.includes('topic_media')?s=>privatePdfLibrary(privatePdfEditor(s)):privatePdfSync;res.setHeader('Content-Type','application/javascript');return res.end(adapt(fs.readFileSync(file,'utf8')))}
- if(u.pathname==='/assets/v430_js_112_123_control.js'){res.setHeader('Content-Type','application/javascript');res.setHeader('Cache-Control','no-store');return res.end(privateGaps(fs.readFileSync(u.pathname.slice(1),'utf8')))}
- // Only serve the original portal's static assets and the one private client script.
- if(!u.pathname.startsWith('/assets/')&&u.pathname!=='/infra/vs41-private/client.js'){res.writeHead(404);return res.end()}
- const file=path.resolve(root,'.'+u.pathname);
- if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);return res.end()}
- res.setHeader('Content-Type',types[path.extname(file)]||'application/octet-stream');fs.createReadStream(file).pipe(res);
-});
+let handler;
+const server=http.createServer((req,res)=>handler(req,res));
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const url='http://127.0.0.1:'+server.address().port;
-api=createApi({...f,users,origin:url});
+const api=createApi({...f,users,origin:url});handler=createPortalHost({root,api});
 const browser=await chromium.launch({headless:true});
 const login=(context,label)=>context.request.post(url+'/api/vs41/login',{headers:{Origin:url},data:{username:label,password:passwords[label]}});
 const logout=context=>context.request.post(url+'/api/vs41/logout',{headers:{Origin:url}});
@@ -42,9 +27,9 @@ async function open(context,label,keep=false){
  p.on('request',r=>{if(r.url().endsWith('/api/vs41/private-cards'))privateReads++;if(r.url().endsWith('/api/vs41/session'))sessionReads++});
  try{
   await p.goto(url+'/index.html',{waitUntil:'domcontentloaded',timeout:60000});
-  await p.waitForFunction(()=>typeof loadCards==='function'&&window.BancoMestreVisualizarCardV050);
-  if(label==='X'){assert.equal(await p.evaluate(()=>loadCards().then(()=>true,()=>false)),false);assert.equal(await p.evaluate(()=>cards.length),0)}
+  if(label==='X'){await p.locator('#login').waitFor({state:'visible'});assert.equal(await p.evaluate(()=>typeof loadCards),'undefined');assert.equal((await context.request.get(url+'/assets/v417_shared_reader.js')).status(),401);}
   else{
+   await p.waitForFunction(()=>typeof loadCards==='function'&&window.BancoMestreVisualizarCardV050);
    await p.evaluate(()=>loadCards());
    assert.deepEqual(await p.evaluate(()=>cards.map(c=>[c.id,c.front])),[['CARD-9901','Pergunta privada '+label]]);
    assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
@@ -64,7 +49,7 @@ async function open(context,label,keep=false){
    const pdf=await p.evaluate(async()=>await (await window.BMVS41PrivateMedia.read('CARD-9901','PDF-TEST')).text());assert.ok(pdf.includes('perfil '+label));
    const library=await p.evaluate(()=>window.BMVS41PrivatePdfs.list());assert.deepEqual(library.map(x=>[x.id,x.title]),[['PDF-TEST','Material privado '+label]]);assert.ok(!Object.hasOwn(library[0],'fileId'));
   }
-  assert.equal(publicReads,0);assert.ok(sessionReads>0);assert.equal(privateReads>0,label!=='X');console.log('Perfil '+label+': fonte privada e sem fallback público');
+  assert.equal(publicReads,0);assert.equal(sessionReads>0,label!=='X');assert.equal(privateReads>0,label!=='X');console.log('Perfil '+label+': fonte privada e sem fallback público');
   if(keep)return p;
  }finally{if(!keep)await p.close()}
 }
@@ -72,6 +57,10 @@ try{
  const a=await browser.newContext(),b=await browser.newContext();
  await open(a,'X');
  const results=await Promise.all([login(a,'A'),login(b,'B')]);assert.deepEqual(results.map(x=>x.status()),[200,200]);
+ for(const c of [a,b])for(const forbidden of [manifest.catalog.path,'assets/pdf_catalog_v149.json','assets/catalog_lookup/cards/CARD-0701.json','assets/drive_auth_v038.json','infra/vs41-private/api.mjs','assets/version.json','teste-drive-vs41/index.html']){
+  const res=await c.request.get(url+'/'+forbidden.replace(/^\//,''));assert.equal(res.status(),404,'rota legada bloqueada: '+forbidden);
+ }
+ console.log('Servidor: login obrigatório e dados/arquivos administrativos fora da lista de recursos.');
  for(const context of [a,b]){const cookie=(await context.cookies()).find(x=>x.name==='__Host-bm_session');assert.ok(cookie&&cookie.httpOnly&&cookie.secure&&cookie.sameSite==='Strict')}
  const [oldA,oldB]=await Promise.all([open(a,'A',true),open(b,'B',true)]);
  const reviewButtons=[oldA.locator('#bm316-srs-panel button[data-grade="Bom"]'),oldB.locator('#bm316-srs-panel button[data-grade="Fácil"]')];
@@ -173,7 +162,7 @@ try{
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});
  assert.equal((await logout(a)).status(),200);await oldA.evaluate(()=>window.dispatchEvent(new Event('focus'))).catch(()=>{});await reloaded;await oldA.waitForLoadState('domcontentloaded');
- assert.ok(!(await oldA.locator('body').innerText()).includes('Resposta privada A'));assert.equal(await oldA.evaluate(()=>loadCards().then(()=>true,()=>false)),false);
+ assert.ok(!(await oldA.locator('body').innerText()).includes('Resposta privada A'));assert.equal(await oldA.evaluate(()=>typeof loadCards),'undefined');await oldA.locator('#login').waitFor({state:'visible'});
  assert.ok((await oldB.locator('#bmCardPeekV050 .bm-v050-peek-answer').innerText()).includes('Resposta privada B'));
  await oldA.close();await oldB.close();await open(a,'X');await open(b,'B');
  assert.equal((await login(a,'B')).status(),200);await open(a,'B');

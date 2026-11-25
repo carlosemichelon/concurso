@@ -48,6 +48,9 @@ export function privatePdfEditor(source){
  replace("   try{strokes=JSON.parse(localStorage.getItem(storageKey)||'[]')}","   try{await ensurePage(k);strokes=annotations(k)}");
  replace(" if(!pdf||!sourceBytes||!info||!selected||exportBusy)"," if(!privateReady()||!pdf||!sourceBytes||!info||!selected||exportBusy)");
  // Original API methods remain for other modules, but the isolated path never invokes browser cache or Drive OAuth.
+ replace("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js","/test-pdfjs/pdf.min.js");
+ replace("https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js","/test-pdfjs/pdf.min.js");
+ replace("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js","/test-pdfjs/pdf.worker.min.js");
  const marker='window.BancoMestrePDFV035=';
  replace(marker,`window.BMVS41PrivatePdfEditor=Object.freeze({
   async open(doc,blob){

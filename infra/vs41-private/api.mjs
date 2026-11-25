@@ -19,7 +19,7 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
  const pdfLibrary=createPdfLibrary({resolveSession,getToken,fetcher});
  const annotations=createAnnotationStore({resolveSession,getToken,fetcher,now});
  const gaps=createGapStore({resolveSession,getToken,fetcher,now});
- return async(req,res)=>{
+ const handler=async(req,res)=>{
   const u=new URL(req.url,origin);if(!u.pathname.startsWith('/api/vs41/'))return false;
   if(u.origin!==origin||u.search||req.headers['sec-fetch-site']==='cross-site'||req.headers.origin&&req.headers.origin!==origin)return json(res,403,{error:'Origem não autorizada'});
   try{
@@ -86,5 +86,6 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
    }
    return json(res,404,{error:'Rota indisponível'});
   }catch{return json(res,500,{error:'Operação indisponível'})}
- };
+ }; Object.defineProperty(handler,'authenticated',{value:req=>!!auth.read(sessionToken(req.headers.cookie))});
+ return handler;
 }
