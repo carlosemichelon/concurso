@@ -1,0 +1,15 @@
+name: Experimento catálogo Drive VS38
+on:
+  push:
+    branches: ['experimento/drive-catalogo-vs38']
+permissions:
+  contents: read
+jobs:
+  leitura-simulada:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test experiments/drive-catalog/drive-catalog-reader.test.mjs
