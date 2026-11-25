@@ -8,7 +8,7 @@ const code=source.slice(source.indexOf('function bm430TopicScore('),source.index
 (async()=>{const browser=await chromium.launch({headless:true});try{
 for(const width of [1440,390]){
  const page=await browser.newPage({viewport:{width,height:900}});
- await page.setContent('<html><head><style>'+external+'</style>'+styles+'</head><body><main><section id="tema" class="active bm064-auditing-images"><div id="topicMedia"></div></section><section id="formulas"><dialog id="bm427FormulaDialog"><div class="bm427-formula-head">Fórmulas</div><div class="bm427-formula-scroll"><div class="bm249-body"><p>Teste</p></div></div><div class="bm427-formula-foot">Fechar</div></dialog></section></main><dialog id="imageDialog" class="bm422-editor"><div id="imageStage" style="height:360px!important;width:320px!important"><div class="canvases" style="width:100px;height:80px"></div></div></dialog></body></html>');
+ await page.setContent('<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+external+'</style>'+styles+'</head><body><main><section id="tema" class="active bm064-auditing-images"><div id="topicMedia"></div></section><section id="formulas"><dialog id="bm427FormulaDialog"><div class="bm427-formula-head">Fórmulas</div><div class="bm427-formula-scroll"><div class="bm249-body"><p>Teste</p></div></div><div class="bm427-formula-foot">Fechar</div></dialog></section></main><dialog id="imageDialog" class="bm422-editor"><div id="imageStage" style="height:360px!important;width:320px!important"><div class="canvases" style="width:100px;height:80px"></div></div></dialog></body></html>');
  await page.addScriptTag({content:`
 let bm169MediaSequence=0,bm430CurrentTopic=null,bm430TopicSession='';
 const byId=id=>document.getElementById(id),plain=s=>String(s).normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase();
@@ -34,7 +34,7 @@ window.BancoMestrePDFSyncV130={connected:true,topicRecords:()=>docs,refresh:asyn
  await page.locator('.bm169-pdf-links button').click();await page.locator('.bm430-media-link').click();
  assert.deepEqual(await page.evaluate(()=>opened),['p','i']);
  await page.evaluate(()=>{document.getElementById('formulas').classList.add('active');document.getElementById('bm427FormulaDialog').showModal()});
- const r=await page.locator('#bm427FormulaDialog').boundingBox();assert.ok(r.width<=Math.min(740,width*.94)+2);assert.ok(r.height<500,'diálogo curto deve adaptar a altura: '+r.height);
+ const r=await page.locator('#bm427FormulaDialog').boundingBox();assert.ok(r.width<=Math.min(740,width-24)+2,'largura real '+r.width+' em viewport '+width);assert.ok(r.height<500,'diálogo curto deve adaptar a altura: '+r.height);
  console.log(width+'px: progresso visível durante espera, imagem/PDF aparecem, abertura e fórmula compacta aprovadas.');
  await page.close();
 }
