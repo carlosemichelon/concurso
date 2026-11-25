@@ -17,3 +17,5 @@ jobs:
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
       - run: node tests/vs41_private_browser.mjs
+
+      - run: node tests/vs41_oauth_browser.mjs
