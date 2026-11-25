@@ -5,11 +5,11 @@ function mock({failCreate=0}={}){
  if(method==='POST'){
   if(++n===failCreate)return new Response(null,{status:503});let m,payload;
   if(u.pathname.includes('/upload/')){const parts=opts.body.split('\r\n');m=JSON.parse(parts[3]);payload=JSON.parse(parts[7]);}else m=JSON.parse(opts.body);
-  const key='new'+n;files.set(key,{meta:{...m,id:key,ownedByMe:true,shared:false,trashed:false,version:'1',size:'300'},payload});writes.push(key);return Response.json({id:key});
+  const key='new'+n;files.set(key,{meta:{...m,id:key,ownedByMe:true,shared:false,trashed:false,version:'1',headRevisionId:'rev-'+key,md5Checksum:'0123456789abcdef0123456789abcdef',size:'300'},payload});writes.push(key);return Response.json({id:key});
  }
  const f=files.get(id);if(!f)return new Response(null,{status:404});
  if(method==='PATCH'){assert.equal(JSON.parse(opts.body).trashed,true);f.meta.trashed=true;writes.push(id);return Response.json({id,trashed:true})}
- return Response.json(u.searchParams.get('alt')==='media'?f.payload:f.meta);
+ if(u.searchParams.get('alt')!=='media')f.meta.version=String(Number(f.meta.version)+1);return Response.json(u.searchParams.get('alt')==='media'?f.payload:f.meta);
  };
  return {files,writes,fetcher,getToken:async()=>({token:'fixture'})};
 }

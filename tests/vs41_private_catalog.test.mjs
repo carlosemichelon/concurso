@@ -9,3 +9,15 @@ test('revogação durante leitura',async()=>{let n=0;const f=fixture(),read=crea
 
 test('MIME JSON com charset UTF-8 e rejeição de MIME incompatível',async()=>{const {read,files}=setup();files.get('profileA').meta.mimeType='application/json; charset=UTF-8';assert.equal((await read({session:'A'})).records.length,1);files.get('profileA').meta.mimeType='text/html';await assert.rejects(read({session:'A'}),e=>e.code==='profile-mime')});
 test('diagnóstico distingue falha de mídia e bloqueio de proprietário',async()=>{const f=fixture(),read=createReader({...f,resolveSession:async()=>profiles.A,fetcher:async(url,opts)=>url.includes('profileA?alt=media')?new Response(null,{status:403}):f.fetcher(url,opts)});await assert.rejects(read({}),e=>e.code==='profile-media-http-403');const t=setup();t.files.get('profileA').meta.appProperties.bmOwner='B';await assert.rejects(t.read({session:'A'}),e=>e.code==='profile-owner')});
+
+test('Drive real: versão global pode mudar ao ler, mas revisão e checksum do conteúdo ficam estáveis',async()=>{
+ const f=fixture();let v=0;
+ for(const kind of ['profile','cards'])Object.assign(f.files.get(kind+'A').meta,{headRevisionId:'rev-'+kind,md5Checksum:'0123456789abcdef0123456789abcdef'});
+ const read=createReader({...f,resolveSession:async()=>profiles.A,fetcher:async(url,opts)=>{const id=new URL(url).pathname.split('/').pop();if(f.files.get(id)&&!url.includes('alt=media'))f.files.get(id).meta.version=String(++v);return f.fetcher(url,opts)}});
+ assert.equal((await read({})).records[0].back,'Resposta privada A');
+});
+test('revisão de conteúdo divergente não pode ser aceita, mesmo com versão global igual',async()=>{
+ const f=fixture();let n=0;const read=createReader({...f,resolveSession:async()=>profiles.A,fetcher:async(url,opts)=>{if(url.includes('profileA?fields='))f.files.get('profileA').meta.headRevisionId='rev-'+(++n);return f.fetcher(url,opts)}});
+ await assert.rejects(read({}),e=>e.code==='profile-content-changed');assert.equal(n,6);
+});
+test('ausência de qualquer evidência de revisão bloqueia leitura',async()=>{const {read,files}=setup();delete files.get('profileA').meta.version;await assert.rejects(read({session:'A'}),e=>e.code==='profile-revision-unavailable')});

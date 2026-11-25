@@ -1,6 +1,6 @@
 // Read-only. Session and folder mapping are supplied by the authenticated server.
 const API='https://www.googleapis.com/drive/v3/files',PROJECT='bm-portal-multi-v1';
-const FIELDS='id,mimeType,ownedByMe,shared,trashed,parents,appProperties,size,version';
+const FIELDS='id,mimeType,ownedByMe,shared,trashed,parents,appProperties,size,version,headRevisionId,md5Checksum,sha256Checksum';
 const idOk=v=>typeof v==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(v);
 const fail=code=>{const e=Error('Catálogo privado indisponível ou não autorizado');e.code=code;throw e};
 function meta(f,id,subject,kind,parent){
@@ -29,7 +29,19 @@ export function createReader({resolveSession,getToken,fetcher=fetch}){
   const {subject,rootId,profileId}=session,{token}=await getToken();if(typeof token!=='string'||!token)fail('token');
   const get=async(id,query,step)=>{if(!idOk(id))fail(step+'-id');let r;try{r=await fetcher(API+'/'+encodeURIComponent(id)+'?'+query,{headers:{Authorization:'Bearer '+token},cache:'no-store',redirect:'error'})}catch{fail(step+'-network')}if(!r.ok)fail(step+'-http-'+r.status);try{return await r.json()}catch{fail(step+'-json')}};
   const readMeta=(id,kind,parent)=>get(id,'fields='+encodeURIComponent(FIELDS),kind+'-meta').then(f=>meta(f,id,subject,kind,parent));
-  const readJson=async(id,kind,parent)=>{const before=await readMeta(id,kind,parent),raw=await get(id,'alt=media',kind+'-media'),after=await readMeta(id,kind,parent);if(!before.version||before.version!==after.version)fail(kind+'-version');return raw};
+  const readJson=async(id,kind,parent)=>{
+   // Drive's version tracks all server changes, including metadata changes.
+   // Prefer stable binary-content revision/checksum; do not accept changed content.
+   for(let attempt=0;attempt<3;attempt++){
+    const before=await readMeta(id,kind,parent),raw=await get(id,'alt=media',kind+'-media'),after=await readMeta(id,kind,parent);
+    const fields=['headRevisionId','md5Checksum','sha256Checksum'];
+    const present=fields.filter(k=>before[k]||after[k]);
+    const stable=present.length?present.every(k=>typeof before[k]==='string'&&before[k].length>0&&before[k]===after[k]):!!before.version&&before.version===after.version;
+    if(stable&&String(before.size)===String(after.size))return raw;
+    if(!present.length&&(!before.version||!after.version))fail(kind+'-revision-unavailable');
+   }
+   fail(kind+'-content-changed');
+  };
   await readMeta(rootId,'root');
   const profile=await readJson(profileId,'profile',rootId);
   if(profile?.schema!=='BM-PORTAL-PROFILE/1'||profile.project!==PROJECT||profile.owner!==subject||profile.catalog!=='private-only'||!idOk(profile.collections?.cards))fail('profile-schema');

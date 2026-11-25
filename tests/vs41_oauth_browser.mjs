@@ -16,11 +16,11 @@ try{
   assert.equal(req.headers()['authorization'],'Bearer fixture');
   if(method==='POST'){
    let meta,payload;if(url.pathname.includes('/upload/')){const p=req.postData().split('\r\n');meta=JSON.parse(p[3]);payload=JSON.parse(p[7])}else meta=JSON.parse(req.postData());
-   const id='test'+(++serial);files.set(id,{meta:{...meta,id,ownedByMe:true,shared:false,trashed:false,version:'1',size:'300'},payload});created++;return json({id});
+   const id='test'+(++serial);files.set(id,{meta:{...meta,id,ownedByMe:true,shared:false,trashed:false,version:'1',headRevisionId:'rev-'+id,md5Checksum:'0123456789abcdef0123456789abcdef',size:'300'},payload});created++;return json({id});
   }
   const id=url.pathname.split('/').at(-1),f=files.get(id);if(!f)return json({},404);
   if(method==='PATCH'){assert.deepEqual(JSON.parse(req.postData()),{trashed:true});f.meta.trashed=true;trashed++;return json({id,trashed:true})}
-  return json(url.searchParams.get('alt')==='media'?f.payload:f.meta);
+  if(url.searchParams.get('alt')!=='media')f.meta.version=String(Number(f.meta.version)+1);return json(url.searchParams.get('alt')==='media'?f.payload:f.meta);
  });
  await page.goto(base+'teste-drive-vs41/index.html');
  await page.locator('#run').waitFor();await page.waitForFunction(()=>!document.querySelector('#run').disabled);
