@@ -639,7 +639,7 @@ let bm263InFlight=null;
   if(connect)connect.disabled=!client;
  }
 }
-window.BancoMestrePDFSyncV130={refresh,async refreshAfterMove(){pdfIncremental.reset();await refresh();pdfIncremental.reset();return refresh()},get connected(){return authorized()},get lastResult(){return lastResult},roots:ROOTS.map(r=>r.name),syncVersion:'V269',scope:'drive_only_after_auth_readonly'};
+window.BancoMestrePDFSyncV130={refresh,async refreshAfterMove(){if(bm263InFlight)await bm263InFlight;pdfIncremental.reset();return refresh()},get connected(){return authorized()},get lastResult(){return lastResult},roots:ROOTS.map(r=>r.name),syncVersion:'V269',scope:'drive_only_after_auth_readonly'};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});
 else void initialize();
 })();
