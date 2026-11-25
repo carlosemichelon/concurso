@@ -1,0 +1,47 @@
+name: Registrar artefato VC42 validado
+on:
+  pull_request:
+    branches: [gh-pages]
+    types: [synchronize]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  persist:
+    if: github.head_ref == 'consolidacao-vc41-candidata-20261124' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirmar execução original e ausência de alterações concorrentes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha }}"
+          test "$(git rev-parse origin/gh-pages)" = "2a46c781b04ed200c56c7c8c44300f48e583549c"
+          gh run watch 45606389191 --exit-status --repo "$GITHUB_REPOSITORY"
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 45606389191
+          name: vc42-validado
+          github-token: ${{ github.token }}
+          path: .
+      - name: Confirmar contrato do lote validado e registrar no ramo candidato
+        run: |
+          node tools/catalog_snapshot.cjs --check
+          node tools/catalog_lookup.cjs --check
+          node -e "const v=require('./assets/version.json');if(v.catalog.display_version!=='VC42'||v.counts.active!==1526||v.release_vc42.retired_ids.length!==56||v.release_vc42.srs_modified!==false)process.exit(1)"
+          git fetch origin gh-pages
+          test "$(git rev-parse origin/gh-pages)" = "2a46c781b04ed200c56c7c8c44300f48e583549c"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- assets/catalog_snapshot_vc42.json assets/version.json assets/catalog_lookup index.html v404.html tools/catalog_snapshot.cjs
+          git diff --cached --quiet && exit 0
+          git commit -m 'Registrar VC42 efetivamente validada no navegador'
+          git push origin HEAD:refs/heads/consolidacao-vc41-candidata-20261124
