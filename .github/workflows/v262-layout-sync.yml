@@ -2,8 +2,11 @@ name: Banco Mestre V262 - integridade do layout e sincronização
 on:
   pull_request:
     branches: [gh-pages]
+    paths: ['v262.html', 'assets/v262*', 'tests/v262*', 'v121.html', 'assets/v121*', 'tests/v121*', 'v124.html', 'assets/v124*', 'tests/v124*', 'v214.html', 'assets/v214*', 'tests/v214*', 'v216.html', 'assets/v216*', 'tests/v216*', 'v217.html', 'assets/v217*', 'tests/v217*', 'v219.html', 'assets/v219*', 'tests/v219*', 'v222.html', 'assets/v222*', 'tests/v222*', 'v225.html', 'assets/v225*', 'tests/v225*', 'v228.html', 'assets/v228*', 'tests/v228*', '.github/workflows/v262-layout-sync.yml']
   push:
     branches: [gh-pages]
+    paths: ['v262.html', 'assets/v262*', 'tests/v262*', 'v121.html', 'assets/v121*', 'tests/v121*', 'v124.html', 'assets/v124*', 'tests/v124*', 'v214.html', 'assets/v214*', 'tests/v214*', 'v216.html', 'assets/v216*', 'tests/v216*', 'v217.html', 'assets/v217*', 'tests/v217*', 'v219.html', 'assets/v219*', 'tests/v219*', 'v222.html', 'assets/v222*', 'tests/v222*', 'v225.html', 'assets/v225*', 'tests/v225*', 'v228.html', 'assets/v228*', 'tests/v228*', '.github/workflows/v262-layout-sync.yml']
+  workflow_dispatch:
 jobs:
   v262-static-and-regressions:
     runs-on: ubuntu-latest

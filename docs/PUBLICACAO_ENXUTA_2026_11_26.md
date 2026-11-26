@@ -1,0 +1,3 @@
+# Publicação enxuta — 26/11/2026
+
+A versão funcional permanece VS48 / V439. Esta mudança restringe os gatilhos de 13 rotinas históricas aos seus próprios arquivos de HTML, código, fixtures e testes. Os testes continuam disponíveis por execução manual e alterações pertinentes. As rotinas de catálogo, qualidade didática, integridade de mídias, encerramento, login individual e auditoria pública continuam automáticas, assim como GitHub Pages. Nenhum dado privado, cartão, PDF, grifo ou SRS alterado. Não cancela as execuções que já estavam na fila. Não constitui homologação de OAuth ou de grifos reais.

@@ -2,7 +2,8 @@ name: VS44 - indice privado de materiais
 on:
   push:
     branches: ['correcao/vs44-indice-midias', 'gh-pages']
-    paths: ['index.html', 'assets/bm-account/connection-v435.js', 'assets/bm-account/v435_js_002_015_topic_media.js', 'infra/vs41-private/browser-account-v435.mjs', 'tests/v435*', '.github/workflows/v435-media-index.yml']
+    paths: ['assets/bm-account/connection-v435.js', 'assets/bm-account/v435_js_002_015_topic_media.js', 'infra/vs41-private/browser-account-v435.mjs', 'tests/v435*', '.github/workflows/v435-media-index.yml']
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
