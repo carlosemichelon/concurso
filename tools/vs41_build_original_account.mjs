@@ -19,6 +19,10 @@ html=html.replace(/(<script\b[^>]+src=["'])(assets\/[A-Za-z0-9_.-]+\.js)((?:\?[^
   if(i<0||j<0)throw Error('Contrato cabeçalho divergente');
   adapted=adapted.slice(0,i)+"window.BM239DriveGlobal=Object.freeze({get connected(){return !!window.BMVS41Session?.available()},get writeAuthorized(){return false},writeToken:()=>'',get connectionStatus(){return {ready:true,initialized:true,connected:!!window.BMVS41Session?.available(),writeAuthorized:false,state:'private'}},sync:async()=>({complete:false,summary:'Consulta individual; gravação não habilitada'})});\n;\n"+adapted.slice(j);
  }
+ if(file==='assets/v432_js_002_015_topic_media.js'){
+  adapted=adapted.replaceAll('/test-pdfjs/pdf.min.js','https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js').replaceAll('/test-pdfjs/pdf.worker.min.js','https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js');
+  adapted=adapted.replace("!Array.isArray(doc.card_ids)||!doc.card_ids.length||blob.type!=='application/pdf'","!Array.isArray(doc.card_ids)||blob.type!=='application/pdf'");
+ }
  if(file==='assets/v417_shared_reader.js'){
   // Static editorial SVGs from the authenticated card retain their original inline display.
   adapted=adapted.replace("if(typeof m.src==='string'&&m.src.startsWith('data:image/svg+xml;charset=utf-8,')){im.src=m.src;","if(typeof m.src==='string'&&(m.src.startsWith('data:image/svg+xml;charset=utf-8,')||/^assets\\/(?:[A-Za-z0-9_-]+\\/)*[A-Za-z0-9_.-]+\\.svg$/.test(m.src))){im.src=m.src;");
@@ -35,6 +39,6 @@ client=client.replace("if(!doc||!Array.isArray(doc.card_ids)||!doc.card_ids.leng
 put('assets/bm-account/client.js',client);
 put('assets/bm-account/connection.js','window.BMStudyTemplate='+JSON.stringify(fs.readFileSync('controle-estudos-v415.html','utf8'))+';\n'+fs.readFileSync('infra/vs41-private/browser-account-connection.js','utf8'));
 put('assets/v415_controle_app.js',privateStudyApp(fs.readFileSync('assets/v415_controle_app.js','utf8')));
-for(const f of ['browser-account.mjs','browser-drive.mjs','records.mjs'])put('infra/vs41-private/'+f,fs.readFileSync('infra/vs41-private/'+f,'utf8'));
+for(const f of ['browser-account.mjs','browser-drive.mjs','records.mjs','browser-grifos-core.mjs'])put('infra/vs41-private/'+f,fs.readFileSync('infra/vs41-private/'+f,'utf8'));
 put('index.html',html);
 console.log('Original entrypoint prepared: same HTML, same CSS, same header button, no iframe.');

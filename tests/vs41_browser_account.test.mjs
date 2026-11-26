@@ -8,7 +8,7 @@ test('one selected account provides its own cards and study master; two profiles
  assert.equal(a.snapshot.version,'TESTE-A');assert.equal(b.snapshot.version,'TESTE-B');
  assert.equal((await a.study()).data.subjects[0].name,'Disciplina A');
  assert.equal((await b.study()).data.subjects[0].name,'Disciplina B');
- assert.deepEqual(await a.reviews(),[]);assert.deepEqual(await b.pdfs(),[]);
+ assert.deepEqual(await a.reviews(),[]);assert.equal((await b.pdfs())[0].id,'pdfB');
  await assert.rejects(a.readMedia('foreignB'));
  await assert.rejects(connectAccount({token:'A',fetcher:fixture('A',{foreign:true})}));
 });
@@ -44,4 +44,17 @@ test('gaps use the existing V242 master, preserve history and never cross accoun
  assert.deepEqual((await b.gaps()).data.records,[]);
  await assert.rejects(a.saveGap({event_id:'12345678-1234-1234-1234-123456789013',previous:first.revision,event:'etapa_atualizada',record:rec}),/alterada/);
  assert.ok(writes.every(x=>x.account==='A'));
+});
+
+test('PDF annotations reuse V104 master, retain deletions and isolate original files',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{writable:true,writes}),write:true,actor:'actorA'}),b=await connectAccount({token:'B',fetcher:fixture('B')});
+ const original=await a.readAnnotations('pdfA',1);assert.deepEqual(original.marks,[]);
+ const mark={id:'mark-test-A',type:'highlight',color:'#ffee00',rects:[[0,0,0.5,0.1]]};
+ const first=await a.saveAnnotations('pdfA',1,{event_id:'12345678-1234-1234-1234-123456789021',previous:original.revision,hash:original.hash,marks:[mark]});
+ assert.deepEqual((await a.readAnnotations('pdfA',1)).marks,[mark]);assert.deepEqual((await b.readAnnotations('pdfB',1)).marks,[]);
+ const second=await a.saveAnnotations('pdfA',1,{event_id:'12345678-1234-1234-1234-123456789022',previous:first.revision,hash:original.hash,marks:[]});
+ assert.deepEqual(second.marks,[]);assert.deepEqual((await a.readAnnotations('pdfA',1)).marks,[]);
+ await assert.rejects(a.saveAnnotations('pdfA',1,{event_id:'12345678-1234-1234-1234-123456789023',previous:second.revision,hash:original.hash,marks:[mark]}));
+ await assert.rejects(a.readAnnotations('pdfB',1));
+ assert.ok(writes.every(x=>x.account==='A'&&x.id!=='pdfA'));
 });

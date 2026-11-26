@@ -1,6 +1,7 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
 import {readBrowserSnapshot,scope as readScope} from './browser-drive.mjs';
+import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
 export const scope=readScope+' https://www.googleapis.com/auth/drive.file';
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files';
 const folder='application/vnd.google-apps.folder',doc='application/vnd.google-apps.document';
@@ -173,5 +174,79 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    }
   }mediaIndex=out;return out};
  const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da pasta individual');const r=await raw(id,100000000);if(r.meta.mimeType!==item.mimeType)throw Error('Tipo de mídia alterado');return new Blob([r.bytes],{type:item.mimeType})};
- return Object.freeze({root:root.id,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,write,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ const GRIF_KIND='bm_grifos_sync_v104_master',GRIF_NAME='BancoMestre_Grifos_Mestre.json';
+ const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(n=>n.toString(16).padStart(2,'0')).join('');
+ const grifos=async()=>{
+  const f=await unique("mimeType = 'application/json' and (appProperties has { key='bm_kind' and value='"+GRIF_KIND+"' } or name = '"+GRIF_NAME+"')",GRIF_NAME,true);
+  if(!f){
+   const legacy=await list("mimeType = 'application/json' and appProperties has { key='bm_kind' and value='bm_grifos_sync_v103' }");
+   if(legacy.length)fail('Existem grifos históricos sem mestre V104. Preserve-os e conclua a migração pelo site original.',409);
+   return {file:null,data:grifosMaster.empty()};
+  }
+  const q=await json(f.id,12000000);return {file:q.meta,data:grifosMaster.validate(q.data)};
+ };
+ // Resolve the existing PDF identity by its actual content hash. Legacy PDF keys use the first 24 hex digits.
+ const hashes=new Map();
+ const pdfIdentity=async(id,page)=>{
+  if(!validId(id)||!Number.isSafeInteger(page)||page<1||page>100000)fail('PDF ou página inválida');
+  const item=(await media()).get(id);if(item?.mimeType!=='application/pdf')fail('PDF fora da biblioteca individual');
+  const m=await meta(id),previous=hashes.get(id);
+  if(previous&&previous.version===m.version)return previous.hash;
+  const bytes=await readMedia(id),hash=await digest(await bytes.arrayBuffer()),again=await meta(id);
+  if(again.version!==m.version)fail('PDF alterado durante conferência',409);
+  hashes.set(id,{version:m.version,hash});return hash;
+ };
+ function pageKey(data,id,hash,page){
+  const short=hash.slice(0,24),prefix='BM030_STROKES_PDF:',suffix=':'+short+':P'+page;
+  const keys=new Set([...Object.keys(data.records),...Object.keys(JSON.parse(data.records[grifosCore.DELETIONS]||'{}'))]);
+  const ids=new Set([...keys].map(k=>/^BM030_STROKES_PDF:(.+):([a-f0-9]{24,64}):P[1-9]\d*$/.exec(k)).filter(m=>m&&(m[2]===short||m[2]===hash)).map(m=>m[1]));
+  if(ids.size>1)fail('PDF possui mais de uma identificação histórica; não será mesclado automaticamente',409);
+  const doc=[...ids][0]||id;
+  const exact=[...keys].filter(k=>k===prefix+doc+suffix||k===prefix+doc+':'+hash+':P'+page);
+  if(exact.length>1)fail('Página possui chaves históricas duplicadas',409);
+  return exact[0]||prefix+doc+suffix;
+ }
+ async function pdfView(id,page,current,hash){
+  const key=pageKey(current.data,id,hash,page),marks=JSON.parse(current.data.records[key]||'[]'),deleted=JSON.parse(current.data.records[grifosCore.DELETIONS]||'{}')[key]||{};
+  if(current.data.conflicts.some(x=>x.key===key))fail('Há divergência de grifos nesta página; preserve o mestre até reconciliar',409);
+  const clean=marks.filter(x=>!x?.bm108_deleted_at&&!Object.hasOwn(deleted,grifosCore.markId(x)));
+  const revision=await digest(new TextEncoder().encode(JSON.stringify([key,marks,deleted])));
+  return {pdfId:id,page,hash,revision,marks:clean,key};
+ }
+ const readAnnotations=async(id,page)=>{const hash=await pdfIdentity(id,page),view=await pdfView(id,page,await grifos(),hash);delete view.key;return view};
+ const saveAnnotations=(id,page,input)=>serialize(async()=>{
+  if(!input||!uuid(input.event_id)||!Array.isArray(input.marks)||input.marks.length>2000||new TextEncoder().encode(JSON.stringify(input.marks)).length>240000||input.marks.some(x=>!x||typeof x.type!=='string'))fail('Marcações inválidas');
+  const hash=await pdfIdentity(id,page),current=await grifos(),view=await pdfView(id,page,current,hash);
+  if(input.hash!==hash||input.previous!==view.revision)fail('PDF ou grifos alterados; reabra a página',409);
+  const local=new Map(Object.entries(current.data.records)),storage={get length(){return local.size},key:i=>[...local.keys()][i]??null,getItem:k=>local.get(k)??null,setItem:(k,v)=>local.set(k,String(v)),removeItem:k=>local.delete(k)};
+  const prior=new Map(view.marks.map(m=>[grifosCore.markId(m),m])),stamp=new Date().toISOString();
+  const next=input.marks.map(m=>{const before=prior.get(grifosCore.markId(m));return before&&!eq(before,m)?{...m,bm108_changed_at:stamp}:m});
+  grifosCore.persistPage(storage,view.key,next);
+  const snapshot=grifosCore.capture(storage,'MASTER-V104-0000');
+  // Replace only this verified page. Retain the existing master format and delete tombstones.
+  const staged={...current.data,records:{...snapshot.records}};
+  const candidate=grifosMaster.final(grifosMaster.merge(staged,[snapshot]).master);
+  const expected=(await pdfView(id,page,{data:candidate},hash)).marks;
+  if(!eq(expected,next.filter(x=>!x.bm108_deleted_at)))fail('Marcação excluída ou divergente; nenhuma gravação efetuada',409);
+  if(new TextEncoder().encode(JSON.stringify(candidate)).length>10000000)fail('Mestre de grifos acima de 10 MB; preserve o arquivo existente');
+  if(!current.file){
+   if((await grifos()).file)fail('Mestre já criado em outro dispositivo',409);
+   await create(GRIF_NAME,candidate,{bm_kind:GRIF_KIND,bm_schema:'V104'});
+  }else{
+   if(current.file.appProperties?.bm_kind!==GRIF_KIND)fail('Mestre de grifos sem identificação de gravação',409);
+   const latest=await grifos();
+   if(latest.file?.id!==current.file.id||latest.file?.version!==current.file.version||!eq(latest.data,current.data))fail('Mestre de grifos alterado por outro dispositivo',409);
+   const check=await get(API+'/'+current.file.id,{fields}),m=await check.json(),etag=check.headers.get('etag');
+   if(!owned(m)||m.version!==current.file.version)fail('Mestre alterado antes da gravação',409);
+   const saved=await send(UPLOAD+'/'+current.file.id+'?uploadType=media&fields=id',{method:'PATCH',headers:{'Content-Type':'application/json; charset=UTF-8',...(etag?{'If-Match':etag}:{})},body:JSON.stringify(candidate)});
+   if(saved.id!==current.file.id){uncertain=true;throw Error('Mestre de grifos não confirmado')}
+  }
+  const confirmed=await grifos();if(!eq(confirmed.data,candidate)){uncertain=true;throw Error('Grifos não confirmados no Drive')}
+  const row=await pdfView(id,page,confirmed,hash);delete row.key;
+  // The UI expects the event ID on acknowledgement, while persistent concurrency uses the page hash.
+  return {...row,revision:input.event_id,verifiedRevision:row.revision};
+ });
+ const annotationRevisions=new Map();
+ const annotationWrite=async(id,page,input)=>{const key=id+':'+page,prior=annotationRevisions.get(key);const row=await saveAnnotations(id,page,{...input,previous:prior?.event===input.previous?prior.revision:input.previous});annotationRevisions.set(key,{event:row.revision,revision:row.verifiedRevision});return row};
+ return Object.freeze({root:root.id,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,write,readAnnotations,saveAnnotations:annotationWrite,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }

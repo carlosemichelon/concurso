@@ -49,6 +49,7 @@
     if(key==='study')return json({...await p.saveStudy(input),context:nonce});
     if(key==='reviews')return json({event:await p.recordReview(input),context:nonce});
     if(key==='gaps')return json({...await p.saveGap(input),context:nonce});
+    if(/^annotations\/[A-Za-z0-9_-]+\/[1-9]\d*$/.test(key)){const [,id,page]=key.split('/');return json({...await p.saveAnnotations(id,Number(page),input),context:nonce});}
     return json({error:'Gravação ainda não habilitada neste módulo'},403);
    }
    if(key==='private-cards')return json({schema:'BM-VS41-PRIVATE-CARDS/1',records:p.snapshot.records,context:nonce});
@@ -58,6 +59,7 @@
    if(key==='formulas')return json({formula:await p.formulas(),context:nonce});
    if(key==='images')return json({images:await p.images(),context:nonce});
    if(key==='pdfs')return json({documents:await p.pdfs(),context:nonce});
+   if(/^annotations\/[A-Za-z0-9_-]+\/[1-9]\d*$/.test(key)){const [,id,page]=key.split('/');return json({...await p.readAnnotations(id,Number(page)),context:nonce});}
    if(key.startsWith('media/')){const id=decodeURIComponent(key.split('/').at(-1)),blob=await p.readMedia(id);if(closed)return json({error:'Sessão encerrada'},401);return new Response(blob,{headers:{'Content-Type':blob.type,'X-BM-Context':nonce}})}
    return json({error:'Operação privada não disponível'},503);
   }catch(e){return json({error:e.message},[400,403,409,412].includes(e.status)?e.status:503)}
