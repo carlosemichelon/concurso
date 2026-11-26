@@ -1,3 +1,7 @@
+## V439 / VS48 — correções funcionais (26/11/2026)
+
+V439 / VS48 — 26/11/2026: biblioteca PDF abre diretamente no editor privado; contador de lacunas restaurado; consulta de catálogos, lacunas e fórmulas após autenticação; pré-carga limitada de imagens e todas as prévias do assunto em fila de três. VC52, SRS, grifos e originais preservados. Validação estática de alvos; teste autenticado pendente.
+
 ## VS45 — Complemento: cópia anotada autenticada
 
 Grifos permanecem no mestre; cópia física criada na raiz individual confirmada, localizada e atualizada por identidade e hash do original; não integra a biblioteca de originais. A abertura usa link do Drive, evitando sobreposição de grifos. Sem autorização OAuth adicional. Cópias legadas não são migradas automaticamente. Validação pendente.
