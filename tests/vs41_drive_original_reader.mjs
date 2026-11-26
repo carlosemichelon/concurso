@@ -62,6 +62,7 @@ try{
  await portal.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
  await portal.locator('#bmCardPeekV050 .bm349-reading').waitFor({state:'visible'});
  assert.equal(await portal.locator('#bmCardPeekV050 .historic-module').count(),11);
+ await fullFrame.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
  await portal.locator('#bm-vs41-logout').click();
  await page.locator('#connect').waitFor({state:'visible'});
  await page.locator('#connect').click();
