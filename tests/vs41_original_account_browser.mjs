@@ -53,18 +53,19 @@ try{
    await page.locator('#bmAccountSettingsSave').click();
    assert.ok((await page.locator('#bmAccountSettingsStatus').innerText()).includes('pasta do Google Drive'));
    await page.locator('#bmAccountRoot').fill('https://drive.google.com/drive/folders/rootA');
+   await page.locator('#bmAccountAdvanced summary').click();
    await page.locator('#bmAccountClientId').fill('invalid-secret');
    await page.locator('#bmAccountSettingsSave').click();
    assert.ok((await page.locator('#bmAccountSettingsStatus').innerText()).includes('Client ID inválido'));
    await page.locator('#bmAccountClientId').fill('');
-   await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded'}),page.locator('#bmAccountSettingsSave').click()]);
+   await Promise.all([page.waitForEvent('domcontentloaded'),page.locator('#bmAccountSettingsSave').click()]);
    await page.waitForFunction(()=>!document.getElementById('bm239-drive-action').disabled);
    await page.locator('#bmAccountSettings').click();
    assert.equal(await page.locator('#bmAccountRoot').inputValue(),'https://drive.google.com/drive/folders/rootA');
    await page.locator('#bmAccountSettingsCancel').click();
   }else{
    await page.locator('#bmAccountSettingsDefault').click();
-   await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded'}),page.locator('#bmAccountSettingsSave').click()]);
+   await Promise.all([page.waitForEvent('domcontentloaded'),page.locator('#bmAccountSettingsSave').click()]);
    await page.waitForFunction(()=>!document.getElementById('bm239-drive-action').disabled);
   }
   await btn.click();
@@ -79,7 +80,22 @@ try{
   assert.ok((await page.locator('#cardCount').innerText()).includes('1 cartões ativos'));
   assert.ok(!(await page.locator('#bm119PublicSource').innerText()).includes('Catálogo público'));
   assert.equal(await page.locator('[data-bm343-proposals]').count(),0);
-  console.log('Conta '+a+': cartões confirmados exclusivamente no Drive.');
+  assert.ok(await page.locator('#bmAccountExport').isVisible());
+  await page.locator('#bmAccountExport').click();
+  assert.ok(await page.locator('#bmAccountExportDialog').isVisible());
+  await page.locator('input[name=bmExportPart][value=study]').check();
+  const downloadPromise=page.waitForEvent('download');
+  await page.locator('#bmAccountExportSave').click();
+  const download=await downloadPromise,filename=await download.path();
+  const exported=JSON.parse(fs.readFileSync(filename,'utf8'));
+  assert.equal(exported.format,'BancoMestreChatGPTExport');
+  assert.equal(exported.data.cards[0].front,'Pergunta privada '+a);
+  assert.equal(exported.data.study.subjects[0].name,'Disciplina '+a);
+  assert.deepEqual(exported.sections,['cards','study']);
+  assert.deepEqual(Object.keys(exported.data),['cards','study']);
+  assert.ok(!Object.hasOwn(exported,'token')&&!Object.hasOwn(exported,'email')&&!Object.hasOwn(exported,'clientId'));
+  await page.locator('#bmAccountExportCancel').click();
+  console.log('Conta '+a+': cartões e estudos exportados somente da conta selecionada.');
   await page.locator('#bm240-study-tab').click();
   await page.locator('#bm240-native-host #bm252-main-nav').waitFor({state:'visible',timeout:30000});
   await page.waitForFunction(()=>window.BMVS41StudyControl?.confirmed===true);

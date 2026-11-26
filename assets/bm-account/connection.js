@@ -32,7 +32,7 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
  const progress=(p,label)=>window.BM316DriveProgress?.track(p,label)||p;
  const driveFetch=(input,opts)=>progress(nativeFetch(input,opts),opts?.method==='GET'?'arquivo do Drive':'gravação no Drive');
  Object.defineProperty(window,'BMAccountInfo',{value:()=>session?{name:session.identity.name,email:session.identity.email,version:session.snapshot.version,count:session.snapshot.records.filter(c=>c.active).length,total:session.snapshot.records.length,rootUrl:session.rootUrl}:null});
- function refreshButton(){const b=button();if(!b)return;const label=opening?'Carregando Drive…':session?session.identity.name:'Usuário / Login';if(b.textContent!==label)b.textContent=label;b.disabled=opening||!client;b.setAttribute('aria-busy',String(opening));b.title=session?'Conta conectada: '+(session.identity.email||session.identity.name)+' — clique para sair ou trocar de conta':'Entrar com Google';b.setAttribute('aria-label',b.title);const link=document.getElementById('bmAccountDriveLink');if(link){link.hidden=!session;if(session)link.href=session.rootUrl;else link.removeAttribute('href');}}
+ function refreshButton(){const b=button();if(!b)return;const label=opening?'Carregando Drive…':session?session.identity.name:'Usuário / Login';if(b.textContent!==label)b.textContent=label;b.disabled=opening||!client;b.setAttribute('aria-busy',String(opening));b.title=session?'Conta conectada: '+(session.identity.email||session.identity.name)+' — clique para sair ou trocar de conta':'Entrar com Google';b.setAttribute('aria-label',b.title);const link=document.getElementById('bmAccountDriveLink');if(link){link.hidden=!session;if(session)link.href=session.rootUrl;else link.removeAttribute('href');}const exportButton=document.getElementById('bmAccountExport');if(exportButton){exportButton.hidden=!session;exportButton.disabled=opening||!session;}}
  async function prepare(){
   try{
    const config=await (await nativeFetch(new URL('assets/drive_auth_v038.json',base),{cache:'no-store'})).json();
@@ -53,6 +53,46 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
   }catch(e){status('Conexão indisponível: '+e.message);refreshButton()}
  }
  function select(){if(session){close();return;}if(!client||opening)return;opening=true;refreshButton();try{client.requestAccessToken({prompt:'select_account'})}catch(e){opening=false;status('Conexão não iniciada: '+e.message);refreshButton()}}
+ function bindExport(){
+  const $=id=>document.getElementById(id),dialog=$('bmAccountExportDialog'),trigger=$('bmAccountExport'),message=$('bmAccountExportStatus'),save=$('bmAccountExportSave'),cancel=$('bmAccountExportCancel');
+  if(!dialog||!trigger||!save||!cancel)return;
+  let exporting=false;
+  trigger.addEventListener('click',()=>{
+   if(!session||opening||exporting)return;
+   message.textContent='';
+   if(!dialog.open)dialog.showModal();
+  });
+  cancel.addEventListener('click',()=>{if(!exporting)dialog.close()});
+  dialog.addEventListener('cancel',e=>{if(exporting)e.preventDefault()});
+  save.addEventListener('click',async()=>{
+   if(exporting||!session||closed)return;
+   const selected=[...dialog.querySelectorAll('input[name=bmExportPart]:checked')].map(x=>x.value);
+   if(!selected.length){message.textContent='Selecione ao menos um conjunto de dados.';return}
+   const p=session,choices=new Set(selected);
+   exporting=true;save.disabled=true;cancel.disabled=true;message.textContent='Consultando os dados selecionados no Drive…';
+   try{
+    const data=await progress((async()=>{
+     const out={};
+     // Cards come from the verified account snapshot, never from the old GitHub catalogue.
+     if(choices.has('cards'))out.cards=p.snapshot.records;
+     if(choices.has('study'))out.study=(await p.study()).data;
+     if(choices.has('reviews'))out.reviews=await p.reviews();
+     if(choices.has('gaps'))out.gaps=(await p.gaps()).data;
+     if(choices.has('formulas'))out.formulas=await p.formulas();
+     if(choices.has('media'))out.media={pdfs:await p.pdfs(),images:await p.images()};
+     return out;
+    })(),'preparando exportação para ChatGPT');
+    if(closed||session!==p)throw Error('Sessão alterada. Reconecte sua conta.');
+    const packet={format:'BancoMestreChatGPTExport',schema_version:1,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',catalog:{version:p.snapshot.version,scope:p.snapshot.scope},sections:selected,data};
+    const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json;charset=utf-8'});
+    const url=URL.createObjectURL(blob),link=document.createElement('a');
+    link.href=url;link.download='BancoMestre_ChatGPT_'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+    message.textContent='Arquivo gerado. Anexe o JSON à conversa no ChatGPT. Nenhuma informação foi enviada pelo site.';
+   }catch(e){message.textContent='Não foi possível gerar o arquivo: '+(e.message||e)}
+   finally{exporting=false;save.disabled=false;cancel.disabled=false}
+  });
+ }
  function bindSettings(){
   const $=id=>document.getElementById(id),dialog=$('bmAccountSettingsDialog'),trigger=$('bmAccountSettings'),root=$('bmAccountRoot'),clientField=$('bmAccountClientId'),message=$('bmAccountSettingsStatus'),save=$('bmAccountSettingsSave');
   if(!dialog||!trigger||!root||!clientField||!message||!save)return;
@@ -75,7 +115,7 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
    }catch(e){message.textContent=e.message||'Não foi possível salvar a configuração.'}
   });
  }
- document.addEventListener('DOMContentLoaded',()=>{bindSettings();const b=button();if(b){b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();select()},true);refreshButton()}void prepare()},{once:true});
+ document.addEventListener('DOMContentLoaded',()=>{bindSettings();bindExport();const b=button();if(b){b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();select()},true);refreshButton()}void prepare()},{once:true});
  const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json'}});
  window.fetch=async(input,opts={})=>{
   const u=new URL(typeof input==='string'?input:input.url||String(input),location.href),method=String(opts.method||input?.method||'GET').toUpperCase();
