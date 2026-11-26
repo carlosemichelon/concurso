@@ -18,7 +18,7 @@ export function sourceSelection(value){
  if(u.protocol==='https:'&&u.hostname==='drive.google.com'&&validId(m?.[1]))return {kind:'folder',id:m[1]};}catch{}
  return {kind:'file',id:fileId(s)};
 }
-export async function readBrowserSnapshot({token,source,fetcher=fetch,signal}){
+export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,editorialPreview=false}){
  if(typeof token!=='string'||!token)throw Error('Conecte sua conta Google.');
  const get=async(path,params)=>{
   const r=await fetcher(base+path+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},credentials:'omit',redirect:'error',cache:'no-store',signal});
@@ -43,6 +43,21 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal}){
   const f=listing.files[0];
   if(f.name!==currentPointerName||!validId(f.id)||f.mimeType!=='application/json'||f.parents?.length!==1||f.parents[0]!==id)throw Error('Ponteiro vigente inválido.');
   return f.id;
+ };
+ const resolveEditorial=async id=>{
+  const root=await info(id);
+  if(root.mimeType!==folderMime)throw Error('Selecione a pasta privada do Banco Mestre.');
+  let parent=id;
+  for(const [name,mime] of [['01 - Cartões',folderMime],['Dados privados',folderMime],['VC52_EDITORIAL_CANDIDATA.json','application/json']]){
+   const listing=await (await get('files',{q:"'"+parent+"' in parents and trashed = false and name = '"+name+"'",fields:'nextPageToken,incompleteSearch,files(id,name,mimeType,parents)',pageSize:'100'})).json();
+   if(listing.nextPageToken||listing.incompleteSearch||listing.files?.length!==1)throw Error('Prévia editorial: caminho ausente ou ambíguo em '+name+'. Use o link direto do arquivo verificado.');
+   const f=listing.files[0];
+   if(!validId(f.id)||f.name!==name||f.mimeType!==mime||f.parents?.length!==1||f.parents[0]!==parent)throw Error('Caminho editorial inválido.');
+   const checked=await info(f.id);
+   if(checked.name!==name||checked.mimeType!==mime||checked.parents?.length!==1||checked.parents[0]!==parent)throw Error('Caminho editorial alterado.');
+   parent=f.id;
+  }
+  return parent;
  };
  const assertInside=async parentId=>{
   if(!folderId)return;
@@ -86,9 +101,11 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal}){
  const account=await (await get('about',{fields:'user(permissionId)'})).json();
  if(!validId(account?.user?.permissionId))throw Error('Identidade Google não confirmada.');
  if(selection.kind==='folder')folderId=selection.id;
- const selectedId=folderId?await resolveFolder(folderId):selection.id;
+ if(editorialPreview&&!folderId)throw Error('Para o teste pela pasta, informe o link da pasta raiz do Banco Mestre.');
+ const selectedId=folderId?await (editorialPreview?resolveEditorial(folderId):resolveFolder(folderId)):selection.id;
  let {data,meta}=await read(selectedId);let pointer=null;
- if(folderId&&data?.schema!=='banco-mestre-operational-pointer/1')throw Error('A pasta deve apontar para um snapshot privado por meio do ponteiro vigente.');
+ if(editorialPreview&&(data?.format!=='BM-DRIVE-EDITORIAL-SEED/1'||await resolveEditorial(folderId)!==selectedId))throw Error('Prévia editorial não confirmada ou caminho alterado.');
+ if(folderId&&!editorialPreview&&data?.schema!=='banco-mestre-operational-pointer/1')throw Error('A pasta deve apontar para um snapshot privado por meio do ponteiro vigente.');
  if(data?.schema==='banco-mestre-operational-pointer/1'){
   pointer=data.private_base;
   if(!validId(pointer?.file_id)||typeof pointer.version!=='string'||!/^[a-f0-9]{64}$/.test(pointer.sha256||''))throw Error('Ponteiro privado inválido.');
@@ -99,7 +116,7 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal}){
   ({data,meta}=snapshot);
  }
  if(data?.format==='BM-DRIVE-EDITORIAL-SEED/1'){
-  if(pointer||folderId||data.migration_status!=='editorial-candidate-only'||data.version!=='VC52'||data.source?.git_blob!=='f8ec08f96a17c990371b31f0db200863fccd1c6e')throw Error('Candidato editorial não pode ser usado como base vigente.');
+  if(pointer||(folderId&&!editorialPreview)||data.migration_status!=='editorial-candidate-only'||data.version!=='VC52'||data.source?.git_blob!=='f8ec08f96a17c990371b31f0db200863fccd1c6e')throw Error('Candidato editorial não pode ser usado como base vigente.');
   const records=verifyRecords(data.cards);
   if(records.length!==1460||records.some(c=>c.active!==true)||data.counts?.cards!==records.length||data.counts?.active!==records.length)throw Error('Contagem do candidato VC52 divergente.');
   return {version:data.version,records,scope:'editorial-candidate-only',sourceName:meta.name};
