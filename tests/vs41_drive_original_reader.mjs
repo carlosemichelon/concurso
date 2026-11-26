@@ -32,6 +32,7 @@ try{
   const dirs={rootA:{id:'rootA',name:'DataBase_Concurso',mimeType:fm,parents:[]},cardsA:{id:'cardsA',name:'01 - Cartões',mimeType:fm,parents:['rootA']},privateA:{id:'privateA',name:'Dados privados',mimeType:fm,parents:['cardsA']}};
   if(id==='files'){
    const q=url.searchParams.get('q')||'';
+   if(q.includes('bm_controle_estudos_v245'))return json({files:[]});
    if(account!=='A')return json({files:[]});
    if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))return json({files:[]});
    const f=q.includes("'rootA'")&&q.includes("'01 - Cartões'")?dirs.cardsA:q.includes("'cardsA'")&&q.includes("'Dados privados'")?dirs.privateA:q.includes("'privateA'")&&q.includes("'VC52_EDITORIAL_CANDIDATA.json'")?{id:'candidate',name:'VC52_EDITORIAL_CANDIDATA.json',mimeType:'application/json',parents:['privateA']}:null;
@@ -63,7 +64,11 @@ try{
  await portal.locator('#bmCardPeekV050 .bm349-reading').waitFor({state:'visible'});
  assert.equal(await portal.locator('#bmCardPeekV050 .historic-module').count(),11);
  await fullFrame.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
- await portal.locator('#bm-vs41-logout').click();
+ await portal.locator('#bm240-study-tab').click();
+ await portal.locator('#bm240-native-host #tabs').waitFor({state:'visible'});
+ assert.equal(await portal.locator('#bm240-native-host #sessionForm').count(),1);
+ assert.equal(await portal.locator('#bm-vs41-chat-destination,#bm-vs41-logout').count(),0);
+ await portal.locator('#bm239-drive-action').click();
  await page.locator('#connect').waitFor({state:'visible'});
  await page.locator('#connect').click();
  await page.locator('#source').fill('candidate');await page.locator('#load').click();

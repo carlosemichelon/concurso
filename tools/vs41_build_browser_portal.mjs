@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {privatePage} from '../infra/vs41-private/page.mjs';
 import {adaptPortalAsset} from '../infra/vs41-private/host.mjs';
+import {privateStudyApp} from '../infra/vs41-private/study-ui.mjs';
 const output='preview-vs41-reader/portal';
 fs.mkdirSync(path.join(output,'assets'),{recursive:true});
 const original=fs.readFileSync('index.html','utf8');
@@ -13,12 +14,24 @@ let html=privatePage(original).replace('<head>','<head><meta http-equiv="Content
 html=html.replace(/(<(?:script|link)\b[^>]+(?:src|href)=["'])(assets\/[A-Za-z0-9_.-]+\.(?:js|css))((?:\?[^"']*)?["'])/g,(all,pre,file,post)=>{
  const source=fs.readFileSync(file,'utf8');
  if(file.endsWith('.css'))return pre+'../../'+file+post;
- const adapted=adaptPortalAsset('/'+file,source);
+ let adapted=adaptPortalAsset('/'+file,source);
+ if(file==='assets/v432_js_124_135_formulas.js'){
+  adapted=adapted.replace("b.onclick=()=>void sync();b.setAttribute('aria-label','Conferir dados privados no Drive')","b.onclick=()=>void window.BMVS41Session.logout();b.setAttribute('aria-label','Desconectar Drive')");
+  adapted=adapted.replace("b.textContent=running?'Verificando…':'Sincronizar Drive'","b.textContent='Sair do Drive'");
+ }
  if(adapted===source)return pre+'../../'+file+post;
  fs.writeFileSync(path.join(output,file),adapted);return pre+file+post;
 });
-const client=fs.readFileSync('infra/vs41-private/client.js','utf8').replace("location.reload();","window.BMPortalBridge.close();").replace("catch(()=>{location.reload()})","catch(()=>{window.BMPortalBridge.close()})");
+let client=fs.readFileSync('infra/vs41-private/client.js','utf8').replace("location.reload();","window.BMPortalBridge.close();").replace("catch(()=>{location.reload()})","catch(()=>{window.BMPortalBridge.close()})");
+// The browser already has a single Drive connection button. Do not add server-only header buttons.
+const start=client.indexOf("  const anchor=document.getElementById('bm239-drive-action');"),end=client.indexOf('  void window.BMVS41Session.check()',start);
+if(start<0||end<0)throw Error('Contrato cabeçalho divergente');
+client=client.slice(0,start)+client.slice(end);
 fs.writeFileSync(path.join(output,'client.js'),client);
-fs.copyFileSync('infra/vs41-private/browser-portal-bridge.js',path.join(output,'bridge.js'));
+const studyHTML=fs.readFileSync('controle-estudos-v415.html','utf8');
+const bridge=fs.readFileSync('infra/vs41-private/browser-portal-bridge.js','utf8');
+fs.writeFileSync(path.join(output,'bridge.js'),'window.BMStudyTemplate='+JSON.stringify(studyHTML)+';\n'+bridge);
+fs.writeFileSync(path.join(output,'assets/v415_controle_app.js'),privateStudyApp(fs.readFileSync('assets/v415_controle_app.js','utf8')));
+
 fs.writeFileSync(path.join(output,'index.html'),html);
 console.log('Portal integral gerado a partir do HTML oficial, sem CSS novo.');

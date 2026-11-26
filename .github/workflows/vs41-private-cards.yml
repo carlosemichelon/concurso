@@ -6,7 +6,8 @@ permissions:
   contents: read
 jobs:
   isolated:
-    if: "!contains(github.event.head_commit.message, '[stage-preview]')"
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,27 +39,12 @@ jobs:
 
       - run: node tests/vs41_browser_to_original.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
 
-  stage-preview:
-    if: contains(github.event.head_commit.message, '[stage-preview]')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 3
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Gerar somente a prévia integral já testada
+      - name: Preparar apenas arquivos da prévia após aprovação
+        if: contains(github.event.head_commit.message, '[prepare-fix]')
         run: |
-          git diff --exit-code 3a06df0fc6b5ad76e595ccd3e9a07128b68226f0 HEAD -- . ':!.github/workflows/vs41-private-cards.yml'
-          node tools/vs41_build_browser_portal.mjs
           git add -f preview-vs41-reader/portal/
           git diff --cached --name-only | grep -v '^preview-vs41-reader/portal/' && exit 1 || true
-          test -f preview-vs41-reader/portal/index.html
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Preparar arquivos da prévia integral VS41 já testada'
+          git commit -m 'Preparar correção do Controle e cabeçalho da prévia'
           git push origin HEAD:refs/heads/feature/multiusuario-vs41-original
