@@ -16,3 +16,16 @@ test('bloqueia perda de módulos, referências e contagem; aponta mídia para mi
  c.related_card_ids=[];c.consolidation.profile.modules.pop();assert.equal(assessCatalog(s,contract).missingModules.length,1);assert.throws(()=>prepareCardCopy(s,contract,'A'));
  s.base.push(card('B'));assert.throws(()=>assessCatalog(s,contract));
 });
+
+test('distingue cartão legado legível, estrutura editorial incompleta e campo incompatível sem alterar fonte',()=>{
+ const s=source(),c=s.base[0];
+ delete c.consolidation;const raw=JSON.stringify(s);
+ let a=assessCatalog(s,contract);
+ assert.equal(a.compatibility.legacyWithoutProfile,1);assert.equal(a.compatibility.readerCompatible,1);
+ assert.equal(a.compatibility.strictModules,0);assert.equal(a.cardCopyReady,false);
+ assert.equal(JSON.stringify(s),raw);assert.throws(()=>prepareCardCopy(s,contract,'A'));
+ const p=source();p.base[0].consolidation.profile.modules[2].texto='';
+ a=assessCatalog(p,contract);assert.equal(a.compatibility.moduleTextMismatch,1);assert.equal(a.compatibility.readerCompatible,1);
+ delete p.base[0].expl;
+ a=assessCatalog(p,contract);assert.equal(a.compatibility.fieldFailures.expl,1);assert.equal(a.compatibility.readerIncompatible,1);
+});
