@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {privatePage} from './page.mjs';
+import {privateGallery} from './gallery.mjs';
 import {privateGaps} from './gaps-ui.mjs';
 import {privatePdfEditor} from './pdf-editor.mjs';
 import {privatePdfLibrary,privatePdfSync} from './pdf-library.mjs';
@@ -15,7 +16,7 @@ const adapters=new Map([
  ['/assets/v383_study_queue.js',privateStudyQueue],
  ['/assets/v417_shared_reader.js',privateMediaRenderer],
  ['/assets/v432_js_002_015_topic_media.js',s=>privatePdfLibrary(privatePdfEditor(s))],
- ['/assets/v432_js_040_051_atlas.js',privatePdfSync],
+ ['/assets/v432_js_040_051_atlas.js',s=>privateGallery(privatePdfSync(s))],
  ['/assets/v430_js_112_123_control.js',privateGaps],
  ['/assets/v432_js_124_135_formulas.js',privateGlobalDrive],
  ['/assets/v402_js_136_147_compare.js',privateReconcile]

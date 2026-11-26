@@ -48,3 +48,21 @@ export function createPdfLibrary({resolveSession,getToken,fetcher=fetch}){
   return out.sort((a,b)=>a.title.localeCompare(b.title,'pt-BR'));
  };
 }
+
+export function createImageLibrary({resolveSession,getToken,fetcher=fetch}){
+ const read=createReader({resolveSession,getToken,fetcher,includeMedia:true});
+ return async req=>{
+  const {records,media}=await read(req),active=new Map(records.filter(c=>c.active).map(c=>[c.id,c])),seen=new Set(),out=[];
+  const text=(v,fallback='')=>typeof v==='string'&&v.trim()?v.trim().slice(0,300):fallback;
+  for(const m of media){
+   if(!m||!['image/png','image/jpeg','image/webp','image/gif'].includes(m.mimeType))continue;
+   if(!idOk(m.id)||seen.has(m.id)||!idOk(m.fileId)||!/^[a-f0-9]{64}$/.test(m.sha256||'')||!Array.isArray(m.card_ids))fail();
+   seen.add(m.id);
+   const card_ids=[...new Set(m.card_ids.filter(id=>active.get(id)?.consolidation?.profile?.editorial?.media?.some(x=>x.id===m.id&&x.private_original)))];
+   if(!card_ids.length)continue;
+   const c=active.get(card_ids[0]),item=c.consolidation.profile.editorial.media.find(x=>x.id===m.id);
+   out.push({id:m.id,title:text(m.title,text(item.caption,m.id)),area:text(m.area,c.discipline),subject:text(m.subject,c.subject),subsubject:text(m.subsubject,c.sub||''),description:text(m.description),card_ids});
+  }
+  return out.sort((a,b)=>a.title.localeCompare(b.title,'pt-BR'));
+ };
+}

@@ -8,6 +8,9 @@ export function privatePage(source){
  replace("const base=p.base,ijui=p.ijui;\n   cards=[...base,...ijui];loadedCards=true;bm366ApplyRelations(cards);","const base=p.base,ijui=p.ijui;\n   cards=[...base,...ijui];loadedCards=true;if(!privateSource)bm366ApplyRelations(cards);");
  replace("function loadCardsLegacy(){\n if(bm123CardsPromise)","function loadCardsLegacy(){\n return Promise.reject(Error('Fonte legada bloqueada no ambiente privado'));\n if(bm123CardsPromise)");
  replace("if(name==='imagens')loadImages();","if(name==='pdfs')void window.BancoMestrePDFSyncV130?.refresh?.();\n if(name==='imagens')loadImages();");
+ const imStart=html.indexOf('async function loadImages(){'),imEnd=html.indexOf('async function thumb(',imStart);
+ if(imStart<0||imEnd<0)throw Error('Contrato imagens divergente');
+ html=html.slice(0,imStart)+"async function loadImages(){return window.BancoMestreDriveImagesV182?.refresh?.()}\n"+html.slice(imEnd);
  const start=html.indexOf('async function pdfInit(){'),end=html.indexOf('function pdfRender(){',start);
  if(start<0||end<0)throw Error('Contrato PDF divergente');
  html=html.slice(0,start)+"async function pdfInit(){return true}\n"+html.slice(end);

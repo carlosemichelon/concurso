@@ -1,4 +1,4 @@
-import {test} from 'node:test';import assert from 'node:assert/strict';import {createMediaReader,createPdfLibrary} from '../infra/vs41-private/media.mjs';import {mediaFixture,profiles} from './vs41_private_fixture.mjs';
+import {test} from 'node:test';import assert from 'node:assert/strict';import {createMediaReader,createPdfLibrary,createImageLibrary} from '../infra/vs41-private/media.mjs';import {mediaFixture,profiles} from './vs41_private_fixture.mjs';
 const setup=()=>{const f=mediaFixture();return {...f,read:createMediaReader({...f,resolveSession:async req=>profiles[req.session]})}};
 test('PDF e imagem vinculados ao perfil autenticado; mesmo identificador, dados separados',async()=>{
  const f=setup(),a={session:'A'},b={session:'B'};
@@ -21,4 +21,12 @@ test('biblioteca PDF omite IDs do Drive e não mistura títulos nem vínculos',a
  assert.equal(b[0].title,'Material privado B');assert.ok(!JSON.stringify(a).includes('PDF-TEST-A'));
  await assert.rejects(list({session:'X'}));
  f.files.get('mediaA').payload.records[1].card_ids=['CARD-9999'];assert.deepEqual(await list({session:'A'}),[]);
+});
+
+test('galeria somente com imagens vinculadas a cartões ativos do próprio perfil',async()=>{
+ const f=mediaFixture(),list=createImageLibrary({...f,resolveSession:async req=>profiles[req.session]});
+ const [a,b]=await Promise.all([list({session:'A'}),list({session:'B'})]);
+ assert.equal(a.length,1);assert.equal(b.length,1);assert.equal(a[0].title,'Material privado A');assert.equal(b[0].title,'Material privado B');assert.ok(!Object.hasOwn(a[0],'fileId'));
+ f.files.get('cardsA').payload.records[0].consolidation.profile.editorial.media=[];
+ assert.deepEqual(await list({session:'A'}),[]);await assert.rejects(list({session:'X'}));
 });

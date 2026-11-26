@@ -1,7 +1,7 @@
 import {createAuth,sessionToken,sessionCookie} from './auth.mjs';
 import {createReader} from './catalog.mjs';
 import {createReviewStore} from './srs.mjs';
-import {createMediaReader,createPdfLibrary} from './media.mjs';
+import {createMediaReader,createPdfLibrary,createImageLibrary} from './media.mjs';
 import {createGapStore} from './gaps.mjs';
 import {createAnnotationStore} from './annotations.mjs';
 const json=(res,status,data,headers={})=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Cross-Origin-Resource-Policy':'same-origin',...headers});res.end(JSON.stringify(data));return true};
@@ -17,6 +17,7 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
  const reviews=createReviewStore({resolveSession,getToken,fetcher,now});
  const readMedia=createMediaReader({resolveSession,getToken,fetcher});
  const pdfLibrary=createPdfLibrary({resolveSession,getToken,fetcher});
+ const imageLibrary=createImageLibrary({resolveSession,getToken,fetcher});
  const annotations=createAnnotationStore({resolveSession,getToken,fetcher,now});
  const gaps=createGapStore({resolveSession,getToken,fetcher,now});
  const handler=async(req,res)=>{
@@ -51,6 +52,12 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
     try{const data=req.method==='GET'?{events:await reviews.read(req)}:{event:await reviews.record(req,input)};
      if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{...data,context:s.context})}
     catch(e){return json(res,['input','card','prerequisite'].includes(e.code)?400:e.code==='conflict'?409:503,{error:'Revisão privada não confirmada'})}
+   }
+   if(req.method==='GET'&&u.pathname==='/api/vs41/images'){
+    const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
+    try{const images=await imageLibrary(req);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{images,context:s.context})}
+    catch{return json(res,503,{error:'Galeria privada indisponível'})}
    }
    if(req.method==='GET'&&u.pathname==='/api/vs41/pdfs'){
     const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
