@@ -1,4 +1,4 @@
-import {test} from 'node:test';import assert from 'node:assert/strict';import {createReader} from '../infra/vs41-private/catalog.mjs';import {fixture,profiles,card} from './vs41_private_fixture.mjs';
+import {test} from 'node:test';import {createHash} from 'node:crypto';import assert from 'node:assert/strict';import {createReader} from '../infra/vs41-private/catalog.mjs';import {fixture,profiles,card} from './vs41_private_fixture.mjs';
 function setup(){const f=fixture();return {...f,read:createReader({...f,resolveSession:async req=>profiles[req.session]})}}
 test('duas contas simultâneas, mesmo ID e conteúdos distintos',async()=>{const {read}=setup();const [a,b]=await Promise.all([read({session:'A'}),read({session:'B'})]);assert.equal(a.records[0].back,'Resposta privada A');assert.equal(b.records[0].back,'Resposta privada B')});
 test('sem sessão: nenhuma leitura',async()=>{const {read,requests}=setup();await assert.rejects(read({session:'X'}));assert.equal(requests.length,0)});
@@ -30,4 +30,20 @@ test('IDs legados reconhecidos e explicação ausente preservada, sem inventar c
  assert.deepEqual((await read({session:'A'})).records,[first,second]);
  second.id='UNRECOGNIZED-001';first.related_card_ids=[second.id];await assert.rejects(read({session:'A'}),e=>e.code==='records-schema');
  second.id='CARD-9901';first.related_card_ids=[second.id];await assert.rejects(read({session:'A'}),e=>e.code==='records-schema');
+});
+
+test('leitura experimental do formato privado original pelo ponteiro existente, sem expor SRS ou questões',async()=>{
+ const f=fixture(),{files}=f;
+ for(const s of ['A','B']){
+  const c=card(s);c.evolutive={layers:c.consolidation.profile.modules};delete c.consolidation;
+  const payload={format:'BancoMestrePrivadoV159',schema_version:1,version:'VTEST_'+s,counts:{cards:1,questions:1,images:0,srs_records:1},cards:[c],questions:[{private:'questão '+s}],images:[],srs:[{private:'SRS '+s}]};
+  files.get('cards'+s).payload=payload;
+  files.get('profile'+s).payload.collections.pointer='pointer'+s;
+  files.set('pointer'+s,{meta:{...files.get('cards'+s).meta,id:'pointer'+s,appProperties:{bmProject:'bm-portal-multi-v1',bmOwner:s,bmKind:'pointer'}},payload:{schema:'banco-mestre-operational-pointer/1',private_base:{version:payload.version,file_id:'cards'+s,sha256:createHash('sha256').update(JSON.stringify(payload)).digest('hex'),...payload.counts}}});
+ }
+ const read=createReader({...f,resolveSession:async req=>profiles[req.session],nativeSnapshotOnly:true});
+ const [a,b]=await Promise.all([read({session:'A'}),read({session:'B'})]);assert.equal(a.records[0].back,'Resposta privada A');assert.equal(b.records[0].back,'Resposta privada B');assert.equal(a.scope,'snapshot-only');assert.equal(a.version,'VTEST_A');assert.equal(a.records[0].evolutive.layers.length,11);assert.ok(!('srs' in a)&&!('questions' in a));
+ await assert.rejects(createReader({...f,resolveSession:async()=>profiles.A})({}),e=>e.code==='cards-schema');
+ files.get('cardsA').payload.cards[0].back='mudança sem ponteiro';await assert.rejects(read({session:'A'}),e=>e.code==='cards-media-sha256');
+ files.get('profileA').payload.collections.pointer='pointerB';await assert.rejects(read({session:'A'}),e=>e.code==='pointer-owner'||e.code==='pointer-parent');
 });
