@@ -56,7 +56,13 @@ export async function verifyDriveIsolation({sessions,getToken,fetcher=fetch}){
   if(typeof token!=='string'||!token)throw Error('Autorização individual ausente');
   for(const id of [sessions[1-i].rootId,sessions[1-i].profileId]){
    const r=await fetcher('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(id)+'?fields=id',{headers:{Authorization:'Bearer '+token},cache:'no-store',redirect:'error'});
-   if(r.status!==403&&r.status!==404)throw Error('Negação cruzada não confirmada');
+   let blocked=r.status===404;
+   if(r.status===403){
+    const body=await r.json().catch(()=>null);
+    const reasons=body?.error?.errors;
+    blocked=Array.isArray(reasons)&&reasons.length>0&&reasons.every(e=>e?.reason==='insufficientFilePermissions');
+   }
+   if(!blocked)throw Error('Negação cruzada não confirmada');
    denied++;
   }
  }

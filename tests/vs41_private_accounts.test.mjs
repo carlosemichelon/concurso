@@ -37,6 +37,9 @@ test('preflight exige quatro negativas cruzadas reais, não aceita sucesso nem f
  };
  assert.deepEqual(await verifyDriveIsolation({sessions,getToken,fetcher}),{crossAccessDenied:true,crossChecks:4});
  assert.deepEqual(requests,[['A','rootB'],['A','profileB'],['B','rootA'],['B','profileA']]);
- for(const status of [200,401,429,500])await assert.rejects(verifyDriveIsolation({sessions,getToken,fetcher:async()=>new Response(null,{status})}),/Negação cruzada/);
+ for(const status of [200,401,403,429,500])await assert.rejects(verifyDriveIsolation({sessions,getToken,fetcher:async()=>new Response(null,{status})}),/Negação cruzada/);
+ const forbidden=reason=>async()=>Response.json({error:{errors:[{reason}]}},{status:403});
+ assert.equal((await verifyDriveIsolation({sessions,getToken,fetcher:forbidden('insufficientFilePermissions')})).crossChecks,4);
+ await assert.rejects(verifyDriveIsolation({sessions,getToken,fetcher:forbidden('rateLimitExceeded')}),/Negação cruzada/);
  await assert.rejects(verifyDriveIsolation({sessions:[sessions[0],sessions[0]],getToken,fetcher}));
 });
