@@ -69,3 +69,12 @@ test('image marks persist only in the selected Drive; original image never chang
  assert.deepEqual((await b.readInk('imgB')).marks,[]);assert.equal(writes.length,1);assert.ok(writes[0].account==='A'&&writes[0].id!=='imgA');
  await assert.rejects(a.readInk('imgB'));await assert.rejects(a.saveInk('imgA',{...input,event_id:'12345678-1234-1234-1234-123456789032'}),/outro dispositivo/);
 });
+
+test('manual root uses the selected account and rejects another account or a non-folder',async()=>{
+ const a=await connectAccount({token:'A',fetcher:fixture('A'),rootId:'rootA'});
+ assert.equal(a.rootUrl,'https://drive.google.com/drive/folders/rootA');
+ assert.equal(a.snapshot.version,'TESTE-A');
+ await assert.rejects(connectAccount({token:'B',fetcher:fixture('B'),rootId:'rootA'}));
+ await assert.rejects(connectAccount({token:'A',fetcher:fixture('A'),rootId:'pdfA'}),/pasta privada/);
+ await assert.rejects(connectAccount({token:'A',fetcher:fixture('A',{foreign:true}),rootId:'rootA'}));
+});

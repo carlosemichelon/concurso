@@ -10,7 +10,7 @@ const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
 const owned=f=>validId(f?.id)&&f.ownedByMe===true&&f.shared===false&&f.trashed===false;
 const esc=s=>String(s).replaceAll('\\','\\\\').replaceAll("'","\\'");
 const emptyStudy=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60,activeTimer:null});
-export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor=''}){
+export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId=''}){
  if(!token)throw Error('Selecione sua conta Google');
  const get=async(url,params={})=>{const r=await fetcher(url+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},cache:'no-store',credentials:'omit',redirect:'error',signal});if(!r.ok)throw Error('Drive HTTP '+r.status);return r};
  const meta=async id=>{if(!validId(id))throw Error('Arquivo inválido');const f=await (await get(API+'/'+id,{fields})).json();if(f.id!==id||!owned(f))throw Error('Arquivo não pertence exclusivamente à conta selecionada');return f};
@@ -30,7 +30,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const profile=(await (await get('https://www.googleapis.com/drive/v3/about',{fields:'user(displayName,emailAddress,permissionId)'})).json()).user;
  if(!validId(profile?.permissionId))throw Error('Identidade Google não confirmada');
  const identity=Object.freeze({name:String(profile.displayName||profile.emailAddress||'Conta Google').slice(0,160),email:String(profile.emailAddress||'').slice(0,254)});
- const root=await unique("mimeType = '"+folder+"' and name = 'DataBase_Concurso'","Pasta individual DataBase_Concurso");
+ const root=rootId?await meta(rootId):await unique("mimeType = '"+folder+"' and name = 'DataBase_Concurso'","Pasta individual DataBase_Concurso");
+ if(root.mimeType!==folder)throw Error('A configuração precisa indicar uma pasta privada do Drive');
  const rootUrl='https://drive.google.com/drive/folders/'+root.id;
  let snapshot;try{snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal})}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,editorialPreview:true})}
  const records=snapshot.records;

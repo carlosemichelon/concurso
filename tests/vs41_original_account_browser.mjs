@@ -46,6 +46,27 @@ try{
   assert.equal(await page.locator('#bm-vs41-chat-destination,#bm-vs41-logout,#full-portal').count(),0);
   assert.equal(await page.locator('#bmAccountDriveLink').isVisible(),false);
   assert.equal(await page.evaluate(()=>cards.length),0);
+  await page.locator('#bmAccountSettings').click();
+  assert.ok(await page.locator('#bmAccountSettingsDialog').isVisible());
+  if(a==='A'){
+   await page.locator('#bmAccountRoot').fill('https://example.invalid/folder');
+   await page.locator('#bmAccountSettingsSave').click();
+   assert.ok((await page.locator('#bmAccountSettingsStatus').innerText()).includes('pasta do Google Drive'));
+   await page.locator('#bmAccountRoot').fill('https://drive.google.com/drive/folders/rootA');
+   await page.locator('#bmAccountClientId').fill('invalid-secret');
+   await page.locator('#bmAccountSettingsSave').click();
+   assert.ok((await page.locator('#bmAccountSettingsStatus').innerText()).includes('Client ID inválido'));
+   await page.locator('#bmAccountClientId').fill('');
+   await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded'}),page.locator('#bmAccountSettingsSave').click()]);
+   await page.waitForFunction(()=>!document.getElementById('bm239-drive-action').disabled);
+   await page.locator('#bmAccountSettings').click();
+   assert.equal(await page.locator('#bmAccountRoot').inputValue(),'https://drive.google.com/drive/folders/rootA');
+   await page.locator('#bmAccountSettingsCancel').click();
+  }else{
+   await page.locator('#bmAccountSettingsDefault').click();
+   await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded'}),page.locator('#bmAccountSettingsSave').click()]);
+   await page.waitForFunction(()=>!document.getElementById('bm239-drive-action').disabled);
+  }
   await btn.click();
   await page.waitForFunction(()=>window.BMVS41Session?.available()===true,{},{timeout:30000});
   assert.equal(await page.evaluate(()=>window.__prompt),'select_account');
