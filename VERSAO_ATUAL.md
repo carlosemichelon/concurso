@@ -1,6 +1,6 @@
 ## V440 / VS49 — apresentação do Guia de Fórmulas (26/11/2026)
 
-Escopo exclusivo: Assuntos → Guia de Fórmulas. Hierarquia de equações, unidades e legendas explícitas; rolagem localizada e legibilidade móvel; correções de expoentes, derivadas, somatórios, integrais e símbolos. Estilos dos cartões, VC52, SRS e fontes privadas preservados. Guia integral processado em teste isolado. Homologação de navegador pendente; produção não promovida.
+Escopo exclusivo: Assuntos → Guia de Fórmulas. Equações, explicações, exemplos, hipóteses, listas, unidades, legendas, macetes, pegadinhas e referências com hierarquia visual consistente; rolagem localizada e legibilidade móvel. Correções de expoentes, derivadas, somatórios, integrais e símbolos. Catálogo VC52, cartões, SRS e documento fonte preservados. Homologação em navegador pendente; produção não promovida.
 
 ## V439 / VS48 — correções funcionais (26/11/2026)
 
