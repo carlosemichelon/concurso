@@ -4,7 +4,8 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const base=read('v123.html'),current=read('v124.html'),manifest=JSON.parse(read('assets/version.json')),index=read('index.html');
 assert.match(manifest.version,/^V\d{3}$/);assert.ok(Number(manifest.version.slice(1))>=124);assert.equal(manifest.home,'v'+manifest.version.slice(1)+'.html');
-assert.ok(manifest.counts.cards>=1499);assert.ok(manifest.counts.active>=1482);
+if(manifest.catalog?.counts){assert.equal(manifest.counts.cards,manifest.catalog.counts.canonical);assert.equal(manifest.counts.active,manifest.catalog.counts.active);}
+else{assert.ok(manifest.counts.cards>=1499);assert.ok(manifest.counts.active>=1482);}
 assert.ok(manifest.counts.pdfs>=72);assert.ok(manifest.counts.images>=270);
 assert.ok(index.includes('data-bm-portal-version="'+manifest.version+'"'));
 const reconstructed=current

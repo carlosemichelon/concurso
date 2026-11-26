@@ -1,5 +1,7 @@
 ## V434 / VS43 — Interface compacta e cache verificado (26/11/2026)
 
+Reconciliada a contagem de scripts (49) e separados os testes históricos V121/V124/V263/V371 das contagens e do conector atuais. Mantidos os testes de integridade do catálogo vigente e dos módulos históricos.
+
 Correção de publicação: snapshot v434.html idêntico ao index.html e manifesto reconciliado, sem alteração funcional do portal, catálogo ou registros privados.
 
 V434 / VS43 — 26/11/2026: consolida janelas compactas, painéis de estudo e lacunas alinhados, contagem de imagens indexadas, consultas compartilhadas e cache IndexedDB opcional com revalidação remota. Login, logout, proteção de Redação, catálogo VC52 e histórico SRS preservados. Homologação real e conciliação integral do SRS pendentes.

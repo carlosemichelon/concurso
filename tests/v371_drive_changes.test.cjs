@@ -1,6 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
-const html=fs.readFileSync('index.html','utf8');
+// Teste do motor histórico V371; o motor individual atual tem testes próprios em vs41_browser_account.test.mjs.
+const html=fs.readFileSync('v371.html','utf8');
 const bundles=[...html.matchAll(/<script\b[^>]*src="(assets\/v\d+_js_040_051[^"?]*\.js)(?:\?[^\"]*)?"/g)].map(m=>m[1]);
 assert.equal(bundles.length,1,'Pacote vigente de listagem Drive');
 const source=fs.readFileSync(bundles[0],'utf8');
