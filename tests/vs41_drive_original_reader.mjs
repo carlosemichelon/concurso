@@ -26,12 +26,22 @@ try{
   const account=req.headers()['authorization']?.slice(7);assert.ok(['A','B'].includes(account));calls.push(account);
   const id=url.pathname.split('/').at(-1);
   if(id==='about')return json({user:{permissionId:'owner'+account}});
-  if(id==='root'+account)return json({id,mimeType:'application/vnd.google-apps.folder',ownedByMe:true,shared:false,trashed:false,parents:[]});
+  const fm='application/vnd.google-apps.folder';
+  const dirs={rootA:{id:'rootA',name:'DataBase_Concurso',mimeType:fm,parents:[]},cardsA:{id:'cardsA',name:'01 - Cartões',mimeType:fm,parents:['rootA']},privateA:{id:'privateA',name:'Dados privados',mimeType:fm,parents:['cardsA']}};
+  if(id==='files'){
+   const q=url.searchParams.get('q')||'';
+   if(account!=='A')return json({files:[]});
+   if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))return json({files:[]});
+   const f=q.includes("'rootA'")&&q.includes("'01 - Cartões'")?dirs.cardsA:q.includes("'cardsA'")&&q.includes("'Dados privados'")?dirs.privateA:q.includes("'privateA'")&&q.includes("'VC52_EDITORIAL_CANDIDATA.json'")?{id:'candidate',name:'VC52_EDITORIAL_CANDIDATA.json',mimeType:'application/json',parents:['privateA']}:null;
+   return json({files:f?[f]:[]});
+  }
+  if(dirs[id])return account==='A'?json({...dirs[id],ownedByMe:true,shared:false,trashed:false}):json({},403);
+  if(id==='root'+account)return json({id,mimeType:fm,ownedByMe:true,shared:false,trashed:false,parents:[]});
   const owner=id==='candidate'||id==='tampered'?'A':id==='other'?'B':null;
   if(owner!==account)return json({},403);
   const bytes=id==='candidate'?original:id==='tampered'?original+' ':fixture;
   if(url.searchParams.has('alt'))return route.fulfill({headers,contentType:'application/json',body:bytes});
-  return json({id,name:id+'.json',mimeType:'application/json',ownedByMe:true,shared:false,trashed:false,parents:['root'+account],version:'1',size:String(Buffer.byteLength(bytes))});
+  return json({id,name:id==='candidate'?'VC52_EDITORIAL_CANDIDATA.json':id+'.json',mimeType:'application/json',ownedByMe:true,shared:false,trashed:false,parents:[id==='candidate'?'privateA':'root'+account],version:'1',size:String(Buffer.byteLength(bytes))});
  });
  await page.goto(base+'preview-vs41-reader/index.html');
  await page.waitForFunction(()=>!document.querySelector('#connect').disabled);
@@ -55,6 +65,13 @@ try{
   assert.equal(await article.locator('figure').count(),JSON.parse(original).cards.find(c=>c.id===id).consolidation.profile.editorial.media.filter(m=>m.role==='VERSO_APOS_TENTATIVA'&&(m.src||m.inline_svg||m.private_original)).length);
  }
 }
+ await page.locator('#source').fill('https://drive.google.com/drive/folders/rootA');await page.locator('#load').click();
+ await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('único ponteiro vigente'));
+ assert.equal(await page.locator('#results').isVisible(),false);
+ await page.locator('#editorial-preview').check();await page.locator('#load').click();
+ await page.waitForFunction(()=>document.querySelector('#summary').textContent.includes('1460 cartões ativos'));
+ assert.match(await page.locator('#summary').innerText(),/candidato editorial/);
+ await page.locator('#editorial-preview').uncheck();
  await page.locator('#source').fill('tampered');await page.locator('#load').click();
  await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('não corresponde'));
  assert.equal(await page.locator('#results').isVisible(),false);
