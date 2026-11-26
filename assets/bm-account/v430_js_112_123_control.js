@@ -153,14 +153,65 @@ const mount=async()=>{
   const style=document.createElement('style');
   style.textContent=doc.querySelector('style')?.textContent||'';
 
-  root.replaceChildren(style);
-  const gate=document.createElement('p');gate.setAttribute('role','status');gate.style.cssText='padding:10px 18px;margin:0;background:#edf6f4;color:#24505a;font-size:13px';
-  gate.textContent=window.BMAccountInfo?.()?'Conferindo Controle de Estudos no Drive individual…':'Entre com sua conta Google para carregar o Controle de Estudos.';
-  root.append(gate);
-  const content=[];
-  for(const element of [...doc.body.children]){
-   if(element.tagName!=='SCRIPT'){element.inert=true;content.push(element);root.append(element);}
+  // Render the same original template for visitors and signed-in students.
+  // The visitor view is deliberately free of private data, timers and write handlers.
+  let selected='painel';
+  const template=[...doc.body.children].filter(e=>e.tagName!=='SCRIPT');
+  const mountTemplate=()=>{
+   const content=template.map(e=>e.cloneNode(true));
+   root.replaceChildren(style,...content);
+   return content;
+  };
+  const activate=(id)=>{
+   if(!root.getElementById(id)?.classList.contains('pane'))return;
+   selected=id;
+   root.querySelectorAll('#tabs [data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+   root.querySelectorAll('section.pane').forEach(s=>s.classList.toggle('active',s.id===id));
+  };
+  const preview=()=>{
+   mountTemplate();
+   const $=id=>root.getElementById(id);
+   const header=root.querySelector('header'),tabs=$('tabs');
+   const gate=document.createElement('p');gate.id='bm240-guest-status';gate.setAttribute('role','status');
+   gate.className='muted';gate.style.cssText='margin:0 0 10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap';
+   const msg=document.createElement('span');msg.textContent='Visualização sem login. Entre com Google para carregar seus dados individuais.';
+   const login=document.createElement('button');login.type='button';login.textContent='Entrar com Google';
+   login.style.cssText='padding:5px 9px;font-size:12px';login.onclick=()=>document.getElementById('bm239-drive-action')?.click();
+   gate.append(msg,login);header.insertBefore(gate,tabs);
+   const metrics=(id,labels)=>{
+    const target=$(id);if(!target)return;
+    for(const label of labels){const item=document.createElement('div');item.className='metric';const name=document.createElement('span'),value=document.createElement('b');name.textContent=label;value.textContent='—';item.append(name,value);target.append(item)}
+   };
+   metrics('metrics',['Hoje','Esta semana','Este mês','Acertos']);
+   metrics('reportMetrics',['Horas líquidas','Sessões registradas','Questões e acertos','Aproveitamento']);
+   const placeholder='Disponível após o login.';
+   for(const id of ['distribution','types','goalSummary','performance','reportBySubject','reportQuestions','reportByMonth','reportByType','cycleCurrent','reviewRows','calDaySummary','calPlans','bm240-audit','calGrid']){
+    const el=$(id);if(el){const p=document.createElement('p');p.className='empty';p.textContent=placeholder;el.replaceChildren(p)}
+   }
+   for(const [id,n] of [['historyRows',6],['subjectRows',8]]){const row=document.createElement('tr'),cell=document.createElement('td');cell.colSpan=n;cell.textContent=placeholder;row.append(cell);$(id)?.replaceChildren(row)}
+   for(const id of ['chartScope','chartTimelineHint','chartDistributionScope','historyCount','backupSummary','bm240-local-status','bm240TaxStatus','timerStatus','calTitle']){
+    const el=$(id);if(el)el.textContent=placeholder;
+   }
+   $('timerDisplay').textContent='—:—:—';
+   // Keep the actual chart frame, without fabricated points or zero-hour values.
+   $('timeline').setAttribute('aria-label','Gráfico aguardando autenticação');
+   for(const el of root.querySelectorAll('main button,main input,main select,main textarea')){
+    if(!el.matches('[data-goto]'))el.disabled=true;
+   }
+   for(const b of root.querySelectorAll('#tabs [data-tab],[data-goto]'))b.onclick=()=>activate(b.dataset.tab||b.dataset.goto);
+   for(const form of root.querySelectorAll('form'))form.onsubmit=e=>e.preventDefault();
+   activate(selected);return {msg,login};
+  };
+  let guest=preview();
+  // Session-ready follows account verification, not just clicking the OAuth button.
+  if(!window.BMVS41Session?.available()){
+   await new Promise(resolve=>{
+    const ready=()=>{document.removeEventListener('bm-vs41-session-ready',ready);resolve()};
+    document.addEventListener('bm-vs41-session-ready',ready);
+    if(window.BMVS41Session?.available())ready();
+   });
   }
+  guest.msg.textContent='Conferindo Controle de Estudos no Drive individual…';guest.login.hidden=true;
   await new Promise((resolve,reject)=>{
    if(typeof window.BM240ControlInit==='function')return resolve();
    const script=document.createElement('script');
@@ -168,8 +219,11 @@ const mount=async()=>{
    script.onload=resolve;script.onerror=()=>reject(Error('Módulo de estudos não carregou'));
    document.head.append(script);
   });
+  // Fresh nodes remove all guest handlers; private app owns its real controls.
+  const content=mountTemplate();for(const element of content)element.inert=true;
   await window.BM240ControlInit(root);
-  for(const element of content)element.inert=false;gate.remove();
+  for(const element of content)element.inert=false;
+  root.querySelector('#tabs [data-tab="'+selected+'"]')?.click();
   installMobileRegisterCollapse(root);
   window.BancoMestreIconsV096?.refresh?.();
   document.dispatchEvent(new CustomEvent('bm240-study-mounted'));
