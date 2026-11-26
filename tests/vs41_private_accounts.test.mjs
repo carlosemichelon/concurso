@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {accountTokens} from '../infra/vs41-private/oauth.mjs';
+import {accountTokens,verifyDriveIsolation} from '../infra/vs41-private/oauth.mjs';
 const users=new Map(['A','B'].map(s=>[s,{subject:s,rootId:'root'+s,profileId:'profile'+s}]));
 const grants=['A','B'].map(s=>({subject:s,permissionId:'google'+s,refreshToken:'refresh'+s}));
 const session=s=>({...users.get(s),sessionId:'session'+s});
@@ -27,4 +27,16 @@ test('recusa duplicatas, conta trocada, revogação e ausência de autorização
  await assert.rejects(f.provider(session('A')),/outra conta/);
  const revoked=setup({fetcher:async()=>new Response(null,{status:401})});
  await assert.rejects(revoked.provider(session('A')),/indisponível/);
+});
+
+test('preflight exige quatro negativas cruzadas reais, não aceita sucesso nem falha transitória',async()=>{
+ const sessions=['A','B'].map(session),getToken=setup().provider,requests=[];
+ const fetcher=async(url,opts)=>{
+  const id=new URL(url).pathname.split('/').pop(),s=opts.headers.Authorization.slice(-1);
+  requests.push([s,id]);return new Response(null,{status:404});
+ };
+ assert.deepEqual(await verifyDriveIsolation({sessions,getToken,fetcher}),{crossAccessDenied:true,crossChecks:4});
+ assert.deepEqual(requests,[['A','rootB'],['A','profileB'],['B','rootA'],['B','profileA']]);
+ for(const status of [200,401,429,500])await assert.rejects(verifyDriveIsolation({sessions,getToken,fetcher:async()=>new Response(null,{status})}),/Negação cruzada/);
+ await assert.rejects(verifyDriveIsolation({sessions:[sessions[0],sessions[0]],getToken,fetcher}));
 });
