@@ -1,0 +1,5 @@
+# Controle da fila — 26/11/2026
+
+Incidente: 181 execuções em fila e 177 marcadas em andamento; publicação do Pages VS49 aguardava runner. A quantidade de execuções não comprova limite de conta.
+
+Uma única alteração operacional: 12 rotinas de leitura com concorrência por workflow e referência, cancelando execução ultrapassada quando novo evento correspondente chegar. Gatilhos históricos V045/V046/V241/V242 limitados a seus próprios arquivos; validações de dados e mídias limitadas às dependências pertinentes; publicação pública validada após mudanças de conteúdo. Os corpos dos testes, rotinas de escrita, permissões, índice, interface, dados privados, catálogo e SRS permanecem intactos. Testes históricos continuam disponíveis por acionamento manual. A configuração não cancela retroativamente execuções iniciadas sem a nova política, nem controla o runner do Pages. Não desativar Actions/Pages nem repetir envios enquanto o runner estiver indisponível. Cancelamento individual de fila antiga exige a interface do GitHub ou API de cancelamento autorizada. Manter uma atualização consolidada por lote e Drive como fonte privada conforme VM22.

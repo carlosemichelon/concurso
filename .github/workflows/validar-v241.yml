@@ -6,9 +6,13 @@ on:
   pull_request:
     branches:
       - gh-pages
+    paths: ['v241.html', 'assets/v241*', 'tests/v241*', '.github/workflows/validar-v241.yml']
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   test-v241:
     runs-on: ubuntu-latest

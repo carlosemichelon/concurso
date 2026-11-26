@@ -4,7 +4,9 @@ on:
   push:
     branches: [gh-pages]
     paths:
-      - "assets/**"
+      - "assets/**/*.json"
+      - "assets/card_visuals_*/**"
+      - "assets/v339_semantic_visual.css"
       - "tools/check_metodologia_v340.js"
       - "index.html"
       - "v*.html"
@@ -13,6 +15,9 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   cartoes:
     runs-on: ubuntu-latest

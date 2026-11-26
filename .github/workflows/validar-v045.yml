@@ -3,13 +3,14 @@ on:
   pull_request:
     branches: [gh-pages]
     paths:
-      - 'index.html'
-      - 'assets/version.json'
       - 'v045.html'
       - 'assets/v045_atlas_filters.js'
       - 'tests/v045_index_visibility_browser.cjs'
       - '.github/workflows/validar-v045.yml'
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   regressao-v045:
     runs-on: ubuntu-24.04

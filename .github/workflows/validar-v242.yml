@@ -4,8 +4,13 @@ on:
     branches: ['homologacao/v242-*']
   pull_request:
     branches: [gh-pages]
+    paths: ['v242.html', 'assets/v242*', 'tests/v242*', '.github/workflows/validar-v242.yml']
+  workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   teste:
     runs-on: ubuntu-latest

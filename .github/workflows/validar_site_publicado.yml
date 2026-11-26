@@ -2,9 +2,13 @@ name: Banco Mestre - verificar publicação pública
 on:
   push:
     branches: [gh-pages]
+    paths: ['index.html', 'v*.html', 'assets/**', 'tools/catalog_snapshot.cjs', 'tests/validar_site_publicado.cjs', '.github/workflows/validar_site_publicado.yml']
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   auditoria-publica:
     runs-on: ubuntu-latest

@@ -2,9 +2,14 @@ name: Integridade de imagens nos cartões V342
 on:
   push:
     branches: [gh-pages]
+    paths: ['assets/**/*.json', 'assets/**/*.svg', 'assets/**/*.png', 'assets/**/*.jpg', 'assets/**/*.jpeg', 'assets/**/*.webp', 'assets/v342_media_integrity.*', 'assets/bm-account/**', 'index.html', 'tests/v342*', 'tests/v343_petro27*', '.github/workflows/validar-midias-cartoes-v342.yml']
   pull_request:
     branches: [gh-pages]
+    paths: ['assets/**/*.json', 'assets/**/*.svg', 'assets/**/*.png', 'assets/**/*.jpg', 'assets/**/*.jpeg', 'assets/**/*.webp', 'assets/v342_media_integrity.*', 'assets/bm-account/**', 'index.html', 'tests/v342*', 'tests/v343_petro27*', '.github/workflows/validar-midias-cartoes-v342.yml']
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   audit-card-media:
     runs-on: ubuntu-latest
