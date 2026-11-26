@@ -20,7 +20,7 @@ export function privateGlobalDrive(source){
    const notes=[],warnings=[];
    try{
     await window.BMVS41Session.check();
-    const jobs=[['Avaliações',()=>window.BM316SrsJournal.refresh()],['Imagens',()=>window.BancoMestreDriveImagesV182.refresh()],['PDFs',()=>window.BancoMestrePDFSyncV130.refresh()],['Lacunas',()=>window.BM242LacunasDrive.sync()]];
+    const jobs=[['Controle de Estudos',()=>window.BM240ControlDrive.sync()],['Avaliações',()=>window.BM316SrsJournal.refresh()],['Imagens',()=>window.BancoMestreDriveImagesV182.refresh()],['PDFs',()=>window.BancoMestrePDFSyncV130.refresh()],['Lacunas',()=>window.BM242LacunasDrive.sync()]];
     for(const [name,job] of jobs){try{const value=await job();if(value===false||value===null||value?.state==='error'||value?.state==='busy')throw Error('não confirmado');notes.push(name+' consultado')}catch{warnings.push(name+' não confirmado')}}
    }catch{warnings.push('Sessão não confirmada')}
    const pending=['Demais módulos administrativos não homologados'];

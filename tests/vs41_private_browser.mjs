@@ -197,6 +197,24 @@ try{
  }
  assert.deepEqual(f.writes.filter(x=>x.payload.schema==='BM-IMAGE-INK/1').map(x=>[x.parent,x.payload.marks[0].color]).sort(),[['rootA','#ffd400'],['rootB','#202b36']]);
  console.log('Galeria e editor original: marcações privadas persistidas e reabertas em dois perfis.');
+ for(const [p,label] of [[oldA,'A'],[oldB,'B']]){
+  await p.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
+  await p.locator('#bm240-study-tab').click();
+  await p.waitForFunction(()=>window.BMVS41StudyControl?.confirmed&&window.BM240ControlApp?.taxonomyCount);
+  const subject=await p.evaluate(label=>window.BM240ControlApp.createSubject('Disciplina privada '+label),label);
+  const root=p.locator('#bm240-native-host');
+  await root.locator('#tabs [data-tab="registro"]').click();
+  await root.locator('#sessionSubject').selectOption(subject);
+  await root.locator('#sessionMinutes').fill(label==='A'?'30':'45');
+  await root.locator('#sessionQuestions').fill('10');await root.locator('#sessionCorrect').fill('8');
+  await root.locator('#sessionSubmit').click();
+  await p.waitForFunction(()=>window.BMVS41StudyControl.confirmed&&window.BM240ControlApp.status.sessions===1);
+  const result=await p.evaluate(()=>window.BMVS41PrivateStudy.read());assert.equal(result.data.sessions.length,1);assert.equal(result.data.sessions[0].minutes,label==='A'?30:45);
+  assert.ok(result.data.subjects.some(x=>x.name==='Disciplina privada '+label));assert.ok(!result.data.subjects.some(x=>x.name==='Disciplina privada '+(label==='A'?'B':'A')));
+  assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
+  await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
+ }
+ console.log('Controle original: disciplinas e registro manual individuais confirmados no Drive simulado.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});
