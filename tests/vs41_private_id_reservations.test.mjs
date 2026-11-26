@@ -2,6 +2,8 @@ import {test} from 'node:test';import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {planReservation} from '../infra/vs41-private/id-reservations.mjs';
 import {preparePromotion} from '../infra/vs41-private/promotion-plan.mjs';
+import {createPromotionStaging} from '../infra/vs41-private/promotion-staging.mjs';
+import {reviewFixture} from './vs41_private_fixture.mjs';
 import {destinationOf,catalogDigest} from '../infra/vs41-private/chat-proposals.mjs';
 import {card,profiles} from './vs41_private_fixture.mjs';
 const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
@@ -47,4 +49,28 @@ test('evolução mantém ID, mídia, versão integral anterior e não consome re
  const r=preparePromotion(f),n=r.bundle.records[0];assert.equal(n.id,c.id);assert.equal(n.back,p.back);assert.deepEqual(n.consolidation.original,c.consolidation.original);assert.deepEqual(n.consolidation.profile.editorial.media,c.consolidation.profile.editorial.media);
  assert.deepEqual(r.bundle.history[0].record,c);assert.equal(r.bundle.registry.reservations.length,0);assert.equal(r.bundle.registry.revision,2);assert.equal(r.receipt.newCards,0);
  p.related_card_ids=[c.id];assert.throws(()=>preparePromotion(f),e=>e.code==='self-link');
+});
+
+test('grava pacote candidato em arquivo único, confirma bytes e repete ticket sem duplicar',async()=>{
+ const f=setup(),mock=reviewFixture(),files=mock.files;files.get('cardsA').payload.records=f.records;
+ let writes=0,lost=true;const fetcher=async(url,opts={})=>{
+  const u=new URL(url);
+  if(u.pathname.endsWith('/generateIds'))return Response.json({ids:['generated-candidate-A']});
+  if(u.hostname==='www.googleapis.com'&&u.pathname.startsWith('/upload/')){
+   const parts=opts.body.split('\r\n'),m=JSON.parse(parts[3]),payload=JSON.parse(parts[7]);
+   assert.equal(m.parents[0],'rootA');assert.equal(m.id,'generated-candidate-A');assert.equal(m.appProperties.bmKind,'promotion-candidate');
+   if(files.has(m.id))return new Response(null,{status:409});
+   writes++;files.set(m.id,{meta:{...m,ownedByMe:true,shared:false,trashed:false,size:String(Buffer.byteLength(JSON.stringify(payload))),version:'1'},payload});
+   if(lost){lost=false;throw Error('resposta perdida')}return Response.json({id:m.id});
+  }
+  return mock.fetcher(url,opts);
+ };
+ const create=()=>createPromotionStaging({...mock,fetcher,resolveSession:async req=>profiles[req.session]});
+ const req={session:'A'},ticket=await create().generate(req),expectedCandidateSha256=preparePromotion(f).receipt.candidate_sha256,arg={...f,ticket,expectedCandidateSha256},before=JSON.stringify(f.records);
+ await assert.rejects(create().stage(req,arg),e=>e.code==='uncertain-retry-same-ticket');
+ const r=await create().stage(req,arg);assert.equal(r.mode,'staged-not-active');assert.equal(r.persisted,true);assert.equal(r.readyToPromote,false);assert.equal(writes,1);
+ assert.equal(JSON.stringify(files.get('cardsA').payload.records),before);assert.equal(files.get('profileA').payload.collections.cards,'cardsA');
+ await assert.rejects(create().stage({session:'B'},arg),e=>e.code==='ticket');
+ files.get(ticket.fileId).meta.shared=true;await assert.rejects(create().stage(req,arg),e=>e.code==='ownership');
+ assert.equal(writes,1);
 });
