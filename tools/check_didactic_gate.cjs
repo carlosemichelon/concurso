@@ -50,10 +50,10 @@ function audit(registry=J('assets/didactic_gate_current.json'),read=J){
 function packetIDs(d){
  const out=new Map();
  for(const k of ['profiles','approved','existing','cards','notes','relations']){
-  if(d[k]&&!Array.isArray(d[k])&&typeof d[k]==='object')for(const [id,val] of Object.entries(d[k]))if(/^CARD-\d{4,}$/.test(id)){if(!out.has(id))out.set(id,{});out.get(id)[k]=val;}
+  if(d[k]&&!Array.isArray(d[k])&&typeof d[k]==='object')for(const [id,val] of Object.entries(d[k]))if(/^(?:CARD-\d{4,}|PROP-IJUI-\d{3}|TRT\d{2}-C\d{3})$/.test(id)){if(!out.has(id))out.set(id,{});out.get(id)[k]=val;}
  }
  for(const k of ['new_cards','updates','existing_updates','related_updates','cards']){
-  if(Array.isArray(d[k]))for(const c of d[k])if(/^CARD-\d{4,}$/.test(c?.id||'')){if(!out.has(c.id))out.set(c.id,{});out.get(c.id)[k]=c;}
+  if(Array.isArray(d[k]))for(const c of d[k])if(/^(?:CARD-\d{4,}|PROP-IJUI-\d{3}|TRT\d{2}-C\d{3})$/.test(c?.id||'')){if(!out.has(c.id))out.set(c.id,{});out.get(c.id)[k]=c;}
  }
  return out;
 }
@@ -65,9 +65,10 @@ function coverageErrors(registry,changes){
  }
  return errors;
 }
-function changedPackets(registry){
- const base=registry.baseline_commit;if(!/^[a-f0-9]{40}$/.test(base||''))throw Error('baseline inválida');
- const list=execFileSync('git',['diff','--name-only',base,'--','assets'],{cwd:root,encoding:'utf8'}).split('\n').filter(p=>p.endsWith('.json')&&!p.endsWith('didactic_gate_current.json'));
+function changedPackets(registry,{incremental=false}={}){
+ const base=incremental?registry.release_baseline_commit:registry.baseline_commit;if(!/^[a-f0-9]{40}$/.test(base||''))throw Error('baseline inválida');
+ if(incremental)execFileSync('git',['merge-base','--is-ancestor',base,'HEAD'],{cwd:root});
+ const list=execFileSync('git',['diff','--name-only',base,'--','assets',...(incremental?['increments']:[])],{cwd:root,encoding:'utf8'}).split('\n').filter(p=>p.endsWith('.json')&&!p.endsWith('didactic_gate_current.json')&&(!incremental||!/^assets\/catalog_(?:snapshot_vc?\d+\.json|lookup\/)/.test(p)));
  return list.map(p=>{
   let before={},after={};try{before=JSON.parse(execFileSync('git',['show',base+':'+p],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024,stdio:['ignore','pipe','ignore']}));}catch(e){if(e.status!==128)throw e;}
   if(fs.existsSync(path.join(root,p)))after=J(p);
@@ -79,5 +80,29 @@ function releaseAudit(registry=J('assets/didactic_gate_current.json')){
  const results=[...a.results,...additional];return {total:results.length,approved:results.filter(x=>!x.faults.length).length,blocked:results.filter(x=>x.faults.length).length,results};
 }
 
-if(require.main===module){const a=releaseAudit();console.log(JSON.stringify(a,null,2));if(process.argv.includes('--release')&&a.blocked)process.exitCode=1;}
-module.exports={inspect,audit,hash,criteria,inventoryDiff,coverageErrors,releaseAudit};
+// VM21: historical findings remain visible; only new/changed didactic content gates the next release.
+// The recovery baseline is an observed published checkpoint, NOT an editorial approval.
+function scopedAudit(registry,changes,read=J,catalogChanges=[]){
+ const touched=new Set(),byId=new Set();
+ for(const item of changes)for(const id of inventoryDiff(item.before,item.after)){touched.add(id+'|'+item.path);byId.add(id);}
+ const selected=registry.records.filter(r=>touched.has(r.id+'|'+r.source));
+ const results=[...audit({...registry,records:selected},read).results,...coverageErrors(registry,changes)];
+ for(const id of catalogChanges)if(!byId.has(id))results.push({id,part:'CATALOGO',faults:['alteração no catálogo efetivo sem incremento correspondente']});
+ return {scope:'VM21_INCREMENTO',baseline:registry.release_baseline_commit,total:results.length,approved:results.filter(x=>!x.faults.length).length,blocked:results.filter(x=>x.faults.length).length,results,notice:'Ausência de incremento não homologa conteúdo histórico.'};
+}
+function effectiveCatalogChanges(base){
+ const before=JSON.parse(execFileSync('git',['show',base+':assets/version.json'],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024}));
+ const after=J('assets/version.json');
+ const old=JSON.parse(execFileSync('git',['show',base+':'+before.catalog.path],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024}));
+ const current=J(after.catalog.path);
+ // The effective catalog check is independent of generated-file changes and catches direct edits.
+ const records=d=>{if(!Array.isArray(d.cards))throw Error('Catálogo efetivo inválido');return new Map(d.cards.map(c=>[c.id,c]));};
+ const a=records(old),b=records(current);
+ return [...new Set([...a.keys(),...b.keys()])].filter(id=>hash(a.get(id)??null)!==hash(b.get(id)??null));
+}
+function vm21ReleaseAudit(registry=J('assets/didactic_gate_current.json')){
+ const changes=changedPackets(registry,{incremental:true});
+ return scopedAudit(registry,changes,J,effectiveCatalogChanges(registry.release_baseline_commit));
+}
+if(require.main===module){const releasing=process.argv.includes('--release'),a=releasing?vm21ReleaseAudit():releaseAudit();console.log(JSON.stringify(a,null,2));if(releasing&&a.blocked)process.exitCode=1;}
+module.exports={inspect,audit,hash,criteria,inventoryDiff,coverageErrors,releaseAudit,scopedAudit,vm21ReleaseAudit};
