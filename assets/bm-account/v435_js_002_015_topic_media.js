@@ -146,8 +146,9 @@ function bm432RankMedia(topic,list,index,topicCards,kind){
   const fields=kind==='image'?[x.subject,x.subsubject,x.title,x.name,x.filename,x.description,x.detail]:[x.title,x.filename];
   const folderFields=kind==='image'?[x.folderSubject]:[x.section,x.subject,x.subsubject,x.catalogGroup?.label];
   const itemScore=bm430TopicScore(topic.subject,fields),folderScore=bm430TopicScore(topic.subject,folderFields);
-  const score=direct?120:classified?105:itemScore||(!fields.some(x=>String(x||'').trim())?Math.min(folderScore,50):0);
-  if(score)result.push({x,score,basis:direct?'Vínculo cadastrado':classified?'Classificação do assunto':'Sugestão temática'});
+  const indexedFolder=kind==='image'?folderScore>=90:x.classified===true&&folderScore>=80;
+  const score=direct?120:classified?105:itemScore||(indexedFolder?Math.min(folderScore,50):0);
+  if(score)result.push({x,score,basis:direct?'Vínculo cadastrado':classified?'Classificação do assunto':itemScore?'Sugestão temática':'Classificação do acervo'});
  }
  return result.sort((a,b)=>b.score-a.score||String(a.x.title||'').localeCompare(String(b.x.title||''),'pt-BR'));
 }
@@ -156,6 +157,7 @@ function bm435PdfDisplay(p){
  const match=raw.match(/^\d+[_ -]+p(\d+)[-–](\d+)[_ -]+(.+?)(?:\.pdf)?$/i);
  let title=match?match[3]:raw.replace(/\.pdf$/i,'');
  title=title.replace(/[_]+/g,' ').replace(/\btr fego\b/gi,'tráfego').replace(/\bmec nica\b/gi,'mecânica').replace(/\s{2,}/g,' ').trim()||raw;
+ if(/^rodovias pavimentos e tráfego$/i.test(title))title='Rodovias, pavimentos e tráfego';
  const pages=match?[match[1],match[2]]:Array.isArray(p.pages)&&p.pages.length===2?p.pages:null;
  const section=String(p.catalogGroup?.label||p.section||'').trim().replace(/[_]+/g,' ');
  const detail=[pages?'Páginas '+pages.join('–'):'',section&&plain(section)!==plain(title)&&!/^materiais$/i.test(section)?section:''].filter(Boolean).join(' · ');
