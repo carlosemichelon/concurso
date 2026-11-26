@@ -1866,6 +1866,8 @@ async function getIndex(){
 const previousLoadMeta=loadMeta;
 loadMeta=async function(){
  const m=await previousLoadMeta();
+ // Na conta privada, não misturar o índice editorial legado com os dados do Drive.
+ if(window.BMVS41PrivateCards)return m;
  const idx=await getIndex();
  if(!applied){
   const byId=new Map(idx.records.map(r=>[r.id,r]));
@@ -1905,6 +1907,8 @@ const previousLoadTopics=loadTopics;
 loadTopics=async function(){
  try{
   await previousLoadTopics();
+  // Assuntos derivados dos cartões autenticados não dependem do atlas legado.
+  if(window.BMVS41PrivateCards)return;
   const idx=await getIndex(),base=await loadMeta();
   let topicSet=new Set(topicRows.map(t=>t.group+'|'+t.subject));
   for(const rec of idx.records){
