@@ -1,3 +1,7 @@
+## V434 / VS43 — Interface compacta e cache verificado (26/11/2026)
+
+V434 / VS43 — 26/11/2026: consolida janelas compactas, painéis de estudo e lacunas alinhados, contagem de imagens indexadas, consultas compartilhadas e cache IndexedDB opcional com revalidação remota. Login, logout, proteção de Redação, catálogo VC52 e histórico SRS preservados. Homologação real e conciliação integral do SRS pendentes.
+
 ## V433 / VS42 — Consolidação do portal multiusuário (26/11/2026)
 
 V433 / VS42 — 26/11/2026: consolida diagnóstico do Drive individual, apresentação do Controle de Estudos antes do login, consulta temática compartilhada com progresso real, miniaturas padronizadas e nova tentativa, Redação condicionada à conexão e ações separadas de configurações/logout. Catálogo individual e SRS não modificados. Implantação cumulativa anterior confirmada; leitura real autenticada e regressões de CI ainda exigem homologação.
