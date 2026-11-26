@@ -779,6 +779,16 @@ function isSymbolLegend(s){
  if(clauses.length>=2&&clauses.every(p=>/^[\p{L}][\p{L}\p{N}_,]{0,15}\s*:\s*.+/u.test(p)))return true;
  return /^[\p{L}][\p{L}\p{N}_,·\s]{0,32}\s*\[[^\]]+\]/u.test(s)&&(s.match(/\[[^\]]+\]/gu)||[]).length>=3&&!/^(?:Exemplo|Fonte|Questão|Referência|Atenção)/iu.test(s);
 }
+function editorialKind(line){
+ const s=String(line).trim();
+ if(/^(?:exemplos?|exemplo dimensional|exemplo transferível)(?:\b|:)/iu.test(s))return 'example';
+ if(/^(?:hipóteses?|condições|limitações|aplicação|quando usar)(?:\b|:)/iu.test(s))return 'condition';
+ if(/^(?:atenção|pegadinhas?|não confundir|cuidado)(?:\b|:)/iu.test(s))return 'caution';
+ if(/^(?:macetes?|o que decorar|revisão de \d+ segundos)(?:\b|:)/iu.test(s))return 'memory';
+ if(/^(?:mecanismo|interpretação|convenção|definição)(?:\b|:)/iu.test(s))return 'explanation';
+ if(/^(?:fontes?|referência|referências|vínculos|ligações|remissões)(?:\b|:|\/)/iu.test(s))return 'metadata';
+ return '';
+}
 function sectionLineKind(line){
  const s=String(line||'').trim();
  if(!s)return 'space';
@@ -787,7 +797,7 @@ function sectionLineKind(line){
  if(/^(?:unidades?(?:\s+de\s+medida)?|variáveis|símbolos|legenda|onde|em que)(?:\s*:|\s*$)/iu.test(s)||isSymbolLegend(s))return 'definition';
  if(/^(O QUE DECORAR|NÃO CONFUNDIR|PEGADINHA|REVISÃO DE \d+ SEGUNDOS)$/iu.test(s))return 'subhead';
  if(/^(FONTE|LIGAÇÕES|VÍNCULOS|REGISTRO|PROTOCOLO|ESTADO DO GUIA|ESCOPO DESTA|REMISSÕES|REFERÊNCIA:)/iu.test(s))return 'metadata';
- if(/^(ATENÇÃO|PEGADINHA|NÃO CONFUNDIR|EXEMPLO DIMENSIONAL)/iu.test(s))return 'caution';
+ const role=editorialKind(s);if(role)return role;
  if(splitExpressions(s.replace(/^•\s*/, '')).every(isEquation))return 'equation';
  if(/^(?:\d+\)|[•–-])\s+/u.test(s))return 'step';
  if(s.length<=100&&!/[=≤≥≈∝≠<>]|https?:/u.test(s)&&!/[.!?;]$/u.test(s)&&(/^[A-ZÀ-Ü][A-ZÀ-Ü\s\/–—-]{4,}$/u.test(s)||/^[A-ZÀ-Ü][^:;]*(?::)?$/u.test(s)&&s.split(/\s+/).length<=12))return 'subhead';
@@ -905,6 +915,19 @@ function definitionNode(source){
  for(let i=0;i<parts.length;i++)block.append(inlineContent(make('p','bm249-definition-item'),parts[i]+(i<parts.length-1?';':'')));
  return block;
 }
+function editorialParagraph(source,kind){
+ const line=make('p','bm249-line bm249-'+kind);
+ const text=String(source).trim();
+ const label=text.match(/^([^:]{2,72}:)(\s*)(.+)$/u);
+ if(label&&editorialKind(label[1])===kind){const strong=make('span','bm249-editorial-label',label[1]);line.append(strong,document.createTextNode(label[2]||' '));inlineContent(line,label[3]);}
+ else inlineContent(line,text);
+ return line;
+}
+function appendList(host,lines,numbered){
+ const list=make(numbered?'ol':'ul','bm249-list');
+ for(const line of lines){const m=String(line).trim().match(numbered?/^(\d+)\)\s+(.*)$/u:/^[•–-]\s+(.*)$/u);if(!m)continue;const item=make('li','bm249-list-item');if(numbered)item.setAttribute('value',m[1]);inlineContent(item,numbered?m[2]:m[1]);list.append(item);}
+ host.append(list);
+}
 function makeBody(body){
  const host=make('div','bm249-body');
  const lines=String(body||'').replace(/\r\n?/g,'\n').split('\n');
@@ -912,6 +935,8 @@ function makeBody(body){
   const sourceLine=lines[i],kind=sectionLineKind(sourceLine);
   if(kind==='space'){if(!host.lastElementChild?.classList.contains('bm249-blockgap')){const space=make('div','bm249-blockgap');space.setAttribute('aria-hidden','true');host.append(space);}continue;}
   if(kind==='definition'){host.append(definitionNode(sourceLine));continue;}
+  if(kind==='step'){const numbered=/^\s*\d+\)\s+/u.test(sourceLine),pattern=numbered?/^\s*\d+\)\s+/u:/^\s*[•–-]\s+/u;let j=i+1;while(j<lines.length&&pattern.test(lines[j])&&sectionLineKind(lines[j])==='step')j++;appendList(host,lines.slice(i,j),numbered);i=j-1;continue;}
+  if(['example','condition','caution','memory','explanation','metadata'].includes(kind)){host.append(editorialParagraph(sourceLine,kind));continue;}
   if(kind==='table'){let j=i+1;while(j<lines.length&&sectionLineKind(lines[j])==='table')j++;const table=tableNode(lines.slice(i,j));if(table){host.append(table);i=j-1;continue;}}
   if(kind==='equation'){const block=make('div','bm249-line bm249-equation');for(const expr of splitExpressions(sourceLine.trim().replace(/^•\s*/,'')))block.append(equationNode(expr));host.append(block);continue;}
   if((kind==='paragraph'||kind==='step')&&mixedFormulaLine(host,sourceLine))continue;
