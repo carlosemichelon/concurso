@@ -154,10 +154,12 @@ try{
   await page.locator('header nav button[data-page=calendario]').click();
   await page.waitForFunction(()=>document.getElementById('calendario')?.dataset.bm411Ready==='true');
   const planReads=reads.schedule;assert.ok(planReads>0);
+  const gapOptions=await page.locator('#bm242-type option').allTextContents();assert.ok(gapOptions.every(x=>/\(\d+\)$/.test(x)),'Filtros exibem quantidades');
   await page.locator('header nav button[data-page=cartoes]').click();
   await page.locator('header nav button[data-page=calendario]').click();
   await page.evaluate(()=>window.BM141Calendar.open());
-  assert.equal(reads.schedule,planReads,'Planejamento: reabrir preserva a agenda confirmada');
+  await page.evaluate(async()=>{await window.BM141Calendar.refreshPrivate();await window.BM141Calendar.refreshPrivate();await window.BM316SrsJournal.refresh()});
+  assert.equal(reads.schedule,planReads,'Planejamento: reabrir e iniciar fila preservam agenda confirmada');
   await page.evaluate(()=>window.BM141Calendar.open(true));
   assert.ok(reads.schedule>planReads,'Atualização explícita consulta o SRS');
   console.log('Conta '+a+': Redação V296 original e troca de seções confirmadas.');
@@ -189,6 +191,16 @@ try{
   }
   await page.locator('#bmV056ClosePDF').click();
   await page.waitForFunction(()=>!document.getElementById('pdfDialog').open);
+  // Reproduce the report: prefetch the index on a different tab, then enter the Atlas.
+  await page.locator('header nav button[data-page=cartoes]').click();
+  await page.evaluate(()=>window.BancoMestreDriveImagesV182.refresh(false));
+  await page.locator('header nav button[data-page=imagens]').click();
+  await page.locator('#imageRows article.bm209ImageFromDrive').first().waitFor({state:'visible',timeout:15000});
+  assert.ok(await page.locator('#imageRows article.bm209ImageFromDrive').count()>0,'Atlas deve exibir os arquivos já consultados');
+  await page.locator('#imageRows article.bm209ImageFromDrive img').first().scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>{const img=document.querySelector('#imageRows article.bm209ImageFromDrive img');return img?.complete&&img.naturalWidth>0},null,{timeout:15000});
+  await page.locator('header nav button[data-page=cartoes]').click();await page.locator('header nav button[data-page=imagens]').click();
+  await page.locator('#imageRows article.bm209ImageFromDrive').first().waitFor({state:'visible'});
   const images=await page.evaluate(()=>window.BMVS41PrivateImages.list());assert.equal(images[0].id,'img'+a);
   await page.evaluate(img=>window.BMVS41PrivateImageEditor.open(img),images[0]);
   assert.ok(await page.evaluate(()=>window.BMVS41PrivateImageEditor.confirmed));

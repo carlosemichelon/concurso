@@ -1019,17 +1019,18 @@ source.append(driveAction,driveNote);root.querySelector('.c141-import').before(s
 
 let studyAgenda=[],studyAgendaToken='',renderedDay='';
 // Historical study deltas require explicit per-profile migration; no administrator Drive query.
-let privateRefresh=null;
-async function refreshPrivate(){
+let privateRefresh=null,attemptedAuth='';
+async function refreshPrivate(force=false){
  if(!loaded)return false;
  if(privateRefresh)return privateRefresh;
- privateRefresh=refreshPrivateOnce().finally(()=>{privateRefresh=null});return privateRefresh;
+ if(force!==true&&ready()){if(renderedDay!==today()){renderedDay=today();calculate()}return !privateInfo.partial||records().length>0;}
+ if(force!==true&&attemptedAuth===authNow())return false;
+ attemptedAuth=authNow();privateRefresh=refreshPrivateOnce(force===true).finally(()=>{privateRefresh=null});return privateRefresh;
 }
-async function refreshPrivateOnce(){
+async function refreshPrivateOnce(force){
  const auth=authNow();if(!auth){locked();return false;}locked('Conferindo registros privados do Drive…');driveBusy=true;driveAction.disabled=true;
  try{
-  const remote=await window.BMVS41PrivateReviews.schedule();
-  await window.BM316SrsJournal.refresh();
+  const [remote]=await Promise.all([window.BMVS41PrivateReviews.schedule(force),window.BM316SrsJournal.refresh(force)]);
   if(auth!==authNow()||!window.BM316SrsJournal.loaded)throw Error('Histórico privado não confirmado');
   privateRecords=remote.records.filter(x=>map.has(x.id)&&due(x.due));privateInfo={version:remote.version||'SRS individual',updated:remote.updated||'',count:privateRecords.length,partial:!remote.complete};verifiedAuth=auth;renderedDay=today();root.dataset.bm411Ready='true';
   driveNote.textContent=privateRecords.length+' vencimentos registrados · '+remote.events+' eventos de estudo · '+window.BM316SrsJournal.count+' avaliações formais do site.'+(remote.complete?'':' Consulta parcial: '+remote.warnings.join('; ')+'. Estude apenas os vencimentos confirmados abaixo.');calculate();return remote.complete||privateRecords.length>0||window.BM316SrsJournal.count>0;
@@ -1062,8 +1063,11 @@ function records(){
   if(!map.has(x.id)||!due(x.due))continue;
   const prior=all.get(x.id);
   // Uma revisão posterior no snapshot canônico prevalece sobre evento antigo do portal.
-  if(prior?.lastReview&&x.lastReview&&x.lastReview<prior.lastReview)continue;
-  all.set(x.id,x);
+  if(prior?.lastReview&&x.lastReview&&x.lastReview<prior.lastReview){
+   if(x.rating&&(!prior.ratingDate||x.lastReview>=prior.ratingDate))all.set(x.id,{...prior,rating:x.rating,ratingDate:x.lastReview});
+   continue;
+  }
+  all.set(x.id,{...x,ratingDate:x.lastReview});
  }
  return [...all.values()].filter(x=>due(x.due));
 }
@@ -1310,9 +1314,11 @@ async function open(force=false){
  // Tab change is not remote refresh; confirmed data stays in this authenticated session.
  if(force!==true&&ready()){if(renderedDay!==today()){renderedDay=today();calculate()}return;}
  loading=true;
- try{await load();await refreshPrivate();}catch(e){locked('Fila não confirmada: '+e.message)}finally{loading=false}
+ try{await load();await refreshPrivate(force===true);}catch(e){locked('Fila não confirmada: '+e.message)}finally{loading=false}
 }
-navBtn.onclick=open;
+navBtn.onclick=()=>open(false);
+ let planningActive=root.classList.contains('active');
+ new MutationObserver(()=>{const active=root.classList.contains('active');if(active===planningActive)return;planningActive=active;if(active&&!loading)void open(false)}).observe(root,{attributes:true,attributeFilter:['class']});
 $('c141-min').onchange=()=>loaded&&calculate();
 $('c141-new').onchange=()=>loaded&&calculate();
 $('c141-prev').onclick=()=>{page=Math.max(0,page-1);render()};

@@ -894,7 +894,7 @@ function observeMainGrid(){
  const rows=$('imageRows');
  if(!rows||rowsObserver)return;
  rowsObserver=new MutationObserver(records=>{
-  if(records.some(record=>[...record.addedNodes,...record.removedNodes].some(node=>
+  if(privateCards.some(card=>card.parentElement!==rows)||records.some(record=>[...record.addedNodes,...record.removedNodes].some(node=>
     !(node.nodeType===1&&node.classList?.contains('bm209ImageFromDrive')))))queueReconcile();
  });
  rowsObserver.observe(rows,{childList:true,subtree:false});
@@ -1144,18 +1144,9 @@ else init();
  const originalLoad=loadImages;
  // Evita que a V1 solicite miniaturas publicadas enquanto a biblioteca Drive esta ativa.
  loadImages=async function(){
-  if(loadedImages)return;
-  loadedImages=true;
-  try{
-   const metadata=await loadMeta();
-   imgs=Array.isArray(metadata?.images)?metadata.images.map(x=>({...x})):[];
-   if(window.BM180ImageBridge?.add)await window.BM180ImageBridge.add(imgs);
-   window.BM209SingleImageViewer?.refresh?.();
-  }catch(error){
-   loadedImages=false;
-   const status=$('bm084-status');
-   if(status)status.textContent='Falha ao recuperar vinculos historicos de imagens: '+error.message+'. Tente atualizar.';
-  }
+  // The authenticated provider owns the visible library. Legacy metadata is not a prerequisite.
+  if(window.BancoMestreDriveImagesV182?.connected)return window.BancoMestreDriveImagesV182.refresh(false);
+  window.BM209SingleImageViewer?.refresh?.();
  };
  imgRender=async function(){
   // A galeria autenticada administra a grade, a busca e as miniaturas.

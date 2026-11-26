@@ -161,3 +161,5 @@ test('ponteiro de recuperação separa catálogo editorial e histórico privado;
  const agenda=await a.schedule();assert.equal(agenda.complete,false);assert.equal(agenda.historical,'TESTE-A');assert.deepEqual(agenda.records.map(x=>x.id),['CARD-9901']);assert.equal(agenda.records[0].due,'2026-11-28');assert.equal(writes.length,0);
 });
 test('recuperação com transferência SRS indevida é rejeitada sem fallback',async()=>{let calls=0;await assert.rejects(connectAccount({token:'A',fetcher:fixture('A',{recovery:true,recoveryInvalid:true}),allowEditorial:()=>{calls++;return true}}),/identidade operacional sem fonte/);assert.equal(calls,0)});
+
+test('agenda privada reutiliza leitura na sessão e atualiza somente por pedido explícito',async()=>{const delegate=fixture('A');let scans=0;const fetcher=(url,opts)=>{if(new URL(url).searchParams.get('q')?.includes('Delta de estudo e cartões aprovados'))scans++;return delegate(url,opts)};const a=await connectAccount({token:'A',fetcher});const first=await a.schedule();assert.equal(scans,1);assert.deepEqual(await a.schedule(),first);assert.equal(scans,1);await a.schedule(true);assert.equal(scans,2)});

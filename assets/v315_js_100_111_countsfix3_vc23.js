@@ -37,7 +37,7 @@ function node(){
 function sync(){
  const place=node();if(!place)return false;
  const {rows,vp}=place,source=$('bm084-grid');
- if(source&&source.children.length){
+ if(!window.BM209SingleImageViewer?.ready&&source&&source.children.length){
   const fresh=[...source.children].filter(x=>x.tagName==='ARTICLE');
   if(fresh.length){
    for(const old of rows.querySelectorAll(':scope > article.bm209ImageFromDrive'))old.remove();
