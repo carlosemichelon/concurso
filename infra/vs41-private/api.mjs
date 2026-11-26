@@ -61,13 +61,13 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
      return json(res,200,{descriptor:{schema:'BM-CHAT-DESTINATION/1',destination,account:s.user.username},verified:true,writeAuthorized:false,base_sha256:catalogDigest(records),context:s.context});
     }catch{return json(res,503,{error:'Não foi possível verificar o banco de destino'})}
    }
-   if(req.method==='POST'&&u.pathname==='/api/vs41/chat-proposals'){
+   if(req.method==='POST'&&['/api/vs41/chat-proposals','/api/vs41/chat-preview'].includes(u.pathname)){
     const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
     if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
     if(req.headers.origin!==origin)return json(res,403,{error:'Origem não autorizada'});
     let input;try{input=await body(req,250000)}catch{return json(res,400,{error:'Lote inválido'})}
-    try{const receipt=await chatProposals.save(req,input);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{receipt,context:s.context})}
-    catch(e){return json(res,e.code==='input'?400:['destination','stale','conflict'].includes(e.code)?409:503,{error:'Proposta não confirmada'})}
+    try{const receipt=await (u.pathname==='/api/vs41/chat-preview'?chatProposals.preview(req,input):chatProposals.save(req,input));if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{receipt,context:s.context})}
+    catch(e){return json(res,e.code==='input'?400:['destination','stale','conflict'].includes(e.code)?409:e.code==='missing'?404:503,{error:'Proposta não confirmada'})}
    }
    if(req.method==='GET'&&u.pathname==='/api/vs41/formulas'){
     const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});

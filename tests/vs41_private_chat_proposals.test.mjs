@@ -18,3 +18,19 @@ test('recusa lote desatualizado, ID ausente, módulos incompletos, destino adult
  for(const [input,code] of [[{...a,base_sha256:'0'.repeat(64)},'stale'],[{...a,rootId:'rootB'},'input'],[{...a,proposals:[{...a.proposals[0],target_id:'CARD-9999'}]},'input'],[{...a,proposals:[{...a.proposals[0],modules:[]}]},'input'],[{...a,proposals:[{...a.proposals[0],srs:'Fácil'}]},'input']])await assert.rejects(f.store.save(r,input),e=>e.code===code);
  await assert.rejects(f.store.save({session:'X'},a));assert.equal(f.writes.length,0);
 });
+
+test('prévia somente de proposta gravada, preserva vínculos, mídia e histórico e não escreve',async()=>{
+ const f=setup(),r={session:'A'},records=f.files.get('cardsA').payload.records,c=records[0];
+ const other=structuredClone(card('related'));other.id='CARD-9902';other.consolidation.profile.id=other.id;records.push(other);
+ c.related_card_ids=[other.id];c.related_question_ids=['Q-1'];c.consolidation.profile.editorial.media=[{id:'IMG-1',private_original:true}];c.consolidation.profile.editorial.formulas=[{id:'F-1'}];
+ const a=f.batch('A');await assert.rejects(f.store.preview(r,a),e=>e.code==='missing');assert.equal(f.writes.length,0);
+ const before=JSON.stringify(records);await f.store.save(r,a);const p=await f.store.preview(r,a);
+ assert.equal(p.mode,'preview-only');assert.equal(p.readyToPromote,false);assert.equal(p.changes[0].preserve.mediaAssociations,1);assert.equal(p.changes[0].preserve.structuredFormulas,1);assert.equal(p.changes[0].preserve.questionLinks,1);assert.deepEqual(p.changes[0].related.union,['CARD-9902']);assert.equal(f.writes.length,1);assert.equal(JSON.stringify(records),before);
+ await assert.rejects(f.store.preview({session:'B'},a),e=>e.code==='destination');
+ c.back='versão posterior';await assert.rejects(f.store.preview(r,a),e=>e.code==='stale');
+});
+test('proposta nova não recebe ID nem classificação por inferência',async()=>{
+ const f=setup(),r={session:'A'},a=f.batch('A');a.proposals[0].operation='new';a.proposals[0].target_id=null;
+ await f.store.save(r,a);const p=await f.store.preview(r,a);
+ assert.equal(p.changes[0].target_id,null);assert.ok(p.changes[0].blockers.includes('canonical-id-reservation-required'));assert.ok(p.changes[0].blockers.includes('classification-required'));assert.equal(p.readyToPromote,false);assert.equal(f.writes.length,1);
+});

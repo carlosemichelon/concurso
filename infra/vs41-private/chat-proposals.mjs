@@ -22,9 +22,28 @@ export function validateProposal(input,records,session){
  }
  return structuredClone(input);
 }
+// Read-only editorial impact: never manufacture missing structured content or reserve an ID.
+export function previewProposal(input,records,session){
+ const clean=validateProposal(input,records,session),byId=new Map(records.map(c=>[c.id,c]));
+ const changes=clean.proposals.map(p=>{
+  const old=p.target_id?byId.get(p.target_id):null,profile=old?.consolidation?.profile;
+  const priorLinks=[...new Set([...(old?.related_card_ids||[]),...(profile?.related_card_ids||[])])];
+  const questions=[...new Set([...(old?.related_question_ids||[]),...(profile?.related_question_ids||[])])];
+  const media=Array.isArray(profile?.editorial?.media)?profile.editorial.media:[];
+  const historic=old?.consolidation?.historical_ids||[];
+  const links=[...new Set([...priorLinks,...p.related_card_ids])].filter(id=>id!==p.target_id);
+  const added=links.filter(id=>!priorLinks.includes(id));
+  const blockers=['editorial-authorization-required','structured-editorial-content-required'];
+  if(!old)blockers.push('canonical-id-reservation-required','classification-required');
+  else if(!profile)blockers.push('legacy-source-recovery-required');
+  if(priorLinks.includes(p.target_id)||p.related_card_ids.includes(p.target_id))blockers.push('self-link-requires-review');
+  return {key:p.key,operation:p.operation,target_id:p.target_id,frontChanged:!old||old.front!==p.front,backChanged:!old||old.back!==p.back,sourceChanged:!profile||profile.source!==p.source,modulesChanged:p.modules.filter((m,i)=>JSON.stringify(m)!==JSON.stringify(profile?.modules?.[i])).map(m=>m.ord),preserve:{original:!!old,historicalIds:historic.length,questionLinks:questions.length,mediaAssociations:media.length,legacyImages:Array.isArray(old?.related_image_ids)?old.related_image_ids.length:0,structuredFormulas:profile?.editorial?.formulas?.length||0,structuredTable:!!profile?.editorial?.table,reviewHistory:true},related:{preserved:priorLinks,added,union:links,reciprocalReview:added},blockers};
+ });
+ return {batch_id:clean.batch_id,digest:hash(clean),base_sha256:catalogDigest(records),changes,readyToPromote:false,mode:'preview-only',catalogModified:false,srsModified:false};
+}
 export function createChatProposalStore({resolveSession,getToken,fetcher=fetch,now=Date.now}){
  const read=createReader({resolveSession,getToken,fetcher}),queues=new Map(),uncertain=new Set();
- async function save(req,input){
+ async function process(req,input,previewOnly=false){
   const s=await resolveSession(req);if(!s||![s.subject,s.rootId,s.profileId,s.sessionId].every(idOk))fail('session');
   if(!uuid(input?.batch_id))fail('input');
   const key=s.subject+':'+input.batch_id,prior=queues.get(key)||Promise.resolve();
@@ -47,7 +66,8 @@ export function createChatProposalStore({resolveSession,getToken,fetcher=fetch,n
    };
    const u=new URL(API);u.searchParams.set('q',"'"+s.rootId+"' in parents and trashed=false and appProperties has { key='bmKind' and value='chat-proposal' } and appProperties has { key='bmEvent' and value='"+input.batch_id+"' }");u.searchParams.set('fields','nextPageToken,incompleteSearch,files(id)');u.searchParams.set('pageSize','100');
    const list=await request(u.href);if(list.incompleteSearch||list.nextPageToken||!Array.isArray(list.files)||list.files.length>1)fail('conflict');
-   if(list.files.length===1){const receipt=await verify(list.files[0].id);uncertain.delete(key);return receipt}
+   if(list.files.length===1){const receipt=await verify(list.files[0].id);uncertain.delete(key);return previewOnly?previewProposal(input,records,s):receipt}
+   if(previewOnly)fail('missing');
    if(uncertain.has(key))fail('conflict');
    const clean=validateProposal(input,records,s),e={schema:'BM-PRIVATE-CHAT-PROPOSAL/1',owner:s.subject,status:'proposal-only',at:new Date(now()).toISOString(),digest:hash(clean),input:clean};
    const m={name:'BM_CHAT_PROPOSAL_'+input.batch_id+'.json',mimeType:'application/json',parents:[s.rootId],appProperties:{bmProject:PROJECT,bmOwner:s.subject,bmKind:'chat-proposal',bmEvent:input.batch_id}};
@@ -57,5 +77,5 @@ export function createChatProposalStore({resolveSession,getToken,fetcher=fetch,n
   });
   queues.set(key,work);try{return await work}finally{if(queues.get(key)===work)queues.delete(key)}
  }
- return {save};
+ return {save:(req,input)=>process(req,input),preview:(req,input)=>process(req,input,true)};
 }
