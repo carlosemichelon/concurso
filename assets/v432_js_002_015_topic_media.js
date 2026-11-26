@@ -1396,13 +1396,22 @@ window.BancoMestrePDFV038={
   return true;
  }
 };
-// Ctrl+Z desfaz a última anotação na página ativa; o navegador mantém
-// seus atalhos em campos de texto e quando o editor PDF está fechado.
+// Atalhos locais do PDF: zoom e histórico; preservar os atalhos do navegador
+// nos campos de edição e quando o leitor de PDF não estiver ativo.
 document.addEventListener('keydown',e=>{
  if(!$('pdfDialog')?.open||!pdf||$('imageDialog')?.open||e.isComposing||e.altKey)return;
  if(e.target?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]'))return;
  if(!(e.ctrlKey||e.metaKey))return;
  const key=String(e.key).toLowerCase();
+ const zoomId=key==='-'||key==='−'||e.code==='NumpadSubtract'?'pdfZoomOut':
+  key==='+'||key==='='||e.code==='NumpadAdd'?'pdfZoomIn':null;
+ if(zoomId){
+  const button=$(zoomId);
+  if(e.defaultPrevented||!button||button.disabled)return;
+  e.preventDefault();
+  if(!e.repeat)button.click();
+  return;
+ }
  if(key==='z'||key==='y'){
   e.preventDefault();
   historyEdit(key==='y'||e.shiftKey?'redo':'undo');
