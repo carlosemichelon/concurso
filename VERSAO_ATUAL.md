@@ -1,3 +1,7 @@
+## V436 / VS45 — PDF direto no editor e cache duplicado (26/11/2026)
+
+PDFs dos assuntos usam leitura autenticada e editor nativo, sem prévia incorporada do Drive. Cache verificado opcional de 128 MiB (antes 64), mídia elegível até 16 MiB (antes 8), prazo de sete dias e verificação de conta, raiz, versão e hash preservados. VC52, VR3, dados privados e V435 intactos. Candidato sujeito a testes; não comprova OAuth real.
+
 ## V435 / VS44 — Índice de materiais e resultados temáticos (26/11/2026)
 
 Consulta de metadados com uma listagem paginada do índice nativo do Drive, sem abertura individual de pastas. Reconstrução de ancestralidade por ID e exclusões em memória da conta autenticada; imagens/PDFs compartilham a consulta e atualização explícita. Acesso aos bytes continua conferido individualmente. Layout de resultados: contagem compacta, títulos legíveis, linhas de PDFs, imagens e estados vazios separados. V434 permanece disponível para rollback. VC52, VR3, originais, grifos e registros privados inalterados. Candidato sujeito à validação automatizada; OAuth real não homologado.
