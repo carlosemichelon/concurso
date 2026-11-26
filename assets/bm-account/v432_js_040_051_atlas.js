@@ -304,7 +304,7 @@ function BM371FolderCache({roots,token,request,now=()=>Date.now(),maxAge=600000}
   })();return pending;
  }
  function initialize(){ui();$('bm-pdf-sync-connect').disabled=false;$('bm-pdf-sync-refresh').disabled=false;status('Consulte os PDFs do perfil autenticado.');if(location.hash==='#pdfs')void refresh();}
- window.BancoMestrePDFSyncV130={refresh,get connected(){return authorized()},get lastResult(){return lastResult},topicRecords(){return authorized()&&document.documentElement.dataset.bm217PdfVerified==='true'?docs.slice():null}};
+ window.BancoMestrePDFSyncV130={refresh,async refreshAfterMove(){if(pending)await pending;return refresh(true)},get connected(){return authorized()},get lastResult(){return lastResult},topicRecords(){return authorized()&&document.documentElement.dataset.bm217PdfVerified==='true'?docs.slice():null}};
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});else initialize();
  })();
  ;
@@ -638,7 +638,7 @@ function render(){
   })();return pending;
  }
  function topicRecords(){return !validToken()||!lastGoodAt?null:photos.map(f=>({id:f.id,editorialId:f.editorialId||'',title:info(f).displayTitle,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,cardIds:f.card_ids,description:f.description,name:f.filename||f.title,filename:f.filename||f.title,path:Array.isArray(f.path)?f.path.join(' / '):f.path,folderSubject:f.folderSubject,folderArea:f.folderArea,preview:()=>getImageUrl(f),open:()=>openImage(f)}))}
- window.BancoMestreDriveImagesV182=Object.freeze({refresh:refreshList,refreshAfterMove:refreshList,prepareTopicMetadata:async()=>{},topicRecords,
+ window.BancoMestreDriveImagesV182=Object.freeze({refresh:refreshList,async refreshAfterMove(){if(pending)await pending;return refreshList(true)},prepareTopicMetadata:async()=>{},topicRecords,
   get connected(){return validToken()},get lastSuccess(){return lastGoodAt?new Date(lastGoodAt).toISOString():null},get lastError(){return lastError},get lastCount(){return photos.length},get unverifiedCount(){return photos.filter(f=>f.indexed!==true).length},get alreadyPublic(){return 0},get atlasMode(){return 'drive_only'},get roots(){return []},getEditorialId:id=>photos.find(f=>f.id===id)?.editorialId||'',getImageUrlForCard:async id=>{if(!validToken())throw Error('Sessão não confirmada');const f=photos.find(x=>x.id===id);if(f)return getImageUrl(f);if(urls.has(id))return urls.get(id);if(downloads.has(id))return downloads.get(id);const ticket=generation,task=(async()=>{const blob=await window.BMVS41PrivateMedia.read('biblioteca',id);if(ticket!==generation||!validToken()||!/^image\/(png|jpeg|webp|gif|svg\+xml)$/.test(blob.type))throw Error('Imagem ou sessão alterada');const url=URL.createObjectURL(blob);urls.set(id,url);return url;})();downloads.set(id,task);try{return await task}finally{if(downloads.get(id)===task)downloads.delete(id)}}
  });
  function init(){ui();if(location.hash==='#imagens')void refreshList();}

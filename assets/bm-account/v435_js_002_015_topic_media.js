@@ -2493,7 +2493,8 @@ function driveValid(){return window.BMVS41PrivateReviews?.available()===true;}
 function accessGate(){
  const loggedIn=driveValid(),verified=document.documentElement.dataset.bm217PdfVerified==='true';
  const active=loggedIn&&verified;
- document.documentElement.dataset.bm269PdfAuth=active?'authorized':loggedIn?'scanning':'locked';
+ const state=active?'authorized':loggedIn?'scanning':'locked';
+ if(document.documentElement.dataset.bm269PdfAuth!==state)document.documentElement.dataset.bm269PdfAuth=state;
  const notice=byId('bm269PdfLocked');
  if(notice)notice.textContent=active?''
    :loggedIn
@@ -2503,7 +2504,7 @@ function accessGate(){
   const count=byId('pdfCount'),head=byId('pdfStat'),rows=byId('pdfRows');
   if(count)count.textContent='Biblioteca privada — Drive não conferido nesta sessão';
   if(head)head.textContent='—';
-  if(rows)rows.replaceChildren();
+  if(rows?.childElementCount)rows.replaceChildren();
  }
  return active;
 }
@@ -2761,7 +2762,12 @@ window.BancoMestrePDFGruposV036={
  }
 };
 if(docs.length)pdfRender();
-function updateGate(){if(typeof pdfRender==='function')pdfRender()}
+function updateGate(){
+ const before=document.documentElement.dataset.bm269PdfAuth;
+ const allowed=accessGate();
+ // A focus/visibility event verifies authorization, not the contents of an unchanged library.
+ if(allowed&&before!=='authorized'&&byId('pdfs')?.classList.contains('active'))pdfRender();
+}
 document.addEventListener('bm-media-drive-authorized',updateGate);
 document.addEventListener('bm269-pdf-verification-finished',updateGate);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateGate()});

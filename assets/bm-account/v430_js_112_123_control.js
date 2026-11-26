@@ -345,7 +345,7 @@ let data=null,persisted=null,revisions=Object.create(null),syncState='Consultand
   if(refreshing)return refreshing;
   refreshing=(async()=>{try{accept(await window.BMVS41PrivateGaps.read());return lastResult}
    catch(e){data=null;persisted=null;revisions=Object.create(null);bm430GapVerified=false;lastResult={state:'error',message:e.message};syncState=e.message;render();return lastResult}
-   finally{refreshing=null;render()}})();return refreshing;
+   finally{refreshing=null;render()}})();render();return refreshing;
  }
  async function write(event,r){
   if(!data||!persisted||busy||refreshing||!bm430GapVerified){if(persisted)data=JSON.parse(persisted);throw Error('Cadastro privado não confirmado ou ocupado')}
@@ -417,13 +417,13 @@ function install(){
  '<label>Pesquisa complementar ou proposta de cartão (não cria cartão automaticamente)<textarea rows="2" name="pesquisa"></textarea></label>',
  '<p class="bm242-muted">O relato será preservado literalmente. O diagnóstico do assistente só será apresentado quando existir um registro auditado com autoria própria; cobertura selecionada manualmente não equivale a auditoria.</p>',
  '<button type="submit">Salvar lacuna</button></form></details>',
- '<div class="bm242-actions"><button id="bm242-export" type="button">Exportar JSON</button>',
+ '<div class="bm242-actions"><button id="bm242-refresh" type="button">Atualizar lacunas do Drive</button><button id="bm242-export" type="button">Exportar JSON</button>',
  '<label>Importar backup JSON<input id="bm242-import" type="file" accept=".json,application/json"></label></div>',
  '<p id="bm242-form-msg" role="status"></p>',
  '<p class="bm242-muted">Dados privados gravados na conta autenticada. Dados pessoais não vão ao GitHub.</p></div>'
  ].join('');
  main.append(section);
- button.onclick=()=>{void sync();if(typeof window.section==='function')window.section('lacunas');else{main.querySelectorAll('section').forEach(x=>x.classList.toggle('active',x===section));nav.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===button));location.hash='lacunas'}};
+ button.onclick=()=>{if(!bm430GapVerified&&!refreshing&&!busy)void sync();if(typeof window.section==='function')window.section('lacunas');else{main.querySelectorAll('section').forEach(x=>x.classList.toggle('active',x===section));nav.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===button));location.hash='lacunas'}};
  for(const id of ['bm242-search','bm242-discipline','bm242-general','bm242-specific','bm242-sub','bm242-type','bm242-cover','bm242-stage','bm242-priority']){
   $(id).addEventListener('input',render);$(id).addEventListener('change',render);
  }
@@ -498,8 +498,10 @@ function install(){
   const blob=new Blob([JSON.stringify({format:'BancoMestreLacunasV242',data},null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='BancoMestre_Lacunas_V242.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
  };
+ $('bm242-refresh').onclick=()=>{if(!busy&&!refreshing)void sync()};
  $('bm242-import').disabled=true;$('bm242-import').title='Importação histórica ainda não homologada para perfis privados';
- new MutationObserver(()=>{if(section.classList.contains('active')){if(!bm430GapVerified&&!refreshing&&!busy)void sync();render()}}).observe(section,{attributes:true,attributeFilter:['class']});
+ let wasActive=section.classList.contains('active');
+ new MutationObserver(()=>{const active=section.classList.contains('active');if(active===wasActive)return;wasActive=active;if(active){if(!bm430GapVerified&&!refreshing&&!busy)void sync();render()}}).observe(section,{attributes:true,attributeFilter:['class']});
  
  document.addEventListener('bm242-open-lacuna',()=>{button.click();$('bm242-new').open=true;$('bm242-new').scrollIntoView({block:'start'})});
  window.addEventListener('message',e=>{
@@ -516,6 +518,7 @@ function render(){
  if(!$('bm242-state'))return;
  const pane=$('lacunas');if(!pane?.classList.contains('active'))return;
  const ready=bm430GapVerified&&!!data;
+ $('bm242-refresh').disabled=busy||refreshing!==null;
  pane.classList.toggle('bm430-gap-wait',!ready);
  if(!ready){$('bm242-state').hidden=false;$('bm242-state').textContent=syncState;if($('bm242-list').childElementCount)$('bm242-list').replaceChildren();renderedGapData=null;renderedGapFilters=null;return;}
  $('bm242-form').querySelector('button[type=submit]').disabled=busy||refreshing!==null;
