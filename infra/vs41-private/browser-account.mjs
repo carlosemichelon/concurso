@@ -259,17 +259,40 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   }
   return out;
  }
+ // Historical fallback is read-only and never becomes the current card catalog.
+ async function historicalSchedule(){
+  const candidates=await list("mimeType = 'application/json' and name contains 'BANCO_MESTRE_PRIVADO_V'");
+  const matches=[];
+  for(const f of candidates){
+   const m=f.name.match(/^BANCO_MESTRE_PRIVADO_V(\d+)(?:_.*)?\.json$/i);
+   if(m&&await belongsToRoot(f))matches.push({f,n:Number(m[1])});
+  }
+  matches.sort((a,b)=>b.n-a.n);
+  if(!matches.length)return null;
+  if(matches.length>1&&matches[0].n===matches[1].n)throw Error('Versão histórica SRS mais alta ambígua; conciliação necessária');
+  const {f,n}=matches[0],r=await json(f.id,32*1024*1024),d=r.data;
+  if(r.meta.name!==f.name||!await belongsToRoot(r.meta)||d?.format!=='BancoMestrePrivadoV159'||d.schema_version!==1||d.version!=='V'+n||!Array.isArray(d.srs)||!Array.isArray(d.cards)||d.counts?.cards!==d.cards.length||d.counts?.srs_records!==d.srs.length)throw Error('Snapshot histórico SRS incompatível');
+  const historicalIds=new Set(d.cards.map(c=>c.id));
+  if(historicalIds.size!==d.cards.length||d.srs.some(x=>!historicalIds.has(x?.id))||new Set(d.srs.map(x=>x.id)).size!==d.srs.length)throw Error('IDs do histórico SRS divergentes');
+  return {version:d.version,updated:typeof d.updated==='string'?d.updated:'',srs:d.srs};
+ }
  async function schedule(){
   const ids=new Set(records.filter(c=>c.active).map(c=>c.id)),byId=new Map(),seen=new Map();
   const source=snapshot.scope==='snapshot-only'&&Array.isArray(snapshot.srs),warnings=[];
-  if(!source)warnings.push('Snapshot SRS canônico não confirmado');
-  for(const r of source?snapshot.srs:[]){
+  let historical=null;
+  if(!source){
+   warnings.push('Snapshot SRS canônico não confirmado');
+   try{historical=await historicalSchedule();if(historical)warnings.push('Histórico '+historical.version+' consultado somente por ID ativo idêntico; sem transferir avaliações de IDs consolidados.');}
+   catch(e){warnings.push('Histórico não confirmado: '+e.message);}
+  }
+  const historySource=source?snapshot:historical;
+  for(const r of historySource?.srs||[]){
    if(!ids.has(r?.id))continue;
    const due=day(r.next_review||r.proxima_revisao||r.due);if(!due)continue;
    const rating=normalizedRating(r.rating)||normalizedRating(r.last_date)||normalizedRating(r.grade)||normalizedRating(r.avaliacao);
    const lastReview=day(r.last_review_at)||day(r.review_date)||day(r.grade)||day(r.last_date);
    if(byId.has(r.id))throw Error('ID SRS duplicado no snapshot');
-   byId.set(r.id,{id:r.id,due,rating,lastReview,kind:rating?'revisao':'agendamento',source:'Snapshot privado — vencimento registrado'});
+   byId.set(r.id,{id:r.id,due,rating,lastReview,kind:rating?'revisao':'agendamento',source:(source?'Snapshot privado ':'Histórico privado ')+historySource.version+' — vencimento registrado'});
   }
   const files=await list("mimeType = '"+doc+"' and name contains 'Delta de estudo e cartões aprovados'");
   let documents=0;
@@ -294,7 +317,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    if(p?.lastReview===e.date_local&&p.kind==='revisao'&&e.kind!=='avaliacao_explicita')continue;
    byId.set(e.id,{id:e.id,due:e.due,rating:normalizedRating(e.rating),lastReview:e.date_local,kind:e.kind,intervalDays:e.interval_days,eventId:e.event_id,source:'Delta privado — data registrada'});
   }
-  return {records:[...byId.values()],complete:source,warnings,documents,events:seen.size,version:snapshot.version,updated:snapshot.updated||''};
+  return {records:[...byId.values()],complete:source,warnings,documents,events:seen.size,version:historySource?.version||snapshot.version,updated:historySource?.updated||'',historical:historical?.version||null};
  }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
  let mediaIndex=null;

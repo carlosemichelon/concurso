@@ -1032,7 +1032,7 @@ async function refreshPrivateOnce(){
   await window.BM316SrsJournal.refresh();
   if(auth!==authNow()||!window.BM316SrsJournal.loaded)throw Error('Histórico privado não confirmado');
   privateRecords=remote.records.filter(x=>map.has(x.id)&&due(x.due));privateInfo={version:remote.version||'SRS individual',updated:remote.updated||'',count:privateRecords.length,partial:!remote.complete};verifiedAuth=auth;root.dataset.bm411Ready='true';
-  driveNote.textContent=privateRecords.length+' vencimentos registrados · '+remote.events+' eventos de estudo · '+window.BM316SrsJournal.count+' avaliações formais do site.'+(remote.complete?'':' Consulta parcial: '+remote.warnings.join('; ')+'. Fila oficial suspensa; estudo livre disponível.');calculate();return remote.complete;
+  driveNote.textContent=privateRecords.length+' vencimentos registrados · '+remote.events+' eventos de estudo · '+window.BM316SrsJournal.count+' avaliações formais do site.'+(remote.complete?'':' Consulta parcial: '+remote.warnings.join('; ')+'. Estude apenas os vencimentos confirmados abaixo.');calculate();return remote.complete||privateRecords.length>0||window.BM316SrsJournal.count>0;
  }catch(e){locked('Fila não confirmada: '+e.message);return false}
  finally{driveBusy=false;driveAction.disabled=false}
  }

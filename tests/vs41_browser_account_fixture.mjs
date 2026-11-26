@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {card} from './vs41_private_fixture.mjs';
 const fm='application/vnd.google-apps.folder',STUDY_KIND='bm_controle_estudos_v245',GAP_KIND='bm_lacunas_v242',GRIF_KIND='bm_grifos_sync_v104_master';
-export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[]}={}){
+export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false}={}){
  const root='root'+account,snap='snapshot'+account,ptr='pointer'+account,study='study'+account,files=new Map(),content=new Map();let serial=0;
  function add(id,name,mimeType,parents,data,extra={}){
   const bytes=data===undefined?null:JSON.stringify(data);
@@ -25,6 +25,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
  add('guide'+account,'00_GUIA_OPERACIONAL_DE_ESTUDO — VM20',docType,[root]);content.set('guide'+account,'Guia integral '+account);
  const snapshot={format:'BancoMestrePrivadoV159',schema_version:1,version:'TESTE-'+account,counts:{cards:1},cards:[card(account)],srs:[{id:'CARD-9901',rating:'Bom',last_review_at:'2026-11-01',next_review:'2026-11-17'}],updated:'2026-11-01'};
  const delta='delta'+account;add(delta,'Delta de estudo e cartões aprovados',docType,[reviewsFolder]);content.set(delta,JSON.stringify({format:'BancoMestrePrivateStudyAgenda1',records:[{event_id:'agenda-'+account,id:'CARD-9901',date_local:'2026-11-20',rating:'Difícil',kind:'avaliacao_explicita',interval_days:8,due:'2026-11-28',method:'v015'}]}));
+ if(historical){delete snapshot.srs;const old={format:'BancoMestrePrivadoV159',schema_version:1,version:'V193',updated:'2026-11-23',counts:{cards:1,srs_records:1},cards:[card(account)],srs:[{id:'CARD-9901',last_date:'Bom',grade:'2026-11-21',next_review:'2026-12-07'}]};add('history'+account,'BANCO_MESTRE_PRIVADO_V193_TESTE.json','application/json',[root],old);}
  add(snap,'snapshot.json','application/json',[root],snapshot);
  add(ptr,'BANCO_MESTRE_ATUAL.json','application/json',[root],{schema:'banco-mestre-operational-pointer/1',private_base:{file_id:snap,version:snapshot.version,sha256:createHash('sha256').update(JSON.stringify(snapshot)).digest('hex'),cards:1}});
  add(study,'BancoMestre_Controle_Estudos_V245.json','application/json',[root],{format:'BancoMestreControleDriveV245',data:{schema:1,subjects:[{id:'disc'+account,name:'Disciplina '+account,color:'#123456'}],sessions:[],reviews:[],cycle:[],plans:[],audit:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60}},{appProperties:{bm_kind:'bm_controle_estudos_v245',bm_schema:'V245'}});
@@ -50,6 +51,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    else if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))result=duplicatePointer?[files.get(ptr),{...files.get(ptr),id:'duplicate'}]:[files.get(ptr)];
    else if(q.includes("name = '05 - Revisões'"))result=[files.get(reviewsFolder)];
    else if(q.includes('bm_redacao_v296'))result=[...files.values()].filter(f=>f.parents.includes(reviewsFolder)&&f.appProperties?.bm_kind==='bm_redacao_v296');
+   else if(q.includes('BANCO_MESTRE_PRIVADO_V'))result=[...files.values()].filter(f=>f.name.startsWith('BANCO_MESTRE_PRIVADO_V'));
    else if(q.includes('Delta de estudo e cartões aprovados'))result=[files.get(delta)];
    else if(q.includes("'"+reviewsFolder+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(reviewsFolder));
    else if(q.includes('bm_controle_estudos_v245'))result=[files.get(study)];
