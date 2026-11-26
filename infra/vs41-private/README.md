@@ -17,7 +17,11 @@ Identificar o banco autorizado uma vez na abertura, consultar índice e cartões
 - `catalog.mjs` reconhece o formato histórico privado e um delta compatível em modo interno de manutenção (`nativeSnapshotOnly`); verifica ponteiro explícito, titularidade, bytes e vínculos, sem gravação. Esse modo não está ativo nas rotas de estudo, não confirma vigência e não reconcilia SRS, mídia ou histórico. Não reaplicar deltas já incorporados. Funções de validação editorial, IDs e consolidação são puras, opcionais e não criam armazenamento.
 - Não há importação direta ChatGPT→portal, promoção de cartões nem sincronização privada automática homologada. Usar as fontes e a operação existentes, não criar uma base nova. A branch oficial gh-pages permanece separada.
 
-## Próximo passo: primeira conta Google, depois a segunda
+## Próximo passo: OAuth direto no navegador (decisão posterior)
+
+A prévia isolada `preview-drive/index.html` reutiliza o fluxo Google Identity Services com Client ID público, escopo drive.readonly e token temporário apenas em memória. Usa o mesmo validador de cartões do leitor experimental, aceita link explícito do snapshot privado ou ponteiro e verifica titularidade, privacidade, revisão e hash quando disponível. Sem servidor, Refresh Token, Client Secret, persistência, fallback público ou gravação. Não é substituto da interface oficial nem homologação da fonte vigente: não aplica deltas, SRS, mídia ou lacunas; o arquivo deve ser confirmado pelo usuário. A publicação da prévia isolada exige autorização e a origem JavaScript do cliente deve ser cadastrada; a branch não é o site publicado. A prova real depende do consentimento Google.
+
+## Alternativa anterior: servidor (adiada)
 
 Usar somente raízes privadas de teste, não o banco real nem uma credencial administrativa comum. Node 22+; configurar no ambiente privado do servidor `BM_USERS_JSON` (um perfil na primeira homologação, dois distintos na segunda: username, subject, rootId, profileId, passwordHash), `BM_GOOGLE_CLIENT_ID`, `BM_GOOGLE_CLIENT_SECRET`, `BM_GOOGLE_GRANTS_JSON` (subject, permissionId e refreshToken de cada conta após consentimento). Manifestos e coleções de teste `private-only`, com appProperties do contrato existente bm-portal-multi-v1. Executar:
 
