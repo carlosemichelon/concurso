@@ -4,6 +4,7 @@ import {planReservation} from '../infra/vs41-private/id-reservations.mjs';
 import {preparePromotion} from '../infra/vs41-private/promotion-plan.mjs';
 import {createPromotionStaging} from '../infra/vs41-private/promotion-staging.mjs';
 import {createActivation} from '../infra/vs41-private/activation.mjs';
+import {createGenerationReader} from '../infra/vs41-private/generation-reader.mjs';
 import {reviewFixture} from './vs41_private_fixture.mjs';
 import {destinationOf,catalogDigest} from '../infra/vs41-private/chat-proposals.mjs';
 import {card,profiles} from './vs41_private_fixture.mjs';
@@ -98,4 +99,24 @@ test('dois candidatos concorrentes disputam o mesmo slot; somente um registro é
  const winner=settled.findIndex(x=>x.status==='fulfilled');assert.equal((await make().activate(req,args[winner])).activeReaderUpdated,false);assert.equal(writes,1);
  assert.equal(files.get('profileA').payload.collections.cards,'cardsA');assert.equal(catalogDigest(files.get('cardsA').payload.records),generation.catalog_sha256);
  await assert.rejects(make().activate({session:'B'},args[winner]),e=>e.code==='generation');allow=false;await assert.rejects(make().activate(req,args[winner]),e=>e.code==='approval');
+});
+
+test('segue duas gerações verificadas, sem escrever; recusa adulteração e rollback conhecido',async()=>{
+ const f=setup(),mock=reviewFixture(),files=mock.files;files.get('cardsA').payload.records=f.records;
+ const a=preparePromotion(f),a2=structuredClone(f.input);
+ a2.base_sha256=a.bundle.catalog_sha256;a2.batch_id='12345678-1234-4234-8234-000000000002';a2.proposals[0].title='Segundo lote';
+ const b=preparePromotion({...f,records:a.bundle.records,registry:a.bundle.registry,input:a2,expectedRegistrySha256:a.bundle.registry_sha256});
+ const put=(id,kind,payload)=>files.set(id,{meta:{id,mimeType:'application/json',ownedByMe:true,shared:false,trashed:false,parents:['rootA'],appProperties:{bmProject:'bm-portal-multi-v1',bmOwner:'A',bmKind:kind,bmDigest:digest(payload)},size:String(Buffer.byteLength(JSON.stringify(payload))),version:'1'},payload});
+ const destination=destinationOf(profiles.A),anchor={destination,generation:1,minimumGeneration:1,slotId:'slot-one',catalog_sha256:catalogDigest(f.records),registry_sha256:f.expectedRegistrySha256};
+ const link=(slot,next,generation,file,p)=>({schema:'BM-ACTIVATION/1',destination,generation,slotId:slot,nextSlotId:next,fileId:file,candidateSha256:p.receipt.candidate_sha256,approvalId:'approved-'+file,base_catalog_sha256:p.bundle.base_catalog_sha256,base_registry_sha256:p.bundle.base_registry_sha256,catalog_sha256:p.bundle.catalog_sha256,registry_sha256:p.bundle.registry_sha256});
+ put('bundle-one','promotion-candidate',a.bundle);put('bundle-two','promotion-candidate',b.bundle);
+ put('slot-one','activation-record',link('slot-one','slot-two',2,'bundle-one',a));
+ put('slot-two','activation-record',link('slot-two','slot-three',3,'bundle-two',b));
+ let approved=true;const make=()=>createGenerationReader({...mock,resolveSession:async req=>profiles[req.session],loadAnchor:async()=>anchor,verifyHistoricalApproval:async(s,x)=>approved&&s.subject==='A'&&x.approvalId==='approved-'+x.fileId});
+ const req={session:'A'},out=await make()(req);assert.equal(out.state.generation,3);assert.equal(out.state.slotId,'slot-three');assert.deepEqual(out.records,b.bundle.records);assert.deepEqual(out.registry,b.bundle.registry);assert.equal(out.historyFiles.length,2);assert.equal(mock.writes.length,0);assert.equal(out.activeReaderUpdated,false);
+ await assert.rejects(make()({session:'B'}),e=>e.code==='anchor');
+ approved=false;await assert.rejects(make()(req),e=>e.code==='approval');approved=true;
+ files.get('bundle-two').meta.shared=true;await assert.rejects(make()(req),e=>e.code==='ownership');files.get('bundle-two').meta.shared=false;
+ anchor.minimumGeneration=3;files.delete('slot-two');await assert.rejects(make()(req),e=>e.code==='rollback');
+ assert.equal(mock.writes.length,0);assert.equal(files.get('profileA').payload.collections.cards,'cardsA');
 });
