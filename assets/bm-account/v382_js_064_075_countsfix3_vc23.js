@@ -679,7 +679,7 @@ function ensure(){
   iframe=document.createElement('iframe');
   iframe.id='bm302-redacao-original';
   iframe.title='Oficina completa de Redação — Banco Mestre';
-  iframe.loading='lazy';
+  iframe.loading='lazy';iframe.hidden=true;
   iframe.referrerPolicy='same-origin';
   iframe.style.cssText='border:1px solid #cad4dc;background:#fff;width:100%;height:calc(100vh - 180px);min-height:570px;display:block';
   iframe.addEventListener('load',()=>{
@@ -698,7 +698,7 @@ function ensure(){
     },true);
    }catch(_){/* O portal pai permanece conectado mesmo se não for possível inspecionar o iframe. */}
   });
-  const notice=document.createElement('p');notice.className='bm-writing-notice';notice.id='bmWritingNotice';notice.textContent='Oficina original · rascunhos isolados nesta visita. Utilize o Backup JSON da oficina antes de sair ou trocar de conta; o histórico de Redação ainda não foi migrado ao Drive individual.';notice.setAttribute('role','status');
+  const notice=document.createElement('p');notice.className='bm-writing-notice';notice.id='bmWritingNotice';notice.textContent='Conecte sua conta Google para abrir Redação e Discursivas.';notice.setAttribute('role','status');
   const save=document.createElement('button');save.type='button';save.id='bmWritingSaveDrive';save.textContent='Salvar progresso no Drive';save.hidden=true;
   save.style.cssText='margin:0 0 7px;padding:6px 10px';
   save.addEventListener('click',async()=>{
@@ -707,7 +707,11 @@ function ensure(){
    catch(e){notice.textContent='Gravação não confirmada: '+e.message+'. Preserve o progresso com o Backup JSON.';}
    finally{save.disabled=false;}
   });
-  host.append(notice,save,iframe);main.append(host);
+  const gate=document.createElement('div');gate.id='bmWritingGate';gate.className='panel';
+  const heading=document.createElement('h2');heading.textContent='Redação e Discursivas';
+  const help=document.createElement('p');help.textContent='Conecte sua conta Google para acessar a oficina e o histórico individual no Drive.';
+  const login=document.createElement('button');login.type='button';login.textContent='Entrar com Google';login.onclick=()=>document.getElementById('bm239-drive-action')?.click();
+  gate.append(heading,help,login);host.append(gate,notice,save,iframe);main.append(host);
  }
  iframe=$('bm302-redacao-original');
  return host;
@@ -729,14 +733,19 @@ function show(){
  if(!main||!nav)return;
  main.querySelectorAll(':scope > section').forEach(s=>s.classList.toggle('active',s===shell));
  nav.querySelectorAll('button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page==='redacao'));
- if(iframe&&!loadedWorkshop&&!loadingWorkshop){
-  const notice=$('bmWritingNotice');
+ const authenticated=window.BMPortalBridge?.writingStatus()?.connected===true;
+ const gate=$('bmWritingGate'),notice=$('bmWritingNotice'),save=$('bmWritingSaveDrive');
+ if(gate)gate.hidden=authenticated;
+ if(!authenticated){if(iframe){iframe.hidden=true;iframe.removeAttribute('srcdoc')}loadedWorkshop=false;if(save)save.hidden=true;if(notice)notice.hidden=true;}
+ else if(iframe&&!loadedWorkshop&&!loadingWorkshop){
+  if(notice){notice.hidden=false;notice.textContent='Conferindo a oficina e o histórico no Drive individual…';}
   loadingWorkshop=window.BMPortalBridge.writingDocument().then(html=>{
-   iframe.srcdoc=html;loadedWorkshop=true;
    const state=window.BMPortalBridge.writingStatus(),save=$('bmWritingSaveDrive');
+   if(!state.connected||!state.ready)throw Error('Sessão não confirmada');
+   iframe.srcdoc=html;iframe.hidden=false;loadedWorkshop=true;
    if(save)save.hidden=!state.ready;
    if(notice&&state.ready)notice.textContent='Oficina original · progresso individual conferido. Salve o treino na oficina e use Salvar progresso no Drive antes de sair.';
-   else if(notice)notice.textContent='Oficina original · rascunhos temporários nesta visita. Utilize o Backup JSON antes de conectar ou sair.';
+   else if(notice)notice.textContent='Oficina aguardando confirmação do Drive.';
   }).catch(e=>{if(notice)notice.textContent='Falha ao abrir a oficina: '+e.message+' · clique em Redação para tentar novamente.';}).finally(()=>{loadingWorkshop=null});
  }
  if(location.hash!==HASH)history.replaceState(history.state,'',location.pathname+location.search+HASH);
@@ -751,9 +760,8 @@ function init(){
  const nav=document.querySelector('header nav');
  if(!nav)return;
  ensure();
- // Guest drafts are never copied into a newly authenticated account. Preserve the guest
- // workshop in memory only until login; the original page offers explicit JSON backup.
- document.addEventListener('bm-account-connected',async()=>{if(loadingWorkshop)await loadingWorkshop;loadedWorkshop=false;iframe?.removeAttribute('srcdoc');const save=$('bmWritingSaveDrive');if(save)save.hidden=true;if(host?.classList.contains('active'))show();});
+ // Load the original workshop only after the authenticated Drive connection.
+ document.addEventListener('bm-account-connected',()=>{if(host?.classList.contains('active'))show();});
  // Captura antes dos onclick legados que navegavam para uma nova página.
  nav.addEventListener('click',e=>{
   const button=e.target.closest?.('button[data-page]');

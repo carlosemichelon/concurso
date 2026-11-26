@@ -58,7 +58,8 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
  }
  let writingTemplate=null;
  async function writingDocument(){
-  if(session)await loadWriting();
+  const p=session;if(!p||closed)throw Error('Conecte o Google Drive para abrir a oficina.');
+  await loadWriting();if(closed||session!==p||!writingReady)throw Error('Sessão ou histórico de Redação não confirmado.');
   if(!writingTemplate)writingTemplate=(async()=>{
    const response=await nativeFetch(new URL('redacao_temas_treino_v296.html?versao=V296',base),{cache:'no-store',credentials:'same-origin'});
    if(!response.ok)throw Error('Oficina de Redação indisponível (HTTP '+response.status+')');
@@ -67,12 +68,12 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
    const bootstrap='<script>(function(){const stores=parent.BMPortalBridge.writingStorage(window);Object.defineProperty(window,"localStorage",{value:stores.local});Object.defineProperty(window,"sessionStorage",{value:stores.session});window.__bmWritingIsolated=true;})();<\/script>';
    return html.replace(/<head\b[^>]*>/i,match=>match+bootstrap);
   })().catch(e=>{writingTemplate=null;throw e});
-  return writingTemplate;
+  const content=await writingTemplate;if(closed||session!==p||!writingReady)throw Error('Sessão alterada');return content;
  }
  function writingStorage(frame){
   const expected=document.getElementById('bm302-redacao-original');
-  if(closed||!expected||frame!==expected.contentWindow)throw Error('Contexto da oficina inválido');
-  return Object.freeze({local:session?accountWriting:guestWriting,session:memory()});
+  if(closed||!session||!writingReady||!expected||frame!==expected.contentWindow)throw Error('Oficina exige uma sessão autenticada e conferida');
+  return Object.freeze({local:accountWriting,session:memory()});
  }
  Object.defineProperty(window,'BMPortalBridge',{value:Object.freeze({close,writingDocument,writingStorage,writingStatus,saveWriting,async verifyDrive(){const p=session;if(!p||closed)throw Error('Conecte sua conta Google');const report=await progress(p.verifyDrive(),'conferindo módulos do Drive');if(closed||session!==p)throw Error('Sessão alterada');return report}})});
  const button=()=>document.getElementById('bm239-drive-action');
