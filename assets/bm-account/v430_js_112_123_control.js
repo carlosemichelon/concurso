@@ -340,9 +340,10 @@ let data=null,persisted=null,revisions=Object.create(null),syncState='Consultand
   data=structuredClone(p.data);persisted=JSON.stringify(data);revisions={...p.revisions};bm430GapVerified=true;
   syncState='Lacunas privadas conferidas no Drive';lastResult={state:'downloaded',message:syncState};render();
  }
- async function sync(){
+ async function sync(force=false){
   if(busy)return {state:'busy',message:'Aguarde a gravação'};
   if(refreshing)return refreshing;
+   if(force!==true&&bm430GapVerified&&data&&lastResult?.state==='downloaded')return lastResult;
   refreshing=(async()=>{try{accept(await window.BMVS41PrivateGaps.read());return lastResult}
    catch(e){data=null;persisted=null;revisions=Object.create(null);bm430GapVerified=false;lastResult={state:'error',message:e.message};syncState=e.message;render();return lastResult}
    finally{refreshing=null;render()}})();render();return refreshing;
@@ -358,7 +359,7 @@ let data=null,persisted=null,revisions=Object.create(null),syncState='Consultand
    const idx=data.records.findIndex(x=>x.id===record.id);
    if(idx<0)data.records.push(p.record);else data.records[idx]=p.record;
    data.log.push({id:event_id,at:p.at,event,lacunaId:record.id});data.updatedAt=p.at;revisions[record.id]=p.revision;
-   validate(data);persisted=JSON.stringify(data);syncState='Lacunas privadas conferidas no Drive';
+   validate(data);persisted=JSON.stringify(data);syncState='Lacunas privadas conferidas no Drive';lastResult={state:'downloaded',message:syncState};
    document.dispatchEvent(new CustomEvent('bm-vs41-gap-confirmed',{detail:{id:record.id,event}}));
   }catch(e){data=JSON.parse(persisted);bm430GapVerified=false;lastResult={state:'error',message:e.message};syncState='Gravação não confirmada: '+e.message;throw e}
   finally{busy=false;render()}
@@ -498,7 +499,7 @@ function install(){
   const blob=new Blob([JSON.stringify({format:'BancoMestreLacunasV242',data},null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='BancoMestre_Lacunas_V242.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
  };
- $('bm242-refresh').onclick=()=>{if(!busy&&!refreshing)void sync()};
+ $('bm242-refresh').onclick=()=>{if(!busy&&!refreshing)void sync(true)};
  $('bm242-import').disabled=true;$('bm242-import').title='Importação histórica ainda não homologada para perfis privados';
  let wasActive=section.classList.contains('active');
  new MutationObserver(()=>{const active=section.classList.contains('active');if(active===wasActive)return;wasActive=active;if(active){if(!bm430GapVerified&&!refreshing&&!busy)void sync();render()}}).observe(section,{attributes:true,attributeFilter:['class']});

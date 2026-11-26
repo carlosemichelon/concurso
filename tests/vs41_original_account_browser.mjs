@@ -11,7 +11,7 @@ assert.deepEqual(css(built),css(source),'As folhas de estilo originais devem per
 const browser=await chromium.launch({headless:true});
 try{
  const context=await browser.newContext({viewport:{width:1366,height:900}}),page=await context.newPage();
- const errors=[],networkWrites=[],dataRequests=[];let account='A',snapshotDownloads=0;
+ const errors=[],networkWrites=[],dataRequests=[];let account='A',snapshotDownloads=0;const reads={gaps:0,schedule:0};
  page.on('pageerror',e=>errors.push(e.message));
  const writes=[];const fixtures={A:fixture('A',{writable:true,writes}),B:fixture('B',{writable:true,writes})};
  await page.route('**/*',async route=>{
@@ -21,6 +21,8 @@ try{
    if(req.method()==='OPTIONS')return route.fulfill({status:204,headers:{'access-control-allow-origin':'*','access-control-allow-headers':'authorization,content-type,if-match','access-control-allow-methods':'GET,POST,PATCH,OPTIONS'}});
    const key=req.headers().authorization?.slice(7);assert.equal(key,account);
    if(url.pathname.endsWith('/snapshotA')&&url.searchParams.get('alt')==='media')snapshotDownloads++;
+   if(req.method()==='GET'&&url.searchParams.get('q')?.includes('bm_lacunas_v242'))reads.gaps++;
+   if(req.method()==='GET'&&url.searchParams.get('q')?.includes('Delta de estudo e cartões aprovados'))reads.schedule++;
    if(req.method()!=='GET'){networkWrites.push({account:key,method:req.method(),url:url.href});assert.ok(url.pathname.startsWith('/upload/drive/v3/files'));}
    if(url.pathname.endsWith('/about')){await page.waitForFunction(()=>window.BM316DriveProgress?.pending>0);}
    const res=await fixtures[key](req.url(),{method:req.method(),headers:{Authorization:'Bearer '+key},body:req.postData()});
@@ -142,6 +144,22 @@ try{
   const cardPanel=await page.locator('#cartoes>.panel').boundingBox();assert.ok((await page.locator('#bm382StudyStart').boundingBox()).height<=90,'Faixa de estudo compacta');
   await page.locator('#bm242-nav').click();await page.locator('#lacunas>.bm242-shell').waitFor({state:'visible'});
   const gapsPanel=await page.locator('#lacunas>.bm242-shell').boundingBox();assert.ok(Math.abs(gapsPanel.width-cardPanel.width)<=2,'Lacunas deve ter a largura de Flashcards: '+JSON.stringify({gaps:gapsPanel,cards:cardPanel}));
+  await page.waitForFunction(()=>window.BM242LacunasDrive?.lastResult?.state==='downloaded');
+  const gapReads=reads.gaps;
+  await page.evaluate(async()=>{await window.BM242LacunasDrive.sync();await window.BM242LacunasDrive.sync()});
+  assert.equal(reads.gaps,gapReads,'Lacunas: reuso sem consulta remota');
+  await page.locator('#bm242-refresh').click();
+  await page.waitForFunction(()=>document.getElementById('bm242-refresh')?.disabled===false);
+  assert.ok(reads.gaps>gapReads,'Atualização explícita consulta o mestre');
+  await page.locator('header nav button[data-page=calendario]').click();
+  await page.waitForFunction(()=>document.getElementById('calendario')?.dataset.bm411Ready==='true');
+  const planReads=reads.schedule;assert.ok(planReads>0);
+  await page.locator('header nav button[data-page=cartoes]').click();
+  await page.locator('header nav button[data-page=calendario]').click();
+  await page.evaluate(()=>window.BM141Calendar.open());
+  assert.equal(reads.schedule,planReads,'Planejamento: reabrir preserva a agenda confirmada');
+  await page.evaluate(()=>window.BM141Calendar.open(true));
+  assert.ok(reads.schedule>planReads,'Atualização explícita consulta o SRS');
   console.log('Conta '+a+': Redação V296 original e troca de seções confirmadas.');
   await page.locator('#bm240-study-tab').click();
   await page.locator('#bm240-native-host #bm252-main-nav').waitFor({state:'visible',timeout:30000});

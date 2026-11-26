@@ -1017,7 +1017,7 @@ const driveAction=document.createElement('button');driveAction.type='button';dri
 const driveNote=document.createElement('span');driveNote.style.cssText='display:block;font-size:12px;margin-top:7px';driveNote.textContent='Conecte o Google Drive para carregar a fila privada. Nenhuma data histórica será usada sem confirmação.';
 source.append(driveAction,driveNote);root.querySelector('.c141-import').before(source);
 
-let studyAgenda=[],studyAgendaToken='';
+let studyAgenda=[],studyAgendaToken='',renderedDay='';
 // Historical study deltas require explicit per-profile migration; no administrator Drive query.
 let privateRefresh=null;
 async function refreshPrivate(){
@@ -1031,12 +1031,12 @@ async function refreshPrivateOnce(){
   const remote=await window.BMVS41PrivateReviews.schedule();
   await window.BM316SrsJournal.refresh();
   if(auth!==authNow()||!window.BM316SrsJournal.loaded)throw Error('Histórico privado não confirmado');
-  privateRecords=remote.records.filter(x=>map.has(x.id)&&due(x.due));privateInfo={version:remote.version||'SRS individual',updated:remote.updated||'',count:privateRecords.length,partial:!remote.complete};verifiedAuth=auth;root.dataset.bm411Ready='true';
+  privateRecords=remote.records.filter(x=>map.has(x.id)&&due(x.due));privateInfo={version:remote.version||'SRS individual',updated:remote.updated||'',count:privateRecords.length,partial:!remote.complete};verifiedAuth=auth;renderedDay=today();root.dataset.bm411Ready='true';
   driveNote.textContent=privateRecords.length+' vencimentos registrados · '+remote.events+' eventos de estudo · '+window.BM316SrsJournal.count+' avaliações formais do site.'+(remote.complete?'':' Consulta parcial: '+remote.warnings.join('; ')+'. Estude apenas os vencimentos confirmados abaixo.');calculate();return remote.complete||privateRecords.length>0||window.BM316SrsJournal.count>0;
  }catch(e){locked('Fila não confirmada: '+e.message);return false}
  finally{driveBusy=false;driveAction.disabled=false}
  }
-driveAction.onclick=async()=>{await open();};
+driveAction.onclick=async()=>{await open(true);};
 document.addEventListener('bm-vs41-session-ready',()=>{if(location.hash==='#calendario')void open();});
 window.addEventListener('focus',syncVisible);document.addEventListener('visibilitychange',syncVisible);
 document.addEventListener('bm316-srs-journal-updated',()=>{if(loaded)calculate()});
@@ -1303,10 +1303,13 @@ function exportCSV(){
  const csv='\ufeff'+rows.map(row=>row.map(x=>'"'+String(x||'').replace(/"/g,'""')+'"').join(';')).join('\r\n');
  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),link=document.createElement('a');link.href=url;link.download='Planejamento_SRS_Estimado_'+today()+'.csv';link.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
 }
-async function open(){
+async function open(force=false){
  if(typeof window.section==='function')window.section('calendario');
  if(!authNow()){try{await window.BMVS41PrivateCards.read()}catch{locked();return;}}
- if(loading)return;loading=true;locked('Carregando agenda privada do Drive…');
+ if(loading)return;
+ // Tab change is not remote refresh; confirmed data stays in this authenticated session.
+ if(force!==true&&ready()){if(renderedDay!==today()){renderedDay=today();calculate()}return;}
+ loading=true;
  try{await load();await refreshPrivate();}catch(e){locked('Fila não confirmada: '+e.message)}finally{loading=false}
 }
 navBtn.onclick=open;
