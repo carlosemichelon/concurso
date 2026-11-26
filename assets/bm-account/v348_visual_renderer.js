@@ -13,7 +13,7 @@ function mount(){
  const h=document.querySelector('header .head nav')||document.querySelector('header .head');
  if(!h)return;
  h.querySelectorAll('a[href="petro27_29_v347.html"],a[href="petro27_29_v348.html"],[data-bm343-proposals]').forEach(a=>a.remove());
- if(!h.querySelector('[data-bm348-audit]')){const a=el('a','Integridade do estudo');a.href='auditoria_v348.html';a.dataset.bm348Audit='1';h.append(a)}
+ // Auditoria histórica preservada no arquivo original, fora da navegação de estudo.
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();window.BM348={load,make,draw,rich};
 })();

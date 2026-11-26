@@ -45,6 +45,11 @@ try{
   await page.waitForFunction(()=>document.getElementById('bm239-drive-action')?.textContent==='Usuário / Login'&&!document.getElementById('bm239-drive-action').disabled);
   assert.equal(await page.locator('#bm-vs41-chat-destination,#bm-vs41-logout,#full-portal').count(),0);
   assert.equal(await page.locator('#bmAccountDriveLink').isVisible(),false);
+  assert.equal(await page.locator('#bmAccountExport').isVisible(),false);
+  const verifyHeader=async()=>{const actual=await btn.evaluate(b=>({text:b.textContent,pseudo:getComputedStyle(b,'::after').content,before:getComputedStyle(b,'::before').content,font:parseFloat(getComputedStyle(b).fontSize)}));assert.equal(actual.pseudo,'none');assert.equal(actual.before,'none');assert.ok(actual.font>=10);assert.equal(await page.locator('header nav a.bm343-launch,header nav [data-bm343-proposals],header nav [data-petro28-link],header nav [data-petro24-link],header nav [data-bm348-audit]').count(),0);assert.ok(await page.locator('#bmAccountSettings').isVisible());return actual};
+  await page.setViewportSize({width:990,height:600});
+  assert.equal((await verifyHeader()).text,'Usuário / Login');
+  await page.setViewportSize({width:1366,height:900});
   assert.equal(await page.evaluate(()=>cards.length),0);
   await page.locator('#bmAccountSettings').click();
   assert.ok(await page.locator('#bmAccountSettingsDialog').isVisible());
@@ -70,6 +75,9 @@ try{
   await page.waitForFunction(name=>document.getElementById('bm239-drive-action')?.textContent===name, 'Estudante '+a);
   assert.equal(await page.locator('#bmAccountDriveLink').getAttribute('href'),'https://drive.google.com/drive/folders/root'+a);
   assert.ok(await page.locator('#bmAccountDriveLink').isVisible());
+  await page.setViewportSize({width:990,height:600});assert.equal((await verifyHeader()).text,'Estudante '+a);
+  assert.ok(await page.locator('#bmAccountExport').isVisible());
+  await page.setViewportSize({width:1366,height:900});
   assert.equal(await page.evaluate(()=>window.BMAccountInfo().name),'Estudante '+a);
   await page.evaluate(()=>loadCards());
   assert.deepEqual(await page.evaluate(()=>cards.map(c=>c.front)),['Pergunta privada '+a]);
