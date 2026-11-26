@@ -29,3 +29,11 @@ test('distingue cartão legado legível, estrutura editorial incompleta e campo 
  delete p.base[0].expl;
  a=assessCatalog(p,contract);assert.equal(a.compatibility.fieldFailures.expl,1);assert.equal(a.compatibility.readerIncompatible,1);
 });
+
+test('leitura dos formatos Ijuí e TRT não significa promoção ou migração editorial',()=>{
+ const s=source(),c=s.base[0];c.id='PROP-IJUI-001';delete c.expl;delete c.consolidation;c.provisional=true;c.canonical=false;
+ const raw=JSON.stringify(s),a=assessCatalog(s,contract);
+ assert.equal(a.compatibility.legacyIds,1);assert.equal(a.compatibility.legacyWithoutExplanation,1);
+ assert.equal(a.technicalReaderReady,true);assert.equal(a.cardCopyReady,false);assert.equal(a.fullMigrationReady,false);
+ assert.equal(JSON.stringify(s),raw);assert.throws(()=>prepareCardCopy(s,contract,'A'));
+});

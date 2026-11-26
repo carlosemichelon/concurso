@@ -21,3 +21,13 @@ test('revisão de conteúdo divergente não pode ser aceita, mesmo com versão g
  await assert.rejects(read({}),e=>e.code==='profile-content-changed');assert.equal(n,6);
 });
 test('ausência de qualquer evidência de revisão bloqueia leitura',async()=>{const {read,files}=setup();delete files.get('profileA').meta.version;await assert.rejects(read({session:'A'}),e=>e.code==='profile-revision-unavailable')});
+
+test('IDs legados reconhecidos e explicação ausente preservada, sem inventar campos',async()=>{
+ const {read,files}=setup(),first={...card('A'),id:'PROP-IJUI-001',provisional:true,canonical:false},second={...card('A'),id:'TRT01-C001'};
+ for(const c of [first,second]){delete c.expl;delete c.consolidation;}
+ first.related_card_ids=[second.id];second.related_card_ids=[first.id];
+ files.get('cardsA').payload.records=[first,second];
+ assert.deepEqual((await read({session:'A'})).records,[first,second]);
+ second.id='UNRECOGNIZED-001';first.related_card_ids=[second.id];await assert.rejects(read({session:'A'}),e=>e.code==='records-schema');
+ second.id='CARD-9901';first.related_card_ids=[second.id];await assert.rejects(read({session:'A'}),e=>e.code==='records-schema');
+});
