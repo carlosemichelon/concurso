@@ -1,0 +1,1767 @@
+{
+  "format": "BancoMestreConsolidationCandidate1",
+  "date": "2026-11-25",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_catalog": "assets/catalog_snapshot_vc50.json",
+  "source_catalog_blob": "6e7864b7604d5a338128b0a7b0a4eb1c94d09106",
+  "counts": {
+    "source_active": 1486,
+    "groups": 4,
+    "absorbed": 4,
+    "projected_active": 1482
+  },
+  "redirects": {
+    "CARD-0028": "CARD-0034",
+    "CARD-0404": "CARD-0230",
+    "CARD-0734": "CARD-0733",
+    "CARD-0753": "CARD-0752"
+  },
+  "revisions": [
+    {
+      "id": "CARD-0034",
+      "title": "Ensaios triaxiais UU, CU e CD",
+      "front": "Compare UU, CU e CD quanto à consolidação, drenagem durante o cisalhamento, parâmetros obtidos e aplicação. Por que se mede a poropressão no CU?",
+      "back": "No UU não há consolidação prévia nem drenagem durante o cisalhamento. A interpretação usual em argilas saturadas é feita em tensões totais.\n\nNo CU a drenagem permanece aberta durante a consolidação e é fechada antes do cisalhamento. A medição da poropressão permite calcular tensões efetivas e, com ensaios suficientes, determinar c′ e φ′.\n\nNo CD há drenagem nas duas fases. O cisalhamento deve ser suficientemente lento para que o excesso de poropressão seja desprezível. A escolha depende da história de tensões e da drenagem no campo.",
+      "satellites": [
+        "CARD-0028"
+      ],
+      "source": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/\nASTM D4767, https://store.astm.org/standards/d4767 ; ASTM D2850, https://store.astm.org/standards/d2850 ; FHWA NHI-16-072, seção 7.2.7, https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf (trecho recuperado da busca). | H20-C037 | H20-C036",
+      "related_card_ids": [
+        "CARD-0040",
+        "CARD-0698",
+        "CARD-0700",
+        "CARD-0699",
+        "CARD-1076",
+        "CARD-0690",
+        "CARD-0695",
+        "CARD-0696",
+        "CARD-0781"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0034",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Geotecnia",
+          "sub": "Triaxial CU",
+          "front": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?",
+          "back": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.\n\nNo CU, a drenagem deve permanecer aberta durante a consolidação prévia sob tensão efetiva prescrita e ser fechada antes do cisalhamento. Mede-se a poropressão sem permitir drenagem no cisalhamento. UU não exclui confinamento; CD não significa poropressão absoluta nula.",
+          "expl": "Fundamento e fontes\nH20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/\n\nASTM D4767, https://store.astm.org/standards/d4767 ; ASTM D2850, https://store.astm.org/standards/d2850 ; FHWA NHI-16-072, seção 7.2.7, https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf (trecho recuperado da busca).\n\nMecanismo\nO confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica.\n\nNo CU, depois de preparação/saturação conforme procedimento, abrir drenagem durante consolidação sob confinamento, aguardar dissipação do excesso de u e estabilização segundo critério aplicável. Fechar drenagem antes de cisalhar, medir u durante carregamento. Em amostra saturada ideal sem drenagem, volume praticamente constante; tendência de contração pode elevar u e dilatação pode reduzi-la.\n\nFórmulas e unidades\nσ1′=σ1−u; σ3′=σ3−u; q=σ1−σ3. Se σ1=300, σ3=100, u=60 kPa: efetivas 240 e 40 kPa; q=200 kPa; centro efetivo 140 e raio 100 kPa.\n\nExemplo σ1=300, σ3=100, u=60 kPa: σ′1=240, σ′3=40, q=200 kPa tanto em totais quanto efetivas; centros 200 e 140 kPa; R=100 kPa. Círculo desloca-se à esquerda em u positivo, sem alterar raio no mesmo estado. Em ensaios suficientes, envoltória efetiva fornece c′ e φ′.\n\nQuadro comparativo\nUU: total; CU: total e efetiva com u; CD: efetiva e variação volumétrica. CD tende a demorar mais em argilas.\n\n\nUU — Não — Não — Totais; su\nCU — Sim, válvula aberta — Não, válvula fechada — Totais; efetivas com u\nCD — Sim — Sim, cisalhamento suficientemente lento — Efetivas\nUU = rápido (Q); CU = adensado rápido (R); CD = lento (S), nomenclatura usual. A primeira letra indica consolidação prévia, a segunda drenagem no cisalhamento.\n\nTransferência e resolução\nCarregamento rápido de argila: avaliar resistência não drenada em trajetória representativa (UU ou CU conforme investigação). Longo prazo: análise efetiva com poropressões adequadas. CU com u permite obter parâmetros efetivos sem esperar drenagem na ruptura.\n\nCarregamento rápido de argila saturada: resistência não drenada, UU/CU conforme história de tensões. Aterro sobre argila mole: condições de construção não drenadas e longo prazo em tensões efetivas; VST mede su em campo. Talude longo prazo: c′/φ′ e u adequados, CD ou CU com u. Edômetro mede compressibilidade/adensamento; triaxial repetido mede módulo resiliente, não equivale ao ensaio monotônico de ruptura.\n\nCondições e exceções\nUU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos.\n\nA preparação/saturação é distinta da consolidação sob tensão de ensaio. CU não significa ausência de drenagem em todo o procedimento. CD não significa pressão absoluta u=0; excesso de u deve ser desprezível. Não assumir CU sempre mais rápido que UU, ou parâmetros efetivos determinados por um único corpo de prova.\n\nPegadinhas\nNão inverter fases; CU sem u não reconstrói trajetória efetiva. q não é raio: R=q/2.\n\nAtenção: no CU há drenagem inicial para consolidação, proibida no cisalhamento. UU não implica ausência de pressão confinante. Não confundir drenagem com medição de u: medir u não exige abrir válvula de drenagem. Não confundir resistência não drenada su com c′.\n\nMacete e rastreabilidade\nUU fecha–fecha; CU abre–fecha; CD abre–abre.\n\nCU = Consolida com saída de água; Última fase fechada. UU fecha–fecha; CU abre–fecha; CD abre–abre.",
+          "mnemonic": "UU fecha–fecha; CU abre–fecha; CD abre–abre.\nCU = Consolida com saída de água; Última fase fechada. UU fecha–fecha; CU abre–fecha; CD abre–abre.",
+          "reference": "H20-C037",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0028",
+            "CARD-0040",
+            "CARD-0698",
+            "CARD-0700",
+            "CARD-0699",
+            "CARD-1076",
+            "CARD-0690",
+            "CARD-0695",
+            "CARD-0696",
+            "CARD-0781"
+          ],
+          "related_question_ids": [],
+          "search_keywords": [
+            "Triaxiais UU, CU e CD"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0034",
+            "historical_ids": [
+              "CARD-0034"
+            ],
+            "source_catalog_blob": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+            "original": {
+              "front": "No triaxial CU, em qual fase há drenagem e por que medir poropressão durante a ruptura?",
+              "back": "Drena na consolidação; cisalha sem drenar. A medição de u permite calcular tensões efetivas σ′=σ−u.",
+              "expl": "A amostra atinge o estado adensado sob confinamento escolhido; durante carregamento axial, as válvulas fechadas impedem drenagem e a poropressão se altera.\nAplicação: Ensaios CU com medição de u permitem obter envoltória efetiva c′/φ′ e avaliar resposta não drenada segundo o programa.\nPegadinha: Sem medição de u não se obtém diretamente a trajetória de tensões efetivas durante o cisalhamento.",
+              "reference": "H20-C037",
+              "mnemonic": "CU: Consolida com água saindo; ruptura Undrenada."
+            },
+            "profile": {
+              "id": "CARD-0034",
+              "title": "Triaxiais UU, CU e CD",
+              "satellites": [],
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?"
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.\n\nNo CU, a drenagem deve permanecer aberta durante a consolidação prévia sob tensão efetiva prescrita e ser fechada antes do cisalhamento. Mede-se a poropressão sem permitir drenagem no cisalhamento. UU não exclui confinamento; CD não significa poropressão absoluta nula."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/\n\nASTM D4767, https://store.astm.org/standards/d4767 ; ASTM D2850, https://store.astm.org/standards/d2850 ; FHWA NHI-16-072, seção 7.2.7, https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf (trecho recuperado da busca)."
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "O confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica.\n\nNo CU, depois de preparação/saturação conforme procedimento, abrir drenagem durante consolidação sob confinamento, aguardar dissipação do excesso de u e estabilização segundo critério aplicável. Fechar drenagem antes de cisalhar, medir u durante carregamento. Em amostra saturada ideal sem drenagem, volume praticamente constante; tendência de contração pode elevar u e dilatação pode reduzi-la."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas e unidades",
+                  "texto": "σ1′=σ1−u; σ3′=σ3−u; q=σ1−σ3. Se σ1=300, σ3=100, u=60 kPa: efetivas 240 e 40 kPa; q=200 kPa; centro efetivo 140 e raio 100 kPa.\n\nExemplo σ1=300, σ3=100, u=60 kPa: σ′1=240, σ′3=40, q=200 kPa tanto em totais quanto efetivas; centros 200 e 140 kPa; R=100 kPa. Círculo desloca-se à esquerda em u positivo, sem alterar raio no mesmo estado. Em ensaios suficientes, envoltória efetiva fornece c′ e φ′."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Quadro comparativo",
+                  "texto": "UU: total; CU: total e efetiva com u; CD: efetiva e variação volumétrica. CD tende a demorar mais em argilas.\n\n\nUU — Não — Não — Totais; su\nCU — Sim, válvula aberta — Não, válvula fechada — Totais; efetivas com u\nCD — Sim — Sim, cisalhamento suficientemente lento — Efetivas\nUU = rápido (Q); CU = adensado rápido (R); CD = lento (S), nomenclatura usual. A primeira letra indica consolidação prévia, a segunda drenagem no cisalhamento."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Transferência e resolução",
+                  "texto": "Carregamento rápido de argila: avaliar resistência não drenada em trajetória representativa (UU ou CU conforme investigação). Longo prazo: análise efetiva com poropressões adequadas. CU com u permite obter parâmetros efetivos sem esperar drenagem na ruptura.\n\nCarregamento rápido de argila saturada: resistência não drenada, UU/CU conforme história de tensões. Aterro sobre argila mole: condições de construção não drenadas e longo prazo em tensões efetivas; VST mede su em campo. Talude longo prazo: c′/φ′ e u adequados, CD ou CU com u. Edômetro mede compressibilidade/adensamento; triaxial repetido mede módulo resiliente, não equivale ao ensaio monotônico de ruptura."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-0028, CARD-0040, CARD-0698, CARD-0700, CARD-0699\n\nCARD-0690 (investigação campo/laboratório Q07); CARD-0698 (σ1, σ3, q); CARD-0699 (Mohr–Coulomb); CARD-0700 (tensão efetiva/adensamento); CARD-0695/0696 (efeito de u); CARD-1076 (taludes); CARD-0028/0040 (UU e CD/CU); CARD-0781 (triaxial repetido em pavimentos); CARD-1571 (incrementos de tensão em fundações, associação complementar)."
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "UU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos.\n\nA preparação/saturação é distinta da consolidação sob tensão de ensaio. CU não significa ausência de drenagem em todo o procedimento. CD não significa pressão absoluta u=0; excesso de u deve ser desprezível. Não assumir CU sempre mais rápido que UU, ou parâmetros efetivos determinados por um único corpo de prova."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não inverter fases; CU sem u não reconstrói trajetória efetiva. q não é raio: R=q/2.\n\nAtenção: no CU há drenagem inicial para consolidação, proibida no cisalhamento. UU não implica ausência de pressão confinante. Não confundir drenagem com medição de u: medir u não exige abrir válvula de drenagem. Não confundir resistência não drenada su com c′."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e rastreabilidade",
+                  "texto": "UU fecha–fecha; CU abre–fecha; CD abre–abre.\n\nCU = Consolida com saída de água; Última fase fechada. UU fecha–fecha; CU abre–fecha; CD abre–abre."
+                }
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.",
+                  "No CU, a drenagem deve permanecer aberta durante a consolidação prévia sob tensão efetiva prescrita e ser fechada antes do cisalhamento. Mede-se a poropressão sem permitir drenagem no cisalhamento. UU não exclui confinamento; CD não significa poropressão absoluta nula."
+                ],
+                "highlights": [
+                  {
+                    "kind": "core",
+                    "text": "não há consolidação prévia nem drenagem",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "medir u",
+                    "color": "#BAE6FD"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "drenagem nas duas fases",
+                    "color": "#BAE6FD"
+                  },
+                  {
+                    "kind": "core",
+                    "text": "aberta durante a consolidação prévia",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "fechada antes do cisalhamento",
+                    "color": "#BAE6FD"
+                  }
+                ],
+                "table": {
+                  "headers": [
+                    "Ensaio",
+                    "Consolidação drenada",
+                    "Cisalhamento drenado",
+                    "Parâmetros"
+                  ],
+                  "rows": [
+                    [
+                      "UU",
+                      "Não",
+                      "Não",
+                      "Totais; su"
+                    ],
+                    [
+                      "CU",
+                      "Sim, válvula aberta",
+                      "Não, válvula fechada",
+                      "Totais; efetivas com u"
+                    ],
+                    [
+                      "CD",
+                      "Sim",
+                      "Sim, cisalhamento suficientemente lento",
+                      "Efetivas"
+                    ]
+                  ]
+                },
+                "formulas": [
+                  {
+                    "title": "Desviadora",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>q</mi><mo>=</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>σ</mi><mn>3</mn></msub></math>",
+                    "units": "kPa"
+                  }
+                ],
+                "media": [
+                  {
+                    "id": "PETRO35-Q07-SVG-TRIAX",
+                    "role": "VERSO_APOS_TENTATIVA",
+                    "src": "assets/petro35/q07-triax.svg",
+                    "caption": "Consolidação e cisalhamento: condições de drenagem"
+                  }
+                ],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              },
+              "front": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?",
+              "back": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.\n\nNo CU, a drenagem deve permanecer aberta durante a consolidação prévia sob tensão efetiva prescrita e ser fechada antes do cisalhamento. Mede-se a poropressão sem permitir drenagem no cisalhamento. UU não exclui confinamento; CD não significa poropressão absoluta nula.",
+              "source": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/\nASTM D4767, https://store.astm.org/standards/d4767 ; ASTM D2850, https://store.astm.org/standards/d2850 ; FHWA NHI-16-072, seção 7.2.7, https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf (trecho recuperado da busca).",
+              "mnemonic": "UU fecha–fecha; CU abre–fecha; CD abre–abre.\nCU = Consolida com saída de água; Última fase fechada. UU fecha–fecha; CU abre–fecha; CD abre–abre.",
+              "related_card_ids": [
+                "CARD-0028",
+                "CARD-0040",
+                "CARD-0698",
+                "CARD-0700",
+                "CARD-0699",
+                "CARD-1076",
+                "CARD-0690",
+                "CARD-0695",
+                "CARD-0696",
+                "CARD-0781"
+              ],
+              "related_question_ids": [],
+              "history_ref": {
+                "snapshot": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+                "ids": [
+                  "CARD-0034"
+                ]
+              }
+            },
+            "previous_version": {
+              "id": "CARD-0034",
+              "group": "ENG_GERAL",
+              "discipline": "Engenharia Civil",
+              "subject": "Geotecnia",
+              "sub": "Triaxial CU",
+              "front": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?",
+              "back": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.",
+              "expl": "Fundamento e fontes\nH20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/\n\nMecanismo\nO confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica.\n\nFórmulas e unidades\nσ1′=σ1−u; σ3′=σ3−u; q=σ1−σ3. Se σ1=300, σ3=100, u=60 kPa: efetivas 240 e 40 kPa; q=200 kPa; centro efetivo 140 e raio 100 kPa.\n\nQuadro comparativo\nUU: total; CU: total e efetiva com u; CD: efetiva e variação volumétrica. CD tende a demorar mais em argilas.\n\nTransferência e resolução\nCarregamento rápido de argila: avaliar resistência não drenada em trajetória representativa (UU ou CU conforme investigação). Longo prazo: análise efetiva com poropressões adequadas. CU com u permite obter parâmetros efetivos sem esperar drenagem na ruptura.\n\nCondições e exceções\nUU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos.\n\nPegadinhas\nNão inverter fases; CU sem u não reconstrói trajetória efetiva. q não é raio: R=q/2.\n\nMacete e rastreabilidade\nUU fecha–fecha; CU abre–fecha; CD abre–abre.",
+              "mnemonic": "UU fecha–fecha; CU abre–fecha; CD abre–abre.",
+              "reference": "H20-C037",
+              "active": true,
+              "related_card_ids": [
+                "CARD-0028",
+                "CARD-0040",
+                "CARD-0698",
+                "CARD-0700",
+                "CARD-0699",
+                "CARD-1076"
+              ],
+              "related_question_ids": [],
+              "search_keywords": [
+                "Triaxiais UU, CU e CD"
+              ],
+              "consolidation": {
+                "primary_id": "CARD-0034",
+                "historical_ids": [
+                  "CARD-0034"
+                ],
+                "source_catalog_blob": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+                "original": {
+                  "front": "No triaxial CU, em qual fase há drenagem e por que medir poropressão durante a ruptura?",
+                  "back": "Drena na consolidação; cisalha sem drenar. A medição de u permite calcular tensões efetivas σ′=σ−u.",
+                  "expl": "A amostra atinge o estado adensado sob confinamento escolhido; durante carregamento axial, as válvulas fechadas impedem drenagem e a poropressão se altera.\nAplicação: Ensaios CU com medição de u permitem obter envoltória efetiva c′/φ′ e avaliar resposta não drenada segundo o programa.\nPegadinha: Sem medição de u não se obtém diretamente a trajetória de tensões efetivas durante o cisalhamento.",
+                  "reference": "H20-C037",
+                  "mnemonic": "CU: Consolida com água saindo; ruptura Undrenada."
+                },
+                "profile": {
+                  "id": "CARD-0034",
+                  "title": "Triaxiais UU, CU e CD",
+                  "satellites": [],
+                  "modules": [
+                    {
+                      "ord": 1,
+                      "titulo": "Recuperação ativa",
+                      "texto": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?"
+                    },
+                    {
+                      "ord": 2,
+                      "titulo": "Resposta-modelo",
+                      "texto": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo."
+                    },
+                    {
+                      "ord": 3,
+                      "titulo": "Fundamento e fontes",
+                      "texto": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/"
+                    },
+                    {
+                      "ord": 4,
+                      "titulo": "Mecanismo",
+                      "texto": "O confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica."
+                    },
+                    {
+                      "ord": 5,
+                      "titulo": "Fórmulas e unidades",
+                      "texto": "σ1′=σ1−u; σ3′=σ3−u; q=σ1−σ3. Se σ1=300, σ3=100, u=60 kPa: efetivas 240 e 40 kPa; q=200 kPa; centro efetivo 140 e raio 100 kPa."
+                    },
+                    {
+                      "ord": 6,
+                      "titulo": "Quadro comparativo",
+                      "texto": "UU: total; CU: total e efetiva com u; CD: efetiva e variação volumétrica. CD tende a demorar mais em argilas."
+                    },
+                    {
+                      "ord": 7,
+                      "titulo": "Transferência e resolução",
+                      "texto": "Carregamento rápido de argila: avaliar resistência não drenada em trajetória representativa (UU ou CU conforme investigação). Longo prazo: análise efetiva com poropressões adequadas. CU com u permite obter parâmetros efetivos sem esperar drenagem na ruptura."
+                    },
+                    {
+                      "ord": 8,
+                      "titulo": "Cobertura cruzada",
+                      "texto": "CARD-0028, CARD-0040, CARD-0698, CARD-0700, CARD-0699"
+                    },
+                    {
+                      "ord": 9,
+                      "titulo": "Condições e exceções",
+                      "texto": "UU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos."
+                    },
+                    {
+                      "ord": 10,
+                      "titulo": "Pegadinhas",
+                      "texto": "Não inverter fases; CU sem u não reconstrói trajetória efetiva. q não é raio: R=q/2."
+                    },
+                    {
+                      "ord": 11,
+                      "titulo": "Macete e rastreabilidade",
+                      "texto": "UU fecha–fecha; CU abre–fecha; CD abre–abre."
+                    }
+                  ],
+                  "editorial": {
+                    "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                    "answer_paragraphs": [
+                      "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.",
+                      "O confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica.",
+                      "UU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos."
+                    ],
+                    "highlights": [
+                      {
+                        "kind": "core",
+                        "text": "não há consolidação prévia nem drenagem",
+                        "color": "#FDE68A"
+                      },
+                      {
+                        "kind": "condition",
+                        "text": "medir u",
+                        "color": "#BAE6FD"
+                      },
+                      {
+                        "kind": "condition",
+                        "text": "drenagem nas duas fases",
+                        "color": "#BAE6FD"
+                      }
+                    ],
+                    "table": {
+                      "headers": [
+                        "Ensaio",
+                        "Consolidação drenada",
+                        "Ruptura drenada",
+                        "Parâmetros"
+                      ],
+                      "rows": [
+                        [
+                          "UU",
+                          "Não",
+                          "Não",
+                          "Totais"
+                        ],
+                        [
+                          "CU",
+                          "Sim",
+                          "Não",
+                          "Totais; efetivos com u"
+                        ],
+                        [
+                          "CD",
+                          "Sim",
+                          "Sim",
+                          "Efetivos"
+                        ]
+                      ]
+                    },
+                    "formulas": [
+                      {
+                        "title": "Desviadora",
+                        "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>q</mi><mo>=</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>σ</mi><mn>3</mn></msub></math>",
+                        "units": "kPa"
+                      }
+                    ],
+                    "media": [],
+                    "history_collapsed": true,
+                    "reveal_after_attempt": true
+                  },
+                  "front": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?",
+                  "back": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.",
+                  "source": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/",
+                  "mnemonic": "UU fecha–fecha; CU abre–fecha; CD abre–abre.",
+                  "related_card_ids": [
+                    "CARD-0028",
+                    "CARD-0040",
+                    "CARD-0698",
+                    "CARD-0700",
+                    "CARD-0699",
+                    "CARD-1076"
+                  ],
+                  "related_question_ids": [],
+                  "history_ref": {
+                    "snapshot": "99bf9bb998c95e1ce5bae1f74ee9653ecd335f9a",
+                    "ids": [
+                      "CARD-0034"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "CARD-0028",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Geotecnia",
+          "sub": "Triaxial UU",
+          "front": "Em UU, há consolidação sob σ3 antes do cisalhamento? A drenagem é liberada na ruptura?",
+          "back": "Não. No UU (não consolidado–não drenado), não se permite consolidação prévia nem drenagem durante o cisalhamento.",
+          "expl": "A aplicação de confinamento e do desvio ocorre sem drenagem do corpo de prova. Em argilas saturadas, permite avaliar resistência em condição não drenada, interpretada usualmente em tensões totais.\nAplicação: Selecionar condições de ensaio representativas de carregamentos rápidos sobre solo saturado pouco permeável.\nPegadinha: UU não quer dizer ausência de pressão confinante; e a expressão φu=0 não é universal para todo solo ou trajetória.",
+          "mnemonic": "UU: sem adensar, sem drenar.",
+          "reference": "H20-C036",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0034"
+          ]
+        }
+      ],
+      "source_hashes": {
+        "CARD-0034": "1f572b8cc02f145ad0d7b3e159b9e05426ea7b8e9804bfa63ad3849002d57be9",
+        "CARD-0028": "4d1743a706d17dfcabb62a130e5ba94809b74828adf99fcb51516a75a99ac90a"
+      },
+      "mnemonic": "UU fecha–fecha; CU abre–fecha; CD abre–abre.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Compare UU, CU e CD quanto à consolidação, drenagem durante o cisalhamento, parâmetros obtidos e aplicação. Por que se mede a poropressão no CU?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "No UU não há consolidação prévia nem drenagem durante o cisalhamento. A interpretação usual em argilas saturadas é feita em tensões totais.\n\nNo CU a drenagem permanece aberta durante a consolidação e é fechada antes do cisalhamento. A medição da poropressão permite calcular tensões efetivas e, com ensaios suficientes, determinar c′ e φ′.\n\nNo CD há drenagem nas duas fases. O cisalhamento deve ser suficientemente lento para que o excesso de poropressão seja desprezível. A escolha depende da história de tensões e da drenagem no campo."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/\n\nASTM D4767, https://store.astm.org/standards/d4767 ; ASTM D2850, https://store.astm.org/standards/d2850 ; FHWA NHI-16-072, seção 7.2.7, https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf (trecho recuperado da busca).\n\nRegistros incorporados: H20-C036."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica.\n\nNo CU, depois de preparação/saturação conforme procedimento, abrir drenagem durante consolidação sob confinamento, aguardar dissipação do excesso de u e estabilização segundo critério aplicável. Fechar drenagem antes de cisalhar, medir u durante carregamento. Em amostra saturada ideal sem drenagem, volume praticamente constante; tendência de contração pode elevar u e dilatação pode reduzi-la."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "σ1′=σ1−u; σ3′=σ3−u; q=σ1−σ3. Se σ1=300, σ3=100, u=60 kPa: efetivas 240 e 40 kPa; q=200 kPa; centro efetivo 140 e raio 100 kPa.\n\nExemplo σ1=300, σ3=100, u=60 kPa: σ′1=240, σ′3=40, q=200 kPa tanto em totais quanto efetivas; centros 200 e 140 kPa; R=100 kPa. Círculo desloca-se à esquerda em u positivo, sem alterar raio no mesmo estado. Em ensaios suficientes, envoltória efetiva fornece c′ e φ′."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "UU: total; CU: total e efetiva com u; CD: efetiva e variação volumétrica. CD tende a demorar mais em argilas.\n\n\nUU — Não — Não — Totais; su\nCU — Sim, válvula aberta — Não, válvula fechada — Totais; efetivas com u\nCD — Sim — Sim, cisalhamento suficientemente lento — Efetivas\nUU = rápido (Q); CU = adensado rápido (R); CD = lento (S), nomenclatura usual. A primeira letra indica consolidação prévia, a segunda drenagem no cisalhamento."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Carregamento rápido de argila: avaliar resistência não drenada em trajetória representativa (UU ou CU conforme investigação). Longo prazo: análise efetiva com poropressões adequadas. CU com u permite obter parâmetros efetivos sem esperar drenagem na ruptura.\n\nCarregamento rápido de argila saturada: resistência não drenada, UU/CU conforme história de tensões. Aterro sobre argila mole: condições de construção não drenadas e longo prazo em tensões efetivas; VST mede su em campo. Talude longo prazo: c′/φ′ e u adequados, CD ou CU com u. Edômetro mede compressibilidade/adensamento; triaxial repetido mede módulo resiliente, não equivale ao ensaio monotônico de ruptura.\n\nUU não exclui a pressão confinante; φu≈0 é uma idealização aplicável a certas argilas saturadas."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0034, CARD-0028."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "UU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos.\n\nA preparação/saturação é distinta da consolidação sob tensão de ensaio. CU não significa ausência de drenagem em todo o procedimento. CD não significa pressão absoluta u=0; excesso de u deve ser desprezível. Não assumir CU sempre mais rápido que UU, ou parâmetros efetivos determinados por um único corpo de prova."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não inverter fases; CU sem u não reconstrói trajetória efetiva. q não é raio: R=q/2.\n\nAtenção: no CU há drenagem inicial para consolidação, proibida no cisalhamento. UU não implica ausência de pressão confinante. Não confundir drenagem com medição de u: medir u não exige abrir válvula de drenagem. Não confundir resistência não drenada su com c′."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "UU fecha–fecha; CU abre–fecha; CD abre–abre."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "No UU não há consolidação prévia nem drenagem durante o cisalhamento. A interpretação usual em argilas saturadas é feita em tensões totais.",
+          "No CU a drenagem permanece aberta durante a consolidação e é fechada antes do cisalhamento. A medição da poropressão permite calcular tensões efetivas e, com ensaios suficientes, determinar c′ e φ′.",
+          "No CD há drenagem nas duas fases. O cisalhamento deve ser suficientemente lento para que o excesso de poropressão seja desprezível. A escolha depende da história de tensões e da drenagem no campo."
+        ],
+        "highlights": [
+          {
+            "text": "No UU não há consolidação prévia nem drenagem durante o cisalhamento",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "table": {
+          "headers": [
+            "Ensaio",
+            "Consolidação drenada",
+            "Cisalhamento drenado",
+            "Parâmetros"
+          ],
+          "rows": [
+            [
+              "UU",
+              "Não",
+              "Não",
+              "Totais; su"
+            ],
+            [
+              "CU",
+              "Sim, válvula aberta",
+              "Não, válvula fechada",
+              "Totais; efetivas com u"
+            ],
+            [
+              "CD",
+              "Sim",
+              "Sim, cisalhamento suficientemente lento",
+              "Efetivas"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Desviadora",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>q</mi><mo>=</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>σ</mi><mn>3</mn></msub></math>",
+            "units": "kPa"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO35-Q07-SVG-TRIAX",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q07-triax.svg",
+            "caption": "Consolidação e cisalhamento: condições de drenagem"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0230",
+      "title": "Controle tecnológico de aterros de edificações",
+      "front": "Segundo a NBR 5681:2015, como controlar materiais, espessura compactada, umidade e grau de compactação de aterros de edificações? Como agir quando uma camada não atende?",
+      "back": "Na edição de 2015, item 4.2, a execução exige preparação do terreno e seleção do material. A camada deve ter até 0,30 m após compactação, umidade próxima da ótima (tolerância de ±3 pontos percentuais ou menor) e grau de compactação mínimo de 95% ou superior, conforme especificação.\n\nSe algum requisito não for atendido, deve-se corrigir a camada, ajustar a umidade e compactar novamente antes de lançar a seguinte. A DNIT 108/2009-ES trata de aterros rodoviários e utiliza critérios próprios, incluindo grau de compactação mínimo de 100% nas condições de referência de corpo e camadas finais.",
+      "satellites": [
+        "CARD-0404"
+      ],
+      "source": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada. | H23-C024 | H23-C025",
+      "related_card_ids": [
+        "CARD-0521",
+        "CARD-0857",
+        "CARD-0858",
+        "CARD-0701",
+        "CARD-1442",
+        "CARD-1447",
+        "CARD-0822",
+        "CARD-0825"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0230",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Terraplenagem",
+          "sub": "Aterro de edificação",
+          "front": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário.",
+          "back": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais.",
+          "expl": "Fundamento e fontes\nH23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.\n\nMecanismo\nRemover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas.\n\nFórmulas e unidades\nGC=100ρd,campo/ρd,máx. Se wót=12%, faixa de ±3 p.p. é 9–15%; se ρd,máx=1,80 Mg/m³ e GC≥95%, ρd,campo≥1,71 Mg/m³. Aterro de 1,20 m exige pelo menos quatro camadas compactadas de 0,30 m, se especificação permitir.\n\nQuadro comparativo\nEdificação (NBR 5681:2015): 30 cm máximos; GC≥95%; ±3 p.p. ou exigências mais restritivas. Rodovia (DNIT 108): GC≥100% conforme energia e material de referência; não transferir automaticamente critérios de espessura e umidade entre escopos.\n\nNBR 5681:2015 (aterro de edificações) admite wót ±3 pontos percentuais ou faixa menor e GC mínimo 95% ou superior conforme especificação; NBR 15115:2004 (camadas de RCC em pavimentação) especifica wót ±1,5 p.p. e GC mínimo 100%, com recebimento conforme 7.3.2.\n\nTransferência e resolução\nCamada de 0,35 m compactada com GC=97% e umidade adequada não atende ao limite de 0,30 m. Corrigir antes de lançar a seguinte. Se solo for turfa, argila orgânica ou apresentar matéria orgânica micácea/diatomácea, não utilizar segundo item 4.2; evitar solos expansivos.\n\nCondições e exceções\nConferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual.\n\nPegadinhas\nNão confundir espessura solta com compactada, pontos percentuais com variação relativa ou GC com umidade. GC isolado não garante aceitação, nem substitui controle de materiais.\n\nMacete e rastreabilidade\nEdificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir.",
+          "mnemonic": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir.",
+          "reference": "H23-C024",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0404",
+            "CARD-0521",
+            "CARD-0857",
+            "CARD-0858",
+            "CARD-0701",
+            "CARD-1442",
+            "CARD-1447",
+            "CARD-0822",
+            "CARD-0825"
+          ],
+          "last_relationship_at": "2026-11-21",
+          "last_editorial_modified_at": "2026-11-21",
+          "related_question_ids": [],
+          "search_keywords": [
+            "Aterros de edificações: execução e controle tecnológico"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0230",
+            "historical_ids": [
+              "CARD-0230"
+            ],
+            "source_catalog_blob": "31430e319fb774264b20f7c2a67831a8d78550de",
+            "original": {
+              "front": "Qual a função da NBR 5681:2015 em aterros para edificações?",
+              "back": "Orientar requisitos de execução e controle tecnológico desses aterros.",
+              "expl": "O controle reúne seleção e preparo do terreno, lançamento em camadas, ajuste de umidade, ensaios de compactação e verificação do grau de compactação. Esses controles reduzem a heterogeneidade e o risco de recalques por compactação insuficiente.\nAplicação: Em um aterro de edificação de 1,2 m, não se deve executar uma única camada solta; dividir em camadas compatíveis com o equipamento, compactar e ensaiar cada trecho previsto no plano de controle.\nPegadinha: Não confundir os requisitos de aterro para edificação da NBR 5681 com os critérios específicos de terraplenagem rodoviária da DNIT 108/2009.\n\nNBR 5681:2015 — aterros em edificações: material selecionado, preparo e controle de execução; vincula CARD-0404, CARD-0521, CARD-0857 e CARD-0858. Separar controle de compactação do balanço corte/aterro.",
+              "reference": "H23-C024",
+              "mnemonic": "Edificação: solo, umidade, camada e GC controlados."
+            },
+            "profile": {
+              "id": "CARD-0230",
+              "title": "Aterros de edificações: execução e controle tecnológico",
+              "satellites": [],
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário."
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada."
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "Remover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas e unidades",
+                  "texto": "GC=100ρd,campo/ρd,máx. Se wót=12%, faixa de ±3 p.p. é 9–15%; se ρd,máx=1,80 Mg/m³ e GC≥95%, ρd,campo≥1,71 Mg/m³. Aterro de 1,20 m exige pelo menos quatro camadas compactadas de 0,30 m, se especificação permitir."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Quadro comparativo",
+                  "texto": "Edificação (NBR 5681:2015): 30 cm máximos; GC≥95%; ±3 p.p. ou exigências mais restritivas. Rodovia (DNIT 108): GC≥100% conforme energia e material de referência; não transferir automaticamente critérios de espessura e umidade entre escopos.\n\nNBR 5681:2015 (aterro de edificações) admite wót ±3 pontos percentuais ou faixa menor e GC mínimo 95% ou superior conforme especificação; NBR 15115:2004 (camadas de RCC em pavimentação) especifica wót ±1,5 p.p. e GC mínimo 100%, com recebimento conforme 7.3.2."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Transferência e resolução",
+                  "texto": "Camada de 0,35 m compactada com GC=97% e umidade adequada não atende ao limite de 0,30 m. Corrigir antes de lançar a seguinte. Se solo for turfa, argila orgânica ou apresentar matéria orgânica micácea/diatomácea, não utilizar segundo item 4.2; evitar solos expansivos."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-0404, CARD-0521, CARD-0857, CARD-0858, CARD-0701, CARD-1442, CARD-1447, CARD-0824, CARD-0825\n\nRelacionados: CARD-0521, CARD-1442, CARD-0822. Compare os critérios de cada ensaio."
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Conferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não confundir espessura solta com compactada, pontos percentuais com variação relativa ou GC com umidade. GC isolado não garante aceitação, nem substitui controle de materiais."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e rastreabilidade",
+                  "texto": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir."
+                }
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais."
+                ],
+                "highlights": [
+                  {
+                    "kind": "core",
+                    "text": "até 0,30 m",
+                    "color": "#FDE68A"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "±3 pontos percentuais",
+                    "color": "#BAE6FD"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "95% ou superior",
+                    "color": "#BAE6FD"
+                  },
+                  {
+                    "kind": "condition",
+                    "text": "antes da camada seguinte",
+                    "color": "#BAE6FD"
+                  }
+                ],
+                "table": {
+                  "headers": [
+                    "Critério NBR 5681:2015",
+                    "Controle"
+                  ],
+                  "rows": [
+                    [
+                      "Camada compactada",
+                      "≤0,30 m"
+                    ],
+                    [
+                      "Umidade",
+                      "wót ±3 p.p. ou menor"
+                    ],
+                    [
+                      "GC",
+                      "≥95% ou maior"
+                    ],
+                    [
+                      "Falha",
+                      "Corrigir e recompatar antes de cobrir"
+                    ]
+                  ]
+                },
+                "formulas": [
+                  {
+                    "title": "Grau de compactação",
+                    "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mfrac><msub><mi>ρ</mi><mtext>d,campo</mtext></msub><msub><mi>ρ</mi><mtext>d,máx</mtext></msub></mfrac></math>",
+                    "units": "%"
+                  }
+                ],
+                "media": [
+                  {
+                    "id": "PETRO25-SVG-CONTROLE-V191",
+                    "caption": "Controle de camada, umidade e grau de compactação",
+                    "alt": "Controle de camada, umidade e grau de compactação",
+                    "role": "VERSO_APOS_TENTATIVA",
+                    "evidence": "SVG autoral didático; não substitui originais.",
+                    "src": "assets/card_visuals_v349/controle_aterro_v191.svg"
+                  }
+                ],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              },
+              "front": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário.",
+              "back": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais.",
+              "source": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.",
+              "mnemonic": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir.",
+              "related_card_ids": [
+                "CARD-0404",
+                "CARD-0521",
+                "CARD-0857",
+                "CARD-0858",
+                "CARD-0701",
+                "CARD-1442",
+                "CARD-1447",
+                "CARD-0822",
+                "CARD-0825"
+              ],
+              "related_question_ids": [],
+              "history_ref": {
+                "snapshot": "31430e319fb774264b20f7c2a67831a8d78550de",
+                "ids": [
+                  "CARD-0230"
+                ]
+              }
+            },
+            "previous_version": {
+              "id": "CARD-0230",
+              "group": "ENG_GERAL",
+              "discipline": "Engenharia Civil",
+              "subject": "Terraplenagem",
+              "sub": "Aterro de edificação",
+              "front": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário.",
+              "back": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais.",
+              "expl": "Fundamento e fontes\nH23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nMecanismo\nRemover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas.\n\nFórmulas e unidades\nGC=100ρd,campo/ρd,máx. Se wót=12%, faixa de ±3 p.p. é 9–15%; se ρd,máx=1,80 Mg/m³ e GC≥95%, ρd,campo≥1,71 Mg/m³. Aterro de 1,20 m exige pelo menos quatro camadas compactadas de 0,30 m, se especificação permitir.\n\nQuadro comparativo\nEdificação (NBR 5681:2015): 30 cm máximos; GC≥95%; ±3 p.p. ou exigências mais restritivas. Rodovia (DNIT 108): GC≥100% conforme energia e material de referência; não transferir automaticamente critérios de espessura e umidade entre escopos.\n\nTransferência e resolução\nCamada de 0,35 m compactada com GC=97% e umidade adequada não atende ao limite de 0,30 m. Corrigir antes de lançar a seguinte. Se solo for turfa, argila orgânica ou apresentar matéria orgânica micácea/diatomácea, não utilizar segundo item 4.2; evitar solos expansivos.\n\nCondições e exceções\nConferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual.\n\nPegadinhas\nNão confundir espessura solta com compactada, pontos percentuais com variação relativa ou GC com umidade. GC isolado não garante aceitação, nem substitui controle de materiais.\n\nMacete e rastreabilidade\nEdificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir.",
+              "mnemonic": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir.",
+              "reference": "H23-C024",
+              "active": true,
+              "related_card_ids": [
+                "CARD-0404",
+                "CARD-0521",
+                "CARD-0857",
+                "CARD-0858",
+                "CARD-0701",
+                "CARD-1442",
+                "CARD-1447",
+                "CARD-0822",
+                "CARD-0825"
+              ],
+              "last_relationship_at": "2026-11-21",
+              "last_editorial_modified_at": "2026-11-21",
+              "related_question_ids": [],
+              "search_keywords": [
+                "Aterros de edificações: execução e controle tecnológico"
+              ],
+              "consolidation": {
+                "primary_id": "CARD-0230",
+                "historical_ids": [
+                  "CARD-0230"
+                ],
+                "source_catalog_blob": "31430e319fb774264b20f7c2a67831a8d78550de",
+                "original": {
+                  "front": "Qual a função da NBR 5681:2015 em aterros para edificações?",
+                  "back": "Orientar requisitos de execução e controle tecnológico desses aterros.",
+                  "expl": "O controle reúne seleção e preparo do terreno, lançamento em camadas, ajuste de umidade, ensaios de compactação e verificação do grau de compactação. Esses controles reduzem a heterogeneidade e o risco de recalques por compactação insuficiente.\nAplicação: Em um aterro de edificação de 1,2 m, não se deve executar uma única camada solta; dividir em camadas compatíveis com o equipamento, compactar e ensaiar cada trecho previsto no plano de controle.\nPegadinha: Não confundir os requisitos de aterro para edificação da NBR 5681 com os critérios específicos de terraplenagem rodoviária da DNIT 108/2009.\n\nNBR 5681:2015 — aterros em edificações: material selecionado, preparo e controle de execução; vincula CARD-0404, CARD-0521, CARD-0857 e CARD-0858. Separar controle de compactação do balanço corte/aterro.",
+                  "reference": "H23-C024",
+                  "mnemonic": "Edificação: solo, umidade, camada e GC controlados."
+                },
+                "profile": {
+                  "id": "CARD-0230",
+                  "title": "Aterros de edificações: execução e controle tecnológico",
+                  "satellites": [],
+                  "modules": [
+                    {
+                      "ord": 1,
+                      "titulo": "Recuperação ativa",
+                      "texto": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário."
+                    },
+                    {
+                      "ord": 2,
+                      "titulo": "Resposta-modelo",
+                      "texto": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais."
+                    },
+                    {
+                      "ord": 3,
+                      "titulo": "Fundamento e fontes",
+                      "texto": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es"
+                    },
+                    {
+                      "ord": 4,
+                      "titulo": "Mecanismo",
+                      "texto": "Remover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas."
+                    },
+                    {
+                      "ord": 5,
+                      "titulo": "Fórmulas e unidades",
+                      "texto": "GC=100ρd,campo/ρd,máx. Se wót=12%, faixa de ±3 p.p. é 9–15%; se ρd,máx=1,80 Mg/m³ e GC≥95%, ρd,campo≥1,71 Mg/m³. Aterro de 1,20 m exige pelo menos quatro camadas compactadas de 0,30 m, se especificação permitir."
+                    },
+                    {
+                      "ord": 6,
+                      "titulo": "Quadro comparativo",
+                      "texto": "Edificação (NBR 5681:2015): 30 cm máximos; GC≥95%; ±3 p.p. ou exigências mais restritivas. Rodovia (DNIT 108): GC≥100% conforme energia e material de referência; não transferir automaticamente critérios de espessura e umidade entre escopos."
+                    },
+                    {
+                      "ord": 7,
+                      "titulo": "Transferência e resolução",
+                      "texto": "Camada de 0,35 m compactada com GC=97% e umidade adequada não atende ao limite de 0,30 m. Corrigir antes de lançar a seguinte. Se solo for turfa, argila orgânica ou apresentar matéria orgânica micácea/diatomácea, não utilizar segundo item 4.2; evitar solos expansivos."
+                    },
+                    {
+                      "ord": 8,
+                      "titulo": "Cobertura cruzada",
+                      "texto": "CARD-0404, CARD-0521, CARD-0857, CARD-0858, CARD-0701, CARD-1442, CARD-1447, CARD-0824, CARD-0825"
+                    },
+                    {
+                      "ord": 9,
+                      "titulo": "Condições e exceções",
+                      "texto": "Conferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual."
+                    },
+                    {
+                      "ord": 10,
+                      "titulo": "Pegadinhas",
+                      "texto": "Não confundir espessura solta com compactada, pontos percentuais com variação relativa ou GC com umidade. GC isolado não garante aceitação, nem substitui controle de materiais."
+                    },
+                    {
+                      "ord": 11,
+                      "titulo": "Macete e rastreabilidade",
+                      "texto": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir."
+                    }
+                  ],
+                  "editorial": {
+                    "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                    "answer_paragraphs": [
+                      "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais.",
+                      "Remover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas.",
+                      "Conferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual."
+                    ],
+                    "highlights": [
+                      {
+                        "kind": "core",
+                        "text": "até 0,30 m",
+                        "color": "#FDE68A"
+                      },
+                      {
+                        "kind": "condition",
+                        "text": "±3 pontos percentuais",
+                        "color": "#BAE6FD"
+                      },
+                      {
+                        "kind": "condition",
+                        "text": "95% ou superior",
+                        "color": "#BAE6FD"
+                      },
+                      {
+                        "kind": "condition",
+                        "text": "antes da camada seguinte",
+                        "color": "#BAE6FD"
+                      }
+                    ],
+                    "table": {
+                      "headers": [
+                        "Critério NBR 5681:2015",
+                        "Controle"
+                      ],
+                      "rows": [
+                        [
+                          "Camada compactada",
+                          "≤0,30 m"
+                        ],
+                        [
+                          "Umidade",
+                          "wót ±3 p.p. ou menor"
+                        ],
+                        [
+                          "GC",
+                          "≥95% ou maior"
+                        ],
+                        [
+                          "Falha",
+                          "Corrigir e recompatar antes de cobrir"
+                        ]
+                      ]
+                    },
+                    "formulas": [
+                      {
+                        "title": "Grau de compactação",
+                        "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mfrac><msub><mi>ρ</mi><mtext>d,campo</mtext></msub><msub><mi>ρ</mi><mtext>d,máx</mtext></msub></mfrac></math>",
+                        "units": "%"
+                      }
+                    ],
+                    "media": [
+                      {
+                        "id": "PETRO25-SVG-CONTROLE-V191",
+                        "caption": "Controle de camada, umidade e grau de compactação",
+                        "alt": "Controle de camada, umidade e grau de compactação",
+                        "role": "VERSO_APOS_TENTATIVA",
+                        "evidence": "SVG autoral didático; não substitui originais.",
+                        "src": "assets/card_visuals_v349/controle_aterro_v191.svg"
+                      }
+                    ],
+                    "history_collapsed": true,
+                    "reveal_after_attempt": true
+                  },
+                  "front": "Segundo a NBR 5681:2015, como controlar a execução de aterros de edificações? Indique material, camada compactada, umidade, GC e providências quando a camada não atende. Compare o escopo rodoviário.",
+                  "back": "Na NBR 5681:2015, item 4.2, a execução deve controlar preparo do terreno, material selecionado, espessura da camada compactada de até 0,30 m, umidade próxima à ótima (tolerância de ±3 pontos percentuais ou menor) e GC mínimo de 95% ou superior conforme especificação. Se a camada não atender à compactação ou espessura, corrigir, homogeneizar, ajustar umidade e compactar novamente antes da camada seguinte. A DNIT 108/2009-ES é específica de aterros rodoviários e adota GC mínimo de 100% nas condições de referência de corpo e camadas finais.",
+                  "source": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es",
+                  "mnemonic": "Edificação: 30 / ±3 / 95; falhou um critério, corrija antes de cobrir.",
+                  "related_card_ids": [
+                    "CARD-0404",
+                    "CARD-0521",
+                    "CARD-0857",
+                    "CARD-0858",
+                    "CARD-0701",
+                    "CARD-1442",
+                    "CARD-1447",
+                    "CARD-0822",
+                    "CARD-0825"
+                  ],
+                  "related_question_ids": [],
+                  "history_ref": {
+                    "snapshot": "31430e319fb774264b20f7c2a67831a8d78550de",
+                    "ids": [
+                      "CARD-0230"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "CARD-0404",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Terraplenagem",
+          "sub": "Espessura aterro de edificação",
+          "front": "Qual a espessura máxima da camada já compactada em aterro de edificação (NBR 5681:2015)?",
+          "back": "0,30 m por camada compactada, ressalvadas especificações mais restritivas da obra.",
+          "expl": "O valor é medido depois da compactação, e não na condição solta. Camadas excessivamente espessas impedem que a energia do equipamento atinja a parte inferior de modo homogêneo; por isso o controle tecnológico verifica camada, umidade e densidade.\nAplicação: Se é necessário executar 0,90 m compactados, o mínimo teórico é de três camadas de até 0,30 m, desde que o equipamento, o solo e as especificações satisfaçam o controle.\nPegadinha: Não confundir espessura solta com espessura compactada. O máximo de 0,30 m também aparece na DNIT 108 para o corpo de aterro, porém são escopos normativos diferentes.\n\nNBR 5681:2015: limite de espessura máxima 0,30m refere-se à camada APÓS compactação, não à altura de lançamento do solo solto. Verificar valor no enunciado conforme edição.",
+          "mnemonic": "30 cm depois de compactar.",
+          "reference": "H23-C025",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0230",
+            "CARD-0521",
+            "CARD-0857"
+          ],
+          "last_relationship_at": "2026-11-21",
+          "last_editorial_modified_at": "2026-11-21"
+        }
+      ],
+      "source_hashes": {
+        "CARD-0230": "9adb20126de3ddf70de7745def616b33e6bc8c8d1795da669945b1693c5c95e0",
+        "CARD-0404": "68a851fa07b2b2e9c5c4dd2a7bf4e5dbe466a84ae353c1715209b6ecd7eb6982"
+      },
+      "mnemonic": "Edificação: 30 / ±3 / 95. Os 30 cm são depois de compactar.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo a NBR 5681:2015, como controlar materiais, espessura compactada, umidade e grau de compactação de aterros de edificações? Como agir quando uma camada não atende?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na edição de 2015, item 4.2, a execução exige preparação do terreno e seleção do material. A camada deve ter até 0,30 m após compactação, umidade próxima da ótima (tolerância de ±3 pontos percentuais ou menor) e grau de compactação mínimo de 95% ou superior, conforme especificação.\n\nSe algum requisito não for atendido, deve-se corrigir a camada, ajustar a umidade e compactar novamente antes de lançar a seguinte. A DNIT 108/2009-ES trata de aterros rodoviários e utiliza critérios próprios, incluindo grau de compactação mínimo de 100% nas condições de referência de corpo e camadas finais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C024–028; NBR 5681:2015, item 4.2 (paráfrase técnica, edição histórica conferida em https://pdfcoffee.com/nbr-5681-controle-tecnologico-de-aterrospdf-pdf-free.html); DNIT 108/2009-ES, arquivo vigente com Errata 1: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/especificacao-de-servico-es/dnit-108-2009-es\n\nABNT NBR 15115:2004, itens 6.5, 7.1, 7.2.1, 7.2.2 e 7.3.2. https://portal.seuma.fortaleza.ce.gov.br/fortalezaonline/servletrepositoriolegislacao?arquivo=NBR_15115.pdf&pasta=legislacaoGeral . Edição cobrada; vigência atual não confirmada.\n\nRegistros incorporados: H23-C025."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Remover vegetação e entulho inadequados, selecionar solo, distribuir em camadas, ajustar umidade e aplicar equipamento apropriado. Camada muito espessa pode ficar densa em cima e insuficientemente compactada no fundo. Controle de campo verifica o resultado, não apenas o número de passadas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "GC=100ρd,campo/ρd,máx. Se wót=12%, faixa de ±3 p.p. é 9–15%; se ρd,máx=1,80 Mg/m³ e GC≥95%, ρd,campo≥1,71 Mg/m³. Aterro de 1,20 m exige pelo menos quatro camadas compactadas de 0,30 m, se especificação permitir."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Edificação (NBR 5681:2015): 30 cm máximos; GC≥95%; ±3 p.p. ou exigências mais restritivas. Rodovia (DNIT 108): GC≥100% conforme energia e material de referência; não transferir automaticamente critérios de espessura e umidade entre escopos.\n\nNBR 5681:2015 (aterro de edificações) admite wót ±3 pontos percentuais ou faixa menor e GC mínimo 95% ou superior conforme especificação; NBR 15115:2004 (camadas de RCC em pavimentação) especifica wót ±1,5 p.p. e GC mínimo 100%, com recebimento conforme 7.3.2."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Camada de 0,35 m compactada com GC=97% e umidade adequada não atende ao limite de 0,30 m. Corrigir antes de lançar a seguinte. Se solo for turfa, argila orgânica ou apresentar matéria orgânica micácea/diatomácea, não utilizar segundo item 4.2; evitar solos expansivos.\n\nUma altura final de 0,90 m exige no mínimo três camadas compactadas de 0,30 m, se o solo, equipamento e projeto permitirem. O limite não corresponde à espessura solta."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0230, CARD-0404."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Conferir edição exigida, projeto e especificações mais restritivas. A errata da DNIT 108 trata pontos específicos; verificar texto vigente para geometria de camadas. Os números citados da NBR são da edição 2015, sem certificação de vigência atual."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir espessura solta com compactada, pontos percentuais com variação relativa ou GC com umidade. GC isolado não garante aceitação, nem substitui controle de materiais."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Edificação: 30 / ±3 / 95. Os 30 cm são depois de compactar."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Na edição de 2015, item 4.2, a execução exige preparação do terreno e seleção do material. A camada deve ter até 0,30 m após compactação, umidade próxima da ótima (tolerância de ±3 pontos percentuais ou menor) e grau de compactação mínimo de 95% ou superior, conforme especificação.",
+          "Se algum requisito não for atendido, deve-se corrigir a camada, ajustar a umidade e compactar novamente antes de lançar a seguinte. A DNIT 108/2009-ES trata de aterros rodoviários e utiliza critérios próprios, incluindo grau de compactação mínimo de 100% nas condições de referência de corpo e camadas finais."
+        ],
+        "highlights": [
+          {
+            "text": "Na edição de 2015, item 4",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "table": {
+          "headers": [
+            "Critério NBR 5681:2015",
+            "Controle"
+          ],
+          "rows": [
+            [
+              "Camada compactada",
+              "≤0,30 m"
+            ],
+            [
+              "Umidade",
+              "wót ±3 p.p. ou menor"
+            ],
+            [
+              "GC",
+              "≥95% ou maior"
+            ],
+            [
+              "Falha",
+              "Corrigir e recompatar antes de cobrir"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Grau de compactação",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>GC</mi><mo>=</mo><mn>100</mn><mfrac><msub><mi>ρ</mi><mtext>d,campo</mtext></msub><msub><mi>ρ</mi><mtext>d,máx</mtext></msub></mfrac></math>",
+            "units": "%"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO25-SVG-CONTROLE-V191",
+            "caption": "Controle de camada, umidade e grau de compactação",
+            "alt": "Controle de camada, umidade e grau de compactação",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "SVG autoral didático; não substitui originais.",
+            "src": "assets/card_visuals_v349/controle_aterro_v191.svg"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0733",
+      "title": "Caixa sifonada e ramal da bacia sanitária",
+      "front": "Segundo a NBR 8160:1999, quais aparelhos podem descarregar na caixa sifonada comum e por que a bacia sanitária segue um ramal próprio?",
+      "back": "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso da mesma unidade autônoma, observados o dimensionamento e o projeto.\n\nA bacia sanitária possui desconector incorporado e descarrega por ramal próprio. Sua descarga contém sólidos e apresenta características hidráulicas que não são compatíveis com uma caixa sifonada convencional. Caixas que recebem mictórios estão sujeitas a condições específicas.",
+      "satellites": [
+        "CARD-0734"
+      ],
+      "source": "H22-C057\n\nCON-04-008 | H22-C057 | H22-C058",
+      "related_card_ids": [
+        "CARD-1615",
+        "CARD-1620",
+        "CARD-0743",
+        "CARD-0744",
+        "CARD-0745"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0733",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Instalações hidrossanitárias",
+          "sub": "Caixa sifonada",
+          "front": "Quais aparelhos podem descarregar em uma caixa sifonada comum, segundo a NBR 8160:1999, e quais cuidados distinguem esse arranjo do ramal da bacia?",
+          "back": "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso de uma mesma unidade autônoma, observados o projeto e o dimensionamento. A bacia sanitária segue ramal próprio; caixas que recebem mictórios têm condições específicas.",
+          "expl": "Fundamento e fontes\nH22-C057\n\nCON-04-008\n\nMecanismo e compreensão\nEntradas de esgoto secundário convergem para a caixa; seu fecho hídrico separa os ramais afluentes dos gases da rede primária.\n\nAplicação e cálculo\nEm banheiro residencial, ligue lavatório, chuveiro e lavagem de piso à caixa dimensionada; a bacia autossifonada descarrega pelo ramal próprio.\n\nComparação\nCaixa comum agrupa aparelhos compatíveis; bacia já tem desconector próprio. A caixa destinada a mictórios não deve ser presumida equivalente à comum.\n\nTransferência\nNo esquema de banheiro, identifique ramais secundários, fecho hídrico e saída para rede primária, distinguindo a ligação da bacia.\n\nCondições e exceções\nNBR 8160:1999, conforme registros originais; respeitar unidade autônoma, dimensionamento, desconexão e restrições específicas dos aparelhos.\n\nPegadinhas\nNão presumir que toda descarga sanitária pode entrar na caixa comum nem universalizar o arranjo de mictórios.\n\nMacete\nCaixa comum reúne banho e lavatório; bacia tem ramal próprio.",
+          "mnemonic": "Caixa comum reúne banho e lavatório; bacia tem ramal próprio.",
+          "reference": "H22-C057",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1615",
+            "CARD-1620",
+            "CARD-0743",
+            "CARD-0744",
+            "CARD-0745"
+          ],
+          "related_question_ids": [],
+          "search_keywords": [
+            "CARD-0733",
+            "CARD-0742",
+            "Aparelhos ligados à caixa sifonada comum"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0733",
+            "historical_ids": [
+              "CARD-0733",
+              "CARD-0742"
+            ],
+            "source_catalog_blob": "e7cc9714a00c1b91d67a2f50e2f580399b4d7fca",
+            "original": {
+              "front": "Uma caixa sifonada pode receber efluentes de vários aparelhos do mesmo ambiente?",
+              "back": "Sim, no arranjo permitido de projeto, como lavatório, chuveiro e lavagem de piso, mantendo desconexão e dimensionamento.",
+              "expl": "A caixa possui entrada(s), saída e fecho hídrico e pode agrupar esgotos secundários de aparelhos compatíveis, protegendo-os dos gases do trecho primário.\nAplicação: Desenhar o banheiro distinguindo saída da bacia autossifonada das entradas de lavatório/chuveiro na caixa sifonada.\nPegadinha: Não presumir que bacia sanitária descarrega na caixa sifonada comum; o ramal da bacia tem regras próprias.",
+              "reference": "H22-C057",
+              "mnemonic": "Caixa sifonada reúne secundários; bacia é caso separado."
+            },
+            "previous_version": {
+              "front": "Uma caixa sifonada pode receber efluentes de vários aparelhos do mesmo ambiente?",
+              "back": "Sim, no arranjo permitido de projeto, como lavatório, chuveiro e lavagem de piso, mantendo desconexão e dimensionamento.",
+              "expl": "A caixa possui entrada(s), saída e fecho hídrico e pode agrupar esgotos secundários de aparelhos compatíveis, protegendo-os dos gases do trecho primário.\nAplicação: Desenhar o banheiro distinguindo saída da bacia autossifonada das entradas de lavatório/chuveiro na caixa sifonada.\nPegadinha: Não presumir que bacia sanitária descarrega na caixa sifonada comum; o ramal da bacia tem regras próprias.",
+              "mnemonic": "Caixa sifonada reúne secundários; bacia é caso separado.",
+              "consolidation": null
+            },
+            "profile": {
+              "id": "CARD-0733",
+              "title": "Aparelhos ligados à caixa sifonada comum",
+              "front": "Quais aparelhos podem descarregar em uma caixa sifonada comum, segundo a NBR 8160:1999, e quais cuidados distinguem esse arranjo do ramal da bacia?",
+              "back": "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso de uma mesma unidade autônoma, observados o projeto e o dimensionamento. A bacia sanitária segue ramal próprio; caixas que recebem mictórios têm condições específicas.",
+              "satellites": [
+                "CARD-0742"
+              ],
+              "source": "H22-C057\n\nCON-04-008",
+              "related_card_ids": [
+                "CARD-1615",
+                "CARD-1620",
+                "CARD-0743",
+                "CARD-0744",
+                "CARD-0745"
+              ],
+              "related_question_ids": [],
+              "mnemonic": "Caixa comum reúne banho e lavatório; bacia tem ramal próprio.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Quais aparelhos podem descarregar em uma caixa sifonada comum, segundo a NBR 8160:1999, e quais cuidados distinguem esse arranjo do ramal da bacia?"
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso de uma mesma unidade autônoma, observados o projeto e o dimensionamento. A bacia sanitária segue ramal próprio; caixas que recebem mictórios têm condições específicas."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "H22-C057\n\nCON-04-008"
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo e compreensão",
+                  "texto": "Entradas de esgoto secundário convergem para a caixa; seu fecho hídrico separa os ramais afluentes dos gases da rede primária."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Aplicação e cálculo",
+                  "texto": "Em banheiro residencial, ligue lavatório, chuveiro e lavagem de piso à caixa dimensionada; a bacia autossifonada descarrega pelo ramal próprio."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "Caixa comum agrupa aparelhos compatíveis; bacia já tem desconector próprio. A caixa destinada a mictórios não deve ser presumida equivalente à comum."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Transferência",
+                  "texto": "No esquema de banheiro, identifique ramais secundários, fecho hídrico e saída para rede primária, distinguindo a ligação da bacia."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "Origens preservadas: CARD-0733, CARD-0742. Relacionados: CARD-1615, CARD-1620, CARD-0743, CARD-0744, CARD-0745."
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "NBR 8160:1999, conforme registros originais; respeitar unidade autônoma, dimensionamento, desconexão e restrições específicas dos aparelhos."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não presumir que toda descarga sanitária pode entrar na caixa comum nem universalizar o arranjo de mictórios."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete",
+                  "texto": "Caixa comum reúne banho e lavatório; bacia tem ramal próprio."
+                }
+              ],
+              "editorial": {
+                "answer_paragraphs": [
+                  "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso de uma mesma unidade autônoma, observados o projeto e o dimensionamento. A bacia sanitária segue ramal próprio; caixas que recebem mictórios têm condições específicas."
+                ],
+                "highlights": [
+                  {
+                    "text": "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso de uma mesma unidade autônoma, observados o projeto e o dimensionamento",
+                    "kind": "core",
+                    "color": "#FDE68A",
+                    "bold": false
+                  }
+                ],
+                "media": [],
+                "atlas_refs": [],
+                "history_collapsed": true,
+                "reveal_after_attempt": true,
+                "source_status": "CANDIDATO_A_CONFERENCIA",
+                "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO"
+              },
+              "history_ref": {
+                "snapshot": "e7cc9714a00c1b91d67a2f50e2f580399b4d7fca",
+                "ids": [
+                  "CARD-0733",
+                  "CARD-0742"
+                ]
+              }
+            },
+            "source_packet": "increments/consolidacao-vc43-lote03-20261125.json"
+          }
+        },
+        {
+          "id": "CARD-0734",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Instalações hidrossanitárias",
+          "sub": "Bacia sanitária",
+          "front": "Bacia sanitária deve descarregar através de caixa sifonada comum?",
+          "back": "Não; possui desconector incorporado e usa ramal apropriado.",
+          "expl": "A bacia sanitária já tem fecho hídrico próprio em seu sifão integrado. Sua descarga, com sólidos e características hidráulicas específicas, deve seguir ramal devidamente dimensionado; não se conduz pelo interior de uma caixa sifonada convencional.\nAplicação: Exemplo: em banheiro com bacia e chuveiro, o chuveiro pode passar pela caixa sifonada; a bacia segue por ramal de descarga próprio até ligação apropriada no sistema.\nPegadinha: Isso não impede que efluentes dos dois caminhos convirjam mais adiante em conexão tecnicamente admissível.",
+          "mnemonic": "Bacia tem sifão próprio: não passa pela caixa comum.",
+          "reference": "H22-C058",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1615",
+            "CARD-1620"
+          ]
+        }
+      ],
+      "source_hashes": {
+        "CARD-0733": "bd8c2ef24291365cadda86d59deff1877bcf75d53c36031545b6930fe4ba7a1b",
+        "CARD-0734": "da11c083f37e3aa785199dcd9ae8091b5c57e84464126f33976e75ee6186b535"
+      },
+      "mnemonic": "Banho e lavatório na caixa; bacia com sifão e ramal próprios.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo a NBR 8160:1999, quais aparelhos podem descarregar na caixa sifonada comum e por que a bacia sanitária segue um ramal próprio?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso da mesma unidade autônoma, observados o dimensionamento e o projeto.\n\nA bacia sanitária possui desconector incorporado e descarrega por ramal próprio. Sua descarga contém sólidos e apresenta características hidráulicas que não são compatíveis com uma caixa sifonada convencional. Caixas que recebem mictórios estão sujeitas a condições específicas."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H22-C057\n\nCON-04-008\n\nRegistros incorporados: H22-C058."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Entradas de esgoto secundário convergem para a caixa; seu fecho hídrico separa os ramais afluentes dos gases da rede primária."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Em banheiro residencial, ligue lavatório, chuveiro e lavagem de piso à caixa dimensionada; a bacia autossifonada descarrega pelo ramal próprio."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Caixa comum agrupa aparelhos compatíveis; bacia já tem desconector próprio. A caixa destinada a mictórios não deve ser presumida equivalente à comum."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "No esquema de banheiro, identifique ramais secundários, fecho hídrico e saída para rede primária, distinguindo a ligação da bacia.\n\nOs dois caminhos podem convergir mais adiante em ligação tecnicamente admissível; isso não significa que a bacia deva descarregar através da caixa comum."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0733, CARD-0742, CARD-0734."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "NBR 8160:1999, conforme registros originais; respeitar unidade autônoma, dimensionamento, desconexão e restrições específicas dos aparelhos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não presumir que toda descarga sanitária pode entrar na caixa comum nem universalizar o arranjo de mictórios."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Banho e lavatório na caixa; bacia com sifão e ramal próprios."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso da mesma unidade autônoma, observados o dimensionamento e o projeto.",
+          "A bacia sanitária possui desconector incorporado e descarrega por ramal próprio. Sua descarga contém sólidos e apresenta características hidráulicas que não são compatíveis com uma caixa sifonada convencional. Caixas que recebem mictórios estão sujeitas a condições específicas."
+        ],
+        "highlights": [
+          {
+            "text": "A caixa sifonada comum pode reunir efluentes de lavatórios, bidês, banheiras, chuveiros e lavagem de piso da mesma unidade autônoma, observados o dimensionamento e o projeto",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA",
+        "status": "PUBLICACAO_AUTORIZADA_CONSOLIDACAO"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0752",
+      "title": "Séries normal e intermediária de peneiras",
+      "front": "Quantas peneiras formam as séries normal e intermediária, quais são suas aberturas e qual a relação com módulo de finura e DMC?",
+      "back": "A série normal contém 10 peneiras: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300 e 150 µm. A série intermediária contém 6 peneiras: 63; 50; 31,5; 25; 12,5 e 6,3 mm.\n\nO módulo de finura é calculado pela soma das porcentagens retidas acumuladas nas peneiras da série normal, dividida por 100. A intermediária refina a graduação e pode ser empregada na identificação da dimensão máxima característica, conforme o critério de retenção acumulada da norma.",
+      "satellites": [
+        "CARD-0753"
+      ],
+      "source": "H23-C008\n\nNBR 7211:2022 itens 3.1–3.2, Tabelas 2 e 6; NBR 17054:2022. https://sistema.ceteclins.com.br/Uploads/PDF/050CFB75-F305-4FC6-8A6D-5D03E95162F5_08122022143526.pdf . Edições citadas, sem atestar revisão posterior. | H23-C008 | H23-C009",
+      "related_card_ids": [
+        "CARD-0751"
+      ],
+      "related_question_ids": [
+        "PETRO26-GRAN-02"
+      ],
+      "source_material": [
+        {
+          "id": "CARD-0752",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Materiais de construção",
+          "sub": "Série normal",
+          "front": "Quantas peneiras existem na série NORMAL da NBR NM 248:2003/NBR 17054 e quais as aberturas?",
+          "back": "São 10: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300; 150 µm. O módulo de finura utiliza a série normal.",
+          "expl": "Fundamento e fontes\nH23-C008\n\nNBR 7211:2022 itens 3.1–3.2, Tabelas 2 e 6; NBR 17054:2022. https://sistema.ceteclins.com.br/Uploads/PDF/050CFB75-F305-4FC6-8A6D-5D03E95162F5_08122022143526.pdf . Edições citadas, sem atestar revisão posterior.\n\nMecanismo\nA **série normal** da NBR NM 248:2003 contém **10 peneiras**, com aberturas nominais decrescentes de **75, 37,5, 19, 9,5, 4,75, 2,36 e 1,18 mm**, seguidas de **600, 300 e 150 µm**, isto é, **0,600, 0,300 e 0,150 mm**. A NBR 17054:2022, substitutiva do ensaio, mantém essa lista de referência.\n\nA lista normal é essencial porque o **módulo de finura** é obtido pela soma dos percentuais retidos acumulados nas peneiras da série normal dividida por 100, conforme método. As peneiras intermediárias podem ser utilizadas para detalhar a graduação e também para determinar a dimensão máxima característica quando cumprido o critério de retenção acumulada pertinente; não entram automaticamente no módulo de finura.\n\nA prova pergunta quantas peneiras compõem cada série **respectivamente**: normal primeiro, intermediária depois. A resposta é **10 e 6 (alternativa E)**. Na figura original enviada pelo estudante, as aberturas ocupam colunas distintas; essa imagem fica anexada ao registro da questão e ao cartão, preservada no Drive privado, e o guia A4 derivado fornece uma segunda forma de revisão.\n\nFórmulas, variáveis e unidades\nMF=Σ percentuais retidos acumulados na série normal/100.\n\nComparação\nA série normal inclui 75, 4,75 e 0,15 mm, fronteiras nominais de agregado graúdo/miúdo para concreto; isso não substitui a série completa.\n\nAplicação e transferência\nAs aberturas 600, 300, 150 µm correspondem a 0,600, 0,300, 0,150 mm.\n\nCondições e exceções\nUsar a edição e o escopo do método citados.\n\nPegadinhas\nNão transportar limites de uma classificação para outra sem verificar escopo.\n\nMacete e histórico\nNORMAL = 10 = 7 em mm + 3 em µm.",
+          "mnemonic": "NORMAL = 10 = 7 em mm + 3 em µm.",
+          "reference": "H23-C008",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0751",
+            "CARD-0753"
+          ],
+          "related_question_ids": [
+            "PETRO26-GRAN-02"
+          ],
+          "media_ids": [
+            "IMG-PETRO26-ESCALA-A4-01",
+            "IMG-PETRO26-NM248-TAB1-01"
+          ],
+          "last_relationship_at": "2026-11-21",
+          "last_editorial_modified_at": "2026-11-21",
+          "legacy_snapshot_v339": {
+            "front": "Na NBR 17054:2022, quais aberturas formam a série normal de peneiras para agregado e qual indicador depende especificamente dessa série?",
+            "back": "75; 37,5; 19; 9,5; 4,75; 2,36; 1,18; 0,600; 0,300; 0,150 mm; o módulo de finura utiliza essa série.",
+            "expl": "São aberturas padronizadas em ordem decrescente. A soma dos percentuais retidos acumulados nelas, dividida por 100, fornece o módulo de finura do agregado.\nAplicação: Para rever o laboratório, agrupar a série como 75–37,5–19–9,5 e 4,75–2,36–1,18–0,60–0,30–0,15 mm.\nPegadinha: 63; 50; 31,5; 25; 12,5 e 6,3 mm pertencem à série intermediária, não à normal listada.",
+            "mnemonic": "Normal = 75→37,5→19→9,5→4,75→2,36→1,18→0,6→0,3→0,15.",
+            "reference": "H23-C008",
+            "related_card_ids": [],
+            "related_question_ids": []
+          },
+          "search_keywords": [
+            "Série normal"
+          ],
+          "consolidation": {
+            "primary_id": "CARD-0752",
+            "historical_ids": [
+              "CARD-0752"
+            ],
+            "original": {
+              "front": "Quantas peneiras existem na série NORMAL da NBR NM 248:2003/NBR 17054 e quais as aberturas?",
+              "back": "São 10: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300; 150 µm. O módulo de finura utiliza a série normal.",
+              "expl": "A **série normal** da NBR NM 248:2003 contém **10 peneiras**, com aberturas nominais decrescentes de **75, 37,5, 19, 9,5, 4,75, 2,36 e 1,18 mm**, seguidas de **600, 300 e 150 µm**, isto é, **0,600, 0,300 e 0,150 mm**. A NBR 17054:2022, substitutiva do ensaio, mantém essa lista de referência.\n\nA lista normal é essencial porque o **módulo de finura** é obtido pela soma dos percentuais retidos acumulados nas peneiras da série normal dividida por 100, conforme método. As peneiras intermediárias podem ser utilizadas para detalhar a graduação e também para determinar a dimensão máxima característica quando cumprido o critério de retenção acumulada pertinente; não entram automaticamente no módulo de finura.\n\nA prova pergunta quantas peneiras compõem cada série **respectivamente**: normal primeiro, intermediária depois. A resposta é **10 e 6 (alternativa E)**. Na figura original enviada pelo estudante, as aberturas ocupam colunas distintas; essa imagem fica anexada ao registro da questão e ao cartão, preservada no Drive privado, e o guia A4 derivado fornece uma segunda forma de revisão.",
+              "reference": "H23-C008",
+              "mnemonic": "NORMAL = 10 = 7 em mm + 3 em µm."
+            },
+            "previous_version": {
+              "id": "CARD-0752",
+              "group": "ENG_GERAL",
+              "discipline": "Engenharia Civil",
+              "subject": "Materiais de construção",
+              "sub": "Série normal",
+              "front": "Quantas peneiras existem na série NORMAL da NBR NM 248:2003/NBR 17054 e quais as aberturas?",
+              "back": "São 10: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300; 150 µm. O módulo de finura utiliza a série normal.",
+              "expl": "A **série normal** da NBR NM 248:2003 contém **10 peneiras**, com aberturas nominais decrescentes de **75, 37,5, 19, 9,5, 4,75, 2,36 e 1,18 mm**, seguidas de **600, 300 e 150 µm**, isto é, **0,600, 0,300 e 0,150 mm**. A NBR 17054:2022, substitutiva do ensaio, mantém essa lista de referência.\n\nA lista normal é essencial porque o **módulo de finura** é obtido pela soma dos percentuais retidos acumulados nas peneiras da série normal dividida por 100, conforme método. As peneiras intermediárias podem ser utilizadas para detalhar a graduação e também para determinar a dimensão máxima característica quando cumprido o critério de retenção acumulada pertinente; não entram automaticamente no módulo de finura.\n\nA prova pergunta quantas peneiras compõem cada série **respectivamente**: normal primeiro, intermediária depois. A resposta é **10 e 6 (alternativa E)**. Na figura original enviada pelo estudante, as aberturas ocupam colunas distintas; essa imagem fica anexada ao registro da questão e ao cartão, preservada no Drive privado, e o guia A4 derivado fornece uma segunda forma de revisão.",
+              "mnemonic": "NORMAL = 10 = 7 em mm + 3 em µm.",
+              "reference": "H23-C008",
+              "active": true,
+              "related_card_ids": [
+                "CARD-0751",
+                "CARD-0753"
+              ],
+              "related_question_ids": [
+                "PETRO26-GRAN-02"
+              ],
+              "media_ids": [
+                "IMG-PETRO26-ESCALA-A4-01",
+                "IMG-PETRO26-NM248-TAB1-01"
+              ],
+              "last_relationship_at": "2026-11-21",
+              "last_editorial_modified_at": "2026-11-21",
+              "legacy_snapshot_v339": {
+                "front": "Na NBR 17054:2022, quais aberturas formam a série normal de peneiras para agregado e qual indicador depende especificamente dessa série?",
+                "back": "75; 37,5; 19; 9,5; 4,75; 2,36; 1,18; 0,600; 0,300; 0,150 mm; o módulo de finura utiliza essa série.",
+                "expl": "São aberturas padronizadas em ordem decrescente. A soma dos percentuais retidos acumulados nelas, dividida por 100, fornece o módulo de finura do agregado.\nAplicação: Para rever o laboratório, agrupar a série como 75–37,5–19–9,5 e 4,75–2,36–1,18–0,60–0,30–0,15 mm.\nPegadinha: 63; 50; 31,5; 25; 12,5 e 6,3 mm pertencem à série intermediária, não à normal listada.",
+                "mnemonic": "Normal = 75→37,5→19→9,5→4,75→2,36→1,18→0,6→0,3→0,15.",
+                "reference": "H23-C008",
+                "related_card_ids": [],
+                "related_question_ids": []
+              }
+            },
+            "profile": {
+              "id": "CARD-0752",
+              "title": "Série normal",
+              "front": "Quantas peneiras existem na série NORMAL da NBR NM 248:2003/NBR 17054 e quais as aberturas?",
+              "back": "São 10: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300; 150 µm. O módulo de finura utiliza a série normal.",
+              "source": "H23-C008\n\nNBR 7211:2022 itens 3.1–3.2, Tabelas 2 e 6; NBR 17054:2022. https://sistema.ceteclins.com.br/Uploads/PDF/050CFB75-F305-4FC6-8A6D-5D03E95162F5_08122022143526.pdf . Edições citadas, sem atestar revisão posterior.",
+              "mnemonic": "NORMAL = 10 = 7 em mm + 3 em µm.",
+              "modules": [
+                {
+                  "ord": 1,
+                  "titulo": "Recuperação ativa",
+                  "texto": "Quantas peneiras existem na série NORMAL da NBR NM 248:2003/NBR 17054 e quais as aberturas?"
+                },
+                {
+                  "ord": 2,
+                  "titulo": "Resposta-modelo",
+                  "texto": "São 10: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300; 150 µm. O módulo de finura utiliza a série normal."
+                },
+                {
+                  "ord": 3,
+                  "titulo": "Fundamento e fontes",
+                  "texto": "H23-C008\n\nNBR 7211:2022 itens 3.1–3.2, Tabelas 2 e 6; NBR 17054:2022. https://sistema.ceteclins.com.br/Uploads/PDF/050CFB75-F305-4FC6-8A6D-5D03E95162F5_08122022143526.pdf . Edições citadas, sem atestar revisão posterior."
+                },
+                {
+                  "ord": 4,
+                  "titulo": "Mecanismo",
+                  "texto": "A **série normal** da NBR NM 248:2003 contém **10 peneiras**, com aberturas nominais decrescentes de **75, 37,5, 19, 9,5, 4,75, 2,36 e 1,18 mm**, seguidas de **600, 300 e 150 µm**, isto é, **0,600, 0,300 e 0,150 mm**. A NBR 17054:2022, substitutiva do ensaio, mantém essa lista de referência.\n\nA lista normal é essencial porque o **módulo de finura** é obtido pela soma dos percentuais retidos acumulados nas peneiras da série normal dividida por 100, conforme método. As peneiras intermediárias podem ser utilizadas para detalhar a graduação e também para determinar a dimensão máxima característica quando cumprido o critério de retenção acumulada pertinente; não entram automaticamente no módulo de finura.\n\nA prova pergunta quantas peneiras compõem cada série **respectivamente**: normal primeiro, intermediária depois. A resposta é **10 e 6 (alternativa E)**. Na figura original enviada pelo estudante, as aberturas ocupam colunas distintas; essa imagem fica anexada ao registro da questão e ao cartão, preservada no Drive privado, e o guia A4 derivado fornece uma segunda forma de revisão."
+                },
+                {
+                  "ord": 5,
+                  "titulo": "Fórmulas, variáveis e unidades",
+                  "texto": "MF=Σ percentuais retidos acumulados na série normal/100."
+                },
+                {
+                  "ord": 6,
+                  "titulo": "Comparação",
+                  "texto": "A série normal inclui 75, 4,75 e 0,15 mm, fronteiras nominais de agregado graúdo/miúdo para concreto; isso não substitui a série completa."
+                },
+                {
+                  "ord": 7,
+                  "titulo": "Aplicação e transferência",
+                  "texto": "As aberturas 600, 300, 150 µm correspondem a 0,600, 0,300, 0,150 mm."
+                },
+                {
+                  "ord": 8,
+                  "titulo": "Cobertura cruzada",
+                  "texto": "CARD-0751, CARD-0753"
+                },
+                {
+                  "ord": 9,
+                  "titulo": "Condições e exceções",
+                  "texto": "Usar a edição e o escopo do método citados."
+                },
+                {
+                  "ord": 10,
+                  "titulo": "Pegadinhas",
+                  "texto": "Não transportar limites de uma classificação para outra sem verificar escopo."
+                },
+                {
+                  "ord": 11,
+                  "titulo": "Macete e histórico",
+                  "texto": "NORMAL = 10 = 7 em mm + 3 em µm."
+                }
+              ],
+              "related_card_ids": [
+                "CARD-0751",
+                "CARD-0753"
+              ],
+              "editorial": {
+                "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+                "answer_paragraphs": [
+                  "São 10: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300; 150 µm. O módulo de finura utiliza a série normal."
+                ],
+                "highlights": [
+                  {
+                    "text": "São 10: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300; 150 µm.",
+                    "kind": "core",
+                    "color": "#FDE68A"
+                  }
+                ],
+                "media": [
+                  {
+                    "id": "PETRO32-AGREGADOS",
+                    "role": "VERSO_APOS_TENTATIVA",
+                    "src": "assets/petro32_agregados.svg",
+                    "caption": "Esquema didático do método.",
+                    "alt": "Esquema de revisão.",
+                    "source": "Esquema didático autoral.",
+                    "origin": "DERIVADA_AUTORAL"
+                  }
+                ],
+                "history_collapsed": true,
+                "reveal_after_attempt": true
+              }
+            }
+          }
+        },
+        {
+          "id": "CARD-0753",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Materiais de construção",
+          "sub": "Série intermediária",
+          "front": "Quantas peneiras pertencem à série INTERMEDIÁRIA da NBR NM 248:2003/NBR 17054 e quais são?",
+          "back": "São 6 peneiras: 63; 50; 31,5; 25; 12,5 e 6,3 mm. Complementam a série normal na caracterização da graduação e da DMC.",
+          "expl": "A **série intermediária** da NBR NM 248:2003 e da NBR 17054:2022 é composta por **seis peneiras**, com aberturas nominais de **63, 50, 31,5, 25, 12,5 e 6,3 mm**. A sequência é decrescente e intercala aberturas entre posições da série normal, refinando a análise do agregado.\n\nAs peneiras intermediárias auxiliam a descrever a distribuição granulométrica do material, em especial agregados graúdos, e podem ser empregadas na identificação da **dimensão máxima característica (DMC)**. Já o **módulo de finura** corresponde à soma das retenções acumuladas nas peneiras da **série normal**, dividida por 100; misturar as séries na fórmula sem critério é erro de metodologia do ensaio.\n\nA questão pergunta o total das duas séries **respectivamente**. Portanto, a normal possui **10** e a intermediária **6**, alternativa E. A fotografia original da tabela foi vinculada a este cartão e ao CARD-0752 na biblioteca privada; no próprio verso há o guia didático vetorial com a lista para apoiar a recuperação.",
+          "mnemonic": "INTERMEDIÁRIA = 6 = 63–50–31,5–25–12,5–6,3.",
+          "reference": "H23-C009",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0751",
+            "CARD-0752"
+          ],
+          "related_question_ids": [
+            "PETRO26-GRAN-02"
+          ],
+          "media_ids": [
+            "IMG-PETRO26-ESCALA-A4-01",
+            "IMG-PETRO26-NM248-TAB1-01"
+          ],
+          "last_relationship_at": "2026-11-21",
+          "last_editorial_modified_at": "2026-11-21",
+          "legacy_snapshot_v339": {
+            "front": "Quais são as seis aberturas da série intermediária de peneiras da NBR 17054:2022 e para que podem ser utilizadas?",
+            "back": "63; 50; 31,5; 25; 12,5; 6,3 mm; auxiliam a descrever a distribuição e a determinar a DMC.",
+            "expl": "A série intermediária acrescenta resoluções entre algumas peneiras normais, importantes para identificar tamanhos característicos sem extrapolar a faixa do material.\nAplicação: No laudo de agregados, registrar a série e a abertura da peneira que fornece a DMC.\nPegadinha: Não incluir peneiras intermediárias na soma do módulo de finura se a definição adotada usa exclusivamente a série normal.",
+            "mnemonic": "Intermediária: 63–50–31,5–25–12,5–6,3.",
+            "reference": "H23-C009",
+            "related_card_ids": [],
+            "related_question_ids": []
+          }
+        }
+      ],
+      "source_hashes": {
+        "CARD-0752": "d31cae1ea1b58ae703aad36d27450781f4770b3447f46f1b92c33d92f253bba5",
+        "CARD-0753": "68dd63d4e66d29c10c16bc12d5ca90b7e2568497898f87720044d59f2a4218aa"
+      },
+      "mnemonic": "Normal 10 (7 mm + 3 µm); intermediária 6 (63–50–31,5–25–12,5–6,3).",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quantas peneiras formam as séries normal e intermediária, quais são suas aberturas e qual a relação com módulo de finura e DMC?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A série normal contém 10 peneiras: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300 e 150 µm. A série intermediária contém 6 peneiras: 63; 50; 31,5; 25; 12,5 e 6,3 mm.\n\nO módulo de finura é calculado pela soma das porcentagens retidas acumuladas nas peneiras da série normal, dividida por 100. A intermediária refina a graduação e pode ser empregada na identificação da dimensão máxima característica, conforme o critério de retenção acumulada da norma."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C008\n\nNBR 7211:2022 itens 3.1–3.2, Tabelas 2 e 6; NBR 17054:2022. https://sistema.ceteclins.com.br/Uploads/PDF/050CFB75-F305-4FC6-8A6D-5D03E95162F5_08122022143526.pdf . Edições citadas, sem atestar revisão posterior.\n\nRegistros incorporados: H23-C009."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A **série normal** da NBR NM 248:2003 contém **10 peneiras**, com aberturas nominais decrescentes de **75, 37,5, 19, 9,5, 4,75, 2,36 e 1,18 mm**, seguidas de **600, 300 e 150 µm**, isto é, **0,600, 0,300 e 0,150 mm**. A NBR 17054:2022, substitutiva do ensaio, mantém essa lista de referência.\n\nA lista normal é essencial porque o **módulo de finura** é obtido pela soma dos percentuais retidos acumulados nas peneiras da série normal dividida por 100, conforme método. As peneiras intermediárias podem ser utilizadas para detalhar a graduação e também para determinar a dimensão máxima característica quando cumprido o critério de retenção acumulada pertinente; não entram automaticamente no módulo de finura.\n\nA prova pergunta quantas peneiras compõem cada série **respectivamente**: normal primeiro, intermediária depois. A resposta é **10 e 6 (alternativa E)**. Na figura original enviada pelo estudante, as aberturas ocupam colunas distintas; essa imagem fica anexada ao registro da questão e ao cartão, preservada no Drive privado, e o guia A4 derivado fornece uma segunda forma de revisão."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas, variáveis e unidades",
+          "texto": "MF=Σ percentuais retidos acumulados na série normal/100."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "A série normal inclui 75, 4,75 e 0,15 mm, fronteiras nominais de agregado graúdo/miúdo para concreto; isso não substitui a série completa."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "As aberturas 600, 300, 150 µm correspondem a 0,600, 0,300, 0,150 mm.\n\nA série intermediária não integra automaticamente o cálculo do módulo de finura. A pergunta de prova solicita respectivamente 10 e 6; preserve as duas colunas da tabela original."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0752, CARD-0753."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar a edição e o escopo do método citados."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não transportar limites de uma classificação para outra sem verificar escopo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Normal 10 (7 mm + 3 µm); intermediária 6 (63–50–31,5–25–12,5–6,3)."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "A série normal contém 10 peneiras: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300 e 150 µm. A série intermediária contém 6 peneiras: 63; 50; 31,5; 25; 12,5 e 6,3 mm.",
+          "O módulo de finura é calculado pela soma das porcentagens retidas acumuladas nas peneiras da série normal, dividida por 100. A intermediária refina a graduação e pode ser empregada na identificação da dimensão máxima característica, conforme o critério de retenção acumulada da norma."
+        ],
+        "highlights": [
+          {
+            "text": "A série normal contém 10 peneiras: 75; 37,5; 19; 9,5; 4,75; 2,36; 1,18 mm; 600; 300 e 150 µm",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO32-AGREGADOS",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro32_agregados.svg",
+            "caption": "Esquema didático do método.",
+            "alt": "Esquema de revisão.",
+            "source": "Esquema didático autoral.",
+            "origin": "DERIVADA_AUTORAL"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "atlas_refs": [],
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": [
+          "IMG-PETRO26-ESCALA-A4-01",
+          "IMG-PETRO26-NM248-TAB1-01"
+        ]
+      }
+    }
+  ],
+  "private_srs_changed": false,
+  "private_content_exported": false,
+  "validation": {
+    "individual_sources_recovered": true,
+    "private_inventory_verified": false,
+    "display_verified": false
+  }
+}
