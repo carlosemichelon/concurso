@@ -60,10 +60,10 @@ function msg(text,canRetry=false){
 function number(){return typeof cards!=='undefined'&&Array.isArray(cards)?cards.length:0}
 async function check(force=false){
  if(typeof loadCards!=='function')return;
- if(!number())msg('Carregando o catálogo oficial '+BM_CATALOG.display_version+'…');
+ if(!number())msg('Entre com Google para carregar os cartões do Drive…');
  try{
   await loadCards();
-  if(number()!==BM_CATALOG.counts.canonical+BM_CATALOG.counts.ijui)throw Error('O catálogo oficial está incompleto ('+number()+' IDs).');
+  if(number()!==window.BMAccountInfo?.()?.total)throw Error('A base individual não foi confirmada ('+number()+' IDs).');
   if(typeof cardRender==='function')cardRender();
   const count=$('cardCount')?.textContent||'';
   if(!list.querySelector('article.card')){

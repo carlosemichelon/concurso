@@ -540,7 +540,7 @@ const siteVersion=document.title.match(/\bVS\d+\b/)?.[0]||document.documentEleme
 const defaults=Object.freeze({publicBase:BM_CATALOG.counts.canonical,publicActive:BM_CATALOG.counts.active,ijui:BM_CATALOG.counts.ijui,pdfBase:78,historicalImages:86,recoveredImages:93});
 const fmt=n=>Number(n||0).toLocaleString('pt-BR');
 const $=id=>document.getElementById(id);
-const state={base:defaults.publicBase,active:defaults.publicActive,ijui:defaults.ijui,origin:'publica',privateVersion:'',pdfs:defaults.pdfBase,images:179,imagesLoaded:false,cardsLoaded:false};
+const state={base:0,active:0,ijui:0,origin:'privada',privateVersion:'',pdfs:0,images:0,imagesLoaded:false,cardsLoaded:false};
 function stat(index,count,caption,help){
  const wrapper=document.querySelector('header .bm-v046-header-stats')||document.querySelector('header .stats')||document.querySelector('main > .stats');
  const el=wrapper?.querySelectorAll(':scope > .stat')?.[index];if(!el)return;
@@ -551,7 +551,7 @@ function stat(index,count,caption,help){
 }
 function render(){
  const version=document.querySelector('header .brand > .version');
- const vc=BM_CATALOG.display_version;
+ const account=window.BMAccountInfo?.(),vc=account?.version||'—';
  const versionText='Site '+siteVersion+' · Cartões '+vc;
  if(version&&version.textContent!==versionText)version.textContent=versionText;
  const tagline=document.querySelector('header .head > div:first-child > .version');
@@ -559,21 +559,21 @@ function render(){
  const footer=document.querySelector('main > footer');
  const footerText='Banco Mestre · Site '+siteVersion+' · Catálogo '+vc;
  if(footer&&footer.textContent!==footerText)footer.textContent=footerText;
- const total=defaults.publicBase+defaults.ijui;
+ const total=account?.total||0;
  const phase=window.BMCatalogLoadState?.state||'idle';
  const confirmed=state.cardsLoaded&&phase==='ready';
- const detail=confirmed?'Carregado e conferido nesta sessão.':phase==='error'?'Falha ao carregar: '+(window.BMCatalogLoadState.message||'tente novamente'):'Contagem da publicação; carregamento ainda não confirmado.';
- stat(1,confirmed?state.active:defaults.publicActive,'Cartões ativos','Catálogo oficial '+vc+' · '+fmt(total)+' IDs únicos. '+detail);
- const info=$('bm382CatalogInfo');if(info)info.textContent='Catálogo oficial '+vc+': '+fmt(defaults.publicActive)+' cartões ativos de '+fmt(total)+' IDs. '+detail;
+ const detail=confirmed?'Carregado e conferido nesta sessão.':phase==='error'?'Falha ao carregar: '+(window.BMCatalogLoadState.message||'tente novamente'):'Entre com Google para carregar seus dados.';
+ stat(1,confirmed?state.active:0,'Cartões ativos','Drive individual · '+vc+' · '+fmt(total)+' IDs únicos. '+detail);
+ const info=$('bm382CatalogInfo');if(info)info.textContent=account?'Drive individual · '+vc+': '+fmt(account.count)+' cartões ativos. '+detail:detail;
  // PDFs e Atlas: seus próprios módulos autenticados são as fontes de contagem.
- const privateBanner=$('bm119PublicSource');if(state.origin==='privada'&&privateBanner)privateBanner.textContent='Fonte privada carregada. A contagem acima refere-se ao catálogo oficial.';
+ const privateBanner=$('bm119PublicSource');if(privateBanner)privateBanner.textContent=confirmed?'Cartões carregados do seu Google Drive.':'Entre com Google para carregar seus cartões.';
 }
 function updateCards(base,ijui,items){
  if(!Number.isInteger(base)||!Number.isInteger(ijui)||base<=0||ijui<0||!Array.isArray(items)||items.length!==base+ijui)return false;
  const ids=items.map(c=>String(c?.id||''));
  if(ids.some(x=>!x)||new Set(ids).size!==ids.length)return false;
  const active=items.filter(c=>c.active!==false).length;
- if(items.length!==defaults.publicBase+defaults.ijui||active!==defaults.publicActive)return false;
+ const account=window.BMAccountInfo?.();if(!account||items.length!==account.total||active!==account.count)return false;
  state.base=items.length;state.active=active;state.ijui=ijui;
  state.cardsLoaded=true;render();return true;
 }
@@ -596,7 +596,7 @@ document.addEventListener('bm-v185-cards-synced',e=>{
  state.privateVersion=String(e?.detail?.version||'').slice(0,48);state.origin='privada';
  render(); // A fonte privada não substitui a contagem pública validada.
 });
-document.addEventListener('bm-catalog-load-state',render);
+document.addEventListener('bm-catalog-load-state',render);document.addEventListener('bm-account-connected',render);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 const api=Object.freeze({updateCards,updateImages,render,get counts(){return {...state}}});
 window.BM184Header=api;window.BM193Header=api;window.BM199Header=api;window.BM200Header=api;window.BM201Header=api;window.BM202Header=api;window.BM203Header=api;window.BM204Header=api;window.BM205Header=api;window.BM206Header=api;

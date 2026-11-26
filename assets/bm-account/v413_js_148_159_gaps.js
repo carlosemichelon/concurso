@@ -179,7 +179,7 @@ function refresh(){
   indicator.textContent='Drive expirado · reconectar para sincronizar';
   indicator.title='A autorização Google expirou. Clique em Conectar Drive para retomar as atualizações automáticas.';
  }else{
-  indicator.textContent=current==='aguardando'?'Automático aguardando Drive':'Automático aguardando autorização';
+  indicator.textContent='Aguardando login';
   indicator.title='A sincronização automática começa após autorizar o Google Drive pelo botão do cabeçalho.';
  }
 }
@@ -188,7 +188,7 @@ function init(){
  ensureIndicator();refresh();
  // O fluxo OAuth já efetua a primeira verificação: evita operações concorrentes.
  document.addEventListener('bm-media-drive-authorized',()=>{lastAttempt=Date.now();refresh();});
- document.addEventListener('bm239-sync-finished',()=>{lastAttempt=Date.now();refresh();});
+ document.addEventListener('bm239-sync-finished',()=>{lastAttempt=Date.now();refresh();});document.addEventListener('bm-account-connected',refresh);
  // Trocar entre abas internas não modifica lastAttempt, token OAuth ou permissão.
  document.querySelector('header nav')?.addEventListener('click',()=>queueMicrotask(refresh),true);
  document.addEventListener('bm302-section-changed',refresh);
@@ -834,7 +834,7 @@ function refreshCounts(){
  }
  const selected=Number(count.dataset.bmOfficialSelection||0);
  const loadedExternal=(window.BM225LegalTaxonomy?.all?.()||[]).filter(c=>!data.has(c.id)).length;
- const officialLabel='Catálogo '+BM_CATALOG.display_version+' · '+fmt(BM_CATALOG.counts.active)+' cartões ativos';
+ const account=window.BMAccountInfo?.();const officialLabel=account?'Drive · '+account.version+' · '+fmt(active)+' cartões ativos':'Entre com Google';
  if(count.textContent!==officialLabel)count.textContent=officialLabel;
  const label='Exibidos: '+fmt(official.size)+' de '+fmt(selected)+' do catálogo'+(external.size?' + '+fmt(external.size)+' TRT':'')+' · Base carregada: '+fmt(active)+' ativos'+(loadedExternal?' · '+fmt(loadedExternal)+' TRT externos (fora do total oficial)':'');
  if(result.textContent!==label)result.textContent=label;

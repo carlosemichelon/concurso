@@ -27,6 +27,9 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   if(a.sha256Checksum){const digest=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('');if(digest!==a.sha256Checksum)throw Error('Hash divergente: '+a.name);}
   return {bytes,meta:a}};
  const json=async(id,max)=>{const r=await raw(id,max);return {data:JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(r.bytes)),meta:r.meta}};
+ const profile=(await (await get('https://www.googleapis.com/drive/v3/about',{fields:'user(displayName,emailAddress,permissionId)'})).json()).user;
+ if(!validId(profile?.permissionId))throw Error('Identidade Google não confirmada');
+ const identity=Object.freeze({name:String(profile.displayName||profile.emailAddress||'Conta Google').slice(0,160),email:String(profile.emailAddress||'').slice(0,254)});
  const root=await unique("mimeType = '"+folder+"' and name = 'DataBase_Concurso'","Pasta individual DataBase_Concurso");
  const rootUrl='https://drive.google.com/drive/folders/'+root.id;
  let snapshot;try{snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal})}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,editorialPreview:true})}
@@ -290,5 +293,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const confirmed=await imageHistory(id,hash);if(!eq(confirmed.latest,e)){uncertain=true;fail('Marcações de imagem não confirmadas',409)}
   return imageView(id,hash,e);
  });
- return Object.freeze({root:root.id,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }

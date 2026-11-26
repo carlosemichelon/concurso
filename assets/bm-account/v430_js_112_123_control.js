@@ -11,7 +11,7 @@ const $=id=>document.getElementById(id);
 let mounted=false;
 const core=()=>window.BancoMestreMediaSyncV182;
 const driver=()=>window.BancoMestreDriveV042||window.BancoMestreDriveV038;
-const connected=()=>Boolean(core()?.token?.());
+const connected=()=>Boolean(window.BMAccountInfo?.());
 function update(){
  for(const x of document.querySelectorAll('.bm225-drive-auth')){
   const span=x.querySelector('[data-state]'),button=x.querySelector('button');
@@ -20,32 +20,19 @@ function update(){
   x.dataset.connected=yes?'yes':'no';
   span.textContent=yes
    ?'Google Drive conectado nesta visita · imagens e PDFs compartilham o acesso'
-   :'Google Drive desconectado · os arquivos privados exigem autorização';
+   :'Entre com Google para consultar os seus dados';
   button.hidden=yes;button.disabled=yes;
-  button.textContent='Conectar / renovar Drive';
+  button.textContent='Usuário / Login';
  }
 }
-function promptForDrive(){
- const d=driver();
- if(d?.ready&&typeof d.authorize==='function'){
-  d.authorize();update();return true;
- }
- if(d?.prepare){
-  const p=d.prepare();
-  Promise.resolve(p).finally(()=>{
-   for(const box of document.querySelectorAll('.bm225-drive-auth [data-state]'))
-    if(!connected())box.textContent='Google pronto. Clique novamente em Conectar / renovar Drive.';
-  });
- }
- return false;
-}
+function promptForDrive(){document.getElementById('bm239-drive-action')?.click();return true;}
 function mountTo(panel,position){
  if(!panel||panel.querySelector('.bm225-drive-auth'))return;
  const wrap=document.createElement('div');wrap.className='bm225-drive-auth';
  wrap.setAttribute('aria-label','Conexão de imagens e PDFs');
  const text=document.createElement('span');text.dataset.state='1';text.setAttribute('role','status');
  const button=document.createElement('button');button.type='button';
- button.textContent='Conectar / renovar Drive';button.onclick=promptForDrive;
+ button.textContent='Usuário / Login';button.onclick=promptForDrive;
  wrap.append(text,button);
  const anchor=panel.querySelector(position);
  if(anchor)anchor.before(wrap);else panel.prepend(wrap);
