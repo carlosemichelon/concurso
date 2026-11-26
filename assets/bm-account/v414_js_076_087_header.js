@@ -1031,7 +1031,7 @@ async function refreshPrivateOnce(){
   await window.BM316SrsJournal.refresh();
   if(auth!==authNow()||!window.BM316SrsJournal.loaded)throw Error('Histórico privado não confirmado');
   privateRecords=[];privateInfo={version:'SRS individual',updated:new Date().toISOString().slice(0,10),count:window.BM316SrsJournal.count};verifiedAuth=auth;root.dataset.bm411Ready='true';
-  driveNote.textContent='Avaliações privadas confirmadas: '+window.BM316SrsJournal.count+'.';calculate();return true;
+  driveNote.textContent='Avaliações formais privadas localizadas: '+window.BM316SrsJournal.count+'.'+(window.BM316SrsJournal.count===0?' Histórico anterior não confirmado nesta fonte; não significa que as revisões anteriores foram apagadas. Não atribuir vencimentos sem conciliação.':'');calculate();return true;
  }catch(e){locked('Fila não confirmada: '+e.message);return false}
  finally{driveBusy=false;driveAction.disabled=false}
  }
