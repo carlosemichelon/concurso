@@ -3,27 +3,15 @@ const $=id=>document.getElementById(id);
 const clientId='920889480620-iio6tlgputade7qnd6qaoh1og399jiqa.apps.googleusercontent.com';
 let token='',expires=0,timer,client,records=[],epoch=0,abort,pending=false;window.cards=[];
 const say=s=>{$('status').textContent=s};
-const clear=()=>{records=[];window.cards=[];$('list').replaceChildren();$('card').replaceChildren();$('summary').textContent='';$('search').value='';$('results').hidden=true;};
+const clear=()=>{records=[];window.cards=[];$('list').replaceChildren();window.BancoMestreVisualizarCardV050?.reset();$('summary').textContent='';$('search').value='';$('results').hidden=true;};
 function disconnect(message='Desconectado. Conecte novamente quando desejar.'){
  epoch++;abort?.abort();clearTimeout(timer);token='';expires=0;pending=false;clear();$('source').value='';$('editorial-preview').checked=false;$('connect').disabled=!client;$('disconnect').disabled=true;$('load').disabled=true;say(message);
 }
 const current=()=>!!token&&Date.now()<expires;
-function show(c){
- if(!current()){disconnect('Autorização expirada.');return;}
- const a=$('card');a.replaceChildren();
- const h=document.createElement('h3');h.textContent=c.id+' — '+c.front;a.append(h);
- const front=document.createElement('div');front.className='bm349-front-media';a.append(front);
- window.BM349.renderFront(front,c.id);
- const b=document.createElement('button');b.textContent='Revelar resposta';a.append(b);
- const answer=document.createElement('div');answer.className='bm-v050-peek-answer';answer.hidden=true;a.append(answer);
- b.onclick=()=>{if(!current()){disconnect('Autorização expirada.');return;}b.remove();answer.hidden=false;
-  if(window.BM349.has(c.id)){try{window.BM349.renderAnswer(answer,c.id);return;}catch{}}
-  const p=document.createElement('p');p.textContent=c.back+'\n\n'+(c.expl||'');answer.append(p);
-  const note=document.createElement('small');note.textContent='Formato legado: texto disponível no snapshot; módulos editoriais não confirmados.';answer.append(note);
- };
-}
+window.BMPrivateReadSession=Object.freeze({active:current});
+function show(c){if(!current()){disconnect('Autorização expirada.');return;}window.BancoMestreVisualizarCardV050.showId(c.id);}
 window.BM317RelatedNavigator=Object.freeze({openReferenced(id){const c=records.find(c=>c.id===id&&c.active);if(c)show(c);}});
-function render(){if(!current()){disconnect('Autorização expirada.');return;}const q=$('search').value.toLocaleLowerCase('pt-BR');const list=$('list');list.replaceChildren();$('card').replaceChildren();for(const c of records.filter(c=>c.active&&[c.id,c.front,c.subject].some(v=>String(v).toLocaleLowerCase('pt-BR').includes(q))).slice(0,50)){const li=document.createElement('li'),b=document.createElement('button');b.textContent=c.id+' — '+c.front;b.onclick=()=>show(c);li.append(b);list.append(li);}}
+function render(){if(!current()){disconnect('Autorização expirada.');return;}const q=$('search').value.toLocaleLowerCase('pt-BR');const list=$('list');list.replaceChildren();window.BancoMestreVisualizarCardV050?.close();for(const c of records.filter(c=>c.active&&[c.id,c.front,c.subject].some(v=>String(v).toLocaleLowerCase('pt-BR').includes(q))).slice(0,50)){const li=document.createElement('li'),b=document.createElement('button');b.textContent=c.id+' — '+c.front;b.onclick=()=>show(c);li.append(b);list.append(li);}}
 $('search').oninput=render;
 $('load').onclick=async()=>{if(!current()){disconnect('Autorização expirada.');return;}const source=$('source').value;const editorialPreview=$('editorial-preview').checked;const serial=++epoch;abort?.abort();abort=new AbortController();clear();$('load').disabled=true;say('Localizando base privada…');try{const p=await readBrowserSnapshot({token,source,signal:abort.signal,editorialPreview});if(serial!==epoch||!current())return;records=p.records;window.cards=records;$('summary').textContent=p.version+' · '+records.filter(c=>c.active).length+' cartões ativos '+(p.scope==='editorial-candidate-only'?'(candidato editorial — sem histórico/SRS)':'(snapshot somente)');$('results').hidden=false;say('Leitura privada confirmada. Nenhuma gravação realizada.');render();}catch(e){if(serial!==epoch)return;if(String(e.message).includes('HTTP 401')){disconnect('Autorização expirada.');return;}say((e.message||'Leitura não confirmada.')+(!editorialPreview&&String(e.message).includes('único ponteiro vigente')?' Para testar a VC52 pela pasta raiz, marque a opção de prévia editorial e carregue novamente.':''));}finally{if(serial===epoch)$('load').disabled=!current();}};
 $('disconnect').onclick=()=>disconnect();

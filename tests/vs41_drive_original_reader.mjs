@@ -14,7 +14,7 @@ try{
   const json=(obj,status=200)=>route.fulfill({status,headers,contentType:'application/json',body:JSON.stringify(obj)});
   if(url.href.startsWith(base)){
    const rel=url.pathname.slice(new URL(base).pathname.length);
-   if(!/^(?:preview-vs41-reader\/(?:index\.html|app\.mjs|reader\.js)|infra\/vs41-private\/(?:browser-drive|records)\.mjs)$/.test(rel))if(!/^assets\/(?:v349_shared_reader\.css|v417_math_engine\.js|(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.svg)$/.test(rel))return route.abort();
+   if(!/^(?:preview-vs41-reader\/(?:index\.html|app\.mjs|reader\.js|modal\.js)|infra\/vs41-private\/(?:browser-drive|records)\.mjs)$/.test(rel))if(!/^assets\/(?:v[0-9]+_[A-Za-z0-9_]+\.css|v417_math_engine\.js|(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.svg)$/.test(rel))return route.abort();
    const mime=rel.endsWith('.css')?'text/css':rel.endsWith('.svg')?'image/svg+xml':/\.(?:mjs|js)$/.test(rel)?'application/javascript':'text/html';
    if(!fs.existsSync(rel))return route.fulfill({status:404});
    return route.fulfill({contentType:mime,body:fs.readFileSync(rel,'utf8')});
@@ -50,19 +50,25 @@ try{
  await page.waitForFunction(()=>document.querySelector('#summary').textContent.includes('1460 cartões ativos'),{},{timeout:30000});
  assert.match(await page.locator('#summary').innerText(),/candidato editorial/);
  await page.locator('#list button').first().click();await page.getByRole('button',{name:'Revelar resposta'}).click();
- assert.ok((await page.locator('#card').innerText()).length>20);
+ assert.ok((await page.locator('#bmCardPeekV050 .bm-v050-peek-answer').innerText()).length>20);
+ await page.keyboard.press('Escape');
+ assert.equal(await page.locator('#bmCardPeekV050').isVisible(),false);
  for(const width of [1366,390]){
  await page.setViewportSize({width,height:900});
  for(const id of ['CARD-0047','CARD-0690','CARD-0709','CARD-8917']){
   await page.locator('#search').fill(id);
   await page.locator('#list button').first().click();
-  assert.equal(await page.locator('#card .bm-v050-peek-answer').isVisible(),false);
+  assert.equal(await page.locator('#bmCardPeekV050 .bm-v050-peek-answer').isVisible(),false);
   await page.getByRole('button',{name:'Revelar resposta'}).click();
-  const article=page.locator('#card .bm349-reading');await article.waitFor({state:'visible'});
+  const article=page.locator('#bmCardPeekV050 .bm349-reading');await article.waitFor({state:'visible'});
   assert.equal(await article.locator('.historic-module').count(),11);
   assert.equal(await article.locator('p[data-bm-answer-paragraph]').count(),JSON.parse(original).cards.find(c=>c.id===id).consolidation.profile.editorial.answer_paragraphs.length);
   const box=await article.boundingBox();assert.ok(box.width<=width);
   assert.equal(await article.locator('figure').count(),JSON.parse(original).cards.find(c=>c.id===id).consolidation.profile.editorial.media.filter(m=>m.role==='VERSO_APOS_TENTATIVA'&&(m.src||m.inline_svg||m.private_original)).length);
+  await page.getByRole('button',{name:'Outros cartões',exact:true}).click();
+  assert.equal(await page.locator('.bm165-toggle-sidebar').getAttribute('aria-expanded'),'true');
+  await page.keyboard.press('Escape');
+  assert.equal(await page.locator('#bmCardPeekV050').isVisible(),false);
  }
 }
  await page.locator('#source').fill('https://drive.google.com/drive/folders/rootA');await page.locator('#load').click();
@@ -75,7 +81,7 @@ try{
  await page.locator('#source').fill('tampered');await page.locator('#load').click();
  await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('não corresponde'));
  assert.equal(await page.locator('#results').isVisible(),false);
- await page.locator('#disconnect').click();assert.equal(await page.locator('#card').innerText(),'');assert.equal(await page.evaluate(()=>window.cards.length),0);
+ await page.locator('#disconnect').click();assert.equal(await page.locator('#bmCardPeekV050 .bm-v050-peek-answer').innerText(),'');assert.equal(await page.evaluate(()=>window.cards.length),0);
  await page.evaluate(()=>window.__account='B');await page.locator('#connect').click();
  await page.locator('#source').fill('candidate');await page.locator('#load').click();
  await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('HTTP 403'));
