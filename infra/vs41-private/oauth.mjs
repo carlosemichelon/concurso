@@ -43,3 +43,22 @@ export function accountTokens({users,grants,clientId,clientSecret,fetcher=fetch,
   return p.verifiedToken();
  };
 }
+
+// Read-only cross-account permission check, using only configured private destinations.
+// A transient network/authentication error is not evidence of isolation.
+export async function verifyDriveIsolation({sessions,getToken,fetcher=fetch}){
+ if(!Array.isArray(sessions)||sessions.length!==2||sessions[0].subject===sessions[1].subject)throw Error('Dois perfis distintos são necessários');
+ const ids=sessions.flatMap(s=>[s.rootId,s.profileId]);
+ if(new Set(ids).size!==4||ids.some(id=>typeof id!=='string'||!/^[A-Za-z0-9_-]{1,160}$/.test(id)))throw Error('Destinos de teste inválidos');
+ let denied=0;
+ for(let i=0;i<2;i++){
+  const {token}=await getToken(sessions[i]);
+  if(typeof token!=='string'||!token)throw Error('Autorização individual ausente');
+  for(const id of [sessions[1-i].rootId,sessions[1-i].profileId]){
+   const r=await fetcher('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(id)+'?fields=id',{headers:{Authorization:'Bearer '+token},cache:'no-store',redirect:'error'});
+   if(r.status!==403&&r.status!==404)throw Error('Negação cruzada não confirmada');
+   denied++;
+  }
+ }
+ return {crossAccessDenied:denied===4,crossChecks:denied};
+}
