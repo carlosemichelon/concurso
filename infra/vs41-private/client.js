@@ -96,6 +96,16 @@
  Object.defineProperty(window,'BMVS41PrivateImageInk',{value:Object.freeze({
   get:id=>annotationRequest(id,1,null,true),save:(id,input)=>annotationRequest(id,1,input,true)
  })});
+ async function studyRequest(input){
+  const expected=await check();start();
+  const r=await fetch('/api/vs41/study',{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});
+  if(r.status===401){invalidate();throw Error('Sessão encerrada')}
+  if(r.status===409){await check();throw Error('Conflito: consulte a versão privada antes de gravar')}
+  if(!r.ok)throw Error('Controle privado não confirmado (HTTP '+r.status+')');
+  const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
+  return p;
+ }
+ Object.defineProperty(window,'BMVS41PrivateStudy',{value:Object.freeze({read:()=>studyRequest(),save:input=>studyRequest(input)})});
  async function gapRequest(input){
   const expected=await check();start();
   const r=await fetch('/api/vs41/gaps',{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});

@@ -2,6 +2,7 @@ import {createAuth,sessionToken,sessionCookie} from './auth.mjs';
 import {createReader} from './catalog.mjs';
 import {createReviewStore} from './srs.mjs';
 import {createMediaReader,createPdfLibrary,createImageLibrary} from './media.mjs';
+import {createStudyStore} from './study.mjs';
 import {createGapStore} from './gaps.mjs';
 import {createAnnotationStore} from './annotations.mjs';
 const json=(res,status,data,headers={})=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Cross-Origin-Resource-Policy':'same-origin',...headers});res.end(JSON.stringify(data));return true};
@@ -21,6 +22,7 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
  const annotations=createAnnotationStore({resolveSession,getToken,fetcher,now});
  const imageInk=createAnnotationStore({resolveSession,getToken,fetcher,now,mode:'image'});
  const gaps=createGapStore({resolveSession,getToken,fetcher,now});
+ const study=createStudyStore({resolveSession,getToken,fetcher,now});
  const handler=async(req,res)=>{
   const u=new URL(req.url,origin);if(!u.pathname.startsWith('/api/vs41/'))return false;
   if(u.origin!==origin||u.search||req.headers['sec-fetch-site']==='cross-site'||req.headers.origin&&req.headers.origin!==origin)return json(res,403,{error:'Origem não autorizada'});
@@ -65,6 +67,14 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
     if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
     try{const documents=await pdfLibrary(req);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{documents,context:s.context})}
     catch{return json(res,503,{error:'Biblioteca privada indisponível'})}
+   }
+   if(u.pathname==='/api/vs41/study'&&['GET','POST'].includes(req.method)){
+    const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
+    if(req.method==='POST'&&req.headers.origin!==origin)return json(res,403,{error:'Origem não autorizada'});
+    let input;if(req.method==='POST'){try{input=await body(req,262144)}catch{return json(res,400,{error:'Solicitação inválida'})}}
+    try{const data=req.method==='GET'?await study.get(req):await study.save(req,input);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{...data,context:s.context})}
+    catch(e){return json(res,e.code==='conflict'?409:e.code==='input'?400:503,{error:'Controle privado não confirmado'})}
    }
    if(u.pathname==='/api/vs41/gaps'&&['GET','POST'].includes(req.method)){
     const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
