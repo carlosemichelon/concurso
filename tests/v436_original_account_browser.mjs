@@ -197,7 +197,8 @@ try{
   await page.locator('header nav button[data-page=imagens]').click();
   await page.locator('#imageRows article.bm209ImageFromDrive').first().waitFor({state:'visible',timeout:15000});
   assert.ok(await page.locator('#imageRows article.bm209ImageFromDrive').count()>0,'Atlas deve exibir os arquivos já consultados');
-  assert.ok(await page.locator('#imageRows article.bm209ImageFromDrive img').first().evaluate(async img=>{try{await img.decode();return img.naturalWidth>0}catch{return false}}),'Prévia privada decodificada');
+  await page.locator('#imageRows article.bm209ImageFromDrive img').first().scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>{const img=document.querySelector('#imageRows article.bm209ImageFromDrive img');return img?.complete&&img.naturalWidth>0},null,{timeout:15000});
   await page.locator('header nav button[data-page=cartoes]').click();await page.locator('header nav button[data-page=imagens]').click();
   await page.locator('#imageRows article.bm209ImageFromDrive').first().waitFor({state:'visible'});
   const images=await page.evaluate(()=>window.BMVS41PrivateImages.list());assert.equal(images[0].id,'img'+a);
