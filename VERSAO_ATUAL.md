@@ -1,3 +1,7 @@
+## V440 / VS49 — apresentação das fórmulas (26/11/2026)
+
+Melhoria global da hierarquia de equações, rótulos, unidades e definições explícitas, rolagem localizada e legibilidade móvel; preserva o renderizador MathML e V439/VS48, catálogo VC52, histórico e SRS. Candidato sujeito à validação de navegador; produção não promovida.
+
 ## V439 / VS48 — correções funcionais (26/11/2026)
 
 V439 / VS48 — 26/11/2026: biblioteca PDF abre diretamente no editor privado; contador de lacunas restaurado; consulta de catálogos, lacunas e fórmulas após autenticação; pré-carga limitada de imagens e todas as prévias do assunto em fila de três. VC52, SRS, grifos e originais preservados. Validação estática de alvos; teste autenticado pendente.
