@@ -2,27 +2,38 @@
 export function privateStudyBundle(source){
  const i=source.indexOf('/* 117 assets/v245_controle_drive_sync.js */'),j=source.indexOf('/* 119 assets/v242_operational_cards.js */',i);
  if(i<0||j<0||!source.includes('window.BM240ControlInit(root);'))throw Error('Contrato Controle divergente');
- return (source.slice(0,i)+"window.BM240ControlDrive=Object.freeze({async sync(){return window.BMVS41StudyControl?.refresh?.()||{state:'error',message:'Controle não carregado'}}});\n;\n"+source.slice(j)).replace('window.BM240ControlInit(root);','await window.BM240ControlInit(root);');
+ let s=(source.slice(0,i)+"window.BM240ControlDrive=Object.freeze({async sync(){return window.BMVS41StudyControl?.refresh?.()||{state:'error',message:'Controle não carregado'}}});\n;\n"+source.slice(j)).replace('window.BM240ControlInit(root);','await window.BM240ControlInit(root);');
+ const start=s.indexOf(" button.addEventListener('click',()=>{",s.indexOf('const mount=async()=>')),end=s.indexOf(' // Rota e seleção',start);
+ if(start<0||end<0)throw Error('Contrato navegação do Controle divergente');
+ s=s.slice(0,start)+` button.addEventListener('click',event=>{
+  event.preventDefault();event.stopImmediatePropagation();
+  history.replaceState(null,'','#controle-estudos');
+  document.querySelectorAll('main>section').forEach(p=>p.classList.toggle('active',p===section));
+  document.querySelectorAll('header nav button[data-page]').forEach(b=>b.classList.toggle('active',b===button));
+  section.hidden=false;
+ },true);
+ `+s.slice(end);
+ return s;
 }
 export function privateStudyApp(source){
  let s=source;
  const replace=(x,y)=>{if(s.split(x).length!==2)throw Error('Contrato Controle divergente: '+x.slice(0,90));s=s.replace(x,y)};
  function block(x,y,v){const i=s.indexOf(x),j=s.indexOf(y,i+x.length);if(i<0||j<0)throw Error('Contrato Controle divergente: '+x);s=s.slice(0,i)+v+'\n'+s.slice(j)}
  replace('return function(root){','return async function(root){');
- block('const DEVICE_KEY=','const $=id=>root.getElementById(id);',`const device=crypto.randomUUID();let verified=null,busy=false,failed=false;
+ block('const DEVICE_KEY=','const $=id=>root.getElementById(id);',`const device=await window.BMVS41Session.contextKey();let verified=null,busy=false,failed=false;
  const emptyClock=()=>({running:false,start:0,elapsed:0,subject:'',topic:'',type:'Teoria'});
- async function mirrorTimer(){
+ async function mirrorTimer(takeover=false){
   const active=clock&&(clock.running||Number(clock.elapsed)>0);
   data.activeTimer=active?{...clock,ownerId:device,updatedAt:new Date().toISOString()}:null;
-  return await store();
+  return await store(takeover);
  }`);
- replace('function store(){','async function store(){');
+ replace('function store(){','async function store(takeover=false){');
  block('  const currentRaw=localStorage.getItem(KEY);','  data.audit=',`  if(busy||failed||!verified)throw Error('Controle não confirmado; sincronize antes de gravar.');
   const old=structuredClone(verified.data);`);
  block('  const nextRaw=JSON.stringify(data);','function subject(id)',`  const snapshot=structuredClone(data),previous=verified.revision,event_id=crypto.randomUUID();
   busy=true;state('Gravando Controle de Estudos…');
   try{
-   const reply=await window.BMVS41PrivateStudy.save({event_id,previous,data:snapshot});
+   const reply=await window.BMVS41PrivateStudy.save({event_id,previous,data:snapshot,...(takeover?{takeover:true}:{})});
    if(reply.revision!==event_id||JSON.stringify(reply.data)!==JSON.stringify(snapshot))throw Error('Confirmação divergente');
    verified=reply;data=structuredClone(reply.data);state('Controle de Estudos gravado e conferido no Drive.');
    window.dispatchEvent(new CustomEvent('bm240-study-changed',{detail:{pending:false}}));return true;
@@ -32,12 +43,13 @@ export function privateStudyApp(source){
  }
  function state(message){$('bm240-local-status').textContent=message;$('sessionStatus').textContent=message}
  function localClock(){return data.activeTimer?.ownerId===device?structuredClone(data.activeTimer):emptyClock()}
+ function restoreTimerFields(){$('timerSubject').value=clock.subject||'';refreshTaxonomy();for(const [id,value] of [['timerGeneral',clock.general],['timerSpecific',clock.specific],['timerSubtopic',clock.subtopic],['timerTopic',clock.topic],['timerType',clock.type],['timerAlarm',clock.alarmMinutes||0]])$(id).value=value||'';}
  function storeClock(){} // No periodic writes: time derives from the confirmed start instant.
  function load(){if(!verified)throw Error('Controle privado indisponível');data=structuredClone(verified.data);clock=localClock()}
  async function reload(){
   if(busy)return {state:'busy',message:'Gravação em andamento'};
   busy=true;
-  try{verified=await window.BMVS41PrivateStudy.read();failed=false;load();refresh();showTimer();state('Controle individual conferido no Drive.');return {state:'downloaded',message:'Controle individual conferido'}}
+  try{verified=await window.BMVS41PrivateStudy.read();failed=false;load();refresh();restoreTimerFields();showTimer();state('Controle individual conferido no Drive.');return {state:'downloaded',message:'Controle individual conferido'}}
   catch(e){failed=true;state('Consulta não confirmada: '+e.message);return {state:'error',message:e.message}}
   finally{busy=false}
  }`);
@@ -66,10 +78,12 @@ export function privateStudyApp(source){
  });
  $('timerClaim').addEventListener('click',async()=>{
   const result=await reload();if(result.state!=='downloaded')return;
-  const remote=data.activeTimer;if(!remote||remote.running||!remote.availableForTransfer||runTime()>0){toggleMessage('timerStatus','Não há sessão pausada liberada para assumir.');return}
-  clock={...remote,ownerId:device,running:false,start:0,availableForTransfer:false,transferPending:false};
-  if(await mirrorTimer()){refresh();showTimer();toggleMessage('timerStatus','Cronômetro assumido e conferido no Drive.')}
+  const remote=data.activeTimer;if(!remote||remote.ownerId===device||runTime()>0){toggleMessage('timerStatus','Não há sessão de outro dispositivo para recuperar.');return}
+  if(!remote.availableForTransfer&&!confirm('Recuperar a sessão anterior e pausá-la agora? O tempo desde o último início será contabilizado. A outra sessão não poderá sobrescrever esta revisão.'))return;
+  clock={...remote,elapsed:Number(remote.elapsed)+(remote.running?Math.max(0,Date.now()-remote.start):0),ownerId:device,running:false,start:0,availableForTransfer:false,transferPending:false};
+  if(await mirrorTimer(true)){refresh();restoreTimerFields();showTimer();toggleMessage('timerStatus','Cronômetro recuperado e conferido no Drive.')}
  });`);
+ replace("$('timerStart').disabled=clock.running}","$('timerStart').disabled=clock.running||!!(data.activeTimer&&data.activeTimer.ownerId!==device);const remote=!!(data.activeTimer&&data.activeTimer.ownerId!==device);$('timerClaim').disabled=!remote;$('timerClaim').textContent='Recuperar sessão de outro dispositivo';$('timerDiscard').disabled=remote;$('timerRelease').disabled=remote||!runTime();$('timerReclaim').disabled=!clock.availableForTransfer;}");
  block('function saveTimer(){','function weight(s)',`async function saveTimer(){
   if(busy||failed||!verified||data.activeTimer?.ownerId!==device)return;
   const ms=runTime();if(ms<1000)return;
@@ -82,7 +96,7 @@ export function privateStudyApp(source){
  replace("function addSession(s,review){","async function addSession(s,review){");
  replace("if(!store())throw Error('Não foi possível gravar.');refresh();}","if(!await store())throw Error('Gravação não confirmada.');refresh();}");
  replace("addSession(s,false);clearForm();","await addSession(s,false);clearForm();");
- replace(" createSubject(name){"," async createSubject(name){");
+ replace(" createSubject(name){"," async createSubject(name){if(busy||failed)throw Error('Controle não confirmado ou ocupado');");
  replace("  if(!store()){data.subjects.pop();throw Error('Armazenamento local indisponível')}","  if(!await store())throw Error('Gravação não confirmada');");
  const ids=['planForm','calPlans','timerStart','timerPause','timerRelease','timerDiscard','sessionForm','historyRows','subjectForm','subjectRows','saveAvailability','allocate','generateCycle','cycleCurrent','resetCycle','cycleList','bm240-audit','reviewForm','reviewRows'];
  for(const id of ids){
@@ -101,7 +115,7 @@ export function privateStudyApp(source){
  replace('Sessão pausada e disponível para transferência depois que o Drive confirmar a sincronização.','Sessão pausada e liberada no Drive.');
  block("tick=setInterval(()=>{showTimer();if(clock.running)storeClock()},1000);","}\ninit();",`tick=setInterval(showTimer,1000);
  if(typeof ResizeObserver!=='undefined')new ResizeObserver(resize).observe(root.querySelector('main'));`);
- replace("}\ninit();","}\nverified=await window.BMVS41PrivateStudy.read();init();\nwindow.BMVS41StudyControl=Object.freeze({refresh:reload,get busy(){return busy},get revision(){return verified?.revision},get confirmed(){return !busy&&!failed&&!!verified}});");
+ replace("}\ninit();","}\nverified=await window.BMVS41PrivateStudy.read();init();restoreTimerFields();showTimer();\nwindow.BMVS41StudyControl=Object.freeze({refresh:reload,get busy(){return busy},get revision(){return verified?.revision},get confirmed(){return !busy&&!failed&&!!verified}});");
  replace(" reload(){load();refresh();showTimer()},"," reload:reload,");
  if(/localStorage\.(?:getItem|setItem|removeItem)/.test(s))throw Error('Persistência legada restante no Controle');
  return s;

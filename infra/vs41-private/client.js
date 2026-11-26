@@ -26,7 +26,7 @@
   window.addEventListener('pageshow',e=>{if(e.persisted&&context)void check().then(()=>{if(!locked)document.documentElement.style.visibility=''}).catch(()=>{})});
  }
  Object.defineProperty(window,'BMVS41Session',{value:Object.freeze({
-  available:()=>!!context&&!locked,check:async()=>{await check();start();return true},
+  available:()=>!!context&&!locked,contextKey:async()=>{const value=await check();start();return value},check:async()=>{await check();start();return true},
   async logout(){
    const r=await fetch('/api/vs41/logout',{method:'POST',credentials:'same-origin',cache:'no-store',redirect:'error'});
    if(!r.ok)throw Error('Saída não confirmada');

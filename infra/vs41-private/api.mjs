@@ -13,7 +13,7 @@ async function body(req,max=4096){
 export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
  if(new URL(origin).origin!==origin||(!origin.startsWith('https://')&&!/^http:\/\/127\.0\.0\.1:[0-9]+$/.test(origin)))throw Error('Origem inválida');
  const auth=createAuth({users,now});
- const resolveSession=async req=>{const token=sessionToken(req.headers.cookie),s=auth.read(token);return s?{subject:s.user.subject,rootId:s.user.rootId,profileId:s.user.profileId,sessionId:token}:null};
+ const resolveSession=async req=>{const token=sessionToken(req.headers.cookie),s=auth.read(token);return s?{subject:s.user.subject,rootId:s.user.rootId,profileId:s.user.profileId,sessionId:token,context:s.context}:null};
  const read=createReader({resolveSession,getToken,fetcher});
  const reviews=createReviewStore({resolveSession,getToken,fetcher,now});
  const readMedia=createMediaReader({resolveSession,getToken,fetcher});

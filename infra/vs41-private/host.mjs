@@ -11,7 +11,7 @@ import {privatePdfLibrary,privatePdfSync} from './pdf-library.mjs';
 import {privateMediaRenderer} from './media-renderer.mjs';
 import {privateCalendar,privateStudyQueue} from './calendar.mjs';
 import {privateJournal} from './journal.mjs';
-import {privateGlobalDrive,privateCheckpoints,privateReconcile,disabledPublicScripts} from './legacy.mjs';
+import {privateGlobalDrive,privateCheckpoints,privateReconcile,privateTimerHeader,disabledPublicScripts} from './legacy.mjs';
 const adapters=new Map([
  ['/assets/v430_js_000_001_editor.js',privateImageEditor],
  ['/assets/v382_srs_journal_vc23.js',privateJournal],
@@ -21,7 +21,7 @@ const adapters=new Map([
  ['/assets/v432_js_002_015_topic_media.js',s=>privatePdfLibrary(privatePdfEditor(s))],
  ['/assets/v432_js_040_051_atlas.js',s=>privateGallery(privatePdfSync(s))],
  ['/assets/v430_js_112_123_control.js',s=>privateGaps(privateStudyBundle(s))],
- ['/assets/v432_js_124_135_formulas.js',privateGlobalDrive],
+ ['/assets/v432_js_124_135_formulas.js',s=>privateTimerHeader(privateGlobalDrive(s))],
  ['/assets/v402_js_136_147_compare.js',privateReconcile]
 ]);
 const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Cross-Origin-Resource-Policy':'same-origin','X-Frame-Options':'DENY','Content-Security-Policy':"default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; img-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"};

@@ -30,6 +30,19 @@ function transition(old,next){
  if(!eq(old.audit,next.audit.slice(0,old.audit.length)))fail('input');
  if(old.sessions.some(s=>!next.sessions.some(t=>t.id===s.id)))fail('input');
 }
+// Timer ownership follows the authenticated context; recovery is explicit and revision-checked.
+function timerTransition(old,next,actor,takeover,now){
+ const before=old.activeTimer||null,after=next.activeTimer||null;
+ if(eq(before,after))return;
+ if(!before){if(!after||after.ownerId!==actor||takeover)fail('input');return}
+ if(before.ownerId===actor){
+  if(after&&(after.ownerId!==actor||after.sessionId!==before.sessionId||after.subject!==before.subject))fail('input');
+  return;
+ }
+ if(!takeover||!after||after.ownerId!==actor||after.sessionId!==before.sessionId||after.subject!==before.subject||after.running||after.start!==0||after.availableForTransfer)fail('conflict');
+ const maxElapsed=before.elapsed+(before.running?Math.max(0,now-before.start):0);
+ if(after.elapsed<before.elapsed||Math.abs(after.elapsed-maxElapsed)>30000||!eq(old.sessions,next.sessions))fail('input');
+}
 export function createStudyStore({resolveSession,getToken,fetcher=fetch,now=Date.now}){
  const read=createReader({resolveSession,getToken,fetcher}),queues=new Map(),uncertain=new Set();
  async function scope(req){
@@ -67,7 +80,7 @@ export function createStudyStore({resolveSession,getToken,fetcher=fetch,now=Date
    await ctx.live();const h=await journal(ctx),old=h.latest,existing=h.events.get(input.event_id),attempt=key+':'+input.event_id;
    if(existing){if(existing.previous!==input.previous||!eq(existing.data,input.data))fail('conflict');return view(old)}
    if(uncertain.has(attempt)||(old?.event_id||null)!==input.previous)fail('conflict');
-   transition(old?.data||fresh(),input.data);
+   transition(old?.data||fresh(),input.data);timerTransition(old?.data||fresh(),input.data,ctx.s.context||ctx.s.sessionId,input.takeover===true,now());
    const e={schema:'BM-STUDY-CONTROL/1',owner:ctx.s.subject,event_id:input.event_id,previous:input.previous,at:new Date(now()).toISOString(),data:input.data};
    const m={name:'BM_STUDY_'+e.event_id+'.json',mimeType:'application/json',parents:[ctx.s.rootId],appProperties:{bmProject:PROJECT,bmOwner:ctx.s.subject,bmKind:KIND,bmEvent:e.event_id}};
    const boundary='bm_'+e.event_id.replaceAll('-',''),body='--'+boundary+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(m)+'\r\n--'+boundary+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(e)+'\r\n--'+boundary+'--\r\n';

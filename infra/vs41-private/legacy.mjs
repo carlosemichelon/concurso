@@ -45,3 +45,9 @@ export function privateReconcile(source){
  return cut(source,'/* 140 assets/v285_private_reconcile.js */','/* 141 assets/v286_study_blue.js */','/* Reconciliação administrativa indisponível no perfil de estudo. */');
 }
 export const disabledPublicScripts=new Set(['/assets/v325_public_layers_bridge.js','/assets/v327_deferred_10_bridge.js','/assets/v329_minerals_bridge.js','/assets/v368_supplements.js','/assets/v368_private_media.js']);
+
+export function privateTimerHeader(source){
+ const first="function command(action,fields={}){",second="const id=app.createSubject(fields.name);pendingSubject=fields.name;";
+ if(source.split(first).length!==2||source.split(second).length!==2)throw Error('Contrato cabeçalho do cronômetro divergente');
+ return source.replace(first,'async function command(action,fields={}){').replace(second,'const id=await app.createSubject(fields.name);pendingSubject=fields.name;');
+}

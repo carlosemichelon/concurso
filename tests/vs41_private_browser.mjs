@@ -200,6 +200,7 @@ try{
  for(const [p,label] of [[oldA,'A'],[oldB,'B']]){
   await p.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
   await p.locator('#bm240-study-tab').click();
+  await p.locator('#controle-estudos.active').waitFor({state:'visible'});
   await p.waitForFunction(()=>window.BMVS41StudyControl?.confirmed&&window.BM240ControlApp?.taxonomyCount);
   const subject=await p.evaluate(label=>window.BM240ControlApp.createSubject('Disciplina privada '+label),label);
   const root=p.locator('#bm240-native-host');
@@ -215,6 +216,29 @@ try{
   await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
  }
  console.log('Controle original: disciplinas e registro manual individuais confirmados no Drive simulado.');
+ await oldA.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
+ await oldA.locator('#bm240-study-tab').click();
+ const studyRoot=oldA.locator('#bm240-native-host');
+ await studyRoot.locator('#tabs [data-tab="registro"]').click();
+ const subjectId=await oldA.evaluate(async()=>{const d=await window.BMVS41PrivateStudy.read();return d.data.subjects.find(x=>x.name==='Disciplina privada A').id});
+ await studyRoot.locator('#timerSubject').selectOption(subjectId);
+ await studyRoot.locator('#timerStart').click();
+ await oldA.waitForFunction(()=>window.BMVS41StudyControl.confirmed&&window.BM240ControlApp.timer.running);
+ const initialTimer=await oldA.evaluate(async()=> (await window.BMVS41PrivateStudy.read()).data.activeTimer);
+ const reopened=await a.newPage();await reopened.goto(url+'/index.html#controle-estudos');
+ await reopened.waitForFunction(()=>window.BMVS41StudyControl?.confirmed&&window.BM240ControlApp.timer.running);
+ assert.equal(await reopened.evaluate(async()=> (await window.BMVS41PrivateStudy.read()).data.activeTimer.sessionId),initialTimer.sessionId);
+ const reRoot=reopened.locator('#bm240-native-host');
+ await reRoot.locator('#tabs [data-tab="registro"]').click();
+ await reRoot.locator('#timerPause').click();
+ await reopened.waitForFunction(()=>window.BMVS41StudyControl.confirmed&&!window.BM240ControlApp.timer.running);
+ const paused=await reopened.evaluate(async()=> (await window.BMVS41PrivateStudy.read()).data.activeTimer);
+ assert.ok(paused&&paused.elapsed>=0&&!paused.running);
+ await reopened.close();
+ await oldA.evaluate(()=>window.BMVS41StudyControl.refresh());
+ assert.equal(await oldA.evaluate(()=>window.BM240ControlApp.timer.running),false);
+ await oldA.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901'));await oldA.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
+ console.log('Cronômetro: recuperação em nova aba na mesma sessão, pausa confirmada, revisão sem duplicação.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});

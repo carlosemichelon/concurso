@@ -24,3 +24,19 @@ test('nega sessão ausente, vínculo inválido e arquivo de outra raiz',async()=
  await f.store.save(a,{event_id:uid(1),previous:null,data:d});
  f.files.get(f.writes[0].id).meta.appProperties.bmOwner='B';await assert.rejects(f.store.get(a),e=>e.code==='owner');
 });
+
+test('cronômetro recuperável na mesma conta e transferência atômica para outro contexto',async()=>{
+ const f=reviewFixture(),store=createStudyStore({...f,resolveSession:async req=>req.session==='A2'?{...profiles.A,sessionId:'sA2',context:'ctxA2'}:req.session==='A'?{...profiles.A,context:'ctxA'}:profiles[req.session],now:()=>1800000000000});
+ const a={session:'A'},a2={session:'A2'},b={session:'B'},d=(await store.get(a)).data;
+ const timer={ownerId:'ctxA',sessionId:'timer-one',subject:'DISC-1',running:true,start:1799999990000,elapsed:0,availableForTransfer:false};
+ const data={...d,subjects:[{id:'DISC-1',name:'Estudo',color:'#277f79'}],activeTimer:timer};
+ const first=await store.save(a,{event_id:uid(10),previous:null,data});
+ assert.deepEqual((await store.get(a)).data.activeTimer,timer);assert.equal((await store.get(b)).data.activeTimer,null);
+ await assert.rejects(store.save(a2,{event_id:uid(11),previous:first.revision,data:{...data,activeTimer:null}}),e=>e.code==='conflict');
+ const recovered={...data,activeTimer:{...timer,ownerId:'ctxA2',running:false,start:0,elapsed:10000}};
+ await assert.rejects(store.save(a2,{event_id:uid(11),previous:first.revision,data:recovered}),e=>e.code==='conflict');
+ const second=await store.save(a2,{event_id:uid(11),previous:first.revision,data:recovered,takeover:true});
+ await assert.rejects(store.save(a,{event_id:uid(12),previous:first.revision,data:{...data,activeTimer:null}}),e=>e.code==='conflict');
+ const result=await store.save(a2,{event_id:uid(13),previous:second.revision,data:{...recovered,activeTimer:null,sessions:[{id:'timer-one',subjectId:'DISC-1',date:'2026-11-25',minutes:1/6,questions:0,correct:0}]}});
+ assert.equal(result.data.sessions.length,1);assert.equal(result.data.activeTimer,null);
+});
