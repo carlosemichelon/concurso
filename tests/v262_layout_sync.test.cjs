@@ -15,8 +15,8 @@ assert.ok(current.includes('data-bm-portal-version="'+manifest.version+'"'));
 assert.equal(manifest.release_v262.previous_version,'V261');
 // V262 preservada; os números no manifesto são os da publicação corrente.
 const canonical=manifest.counts.cards,operational=manifest.counts.card_operational_ijui;
-assert.ok(Number.isSafeInteger(canonical)&&canonical>=1518,'Total canônico abaixo da base histórica');
-assert.equal(operational,22,'Propostas Ijuí não conciliadas');
+if(manifest.catalog?.unified)require('./verify_unified_inventory.cjs')(manifest,1518);
+else {assert.ok(Number.isSafeInteger(canonical)&&canonical>=1518,'Total canônico abaixo da base histórica');assert.equal(operational,22,'Propostas Ijuí não conciliadas');}
 assert.equal(manifest.counts.cards_public_current,canonical);
 assert.equal(manifest.counts.catalog_canonical_cards,canonical);
 assert.equal(manifest.counts.card_entries_combined,canonical+operational);

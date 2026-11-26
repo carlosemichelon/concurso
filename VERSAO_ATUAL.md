@@ -1,5 +1,7 @@
 ## V434 / VS43 — Interface compacta e cache verificado (26/11/2026)
 
+Verificação de regressão do catálogo: testes históricos V262/V300/V303 passam a exigir conservação de todos os IDs registrados na VS40, redirecionamento válido de ativos aposentados e igualdade entre índice individual, manifesto e cadastro de IDs; contagem histórica mínima preservada no conjunto ocupado. Não altera VC52 nem substitui a homologação editorial ou conciliação SRS/Ijuí.
+
 Atualização explícita de PDFs/Atlas agora invalida índice em memória e compartilha uma única nova varredura. Vínculos fora do Atlas usam leitura privada validada sem integrar a galeria. SVG original identificado volta ao Atlas, com rejeição de conteúdo ativo/externo e hash original preservado. Cenário de teste alinhado às pastas reais, incluindo cópias excluídas da contagem e consulta explícita. Nenhum dado privado ou catálogo alterado; homologação OAuth e editorial permanecem pendentes.
 
 Estabilização do Atlas: recuperado o escopo VS40/V202 (Atlas e originais recuperados), com identificação de pastas pelo ID histórico dentro do banco ou pelo nome funcional em outros perfis. Filtros de origem, derivadas, miniaturas, manutenção e tamanho restaurados. Imagens de outras pastas permanecem acessíveis por vínculos autorizados, sem inflar a galeria ou a busca temática. Nenhum arquivo movido/excluído; contagem autenticada real pendente.

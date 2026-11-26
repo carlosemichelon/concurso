@@ -17,8 +17,9 @@ assert.match(read('v305.html'),/data-bm-portal-version="V305"/);
 assert.match(read('v304.html'),/data-bm-portal-version="V304"/);
 assert.match(read('v303.html'),/data-bm-portal-version="V303"/);
 assert.match(read('v302.html'),/data-bm-portal-version="V302"/);
-assert.ok(m.counts.cards>=1533);assert.equal(m.counts.pdfs,78);
-assert.equal(m.counts.card_operational_ijui,22);
+if(m.catalog?.unified)require('./verify_unified_inventory.cjs')(m,1533);
+else {assert.ok(m.counts.cards>=1533);assert.equal(m.counts.card_operational_ijui,22);}
+assert.equal(m.counts.pdfs,78);
 const j=scripts(index),c=css(index);
 assert.equal(c.length,24);assert.equal(j.length,158);
 assert.equal(c.at(-1),'assets/v309_mobile_tabs.css?v=309-2');
