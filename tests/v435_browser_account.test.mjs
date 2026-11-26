@@ -145,3 +145,12 @@ test('índice exclui pastas de backup, externas e compartilhadas; não grava nem
  const writes=[],delegate=fixture('A',{writable:true,writes,indexEdgeCases:true});let indexCalls=0,downloads=0;const fetcher=(url,opt)=>{const u=new URL(url);if(u.searchParams.get('q')?.includes("mimeType contains 'image/'"))indexCalls++;if(u.searchParams.has('alt')&&/\/(?:pdf|img|svg)A$/.test(u.pathname))downloads++;return delegate(url,opt)};
  const a=await connectAccount({token:'A',fetcher,write:true});const [p,i]=await Promise.all([a.pdfs(),a.images()]);assert.deepEqual(p.map(x=>x.id),['pdfA']);assert.deepEqual(i.map(x=>x.id),['imgA','svgA']);assert.equal(indexCalls,1);assert.equal(downloads,0);assert.equal(writes.length,0);await a.pdfs();assert.equal(indexCalls,1);await assert.rejects(a.readMedia('outsidePdfA'));
 });
+
+// Folder labels are not a reason to move or recreate historical data.
+test('compatibilidade com nomes anteriores de revisões e backups, sem gravar em outro destino',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{legacyFolderNames:true,indexEdgeCases:true,writable:true,writes}),write:true});
+ assert.deepEqual(await a.writing(),{revision:null,data:{}});
+ const [pdfs,images]=await Promise.all([a.pdfs(),a.images()]);
+ assert.deepEqual(pdfs.map(x=>x.id),['pdfA']);assert.deepEqual(images.map(x=>x.id),['imgA','svgA']);
+ assert.equal(writes.length,0);
+});
