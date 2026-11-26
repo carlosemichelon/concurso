@@ -60,6 +60,42 @@ export function prepareCardCopy(snapshot,contract,subject){
  if(sha(JSON.stringify(records))!==audit.recordsSha256)throw Error('Conteúdo alterado durante preparação');
  return {payload,receipt:{owner:subject,catalog:audit.catalog,records:records.length,recordsSha256:audit.recordsSha256,payloadSha256:sha(bytes),bytes:bytes.length,mode:'prepared-not-uploaded'}};
 }
+// Inventory only: never fetch external URLs, copy originals or serve arbitrary repository files.
+export function inventoryMedia(records,root=process.cwd()){
+ const assets=fs.realpathSync(path.join(root,'assets')),items=[],legacy=[],byId=new Map(),fileCache=new Map();
+ function localFile(src){
+  if(typeof src!=='string'||!/^assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.(?:svg|png|jpe?g|webp|gif|pdf)$/i.test(src)||src.split('/').some(p=>p==='.'||p==='..'))return null;
+  if(fileCache.has(src))return fileCache.get(src);
+  let result=null;
+  try{
+   const full=fs.realpathSync(path.join(root,src)),st=fs.statSync(full);
+   if(full.startsWith(assets+path.sep)&&st.isFile()&&st.size>0&&st.size<=25*1024*1024){
+    const bytes=fs.readFileSync(full);
+    if(bytes.length===st.size)result={sha256:sha(bytes),bytes:bytes.length};
+   }
+  }catch{}
+  fileCache.set(src,result);return result;
+ }
+ for(const c of records){
+  const media=c.consolidation?.profile?.editorial?.media||[];
+  for(const id of new Set(Array.isArray(c.related_image_ids)?c.related_image_ids:[]))legacy.push({card:c.id,id});
+  for(const m of media){
+   const id=m?.id,src=m?.src||m?.public_src||m?.url;
+   let kind='unresolved',digest=null;
+   if(m?.private_original)kind='private-original';
+   else if(typeof m?.inline_svg==='string'&&m.inline_svg.trim()){kind='inline-svg';digest=sha(m.inline_svg)}
+   else if(typeof src==='string'&&src.startsWith('assets/')){
+    const local=localFile(src);kind=local?'local-verified':'local-unverified';digest=local?.sha256||null;
+   }else if(typeof src==='string'&&/^https?:\/\//i.test(src))kind='external-unverified';
+   const entry={card:c.id,id:idOk(id)?id:null,kind,sha256:digest};
+   items.push(entry);
+   if(entry.id){const v=byId.get(id)||new Set();v.add(JSON.stringify([kind,digest,src||null]));byId.set(id,v)}
+  }
+ }
+ const counts={};for(const m of items)counts[m.kind]=(counts[m.kind]||0)+1;
+ const editorialKeys=new Set(items.filter(x=>x.id).map(x=>x.card+'\0'+x.id));
+ return {associations:items.length,uniqueEditorialIds:byId.size,counts,missingEditorialIds:items.filter(x=>!x.id).length,conflictingEditorialIds:[...byId.values()].filter(x=>x.size>1).length,legacyImageAssociations:legacy.length,legacyNotInEditorial:legacy.filter(x=>!editorialKeys.has(x.card+'\0'+x.id)).length,uniqueLocalFiles:[...fileCache.values()].filter(Boolean).length,sourceVerificationOnly:true,privateMigrationReady:false};
+}
 export function readOfficial(root=process.cwd()){
  const manifest=JSON.parse(fs.readFileSync(path.join(root,'assets/version.json'),'utf8')),c=manifest.catalog;
  if(!/^assets\/catalog_snapshot_[A-Za-z0-9_-]+\.json$/.test(c.path))throw Error('Caminho do catálogo inválido');
@@ -71,6 +107,7 @@ if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  try{
   const {snapshot,contract}=readOfficial();
   const report=assessCatalog(snapshot,contract);
+  report.mediaInventory=inventoryMedia(snapshot.base);
   // Only aggregate counts in CI logs; no private data or generated collection.
   console.log(JSON.stringify({...report,missingModules:report.missingModules.length,invalidFields:report.invalidFields.length,unresolvedLinks:report.unresolvedLinks.length},null,2));
  }catch(e){console.error('Auditoria não concluída: '+e.message);process.exitCode=1}

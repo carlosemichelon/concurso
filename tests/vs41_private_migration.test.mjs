@@ -1,5 +1,6 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
-import {assessCatalog,prepareCardCopy,readOfficial} from '../infra/vs41-private/migration.mjs';import {verifyRecords} from '../infra/vs41-private/catalog.mjs';import {card} from './vs41_private_fixture.mjs';
+import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
+import {assessCatalog,prepareCardCopy,readOfficial,inventoryMedia} from '../infra/vs41-private/migration.mjs';import {verifyRecords} from '../infra/vs41-private/catalog.mjs';import {card} from './vs41_private_fixture.mjs';
 const contract={format:'snapshot-test',source_head:'test',display_version:'VC49-test',unified:true,active_only:true,counts:{canonical:1,active:1,ijui:0}};
 const source=()=>({format:contract.format,source_head:contract.source_head,base:[card('A')],ijui:[]});
 test('preparação conserva integralmente IDs, onze módulos, vínculos e conteúdo',()=>{
@@ -41,4 +42,18 @@ test('leitura dos formatos Ijuí e TRT não significa promoção ou migração e
 test('snapshot oficial passa pelo validador real sem reescrever nenhum registro',()=>{
  const {snapshot,contract}=readOfficial(),a=assessCatalog(snapshot,contract);
  assert.equal(a.technicalReaderReady,true);assert.deepEqual(verifyRecords(snapshot.base),snapshot.base);
+});
+
+test('inventário de mídias separa referências locais, externas, privadas e legadas sem buscar rede',()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'bm-media-'));
+ try{
+  fs.mkdirSync(path.join(root,'assets'));fs.writeFileSync(path.join(root,'assets','figure.svg'),'<svg xmlns="http://www.w3.org/2000/svg"/>');
+  fs.writeFileSync(path.join(root,'outside.svg'),'<svg/>');fs.symlinkSync(path.join(root,'outside.svg'),path.join(root,'assets','escape.svg'));
+  const c=card('A');c.related_image_ids=['LEGACY','LOCAL'];c.consolidation.profile.editorial.media=[
+   {id:'LOCAL',src:'assets/figure.svg'},{id:'INLINE',inline_svg:'<svg/>'},{id:'PRIVATE',private_original:true,src:'assets/figure.svg'},
+   {id:'REMOTE',url:'https://example.invalid/image.svg'},{id:'ESCAPE',src:'assets/escape.svg'},{id:'MISSING',src:'assets/missing.svg'},{id:'NONE'}];
+  const raw=JSON.stringify(c),r=inventoryMedia([c],root);
+  assert.deepEqual(r.counts,{'local-verified':1,'inline-svg':1,'private-original':1,'external-unverified':1,'local-unverified':2,unresolved:1});
+  assert.equal(r.legacyNotInEditorial,1);assert.equal(r.uniqueLocalFiles,1);assert.equal(r.privateMigrationReady,false);assert.equal(JSON.stringify(c),raw);
+ }finally{fs.rmSync(root,{recursive:true,force:true})}
 });
