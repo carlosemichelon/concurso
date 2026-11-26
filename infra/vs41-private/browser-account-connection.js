@@ -21,7 +21,7 @@
     try{abort=new AbortController();status('Carregando seu Banco Mestre no Drive…');
      const p=await mod.connectAccount({token:r.access_token,fetcher:nativeFetch,signal:abort.signal,allowEditorial:()=>true,write:true,actor:nonce});
      if(closed)return;session=p;resolve(p);timer=setTimeout(close,Math.max(1000,(Number(r.expires_in||3600)-60)*1000));
-     status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.scope==='editorial-candidate-only'?'cartões VC52 do Drive · estudos e SRS com gravação autorizada':'Drive individual · estudos e SRS com gravação autorizada'));
+     status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.scope==='editorial-candidate-only'?'cartões VC52 do Drive · dados de estudo individuais':'Drive individual · gravações autorizadas por módulo'));
      document.dispatchEvent(new CustomEvent('bm-account-connected'));
      if(typeof loadCards==='function')void loadCards().catch(e=>status(e.message));
     }catch(e){status(e.message||'Banco individual indisponível')}finally{opening=false;refreshButton()}

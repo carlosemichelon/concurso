@@ -13,15 +13,15 @@ try{
  const context=await browser.newContext({viewport:{width:1366,height:900}}),page=await context.newPage();
  const errors=[],networkWrites=[],dataRequests=[];let account='A';
  page.on('pageerror',e=>errors.push(e.message));
- const fixtures={A:fixture('A'),B:fixture('B')};
+ const writes=[];const fixtures={A:fixture('A',{writable:true,writes}),B:fixture('B',{writable:true,writes})};
  await page.route('**/*',async route=>{
   const req=route.request(),url=new URL(req.url());
   if(url.href==='https://accounts.google.com/gsi/client')return route.fulfill({contentType:'application/javascript',body:'window.google={accounts:{oauth2:{hasGrantedAllScopes:()=>true,initTokenClient:c=>({requestAccessToken(o){window.__prompt=o.prompt;c.callback({access_token:'+JSON.stringify(account)+',expires_in:3600})}})}}};'});
   if(url.origin==='https://www.googleapis.com'){
-   if(req.method()==='OPTIONS')return route.fulfill({status:204,headers:{'access-control-allow-origin':'*','access-control-allow-headers':'authorization','access-control-allow-methods':'GET,OPTIONS'}});
-   if(req.method()!=='GET'){networkWrites.push(url.href);return route.fulfill({status:403});}
+   if(req.method()==='OPTIONS')return route.fulfill({status:204,headers:{'access-control-allow-origin':'*','access-control-allow-headers':'authorization,content-type,if-match','access-control-allow-methods':'GET,POST,PATCH,OPTIONS'}});
    const key=req.headers().authorization?.slice(7);assert.equal(key,account);
-   const res=await fixtures[key](req.url(),{method:'GET',headers:{Authorization:'Bearer '+key}});
+   if(req.method()!=='GET'){networkWrites.push({account:key,method:req.method(),url:url.href});assert.ok(url.pathname.startsWith('/upload/drive/v3/files'));}
+   const res=await fixtures[key](req.url(),{method:req.method(),headers:{Authorization:'Bearer '+key},body:req.postData()});
    return route.fulfill({status:res.status,contentType:res.headers.get('Content-Type')||'application/json',body:Buffer.from(await res.arrayBuffer()),headers:{'access-control-allow-origin':'*'}});
   }
   if(url.origin==='https://cdnjs.cloudflare.com'&&/\/pdf(?:\.worker)?\.min\.js$/.test(url.pathname)){
@@ -66,10 +66,28 @@ try{
   assert.equal(docs[0].id,'pdf'+a);
   await page.evaluate(async doc=>{await window.BMVS41PrivatePdfs.preview(doc);const blob=await window.BMVS41PrivateMedia.read(undefined,doc.id);await window.BMVS41PrivatePdfEditor.open(doc,blob)},docs[0]);
   assert.ok(await page.evaluate(()=>window.BMVS41PrivatePdfEditor.confirmed));
-  await page.locator('#pdfClose').click();
+  assert.ok(await page.locator('#pdfDialog').evaluate(d=>d.open));
+  const pdfMarks=await page.evaluate(id=>window.BMVS41PrivateAnnotations.get(id,1),docs[0].id);
+  assert.deepEqual(pdfMarks.marks,[]);
+  if(a==='A'){
+   const mark={id:'browser-test-pdf-A',type:'highlight',color:'#ffee00',rects:[[0,0,0.5,0.1]]};
+   const saved=await page.evaluate(({id,row,mark})=>window.BMVS41PrivateAnnotations.save(id,1,{event_id:crypto.randomUUID(),hash:row.hash,previous:row.revision,marks:[mark]}),{id:docs[0].id,row:pdfMarks,mark});
+   assert.deepEqual(saved.marks,[mark]);
+   assert.deepEqual((await page.evaluate(id=>window.BMVS41PrivateAnnotations.get(id,1),docs[0].id)).marks,[mark]);
+  }
+  await page.locator('#bmV056ClosePDF').click();
+  await page.waitForFunction(()=>!document.getElementById('pdfDialog').open);
   const images=await page.evaluate(()=>window.BMVS41PrivateImages.list());assert.equal(images[0].id,'img'+a);
   await page.evaluate(img=>window.BMVS41PrivateImageEditor.open(img),images[0]);
   assert.ok(await page.evaluate(()=>window.BMVS41PrivateImageEditor.confirmed));
+  const imageMarks=await page.evaluate(id=>window.BMVS41PrivateImageInk.get(id),images[0].id);
+  assert.deepEqual(imageMarks.marks,[]);
+  if(a==='A'){
+   const mark={id:'browser-test-image-A',type:'pen',color:'#ff0000',size:3,points:[[0.1,0.2,0.5],[0.3,0.4,0.5]]};
+   const saved=await page.evaluate(({id,row,mark})=>window.BMVS41PrivateImageInk.save(id,{event_id:crypto.randomUUID(),hash:row.hash,previous:row.revision,marks:[mark]}),{id:images[0].id,row:imageMarks,mark});
+   assert.deepEqual(saved.marks,[mark]);
+   assert.deepEqual((await page.evaluate(id=>window.BMVS41PrivateImageInk.get(id),images[0].id)).marks,[mark]);
+  }
   await page.locator('#imgClose').click();
   console.log('Conta '+a+': PDF e imagem abertos nos editores originais.');
   await page.setViewportSize({width:390,height:844});
@@ -80,7 +98,11 @@ try{
   await page.waitForFunction(()=>document.getElementById('bm239-drive-action')?.textContent==='Selecionar conta Google');
   assert.equal(await page.evaluate(()=>window.BMVS41Session.available()),false);
  }
- assert.deepEqual(dataRequests,[]);assert.deepEqual(networkWrites,[]);
+ assert.deepEqual(dataRequests,[]);
+ assert.equal(networkWrites.length,2);assert.ok(networkWrites.every(x=>x.account==='A'&&x.method==='POST'));
+ assert.equal(writes.length,2);assert.ok(writes.every(x=>x.account==='A'));
+ assert.ok(writes.some(x=>x.name==='BancoMestre_Grifos_Mestre.json'));
+ assert.ok(writes.some(x=>x.name?.startsWith('BM_IMAGE_INK_')));
  assert.deepEqual(errors,[]);
- console.log('Original portal: header Google account selection, cards and study control from two accounts, no iframe, no public catalogue, no writes.');
+ console.log('Original portal: header Google account selection, cards and study control from two accounts, no iframe, no public catalogue, verified private annotation writes only in account A.');
 }catch(e){console.error('Falha no teste de interface:',e.message);throw e}finally{await browser.close()}
