@@ -78,3 +78,18 @@ test('manual root uses the selected account and rejects another account or a non
  await assert.rejects(connectAccount({token:'A',fetcher:fixture('A'),rootId:'pdfA'}),/pasta privada/);
  await assert.rejects(connectAccount({token:'A',fetcher:fixture('A',{foreign:true}),rootId:'rootA'}));
 });
+
+test('complete ChatGPT export includes account, purpose, source links and current rules, with no writes',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{writable:true,writes}),write:true});
+ const e=await a.exportStudy('Hidráulica e solos');
+ assert.equal(e.account.email,'a@example.invalid');
+ assert.equal(e.drive.root_url,'https://drive.google.com/drive/folders/rootA');
+ assert.equal(e.study_objective,'Hidráulica e solos');
+ assert.equal(e.data.methodology.text,'Metodologia integral A');
+ assert.equal(e.data.operational_guide.text,'Guia integral A');
+ assert.equal(e.data.cards[0].front,'Pergunta privada A');
+ assert.equal(e.data.study.data.subjects[0].name,'Disciplina A');
+ assert.equal(e.complete,true);assert.equal(writes.length,0);
+ assert.ok(e.data.media.every(x=>x.url.startsWith('https://drive.google.com/open?id=')));
+ await assert.rejects(a.exportStudy(''),/estudado/);
+});

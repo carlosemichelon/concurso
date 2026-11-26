@@ -165,6 +165,20 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   if(baseline)event.baseline_easy={count:baseline,proof:'Prova de revisão anterior preservada em evento já confirmado',date:previous.find(x=>x.baseline_easy?.date)?.baseline_easy.date||null};
   return (await create('BM_SRS_EVENT_V001_'+event.id+'_'+event.event_id+'.json',event)).data;
  });
+ // The same account owns and supplies the current operational documents. Never embed
+ // another user's Drive IDs or choose a version merely because its timestamp is newer.
+ async function operationalDoc(prefix,label){
+  const candidates=await list("mimeType = '"+doc+"' and name contains '"+esc(prefix)+"'");
+  const exact=candidates.filter(f=>f.name.startsWith(prefix));
+  if(exact.length!==1)throw Error(label+' ausente ou duplicado na conta selecionada');
+  const f=await meta(exact[0].id);
+  if(f.mimeType!==doc||!f.name.startsWith(prefix)||!f.version)throw Error(label+' inválido');
+  const r=await get(API+'/'+f.id+'/export',{mimeType:'text/plain'}),text=await r.text(),again=await meta(f.id);
+  if(f.version!==again.version||f.name!==again.name||!text.trim()||new TextEncoder().encode(text).length>10000000)throw Error(label+' alterado ou acima do limite de exportação');
+  return {name:f.name,version:f.version,modifiedTime:f.modifiedTime||null,url:'https://docs.google.com/document/d/'+f.id+'/edit',text};
+ }
+ const methodology=()=>operationalDoc('00_METODOLOGIA_MESTRE_VIGENTE','Metodologia Mestre vigente');
+ const operationalGuide=()=>operationalDoc('00_GUIA_OPERACIONAL_DE_ESTUDO','Guia Operacional vigente');
  const formulas=async()=>{const f=await unique("mimeType = '"+doc+"' and name = 'Estruturas – Fórmulas, Vigas e Análise Estrutural'","Guia de fórmulas",true);if(!f)return null;
   const r=await get(API+'/'+f.id+'/export',{mimeType:'text/plain'}),text=await r.text(),again=await meta(f.id);if(f.version!==again.version||!text.trim()||text.length>400000)throw Error('Guia alterado ou inválido');return {text,version:f.version,modifiedTime:f.modifiedTime}};
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
@@ -294,5 +308,31 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const confirmed=await imageHistory(id,hash);if(!eq(confirmed.latest,e)){uncertain=true;fail('Marcações de imagem não confirmadas',409)}
   return imageView(id,hash,e);
  });
- return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ // Complete study handoff. A manifest makes absent or failed sources explicit.
+ // Originals remain at their private Drive links: never encode an entire PDF library into JSON.
+ const exportStudy=async objective=>{
+  const goal=String(objective||'').trim();if(!goal||goal.length>10000)throw Error('Informe o que será estudado (até 10.000 caracteres).');
+  if(!identity.email)throw Error('O Google não confirmou o e-mail da conta. Reconecte antes de exportar.');
+  const data={},sources={},capture=async(key,fn,optional=false)=>{
+   try{const value=await fn();data[key]=value;sources[key]={status:value===null?'ausente':'confirmado'};if(value===null&&!optional)sources[key].detail='Não localizado na conta.'}
+   catch(e){data[key]=null;sources[key]={status:'falha',detail:String(e.message||e)}}
+  };
+  await capture('methodology',methodology);
+  await capture('operational_guide',operationalGuide);
+  await capture('cards',async()=>snapshot.records);
+  await capture('study',async()=>{const p=await studyMaster();return p?{revision:p.revision,data:p.data}:null});
+  await capture('reviews',reviews);
+  await capture('gaps',async()=>{const p=await gapMaster();return p?{revision:p.revision,data:validateGaps(p.data)}:null});
+  await capture('formulas',formulas,true);
+  await capture('pdf_highlights',async()=>{const p=await grifos();return p.file?{revision:p.file.version,data:p.data}:null},true);
+  await capture('image_ink',async()=>{
+   const files=await list("mimeType = 'application/json' and appProperties has { key='bm_kind' and value='bm_image_ink_v1' }"),out=[],ids=new Set();
+   for(const f of files){const r=await json(f.id,300000),e=r.data;if(e.schema!=='BM-IMAGE-INK/1'||!validId(e.pdfId)||!uuid(e.event_id)||!validInk(e.marks)||ids.has(e.event_id)||r.meta.appProperties?.bm_kind!=='bm_image_ink_v1'||!/^[a-f0-9]{64}$/.test(e.hash)||!(/^[a-f0-9]{64}$/.test(r.meta.appProperties?.bm_image_key||'')))throw Error('Evento de marcação inválido');const key=await digest(new TextEncoder().encode(e.pdfId+'\n'+e.hash));if(key!==r.meta.appProperties.bm_image_key||f.name!=='BM_IMAGE_INK_'+key+'_'+e.event_id+'.json')throw Error('Identificação de marcação divergente');ids.add(e.event_id);out.push(e)}
+   return out;
+  });
+  await capture('media',async()=>[...(await media()).values()].map(x=>({...x,url:'https://drive.google.com/open?id='+x.id})));
+  const incomplete=Object.entries(sources).filter(([k,s])=>s.status==='falha'||(['methodology','operational_guide'].includes(k)&&s.status!=='confirmado')).map(([k,s])=>({section:k,...s}));
+  return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. Use o objetivo informado e a base individual, preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName},sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
+ };
+ return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }

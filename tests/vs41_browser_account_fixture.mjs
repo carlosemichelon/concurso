@@ -19,6 +19,9 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
  const bytes=makePdf();files.set(pdf,{id:pdf,name:'Material.pdf',mimeType:'application/pdf',parents:[root],ownedByMe:true,shared:false,trashed:false,version:'1',size:String(Buffer.byteLength(bytes))});content.set(pdf,bytes);
  const img='img'+account,png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+XK1sAAAAASUVORK5CYII=','base64');
  files.set(img,{id:img,name:'Imagem.png',mimeType:'image/png',parents:[root],ownedByMe:true,shared:false,trashed:false,version:'1',size:String(png.length)});content.set(img,png);
+ const docType='application/vnd.google-apps.document';
+ add('method'+account,'00_METODOLOGIA_MESTRE_VIGENTE_VM20 — teste',docType,[root]);content.set('method'+account,'Metodologia integral '+account);
+ add('guide'+account,'00_GUIA_OPERACIONAL_DE_ESTUDO — VM20',docType,[root]);content.set('guide'+account,'Guia integral '+account);
  const snapshot={format:'BancoMestrePrivadoV159',schema_version:1,version:'TESTE-'+account,counts:{cards:1},cards:[card(account)]};
  add(snap,'snapshot.json','application/json',[root],snapshot);
  add(ptr,'BANCO_MESTRE_ATUAL.json','application/json',[root],{schema:'banco-mestre-operational-pointer/1',private_base:{file_id:snap,version:snapshot.version,sha256:createHash('sha256').update(JSON.stringify(snapshot)).digest('hex'),cards:1}});
@@ -44,13 +47,16 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    if(q.includes("name = 'DataBase_Concurso'"))result=[files.get(root)];
    else if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))result=duplicatePointer?[files.get(ptr),{...files.get(ptr),id:'duplicate'}]:[files.get(ptr)];
    else if(q.includes('bm_controle_estudos_v245'))result=[files.get(study)];
-   else if(q.includes('bm_image_ink_v1'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind==='bm_image_ink_v1'&&q.includes(x.appProperties.bm_image_key));
+   else if(q.includes('00_METODOLOGIA_MESTRE_VIGENTE'))result=[files.get('method'+account)];
+   else if(q.includes('00_GUIA_OPERACIONAL_DE_ESTUDO'))result=[files.get('guide'+account)];
+   else if(q.includes('bm_image_ink_v1'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind==='bm_image_ink_v1'&&(!q.includes('bm_image_key')||q.includes(x.appProperties.bm_image_key)));
    else if(q.includes('bm_grifos_sync_v104_master'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GRIF_KIND);
    else if(q.includes('bm_lacunas_v242'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GAP_KIND);
    else if(q.includes('BM_SRS_EVENT_V001_'))result=[...files.values()].filter(x=>x.name.startsWith('BM_SRS_EVENT_V001_'));
    else if(q.includes("'"+root+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(root));
    return Response.json({files:result});
   }
+  if(u.pathname.endsWith('/export')){const id=u.pathname.split('/').at(-2);return files.has(id)?new Response(content.get(id)||'') : new Response(null,{status:403})}
   const id=u.pathname.split('/').at(-1);
   if(!files.has(id))return new Response(null,{status:403});
   if(u.searchParams.has('alt'))return new Response(content.get(id),{headers:{'Content-Type':files.get(id).mimeType}});
