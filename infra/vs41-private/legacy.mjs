@@ -76,3 +76,30 @@ export function privateStudyCalendarStatus(source){
   .replace("const drive=window.BM239DriveGlobal,token=drive?.writeToken?.();","const drive=window.BM239DriveGlobal,token=window.BMVS41Session?.available();");
  return source.slice(0,i)+s+source.slice(j);
 }
+
+// Preserve original renderers; every legacy module lookup resolves the authenticated
+// in-memory catalog rather than downloading a public shard or applying a public overlay.
+export function privateReaderLayers(source){
+ const a='async function bm197Record(id){',b='/* V199 — enriquecimentos documentados, sem alterar o JSON histórico. */';
+ const i=source.indexOf(a),j=source.indexOf(b,i);
+ if(i<0||j<0)throw Error('Contrato módulos leitor divergente');
+ return source.slice(0,i)+"async function bm197Record(id){return window.BMVS41PrivateLayers.get(id);}\n"+source.slice(j);
+}
+export function privateHeaderLayers(source){
+ const a=' async function shard(index){',b=' function render(id,box){';
+ let i=source.indexOf(a),j=source.indexOf(b,i);
+ if(i<0||j<0)throw Error('Contrato lote privado divergente');
+ let s=source.slice(0,i)+" async function shard(index){return window.BMVS41PrivateLayers.map();}\n"+source.slice(j);
+ const start='async function record(id){',end='function render(host,item){';
+ i=s.indexOf(start);j=s.indexOf(end,i);
+ if(i<0||j<0)throw Error('Contrato módulo grade divergente');
+ s=s.slice(0,i)+"async function record(id){return window.BMVS41PrivateLayers.get(id);}\n"+s.slice(j);
+ const old="load:async id=>{if(/^TRT0[12]-C\\d{3}$/.test(id))return window.BM236TrtCardsGrid.loadRecord(id);const i=shardFor(id);return eligible(id)&&i>=0?(await shard(i)).get(id)||null:null;},";
+ if(s.split(old).length!==2)throw Error('Contrato consulta privada divergente');
+ return s.replace(old,"load:async id=>window.BMVS41PrivateLayers.get(id),");
+}
+export function privateLayerBridge(source){
+ const start='/* 75 assets/v276_layers_bridge.js */',i=source.indexOf(start);
+ if(i<0)throw Error('Contrato ponte privada divergente');
+ return source.slice(0,i)+start+"\nwindow.BM276LayerData=Object.freeze({has:id=>!!window.BMVS41PrivateLayers.get(id),get:async id=>window.BMVS41PrivateLayers.get(id)});\n";
+}

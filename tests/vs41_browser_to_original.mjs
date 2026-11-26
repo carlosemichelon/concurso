@@ -90,7 +90,7 @@ try{
   assert.equal(await article.getAttribute('data-render-fallback'),null);
   assert.deepEqual(await article.locator('p[data-bm-answer-paragraph]').allTextContents(),verified.records.find(c=>c.id===id).consolidation.profile.editorial.answer_paragraphs.map(p=>typeof p==='string'?p:p.text||p.texto));
   await page.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
-  assert.equal(catalogRequests.length,0);assert.equal(writes.length,0);assert.ok(requests.length>0);
+  assert.deepEqual(catalogRequests,[],'Solicitações a catálogo público');assert.deepEqual(writes,[],'Tentativas de gravação');assert.ok(requests.length>0);
   await ctx.close();
   console.log('OAuth browser transport -> original VS41: '+account+'; '+verified.records.length+' cards; original reader; no public catalog or writes.');
  }

@@ -12,11 +12,13 @@ import {privatePdfLibrary,privatePdfSync} from './pdf-library.mjs';
 import {privateMediaRenderer} from './media-renderer.mjs';
 import {privateCalendar,privateStudyQueue} from './calendar.mjs';
 import {privateJournal} from './journal.mjs';
-import {privateGlobalDrive,privateCheckpoints,privateReconcile,privateTimerHeader,privateStudyCalendarStatus,disabledPublicScripts} from './legacy.mjs';
+import {privateGlobalDrive,privateCheckpoints,privateReconcile,privateTimerHeader,privateStudyCalendarStatus,privateReaderLayers,privateHeaderLayers,privateLayerBridge,disabledPublicScripts} from './legacy.mjs';
 const adapters=new Map([
+ ['/assets/v383_js_016_027_vc23.js',privateReaderLayers],
+ ['/assets/v382_js_064_075_countsfix3_vc23.js',privateLayerBridge],
  ['/assets/v430_js_000_001_editor.js',privateImageEditor],
  ['/assets/v382_srs_journal_vc23.js',privateJournal],
- ['/assets/v414_js_076_087_header.js',s=>privateCheckpoints(privateCalendar(s))],
+ ['/assets/v414_js_076_087_header.js',s=>privateHeaderLayers(privateCheckpoints(privateCalendar(s)))],
  ['/assets/v383_study_queue.js',privateStudyQueue],
  ['/assets/v417_shared_reader.js',privateMediaRenderer],
  ['/assets/v432_js_002_015_topic_media.js',s=>privatePdfLibrary(privatePdfEditor(s))],
