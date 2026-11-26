@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR" data-bm-portal-version="V433"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS41 — Portal de estudos</title><style id="bm-startup-gate">
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V433"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; connect-src 'self' blob: https://www.googleapis.com https://accounts.google.com/gsi/; img-src 'self' data: blob:; font-src 'self' data:; frame-src https://accounts.google.com/gsi/ blob:; worker-src 'self' blob: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/; object-src 'none'; base-uri 'none'; form-action 'none'"><script src="assets/bm-account/connection.js"></script><script src="assets/bm-account/client.js"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS41 — Portal de estudos</title><style id="bm-startup-gate">
 #bmStartupGate{display:none}
 html[data-bm-startup="pending"] body > :not(#bmStartupGate){opacity:0!important;pointer-events:none!important}
 html[data-bm-startup="pending"] #bmStartupGate{display:flex!important;position:fixed;inset:0;z-index:2147483647;align-items:center;justify-content:center;padding:24px;background:#f3f6f8;color:#253743;font:15px/1.5 system-ui,sans-serif}
@@ -578,7 +578,7 @@ header .stats .bm241-verification{font-size:10px}
 </div>
 <div class="stage" id="imageStage"><div class="canvases"><canvas id="base" aria-hidden="true"></canvas><canvas id="grifo" tabindex="0" aria-label="Área para desenhar, apagar ou selecionar"></canvas></div></div>
 </div></dialog>
-<input id="v034OriginalPicker" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg" hidden aria-label="Selecionar imagem original para o registro"><script src="assets/v316_drive_progress.js?v=316-2"></script><script src="assets/v430_js_000_001_editor.js?v=430-1"></script><script>
+<input id="v034OriginalPicker" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg" hidden aria-label="Selecionar imagem original para o registro"><script src="assets/v316_drive_progress.js?v=316-2"></script><script src="assets/bm-account/v430_js_000_001_editor.js?v=430-1"></script><script>
 'use strict';
 const $=id=>document.getElementById(id),fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const api=window.BancoMestreImagens;let docs=[],meta=null,cards=[],imgs=[],cardLimit=24,imgLimit=24,loadedCards=false,loadedImages=false;
@@ -605,11 +605,12 @@ function section(name){
   }else history.replaceState(null,'','#'+name);
  }
  if(name==='cartoes')void loadCards().catch(e=>console.warn('Carregamento dos cartões V194:',e));
+ if(name==='pdfs')void window.BancoMestrePDFSyncV130?.refresh?.();
  if(name==='imagens')loadImages();
  if(name==='assuntos')loadTopics();
 }
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>section(b.dataset.page));
-async function pdfInit(){try{const r=await fetch('assets/pdf_catalog_v149.json',{cache:'no-store'});if(!r.ok)throw Error('Catálogo indisponível');const d=await r.json();if(d.format!=='BancoMestrePDFCatalogV140'||d.documents.length!==78)throw Error('Catálogo incompatível');docs=d.documents;$('pdfStat').textContent=docs.length;for(const g of [...new Set(docs.map(x=>x.section))])$('pdfFilter').add(new Option(g,g));pdfRender()}catch(e){$('pdfRows').textContent='Erro ao carregar PDFs: '+e.message}}
+async function pdfInit(){return true}
 function pdfRender(){const q=fold($('pdfSearch').value),f=$('pdfFilter').value,show=$('pdfHidden').checked,h=hidden('PDF');let a=docs.filter(x=>(show||!h.has(x.id))&&(f==='all'||x.section===f)&&fold(x.title+' '+x.section+' '+x.id+' '+x.category).includes(q));$('pdfCount').textContent=a.length+' PDFs';const out=$('pdfRows');out.replaceChildren();for(const group of [...new Set(a.map(x=>x.section))]){out.append(el('h3',group,'group'));const grid=el('div',null,'grid');for(const p of a.filter(x=>x.section===group)){const off=h.has(p.id),pages=p.pages?' · págs. '+p.pages.join('–'):'',size=p.size?' · '+(p.size/1048576).toFixed(1)+' MB':'';const x=card(p.title,p.id,'Google Drive'+pages+size+(off?' · excluído localmente':''));x.buttons.append(action('Ler / editar PDF',()=>pdfOpen(p),'primary'),link('Abrir no Drive',p.url),action(off?'Restaurar':'Excluir',()=>{if(exclude('PDF',p.id,!off))pdfRender()},off?'':'danger'));grid.append(x.c)}out.append(grid)}if(!a.length)out.append(el('p','Nenhum PDF encontrado.','muted'))}
 function pdfOpen(p){$('docTitle').textContent=p.title;$('pdfOriginal').href=p.url;$('pdfFrame').src='https://drive.google.com/file/d/'+encodeURIComponent(p.file_id)+'/preview';$('pdfDialog').showModal()}
 $('pdfClose').onclick=()=>$('pdfDialog').close();$('pdfDialog').addEventListener('close',()=>{$('pdfFrame').src='about:blank'});
@@ -677,7 +678,10 @@ function loadCards(){
  if(out&&!cards.length)out.textContent='Carregando biblioteca de cartões…';
  bm123CardsPromise=(async()=>{
   let p;
+  const privateSource=window.BMVS41PrivateCards;
   try{
+   if(!privateSource)throw Error('Fonte privada ausente');
+   if(privateSource){p=await privateSource.read();}else{
    const controller=new AbortController();
    const timer=setTimeout(()=>controller.abort(),25000);
    try{
@@ -691,6 +695,7 @@ function loadCards(){
       p.base?.length!==n.canonical||p.ijui?.length!==n.ijui||p.base.filter(c=>c.active!==false).length!==n.active||
       new Set([...p.base,...p.ijui].map(c=>c.id)).size!==n.canonical+n.ijui||!p.meta||!p.globals||
       !p.guideData||!p.generalGuide||!p.auditF17||!p.answersF17)throw Error('Catálogo consolidado inválido');
+   }
   }catch(e){
    const message=e.name==='AbortError'?'Tempo limite de carregamento atingido':e.message;
    bm123CardsPromise=null;bmCatalogState('error',message);
@@ -703,7 +708,7 @@ function loadCards(){
    for(const [key,value] of Object.entries(p.globals))window[key]=key==='BM347CatalogStatus'?value:Object.freeze(value);
    window.BM344CatalogStatus=window.BM345CatalogStatus;
    const base=p.base,ijui=p.ijui;
-   cards=[...base,...ijui];loadedCards=true;bm366ApplyRelations(cards);const remap=p.consolidation?.redirects||{};for(const c of cards){if(c.active!==false&&Array.isArray(c.related_card_ids))c.related_card_ids=[...new Set(c.related_card_ids.map(id=>remap[id]||id))].filter(id=>id!==c.id);}
+   cards=[...base,...ijui];loadedCards=true;if(!privateSource)bm366ApplyRelations(cards);const remap=p.consolidation?.redirects||{};for(const c of cards){if(c.active!==false&&Array.isArray(c.related_card_ids))c.related_card_ids=[...new Set(c.related_card_ids.map(id=>remap[id]||id))].filter(id=>id!==c.id);}
    const filter=$('cardFilter');
    for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())if(![...filter.options].some(o=>o.value===g))filter.add(new Option(g,g));
    cardRender();
@@ -714,6 +719,7 @@ function loadCards(){
  return bm123CardsPromise;
 }
 function loadCardsLegacy(){
+ return Promise.reject(Error('Fonte legada bloqueada no ambiente privado'));
  if(bm123CardsPromise)return bm123CardsPromise;
  const out=document.getElementById('cardRows');
  if(out&&!cards.length)out.textContent='Carregando cartões públicos V194 + sincronização V274 + adendos V267…';
@@ -1224,12 +1230,7 @@ function cardRender(){
 }
 
 $('cardSearch').oninput=()=>{focusGroup='';cardLimit=24;cardRender()};$('cardFilter').onchange=()=>{focusGroup='';cardRender()};$('cardHidden').onchange=cardRender;$('cardReviewedOnly').onchange=()=>{cardLimit=24;cardRender()};$('cardRecoveredOnly').onchange=()=>{cardLimit=24;cardRender()};$('moreCards').onclick=()=>{cardLimit+=24;cardRender()};
-async function loadImages(){if(loadedImages)return;loadedImages=true;try{
- imgs=(await loadMeta()).images;
- try{const r=await fetch('assets/originais_candidatos_v028.json',{cache:'no-store'});if(r.ok){const x=await r.json();if(x.matched_count===76)origMap=x.images||{}}}catch(e){console.warn('Originais não disponíveis; usando prévias:',e)}
- for(const g of [...new Set(imgs.map(x=>x.category))].sort())$('imageFilter').add(new Option(g,g));
- await window.BM180ImageBridge?.add(imgs);window.BM184Header?.updateImages(imgs);await imgRender()
- }catch(e){$('imageRows').textContent=e.message}}
+async function loadImages(){return window.BancoMestreDriveImagesV182?.refresh?.()}
 async function thumb(x){if(x.shard===undefined||!meta.image_files[x.shard])return null;if(!shards[x.shard])shards[x.shard]=fetch('assets/'+meta.image_files[x.shard]).then(r=>{if(!r.ok)throw Error('Prévia ausente');return r.json()});try{return (await shards[x.shard])[x.no]||null}catch{return null}}
 async function imgRender(){const h=new Map((await api.all()).map(x=>[x.id,x.status])),show=$('imageHidden').checked,q=fold($('imageSearch').value),f=$('imageFilter').value;const a=imgs.filter(x=>(show||h.get(x.no)!=='hidden')&&(f==='all'||x.category===f)&&fold(x.no+' '+x.title+' '+x.category).includes(q));$('imageCount').textContent=a.length+' imagens';const out=$('imageRows');out.replaceChildren();for(const x of a.slice(0,imgLimit)){const off=h.get(x.no)==='hidden',c=card(x.title,x.no,x.category+(off?' · oculta':''));const preview=el('img',null,'thumb');preview.loading='lazy';preview.alt='Abrir '+x.no+' em tela cheia';preview.title='Clique para abrir em tela cheia, ampliar e grifar';preview.tabIndex=0;preview.setAttribute('role','button');preview.style.cursor='zoom-in';preview.onclick=()=>imgOpen(x);preview.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();imgOpen(x)}};c.c.insertBefore(preview,c.c.querySelector('h3'));{
  const source=origMap[x.no]?.verified===true?origMap[x.no]:null;
@@ -1254,14 +1255,14 @@ async function imgOpen(x){
  }catch(e){alert('Falha ao abrir imagem: '+e.message)}
 }
 window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados nos módulos finais.
-</script><script defer src="assets/v432_js_002_015_topic_media.js?v=432-2"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
+</script><script defer src="assets/bm-account/v432_js_002_015_topic_media.js?v=432-2"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
 
 
 <!-- Leitor antigo duplicado do Vade removido em V129 -->
-<script defer src="assets/v383_js_016_027_vc23.js?v=383-2"></script>
+<script defer src="assets/bm-account/v383_js_016_027_vc23.js?v=383-2"></script>
 
 
-<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/v432_js_040_051_atlas.js?v=432-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/v326_js_052_063_catalogfix1.js?v=1"></script><script defer src="assets/v382_js_064_075_countsfix3_vc23.js?v=3"></script><script defer src="assets/v414_js_076_087_header.js?v=414-1"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=426-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=3"></script><script defer src="assets/v430_js_112_123_control.js?v=430-1"></script><script defer src="assets/v417_math_engine.js?v=417-1"></script><script defer src="assets/v432_js_124_135_formulas.js?v=432-1"></script><script id="bm259-pdf-visibility-label">
+<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/bm-account/v432_js_040_051_atlas.js?v=432-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/v326_js_052_063_catalogfix1.js?v=1"></script><script defer src="assets/bm-account/v382_js_064_075_countsfix3_vc23.js?v=3"></script><script defer src="assets/bm-account/v414_js_076_087_header.js?v=414-1"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=426-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=3"></script><script defer src="assets/bm-account/v430_js_112_123_control.js?v=430-1"></script><script defer src="assets/v417_math_engine.js?v=417-1"></script><script defer src="assets/bm-account/v432_js_124_135_formulas.js?v=432-1"></script><script id="bm259-pdf-visibility-label">
 (function(){
  function mount(){
   const panel=document.querySelector('#pdfs .panel'),rows=document.getElementById('pdfRows');
@@ -1281,8 +1282,8 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
-</script><script defer src="assets/v402_js_136_147_compare.js?v=402-1"></script><script defer src="assets/v413_js_148_159_gaps.js?v=413-1"></script>
-<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/v382_srs_journal_vc23.js?v=382-1"></script><script defer src="assets/v373_related_navigator.js?v=373-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/v343_petro27_renderer.js?v=343-1"></script><script defer src="assets/v345_petro28_renderer.js?v=345-1"></script><script defer src="assets/v346_petro24_renderer.js?v=346-1"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/v348_visual_renderer.js?v=348-1"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/v417_shared_reader.js?v=417-1"></script><script defer src="assets/v368_supplements.js?v=368-1"></script><script defer src="assets/v368_private_media.js?v=368-1"></script><script defer src="assets/v373_petro29_remap_renderer.js?v=373-1"></script><script defer src="assets/v383_study_queue.js?v=383-1"></script><script id="bm-discursive-split-controller">
+</script><script defer src="assets/bm-account/v402_js_136_147_compare.js?v=402-1"></script><script defer src="assets/bm-account/v413_js_148_159_gaps.js?v=413-1"></script>
+<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/bm-account/v382_srs_journal_vc23.js?v=382-1"></script><script defer src="assets/v373_related_navigator.js?v=373-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/bm-account/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/bm-account/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/bm-account/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/v343_petro27_renderer.js?v=343-1"></script><script defer src="assets/v345_petro28_renderer.js?v=345-1"></script><script defer src="assets/v346_petro24_renderer.js?v=346-1"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/v348_visual_renderer.js?v=348-1"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/bm-account/v417_shared_reader.js?v=417-1"></script><script defer src="assets/bm-account/v368_supplements.js?v=368-1"></script><script defer src="assets/bm-account/v368_private_media.js?v=368-1"></script><script defer src="assets/v373_petro29_remap_renderer.js?v=373-1"></script><script defer src="assets/bm-account/v383_study_queue.js?v=383-1"></script><script id="bm-discursive-split-controller">
 (function(){
  'use strict';
  const wide=matchMedia('(min-width:900px)');

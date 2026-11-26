@@ -39,7 +39,8 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,edi
   const root=await info(id);
   if(root.mimeType!==folderMime)throw Error('Selecione uma pasta privada do Drive.');
   const listing=await (await get('files',{q:"'"+id+"' in parents and trashed = false and name = '"+currentPointerName+"'",fields:'nextPageToken,incompleteSearch,files(id,name,mimeType,parents)',pageSize:'100'})).json();
-  if(listing.nextPageToken||listing.incompleteSearch||listing.files?.length!==1)throw Error('A pasta precisa conter um único ponteiro vigente BANCO_MESTRE_ATUAL.json. Nenhuma versão histórica foi selecionada.');
+  if(listing.nextPageToken||listing.incompleteSearch||!Array.isArray(listing.files)||listing.files.length>1)throw Error('A pasta precisa conter um único ponteiro vigente BANCO_MESTRE_ATUAL.json. Origem ambígua ou consulta incompleta.');
+  if(!listing.files.length){const e=Error('A pasta precisa conter um único ponteiro vigente BANCO_MESTRE_ATUAL.json. Nenhuma versão histórica foi selecionada.');e.code='CURRENT_POINTER_MISSING';throw e;}
   const f=listing.files[0];
   if(f.name!==currentPointerName||!validId(f.id)||f.mimeType!=='application/json'||f.parents?.length!==1||f.parents[0]!==id)throw Error('Ponteiro vigente inválido.');
   return f.id;
