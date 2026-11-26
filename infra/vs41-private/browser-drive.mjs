@@ -76,7 +76,12 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal}){
   await assertInside(parent.id);
   const hash=expectedHash||before.sha256Checksum;
   if(hash){if(!/^[a-f0-9]{64}$/.test(hash))throw Error('Hash da origem inválido.');const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');if(digest!==hash)throw Error('Hash da origem divergente.');}
-  return {data:JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)),meta:before};
+  const data=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+  if(data?.format==='BM-DRIVE-EDITORIAL-SEED/1'){
+   const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+   if(digest!=='040e7ebc12e0606870fb8dfa39ac43d8b93b906b7a3532af14557b0f8395f419')throw Error('Candidato editorial VC52 não corresponde à cópia verificada.');
+  }
+  return {data,meta:before};
  };
  const account=await (await get('about',{fields:'user(permissionId)'})).json();
  if(!validId(account?.user?.permissionId))throw Error('Identidade Google não confirmada.');
