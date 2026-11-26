@@ -25,6 +25,10 @@ A V2 deve preservar a exibição do portal VS41 oficial: HTML de referência, fo
 
 A prévia isolada `preview-drive/index.html` reutiliza o fluxo Google Identity Services com Client ID público, escopo drive.readonly e token temporário apenas em memória. Usa o mesmo validador de cartões do leitor experimental, aceita link explícito do snapshot privado ou ponteiro e verifica titularidade, privacidade, revisão e hash quando disponível. Sem servidor, Refresh Token, Client Secret, persistência, fallback público ou gravação. Não é substituto da interface oficial nem homologação da fonte vigente: não aplica deltas, SRS, mídia ou lacunas; o arquivo deve ser confirmado pelo usuário. A publicação da prévia isolada exige autorização e a origem JavaScript do cliente deve ser cadastrada; a branch não é o site publicado. A prova real depende do consentimento Google.
 
+## Integração do OAuth com o portal integral
+
+O teste `vs41_browser_to_original.mjs` conecta o leitor OAuth já existente ao contrato privado do host original, utilizando duas contas simuladas. Não substitui o HTML, CSS ou leitor da VS41. O transporte de teste intercepta somente a resposta de cartões; não é autenticação nem API de produção. A implantação real exige escolher e homologar o transporte seguro, sem alterar a interface. A prévia pública continua diagnóstico isolado; não publicar o host de teste nem habilitar gravações.
+
 ## Alternativa anterior: servidor (adiada)
 
 Usar somente raízes privadas de teste, não o banco real nem uma credencial administrativa comum. Node 22+; configurar no ambiente privado do servidor `BM_USERS_JSON` (um perfil na primeira homologação, dois distintos na segunda: username, subject, rootId, profileId, passwordHash), `BM_GOOGLE_CLIENT_ID`, `BM_GOOGLE_CLIENT_SECRET`, `BM_GOOGLE_GRANTS_JSON` (subject, permissionId e refreshToken de cada conta após consentimento). Manifestos e coleções de teste `private-only`, com appProperties do contrato existente bm-portal-multi-v1. Executar:
