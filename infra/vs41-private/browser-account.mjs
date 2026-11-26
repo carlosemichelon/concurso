@@ -321,7 +321,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
  let mediaIndex=null;
- const media=async()=>{if(mediaIndex)return mediaIndex;const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
+ const media=async(fresh=false)=>{if(mediaIndex&&!fresh)return mediaIndex;const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
   while(queue.length){const p=queue.shift();if(seen.has(p.id)||seen.size>=2000)throw Error('Árvore de mídias inválida ou extensa');seen.add(p.id);
    const children=await list("'"+p.id+"' in parents");
    for(const f of children){if(f.parents?.length!==1||f.parents[0]!==p.id)throw Error('Arquivo fora da pasta selecionada');const path=[...p.path,f.name];
@@ -522,5 +522,33 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const incomplete=Object.entries(sources).filter(([k,s])=>['falha','parcial'].includes(s.status)||(['methodology','operational_guide'].includes(k)&&s.status!=='confirmado')).map(([k,s])=>({section:k,...s}));
   return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal||null,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. O objetivo do estudo será informado na conversa do ChatGPT. Use a base individual e preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName},sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
  };
- return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+
+ // Read-only diagnostics of the authenticated account; no export, write or rotation.
+ const verifyDrive=async()=>{
+  const modules={},notes=[],pending=[],warnings=[];
+  const set=(key,state,message)=>{modules[key]={state,message};(state==='verified'?notes:state==='pending'?pending:warnings).push(message)};
+  const check=async(key,fn)=>{try{const result=await fn();set(key,result.state||'verified',result.message)}catch(e){set(key,e.status===409?'conflict':'error',String(e.message||e).slice(0,350))}};
+  await check('connection',async()=>{await meta(root.id);return {message:'Pasta individual consultada; '+(write?'escopo de gravação autorizado (sem teste de escrita)':'somente leitura')}});
+  await check('pdfs',async()=>{const items=await media(true);return {message:'PDFs: consulta do Drive concluída, '+[...items.values()].filter(x=>x.mimeType==='application/pdf').length+' arquivos listados (conteúdo não baixado)'}});
+  await check('atlas',async()=>{if(modules.pdfs.state!=='verified')throw Error('Consulta de mídias não confirmada');return {message:[...(await media()).values()].filter(x=>x.mimeType.startsWith('image/')).length+' imagens originais consultadas no Drive (arquivos listados)'}});
+  await check('control',async()=>{const p=await study();return p.revision===null?{state:'pending',message:'Controle: não existe arquivo mestre; nenhum registro gravado pela conferência'}:{message:'Controle: '+p.data.sessions.length+' sessões; mestre lido e validado'}});
+  await check('backup',async()=>{
+   const files=await list("mimeType = 'application/json' and appProperties has { key='bm_kind' and value='bm_controle_estudos_v245_backup' }");
+   if(!files.length)return {state:'pending',message:'Nenhum backup V245 identificado; nenhuma cópia criada pelo diagnóstico'};
+   const groups=['daily','monthly'],checked=[];
+   for(const period of groups){
+    const group=files.filter(f=>f.appProperties?.bm_period===period).sort((a,b)=>String(b.appProperties?.bm_day||'').localeCompare(String(a.appProperties?.bm_day||'')));
+    if(!group.length)continue;
+    const f=group[0],d=(await json(f.id,10000000)).data;
+    if(d.format!=='BancoMestreControleBackupV245'||d.period!==period||d.sha256!==f.appProperties?.bm_sha256||!d.data||d.data.schema!==1||!['subjects','sessions','reviews','cycle'].every(k=>Array.isArray(d.data[k]))||await digest(new TextEncoder().encode(JSON.stringify(d.data)))!==d.sha256)throw Error('Integridade do backup '+period+' não confirmada');
+    for(const k of ['subjects','sessions','reviews'])if(d.data[k].some(row=>!row||typeof row.id!=='string')||new Set(d.data[k].map(row=>row.id)).size!==d.data[k].length)throw Error('IDs inválidos no backup '+period);
+    checked.push(period==='daily'?'diário':'mensal');
+   }
+   return {state:checked.length===2?'verified':'pending',message:files.length+' backups identificados; '+(checked.length?'últimos '+checked.join(' e ')+' validados por SHA-256':'nenhuma cópia diária ou mensal válida')+'. Sem criação ou rotação.'};
+  });
+  await check('lacunas',async()=>{const p=await gapMaster();return p?{message:'Lacunas: '+validateGaps(p.data).records.length+' registros; mestre lido e validado'}:{state:'pending',message:'Lacunas: arquivo mestre não localizado'}});
+  await check('grifos',async()=>{const p=await grifos();return p.file?{message:'Grifos: mestre V104 lido e validado; sem alteração das marcações'}:{state:'pending',message:'Grifos: nenhum arquivo mestre V104 localizado'}});
+  return {at:new Date().toISOString(),modules,notes,pending,warnings,complete:!pending.length&&!warnings.length,summary:'Conferência de leitura da conta individual; gravações somente por módulo'};
+ };
+ return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }
