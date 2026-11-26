@@ -7,7 +7,7 @@ import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
 export const scope=readScope+' https://www.googleapis.com/auth/drive.file';
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files';
 const folder='application/vnd.google-apps.folder',doc='application/vnd.google-apps.document';
-const fields='id,name,mimeType,ownedByMe,shared,trashed,parents,size,version,headRevisionId,md5Checksum,sha256Checksum,modifiedTime,appProperties';
+const fields='id,name,mimeType,ownedByMe,shared,trashed,parents,size,version,headRevisionId,md5Checksum,sha256Checksum,modifiedTime,appProperties,properties,description';
 const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
 const owned=f=>validId(f?.id)&&f.ownedByMe===true&&f.shared===false&&f.trashed===false;
 const esc=s=>String(s).replaceAll('\\','\\\\').replaceAll("'","\\'");
@@ -381,9 +381,24 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   }
   return null;
  }
+
+ // Atlas scope restored from VS40/V202. IDs already published in the storage contract
+ // are recognized only while traversing the selected owned private bank.
+ const historicalAtlasIds=new Set(['1ksSVWrmRaRlDoG4iDtTGvfr2OnPnhnY6','1pp1CL9oMYVFHPPzv117DZpy1kA-wyJQo']);
+ const atlasRoot=(f)=>historicalAtlasIds.has(f.id)||/^(?:\d+\s*[-–—]\s*)?atlas de imagens(?:\s*\(sincronizacao\))?$|^originais[ _-]+recuperados(?:[ _-]+conversas(?:[ _-]+[0-9]+)*)?$/i.test(normalizedName(f.name).trim());
+ function atlasImagePolicy(f,path,inAtlas){
+  if(!inAtlas)return {visible:false,reason:'fora do Atlas'};
+  const declared=String(f.properties?.origin||f.properties?.origem||f.appProperties?.origin||f.appProperties?.origem||'').trim().toUpperCase();
+  const desc=String(f.description||'');
+  const original=declared==='ORIGINAL_USUARIO'||/(?:^|\n)\s*(?:origem|origin)\s*[:=]\s*ORIGINAL_USUARIO\s*(?:\n|$)/i.test(desc);
+  const derivative=/DERIVADA|ASSISTENTE|MANUTENCAO|MANUTENÇÃO|MINIATURA/.test(declared)||/(?:^|\n)\s*(?:origem|origin)\s*[:=]\s*(?:DERIVADA_AUTORAL|SVG_DIDATICO_ASSISTENTE|CAPTURA_MANUTENCAO_SITE|IMAGEM_GERADA_ASSISTENTE)\b/i.test(desc);
+  if(derivative||(!original&&/(?:^|[\s_\/-])(?:DERIVADAS?|MINIATURAS?|SVG_AUTORAL|CAPTURAS?_MANUTENCAO|PREVIAS_SVG_SITE)(?:[\s_\/.\-]|$)/i.test(normalizedName(path.join(' / ')))))return {visible:false,reason:'derivada ou manutenção'};
+  if(Number(f.size||0)>15000000)return {visible:false,reason:'acima de 15 MB'};
+  return {visible:true,originVerified:original};
+ }
  let mediaIndex=null,mediaPending=null,mediaAudit={indexedPdfs:0,foundIndexedPdfs:0,legacyPdfs:0};
  const media=async(fresh=false)=>{if(mediaPending)return mediaPending;if(mediaIndex&&!fresh)return mediaIndex;mediaPending=scanMedia();try{return await mediaPending}finally{mediaPending=null}};
- const scanMedia=async()=>{const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
+ const scanMedia=async()=>{const out=new Map(),queue=[{id:root.id,path:[],inAtlas:false}],seen=new Set();
   const reportProgress=(phase)=>{if(signal?.aborted)return;const doc=globalThis.document;if(doc&&typeof globalThis.CustomEvent==='function')doc.dispatchEvent(new CustomEvent('bm-private-media-progress',{detail:{phase,folders:seen.size,remaining:queue.length,files:out.size}}))};
   reportProgress('scan');
   while(queue.length){
@@ -392,8 +407,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    const pages=await Promise.all(batch.map(p=>list("'"+p.id+"' in parents and (mimeType = '"+folder+"' or mimeType = 'application/pdf' or mimeType contains 'image/')")));
    for(let i=0;i<batch.length;i++){const p=batch[i],children=pages[i];
    for(const f of children){if(f.parents?.length!==1||f.parents[0]!==p.id)throw Error('Arquivo fora da pasta selecionada');const path=[...p.path,f.name];
-    if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path});continue;}
-    if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType))out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path});
+    if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path,inAtlas:p.inAtlas||atlasRoot(f)});continue;}
+    if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType)){const policy=f.mimeType.startsWith('image/')?atlasImagePolicy(f,path,p.inAtlas):null;out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path,...(policy?{atlasVisible:policy.visible,atlasReason:policy.reason||'',originVerified:policy.originVerified===true}:{})});}
    }
    }
    reportProgress('scan');
@@ -608,7 +623,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const check=async(key,fn)=>{try{const result=await fn();set(key,result.state||'verified',result.message)}catch(e){set(key,e.status===409?'conflict':'error',String(e.message||e).slice(0,350))}};
   await check('connection',async()=>{await meta(root.id);return {message:'Pasta individual consultada; '+(write?'escopo de gravação autorizado (sem teste de escrita)':'somente leitura')}});
   await check('pdfs',async()=>{const items=await media(true);const detail=mediaAudit.indexedPdfs?' · '+mediaAudit.foundIndexedPdfs+' de '+mediaAudit.indexedPdfs+' IDs do catálogo localizados; '+mediaAudit.legacyPdfs+' originais históricos recuperados':'';return {message:'PDFs: '+[...items.values()].filter(x=>x.mimeType==='application/pdf').length+' arquivos listados'+detail+' (conteúdo não baixado)'}});
-  await check('atlas',async()=>{if(modules.pdfs.state!=='verified')throw Error('Consulta de mídias não confirmada');return {message:[...(await media()).values()].filter(x=>x.mimeType.startsWith('image/')).length+' arquivos de imagem consultados no Drive (conteúdo não baixado)'}});
+  await check('atlas',async()=>{if(modules.pdfs.state!=='verified')throw Error('Consulta de mídias não confirmada');const all=[...(await media()).values()].filter(x=>x.mimeType.startsWith('image/')),visible=all.filter(x=>x.atlasVisible===true);return {message:visible.length+' imagens no Atlas e originais recuperados; '+(all.length-visible.length)+' arquivos fora do acervo de estudo ou filtrados (preservados no Drive)'}});
   await check('control',async()=>{const p=await study();return p.revision===null?{state:'pending',message:'Controle: não existe arquivo mestre; nenhum registro gravado pela conferência'}:{message:'Controle: '+p.data.sessions.length+' sessões; mestre lido e validado'}});
   await check('backup',async()=>{
    const files=await list("mimeType = 'application/json' and appProperties has { key='bm_kind' and value='bm_controle_estudos_v245_backup' }");
@@ -628,5 +643,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await check('grifos',async()=>{const p=await grifos();return p.file?{message:'Grifos: mestre V104 lido e validado; sem alteração das marcações'}:{state:'pending',message:'Grifos: nenhum arquivo mestre V104 localizado'}});
   return {at:new Date().toISOString(),modules,notes,pending,warnings,complete:!pending.length&&!warnings.length,summary:'Conferência de leitura da conta individual; gravações somente por módulo'};
  };
- return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
 }

@@ -621,7 +621,7 @@ function render(){
   pending=(async()=>{
    try{msg('Consultando imagens privadas…');const list=await window.BMVS41PrivateImages.list();const next=list.map(x=>({...x,name:x.title}));const unchanged=JSON.stringify(photos)===JSON.stringify(next);if(!unchanged){release();photos=next;aliases.clear();}lastGoodAt=Date.now();lastError='';
     for(const f of photos)aliases.set(f.id,{imageId:f.editorialId||'',title:f.title,cardIds:f.card_ids});if(!unchanged||!renderedRecords)render();
-    $('imageCount').textContent=photos.length+' imagens';msg('Arquivos de imagem encontrados: '+photos.length+'; '+photos.filter(f=>f.indexed===true).length+' nos índices históricos.');$('bm207-sync-time').textContent='Consulta validada nesta sessão';
+    $('imageCount').textContent=photos.length+' imagens';msg('Atlas e originais recuperados: '+photos.length+' imagens; '+photos.filter(f=>f.indexed===true).length+' nos índices históricos. Derivadas, miniaturas e demais pastas não entram na contagem.');$('bm207-sync-time').textContent='Consulta validada nesta sessão';
     return {found:photos.length,scope:'authenticated-profile'};
    }catch(e){release();photos=[];aliases.clear();lastGoodAt=0;lastError=e.message;render();msg(e.message,true);return null}
    finally{pending=null}
