@@ -772,6 +772,8 @@ function sectionLineKind(line){
  const s=String(line||'').trim();
  if(!s)return 'space';
  if(/^\|.*\|$/u.test(s))return 'table';
+ // Rótulos editoriais explícitos nunca são tratados como equações.
+ if(/^(?:unidades?(?:\s+de\s+medida)?|variáveis|símbolos|legenda|onde|em que)(?:\s*:|\s*$)/iu.test(s))return 'definition';
  if(/^(O QUE DECORAR|NÃO CONFUNDIR|PEGADINHA|REVISÃO DE \d+ SEGUNDOS)$/iu.test(s))return 'subhead';
  if(/^(FONTE|LIGAÇÕES|VÍNCULOS|REGISTRO|PROTOCOLO|ESTADO DO GUIA|ESCOPO DESTA|REMISSÕES|REFERÊNCIA:)/iu.test(s))return 'metadata';
  if(/^(ATENÇÃO|PEGADINHA|NÃO CONFUNDIR|EXEMPLO DIMENSIONAL)/iu.test(s))return 'caution';
@@ -790,7 +792,7 @@ function mathPart(s){
  return window.BM417Math.part(s);
 }
 function equationNode(text){
- const line=make('div','bm416-equation-item');line.setAttribute('aria-label','Fórmula: '+text);
+ const line=make('div','bm416-equation-item');line.setAttribute('role','group');line.setAttribute('aria-label','Fórmula: '+text);line.tabIndex=0;
  // Matrizes de fonte textual recebem linhas e colunas reais, mantendo os coeficientes originais.
  const match=text.match(/^(.*?)\[\[([^\[\]]+)\](?:,\s*\[([^\[\]]+)\])+\](.*)$/u);
  if(match){const at=text.indexOf('[['),last=text.lastIndexOf(']]'),cells=[...text.slice(at,last+2).matchAll(/\[([^\[\]]+)\]/gu)].map(m=>m[1].split(',').map(v=>v.trim()));
@@ -853,7 +855,7 @@ function mixedFormulaLine(host,source){
  const clauses=splitExpressions(tail);
  const parts=clauses.map(formulaClause);
  if(!parts.some(Boolean)||(!labeled&&parts.length===1&&!parts[0]?.note&&!parts[0]?.prefix))return false;
- if(prefix)host.append(inlineContent(make('p','bm249-line bm249-paragraph'),prefix));
+ if(prefix)host.append(inlineContent(make('p','bm249-line bm249-equation-label'),prefix));
  let block=null;
  for(let i=0;i<clauses.length;i++){
   const p=parts[i];
@@ -865,12 +867,23 @@ function mixedFormulaLine(host,source){
  }
  return true;
 }
+function definitionNode(source){
+ const block=make('div','bm249-definition');
+ const s=String(source).trim(),colon=s.indexOf(':');
+ if(colon<0){block.append(make('p','bm249-definition-label',s));return block;}
+ block.append(make('p','bm249-definition-label',s.slice(0,colon+1)));
+ // Separar somente os itens explicitamente delimitados na fonte, sem interpretar ou inventar unidades.
+ const tail=s.slice(colon+1).trim(),parts=splitExpressions(tail);
+ for(let i=0;i<parts.length;i++)block.append(inlineContent(make('p','bm249-definition-item'),parts[i]+(i<parts.length-1?';':'')));
+ return block;
+}
 function makeBody(body){
  const host=make('div','bm249-body');
  const lines=String(body||'').replace(/\r\n?/g,'\n').split('\n');
  for(let i=0;i<lines.length;i++){
   const sourceLine=lines[i],kind=sectionLineKind(sourceLine);
   if(kind==='space'){if(!host.lastElementChild?.classList.contains('bm249-blockgap')){const space=make('div','bm249-blockgap');space.setAttribute('aria-hidden','true');host.append(space);}continue;}
+  if(kind==='definition'){host.append(definitionNode(sourceLine));continue;}
   if(kind==='table'){let j=i+1;while(j<lines.length&&sectionLineKind(lines[j])==='table')j++;const table=tableNode(lines.slice(i,j));if(table){host.append(table);i=j-1;continue;}}
   if(kind==='equation'){const block=make('div','bm249-line bm249-equation');for(const expr of splitExpressions(sourceLine.trim().replace(/^•\s*/,'')))block.append(equationNode(expr));host.append(block);continue;}
   if((kind==='paragraph'||kind==='step')&&mixedFormulaLine(host,sourceLine))continue;
