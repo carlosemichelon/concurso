@@ -1,0 +1,413 @@
+{
+  "format": "BancoMestreConsolidationCandidate1",
+  "date": "2026-11-25",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_catalog": "assets/catalog_snapshot_vc50.json",
+  "source_catalog_blob": "6e7864b7604d5a338128b0a7b0a4eb1c94d09106",
+  "counts": {
+    "source_active": 1486,
+    "groups": 3,
+    "absorbed": 3,
+    "projected_active": 1483
+  },
+  "redirects": {
+    "CARD-0962": "CARD-0960",
+    "CARD-1173": "CARD-1172",
+    "CARD-0828": "CARD-0827"
+  },
+  "revisions": [
+    {
+      "id": "CARD-0960",
+      "title": "Absortância e refletância térmicas",
+      "front": "O que representam a absortância e a refletância de ondas longas? Como se relacionam para uma superfície opaca?",
+      "back": "A absortância α é a fração da radiação térmica incidente absorvida pela superfície; a refletância ρ é a fração refletida. Para a mesma faixa espectral, vale α+ρ+τ=1, sendo τ a transmitância.\n\nSe a superfície é opaca nessa faixa, τ=0 e α+ρ=1. Por exemplo, refletância de 0,20 implica absortância de 0,80 nas condições consideradas.",
+      "satellites": [
+        "CARD-0962"
+      ],
+      "source": "CON-02-023 | CON-02-025",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0960",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Desempenho térmico — ABNT NBR 15220-1",
+          "sub": "Absortância em ondas longas",
+          "front": "O que é absortância da radiação térmica de ondas longas?",
+          "back": "A fração da radiação incidente na faixa de ondas longas que a superfície absorve.",
+          "expl": "A radiação térmica emitida por superfícies próximas da temperatura ambiente tem espectro diferente do da radiação solar. Materiais e revestimentos podem ter comportamentos distintos nessas faixas, com efeitos sobre as trocas radiativas.\nAplicação: Uma superfície com absortância em onda longa de 0,90 absorve 90% da radiação incidente dessa banda, nas condições consideradas.\nPegadinha: Não transportar automaticamente a absortância solar αs para infravermelho térmico. Relações com emissividade exigem correspondência espectral e condições termodinâmicas.",
+          "mnemonic": "Solar ≠ onda longa; compare a mesma faixa.",
+          "reference": "CON-02-023",
+          "active": true
+        },
+        {
+          "id": "CARD-0962",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Desempenho térmico — ABNT NBR 15220-1",
+          "sub": "Refletância em ondas longas",
+          "front": "O que representa a refletância de radiação térmica de ondas longas?",
+          "back": "A fração da radiação incidente na faixa infravermelha térmica que é refletida.",
+          "expl": "A refletância depende da faixa espectral e das propriedades da superfície. Em materiais opacos na banda considerada, a parte não refletida é absorvida; essa comparação é feita para a mesma faixa e sob condições compatíveis.\nAplicação: Se, na faixa térmica estudada, uma superfície opaca reflete 20% do incidente, ela absorve os 80% restantes nessa mesma banda.\nPegadinha: Não usar refletância SOLAR como substituta da refletância infravermelha; não somar grandezas de bandas diferentes em um balanço de energia.",
+          "mnemonic": "Refletância de ondas longas ≠ refletância solar.",
+          "reference": "CON-02-025",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0960": "d3a5f56aa2f7f4f339c284584ad90ab7e52fbd2c1c83ddc9a3480321b585b32f",
+        "CARD-0962": "b15a46b01c16c38db2162e83eb6d79e18b31e26f2eeb415f5c857ce025907de2"
+      },
+      "mnemonic": "Incidente = absorvida + refletida + transmitida. Opaco: α+ρ=1.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que representam a absortância e a refletância de ondas longas? Como se relacionam para uma superfície opaca?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "A absortância α é a fração da radiação térmica incidente absorvida pela superfície; a refletância ρ é a fração refletida. Para a mesma faixa espectral, vale α+ρ+τ=1, sendo τ a transmitância.\n\nSe a superfície é opaca nessa faixa, τ=0 e α+ρ=1. Por exemplo, refletância de 0,20 implica absortância de 0,80 nas condições consideradas."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-02-023 | CON-02-025"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "O balanço energético reparte a radiação incidente entre absorção, reflexão e transmissão. Ondas longas do infravermelho térmico diferem da radiação solar em distribuição espectral."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "α=1−ρ para superfície opaca; se α=0,90, 90% da energia incidente da banda é absorvida e 10% refletida quando não há transmissão."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Absortância solar e absortância infravermelha não são necessariamente iguais. Emissividade diz respeito à emissão térmica; sua relação com a absortância exige condições espectrais, direcionais e termodinâmicas compatíveis."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Ao interpretar uma tabela de desempenho térmico, identifique a banda espectral e a propriedade antes de usar um número. Uma superfície que reflete bem a luz solar pode ter comportamento diferente no infravermelho."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0960, CARD-0962."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "As relações devem comparar propriedades da mesma faixa espectral e condições. Se houver transmissão, não use α+ρ=1."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não use refletância solar no lugar da térmica, nem confunda absorção com emissividade sem verificar as condições da lei de Kirchhoff."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Incidente = absorvida + refletida + transmitida. Opaco: α+ρ=1."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "A absortância α é a fração da radiação térmica incidente absorvida pela superfície; a refletância ρ é a fração refletida. Para a mesma faixa espectral, vale α+ρ+τ=1, sendo τ a transmitância.",
+          "Se a superfície é opaca nessa faixa, τ=0 e α+ρ=1. Por exemplo, refletância de 0,20 implica absortância de 0,80 nas condições consideradas."
+        ],
+        "highlights": [
+          {
+            "text": "A absortância α é a fração da radiação térmica incidente absorvida pela superfície; a refletância ρ é a fração refletida",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-1172",
+      "title": "Tensão trativa e declividade mínima de coletores",
+      "front": "Segundo a NBR 9649:1986, para n=0,013, qual a tensão trativa mínima verificada com a vazão inicial e qual a expressão aproximada da declividade mínima?",
+      "back": "Na edição histórica de 1986, para coeficiente de Manning n=0,013, a tensão trativa média mínima de referência é 1,0 Pa, verificada para a vazão inicial Qi.\n\nA expressão aproximada é Imin=0,0055·Qi^(−0,47), com Qi em L/s e Imin em m/m, nas condições do item 5.1.4. Essa expressão não é uma regra universal para qualquer rugosidade ou edição normativa.",
+      "satellites": [
+        "CARD-1173"
+      ],
+      "source": "CON-01-020 | CON-01-021",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-1172",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Redes coletoras — NBR 9649",
+          "sub": "Redes coletoras — NBR 9649",
+          "front": "Qual tensão trativa mínima se verificava para Qi na NBR 9649:1986, para n=0,013?",
+          "back": "σt ≥ 1,0 Pa.",
+          "expl": "O critério é associado à referência estudada para Redes coletoras — NBR 9649; os requisitos e exceções devem ser lidos na edição de origem.",
+          "mnemonic": "Redes coletoras — NBR 9649: 1,0 Pa.",
+          "reference": "CON-01-020",
+          "active": true
+        },
+        {
+          "id": "CARD-1173",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Redes coletoras — NBR 9649",
+          "sub": "Redes coletoras — NBR 9649",
+          "front": "Qual expressão aproximada da declividade mínima para n=0,013 na NBR 9649:1986?",
+          "back": "Imin=0,0055·Qi^(−0,47), com Qi em L/s e I em m/m.",
+          "expl": "expressão aproximada nas condições do item 5.1.4 (1986).",
+          "mnemonic": "Redes coletoras — NBR 9649: 0,0055.",
+          "reference": "CON-01-021",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-1172": "b673608e1aa8b4022a8d509f3af2e532b0163d11d80086bb581d35fa041532b0",
+        "CARD-1173": "2a2e6ab10294aca203ccd7fde9fc5fed691986308c6cc3e7d1c5bd3764534afa"
+      },
+      "mnemonic": "1 Pa; 0,0055·Qi^(−0,47); Qi em L/s, I em m/m.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Segundo a NBR 9649:1986, para n=0,013, qual a tensão trativa mínima verificada com a vazão inicial e qual a expressão aproximada da declividade mínima?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na edição histórica de 1986, para coeficiente de Manning n=0,013, a tensão trativa média mínima de referência é 1,0 Pa, verificada para a vazão inicial Qi.\n\nA expressão aproximada é Imin=0,0055·Qi^(−0,47), com Qi em L/s e Imin em m/m, nas condições do item 5.1.4. Essa expressão não é uma regra universal para qualquer rugosidade ou edição normativa."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-01-020 | CON-01-021"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A tensão trativa média relaciona-se à ação do escoamento sobre o perímetro molhado e ao transporte de sólidos. Em escoamento uniforme, σt=γRhI, em que γ é o peso específico do líquido, Rh o raio hidráulico e I a declividade."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Se Qi=1 L/s, Imin=0,0055 m/m, ou 0,55%. A vazão deve entrar na unidade especificada; a tensão trativa é expressa em Pa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Tensão trativa mínima é um critério hidráulico; declividade mínima é uma condição geométrica calculada nas hipóteses normativas. Não são a mesma grandeza."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Se a questão fornecer vazão inicial em m³/s, converta para L/s antes de usar a expressão histórica. Se pedir a tensão trativa de referência, responda em Pa."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-1172, CARD-1173."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Edição de 1986 e n=0,013, conforme os registros de origem. Verifique a edição exigida, os demais critérios de projeto e a validade da aproximação antes de aplicar em obra."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não usar vazão final em vez da inicial na verificação indicada, nem confundir m/m com porcentagem ou tensão em Pa com declividade."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "1 Pa; 0,0055·Qi^(−0,47); Qi em L/s, I em m/m."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Na edição histórica de 1986, para coeficiente de Manning n=0,013, a tensão trativa média mínima de referência é 1,0 Pa, verificada para a vazão inicial Qi.",
+          "A expressão aproximada é Imin=0,0055·Qi^(−0,47), com Qi em L/s e Imin em m/m, nas condições do item 5.1.4. Essa expressão não é uma regra universal para qualquer rugosidade ou edição normativa."
+        ],
+        "highlights": [
+          {
+            "text": "Na edição histórica de 1986, para coeficiente de Manning n=0,013, a tensão trativa média mínima de referência é 1,0 Pa, verificada para a vazão inicial Qi",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0827",
+      "title": "Afastamentos de tanques sépticos e sistemas de tratamento",
+      "front": "Quais afastamentos de árvores, rede de água, poços freáticos e corpos de água aparecem na NBR 7229:1993 e como distinguir os critérios estudados da NBR 17076:2024?",
+      "back": "Na NBR 7229:1993, os registros estudados indicam afastamento de 3,0 m de árvores e pontos da rede pública de abastecimento de água e de 15,0 m de poços freáticos e corpos de água.\n\nNa NBR 17076:2024, item 5.1.2, os registros de estudo distinguem 3,0 m da rede pública de abastecimento e de árvores cujas raízes possam interferir, 1,5 m do ramal predial de água e 15,0 m dos poços freáticos e corpos de água. A edição de 1993 deve permanecer identificada como histórica.",
+      "satellites": [
+        "CARD-0828"
+      ],
+      "source": "H21-C002 | H21-C003",
+      "related_card_ids": [
+        "CARD-0829"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0827",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Saneamento",
+          "sub": "Afastamentos NBR 7229:1993",
+          "front": "Qual era o afastamento de tanque séptico a árvores e pontos da rede de água na NBR 7229:1993?",
+          "back": "3,0 m, no registro normativo histórico.",
+          "expl": "O critério de implantação serve para reduzir interferências entre raízes, redes de abastecimento e sistemas de tratamento. A aplicação atual exige verificar NBR 17076:2024, condições locais e eventual norma mais restritiva.\nAplicação: A NBR 17076:2024, item 5.1.2, diferencia 3,0 m de rede pública e árvores com raízes que interfiram, e 1,5 m de ramal predial de água.\nPegadinha: Rede pública de água ≠ ramal predial: os afastamentos atuais citados podem ser diferentes. Não dimensionar com a edição de 1993 por reflexo.",
+          "mnemonic": "Árvore/rede pública: três; ramal predial: confira um e meio.",
+          "reference": "H21-C002",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0829"
+          ]
+        },
+        {
+          "id": "CARD-0828",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Saneamento",
+          "sub": "Afastamentos NBR 7229:1993",
+          "front": "Qual o afastamento histórico entre tanque séptico e poços freáticos/corpos de água?",
+          "back": "15,0 m no registro da NBR 7229:1993.",
+          "expl": "O distanciamento protege mananciais de possível contaminação. Em projeto efetivo, além da distância horizontal, examinam-se nível freático, permeabilidade do solo, direção do fluxo subterrâneo e exigências de licença.\nAplicação: A NBR 17076:2024, item 5.1.2, também registra distância horizontal mínima de 15,0 m dos poços freáticos e corpos de água, conforme transcrições públicas consultadas.\nPegadinha: A coincidência de 15 m em duas edições não autoriza dispensar estudo de solo, poço ou condicionante ambiental mais restritiva.",
+          "mnemonic": "Poço e água: quinze, mas solo decide projeto.",
+          "reference": "H21-C003",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0829"
+          ]
+        }
+      ],
+      "source_hashes": {
+        "CARD-0827": "538871e9bdb0bff06c0c9d350394422b5cd2ab95768c59cc2de21c0df265e514",
+        "CARD-0828": "23e7a9c73cbf15c0ba3bc1de0c135bb56e9fbe83481ac51d6a43945fe69eeae6"
+      },
+      "mnemonic": "3 m rede pública/árvores pertinentes; 15 m poços e corpos de água; ramal predial 1,5 m na edição de 2024.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais afastamentos de árvores, rede de água, poços freáticos e corpos de água aparecem na NBR 7229:1993 e como distinguir os critérios estudados da NBR 17076:2024?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na NBR 7229:1993, os registros estudados indicam afastamento de 3,0 m de árvores e pontos da rede pública de abastecimento de água e de 15,0 m de poços freáticos e corpos de água.\n\nNa NBR 17076:2024, item 5.1.2, os registros de estudo distinguem 3,0 m da rede pública de abastecimento e de árvores cujas raízes possam interferir, 1,5 m do ramal predial de água e 15,0 m dos poços freáticos e corpos de água. A edição de 1993 deve permanecer identificada como histórica."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H21-C002 | H21-C003"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Os afastamentos reduzem riscos de interferência física, danos por raízes e contaminação de mananciais. A proteção sanitária depende também do solo, nível freático e direção do fluxo subterrâneo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Em uma questão que cite a edição de 2024, diferencie rede pública (3,0 m) de ramal predial (1,5 m). Para poços freáticos e corpos de água, o registro indica 15,0 m."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "A coincidência de 15 m entre as duas edições não implica identidade de todos os requisitos. A edição e o objeto do afastamento precisam estar explícitos."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Em uma planta de implantação, identifique cada elemento próximo ao sistema, compare o afastamento correspondente e verifique restrições locais adicionais."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0827, CARD-0828. Relacionados: CARD-0829."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Valores preservados dos cartões H21-C002 e H21-C003 e das referências ali registradas. Esta consolidação não certifica atualização normativa posterior; em projeto real, consulte a norma e a regulamentação vigente."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir rede pública com ramal predial, nem tomar o afastamento horizontal como garantia isolada de ausência de contaminação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "3 m rede pública/árvores pertinentes; 15 m poços e corpos de água; ramal predial 1,5 m na edição de 2024."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Na NBR 7229:1993, os registros estudados indicam afastamento de 3,0 m de árvores e pontos da rede pública de abastecimento de água e de 15,0 m de poços freáticos e corpos de água.",
+          "Na NBR 17076:2024, item 5.1.2, os registros de estudo distinguem 3,0 m da rede pública de abastecimento e de árvores cujas raízes possam interferir, 1,5 m do ramal predial de água e 15,0 m dos poços freáticos e corpos de água. A edição de 1993 deve permanecer identificada como histórica."
+        ],
+        "highlights": [
+          {
+            "text": "Na NBR 7229:1993, os registros estudados indicam afastamento de 3,0 m de árvores e pontos da rede pública de abastecimento de água e de 15,0 m de poços freáticos e corpos de água",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    }
+  ],
+  "private_srs_changed": false,
+  "private_content_exported": false,
+  "validation": {
+    "individual_sources_recovered": true,
+    "private_inventory_verified": false,
+    "display_verified": false
+  }
+}
