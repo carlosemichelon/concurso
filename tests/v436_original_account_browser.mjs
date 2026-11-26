@@ -176,7 +176,7 @@ try{
   await page.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
   const docs=await page.evaluate(()=>window.BMVS41PrivatePdfs.list());
   assert.equal(docs[0].id,'pdf'+a);
-  await page.evaluate(doc=>window.BMVS41PrivatePdfs.openEditor(doc),docs[0]);assert.equal(await page.locator('#pdfFrame').getAttribute('src'),'about:blank');assert.ok(await page.locator('#pdfSaveDriveV042').isDisabled());assert.ok(!(await page.locator('#driveSaveStatusV042').textContent()).includes('Configuração OAuth indisponível'));
+  await page.evaluate(doc=>window.BMVS41PrivatePdfs.openEditor(doc),docs[0]);assert.equal(await page.locator('#pdfFrame').getAttribute('src'),'about:blank');assert.ok(await page.locator('#pdfSaveDriveV042').isEnabled());assert.ok(await page.locator('#bm436FindPdfCopy').count());assert.ok(!(await page.locator('#driveSaveStatusV042').textContent()).includes('Configuração OAuth indisponível'));
   assert.ok(await page.evaluate(()=>window.BMVS41PrivatePdfEditor.confirmed));
   assert.ok(await page.locator('#pdfDialog').evaluate(d=>d.open));
   const pdfMarks=await page.evaluate(id=>window.BMVS41PrivateAnnotations.get(id,1),docs[0].id);

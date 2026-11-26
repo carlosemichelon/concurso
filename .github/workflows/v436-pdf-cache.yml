@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: '22'
       - run: node --check assets/bm-account/client-v436.js && node --check assets/bm-account/v436_js_002_015_topic_media.js && node --check assets/bm-account/connection-v436.js && node --check infra/vs41-private/browser-account-v436.mjs && node --check infra/vs41-private/browser-drive-v436.mjs && node --check infra/vs41-private/verified-cache-v436.mjs
-      - run: node --test tests/v436_browser_account.test.mjs tests/vs41_browser_drive.test.mjs
+      - run: node --test tests/v436_browser_account.test.mjs tests/v436_pdf_copy.test.mjs tests/vs41_browser_drive.test.mjs
       - run: node tools/catalog_snapshot.cjs --check
       - run: npm install --no-save playwright pdfjs-dist@3.11.174
       - run: npx playwright install --with-deps chromium

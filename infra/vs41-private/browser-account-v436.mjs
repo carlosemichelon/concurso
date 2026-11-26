@@ -449,6 +449,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    return null;
   };
   for(const f of rows){
+   if(f.appProperties?.bm_kind==='bm_annotated_pdf_v436'||f.appProperties?.bm_format==='BancoMestreV042')continue;
    if(f.mimeType!=='application/pdf'&&!/^image\/(?:png|jpeg|webp|gif|svg\+xml)$/.test(f.mimeType))continue;
    const location=ancestry(f);if(!location)continue;
    const {path,inAtlas}=location,parent=path.at(-2)||'';
@@ -567,6 +568,54 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const revision=await digest(new TextEncoder().encode(JSON.stringify([key,marks,deleted])));
   return {pdfId:id,page,hash,revision,marks:clean,key};
  }
+ const copyKind='bm_annotated_pdf_v436';
+ async function copySource(id,hash){
+  if(!/^[a-f0-9]{64}$/.test(hash||'')||await pdfIdentity(id,1)!==hash)fail('Original ou hash divergente',409);
+  const source=await meta(id),key=await digest(new TextEncoder().encode(JSON.stringify([root.id,id,hash])));
+  return {source,key,hash};
+ }
+ async function findCopy(src){
+  const rows=await list("mimeType = 'application/pdf' and appProperties has { key='bm_kind' and value='"+copyKind+"' } and appProperties has { key='bm_copy_key' and value='"+src.key+"' }",{skipNonPrivate:true});
+  const matches=[];
+  for(const f of rows)if(f.id!==src.source.id&&f.appProperties?.bm_kind===copyKind&&f.appProperties?.bm_copy_key===src.key&&await belongsToRoot(f))matches.push(f);
+  if(matches.length>1)fail('Cópias anotadas duplicadas; nenhuma foi sobrescrita',409);
+  if(!matches.length)return null;
+  const f=await meta(matches[0].id);
+  if(f.mimeType!=='application/pdf'||f.appProperties?.bm_copy_key!==src.key||f.appProperties?.bm_kind!==copyKind||!await belongsToRoot(f))fail('Destino da cópia alterado',409);
+  return f;
+ }
+ const copyResult=f=>({id:f.id,name:f.name,version:f.version,url:'https://drive.google.com/file/d/'+encodeURIComponent(f.id)+'/view'});
+ const getPdfCopy=async(id,hash)=>{const f=await findCopy(await copySource(id,hash));return f?copyResult(f):null};
+ const savePdfCopy=(id,hash,blob)=>serialize(async()=>{
+  if(!(blob instanceof Blob)||blob.type!=='application/pdf'||blob.size<100||blob.size>100000000)fail('Cópia PDF inválida ou maior que 100 MB');
+  const bytes=await blob.arrayBuffer();
+  if(new TextDecoder().decode(bytes.slice(0,5))!=='%PDF-')fail('Conteúdo não é PDF');
+  const src=await copySource(id,hash),existing=await findCopy(src),checksum=await digest(bytes);
+  let result;
+  if(existing){
+   const old=await raw(existing.id,100000000);
+   if(await digest(old.bytes)===checksum)return copyResult(old.meta);
+   const response=await get(API+'/'+existing.id,{fields}),fresh=await response.json(),etag=response.headers.get('ETag');
+   if(!owned(fresh)||fresh.id!==existing.id||fresh.version!==existing.version||fresh.appProperties?.bm_copy_key!==src.key||fresh.appProperties?.bm_kind!==copyKind||!await belongsToRoot(fresh))fail('Cópia alterada; confira antes de atualizar',409);
+   result=await send(UPLOAD+'/'+existing.id+'?uploadType=media&fields=id',{method:'PATCH',headers:{'Content-Type':'application/pdf',...(etag?{'If-Match':etag}:{})},body:blob});
+   if(result.id!==existing.id){uncertain=true;fail('ID da cópia atualizado divergente',409)}
+  }else{
+   const parent=await meta(root.id);
+   if(parent.mimeType!==folder||parent.id!==root.id)fail('Pasta individual indisponível',409);
+   const name=src.source.name.replace(/\.pdf$/i,'').slice(0,180)+'_BANCO_MESTRE_ANOTADO.pdf';
+   const metadata={name,mimeType:'application/pdf',parents:[root.id],description:'Cópia anotada; original preservado.',appProperties:{bm_kind:copyKind,bm_copy_key:src.key}};
+   const boundary='bm_'+crypto.randomUUID().replaceAll('-','');
+   const body=new Blob(['--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(metadata)+'\r\n--'+boundary+'\r\nContent-Type: application/pdf\r\n\r\n',blob,'\r\n--'+boundary+'--\r\n']);
+   result=await send(UPLOAD+'?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});
+  }
+  try{
+   if(!validId(result.id)||result.id===id)throw Error('Identidade da cópia inválida');
+   const saved=await raw(result.id,100000000);
+   if(saved.meta.mimeType!=='application/pdf'||saved.meta.appProperties?.bm_kind!==copyKind||saved.meta.appProperties?.bm_copy_key!==src.key||!await belongsToRoot(saved.meta)||await digest(saved.bytes)!==checksum)throw Error('Cópia gravada divergente');
+   const uniqueCopy=await findCopy(src);if(uniqueCopy?.id!==result.id)throw Error('Cópia não confirmada como única');
+   return copyResult(saved.meta);
+  }catch(e){uncertain=true;throw e}
+ });
  const readAnnotations=async(id,page)=>{const hash=await pdfIdentity(id,page),view=await pdfView(id,page,await grifos(),hash);delete view.key;return view};
  const saveAnnotations=(id,page,input)=>serialize(async()=>{
   if(!input||!uuid(input.event_id)||!Array.isArray(input.marks)||input.marks.length>2000||new TextEncoder().encode(JSON.stringify(input.marks)).length>240000||input.marks.some(x=>!x||typeof x.type!=='string'))fail('Marcações inválidas');
@@ -701,5 +750,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await check('grifos',async()=>{const p=await grifos();return p.file?{message:'Grifos: mestre V104 lido e validado; sem alteração das marcações'}:{state:'pending',message:'Grifos: nenhum arquivo mestre V104 localizado'}});
   return {at:new Date().toISOString(),modules,notes,pending,warnings,complete:!pending.length&&!warnings.length,summary:'Conferência de leitura da conta individual; gravações somente por módulo'};
  };
- return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType==='application/pdf')},async images(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
+ return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,getPdfCopy,savePdfCopy,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType==='application/pdf')},async images(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
 }

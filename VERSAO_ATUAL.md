@@ -1,3 +1,7 @@
+## VS45 — Complemento: cópia anotada autenticada
+
+Grifos permanecem no mestre; cópia física criada na raiz individual confirmada, localizada e atualizada por identidade e hash do original; não integra a biblioteca de originais. A abertura usa link do Drive, evitando sobreposição de grifos. Sem autorização OAuth adicional. Cópias legadas não são migradas automaticamente. Validação pendente.
+
 ## V436 / VS45 — PDF direto no editor e cache duplicado (26/11/2026)
 
 PDFs dos assuntos usam leitura autenticada e editor nativo, sem prévia incorporada do Drive. Cache verificado opcional de 128 MiB (antes 64), mídia elegível até 16 MiB (antes 8), prazo de sete dias e verificação de conta, raiz, versão e hash preservados. Rotina legada de OAuth para cópia desativada no portal privado; grifos mantêm API autenticada e exportação local. Preservada a correção concorrente de ponteiro histórico. VC52, VR3 e dados privados intactos. Candidato sujeito a testes; não comprova OAuth real.

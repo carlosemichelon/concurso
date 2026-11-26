@@ -3942,12 +3942,13 @@ async function save(){
  if(!editor?.editing){say('Abra uma lei no editor antes de salvar a cópia no Drive.');return}
  busy=true;button.disabled=true;link.hidden=true;
  try{
-  const token=await requestToken();
+  const token=window.BMPrivatePdfCopies?null:await requestToken();
   say('Preparando todas as páginas marcadas do PDF...');
   const prepared=await editor.buildAnnotated();
   const doc=prepared.doc;
   if(prepared.pagesMarked===0)throw Error('Nenhuma página anotada. Faça pelo menos um grifo ou nota antes de salvar.');
   if(!doc?.id||!doc.hash)throw Error('Origem PDF não identificada.');
+  if(window.BMPrivatePdfCopies){const result=await window.BMPrivatePdfCopies.save(doc.id,doc.hash,prepared.blob);link.href=result.url;link.hidden=false;say('Cópia anotada salva e conferida no Drive · '+prepared.pagesMarked+' página(s). Original preservado.');return}
   const existing=mapping(doc);
   if(existing) {
    say('Conferindo a cópia existente antes de atualizar. O original não será modificado...');
@@ -3969,14 +3970,23 @@ async function save(){
 }
 button.addEventListener('click',save);
 if(window.BMPortalBridge){
- // The private portal persists page annotations via its authenticated API.
- // Never request a second OAuth token or bypass the restricted fetch bridge.
- button.hidden=true;button.disabled=true;
- button.title='Envio direto de cópia não disponível; use Baixar PDF.';
- say('Grifos: confira a confirmação no editor. Para uma cópia anotada, use Baixar PDF.');
+ const find=document.createElement('button');find.type='button';find.id='bm436FindPdfCopy';find.textContent='Abrir cópia salva';find.title='Localizar a cópia física anotada deste PDF no Drive';toolbar.append(find);
+ button.hidden=false;button.disabled=false;
+ say('Grifos individuais e cópia anotada são independentes. Salve a cópia quando desejar.');
+ find.onclick=async()=>{
+  const ed=window.BancoMestrePDFV042,id=ed?.currentId,hash=ed?.sourceHash;
+  if(!id||!hash){say('Abra o PDF original no editor.');return}
+  find.disabled=true;link.hidden=true;
+  try{const result=await window.BMPrivatePdfCopies.find(id,hash);
+   if(ed.currentId!==id||ed.sourceHash!==hash)return;
+   if(!result){say('Nenhuma cópia anotada localizada para esta versão do original.');return}
+   link.href=result.url;link.hidden=false;say('Cópia localizada. Use o link para abrir o PDF grifado no Drive.');
+  }catch(e){say('Não foi possível localizar a cópia: '+e.message)}finally{find.disabled=false}
+ };
+ $('pdfDialog')?.addEventListener('close',()=>{link.hidden=true;link.removeAttribute('href');say('Grifos individuais e cópia anotada são independentes.')});
 }else prepare();
 window.BancoMestreDriveSaveV042={
- get ready(){return !!client},
+ get ready(){return !!window.BMPrivatePdfCopies||!!client},
  get busy(){return busy}
 };
 })();
