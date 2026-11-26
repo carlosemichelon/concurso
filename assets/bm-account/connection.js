@@ -83,7 +83,7 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
  const editorialIndexes=new Set(['assets/v211_published_images.json','assets/v180_native_image_additions.json','assets/v310_image_taxonomy.json','assets/pdf_catalog_v149.json','assets/pdf_grupos_v149.json']);
  const readEditorialIndex=async path=>{if(!editorialIndexes.has(path))throw Error('Índice não autorizado');const r=await nativeFetch(new URL(path,base),{cache:'no-store',credentials:'omit'});if(!r.ok)throw Error('Índice histórico indisponível');return r.json()};
  Object.defineProperty(window,'BMAccountInfo',{value:()=>session?{name:session.identity.name,email:session.identity.email,version:session.snapshot.version,count:session.snapshot.records.filter(c=>c.active).length,total:session.snapshot.records.length,rootUrl:session.rootUrl}:null});
- function refreshButton(){const b=button();if(!b)return;const label=opening?'Carregando Drive…':session?session.identity.name:'Usuário / Login';if(b.textContent!==label)b.textContent=label;b.disabled=opening||!client;b.setAttribute('aria-busy',String(opening));b.title=session?'Conta conectada: '+(session.identity.email||session.identity.name)+' — clique para sair ou trocar de conta':'Entrar com Google';b.setAttribute('aria-label',b.title);const link=document.getElementById('bmAccountDriveLink');if(link){link.hidden=!session;if(session)link.href=session.rootUrl;else link.removeAttribute('href');}const exportButton=document.getElementById('bmAccountExport');if(exportButton){exportButton.hidden=!session;exportButton.disabled=opening||!session;}}
+ function refreshButton(){const b=button();if(!b)return;const label=opening?'Carregando Drive…':session?session.identity.name:'Usuário / Login';if(b.textContent!==label)b.textContent=label;b.disabled=opening||!client;b.setAttribute('aria-busy',String(opening));b.title=session?'Conta conectada: '+(session.identity.email||session.identity.name)+' — clique para abrir configurações':'Entrar com Google';b.setAttribute('aria-label',b.title);const link=document.getElementById('bmAccountDriveLink');if(link){link.hidden=!session;if(session)link.href=session.rootUrl;else link.removeAttribute('href');}const settingsButton=document.getElementById('bmAccountSettings');if(settingsButton){settingsButton.textContent=session?'Logout':'Configurações';settingsButton.title=session?'Sair da conta Google':'Configurar a conexão com o Google Drive';settingsButton.setAttribute('aria-label',settingsButton.title);settingsButton.disabled=opening;}const exportButton=document.getElementById('bmAccountExport');if(exportButton){exportButton.hidden=!session;exportButton.disabled=opening||!session;}}
  async function prepare(){
   try{
    const config=await (await nativeFetch(new URL('assets/drive_auth_v038.json',base),{cache:'no-store'})).json();
@@ -103,7 +103,7 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
    refreshButton();status('Entre para carregar os dados do seu Drive');
   }catch(e){status('Conexão indisponível: '+e.message);refreshButton()}
  }
- function select(){if(session){close();return;}if(!client||opening)return;opening=true;refreshButton();try{client.requestAccessToken({prompt:'select_account'})}catch(e){opening=false;status('Conexão não iniciada: '+e.message);refreshButton()}}
+ function select(){if(session){openSettings();return;}if(!client||opening)return;opening=true;refreshButton();try{client.requestAccessToken({prompt:'select_account'})}catch(e){opening=false;status('Conexão não iniciada: '+e.message);refreshButton()}}
  function bindExport(){
   const $=id=>document.getElementById(id),dialog=$('bmAccountExportDialog'),trigger=$('bmAccountExport'),message=$('bmAccountExportStatus'),save=$('bmAccountExportSave'),cancel=$('bmAccountExportCancel');
   if(!dialog||!trigger||!save||!cancel)return;
@@ -131,18 +131,20 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
    finally{exporting=false;save.disabled=false;cancel.disabled=false}
   });
  }
+ function openSettings(){
+  const $=id=>document.getElementById(id),dialog=$('bmAccountSettingsDialog'),root=$('bmAccountRoot'),message=$('bmAccountSettingsStatus'),save=$('bmAccountSettingsSave'),cacheBox=$('bmAccountCacheEnabled');
+  if(!dialog||!root||!message||!save||!cacheBox)return;
+  if(opening){status('Aguarde a conclusão da conexão antes de configurar.');return}
+  root.value=settings.rootId?'https://drive.google.com/drive/folders/'+settings.rootId:'';cacheBox.checked=settings.cacheEnabled;
+  message.textContent=session?'Salvar uma alteração encerra a sessão atual. Reconecte depois de concluir suas atividades.':'';
+  save.textContent=session?'Salvar e sair':'Salvar configurações';if(!dialog.open)dialog.showModal();
+ }
  function bindSettings(){
   const $=id=>document.getElementById(id),dialog=$('bmAccountSettingsDialog'),trigger=$('bmAccountSettings'),root=$('bmAccountRoot'),message=$('bmAccountSettingsStatus'),save=$('bmAccountSettingsSave');
   const cacheBox=$('bmAccountCacheEnabled'),clearCache=$('bmAccountClearCache');
   if(!dialog||!trigger||!root||!message||!save||!cacheBox||!clearCache)return;
   clearCache.addEventListener('click',async()=>{clearCache.disabled=true;try{const mod=await import(accountModule.href);const ok=await mod.browserByteCache.clear();message.textContent=ok?'Cache local limpo. Dados do Drive preservados.':'Cache indisponível neste navegador.';}catch(e){message.textContent=e.message}finally{clearCache.disabled=false}});
-  trigger.addEventListener('click',e=>{
-   e.preventDefault();
-   if(opening){status('Aguarde a conclusão da conexão antes de configurar.');return}
-   root.value=settings.rootId?'https://drive.google.com/drive/folders/'+settings.rootId:'';cacheBox.checked=settings.cacheEnabled;
-   message.textContent=session?'Salvar uma alteração encerra a sessão atual. Reconecte depois de concluir suas atividades.':'';
-   save.textContent=session?'Salvar e sair':'Salvar configurações';if(!dialog.open)dialog.showModal();
-  });
+  trigger.addEventListener('click',e=>{e.preventDefault();if(opening)return;if(session){close();return;}openSettings();});
   $('bmAccountSettingsCancel').addEventListener('click',()=>dialog.close());
   $('bmAccountSettingsDefault').addEventListener('click',()=>{root.value='';cacheBox.checked=false;message.textContent='Padrões restaurados nos campos. Clique em Salvar configurações para aplicar.'});
   save.addEventListener('click',async()=>{
