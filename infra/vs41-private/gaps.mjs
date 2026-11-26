@@ -38,7 +38,7 @@ export function createGapStore({resolveSession,getToken,fetcher=fetch,now=Date.n
  const read=createReader({resolveSession,getToken,fetcher}),queues=new Map(),uncertain=new Set();
  async function scope(req){
   const s=await resolveSession(req);if(!s||![s.subject,s.rootId,s.profileId,s.sessionId].every(idOk))fail('session');
-  const {records}=await read(req),{token}=await getToken();if(!token)fail('session');
+  const {records}=await read(req),{token}=await getToken(s);if(!token)fail('session');
   const live=async()=>{const t=await resolveSession(req);if(!t||['subject','rootId','profileId','sessionId'].some(k=>s[k]!==t[k]))fail('session')};
   const request=async(url,opts={})=>{const r=await fetcher(url,{...opts,headers:{Authorization:'Bearer '+token,...opts.headers},cache:'no-store',redirect:'error'});if(!r.ok)fail('drive');return r.json()};
   const meta=async(id)=>{if(!idOk(id))fail('metadata');const m=await request(API+'/'+id+'?fields=id,mimeType,ownedByMe,shared,trashed,parents,appProperties,size,version,headRevisionId,md5Checksum,sha256Checksum');

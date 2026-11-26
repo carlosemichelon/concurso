@@ -15,7 +15,7 @@ export function createMediaReader({resolveSession,getToken,fetcher=fetch}){
   const link=links[0];if(!idOk(link.fileId)||!types.has(link.mimeType)||!/^[a-f0-9]{64}$/.test(link.sha256||''))fail();
   if(link.mimeType!=='application/pdf'&&!card.consolidation?.profile?.editorial?.media?.some(m=>m.id===mediaId&&m.private_original))fail();
   const live=async()=>{const t=await resolveSession(req);if(!t||['subject','rootId','profileId','sessionId'].some(k=>t[k]!==s[k]))fail()};
-  const {token}=await getToken();if(!token)fail();
+  const {token}=await getToken(s);if(!token)fail();
   const url=API+'/'+encodeURIComponent(link.fileId);
   const fetchDrive=async(query)=>{const res=await fetcher(url+'?'+query,{headers:{Authorization:'Bearer '+token},cache:'no-store',redirect:'error'});if(!res.ok)fail();return res};
   const meta=async()=>{const r=await fetchDrive('fields=id,mimeType,ownedByMe,shared,trashed,parents,appProperties,size'),m=await r.json();

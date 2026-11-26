@@ -12,7 +12,7 @@ export function createReviewStore({resolveSession,getToken,fetcher=fetch,now=Dat
  const readCards=createReader({resolveSession,getToken,fetcher}),queues=new Map(),uncertain=new Set();
  async function scope(req){
   const s=await resolveSession(req);if(!s||![s.subject,s.rootId,s.profileId,s.sessionId].every(idOk))fail('session');
-  const session={...s};const {token}=await getToken();if(!token)fail('token');
+  const session={...s};const {token}=await getToken(session);if(!token)fail('token');
   const live=async()=>{const t=await resolveSession(req);if(!t||['subject','rootId','profileId','sessionId'].some(k=>t[k]!==session[k]))fail('session')};
   const request=async(url,opts={})=>{const r=await fetcher(url,{...opts,headers:{Authorization:'Bearer '+token,...opts.headers},cache:'no-store',redirect:'error'});if(!r.ok)fail('drive');return r.json()};
   const meta=async(id,kind)=>{if(!idOk(id))fail('id');const m=await request(API+'/'+id+'?fields=id,mimeType,ownedByMe,shared,trashed,parents,appProperties,size,version,headRevisionId,md5Checksum,sha256Checksum');

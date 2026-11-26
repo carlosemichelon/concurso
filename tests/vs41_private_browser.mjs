@@ -17,7 +17,25 @@ let handler;
 const server=http.createServer((req,res)=>handler(req,res));
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const url='http://127.0.0.1:'+server.address().port;
-const api=createApi({...f,users,origin:url});handler=createPortalHost({root,api});
+// Simulate independent Google accounts: deny every read/write outside the token's own root.
+const independentFetcher=async(raw,opts)=>{
+ const u=new URL(raw),token=opts.headers.Authorization?.match(/^Bearer fixture-([AB])$/)?.[1];
+ assert.ok(token,'Every Drive operation must use a per-account credential');
+ const own='root'+token;
+ if((opts.method||'GET')==='POST'){
+  const m=JSON.parse(opts.body.split('\r\n')[3]);if(m.parents?.length!==1||m.parents[0]!==own||m.appProperties?.bmOwner!==token)return new Response(null,{status:403});
+ }else if(u.pathname==='/drive/v3/files'){
+  const q=u.searchParams.get('q')||'';if(!q.startsWith("'"+own+"' in parents"))return new Response(null,{status:403});
+ }else{
+  const id=u.pathname.endsWith('/export')?u.pathname.split('/').at(-2):u.pathname.split('/').at(-1),row=f.files.get(id);
+  if(!row||row.meta.appProperties?.bmOwner!==token)return new Response(null,{status:403});
+ }
+ return f.fetcher(raw,{...opts,headers:{...opts.headers,Authorization:'Bearer fixture'}});
+};
+const api=createApi({...f,users,origin:url,getToken:async session=>{
+ assert.ok(session&&['A','B'].includes(session.subject));assert.equal(session.rootId,'root'+session.subject);assert.equal(session.profileId,'profile'+session.subject);
+ return {token:'fixture-'+session.subject};
+},fetcher:independentFetcher});handler=createPortalHost({root,api});
 const browser=await chromium.launch({headless:true});
 const login=(context,label)=>context.request.post(url+'/api/vs41/login',{headers:{Origin:url},data:{username:label,password:passwords[label]}});
 const logout=context=>context.request.post(url+'/api/vs41/logout',{headers:{Origin:url}});

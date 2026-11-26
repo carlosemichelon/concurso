@@ -26,7 +26,7 @@ export function createReader({resolveSession,getToken,fetcher=fetch,includeMedia
  return async request=>{
   const resolved=await resolveSession(request);if(!resolved||![resolved.subject,resolved.rootId,resolved.profileId,resolved.sessionId].every(idOk))fail('session');
   const session={subject:resolved.subject,rootId:resolved.rootId,profileId:resolved.profileId,sessionId:resolved.sessionId};
-  const {subject,rootId,profileId}=session,{token}=await getToken();if(typeof token!=='string'||!token)fail('token');
+  const {subject,rootId,profileId}=session,{token}=await getToken(session);if(typeof token!=='string'||!token)fail('token');
   const get=async(id,query,step)=>{if(!idOk(id))fail(step+'-id');let r;try{r=await fetcher(API+'/'+encodeURIComponent(id)+'?'+query,{headers:{Authorization:'Bearer '+token},cache:'no-store',redirect:'error'})}catch{fail(step+'-network')}if(!r.ok)fail(step+'-http-'+r.status);try{return await r.json()}catch{fail(step+'-json')}};
   const readMeta=(id,kind,parent)=>get(id,'fields='+encodeURIComponent(FIELDS),kind+'-meta').then(f=>meta(f,id,subject,kind,parent));
   const readJson=async(id,kind,parent)=>{

@@ -26,7 +26,7 @@ export function createAnnotationStore({resolveSession,getToken,fetcher=fetch,now
   const {records,media}=await read(req),active=new Map(records.filter(c=>c.active).map(c=>[c.id,c]));
   const links=media.filter(m=>m?.id===pdfId&&(image?['image/png','image/jpeg','image/webp','image/gif'].includes(m.mimeType):m.mimeType==='application/pdf')&&Array.isArray(m.card_ids)&&m.card_ids.some(id=>active.has(id)&&(!image||active.get(id)?.consolidation?.profile?.editorial?.media?.some(x=>x.id===pdfId&&x.private_original))));
   if(links.length!==1||!shaOk(links[0].sha256)||!idOk(links[0].fileId))fail('document');
-  const link=links[0],key=createHash('sha256').update(pdfId+'\n'+link.sha256+'\n'+page).digest('hex'),{token}=await getToken();if(!token)fail('session');
+  const link=links[0],key=createHash('sha256').update(pdfId+'\n'+link.sha256+'\n'+page).digest('hex'),{token}=await getToken(s);if(!token)fail('session');
   const live=async()=>{const t=await resolveSession(req);if(!t||['subject','rootId','profileId','sessionId'].some(k=>t[k]!==s[k]))fail('session')};
   const request=async(url,opts={})=>{const r=await fetcher(url,{...opts,headers:{Authorization:'Bearer '+token,...opts.headers},cache:'no-store',redirect:'error'});if(!r.ok)fail('drive');return r.json()};
   const meta=async(id,kind)=>{if(!idOk(id))fail('metadata');const m=await request(API+'/'+id+'?fields=id,mimeType,ownedByMe,shared,trashed,parents,appProperties,size,version,headRevisionId,md5Checksum,sha256Checksum');

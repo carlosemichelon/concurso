@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/vs41_private_catalog.test.mjs tests/vs41_private_api.test.mjs tests/vs41_private_oauth.test.mjs tests/vs41_private_drive_smoke.test.mjs tests/vs41_private_srs.test.mjs tests/vs41_private_media.test.mjs tests/vs41_private_annotations.test.mjs tests/vs41_private_gaps.test.mjs tests/vs41_private_study.test.mjs tests/vs41_private_formulas.test.mjs tests/vs41_private_migration.test.mjs
+      - run: node --test tests/vs41_private_catalog.test.mjs tests/vs41_private_api.test.mjs tests/vs41_private_oauth.test.mjs tests/vs41_private_drive_smoke.test.mjs tests/vs41_private_srs.test.mjs tests/vs41_private_media.test.mjs tests/vs41_private_annotations.test.mjs tests/vs41_private_gaps.test.mjs tests/vs41_private_study.test.mjs tests/vs41_private_formulas.test.mjs tests/vs41_private_migration.test.mjs tests/vs41_private_accounts.test.mjs
       - run: node tools/catalog_snapshot.cjs --check
       - run: node infra/vs41-private/migration.mjs
       - run: npm install --no-save playwright pdfjs-dist@3.11.174
