@@ -262,10 +262,13 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  // Historical fallback is read-only and never becomes the current card catalog.
  async function historicalSchedule(){
   const candidates=await list("mimeType = 'application/json' and name contains 'BANCO_MESTRE_PRIVADO_V'");
-  const matches=[];
+  const matches=[],parentsChecked=new Map();
   for(const f of candidates){
    const m=f.name.match(/^BANCO_MESTRE_PRIVADO_V(\d+)(?:_.*)?\.json$/i);
-   if(m&&await belongsToRoot(f))matches.push({f,n:Number(m[1])});
+   if(!m||f.parents?.length!==1)continue;
+   const parent=f.parents[0];
+   if(!parentsChecked.has(parent))parentsChecked.set(parent,belongsToRoot(f));
+   if(await parentsChecked.get(parent))matches.push({f,n:Number(m[1])});
   }
   matches.sort((a,b)=>b.n-a.n);
   if(!matches.length)return null;
@@ -320,13 +323,20 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   return {records:[...byId.values()],complete:source,warnings,documents,events:seen.size,version:historySource?.version||snapshot.version,updated:historySource?.updated||'',historical:historical?.version||null};
  }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
- let mediaIndex=null;
- const media=async()=>{if(mediaIndex)return mediaIndex;const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
-  while(queue.length){const p=queue.shift();if(seen.has(p.id)||seen.size>=2000)throw Error('Árvore de mídias inválida ou extensa');seen.add(p.id);
-   const children=await list("'"+p.id+"' in parents");
+ let mediaIndex=null,mediaPending=null;
+ const media=async()=>{if(mediaIndex)return mediaIndex;if(mediaPending)return mediaPending;
+  mediaPending=buildMediaIndex().finally(()=>{mediaPending=null});return mediaPending;};
+ const buildMediaIndex=async()=>{const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
+  // Consult up to four folders concurrently; share one promise across image/PDF modules.
+  while(queue.length){
+   const batch=queue.splice(0,4);
+   for(const p of batch){if(seen.has(p.id)||seen.size>=2000)throw Error('Árvore de mídias inválida ou extensa');seen.add(p.id);}
+   const pages=await Promise.all(batch.map(p=>list("'"+p.id+"' in parents and (mimeType = '"+folder+"' or mimeType = 'application/pdf' or mimeType contains 'image/')")));
+   for(let i=0;i<batch.length;i++){const p=batch[i],children=pages[i];
    for(const f of children){if(f.parents?.length!==1||f.parents[0]!==p.id)throw Error('Arquivo fora da pasta selecionada');const path=[...p.path,f.name];
     if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path});continue;}
     if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType))out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path});
+   }
    }
   }
   // The historical editorial catalog is not a source of file authorization.
@@ -345,13 +355,14 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    const str=x=>typeof x==='string'?x.trim():'';
    const links=a=>Array.isArray(a)?a.filter(x=>ids.has(x)):[];
    for(const item of out.values()){
-    item.filename=item.title;item.editorialId='';item.classified=false;item.card_ids=[];
+    item.filename=item.title;item.editorialId='';item.classified=false;item.indexed=false;item.card_ids=[];
     if(item.mimeType.startsWith('image/')){item.category='Imagem';item.area='';item.subject='';}
    }
    for(let i=0;i<3;i++){
     for(const row of Array.isArray(packs[i]?.records)?packs[i].records:[]){
      const item=out.get(row.driveFileId);
      if(!item?.mimeType.startsWith('image/'))continue;
+     item.indexed=true;
      const topic=str(i===1?row.studySubject:row.topic),area=str(i===1?row.studyArea:groupNames[row.group]);
      const label=str(i===1?row.studyTitle||row.title:row.title);
      if(i!==2||!item.classified){
