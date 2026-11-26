@@ -10,7 +10,7 @@ const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
 const owned=f=>validId(f?.id)&&f.ownedByMe===true&&f.shared===false&&f.trashed===false;
 const esc=s=>String(s).replaceAll('\\','\\\\').replaceAll("'","\\'");
 const emptyStudy=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60,activeTimer:null});
-export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId=''}){
+export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId='',readEditorialIndex=null}){
  if(!token)throw Error('Selecione sua conta Google');
  const get=async(url,params={})=>{const r=await fetcher(url+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},cache:'no-store',credentials:'omit',redirect:'error',signal});if(!r.ok)throw Error('Drive HTTP '+r.status);return r};
  const meta=async id=>{if(!validId(id))throw Error('Arquivo inválido');const f=await (await get(API+'/'+id,{fields})).json();if(f.id!==id||!owned(f))throw Error('Arquivo não pertence exclusivamente à conta selecionada');return f};
@@ -190,7 +190,54 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path});continue;}
     if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType))out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path});
    }
-  }mediaIndex=out;return out};
+  }
+  // The historical editorial catalog is not a source of file authorization.
+  // Join only by exact Drive ID after the private, owned-tree scan above.
+  if(readEditorialIndex){
+   const sources=[
+    ['assets/v211_published_images.json','schema','BancoMestrePublishedDriveImagesV211'],
+    ['assets/v180_native_image_additions.json','schema','BancoMestreNativeImageAdditionsV180'],
+    ['assets/v310_image_taxonomy.json','schema','BancoMestreImageTaxonomyV310'],
+    ['assets/pdf_catalog_v149.json','format','BancoMestrePDFCatalogV140'],
+    ['assets/pdf_grupos_v149.json','format','BancoMestrePDFGroupsV140']
+   ];
+   const packs=await Promise.all(sources.map(async ([path,key,schema])=>{try{const p=await readEditorialIndex(path);return p?.[key]===schema?p:null}catch{return null}}));
+   const groupNames={eng_seguranca:'Engenharia Civil · Segurança do Trabalho',eng_hidraulica:'Engenharia Civil · Hidráulica e Saneamento',eng_estruturas:'Engenharia Civil · Estruturas',eng_ambiental:'Engenharia Civil · Meio Ambiente',eng_geotecnia:'Engenharia Civil · Geotecnia',eng_materiais:'Engenharia Civil · Materiais',eng_outros:'Engenharia Civil',leg_geral:'Legislação',met_portal:'Metodologia e interface'};
+   const ids=new Set(records.filter(c=>c.active).map(c=>c.id));
+   const str=x=>typeof x==='string'?x.trim():'';
+   const links=a=>Array.isArray(a)?a.filter(x=>ids.has(x)):[];
+   for(const item of out.values()){
+    item.filename=item.title;item.editorialId='';item.classified=false;item.card_ids=[];
+    if(item.mimeType.startsWith('image/')){item.category='Imagem';item.area='';item.subject='';}
+   }
+   for(let i=0;i<3;i++){
+    for(const row of Array.isArray(packs[i]?.records)?packs[i].records:[]){
+     const item=out.get(row.driveFileId);
+     if(!item?.mimeType.startsWith('image/'))continue;
+     const topic=str(i===1?row.studySubject:row.topic),area=str(i===1?row.studyArea:groupNames[row.group]);
+     const label=str(i===1?row.studyTitle||row.title:row.title);
+     if(i!==2||!item.classified){
+      if(label)item.title=label;
+      if(topic&&area){item.area=area;item.subject=topic;item.subsubject=str(i===1?row.studySub:row.subtopic);item.classified=true;item.editorialGroup=str(row.group);}
+      if(i!==2)item.editorialId=str(row.imageId||row.no)||item.editorialId;
+     }
+     item.card_ids=[...new Set([...item.card_ids,...links(i===0?row.cardIds:i===1?row.cards:row.originalCardIds)])];
+    }
+   }
+   const pdfGroups=new Map((packs[4]?.groups||[]).map(x=>[x.id,x]));
+   const pdfAreas=new Map((packs[4]?.areas||[]).map(x=>[x.id,x]));
+   const assignments=new Map((packs[4]?.assigned||[]).map(x=>[x.id,x.group]));
+   for(const row of packs[3]?.documents||[]){
+    const item=out.get(row.file_id);
+    if(item?.mimeType!=='application/pdf')continue;
+    const g=pdfGroups.get(assignments.get(row.id)),a=pdfAreas.get(g?.area);
+    item.title=str(row.title)||item.title;item.editorialId=str(row.id);
+    item.category=str(row.category)||item.category;item.section=str(row.section)||item.section;
+    if(Array.isArray(row.pages)&&row.pages.length===2)item.pages=row.pages;
+    if(g&&a){item.classified=true;item.catalogGroup={id:g.id,label:g.label,subtitle:g.subtitle,order:g.order,area:g.area,areaLabel:a.label,areaDescription:a.description};}
+   }
+  }
+  mediaIndex=out;return out};
  const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da pasta individual');const r=await raw(id,100000000);if(r.meta.mimeType!==item.mimeType)throw Error('Tipo de mídia alterado');return new Blob([r.bytes],{type:item.mimeType})};
  const GRIF_KIND='bm_grifos_sync_v104_master',GRIF_NAME='BancoMestre_Grifos_Mestre.json';
  const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(n=>n.toString(16).padStart(2,'0')).join('');
