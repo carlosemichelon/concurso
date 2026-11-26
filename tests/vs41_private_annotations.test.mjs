@@ -34,3 +34,15 @@ test('nega hash de outro usuário, raiz alheia, documento sem vínculo, e sessã
  await assert.rejects(f.store.get({session:'X'},p,1));await assert.rejects(f.store.get(a,'PDF-TEST-B',1));
  f.files.get('PDF-TEST-A').meta.parents=['rootB'];await assert.rejects(f.store.get(a,p,1),e=>e.code==='owner');assert.equal(f.writes(),0);
 });
+
+test('marcações em imagens usam raiz individual mesmo com bytes e ID idênticos',async()=>{
+ const f=mediaFixture(),store=createAnnotationStore({...f,mode:'image',resolveSession:async req=>profiles[req.session]}),a={session:'A'},b={session:'B'},id='IMG-TEST';
+ const x=await store.get(a,id,1),y=await store.get(b,id,1);assert.equal(x.hash,y.hash);
+ const mark=color=>({type:'pen',color,size:16,points:[[.1,.2,.65],[.4,.5,.65]]});
+ await store.save(a,id,1,{event_id:uid(1),hash:x.hash,previous:null,marks:[mark('#ffd400')]});
+ await store.save(b,id,1,{event_id:uid(1),hash:y.hash,previous:null,marks:[mark('#202b36')]});
+ assert.equal((await store.get(a,id,1)).marks[0].color,'#ffd400');assert.equal((await store.get(b,id,1)).marks[0].color,'#202b36');
+ assert.ok(f.writes.every(w=>w.payload.schema==='BM-IMAGE-INK/1'));
+ await assert.rejects(store.get(a,'PDF-TEST',1));await assert.rejects(store.get(a,id,2));
+ await assert.rejects(store.save(a,id,1,{event_id:uid(2),hash:x.hash,previous:uid(1),marks:[{type:'pen',color:'bad',size:16,points:[[2,.2,.65]]}]}));
+});

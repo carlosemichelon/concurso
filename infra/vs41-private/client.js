@@ -78,10 +78,10 @@
   const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
   if(!Array.isArray(p.documents))throw Error('Biblioteca inválida');return p.documents;
  }})});
- async function annotationRequest(pdfId,page,input){
+ async function annotationRequest(pdfId,page,input,image=false){
   if(!/^[A-Za-z0-9_-]{1,160}$/.test(pdfId)||!Number.isInteger(page)||page<1||page>100000)throw Error('Página ou PDF inválido');
   const expected=await check();start();
-  const r=await fetch('/api/vs41/annotations/'+encodeURIComponent(pdfId)+'/'+page,{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});
+  const r=await fetch(image?'/api/vs41/image-ink/'+encodeURIComponent(pdfId):'/api/vs41/annotations/'+encodeURIComponent(pdfId)+'/'+page,{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});
   if(r.status===401){invalidate();throw Error('Sessão encerrada')}
   if(r.status===409){await check();throw Error('Conflito de revisão. Recarregue os grifos antes de editar.')}
   if(!r.ok)throw Error('Grifos privados não confirmados (HTTP '+r.status+')');
@@ -92,6 +92,9 @@
  Object.defineProperty(window,'BMVS41PrivateAnnotations',{value:Object.freeze({
   get:(pdfId,page)=>annotationRequest(pdfId,page),
   save:(pdfId,page,input)=>annotationRequest(pdfId,page,input)
+ })});
+ Object.defineProperty(window,'BMVS41PrivateImageInk',{value:Object.freeze({
+  get:id=>annotationRequest(id,1,null,true),save:(id,input)=>annotationRequest(id,1,input,true)
  })});
  async function gapRequest(input){
   const expected=await check();start();

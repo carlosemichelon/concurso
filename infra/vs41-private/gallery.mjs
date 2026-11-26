@@ -43,12 +43,8 @@ export function privateGallery(source){
   try{return await task}finally{if(downloads.get(file.id)===task)downloads.delete(file.id)}
  }
  async function openImage(file){
-  try{const src=await getImageUrl(file),image=el('img');image.src=src;image.alt=file.title;image.style.cssText='max-width:100%;max-height:75vh;object-fit:contain';await image.decode();
-   if(!validToken()||!photos.includes(file))return;
-   let dialog=$('bm-vs41-image-preview');if(!dialog){dialog=el('dialog');dialog.id='bm-vs41-image-preview';dialog.setAttribute('aria-label','Imagem original privada');document.body.append(dialog);dialog.addEventListener('close',()=>dialog.replaceChildren())}
-   const close=el('button','','Fechar');close.type='button';close.onclick=()=>dialog.close();
-   dialog.replaceChildren(el('h3','',file.title),close,image);if(!dialog.open)dialog.showModal();
-  }catch(e){msg(e.message,true)}
+  try{if(!validToken()||!photos.includes(file))throw Error('Imagem fora da sessão');await window.BMVS41PrivateImageEditor.open(file)}
+  catch(e){msg(e.message,true)}
  }
  function loadPreview(img,file){
   const load=()=>getImageUrl(file).then(url=>{if(img.isConnected)img.src=url}).catch(e=>{if(img.isConnected)img.alt=e.message});

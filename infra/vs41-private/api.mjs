@@ -19,6 +19,7 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
  const pdfLibrary=createPdfLibrary({resolveSession,getToken,fetcher});
  const imageLibrary=createImageLibrary({resolveSession,getToken,fetcher});
  const annotations=createAnnotationStore({resolveSession,getToken,fetcher,now});
+ const imageInk=createAnnotationStore({resolveSession,getToken,fetcher,now,mode:'image'});
  const gaps=createGapStore({resolveSession,getToken,fetcher,now});
  const handler=async(req,res)=>{
   const u=new URL(req.url,origin);if(!u.pathname.startsWith('/api/vs41/'))return false;
@@ -72,6 +73,15 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
     let input;if(req.method==='POST'){try{input=await body(req,262144)}catch{return json(res,400,{error:'Solicitação inválida'})}}
     try{const data=req.method==='GET'?await gaps.get(req):await gaps.save(req,input);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{...data,context:s.context})}
     catch(e){return json(res,e.code==='conflict'?409:e.code==='input'?400:503,{error:'Lacunas privadas não confirmadas'})}
+   }
+   const imagePath=u.pathname.match(/^\/api\/vs41\/image-ink\/([A-Za-z0-9_-]{1,160})$/);
+   if(imagePath&&['GET','POST'].includes(req.method)){
+    const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
+    if(req.method==='POST'&&req.headers.origin!==origin)return json(res,403,{error:'Origem não autorizada'});
+    let input;if(req.method==='POST'){try{input=await body(req,262144)}catch{return json(res,400,{error:'Solicitação inválida'})}}
+    try{const args=[req,imagePath[1],1],data=req.method==='GET'?await imageInk.get(...args):await imageInk.save(...args,input);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{...data,context:s.context})}
+    catch(e){return json(res,e.code==='conflict'?409:e.code==='input'?400:503,{error:'Marcações privadas não confirmadas'})}
    }
    const annotationPath=u.pathname.match(/^\/api\/vs41\/annotations\/([A-Za-z0-9_-]{1,160})\/([1-9][0-9]{0,5})$/);
    if(annotationPath&&['GET','POST'].includes(req.method)){

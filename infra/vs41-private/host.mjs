@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {privatePage} from './page.mjs';
+import {privateImageEditor} from './image-editor.mjs';
 import {privateGallery} from './gallery.mjs';
 import {privateGaps} from './gaps-ui.mjs';
 import {privatePdfEditor} from './pdf-editor.mjs';
@@ -11,6 +12,7 @@ import {privateCalendar,privateStudyQueue} from './calendar.mjs';
 import {privateJournal} from './journal.mjs';
 import {privateGlobalDrive,privateCheckpoints,privateReconcile,disabledPublicScripts} from './legacy.mjs';
 const adapters=new Map([
+ ['/assets/v430_js_000_001_editor.js',privateImageEditor],
  ['/assets/v382_srs_journal_vc23.js',privateJournal],
  ['/assets/v414_js_076_087_header.js',s=>privateCheckpoints(privateCalendar(s))],
  ['/assets/v383_study_queue.js',privateStudyQueue],

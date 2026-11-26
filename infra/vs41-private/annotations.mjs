@@ -11,13 +11,20 @@ function marksOk(marks){
  function safe(v,depth=0){if(depth>12)return false;if(v===null||typeof v==='boolean')return true;if(typeof v==='string')return v.length<=20000;if(typeof v==='number')return Number.isFinite(v);if(Array.isArray(v))return v.length<=20000&&v.every(x=>safe(x,depth+1));if(typeof v==='object')return Object.keys(v).length<=80&&Object.entries(v).every(([k,x])=>!['__proto__','constructor','prototype'].includes(k)&&safe(x,depth+1));return false}
  return marks.every(m=>m&&typeof m==='object'&&!Array.isArray(m)&&typeof m.type==='string'&&safe(m));
 }
-export function createAnnotationStore({resolveSession,getToken,fetcher=fetch,now=Date.now}){
+function imageMarksOk(marks){
+ const num=x=>typeof x==='number'&&Number.isFinite(x)&&x>=0&&x<=1;
+ return marksOk(marks)&&marks.every(m=>['pen','highlighter','rect'].includes(m.type)&&/^#[0-9a-f]{6}$/i.test(m.color||'')&&typeof m.size==='number'&&m.size>=1&&m.size<=40&&
+ (m.type==='rect'?Array.isArray(m.box)&&m.box.length===4&&m.box.every(num):Array.isArray(m.points)&&m.points.length>0&&m.points.length<20000&&m.points.every(p=>Array.isArray(p)&&p.length===3&&p.every(num))));
+}
+export function createAnnotationStore({resolveSession,getToken,fetcher=fetch,now=Date.now,mode='pdf'}){
+ if(!['pdf','image'].includes(mode))throw Error('Modo de anotação inválido');
+ const image=mode==='image',kind=image?'image-annotation':'pdf-annotation',schema=image?'BM-IMAGE-INK/1':'BM-PDF-PAGE/1',validMarks=image?imageMarksOk:marksOk;
  const read=createReader({resolveSession,getToken,fetcher,includeMedia:true}),queues=new Map(),uncertain=new Set();
  async function scope(req,pdfId,page){
-  if(!idOk(pdfId)||!Number.isInteger(page)||page<1||page>100000)fail('input');
+  if(!idOk(pdfId)||!Number.isInteger(page)||page<1||page>100000||(image&&page!==1))fail('input');
   const s=await resolveSession(req);if(!s)fail('session');
-  const {records,media}=await read(req),active=new Set(records.filter(c=>c.active).map(c=>c.id));
-  const links=media.filter(m=>m?.id===pdfId&&m.mimeType==='application/pdf'&&Array.isArray(m.card_ids)&&m.card_ids.some(id=>active.has(id)));
+  const {records,media}=await read(req),active=new Map(records.filter(c=>c.active).map(c=>[c.id,c]));
+  const links=media.filter(m=>m?.id===pdfId&&(image?['image/png','image/jpeg','image/webp','image/gif'].includes(m.mimeType):m.mimeType==='application/pdf')&&Array.isArray(m.card_ids)&&m.card_ids.some(id=>active.has(id)&&(!image||active.get(id)?.consolidation?.profile?.editorial?.media?.some(x=>x.id===pdfId&&x.private_original))));
   if(links.length!==1||!shaOk(links[0].sha256)||!idOk(links[0].fileId))fail('document');
   const link=links[0],key=createHash('sha256').update(pdfId+'\n'+link.sha256+'\n'+page).digest('hex'),{token}=await getToken();if(!token)fail('session');
   const live=async()=>{const t=await resolveSession(req);if(!t||['subject','rootId','profileId','sessionId'].some(k=>t[k]!==s[k]))fail('session')};
@@ -27,23 +34,23 @@ export function createAnnotationStore({resolveSession,getToken,fetcher=fetch,now
    return m;
   };
   const pdf=await meta(link.fileId,'media-file');
-  if(pdf.mimeType!=='application/pdf'||pdf.appProperties?.bmMedia!==pdfId||pdf.sha256Checksum&&pdf.sha256Checksum!==link.sha256)fail('document');
+  if(pdf.mimeType!==link.mimeType||pdf.appProperties?.bmMedia!==pdfId||pdf.sha256Checksum&&pdf.sha256Checksum!==link.sha256)fail('document');
   await live();return {s,key,pdfId,page,hash:link.sha256,request,meta,live};
  }
  async function event(ctx,id){
-  const before=await ctx.meta(id,'pdf-annotation');
+  const before=await ctx.meta(id,kind);
   if(!/^application\/json(?:\s*;\s*charset\s*=\s*utf-8)?$/i.test(before.mimeType)||before.appProperties?.bmPage!==ctx.key||Number(before.size)<1||Number(before.size)>300000||!Number.isSafeInteger(Number(before.size)))fail('metadata');
-  const e=await ctx.request(API+'/'+id+'?alt=media'),after=await ctx.meta(id,'pdf-annotation');
+  const e=await ctx.request(API+'/'+id+'?alt=media'),after=await ctx.meta(id,kind);
   const fields=['headRevisionId','md5Checksum','sha256Checksum'].filter(k=>before[k]||after[k]);
   if(String(before.size)!==String(after.size)||!(fields.length?fields.every(k=>before[k]&&before[k]===after[k]):before.version&&before.version===after.version))fail('revision');
-  if(e?.schema!=='BM-PDF-PAGE/1'||e.owner!==ctx.s.subject||e.pdfId!==ctx.pdfId||e.hash!==ctx.hash||e.page!==ctx.page||!uuid(e.event_id)||before.appProperties.bmEvent!==e.event_id||!(e.previous===null||uuid(e.previous))||!marksOk(e.marks))fail('event');
+  if(e?.schema!==schema||e.owner!==ctx.s.subject||e.pdfId!==ctx.pdfId||e.hash!==ctx.hash||e.page!==ctx.page||!uuid(e.event_id)||before.appProperties.bmEvent!==e.event_id||!(e.previous===null||uuid(e.previous))||!validMarks(e.marks))fail('event');
   return e;
  }
  async function history(ctx){
   let page='',pages=0;const events=new Map(),children=new Map();
   do{
    if(++pages>10)fail('limit');
-   const q="'"+ctx.s.rootId+"' in parents and trashed=false and appProperties has { key='bmKind' and value='pdf-annotation' } and appProperties has { key='bmPage' and value='"+ctx.key+"' }";
+   const q="'"+ctx.s.rootId+"' in parents and trashed=false and appProperties has { key='bmKind' and value='"+kind+"' } and appProperties has { key='bmPage' and value='"+ctx.key+"' }";
    const u=new URL(API);u.searchParams.set('q',q);u.searchParams.set('fields','nextPageToken,incompleteSearch,files(id)');u.searchParams.set('pageSize','1000');if(page)u.searchParams.set('pageToken',page);
    const d=await ctx.request(u.href);if(d.incompleteSearch||!Array.isArray(d.files))fail('list');
    for(const f of d.files){if(events.size>=2000)fail('limit');const e=await event(ctx,f.id);if(events.has(e.event_id)||children.has(e.previous))fail('conflict');events.set(e.event_id,e);children.set(e.previous,e)}
@@ -55,15 +62,15 @@ export function createAnnotationStore({resolveSession,getToken,fetcher=fetch,now
  function view(ctx,e){return {pdfId:ctx.pdfId,hash:ctx.hash,page:ctx.page,revision:e?.event_id||null,marks:e?.marks||[]}}
  async function get(req,pdfId,page){const ctx=await scope(req,pdfId,page);return view(ctx,(await history(ctx)).latest)}
  async function save(req,pdfId,page,input){
-  if(!input||!uuid(input.event_id)||!shaOk(input.hash)||!(input.previous===null||uuid(input.previous))||!marksOk(input.marks))fail('input');
+  if(!input||!uuid(input.event_id)||!shaOk(input.hash)||!(input.previous===null||uuid(input.previous))||!validMarks(input.marks))fail('input');
   const ctx=await scope(req,pdfId,page);if(input.hash!==ctx.hash)fail('conflict');
   const queueKey=ctx.s.subject+':'+ctx.key,prior=queues.get(queueKey)||Promise.resolve();
   const work=prior.catch(()=>{}).then(async()=>{
    await ctx.live();const h=await history(ctx),existing=h.events.get(input.event_id),attempt=queueKey+':'+input.event_id;
    if(existing){if(existing.previous!==input.previous||JSON.stringify(existing.marks)!==JSON.stringify(input.marks))fail('conflict');return view(ctx,h.latest)}
    if(uncertain.has(attempt)||h.latest?.event_id!==undefined&&h.latest.event_id!==input.previous||!h.latest&&input.previous!==null)fail('conflict');
-   const e={schema:'BM-PDF-PAGE/1',owner:ctx.s.subject,pdfId,hash:ctx.hash,page,event_id:input.event_id,previous:input.previous,at_utc:new Date(now()).toISOString(),marks:input.marks};
-   const m={name:'BM_PDF_PAGE_'+ctx.key+'_'+e.event_id+'.json',mimeType:'application/json',parents:[ctx.s.rootId],appProperties:{bmProject:PROJECT,bmOwner:ctx.s.subject,bmKind:'pdf-annotation',bmPage:ctx.key,bmEvent:e.event_id}};
+   const e={schema,owner:ctx.s.subject,pdfId,hash:ctx.hash,page,event_id:input.event_id,previous:input.previous,at_utc:new Date(now()).toISOString(),marks:input.marks};
+   const m={name:(image?'BM_IMAGE_INK_':'BM_PDF_PAGE_')+ctx.key+'_'+e.event_id+'.json',mimeType:'application/json',parents:[ctx.s.rootId],appProperties:{bmProject:PROJECT,bmOwner:ctx.s.subject,bmKind:kind,bmPage:ctx.key,bmEvent:e.event_id}};
    const boundary='bm_'+e.event_id.replaceAll('-',''),body='--'+boundary+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(m)+'\r\n--'+boundary+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(e)+'\r\n--'+boundary+'--\r\n';
    await ctx.live();if(uncertain.size>=10000)fail('limit');uncertain.add(attempt);
    const created=await ctx.request(UPLOAD,{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body}),confirmed=await event(ctx,created.id);

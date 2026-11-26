@@ -175,8 +175,19 @@ try{
   const card=p.locator('#imageRows article[data-private-image-id="IMG-TEST"]');
   await card.waitFor({state:'visible'});assert.equal(await card.locator('h4').innerText(),'Material privado '+label);
   await card.getByRole('button',{name:'Abrir imagem'}).click();
-  const preview=p.locator('#bm-vs41-image-preview[open]');await preview.waitFor({state:'visible'});assert.equal(await preview.locator('h3').innerText(),'Material privado '+label);
-  assert.ok(await preview.locator('img').evaluate(im=>im.naturalWidth>0));await preview.getByRole('button',{name:'Fechar'}).click();
+  const preview=p.locator('#imageDialog[open]');await preview.waitFor({state:'visible'});assert.ok((await preview.locator('#imgTitle').innerText()).includes('Material privado '+label));
+  await p.waitForFunction(()=>window.BMVS41PrivateImageEditor.confirmed);
+  assert.deepEqual(await p.evaluate(()=>window.BMVS41PrivateImageEditor.marks),[]);
+  const color=label==='A'?'#ffd400':'#202b36';
+  await preview.locator('[data-ink-color="'+color+'"]').click();await preview.locator('[data-ink-tool="pen"]').click();
+  await preview.locator('#grifo').click();
+  await p.waitForFunction(()=>document.getElementById('imgMessage').textContent.includes('gravadas e conferidas'));
+  const stored=await p.evaluate(()=>window.BMVS41PrivateImageInk.get('IMG-TEST'));assert.equal(stored.marks.length,1);assert.equal(stored.marks[0].color,color);
+  await preview.locator('#imgClose').click();await preview.waitFor({state:'hidden'});
+  await card.getByRole('button',{name:'Abrir imagem'}).click();await preview.waitFor({state:'visible'});
+  await p.waitForFunction(()=>window.BMVS41PrivateImageEditor.confirmed);
+  assert.equal(await p.evaluate(()=>window.BMVS41PrivateImageEditor.marks[0].color),color);
+  await preview.locator('#imgClose').click();await preview.waitFor({state:'hidden'});
   await p.evaluate(()=>{const s=document.getElementById('imageSearch');s.value='Inexistente';s.dispatchEvent(new Event('input',{bubbles:true}))});
   await p.waitForFunction(()=>!document.querySelector('#imageRows article[data-private-image-id]'));
   await p.evaluate(()=>{const s=document.getElementById('imageSearch');s.value='IMG-TEST';s.dispatchEvent(new Event('input',{bubbles:true}))});
@@ -184,7 +195,8 @@ try{
   assert.ok(await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));
   await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
  }
- console.log('Galeria original: catálogo privado, busca por ID e abertura da imagem autorizada.');
+ assert.deepEqual(f.writes.filter(x=>x.payload.schema==='BM-IMAGE-INK/1').map(x=>[x.parent,x.payload.marks[0].color]).sort(),[['rootA','#ffd400'],['rootB','#202b36']]);
+ console.log('Galeria e editor original: marcações privadas persistidas e reabertas em dois perfis.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});
