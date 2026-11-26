@@ -1,0 +1,415 @@
+{
+  "format": "BancoMestreConsolidationCandidate1",
+  "date": "2026-11-25",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_catalog": "assets/catalog_snapshot_vc50.json",
+  "source_catalog_blob": "6e7864b7604d5a338128b0a7b0a4eb1c94d09106",
+  "counts": {
+    "source_active": 1486,
+    "groups": 3,
+    "absorbed": 3,
+    "projected_active": 1483
+  },
+  "redirects": {
+    "CARD-1204": "CARD-0848",
+    "CARD-0721": "CARD-0388",
+    "CARD-0033": "CARD-0039"
+  },
+  "revisions": [
+    {
+      "id": "CARD-0848",
+      "title": "Tratamentos primário e secundário de esgoto",
+      "front": "Diferencie tratamento preliminar, primário, secundário e pós-tratamento de esgotos, indicando o mecanismo predominante em cada etapa.",
+      "back": "O tratamento preliminar remove materiais grosseiros e areia, normalmente por gradeamento e desarenação. O tratamento primário convencional separa fisicamente sólidos sedimentáveis e flutuantes, especialmente por decantação.\n\nO tratamento secundário utiliza predominantemente processos biológicos para reduzir matéria orgânica biodegradável. O pós-tratamento pode ser necessário para remover nutrientes, microrganismos ou outros constituintes, conforme a qualidade exigida do efluente.",
+      "satellites": [
+        "CARD-1204"
+      ],
+      "source": "H25-C053 | H25-C052",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0848",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Saneamento",
+          "sub": "Tratamento secundário",
+          "front": "Qual processo predomina no tratamento secundário de esgotos?",
+          "back": "Processos biológicos de remoção da matéria orgânica biodegradável.",
+          "expl": "Os microrganismos convertem substâncias orgânicas em biomassa e produtos de metabolismo; sistemas como lodos ativados, biofiltros e lagoas têm exigências diferentes de oxigênio e retenção de sólidos.\nAplicação: Exemplo: tratamento primário retira sólidos sedimentáveis; secundário reduz DBO por biodegradação; pós-tratamento pode visar nutrientes, microrganismos ou parâmetros específicos.\nPegadinha: “Secundário” não equivale obrigatoriamente a tratamento anaeróbio ou aeróbio, nem assegura remoção completa de nutrientes e patógenos.",
+          "mnemonic": "Secundário = biologia contra DBO.",
+          "reference": "H25-C053",
+          "active": true
+        },
+        {
+          "id": "CARD-1204",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Saneamento",
+          "sub": "Tratamento primário",
+          "front": "O que predomina no tratamento primário convencional de esgotos?",
+          "back": "Separação física de sólidos sedimentáveis e flutuantes, especialmente por decantação.",
+          "expl": "A redução de velocidade no decantador promove deposição de partículas, enquanto material flutuante pode ser retirado na superfície.\nAplicação: Fluxo típico: gradeamento/desarenação preliminares → decantador primário → processo secundário.\nPegadinha: Não confundir tratamento preliminar (gradeamento e desarenação) com secundário biológico.",
+          "mnemonic": "Primário = sedimenta e retira flutuantes.",
+          "reference": "H25-C052",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0848": "eb5fbeaec79a58eb71c2de8a77409a751bc4960de24e95a7409a4ad2c000d315",
+        "CARD-1204": "0756f94d46ee1a2456a72867db85b8373aec70a9a0ae48f99458f1d4aee5838a"
+      },
+      "mnemonic": "Preliminar retira o grosseiro; primário separa fisicamente; secundário biodegrada.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Diferencie tratamento preliminar, primário, secundário e pós-tratamento de esgotos, indicando o mecanismo predominante em cada etapa."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O tratamento preliminar remove materiais grosseiros e areia, normalmente por gradeamento e desarenação. O tratamento primário convencional separa fisicamente sólidos sedimentáveis e flutuantes, especialmente por decantação.\n\nO tratamento secundário utiliza predominantemente processos biológicos para reduzir matéria orgânica biodegradável. O pós-tratamento pode ser necessário para remover nutrientes, microrganismos ou outros constituintes, conforme a qualidade exigida do efluente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H25-C053 | H25-C052"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "No decantador primário, a redução de velocidade favorece a sedimentação de partículas; materiais flutuantes podem ser removidos na superfície. No secundário, microrganismos convertem matéria orgânica em biomassa e produtos do metabolismo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Fluxo típico de uma ETE convencional: gradeamento e desarenação → decantador primário → processo biológico, como lodos ativados, biofiltros ou lagoas → etapas posteriores quando necessárias."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Primário convencional: separação física. Secundário: remoção biológica da matéria orgânica. Os processos secundários podem ser aeróbios, anaeróbios ou combinar condições."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Se a questão mencionar redução da DBO por biodegradação, identifique o tratamento secundário. Se mencionar sólidos sedimentáveis no decantador primário, identifique o mecanismo físico."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0848, CARD-1204."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "O arranjo depende da tecnologia adotada; nem toda ETE possui um decantador primário convencional. Os requisitos de lançamento e reúso determinam etapas adicionais."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Gradeamento não é tratamento secundário. O tratamento secundário não garante, por si só, remoção suficiente de nutrientes ou patógenos."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Preliminar retira o grosseiro; primário separa fisicamente; secundário biodegrada."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "O tratamento preliminar remove materiais grosseiros e areia, normalmente por gradeamento e desarenação. O tratamento primário convencional separa fisicamente sólidos sedimentáveis e flutuantes, especialmente por decantação.",
+          "O tratamento secundário utiliza predominantemente processos biológicos para reduzir matéria orgânica biodegradável. O pós-tratamento pode ser necessário para remover nutrientes, microrganismos ou outros constituintes, conforme a qualidade exigida do efluente."
+        ],
+        "highlights": [
+          {
+            "text": "O tratamento preliminar remove materiais grosseiros e areia, normalmente por gradeamento e desarenação",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0388",
+      "title": "Comando paralelo three-way e condutores viajantes",
+      "front": "No comando three-way convencional, como são ligados os interruptores e quantos viajantes são necessários para três grupos independentes de iluminação comandados de dois locais?",
+      "back": "Cada par de interruptores three-way convencionais possui dois condutores viajantes entre os dispositivos. Cada interruptor tem três bornes: um comum e dois comutados.\n\nPara três grupos independentes, são necessários três pares de viajantes, ou seis funções de condutor viajante no total. Isso não significa necessariamente seis fios em cada trecho de eletroduto, pois a passagem física depende do trajeto e dos demais condutores.",
+      "satellites": [
+        "CARD-0721"
+      ],
+      "source": "CON-05-028 | CON-05-030",
+      "related_card_ids": [
+        "CARD-0199",
+        "CARD-0454"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0388",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Instalações elétricas — comandos",
+          "sub": "Viajantes no three-way",
+          "front": "No comando paralelo convencional (three-way) de dois locais, quantos viajantes ligam os interruptores?",
+          "back": "Dois condutores viajantes no esquema convencional.",
+          "expl": "Os dois interruptores comutam entre caminhos alternativos. A comutação é distinta da ligação elétrica das lâmpadas, normalmente em paralelo.\nAplicação: Em diagramas de estudo, conte separadamente os viajantes, o comum do dispositivo e os condutores da carga.\nPegadinha: Não confundir interruptor paralelo para dois locais com interruptor simples duplo/triplo.\n\nParalelo three-way: 3 bornes (comum + duas saídas comutadas). Intermediário four-way: 4 bornes (dois de entrada + dois de saída); alterna os viajantes entre ligação DIRETA (1→1, 2→2) e CRUZADA (1→2, 2→1). Three-way nas extremidades e four-way no meio.",
+          "mnemonic": "Three-way: dois viajantes.",
+          "reference": "CON-05-028",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0199",
+            "CARD-0454"
+          ]
+        },
+        {
+          "id": "CARD-0721",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Instalações elétricas — comandos",
+          "sub": "Três lâmpadas independentes por dois locais",
+          "front": "Em três grupos independentes de iluminação comandados de dois pontos por three-way convencional, quantos viajantes há?",
+          "back": "Seis condutores viajantes funcionais: dois para cada um dos três pares.",
+          "expl": "Cada grupo independente precisa do par de viajantes entre dois interruptores paralelos (three-way). Multiplicando 3 grupos por 2 viajantes, obtêm-se 6 funções de viajante, embora a ocupação de um eletroduto específico dependa do trajeto.\nAplicação: 3 grupos × 2 viajantes/grupo = 6. Para grupos acionados juntos, um esquema único não representa três comandos independentes.\nPegadinha: Não confundir contagem dos viajantes com total de fios em cada eletroduto: podem existir fases, retornos, neutros e PE adicionais.",
+          "mnemonic": "3 grupos × 2 viajantes = 6.",
+          "reference": "CON-05-030",
+          "active": true,
+          "related_card_ids": [
+            "CARD-0199"
+          ]
+        }
+      ],
+      "source_hashes": {
+        "CARD-0388": "f580d68b931ce735113a27b27d8ffb9573affecc7c2c17d9fbf9c605f6352b2c",
+        "CARD-0721": "9433ede9956e473c57dfafd4b778c267441421182b978518e83810c09d14a4f5"
+      },
+      "mnemonic": "Three-way: 3 bornes, 2 viajantes; três grupos independentes: 6 viajantes.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "No comando three-way convencional, como são ligados os interruptores e quantos viajantes são necessários para três grupos independentes de iluminação comandados de dois locais?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Cada par de interruptores three-way convencionais possui dois condutores viajantes entre os dispositivos. Cada interruptor tem três bornes: um comum e dois comutados.\n\nPara três grupos independentes, são necessários três pares de viajantes, ou seis funções de condutor viajante no total. Isso não significa necessariamente seis fios em cada trecho de eletroduto, pois a passagem física depende do trajeto e dos demais condutores."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-05-028 | CON-05-030"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Cada interruptor seleciona um dos dois caminhos alternativos. A mudança de posição de qualquer um dos dois interruptores altera o estado da lâmpada no circuito convencional; o comum recebe a fase em uma extremidade e fornece o retorno à carga na outra. As lâmpadas são normalmente ligadas em paralelo; essa associação não se confunde com o comando paralelo."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Para n grupos independentes comandados por dois locais, a contagem convencional de viajantes funcionais é 2n. Para três grupos, 2×3=6."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "O three-way tem três bornes e permite comando em dois locais. Um interruptor intermediário four-way possui quatro bornes de viajantes, dois em cada lado, e permite acrescentar pontos de comando ao circuito. O four-way alterna as ligações direta (1→1, 2→2) e cruzada (1→2, 2→1). Os three-way ficam nas extremidades e o four-way entre eles."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Em croquis de instalações, identifique primeiro a fase, o retorno, os comuns e os pares de viajantes de cada grupo. Depois conte os condutores efetivamente presentes no trecho de eletroduto indicado."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0388, CARD-0721. Relacionados: CARD-0199, CARD-0454."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A contagem vale para a topologia convencional especificada. Grupos acionados em conjunto por um único circuito não equivalem a três comandos independentes. Esquemas eletrônicos podem utilizar outros arranjos."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir número de bornes com número de viajantes, nem viajantes com todos os fios do eletroduto. Three-way não significa três viajantes. Não confunda o three-way com interruptores simples duplos ou triplos. Fase, retorno, neutro e PE podem existir além dos viajantes."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Three-way: 3 bornes, 2 viajantes; três grupos independentes: 6 viajantes."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Cada par de interruptores three-way convencionais possui dois condutores viajantes entre os dispositivos. Cada interruptor tem três bornes: um comum e dois comutados.",
+          "Para três grupos independentes, são necessários três pares de viajantes, ou seis funções de condutor viajante no total. Isso não significa necessariamente seis fios em cada trecho de eletroduto, pois a passagem física depende do trajeto e dos demais condutores."
+        ],
+        "highlights": [
+          {
+            "text": "Cada par de interruptores three-way convencionais possui dois condutores viajantes entre os dispositivos",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0039",
+      "title": "FLATTEN e FLATSHOT no AutoCAD",
+      "front": "Qual a diferença entre os comandos FLATTEN e FLATSHOT no AutoCAD e em que situação usar cada um?",
+      "back": "FLATTEN achata ou projeta os objetos selecionados no plano de referência da vista, reduzindo diferenças de elevação e produzindo geometria plana. Essa operação pode alterar a geometria original.\n\nFLATSHOT cria uma representação bidimensional da vista de objetos tridimensionais, normalmente inserida como bloco, sem ser equivalente a achatar a geometria tridimensional selecionada.",
+      "satellites": [
+        "CARD-0033"
+      ],
+      "source": "H20-C022 | H20-C021",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0039",
+          "group": "INFORMATICA",
+          "discipline": "Informática",
+          "subject": "AutoCAD",
+          "sub": "FLATSHOT",
+          "front": "Qual é a diferença operacional entre FLATSHOT e FLATTEN no AutoCAD?",
+          "back": "FLATSHOT cria uma representação 2D da vista 3D; FLATTEN achata a geometria existente.",
+          "expl": "FLATSHOT produz projeção da vista atual, frequentemente inserida como bloco; FLATTEN atua nos objetos selecionados.\nAplicação: Para gerar elevação 2D de uma peça 3D, use FLATSHOT; para corrigir linhas de planta com Z diferentes, FLATTEN.\nPegadinha: FLATSHOT não substitui automaticamente um detalhamento com cotas, visibilidade e escala conferidas.",
+          "mnemonic": "SHOT = foto/projeção da vista; FLATTEN = achatamento do objeto.",
+          "reference": "H20-C022",
+          "active": true
+        },
+        {
+          "id": "CARD-0033",
+          "group": "INFORMATICA",
+          "discipline": "Informática",
+          "subject": "AutoCAD",
+          "sub": "FLATTEN",
+          "front": "Quando usar FLATTEN no AutoCAD e qual cuidado com a geometria?",
+          "back": "Para projetar/achatar objetos em 2D no plano de referência do desenho.",
+          "expl": "FLATTEN reduz diferenças de elevação e pode eliminar a informação vertical do conjunto selecionado.\nAplicação: Um desenho importado com linhas em Z≠0 pode ser achatado antes da edição de uma planta baixa.\nPegadinha: Não é um conversor reversível de modelo BIM 3D e pode alterar geometria; salve cópia antes.",
+          "mnemonic": "FLATTEN = achatar; Z vai ao plano.",
+          "reference": "H20-C021",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0039": "db83d0d05141a82c7d12210fe2662d976c2eda8f5af98c489a634eece592ff17",
+        "CARD-0033": "6dc4f776a9d4847114655d48dc443afb2f040a444266eb43e8b9c171956673c6"
+      },
+      "mnemonic": "FLATTEN achata; FLATSHOT fotografa a vista em 2D.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Qual a diferença entre os comandos FLATTEN e FLATSHOT no AutoCAD e em que situação usar cada um?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "FLATTEN achata ou projeta os objetos selecionados no plano de referência da vista, reduzindo diferenças de elevação e produzindo geometria plana. Essa operação pode alterar a geometria original.\n\nFLATSHOT cria uma representação bidimensional da vista de objetos tridimensionais, normalmente inserida como bloco, sem ser equivalente a achatar a geometria tridimensional selecionada."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C022 | H20-C021"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "FLATTEN atua sobre os objetos escolhidos; FLATSHOT utiliza a projeção da vista atual para gerar uma representação 2D."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Para corrigir linhas importadas de uma planta que apresentam valores Z indesejados, considere FLATTEN com uma cópia de segurança. Para obter uma elevação 2D de uma peça tridimensional, considere FLATSHOT e confira a orientação da vista."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "FLATTEN: modificação dos objetos para projeção plana. FLATSHOT: criação de representação 2D da vista de objetos 3D."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Em uma questão sobre desenho 2D derivado de um sólido 3D, identifique se o objetivo é gerar nova representação ou alterar a geometria de origem."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0039, CARD-0033."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "O resultado depende da vista, dos objetos selecionados e das opções de visibilidade e projeção. Verifique escala, cotas e geometria produzida."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "FLATTEN não é conversão BIM reversível; FLATSHOT não substitui automaticamente o detalhamento técnico completo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "FLATTEN achata; FLATSHOT fotografa a vista em 2D."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "FLATTEN achata ou projeta os objetos selecionados no plano de referência da vista, reduzindo diferenças de elevação e produzindo geometria plana. Essa operação pode alterar a geometria original.",
+          "FLATSHOT cria uma representação bidimensional da vista de objetos tridimensionais, normalmente inserida como bloco, sem ser equivalente a achatar a geometria tridimensional selecionada."
+        ],
+        "highlights": [
+          {
+            "text": "FLATTEN achata ou projeta os objetos selecionados no plano de referência da vista, reduzindo diferenças de elevação e produzindo geometria plana",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    }
+  ],
+  "private_srs_changed": false,
+  "private_content_exported": false,
+  "validation": {
+    "individual_sources_recovered": true,
+    "private_inventory_verified": false,
+    "display_verified": false
+  }
+}

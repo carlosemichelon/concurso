@@ -55,7 +55,7 @@ function materialize(contractPath){
  assert.equal(m.catalog.path,q.source_path);assert.equal(m.catalog.git_blob,q.source_blob);assert.equal(m.catalog.display_version,q.source_version);
  const p=apply(json(q.source_path),q),out=Buffer.from(JSON.stringify(p)),snapshot='assets/catalog_snapshot_'+q.target_version.toLowerCase()+'.json';
  write(snapshot,out);const c=m.catalog,oldVersion=m.version;
- c.path=snapshot;c.git_blob=blob(out);c.display_version=q.target_version;c.counts=p.counts;c.private_sync='not_verified';c.consolidation_batches=[...(c.consolidation_batches||[]),{path:contractPath,git_blob:blob(raw)}];
+ c.path=snapshot;c.git_blob=blob(out);c.display_version=q.target_version;c.counts=p.counts;c.private_sync='not_verified';c.post_consolidation_incremental_batches=[...(c.post_consolidation_incremental_batches||[]),{kind:'consolidation',path:contractPath,git_blob:blob(raw)}];
  for(const k of ['cards','active','card_entries_combined','cards_public_active','cards_public_current','catalog_entries_unified','catalog_canonical_cards'])m.counts[k]=p.counts.active;
  m.previous_version=oldVersion;m.version=q.target_portal;m.home=q.target_portal.toLowerCase()+'.html';
  Object.assign(m.current_versions.portal,{version:m.version,home:m.home,previous:oldVersion});Object.assign(m.component_versions.site,{technical_version:m.version,home:m.home});m.component_versions.cards={version:q.target_version,technical_source:m.version,path:snapshot,counts:p.counts};
