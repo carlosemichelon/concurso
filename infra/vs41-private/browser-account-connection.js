@@ -10,7 +10,7 @@
  function close(){if(closed)return;closed=true;clearTimeout(timer);abort?.abort();session=null;resolve(null);localStorage.clear();sessionStorage.clear();document.documentElement.style.visibility='hidden';location.reload();}
  Object.defineProperty(window,'BMPortalBridge',{value:Object.freeze({close})});
  const button=()=>document.getElementById('bm239-drive-action');
- function refreshButton(){const b=button();if(!b)return;b.textContent=session?'Trocar conta Google':'Selecionar conta Google';b.disabled=opening||!client;b.title='Selecionar a conta individual do Drive';}
+ function refreshButton(){const b=button();if(!b)return;b.textContent=opening?'Carregando Drive…':session?'Trocar conta Google':'Selecionar conta Google';b.disabled=opening||!client;b.setAttribute('aria-busy',String(opening));b.title='Selecionar a conta individual do Drive';b.setAttribute('aria-label',b.title);}
  async function prepare(){
   try{
    const config=await (await nativeFetch(new URL('assets/drive_auth_v038.json',base),{cache:'no-store'})).json();
@@ -29,7 +29,7 @@
    refreshButton();status('Selecione sua conta Google');
   }catch(e){status('Conexão indisponível: '+e.message);refreshButton()}
  }
- function select(){if(session){close();return;}if(!client||opening)return;opening=true;refreshButton();client.requestAccessToken({prompt:'select_account'});}
+ function select(){if(session){close();return;}if(!client||opening)return;opening=true;refreshButton();try{client.requestAccessToken({prompt:'select_account'})}catch(e){opening=false;status('Conexão não iniciada: '+e.message);refreshButton()}}
  document.addEventListener('DOMContentLoaded',()=>{const b=button();if(b){b.onclick=select;refreshButton()}void prepare()},{once:true});
  const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json'}});
  window.fetch=async(input,opts={})=>{

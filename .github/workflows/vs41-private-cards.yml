@@ -18,6 +18,9 @@ jobs:
       - run: |
           find /tmp/bm-original-account -name '*.js' -exec node --check {} +
           test -f /tmp/bm-original-account/index.html
+      - run: npm install --no-save playwright pdfjs-dist@3.11.174
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/vs41_original_account_browser.mjs /tmp/bm-original-account
       - uses: actions/upload-artifact@v4
         with:
           name: vs41-original-account

@@ -7,7 +7,7 @@ import {privateStudyApp} from '../infra/vs41-private/study-ui.mjs';
 const out=process.argv[2]||'/tmp/bm-original-account';
 const put=(p,s)=>{const f=path.join(out,p);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,s)};
 const original=fs.readFileSync('index.html','utf8');
-const policy="default-src 'none'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; connect-src 'self' https://www.googleapis.com https://accounts.google.com/gsi/; img-src 'self' data: blob:; font-src 'self' data:; frame-src https://accounts.google.com/gsi/ blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'";
+const policy="default-src 'none'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; connect-src 'self' https://www.googleapis.com https://accounts.google.com/gsi/; img-src 'self' data: blob:; font-src 'self' data:; frame-src https://accounts.google.com/gsi/ blob:; worker-src 'self' blob: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/; object-src 'none'; base-uri 'none'; form-action 'none'";
 let html=privatePage(original).replace('<head>','<head><meta http-equiv="Content-Security-Policy" content="'+policy+'"><script src="assets/bm-account/connection.js"></script>').replace('src="/infra/vs41-private/client.js"','src="assets/bm-account/client.js"');
 html=html.replace(/(<script\b[^>]+src=["'])(assets\/[A-Za-z0-9_.-]+\.js)((?:\?[^"']*)?["'])/g,(all,pre,file,post)=>{
  if(file.startsWith('assets/bm-account/'))return all;
@@ -18,6 +18,11 @@ html=html.replace(/(<script\b[^>]+src=["'])(assets\/[A-Za-z0-9_.-]+\.js)((?:\?[^
   const i=adapted.indexOf("(function(){\n 'use strict';\n let running=null,lastReport=null;"),j=adapted.indexOf('/* 125 assets/v266_sync_truth.js */',i);
   if(i<0||j<0)throw Error('Contrato cabeçalho divergente');
   adapted=adapted.slice(0,i)+"window.BM239DriveGlobal=Object.freeze({get connected(){return !!window.BMVS41Session?.available()},get writeAuthorized(){return false},writeToken:()=>'',get connectionStatus(){return {ready:true,initialized:true,connected:!!window.BMVS41Session?.available(),writeAuthorized:false,state:'private'}},sync:async()=>({complete:false,summary:'Consulta individual; gravação não habilitada'})});\n;\n"+adapted.slice(j);
+ }
+ if(file==='assets/v417_shared_reader.js'){
+  // Static editorial SVGs from the authenticated card retain their original inline display.
+  adapted=adapted.replace("if(typeof m.src==='string'&&m.src.startsWith('data:image/svg+xml;charset=utf-8,')){im.src=m.src;","if(typeof m.src==='string'&&(m.src.startsWith('data:image/svg+xml;charset=utf-8,')||/^assets\\/(?:[A-Za-z0-9_-]+\\/)*[A-Za-z0-9_.-]+\\.svg$/.test(m.src))){im.src=m.src;");
+  adapted=adapted.replace("else if(typeof m.src==='string'&&m.src.startsWith('assets/'))privateFigure(f,{...m,editorialStatic:true});","");
  }
  if(adapted===source)return all;
  put('assets/bm-account/'+path.basename(file),adapted);return pre+'assets/bm-account/'+path.basename(file)+post;
