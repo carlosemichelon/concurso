@@ -133,7 +133,7 @@ try{
   assert.equal(await page.locator('#bm302-redacao-shell').isVisible(),false);
   const cardPanel=await page.locator('#cartoes>.panel').boundingBox();assert.ok((await page.locator('#bm382StudyStart').boundingBox()).height<=90,'Faixa de estudo compacta');
   await page.locator('#bm242-nav').click();await page.locator('#lacunas>.bm242-shell').waitFor({state:'visible'});
-  const gapsPanel=await page.locator('#lacunas>.bm242-shell').boundingBox();assert.ok(Math.abs(gapsPanel.width-cardPanel.width)<=2,'Lacunas deve ter a largura de Flashcards');
+  const gapsPanel=await page.locator('#lacunas>.bm242-shell').boundingBox();assert.ok(Math.abs(gapsPanel.width-cardPanel.width)<=2,'Lacunas deve ter a largura de Flashcards: '+JSON.stringify({gaps:gapsPanel,cards:cardPanel}));
   console.log('Conta '+a+': Redação V296 original e troca de seções confirmadas.');
   await page.locator('#bm240-study-tab').click();
   await page.locator('#bm240-native-host #bm252-main-nav').waitFor({state:'visible',timeout:30000});
