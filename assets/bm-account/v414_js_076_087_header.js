@@ -567,6 +567,7 @@ function render(){
  const info=$('bm382CatalogInfo');if(info)info.textContent=account?'Drive individual · '+vc+': '+fmt(account.count)+' cartões ativos. '+detail:detail;
  // PDFs e Atlas: seus próprios módulos autenticados são as fontes de contagem.
  const privateBanner=$('bm119PublicSource');if(privateBanner)privateBanner.textContent=confirmed?'Cartões carregados do seu Google Drive.':'Entre com Google para carregar seus cartões.';
+ const homeBanner=$('bm119HomeSource');if(homeBanner)homeBanner.textContent=confirmed?'Assuntos dos cartões carregados do seu Google Drive.':phase==='error'?detail:account?'Organizando assuntos do seu Google Drive…':'Entre com sua conta Google para explorar seus assuntos.';
 }
 function updateCards(base,ijui,items){
  if(!Number.isInteger(base)||!Number.isInteger(ijui)||base<=0||ijui<0||!Array.isArray(items)||items.length!==base+ijui)return false;
