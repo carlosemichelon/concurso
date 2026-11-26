@@ -91,6 +91,8 @@ function init(){
  const native=$('bm084-more');
  if(native)new MutationObserver(update).observe(native,{attributes:true,attributeFilter:['hidden','disabled']});
  document.addEventListener('bm-media-drive-authorized',update);
+ document.addEventListener('bm-vs41-session-ready',update);
+ document.addEventListener('bm-account-connected',update);
  document.addEventListener('bm218-image-filter-change',()=>{lastEvent=false;update()});
  document.addEventListener('bm153-drive-filter-change',()=>{lastEvent=false;update()});
  window.addEventListener('hashchange',()=>{if(location.hash==='#imagens')update()});

@@ -191,6 +191,15 @@ try{
   }
   await page.locator('#bmV056ClosePDF').click();
   await page.waitForFunction(()=>!document.getElementById('pdfDialog').open);
+  // Reproduce the report: prefetch the index on a different tab, then enter the Atlas.
+  await page.locator('header nav button[data-page=cartoes]').click();
+  await page.evaluate(()=>window.BancoMestreDriveImagesV182.refresh(false));
+  await page.locator('header nav button[data-page=imagens]').click();
+  await page.locator('#imageRows article.bm209ImageFromDrive').first().waitFor({state:'visible',timeout:15000});
+  assert.ok(await page.locator('#imageRows article.bm209ImageFromDrive').count()>0,'Atlas deve exibir os arquivos já consultados');
+  assert.ok(await page.locator('#imageRows article.bm209ImageFromDrive img').first().evaluate(async img=>{try{await img.decode();return img.naturalWidth>0}catch{return false}}),'Prévia privada decodificada');
+  await page.locator('header nav button[data-page=cartoes]').click();await page.locator('header nav button[data-page=imagens]').click();
+  await page.locator('#imageRows article.bm209ImageFromDrive').first().waitFor({state:'visible'});
   const images=await page.evaluate(()=>window.BMVS41PrivateImages.list());assert.equal(images[0].id,'img'+a);
   await page.evaluate(img=>window.BMVS41PrivateImageEditor.open(img),images[0]);
   assert.ok(await page.evaluate(()=>window.BMVS41PrivateImageEditor.confirmed));
