@@ -49,5 +49,30 @@ export const disabledPublicScripts=new Set(['/assets/v325_public_layers_bridge.j
 export function privateTimerHeader(source){
  const first="function command(action,fields={}){",second="const id=app.createSubject(fields.name);pendingSubject=fields.name;";
  if(source.split(first).length!==2||source.split(second).length!==2)throw Error('Contrato cabeçalho do cronômetro divergente');
- return source.replace(first,'async function command(action,fields={}){').replace(second,'const id=await app.createSubject(fields.name);pendingSubject=fields.name;');
+ let s=source.replace(first,'async function command(action,fields={}){').replace(second,'const id=await app.createSubject(fields.name);pendingSubject=fields.name;');
+ const replace=(x,y)=>{if(s.split(x).length!==2)throw Error('Contrato barra divergente: '+x);s=s.replace(x,y)};
+ replace("state={kind:t.running?", "state={remote:!!t.remote,kind:t.running?");
+ replace("const mapping={start:'timerStart'", "const mapping={claim:'timerClaim',start:'timerStart'");
+ replace("controls.hidden=active;live.hidden=!active;", "controls.hidden=active;live.hidden=!active;$('claim').hidden=!state.remote;$('start').disabled=!!state.remote;");
+ replace(" idle.append(subject,area,topic,list,subtopic,subList,start,add,create);"," const claim=el('button','','Recuperar sessão');claim.id='bm241-claim';claim.type='button';claim.hidden=true;claim.onclick=()=>void command('claim');\n idle.append(subject,area,topic,list,subtopic,subList,start,claim,add,create);");
+ replace(" try{const d=JSON.parse(localStorage.getItem('BM245_CONTROLE_ESTUDOS')||'null');"," try{const d=window.BMVS41StudyControl?.snapshot();");
+ const i=s.indexOf('function source(){',s.indexOf('/* 131 assets/v255_study_three_groups.js */')),j=s.indexOf('function getGroup(',i);
+ if(i<0||j<0)throw Error('Contrato calendário divergente');
+ s=s.slice(0,i)+`function source(){
+  const v=window.BMVS41StudyControl?.snapshot();
+  return v?{...v,state:'ok'}:{state:'empty',subjects:[],sessions:[],plans:[],reviews:[],cycle:[]};
+ }
+ `+s.slice(j);
+ return s;
+}
+
+export function privateStudyCalendarStatus(source){
+ const i=source.indexOf('/* 158 assets/v309_calendar_sync_ui.js */'),j=source.indexOf('/* 159 assets/',i);
+ if(i<0||j<0)throw Error('Contrato status calendário divergente');
+ let s=source.slice(i,j);
+ s=s.replace("const d=JSON.parse(localStorage.getItem(KEY)||'null');","const d=window.BMVS41StudyControl?.snapshot();")
+  .replace(" revisões neste navegador"," revisões da conta")
+  .replace("drive?.writeToken?.()?'Conferir e sincronizar':'Autorizar Drive e sincronizar'","'Conferir e sincronizar'")
+  .replace("const drive=window.BM239DriveGlobal,token=drive?.writeToken?.();","const drive=window.BM239DriveGlobal,token=window.BMVS41Session?.available();");
+ return source.slice(0,i)+s+source.slice(j);
 }

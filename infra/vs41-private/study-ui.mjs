@@ -115,8 +115,9 @@ export function privateStudyApp(source){
  replace('Sessão pausada e disponível para transferência depois que o Drive confirmar a sincronização.','Sessão pausada e liberada no Drive.');
  block("tick=setInterval(()=>{showTimer();if(clock.running)storeClock()},1000);","}\ninit();",`tick=setInterval(showTimer,1000);
  if(typeof ResizeObserver!=='undefined')new ResizeObserver(resize).observe(root.querySelector('main'));`);
- replace("}\ninit();","}\nverified=await window.BMVS41PrivateStudy.read();init();restoreTimerFields();showTimer();\nwindow.BMVS41StudyControl=Object.freeze({refresh:reload,get busy(){return busy},get revision(){return verified?.revision},get confirmed(){return !busy&&!failed&&!!verified}});");
+ replace("}\ninit();","}\nverified=await window.BMVS41PrivateStudy.read();init();restoreTimerFields();showTimer();\nwindow.BMVS41StudyControl=Object.freeze({refresh:reload,get busy(){return busy},get revision(){return verified?.revision},snapshot:()=>verified?structuredClone(verified.data):null,get confirmed(){return !busy&&!failed&&!!verified}});");
  replace(" reload(){load();refresh();showTimer()},"," reload:reload,");
+ replace("get timer(){return {running:!!clock.running,","get timer(){return {remote:!!(data.activeTimer&&data.activeTimer.ownerId!==device),running:!!clock.running,");
  if(/localStorage\.(?:getItem|setItem|removeItem)/.test(s))throw Error('Persistência legada restante no Controle');
  return s;
 }
