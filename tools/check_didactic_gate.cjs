@@ -52,7 +52,7 @@ function packetIDs(d){
  for(const k of ['profiles','approved','existing','cards','notes','relations']){
   if(d[k]&&!Array.isArray(d[k])&&typeof d[k]==='object')for(const [id,val] of Object.entries(d[k]))if(/^(?:CARD-\d{4,}|PROP-IJUI-\d{3}|TRT\d{2}-C\d{3})$/.test(id)){if(!out.has(id))out.set(id,{});out.get(id)[k]=val;}
  }
- for(const k of ['new_cards','updates','existing_updates','related_updates','cards']){
+ for(const k of ['new_cards','updates','updated_cards','existing_updates','related_updates','revisions','cards']){
   if(Array.isArray(d[k]))for(const c of d[k])if(/^(?:CARD-\d{4,}|PROP-IJUI-\d{3}|TRT\d{2}-C\d{3})$/.test(c?.id||'')){if(!out.has(c.id))out.set(c.id,{});out.get(c.id)[k]=c;}
  }
  return out;
@@ -96,7 +96,7 @@ function effectiveCatalogChanges(base){
  const old=JSON.parse(execFileSync('git',['show',base+':'+before.catalog.path],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024}));
  const current=J(after.catalog.path);
  // The effective catalog check is independent of generated-file changes and catches direct edits.
- const records=d=>{if(!Array.isArray(d.cards))throw Error('Catálogo efetivo inválido');return new Map(d.cards.map(c=>[c.id,c]));};
+ const records=d=>{if(!Array.isArray(d.base)||!Array.isArray(d.ijui))throw Error('Catálogo efetivo inválido');const rows=[...d.base,...d.ijui],map=new Map(rows.map(c=>[c.id,c]));if(map.size!==rows.length)throw Error('IDs duplicados no catálogo efetivo');return map;};
  const a=records(old),b=records(current);
  return [...new Set([...a.keys(),...b.keys()])].filter(id=>hash(a.get(id)??null)!==hash(b.get(id)??null));
 }
