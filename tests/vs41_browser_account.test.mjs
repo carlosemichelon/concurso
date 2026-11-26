@@ -122,8 +122,9 @@ test('redação: grava explicitamente, conserva histórico, rejeita chaves e con
 test('índices antigos classificam apenas arquivos pertencentes ao banco individual',async()=>{
  const source=async path=>path.includes('v211')?{schema:'BancoMestrePublishedDriveImagesV211',records:[{driveFileId:'imgA',imageId:'IMG-TESTE',title:'Imagem de estudo',group:'eng_geotecnia',topic:'Solos',cardIds:['CARD-9901','CARD-9999']},{driveFileId:'imgB',imageId:'IMG-B',title:'Imagem alheia',topic:'Outro'}]}:null;
  const a=await connectAccount({token:'A',fetcher:fixture('A'),readEditorialIndex:source});
- const imgs=await a.images();assert.equal(imgs.length,1);assert.equal(imgs[0].id,'imgA');
- assert.equal(imgs[0].subject,'Solos');assert.deepEqual(imgs[0].card_ids,['CARD-9901']);
+ const imgs=await a.images();assert.equal(imgs.length,2);const original=imgs.find(x=>x.id==='imgA');assert.ok(original);assert.ok(imgs.some(x=>x.id==='svgA'));
+ assert.equal(original.subject,'Solos');assert.deepEqual(original.card_ids,['CARD-9901']);
+ assert.ok(!imgs.some(x=>x.id==='optimizedA'||x.id==='derivedA'));assert.equal((await a.readMedia('optimizedA')).type,'image/png');
  await assert.rejects(a.readMedia('imgB'));
 });
 
@@ -134,3 +135,8 @@ test('SRS histórico recupera datas exatas sem promover catálogo anterior e sem
  assert.equal(agenda.records.length,1);assert.equal(agenda.records[0].due,'2026-12-07');assert.equal(agenda.records[0].rating,'Bom');
  assert.match(agenda.records[0].source,/V193/);assert.equal(writes.length,0);
 });
+
+ test('Atualizar imagens e PDFs consulta novamente o Drive; leitura normal reutiliza a mesma varredura',async()=>{
+ const delegate=fixture('A');let scans=0;const fetcher=(url,opts)=>{const u=new URL(url);const q=u.searchParams.get('q')||'';if(q.includes("'rootA' in parents")&&q.includes("mimeType contains 'image/'"))scans++;return delegate(url,opts)};
+ const a=await connectAccount({token:'A',fetcher});await a.images();const initial=scans;assert.ok(initial>0);await a.pdfs();assert.equal(scans,initial);await Promise.all([a.images(true),a.pdfs(true)]);assert.equal(scans,initial+1);
+ });

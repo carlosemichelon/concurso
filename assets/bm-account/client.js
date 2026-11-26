@@ -70,7 +70,7 @@
   const dialog=document.getElementById('pdfDialog'),frame=document.getElementById('pdfFrame'),status=document.getElementById('pdfLocalStatus');
   if(!dialog||!frame||!status)throw Error('Leitor indisponível');
   releasePdf();const serial=pdfSerial;
-  const expected=await check();const blob=await window.BMVS41PrivateMedia.read(doc.card_ids[0],doc.id);
+  const expected=await check();const blob=await window.BMVS41PrivateMedia.read(doc.card_ids[0]||'biblioteca',doc.id);
   if(serial!==pdfSerial||context!==expected||locked||blob.type!=='application/pdf')throw Error('Sessão ou arquivo alterado');
   pdfUrl=URL.createObjectURL(blob);document.getElementById('docTitle').textContent=doc.title;
   document.getElementById('pdfOriginal').removeAttribute('href');document.getElementById('pdfOriginal').hidden=true;
@@ -78,8 +78,8 @@
   document.getElementById('pdfLocalMode').classList.remove('active');document.getElementById('pdfIntro').hidden=true;
   frame.classList.remove('localHidden');frame.src=pdfUrl;status.textContent='Leitura privada confirmada. Abra Editar PDF para usar as ferramentas.';
   dialog.addEventListener('close',()=>{if(!dialog.open)releasePdf()},{once:true});if(!dialog.open)dialog.showModal();return true;
- },async list(){
-  const expected=await check();start();const r=await request('/api/vs41/pdfs',{'X-BM-Context':expected});
+ },async list(force=false){
+  const expected=await check();start();const r=await request('/api/vs41/pdfs'+(force===true?'?refresh=1':''),{'X-BM-Context':expected});
   if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
   if(!r.ok)throw Error('Biblioteca privada indisponível');
   const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
@@ -131,8 +131,8 @@
   if(p.formula!==null&&(!p.formula||typeof p.formula.text!=='string'||!p.formula.text.trim()||p.formula.text.length>400000||typeof p.formula.version!=='string'))throw Error('Guia inválido');
   return p.formula;
  }})});
- Object.defineProperty(window,'BMVS41PrivateImages',{value:Object.freeze({async list(){
-  const expected=await check();start();const r=await request('/api/vs41/images',{'X-BM-Context':expected});
+ Object.defineProperty(window,'BMVS41PrivateImages',{value:Object.freeze({async list(force=false){
+  const expected=await check();start();const r=await request('/api/vs41/images'+(force===true?'?refresh=1':''),{'X-BM-Context':expected});
   if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
   if(!r.ok)throw Error('Galeria privada indisponível');
   const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}

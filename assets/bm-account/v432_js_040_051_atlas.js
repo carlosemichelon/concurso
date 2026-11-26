@@ -280,15 +280,15 @@ function BM371FolderCache({roots,token,request,now=()=>Date.now(),maxAge=600000}
  bar.append(heading,connect,sync,state);
  panel.insertBefore(bar,$('pdfAreaNavV036')||panel.firstChild);
  connect.onclick=()=>authorize();
- sync.onclick=()=>{if(scanning)return;if(authorized())void refresh();else authorize();};
+ sync.onclick=()=>{if(scanning)return;if(authorized())void refresh(true);else authorize();};
 }
 
- async function refresh(){
+ async function refresh(force=false){
   if(pending)return pending;scanning=true;
   pending=(async()=>{
    document.documentElement.dataset.bm217PdfVerified='false';
    try{
-    const result=await window.BMVS41PrivatePdfs.list();
+    const result=await window.BMVS41PrivatePdfs.list(force===true);
     docs=result;document.documentElement.dataset.bm217PdfVerified='true';$('pdfStat').textContent=docs.length;
     status('Biblioteca privada confirmada: '+docs.length+' PDFs vinculados.');
     lastResult={count:docs.length};pdfRender();return lastResult;
@@ -477,7 +477,7 @@ window.BM218ImageMetadata=Object.freeze({
   if(downloads.has(file.id))return downloads.get(file.id);
   const ticket=generation,task=(async()=>{
    const blob=await window.BMVS41PrivateMedia.read(file.card_ids?.[0]||'biblioteca',file.id);
-   if(ticket!==generation||!validToken()||!photos.includes(file)||!/^image\/(png|jpeg|webp|gif)$/.test(blob.type))throw Error('Imagem ou sessão alterada');
+   if(ticket!==generation||!validToken()||!photos.includes(file)||!/^image\/(png|jpeg|webp|gif|svg\+xml)$/.test(blob.type))throw Error('Imagem ou sessão alterada');
    const url=URL.createObjectURL(blob);urls.set(file.id,url);return url;
   })();downloads.set(file.id,task);
   try{return await task}finally{if(downloads.get(file.id)===task)downloads.delete(file.id)}
@@ -619,8 +619,8 @@ function render(){
   if(pending)return pending;
   if(!force&&lastGoodAt&&validToken())return {found:photos.length,scope:'authenticated-profile'};
   pending=(async()=>{
-   try{msg('Consultando imagens privadas…');const list=await window.BMVS41PrivateImages.list();const next=list.map(x=>({...x,name:x.title}));const unchanged=JSON.stringify(photos)===JSON.stringify(next);if(!unchanged){release();photos=next;aliases.clear();}lastGoodAt=Date.now();lastError='';
-    for(const f of photos)aliases.set(f.id,{imageId:f.editorialId||'',title:f.title,cardIds:f.card_ids});if(!unchanged||!renderedRecords)render();
+   try{msg('Consultando imagens privadas…');const list=await window.BMVS41PrivateImages.list(force===true);const next=list.map(x=>({...x,name:x.title}));const unchanged=JSON.stringify(photos)===JSON.stringify(next);if(!unchanged||force===true){release();photos=next;aliases.clear();}lastGoodAt=Date.now();lastError='';
+    for(const f of photos)aliases.set(f.id,{imageId:f.editorialId||'',title:f.title,cardIds:f.card_ids});if(!unchanged||force===true||!renderedRecords)render();
     $('imageCount').textContent=photos.length+' imagens';msg('Atlas e originais recuperados: '+photos.length+' imagens; '+photos.filter(f=>f.indexed===true).length+' nos índices históricos. Derivadas, miniaturas e demais pastas não entram na contagem.');$('bm207-sync-time').textContent='Consulta validada nesta sessão';
     return {found:photos.length,scope:'authenticated-profile'};
    }catch(e){release();photos=[];aliases.clear();lastGoodAt=0;lastError=e.message;render();msg(e.message,true);return null}
@@ -629,7 +629,7 @@ function render(){
  }
  function topicRecords(){return !validToken()||!lastGoodAt?null:photos.map(f=>({id:f.id,editorialId:f.editorialId||'',title:info(f).displayTitle,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,cardIds:f.card_ids,description:f.description,name:f.filename||f.title,filename:f.filename||f.title,path:Array.isArray(f.path)?f.path.join(' / '):f.path,folderSubject:f.folderSubject,folderArea:f.folderArea,preview:()=>getImageUrl(f),open:()=>openImage(f)}))}
  window.BancoMestreDriveImagesV182=Object.freeze({refresh:refreshList,refreshAfterMove:refreshList,prepareTopicMetadata:async()=>{},topicRecords,
-  get connected(){return validToken()},get lastSuccess(){return lastGoodAt?new Date(lastGoodAt).toISOString():null},get lastError(){return lastError},get lastCount(){return photos.length},get unverifiedCount(){return photos.filter(f=>f.indexed!==true).length},get alreadyPublic(){return 0},get atlasMode(){return 'drive_only'},get roots(){return []},getEditorialId:id=>photos.find(f=>f.id===id)?.editorialId||'',getImageUrlForCard:id=>{const f=photos.find(x=>x.id===id);if(!f)throw Error('Imagem fora do perfil');return getImageUrl(f)}
+  get connected(){return validToken()},get lastSuccess(){return lastGoodAt?new Date(lastGoodAt).toISOString():null},get lastError(){return lastError},get lastCount(){return photos.length},get unverifiedCount(){return photos.filter(f=>f.indexed!==true).length},get alreadyPublic(){return 0},get atlasMode(){return 'drive_only'},get roots(){return []},getEditorialId:id=>photos.find(f=>f.id===id)?.editorialId||'',getImageUrlForCard:async id=>{if(!validToken())throw Error('Sessão não confirmada');const f=photos.find(x=>x.id===id);if(f)return getImageUrl(f);if(urls.has(id))return urls.get(id);if(downloads.has(id))return downloads.get(id);const ticket=generation,task=(async()=>{const blob=await window.BMVS41PrivateMedia.read('biblioteca',id);if(ticket!==generation||!validToken()||!/^image\/(png|jpeg|webp|gif|svg\+xml)$/.test(blob.type))throw Error('Imagem ou sessão alterada');const url=URL.createObjectURL(blob);urls.set(id,url);return url;})();downloads.set(id,task);try{return await task}finally{if(downloads.get(id)===task)downloads.delete(id)}}
  });
  function init(){ui();if(location.hash==='#imagens')void refreshList();}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

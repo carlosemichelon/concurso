@@ -18,8 +18,12 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
   const start=Buffer.byteLength(s);return s+'xref\n0 5\n0000000000 65535 f \n'+offsets.slice(1).map(x=>String(x).padStart(10,'0')+' 00000 n \n').join('')+'trailer\n<< /Size 5 /Root 1 0 R >>\nstartxref\n'+start+'\n%%EOF\n';
  }
  const bytes=makePdf();files.set(pdf,{id:pdf,name:'Material.pdf',mimeType:'application/pdf',parents:[root],ownedByMe:true,shared:false,trashed:false,version:'1',size:String(Buffer.byteLength(bytes))});content.set(pdf,bytes);
+ const atlasFolder='atlasFolder'+account,otherFolder='otherFolder'+account;add(atlasFolder,'07 – Atlas de Imagens (sincronização)',fm,[root]);add(otherFolder,'MIDIAS_OTIMIZADAS',fm,[root]);
  const img='img'+account,png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+XK1sAAAAASUVORK5CYII=','base64');
- files.set(img,{id:img,name:'Imagem.png',mimeType:'image/png',parents:[root],ownedByMe:true,shared:false,trashed:false,version:'1',size:String(png.length)});content.set(img,png);
+ files.set(img,{id:img,name:'Imagem.png',mimeType:'image/png',parents:[atlasFolder],ownedByMe:true,shared:false,trashed:false,version:'1',size:String(png.length)});content.set(img,png);
+ const copy='optimized'+account;files.set(copy,{...files.get(img),id:copy,name:'Copia.png',parents:[otherFolder]});content.set(copy,png);
+ const derived='derived'+account;files.set(derived,{...files.get(img),id:derived,name:'Miniatura.png',appProperties:{origin:'MINIATURA'}});content.set(derived,png);
+ const svg='svg'+account;add(svg,'Original.svg','image/svg+xml',[atlasFolder],undefined,{size:'100',properties:{origin:'ORIGINAL_USUARIO'}});
  const docType='application/vnd.google-apps.document';
  add('method'+account,'00_METODOLOGIA_MESTRE_VIGENTE_VM20 — teste',docType,[root]);content.set('method'+account,'Metodologia integral '+account);
  add('guide'+account,'00_GUIA_OPERACIONAL_DE_ESTUDO — VM20',docType,[root]);content.set('guide'+account,'Guia integral '+account);
@@ -62,6 +66,8 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    else if(q.includes('bm_lacunas_v242'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GAP_KIND);
    else if(q.includes('BM_SRS_EVENT_V001_'))result=[...files.values()].filter(x=>x.name.startsWith('BM_SRS_EVENT_V001_'));
    else if(q.includes("'"+root+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(root));
+   else if(q.includes("'"+atlasFolder+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(atlasFolder));
+   else if(q.includes("'"+otherFolder+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(otherFolder));
    return Response.json({files:result});
   }
   if(u.pathname.endsWith('/export')){const id=u.pathname.split('/').at(-2);return files.has(id)?new Response(content.get(id)||'') : new Response(null,{status:403})}

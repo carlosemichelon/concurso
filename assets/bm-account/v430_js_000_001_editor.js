@@ -242,8 +242,8 @@ root.BancoMestreEditorV030={open:async()=>{throw Error('Abra a imagem pela bibli
    if(opening||busy||dialog.open)throw Error('Editor ocupado');opening=true;
    try{
     if(!file||!Array.isArray(file.card_ids))throw Error('Imagem sem vínculo');
-    const blob=await root.BMVS41PrivateMedia.read(file.card_ids[0],file.id);
-    if(!/^image\/(png|jpeg|webp|gif)$/.test(blob.type))throw Error('Formato inválido');
+    const blob=await root.BMVS41PrivateMedia.read(file.card_ids[0]||'biblioteca',file.id);
+    if(!/^image\/(png|jpeg|webp|gif|svg\+xml)$/.test(blob.type))throw Error('Formato inválido');
     const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))].map(x=>x.toString(16).padStart(2,'0')).join('');
     const next=await root.BMVS41PrivateImageInk.get(file.id);
     if(next.hash!==hash||!root.BMVS41Session.available())throw Error('Versão ou sessão alterada');

@@ -393,6 +393,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const original=declared==='ORIGINAL_USUARIO'||/(?:^|\n)\s*(?:origem|origin)\s*[:=]\s*ORIGINAL_USUARIO\s*(?:\n|$)/i.test(desc);
   const derivative=/DERIVADA|ASSISTENTE|MANUTENCAO|MANUTENÇÃO|MINIATURA/.test(declared)||/(?:^|\n)\s*(?:origem|origin)\s*[:=]\s*(?:DERIVADA_AUTORAL|SVG_DIDATICO_ASSISTENTE|CAPTURA_MANUTENCAO_SITE|IMAGEM_GERADA_ASSISTENTE)\b/i.test(desc);
   if(derivative||(!original&&/(?:^|[\s_\/-])(?:DERIVADAS?|MINIATURAS?|SVG_AUTORAL|CAPTURAS?_MANUTENCAO|PREVIAS_SVG_SITE)(?:[\s_\/.\-]|$)/i.test(normalizedName(path.join(' / ')))))return {visible:false,reason:'derivada ou manutenção'};
+  if(f.mimeType==='image/svg+xml'&&!original)return {visible:false,reason:'SVG sem origem de usuário'};
   if(Number(f.size||0)>15000000)return {visible:false,reason:'acima de 15 MB'};
   return {visible:true,originVerified:original};
  }
@@ -408,7 +409,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    for(let i=0;i<batch.length;i++){const p=batch[i],children=pages[i];
    for(const f of children){if(f.parents?.length!==1||f.parents[0]!==p.id)throw Error('Arquivo fora da pasta selecionada');const path=[...p.path,f.name];
     if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path,inAtlas:p.inAtlas||atlasRoot(f)});continue;}
-    if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType)){const policy=f.mimeType.startsWith('image/')?atlasImagePolicy(f,path,p.inAtlas):null;out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path,...(policy?{atlasVisible:policy.visible,atlasReason:policy.reason||'',originVerified:policy.originVerified===true}:{})});}
+    if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif|svg\+xml)$/.test(f.mimeType)){const policy=f.mimeType.startsWith('image/')?atlasImagePolicy(f,path,p.inAtlas):null;out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path,...(policy?{atlasVisible:policy.visible,atlasReason:policy.reason||'',originVerified:policy.originVerified===true}:{})});}
    }
    }
    reportProgress('scan');
@@ -469,7 +470,21 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    }
   }
   mediaIndex=out;reportProgress('complete');return out};
- const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da biblioteca individual');const before=await meta(id);const authorized=()=>item.legacyReadOnly?legacyPdfPath(before):belongsToRoot(before);if(!await authorized())throw Error('Original não pertence mais a uma fonte autorizada');const r=await raw(id,100000000,true);if(r.meta.mimeType!==item.mimeType||r.meta.parents?.[0]!==before.parents?.[0])throw Error('Tipo ou pasta da mídia alterados');return new Blob([r.bytes],{type:item.mimeType})};
+ // SVG is consumed only as an image URL; preserve original bytes for annotation hashes.
+ // Reject active content, external resources, and XML entities before any rendering.
+ function validateSvgImage(bytes){
+  const text=new TextDecoder('utf-8',{fatal:true}).decode(bytes);
+  if(/<!DOCTYPE|<!ENTITY|<\?xml-stylesheet/i.test(text)||typeof DOMParser!=='function')throw Error('SVG não pode ser conferido com segurança');
+  const doc=new DOMParser().parseFromString(text,'image/svg+xml'),svg=doc.documentElement;
+  if(svg?.localName!=='svg'||svg.namespaceURI!=='http://www.w3.org/2000/svg'||doc.querySelector('parsererror'))throw Error('SVG inválido');
+  const unsafe=/^(?:script|foreignobject|iframe|object|embed|audio|video|animate|animatemotion|animatetransform|set|use|a)$/i;
+  const cssUnsafe=v=>/@import|javascript:|url\(\s*(?!['"]?#)[^)]*\)/i.test(v);
+  for(const node of [svg,...svg.querySelectorAll('*')]){
+   if(unsafe.test(node.localName)||node.namespaceURI!=='http://www.w3.org/2000/svg'||(node.localName==='style'&&cssUnsafe(node.textContent||'')))throw Error('SVG contém conteúdo ativo ou externo');
+   for(const attr of node.attributes){const name=attr.name.toLowerCase(),value=attr.value.trim();if(name.startsWith('on')||cssUnsafe(value)||((name==='href'||name==='xlink:href'||name==='src')&&!value.startsWith('#')&&!/^data:image\/(?:png|jpe?g|webp|gif);base64,[A-Za-z0-9+/=]+$/i.test(value)))throw Error('SVG contém referência não autorizada');}
+  }
+ }
+ const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da biblioteca individual');const before=await meta(id);const authorized=()=>item.legacyReadOnly?legacyPdfPath(before):belongsToRoot(before);if(!await authorized())throw Error('Original não pertence mais a uma fonte autorizada');const r=await raw(id,100000000,true);if(r.meta.mimeType!==item.mimeType||r.meta.parents?.[0]!==before.parents?.[0])throw Error('Tipo ou pasta da mídia alterados');if(item.mimeType==='image/svg+xml')validateSvgImage(r.bytes);return new Blob([r.bytes],{type:item.mimeType})};
  const GRIF_KIND='bm_grifos_sync_v104_master',GRIF_NAME='BancoMestre_Grifos_Mestre.json';
  const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(n=>n.toString(16).padStart(2,'0')).join('');
  const grifos=async()=>{
@@ -547,7 +562,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  // Image ink was browser-local in the legacy editor. Persist explicit edits as small,
  // private versioned files keyed to the authenticated Drive image and its actual bytes.
  const imageIdentity=async id=>{
-  if(!validId(id)||!/^image\/(?:png|jpeg|webp|gif)$/.test((await media()).get(id)?.mimeType||''))fail('Imagem fora da biblioteca individual');
+  if(!validId(id)||!/^image\/(?:png|jpeg|webp|gif|svg\+xml)$/.test((await media()).get(id)?.mimeType||''))fail('Imagem fora da biblioteca individual');
   const m=await meta(id),previous=hashes.get(id);
   if(previous&&previous.version===m.version)return previous.hash;
   const blob=await readMedia(id),hash=await digest(await blob.arrayBuffer()),again=await meta(id);
@@ -643,5 +658,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await check('grifos',async()=>{const p=await grifos();return p.file?{message:'Grifos: mestre V104 lido e validado; sem alteração das marcações'}:{state:'pending',message:'Grifos: nenhum arquivo mestre V104 localizado'}});
   return {at:new Date().toISOString(),modules,notes,pending,warnings,complete:!pending.length&&!warnings.length,summary:'Conferência de leitura da conta individual; gravações somente por módulo'};
  };
- return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
+ return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType==='application/pdf')},async images(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
 }
