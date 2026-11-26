@@ -178,7 +178,7 @@ const mount=async()=>{
   await new Promise((resolve,reject)=>{
    if(typeof window.BM240ControlInit==='function')return resolve();
    const script=document.createElement('script');
-   script.src='assets/v415_controle_app.js?v=vs44-perf-2';
+   script.src='assets/v415_controle_app.js?v=session-planning-2';
    script.onload=resolve;script.onerror=()=>reject(Error('Módulo de estudos não carregou'));
    document.head.append(script);
   });
@@ -527,25 +527,27 @@ function render(){
  if(!data){$('bm242-list').textContent='Importe uma cópia válida para recuperar o cadastro';return}
  // Preserve expanded records, selection and the existing DOM on a tab revisit.
  if(renderedGapData===persisted&&renderedGapFilters===gapFilterKey())return;
- function select(id,values,all){
-  const el=$(id),keep=el.value;el.replaceChildren(new Option(all,''));
-  for(const v of values)el.add(new Option(v,v));
+ function select(id,values,all,rows,field){
+  const el=$(id),keep=el.value,counts=new Map();
+  for(const r of rows)if(r[field])counts.set(r[field],(counts.get(r[field])||0)+1);
+  el.replaceChildren(new Option(all+' ('+rows.length+')',''));
+  for(const v of values)el.add(new Option(v+' ('+(counts.get(v)||0)+')',v));
   el.value=[...el.options].some(x=>x.value===keep)?keep:'';
  }
- select('bm242-discipline',[...new Set(data.records.map(x=>x.disciplina).filter(Boolean))].sort(),'Todas');
+ select('bm242-discipline',[...new Set(data.records.map(x=>x.disciplina).filter(Boolean))].sort(),'Todas',data.records,'disciplina');
  const discipline=$('bm242-discipline').value;
  const byDisc=data.records.filter(x=>!discipline||x.disciplina===discipline);
- select('bm242-general',[...new Set(byDisc.map(x=>x.assuntoGeral).filter(Boolean))].sort(),'Todos');
+ select('bm242-general',[...new Set(byDisc.map(x=>x.assuntoGeral).filter(Boolean))].sort(),'Todos',byDisc,'assuntoGeral');
  const gen=$('bm242-general').value;
  const byGeneral=byDisc.filter(x=>!gen||x.assuntoGeral===gen);
- select('bm242-specific',[...new Set(byGeneral.map(x=>x.assuntoEspecifico).filter(Boolean))].sort(),'Todos');
+ select('bm242-specific',[...new Set(byGeneral.map(x=>x.assuntoEspecifico).filter(Boolean))].sort(),'Todos',byGeneral,'assuntoEspecifico');
  const specific=$('bm242-specific').value;
  const bySpecific=byGeneral.filter(x=>!specific||x.assuntoEspecifico===specific);
- select('bm242-sub',[...new Set(bySpecific.map(x=>x.subassunto).filter(Boolean))].sort(),'Todos');
- select('bm242-priority',[...new Set(data.records.map(x=>x.prioridade).filter(Boolean))].sort(),'Todas');
- select('bm242-type',types.filter(x=>data.records.some(r=>r.tipo===x)),'Todos');
- select('bm242-cover',coverage.filter(x=>data.records.some(r=>r.cobertura===x)),'Todas');
- select('bm242-stage',stages.filter(x=>data.records.some(r=>r.etapa===x)),'Todas');
+ select('bm242-sub',[...new Set(bySpecific.map(x=>x.subassunto).filter(Boolean))].sort(),'Todos',bySpecific,'subassunto');
+ select('bm242-priority',[...new Set(data.records.map(x=>x.prioridade).filter(Boolean))].sort(),'Todas',data.records,'prioridade');
+ select('bm242-type',types.filter(x=>data.records.some(r=>r.tipo===x)),'Todos',data.records,'tipo');
+ select('bm242-cover',coverage.filter(x=>data.records.some(r=>r.cobertura===x)),'Todas',data.records,'cobertura');
+ select('bm242-stage',stages.filter(x=>data.records.some(r=>r.etapa===x)),'Todas',data.records,'etapa');
  const q=norm($('bm242-search').value),d=$('bm242-discipline').value,t=$('bm242-type').value,
  g=$('bm242-general').value,sp=$('bm242-specific').value,sub=$('bm242-sub').value,p=$('bm242-priority').value,
  c=$('bm242-cover').value,s=$('bm242-stage').value;

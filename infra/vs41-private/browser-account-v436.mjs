@@ -342,8 +342,15 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   if(historicalIds.size!==d.cards.length||d.srs.some(x=>!historicalIds.has(x?.id))||new Set(d.srs.map(x=>x.id)).size!==d.srs.length)throw Error('IDs do histórico SRS divergentes');
   return {version:d.version,updated:typeof d.updated==='string'?d.updated:'',srs:d.srs};
  }
- async function schedule(){
-  const ids=new Set(records.filter(c=>c.active).map(c=>c.id)),byId=new Map(),seen=new Map();
+ let scheduleCache=null,scheduleFlight=null;
+ async function schedule(force=false){
+  if(scheduleFlight)return structuredClone(await scheduleFlight);
+  if(force!==true&&scheduleCache)return structuredClone(scheduleCache);
+  scheduleFlight=readSchedule().then(result=>{scheduleCache=result;return result;}).finally(()=>{scheduleFlight=null});
+  return structuredClone(await scheduleFlight);
+ }
+ async function readSchedule(){
+  const ids=new Set(records.filter(c=>c.active).map(c=>c.id)),byId=new Map(),seen=new Map(),ratings=new Map();
   const recovery=snapshot.scope==='private-recovery',source=(snapshot.scope==='snapshot-only'||recovery)&&Array.isArray(snapshot.srs),warnings=[];
   if(recovery)warnings.push('Recuperação parcial: histórico privado '+snapshot.privateVersion+' verificado; identidades operacionais e conflitos históricos não recebem avaliações por transferência.');
   let historical=null;
@@ -355,11 +362,12 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const historySource=source?snapshot:historical;
   for(const r of historySource?.srs||[]){
    if(!ids.has(r?.id))continue;
-   const due=day(r.next_review||r.proxima_revisao||r.due);if(!due)continue;
+   const due=day(r.next_review||r.proxima_revisao||r.due);
    const rating=normalizedRating(r.rating)||normalizedRating(r.last_date)||normalizedRating(r.grade)||normalizedRating(r.avaliacao);
    const lastReview=day(r.last_review_at)||day(r.review_date)||day(r.grade)||day(r.last_date);
+   if(rating)ratings.set(r.id,{rating,date:lastReview});if(!due)continue;
    if(byId.has(r.id))throw Error('ID SRS duplicado no snapshot');
-   byId.set(r.id,{id:r.id,due,rating,lastReview,kind:rating?'revisao':'agendamento',source:(recovery?'Snapshot privado recuperado '+snapshot.privateVersion:((source?'Snapshot privado ':'Histórico privado ')+historySource.version))+' — vencimento registrado'});
+   byId.set(r.id,{id:r.id,due,rating,ratingDate:rating?lastReview:null,lastReview,kind:rating?'revisao':'agendamento',source:(recovery?'Snapshot privado recuperado '+snapshot.privateVersion:((source?'Snapshot privado ':'Histórico privado ')+historySource.version))+' — vencimento registrado'});
   }
   const files=await list("mimeType = '"+doc+"' and name contains 'Delta de estudo e cartões aprovados'");
   let documents=0;
@@ -379,11 +387,13 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   }
   const ordered=[...seen.values()].sort((a,b)=>a.date_local.localeCompare(b.date_local)||Number(a.kind==='avaliacao_explicita')-Number(b.kind==='avaliacao_explicita')||a.event_id.localeCompare(b.event_id));
   for(const e of ordered){
-   const p=byId.get(e.id);
+   const p=byId.get(e.id),oldRating=ratings.get(e.id),rating=normalizedRating(e.rating);
+   if(e.kind==='avaliacao_explicita'&&rating&&(!oldRating?.date||e.date_local>=oldRating.date))ratings.set(e.id,{rating,date:e.date_local});
    if(p?.lastReview&&p.lastReview>e.date_local)continue;
    if(p?.lastReview===e.date_local&&p.kind==='revisao'&&e.kind!=='avaliacao_explicita')continue;
-   byId.set(e.id,{id:e.id,due:e.due,rating:normalizedRating(e.rating),lastReview:e.date_local,kind:e.kind,intervalDays:e.interval_days,eventId:e.event_id,source:'Delta privado — data registrada'});
+   byId.set(e.id,{id:e.id,due:e.due,lastReview:e.date_local,kind:e.kind,intervalDays:e.interval_days,eventId:e.event_id,source:'Delta privado — data registrada'});
   }
+  for(const [id,row] of byId){const r=ratings.get(id);row.rating=r?.rating||'';row.ratingDate=r?.date||null;}
   return {records:[...byId.values()],complete:source&&!recovery,warnings,documents,events:seen.size,version:recovery?snapshot.privateVersion:(historySource?.version||snapshot.version),updated:historySource?.updated||'',historical:recovery?snapshot.privateVersion:(historical?.version||null)};
  }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.

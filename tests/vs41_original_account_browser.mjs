@@ -154,10 +154,12 @@ try{
   await page.locator('header nav button[data-page=calendario]').click();
   await page.waitForFunction(()=>document.getElementById('calendario')?.dataset.bm411Ready==='true');
   const planReads=reads.schedule;assert.ok(planReads>0);
+  const gapOptions=await page.locator('#bm242-type option').allTextContents();assert.ok(gapOptions.every(x=>/\(\d+\)$/.test(x)),'Filtros exibem quantidades');
   await page.locator('header nav button[data-page=cartoes]').click();
   await page.locator('header nav button[data-page=calendario]').click();
   await page.evaluate(()=>window.BM141Calendar.open());
-  assert.equal(reads.schedule,planReads,'Planejamento: reabrir preserva a agenda confirmada');
+  await page.evaluate(async()=>{await window.BM141Calendar.refreshPrivate();await window.BM141Calendar.refreshPrivate();await window.BM316SrsJournal.refresh()});
+  assert.equal(reads.schedule,planReads,'Planejamento: reabrir e iniciar fila preservam agenda confirmada');
   await page.evaluate(()=>window.BM141Calendar.open(true));
   assert.ok(reads.schedule>planReads,'Atualização explícita consulta o SRS');
   console.log('Conta '+a+': Redação V296 original e troca de seções confirmadas.');

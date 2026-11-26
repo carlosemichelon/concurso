@@ -23,7 +23,7 @@ async function start(e){if(busy)return;if(!token()){say('Conecte o Drive com aut
  busy=true;buttons(true);origin=e?.currentTarget||document.activeElement;auth=token();kind=origin?.id==='bm383StartPriority'?'priority':'due';
  try{say('Consultando agenda privada e avaliações confirmadas…');
  await calendar().ensureLoaded();await window.loadCards();
- const [privateOK]=await Promise.all([calendar().refreshPrivate(),journal().refresh()]);
+ const privateOK=await calendar().refreshPrivate(false);
  if(auth!==token())throw Error('A sessão do Drive mudou.');
  if(!privateOK||!calendar().counts().privateInfo||!journal().loaded)throw Error('Agenda privada não confirmada; conecte o Drive e atualize.');
  const info=calendar().counts().privateInfo;

@@ -383,7 +383,7 @@ $('calGrid').addEventListener('click',e=>{const b=e.target.closest('[data-cal-da
   $('bm240-srs-status').textContent=c&&Number.isFinite(c.verified)?
    c.verified+' datas históricas conhecidas; verifique atualidade. SRS não modificado.':
    'Abrindo planejamento SRS histórico sem alterações.';
-  window.section('calendario');
+  if(window.BM141Calendar)void window.BM141Calendar.open(false);else window.section('calendario');
  });
  $('planForm').addEventListener('submit',async e=>{e.preventDefault();const date=$('planDate').value,sub=$('planSubject').value,topic=$('planTopic').value.trim(),minutes=Number($('planMinutes').value);if(!validDate(date)||!subject(sub)||!topic||!Number.isInteger(minutes)||minutes<5||minutes>1440){toggleMessage('planStatus','Confira a data, disciplina, assunto e minutos.');return}data.plans.push({id:uid(),date,subjectId:sub,topic,minutes,createdAt:new Date().toISOString()});if(await store()){cal.selected=cal.date=date;$('planTopic').value='';toggleMessage('planStatus','Atividade planejada e gravada no Drive.');renderCalendar()}});
  $('calPlans').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.calToggle||b.dataset.calRemove;const p=data.plans.find(x=>x.id===id&&!x.deletedAt);if(!p)return;if(b.dataset.calRemove){p.deletedAt=new Date().toISOString()}else if(p.doneAt)delete p.doneAt;else p.doneAt=new Date().toISOString();if(await store())renderCalendar()});

@@ -51,8 +51,9 @@ async function load(){
  document.dispatchEvent(new CustomEvent('bm316-srs-journal-updated',{detail:{records:rows().length,events:events.length}}));
  return {events:events.length,cards:rows().length};
  }
-async function refresh(){
+async function refresh(force=false){
  if(refreshing)return refreshing;
+ if(force!==true&&loaded&&!lastError&&token())return {events:events.length,cards:rows().length};
  refreshing=progress(load(),'histórico de avaliações SRS').catch(e=>{lastError=e.message;throw e}).finally(()=>{refreshing=null;updateStatus()});
  return refreshing;
 }
