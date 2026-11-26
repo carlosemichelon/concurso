@@ -1325,7 +1325,7 @@ window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados 
 <script defer src="assets/bm-account/v383_js_016_027_vc23.js?v=383-2"></script>
 
 
-<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/bm-account/v439_js_040_051_atlas.js?v=vs48-preload-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/bm-account/v326_js_052_063_catalogfix1.js?v=login-1"></script><script defer src="assets/bm-account/v382_js_064_075_countsfix3_vc23.js?v=vs43-1"></script><script defer src="assets/bm-account/v414_js_076_087_header.js?v=session-planning-2"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=atlas-session-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=atlas-session-1"></script><script defer src="assets/bm-account/v430_js_112_123_control.js?v=session-planning-2"></script><script defer src="assets/v440_math_engine.js?v=440-1"></script><script defer src="assets/bm-account/v440_js_124_135_formulas.js?v=vs49-formulas-2"></script><script id="bm259-pdf-visibility-label">
+<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/bm-account/v439_js_040_051_atlas.js?v=vs48-preload-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/bm-account/v326_js_052_063_catalogfix1.js?v=login-1"></script><script defer src="assets/bm-account/v382_js_064_075_countsfix3_vc23.js?v=vs43-1"></script><script defer src="assets/bm-account/v414_js_076_087_header.js?v=session-planning-2"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=atlas-session-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=atlas-session-1"></script><script defer src="assets/bm-account/v430_js_112_123_control.js?v=session-planning-2"></script><script defer src="assets/v440_math_engine.js?v=440-1"></script><script defer src="assets/bm-account/v440_js_124_135_formulas.js?v=vs49-formulas-3"></script><script id="bm259-pdf-visibility-label">
 (function(){
  function mount(){
   const panel=document.querySelector('#pdfs .panel'),rows=document.getElementById('pdfRows');
@@ -1628,4 +1628,25 @@ dialog.bm426-info-editor .bm228-actions{gap:6px!important}
  #formulas #bm427FormulaDialog .bm249-equation{padding:7px 8px!important}
  #formulas #bm427FormulaDialog .bm416-equation-item math{font-size:18px!important}
 }
+
+/* Explicações didáticas: fluxo contínuo, hierarquia por função semântica, sem caixas repetitivas. */
+#formulas #bm427FormulaDialog .bm249-editorial{min-width:0;margin:12px 0;overflow-wrap:break-word}
+#formulas #bm427FormulaDialog .bm249-editorial-label{font-weight:650;color:#334155}
+#formulas #bm427FormulaDialog .bm249-editorial-example,
+#formulas #bm427FormulaDialog .bm249-editorial-condition,
+#formulas #bm427FormulaDialog .bm249-editorial-caution,
+#formulas #bm427FormulaDialog .bm249-editorial-memory{border-left:2px solid #cbd5e1;padding:2px 0 2px 12px}
+#formulas #bm427FormulaDialog .bm249-editorial-condition{border-left-color:#93c5fd}
+#formulas #bm427FormulaDialog .bm249-editorial-caution{border-left-color:#fda4af}
+#formulas #bm427FormulaDialog .bm249-editorial-memory{border-left-color:#e7c66a}
+#formulas #bm427FormulaDialog .bm249-editorial-explanation{padding:0}
+#formulas #bm427FormulaDialog .bm249-editorial .bm249-line{margin:4px 0!important}
+#formulas #bm427FormulaDialog .bm249-editorial .bm249-caution{border:0;padding:0}
+#formulas #bm427FormulaDialog .bm249-editorial-metadata{border-top:1px solid #e2e8f0;padding-top:6px}
+#formulas #bm427FormulaDialog .bm249-editorial-metadata .bm249-line{font-size:12px!important;line-height:1.65!important;color:#475569!important}
+#formulas #bm427FormulaDialog .bm249-list{margin:9px 0 13px;padding-inline-start:24px;line-height:1.65;min-width:0}
+#formulas #bm427FormulaDialog .bm249-list-item{padding-inline-start:3px;margin:5px 0;overflow-wrap:break-word}
+#formulas #bm427FormulaDialog .bm249-list-item .bm249-equation{margin:6px 0!important}
+#formulas #bm427FormulaDialog .bm249-body :is(p,li){max-width:100%;overflow-wrap:break-word}
+@media(max-width:650px){#formulas #bm427FormulaDialog .bm249-editorial{margin:10px 0}#formulas #bm427FormulaDialog .bm249-list{padding-inline-start:19px}}
 </style></body></html>
