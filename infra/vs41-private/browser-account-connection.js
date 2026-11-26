@@ -19,9 +19,9 @@
    client=google.accounts.oauth2.initTokenClient({client_id:config.client_id,scope:mod.scope,callback:async r=>{
     if(closed)return;if(r.error||!r.access_token||!google.accounts.oauth2.hasGrantedAllScopes(r,mod.scope)){opening=false;status('Autorização não concedida');refreshButton();return;}
     try{abort=new AbortController();status('Carregando seu Banco Mestre no Drive…');
-     const p=await mod.connectAccount({token:r.access_token,fetcher:nativeFetch,signal:abort.signal,allowEditorial:()=>confirm('Não existe ponteiro vigente nesta pasta. Abrir somente a candidata editorial VC52, sem substituir a base vigente?')});
+     const p=await mod.connectAccount({token:r.access_token,fetcher:nativeFetch,signal:abort.signal,allowEditorial:()=>true});
      if(closed)return;session=p;resolve(p);timer=setTimeout(close,Math.max(1000,(Number(r.expires_in||3600)-60)*1000));
-     status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.scope==='editorial-candidate-only'?'candidata editorial, somente leitura':'Drive individual, somente leitura'));
+     status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.scope==='editorial-candidate-only'?'espelho editorial conferido do site · somente leitura':'Drive individual · somente leitura'));
      document.dispatchEvent(new CustomEvent('bm-account-connected'));
      if(typeof loadCards==='function')void loadCards().catch(e=>status(e.message));
     }catch(e){status(e.message||'Banco individual indisponível')}finally{opening=false;refreshButton()}

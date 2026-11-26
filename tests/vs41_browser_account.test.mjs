@@ -12,3 +12,9 @@ test('one selected account provides its own cards and study master; two profiles
  await assert.rejects(a.readMedia('foreignB'));
  await assert.rejects(connectAccount({token:'A',fetcher:fixture('A',{foreign:true})}));
 });
+
+test('ambiguous Drive pointer never activates editorial fallback',async()=>{
+ let called=0;
+ await assert.rejects(connectAccount({token:'A',fetcher:fixture('A',{duplicatePointer:true}),allowEditorial:()=>{called++;return true}}),/ambígua/);
+ assert.equal(called,0);
+});

@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {card} from './vs41_private_fixture.mjs';
 const fm='application/vnd.google-apps.folder';
-export function fixture(account,{foreign=false}={}){
+export function fixture(account,{foreign=false,duplicatePointer=false}={}){
  const root='root'+account,snap='snapshot'+account,ptr='pointer'+account,study='study'+account,files=new Map(),content=new Map();
  function add(id,name,mimeType,parents,data,extra={}){
   const bytes=data===undefined?null:JSON.stringify(data);
@@ -21,7 +21,7 @@ export function fixture(account,{foreign=false}={}){
   if(u.pathname.endsWith('/files')){
    let result=[];
    if(q.includes("name = 'DataBase_Concurso'"))result=[files.get(root)];
-   else if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))result=[files.get(ptr)];
+   else if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))result=duplicatePointer?[files.get(ptr),{...files.get(ptr),id:'duplicate'}]:[files.get(ptr)];
    else if(q.includes('bm_controle_estudos_v245'))result=[files.get(study)];
    else if(q.includes("'"+root+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(root));
    return Response.json({files:result});

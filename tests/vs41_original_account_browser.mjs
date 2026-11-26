@@ -46,7 +46,7 @@ try{
   await page.evaluate(()=>loadCards());
   assert.deepEqual(await page.evaluate(()=>cards.map(c=>c.front)),['Pergunta privada '+a]);
   await page.locator('#bm240-study-tab').click();
-  await page.locator('#bm240-native-host #tabs').waitFor({state:'visible',timeout:30000});
+  await page.locator('#bm240-native-host main #painel').waitFor({state:'visible',timeout:30000});
   await page.waitForFunction(()=>window.BMVS41StudyControl?.confirmed===true);
   assert.deepEqual(await page.evaluate(()=>window.BMVS41StudyControl.snapshot().subjects.map(s=>s.name).filter(x=>x.startsWith('Disciplina '))),['Disciplina '+a]);
   assert.ok(await page.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901')));

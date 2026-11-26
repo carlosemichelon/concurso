@@ -28,7 +28,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const json=async(id,max)=>{const r=await raw(id,max);return {data:JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(r.bytes)),meta:r.meta}};
  const root=await unique("mimeType = '"+folder+"' and name = 'DataBase_Concurso'","Pasta individual DataBase_Concurso");
  const rootUrl='https://drive.google.com/drive/folders/'+root.id;
- let snapshot;try{snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal})}catch(e){if(!String(e.message).includes('único ponteiro vigente')||!await allowEditorial())throw e;snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,editorialPreview:true})}
+ let snapshot;try{snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal})}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,editorialPreview:true})}
  const records=snapshot.records;
  const master=async(kind,name,format)=>{const f=await unique("mimeType = 'application/json' and (appProperties has { key='bm_kind' and value='"+kind+"' } or name = '"+esc(name)+"')",name,true);
   if(!f)return null;const r=await json(f.id);if(r.data.format!==format)throw Error('Formato incompatível: '+name);return {data:r.data.data,revision:r.meta.version}};
