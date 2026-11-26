@@ -925,7 +925,7 @@ function editorialParagraph(source,kind){
 }
 function appendList(host,lines,numbered){
  const list=make(numbered?'ol':'ul','bm249-list');
- for(const line of lines){const m=String(line).trim().match(numbered?/^(\d+)\)\s+(.*)$/u:/^[•–-]\s+(.*)$/u);if(!m)continue;const item=make('li','bm249-list-item');if(numbered)item.setAttribute('value',m[1]);inlineContent(item,numbered?m[2]:m[1]);list.append(item);}
+ for(const line of lines){const m=String(line).trim().match(numbered?/^(\d+)\)\s+(.*)$/u:/^[•–-]\s+(.*)$/u);if(!m)continue;const item=make('li','bm249-list-item');if(numbered)item.setAttribute('value',m[1]);const content=numbered?m[2]:m[1];if(!mixedFormulaLine(item,content))inlineContent(item,content);list.append(item);}
  host.append(list);
 }
 function makeBody(body){
@@ -936,7 +936,7 @@ function makeBody(body){
   if(kind==='space'){if(!host.lastElementChild?.classList.contains('bm249-blockgap')){const space=make('div','bm249-blockgap');space.setAttribute('aria-hidden','true');host.append(space);}continue;}
   if(kind==='definition'){host.append(definitionNode(sourceLine));continue;}
   if(kind==='step'){const numbered=/^\s*\d+\)\s+/u.test(sourceLine),pattern=numbered?/^\s*\d+\)\s+/u:/^\s*[•–-]\s+/u;let j=i+1;while(j<lines.length&&pattern.test(lines[j])&&sectionLineKind(lines[j])==='step')j++;appendList(host,lines.slice(i,j),numbered);i=j-1;continue;}
-  if(['example','condition','caution','memory','explanation','metadata'].includes(kind)){host.append(editorialParagraph(sourceLine,kind));continue;}
+  if(['example','condition','caution','memory','explanation','metadata'].includes(kind)){const block=make('div','bm249-editorial bm249-editorial-'+kind);if(kind==='metadata'||!mixedFormulaLine(block,sourceLine))block.append(editorialParagraph(sourceLine,kind));host.append(block);continue;}
   if(kind==='table'){let j=i+1;while(j<lines.length&&sectionLineKind(lines[j])==='table')j++;const table=tableNode(lines.slice(i,j));if(table){host.append(table);i=j-1;continue;}}
   if(kind==='equation'){const block=make('div','bm249-line bm249-equation');for(const expr of splitExpressions(sourceLine.trim().replace(/^•\s*/,'')))block.append(equationNode(expr));host.append(block);continue;}
   if((kind==='paragraph'||kind==='step')&&mixedFormulaLine(host,sourceLine))continue;
