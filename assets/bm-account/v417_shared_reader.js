@@ -5,6 +5,48 @@ const packets=[['assets/petro28_sync_v345.json','approved'],['assets/petro24_reg
 function load(){return loading||(loading=Promise.all([fetch('assets/restauracao_didatica_v349.json').then(r=>{if(!r.ok)throw Error('Conteúdo restaurado indisponível');return r.json()}),fetch('assets/restauracao_legados_v349.json').then(r=>{if(!r.ok)throw Error('Cartões antigos restaurados indisponíveis');return r.json()}),...packets.map(([p])=>fetch(p).then(r=>{if(!r.ok)throw Error('Histórico indisponível');return r.json()}))]).then(([d,l,...old])=>{records={...d.cards,...l.cards};for(let i=0;i<old.length;i++){const p=old[i];for(const [id,r] of Object.entries(p[packets[i][1]]||{}))if(ids.has(id)){history[id]={card:p.new_cards.find(x=>x.id===id),profile:r};}}if(Object.keys(records).length!==ids.size||[...ids].some(id=>!records[id])||Object.keys(history).length!==43)throw Error('Pacote incompleto');return records}).catch(e=>{loading=null;throw e}));}
 function marked(text,marks){const p=el('p');const s=String(text);let i=0;const choices=(marks||[]).slice().sort((a,b)=>b.text.length-a.text.length);const used=new Set();while(i<s.length){let found=null,at=s.length;for(const m of choices){if(used.has(m.text))continue;const j=s.indexOf(m.text,i);if(j>=0&&j<at){found=m;at=j}}if(!found){p.append(document.createTextNode(s.slice(i)));break}if(at>i)p.append(document.createTextNode(s.slice(i,at)));const mark=el('mark',s.slice(at,at+found.text.length),found.kind+(found.bold&&found.error_evidence?' error':''));mark.dataset.category=found.kind;p.append(mark);used.add(found.text);i=at+found.text.length}return p}
 function mathNode(xml){const doc=new DOMParser().parseFromString(xml,'application/xml'),n=doc.documentElement;const allowed=new Set(['math','mrow','mi','mn','mo','mtext','msub','msup','mfrac','msqrt','mspace','msubsup','mover']);if(n.localName!=='math'||n.namespaceURI!=='http://www.w3.org/1998/Math/MathML'||[n,...n.querySelectorAll('*')].some(x=>!allowed.has(x.localName)||[...x.attributes].some(a=>!['xmlns','display','mathvariant','width'].includes(a.name))))throw Error('MathML inválido');return document.importNode(n,true)}
+// Convert only an exact, unambiguous match to an already authored MathML formula.
+function inlineMathText(n){
+ const children=[...n.children],parts=()=>children.map(inlineMathText);
+ const sub={'0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉'};
+ const sup={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+ if(['mi','mn','mo'].includes(n.localName))return n.textContent.trim();
+ if(n.localName==='math'||n.localName==='mrow'){const a=parts();return a.every(x=>x!==null)?a.join(''):null;}
+ if(n.localName==='msub'||n.localName==='msup'){
+  if(children.length!==2)return null;const a=parts();if(!a[0]||!/^[0-9]+$/.test(a[1]||''))return null;
+  const map=n.localName==='msub'?sub:sup;return a[0]+[...a[1]].map(x=>map[x]).join('');
+ }
+ if(n.localName==='mfrac'){
+  const a=parts();if(a.length!==2||a.some(x=>!x||!/^[\p{L}\p{N}.,₀-₉⁰¹²³⁴⁵⁶⁷⁸⁹]+$/u.test(x)))return null;
+  return a[0]+'/'+a[1];
+ }
+ return null;
+}
+function renderExactInlineMath(p,formulas,marks){
+ const matches=[];
+ for(const f of formulas||[]){try{
+  const math=mathNode(f.mathml),literal=inlineMathText(math);
+  if(literal&&literal.length>=5&&literal.includes('='))matches.push({math,literal});
+ }catch{}}
+ if(!matches.length)return p;
+ // Keep all existing highlight elements; replace text only within a single text node.
+ const walker=document.createTreeWalker(p,NodeFilter.SHOW_TEXT),nodes=[];
+ while(walker.nextNode())nodes.push(walker.currentNode);
+ matches.sort((a,b)=>b.literal.length-a.literal.length);
+ for(const n of nodes){
+  const text=n.nodeValue||'';let at=0,changed=false;const fragment=document.createDocumentFragment();
+  while(at<text.length){
+   let best=null,pos=text.length;
+   for(const m of matches){const k=text.indexOf(m.literal,at);if(k>=0&&k<pos){best=m;pos=k}}
+   if(!best){fragment.append(document.createTextNode(text.slice(at)));break;}
+   changed=true;fragment.append(document.createTextNode(text.slice(at,pos)));
+   const math=best.math.cloneNode(true);math.setAttribute('display','inline');math.setAttribute('aria-label',best.literal);math.style.verticalAlign='middle';
+   window.BM417Math?.decorate(math,marks||[]);fragment.append(math);at=pos+best.literal.length;
+  }
+  if(changed)n.replaceWith(fragment);
+ }
+ return p;
+}
 function formula(f,marks){const b=el('div',undefined,'formula');if(f.title)b.append(el('div',f.title,'formula-label'));const equation=el('div',undefined,'formula-equation');const math=mathNode(f.mathml);window.BM417Math?.decorate(math,marks||[]);equation.append(math);b.append(equation);if(f.units)b.append(el('small',f.units,'formula-units'));return b}
 function table(t){const s=el('section');s.append(el('h2',t.title));const w=el('div',undefined,'table-wrap');w.tabIndex=0;w.setAttribute('aria-label',t.title);const tb=el('table'),head=el('thead'),hr=el('tr');for(const h of t.headers){const th=el('th',h);th.scope='col';hr.append(th)}head.append(hr);tb.append(head);const b=el('tbody');for(const row of t.rows){const tr=el('tr');row.forEach((v,i)=>{const cell=el(i===0?'th':'td');if(i===0)cell.scope='row';if(v&&typeof v==='object'&&v.mathml)cell.append(mathNode(v.mathml));else cell.textContent=v;tr.append(cell)});b.append(tr)}tb.append(b);w.append(tb);s.append(w);return s}
 function safeLink(url){try{const u=new URL(url);return u.protocol==='https:'||u.protocol==='http:'}catch{return false}}
@@ -51,7 +93,7 @@ function buildConsolidated(id){
  const c=consolidated(id),r=c.consolidation.profile,m=r.editorial;
  const a=el('article',undefined,'bm349-reading');a.dataset.bm349Card=id;a.dataset.bmConsolidated=id;
  a.append(el('h3',r.title));
- const addParagraphs=(text,paragraphs,tag=false)=>{const blocks=Array.isArray(paragraphs)&&paragraphs.join('\n\n')===text?paragraphs:String(text||'').split(/\r?\n(?:[ \t]*\r?\n)*/);for(const block of blocks){if(!block.trim())continue;const p=marked(block,m.highlights);if(tag)p.dataset.bmAnswerParagraph='true';a.append(p,document.createTextNode('\n\n'));}};
+ const addParagraphs=(text,paragraphs,tag=false)=>{const blocks=Array.isArray(paragraphs)&&paragraphs.join('\n\n')===text?paragraphs:String(text||'').split(/\r?\n(?:[ \t]*\r?\n)*/);for(const block of blocks){if(!block.trim())continue;const p=marked(block,m.highlights);if(tag){p.dataset.bmAnswerParagraph='true';renderExactInlineMath(p,m.formulas,m.highlights);}a.append(p,document.createTextNode('\n\n'));}};
  addParagraphs(r.back,m.answer_paragraphs,true);
  if(c.group==='PORTUGUES')a.append(el('h2','Como aplicar'));
  addParagraphs(r.modules[3].texto);

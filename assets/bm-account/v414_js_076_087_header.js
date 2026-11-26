@@ -567,6 +567,7 @@ function render(){
  const info=$('bm382CatalogInfo');if(info)info.textContent=account?'Drive individual · '+vc+': '+fmt(account.count)+' cartões ativos. '+detail:detail;
  // PDFs e Atlas: seus próprios módulos autenticados são as fontes de contagem.
  const privateBanner=$('bm119PublicSource');if(privateBanner)privateBanner.textContent=confirmed?'Cartões carregados do seu Google Drive.':'Entre com Google para carregar seus cartões.';
+ const homeBanner=$('bm119HomeSource');if(homeBanner)homeBanner.textContent=confirmed?'Assuntos dos cartões carregados do seu Google Drive.':phase==='error'?detail:account?'Organizando assuntos do seu Google Drive…':'Entre com sua conta Google para explorar seus assuntos.';
 }
 function updateCards(base,ijui,items){
  if(!Number.isInteger(base)||!Number.isInteger(ijui)||base<=0||ijui<0||!Array.isArray(items)||items.length!==base+ijui)return false;
@@ -1027,10 +1028,11 @@ async function refreshPrivate(){
 async function refreshPrivateOnce(){
  const auth=authNow();if(!auth){locked();return false;}locked('Conferindo registros privados do Drive…');driveBusy=true;driveAction.disabled=true;
  try{
+  const remote=await window.BMVS41PrivateReviews.schedule();
   await window.BM316SrsJournal.refresh();
   if(auth!==authNow()||!window.BM316SrsJournal.loaded)throw Error('Histórico privado não confirmado');
-  privateRecords=[];privateInfo={version:'SRS individual',updated:new Date().toISOString().slice(0,10),count:window.BM316SrsJournal.count};verifiedAuth=auth;root.dataset.bm411Ready='true';
-  driveNote.textContent='Avaliações privadas confirmadas: '+window.BM316SrsJournal.count+'.';calculate();return true;
+  privateRecords=remote.records.filter(x=>map.has(x.id)&&due(x.due));privateInfo={version:remote.version||'SRS individual',updated:remote.updated||'',count:privateRecords.length,partial:!remote.complete};verifiedAuth=auth;root.dataset.bm411Ready='true';
+  driveNote.textContent=privateRecords.length+' vencimentos registrados · '+remote.events+' eventos de estudo · '+window.BM316SrsJournal.count+' avaliações formais do site.'+(remote.complete?'':' Consulta parcial: '+remote.warnings.join('; ')+'. Fila oficial suspensa; estudo livre disponível.');calculate();return remote.complete;
  }catch(e){locked('Fila não confirmada: '+e.message);return false}
  finally{driveBusy=false;driveAction.disabled=false}
  }
@@ -1197,7 +1199,7 @@ function renderQueue(){
  const source=$('c313-source'),rows=filteredQueue(),start=today();
  if(source){
   source.textContent=(privateInfo?
-   'Fonte SRS privada '+privateInfo.version+' de '+(privateInfo.updated||'data não informada')+' (leitura OAuth nesta sessão).':
+   (privateInfo.partial?'Fonte SRS privada parcial — ':'Fonte SRS privada ')+privateInfo.version+' ('+(privateInfo.updated||'data não informada')+').':
    'Fonte parcial e histórica F17/V015; conecte o Drive e clique em Atualizar fila pelo SRS privado do Drive.')+
    (window.BM316SrsJournal?.loaded?' Eventos formais do site conferidos no Drive: '+window.BM316SrsJournal.count+'.':'')+
    ' Referência dos cálculos: '+dayText(start)+

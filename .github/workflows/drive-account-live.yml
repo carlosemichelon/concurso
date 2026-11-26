@@ -1,7 +1,7 @@
 name: Banco Mestre - login individual e progresso
 on:
   push:
-    branches: ['gh-pages']
+    branches: ['gh-pages', 'correcao/restaurar-interface-vs41']
     paths: ['index.html','assets/bm-account/**','infra/vs41-private/**','.github/workflows/drive-account-live.yml','tests/vs41*']
 permissions:
   contents: read

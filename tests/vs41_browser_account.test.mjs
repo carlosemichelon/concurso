@@ -91,5 +91,38 @@ test('complete ChatGPT export includes account, purpose, source links and curren
  assert.equal(e.data.study.data.subjects[0].name,'Disciplina A');
  assert.equal(e.complete,true);assert.equal(writes.length,0);
  assert.ok(e.data.media.every(x=>x.url.startsWith('https://drive.google.com/open?id=')));
- await assert.rejects(a.exportStudy(''),/estudado/);
+ const direct=await a.exportStudy();assert.equal(direct.study_objective,null);assert.equal(direct.complete,true);assert.equal(writes.length,0);
+});
+
+test('recupera datas originais de snapshot e delta privado, sem criar avaliações',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{writable:true,writes}),write:true});
+ const schedule=await a.schedule();
+ assert.equal(schedule.complete,true);assert.equal(schedule.events,1);assert.equal(schedule.documents,1);
+ assert.equal(schedule.records.length,1);assert.equal(schedule.records[0].due,'2026-11-28');
+ assert.equal(schedule.records[0].rating,'Difícil');assert.equal(schedule.records[0].eventId,'agenda-A');
+ assert.deepEqual(await a.reviews(),[]);assert.equal(writes.length,0);
+});
+test('redação: grava explicitamente, conserva histórico, rejeita chaves e contas divergentes',async()=>{
+ const writes=[],fetcher=fixture('A',{writable:true,writes}),a=await connectAccount({token:'A',fetcher,write:true});
+ const b=await connectAccount({token:'B',fetcher:fixture('B')});
+ assert.deepEqual(await a.writing(),{revision:null,data:{}});
+ const draft={treino_indice:'["treino_tema"]',treino_tema:'{"resposta":"Texto A"}'};
+ await assert.rejects(a.saveWriting({event_id:crypto.randomUUID(),previous:null,data:{pe_anthropic_key:'"secret"'}}));
+ const first=await a.saveWriting({event_id:crypto.randomUUID(),previous:null,data:draft});
+ assert.deepEqual(first.data,draft);assert.deepEqual((await a.writing()).data,draft);
+ assert.deepEqual(await b.writing(),{revision:null,data:{}});
+ await assert.rejects(a.saveWriting({event_id:crypto.randomUUID(),previous:null,data:draft}));
+ const next={...draft,treino_tema:'{"resposta":"Texto A revisado"}'};
+ const saved=await a.saveWriting({event_id:crypto.randomUUID(),previous:first.revision,data:next});
+ assert.deepEqual(saved.data,next);
+ assert.deepEqual((await a.writing()).data,next);
+ assert.ok(writes.some(x=>x.name?.startsWith('BancoMestre_Redacao_Recuperacao_')));
+ assert.ok(writes.every(x=>x.account==='A'));
+});
+test('índices antigos classificam apenas arquivos pertencentes ao banco individual',async()=>{
+ const source=async path=>path.includes('v211')?{schema:'BancoMestrePublishedDriveImagesV211',records:[{driveFileId:'imgA',imageId:'IMG-TESTE',title:'Imagem de estudo',group:'eng_geotecnia',topic:'Solos',cardIds:['CARD-9901','CARD-9999']},{driveFileId:'imgB',imageId:'IMG-B',title:'Imagem alheia',topic:'Outro'}]}:null;
+ const a=await connectAccount({token:'A',fetcher:fixture('A'),readEditorialIndex:source});
+ const imgs=await a.images();assert.equal(imgs.length,1);assert.equal(imgs[0].id,'imgA');
+ assert.equal(imgs[0].subject,'Solos');assert.deepEqual(imgs[0].card_ids,['CARD-9901']);
+ await assert.rejects(a.readMedia('imgB'));
 });

@@ -1,6 +1,6 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
-import {readBrowserSnapshot,scope as readScope} from './browser-drive.mjs';
+import {readBrowserSnapshot,scope as readScope} from './browser-drive.mjs?v=restore-srs-1';
 import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
 export const scope=readScope+' https://www.googleapis.com/auth/drive.file';
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files';
@@ -10,7 +10,7 @@ const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
 const owned=f=>validId(f?.id)&&f.ownedByMe===true&&f.shared===false&&f.trashed===false;
 const esc=s=>String(s).replaceAll('\\','\\\\').replaceAll("'","\\'");
 const emptyStudy=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60,activeTimer:null});
-export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId=''}){
+export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId='',readEditorialIndex=null}){
  if(!token)throw Error('Selecione sua conta Google');
  const get=async(url,params={})=>{const r=await fetcher(url+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},cache:'no-store',credentials:'omit',redirect:'error',signal});if(!r.ok)throw Error('Drive HTTP '+r.status);return r};
  const meta=async id=>{if(!validId(id))throw Error('Arquivo inválido');const f=await (await get(API+'/'+id,{fields})).json();if(f.id!==id||!owned(f))throw Error('Arquivo não pertence exclusivamente à conta selecionada');return f};
@@ -68,14 +68,62 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  let pending=Promise.resolve(),uncertain=false;
  function serialize(fn){const next=pending.catch(()=>{}).then(()=>{guard();if(uncertain)fail('Envio anterior não confirmado; reconecte e confira o Drive antes de repetir',409);return fn()});pending=next;return next}
  const send=async(url,options)=>{guard();let res;try{res=await fetcher(url,{...options,headers:{Authorization:'Bearer '+token,...options.headers},cache:'no-store',credentials:'omit',redirect:'error',signal})}catch(e){uncertain=true;throw e}if(!res.ok){if(![400,401,403,404,409,412,413].includes(res.status))uncertain=true;fail('Drive HTTP '+res.status,res.status===412?409:res.status)}return res.json()};
- async function create(name,data,props={}){
+ async function create(name,data,props={},parentId=''){
   const payload=JSON.stringify(data);if(new TextEncoder().encode(payload).length>10000000)fail('Arquivo excede 10 MB');
-  const metadata={name,mimeType:'application/json',...(Object.keys(props).length?{appProperties:props}:{})};
+  const metadata={name,mimeType:'application/json',...(parentId?{parents:[parentId]}:{}),...(Object.keys(props).length?{appProperties:props}:{})};
   const boundary='bm_'+crypto.randomUUID().replaceAll('-','');
   const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(metadata)+'\r\n--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+payload+'\r\n--'+boundary+'--\r\n';
   const result=await send(UPLOAD+'?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});
   try{const r=await json(result.id);if(r.meta.name!==name||!eq(r.data,data))throw Error('Conteúdo gravado divergente');return r}catch(e){uncertain=true;throw e}
  }
+ // Redação: state saved only on explicit user request; no secrets or guest transfer.
+ const WRITING_NAME='BancoMestre_Redacao_V296.json',WRITING_KIND='bm_redacao_v296',WRITING_FORMAT='BancoMestreRedacaoDriveV296';
+ const writingFolder=async()=>{
+  const f=await unique("mimeType = '"+folder+"' and name = '05 - Revisões' and '"+root.id+"' in parents",'Pasta individual de revisões');
+  if(f.parents?.length!==1||f.parents[0]!==root.id)fail('Pasta de Redação fora do banco individual',409);
+  return f.id;
+ };
+ const writingKey=k=>k==='pe_tutor_historico'||k==='treino_indice'||/^treino_[^\u0000-\u001f]{1,100}$/u.test(k);
+ function validateWriting(data){
+  if(!data||typeof data!=='object'||Array.isArray(data)||Object.keys(data).length>2000)fail('Progresso de Redação inválido');
+  for(const [k,v] of Object.entries(data)){
+   if(!writingKey(k)||typeof v!=='string')fail('Chave de Redação não autorizada');
+   try{JSON.parse(v)}catch{fail('Registro de Redação inválido')}
+  }
+  if(new TextEncoder().encode(JSON.stringify(data)).length>5000000)fail('Progresso de Redação excede 5 MB');
+  return data;
+ }
+ async function writingMaster(){
+  const parentId=await writingFolder();
+  const f=await unique("mimeType = 'application/json' and '"+parentId+"' in parents and (appProperties has { key='bm_kind' and value='"+WRITING_KIND+"' } or name = '"+WRITING_NAME+"')",WRITING_NAME,true);
+  if(!f)return {parentId,file:null,data:{},revision:null};
+  const r=await json(f.id,6000000);
+  if(r.meta.parents?.length!==1||r.meta.parents[0]!==parentId||r.data.format!==WRITING_FORMAT)fail('Arquivo de Redação incompatível',409);
+  return {parentId,file:r.meta,data:validateWriting(r.data.data),revision:r.meta.version};
+ }
+ const writing=async()=>{const p=await writingMaster();return {revision:p.revision,data:p.data}};
+ const saveWriting=input=>serialize(async()=>{
+  if(!input||!uuid(input.event_id))fail('Gravação de Redação inválida');
+  const data=validateWriting(input.data),p=await writingMaster();
+  if(input.previous!==p.revision)fail('Redação alterada em outro dispositivo; exporte o rascunho antes de reconectar',409);
+  if(eq(data,p.data))return {revision:p.revision,data:p.data};
+  const payload={format:WRITING_FORMAT,updatedAt:new Date().toISOString(),data};
+  let saved;
+  if(!p.file){
+   if((await writingMaster()).file)fail('Redação já criada em outro dispositivo',409);
+   saved=await create(WRITING_NAME,payload,{bm_kind:WRITING_KIND,bm_schema:'V296'},p.parentId);
+  }else{
+   if(p.file.appProperties?.bm_kind!==WRITING_KIND)fail('Arquivo histórico sem autorização de substituição',409);
+   await create('BancoMestre_Redacao_Recuperacao_'+input.event_id+'.json',{format:WRITING_FORMAT,updatedAt:payload.updatedAt,data:p.data},{bm_kind:'bm_redacao_recovery_v296'},p.parentId);
+   const latest=await writingMaster();
+   if(latest.file?.id!==p.file.id||latest.revision!==p.revision||!eq(latest.data,p.data))fail('Redação alterada durante a conferência',409);
+   const check=await get(API+'/'+p.file.id,{fields}),m=await check.json(),etag=check.headers.get('etag');
+   if(!owned(m)||m.version!==p.revision||m.parents?.length!==1||m.parents[0]!==p.parentId)fail('Arquivo de Redação alterado',409);
+   const result=await send(UPLOAD+'/'+p.file.id+'?uploadType=media&fields=id',{method:'PATCH',headers:{'Content-Type':'application/json; charset=UTF-8',...(etag?{'If-Match':etag}:{})},body:JSON.stringify(payload)});
+   try{if(result.id!==p.file.id)throw Error('ID divergente');saved=await json(result.id);if(!eq(saved.data,payload))throw Error('Redação não confirmada')}catch(e){uncertain=true;throw e}
+  }
+  return {revision:saved.meta.version,data:saved.data.data};
+ });
  function validateStudy(d,old,takeover){
   if(!d||d.schema!==1||!['subjects','sessions','reviews','plans','audit','cycle'].every(k=>Array.isArray(d[k])))fail('Controle de Estudos inválido');
   if(new TextEncoder().encode(JSON.stringify(d)).length>10000000)fail('Controle de Estudos excede 10 MB');
@@ -181,6 +229,73 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const operationalGuide=()=>operationalDoc('00_GUIA_OPERACIONAL_DE_ESTUDO','Guia Operacional vigente');
  const formulas=async()=>{const f=await unique("mimeType = '"+doc+"' and name = 'Estruturas – Fórmulas, Vigas e Análise Estrutural'","Guia de fórmulas",true);if(!f)return null;
   const r=await get(API+'/'+f.id+'/export',{mimeType:'text/plain'}),text=await r.text(),again=await meta(f.id);if(f.version!==again.version||!text.trim()||text.length>400000)throw Error('Guia alterado ou inválido');return {text,version:f.version,modifiedTime:f.modifiedTime}};
+ // Read existing dated study events without regrading or manufacturing a formal review.
+ const validDay=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&!isNaN(new Date(v+'T12:00:00Z'))&&new Date(v+'T12:00:00Z').toISOString().slice(0,10)===v;
+ const day=v=>{if(typeof v!=='string')return '';const x=v.trim().slice(0,10);if(validDay(x))return x;const m=v.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(!m)return '';const d=m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');return validDay(d)?d:''};
+ const normalizedRating=v=>{const k=String(v||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();return ({errei:'Errei',dificil:'Difícil',bom:'Bom',facil:'Fácil','conhecimento preservado':'Conhecimento preservado','conhecimento adquirido':'Conhecimento adquirido'})[k]||''};
+ async function belongsToRoot(f){
+  let p=f;const seen=new Set([p.id]);
+  for(let i=0;i<40;i++){
+   if(p.id===root.id)return true;
+   if(p.parents?.length!==1||seen.has(p.parents[0]))return false;
+   const id=p.parents[0];seen.add(id);if(id===root.id)return true;
+   try{p=await meta(id)}catch{return false}
+  }
+  return false;
+ }
+ function agendaBlocks(text){
+  const out=[],start=/\{\s*"format"\s*:\s*"BancoMestrePrivateStudyAgenda1"/g;let m;
+  while((m=start.exec(text))){
+   let depth=0,quoted=false,escape=false,end=-1;
+   for(let i=m.index;i<text.length;i++){
+    const ch=text[i];
+    if(quoted){if(escape)escape=false;else if(ch==='\\')escape=true;else if(ch==='"')quoted=false;continue}
+    if(ch==='"'){quoted=true;continue}if(ch==='{')depth++;else if(ch==='}'&&--depth===0){end=i+1;break}
+   }
+   if(end<0)throw Error('Bloco de agenda incompleto');
+   const data=JSON.parse(text.slice(m.index,end));
+   if(!Array.isArray(data.records))throw Error('Registros de agenda inválidos');
+   out.push(...data.records);start.lastIndex=end;
+  }
+  return out;
+ }
+ async function schedule(){
+  const ids=new Set(records.filter(c=>c.active).map(c=>c.id)),byId=new Map(),seen=new Map();
+  const source=snapshot.scope==='snapshot-only'&&Array.isArray(snapshot.srs),warnings=[];
+  if(!source)warnings.push('Snapshot SRS canônico não confirmado');
+  for(const r of source?snapshot.srs:[]){
+   if(!ids.has(r?.id))continue;
+   const due=day(r.next_review||r.proxima_revisao||r.due);if(!due)continue;
+   const rating=normalizedRating(r.rating)||normalizedRating(r.last_date)||normalizedRating(r.grade)||normalizedRating(r.avaliacao);
+   const lastReview=day(r.last_review_at)||day(r.review_date)||day(r.grade)||day(r.last_date);
+   if(byId.has(r.id))throw Error('ID SRS duplicado no snapshot');
+   byId.set(r.id,{id:r.id,due,rating,lastReview,kind:rating?'revisao':'agendamento',source:'Snapshot privado — vencimento registrado'});
+  }
+  const files=await list("mimeType = '"+doc+"' and name contains 'Delta de estudo e cartões aprovados'");
+  let documents=0;
+  for(const file of files){
+   if(!await belongsToRoot(file))continue;
+   const f=await meta(file.id),res=await get(API+'/'+f.id+'/export',{mimeType:'text/plain'}),text=await res.text(),again=await meta(f.id);
+   if(f.version!==again.version||f.name!==again.name||!await belongsToRoot(again))throw Error('Delta alterado durante leitura');
+   documents++;
+   for(const e of agendaBlocks(text)){
+    if(!ids.has(e?.id))continue;
+    if(typeof e.event_id!=='string'||!e.event_id||e.method!=='v015'||!['questao_distinta','avaliacao_explicita'].includes(e.kind)||!validDay(e.date_local)||!validDay(e.due)||![8,16,24,32,64].includes(e.interval_days))throw Error('Agendamento de estudo inválido para '+e.id);
+    const expected=new Date(e.date_local+'T12:00:00Z');expected.setUTCDate(expected.getUTCDate()+e.interval_days);
+    if(expected.toISOString().slice(0,10)!==e.due||e.rating!=null&&!normalizedRating(e.rating)||e.kind==='avaliacao_explicita'&&!normalizedRating(e.rating))throw Error('Data ou avaliação divergente em '+e.id);
+    if(seen.has(e.event_id)&&!eq(seen.get(e.event_id),e))throw Error('Evento de estudo divergente');
+    seen.set(e.event_id,e);
+   }
+  }
+  const ordered=[...seen.values()].sort((a,b)=>a.date_local.localeCompare(b.date_local)||Number(a.kind==='avaliacao_explicita')-Number(b.kind==='avaliacao_explicita')||a.event_id.localeCompare(b.event_id));
+  for(const e of ordered){
+   const p=byId.get(e.id);
+   if(p?.lastReview&&p.lastReview>e.date_local)continue;
+   if(p?.lastReview===e.date_local&&p.kind==='revisao'&&e.kind!=='avaliacao_explicita')continue;
+   byId.set(e.id,{id:e.id,due:e.due,rating:normalizedRating(e.rating),lastReview:e.date_local,kind:e.kind,intervalDays:e.interval_days,eventId:e.event_id,source:'Delta privado — data registrada'});
+  }
+  return {records:[...byId.values()],complete:source,warnings,documents,events:seen.size,version:snapshot.version,updated:snapshot.updated||''};
+ }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
  let mediaIndex=null;
  const media=async()=>{if(mediaIndex)return mediaIndex;const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
@@ -190,7 +305,54 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path});continue;}
     if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType))out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path});
    }
-  }mediaIndex=out;return out};
+  }
+  // The historical editorial catalog is not a source of file authorization.
+  // Join only by exact Drive ID after the private, owned-tree scan above.
+  if(readEditorialIndex){
+   const sources=[
+    ['assets/v211_published_images.json','schema','BancoMestrePublishedDriveImagesV211'],
+    ['assets/v180_native_image_additions.json','schema','BancoMestreNativeImageAdditionsV180'],
+    ['assets/v310_image_taxonomy.json','schema','BancoMestreImageTaxonomyV310'],
+    ['assets/pdf_catalog_v149.json','format','BancoMestrePDFCatalogV140'],
+    ['assets/pdf_grupos_v149.json','format','BancoMestrePDFGroupsV140']
+   ];
+   const packs=await Promise.all(sources.map(async ([path,key,schema])=>{try{const p=await readEditorialIndex(path);return p?.[key]===schema?p:null}catch{return null}}));
+   const groupNames={eng_seguranca:'Engenharia Civil · Segurança do Trabalho',eng_hidraulica:'Engenharia Civil · Hidráulica e Saneamento',eng_estruturas:'Engenharia Civil · Estruturas',eng_ambiental:'Engenharia Civil · Meio Ambiente',eng_geotecnia:'Engenharia Civil · Geotecnia',eng_materiais:'Engenharia Civil · Materiais',eng_outros:'Engenharia Civil',leg_geral:'Legislação',met_portal:'Metodologia e interface'};
+   const ids=new Set(records.filter(c=>c.active).map(c=>c.id));
+   const str=x=>typeof x==='string'?x.trim():'';
+   const links=a=>Array.isArray(a)?a.filter(x=>ids.has(x)):[];
+   for(const item of out.values()){
+    item.filename=item.title;item.editorialId='';item.classified=false;item.card_ids=[];
+    if(item.mimeType.startsWith('image/')){item.category='Imagem';item.area='';item.subject='';}
+   }
+   for(let i=0;i<3;i++){
+    for(const row of Array.isArray(packs[i]?.records)?packs[i].records:[]){
+     const item=out.get(row.driveFileId);
+     if(!item?.mimeType.startsWith('image/'))continue;
+     const topic=str(i===1?row.studySubject:row.topic),area=str(i===1?row.studyArea:groupNames[row.group]);
+     const label=str(i===1?row.studyTitle||row.title:row.title);
+     if(i!==2||!item.classified){
+      if(label)item.title=label;
+      if(topic&&area){item.area=area;item.subject=topic;item.subsubject=str(i===1?row.studySub:row.subtopic);item.classified=true;item.editorialGroup=str(row.group);}
+      if(i!==2)item.editorialId=str(row.imageId||row.no)||item.editorialId;
+     }
+     item.card_ids=[...new Set([...item.card_ids,...links(i===0?row.cardIds:i===1?row.cards:row.originalCardIds)])];
+    }
+   }
+   const pdfGroups=new Map((packs[4]?.groups||[]).map(x=>[x.id,x]));
+   const pdfAreas=new Map((packs[4]?.areas||[]).map(x=>[x.id,x]));
+   const assignments=new Map((packs[4]?.assigned||[]).map(x=>[x.id,x.group]));
+   for(const row of packs[3]?.documents||[]){
+    const item=out.get(row.file_id);
+    if(item?.mimeType!=='application/pdf')continue;
+    const g=pdfGroups.get(assignments.get(row.id)),a=pdfAreas.get(g?.area);
+    item.title=str(row.title)||item.title;item.editorialId=str(row.id);
+    item.category=str(row.category)||item.category;item.section=str(row.section)||item.section;
+    if(Array.isArray(row.pages)&&row.pages.length===2)item.pages=row.pages;
+    if(g&&a){item.classified=true;item.catalogGroup={id:g.id,label:g.label,subtitle:g.subtitle,order:g.order,area:g.area,areaLabel:a.label,areaDescription:a.description};}
+   }
+  }
+  mediaIndex=out;return out};
  const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da pasta individual');const r=await raw(id,100000000);if(r.meta.mimeType!==item.mimeType)throw Error('Tipo de mídia alterado');return new Blob([r.bytes],{type:item.mimeType})};
  const GRIF_KIND='bm_grifos_sync_v104_master',GRIF_NAME='BancoMestre_Grifos_Mestre.json';
  const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(n=>n.toString(16).padStart(2,'0')).join('');
@@ -310,8 +472,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  });
  // Complete study handoff. A manifest makes absent or failed sources explicit.
  // Originals remain at their private Drive links: never encode an entire PDF library into JSON.
- const exportStudy=async objective=>{
-  const goal=String(objective||'').trim();if(!goal||goal.length>10000)throw Error('Informe o que será estudado (até 10.000 caracteres).');
+ const exportStudy=async (objective='')=>{
+  const goal=String(objective||'').trim();if(goal.length>10000)throw Error('Objetivo excede 10.000 caracteres.');
   if(!identity.email)throw Error('O Google não confirmou o e-mail da conta. Reconecte antes de exportar.');
   const data={},sources={},capture=async(key,fn,optional=false)=>{
    try{const value=await fn();data[key]=value;sources[key]={status:value===null?'ausente':'confirmado'};if(value===null&&!optional)sources[key].detail='Não localizado na conta.'}
@@ -322,6 +484,9 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await capture('cards',async()=>snapshot.records);
   await capture('study',async()=>{const p=await studyMaster();return p?{revision:p.revision,data:p.data}:null});
   await capture('reviews',reviews);
+  await capture('review_schedule',schedule);
+  if(data.review_schedule?.complete===false)sources.review_schedule={status:'parcial',detail:data.review_schedule.warnings.join('; ')};
+  await capture('writing',writing,true);
   await capture('gaps',async()=>{const p=await gapMaster();return p?{revision:p.revision,data:validateGaps(p.data)}:null});
   await capture('formulas',formulas,true);
   await capture('pdf_highlights',async()=>{const p=await grifos();return p.file?{revision:p.file.version,data:p.data}:null},true);
@@ -331,8 +496,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    return out;
   });
   await capture('media',async()=>[...(await media()).values()].map(x=>({...x,url:'https://drive.google.com/open?id='+x.id})));
-  const incomplete=Object.entries(sources).filter(([k,s])=>s.status==='falha'||(['methodology','operational_guide'].includes(k)&&s.status!=='confirmado')).map(([k,s])=>({section:k,...s}));
-  return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. Use o objetivo informado e a base individual, preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName},sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
+  const incomplete=Object.entries(sources).filter(([k,s])=>['falha','parcial'].includes(s.status)||(['methodology','operational_guide'].includes(k)&&s.status!=='confirmado')).map(([k,s])=>({section:k,...s}));
+  return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal||null,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. O objetivo do estudo será informado na conversa do ChatGPT. Use a base individual e preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName},sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
  };
- return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }

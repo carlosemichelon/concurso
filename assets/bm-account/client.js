@@ -57,7 +57,8 @@
   available:()=>!!context&&!locked,
   sessionKey:()=>!locked?context:'',
   async read(){const p=await reviewRequest();if(!Array.isArray(p.events))throw Error('Histórico inválido');return p.events},
-  async record(input){return (await reviewRequest(input)).event}
+  async record(input){return (await reviewRequest(input)).event},
+  async schedule(){const expected=await check();start();const r=await request('/api/vs41/review-schedule',{'X-BM-Context':expected});if(!r.ok)throw Error('Agenda privada não confirmada (HTTP '+r.status+')');const p=await r.json();if(locked||context!==expected||p.context!==expected){invalidate();throw Error('Sessão alterada')}if(!Array.isArray(p.records)||typeof p.complete!=='boolean'||!Array.isArray(p.warnings))throw Error('Agenda inválida');return p;}
  })});
  let pdfUrl='',pdfSerial=0;
  function releasePdf(){pdfSerial++;if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl='';}

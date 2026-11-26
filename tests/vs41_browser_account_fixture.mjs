@@ -10,6 +10,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
   if(bytes)content.set(id,bytes);
  }
  add(root,'DataBase_Concurso',fm,[],undefined,{ownedByMe:!foreign});
+ const reviewsFolder='reviewsFolder'+account;add(reviewsFolder,'05 - Revisões',fm,[root]);
  const pdf='pdf'+account;
  function makePdf(){
   const objects=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] /Contents 4 0 R >>','<< /Length 19 >>\nstream\n0 0 100 100 re S\nendstream'];
@@ -22,7 +23,8 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
  const docType='application/vnd.google-apps.document';
  add('method'+account,'00_METODOLOGIA_MESTRE_VIGENTE_VM20 — teste',docType,[root]);content.set('method'+account,'Metodologia integral '+account);
  add('guide'+account,'00_GUIA_OPERACIONAL_DE_ESTUDO — VM20',docType,[root]);content.set('guide'+account,'Guia integral '+account);
- const snapshot={format:'BancoMestrePrivadoV159',schema_version:1,version:'TESTE-'+account,counts:{cards:1},cards:[card(account)]};
+ const snapshot={format:'BancoMestrePrivadoV159',schema_version:1,version:'TESTE-'+account,counts:{cards:1},cards:[card(account)],srs:[{id:'CARD-9901',rating:'Bom',last_review_at:'2026-11-01',next_review:'2026-11-17'}],updated:'2026-11-01'};
+ const delta='delta'+account;add(delta,'Delta de estudo e cartões aprovados',docType,[reviewsFolder]);content.set(delta,JSON.stringify({format:'BancoMestrePrivateStudyAgenda1',records:[{event_id:'agenda-'+account,id:'CARD-9901',date_local:'2026-11-20',rating:'Difícil',kind:'avaliacao_explicita',interval_days:8,due:'2026-11-28',method:'v015'}]}));
  add(snap,'snapshot.json','application/json',[root],snapshot);
  add(ptr,'BANCO_MESTRE_ATUAL.json','application/json',[root],{schema:'banco-mestre-operational-pointer/1',private_base:{file_id:snap,version:snapshot.version,sha256:createHash('sha256').update(JSON.stringify(snapshot)).digest('hex'),cards:1}});
  add(study,'BancoMestre_Controle_Estudos_V245.json','application/json',[root],{format:'BancoMestreControleDriveV245',data:{schema:1,subjects:[{id:'disc'+account,name:'Disciplina '+account,color:'#123456'}],sessions:[],reviews:[],cycle:[],plans:[],audit:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60}},{appProperties:{bm_kind:'bm_controle_estudos_v245',bm_schema:'V245'}});
@@ -33,10 +35,10 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    assert.ok(writable,'Escrita não autorizada no teste');
    if(opt.method==='POST'){
     const parts=String(opt.body).split('\r\n'),m=JSON.parse(parts[3]),data=JSON.parse(parts[7]),id='new'+account+(++serial);
-    add(id,m.name,m.mimeType,[],data,{appProperties:m.appProperties});writes.push({account,method:'POST',id,name:m.name});return Response.json({id});
+    add(id,m.name,m.mimeType,m.parents||[],data,{appProperties:m.appProperties});writes.push({account,method:'POST',id,name:m.name});return Response.json({id});
    }
    if(opt.method==='PATCH'){
-    const id=u.pathname.split('/').at(-1),old=files.get(id);assert.ok([STUDY_KIND,GAP_KIND,GRIF_KIND].includes(old.appProperties?.bm_kind));const data=JSON.parse(opt.body);
+    const id=u.pathname.split('/').at(-1),old=files.get(id);assert.ok([STUDY_KIND,GAP_KIND,GRIF_KIND,'bm_redacao_v296'].includes(old.appProperties?.bm_kind));const data=JSON.parse(opt.body);
     add(id,old.name,old.mimeType,old.parents,data,{appProperties:old.appProperties,version:String(Number(old.version)+1)});writes.push({account,method:'PATCH',id});return Response.json({id});
    }
    throw Error('Unexpected write');
@@ -46,6 +48,10 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    let result=[];
    if(q.includes("name = 'DataBase_Concurso'"))result=[files.get(root)];
    else if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))result=duplicatePointer?[files.get(ptr),{...files.get(ptr),id:'duplicate'}]:[files.get(ptr)];
+   else if(q.includes("name = '05 - Revisões'"))result=[files.get(reviewsFolder)];
+   else if(q.includes('bm_redacao_v296'))result=[...files.values()].filter(f=>f.parents.includes(reviewsFolder)&&f.appProperties?.bm_kind==='bm_redacao_v296');
+   else if(q.includes('Delta de estudo e cartões aprovados'))result=[files.get(delta)];
+   else if(q.includes("'"+reviewsFolder+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(reviewsFolder));
    else if(q.includes('bm_controle_estudos_v245'))result=[files.get(study)];
    else if(q.includes('00_METODOLOGIA_MESTRE_VIGENTE'))result=[files.get('method'+account)];
    else if(q.includes('00_GUIA_OPERACIONAL_DE_ESTUDO'))result=[files.get('guide'+account)];

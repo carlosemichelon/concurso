@@ -88,7 +88,8 @@ try{
   await page.locator('#bmAccountExport').click();
   assert.ok(await page.locator('#bmAccountExportDialog').isVisible());
   assert.equal(await page.locator('#bmAccountExportEmail').innerText(),a.toLowerCase()+'@example.invalid');
-  await page.locator('#bmAccountStudyObjective').fill('Estudar hidráulica '+a);
+  assert.equal(await page.locator('#bmAccountStudyObjective').count(),0);
+  assert.ok((await page.locator('#bmAccountExportDialog').boundingBox()).width<=481);
   const downloadPromise=page.waitForEvent('download');
   await page.locator('#bmAccountExportSave').click();
   const download=await downloadPromise,filename=await download.path();
@@ -97,7 +98,8 @@ try{
   assert.equal(exported.data.cards[0].front,'Pergunta privada '+a);
   assert.equal(exported.data.study.data.subjects[0].name,'Disciplina '+a);
   assert.equal(exported.account.email,a.toLowerCase()+'@example.invalid');
-  assert.equal(exported.study_objective,'Estudar hidráulica '+a);
+  assert.equal(exported.study_objective,null);
+  assert.equal(exported.data.review_schedule.records[0].due,'2026-11-28');
   assert.equal(exported.data.methodology.text,'Metodologia integral '+a);
   assert.equal(exported.data.operational_guide.text,'Guia integral '+a);
   assert.equal(exported.complete,true);
@@ -114,6 +116,9 @@ try{
   assert.ok(await frame.locator('#aba-treino').count());
   await page.locator('#bm302-redacao-original').evaluate((f,a)=>{f.contentWindow.localStorage.setItem('BM_LAYOUT_TEST',a)},a);
   assert.equal(await page.evaluate(()=>localStorage.getItem('BM_LAYOUT_TEST')),null);
+  assert.ok(await page.locator('#bmWritingSaveDrive').isVisible());
+  await page.locator('#bm302-redacao-original').evaluate((f,a)=>{f.contentWindow.localStorage.setItem('treino_teste',JSON.stringify({resposta:'Rascunho '+a}));f.contentWindow.localStorage.setItem('treino_indice','["treino_teste"]')},a);
+  if(a==='A'){await page.locator('#bmWritingSaveDrive').click();await page.waitForFunction(()=>document.getElementById('bmWritingNotice').textContent.includes('gravado e conferido'));}
   await page.locator('#bm240-study-tab').click();
   assert.equal(await page.locator('#bm302-redacao-shell').isVisible(),false);
   assert.ok(await page.locator('#controle-estudos').isVisible());
@@ -172,8 +177,8 @@ try{
   assert.equal(await page.evaluate(()=>window.BMVS41Session.available()),false);
  }
  assert.deepEqual(dataRequests,[]);
- assert.equal(networkWrites.length,2);assert.ok(networkWrites.every(x=>x.account==='A'&&x.method==='POST'));
- assert.equal(writes.length,2);assert.ok(writes.every(x=>x.account==='A'));
+ assert.equal(networkWrites.length,3);assert.ok(networkWrites.every(x=>x.account==='A'&&x.method==='POST'));
+ assert.equal(writes.length,3);assert.ok(writes.every(x=>x.account==='A'));
  assert.ok(writes.some(x=>x.name==='BancoMestre_Grifos_Mestre.json'));
  assert.ok(writes.some(x=>x.name?.startsWith('BM_IMAGE_INK_')));
  assert.deepEqual(errors,[]);

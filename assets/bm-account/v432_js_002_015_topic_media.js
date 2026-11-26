@@ -1866,6 +1866,8 @@ async function getIndex(){
 const previousLoadMeta=loadMeta;
 loadMeta=async function(){
  const m=await previousLoadMeta();
+ // Na conta privada, não misturar o índice editorial legado com os dados do Drive.
+ if(window.BMVS41PrivateCards)return m;
  const idx=await getIndex();
  if(!applied){
   const byId=new Map(idx.records.map(r=>[r.id,r]));
@@ -1905,6 +1907,8 @@ const previousLoadTopics=loadTopics;
 loadTopics=async function(){
  try{
   await previousLoadTopics();
+  // Assuntos derivados dos cartões autenticados não dependem do atlas legado.
+  if(window.BMVS41PrivateCards)return;
   const idx=await getIndex(),base=await loadMeta();
   let topicSet=new Set(topicRows.map(t=>t.group+'|'+t.subject));
   for(const rec of idx.records){
@@ -2437,10 +2441,22 @@ let data=null,lookup=null,groups=null,areas=null,pending=null;
 let lastDocs=null;
  async function ready(){
   if(lastDocs===docs&&data)return data;
-  lastDocs=docs;const sections=[...new Set(docs.map(d=>d.section))];
-  data={areas:[{id:'private',label:'Materiais privados',description:'Documentos do perfil autenticado'}],groups:sections.map((label,i)=>({id:'private-'+i,area:'private',label,subtitle:'Materiais vinculados',order:i})),assigned:[]};
-  groups=new Map(data.groups.map(g=>[g.id,g]));areas=new Map(data.areas.map(a=>[a.id,a]));
-  lookup=new Map(docs.map(p=>[p.id,groups.get('private-'+sections.indexOf(p.section))]));delete byId('pdfFilter').dataset.bm036;return data;
+  lastDocs=docs;groups=new Map();areas=new Map();lookup=new Map();
+  for(const p of docs){
+   const c=p.catalogGroup;let g;
+   if(c?.id&&c.area){
+    if(!areas.has(c.area))areas.set(c.area,{id:c.area,label:c.areaLabel,description:c.areaDescription||''});
+    g={id:c.id,area:c.area,label:c.label,subtitle:c.subtitle||'',order:c.order||0};
+   }else{
+    const label=p.section||'Documentos';
+    const key='private-'+label;
+    if(!areas.has('private'))areas.set('private',{id:'private',label:'PDFs sem classificação temática confirmada',description:'Arquivos localizados no Drive; a pasta não equivale ao assunto.'});
+    g={id:key,area:'private',label,subtitle:'Pasta de origem',order:999};
+   }
+   if(!groups.has(g.id))groups.set(g.id,g);lookup.set(p.id,groups.get(g.id));
+  }
+  data={areas:[...areas.values()].sort((a,b)=>Number(a.id==='private')-Number(b.id==='private')),groups:[...groups.values()],assigned:[]};
+  delete byId('pdfFilter').dataset.bm036;return data;
  }
 function updateFilters(){
  const sel=byId('pdfFilter');if(!sel||sel.dataset.bm036==='1')return;
@@ -2505,7 +2521,8 @@ function bm420PdfDisplayParts(p){
 }
 /* V271: somente nomes EXIBIDOS dos PDFs do Drive, sem renomear fonte/ID/grifos. */
 function prettyPdfTitle(p){
- if(!p._driveDynamic) return p.title||'Documento PDF';
+ if(p.editorialId) return p.title||'Documento PDF';
+ if(!p._driveDynamic&&!p.filename) return p.title||'Documento PDF';
  const display=bm420PdfDisplayParts(p);
  if(display.exact)return display.exact;
  const raw=display.body;
@@ -2537,7 +2554,8 @@ function prettyPdfTitle(p){
 function pdfCard(p,off){
  const a=node('article','v036-pdf-card');
  const meta=node('div','v036-pdf-meta');
- meta.append(node('span','v036-pdf-id',p.id),node('span','',sourceType(p)));
+ if(p.editorialId)meta.append(node('span','v036-pdf-id',p.editorialId));
+ meta.append(node('span','',sourceType(p)));
  if(p.pages?.length===2)meta.append(node('span','', 'Páginas '+p.pages[0]+'–'+p.pages[1]));
  else if(p._driveDynamic){const range=bm420PdfDisplayParts(p).range;if(range)meta.append(node('span','v420-pdf-pages','Páginas '+range[0]+'–'+range[1]+' · nome de origem'));}
  if(off)meta.append(node('span','v036-muted','Oculto'));
@@ -2553,7 +2571,7 @@ function pdfCard(p,off){
  const actions=node('div','v036-pdf-actions');
  actions.append(button('Ler PDF',read,'v036-primary'));
  // O acesso direto ao Drive e o arquivamento ficam desativados neste teste.
- if(p._driveDynamic&&p.filename){
+ if(p.filename){
   const original=node('details','v420-pdf-origin');
   original.append(node('summary','','Arquivo original'),node('small','v271-pdf-origin',p.filename));
   original.title='Caminho no Drive: '+(p.drivePath||p.section||'não informado');
