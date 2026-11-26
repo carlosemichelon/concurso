@@ -126,3 +126,11 @@ test('índices antigos classificam apenas arquivos pertencentes ao banco individ
  assert.equal(imgs[0].subject,'Solos');assert.deepEqual(imgs[0].card_ids,['CARD-9901']);
  await assert.rejects(a.readMedia('imgB'));
 });
+
+test('SRS histórico recupera datas exatas sem promover catálogo anterior e sem escrita',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{writable:true,writes,historical:true}),write:true});
+ const agenda=await a.schedule();
+ assert.equal(a.snapshot.version,'TESTE-A');assert.equal(agenda.historical,'V193');assert.equal(agenda.complete,false);
+ assert.equal(agenda.records.length,1);assert.equal(agenda.records[0].due,'2026-12-07');assert.equal(agenda.records[0].rating,'Bom');
+ assert.match(agenda.records[0].source,/V193/);assert.equal(writes.length,0);
+});
