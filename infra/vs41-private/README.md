@@ -17,15 +17,15 @@ Identificar o banco autorizado uma vez na abertura, consultar índice e cartões
 - `catalog.mjs` reconhece o formato histórico privado e um delta compatível em modo interno de manutenção (`nativeSnapshotOnly`); verifica ponteiro explícito, titularidade, bytes e vínculos, sem gravação. Esse modo não está ativo nas rotas de estudo, não confirma vigência e não reconcilia SRS, mídia ou histórico. Não reaplicar deltas já incorporados. Funções de validação editorial, IDs e consolidação são puras, opcionais e não criam armazenamento.
 - Não há importação direta ChatGPT→portal, promoção de cartões nem sincronização privada automática homologada. Usar as fontes e a operação existentes, não criar uma base nova. A branch oficial gh-pages permanece separada.
 
-## Próximo passo único: homologação com duas contas Google independentes
+## Próximo passo: primeira conta Google, depois a segunda
 
-Usar somente raízes privadas de teste, não o banco real nem uma credencial administrativa comum. Node 22+; configurar no ambiente privado do servidor `BM_USERS_JSON` (dois perfis distintos: username, subject, rootId, profileId, passwordHash), `BM_GOOGLE_CLIENT_ID`, `BM_GOOGLE_CLIENT_SECRET`, `BM_GOOGLE_GRANTS_JSON` (subject, permissionId e refreshToken de cada conta após consentimento). Manifestos e coleções de teste `private-only`, com appProperties do contrato existente bm-portal-multi-v1. Executar:
+Usar somente raízes privadas de teste, não o banco real nem uma credencial administrativa comum. Node 22+; configurar no ambiente privado do servidor `BM_USERS_JSON` (um perfil na primeira homologação, dois distintos na segunda: username, subject, rootId, profileId, passwordHash), `BM_GOOGLE_CLIENT_ID`, `BM_GOOGLE_CLIENT_SECRET`, `BM_GOOGLE_GRANTS_JSON` (subject, permissionId e refreshToken de cada conta após consentimento). Manifestos e coleções de teste `private-only`, com appProperties do contrato existente bm-portal-multi-v1. Executar:
 
 ```sh
 node infra/vs41-private/preflight.mjs
 ```
 
-O preflight verifica duas leituras e quatro acessos cruzados negados, sem gravação. O diagnóstico legado `test-drive.mjs` (duas pastas na mesma conta) não substitui esse teste. Não inserir credenciais, IDs físicos privados ou dados pessoais no GitHub, navegador ou chat. A fonte privada vigente, o delta, o registro de IDs e permissões adequadas devem ser confirmados antes de ligar o banco real; o compartilhamento amplo de outras pastas não autoriza migração. Não alterar permissões sem autorização.
+Com uma conta o preflight confirma apenas a leitura autorizada (multiuserVerified=false, crossChecks=0); com duas, verifica duas leituras e quatro acessos cruzados negados. Não grava. O diagnóstico legado `test-drive.mjs` (duas pastas na mesma conta) não substitui esse teste. Não inserir credenciais, IDs físicos privados ou dados pessoais no GitHub, navegador ou chat. A fonte privada vigente, o delta, o registro de IDs e permissões adequadas devem ser confirmados antes de ligar o banco real; o compartilhamento amplo de outras pastas não autoriza migração. Não alterar permissões sem autorização.
 
 ## Manutenção
 
