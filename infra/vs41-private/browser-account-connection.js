@@ -23,6 +23,7 @@
      if(closed)return;session=p;resolve(p);timer=setTimeout(close,Math.max(1000,(Number(r.expires_in||3600)-60)*1000));
      status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.scope==='editorial-candidate-only'?'candidata editorial, somente leitura':'Drive individual, somente leitura'));
      document.dispatchEvent(new CustomEvent('bm-account-connected'));
+     if(typeof loadCards==='function')void loadCards().catch(e=>status(e.message));
     }catch(e){status(e.message||'Banco individual indisponível')}finally{opening=false;refreshButton()}
    },error_callback:()=>{opening=false;status('Seleção cancelada');refreshButton()}});
    refreshButton();status('Selecione sua conta Google');
