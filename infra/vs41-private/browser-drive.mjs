@@ -125,5 +125,5 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,edi
  if(data?.format!=='BancoMestrePrivadoV159'||data.schema_version!==1||typeof data.version!=='string'||!data.version)throw Error('Formato privado ainda não homologado. Nenhum catálogo público será usado.');
  const records=verifyRecords(data.cards);
  if(data.counts?.cards!==records.length||pointer&&pointer.cards!==records.length)throw Error('Contagem de cartões divergente.');
- return {version:data.version,records,scope:'snapshot-only',sourceName:meta.name};
+ return {version:data.version,records,scope:'snapshot-only',sourceName:meta.name,srs:Array.isArray(data.srs)?data.srs:null,updated:typeof data.updated==='string'?data.updated:''};
 }
