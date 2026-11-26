@@ -699,7 +699,15 @@ function ensure(){
    }catch(_){/* O portal pai permanece conectado mesmo se não for possível inspecionar o iframe. */}
   });
   const notice=document.createElement('p');notice.className='bm-writing-notice';notice.id='bmWritingNotice';notice.textContent='Oficina original · rascunhos isolados nesta visita. Utilize o Backup JSON da oficina antes de sair ou trocar de conta; o histórico de Redação ainda não foi migrado ao Drive individual.';notice.setAttribute('role','status');
-  host.append(notice,iframe);main.append(host);
+  const save=document.createElement('button');save.type='button';save.id='bmWritingSaveDrive';save.textContent='Salvar progresso no Drive';save.hidden=true;
+  save.style.cssText='margin:0 0 7px;padding:6px 10px';
+  save.addEventListener('click',async()=>{
+   save.disabled=true;
+   try{const result=await window.BMPortalBridge.saveWriting();notice.textContent=result.changed?'Gravação confirmada; há alterações posteriores ainda não salvas.':'Progresso de Redação gravado e conferido no Drive individual.'}
+   catch(e){notice.textContent='Gravação não confirmada: '+e.message+'. Preserve o progresso com o Backup JSON.';}
+   finally{save.disabled=false;}
+  });
+  host.append(notice,save,iframe);main.append(host);
  }
  iframe=$('bm302-redacao-original');
  return host;
@@ -725,6 +733,10 @@ function show(){
   const notice=$('bmWritingNotice');
   loadingWorkshop=window.BMPortalBridge.writingDocument().then(html=>{
    iframe.srcdoc=html;loadedWorkshop=true;
+   const state=window.BMPortalBridge.writingStatus(),save=$('bmWritingSaveDrive');
+   if(save)save.hidden=!state.ready;
+   if(notice&&state.ready)notice.textContent='Oficina original · progresso individual conferido. Salve o treino na oficina e use Salvar progresso no Drive antes de sair.';
+   else if(notice)notice.textContent='Oficina original · rascunhos temporários nesta visita. Utilize o Backup JSON antes de conectar ou sair.';
   }).catch(e=>{if(notice)notice.textContent='Falha ao abrir a oficina: '+e.message+' · clique em Redação para tentar novamente.';}).finally(()=>{loadingWorkshop=null});
  }
  if(location.hash!==HASH)history.replaceState(history.state,'',location.pathname+location.search+HASH);
@@ -741,7 +753,7 @@ function init(){
  ensure();
  // Guest drafts are never copied into a newly authenticated account. Preserve the guest
  // workshop in memory only until login; the original page offers explicit JSON backup.
- document.addEventListener('bm-account-connected',()=>{if(loadedWorkshop){loadedWorkshop=false;iframe.removeAttribute('srcdoc');if(host.classList.contains('active'))show();}});
+ document.addEventListener('bm-account-connected',async()=>{if(loadingWorkshop)await loadingWorkshop;loadedWorkshop=false;iframe?.removeAttribute('srcdoc');const save=$('bmWritingSaveDrive');if(save)save.hidden=true;if(host?.classList.contains('active'))show();});
  // Captura antes dos onclick legados que navegavam para uma nova página.
  nav.addEventListener('click',e=>{
   const button=e.target.closest?.('button[data-page]');
