@@ -665,7 +665,7 @@ window.BancoMestreEscritaV130={export:exportBackup,get count(){return historyDB.
 if(window.BM302RedacaoDentroPortal)return;
 const TARGET='./redacao_temas_treino_v296.html?versao=V296';
 const HASH='#redacao-oficina';
-let host=null,iframe=null;
+let host=null,iframe=null,loadingWorkshop=null,loadedWorkshop=false;
 const $=id=>document.getElementById(id);
 function ensure(){
  if(host?.isConnected)return host;
@@ -675,7 +675,7 @@ function ensure(){
  if(!host){
   host=document.createElement('section');host.id='bm302-redacao-shell';
   host.className='bm302-redacao-section';
-  host.style.cssText='display:none;max-width:100%;padding:0';
+  host.style.cssText='max-width:100%;padding:0';
   iframe=document.createElement('iframe');
   iframe.id='bm302-redacao-original';
   iframe.title='Oficina completa de Redação — Banco Mestre';
@@ -690,7 +690,7 @@ function ensure(){
     doc?.addEventListener('click',event=>{
      const anchor=event.target.closest?.('a[href]');
      if(!anchor)return;
-     const url=new URL(anchor.getAttribute('href'),iframe.contentWindow.location.href);
+     const url=new URL(anchor.getAttribute('href'),doc.baseURI);
      if(url.origin===location.origin&&/\/(?:index\.html)?$/.test(url.pathname)){
       event.preventDefault();
       showSection('assuntos');
@@ -698,7 +698,8 @@ function ensure(){
     },true);
    }catch(_){/* O portal pai permanece conectado mesmo se não for possível inspecionar o iframe. */}
   });
-  host.append(iframe);main.append(host);
+  const notice=document.createElement('p');notice.className='bm-writing-notice';notice.id='bmWritingNotice';notice.textContent='Oficina original · rascunhos isolados nesta visita. Utilize o Backup JSON da oficina antes de sair ou trocar de conta; o histórico de Redação ainda não foi migrado ao Drive individual.';notice.setAttribute('role','status');
+  host.append(notice,iframe);main.append(host);
  }
  iframe=$('bm302-redacao-original');
  return host;
@@ -720,21 +721,27 @@ function show(){
  if(!main||!nav)return;
  main.querySelectorAll(':scope > section').forEach(s=>s.classList.toggle('active',s===shell));
  nav.querySelectorAll('button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page==='redacao'));
- shell.style.display='block';
- if(iframe&&!iframe.getAttribute('src'))iframe.setAttribute('src',TARGET);
+ if(iframe&&!loadedWorkshop&&!loadingWorkshop){
+  const notice=$('bmWritingNotice');
+  loadingWorkshop=window.BMPortalBridge.writingDocument().then(html=>{
+   iframe.srcdoc=html;loadedWorkshop=true;
+  }).catch(e=>{if(notice)notice.textContent='Falha ao abrir a oficina: '+e.message+' · clique em Redação para tentar novamente.';}).finally(()=>{loadingWorkshop=null});
+ }
  if(location.hash!==HASH)history.replaceState(history.state,'',location.pathname+location.search+HASH);
  document.dispatchEvent(new CustomEvent('bm302-section-changed',{detail:{section:'redacao',oauthUnchanged:true}}));
  window.scrollTo({top:0,behavior:'instant'});
 }
 function hideOnOtherSection(){
  if(!host)return;
- const active=host.classList.contains('active');
- host.style.display=active?'block':'none';
+ // A visibilidade segue exclusivamente a classe active, inclusive nas rotas nativas.
 }
 function init(){
  const nav=document.querySelector('header nav');
  if(!nav)return;
  ensure();
+ // Guest drafts are never copied into a newly authenticated account. Preserve the guest
+ // workshop in memory only until login; the original page offers explicit JSON backup.
+ document.addEventListener('bm-account-connected',()=>{if(loadedWorkshop){loadedWorkshop=false;iframe.removeAttribute('srcdoc');if(host.classList.contains('active'))show();}});
  // Captura antes dos onclick legados que navegavam para uma nova página.
  nav.addEventListener('click',e=>{
   const button=e.target.closest?.('button[data-page]');

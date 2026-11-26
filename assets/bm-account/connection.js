@@ -22,8 +22,28 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
  let resolve,session=null,closed=false,opening=false,client=null,abort=null,timer=null;
  const ready=new Promise(r=>{resolve=r}),nonce=Array.from(crypto.getRandomValues(new Uint8Array(16)),n=>n.toString(16).padStart(2,'0')).join('');
  const status=s=>{const e=document.getElementById('bm239-sync-details');if(e){e.textContent=s;e.title=s}};
- function close(){if(closed)return;closed=true;clearTimeout(timer);abort?.abort();session=null;resolve(null);localStorage.clear();sessionStorage.clear();document.documentElement.style.visibility='hidden';location.reload();}
- Object.defineProperty(window,'BMPortalBridge',{value:Object.freeze({close})});
+ function close(){if(closed)return;closed=true;clearTimeout(timer);abort?.abort();session=null;resolve(null);localStorage.clear();sessionStorage.clear();guestWriting.clear();accountWriting.clear();document.documentElement.style.visibility='hidden';location.reload();}
+ // Original writing workshop, served as srcdoc under the same CSP. The
+ // bootstrap runs before any legacy script can read shared browser storage.
+ const guestWriting=memory(),accountWriting=memory();
+ let writingTemplate=null;
+ async function writingDocument(){
+  if(!writingTemplate)writingTemplate=(async()=>{
+   const response=await nativeFetch(new URL('redacao_temas_treino_v296.html?versao=V296',base),{cache:'no-store',credentials:'same-origin'});
+   if(!response.ok)throw Error('Oficina de Redação indisponível (HTTP '+response.status+')');
+   const html=await response.text();
+   if(!/<head\b[^>]*>/i.test(html)||!html.includes('Banco Mestre — Redação V296'))throw Error('Estrutura da oficina original não confirmada');
+   const bootstrap='<script>(function(){const stores=parent.BMPortalBridge.writingStorage(window);Object.defineProperty(window,"localStorage",{value:stores.local});Object.defineProperty(window,"sessionStorage",{value:stores.session});window.__bmWritingIsolated=true;})();<\/script>';
+   return html.replace(/<head\b[^>]*>/i,match=>match+bootstrap);
+  })().catch(e=>{writingTemplate=null;throw e});
+  return writingTemplate;
+ }
+ function writingStorage(frame){
+  const expected=document.getElementById('bm302-redacao-original');
+  if(closed||!expected||frame!==expected.contentWindow)throw Error('Contexto da oficina inválido');
+  return Object.freeze({local:session?accountWriting:guestWriting,session:memory()});
+ }
+ Object.defineProperty(window,'BMPortalBridge',{value:Object.freeze({close,writingDocument,writingStorage})});
  const button=()=>document.getElementById('bm239-drive-action');
  const progress=(p,label)=>window.BM316DriveProgress?.track(p,label)||p;
  const driveFetch=(input,opts)=>progress(nativeFetch(input,opts),opts?.method==='GET'?'arquivo do Drive':'gravação no Drive');
@@ -136,5 +156,5 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
    return json({error:'Operação privada não disponível'},503);
   }catch(e){return json({error:e.message},[400,403,409,412].includes(e.status)?e.status:503)}
  };
- addEventListener('pagehide',()=>{closed=true;abort?.abort();clearTimeout(timer);session=null;resolve(null);localStorage.clear();sessionStorage.clear()});
+ addEventListener('pagehide',()=>{closed=true;abort?.abort();clearTimeout(timer);session=null;resolve(null);localStorage.clear();sessionStorage.clear();guestWriting.clear();accountWriting.clear()});
 })();

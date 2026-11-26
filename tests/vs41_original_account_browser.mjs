@@ -104,7 +104,24 @@ try{
   assert.ok(exported.sections.includes('pdf_highlights')&&exported.sections.includes('image_ink'));
   assert.ok(!Object.hasOwn(exported,'token')&&!Object.hasOwn(exported,'email')&&!Object.hasOwn(exported,'clientId'));
   await page.locator('#bmAccountExportCancel').click();
-  console.log('Conta '+a+': cartões e estudos exportados somente da conta selecionada.');
+  console.log('Conta '+a+': pacote exportado somente da conta selecionada.');
+  // Exercise the original writing workshop, not merely a top-level DOM placeholder.
+  await page.locator('header nav button[data-page=redacao]').click();
+  await page.waitForFunction(()=>{const f=document.getElementById('bm302-redacao-original');return f?.contentWindow?.__bmWritingIsolated===true&&f.contentDocument?.title.includes('Redação V296')},{},{timeout:30000});
+  assert.ok(await page.locator('#bm302-redacao-shell').isVisible());
+  await page.waitForFunction(()=>document.getElementById('bm302-redacao-original')?.contentDocument?.documentElement.dataset.bm306Theme==='portal');
+  const frame=page.frameLocator('#bm302-redacao-original');
+  assert.ok(await frame.locator('#aba-treino').count());
+  await page.locator('#bm302-redacao-original').evaluate((f,a)=>{f.contentWindow.localStorage.setItem('BM_LAYOUT_TEST',a)},a);
+  assert.equal(await page.evaluate(()=>localStorage.getItem('BM_LAYOUT_TEST')),null);
+  await page.locator('#bm240-study-tab').click();
+  assert.equal(await page.locator('#bm302-redacao-shell').isVisible(),false);
+  assert.ok(await page.locator('#controle-estudos').isVisible());
+  await page.locator('header nav button[data-page=redacao]').click();
+  assert.equal(await page.locator('#bm302-redacao-original').evaluate(f=>f.contentWindow.localStorage.getItem('BM_LAYOUT_TEST')),a);
+  await page.locator('header nav button[data-page=cartoes]').click();
+  assert.equal(await page.locator('#bm302-redacao-shell').isVisible(),false);
+  console.log('Conta '+a+': Redação V296 original e troca de seções confirmadas.');
   await page.locator('#bm240-study-tab').click();
   await page.locator('#bm240-native-host #bm252-main-nav').waitFor({state:'visible',timeout:30000});
   await page.waitForFunction(()=>window.BMVS41StudyControl?.confirmed===true);
