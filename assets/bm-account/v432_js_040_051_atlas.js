@@ -263,7 +263,7 @@ function BM371FolderCache({roots,token,request,now=()=>Date.now(),maxAge=600000}
  (function(){
  'use strict';
  const $=id=>document.getElementById(id);
- let pending=null,scanning=false,lastResult=null;
+ let pending=null,scanning=false,lastResult=null,renderedDocs=null;
  const authorized=()=>window.BMVS41PrivateReviews?.available()===true;
  const status=(message)=>{const e=$('bm-pdf-sync-status');if(e)e.textContent=message;};
  const authorize=()=>void refresh();
@@ -284,15 +284,22 @@ function BM371FolderCache({roots,token,request,now=()=>Date.now(),maxAge=600000}
 }
 
  async function refresh(force=false){
-  if(pending)return pending;scanning=true;
+  if(pending)return pending;
+  if(!force&&lastResult&&authorized()&&document.documentElement.dataset.bm217PdfVerified==='true'){
+   if(renderedDocs!==docs&&$('pdfs')?.classList.contains('active')){pdfRender();renderedDocs=docs;}
+   return lastResult;
+  }
+  scanning=true;
   pending=(async()=>{
    document.documentElement.dataset.bm217PdfVerified='false';
    try{
     const result=await window.BMVS41PrivatePdfs.list(force===true);
     docs=result;document.documentElement.dataset.bm217PdfVerified='true';$('pdfStat').textContent=docs.length;
     status('Biblioteca privada confirmada: '+docs.length+' PDFs vinculados.');
-    lastResult={count:docs.length};pdfRender();return lastResult;
-   }catch(e){docs=[];pdfRender();status(e.message);return null}
+    lastResult={count:docs.length};renderedDocs=null;
+    if($('pdfs')?.classList.contains('active')){pdfRender();renderedDocs=docs;}
+    return lastResult;
+   }catch(e){docs=[];lastResult=null;renderedDocs=null;pdfRender();status(e.message);return null}
    finally{scanning=false;pending=null}
   })();return pending;
  }
@@ -617,10 +624,13 @@ function render(){
 
  async function refreshList(force=false){
   if(pending)return pending;
-  if(!force&&lastGoodAt&&validToken())return {found:photos.length,scope:'authenticated-profile'};
+  if(!force&&lastGoodAt&&validToken()){
+   if(renderedRecords!==photos&&$('imagens')?.classList.contains('active'))render();
+   return {found:photos.length,scope:'authenticated-profile'};
+  }
   pending=(async()=>{
    try{msg('Consultando imagens privadas…');const list=await window.BMVS41PrivateImages.list(force===true);const next=list.map(x=>({...x,name:x.title}));const unchanged=JSON.stringify(photos)===JSON.stringify(next);if(!unchanged||force===true){release();photos=next;aliases.clear();}lastGoodAt=Date.now();lastError='';
-    for(const f of photos)aliases.set(f.id,{imageId:f.editorialId||'',title:f.title,cardIds:f.card_ids});if(!unchanged||force===true||!renderedRecords)render();
+    for(const f of photos)aliases.set(f.id,{imageId:f.editorialId||'',title:f.title,cardIds:f.card_ids});if((!unchanged||force===true||!renderedRecords)&&$('imagens')?.classList.contains('active'))render();
     $('imageCount').textContent=photos.length+' imagens';msg('Atlas e originais recuperados: '+photos.length+' imagens; '+photos.filter(f=>f.indexed===true).length+' nos índices históricos. Derivadas, miniaturas e demais pastas não entram na contagem.');$('bm207-sync-time').textContent='Consulta validada nesta sessão';
     return {found:photos.length,scope:'authenticated-profile'};
    }catch(e){release();photos=[];aliases.clear();lastGoodAt=0;lastError=e.message;render();msg(e.message,true);return null}

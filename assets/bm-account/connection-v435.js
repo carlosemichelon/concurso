@@ -97,6 +97,14 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
      if(closed)return;session=p;resolve(p);timer=setTimeout(close,Math.max(1000,(Number(r.expires_in||3600)-60)*1000));
      status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.cacheHit?'cache conferido · ':'')+(p.snapshot.scope==='editorial-candidate-only'?'cartões VC52 do Drive · dados de estudo individuais':'Drive individual · gravações autorizadas por módulo'));
      refreshButton();document.dispatchEvent(new CustomEvent('bm-account-connected'));
+     // VS44 performance: warm private indexes once, independently of card organization.
+     void (async()=>{await window.BMVS41Session.check();if(closed||session!==p)return;
+      await Promise.allSettled([
+       window.BM242LacunasDrive?.sync(),
+       window.BancoMestreDriveImagesV182?.refresh(),
+       window.BancoMestrePDFSyncV130?.refresh()
+      ]);
+     })().catch(e=>console.warn('Preparação dos índices privados:',e.message));
      if(typeof loadCards==='function')await progress(loadCards(),'organizando cartões').catch(e=>status(e.message));
     }catch(e){status(e.message||'Banco individual indisponível')}finally{opening=false;refreshButton()}
    },error_callback:()=>{opening=false;status('Seleção cancelada');refreshButton()}});

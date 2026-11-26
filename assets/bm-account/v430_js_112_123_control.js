@@ -178,7 +178,7 @@ const mount=async()=>{
   await new Promise((resolve,reject)=>{
    if(typeof window.BM240ControlInit==='function')return resolve();
    const script=document.createElement('script');
-   script.src='assets/v415_controle_app.js?v=415-1';
+   script.src='assets/v415_controle_app.js?v=vs44-perf-2';
    script.onload=resolve;script.onerror=()=>reject(Error('Módulo de estudos não carregou'));
    document.head.append(script);
   });
@@ -345,7 +345,7 @@ let data=null,persisted=null,revisions=Object.create(null),syncState='Consultand
   if(refreshing)return refreshing;
   refreshing=(async()=>{try{accept(await window.BMVS41PrivateGaps.read());return lastResult}
    catch(e){data=null;persisted=null;revisions=Object.create(null);bm430GapVerified=false;lastResult={state:'error',message:e.message};syncState=e.message;render();return lastResult}
-   finally{refreshing=null}})();return refreshing;
+   finally{refreshing=null;render()}})();return refreshing;
  }
  async function write(event,r){
   if(!data||!persisted||busy||refreshing||!bm430GapVerified){if(persisted)data=JSON.parse(persisted);throw Error('Cadastro privado não confirmado ou ocupado')}
@@ -371,7 +371,9 @@ function cards(raw){
  if(v.some(x=>!(/^[a-z0-9][a-z0-9_-]{2,45}$/i.test(x))))throw Error('IDs de cartões inválidos');
  return v;
 }
-let bm430GapVerified=false;
+let bm430GapVerified=false,renderedGapData=null,renderedGapFilters=null;
+const gapFilterIds=['bm242-search','bm242-discipline','bm242-general','bm242-specific','bm242-sub','bm242-priority','bm242-type','bm242-cover','bm242-stage'];
+const gapFilterKey=()=>JSON.stringify(gapFilterIds.map(id=>$(id)?.value||''));
 function install(){
  if($('lacunas'))return;
  const nav=document.querySelector('header nav[aria-label="Seções"]')||document.querySelector('header nav'),main=document.querySelector('main');
@@ -515,10 +517,12 @@ function render(){
  const pane=$('lacunas');if(!pane?.classList.contains('active'))return;
  const ready=bm430GapVerified&&!!data;
  pane.classList.toggle('bm430-gap-wait',!ready);
- if(!ready){$('bm242-state').hidden=false;$('bm242-state').textContent=syncState;$('bm242-list').replaceChildren();return;}
+ if(!ready){$('bm242-state').hidden=false;$('bm242-state').textContent=syncState;if($('bm242-list').childElementCount)$('bm242-list').replaceChildren();renderedGapData=null;renderedGapFilters=null;return;}
  $('bm242-form').querySelector('button[type=submit]').disabled=busy||refreshing!==null;
  $('bm242-state').textContent=data?syncState:'Dados locais inválidos: escrita bloqueada e originais preservados';$('bm242-state').hidden=Boolean(data&&/conferid|verificad|idêntic/i.test(syncState)&&!/falha|erro|pendente|conflito/i.test(syncState));
  if(!data){$('bm242-list').textContent='Importe uma cópia válida para recuperar o cadastro';return}
+ // Preserve expanded records, selection and the existing DOM on a tab revisit.
+ if(renderedGapData===persisted&&renderedGapFilters===gapFilterKey())return;
  function select(id,values,all){
   const el=$(id),keep=el.value;el.replaceChildren(new Option(all,''));
   for(const v of values)el.add(new Option(v,v));
@@ -544,6 +548,7 @@ function render(){
  const filtered=data.records.filter(r=>(!d||r.disciplina===d)&&(!g||r.assuntoGeral===g)&&(!sp||r.assuntoEspecifico===sp)&&(!sub||r.subassunto===sub)&&(!p||r.prioridade===p)&&(!t||r.tipo===t)&&(!c||r.cobertura===c)&&(!s||r.etapa===s)&&
  (!q||norm([r.id,r.descricao,r.relatoEstudante,r.diagnosticoAssistente,r.enunciado,r.respostaEstudante,r.gabarito,r.questaoId,...r.cardIds,r.disciplina,r.assuntoGeral,r.assuntoEspecifico,r.subassunto,r.fonte,r.pesquisa].join(' ')).includes(q)));
  $('bm242-count').textContent=filtered.length+' de '+data.records.length+' lacunas · '+data.log.length+' eventos de histórico';
+ renderedGapData=persisted;renderedGapFilters=gapFilterKey();
  $('bm242-list').innerHTML=filtered.length?filtered.slice().reverse().map(r=>{
   const links=r.cardIds.map(id=>'<button data-open="'+esc(id)+'" type="button">Abrir '+esc(id)+' no leitor</button>').join(' ')||'<em>Cartão a auditar</em>';
   const next=r.etapa==='Identificada'?'Explicada':r.etapa==='Explicada'?'Em reforço':r.etapa==='Em reforço'?'Dominada':'';

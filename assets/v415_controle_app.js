@@ -147,7 +147,7 @@ async function loadTaxonomy(){
    seedCatalogDisciplines();refresh();refreshTaxonomy();$('bm240TaxStatus').textContent='Assuntos da conta autenticada carregados.';
   }catch(e){$('bm240TaxStatus').textContent='Assuntos indisponíveis; registro manual preservado.'}
  }
-function go(id){root.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));root.querySelectorAll('section.pane').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='painel')renderDashboard();if(id==='relatorios')renderReports();if(id==='historico')renderHistory();if(id==='planejamento')renderSubjects();if(id==='ciclo')renderCycle();if(id==='revisoes')renderReviews();if(id==='backup')renderBackup();if(id==='calendarioControle')renderCalendar();resize()}
+function go(id){root.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));root.querySelectorAll('section.pane').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='painel')renderDashboard();if(id==='relatorios')renderReports();if(id==='historico')renderHistory();if(id==='planejamento'&&planningRendered!==planningKey())renderSubjects();if(id==='ciclo')renderCycle();if(id==='revisoes')renderReviews();if(id==='backup')renderBackup();if(id==='calendarioControle')renderCalendar();resize()}
 function resize(){}
 function toggleMessage(id,text){$(id).textContent=text}
 function reportRows(){
@@ -271,7 +271,10 @@ $('goalSummary').innerHTML=data.subjects.length?data.subjects.map(s=>{const done
 $('performance').innerHTML=data.subjects.map(s=>{const ss=all.filter(x=>x.subjectId===s.id);const questions=ss.reduce((v,x)=>v+(Number(x.questions)||0),0);const correct=ss.reduce((v,x)=>v+(Number(x.correct)||0),0);return questions?'<div class="item"><b>'+esc(s.name)+'</b> · '+correct+'/'+questions+' acertos ('+Math.round(correct/questions*100)+'%)</div>':''}).join('')||'<p class="empty">Registre questões e acertos para visualizar seu desempenho.</p>';
 if(overdue)$('metrics').innerHTML+='<div class="metric"><span>Revisões pendentes</span><b>'+overdue+'</b></div>';resize();
 }
+let planningRendered=null;
+function planningKey(){return JSON.stringify([data.subjects,data.availabilityWeek,data.availabilityMonth])}
 function renderSubjects(){
+planningRendered=planningKey();
 $('hoursWeek').value=data.availabilityWeek;$('hoursMonth').value=data.availabilityMonth;
 $('subjectRows').innerHTML=data.subjects.map(s=>'<tr><td><span style="color:'+esc(s.color||'#277f79')+'">●</span> '+esc(s.name)+'</td><td><input aria-label="Dificuldade" data-field="difficulty" data-id="'+esc(s.id)+'" type="number" min="1" max="5" value="'+nval(s.difficulty,1,5)+'"></td><td><input aria-label="Peso" data-field="weight" data-id="'+esc(s.id)+'" type="number" min="1" max="5" value="'+nval(s.weight,1,5)+'"></td><td><input aria-label="Questões previstas" data-field="exam" data-id="'+esc(s.id)+'" type="number" min="0" value="'+nval(s.exam,0,10000)+'"></td><td><input aria-label="Meta diária" data-field="daily" data-id="'+esc(s.id)+'" type="number" min="0" step=".25" value="'+nval(s.daily??((s.weekly||0)/7),0,1000)+'"></td><td><input aria-label="Meta semanal" data-field="weekly" data-id="'+esc(s.id)+'" type="number" min="0" step=".25" value="'+nval(s.weekly,0,1000)+'"></td><td><input aria-label="Meta mensal" data-field="monthly" data-id="'+esc(s.id)+'" type="number" min="0" step=".25" value="'+nval(s.monthly??((s.weekly||0)*4.3),0,5000)+'"></td><td><button data-remove-subject="'+esc(s.id)+'" class="danger">Excluir</button></td></tr>').join('')||'<tr><td colspan="8">Nenhuma disciplina cadastrada.</td></tr>';
 }
