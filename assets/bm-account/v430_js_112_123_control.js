@@ -142,6 +142,8 @@ const mount=async()=>{
   routeObserver.observe(page,{attributes:true,attributeFilter:['class']});
  }
  window.addEventListener('hashchange',alignNativeRoute);
+ const initialHash=location.hash,initialQuery=new URLSearchParams(location.search);
+ if(initialHash==='#controle-estudos'||((!initialHash||initialHash==='#')&&!['cartao','tema','pdf'].some(k=>initialQuery.has(k))))button.click();
 
  try{
   const response=await fetch('./controle-estudos-v415.html?ref=415',{cache:'no-cache'});
@@ -152,8 +154,12 @@ const mount=async()=>{
   style.textContent=doc.querySelector('style')?.textContent||'';
 
   root.replaceChildren(style);
+  const gate=document.createElement('p');gate.setAttribute('role','status');gate.style.cssText='padding:10px 18px;margin:0;background:#edf6f4;color:#24505a;font-size:13px';
+  gate.textContent=window.BMAccountInfo?.()?'Conferindo Controle de Estudos no Drive individual…':'Entre com sua conta Google para carregar o Controle de Estudos.';
+  root.append(gate);
+  const content=[];
   for(const element of [...doc.body.children]){
-   if(element.tagName!=='SCRIPT')root.append(element);
+   if(element.tagName!=='SCRIPT'){element.inert=true;content.push(element);root.append(element);}
   }
   await new Promise((resolve,reject)=>{
    if(typeof window.BM240ControlInit==='function')return resolve();
@@ -163,6 +169,7 @@ const mount=async()=>{
    document.head.append(script);
   });
   await window.BM240ControlInit(root);
+  for(const element of content)element.inert=false;gate.remove();
   installMobileRegisterCollapse(root);
   window.BancoMestreIconsV096?.refresh?.();
   document.dispatchEvent(new CustomEvent('bm240-study-mounted'));
