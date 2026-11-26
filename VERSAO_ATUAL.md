@@ -1,5 +1,7 @@
 ## V433 / VS42 — Consolidação do portal multiusuário (26/11/2026)
 
+Ajuste de entrada: Assuntos é a página inicial sem rota explícita; Controle de Estudos usa aviso compacto antes da autenticação, monta o painel original após confirmação e não força nova navegação. Seção posicionada antes do rodapé. Teste visual autenticado pendente.
+
 V433 / VS42 — 26/11/2026: consolida diagnóstico do Drive individual, apresentação do Controle de Estudos antes do login, consulta temática compartilhada com progresso real, miniaturas padronizadas e nova tentativa, Redação condicionada à conexão e ações separadas de configurações/logout. Catálogo individual e SRS não modificados. Implantação cumulativa anterior confirmada; leitura real autenticada e regressões de CI ainda exigem homologação.
 
 Correções funcionais publicadas até `6293e663da85b3213e94aa517288ce96ab876539`; atualização de identificação não modifica o catálogo individual, registros de revisão nem os originais do Drive. A publicação de código não equivale à homologação de todos os módulos em uma sessão real.
