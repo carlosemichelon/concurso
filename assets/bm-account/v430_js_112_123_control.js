@@ -174,7 +174,8 @@ const mount=async()=>{
  const explicit=Boolean(hash&&hash!=='#');
  const q=new URLSearchParams(location.search);
  const deep=q.has('cartao')||q.has('tema')||q.has('pdf');
- if(window.BM240OpenStudyDefault===true||hash==='#controle-estudos'||(!explicit&&!deep))button.click();
+ // A escolha feita durante a montagem assíncrona prevalece sobre o padrão de entrada.
+ if(hash==='#controle-estudos'||(!explicit&&!deep))button.click();
 };
 function start(){if(!installing)installing=mount().catch(e=>console.error('V240 montagem:',e));return installing}
 window.BM240NativeStudy=Object.freeze({start});
