@@ -31,6 +31,8 @@ jobs:
 
       - run: node tests/vs41_real_catalog_layout.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
 
+      - run: node tools/vs41_build_browser_portal.mjs
+
       - run: node tests/vs41_drive_original_reader.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
 
       - run: node tests/vs41_browser_to_original.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json

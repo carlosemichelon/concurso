@@ -14,6 +14,8 @@ try{
   const json=(obj,status=200)=>route.fulfill({status,headers,contentType:'application/json',body:JSON.stringify(obj)});
   if(url.href.startsWith(base)){
    const rel=url.pathname.slice(new URL(base).pathname.length);
+   if(rel.startsWith('preview-vs41-reader/portal/')&&fs.existsSync(rel)){const mime=rel.endsWith('.js')?'application/javascript':'text/html';return route.fulfill({contentType:mime,body:fs.readFileSync(rel,'utf8')});}
+   if(/^assets\/[A-Za-z0-9_.-]+\.js$/.test(rel)&&fs.existsSync(rel))return route.fulfill({contentType:'application/javascript',body:fs.readFileSync(rel,'utf8')});
    if(!/^(?:preview-vs41-reader\/(?:index\.html|app\.mjs|reader\.js|modal\.js)|infra\/vs41-private\/(?:browser-drive|records)\.mjs)$/.test(rel))if(!/^assets\/(?:v[0-9]+_[A-Za-z0-9_]+\.css|v417_math_engine\.js|(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.svg)$/.test(rel))return route.abort();
    const mime=rel.endsWith('.css')?'text/css':rel.endsWith('.svg')?'image/svg+xml':/\.(?:mjs|js)$/.test(rel)?'application/javascript':'text/html';
    if(!fs.existsSync(rel))return route.fulfill({status:404});
@@ -49,6 +51,22 @@ try{
  await page.locator('#source').fill('candidate');await page.locator('#load').click();
  await page.waitForFunction(()=>document.querySelector('#summary').textContent.includes('1460 cartões ativos'),{},{timeout:30000});
  assert.match(await page.locator('#summary').innerText(),/candidato editorial/);
+ await page.locator('#open-original').click();
+ const portal=page.frameLocator('#full-portal');
+ await portal.locator('header .brand').waitFor({state:'visible'});
+ const fullFrame=page.frames().find(f=>f.url().includes('/portal/index.html'));
+ await fullFrame.waitForFunction(()=>typeof loadCards==='function'&&window.BancoMestreVisualizarCardV050);
+ await fullFrame.evaluate(()=>loadCards());
+ assert.equal(await fullFrame.evaluate(()=>cards.length),1460);
+ assert.ok(await fullFrame.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-0047')));
+ await portal.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
+ await portal.locator('#bmCardPeekV050 .bm349-reading').waitFor({state:'visible'});
+ assert.equal(await portal.locator('#bmCardPeekV050 .historic-module').count(),11);
+ await portal.locator('#bm-vs41-logout').click();
+ await page.locator('#connect').waitFor({state:'visible'});
+ await page.locator('#connect').click();
+ await page.locator('#source').fill('candidate');await page.locator('#load').click();
+ await page.waitForFunction(()=>document.querySelector('#summary').textContent.includes('1460 cartões ativos'));
  await page.locator('#list button').first().click();await page.getByRole('button',{name:'Revelar resposta'}).click();
  assert.ok((await page.locator('#bmCardPeekV050 .bm-v050-peek-answer').innerText()).length>20);
  await page.keyboard.press('Escape');
