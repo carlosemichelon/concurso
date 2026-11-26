@@ -11,6 +11,14 @@ import {createApi} from '../infra/vs41-private/api.mjs';import {parseUsers,passw
 import {mediaFixture,formulaFixture,profiles} from './vs41_private_fixture.mjs';
 const root=process.cwd(),html=fs.readFileSync('index.html','utf8'),f=formulaFixture(mediaFixture());
 const manifest=JSON.parse(fs.readFileSync('assets/version.json','utf8'));
+// Visual contract: the authenticated host derives its page from the current official entrypoint.
+const adapted=privatePage(html);
+const styles=s=>[...s.matchAll(/<link\b[^>]*href=["']([^"']+\.css(?:\?[^"']*)?)["']/g)].map(m=>m[1]);
+const inlineStyles=s=>[...s.matchAll(/<style\b[^>]*>[\s\S]*?<\/style>/g)].map(m=>m[0]);
+assert.deepEqual(styles(adapted),styles(html),'mesmas folhas de estilo e ordem da VS41');
+assert.deepEqual(inlineStyles(adapted),inlineStyles(html),'mesmos estilos embutidos da VS41');
+for(const id of ['assuntos','cartoes','pdfs','imagens']){const part=s=>s.match(new RegExp('<section id="'+id+'"(?:[^>]*?)>[\\s\\S]*?<\\/section>'))?.[0];assert.ok(part(html));assert.equal(part(adapted),part(html),'estrutura original: '+id);}
+
 const passwords={A:'fixture-A-only-123',B:'fixture-B-only-123'};
 const users=parseUsers(JSON.stringify(await Promise.all(['A','B'].map(async label=>({username:label,...profiles[label],passwordHash:await passwordHash(passwords[label])})))));
 let handler;

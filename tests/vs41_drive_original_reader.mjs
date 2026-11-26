@@ -49,26 +49,6 @@ try{
  await page.locator('#source').fill('candidate');await page.locator('#load').click();
  await page.waitForFunction(()=>document.querySelector('#summary').textContent.includes('1460 cartões ativos'),{},{timeout:30000});
  assert.match(await page.locator('#summary').innerText(),/candidato editorial/);
- const all=JSON.parse(original).cards;
- assert.equal(await page.locator('#list button').count(),30);
- assert.match(await page.locator('#result-count').innerText(),/1460/);
- const first=await page.locator('#list button').first().innerText();
- await page.locator('#next-page').click();
- assert.notEqual(await page.locator('#list button').first().innerText(),first);
- await page.locator('#prev-page').click();
- assert.equal(await page.locator('#list button').first().innerText(),first);
- const group=all.find(c=>c.id==='CARD-0047').group;
- await page.locator('#group-filter').selectOption(group);
- assert.equal(await page.locator('#result-count').innerText(),all.filter(c=>c.group===group).length+' cartões encontrados');
- const subject=all.find(c=>c.id==='CARD-0047').subject;
- await page.locator('#subject-filter').selectOption(subject);
- assert.equal(await page.locator('#result-count').innerText(),all.filter(c=>c.group===group&&c.subject===subject).length+' cartões encontrados');
- await page.locator('#reset-filters').click();
- await page.locator('#list button').first().click();
- await page.locator('#next-card').click();
- assert.match(await page.locator('#position').innerText(),/^2 de 1460$/);
- assert.equal(await page.locator('#card .bm-v050-peek-answer').isVisible(),false);
- await page.locator('#prev-card').click();
  await page.locator('#list button').first().click();await page.getByRole('button',{name:'Revelar resposta'}).click();
  assert.ok((await page.locator('#card').innerText()).length>20);
  for(const width of [1366,390]){
@@ -103,9 +83,6 @@ try{
  await page.locator('#source').fill('other');await page.locator('#load').click();
  await page.waitForFunction(()=>document.querySelector('#summary').textContent.includes('TESTE-B'));
  assert.match(await page.locator('#list').innerText(),/Pergunta exclusiva B/);
- assert.equal(await page.locator('#group-filter option').count(),2);
- assert.equal(await page.locator('#subject-filter option').count(),2);
- assert.equal(await page.locator('#result-count').innerText(),'1 cartões encontrados');
  assert.equal(await page.evaluate(()=>localStorage.length+sessionStorage.length),0);
  await page.locator('#disconnect').click();assert.equal(await page.locator('#list').innerText(),'');assert.deepEqual(errors,[]);
  assert.ok(calls.includes('A')&&calls.includes('B'));

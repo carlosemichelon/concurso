@@ -8,6 +8,10 @@ A fonte normativa é a Metodologia e o Guia oficiais do Drive (VM19 conferida em
 
 Identificar o banco autorizado uma vez na abertura, consultar índice e cartões necessários, elaborar ou evoluir com os 11 critérios e até três perguntas iniciais, conferir uma vez e salvar no delta privado existente. Um delta ativo por sessão; checkpoint leve até cinco questões ou troca de chat. Consolidar índice e snapshot privado juntos a cada 50 IDs distintos ou por encerramento/publicação expressa. Sem alteração privada, sem novo snapshot. Não criar filas, prévias obrigatórias, reservas paralelas, relatórios, cadeia de gerações ou reconstruções integrais por questão. Preservar originais, IDs, mídias, vínculos, histórico, lacunas e SRS. O catálogo público e seu índice de IDs não substituem as fontes privadas. Propostas sem destino ou autorização confirmados permanecem recuperáveis; não inventar IDs.
 
+## Paridade visual obrigatória (26/11/2026)
+
+A V2 deve preservar a exibição do portal VS41 oficial: HTML de referência, folhas de estilo, componentes, leitor, navegação, dimensões, cores, atalhos e comportamento responsivo. Adaptar a origem dos dados e a autenticação, não redesenhar a interface. O host experimental já deriva sua página do index.html oficial; os testes existentes verificam os estilos e a estrutura das áreas principais. A prévia OAuth no navegador continua apenas diagnóstico de leitura; não é a interface definitiva. Não promover uma prévia simplificada nem afirmar paridade visual real sem homologação no navegador.
+
 ## Arquitetura e alcance
 
 - Host autenticado: reaproveita a interface original, altera apenas os adaptadores necessários; acesso por sessão, cookies HttpOnly/Secure/SameSite, CSP e lista de recursos permitidos. Não serve genericamente o repositório nem usa fallback administrativo.
