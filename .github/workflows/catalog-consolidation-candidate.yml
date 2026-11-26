@@ -2,7 +2,7 @@ name: Materializar consolidação candidata
 on:
   push:
     branches: ['consolidacao-*-candidata']
-    paths: ['assets/catalog_consolidation_request.json', 'tools/catalog_consolidation_batch.cjs', '.github/workflows/catalog-consolidation-candidate.yml']
+    paths: ['assets/catalog_consolidation_requests/*.json', 'assets/catalog_consolidation_request.json', 'tools/catalog_consolidation_batch.cjs', '.github/workflows/catalog-consolidation-candidate.yml']
 permissions:
   contents: write
 concurrency:
@@ -22,7 +22,9 @@ jobs:
       - name: Registrar base e materializar
         run: |
           echo "CATALOG_BASE=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
-          node tools/catalog_consolidation_batch.cjs assets/catalog_consolidation_request.json
+          REQ="assets/catalog_consolidation_requests/$GITHUB_REF_NAME.json"
+          if [ ! -f "$REQ" ]; then REQ=assets/catalog_consolidation_request.json; fi
+          node tools/catalog_consolidation_batch.cjs "$REQ"
           node tools/catalog_snapshot.cjs --check
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
