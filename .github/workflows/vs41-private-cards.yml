@@ -1,50 +1,25 @@
-name: VS41 - leitura privada multiusuario
+name: VS41 - seleção de conta no site original
 on:
   push:
     branches: ['feature/multiusuario-vs41-original']
 permissions:
   contents: read
 jobs:
-  isolated:
-    permissions:
-      contents: write
+  direct:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/vs41_browser_drive.test.mjs tests/vs41_private_catalog.test.mjs tests/vs41_private_api.test.mjs tests/vs41_private_oauth.test.mjs tests/vs41_private_drive_smoke.test.mjs tests/vs41_private_srs.test.mjs tests/vs41_private_media.test.mjs tests/vs41_private_annotations.test.mjs tests/vs41_private_gaps.test.mjs tests/vs41_private_study.test.mjs tests/vs41_private_formulas.test.mjs tests/vs41_private_migration.test.mjs tests/vs41_private_accounts.test.mjs tests/vs41_private_chat_proposals.test.mjs tests/vs41_private_id_reservations.test.mjs
-      - run: node tools/catalog_snapshot.cjs --check
-      - run: node infra/vs41-private/migration.mjs
-      - run: mkdir -p /tmp/bm-editorial-seed && node tools/vs41_editorial_seed.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
+      - run: node --check infra/vs41-private/browser-account.mjs && node --check infra/vs41-private/browser-account-connection.js
+      - run: node tools/vs41_build_original_account.mjs /tmp/bm-original-account
+      - run: node --test tests/vs41_browser_drive.test.mjs
+      - run: |
+          find /tmp/bm-original-account -name '*.js' -exec node --check {} \;
+          test -f /tmp/bm-original-account/index.html
       - uses: actions/upload-artifact@v4
         with:
-          name: vc52-editorial-candidate
-          path: /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
+          name: vs41-original-account
+          path: /tmp/bm-original-account
           retention-days: 3
-      - run: npm install --no-save playwright pdfjs-dist@3.11.174
-      - run: npx playwright install --with-deps chromium
-      - run: node tests/vs41_private_browser.mjs
-
-      - run: node tests/vs41_oauth_browser.mjs
-
-      - run: node tests/vs41_preview_accounts.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
-
-      - run: node tests/vs41_real_catalog_layout.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
-
-      - run: node tools/vs41_build_browser_portal.mjs
-
-      - run: node tests/vs41_drive_original_reader.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
-
-      - run: node tests/vs41_browser_to_original.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
-
-      - name: Preparar apenas arquivos da prévia após aprovação
-        if: contains(github.event.head_commit.message, '[prepare-fix]')
-        run: |
-          git add -f preview-vs41-reader/portal/
-          git diff --cached --name-only | grep -v '^preview-vs41-reader/portal/' && exit 1 || true
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Preparar correção do Controle e cabeçalho da prévia'
-          git push origin HEAD:refs/heads/feature/multiusuario-vs41-original
