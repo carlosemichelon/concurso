@@ -1,6 +1,6 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
-import {readBrowserSnapshot,scope as readScope} from './browser-drive.mjs';
+import {readBrowserSnapshot,scope as readScope} from './browser-drive.mjs?v=restore-srs-1';
 import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
 export const scope=readScope+' https://www.googleapis.com/auth/drive.file';
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files';
@@ -229,6 +229,73 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const operationalGuide=()=>operationalDoc('00_GUIA_OPERACIONAL_DE_ESTUDO','Guia Operacional vigente');
  const formulas=async()=>{const f=await unique("mimeType = '"+doc+"' and name = 'Estruturas – Fórmulas, Vigas e Análise Estrutural'","Guia de fórmulas",true);if(!f)return null;
   const r=await get(API+'/'+f.id+'/export',{mimeType:'text/plain'}),text=await r.text(),again=await meta(f.id);if(f.version!==again.version||!text.trim()||text.length>400000)throw Error('Guia alterado ou inválido');return {text,version:f.version,modifiedTime:f.modifiedTime}};
+ // Read existing dated study events without regrading or manufacturing a formal review.
+ const validDay=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&!isNaN(new Date(v+'T12:00:00Z'))&&new Date(v+'T12:00:00Z').toISOString().slice(0,10)===v;
+ const day=v=>{if(typeof v!=='string')return '';const x=v.trim().slice(0,10);if(validDay(x))return x;const m=v.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(!m)return '';const d=m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');return validDay(d)?d:''};
+ const normalizedRating=v=>{const k=String(v||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();return ({errei:'Errei',dificil:'Difícil',bom:'Bom',facil:'Fácil','conhecimento preservado':'Conhecimento preservado','conhecimento adquirido':'Conhecimento adquirido'})[k]||''};
+ async function belongsToRoot(f){
+  let p=f;const seen=new Set([p.id]);
+  for(let i=0;i<40;i++){
+   if(p.id===root.id)return true;
+   if(p.parents?.length!==1||seen.has(p.parents[0]))return false;
+   const id=p.parents[0];seen.add(id);if(id===root.id)return true;
+   try{p=await meta(id)}catch{return false}
+  }
+  return false;
+ }
+ function agendaBlocks(text){
+  const out=[],start=/\{\s*"format"\s*:\s*"BancoMestrePrivateStudyAgenda1"/g;let m;
+  while((m=start.exec(text))){
+   let depth=0,quoted=false,escape=false,end=-1;
+   for(let i=m.index;i<text.length;i++){
+    const ch=text[i];
+    if(quoted){if(escape)escape=false;else if(ch==='\\')escape=true;else if(ch==='"')quoted=false;continue}
+    if(ch==='"'){quoted=true;continue}if(ch==='{')depth++;else if(ch==='}'&&--depth===0){end=i+1;break}
+   }
+   if(end<0)throw Error('Bloco de agenda incompleto');
+   const data=JSON.parse(text.slice(m.index,end));
+   if(!Array.isArray(data.records))throw Error('Registros de agenda inválidos');
+   out.push(...data.records);start.lastIndex=end;
+  }
+  return out;
+ }
+ async function schedule(){
+  const ids=new Set(records.filter(c=>c.active).map(c=>c.id)),byId=new Map(),seen=new Map();
+  const source=snapshot.scope==='snapshot-only'&&Array.isArray(snapshot.srs),warnings=[];
+  if(!source)warnings.push('Snapshot SRS canônico não confirmado');
+  for(const r of source?snapshot.srs:[]){
+   if(!ids.has(r?.id))continue;
+   const due=day(r.next_review||r.proxima_revisao||r.due);if(!due)continue;
+   const rating=normalizedRating(r.rating)||normalizedRating(r.last_date)||normalizedRating(r.grade)||normalizedRating(r.avaliacao);
+   const lastReview=day(r.last_review_at)||day(r.review_date)||day(r.grade)||day(r.last_date);
+   if(byId.has(r.id))throw Error('ID SRS duplicado no snapshot');
+   byId.set(r.id,{id:r.id,due,rating,lastReview,kind:rating?'revisao':'agendamento',source:'Snapshot privado — vencimento registrado'});
+  }
+  const files=await list("mimeType = '"+doc+"' and name contains 'Delta de estudo e cartões aprovados'");
+  let documents=0;
+  for(const file of files){
+   if(!await belongsToRoot(file))continue;
+   const f=await meta(file.id),res=await get(API+'/'+f.id+'/export',{mimeType:'text/plain'}),text=await res.text(),again=await meta(f.id);
+   if(f.version!==again.version||f.name!==again.name||!await belongsToRoot(again))throw Error('Delta alterado durante leitura');
+   documents++;
+   for(const e of agendaBlocks(text)){
+    if(!ids.has(e?.id))continue;
+    if(typeof e.event_id!=='string'||!e.event_id||e.method!=='v015'||!['questao_distinta','avaliacao_explicita'].includes(e.kind)||!validDay(e.date_local)||!validDay(e.due)||![8,16,24,32,64].includes(e.interval_days))throw Error('Agendamento de estudo inválido para '+e.id);
+    const expected=new Date(e.date_local+'T12:00:00Z');expected.setUTCDate(expected.getUTCDate()+e.interval_days);
+    if(expected.toISOString().slice(0,10)!==e.due||e.rating!=null&&!normalizedRating(e.rating)||e.kind==='avaliacao_explicita'&&!normalizedRating(e.rating))throw Error('Data ou avaliação divergente em '+e.id);
+    if(seen.has(e.event_id)&&!eq(seen.get(e.event_id),e))throw Error('Evento de estudo divergente');
+    seen.set(e.event_id,e);
+   }
+  }
+  const ordered=[...seen.values()].sort((a,b)=>a.date_local.localeCompare(b.date_local)||Number(a.kind==='avaliacao_explicita')-Number(b.kind==='avaliacao_explicita')||a.event_id.localeCompare(b.event_id));
+  for(const e of ordered){
+   const p=byId.get(e.id);
+   if(p?.lastReview&&p.lastReview>e.date_local)continue;
+   if(p?.lastReview===e.date_local&&p.kind==='revisao'&&e.kind!=='avaliacao_explicita')continue;
+   byId.set(e.id,{id:e.id,due:e.due,rating:normalizedRating(e.rating),lastReview:e.date_local,kind:e.kind,intervalDays:e.interval_days,eventId:e.event_id,source:'Delta privado — data registrada'});
+  }
+  return {records:[...byId.values()],complete:source,warnings,documents,events:seen.size,version:snapshot.version,updated:snapshot.updated||''};
+ }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
  let mediaIndex=null;
  const media=async()=>{if(mediaIndex)return mediaIndex;const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
@@ -417,6 +484,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await capture('cards',async()=>snapshot.records);
   await capture('study',async()=>{const p=await studyMaster();return p?{revision:p.revision,data:p.data}:null});
   await capture('reviews',reviews);
+  await capture('review_schedule',schedule);
   await capture('writing',writing,true);
   await capture('gaps',async()=>{const p=await gapMaster();return p?{revision:p.revision,data:validateGaps(p.data)}:null});
   await capture('formulas',formulas,true);
@@ -430,5 +498,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const incomplete=Object.entries(sources).filter(([k,s])=>s.status==='falha'||(['methodology','operational_guide'].includes(k)&&s.status!=='confirmado')).map(([k,s])=>({section:k,...s}));
   return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. Use o objetivo informado e a base individual, preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName},sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
  };
- return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }
