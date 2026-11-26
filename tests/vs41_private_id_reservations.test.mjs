@@ -3,6 +3,7 @@ import {createHash} from 'node:crypto';
 import {planReservation} from '../infra/vs41-private/id-reservations.mjs';
 import {preparePromotion} from '../infra/vs41-private/promotion-plan.mjs';
 import {createPromotionStaging} from '../infra/vs41-private/promotion-staging.mjs';
+import {createActivation} from '../infra/vs41-private/activation.mjs';
 import {reviewFixture} from './vs41_private_fixture.mjs';
 import {destinationOf,catalogDigest} from '../infra/vs41-private/chat-proposals.mjs';
 import {card,profiles} from './vs41_private_fixture.mjs';
@@ -73,4 +74,28 @@ test('grava pacote candidato em arquivo único, confirma bytes e repete ticket s
  await assert.rejects(create().stage({session:'B'},arg),e=>e.code==='ticket');
  files.get(ticket.fileId).meta.shared=true;await assert.rejects(create().stage(req,arg),e=>e.code==='ownership');
  assert.equal(writes,1);
+});
+
+test('dois candidatos concorrentes disputam o mesmo slot; somente um registro é criado',async()=>{
+ const f=setup(),mock=reviewFixture(),files=mock.files;files.get('cardsA').payload.records=f.records;
+ const alt=structuredClone(f.input);alt.proposals[0].title='Segundo candidato';
+ const a=preparePromotion(f),b=preparePromotion({...f,input:alt});
+ const put=(id,kind,payload)=>files.set(id,{meta:{id,mimeType:'application/json',ownedByMe:true,shared:false,trashed:false,parents:['rootA'],appProperties:{bmProject:'bm-portal-multi-v1',bmOwner:'A',bmKind:kind,bmDigest:digest(payload)},size:String(Buffer.byteLength(JSON.stringify(payload))),version:'1'},payload});
+ put('candidateA','promotion-candidate',a.bundle);put('candidateB','promotion-candidate',b.bundle);
+ let writes=0,serial=0,allow=true;
+ const fetcher=async(url,opts={})=>{
+  const u=new URL(url);if(u.pathname.endsWith('/generateIds'))return Response.json({ids:['next-'+(++serial)]});
+  if(u.pathname.startsWith('/upload/')){
+   const parts=opts.body.split('\r\n'),m=JSON.parse(parts[3]),p=JSON.parse(parts[7]);assert.equal(m.id,'generation-slot');if(files.has(m.id))return new Response(null,{status:409});
+   writes++;put(m.id,'activation-record',p);return Response.json({id:m.id});
+  }return mock.fetcher(url,opts);
+ };
+ const generation={destination:destinationOf(profiles.A),generation:1,slotId:'generation-slot',catalog_sha256:catalogDigest(f.records),registry_sha256:f.expectedRegistrySha256};
+ const make=()=>createActivation({...mock,fetcher,resolveSession:async req=>profiles[req.session],loadGeneration:async()=>generation,authorize:async(s,x)=>allow&&s.subject==='A'&&x.approvalId==='approved-'+x.fileId});
+ const req={session:'A'},args=[{fileId:'candidateA',candidateSha256:a.receipt.candidate_sha256,approvalId:'approved-candidateA'},{fileId:'candidateB',candidateSha256:b.receipt.candidate_sha256,approvalId:'approved-candidateB'}];
+ await assert.rejects(make().activate(req,{...args[0],approvalId:'no-approval'}),e=>e.code==='approval');
+ const settled=await Promise.allSettled(args.map(x=>make().activate(req,x)));assert.equal(settled.filter(x=>x.status==='fulfilled').length,1);assert.equal(settled.filter(x=>x.status==='rejected')[0].reason.code,'conflict');assert.equal(writes,1);
+ const winner=settled.findIndex(x=>x.status==='fulfilled');assert.equal((await make().activate(req,args[winner])).activeReaderUpdated,false);assert.equal(writes,1);
+ assert.equal(files.get('profileA').payload.collections.cards,'cardsA');assert.equal(catalogDigest(files.get('cardsA').payload.records),generation.catalog_sha256);
+ await assert.rejects(make().activate({session:'B'},args[winner]),e=>e.code==='generation');allow=false;await assert.rejects(make().activate(req,args[winner]),e=>e.code==='approval');
 });
