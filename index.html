@@ -463,7 +463,13 @@ header .stats .bm241-verification{font-size:10px}
 #pdfDialog #pdfLocalMode.bm420-pan,#pdfDialog #pdfLocalMode.bm420-pan *{cursor:grab!important}
 #pdfDialog #pdfLocalMode.bm420-dragging,#pdfDialog #pdfLocalMode.bm420-dragging *{cursor:grabbing!important;user-select:none!important}
 @media(max-width:760px){#pdfDialog #pdfMainV043 .bm100-zoom{gap:3px!important}#pdfRows .v036-pdf-title{font-size:13px!important}}
-</style><style id="bmAccountHeaderCss">/* Cabeçalho da conta individual — texto real do botão, não pseudo-elementos legados. */
+</style><style id="bmAccountHeaderCss">/* Cabeçalho original com espaço suficiente para os controles da conta. */
+@media(min-width:741px){
+ html body>header .head{grid-template-columns:minmax(180px,1fr) minmax(190px,2fr)!important;grid-template-rows:minmax(33px,auto) minmax(34px,auto)!important;height:auto!important;max-height:none!important;row-gap:4px!important}
+ html body>header .head>nav[aria-label="Seções"]{height:auto!important;max-height:none!important;min-height:34px!important;flex-wrap:nowrap!important;white-space:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important}
+}
+@media(max-width:620px){html body>header .head{grid-template-rows:auto 38px auto!important;height:auto!important;max-height:none!important}}
+
 html body>header .head>.bm-v046-header-stats {
  display:flex!important; flex-wrap:wrap!important; justify-content:flex-end!important;
  align-items:center!important; gap:5px!important; height:auto!important; min-height:29px!important; max-height:none!important;
@@ -1281,7 +1287,7 @@ async function imgOpen(x){
  }catch(e){alert('Falha ao abrir imagem: '+e.message)}
 }
 window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados nos módulos finais.
-</script><script defer src="assets/bm-account/v432_js_002_015_topic_media.js?v=432-2"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
+</script><script defer src="assets/bm-account/v432_js_002_015_topic_media.js?v=restore-1"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
 
 
 <!-- Leitor antigo duplicado do Vade removido em V129 -->
