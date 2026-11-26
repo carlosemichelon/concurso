@@ -1,3 +1,7 @@
+## V435 / VS44 — Índice de materiais e resultados temáticos (26/11/2026)
+
+Consulta de metadados com uma listagem paginada do índice nativo do Drive, sem abertura individual de pastas. Reconstrução de ancestralidade por ID e exclusões em memória da conta autenticada; imagens/PDFs compartilham a consulta e atualização explícita. Acesso aos bytes continua conferido individualmente. Layout de resultados: contagem compacta, títulos legíveis, linhas de PDFs, imagens e estados vazios separados. V434 permanece disponível para rollback. VC52, VR3, originais, grifos e registros privados inalterados. Candidato sujeito à validação automatizada; OAuth real não homologado.
+
 ## V434 / VS43 — Interface compacta e cache verificado (26/11/2026)
 
 Verificação de regressão do catálogo: testes históricos V262/V300/V303 passam a exigir conservação de todos os IDs registrados na VS40, redirecionamento válido de ativos aposentados e igualdade entre índice individual, manifesto e cadastro de IDs; contagem histórica mínima preservada no conjunto ocupado. Não altera VC52 nem substitui a homologação editorial ou conciliação SRS/Ijuí.

@@ -24,6 +24,10 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
  const copy='optimized'+account;files.set(copy,{...files.get(img),id:copy,name:'Copia.png',parents:[otherFolder]});content.set(copy,png);
  const derived='derived'+account;files.set(derived,{...files.get(img),id:derived,name:'Miniatura.png',appProperties:{origin:'MINIATURA'}});content.set(derived,png);
  const svg='svg'+account;add(svg,'Original.svg','image/svg+xml',[atlasFolder],undefined,{size:'100',properties:{origin:'ORIGINAL_USUARIO'}});
+ // Out-of-bank, shared and excluded folders must not enter the derived index.
+ const excluded='excluded'+account,outside='outside'+account,shared='shared'+account;
+ add(excluded,'09 - Backups',fm,[root]);add(outside,'Outra pasta',fm,[]);add(shared,'Compartilhada',fm,[root],undefined,{shared:true});
+ for(const [id,parent] of [['backupPdf',excluded],['outsidePdf',outside],['sharedPdf',shared]])add(id+account,id+'.pdf','application/pdf',[parent],undefined,{size:'10'});
  const docType='application/vnd.google-apps.document';
  add('method'+account,'00_METODOLOGIA_MESTRE_VIGENTE_VM20 — teste',docType,[root]);content.set('method'+account,'Metodologia integral '+account);
  add('guide'+account,'00_GUIA_OPERACIONAL_DE_ESTUDO — VM20',docType,[root]);content.set('guide'+account,'Guia integral '+account);
@@ -65,6 +69,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    else if(q.includes('bm_grifos_sync_v104_master'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GRIF_KIND);
    else if(q.includes('bm_lacunas_v242'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GAP_KIND);
    else if(q.includes('BM_SRS_EVENT_V001_'))result=[...files.values()].filter(x=>x.name.startsWith('BM_SRS_EVENT_V001_'));
+   else if(q.includes("mimeType contains 'image/'")&&!q.includes(' in parents'))result=[...files.values()].filter(f=>f.mimeType===fm||f.mimeType==='application/pdf'||f.mimeType.startsWith('image/'));
    else if(q.includes("'"+root+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(root));
    else if(q.includes("'"+atlasFolder+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(atlasFolder));
    else if(q.includes("'"+otherFolder+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(otherFolder));
