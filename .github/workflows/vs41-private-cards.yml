@@ -36,3 +36,27 @@ jobs:
       - run: node tests/vs41_drive_original_reader.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
 
       - run: node tests/vs41_browser_to_original.mjs /tmp/bm-editorial-seed/VC52_EDITORIAL_CANDIDATA.json
+
+  stage-preview:
+    if: contains(github.event.head_commit.message, '[stage-preview]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Gerar somente a prévia integral já testada
+        run: |
+          git diff --exit-code 3a06df0fc6b5ad76e595ccd3e9a07128b68226f0 HEAD -- . ':!.github/workflows/vs41-private-cards.yml'
+          node tools/vs41_build_browser_portal.mjs
+          git add -f preview-vs41-reader/portal/
+          git diff --cached --name-only | grep -v '^preview-vs41-reader/portal/' && exit 1 || true
+          test -f preview-vs41-reader/portal/index.html
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Preparar arquivos da prévia integral VS41 já testada'
+          git push origin HEAD:refs/heads/feature/multiusuario-vs41-original
