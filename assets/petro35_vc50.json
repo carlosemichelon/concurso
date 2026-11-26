@@ -1,0 +1,1551 @@
+{
+  "format": "BancoMestreEvolution1",
+  "private_content_exported": false,
+  "revisions": [
+    {
+      "id": "CARD-1130",
+      "title": "Vorticidade e vórtices superficiais",
+      "front": "Como distinguir rotação local de trajetória circular e explicar a formação de vórtices em tomadas superficiais e na esteira de obstáculos? Relacione a formação de esteira com Reynolds.",
+      "back": "Escoamento rotacional tem vorticidade local não nula; irrotacional tem vorticidade nula. A vorticidade é o rotacional do campo de velocidades, ω=∇×v, e a velocidade angular local do elemento fluido é ω/2. A rotação de corpo rígido apresenta vorticidade não nula; um vórtice potencial pode ter linhas de corrente circulares e vorticidade nula fora do núcleo.\n\nEm tomadas de fundo de tanque raso, a circulação pode produzir depressão na superfície e arrastar ar atmosférico. Azevedo Netto (Manual de Hidráulica, 8ª ed., 5.1.7) apresenta o critério aproximado de profundidade inferior a três diâmetros do orifício: h<3D.\n\nEm obstáculos pouco aerodinâmicos, a camada limite pode separar-se sob gradiente adverso de pressão e gerar uma esteira de recirculação. Para fluido e geometria fixos, maior velocidade eleva Re e pode favorecer desprendimento alternado. Vórtices não exigem águas profundas nem turbulência; em Reynolds suficientemente baixo a esteira separada pode não existir.",
+      "source": "CON-01-016; Oregon State University, Intermediate Fluid Mechanics, Potential Flows: https://open.oregonstate.education/intermediate-fluid-mechanics/chapter/potential-flows/\n\nAzevedo Netto et al., Manual de Hidráulica, 8ª ed., seção 5.1.7, p.70; CESGRANRIO, Transpetro 2023, Q53.\nNumerical simulation of laminar flow past a circular cylinder (2009), https://doi.org/10.1016/j.apm.2008.01.017 ; Quantitative numerical analysis of flow past a circular cylinder at Reynolds number between 50 and 200 (2013), https://www.sciencedirect.com/science/article/pii/S0889974613000388; revisão https://doi.org/10.1016/j.oceaneng.2022.111611. Questão questão de aplicação, gabarito informado D.",
+      "mnemonic": "Rotação local = rotacional de v; olhar derivadas, não o desenho da trajetória.\n\nPia rasa, redemoinho; três diâmetros: h<3D.\nMacete: obstáculo rombudo + inércia favorece esteira; viscosidade amortece; profundidade não é requisito. Baixo Re, não simplesmente baixa velocidade.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como distinguir rotação local de trajetória circular e explicar a formação de vórtices em tomadas superficiais e na esteira de obstáculos? Relacione a formação de esteira com Reynolds.",
+          "text": "Como distinguir rotação local de trajetória circular e explicar a formação de vórtices em tomadas superficiais e na esteira de obstáculos? Relacione a formação de esteira com Reynolds."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Escoamento rotacional tem vorticidade local não nula; irrotacional tem vorticidade nula. A vorticidade é o rotacional do campo de velocidades, ω=∇×v, e a velocidade angular local do elemento fluido é ω/2. A rotação de corpo rígido apresenta vorticidade não nula; um vórtice potencial pode ter linhas de corrente circulares e vorticidade nula fora do núcleo.\n\nEm tomadas de fundo de tanque raso, a circulação pode produzir depressão na superfície e arrastar ar atmosférico. Azevedo Netto (Manual de Hidráulica, 8ª ed., 5.1.7) apresenta o critério aproximado de profundidade inferior a três diâmetros do orifício: h<3D.\n\nEm obstáculos pouco aerodinâmicos, a camada limite pode separar-se sob gradiente adverso de pressão e gerar uma esteira de recirculação. Para fluido e geometria fixos, maior velocidade eleva Re e pode favorecer desprendimento alternado. Vórtices não exigem águas profundas nem turbulência; em Reynolds suficientemente baixo a esteira separada pode não existir.",
+          "text": "Escoamento rotacional tem vorticidade local não nula; irrotacional tem vorticidade nula. A vorticidade é o rotacional do campo de velocidades, ω=∇×v, e a velocidade angular local do elemento fluido é ω/2. A rotação de corpo rígido apresenta vorticidade não nula; um vórtice potencial pode ter linhas de corrente circulares e vorticidade nula fora do núcleo.\n\nEm tomadas de fundo de tanque raso, a circulação pode produzir depressão na superfície e arrastar ar atmosférico. Azevedo Netto (Manual de Hidráulica, 8ª ed., 5.1.7) apresenta o critério aproximado de profundidade inferior a três diâmetros do orifício: h<3D.\n\nEm obstáculos pouco aerodinâmicos, a camada limite pode separar-se sob gradiente adverso de pressão e gerar uma esteira de recirculação. Para fluido e geometria fixos, maior velocidade eleva Re e pode favorecer desprendimento alternado. Vórtices não exigem águas profundas nem turbulência; em Reynolds suficientemente baixo a esteira separada pode não existir."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-01-016; Oregon State University, Intermediate Fluid Mechanics, Potential Flows: https://open.oregonstate.education/intermediate-fluid-mechanics/chapter/potential-flows/\n\nAzevedo Netto et al., Manual de Hidráulica, 8ª ed., seção 5.1.7, p.70; CESGRANRIO, Transpetro 2023, Q53.",
+          "text": "undefined\n\nNumerical simulation of laminar flow past a circular cylinder (2009), https://doi.org/10.1016/j.apm.2008.01.017 ; Quantitative numerical analysis of flow past a circular cylinder at Reynolds number between 50 and 200 (2013), https://www.sciencedirect.com/science/article/pii/S0889974613000388; revisão https://doi.org/10.1016/j.oceaneng.2022.111611. Questão PETRO35-Q01, gabarito informado D."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Um pequeno elemento de fluido pode transladar, deformar e girar. A curvatura de sua trajetória não mede diretamente a rotação local: é necessário comparar as derivadas espaciais das componentes do campo de velocidades.\n\nA circulação e a convergência do escoamento podem produzir depressão superficial; com pequena submergência, o núcleo de ar pode alcançar a tomada e reduzir a seção útil da água.",
+          "text": "undefined\n\nO escoamento desacelera ao recuperar pressão após contornar o obstáculo; o fluido de baixo momento junto à parede pode inverter seu movimento e a camada limite desprende-se. As camadas cisalhantes alimentam a recirculação e, quando instáveis, enrolam-se em vórtices alternados. A viscosidade tende a amortecer perturbações."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Em 2D, ωz=∂v/∂x−∂u/∂y. Corpo rígido: u=−Ωy, v=Ωx, então ωz=2Ω. Para campo azimutal axisimétrico, ωz=(1/r)d(rvθ)/dr; se vθ=C/r, rvθ=C e ωz=0 para r>0. Vorticidade em s⁻¹.\n\nRazão de submergência h/D. Referência aproximada h<3D; para D=10 cm, h<30 cm. Em vórtice potencial ideal, vθ=C/r e dp/dr=ρvθ²/r, fora do núcleo.",
+          "text": "undefined\n\nRe=UL/ν=ρUL/μ, adimensional; U em m/s, L em m, ν em m²/s; para cilindro isolado L=D externo."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Rotacional: ω≠0, exemplo corpo rígido. Irrotacional: ω=0, exemplo vórtice potencial fora da singularidade. Uniforme: campo constante, ω=0. Regime permanente é uma classificação temporal, independente da rotação local.\n\nVórtice superficial pode arrastar ar; cavitação forma vapor por baixa pressão absoluta; ventosas movimentam ar nos condutos. Vórtice potencial pode ter vorticidade local nula fora do núcleo.",
+          "text": "undefined\n\nCilindro circular idealizado: Re abaixo de aproximadamente 5, escoamento sem esteira recirculante; de aproximadamente 5 até 47, par de vórtices estacionários; a partir de aproximadamente 47, início da emissão alternada de von Kármán, ainda laminar. A geometria e as condições de contorno mudam as transições. Vórtice superficial de tomada não é o mesmo mecanismo de esteira atrás de obstáculo."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Se u=3y e v=0, ωz=−3 s⁻¹. O fluxo possui rotação local apesar de linhas de corrente retilíneas. Se u=2x e v=−2y, ωz=0, embora exista deformação.\n\nOrifício D=20 cm: referência h<60 cm. Na questão Transpetro 2023, a alternativa D é o gabarito divulgado, mas a redação 'três vezes inferior' não reproduz a desigualdade do manual.\n\nO medidor Vortex detecta a frequência de desprendimento de vórtices gerados por obstáculo rombudo; dentro da faixa de calibração, f=St·v/L.",
+          "text": "undefined\n\nPilares de pontes: esteiras e vórtices podem contribuir para erosão local e forças hidrodinâmicas flutuantes; chaminés e cabos também podem sofrer vibração induzida por vórtices no ar. Para mesmo fluido e obstáculo, dobrar U dobra Re. Em água rasa, a tomada pode arrastar ar, refutando III."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1129\n\nConhecimentos relacionados: CARD-1129, CARD-0121, CARD-1384",
+          "text": "undefined\n\nAcrescentar vínculo recíproco CARD-1127. Recuperação cruzada: PETRO34-Q06 (vórtices em tanque raso; referência h<3D) e Petrobras 34, questão de Reynolds/proporcionalidades. Preservar os demais vínculos."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Usar um campo diferenciável no ponto analisado. No núcleo singular do vórtice ideal, a expressão C/r não é válida. Vorticidade nula não exclui deformação nem garante ausência de circulação em domínio multiplamente conexo.\n\nO limite depende da vazão, circulação, geometria e condições de aproximação; 3D é critério aproximado, não regra universal. Dispositivos antivórtice e maior submergência podem reduzir arraste de ar.",
+          "text": "undefined\n\nOs limiares de 5 e 47 são aproximados para cilindro circular estacionário isolado e não se aplicam a qualquer obstáculo. Velocidade absoluta baixa não implica Re baixo. Nem todo aumento de velocidade aumenta monotonicamente a intensidade dos vórtices em todos os regimes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir rotação do elemento com movimento em círculo ao redor de um eixo. Não inferir irrotacionalidade de escoamento permanente ou laminar.\n\nNão confundir h<3D com h≈D/3. Não inferir vorticidade pela curvatura das trajetórias nem confundir ar com vapor de cavitação.",
+          "text": "undefined\n\nPETRO35-Q01: I e II aceitas pela banca em interpretação qualitativa; III falsa. II não é lei universal: escoamento laminar pode ter vórtices estacionários ou periódicos. Não usar limites 2300 e 4000 de condutos como critério para escoamento externo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Rotação local = rotacional de v; olhar derivadas, não o desenho da trajetória.\n\nPia rasa, redemoinho; três diâmetros: h<3D.",
+          "text": "undefined\n\nMacete: obstáculo rombudo + inércia favorece esteira; viscosidade amortece; profundidade não é requisito. Baixo Re, não simplesmente baixa velocidade. Acerto D informado; sem classificação SRS explícita."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Escoamento rotacional tem vorticidade local não nula; irrotacional tem vorticidade nula. A vorticidade é o rotacional do campo de velocidades, ω=∇×v, e a velocidade angular local do elemento fluido é ω/2. A rotação de corpo rígido apresenta vorticidade não nula; um vórtice potencial pode ter linhas de corrente circulares e vorticidade nula fora do núcleo.",
+          "Em tomadas de fundo de tanque raso, a circulação pode produzir depressão na superfície e arrastar ar atmosférico. Azevedo Netto (Manual de Hidráulica, 8ª ed., 5.1.7) apresenta o critério aproximado de profundidade inferior a três diâmetros do orifício: h<3D.",
+          "Em obstáculos pouco aerodinâmicos, a camada limite pode separar-se sob gradiente adverso de pressão e gerar uma esteira de recirculação. Para fluido e geometria fixos, maior velocidade eleva Re e pode favorecer desprendimento alternado. Vórtices não exigem águas profundas nem turbulência; em Reynolds suficientemente baixo a esteira separada pode não existir."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "vorticidade local não nula",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "vorticidade nula",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "ω/2",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "fora do núcleo",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "h<3D",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "a camada limite pode separar-se",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Campo",
+            "Vorticidade"
+          ],
+          "rows": [
+            [
+              "Corpo rígido vθ=Ωr",
+              "2Ω"
+            ],
+            [
+              "Vórtice potencial vθ=C/r",
+              "0, fora do núcleo"
+            ],
+            [
+              "Cisalhamento u=3y",
+              "−3 s⁻¹"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Vorticidade",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>ω</mi><mo>=</mo><mo>∇</mo><mo>×</mo><mi>v</mi></math>",
+            "units": "s⁻¹"
+          },
+          {
+            "title": "Componente plana",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>ω</mi><mi>z</mi></msub><mo>=</mo><mfrac><mrow><mo>∂</mo><mi>v</mi></mrow><mrow><mo>∂</mo><mi>x</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mo>∂</mo><mi>u</mi></mrow><mrow><mo>∂</mo><mi>y</mi></mrow></mfrac></math>",
+            "units": "s⁻¹"
+          },
+          {
+            "title": "Critério aproximado de submergência",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>h</mi><mo>&lt;</mo><mn>3</mn><mi>D</mi></mrow></math>",
+            "units": "mesma unidade de comprimento"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO34-Q06-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro34/q06.svg",
+            "caption": "Submergência e vórtice superficial"
+          },
+          {
+            "id": "PETRO35-Q01-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q01.svg",
+            "caption": "Regimes de esteira em cilindro circular — fonte SVG abaixo"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1129",
+        "CARD-0121",
+        "CARD-1384",
+        "CARD-1127",
+        "CARD-1307"
+      ],
+      "expected_hash": "9ec30062a3d866b52967a3d62736245bc7e477d4285c4f4060eed32d77fe63fa"
+    },
+    {
+      "id": "CARD-1127",
+      "title": "Número de Reynolds: viscosidade, regimes e proporcionalidades",
+      "front": "Como calcular e interpretar o número de Reynolds, distinguir viscosidade dinâmica e cinemática e relacionar o regime ao fator de atrito? Quais as proporcionalidades mantendo as demais variáveis constantes? Por que os limites de Reynolds mudam no escoamento externo?",
+      "back": "Re=ρvD/μ=vD/ν, com ν=μ/ρ. O número adimensional compara efeitos de inércia e viscosidade. Com as demais variáveis fixas, aumenta com velocidade, diâmetro e massa específica e diminui com viscosidade dinâmica; na forma cinemática, diminui com ν. \n\nEm tubo circular, valores baixos favorecem regime laminar; Re<2300 é referência usual, 2300–4000 transição e Re>4000 turbulento. Os limites dependem da geometria e condições. \n\nNo regime laminar plenamente desenvolvido em tubo circular, f_Darcy=64/Re; no turbulento depende de Re e rugosidade relativa.\n\nRe deve ser interpretado conforme a geometria e o comprimento característico. Em escoamento externo, um cilindro pode desenvolver vórtices estacionários e desprendimento alternado em regime laminar, em Re muito menores que 2300.",
+      "source": "CON-01-013\n\nEquações clássicas de Reynolds, continuidade e Darcy-Weisbach; regime plenamente desenvolvido em conduto circular.\nquestão de aplicação; https://doi.org/10.1016/j.apm.2008.01.017 e https://doi.org/10.1016/j.oceaneng.2022.111611.",
+      "mnemonic": "Re = velocidade × diâmetro / viscosidade cinemática. Viscosidade derruba Reynolds. V fixa: D em cima. Q fixa: D embaixo. Antes de afirmar proporcionalidade, identificar o que permanece constante.\nRe compara inércia e viscosidade; o comprimento e o limiar dependem do problema. Viscosidade derruba Re.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular e interpretar o número de Reynolds, distinguir viscosidade dinâmica e cinemática e relacionar o regime ao fator de atrito? Quais as proporcionalidades mantendo as demais variáveis constantes? Por que os limites de Reynolds mudam no escoamento externo?",
+          "text": "Como calcular e interpretar o número de Reynolds, distinguir viscosidade dinâmica e cinemática e relacionar o regime ao fator de atrito? Quais as proporcionalidades mantendo as demais variáveis constantes? Por que os limites de Reynolds mudam no escoamento externo?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Re=ρvD/μ=vD/ν, com ν=μ/ρ. O número adimensional compara efeitos de inércia e viscosidade. Com as demais variáveis fixas, aumenta com velocidade, diâmetro e massa específica e diminui com viscosidade dinâmica; na forma cinemática, diminui com ν. \n\nEm tubo circular, valores baixos favorecem regime laminar; Re<2300 é referência usual, 2300–4000 transição e Re>4000 turbulento. Os limites dependem da geometria e condições. \n\nNo regime laminar plenamente desenvolvido em tubo circular, f_Darcy=64/Re; no turbulento depende de Re e rugosidade relativa.\n\nRe deve ser interpretado conforme a geometria e o comprimento característico. Em escoamento externo, um cilindro pode desenvolver vórtices estacionários e desprendimento alternado em regime laminar, em Re muito menores que 2300.",
+          "text": "Re=ρvD/μ=vD/ν, com ν=μ/ρ. O número adimensional compara efeitos de inércia e viscosidade. Com as demais variáveis fixas, aumenta com velocidade, diâmetro e massa específica e diminui com viscosidade dinâmica; na forma cinemática, diminui com ν. \n\nEm tubo circular, valores baixos favorecem regime laminar; Re<2300 é referência usual, 2300–4000 transição e Re>4000 turbulento. Os limites dependem da geometria e condições. \n\nNo regime laminar plenamente desenvolvido em tubo circular, f_Darcy=64/Re; no turbulento depende de Re e rugosidade relativa.\n\nRe deve ser interpretado conforme a geometria e o comprimento característico. Em escoamento externo, um cilindro pode desenvolver vórtices estacionários e desprendimento alternado em regime laminar, em Re muito menores que 2300."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-01-013\n\nEquações clássicas de Reynolds, continuidade e Darcy-Weisbach; regime plenamente desenvolvido em conduto circular.",
+          "text": "undefined\n\nPETRO35-Q01; https://doi.org/10.1016/j.apm.2008.01.017 e https://doi.org/10.1016/j.oceaneng.2022.111611."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Re expressa a competição de efeitos inerciais, associados a ρv²/L, e viscosos, associados a μv/L². Sua razão de escalas é ρvL/μ. A viscosidade amortece perturbações; a inércia favorece sua persistência. Em tubo circular, o comprimento característico é D interno.\n\nNão há contradição: em Re=vD/ν, se v e ν são constantes, dobrar D dobra Re. Se Q e ν são constantes, dobrar D quadruplica A e reduz v a 1/4, de modo que Re₂/Re₁=(1/4)×2=1/2. A dependência da velocidade em relação ao diâmetro altera a proporcionalidade resultante.",
+          "text": "undefined\n\nInércia favorece persistência de perturbações, e viscosidade amortece. A separação da camada limite depende do perfil e gradiente de pressão."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Re=ρvD/μ=vD/ν; ν=μ/ρ; ρ kg/m³, μ Pa·s, ν m²/s, v m/s, D m; Re adimensional. Para tubo cheio e Q fixo, Re=4Q/(πνD). Darcy f=64/Re em regime laminar plenamente desenvolvido circular. Para outras seções, D_h=4Am/Pm quando apropriado.\n\nQ=Av; A=πD²/4; v=4Q/(πD²). Substituindo em Re=vD/ν: Re=4Q/(πνD). Memorizar as duas equações originais e deduzir a combinada pela velocidade.",
+          "text": "undefined\n\nPara cilindro externo, Re=UD/ν, D é diâmetro do obstáculo e U é velocidade de aproximação, não diâmetro interno da tubulação."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Laminar: Re baixo; transição: faixa intermediária; turbulento: Re alto. Referências usuais em tubo circular 2300 e 4000; seguir convenção explicitada pela fonte da questão. Reynolds não é Froude (inércia/gravidade). Alternativas A/B erram viscosidade direta, C/D erram diâmetro e velocidade inversos com demais variáveis constantes, E correta.\n\nReynolds caracteriza efeitos viscosos e regime laminar/turbulento; Froude caracteriza a influência da gravidade e o regime fluvial/torrencial. Ambos adimensionais; as classificações são independentes. Froude governa o ressalto hidráulico.",
+          "text": "undefined\n\nEm tubo, os limiares usuais são 2300 e 4000; para cilindro externo isolado, recirculação estacionária pode surgir em Re próximo de 5 e emissão alternada em Re próximo de 47. Não há limiar universal."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Preservar original: v=0,1 m/s, D=0,01 m, ν=10⁻⁶ m²/s → Re=1000. Se viscosidade dobra a v,D fixos, Re cai à metade. Se v dobra, Re dobra. A Q fixo, duplicar D reduz v a 1/4 e Re à metade. Exemplo: v=0,5 m/s, D=0,02 m, ν=10⁻⁶ m²/s → Re=10000.\n\nExemplo comparativo: D₂=2D₁, mesmo fluido. Com v constante, Q₂=4Q₁ e Re₂=2Re₁. Com Q constante, v₂=v₁/4 e Re₂=Re₁/2. Em ambas as hipóteses, ν é constante.",
+          "text": "undefined\n\nCompare água e ar ao redor do mesmo obstáculo usando suas viscosidades cinemáticas e velocidades de aproximação. Maior ν reduz Re a U e L constantes."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0121 (perda de carga e atrito), CARD-1320 (continuidade e diâmetro), CARD-1129 (Froude), CARD-1318 (raio hidráulico).",
+          "text": "undefined\n\nAdicionar CARD-1130 reciprocamente; preservar CARD-0121, CARD-1320, CARD-1129 e CARD-1318. Retomar questão de Reynolds da Petrobras 34 e PETRO35-Q01."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Proporcionalidades exigem demais variáveis constantes; se Q fixo, v muda com D. Limiares de regime não são universais. Para gases/vapores usar propriedades nas condições relevantes; compressibilidade pode exigir critérios adicionais. Em canal aberto, observar comprimento característico da definição, Rh ou 4Rh.",
+          "text": "undefined\n\nValores aproximados referem-se ao caso idealizado de cilindro circular isolado; não equivalem ao início de turbulência."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir μ e ν. Não afirmar que Re sempre cresce com D se Q fixo. Não confundir f de Darcy com Fanning, nem usar f constante em qualquer redimensionamento; Re não mede sozinho turbulência local.\n\nSer adimensional não distingue Reynolds dos demais parâmetros.",
+          "text": "undefined\n\nNão equiparar laminar a ausência de vórtices; não concluir regime usando velocidade isolada; não transportar limiares de tubo ao escoamento externo."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Re = velocidade × diâmetro / viscosidade cinemática. Viscosidade derruba Reynolds. V fixa: D em cima. Q fixa: D embaixo. Antes de afirmar proporcionalidade, identificar o que permanece constante.",
+          "text": "undefined\n\nRe compara inércia e viscosidade; o comprimento e o limiar dependem do problema. Viscosidade derruba Re."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Re=ρvD/μ=vD/ν, com ν=μ/ρ. O número adimensional compara efeitos de inércia e viscosidade. Com as demais variáveis fixas, aumenta com velocidade, diâmetro e massa específica e diminui com viscosidade dinâmica; na forma cinemática, diminui com ν. ",
+          "Em tubo circular, valores baixos favorecem regime laminar; Re<2300 é referência usual, 2300–4000 transição e Re>4000 turbulento. Os limites dependem da geometria e condições. ",
+          "No regime laminar plenamente desenvolvido em tubo circular, f_Darcy=64/Re; no turbulento depende de Re e rugosidade relativa.",
+          "Re deve ser interpretado conforme a geometria e o comprimento característico. Em escoamento externo, um cilindro pode desenvolver vórtices estacionários e desprendimento alternado em regime laminar, em Re muito menores que 2300."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Re=ρvD/μ=vD/ν",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "conforme a geometria e o comprimento característico",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO34-Q10-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro34/q10.svg",
+            "caption": "Efeitos de inércia e viscosidade"
+          }
+        ],
+        "formulas": [
+          {
+            "title": "Número de Reynolds",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Re</mi><mo>=</mo><mfrac><mrow><mi>ρ</mi><mi>v</mi><mi>D</mi></mrow><mi>μ</mi></mfrac><mo>=</mo><mfrac><mrow><mi>v</mi><mi>D</mi></mrow><mi>ν</mi></mfrac></mrow></math>",
+            "units": "adimensional"
+          },
+          {
+            "title": "Reynolds com vazão constante",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Re</mi><mo>=</mo><mfrac><mrow><mn>4</mn><mi>Q</mi></mrow><mrow><mi>π</mi><mi>ν</mi><mi>D</mi></mrow></mfrac></mrow></math>",
+            "units": "adimensional"
+          },
+          {
+            "title": "Fator de atrito de Darcy laminar",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>f</mi><mo>=</mo><mfrac><mn>64</mn><mi>Re</mi></mfrac></mrow></math>",
+            "units": "adimensional"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "table": {
+          "headers": [
+            "Condição (mesmo fluido)",
+            "D dobra",
+            "v varia",
+            "Re varia"
+          ],
+          "rows": [
+            [
+              "Velocidade constante",
+              "2D",
+              "v",
+              "2Re"
+            ],
+            [
+              "Vazão constante",
+              "2D",
+              "v/4",
+              "Re/2"
+            ]
+          ]
+        }
+      },
+      "related_card_ids": [
+        "CARD-0121",
+        "CARD-1320",
+        "CARD-1129",
+        "CARD-1318",
+        "CARD-1130",
+        "CARD-1307"
+      ],
+      "expected_hash": "6c11eb5bc8d9efc2d974ae186e45d84b10a6d1dd85b41ec72fad67407b7a9f2b"
+    },
+    {
+      "id": "CARD-1307",
+      "title": "Medidores de vazão: classificação, princípios e aplicação",
+      "front": "Como classificar os medidores de vazão pelo princípio físico? Qual instrumento escolher conforme o fluido, a instalação e a grandeza a medir? Compare também Pitot, Venturi e Parshall.",
+      "back": "Os medidores de deslocamento positivo acumulam volumes conhecidos em câmaras e podem obter vazão pelo volume por unidade de tempo. Os instantâneos inferem a vazão por um sinal contínuo relacionado ao escoamento.\n\nNa classificação histórica da NBR 10396:1988, o medidor de velocidade usa a rotação do elemento primário, como a turbina ou hélice. O rotâmetro usa a posição do flutuador; o medidor de força, o arrasto; o Coriolis, o efeito inercial em tubos vibrantes para determinar vazão mássica.\n\nPitot estima velocidade local a partir da diferença entre pressão de estagnação e estática; Venturi usa a diferença de pressão para obter vazão em conduto cheio; Parshall relaciona nível de líquido e vazão em canal aberto.\n\nOs demais instantâneos são vórtice (frequência), térmico (calor), ultrassônico (tempo de trânsito ou Doppler) e eletromagnético (tensão induzida em fluido condutor).\n\nAplicação e seleção — quadro de recuperação ativa:\nÁgua ou lodo com sólidos — Eletromagnético — Condutividade elétrica suficiente; sem rotor no caminho do fluido.\nVazão mássica direta — Coriolis — A resposta dos tubos vibrantes é associada à vazão mássica.\nTubulação existente sem corte — Ultrassônico clamp-on — Sensores externos; verificar propagação acústica, material e condição da tubulação.\nVapor industrial — Vortex ou pressão diferencial — Adequar faixa de Reynolds, pressão e temperatura; compensar densidade quando necessário para massa.\nCanal aberto de ETA/ETE — Parshall ou vertedor — Geometria calibrada e leitura da carga; verificar submergência.\nVelocidade em um ponto — Pitot — Diferença entre pressão de estagnação e estática; para Q, integrar perfil ou obter velocidade média.\nIndicação visual simples — Rotâmetro — A posição do flutuador indica a vazão; montagem convencional vertical.\nLíquido limpo, baixa viscosidade — Turbina — Rotação do rotor calibrada; evitar sólidos e verificar faixa de viscosidade.\nAr comprimido ou gases — Térmico, entre outros — Transferência de calor; verificar composição e calibração do gás.\nContagem de volumes conhecidos — Deslocamento positivo — Câmaras de volume conhecido; pode ser útil em líquidos viscosos, conforme modelo.\nA escolha não é exclusiva: definir fluido, condutividade, viscosidade, fase, sólidos, faixa, precisão, pressão/temperatura, perda de carga e possibilidade de intervenção.",
+      "source": "NBR 10396:1988, itens 2.2 e 2.3, classificação histórica: https://www.passeidireto.com/arquivo/105459649/norma-abnt-nbr-10396-medidores-de-vazao-de-fluidos ; Beyer, D. S. (2014), Quadro 1, pp. 13–14: https://www.fahor.com.br/publicacoes/TFC/EngMec/2014/Diogo_dos_Santos_Beyer.pdf ; ASHRAE Handbook, Measurement and Instruments: https://handbook.ashrae.org/handbooks/F25/SI/F25_Ch38/F25_Ch38_si.aspx ; Manual de Sistemas de Bombeamento — Eficiência Energética, cap. 3: https://antigo.mdr.gov.br/images/stories/ArquivosSNSA/proeesa/pdf/manual_sistemas_bombeamento_procel.pdf . Vigência atual da NBR não confirmada em catálogo oficial.\nSeleção por aplicação: Yokogawa, Flow Meter Selection Guide, https://web-material3.yokogawa.com/2/29537/files/PS-P-20200505-03-Flowmeter_Selection_Guide_Poster_30x40.pdf ; ABB, Selecting your flowmeter, https://library.e.abb.com/public/4204733df4ad4c758a84a9a0c00d1d1d/WP_BIG6_FLOWMETER_TECHNOLOGIES_EN_B.pdf ; USBR, Water Measurement Manual, cap. 8, seção 10, https://www.usbr.gov/tsc/techreferences/mands/wmm/chap08_10.html .",
+      "mnemonic": "Turbina gira; rotâmetro sobe; alvo sente; Coriolis vibra; Venturi compara pressões; Parshall lê nível; Vortex conta redemoinhos; térmico mede calor; ultrassom usa som; magnético usa indução. Pitot mede velocidade local, Venturi vazão no tubo e Parshall vazão no canal.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como classificar os medidores de vazão pelo princípio físico? Qual instrumento escolher conforme o fluido, a instalação e a grandeza a medir? Compare também Pitot, Venturi e Parshall."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Os medidores de deslocamento positivo acumulam volumes conhecidos em câmaras e podem obter vazão pelo volume por unidade de tempo. Os instantâneos inferem a vazão por um sinal contínuo relacionado ao escoamento.\n\nNa classificação histórica da NBR 10396:1988, o medidor de velocidade usa a rotação do elemento primário, como a turbina ou hélice. O rotâmetro usa a posição do flutuador; o medidor de força, o arrasto; o Coriolis, o efeito inercial em tubos vibrantes para determinar vazão mássica.\n\nPitot estima velocidade local a partir da diferença entre pressão de estagnação e estática; Venturi usa a diferença de pressão para obter vazão em conduto cheio; Parshall relaciona nível de líquido e vazão em canal aberto.\n\nOs demais instantâneos são vórtice (frequência), térmico (calor), ultrassônico (tempo de trânsito ou Doppler) e eletromagnético (tensão induzida em fluido condutor).\n\nAplicação e seleção — quadro de recuperação ativa:\nÁgua ou lodo com sólidos — Eletromagnético — Condutividade elétrica suficiente; sem rotor no caminho do fluido.\nVazão mássica direta — Coriolis — A resposta dos tubos vibrantes é associada à vazão mássica.\nTubulação existente sem corte — Ultrassônico clamp-on — Sensores externos; verificar propagação acústica, material e condição da tubulação.\nVapor industrial — Vortex ou pressão diferencial — Adequar faixa de Reynolds, pressão e temperatura; compensar densidade quando necessário para massa.\nCanal aberto de ETA/ETE — Parshall ou vertedor — Geometria calibrada e leitura da carga; verificar submergência.\nVelocidade em um ponto — Pitot — Diferença entre pressão de estagnação e estática; para Q, integrar perfil ou obter velocidade média.\nIndicação visual simples — Rotâmetro — A posição do flutuador indica a vazão; montagem convencional vertical.\nLíquido limpo, baixa viscosidade — Turbina — Rotação do rotor calibrada; evitar sólidos e verificar faixa de viscosidade.\nAr comprimido ou gases — Térmico, entre outros — Transferência de calor; verificar composição e calibração do gás.\nContagem de volumes conhecidos — Deslocamento positivo — Câmaras de volume conhecido; pode ser útil em líquidos viscosos, conforme modelo.\nA escolha não é exclusiva: definir fluido, condutividade, viscosidade, fase, sólidos, faixa, precisão, pressão/temperatura, perda de carga e possibilidade de intervenção."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "NBR 10396:1988, itens 2.2 e 2.3, classificação histórica: https://www.passeidireto.com/arquivo/105459649/norma-abnt-nbr-10396-medidores-de-vazao-de-fluidos ; Beyer, D. S. (2014), Quadro 1, pp. 13–14: https://www.fahor.com.br/publicacoes/TFC/EngMec/2014/Diogo_dos_Santos_Beyer.pdf ; ASHRAE Handbook, Measurement and Instruments: https://handbook.ashrae.org/handbooks/F25/SI/F25_Ch38/F25_Ch38_si.aspx ; Manual de Sistemas de Bombeamento — Eficiência Energética, cap. 3: https://antigo.mdr.gov.br/images/stories/ArquivosSNSA/proeesa/pdf/manual_sistemas_bombeamento_procel.pdf . Vigência atual da NBR não confirmada em catálogo oficial.\nSeleção por aplicação: Yokogawa, Flow Meter Selection Guide, https://web-material3.yokogawa.com/2/29537/files/PS-P-20200505-03-Flowmeter_Selection_Guide_Poster_30x40.pdf ; ABB, Selecting your flowmeter, https://library.e.abb.com/public/4204733df4ad4c758a84a9a0c00d1d1d/WP_BIG6_FLOWMETER_TECHNOLOGIES_EN_B.pdf ; USBR, Water Measurement Manual, cap. 8, seção 10, https://www.usbr.gov/tsc/techreferences/mands/wmm/chap08_10.html ."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O elemento primário interage com o fluido e gera um sinal físico; o instrumento transforma o sinal em indicação calibrada. No rotor da turbina, a corrente transfere momento às pás. No rotâmetro convencional, a força de arrasto e o empuxo equilibram o peso do flutuador, que sobe para ampliar a área anular. No Venturi a redução de seção eleva velocidade e reduz pressão estática. No Vortex, um corpo rombudo gera vórtices alternados detectados por sensor. Nos deslocamentos positivos, câmaras transportam quantidades conhecidas de fluido."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Q=Av_médio [m³/s]; ṁ=ρQ [kg/s]. Para turbina calibrada K pulsos/m³, Q=f/K, V=N/K. Deslocamento positivo ideal: V=N V_c. Pitot ideal: v=√(2Δp/ρ). Venturi horizontal incompressível: Q=C_d A₂√(2Δp/[ρ(1−β⁴)]), β=d/D. Medidor alvo: F_D≈ρC_D A_t v²/2. Vortex: St=fL/v, Q≈AfL/St para geometria calibrada. Medidor eletromagnético: E≈BLv. Parshall: Q=Kh^n segundo geometria e condição de submergência. Resistência linear laminar é exceção à relação de raiz quadrada; Δp∝Q a viscosidade e geometria constantes."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Velocidade — Rotação de rotor — Turbina/hélice\nÁrea variável — Posição de equilíbrio do flutuador — Rotâmetro\nPressão diferencial — Diferença de pressão — Venturi, Pitot, placa de orifício, bocal, tubo multifuros, resistência linear\nCanal aberto — Nível de líquido em geometria calibrada — Parshall, vertedor\nForça — Arrasto/força no alvo — Placa-alvo\nVórtice — Frequência de desprendimento — Vortex\nTérmico — Transferência de calor — Dispersão térmica\nUltrassônico — Tempo de trânsito ou Doppler — Ultrassom\nEletromagnético — Tensão induzida em fluido condutor — Faraday\nCoriolis — Defasagem/deformação em tubo vibrante — Vazão mássica direta\n\nVolumétricos por deslocamento positivo:\nDiafragma — Câmara com parede flexível\nPalheta — Rotor com palhetas móveis\nPistão rotativo — Movimento excêntrico\nPistão recíproco — Movimento alternado\nMultirrotor — Rotores sincronizados; engrenagens ovais/Roots\nDisco de nutação — Disco oscilante\nRotor semissubmerso — Câmaras de gás com selo líquido"
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Para água condutiva com sólidos, considerar eletromagnético compatível; para vapor, Vortex ou diferencial de pressão com compensações; para massa de produto, Coriolis; para canal de ETA, Parshall/vertedor; para medição temporária em tubulação existente, ultrassônico clamp-on quando condições permitirem. Pitot exige perfil de velocidades e área para determinar vazão total. Exemplo de turbina: K=1000 pulsos/L, f=500 pulsos/s implica Q=0,5 L/s.\n\nAplicação e seleção — quadro de recuperação ativa:\nÁgua ou lodo com sólidos — Eletromagnético — Condutividade elétrica suficiente; sem rotor no caminho do fluido.\nVazão mássica direta — Coriolis — A resposta dos tubos vibrantes é associada à vazão mássica.\nTubulação existente sem corte — Ultrassônico clamp-on — Sensores externos; verificar propagação acústica, material e condição da tubulação.\nVapor industrial — Vortex ou pressão diferencial — Adequar faixa de Reynolds, pressão e temperatura; compensar densidade quando necessário para massa.\nCanal aberto de ETA/ETE — Parshall ou vertedor — Geometria calibrada e leitura da carga; verificar submergência.\nVelocidade em um ponto — Pitot — Diferença entre pressão de estagnação e estática; para Q, integrar perfil ou obter velocidade média.\nIndicação visual simples — Rotâmetro — A posição do flutuador indica a vazão; montagem convencional vertical.\nLíquido limpo, baixa viscosidade — Turbina — Rotação do rotor calibrada; evitar sólidos e verificar faixa de viscosidade.\nAr comprimido ou gases — Térmico, entre outros — Transferência de calor; verificar composição e calibração do gás.\nContagem de volumes conhecidos — Deslocamento positivo — Câmaras de volume conhecido; pode ser útil em líquidos viscosos, conforme modelo.\nA escolha não é exclusiva: definir fluido, condutividade, viscosidade, fase, sólidos, faixa, precisão, pressão/temperatura, perda de carga e possibilidade de intervenção."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Vincular reciprocamente ao CARD-1130 (esteira de von Kármán e vórtices; evolução questão de aplicação já salva no mesmo delta). Relacionar CARD-1127 (Reynolds: faixas de operação), CARD-1320 (continuidade) e CARD-8917 (bocal adiabático x bocal medidor; analogia não identidade). Questões anteriores recuperadas: questão de aplicação sobre obstáculos e Petrobras 34 sobre Reynolds/bocal. Preservar conteúdo original H02-A05 e qualquer vínculo anterior.\n\nRelações verificadas no catálogo VC49:\nCARD-1130 — Vórtices e esteira: medidor Vortex; f=St·v/L.\nCARD-1127 — Reynolds, viscosidade e faixa de calibração de Vortex, turbina e instrumentos por diferencial de pressão.\nCARD-1320 — Continuidade: Q=A·v média; velocidade local não equivale necessariamente à média.\nCARD-0121 — Perdas distribuídas/localizadas e medição por orifício; não confundir diferencial medido com perda irreversível.\nCARD-1318 — Canal aberto: área molhada, vazão e distinção entre Manning e calha calibrada.\nCARD-1129 — Froude: controle crítico e influência da condição de jusante sobre Parshall/vertedores.\nCARD-8917 — Termodinâmica: vapor, vazão mássica e diferença entre bocal adiabático e bocal de medição.\nCARD-1102 — Instalação predial: hidrômetro no ramal e contabilização de consumo."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Relações são idealizações, sujeitas a calibração e propriedades do fluido. Turbina é sensível a viscosidade, perfil, detritos e desgaste; rotâmetro tradicional normalmente vertical e depende de densidade/viscosidade; eletromagnético exige líquido suficientemente condutor; ultrassônico depende da propagação acústica e da técnica; Vortex exige faixa adequada de Re; Parshall afogada exige tratamento específico; Coriolis não mede necessariamente apenas massa, pode inferir densidade e volume.\n\nPara seleção, não tratar indicações usuais como exclusivas. Eletromagnético exige condutividade suficiente; clamp-on exige acoplamento acústico e configuração adequados; em vapor, compensar densidade para obter vazão mássica quando medida volumetricamente."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Questão de aplicação: C correta pela classificação da NBR 10396:1988; A vibração/efeito inercial, B força sobre alvo, D posição do flutuador, E diferença de pressão. Rotâmetro não é turbina. Rotor também pode existir em deslocamento positivo: neste caso conta volumes aprisionados, não velocidade do escoamento livre. Classificações modernas podem agrupar eletromagnético, ultrassônico e vórtice como velocidade; Pitot mede velocidade local apesar de pertencer aos instrumentos por diferencial de pressão na classificação histórica.\n\nDiferencial de pressão observado no Venturi não é igual à perda de carga permanente. Hidrômetro designa aplicação, não um único princípio físico. Não confundir Manning (estimativa de vazão por resistência) com Parshall (medição calibrada por nível)."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Turbina gira; rotâmetro sobe; alvo sente; Coriolis vibra; Venturi compara pressões; Parshall lê nível; Vortex conta redemoinhos; térmico mede calor; ultrassom usa som; magnético usa indução. Pitot mede velocidade local, Venturi vazão no tubo e Parshall vazão no canal. \n\nEscolha por condição: massa→Coriolis; sólido condutivo→magnético; sem corte→ultrassom; vapor→Vortex/Δp; canal→Parshall; ponto→Pitot; visual→rotâmetro; limpo→turbina."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Os medidores de deslocamento positivo acumulam volumes conhecidos em câmaras e podem obter vazão pelo volume por unidade de tempo. Os instantâneos inferem a vazão por um sinal contínuo relacionado ao escoamento.",
+          "Na classificação histórica da NBR 10396:1988, o medidor de velocidade usa a rotação do elemento primário, como a turbina ou hélice. O rotâmetro usa a posição do flutuador; o medidor de força, o arrasto; o Coriolis, o efeito inercial em tubos vibrantes para determinar vazão mássica.",
+          "Pitot estima velocidade local a partir da diferença entre pressão de estagnação e estática; Venturi usa a diferença de pressão para obter vazão em conduto cheio; Parshall relaciona nível de líquido e vazão em canal aberto.",
+          "Os demais instantâneos são vórtice (frequência), térmico (calor), ultrassônico (tempo de trânsito ou Doppler) e eletromagnético (tensão induzida em fluido condutor).",
+          "Aplicação e seleção — quadro de recuperação ativa:\nÁgua ou lodo com sólidos — Eletromagnético — Condutividade elétrica suficiente; sem rotor no caminho do fluido.\nVazão mássica direta — Coriolis — A resposta dos tubos vibrantes é associada à vazão mássica.\nTubulação existente sem corte — Ultrassônico clamp-on — Sensores externos; verificar propagação acústica, material e condição da tubulação.\nVapor industrial — Vortex ou pressão diferencial — Adequar faixa de Reynolds, pressão e temperatura; compensar densidade quando necessário para massa.\nCanal aberto de ETA/ETE — Parshall ou vertedor — Geometria calibrada e leitura da carga; verificar submergência.\nVelocidade em um ponto — Pitot — Diferença entre pressão de estagnação e estática; para Q, integrar perfil ou obter velocidade média.\nIndicação visual simples — Rotâmetro — A posição do flutuador indica a vazão; montagem convencional vertical.\nLíquido limpo, baixa viscosidade — Turbina — Rotação do rotor calibrada; evitar sólidos e verificar faixa de viscosidade.\nAr comprimido ou gases — Térmico, entre outros — Transferência de calor; verificar composição e calibração do gás.\nContagem de volumes conhecidos — Deslocamento positivo — Câmaras de volume conhecido; pode ser útil em líquidos viscosos, conforme modelo.\nA escolha não é exclusiva: definir fluido, condutividade, viscosidade, fase, sólidos, faixa, precisão, pressão/temperatura, perda de carga e possibilidade de intervenção."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "rotação do elemento primário",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "velocidade local",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "posição do flutuador",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "Condutividade elétrica suficiente",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "Ultrassônico clamp-on",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Situação",
+            "Medidor usual",
+            "Condição decisiva"
+          ],
+          "rows": [
+            [
+              "Água ou lodo com sólidos",
+              "Eletromagnético",
+              "Condutividade elétrica suficiente; sem rotor no caminho do fluido."
+            ],
+            [
+              "Vazão mássica direta",
+              "Coriolis",
+              "A resposta dos tubos vibrantes é associada à vazão mássica."
+            ],
+            [
+              "Tubulação existente sem corte",
+              "Ultrassônico clamp-on",
+              "Sensores externos; verificar propagação acústica, material e condição da tubulação."
+            ],
+            [
+              "Vapor industrial",
+              "Vortex ou pressão diferencial",
+              "Adequar faixa de Reynolds, pressão e temperatura; compensar densidade quando necessário para massa."
+            ],
+            [
+              "Canal aberto de ETA/ETE",
+              "Parshall ou vertedor",
+              "Geometria calibrada e leitura da carga; verificar submergência."
+            ],
+            [
+              "Velocidade em um ponto",
+              "Pitot",
+              "Diferença entre pressão de estagnação e estática; para Q, integrar perfil ou obter velocidade média."
+            ],
+            [
+              "Indicação visual simples",
+              "Rotâmetro",
+              "A posição do flutuador indica a vazão; montagem convencional vertical."
+            ],
+            [
+              "Líquido limpo, baixa viscosidade",
+              "Turbina",
+              "Rotação do rotor calibrada; evitar sólidos e verificar faixa de viscosidade."
+            ],
+            [
+              "Ar comprimido ou gases",
+              "Térmico, entre outros",
+              "Transferência de calor; verificar composição e calibração do gás."
+            ],
+            [
+              "Contagem de volumes conhecidos",
+              "Deslocamento positivo",
+              "Câmaras de volume conhecido; pode ser útil em líquidos viscosos, conforme modelo."
+            ]
+          ]
+        },
+        "media": [
+          {
+            "id": "PETRO35-Q02-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q02.svg",
+            "caption": "Classificação dos medidores de vazão"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1130",
+        "CARD-1127",
+        "CARD-1320",
+        "CARD-0121",
+        "CARD-1318",
+        "CARD-1129",
+        "CARD-8917",
+        "CARD-1102"
+      ],
+      "expected_hash": "35a2436ca0ca38881ff7a20397e5af49289c0ceba6b1290d43edcd122187ff42"
+    },
+    {
+      "id": "CARD-1318",
+      "title": "Raio hidráulico, seção molhada e Manning",
+      "front": "Calcule área molhada, perímetro molhado e raio hidráulico em canais retangular, semicircular e trapezoidal; aplique Manning e compare vazão de projeto e capacidade. Como distinguir altura total e lâmina líquida, e qual é a condição de máxima eficiência hidráulica da seção retangular?",
+      "back": "Raio hidráulico Rh=Am/Pm, sendo Am a área molhada e Pm o contorno sólido molhado, excluindo a superfície livre. Retângulo: Am=bh e Pm=b+2h. Semicírculo até a borda: Am=πr²/2, Pm=πr, Rh=r/2=D/4. Trapézio simétrico, z horizontal/vertical: Am=h(b+zh), Pm=b+2h√(1+z²). Manning estima velocidade e capacidade em escoamento uniforme.\n\nPara distinguir altura total H da profundidade efetiva y, usar Am=by e Pm=b+2y em canal retangular aberto. Seção plena significa y=H; meio cheia significa y=H/2. Se o enunciado estabelece h=b/2 em seção plena, então b=2h e Rh=2h²/(4h)=h/2=b/4.\n\nA seção retangular de máxima eficiência hidráulica, para área molhada fixa, tem b=2y e Rh=y/2. A seção aberta tem três lados molhados; mesmo na condição plena não se inclui a superfície livre.",
+      "source": "DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf",
+      "mnemonic": "Manning: área vezes raio elevado a dois terços; Froude usa largura superficial.; original e versões preservados no motor.\n\nAM/PM: AM = área molhada; PM = perímetro molhado. R_h=AM/PM. Lembrar da associação visual AM/PM. A superfície livre não integra o perímetro molhado.\n\nPrimeiro nível, depois geometria. H é altura da obra; y é altura da água. Retângulo ótimo: b=2y, Rh=y/2.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Calcule área molhada, perímetro molhado e raio hidráulico em canais retangular, semicircular e trapezoidal; aplique Manning e compare vazão de projeto e capacidade. Como distinguir altura total e lâmina líquida, e qual é a condição de máxima eficiência hidráulica da seção retangular?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Raio hidráulico Rh=Am/Pm, sendo Am a área molhada e Pm o contorno sólido molhado, excluindo a superfície livre. Retângulo: Am=bh e Pm=b+2h. Semicírculo até a borda: Am=πr²/2, Pm=πr, Rh=r/2=D/4. Trapézio simétrico, z horizontal/vertical: Am=h(b+zh), Pm=b+2h√(1+z²). Manning estima velocidade e capacidade em escoamento uniforme.\n\nPara distinguir altura total H da profundidade efetiva y, usar Am=by e Pm=b+2y em canal retangular aberto. Seção plena significa y=H; meio cheia significa y=H/2. Se o enunciado estabelece h=b/2 em seção plena, então b=2h e Rh=2h²/(4h)=h/2=b/4.\n\nA seção retangular de máxima eficiência hidráulica, para área molhada fixa, tem b=2y e Rh=y/2. A seção aberta tem três lados molhados; mesmo na condição plena não se inclui a superfície livre."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf\n\nquestão de aplicação — questão de drenagem urbana, gabarito informado A; dedução geométrica de Am/Pm e seção de máxima eficiência hidráulica."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Rh relaciona seção de escoamento e contato com paredes. Maior rugosidade diminui velocidade para geometria e declividade fixas; aumentar declividade aumenta capacidade, mas pode elevar risco de erosão.\n\nPara área fixa Am, b=Am/y e Pm=Am/y+2y. Minimizar Pm maximiza Rh. A derivada dPm/dy=−Am/y²+2 é nula quando Am=2y², isto é, b=2y; a segunda derivada é positiva. Para Manning, n e declividade constantes, essa geometria maximiza Q para a área fixa."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "v=(1/n)Rh^(2/3)S^(1/2); Q=Am·v. SI: Am m², Rh m, S m/m, v m/s, Q m³/s. Profundidade hidráulica D_h=Am/T para Froude.\n\nRetângulo aberto: Rh=by/(b+2y). Pleno y=H. Meio cheio y=H/2. Se b=2H e y=H: Rh=H/2=b/4. Se b=2H e y=H/2: Rh=H/3. Conduto retangular fechado completamente cheio: Pm=2(b+H), Rh=bH/[2(b+H)], diferente do canal aberto."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Rh=Am/Pm não é raio geométrico nem profundidade hidráulica. Círculo cheio e semicírculo até a borda têm Rh=D/4, mas áreas diferentes. Q afluente pelo racional não é a capacidade de Manning.\n\nAltura total H é dimensão estrutural; y é a profundidade da água. Rh é área dividida pelo perímetro sólido molhado; profundidade hidráulica de Froude é Am/T e, no retângulo, vale y. Não confundir Rh=y/2 da seção ótima com profundidade hidráulica y."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Retângulo b=0,4 m, h=0,2 m: Am=0,08 m², Pm=0,8 m, Rh=0,1 m. Com n=0,015 e S=0,01: v≈1,44 m/s e Q≈0,115 m³/s. Semicírculo D=0,6 m: Rh=0,15 m.\n\nQuestão Questão de aplicação: altura h é metade da base b, logo b=2h. Em vazão plena, y=h, Am=2h² e Pm=4h, portanto Rh=h/2, alternativa A. A hipótese de enchimento parcial y=h/2 daria Am=h², Pm=3h e Rh=h/3, outro problema. Teste de transferência: para b=4 m e H=2 m, seção plena fornece Rh=1 m; a meia altura, Rh=2/3 m."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1320, CARD-1129, CARD-1309, CARD-1470, CARD-1366\n\nConhecimentos relacionados: CARD-1320, CARD-1129, CARD-1309, CARD-1470, CARD-1366\n\nCARD-1307: Parshall mede Q por carga calibrada; Manning estima Q para escoamento uniforme. CARD-1129: Froude usa profundidade hidráulica Am/T. CARD-1320: continuidade Q=Av. CARD-1127: comprimento hidráulico no Reynolds; distinguir Rh de 4Rh. Recuperação de PETRO30-Q04, canaleta semicircular e Rh=D/4. Preservar demais vínculos."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Manning uniforme não resolve por si só ressalto, remanso, entrada de bueiro ou mudanças de seção; verificar bordo livre, velocidade admissível para revestimento e deságue. Para enchimento parcial circular, recalcular área e arco molhado.\n\nSeção ótima vale para área fixa, rugosidade e declividade constantes; não significa necessariamente menor custo, pois bordo livre, revestimento, escavação, restrições de implantação e estabilidade também importam. Vazão plena na questão é interpretada como ocupação da seção aberta até a borda, não como tubo fechado sob pressão."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não incluir superfície livre no perímetro; não usar S=1 para 1%; não comparar Q em L/s com m³/s sem converter.\n\n Não dividir h outra vez. Alternativas B, C, D e E não correspondem à simplificação de Am/Pm; b=2h torna B igual a h e D igual a 4h. Não incluir superfície livre no perímetro nem supor que toda seção retangular tenha Rh=y/2."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Manning: área vezes raio elevado a dois terços; Froude usa largura superficial.; original e versões preservados no motor.\n\nAM/PM: AM = área molhada; PM = perímetro molhado. R_h=AM/PM. Lembrar da associação visual AM/PM. A superfície livre não integra o perímetro molhado.\n\nH é altura da obra; y é altura da água. Primeiro nível, depois geometria. Pleno: y=H. Retângulo ótimo: base é duas águas (b=2y); raio é meia água (Rh=y/2)."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "Raio hidráulico Rh=Am/Pm, sendo Am a área molhada e Pm o contorno sólido molhado, excluindo a superfície livre. Retângulo: Am=bh e Pm=b+2h. Semicírculo até a borda: Am=πr²/2, Pm=πr, Rh=r/2=D/4. Trapézio simétrico, z horizontal/vertical: Am=h(b+zh), Pm=b+2h√(1+z²). Manning estima velocidade e capacidade em escoamento uniforme.",
+          "Para distinguir altura total H da profundidade efetiva y, usar Am=by e Pm=b+2y em canal retangular aberto. Seção plena significa y=H; meio cheia significa y=H/2. Se o enunciado estabelece h=b/2 em seção plena, então b=2h e Rh=2h²/(4h)=h/2=b/4.",
+          "A seção retangular de máxima eficiência hidráulica, para área molhada fixa, tem b=2y e Rh=y/2. A seção aberta tem três lados molhados; mesmo na condição plena não se inclui a superfície livre."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "excluindo a superfície livre",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "AM/PM",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "Seção plena significa y=H",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "b=2y e Rh=y/2",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO35-Q03-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q03.svg",
+            "caption": "Canal retangular pleno e parcialmente cheio"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Raio hidráulico — AM/PM",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>R</mi><mi>h</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>A</mi><mi>m</mi></msub></mrow><mrow><msub><mi>P</mi><mi>m</mi></msub></mrow></mfrac></mrow></math>",
+            "units": "m"
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-1320",
+        "CARD-1129",
+        "CARD-1309",
+        "CARD-1470",
+        "CARD-1366",
+        "CARD-1127",
+        "CARD-1307"
+      ],
+      "expected_hash": "293edd4428acd5a40324d155d7d91af903eb2c140243c1d7c6b15aee6d12ba58"
+    },
+    {
+      "id": "CARD-1129",
+      "title": "Froude, profundidade crítica e propagação de ondas",
+      "front": "Como calcular o número de Froude em canal livre, classificar o regime e prever a propagação de uma perturbação superficial? Diferencie profundidade hidráulica e raio hidráulico. Qual número governa o ressalto hidráulico e como distingui-lo de Reynolds, Euler, Richardson e Weber?",
+      "back": "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P.\n\nRessalto hidráulico é transição brusca de supercrítico (Fr₁>1) para subcrítico (Fr₂<1), com maior lâmina, menor velocidade e perda de energia específica. Froude é o parâmetro principal da bacia dissipadora por comparar a velocidade à celeridade gravitacional; Reynolds é adimensional, mas compara inércia e viscosidade e caracteriza outra classificação.\n\nPara selecionar números adimensionais, identificar os efeitos dominantes: Froude — gravidade; Reynolds — viscosidade; Euler — pressão; Richardson — estratificação e cisalhamento; Weber — tensão superficial. Todos são adimensionais.",
+      "source": "CON-01-015; USBR Water Measurement Manual, cap. 2, seções 11–12: https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_12.html e https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_11.html ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf\nquestão de aplicação; USBR, Engineering Monograph No. 25, pp. 6–7, https://www.usbr.gov/tsc/techreferences/hydraulics_lab/pubs/EM/EM25.pdf (Froude e ressalto, texto consultado; captura da página indisponível por tamanho do PDF); NPTEL, Dimensional Analysis, https://archive.nptel.ac.in/content/storage2/courses/101103004/module6/lec2/1.html ; Engineering reference, https://www.mechref.org/fluid/dimensional_analysis/ ; Cambridge JFM, Experimental properties of continuously forced, shear-driven, stratified turbulence, https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/experimental-properties-of-continuously-forced-sheardriven-stratified-turbulence-part-1-mean-flows-selforganisation-turbulent-fractions/C2BE71F58CB2D60B5ED348B0FAA9DB48 .",
+      "mnemonic": "Froude: 1 é a fronteira; v vence a onda no torrencial.\n\nFroude = fronteira fluvial/torrencial; Reynolds = resistência viscosa; Euler = pressão; Richardson = camadas de densidades; Weber = bolhas e gotas. Ressalto: água sobe, velocidade desce, energia se dissipa.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular o número de Froude em canal livre, classificar o regime e prever a propagação de uma perturbação superficial? Diferencie profundidade hidráulica e raio hidráulico. Qual número governa o ressalto hidráulico e como distingui-lo de Reynolds, Euler, Richardson e Weber?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P.\n\nRessalto hidráulico é transição brusca de supercrítico (Fr₁>1) para subcrítico (Fr₂<1), com maior lâmina, menor velocidade e perda de energia específica. Froude é o parâmetro principal da bacia dissipadora por comparar a velocidade à celeridade gravitacional; Reynolds é adimensional, mas compara inércia e viscosidade e caracteriza outra classificação.\n\nPara selecionar números adimensionais, identificar os efeitos dominantes: Froude — gravidade; Reynolds — viscosidade; Euler — pressão; Richardson — estratificação e cisalhamento; Weber — tensão superficial. Todos são adimensionais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-01-015; USBR Water Measurement Manual, cap. 2, seções 11–12: https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_12.html e https://www.usbr.gov/tsc/techreferences/mands/wmm/chap02_11.html ; DNIT, Manual de Drenagem de Rodovias, IPR-724, 2ª ed., 2006, capítulos 2–5: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-manuais/vigentes/724_manual_drenagem_rodovias.pdf\n\nquestão de aplicação; USBR, Engineering Monograph No. 25, pp. 6–7, https://www.usbr.gov/tsc/techreferences/hydraulics_lab/pubs/EM/EM25.pdf (Froude e ressalto, texto consultado; captura da página indisponível por tamanho do PDF); NPTEL, Dimensional Analysis, https://archive.nptel.ac.in/content/storage2/courses/101103004/module6/lec2/1.html ; Engineering reference, https://www.mechref.org/fluid/dimensional_analysis/ ; Cambridge JFM, Experimental properties of continuously forced, shear-driven, stratified turbulence, https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/experimental-properties-of-continuously-forced-sheardriven-stratified-turbulence-part-1-mean-flows-selforganisation-turbulent-fractions/C2BE71F58CB2D60B5ED348B0FAA9DB48 ."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Na aproximação de ondas longas e distribuição hidrostática, c=√(gA/T). Em relação ao canal, as velocidades características são v+c e v−c. O sinal de v−c determina se uma onda pode alcançar montante. Para uma vazão fixa, no modelo usual de energia específica com coeficiente cinético unitário, a condição crítica corresponde ao mínimo da energia específica.\n\nEm descidas d'água de forte declividade, o escoamento pode tornar-se supercrítico; a bacia dissipadora permite transição controlada quando há profundidade conjugada suficiente.\n\nRessalto aumenta a profundidade a vazão constante; velocidade média diminui por continuidade. A turbulência e a mistura dissipam energia, enquanto a quantidade de movimento fundamenta a equação das profundidades conjugadas. O Froude incidente é o parâmetro central de similitude e de classificação do ressalto; Reynolds pode influir mas não o substitui."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Fr=v/√(gD), D=A/T, v=Q/A. Para canal retangular D=y; com y=1 m, v=1 m/s, Fr≈0,319. Com v=4 m/s na mesma profundidade, Fr≈1,277. g em m/s², D em m; Fr adimensional.\n\nRessalto retangular horizontal ideal: y₂/y₁=(√(1+8Fr₁²)−1)/2; perda de energia específica ΔE=(y₂−y₁)³/(4y₁y₂). Comprimentos em m, Fr adimensional; conservação de quantidade de movimento no modelo ideal.\n\nRe=vL/ν; Fr=v/√(gD), Fr² é a razão de escalas inércia/gravidade; Eu=Δp/(ρv²), algumas fontes usam 1/2 no denominador; Ri_b=g′L/(ΔU)², g′=gΔρ/ρ_ref (escala de gravidade reduzida), Ri_g=N²/(dU/dz)² para estratificação estável com z ascendente; We=ρv²L/σ. ν em m²/s; σ em N/m; Δp Pa; ρ kg/m³; L m. As definições de Ri dependem das escalas e do perfil. Fr₁ governa a razão y₂/y₁ no ressalto retangular."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Subcrítico: Fr<1, influência de jusante pode alcançar montante. Crítico: Fr=1, v=c. Supercrítico: Fr>1, perturbações pequenas seguem para jusante. Reynolds distingue regimes laminar/turbulento; vorticidade descreve rotação local.\n\nReynolds — Re=vL/ν — Inércia/viscosidade — Laminar/turbulento, atrito, esteiras\nFroude — Fr=v/√(gL) — Raiz da razão inércia/gravidade — Ressalto, vertedouro, canais livres\nEuler — Eu=Δp/(ρv²) — Pressão/inércia — Diferença de pressão, perdas\nRichardson — Ri_b=g′L/(ΔU)² — Empuxo de estratificação/cisalhamento — Estabilidade e mistura em fluidos estratificados\nWeber — We=ρv²L/σ — Inércia/tensão superficial — Gotas, bolhas, atomização\nMach — Ma=v/a — Velocidade/velocidade do som — Compressibilidade\nStrouhal — St=fL/v — Escala de oscilação/escala de advecção — Emissão de vórtices, medidor Vortex\nPrandtl — Pr=ν/α — Difusividade de momento/térmica — Camadas limite térmica e viscosa\nNusselt — Nu=h_c L/k — Convecção/condução de referência — Transferência de calor\nBond — Bo=ΔρgL²/σ — Gravidade/tensão superficial — Capilaridade, interfaces\nGrashof — Gr=gβΔTL³/ν² — Empuxo térmico/efeitos viscosos (escala quadrática) — Convecção natural\nRe e Fr classificam aspectos independentes: um canal pode ser simultaneamente turbulento e subcrítico ou turbulento e supercrítico."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Em uma calha retangular de 2 m de largura, y=0,5 m e Q=3 m³/s: A=1 m², D=0,5 m, v=3 m/s, Fr≈1,35; regime supercrítico. Uma transição brusca para subcrítico pode produzir ressalto hidráulico, com dissipação de energia.\n\nPara y₁=0,20 m e Fr₁=3, y₂≈0,754 m e ΔE≈0,281 m. Dissipador deve ser dimensionado conforme vazão, geometria e nível de jusante, não apenas pela ocorrência de Fr>1.\n\nQuestão de aplicação: bacia de dissipação por ressalto a jusante do vertedouro → Froude, B. A Euler trata pressão, C Reynolds viscosidade, D Richardson estratificação, E Weber tensão superficial. Exemplo y=1 m, v=2 m/s, água ν≈10⁻⁶ m²/s, largura grande com Rh≈1 m: Fr≈0,64 e Re_Rh≈2×10⁶, subcrítico e turbulento. Aumentar v para 5 m/s mantendo y: Fr≈1,60, Re_Rh≈5×10⁶, supercrítico e turbulento. Não usar limiares de tubo como regra universal para canal."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-1130, CARD-1318, CARD-1470, CARD-1366\n\nCARD-1127 (Reynolds, distinguir regimes); CARD-1318 (Rh versus profundidade hidráulica A/T, questão de aplicação); CARD-1130 (vórtices, questão de aplicação); CARD-1307 (medidor Vortex e Parshall, questão de aplicação); CARD-1470 (bueiros e controles), CARD-1366 (drenagem e dissipação). Preservar vínculos vigentes."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicar a canais livres na aproximação usual; A é área molhada, T largura da superfície livre, P perímetro molhado. A/P é raio hidráulico usado, por exemplo, em Manning. Não pressupor que declividade do fundo sozinha determina o regime.\n\nAs relações de profundidades conjugadas pressupõem canal retangular, pressão hidrostática fora do ressalto e fundo aproximadamente horizontal; não generalizar para qualquer seção.\n\nFroude representa a razão de velocidades, ou raiz quadrada da razão de forças inerciais e gravitacionais; em modelos de superfície livre pode-se priorizar similitude de Froude, mas efeitos de Reynolds, Weber e escala não desaparecem. Não é suficiente ter Fr₁>1 para assegurar ressalto estável dentro da bacia: depende da profundidade de jusante, geometria e descarga. Euler pode ter convenções de normalização distintas."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não trocar A/T por A/P, nem Fr por Reynolds. Regime crítico não significa escoamento turbulento. A condição de energia mínima é para vazão e geometria de seção fixas no modelo usual.\n\n Adimensional não é critério discriminante: todas as alternativas satisfazem a propriedade. Identificar o mecanismo antes de escolher. Não trocar regime fluvial/torrencial por laminar/turbulento; não confundir salto de profundidade com perda de vazão. Richardson, não Ricardson, é a grafia usual."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "Froude: 1 é a fronteira; v vence a onda no torrencial.\n\nFroude = fronteira fluvial/torrencial; Reynolds = resistência viscosa; Euler = pressão; Richardson = camadas de densidades; Weber = bolhas e gotas. Ressalto: água sobe, velocidade desce, energia se dissipa."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O número de Froude compara a velocidade média do escoamento com a celeridade de pequenas ondas de gravidade. Fr<1 indica regime subcrítico (fluvial), Fr=1 crítico e Fr>1 supercrítico (torrencial). Em regime subcrítico, uma perturbação pode propagar-se para montante; no supercrítico, ambas as direções características são transportadas para jusante. A profundidade hidráulica é A/T, não A/P.",
+          "Ressalto hidráulico é transição brusca de supercrítico (Fr₁>1) para subcrítico (Fr₂<1), com maior lâmina, menor velocidade e perda de energia específica. Froude é o parâmetro principal da bacia dissipadora por comparar a velocidade à celeridade gravitacional; Reynolds é adimensional, mas compara inércia e viscosidade e caracteriza outra classificação.",
+          "Para selecionar números adimensionais, identificar os efeitos dominantes: Froude — gravidade; Reynolds — viscosidade; Euler — pressão; Richardson — estratificação e cisalhamento; Weber — tensão superficial. Todos são adimensionais."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "Fr<1",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "Fr=1",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "Fr>1",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "A/T",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "Froude é o parâmetro principal",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "exception",
+            "text": "Todos são adimensionais",
+            "color": "#FECDD3"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Número",
+            "Fórmula usual",
+            "Efeitos comparados",
+            "Aplicação"
+          ],
+          "rows": [
+            [
+              "Reynolds",
+              "Re=vL/ν",
+              "Inércia/viscosidade",
+              "Laminar/turbulento, atrito, esteiras"
+            ],
+            [
+              "Froude",
+              "Fr=v/√(gL)",
+              "Raiz da razão inércia/gravidade",
+              "Ressalto, vertedouro, canais livres"
+            ],
+            [
+              "Euler",
+              "Eu=Δp/(ρv²)",
+              "Pressão/inércia",
+              "Diferença de pressão, perdas"
+            ],
+            [
+              "Richardson",
+              "Ri_b=g′L/(ΔU)²",
+              "Empuxo de estratificação/cisalhamento",
+              "Estabilidade e mistura em fluidos estratificados"
+            ],
+            [
+              "Weber",
+              "We=ρv²L/σ",
+              "Inércia/tensão superficial",
+              "Gotas, bolhas, atomização"
+            ],
+            [
+              "Mach",
+              "Ma=v/a",
+              "Velocidade/velocidade do som",
+              "Compressibilidade"
+            ],
+            [
+              "Strouhal",
+              "St=fL/v",
+              "Escala de oscilação/escala de advecção",
+              "Emissão de vórtices, medidor Vortex"
+            ],
+            [
+              "Prandtl",
+              "Pr=ν/α",
+              "Difusividade de momento/térmica",
+              "Camadas limite térmica e viscosa"
+            ],
+            [
+              "Nusselt",
+              "Nu=h_c L/k",
+              "Convecção/condução de referência",
+              "Transferência de calor"
+            ],
+            [
+              "Bond",
+              "Bo=ΔρgL²/σ",
+              "Gravidade/tensão superficial",
+              "Capilaridade, interfaces"
+            ],
+            [
+              "Grashof",
+              "Gr=gβΔTL³/ν²",
+              "Empuxo térmico/efeitos viscosos (escala quadrática)",
+              "Convecção natural"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Número de Froude",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>Fr</mi><mo>=</mo><mfrac><mi>v</mi><msqrt><mi>g</mi><mi>D</mi></msqrt></mfrac></math>",
+            "units": "adimensional; v em m/s"
+          },
+          {
+            "title": "Profundidade hidráulica",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>D</mi><mo>=</mo><mfrac><mi>A</mi><mi>T</mi></mfrac></math>",
+            "units": "m; A em m², T em m"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO35-Q04-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q04.svg",
+            "caption": "Ressalto hidráulico e associação dos cinco números adimensionais"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1130",
+        "CARD-1318",
+        "CARD-1470",
+        "CARD-1366",
+        "CARD-1127",
+        "CARD-1307"
+      ],
+      "expected_hash": "9e66e8e8c329333020873c9294f7dad552733565b0036f8ca9d56dd713d67285"
+    },
+    {
+      "id": "CARD-0690",
+      "title": "Investigação geotécnica — interpretação e limites do N-SPT",
+      "front": "Quais informações a sondagem SPT fornece e como usá-las na escolha e dimensionamento de fundações? Explique por que N elevado isolado não prova segurança e diferencie SPT de sondagem rotativa. Como reconhecer na planta os símbolos de investigação geotécnica programada e executada da NBR 13441? Diferencie ensaios de campo e laboratório e associe cada um à propriedade medida.",
+      "back": "O SPT fornece perfil de resistência à penetração por profundidade, amostras de reconhecimento e informações do perfil de solo e nível d’água observado. N permite correlações empíricas com parâmetros de resistência e deformabilidade, mas não substitui investigação estratigráfica, análise de água, verificações de capacidade de carga e recalques. Sondagem rotativa recupera testemunhos de rocha e permite avaliar recuperação, RQD e descontinuidades. A escolha de fundação exige combinar o modelo geotécnico com cargas, geometria, execução e desempenho esperado.\n\nNa convenção gráfica recomendada da NBR 13441:2021, percussão (SP) é representada por círculo dividido verticalmente; trado (ST), por triângulo; rotativa/mista (SR/SM), por dois círculos concêntricos; poço (PI), por quadrado. Uma seta distingue a sondagem inclinada. O preenchimento característico distingue a investigação executada da programada. Consultar a figura para percussão com infiltração, poço com ensaio e cava Matsuo.\n\nNa NBR 8044:2018, cone e palheta são ensaios in situ; triaxial e adensamento são de laboratório em amostras de solo. SPT mede resistência por golpes; CPT por penetração estática; CPTu acrescenta poropressão; DMT expande membrana plana; PMT expande sonda cilíndrica; VST mede torque para determinar resistência não drenada.",
+      "source": "H23-C046; NBR 6484:2020 e NBR 8036:1983 (edições de prova); FHWA NHI-16-072, Geotechnical Site Characterization: https://highways.fhwa.dot.gov/sites/fhwa.dot.gov/files/FHWA-NHI-16-072.pdf\nABNT NBR 13441:2021, seção 4.1, Tabela 1, p. 6 (material de referência; edição corroborada em https://www.studocu.com/pt-br/document/universidade-federal-do-rio-de-janeiro/engenharia-eletrica/abnt-nbr-134412021-simbologia-para-solos-e-rochas/170194208 ). A edição de 2021 substituiu 1995; situação posterior não verificada diretamente no catálogo ABNT.\nNBR 8044:2018, 6.3.5 e 6.3.6, reprodução textual pp. 7–10: https://pt.scribd.com/document/953805521/NBR-8044-Projeto-Geotecnico-Procedimento ; https://www.studocu.com/pt-br/document/universidade-federal-de-sao-joao-del-rei/nocoes-de-geologia-e-paleontologia/nbr-80442018-projeto-geotecnico-procedimento/63352000 ; FHWA https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/04b.cfm . Edição de prova, vigência posterior não confirmada em catálogo ABNT.",
+      "mnemonic": "N indica; perfil explica; projeto verifica.\n\nMacetes: TRado = TRiângulo; percussão = tambor com traço vertical. Rotativa = dois círculos (coroa); poço = quadrado visto em planta; seta = inclinada. Macetes são associações, não explicações normativas.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quais informações a sondagem SPT fornece e como usá-las na escolha e dimensionamento de fundações? Explique por que N elevado isolado não prova segurança e diferencie SPT de sondagem rotativa. Como reconhecer na planta os símbolos de investigação geotécnica programada e executada da NBR 13441? Diferencie ensaios de campo e laboratório e associe cada um à propriedade medida."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O SPT fornece perfil de resistência à penetração por profundidade, amostras de reconhecimento e informações do perfil de solo e nível d’água observado. N permite correlações empíricas com parâmetros de resistência e deformabilidade, mas não substitui investigação estratigráfica, análise de água, verificações de capacidade de carga e recalques. Sondagem rotativa recupera testemunhos de rocha e permite avaliar recuperação, RQD e descontinuidades. A escolha de fundação exige combinar o modelo geotécnico com cargas, geometria, execução e desempenho esperado.\n\nNa convenção gráfica recomendada da NBR 13441:2021, percussão (SP) é representada por círculo dividido verticalmente; trado (ST), por triângulo; rotativa/mista (SR/SM), por dois círculos concêntricos; poço (PI), por quadrado. Uma seta distingue a sondagem inclinada. O preenchimento característico distingue a investigação executada da programada. Consultar a figura para percussão com infiltração, poço com ensaio e cava Matsuo.\n\nNa NBR 8044:2018, cone e palheta são ensaios in situ; triaxial e adensamento são de laboratório em amostras de solo. SPT mede resistência por golpes; CPT por penetração estática; CPTu acrescenta poropressão; DMT expande membrana plana; PMT expande sonda cilíndrica; VST mede torque para determinar resistência não drenada."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C046; NBR 6484:2020 e NBR 8036:1983 (edições de prova); FHWA NHI-16-072, Geotechnical Site Characterization: https://highways.fhwa.dot.gov/sites/fhwa.dot.gov/files/FHWA-NHI-16-072.pdf\n\nABNT NBR 13441:2021, seção 4.1, Tabela 1, p. 6 (material de referência; edição corroborada em https://www.studocu.com/pt-br/document/universidade-federal-do-rio-de-janeiro/engenharia-eletrica/abnt-nbr-134412021-simbologia-para-solos-e-rochas/170194208 ). A edição de 2021 substituiu 1995; situação posterior não verificada diretamente no catálogo ABNT.\n\nNBR 8044:2018, 6.3.5 e 6.3.6, reprodução textual pp. 7–10: https://pt.scribd.com/document/953805521/NBR-8044-Projeto-Geotecnico-Procedimento ; https://www.studocu.com/pt-br/document/universidade-federal-de-sao-joao-del-rei/nocoes-de-geologia-e-paleontologia/nbr-80442018-projeto-geotecnico-procedimento/63352000 ; FHWA https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/04b.cfm . Edição de prova, vigência posterior não confirmada em catálogo ABNT."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O amostrador sofre resistência dinâmica influenciada por solo, energia transmitida, equipamento e condições de execução. O valor bruto deve ser interpretado no contexto da camada; uma crosta resistente pode ocultar material compressível abaixo. A sondagem amostra pontos, não todo o maciço.\n\nA planta localiza e identifica os métodos de investigação e diferencia programação de execução. SPT caracteriza resistência à penetração e amostras de reconhecimento; rotativa recupera testemunhos, trado permite reconhecimento por perfuração helicoidal/manual ou mecânica conforme equipamento, poço permite observação direta e amostragem, e cava Matsuo permite ensaio de infiltração. Símbolos são convenções, não desenhos do equipamento.\n\nO terreno é testado diretamente nos ensaios de campo. No laboratório, uma amostra é submetida a condições controladas. SPT é ensaio de campo associado à coleta e figura na seção de sondagens da NBR 8044, não confundir com a lista do item 6.3.5."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "Quando a correlação exige correção de energia, N60=N·ER/60%, com ER expresso em %. Exemplo: N=20 e ER=45% → N60=15, considerando somente o ajuste de energia. Outras correções são específicas da correlação e não devem ser aplicadas indiscriminadamente.\n\nNão há fórmula de simbologia; preservar cálculo N60 original. Siglas: SP percussão, ST trado, SR rotativa, SM mista, PI poço, CA cava. Complementos normativos: I para rotativa/mista integral; PZ para piezômetro e NA para medidor de nível de água.\n\nCPT: qc e fs em unidades de tensão; CPTu mede u. VST: su obtido a partir do torque e geometria, sob hipóteses próprias. Sísmico: G0=ρVs². Triaxial: q=σ1−σ3 em compressão convencional. Adensamento: σ′=σ−u e compressibilidade."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "SPT: resistência dinâmica e amostras de reconhecimento. Rotativa: testemunhos e qualidade de rocha. Prova de carga: relação carga–deslocamento do elemento ensaiado. Programa de investigação: número, localização e profundidade apropriados; NBR 8036 é referência para a quantidade em edifícios (CARD-1586).\n\nQuadro visual do material de referência:\nRotativa/mista vertical — SR/SM — Dois círculos concêntricos — Círculo interno preenchido\nRotativa/mista inclinada — SR/SM — Dois círculos com seta — Círculo interno preenchido e seta\nPercussão — SP — Círculo com diâmetro vertical — Semicírculo direito preenchido\nPercussão com infiltração — SP — Círculo com cruz — Círculo preenchido\nTrado — ST — Triângulo vazio — Triângulo preenchido\nPoço de inspeção — PI — Quadrado vazio — Quadrado preenchido\nPoço de inspeção com ensaio — PI — Quadrado com X — Quadrado com preenchimento característico e contraste em X\nCava Matsuo — CA — Retângulo alongado com traços internos — Retângulo com preenchimento característico\nTabela normativa também contém TR (trincheira em solo), GR (galeria em rocha), LS (linha de refração sísmica) e SEV (sondagem elétrica vertical). Geometria gráfica desses quatro não consta no recorte; não inventar. Em SEV a diagonal representa azimute da linha AB.\n\nCampo — Cone CPT/CPTu: Penetração estática; ponta, atrito e, no CPTu, poropressão; Palheta VST: Torque; resistência não drenada de solos moles; Placa: Carga × deslocamento; capacidade e deformabilidade; Pressiométrico PMT: Expansão cilíndrica; módulo e pressão-limite; Dilatométrico DMT: Membrana em lâmina; estratigrafia e parâmetros por correlações; Sísmicos: Vs; G0=ρVs²; Permeabilidade de campo: Infiltração ou recuperação; k; Perda d’água em rocha: Condução de água e indícios de fraturamento; Piezômetro/indicador de nível: Pressão de água/posição do nível freático; Penetração dinâmica: DPL, DPM, DPH, DPSH; resistência à penetração\nLaboratório — Caracterização: Granulometria, umidade, LL, LP, massa específica dos grãos; Cisalhamento direto: Coesão e ângulo de atrito; Triaxial: Resistência e deformabilidade; CD, CU, UU; Adensamento: Compressibilidade sob confinamento lateral e evolução temporal; Expansibilidade: Aumento de volume com umedecimento; ensaio edométrico adaptado; Colapsibilidade: Deformação por inundação sob tensão; Pin-hole: Dispersibilidade de argilas; não equivale ao colapso; Permeabilidade: k vertical/horizontal de amostra; Químicos: Contaminação do solo e água"
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Uma sapata sobre camada superficial com N alto e argila mole abaixo pode sofrer recalque por compressão da camada profunda. Avaliar o perfil completo e a distribuição de incrementos de tensão (CARD-1571), não apenas o N na cota de apoio. Se ocorrer recusa na cravação, investigar a natureza do obstáculo antes de concluir que é rocha sã.\n\nQuestão de aplicação: alternativa D (percussão e trado). A representa cava e poço com ensaio; B representa dois poços, um com ensaio; C inverte trado e rotativa; E representa percussão simples e com infiltração. Treinar o reconhecimento pelas formas antes de revelar siglas; depois distinguir executada e programada. \n\nQuestão de aplicação: C (I e II); A exclui palheta, B trata triaxial como campo, D inclui adensamento, E inclui ambos de laboratório. Escolha por propriedade: su de argila mole → VST; poropressão durante penetração → CPTu; recalque/compressibilidade → adensamento; resistência/deformabilidade → triaxial; prova de carga direta → placa."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0709, CARD-1585, CARD-1586, CARD-1569, CARD-1570, CARD-1571, CARD-1574, CARD-1577, CARD-1584, CARD-1377\n\nVínculos vigentes CARD-0709 (execução SPT), CARD-1585 (avanço abaixo do NA), CARD-1586 (programação/quantidade de sondagens), CARD-1377 (relação existente a verificar pelo conteúdo antes de ampliar); manter demais vínculos. Vincular questão questão de aplicação e originais privados.\n\nCARD-0709 SPT; CARD-0698 triaxial; CARD-0700 adensamento e tensão efetiva; CARD-1570 placa; CARD-1377 rocha; CARD-1585 nível freático. Preservar relações Q05/Q06."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Correlações dependem de solo, energia, base empírica e condições de execução; não transferir uma fórmula sem seus limites. Amostra SPT é de reconhecimento, não amostra indeformada para qualquer ensaio. N60 não é N bruto e não é automaticamente (N1)60.\n\nPreenchimento varia por símbolo; executada não significa necessariamente toda figura preta. Seta não indica avanço ou fluxo; indica sondagem inclinada no par SR/SM. Símbolos são recomendados pela norma; interpretar legenda da planta. Não inferir método de ensaio a partir de cor ou posição isolada.\n\nPermeabilidade pode ser medida no campo e laboratório; piezômetros são instrumentos, não ensaios de ruptura. Triaxial CD: adensado e drenado; CU: adensado e não drenado, com medida de u permite obter parâmetros efetivos; UU: não adensado e não drenado. Saturação/adensamento da material de referência não representam obrigatoriamente todos os protocolos. A lista do material de referência omite expansibilidade; pinhole investiga dispersibilidade, não é sinônimo de colapsibilidade.\n\nNo CU a drenagem é aberta na consolidação prévia e fechada antes do cisalhamento. Ver CARD-0034."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "N alto não garante fundação segura; recusa não prova rocha contínua. Não usar N como pressão admissível sem modelo, nem substituir prova de carga exigida por simples correlação.\n\n Não confundir quadrado de poço com triângulo de trado; círculo dividido SP não é círculo concêntrico SR/SM. Percussão com infiltração tem cruz programada e preenchimento circular completo executado.\n\nNão confundir palheta de campo com cisalhamento direto de laboratório; CPT estático não é SPT dinâmico; DMT plano não é PMT cilíndrico. NBR 8044 diferencia investigação de solos e rochas: cisalhamento direto também pode ocorrer in situ em maciço rochoso."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "N indica; perfil explica; projeto verifica.\n\nMacetes: TRado = TRiângulo; percussão = tambor com traço vertical. Rotativa = dois círculos (coroa); poço = quadrado visto em planta; seta = inclinada. Macetes são associações, não explicações normativas.\n\nCone entra, palheta gira, SPT golpeia, DMT dilata membrana, PMT pressiona paredes; triaxial e edômetro vão à bancada."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O SPT fornece perfil de resistência à penetração por profundidade, amostras de reconhecimento e informações do perfil de solo e nível d’água observado. N permite correlações empíricas com parâmetros de resistência e deformabilidade, mas não substitui investigação estratigráfica, análise de água, verificações de capacidade de carga e recalques. Sondagem rotativa recupera testemunhos de rocha e permite avaliar recuperação, RQD e descontinuidades. A escolha de fundação exige combinar o modelo geotécnico com cargas, geometria, execução e desempenho esperado.",
+          "Na convenção gráfica recomendada da NBR 13441:2021, percussão (SP) é representada por círculo dividido verticalmente; trado (ST), por triângulo; rotativa/mista (SR/SM), por dois círculos concêntricos; poço (PI), por quadrado. Uma seta distingue a sondagem inclinada. O preenchimento característico distingue a investigação executada da programada. Consultar a figura para percussão com infiltração, poço com ensaio e cava Matsuo.",
+          "Na NBR 8044:2018, cone e palheta são ensaios in situ; triaxial e adensamento são de laboratório em amostras de solo. SPT mede resistência por golpes; CPT por penetração estática; CPTu acrescenta poropressão; DMT expande membrana plana; PMT expande sonda cilíndrica; VST mede torque para determinar resistência não drenada."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "perfil de resistência à penetração por profundidade",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "não substitui investigação estratigráfica",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "recupera testemunhos de rocha",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "trado (ST), por triângulo",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "core",
+            "text": "percussão (SP) é representada por círculo dividido verticalmente",
+            "color": "#FDE68A"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Método",
+            "Informação principal"
+          ],
+          "rows": [
+            [
+              "SPT",
+              "N e reconhecimento do solo"
+            ],
+            [
+              "Rotativa",
+              "Testemunhos e descontinuidades"
+            ],
+            [
+              "Prova de carga",
+              "Carga × deslocamento"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Correção de energia (quando exigida)",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>N</mi><mn>60</mn></msub><mo>=</mo><mi>N</mi><mfrac><mi>ER</mi><mrow><mn>60</mn><mo>%</mo></mrow></mfrac></math>",
+            "units": "ER em %; correção apenas de energia"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO24-MEDIA-03",
+            "caption": "Bulbos de tensões: figuras de referência do estudo",
+            "alt": "Bulbos de tensões: figuras de referência do estudo",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+            "private_original": true
+          },
+          {
+            "id": "PETRO24-MEDIA-04",
+            "caption": "Sobreposição de bulbos de tensões",
+            "alt": "Sobreposição de bulbos de tensões",
+            "role": "VERSO_APOS_TENTATIVA",
+            "evidence": "Original identificado na fonte privada; requer acesso autorizado.",
+            "private_original": true
+          },
+          {
+            "id": "PETRO35-Q05-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q05.svg",
+            "caption": "Simbologia de sondagens: macetes e recorte de 8 tipos (autoral)"
+          },
+          {
+            "id": "PETRO35-Q07-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q07.svg",
+            "caption": "Ensaios de campo e laboratório"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1569",
+        "CARD-1570",
+        "CARD-1571",
+        "CARD-1574",
+        "CARD-1577",
+        "CARD-1584",
+        "CARD-1585",
+        "CARD-1586",
+        "CARD-0709",
+        "CARD-1377",
+        "CARD-0683",
+        "CARD-0698",
+        "CARD-0700",
+        "CARD-0034"
+      ],
+      "expected_hash": "7daa0b1c2ba557481a5ccaa5923ef98e018c5796e786c053a3f4bc2faeebd93f"
+    },
+    {
+      "id": "CARD-0709",
+      "title": "SPT — execução, registro e índice N",
+      "front": "Descreva a cravação padrão do amostrador SPT: massa e altura de queda do martelo, intervalos de penetração, cálculo de N e tratamento dos registros incompletos. Diferencie cravação de avanço do furo. Qual o intervalo entre ensaios e coletas, e o que ocorre no primeiro metro?",
+      "back": "O SPT registra a resistência à penetração do amostrador-padrão sob golpes de martelo de 65 kg com queda nominal de 75 cm. A cravação prevista é de 45 cm, registrada em três etapas nominais de 15 cm. Quando se atinge o percurso previsto, N é a soma das contagens da segunda e da terceira etapas; o primeiro trecho também é registrado, mas não entra nessa soma. Em penetração incompleta ou ocorrência especial, registrar golpes e penetração e interpretar segundo o procedimento aplicável, sem extrapolar automaticamente. A cravação do amostrador é distinta do avanço da perfuração.\n\nPela NBR 6484:2020, itens 5.2.3.2 e 6.2.3.2, o intervalo padrão de realização do SPT e coleta com amostrador-padrão é 1 m, iniciando à profundidade de 1 m. Na perfuração por trado até 1 m, coleta-se material representativo retirado pelo trado. A cravação de 45 cm não é o espaçamento dos ensaios; os 30 cm finais definem N quando cumprido o percurso previsto. Em projeto específico, a norma admite alteração documentada pelo contratante.\n\nExcluir apenas a primeira contagem do cálculo de N, não descartar automaticamente o solo recuperado dos 15 cm iniciais. Comprimento cravado não é necessariamente comprimento recuperado.",
+      "source": "H23-C039/040/041; ABNT NBR 6484:2020, itens 5.2.3 e 6.2.3, conforme sistema de execução; consulta textual https://pdfcoffee.com/nbr-64842020-solo-sondagem-de-simples-reconhecimento-pdf-free.html ; exemplo público https://transparencia.boavista.rr.gov.br/arquivos/download/s3/edital/11950\nNBR 6484:2020, 5.2.2.4, 5.2.3.1–2, 5.2.3.5–9, 5.2.3.16–19, 6.2.3.2 e seções correspondentes; consulta textual https://pdfcoffee.com/nbr-64842020-solo-sondagem-de-simples-reconhecimento-pdf-free.html ; confirmação do intervalo em https://caratinga.mg.gov.br/wp-content/uploads/2022/04/07.1-TERMO-DE-REFERENCIA-DE-CARATINGA-Adendo-Manifesto.pdf . Edição normativa conferida em reprodução textual, vigência atual não verificada diretamente no catálogo ABNT.",
+      "mnemonic": "65 kg / 75 cm; 15+15+15; N = dois últimos.\n65 pesa; 75 cai; 45 crava; 30 conta; de metro em metro coleta.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Descreva a cravação padrão do amostrador SPT: massa e altura de queda do martelo, intervalos de penetração, cálculo de N e tratamento dos registros incompletos. Diferencie cravação de avanço do furo. Qual o intervalo entre ensaios e coletas, e o que ocorre no primeiro metro?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O SPT registra a resistência à penetração do amostrador-padrão sob golpes de martelo de 65 kg com queda nominal de 75 cm. A cravação prevista é de 45 cm, registrada em três etapas nominais de 15 cm. Quando se atinge o percurso previsto, N é a soma das contagens da segunda e da terceira etapas; o primeiro trecho também é registrado, mas não entra nessa soma. Em penetração incompleta ou ocorrência especial, registrar golpes e penetração e interpretar segundo o procedimento aplicável, sem extrapolar automaticamente. A cravação do amostrador é distinta do avanço da perfuração.\n\nPela NBR 6484:2020, itens 5.2.3.2 e 6.2.3.2, o intervalo padrão de realização do SPT e coleta com amostrador-padrão é 1 m, iniciando à profundidade de 1 m. Na perfuração por trado até 1 m, coleta-se material representativo retirado pelo trado. A cravação de 45 cm não é o espaçamento dos ensaios; os 30 cm finais definem N quando cumprido o percurso previsto. Em projeto específico, a norma admite alteração documentada pelo contratante.\n\nExcluir apenas a primeira contagem do cálculo de N, não descartar automaticamente o solo recuperado dos 15 cm iniciais. Comprimento cravado não é necessariamente comprimento recuperado."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H23-C039/040/041; ABNT NBR 6484:2020, itens 5.2.3 e 6.2.3, conforme sistema de execução; consulta textual https://pdfcoffee.com/nbr-64842020-solo-sondagem-de-simples-reconhecimento-pdf-free.html ; exemplo público https://transparencia.boavista.rr.gov.br/arquivos/download/s3/edital/11950\n\nNBR 6484:2020, 5.2.2.4, 5.2.3.1–2, 5.2.3.5–9, 5.2.3.16–19, 6.2.3.2 e seções correspondentes; consulta textual https://pdfcoffee.com/nbr-64842020-solo-sondagem-de-simples-reconhecimento-pdf-free.html ; confirmação do intervalo em https://caratinga.mg.gov.br/wp-content/uploads/2022/04/07.1-TERMO-DE-REFERENCIA-DE-CARATINGA-Adendo-Manifesto.pdf . Edição normativa conferida em reprodução textual, vigência atual não verificada diretamente no catálogo ABNT."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O índice é uma resposta dinâmica do solo à penetração de um amostrador. O trecho inicial acomoda a penetração inicial; os dois seguintes compõem o índice convencional. O boletim mantém todos os pares golpes/comprimento para reconhecer anomalias. O equipamento avança o furo por procedimento próprio; a cravação do amostrador ocorre nas cotas de ensaio.\n\nAvançar com método de perfuração apropriado até 1 m, ensaiar e amostrar com amostrador-padrão, retirar o conjunto, avançar por procedimento próprio à cota seguinte, repetir. O ensaio não é a operação de perfuração até a próxima cota. Coletar material do trado até 1 m para reconhecimento; amostra SPT é de reconhecimento, não indeformada."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "N=n2+n3. Exemplo: 4/15, 6/15 e 8/15 → N=14 golpes. Se 3/15, 7/15, 9/15 → N=16. Energia potencial nominal por golpe mgh≈65×9,81×0,75=478 J; não equivale à energia efetivamente transmitida ao amostrador.\n\nCotas usuais 1, 2, 3, ... m. 45 cm = 3×15 cm de cravação nominal por ensaio; N=n2+n3, quando atingido percurso previsto. 1 m é espaçamento, não comprimento da amostra. Exemplo 4/15, 6/15, 8/15: N=14. Não confundir 75 cm de queda com avanço."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "Avanço: abre o furo; cravação: ensaia o solo e coleta amostra. N: contagem convencional; N60: índice corrigido para energia de referência de 60%, quando uma correlação explicitamente requer. Boletim: preserva todas as contagens e comprimentos.\n\n\nMassa do martelo — 65 kg\nQueda nominal — 75 cm\nIntervalo padrão entre SPT — 1 m, a partir de 1 m\nCravação prevista — 45 cm\nEtapas nominais — 3 × 15 cm\nÍndice N — Golpes nas etapas 2 e 3 (30 cm finais)\nConservação mínima das amostras — 60 dias após apresentação do relatório\nSPT (SP): cravação e resistência dinâmica; trado (ST): material retirado por perfuração; rotativa (SR): testemunhos de rocha e RQD; mista (SM): percussão + rotativa; poço (PI): observação direta e amostragem adequada ao ensaio; cava Matsuo (CA): infiltração. Simbologia no CARD-0690, questão de aplicação."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Um registro 4/15, 6/15, 8/15 permite calcular N=14, não 18. Se uma etapa ultrapassar ligeiramente 15 cm e o procedimento atingir o percurso previsto, usar as contagens das etapas conforme a NBR 6484:2020; não inventar golpes para centímetros faltantes. Abaixo do nível freático, seguir procedimento de avanço apropriado (CARD-1585).\n\nQuestão de aplicação: a partir de 1 m, amostra com SPT a cada 1 m, D. 30 cm são os trechos finais de N; 45 cm é cravação total prevista; 50 cm e 2 m não são o intervalo padrão. Transferência: no ensaio iniciado a 3 m, cravação prevista até 3,45 m; a próxima cota usual de ensaio é 4 m. Não inferir recuperação de amostra contínua de 45 cm.\n\nExemplo de etapas nominais iniciadas em 1,00 m: 1,00–1,15; 1,15–1,30; 1,30–1,45 m. Para 4, 6 e 8 golpes, N=14. A próxima cota usual é 2,00 m."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0710, CARD-0711, CARD-0690, CARD-1585, CARD-1586\n\nCARD-0690 (métodos de investigação e simbologia Q05); CARD-0710 (cálculo de N); CARD-1585 (avanço abaixo do nível d’água); CARD-1586 (programação dos furos, não espaçamento de ensaios no mesmo furo); CARD-1377 (RQD em testemunhos de rocha). Todos conferidos no catálogo público VC49."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A norma prevê registros específicos para avanço com peso próprio, penetração incompleta e critérios de interrupção; distinguir sistemas manual e mecanizado. Não generalizar limites de interrupção de edições ou sistemas distintos. N é índice, não tensão em kPa.\n\nA nota de 5.2.3.2 admite alteração em projetos específicos com documento técnico do contratante. Não avançar à próxima cota usando o próprio amostrador-padrão. Acondicionar amostras imediatamente em recipientes herméticos, identificar sondagem, cota, golpes e penetrações; anotar ausência de recuperação. Conservar por no mínimo 60 dias após apresentação do relatório. Respeitar critérios de interrupção e registros especiais."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não somar os três trechos para N. Não apagar a primeira contagem do boletim. Não confundir 75 cm de queda com 45 cm de cravação nem interpretar parada de trado como término obrigatório da sondagem.\n\nNão confundir 1 m (espaçamento vertical dos ensaios), 45 cm (cravação prevista), 30 cm (N), 75 cm (queda), nem quantidade/posição de furos em planta. Não afirmar que o solo entre ensaios não possa ser amostrado em condições específicas.\n\nA primeira contagem fica fora de N; não se descarta automaticamente o material inicial da amostra."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "65 kg / 75 cm; 15+15+15; N = dois últimos.\n\nMacete: 65 pesa; 75 cai; 45 crava; 30 conta; de metro em metro coleta. Questão de aplicação: acerto D."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O SPT registra a resistência à penetração do amostrador-padrão sob golpes de martelo de 65 kg com queda nominal de 75 cm. A cravação prevista é de 45 cm, registrada em três etapas nominais de 15 cm. Quando se atinge o percurso previsto, N é a soma das contagens da segunda e da terceira etapas; o primeiro trecho também é registrado, mas não entra nessa soma. Em penetração incompleta ou ocorrência especial, registrar golpes e penetração e interpretar segundo o procedimento aplicável, sem extrapolar automaticamente. A cravação do amostrador é distinta do avanço da perfuração.",
+          "Pela NBR 6484:2020, itens 5.2.3.2 e 6.2.3.2, o intervalo padrão de realização do SPT e coleta com amostrador-padrão é 1 m, iniciando à profundidade de 1 m. Na perfuração por trado até 1 m, coleta-se material representativo retirado pelo trado. A cravação de 45 cm não é o espaçamento dos ensaios; os 30 cm finais definem N quando cumprido o percurso previsto. Em projeto específico, a norma admite alteração documentada pelo contratante.",
+          "Excluir apenas a primeira contagem do cálculo de N, não descartar automaticamente o solo recuperado dos 15 cm iniciais. Comprimento cravado não é necessariamente comprimento recuperado."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "65 kg",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "75 cm",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "45 cm",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "segunda e da terceira etapas",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "1 m, iniciando à profundidade de 1 m",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "cravação de 45 cm",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Elemento",
+            "Valor/critério"
+          ],
+          "rows": [
+            [
+              "Massa do martelo",
+              "65 kg"
+            ],
+            [
+              "Queda nominal",
+              "75 cm"
+            ],
+            [
+              "Intervalo padrão entre SPT",
+              "1 m, a partir de 1 m"
+            ],
+            [
+              "Cravação prevista",
+              "45 cm"
+            ],
+            [
+              "Etapas nominais",
+              "3 × 15 cm"
+            ],
+            [
+              "Índice N",
+              "Golpes nas etapas 2 e 3 (30 cm finais)"
+            ],
+            [
+              "Conservação mínima das amostras",
+              "60 dias após apresentação do relatório"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Índice N",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>N</mi><mo>=</mo><msub><mi>n</mi><mn>2</mn></msub><mo>+</mo><msub><mi>n</mi><mn>3</mn></msub></math>",
+            "units": "golpes; percurso previsto atingido"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO35-Q06-SVG",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q06.svg",
+            "caption": "Espaçamento entre ensaios e cravação do amostrador"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-1585",
+        "CARD-0710",
+        "CARD-0690",
+        "CARD-1586",
+        "CARD-1377"
+      ],
+      "expected_hash": "0c58af5e385003567ce4d7c63830ca10c139f968e60aa3ec13b77035696c5000"
+    },
+    {
+      "id": "CARD-0034",
+      "title": "Triaxiais UU, CU e CD",
+      "front": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?",
+      "back": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.\n\nNo CU, a drenagem deve permanecer aberta durante a consolidação prévia sob tensão efetiva prescrita e ser fechada antes do cisalhamento. Mede-se a poropressão sem permitir drenagem no cisalhamento. UU não exclui confinamento; CD não significa poropressão absoluta nula.",
+      "source": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/\nASTM D4767, https://store.astm.org/standards/d4767 ; ASTM D2850, https://store.astm.org/standards/d2850 ; FHWA NHI-16-072, seção 7.2.7, https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf (trecho recuperado da busca).",
+      "mnemonic": "UU fecha–fecha; CU abre–fecha; CD abre–abre.\nCU = Consolida com saída de água; Última fase fechada. UU fecha–fecha; CU abre–fecha; CD abre–abre.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Compare UU, CU e CD quanto à consolidação, drenagem na ruptura, parâmetros obtidos e aplicações. Por que medir a poropressão no CU?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.\n\nNo CU, a drenagem deve permanecer aberta durante a consolidação prévia sob tensão efetiva prescrita e ser fechada antes do cisalhamento. Mede-se a poropressão sem permitir drenagem no cisalhamento. UU não exclui confinamento; CD não significa poropressão absoluta nula."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C036–039; FHWA NHI-16-072, capítulo 7: https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf; UTA: https://uta.pressbooks.pub/soilmechanics/chapter/triaxial-test/\n\nASTM D4767, https://store.astm.org/standards/d4767 ; ASTM D2850, https://store.astm.org/standards/d2850 ; FHWA NHI-16-072, seção 7.2.7, https://www.fhwa.dot.gov/engineering/geotech/pubs/nhi16072.pdf (trecho recuperado da busca)."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "O confinamento é σ3; a tensão axial cresce até σ1. Drenar dissipa excesso de poropressão. Sob cisalhamento não drenado, a tendência de contração ou dilatação altera u; em CD, a água pode sair ou entrar, permitindo variação volumétrica.\n\nNo CU, depois de preparação/saturação conforme procedimento, abrir drenagem durante consolidação sob confinamento, aguardar dissipação do excesso de u e estabilização segundo critério aplicável. Fechar drenagem antes de cisalhar, medir u durante carregamento. Em amostra saturada ideal sem drenagem, volume praticamente constante; tendência de contração pode elevar u e dilatação pode reduzi-la."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "σ1′=σ1−u; σ3′=σ3−u; q=σ1−σ3. Se σ1=300, σ3=100, u=60 kPa: efetivas 240 e 40 kPa; q=200 kPa; centro efetivo 140 e raio 100 kPa.\n\nExemplo σ1=300, σ3=100, u=60 kPa: σ′1=240, σ′3=40, q=200 kPa tanto em totais quanto efetivas; centros 200 e 140 kPa; R=100 kPa. Círculo desloca-se à esquerda em u positivo, sem alterar raio no mesmo estado. Em ensaios suficientes, envoltória efetiva fornece c′ e φ′."
+        },
+        {
+          "ord": 6,
+          "titulo": "Quadro comparativo",
+          "texto": "UU: total; CU: total e efetiva com u; CD: efetiva e variação volumétrica. CD tende a demorar mais em argilas.\n\n\nUU — Não — Não — Totais; su\nCU — Sim, válvula aberta — Não, válvula fechada — Totais; efetivas com u\nCD — Sim — Sim, cisalhamento suficientemente lento — Efetivas\nUU = rápido (Q); CU = adensado rápido (R); CD = lento (S), nomenclatura usual. A primeira letra indica consolidação prévia, a segunda drenagem no cisalhamento."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência e resolução",
+          "texto": "Carregamento rápido de argila: avaliar resistência não drenada em trajetória representativa (UU ou CU conforme investigação). Longo prazo: análise efetiva com poropressões adequadas. CU com u permite obter parâmetros efetivos sem esperar drenagem na ruptura.\n\nCarregamento rápido de argila saturada: resistência não drenada, UU/CU conforme história de tensões. Aterro sobre argila mole: condições de construção não drenadas e longo prazo em tensões efetivas; VST mede su em campo. Talude longo prazo: c′/φ′ e u adequados, CD ou CU com u. Edômetro mede compressibilidade/adensamento; triaxial repetido mede módulo resiliente, não equivale ao ensaio monotônico de ruptura."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0028, CARD-0040, CARD-0698, CARD-0700, CARD-0699\n\nCARD-0690 (investigação campo/laboratório Q07); CARD-0698 (σ1, σ3, q); CARD-0699 (Mohr–Coulomb); CARD-0700 (tensão efetiva/adensamento); CARD-0695/0696 (efeito de u); CARD-1076 (taludes); CARD-0028/0040 (UU e CD/CU); CARD-0781 (triaxial repetido em pavimentos); CARD-1571 (incrementos de tensão em fundações, associação complementar)."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "UU não exclui confinamento. φu≈0 é idealização para certas argilas saturadas. CD não significa u absoluta zero, mas excesso desprezível durante cisalhamento. Envoltória requer estados de tensão representativos.\n\nA preparação/saturação é distinta da consolidação sob tensão de ensaio. CU não significa ausência de drenagem em todo o procedimento. CD não significa pressão absoluta u=0; excesso de u deve ser desprezível. Não assumir CU sempre mais rápido que UU, ou parâmetros efetivos determinados por um único corpo de prova."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não inverter fases; CU sem u não reconstrói trajetória efetiva. q não é raio: R=q/2.\n\nAtenção: no CU há drenagem inicial para consolidação, proibida no cisalhamento. UU não implica ausência de pressão confinante. Não confundir drenagem com medição de u: medir u não exige abrir válvula de drenagem. Não confundir resistência não drenada su com c′."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e rastreabilidade",
+          "texto": "UU fecha–fecha; CU abre–fecha; CD abre–abre.\n\nCU = Consolida com saída de água; Última fase fechada. UU fecha–fecha; CU abre–fecha; CD abre–abre."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "No UU não há consolidação prévia nem drenagem durante o cisalhamento, com interpretação usual em tensões totais. No CU há drenagem na consolidação, mas não no cisalhamento; medir u permite calcular tensões efetivas e determinar c′ e φ′ com ensaios suficientes. No CD há drenagem nas duas fases; o cisalhamento deve ser suficientemente lento para evitar excesso significativo de poropressão. A escolha depende da história de tensões e da drenagem no campo.",
+          "No CU, a drenagem deve permanecer aberta durante a consolidação prévia sob tensão efetiva prescrita e ser fechada antes do cisalhamento. Mede-se a poropressão sem permitir drenagem no cisalhamento. UU não exclui confinamento; CD não significa poropressão absoluta nula."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "não há consolidação prévia nem drenagem",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "medir u",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "condition",
+            "text": "drenagem nas duas fases",
+            "color": "#BAE6FD"
+          },
+          {
+            "kind": "core",
+            "text": "aberta durante a consolidação prévia",
+            "color": "#FDE68A"
+          },
+          {
+            "kind": "condition",
+            "text": "fechada antes do cisalhamento",
+            "color": "#BAE6FD"
+          }
+        ],
+        "table": {
+          "headers": [
+            "Ensaio",
+            "Consolidação drenada",
+            "Cisalhamento drenado",
+            "Parâmetros"
+          ],
+          "rows": [
+            [
+              "UU",
+              "Não",
+              "Não",
+              "Totais; su"
+            ],
+            [
+              "CU",
+              "Sim, válvula aberta",
+              "Não, válvula fechada",
+              "Totais; efetivas com u"
+            ],
+            [
+              "CD",
+              "Sim",
+              "Sim, cisalhamento suficientemente lento",
+              "Efetivas"
+            ]
+          ]
+        },
+        "formulas": [
+          {
+            "title": "Desviadora",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>q</mi><mo>=</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>−</mo><msub><mi>σ</mi><mn>3</mn></msub></math>",
+            "units": "kPa"
+          }
+        ],
+        "media": [
+          {
+            "id": "PETRO35-Q07-SVG-TRIAX",
+            "role": "VERSO_APOS_TENTATIVA",
+            "src": "assets/petro35/q07-triax.svg",
+            "caption": "Consolidação e cisalhamento: condições de drenagem"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0028",
+        "CARD-0040",
+        "CARD-0698",
+        "CARD-0700",
+        "CARD-0699",
+        "CARD-1076",
+        "CARD-0690",
+        "CARD-0695",
+        "CARD-0696",
+        "CARD-0781"
+      ],
+      "expected_hash": "d28933832505b17cd58b9c3ce4d416669f931118163146a67418c7d245b6a6f5"
+    },
+    {
+      "id": "CARD-0698",
+      "title": "Tensões principais no triaxial",
+      "front": "No triaxial de compressão convencional, o que representam σ1, σ3 e a tensão desviadora q? Como a poropressão afeta as principais efetivas e o círculo de Mohr?",
+      "back": "σ3 é confinante; σ1 é axial principal maior; q=σ1−σ3. Em solo saturado, σ′1=σ1−u e σ′3=σ3−u; assim, q=σ′1−σ′3=σ1−σ3. O raio do círculo de Mohr é q/2.",
+      "source": "H20-C039; mecânica dos solos, critério de tensões efetivas; ASTM D4767 (triaxial CU).",
+      "mnemonic": "Triaxial: q é diferença; Mohr usa metade.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "No triaxial de compressão convencional, o que representam σ1, σ3 e a tensão desviadora q? Como a poropressão afeta as principais efetivas e o círculo de Mohr?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "σ3 é confinante; σ1 é axial principal maior; q=σ1−σ3. Em solo saturado, σ′1=σ1−u e σ′3=σ3−u; assim, q=σ′1−σ′3=σ1−σ3. O raio do círculo de Mohr é q/2."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H20-C039; mecânica dos solos, critério de tensões efetivas; ASTM D4767 (triaxial CU)."
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "Na compressão axial convencional, duas tensões principais laterais são iguais. A poropressão isotrópica atua igualmente nas tensões normais, não na diferença entre principais."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "q=σ1−σ3; σ′=σ−u; R=q/2; C=(σ1+σ3)/2. Tensões em kPa."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "σ3 é confinante; σ1 é axial principal maior na compressão convencional. q é a diferença, R é metade da diferença."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Para σ1=400 e σ3=100 kPa, q=300 kPa e R=150 kPa. Se u=60 kPa, principais efetivas 340 e 40 kPa, q permanece 300 kPa."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0034 (UU/CU/CD), CARD-0699 (Mohr–Coulomb), CARD-0690 (investigação), CARD-0700 (tensões efetivas)."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Em trajetórias de extensão, a nomenclatura das principais pode diferir. Comparar círculos no mesmo estado; aumento de u a totais fixas desloca o centro para a esquerda."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não confundir tensão desviadora com raio. Não subtrair u de q nem confundir tensões totais e efetivas."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Triaxial: q é diferença; Mohr usa metade."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "σ3 é confinante; σ1 é axial principal maior; q=σ1−σ3. Em solo saturado, σ′1=σ1−u e σ′3=σ3−u; assim, q=σ′1−σ′3=σ1−σ3. O raio do círculo de Mohr é q/2."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "q=σ′1−σ′3=σ1−σ3",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true
+      },
+      "related_card_ids": [
+        "CARD-0034",
+        "CARD-0699",
+        "CARD-0690",
+        "CARD-0700"
+      ],
+      "expected_hash": "2d6f24bf0729a1b37ba13ceca50ba06e6de781ff6d9151e078f51ed1ea89f0ca"
+    },
+    {
+      "id": "CARD-0781",
+      "title": "Módulo de resiliência",
+      "front": "O que o módulo de resiliência mede no ensaio triaxial repetido de solos e como interpretá-lo?",
+      "back": "O módulo de resiliência (MR) é a razão entre a tensão desviadora aplicada e a deformação axial recuperável no ciclo de carregamento. Representa a rigidez sob solicitações repetidas, e pode variar com estado de tensões, material e umidade. Não mede diretamente a resistência à penetração nem a deformação permanente.",
+      "source": "DNIT 134/2018-ME, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-134-2018-2013-me-solos-2013-determinacao-do-modulo-de-resiliencia ; DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0",
+      "mnemonic": "Resiliência é recuperação.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que o módulo de resiliência mede no ensaio triaxial repetido de solos e como interpretá-lo?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O módulo de resiliência (MR) é a razão entre a tensão desviadora aplicada e a deformação axial recuperável no ciclo de carregamento. Representa a rigidez sob solicitações repetidas, e pode variar com estado de tensões, material e umidade. Não mede diretamente a resistência à penetração nem a deformação permanente."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "DNIT 134/2018-ME, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-134-2018-2013-me-solos-2013-determinacao-do-modulo-de-resiliencia ; DNIT, MeDiNa 2.0, manual e roteiro de utilização: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/medina/medina-versao-2-0"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo",
+          "texto": "A carga cíclica produz parcela recuperável durante descarga e parcela residual. A pressão confinante e a tensão desviadora influem no rearranjo e na resposta dos solos."
+        },
+        {
+          "ord": 5,
+          "titulo": "Fórmulas e unidades",
+          "texto": "MR=σd/εr; σd=σ1−σ3 no estado triaxial. Se σd=0,12 MPa e εr=0,0006, MR=200 MPa. Deformação adimensional."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "MR: rigidez recuperável; ISC: suporte relativo à penetração; DP: deformação residual acumulada; E estático não equivale automaticamente a MR.\n\nO triaxial de cargas repetidas mede rigidez recuperável, ao contrário do triaxial monotônico UU/CU/CD, que investiga resistência sob trajetórias de tensão e drenagem definidas."
+        },
+        {
+          "ord": 7,
+          "titulo": "Aplicação e transferência",
+          "texto": "Se εr dobra com mesma σd, MR cai à metade. Material rígido pode ainda acumular deformação residual."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "CARD-0779, CARD-0786, CARD-0787, CARD-1448, CARD-1483, CARD-1484\n\nCARD-0034 e CARD-0698: ensaios triaxiais de resistência e tensão desviadora."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Aplicar procedimento e modelo constitutivo da classe de material; não usar fórmula triaxial de solos indiscriminadamente para misturas asfálticas."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "MR alto não garante pequena trilha de roda."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete e histórico",
+          "texto": "Resiliência é recuperação.; preservar original e versões por ID."
+        }
+      ],
+      "editorial": {
+        "status": "PUBLICACAO_AUTORIZADA_EVOLUCAO",
+        "answer_paragraphs": [
+          "O módulo de resiliência (MR) é a razão entre a tensão desviadora aplicada e a deformação axial recuperável no ciclo de carregamento. Representa a rigidez sob solicitações repetidas, e pode variar com estado de tensões, material e umidade. Não mede diretamente a resistência à penetração nem a deformação permanente."
+        ],
+        "highlights": [
+          {
+            "kind": "core",
+            "text": "deformação axial recuperável",
+            "color": "#FDE68A"
+          }
+        ],
+        "media": [
+          {
+            "id": "VC30-SVG-MR-DP",
+            "src": "assets/card_visuals_vc30/resiliencia-dp.svg",
+            "caption": "Ciclos de deformação recuperável sobre parcela residual acumulada.",
+            "alt": "Ciclos de deformação recuperável sobre parcela residual acumulada.",
+            "source": "DNIT 134/2018-ME, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/metodo-de-ensaio-me/dnit-134-2018-2013-me-solos-2013-determinacao-do-modulo-de-resiliencia ; DNIT 179/2018-IE, corrigida em 20/4/2023: https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/instrucao-de-ensaio-ie/dnit-179-2018-2013-ie-determinacao-da-deformacao-permanente",
+            "role": "VERSO_APOS_TENTATIVA",
+            "origin": "DERIVADA_AUTORAL",
+            "evidence": "Candidato; exibição não testada"
+          }
+        ],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "formulas": [
+          {
+            "title": "Módulo de resiliência",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msub><mi>M</mi><mi>R</mi></msub><mo>=</mo><mfrac><msub><mi>σ</mi><mi>d</mi></msub><msub><mi>ε</mi><mi>r</mi></msub></mfrac></math>",
+            "units": "MR em MPa; σd em MPa; εr adimensional."
+          }
+        ]
+      },
+      "related_card_ids": [
+        "CARD-0779",
+        "CARD-0786",
+        "CARD-0787",
+        "CARD-1448",
+        "CARD-1483",
+        "CARD-1484",
+        "CARD-0034",
+        "CARD-0698"
+      ],
+      "expected_hash": "0f011faed9840a6f1cb67be9fedc972dd278dbf513c5db17e1a7b0f1a64d804b"
+    }
+  ]
+}
