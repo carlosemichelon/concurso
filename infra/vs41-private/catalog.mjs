@@ -27,6 +27,41 @@ export function verifyRecords(records){
  for(const c of records)if(c.related_card_ids!==undefined&&(!Array.isArray(c.related_card_ids)||c.related_card_ids.some(id=>!seen.has(id))))fail('records-links');
  return structuredClone(records);
 }
+// Read-only overlay for the existing historical delta format. No allocation or SRS events.
+export function previewNativeDelta(snapshot,pointer,delta){
+ const base=delta?.base,p=pointer?.private_base;
+ if(snapshot?.format!=='BancoMestrePrivadoV159'||snapshot.schema_version!==1||snapshot.version!==p?.version||delta?.format!=='BancoMestreDeltaPrivadoRetomavel'||typeof delta.version!=='string'||!delta.version||base?.private_version!==p.version||base.private_drive_file_id!==p.file_id||base.sha256!==p.sha256||!Array.isArray(delta.operations)||delta.operations.length>10000)fail('native-delta-base');
+ const records=verifyRecords(snapshot.cards),cards=new Map(records.map(c=>[c.id,c]));
+ const questions=new Map(),images=new Map(),seen=new Set();
+ const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+ const add=(m,key,value)=>{if(!idOk(key)||!value||typeof value!=='object'||Array.isArray(value))fail('native-delta-record');if(m.has(key)){if(!same(m.get(key),value))fail('native-delta-conflict');return false}m.set(key,value);return true};
+ if(!Array.isArray(snapshot.questions)||!Array.isArray(snapshot.images))fail('native-delta-base');
+ for(const q of snapshot.questions){const key=q?.qid||q?.ID;if(!idOk(key)||questions.has(key))fail('native-delta-record');questions.set(key,q)}
+ for(const m of snapshot.images){if(!idOk(m?.id)||images.has(m.id))fail('native-delta-record');images.set(m.id,m)}
+ const counts={questions:0,historicalRestudies:0,mediaReferences:0,questionLinks:0};
+ for(const o of delta.operations){
+  if(!o||typeof o.key!=='string'||!o.key||o.key.length>321||seen.has(o.op+':'+o.key))fail('native-delta-operation');
+  seen.add(o.op+':'+o.key);
+  if(o.op==='upsert_question_if_absent'||o.op==='record_historical_restudy_event_if_absent'){
+   const q=o.record;if(q?.qid!==o.key||q.srs_question!==null||typeof q.srs_scope!=='string'||!Array.isArray(q.cards)||q.cards.some(id=>!cards.has(id)))fail('native-delta-question');
+   if(o.op==='record_historical_restudy_event_if_absent'&&q.historical_event_id!==o.key)fail('native-delta-question');
+   if(add(questions,o.key,q))counts[o.op==='upsert_question_if_absent'?'questions':'historicalRestudies']++;
+  }else if(o.op==='catalog_private_auxiliary_media_if_absent'){
+   const m=o.record;if(m?.id!==o.key||!Array.isArray(m.candidate_card_ids)||m.candidate_card_ids.some(id=>!cards.has(id)))fail('native-delta-media');
+   if(add(images,o.key,m))counts.mediaReferences++;
+  }else if(o.op!=='append_question_link_if_absent')fail('native-delta-operation');
+ }
+ for(const o of delta.operations.filter(x=>x.op==='append_question_link_if_absent')){
+  const c=cards.get(o.card_id);
+  if(!c||!questions.has(o.question_id)||o.key!==o.card_id+':'+o.question_id||!['DIRETA','COMPLEMENTAR'].includes(o.relation)||createHash('sha256').update(c.front,'utf8').digest('hex')!==o.base_front_sha256)fail('native-delta-link');
+  if(c.related_question_ids!==undefined&&!Array.isArray(c.related_question_ids))fail('native-delta-link');
+  if(!(c.related_question_ids||[]).includes(o.question_id)){c.related_question_ids=[...(c.related_question_ids||[]),o.question_id];counts.questionLinks++}
+ }
+ // Question/media records remain in the original delta. Only card links are
+ // projected here; no consolidation receipt or approval is manufactured.
+ return {records,counts,scope:'snapshot-plus-delta-preview',srsModified:false};
+}
+
 export function createReader({resolveSession,getToken,fetcher=fetch,includeMedia=false,includeFormula=false,nativeSnapshotOnly=false}){
  return async request=>{
   const resolved=await resolveSession(request);if(!resolved||![resolved.subject,resolved.rootId,resolved.profileId,resolved.sessionId].every(idOk))fail('session');
@@ -61,9 +96,12 @@ export function createReader({resolveSession,getToken,fetcher=fetch,includeMedia
    for(const [field,key] of [['cards','cards'],['questions','questions'],['images','images'],['srs_records','srs']]){
     if(!Number.isSafeInteger(p[field])||p[field]<0||!Array.isArray(snapshot[key])||snapshot[key].length!==p[field]||snapshot.counts?.[field]!==p[field])fail('native-counts');
    }
-   const records=verifyRecords(snapshot.cards),current=await resolveSession(request);
+   const records=verifyRecords(snapshot.cards);
+   let overlay=null;
+   if(profile.collections.delta!==undefined){if(!idOk(profile.collections.delta))fail('native-delta-id');const delta=await readJson(profile.collections.delta,'delta',rootId);overlay=previewNativeDelta(snapshot,pointer,delta)}
+   const current=await resolveSession(request);
    if(!current||['subject','rootId','profileId','sessionId'].some(k=>current[k]!==session[k]))fail('session-revoked');
-   return {schema:'BM-VS41-PRIVATE-CARDS/1',records,scope:'snapshot-only',version:snapshot.version};
+   return {schema:'BM-VS41-PRIVATE-CARDS/1',records:overlay?.records||records,scope:overlay?.scope||'snapshot-only',version:snapshot.version,...(overlay?{deltaPreview:overlay.counts}: {})};
   }
   const payload=await readJson(profile.collections.cards,'cards',rootId);
   if(payload?.schema!=='BM-PORTAL-COLLECTION/1'||payload.project!==PROJECT||payload.owner!==subject||payload.kind!=='cards')fail('cards-schema');

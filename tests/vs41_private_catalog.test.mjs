@@ -1,4 +1,4 @@
-import {test} from 'node:test';import {createHash} from 'node:crypto';import assert from 'node:assert/strict';import {createReader} from '../infra/vs41-private/catalog.mjs';import {fixture,profiles,card} from './vs41_private_fixture.mjs';
+import {test} from 'node:test';import {createHash} from 'node:crypto';import assert from 'node:assert/strict';import {createReader,previewNativeDelta} from '../infra/vs41-private/catalog.mjs';import {fixture,profiles,card} from './vs41_private_fixture.mjs';
 function setup(){const f=fixture();return {...f,read:createReader({...f,resolveSession:async req=>profiles[req.session]})}}
 test('duas contas simultâneas, mesmo ID e conteúdos distintos',async()=>{const {read}=setup();const [a,b]=await Promise.all([read({session:'A'}),read({session:'B'})]);assert.equal(a.records[0].back,'Resposta privada A');assert.equal(b.records[0].back,'Resposta privada B')});
 test('sem sessão: nenhuma leitura',async()=>{const {read,requests}=setup();await assert.rejects(read({session:'X'}));assert.equal(requests.length,0)});
@@ -46,4 +46,15 @@ test('leitura experimental do formato privado original pelo ponteiro existente, 
  await assert.rejects(createReader({...f,resolveSession:async()=>profiles.A})({}),e=>e.code==='cards-schema');
  files.get('cardsA').payload.cards[0].back='mudança sem ponteiro';await assert.rejects(read({session:'A'}),e=>e.code==='cards-media-sha256');
  files.get('profileA').payload.collections.pointer='pointerB';await assert.rejects(read({session:'A'}),e=>e.code==='pointer-owner'||e.code==='pointer-parent');
+});
+
+test('delta histórico existente: só projeta vínculos, não reescreve questões, mídia ou SRS',()=>{
+ const c=card('A'),snapshot={format:'BancoMestrePrivadoV159',schema_version:1,version:'VTEST',cards:[c],questions:[],images:[],srs:[{id:c.id,due:'2026-12-01'}],reserved_card_ids:['CARD-9902']},sha='a'.repeat(64);
+ const pointer={private_base:{version:snapshot.version,file_id:'snapshot-A',sha256:sha}};
+ const record={qid:'Q-1',srs_question:null,srs_scope:'HISTORICO',cards:[c.id]},event={...record,qid:'E-1',historical_event_id:'E-1'},media={id:'IMG-1',candidate_card_ids:[c.id]};
+ const delta={format:'BancoMestreDeltaPrivadoRetomavel',version:'TEST',base:{private_version:snapshot.version,private_drive_file_id:'snapshot-A',sha256:sha},operations:[{op:'upsert_question_if_absent',key:'Q-1',record},{op:'record_historical_restudy_event_if_absent',key:'E-1',record:event},{op:'catalog_private_auxiliary_media_if_absent',key:'IMG-1',record:media},...['Q-1','E-1'].map(question_id=>({op:'append_question_link_if_absent',key:c.id+':'+question_id,card_id:c.id,question_id,relation:'DIRETA',base_front_sha256:createHash('sha256').update(c.front).digest('hex')}))]};
+ const before=JSON.stringify(snapshot),r=previewNativeDelta(snapshot,pointer,delta);assert.deepEqual(r.records[0].related_question_ids,['Q-1','E-1']);assert.deepEqual(r.counts,{questions:1,historicalRestudies:1,mediaReferences:1,questionLinks:2});assert.equal(JSON.stringify(snapshot),before);assert.equal(r.srsModified,false);
+ assert.throws(()=>previewNativeDelta(snapshot,pointer,{...delta,base:{...delta.base,private_drive_file_id:'snapshot-B'}}),e=>e.code==='native-delta-base');
+ const bad=structuredClone(delta);bad.operations[3].base_front_sha256='0'.repeat(64);assert.throws(()=>previewNativeDelta(snapshot,pointer,bad),e=>e.code==='native-delta-link');
+ assert.throws(()=>previewNativeDelta(snapshot,pointer,{...delta,operations:[...delta.operations,{op:'update_srs',key:'S-1'}]}),e=>e.code==='native-delta-operation');
 });
