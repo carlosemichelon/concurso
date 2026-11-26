@@ -154,3 +154,13 @@ test('nomes históricos de pastas: Redação usa a pasta original e o índice ex
  const n=writes.length,duplicate=await connectAccount({token:'A',fetcher:fixture('A',{writable:true,writes,legacyFolderNames:true,duplicateReviewFolder:true}),write:true});
  await assert.rejects(duplicate.writing(),/ausente ou duplicado/);await assert.rejects(duplicate.saveWriting({event_id:crypto.randomUUID(),previous:null,data:draft}),/ausente ou duplicado/);assert.equal(writes.length,n);
 });
+
+test('ponteiro histórico verificável prevalece sobre numeração de ramo paralelo, sem promover snapshot',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{historical:true,historicalPointer:true,writable:true,writes}),write:true});
+ const result=await a.schedule();
+ assert.equal(a.snapshot.version,'TESTE-A');assert.equal(result.complete,false);assert.equal(result.historical,'V180');assert.equal(result.records[0].due,'2026-12-08');assert.match(result.warnings.join(' '),/V017 verificado por SHA-256/);assert.equal(writes.length,0);
+});
+test('hash histórico inválido não permite fallback para ramo numericamente superior',async()=>{
+ const a=await connectAccount({token:'A',fetcher:fixture('A',{historical:true,historicalPointer:true,badHistoricalHash:true})});
+ const result=await a.schedule();assert.equal(result.complete,false);assert.equal(result.historical,null);assert.match(result.warnings.join(' '),/hash divergente/);assert.equal(result.records[0].due,'2026-11-28');
+});

@@ -300,7 +300,31 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   return out;
  }
  // Historical fallback is read-only and never becomes the current card catalog.
+ // Historical family pointers are provenance, not authorization to roll back the current catalog.
+ async function historicalPointerSchedule(){
+  const candidates=await list("mimeType = 'application/json' and name contains '00_FONTE_ATUAL_POR_FAMILIA_V'",{skipNonPrivate:true}),matches=[];
+  for(const f of candidates){
+   const m=f.name.match(/^00_FONTE_ATUAL_POR_FAMILIA_V(\\d+)(?:_.*)?\\.json$/i);
+   if(m&&await belongsToRoot(f))matches.push({f,n:Number(m[1])});
+  }
+  matches.sort((a,b)=>b.n-a.n);
+  if(!matches.length)return null;
+  if(matches.length>1&&matches[0].n===matches[1].n)throw Error('Ponteiro histórico mais recente ambíguo');
+  const {f,n}=matches[0],p=await json(f.id,1000000),v=p.data,ref=v?.private_base;
+  if(!await belongsToRoot(p.meta)||p.meta.name!==f.name||v?.schema!=='banco-mestre-operational-pointer/1'||Number(String(v.pointer_version).replace(/^V/,''))!==n||!validId(ref?.file_id)||typeof ref.version!=='string'||!/^[a-f0-9]{64}$/.test(ref.sha256||''))throw Error('Ponteiro histórico inválido');
+  const r=await raw(ref.file_id,32*1024*1024);
+  if(!await belongsToRoot(r.meta)||await hashBytes(r.bytes)!==ref.sha256)throw Error('Origem histórica fora do banco ou hash divergente');
+  const d=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(r.bytes)),again=await meta(f.id);
+  if(again.version!==p.meta.version||again.name!==p.meta.name||!await belongsToRoot(again)||d?.format!=='BancoMestrePrivadoV159'||d.schema_version!==1||d.version!==ref.version||!Array.isArray(d.cards)||!Array.isArray(d.srs)||d.cards.length!==ref.cards||d.counts?.cards!==d.cards.length||d.counts?.srs_records!==d.srs.length)throw Error('Snapshot histórico vinculado incompatível');
+  const historic=new Map(d.cards.map(c=>[c.id,c]));
+  if(historic.size!==d.cards.length||new Set(d.srs.map(x=>x.id)).size!==d.srs.length||d.srs.some(x=>!historic.has(x.id)))throw Error('Identidade histórica divergente');
+  // Same active ID and stable classification; no remapping of retired IDs or reassignment of ratings.
+  const active=new Map(records.filter(c=>c.active).map(c=>[c.id,c]));
+  const srs=d.srs.filter(x=>{const a=active.get(x.id),old=historic.get(x.id);return a&&old.active!==false&&['group','discipline','subject','sub'].every(k=>a[k]===old[k]);});
+  return {version:d.version,updated:typeof d.updated==='string'?d.updated:'',srs,pointer:v.pointer_version};
+ }
  async function historicalSchedule(){
+  const anchored=await historicalPointerSchedule();if(anchored)return anchored;
   const candidates=await list("mimeType = 'application/json' and name contains 'BANCO_MESTRE_PRIVADO_V'");
   const matches=[],parentsChecked=new Map();
   for(const f of candidates){
@@ -324,7 +348,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   let historical=null;
   if(!source){
    warnings.push('Snapshot SRS canônico não confirmado');
-   try{historical=await historicalSchedule();if(historical)warnings.push('Histórico '+historical.version+' consultado somente por ID ativo idêntico; sem transferir avaliações de IDs consolidados.');}
+   try{historical=await historicalSchedule();if(historical)warnings.push('Histórico '+historical.version+(historical.pointer?' (ponteiro histórico '+historical.pointer+' verificado por SHA-256)':' (arquivo histórico sem ponteiro)')+' consultado somente por ID ativo idêntico; sem transferir avaliações de IDs consolidados.');}
    catch(e){warnings.push('Histórico não confirmado: '+e.message);}
   }
   const historySource=source?snapshot:historical;
