@@ -624,7 +624,7 @@ function render(){
    finally{pending=null}
   })();return pending;
  }
- function topicRecords(){return !validToken()||!lastGoodAt?null:photos.map(f=>({id:f.id,editorialId:f.editorialId||'',title:info(f).displayTitle,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,cardIds:f.card_ids,description:f.description,name:f.title,path:'Perfil privado',preview:()=>getImageUrl(f),open:()=>openImage(f)}))}
+ function topicRecords(){return !validToken()||!lastGoodAt?null:photos.map(f=>({id:f.id,editorialId:f.editorialId||'',title:info(f).displayTitle,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,cardIds:f.card_ids,description:f.description,name:f.filename||f.title,filename:f.filename||f.title,path:Array.isArray(f.path)?f.path.join(' / '):f.path,folderSubject:f.folderSubject,folderArea:f.folderArea,preview:()=>getImageUrl(f),open:()=>openImage(f)}))}
  window.BancoMestreDriveImagesV182=Object.freeze({refresh:refreshList,refreshAfterMove:refreshList,prepareTopicMetadata:async()=>{},topicRecords,
   get connected(){return validToken()},get lastSuccess(){return lastGoodAt?new Date(lastGoodAt).toISOString():null},get lastError(){return lastError},get lastCount(){return photos.length},get unverifiedCount(){return 0},get alreadyPublic(){return 0},get atlasMode(){return 'drive_only'},get roots(){return []},getEditorialId:id=>photos.find(f=>f.id===id)?.editorialId||'',getImageUrlForCard:id=>{const f=photos.find(x=>x.id===id);if(!f)throw Error('Imagem fora do perfil');return getImageUrl(f)}
  });

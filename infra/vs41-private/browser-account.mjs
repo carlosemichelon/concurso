@@ -320,15 +320,20 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   return {records:[...byId.values()],complete:source,warnings,documents,events:seen.size,version:historySource?.version||snapshot.version,updated:historySource?.updated||'',historical:historical?.version||null};
  }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
- let mediaIndex=null;
- const media=async(fresh=false)=>{if(mediaIndex&&!fresh)return mediaIndex;const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
+ let mediaIndex=null,mediaPending=null;
+ const media=async(fresh=false)=>{if(mediaPending)return mediaPending;if(mediaIndex&&!fresh)return mediaIndex;mediaPending=scanMedia();try{return await mediaPending}finally{mediaPending=null}};
+ const scanMedia=async()=>{const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
+  const reportProgress=(phase)=>{if(signal?.aborted)return;const doc=globalThis.document;if(doc&&typeof globalThis.CustomEvent==='function')doc.dispatchEvent(new CustomEvent('bm-private-media-progress',{detail:{phase,folders:seen.size,remaining:queue.length,files:out.size}}))};
+  reportProgress('scan');
   while(queue.length){const p=queue.shift();if(seen.has(p.id)||seen.size>=2000)throw Error('Árvore de mídias inválida ou extensa');seen.add(p.id);
    const children=await list("'"+p.id+"' in parents");
    for(const f of children){if(f.parents?.length!==1||f.parents[0]!==p.id)throw Error('Arquivo fora da pasta selecionada');const path=[...p.path,f.name];
     if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path});continue;}
     if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType))out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path});
    }
+   reportProgress('scan');
   }
+  reportProgress('classification');
   // The historical editorial catalog is not a source of file authorization.
   // Join only by exact Drive ID after the private, owned-tree scan above.
   if(readEditorialIndex){
@@ -346,7 +351,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    const links=a=>Array.isArray(a)?a.filter(x=>ids.has(x)):[];
    for(const item of out.values()){
     item.filename=item.title;item.editorialId='';item.classified=false;item.card_ids=[];
-    if(item.mimeType.startsWith('image/')){item.category='Imagem';item.area='';item.subject='';}
+    if(item.mimeType.startsWith('image/')){item.category='Imagem';item.folderArea=item.area;item.folderSubject=item.subject;item.area='';item.subject='';}
    }
    for(let i=0;i<3;i++){
     for(const row of Array.isArray(packs[i]?.records)?packs[i].records:[]){
@@ -375,7 +380,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     if(g&&a){item.classified=true;item.catalogGroup={id:g.id,label:g.label,subtitle:g.subtitle,order:g.order,area:g.area,areaLabel:a.label,areaDescription:a.description};}
    }
   }
-  mediaIndex=out;return out};
+  mediaIndex=out;reportProgress('complete');return out};
  const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da pasta individual');const r=await raw(id,100000000);if(r.meta.mimeType!==item.mimeType)throw Error('Tipo de mídia alterado');return new Blob([r.bytes],{type:item.mimeType})};
  const GRIF_KIND='bm_grifos_sync_v104_master',GRIF_NAME='BancoMestre_Grifos_Mestre.json';
  const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(n=>n.toString(16).padStart(2,'0')).join('');

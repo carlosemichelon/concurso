@@ -116,13 +116,16 @@ function bm430TopicScore(subject,fields){
  const clean=x=>plain(String(x||'')).replace(/([a-z])(\d)/g,'$1 $2').replace(/[^a-z0-9]+/g,' ').trim();
  const query=clean(subject);if(!query)return 0;
  const stop=new Set(['para','com','das','dos','geral','gerais','engenharia','civil','assuntos','estudo']);
- const words=query.split(' ').filter(w=>w.length>2&&!stop.has(w));
+ const words=query.split(' ').filter(w=>w.length>2&&!stop.has(w)&&!['de','do','da','e'].includes(w));
  if(!words.length)return 0;
  const terms=fields.map(clean).filter(Boolean),has=(x,w)=>(' '+x+' ').includes(' '+w+' ');
  if(terms.some(x=>x===query))return 100;
  if(terms.some(x=>has(x,query)))return 90;
  if(words.length>1&&terms.some(x=>words.every(w=>has(x,w))))return 80;
  if(words.length===1&&words[0].length>=4&&terms.some(x=>has(x,words[0])||has(x,words[0]+'s')))return 70;
+ // Explicit technical aliases, applied only to matching item-level metadata.
+ if(/^(?:estruturas? metalicas?|estruturas? (?:de )?aco|aco estrutural)$/.test(query)&&terms.some(x=>/\bnbr 8800\b|\bestruturas? (?:de )?aco\b|\bestruturas? metalicas?\b|\baco estrutural\b|\blight steel fram(?:e|ing)\b|\bperfis? metalicos?\b/.test(x)))return 75;
+ if(/^(?:pavimentacao|pavimentos?|rodovias e pavimentacao)$/.test(query)&&terms.some(x=>/\bpavimentacao\b|\bpavimentos?\b|\b(?:misturas?|revestimentos?|ligantes?) asfaltic[oa]s?\b|\basfaltos?\b|\bcb u q\b|\bcbuq\b|\bsub base\b|\bimprimacao\b|\bmacadame\b/.test(x)))return 75;
  // Associações temáticas, não vínculo documental. Evitar termos isolados genéricos.
  if(query==='concreto armado'||query==='estruturas de concreto'||query==='estruturas concreto armado'){
   if(terms.some(x=>/\bnbr 6118\b|\bestruturas? de concreto\b|\bdurabilidade de estruturas de concreto\b|\barmaduras? (?:e aco )?(?:para|de) concreto\b|\bdominios? de deformacao\b/.test(x)))return 60;
@@ -138,9 +141,9 @@ function bm432RankMedia(topic,list,index,topicCards,kind){
  }
  const result=[];
  for(const x of list||[]){
-  const direct=kind==='image'&&(linked.has(x.editorialId)||(x.cardIds||[]).some(id=>ids.has(id)));
+  const direct=(kind==='image'&&linked.has(x.editorialId))||(x.cardIds||x.card_ids||[]).some(id=>ids.has(id));
   const classified=kind==='image'&&plain(x.subject)===plain(topic.subject);
-  const fields=kind==='image'?[x.subject,x.subsubject,x.title,x.name,x.path,x.description,x.detail]:[x.title,x.filename,x.section,x.drivePath];
+  const fields=kind==='image'?[x.subject,x.subsubject,x.title,x.name,x.filename,x.path,x.folderSubject,x.description,x.detail]:[x.title,x.filename,x.section,x.category,x.subject,x.subsubject,x.drivePath,Array.isArray(x.path)?x.path.join(' / '):x.path];
   const score=direct?120:classified?105:bm430TopicScore(topic.subject,fields);
   if(score)result.push({x,score,basis:direct?'Vínculo cadastrado':classified?'Classificação do assunto':'Sugestão temática'});
  }
@@ -161,22 +164,31 @@ function showTopicImages(t){
   open.disabled=true;root.setAttribute('aria-busy','true');root.classList.remove('bm171-media-closed');root.classList.add('bm171-media-open');open.setAttribute('aria-expanded','true');
   const loading=document.createElement('div');loading.id='bm428TopicProgress';loading.dataset.state='loading';
   const label=document.createElement('p');label.className='bm418-media-label';label.setAttribute('role','status');label.textContent='Consultando acervo do Drive…';
-  const bar=document.createElement('progress');bar.setAttribute('aria-label','Progresso da consulta');bar.className='bm418-media-progress';loading.append(label,bar);
+  const bar=document.createElement('progress');bar.setAttribute('aria-label','Progresso da consulta');bar.className='bm418-media-progress';bar.max=3;bar.value=0;loading.append(label,bar);
+  const detail=document.createElement('small');detail.textContent='Preparando os índices de imagens, PDFs e cartões…';loading.append(detail);
   const result=document.createElement('div');root.replaceChildren(loading,result);
   const session=window.BancoMestreMediaSyncV182?.token?.()||'';bm430TopicSession=session;
   const valid=()=>same()&&(window.BancoMestreMediaSyncV182?.token?.()||'')===session&&Boolean(images?.connected||pdfs?.connected);
-  const read=async provider=>{if(!provider?.connected)throw Error('Biblioteca não autorizada');await provider.prepareTopicMetadata?.();let list=provider.topicRecords();if(list===null){await bm430Deadline(provider.refresh(),45000);list=provider.topicRecords()}if(list===null)throw Error('Consulta não confirmada nesta sessão');return list};
+  let doneSources=0;
+  const stages=new Map();
+  const finished=(name,state)=>{stages.set(name,state);doneSources++;if(valid()){bar.value=doneSources;label.textContent='Consultando acervo do Drive · '+doneSources+' de 3 etapas';detail.textContent=[...stages].map(([k,v])=>k+': '+v).join(' · ')}};
+  const scanProgress=e=>{if(!valid()||doneSources>=3)return;const d=e.detail||{};if(d.phase==='scan')detail.textContent='Pastas consultadas: '+d.folders+' · '+d.remaining+' na fila · '+d.files+' arquivos identificados';else if(d.phase==='classification')detail.textContent='Cruzando os arquivos localizados com os índices temáticos…'};
+  document.addEventListener('bm-private-media-progress',scanProgress);
+  const read=async(provider,name)=>{try{if(!provider?.connected)throw Error('Biblioteca não autorizada');await provider.prepareTopicMetadata?.();let list=provider.topicRecords();if(list===null){await bm430Deadline(provider.refresh(),120000);list=provider.topicRecords()}if(list===null)throw Error(provider.lastError||'Consulta não confirmada nesta sessão');finished(name,list.length+' arquivos');return list}catch(e){finished(name,'falha');throw e}};
   try{
    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-   const [settled]=await Promise.all([Promise.allSettled([read(images),read(pdfs)]),Promise.allSettled([loadMeta(),loadCards()])]);
+   const [settled,metadata]=await Promise.all([Promise.allSettled([read(images,'Imagens'),read(pdfs,'PDFs')]),Promise.allSettled([loadMeta(),loadCards()]).then(results=>{finished('Cartões e índices',results.every(x=>x.status==='fulfilled')?'conferidos':'parcial');return results})]);
    if(!valid())throw Error('Autorização alterada');
    const failed=settled.filter(x=>x.status==='rejected').length;
    const imageList=settled[0].status==='fulfilled'?settled[0].value:[];
    const pdfList=settled[1].status==='fulfilled'?settled[1].value:[];
-   const topicCards=cards.filter(c=>c.active!==false&&c.group===t.group&&plain(c.subject)===plain(t.subject)).map(c=>c.id);
+   const exactCards=cards.filter(c=>c.active!==false&&plain(c.subject)===plain(t.subject));
+   const directCards=exactCards.filter(c=>c.group===t.group);const topicCards=(directCards.length?directCards:t.visualOnly&&new Set(exactCards.map(c=>c.group)).size===1?exactCards:[]).map(c=>c.id);
    const related=bm432RankMedia(t,imageList,window.BM032VisualIndex?.records||[],topicCards,'image');
-   const relatedPdfs=bm432RankMedia(t,pdfList,[],[],'pdf');
-   addPara(result,related.length+' imagem(ns) · '+relatedPdfs.length+' PDF(s) encontrados. Acervo consultado: '+imageList.length+' imagens e '+pdfList.length+' PDFs.','contextNote');
+   const relatedPdfs=bm432RankMedia(t,pdfList,[],topicCards,'pdf');
+   const counts=[settled[0].status==='fulfilled'?related.length+' imagem(ns) encontrada(s) em '+imageList.length+' consultadas':'Imagens: consulta não concluída',settled[1].status==='fulfilled'?relatedPdfs.length+' PDF(s) encontrado(s) em '+pdfList.length+' consultados':'PDFs: consulta não concluída'];
+   addPara(result,counts.join(' · '),'contextNote');
+   if(metadata.some(x=>x.status==='rejected'))addPara(result,'Índices de cartões parcialmente disponíveis; os vínculos podem estar incompletos.','contextNote');
    if(failed)addPara(result,'Consulta parcial: '+settled.map((x,i)=>x.status==='rejected'?(i===0?'Imagens: ':'PDFs: ')+String(x.reason?.message||x.reason):'').filter(Boolean).join(' · '),'contextNote');
    const grid=document.createElement('div');grid.className='topicVisualGrid bm169-topic-images bm430-topic-grid';
    const jobs=[];
@@ -192,12 +204,12 @@ function showTopicImages(t){
    if(!related.length&&!relatedPdfs.length&&!failed)addPara(result,'Nenhum material correspondente foi localizado nas pastas consultadas.','contextNote');
    const actions=document.createElement('div');actions.className='chipLinks';actions.append(chip('Biblioteca de imagens',()=>section('imagens')),chip('Biblioteca de PDFs',()=>section('pdfs')),chip('Consultar novamente',()=>{showTopicImages(t);root.querySelector('.bm171-open-media')?.click()}));result.append(actions);
    let done=0,missing=0;const total=jobs.length;
-   if(total){bar.max=total;bar.value=0;label.textContent='Carregando miniaturas (0 de '+total+')…';let cursor=0;
+   if(total){bar.max=total;bar.value=0;detail.textContent='Resultados localizados; preparando as prévias.';label.textContent='Carregando miniaturas (0 de '+total+')…';let cursor=0;
     await Promise.all(Array.from({length:Math.min(3,total)},async()=>{while(cursor<total&&valid()){const ok=await jobs[cursor++]();if(!valid())return;if(!ok)missing++;bar.value=++done;label.textContent='Carregando miniaturas ('+done+' de '+total+')…'}}))}
    if(!valid())throw Error('Autorização alterada');
    loading.remove();if(missing)addPara(result,missing+' prévia(s) indisponível(is); os títulos continuam acessíveis.','contextNote');
   }catch(e){if(same()){root.replaceChildren(open,notice);open.disabled=false;open.setAttribute('aria-expanded','false');root.classList.remove('bm171-media-open');root.classList.add('bm171-media-closed');notice.textContent='Consulta não concluída: '+e.message}}
-  finally{if(same())root.removeAttribute('aria-busy')}
+  finally{document.removeEventListener('bm-private-media-progress',scanProgress);if(same())root.removeAttribute('aria-busy')}
  });
  open.className='bm171-open-media';open.setAttribute('aria-expanded','false');open.setAttribute('aria-label','Carregar e consultar imagens e PDFs do assunto');
  const notice=document.createElement('p');notice.className='contextNote';notice.setAttribute('role','status');root.append(open,notice);
