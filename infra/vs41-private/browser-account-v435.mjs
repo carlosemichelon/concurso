@@ -304,7 +304,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  async function historicalPointerSchedule(){
   const candidates=await list("mimeType = 'application/json' and name contains '00_FONTE_ATUAL_POR_FAMILIA_V'",{skipNonPrivate:true}),matches=[];
   for(const f of candidates){
-   const m=f.name.match(/^00_FONTE_ATUAL_POR_FAMILIA_V(\\d+)(?:_.*)?\\.json$/i);
+   const m=f.name.match(/^00_FONTE_ATUAL_POR_FAMILIA_V(\d+)(?:_.*)?\.json$/i);
    if(m&&await belongsToRoot(f))matches.push({f,n:Number(m[1])});
   }
   matches.sort((a,b)=>b.n-a.n);
