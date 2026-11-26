@@ -17,11 +17,11 @@
    const mod=await import(accountModule.href);
    if(!window.google?.accounts?.oauth2){await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.onload=res;s.onerror=()=>rej(Error('Google indisponível'));document.head.append(s)})}
    client=google.accounts.oauth2.initTokenClient({client_id:config.client_id,scope:mod.scope,callback:async r=>{
-    if(closed)return;if(r.error||!r.access_token||!google.accounts.oauth2.hasGrantedAllScopes(r,mod.scope)){opening=false;status('Autorização não concedida');refreshButton();return;}
+    if(closed)return;if(r.error||!r.access_token||!google.accounts.oauth2.hasGrantedAllScopes(r,...mod.scope.split(' '))){opening=false;status('Autorização não concedida');refreshButton();return;}
     try{abort=new AbortController();status('Carregando seu Banco Mestre no Drive…');
-     const p=await mod.connectAccount({token:r.access_token,fetcher:nativeFetch,signal:abort.signal,allowEditorial:()=>true});
+     const p=await mod.connectAccount({token:r.access_token,fetcher:nativeFetch,signal:abort.signal,allowEditorial:()=>true,write:true,actor:nonce});
      if(closed)return;session=p;resolve(p);timer=setTimeout(close,Math.max(1000,(Number(r.expires_in||3600)-60)*1000));
-     status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.scope==='editorial-candidate-only'?'espelho editorial conferido do site · somente leitura':'Drive individual · somente leitura'));
+     status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.scope==='editorial-candidate-only'?'cartões VC52 do Drive · estudos e SRS com gravação autorizada':'Drive individual · estudos e SRS com gravação autorizada'));
      document.dispatchEvent(new CustomEvent('bm-account-connected'));
      if(typeof loadCards==='function')void loadCards().catch(e=>status(e.message));
     }catch(e){status(e.message||'Banco individual indisponível')}finally{opening=false;refreshButton()}
@@ -39,11 +39,17 @@
   if(u.origin!==location.origin||!u.pathname.startsWith('/api/vs41/'))return json({error:'Fonte não autorizada'},403);
   const p=await ready;if(closed||!session||!p)return json({error:'Sessão encerrada'},401);
   if(u.pathname==='/api/vs41/logout'&&method==='POST'){queueMicrotask(close);return json({ok:true});}
-  if(method!=='GET')return json({error:'Somente leitura'},403);
-  if(u.pathname==='/api/vs41/session')return json({context:nonce});
+  if(method!=='GET'&&method!=='POST')return json({error:'Operação não autorizada'},403);
+  if(u.pathname==='/api/vs41/session'&&method==='GET')return json({context:nonce});
   if(new Headers(opts.headers).get('X-BM-Context')!==nonce)return json({error:'Sessão divergente'},409);
   try{
    const key=u.pathname.slice('/api/vs41/'.length);
+   if(method==='POST'){
+    const input=JSON.parse(opts.body||'{}');
+    if(key==='study')return json({...await p.saveStudy(input),context:nonce});
+    if(key==='reviews')return json({event:await p.recordReview(input),context:nonce});
+    return json({error:'Gravação ainda não habilitada neste módulo'},403);
+   }
    if(key==='private-cards')return json({schema:'BM-VS41-PRIVATE-CARDS/1',records:p.snapshot.records,context:nonce});
    if(key==='study')return json({...await p.study(),context:nonce});
    if(key==='gaps')return json({...await p.gaps(),context:nonce});
@@ -53,7 +59,7 @@
    if(key==='pdfs')return json({documents:await p.pdfs(),context:nonce});
    if(key.startsWith('media/')){const id=decodeURIComponent(key.split('/').at(-1)),blob=await p.readMedia(id);if(closed)return json({error:'Sessão encerrada'},401);return new Response(blob,{headers:{'Content-Type':blob.type,'X-BM-Context':nonce}})}
    return json({error:'Operação privada não disponível'},503);
-  }catch(e){return json({error:e.message},503)}
+  }catch(e){return json({error:e.message},[400,403,409,412].includes(e.status)?e.status:503)}
  };
  addEventListener('pagehide',()=>{closed=true;abort?.abort();clearTimeout(timer);session=null;resolve(null);localStorage.clear();sessionStorage.clear()});
 })();
