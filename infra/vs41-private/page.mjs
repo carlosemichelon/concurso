@@ -1,6 +1,6 @@
 // Derive the test page from the official HTML without modifying the snapshot or its CSS.
 export function privatePage(source){
- if(!source.includes('data-bm-portal-version="V432"'))throw Error('Versão ainda não homologada');
+ if(!/data-bm-portal-version="V43[23]"/.test(source))throw Error('Versão ainda não homologada');
  let html=source;
  const replace=(a,b)=>{if(html.split(a).length!==2)throw Error('Contrato VS41 divergente: '+a.slice(0,80));html=html.replace(a,b)};
  replace("  let p;\n  try{\n   const controller","  let p;\n  const privateSource=window.BMVS41PrivateCards;\n  try{\n   if(!privateSource)throw Error('Fonte privada ausente');\n   if(privateSource){p=await privateSource.read();}else{\n   const controller");
