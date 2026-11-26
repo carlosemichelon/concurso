@@ -1,0 +1,442 @@
+{
+  "format": "BancoMestreConsolidationCandidate1",
+  "date": "2026-11-25",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_catalog": "assets/catalog_snapshot_vc50.json",
+  "source_catalog_blob": "6e7864b7604d5a338128b0a7b0a4eb1c94d09106",
+  "counts": {
+    "source_active": 1486,
+    "groups": 3,
+    "absorbed": 5,
+    "projected_active": 1481
+  },
+  "redirects": {
+    "CARD-0486": "CARD-0411",
+    "CARD-0508": "CARD-0411",
+    "CARD-0528": "CARD-0111",
+    "CARD-0614": "CARD-0111",
+    "CARD-0610": "CARD-0609"
+  },
+  "revisions": [
+    {
+      "id": "CARD-0411",
+      "title": "Fator de comercialização no método evolutivo",
+      "front": "Como calcular e interpretar o fator de comercialização no método evolutivo da avaliação de imóveis?",
+      "back": "O fator de comercialização (FC) ajusta a soma do valor do terreno e do custo de reedição das benfeitorias às condições do mercado. A expressão é VI = (VT + CB) × FC; portanto, FC = VI/(VT + CB), desde que o denominador seja positivo.\n\nFC maior que 1 indica que o valor de mercado supera essa soma; FC menor que 1 indica valor inferior; FC igual a 1 indica equivalência. O fator deve ser fundamentado em evidências de mercado, e não adotado automaticamente como unidade.",
+      "satellites": [
+        "CARD-0486",
+        "CARD-0508"
+      ],
+      "source": "CON-16-065 | CON-12-030 | CON-19-024",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0411",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Avaliação de imóveis",
+          "sub": "Fator de comercialização",
+          "front": "O fator de comercialização FC do método evolutivo é necessariamente igual a 1?",
+          "back": "Não. Pode ser maior, igual ou menor que 1 conforme evidências do mercado.",
+          "expl": "FC relaciona valor de mercado do imóvel à soma do valor do terreno e custo de reedição das benfeitorias. Pode refletir localização, liquidez, padrão e dinâmica econômica.\nAplicação: Ex.: imóvel vendido por R$ 660 mil, VT + CB = R$ 700 mil → FC = 660/700 ≈ 0,943.\nPegadinha: FC = 1 não é padrão obrigatório; arbitramento exige fundamentação e pode afetar grau de fundamentação, conforme edição da norma.",
+          "mnemonic": "Mercado ÷ (terreno + benfeitorias) = FC.",
+          "reference": "CON-16-065",
+          "active": true
+        },
+        {
+          "id": "CARD-0486",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Avaliação de imóveis",
+          "sub": "Fator comercialização",
+          "front": "Como obter FC no método evolutivo quando se conhece o valor de mercado do imóvel?",
+          "back": "FC = VI / (VT + CB).",
+          "expl": "O fator de comercialização é a razão entre o valor de mercado e a soma dos valores do terreno e da benfeitoria reeditada. O cálculo permite calibrar a compatibilidade do conjunto com mercado observável.\nAplicação: VI = R$ 800 mil, VT = R$ 300 mil, CB = R$ 500 mil → FC = 1,00. Com VI de R$ 720 mil, FC = 0,90.\nPegadinha: Jamais dividir só pelo custo de construir nem usar construção nova sem correção de depreciação.",
+          "mnemonic": "FC = imóvel vendido / partes reeditadas.",
+          "reference": "CON-12-030",
+          "active": true
+        },
+        {
+          "id": "CARD-0508",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Avaliação imobiliária",
+          "sub": "Fator de comercialização",
+          "front": "O que significa FC acima ou abaixo de 1 na avaliação pelo método evolutivo?",
+          "back": "FC acima de 1: valor de mercado supera VT+CB; abaixo de 1: é inferior a VT+CB.",
+          "expl": "O fator mede ajuste mercadológico do conjunto, não uma porcentagem fixa de lucro. Pode resultar de localização, obsolescência, demanda ou adequação do padrão ao entorno.\nAplicação: Com VT+CB = R$ 1 milhão, FC=1,10 → VI=R$ 1,10 milhão; FC=0,80 → VI=R$ 800 mil.\nPegadinha: Não equiparar FC ao BDI de orçamento de obras nem inferir valor sem dados de mercado.",
+          "mnemonic": "FC mede como mercado recebe o conjunto.",
+          "reference": "CON-19-024",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0411": "4bf4d63d7fc06f35c3b5ab23183428236112485ea148b1ba81ecca41205dfe30",
+        "CARD-0486": "bc1d1530021ebb2a809e73d0ebe5210507d43763c1f1e2cbcbe84ba2413e2379",
+        "CARD-0508": "66267b0c347386c8e3e82ec4cf2ab5bd837971605723a986f1a1ac6b3c2fa53e"
+      },
+      "mnemonic": "FC = mercado dividido pela soma; acima de 1 valoriza, abaixo de 1 reduz.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como calcular e interpretar o fator de comercialização no método evolutivo da avaliação de imóveis?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O fator de comercialização (FC) ajusta a soma do valor do terreno e do custo de reedição das benfeitorias às condições do mercado. A expressão é VI = (VT + CB) × FC; portanto, FC = VI/(VT + CB), desde que o denominador seja positivo.\n\nFC maior que 1 indica que o valor de mercado supera essa soma; FC menor que 1 indica valor inferior; FC igual a 1 indica equivalência. O fator deve ser fundamentado em evidências de mercado, e não adotado automaticamente como unidade."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-16-065 | CON-12-030 | CON-19-024"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A localização, a liquidez, a obsolescência e a adequação do imóvel ao mercado podem influenciar o ajuste. O custo de reedição considera a benfeitoria existente, com depreciação pertinente."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Se VT=300 mil reais e CB=500 mil reais, com VI=720 mil reais, FC=0,90. Se VT+CB=1 milhão e FC=1,10, VI=1,10 milhão de reais."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "O FC é ajuste mercadológico do imóvel como conjunto; não corresponde ao BDI do orçamento de obras nem a uma taxa fixa de lucro."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Se a prova fornecer VI, VT e CB, isole FC. Se fornecer FC e os componentes, multiplique a soma. Um imóvel vendido por 660 mil reais, cuja soma é 700 mil reais, tem FC≈0,943."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0411, CARD-0486, CARD-0508."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A avaliação depende de evidências e do método aplicável; o arbitramento do fator pode afetar o grau de fundamentação conforme a edição normativa."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não use apenas o custo de construção no denominador, nem substitua custo de reedição por custo de uma construção nova sem tratar a depreciação."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "FC = mercado dividido pela soma; acima de 1 valoriza, abaixo de 1 reduz."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "O fator de comercialização (FC) ajusta a soma do valor do terreno e do custo de reedição das benfeitorias às condições do mercado. A expressão é VI = (VT + CB) × FC; portanto, FC = VI/(VT + CB), desde que o denominador seja positivo.",
+          "FC maior que 1 indica que o valor de mercado supera essa soma; FC menor que 1 indica valor inferior; FC igual a 1 indica equivalência. O fator deve ser fundamentado em evidências de mercado, e não adotado automaticamente como unidade."
+        ],
+        "highlights": [
+          {
+            "text": "O fator de comercialização (FC) ajusta a soma do valor do terreno e do custo de reedição das benfeitorias às condições do mercado",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0111",
+      "title": "Princípio dos Trabalhos Virtuais",
+      "front": "O que estabelece o Princípio dos Trabalhos Virtuais, quais condições os sistemas virtuais devem satisfazer e como aplicá-lo ao cálculo de deslocamentos?",
+      "back": "O Princípio dos Trabalhos Virtuais é uma relação energética, não uma força nem um deslocamento. Em equilíbrio, o trabalho virtual externo é igual ao interno para deslocamentos virtuais cinematicamente admissíveis, com convenção de sinais consistente.\n\nNa formulação por forças virtuais, o sistema de forças deve satisfazer o equilíbrio. No método da carga unitária, uma ação virtual unitária aplicada na direção do deslocamento procurado permite calcular esse deslocamento a partir dos esforços internos reais e virtuais.",
+      "satellites": [
+        "CARD-0528",
+        "CARD-0614"
+      ],
+      "source": "CON-19-054 | CON-15-013 | H20-C016",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0111",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Análise estrutural",
+          "sub": "PTV",
+          "front": "O Princípio dos Trabalhos Virtuais (PTV) é força, deslocamento ou princípio?",
+          "back": "É um princípio energético de equilíbrio/compatibilidade, não uma força ou deslocamento.",
+          "expl": "O PTV relaciona forças reais ou virtuais a deslocamentos compatíveis. Em equilíbrio, o trabalho virtual resultante é nulo nas condições do princípio; no método da carga unitária, cargas virtuais permitem obter deslocamentos reais a partir da deformação interna.\nAplicação: Exemplo: aplicar uma força virtual unitária vertical em um ponto de viga permite determinar a flecha δ=∫Mm/(EI)dx, sob predominância de flexão linear.\nPegadinha: Não confundir o princípio com a carga unitária usada para operacionalizá-lo; compatibilidade cinemática e convenção dos sinais permanecem essenciais.",
+          "mnemonic": "PTV = princípio; 1 N virtual é ferramenta.",
+          "reference": "CON-19-054",
+          "active": true
+        },
+        {
+          "id": "CARD-0528",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Mecânica das estruturas",
+          "sub": "PTV",
+          "front": "Qual é a condição de equilíbrio formulada pelo Princípio dos Trabalhos Virtuais?",
+          "back": "O trabalho virtual total das ações internas e externas, com sinais compatíveis, é nulo para qualquer deslocamento virtual admissível.",
+          "expl": "Na forma de balanço energético, δW_ext=δW_int; levando tudo para um lado resulta δW_total=0. A formulação usa deslocamentos virtuais geometricamente compatíveis e relações constitutivas apropriadas quando se quer resolver deformações.\nAplicação: Uma força externa F atua na direção δu: sua parcela de trabalho virtual é F·δu; um binário M, M·δθ. Os esforços internos equilibram as contribuições no movimento virtual escolhido.\nPegadinha: Não afirmar que o trabalho externo é zero isoladamente. A equivalência depende de campo virtual compatível, forças apropriadas e convenção de sinais.",
+          "mnemonic": "Equilíbrio virtual: trabalho de fora = de dentro.",
+          "reference": "CON-15-013",
+          "active": true
+        },
+        {
+          "id": "CARD-0614",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Estruturas",
+          "sub": "PTV",
+          "front": "No princípio dos trabalhos virtuais, quais condições devem satisfazer os sistemas virtuais?",
+          "back": "Forças virtuais estaticamente admissíveis e deslocamentos virtuais cinematicamente compatíveis.",
+          "expl": "Os sistemas virtuais não precisam coincidir com os reais: o princípio relaciona trabalho externo e interno sob condições de equilíbrio e compatibilidade. Na técnica da carga unitária para estruturas lineares, um carregamento virtual unitário extrai deslocamento na direção desejada.\nAplicação: Em uma viga elástica: δ=∫M(x)m(x)/(EI)dx, para contribuição por flexão e hipóteses usuais de pequenos deslocamentos.\nPegadinha: A integral é caso específico de trabalho virtual, não fórmula universal para qualquer comportamento; considerar axial/cisalhamento quando relevantes.",
+          "mnemonic": "Virtual: força em equilíbrio, deslocamento compatível.",
+          "reference": "H20-C016",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0111": "b6f9adf39f243a706f859cc5ed8fe7254fdc667c0a96f03d30618424276b5b02",
+        "CARD-0528": "dc6ef073694c1818b4dd1635572cd88e35f7f59535f0a9c5eb4000fe643f34fb",
+        "CARD-0614": "f043748693600b52aa26df6b883b4128d6f8a5c828ba216de0a8f5d0fa417cc2"
+      },
+      "mnemonic": "Trabalho externo = interno; força virtual em equilíbrio, deslocamento virtual compatível.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que estabelece o Princípio dos Trabalhos Virtuais, quais condições os sistemas virtuais devem satisfazer e como aplicá-lo ao cálculo de deslocamentos?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "O Princípio dos Trabalhos Virtuais é uma relação energética, não uma força nem um deslocamento. Em equilíbrio, o trabalho virtual externo é igual ao interno para deslocamentos virtuais cinematicamente admissíveis, com convenção de sinais consistente.\n\nNa formulação por forças virtuais, o sistema de forças deve satisfazer o equilíbrio. No método da carga unitária, uma ação virtual unitária aplicada na direção do deslocamento procurado permite calcular esse deslocamento a partir dos esforços internos reais e virtuais."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-19-054 | CON-15-013 | H20-C016"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "As forças e deslocamentos virtuais não precisam coincidir com os reais. O trabalho externo de uma força é F·δu; o de um binário é M·δθ. O trabalho interno representa a contribuição dos esforços associados às deformações compatíveis."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Em uma viga elástica linear em que predomina a flexão, a flecha na direção da força virtual unitária é δ=∫ M(x)m(x)/(EI) dx. M representa o momento real e m o virtual."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Na forma por deslocamentos virtuais, a compatibilidade cinemática é essencial. Na forma por forças virtuais, as forças devem ser estaticamente admissíveis."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Para obter a rotação de uma seção, use um momento virtual unitário na direção correspondente. Para obter a flecha, utilize uma força virtual unitária."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0111, CARD-0528, CARD-0614."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A integral de flexão pressupõe as hipóteses usuais de elasticidade linear e pequenos deslocamentos. Inclua parcelas axial, cisalhante ou torsional quando relevantes."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não afirme que o trabalho externo isoladamente é zero. O trabalho total é nulo quando se considera a diferença entre externo e interno; a carga unitária é uma técnica de aplicação, não o próprio princípio."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Trabalho externo = interno; força virtual em equilíbrio, deslocamento virtual compatível."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "O Princípio dos Trabalhos Virtuais é uma relação energética, não uma força nem um deslocamento. Em equilíbrio, o trabalho virtual externo é igual ao interno para deslocamentos virtuais cinematicamente admissíveis, com convenção de sinais consistente.",
+          "Na formulação por forças virtuais, o sistema de forças deve satisfazer o equilíbrio. No método da carga unitária, uma ação virtual unitária aplicada na direção do deslocamento procurado permite calcular esse deslocamento a partir dos esforços internos reais e virtuais."
+        ],
+        "highlights": [
+          {
+            "text": "O Princípio dos Trabalhos Virtuais é uma relação energética, não uma força nem um deslocamento",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0609",
+      "title": "Método das bielas e tirantes",
+      "front": "O que são bielas, tirantes e nós no concreto armado e em quais regiões o método é especialmente útil?",
+      "back": "As bielas representam caminhos de compressão no concreto, enquanto os tirantes representam os esforços de tração resistidos principalmente pelas armaduras. Os nós são as regiões em que esses esforços se encontram e devem satisfazer o equilíbrio.\n\nO método é especialmente útil em regiões D, onde o campo de tensões é perturbado por descontinuidades geométricas ou de carregamento, como consolos, blocos sobre estacas, vigas-parede, apoios e aberturas.",
+      "satellites": [
+        "CARD-0610"
+      ],
+      "source": "CON-12-059 | CON-12-060",
+      "related_card_ids": [
+        "CARD-1535"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0609",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Estruturas",
+          "sub": "Bielas e tirantes",
+          "front": "O que são bielas e tirantes no modelo resistente de concreto armado?",
+          "back": "Bielas = regiões comprimidas de concreto; tirantes = armaduras tracionadas.",
+          "expl": "O método substitui o campo complexo de tensões por uma treliça idealizada. Equilíbrio nos nós e verificação de tensões/ancoragens permitem seguir o fluxo das forças.\nAplicação: Em uma região D, uma carga sobre apoio pode percorrer uma biela diagonal até o apoio e ser equilibrada pela tração em armadura que funciona como tirante.\nPegadinha: Biela não é barra de aço comprimida por definição; tirante não é o concreto tracionado não fissurado no modelo usual.",
+          "mnemonic": "Biela empurra; tirante puxa.",
+          "reference": "CON-12-059",
+          "active": true
+        },
+        {
+          "id": "CARD-0610",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Estruturas",
+          "sub": "Bielas e tirantes aplicações",
+          "front": "Em quais regiões de concreto armado o método das bielas e tirantes é especialmente útil?",
+          "back": "Regiões descontínuas (D): consolos, blocos sobre estacas, vigas-parede e zonas de apoios/aberturas.",
+          "expl": "Em regiões D, a hipótese de seções planas não descreve adequadamente o campo de deformações e tensões; é necessário modelar caminhos de força entre cargas e reações.\nAplicação: Perto de um apoio concentrado de viga-parede, desenhe a biela diagonal que conduz compressão ao apoio e o tirante que equilibra componentes horizontais.\nPegadinha: Não usar o diagrama de flexão de viga esbelta como substituto automático de regiões D, nem dispensar verificações de nós e ancoragem.",
+          "mnemonic": "Descontinuidade → desenhe o caminho das forças.",
+          "reference": "CON-12-060",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1535"
+          ]
+        }
+      ],
+      "source_hashes": {
+        "CARD-0609": "d96b87e3a88b124997d7bd2cd624d7f2081c31a61a05bca7629b220170e37222",
+        "CARD-0610": "8bc9a33a85d65202fd0c236bceffc82f0fc24531993597b76e8538b38fdd3428"
+      },
+      "mnemonic": "Biela comprime concreto; tirante traciona aço; nó fecha o equilíbrio.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "O que são bielas, tirantes e nós no concreto armado e em quais regiões o método é especialmente útil?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "As bielas representam caminhos de compressão no concreto, enquanto os tirantes representam os esforços de tração resistidos principalmente pelas armaduras. Os nós são as regiões em que esses esforços se encontram e devem satisfazer o equilíbrio.\n\nO método é especialmente útil em regiões D, onde o campo de tensões é perturbado por descontinuidades geométricas ou de carregamento, como consolos, blocos sobre estacas, vigas-parede, apoios e aberturas."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-12-059 | CON-12-060"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A treliça idealizada representa o fluxo das forças entre cargas e reações. A hipótese de seções planas, usual em regiões de viga esbelta, pode não descrever adequadamente uma região D."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Em um consolo ou próximo de um apoio concentrado de viga-parede, a biela diagonal transmite compressão ao apoio e o tirante equilibra a componente de tração."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Região B: comportamento de viga usual; região D: perturbação do campo de tensões, exigindo modelo resistente adequado."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Identifique no croqui a carga, o apoio e o caminho de compressão. Trace o tirante necessário para fechar o equilíbrio e localize sua ancoragem."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0609, CARD-0610. Relacionados: CARD-1535."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "O modelo deve respeitar equilíbrio, resistência das bielas e nós e detalhamento/ancoragem dos tirantes, conforme a norma e a geometria."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Biela não significa barra de aço comprimida por definição. Tirante não é uma região de concreto tracionado cuja resistência possa ser presumida. Não dispense as verificações dos nós."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Biela comprime concreto; tirante traciona aço; nó fecha o equilíbrio."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "As bielas representam caminhos de compressão no concreto, enquanto os tirantes representam os esforços de tração resistidos principalmente pelas armaduras. Os nós são as regiões em que esses esforços se encontram e devem satisfazer o equilíbrio.",
+          "O método é especialmente útil em regiões D, onde o campo de tensões é perturbado por descontinuidades geométricas ou de carregamento, como consolos, blocos sobre estacas, vigas-parede, apoios e aberturas."
+        ],
+        "highlights": [
+          {
+            "text": "As bielas representam caminhos de compressão no concreto, enquanto os tirantes representam os esforços de tração resistidos principalmente pelas armaduras",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    }
+  ],
+  "private_srs_changed": false,
+  "private_content_exported": false,
+  "validation": {
+    "individual_sources_recovered": true,
+    "private_inventory_verified": false,
+    "display_verified": false
+  }
+}
