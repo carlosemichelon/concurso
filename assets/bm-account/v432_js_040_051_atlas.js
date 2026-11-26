@@ -476,7 +476,7 @@ window.BM218ImageMetadata=Object.freeze({
   if(urls.has(file.id))return urls.get(file.id);
   if(downloads.has(file.id))return downloads.get(file.id);
   const ticket=generation,task=(async()=>{
-   const blob=await window.BMVS41PrivateMedia.read(file.card_ids[0],file.id);
+   const blob=await window.BMVS41PrivateMedia.read(file.card_ids?.[0]||'biblioteca',file.id);
    if(ticket!==generation||!validToken()||!photos.includes(file)||!/^image\/(png|jpeg|webp|gif)$/.test(blob.type))throw Error('Imagem ou sessão alterada');
    const url=URL.createObjectURL(blob);urls.set(file.id,url);return url;
   })();downloads.set(file.id,task);

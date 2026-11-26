@@ -194,9 +194,38 @@ function showTopicImages(t){
    const jobs=[];
    for(const [i,entry] of related.entries()){const x=entry.x;
     const card=document.createElement('article');card.className='topicVisualCard bm169-topic-card';
-    const link=chip(x.title,()=>{if(valid())void x.open()});link.className='bm430-media-link';card.append(link);const basis=document.createElement('small');basis.textContent=entry.basis;card.append(basis);
-    if(i<8){const img=document.createElement('img');img.alt=x.title;img.width=420;img.height=240;img.decoding='async';img.onclick=()=>link.click();const frame=document.createElement('div');frame.className='bm422-thumb';frame.append(img);card.prepend(frame);
-     jobs.push(async()=>{try{const src=await bm430Deadline(x.preview(),20000);if(!valid())return false;img.src=src;await bm430Deadline(img.decode(),15000);return valid()}catch(e){if(valid()){img.remove();frame.textContent='Prévia indisponível · abra pelo título'}return false}})}
+    const link=chip(x.title,()=>{if(valid())void x.open()});link.className='bm430-media-link';
+    const frame=document.createElement('div');frame.className='bm422-thumb bm434-topic-thumb';frame.dataset.state='idle';
+    const img=document.createElement('img');img.alt=x.title;img.decoding='async';img.hidden=true;img.onclick=()=>link.click();
+    const placeholder=document.createElement('div');placeholder.className='bm434-thumb-status';
+    const caption=document.createElement('span');caption.textContent='Prévia ainda não carregada';
+    const retry=document.createElement('button');retry.type='button';retry.className='bm434-thumb-retry';retry.textContent='Carregar prévia';
+    placeholder.append(caption,retry);frame.append(img,placeholder);
+    const basis=document.createElement('small');basis.className='bm434-topic-basis';basis.textContent=entry.basis;
+    const action=chip('Abrir imagem',()=>{if(valid())void x.open()});action.className='bm434-topic-open';
+    card.append(frame,link,basis,action);
+    let inFlight=null;
+    const load=()=>{
+     if(!valid())return Promise.resolve(false);
+     if(inFlight)return inFlight;
+     frame.dataset.state='loading';img.hidden=true;placeholder.hidden=false;caption.textContent='Carregando prévia…';caption.removeAttribute('title');retry.hidden=true;
+     inFlight=(async()=>{
+      try{
+       const src=await bm430Deadline(x.preview(),60000);if(!valid())return false;
+       // Wait for actual decoding, not just the URL. Use the same private URL as Atlas.
+       img.src=src;
+       if(typeof img.decode==='function')await bm430Deadline(img.decode(),20000);
+       else if(!img.complete)await bm430Deadline(new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=()=>reject(Error('Imagem não decodificada'))}),20000);
+       if(!valid()||!img.naturalWidth)throw Error('Imagem não decodificada');
+       frame.dataset.state='ready';img.hidden=false;placeholder.hidden=true;return true;
+      }catch(e){
+       if(valid()){frame.dataset.state='error';img.hidden=true;img.removeAttribute('src');placeholder.hidden=false;caption.textContent='Não foi possível carregar a prévia';caption.title=String(e.message||e);retry.hidden=false;retry.textContent='Tentar novamente';}
+       return false;
+      }finally{inFlight=null}
+     })();return inFlight;
+    };
+    retry.onclick=()=>{void load()};
+    if(i<8)jobs.push(load);
     grid.append(card);
    }
    if(related.length){addTitle(result,'Imagens');result.append(grid)}
@@ -207,7 +236,7 @@ function showTopicImages(t){
    if(total){bar.max=total;bar.value=0;detail.textContent='Resultados localizados; preparando as prévias.';label.textContent='Carregando miniaturas (0 de '+total+')…';let cursor=0;
     await Promise.all(Array.from({length:Math.min(3,total)},async()=>{while(cursor<total&&valid()){const ok=await jobs[cursor++]();if(!valid())return;if(!ok)missing++;bar.value=++done;label.textContent='Carregando miniaturas ('+done+' de '+total+')…'}}))}
    if(!valid())throw Error('Autorização alterada');
-   loading.remove();if(missing)addPara(result,missing+' prévia(s) indisponível(is); os títulos continuam acessíveis.','contextNote');
+   loading.remove();if(missing)addPara(result,missing+' prévia(s) não carregada(s) nesta tentativa. Use Tentar novamente ou Abrir imagem.','contextNote');
   }catch(e){if(same()){root.replaceChildren(open,notice);open.disabled=false;open.setAttribute('aria-expanded','false');root.classList.remove('bm171-media-open');root.classList.add('bm171-media-closed');notice.textContent='Consulta não concluída: '+e.message}}
   finally{document.removeEventListener('bm-private-media-progress',scanProgress);if(same())root.removeAttribute('aria-busy')}
  });
