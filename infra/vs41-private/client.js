@@ -33,9 +33,19 @@
    invalidate();
   }
  })});
+ Object.defineProperty(window,'BMVS41ChatDestination',{value:Object.freeze({async read(){
+  const expected=await check();start();const r=await request('/api/vs41/chat-destination',{'X-BM-Context':expected});
+  if(r.status===401||r.status===409){invalidate();throw Error('Sessão alterada')}
+  if(!r.ok)throw Error('Banco de destino não verificado');
+  const p=await r.json();
+  if(locked||context!==expected||p.context!==expected||p.verified!==true||p.writeAuthorized!==false||p.descriptor?.schema!=='BM-CHAT-DESTINATION/1'||!/^[a-f0-9]{64}$/.test(p.descriptor.destination)||typeof p.descriptor.account!=='string')throw Error('Identificação inválida');
+  return p.descriptor;
+ }})});
  document.addEventListener('DOMContentLoaded',()=>{
   const anchor=document.getElementById('bm239-drive-action');
   if(anchor){const b=document.createElement('button');b.type='button';b.id='bm-vs41-logout';b.textContent='Sair';b.title='Encerrar sessão';anchor.insertAdjacentElement('afterend',b);b.onclick=async()=>{b.disabled=true;try{await window.BMVS41Session.logout()}catch(e){b.disabled=false;alert(e.message)}}}
+  if(anchor){const b=document.createElement('button');b.type='button';b.id='bm-vs41-chat-destination';b.textContent='Banco para o chat';b.title='Copiar identificação do banco autenticado, sem senhas ou tokens';anchor.insertAdjacentElement('afterend',b);
+   b.onclick=async()=>{b.disabled=true;try{const descriptor=await window.BMVS41ChatDestination.read();await navigator.clipboard.writeText(JSON.stringify(descriptor));b.textContent='Banco identificado';}catch(e){alert(e.message)}finally{b.disabled=false}}}
   void window.BMVS41Session.check().catch(()=>{location.reload()});
  },{once:true});
  async function reviewRequest(input){

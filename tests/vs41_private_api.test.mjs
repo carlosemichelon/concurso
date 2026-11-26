@@ -47,6 +47,13 @@ test('login autenticado, dois perfis, recusa de origem, sem IDs do cliente, logo
   const contexts=await Promise.all(cookies.map(async Cookie=>(await (await req('session',{headers:{Cookie}})).json()).context));assert.notEqual(contexts[0],contexts[1]);assert.match(contexts[0],/^[a-f0-9]{32}$/);assert.equal((await req('private-cards',{headers:{Cookie:cookies[0]}})).status,409);assert.equal((await req('private-cards',{headers:{Cookie:cookies[0],'X-BM-Context':contexts[1]}})).status,409);
   const views=await Promise.all(cookies.map((Cookie,i)=>req('private-cards',{headers:{Cookie,'X-BM-Context':contexts[i]}})));assert.deepEqual(await Promise.all(views.map(async r=>(await r.json()).records[0].back)),['Resposta privada A','Resposta privada B']);
   const call=(p,i,opts={})=>req(p,{...opts,headers:{Cookie:cookies[i],'X-BM-Context':contexts[i],...opts.headers}});
+  assert.equal((await req('chat-destination')).status,401);
+  const destinations=await Promise.all([0,1].map(async i=>(await (await call('chat-destination',i)).json())));
+  assert.notEqual(destinations[0].descriptor.destination,destinations[1].descriptor.destination);
+  for(const [i,d] of destinations.entries()){assert.equal(d.verified,true);assert.equal(d.writeAuthorized,false);assert.match(d.descriptor.destination,/^[a-f0-9]{64}$/);assert.ok(!JSON.stringify(d).includes('root'+['A','B'][i]));assert.deepEqual(Object.keys(d.descriptor).sort(),['account','destination','schema']);}
+  const verify=(i,descriptor)=>call('chat-destination',i,{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(descriptor)});
+  assert.equal((await verify(0,destinations[0].descriptor)).status,200);assert.equal((await verify(1,destinations[0].descriptor)).status,409);
+  assert.equal((await verify(0,{...destinations[0].descriptor,rootId:'rootB'})).status,409);assert.equal(f.writes.length,0);
   for(const endpoint of ['formulas','images','pdfs','media/CARD-9901/IMG-TEST','annotations/PDF-TEST/1','image-ink/IMG-TEST','study','gaps','reviews']){
    for(const i of [0,1])assert.equal((await call(endpoint,i)).status,200,endpoint+' '+i);
   }
@@ -72,6 +79,8 @@ test('login autenticado, dois perfis, recusa de origem, sem IDs do cliente, logo
   // Expiration triggers individual renewal; revoking A must not affect B.
   clock+=61000;revokeA=true;
   assert.equal((await call('private-cards',0)).status,503);
+  assert.equal((await call('chat-destination',0)).status,503);
+  assert.equal((await call('chat-destination',1)).status,200);
   assert.equal((await call('private-cards',1)).status,200);
   assert.deepEqual(violations,[]);
   assert.equal((await req('private-cards?subject=B',{headers:{Cookie:cookies[0]}})).status,403);

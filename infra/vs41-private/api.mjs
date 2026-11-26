@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import {createAuth,sessionToken,sessionCookie} from './auth.mjs';
 import {createReader} from './catalog.mjs';
 import {createStaticMediaReader} from './migration.mjs';
@@ -44,6 +45,20 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
    }
    if(req.method==='GET'&&u.pathname==='/api/vs41/session'){
     const s=auth.read(token);return s?json(res,200,{context:s.context}):json(res,401,{error:'Sessão encerrada'});
+   }
+   // Read-only target descriptor. It is not a credential and grants no write permission.
+   if(u.pathname==='/api/vs41/chat-destination'&&['GET','POST'].includes(req.method)){
+    const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
+    if(req.method==='POST'&&req.headers.origin!==origin)return json(res,403,{error:'Origem não autorizada'});
+    let input;if(req.method==='POST'){try{input=await body(req)}catch{return json(res,400,{error:'Identificação inválida'})}}
+    try{
+     // Recheck Drive authorization, ownership, root, profile and collection using this student's token.
+     await read(req);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});
+     const destination=createHash('sha256').update(JSON.stringify(['bm-portal-multi-v1',s.user.subject,s.user.rootId,s.user.profileId])).digest('hex');
+     if(req.method==='POST'&&(!input||input.schema!=='BM-CHAT-DESTINATION/1'||input.destination!==destination||Object.keys(input).some(k=>!['schema','destination','account'].includes(k))||input.account!==s.user.username))return json(res,409,{error:'Banco de destino divergente'});
+     return json(res,200,{descriptor:{schema:'BM-CHAT-DESTINATION/1',destination,account:s.user.username},verified:true,writeAuthorized:false,context:s.context});
+    }catch{return json(res,503,{error:'Não foi possível verificar o banco de destino'})}
    }
    if(req.method==='GET'&&u.pathname==='/api/vs41/formulas'){
     const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
