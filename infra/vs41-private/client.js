@@ -25,6 +25,19 @@
   window.addEventListener('pagehide',()=>{if(context)document.documentElement.style.visibility='hidden'});
   window.addEventListener('pageshow',e=>{if(e.persisted&&context)void check().then(()=>{if(!locked)document.documentElement.style.visibility=''}).catch(()=>{})});
  }
+ Object.defineProperty(window,'BMVS41Session',{value:Object.freeze({
+  available:()=>!!context&&!locked,check:async()=>{await check();start();return true},
+  async logout(){
+   const r=await fetch('/api/vs41/logout',{method:'POST',credentials:'same-origin',cache:'no-store',redirect:'error'});
+   if(!r.ok)throw Error('Saída não confirmada');
+   invalidate();
+  }
+ })});
+ document.addEventListener('DOMContentLoaded',()=>{
+  const anchor=document.getElementById('bm239-drive-action');
+  if(anchor){const b=document.createElement('button');b.type='button';b.id='bm-vs41-logout';b.textContent='Sair';b.title='Encerrar sessão';anchor.insertAdjacentElement('afterend',b);b.onclick=async()=>{b.disabled=true;try{await window.BMVS41Session.logout()}catch(e){b.disabled=false;alert(e.message)}}}
+  void window.BMVS41Session.check().catch(()=>{location.reload()});
+ },{once:true});
  async function reviewRequest(input){
   const expected=await check();start();
   const r=await fetch('/api/vs41/reviews',{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});

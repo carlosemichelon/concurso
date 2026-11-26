@@ -56,7 +56,10 @@ async function open(context,label,keep=false){
 try{
  const a=await browser.newContext(),b=await browser.newContext();
  await open(a,'X');
- const results=await Promise.all([login(a,'A'),login(b,'B')]);assert.deepEqual(results.map(x=>x.status()),[200,200]);
+ const loginPage=await a.newPage();await loginPage.goto(url+'/index.html');
+ await loginPage.locator('input[name=username]').fill('A');await loginPage.locator('input[name=password]').fill(passwords.A);
+ await loginPage.locator('#login button').click();await loginPage.waitForFunction(()=>typeof loadCards==='function');await loginPage.close();
+ assert.equal((await login(b,'B')).status(),200);
  for(const c of [a,b])for(const forbidden of [manifest.catalog.path,'assets/pdf_catalog_v149.json','assets/catalog_lookup/cards/CARD-0701.json','assets/drive_auth_v038.json','infra/vs41-private/api.mjs','assets/version.json','teste-drive-vs41/index.html']){
   const res=await c.request.get(url+'/'+forbidden.replace(/^\//,''));assert.equal(res.status(),404,'rota legada bloqueada: '+forbidden);
  }
@@ -158,6 +161,14 @@ try{
  assert.deepEqual(gapWrites.map(x=>[x.parent,x.payload.record.relatoEstudante]).sort(),[['rootA','Relato literal A'],['rootA','Relato literal A'],['rootB','Relato literal B'],['rootB','Relato literal B']]);
  assert.equal(f.writes.filter(x=>x.payload.schema==='bm-srs-formal-event/1').length,2);
  console.log('Lacunas: formulário original, etapa, releitura privada e armazenamento legado intacto.');
+ for(const p of [oldA,oldB]){
+  assert.equal(await p.evaluate(()=>window.BM239DriveGlobal.writeToken()),'');
+  assert.equal(await p.evaluate(()=>window.BM186Checkpoints),undefined);
+  assert.equal(await p.evaluate(()=>window.BM368Supplements),undefined);
+  assert.equal(await p.evaluate(()=>window.BM349.has('CARD-1560')),false);
+  assert.ok(await p.locator('#bm-vs41-logout').count());
+ }
+ console.log('Perfis autenticados: sem token Google no cliente, sem complementos públicos e sem checkpoints administrativos.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});

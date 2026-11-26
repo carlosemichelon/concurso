@@ -8,14 +8,17 @@ import {privatePdfLibrary,privatePdfSync} from './pdf-library.mjs';
 import {privateMediaRenderer} from './media-renderer.mjs';
 import {privateCalendar,privateStudyQueue} from './calendar.mjs';
 import {privateJournal} from './journal.mjs';
+import {privateGlobalDrive,privateCheckpoints,privateReconcile,disabledPublicScripts} from './legacy.mjs';
 const adapters=new Map([
  ['/assets/v382_srs_journal_vc23.js',privateJournal],
- ['/assets/v414_js_076_087_header.js',privateCalendar],
+ ['/assets/v414_js_076_087_header.js',s=>privateCheckpoints(privateCalendar(s))],
  ['/assets/v383_study_queue.js',privateStudyQueue],
  ['/assets/v417_shared_reader.js',privateMediaRenderer],
  ['/assets/v432_js_002_015_topic_media.js',s=>privatePdfLibrary(privatePdfEditor(s))],
  ['/assets/v432_js_040_051_atlas.js',privatePdfSync],
- ['/assets/v430_js_112_123_control.js',privateGaps]
+ ['/assets/v430_js_112_123_control.js',privateGaps],
+ ['/assets/v432_js_124_135_formulas.js',privateGlobalDrive],
+ ['/assets/v402_js_136_147_compare.js',privateReconcile]
 ]);
 const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Cross-Origin-Resource-Policy':'same-origin','X-Frame-Options':'DENY','Content-Security-Policy':"default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; img-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"};
 const send=(res,status,body='',type='text/plain; charset=utf-8')=>{res.writeHead(status,{...headers,'Content-Type':type});res.end(body)};
@@ -31,7 +34,7 @@ export function createPortalHost({root,api}){
   const physical=fs.realpathSync(path.join(base,match[1]));
   if(!physical.startsWith(base+path.sep+'assets'+path.sep))throw Error('Recurso fora do diretório');
   const content=fs.readFileSync(physical);
-  assets.set(file,{body:adapters.has(file)?adapters.get(file)(content.toString('utf8')):content,type:file.endsWith('.css')?'text/css; charset=utf-8':'application/javascript; charset=utf-8'});
+  assets.set(file,{body:disabledPublicScripts.has(file)?'/* Conteúdo fornecido somente pelo perfil autenticado. */':adapters.has(file)?adapters.get(file)(content.toString('utf8')):content,type:file.endsWith('.css')?'text/css; charset=utf-8':'application/javascript; charset=utf-8'});
  }
  for(const key of adapters.keys())if(!assets.has(key))throw Error('Adaptador sem recurso original: '+key);
  assets.set('/infra/vs41-private/client.js',{body:fs.readFileSync(path.join(base,'infra/vs41-private/client.js')),type:'application/javascript; charset=utf-8'});

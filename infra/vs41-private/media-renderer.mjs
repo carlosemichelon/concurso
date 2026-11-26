@@ -19,5 +19,10 @@ export function privateMediaRenderer(source){
  replace("const currentToken=()=>window.BancoMestreMediaSyncV182?.token?.()||window.BM239DriveGlobal?.writeToken?.()||'';","const currentToken=()=>window.BMVS41PrivateReviews?.sessionKey()||'';");
  replace("a.append(figure({...x,id:x.id,role:x.role,caption:x.caption||x.id,src}));","a.append(figure({...x,id:x.id,role:x.role,caption:x.caption||x.id,src,private_card_id:id}));");
  replace("host.append(figure({...m,src}));","host.append(figure({...m,src,private_card_id:id}));");
+ replace("has:id=>!!consolidated(id)||ids.has(id),get:id=>consolidatedProfile(id)||records?.[id],load:id=>consolidated(id)?Promise.resolve(consolidatedProfile(id)):load()","has:id=>!!consolidated(id),get:id=>consolidatedProfile(id),load:id=>consolidated(id)?Promise.resolve(consolidatedProfile(id)):Promise.reject(Error('Cartão fora do perfil'))");
+ replace("if(!ids.has(id)&&!consolidated(id))return prev.render(host,rec,id,...rest);","if(!consolidated(id))return prev.render(host,rec,id,...rest);");
+ replace("if(safeLink(m.url)){","if(false&&safeLink(m.url)){");
+ replace("host.replaceChildren(el('p','Carregando resposta-modelo…'));try{await load();","host.replaceChildren(el('p','Cartão não disponível no perfil.'));return;try{await load();");
+ replace("}return;}try{await load();if(!host.isConnected||stamp.get(host)!==token)return;","}return;}return;try{await load();if(!host.isConnected||stamp.get(host)!==token)return;");
  return s;
 }
