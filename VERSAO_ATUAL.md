@@ -1,3 +1,9 @@
+## V433 / VS42 — Consolidação do portal multiusuário (26/11/2026)
+
+V433 / VS42 — 26/11/2026: consolida diagnóstico do Drive individual, apresentação do Controle de Estudos antes do login, consulta temática compartilhada com progresso real, miniaturas padronizadas e nova tentativa, Redação condicionada à conexão e ações separadas de configurações/logout. Catálogo individual e SRS não modificados. Implantação cumulativa anterior confirmada; leitura real autenticada e regressões de CI ainda exigem homologação.
+
+Correções funcionais publicadas até `6293e663da85b3213e94aa517288ce96ab876539`; atualização de identificação não modifica o catálogo individual, registros de revisão nem os originais do Drive. A publicação de código não equivale à homologação de todos os módulos em uma sessão real.
+
 ## V432 / VS41 — Busca temática de mídias (25/11/2026)
 
 Atalhos ←/→ no leitor de fórmulas e renderização de expressões em linhas mistas com notas explicativas. Recupera vínculos por IDs, classificação e termos técnicos, distingue sugestões, aguarda índices existentes e permite resultado parcial independente por biblioteca. Exibe totais consultados e causas de falha. Reutiliza fontes autorizadas, sem novo carregamento inicial nem alteração de cartões, originais ou SRS.
