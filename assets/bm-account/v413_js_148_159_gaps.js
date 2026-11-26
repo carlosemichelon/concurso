@@ -242,6 +242,7 @@ function filterBar(){
   advanced.open=false;
  };
  before.append(reset);
+ const refresh=$('bm242-refresh');if(refresh)before.append(refresh);
  const update=()=>{
   const count=[...advanced.querySelectorAll('select')].filter(x=>x.value).length;
   advanced.querySelector(':scope>summary').textContent='Mais filtros'+(count?' · '+count+' ativos':'');

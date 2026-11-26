@@ -107,7 +107,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  // Redação: state saved only on explicit user request; no secrets or guest transfer.
  const WRITING_NAME='BancoMestre_Redacao_V296.json',WRITING_KIND='bm_redacao_v296',WRITING_FORMAT='BancoMestreRedacaoDriveV296';
  const writingFolder=async()=>{
-  const f=await unique("mimeType = '"+folder+"' and name = '05 - Revisões' and '"+root.id+"' in parents",'Pasta individual de revisões');
+  const f=await unique("mimeType = '"+folder+"' and (name = '05 - Revisões' or name = '05_REVISOES_SRS') and '"+root.id+"' in parents",'Pasta individual de revisões');
   if(f.parents?.length!==1||f.parents[0]!==root.id)fail('Pasta de Redação fora do banco individual',409);
   return f.id;
  };
@@ -365,7 +365,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  // Read-only compatibility for indexed PDFs used by VS40. A catalog ID alone never grants access:
  // require the selected canonical bank, authenticated ownership, private file and approved legacy ancestry.
  const legacyPdfRootNames=new Set(['CONCURSOS – ENGENHARIA CIVIL','Normas Regulamentadoras','Licenciamento Ambiental','BANCO_MESTRE_PRIVADO_TESTES_F17_2026-11-07'].map(normalizedName));
- const excludedMediaFolder=name=>/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(name||'');
+ const excludedMediaFolder=name=>/^(?:09 - Backups|08 - Auditorias|02 - Histórico|09_EXPORTACOES|08_AUDITORIAS|02_HISTORICOS|Excluídos|Excluídas|Backups)$/i.test(name||'');
  async function legacyPdfPath(file,folderMemo=new Map()){
   if(root.name!=='DataBase_Concurso'||!owned(file)||file.mimeType!=='application/pdf')return null;
   let current=file;const seen=new Set(),path=[file.name];

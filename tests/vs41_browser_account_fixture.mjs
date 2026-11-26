@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {card} from './vs41_private_fixture.mjs';
 const fm='application/vnd.google-apps.folder',STUDY_KIND='bm_controle_estudos_v245',GAP_KIND='bm_lacunas_v242',GRIF_KIND='bm_grifos_sync_v104_master';
-export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false,indexEdgeCases=false}={}){
+export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false,indexEdgeCases=false,legacyFolderNames=false,duplicateReviewFolder=false}={}){
  const root='root'+account,snap='snapshot'+account,ptr='pointer'+account,study='study'+account,files=new Map(),content=new Map();let serial=0;
  function add(id,name,mimeType,parents,data,extra={}){
   const bytes=data===undefined?null:JSON.stringify(data);
@@ -10,7 +10,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
   if(bytes)content.set(id,bytes);
  }
  add(root,'DataBase_Concurso',fm,[],undefined,{ownedByMe:!foreign});
- const reviewsFolder='reviewsFolder'+account;add(reviewsFolder,'05 - Revisões',fm,[root]);
+ const reviewsFolder='reviewsFolder'+account;add(reviewsFolder,legacyFolderNames?'05_REVISOES_SRS':'05 - Revisões',fm,[root]);if(duplicateReviewFolder)add('duplicateReviews'+account,legacyFolderNames?'05 - Revisões':'05_REVISOES_SRS',fm,[root]);
  const pdf='pdf'+account;
  function makePdf(){
   const objects=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] /Contents 4 0 R >>','<< /Length 19 >>\nstream\n0 0 100 100 re S\nendstream'];
@@ -27,7 +27,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
  // Out-of-bank, shared and excluded folders must not enter the derived index.
  if(indexEdgeCases){
  const excluded='excluded'+account,outside='outside'+account,shared='shared'+account;
- add(excluded,'09 - Backups',fm,[root]);add(outside,'Outra pasta',fm,[]);add(shared,'Compartilhada',fm,[root],undefined,{shared:true});
+ add(excluded,legacyFolderNames?'09_EXPORTACOES':'09 - Backups',fm,[root]);add(outside,'Outra pasta',fm,[]);add(shared,'Compartilhada',fm,[root],undefined,{shared:true});
  for(const [id,parent] of [['backupPdf',excluded],['outsidePdf',outside],['sharedPdf',shared]])add(id+account,id+'.pdf','application/pdf',[parent],undefined,{size:'10'});
  }
  const docType='application/vnd.google-apps.document';
@@ -59,7 +59,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    let result=[];
    if(q.includes("name = 'DataBase_Concurso'"))result=[files.get(root)];
    else if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))result=duplicatePointer?[files.get(ptr),{...files.get(ptr),id:'duplicate'}]:[files.get(ptr)];
-   else if(q.includes("name = '05 - Revisões'"))result=[files.get(reviewsFolder)];
+   else if(q.includes("name = '05 - Revisões'")||q.includes("name = '05_REVISOES_SRS'"))result=[...files.values()].filter(f=>f.mimeType===fm&&f.parents.includes(root)&&q.includes("name = '"+f.name+"'"));
    else if(q.includes('bm_redacao_v296'))result=[...files.values()].filter(f=>f.parents.includes(reviewsFolder)&&f.appProperties?.bm_kind==='bm_redacao_v296');
    else if(q.includes('BANCO_MESTRE_PRIVADO_V'))result=[...files.values()].filter(f=>f.name.startsWith('BANCO_MESTRE_PRIVADO_V'));
    else if(q.includes('Delta de estudo e cartões aprovados'))result=[files.get(delta)];
