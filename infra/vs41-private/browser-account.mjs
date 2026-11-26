@@ -1,6 +1,8 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
-import {readBrowserSnapshot,scope as readScope} from './browser-drive.mjs?v=restore-srs-1';
+import {readBrowserSnapshot,scope as readScope} from './browser-drive.mjs?v=verified-cache-1';
+import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache.mjs?v=1';
+export {browserByteCache};
 import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
 export const scope=readScope+' https://www.googleapis.com/auth/drive.file';
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files';
@@ -10,7 +12,7 @@ const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
 const owned=f=>validId(f?.id)&&f.ownedByMe===true&&f.shared===false&&f.trashed===false;
 const esc=s=>String(s).replaceAll('\\','\\\\').replaceAll("'","\\'");
 const emptyStudy=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60,activeTimer:null});
-export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId='',readEditorialIndex=null}){
+export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId='',readEditorialIndex=null,cache=null}){
  if(!token)throw Error('Selecione sua conta Google');
  const get=async(url,params={})=>{const r=await fetcher(url+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},cache:'no-store',credentials:'omit',redirect:'error',signal});if(!r.ok)throw Error('Drive HTTP '+r.status);return r};
  const meta=async id=>{if(!validId(id))throw Error('Arquivo inválido');const f=await (await get(API+'/'+id,{fields})).json();if(f.id!==id||!owned(f))throw Error('Arquivo não pertence exclusivamente à conta selecionada');return f};
@@ -21,10 +23,14 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   out.push(...r.files);if(!r.nextPageToken)return out;pageToken=r.nextPageToken;
  }throw Error('Listagem excedeu limite seguro')};
  const unique=async(q,label,optional=false)=>{const a=await list(q);if(a.length===0&&optional)return null;if(a.length!==1)throw Error(label+' ausente ou duplicado');return meta(a[0].id)};
- const raw=async(id,max=10000000)=>{const a=await meta(id);if(!Number.isSafeInteger(Number(a.size))||Number(a.size)<1||Number(a.size)>max||!a.version)throw Error('Tamanho ou versão inválida: '+a.name);
-  const r=await get(API+'/'+id,{alt:'media'}),bytes=await r.arrayBuffer(),b=await meta(id);
+ const raw=async(id,max=10000000,cacheMedia=false)=>{const a=await meta(id);if(!Number.isSafeInteger(Number(a.size))||Number(a.size)<1||Number(a.size)>max||!a.version)throw Error('Tamanho ou versão inválida: '+a.name);
+  const key=cacheMedia&&Number(a.size)<=8*1024*1024?verifiedCacheKey(profile.permissionId,root.id,a,a.sha256Checksum):null;
+  let bytes=await cachedVerifiedBytes(cache,key,Number(a.size),a.sha256Checksum);const hit=!!bytes;
+  if(!hit){const r=await get(API+'/'+id,{alt:'media'});bytes=await r.arrayBuffer();}
+  const b=await meta(id);
   if(bytes.byteLength!==Number(a.size)||['version','size','headRevisionId','md5Checksum','sha256Checksum'].some(k=>a[k]!==b[k]))throw Error('Arquivo mudou durante leitura: '+a.name);
-  if(a.sha256Checksum){const digest=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('');if(digest!==a.sha256Checksum)throw Error('Hash divergente: '+a.name);}
+  if(a.sha256Checksum&&!hit&&await hashBytes(bytes)!==a.sha256Checksum)throw Error('Hash divergente: '+a.name);
+  if(!hit&&key&&!signal?.aborted)await rememberVerifiedBytes(cache,key,bytes);
   return {bytes,meta:a}};
  const json=async(id,max)=>{const r=await raw(id,max);return {data:JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(r.bytes)),meta:r.meta}};
  const profile=(await (await get('https://www.googleapis.com/drive/v3/about',{fields:'user(displayName,emailAddress,permissionId)'})).json()).user;
@@ -33,7 +39,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const root=rootId?await meta(rootId):await unique("mimeType = '"+folder+"' and name = 'DataBase_Concurso'","Pasta individual DataBase_Concurso");
  if(root.mimeType!==folder)throw Error('A configuração precisa indicar uma pasta privada do Drive');
  const rootUrl='https://drive.google.com/drive/folders/'+root.id;
- let snapshot;try{snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal})}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,editorialPreview:true})}
+ let snapshot;try{snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,cache})}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,editorialPreview:true,cache})}
  const records=snapshot.records;
  const master=async(kind,name,format)=>{const f=await unique("mimeType = 'application/json' and (appProperties has { key='bm_kind' and value='"+kind+"' } or name = '"+esc(name)+"')",name,true);
   if(!f)return null;const r=await json(f.id);if(r.data.format!==format)throw Error('Formato incompatível: '+name);return {data:r.data.data,revision:r.meta.version,file:r.meta}};
@@ -262,10 +268,12 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  // Historical fallback is read-only and never becomes the current card catalog.
  async function historicalSchedule(){
   const candidates=await list("mimeType = 'application/json' and name contains 'BANCO_MESTRE_PRIVADO_V'");
-  const matches=[];
+  const matches=[],parentsChecked=new Map();
   for(const f of candidates){
    const m=f.name.match(/^BANCO_MESTRE_PRIVADO_V(\d+)(?:_.*)?\.json$/i);
-   if(m&&await belongsToRoot(f))matches.push({f,n:Number(m[1])});
+   if(!m||f.parents?.length!==1)continue;
+   const parent=f.parents[0];if(!parentsChecked.has(parent))parentsChecked.set(parent,belongsToRoot(f));
+   if(await parentsChecked.get(parent))matches.push({f,n:Number(m[1])});
   }
   matches.sort((a,b)=>b.n-a.n);
   if(!matches.length)return null;
@@ -325,11 +333,15 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const scanMedia=async()=>{const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
   const reportProgress=(phase)=>{if(signal?.aborted)return;const doc=globalThis.document;if(doc&&typeof globalThis.CustomEvent==='function')doc.dispatchEvent(new CustomEvent('bm-private-media-progress',{detail:{phase,folders:seen.size,remaining:queue.length,files:out.size}}))};
   reportProgress('scan');
-  while(queue.length){const p=queue.shift();if(seen.has(p.id)||seen.size>=2000)throw Error('Árvore de mídias inválida ou extensa');seen.add(p.id);
-   const children=await list("'"+p.id+"' in parents");
+  while(queue.length){
+   const batch=queue.splice(0,4);
+   for(const p of batch){if(seen.has(p.id)||seen.size>=2000)throw Error('Árvore de mídias inválida ou extensa');seen.add(p.id);}
+   const pages=await Promise.all(batch.map(p=>list("'"+p.id+"' in parents and (mimeType = '"+folder+"' or mimeType = 'application/pdf' or mimeType contains 'image/')")));
+   for(let i=0;i<batch.length;i++){const p=batch[i],children=pages[i];
    for(const f of children){if(f.parents?.length!==1||f.parents[0]!==p.id)throw Error('Arquivo fora da pasta selecionada');const path=[...p.path,f.name];
     if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path});continue;}
     if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType))out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path});
+   }
    }
    reportProgress('scan');
   }
@@ -350,13 +362,14 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    const str=x=>typeof x==='string'?x.trim():'';
    const links=a=>Array.isArray(a)?a.filter(x=>ids.has(x)):[];
    for(const item of out.values()){
-    item.filename=item.title;item.editorialId='';item.classified=false;item.card_ids=[];
+    item.filename=item.title;item.editorialId='';item.classified=false;item.indexed=false;item.card_ids=[];
     if(item.mimeType.startsWith('image/')){item.category='Imagem';item.folderArea=item.area;item.folderSubject=item.subject;item.area='';item.subject='';}
    }
    for(let i=0;i<3;i++){
     for(const row of Array.isArray(packs[i]?.records)?packs[i].records:[]){
      const item=out.get(row.driveFileId);
      if(!item?.mimeType.startsWith('image/'))continue;
+     item.indexed=true;
      const topic=str(i===1?row.studySubject:row.topic),area=str(i===1?row.studyArea:groupNames[row.group]);
      const label=str(i===1?row.studyTitle||row.title:row.title);
      if(i!==2||!item.classified){
@@ -381,7 +394,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    }
   }
   mediaIndex=out;reportProgress('complete');return out};
- const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da pasta individual');const r=await raw(id,100000000);if(r.meta.mimeType!==item.mimeType)throw Error('Tipo de mídia alterado');return new Blob([r.bytes],{type:item.mimeType})};
+ const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da pasta individual');const r=await raw(id,100000000,true);if(r.meta.mimeType!==item.mimeType)throw Error('Tipo de mídia alterado');return new Blob([r.bytes],{type:item.mimeType})};
  const GRIF_KIND='bm_grifos_sync_v104_master',GRIF_NAME='BancoMestre_Grifos_Mestre.json';
  const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(n=>n.toString(16).padStart(2,'0')).join('');
  const grifos=async()=>{
@@ -535,7 +548,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const check=async(key,fn)=>{try{const result=await fn();set(key,result.state||'verified',result.message)}catch(e){set(key,e.status===409?'conflict':'error',String(e.message||e).slice(0,350))}};
   await check('connection',async()=>{await meta(root.id);return {message:'Pasta individual consultada; '+(write?'escopo de gravação autorizado (sem teste de escrita)':'somente leitura')}});
   await check('pdfs',async()=>{const items=await media(true);return {message:'PDFs: consulta do Drive concluída, '+[...items.values()].filter(x=>x.mimeType==='application/pdf').length+' arquivos listados (conteúdo não baixado)'}});
-  await check('atlas',async()=>{if(modules.pdfs.state!=='verified')throw Error('Consulta de mídias não confirmada');return {message:[...(await media()).values()].filter(x=>x.mimeType.startsWith('image/')).length+' imagens originais consultadas no Drive (arquivos listados)'}});
+  await check('atlas',async()=>{if(modules.pdfs.state!=='verified')throw Error('Consulta de mídias não confirmada');return {message:[...(await media()).values()].filter(x=>x.mimeType.startsWith('image/')).length+' arquivos de imagem consultados no Drive (conteúdo não baixado)'}});
   await check('control',async()=>{const p=await study();return p.revision===null?{state:'pending',message:'Controle: não existe arquivo mestre; nenhum registro gravado pela conferência'}:{message:'Controle: '+p.data.sessions.length+' sessões; mestre lido e validado'}});
   await check('backup',async()=>{
    const files=await list("mimeType = 'application/json' and appProperties has { key='bm_kind' and value='bm_controle_estudos_v245_backup' }");

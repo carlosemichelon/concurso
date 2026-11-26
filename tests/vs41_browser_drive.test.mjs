@@ -31,3 +31,31 @@ test('folder URL resolves only designated private current pointer and contained 
 test('folder fails closed on shared, foreign, missing, ambiguous, external or changed pointer',async()=>{
  for(const options of [{rootShared:true},{rootOwned:false},{missing:true},{duplicates:true},{outside:true},{changePointer:true}])await assert.rejects(readBrowserSnapshot({token:'mock',source:'https://drive.google.com/drive/folders/root',fetcher:folderFixture(options)}));
 });
+
+test('verified cache avoids snapshot downloads only for the same authenticated account and version',async()=>{
+ const store=new Map(),cache={get:async key=>store.get(key)||null,put:async(key,bytes)=>store.set(key,bytes.slice(0))};
+ const stats={downloads:0,reads:0};
+ const remote=({account='userA',version='1',...options}={})=>{
+  const f=folderFixture(options);
+  return async(url,opt)=>{
+   const u=new URL(url),id=u.pathname.split('/').pop();
+   if(id==='about')return Response.json({user:{permissionId:account}});
+   if(id==='snapshot'&&u.searchParams.has('alt'))stats.downloads++;
+   if(id==='snapshot'&&!u.searchParams.has('alt')){stats.reads++;const r=await f(url,opt);if(!r.ok)return r;return Response.json({...await r.json(),version});}
+   return f(url,opt);
+  };
+ };
+ const run=options=>readBrowserSnapshot({token:'mock',source:'https://drive.google.com/drive/folders/root',fetcher:remote(options),cache});
+ assert.equal((await run()).cacheHit,false);assert.equal(stats.downloads,1);
+ assert.equal((await run()).cacheHit,true);assert.equal(stats.downloads,1);assert.ok(stats.reads>=4);
+ assert.equal((await run({account:'userB'})).cacheHit,false);assert.equal(stats.downloads,2);
+ assert.equal((await run({version:'2'})).cacheHit,false);assert.equal(stats.downloads,3);
+ await assert.rejects(run({rootShared:true}));assert.equal(stats.downloads,3);
+ for(const key of store.keys())store.set(key,new ArrayBuffer(1));
+ assert.equal((await run()).cacheHit,false);assert.equal(stats.downloads,4);
+});
+test('cache failures never block a validated network read',async()=>{
+ const cache={get:async()=>{throw Error('blocked')},put:async()=>{throw Error('quota')}};
+ const r=await readBrowserSnapshot({token:'mock',source:'https://drive.google.com/drive/folders/root',fetcher:folderFixture(),cache});
+ assert.equal(r.cacheHit,false);assert.equal(r.records.length,1);
+});

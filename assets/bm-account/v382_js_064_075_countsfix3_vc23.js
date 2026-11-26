@@ -711,7 +711,7 @@ function ensure(){
   const heading=document.createElement('h2');heading.textContent='Redação e Discursivas';
   const help=document.createElement('p');help.textContent='Conecte sua conta Google para acessar a oficina e o histórico individual no Drive.';
   const login=document.createElement('button');login.type='button';login.textContent='Entrar com Google';login.onclick=()=>document.getElementById('bm239-drive-action')?.click();
-  gate.append(heading,help,login);host.append(gate,notice,save,iframe);main.append(host);
+  gate.append(heading,help,login);const toolbar=document.createElement('div');toolbar.className='bm-writing-toolbar';toolbar.append(notice,save);host.append(gate,toolbar,iframe);main.append(host);
  }
  iframe=$('bm302-redacao-original');
  return host;
@@ -744,7 +744,7 @@ function show(){
    if(!state.connected||!state.ready)throw Error('Sessão não confirmada');
    iframe.srcdoc=html;iframe.hidden=false;loadedWorkshop=true;
    if(save)save.hidden=!state.ready;
-   if(notice&&state.ready)notice.textContent='Oficina original · progresso individual conferido. Salve o treino na oficina e use Salvar progresso no Drive antes de sair.';
+   if(notice&&state.ready)notice.textContent='Progresso individual conferido · salve antes de sair.';
    else if(notice)notice.textContent='Oficina aguardando confirmação do Drive.';
   }).catch(e=>{if(notice)notice.textContent='Falha ao abrir a oficina: '+e.message+' · clique em Redação para tentar novamente.';}).finally(()=>{loadingWorkshop=null});
  }
