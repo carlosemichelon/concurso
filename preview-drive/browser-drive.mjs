@@ -1,5 +1,5 @@
 // Same Drive read-only scope as the existing GIS connection. No server or secret.
-import {verifyRecords} from './records.mjs';
+import {verifyRecords} from './records.mjs?v=vc52-test-2';
 export const scope='https://www.googleapis.com/auth/drive.readonly';
 const base='https://www.googleapis.com/drive/v3/',limit=32*1024*1024;
 const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
@@ -76,7 +76,12 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal}){
   await assertInside(parent.id);
   const hash=expectedHash||before.sha256Checksum;
   if(hash){if(!/^[a-f0-9]{64}$/.test(hash))throw Error('Hash da origem inválido.');const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');if(digest!==hash)throw Error('Hash da origem divergente.');}
-  return {data:JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)),meta:before};
+  const data=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+  if(data?.format==='BM-DRIVE-EDITORIAL-SEED/1'){
+   const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+   if(digest!=='040e7ebc12e0606870fb8dfa39ac43d8b93b906b7a3532af14557b0f8395f419')throw Error('Candidato editorial VC52 não corresponde à cópia verificada.');
+  }
+  return {data,meta:before};
  };
  const account=await (await get('about',{fields:'user(permissionId)'})).json();
  if(!validId(account?.user?.permissionId))throw Error('Identidade Google não confirmada.');
@@ -92,6 +97,12 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal}){
   const again=await info(meta.id);if(again.version!==meta.version)throw Error('Ponteiro alterado durante leitura.');
   if(folderId&&await resolveFolder(folderId)!==selectedId)throw Error('Ponteiro vigente mudou durante leitura.');
   ({data,meta}=snapshot);
+ }
+ if(data?.format==='BM-DRIVE-EDITORIAL-SEED/1'){
+  if(pointer||folderId||data.migration_status!=='editorial-candidate-only'||data.version!=='VC52'||data.source?.git_blob!=='f8ec08f96a17c990371b31f0db200863fccd1c6e')throw Error('Candidato editorial não pode ser usado como base vigente.');
+  const records=verifyRecords(data.cards);
+  if(records.length!==1460||records.some(c=>c.active!==true)||data.counts?.cards!==records.length||data.counts?.active!==records.length)throw Error('Contagem do candidato VC52 divergente.');
+  return {version:data.version,records,scope:'editorial-candidate-only',sourceName:meta.name};
  }
  if(data?.format!=='BancoMestrePrivadoV159'||data.schema_version!==1||typeof data.version!=='string'||!data.version)throw Error('Formato privado ainda não homologado. Nenhum catálogo público será usado.');
  const records=verifyRecords(data.cards);
