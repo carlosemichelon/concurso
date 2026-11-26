@@ -3,12 +3,14 @@ on:
   push:
     branches: ['feature/multiusuario-vs41-original']
 permissions:
-  contents: read
+  contents: write
 jobs:
   direct:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -26,3 +28,17 @@ jobs:
           name: vs41-original-account
           path: /tmp/bm-original-account
           retention-days: 3
+      - name: Preparar arquivos testados para o site oficial
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          mkdir -p .vs41-release
+          cp -a /tmp/bm-original-account/. .vs41-release/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f .vs41-release/
+          git diff --cached --stat
+          if ! git diff --cached --quiet; then
+            git commit -m "Arquivos do site original validados para publicação"
+            git push origin HEAD:feature/multiusuario-vs41-original
+          fi
