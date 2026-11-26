@@ -1,0 +1,553 @@
+{
+  "format": "BancoMestreConsolidationCandidate1",
+  "date": "2026-11-25",
+  "status": "CANDIDATO_NAO_PUBLICADO",
+  "source_catalog": "assets/catalog_snapshot_vc50.json",
+  "source_catalog_blob": "6e7864b7604d5a338128b0a7b0a4eb1c94d09106",
+  "counts": {
+    "source_active": 1486,
+    "groups": 4,
+    "absorbed": 5,
+    "projected_active": 1481
+  },
+  "redirects": {
+    "CARD-0869": "CARD-0868",
+    "CARD-0598": "CARD-0597",
+    "CARD-0715": "CARD-0714",
+    "CARD-0716": "CARD-0714",
+    "CARD-0727": "CARD-0726"
+  },
+  "revisions": [
+    {
+      "id": "CARD-0868",
+      "title": "Decomposição vetorial de forças",
+      "front": "Como decompor uma força axial de 14,14 kN inclinada a 45° em componentes horizontal e vertical e recompor seu módulo?",
+      "back": "Para uma força de módulo N que forma ângulo θ com a horizontal, as componentes em módulo são |Nx|=N|cos θ| e |Ny|=N|sen θ|. A 45°, ambas valem aproximadamente 10 kN para N=14,14 kN.\n\nOs sinais dependem do quadrante e do sentido da força no nó. A recomposição é feita por N=√(Nx²+Ny²), e não pela soma aritmética dos módulos.",
+      "satellites": [
+        "CARD-0869"
+      ],
+      "source": "CON-13-023 | CON-13-024",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0868",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Treliças planas",
+          "sub": "Barra inclinada: componente x",
+          "front": "Qual é o módulo da componente horizontal de N_EF=14,14 kN a 45°?",
+          "back": "|N_x|=N cos45°≈10 kN.",
+          "expl": "A projeção no eixo x usa o cosseno do ângulo medido a partir de x, e não uma divisão por cosseno. A direção depende de para onde a barra aponta no nó.\nAplicação: 14,142·√2/2=10,000 kN; |N_x| não é o esforço axial completo.\nPegadinha: Sinal da componente não é determinado só pelo módulo; conferir quadrante e tração/compressão.",
+          "mnemonic": "Com 45°, cos reparte em √2/2.",
+          "reference": "CON-13-023",
+          "active": true
+        },
+        {
+          "id": "CARD-0869",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Treliças planas",
+          "sub": "Barra inclinada: componente y",
+          "front": "Qual é o módulo da componente vertical de N_EF=14,14 kN a 45°?",
+          "back": "|N_y|=N sen45°≈10 kN.",
+          "expl": "A projeção no eixo y usa o seno quando o ângulo é tomado da horizontal. No nó, a componente pode apontar para cima ou para baixo, conforme a seta de força.\nAplicação: 14,142·√2/2=10,000 kN. A recomposição √(10²+10²)=14,142 kN verifica a força total.\nPegadinha: Não somar 10+10 para recompor forças ortogonais; usar Pitágoras.",
+          "mnemonic": "Sen tira a parte vertical do ângulo horizontal.",
+          "reference": "CON-13-024",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0868": "1b2651e395893d7153f426ad834350777fd684b71c86fa41608a9128667aa54d",
+        "CARD-0869": "a13185a4efbeea1d939486bba7db9f8b8cff9d9e649027e16d00fec1eaafdc08"
+      },
+      "mnemonic": "Cosseno no eixo do ângulo; seno no perpendicular; Pitágoras para recompor.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Como decompor uma força axial de 14,14 kN inclinada a 45° em componentes horizontal e vertical e recompor seu módulo?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Para uma força de módulo N que forma ângulo θ com a horizontal, as componentes em módulo são |Nx|=N|cos θ| e |Ny|=N|sen θ|. A 45°, ambas valem aproximadamente 10 kN para N=14,14 kN.\n\nOs sinais dependem do quadrante e do sentido da força no nó. A recomposição é feita por N=√(Nx²+Ny²), e não pela soma aritmética dos módulos."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-13-023 | CON-13-024"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A decomposição projeta o vetor nos eixos ortogonais. O cosseno fornece a projeção adjacente ao ângulo e o seno a oposta."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "14,14×√2/2≈10 kN; √(10²+10²)≈14,14 kN."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Se θ for medido a partir da vertical, as funções seno e cosseno trocam de eixo."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "No método dos nós de treliças, atribua o sentido de cada componente e aplique ΣFx=0 e ΣFy=0; mantenha a convenção de tração e compressão."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0868, CARD-0869."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "O exemplo assume eixos horizontal e vertical ortogonais e ângulo de 45° medido em relação à horizontal."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não dividir pelo cosseno ao projetar uma força conhecida. Não somar 10+10 para recompor a resultante."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Cosseno no eixo do ângulo; seno no perpendicular; Pitágoras para recompor."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Para uma força de módulo N que forma ângulo θ com a horizontal, as componentes em módulo são |Nx|=N|cos θ| e |Ny|=N|sen θ|. A 45°, ambas valem aproximadamente 10 kN para N=14,14 kN.",
+          "Os sinais dependem do quadrante e do sentido da força no nó. A recomposição é feita por N=√(Nx²+Ny²), e não pela soma aritmética dos módulos."
+        ],
+        "highlights": [
+          {
+            "text": "Para uma força de módulo N que forma ângulo θ com a horizontal, as componentes em módulo são |Nx|=N|cos θ| e |Ny|=N|sen θ|",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0597",
+      "title": "Superposição de pressões adicionais na mesma sapata",
+      "front": "Se cada tubulação transmitir 978,24 kgf sobre a mesma área de 3.600 cm², quais pressões adicionais resultam de duas e três contribuições idênticas? Compare com 0,50 kgf/cm².",
+      "back": "Cada contribuição uniforme vale σ₁=978,24/3.600≈0,2717 kgf/cm². Sob as hipóteses do exercício, duas contribuições resultam em aproximadamente 0,5435 kgf/cm² e três em 0,8152 kgf/cm².\n\nAmbos os resultados superam o limite de 0,50 kgf/cm² fornecido no problema. A soma só representa a situação em que as cargas incidem sobre a mesma área resistente e são compatíveis com a distribuição assumida.",
+      "satellites": [
+        "CARD-0598"
+      ],
+      "source": "CON-06-011 | CON-06-012",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0597",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Estática / fundações",
+          "sub": "Três tubulações idênticas",
+          "front": "Se três tubulações idênticas impuserem a mesma parcela de 0,2717 kgf/cm² em uma sapata, qual tensão adicional total?",
+          "back": "≈0,8152 kgf/cm², superior a 0,50 kgf/cm².",
+          "expl": "Admitidas três contribuições verticais iguais, sobre a mesma área e com distribuição uniforme, as pressões adicionais se somam: σ3=3σ1. O valor é da situação didática descrita.\nAplicação: 3×(978,24/3.600)=0,8152 kgf/cm²; excesso sobre 0,50 é 0,3152 kgf/cm².\nPegadinha: Sem demonstrar que as três cargas incidem na mesma sapata, não é válido multiplicar por três. Pressão total pode ainda incluir peso próprio e outras ações.",
+          "mnemonic": "Três cargas idênticas na mesma base → 3σ.",
+          "reference": "CON-06-011",
+          "active": true
+        },
+        {
+          "id": "CARD-0598",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Estática / fundações",
+          "sub": "Duas tubulações idênticas",
+          "front": "Se duas tubulações idênticas impuserem a mesma parcela de 0,2717 kgf/cm², a pressão adicional supera 0,50?",
+          "back": "Sim: ≈0,5435 kgf/cm², superior a 0,50 kgf/cm².",
+          "expl": "O exercício soma duas contribuições sobre a mesma base: σ2=2N/A. A comparação é apenas com o limite fornecido no exercício original.\nAplicação: 2×(978,24/3.600)=0,5434667 kgf/cm²; excedente ≈0,0435 kgf/cm².\nPegadinha: Não aplicar automaticamente a duas sapatas distintas; a soma só é coerente para a mesma área resistente e condições comparáveis.",
+          "mnemonic": "Duas cargas na mesma sapata → 2σ.",
+          "reference": "CON-06-012",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0597": "7b6d7e7dad0dc0d546c3b7dbd9c91c5e9ae40ca2aa37c79eb571f4c8f481f181",
+        "CARD-0598": "7ecd35a1d832a0e514baab99866265a52fd788f8848efadf2940c04034c416d0"
+      },
+      "mnemonic": "Mesma área e mesma hipótese: somam-se as contribuições; calcule antes de arredondar.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Se cada tubulação transmitir 978,24 kgf sobre a mesma área de 3.600 cm², quais pressões adicionais resultam de duas e três contribuições idênticas? Compare com 0,50 kgf/cm²."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Cada contribuição uniforme vale σ₁=978,24/3.600≈0,2717 kgf/cm². Sob as hipóteses do exercício, duas contribuições resultam em aproximadamente 0,5435 kgf/cm² e três em 0,8152 kgf/cm².\n\nAmbos os resultados superam o limite de 0,50 kgf/cm² fornecido no problema. A soma só representa a situação em que as cargas incidem sobre a mesma área resistente e são compatíveis com a distribuição assumida."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-06-011 | CON-06-012"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "Uma pressão média é a força normal dividida pela área. Para contribuições uniformes sobre a mesma área, as forças podem ser somadas antes da divisão."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "σ₂=2×978,24/3.600≈0,5435; σ₃=3×978,24/3.600=0,8152 kgf/cm². Excessos aproximados: 0,0435 e 0,3152 kgf/cm²."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "A tensão adicional não equivale necessariamente à tensão total. Peso próprio e outras ações podem precisar ser incluídos."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Em outra questão, some Nᵢ/A somente se a área e a hipótese de distribuição forem comuns. Se as sapatas forem distintas, calcule cada uma de acordo com seu carregamento."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0597, CARD-0598."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A comparação é com o limite dado no exercício, não um limite universal de fundações. Distribuição excêntrica ou não uniforme exige modelo adequado."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Não multiplicar automaticamente o valor arredondado 0,2717, nem somar pressões de áreas distintas como se fossem iguais."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Mesma área e mesma hipótese: somam-se as contribuições; calcule antes de arredondar."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Cada contribuição uniforme vale σ₁=978,24/3.600≈0,2717 kgf/cm². Sob as hipóteses do exercício, duas contribuições resultam em aproximadamente 0,5435 kgf/cm² e três em 0,8152 kgf/cm².",
+          "Ambos os resultados superam o limite de 0,50 kgf/cm² fornecido no problema. A soma só representa a situação em que as cargas incidem sobre a mesma área resistente e são compatíveis com a distribuição assumida."
+        ],
+        "highlights": [
+          {
+            "text": "Cada contribuição uniforme vale σ₁=978,24/3",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0714",
+      "title": "Impermeabilização asfáltica e polimérica",
+      "front": "Na classificação da NBR 9575:2010, diferencie sistemas asfálticos e poliméricos, indicando exemplos de mantas e membranas.",
+      "back": "Na edição de 2010, o grupo asfáltico inclui mantas asfálticas e membranas de asfalto, como emulsões e asfalto elastomérico. Entre as mantas poliméricas estão PVC, PEAD, EVA e EPDM.\n\nAs membranas poliméricas incluem sistemas de poliuretano, poliureia, resinas acrílicas e epoxídicas, entre outros previstos. O tipo de material não se confunde com a forma de aplicação: mantas são produtos prefabricados, enquanto membranas são formadas no local pela aplicação do sistema especificado.",
+      "satellites": [
+        "CARD-0715",
+        "CARD-0716"
+      ],
+      "source": "H24-C036 | H24-C037 | H24-C038",
+      "related_card_ids": [],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0714",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Impermeabilização — NBR 9575",
+          "sub": "Asfáltico",
+          "front": "Quais exemplos de impermeabilização asfáltica constam da NBR 9575:2010?",
+          "back": "Manta asfáltica e membranas de asfalto, como emulsão e asfalto elastomérico, no item 4.1.2.",
+          "expl": "O material principal da camada impermeável é asfáltico. A seleção de mantas ou membranas exige examinar solicitação de água, suporte, movimentação, temperatura, proteção e detalhes construtivos.\nAplicação: Em laje, uma manta asfáltica projetada com rodapés, ralos, emendas e proteção mecânica é um exemplo de sistema asfáltico.\nPegadinha: Nem toda manta é asfáltica; PVC/PEAD são mantas poliméricas.",
+          "mnemonic": "Asfalto na camada = asfáltico.",
+          "reference": "H24-C036",
+          "active": true
+        },
+        {
+          "id": "CARD-0715",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Impermeabilização — NBR 9575",
+          "sub": "Polimérico — mantas",
+          "front": "Quais mantas são exemplos de impermeabilização polimérica na NBR 9575:2010?",
+          "back": "PVC, PEAD, EVA e EPDM.",
+          "expl": "São materiais poliméricos listados no item 4.1.3. Diferem nas características de soldagem, deformabilidade, compatibilidade química, detalhamento e utilização; a família comum não os torna intercambiáveis.\nAplicação: Um reservatório pode exigir membrana PEAD com soldagem e ensaio apropriados, enquanto cobertura com manta PVC requer outro detalhamento; verificar finalidade e especificação.\nPegadinha: Não confundir manta de PEAD com manta asfáltica pelo formato; nem afirmar que toda manta polimérica serve para qualquer pressão/uso.",
+          "mnemonic": "PVC–PEAD–EVA–EPDM: mantas polímeras.",
+          "reference": "H24-C037",
+          "active": true
+        },
+        {
+          "id": "CARD-0716",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Impermeabilização — NBR 9575",
+          "sub": "Polimérico — membranas",
+          "front": "Quais membranas são exemplos do grupo polimérico na NBR 9575:2010?",
+          "back": "Membranas de poliuretano, poliureia, acrílicas e epoxídicas, entre outras previstas.",
+          "expl": "As membranas resultam da aplicação de produto que forma camada impermeável contínua. O tipo de polímero, cura, espessura, aderência e compatibilidade com substrato determinam desempenho; a categoria difere da manta prefabricada.\nAplicação: Em detalhamento de encontro com ralo, especificar preparação do suporte, reforços e espessuras exigidos para o sistema de membrana escolhido.\nPegadinha: A presença de polímero em uma argamassa cimentícia não a transfere automaticamente para esta classe.",
+          "mnemonic": "PU/poliureia/acrílica/epóxi = membranas poliméricas.",
+          "reference": "H24-C038",
+          "active": true
+        }
+      ],
+      "source_hashes": {
+        "CARD-0714": "0c3bb3bd516bc5c4ad85f0aaba078a313ca468deecddebd1dbc268629b3b25f9",
+        "CARD-0715": "fbb591d1b0502f2eefec5f94d6bd8aeefaf903fdf7c5b249f36812962de569f6",
+        "CARD-0716": "ffc6eb65ff62430e80dfa6eba5a2a894ea20cf5e84a9703ebca427bb38c34cc2"
+      },
+      "mnemonic": "Manta é forma; asfalto ou polímero é família. PVC–PEAD–EVA–EPDM são mantas poliméricas.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Na classificação da NBR 9575:2010, diferencie sistemas asfálticos e poliméricos, indicando exemplos de mantas e membranas."
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na edição de 2010, o grupo asfáltico inclui mantas asfálticas e membranas de asfalto, como emulsões e asfalto elastomérico. Entre as mantas poliméricas estão PVC, PEAD, EVA e EPDM.\n\nAs membranas poliméricas incluem sistemas de poliuretano, poliureia, resinas acrílicas e epoxídicas, entre outros previstos. O tipo de material não se confunde com a forma de aplicação: mantas são produtos prefabricados, enquanto membranas são formadas no local pela aplicação do sistema especificado."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "H24-C036 | H24-C037 | H24-C038"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "O material predominante da camada impermeável define a família. A forma de instalação e as propriedades do sistema condicionam emendas, aderência, deformabilidade, proteção e compatibilidade com o substrato."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Em lajes, uma manta asfáltica pode exigir detalhes de rodapés, ralos, emendas e proteção. Uma geomembrana PEAD pode exigir soldagem e inspeção apropriadas; uma membrana líquida requer preparação de suporte, espessura e cura controladas."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Manta não é sinônimo de asfalto. PVC e PEAD são exemplos de mantas poliméricas. Uma membrana não é necessariamente uma manta prefabricada."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Em questão de classificação, identifique primeiro a composição e depois a forma de aplicação. No projeto, avalie solicitação de água, movimentação, temperatura e detalhes executivos."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0714, CARD-0715, CARD-0716."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "A classificação citada é a da edição de 2010, itens 4.1.2 e 4.1.3, conforme registros estudados. Verifique a edição exigida e as especificações técnicas do sistema."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "A presença de polímero em uma argamassa cimentícia não a transfere automaticamente para a classe de membranas poliméricas. Produtos da mesma família não são intercambiáveis."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "Manta é forma; asfalto ou polímero é família. PVC–PEAD–EVA–EPDM são mantas poliméricas."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Na edição de 2010, o grupo asfáltico inclui mantas asfálticas e membranas de asfalto, como emulsões e asfalto elastomérico. Entre as mantas poliméricas estão PVC, PEAD, EVA e EPDM.",
+          "As membranas poliméricas incluem sistemas de poliuretano, poliureia, resinas acrílicas e epoxídicas, entre outros previstos. O tipo de material não se confunde com a forma de aplicação: mantas são produtos prefabricados, enquanto membranas são formadas no local pela aplicação do sistema especificado."
+        ],
+        "highlights": [
+          {
+            "text": "Na edição de 2010, o grupo asfáltico inclui mantas asfálticas e membranas de asfalto, como emulsões e asfalto elastomérico",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    },
+    {
+      "id": "CARD-0726",
+      "title": "Identificação por cores de neutro e proteção",
+      "front": "Quando a identificação é feita por cores, como distinguir o condutor neutro e o condutor de proteção PE conforme a NBR 5410:2004?",
+      "back": "Na regra de identificação por cores da edição de 2004, o neutro é identificado pela cor azul-claro. O condutor de proteção PE é identificado pela combinação verde-amarelo ou pela cor verde, observadas as condições da norma.\n\nO neutro participa do circuito funcional, enquanto o PE desempenha função de proteção. A cor do isolamento não comprova ausência de tensão, continuidade ou correta ligação do condutor.",
+      "satellites": [
+        "CARD-0727"
+      ],
+      "source": "CON-06-022 | CON-06-023",
+      "related_card_ids": [
+        "CARD-1602"
+      ],
+      "related_question_ids": [],
+      "source_material": [
+        {
+          "id": "CARD-0726",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Instalações elétricas / NBR 5410",
+          "sub": "Cor de neutro",
+          "front": "Quando se usa identificação por cores, qual cor caracteriza o neutro na NBR 5410?",
+          "back": "Azul-claro.",
+          "expl": "A cor identifica a função do condutor, facilitando verificação e manutenção; deve-se respeitar os critérios de marcação e identificação do conjunto.\nAplicação: Em prova, se o condutor exerce função de neutro, a cor de identificação por isolamento deve ser azul-claro, na regra aplicável.\nPegadinha: Cor não dispensa ensaio/verificação; nunca presumir ausência de tensão apenas pela cor do isolamento.",
+          "mnemonic": "N de neutro, azul-claro.",
+          "reference": "CON-06-022",
+          "active": true
+        },
+        {
+          "id": "CARD-0727",
+          "group": "ENG_GERAL",
+          "discipline": "Engenharia Civil",
+          "subject": "Instalações elétricas / NBR 5410",
+          "sub": "Cor de proteção PE",
+          "front": "Que cores identificam o condutor de proteção PE, quando a identificação é por cor?",
+          "back": "Verde-amarelo ou verde, nas condições da NBR 5410:2004.",
+          "expl": "O PE tem finalidade de proteção e não é o condutor de retorno normal da corrente das cargas. A identificação deve seguir as reservas de cor.\nAplicação: Num diagrama, separe PE (proteção), N (neutro) e fase antes de interpretar a instalação.\nPegadinha: Não inverter PE com neutro azul-claro; cores sozinhas não bastam para atestar continuidade/segurança.",
+          "mnemonic": "PE protege: verde / verde-amarelo.",
+          "reference": "CON-06-023",
+          "active": true,
+          "related_card_ids": [
+            "CARD-1602"
+          ]
+        }
+      ],
+      "source_hashes": {
+        "CARD-0726": "a9789b7fbd0951a3736345761745728c5abf706a78e452ae7010a82e94dceb07",
+        "CARD-0727": "89e5bba643d0770fc11ef03dbffb3267a35ab73aedc50302eb752edc7ad4bbce"
+      },
+      "mnemonic": "N azul-claro; PE verde-amarelo ou verde; cor não é teste elétrico.",
+      "modules": [
+        {
+          "ord": 1,
+          "titulo": "Recuperação ativa",
+          "texto": "Quando a identificação é feita por cores, como distinguir o condutor neutro e o condutor de proteção PE conforme a NBR 5410:2004?"
+        },
+        {
+          "ord": 2,
+          "titulo": "Resposta-modelo",
+          "texto": "Na regra de identificação por cores da edição de 2004, o neutro é identificado pela cor azul-claro. O condutor de proteção PE é identificado pela combinação verde-amarelo ou pela cor verde, observadas as condições da norma.\n\nO neutro participa do circuito funcional, enquanto o PE desempenha função de proteção. A cor do isolamento não comprova ausência de tensão, continuidade ou correta ligação do condutor."
+        },
+        {
+          "ord": 3,
+          "titulo": "Fundamento e fontes",
+          "texto": "CON-06-022 | CON-06-023"
+        },
+        {
+          "ord": 4,
+          "titulo": "Mecanismo e compreensão",
+          "texto": "A identificação facilita inspeção e manutenção e evita confundir os condutores de funções distintas. O PE não é o retorno normal da corrente das cargas."
+        },
+        {
+          "ord": 5,
+          "titulo": "Aplicação e cálculo",
+          "texto": "Em um diagrama, separe N, PE e fase antes de interpretar os caminhos da corrente e as medidas de proteção."
+        },
+        {
+          "ord": 6,
+          "titulo": "Comparação",
+          "texto": "Azul-claro identifica o neutro na regra estudada; verde-amarelo ou verde identifica a proteção. Não confunda PE com neutro nem com o condutor combinado PEN."
+        },
+        {
+          "ord": 7,
+          "titulo": "Transferência",
+          "texto": "Se a questão indicar um cabo verde-amarelo, reconheça sua função de proteção; em instalação real, confirme a identificação e as condições de segurança por procedimentos adequados."
+        },
+        {
+          "ord": 8,
+          "titulo": "Cobertura cruzada",
+          "texto": "Origens preservadas: CARD-0726, CARD-0727. Relacionados: CARD-1602."
+        },
+        {
+          "ord": 9,
+          "titulo": "Condições e exceções",
+          "texto": "Considerar as disposições específicas da norma sobre identificação, marcação e funções combinadas, além da edição exigida."
+        },
+        {
+          "ord": 10,
+          "titulo": "Pegadinhas",
+          "texto": "Nunca presumir que um condutor está desenergizado pela cor. Não utilizar o PE como retorno normal da carga."
+        },
+        {
+          "ord": 11,
+          "titulo": "Macete",
+          "texto": "N azul-claro; PE verde-amarelo ou verde; cor não é teste elétrico."
+        }
+      ],
+      "editorial": {
+        "answer_paragraphs": [
+          "Na regra de identificação por cores da edição de 2004, o neutro é identificado pela cor azul-claro. O condutor de proteção PE é identificado pela combinação verde-amarelo ou pela cor verde, observadas as condições da norma.",
+          "O neutro participa do circuito funcional, enquanto o PE desempenha função de proteção. A cor do isolamento não comprova ausência de tensão, continuidade ou correta ligação do condutor."
+        ],
+        "highlights": [
+          {
+            "text": "Na regra de identificação por cores da edição de 2004, o neutro é identificado pela cor azul-claro",
+            "kind": "core",
+            "color": "#FDE68A",
+            "bold": false
+          }
+        ],
+        "media": [],
+        "atlas_refs": [],
+        "history_collapsed": true,
+        "reveal_after_attempt": true,
+        "source_status": "CANDIDATO_A_CONFERENCIA"
+      },
+      "media_reconciliation": {
+        "private_inventory_verified": false,
+        "display_verified": false,
+        "media_ids_union": []
+      }
+    }
+  ],
+  "private_srs_changed": false,
+  "private_content_exported": false,
+  "validation": {
+    "individual_sources_recovered": true,
+    "private_inventory_verified": false,
+    "display_verified": false
+  }
+}
