@@ -21,3 +21,10 @@ test('nega autoria adulterada, avanço indevido, vínculo inexistente e raiz cru
  await assert.rejects(f.store.save(a,{...input,event_id:uid(2),previous:uid(1),event:'relato_ou_complemento_adicionado',record:{...input.record,relatoEstudante:'substituído'}}),e=>e.code==='input');
  f.files.get(f.writes[0].id).meta.appProperties.bmOwner='B';await assert.rejects(f.store.get(a),e=>e.code==='owner');
 });
+
+test('lacuna aceita vínculo legado somente no catálogo do próprio perfil',async()=>{
+ const f=setup(),a={session:'A'},c=f.files.get('cardsA').payload.records[0];c.id='PROP-IJUI-001';delete c.expl;delete c.consolidation;
+ const input={event_id:uid(1),previous:null,event:'lacuna_criada',record:{...record('A'),cardIds:[c.id]}};
+ await f.store.save(a,input);assert.deepEqual((await f.store.get(a)).data.records[0].cardIds,[c.id]);
+ await assert.rejects(f.store.save({session:'B'},input),e=>e.code==='input');
+});

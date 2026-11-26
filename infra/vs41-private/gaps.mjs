@@ -1,5 +1,5 @@
 // Isolated append-only gap journal. One revision per changed record, not a copy of the entire catalog.
-import {createReader} from './catalog.mjs';
+import {createReader,readableCardId} from './catalog.mjs';
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',PROJECT='bm-portal-multi-v1';
 const idOk=x=>typeof x==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(x),gid=x=>typeof x==='string'&&/^LAC-[A-Za-z0-9_-]{1,120}$/.test(x);
 const uuid=x=>typeof x==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(x);
@@ -9,7 +9,7 @@ const stringFields=['createdAt','updatedAt','origem','questaoId','disciplina','a
 const fail=code=>{const e=Error('Lacuna privada não confirmada');e.code=code;throw e};
 const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 function validate(r){
- if(!r||!gid(r.id)||Object.keys(r).some(k=>!['id','cardIds','historico',...stringFields].includes(k))||!stringFields.every(k=>typeof r[k]==='string'&&r[k].length<=50000)||!Array.isArray(r.cardIds)||r.cardIds.length>100||r.cardIds.some(x=>!/^CARD-\d{4,12}$/.test(x))||new Set(r.cardIds).size!==r.cardIds.length||!Array.isArray(r.historico)||r.historico.length>2000||!stages.includes(r.etapa)||!coverage.includes(r.cobertura)||!types.includes(r.tipo)||!['Normal','Alta','Baixa'].includes(r.prioridade)||!['Questão','Dúvida','Pesquisa','Leitura','Revisão'].includes(r.origem)||r.descricao.trim().length<5||!Number.isFinite(Date.parse(r.createdAt))||!Number.isFinite(Date.parse(r.updatedAt))||Buffer.byteLength(JSON.stringify(r))>240000)fail('input');
+ if(!r||!gid(r.id)||Object.keys(r).some(k=>!['id','cardIds','historico',...stringFields].includes(k))||!stringFields.every(k=>typeof r[k]==='string'&&r[k].length<=50000)||!Array.isArray(r.cardIds)||r.cardIds.length>100||r.cardIds.some(x=>!readableCardId(x))||new Set(r.cardIds).size!==r.cardIds.length||!Array.isArray(r.historico)||r.historico.length>2000||!stages.includes(r.etapa)||!coverage.includes(r.cobertura)||!types.includes(r.tipo)||!['Normal','Alta','Baixa'].includes(r.prioridade)||!['Questão','Dúvida','Pesquisa','Leitura','Revisão'].includes(r.origem)||r.descricao.trim().length<5||!Number.isFinite(Date.parse(r.createdAt))||!Number.isFinite(Date.parse(r.updatedAt))||Buffer.byteLength(JSON.stringify(r))>240000)fail('input');
  for(const h of r.historico)if(!h||Object.keys(h).some(k=>!['at','evento','nota','from','to','evidencia'].includes(k))||Object.values(h).some(v=>typeof v!=='string'||v.length>50000)||!Number.isFinite(Date.parse(h.at)))fail('input');
  return r;
 }

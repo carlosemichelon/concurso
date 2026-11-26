@@ -30,3 +30,10 @@ test('galeria somente com imagens vinculadas a cartões ativos do próprio perfi
  f.files.get('cardsA').payload.records[0].consolidation.profile.editorial.media=[];
  assert.deepEqual(await list({session:'A'}),[]);await assert.rejects(list({session:'X'}));
 });
+
+test('PDF de cartão legado é lido sem alterar ID nem abrir vínculo cruzado',async()=>{
+ const f=setup(),a={session:'A'},c=f.files.get('cardsA').payload.records[0];c.id='TRT01-C001';delete c.expl;delete c.consolidation;
+ f.files.get('mediaA').payload.records[1].card_ids=[c.id];
+ assert.match((await f.read(a,c.id,'PDF-TEST')).bytes.toString(),/perfil A/);
+ await assert.rejects(f.read({session:'B'},c.id,'PDF-TEST'));
+});

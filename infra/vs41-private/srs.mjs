@@ -1,4 +1,4 @@
-import {createReader} from './catalog.mjs';
+import {createReader,readableCardId} from './catalog.mjs';
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',PROJECT='bm-portal-multi-v1';
 const RATINGS=Object.freeze({'Difícil':8,Bom:16,'Fácil':24,'Conhecimento preservado':32,'Conhecimento adquirido':64});
 const SOURCE='Banco Mestre — revisão formal no site';
@@ -27,7 +27,7 @@ export function createReviewStore({resolveSession,getToken,fetcher=fetch,now=Dat
   const before=await ctx.meta(id,'srs-event'),e=await ctx.request(API+'/'+id+'?alt=media'),after=await ctx.meta(id,'srs-event');
   const fields=['headRevisionId','md5Checksum','sha256Checksum'].filter(k=>before[k]||after[k]);
   if(String(before.size)!==String(after.size)||!(fields.length?fields.every(k=>typeof before[k]==='string'&&before[k]&&before[k]===after[k]):before.version&&before.version===after.version))fail('revision');
-  if(!e||e.schema!=='bm-srs-formal-event/1'||e.source!==SOURCE||e.owner!==ctx.session.subject||e.project!==PROJECT||!uuid(e.event_id)||before.appProperties.bmEvent!==e.event_id||!/^CARD-\d{4,12}$/.test(e.id||'')||!hasRating(e.rating)||!Number.isFinite(Date.parse(e.at_utc))||date(new Date(e.at_utc))!==e.date_local||e.interval_days!==RATINGS[e.rating]||e.due!==due(e.date_local,e.interval_days))fail('event');
+  if(!e||e.schema!=='bm-srs-formal-event/1'||e.source!==SOURCE||e.owner!==ctx.session.subject||e.project!==PROJECT||!uuid(e.event_id)||before.appProperties.bmEvent!==e.event_id||!readableCardId(e.id)||!hasRating(e.rating)||!Number.isFinite(Date.parse(e.at_utc))||date(new Date(e.at_utc))!==e.date_local||e.interval_days!==RATINGS[e.rating]||e.due!==due(e.date_local,e.interval_days))fail('event');
   return e;
  }
  async function list(ctx,eventId){
@@ -44,7 +44,7 @@ export function createReviewStore({resolveSession,getToken,fetcher=fetch,now=Dat
  }
  async function read(req){return list(await scope(req))}
  async function record(req,input){
-  if(!input||!uuid(input.event_id)||!/^CARD-\d{4,12}$/.test(input.id||'')||!hasRating(input.rating))fail('input');
+  if(!input||!uuid(input.event_id)||!readableCardId(input.id)||!hasRating(input.rating))fail('input');
   const s=await resolveSession(req);if(!s)fail('session');
   const key=s.subject,previous=queues.get(key)||Promise.resolve();
   const work=previous.catch(()=>{}).then(async()=>{

@@ -50,6 +50,11 @@ test('login autenticado, dois perfis, recusa de origem, sem IDs do cliente, logo
   for(const endpoint of ['formulas','images','pdfs','media/CARD-9901/IMG-TEST','annotations/PDF-TEST/1','image-ink/IMG-TEST','study','gaps','reviews']){
    for(const i of [0,1])assert.equal((await call(endpoint,i)).status,200,endpoint+' '+i);
   }
+  const legacy={...f.files.get('cardsA').payload.records[0],id:'TRT01-C001',related_card_ids:[]};delete legacy.expl;delete legacy.consolidation;
+  f.files.get('cardsA').payload.records.push(legacy);
+  f.files.get('mediaA').payload.records[1].card_ids.push(legacy.id);
+  assert.equal((await call('media/TRT01-C001/PDF-TEST',0)).status,200);
+  assert.equal((await call('media/TRT01-C001/PDF-TEST',1)).status,404);
   const event_id='12345678-1234-4234-8234-000000000001';
   for(const i of [0,1]){
    const r=await call('reviews',i,{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({id:'CARD-9901',event_id,rating:i?'Bom':'Fácil',owner:i?'A':'B',rootId:i?'rootA':'rootB'})});

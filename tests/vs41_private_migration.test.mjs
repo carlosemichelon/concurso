@@ -1,5 +1,5 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
-import {assessCatalog,prepareCardCopy} from '../infra/vs41-private/migration.mjs';import {card} from './vs41_private_fixture.mjs';
+import {assessCatalog,prepareCardCopy,readOfficial} from '../infra/vs41-private/migration.mjs';import {verifyRecords} from '../infra/vs41-private/catalog.mjs';import {card} from './vs41_private_fixture.mjs';
 const contract={format:'snapshot-test',source_head:'test',display_version:'VC49-test',unified:true,active_only:true,counts:{canonical:1,active:1,ijui:0}};
 const source=()=>({format:contract.format,source_head:contract.source_head,base:[card('A')],ijui:[]});
 test('preparação conserva integralmente IDs, onze módulos, vínculos e conteúdo',()=>{
@@ -36,4 +36,9 @@ test('leitura dos formatos Ijuí e TRT não significa promoção ou migração e
  assert.equal(a.compatibility.legacyIds,1);assert.equal(a.compatibility.legacyWithoutExplanation,1);
  assert.equal(a.technicalReaderReady,true);assert.equal(a.cardCopyReady,false);assert.equal(a.fullMigrationReady,false);
  assert.equal(JSON.stringify(s),raw);assert.throws(()=>prepareCardCopy(s,contract,'A'));
+});
+
+test('snapshot oficial passa pelo validador real sem reescrever nenhum registro',()=>{
+ const {snapshot,contract}=readOfficial(),a=assessCatalog(snapshot,contract);
+ assert.equal(a.technicalReaderReady,true);assert.deepEqual(verifyRecords(snapshot.base),snapshot.base);
 });

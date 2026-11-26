@@ -1,5 +1,5 @@
 import {createHash} from 'node:crypto';
-import {createReader} from './catalog.mjs';
+import {createReader,readableCardId} from './catalog.mjs';
 const API='https://www.googleapis.com/drive/v3/files',PROJECT='bm-portal-multi-v1';
 const idOk=x=>typeof x==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(x);
 const types=new Set(['image/png','image/jpeg','image/webp','image/gif','application/pdf']);
@@ -7,7 +7,7 @@ const fail=()=>{throw Error('Mídia privada indisponível')};
 export function createMediaReader({resolveSession,getToken,fetcher=fetch}){
  const read=createReader({resolveSession,getToken,fetcher,includeMedia:true});
  return async(req,cardId,mediaId)=>{
-  if(!/^CARD-\d{4,12}$/.test(cardId)||!idOk(mediaId))fail();
+  if(!readableCardId(cardId)||!idOk(mediaId))fail();
   const s=await resolveSession(req);if(!s)fail();
   const {records,media}=await read(req),card=records.find(c=>c.id===cardId&&c.active);
   const links=media.filter(m=>m?.id===mediaId&&Array.isArray(m.card_ids)&&m.card_ids.includes(cardId));

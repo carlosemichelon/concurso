@@ -109,7 +109,7 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
      if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{...data,context:s.context})}
     catch(e){return json(res,e.code==='conflict'?409:e.code==='input'?400:503,{error:'Grifos privados não confirmados'})}
    }
-   const mediaPath=u.pathname.match(/^\/api\/vs41\/media\/(CARD-\d{4,12})\/([A-Za-z0-9_-]{1,160})$/);
+   const mediaPath=u.pathname.match(/^\/api\/vs41\/media\/((?:CARD-\d{4,12}|PROP-IJUI-\d{3}|TRT0[12]-C\d{3}))\/([A-Za-z0-9_-]{1,160})$/);
    if(req.method==='GET'&&mediaPath){
     const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
     if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});

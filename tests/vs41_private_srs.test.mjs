@@ -33,3 +33,12 @@ test('evento com proprietário divergente bloqueado',async()=>{
  const s=setup(),a={session:'A'};await s.store.record(a,{id:'CARD-9901',event_id:eid(1),rating:'Bom'});
  s.files.get('event1').meta.appProperties.bmOwner='B';await assert.rejects(s.store.read(a),e=>e.code==='owner');
 });
+
+test('revisões de IDs Ijuí e TRT preservam o identificador e a regra SRS original',async()=>{
+ const s=setup(),a={session:'A'},b={session:'B'};
+ for(const [label,id] of [['A','PROP-IJUI-001'],['B','TRT01-C001']]){const c=s.files.get('cards'+label).payload.records[0];c.id=id;delete c.expl;delete c.consolidation;}
+ const [x,y]=await Promise.all([s.store.record(a,{id:'PROP-IJUI-001',event_id:eid(1),rating:'Bom'}),s.store.record(b,{id:'TRT01-C001',event_id:eid(1),rating:'Fácil'})]);
+ assert.equal(x.id,'PROP-IJUI-001');assert.equal(y.id,'TRT01-C001');assert.equal(x.interval_days,16);assert.equal(y.interval_days,24);
+ assert.deepEqual(await s.store.read(a),[x]);assert.deepEqual(await s.store.read(b),[y]);
+ await assert.rejects(s.store.record(a,{id:'TRT01-C001',event_id:eid(2),rating:'Bom'}),e=>e.code==='card');
+});
