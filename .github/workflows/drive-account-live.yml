@@ -1,0 +1,22 @@
+name: Banco Mestre - login individual e progresso
+on:
+  push:
+    branches: ['gh-pages']
+    paths: ['index.html','assets/bm-account/**','infra/vs41-private/**','.github/workflows/drive-account-live.yml','tests/vs41*']
+permissions:
+  contents: read
+jobs:
+  account:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/vs41_browser_drive.test.mjs tests/vs41_browser_account.test.mjs
+      - run: |
+          set -e
+          for f in assets/bm-account/*.js infra/vs41-private/browser*.mjs; do node --check "$f"; done
+      - run: npm install --no-save playwright pdfjs-dist@3.11.174
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/vs41_original_account_browser.mjs .
