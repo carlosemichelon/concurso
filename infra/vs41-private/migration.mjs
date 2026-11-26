@@ -96,6 +96,34 @@ export function inventoryMedia(records,root=process.cwd()){
  const editorialKeys=new Set(items.filter(x=>x.id).map(x=>x.card+'\0'+x.id));
  return {associations:items.length,uniqueEditorialIds:byId.size,counts,missingEditorialIds:items.filter(x=>!x.id).length,conflictingEditorialIds:[...byId.values()].filter(x=>x.size>1).length,legacyImageAssociations:legacy.length,legacyNotInEditorial:legacy.filter(x=>!editorialKeys.has(x.card+'\0'+x.id)).length,uniqueLocalFiles:[...fileCache.values()].filter(Boolean).length,sourceVerificationOnly:true,privateMigrationReady:false};
 }
+// Legacy TRT sources are explicit card-level references. Read only known JSON paths.
+export function inventoryLegacySources(records,root=process.cwd()){
+ const base=fs.realpathSync(path.join(root,'assets')),report={cards:0,sourceVerifiedCards:0,sourceUnverifiedCards:0,elevenLayers:0,associations:0,verifiedPrivateReferences:0,unresolvedReferences:0};
+ for(const c of records){
+  const ids=Array.isArray(c.related_image_ids)?[...new Set(c.related_image_ids)]:[];
+  if(!ids.length&&!c.trt_source)continue;
+  report.cards++;report.associations+=ids.length;
+  let doc=null;
+  try{
+   if(!/^TRT0[12]-C[0-9]{3}$/.test(c.id)||typeof c.trt_source!=='string'||!/^assets\/trt0[12]_c[0-9]{3}_v[0-9]+\.json$/.test(c.trt_source))throw Error('Fonte não reconhecida');
+   const file=fs.realpathSync(path.join(root,c.trt_source)),st=fs.statSync(file);
+   if(!file.startsWith(base+path.sep)||!st.isFile()||st.size<1||st.size>1024*1024)throw Error('Fonte fora do limite');
+   const d=JSON.parse(fs.readFileSync(file,'utf8'));
+   if(d.id!==c.id||!Array.isArray(d.images))throw Error('Identidade divergente');
+   doc=d;
+  }catch{}
+  if(!doc){report.sourceUnverifiedCards++;report.unresolvedReferences+=ids.length;continue}
+  report.sourceVerifiedCards++;
+  if(Array.isArray(doc.layers)&&doc.layers.length===11&&doc.layers.every((m,i)=>m&&m.ord===i+1&&typeof m.titulo==='string'&&m.titulo.trim()&&typeof m.texto==='string'&&m.texto.trim()))report.elevenLayers++;
+  for(const id of ids){
+   const matches=doc.images.filter(m=>m?.id===id);
+   const m=matches[0];
+   if(matches.length===1&&Array.isArray(m.linked_operational_card_ids)&&m.linked_operational_card_ids.includes(c.id)&&/^[a-f0-9]{64}$/.test(m.sha256||'')&&idOk(m.file_id)&&m.requires_drive_oauth===true&&m.published_binary===false)report.verifiedPrivateReferences++;
+   else report.unresolvedReferences++;
+  }
+ }
+ return {...report,sourceMetadataOnly:true,driveBytesVerified:false};
+}
 // Explicit public editorial assets only, never a fallback for unavailable private originals.
 export function createStaticMediaReader({resolveSession,getToken,fetcher=fetch,root=process.cwd()}){
  const read=createReader({resolveSession,getToken,fetcher}),fail=()=>{throw Error('Figura editorial indisponível')};
@@ -147,6 +175,7 @@ if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
   const {snapshot,contract}=readOfficial();
   const report=assessCatalog(snapshot,contract);
   report.mediaInventory=inventoryMedia(snapshot.base);
+  report.legacySources=inventoryLegacySources(snapshot.base);
   // Only aggregate counts in CI logs; no private data or generated collection.
   console.log(JSON.stringify({...report,missingModules:report.missingModules.length,invalidFields:report.invalidFields.length,unresolvedLinks:report.unresolvedLinks.length},null,2));
  }catch(e){console.error('Auditoria não concluída: '+e.message);process.exitCode=1}

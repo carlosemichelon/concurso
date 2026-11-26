@@ -69,3 +69,6 @@ Todos os 1.486 registros passam no validador técnico, inclusive os IDs Ijuí/TR
 
 ## Figuras editoriais locais
 As figuras estáticas já públicas do catálogo oficial podem ser lidas pela rota autenticada static-media somente quando o mesmo cartão, ID da mídia e caminho explícito existem no catálogo privado do estudante e no snapshot oficial. Não há busca por caminho fornecido pelo navegador, acesso genérico ao diretório, fallback de original privado ou consulta externa. SVG é entregue com CSP sandbox e attachment; a interface usa URL blob apenas em imagem. Esta etapa não importa arquivos privados, não migra vínculos legados e não valida semanticamente os SVGs.
+
+## Fontes legadas TRT
+Auditoria de metadados baseada exclusivamente no `trt_source` explícito de cada cartão e no ID correspondente. Confere camadas originais, IDs de imagem, vínculo operacional, hash declarado e indicação de acesso privado; não revela IDs físicos, não baixa originais, não preenche módulos no catálogo e não presume que metadados confirmados equivalem a bytes verificados. A migração real exige consentimento e conferência de titularidade e hash no Drive do estudante.

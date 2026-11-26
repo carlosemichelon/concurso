@@ -1,6 +1,6 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
-import {assessCatalog,prepareCardCopy,readOfficial,inventoryMedia,createStaticMediaReader} from '../infra/vs41-private/migration.mjs';import {verifyRecords} from '../infra/vs41-private/catalog.mjs';import {card,fixture,profiles} from './vs41_private_fixture.mjs';
+import {assessCatalog,prepareCardCopy,readOfficial,inventoryMedia,createStaticMediaReader,inventoryLegacySources} from '../infra/vs41-private/migration.mjs';import {verifyRecords} from '../infra/vs41-private/catalog.mjs';import {card,fixture,profiles} from './vs41_private_fixture.mjs';
 const contract={format:'snapshot-test',source_head:'test',display_version:'VC49-test',unified:true,active_only:true,counts:{canonical:1,active:1,ijui:0}};
 const source=()=>({format:contract.format,source_head:contract.source_head,base:[card('A')],ijui:[]});
 test('preparação conserva integralmente IDs, onze módulos, vínculos e conteúdo',()=>{
@@ -69,4 +69,18 @@ test('figura local exige vínculo editorial idêntico no catálogo privado e ofi
  const local=f.files.get('cardsA').payload.records[0].consolidation.profile.editorial.media.find(m=>m.id===item.id);
  local.private_original=true;await assert.rejects(read({session:'A'},original.id,item.id));
  delete local.private_original;local.src='assets/version.json';await assert.rejects(read({session:'A'},original.id,item.id));
+});
+
+test('fonte TRT vinculada confirma metadados sem revelar localizadores nem inventar camadas',()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'bm-trt-'));
+ try{
+  fs.mkdirSync(path.join(root,'assets'));
+  const c={id:'TRT01-C001',trt_source:'assets/trt01_c001_v211.json',related_image_ids:['IMG-1','IMG-2']};
+  const d={id:c.id,layers:Array.from({length:11},(_,i)=>({ord:i+1,titulo:'Camada',texto:'Texto original'})),images:[{id:'IMG-1',linked_operational_card_ids:[c.id],sha256:'a'.repeat(64),file_id:'privatefixture',requires_drive_oauth:true,published_binary:false},{id:'IMG-2',linked_operational_card_ids:['TRT01-C002'],sha256:'b'.repeat(64),file_id:'privatefixture2',requires_drive_oauth:true,published_binary:false}]};
+  fs.writeFileSync(path.join(root,c.trt_source),JSON.stringify(d));
+  const r=inventoryLegacySources([c],root);
+  assert.equal(r.sourceVerifiedCards,1);assert.equal(r.elevenLayers,1);assert.equal(r.verifiedPrivateReferences,1);assert.equal(r.unresolvedReferences,1);assert.equal(r.driveBytesVerified,false);assert.ok(!JSON.stringify(r).includes('privatefixture'));
+  d.id='TRT01-C002';fs.writeFileSync(path.join(root,c.trt_source),JSON.stringify(d));
+  const bad=inventoryLegacySources([c],root);assert.equal(bad.sourceUnverifiedCards,1);assert.equal(bad.unresolvedReferences,2);
+ }finally{fs.rmSync(root,{recursive:true,force:true})}
 });
