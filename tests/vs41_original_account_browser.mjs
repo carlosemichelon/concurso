@@ -22,7 +22,10 @@ try{
    if(req.method()!=='GET'){networkWrites.push(url.href);return route.fulfill({status:403});}
    const key=req.headers().authorization?.slice(7);assert.equal(key,account);
    const res=await fixtures[key](req.url(),{method:'GET',headers:{Authorization:'Bearer '+key}});
-   return route.fulfill({status:res.status,contentType:'application/json',body:await res.text(),headers:{'access-control-allow-origin':'*'}});
+   return route.fulfill({status:res.status,contentType:res.headers.get('Content-Type')||'application/json',body:Buffer.from(await res.arrayBuffer()),headers:{'access-control-allow-origin':'*'}});
+  }
+  if(url.origin==='https://cdnjs.cloudflare.com'&&/\/pdf(?:\.worker)?\.min\.js$/.test(url.pathname)){
+   const file=path.join(process.cwd(),'node_modules/pdfjs-dist/build',path.basename(url.pathname));return route.fulfill({contentType:'application/javascript',body:fs.readFileSync(file),headers:{'access-control-allow-origin':'*'}});
   }
   if(url.href.startsWith(base)){
    const rel=url.pathname.slice(new URL(base).pathname.length)||'index.html';
@@ -59,6 +62,16 @@ try{
   assert.equal(await page.locator('#bmCardPeekV050 .historic-module').count(),11);
   assert.ok((await page.locator('#bmCardPeekV050 .bm349-reading').innerText()).includes('Resposta privada '+a));
   await page.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
+  const docs=await page.evaluate(()=>window.BMVS41PrivatePdfs.list());
+  assert.equal(docs[0].id,'pdf'+a);
+  await page.evaluate(async doc=>{await window.BMVS41PrivatePdfs.preview(doc);const blob=await window.BMVS41PrivateMedia.read(undefined,doc.id);await window.BMVS41PrivatePdfEditor.open(doc,blob)},docs[0]);
+  assert.ok(await page.evaluate(()=>window.BMVS41PrivatePdfEditor.confirmed));
+  await page.locator('#pdfClose').click();
+  const images=await page.evaluate(()=>window.BMVS41PrivateImages.list());assert.equal(images[0].id,'img'+a);
+  await page.evaluate(img=>window.BMVS41PrivateImageEditor.open(img),images[0]);
+  assert.ok(await page.evaluate(()=>window.BMVS41PrivateImageEditor.confirmed));
+  await page.locator('#imgClose').click();
+  console.log('Conta '+a+': PDF e imagem abertos nos editores originais.');
   await page.setViewportSize({width:390,height:844});
   assert.ok(await btn.isVisible());
   await page.setViewportSize({width:1366,height:900});

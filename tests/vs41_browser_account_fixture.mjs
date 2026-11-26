@@ -10,7 +10,15 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
   if(bytes)content.set(id,bytes);
  }
  add(root,'DataBase_Concurso',fm,[],undefined,{ownedByMe:!foreign});
- const pdf='pdf'+account,bytes='%PDF-1.4 mock '+account;files.set(pdf,{id:pdf,name:'Material.pdf',mimeType:'application/pdf',parents:[root],ownedByMe:true,shared:false,trashed:false,version:'1',size:String(Buffer.byteLength(bytes))});content.set(pdf,bytes);
+ const pdf='pdf'+account;
+ function makePdf(){
+  const objects=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] /Contents 4 0 R >>','<< /Length 19 >>\nstream\n0 0 100 100 re S\nendstream'];
+  let s='%PDF-1.4\n',offsets=[0];for(let i=0;i<objects.length;i++){offsets.push(Buffer.byteLength(s));s+=(i+1)+' 0 obj\n'+objects[i]+'\nendobj\n'}
+  const start=Buffer.byteLength(s);return s+'xref\n0 5\n0000000000 65535 f \n'+offsets.slice(1).map(x=>String(x).padStart(10,'0')+' 00000 n \n').join('')+'trailer\n<< /Size 5 /Root 1 0 R >>\nstartxref\n'+start+'\n%%EOF\n';
+ }
+ const bytes=makePdf();files.set(pdf,{id:pdf,name:'Material.pdf',mimeType:'application/pdf',parents:[root],ownedByMe:true,shared:false,trashed:false,version:'1',size:String(Buffer.byteLength(bytes))});content.set(pdf,bytes);
+ const img='img'+account,png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+XK1sAAAAASUVORK5CYII=','base64');
+ files.set(img,{id:img,name:'Imagem.png',mimeType:'image/png',parents:[root],ownedByMe:true,shared:false,trashed:false,version:'1',size:String(png.length)});content.set(img,png);
  const snapshot={format:'BancoMestrePrivadoV159',schema_version:1,version:'TESTE-'+account,counts:{cards:1},cards:[card(account)]};
  add(snap,'snapshot.json','application/json',[root],snapshot);
  add(ptr,'BANCO_MESTRE_ATUAL.json','application/json',[root],{schema:'banco-mestre-operational-pointer/1',private_base:{file_id:snap,version:snapshot.version,sha256:createHash('sha256').update(JSON.stringify(snapshot)).digest('hex'),cards:1}});
@@ -36,6 +44,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    if(q.includes("name = 'DataBase_Concurso'"))result=[files.get(root)];
    else if(q.includes("name = 'BANCO_MESTRE_ATUAL.json'"))result=duplicatePointer?[files.get(ptr),{...files.get(ptr),id:'duplicate'}]:[files.get(ptr)];
    else if(q.includes('bm_controle_estudos_v245'))result=[files.get(study)];
+   else if(q.includes('bm_image_ink_v1'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind==='bm_image_ink_v1'&&q.includes(x.appProperties.bm_image_key));
    else if(q.includes('bm_grifos_sync_v104_master'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GRIF_KIND);
    else if(q.includes('bm_lacunas_v242'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GAP_KIND);
    else if(q.includes('BM_SRS_EVENT_V001_'))result=[...files.values()].filter(x=>x.name.startsWith('BM_SRS_EVENT_V001_'));
@@ -44,7 +53,7 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
   }
   const id=u.pathname.split('/').at(-1);
   if(!files.has(id))return new Response(null,{status:403});
-  if(u.searchParams.has('alt'))return new Response(content.get(id));
+  if(u.searchParams.has('alt'))return new Response(content.get(id),{headers:{'Content-Type':files.get(id).mimeType}});
   return Response.json(files.get(id));
  };
 }

@@ -248,5 +248,47 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  });
  const annotationRevisions=new Map();
  const annotationWrite=async(id,page,input)=>{const key=id+':'+page,prior=annotationRevisions.get(key);const row=await saveAnnotations(id,page,{...input,previous:prior?.event===input.previous?prior.revision:input.previous});annotationRevisions.set(key,{event:row.revision,revision:row.verifiedRevision});return row};
- return Object.freeze({root:root.id,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,write,readAnnotations,saveAnnotations:annotationWrite,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ // Image ink was browser-local in the legacy editor. Persist explicit edits as small,
+ // private versioned files keyed to the authenticated Drive image and its actual bytes.
+ const imageIdentity=async id=>{
+  if(!validId(id)||!/^image\/(?:png|jpeg|webp|gif)$/.test((await media()).get(id)?.mimeType||''))fail('Imagem fora da biblioteca individual');
+  const m=await meta(id),previous=hashes.get(id);
+  if(previous&&previous.version===m.version)return previous.hash;
+  const blob=await readMedia(id),hash=await digest(await blob.arrayBuffer()),again=await meta(id);
+  if(again.version!==m.version)fail('Imagem alterada durante conferência',409);
+  hashes.set(id,{version:m.version,hash});return hash;
+ };
+ const normalizedPoint=x=>typeof x==='number'&&Number.isFinite(x)&&x>=0&&x<=1;
+ function validInk(marks){
+  return Array.isArray(marks)&&marks.length<=2000&&new TextEncoder().encode(JSON.stringify(marks)).length<=240000&&marks.every(m=>m&&['pen','highlighter','rect'].includes(m.type)&&/^#[0-9a-f]{6}$/i.test(m.color||'')&&typeof m.size==='number'&&m.size>=1&&m.size<=40&&
+   (m.type==='rect'?Array.isArray(m.box)&&m.box.length===4&&m.box.every(normalizedPoint):Array.isArray(m.points)&&m.points.length>0&&m.points.length<20000&&m.points.every(p=>Array.isArray(p)&&p.length===3&&p.every(normalizedPoint))));
+ }
+ async function imageHistory(id,hash){
+  const key=await digest(new TextEncoder().encode(id+'\n'+hash)),prefix='BM_IMAGE_INK_'+key+'_';
+  const files=await list("mimeType = 'application/json' and appProperties has { key='bm_kind' and value='bm_image_ink_v1' } and appProperties has { key='bm_image_key' and value='"+key+"' }");
+  const events=new Map(),children=new Map();
+  for(const f of files){
+   const r=await json(f.id,300000),e=r.data;
+   if(e.schema!=='BM-IMAGE-INK/1'||e.pdfId!==id||e.hash!==hash||e.page!==1||!uuid(e.event_id)||!(e.previous===null||uuid(e.previous))||f.name!==prefix+e.event_id+'.json'||r.meta.appProperties?.bm_image_key!==key||r.meta.appProperties?.bm_kind!=='bm_image_ink_v1'||!validInk(e.marks)||events.has(e.event_id)||children.has(e.previous))fail('Histórico de imagem inválido ou concorrente',409);
+   events.set(e.event_id,e);children.set(e.previous,e);
+  }
+  let latest=null,n=0;while(children.has(latest?.event_id||null)){latest=children.get(latest?.event_id||null);if(++n>events.size)fail('Histórico circular',409)}
+  if(n!==events.size)fail('Histórico de imagem incompleto',409);
+  return {key,prefix,events,latest};
+ }
+ const imageView=(id,hash,e)=>({pdfId:id,page:1,hash,revision:e?.event_id||null,marks:e?.marks||[]});
+ const readInk=async id=>{const hash=await imageIdentity(id);return imageView(id,hash,(await imageHistory(id,hash)).latest)};
+ const saveInk=(id,input)=>serialize(async()=>{
+  if(!input||!uuid(input.event_id)||!validInk(input.marks))fail('Marcações de imagem inválidas');
+  const hash=await imageIdentity(id),h=await imageHistory(id,hash);
+  if(input.hash!==hash)fail('Versão da imagem alterada',409);
+  const existing=h.events.get(input.event_id);
+  if(existing){if(existing.previous!==input.previous||!eq(existing.marks,input.marks)||h.latest.event_id!==existing.event_id)fail('Evento de imagem divergente',409);return imageView(id,hash,existing)}
+  if((h.latest?.event_id||null)!==input.previous)fail('Imagem editada em outro dispositivo',409);
+  const e={schema:'BM-IMAGE-INK/1',pdfId:id,page:1,hash,event_id:input.event_id,previous:input.previous,at_utc:new Date().toISOString(),marks:input.marks};
+  await create(h.prefix+input.event_id+'.json',e,{bm_kind:'bm_image_ink_v1',bm_image_key:h.key});
+  const confirmed=await imageHistory(id,hash);if(!eq(confirmed.latest,e)){uncertain=true;fail('Marcações de imagem não confirmadas',409)}
+  return imageView(id,hash,e);
+ });
+ return Object.freeze({root:root.id,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }

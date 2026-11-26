@@ -58,3 +58,14 @@ test('PDF annotations reuse V104 master, retain deletions and isolate original f
  await assert.rejects(a.readAnnotations('pdfB',1));
  assert.ok(writes.every(x=>x.account==='A'&&x.id!=='pdfA'));
 });
+
+test('image marks persist only in the selected Drive; original image never changed',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{writable:true,writes}),write:true}),b=await connectAccount({token:'B',fetcher:fixture('B')});
+ const before=await a.readInk('imgA'),other=await b.readInk('imgB');
+ assert.equal(before.revision,null);assert.equal(other.revision,null);
+ const mark={id:'ink-a',type:'pen',color:'#ff0000',size:3,points:[[0.1,0.2,0.5],[0.3,0.4,0.5]]};
+ const input={event_id:'12345678-1234-1234-1234-123456789031',previous:null,hash:before.hash,marks:[mark]};
+ const saved=await a.saveInk('imgA',input);assert.deepEqual(saved.marks,[mark]);assert.deepEqual(await a.readInk('imgA'),saved);assert.deepEqual(await a.saveInk('imgA',input),saved);
+ assert.deepEqual((await b.readInk('imgB')).marks,[]);assert.equal(writes.length,1);assert.ok(writes[0].account==='A'&&writes[0].id!=='imgA');
+ await assert.rejects(a.readInk('imgB'));await assert.rejects(a.saveInk('imgA',{...input,event_id:'12345678-1234-1234-1234-123456789032'}),/outro dispositivo/);
+});
