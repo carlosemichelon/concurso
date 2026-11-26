@@ -42,7 +42,7 @@ export function createPortalHost({root,api}){
   assets.set(file,{body:disabledPublicScripts.has(file)?'/* Conteúdo fornecido somente pelo perfil autenticado. */':adapters.has(file)?adapters.get(file)(content.toString('utf8')):content,type:file.endsWith('.css')?'text/css; charset=utf-8':'application/javascript; charset=utf-8'});
  }
  for(const key of adapters.keys())if(!assets.has(key))throw Error('Adaptador sem recurso original: '+key);
- assets.set('/controle-estudos-v415.html',{body:fs.readFileSync(path.join(base,'controle-estudos-v415.html')),type:'text/html; charset=utf-8'});
+ assets.set('/controle-estudos-v415.html',{body:fs.readFileSync(path.join(base,'controle-estudos-v415.html'),'utf8').replace('Classificação verificada dos cartões públicos V194.','Classificação dos cartões do perfil autenticado.').replace('Cinco disciplinas principais conforme os filtros do Banco Mestre; matérias, assuntos específicos e subassuntos vêm dos 1.518 cartões.','Disciplinas, matérias e assuntos específicos são derivados dos cartões da conta.'),type:'text/html; charset=utf-8'});
  assets.set('/assets/v415_controle_app.js',{body:privateStudyApp(fs.readFileSync(path.join(base,'assets/v415_controle_app.js'),'utf8')),type:'application/javascript; charset=utf-8'});
  assets.set('/infra/vs41-private/client.js',{body:fs.readFileSync(path.join(base,'infra/vs41-private/client.js')),type:'application/javascript; charset=utf-8'});
  for(const file of ['pdf.min.js','pdf.worker.min.js'])assets.set('/test-pdfjs/'+file,{body:fs.readFileSync(path.join(base,'node_modules/pdfjs-dist/build',file)),type:'application/javascript; charset=utf-8'});
