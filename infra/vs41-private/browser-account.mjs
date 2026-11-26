@@ -262,10 +262,13 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  // Historical fallback is read-only and never becomes the current card catalog.
  async function historicalSchedule(){
   const candidates=await list("mimeType = 'application/json' and name contains 'BANCO_MESTRE_PRIVADO_V'");
-  const matches=[];
+  const matches=[],parentsChecked=new Map();
   for(const f of candidates){
    const m=f.name.match(/^BANCO_MESTRE_PRIVADO_V(\d+)(?:_.*)?\.json$/i);
-   if(m&&await belongsToRoot(f))matches.push({f,n:Number(m[1])});
+   if(!m||f.parents?.length!==1)continue;
+   const parent=f.parents[0];
+   if(!parentsChecked.has(parent))parentsChecked.set(parent,belongsToRoot(f));
+   if(await parentsChecked.get(parent))matches.push({f,n:Number(m[1])});
   }
   matches.sort((a,b)=>b.n-a.n);
   if(!matches.length)return null;
@@ -320,13 +323,20 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   return {records:[...byId.values()],complete:source,warnings,documents,events:seen.size,version:historySource?.version||snapshot.version,updated:historySource?.updated||'',historical:historical?.version||null};
  }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
- let mediaIndex=null;
- const media=async(fresh=false)=>{if(mediaIndex&&!fresh)return mediaIndex;const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
-  while(queue.length){const p=queue.shift();if(seen.has(p.id)||seen.size>=2000)throw Error('Árvore de mídias inválida ou extensa');seen.add(p.id);
-   const children=await list("'"+p.id+"' in parents");
+ let mediaIndex=null,mediaPending=null;
+ const media=async(fresh=false)=>{if(mediaPending)return mediaPending;if(mediaIndex&&!fresh)return mediaIndex;
+  mediaPending=buildMediaIndex().finally(()=>{mediaPending=null});return mediaPending;};
+ const buildMediaIndex=async()=>{const out=new Map(),queue=[{id:root.id,path:[]}],seen=new Set();
+  // Consult up to four folders concurrently; share one promise across image/PDF modules.
+  while(queue.length){
+   const batch=queue.splice(0,4);
+   for(const p of batch){if(seen.has(p.id)||seen.size>=2000)throw Error('Árvore de mídias inválida ou extensa');seen.add(p.id);}
+   const pages=await Promise.all(batch.map(p=>list("'"+p.id+"' in parents and (mimeType = '"+folder+"' or mimeType = 'application/pdf' or mimeType contains 'image/')")));
+   for(let i=0;i<batch.length;i++){const p=batch[i],children=pages[i];
    for(const f of children){if(f.parents?.length!==1||f.parents[0]!==p.id)throw Error('Arquivo fora da pasta selecionada');const path=[...p.path,f.name];
     if(f.mimeType===folder){if(!/^(?:09 - Backups|08 - Auditorias|02 - Histórico|Excluídos|Excluídas|Backups)$/i.test(f.name))queue.push({id:f.id,path});continue;}
     if(f.mimeType==='application/pdf'||/^image\/(?:png|jpeg|webp|gif)$/.test(f.mimeType))out.set(f.id,{id:f.id,title:f.name,section:p.path.at(-1)||'Materiais',category:'PDF',area:p.path[0]||'Materiais',subject:p.path.at(-1)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path});
+   }
    }
   }
   // The historical editorial catalog is not a source of file authorization.
@@ -345,13 +355,14 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    const str=x=>typeof x==='string'?x.trim():'';
    const links=a=>Array.isArray(a)?a.filter(x=>ids.has(x)):[];
    for(const item of out.values()){
-    item.filename=item.title;item.editorialId='';item.classified=false;item.card_ids=[];
+    item.filename=item.title;item.editorialId='';item.classified=false;item.indexed=false;item.card_ids=[];
     if(item.mimeType.startsWith('image/')){item.category='Imagem';item.area='';item.subject='';}
    }
    for(let i=0;i<3;i++){
     for(const row of Array.isArray(packs[i]?.records)?packs[i].records:[]){
      const item=out.get(row.driveFileId);
      if(!item?.mimeType.startsWith('image/'))continue;
+     item.indexed=true;
      const topic=str(i===1?row.studySubject:row.topic),area=str(i===1?row.studyArea:groupNames[row.group]);
      const label=str(i===1?row.studyTitle||row.title:row.title);
      if(i!==2||!item.classified){
@@ -522,7 +533,6 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const incomplete=Object.entries(sources).filter(([k,s])=>['falha','parcial'].includes(s.status)||(['methodology','operational_guide'].includes(k)&&s.status!=='confirmado')).map(([k,s])=>({section:k,...s}));
   return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal||null,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. O objetivo do estudo será informado na conversa do ChatGPT. Use a base individual e preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName},sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
  };
-
  // Read-only diagnostics of the authenticated account; no export, write or rotation.
  const verifyDrive=async()=>{
   const modules={},notes=[],pending=[],warnings=[];
@@ -530,7 +540,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const check=async(key,fn)=>{try{const result=await fn();set(key,result.state||'verified',result.message)}catch(e){set(key,e.status===409?'conflict':'error',String(e.message||e).slice(0,350))}};
   await check('connection',async()=>{await meta(root.id);return {message:'Pasta individual consultada; '+(write?'escopo de gravação autorizado (sem teste de escrita)':'somente leitura')}});
   await check('pdfs',async()=>{const items=await media(true);return {message:'PDFs: consulta do Drive concluída, '+[...items.values()].filter(x=>x.mimeType==='application/pdf').length+' arquivos listados (conteúdo não baixado)'}});
-  await check('atlas',async()=>{if(modules.pdfs.state!=='verified')throw Error('Consulta de mídias não confirmada');return {message:[...(await media()).values()].filter(x=>x.mimeType.startsWith('image/')).length+' imagens originais consultadas no Drive (arquivos listados)'}});
+  await check('atlas',async()=>{if(modules.pdfs.state!=='verified')throw Error('Consulta de mídias não confirmada');return {message:[...(await media()).values()].filter(x=>x.mimeType.startsWith('image/')).length+' arquivos de imagem consultados no Drive (conteúdo não baixado)'}});
   await check('control',async()=>{const p=await study();return p.revision===null?{state:'pending',message:'Controle: não existe arquivo mestre; nenhum registro gravado pela conferência'}:{message:'Controle: '+p.data.sessions.length+' sessões; mestre lido e validado'}});
   await check('backup',async()=>{
    const files=await list("mimeType = 'application/json' and appProperties has { key='bm_kind' and value='bm_controle_estudos_v245_backup' }");

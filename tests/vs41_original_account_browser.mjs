@@ -53,6 +53,7 @@ try{
   assert.equal(await page.evaluate(()=>cards.length),0);
   await page.locator('#bmAccountSettings').click();
   assert.ok(await page.locator('#bmAccountSettingsDialog').isVisible());
+  const settingsBox=await page.locator('#bmAccountSettingsDialog').boundingBox();assert.ok(settingsBox.width<=441&&settingsBox.height<430,'Configurações deve ser compacta');
   if(a==='A'){
    await page.locator('#bmAccountRoot').fill('https://example.invalid/folder');
    await page.locator('#bmAccountSettingsSave').click();
@@ -89,7 +90,10 @@ try{
   assert.ok(await page.locator('#bmAccountExportDialog').isVisible());
   assert.equal(await page.locator('#bmAccountExportEmail').innerText(),a.toLowerCase()+'@example.invalid');
   assert.equal(await page.locator('#bmAccountStudyObjective').count(),0);
-  assert.ok((await page.locator('#bmAccountExportDialog').boundingBox()).width<=481);
+  const exportBox=await page.locator('#bmAccountExportDialog').boundingBox();assert.ok(exportBox.width<=441&&exportBox.height<380,'Exportação compacta');
+  await page.setViewportSize({width:390,height:844});
+  await page.waitForFunction(()=>{const r=document.getElementById('bmAccountExportDialog').getBoundingClientRect();return r.left>=4&&r.right<=innerWidth-4&&r.height<500},{},{timeout:3000}).catch(async()=>{const d=await page.locator('#bmAccountExportDialog').evaluate(e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return {width:r.width,height:r.height,viewport:[innerWidth,innerHeight],css:[s.width,s.height,s.minWidth,s.minHeight,s.position,s.inset,s.display],childHeight:e.firstElementChild.getBoundingClientRect().height}});throw Error('Exportação mobile: '+JSON.stringify(d))});
+  await page.setViewportSize({width:1366,height:900});
   const downloadPromise=page.waitForEvent('download');
   await page.locator('#bmAccountExportSave').click();
   const download=await downloadPromise,filename=await download.path();
@@ -117,6 +121,7 @@ try{
   await page.locator('#bm302-redacao-original').evaluate((f,a)=>{f.contentWindow.localStorage.setItem('BM_LAYOUT_TEST',a)},a);
   assert.equal(await page.evaluate(()=>localStorage.getItem('BM_LAYOUT_TEST')),null);
   assert.ok(await page.locator('#bmWritingSaveDrive').isVisible());
+  assert.ok((await page.locator('.bm-writing-toolbar').boundingBox()).height<=55,'Barra de Redação compacta');
   await page.locator('#bm302-redacao-original').evaluate((f,a)=>{f.contentWindow.localStorage.setItem('treino_teste',JSON.stringify({resposta:'Rascunho '+a}));f.contentWindow.localStorage.setItem('treino_indice','["treino_teste"]')},a);
   if(a==='A'){await page.locator('#bmWritingSaveDrive').click();await page.waitForFunction(()=>document.getElementById('bmWritingNotice').textContent.includes('gravado e conferido'));}
   await page.locator('#bm240-study-tab').click();
@@ -126,6 +131,9 @@ try{
   assert.equal(await page.locator('#bm302-redacao-original').evaluate(f=>f.contentWindow.localStorage.getItem('BM_LAYOUT_TEST')),a);
   await page.locator('header nav button[data-page=cartoes]').click();
   assert.equal(await page.locator('#bm302-redacao-shell').isVisible(),false);
+  const cardPanel=await page.locator('#cartoes>.panel').boundingBox();assert.ok((await page.locator('#bm382StudyStart').boundingBox()).height<=90,'Faixa de estudo compacta');
+  await page.locator('#bm242-nav').click();await page.locator('#lacunas>.bm242-shell').waitFor({state:'visible'});
+  const gapsPanel=await page.locator('#lacunas>.bm242-shell').boundingBox();assert.ok(Math.abs(gapsPanel.width-cardPanel.width)<=2,'Lacunas deve ter a largura de Flashcards: '+JSON.stringify({gaps:gapsPanel,cards:cardPanel}));
   console.log('Conta '+a+': Redação V296 original e troca de seções confirmadas.');
   await page.locator('#bm240-study-tab').click();
   await page.locator('#bm240-native-host #bm252-main-nav').waitFor({state:'visible',timeout:30000});

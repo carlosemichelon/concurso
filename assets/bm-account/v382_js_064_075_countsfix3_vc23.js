@@ -707,7 +707,7 @@ function ensure(){
    catch(e){notice.textContent='Gravação não confirmada: '+e.message+'. Preserve o progresso com o Backup JSON.';}
    finally{save.disabled=false;}
   });
-  host.append(notice,save,iframe);main.append(host);
+  const toolbar=document.createElement('div');toolbar.className='bm-writing-toolbar';toolbar.append(notice,save);host.append(toolbar,iframe);main.append(host);
  }
  iframe=$('bm302-redacao-original');
  return host;
@@ -735,8 +735,8 @@ function show(){
    iframe.srcdoc=html;loadedWorkshop=true;
    const state=window.BMPortalBridge.writingStatus(),save=$('bmWritingSaveDrive');
    if(save)save.hidden=!state.ready;
-   if(notice&&state.ready)notice.textContent='Oficina original · progresso individual conferido. Salve o treino na oficina e use Salvar progresso no Drive antes de sair.';
-   else if(notice)notice.textContent='Oficina original · rascunhos temporários nesta visita. Utilize o Backup JSON antes de conectar ou sair.';
+   if(notice&&state.ready)notice.textContent='Progresso individual conferido · salve antes de sair.';
+   else if(notice)notice.textContent='Rascunhos temporários · exporte o Backup JSON antes de sair.';
   }).catch(e=>{if(notice)notice.textContent='Falha ao abrir a oficina: '+e.message+' · clique em Redação para tentar novamente.';}).finally(()=>{loadingWorkshop=null});
  }
  if(location.hash!==HASH)history.replaceState(history.state,'',location.pathname+location.search+HASH);

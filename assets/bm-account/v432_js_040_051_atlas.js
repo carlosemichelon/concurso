@@ -464,11 +464,11 @@ window.BM218ImageMetadata=Object.freeze({
  'use strict';
  const $=id=>document.getElementById(id),normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const el=(tag,cls,text)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x};
- let photos=[],visible=24,lastGoodAt=0,lastError='',pending=null,generation=0;
+ let photos=[],visible=24,lastGoodAt=0,lastError='',pending=null,generation=0,renderedRecords=null;
  const aliases=new Map(),urls=new Map(),downloads=new Map();
  const validToken=()=>window.BMVS41Session?.available()===true;
  const idOf=f=>f.id,title=f=>f.title;
- const info=f=>({displayTitle:f.classified?f.title:(window.BM218ImageMetadata?.friendly(f.filename||f.title)||'Imagem sem título descritivo'),fileName:f.filename||f.title,area:f.area,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,description:f.description,detail:'',note:'',cards:f.card_ids,classified:f.classified===true});
+ const info=f=>({displayTitle:f.classified?f.title:(window.BM218ImageMetadata?.friendly(f.filename||f.title)||'Imagem sem título descritivo'),fileName:f.filename||f.title,area:f.area,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,description:f.description,detail:'',note:'',cards:f.card_ids,classified:f.classified===true,indexed:f.indexed===true});
  function msg(s,error){const x=$('bm084-status');if(x){x.textContent=s;x.style.color=error?'#953b32':'#315e57'}}
  function release(){generation++;for(const x of urls.values())URL.revokeObjectURL(x);urls.clear();downloads.clear()}
  async function getImageUrl(file){
@@ -554,7 +554,7 @@ function legacyFilterMatch(m){
 }
 function render(){
  const grid=$('bm084-grid');if(!grid)return;grid.replaceChildren();
- if(lastGoodAt||photos.length)window.BM153ImageLibrary?.setDriveRecords?.(photos.map(info));
+ if((lastGoodAt||photos.length)&&renderedRecords!==photos){window.BM153ImageLibrary?.setDriveRecords?.(photos.map(info));renderedRecords=photos;}
  syncMetaFilters();
  const q=normalize($('bm084-search')?.value||''),mainQuery=normalize($('imageSearch')?.value||'');
  const selectedArea=$('bm218-area-filter')?.value||'all';
@@ -570,6 +570,8 @@ function render(){
   if(onlyFavorites)return false;
   if(selectedArea!=='all'&&m.area!==selectedArea)return false;
   if(selectedSubject!=='all'&&m.subject!==selectedSubject)return false;
+  if(selectedStatus==='indexed'&&!m.indexed)return false;
+  if(selectedStatus==='unindexed'&&m.indexed)return false;
   if(selectedStatus==='classified'&&!m.classified)return false;
   if(selectedStatus==='pending'&&m.classified)return false;
   // The private area and subject filters above are authoritative.
@@ -604,8 +606,8 @@ function render(){
  }
  const more=$('bm084-more');if(more)more.hidden=items.length<=visible;
  const badge=$('bm205-drive-count');if(badge){
-  const n=photos.filter(f=>info(f).classified).length;
-  badge.textContent=validToken()?photos.length+' imagens · '+n+' com assunto · '+(photos.length-n)+' pendentes':'Conecte o Drive';
+  const n=photos.filter(f=>f.indexed===true).length;
+  badge.textContent=validToken()?n+' no índice · '+(photos.length-n)+' outros arquivos':'Conecte o Drive';
  }
  document.dispatchEvent(new CustomEvent('bm209-drive-render',{detail:{
   shown:Math.min(items.length,visible),matching:items.length,available:photos.length,
@@ -613,12 +615,13 @@ function render(){
  }}));
 }
 
- async function refreshList(){
+ async function refreshList(force=false){
   if(pending)return pending;
+  if(!force&&lastGoodAt&&validToken())return {found:photos.length,scope:'authenticated-profile'};
   pending=(async()=>{
-   try{msg('Consultando imagens privadas…');const list=await window.BMVS41PrivateImages.list();release();photos=list.map(x=>({...x,name:x.title}));lastGoodAt=Date.now();lastError='';
-    for(const f of photos)aliases.set(f.id,{imageId:f.editorialId||'',title:f.title,cardIds:f.card_ids});render();
-    $('imageCount').textContent=photos.length+' imagens';msg('Acervo privado confirmado: '+photos.length+' imagens.');$('bm207-sync-time').textContent='Consulta validada nesta sessão';
+   try{msg('Consultando imagens privadas…');const list=await window.BMVS41PrivateImages.list();const next=list.map(x=>({...x,name:x.title}));const unchanged=JSON.stringify(photos)===JSON.stringify(next);if(!unchanged){release();photos=next;aliases.clear();}lastGoodAt=Date.now();lastError='';
+    for(const f of photos)aliases.set(f.id,{imageId:f.editorialId||'',title:f.title,cardIds:f.card_ids});if(!unchanged||!renderedRecords)render();
+    $('imageCount').textContent=photos.length+' imagens';msg('Arquivos de imagem encontrados: '+photos.length+'; '+photos.filter(f=>f.indexed===true).length+' nos índices históricos.');$('bm207-sync-time').textContent='Consulta validada nesta sessão';
     return {found:photos.length,scope:'authenticated-profile'};
    }catch(e){release();photos=[];aliases.clear();lastGoodAt=0;lastError=e.message;render();msg(e.message,true);return null}
    finally{pending=null}
@@ -626,7 +629,7 @@ function render(){
  }
  function topicRecords(){return !validToken()||!lastGoodAt?null:photos.map(f=>({id:f.id,editorialId:f.editorialId||'',title:info(f).displayTitle,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,cardIds:f.card_ids,description:f.description,name:f.title,path:'Perfil privado',preview:()=>getImageUrl(f),open:()=>openImage(f)}))}
  window.BancoMestreDriveImagesV182=Object.freeze({refresh:refreshList,refreshAfterMove:refreshList,prepareTopicMetadata:async()=>{},topicRecords,
-  get connected(){return validToken()},get lastSuccess(){return lastGoodAt?new Date(lastGoodAt).toISOString():null},get lastError(){return lastError},get lastCount(){return photos.length},get unverifiedCount(){return 0},get alreadyPublic(){return 0},get atlasMode(){return 'drive_only'},get roots(){return []},getEditorialId:id=>photos.find(f=>f.id===id)?.editorialId||'',getImageUrlForCard:id=>{const f=photos.find(x=>x.id===id);if(!f)throw Error('Imagem fora do perfil');return getImageUrl(f)}
+  get connected(){return validToken()},get lastSuccess(){return lastGoodAt?new Date(lastGoodAt).toISOString():null},get lastError(){return lastError},get lastCount(){return photos.length},get unverifiedCount(){return photos.filter(f=>f.indexed!==true).length},get alreadyPublic(){return 0},get atlasMode(){return 'drive_only'},get roots(){return []},getEditorialId:id=>photos.find(f=>f.id===id)?.editorialId||'',getImageUrlForCard:id=>{const f=photos.find(x=>x.id===id);if(!f)throw Error('Imagem fora do perfil');return getImageUrl(f)}
  });
  function init(){ui();if(location.hash==='#imagens')void refreshList();}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

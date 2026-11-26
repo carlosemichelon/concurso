@@ -762,14 +762,14 @@ window.BM228DriveImageEditor=Object.freeze({decorate,meta,open,exportJson,import
    lastKey=key;lastSnapshot=data;
    const stat=document.querySelector('.stats .stat:nth-child(3)');
    setText(stat?.querySelector('b'),fmt(data.total));
-   if(stat){stat.title=data.authenticated?'Imagens consultadas no Drive nesta sessão: '+fmt(data.drive)+'; origem não certificada: '+fmt(data.unverified):'Catálogo integrado: 179 registros; Drive ainda não consultado';stat.setAttribute('aria-label',stat.title);}
+   if(stat){stat.title=data.authenticated?'Arquivos de imagem consultados: '+fmt(data.drive)+'; nos índices históricos: '+fmt(data.drive-data.unverified)+'; fora dos índices: '+fmt(data.unverified):'Catálogo integrado: 179 registros; Drive ainda não consultado';stat.setAttribute('aria-label',stat.title);}
    const description=data.authenticated
-    ?'Fonte Drive: '+fmt(data.drive)+' imagens consultadas · '+fmt(data.unverified)+' sem origem certificada'
+    ?fmt(data.drive-data.unverified)+' indexadas · '+fmt(data.unverified)+' outros arquivos'
     :'179 registros catalogados · conecte o Drive para consultar os originais';
   setText(stat?.querySelector('span'),description);
    const count=$('imageCount');
    const totalText=data.authenticated
-    ?fmt(data.drive)+' imagens no Drive'+(data.unverified?' · '+fmt(data.unverified)+' sem origem certificada':'')
+    ?fmt(data.drive-data.unverified)+' no índice · '+fmt(data.unverified)+' outros ('+fmt(data.drive)+' no Drive)'
     :'179 registros catalogados · originais disponíveis após conexão';
   setText(count,totalText);
    if(count)count.title=data.lastSuccess?'Drive consultado em '+new Date(data.lastSuccess).toLocaleString('pt-BR'):'Drive não consultado nesta sessão';
@@ -780,7 +780,7 @@ window.BM228DriveImageEditor=Object.freeze({decorate,meta,open,exportJson,import
      setText(filterSummary,target);
    }
    const countBadge=$('bm205-drive-count');
-   if(data.authenticated)setText(countBadge,fmt(data.drive)+' imagens do Drive');
+   if(data.authenticated)setText(countBadge,fmt(data.drive-data.unverified)+' no índice · '+fmt(data.unverified)+' outros arquivos');
    const group=$('bm084-sync');
    if(group&&data.authenticated)group.dataset.bmUnifiedAtlasTotal=String(data.total);
  }
@@ -934,7 +934,7 @@ function init(){
  mounted=true;css();
  const title=host.querySelector('h2');if(title)title.textContent='Biblioteca de imagens';
  const intro=host.querySelector('p.intro');if(intro)intro.textContent=
-  'Biblioteca de imagens originais do Google Drive. Uma autorização por visita, sem publicar novas cópias no GitHub.';
+  'Arquivos de imagem no Drive individual. Os índices históricos identificam o acervo já catalogado; os demais arquivos podem incluir originais, cópias, recortes e materiais de apoio.';
  const bar=document.createElement('div');bar.id='bm209SyncBar';
  connect.textContent='Conectar imagens';
  refresh.textContent='Atualizar Drive';
@@ -956,7 +956,7 @@ function init(){
  const areaFilter=filterSelect('bm218-area-filter','Filtrar disciplina das imagens',[['Todas as disciplinas','all']]);
  const subjectFilter=filterSelect('bm218-subject-filter','Filtrar assunto das imagens',[['Todos os assuntos','all']]);
  const statusFilter=filterSelect('bm218-status-filter','Situação da classificação das imagens',[
-  ['Todas as imagens','all'],['Com assunto identificado','classified'],['A classificar','pending']
+  ['Todos os arquivos de imagem','all'],['Nos índices históricos','indexed'],['Fora dos índices históricos','unindexed'],['Com assunto identificado','classified'],['A classificar','pending']
  ]);
  bar.append(connect,refresh,areaFilter,subjectFilter,statusFilter,sourceInfo);
  for(const id of ['bm205-drive-count','bm207-sync-time','bm084-status']){
