@@ -1,6 +1,7 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {planReservation} from '../infra/vs41-private/id-reservations.mjs';
+import {preparePromotion} from '../infra/vs41-private/promotion-plan.mjs';
 import {destinationOf,catalogDigest} from '../infra/vs41-private/chat-proposals.mjs';
 import {card,profiles} from './vs41_private_fixture.mjs';
 const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
@@ -30,4 +31,20 @@ test('bloqueia registro público, histórico omitido, colisões, versão diverge
 test('evolução mantém ID e não consome reserva',()=>{
  const f=setup(),p=f.input.proposals[0];p.operation='evolve';p.target_id='CARD-9901';
  const r=planReservation(f);assert.equal(r.assignments[0].id,p.target_id);assert.equal(r.registryCandidate.revision,1);assert.equal(r.registryCandidate.reservations.length,0);
+});
+
+test('monta catálogo candidato com ID planejado e reciprocidade sem mutar a base',()=>{
+ const f=setup(),p=f.input.proposals[0];p.related_card_ids=['CARD-9901'];
+ const before=JSON.stringify(f),r=preparePromotion(f),b=r.bundle,n=b.records.find(c=>c.id==='CARD-9904'),old=b.records.find(c=>c.id==='CARD-9901');
+ assert.equal(n.consolidation.primary_id,n.id);assert.equal(n.consolidation.profile.id,n.id);assert.deepEqual(n.consolidation.historical_ids,[n.id]);
+ assert.deepEqual(n.related_card_ids,['CARD-9901']);assert.deepEqual(old.related_card_ids,[n.id]);assert.deepEqual(old.consolidation.profile.related_card_ids,[n.id]);
+ assert.equal(b.history.length,1);assert.deepEqual(b.history[0].record,f.records[0]);assert.equal(b.history[0].operation,'reciprocal-link');
+ assert.equal(b.registry.catalog_sha256,catalogDigest(b.records));assert.equal(b.registry.revision,2);assert.equal(r.receipt.newCards,1);assert.equal(r.receipt.persisted,false);assert.equal(r.receipt.srsModified,false);assert.equal(JSON.stringify(f),before);assert.equal(preparePromotion(f).receipt.candidate_sha256,r.receipt.candidate_sha256);
+});
+test('evolução mantém ID, mídia, versão integral anterior e não consome reserva',()=>{
+ const f=setup(),p=f.input.proposals[0],c=f.records[0];c.consolidation.original={back:'original'};c.consolidation.profile.editorial.media=[{id:'IMG-1',private_original:true}];
+ f.input.base_sha256=catalogDigest(f.records);f.registry.catalog_sha256=f.input.base_sha256;f.expectedRegistrySha256=digest(f.registry);p.operation='evolve';p.target_id=c.id;
+ const r=preparePromotion(f),n=r.bundle.records[0];assert.equal(n.id,c.id);assert.equal(n.back,p.back);assert.deepEqual(n.consolidation.original,c.consolidation.original);assert.deepEqual(n.consolidation.profile.editorial.media,c.consolidation.profile.editorial.media);
+ assert.deepEqual(r.bundle.history[0].record,c);assert.equal(r.bundle.registry.reservations.length,0);assert.equal(r.bundle.registry.revision,2);assert.equal(r.receipt.newCards,0);
+ p.related_card_ids=[c.id];assert.throws(()=>preparePromotion(f),e=>e.code==='self-link');
 });
