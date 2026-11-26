@@ -3,6 +3,9 @@ on:
   push:
     branches: ['correcao/vs45-pdf-cache', 'gh-pages']
     paths: ['index.html', 'assets/bm-account/*v436*', 'infra/vs41-private/*v436*', 'tests/v436*', '.github/workflows/v436-pdf-cache.yml']
+  pull_request:
+    branches: [gh-pages]
+    paths: ['index.html', 'assets/bm-account/*v436*', 'infra/vs41-private/*v436*', 'tests/v436*', 'tests/vs41_browser_account_fixture.mjs', '.github/workflows/v436-pdf-cache.yml']
 permissions:
   contents: read
 jobs:

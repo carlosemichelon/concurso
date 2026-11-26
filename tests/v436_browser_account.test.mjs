@@ -154,3 +154,10 @@ test('nomes históricos de pastas: Redação usa a pasta original e o índice ex
  const n=writes.length,duplicate=await connectAccount({token:'A',fetcher:fixture('A',{writable:true,writes,legacyFolderNames:true,duplicateReviewFolder:true}),write:true});
  await assert.rejects(duplicate.writing(),/ausente ou duplicado/);await assert.rejects(duplicate.saveWriting({event_id:crypto.randomUUID(),previous:null,data:draft}),/ausente ou duplicado/);assert.equal(writes.length,n);
 });
+
+test('ponteiro de recuperação separa catálogo editorial e histórico privado; SRS permanece parcial',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{recovery:true,writable:true,writes}),write:true});
+ assert.equal(a.snapshot.scope,'private-recovery');assert.equal(a.snapshot.privateVersion,'TESTE-A');assert.equal(a.snapshot.viewVersion,'VC-TESTE');assert.equal(a.snapshot.records.length,2);
+ const agenda=await a.schedule();assert.equal(agenda.complete,false);assert.equal(agenda.historical,'TESTE-A');assert.deepEqual(agenda.records.map(x=>x.id),['CARD-9901']);assert.equal(agenda.records[0].due,'2026-11-28');assert.equal(writes.length,0);
+});
+test('recuperação com transferência SRS indevida é rejeitada sem fallback',async()=>{let calls=0;await assert.rejects(connectAccount({token:'A',fetcher:fixture('A',{recovery:true,recoveryInvalid:true}),allowEditorial:()=>{calls++;return true}}),/identidade operacional sem fonte/);assert.equal(calls,0)});

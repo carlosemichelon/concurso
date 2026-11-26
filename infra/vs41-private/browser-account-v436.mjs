@@ -1,6 +1,6 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
-import {readBrowserSnapshot,scope as readScope} from './browser-drive-v436.mjs?v=1';
+import {readBrowserSnapshot,scope as readScope} from './browser-drive-v436.mjs?v=private-recovery-1';
 import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache-v436.mjs?v=1';
 export {browserByteCache};
 import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
@@ -344,7 +344,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  }
  async function schedule(){
   const ids=new Set(records.filter(c=>c.active).map(c=>c.id)),byId=new Map(),seen=new Map();
-  const source=snapshot.scope==='snapshot-only'&&Array.isArray(snapshot.srs),warnings=[];
+  const recovery=snapshot.scope==='private-recovery',source=(snapshot.scope==='snapshot-only'||recovery)&&Array.isArray(snapshot.srs),warnings=[];
+  if(recovery)warnings.push('Recuperação parcial: histórico privado '+snapshot.privateVersion+' verificado; identidades operacionais e conflitos históricos não recebem avaliações por transferência.');
   let historical=null;
   if(!source){
    warnings.push('Snapshot SRS canônico não confirmado');
@@ -358,7 +359,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    const rating=normalizedRating(r.rating)||normalizedRating(r.last_date)||normalizedRating(r.grade)||normalizedRating(r.avaliacao);
    const lastReview=day(r.last_review_at)||day(r.review_date)||day(r.grade)||day(r.last_date);
    if(byId.has(r.id))throw Error('ID SRS duplicado no snapshot');
-   byId.set(r.id,{id:r.id,due,rating,lastReview,kind:rating?'revisao':'agendamento',source:(source?'Snapshot privado ':'Histórico privado ')+historySource.version+' — vencimento registrado'});
+   byId.set(r.id,{id:r.id,due,rating,lastReview,kind:rating?'revisao':'agendamento',source:(recovery?'Snapshot privado recuperado '+snapshot.privateVersion:((source?'Snapshot privado ':'Histórico privado ')+historySource.version))+' — vencimento registrado'});
   }
   const files=await list("mimeType = '"+doc+"' and name contains 'Delta de estudo e cartões aprovados'");
   let documents=0;
@@ -383,7 +384,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    if(p?.lastReview===e.date_local&&p.kind==='revisao'&&e.kind!=='avaliacao_explicita')continue;
    byId.set(e.id,{id:e.id,due:e.due,rating:normalizedRating(e.rating),lastReview:e.date_local,kind:e.kind,intervalDays:e.interval_days,eventId:e.event_id,source:'Delta privado — data registrada'});
   }
-  return {records:[...byId.values()],complete:source,warnings,documents,events:seen.size,version:historySource?.version||snapshot.version,updated:historySource?.updated||'',historical:historical?.version||null};
+  return {records:[...byId.values()],complete:source&&!recovery,warnings,documents,events:seen.size,version:recovery?snapshot.privateVersion:(historySource?.version||snapshot.version),updated:historySource?.updated||'',historical:recovery?snapshot.privateVersion:(historical?.version||null)};
  }
  // List media only below the selected private Banco Mestre root. No personal fixed folder IDs.
  // Read-only compatibility for indexed PDFs used by VS40. A catalog ID alone never grants access:
