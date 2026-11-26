@@ -36,8 +36,23 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const studyMaster=()=>master(STUDY_KIND,STUDY_NAME,STUDY_FORMAT);
  const study=async()=>{const p=await studyMaster();
   if(!p)return {data:emptyStudy(),revision:null};const d=p.data;if(d?.schema!==1||!['subjects','sessions','reviews','cycle'].every(k=>Array.isArray(d[k]))||['plans','audit'].some(k=>d[k]!==undefined&&!Array.isArray(d[k])))throw Error('Controle de Estudos inválido');return {revision:p.revision,data:{...d,plans:d.plans||[],audit:d.audit||[]}}};
- const gaps=async()=>{const p=await master('bm_lacunas_v242','BancoMestre_Lacunas_Mestre_V242.json','BancoMestreLacunasDriveV242');
-  if(!p)return {data:{schema:1,records:[],log:[],updatedAt:null},revisions:{}};const d=p.data;if(d?.schema!==1||!Array.isArray(d.records)||!Array.isArray(d.log)||d.records.some(r=>!validId(r.id)))throw Error('Cadastro de lacunas inválido');return {data:d,revisions:Object.fromEntries(d.records.map(r=>[r.id,p.revision]))}};
+ const GAP_KIND='bm_lacunas_v242',GAP_NAME='BancoMestre_Lacunas_Mestre_V242.json',GAP_FORMAT='BancoMestreLacunasDriveV242';
+ const gapMaster=()=>master(GAP_KIND,GAP_NAME,GAP_FORMAT);
+ const emptyGaps=()=>({schema:1,records:[],log:[],updatedAt:null});
+ function validateGaps(d){
+  if(d?.schema!==1||!Array.isArray(d.records)||!Array.isArray(d.log)||new Set(d.records.map(r=>r?.id)).size!==d.records.length||new TextEncoder().encode(JSON.stringify(d)).length>5000000)throw Error('Cadastro de lacunas inválido');
+  for(const r of d.records){
+   if(!validId(r?.id)||!r.id.startsWith('LAC-')||!Array.isArray(r.cardIds)||r.cardIds.some(x=>typeof x!=='string')||typeof r.relatoEstudante!=='string'||typeof r.diagnosticoAssistente!=='string'||!['Não auditada','Direta','Indireta','Parcial','Ausente'].includes(r.cobertura)||!['Identificada','Explicada','Em reforço','Dominada'].includes(r.etapa)||!Array.isArray(r.historico))throw Error('Registro de lacuna inválido');
+  }
+  return d;
+ }
+ async function gapRevision(d,r){
+  // The last confirmed event is the revision used by the existing UI.
+  const last=d.log.filter(x=>x?.lacunaId===r.id&&typeof x.id==='string').at(-1);
+  if(last)return last.id;
+  return [...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(r))))].map(x=>x.toString(16).padStart(2,'0')).join('');
+ }
+ const gaps=async()=>{const p=await gapMaster(),d=validateGaps(p?.data||emptyGaps());return {data:d,revisions:Object.fromEntries(await Promise.all(d.records.map(async r=>[r.id,await gapRevision(d,r)])))}};
  const reviews=async()=>{const files=await list("mimeType = 'application/json' and name contains 'BM_SRS_EVENT_V001_'"),events=[],seen=new Set();
   for(const f of files){const {data:e}=await json(f.id,200000);if(e.schema!=='bm-srs-formal-event/1'||f.name!=='BM_SRS_EVENT_V001_'+e.id+'_'+e.event_id+'.json'||seen.has(e.event_id))throw Error('Evento de revisão inválido');seen.add(e.event_id);events.push(e)}return events};
  // Reuse the V245 master and V001 SRS events, never write the catalog snapshot.
@@ -96,6 +111,41 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   studyRevisions.clear();studyRevisions.set(input.event_id,saved.meta.version);
   return {revision:input.event_id,data:saved.data.data};
  });
+ const saveGap=input=>serialize(async()=>{
+  if(!input||!uuid(input.event_id)||!validId(input.record?.id)||!['lacuna_criada','relato_ou_complemento_adicionado','complemento_adicionado','etapa_atualizada'].includes(input.event))fail('Evento de lacuna inválido');
+  const current=await gapMaster(),old=validateGaps(current?.data||emptyGaps()),record=structuredClone(input.record),idx=old.records.findIndex(r=>r.id===record.id);
+  const previous=idx<0?null:await gapRevision(old,old.records[idx]);
+  if(old.log.some(x=>x.id===input.event_id)){
+   const event=old.log.find(x=>x.id===input.event_id);
+   if(event.lacunaId!==record.id||event.event!==input.event||idx<0||!eq(old.records[idx],record)||previous!==input.event_id)fail('Evento de lacuna divergente',409);
+   return {revision:input.event_id,record:old.records[idx],at:event.at};
+  }
+  if(input.previous!==previous||((idx<0)!==(input.event==='lacuna_criada')))fail('Lacuna alterada em outro dispositivo',409);
+  if(idx>=0){
+   const before=old.records[idx];
+   if(!Array.isArray(record.historico)||!eq(before.historico,record.historico.slice(0,before.historico.length)))fail('Histórico anterior deve ser preservado');
+  }
+  const next=structuredClone(old),at=new Date().toISOString();
+  if(idx<0)next.records.push(record);else next.records[idx]=record;
+  next.updatedAt=at;next.log.push({id:input.event_id,at,event:input.event,lacunaId:record.id});validateGaps(next);
+  const payload={format:GAP_FORMAT,updatedAt:at,data:next};
+  if(!current){
+   if(await gapMaster())fail('Cadastro já criado em outro dispositivo',409);
+   await create(GAP_NAME,payload,{bm_kind:GAP_KIND,bm_schema:'V242'});
+  }else{
+   if(current.file.appProperties?.bm_kind!==GAP_KIND)fail('Cadastro sem identificação de gravação',409);
+   await create('BancoMestre_Lacunas_Recuperacao_'+input.event_id+'.json',{format:'BancoMestreLacunasV242',backupAt:at,backupReason:'Antes de atualização',data:old},{bm_kind:'bm_lacunas_recovery_v242'});
+   const latest=await gapMaster();
+   if(!latest||latest.file.id!==current.file.id||latest.revision!==current.revision||!eq(latest.data,old))fail('Cadastro alterado durante conferência',409);
+   const check=await get(API+'/'+current.file.id,{fields}),m=await check.json(),etag=check.headers.get('etag');
+   if(!owned(m)||m.version!==current.revision)fail('Cadastro alterado antes de gravar',409);
+   const result=await send(UPLOAD+'/'+current.file.id+'?uploadType=media&fields=id',{method:'PATCH',headers:{'Content-Type':'application/json; charset=UTF-8',...(etag?{'If-Match':etag}:{})},body:JSON.stringify(payload)});
+   try{if(result.id!==current.file.id||!eq((await json(result.id)).data,payload))throw Error('Gravação de lacuna divergente')}catch(e){uncertain=true;throw e}
+  }
+  const confirmed=await gapMaster();
+  if(!confirmed||!eq(confirmed.data,next)){uncertain=true;throw Error('Cadastro de lacunas não confirmado')}
+  return {revision:input.event_id,record,at};
+ });
  const RATINGS=Object.freeze({'Difícil':8,Bom:16,'Fácil':24,'Conhecimento preservado':32,'Conhecimento adquirido':64});
  const recordReview=input=>serialize(async()=>{
   if(!input||!uuid(input.event_id)||!Object.hasOwn(RATINGS,input.rating)||!records.some(x=>x.id===input.id&&x.active))fail('Avaliação ou cartão inválido');
@@ -123,5 +173,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    }
   }mediaIndex=out;return out};
  const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da pasta individual');const r=await raw(id,100000000);if(r.meta.mimeType!==item.mimeType)throw Error('Tipo de mídia alterado');return new Blob([r.bytes],{type:item.mimeType})};
- return Object.freeze({root:root.id,snapshot,study,saveStudy,gaps,reviews,recordReview,formulas,write,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ return Object.freeze({root:root.id,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,write,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }

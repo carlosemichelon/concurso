@@ -48,6 +48,7 @@
     const input=JSON.parse(opts.body||'{}');
     if(key==='study')return json({...await p.saveStudy(input),context:nonce});
     if(key==='reviews')return json({event:await p.recordReview(input),context:nonce});
+    if(key==='gaps')return json({...await p.saveGap(input),context:nonce});
     return json({error:'Gravação ainda não habilitada neste módulo'},403);
    }
    if(key==='private-cards')return json({schema:'BM-VS41-PRIVATE-CARDS/1',records:p.snapshot.records,context:nonce});

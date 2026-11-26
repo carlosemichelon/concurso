@@ -33,3 +33,15 @@ test('explicit writes retain the original V245 master and V001 SRS events, only 
  assert.ok(writes.every(x=>x.account==='A'));
  await assert.rejects(b.saveStudy({event_id:'12345678-1234-1234-1234-123456789004',previous:'1',data}));
 });
+
+test('gaps use the existing V242 master, preserve history and never cross accounts',async()=>{
+ const writes=[],a=await connectAccount({token:'A',fetcher:fixture('A',{writable:true,writes}),write:true,actor:'actorA'}),b=await connectAccount({token:'B',fetcher:fixture('B')});
+ const rec={id:'LAC-TEST-A',cardIds:['CARD-9901'],relatoEstudante:'Dúvida',diagnosticoAssistente:'',cobertura:'Direta',etapa:'Identificada',historico:[]};
+ const first=await a.saveGap({event_id:'12345678-1234-1234-1234-123456789011',previous:null,event:'lacuna_criada',record:rec});
+ assert.equal((await a.gaps()).revisions[rec.id],first.revision);
+ const second=await a.saveGap({event_id:'12345678-1234-1234-1234-123456789012',previous:first.revision,event:'etapa_atualizada',record:{...rec,etapa:'Explicada'}});
+ const d=await a.gaps();assert.equal(d.revisions[rec.id],second.revision);assert.equal(d.data.records[0].etapa,'Explicada');assert.equal(d.data.log.length,2);
+ assert.deepEqual((await b.gaps()).data.records,[]);
+ await assert.rejects(a.saveGap({event_id:'12345678-1234-1234-1234-123456789013',previous:first.revision,event:'etapa_atualizada',record:rec}),/alterada/);
+ assert.ok(writes.every(x=>x.account==='A'));
+});
