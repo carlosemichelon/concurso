@@ -1028,10 +1028,11 @@ async function refreshPrivate(){
 async function refreshPrivateOnce(){
  const auth=authNow();if(!auth){locked();return false;}locked('Conferindo registros privados do Drive…');driveBusy=true;driveAction.disabled=true;
  try{
+  const remote=await window.BMVS41PrivateReviews.schedule();
   await window.BM316SrsJournal.refresh();
   if(auth!==authNow()||!window.BM316SrsJournal.loaded)throw Error('Histórico privado não confirmado');
-  privateRecords=[];privateInfo={version:'SRS individual',updated:new Date().toISOString().slice(0,10),count:window.BM316SrsJournal.count};verifiedAuth=auth;root.dataset.bm411Ready='true';
-  driveNote.textContent='Avaliações formais privadas localizadas: '+window.BM316SrsJournal.count+'.'+(window.BM316SrsJournal.count===0?' Histórico anterior não confirmado nesta fonte; não significa que as revisões anteriores foram apagadas. Não atribuir vencimentos sem conciliação.':'');calculate();return true;
+  privateRecords=remote.records.filter(x=>map.has(x.id)&&due(x.due));privateInfo={version:remote.version||'SRS individual',updated:remote.updated||'',count:privateRecords.length,partial:!remote.complete};verifiedAuth=auth;root.dataset.bm411Ready='true';
+  driveNote.textContent=privateRecords.length+' vencimentos registrados · '+remote.events+' eventos de estudo · '+window.BM316SrsJournal.count+' avaliações formais do site.'+(remote.complete?'':' Consulta parcial: '+remote.warnings.join('; ')+'. Fila oficial suspensa; estudo livre disponível.');calculate();return remote.complete;
  }catch(e){locked('Fila não confirmada: '+e.message);return false}
  finally{driveBusy=false;driveAction.disabled=false}
  }
@@ -1198,7 +1199,7 @@ function renderQueue(){
  const source=$('c313-source'),rows=filteredQueue(),start=today();
  if(source){
   source.textContent=(privateInfo?
-   'Fonte SRS privada '+privateInfo.version+' de '+(privateInfo.updated||'data não informada')+' (leitura OAuth nesta sessão).':
+   (privateInfo.partial?'Fonte SRS privada parcial — ':'Fonte SRS privada ')+privateInfo.version+' ('+(privateInfo.updated||'data não informada')+').':
    'Fonte parcial e histórica F17/V015; conecte o Drive e clique em Atualizar fila pelo SRS privado do Drive.')+
    (window.BM316SrsJournal?.loaded?' Eventos formais do site conferidos no Drive: '+window.BM316SrsJournal.count+'.':'')+
    ' Referência dos cálculos: '+dayText(start)+
