@@ -1,6 +1,6 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
-import {assessCatalog,prepareCardCopy,readOfficial,inventoryMedia} from '../infra/vs41-private/migration.mjs';import {verifyRecords} from '../infra/vs41-private/catalog.mjs';import {card} from './vs41_private_fixture.mjs';
+import {assessCatalog,prepareCardCopy,readOfficial,inventoryMedia,createStaticMediaReader} from '../infra/vs41-private/migration.mjs';import {verifyRecords} from '../infra/vs41-private/catalog.mjs';import {card,fixture,profiles} from './vs41_private_fixture.mjs';
 const contract={format:'snapshot-test',source_head:'test',display_version:'VC49-test',unified:true,active_only:true,counts:{canonical:1,active:1,ijui:0}};
 const source=()=>({format:contract.format,source_head:contract.source_head,base:[card('A')],ijui:[]});
 test('preparação conserva integralmente IDs, onze módulos, vínculos e conteúdo',()=>{
@@ -56,4 +56,17 @@ test('inventário de mídias separa referências locais, externas, privadas e le
   assert.deepEqual(r.counts,{'local-verified':1,'inline-svg':1,'private-original':1,'external-unverified':1,'local-unverified':2,unresolved:1});
   assert.equal(r.legacyNotInEditorial,1);assert.equal(r.uniqueLocalFiles,1);assert.equal(r.privateMigrationReady,false);assert.equal(JSON.stringify(c),raw);
  }finally{fs.rmSync(root,{recursive:true,force:true})}
+});
+
+test('figura local exige vínculo editorial idêntico no catálogo privado e oficial',async()=>{
+ const {snapshot}=readOfficial(),original=snapshot.base.find(c=>c.consolidation?.profile?.editorial?.media?.some(m=>!m.private_original&&/^assets\/.*\.svg$/.test(m.src||'')));
+ assert.ok(original);const item=original.consolidation.profile.editorial.media.find(m=>!m.private_original&&/^assets\/.*\.svg$/.test(m.src||''));
+ const f=fixture();f.files.get('cardsA').payload.records=[{...structuredClone(original),related_card_ids:[]}];
+ const read=createStaticMediaReader({...f,resolveSession:async req=>profiles[req.session]});
+ const result=await read({session:'A'},original.id,item.id);
+ assert.equal(result.mimeType,'image/svg+xml');assert.deepEqual(result.bytes,fs.readFileSync(item.src));
+ await assert.rejects(read({session:'B'},original.id,item.id));
+ const local=f.files.get('cardsA').payload.records[0].consolidation.profile.editorial.media.find(m=>m.id===item.id);
+ local.private_original=true;await assert.rejects(read({session:'A'},original.id,item.id));
+ delete local.private_original;local.src='assets/version.json';await assert.rejects(read({session:'A'},original.id,item.id));
 });

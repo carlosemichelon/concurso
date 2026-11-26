@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
-import {verifyRecords,readableCardId,readableExplanation,legacyCardId} from './catalog.mjs';
+import {createReader,verifyRecords,readableCardId,readableExplanation,legacyCardId} from './catalog.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const gitBlob=b=>createHash('sha1').update('blob '+b.length+'\0').update(b).digest('hex');
 const idOk=x=>typeof x==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(x);
@@ -95,6 +95,45 @@ export function inventoryMedia(records,root=process.cwd()){
  const counts={};for(const m of items)counts[m.kind]=(counts[m.kind]||0)+1;
  const editorialKeys=new Set(items.filter(x=>x.id).map(x=>x.card+'\0'+x.id));
  return {associations:items.length,uniqueEditorialIds:byId.size,counts,missingEditorialIds:items.filter(x=>!x.id).length,conflictingEditorialIds:[...byId.values()].filter(x=>x.size>1).length,legacyImageAssociations:legacy.length,legacyNotInEditorial:legacy.filter(x=>!editorialKeys.has(x.card+'\0'+x.id)).length,uniqueLocalFiles:[...fileCache.values()].filter(Boolean).length,sourceVerificationOnly:true,privateMigrationReady:false};
+}
+// Explicit public editorial assets only, never a fallback for unavailable private originals.
+export function createStaticMediaReader({resolveSession,getToken,fetcher=fetch,root=process.cwd()}){
+ const read=createReader({resolveSession,getToken,fetcher}),fail=()=>{throw Error('Figura editorial indisponível')};
+ const mime={svg:'image/svg+xml',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',gif:'image/gif'};
+ let index=null;
+ function source(m){
+  if(!m||m.private_original||typeof m.src!=='string'||!/^assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.(?:svg|png|jpe?g|webp|gif)$/i.test(m.src)||m.src.split('/').some(p=>p==='.'||p==='..'))return null;
+  return m.src;
+ }
+ function bytes(src){
+  const base=fs.realpathSync(path.join(root,'assets')),full=fs.realpathSync(path.join(root,src));
+  if(!full.startsWith(base+path.sep))fail();
+  const st=fs.statSync(full);if(!st.isFile()||st.size<1||st.size>25*1024*1024)fail();
+  const data=fs.readFileSync(full);if(data.length!==st.size)fail();
+  return data;
+ }
+ function official(){
+  if(index)return index;
+  const {snapshot}=readOfficial(root),next=new Map();
+  for(const c of snapshot.base)for(const m of c.consolidation?.profile?.editorial?.media||[]){
+   const src=source(m);if(!src||!idOk(m.id))continue;
+   const key=c.id+'\0'+m.id;
+   if(next.has(key))fail();
+   next.set(key,src);
+  }
+  index=next;return index;
+ }
+ return async(req,cardId,mediaId)=>{
+  if(!readableCardId(cardId)||!idOk(mediaId))fail();
+  const session=await resolveSession(req);if(!session)fail();
+  const {records}=await read(req),c=records.find(x=>x.id===cardId&&x.active);
+  const matches=(c?.consolidation?.profile?.editorial?.media||[]).filter(m=>m.id===mediaId);
+  if(matches.length!==1)fail();
+  const src=source(matches[0]);if(!src||official().get(cardId+'\0'+mediaId)!==src)fail();
+  const data=bytes(src),live=await resolveSession(req);
+  if(!live||['subject','rootId','profileId','sessionId'].some(k=>live[k]!==session[k]))fail();
+  return {bytes:data,mimeType:mime[src.split('.').pop().toLowerCase()],sha256:sha(data)};
+ };
 }
 export function readOfficial(root=process.cwd()){
  const manifest=JSON.parse(fs.readFileSync(path.join(root,'assets/version.json'),'utf8')),c=manifest.catalog;

@@ -132,9 +132,9 @@
   if(!Array.isArray(p.images))throw Error('Galeria inválida');return p.images;
  }})});
  Object.defineProperty(window,'BMVS41PrivateMedia',{value:Object.freeze({
-  async read(card,id){
+  async read(card,id,editorialStatic=false){
    const expected=await check();start();
-   const r=await request('/api/vs41/media/'+encodeURIComponent(card)+'/'+encodeURIComponent(id),{'X-BM-Context':expected});
+   const r=await request('/api/vs41/'+(editorialStatic?'static-media':'media')+'/'+encodeURIComponent(card)+'/'+encodeURIComponent(id),{'X-BM-Context':expected});
    if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
    if(!r.ok||r.headers.get('X-BM-Context')!==expected)throw Error('Mídia privada indisponível');
    const blob=await r.blob();if(locked||context!==expected)throw Error('Sessão alterada');

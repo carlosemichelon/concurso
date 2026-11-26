@@ -1,4 +1,4 @@
-import {test} from 'node:test';import assert from 'node:assert/strict';import http from 'node:http';import {createApi} from '../infra/vs41-private/api.mjs';import {parseUsers,passwordHash} from '../infra/vs41-private/auth.mjs';import {accountTokens} from '../infra/vs41-private/oauth.mjs';import {reviewFixture,mediaFixture,formulaFixture,profiles} from './vs41_private_fixture.mjs';
+import {test} from 'node:test';import assert from 'node:assert/strict';import http from 'node:http';import {createApi} from '../infra/vs41-private/api.mjs';import {parseUsers,passwordHash} from '../infra/vs41-private/auth.mjs';import {readOfficial} from '../infra/vs41-private/migration.mjs';import {accountTokens} from '../infra/vs41-private/oauth.mjs';import {reviewFixture,mediaFixture,formulaFixture,profiles} from './vs41_private_fixture.mjs';
 test('login autenticado, dois perfis, recusa de origem, sem IDs do cliente, logout revoga',async()=>{
  const f=formulaFixture(mediaFixture(reviewFixture())),passA='fixture-A-only-123',passB='fixture-B-only-123';
  const users=parseUsers(JSON.stringify(await Promise.all(['A','B'].map(async s=>({username:s,...profiles[s],passwordHash:await passwordHash(s==='A'?passA:passB)})))));
@@ -55,6 +55,12 @@ test('login autenticado, dois perfis, recusa de origem, sem IDs do cliente, logo
   f.files.get('mediaA').payload.records[1].card_ids.push(legacy.id);
   assert.equal((await call('media/TRT01-C001/PDF-TEST',0)).status,200);
   assert.equal((await call('media/TRT01-C001/PDF-TEST',1)).status,404);
+  const {snapshot}=readOfficial(),official=snapshot.base.find(c=>c.id!=='CARD-9901'&&c.id!=='TRT01-C001'&&c.consolidation?.profile?.editorial?.media?.some(m=>!m.private_original&&/^assets\/.*\.svg$/.test(m.src||'')));
+  const fig=official.consolidation.profile.editorial.media.find(m=>!m.private_original&&/^assets\/.*\.svg$/.test(m.src||''));
+  f.files.get('cardsA').payload.records.push({...structuredClone(official),related_card_ids:[]});
+  const endpoint='static-media/'+official.id+'/'+fig.id,asset=await call(endpoint,0);
+  assert.equal(asset.status,200);assert.equal(asset.headers.get('content-type'),'image/svg+xml');assert.equal(asset.headers.get('content-disposition'),'attachment');
+  assert.equal((await call(endpoint,1)).status,404);
   const event_id='12345678-1234-4234-8234-000000000001';
   for(const i of [0,1]){
    const r=await call('reviews',i,{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({id:'CARD-9901',event_id,rating:i?'Bom':'Fácil',owner:i?'A':'B',rootId:i?'rootA':'rootB'})});
