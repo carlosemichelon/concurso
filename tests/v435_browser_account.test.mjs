@@ -142,6 +142,6 @@ test('SRS histórico recupera datas exatas sem promover catálogo anterior e sem
  });
 
 test('índice exclui pastas de backup, externas e compartilhadas; não grava nem baixa originais durante a consulta',async()=>{
- const writes=[],delegate=fixture('A',{writable:true,writes});let indexCalls=0,downloads=0;const fetcher=(url,opt)=>{const u=new URL(url);if(u.searchParams.get('q')?.includes("mimeType contains 'image/'"))indexCalls++;if(u.searchParams.has('alt')&&/\/(?:pdf|img|svg)A$/.test(u.pathname))downloads++;return delegate(url,opt)};
+ const writes=[],delegate=fixture('A',{writable:true,writes,indexEdgeCases:true});let indexCalls=0,downloads=0;const fetcher=(url,opt)=>{const u=new URL(url);if(u.searchParams.get('q')?.includes("mimeType contains 'image/'"))indexCalls++;if(u.searchParams.has('alt')&&/\/(?:pdf|img|svg)A$/.test(u.pathname))downloads++;return delegate(url,opt)};
  const a=await connectAccount({token:'A',fetcher,write:true});const [p,i]=await Promise.all([a.pdfs(),a.images()]);assert.deepEqual(p.map(x=>x.id),['pdfA']);assert.deepEqual(i.map(x=>x.id),['imgA','svgA']);assert.equal(indexCalls,1);assert.equal(downloads,0);assert.equal(writes.length,0);await a.pdfs();assert.equal(indexCalls,1);await assert.rejects(a.readMedia('outsidePdfA'));
 });

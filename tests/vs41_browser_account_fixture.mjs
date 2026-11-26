@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {card} from './vs41_private_fixture.mjs';
 const fm='application/vnd.google-apps.folder',STUDY_KIND='bm_controle_estudos_v245',GAP_KIND='bm_lacunas_v242',GRIF_KIND='bm_grifos_sync_v104_master';
-export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false}={}){
+export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false,indexEdgeCases=false}={}){
  const root='root'+account,snap='snapshot'+account,ptr='pointer'+account,study='study'+account,files=new Map(),content=new Map();let serial=0;
  function add(id,name,mimeType,parents,data,extra={}){
   const bytes=data===undefined?null:JSON.stringify(data);
@@ -25,9 +25,11 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
  const derived='derived'+account;files.set(derived,{...files.get(img),id:derived,name:'Miniatura.png',appProperties:{origin:'MINIATURA'}});content.set(derived,png);
  const svg='svg'+account;add(svg,'Original.svg','image/svg+xml',[atlasFolder],undefined,{size:'100',properties:{origin:'ORIGINAL_USUARIO'}});
  // Out-of-bank, shared and excluded folders must not enter the derived index.
+ if(indexEdgeCases){
  const excluded='excluded'+account,outside='outside'+account,shared='shared'+account;
  add(excluded,'09 - Backups',fm,[root]);add(outside,'Outra pasta',fm,[]);add(shared,'Compartilhada',fm,[root],undefined,{shared:true});
  for(const [id,parent] of [['backupPdf',excluded],['outsidePdf',outside],['sharedPdf',shared]])add(id+account,id+'.pdf','application/pdf',[parent],undefined,{size:'10'});
+ }
  const docType='application/vnd.google-apps.document';
  add('method'+account,'00_METODOLOGIA_MESTRE_VIGENTE_VM20 — teste',docType,[root]);content.set('method'+account,'Metodologia integral '+account);
  add('guide'+account,'00_GUIA_OPERACIONAL_DE_ESTUDO — VM20',docType,[root]);content.set('guide'+account,'Guia integral '+account);
