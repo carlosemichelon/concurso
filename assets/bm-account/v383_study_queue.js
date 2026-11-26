@@ -26,6 +26,8 @@ async function start(e){if(busy)return;if(!token()){say('Conecte o Drive com aut
  const [privateOK]=await Promise.all([calendar().refreshPrivate(),journal().refresh()]);
  if(auth!==token())throw Error('A sessão do Drive mudou.');
  if(!privateOK||!calendar().counts().privateInfo||!journal().loaded)throw Error('Agenda privada não confirmada; conecte o Drive e atualize.');
+ const info=calendar().counts().privateInfo;
+ if(info.partial&&!confirm('O histórico SRS ainda está parcial. Iniciar somente os cartões com vencimentos confirmados? Nenhum cartão sem data será considerado atrasado.')){end('Estudo não iniciado; agenda parcial preservada.');return;}
  list=kind==='priority'?priorityRows(calendar().rows()):dueRows(calendar().rows(),day());index=0;done=new Set();
  if(!list.length){end(kind==='priority'?'Nenhum cartão com dificuldade confirmada na agenda consultada.':'Nenhum cartão com vencimento confirmado até hoje. Datas futuras não foram antecipadas.');return;}
  active=true;say(list.length.toLocaleString('pt-BR')+(kind==='priority'?' cartões com dificuldade confirmada (inclusive históricos Errei).':' cartões vencidos ou de hoje na agenda consultada.'));openCurrent();
