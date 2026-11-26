@@ -1,0 +1,1652 @@
+<!doctype html><html lang="pt-BR" data-bm-portal-version="V440"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/ https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; connect-src 'self' blob: https://www.googleapis.com https://accounts.google.com/gsi/; img-src 'self' data: blob:; font-src 'self' data:; frame-src 'self' https://accounts.google.com/gsi/ blob:; worker-src 'self' blob: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/; object-src 'none'; base-uri 'none'; form-action 'none'"><script src="assets/bm-account/connection-v436.js?v=session-planning-2"></script><script src="assets/bm-account/client-v436.js?v=session-planning-2"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Banco Mestre VS49 — Portal de estudos</title><style>#bm302-redacao-shell [hidden]{display:none!important}#bmAccountDriveLink[hidden]{display:none!important}#bmAccountDriveLink{display:inline-flex;align-items:center;white-space:nowrap;border:1px solid #7795a7;color:inherit;padding:4px 8px;border-radius:4px;text-decoration:none;font-size:12px}#bm239-drive-action{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style><style>#bmAccountSettings{white-space:nowrap}#bmAccountSettingsDialog{max-width:calc(100vw - 24px);width:520px;max-height:85vh;margin:auto;padding:0;border:1px solid #b9cbd4;border-radius:10px;background:#fff;color:#253743;overflow:auto;box-sizing:border-box}#bmAccountSettingsDialog::backdrop{background:#172b3b88}.bm-account-settings-inner{padding:20px;display:grid;gap:10px}.bm-account-settings-inner h2,.bm-account-settings-inner p{margin:0}.bm-account-settings-inner label{font-weight:650}.bm-account-settings-inner input{width:100%;min-width:0;box-sizing:border-box;padding:9px;border:1px solid #b9cbd4;border-radius:5px}.bm-account-settings-inner small{line-height:1.45;color:#506577}.bm-account-settings-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}.bm-account-settings-actions button{min-height:36px}#bmAccountSettingsStatus{color:#8a4a24}</style><style>#bmAccountExport[hidden]{display:none!important}#bmAccountExport{white-space:nowrap}#bmAccountExportDialog{max-width:calc(100vw - 24px);width:520px;max-height:85vh;margin:auto;padding:0;border:1px solid #b9cbd4;border-radius:10px;background:#fff;color:#253743;overflow:auto;box-sizing:border-box}#bmAccountExportDialog::backdrop{background:#172b3b88}.bm-account-export-options{display:grid;gap:9px;padding:12px;border:1px solid #b9cbd4;border-radius:6px}.bm-account-export-options label{display:flex;align-items:center;gap:8px;font-weight:400}.bm-account-export-options input[type=checkbox]{width:auto;min-width:auto}.bm-account-advanced{padding:10px 0}.bm-account-advanced label{font-weight:600}#bmAccountAdvanced summary{cursor:pointer}#bmAccountExportStatus,#bmAccountExportRoot{overflow-wrap:anywhere}</style><style id="bm-startup-gate">
+#bmStartupGate{display:none}
+html[data-bm-startup="pending"] body > :not(#bmStartupGate){opacity:0!important;pointer-events:none!important}
+html[data-bm-startup="pending"] #bmStartupGate{display:flex!important;position:fixed;inset:0;z-index:2147483647;align-items:center;justify-content:center;padding:24px;background:#f3f6f8;color:#253743;font:15px/1.5 system-ui,sans-serif}
+#bmStartupGate>div{width:min(340px,100%);text-align:center}
+#bmStartupGate strong{font-size:23px}
+#bmStartupGate p{margin:9px 0}
+#bmStartupGate a,#bmStartupGate button{font:inherit;color:#14618d;margin:8px}
+#bmStartupGate [hidden]{display:none!important}
+</style><script id="bm-startup-controller">
+(function(){
+'use strict';
+const root=document.documentElement;
+root.setAttribute('data-bm-startup','pending');
+let done=false,watchdog;
+function release(){
+ if(done)return;done=true;clearTimeout(watchdog);
+ root.removeAttribute('data-bm-startup');
+ document.getElementById('bmStartupGate')?.remove();
+}
+function ready(){
+ try{window.BM206Header?.render()}catch(e){console.warn('Identificação do portal:',e)}
+ // Aguardar o trabalho síncrono de todos os listeners de DOMContentLoaded,
+ // e dois quadros de layout, sem esperar OAuth, catálogo, PDFs ou imagens.
+ setTimeout(()=>requestAnimationFrame(()=>requestAnimationFrame(release)),0);
+}
+document.addEventListener('DOMContentLoaded',ready,{once:true});
+watchdog=setTimeout(()=>{
+ if(done)return;
+ const hint=document.getElementById('bmStartupSlow');
+ if(hint)hint.hidden=false;
+},12000);
+window.BMStartupGate=Object.freeze({release,get ready(){return done}});
+})();
+</script>
+
+
+<style>
+:root{--bg:#f5f7f7;--paper:#fff;--ink:#17353b;--sub:#597078;--accent:#16616a;--line:#d7e2e1;--soft:#ebf3f2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,Arial,sans-serif}header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.head{max-width:1180px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{font-size:21px;font-weight:850}.version{font-size:12px;color:var(--sub)}
+button,a.action{font:inherit;cursor:pointer;border:1px solid #bbcfcc;border-radius:9px;padding:9px 13px;color:var(--ink);background:white;text-decoration:none;display:inline-block}button.primary,a.primary,nav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}button:disabled{opacity:.5;cursor:default}
+nav{display:flex;gap:6px;flex-wrap:wrap}main{max-width:1180px;margin:0 auto;padding:25px 18px 70px}
+h1{font-size:clamp(24px,3vw,34px);letter-spacing:-.6px;margin:4px 0}h2{font-size:22px;margin:0 0 5px}h3{font-size:15px;line-height:1.35;margin:7px 0}.muted{color:var(--sub)}.small{font-size:12px}.hero{margin-bottom:20px}.hero p{margin:5px 0;color:var(--sub)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.stat{border:1px solid var(--line);border-radius:11px;background:white;padding:12px}.stat b{display:block;font-size:24px}.stat span{font-size:12px;color:var(--sub)}
+section{display:none}section.active{display:block}.panel{border:1px solid var(--line);border-radius:13px;background:#fff;padding:18px;margin-bottom:12px}.intro{font-size:13px;color:var(--sub);margin:3px 0 15px}.notice{font-size:13px;border-left:3px solid #afcac5;background:#edf5f3;padding:10px 12px;margin:12px 0;border-radius:0 7px 7px 0}
+.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}input[type=search],select{font:inherit;border:1px solid #bdcfcd;border-radius:8px;padding:10px;color:var(--ink);background:white}input[type=search]{flex:1;min-width:215px}select{max-width:310px}.checkbox{font-size:12px;color:var(--sub);display:flex;gap:6px;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:11px}.card{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fff;min-width:0}.card p{font-size:12px;color:var(--sub);margin:6px 0}.card .buttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.card .buttons button,.card .buttons a{font-size:13px}.group{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#497076;margin:24px 0 10px}.tag{font-size:11px;color:var(--accent);font-weight:800}.danger{border-color:#dfc9c1;color:#9b4b40}.thumb{width:100%;height:150px;object-fit:contain;background:var(--soft);border-radius:8px;display:block;margin:8px 0}
+details{font-size:13px;border-top:1px solid var(--line);padding-top:8px}summary{color:var(--accent);cursor:pointer;font-weight:750}details p{white-space:pre-wrap}
+dialog{border:1px solid var(--line);border-radius:13px;padding:0;width:min(1080px,96vw);max-height:96vh;box-shadow:0 15px 75px #0b283d66}dialog::backdrop{background:#152f3799}.dhead{background:#fff;padding:13px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.dhead strong{overflow-wrap:anywhere}.dbody{padding:14px;background:var(--bg)}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:11px}.pdfpreview{width:100%;height:min(78vh,850px);background:#fff;border:1px solid var(--line);border-radius:9px}
+.stage{max-height:70vh;overflow:auto;text-align:center;padding:12px;background:#dfebea;border-radius:9px}.canvases{display:inline-block;position:relative;max-width:100%;line-height:0;background:white}.canvases canvas{display:block;max-width:100%;height:auto}#grifo{position:absolute;inset:0;touch-action:none;cursor:crosshair}
+/* V028: áreas e leitores ocupam toda a janela, sem caixas modais pequenas */
+.topicCards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.topicCard{width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:white;padding:16px}
+.topicCard strong{display:block;font-size:15px}.topicCard small{display:block;color:var(--sub);margin-top:5px}
+.topicCard:hover{border-color:var(--accent)}
+.richSection{border-top:1px solid var(--line);padding:13px 0}
+.richSection h4{margin:0 0 6px;font-size:14px}
+.richSection p{font-size:13px;color:var(--ink);white-space:pre-wrap}
+.richSection ul{margin:6px 0 0;padding-left:20px;font-size:13px}
+.card:has(details[open]){grid-column:1/-1;border-color:#8cb4b1}
+dialog{position:fixed!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;inset:0!important;margin:0!important;border:0!important;border-radius:0!important}
+dialog .dhead{position:sticky;top:0;z-index:2}
+#pdfDialog .dbody{height:calc(100dvh - 65px);padding:8px 12px}
+#imageDialog .dbody{height:calc(100dvh - 62px);padding:9px 12px;display:flex;flex-direction:column}
+.pdfpreview{height:calc(100dvh - 123px)!important;min-height:0}
+#imageDialog .stage{height:auto;flex:1;max-height:none;overflow:auto;padding:15px}
+.canvases{max-width:none;line-height:0}.canvases canvas{max-width:none}
+body:has(dialog[open]){overflow:hidden}
+footer{font-size:12px;color:var(--sub);margin-top:30px}
+@media(max-width:650px){main{padding:14px 11px 45px}.head{padding:12px}.stat{padding:9px}.stat b{font-size:20px}.panel{padding:12px}.pdfpreview{height:65vh}}
+</style><link rel="stylesheet" href="assets/v315_styles_core.css?v=318-1">
+
+
+
+<style id="bm217DriveMediaOnly">#imagens #imageRows>article:not(.bm209ImageFromDrive){display:none!important}</style><link rel="stylesheet" href="assets/v242_lacunas.css?v=244-integrated1"><style id="bm226BibliotecaGrifosOff">header nav [data-page="grifos"],section#grifos,a[href="#grifos"]{display:none!important}</style><link rel="stylesheet" href="assets/v315_styles_reading.css?v=315-1"><script id="bm259-entry-flags">
+(function(){
+ window.BM250FormulaEntryRequested=(location.hash==='#formulas');
+ var q=new URLSearchParams(location.search);
+ window.BM240OpenStudyDefault=false;
+ if(location.hash.toLowerCase()==='#grifos')history.replaceState(null,'',location.pathname+location.search+'#pdfs');
+})();
+</script><style id="bm269-pdf-drive-gate">
+html:not([data-bm269-pdf-auth="authorized"]) #pdfs #pdfRows,
+html:not([data-bm269-pdf-auth="authorized"]) #pdfs #pdfAreaNavV036,
+html:not([data-bm269-pdf-auth="authorized"]) #pdfs .controls{display:none!important}
+html[data-bm269-pdf-auth="authorized"] #bm269PdfLocked{display:none!important}
+#bm269PdfLocked{margin:10px 0;padding:13px 15px;border:1px solid #cbdcd8;border-radius:10px;background:#f6faf8;color:#2b535b;font-size:13px;line-height:1.5}
+</style><style id="bm259-pdf-sync-visible">
+/* Rehabilita controles da biblioteca ocultados por CSS historico V210/V217.
+   Nao exibe dados privados sem OAuth; so torna visiveis os botoes e o estado. */
+#pdfs #bm-pdf-sync{display:flex!important;visibility:visible!important}
+#pdfs #bm-pdf-sync button{min-height:40px;max-width:100%;white-space:normal}
+#pdfs #bm-pdf-sync-status{flex-basis:100%;overflow-wrap:anywhere}
+#pdfs #pdfRows{display:block!important;visibility:visible!important;min-width:0}
+@media(max-width:620px){#pdfs #bm-pdf-sync{gap:6px;padding:8px;margin:7px 0}
+#pdfs #bm-pdf-sync button{flex:1 1 135px;font-size:11px}
+#pdfs #pdfRows>.v036-pdf-area{max-width:100%;overflow-wrap:anywhere}}
+</style><link rel="stylesheet" href="assets/bm-account/v315_styles_polish.css?v=header-2"><style id="bm271-pdf-nomes">#pdfs .v271-pdf-origin{display:block;color:var(--sub);font-size:12px;line-height:1.35;overflow-wrap:anywhere;margin:3px 0 8px;max-width:100%}#pdfs .v036-pdf-title{overflow-wrap:anywhere}</style><link rel="stylesheet" href="assets/v315_srs_compact.css?v=315-1"><link rel="stylesheet" href="assets/v316_lacunas_compact.css?v=316-1"><link rel="stylesheet" href="assets/v319_related_sidebar.css?v=319-1"><link rel="stylesheet" href="assets/v323_related_preview.css?v=323-1"><link rel="stylesheet" href="assets/v324_single_sidebar.css?v=324-1"><link rel="stylesheet" href="assets/v333_card1534_reading.css?v=333-1">
+
+<link rel="stylesheet" href="assets/v336_editorial.css?v=336-1">
+<link rel="stylesheet" href="assets/v339_semantic_visual.css?v=339-1"><link rel="stylesheet" href="assets/v340_granulometry.css?v=340-1"><link rel="stylesheet" href="assets/v342_media_integrity.css?v=342-1"><style id="bm380ReaderModes">
+#bmCardPeekV050 #bm195Discursive:not([hidden]),#bmCardPeekV050 #bm316-srs-panel:not([hidden]){display:block!important}
+#bmCardPeekV050 #bm195Discursive[hidden],#bmCardPeekV050 #bm316-srs-panel[hidden], #bmCardPeekV050[data-reader-mode="unused"] #bm316-srs-panel{display:none!important}
+</style><style id="bm382StudyStyle">
+header .stats>[data-bm241-extra]{display:none!important}
+header .stats .bm241-verification{font-size:10px}
+.bm382-study{border:1px solid #c9dedf;border-radius:9px;background:#f6faf9;padding:14px;margin:12px 0}
+.bm382-study p{font-size:13px;margin:6px 0 10px}
+#bm382QueuePanel{padding:10px 12px;margin:6px 0 12px;border:1px solid #c9dedf;border-radius:8px;background:#f6faf9}
+#bm382QueuePanel[hidden]{display:none!important}
+#bm382QueuePanel button{margin:6px 7px 0 0}
+#bm382QueuePanel p{font-size:12px;margin:4px 0}
+#bmCardPeekV050[data-bm382-queue="true"] .bm165-prev,#bmCardPeekV050[data-bm382-queue="true"] .bm165-next{display:none!important}
+</style><style id="bm-discursive-split">
+/* Desktop: two equal, independently scrolling study panes; mobile keeps original flow. */
+@media(min-width:900px){
+ #bmCardPeekV050 .bm165-panel.bm165-sidebar-hidden .bm165-layout:has(>#bm195Discursive:not([hidden])){
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;
+ }
+ #bmCardPeekV050 .bm165-panel:not(.bm165-sidebar-hidden) .bm165-layout:has(>#bm195Discursive:not([hidden])){
+  grid-template-columns:minmax(235px,300px) minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;
+ }
+ #bmCardPeekV050 .bm165-layout:has(>#bm195Discursive:not([hidden]))>.bm163-scroll{
+  grid-column:1!important;grid-row:1!important;min-width:0;min-height:0;overflow-y:auto!important;overflow-x:hidden!important;
+ }
+ #bmCardPeekV050 .bm165-panel:not(.bm165-sidebar-hidden) .bm165-layout:has(>#bm195Discursive:not([hidden]))>.bm165-related{grid-column:1!important;grid-row:1!important}
+ #bmCardPeekV050 .bm165-panel:not(.bm165-sidebar-hidden) .bm165-layout:has(>#bm195Discursive:not([hidden]))>.bm163-scroll{grid-column:2!important}
+ #bmCardPeekV050 .bm165-layout>#bm195Discursive:not([hidden]){
+  grid-column:-2/-1;grid-row:1;align-self:stretch;min-width:0;min-height:0;width:100%;max-width:none!important;
+  margin:0!important;border:0!important;border-left:2px solid #c5d4d8!important;border-radius:0!important;
+  padding:16px clamp(12px,1.4vw,22px)!important;box-sizing:border-box;overflow-y:auto!important;overflow-x:hidden!important;
+  overscroll-behavior:contain;scrollbar-gutter:stable;
+ }
+ #bmCardPeekV050 .bm165-layout>#bm195Discursive textarea[data-bm195-answer]{
+  height:clamp(150px,27dvh,320px);min-height:120px!important;resize:vertical;
+ }
+}
+
+/* VS7 — acabamento visual do painel de resposta; sem alterar o comportamento. */
+#bmCardPeekV050 #bm195Discursive{
+ background:#f7fafb!important;color:#203b49!important;
+ font:400 14px/1.5 system-ui,Arial,sans-serif!important;
+}
+#bmCardPeekV050 #bm195Discursive h3{
+ font-size:17px!important;font-weight:750!important;line-height:1.35!important;
+ margin:0 0 6px!important;color:#21485c!important;overflow-wrap:anywhere;
+}
+#bmCardPeekV050 #bm195Discursive p{
+ font-size:13px!important;line-height:1.5!important;margin:0 0 10px!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-label{
+ font-size:13px!important;line-height:1.4!important;font-weight:650!important;
+ margin:10px 0 5px!important;color:#294c5e!important;
+}
+#bmCardPeekV050 #bm195Discursive textarea,
+#bmCardPeekV050 #bm195Discursive input{
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ box-sizing:border-box!important;margin:5px 0 0!important;
+ padding:10px 12px!important;border:1px solid #b9cdd8!important;
+ border-radius:8px!important;background:#fff!important;color:#203b49!important;
+ font:400 14px/1.55 system-ui,Arial,sans-serif!important;
+ box-shadow:0 1px 2px rgba(30,65,85,.04);
+}
+#bmCardPeekV050 #bm195Discursive textarea::placeholder,
+#bmCardPeekV050 #bm195Discursive input::placeholder{color:#647988!important;opacity:1}
+#bmCardPeekV050 #bm195Discursive textarea:focus,
+#bmCardPeekV050 #bm195Discursive input:focus{
+ border-color:#287cae!important;outline:2px solid #b5d9ef!important;outline-offset:1px!important;
+}
+#bmCardPeekV050 #bm195Discursive textarea[data-bm195-note]{
+ height:58px;min-height:48px!important;resize:vertical;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-rates{
+ display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));
+ gap:7px!important;margin:7px 0 12px!important;
+}
+#bmCardPeekV050 #bm195Discursive button{
+ min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+ min-height:36px!important;padding:8px 10px!important;border:1px solid #bed2de!important;
+ border-radius:7px!important;background:#fff!important;color:#285b76!important;
+ font:650 12px/1.35 system-ui,Arial,sans-serif!important;
+ white-space:normal!important;overflow-wrap:anywhere;text-align:center!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-rates button{
+ grid-column:span 2;min-height:37px!important;margin:0!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-rates button:nth-child(n+4){grid-column:span 3}
+#bmCardPeekV050 #bm195Discursive button:hover{background:#eaf4fa!important;border-color:#91bad2!important}
+#bmCardPeekV050 #bm195Discursive button:focus-visible{outline:2px solid #2782b4!important;outline-offset:2px}
+#bmCardPeekV050 #bm195Discursive .bm195-rates button[aria-pressed="true"]{
+ background:#e0eff9!important;color:#174c70!important;border-color:#2b80b5!important;
+ outline:2px solid #2b80b5!important;outline-offset:-2px;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions{
+ display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));
+ gap:7px!important;margin:10px 0 0!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-primary{
+ background:#176fa8!important;border-color:#176fa8!important;color:#fff!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-primary:hover{background:#125b8a!important}
+#bmCardPeekV050 #bm195Discursive .bm195-drive{
+ border:1px solid #d4e2e9!important;border-radius:8px!important;
+ margin:12px 0 0!important;padding:10px 12px!important;background:#fff!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-drive summary{
+ font-size:12px!important;color:#365d73!important;overflow-wrap:anywhere;
+}
+#bmCardPeekV050 #bm195Discursive [data-bm195-status]{
+ margin:12px 0 4px!important;padding:9px 0 0!important;font-size:12px!important;
+ color:#526b7b!important;font-weight:500!important;
+}
+#bmCardPeekV050 #bm195Discursive [data-bm195-status][data-error="yes"]{color:#a42323!important}
+#bmCardPeekV050 #bm195Discursive small{font-size:12px!important;line-height:1.45!important;color:#526b7b!important}
+
+/* VS7 — fechamento independente e acessível no canto superior de cada painel. */
+#bmCardPeekV050 .bm163-header{
+ position:relative!important;padding-right:62px!important;min-height:54px;box-sizing:border-box;
+}
+#bmCardPeekV050 .bm165-header-nav{position:static!important;min-width:0}
+#bmCardPeekV050 .bm163-header .bm163-close,
+#bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ width:36px!important;min-width:36px!important;max-width:36px!important;
+ height:36px!important;min-height:36px!important;padding:0!important;margin:0!important;
+ border:1px solid #c5d4df!important;border-radius:8px!important;
+ background:#fff!important;color:#405a6d!important;box-shadow:none!important;
+ font:600 25px/1 system-ui,Arial,sans-serif!important;cursor:pointer;
+}
+#bmCardPeekV050 .bm163-header .bm163-close{
+ position:absolute!important;top:9px!important;right:12px!important;z-index:5;
+}
+#bmCardPeekV050 .bm163-header .bm163-close:hover,
+#bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner:hover{
+ background:#fce8e8!important;border-color:#e2a8a8!important;color:#9c3333!important;
+}
+#bmCardPeekV050 .bm163-header .bm163-close:focus-visible,
+#bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner:focus-visible{
+ outline:2px solid #287cae!important;outline-offset:2px!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm-discursive-heading{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ position:sticky;top:0;z-index:3;background:#f7fafb;
+ padding:8px 0 10px;margin:-8px 0 8px;border-bottom:1px solid #dce6ec;
+}
+#bmCardPeekV050 #bm195Discursive .bm-discursive-heading h3{flex:1;min-width:0;margin:0!important}
+#bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner{flex:none}
+#bmCardPeekV050:has(#bm195Discursive:not([hidden])) .bm195-open{display:none!important}
+@media(max-width:760px){
+ #bmCardPeekV050 .bm165-header-nav{grid-template-columns:1.45fr 1fr 1fr!important}
+ #bmCardPeekV050 .bm163-header .bm163-close,
+ #bmCardPeekV050 #bm195Discursive .bm-discursive-close-corner{
+  width:40px!important;min-width:40px!important;max-width:40px!important;
+  height:40px!important;min-height:40px!important;
+ }
+}
+
+/* VS7 — leitura limpa do verso: títulos textuais, sem ornamentos redundantes. */
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-heading-icon,.bm195-layer-ico,.bm198-overview-icon,.bm198-section-icon),
+#bmCardPeekV050 .bm-v050-peek-answer .bm198-topic>.bm198-icon,
+#bmCardPeekV050 .bm-v050-peek-answer .bm195-archive-title>.bm195-icon{
+ display:none!important;
+}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-heading,.bm195-layer-head,.bm198-module-head,.bm198-overview-top){
+ align-items:center!important;gap:6px!important;padding:10px 12px!important;
+ background:#f0f5f9!important;border-color:#d8e4ec!important;
+}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-layer-title,.bm198-module-title,.bm197-layer-title,.bm163-piece-title){
+ font-size:15px!important;line-height:1.45!important;font-weight:700!important;
+ color:#23465c!important;overflow-wrap:anywhere;
+}
+#bmCardPeekV050 .bm-v050-peek-answer .bm195-layer-body{padding-left:0!important}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-layer,.bm198-module,.bm197-evolutive){
+ min-width:0!important;overflow-wrap:anywhere;
+}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm198-module-body,.bm195-layer-body){
+ line-height:1.65!important;
+}
+#bmCardPeekV050 .bm-v050-peek-answer .bm198-topic{vertical-align:middle;text-align:left}
+#bmCardPeekV050 .bm-v050-peek-answer :is(.bm195-layer-body,.bm198-module-body) :is(p,li){
+ line-height:1.65!important;
+}
+/* Painel de escrita: ações de estudo em primeiro plano; manutenção em segundo plano. */
+#bmCardPeekV050 #bm195Discursive .bm195-label:has(+.bm195-rates){
+ margin:14px 0 6px!important;padding-top:12px;border-top:1px solid #dbe6ed;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-save]){
+ margin-top:12px!important;gap:8px!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-save])>button{
+ min-height:42px!important;font-size:13px!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-export]){
+ border-top:1px solid #dbe6ed;padding-top:10px;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-export])>button{
+ border-color:#d4e1e8!important;background:transparent!important;
+ color:#526b7b!important;font-weight:500!important;
+}
+#bmCardPeekV050 #bm195Discursive .bm195-drive .bm195-actions>button{
+ font-size:12px!important;font-weight:500!important;
+}
+#bmCardPeekV050 #bm195Discursive button:not(.bm-discursive-close-corner) > :is(svg,.bm163-ic,.bm-v050-icon)[aria-hidden="true"]{
+ display:none!important;
+}
+
+/* VS7 — ajuste discreto da janela de estudo, mantendo margens e layout móvel. */
+@media(min-width:761px){
+ #bmCardPeekV050.bm-v050-peek{padding:10px!important;box-sizing:border-box}
+ #bmCardPeekV050 .bm163-panel.bm165-panel{
+  width:min(1280px,calc(100vw - 20px))!important;
+  height:min(96dvh,1020px,calc(100dvh - 20px))!important;
+  max-width:100%!important;max-height:calc(100dvh - 20px)!important;
+  box-sizing:border-box;
+ }
+}
+
+/* VS7 — padronização dos módulos do leitor compartilhado, sem alterar conteúdo ou expansão. */
+#bmCardPeekV050 .bm349-reading{
+ font-family:system-ui,Arial,sans-serif!important;font-size:15px!important;
+ line-height:1.7!important;color:#203745!important;
+}
+#bmCardPeekV050 .bm349-reading :is(p,li){
+ font-family:inherit!important;font-size:14px!important;line-height:1.7!important;
+ color:#203745!important;
+}
+#bmCardPeekV050 .bm349-reading details{
+ border:1px solid #d4e1e9!important;border-radius:7px!important;
+ margin:10px 0!important;background:#fff!important;overflow:hidden;
+}
+#bmCardPeekV050 .bm349-reading details>summary,
+#bmCardPeekV050 .bm349-reading>h2:has(+p){
+ font:700 14px/1.5 system-ui,Arial,sans-serif!important;
+ color:#23465c!important;background:#f2f7fa!important;
+ padding:11px 13px!important;box-sizing:border-box;
+ overflow-wrap:anywhere;
+}
+#bmCardPeekV050 .bm349-reading details>summary{cursor:pointer}
+#bmCardPeekV050 .bm349-reading details>summary::marker{font-size:.85em;color:#55778d}
+#bmCardPeekV050 .bm349-reading details[open]>summary{border-bottom:1px solid #d4e1e9}
+#bmCardPeekV050 .bm349-reading details>div{padding:12px 13px!important}
+#bmCardPeekV050 .bm349-reading details>div>p:last-child{margin-bottom:0!important}
+#bmCardPeekV050 .bm349-reading>h2:has(+p){
+ margin:10px 0 0!important;border:1px solid #d4e1e9!important;
+ border-radius:7px 7px 0 0!important;
+}
+#bmCardPeekV050 .bm349-reading>h2+p{
+ margin:0 0 10px!important;padding:12px 13px!important;
+ border:1px solid #d4e1e9!important;border-top:0!important;
+ border-radius:0 0 7px 7px!important;background:#fff!important;
+}
+/* VS7 — leitura contínua V333; fórmulas e tabelas no fluxo do leitor único. */
+#bmCardPeekV050 .bm349-reading{background:#fff!important}
+#bmCardPeekV050 .bm349-reading>p{background:#fff!important;border:0!important;padding:0!important;margin:0 0 1.1em!important;font-size:15px!important;line-height:1.78!important;white-space:normal!important}
+#bmCardPeekV050 .bm349-reading>h2:has(+p){background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;margin:16px 0 5px!important;color:#23485a!important}
+#bmCardPeekV050 .bm349-reading>h2+p{background:#fff!important;border:0!important;border-radius:0!important;padding:0!important;margin:0 0 1.1em!important}
+#bmCardPeekV050 .bm349-reading section{display:block}
+#bmCardPeekV050 .bm349-reading .formula{background:#fff!important;border:0!important;border-radius:0!important;padding:8px 0!important;margin:8px 0 16px!important;overflow:visible}
+#bmCardPeekV050 .bm349-reading .formula-label{display:block;font-size:13px!important;line-height:1.5!important;color:#475569!important;margin:0 0 6px!important}
+#bmCardPeekV050 .bm349-reading .formula-equation{display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:3px 0}
+#bmCardPeekV050 .bm349-reading .formula math{display:inline math!important;font-size:clamp(18px,2vw,22px)!important;margin:4px 0!important;min-width:max-content}
+#bmCardPeekV050 .bm349-reading .formula-units{display:block!important;margin:7px 0 0!important;color:#475569!important;font:400 13px/1.5 system-ui,Arial,sans-serif!important}
+#bmCardPeekV050 .bm349-reading mark.core{background:#FDE68A!important}
+#bmCardPeekV050 .bm349-reading mark.agent{background:#BBF7D0!important}
+#bmCardPeekV050 .bm349-reading mark.condition{background:#BAE6FD!important}
+#bmCardPeekV050 .bm349-reading mark.exception{background:#FECDD3!important}
+@media(max-width:650px){#bmCardPeekV050 .bm349-reading>p{font-size:14px!important;line-height:1.72!important}}
+
+/* Separação clara entre classificar a tentativa e gravar/conferir. */
+#bmCardPeekV050 #bm195Discursive .bm195-rates{margin-bottom:0!important}
+#bmCardPeekV050 #bm195Discursive .bm195-actions:has(>[data-bm195-save]){
+ margin:22px 0 0!important;padding-top:16px!important;
+ border-top:1px solid #cddde6!important;gap:10px!important;
+}
+</style>
+<style id="bm-related-chips-compact">
+#cartoes #cardRows article.card > .bm305-relations{margin:3px 0 2px!important;padding-top:3px!important;gap:2px!important}
+#cartoes #cardRows .bm305-relations-row[hidden]{display:none!important}
+#cartoes #cardRows article.card > .bm305-relations > .bm305-more-links{background:transparent!important;border:0!important;text-align:left!important;padding:1px 0!important;font-weight:650!important;color:#1a5e8c!important;max-width:100%;}
+#cartoes #cardRows article.card > .bm305-relations > .bm305-more-links:focus-visible{outline:2px solid #267aa6;outline-offset:2px}
+
+/* Grade de cartões: vínculos compactos, sem alterar o leitor nem a navegação. */
+/* V400: seção recolhida por padrão, com espaçamento mínimo. */
+#cartoes #cardRows .bm305-relations-row{gap:3px!important}
+#cartoes #cardRows button.bm305-relation-link{min-height:20px!important;padding:2px 5px!important;font-size:10.5px!important;line-height:1.25!important}
+#cartoes #cardRows button.bm305-more-links{min-height:20px!important;padding:2px 5px!important;font-size:10.5px!important;line-height:1.25!important}
+@media(pointer:coarse){
+ #cartoes #cardRows button.bm305-relation-link,#cartoes #cardRows button.bm305-more-links{min-height:28px!important}
+}
+</style>
+<link rel="stylesheet" href="assets/v407_lacunas_cards.css?v=407-1">
+<style id="bm408-topic-media-ready">#tema.bm064-auditing-images #topicMedia.bm171-media-closed .bm171-open-media{visibility:visible!important}</style>
+<style id="bm439-lacunas-count">html body #lacunas #bm299-lac-stats{display:none!important}html body #lacunas #bm242-count{display:block!important;font-weight:650;margin:8px 0}</style>
+<style id="bm410-formulas-organizadas">#formulas .bm410-formula-category{grid-column:1/-1;font-size:15px;font-weight:750;color:#235774;margin:15px 0 4px;padding:0 0 6px;border-bottom:1px solid #d0dee8}#formulas #bm246FormulaSections{display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}#formulas .bm246-formula-entry{margin:0!important;min-width:0}#formulas .bm246-formula-entry>summary{min-height:40px;gap:10px}#formulas .bm246-formula-group{display:none!important}#formulas .bm246-formula-panel{max-width:none!important}#formulas .bm249-body{min-width:0;overflow-wrap:anywhere}@media(min-width:1050px){#formulas #bm246FormulaSections{grid-template-columns:repeat(2,minmax(0,1fr))}#formulas .bm246-formula-entry[open]{grid-column:1/-1}}</style>
+<style id="bm411-gap-calendar">#bm411-gap-reader{border:1px solid #c9dce8;border-radius:12px;padding:0;width:min(900px,94vw);max-height:90vh;overflow:auto;color:#183b50;background:#fff;box-shadow:0 15px 60px #17384b40}#bm411-gap-reader::backdrop{background:#122a3e88}.bm411-gap-shell{padding:clamp(15px,3vw,30px);line-height:1.55}.bm411-gap-head,.bm411-gap-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.bm411-gap-head{justify-content:space-between}.bm411-gap-head small,.bm411-gap-path{color:#547588}.bm411-gap-shell h2{font-size:21px;line-height:1.35}.bm411-gap-shell h3{font-size:15px;margin:16px 0 5px}.bm411-gap-text{white-space:pre-wrap;overflow-wrap:anywhere}.bm411-gap-answer{border-top:1px solid #d7e4eb;margin:15px 0;padding:10px 0}.bm411-gap-links{margin-top:14px}.bm411-gap-open,.bm411-gap-reveal{align-self:flex-start;cursor:pointer}#lacunas article.bm242-item{cursor:pointer}#calendario[data-bm411-ready="false"] .c141-stats,#calendario[data-bm411-ready="false"] .c314-tabs,#calendario[data-bm411-ready="false"] .c314-pane,#calendario[data-bm411-ready="false"] #bm382CalendarStart,#calendario[data-bm411-ready="false"] #c313-panel,#calendario[data-bm411-ready="false"] .c141-board,#calendario[data-bm411-ready="false"] .c141-settings,#calendario[data-bm411-ready="false"] .c141-import{display:none!important}#calendario .c141-import{display:none!important}</style>
+<style id="bm413-gap-reader-style">/* Lacunas: mesma composição visual do leitor de cartões; não usa IDs nem eventos SRS do leitor. */
+#bm411-gap-reader{box-sizing:border-box!important;position:fixed!important;inset:0!important;margin:auto!important;width:min(1200px,calc(100vw - 24px))!important;height:calc(100dvh - 24px)!important;max-width:none!important;max-height:none!important;padding:0!important;border:1px solid #d6e3ee!important;border-radius:11px!important;background:#fff!important;color:#263d50!important;overflow:hidden!important}
+#bm411-gap-reader:not([open]){display:none!important}
+#bm411-gap-reader[open]{display:block!important}
+#bm411-gap-reader::backdrop{background:rgba(16,36,52,.55)}
+#bm411-gap-reader .bm411-gap-shell{display:flex!important;flex-direction:column;height:100%;padding:0!important;min-height:0}
+#bm411-gap-reader .bm411-gap-head,#bm411-gap-reader .bm411-gap-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none;padding:10px 16px;background:#f4f9fc;border-bottom:1px solid #dbe6ee}
+#bm411-gap-reader .bm411-gap-head strong{display:block;font-size:16px;color:#263d50}
+#bm411-gap-reader .bm411-gap-head small,#bm411-gap-reader .bm163-section-overline{display:block;font-size:11px;font-weight:750;letter-spacing:.06em;color:#246a8c}
+#bm411-gap-reader .bm411-gap-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:18px clamp(14px,3vw,30px)}
+#bm411-gap-reader .bm411-gap-question{display:flex;flex-direction:column;gap:7px;margin-bottom:13px;padding-bottom:10px;border-bottom:1px solid #e2e8ef}
+#bm411-gap-reader .bm-v050-peek-front{font-size:19px!important;line-height:1.55!important;color:#172631!important;margin:0!important}
+#bm411-gap-reader .bm411-gap-text{font-size:15px;line-height:1.7;white-space:pre-wrap!important;overflow-wrap:anywhere}
+#bm411-gap-reader .bm163-preview-controls{display:flex;gap:8px;padding:5px 0 12px}
+#bm411-gap-reader .bm411-gap-reveal{min-height:40px;padding:9px 15px;border:1px solid #1686bf!important;background:#1686bf!important;color:white!important;border-radius:6px!important;font-weight:750}
+#bm411-gap-reader .bm411-gap-answer[hidden]{display:none!important}
+#bm411-gap-reader .bm411-gap-answer:not([hidden]){display:block!important}
+#bm411-gap-reader .bm411-gap-answer{padding:12px 0!important;margin:0 0 14px!important;border-top:1px solid #d9e6ef}
+#bm411-gap-reader .bm349-reading{padding:0!important}
+#bm411-gap-reader .bm349-reading h3.bm413-gap-subheading{font-size:15px!important;margin:16px 0 6px!important}
+#bm411-gap-reader .bm413-gap-related{padding-top:12px;border-top:1px solid #e2e8ef}
+#bm411-gap-reader .bm411-gap-links{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+#bm411-gap-reader .bm411-gap-footer{border-bottom:0;border-top:1px solid #dbe6ee}
+@media(max-width:750px){#bm411-gap-reader{width:calc(100vw - 10px)!important;height:calc(100dvh - 10px)!important}#bm411-gap-reader .bm411-gap-scroll{padding:14px 12px}#bm411-gap-reader .bm411-gap-footer{padding:8px 10px}#bm411-gap-reader .bm-v050-peek-front{font-size:18px!important}}</style>
+<style id="bm416-formulas-editorial">#formulas .bm246-formulas-panel{max-width:none!important;width:100%;box-sizing:border-box}#formulas .bm249-body{width:100%;box-sizing:border-box;padding:clamp(12px,2vw,26px)!important}#formulas .bm249-line{font-size:15px!important;line-height:1.7!important;color:#203745!important}#formulas .bm249-subhead{font-size:16px!important;line-height:1.45!important;color:#214f6a!important;border-bottom:1px solid #e1eaf0;padding-bottom:4px;margin-top:20px!important}#formulas .bm249-equation{display:grid;gap:8px;overflow-x:auto;max-width:100%;background:#f6f9fb!important;border-left:3px solid #7ca9c6!important;padding:12px 16px!important}#formulas .bm416-equation-item{min-width:max-content;text-align:center;padding:3px 5px;font-family:Cambria Math,STIX Two Math,serif;font-size:19px;line-height:1.5}#formulas .bm416-equation-item math{font-size:1.08em;display:block;margin:0 auto;color:#162e40}#formulas .bm416-table-wrap{overflow-x:auto;margin:12px 0 16px;max-width:100%}#formulas .bm416-table{border-collapse:collapse;min-width:470px;width:100%;font-size:14px;background:#fff}#formulas .bm416-table :is(th,td){padding:9px;border:1px solid #d4e0e9;text-align:center;vertical-align:middle}#formulas .bm416-table th:first-child{text-align:left}#formulas .bm416-table thead{background:#edf4f8}#formulas .bm249-metadata{font-size:13px!important;color:#526a7c!important}#formulas .bm249-caution{font-size:14px!important;color:#654d2e!important}#formulas .bm246-formula-entry>summary{padding:12px 15px;min-height:42px;line-height:1.4}#formulas .bm249-step{padding-left:8px}#formulas .bm249-blockgap{height:8px}@media(max-width:650px){#formulas .bm249-line{font-size:14px!important}#formulas .bm416-equation-item{font-size:16px}#formulas .bm249-equation{padding:10px 8px!important}}</style>
+<style id="bm417-math">#formulas .bm249-equation{background:#fff!important;border-left-color:#d2dce5!important}#formulas .bm416-equation-item math,#bmCardPeekV050 .formula math{line-height:1.55;letter-spacing:normal}math [data-bm-semantic="core"]{background-color:#FDE68A}math [data-bm-semantic="agent"]{background-color:#BBF7D0}math [data-bm-semantic="condition"]{background-color:#BAE6FD}math [data-bm-semantic="exception"]{background-color:#FECDD3}</style><style id="bm418-media-loading-style">#topicMedia .bm418-media-loading{display:grid!important;visibility:visible!important;gap:7px;margin:10px 0 4px;max-width:480px;width:100%}#topicMedia .bm418-media-label{font:500 13px/1.4 system-ui,sans-serif;color:#36586c;margin:0}#topicMedia .bm418-media-progress{display:block!important;visibility:visible!important;width:100%;height:10px;accent-color:#297da3;border:0;border-radius:6px;overflow:hidden}#topicMedia .bm418-media-progress::-webkit-progress-bar{background:#e2edf4;border-radius:6px}#topicMedia .bm418-media-progress::-webkit-progress-value{background:#297da3;border-radius:6px}</style><style id="bm419-image-editor-style">
+#imageDialog{width: min(1600px,98vw)!important;max-width:98vw!important;height:96dvh!important;max-height:96dvh!important;border:1px solid #c7d6df!important;border-radius:12px!important;background:#fff!important;color:#213e50!important}
+#imageDialog .dhead{background:#f2f7fa!important;color:#213e50!important;padding:10px 16px!important;border-bottom:1px solid #d5e2eb}
+#imageDialog .dbody{display:flex!important;flex-direction:column!important;min-height:0!important;overflow:hidden!important}
+#imageDialog .editor-tools,#imageDialog .editor-meta{flex-shrink:0;display:flex;align-items:center;flex-wrap:wrap;gap:7px;background:#f7fafc!important;border-bottom:1px solid #d5e2eb;padding:7px 12px}
+#imageDialog .toolgroup{display:flex;align-items:center;gap:4px;padding:3px 5px;border:0!important;background:transparent!important}
+#imageDialog :is(.editor-tools,.editor-meta) button:not(.swatch),.bm419-preview-toolbar button{font:600 12px/1.2 system-ui,sans-serif;padding:7px 9px;border:1px solid #c6d9e4;border-radius:6px;background:#fff;color:#31576c;white-space:normal}
+#imageDialog button[aria-pressed=true]:not(.swatch){background:#dcecf5!important;border-color:#689fbd!important;color:#174a68!important}
+#imageDialog #imageStage{flex:1 1 auto!important;min-height:0!important;overflow:auto!important;background:#e8eef3!important;padding:12px;box-sizing:border-box}
+#imageDialog #grifo[data-tool=pan]{cursor:grab!important}#imageDialog #grifo[data-tool=pan]:active{cursor:grabbing!important}
+#imageDialog #imageWarning{font-size:11px;color:#5b7182}#imageDialog #bm419-image-flag{display:inline-flex;align-items:center;gap:5px;flex-wrap:wrap}
+.bm419-flag[aria-pressed=true]{background:#fff2d9!important;border-color:#bd8a39!important;color:#795315!important}.bm419-flag-status{display:block;font-size:11px;line-height:1.35;color:#64748b;overflow-wrap:anywhere}
+.bm228-dialog{width:min(1480px,96vw)!important;max-height:94dvh!important;border-color:#c4d6e2!important;color:#243f52!important}
+.bm228-dialog .bm202-dialog-heading{background:#f0f6fa!important;border-color:#d2e1eb!important}
+.bm228-layout{grid-template-columns:minmax(0,58%) minmax(0,42%)!important}
+.bm228-dialog .bm228-visual{padding:12px!important;background:#edf3f7!important;gap:8px!important}
+.bm419-preview-toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px;background:#fff;border:1px solid #d2e1eb;border-radius:8px}
+.bm419-preview-scale{font:600 12px system-ui;min-width:38px;text-align:center;color:#36586d}
+.bm419-preview-stage{display:flex;align-items:center;justify-content:center;position:relative;height:clamp(300px,70dvh,850px);overflow:hidden;touch-action:none;cursor:grab;background:#e2eaf0;border-radius:8px;border:1px solid #c6d9e4}
+.bm419-preview-stage.dragging{cursor:grabbing}.bm228-dialog .bm419-preview-stage img{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important;pointer-events:none;user-select:none;background:transparent!important;border:0!important;transform-origin:center}
+.bm228-dialog .bm228-tabs button{border-color:#c4d6e2!important;background:#f6f9fb!important;color:#31576c!important}.bm228-dialog .bm228-tabs button[aria-selected=true]{background:#dcecf5!important;border-color:#83adc4!important}
+@media(max-width:700px){.bm228-layout{grid-template-columns:1fr!important}.bm419-preview-stage{height:45dvh}.bm228-dialog .bm228-visual{position:static!important}#imageDialog .editor-tools,#imageDialog .editor-meta{padding:5px!important;gap:3px}#imageDialog .toolgroup{padding:1px!important}}
+</style><style id="bm420-pdf-style">
+#pdfRows .v036-pdf-card{border-radius:9px!important;padding:12px!important;gap:8px!important;background:#fff!important}
+#pdfRows .v036-pdf-title{font:650 14px/1.45 system-ui,sans-serif!important;color:#213f53!important;overflow-wrap:anywhere}
+#pdfRows .v036-pdf-meta{display:flex!important;flex-wrap:wrap!important;gap:4px 8px!important;font-size:10.5px!important;color:#617585!important}
+#pdfRows .v036-pdf-id{font-size:9px!important;overflow-wrap:anywhere}
+#pdfRows .v420-pdf-origin{font-size:11px;color:#5b7182;overflow-wrap:anywhere}
+#pdfRows .v420-pdf-origin summary{cursor:pointer;color:#426b82}
+#pdfRows .v271-pdf-origin{display:block;margin:4px 0 0!important;overflow-wrap:anywhere}
+#pdfRows .v036-pdf-actions{display:flex!important;gap:6px!important;flex-wrap:wrap!important;margin-top:auto}
+#pdfRows .v036-pdf-actions :is(a,button){border-radius:6px!important}
+#pdfDialog .dhead{background:#f2f7fa!important;color:#213e50!important;border-bottom:1px solid #d5e2eb!important}
+#pdfDialog #pdfLocalTools:not([hidden]){background:#f7fafc!important;border-color:#d5e2eb!important}
+#pdfDialog #pdfMainV043 .bm100-section{border-color:#d2e0e8!important;background:#fff!important;border-radius:7px!important}
+#pdfDialog #pdfMainV043 .bm100-heading{font-size:11px!important;color:#526e81!important;font-weight:650!important}
+#pdfDialog #pdfMainV043 :is(button,a.action){border-radius:6px!important;border-color:#c6d9e4!important;color:#31576c!important}
+#pdfDialog #pdfMainV043 button[aria-pressed=true]{background:#dcecf5!important;border-color:#689fbd!important;color:#174a68!important}
+#pdfDialog #pdfMainV043 .bm100-zoom{display:flex!important;align-items:center!important;gap:4px!important;flex-wrap:wrap!important}
+#pdfDialog #pdfFitPage,#pdfDialog #pdfFitWidth{font-size:11px!important;min-height:29px!important;padding:4px 7px!important}
+#pdfDialog #pdfLocalMode{background:#e8eef3!important}
+#pdfDialog #pdfLocalMode.bm420-pan,#pdfDialog #pdfLocalMode.bm420-pan *{cursor:grab!important}
+#pdfDialog #pdfLocalMode.bm420-dragging,#pdfDialog #pdfLocalMode.bm420-dragging *{cursor:grabbing!important;user-select:none!important}
+@media(max-width:760px){#pdfDialog #pdfMainV043 .bm100-zoom{gap:3px!important}#pdfRows .v036-pdf-title{font-size:13px!important}}
+</style><style id="bmAccountHeaderCss">/* Cabeçalho original com espaço suficiente para os controles da conta. */
+@media(min-width:741px){
+ html body>header .head{grid-template-columns:minmax(180px,1fr) minmax(190px,2fr)!important;grid-template-rows:minmax(33px,auto) minmax(34px,auto)!important;height:auto!important;max-height:none!important;row-gap:4px!important}
+ html body>header .head>nav[aria-label="Seções"]{height:auto!important;max-height:none!important;min-height:34px!important;flex-wrap:nowrap!important;white-space:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important}
+}
+@media(max-width:620px){html body>header .head{grid-template-rows:auto 38px auto!important;height:auto!important;max-height:none!important}}
+
+html body>header .head>.bm-v046-header-stats {
+ display:flex!important; flex-wrap:wrap!important; justify-content:flex-end!important;
+ align-items:center!important; gap:5px!important; height:auto!important; min-height:29px!important; max-height:none!important;
+ min-width:0!important; overflow:visible!important;
+}
+html body>header .head>.bm-v046-header-stats>:is(#bm239-drive-action,#bmAccountSettings,#bmAccountDriveLink,#bmAccountExport,#bm239-sync-details){
+ display:inline-flex!important; align-items:center!important; justify-content:center!important;
+ flex:0 0 auto!important; width:auto!important; min-width:0!important; max-width:220px!important;
+ min-height:28px!important; height:28px!important; max-height:none!important; box-sizing:border-box!important;
+ margin:0!important; padding:4px 9px!important; gap:5px!important; border:1px solid #718593!important; border-radius:4px!important;
+ background:transparent!important; color:#f1f6f9!important; box-shadow:none!important;
+ text-decoration:none!important; font:600 11px/1.2 "Segoe UI",Arial,sans-serif!important; text-transform:none!important; white-space:nowrap!important;
+}
+html body>header .head>.bm-v046-header-stats>#bm239-drive-action{
+ border-color:#4195c9!important; background:#1b628e!important; overflow:hidden!important; text-overflow:ellipsis!important;
+ display:block!important; max-width:210px!important; text-align:center!important;
+}
+html body>header .head>.bm-v046-header-stats>#bm239-drive-action::before,
+html body>header .head>.bm-v046-header-stats>#bm239-drive-action::after{
+ content:none!important; display:none!important;
+}
+html body>header .head>.bm-v046-header-stats>#bm239-sync-details{font-size:0!important;cursor:pointer!important}
+html body>header .head>.bm-v046-header-stats>#bm239-sync-details::after{font:600 11px/1.2 "Segoe UI",Arial,sans-serif!important;content:"Diagnóstico"!important}
+html body>header .head>.bm-v046-header-stats>:is(#bmAccountDriveLink,#bmAccountExport)[hidden]{display:none!important}
+html body>header .head>.bm-v046-header-stats>#bm299-drive-continuous{color:#c9d8e2!important;font:11px/1.2 "Segoe UI",Arial,sans-serif!important;white-space:normal!important}
+html body>header .head>nav[aria-label="Seções"] :is(a.bm343-launch,a[data-bm343-proposals],a[data-petro28-link],a[data-petro24-link],a[data-bm348-audit],a[href^="petro27_29_"]){display:none!important}
+html body>header .head>#bm316-drive-progress{grid-column:1/-1!important;min-width:0!important}
+html body>header .head>#bm316-drive-progress .bm316-caption{color:#dce9f1!important}
+@media(max-width:740px){
+ html body>header .head>.bm-v046-header-stats{gap:4px!important}
+ html body>header .head>.bm-v046-header-stats>:is(#bm239-drive-action,#bmAccountSettings,#bmAccountDriveLink,#bmAccountExport,#bm239-sync-details){flex:1 1 auto!important;max-width:100%!important;min-height:34px!important;height:auto!important;padding:6px!important;white-space:normal!important;text-align:center!important}
+ html body>header .head>.bm-v046-header-stats>#bm239-drive-action{max-width:100%!important}
+ html body>header .head>.bm-v046-header-stats>#bm299-drive-continuous{width:100%!important;text-align:right!important}
+}
+</style><style id="bmAccountWritingVisibility">main>#bm302-redacao-shell:not(.active){display:none!important}main>#bm302-redacao-shell.active{display:block!important}main>#bm302-redacao-shell .bm-writing-notice{margin:0 0 7px;padding:7px 10px;border:1px solid #d7e5e5;background:#f6fafc;color:#41616b;font:12px/1.4 system-ui,sans-serif}main>#bm302-redacao-shell .bm-writing-notice[hidden]{display:none!important}</style><style id="bmCompactAccountUi">
+html body>dialog:is(#bmAccountExportDialog,#bmAccountSettingsDialog){position:fixed!important;inset:auto!important;top:50%!important;left:50%!important;right:auto!important;bottom:auto!important;transform:translate(-50%,-50%)!important;box-sizing:border-box!important;width:min(440px,calc(100vw - 24px))!important;inline-size:min(440px,calc(100vw - 24px))!important;min-width:0!important;min-inline-size:0!important;max-width:calc(100vw - 24px)!important;max-inline-size:calc(100vw - 24px)!important;height:auto!important;block-size:auto!important;min-height:0!important;min-block-size:0!important;max-height:calc(100dvh - 24px)!important;max-block-size:calc(100dvh - 24px)!important;align-self:start!important;justify-self:start!important;margin:0!important;padding:0!important;border:1px solid #cbd7df!important;border-radius:8px!important;overflow:auto!important;background:#fff!important;color:#344551!important}
+html body>dialog:is(#bmAccountExportDialog,#bmAccountSettingsDialog)[open]{display:block!important;flex:none!important;}
+html body>dialog:is(#bmAccountExportDialog,#bmAccountSettingsDialog)>.bm-account-settings-inner{box-sizing:border-box!important;width:100%!important;height:auto!important;min-height:0!important;max-width:none!important;padding:14px!important;display:grid!important;gap:8px!important;align-content:start!important}
+html body>dialog:is(#bmAccountExportDialog,#bmAccountSettingsDialog) h2{margin:0!important;font-size:16px!important;line-height:1.3!important}
+html body>dialog:is(#bmAccountExportDialog,#bmAccountSettingsDialog) :is(p,label,small){margin:0!important;font-size:12px!important;line-height:1.4!important}
+#bmAccountExportDialog .bm-export-account{font-size:12px;overflow-wrap:anywhere}
+:is(#bmAccountExportStatus,#bmAccountSettingsStatus):empty{display:none!important}
+html body>dialog:is(#bmAccountExportDialog,#bmAccountSettingsDialog) .bm-account-settings-actions{display:flex!important;justify-content:flex-end!important;gap:6px!important;flex-wrap:wrap!important;margin-top:2px!important}
+html body>dialog:is(#bmAccountExportDialog,#bmAccountSettingsDialog) .bm-account-settings-actions button{min-height:30px!important;padding:5px 9px!important;font-size:11px!important}
+:is(#bmAccountExportDialog,#bmAccountSettingsDialog)::backdrop{background:rgba(35,48,58,.45)}
+html body #cartoes #bm382StudyStart{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:5px!important;margin:5px 0!important;padding:6px 8px!important;border-radius:4px!important;min-height:0!important}
+#cartoes #bm382StudyStart>strong{font-size:12px!important;margin-right:4px!important}
+#cartoes #bm382StudyStart>button{min-height:28px!important;padding:4px 8px!important;font-size:11px!important;margin:0!important}
+#cartoes #bm382QueueStatus{order:10!important;flex:1 0 100%!important;margin:0!important;font-size:11px!important;line-height:1.3!important}
+html body>main:has(>section:is(#cartoes,#lacunas).active){box-sizing:border-box!important;width:calc(100% - 30px)!important;max-width:1190px!important;margin-inline:auto!important;padding-inline:15px!important}
+html body>main>section:is(#cartoes,#lacunas){width:100%!important;max-width:1160px!important;min-width:0!important;box-sizing:border-box!important;margin-inline:auto!important;padding-inline:0!important}
+html body>main>section:is(#cartoes,#lacunas)>:is(.panel,.bm242-shell){width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;margin-inline:auto!important;padding:15px!important}
+html body>main #calendario .c141-wrap{padding:9px!important}
+html body>main #calendario .c141-title{margin:0 0 4px!important}
+html body>main #calendario .c141-stat{padding:5px 8px!important;min-height:0!important}
+html body>main #calendario .c141-stat strong{font-size:17px!important;line-height:1.15!important}
+html body>main #calendario .c141-stat span{font-size:11px!important;line-height:1.25!important}
+html body>main #calendario .c141-settings{padding:5px 8px!important;margin:5px 0!important}
+html body>main #calendario .c141-board{padding:8px!important}
+html body>main #calendario :is(.c141-note,.c141-boardhead p){font-size:11px!important;line-height:1.35!important;margin:4px 0!important}
+html body>main #calendario button{min-height:28px!important;padding:4px 8px!important;font-size:11px!important}
+html body>main #bm302-redacao-shell .bm-writing-toolbar{display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:wrap!important;margin:0 0 4px!important}
+html body>main #bm302-redacao-shell #bmWritingNotice{flex:1 1 220px!important;min-width:0!important;margin:0!important;padding:3px 6px!important;font-size:11px!important;line-height:1.3!important}
+html body>main #bm302-redacao-shell #bmWritingSaveDrive{margin:0!important;padding:4px 7px!important;min-height:26px!important;font-size:11px!important}
+@media(max-width:600px){html body>main:has(>section:is(#cartoes,#lacunas).active){width:calc(100% - 16px)!important;padding-inline:8px!important}html body>main>section:is(#cartoes,#lacunas)>:is(.panel,.bm242-shell){padding:10px!important}}
+</style><style>.bm124TopicCard>.bm437-topic-card-title{display:block;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer;white-space:normal;overflow-wrap:anywhere}.bm124TopicCard>.bm437-topic-card-title:hover strong{text-decoration:underline}.bm124TopicCard>.bm437-topic-card-title:focus-visible{outline:2px solid #356b91;outline-offset:3px;border-radius:3px}</style><style>.bm438-related{margin-top:14px}.bm438-related-group{margin:8px 0;padding:8px;border:1px solid #d5e1e6;border-radius:6px}.bm438-related-group>summary{cursor:pointer;font-weight:600;padding:4px}.bm438-related-group>article{margin-top:6px}.bm438-related-group>article>small{display:block;margin-top:4px;color:#516575}</style></head><body><div id="bmStartupGate" role="status" aria-live="polite"><div><strong>Banco Mestre</strong><p>Preparando a interface de estudo…</p><div id="bmStartupSlow" hidden><p>A interface está demorando mais que o habitual.</p><button type="button" onclick="window.BMStartupGate.release()">Exibir interface disponível</button><a href="./?recarregar=interface">Recarregar portal</a></div></div></div>
+<header><div class="head"><div><div class="brand">Banco Mestre <span class="version">Site VS49 · Cartões —</span></div><div class="version">Estudo, recuperação ativa e revisão espaçada</div></div><div class="stats bm-v046-header-stats" aria-label="Indicadores do Banco Mestre">
+<div class="stat"><b id="pdfStat">—</b><span>PDFs no Google Drive</span><small class="bm241-verification">Não verificado</small></div>
+<div class="stat" id="bm382CatalogStat" title="Contagem do catálogo oficial; aguarda carregamento"><b>—</b><span>Cartões ativos</span><small class="bm241-verification">Carregando catálogo</small></div>
+<div class="stat"><b>—</b><span>Originais Drive / Atlas</span><small class="bm241-verification">Não verificado</small></div>
+<div class="stat bm241-control" data-bm241-extra="control"><b>0</b><span>sessões locais</span><small class="bm241-verification">Não verificado</small></div>
+<div class="stat bm241-grifos" data-bm241-extra="grifos"><b>—</b><span>grifos privados</span><small class="bm241-verification">Não verificado</small></div>
+<button id="bm239-drive-action" type="button" aria-label="Entrar com Google" disabled aria-busy="false">Usuário / Login</button>
+<a id="bmAccountDriveLink" target="_blank" rel="noopener noreferrer" hidden>Abrir Drive</a>
+<button id="bmAccountSettings" type="button" title="Configurar a conexão com o Google Drive">Configurações</button>
+<button id="bmAccountExport" type="button" title="Gerar arquivo para anexar ao ChatGPT" hidden>Exportar para ChatGPT</button>
+<span id="bm239-sync-details" aria-label="Diagnóstico da sincronização com o Google Drive" role="status" aria-live="polite">Preparando conexão segura…</span>
+</div><nav aria-label="Seções"><button class="active" data-page="assuntos">Assuntos</button><button data-page="pdfs">PDFs</button><button data-page="cartoes">Flashcards</button><button data-page="imagens">Imagens</button></nav></div></header>
+<dialog id="bmAccountSettingsDialog" aria-labelledby="bmAccountSettingsTitle"><div class="bm-account-settings-inner"><h2 id="bmAccountSettingsTitle">Configurações da conexão</h2><p>O Banco Mestre localiza automaticamente a pasta DataBase_Concurso da conta Google.</p><label for="bmAccountRoot">Pasta dos cartões e mídias (link ou ID, opcional)</label><input id="bmAccountRoot" type="text" maxlength="400" placeholder="https://drive.google.com/drive/folders/…" autocomplete="off" spellcheck="false"><small>Opcional. Use uma pasta privada da própria conta.</small><p><small>Autorização pelo Google, sem senha ou chave no site. Alterar a pasta encerra a sessão; os dados permanecem no Drive.</small></p><div style="border-top:1px solid #d5e2e9;padding-top:9px"><label style="display:flex;align-items:center;gap:7px"><input id="bmAccountCacheEnabled" type="checkbox" style="width:auto!important;min-width:0!important"> Acelerar neste navegador</label><p><small>Guarda cartões e mídias verificadas neste dispositivo por até 7 dias (128 MiB). Use apenas em um navegador de confiança. Não guarda credenciais.</small></p><button id="bmAccountClearCache" type="button" style="font-size:11px;min-height:28px;padding:4px 8px;margin-top:5px">Limpar cache local</button></div><p id="bmAccountSettingsStatus" role="status" aria-live="polite"></p><div class="bm-account-settings-actions"><button id="bmAccountSettingsDefault" type="button">Restaurar padrão</button><button id="bmAccountSettingsCancel" type="button">Cancelar</button><button id="bmAccountSettingsSave" class="primary" type="button">Salvar configurações</button></div></div></dialog>
+<dialog id="bmAccountExportDialog" aria-labelledby="bmAccountExportTitle"><div class="bm-account-settings-inner"><h2 id="bmAccountExportTitle">Exportar para o ChatGPT</h2><p>Gere um arquivo com os dados de estudo da conta conectada.</p><div class="bm-export-account"><strong>Conta:</strong> <span id="bmAccountExportEmail"></span> · <a id="bmAccountExportRoot" target="_blank" rel="noopener noreferrer">Abrir pasta individual</a></div><p>Inclui metodologia, guia, cartões, revisões, redação, controle de estudos, lacunas, fórmulas, grifos e referências às mídias.</p><p><small>Anexe o JSON ao ChatGPT e informe o assunto na conversa. Nenhum dado é enviado automaticamente. Os originais ficam no Drive; eventuais pendências constam no arquivo.</small></p><p id="bmAccountExportStatus" role="status" aria-live="polite"></p><div class="bm-account-settings-actions"><button id="bmAccountExportCancel" type="button">Fechar</button><button id="bmAccountExportSave" type="button" class="primary">Gerar pacote completo</button></div></div></dialog>
+<main>
+
+<section id="assuntos" class="active"><div class="panel"><h2>Comece por uma área</h2><p class="intro">Selecione uma área e explore os assuntos. Cada tema reúne conceitos, imagens e documentos relacionados quando disponíveis.</p><div id="areaRows" class="topicCards"></div><h2 style="margin-top:26px">Disciplinas, assuntos e subassuntos</h2><div class="controls"><input id="topicSearch" type="search" placeholder="Pesquisar assunto, conceito, norma ou dúvida"><select id="topicArea"><option value="all">Todas as áreas</option></select><span id="topicCount" class="small muted"></span></div><div id="topicRows" class="topicCards"></div></div></section>
+<section id="pdfs"><div class="panel"><h2>PDFs para estudo</h2><p class="intro">A biblioteca privada consulta os PDFs originais no Google Drive após sua autorização. As marcações e os originais permanecem preservados; guias importados do computador continuam locais.</p><p id="bm269PdfLocked" role="status" aria-live="polite">Conecte o Google Drive para consultar a biblioteca de PDFs privados. Arquivos locais permanecem disponíveis neste navegador.</p>
+<div id="pdfAreaNavV036" role="group" aria-label="Filtrar PDFs por área"></div><div class="controls"><input id="pdfSearch" type="search" placeholder="Buscar norma, capítulo ou assunto"><select id="pdfFilter"><option value="all">Todos os grupos</option></select><label class="checkbox"><input id="pdfHidden" type="checkbox">Mostrar excluídos</label><span id="pdfCount" class="small muted"></span></div><div id="pdfRows"></div></div></section>
+<section id="tema"><div class="panel">
+ <div class="topicLead"><div><span class="tag">Biblioteca do Banco Mestre</span><h2 id="topicHeading">Assunto</h2><p id="topicGroupCaption" class="muted"></p></div><button id="topicBack">← Todos os assuntos</button></div>
+ <p class="intro">Consulte o conteúdo organizado por subassunto. Quando houver cartões vinculados, a pergunta original e o ID estarão identificados.</p>
+ <div id="topicOverview" hidden></div>
+ <h3 class="sectionTitle">Conceitos e explicações cadastradas</h3><div id="topicStudyBlocks" class="studyGrid"></div>
+ <div id="topicMacetes" hidden></div>
+ <div id="topicMedia"></div><div id="topicRelated" hidden></div>
+ <p class="notice">Material orientativo derivado dos registros existentes; verifique a versão e a fonte normativa antes de tratar conteúdo técnico como vigente.</p>
+ <button id="topicGoCards" class="primary">Praticar flashcards deste assunto</button>
+ </div></section>
+<section id="cartoes"><div class="panel"><h2>Flashcards</h2><p class="intro">Biblioteca única de estudo. Inicie pela fila SRS ou escolha um cartão por assunto. Responda antes de revelar o verso; somente a avaliação explícita altera a agenda.</p>
+<div id="bm382StudyStart" class="bm382-study"><strong>Estudar cartões</strong><p id="bm382QueueStatus" role="status" aria-live="polite">Escolha livremente ou conecte o Drive para consultar a agenda e as dificuldades registradas.</p><button type="button" class="primary" id="bm383FreeStudy">Estudar</button> <button type="button" id="bm382StartDue">Revisões pendentes</button> <button type="button" id="bm383StartPriority" title="Cartões classificados Difícil ou Errei histórico">Prioritários</button> <button type="button" id="bm382OpenAgenda">Ver agenda SRS</button></div><details id="bm273Versoes" class="notice"><summary>Catálogo e fontes</summary><p id="bm382CatalogInfo">Aguardando catálogo oficial.</p><p>Os dados pessoais, as avaliações e os originais privados permanecem no Drive. A consulta não registra revisão.</p></details><div class="controls"><input id="cardSearch" type="search" placeholder="Buscar por ID, tema ou pergunta"><select id="cardFilter"><option value="all">Todas as disciplinas</option></select><select id="cardTopicFilter" aria-label="Filtrar por assunto"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="cardHidden" type="checkbox">Mostrar ocultos</label><label class="checkbox"><input id="cardReviewedOnly" type="checkbox">Com revisão histórica (21)</label><label class="checkbox"><input id="cardRecoveredOnly" type="checkbox">Com resposta registrada (9)</label><span id="cardCount" class="small muted"></span></div><div id="cardRows" class="grid"></div><p><button id="moreCards">Mostrar mais</button></p><div id="coverageSummary"></div></div></section>
+<section id="imagens"><div class="panel"><h2>Imagens e pranchas</h2><p class="intro">Encontre cada prancha por tema, leia o resumo do conteúdo e amplie a imagem para estudar. Exclusões são reversíveis.</p><div class="notice">Os temas e títulos ajudam a localizar as imagens, mas não substituem sua conferência técnica. Arquivos originais e marcações permanecem preservados.</div><div class="controls"><input id="imageSearch" type="search" placeholder="Buscar IMG, assunto técnico ou descrição"><select id="imageFilter"><option value="all">Todos os assuntos</option></select><label class="checkbox"><input id="imageHidden" type="checkbox">Mostrar ocultas</label><span id="imageCount" class="small muted"></span></div><div class="originalHelp">Se a imagem completa não estiver disponível, vincule seu original ao registro. Ele será guardado somente neste navegador.</div><div id="imageRows" class="grid"></div><p><button id="moreImages">Mostrar mais</button></p></div></section>
+<footer>Banco Mestre · Site VS49 · Catálogo individual</footer></main>
+<dialog id="pdfDialog" aria-label="Leitor e editor de PDFs">
+ <div class="dhead"><strong id="docTitle"></strong><button id="pdfClose">Fechar</button></div>
+ <div class="dbody">
+  <div class="toolbar">
+   <a id="pdfOriginal" class="action" target="_blank" rel="noopener noreferrer">Consultar no Drive</a>
+   <button id="pdfChooseLocal" class="primary" type="button" title="Abrir páginas para riscar e grifar neste site">✎ Editar PDF</button>
+   <input id="pdfFileInput" type="file" accept=".pdf,application/pdf" hidden aria-label="Selecionar PDF autorizado do computador">
+   <span class="pdfInfo">Grife diretamente sobre as páginas. O arquivo do Drive permanece intacto; você pode salvar uma cópia PDF com as marcações.</span>
+  </div>
+  <div id="pdfLocalTools" class="pdfMiniTools" hidden>
+   <div class="pdfGroup">
+    <button id="pdfPrev" disabled>← Página</button><strong id="pdfPager" class="small">Página 1</strong><button id="pdfNext" disabled>Próxima →</button>
+    <button id="pdfZoomOut" disabled>−</button><button id="pdfZoomIn" disabled>+ Zoom</button><button id="pdfFitPage" type="button" title="Ajustar página inteira" aria-pressed="true" disabled>Ajustar</button><button id="pdfFitWidth" type="button" title="Ajustar à largura para leitura" aria-pressed="false" disabled>Largura</button>
+   </div>
+   <div class="pdfGroup" aria-label="Ferramentas do PDF">
+    <button id="pdfDraw" type="button" disabled aria-pressed="false">✎ Caneta</button>
+    <button id="pdfMarker" type="button" disabled aria-pressed="true">▤ Grifar</button>
+    <button id="pdfEraser" type="button" disabled aria-pressed="false">⌫ Borracha</button>
+    <button id="pdfPan" type="button" disabled aria-pressed="false">✥ Mover</button>
+    <label title="Cor da caneta">Cor <input id="pdfInkColor" type="color" value="#17616a" aria-label="Escolher cor da caneta"></label>
+   </div>
+   <div class="pdfGroup">
+    <button id="pdfUndo" disabled>↶ Desfazer</button><button id="pdfRedo" disabled>↷ Refazer</button>
+    <button id="pdfClearPage" class="pdfDanger" disabled>Limpar página</button>
+   </div>
+   <div class="pdfGroup">
+    <button id="pdfExportPDF" disabled>Salvar PDF anotado</button>
+    <button id="pdfExportPNG" disabled>Salvar página PNG</button>
+    <button id="pdfChangeFile" disabled>Trocar PDF</button>
+   </div>
+   <span id="pdfFileName" class="pdfHint"></span>
+  </div>
+  <p id="pdfLocalStatus" class="pdfHint" aria-live="polite"></p>
+  <p id="pdfIntro">A prévia do Drive é apenas para leitura. Escolha Editar PDF para usar as ferramentas; o original permanece intacto.</p>
+  <iframe id="pdfFrame" class="pdfpreview" title="Prévia do PDF no Drive" referrerpolicy="no-referrer"></iframe>
+  <div id="pdfLocalMode" aria-label="PDF editável neste navegador">
+   <div id="pdfPageWrap"><canvas id="pdfLocalCanvas" aria-hidden="true"></canvas><canvas id="pdfInkCanvas" aria-label="Desenhe ou grife diretamente na página PDF"></canvas></div>
+  </div>
+ </div>
+</dialog>
+<dialog id="imageDialog" aria-label="Editor de imagens em tela cheia">
+<div class="dhead"><strong id="imgTitle"></strong><button id="imgClose">Fechar</button></div>
+<div class="dbody">
+<div class="editor-tools" aria-label="Ferramentas do editor">
+ <div class="toolgroup" role="group" aria-label="Tipo de ferramenta">
+  <button data-ink-tool="pen" aria-pressed="false" title="Caneta livre">✎ Caneta</button>
+  <button data-ink-tool="highlighter" aria-pressed="false" title="Marca-texto semitransparente">▤ Grifar</button>
+  <button data-ink-tool="eraser" aria-pressed="false" title="Apaga o traço tocado">⌫ Borracha</button>
+  <button data-ink-tool="select" aria-pressed="false" title="Selecione por toque ou retângulo; arraste para mover">▢ Selecionar</button>
+  <button data-ink-tool="pan" aria-pressed="true" title="Deslocar a imagem ampliada">✥ Mover tela</button>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Cores da caneta">
+  <button class="swatch" data-ink-color="#ffd400" style="--swatch:#ffd400" aria-label="Amarelo" aria-pressed="true"></button>
+  <button class="swatch" data-ink-color="#ff514b" style="--swatch:#ff514b" aria-label="Vermelho" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#32b66f" style="--swatch:#32b66f" aria-label="Verde" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#3d88ea" style="--swatch:#3d88ea" aria-label="Azul" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#202b36" style="--swatch:#202b36" aria-label="Preto" aria-pressed="false"></button>
+  <button class="swatch" data-ink-color="#9b61c7" style="--swatch:#9b61c7" aria-label="Roxo" aria-pressed="false"></button>
+  <label>Cor <input id="inkColor" type="color" value="#ffd400" aria-label="Escolher outra cor"></label>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Espessura da ferramenta">
+  <label>Espessura <input id="inkWidth" type="range" min="1" max="40" value="16" aria-label="Espessura"><span id="widthValue">16 px</span></label>
+ </div>
+ <div class="toolgroup" role="group" aria-label="Histórico e seleção">
+  <button id="undo" title="Ctrl+Z" disabled>↶ Desfazer</button>
+  <button id="redo" title="Ctrl+Y" disabled>↷ Refazer</button>
+  <button id="deleteSelected" class="editor-danger" disabled>Apagar seleção</button>
+  <span id="selectedCount" class="small muted"></span>
+ </div>
+ <div class="toolgroup">
+  <button id="hideOpened" class="danger" title="Oculta este registro, sem apagar arquivo">Ocultar localmente</button><span id="bm419-image-flag"></span>
+ </div>
+</div>
+<div class="editor-meta">
+ <span id="imagePixels">Dimensão da imagem</span>
+ <button id="zoomOutImage" title="Reduzir zoom">−</button>
+ <button id="zoomWidthImage" title="Leitura ampliada na largura disponível">Largura</button><button id="zoomFitImage" title="Mostrar a página inteira">Ajustar</button>
+ <button id="zoomActualImage" title="Exibir a 100%">100%</button>
+ <button id="zoomInImage" title="Ampliar">+</button>
+ <strong id="zoomPct">100%</strong>
+ <a id="originalDriveLink" class="action" target="_blank" rel="noopener noreferrer" hidden>Abrir original no Drive</a>
+ <span id="imgMessage">Anotações automáticas locais</span>
+ <span id="imageWarning" class="small muted"></span>
+</div>
+<div class="stage" id="imageStage"><div class="canvases"><canvas id="base" aria-hidden="true"></canvas><canvas id="grifo" tabindex="0" aria-label="Área para desenhar, apagar ou selecionar"></canvas></div></div>
+</div></dialog>
+<input id="v034OriginalPicker" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg" hidden aria-label="Selecionar imagem original para o registro"><script src="assets/v316_drive_progress.js?v=316-2"></script><script src="assets/bm-account/v430_js_000_001_editor.js?v=vs43-stability-3"></script><script>
+'use strict';
+const $=id=>document.getElementById(id),fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const api=window.BancoMestreImagens;let docs=[],meta=null,cards=[],imgs=[],cardLimit=24,imgLimit=24,loadedCards=false,loadedImages=false;
+let guideData=null,generalGuide=null,auditF17=null,answersF17=null,origMap={},focusGroup='',topicRows=[],imgScale=1,imgW=0,imgH=0;
+let shards={},opened=null,marks=[],draft=null;
+function el(tag,text,cls){const x=document.createElement(tag);if(text!==null)x.textContent=text;if(cls)x.className=cls;return x}
+function action(label,fn,cl){const b=el('button',label,cl||'');b.onclick=fn;return b}
+function link(label,url){const a=el('a',label,'action');a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a}
+function hidden(type){try{return new Set(JSON.parse(localStorage.getItem('BM026_EXCLUDE_'+type)||'[]'))}catch{return new Set()}}
+function exclude(type,id,yes){const ids=hidden(type);yes?ids.add(id):ids.delete(id);try{localStorage.setItem('BM026_EXCLUDE_'+type,JSON.stringify([...ids]));return true}catch(e){alert('Não foi possível gravar no navegador: '+e.message);return false}}
+function card(title,tag,subtitle){const c=el('article',null,'card');c.append(el('span',tag,'tag'),el('h3',title),el('p',subtitle));const buttons=el('div',null,'buttons');c.append(buttons);return {c,buttons}}
+function section(name){
+ const previous=document.querySelector('main section.active')?.id||'assuntos';
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+ document.querySelectorAll('main section').forEach(s=>s.classList.toggle('active',s.id===name));
+ if(!window.BM054HistoryRestoring){
+  if(name==='tema'&&window.BM054PendingTopic){
+   const t=window.BM054PendingTopic;
+   const route='#tema?g='+encodeURIComponent(t.group)+'&s='+encodeURIComponent(t.subject);
+   if(location.hash!==route){
+    history.replaceState({...history.state,bmSection:previous,bmScrollY:window.scrollY},'',location.href);
+    history.pushState({bmTopic:true,bmReturnInternal:true},'',route);
+   }
+  }else history.replaceState(null,'','#'+name);
+ }
+ if(name==='cartoes')void loadCards().catch(e=>console.warn('Carregamento dos cartões V194:',e));
+ if(name==='pdfs')void window.BancoMestrePDFSyncV130?.refresh?.();
+ if(name==='imagens')loadImages();
+ if(name==='assuntos')loadTopics();
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>section(b.dataset.page));
+async function pdfInit(){return true}
+function pdfRender(){const q=fold($('pdfSearch').value),f=$('pdfFilter').value,show=$('pdfHidden').checked,h=hidden('PDF');let a=docs.filter(x=>(show||!h.has(x.id))&&(f==='all'||x.section===f)&&fold(x.title+' '+x.section+' '+x.id+' '+x.category).includes(q));$('pdfCount').textContent=a.length+' PDFs';const out=$('pdfRows');out.replaceChildren();for(const group of [...new Set(a.map(x=>x.section))]){out.append(el('h3',group,'group'));const grid=el('div',null,'grid');for(const p of a.filter(x=>x.section===group)){const off=h.has(p.id),pages=p.pages?' · págs. '+p.pages.join('–'):'',size=p.size?' · '+(p.size/1048576).toFixed(1)+' MB':'';const x=card(p.title,p.id,'Google Drive'+pages+size+(off?' · excluído localmente':''));x.buttons.append(action('Ler / editar PDF',()=>pdfOpen(p),'primary'),link('Abrir no Drive',p.url),action(off?'Restaurar':'Excluir',()=>{if(exclude('PDF',p.id,!off))pdfRender()},off?'':'danger'));grid.append(x.c)}out.append(grid)}if(!a.length)out.append(el('p','Nenhum PDF encontrado.','muted'))}
+function pdfOpen(p){$('docTitle').textContent=p.title;$('pdfOriginal').href=p.url;$('pdfFrame').src='https://drive.google.com/file/d/'+encodeURIComponent(p.file_id)+'/preview';$('pdfDialog').showModal()}
+$('pdfClose').onclick=()=>$('pdfDialog').close();$('pdfDialog').addEventListener('close',()=>{$('pdfFrame').src='about:blank'});
+$('pdfSearch').oninput=pdfRender;$('pdfFilter').onchange=pdfRender;$('pdfHidden').onchange=pdfRender;
+
+function topicAreaOf(g){
+ if(g==='PORTUGUES')return 'Português';
+ if(g==='MATEMATICA')return 'Matemática';
+ if(g==='LEGISLACAO')return 'Legislação';
+ if(g==='INFORMATICA')return 'Informática';
+ if(g&&g.startsWith('ENG_'))return 'Engenharia Civil';
+ return 'Outros';
+}
+async function loadTopics(){
+ try{
+  await loadCards();const m=await loadMeta();
+  const cardsByGroup=new Map();
+  for(const c of cards.filter(c=>c.provisional||c.active!==false)){const g=c.group||'OUTROS';if(!cardsByGroup.has(g))cardsByGroup.set(g,[]);cardsByGroup.get(g).push(c)}
+  const labels=new Map(m.groups.map(g=>[g.id,g.title]));
+  const areas=['Engenharia Civil','Português','Matemática','Legislação','Informática'];
+  const areaRoot=$('areaRows');areaRoot.replaceChildren();
+  for(const area of areas){
+   const count=[...cardsByGroup].filter(([g])=>topicAreaOf(g)===area).reduce((a,[,v])=>a+v.length,0);
+   const b=el('button',null,'topicCard');b.append(el('strong',area),el('small',count+' cartões, agrupados por assuntos'));b.onclick=()=>{$('topicArea').value=area;topicRender()};areaRoot.append(b);
+  }
+  topicRows=[];
+  for(const [group,arr] of cardsByGroup){
+   const grouped=new Map();
+   for(const c of arr){const k=c.subject||'Outros';if(!grouped.has(k))grouped.set(k,0);grouped.set(k,grouped.get(k)+1)}
+   for(const [subject,count] of grouped){topicRows.push({group,subject,count,area:topicAreaOf(group),label:labels.get(group)||group})}
+  }
+  topicRows.sort((a,b)=>a.area.localeCompare(b.area,'pt-BR')||a.subject.localeCompare(b.subject,'pt-BR'));
+  if($('topicArea').options.length===1)for(const a of areas)$('topicArea').add(new Option(a,a));
+  topicRender();
+ }catch(e){$('topicRows').textContent='Falha ao carregar assuntos: '+e.message}
+}
+function topicRender(){
+ const q=fold($('topicSearch').value),area=$('topicArea').value;
+ const visible=topicRows.filter(x=>(area==='all'||x.area===area)&&fold(x.subject+' '+x.label+' '+x.area).includes(q));
+ $('topicCount').textContent=visible.length+' assuntos';const out=$('topicRows');out.replaceChildren();
+ for(const t of visible){
+  const b=el('button',null,'topicCard');b.append(el('span',t.area,'tag'),el('strong',t.subject),el('small',t.count+' cartão(ões) · '+(t.imgCount?t.imgCount+' imagem(ns) · ':'')+t.label));
+  b.onclick=async()=>{focusGroup=t.group;const query=t.subject;$('cardSearch').value=query;$('cardFilter').value='all';cardLimit=24;section('cartoes');cardRender()};
+  out.append(b);
+ }
+ if(!visible.length)out.textContent='Nenhum assunto localizado; tente outro termo.';
+}
+$('topicSearch').oninput=topicRender;$('topicArea').onchange=topicRender;
+
+let bmMetaPromise=null;
+async function loadMeta(){if(meta)return meta;if(bmMetaPromise)return bmMetaPromise;bmMetaPromise=(async()=>{const r=await fetch('assets/meta_public_v194.json?v=194',{cache:'force-cache'});if(!r.ok)throw Error('Metadados indisponíveis');const value=await r.json();if(!meta)meta=value;return meta;})().finally(()=>{bmMetaPromise=null});return bmMetaPromise}
+let bm123CardsPromise=null;
+/* Catálogo público: contrato independente da versão visual. */
+const BM_CATALOG=Object.freeze({"path":"assets/catalog_snapshot_vc52.json","format":"BancoMestreCatalogSnapshotV362","source_head":"e0fe3cc393f2e6ddb2cb55bfe0b99caae7695cb7","counts":{"canonical":1460,"active":1460,"ijui":0},"generation":"tools/catalog_snapshot.cjs","private_sync":"not_verified","consolidation_packet":"assets/consolidacao_conceitual_v373.json","consolidation_packet_blob":"0def738a1d80377863553b569ca140c68d32021b","consolidation_status":"PUBLICACAO_EXPRESSAMENTE_SOLICITADA_SEM_HOMOLOGACAO_EDITORIAL_INTEGRAL","study_increment":"assets/petro30_public_v374.json","study_increment_blob":"f0add58021227f0482f39040160c60e6b8ba9869","display_version":"VC52","unified":true,"active_only":true,"recovery_packet":"assets/petro10_19_recovery_vc4.json","recovery_packet_blob":"a292f0217d5896e685c04e47165bc21a31ef497e","recovery_packet_2":"assets/petro10_19_recovery_vc5.json","recovery_packet_2_blob":"dbdd92acbd7c8f3a41b1ae4f4f51ddcc966be71c","recovery_packet_3":"assets/petro10_19_recovery_vc6.json","recovery_packet_3_blob":"51bbb6a3166fbb9a4826e8fae5cfa035b192d401","recovery_packet_4":"assets/petro10_19_recovery_vc7.json","recovery_packet_4_blob":"32f17ba8f3248f811bbd5a696fef22d2e9053a20","recovery_packet_5":"assets/petro10_19_recovery_vc8.json","recovery_packet_5_blob":"2b96369c589821646a0249d09d56c073c03c6096","recovery_packet_6":"assets/petro10_19_recovery_vc9.json","recovery_packet_6_blob":"afad15c369e819fea63cded58ad1ee27ead758d5","recovery_packet_7":"assets/petro10_19_recovery_vc10.json","recovery_packet_7_blob":"54326bffb4454f3df53b3190452c3787fb18c367","recovery_packet_8":"assets/petro10_19_recovery_vc11.json","recovery_packet_8_blob":"e09fde8e69a2edc89a6a62cb8303588211e0e181","recovery_packet_9":"assets/petro10_19_recovery_vc12.json","recovery_packet_9_blob":"d1973a9b08bc262c76f77a8a1b10f1237ce0faff","recovery_packet_10":"assets/petro10_19_recovery_vc13.json","recovery_packet_10_blob":"6cd2c4e1d08f99a9d16628c1836dca1b929b89f9","recovery_packet_11":"assets/petro10_19_recovery_vc14.json","recovery_packet_11_blob":"b90a2171336764f3855ef6a6bac988a5c7e32fad","recovery_packet_12":"assets/petro10_19_recovery_vc15.json","recovery_packet_12_blob":"763bfaf5ec9dd11aa67c97a9eae4e48a626bbff1","recovery_packet_13":"assets/petro10_19_recovery_vc16.json","recovery_packet_13_blob":"d92604753f547d6001a2c45f420441f2df9c6028","recovery_packet_14":"assets/petro10_19_recovery_vc17.json","recovery_packet_14_blob":"f94656c12dd7bdadf003c178d7643b580aa24e75","recovery_packet_15":"assets/petro10_19_recovery_vc18.json","recovery_packet_15_blob":"b22a583eed80fa0a160fb53bda7d4e2ba45c157e","recovery_packet_16":"assets/petro10_19_recovery_vc19.json","recovery_packet_16_blob":"76ef46c1bcb05328391679f1cc09f41cacf6d616","recovery_packet_17":"assets/petro10_19_recovery_vc20.json","recovery_packet_17_blob":"002826fdd7cfcbc0faa48e066a56bf195824cd2d","recovery_packet_18":"assets/petro10_19_recovery_vc21.json","recovery_packet_18_blob":"d61184f666ddff46208065f5957fb9bbefd35a47","recovery_packet_19":"assets/petro10_19_recovery_vc22.json","recovery_packet_19_blob":"ac230e983b8a5686f97b3fa8eb1916daad980e23","media_repair_vc22":"assets/card_media_vc22.json","media_repair_vc22_blob":"209ef0fb02a8639c8f8873975c9ea774d69e45ab","trt_unified":true,"recovery_packet_20":"assets/petro10_19_recovery_vc24.json","recovery_packet_20_blob":"dbea5244b25fcbed5833f1306cf9112ffb72b2ac","recovery_packet_21":"assets/petro10_19_recovery_vc25.json","recovery_packet_21_blob":"e9790e0c3fbe8ebba784ca3c762e608c537ef39f","recovery_packet_22":"assets/petro10_19_recovery_vc26.json","recovery_packet_22_blob":"fff6a968e00f589f56374785a760ea2f4360c3fa","recovery_packet_23":"assets/petro10_19_recovery_vc27.json","recovery_packet_23_blob":"cd79f8343d437c6a818439fe5dc23dcadc966214","recovery_packet_24":"assets/petro10_19_recovery_vc28.json","recovery_packet_24_blob":"191143cfad38ee56b0994b4d79c1c739a7d1e462","recovery_packet_25":"assets/petro30_increment_vc29.json","recovery_packet_25_blob":"a204cdb2aeac40fd4439583d0f849d734265cdd5","evolution_batches":[{"path":"assets/cangucu_2026_evolution.json","git_blob":"acebe7be96b0d0b47e7797f2339ec448126fda04"}],"evolution_batch":{"source_path":"assets/catalog_snapshot_vc28.json","source_blob":"df410f234c44c8030b2c402b8795de963663242d","base_blob":"fcc47722446725c3fa4f35420beae2741b94216b","expected_count":67,"packets":[{"path":"increments/estudo31-avaliacao-pavimentos.json","blob":"d29df7b4a6549c404b0c9d8be4136bda07318ee2"},{"path":"increments/estudo32-drenagem-rodoviaria.json","blob":"e0ecf3d1cdf60ee706ac8a14fa91d018cfd9440d"},{"path":"increments/estudo33-terraplenagem.json","blob":"ef2e3b31caa57fabee99d5cbf3d4d71d9010f1c6"},{"path":"increments/estudo34-bermas-geometria.json","blob":"19217d04094082ef89ceaf67e56fcaa9bc20a2f6"},{"path":"increments/estudo35-topografia.json","blob":"318deb7890af616e74a0d49342f575eb0c050eca"},{"path":"increments/estudo36-altimetria-cadastro.json","blob":"ec822d90d48b1f1f50575106be6cf1aeb125bfec"},{"path":"increments/estudo37-hidrologia-fluxo.json","blob":"6ffb8b45905ee85f7a40a4904456d75391b2c8e5"},{"path":"increments/estudo38-produtividade-equipamentos.json","blob":"950140c2047d0ff3a15e60d1e16afff2305147cf"},{"path":"increments/vc29-pavimentacao.json","blob":"d2b82f6381313b50bff084f93e026afa1f643705"},{"path":"increments/vc30-medina-asfalto.json","blob":"f8b47ff3af3d95851c39c1d6c0be4abf06e8e222"}],"verified_hash_corrections":{"CARD-1473":{"transcribed":"45b6d387f25d45ee14ae03460dd561508ad37a4a00475a71f30dfb88fde835","verified":"45b6d387f25d45ee14ae03460dd561508ad37a4a4a00475a71f30dfb88fde835","evidence":"assets/catalog_lookup/cards/CARD-1473.json em 3b094a277dbfa2eaaf43b4f6bcbc50df4af2a271"}}},"git_blob":"f8ec08f96a17c990371b31f0db200863fccd1c6e","post_evolution_batches":[{"path":"assets/cangucu_reforco_vc32.json","git_blob":"6a7931595ececbf5b7c67e014869940b068ea5d0"}],"new_card_batches":[{"path":"assets/cangucu_novos_cartoes.json","git_blob":"7857b63c43103e1fa495c2bf10ca669204357c61"}],"final_evolution_batches":[{"path":"assets/portugues_vm9_evolution.json","git_blob":"6fa4615eec8936e1f50c9dd58696620015284c02"},{"path":"assets/estudos39_46_evolution.json","git_blob":"50232ac4137ce732a3d4fab0a0f5c9b7ffc3e502"},{"path":"assets/estudo47_evolution.json","git_blob":"25ac041c93428a77d1d1987e0417bd8faed3772b"},{"path":"assets/estudos48_50_evolution.json","git_blob":"b0537bec3ac37fb7302277b8ad2f4091f517c1b1"},{"path":"assets/petro31_evolution.json","git_blob":"7c55faaf50edc6b14e86a23b71317ef26bb75312"}],"incremental_batches":[{"path":"assets/petro31_new_cards.json","git_blob":"c4e22c8a967e1d73a68f138d2a75253402f4cdb1","kind":"new"},{"path":"assets/petro32_evolution.json","git_blob":"64a7dbd600a8860c975663a7c103407d077af28c","kind":"evolution"},{"path":"assets/petro32_new_cards.json","git_blob":"561b6a30364b089d182326a5ed73fb822efe382c","kind":"new"}],"consolidation_vc42":{"path":"increments/consolidacao-vc41-candidata-20261124.json","git_blob":"510e94e2da0d594508013963ecf88360c764c0df","scope":"32 principais / 56 remissões; 3 grupos mantidos"},"consolidation_batches":[{"path":"assets/catalog_consolidation_request.json","git_blob":"ba8c236e695f58e78cf4b829156275b2f66a6d91"}],"post_consolidation_incremental_batches":[{"path":"assets/petro33_new_cards.json","git_blob":"1c2ff6f92ac32faba0432c47a712443da09fa1fc","kind":"new"},{"path":"assets/petro33_evolution.json","git_blob":"75391b7180be4f8a660aa3555f15e206720e07be","kind":"evolution"},{"path":"assets/petro32_saldo_vc45.json","git_blob":"fc8c46e95eb6bc9d85dbabd432e220f2d07f050b","kind":"evolution"},{"path":"assets/petro32_33_reformulacao_vc46.json","git_blob":"48effa5ff8d7d1b526ba528558edcd5c0d5673e4","kind":"evolution"},{"path":"assets/petro34_vc47.json","git_blob":"2ecb9e84d830394512293023c746af2cbef4f584","kind":"evolution"},{"path":"assets/petro34_vc48.json","git_blob":"eb16b0d8b780415187b6d29f3cae1008324308b6","kind":"evolution"},{"path":"assets/petro34_novo_vc49.json","git_blob":"436b4c95545c1fc424131a464fb67a42b34c902e","kind":"new"},{"path":"assets/petro35_vc50.json","git_blob":"1f3bb17b3091d98abe8ef7af70afbd6867681e53","kind":"evolution"},{"kind":"consolidation","path":"assets/catalog_consolidation_requests/consolidacao-vc51-candidata.json","git_blob":"86270f613d608dbd61c81fabee96c65a69ef1d22"},{"path":"assets/petro35_saldo_vc52.json","git_blob":"1e325572a836ddc0d9a17ee2f79ad52f51ac2da2","kind":"evolution"}]});
+/* V365: complemento pós-carregamento idempotente, sem I/O, preservando o snapshot e o gerador. */
+function bm366ApplyRelations(list){const byId=new Map(list.map(c=>[c.id,c]));for(const [a,b] of [["CARD-1527","CARD-1533"],["CARD-1533","CARD-1527"],["CARD-1528","CARD-1595"],["CARD-1595","CARD-1528"],["CARD-1528","CARD-1531"],["CARD-1531","CARD-1528"],["CARD-0527","CARD-0579"],["CARD-0579","CARD-0527"],["CARD-0333","CARD-0527"],["CARD-0527","CARD-0333"],["CARD-0527","CARD-1529"],["CARD-1529","CARD-0527"],["CARD-1001","CARD-1536"],["CARD-1536","CARD-1001"],["CARD-0999","CARD-1001"],["CARD-1001","CARD-0999"],["CARD-0333","CARD-1525"],["CARD-1525","CARD-0333"],["CARD-1525","CARD-1529"],["CARD-1529","CARD-1525"],["CARD-0605","CARD-1322"],["CARD-1322","CARD-0605"],["CARD-0605","CARD-1595"],["CARD-1595","CARD-0605"],["CARD-0605","CARD-1049"],["CARD-1049","CARD-0605"],["CARD-0669","CARD-0679"],["CARD-0679","CARD-0669"],["CARD-0603","CARD-1043"],["CARD-1043","CARD-0603"],["CARD-1049","CARD-1060"],["CARD-1060","CARD-1049"],["CARD-0500","CARD-1523"],["CARD-1523","CARD-0500"],["CARD-0651","CARD-1523"],["CARD-1523","CARD-0651"],["CARD-1520","CARD-1524"],["CARD-1524","CARD-1520"],["CARD-1060","CARD-1522"],["CARD-1522","CARD-1060"],["CARD-1522","CARD-1524"],["CARD-1524","CARD-1522"],["CARD-0603","CARD-1049"],["CARD-1049","CARD-0603"],["CARD-0603","CARD-0922"],["CARD-0922","CARD-0603"],["CARD-0603","CARD-0917"],["CARD-0917","CARD-0603"],["CARD-0269","CARD-0432"],["CARD-0432","CARD-0269"],["CARD-0432","CARD-0603"],["CARD-0603","CARD-0432"],["CARD-1020","CARD-1021"],["CARD-1021","CARD-1020"],["CARD-0082","CARD-1112"],["CARD-1112","CARD-0082"]]){const c=byId.get(a);if(c&&byId.has(b))c.related_card_ids=[...new Set([...(Array.isArray(c.related_card_ids)?c.related_card_ids:[]),b])];}}
+function bmCatalogState(state,message=''){
+ window.BMCatalogLoadState=Object.freeze({state,message});
+ document.dispatchEvent(new CustomEvent('bm-catalog-load-state',{detail:window.BMCatalogLoadState}));
+}
+function loadCards(){
+ if(bm123CardsPromise)return bm123CardsPromise;
+ bmCatalogState('loading');
+ const out=document.getElementById('cardRows');
+ if(out&&!cards.length)out.textContent='Carregando biblioteca de cartões…';
+ bm123CardsPromise=(async()=>{
+  let p;
+  const privateSource=window.BMVS41PrivateCards;
+  try{
+   if(!privateSource)throw Error('Fonte privada ausente');
+   p=await privateSource.read();
+  }catch(e){
+   const message=e.name==='AbortError'?'Tempo limite de carregamento atingido':e.message;
+   bm123CardsPromise=null;bmCatalogState('error',message);
+   if(out)out.textContent='Não foi possível carregar o catálogo vigente: '+message+'. Tente novamente na aba Flashcards.';
+   throw Error('Catálogo consolidado indisponível: '+message);
+  }
+  try{
+   if(!meta)meta=p.meta;
+   guideData=p.guideData;generalGuide=p.generalGuide;auditF17=p.auditF17;answersF17=p.answersF17;
+   for(const [key,value] of Object.entries(p.globals))window[key]=key==='BM347CatalogStatus'?value:Object.freeze(value);
+   window.BM344CatalogStatus=window.BM345CatalogStatus;
+   const base=p.base,ijui=p.ijui;
+   cards=[...base,...ijui];loadedCards=true;if(!privateSource)bm366ApplyRelations(cards);const remap=p.consolidation?.redirects||{};for(const c of cards){if(c.active!==false&&Array.isArray(c.related_card_ids))c.related_card_ids=[...new Set(c.related_card_ids.map(id=>remap[id]||id))].filter(id=>id!==c.id);}
+   const filter=$('cardFilter');
+   for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())if(![...filter.options].some(o=>o.value===g))filter.add(new Option(g,g));
+   cardRender();
+   window.BM184Header?.updateCards(base.length,ijui.length,cards);
+   bmCatalogState('ready');
+  }catch(e){loadedCards=false;bm123CardsPromise=null;bmCatalogState('error',e.message);const out=document.getElementById('cardRows');if(out)out.textContent='Falha ao carregar cartões: '+e.message;throw e;}
+ })();
+ return bm123CardsPromise;
+}
+function loadCardsLegacy(){
+ return Promise.reject(Error('Fonte legada bloqueada no ambiente privado'));
+ if(bm123CardsPromise)return bm123CardsPromise;
+ const out=document.getElementById('cardRows');
+ if(out&&!cards.length)out.textContent='Carregando cartões públicos V194 + sincronização V274 + adendos V267…';
+ bm123CardsPromise=(async()=>{try{const m=await loadMeta(),all=await Promise.all(m.card_files.map(async f=>{const r=await fetch('assets/'+f+'?bm=194-fast1',{cache:'default'});if(!r.ok)throw Error('Falta '+f);return r.json()}));const ijR=await fetch('assets/ijui_flashcards_operacionais_v027.json',{cache:'no-store'});if(!ijR.ok)throw Error('Flashcards de Ijuí indisponíveis');const ij=await ijR.json();if(ij.cards.length<22||ij.format!=='BancoMestreIjuíInc001V027')throw Error('Cópia operacional de Ijuí incompatível');try{const guideRes=await fetch('assets/guias_ijui_v028.json',{cache:'no-store'});if(guideRes.ok){guideData=await guideRes.json();if(guideData.contagens.modelos!==11||guideData.contagens.macetes!==41)throw Error('Guias de Ijuí incompletos')}}catch(e){console.warn('Guia complementar não foi carregado:',e);guideData=null}
+try{const r=await fetch('assets/guia_geral_v028.json',{cache:'no-store'});if(r.ok){const g=await r.json();if(g.contagens.cartoes>=1494)generalGuide=g}}catch(e){console.warn('Metadados da base V015 indisponíveis:',e)}
+try{const fr=await fetch('assets/f17_historico_auditado_v029.json',{cache:'no-store'});if(!fr.ok)throw Error('Histórico F17 ausente');const f=await fr.json();if(f.format!=='BancoMestreF17AuditoriaV029'||Object.keys(f.historico_por_id||{}).length!==21)throw Error('Histórico não reconciliado');auditF17=f}catch(e){console.warn('Histórico F17 indisponível; NÃO inferir revisões',e);auditF17=null}
+try{
+ const rx=await fetch('assets/f17_respostas_9_v030.json',{cache:'no-store'});
+ if(!rx.ok)throw Error('Arquivo de respostas históricas ausente');
+ const rr=await rx.json();if(rr.format!=='BancoMestreRespostasHistoricasF17V030'||rr.count!==9||Object.keys(rr.por_id||{}).length!==9)throw Error('Arquivo de respostas inconsistentes');
+ answersF17=rr;
+}catch(e){console.warn('Respostas históricas indisponíveis, sem reconstrução',e);answersF17=null}
+const base=all.flat();if(base.length!==1518||new Set(base.map(c=>c.id)).size!==base.length)throw Error('Base pública V194 incompleta ou IDs duplicados');
+const syncedRes=await fetch('assets/cards_drive_sync_v274.json?v=274-1',{cache:'no-store'});
+if(!syncedRes.ok)throw Error('Sincronização pública V274 indisponível');
+const synced=await syncedRes.json();
+if(synced.format!=='BancoMestrePublicDriveSyncV274'||synced.source_version!=='V164'||synced.base_count!==1518||
+ !Array.isArray(synced.new_cards)||synced.new_cards.length!==14||
+ !Array.isArray(synced.updated_explanations)||synced.updated_explanations.length!==9)throw Error('Dados da sincronização V274 incompatíveis');
+const currentMap=new Map(base.map(c=>[c.id,c])),changes=new Set();
+for(const e of synced.updated_explanations){
+ if(changes.has(e.id)||!currentMap.has(e.id)||typeof e.expl!=='string'||!e.expl.trim())throw Error('V274: atualização inconsistente '+e.id);
+ changes.add(e.id);currentMap.get(e.id).expl=e.expl;
+}
+for(let j=0;j<synced.new_cards.length;j++){
+ const c=synced.new_cards[j], expected='CARD-'+String(1520+j).padStart(4,'0');
+ if(c.id!==expected||currentMap.has(c.id)||c.active!==true||!c.front||!c.back||!c.expl)throw Error('V274: novo cartão inválido '+(c.id||j));
+ currentMap.set(c.id,c);base.push(c);
+}
+if(base.length!==1532||new Set(base.map(c=>c.id)).size!==1532)throw Error('V274: base pública não reconciliada');
+const petro22Res=await fetch('assets/v276_petro22_public_cards.json?v=276-1',{cache:'no-store'});
+if(!petro22Res.ok)throw Error('Delta Petrobras 22 V276 não encontrado');
+const petro22=await petro22Res.json();
+if(petro22.format!=='BancoMestrePublicPetro22DeltaV276'||petro22.source_private_version!=='V165'||petro22.base_public_version!=='V275'||
+ !Array.isArray(petro22.new_cards)||petro22.new_cards.length!==1||!Array.isArray(petro22.updated_explanations)||petro22.updated_explanations.length!==1)throw Error('Delta V276 inválido');
+for(const change of petro22.updated_explanations){
+ const target=currentMap.get(change.id);
+ if(!target||typeof change.expl_append!=='string'||!change.expl_append.trim())throw Error('V276: reforço de cartão inválido '+change.id);
+ target.expl=String(target.expl||'')+'\n\n'+change.expl_append;
+}
+const extra=petro22.new_cards[0];
+if(extra.id!=='CARD-1534'||currentMap.has(extra.id)||extra.active!==true||!extra.front||!extra.back||!extra.expl)throw Error('V276: cartão novo inválido');
+base.push(extra);currentMap.set(extra.id,extra);
+if(base.length!==1533||new Set(base.map(c=>c.id)).size!==1533)throw Error('V276: contagem ou IDs inconsistentes');
+const addRes=await fetch('assets/estudos_incrementos_v267.json?v=267',{cache:'no-store'});if(!addRes.ok)throw Error('Incrementos de cartões V267 indisponíveis');const add=await addRes.json();if(add.version!=='V267-PETRO17-PETRO20'||!Array.isArray(add.cards)||add.cards.length!==19)throw Error('Incrementos V267 incompatíveis com o arquivo publicado');const addIDs=new Set();for(const inc of add.cards){if(addIDs.has(inc.id))throw Error('ID duplicado em incrementos '+inc.id);addIDs.add(inc.id);const alvo=base.find(c=>c.id===inc.id);if(!alvo||alvo.active!==true)throw Error('ID não encontrado na base V194: '+inc.id);alvo.expl=String(alvo.expl||'')+'\n\n'+inc.expl_append;alvo.search_keywords=String(inc.search_keywords||'');}const relatedRes=await fetch('assets/v277_petro22_relacionados_cards.json?v=277-1',{cache:'no-store'});
+if(!relatedRes.ok)throw Error('V277: faltam os cartões relacionados Petrobras 22');
+const related=await relatedRes.json();
+if(related.format!=='BancoMestrePublicPetro22RelatedV277'||related.source_private_version!=='V166'||
+ related.base_public_version!=='V276'||!Array.isArray(related.updated_explanations)||related.updated_explanations.length!==2)throw Error('V277: incremento incompatível');
+const relatedExpected=new Set(['CARD-0578','CARD-0924']);
+for(const rec of related.updated_explanations){
+ const target=currentMap.get(rec.id);
+ if(!relatedExpected.delete(rec.id)||!target||target.active!==true||typeof rec.expl_append!=='string'||!rec.expl_append.trim()||target.expl.includes(rec.expl_append))throw Error('V277: atualização duplicada, ausente ou inválida: '+rec.id);
+ target.expl=String(target.expl||'')+'\n\n'+rec.expl_append;
+}
+if(relatedExpected.size||base.length!==1533||new Set(base.map(c=>c.id)).size!==1533)throw Error('V277: IDs ou catálogo não conciliados');
+const res325=await fetch('assets/cards_public_v325_delta.json?v=325-1',{cache:'no-store'});
+if(!res325.ok)throw Error('V325: faltam os cartões de sincronização');
+const sync325=await res325.json();
+if(sync325.format!=='BancoMestrePublicDeltaV325'||sync325.source_private_version!=='V173'||sync325.base_public_version!=='V324'||
+sync325.new_cards?.length!==3||sync325.updated_explanations?.length!==35||sync325.updated_relations?.length!==40)throw Error('V325: incremento inválido');
+const expected325=['CARD-1535','CARD-1536','CARD-1537'];
+for(let j=0;j<3;j++){const c=sync325.new_cards[j];
+if(c.id!==expected325[j]||currentMap.has(c.id)||c.active!==true||!c.front||!c.back||!c.expl)throw Error('V325: novo cartão inválido '+c.id);
+base.push(c);currentMap.set(c.id,c);}
+const seenExpl325=new Set(),seenRelated325=new Set();
+for(const up of sync325.updated_explanations){
+ if(seenExpl325.has(up.id)||!currentMap.has(up.id)||typeof up.expl!=='string'||typeof up.mnemonic!=='string')throw Error('V325: explicação inválida '+up.id);
+ seenExpl325.add(up.id);const target=currentMap.get(up.id);target.expl=up.expl;target.mnemonic=up.mnemonic;
+}
+for(const up of sync325.updated_relations){
+ if(seenRelated325.has(up.id)||!currentMap.has(up.id))throw Error('V325: vínculo inválido '+up.id);
+ seenRelated325.add(up.id);const target=currentMap.get(up.id);
+ for(const key of ['related_card_ids','related_question_ids','related_image_ids']){
+  if(Object.prototype.hasOwnProperty.call(up,key)){
+   if(!Array.isArray(up[key])||up[key].some(x=>typeof x!=='string'))throw Error('V325: metadado inválido '+up.id+'/'+key);
+   target[key]=up[key].slice();
+  }
+ }
+}
+if(base.length!==1536||new Set(base.map(c=>c.id)).size!==1536)throw Error('V325: catálogo não alcançou 1.536 IDs');
+const p25res=await fetch('assets/petro25_c001_card1538_v334.json?v=334-1',{cache:'no-store'});
+if(!p25res.ok)throw Error('V334: registro PETRO25-C001 indisponível');
+const p25=await p25res.json();
+if(p25.format!=='BancoMestrePetro25IncrementV334'||p25.new_cards?.length!==1||
+p25.new_cards[0].id!=='CARD-1538'||p25.related_updates?.length!==4||
+p25.new_layers?.length!==11||currentMap.has('CARD-1538'))throw Error('V334: dados incompatíveis');
+const ids334=new Set(['CARD-1155','CARD-0529','CARD-0697','CARD-1065']);
+for(const change of p25.related_updates){
+ if(!ids334.delete(change.id)||!currentMap.has(change.id)||!change.expl_append?.trim())
+   throw Error('V334: relacionado inválido '+change.id);
+ const card=currentMap.get(change.id);
+ if(!card.expl.includes(change.expl_append))card.expl=String(card.expl||'')+'\n\n'+change.expl_append;
+ card.related_card_ids=[...new Set([...(card.related_card_ids||[]),'CARD-1538'])];
+ card.related_question_ids=[...new Set([...(card.related_question_ids||[]),'PETRO25-C001'])];
+}
+if(ids334.size)throw Error('V334: falta relacionado');
+const fresh=p25.new_cards[0];
+if(fresh.active!==true||!fresh.front||!fresh.back||!fresh.expl)throw Error('V334: cartão incompleto');
+base.push(fresh);currentMap.set(fresh.id,fresh);
+
+if(base.length!==1537||new Set(base.map(c=>c.id)).size!==1537)
+ throw Error('V334: catálogo deve ter 1.537 cartões únicos');
+const extraRes=await fetch('assets/petro25_conversation_delta_v335.json?v=335-1',{cache:'no-store'});
+if(!extraRes.ok)throw Error('V335: conteúdo de Petrobras 25 indisponível');
+const extra335=await extraRes.json();
+if(extra335.format!=='BancoMestrePetro25ConversationDeltaV335'||
+   extra335.new_cards?.length!==3||extra335.related_updates?.length!==11||
+   extra335.new_layers?.length!==3)throw Error('V335: estrutura inválida');
+const exNewIds=new Set(['CARD-1539','CARD-1540','CARD-1541']);
+const exRelIds=new Set(['CARD-0230','CARD-0404','CARD-0521','CARD-0857','CARD-0858','CARD-0479','CARD-1212','CARD-1385','CARD-1432','CARD-1434','CARD-1435']);
+const links335={
+ 'CARD-0479':['CARD-1435'], 'CARD-1212':['CARD-1541'], 'CARD-1385':['CARD-1539','CARD-1540'],
+ 'CARD-1432':['CARD-1434','CARD-1539','CARD-1540','CARD-1541'],
+ 'CARD-1434':['CARD-1432','CARD-1539','CARD-1541'],
+ 'CARD-1435':['CARD-0479']};
+for(const change of extra335.related_updates){
+ if(!exRelIds.delete(change.id)||!currentMap.has(change.id)||!change.expl_append?.trim())
+  throw Error('V335: relacionado inválido '+change.id);
+ const c=currentMap.get(change.id);
+ if(!String(c.expl||'').includes(change.expl_append))c.expl=String(c.expl||'')+'\n\n'+change.expl_append;
+ if(links335[change.id])c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...links335[change.id]])];
+ if(change.id==='CARD-1432'||change.id==='CARD-1434')
+  c.related_question_ids=[...new Set([...(c.related_question_ids||[]),'PETRO25-TRANSPETRO-2011-Q45'])];
+}
+if(exRelIds.size)throw Error('V335: cartões relacionados faltantes');
+for(const id of ['CARD-1539','CARD-1540','CARD-1541']){
+ const c=extra335.new_cards.find(c=>c.id===id);
+ const item=extra335.new_layers.find(x=>x.id===id);
+ if(!c||!c.active||!c.front||!c.back||!c.expl||!item||item.layers.length!==11||currentMap.has(id))
+  throw Error('V335: novo cartão inconsistente '+id);
+ base.push(c);currentMap.set(id,c);exNewIds.delete(id);
+}
+if(exNewIds.size||base.length!==1540||new Set(base.map(c=>c.id)).size!==1540)
+ throw Error('V335: catálogo precisa ter 1.540 cartões únicos');
+const editorialV336Res=await fetch('assets/petro25_editorial_v336.json?v=336-2',{cache:'no-store'});
+if(!editorialV336Res.ok)throw Error('V336: evolução dos cartões relacionada indisponível');
+const editorialV336=await editorialV336Res.json();
+if(editorialV336.format!=='BancoMestreV333CompliantEditorialV336'||
+   Object.keys(editorialV336.items||{}).length!==14)
+ throw Error('V336: corpus metodológico de 14 cartões inválido');
+for(const [id,profile] of Object.entries(editorialV336.items)){
+ const c=currentMap.get(id);
+ if(!c||!Array.isArray(profile.related_card_ids)||profile.paragraphs.length<2)
+  throw Error('V336: registro ou vínculos incorretos '+id);
+ for(const related of profile.related_card_ids){
+  if(!currentMap.has(related)||!editorialV336.items[related]?.related_card_ids?.includes(id))
+   throw Error('V336: vínculo não recíproco '+id+' ↔ '+related);
+ }
+ c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...profile.related_card_ids])];
+ if(profile.front_override){if(!profile.front_history_v335||!profile.front_override.trim())throw Error('V336: frente sem histórico');c.front=profile.front_override;}
+ c.last_relationship_at=profile.relationship_event_date;
+ c.last_editorial_modified_at=profile.editorial_last_modified;
+}
+
+
+
+// V337 · Petrobras 26: 13 cartões existentes + 6 novos, sem tocar na base privada/SRS.
+const r337=await fetch('assets/petro26_delta_v337.json?v=337-1',{cache:'no-store'});
+if(!r337.ok)throw Error('V337: conteúdo dos cartões não carregado');
+const data337=await r337.json();
+if(data337.format!=='BancoMestrePetro26UpdateV337'||data337.counts?.new_cards!==6||
+ data337.counts?.updated!==13||Object.keys(data337.profiles||{}).length!==19)
+ throw Error('V337: contagem de cartões inválida');
+const original337={},changed337=new Set();
+for(const p of data337.updates){
+ const c=currentMap.get(p.id);
+ if(!c||!c.active||changed337.has(p.id)||!p.front?.trim()||!p.back?.trim()||
+  p.paragraphs?.length!==3||data337.profiles[p.id]?.layers?.length!==11)
+  throw Error('V337: evolução inválida '+p.id);
+ original337[p.id]={front:c.front,back:c.back,expl:c.expl,
+  mnemonic:c.mnemonic,reference:c.reference,related_card_ids:[...(c.related_card_ids||[])],
+  related_question_ids:[...(c.related_question_ids||[])]};
+ c.front=p.front;c.back=p.back;c.expl=p.paragraphs.join(String.fromCharCode(10,10));c.mnemonic=p.mnemonic;
+ c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...p.related_card_ids])];
+ c.related_question_ids=[...new Set([...(c.related_question_ids||[]),...p.related_question_ids])];
+ c.search_keywords=[c.search_keywords||'',p.front,data337.profiles[p.id].compare].join(' ');
+ c.last_relationship_at=p.relationship_event_date;
+ c.last_editorial_modified_at=p.editorial_last_modified;
+ c.legacy_snapshot_v336=original337[p.id];changed337.add(p.id);
+}
+if(changed337.size!==13)throw Error('V337: atualizações ausentes');
+const expectedNew337=['CARD-1542','CARD-1543','CARD-1544','CARD-1545','CARD-1546','CARD-1547'];
+for(let i=0;i<expectedNew337.length;i++){
+ const c=data337.new_cards[i];
+ if(!c||c.id!==expectedNew337[i]||currentMap.has(c.id)||c.active!==true||
+  !c.front?.trim()||!c.back?.trim()||!c.expl?.trim()||
+  data337.profiles[c.id]?.layers?.length!==11)throw Error('V337: cartão novo inválido '+(c?.id||i));
+ base.push(c);currentMap.set(c.id,c);
+}
+for(const [id,p] of Object.entries(data337.profiles)){
+ const c=currentMap.get(id);
+ if(!c||p.layers.length!==11)throw Error('V337: ficha sem 11 módulos '+id);
+ for(const target of p.related_card_ids||[]){
+  const linked=currentMap.get(target);
+  if(!linked||!data337.profiles[target]?.related_card_ids?.includes(id))
+   throw Error('V337: vínculo não recíproco '+id+' / '+target);
+  linked.related_card_ids=[...new Set([...(linked.related_card_ids||[]),id])];
+ }
+}
+if(base.length!==1546||new Set(base.map(c=>c.id)).size!==1546)
+ throw Error('V337: esperados 1.546 cartões únicos');
+window.BM337Originals=Object.freeze(original337);
+window.BM337CatalogStatus=Object.freeze({version:'V337',cards:base.length,
+ updated:13,created:6,srs_changed:false,originals_preserved:true});
+
+// V338 · sincronização de conteúdo Petrobras 26: 11 novos + 7 evoluções, preservando V337 e SRS.
+const r338=await fetch('assets/petro26_study_sync_v338.json?v=338-1',{cache:'no-store'});
+if(!r338.ok)throw Error('V338: incremento de estudo indisponível');
+const data338=await r338.json();
+if(data338.format!=='BancoMestrePetro26StudySyncV338'||
+ data338.counts?.new_cards!==11||data338.counts?.updated!==7||data338.counts?.total!==18||
+ Object.keys(data338.profiles||{}).length!==18)throw Error('V338: pacote inconsistente');
+const originals338={},changed338=new Set();
+for(const p of data338.updates){
+ const c=currentMap.get(p.id);
+ if(!c||c.active!==true||changed338.has(p.id)||!p.front?.trim()||!p.back?.trim()||
+ p.paragraphs?.length!==3||data338.profiles[p.id]?.layers?.length!==11)
+ throw Error('V338: evolução incompleta '+p.id);
+ originals338[p.id]={front:c.front,back:c.back,expl:c.expl,
+  mnemonic:c.mnemonic,reference:c.reference,related_card_ids:[...(c.related_card_ids||[])],
+  related_question_ids:[...(c.related_question_ids||[])]};
+ c.front=p.front;c.back=p.back;c.expl=p.paragraphs.join(String.fromCharCode(10,10));c.mnemonic=p.mnemonic;
+ c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...p.related_card_ids])];
+ c.related_question_ids=[...new Set([...(c.related_question_ids||[]),...p.related_question_ids])];
+ c.search_keywords=[c.search_keywords||'',p.front,data338.profiles[p.id].compare].join(' ');
+ c.last_relationship_at=p.relationship_event_date;c.last_editorial_modified_at=p.editorial_last_modified;
+ c.legacy_snapshot_v337=originals338[p.id];changed338.add(p.id);
+}
+if(changed338.size!==7)throw Error('V338: sete evoluções esperadas');
+for(let i=0;i<data338.new_cards.length;i++){
+ const c=data338.new_cards[i],id='CARD-'+String(1548+i).padStart(4,'0');
+ if(!c||c.id!==id||currentMap.has(c.id)||c.active!==true||!c.front?.trim()||
+ !c.back?.trim()||!c.expl?.trim()||data338.profiles[id]?.layers?.length!==11)
+ throw Error('V338: cartão novo inválido '+id);
+ base.push(c);currentMap.set(c.id,c);
+}
+for(const [id,p] of Object.entries(data338.profiles)){
+ if(!currentMap.has(id)||p.layers.length!==11||p.paragraphs.length!==3)
+ throw Error('V338: perfil ausente '+id);
+ for(const rel of p.related_card_ids||[]){
+  const c=currentMap.get(rel);
+  if(!c||!data338.profiles[rel]?.related_card_ids?.includes(id))
+   throw Error('V338: relação não recíproca '+id+'/'+rel);
+  c.related_card_ids=[...new Set([...(c.related_card_ids||[]),id])];
+ }
+}
+if(base.length!==1557||new Set(base.map(c=>c.id)).size!==1557)
+ throw Error('V338: total de cartões inválido');
+window.BM338Originals=Object.freeze(originals338);
+window.BM338CatalogStatus=Object.freeze({version:'V338',cards:base.length,
+ updated:7,created:11,srs_changed:false,originals_preserved:true});
+
+// V340 · a questão original de peneiras (10+6) e a escala NBR6502, com imagem privada vinculada.
+const r340=await fetch('assets/petro26_granulometry_delta_v340.json?v=340-1',{cache:'no-store'});
+if(!r340.ok)throw Error('V340: conteúdo de granulometria indisponível');
+const data340=await r340.json();
+if(data340.format!=='BancoMestrePetro26GranulometryV340'||
+ data340.counts?.new_cards!==1||data340.counts?.updated!==3||
+ Object.keys(data340.profiles||{}).length!==4)
+ throw Error('V340: pacote incompleto');
+const originals340={},changed340=new Set();
+for(const change of data340.updates){
+ const c=currentMap.get(change.id);
+ if(!c||c.active!==true||changed340.has(change.id)||!change.front?.trim()||
+ !change.back?.trim()||change.paragraphs?.length!==3||
+ data340.profiles[change.id]?.layers?.length!==11)
+ throw Error('V340: cartão existente incompatível '+change.id);
+ originals340[change.id]={front:c.front,back:c.back,expl:c.expl,
+  mnemonic:c.mnemonic,reference:c.reference,
+  related_card_ids:[...(c.related_card_ids||[])],
+  related_question_ids:[...(c.related_question_ids||[])]};
+ c.front=change.front;c.back=change.back;
+ c.expl=change.paragraphs.join(String.fromCharCode(10,10));c.mnemonic=change.mnemonic;
+ c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...change.related_card_ids])];
+ c.related_question_ids=[...new Set([...(c.related_question_ids||[]),...change.related_question_ids])];
+ c.media_ids=[...new Set([...(c.media_ids||[]),...change.media_ids])];
+ c.last_relationship_at=change.relationship_event_date;
+ c.last_editorial_modified_at=change.editorial_last_modified;
+ c.legacy_snapshot_v339=originals340[change.id];changed340.add(change.id);
+}
+if(changed340.size!==3)throw Error('V340: esperado aprimoramento em 3 IDs');
+const fresh340=data340.new_cards[0];
+if(fresh340.id!=='CARD-1559'||currentMap.has(fresh340.id)||fresh340.active!==true||
+ !fresh340.front||!fresh340.back||data340.profiles[fresh340.id]?.layers?.length!==11)
+ throw Error('V340: cartão NBR6502 inválido');
+base.push(fresh340);currentMap.set(fresh340.id,fresh340);
+const targets340=new Set(['CARD-1559','CARD-0751','CARD-0752','CARD-0753']);
+for(const [id,profile] of Object.entries(data340.profiles)){
+ if(!targets340.has(id)||!profile.visuals?.[0]?.src||
+ !currentMap.get(id))throw Error('V340: perfil/mídia não encontrado '+id);
+ for(const rel of profile.related_card_ids||[]){
+  const linked=currentMap.get(rel);
+  if(!linked)throw Error('V340: vínculo sem cartão '+id+'/'+rel);
+  if(targets340.has(rel)&&!data340.profiles[rel].related_card_ids.includes(id))
+   throw Error('V340: vínculo sem reciprocidade '+id+'/'+rel);
+  linked.related_card_ids=[...new Set([...(linked.related_card_ids||[]),id])];
+ }
+}
+if(base.length!==1558||new Set(base.map(c=>c.id)).size!==1558)
+ throw Error('V340: total esperado 1.558');
+window.BM340Originals=Object.freeze(originals340);
+window.BM340CatalogStatus=Object.freeze({version:'V340',cards:base.length,
+ updated:3,created:1,original_question_image_preserved:true,
+ original_image_id:'IMG-PETRO26-NM248-TAB1-01',srs_changed:false});
+
+// V345 — dois cartões aprovados e evoluções aditivas Petrobras 28.
+const r344=await fetch('assets/petro28_sync_v345.json?v=345-1',{cache:'no-store'});
+if(!r344.ok)throw Error('V345: incremento indisponível');
+const data344=await r344.json();
+if(data344.format!=='BancoMestrePetro28V345'||data344.new_cards.length!==9||Object.keys(data344.profiles).length!==16||Object.keys(data344.proposals).length!==0)throw Error('V345: pacote incompleto');
+for(const [cardId,p] of Object.entries(data344.profiles)){
+ const c=currentMap.get(cardId);
+ if(!c||p.layers.length!==11)throw Error('V345: cartão relacionado ausente '+cardId);
+ c.legacy_snapshot_v343_p28={front:c.front,back:c.back,expl:c.expl,mnemonic:c.mnemonic,related_card_ids:[...(c.related_card_ids||[])]};
+ if(p.front_override===true){c.front=p.front;c.back=p.back;}
+ c.expl=[c.expl||'', 'Petrobras 28 — '+p.back, p.layers[9].texto].filter(Boolean).join('\n\n');
+ c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...p.related_card_ids])];
+ c.related_question_ids=[...new Set([...(c.related_question_ids||[]),p.question])];
+ c.search_keywords=[c.search_keywords||'',p.title,p.front,p.back].join(' ');
+}
+for(const fresh of data344.new_cards){
+ if(currentMap.has(fresh.id)||!data344.approved[fresh.id]||data344.approved[fresh.id].layers.length!==11||fresh.active!==true)throw Error('V345: conflito '+fresh.id);
+ base.push(fresh);currentMap.set(fresh.id,fresh);
+}
+for(const p of [...Object.values(data344.profiles),...Object.values(data344.approved)])for(const rel of p.related_card_ids){
+ const c=currentMap.get(rel);if(!c)throw Error('V345: relação sem destino '+rel);
+ c.related_card_ids=[...new Set([...(c.related_card_ids||[]),p.id])];
+}
+for(const m of data344.media){for(const id of m.card_ids){const c=currentMap.get(id);if(!c)throw Error('V345: mídia sem cartão '+id);c.media_ids=[...new Set([...(c.media_ids||[]),m.media_id])];}}
+if(base.length!==1567||new Set(base.map(c=>c.id)).size!==1567||base.filter(c=>c.active!==false).length!==1550)throw Error('V345: total esperado 1567/1550');
+window.BM345CatalogStatus=window.BM344CatalogStatus=Object.freeze({version:'V345',cards:base.length,created:9,updated:16,srs_changed:false});
+
+
+// V346: recuperação retroativa das propostas e evoluções Petrobras 24.
+const p24r=await fetch('assets/petro24_regularizacao_v346.json?v=346-1',{cache:'no-store'});
+if(!p24r.ok)throw Error('V346: Petrobras 24 indisponível');
+const p24=await p24r.json();
+if(p24.format!=='BancoMestrePetro24RegularizacaoV346'||p24.new_cards.length!==19||p24.existing_updates.length!==19||Object.keys(p24.profiles).length!==19)throw Error('V346: pacote inválido');
+for(const x of p24.new_cards){if(currentMap.has(x.id)||!x.active||!x.front||!x.back||p24.profiles[x.id].layers.length!==11)throw Error('V346: cartão inválido '+x.id);base.push(x);currentMap.set(x.id,x);}
+for(const u of p24.existing_updates){const c=currentMap.get(u.id);if(!c||!u.note)throw Error('V346: evolução inválida '+u.id);if(!String(c.expl||'').includes(u.note))c.expl=String(c.expl||'')+'\n\nPetrobras 24 — '+u.note;}
+for(const u of p24.relations){const c=currentMap.get(u.id);if(!c)throw Error('V346: origem de vínculo ausente '+u.id);for(const rid of u.related_card_ids){if(!currentMap.has(rid))throw Error('V346: destino ausente '+rid);}c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...u.related_card_ids])];c.related_question_ids=[...new Set([...(c.related_question_ids||[]),...u.related_question_ids])];}
+for(const x of p24.new_cards){for(const rid of x.related_card_ids){const c=currentMap.get(rid);if(!c)throw Error('V346: relação não resolvida '+rid);c.related_card_ids=[...new Set([...(c.related_card_ids||[]),x.id])];}}
+if(base.length!==1586||new Set(base.map(c=>c.id)).size!==1586||base.filter(c=>c.active!==false).length!==1569)throw Error('V346: esperado catálogo 1586/1569');
+window.BM346CatalogStatus=Object.freeze({version:'V346',cards:base.length,created:19,updated:19,srs_changed:false});
+
+/* V347 — conciliação editorial PETRO20–29; somente conteúdo técnico público. */
+const retro347=await fetch('assets/petro20_29_delta_v347.json?v=347-1').then(r=>{if(!r.ok)throw Error('V347 indisponível');return r.json()});
+if(retro347.format!=='BancoMestreRetroV347'||retro347.new_cards.length!==15)throw Error('V347 inválida');
+for(const c of retro347.new_cards){if(currentMap.has(c.id))throw Error('V347 ID duplicado '+c.id);base.push(c);currentMap.set(c.id,c);}
+for(const [id,notes] of Object.entries(retro347.notes)){const c=currentMap.get(id);if(!c)throw Error('V347 falta '+id);for(const n of notes){if(!String(c.expl||'').includes(n.note))c.expl=(c.expl||'')+'\n\n'+n.note;}}
+for(const [id,ids] of Object.entries(retro347.relations)){const c=currentMap.get(id);if(!c||ids.some(x=>!currentMap.has(x)))throw Error('V347 relação inválida '+id);c.related_card_ids=[...new Set([...(c.related_card_ids||[]),...ids])];}
+if(base.length!==1601||currentMap.size!==1601||base.filter(c=>c.active!==false).length!==1584)throw Error('V347 catálogo divergente');
+window.BM347CatalogStatus={version:'V347',total:base.length,active:1584,new:15,proposalsResolved:11};
+
+/* V348 — reparos recíprocos e camada visual sem dados privados. */
+const vis348=await fetch('assets/visual_integrity_v348.json?v=348-1').then(r=>{if(!r.ok)throw Error('V348 indisponível');return r.json()});
+for(const x of vis348.reciprocal_repairs){const c=currentMap.get(x.from);if(!c||!currentMap.has(x.to))throw Error('V348 vínculo inválido');c.related_card_ids=[...new Set([...(c.related_card_ids||[]),x.to])];}
+/* V350: vínculos didáticos recíprocos PETRO10–11, sem mutações privadas. */
+try{const rr350=await fetch('assets/petro10_11_relacoes_v350.json?v=350-1').then(r=>{if(!r.ok)throw Error('V350 indisponível');return r.json()});for(const x of rr350.relations){const c=currentMap.get(x.from);if(c&&currentMap.has(x.to))c.related_card_ids=[...new Set([...(c.related_card_ids||[]),x.to])];}}catch(e){console.warn('V350 vínculos indisponíveis; catálogo preservado',e);}
+/* V352: vínculos de EPI, NR-5 e PCMSO, complementares à V350. */
+try{const rr352=await fetch('assets/petro10_11_media_relacoes_v352.json?v=352-1').then(r=>{if(!r.ok)throw Error('V352 indisponível');return r.json()});for(const x of rr352.relations){const c=currentMap.get(x.from);if(c&&currentMap.has(x.to))c.related_card_ids=[...new Set([...(c.related_card_ids||[]),x.to])];}}catch(e){console.warn('V352 relações indisponíveis; catálogo preservado',e);}
+/* V354: vínculos didáticos incrementais, sem modificar SRS. */
+try{const rr354=await fetch('assets/petro12_13_incremento_v354.json?v=354-1').then(r=>{if(!r.ok)throw Error('V354 indisponível');return r.json()});for(const x of rr354.relations){const c=currentMap.get(x.from);if(c&&currentMap.has(x.to))c.related_card_ids=[...new Set([...(c.related_card_ids||[]),x.to])];}}catch(e){console.warn('V354 relações indisponíveis; catálogo preservado',e);}
+/* V356: vínculos PETRO14. */
+try{const rr356=await fetch('assets/petro14_incremento_v358.json?v=358-1').then(r=>{if(!r.ok)throw Error('V356 indisponível');return r.json()});for(const x of rr356.relations){const c=currentMap.get(x.from);if(c&&currentMap.has(x.to))c.related_card_ids=[...new Set([...(c.related_card_ids||[]),x.to])];}}catch(e){console.warn('V356 relações indisponíveis; catálogo preservado',e);}
+/* PETRO29: identities assigned after checking the canonical catalog; original IDs unchanged. */
+const p29remap=await fetch('assets/petro29_remap_v1.json?v=1',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PETRO29 remap indisponível');return r.json()});
+if(p29remap.format!=='BancoMestrePetro29RemapV1'||p29remap.new_cards.length!==31||Object.keys(p29remap.profiles).length!==31)throw Error('PETRO29 pacote inválido');
+const p29ids=new Set(p29remap.new_cards.map(x=>x.id));
+if(p29ids.size!==31||p29remap.new_cards.some(x=>currentMap.has(x.id)||!x.active||!x.front||!x.back||p29remap.profiles[x.id]?.layers?.length!==11||x.related_card_ids.some(id=>!currentMap.has(id)&&!p29ids.has(id))))throw Error('PETRO29 identidade ou vínculo divergente');
+for(const x of p29remap.new_cards){base.push(x);currentMap.set(x.id,x)}
+for(const x of p29remap.new_cards)for(const rid of x.related_card_ids){const target=currentMap.get(rid);target.related_card_ids=[...new Set([...(target.related_card_ids||[]),x.id])];}
+if(base.length!==1632||currentMap.size!==1632||base.filter(c=>c.active!==false).length!==1615)throw Error('PETRO29 total divergente');
+window.BMPetro29RemapStatus=Object.freeze({cards:31,total:base.length,active:1615,srsChanged:false});
+const ijui=ij.cards.map(c=>({...c,provisional:true,group:'LEGISLACAO',discipline:'Legislação',subject:c.subject||'Legislação municipal'}));cards=[...base,...ijui];loadedCards=true;bm366ApplyRelations(cards);const counter=document.querySelector('.stats .stat:nth-child(2) b');if(counter)counter.textContent=(base.length+ijui.length).toLocaleString('pt-BR');window.BM184Header?.updateCards(base.length,ijui.length,cards);for(const g of [...new Set(cards.map(c=>c.discipline||'Outros'))].sort())$('cardFilter').add(new Option(g,g));cardRender()}catch(e){loadedCards=false;bm123CardsPromise=null;const out=document.getElementById('cardRows');if(out)out.textContent='Falha ao carregar cartões: '+e.message;throw e}})();
+return bm123CardsPromise;
+}
+
+function infoBlock(parent,title,text){
+ if(text===undefined||text===null||text==='')return;
+ const section=el('div',null,'richSection');
+ section.append(el('h4',title),el('p',String(text)));
+ parent.append(section);
+}
+function infoList(parent,title,items,format){
+ if(!items?.length)return;const block=el('div',null,'richSection');block.append(el('h4',title));const ul=el('ul');
+ for(const x of items){const li=el('li',format(x));ul.append(li)}block.append(ul);parent.append(block);
+}
+function linkedQuestions(cardId){
+ if(!guideData)return [];
+ return Object.values(guideData.questoes).filter(q=>q.vinculos_cartoes.some(x=>x.cartao===cardId));
+}
+function legalCoverage(){
+ const root=$('coverageSummary');root.replaceChildren();if(!guideData)return;
+ const wrap=el('details');const summary=el('summary','Cobertura das 25 normas estudadas em Ijuí (planejamento, não domínio)');
+ wrap.append(summary);const grid=el('div',null,'grid');grid.style.marginTop='15px';
+ for(const x of guideData.cobertura_leis){
+  const b=card(x.lei,x.lei_id,'PDF: '+x.pdf);
+  b.c.append(el('p','Núcleos previstos: '+x.nucleos_planejados+' · com questões liberadas: '+x.nucleos_cobertos));
+  b.c.append(el('p','Situação: '+x.dominio));
+  grid.append(b.c);
+ }wrap.append(grid);root.append(wrap);
+ for(const item of guideData.pendencias_pos_checkpoint||[]){
+   const n=el('div',null,'notice');
+   n.append(el('strong',item.questao_id+' — '+item.tema),el('p',item.evento+' · '+item.estado));
+   root.append(n);
+ }
+}
+const BM_CARD_SEARCH_INDEX=new WeakMap();
+function bmCardSearchText(c){
+ const fields=[c.id,c.front,c.back,c.discipline,c.subject,c.sub,c.search_keywords,c.reference];
+ const previous=BM_CARD_SEARCH_INDEX.get(c);
+ if(previous&&fields.every((value,i)=>value===previous.fields[i]))return previous.text;
+ const text=fold(fields.filter(Boolean).join(' '));
+ BM_CARD_SEARCH_INDEX.set(c,{fields,text});return text;
+}
+function cardRender(){
+ const h=hidden('CARD'),show=$('cardHidden').checked,q=fold($('cardSearch').value),f=$('cardFilter').value;
+ let a=cards.filter(c=>(c.provisional||c.active!==false||document.getElementById("bm119ShowInactive")?.checked)&&(c.provisional||c.active!==false)&&(!$('cardRecoveredOnly').checked||!!answersF17?.por_id?.[c.id])&&(!$('cardReviewedOnly').checked||!!auditF17?.historico_por_id?.[c.id])&&(show||!h.has(c.id))&&(f==='all'||c.discipline===f)&&(window.BM152FlashFilters?.matches?.(c)!==false)&&($('cardTopicFilter').value==='all'||(c.subject||'Outros')===$('cardTopicFilter').value)&&(!focusGroup||c.group===focusGroup)&&(!q||bmCardSearchText(c).includes(q)));
+ if(window.BM281CardSort){a=window.BM281CardSort.filterAndSort(a);if(window.BM281CardSort.limited)cardLimit=Math.max(cardLimit,window.BM281CardSort.limit)}
+ const countNode=$('cardCount');
+ countNode.dataset.bmOfficialSelection=String(a.length);
+ const account=window.BMAccountInfo?.();const officialLabel=account?'Drive · '+account.version+' · '+account.count.toLocaleString('pt-BR')+' cartões ativos':'Entre para carregar seus cartões';
+ if(countNode.textContent!==officialLabel)countNode.textContent=officialLabel;
+ const out=$('cardRows');out.replaceChildren();if(!a.length)out.textContent=window.BMAccountInfo?.()?'Nenhum cartão corresponde à busca ou aos filtros. Limpe os filtros para ver toda a base.':'Entre com sua conta Google para carregar os cartões do Drive.';
+ for(const c of a.slice(0,cardLimit)){
+  const off=h.has(c.id),x=card(c.front,c.id,c.discipline+' · '+c.subject+(off?' · oculto':'')),d=el('details');
+  d.append(el('summary','Revelar resposta, fundamento, guia e cobertura'));
+  const ans=el('div',null,'answer');
+  infoBlock(ans,c.provisional?'Resposta da ficha em validação editorial':'Resposta exata do cartão original',c.back||'Sem resposta cadastrada');
+  infoBlock(ans,'Explicação da base',c.expl);
+  infoBlock(ans,'Macete original',c.mnemonic);
+  if(c.legacy_snapshot_v373_p30){const old=el('details');old.append(el('summary','Cartão anterior preservado'));const body=el('div');infoBlock(body,'Frente anterior',c.legacy_snapshot_v373_p30.front);infoBlock(body,'Verso anterior',c.legacy_snapshot_v373_p30.back);infoBlock(body,'Explicação anterior',c.legacy_snapshot_v373_p30.expl);infoBlock(body,'Macete anterior',c.legacy_snapshot_v373_p30.mnemonic);old.append(body);ans.append(old);}
+  const gg=generalGuide?.por_id?.[c.id];
+  if(gg?.ref)infoBlock(ans,'Referência da base geral V015',gg.ref);
+  if(gg?.evolucoes?.length)infoList(ans,'Evoluções complementares registradas em P08',gg.evolucoes,e=>e.id+' — '+e.pergunta+' | '+e.resposta_complementar+' · '+e.origem);
+  if(c.sub)infoBlock(ans,'Subassunto',c.sub);
+  if(c.prior)infoBlock(ans,'Prioridade histórica na base (não é nota SRS)',c.prior);
+  if(c.provisional){
+   infoBlock(ans,'Situação editorial','Origem Ijuí — cartão integrado, histórico de identidade preservado. ID anterior: '+(c.legacy_proposed_card_id||'não informado')+'. O ID original conflita com a V015 e não pode ser reutilizado.');
+   infoBlock(ans,'Fundamento da proposta',c.reference);
+   infoBlock(ans,'Origem da questão',c.origin_question_id);
+   const g=guideData?.questoes?.[c.origin_question_id];
+   if(g){
+    infoBlock(ans,'Conhecimento mínimo para acertar',g.resposta_minima);
+    infoBlock(ans,'Resposta-modelo pós-correção',g.resposta_modelo);
+    infoBlock(ans,'Fundamento legal',g.dispositivo);
+    infoBlock(ans,'PDF original / páginas',g.fonte);
+    infoBlock(ans,'Pegadinhas e exceções',g.pegadinhas);
+    if(g.tentativa_registrada)infoBlock(ans,'Tentativa anterior registrada (questão, não flashcard)','Data: '+g.tentativa_data+' · avaliação informada: '+g.avaliacao_informada+' · revisão prevista no checkpoint: '+g.revisao_prevista_no_checkpoint+'. O texto integral permanece na planilha privada.');
+    infoBlock(ans,'O que já foi compreendido',g.acertos_do_estudo);
+    infoBlock(ans,'Pontos a corrigir da resposta anterior',g.lacunas_do_estudo);
+    infoList(ans,'Macetes associados',g.macetes,m=>m.id+' — '+m.frase+' | '+m.interpretacao+(m.alerta?' | Alerta: '+m.alerta:''));
+    infoList(ans,'Lacunas de fixação',g.lacunas,l=>l.id+' ('+l.prioridade+'; '+l.estado+') — '+l.fixar);
+    infoList(ans,'Interconexões com o Banco Mestre',g.vinculos_cartoes,v=>v.cartao+' — '+v.tema+' · '+v.tratamento+' (domínio não demonstrado)');
+    infoBlock(ans,'Cobertura e método','A questão '+g.questao_id+' possui guia pós-tentativa. Cobertura direta do núcleo não equivale a domínio. '+g.aviso_srs);
+   }else infoBlock(ans,'Auditoria de cobertura','Ainda não há resposta-modelo desta questão na planilha auditada; não completar a partir de suposição.');
+  }else{
+   const links=linkedQuestions(c.id);
+   if(links.length)infoList(ans,'Cobertura cruzada com questões de Ijuí',links,q=>q.questao_id+' — '+q.tema+' (associação histórica; não comprova domínio)');
+   else infoBlock(ans,'Cobertura cruzada','Não há associação específica auditada com questões de Ijuí para este ID nos dados consultados.');
+   const evF17=auditF17?.historico_por_id?.[c.id];
+   if(evF17){
+    infoBlock(ans,'Tentativa F17 preservada','Tentativa '+evF17.tentativa+' · '+evF17.avaliacao+' · '+evF17.data_local+(evF17.hora_local?' às '+evF17.hora_local+' (fuso -03:00)':' (hora não comprovada)')+' · fonte: '+evF17.origem_evento);
+    infoBlock(ans,'Observações originais sobre sua resolução',evF17.observacoes_da_correcao);
+    infoBlock(ans,'Precisão do registro',evF17.precisao_temporal);
+    infoBlock(ans,'Próxima revisão já registrada na V015',evF17.proxima_revisao_existente_v015||'Não registrada');
+    
+    ans.append(link('Consultar auditoria F17 no Drive','https://drive.google.com/file/d/1QaiI6lp-JRsW_7S8vWB9whTF3QB5kfOM/view'));
+   }else infoBlock(ans,'Histórico formal de tentativa','Nenhum evento F17 confirmado para este ID; cadastro não é tentativa, acerto ou revisão.');
+   const recovered=answersF17?.por_id?.[c.id];
+   if(recovered){
+    infoBlock(ans,'RESPOSTA DISCURSIVA ARQUIVADA — CSV F14/F16',recovered.resposta_original_arquivada);
+    infoBlock(ans,'Conhecimentos demonstrados no estudo',recovered.conhecimentos_demonstrados);
+    infoBlock(ans,'Conhecimentos parciais',recovered.conhecimentos_parciais);
+    infoBlock(ans,'Erros corrigidos',recovered.erros_corrigidos);
+    infoBlock(ans,'Lacunas identificadas',recovered.lacunas_em_relacao_ao_enunciado);
+    infoBlock(ans,'Complementações da correção',recovered.informacoes_novas_de_complementacao);
+    infoBlock(ans,'Macete da revisão',recovered.macete);
+    infoBlock(ans,'Cobertura cruzada informada (não lançar SRS)',recovered.cobertura_cruzada_ids_informados);
+    infoBlock(ans,'Referência de PDF registrada no CSV',recovered.referencia_pdf_confirmada_no_csv);
+    infoBlock(ans,'Classificação histórica do CSV (não sobrescreve V015)',recovered.classificacao_historica_csv);
+    infoBlock(ans,'Observação de rastreabilidade',recovered.observacao_de_rastreabilidade);
+    if(recovered.conflitos_pendentes?.length)infoList(ans,'Pendências de conciliação — NÃO resolver automaticamente',recovered.conflitos_pendentes,x=>String(x));
+    infoBlock(ans,'Precisão da fonte','Texto preservado no campo do CSV F14/F16; não é certificação de transcrição literal completa do chat. Sem alteração do SRS.');
+   }else if(evF17)infoBlock(ans,'Resposta discursiva integral','Não localizada nos checkpoints consultados para este ID; nenhuma resposta foi inventada.');
+   const crossed=auditF17?.vinculos_indiretos?.filter(x=>x.cartao===c.id||x.origem===c.id)||[];
+   if(crossed.length)infoList(ans,'Cobertura cruzada F17 sem tentativa adicional',crossed,x=>x.origem+' → '+x.cartao+' · '+x.status+' · '+x.evidencia);
+   const evos=auditF17?.evolucoes_registradas?.filter(x=>x.ids_relacionados.includes(c.id))||[];
+   if(evos.length)infoList(ans,'Perguntas evolutivas F17 — vinculadas, sem SRS',evos,x=>x.proposta+' | '+x.pergunta+' | '+x.resposta_fonte);
+   const relatedI=[]; // V031: grupo em comum NÃO comprova vínculo imagem-cartão.
+   if(relatedI.length)infoList(ans,'Imagens relacionadas por grupo — vínculo de ID ainda não confirmado',relatedI.slice(0,6),i=>i.no+' — '+i.title);
+   const relatedP=[]; // V031: categoria em comum NÃO comprova vínculo PDF-cartão.
+   if(relatedP.length)infoList(ans,'PDFs relacionados por categoria — vínculo temático',relatedP.slice(0,6),p=>p.title+(p.pages?' (páginas '+p.pages.join('–')+')':''));
+   infoBlock(ans,'Cobertura do assunto','O cadastro deste cartão não comprova que todas as condições, exceções e aplicações do assunto foram revisadas. A análise aprofundada permanece vinculada às fontes e aos registros originais.');
+  }
+  if(c.provisional&&guideData?.link_fonte_privada){
+   const a=link('Ver planilha original com a resposta discursiva privada',guideData.link_fonte_privada);
+   ans.append(a);
+  }
+  d.addEventListener('toggle',()=>{if(d.open){const p=window.BM195EvolutiveInline;if(p?.mount)p.mount(d);else if(!ans.querySelector('.bm195-pending')){const n=document.createElement('p');n.className='bm195-pending';n.textContent='Leitor evolutivo não carregado nesta sessão. Atualize a página.';ans.append(n)}}});d.append(ans);x.c.insertBefore(d,x.buttons);
+  x.buttons.append(action(off?'Restaurar':'Excluir da visualização',()=>{if(exclude('CARD',c.id,!off))cardRender()},off?'':'danger'));
+  out.append(x.c);
+ }
+ $('moreCards').disabled=a.length<=cardLimit;
+ legalCoverage();
+}
+
+$('cardSearch').oninput=()=>{focusGroup='';cardLimit=24;cardRender()};$('cardFilter').onchange=()=>{focusGroup='';cardRender()};$('cardHidden').onchange=cardRender;$('cardReviewedOnly').onchange=()=>{cardLimit=24;cardRender()};$('cardRecoveredOnly').onchange=()=>{cardLimit=24;cardRender()};$('moreCards').onclick=()=>{cardLimit+=24;cardRender()};
+async function loadImages(){return window.BancoMestreDriveImagesV182?.refresh?.()}
+async function thumb(x){if(x.shard===undefined||!meta.image_files[x.shard])return null;if(!shards[x.shard])shards[x.shard]=fetch('assets/'+meta.image_files[x.shard]).then(r=>{if(!r.ok)throw Error('Prévia ausente');return r.json()});try{return (await shards[x.shard])[x.no]||null}catch{return null}}
+async function imgRender(){const h=new Map((await api.all()).map(x=>[x.id,x.status])),show=$('imageHidden').checked,q=fold($('imageSearch').value),f=$('imageFilter').value;const a=imgs.filter(x=>(show||h.get(x.no)!=='hidden')&&(f==='all'||x.category===f)&&fold(x.no+' '+x.title+' '+x.category).includes(q));$('imageCount').textContent=a.length+' imagens';const out=$('imageRows');out.replaceChildren();for(const x of a.slice(0,imgLimit)){const off=h.get(x.no)==='hidden',c=card(x.title,x.no,x.category+(off?' · oculta':''));const preview=el('img',null,'thumb');preview.loading='lazy';preview.alt='Abrir '+x.no+' em tela cheia';preview.title='Clique para abrir em tela cheia, ampliar e grifar';preview.tabIndex=0;preview.setAttribute('role','button');preview.style.cursor='zoom-in';preview.onclick=()=>imgOpen(x);preview.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();imgOpen(x)}};c.c.insertBefore(preview,c.c.querySelector('h3'));{
+ const source=origMap[x.no]?.verified===true?origMap[x.no]:null;
+ const fallback=()=>thumb(x).then(src=>{if(!preview.isConnected)return;if(src)preview.src=src;else preview.replaceWith(el('p','Prévia não publicada.','muted'))});
+ if(source){preview.onerror=fallback;preview.src=source.preview_url;preview.title='Original candidato do Drive; validação técnica pendente';}
+ else fallback();
+ }if(x.shard!==undefined||origMap[x.no])c.buttons.append(action('Abrir em tela cheia',()=>imgOpen(x),'primary'));c.buttons.append(action(off?'Restaurar':'Excluir',async()=>{try{await api.setStatus(x.no,off?'visible':'hidden');await imgRender()}catch(e){alert(e.message)}},off?'':'danger'));out.append(c.c)}$('moreImages').disabled=a.length<=imgLimit}
+$('imageSearch').oninput=()=>{imgLimit=24;imgRender()};$('imageFilter').onchange=imgRender;$('imageHidden').onchange=imgRender;$('moreImages').onclick=()=>{imgLimit+=24;imgRender()};
+function picture(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Imagem não carregada'));im.src=src})}
+async function imgOpen(x){
+ try{
+  let image=null,src=origMap[x.no]?.verified===true?origMap[x.no]:null,quality='prévia compactada do catálogo';
+  if(src){try{image=await picture(src.preview_url);quality='arquivo maior do Drive (correspondência por nome, não validada tecnicamente)'}catch(e){console.warn('Original não abriu; usando prévia',e)}}
+  if(!image){const fallback=await thumb(x);if(!fallback)throw Error('Imagem sem prévia. Consulte o arquivo no Drive.');image=await picture(fallback);}
+  const w=image.naturalWidth,h=image.naturalHeight;
+  const low=w<700?'Atenção: esta fonte tem menos de 700 px; ampliar não recupera detalhes perdidos. ':'';
+  const risk=['IMG-001','IMG-117'].includes(x.no)?'Atenção: conteúdo técnico ainda não aprovado. ':'';
+  await BancoMestreEditorV030.open({image,imageId:x.no,title:x.title,quality,sourceUrl:src?.source_url||'',
+   warning:low+risk+'Os grifos permanecem apenas no navegador. Original preservado.',
+   onExclude:async id=>{await api.setStatus(id,'hidden');await imgRender()}
+  });
+ }catch(e){alert('Falha ao abrir imagem: '+e.message)}
+}
+window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados nos módulos finais.
+</script><script defer src="assets/bm-account/v439_js_002_015_topic_media.js?v=vs48-editor-1"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
+
+
+<!-- Leitor antigo duplicado do Vade removido em V129 -->
+<script defer src="assets/bm-account/v383_js_016_027_vc23.js?v=383-2"></script>
+
+
+<script defer src="assets/v315_js_028_039.js?v=315-1"></script><script defer src="assets/bm-account/v439_js_040_051_atlas.js?v=vs48-preload-1"></script><script defer src="assets/v420_pdf_controls.js?v=420-1"></script><script defer src="assets/v422_media_archive.js?v=422-1"></script><script defer src="assets/bm-account/v326_js_052_063_catalogfix1.js?v=login-1"></script><script defer src="assets/bm-account/v382_js_064_075_countsfix3_vc23.js?v=vs43-1"></script><script defer src="assets/bm-account/v414_js_076_087_header.js?v=session-planning-2"></script><script defer src="assets/v426_js_088_099_atlas_editor.js?v=atlas-session-1"></script><script defer src="assets/v315_js_100_111_countsfix3_vc23.js?v=atlas-session-1"></script><script defer src="assets/bm-account/v430_js_112_123_control.js?v=session-planning-2"></script><script defer src="assets/v440_math_engine.js?v=440-1"></script><script defer src="assets/bm-account/v440_js_124_135_formulas.js?v=vs49-formulas-3"></script><script id="bm259-pdf-visibility-label">
+(function(){
+ function mount(){
+  const panel=document.querySelector('#pdfs .panel'),rows=document.getElementById('pdfRows');
+  if(!panel||!rows||document.getElementById('bm259-pdf-hint'))return;
+  const note=document.createElement('p');note.id='bm259-pdf-hint';
+  note.style.cssText='margin:5px 0 9px;padding:8px 10px;border:1px solid #d6e5df;border-radius:7px;background:#f7faf9;font:12px/1.5 system-ui,Arial;color:#3a6265';
+  const update=()=>{
+   const mode=document.documentElement.dataset.bm217PdfVerified;
+   note.textContent=mode==='true'
+    ?'Biblioteca atual: arquivos verificados no Drive nesta visita. O total lista PDFs únicos; filtros podem reduzir a seleção.'
+    :mode==='cached'
+    ?'Índice local dos PDFs preservado. Biblioteca bloqueada até conectar e verificar os arquivos do Google Drive nesta sessão.'
+    :'Referências do catálogo histórico (não verificadas nesta sessão). Conectar o Drive não confirma automaticamente a disponibilidade de cada arquivo; consulte o estado da biblioteca após autorizar o Drive.';
+  };
+  rows.before(note);update();
+  new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:['data-bm217-pdf-verified']});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
+})();
+</script><script defer src="assets/bm-account/v402_js_136_147_compare.js?v=atlas-session-1"></script><script defer src="assets/bm-account/v413_js_148_159_gaps.js?v=vs44-folders-1"></script>
+<script defer src="assets/v316_image_zoom.js?v=316-1"></script><script defer src="assets/bm-account/v382_srs_journal_vc23.js?v=session-planning-2"></script><script defer src="assets/v373_related_navigator.js?v=373-1"></script><script defer src="assets/v320_organizar_unificado.js?v=320-1"></script><script defer src="assets/v321_image_topic_completion.js?v=321-1"></script><script defer src="assets/v321_ink_default_select.js?v=321-1"></script><script defer src="assets/bm-account/v325_public_layers_bridge.js?v=325-1"></script><script defer src="assets/bm-account/v327_deferred_10_bridge.js?v=327-1"></script><script defer src="assets/v333_card1534_reading.js?v=333-1"></script><script defer src="assets/bm-account/v329_minerals_bridge.js?v=329-1"></script><script defer src="assets/v334_petro25_cards.js?v=334-1"></script><script defer src="assets/v335_petro25_cards.js?v=335-1"></script><script defer src="assets/v336_editorial_renderer.js?v=336-1"></script><script defer src="assets/v337_editorial_renderer.js?v=337-1"></script><script defer src="assets/v338_editorial_renderer.js?v=338-1"></script><script defer src="assets/v339_semantic_visual_renderer.js?v=339-1"></script><script defer src="assets/v340_granulometry_renderer.js?v=340-1"></script><script defer src="assets/v341_petro26_original_media.js?v=341-2"></script><script defer src="assets/v342_media_integrity.js?v=342-1"></script><link rel="stylesheet" href="assets/v343_petro27.css?v=343-1"><script defer src="assets/bm-account/v343_petro27_renderer.js?v=343-header-1"></script><script defer src="assets/bm-account/v345_petro28_renderer.js?v=header-2"></script><script defer src="assets/bm-account/v346_petro24_renderer.js?v=header-2"></script><link rel="stylesheet" href="assets/v348_visual.css?v=348-1"><script defer src="assets/bm-account/v348_visual_renderer.js?v=header-2"></script><link rel="stylesheet" href="assets/v349_shared_reader.css?v=349-207"><script defer src="assets/bm-account/v417_shared_reader.js?v=restore-math-1"></script><script defer src="assets/bm-account/v368_supplements.js?v=368-1"></script><script defer src="assets/bm-account/v368_private_media.js?v=368-1"></script><script defer src="assets/v373_petro29_remap_renderer.js?v=373-1"></script><script defer src="assets/bm-account/v383_study_queue.js?v=session-planning-2"></script><script id="bm-discursive-split-controller">
+(function(){
+ 'use strict';
+ const wide=matchMedia('(min-width:900px)');
+ function mount(){
+  const modal=document.getElementById('bmCardPeekV050'), editor=modal?.querySelector('#bm195Discursive');
+  const layout=modal?.querySelector('.bm165-layout'), controls=modal?.querySelector('.bm163-preview-controls');
+  const toggle=controls?.querySelector('.bm195-open'), title=modal?.querySelector('#bmCardPeekTitleV050');
+  if(!editor||!layout||!controls||!toggle||!title)return false;
+  // VS15 — atalhos locais do leitor: reutilizam os cliques, sem alterar SRS.
+  const responseButton=modal.querySelector('.bm-v050-peek-reveal');
+  const searchButton=modal.querySelector('.bm165-toggle-sidebar');
+  responseButton?.setAttribute('aria-keyshortcuts','Alt+R');
+  searchButton?.setAttribute('aria-keyshortcuts','Alt+P');
+  if(responseButton)responseButton.title='Revelar ou ocultar resposta (Alt+R)';
+  function onReaderShortcut(e){
+  if(modal.hidden||!modal.isConnected||e.defaultPrevented||e.isComposing||
+     !e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.getModifierState?.('AltGraph'))return;
+  const key=String(e.key||'').toLowerCase();
+  if(key!=='p'&&key!=='r')return;
+  if(document.querySelector('dialog[open]')||!modal.contains(e.target))return;
+  const button=modal.querySelector(key==='p'?'.bm165-toggle-sidebar':'.bm-v050-peek-reveal');
+  if(!button||button.disabled||button.closest('[hidden]')||!button.getClientRects().length)return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  if(!e.repeat)button.click();
+}
+  document.addEventListener('keydown',onReaderShortcut,true);
+  // Reutiliza os manipuladores originais de fechamento, sem tocar nos dados.
+  const cardClose=modal.querySelector('.bm163-header .bm163-close');
+  if(cardClose){
+   cardClose.textContent='×';
+   cardClose.title='Fechar cartão (Esc)';
+   cardClose.setAttribute('aria-label','Fechar cartão');
+  }
+  const heading=editor.querySelector('h3');
+  if(heading&&!editor.querySelector('.bm-discursive-close-corner')){
+   const bar=document.createElement('div');bar.className='bm-discursive-heading';
+   const close=document.createElement('button');close.type='button';
+   close.className='bm-discursive-close-corner';close.textContent='×';
+   close.title='Fechar resposta discursiva';close.setAttribute('aria-label','Fechar resposta discursiva');
+   heading.before(bar);bar.append(heading,close);
+   close.addEventListener('click',()=>{
+    if(!editor.hidden)toggle.click();
+    toggle.focus({preventScroll:true});
+   });
+  }
+  let lastId='',scheduled=false;
+  function place(){
+   const active=editor.contains(document.activeElement)?document.activeElement:null;
+   if(wide.matches){if(editor.parentElement!==layout)layout.append(editor);}
+   else if(editor.previousElementSibling!==controls){controls.insertAdjacentElement('afterend',editor);}
+   if(active&&document.activeElement!==active)active.focus({preventScroll:true});
+  }
+  function sync(){
+   scheduled=false;place();
+   if(modal.hidden){lastId='';return;}
+   const id=window.BancoMestreVisualizarCardV050?.currentId||'';
+   if(!/^(?:CARD-\d{4,}|PROP-IJUI-\d+|IJUI-[A-Za-z0-9_-]+|TRT0[12]-C\d{3})$/.test(id))return;
+   if(!wide.matches){lastId='';return;}
+   if(id===lastId)return;
+   lastId=id;
+   if(editor.hidden){
+    const active=document.activeElement;
+    toggle.click();
+    if(active?.isConnected&&document.activeElement!==active)active.focus({preventScroll:true});
+   }
+  }
+  function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(sync);}}
+  const observer=new MutationObserver(schedule);
+  observer.observe(title,{childList:true,characterData:true,subtree:true});
+  observer.observe(modal,{attributes:true,attributeFilter:['hidden']});
+  wide.addEventListener('change',schedule);
+  place();schedule();return true;
+ }
+ function start(){
+  if(mount())return;
+  const observer=new MutationObserver(()=>{if(mount())observer.disconnect()});
+  observer.observe(document.body,{childList:true,subtree:true});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();
+</script>
+<script defer src="assets/v427_editor_ui.js?v=427-1"></script><style id="bm422-editor-ui">#tema #topicMedia[aria-busy=true] .bm418-media-loading{display:grid!important;visibility:visible!important;opacity:1!important;position:relative!important;min-height:40px!important;max-width:600px!important;gap:7px!important;background:#eef6fa!important;padding:10px 12px!important;border-radius:8px!important;border:1px solid #b9d4e2!important}
+#tema #topicMedia[aria-busy=true] .bm418-media-progress{display:block!important;width:100%!important;height:10px!important;accent-color:#267697!important;border-radius:9px!important}
+.bm422-thumb{position:relative;min-width:0}.bm422-thumb>img{display:block}.bm422-thumb>.bm419-flag,.bm419-preview-stage>.bm419-flag,#pdfRows .bm423-pdf-flag-card>.bm419-flag{position:absolute!important;top:7px!important;right:7px!important;z-index:6!important;width:34px!important;height:34px!important;padding:6px!important;display:grid!important;place-items:center;background:#fff!important;border:1px solid #a8bfca!important;border-radius:8px!important;color:#345e70!important;box-shadow:0 2px 8px #17384b25!important}.bm422-thumb>.bm419-flag[aria-pressed=true],.bm419-preview-stage>.bm419-flag[aria-pressed=true],#pdfRows .bm423-pdf-flag-card>.bm419-flag[aria-pressed=true]{background:#fff1d9!important;color:#b36124!important;border-color:#d9a55f!important}.bm422-thumb>.bm419-flag-status,.bm419-preview-stage>.bm419-flag-status,#pdfRows .bm423-pdf-flag-card>.bm419-flag-status{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.bm422-image-actions{gap:6px!important}.bm422-image-actions :is(button,a),#bm084-grid .bm202-edit-image{display:inline-flex!important;align-items:center!important;gap:5px!important;padding:6px 8px!important;border:1px solid #c4d7e2!important;border-radius:7px!important;background:#fff!important;color:#245467!important;font-size:11px!important}.bm422-image-actions .bm422-remove{color:#a43d39!important}
+#imageDialog.bm422-editor[open]{width:98vw!important;height:96dvh!important;max-width:98vw!important;max-height:96dvh!important;padding:0!important;display:flex!important;flex-direction:column!important;background:#fff!important;border-radius:12px!important}
+#imageDialog.bm422-editor>.dhead{display:flex!important;align-items:center!important;justify-content:space-between!important;flex:0 0 auto!important;padding:9px 14px!important;background:#eef5f8!important;border-bottom:1px solid #d2e2ea!important}
+#imageDialog.bm422-editor>.dbody{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;min-height:0!important;overflow:hidden!important}
+#imageDialog.bm422-editor .editor-tools,#imageDialog.bm422-editor .editor-meta{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;justify-content:flex-start!important;gap:5px!important;flex:0 0 auto!important;width:100%!important;max-height:24vh!important;overflow:auto!important;padding:6px 10px!important;background:#f5f9fc!important;border-bottom:1px solid #d1e1e8!important}
+#imageDialog.bm422-editor .toolgroup{display:flex!important;flex-direction:row!important;align-items:center!important;gap:4px!important;width:auto!important;padding:3px!important}
+#imageDialog.bm422-editor :is(.editor-tools,.editor-meta) button:not(.swatch){display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;width:auto!important;min-width:34px!important;min-height:33px!important;padding:5px 8px!important;border-radius:7px!important;border:1px solid #c0d4df!important;background:#fff!important;color:#31586b!important}
+#imageDialog.bm422-editor :is(.editor-tools,.editor-meta) button[aria-pressed=true]:not(.swatch){background:#d9edf5!important;color:#1d5269!important;border-color:#76a7be!important}
+#imageDialog.bm422-editor #imageStage{flex:1 1 0!important;display:block!important;min-height:0!important;height:auto!important;width:100%!important;overflow:auto!important;padding:12px!important;background:#e5edf2!important}
+#imageDialog.bm422-editor #imageStage .canvases{margin:auto!important}
+#pdfDialog.bm422-editor[open] .bm-v046-pdf-side #pdfLocalTools{background:#f5f9fc!important;border:1px solid #d0e1e9!important;border-radius:8px!important;padding:6px!important}
+#pdfDialog.bm422-editor[open] .bm-v046-pdf-side #pdfMainV043 .bm100-section{border:1px solid #d0e1e9!important;background:#fff!important;border-radius:7px!important;padding:6px!important}
+#pdfDialog.bm422-editor[open] #pdfMainV043 button{border-radius:7px!important}
+#pdfDialog.bm422-editor[open] #pdfMainV043 button[aria-pressed=true]{background:#d9edf5!important;border-color:#76a7be!important;color:#1d5269!important}
+#pdfDialog.bm422-editor[open] #pdfFitPage,#pdfDialog.bm422-editor[open] #pdfFitWidth{display:inline-flex!important;align-items:center!important;gap:4px!important;min-height:32px!important;width:auto!important;padding:5px!important}
+[data-bm422-icon]::before{display:none!important} [data-bm422-icon] svg{flex-shrink:0}
+@media(max-width:600px){#imageDialog.bm422-editor .editor-tools,#imageDialog.bm422-editor .editor-meta{max-height:22vh!important}#imageDialog.bm422-editor #imageStage{padding:6px!important}}</style><style id="bm423-pdf-flags">#pdfRows .bm423-pdf-flag-card{position:relative!important}#pdfRows .bm423-pdf-flag-card>.v036-pdf-meta{padding-right:39px!important;min-height:31px;box-sizing:border-box}#pdfRows .bm423-pdf-flag-card>.bm419-flag{margin:0!important;box-sizing:border-box!important;min-width:34px!important;min-height:34px!important}#pdfRows .bm423-pdf-flag-card>.bm419-flag svg{width:19px!important;height:19px!important}</style><style id="bm424-compact-editor">/* VS38 — toolbar compacta com mesma linguagem visual do portal. */
+#imageDialog.bm422-editor[open]>.dhead{padding:5px 10px!important;min-height:31px!important;gap:8px!important}
+#imageDialog.bm422-editor[open] #imgTitle{font:600 12px/1.3 system-ui,sans-serif!important;max-width:calc(100% - 76px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#imageDialog.bm422-editor[open]>.dbody>.editor-tools{display:flex!important;align-items:center!important;align-content:center!important;flex-flow:row wrap!important;gap:4px!important;padding:4px 8px!important;min-height:0!important;margin:0!important;max-height:unset!important;overflow:visible!important;background:#f5f9fa!important;border:0!important;border-bottom:1px solid #cbdce3!important}
+#imageDialog.bm422-editor[open] .editor-tools>.toolgroup{display:flex!important;flex-flow:row wrap!important;align-content:center!important;align-items:center!important;justify-content:flex-start!important;gap:3px!important;min-height:0!important;height:auto!important;max-width:100%!important;width:auto!important;padding:0 5px!important;margin:0!important;border:0!important;border-right:1px solid #d5e2e8!important;background:transparent!important}
+#imageDialog.bm422-editor[open] .editor-tools>.toolgroup[aria-label="Cores da caneta"]{display:flex!important;flex-flow:row nowrap!important;width:auto!important;max-width:none!important;gap:3px!important}
+#imageDialog.bm422-editor[open] .editor-tools>.toolgroup label{display:inline-flex!important;flex-flow:row nowrap!important;align-items:center!important;gap:4px!important;min-width:0!important;width:auto!important;margin:0!important;padding:0!important;font:500 11px/1.2 system-ui,sans-serif!important;color:#466574!important}
+#imageDialog.bm422-editor[open] .editor-tools .swatch{display:inline-block!important;width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;max-width:18px!important;max-height:18px!important;padding:0!important;margin:0!important;border-radius:50%!important}
+#imageDialog.bm422-editor[open] #inkColor{width:23px!important;height:23px!important;min-width:23px!important;min-height:23px!important;padding:1px!important;margin:0!important}
+#imageDialog.bm422-editor[open] #inkWidth{width:72px!important;min-width:48px!important;max-width:72px!important;height:16px!important;margin:0!important;padding:0!important}
+#imageDialog.bm422-editor[open] #widthValue{font-size:10px!important;min-width:25px}
+#imageDialog.bm422-editor[open] :is(.editor-tools,.editor-meta) button:not(.swatch),#imageDialog.bm422-editor[open] .editor-meta a.action{min-height:28px!important;height:28px!important;width:auto!important;min-width:28px!important;padding:3px 6px!important;gap:4px!important;font:600 11px/1.15 system-ui,sans-serif!important;white-space:nowrap!important;box-sizing:border-box!important;border-radius:5px!important}
+#imageDialog.bm422-editor[open] :is(.editor-tools,.editor-meta) button svg{width:15px!important;height:15px!important;flex:0 0 15px!important}
+#imageDialog.bm422-editor[open]>.dbody>.editor-meta{display:flex!important;flex-flow:row wrap!important;gap:4px!important;align-items:center!important;min-height:0!important;height:auto!important;max-height:unset!important;padding:4px 8px!important;margin:0!important;overflow:visible!important;background:#fff!important;border:0!important;border-bottom:1px solid #d1e0e6!important}
+#imageDialog.bm422-editor[open] #imagePixels,#imageDialog.bm422-editor[open] #imageWarning,#imageDialog.bm422-editor[open] #imgMessage{font:400 10px/1.2 system-ui,sans-serif!important;margin:0!important}
+#imageDialog.bm422-editor[open] #imageWarning{flex:1 1 180px!important;white-space:normal!important}
+#imageDialog.bm422-editor[open] #bm419-image-flag:empty{display:none!important}
+#imageDialog.bm422-editor[open] #imageStage{padding:6px!important}
+#pdfDialog.bm422-editor[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row{gap:4px!important;align-items:stretch!important}
+#pdfDialog.bm422-editor[open] .bm-v046-pdf-side #pdfMainV043 .bm100-row>button[data-bm422-icon],#pdfDialog.bm422-editor[open] .bm-v046-pdf-side #pdfMainV043 .bm100-zoom>button[data-bm422-icon]{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:3px!important;min-height:42px!important;padding:5px 3px!important;margin:0!important;font:600 10px/1.15 system-ui,sans-serif!important;white-space:normal!important;text-align:center!important}
+#pdfDialog.bm422-editor[open] #pdfMainV043 button[data-bm422-icon] svg{width:17px!important;height:17px!important;flex:0 0 17px!important}
+#pdfDialog.bm422-editor[open] #pdfMainV043 button[data-bm422-icon]:not([data-bm427-pdf-icon])::before,#imageDialog.bm422-editor[open] button[data-bm422-icon]::before{display:none!important;content:none!important}
+@media(max-width:600px){#imageDialog.bm422-editor[open]>.dbody>.editor-tools{max-height:26vh!important;overflow:auto!important}#imageDialog.bm422-editor[open]>.dbody>.editor-meta{max-height:17vh!important;overflow:auto!important}}
+</style><style id="bm425-media">.bm419-flag,.bm419-flag-status,#bm419-image-flag{display:none!important}#tema #topicMedia[aria-busy=true] .bm418-media-loading{margin:6px 0 12px!important;max-width:600px!important}#formulas .bm410-formula-category{margin-top:18px!important}</style><style id="bm426-ui">#tema #topicMedia[aria-busy=true]>.bm418-media-loading{position:sticky!important;top:0!important;z-index:8!important;display:grid!important;visibility:visible!important;opacity:1!important}
+#tema #topicMedia[aria-busy=true] .bm418-media-progress[value]::-webkit-progress-value{background:#267697!important}
+dialog.bm426-info-editor[open]{width:min(1440px,97vw)!important;max-width:97vw!important;height:94dvh!important;max-height:94dvh!important;display:flex!important;flex-direction:column!important;padding:0!important;overflow:hidden!important;background:#fff!important}
+dialog.bm426-info-editor>.bm202-dialog-heading{position:static!important;flex:0 0 auto!important;padding:9px 14px!important;background:#f3f8fa!important;gap:10px!important}
+dialog.bm426-info-editor>.bm202-dialog-heading h2{font:650 13px/1.4 system-ui,sans-serif!important}
+dialog.bm426-info-editor>.bm228-layout{display:grid!important;flex:1 1 auto!important;min-height:0!important;grid-template-columns:minmax(0,55%) minmax(0,45%)!important;gap:0!important;align-items:stretch!important;overflow:hidden!important}
+dialog.bm426-info-editor .bm228-visual{position:static!important;display:flex!important;flex-direction:column!important;min-height:0!important;min-width:0!important;padding:10px!important;overflow:hidden!important}
+dialog.bm426-info-editor .bm419-preview-toolbar{flex:0 0 auto!important;padding:5px!important;gap:5px!important}
+dialog.bm426-info-editor .bm419-preview-stage{height:auto!important;flex:1 1 0!important;min-height:0!important}
+dialog.bm426-info-editor .bm228-right{display:flex!important;flex-direction:column!important;min-width:0!important;min-height:0!important;padding:12px!important;overflow:hidden!important}
+dialog.bm426-info-editor .bm228-tabs{flex:0 0 auto!important;margin:0 0 10px!important;padding-bottom:8px!important;border-bottom:1px solid #d3e1e7!important}
+dialog.bm426-info-editor .bm228-panel:not([hidden]){display:block!important;visibility:visible!important;flex:1 1 auto!important;min-height:0!important;overflow:auto!important;padding:2px 4px 10px!important}
+dialog.bm426-info-editor .bm228-panel[hidden]{display:none!important}
+dialog.bm426-info-editor .bm228-form{display:grid!important;gap:9px!important}
+dialog.bm426-info-editor .bm228-field input,dialog.bm426-info-editor .bm228-field textarea{padding:7px 9px!important;border-color:#c4d7df!important;border-radius:6px!important;font-size:13px!important;color:#254c5e!important;background:#fff!important}
+dialog.bm426-info-editor .bm228-tax{gap:8px!important}
+dialog.bm426-info-editor .bm228-actions{gap:6px!important}
+#imageDialog #imageStage.bm426-pan,#imageDialog #imageStage.bm426-pan #grifo{cursor:grab!important;touch-action:none!important}
+#imageDialog #imageStage.bm426-dragging,#imageDialog #imageStage.bm426-dragging #grifo,#imageDialog #imageStage.bm426-pan:active,#imageDialog #grifo[data-tool=pan]:active{cursor:grabbing!important}
+#imageDialog #imageStage .canvases{transform-origin:center!important}
+@media(max-width:700px){dialog.bm426-info-editor>.bm228-layout{display:flex!important;flex-direction:column!important;overflow:auto!important}dialog.bm426-info-editor .bm228-visual{flex:0 0 43dvh!important}dialog.bm426-info-editor .bm228-right{overflow:visible!important;flex:1 0 auto!important}dialog.bm426-info-editor .bm228-panel:not([hidden]){overflow:visible!important}}
+</style><style id="bm427-formula-pdf-ui">#formulas .bm427-formula-entry{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;width:100%!important;text-align:left!important;padding:11px 13px!important;border:1px solid #cbdde5!important;border-radius:8px!important;background:#fff!important;color:#164c62!important;min-height:42px!important;cursor:pointer;font:650 12px/1.45 system-ui,sans-serif!important}
+#formulas .bm427-formula-entry:hover{background:#f0f7fa!important;border-color:#89b3c6!important}#formulas .bm427-formula-arrow{font-size:21px;line-height:1;color:#6d96a8}
+#formulas #bm427FormulaDialog[open]{box-sizing:border-box;display:flex!important;flex-direction:column!important;width:min(1100px,95vw)!important;max-width:95vw!important;height:88dvh!important;max-height:88dvh!important;border:1px solid #bed4df!important;border-radius:12px!important;background:#fff!important;color:#203745!important;padding:0!important;overflow:hidden!important}
+#bm427FormulaDialog::backdrop{background:#1d354b88}#formulas .bm427-formula-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;background:#eef5f8;border-bottom:1px solid #d4e2e9}#formulas .bm427-formula-titles{min-width:0}#formulas .bm427-formula-caption{font:500 11px system-ui;color:#4a7083}#formulas .bm427-formula-title{font:700 17px/1.4 system-ui;margin:3px 0 0;color:#214f6a}#formulas .bm427-formula-scroll{flex:1 1 0;min-height:0;overflow:auto;overscroll-behavior:contain}#formulas .bm427-formula-foot{display:flex;align-items:center;justify-content:space-between;flex:0 0 auto;padding:10px 14px;gap:6px;background:#f5f9fb;border-top:1px solid #d4e2e9}
+#formulas #bm427FormulaDialog :is(button,.action){border:1px solid #c3d8e3;border-radius:6px;padding:7px 11px;background:#fff;color:#275a70;font:600 12px/1.3 system-ui;white-space:nowrap}#formulas #bm427FormulaDialog button:disabled{opacity:.45}#formulas #bm427FormulaDialog .bm249-body{max-width:none!important}#formulas .bm427-inline-math{display:inline math!important;font-size:1.07em;white-space:nowrap;vertical-align:baseline;margin:0 1px;color:#17394e}#formulas #bm427FormulaDialog .bm249-metadata{border-left:2px solid #d2e1e8;padding-left:9px}
+#pdfDialog[open] [data-bm427-pdf-icon]::before{display:inline-block!important;content:""!important;background-color:currentColor!important;width:17px!important;height:17px!important;flex:0 0 17px!important;mask:var(--bm427-pdf-icon) center/contain no-repeat!important;-webkit-mask:var(--bm427-pdf-icon) center/contain no-repeat!important}#pdfDialog[open] [data-bm427-pdf-icon]>svg{display:none!important}
+#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 :is(.bm100-row,.bm100-zoom){gap:5px!important}#pdfDialog[open] .bm-v046-pdf-side #pdfMainV043 :is(.bm100-row,.bm100-zoom)>button[data-bm427-pdf-icon]{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;min-height:39px!important;padding:4px 3px!important;font-size:10px!important;border-radius:6px!important}#pdfDialog[open] #bm068QuickBar button[data-bm427-pdf-icon]{gap:4px!important;border-radius:7px!important}
+@media(max-width:650px){#formulas #bm427FormulaDialog[open]{width:96vw!important;height:94dvh!important;max-height:94dvh!important}#formulas .bm427-formula-title{font-size:14px}#formulas .bm427-formula-head{padding:10px}#formulas .bm427-formula-foot{padding:8px}}
+</style><style id="bm434-topic-preview-style">
+#tema #topicMedia .bm430-topic-grid{grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr))!important;gap:10px!important;align-items:stretch!important}
+#tema #topicMedia .bm430-topic-grid .topicVisualCard{display:flex!important;flex-direction:column!important;gap:6px!important;min-width:0!important;padding:9px!important}
+#tema #topicMedia .bm434-topic-thumb{width:100%!important;aspect-ratio:4/3!important;display:grid!important;place-items:center!important;overflow:hidden!important;background:#f5f8fa!important;border:1px solid #d8e4eb!important;border-radius:7px!important;box-sizing:border-box!important}
+#tema #topicMedia .bm434-topic-thumb>img{width:100%!important;height:100%!important;max-height:100%!important;object-fit:contain!important;cursor:zoom-in!important;margin:0!important}
+#tema #topicMedia .bm434-topic-thumb [hidden]{display:none!important}
+#tema #topicMedia .bm434-thumb-status{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px;text-align:center;font-size:12px;color:#526d7a}
+#tema #topicMedia .bm430-media-link{border:0!important;padding:3px 1px!important;background:transparent!important;box-shadow:none!important;text-align:left!important;min-height:0!important;font-weight:650!important;overflow-wrap:anywhere}
+#tema #topicMedia .bm434-topic-basis{font-size:11px!important;color:#526d7a!important;margin:0!important}
+#tema #topicMedia .bm434-topic-open{margin-top:auto!important;align-self:flex-start!important}
+</style><style id="bm428-progress-style">#tema #bm428TopicProgress small{font:500 11px/1.35 system-ui,sans-serif;color:#36586c}#tema #bm428TopicProgress progress[value]::-webkit-progress-value{transition:width .25s ease;background:#267697!important}#tema #bm428TopicProgress progress[value]::-moz-progress-bar{background:#267697!important}#tema #bm428TopicProgress{box-sizing:border-box!important;position:relative!important;display:grid!important;visibility:visible!important;opacity:1!important;gap:6px!important;max-width:640px!important;width:100%!important;min-height:44px!important;padding:9px 12px!important;margin:8px 0!important;background:#f0f7fa!important;border:1px solid #bed7e2!important;border-radius:7px!important;color:#24556a!important}
+#tema #bm428TopicProgress .bm418-media-label{display:block!important;visibility:visible!important;margin:0!important;font:600 12px/1.4 system-ui,sans-serif!important;color:#24556a!important}
+#tema #bm428TopicProgress progress:not([hidden]){display:block!important;visibility:visible!important;opacity:1!important;width:100%!important;height:9px!important;accent-color:#267697!important;border:0!important;border-radius:6px!important}
+#tema #bm428TopicProgress progress[hidden]{display:none!important}
+#tema #bm428TopicProgress[data-state=loading] progress:not([value]){appearance:none!important;-webkit-appearance:none!important;background:linear-gradient(90deg,#d5e7ef 0%,#267697 50%,#d5e7ef 100%)!important;background-size:200% 100%!important;animation:bm428Progress 1s linear infinite!important}
+#tema #bm428TopicProgress[data-state=loading] progress:not([value])::-webkit-progress-bar{background:transparent!important}
+@keyframes bm428Progress{from{background-position:200% 0}to{background-position:0 0}}
+#tema #bm428TopicProgress[data-state=complete]{background:#f5faf8!important;border-color:#c2ddd3!important}#tema #bm428TopicProgress[data-state=complete] progress{accent-color:#398675!important}
+#tema #bm428TopicProgress[data-state=warning],#tema #bm428TopicProgress[data-state=error]{background:#fff8ec!important;border-color:#e0cba8!important}
+@media(prefers-reduced-motion:reduce){#tema #bm428TopicProgress progress{animation:none!important}}</style><style id="bm429-pdf-toolbar">
+/* Uma única fonte visual para ícones PDF; não altera o editor de imagens. */
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfLocalTools:not([hidden]){padding:8px!important;background:#f3f7fa!important;border-color:#cbdce5!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-section{padding:7px!important;border-color:#d1dfe7!important;border-radius:9px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-heading{font:700 11px/1.3 system-ui,sans-serif!important;color:#3b596c!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-row{gap:5px!important;align-items:stretch!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 :is(.bm100-row,.bm100-zoom)>button[data-bm427-pdf-icon],
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm427-pdf-icon]{box-sizing:border-box!important;min-height:48px!important;min-width:0!important;gap:4px!important;padding:5px 3px!important;border-radius:8px!important;font:650 11px/1.25 system-ui,sans-serif!important;white-space:normal!important;overflow-wrap:normal!important;text-align:center!important}
+#pdfDialog[open].bm422-editor button[data-bm427-pdf-icon]:not([hidden])::before,
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 button[data-bm427-pdf-icon]:not([hidden])::before,
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm427-pdf-icon]:not([hidden])::before{display:block!important;content:""!important;position:static!important;background:currentColor!important;width:22px!important;height:22px!important;flex:0 0 22px!important;align-self:center!important;justify-self:center!important;margin:0!important;opacity:1!important;mask:var(--bm427-pdf-icon) center/contain no-repeat!important;-webkit-mask:var(--bm427-pdf-icon) center/contain no-repeat!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 button[data-bm427-pdf-icon]>svg,
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar button[data-bm427-pdf-icon]>svg,
+#pdfDialog[open].bm422-editor button[data-bm427-pdf-icon]>svg{display:none!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions :is(#bm068QuickToggle,#bm070Smart)[data-bm427-pdf-icon],
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 [data-bm100-group="selection"] #bm068SelectTool[data-bm427-pdf-icon]{grid-template-columns:22px minmax(0,1fr)!important;gap:6px!important;text-align:left!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side :is(#pdfMainV043,#bm068QuickBar) button[data-bm427-pdf-icon][aria-pressed=true]:not(:disabled){background:#dceff6!important;border-color:#4388a5!important;color:#154b65!important;box-shadow:inset 0 0 0 1px #4388a5!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side :is(#pdfMainV043,#bm068QuickBar) button[data-bm427-pdf-icon]:focus-visible{outline:2px solid #176b91!important;outline-offset:2px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side :is(#pdfMainV043,#bm068QuickBar) button[data-bm427-pdf-icon]:disabled{opacity:.48!important;cursor:not-allowed!important}
+@media(max-width:700px){
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfLocalTools:not([hidden]){padding:5px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-section{padding:5px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 :is(.bm100-row,.bm100-zoom)>button[data-bm427-pdf-icon],
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm427-pdf-icon]{font-size:10px!important;min-height:44px!important;padding:4px 2px!important}
+}
+</style><style id="bm430-compact-ui">
+/* VS40: somente o corpo do diálogo tem rolagem. */
+#formulas #bm427FormulaDialog .bm427-formula-scroll{flex:0 1 auto!important;min-height:0!important;overflow:auto!important;overscroll-behavior:contain;scrollbar-gutter:stable}
+#formulas #bm427FormulaDialog .bm427-formula-scroll :is(.bm249-body,.bm249-line,math){overflow:visible!important;max-height:none!important;height:auto!important;scrollbar-width:auto!important}
+#formulas #bm427FormulaDialog .bm249-equation{display:block!important;min-width:0!important;max-width:100%!important;box-sizing:border-box;overflow:visible!important}
+#formulas #bm427FormulaDialog .bm416-equation-item{min-width:0!important;width:100%;max-width:100%!important;box-sizing:border-box;text-align:left;overflow-x:auto!important;overflow-y:hidden!important}
+#formulas #bm427FormulaDialog .bm416-equation-item math{margin:0!important}
+#formulas #bm427FormulaDialog .bm431-formula-notice{flex:none;margin:0;padding:7px 12px;background:#fff4e0;color:#78471c;font-size:12px}
+#formulas #bm427FormulaDialog .bm431-formula-notice[hidden]{display:none!important}
+#formulas #bm427FormulaDialog .bm430-formula-figure{margin:0 0 10px!important;border:1px solid #d7e3e9;border-radius:6px;padding:6px;background:white;max-width:640px}#formulas #bm427FormulaDialog .bm430-formula-figure img{display:block;width:100%;height:auto;max-height:200px;object-fit:contain}#formulas #bm427FormulaDialog .bm430-formula-figure figcaption{font-size:10px;color:#526c7a}#formulas #bm427FormulaDialog .bm430-formula-fallback{white-space:pre-wrap;overflow-wrap:anywhere}/* VS39: compactação, mantendo os mesmos comandos e sem novos temporizadores. */
+#tema.active #topicMedia.bm171-media-open{display:block!important;visibility:visible!important;opacity:1!important}
+#tema.active #topicMedia.bm171-media-open :is(.bm430-topic-grid,.bm169-pdf-links){visibility:visible!important;opacity:1!important}
+#tema #topicMedia .bm430-topic-grid{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:8px}
+#tema #topicMedia .bm430-media-link{height:auto;min-height:32px;white-space:normal;text-align:left;width:100%}
+#tema #topicMedia>.contextNote:empty{display:none}
+#imageDialog.bm422-editor[open] #imageStage{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;padding:8px!important}
+#imageDialog.bm422-editor[open] #imageStage .canvases{flex:none!important;margin:auto!important;max-width:none!important;max-height:none!important}
+#formulas dialog#bm427FormulaDialog[open]{box-sizing:border-box!important;position:fixed!important;inset:0!important;margin:auto!important;padding:0!important;border:1px solid #bed4df!important;width:min(920px,calc(100vw - 24px))!important;min-width:0!important;height:fit-content!important;min-height:0!important;max-height:82dvh!important;max-width:calc(100vw - 24px)!important}
+#formulas #bm427FormulaDialog .bm427-formula-scroll{flex:0 1 auto!important;min-height:0!important}
+#formulas #bm427FormulaDialog .bm427-formula-head,#formulas #bm427FormulaDialog .bm427-formula-foot{padding:8px 12px!important}
+#formulas #bm427FormulaDialog .bm249-body{padding:10px 14px!important;max-width:none!important}
+#formulas #bm427FormulaDialog .bm249-blockgap{height:3px!important;min-height:0!important;margin:0!important}
+#formulas #bm427FormulaDialog .bm249-equation{padding:6px 10px!important;margin:4px 0!important;min-height:0!important}
+#formulas #bm427FormulaDialog .bm249-line{margin-block:5px!important}
+#formulas .bm246-formula-breadcrumb{margin-bottom:3px!important;padding:0!important}
+#formulas .bm246-formulas-panel>h2{margin:5px 0!important}
+#formulas .bm246-formulas-panel>.intro{display:none!important}
+#formulas .bm246-formula-toolbar{gap:5px!important;margin:6px 0!important;padding:0!important}
+#formulas .bm246-formula-status[data-state=ok]{padding:2px 0!important;margin:3px 0!important;border:0!important;background:transparent!important;font-size:11px!important}
+#formulas #bm246Connect[hidden]{display:none!important}
+#pdfDialog[open].bm422-editor.bm-v056-annotation-open .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){width:clamp(174px,19vw,230px)!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfLocalTools:not([hidden]){padding:4px!important;gap:4px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043{padding:2px!important;gap:5px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-section{padding:5px!important;gap:4px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-heading{margin:0 0 3px!important;font-size:10px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 :is(.bm100-row,.bm100-zoom)>button[data-bm427-pdf-icon],#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar .bm068-reader-actions button[data-bm427-pdf-icon]{min-height:38px!important;height:auto!important;gap:2px!important;padding:3px 2px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #bm068QuickBar{padding:5px!important;gap:4px!important}
+#pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 .bm100-row{gap:3px!important}
+#lacunas.bm430-gap-wait :is(.bm242-filters,#bm242-list,#bm242-count,#bm299-lac-stats){display:none!important}
+#lacunas #bm242-state[hidden]{display:none!important}
+@media(max-width:650px){#formulas dialog#bm427FormulaDialog[open]{width:calc(100% - 24px)!important;min-width:0!important;max-width:calc(100% - 24px)!important;max-height:88dvh!important}#pdfDialog[open].bm422-editor.bm-v056-annotation-open .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){width:166px!important;max-width:52vw!important}}
+</style>
+<style id="bm435-media-results">
+#tema #topicMedia .bm435-media-results{display:grid!important;gap:10px;min-width:0;padding:4px 0}
+#tema #topicMedia .bm435-media-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+#tema #topicMedia .bm435-media-head h3{font:700 15px/1.4 system-ui,sans-serif!important;margin:0!important;color:#254c5e}
+#tema #topicMedia .bm435-media-update{font:600 12px/1.35 system-ui,sans-serif!important;padding:6px 10px!important;min-height:32px;border:1px solid #bfd3df!important;border-radius:6px!important;background:#fff!important;color:#245d77!important}
+#tema #topicMedia .bm435-media-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#tema #topicMedia .bm435-media-counts>div{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid #d3e0e8;border-radius:7px;background:#f3f8fa;min-width:0}
+#tema #topicMedia .bm435-media-counts strong{font:700 22px/1.1 system-ui,sans-serif;color:#244e65;font-variant-numeric:tabular-nums}
+#tema #topicMedia .bm435-media-counts span{font:500 12px/1.3 system-ui,sans-serif;color:#496575;overflow-wrap:anywhere}
+#tema #topicMedia .bm435-pdf-list{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:5px!important;min-width:0}
+#tema #topicMedia .bm435-pdf-list .bm435-pdf-row{display:grid!important;grid-template-columns:38px minmax(0,1fr) 16px!important;align-items:center!important;text-align:left!important;gap:10px!important;width:100%!important;max-width:none!important;min-height:54px!important;padding:8px 10px!important;border:1px solid #d5e1e8!important;border-radius:7px!important;background:#fff!important;color:#274c60!important;white-space:normal!important;box-shadow:none!important}
+#tema #topicMedia .bm435-pdf-row:hover,#tema #topicMedia .bm435-pdf-row:focus-visible{border-color:#7fa8bf!important;background:#f2f8fb!important}
+#tema #topicMedia .bm435-pdf-icon{display:grid;place-items:center;width:36px;height:38px;border-radius:5px;background:#f8eeec;color:#9b423b;font:750 10px system-ui,sans-serif;letter-spacing:.02em}
+#tema #topicMedia .bm435-pdf-body{display:grid;gap:3px;min-width:0;overflow-wrap:anywhere}
+#tema #topicMedia .bm435-pdf-body strong{font:650 13px/1.4 system-ui,sans-serif!important;color:#244b60}
+#tema #topicMedia .bm435-pdf-body small{font:400 11px/1.35 system-ui,sans-serif!important;color:#587281}
+#tema #topicMedia .bm435-pdf-arrow{font:400 24px/1 system-ui;color:#7194a7;justify-self:end}
+#tema #topicMedia .bm435-media-empty{margin:0!important;color:#607887;font:400 12px/1.45 system-ui,sans-serif}
+#tema #topicMedia .bm435-media-actions{display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid #e1e9ed;padding-top:8px}
+#tema #topicMedia .bm435-media-actions button{font:500 12px/1.35 system-ui,sans-serif!important;padding:7px 10px!important;border:1px solid #d0dfe7!important;border-radius:6px!important;background:white!important;color:#2d627e!important}
+@media(max-width:480px){#tema #topicMedia .bm435-media-counts>div{align-items:flex-start;flex-direction:column;gap:4px;padding:8px}#tema #topicMedia .bm435-pdf-list .bm435-pdf-row{gap:7px!important;padding:7px!important}}
+</style><script src="assets/bm-account/v439_preload.js?v=1"></script><style id="bm440-formulas-editorial">
+/* VS49: apresentação exclusiva do Guia de Fórmulas; sem alteração de dados, grifos ou SRS. */
+#formulas #bm427FormulaDialog .bm249-body{padding:clamp(14px,2.5vw,24px)!important;min-width:0!important;overflow-wrap:break-word}
+#formulas #bm427FormulaDialog .bm249-line{margin-block:8px!important;line-height:1.65!important}
+#formulas #bm427FormulaDialog .bm249-subhead{margin-top:20px!important;padding-bottom:5px!important;color:#23485a!important}
+#formulas #bm427FormulaDialog .bm249-equation-label{font-weight:600;color:#334155!important;margin-bottom:4px!important}
+#formulas #bm427FormulaDialog .bm249-equation{background:#fff!important;border:0!important;border-left:2px solid #cbd5e1!important;border-radius:0!important;padding:9px 12px!important;margin:10px 0 16px!important;box-sizing:border-box;max-width:100%!important;min-width:0!important}
+#formulas #bm427FormulaDialog .bm416-equation-item{padding:6px 0 9px!important;line-height:1.55!important}
+#formulas #bm427FormulaDialog .bm416-equation-item+.bm416-equation-item{border-top:1px solid #e2e8f0}
+#formulas #bm427FormulaDialog .bm416-equation-item:focus-visible{outline:2px solid #648398;outline-offset:2px}
+#formulas #bm427FormulaDialog .bm416-equation-item math{display:block math!important;width:max-content;max-width:none!important;min-width:0!important;font-size:clamp(18px,2.2vw,23px)!important;line-height:1.55!important;margin:0!important;color:#172b3b}
+#formulas .bm249-definition{margin:9px 0 16px;padding:0 0 0 12px;border-left:2px solid #e2e8f0;min-width:0;overflow-wrap:break-word}
+#formulas .bm249-definition-label{font:600 13px/1.5 system-ui,Arial,sans-serif;color:#334155;margin:0 0 4px}
+#formulas .bm249-definition-item{font:400 14px/1.65 system-ui,Arial,sans-serif;color:#334155;margin:3px 0}
+#formulas #bm427FormulaDialog .bm416-table-wrap{max-width:100%!important;min-width:0!important;overflow-x:auto!important;overflow-y:hidden!important;box-sizing:border-box}
+#formulas .bm249-caution{border-left:2px solid #d4b6b9;padding-left:10px}
+#formulas .bm249-metadata{overflow-wrap:anywhere}
+@media(max-width:650px){
+ #formulas #bm427FormulaDialog .bm249-body{padding:12px!important}
+ #formulas #bm427FormulaDialog .bm249-equation{padding:7px 8px!important}
+ #formulas #bm427FormulaDialog .bm416-equation-item math{font-size:18px!important}
+}
+
+/* Explicações didáticas: fluxo contínuo, hierarquia por função semântica, sem caixas repetitivas. */
+#formulas #bm427FormulaDialog .bm249-editorial{min-width:0;margin:12px 0;overflow-wrap:break-word}
+#formulas #bm427FormulaDialog .bm249-editorial-label{font-weight:650;color:#334155}
+#formulas #bm427FormulaDialog .bm249-editorial-example,
+#formulas #bm427FormulaDialog .bm249-editorial-condition,
+#formulas #bm427FormulaDialog .bm249-editorial-caution,
+#formulas #bm427FormulaDialog .bm249-editorial-memory{border-left:2px solid #cbd5e1;padding:2px 0 2px 12px}
+#formulas #bm427FormulaDialog .bm249-editorial-condition{border-left-color:#93c5fd}
+#formulas #bm427FormulaDialog .bm249-editorial-caution{border-left-color:#fda4af}
+#formulas #bm427FormulaDialog .bm249-editorial-memory{border-left-color:#e7c66a}
+#formulas #bm427FormulaDialog .bm249-editorial-explanation{padding:0}
+#formulas #bm427FormulaDialog .bm249-editorial .bm249-line{margin:4px 0!important}
+#formulas #bm427FormulaDialog .bm249-editorial .bm249-caution{border:0;padding:0}
+#formulas #bm427FormulaDialog .bm249-editorial-metadata{border-top:1px solid #e2e8f0;padding-top:6px}
+#formulas #bm427FormulaDialog .bm249-editorial-metadata .bm249-line{font-size:12px!important;line-height:1.65!important;color:#475569!important}
+#formulas #bm427FormulaDialog .bm249-list{margin:9px 0 13px;padding-inline-start:24px;line-height:1.65;min-width:0}
+#formulas #bm427FormulaDialog .bm249-list-item{padding-inline-start:3px;margin:5px 0;overflow-wrap:break-word}
+#formulas #bm427FormulaDialog .bm249-list-item .bm249-equation{margin:6px 0!important}
+#formulas #bm427FormulaDialog .bm249-body :is(p,li){max-width:100%;overflow-wrap:break-word}
+@media(max-width:650px){#formulas #bm427FormulaDialog .bm249-editorial{margin:10px 0}#formulas #bm427FormulaDialog .bm249-list{padding-inline-start:19px}}
+</style></body></html>
