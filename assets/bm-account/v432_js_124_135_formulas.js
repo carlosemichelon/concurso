@@ -1,7 +1,22 @@
 /* V315 módulos IIFE originais 124–135, preservados */
 
 ;
-window.BM239DriveGlobal=Object.freeze({get connected(){return !!window.BMVS41Session?.available()},get writeAuthorized(){return !!window.BMVS41Session?.available()},writeToken:()=>'',get connectionStatus(){return {ready:true,initialized:true,connected:!!window.BMVS41Session?.available(),writeAuthorized:!!window.BMVS41Session?.available(),state:'private'}},sync:async()=>({complete:false,summary:'Dados individuais; gravações explícitas pelo módulo'})});
+(function(){
+ let lastReport=null,ongoing=null;
+ const connected=()=>!!window.BMVS41Session?.available();
+ const notify=()=>document.dispatchEvent(new CustomEvent('bm239-sync-finished'));
+ async function sync(){
+  if(!connected())return null;
+  if(ongoing)return ongoing;
+  ongoing=(async()=>{try{const report=await window.BMPortalBridge.verifyDrive();if(connected())lastReport=report;return report}
+  catch(e){if(connected())lastReport={at:new Date().toISOString(),modules:{},notes:[],pending:[],warnings:[String(e.message||e)],complete:false,summary:'Falha na conferência do Drive: '+String(e.message||e)};return lastReport}
+  finally{ongoing=null;notify()}})();
+  notify();return ongoing;
+ }
+ window.BM239DriveGlobal=Object.freeze({get connected(){return connected()},get writeAuthorized(){return connected()},writeToken:()=>'',get lastReport(){return connected()?lastReport:null},get running(){return !!ongoing},get connectionStatus(){const active=connected();return {ready:true,initialized:true,connected:active,writeAuthorized:active,state:ongoing?'syncing':active?'private':'idle',message:ongoing?'Conferindo módulos do Drive…':active?'Drive individual conectado; gravações explícitas por módulo':'Entre com Google para conferir os módulos'}},sync});
+ // Diagnose on opening the diagnostic panel, rather than adding a full Drive scan to login.
+ document.addEventListener('bm-vs41-session-ready',notify);
+})();
 ;
 /* 125 assets/v266_sync_truth.js */
 /* V263 — indicadores de VERIFICAÇÃO, distintos de contagens de catálogo.
@@ -66,7 +81,7 @@ function refresh(){
  control.querySelector('b').textContent=local==null?'—':String(local);
  const global=window.BM239DriveGlobal,report=global?.lastReport;
  const connected=Boolean(global?.connected);
- const running=$('bm239-drive-action')?.getAttribute('aria-busy')==='true';
+ const running=!!global?.running||$('bm239-drive-action')?.getAttribute('aria-busy')==='true';
  const live=Boolean(report?.at&&Array.isArray(report?.notes)&&Array.isArray(report?.warnings));
  const modules=live?(report.modules||{}):{};
  const catalogPhase=window.BMCatalogLoadState?.state||'idle';
@@ -172,7 +187,7 @@ function summary(){
   checked:Array.isArray(rep?.notes)?rep.notes.length:0,
   pending:Array.isArray(rep?.pending)?rep.pending.length:0,
   errors:Array.isArray(rep?.warnings)?rep.warnings.length:0,
-  modules:entries,srs:'Canônico preservado; não sincronizado por esta ação'};
+  modules:entries,srs:'Catálogo e SRS preservados; nenhuma gravação por esta ação'};
 }
 function make(tag,text,className){
  const el=document.createElement(tag);if(text!==undefined)el.textContent=text;
@@ -185,11 +200,11 @@ function build(){
  const row=make('div',undefined,'bm263-actions');
  const copy=make('button','Copiar diagnóstico');copy.id='bm263-copy-diagnostic';copy.type='button';
  const close=make('button','Fechar');close.id='bm263-close-diagnostic';close.type='button';
- row.append(copy,close);
+ const verify=make('button','Conferir agora');verify.id='bm263-verify';verify.type='button';verify.onclick=()=>{void window.BM239DriveGlobal?.sync()};row.append(verify,copy,close);
  panel.append(make('h3','Sincronização do Google Drive'),row);
  const summaryEl=make('p');summaryEl.id='bm263-report-summary';panel.append(summaryEl);
  const list=make('dl');list.id='bm263-report-list';panel.append(list);
- const note=make('p','Catálogos e SRS não representam transferência. Erros e conflitos não sobrescrevem originais.');panel.append(note);
+ const note=make('p','Conferência somente de leitura. Gravações são feitas pelos módulos; nenhum arquivo é criado ou sobrescrito neste painel.');panel.append(note);
  document.body.append(panel);
  close.onclick=()=>toggle(false);
  copy.onclick=async()=>{
@@ -203,7 +218,8 @@ function build(){
 function render(){
  const panel=$('bm263-sync-panel');if(!panel||panel.hidden)return;
  const report=summary(),at=report.at?new Date(report.at).toLocaleString('pt-BR'):'nenhuma execução confirmada';
- const status=!report.at?'nenhuma verificação executada':report.errors?report.errors+' erro(s)':report.pending?report.pending+' pendência(s)':'sem erros registrados';
+ const running=!!window.BM239DriveGlobal?.running;const verify=$('bm263-verify');if(verify){verify.disabled=running||!report.connection.connected;verify.textContent=running?'Conferindo…':'Conferir agora'}
+ const status=running?'conferência em andamento':!report.at?'nenhuma verificação executada':report.errors?report.errors+' erro(s)':report.pending?report.pending+' pendência(s)':'sem erros registrados';
  $('bm263-report-summary').textContent='Última conferência: '+at+' · '+report.checked+
   ' módulo(s) confirmado(s) · '+status+'. '+report.connection.message;
  const dl=$('bm263-report-list');dl.replaceChildren();
@@ -219,7 +235,7 @@ function toggle(force){
  panel.hidden=!open;
  const trigger=$('bm239-sync-details');
  if(trigger)trigger.setAttribute('aria-expanded',String(open));
- if(open)render();
+ if(open){render();if(!window.BM239DriveGlobal?.lastReport&&!window.BM239DriveGlobal?.running)void window.BM239DriveGlobal?.sync()}
 }
 function init(){
  const el=$('bm239-sync-details');if(!el)return;

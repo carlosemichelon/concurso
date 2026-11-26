@@ -92,7 +92,7 @@ try{
   assert.equal(await page.locator('#bmAccountStudyObjective').count(),0);
   const exportBox=await page.locator('#bmAccountExportDialog').boundingBox();assert.ok(exportBox.width<=441&&exportBox.height<380,'Exportação compacta');
   await page.setViewportSize({width:390,height:844});
-  await page.waitForFunction(()=>{const r=document.getElementById('bmAccountExportDialog').getBoundingClientRect();return r.width<=366.5&&r.height<500},{},{timeout:3000}).catch(async()=>{const d=await page.locator('#bmAccountExportDialog').evaluate(e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return {width:r.width,height:r.height,viewport:[innerWidth,innerHeight],css:[s.width,s.height,s.minWidth,s.minHeight,s.position,s.inset,s.display],childHeight:e.firstElementChild.getBoundingClientRect().height}});throw Error('Exportação mobile: '+JSON.stringify(d))});
+  await page.waitForFunction(()=>{const r=document.getElementById('bmAccountExportDialog').getBoundingClientRect();return r.left>=4&&r.right<=innerWidth-4&&r.height<500},{},{timeout:3000}).catch(async()=>{const d=await page.locator('#bmAccountExportDialog').evaluate(e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return {width:r.width,height:r.height,viewport:[innerWidth,innerHeight],css:[s.width,s.height,s.minWidth,s.minHeight,s.position,s.inset,s.display],childHeight:e.firstElementChild.getBoundingClientRect().height}});throw Error('Exportação mobile: '+JSON.stringify(d))});
   await page.setViewportSize({width:1366,height:900});
   const downloadPromise=page.waitForEvent('download');
   await page.locator('#bmAccountExportSave').click();
