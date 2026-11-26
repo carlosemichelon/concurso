@@ -68,14 +68,62 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  let pending=Promise.resolve(),uncertain=false;
  function serialize(fn){const next=pending.catch(()=>{}).then(()=>{guard();if(uncertain)fail('Envio anterior não confirmado; reconecte e confira o Drive antes de repetir',409);return fn()});pending=next;return next}
  const send=async(url,options)=>{guard();let res;try{res=await fetcher(url,{...options,headers:{Authorization:'Bearer '+token,...options.headers},cache:'no-store',credentials:'omit',redirect:'error',signal})}catch(e){uncertain=true;throw e}if(!res.ok){if(![400,401,403,404,409,412,413].includes(res.status))uncertain=true;fail('Drive HTTP '+res.status,res.status===412?409:res.status)}return res.json()};
- async function create(name,data,props={}){
+ async function create(name,data,props={},parentId=''){
   const payload=JSON.stringify(data);if(new TextEncoder().encode(payload).length>10000000)fail('Arquivo excede 10 MB');
-  const metadata={name,mimeType:'application/json',...(Object.keys(props).length?{appProperties:props}:{})};
+  const metadata={name,mimeType:'application/json',...(parentId?{parents:[parentId]}:{}),...(Object.keys(props).length?{appProperties:props}:{})};
   const boundary='bm_'+crypto.randomUUID().replaceAll('-','');
   const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(metadata)+'\r\n--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+payload+'\r\n--'+boundary+'--\r\n';
   const result=await send(UPLOAD+'?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});
   try{const r=await json(result.id);if(r.meta.name!==name||!eq(r.data,data))throw Error('Conteúdo gravado divergente');return r}catch(e){uncertain=true;throw e}
  }
+ // Redação: state saved only on explicit user request; no secrets or guest transfer.
+ const WRITING_NAME='BancoMestre_Redacao_V296.json',WRITING_KIND='bm_redacao_v296',WRITING_FORMAT='BancoMestreRedacaoDriveV296';
+ const writingFolder=async()=>{
+  const f=await unique("mimeType = '"+folder+"' and name = '05 - Revisões' and '"+root.id+"' in parents",'Pasta individual de revisões');
+  if(f.parents?.length!==1||f.parents[0]!==root.id)fail('Pasta de Redação fora do banco individual',409);
+  return f.id;
+ };
+ const writingKey=k=>k==='pe_tutor_historico'||k==='treino_indice'||/^treino_[^\u0000-\u001f]{1,100}$/u.test(k);
+ function validateWriting(data){
+  if(!data||typeof data!=='object'||Array.isArray(data)||Object.keys(data).length>2000)fail('Progresso de Redação inválido');
+  for(const [k,v] of Object.entries(data)){
+   if(!writingKey(k)||typeof v!=='string')fail('Chave de Redação não autorizada');
+   try{JSON.parse(v)}catch{fail('Registro de Redação inválido')}
+  }
+  if(new TextEncoder().encode(JSON.stringify(data)).length>5000000)fail('Progresso de Redação excede 5 MB');
+  return data;
+ }
+ async function writingMaster(){
+  const parentId=await writingFolder();
+  const f=await unique("mimeType = 'application/json' and '"+parentId+"' in parents and (appProperties has { key='bm_kind' and value='"+WRITING_KIND+"' } or name = '"+WRITING_NAME+"')",WRITING_NAME,true);
+  if(!f)return {parentId,file:null,data:{},revision:null};
+  const r=await json(f.id,6000000);
+  if(r.meta.parents?.length!==1||r.meta.parents[0]!==parentId||r.data.format!==WRITING_FORMAT)fail('Arquivo de Redação incompatível',409);
+  return {parentId,file:r.meta,data:validateWriting(r.data.data),revision:r.meta.version};
+ }
+ const writing=async()=>{const p=await writingMaster();return {revision:p.revision,data:p.data}};
+ const saveWriting=input=>serialize(async()=>{
+  if(!input||!uuid(input.event_id))fail('Gravação de Redação inválida');
+  const data=validateWriting(input.data),p=await writingMaster();
+  if(input.previous!==p.revision)fail('Redação alterada em outro dispositivo; exporte o rascunho antes de reconectar',409);
+  if(eq(data,p.data))return {revision:p.revision,data:p.data};
+  const payload={format:WRITING_FORMAT,updatedAt:new Date().toISOString(),data};
+  let saved;
+  if(!p.file){
+   if((await writingMaster()).file)fail('Redação já criada em outro dispositivo',409);
+   saved=await create(WRITING_NAME,payload,{bm_kind:WRITING_KIND,bm_schema:'V296'},p.parentId);
+  }else{
+   if(p.file.appProperties?.bm_kind!==WRITING_KIND)fail('Arquivo histórico sem autorização de substituição',409);
+   await create('BancoMestre_Redacao_Recuperacao_'+input.event_id+'.json',{format:WRITING_FORMAT,updatedAt:payload.updatedAt,data:p.data},{bm_kind:'bm_redacao_recovery_v296'},p.parentId);
+   const latest=await writingMaster();
+   if(latest.file?.id!==p.file.id||latest.revision!==p.revision||!eq(latest.data,p.data))fail('Redação alterada durante a conferência',409);
+   const check=await get(API+'/'+p.file.id,{fields}),m=await check.json(),etag=check.headers.get('etag');
+   if(!owned(m)||m.version!==p.revision||m.parents?.length!==1||m.parents[0]!==p.parentId)fail('Arquivo de Redação alterado',409);
+   const result=await send(UPLOAD+'/'+p.file.id+'?uploadType=media&fields=id',{method:'PATCH',headers:{'Content-Type':'application/json; charset=UTF-8',...(etag?{'If-Match':etag}:{})},body:JSON.stringify(payload)});
+   try{if(result.id!==p.file.id)throw Error('ID divergente');saved=await json(result.id);if(!eq(saved.data,payload))throw Error('Redação não confirmada')}catch(e){uncertain=true;throw e}
+  }
+  return {revision:saved.meta.version,data:saved.data.data};
+ });
  function validateStudy(d,old,takeover){
   if(!d||d.schema!==1||!['subjects','sessions','reviews','plans','audit','cycle'].every(k=>Array.isArray(d[k])))fail('Controle de Estudos inválido');
   if(new TextEncoder().encode(JSON.stringify(d)).length>10000000)fail('Controle de Estudos excede 10 MB');
@@ -369,6 +417,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await capture('cards',async()=>snapshot.records);
   await capture('study',async()=>{const p=await studyMaster();return p?{revision:p.revision,data:p.data}:null});
   await capture('reviews',reviews);
+  await capture('writing',writing,true);
   await capture('gaps',async()=>{const p=await gapMaster();return p?{revision:p.revision,data:validateGaps(p.data)}:null});
   await capture('formulas',formulas,true);
   await capture('pdf_highlights',async()=>{const p=await grifos();return p.file?{revision:p.file.version,data:p.data}:null},true);
@@ -381,5 +430,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const incomplete=Object.entries(sources).filter(([k,s])=>s.status==='falha'||(['methodology','operational_guide'].includes(k)&&s.status!=='confirmado')).map(([k,s])=>({section:k,...s}));
   return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. Use o objetivo informado e a base individual, preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName},sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
  };
- return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,gaps,saveGap,reviews,recordReview,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
+ return Object.freeze({root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,formulas,methodology,operationalGuide,exportStudy,write,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(){return [...(await media()).values()].filter(m=>m.mimeType==='application/pdf')},async images(){return [...(await media()).values()].filter(m=>m.mimeType.startsWith('image/'))},readMedia});
 }
