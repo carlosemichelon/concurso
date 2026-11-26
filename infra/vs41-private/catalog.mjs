@@ -22,7 +22,7 @@ export function verifyRecords(records){
  for(const c of records)if(c.related_card_ids!==undefined&&(!Array.isArray(c.related_card_ids)||c.related_card_ids.some(id=>!seen.has(id))))fail('records-links');
  return structuredClone(records);
 }
-export function createReader({resolveSession,getToken,fetcher=fetch,includeMedia=false}){
+export function createReader({resolveSession,getToken,fetcher=fetch,includeMedia=false,includeFormula=false}){
  return async request=>{
   const resolved=await resolveSession(request);if(!resolved||![resolved.subject,resolved.rootId,resolved.profileId,resolved.sessionId].every(idOk))fail('session');
   const session={subject:resolved.subject,rootId:resolved.rootId,profileId:resolved.profileId,sessionId:resolved.sessionId};
@@ -54,8 +54,27 @@ export function createReader({resolveSession,getToken,fetcher=fetch,includeMedia
    if(m?.schema!=='BM-PORTAL-COLLECTION/1'||m.project!==PROJECT||m.owner!==subject||m.kind!=='media'||!Array.isArray(m.records)||m.records.length>20000)fail('media-schema');
    media=m.records;
   }
+  let formula=null;
+  if(includeFormula&&profile.collections.formulas){
+   const fid=profile.collections.formulas;
+   if(!idOk(fid))fail('formula-id');
+   const readDocMeta=async()=>{
+    const m=await get(fid,'fields='+encodeURIComponent('id,name,mimeType,ownedByMe,shared,trashed,parents,appProperties,version,modifiedTime'),'formula-meta');
+    if(m.id!==fid||m.mimeType!=='application/vnd.google-apps.document'||m.ownedByMe!==true||m.shared!==false||m.trashed!==false||m.parents?.length!==1||m.parents[0]!==rootId||m.appProperties?.bmProject!==PROJECT||m.appProperties?.bmOwner!==subject||m.appProperties?.bmKind!=='formulas'||typeof m.version!=='string'||!m.version||typeof m.modifiedTime!=='string'||!Number.isFinite(Date.parse(m.modifiedTime)))fail('formula-owner');
+    return m;
+   };
+   const before=await readDocMeta(),response=await fetcher(API+'/'+encodeURIComponent(fid)+'/export?mimeType=text%2Fplain',{headers:{Authorization:'Bearer '+token},cache:'no-store',redirect:'error'});
+   if(!response.ok)fail('formula-export');
+   const reader=response.body?.getReader();if(!reader)fail('formula-body');
+   const chunks=[];let size=0;
+   try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>1600000){await reader.cancel();fail('formula-size')}chunks.push(value)}}finally{reader.releaseLock()}
+   const raw=new TextDecoder('utf-8',{fatal:true}).decode(Buffer.concat(chunks));
+   const after=await readDocMeta();
+   if(before.version!==after.version||before.modifiedTime!==after.modifiedTime||!raw.trim()||raw.length>400000)fail('formula-revision');
+   formula={text:raw,version:after.version,modifiedTime:after.modifiedTime};
+  }
   const current=await resolveSession(request);
   if(!current||['subject','rootId','profileId','sessionId'].some(k=>current[k]!==session[k]))fail('session-revoked');
-  return {schema:'BM-VS41-PRIVATE-CARDS/1',records,...(includeMedia?{media}:{})};
+  return {schema:'BM-VS41-PRIVATE-CARDS/1',records,...(includeMedia?{media}:{}),...(includeFormula?{formula}:{})};
  };
 }

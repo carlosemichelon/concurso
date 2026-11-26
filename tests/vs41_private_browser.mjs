@@ -8,8 +8,8 @@ import {privateJournal} from '../infra/vs41-private/journal.mjs';
 import {privatePage} from '../infra/vs41-private/page.mjs';
 import fs from 'node:fs';import path from 'node:path';import http from 'node:http';import assert from 'node:assert/strict';import {chromium} from 'playwright';
 import {createApi} from '../infra/vs41-private/api.mjs';import {parseUsers,passwordHash} from '../infra/vs41-private/auth.mjs';
-import {mediaFixture,profiles} from './vs41_private_fixture.mjs';
-const root=process.cwd(),html=fs.readFileSync('index.html','utf8'),f=mediaFixture();
+import {mediaFixture,formulaFixture,profiles} from './vs41_private_fixture.mjs';
+const root=process.cwd(),html=fs.readFileSync('index.html','utf8'),f=formulaFixture(mediaFixture());
 const manifest=JSON.parse(fs.readFileSync('assets/version.json','utf8'));
 const passwords={A:'fixture-A-only-123',B:'fixture-B-only-123'};
 const users=parseUsers(JSON.stringify(await Promise.all(['A','B'].map(async label=>({username:label,...profiles[label],passwordHash:await passwordHash(passwords[label])})))));
@@ -247,6 +247,26 @@ try{
  assert.equal(await oldA.evaluate(()=>window.BM240ControlApp.timer.running),false);
  await oldA.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901'));await oldA.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
  console.log('Cronômetro: recuperação em nova aba na mesma sessão, pausa e encerramento confirmados, sem duplicação.');
+ for(const [p,label] of [[oldA,'A'],[oldB,'B']]){
+  await p.evaluate(()=>window.BancoMestreVisualizarCardV050.close());
+  await p.evaluate(()=>section('assuntos'));
+  await p.evaluate(()=>window.BM246Formulas.open());
+  await p.waitForFunction(()=>window.BM246Formulas.status.loaded);
+  const guide=p.locator('#formulas'),other=label==='A'?'B':'A';
+  assert.equal(await guide.locator('[data-formula-section]').count(),3);
+  await guide.locator('#bm246FormulaSearch').fill('Fórmula particular '+label);
+  assert.equal(await guide.locator('[data-formula-section]').count(),1);
+  await guide.locator('[data-formula-section="1"]').click();
+  const dialog=p.locator('#bm427FormulaDialog[open]');await dialog.waitFor({state:'visible'});
+  assert.ok((await dialog.innerText()).includes('Exemplo exclusivo '+label));assert.ok(!(await dialog.innerText()).includes('Exemplo exclusivo '+other));
+  await dialog.locator('.bm427-formula-close').click();
+  await guide.locator('#bm246ShowPreview').click();
+  assert.ok((await guide.locator('#bm246FormulaFrame').innerText()).includes('Guia privado '+label));
+  assert.ok(!(await guide.locator('#bm246FormulaFrame').innerText()).includes('Guia privado '+other));
+  await guide.locator('#bm246ShowPreview').click();
+  await p.evaluate(()=>window.BancoMestreVisualizarCardV050.showId('CARD-9901'));await p.locator('#bmCardPeekV050 .bm-v050-peek-reveal').click();
+ }
+ console.log('Fórmulas: pesquisa, leitura e texto integral exclusivos do perfil autenticado.');
  const before=f.requests.length;
  await oldA.evaluate(()=>window.dispatchEvent(new Event('focus')));await oldA.waitForTimeout(300);assert.equal(f.requests.length,before,'checagem de sessão não consulta Drive');
  const reloaded=oldA.waitForEvent('framenavigated',{predicate:frame=>frame===oldA.mainFrame(),timeout:15000});

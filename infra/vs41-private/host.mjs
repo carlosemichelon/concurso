@@ -5,6 +5,7 @@ import {privatePage} from './page.mjs';
 import {privateImageEditor} from './image-editor.mjs';
 import {privateGallery} from './gallery.mjs';
 import {privateStudyBundle,privateStudyApp} from './study-ui.mjs';
+import {privateFormulas} from './formulas-ui.mjs';
 import {privateGaps} from './gaps-ui.mjs';
 import {privatePdfEditor} from './pdf-editor.mjs';
 import {privatePdfLibrary,privatePdfSync} from './pdf-library.mjs';
@@ -21,7 +22,7 @@ const adapters=new Map([
  ['/assets/v432_js_002_015_topic_media.js',s=>privatePdfLibrary(privatePdfEditor(s))],
  ['/assets/v432_js_040_051_atlas.js',s=>privateGallery(privatePdfSync(s))],
  ['/assets/v430_js_112_123_control.js',s=>privateGaps(privateStudyBundle(s))],
- ['/assets/v432_js_124_135_formulas.js',s=>privateTimerHeader(privateGlobalDrive(s))],
+ ['/assets/v432_js_124_135_formulas.js',s=>privateFormulas(privateTimerHeader(privateGlobalDrive(s)))],
  ['/assets/v402_js_136_147_compare.js',privateReconcile],
  ['/assets/v413_js_148_159_gaps.js',privateStudyCalendarStatus]
 ]);

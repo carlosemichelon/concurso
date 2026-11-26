@@ -48,3 +48,20 @@ export function mediaFixture(base){
  }
  return {...f,fetcher:async(url,opts)=>{const u=new URL(url),id=u.pathname.split('/').pop(),file=f.files.get(id);if(file?.bytes&&u.searchParams.has('alt')){f.requests.push({id,media:true});return new Response(file.bytes,{headers:{'Content-Type':file.meta.mimeType}})}return original(url,opts)}};
 }
+
+export function formulaFixture(base){
+ const f=base||fixture(),original=f.fetcher;
+ for(const s of ['A','B']){
+  const id='formulas'+s;
+  f.files.get('profile'+s).payload.collections.formulas=id;
+  f.files.set(id,{meta:{id,name:'Guia '+s,mimeType:'application/vnd.google-apps.document',ownedByMe:true,shared:false,trashed:false,parents:['root'+s],version:'1',modifiedTime:'2026-11-25T00:00:00Z',appProperties:{bmProject:project,bmOwner:s,bmKind:'formulas'}},text:'Guia privado '+s+'\n1. Fórmula particular '+s+'\nM = F × L\nExemplo exclusivo '+s+'\n2. Segunda seção '+s+'\nV = Q/A'});
+ }
+ return {...f,fetcher:async(url,opts)=>{
+  const u=new URL(url);
+  if(u.pathname.endsWith('/export')){
+   if(opts.headers.Authorization!=='Bearer fixture'||opts.redirect!=='error')throw Error('Credencial inválida');
+   const id=u.pathname.split('/').at(-2),v=f.files.get(id);f.requests.push({id,export:true});return v?.text?new Response(v.text,{headers:{'Content-Type':'text/plain'}}):new Response(null,{status:404});
+  }
+  return original(url,opts);
+ }};
+}

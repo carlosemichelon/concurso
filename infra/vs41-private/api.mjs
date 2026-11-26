@@ -15,6 +15,7 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
  const auth=createAuth({users,now});
  const resolveSession=async req=>{const token=sessionToken(req.headers.cookie),s=auth.read(token);return s?{subject:s.user.subject,rootId:s.user.rootId,profileId:s.user.profileId,sessionId:token,context:s.context}:null};
  const read=createReader({resolveSession,getToken,fetcher});
+ const formulaRead=createReader({resolveSession,getToken,fetcher,includeFormula:true});
  const reviews=createReviewStore({resolveSession,getToken,fetcher,now});
  const readMedia=createMediaReader({resolveSession,getToken,fetcher});
  const pdfLibrary=createPdfLibrary({resolveSession,getToken,fetcher});
@@ -41,6 +42,11 @@ export function createApi({users,origin,getToken,fetcher=fetch,now=Date.now}){
    }
    if(req.method==='GET'&&u.pathname==='/api/vs41/session'){
     const s=auth.read(token);return s?json(res,200,{context:s.context}):json(res,401,{error:'Sessão encerrada'});
+   }
+   if(req.method==='GET'&&u.pathname==='/api/vs41/formulas'){
+    const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});
+    if(req.headers['x-bm-context']!==s.context)return json(res,409,{error:'Sessão alterada'});
+    try{const data=await formulaRead(req);if(auth.read(token)!==s)return json(res,401,{error:'Sessão encerrada'});return json(res,200,{formula:data.formula,context:s.context})}catch{return json(res,503,{error:'Guia privado indisponível'})}
    }
    if(req.method==='GET'&&u.pathname==='/api/vs41/private-cards'){
     const s=auth.read(token);if(!s)return json(res,401,{error:'Sessão encerrada'});

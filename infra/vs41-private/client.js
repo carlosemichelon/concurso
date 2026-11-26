@@ -116,6 +116,14 @@
   return p;
  }
  Object.defineProperty(window,'BMVS41PrivateGaps',{value:Object.freeze({read:()=>gapRequest(),save:input=>gapRequest(input)})});
+ Object.defineProperty(window,'BMVS41PrivateFormulas',{value:Object.freeze({async read(){
+  const expected=await check();start();const r=await request('/api/vs41/formulas',{'X-BM-Context':expected});
+  if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
+  if(!r.ok)throw Error('Guia privado indisponível');
+  const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
+  if(p.formula!==null&&(!p.formula||typeof p.formula.text!=='string'||!p.formula.text.trim()||p.formula.text.length>400000||typeof p.formula.version!=='string'))throw Error('Guia inválido');
+  return p.formula;
+ }})});
  Object.defineProperty(window,'BMVS41PrivateImages',{value:Object.freeze({async list(){
   const expected=await check();start();const r=await request('/api/vs41/images',{'X-BM-Context':expected});
   if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
