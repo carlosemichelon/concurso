@@ -757,16 +757,10 @@ function setFilterOptions(){
 function splitExpressions(s){
  const out=[];let depth=0,last=0;for(let i=0;i<s.length;i++){const ch=s[i];if('([{'.includes(ch))depth++;else if(')]}'.includes(ch))depth=Math.max(0,depth-1);else if(ch===';'&&depth===0){out.push(s.slice(last,i).trim());last=i+1;}}out.push(s.slice(last).trim());return out.filter(Boolean);
 }
-// A descrição explícita permanece visível, fora da notação matemática.
-function labeledEquation(s){
- const m=String(s).trim().match(/^(M)(\s+nos engastes|\s+positivo no meio)\s*(=)\s*(.+)$/u)||String(s).trim().match(/^(τmax)(\s+retângulo)\s*(=)\s*(.+)$/u);
- return m?{label:m[1]+m[2],expression:m[1]+' '+m[3]+' '+m[4]}:null;
-}
 function isEquation(s){
- const labeled=labeledEquation(s);if(labeled)return isEquation(labeled.expression);
  const t=window.BM417Math.screen(s.trim().replace(/^[•]\s*/,''));
- if(!/[=≤≥≈∝≠<>]/u.test(t)||t.length>220||/https?:|:\s|\b(?:para|com|quando|onde|segundo|conforme|pois|logo|então|hipótese|depende|valor|unidade|considerar|não|verificar|por|medido|sendo|adimensional|constante)\b/iu.test(t))return false;
- const lhs=t.split(/[=≤≥≈∝≠<>]/u)[0].trim();
+ if(!/[=≤≥≈∝]/u.test(t)||t.length>220||/https?:|:\s|\b(?:para|com|quando|onde|segundo|conforme|pois|logo|então|hipótese|depende|valor|unidade|considerar|não|verificar|por|medido|sendo|adimensional|constante)\b/iu.test(t))return false;
+ const lhs=t.split(/[=≤≥≈∝]/u)[0].trim();
  if(lhs.length>55||/[.!?]/u.test(lhs)||/\s(?:[A-Za-zÀ-ÿ]{3,})\s/u.test(' '+lhs+' '))return false;
  if(!/^[\p{L}\p{N}\s\p{S}\p{P}]+$/u.test(t))return false;
  // Prosa de explicação não é equação: palavras longas soltas, fora dos identificadores com subíndice.
@@ -774,23 +768,16 @@ function isEquation(s){
  if(/\b[\p{L}]{4,}\b/u.test(prose))return false;
  return true;
 }
-function isSymbolLegend(s){
- const clauses=splitExpressions(s);
- if(clauses.length>=2&&clauses.every(p=>/^[\p{L}][\p{L}\p{N}_,]{0,15}\s*:\s*.+/u.test(p)))return true;
- return /^[\p{L}][\p{L}\p{N}_,·\s]{0,32}\s*\[[^\]]+\]/u.test(s)&&(s.match(/\[[^\]]+\]/gu)||[]).length>=3&&!/^(?:Exemplo|Fonte|Questão|Referência|Atenção)/iu.test(s);
-}
 function sectionLineKind(line){
  const s=String(line||'').trim();
  if(!s)return 'space';
  if(/^\|.*\|$/u.test(s))return 'table';
- // Rótulos editoriais explícitos nunca são tratados como equações.
- if(/^(?:unidades?(?:\s+de\s+medida)?|variáveis|símbolos|legenda|onde|em que)(?:\s*:|\s*$)/iu.test(s)||isSymbolLegend(s))return 'definition';
  if(/^(O QUE DECORAR|NÃO CONFUNDIR|PEGADINHA|REVISÃO DE \d+ SEGUNDOS)$/iu.test(s))return 'subhead';
  if(/^(FONTE|LIGAÇÕES|VÍNCULOS|REGISTRO|PROTOCOLO|ESTADO DO GUIA|ESCOPO DESTA|REMISSÕES|REFERÊNCIA:)/iu.test(s))return 'metadata';
  if(/^(ATENÇÃO|PEGADINHA|NÃO CONFUNDIR|EXEMPLO DIMENSIONAL)/iu.test(s))return 'caution';
  if(splitExpressions(s.replace(/^•\s*/, '')).every(isEquation))return 'equation';
  if(/^(?:\d+\)|[•–-])\s+/u.test(s))return 'step';
- if(s.length<=100&&!/[=≤≥≈∝≠<>]|https?:/u.test(s)&&!/[.!?;]$/u.test(s)&&(/^[A-ZÀ-Ü][A-ZÀ-Ü\s\/–—-]{4,}$/u.test(s)||/^[A-ZÀ-Ü][^:;]*(?::)?$/u.test(s)&&s.split(/\s+/).length<=12))return 'subhead';
+ if(s.length<=100&&!/[=≤≥≈∝]|https?:/u.test(s)&&!/[.!?;]$/u.test(s)&&(/^[A-ZÀ-Ü][A-ZÀ-Ü\s\/–—-]{4,}$/u.test(s)||/^[A-ZÀ-Ü][^:;]*(?::)?$/u.test(s)&&s.split(/\s+/).length<=12))return 'subhead';
  return 'paragraph';
 }
 const make=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
@@ -798,34 +785,22 @@ const MATH='http://www.w3.org/1998/Math/MathML';
 function mn(tag,txt){const e=document.createElementNS(MATH,tag);if(txt!==undefined)e.textContent=txt;return e;}
 function inlineMath(s){return window.BM417Math.inline(s);}
 function mathPart(s){
- // Integral terms must not be merged into a single numerator across an additive operator.
- const integralTerms=String(s).trim().split(/\s+([+−-])\s+(?=∫)/u);
- if(integralTerms.length>1&&integralTerms.filter((_,i)=>i%2===0).every(t=>t.trim().startsWith('∫'))){const row=mn('mrow');for(let i=0;i<integralTerms.length;i++)row.append(i%2?mn('mo',integralTerms[i]):mathPart(integralTerms[i]));return row;}
  const raw=String(s).trim().replace(/\.$/u,''),match=raw.match(/^∫\s*(.+?)\s*\/\s*\[([^\[\]]+)\]\s*(d[xyls])$/u);
  if(match){const r=mn('mrow'),frac=mn('mfrac');frac.append(inlineMath(match[1]),inlineMath(match[2]));r.append(mn('mo','∫'),frac,mn('mi',match[3]));return r}
  return window.BM417Math.part(s);
 }
-function trailingUnits(text){
- // Extract only explicit terminal unit notes, never mathematical brackets.
- const m=String(text).match(/^(.*?)(\s+\[(?:m(?:m|²|³|⁴|\/s)?|cm(?:²|³|⁴)?|kN(?:·m|\/m²?)?|N(?:·m|\/mm²)?|MPa|kPa|Pa|J|rad|adimensional|[^\[\]]+\bem\s+(?:MPa|kPa|Pa|mm|m|kN|N))\]\.?|,\s+em\s+(?:MPa|kPa|Pa|mm|m|kN|N)\.?)$/u);
- return m?{expr:m[1].trim(),units:m[2].trim()}:null;
-}
 function equationNode(text){
- const line=make('div','bm416-equation-item');line.setAttribute('role','group');line.setAttribute('aria-label','Fórmula: '+text);line.tabIndex=0;
- const labeled=labeledEquation(text);
- if(labeled){line.append(make('p','bm249-equation-label',labeled.label));text=labeled.expression;}
- const unitNote=trailingUnits(text);if(unitNote)text=unitNote.expr;
- const finish=math=>{line.append(math);if(unitNote)line.append(make('p','bm249-definition-item',unitNote.units));return line};
+ const line=make('div','bm416-equation-item');line.setAttribute('aria-label','Fórmula: '+text);
  // Matrizes de fonte textual recebem linhas e colunas reais, mantendo os coeficientes originais.
  const match=text.match(/^(.*?)\[\[([^\[\]]+)\](?:,\s*\[([^\[\]]+)\])+\](.*)$/u);
  if(match){const at=text.indexOf('[['),last=text.lastIndexOf(']]'),cells=[...text.slice(at,last+2).matchAll(/\[([^\[\]]+)\]/gu)].map(m=>m[1].split(',').map(v=>v.trim()));
   if(cells.length>=2&&cells.every(r=>r.length===cells[0].length&&r.every(x=>x.length>0))){
-   const math=mn('math');math.setAttribute('display','block');const row=mn('mrow');row.append(inlineMath(text.slice(0,at)),mn('mo','['));const table=mn('mtable');for(const values of cells){const tr=mn('mtr');for(const value of values){const td=mn('mtd');td.append(inlineMath(value));tr.append(td);}table.append(tr);}row.append(table,mn('mo',']'),inlineMath(text.slice(last+2)));math.append(row);return finish(math);
+   const math=mn('math');math.setAttribute('display','block');const row=mn('mrow');row.append(inlineMath(text.slice(0,at)),mn('mo','['));const table=mn('mtable');for(const values of cells){const tr=mn('mtr');for(const value of values){const td=mn('mtd');td.append(inlineMath(value));tr.append(td);}table.append(tr);}row.append(table,mn('mo',']'),inlineMath(text.slice(last+2)));math.append(row);line.append(math);return line;
   }
  }
  const math=mn('math');math.setAttribute('display','block');const row=mn('mrow');
- const parts=text.split(/([=≤≥≈∝≠<>])/u);
- for(let i=0;i<parts.length;i++){if(!parts[i].trim())continue;row.append(i%2?mn('mo',parts[i]):mathPart(parts[i]));}math.append(row);window.BM417Math.decorate(math);return finish(math);
+ const parts=text.split(/([=≤≥≈∝])/u);
+ for(let i=0;i<parts.length;i++){if(!parts[i].trim())continue;row.append(i%2?mn('mo',parts[i]):mathPart(parts[i]));}math.append(row);window.BM417Math.decorate(math);line.append(math);return line;
 }
 function inlineSegments(text){
  const s=String(text||'');
@@ -833,7 +808,7 @@ function inlineSegments(text){
  const atom='(?:'+id+'|[0-9]+(?:[.,][0-9]+)?[²³⁴⁵⁶⁷⁸⁹⁰¹]*|(?:MPa|GPa|kPa|kN|MN|Pa|mm|cm|kg|m|N|s)[²³]?|[A-Za-zα-ωΑ-Ω](?![\\p{L}\\p{N}_]))';
  const term='(?:\\[\\s*'+atom+'\\s*\\]|\\(\\s*'+atom+'(?:\\s*[×·*/+−-]\\s*'+atom+')*\\s*\\)|'+atom+')';
  const expr=term+'(?:\\s*[×·*/+−-]\\s*'+term+')*';
- const eq='(?:'+expr+'\\s*[=≤≥≈∝≠<>]\\s*'+expr+')';
+ const eq='(?:'+expr+'\\s*[=≤≥≈∝]\\s*'+expr+')';
  const token='(?:'+id+'|[\\p{L}][²³⁴⁵⁶⁷⁸⁹⁰¹]+|[0-9]+(?:[.,][0-9]+)?[²³⁴⁵⁶⁷⁸⁹⁰¹]+)';
  const re=new RegExp('(?<![\\p{L}\\p{N}_])(?:'+eq+'|'+token+')(?![\\p{L}\\p{N}_])','gu');
  const out=[];let last=0;
@@ -846,7 +821,7 @@ function inlineContent(host,text){
  for(const part of inlineSegments(text)){
   if(!part.math||!window.BM417Math){host.append(document.createTextNode(part.text));continue}
   const math=mn('math');math.setAttribute('display','inline');math.setAttribute('aria-label',part.text);math.classList.add('bm427-inline-math');
-  const row=mn('mrow'),pieces=part.text.split(/([=≤≥≈∝≠<>])/u);
+  const row=mn('mrow'),pieces=part.text.split(/([=≤≥≈∝])/u);
   for(let i=0;i<pieces.length;i++)if(pieces[i].trim())row.append(i%2?mn('mo',pieces[i]):mathPart(pieces[i]));
   math.append(row);if(pieces.length>1)window.BM417Math.decorate(math);host.append(math);
  }
@@ -863,26 +838,22 @@ function tableNode(lines){
 function formulaClause(raw){
  const text=String(raw).trim();
  if(isEquation(text))return {expr:text,note:''};
- const named=text.match(/^([^:]{1,100}:)\s*(.+)$/u);
- if(named&&/[=≤≥≈∝≠<>]/u.test(named[2])){const value=formulaClause(named[2]);if(value&&!value.prefix)return {...value,prefix:named[1]};}
- const additiveNote=text.match(/^(.+?)(\s+\+\s+parcelas?\s+.+)$/iu);
- if(additiveNote&&isEquation(additiveNote[1]))return {expr:additiveNote[1],note:additiveNote[2].trim()};
  const leading=text.match(/^(logo|então)\s+(.+)$/iu);
  if(leading&&isEquation(leading[2]))return {expr:leading[2],prefix:leading[1],note:''};
  // Only split at explicit explanatory language; leave uncertain syntax in prose.
- const qualified=text.match(/^(.+?)(,?\s+(?:medido|medida|medidos|medidas|quando|onde|para|com|em que|válido|válida|considerando|dimensão|adimensional|em MPa|em kPa|em mm|em N)\b.*|\s+\([^)]*[\p{L}]{4,}[^)]*\)\.?|\s+\[[^\]]*(?:\bem\b|adimensional)[^\]]*\]\.?)$/iu);
+ const qualified=text.match(/^(.+?)(\s+(?:medido|medida|medidos|medidas|quando|onde|para|com|em que|válido|válida|considerando)\b.*|\s+\([^)]*[\p{L}]{4,}[^)]*\)\.?)$/iu);
  if(qualified&&isEquation(qualified[1]))return {expr:qualified[1],note:qualified[2].trim()};
  return null;
 }
 function mixedFormulaLine(host,source){
- const line=source.trim(),colon=line.indexOf(':'),eq=line.search(/[=≤≥≈∝≠<>]/u);
+ const line=source.trim(),colon=line.indexOf(':'),eq=line.search(/[=≤≥≈∝]/u);
  const labeled=colon>0&&colon<=100&&eq>colon;
  const prefix=labeled?line.slice(0,colon+1):'';
  const tail=labeled?line.slice(colon+1).trim():line;
  const clauses=splitExpressions(tail);
  const parts=clauses.map(formulaClause);
  if(!parts.some(Boolean)||(!labeled&&parts.length===1&&!parts[0]?.note&&!parts[0]?.prefix))return false;
- if(prefix)host.append(inlineContent(make('p','bm249-line bm249-equation-label'),prefix));
+ if(prefix)host.append(inlineContent(make('p','bm249-line bm249-paragraph'),prefix));
  let block=null;
  for(let i=0;i<clauses.length;i++){
   const p=parts[i];
@@ -894,24 +865,12 @@ function mixedFormulaLine(host,source){
  }
  return true;
 }
-function definitionNode(source){
- const block=make('div','bm249-definition');
- const s=String(source).trim(),colon=s.indexOf(':');
- if(isSymbolLegend(s)){const parts=splitExpressions(s);for(let i=0;i<parts.length;i++)block.append(inlineContent(make('p','bm249-definition-item'),parts[i]+(i<parts.length-1?';':'')));return block;}
- if(colon<0){block.append(make('p','bm249-definition-label',s));return block;}
- block.append(make('p','bm249-definition-label',s.slice(0,colon+1)));
- // Separar somente os itens explicitamente delimitados na fonte, sem interpretar ou inventar unidades.
- const tail=s.slice(colon+1).trim(),parts=splitExpressions(tail);
- for(let i=0;i<parts.length;i++)block.append(inlineContent(make('p','bm249-definition-item'),parts[i]+(i<parts.length-1?';':'')));
- return block;
-}
 function makeBody(body){
  const host=make('div','bm249-body');
  const lines=String(body||'').replace(/\r\n?/g,'\n').split('\n');
  for(let i=0;i<lines.length;i++){
   const sourceLine=lines[i],kind=sectionLineKind(sourceLine);
   if(kind==='space'){if(!host.lastElementChild?.classList.contains('bm249-blockgap')){const space=make('div','bm249-blockgap');space.setAttribute('aria-hidden','true');host.append(space);}continue;}
-  if(kind==='definition'){host.append(definitionNode(sourceLine));continue;}
   if(kind==='table'){let j=i+1;while(j<lines.length&&sectionLineKind(lines[j])==='table')j++;const table=tableNode(lines.slice(i,j));if(table){host.append(table);i=j-1;continue;}}
   if(kind==='equation'){const block=make('div','bm249-line bm249-equation');for(const expr of splitExpressions(sourceLine.trim().replace(/^•\s*/,'')))block.append(equationNode(expr));host.append(block);continue;}
   if((kind==='paragraph'||kind==='step')&&mixedFormulaLine(host,sourceLine))continue;
