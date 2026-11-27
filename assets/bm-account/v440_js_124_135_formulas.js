@@ -13,8 +13,9 @@
   finally{ongoing=null;notify()}})();
   notify();return ongoing;
  }
- window.BM239DriveGlobal=Object.freeze({get connected(){return connected()},get writeAuthorized(){return connected()},writeToken:()=>'',get lastReport(){return connected()?lastReport:null},get running(){return !!ongoing},get connectionStatus(){const active=connected();return {ready:true,initialized:true,connected:active,writeAuthorized:active,state:ongoing?'syncing':active?'private':'idle',message:ongoing?'Conferindo módulos do Drive…':active?'Drive individual conectado; gravações explícitas por módulo':'Entre com Google para conferir os módulos'}},sync});
+ window.BM239DriveGlobal=Object.freeze({get connected(){return connected()},get writeAuthorized(){return connected()},writeToken:()=>'',get lastReport(){return connected()?lastReport:null},get running(){return !!ongoing},get connectionStatus(){const active=connected(),auth=window.BMAccountConnectionStatus?.();return {ready:auth?.ready??true,initialized:true,connected:active,writeAuthorized:active,state:ongoing?'syncing':auth?.state==='error'?'error':active?'private':auth?.state||'idle',message:ongoing?'Conferindo módulos do Drive…':auth?.message|| (active?'Drive individual conectado; gravações explícitas por módulo':'Entre com Google para conferir os módulos')}},sync});
  document.addEventListener('bm-vs41-session-ready',notify);
+ document.addEventListener('bm-account-connection-state',notify);
 })();
 ;
 /* 125 assets/v266_sync_truth.js */

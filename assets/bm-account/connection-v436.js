@@ -21,7 +21,9 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
  for(const k of ['localStorage','sessionStorage'])Object.defineProperty(window,k,{value:memory()});
  let resolve,session=null,closed=false,opening=false,client=null,abort=null,timer=null;
  const ready=new Promise(r=>{resolve=r}),nonce=Array.from(crypto.getRandomValues(new Uint8Array(16)),n=>n.toString(16).padStart(2,'0')).join('');
- const status=s=>{const e=document.getElementById('bm239-sync-details');if(e){e.textContent=s;e.title=s}};
+ let connectionState='initializing',connectionMessage='Preparando conexão segura…';
+ const status=(s,state=connectionState)=>{connectionState=state;connectionMessage=String(s||'').slice(0,500);const e=document.getElementById('bm239-sync-details');if(e){e.textContent=connectionMessage;e.title=connectionMessage;e.dataset.state=state}document.dispatchEvent(new CustomEvent('bm-account-connection-state'));};
+ Object.defineProperty(window,'BMAccountConnectionStatus',{value:()=>Object.freeze({state:connectionState,message:connectionMessage,ready:!!client,connected:!!session})});
  function close(){if(closed)return;closed=true;clearTimeout(timer);abort?.abort();session=null;resolve(null);localStorage.clear();sessionStorage.clear();guestWriting.clear();accountWriting.clear();document.documentElement.style.visibility='hidden';location.reload();}
  // Original writing workshop, served as srcdoc under the same CSP. The
  // bootstrap runs before any legacy script can read shared browser storage.
@@ -91,12 +93,13 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
    if(!window.google?.accounts?.oauth2){await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.onload=res;s.onerror=()=>rej(Error('Google indisponível'));document.head.append(s)})}
    const clientId=config.client_id;if(!clientPattern.test(clientId||''))throw Error('Configure um Client ID OAuth válido');
    client=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:mod.scope,callback:async r=>{
-    if(closed)return;if(r.error||!r.access_token||!google.accounts.oauth2.hasGrantedAllScopes(r,...mod.scope.split(' '))){opening=false;status('Autorização não concedida');refreshButton();return;}
-    try{abort=new AbortController();status('Carregando seu Banco Mestre no Drive…');
+    if(closed)return;if(r.error||!r.access_token){opening=false;const code=/^[a-z_]{1,60}$/.test(r.error||'')?r.error:'sem_token';status('Google: autorização não concluída ('+code+'). Tente novamente.','error');refreshButton();return;}
+    if(!google.accounts.oauth2.hasGrantedAllScopes(r,...mod.scope.split(' '))){opening=false;status('Google: permissões do Drive incompletas. Entre novamente e autorize todas as permissões solicitadas.','error');refreshButton();return;}
+    try{abort=new AbortController();status('Google autorizado. Carregando seu Banco Mestre no Drive…','loading');
      const p=await progress(mod.connectAccount({token:r.access_token,fetcher:driveFetch,signal:abort.signal,allowEditorial:()=>true,write:true,actor:nonce,rootId:settings.rootId,readEditorialIndex,cache:settings.cacheEnabled?mod.browserByteCache:null}),'conectando conta e carregando cartões');
      if(closed)return;session=p;resolve(p);timer=setTimeout(close,Math.max(1000,(Number(r.expires_in||3600)-60)*1000));
      status(p.snapshot.version+' · '+p.snapshot.records.length+' cartões · '+(p.snapshot.cacheHit?'cache conferido · ':'')+(p.snapshot.scope==='private-recovery'?'projeção '+p.snapshot.viewVersion+' · recuperação privada · SRS parcial':p.snapshot.scope==='editorial-candidate-only'?'cartões VC52 do Drive · dados de estudo individuais':'Drive individual · gravações autorizadas por módulo'));
-     refreshButton();document.dispatchEvent(new CustomEvent('bm-account-connected'));
+     status(connectionMessage,'private');refreshButton();document.dispatchEvent(new CustomEvent('bm-account-connected'));
      // VS44 performance: warm private indexes once, independently of card organization.
      void (async()=>{await window.BMVS41Session.check();if(closed||session!==p)return;
       await Promise.allSettled([
@@ -106,12 +109,12 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
       ]);
      })().catch(e=>console.warn('Preparação dos índices privados:',e.message));
      if(typeof loadCards==='function')await progress(loadCards(),'organizando cartões').catch(e=>status(e.message));
-    }catch(e){status(e.message||'Banco individual indisponível')}finally{opening=false;refreshButton()}
-   },error_callback:()=>{opening=false;status('Seleção cancelada');refreshButton()}});
-   refreshButton();status('Entre para carregar os dados do seu Drive');
-  }catch(e){status('Conexão indisponível: '+e.message);refreshButton()}
+    }catch(e){status('Google autorizado; falha ao carregar o banco: '+(e.message||'Banco individual indisponível'),'error')}finally{opening=false;refreshButton()}
+   },error_callback:e=>{opening=false;const kind=e?.type;status(kind==='popup_failed_to_open'?'O Google não abriu a janela de login. Permita pop-ups para este site e tente novamente.':kind==='popup_closed'?'Janela do Google fechada antes da autorização. Tente novamente.':'Google: não foi possível concluir a seleção da conta. Tente novamente.','error');refreshButton()}});
+   refreshButton();status('Entre para carregar os dados do seu Drive','idle');
+  }catch(e){status('Conexão indisponível: '+e.message,'error');refreshButton()}
  }
- function select(){if(session){openSettings();return;}if(!client||opening)return;opening=true;refreshButton();try{client.requestAccessToken({prompt:'select_account'})}catch(e){opening=false;status('Conexão não iniciada: '+e.message);refreshButton()}}
+ function select(){if(session){openSettings();return;}if(!client||opening)return;opening=true;status('Aguardando autorização Google…','authorizing');refreshButton();try{client.requestAccessToken({prompt:'select_account'})}catch(e){opening=false;status('Conexão não iniciada: '+e.message,'error');refreshButton()}}
  function bindExport(){
   const $=id=>document.getElementById(id),dialog=$('bmAccountExportDialog'),trigger=$('bmAccountExport'),message=$('bmAccountExportStatus'),save=$('bmAccountExportSave'),cancel=$('bmAccountExportCancel');
   if(!dialog||!trigger||!save||!cancel)return;

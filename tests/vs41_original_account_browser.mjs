@@ -16,7 +16,7 @@ try{
  const writes=[];const fixtures={A:fixture('A',{writable:true,writes}),B:fixture('B',{writable:true,writes})};
  await page.route('**/*',async route=>{
   const req=route.request(),url=new URL(req.url());
-  if(url.href==='https://accounts.google.com/gsi/client')return route.fulfill({contentType:'application/javascript',body:'window.google={accounts:{oauth2:{hasGrantedAllScopes:()=>true,initTokenClient:c=>({requestAccessToken(o){window.__prompt=o.prompt;c.callback({access_token:'+JSON.stringify(account)+',expires_in:3600})}})}}};'});
+  if(url.href==='https://accounts.google.com/gsi/client')return route.fulfill({contentType:'application/javascript',body:'window.google={accounts:{oauth2:{hasGrantedAllScopes:()=>true,initTokenClient:c=>({requestAccessToken(o){window.__prompt=o.prompt;if(window.__bmTestPopupError){c.error_callback({type:'popup_failed_to_open'});return;}c.callback({access_token:'+JSON.stringify(account)+',expires_in:3600})}})}}};'});
   if(url.origin==='https://www.googleapis.com'){
    if(req.method()==='OPTIONS')return route.fulfill({status:204,headers:{'access-control-allow-origin':'*','access-control-allow-headers':'authorization,content-type,if-match','access-control-allow-methods':'GET,POST,PATCH,OPTIONS'}});
    const key=req.headers().authorization?.slice(7);assert.equal(key,account);
@@ -74,6 +74,7 @@ try{
    await Promise.all([page.waitForEvent('domcontentloaded'),page.locator('#bmAccountSettingsSave').click()]);
    await page.waitForFunction(()=>!document.getElementById('bm239-drive-action').disabled);
   }
+  if(a==='A'){await page.evaluate(()=>{window.__bmTestPopupError=true});await btn.click();await page.waitForFunction(()=>window.BM263SyncPanel?.diagnostic.connection.state==='error');await page.evaluate(()=>window.dispatchEvent(new Event('focus')));assert.match(await page.evaluate(()=>window.BM263SyncPanel.diagnostic.connection.message),/Permita pop-ups/);assert.ok(await btn.isEnabled());await page.evaluate(()=>{window.__bmTestPopupError=false});}
   await btn.click();
   await page.waitForFunction(()=>window.BMVS41Session?.available()===true,{},{timeout:30000});
   assert.equal(await page.evaluate(()=>window.__prompt),'select_account');

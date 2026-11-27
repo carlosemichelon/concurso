@@ -1,3 +1,7 @@
+## V444 / VS53 — diagnóstico de conexão Google (27/11/2026)
+
+V444 / VS53 — VG1: diagnóstico persistente da autorização Google e da leitura do banco; diferencia popup bloqueado, janela fechada, permissões incompletas e falhas de leitura. Mantém os mesmos escopos, validações e isolamento. Sem alteração do Drive, VC52 ou SRS.
+
 ## V443 / VS52 — avisos de login compactos (27/11/2026)
 
 V443 / VS52 — VG1: oculta exclusivamente as faixas redundantes de conexão em Assuntos, Flashcards, Imagens e PDFs; mantém login, identidade, erros, progresso e controles existentes. Sem alteração de OAuth, catálogo VC52, Drive ou SRS.
