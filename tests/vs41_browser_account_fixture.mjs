@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {card} from './vs41_private_fixture.mjs';
 const fm='application/vnd.google-apps.folder',STUDY_KIND='bm_controle_estudos_v245',GAP_KIND='bm_lacunas_v242',GRIF_KIND='bm_grifos_sync_v104_master';
-export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false,historicalPointer=false,badHistoricalHash=false,indexEdgeCases=false,legacyFolderNames=false,duplicateReviewFolder=false,recovery=false,recoveryInvalid=false}={}){
+export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false,historicalPointer=false,badHistoricalHash=false,indexEdgeCases=false,legacyFolderNames=false,duplicateReviewFolder=false,recovery=false,recoveryInvalid=false,driveCheckpoint=false,badLineage=false}={}){
  const root='root'+account,snap='snapshot'+account,ptr='pointer'+account,study='study'+account,files=new Map(),content=new Map();let serial=0;
  function add(id,name,mimeType,parents,data,extra={}){
   const bytes=data===undefined?null:JSON.stringify(data);
@@ -49,6 +49,16 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
   const view={format:'BM-DRIVE-EDITORIAL-SEED/1',migration_status:'editorial-candidate-only',version:'VC-TESTE',source:{git_blob:'a'.repeat(40)},counts:{cards:2,active:2},cards:[card(account),added],retired_ids:[],redirects:{}};
   const viewId='recoveryView'+account;add(viewId,'editorial.json','application/json',[root],view);
   privateData={format:'BancoMestrePrivadoRecuperacaoV1',schema_version:1,status:'RECUPERACAO_PARCIAL',version:'RECUPERACAO-'+account,updated:snapshot.updated,private_source:{version:snapshot.version,sha256:'a'.repeat(64)},private_snapshot:snapshot,counts:{cards:1,historical_srs:1,visible_active:2,matched_private:1,operational_sources:1,historical_outside_view:0,verified_historical_due:1},recovery:{srs_complete:false,editorial_view:{file_id:viewId,version:view.version,sha256:createHash('sha256').update(JSON.stringify(view)).digest('hex'),cards:2,git_blob:view.source.git_blob},matched_private_ids:['CARD-9901'],operational_identities:[{id:added.id,group:added.group,discipline:added.discipline,subject:added.subject,sub:added.sub,scope:'ID_PUBLICADO_COM_MAPA_PRIVADO_DO_DELTA',source_key:added.id,source_file_id:'source'+account,source_sha256_local_export:'b'.repeat(64),srs_transfer:recoveryInvalid}],historical_outside_view_ids:[]}};
+  if(driveCheckpoint){
+   privateData.private_source.file_id='historical'+account;
+   snapshot.version=privateData.version;snapshot.source_sha256='c'.repeat(64);
+   const ref=privateData.recovery.editorial_view;
+   privateData.recovery.previous_editorial_view={file_id:'previous'+account,version:'VC-TESTE',sha256:'d'.repeat(64),cards:2};
+   view.version='VD-TESTE';view.source={base_version:'VC-TESTE',delta_document_id:'delta'+account,delta_sha256:'e'.repeat(64)};
+   privateData.recovery.sources={delta:{file_id:'delta'+account,sha256_local_export:(badLineage?'f':'e').repeat(64)}};
+   delete ref.git_blob;ref.version=view.version;ref.sha256=createHash('sha256').update(JSON.stringify(view)).digest('hex');
+   add(viewId,'editorial.json','application/json',[root],view);
+  }
  }
  add(snap,'snapshot.json','application/json',[root],privateData);
  add(ptr,'BANCO_MESTRE_ATUAL.json','application/json',[root],{schema:'banco-mestre-operational-pointer/1',...(recovery?{recovery_status:'RECUPERACAO_PARCIAL'}:{}),private_base:{file_id:snap,version:privateData.version,sha256:createHash('sha256').update(JSON.stringify(privateData)).digest('hex'),cards:1}});

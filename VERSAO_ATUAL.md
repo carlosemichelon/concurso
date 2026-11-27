@@ -1,3 +1,7 @@
+## V445 / VS54 — compatibilidade com checkpoint privado (27/11/2026)
+
+V445 / VS54 — VG1: compatibilidade do leitor privado com checkpoints versionados no Drive (linhagem de delta, referência anterior e hashes declarados). Preserva a validação do formato histórico, titularidade, integridade, identidade dos cartões e SRS. Corrige também a sintaxe do teste de erro de popup. Não altera dados do Drive.
+
 ## V444 / VS53 — diagnóstico de conexão Google (27/11/2026)
 
 V444 / VS53 — VG1: diagnóstico persistente da autorização Google e da leitura do banco; diferencia popup bloqueado, janela fechada, permissões incompletas e falhas de leitura. Mantém os mesmos escopos, validações e isolamento. Sem alteração do Drive, VC52 ou SRS.

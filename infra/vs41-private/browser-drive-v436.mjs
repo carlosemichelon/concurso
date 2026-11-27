@@ -28,8 +28,17 @@ export function verifyRecoverySnapshot(wrapper,view){
  const same=(a,b)=>['group','discipline','subject','sub'].every(k=>(a[k]??null)===(b[k]??null));
  const exact=(list,ids)=>Array.isArray(list)&&list.length===ids.size&&new Set(list).size===list.length&&list.every(id=>ids.has(id));
  ensure(wrapper?.format==='BancoMestrePrivadoRecuperacaoV1'&&wrapper.schema_version===1&&wrapper.status==='RECUPERACAO_PARCIAL'&&r?.srs_complete===false,'estado não autorizado');
- ensure(p?.format==='BancoMestrePrivadoV159'&&p.schema_version===1&&p.version===wrapper.private_source?.version&&hex(wrapper.private_source?.sha256),'origem privada inválida');
- ensure(view?.format==='BM-DRIVE-EDITORIAL-SEED/1'&&view.migration_status==='editorial-candidate-only'&&ref?.version===view.version&&ref?.git_blob===view.source?.git_blob&&hex(ref?.sha256),'projeção editorial divergente');
+ // Drive-first checkpoints retain the historical source but version the embedded
+ // snapshot separately. Require explicit private-delta lineage, not a missing
+ // git_blob comparison (undefined === undefined). Pointer and file hashes
+ // are still checked by readBrowserSnapshot before this validation.
+ const prev=r?.previous_editorial_view,src=view?.source,history=wrapper?.private_source;
+ const privateDelta=!!(validId(prev?.file_id)&&prev.file_id!==ref?.file_id&&hex(prev?.sha256)&&typeof prev.version==='string'&&prev.version===src?.base_version&&prev.version!==view?.version&&validId(src?.delta_document_id)&&hex(src?.delta_sha256)&&Object.values(r?.sources||{}).some(x=>x?.file_id===src.delta_document_id&&x?.sha256_local_export===src.delta_sha256)&&ref?.git_blob===undefined&&src?.git_blob===undefined);
+ const gitLineage=typeof ref?.git_blob==='string'&&/^[a-f0-9]{40}$/.test(ref.git_blob)&&ref.git_blob===src?.git_blob;
+ const originalVersion=typeof history?.version==='string'&&p?.version===history.version;
+ const checkpointVersion=privateDelta&&validId(history?.file_id)&&hex(p?.source_sha256)&&typeof wrapper.version==='string'&&p?.version===wrapper.version;
+ ensure(p?.format==='BancoMestrePrivadoV159'&&p.schema_version===1&&(originalVersion||checkpointVersion)&&hex(history?.sha256),'origem privada inválida');
+ ensure(view?.format==='BM-DRIVE-EDITORIAL-SEED/1'&&view.migration_status==='editorial-candidate-only'&&ref?.version===view.version&&(gitLineage||privateDelta)&&hex(ref?.sha256),'projeção editorial divergente');
  const originals=verifyRecords(p.cards),visible=verifyRecords(view.cards),old=new Map(originals.map(x=>[x.id,x])),now=new Set(visible.map(x=>x.id)),matched=new Set(),outside=new Set(originals.filter(x=>!now.has(x.id)).map(x=>x.id));
  ensure(p.counts?.cards===originals.length&&n?.cards===originals.length&&n?.visible_active===visible.length&&ref.cards===visible.length&&view.counts?.cards===visible.length&&view.counts?.active===visible.length&&visible.every(x=>x.active===true),'contagem divergente');
  const entries=r.operational_identities;
