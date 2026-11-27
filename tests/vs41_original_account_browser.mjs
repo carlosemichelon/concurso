@@ -56,6 +56,7 @@ try{
   assert.equal(await page.evaluate(()=>cards.length),0);
   await page.locator('#bmAccountSettings').click();
   assert.ok(await page.locator('#bmAccountSettingsDialog').isVisible());
+  await page.waitForFunction(()=>/\d+(?:,\d+)?% utilizado/.test(document.getElementById('bmAccountCacheUsage')?.textContent||''));
   const settingsBox=await page.locator('#bmAccountSettingsDialog').boundingBox();assert.ok(settingsBox.width<=441&&settingsBox.height<520,'Configurações deve ser compacta');
   if(a==='A'){
    await page.locator('#bmAccountRoot').fill('https://example.invalid/folder');

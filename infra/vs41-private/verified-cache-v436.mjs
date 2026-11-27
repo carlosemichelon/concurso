@@ -41,6 +41,7 @@ export const browserByteCache=Object.freeze({
    s.put({key,bytes,at:now});m.put({key,size:bytes.byteLength,at:now});done(true);
   }});
  },
+ async usage(){return operate('readonly',(s,done,m)=>{const q=m.getAll();q.onsuccess=()=>{const usedBytes=q.result.reduce((sum,row)=>sum+(Number.isSafeInteger(row.size)&&row.size>0?row.size:0),0);done({usedBytes,maxBytes:MAX,percent:100*usedBytes/MAX})}})},
  async clear(){return operate('readwrite',(s,done,m)=>{s.clear();m.clear();done(true)})}
 });
 export async function cachedVerifiedBytes(cache,key,size,hash){

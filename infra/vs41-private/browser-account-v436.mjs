@@ -1,7 +1,7 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
 import {readBrowserSnapshot,scope as readScope} from './browser-drive-v436.mjs?v=private-recovery-3';
-import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache-v436.mjs?v=1';
+import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache-v436.mjs?v=2';
 export {browserByteCache};
 import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
 export const scope=readScope+' https://www.googleapis.com/auth/drive.file';

@@ -1,3 +1,5 @@
+VS57 — cache local: indicador real de bytes registrados / limite de 128 MiB, atualizado ao abrir configurações e após limpeza; avisos redundantes do Guia de Fórmulas removidos, botões úteis, fonte original, referências normativas e erros preservados.
+
 ## V448 / VS57 — estabilidade e desempenho (27/11/2026)
 
 V448 / VS57 — candidata VG1: Controle de Estudos oculto até confirmação; cache LRU em memória por sessão de imagens verificadas, deduplicação de transferências e decodificação paralela com leitura de grifos. Sem mudança de OAuth, leitor de checkpoints, conteúdo do Drive ou SRS. VM27 registrado nos documentos privados vigentes.

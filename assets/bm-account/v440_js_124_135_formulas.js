@@ -703,7 +703,7 @@ const $=id=>document.getElementById(id);
 const fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR');
 function status(message,kind){
  const el=$('bm246FormulaStatus');if(!el)return;
- el.textContent=message;el.dataset.state=kind||'idle';const connect=$('bm246Connect');if(connect)connect.hidden=true;
+ el.textContent=message;el.dataset.state=kind||'idle';el.hidden=kind==='ok';const connect=$('bm246Connect');if(connect)connect.hidden=true;
 }
 function category(number,title){
  const n=Number(number);
@@ -1081,18 +1081,15 @@ function install(){
  '<button type="button" id="bm246Connect">Conectar Google Drive</button>',
  '<button type="button" id="bm246Reload">Atualizar do Drive</button>',
  '<button type="button" id="bm246ShowPreview">Ver texto original</button>',
- '<span id="bm246Source" class="small muted">Fonte privada da conta</span>',
  '</div>',
  '<p id="bm246FormulaStatus" class="bm246-formula-status" role="status" aria-live="polite">Aguardando consulta ao guia individual.</p>',
  '<div class="bm246-formula-filters"><input id="bm246FormulaSearch" type="search" placeholder="Buscar fórmula, conceito, símbolo ou cartão" aria-label="Pesquisar no guia de fórmulas">',
  '<select id="bm246FormulaCategory" aria-label="Filtrar seção de fórmulas"><option value="all">Todos os tópicos</option></select></div>',
  '<div class="bm249-jump"><label for="bm249Jump">Navegação pelas seções</label>',
  '<select id="bm249Jump" aria-label="Abrir uma seção específica do guia"><option value="">Ir diretamente para uma seção…</option></select></div>',
- '<p class="bm249-editions">Atenção às edições: este guia combina referências históricas (por exemplo, NBR 6118:2014) com fórmulas gerais. Confira a edição normativa correspondente antes de aplicar uma expressão de projeto.</p>',
  '<p id="bm246FormulaCount" class="small muted"></p>',
  '<div id="bm246FormulaSections"></div>',
  '<div id="bm246FormulaPreview" hidden><p class="small muted">Texto integral exportado do documento privado, sem alteração.</p><pre id="bm246FormulaFrame" style="white-space:pre-wrap;overflow-wrap:anywhere"></pre></div>',
- '<p class="notice">Fórmulas, hipóteses, unidades e referências normativas refletem o texto da fonte. As referências históricas permanecem identificadas; a edição normativa aplicável deve ser conferida antes de dimensionar. Consultar o guia não altera cartões ou SRS.</p>',
  '</div>'
  ].join('');
  assuntos.after(section);
