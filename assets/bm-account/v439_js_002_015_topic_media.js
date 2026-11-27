@@ -1637,22 +1637,27 @@ window.BancoMestrePDFV038={
   return true;
  }
 };
-// Atalhos locais do PDF: zoom e histórico; preservar os atalhos do navegador
-// nos campos de edição e quando o leitor de PDF não estiver ativo.
+// Atalhos locais do PDF: capturar zoom antes dos demais atalhos da página.
+function bmPdfZoomShortcut(e){
+ if(!$('pdfDialog')?.open||!pdf||$('imageDialog')?.open||e.isComposing||e.altKey||!(e.ctrlKey||e.metaKey))return;
+ const key=String(e.key).toLowerCase(),code=e.code;
+ const zoomId=key==='-'||key==='−'||code==='Minus'||code==='NumpadSubtract'?'pdfZoomOut':
+  key==='+'||key==='='||code==='Equal'||code==='NumpadAdd'?'pdfZoomIn':null;
+ if(!zoomId)return;
+ const button=$(zoomId);
+ if(!button||button.disabled)return;
+ // O zoom é visual: também funciona com foco em cor, espessura e outros controles do leitor.
+ e.preventDefault();
+ e.stopPropagation();
+ if(!e.repeat)button.click();
+}
+window.addEventListener('keydown',bmPdfZoomShortcut,true);
+// Manter os atalhos de histórico e a edição de texto independentes do zoom.
 document.addEventListener('keydown',e=>{
  if(!$('pdfDialog')?.open||!pdf||$('imageDialog')?.open||e.isComposing||e.altKey)return;
  if(e.target?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]'))return;
  if(!(e.ctrlKey||e.metaKey))return;
  const key=String(e.key).toLowerCase();
- const zoomId=key==='-'||key==='−'||e.code==='NumpadSubtract'?'pdfZoomOut':
-  key==='+'||key==='='||e.code==='NumpadAdd'?'pdfZoomIn':null;
- if(zoomId){
-  const button=$(zoomId);
-  if(e.defaultPrevented||!button||button.disabled)return;
-  e.preventDefault();
-  if(!e.repeat)button.click();
-  return;
- }
  if(key==='z'||key==='y'){
   e.preventDefault();
   historyEdit(key==='y'||e.shiftKey?'redo':'undo');
