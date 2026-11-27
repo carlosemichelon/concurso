@@ -1,6 +1,6 @@
 // Same Drive read-only scope as the existing GIS connection. No server or secret.
 import {verifyRecords} from './records.mjs';
-import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache-v436.mjs?v=2';
+import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache-v436.mjs?v=3';
 export const scope='https://www.googleapis.com/auth/drive.readonly';
 const base='https://www.googleapis.com/drive/v3/',limit=32*1024*1024;
 const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
