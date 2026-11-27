@@ -183,14 +183,21 @@ const mount=async()=>{
    document.head.append(script);
   });
   // Fresh nodes remove all guest handlers; private app owns its real controls.
-  const content=mountTemplate();for(const element of content)element.inert=true;
+  // Keep the layout measurable for charts, but never show an empty dashboard.
+  const content=mountTemplate();
+  const shield=document.createElement('style');shield.textContent=':host([data-bm240-loading]) > :not([data-bm240-progress]),:host([data-bm240-loading]) > :not([data-bm240-progress]) *{visibility:hidden!important}';
+  const progress=document.createElement('p');progress.dataset.bm240Progress='1';progress.setAttribute('role','status');progress.textContent='Carregando Controle de Estudos…';progress.style.cssText='position:absolute;top:0;left:0;right:0;padding:18px;margin:0;z-index:1;background:#fff';
+  host.style.position='relative';host.dataset.bm240Loading='1';host.setAttribute('aria-busy','true');root.append(shield,progress);
+  for(const element of content)element.inert=true;
   await window.BM240ControlInit(root);
+  if(window.BMVS41StudyControl?.confirmed!==true)throw Error('Controle de Estudos não confirmado');
   for(const element of content)element.inert=false;
+  delete host.dataset.bm240Loading;host.removeAttribute('aria-busy');shield.remove();progress.remove();
   installMobileRegisterCollapse(root);
   window.BancoMestreIconsV096?.refresh?.();
   document.dispatchEvent(new CustomEvent('bm240-study-mounted'));
  }catch(e){
-  root.replaceChildren(loading);loading.textContent='Não foi possível carregar o Controle de Estudos: '+e.message;
+  delete host.dataset.bm240Loading;host.removeAttribute('aria-busy');root.replaceChildren(loading);loading.textContent='Não foi possível carregar o Controle de Estudos: '+e.message;
   loading.setAttribute('role','alert');console.error('V240 Controle:',e);
  }
  // Preserve the section chosen by the student during authentication.

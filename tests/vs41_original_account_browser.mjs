@@ -169,6 +169,8 @@ try{
   await page.locator('#bm240-study-tab').click();
   await page.locator('#bm240-native-host #bm252-main-nav').waitFor({state:'visible',timeout:30000});
   await page.waitForFunction(()=>window.BMVS41StudyControl?.confirmed===true);
+  assert.equal(await page.locator('#bm240-native-host').getAttribute('aria-busy'),null);
+  assert.equal(await page.locator('#bm240-native-host [data-bm240-progress]').count(),0);
   await page.locator('#bm240-native-host #bm252-main-nav button[data-group="relatorios"]').click();
   await page.locator('#bm240-native-host main #painel').waitFor({state:'visible',timeout:10000});
   assert.deepEqual(await page.evaluate(()=>window.BMVS41StudyControl.snapshot().subjects.map(s=>s.name).filter(x=>x.startsWith('Disciplina '))),['Disciplina '+a]);

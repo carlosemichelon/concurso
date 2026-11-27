@@ -23,12 +23,13 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   out.push(...r.files.filter(owned));if(onPage)onPage({page:i+1,more:Boolean(r.nextPageToken)});if(!r.nextPageToken)return out;pageToken=r.nextPageToken;
  }throw Error('Listagem excedeu limite seguro')};
  const unique=async(q,label,optional=false)=>{const a=await list(q);if(a.length===0&&optional)return null;if(a.length!==1)throw Error(label+' ausente ou duplicado');return meta(a[0].id)};
- const raw=async(id,max=10000000,cacheMedia=false)=>{const a=await meta(id);if(!Number.isSafeInteger(Number(a.size))||Number(a.size)<1||Number(a.size)>max||!a.version)throw Error('Tamanho ou versão inválida: '+a.name);
+ const raw=async(id,max=10000000,cacheMedia=false,known=null)=>{const a=known||await meta(id);if(!Number.isSafeInteger(Number(a.size))||Number(a.size)<1||Number(a.size)>max||!a.version)throw Error('Tamanho ou versão inválida: '+a.name);
   const key=cacheMedia&&Number(a.size)<=16*1024*1024?verifiedCacheKey(profile.permissionId,root.id,a,a.sha256Checksum):null;
   let bytes=await cachedVerifiedBytes(cache,key,Number(a.size),a.sha256Checksum);const hit=!!bytes;
   if(!hit){const r=await get(API+'/'+id,{alt:'media'});bytes=await r.arrayBuffer();}
   const b=await meta(id);
   if(bytes.byteLength!==Number(a.size)||['version','size','headRevisionId','md5Checksum','sha256Checksum'].some(k=>a[k]!==b[k]))throw Error('Arquivo mudou durante leitura: '+a.name);
+  if(known&&(a.mimeType!==b.mimeType||JSON.stringify(a.parents)!==JSON.stringify(b.parents)))throw Error('Tipo ou pasta da mídia alterados');
   if(a.sha256Checksum&&!hit&&await hashBytes(bytes)!==a.sha256Checksum)throw Error('Hash divergente: '+a.name);
   if(!hit&&key&&!signal?.aborted)await rememberVerifiedBytes(cache,key,bytes);
   return {bytes,meta:a}};
@@ -539,7 +540,35 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    for(const attr of node.attributes){const name=attr.name.toLowerCase(),value=attr.value.trim();if(name.startsWith('on')||cssUnsafe(value)||((name==='href'||name==='xlink:href'||name==='src')&&!value.startsWith('#')&&!/^data:image\/(?:png|jpe?g|webp|gif);base64,[A-Za-z0-9+/=]+$/i.test(value)))throw Error('SVG contém referência não autorizada');}
   }
  }
- const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da biblioteca individual');const before=await meta(id);const authorized=()=>item.legacyReadOnly?legacyPdfPath(before):belongsToRoot(before);if(!await authorized())throw Error('Original não pertence mais a uma fonte autorizada');const r=await raw(id,100000000,true);if(r.meta.mimeType!==item.mimeType||r.meta.parents?.[0]!==before.parents?.[0])throw Error('Tipo ou pasta da mídia alterados');if(item.mimeType==='image/svg+xml')validateSvgImage(r.bytes);return new Blob([r.bytes],{type:item.mimeType})};
+ // Cache de imagens somente na memória da conta atual; limite de 64 MiB.
+ // A cada leitura, conferir metadados e caminho autorizado antes de reaproveitar.
+ const imageCache=new Map(),imageFlights=new Map();let imageCacheBytes=0;
+ const fingerprint=m=>JSON.stringify([m.version,m.size,m.headRevisionId,m.md5Checksum,m.sha256Checksum,m.mimeType,m.parents]);
+ function dropImage(id){const entry=imageCache.get(id);if(entry){imageCacheBytes-=entry.blob.size;imageCache.delete(id)}}
+ function rememberImage(id,entry){dropImage(id);if(entry.blob.size>16*1024*1024)return;while(imageCache.size&&(imageCacheBytes+entry.blob.size>64*1024*1024||imageCache.size>=48))dropImage(imageCache.keys().next().value);imageCache.set(id,entry);imageCacheBytes+=entry.blob.size}
+ signal?.addEventListener('abort',()=>{imageCache.clear();imageFlights.clear();imageCacheBytes=0},{once:true});
+ const readMedia=async id=>{
+  if(signal?.aborted)throw Error('Sessão encerrada');
+  const item=(await media()).get(id);if(!item)throw Error('Mídia fora da biblioteca individual');
+  const image=item.mimeType.startsWith('image/');
+  if(image&&imageFlights.has(id))return imageFlights.get(id);
+  const read=async()=>{
+   const before=await meta(id);
+   if(before.mimeType!==item.mimeType||!await (item.legacyReadOnly?legacyPdfPath(before):belongsToRoot(before)))throw Error('Original não pertence mais a uma fonte autorizada');
+   const key=fingerprint(before),entry=image?imageCache.get(id):null;
+   if(signal?.aborted)throw Error('Sessão encerrada');
+   if(entry&&entry.key===key){imageCache.delete(id);imageCache.set(id,entry);hashes.set(id,{version:before.version,hash:entry.hash});return entry.blob}
+   if(entry)dropImage(id);
+   const r=await raw(id,100000000,true,before);
+   if(r.meta.mimeType!==item.mimeType||r.meta.parents?.[0]!==before.parents?.[0])throw Error('Tipo ou pasta da mídia alterados');
+   if(item.mimeType==='image/svg+xml')validateSvgImage(r.bytes);
+   const blob=new Blob([r.bytes],{type:item.mimeType});
+   if(image){const hash=await hashBytes(r.bytes);if(signal?.aborted)throw Error('Sessão encerrada');hashes.set(id,{version:before.version,hash});rememberImage(id,{key,blob,hash})}
+   if(signal?.aborted)throw Error('Sessão encerrada');return blob;
+  };
+  if(!image)return read();
+  const task=read();imageFlights.set(id,task);try{return await task}finally{if(imageFlights.get(id)===task)imageFlights.delete(id)}
+ };
  const GRIF_KIND='bm_grifos_sync_v104_master',GRIF_NAME='BancoMestre_Grifos_Mestre.json';
  const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(n=>n.toString(16).padStart(2,'0')).join('');
  const grifos=async()=>{
