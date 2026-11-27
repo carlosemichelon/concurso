@@ -79,6 +79,8 @@
   status.textContent='Carregando PDF no editor do Banco Mestre…';
   dialog.addEventListener('close',()=>{if(!dialog.open&&serial===pdfSerial)releasePdf()},{once:true});
   if(!dialog.open)dialog.showModal();
+  // Warm the PDF engine on the explicit open action, while the authorized file is downloading.
+  void Promise.resolve().then(()=>window.BMVS41PrivatePdfEditor.prepare?.()).catch(()=>{});
   try{
    const expected=await check();const blob=await window.BMVS41PrivateMedia.read(doc.card_ids[0]||'biblioteca',doc.id);
    if(serial!==pdfSerial||context!==expected||locked||!dialog.open||blob.type!=='application/pdf')throw Error('Sessão ou arquivo alterado');

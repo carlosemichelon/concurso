@@ -23,15 +23,36 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   out.push(...r.files.filter(owned));if(onPage)onPage({page:i+1,more:Boolean(r.nextPageToken)});if(!r.nextPageToken)return out;pageToken=r.nextPageToken;
  }throw Error('Listagem excedeu limite seguro')};
  const unique=async(q,label,optional=false)=>{const a=await list(q);if(a.length===0&&optional)return null;if(a.length!==1)throw Error(label+' ausente ou duplicado');return meta(a[0].id)};
- const raw=async(id,max=10000000,cacheMedia=false)=>{const a=await meta(id);if(!Number.isSafeInteger(Number(a.size))||Number(a.size)<1||Number(a.size)>max||!a.version)throw Error('Tamanho ou versão inválida: '+a.name);
-  const key=cacheMedia&&Number(a.size)<=16*1024*1024?verifiedCacheKey(profile.permissionId,root.id,a,a.sha256Checksum):null;
-  let bytes=await cachedVerifiedBytes(cache,key,Number(a.size),a.sha256Checksum);const hit=!!bytes;
+ // Bounded, account-session-only cache for originals; never persists without consent.
+ const mediaBytes=new Map(),MEDIA_LIMIT=128*1024*1024,MEDIA_ITEM_LIMIT=64*1024*1024;
+ let mediaBytesTotal=0;
+ const clearMediaBytes=()=>{mediaBytes.clear();mediaBytesTotal=0;};
+ signal?.addEventListener('abort',clearMediaBytes,{once:true});
+ const sessionGet=key=>{const value=key&&mediaBytes.get(key);if(value){mediaBytes.delete(key);mediaBytes.set(key,value);}return value||null;};
+ const sessionPut=(key,value)=>{
+  if(!key||signal?.aborted||value.bytes.byteLength>MEDIA_ITEM_LIMIT)return;
+  const previous=mediaBytes.get(key);if(previous){mediaBytesTotal-=previous.bytes.byteLength;mediaBytes.delete(key);}
+  for(const [k,v] of mediaBytes){if(mediaBytesTotal+value.bytes.byteLength<=MEDIA_LIMIT)break;mediaBytesTotal-=v.bytes.byteLength;mediaBytes.delete(k);}
+  mediaBytes.set(key,value);mediaBytesTotal+=value.bytes.byteLength;
+ };
+ const raw=async(id,max=10000000,cacheMedia=false,checkedMeta=null)=>{
+  const a=checkedMeta||await meta(id);
+  if(a.id!==id||!owned(a)||!Number.isSafeInteger(Number(a.size))||Number(a.size)<1||Number(a.size)>max||!a.version)throw Error('Tamanho ou versão inválida: '+a.name);
+  const mediaKey=cacheMedia&&Number(a.size)<=MEDIA_ITEM_LIMIT?verifiedCacheKey(profile.permissionId,root.id,a,a.sha256Checksum):null;
+  const diskKey=cacheMedia&&Number(a.size)<=16*1024*1024?mediaKey:null;
+  const memory=sessionGet(mediaKey);
+  let bytes=memory?.bytes||await cachedVerifiedBytes(cache,diskKey,Number(a.size),a.sha256Checksum);const hit=!!bytes;
   if(!hit){const r=await get(API+'/'+id,{alt:'media'});bytes=await r.arrayBuffer();}
   const b=await meta(id);
-  if(bytes.byteLength!==Number(a.size)||['version','size','headRevisionId','md5Checksum','sha256Checksum'].some(k=>a[k]!==b[k]))throw Error('Arquivo mudou durante leitura: '+a.name);
-  if(a.sha256Checksum&&!hit&&await hashBytes(bytes)!==a.sha256Checksum)throw Error('Hash divergente: '+a.name);
-  if(!hit&&key&&!signal?.aborted)await rememberVerifiedBytes(cache,key,bytes);
-  return {bytes,meta:a}};
+  if(bytes.byteLength!==Number(a.size)||['version','size','headRevisionId','md5Checksum','sha256Checksum','mimeType'].some(k=>a[k]!==b[k])||JSON.stringify(a.parents||[])!==JSON.stringify(b.parents||[]))throw Error('Arquivo mudou durante leitura: '+a.name);
+  const hash=cacheMedia?(memory?.hash||await hashBytes(bytes)):'';
+  if(a.sha256Checksum&&(cacheMedia?hash!==a.sha256Checksum:!hit&&await hashBytes(bytes)!==a.sha256Checksum))throw Error('Hash divergente: '+a.name);
+  if(signal?.aborted)throw Error('Sessão encerrada');
+  if(cacheMedia)sessionPut(mediaKey,{bytes,hash});
+  if(!hit&&diskKey&&!signal?.aborted)await rememberVerifiedBytes(cache,diskKey,bytes);
+  if(signal?.aborted)throw Error('Sessão encerrada');
+  return {bytes,meta:a,hash};
+ };
  const json=async(id,max)=>{const r=await raw(id,max);return {data:JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(r.bytes)),meta:r.meta}};
  const profile=(await (await get('https://www.googleapis.com/drive/v3/about',{fields:'user(displayName,emailAddress,permissionId)'})).json()).user;
  if(!validId(profile?.permissionId))throw Error('Identidade Google não confirmada');
@@ -539,7 +560,26 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    for(const attr of node.attributes){const name=attr.name.toLowerCase(),value=attr.value.trim();if(name.startsWith('on')||cssUnsafe(value)||((name==='href'||name==='xlink:href'||name==='src')&&!value.startsWith('#')&&!/^data:image\/(?:png|jpe?g|webp|gif);base64,[A-Za-z0-9+/=]+$/i.test(value)))throw Error('SVG contém referência não autorizada');}
   }
  }
- const readMedia=async id=>{const item=(await media()).get(id);if(!item)throw Error('Mídia fora da biblioteca individual');const before=await meta(id);const authorized=()=>item.legacyReadOnly?legacyPdfPath(before):belongsToRoot(before);if(!await authorized())throw Error('Original não pertence mais a uma fonte autorizada');const r=await raw(id,100000000,true);if(r.meta.mimeType!==item.mimeType||r.meta.parents?.[0]!==before.parents?.[0])throw Error('Tipo ou pasta da mídia alterados');if(item.mimeType==='image/svg+xml')validateSvgImage(r.bytes);return new Blob([r.bytes],{type:item.mimeType})};
+ // Concurrent gallery/editor reads share one verified transfer in this account context.
+ const mediaFlights=new Map();
+ const readMedia=async id=>{
+  if(signal?.aborted)throw Error('Sessão encerrada');
+  if(mediaFlights.has(id))return mediaFlights.get(id);
+  const task=(async()=>{
+   const item=(await media()).get(id);if(!item)throw Error('Mídia fora da biblioteca individual');
+   const before=await meta(id);
+   if(!await (item.legacyReadOnly?legacyPdfPath(before):belongsToRoot(before)))throw Error('Original não pertence mais a uma fonte autorizada');
+   const r=await raw(id,100000000,true,before);
+   if(r.meta.mimeType!==item.mimeType||r.meta.parents?.[0]!==before.parents?.[0])throw Error('Tipo ou pasta da mídia alterados');
+   if(item.mimeType==='image/svg+xml')validateSvgImage(r.bytes);
+   if(signal?.aborted)throw Error('Sessão encerrada');
+   // The original SHA-256 also identifies annotations, avoiding a second full download.
+   hashes.set(id,{version:r.meta.version,hash:r.hash});
+   return new Blob([r.bytes],{type:item.mimeType});
+  })();
+  mediaFlights.set(id,task);
+  try{return await task}finally{if(mediaFlights.get(id)===task)mediaFlights.delete(id);}
+ };
  const GRIF_KIND='bm_grifos_sync_v104_master',GRIF_NAME='BancoMestre_Grifos_Mestre.json';
  const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(n=>n.toString(16).padStart(2,'0')).join('');
  const grifos=async()=>{

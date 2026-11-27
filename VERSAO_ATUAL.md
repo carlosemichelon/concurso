@@ -1,3 +1,7 @@
+## V441 / VS50 — mídia, editor PDF e login (27/11/2026)
+
+V1 (carlosemichelon/concurso, gh-pages) é o único ambiente oficial, conforme VM26. Integração seletiva das melhorias VS50: abertura de mídia autorizada otimizada, rolagem contínua e seleção de texto sem aguardar grifos; edição permanece condicionada à autorização. Login centralizado. Catálogo VC52, SRS, originais e histórico preservados. Rollback: commit f48b2517341abdcd72d05199396dcc120c1ca90f. Publicação e homologação autenticada verificadas separadamente.
+
 ## V440 / VS49 — apresentação do Guia de Fórmulas (26/11/2026)
 
 Escopo exclusivo: Assuntos → Guia de Fórmulas. Equações, explicações, exemplos, hipóteses, listas, unidades, legendas, macetes, pegadinhas e referências com hierarquia visual consistente; rolagem localizada e legibilidade móvel. Correções de expoentes, derivadas, somatórios, integrais e símbolos. Catálogo VC52, cartões, SRS e documento fonte preservados. Homologação em navegador pendente; produção não promovida.

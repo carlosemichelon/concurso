@@ -244,12 +244,17 @@ root.BancoMestreEditorV030={open:async()=>{throw Error('Abra a imagem pela bibli
     if(!file||!Array.isArray(file.card_ids))throw Error('Imagem sem vínculo');
     const blob=await root.BMVS41PrivateMedia.read(file.card_ids[0]||'biblioteca',file.id);
     if(!/^image\/(png|jpeg|webp|gif|svg\+xml)$/.test(blob.type))throw Error('Formato inválido');
-    const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))].map(x=>x.toString(16).padStart(2,'0')).join('');
-    const next=await root.BMVS41PrivateImageInk.get(file.id);
-    if(next.hash!==hash||!root.BMVS41Session.available())throw Error('Versão ou sessão alterada');
     const src=URL.createObjectURL(blob);
-    try{const image=new Image();image.src=src;await image.decode();row=next;failed=false;epoch++;await open({image,imageId:file.id,title:file.title,quality:'Original privado conferido',warning:'Marcações salvas na conta autenticada. Original preservado.'});note('Marcações privadas carregadas.');}
-    finally{URL.revokeObjectURL(src)}
+    try{
+     const image=new Image();image.src=src;
+     const [hash,next]=await Promise.all([
+      blob.arrayBuffer().then(bytes=>crypto.subtle.digest('SHA-256',bytes)).then(digest=>[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')),
+      root.BMVS41PrivateImageInk.get(file.id),
+      image.decode()
+     ]);
+     if(next.hash!==hash||!root.BMVS41Session.available())throw Error('Versão ou sessão alterada');
+     row=next;failed=false;epoch++;await open({image,imageId:file.id,title:file.title,quality:'Original privado conferido',warning:'Marcações salvas na conta autenticada. Original preservado.'});note('Marcações privadas carregadas.');
+    }finally{URL.revokeObjectURL(src)}
    }finally{opening=false}
   },
   get busy(){return busy},get confirmed(){return ready()},get marks(){return clone(strokes)}
