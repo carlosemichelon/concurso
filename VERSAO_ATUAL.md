@@ -1,3 +1,7 @@
+## V442 / VS51 — correção seletiva do PDF na VG1 (27/11/2026)
+
+V442 / VS51 — VG1: reintegração seletiva do leitor PDF da VS50, com confirmação de grifos e reativação dos controles corrigidas. Login e conexão VS49 preservados. Testes de conta simulada e leitor incremental aprovados na candidata; OAuth real pendente. VC52, SRS e Drive intactos.
+
 ## V440 / VS49 — apresentação do Guia de Fórmulas (26/11/2026)
 
 Escopo exclusivo: Assuntos → Guia de Fórmulas. Equações, explicações, exemplos, hipóteses, listas, unidades, legendas, macetes, pegadinhas e referências com hierarquia visual consistente; rolagem localizada e legibilidade móvel. Correções de expoentes, derivadas, somatórios, integrais e símbolos. Catálogo VC52, cartões, SRS e documento fonte preservados. Homologação em navegador pendente; produção não promovida.
