@@ -21,7 +21,29 @@ export function sourceSelection(value){
 }
 // A recovery checkpoint preserves the original private snapshot and a distinct published view.
 // It never certifies a complete SRS or promotes provisional cards to private canonical identities.
-export function verifyRecoverySnapshot(wrapper,view){
+// Editorial-only checkpoints may retain the last private snapshot. Prove the
+// transition against the preceding hash-verified wrapper and editorial view.
+function verifyEditorialOnlyUpdate(wrapper,view,previous,previousView){
+ const r=wrapper?.recovery,pr=previous?.recovery,rb=r?.integrated_batches,vb=view?.integrated_batches;
+ const last=rb?.at(-1),vl=vb?.at(-1),hex=x=>typeof x==='string'&&/^[a-f0-9]{64}$/.test(x);
+ const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+ const omit=(o,...keys)=>Object.fromEntries(Object.entries(o||{}).filter(([k])=>!keys.includes(k)));
+ const fail=()=>{throw Error('Recuperação privada: transição de grifos não comprovada')};
+ if(previous?.format!=='BancoMestrePrivadoRecuperacaoV1'||previous.schema_version!==1||previous.status!=='RECUPERACAO_PARCIAL'||pr?.srs_complete!==false||!eq(r.previous_editorial_view,pr.editorial_view)||previousView?.version!==pr.editorial_view?.version||view?.source?.base_version!==previousView.version||view.version===previousView.version||wrapper.version===previous.version)fail();
+ if(!eq(omit(wrapper,'version','updated','recovery'),omit(previous,'version','updated','recovery'))||!eq(omit(r,'editorial_view','previous_editorial_view','integrated_batches'),omit(pr,'editorial_view','previous_editorial_view','integrated_batches')))fail();
+ if(!Array.isArray(rb)||!Array.isArray(vb)||!eq(rb.slice(0,-1),pr.integrated_batches)||!eq(vb.slice(0,-1),previousView.integrated_batches)||!/^VD\d+-GRIFOS-/.test(last?.id||'')||last.id!==vl?.id||last.id.split('-')[0]!==view.version.split('_')[0]||last.srs_modified!==false||vl.srs_modified!==false||!validId(last.delta_file_id)||!hex(last.delta_sha256)||!Array.isArray(last.editorial_ids)||!eq(last.editorial_ids,vl.ids))fail();
+ if(!eq(omit(view,'version','source','integrated_batches','cards'),omit(previousView,'version','source','integrated_batches','cards'))||!Array.isArray(view.cards)||!Array.isArray(previousView.cards)||view.cards.length!==previousView.cards.length)fail();
+ const changed=[];
+ const withoutHighlights=c=>({...c,consolidation:{...c.consolidation,profile:{...c.consolidation?.profile,editorial:omit(c.consolidation?.profile?.editorial,'highlights')}}});
+ for(let i=0;i<view.cards.length;i++){
+  const a=previousView.cards[i],b=view.cards[i];if(eq(a,b))continue;
+  if(!a?.consolidation?.profile?.editorial||!b?.consolidation?.profile?.editorial||!eq(withoutHighlights(a),withoutHighlights(b)))fail();
+  changed.push(b.id);
+ }
+ if(!changed.length||new Set(last.editorial_ids).size!==last.editorial_ids.length||!eq([...changed].sort(),[...last.editorial_ids].sort()))fail();
+ return true;
+}
+export function verifyRecoverySnapshot(wrapper,view,editorialProof=false){
  const r=wrapper?.recovery,p=wrapper?.private_snapshot,n=wrapper?.counts,ref=r?.editorial_view;
  const ensure=(ok,message)=>{if(!ok)throw Error('Recuperação privada: '+message)};
  const hex=x=>typeof x==='string'&&/^[a-f0-9]{64}$/.test(x);
@@ -44,9 +66,9 @@ export function verifyRecoverySnapshot(wrapper,view){
  const privateDelta=!!(validId(prev?.file_id)&&prev.file_id!==ref?.file_id&&hex(prev?.sha256)&&typeof prev.version==='string'&&prev.version===src?.base_version&&prev.version!==view?.version&&validId(src?.delta_document_id)&&deltaProof&&ref?.git_blob===undefined&&src?.git_blob===undefined);
  const gitLineage=typeof ref?.git_blob==='string'&&/^[a-f0-9]{40}$/.test(ref.git_blob)&&ref.git_blob===src?.git_blob;
  const originalVersion=typeof history?.version==='string'&&p?.version===history.version;
- const checkpointVersion=privateDelta&&validId(history?.file_id)&&hex(p?.source_sha256)&&typeof wrapper.version==='string'&&p?.version===wrapper.version;
+ const checkpointVersion=validId(history?.file_id)&&hex(p?.source_sha256)&&typeof wrapper.version==='string'&&((privateDelta&&p?.version===wrapper.version)||editorialProof===true);
  ensure(p?.format==='BancoMestrePrivadoV159'&&p.schema_version===1&&(originalVersion||checkpointVersion)&&hex(history?.sha256),'origem privada inválida');
- ensure(view?.format==='BM-DRIVE-EDITORIAL-SEED/1'&&view.migration_status==='editorial-candidate-only'&&ref?.version===view.version&&(gitLineage||privateDelta)&&hex(ref?.sha256),'projeção editorial divergente');
+ ensure(view?.format==='BM-DRIVE-EDITORIAL-SEED/1'&&view.migration_status==='editorial-candidate-only'&&ref?.version===view.version&&(gitLineage||privateDelta||editorialProof===true)&&hex(ref?.sha256),'projeção editorial divergente');
  const originals=verifyRecords(p.cards),visible=verifyRecords(view.cards),old=new Map(originals.map(x=>[x.id,x])),now=new Set(visible.map(x=>x.id)),matched=new Set(),outside=new Set(originals.filter(x=>!now.has(x.id)).map(x=>x.id));
  ensure(p.counts?.cards===originals.length&&n?.cards===originals.length&&n?.visible_active===visible.length&&ref.cards===visible.length&&view.counts?.cards===visible.length&&view.counts?.active===visible.length&&visible.every(x=>x.active===true),'contagem divergente');
  const entries=r.operational_identities;
@@ -172,10 +194,23 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,edi
    if(!folderId||data.recovery_status!=='RECUPERACAO_PARCIAL'||pointer.cards!==snapshot.data.counts?.cards)throw Error('Ponteiro de recuperação não autorizado.');
    const ref=snapshot.data.recovery?.editorial_view;
    if(!validId(ref?.file_id)||!/^[a-f0-9]{64}$/.test(ref.sha256||'')||ref.file_id===pointer.file_id)throw Error('Projeção de recuperação inválida.');
-   const view=await read(ref.file_id,ref.sha256,true),checked=verifyRecoverySnapshot(snapshot.data,view.data);
+   const view=await read(ref.file_id,ref.sha256,true);
+   let editorialProof=false,previousReads=[];
+   const latest=snapshot.data.recovery?.integrated_batches?.at(-1);
+   if(/^VD\d+-GRIFOS-/.test(latest?.id||'')){
+    const prev=data.previous_private_base,prevView=snapshot.data.recovery?.previous_editorial_view;
+    const validRef=x=>validId(x?.file_id)&&typeof x.version==='string'&&/^[a-f0-9]{64}$/.test(x.sha256||'');
+    if(!validRef(prev)||!validRef(prevView)||new Set([pointer.file_id,ref.file_id,prev.file_id,prevView.file_id]).size!==4)throw Error('Referências anteriores de grifos inválidas.');
+    const [old,oldView]=await Promise.all([read(prev.file_id,prev.sha256),read(prevView.file_id,prevView.sha256,true)]);
+    if(old.data?.version!==prev.version||oldView.data?.version!==prevView.version||prev.cards!==old.data?.counts?.cards||prevView.cards!==oldView.data?.counts?.cards)throw Error('Versões anteriores de grifos divergentes.');
+    editorialProof=verifyEditorialOnlyUpdate(snapshot.data,view.data,old.data,oldView.data);
+    previousReads=[old,oldView];
+   }
+   const checked=verifyRecoverySnapshot(snapshot.data,view.data,editorialProof);
    const [again,privateAgain,viewAgain]=await Promise.all([info(meta.id),info(snapshot.meta.id),info(view.meta.id)]);
    if(again.version!==meta.version||privateAgain.version!==snapshot.meta.version||viewAgain.version!==view.meta.version||await resolveFolder(folderId)!==selectedId)throw Error('Ponteiro ou recuperação alterados durante leitura.');
    await assertInside(privateAgain.parents?.[0]);await assertInside(viewAgain.parents?.[0]);
+   for(const prior of previousReads){const current=await info(prior.meta.id);if(current.version!==prior.meta.version)throw Error('Origem anterior alterada durante leitura.');await assertInside(current.parents?.[0]);}
    return {...checked,sourceName:snapshot.meta.name,cacheHit:snapshot.cacheHit&&view.cacheHit};
   }
   if(data.recovery_status)throw Error('Estado de recuperação incompatível com o snapshot.');
