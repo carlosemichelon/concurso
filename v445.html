@@ -1649,4 +1649,73 @@ dialog.bm426-info-editor .bm228-actions{gap:6px!important}
 #formulas #bm427FormulaDialog .bm249-list-item .bm249-equation{margin:6px 0!important}
 #formulas #bm427FormulaDialog .bm249-body :is(p,li){max-width:100%;overflow-wrap:break-word}
 @media(max-width:650px){#formulas #bm427FormulaDialog .bm249-editorial{margin:10px 0}#formulas #bm427FormulaDialog .bm249-list{padding-inline-start:19px}}
-</style></body></html>
+</style><style id="bm445-clean-notices">
+/* Login centralizado no cabeçalho; dados e bloqueios de acesso inalterados. */
+#bm269PdfLocked,#coverageSummary>.notice,main>footer,#bmWritingGate>p,#bmWritingGate>button,.bm445-redundant-notice{display:none!important}
+#cartoes:not(:has(#cardRows article.card)) #moreCards{display:none!important}
+</style><script id="bm445-clean-notices-runtime">
+(function(){
+'use strict';
+const cls='bm445-redundant-notice';
+const normalize=s=>String(s||'').replace(/\s+/g,' ').trim().replace(/[…\.]+$/,'').toLowerCase();
+const messages=new Set([
+'Entre com Google para carregar os cartões do Drive',
+'Carregando biblioteca de cartões',
+'Consultando cadastro privado',
+'Conecte o Google Drive para carregar a fila de revisões',
+'Conecte o Drive para consultar as imagens originais',
+'Conecte o Google Drive para visualizar os originais',
+'Conecte o Google Drive para consultar os originais',
+'Conecte sua conta Google para acessar o Controle de Estudos e o histórico individual no Drive',
+'Conecte sua conta Google para acessar a oficina e o histórico individual no Drive'
+].map(normalize));
+const selector='p,div,span,small,td,summary,[role="status"]';
+const shadowSeen=new WeakSet();
+const hide=(node,on)=>{if(node&&node.classList.contains(cls)!==on)node.classList.toggle(cls,on)};
+function inspect(node){
+ if(!node||node.nodeType!==1||node.closest('article.card,script,style,header'))return;
+ if(node.id==='bm123CardsLoadStatus'){
+   hide(node,messages.has(normalize(node.querySelector('span')?.textContent)));return;
+ }
+ if(node.matches('summary')){
+   hide(node.parentElement,normalize(node.textContent)==='homologação técnica da biblioteca (teste de leitura)');return;
+ }
+ if(!node.matches(selector))return;
+ const match=node.childElementCount===0&&messages.has(normalize(node.textContent));
+ hide(node,match);
+ if(node.getRootNode() instanceof ShadowRoot && node.matches('p[role="status"]')){
+   const button=node.nextElementSibling;
+   if(button?.matches('button')&&normalize(button.textContent)==='entrar com google')hide(button,match);
+ }
+}
+function scan(node){
+ if(!node||node.nodeType!==1||node.closest('article.card,script,style,header'))return;
+ inspect(node);
+ if(node.matches('#bm240-native-host'))watchShadow(node);
+ node.querySelectorAll(selector+',#bm240-native-host').forEach(e=>{if(e.matches('#bm240-native-host'))watchShadow(e);else inspect(e)});
+}
+function observe(root){
+ new MutationObserver(records=>{
+   const pending=new Set();
+   for(const m of records){
+     const target=m.target.nodeType===1?m.target:m.target.parentElement;
+     if(target){inspect(target);if(target.parentElement)inspect(target.parentElement);}
+     for(const n of m.addedNodes)if(n.nodeType===1)pending.add(n);
+   }
+   for(const n of pending)scan(n);
+ }).observe(root,{subtree:true,childList:true,characterData:true});
+}
+function watchShadow(host){
+ const root=host.shadowRoot;
+ if(!root||shadowSeen.has(root))return;
+ shadowSeen.add(root);
+ if('adoptedStyleSheets' in root&&typeof CSSStyleSheet==='function'){
+   const sheet=new CSSStyleSheet();sheet.replaceSync('.'+cls+'{display:none!important}');
+   root.adoptedStyleSheets=[...root.adoptedStyleSheets,sheet];
+ }
+ root.querySelectorAll(selector).forEach(inspect);observe(root);
+}
+function start(){const main=document.querySelector('main');if(!main)return;scan(main);observe(main)}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();
+</script></body></html>
