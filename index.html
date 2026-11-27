@@ -1738,12 +1738,23 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #pdfDialog[open].bm422-editor .bm-v046-pdf-side #pdfMainV043 button:not([hidden]){min-height:27px!important;padding-block:3px!important}
 </style><script id="bm449-pdf-tabs-runtime">
 (function(){'use strict';
+const $=id=>document.getElementById(id);
 function init(){
- const d=document.getElementById('pdfDialog'),root=document.getElementById('pdfLocalTools');
- if(!d||!root||root.dataset.bm100Ready!=='1'||document.getElementById('bmPdfSidebarTabs'))return;
+ const d=$('pdfDialog'),root=$('pdfLocalTools'),main=$('pdfMainV043');
+ if(!d||!root||!main||root.dataset.bm100Ready!=='1')return;
+ const navigation=main.querySelector('[data-bm100-group="navigation"]'),drawing=main.querySelector('[data-bm100-group="drawing"]');
+ if(!navigation||!drawing)return;
+ let extra=$('bmPdfNavigationExtra');
+ if(!extra){extra=document.createElement('div');extra.id='bmPdfNavigationExtra';extra.className='bm100-row';navigation.append(extra);}
+ for(const id of ['pdfPan','pdfChangeFile']){const b=$(id);if(b&&b.parentElement!==extra)extra.append(b);}
+ const dock=$('bmV057PdfDock');if(dock&&dock.parentElement!==navigation)navigation.append(dock);
+ const hint=$('bmV058MarkerHint');if(hint&&hint.parentElement!==drawing)drawing.append(hint);
+ // O formulário permanece intacto; os atalhos duplicados ficam ocultos por CSS.
+ if(dock)dock.setAttribute('aria-label','Ir para uma página do PDF');
+ if($('bmPdfSidebarTabs'))return;
  const nav=document.createElement('div');nav.id='bmPdfSidebarTabs';nav.setAttribute('role','group');nav.setAttribute('aria-label','Painéis de ferramentas do PDF');
  const buttons=[];
- function select(mode){d.dataset.bmPdfTab=mode;for(const b of buttons)b.setAttribute('aria-pressed',String(b.dataset.mode===mode));const side=root.closest('.bm-v046-pdf-side');if(side)side.scrollTop=0;}
+ function select(mode){d.dataset.bmPdfTab=mode;for(const b of buttons)b.setAttribute('aria-pressed',String(b.dataset.mode===mode));root.scrollTop=0;}
  for(const [mode,label] of [['navigation','Navegação'],['editing','Edição']]){const b=document.createElement('button');b.type='button';b.dataset.mode=mode;b.textContent=label;b.onclick=()=>select(mode);buttons.push(b);nav.append(b);}
  root.prepend(nav);select('navigation');
 }
@@ -1764,4 +1775,25 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #tema summary.bm-topic-group-summary .bm-topic-group-context{font-weight:400!important;color:#627481!important}
 #tema summary.bm-topic-group-summary > .bm-topic-group-chevron{grid-column:2;grid-row:1 / 3;display:block!important;width:7px!important;height:7px!important;margin-right:3px!important;border-right:1.5px solid #627481!important;border-bottom:1.5px solid #627481!important;transform:rotate(-45deg)!important}
 #tema details[open] > summary.bm-topic-group-summary > .bm-topic-group-chevron{transform:rotate(45deg)!important}
+</style><style id="bm-topic-study-grid-v2">
+/* Somente a lista dos subassuntos cadastrados; respostas abertas mantêm toda a largura. */
+#tema #topicStudyBlocks:has(>details.v034Subtopic){display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))!important;gap:8px!important;align-items:start!important;max-width:100%!important}
+#tema #topicStudyBlocks:has(>details.v034Subtopic)>*{min-width:0;grid-column:1/-1}
+#tema #topicStudyBlocks:has(>details.v034Subtopic)>details.v034Subtopic:not(.bm438-related):not([open]){grid-column:auto}
+#tema #topicStudyBlocks>details.v034Subtopic{margin:0!important;border:1px solid #d6e2e9!important;border-radius:8px!important;background:#fff!important;overflow:hidden!important;box-shadow:none!important;min-width:0}
+#tema #topicStudyBlocks>details.v034Subtopic:not(.bm438-related)>summary.bm-topic-group-summary{min-height:54px!important;padding:9px 11px!important}
+#tema #topicStudyBlocks>details.v034Subtopic[open]>summary.bm-topic-group-summary{border-bottom:1px solid #d6e2e9!important}
+#tema #topicStudyBlocks>details.v034Subtopic[open]>.v034SubtopicBody{min-width:0!important}
+@media(max-width:520px){#tema #topicStudyBlocks:has(>details.v034Subtopic){grid-template-columns:minmax(0,1fr)!important}}
+/* O painel ganha espaço sem comprometer a área do PDF em telas pequenas. */
+#pdfDialog[open].bm422-editor:not(.bm103-tools-collapsed) .bm-v046-pdf-workspace:has(#pdfLocalTools[data-bm100-ready="1"]:not([hidden])){grid-template-columns:clamp(216px,22vw,258px) minmax(0,1fr)!important}
+#pdfDialog[open].bm422-editor.bm-v056-annotation-open .bm-v046-pdf-side:has(#pdfLocalTools:not([hidden])){width:100%!important;max-width:100%!important}
+@media(max-width:760px){#pdfDialog[open].bm422-editor:not(.bm103-tools-collapsed) .bm-v046-pdf-workspace:has(#pdfLocalTools[data-bm100-ready="1"]:not([hidden])){grid-template-columns:clamp(148px,34vw,200px) minmax(0,1fr)!important}}
+/* Os botões do dock repetiam os comandos principais. Preservar IDs e eventos, não duplicar controles. */
+#pdfDialog[open][data-bm-pdf-tab].bm422-editor #pdfLocalTools #bmV057PdfDock :is(#bmV057Marker,#bmV057Pan,#bmV057Undo,#bmV057Redo,.bm-v057-separator){display:none!important}
+#pdfDialog[open][data-bm-pdf-tab="navigation"].bm422-editor #pdfLocalTools :is(#bm064TogglePanel,#bm067ReaderRun,#bm067ReaderStatus){display:none!important}
+#pdfDialog[open][data-bm-pdf-tab="editing"].bm422-editor #pdfLocalTools #bmV057PdfDock{display:none!important}
+#pdfDialog[open].bm422-editor #pdfLocalTools #bmPdfNavigationExtra{display:flex!important;gap:4px!important;align-items:stretch!important}
+#pdfDialog[open].bm422-editor #pdfLocalTools #bmPdfNavigationExtra>button:not([hidden]){flex:1 1 0!important;min-width:0!important}
+#pdfDialog[open].bm422-editor #pdfLocalTools #bmPdfSidebarTabs{flex:0 0 auto!important}
 </style></body></html>
