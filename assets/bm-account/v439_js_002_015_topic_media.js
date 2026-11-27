@@ -1369,6 +1369,27 @@ async function setZoomAt(next,{x,y}={}){
  window.dispatchEvent(new CustomEvent('bm-pdf-zoom-changed',{detail:{zoom}}));
  return true;
 }
+// Ctrl + roda: zoom local ancorado no cursor, sem ampliar a interface.
+let bmPdfWheelTimer=0,bmPdfWheelPending=null,bmPdfWheelBusy=false;
+async function bmPdfWheelZoom(){
+ bmPdfWheelTimer=0;
+ if(bmPdfWheelBusy)return;
+ const p=bmPdfWheelPending;bmPdfWheelPending=null;
+ if(!p||p.doc!==pdf||!$('pdfDialog')?.open)return;
+ bmPdfWheelBusy=true;
+ try{await setZoomAt(zoom*Math.pow(1.15,p.steps),{x:p.x,y:p.y});}
+ catch(e){console.warn('Zoom do PDF',e);}
+ finally{bmPdfWheelBusy=false;if(bmPdfWheelPending)bmPdfWheelTimer=setTimeout(bmPdfWheelZoom,35);}
+}
+pagePane.addEventListener('wheel',e=>{
+ if(!pdf||!$('pdfDialog')?.open||$('imageDialog')?.open||!(e.ctrlKey||e.metaKey)||!e.deltaY)return;
+ e.preventDefault();e.stopPropagation();
+ if(painting||exportBusy)return;
+ const prev=bmPdfWheelPending?.doc===pdf?bmPdfWheelPending.steps:0;
+ bmPdfWheelPending={doc:pdf,steps:Math.max(-8,Math.min(8,prev+(e.deltaY<0?1:-1))),x:e.clientX,y:e.clientY};
+ clearTimeout(bmPdfWheelTimer);
+ bmPdfWheelTimer=setTimeout(bmPdfWheelZoom,35);
+},{passive:false,capture:true});
 async function goToPage(input){
  if(!pdf)return false;
  const n=Number(input);
