@@ -1,3 +1,7 @@
+## V443 / VS52 — avisos de login compactos (27/11/2026)
+
+V443 / VS52 — VG1: oculta exclusivamente as faixas redundantes de conexão em Assuntos, Flashcards, Imagens e PDFs; mantém login, identidade, erros, progresso e controles existentes. Sem alteração de OAuth, catálogo VC52, Drive ou SRS.
+
 ## V442 / VS51 — correção seletiva do PDF na VG1 (27/11/2026)
 
 V442 / VS51 — VG1: reintegração seletiva do leitor PDF da VS50, com confirmação de grifos e reativação dos controles corrigidas. Login e conexão VS49 preservados. Testes de conta simulada e leitor incremental aprovados na candidata; OAuth real pendente. VC52, SRS e Drive intactos.

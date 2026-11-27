@@ -94,6 +94,8 @@ try{
   }
   assert.ok((await page.locator('#cardCount').innerText()).includes('1 cartões ativos'));
   assert.ok(!(await page.locator('#bm119PublicSource').innerText()).includes('Catálogo público'));
+  for(const notice of await page.locator('#bm119HomeSource,#bm119PublicSource,.bm225-drive-auth').all())assert.ok(!(await notice.isVisible()),'Avisos de conexão redundantes devem ficar ocultos');
+  assert.ok(await btn.isVisible(),'Login e identidade continuam disponíveis no cabeçalho');
   assert.equal(await page.locator('[data-bm343-proposals]').count(),0);
   assert.ok(await page.locator('#bmAccountExport').isVisible());
   await page.locator('#bmAccountExport').click();
