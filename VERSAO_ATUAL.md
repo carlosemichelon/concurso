@@ -1,3 +1,7 @@
+## V448 / VS57 — estabilidade e desempenho (27/11/2026)
+
+V448 / VS57 — candidata VG1: Controle de Estudos oculto até confirmação; cache LRU em memória por sessão de imagens verificadas, deduplicação de transferências e decodificação paralela com leitura de grifos. Sem mudança de OAuth, leitor de checkpoints, conteúdo do Drive ou SRS. VM27 registrado nos documentos privados vigentes.
+
 ## V447 / VS56 — compatibilidade de checkpoint privado (27/11/2026)
 
 V447 / VS56 — VG1: leitor de checkpoints Drive aceita hash do delta registrado no invólucro privado quando a projeção não repete o hash, exigindo referência anterior, documento de origem e lote correspondente. Hash explícito divergente continua rejeitado. Validação local com VD54 (1460 cartões) e VD56 (1466 cartões), sem publicar dados privados; SRS e arquivos intactos.
