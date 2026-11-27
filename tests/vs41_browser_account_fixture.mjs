@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {card} from './vs41_private_fixture.mjs';
 const fm='application/vnd.google-apps.folder',STUDY_KIND='bm_controle_estudos_v245',GAP_KIND='bm_lacunas_v242',GRIF_KIND='bm_grifos_sync_v104_master';
-export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false,historicalPointer=false,badHistoricalHash=false,indexEdgeCases=false,legacyFolderNames=false,duplicateReviewFolder=false,recovery=false,recoveryInvalid=false,driveCheckpoint=false,badLineage=false}={}){
+export function fixture(account,{foreign=false,duplicatePointer=false,writable=false,writes=[],historical=false,historicalPointer=false,badHistoricalHash=false,indexEdgeCases=false,legacyFolderNames=false,duplicateReviewFolder=false,recovery=false,recoveryInvalid=false,driveCheckpoint=false,badLineage=false,checkpointHashOmitted=false,checkpointBatchMissing=false,checkpointHashConflict=false}={}){
  const root='root'+account,snap='snapshot'+account,ptr='pointer'+account,study='study'+account,files=new Map(),content=new Map();let serial=0;
  function add(id,name,mimeType,parents,data,extra={}){
   const bytes=data===undefined?null:JSON.stringify(data);
@@ -56,6 +56,12 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    privateData.recovery.previous_editorial_view={file_id:'previous'+account,version:'VC-TESTE',sha256:'d'.repeat(64),cards:2};
    view.version='VD-TESTE';view.source={base_version:'VC-TESTE',delta_document_id:'delta'+account,delta_sha256:'e'.repeat(64)};
    privateData.recovery.sources={delta:{file_id:'delta'+account,sha256_local_export:(badLineage?'f':'e').repeat(64)}};
+   if(checkpointHashOmitted){
+    view.version='VD56_TESTE';
+    delete view.source.delta_sha256;
+    privateData.recovery.integrated_batches=checkpointBatchMissing?[]:[{id:'PETRO-VD56-TESTE',private_checkpoint:'https://docs.google.com/document/d/'+view.source.delta_document_id+'/edit'}];
+    if(checkpointHashConflict)view.source.delta_sha256='f'.repeat(64);
+   }
    delete ref.git_blob;ref.version=view.version;ref.sha256=createHash('sha256').update(JSON.stringify(view)).digest('hex');
    add(viewId,'editorial.json','application/json',[root],view);
   }

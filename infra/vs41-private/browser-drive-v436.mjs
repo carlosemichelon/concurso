@@ -33,7 +33,15 @@ export function verifyRecoverySnapshot(wrapper,view){
  // git_blob comparison (undefined === undefined). Pointer and file hashes
  // are still checked by readBrowserSnapshot before this validation.
  const prev=r?.previous_editorial_view,src=view?.source,history=wrapper?.private_source;
- const privateDelta=!!(validId(prev?.file_id)&&prev.file_id!==ref?.file_id&&hex(prev?.sha256)&&typeof prev.version==='string'&&prev.version===src?.base_version&&prev.version!==view?.version&&validId(src?.delta_document_id)&&hex(src?.delta_sha256)&&Object.values(r?.sources||{}).some(x=>x?.file_id===src.delta_document_id&&x?.sha256_local_export===src.delta_sha256)&&ref?.git_blob===undefined&&src?.git_blob===undefined);
+ const deltaSource=validId(src?.delta_document_id)?Object.values(r?.sources||{}).filter(x=>x?.file_id===src.delta_document_id):[];
+ const recordedHashes=deltaSource.flatMap(x=>[x.sha256_local_export,x.sha256_local_export_final]).filter(hex);
+ const batchVersion=typeof view?.version==='string'?view.version.match(/^VD[0-9]+(?=_|$)/)?.[0]:null;
+ const batchMatches=!!(batchVersion&&Array.isArray(r?.integrated_batches)&&r.integrated_batches.some(b=>typeof b?.id==='string'&&b.id.split('-').includes(batchVersion)&&b.private_checkpoint==='https://docs.google.com/document/d/'+src?.delta_document_id+'/edit'));
+ // New checkpoints may store the delta hash only in the hash-verified private
+ // wrapper. Accept the omitted duplicate only with matching source and batch.
+ // An explicitly supplied conflicting hash must always be rejected.
+ const deltaProof=recordedHashes.length>0&&(src?.delta_sha256===undefined?batchMatches:hex(src.delta_sha256)&&recordedHashes.includes(src.delta_sha256));
+ const privateDelta=!!(validId(prev?.file_id)&&prev.file_id!==ref?.file_id&&hex(prev?.sha256)&&typeof prev.version==='string'&&prev.version===src?.base_version&&prev.version!==view?.version&&validId(src?.delta_document_id)&&deltaProof&&ref?.git_blob===undefined&&src?.git_blob===undefined);
  const gitLineage=typeof ref?.git_blob==='string'&&/^[a-f0-9]{40}$/.test(ref.git_blob)&&ref.git_blob===src?.git_blob;
  const originalVersion=typeof history?.version==='string'&&p?.version===history.version;
  const checkpointVersion=privateDelta&&validId(history?.file_id)&&hex(p?.source_sha256)&&typeof wrapper.version==='string'&&p?.version===wrapper.version;
