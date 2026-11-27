@@ -828,18 +828,13 @@ async function storeFile(){return false}
  async function storedFile(){return null}
  
 function key(page=pageNo){return 'BM030_STROKES_PDF:'+selected.id+':'+info.hash+':P'+page}
-const privatePages=new Map(),privatePageFlights=new Map();let privateBusy=false,privateError=false,privateEpoch=0;
+const privatePages=new Map();let privateBusy=false,privateError=false,privateEpoch=0;
  async function ensurePage(page){
   const k=key(page),epoch=privateEpoch,doc=selected.id,hash=info.hash;
   if(privatePages.has(k))return;
-  if(privatePageFlights.has(k))return privatePageFlights.get(k);
-  const flight=(async()=>{
-   const row=await window.BMVS41PrivateAnnotations.get(doc,page);
-   if(epoch!==privateEpoch||selected?.id!==doc||info?.hash!==hash||row.hash!==hash)throw Error('Versão do PDF ou sessão alterada');
-   privatePages.set(k,row);
-  })();
-  privatePageFlights.set(k,flight);
-  try{return await flight}finally{if(privatePageFlights.get(k)===flight)privatePageFlights.delete(k);}
+  const row=await window.BMVS41PrivateAnnotations.get(doc,page);
+  if(epoch!==privateEpoch||selected?.id!==doc||info?.hash!==hash||row.hash!==hash)throw Error('Versão do PDF ou sessão alterada');
+  privatePages.set(k,row);
  }
  function annotations(page=pageNo){
   if(!info||!selected)return [];
@@ -865,12 +860,9 @@ let annotationsInView=[];
 function snapshot(){const id=key();if(!undo.has(id))undo.set(id,[]);const list=undo.get(id);list.push(JSON.stringify(annotationsInView));if(list.length>60)list.shift();redo.set(id,[])}
 function canUse(id,on){$(id).disabled=!on}
 function controls(open){
- // VS50 PDF restore: reading and navigation do not depend on annotation IO.
- const reading=!!open&&!!pdf;
- open=reading&&privateReady();
- const readTools=new Set(['pdfPrev','pdfNext','pdfZoomOut','pdfZoomIn','pdfFitPage','pdfFitWidth','pdfPan']);
- for(const id of menu)canUse(id,readTools.has(id)?reading:open);canUse('pdfChangeFile',false);
- if(reading){canUse('pdfPrev',pageNo>1);canUse('pdfNext',pageNo<pdf.numPages)}
+ open=open&&privateReady();
+ for(const id of menu)canUse(id,open);canUse('pdfChangeFile',false);
+ if(open&&pdf){canUse('pdfPrev',pageNo>1);canUse('pdfNext',pageNo<pdf.numPages)}
  else {canUse('pdfPrev',false);canUse('pdfNext',false)}
  if(open){
   canUse('pdfUndo',(undo.get(key())||[]).length>0);
@@ -1142,20 +1134,13 @@ async function renderNeighbor(slice,target,ticket){
  const scale=bm420BaseScale(original)*zoom;
  const viewport=page.getViewport({scale});
  const max=Math.min(1,2200/Math.max(viewport.width,viewport.height),Math.sqrt(4500000/(viewport.width*viewport.height)));
- // Reuse active resolution within the bounded neighbor budget.
- const dpi=Math.min(2,Math.max(1,window.devicePixelRatio||1));
- const activeViewport=page.getViewport({scale:scale*dpi});
- const activeFactor=Math.min(1,Math.sqrt(9000000/(activeViewport.width*activeViewport.height)),3800/Math.max(activeViewport.width,activeViewport.height));
- const exact=page.getViewport({scale:scale*dpi*activeFactor});
- const reusable=exact.width*exact.height<=4500000&&Math.max(exact.width,exact.height)<=2200;
- const physical=reusable?exact:page.getViewport({scale:scale*max});
+ const physical=page.getViewport({scale:scale*max});
  const width=Math.max(1,Math.round(physical.width)),height=Math.max(1,Math.round(physical.height));
- const neighborKey=rasterKey(target,width,height,scale);
  const image=document.createElement('canvas');image.width=width;image.height=height;
  image.style.width=Math.round(viewport.width)+'px';image.style.height=Math.round(viewport.height)+'px';
  const context=image.getContext('2d',{alpha:false});
  context.fillStyle='white';context.fillRect(0,0,width,height);
- const warm=reusable?getRaster(neighborKey)?.canvas:previewRaster(target,Math.round(viewport.width),Math.round(viewport.height));
+ const warm=previewRaster(target,Math.round(viewport.width),Math.round(viewport.height));
  if(warm)context.drawImage(warm,0,0,width,height);
  else{
   const job=page.render({canvasContext:context,viewport:physical});
@@ -1165,25 +1150,19 @@ async function renderNeighbor(slice,target,ticket){
   finally{neighborTasks.delete(job)}
  }
  if(ticket!==serial||!pdf)return;
- if(reusable&&!warm){const plain=document.createElement('canvas');plain.width=width;plain.height=height;plain.getContext('2d',{alpha:false}).drawImage(image,0,0);rememberRaster(neighborKey,{page:target,width,height,logicalWidth:Math.round(viewport.width),logicalHeight:Math.round(viewport.height),canvas:plain});}
  const marker=document.createElement('canvas');marker.width=width;marker.height=height;
  marker.style.width=image.style.width;marker.style.height=image.style.height;
  const ctx=marker.getContext('2d');
+ await ensurePage(target);if(ticket!==serial||!pdf)return;
+ const marks=annotations(target);
+ if(readableHighlights)
+  for(const m of marks)if(isFillHighlight(m))drawCrispHighlight(context,m,width,height);
+ for(const m of marks){
+  if(readableHighlights&&isFillHighlight(m))continue;
+  stroke(ctx,m,width,height,true);
+ }
  const label=document.createElement('small');label.className='bm-v048-page-caption';
- const caption='Página '+target+' — role para ativar a edição';
- const showMarks=()=>{
-  const marks=annotations(target);
-  if(readableHighlights)
-   for(const m of marks)if(isFillHighlight(m))drawCrispHighlight(context,m,width,height);
-  for(const m of marks){
-   if(readableHighlights&&isFillHighlight(m))continue;
-   stroke(ctx,m,width,height,true);
-  }
-  label.textContent=caption;
- };
- const cached=privatePages.has(key(target));
- label.textContent=cached?caption:caption+' · carregando grifos';
- if(cached)showMarks();
+ label.textContent='Página '+target+' — role para ativar a edição';
  const surface=document.createElement('div');surface.className='bm-v048-neighbor-canvas';
  surface.append(image,marker);
  // A prévia ANTERIOR pode ter outra altura: preservar o texto visível.
@@ -1202,20 +1181,12 @@ async function renderNeighbor(slice,target,ticket){
  // Also retry after the short promotion cooldown when the user stops at a boundary.
   requestAnimationFrame(checkScrollPromotion);
   setTimeout(()=>{if(ticket===serial)requestAnimationFrame(checkScrollPromotion)},150);
- // A slow or unavailable annotation request must never hide an authorized PDF page.
- if(!cached)void ensurePage(target).then(()=>{
-  if(ticket===serial&&pdf&&slice.dataset.page===String(target)&&slice.contains(surface))showMarks();
- }).catch(()=>{
-  if(ticket===serial&&pdf&&slice.contains(surface))label.textContent=caption+' · grifos não confirmados';
- });
 }
 async function renderOne(ticket){
  if(!pdf||ticket!==serial)return;
  painting=true;controls(false);status('Carregando página '+pageNo+'...');
  let readyDetail=null;
  try{
-  // Rendering and authorized annotation read are independent; editing stays gated by privateReady.
-  const marksReady=ensurePage(pageNo).then(()=>null,error=>error);
   const page=await pdf.getPage(pageNo);if(ticket!==serial)return;
   const original=page.getViewport({scale:1});
   const visual=bm420BaseScale(original)*zoom;
@@ -1249,24 +1220,14 @@ async function renderOne(ticket){
   pageWrap.style.width=pageCanvas.style.width;pageWrap.style.height=pageCanvas.style.height;
   activePdfRaster=raster;lastPdfTintSignature=null;
   const ctx=pageCanvas.getContext('2d',{alpha:false});ctx.drawImage(raster,0,0,w,h);
-  // First paint and text-selection event must not wait for remote marks.
+  await ensurePage(pageNo);if(ticket!==serial||!pdf)return;
   annotationsInView=annotations();
   draft=null;markTool(tool);paint();
   readyDetail={page:pageNo,documentId:selected?.id||null,sourceHash:info?.hash||null,viewportScale:visual};
   $('pdfPager').textContent='Página '+pageNo+' de '+pdf.numPages+' · '+Math.round(zoom*100)+'%';
   $('pdfPager').title='Zoom relativo ao ajuste '+(bm420FitMode==='page'?'de página inteira':'à largura');
   $('pdfFitPage').setAttribute('aria-pressed',String(bm420FitMode==='page'&&zoom===1));$('pdfFitWidth').setAttribute('aria-pressed',String(bm420FitMode==='width'&&zoom===1));
-  const readingStatus='Rolagem contínua entre páginas; grifos e cartões são editáveis somente na página ativa. O original permanece preservado.';
-  status(privateReady()?readingStatus:'Página disponível; confirmando grifos privados…');
-  void marksReady.then(error=>{
-   if(ticket!==serial||!pdf)return;
-   if(error){
-    status('Leitura e seleção disponíveis; grifos não confirmados. Reabra a página antes de editar.');
-    controls(!painting&&!exportBusy);return;
-   }
-   annotationsInView=annotations();lastPdfTintSignature=null;paint();
-   if(!privateBusy&&!privateError)status(readingStatus);
-  });
+  status('Rolagem contínua entre páginas; grifos e cartões são editáveis somente na página ativa. O original permanece preservado.');
   renderingNeighbors=true;
   const renderingPage=pageNo;
   // Give the active page one paint before computing neighbors.
@@ -1382,24 +1343,15 @@ async function hashBuffer(b){
 }
 async function openBytes(blob,name,remember){
  if(!selected||!blob)return;
- const current=selected,epoch=privateEpoch;
- const currentOpen=()=>epoch===privateEpoch&&selected===current;
- let loadingTask=null;
  status('Preparando PDF no editor do Banco Mestre...');
  try{
-  const [lib,buf]=await Promise.all([pdfjs(),blob.arrayBuffer()]);
-  if(!currentOpen())return;
+  const lib=await pdfjs(),buf=await blob.arrayBuffer();
   if(buf.byteLength>120000000)throw Error('PDF muito grande para edição local nesta versão');
+  const current=selected;
+  info={name,size:blob.size,hash:''};info.hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',buf))].map(x=>x.toString(16).padStart(2,'0')).join('');
+  sourceBytes=new Uint8Array(buf.slice(0));
   if(pdf){cancelRenders();clearRenderCache();activePdfRaster=null;lastPdfTintSignature=null;try{await pdf.destroy()}catch{}}
-  if(!currentOpen())return;
-  // Retain one original buffer for export; PDF.js may transfer its own copy to the worker.
-  const original=new Uint8Array(buf);
-  const digest=crypto.subtle.digest('SHA-256',buf);
-  loadingTask=lib.getDocument({data:original.slice()});
-  const [hash,parsed]=await Promise.all([digest,loadingTask.promise]);
-  if(!currentOpen()){await loadingTask.destroy();return;}
-  info={name,size:blob.size,hash:[...new Uint8Array(hash)].map(x=>x.toString(16).padStart(2,'0')).join('')};
-  sourceBytes=original;pdf=parsed;loadingTask=null;
+  pdf=await lib.getDocument({data:new Uint8Array(buf.slice(0))}).promise;
   pageNo=1;zoom=1;bm420FitMode='page';undo.clear();redo.clear();
   $('pdfFileName').textContent=name+' · '+pdf.numPages+' páginas';
   $('pdfFrame').classList.add('localHidden');
@@ -1409,15 +1361,12 @@ async function openBytes(blob,name,remember){
   $('pdfIntro').hidden=true;
   if(remember){
    const saved=await storeFile(current.id,new File([blob],name,{type:'application/pdf'}));
-   if(!currentOpen())return;
    if(saved)try{localStorage.setItem('BM_PDF_HAS_SOURCE_V037:'+current.id,'1')}catch(e){}
    if(!saved)status('PDF aberto, porém o armazenamento neste navegador não está disponível.');
   }
   await render();
-  if(currentOpen())centerActive();
+  centerActive();
  }catch(e){
-  if(loadingTask)try{await loadingTask.destroy()}catch{}
-  if(!currentOpen())return;
   status('Não foi possível editar o PDF: '+e.message+'. Confira se ele está íntegro e não está protegido por senha.');
   $('pdfLocalMode').classList.remove('active');$('pdfFrame').classList.remove('localHidden');
   $('pdfLocalTools').hidden=true;$('pdfIntro').hidden=false;sourceBytes=null;info=null;pdf=null;
@@ -1492,7 +1441,7 @@ async function exportPDF(){
 }
 
 function close(){
- privateEpoch++;privatePages.clear();privatePageFlights.clear();privateBusy=false;privateError=false;
+ privateEpoch++;privatePages.clear();privateBusy=false;privateError=false;
  cancelMarkerStart();clearTimeout(neighborTintTimer);
  serial++;cancelRenders();clearRenderCache();activePdfRaster=null;lastPdfTintSignature=null;const p=pdf;pdf=null;info=null;sourceBytes=null;selected=null;cachedSource=null;pageNo=1;undo.clear();redo.clear();draft=null;
  $('pdfLocalMode').classList.remove('active');$('pdfFrame').classList.remove('localHidden');$('pdfLocalTools').hidden=true;
@@ -1584,16 +1533,13 @@ function openAndEdit(doc){
  }else enterEditor();
 }
 window.BMVS41PrivatePdfEditor=Object.freeze({
-  prepare:pdfjs,
   async open(doc,blob){
    if(privateBusy)throw Error('Aguarde a confirmação dos grifos');
    close();selected=doc;
    if(!$('pdfDialog').open||!Array.isArray(doc.card_ids)||blob.type!=='application/pdf')throw Error('PDF privado indisponível');
    $('pdfOriginal').hidden=true;$('pdfChooseLocal').hidden=true;
    await openBytes(blob,doc.title+'.pdf',false);
-   // PDF bytes were already authorized by the private media client.
-   // If the marks are pending, editing remains locked by privateReady().
-   if(!pdf||!activePdfRaster||!window.BMVS41Session?.available())throw Error('PDF ou sessão não confirmados');
+   if(!pdf||!privateReady())throw Error('PDF ou grifos não confirmados');
    $('pdfChangeFile').disabled=true;
    return true;
   },
@@ -1966,7 +1912,7 @@ function updateTextHighlight(id,patch){if(!privateReady())return false;
  return true;
 }
 function removeTextHighlight(id){
- if(!privateReady()||!pdf||painting||exportBusy)return false;
+ if(!pdf||painting||exportBusy)return false;
  const i=annotationsInView.findIndex(m=>m?.type==='text_highlight'&&m.id===id);
  if(i<0)return false;
  snapshot();const [old]=annotationsInView.splice(i,1);
