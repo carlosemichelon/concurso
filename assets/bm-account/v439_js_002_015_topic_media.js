@@ -317,11 +317,21 @@ function bm438Associations(all,subset,t){
  }
  return [...matches.values()].sort((a,b)=>Number(b.explicit)-Number(a.explicit)||b.sources.size-a.sources.size||topic(a.card).localeCompare(topic(b.card),'pt-BR')||a.card.id.localeCompare(b.card.id,'pt-BR',{numeric:true}));
 }
+// Resumos acessíveis de subassuntos: título, quantidade e expansão separados.
+function bmTopicGroupSummary(summary,title,count,context=''){
+ summary.classList.add('bm-topic-group-summary');
+ const name=document.createElement('span');name.className='bm-topic-group-name';name.textContent=title;
+ const meta=document.createElement('span');meta.className='bm-topic-group-meta';
+ const qty=document.createElement('span');qty.textContent=count+(count===1?' cartão':' cartões');meta.append(qty);
+ if(context){const group=document.createElement('span');group.className='bm-topic-group-context';group.textContent=context;meta.append(group);}
+ const arrow=document.createElement('span');arrow.className='bm-topic-group-chevron';arrow.setAttribute('aria-hidden','true');
+ summary.replaceChildren(name,meta,arrow);
+}
 function bm438AppendAssociations(guide,subset,t){
  const rows=bm438Associations(cards,subset,t);
  if(!rows.length)return;
  const panel=document.createElement('details');panel.className='v034Subtopic bm438-related';
- const summary=document.createElement('summary');summary.textContent='Assuntos e cartões relacionados · '+rows.length+' cartão(ões)';panel.append(summary);
+ const summary=document.createElement('summary');bmTopicGroupSummary(summary,'Assuntos e cartões relacionados',rows.length);panel.append(summary);
  const body=document.createElement('div');body.className='v034SubtopicBody';panel.append(body);
  const blocks=new Map();
  for(const item of rows){
@@ -337,7 +347,7 @@ function bm438AppendAssociations(guide,subset,t){
    const d=document.createElement('details');d.className='bm438-related-group';
    const title=document.createElement('summary');
    const label=meta?.groups?.find(g=>g.id===block.group)?.title||block.group;
-   title.textContent=block.subject+' · '+block.items.length+' cartão(ões) · '+label;d.append(title);
+   bmTopicGroupSummary(title,block.subject,block.items.length,label);d.append(title);
    const go=chip('Abrir assunto de origem',()=>{
     const target=topicRows.find(x=>x.group===block.group&&x.subject===block.subject)||{group:block.group,subject:block.subject,area:topicAreaOf(block.group),label,count:block.items.length};
     window.BancoMestreV034.openTopic(target);
@@ -439,7 +449,7 @@ async function openTopic(t){
     const details=document.createElement('details');details.className='v034Subtopic';
     details.id='v034-sub-'+[...groups.keys()].indexOf(sub);
     details.open=false; // V122: todos os subassuntos recolhidos na abertura
-    const sum=document.createElement('summary');sum.textContent=sub+' · '+list.length+' cartão(ões) · abrir';details.append(sum);
+    const sum=document.createElement('summary');bmTopicGroupSummary(sum,sub,list.length);details.append(sum);
     const body=document.createElement('div');body.className='v034SubtopicBody';details.append(body);
     // Um cartão por ID: não deduplicar pelo verso, pois perguntas distintas
     // podem ter a mesma resposta. Mostrar a pergunta; ocultar o gabarito.
