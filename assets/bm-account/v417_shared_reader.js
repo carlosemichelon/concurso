@@ -49,6 +49,38 @@ function renderExactInlineMath(p,formulas,marks){
 }
 function formula(f,marks){const b=el('div',undefined,'formula');if(f.title)b.append(el('div',f.title,'formula-label'));const equation=el('div',undefined,'formula-equation');const math=mathNode(f.mathml);window.BM417Math?.decorate(math,marks||[]);equation.append(math);b.append(equation);if(f.units)b.append(el('small',f.units,'formula-units'));return b}
 function table(t){const s=el('section');s.append(el('h2',t.title));const w=el('div',undefined,'table-wrap');w.tabIndex=0;w.setAttribute('aria-label',t.title);const tb=el('table'),head=el('thead'),hr=el('tr');for(const h of t.headers){const th=el('th',h);th.scope='col';hr.append(th)}head.append(hr);tb.append(head);const b=el('tbody');for(const row of t.rows){const tr=el('tr');row.forEach((v,i)=>{const cell=el(i===0?'th':'td');if(i===0)cell.scope='row';if(v&&typeof v==='object'&&v.mathml)cell.append(mathNode(v.mathml));else cell.textContent=v;tr.append(cell)});b.append(tr)}tb.append(b);w.append(tb);s.append(w);return s}
+function parseEditorialBlocks(text){
+ const lines=String(text??'').split(/\r?\n/),out=[];
+ const cells=s=>s.trim().replace(/^\|/,'').replace(/\|$/,'').split('|').map(v=>v.trim());
+ let pending=[];
+ const flush=()=>{if(pending.length){out.push({type:'text',text:pending.join('\n')});pending=[];}};
+ for(let i=0;i<lines.length;){
+  const line=lines[i].trim(),next=lines[i+1]?.trim()||'';
+  const head=line.startsWith('|')&&line.endsWith('|')?cells(line):[];
+  const divider=next.startsWith('|')&&next.endsWith('|')?cells(next):[];
+  if(head.length>=2&&divider.length===head.length&&divider.every(v=>/^:?-{2,}:?$/.test(v))){
+   let j=i+2,rows=[];
+   while(j<lines.length){
+    const line=lines[j].trim();if(!line.startsWith('|')||!line.endsWith('|'))break;
+    const row=cells(line);if(row.length!==head.length)break;
+    rows.push(row);j++;
+   }
+   if(rows.length){flush();out.push({type:'table',headers:head,rows});i=j;continue;}
+  }
+  pending.push(lines[i++]);
+ }
+ flush();return out;
+}
+function editorialBlocks(host,text,marks=[],formulas=[],answer=false){
+ for(const b of parseEditorialBlocks(text)){
+  if(b.type==='table'){host.append(table({title:'Quadro comparativo',headers:b.headers,rows:b.rows}));continue;}
+  for(const block of b.text.split(/\r?\n(?:[ \t]*\r?\n)*/)){
+   if(!block.trim())continue;
+   const p=marked(block,marks);if(answer){p.dataset.bmAnswerParagraph='true';renderExactInlineMath(p,formulas,marks);}host.append(p,document.createTextNode('\n\n'));
+  }
+ }
+}
+function validEditorialTable(t){return !!t&&Array.isArray(t.headers)&&t.headers.length>0&&Array.isArray(t.rows)&&t.rows.length>0&&t.rows.every(r=>Array.isArray(r)&&r.length===t.headers.length);}
 function safeLink(url){try{const u=new URL(url);return u.protocol==='https:'||u.protocol==='http:'}catch{return false}}
 
 // Private map is looked up by name inside the authenticated user's own Drive.
@@ -63,15 +95,17 @@ privateCleanup.observe(document.body,{childList:true,subtree:true});
 function privateFigure(f,m){
  const b=el('button',m.editorialStatic?'Exibir figura':'Exibir original do Drive','secondary zoom');b.type='button';const status=el('small',' Acesso restrito à conta autorizada.');status.dataset.privateState='PENDENTE';f.append(b,status);
  const cardId=m.private_card_id;
- b.onclick=async()=>{let obj;b.disabled=true;status.dataset.privateState='CARREGANDO';status.textContent='Consultando o arquivo privado…';
+ b.onclick=async()=>{if(b.disabled)return;const requestedSession=currentToken();let obj;b.disabled=true;status.dataset.privateState='CARREGANDO';status.textContent='Consultando o arquivo privado…';
   try{const blob=await window.BMVS41PrivateMedia.read(cardId,m.id,!!m.editorialStatic);if(!(/^image\/(png|jpeg|webp|gif)$/.test(blob.type)||(m.editorialStatic&&blob.type==='image/svg+xml')))throw Error('Formato inválido');
-   if(!f.isConnected)return;obj=URL.createObjectURL(blob);const im=el('img');im.alt=m.alt||m.caption;im.src=obj;await im.decode();
-   if(!f.isConnected){URL.revokeObjectURL(obj);return;}revokePrivate(f);privateURLs.set(f,obj);mapToken=currentToken();f.querySelector('.bm349-private-preview')?.remove();
+   if(!f.isConnected||!requestedSession||currentToken()!==requestedSession)throw Error('Sessão privada encerrada. Conecte novamente o Drive.');obj=URL.createObjectURL(blob);const im=el('img');im.alt=m.alt||m.caption;im.src=obj;await im.decode();
+   if(!f.isConnected||currentToken()!==requestedSession){URL.revokeObjectURL(obj);obj=null;throw Error('Sessão privada encerrada.');}revokePrivate(f);privateURLs.set(f,obj);mapToken=currentToken();f.querySelector('.bm349-private-preview')?.remove();
    const wrap=el('div',undefined,'diagram bm349-private-preview');wrap.append(im);status.before(wrap);status.dataset.privateState='CARREGADA';status.textContent='Original carregado nesta sessão autorizada.';b.textContent=m.editorialStatic?'Recarregar figura':'Recarregar original';obj=null;
   }catch(e){if(obj)URL.revokeObjectURL(obj);status.dataset.privateState='BLOQUEADO';status.textContent=e.message}finally{b.disabled=false}
  };
+ // Load originals automatically only after the appropriate side is revealed and in an authorized session.
+ if(currentToken())queueMicrotask(()=>{if(f.isConnected&&currentToken()&&!b.disabled)b.click();});
  }
-function figure(m){const f=el('figure');f.dataset.mediaId=m.id;f.dataset.role=m.role;const im=el('img'),wrap=el('div',undefined,'diagram'),zoom=el('button','Ampliar figura','secondary zoom');if(typeof m.src==='string'&&(m.src.startsWith('data:image/svg+xml;charset=utf-8,')||/^assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.svg$/.test(m.src))){im.src=m.src;im.alt=m.alt||m.caption;wrap.append(im);zoom.type='button';zoom.setAttribute('aria-expanded','false');zoom.onclick=()=>{const expanded=wrap.classList.toggle('expanded');zoom.setAttribute('aria-expanded',String(expanded));zoom.textContent=expanded?'Reduzir figura':'Ampliar figura'};f.append(wrap,el('figcaption',m.caption),zoom)}else{f.append(el('figcaption',m.caption+' — original preservado no acervo privado; a exibição requer acesso autorizado.'))}if(m.private_original)privateFigure(f,m);if(false&&safeLink(m.url)){const a=el('a','Arquivo de origem no Drive');a.href=m.url;a.target='_blank';a.rel='noopener noreferrer';a.className='origin';f.append(a)}return f}
+function figure(m){const f=el('figure');f.dataset.mediaId=m.id;f.dataset.role=m.role;const im=el('img'),wrap=el('div',undefined,'diagram'),zoom=el('button','Ampliar figura','secondary zoom');if(typeof m.src==='string'&&(m.src.startsWith('data:image/svg+xml;charset=utf-8,')||/^assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.svg$/.test(m.src))){im.src=m.src;im.alt=m.alt||m.caption;im.addEventListener('error',()=>{if(!wrap.querySelector('.bm-media-error'))wrap.append(el('small','Figura indisponível nesta sessão. O vínculo e a legenda foram preservados.','bm-media-error'));},{once:true});wrap.append(im);zoom.type='button';zoom.setAttribute('aria-expanded','false');zoom.onclick=()=>{const expanded=wrap.classList.toggle('expanded');zoom.setAttribute('aria-expanded',String(expanded));zoom.textContent=expanded?'Reduzir figura':'Ampliar figura'};f.append(wrap,el('figcaption',m.caption),zoom)}else{f.append(el('figcaption',m.caption+' — original preservado no acervo privado; a exibição requer acesso autorizado.'))}if(m.private_original)privateFigure(f,m);if(false&&safeLink(m.url)){const a=el('a','Arquivo de origem no Drive');a.href=m.url;a.target='_blank';a.rel='noopener noreferrer';a.className='origin';f.append(a)}return f}
 function details(title,content,cls=''){const det=el('details',undefined,cls),box=el('div');det.append(el('summary',title));if(typeof content==='string')box.append(el('p',content));else box.append(content);det.append(box);return det}
 // Histórico: preserve o texto original no JSON e renderize tabelas Markdown em células reais sem injetar HTML.
 function historic(text){const root=el('div',undefined,'historic-content');const lines=String(text||'').split('\n');for(let i=0;i<lines.length;){const l=lines[i].trim();if(l.startsWith('|')&&i+1<lines.length&&/^\s*\|[\s:|\-]+\|\s*$/.test(lines[i+1])){const cells=s=>s.trim().replace(/^\||\|$/g,'').split('|').map(t=>t.trim().replaceAll('**',''));const headers=cells(l);let rows=[];i+=2;while(i<lines.length&&lines[i].trim().startsWith('|')){const r=cells(lines[i++]);if(r.length===headers.length)rows.push(r);else root.append(el('p',r.join(' | ')))}if(rows.length)root.append(table({title:'Quadro histórico',headers,rows}));continue}i++;if(!l)continue;const stripped=l.replace(/^#{1,6}\s*/,'').replaceAll('**','');root.append(el(l.startsWith('### ')?'h3':'p',stripped))}return root}
@@ -93,19 +127,19 @@ function buildConsolidated(id){
  const c=consolidated(id),r=c.consolidation.profile,m=r.editorial;
  const a=el('article',undefined,'bm349-reading');a.dataset.bm349Card=id;a.dataset.bmConsolidated=id;
  a.append(el('h3',r.title));
- const addParagraphs=(text,paragraphs,tag=false)=>{const blocks=Array.isArray(paragraphs)&&paragraphs.join('\n\n')===text?paragraphs:String(text||'').split(/\r?\n(?:[ \t]*\r?\n)*/);for(const block of blocks){if(!block.trim())continue;const p=marked(block,m.highlights);if(tag){p.dataset.bmAnswerParagraph='true';renderExactInlineMath(p,m.formulas,m.highlights);}a.append(p,document.createTextNode('\n\n'));}};
+ const addParagraphs=(text,paragraphs,tag=false)=>editorialBlocks(a,Array.isArray(paragraphs)&&paragraphs.join('\n\n')===text?paragraphs.join('\n\n'):text,m.highlights,m.formulas,tag);
  addParagraphs(r.back,m.answer_paragraphs,true);
  if(c.group==='PORTUGUES')a.append(el('h2','Como aplicar'));
  addParagraphs(r.modules[3].texto);
  for(const x of m.media||[]){
-  if(x.role!=='VERSO_APOS_TENTATIVA')continue;
+  if(!['VERSO_APOS_TENTATIVA','IMAGEM_DO_CARTAO','IMAGEM_DO_CARTÃO'].includes(x.role))continue;
   // Inline SVG is used as an inert image, never inserted as executable DOM.
   const src=x.inline_svg?'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(x.inline_svg):x.src;
   if(src||x.private_original)a.append(figure({...x,id:x.id,role:x.role,caption:x.caption||x.id,src,private_card_id:id}));
  }
- if(m.table&&Array.isArray(m.table.headers)&&Array.isArray(m.table.rows)){
-  try{a.append(table({...m.table,title:m.table.title||'Quadro comparativo'}));}catch(e){a.append(details('Quadro comparativo — texto',r.modules[5].texto));}
- }else if(r.modules[5]?.texto){a.append(el('h2','Comparação'),marked(r.modules[5].texto,m.highlights));}
+ if(validEditorialTable(m.table)){
+  try{a.append(table({...m.table,title:m.table.title||'Quadro comparativo'}));}catch(e){editorialBlocks(a,r.modules[5].texto,m.highlights);}
+ }else if(r.modules[5]?.texto){a.append(el('h2','Comparação'));editorialBlocks(a,r.modules[5].texto,m.highlights);}
  for(const f of m.formulas||[]){try{a.append(formula(f,m.highlights));}catch(e){const fallback=el('div',undefined,'formula');fallback.append(el('div',f.title||'Fórmula','formula-label'),el('p',r.modules[4].texto),el('small',f.units||'','formula-units'));a.append(fallback);}}
  a.append(details('Critérios e unidades',r.modules[4].texto),el('h2','Aplicação e transferência'));addParagraphs(r.modules[6].texto);
  a.append(details('Condições e exceções',r.modules[8].texto),details('Pegadinhas',r.modules[9].texto),details('Macete',r.mnemonic));
@@ -123,7 +157,7 @@ function buildConsolidated(id){
 }
 
 const stamp=new WeakMap();async function renderAnswer(host,id){const token={};stamp.set(host,token);if(consolidated(id)){if(host.isConnected&&!host.closest('[hidden]')){try{host.replaceChildren(buildConsolidated(id));}catch(e){const c=consolidated(id),p=c.consolidation.profile,fallback=el('article',undefined,'bm349-reading');fallback.dataset.bm349Card=id;fallback.dataset.bmConsolidated=id;fallback.dataset.renderFallback='true';fallback.append(el('h3',p.title),el('p',p.back));for(const layer of p.modules||[]){if(layer.ord===1||layer.ord===2)continue;fallback.append(details(layer.titulo,layer.texto));}fallback.append(el('small','Parte da apresentação gráfica não pôde ser exibida; conteúdo textual preservado.'));host.replaceChildren(fallback);console.warn('Falha de apresentação consolidada',id,e);}}return;}host.replaceChildren(el('p','Cartão não disponível no perfil.'));return;try{await load();await ensureHistory(id);if(host.isConnected&&stamp.get(host)===token&&!host.closest('[hidden]')&&(!host.matches('.bm-v050-peek-answer')||window.BancoMestreVisualizarCardV050?.currentId===id))host.replaceChildren(build(id));}catch(e){if(host.isConnected&&stamp.get(host)===token)host.replaceChildren(el('p','Falha ao carregar: '+e.message));}}
-async function renderFront(host,id){const token={};stamp.set(host,token);host.replaceChildren();if(consolidated(id)){for(const m of consolidatedProfile(id).editorial.media||[])if(m.role==='FRONT_ENUNCIADO'){const src=m.inline_svg?'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(m.inline_svg):m.src;if(src||m.private_original)host.append(figure({...m,src,private_card_id:id}));}return;}return;try{await load();if(!host.isConnected||stamp.get(host)!==token)return;const r=records[id];for(const m of r.learning_model.media.items||[])if(m.role==='FRONT_ENUNCIADO')host.append(figure(m))}catch(e){if(host.isConnected&&stamp.get(host)===token)host.append(el('p','Dados gráficos indisponíveis: '+e.message))}}
+async function renderFront(host,id){const token={};stamp.set(host,token);host.replaceChildren();if(consolidated(id)){for(const m of consolidatedProfile(id).editorial.media||[])if(['FRONT_ENUNCIADO','IMAGEM_DA_QUESTAO','IMAGEM_DA_QUESTÃO'].includes(m.role)){const src=m.inline_svg?'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(m.inline_svg):m.src;if(src||m.private_original)host.append(figure({...m,src,private_card_id:id}));}return;}return;try{await load();if(!host.isConnected||stamp.get(host)!==token)return;const r=records[id];for(const m of r.learning_model.media.items||[])if(m.role==='FRONT_ENUNCIADO')host.append(figure(m))}catch(e){if(host.isConnected&&stamp.get(host)===token)host.append(el('p','Dados gráficos indisponíveis: '+e.message))}}
 const prev=window.BM198Format;if(prev?.render){window.BM198Format=Object.freeze({...prev,render(host,rec,id,...rest){if(!consolidated(id))return prev.render(host,rec,id,...rest);void renderAnswer(host,id);return {modules:11,srsChanged:false,version:'V349-CANDIDATO'};}})}
 window.BM349=Object.freeze({has:id=>!!consolidated(id),get:id=>consolidatedProfile(id),load:id=>consolidated(id)?Promise.resolve(consolidatedProfile(id)):Promise.reject(Error('Cartão fora do perfil')),renderAnswer,renderFront});
 // Pacotes de restauração carregados somente quando um cartão correspondente é aberto.
