@@ -180,6 +180,7 @@ try{
   assert.equal(docs[0].id,'pdf'+a);
   await page.evaluate(async doc=>{await window.BMVS41PrivatePdfs.preview(doc);const blob=await window.BMVS41PrivateMedia.read(undefined,doc.id);await window.BMVS41PrivatePdfEditor.open(doc,blob)},docs[0]);
   assert.ok(await page.evaluate(()=>window.BMVS41PrivatePdfEditor.confirmed));
+  assert.ok(await page.locator('#pdfMarker').isEnabled(),'Grifos confirmados devem liberar a ferramenta de edição');
   assert.ok(await page.locator('#pdfDialog').evaluate(d=>d.open));
   const pdfMarks=await page.evaluate(id=>window.BMVS41PrivateAnnotations.get(id,1),docs[0].id);
   assert.deepEqual(pdfMarks.marks,[]);

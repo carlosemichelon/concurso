@@ -1588,7 +1588,8 @@ function wordsFromRange(range){
  }
 
  function readSelection(){
-  if(window.BancoMestrePreciseSelectV094?.ready)return;
+  // Native text layer is the fallback when the precise engine did not prepare this page.
+  if(window.BancoMestrePreciseSelectV094?.ready&&dlg.classList.contains('bm094-precise'))return;
  if(!inSelect()||!activeLayer||!matches(context))return;
  const selection=window.getSelection();
  if(!selection||selection.isCollapsed||selection.rangeCount!==1||!inLayer(selection.anchorNode)||!inLayer(selection.focusNode))return;
