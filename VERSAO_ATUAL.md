@@ -1,3 +1,7 @@
+## V446 / VS55 — avisos redundantes (27/11/2026)
+
+V446 / VS55 — VG1: oculta somente as quatro mensagens redundantes de agenda, carregamento da biblioteca, privacidade e consulta de imagens; mantém mensagens de erro, botões, login, catálogo VC52, Drive e SRS.
+
 ## V445 / VS54 — compatibilidade com checkpoint privado (27/11/2026)
 
 V445 / VS54 — VG1: compatibilidade do leitor privado com checkpoints versionados no Drive (linhagem de delta, referência anterior e hashes declarados). Preserva a validação do formato histórico, titularidade, integridade, identidade dos cartões e SRS. Corrige também a sintaxe do teste de erro de popup. Não altera dados do Drive.
