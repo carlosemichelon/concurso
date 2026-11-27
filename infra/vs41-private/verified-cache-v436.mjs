@@ -1,5 +1,5 @@
 // Local, disposable cache of verified read-only bytes. No credentials or writes to Drive.
-const DB='BMVerifiedReadCacheV1',STORE='bytes',META='meta',MAX=128*1024*1024,MAX_AGE=7*86400000;
+const DB='BMVerifiedReadCacheV1',STORE='bytes',META='meta',MAX=256*1024*1024,MAX_AGE=7*86400000;
 let dbPromise;
 function db(){
  if(!globalThis.indexedDB)return Promise.resolve(null);
