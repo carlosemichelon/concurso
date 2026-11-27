@@ -1318,7 +1318,7 @@ async function imgOpen(x){
  }catch(e){alert('Falha ao abrir imagem: '+e.message)}
 }
 window.BM169PdfInitPromise=pdfInit(); // Navegação e atlas V034 inicializados nos módulos finais.
-</script><script defer src="assets/bm-account/v439_js_002_015_topic_media.js?v=vs57-pdf-wheel-zoom-2"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
+</script><script defer src="assets/bm-account/v439_js_002_015_topic_media.js?v=vs57-topic-summary-3"></script><!-- V165: abrir cartões somente no pop-up da biblioteca -->
 
 
 <!-- Leitor antigo duplicado do Vade removido em V129 -->
@@ -1751,4 +1751,17 @@ window.addEventListener('bm-pdf-tools-organized',init);
 window.addEventListener('bm-pdf-active-page-rendered',init);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
-</script></body></html>
+</script><style id="bm-topic-group-summary-style">
+#tema details > summary.bm-topic-group-summary{box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:auto auto!important;column-gap:10px!important;row-gap:2px!important;align-items:center!important;list-style:none!important;text-align:left!important;padding:8px 10px!important;min-height:40px!important;cursor:pointer!important;background:#fff!important;color:#244658!important;font-family:system-ui,-apple-system,"Segoe UI",sans-serif!important;border-radius:6px!important}
+#tema details > summary.bm-topic-group-summary::-webkit-details-marker{display:none!important}
+#tema details > summary.bm-topic-group-summary::marker{content:""!important}
+#tema details > summary.bm-topic-group-summary::before,#tema details > summary.bm-topic-group-summary::after{display:none!important;content:none!important}
+#tema details > summary.bm-topic-group-summary:hover{background:#f2f7fa!important}
+#tema details[open] > summary.bm-topic-group-summary{background:#eaf3f8!important}
+#tema details > summary.bm-topic-group-summary:focus-visible{outline:2px solid #4385ad!important;outline-offset:2px!important}
+#tema summary.bm-topic-group-summary > .bm-topic-group-name{grid-column:1;grid-row:1;font-size:12px!important;line-height:1.35!important;font-weight:650!important;color:#244658!important;min-width:0;overflow-wrap:anywhere}
+#tema summary.bm-topic-group-summary > .bm-topic-group-meta{grid-column:1;grid-row:2;display:flex!important;flex-wrap:wrap!important;gap:3px 8px!important;font-size:10.5px!important;line-height:1.3!important;font-weight:400!important;color:#627481!important}
+#tema summary.bm-topic-group-summary .bm-topic-group-context{font-weight:400!important;color:#627481!important}
+#tema summary.bm-topic-group-summary > .bm-topic-group-chevron{grid-column:2;grid-row:1 / 3;display:block!important;width:7px!important;height:7px!important;margin-right:3px!important;border-right:1.5px solid #627481!important;border-bottom:1.5px solid #627481!important;transform:rotate(-45deg)!important}
+#tema details[open] > summary.bm-topic-group-summary > .bm-topic-group-chevron{transform:rotate(45deg)!important}
+</style></body></html>
