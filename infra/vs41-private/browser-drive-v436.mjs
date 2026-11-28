@@ -109,7 +109,10 @@ export function verifyRecoverySnapshot(wrapper,view,editorialProof=false){
  ensure(srs.filter(x=>x.next_review).length===n.verified_historical_due,'vencimentos históricos divergentes');
  return {version:wrapper.version,viewVersion:view.version,privateVersion:p.version,records:visible,scope:'private-recovery',srs,srsComplete:false,updated:wrapper.updated||''};
 }
-export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,editorialPreview=false,cache=browserByteCache}){
+// A published checkpoint is authorized by the current private pointer, not by
+// a version number in the portal. Historical comparison remains mandatory for
+// preflight (the default); ordinary reads validate only the published checkpoint.
+export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,editorialPreview=false,cache=browserByteCache,verifyHistory=true}){
  if(typeof token!=='string'||!token)throw Error('Conecte sua conta Google.');
  const get=async(path,params)=>{
   const r=await fetcher(base+path+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},credentials:'omit',redirect:'error',cache:'no-store',signal});
@@ -221,10 +224,30 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,edi
     const prev=data.previous_private_base,prevView=snapshot.data.recovery?.previous_editorial_view;
     const validRef=x=>validId(x?.file_id)&&typeof x.version==='string'&&/^[a-f0-9]{64}$/.test(x.sha256||'');
     if(!validRef(prev)||!validRef(prevView)||new Set([pointer.file_id,ref.file_id,prev.file_id,prevView.file_id]).size!==4)throw Error('Referências anteriores de grifos inválidas.');
-    const [old,oldView]=await Promise.all([read(prev.file_id,prev.sha256),read(prevView.file_id,prevView.sha256,true)]);
-    if(old.data?.version!==prev.version||oldView.data?.version!==prevView.version||prev.cards!==old.data?.counts?.cards||prevView.cards!==oldView.data?.counts?.cards)throw Error('Versões anteriores de grifos divergentes.');
-    editorialProof=verifyEditorialOnlyUpdate(snapshot.data,view.data,old.data,oldView.data);
-    previousReads=[old,oldView];
+    if(verifyHistory!==false){
+     const [old,oldView]=await Promise.all([read(prev.file_id,prev.sha256),read(prevView.file_id,prevView.sha256,true)]);
+     if(old.data?.version!==prev.version||oldView.data?.version!==prevView.version||prev.cards!==old.data?.counts?.cards||prevView.cards!==oldView.data?.counts?.cards)throw Error('Versões anteriores de grifos divergentes.');
+     editorialProof=verifyEditorialOnlyUpdate(snapshot.data,view.data,old.data,oldView.data);
+     previousReads=[old,oldView];
+    }else{
+     // Read-only portal: the authenticated owner has selected this checkpoint.
+     // Verify the current hash-checked pair and its declared lineage; the full
+     // before/after comparison belongs to the existing private preflight.
+     const projected=view.data?.integrated_batches?.at(-1);
+     const ids=latest.editorial_ids??latest.ids;
+     const sameIds=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&JSON.stringify(a)===JSON.stringify(b);
+     const currentIds=new Set(Array.isArray(view.data?.cards)?view.data.cards.map(c=>c?.id):[]);
+     if(prev.version===pointer.version||prevView.version===ref.version||
+      prev.cards!==snapshot.data.counts?.cards||prevView.cards!==ref.cards||
+      view.data?.source?.base_version!==prevView.version||
+      projected?.id!==latest.id||latest.id.split('-')[0]!==String(view.data.version).split('_')[0]||
+      latest.srs_modified!==false||projected.srs_modified!==false||
+      !validId(latest.delta_file_id)||!/^[a-f0-9]{64}$/.test(latest.delta_sha256||'')||
+      !sameIds(ids,projected.ids)||!ids.length||new Set(ids).size!==ids.length||ids.some(id=>!currentIds.has(id))||
+      (latest.editorial_ids!==undefined&&latest.ids!==undefined&&!sameIds(latest.editorial_ids,latest.ids)))
+      throw Error('Metadados do checkpoint de grifos divergentes.');
+     editorialProof=true;
+    }
    }
    const checked=verifyRecoverySnapshot(snapshot.data,view.data,editorialProof);
    const [again,privateAgain,viewAgain]=await Promise.all([info(meta.id),info(snapshot.meta.id),info(view.meta.id)]);
