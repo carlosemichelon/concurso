@@ -226,7 +226,7 @@ function filterBar(){
  if(!source||$('bm299-lac-filter-main'))return;
  const before=el('div','bm299-lac-filter-main');before.id='bm299-lac-filter-main';
  const advanced=makeDetail('bm299-lac-filter-more','Mais filtros');
- for(const id of ['bm242-search','bm242-discipline','bm242-stage']){
+ for(const id of ['bm242-search','bm242-discipline','bm242-stage','bm242-order','bm242-limit']){
   const n=$(id)?.closest('label');if(n)before.append(n);
  }
  for(const label of [...source.children])advanced.lastElementChild.append(label);
@@ -239,6 +239,7 @@ function filterBar(){
    else if(input.type==='checkbox')input.checked=false;
   }
   $('bm242-search')?.dispatchEvent(new Event('input',{bubbles:true}));
+  source.dispatchEvent(new Event('change',{bubbles:true}));
   advanced.open=false;
  };
  before.append(reset);
@@ -389,13 +390,14 @@ function organize(){
  const data=window.BM242Lacunas?.data?.records||[];
  const lookup=new Map(data.map(r=>[r.id,r]));
  for(const a of articles)present(a,lookup.get(a.querySelector('code')?.textContent||''));
+ // A lista já foi ordenada e limitada pelo filtro de leitura.
+ // Agrupar somente quando solicitado, sem destruir a ordem por data ou ID.
+ if($('bm242-order')?.value!=='subject')return;
  const sorted=articles.map(article=>{
    const record=lookup.get(article.dataset.bm299LacId)||{};
    const route=[record.disciplina||'Sem disciplina',record.assuntoGeral||'Assunto ainda não classificado'];
    return {article,record,key:route.join(' • ')};
- }).sort((a,b)=>a.key.localeCompare(b.key,'pt-BR')||
-    (statuses[a.record.etapa]??0)-(statuses[b.record.etapa]??0)||
-    (a.record.prioridade==='Alta'?-1:0)-(b.record.prioridade==='Alta'?-1:0));
+ });
  const fragment=document.createDocumentFragment();let group='',number=0;
  for(const line of sorted){
   if(line.key!==group){

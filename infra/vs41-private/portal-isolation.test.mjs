@@ -155,3 +155,34 @@ test('catálogo inválido recupera apenas predecessor selado e suspende agenda e
   assert.equal(writes,0);
  }
 });
+
+test('lacunas: ordenação documentada, busca exata e quantidade sem modificar registros',async()=>{
+ const script=await read('assets/bm-account/v430_js_112_123_control.js');
+ const begin=script.indexOf('// BM242: filtros e ordenação exclusivamente de leitura.');
+ const end=script.indexOf('// Fim BM242 filtros de leitura.',begin);
+ assert.ok(begin>=0&&end>begin);
+ const norm=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const select=new Function('norm',script.slice(begin,end)+';return gapSelection;')(norm);
+ const fixtures=[
+  {id:'LAC-10',cardIds:['CARD-0010'],questaoId:'PETRO1-Q01',disciplina:'Solos',descricao:'Compactação',createdAt:'2026-01-01',updatedAt:'2026-01-03T12:00:00Z'},
+  {id:'LAC-2',cardIds:['CARD-0011'],questaoId:'PETRO1-Q02',disciplina:'Água',descricao:'Vazão',createdAt:'2026-01-02',updatedAt:'2026-01-04T09:00:00Z'},
+  {id:'LAC-3',cardIds:[],disciplina:'Solos',createdAt:'2026-02-30',updatedAt:'inválida'}
+ ];
+ const before=JSON.stringify(fixtures),ids=r=>r.rows.map(x=>x.id);
+ assert.deepEqual(ids(select(fixtures,{})),['LAC-2','LAC-10','LAC-3']);
+ assert.deepEqual(ids(select(fixtures,{order:'asc'})),['LAC-2','LAC-3','LAC-10']);
+ assert.deepEqual(ids(select(fixtures,{order:'desc'})),['LAC-10','LAC-3','LAC-2']);
+ assert.deepEqual(ids(select(fixtures,{order:'oldest'})),['LAC-10','LAC-2','LAC-3']);
+ assert.deepEqual(ids(select(fixtures,{order:'created'})),['LAC-2','LAC-10','LAC-3']);
+ assert.deepEqual(ids(select(fixtures,{q:'LAC-2',d:'Solos'})),['LAC-2']);
+ assert.deepEqual(ids(select(fixtures,{q:'card-0010',d:'Água'})),['LAC-10']);
+ assert.deepEqual(ids(select(fixtures,{q:'0010'})),['LAC-10']);
+ assert.deepEqual(ids(select(fixtures,{q:'PETRO1-Q02',d:'Solos'})),['LAC-2']);
+ assert.deepEqual(ids(select(fixtures,{q:'compactacao',d:'Solos'})),['LAC-10']);
+ assert.deepEqual(ids(select(fixtures,{q:'CARD-9999'})),[]);
+ const many=Array.from({length:30},(_,i)=>({id:'LAC-'+(i+1),cardIds:['CARD-0010'],createdAt:'2026-01-01'}));
+ assert.equal(select(many,{limit:'10'}).rows.length,10);
+ assert.equal(select(many,{limit:'10'}).total,30);
+ assert.equal(select(many,{limit:'10',q:'CARD-0010'}).rows.length,30);
+ assert.equal(JSON.stringify(fixtures),before);
+});

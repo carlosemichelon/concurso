@@ -379,8 +379,42 @@ function cards(raw){
  if(v.some(x=>!(/^[a-z0-9][a-z0-9_-]{2,45}$/i.test(x))))throw Error('IDs de cartões inválidos');
  return v;
 }
+// BM242: filtros e ordenação exclusivamente de leitura.
+function gapDate(value){
+ if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(value))return -Infinity;
+ const day=value.slice(0,10),check=new Date(day+'T00:00:00Z');
+ if(!Number.isFinite(check.getTime())||check.toISOString().slice(0,10)!==day)return -Infinity;
+ const n=Date.parse(value);return Number.isFinite(n)?n:-Infinity;
+}
+function gapSelection(records,filter){
+ const q=norm(filter.q).trim();
+ const idQuery=q.match(/^(?:card-)?(\d{4,12})$/);
+ const exact=idQuery?'card-'+idQuery[1]:q;
+ const ids=r=>[r.id,r.questaoId,...r.cardIds].filter(Boolean).map(norm);
+ const exactMatches=exact?records.filter(r=>ids(r).includes(exact)):[];
+ const strict=exactMatches.length>0||Boolean(idQuery)||/^(?:card-\d+|petro\d+-q\d+|trt\d+-c\d+)$/i.test(q);
+ const matches=strict?exactMatches:records.filter(r=>
+  (!filter.d||r.disciplina===filter.d)&&(!filter.g||r.assuntoGeral===filter.g)&&(!filter.sp||r.assuntoEspecifico===filter.sp)&&
+  (!filter.sub||r.subassunto===filter.sub)&&(!filter.p||r.prioridade===filter.p)&&(!filter.t||r.tipo===filter.t)&&
+  (!filter.c||r.cobertura===filter.c)&&(!filter.s||r.etapa===filter.s)&&
+  (!q||norm([r.id,r.descricao,r.relatoEstudante,r.diagnosticoAssistente,r.enunciado,r.respostaEstudante,r.gabarito,r.questaoId,...r.cardIds,r.disciplina,r.assuntoGeral,r.assuntoEspecifico,r.subassunto,r.fonte,r.pesquisa].join(' ')).includes(q)));
+ const rows=matches.slice(),byId=(a,b)=>String(a.id).localeCompare(String(b.id),'pt-BR',{numeric:true,sensitivity:'base'});
+ const mode=filter.order||'recent';
+ if(mode==='asc'||mode==='desc')rows.sort((a,b)=>(mode==='asc'?1:-1)*byId(a,b));
+ else if(mode==='recent'||mode==='created'||mode==='oldest'){
+  const stamp=r=>mode==='recent'?Math.max(gapDate(r.updatedAt),gapDate(r.createdAt)):gapDate(r.createdAt);
+  rows.sort((a,b)=>{const x=stamp(a),y=stamp(b);if(x===y)return -byId(a,b);if(x===-Infinity)return 1;if(y===-Infinity)return -1;return mode==='oldest'?x-y:y-x});
+ }else if(mode==='subject'){
+  const key=r=>[r.disciplina||'Sem disciplina',r.assuntoGeral||'Assunto ainda não classificado'].join(' • ');
+  const stages={'Identificada':0,'Explicada':1,'Em reforço':2,'Dominada':3};
+  rows.sort((a,b)=>key(a).localeCompare(key(b),'pt-BR')||((stages[a.etapa]??0)-(stages[b.etapa]??0))||((a.prioridade==='Alta'?-1:0)-(b.prioridade==='Alta'?-1:0))||-byId(a,b));
+ }
+ const n=({10:10,25:25,50:50,100:100})[filter.limit]||0;
+ return {total:rows.length,rows:n&&!strict?rows.slice(0,n):rows,exact:strict};
+}
+// Fim BM242 filtros de leitura.
 let bm430GapVerified=false,renderedGapData=null,renderedGapFilters=null;
-const gapFilterIds=['bm242-search','bm242-discipline','bm242-general','bm242-specific','bm242-sub','bm242-priority','bm242-type','bm242-cover','bm242-stage'];
+const gapFilterIds=['bm242-search','bm242-discipline','bm242-general','bm242-specific','bm242-sub','bm242-priority','bm242-type','bm242-cover','bm242-stage','bm242-order','bm242-limit'];
 const gapFilterKey=()=>JSON.stringify(gapFilterIds.map(id=>$(id)?.value||''));
 function install(){
  if($('lacunas'))return;
@@ -394,7 +428,9 @@ function install(){
  '<p class="bm242-muted">Registre o motivo do erro ou da dúvida; o flashcard continua sendo a unidade de revisão. Consulta sem alteração de SRS.</p>',
  '<p class="bm242-status" id="bm242-state" role="status"></p>',
  '<div class="bm242-filters">',
- '<label>Pesquisar assunto, fórmula, dúvida ou cartão<input id="bm242-search" type="search" placeholder="Ex.: fluência pós-carga; PETRO14-C014"></label>',
+ '<label>Buscar ID, questão, cartão ou assunto<input id="bm242-search" type="search" placeholder="LAC-… / CARD-… / tema"></label>',
+ '<label>Ordenação<select id="bm242-order"><option value="">Mais recentes (atualização)</option><option value="created">Mais recentes (criação)</option><option value="oldest">Mais antigas (criação)</option><option value="asc">ID crescente</option><option value="desc">ID decrescente</option><option value="subject">Por assunto e situação</option></select></label>',
+ '<label>Quantidade<select id="bm242-limit"><option value="">Mostrar todas</option><option value="10">Exibir 10</option><option value="25">Exibir 25</option><option value="50">Exibir 50</option><option value="100">Exibir 100</option></select></label>',
  '<label>Disciplina<select id="bm242-discipline"><option value="">Todas</option></select></label>',
  '<label>Assunto geral<select id="bm242-general"><option value="">Todos</option></select></label>',
  '<label>Assunto específico<select id="bm242-specific"><option value="">Todos</option></select></label>',
@@ -432,7 +468,7 @@ function install(){
  ].join('');
  main.append(section);
  button.onclick=()=>{if(!bm430GapVerified&&!refreshing&&!busy)void sync();if(typeof window.section==='function')window.section('lacunas');else{main.querySelectorAll('section').forEach(x=>x.classList.toggle('active',x===section));nav.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===button));location.hash='lacunas'}};
- for(const id of ['bm242-search','bm242-discipline','bm242-general','bm242-specific','bm242-sub','bm242-type','bm242-cover','bm242-stage','bm242-priority']){
+ for(const id of gapFilterIds){
   $(id).addEventListener('input',render);$(id).addEventListener('change',render);
  }
  for(const t of types)$('bm242-form').elements.tipo.add(new Option(t,t));
@@ -558,16 +594,17 @@ function render(){
  const q=norm($('bm242-search').value),d=$('bm242-discipline').value,t=$('bm242-type').value,
  g=$('bm242-general').value,sp=$('bm242-specific').value,sub=$('bm242-sub').value,p=$('bm242-priority').value,
  c=$('bm242-cover').value,s=$('bm242-stage').value;
- const filtered=data.records.filter(r=>(!d||r.disciplina===d)&&(!g||r.assuntoGeral===g)&&(!sp||r.assuntoEspecifico===sp)&&(!sub||r.subassunto===sub)&&(!p||r.prioridade===p)&&(!t||r.tipo===t)&&(!c||r.cobertura===c)&&(!s||r.etapa===s)&&
- (!q||norm([r.id,r.descricao,r.relatoEstudante,r.diagnosticoAssistente,r.enunciado,r.respostaEstudante,r.gabarito,r.questaoId,...r.cardIds,r.disciplina,r.assuntoGeral,r.assuntoEspecifico,r.subassunto,r.fonte,r.pesquisa].join(' ')).includes(q)));
- $('bm242-count').textContent=filtered.length+' de '+data.records.length+' lacunas · '+data.log.length+' eventos de histórico';
+ const selection=gapSelection(data.records,{q,d,g,sp,sub,p,t,c,s,order:$('bm242-order').value,limit:$('bm242-limit').value});
+ const filtered=selection.rows;
+ $('bm242-count').textContent='Exibidas: '+filtered.length+' de '+selection.total+' encontradas · Cadastro: '+data.records.length+' lacunas · '+data.log.length+' eventos de histórico'+(selection.exact?' · busca exata por ID':'');
  renderedGapData=persisted;renderedGapFilters=gapFilterKey();
- $('bm242-list').innerHTML=filtered.length?filtered.slice().reverse().map(r=>{
+ $('bm242-list').innerHTML=filtered.length?filtered.map(r=>{
   const links=r.cardIds.map(id=>'<button data-open="'+esc(id)+'" type="button">Abrir '+esc(id)+' no leitor</button>').join(' ')||'<em>Cartão a auditar</em>';
   const next=r.etapa==='Identificada'?'Explicada':r.etapa==='Explicada'?'Em reforço':r.etapa==='Em reforço'?'Dominada':'';
   return '<article class="bm242-item"><strong>'+esc(r.descricao)+'</strong> <code>'+esc(r.id)+'</code>'+
   '<p>'+esc([r.disciplina,r.assuntoGeral,r.assuntoEspecifico,r.subassunto].filter(Boolean).join(' › '))+'</p>'+
   '<p class="bm242-muted">'+esc(r.tipo)+' · '+esc(r.cobertura)+' · '+esc(r.etapa)+' · '+esc(r.prioridade)+'</p>'+
+  '<p class="bm242-muted">Criação: '+esc(r.createdAt||'não registrada')+' · Atualização: '+esc(r.updatedAt||'não registrada')+'</p>'+
   (r.enunciado?'<details><summary>Enunciado e tentativa</summary><p>'+esc(r.enunciado)+'</p><p><b>Resposta registrada:</b> '+esc(r.respostaEstudante||'não informada')+'</p><p><b>Gabarito:</b> '+esc(r.gabarito||'não informado')+'</p></details>':'')+
   (r.relatoEstudante?'<p><b>Relato literal:</b> '+esc(r.relatoEstudante)+'</p>':'')+
   (r.diagnosticoAssistente?'<p><b>Diagnóstico do assistente ('+esc(r.diagnosticoConfianca||'não confirmado')+'):</b> '+esc(r.diagnosticoAssistente)+'</p>':'')+
