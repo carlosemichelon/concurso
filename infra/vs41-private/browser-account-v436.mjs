@@ -515,7 +515,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const out=new Map();
   const reportProgress=(phase,extra={})=>{if(signal?.aborted)return;const doc=globalThis.document;if(doc&&typeof globalThis.CustomEvent==='function')doc.dispatchEvent(new CustomEvent('bm-private-media-progress',{detail:{phase,files:out.size,...extra}}))};
   reportProgress('index',{page:0});
-  const rows=await list("mimeType = '"+folder+"' or "+(kind==='pdf'?"mimeType = 'application/pdf'":"mimeType contains 'image/'"),{skipNonPrivate:true,onPage:page=>reportProgress('index',page)});
+  const rows=await list("mimeType = '"+folder+"' or "+(kind==='pdf'?"mimeType = 'application/pdf'":"mimeType contains 'image/' or name = 'BM_TAXONOMIA_PRIVADA_V1.json'"),{skipNonPrivate:true,onPage:page=>reportProgress('index',page)});
   if(signal?.aborted)throw Error('Sessão encerrada');
   const byId=new Map(rows.map(f=>[f.id,f]));byId.set(root.id,root);
   // Resolve actual ancestry by stable IDs; names alone never authorize access.
@@ -605,6 +605,33 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     if(Array.isArray(row.pages)&&row.pages.length===2)item.pages=row.pages;
     if(g&&a){item.classified=true;item.catalogGroup={id:g.id,label:g.label,subtitle:g.subtitle,order:g.order,area:g.area,areaLabel:a.label,areaDescription:a.description};}
    }
+  }
+  // Optional taxonomy lives only in the selected individual Drive, never in the public site.
+  if(kind==='image'){
+   try{
+    const candidates=rows.filter(f=>f.name==='BM_TAXONOMIA_PRIVADA_V1.json'&&f.mimeType!==folder&&ancestry(f)?.path.join('/')==='00 - Controle/BM_TAXONOMIA_PRIVADA_V1.json');
+    if(candidates.length===1){
+     const {data:tax}=await json(candidates[0].id,512000);
+     if(tax?.schema==='BancoMestreTaxonomiaPrivadaV1'&&Array.isArray(tax.records)&&Array.isArray(tax.rules)&&tax.records.length<=10000&&tax.rules.length<=1000){
+      const validRow=x=>x&&['area','subject','subsubject'].every(k=>typeof x[k]==='string'&&x[k].trim()&&x[k].length<=300);
+      const exact=new Map(tax.records.filter(x=>validRow(x)&&validId(x.id)&&x.basis==='inspecao_visual').map(x=>[x.id,x]));
+      const rules=tax.rules.filter(x=>validRow(x)&&typeof x.token==='string'&&x.token.length>=5&&x.token.length<=100&&x.basis==='nome_descritivo_pendente_inspecao');
+      const norm=x=>String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+      for(const item of out.values()){
+       if(!item.atlasVisible||!item.mimeType.startsWith('image/'))continue;
+       const name=norm(item.filename||item.title);
+       if(/(?:DESCARTAD[AO]|DERIVAD[AO]|NAO_USAR|PREVIA)/.test(name))continue;
+       const direct=exact.get(item.id);
+       const match=direct||(!item.classified?rules.find(x=>name.includes(norm(x.token))):null);
+       if(!match)continue;
+       item.area=match.area.trim();item.subject=match.subject.trim();item.subsubject=match.subsubject.trim();
+       item.title=item.subject+' — '+item.subsubject;item.category='Imagem';item.editorialGroup=item.area;item.classified=true;item.indexed=true;
+       item.classificationBasis=match.basis;
+       item.description=direct?'Assunto conferido por inspeção visual; não equivale à validação normativa.':'Classificação provisória por nome descritivo; inspeção visual pendente.';
+      }
+     }
+    }
+   }catch(e){if(signal?.aborted)throw e;console.warn('Taxonomia privada indisponível; índice histórico preservado.')}
   }
   reportProgress('complete');return out};
  // SVG is consumed only as an image URL; preserve original bytes for annotation hashes.
