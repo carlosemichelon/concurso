@@ -185,7 +185,7 @@
   const expected=await check();start();
   const r=await request('/api/vs41/private-cards',{'X-BM-Context':expected});
   if(r.status===401||r.status===409){invalidate();throw Error('Sessão encerrada')}
-  if(!r.ok)throw Error('Catálogo privado indisponível (HTTP '+r.status+')');
+  if(!r.ok){let detail='';try{const failure=await r.json();if(typeof failure.error==='string')detail=failure.error.slice(0,300)}catch{}throw Error(detail||'Catálogo privado indisponível (HTTP '+r.status+')');}
   const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
   if(p.schema!=='BM-VS41-PRIVATE-CARDS/1'||!Array.isArray(p.records)||p.records.length>20000)throw Error('Resposta privada inválida');
   const ids=new Set();for(const c of p.records){if(!/^(?:CARD-[0-9]{4,12}|PROP-IJUI-[0-9]{3}|TRT0[12]-C[0-9]{3})$/.test(c.id)||ids.has(c.id)||typeof c.front!=='string'||!c.front.trim()||typeof c.back!=='string'||!c.back.trim()||typeof c.active!=='boolean')throw Error('Cartão privado inválido');ids.add(c.id)}
