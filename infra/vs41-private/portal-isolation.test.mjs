@@ -129,3 +129,29 @@ test('leitura normal usa somente a base vigente; preflight continua exigindo o h
  await assert.rejects(readBrowserSnapshot(options),/Drive HTTP 404/);
  assert.ok(requests.includes('old-snapshot')||requests.includes('old-view'));
 });
+
+test('catálogo inválido recupera apenas predecessor selado e suspende agenda e avaliações',async()=>{
+ const card={id:'CARD-0001',front:'Pergunta',back:'Resposta',expl:'Explicação',active:true,discipline:'Teste',group:'Teste',subject:'Teste'};
+ const snapshot=version=>JSON.stringify({format:'BancoMestrePrivadoV159',schema_version:1,version,cards:[card],counts:{cards:1},srs:[]});
+ for(const mode of ['normal','fallback','foreign','bad-hash','no-seal','network']){
+  const current=snapshot('VD2'),prior=snapshot('VD1'),ref={file_id:'previous',version:'VD1',sha256:mode==='bad-hash'?'0'.repeat(64):hash(prior),cards:1};
+  const ptr=JSON.stringify({schema:'banco-mestre-operational-pointer/1',private_base:{file_id:'current',version:mode==='normal'?'VD2':'bad',sha256:hash(current),cards:1},previous_private_base:ref,...(mode==='no-seal'?{}:{rollback_checkpoint:{schema:'banco-mestre-operational-pointer/1',private_base:ref}})});
+  const common={ownedByMe:true,shared:false,trashed:false,version:'1'},files={pointer:ptr,current,previous:prior};
+  const metadata=id=>({...common,id,name:id==='pointer'?'BANCO_MESTRE_ATUAL.json':id+'.json',mimeType:'application/json',parents:['root'],size:String(Buffer.byteLength(files[id])),sha256Checksum:hash(files[id]),...(mode==='foreign'&&id==='previous'?{ownedByMe:false}:{})});
+  let writes=0;const fetcher=async(url,options={})=>{
+   const u=new URL(url),id=u.pathname.split('/').at(-1);
+   if(options.method&&options.method!=='GET'){writes++;return new Response(null,{status:500})}
+   if(id==='about')return Response.json({user:{permissionId:'test-account',displayName:'Teste'}});
+   if(id==='root')return Response.json({...common,id,name:'DataBase_Concurso',mimeType:folder,parents:[]});
+   if(id==='files')return Response.json({files:u.searchParams.get('q')?.includes('BANCO_MESTRE_ATUAL.json')?[metadata('pointer')]:[]});
+   if(id==='current'&&mode==='network')return new Response(null,{status:503});
+   if(!Object.hasOwn(files,id))return new Response(null,{status:404});
+   return u.searchParams.get('alt')==='media'?new Response(files[id]):Response.json(metadata(id));
+  };
+  const p=await connectAccount({token:'test-token',rootId:'root',fetcher,deferCatalog:true,write:true});
+  if(mode==='normal')assert.equal((await p.loadCatalog()).version,'VD2');
+  else if(mode==='fallback'){const result=await p.loadCatalog();assert.equal(result.scope,'private-fallback');assert.equal(result.version,'VD1');assert.equal(result.srs,null);await assert.rejects(p.schedule(),/Agenda suspensa/);await assert.rejects(p.recordReview({id:'CARD-0001',event_id:'12345678-1234-1234-1234-123456789abc',rating:'Bom'}),/avaliações suspensas/);}
+  else await assert.rejects(p.loadCatalog());
+  assert.equal(writes,0);
+ }
+});

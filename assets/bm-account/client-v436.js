@@ -52,7 +52,7 @@
   const r=await fetch('/api/vs41/reviews',{credentials:'same-origin',cache:'no-store',redirect:'error',method:input?'POST':'GET',headers:{'X-BM-Context':expected,...(input?{'Content-Type':'application/json'}:{})},...(input?{body:JSON.stringify(input)}:{})});
   if(r.status===401){invalidate();throw Error('Sessão encerrada')}
   if(r.status===409){await check();throw Error('Conflito na avaliação')}
-  if(!r.ok){const e=Error('Avaliação privada não confirmada (HTTP '+r.status+')');e.definite=r.status===400;throw e}
+  if(!r.ok){let detail='';try{const p=await r.json();if(typeof p.error==='string')detail=p.error.slice(0,300)}catch{}const e=Error(detail||'Avaliação privada não confirmada (HTTP '+r.status+')');e.definite=r.status===400||r.status===403;throw e}
   const p=await r.json();if(locked||p.context!==expected){invalidate();throw Error('Sessão alterada')}
   return p;
  }
@@ -61,7 +61,7 @@
   sessionKey:()=>!locked?context:'',
   async read(){const p=await reviewRequest();if(!Array.isArray(p.events))throw Error('Histórico inválido');return p.events},
   async record(input){return (await reviewRequest(input)).event},
-  async schedule(force=false){const expected=await check();start();const r=await request('/api/vs41/review-schedule'+(force===true?'?refresh=1':''),{'X-BM-Context':expected});if(!r.ok)throw Error('Agenda privada não confirmada (HTTP '+r.status+')');const p=await r.json();if(locked||context!==expected||p.context!==expected){invalidate();throw Error('Sessão alterada')}if(!Array.isArray(p.records)||typeof p.complete!=='boolean'||!Array.isArray(p.warnings))throw Error('Agenda inválida');return p;}
+  async schedule(force=false){const expected=await check();start();const r=await request('/api/vs41/review-schedule'+(force===true?'?refresh=1':''),{'X-BM-Context':expected});if(!r.ok){let detail='';try{const p=await r.json();if(typeof p.error==='string')detail=p.error.slice(0,300)}catch{}throw Error(detail||'Agenda privada não confirmada (HTTP '+r.status+')');}const p=await r.json();if(locked||context!==expected||p.context!==expected){invalidate();throw Error('Sessão alterada')}if(!Array.isArray(p.records)||typeof p.complete!=='boolean'||!Array.isArray(p.warnings))throw Error('Agenda inválida');return p;}
  })});
  let pdfUrl='',pdfSerial=0;
  function releasePdf(){pdfSerial++;if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl='';}

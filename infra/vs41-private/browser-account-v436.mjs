@@ -1,6 +1,6 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
-import {readBrowserSnapshot,scope as readScope,individualAclFields,individualRootPolicy,sameIndividualPolicy,individualMemberFile} from './browser-drive-v436.mjs?v=individual-sharing-1';
+import {readBrowserSnapshot,scope as readScope,individualAclFields,individualRootPolicy,sameIndividualPolicy,individualMemberFile} from './browser-drive-v436.mjs?v=rollback-sealed-1';
 import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache-v436.mjs?v=3';
 export {browserByteCache};
 import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
@@ -67,7 +67,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const timer=setTimeout(()=>controller.abort(),90000);
   catalogFlight=(async()=>{
    try{
-    let verified;const options={token,source:rootUrl,fetcher,signal:controller.signal,cache,verifyHistory:false};
+    let verified;const options={token,source:rootUrl,fetcher,signal:controller.signal,cache,verifyHistory:false,allowFallback:true};
     try{verified=await readBrowserSnapshot(options)}catch(e){
      if(e.code!=='CURRENT_POINTER_MISSING')throw e;
      if(root.name==='DataBase_Concurso'&&await allowEditorial())verified=await readBrowserSnapshot({...options,editorialPreview:true});
@@ -287,6 +287,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const RATINGS=Object.freeze({'Difícil':8,Bom:16,'Fácil':24,'Conhecimento preservado':32,'Conhecimento adquirido':64});
  const recordReview=input=>serialize(async()=>{
   await loadCatalog();
+  if(snapshot.fallback)fail('Estudo livre da versão anterior: avaliações suspensas até validar o catálogo vigente.',403);
   if(!input||!uuid(input.event_id)||!Object.hasOwn(RATINGS,input.rating)||!records.some(x=>x.id===input.id&&x.active))fail('Avaliação ou cartão inválido');
   const history=await reviews(),prior=history.find(x=>x.event_id===input.event_id);
   if(prior){if(prior.id!==input.id||prior.rating!==input.rating)fail('Evento divergente',409);return prior}
@@ -409,6 +410,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  }
  async function readSchedule(){
   await loadCatalog();
+  if(snapshot.fallback)fail('Agenda suspensa: versão anterior disponível apenas para estudo livre.',403);
   const ids=new Set(records.filter(c=>c.active).map(c=>c.id)),byId=new Map(),seen=new Map(),ratings=new Map();
   const recovery=snapshot.scope==='private-recovery',source=(snapshot.scope==='snapshot-only'||recovery)&&Array.isArray(snapshot.srs),warnings=[];
   if(recovery)warnings.push('Recuperação parcial: histórico privado '+snapshot.privateVersion+' verificado; identidades operacionais e conflitos históricos não recebem avaliações por transferência.');
@@ -825,7 +827,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   };
   await capture('methodology',methodology);
   await capture('operational_guide',operationalGuide);
-  await capture('cards',async()=>(await loadCatalog()).records);
+  await capture('cards',async()=>{const current=await loadCatalog();if(current.fallback)throw Error('Catálogo vigente não confirmado; versão anterior somente para estudo livre.');return current.records});
   await capture('study',async()=>{const p=await studyMaster();return p?{revision:p.revision,data:p.data}:null});
   await capture('reviews',reviews);
   await capture('review_schedule',schedule);

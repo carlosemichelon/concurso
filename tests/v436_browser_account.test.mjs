@@ -75,7 +75,7 @@ test('manual root uses the selected account and rejects another account or a non
  assert.equal(a.rootUrl,'https://drive.google.com/drive/folders/rootA');
  assert.equal(a.snapshot.version,'TESTE-A');
  await assert.rejects(connectAccount({token:'B',fetcher:fixture('B'),rootId:'rootA'}));
- await assert.rejects(connectAccount({token:'A',fetcher:fixture('A'),rootId:'pdfA'}),/pasta privada/);
+ await assert.rejects(connectAccount({token:'A',fetcher:fixture('A'),rootId:'pdfA'}),/pasta (?:privada|individual)/);
  await assert.rejects(connectAccount({token:'A',fetcher:fixture('A',{foreign:true}),rootId:'rootA'}));
 });
 

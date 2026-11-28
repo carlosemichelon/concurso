@@ -134,7 +134,7 @@ export function verifyRecoverySnapshot(wrapper,view,editorialProof=false){
 // A published checkpoint is authorized by the current private pointer, not by
 // a version number in the portal. Historical comparison remains mandatory for
 // preflight (the default); ordinary reads validate only the published checkpoint.
-export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,editorialPreview=false,cache=browserByteCache,verifyHistory=true}){
+export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,editorialPreview=false,cache=browserByteCache,verifyHistory=true,allowFallback=false}){
  if(typeof token!=='string'||!token)throw Error('Conecte sua conta Google.');
  const get=async(path,params)=>{
   const r=await fetcher(base+path+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},credentials:'omit',redirect:'error',cache:'no-store',signal});
@@ -233,7 +233,8 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,edi
  if(selection.kind==='folder')folderId=selection.id;
  if(editorialPreview&&!folderId)throw Error('Para o teste pela pasta, informe o link da pasta raiz do Banco Mestre.');
  const selectedId=folderId?await (editorialPreview?resolveEditorial(folderId):resolveFolder(folderId)):selection.id;
- let {data,meta,cacheHit}=await read(selectedId,editorialPreview?'040e7ebc12e0606870fb8dfa39ac43d8b93b906b7a3532af14557b0f8395f419':undefined);let pointer=null;
+ const {data,meta,cacheHit}=await read(selectedId,editorialPreview?'040e7ebc12e0606870fb8dfa39ac43d8b93b906b7a3532af14557b0f8395f419':undefined);
+ const resolveData=async(data,meta,cacheHit)=>{let pointer=null;
  if(editorialPreview&&(data?.format!=='BM-DRIVE-EDITORIAL-SEED/1'||await resolveEditorial(folderId)!==selectedId))throw Error('Prévia editorial não confirmada ou caminho alterado.');
  if(folderId&&!editorialPreview&&data?.schema!=='banco-mestre-operational-pointer/1')throw Error('A pasta deve apontar para um snapshot privado por meio do ponteiro vigente.');
  if(data?.schema==='banco-mestre-operational-pointer/1'){
@@ -299,4 +300,19 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,edi
  const records=verifyRecords(data.cards);
  if(data.counts?.cards!==records.length||pointer&&pointer.cards!==records.length)throw Error('Contagem de cartões divergente.');
  return {version:data.version,records,scope:'snapshot-only',sourceName:meta.name,cacheHit,srs:Array.isArray(data.srs)?data.srs:null,updated:typeof data.updated==='string'?data.updated:''};
+ };
+ try{return await resolveData(data,meta,cacheHit)}catch(error){
+  // Only an explicitly sealed predecessor from the same verified pointer is eligible.
+  // Never fall back after an authorization, ownership, concurrent-change or network error.
+  const reason=String(error?.message||'');
+  const integrity=['records-list','records-schema','records-links'].includes(error?.code)||/^Recuperação privada: |^(Versão do ponteiro divergente|Hash da origem divergente|Contagem de cartões divergente|Projeção de recuperação inválida|Metadados do checkpoint de grifos divergentes|Estado de recuperação incompatível|Ponteiro de recuperação não autorizado)/.test(reason);
+  const prior=data?.rollback_checkpoint,ref=prior?.private_base,expected=data?.previous_private_base;
+  const sameRef=ref&&expected&&['file_id','version','sha256','cards'].every(k=>ref[k]===expected[k]);
+  if(!allowFallback||verifyHistory!==false||!folderId||editorialPreview||signal?.aborted||!integrity||data?.schema!=='banco-mestre-operational-pointer/1'||prior?.schema!==data.schema||!sameRef||ref.file_id===data.private_base?.file_id)throw error;
+  try{
+   const verified=await resolveData(prior,meta,cacheHit);
+   if(signal?.aborted||!['snapshot-only','private-recovery'].includes(verified.scope)||verified.version!==ref.version)throw error;
+   return {...verified,scope:'private-fallback',srs:null,srsComplete:false,fallback:true,failedVersion:data.private_base?.version||'',fallbackReason:reason};
+  }catch{throw error}
+ }
 }
