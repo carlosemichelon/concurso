@@ -188,28 +188,72 @@ function showTopicImages(t,forceIndex=false){
   const finished=(name,state)=>{stages.set(name,state);doneSources++;if(valid()){bar.value=doneSources;label.textContent='Consulta do índice · '+doneSources+' de 3 etapas';detail.textContent=[...stages].map(([k,v])=>k+': '+v).join(' · ')}};
   const scanProgress=e=>{if(!valid()||doneSources>=3)return;const d=e.detail||{};if(d.phase==='index'){detail.textContent=d.page?'Lendo índice de metadados · página '+d.page+(d.more?' · mais resultados disponíveis':''):'Consultando índice nativo do Drive…'}else if(d.phase==='classification')detail.textContent='Organizando os vínculos temáticos…'};
   document.addEventListener('bm-private-media-progress',scanProgress);
-  const read=async(provider,name)=>{try{if(!provider?.connected)throw Error('Biblioteca não autorizada');await provider.prepareTopicMetadata?.();let list=provider.topicRecords();if(forceIndex||list===null){await bm430Deadline(provider.refresh(forceIndex),120000);list=provider.topicRecords()}if(list===null)throw Error(provider.lastError||'Consulta não confirmada nesta sessão');finished(name,list.length+' arquivos');return list}catch(e){finished(name,'falha');throw e}};
+  const read=async(provider,name)=>{
+   try{
+    if(!provider?.connected)throw Error('Biblioteca não autorizada');
+    await bm430Deadline(Promise.resolve(provider.prepareTopicMetadata?.()),10000);
+    const state=await bm430Deadline(provider.refresh(forceIndex),120000);
+    const list=provider.topicRecords();
+    if(list===null)throw Error(provider.lastError||'Consulta não confirmada nesta sessão');
+    finished(name,list.length+' arquivos'+(state?.stale?' · lista anterior':''));
+    return {list,stale:state?.stale===true,error:provider.lastError||''};
+   }catch(e){finished(name,'falha');throw e}
+  };
   try{
    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-   const [settled,metadata]=await Promise.all([Promise.allSettled([read(images,'Imagens'),read(pdfs,'PDFs')]),Promise.allSettled([loadMeta(),loadCards()]).then(results=>{finished('Cartões e índices',results.every(x=>x.status==='fulfilled')?'conferidos':'parcial');return results})]);
    if(!valid())throw Error('Autorização alterada');
-   const failed=settled.filter(x=>x.status==='rejected').length;
-   const imageList=settled[0].status==='fulfilled'?settled[0].value:[];
-   const pdfList=settled[1].status==='fulfilled'?settled[1].value:[];
-   const exactCards=cards.filter(c=>c.active!==false&&plain(c.subject)===plain(t.subject));
-   const directCards=exactCards.filter(c=>c.group===t.group);const topicCards=(directCards.length?directCards:t.visualOnly&&new Set(exactCards.map(c=>c.group)).size===1?exactCards:[]).map(c=>c.id);
-   const related=bm432RankMedia(t,imageList,window.BM032VisualIndex?.records||[],topicCards,'image');
-   const relatedPdfs=bm432RankMedia(t,pdfList,[],topicCards,'pdf');
    const head=document.createElement('div');head.className='bm435-media-head';
    const heading=document.createElement('h3');heading.textContent='Materiais relacionados';head.append(heading);
    const update=chip('Atualizar índice',()=>{if(valid()){showTopicImages(t,true);root.querySelector('.bm171-open-media')?.click()}});update.className='bm435-media-update';update.title='Atualizar a lista de arquivos do Drive e consultar este assunto';head.append(update);result.append(head);
-   const counts=document.createElement('div');counts.className='bm435-media-counts';counts.setAttribute('role','status');
-   for(const [i,label,n] of [[0,'Imagens relacionadas',related.length],[1,'PDFs relacionados',relatedPdfs.length]]){
-    const item=document.createElement('div');const number=document.createElement('strong');number.textContent=settled[i].status==='fulfilled'?String(n):'—';const text=document.createElement('span');text.textContent=settled[i].status==='fulfilled'?label:label+' · consulta incompleta';item.append(number,text);counts.append(item);
-   }
-   result.append(counts);
-   if(metadata.some(x=>x.status==='rejected'))addPara(result,'Índices de cartões parcialmente disponíveis; os vínculos podem estar incompletos.','contextNote');
-   if(failed)addPara(result,'Consulta parcial: '+settled.map((x,i)=>x.status==='rejected'?(i===0?'Imagens: ':'PDFs: ')+String(x.reason?.message||x.reason):'').filter(Boolean).join(' · '),'contextNote');
+
+   const note=document.createElement('p');note.className='contextNote';note.textContent='Vínculos dos cartões em conferência; as bibliotecas não aguardam essa leitura.';result.append(note);
+   const imageTarget=document.createElement('div'),pdfTarget=document.createElement('div');
+   imageTarget.textContent='Consultando imagens…';pdfTarget.textContent='Consultando PDFs…';
+   result.append(pdfTarget,imageTarget);
+   const actions=document.createElement('div');actions.className='bm435-media-actions';actions.append(chip('Biblioteca de imagens',()=>section('imagens')),chip('Biblioteca de PDFs',()=>section('pdfs')),chip('Consultar novamente',()=>{showTopicImages(t);root.querySelector('.bm171-open-media')?.click()}));result.append(actions);
+
+   const cardIds=()=>{
+    const exactCards=cards.filter(c=>c.active!==false&&plain(c.subject)===plain(t.subject));
+    const directCards=exactCards.filter(c=>c.group===t.group);
+    return (directCards.length?directCards:t.visualOnly&&new Set(exactCards.map(c=>c.group)).size===1?exactCards:[]).map(c=>c.id);
+   };
+   const metadata=Promise.allSettled([bm430Deadline(Promise.resolve().then(()=>loadMeta()),30000),bm430Deadline(Promise.resolve().then(()=>loadCards()),30000)]).then(results=>{
+    const failed=results.some(x=>x.status==='rejected');finished('Cartões e índices',failed?'parcial':'conferidos');
+    if(valid())note.textContent=failed?'Índices de cartões parcialmente disponíveis. Os vínculos podem estar incompletos.':'Índices de cartões conferidos. Atualize o índice para incluir vínculos que chegaram depois da primeira consulta.';
+   });
+   const renderPdf=async()=>{
+    const target=pdfTarget;
+    try{
+     const state=await read(pdfs,'PDFs');if(!valid())return;
+     target.replaceChildren();
+     if(state.stale)addPara(target,'Atualização não confirmada; lista anterior desta sessão: '+state.error,'contextNote');
+     const relatedPdfs=bm432RankMedia(t,state.list,[],cardIds(),'pdf');
+     addPara(target,relatedPdfs.length+' PDF(s) relacionado(s).','contextNote');
+   if(relatedPdfs.length){
+    addTitle(target,'Documentos');const links=document.createElement('div');links.className='bm169-pdf-links bm435-pdf-list';
+    for(const entry of relatedPdfs){
+     const p=entry.x,display=bm435PdfDisplay(p),b=chip('',async()=>{if(!valid()||b.disabled)return;b.disabled=true;try{await window.BMVS41PrivatePdfs.openEditor(p)}catch(e){if(valid())b.title='Não foi possível abrir o PDF: '+e.message}finally{b.disabled=false}});
+     b.className='bm435-pdf-row';b.title=String(p.title||p.filename||'PDF')+' · '+entry.basis;
+     const icon=document.createElement('span');icon.className='bm435-pdf-icon';icon.textContent='PDF';icon.setAttribute('aria-hidden','true');
+     const body=document.createElement('span');body.className='bm435-pdf-body';
+     const name=document.createElement('strong');name.textContent=display.title;
+     const detail=document.createElement('small');detail.textContent=[display.detail,entry.basis].filter(Boolean).join(' · ');
+     const arrow=document.createElement('span');arrow.className='bm435-pdf-arrow';arrow.textContent='›';arrow.setAttribute('aria-hidden','true');
+     body.append(name,detail);b.append(icon,body,arrow);links.append(b);
+    }
+    target.append(links);
+   }else if(true)addPara(target,'Nenhum PDF relacionado encontrado.','bm435-media-empty');
+
+    }catch(e){if(valid()){target.replaceChildren();addPara(target,'PDFs indisponíveis: '+e.message,'contextNote')}}
+   };
+   const renderImages=async()=>{
+    const target=imageTarget;
+    try{
+     const state=await read(images,'Imagens');if(!valid())return;
+     target.replaceChildren();
+     if(state.stale)addPara(target,'Atualização não confirmada; lista anterior desta sessão: '+state.error,'contextNote');
+     const related=bm432RankMedia(t,state.list,window.BM032VisualIndex?.records||[],cardIds(),'image');
+     addPara(target,related.length+' imagem(ns) relacionada(s).','contextNote');
    const grid=document.createElement('div');grid.className='topicVisualGrid bm169-topic-images bm430-topic-grid';
    const jobs=[];
    for(const [i,entry] of related.entries()){const x=entry.x;
@@ -248,27 +292,18 @@ function showTopicImages(t,forceIndex=false){
     jobs.push(load);
     grid.append(card);
    }
-   if(relatedPdfs.length){
-    addTitle(result,'Documentos');const links=document.createElement('div');links.className='bm169-pdf-links bm435-pdf-list';
-    for(const entry of relatedPdfs){
-     const p=entry.x,display=bm435PdfDisplay(p),b=chip('',async()=>{if(!valid()||b.disabled)return;b.disabled=true;try{await window.BMVS41PrivatePdfs.openEditor(p)}catch(e){if(valid())b.title='Não foi possível abrir o PDF: '+e.message}finally{b.disabled=false}});
-     b.className='bm435-pdf-row';b.title=String(p.title||p.filename||'PDF')+' · '+entry.basis;
-     const icon=document.createElement('span');icon.className='bm435-pdf-icon';icon.textContent='PDF';icon.setAttribute('aria-hidden','true');
-     const body=document.createElement('span');body.className='bm435-pdf-body';
-     const name=document.createElement('strong');name.textContent=display.title;
-     const detail=document.createElement('small');detail.textContent=[display.detail,entry.basis].filter(Boolean).join(' · ');
-     const arrow=document.createElement('span');arrow.className='bm435-pdf-arrow';arrow.textContent='›';arrow.setAttribute('aria-hidden','true');
-     body.append(name,detail);b.append(icon,body,arrow);links.append(b);
-    }
-    result.append(links);
-   }else if(settled[1].status==='fulfilled')addPara(result,'Nenhum PDF relacionado encontrado.','bm435-media-empty');
-   if(related.length){addTitle(result,'Imagens');result.append(grid)}else if(settled[0].status==='fulfilled')addPara(result,'Nenhuma imagem relacionada encontrada.','bm435-media-empty');
-   const actions=document.createElement('div');actions.className='bm435-media-actions';actions.append(chip('Biblioteca de imagens',()=>section('imagens')),chip('Biblioteca de PDFs',()=>section('pdfs')),chip('Consultar novamente',()=>{showTopicImages(t);root.querySelector('.bm171-open-media')?.click()}));result.append(actions);
-   let done=0,missing=0;const total=jobs.length;
-   if(total){bar.max=total;bar.value=0;detail.textContent='Resultados localizados; preparando as prévias.';label.textContent='Carregando miniaturas (0 de '+total+')…';let cursor=0;
-    await Promise.all(Array.from({length:Math.min(3,total)},async()=>{while(cursor<total&&valid()){const ok=await jobs[cursor++]();if(!valid())return;if(!ok)missing++;bar.value=++done;label.textContent='Carregando miniaturas ('+done+' de '+total+')…'}}))}
+
+     if(related.length){addTitle(target,'Imagens');target.append(grid)}
+     else addPara(target,'Nenhuma imagem relacionada encontrada.','bm435-media-empty');
+     // Load only the first visible set. Remaining previews are available on click.
+     let cursor=0;const initial=jobs.slice(0,8);
+     void Promise.allSettled(Array.from({length:Math.min(3,initial.length)},async()=>{while(cursor<initial.length&&valid())await initial[cursor++]()}));
+    }catch(e){if(valid()){target.replaceChildren();addPara(target,'Imagens indisponíveis: '+e.message,'contextNote')}}
+   };
+   await Promise.allSettled([renderPdf(),renderImages()]);
    if(!valid())throw Error('Autorização alterada');
-   loading.remove();if(missing)addPara(result,missing+' prévia(s) não carregada(s) nesta tentativa. Use Tentar novamente ou Abrir imagem.','contextNote');
+   loading.remove();
+   void metadata;
   }catch(e){if(same()){root.replaceChildren(open,notice);open.disabled=false;open.setAttribute('aria-expanded','false');root.classList.remove('bm171-media-open');root.classList.add('bm171-media-closed');notice.textContent='Consulta não concluída: '+e.message}}
   finally{document.removeEventListener('bm-private-media-progress',scanProgress);if(same())root.removeAttribute('aria-busy')}
  });
