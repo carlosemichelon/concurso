@@ -515,7 +515,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const out=new Map();
   const reportProgress=(phase,extra={})=>{if(signal?.aborted)return;const doc=globalThis.document;if(doc&&typeof globalThis.CustomEvent==='function')doc.dispatchEvent(new CustomEvent('bm-private-media-progress',{detail:{phase,files:out.size,...extra}}))};
   reportProgress('index',{page:0});
-  const rows=await list("mimeType = '"+folder+"' or "+(kind==='pdf'?"mimeType = 'application/pdf'":"mimeType contains 'image/' or name = 'BM_TAXONOMIA_PRIVADA_V1.json'"),{skipNonPrivate:true,onPage:page=>reportProgress('index',page)});
+  const rows=await list("mimeType = '"+folder+"' or "+(kind==='pdf'?"mimeType = 'application/pdf'":"mimeType contains 'image/' or name = 'BM_TAXONOMIA_PRIVADA_V2.json'"),{skipNonPrivate:true,onPage:page=>reportProgress('index',page)});
   if(signal?.aborted)throw Error('Sessão encerrada');
   const byId=new Map(rows.map(f=>[f.id,f]));byId.set(root.id,root);
   // Resolve actual ancestry by stable IDs; names alone never authorize access.
@@ -609,7 +609,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   // Optional taxonomy lives only in the selected individual Drive, never in the public site.
   if(kind==='image'){
    try{
-    const candidates=rows.filter(f=>f.name==='BM_TAXONOMIA_PRIVADA_V1.json'&&f.mimeType!==folder&&ancestry(f)?.path.join('/')==='00 - Controle/BM_TAXONOMIA_PRIVADA_V1.json');
+    const candidates=rows.filter(f=>f.name==='BM_TAXONOMIA_PRIVADA_V2.json'&&f.mimeType!==folder&&ancestry(f)?.path.join('/')==='00 - Controle/BM_TAXONOMIA_PRIVADA_V2.json');
     if(candidates.length===1){
      const {data:tax}=await json(candidates[0].id,512000);
      if(tax?.schema==='BancoMestreTaxonomiaPrivadaV1'&&Array.isArray(tax.records)&&Array.isArray(tax.rules)&&tax.records.length<=10000&&tax.rules.length<=1000){
