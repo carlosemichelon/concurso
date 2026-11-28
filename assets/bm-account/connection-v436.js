@@ -103,15 +103,14 @@ window.BMStudyTemplate="<!doctype html>\n<html lang=\"pt-BR\"><head><meta charse
      clearTimeout(loginTimer);
      if(closed)return;session=p;resolve(p);timer=setTimeout(close,Math.max(1000,(Number(r.expires_in||3600)-60)*1000));
      opening=false;status('Conta e pasta individual verificadas. Catálogo carregado separadamente.','private');refreshButton();document.dispatchEvent(new CustomEvent('bm-account-connected'));
-     // VS44 performance: warm private indexes once, independently of card organization.
-     void (async()=>{await window.BMVS41Session.check();if(closed||session!==p)return;
-      await Promise.allSettled([
-       window.BM242LacunasDrive?.sync(),
-       window.BancoMestreDriveImagesV182?.refresh(),
-       window.BancoMestrePDFSyncV130?.refresh()
-      ]);
-     })().catch(e=>console.warn('Preparação dos índices privados:',e.message));
-     if(typeof loadCards==='function')void loadCards().catch(e=>{if(!closed&&session===p)status('Conta conectada · catálogo: '+e.message,'private')});
+     // Confirm the session first; cards are the only automatic priority.
+     // The other modules are independent and must not compete with the initial catalog.
+     void (async()=>{
+      await window.BMVS41Session.check();if(closed||session!==p)return;
+      if(typeof loadCards==='function')await loadCards();
+      if(closed||session!==p)return;
+      if(document.querySelector('main section#assuntos.active')&&typeof loadTopics==='function')await loadTopics();
+     })().catch(e=>{if(!closed&&session===p)status('Conta conectada · catálogo: '+e.message,'private')});
     }catch(e){abort?.abort();status('Google autorizado; falha ao conferir a conta: '+(e.name==='AbortError'?'tempo limite atingido; tente novamente':e.message||'Banco individual indisponível'),'error')}finally{clearTimeout(loginTimer);opening=false;refreshButton()}
    },error_callback:e=>{opening=false;const kind=e?.type;status(kind==='popup_failed_to_open'?'O Google não abriu a janela de login. Permita pop-ups para este site e tente novamente.':kind==='popup_closed'?'Janela do Google fechada antes da autorização. Tente novamente.':'Google: não foi possível concluir a seleção da conta. Tente novamente.','error');refreshButton()}});
    refreshButton();status('Entre para carregar os dados do seu Drive','idle');
