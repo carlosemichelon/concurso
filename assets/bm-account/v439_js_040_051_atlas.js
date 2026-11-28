@@ -263,7 +263,7 @@ function BM371FolderCache({roots,token,request,now=()=>Date.now(),maxAge=600000}
  (function(){
  'use strict';
  const $=id=>document.getElementById(id);
- let pending=null,scanning=false,lastResult=null,renderedDocs=null;
+ let pending=null,scanning=false,lastResult=null,renderedDocs=null,lastGoodAt=0,lastError='';
  const authorized=()=>window.BMVS41PrivateReviews?.available()===true;
  const status=(message)=>{const e=$('bm-pdf-sync-status');if(e)e.textContent=message;};
  const authorize=()=>void refresh();
@@ -285,26 +285,26 @@ function BM371FolderCache({roots,token,request,now=()=>Date.now(),maxAge=600000}
 
  async function refresh(force=false){
   if(pending)return pending;
-  if(!force&&lastResult&&authorized()&&document.documentElement.dataset.bm217PdfVerified==='true'){
+  if(!force&&lastResult&&authorized()&&document.documentElement.dataset.bm217PdfVerified==='true'&&!lastError&&Date.now()-lastGoodAt<60000){
    if(renderedDocs!==docs&&$('pdfs')?.classList.contains('active')){pdfRender();renderedDocs=docs;}
    return lastResult;
   }
   scanning=true;
   pending=(async()=>{
-   document.documentElement.dataset.bm217PdfVerified='false';
+   if(!authorized()||!lastResult)document.documentElement.dataset.bm217PdfVerified='false';
    try{
     const result=await window.BMVS41PrivatePdfs.list(force===true);
     docs=result;document.documentElement.dataset.bm217PdfVerified='true';$('pdfStat').textContent=docs.length;
     status('Biblioteca privada confirmada: '+docs.length+' PDFs vinculados.');
-    lastResult={count:docs.length};renderedDocs=null;
+    lastResult={count:docs.length};lastGoodAt=Date.now();lastError='';renderedDocs=null;
     if($('pdfs')?.classList.contains('active')){pdfRender();renderedDocs=docs;}
     return lastResult;
-   }catch(e){docs=[];lastResult=null;renderedDocs=null;pdfRender();status(e.message);return null}
+   }catch(e){lastError=String(e.message||e);if(authorized()&&lastResult){status('Atualização não confirmada. Lista anterior desta sessão preservada: '+lastError);return {...lastResult,stale:true};}docs=[];lastResult=null;lastGoodAt=0;renderedDocs=null;document.documentElement.dataset.bm217PdfVerified='false';pdfRender();status(lastError);return null}
    finally{scanning=false;pending=null}
   })();return pending;
  }
  function initialize(){ui();$('bm-pdf-sync-connect').disabled=false;$('bm-pdf-sync-refresh').disabled=false;status('Consulte os PDFs do perfil autenticado.');if(location.hash==='#pdfs')void refresh();}
- window.BancoMestrePDFSyncV130={refresh,async refreshAfterMove(){if(pending)await pending;return refresh(true)},get connected(){return authorized()},get lastResult(){return lastResult},topicRecords(){return authorized()&&document.documentElement.dataset.bm217PdfVerified==='true'?docs.slice():null}};
+ window.BancoMestrePDFSyncV130={refresh,async refreshAfterMove(){if(pending)await pending;return refresh(true)},get connected(){return authorized()},get lastResult(){return lastResult},get lastError(){return lastError},topicRecords(){return authorized()&&document.documentElement.dataset.bm217PdfVerified==='true'?docs.slice():null}};
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});else initialize();
  })();
  ;
@@ -622,7 +622,7 @@ function render(){
 
  async function refreshList(force=false){
   if(pending)return pending;
-  if(force!==true&&lastGoodAt&&validToken()){
+  if(force!==true&&lastGoodAt&&validToken()&&!lastError&&Date.now()-lastGoodAt<60000){
    if($('imagens')?.classList.contains('active')){
     if(renderedRecords!==photos||!renderedView||renderedView.shown>0&&!$('imageRows')?.querySelector('article.bm209ImageFromDrive'))render();
     else window.BM209SingleImageViewer?.refresh?.();
@@ -637,7 +637,7 @@ function render(){
     const ticket=generation,first=photos.slice(0,8);let nextIndex=0;
     void Promise.allSettled(Array.from({length:Math.min(3,first.length)},async()=>{while(ticket===generation&&validToken()&&nextIndex<first.length){const f=first[nextIndex++];try{await getImageUrl(f)}catch(_){/* visible preview can retry */}}}));
     return {found:photos.length,scope:'authenticated-profile'};
-   }catch(e){release();photos=[];aliases.clear();lastGoodAt=0;lastError=e.message;renderedView=null;render();msg(e.message,true);return null}
+   }catch(e){lastError=String(e.message||e);if(validToken()&&lastGoodAt){msg('Atualização não confirmada. Lista anterior desta sessão preservada: '+lastError,true);return {found:photos.length,scope:'authenticated-profile',stale:true};}release();photos=[];aliases.clear();lastGoodAt=0;renderedView=null;render();msg(lastError,true);return null}
    finally{pending=null}
   })();return pending;
  }
