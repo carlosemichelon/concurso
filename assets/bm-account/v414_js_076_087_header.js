@@ -538,7 +538,7 @@ if(window.BM206Header)return;
 // Captura o título da própria página antes que o cronômetro o modifique.
 const siteVersion=document.title.match(/\bVS\d+\b/)?.[0]||document.documentElement.dataset.bmPortalVersion||'—';
 const defaults=Object.freeze({publicBase:BM_CATALOG.counts.canonical,publicActive:BM_CATALOG.counts.active,ijui:BM_CATALOG.counts.ijui,pdfBase:78,historicalImages:86,recoveredImages:93});
-const fmt=n=>Number(n||0).toLocaleString('pt-BR');
+const fmt=n=>Number.isFinite(n)?n.toLocaleString('pt-BR'):'—';
 const $=id=>document.getElementById(id);
 const state={base:0,active:0,ijui:0,origin:'privada',privateVersion:'',pdfs:0,images:0,imagesLoaded:false,cardsLoaded:false};
 function stat(index,count,caption,help){
@@ -559,14 +559,14 @@ function render(){
  const footer=document.querySelector('main > footer');
  const footerText='Banco Mestre · Site '+siteVersion+' · Catálogo '+vc;
  if(footer&&footer.textContent!==footerText)footer.textContent=footerText;
- const total=account?.total||0;
+ const total=account?.total??null;
  const phase=window.BMCatalogLoadState?.state||'idle';
  const confirmed=state.cardsLoaded&&phase==='ready';
- const detail=confirmed?'Carregado e conferido nesta sessão.':phase==='error'?'Falha ao carregar: '+(window.BMCatalogLoadState.message||'tente novamente'):'Entre com Google para carregar seus dados.';
- stat(1,confirmed?state.active:0,'Cartões ativos','Drive individual · '+vc+' · '+fmt(total)+' IDs únicos. '+detail);
- const info=$('bm382CatalogInfo');if(info)info.textContent=account?'Drive individual · '+vc+': '+fmt(account.count)+' cartões ativos. '+detail:detail;
+ const detail=confirmed?'Carregado e conferido nesta sessão.':phase==='error'?'Falha ao carregar: '+(window.BMCatalogLoadState.message||'tente novamente'):account?'Conta conectada; catálogo ainda não confirmado.':'Entre com Google para carregar seus dados.';
+ stat(1,confirmed?state.active:null,'Cartões ativos','Drive individual · '+vc+' · '+fmt(total)+' IDs únicos. '+detail);
+ const info=$('bm382CatalogInfo');if(info)info.textContent=account&&confirmed?'Drive individual · '+vc+': '+fmt(account.count)+' cartões ativos. '+detail:detail;
  // PDFs e Atlas: seus próprios módulos autenticados são as fontes de contagem.
- const privateBanner=$('bm119PublicSource');if(privateBanner)privateBanner.textContent=confirmed?'Cartões carregados do seu Google Drive.':'Entre com Google para carregar seus cartões.';
+ const privateBanner=$('bm119PublicSource');if(privateBanner)privateBanner.textContent=confirmed?'Cartões carregados do seu Google Drive.':detail;
  const homeBanner=$('bm119HomeSource');if(homeBanner)homeBanner.textContent=confirmed?'Assuntos dos cartões carregados do seu Google Drive.':phase==='error'?detail:account?'Organizando assuntos do seu Google Drive…':'Entre com sua conta Google para explorar seus assuntos.';
 }
 function updateCards(base,ijui,items){
