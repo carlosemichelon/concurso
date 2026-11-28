@@ -1,26 +1,42 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
-import {readBrowserSnapshot,scope as readScope} from './browser-drive-v436.mjs?v=current-base-1';
+import {readBrowserSnapshot,scope as readScope,individualAclFields,individualRootPolicy,sameIndividualPolicy,individualMemberFile} from './browser-drive-v436.mjs?v=individual-sharing-1';
 import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache-v436.mjs?v=3';
 export {browserByteCache};
 import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
 export const scope=readScope+' https://www.googleapis.com/auth/drive.file';
 const API='https://www.googleapis.com/drive/v3/files',UPLOAD='https://www.googleapis.com/upload/drive/v3/files';
 const folder='application/vnd.google-apps.folder',doc='application/vnd.google-apps.document';
-const fields='id,name,mimeType,ownedByMe,shared,trashed,parents,size,version,headRevisionId,md5Checksum,sha256Checksum,modifiedTime,appProperties,properties,description';
+const fields='id,name,mimeType,ownedByMe,shared,trashed,parents,size,version,headRevisionId,md5Checksum,sha256Checksum,modifiedTime,appProperties,properties,description,'+individualAclFields;
 const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
-const owned=f=>validId(f?.id)&&f.ownedByMe===true&&f.shared===false&&f.trashed===false;
 const esc=s=>String(s).replaceAll('\\','\\\\').replaceAll("'","\\'");
 const emptyStudy=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60,activeTimer:null});
-export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId='',readEditorialIndex=null,cache=null,deferCatalog=false}){
+export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId='',readEditorialIndex=null,cache=null,deferCatalog=false,confirmInitialize=()=>false}){
  if(!token)throw Error('Selecione sua conta Google');
  const get=async(url,params={})=>{const r=await fetcher(url+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},cache:'no-store',credentials:'omit',redirect:'error',signal});if(!r.ok)throw Error('Drive HTTP '+r.status);return r};
- const meta=async id=>{if(!validId(id))throw Error('Arquivo inválido');const f=await (await get(API+'/'+id,{fields})).json();if(f.id!==id||!owned(f))throw Error('Arquivo não pertence exclusivamente à conta selecionada');return f};
- const list=async(q,{skipNonPrivate=false,onPage=null}={})=>{let pageToken='',out=[];for(let i=0;i<100;i++){
-  const r=await (await get(API,{q:"trashed = false and 'me' in owners and ("+q+")",fields:'nextPageToken,incompleteSearch,files('+fields+')',pageSize:'1000',...(pageToken?{pageToken}:{})})).json();
+ let selectedRoot=null,policy=null;
+ const owned=f=>individualMemberFile(f,policy);
+ const rawMeta=async id=>{if(!validId(id))throw Error('Arquivo inválido');const f=await (await get(API+'/'+id,{fields})).json();if(f.id!==id)throw Error('Identidade do arquivo divergente');return f};
+ const checkRoot=async()=>{if(!selectedRoot)return;const f=await rawMeta(selectedRoot.id),next=individualRootPolicy(f,profile.permissionId);if(!sameIndividualPolicy(policy,next))throw Error('Permissões da pasta alteradas; reconecte.');return f};
+ const inScope=async(f,memo=new Map())=>{
+  if(!selectedRoot)return false;
+  let current=f;const seen=new Set();
+  for(let i=0;i<40;i++){
+   if(!owned(current)||seen.has(current.id))return false;
+   if(current.id===selectedRoot.id)return true;
+   seen.add(current.id);if(current.parents?.length!==1)return false;
+   const id=current.parents[0];if(id===selectedRoot.id)return true;
+   if(!memo.has(id))memo.set(id,rawMeta(id).catch(()=>null));
+   current=await memo.get(id);if(!current||current.mimeType!==folder)return false;
+  }return false;
+ };
+ const meta=async id=>{const f=await rawMeta(id);if(!owned(f))throw Error('Arquivo fora das permissões individuais autorizadas');if(policy){await checkRoot();if(!await inScope(f))throw Error('Arquivo fora da pasta individual selecionada');}return f};
+ const list=async(q,{skipNonPrivate=false,onPage=null}={})=>{let pageToken='',out=[];const memo=new Map();if(policy)await checkRoot();for(let i=0;i<100;i++){
+  const r=await (await get(API,{q:"trashed = false and "+(policy?"":"'me' in owners and ")+"("+q+")",fields:'nextPageToken,incompleteSearch,files('+fields+')',pageSize:'1000',...(pageToken?{pageToken}:{})})).json();
   if(r.incompleteSearch||!Array.isArray(r.files))throw Error('Listagem incompleta');
-  if(!skipNonPrivate&&r.files.some(f=>!owned(f)))throw Error('Resultado não privado; consulta suspensa');
-  out.push(...r.files.filter(owned));if(onPage)onPage({page:i+1,more:Boolean(r.nextPageToken)});if(!r.nextPageToken)return out;pageToken=r.nextPageToken;
+  if(policy){for(const f of r.files){if(owned(f)&&await inScope(f,memo))out.push(f)}}
+  else{if(!skipNonPrivate&&r.files.some(f=>!owned(f)))throw Error('Resultado não privado; consulta suspensa');out.push(...r.files.filter(owned));}
+  if(onPage)onPage({page:i+1,more:Boolean(r.nextPageToken)});if(!r.nextPageToken)return out;pageToken=r.nextPageToken;
  }throw Error('Listagem excedeu limite seguro')};
  const unique=async(q,label,optional=false)=>{const a=await list(q);if(a.length===0&&optional)return null;if(a.length!==1)throw Error(label+' ausente ou duplicado');return meta(a[0].id)};
  const raw=async(id,max=10000000,cacheMedia=false,known=null)=>{const a=known||await meta(id);if(!Number.isSafeInteger(Number(a.size))||Number(a.size)<1||Number(a.size)>max||!a.version)throw Error('Tamanho ou versão inválida: '+a.name);
@@ -37,8 +53,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const profile=(await (await get('https://www.googleapis.com/drive/v3/about',{fields:'user(displayName,emailAddress,permissionId)'})).json()).user;
  if(!validId(profile?.permissionId))throw Error('Identidade Google não confirmada');
  const identity=Object.freeze({name:String(profile.displayName||profile.emailAddress||'Conta Google').slice(0,160),email:String(profile.emailAddress||'').slice(0,254)});
- const root=rootId?await meta(rootId):await unique("mimeType = '"+folder+"' and name = 'DataBase_Concurso'","Pasta individual DataBase_Concurso");
- if(root.mimeType!==folder)throw Error('A configuração precisa indicar uma pasta privada do Drive');
+ const root=rootId?await rawMeta(rootId):await unique("mimeType = '"+folder+"' and name = 'DataBase_Concurso'","Pasta individual DataBase_Concurso");
+ policy=individualRootPolicy(root,profile.permissionId);selectedRoot=root;
  const rootUrl='https://drive.google.com/drive/folders/'+root.id;
  // Account identity and bank ownership are verified above, independently of catalogue.
  let snapshot=null,records=null,catalogFlight=null;
@@ -52,14 +68,18 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   catalogFlight=(async()=>{
    try{
     let verified;const options={token,source:rootUrl,fetcher,signal:controller.signal,cache,verifyHistory:false};
-    try{verified=await readBrowserSnapshot(options)}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;verified=await readBrowserSnapshot({...options,editorialPreview:true})}
+    try{verified=await readBrowserSnapshot(options)}catch(e){
+     if(e.code!=='CURRENT_POINTER_MISSING')throw e;
+     if(root.name==='DataBase_Concurso'&&await allowEditorial())verified=await readBrowserSnapshot({...options,editorialPreview:true});
+     else if(rootId&&write&&await initializeEmptyCatalog())verified=await readBrowserSnapshot(options);
+     else throw e;
+    }
     if(controller.signal.aborted||signal?.aborted)throw Error('Leitura do catálogo interrompida');
     snapshot=verified;records=verified.records;return snapshot;
    }finally{clearTimeout(timer);signal?.removeEventListener('abort',onAbort);catalogFlight=null;}
   })();
   return catalogFlight;
  }
- if(!deferCatalog)await loadCatalog();
  // Preserve the original account-wide masters created by older portal versions in My Drive.
  // Never select a file belonging to a different bank merely because its name matches.
  async function locateMaster(kind,name){
@@ -123,10 +143,28 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const result=await send(UPLOAD+'?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});
   try{const r=await json(result.id);if(r.meta.name!==name||r.meta.parents?.length!==1||r.meta.parents[0]!==parentId||!eq(r.data,data))throw Error('Conteúdo ou destino gravado divergente');return r}catch(e){uncertain=true;throw e}
  }
+ // First use only, by the authenticated root owner, with explicit consent.
+ // Refuse initialization if there is already any JSON in the selected bank.
+ async function initializeEmptyCatalog(){
+  const existing=await list("mimeType = 'application/json'",{skipNonPrivate:true});
+  for(const f of existing)if(await belongsToRoot(f))return false;
+  if(!await confirmInitialize(root.name))return false;
+  return serialize(async()=>{
+   const fresh=await list("mimeType = 'application/json'",{skipNonPrivate:true});
+   for(const f of fresh)if(await belongsToRoot(f))return false;
+   const direct=await (await get(API,{q:"trashed = false and '"+root.id+"' in parents and (name = 'BANCO_MESTRE_ATUAL.json' or name = 'BANCO_MESTRE_BASE_INICIAL.json')",fields:'nextPageToken,incompleteSearch,files(id)',pageSize:'100'})).json();
+   if(direct.incompleteSearch||direct.nextPageToken||!Array.isArray(direct.files)||direct.files.length)return false;
+   const version='VD1',data={format:'BancoMestrePrivadoV159',schema_version:1,version,updated:new Date().toISOString(),counts:{cards:0,srs_records:0},cards:[],srs:[]};
+   const base=await create('BANCO_MESTRE_BASE_INICIAL.json',data);
+   const sha256=await hashBytes(base.bytes);
+   await create('BANCO_MESTRE_ATUAL.json',{schema:'banco-mestre-operational-pointer/1',pointer_version:version,private_base:{file_id:base.meta.id,version,sha256,cards:0}});
+   return true;
+  });
+ }
  // Redação: state saved only on explicit user request; no secrets or guest transfer.
  const WRITING_NAME='BancoMestre_Redacao_V296.json',WRITING_KIND='bm_redacao_v296',WRITING_FORMAT='BancoMestreRedacaoDriveV296';
  const writingFolder=async()=>{
-  const f=await unique("mimeType = '"+folder+"' and (name = '05 - Revisões' or name = '05_REVISOES_SRS') and '"+root.id+"' in parents",'Pasta individual de revisões');
+  const f=await unique("mimeType = '"+folder+"' and (name = '05 - Revisões' or name = '05_REVISOES_SRS' or name = '04 – Revisões e SRS') and '"+root.id+"' in parents",'Pasta individual de revisões');
   if(f.parents?.length!==1||f.parents[0]!==root.id)fail('Pasta de Redação fora do banco individual',409);
   return f.id;
  };
@@ -833,5 +871,6 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await check('grifos',async()=>{const p=await grifos();return p.file?{message:'Grifos: mestre V104 lido e validado; sem alteração das marcações'}:{state:'pending',message:'Grifos: nenhum arquivo mestre V104 localizado'}});
   return {at:new Date().toISOString(),modules,notes,pending,warnings,complete:!pending.length&&!warnings.length,summary:'Conferência de leitura da conta individual; gravações somente por módulo'};
  };
+ if(!deferCatalog)await loadCatalog();
  return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,get snapshot(){return snapshot},loadCatalog,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,getPdfCopy,savePdfCopy,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(fresh=false){return [...(await media(fresh===true,'pdf')).values()].filter(m=>m.mimeType==='application/pdf')},async images(fresh=false){return [...(await media(fresh===true,'image')).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
 }
