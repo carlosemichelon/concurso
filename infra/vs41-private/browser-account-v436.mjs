@@ -1,6 +1,6 @@
 // Single browser account context for the original portal. Existing Drive formats.
 // No IDs of a particular student, no alternate data store, no persisted OAuth.
-import {readBrowserSnapshot,scope as readScope} from './browser-drive-v436.mjs?v=v452-legacy-highlights';
+import {readBrowserSnapshot,scope as readScope} from './browser-drive-v436.mjs?v=current-base-1';
 import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBytes,hashBytes} from './verified-cache-v436.mjs?v=3';
 export {browserByteCache};
 import {grifosCore,grifosMaster} from './browser-grifos-core.mjs';
@@ -51,7 +51,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const timer=setTimeout(()=>controller.abort(),90000);
   catalogFlight=(async()=>{
    try{
-    let verified;const options={token,source:rootUrl,fetcher,signal:controller.signal,cache};
+    let verified;const options={token,source:rootUrl,fetcher,signal:controller.signal,cache,verifyHistory:false};
     try{verified=await readBrowserSnapshot(options)}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;verified=await readBrowserSnapshot({...options,editorialPreview:true})}
     if(controller.signal.aborted||signal?.aborted)throw Error('Leitura do catálogo interrompida');
     snapshot=verified;records=verified.records;return snapshot;
