@@ -12,7 +12,7 @@ const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
 const owned=f=>validId(f?.id)&&f.ownedByMe===true&&f.shared===false&&f.trashed===false;
 const esc=s=>String(s).replaceAll('\\','\\\\').replaceAll("'","\\'");
 const emptyStudy=()=>({schema:1,subjects:[],sessions:[],reviews:[],plans:[],audit:[],cycle:[],cycleIndex:0,availabilityWeek:15,availabilityMonth:60,activeTimer:null});
-export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId='',readEditorialIndex=null,cache=null}){
+export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=()=>false,write=false,actor='',rootId='',readEditorialIndex=null,cache=null,deferCatalog=false}){
  if(!token)throw Error('Selecione sua conta Google');
  const get=async(url,params={})=>{const r=await fetcher(url+'?'+new URLSearchParams(params),{method:'GET',headers:{Authorization:'Bearer '+token},cache:'no-store',credentials:'omit',redirect:'error',signal});if(!r.ok)throw Error('Drive HTTP '+r.status);return r};
  const meta=async id=>{if(!validId(id))throw Error('Arquivo inválido');const f=await (await get(API+'/'+id,{fields})).json();if(f.id!==id||!owned(f))throw Error('Arquivo não pertence exclusivamente à conta selecionada');return f};
@@ -40,8 +40,26 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const root=rootId?await meta(rootId):await unique("mimeType = '"+folder+"' and name = 'DataBase_Concurso'","Pasta individual DataBase_Concurso");
  if(root.mimeType!==folder)throw Error('A configuração precisa indicar uma pasta privada do Drive');
  const rootUrl='https://drive.google.com/drive/folders/'+root.id;
- let snapshot;try{snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,cache})}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;snapshot=await readBrowserSnapshot({token,source:rootUrl,fetcher,signal,editorialPreview:true,cache})}
- const records=snapshot.records;
+ // Account identity and bank ownership are verified above, independently of catalogue.
+ let snapshot=null,records=null,catalogFlight=null;
+ async function loadCatalog(){
+  if(signal?.aborted)throw Error('Sessão encerrada');
+  if(snapshot)return snapshot;
+  if(catalogFlight)return catalogFlight;
+  const controller=new AbortController(),onAbort=()=>controller.abort();
+  signal?.addEventListener('abort',onAbort,{once:true});
+  const timer=setTimeout(()=>controller.abort(),90000);
+  catalogFlight=(async()=>{
+   try{
+    let verified;const options={token,source:rootUrl,fetcher,signal:controller.signal,cache};
+    try{verified=await readBrowserSnapshot(options)}catch(e){if(e.code!=='CURRENT_POINTER_MISSING'||!await allowEditorial())throw e;verified=await readBrowserSnapshot({...options,editorialPreview:true})}
+    if(controller.signal.aborted||signal?.aborted)throw Error('Leitura do catálogo interrompida');
+    snapshot=verified;records=verified.records;return snapshot;
+   }finally{clearTimeout(timer);signal?.removeEventListener('abort',onAbort);catalogFlight=null;}
+  })();
+  return catalogFlight;
+ }
+ if(!deferCatalog)await loadCatalog();
  // Preserve the original account-wide masters created by older portal versions in My Drive.
  // Never select a file belonging to a different bank merely because its name matches.
  async function locateMaster(kind,name){
@@ -230,6 +248,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  });
  const RATINGS=Object.freeze({'Difícil':8,Bom:16,'Fácil':24,'Conhecimento preservado':32,'Conhecimento adquirido':64});
  const recordReview=input=>serialize(async()=>{
+  await loadCatalog();
   if(!input||!uuid(input.event_id)||!Object.hasOwn(RATINGS,input.rating)||!records.some(x=>x.id===input.id&&x.active))fail('Avaliação ou cartão inválido');
   const history=await reviews(),prior=history.find(x=>x.event_id===input.event_id);
   if(prior){if(prior.id!==input.id||prior.rating!==input.rating)fail('Evento divergente',409);return prior}
@@ -351,6 +370,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   return structuredClone(await scheduleFlight);
  }
  async function readSchedule(){
+  await loadCatalog();
   const ids=new Set(records.filter(c=>c.active).map(c=>c.id)),byId=new Map(),seen=new Map(),ratings=new Map();
   const recovery=snapshot.scope==='private-recovery',source=(snapshot.scope==='snapshot-only'||recovery)&&Array.isArray(snapshot.srs),warnings=[];
   if(recovery)warnings.push('Recuperação parcial: histórico privado '+snapshot.privateVersion+' verificado; identidades operacionais e conflitos históricos não recebem avaliações por transferência.');
@@ -438,6 +458,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  // Query Google's indexed metadata once, instead of opening each folder.
  // Other account files are never returned or retained in the bank index.
  const scanMedia=async()=>{
+  if(readEditorialIndex)await loadCatalog();
   const out=new Map();
   const reportProgress=(phase,extra={})=>{if(signal?.aborted)return;const doc=globalThis.document;if(doc&&typeof globalThis.CustomEvent==='function')doc.dispatchEvent(new CustomEvent('bm-private-media-progress',{detail:{phase,files:out.size,...extra}}))};
   reportProgress('index',{page:0});
@@ -744,7 +765,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   };
   await capture('methodology',methodology);
   await capture('operational_guide',operationalGuide);
-  await capture('cards',async()=>snapshot.records);
+  await capture('cards',async()=>(await loadCatalog()).records);
   await capture('study',async()=>{const p=await studyMaster();return p?{revision:p.revision,data:p.data}:null});
   await capture('reviews',reviews);
   await capture('review_schedule',schedule);
@@ -760,7 +781,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   });
   await capture('media',async()=>[...(await media()).values()].map(x=>({...x,url:'https://drive.google.com/open?id='+x.id})));
   const incomplete=Object.entries(sources).filter(([k,s])=>['falha','parcial'].includes(s.status)||(['methodology','operational_guide'].includes(k)&&s.status!=='confirmado')).map(([k,s])=>({section:k,...s}));
-  return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal||null,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. O objetivo do estudo será informado na conversa do ChatGPT. Use a base individual e preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName},sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
+  return {format:'BancoMestreChatGPTExport',schema_version:2,generated_at:new Date().toISOString(),source:'Google Drive da conta selecionada',account:{name:identity.name,email:identity.email},drive:{root_url:rootUrl,root_id:root.id},study_objective:goal||null,instructions:'Leia a Metodologia Mestre vigente e o Guia Operacional vigentes incluídos neste pacote antes de estudar. O objetivo do estudo será informado na conversa do ChatGPT. Use a base individual e preserve IDs, versões, módulos, vínculos e histórico. Consulte o Drive indicado para os originais quando necessário e autorizado. Não invente dados ausentes; verifique o manifesto de fontes e solicite o que faltar. Não publique dados pessoais no GitHub.',catalog:snapshot?{version:snapshot.version,scope:snapshot.scope,count:snapshot.records.length,source_name:snapshot.sourceName}:null,sections:Object.keys(data),sources,complete:incomplete.length===0,incomplete,data,limitations:['Exportação de continuidade de estudos, não backup integral: PDFs e imagens originais estão referenciados por links privados; os arquivos binários e cópias históricas do Drive não foram incorporados.','Dados locais legados ainda não migrados para o Drive não fazem parte deste pacote.']};
  };
 
  // Read-only diagnostics of the authenticated account; no export, write or rotation.
@@ -790,5 +811,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await check('grifos',async()=>{const p=await grifos();return p.file?{message:'Grifos: mestre V104 lido e validado; sem alteração das marcações'}:{state:'pending',message:'Grifos: nenhum arquivo mestre V104 localizado'}});
   return {at:new Date().toISOString(),modules,notes,pending,warnings,complete:!pending.length&&!warnings.length,summary:'Conferência de leitura da conta individual; gravações somente por módulo'};
  };
- return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,snapshot,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,getPdfCopy,savePdfCopy,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType==='application/pdf')},async images(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
+ return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,get snapshot(){return snapshot},loadCatalog,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,getPdfCopy,savePdfCopy,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType==='application/pdf')},async images(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
 }
