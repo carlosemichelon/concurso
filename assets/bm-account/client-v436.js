@@ -41,8 +41,11 @@
   if(locked||context!==expected||p.context!==expected||p.verified!==true||p.writeAuthorized!==false||p.descriptor?.schema!=='BM-CHAT-DESTINATION/1'||!/^[a-f0-9]{64}$/.test(p.descriptor.destination)||typeof p.descriptor.account!=='string')throw Error('Identificação inválida');
   return p.descriptor;
  }})});
+ // Guest mode is a valid portal state. Never reload on an initial failed check.
+ const verifyInitialSession=()=>{void window.BMVS41Session.check().catch(e=>console.warn('Sessão privada ainda não disponível:',e.message));};
+ document.addEventListener('bm-account-connected',verifyInitialSession);
  document.addEventListener('DOMContentLoaded',()=>{
- void window.BMVS41Session.check().catch(()=>{location.reload()});
+  if(!window.BMPortalBridge||window.BMAccountConnectionStatus?.().connected)verifyInitialSession();
  },{once:true});
  async function reviewRequest(input){
   const expected=await check();start();
