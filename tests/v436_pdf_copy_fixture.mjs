@@ -84,7 +84,11 @@ export function fixture(account,{foreign=false,duplicatePointer=false,writable=f
    else if(q.includes('bm_grifos_sync_v104_master'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GRIF_KIND);
    else if(q.includes('bm_lacunas_v242'))result=[...files.values()].filter(x=>x.appProperties?.bm_kind===GAP_KIND);
    else if(q.includes('BM_SRS_EVENT_V001_'))result=[...files.values()].filter(x=>x.name.startsWith('BM_SRS_EVENT_V001_'));
-   else if(q.includes("mimeType contains 'image/'")&&!q.includes(' in parents'))result=[...files.values()].filter(f=>f.mimeType===fm||f.mimeType==='application/pdf'||f.mimeType.startsWith('image/'));
+   else if((q.includes("mimeType contains 'image/'")||q.includes("mimeType = 'application/pdf'"))&&!q.includes(' in parents')){
+    // Match the requested media MIME types; legacy combined and current independent scans.
+    const pdf=q.includes("mimeType = 'application/pdf'"),image=q.includes("mimeType contains 'image/'");
+    result=[...files.values()].filter(f=>f.mimeType===fm||(pdf&&f.mimeType==='application/pdf')||(image&&f.mimeType.startsWith('image/')));
+   }
    else if(q.includes("'"+root+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(root));
    else if(q.includes("'"+atlasFolder+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(atlasFolder));
    else if(q.includes("'"+otherFolder+"' in parents"))result=[...files.values()].filter(f=>f.parents.includes(otherFolder));
