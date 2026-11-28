@@ -547,7 +547,7 @@ function mountCards(){
  put(x.main,$('cardCount'));
  const hierarchy=$('bm152Filters');put(x.body,hierarchy);
  for(const id of ['bm281IdOrder','bm281LastCards']){
-  const n=wrap(id);if(n)put(x.body,n);
+  const n=wrap(id);if(n)put(x.main,n);
  }
  const original=own(root,':scope>.controls');
  if(original&&original.childElementCount)put(x.body,original);
@@ -559,7 +559,7 @@ function mountCards(){
  const intro=own(root,':scope>p.intro');if(intro)put(x.body,intro);
  // Outros filtros de legado permanecem acessíveis no mesmo painel.
  for(const id of ['bm109FiltersCards','bm279CardFilters'])put(x.body,$(id));
- x.more.querySelector('summary').textContent='Assuntos, ordenação e opções';
+ x.more.querySelector('summary').textContent='Assuntos e opções';
  activeCounter(x.more);
  x.actions.remove();
  return true;
@@ -789,22 +789,12 @@ function decorateCard(article){
 
 function keepIdOrder(){
  const root=$('cardRows'),sorting=window.BM281CardSort;
- if(!root||!sorting||!['asc','desc'].includes(sorting.order))return;
+ if(!root||!sorting||!['asc','desc','recent'].includes(sorting.order))return;
  const items=[...root.querySelectorAll('article.card')];
- if(items.length<2)return;
- // Ordenar TODOS os cartões renderizados, mesmo quando o compositor legado já
- // achatou os grupos em ordem temática: isso causava 1529 → 1524 → 1523.
- const numeric=a=>{
-  const m=/^CARD-(\d+)$/.exec(a.querySelector(':scope > .tag')?.textContent?.trim()||'');
-  return m?Number(m[1]):null;
- };
- const sign=sorting.order==='asc'?1:-1;
- const ordered=items.slice().sort((a,b)=>{
-  const x=numeric(a),y=numeric(b);
-  if(x===null)return y===null?0:1;
-  if(y===null)return -1;
-  return sign*(x-y);
- });
+ if(!items.length)return;
+ const records=lookup();
+ const record=node=>{const id=node.dataset.bm221Id||node.querySelector(':scope > .tag')?.textContent?.trim()||'';return records.get(id)||{id}};
+ const ordered=items.slice().sort((a,b)=>sorting.compare(record(a),record(b)));
  // A igualdade é obrigatória: impede loop MutationObserver e movimentação inútil.
  const flat=root.children.length===items.length&&items.every((node,i)=>root.children[i]===node);
  if(flat&&items.every((node,i)=>node===ordered[i]))return;

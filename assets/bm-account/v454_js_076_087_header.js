@@ -624,67 +624,67 @@ function field(id,title,choices,selected){
  select.value=selected;wrap.append(select);
  return {wrap,select};
 }
-const ordering=field('bm281IdOrder','Ordenar por ID',[
- ['desc','ID decrescente (novos primeiro)'],
- ['asc','ID crescente (antigos primeiro)'],
+const ordering=field('bm281IdOrder','Ordenar cartões',[
+ ['desc','ID decrescente'],
+ ['asc','ID crescente'],
+ ['recent','Mais recentes (data registrada)'],
  ['original','Ordem original do catálogo']
 ],'desc');
-const recent=field('bm281LastCards','Últimos cartões',[
+const recent=field('bm281LastCards','Quantidade',[
  ['all','Mostrar todos'],
- ['last10','Últimos 10'],
- ['last25','Últimos 25'],
- ['last50','Últimos 50'],
- ['last100','Últimos 100'],
- ['v274v276','15 novos confirmados (V274/V276)'],
- ['v276','1 novo da V276'],
- ['v274','14 novos da V274']
+ ['last10','Exibir 10'],
+ ['last25','Exibir 25'],
+ ['last50','Exibir 50'],
+ ['last100','Exibir 100']
 ],'all');
 const search=document.getElementById('cardSearch');
 if(search&&search.parentElement===toolbar)search.after(ordering.wrap,recent.wrap);
 else toolbar.prepend(ordering.wrap,recent.wrap);
 const hint=document.createElement('small');hint.id='bm281ChronologyHint';
 hint.className='bm279-recent-note';
-hint.textContent='Os IDs numéricos indicam a ordem de numeração, não comprovam a data real de criação de cada cartão. As inclusões V274 e V276 estão documentadas; cartões antigos apenas atualizados não entram como novos.';
+hint.textContent='Mais recentes: última data registrada de edição ou vínculo, sem usar datas de revisão. Sem data, ao final; empates por ID decrescente. A quantidade considera os filtros e a ordem escolhida.';
+ordering.select.title=hint.textContent;
 toolbar.append(hint);
-const num=id=>{const m=/^CARD-(\d+)$/.exec(String(id||''));return m?Number(m[1]):null};
-const numberFor=c=>num(c?.id);
-const isCanonical=c=>numberFor(c)!==null&&!c.provisional;
-const release=c=>c?.id==='CARD-1534'?'v276':(numberFor(c)>=1520&&numberFor(c)<=1533?'v274':'legacy');
+const num=id=>{const m=/^CARD-(\d{4,12})$/.exec(String(id||''));return m?Number(m[1]):null};
+function exactId(value=search?.value){
+ const s=String(value||'').trim().toUpperCase();
+ const n=/^(?:CARD-)?(\d{4,12})$/.exec(s);
+ if(n)return 'CARD-'+n[1];
+ if(/^(?:PROP-IJUI-\d{3}|IJUI-[A-Z0-9_-]+|TRT0[12]-C\d{3})$/.test(s))return s;
+ return '';
+}
 const limitFor=()=>({last10:10,last25:25,last50:50,last100:100})[recent.select.value]||0;
-function byId(a,b){
- const an=numberFor(a),bn=numberFor(b);
- if(an!==null&&bn!==null)return ordering.select.value==='asc'?an-bn:bn-an;
+function compareId(a,b,asc=false){
+ const an=num(a?.id),bn=num(b?.id);
+ if(an!==null&&bn!==null)return asc?an-bn:bn-an;
  if(an!==null)return -1;
  if(bn!==null)return 1;
- return String(a.id||'').localeCompare(String(b.id||''),'pt-BR',{numeric:true});
+ return String(a?.id||'').localeCompare(String(b?.id||''),'pt-BR',{numeric:true});
+}
+function dateKey(c){
+ let best='';
+ for(const v of [c?.last_editorial_modified_at,c?.last_related_at,c?.last_relationship_at,c?.created_at]){
+  if(typeof v!=='string'||!/^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(v))continue;
+  const day=v.slice(0,10),d=new Date(day+'T00:00:00Z');
+  if(!Number.isFinite(d.getTime())||d.toISOString().slice(0,10)!==day)continue;
+  if(day>best)best=day;
+ }
+ return best;
+}
+function compare(a,b){
+ const mode=ordering.select.value;
+ if(mode==='recent'){
+  const ad=dateKey(a),bd=dateKey(b);
+  return (ad===bd?0:ad>bd?-1:1)||compareId(a,b);
+ }
+ if(mode==='original')return 0;
+ return compareId(a,b,mode==='asc');
 }
 function filterAndSort(input){
- const mode=recent.select.value;
- let rows=Array.isArray(input)?input.slice():[];
- if(mode!=='all'){
-  rows=rows.filter(isCanonical);
-  if(mode==='v276'||mode==='v274')rows=rows.filter(c=>release(c)===mode);
-  if(mode==='v274v276')rows=rows.filter(c=>release(c)!=='legacy');
-  // Seleção dos últimos N considera primeiramente os IDs mais altos
-  // dentro do resultado dos filtros de busca/assunto, independentemente
-  // da ordenação escolhida para exibição.
-  const n=limitFor();
-  if(n)rows.sort((a,b)=>numberFor(b)-numberFor(a)).splice(n);
- }
- if(ordering.select.value!=='original'||mode!=='all'){
-  if(ordering.select.value==='original'){
-   // Para últimas seleções, ainda é importante mostrar primeiro os mais novos.
-   rows.sort((a,b)=>byNewest(a,b));
-  }else rows.sort(byId);
- }
- return rows;
-}
-function byNewest(a,b){
- const an=numberFor(a),bn=numberFor(b);
- if(an!==null&&bn!==null)return bn-an;
- if(an!==null)return -1;
- if(bn!==null)return 1;
- return String(a.id||'').localeCompare(String(b.id||''),'pt-BR',{numeric:true});
+ const rows=Array.isArray(input)?input.slice():[];
+ if(ordering.select.value!=='original')rows.sort(compare);
+ const n=limitFor();
+ return n&&!exactId()?rows.slice(0,n):rows;
 }
 function redraw(){
  if(typeof focusGroup!=='undefined')focusGroup='';
@@ -694,10 +694,11 @@ function redraw(){
 ordering.select.addEventListener('change',redraw);
 recent.select.addEventListener('change',redraw);
 const api=Object.freeze({
- filterAndSort,
+ filterAndSort,compare,exactId,dateKey,
+ reset(){ordering.select.value='desc';recent.select.value='all'},
  get active(){return ordering.select.value!=='original'||recent.select.value!=='all'},
  get limited(){return recent.select.value!=='all'},
- get limit(){return limitFor()||15},
+ get limit(){return limitFor()},
  get order(){return ordering.select.value},
  get recent(){return recent.select.value},
  get orderControl(){return ordering.select},

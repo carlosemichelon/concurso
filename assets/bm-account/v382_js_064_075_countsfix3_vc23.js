@@ -1032,6 +1032,7 @@ generalSel.onchange=()=>{state.general=generalSel.value;state.subject='all';stat
 subjectSel.onchange=()=>{state.subject=subjectSel.value;state.sub='all';apply()};
 subSel.onchange=()=>{state.sub=subSel.value;apply()};
 reset.onclick=()=>{
+ window.BM281CardSort?.reset?.();
  state.disc='all';state.general='all';state.subject='all';state.sub='all';
  if(byId('cardSearch'))byId('cardSearch').value='';
  for(const id of ['cardReviewedOnly','cardRecoveredOnly'])if(byId(id))byId(id).checked=false;
