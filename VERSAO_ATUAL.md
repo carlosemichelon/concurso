@@ -1,3 +1,7 @@
+## V452 — compatibilidade de grifos editoriais legados (27/11/2026)
+
+Validador de transição aceita somente metadados editoriais legados com correspondência textual e paleta confirmadas; mantém verificação de identidade, hashes e SRS. Leitor aplica grifos no conteúdo atual, sem duplicação, e permite consultar os módulos históricos já existentes de forma recolhida. Projeção privada e conteúdo do Drive não alterados. Testes locais de transição e apresentação; validação autenticada em produção depende da publicação e da sessão individual.
+
 VS57 — cache local: indicador real de bytes registrados / limite de 128 MiB, atualizado ao abrir configurações e após limpeza; avisos redundantes do Guia de Fórmulas removidos, botões úteis, fonte original, referências normativas e erros preservados.
 
 ## V448 / VS57 — estabilidade e desempenho (27/11/2026)

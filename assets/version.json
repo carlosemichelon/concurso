@@ -1,5 +1,5 @@
 {
-  "version": "V451",
+  "version": "V452",
   "base": "V349 — restauração de 207 cartões, integrada à V348 operacional",
   "updated_utc": "2026-11-28",
   "counts": {
@@ -7736,5 +7736,13 @@
     "private_data_modified": false,
     "validation": "Sintaxe, simulação de falha e nova tentativa; OAuth real e implantação efetiva pendentes.",
     "media_isolation": "Consultas separadas por tipo, classificação histórica tolerante a registros inválidos, cache de metadados de 60 segundos, lista anterior sinalizada durante falha de atualização, Assuntos apresenta cada resultado sem aguardar cartões; prévias iniciais limitadas a 8, até 3 simultâneas."
+  },
+  "release_v452": {
+    "scope": "Compatibilidade de grifos editoriais legados: validação de transições, aplicação seletiva no leitor e consulta aos módulos históricos preservados.",
+    "previous": "V451/VS58",
+    "srs_modified": false,
+    "private_data_modified": false,
+    "rollback": "325f9ef91e6bbab72bfc982133e30dedb5219cca",
+    "validation": "Candidata testada localmente; implantação e sessão autenticada a confirmar."
   }
 }

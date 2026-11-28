@@ -59,3 +59,20 @@ test('cache failures never block a validated network read',async()=>{
  const r=await readBrowserSnapshot({token:'mock',source:'https://drive.google.com/drive/folders/root',fetcher:folderFixture(),cache});
  assert.equal(r.cacheHit,false);assert.equal(r.records.length,1);
 });
+
+// V452: synthetic data only. Private study records are never committed.
+import {verifyEditorialOnlyUpdate} from '../infra/vs41-private/browser-drive-v436.mjs';
+test('legacy highlights accept exact declared metadata only, without changing content or SRS',()=>{
+ const original={id:'CARD-9999',back:'Exemplo de regra',expl:'Condição: teste',mnemonic:'Regra'};
+ const mark={text:'regra',kind:'core',color:'#FDE68A',bold:false};
+ const ref={file_id:'old-view',version:'VD01',sha256:'a'.repeat(64)};
+ const old={format:'BancoMestrePrivadoRecuperacaoV1',schema_version:1,status:'RECUPERACAO_PARCIAL',version:'old',private_snapshot:{srs:[{id:original.id}]},recovery:{srs_complete:false,editorial_view:ref,integrated_batches:[]}};
+ const oldView={version:'VD01',source:{},cards:[original],integrated_batches:[]};
+ const batch={id:'VD02-GRIFOS-LEGADOS',ids:[original.id],srs_modified:false};
+ const next={...structuredClone(old),version:'next',recovery:{...structuredClone(old.recovery),previous_editorial_view:ref,editorial_view:{file_id:'new-view',version:'VD02',sha256:'b'.repeat(64)},integrated_batches:[{...batch,delta_file_id:'delta',delta_sha256:'c'.repeat(64)}]}};
+ const view={...structuredClone(oldView),version:'VD02',source:{base_version:'VD01'},cards:[{...original,editorial_highlights:[mark]}],integrated_batches:[batch]};
+ assert.equal(verifyEditorialOnlyUpdate(next,view,old,oldView),true);
+ for(const mutate of [v=>v.cards[0].back+=' extra',v=>v.cards[0].editorial_highlights[0].text='ausente',v=>v.cards[0].editorial_highlights[0].color='#000000',v=>v.cards[0].editorial_highlights[0].bold=true,v=>v.cards[0].editorial_highlights.push({...mark})]){const invalid=structuredClone(view);mutate(invalid);assert.throws(()=>verifyEditorialOnlyUpdate(next,invalid,old,oldView),/transição/);}
+ const altered=structuredClone(next);altered.private_snapshot.srs[0].rating='alterado';assert.throws(()=>verifyEditorialOnlyUpdate(altered,view,old,oldView),/transição/);
+ const wrongIds=structuredClone(next);wrongIds.recovery.integrated_batches[0].editorial_ids=['CARD-0000'];assert.throws(()=>verifyEditorialOnlyUpdate(wrongIds,view,old,oldView),/transição/);
+});

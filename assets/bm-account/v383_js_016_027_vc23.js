@@ -1087,10 +1087,12 @@ function hide(){
  const restore=focusedBefore;focusedBefore=null;currentId='';
  restore?.focus?.({preventScroll:true});
 }
-function piece(title,text,cls){
+function piece(title,text,cls,editorialCard){
  if(text===undefined||text===null||String(text).trim()==='')return null;
  const box=create('section','bm163-piece'+(cls?' '+cls:''));
- box.append(create('h3','bm163-piece-title',title),create('p','bm163-piece-text',text));
+ const p=create('p','bm163-piece-text',text);
+ if(editorialCard)window.BM349?.decorateLegacyText?.(p,editorialCard);
+ box.append(create('h3','bm163-piece-title',title),p);
  return box;
 }
 function listPiece(title,items,format){
@@ -1132,9 +1134,9 @@ function appendAnswer(c){
     chunks[/(histórico|correç)/i.test(label)?'history':'sources'].push(copy);
    }else if(child.matches('a[href]'))chunks.sources.push(child.cloneNode(true));
   }
-  answer.append(direct||piece('Resposta original preservada',c.back,'bm163-essential'));
+  answer.append(direct||piece('Resposta original preservada',c.back,'bm163-essential',c));
   for(const [k,title,ic,open] of [
-   ['study','Conhecimento mínimo e resposta-modelo','file',!(/^CARD-\d{4}$/.test(c.id)&&!bm197Reserved.has(c.id))],
+   ['study','Conhecimento mínimo e resposta-modelo','file',!!c.editorial_highlights?.length||!(/^CARD-\d{4}$/.test(c.id)&&!bm197Reserved.has(c.id))],
    ['fix','Macetes, pegadinhas e lacunas','check',false],
    ['sources','Fundamentos, fontes e rastreabilidade','book',false],
    ['history','Histórico de tentativas e correções','clock',false],
@@ -1147,18 +1149,18 @@ function appendAnswer(c){
 
  answer.replaceChildren();
  const g=getGuide(c);
- const direct=piece('Verso original — resposta exata preservada',c.back||'Sem resposta cadastrada','bm163-essential');
+ const direct=piece('Verso original — resposta exata preservada',c.back||'Sem resposta cadastrada','bm163-essential',c);
  if(direct)answer.append(direct);
  const summary=group('Resposta aprofundada e compreensão','file',[
   piece('Conhecimento mínimo para acertar',g?.resposta_minima),
   piece('Resposta-modelo após correção',g?.resposta_modelo),
-  piece('Explicação da base',c.expl),
+  piece('Explicação da base',c.expl,'',c),
   piece('Aprofundamento da base geral',typeof generalGuide!=='undefined'?
     generalGuide?.por_id?.[c.id]?.ref:null)
- ],!(/^CARD-\d{4}$/.test(c.id)&&!bm197Reserved.has(c.id)));
+ ],!!c.editorial_highlights?.length||!(/^CARD-\d{4}$/.test(c.id)&&!bm197Reserved.has(c.id)));
  if(summary)answer.append(summary);
  const mn=group('Macetes, pegadinhas e lacunas','check',[
-  piece('Macete original',c.mnemonic),
+  piece('Macete original',c.mnemonic,'',c),
   listPiece('Macetes associados à questão',g?.macetes,m=>m.id+' — '+m.frase+' · '+m.interpretacao+(m.alerta?' · Atenção: '+m.alerta:'')),
   piece('Pegadinhas e exceções',g?.pegadinhas),
   listPiece('Lacunas de fixação',g?.lacunas,l=>l.id+' ('+l.prioridade+'; '+l.estado+') — '+l.fixar),
@@ -1327,6 +1329,12 @@ function bm197ShowEvolution(c){
    if(!Array.isArray(record.layers)||record.layers.length!==11||
       record.layers.some((x,i)=>x.ord!==i+1||!String(x.titulo||'').trim()||!String(x.texto||'').trim()))
     throw Error('Registro sem as 11 seções completas.');
+   if(record.historical){
+    const fold=create('details','bm197-historical-layers');fold.append(create('summary','','Consultar os 11 módulos históricos preservados'));
+    for(const layer of record.layers){const item=create('section','bm197-layer');item.append(create('h4','bm197-layer-title',layer.titulo));bm197RenderText(item,layer.texto);fold.append(item);}
+    heading.textContent='11 módulos históricos · '+c.id;
+    state.replaceChildren(fold);return;
+   }
    if(window.BM198Format?.render){
     // Mesmo renderizador para modal e grade: quadro informativo + 11 módulos por extenso.
     window.BM198Format.render(state,record,c.id);

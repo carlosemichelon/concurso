@@ -177,7 +177,7 @@
   const out=new Map();if(locked||!context)return out;
   let source;try{source=cards}catch{return out}
   if(!Array.isArray(source))return out;
-  for(const row of source){const layers=row.consolidation?.profile?.modules;if(row.active&&Array.isArray(layers)&&layers.length===11&&layers.every((m,i)=>m.ord===i+1&&typeof m.titulo==='string'&&m.titulo.trim()&&typeof m.texto==='string'&&m.texto.trim()))out.set(row.id,{id:row.id,layers:structuredClone(layers)});}
+  for(const row of source){const current=row.consolidation?.profile?.modules;const layers=current??row.private_legacy_layers;if(row.active&&Array.isArray(layers)&&layers.length===11&&layers.every((m,i)=>m.ord===i+1&&typeof m.titulo==='string'&&m.titulo.trim()&&typeof m.texto==='string'&&m.texto.trim()))out.set(row.id,{id:row.id,layers:structuredClone(layers),historical:!current});}
   return out;
  }
  Object.defineProperty(window,'BMVS41PrivateLayers',{value:Object.freeze({map:layerMap,get:id=>layerMap().get(id)||null})});

@@ -23,7 +23,18 @@ export function sourceSelection(value){
 // It never certifies a complete SRS or promotes provisional cards to private canonical identities.
 // Editorial-only checkpoints may retain the last private snapshot. Prove the
 // transition against the preceding hash-verified wrapper and editorial view.
-function verifyEditorialOnlyUpdate(wrapper,view,previous,previousView){
+const legacyPalette=Object.freeze({core:'#FDE68A',agent:'#BBF7D0',condition:'#BAE6FD',exception:'#FECDD3'});
+function validLegacyHighlights(c){
+ const marks=c?.editorial_highlights;
+ if(c?.consolidation?.profile||!Array.isArray(marks)||!marks.length||marks.length>128)return false;
+ const texts=[c.back,c.expl,c.mnemonic].filter(x=>typeof x==='string');
+ const seen=new Set();
+ return marks.every(m=>{
+  if(!m||typeof m.text!=='string'||!m.text.trim()||m.text.length>240||seen.has(m.text)||!Object.hasOwn(legacyPalette,m.kind)||m.color!==legacyPalette[m.kind]||m.bold!==false||Object.keys(m).some(k=>!['text','kind','color','bold'].includes(k))||!texts.some(t=>t.includes(m.text)))return false;
+  seen.add(m.text);return true;
+ });
+}
+export function verifyEditorialOnlyUpdate(wrapper,view,previous,previousView){
  const r=wrapper?.recovery,pr=previous?.recovery,rb=r?.integrated_batches,vb=view?.integrated_batches;
  const last=rb?.at(-1),vl=vb?.at(-1),hex=x=>typeof x==='string'&&/^[a-f0-9]{64}$/.test(x);
  const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
@@ -31,16 +42,19 @@ function verifyEditorialOnlyUpdate(wrapper,view,previous,previousView){
  const fail=()=>{throw Error('Recuperação privada: transição de grifos não comprovada')};
  if(previous?.format!=='BancoMestrePrivadoRecuperacaoV1'||previous.schema_version!==1||previous.status!=='RECUPERACAO_PARCIAL'||pr?.srs_complete!==false||!eq(r.previous_editorial_view,pr.editorial_view)||previousView?.version!==pr.editorial_view?.version||view?.source?.base_version!==previousView.version||view.version===previousView.version||wrapper.version===previous.version)fail();
  if(!eq(omit(wrapper,'version','updated','recovery'),omit(previous,'version','updated','recovery'))||!eq(omit(r,'editorial_view','previous_editorial_view','integrated_batches'),omit(pr,'editorial_view','previous_editorial_view','integrated_batches')))fail();
- if(!Array.isArray(rb)||!Array.isArray(vb)||!eq(rb.slice(0,-1),pr.integrated_batches)||!eq(vb.slice(0,-1),previousView.integrated_batches)||!/^VD\d+-GRIFOS-/.test(last?.id||'')||last.id!==vl?.id||last.id.split('-')[0]!==view.version.split('_')[0]||last.srs_modified!==false||vl.srs_modified!==false||!validId(last.delta_file_id)||!hex(last.delta_sha256)||!Array.isArray(last.editorial_ids)||!eq(last.editorial_ids,vl.ids))fail();
+ const batchIds=last?.editorial_ids??last?.ids;
+ if(last?.editorial_ids!==undefined&&last?.ids!==undefined&&!eq(last.editorial_ids,last.ids))fail();
+ if(!Array.isArray(rb)||!Array.isArray(vb)||!eq(rb.slice(0,-1),pr.integrated_batches)||!eq(vb.slice(0,-1),previousView.integrated_batches)||!/^VD\d+-GRIFOS-/.test(last?.id||'')||last.id!==vl?.id||last.id.split('-')[0]!==view.version.split('_')[0]||last.srs_modified!==false||vl.srs_modified!==false||!validId(last.delta_file_id)||!hex(last.delta_sha256)||!Array.isArray(batchIds)||!eq(batchIds,vl.ids))fail();
  if(!eq(omit(view,'version','source','integrated_batches','cards'),omit(previousView,'version','source','integrated_batches','cards'))||!Array.isArray(view.cards)||!Array.isArray(previousView.cards)||view.cards.length!==previousView.cards.length)fail();
  const changed=[];
  const withoutHighlights=c=>({...c,consolidation:{...c.consolidation,profile:{...c.consolidation?.profile,editorial:omit(c.consolidation?.profile?.editorial,'highlights')}}});
  for(let i=0;i<view.cards.length;i++){
   const a=previousView.cards[i],b=view.cards[i];if(eq(a,b))continue;
-  if(!a?.consolidation?.profile?.editorial||!b?.consolidation?.profile?.editorial||!eq(withoutHighlights(a),withoutHighlights(b)))fail();
+  if(a?.consolidation?.profile?.editorial&&b?.consolidation?.profile?.editorial){if(!eq(withoutHighlights(a),withoutHighlights(b)))fail();}
+  else if(a?.consolidation?.profile||b?.consolidation?.profile||!validLegacyHighlights(b)||!eq(omit(a,'editorial_highlights'),omit(b,'editorial_highlights')))fail();
   changed.push(b.id);
  }
- if(!changed.length||new Set(last.editorial_ids).size!==last.editorial_ids.length||!eq([...changed].sort(),[...last.editorial_ids].sort()))fail();
+ if(!changed.length||new Set(batchIds).size!==batchIds.length||!eq([...changed].sort(),[...batchIds].sort()))fail();
  return true;
 }
 export function verifyRecoverySnapshot(wrapper,view,editorialProof=false){
@@ -75,8 +89,14 @@ export function verifyRecoverySnapshot(wrapper,view,editorialProof=false){
  ensure(Array.isArray(entries)&&entries.length===n.operational_sources&&new Set(entries.map(x=>x.id)).size===entries.length,'registro operacional divergente');
  const operational=new Map(entries.map(x=>[x.id,x])),states=new Set(['PROPOSTA_OPERACIONAL_PROVISORIA','CARTAO_OPERACIONAL_IDENTIFICADO_SEM_MAPEAMENTO_CARD','NUCLEO_PUBLICADO_COM_FONTE_PRIVADA_CANDIDATA','ID_PUBLICADO_COM_RESERVA_PRIVADA_ESPECIFICA','ID_PUBLICADO_COM_MAPA_PRIVADO_DO_DELTA']);
  for(const card of visible){
+  ensure(!Object.hasOwn(card,'private_legacy_layers'),'módulos históricos não podem vir da projeção');
+  if(Object.hasOwn(card,'editorial_highlights'))ensure(validLegacyHighlights(card),'grifos legados inválidos');
   const prior=old.get(card.id);
-  if(prior){ensure(prior.active&&same(prior,card)&&!operational.has(card.id),'identidade privada divergente');matched.add(card.id);continue;}
+  if(prior){ensure(prior.active&&same(prior,card)&&!operational.has(card.id),'identidade privada divergente');matched.add(card.id);
+   // Read-only, account-local historical layers; never promote them to the current editorial profile.
+   const layers=prior.evolutive?.layers;
+   if(card.editorial_highlights&&Array.isArray(layers)&&layers.length===11&&layers.every((m,i)=>m.ord===i+1&&typeof m.titulo==='string'&&m.titulo.trim()&&typeof m.texto==='string'&&m.texto.trim()))card.private_legacy_layers=structuredClone(layers);
+   continue;}
   const op=operational.get(card.id);
   ensure(op&&same(op,card)&&states.has(op.scope)&&op.srs_transfer===false&&op.source_key===card.id&&validId(op.source_file_id)&&hex(op.source_sha256_local_export),'identidade operacional sem fonte');
   if(op.scope==='PROPOSTA_OPERACIONAL_PROVISORIA')ensure(card.provisional===true&&card.canonical===false&&op.private_source_record?.Frente_proposta===card.front&&op.private_source_record?.Verso_proposto===card.back,'proposta provisória divergente');
