@@ -136,10 +136,21 @@ test('SRS histórico recupera datas exatas sem promover catálogo anterior e sem
  assert.match(agenda.records[0].source,/V193/);assert.equal(writes.length,0);
 });
 
- test('Atualizar imagens e PDFs consulta novamente o Drive; leitura normal reutiliza a mesma varredura',async()=>{
- const delegate=fixture('A');let scans=0;const fetcher=(url,opts)=>{const u=new URL(url);const q=u.searchParams.get('q')||'';if(q.includes("mimeType contains 'image/'")){assert.ok(!q.includes(' in parents'),'Não consultar pasta por pasta');scans++;}return delegate(url,opts)};
- const a=await connectAccount({token:'A',fetcher});await a.images();const initial=scans;assert.equal(initial,1);await a.pdfs();assert.equal(scans,initial);await Promise.all([a.images(true),a.pdfs(true)]);assert.equal(scans,initial+1);
- });
+test('Imagens e PDFs têm varreduras independentes, cache por biblioteca e atualização explícita',async()=>{
+ const delegate=fixture('A'),scans={pdf:0,image:0};
+ const fetcher=(url,opts)=>{const q=new URL(url).searchParams.get('q')||'';
+  const pdf=q.includes("mimeType = 'application/pdf'"),image=q.includes("mimeType contains 'image/'");
+  if(pdf||image){assert.ok(!q.includes(' in parents'),'Não consultar pasta por pasta');assert.notEqual(pdf,image,'Consultas de mídia devem ser independentes');scans[pdf?'pdf':'image']++;}
+  return delegate(url,opts);
+ };
+ const a=await connectAccount({token:'A',fetcher});
+ assert.deepEqual((await a.images()).map(x=>x.id),['imgA','svgA']);
+ assert.deepEqual(scans,{pdf:0,image:1});
+ assert.deepEqual((await a.pdfs()).map(x=>x.id),['pdfA']);
+ assert.deepEqual(scans,{pdf:1,image:1});
+ await Promise.all([a.images(),a.pdfs()]);assert.deepEqual(scans,{pdf:1,image:1});
+ await Promise.all([a.images(true),a.pdfs(true)]);assert.deepEqual(scans,{pdf:2,image:2});
+});
 
 test('índice exclui pastas de backup, externas e compartilhadas; não grava nem baixa originais durante a consulta',async()=>{
  const writes=[],delegate=fixture('A',{writable:true,writes,indexEdgeCases:true});let indexCalls=0,downloads=0;const fetcher=(url,opt)=>{const u=new URL(url);if(u.searchParams.get('q')?.includes("mimeType contains 'image/'"))indexCalls++;if(u.searchParams.has('alt')&&/\/(?:pdf|img|svg)A$/.test(u.pathname))downloads++;return delegate(url,opt)};

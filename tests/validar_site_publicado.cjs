@@ -6,7 +6,8 @@ const base='https://carlosemichelon.github.io/concurso/';
 const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'../assets/version.json'),'utf8'));
 const version=manifest.version;
 if(!/^V\d{3}$/.test(version))throw Error('Versão local inválida');
-const file='v'+version.slice(1)+'.html';
+const file=manifest.home;
+if(typeof file!=='string'||! /^(?:index|v\d{3})\.html$/.test(file))throw Error('Página inicial inválida no manifesto');
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const suffix='?verificacao='+encodeURIComponent(version)+'-'+Date.now();
 async function text(url){
@@ -25,6 +26,8 @@ async function verify(){
  const online=JSON.parse(versionText);
  assert.equal(online.version,version,'CDN ainda não publica a versão esperada');
  assert.equal(online.home,file,'página inicial informada pelo manifesto é inconsistente');
+ assert.equal(online.component_versions?.site?.technical_version,manifest.component_versions?.site?.technical_version,'Versão técnica do componente publicado divergente');
+ assert.deepEqual(online.component_versions?.site,manifest.component_versions?.site,'Componente site publicado divergente');
  assert.ok(index.includes('data-bm-portal-version="'+version+'"')||index.includes("var fallback='"+version+"'"),'entrada do index não corresponde à versão');
  const site=manifest.component_versions?.site;
  if(site?.version&&site?.technical_version===version){
