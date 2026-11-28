@@ -453,12 +453,13 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   if(Number(f.size||0)>15000000)return {visible:false,reason:'acima de 15 MB'};
   return {visible:true,originVerified:original};
  }
- let mediaIndex=null,mediaPending=null,mediaAudit={indexedPdfs:0,foundIndexedPdfs:0,legacyPdfs:0};
- const media=async(fresh=false)=>{if(mediaPending)return mediaPending;if(mediaIndex&&!fresh)return mediaIndex;mediaPending=scanMedia();try{return await mediaPending}finally{mediaPending=null}};
+ let mediaIndex=null,mediaPending=null,mediaCatalogRef=null,mediaAudit={indexedPdfs:0,foundIndexedPdfs:0,legacyPdfs:0};
+ const media=async(fresh=false)=>{if(mediaPending)return mediaPending;if(mediaIndex&&!fresh&&mediaCatalogRef===snapshot)return mediaIndex;mediaPending=scanMedia();try{return await mediaPending}finally{mediaPending=null}};
  // Query Google's indexed metadata once, instead of opening each folder.
  // Other account files are never returned or retained in the bank index.
  const scanMedia=async()=>{
-  if(readEditorialIndex)await loadCatalog();
+  // Files are authorized by account and ancestry; card links are optional until verified.
+  let classifiedAgainst=null;
   const out=new Map();
   const reportProgress=(phase,extra={})=>{if(signal?.aborted)return;const doc=globalThis.document;if(doc&&typeof globalThis.CustomEvent==='function')doc.dispatchEvent(new CustomEvent('bm-private-media-progress',{detail:{phase,files:out.size,...extra}}))};
   reportProgress('index',{page:0});
@@ -511,7 +512,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
    }
    const indexedIds=new Set(pdfRows.map(row=>row.file_id).filter(validId));mediaAudit={indexedPdfs:indexedIds.size,foundIndexedPdfs:[...indexedIds].filter(id=>out.has(id)).length,legacyPdfs:legacyCount};
    const groupNames={eng_seguranca:'Engenharia Civil · Segurança do Trabalho',eng_hidraulica:'Engenharia Civil · Hidráulica e Saneamento',eng_estruturas:'Engenharia Civil · Estruturas',eng_ambiental:'Engenharia Civil · Meio Ambiente',eng_geotecnia:'Engenharia Civil · Geotecnia',eng_materiais:'Engenharia Civil · Materiais',eng_outros:'Engenharia Civil',leg_geral:'Legislação',met_portal:'Metodologia e interface'};
-   const ids=new Set(records.filter(c=>c.active).map(c=>c.id));
+   classifiedAgainst=snapshot;
+   const ids=new Set((classifiedAgainst?.records||[]).filter(c=>c.active).map(c=>c.id));
    const str=x=>typeof x==='string'?x.trim():'';
    const links=a=>Array.isArray(a)?a.filter(x=>ids.has(x)):[];
    for(const item of out.values()){
@@ -546,7 +548,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     if(g&&a){item.classified=true;item.catalogGroup={id:g.id,label:g.label,subtitle:g.subtitle,order:g.order,area:g.area,areaLabel:a.label,areaDescription:a.description};}
    }
   }
-  mediaIndex=out;reportProgress('complete');return out};
+  mediaIndex=out;mediaCatalogRef=classifiedAgainst;reportProgress('complete');return out};
  // SVG is consumed only as an image URL; preserve original bytes for annotation hashes.
  // Reject active content, external resources, and XML entities before any rendering.
  function validateSvgImage(bytes){
