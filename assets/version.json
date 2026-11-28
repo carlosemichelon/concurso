@@ -1,5 +1,5 @@
 {
-  "version": "V453",
+  "version": "V454",
   "base": "V349 — restauração de 207 cartões, integrada à V348 operacional",
   "updated_utc": "2026-11-28",
   "counts": {
@@ -125,7 +125,7 @@
     "answer_initially_hidden": true,
     "version": "V060"
   },
-  "previous_version": "V452",
+  "previous_version": "V453",
   "style_sheet": "assets/v118_ui_compact.css",
   "image_editor_default_tool": "pan",
   "image_editor_script": "assets/editor_imagens_v053.js",
@@ -1871,13 +1871,13 @@
   "source_base_note": "V194 é o catálogo público carregado atualmente; V022 é uma referência histórica de linhagem, mantida em source_base_legacy.",
   "current_versions": {
     "portal": {
-      "version": "V453",
+      "version": "V454",
       "home": "index.html",
-      "previous": "V452",
+      "previous": "V453",
       "branch": "gh-pages",
-      "display_version": "VS59",
-      "previous_manifest_version": "V452",
-      "maintenance_revision": "rollback-sealed-1"
+      "display_version": "VS60",
+      "previous_manifest_version": "V453",
+      "maintenance_revision": "display-version-1"
     },
     "public_cards": {
       "version": "V194",
@@ -6077,10 +6077,10 @@
   },
   "component_versions": {
     "site": {
-      "version": "VS59",
-      "technical_version": "V453",
+      "version": "VS60",
+      "technical_version": "V454",
       "home": "index.html",
-      "maintenance_revision": "rollback-sealed-1"
+      "maintenance_revision": "display-version-1"
     },
     "cards": {
       "version": "VC52",
@@ -7603,7 +7603,7 @@
     "private_content_exported": false,
     "rollback": "VC51"
   },
-  "site_version": "VS59",
+  "site_version": "VS60",
   "release_v434": {
     "scope": "V434 / VS43 — 26/11/2026: consolida janelas compactas, painéis de estudo e lacunas alinhados, contagem de imagens indexadas, consultas compartilhadas e cache IndexedDB opcional com revalidação remota. Login, logout, proteção de Redação, catálogo VC52 e histórico SRS preservados. Homologação real e conciliação integral do SRS pendentes.",
     "previous": "V433/VS42",
@@ -7758,5 +7758,10 @@
     "validation": "Testes locais do leitor com dados simulados e com o checkpoint privado vigente; OAuth real pendente.",
     "maintenance_revision": "rollback-sealed-1",
     "manifest_reconciled": true
+  },
+  "release_v454": {
+    "scope": "Exibição curta da versão editorial privada validada, sem alterar o identificador técnico, catálogo, ponteiro, recuperação ou SRS.",
+    "previous": "V453",
+    "display_version": "VS60"
   }
 }
