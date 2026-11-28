@@ -63,3 +63,38 @@ test('modo visitante não aguarda login nem recarrega por falha inicial',async()
  assert.ok(!client.includes('check().catch(()=>{location.reload()})'));
  assert.ok(connection.includes('deferCatalog:true'));
 });
+
+test('imagens e PDFs consultam índices independentes e toleram classificação inválida',async()=>{
+ const folderType='application/vnd.google-apps.folder';
+ const common={ownedByMe:true,shared:false,trashed:false,version:'1'};
+ const root={...common,id:'root',name:'DataBase_Concurso',mimeType:folderType,parents:[]};
+ const atlas={...common,id:'atlas',name:'Atlas de Imagens',mimeType:folderType,parents:['root']};
+ const pdf={...common,id:'pdf1',name:'Estruturas.pdf',mimeType:'application/pdf',parents:['root'],size:'20'};
+ const image={...common,id:'image1',name:'Viga.png',mimeType:'image/png',parents:['atlas'],size:'20'};
+ const pdf2={...pdf,id:'pdf2',name:'Solos.pdf'};
+ let brokenImages=true,added=false;
+ const fetcher=async input=>{
+  const u=new URL(input);
+  if(u.pathname.endsWith('/about'))return Response.json({user:{permissionId:'test-account',displayName:'Teste'}});
+  if(u.pathname.endsWith('/files/root'))return Response.json(root);
+  if(u.pathname.endsWith('/files')){
+   const q=u.searchParams.get('q')||'';
+   if(q.includes("mimeType = 'application/pdf'"))return Response.json({files:[root,pdf,...(added?[pdf2]:[])]});
+   if(q.includes("mimeType contains 'image/'"))return brokenImages?new Response(null,{status:503}):Response.json({files:[root,atlas,image]});
+  }
+  return new Response(null,{status:404});
+ };
+ const readEditorialIndex=async path=>{
+  if(path.includes('pdf_catalog'))return {format:'BancoMestrePDFCatalogV140',documents:[null,{file_id:'pdf1',title:'Estruturas'}]};
+  if(path.includes('pdf_grupos'))return {format:'BancoMestrePDFGroupsV140',groups:{malformed:true},areas:[null],assigned:'invalid'};
+  if(path.includes('v211'))return {schema:'BancoMestrePublishedDriveImagesV211',records:[null,{driveFileId:'image1',title:'Viga'}]};
+  return null;
+ };
+ const p=await connectAccount({token:'test-token',rootId:'root',fetcher,deferCatalog:true,readEditorialIndex});
+ const results=await Promise.allSettled([p.pdfs(),p.images()]);
+ assert.equal(results[0].status,'fulfilled');assert.equal(results[0].value[0].id,'pdf1');
+ assert.equal(results[1].status,'rejected');assert.equal(p.snapshot,null);
+ added=true;assert.equal((await p.pdfs(true)).length,2);
+ brokenImages=false;assert.equal((await p.images(true))[0].id,'image1');
+ assert.equal(p.snapshot,null);
+});
