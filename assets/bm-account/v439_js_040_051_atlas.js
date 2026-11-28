@@ -475,7 +475,7 @@ window.BM218ImageMetadata=Object.freeze({
  const aliases=new Map(),urls=new Map(),downloads=new Map();
  const validToken=()=>window.BMVS41Session?.available()===true;
  const idOf=f=>f.id,title=f=>f.title;
- const info=f=>({displayTitle:f.classified?f.title:(window.BM218ImageMetadata?.friendly(f.filename||f.title)||'Imagem sem título descritivo'),fileName:f.filename||f.title,area:f.area,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,description:f.description,detail:'',note:'',cards:f.card_ids,classified:f.classified===true,indexed:f.indexed===true});
+ const info=f=>({displayTitle:f.classified?f.title:(window.BM218ImageMetadata?.friendly(f.filename||f.title)||'Imagem sem título descritivo'),fileName:f.filename||f.title,area:f.area,subject:f.subject,subsubject:f.subsubject,group:f.editorialGroup||f.area,description:f.description,detail:'',note:'',cards:f.card_ids,classified:f.classified===true,indexed:f.indexed===true,classificationBasis:f.classificationBasis||''});
  function msg(s,error){const x=$('bm084-status');if(x){x.textContent=s;x.style.color=error?'#953b32':'#315e57'}}
  function release(){generation++;for(const x of urls.values())URL.revokeObjectURL(x);urls.clear();downloads.clear()}
  async function getImageUrl(file){
@@ -597,6 +597,8 @@ function render(){
   const h=el('h4','',m.displayTitle);h.style.cssText='font-size:13px;line-height:1.3;margin:7px 0;overflow-wrap:anywhere';
   const category=el('div','',m.classified?[m.area,m.subject,m.subsubject].filter(Boolean).join(' / '):'Assunto pendente de classificação');
   category.style.cssText='font-size:11px;color:#436469;margin:5px 0;overflow-wrap:anywhere';
+  if(m.classificationBasis==='nome_descritivo_pendente_inspecao')category.append(el('small','',' — Provisória: conferência visual pendente'));
+  else if(m.classificationBasis==='inspecao_visual')category.append(el('small','',' — Tema conferido visualmente'));
   const actions=el('div','');actions.style.cssText='display:flex;gap:8px;flex-wrap:wrap;margin-top:8px';
   const open=el('button','','Abrir imagem');open.type='button';open.style.fontSize='12px';open.onclick=()=>{void openImage(file)};
   actions.className='bm422-image-actions';actions.append(open);
