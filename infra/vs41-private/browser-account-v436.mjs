@@ -453,17 +453,29 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   if(Number(f.size||0)>15000000)return {visible:false,reason:'acima de 15 MB'};
   return {visible:true,originVerified:original};
  }
- let mediaIndex=null,mediaPending=null,mediaCatalogRef=null,mediaAudit={indexedPdfs:0,foundIndexedPdfs:0,legacyPdfs:0};
- const media=async(fresh=false)=>{if(mediaPending)return mediaPending;if(mediaIndex&&!fresh&&mediaCatalogRef===snapshot)return mediaIndex;mediaPending=scanMedia();try{return await mediaPending}finally{mediaPending=null}};
+ // Independent, session-local metadata caches; refresh is coalesced per library.
+ const mediaStates={pdf:{index:null,pending:null,at:0,ref:null},image:{index:null,pending:null,at:0,ref:null}};
+ let mediaAudit={indexedPdfs:0,foundIndexedPdfs:0,legacyPdfs:0};
+ const media=async(fresh=false,kind='all')=>{
+  if(kind==='all'){
+   const [pdf,image]=await Promise.all([media(fresh,'pdf'),media(fresh,'image')]);
+   return new Map([...pdf,...image]);
+  }
+  const state=mediaStates[kind];
+  if(state.pending)return state.pending;
+  if(state.index&&!fresh&&state.ref===snapshot&&Date.now()-state.at<60000)return state.index;
+  const ref=snapshot;
+  state.pending=scanMedia(kind,ref).then(index=>{state.index=index;state.ref=ref;state.at=Date.now();return index;});
+  try{return await state.pending}finally{state.pending=null}
+ };
  // Query Google's indexed metadata once, instead of opening each folder.
  // Other account files are never returned or retained in the bank index.
- const scanMedia=async()=>{
+ const scanMedia=async(kind,classifiedAgainst)=>{
   // Files are authorized by account and ancestry; card links are optional until verified.
-  let classifiedAgainst=null;
   const out=new Map();
   const reportProgress=(phase,extra={})=>{if(signal?.aborted)return;const doc=globalThis.document;if(doc&&typeof globalThis.CustomEvent==='function')doc.dispatchEvent(new CustomEvent('bm-private-media-progress',{detail:{phase,files:out.size,...extra}}))};
   reportProgress('index',{page:0});
-  const rows=await list("mimeType = '"+folder+"' or mimeType = 'application/pdf' or mimeType contains 'image/'",{skipNonPrivate:true,onPage:page=>reportProgress('index',page)});
+  const rows=await list("mimeType = '"+folder+"' or "+(kind==='pdf'?"mimeType = 'application/pdf'":"mimeType contains 'image/'"),{skipNonPrivate:true,onPage:page=>reportProgress('index',page)});
   if(signal?.aborted)throw Error('Sessão encerrada');
   const byId=new Map(rows.map(f=>[f.id,f]));byId.set(root.id,root);
   // Resolve actual ancestry by stable IDs; names alone never authorize access.
@@ -484,7 +496,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   };
   for(const f of rows){
    if(f.appProperties?.bm_kind==='bm_annotated_pdf_v436'||f.appProperties?.bm_format==='BancoMestreV042')continue;
-   if(f.mimeType!=='application/pdf'&&!/^image\/(?:png|jpeg|webp|gif|svg\+xml)$/.test(f.mimeType))continue;
+   if(kind==='pdf'?f.mimeType!=='application/pdf':!/^image\/(?:png|jpeg|webp|gif|svg\+xml)$/.test(f.mimeType))continue;
    const location=ancestry(f);if(!location)continue;
    const {path,inAtlas}=location,parent=path.at(-2)||'';
    const policy=f.mimeType.startsWith('image/')?atlasImagePolicy(f,path,inAtlas):null;
@@ -501,8 +513,15 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     ['assets/pdf_catalog_v149.json','format','BancoMestrePDFCatalogV140'],
     ['assets/pdf_grupos_v149.json','format','BancoMestrePDFGroupsV140']
    ];
-   const packs=await Promise.all(sources.map(async ([path,key,schema])=>{try{const p=await readEditorialIndex(path);return p?.[key]===schema?p:null}catch{return null}}));
-   const pdfRows=Array.isArray(packs[3]?.documents)?packs[3].documents:[];
+   const rowsOf=a=>Array.isArray(a)?a.filter(x=>x&&typeof x==='object'&&!Array.isArray(x)):[];
+   const packs=await Promise.all(sources.map(async ([path,key,schema],i)=>{
+    if(kind==='pdf'?i<3:i>=3)return null;
+    let timer;try{
+     const p=await Promise.race([readEditorialIndex(path),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Índice histórico indisponível')),5000)})]);
+     return p?.[key]===schema?p:null;
+    }catch{return null}finally{clearTimeout(timer)}
+   }));
+   const pdfRows=rowsOf(packs[3]?.documents);
    const legacyCandidates=[...new Set(pdfRows.map(row=>row.file_id).filter(id=>validId(id)&&!out.has(id)))];
    let legacyCount=0;
    if(root.name==='DataBase_Concurso')for(const id of legacyCandidates){
@@ -510,9 +529,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     const location=ancestry(f,true);if(!location)continue;const {path}=location;
     out.set(id,{id,title:f.name,section:path.at(-2)||'Acervo histórico',category:'PDF',area:path[0],subject:path.at(-2)||'',subsubject:'',description:'',card_ids:[],mimeType:f.mimeType,path,legacyReadOnly:true});legacyCount++;
    }
-   const indexedIds=new Set(pdfRows.map(row=>row.file_id).filter(validId));mediaAudit={indexedPdfs:indexedIds.size,foundIndexedPdfs:[...indexedIds].filter(id=>out.has(id)).length,legacyPdfs:legacyCount};
+   const indexedIds=new Set(pdfRows.map(row=>row.file_id).filter(validId));if(kind==='pdf')mediaAudit={indexedPdfs:indexedIds.size,foundIndexedPdfs:[...indexedIds].filter(id=>out.has(id)).length,legacyPdfs:legacyCount};
    const groupNames={eng_seguranca:'Engenharia Civil · Segurança do Trabalho',eng_hidraulica:'Engenharia Civil · Hidráulica e Saneamento',eng_estruturas:'Engenharia Civil · Estruturas',eng_ambiental:'Engenharia Civil · Meio Ambiente',eng_geotecnia:'Engenharia Civil · Geotecnia',eng_materiais:'Engenharia Civil · Materiais',eng_outros:'Engenharia Civil',leg_geral:'Legislação',met_portal:'Metodologia e interface'};
-   classifiedAgainst=snapshot;
    const ids=new Set((classifiedAgainst?.records||[]).filter(c=>c.active).map(c=>c.id));
    const str=x=>typeof x==='string'?x.trim():'';
    const links=a=>Array.isArray(a)?a.filter(x=>ids.has(x)):[];
@@ -521,7 +539,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     if(item.mimeType.startsWith('image/')){item.category='Imagem';item.folderArea=item.area;item.folderSubject=item.subject;item.area='';item.subject='';}
    }
    for(let i=0;i<3;i++){
-    for(const row of Array.isArray(packs[i]?.records)?packs[i].records:[]){
+    for(const row of rowsOf(packs[i]?.records)){
      const item=out.get(row.driveFileId);
      if(!item?.mimeType.startsWith('image/'))continue;
      item.indexed=true;
@@ -535,10 +553,10 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
      item.card_ids=[...new Set([...item.card_ids,...links(i===0?row.cardIds:i===1?row.cards:row.originalCardIds)])];
     }
    }
-   const pdfGroups=new Map((packs[4]?.groups||[]).map(x=>[x.id,x]));
-   const pdfAreas=new Map((packs[4]?.areas||[]).map(x=>[x.id,x]));
-   const assignments=new Map((packs[4]?.assigned||[]).map(x=>[x.id,x.group]));
-   for(const row of packs[3]?.documents||[]){
+   const pdfGroups=new Map(rowsOf(packs[4]?.groups).map(x=>[x.id,x]));
+   const pdfAreas=new Map(rowsOf(packs[4]?.areas).map(x=>[x.id,x]));
+   const assignments=new Map(rowsOf(packs[4]?.assigned).map(x=>[x.id,x.group]));
+   for(const row of pdfRows){
     const item=out.get(row.file_id);
     if(item?.mimeType!=='application/pdf')continue;
     const g=pdfGroups.get(assignments.get(row.id)),a=pdfAreas.get(g?.area);
@@ -548,7 +566,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
     if(g&&a){item.classified=true;item.catalogGroup={id:g.id,label:g.label,subtitle:g.subtitle,order:g.order,area:g.area,areaLabel:a.label,areaDescription:a.description};}
    }
   }
-  mediaIndex=out;mediaCatalogRef=classifiedAgainst;reportProgress('complete');return out};
+  reportProgress('complete');return out};
  // SVG is consumed only as an image URL; preserve original bytes for annotation hashes.
  // Reject active content, external resources, and XML entities before any rendering.
  function validateSvgImage(bytes){
@@ -572,7 +590,9 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  signal?.addEventListener('abort',()=>{imageCache.clear();imageFlights.clear();imageCacheBytes=0},{once:true});
  const readMedia=async id=>{
   if(signal?.aborted)throw Error('Sessão encerrada');
-  const item=(await media()).get(id);if(!item)throw Error('Mídia fora da biblioteca individual');
+  const m=await meta(id);const kind=m.mimeType==='application/pdf'?'pdf':m.mimeType?.startsWith('image/')?'image':null;
+  if(!kind)throw Error('Tipo de mídia não autorizado');
+  const item=(await media(false,kind)).get(id);if(!item)throw Error('Mídia fora da biblioteca individual');
   const image=item.mimeType.startsWith('image/');
   if(image&&imageFlights.has(id))return imageFlights.get(id);
   const read=async()=>{
@@ -607,7 +627,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  const hashes=new Map();
  const pdfIdentity=async(id,page)=>{
   if(!validId(id)||!Number.isSafeInteger(page)||page<1||page>100000)fail('PDF ou página inválida');
-  const item=(await media()).get(id);if(item?.mimeType!=='application/pdf')fail('PDF fora da biblioteca individual');
+  const item=(await media(false,'pdf')).get(id);if(item?.mimeType!=='application/pdf')fail('PDF fora da biblioteca individual');
   const m=await meta(id),previous=hashes.get(id);
   if(previous&&previous.version===m.version)return previous.hash;
   const bytes=await readMedia(id),hash=await digest(await bytes.arrayBuffer()),again=await meta(id);
@@ -717,7 +737,7 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
  // Image ink was browser-local in the legacy editor. Persist explicit edits as small,
  // private versioned files keyed to the authenticated Drive image and its actual bytes.
  const imageIdentity=async id=>{
-  if(!validId(id)||!/^image\/(?:png|jpeg|webp|gif|svg\+xml)$/.test((await media()).get(id)?.mimeType||''))fail('Imagem fora da biblioteca individual');
+  if(!validId(id)||!/^image\/(?:png|jpeg|webp|gif|svg\+xml)$/.test((await media(false,'image')).get(id)?.mimeType||''))fail('Imagem fora da biblioteca individual');
   const m=await meta(id),previous=hashes.get(id);
   if(previous&&previous.version===m.version)return previous.hash;
   const blob=await readMedia(id),hash=await digest(await blob.arrayBuffer()),again=await meta(id);
@@ -792,8 +812,8 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   const set=(key,state,message)=>{modules[key]={state,message};(state==='verified'?notes:state==='pending'?pending:warnings).push(message)};
   const check=async(key,fn)=>{try{const result=await fn();set(key,result.state||'verified',result.message)}catch(e){set(key,e.status===409?'conflict':'error',String(e.message||e).slice(0,350))}};
   await check('connection',async()=>{await meta(root.id);return {message:'Pasta individual consultada; '+(write?'escopo de gravação autorizado (sem teste de escrita)':'somente leitura')}});
-  await check('pdfs',async()=>{const items=await media(true);const detail=mediaAudit.indexedPdfs?' · '+mediaAudit.foundIndexedPdfs+' de '+mediaAudit.indexedPdfs+' IDs do catálogo localizados; '+mediaAudit.legacyPdfs+' originais históricos recuperados':'';return {message:'PDFs: '+[...items.values()].filter(x=>x.mimeType==='application/pdf').length+' arquivos listados'+detail+' (conteúdo não baixado)'}});
-  await check('atlas',async()=>{if(modules.pdfs.state!=='verified')throw Error('Consulta de mídias não confirmada');const all=[...(await media()).values()].filter(x=>x.mimeType.startsWith('image/')),visible=all.filter(x=>x.atlasVisible===true);return {message:visible.length+' imagens no Atlas e originais recuperados; '+(all.length-visible.length)+' arquivos fora do acervo de estudo ou filtrados (preservados no Drive)'}});
+  await check('pdfs',async()=>{const items=await media(true,'pdf');const detail=mediaAudit.indexedPdfs?' · '+mediaAudit.foundIndexedPdfs+' de '+mediaAudit.indexedPdfs+' IDs do catálogo localizados; '+mediaAudit.legacyPdfs+' originais históricos recuperados':'';return {message:'PDFs: '+[...items.values()].filter(x=>x.mimeType==='application/pdf').length+' arquivos listados'+detail+' (conteúdo não baixado)'}});
+  await check('atlas',async()=>{const all=[...(await media(true,'image')).values()].filter(x=>x.mimeType.startsWith('image/')),visible=all.filter(x=>x.atlasVisible===true);return {message:visible.length+' imagens no Atlas e originais recuperados; '+(all.length-visible.length)+' arquivos fora do acervo de estudo ou filtrados (preservados no Drive)'}});
   await check('control',async()=>{const p=await study();return p.revision===null?{state:'pending',message:'Controle: não existe arquivo mestre; nenhum registro gravado pela conferência'}:{message:'Controle: '+p.data.sessions.length+' sessões; mestre lido e validado'}});
   await check('backup',async()=>{
    const files=await list("mimeType = 'application/json' and appProperties has { key='bm_kind' and value='bm_controle_estudos_v245_backup' }");
@@ -813,5 +833,5 @@ export async function connectAccount({token,fetcher=fetch,signal,allowEditorial=
   await check('grifos',async()=>{const p=await grifos();return p.file?{message:'Grifos: mestre V104 lido e validado; sem alteração das marcações'}:{state:'pending',message:'Grifos: nenhum arquivo mestre V104 localizado'}});
   return {at:new Date().toISOString(),modules,notes,pending,warnings,complete:!pending.length&&!warnings.length,summary:'Conferência de leitura da conta individual; gravações somente por módulo'};
  };
- return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,get snapshot(){return snapshot},loadCatalog,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,getPdfCopy,savePdfCopy,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType==='application/pdf')},async images(fresh=false){return [...(await media(fresh===true)).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
+ return Object.freeze({verifyDrive,root:root.id,rootUrl,identity,get snapshot(){return snapshot},loadCatalog,study,saveStudy,writing,saveWriting,gaps,saveGap,reviews,recordReview,schedule,formulas,methodology,operationalGuide,exportStudy,write,getPdfCopy,savePdfCopy,readAnnotations,saveAnnotations:annotationWrite,readInk,saveInk,async pdfs(fresh=false){return [...(await media(fresh===true,'pdf')).values()].filter(m=>m.mimeType==='application/pdf')},async images(fresh=false){return [...(await media(fresh===true,'image')).values()].filter(m=>m.mimeType.startsWith('image/')&&m.atlasVisible===true)},readMedia});
 }
