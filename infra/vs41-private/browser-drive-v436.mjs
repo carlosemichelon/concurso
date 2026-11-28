@@ -4,6 +4,28 @@ import {browserByteCache,verifiedCacheKey,cachedVerifiedBytes,rememberVerifiedBy
 export const scope='https://www.googleapis.com/auth/drive.readonly';
 const base='https://www.googleapis.com/drive/v3/',limit=32*1024*1024;
 const validId=id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,160}$/.test(id);
+// Private individual bank, optionally shared with specifically identified people.
+// The logged-in account must own the selected root. No anyone/domain/group links.
+// A collaborator's file is accepted only inside that root and within its ACL.
+export const individualAclFields='permissions(id,type,role,deleted,pendingOwner)';
+const userPermissions=f=>Array.isArray(f?.permissions)&&f.permissions.length>0&&f.permissions.every(p=>validId(p.id)&&p.type==='user'&&!p.deleted&&!p.pendingOwner&&['owner','writer','reader','commenter'].includes(p.role))&&new Set(f.permissions.map(p=>p.id)).size===f.permissions.length;
+export function individualRootPolicy(f,accountId){
+ if(!validId(f?.id)||f.ownedByMe!==true||f.trashed!==false||f.mimeType!=='application/vnd.google-apps.folder')throw Error('Selecione uma pasta individual pertencente à conta Google conectada.');
+ if(f.shared===false)return null;
+ if(f.shared!==true||!userPermissions(f)||f.permissions.filter(p=>p.role==='owner').length!==1||!f.permissions.some(p=>p.id===accountId&&p.role==='owner'))throw Error('Pasta compartilhada: permita somente pessoas identificadas, sem links públicos ou grupos.');
+ return Object.freeze({root:f.id,owner:accountId,members:Object.freeze(Object.fromEntries(f.permissions.map(p=>[p.id,p.role])))});
+}
+export function sameIndividualPolicy(a,b){
+ return a===null&&b===null||!!a&&!!b&&a.root===b.root&&a.owner===b.owner&&JSON.stringify(Object.entries(a.members).sort())===JSON.stringify(Object.entries(b.members).sort());
+}
+export function individualMemberFile(f,policy){
+ if(!validId(f?.id)||f.trashed!==false)return false;
+ if(f.shared===false)return f.ownedByMe===true;
+ if(!policy||f.shared!==true||!userPermissions(f))return false;
+ const owners=f.permissions.filter(p=>p.role==='owner');
+ if(owners.length!==1||!['owner','writer'].includes(policy.members[owners[0].id]))return false;
+ return f.permissions.every(p=>Object.hasOwn(policy.members,p.id))&&f.permissions.some(p=>p.id===policy.owner&&['owner','writer'].includes(p.role));
+}
 export function fileId(value){
  const s=String(value||'').trim();if(validId(s))return s;
  try{const u=new URL(s);if(u.protocol!=='https:'||u.hostname!=='drive.google.com')throw Error();
@@ -119,11 +141,17 @@ export async function readBrowserSnapshot({token,source,fetcher=fetch,signal,edi
   if(!r.ok)throw Error('Drive HTTP '+r.status+' — confira a autorização e o arquivo.');
   return r;
  };
+ let policy=null,rootChecked=false;
  const info=async id=>{
   if(!validId(id))throw Error('Arquivo inválido.');
-  const r=await get('files/'+encodeURIComponent(id),{fields:'id,name,mimeType,ownedByMe,shared,trashed,parents,size,version,headRevisionId,sha256Checksum,md5Checksum'});
+  const r=await get('files/'+encodeURIComponent(id),{fields:'id,name,mimeType,ownedByMe,shared,trashed,parents,size,version,headRevisionId,sha256Checksum,md5Checksum,'+individualAclFields});
   const m=await r.json();
-  if(m.id!==id||m.ownedByMe!==true||m.shared!==false||m.trashed!==false)throw Error('A origem deve ser privada e pertencer à conta Google conectada.');
+  if(m.id!==id)throw Error('Identidade do arquivo divergente.');
+  if(folderId&&id===folderId){
+   const next=individualRootPolicy(m,account.user.permissionId);
+   if(rootChecked&&!sameIndividualPolicy(policy,next))throw Error('Permissões da pasta alteradas; reconecte.');
+   policy=next;rootChecked=true;
+  }else if(!individualMemberFile(m,policy))throw Error('A origem deve pertencer à conta ou aos colaboradores autorizados da pasta individual.');
   return m;
  };
  const selection=sourceSelection(source);
